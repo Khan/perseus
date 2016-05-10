@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 7f0f41798d817d1c2c4b228d28534a9eaec19fbb
+// commit c7b3299098a26ca56d70f943f3716d9d86e5c8fb
 // branch master
 // @generated
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -11,7 +11,7 @@
 		exports["Perseus"] = factory(require("underscore"), require("react"), require("react-dom"), require("jquery"), require("classnames"), require("react-addons-pure-render-mixin"), require("rcss"));
 	else
 		root["Perseus"] = factory(root["underscore"], root["react"], root["react-dom"], root["jquery"], root["classnames"], root["react-addons-pure-render-mixin"], root["rcss"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_8__, __WEBPACK_EXTERNAL_MODULE_9__, __WEBPACK_EXTERNAL_MODULE_10__, __WEBPACK_EXTERNAL_MODULE_11__, __WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_92__, __WEBPACK_EXTERNAL_MODULE_95__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_8__, __WEBPACK_EXTERNAL_MODULE_9__, __WEBPACK_EXTERNAL_MODULE_10__, __WEBPACK_EXTERNAL_MODULE_11__, __WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_96__, __WEBPACK_EXTERNAL_MODULE_98__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -2370,6 +2370,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _ = __webpack_require__(8);
 
+	var KhanAnswerTypes = __webpack_require__(82);
+
 	var nestedMap = function(children, func, context) {
 	    return _.isArray(children) ? _.map(children, function(child) {
 	        return nestedMap(child, func);
@@ -2486,7 +2488,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    firstNumericalParse: function(text) {
 	        // TODO(alpert): This is sort of hacky...
 	        var first;
-	        var val = Khan.answerTypes.predicate.createValidatorFunctional(function(ans) {
+	        var val = KhanAnswerTypes.predicate.createValidatorFunctional(function(ans) {
 	            first = ans;
 	            return true;
 	        }, {
@@ -2917,7 +2919,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/**
 	 * Paragraph parsing/splitting for article jipt i18n
 	 */
-	var SimpleMarkdown = __webpack_require__(98);
+	var SimpleMarkdown = __webpack_require__(101);
 
 	var arrayRules = {
 	    paragraph: {
@@ -2970,7 +2972,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* globals KA */
 	var _ = __webpack_require__(8);
 
-	var SimpleMarkdown = __webpack_require__(98);
+	var SimpleMarkdown = __webpack_require__(101);
 
 	var TeX = __webpack_require__(61);
 
@@ -3529,9 +3531,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var classNames = __webpack_require__(12);
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(86);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(85);
+	var WidgetJsonifyDeprecated = __webpack_require__(87);
 
 	var _ = __webpack_require__(8);
 
@@ -3672,7 +3674,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(8);
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(86);
 
 	var updateQueryString = __webpack_require__(16).updateQueryString;
 
@@ -3967,7 +3969,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(8);
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(86);
 
 	var PerseusApi = __webpack_require__(14);
 
@@ -4096,11 +4098,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(14).Options;
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(86);
 
 	var ApiOptions = __webpack_require__(14).Options;
 
 	var ApiClassNames = __webpack_require__(14).ClassNames;
+
+	var KhanAnswerTypes = __webpack_require__(82);
 
 	var EnabledFeatures = __webpack_require__(15);
 
@@ -4115,7 +4119,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var EnabledFeatures = __webpack_require__(15);
 
-	var lens = __webpack_require__(94);
+	var lens = __webpack_require__(99);
 
 	var ERROR_MESSAGE = i18n._("Sorry, I don't understand that!");
 
@@ -4366,7 +4370,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // parsing the solution answer, not the student answer, and we
 	            // don't want a solution to work if the student is using a
 	            // different language but not in english.
-	            return Khan.answerTypes.expression.createValidatorFunctional(KAS.parse(answer.value, rubric).expr, _({}).extend(options, {
+	            return KhanAnswerTypes.expression.createValidatorFunctional(KAS.parse(answer.value, rubric).expr, _({}).extend(options, {
 	                simplify: answer.simplify,
 	                form: answer.form
 	            }));
@@ -4731,16 +4735,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var MovableLine = Graphie.MovableLine;
 
-	var knumber = __webpack_require__(96).number;
+	var knumber = __webpack_require__(100).number;
 
-	var kvector = __webpack_require__(96).vector;
+	var kvector = __webpack_require__(100).vector;
 
-	var kpoint = __webpack_require__(96).point;
+	var kpoint = __webpack_require__(100).point;
+
+	var KhanColors = __webpack_require__(83);
 
 	/* Mixins. */
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(86);
 
-	var _require = __webpack_require__(86);
+	var _require = __webpack_require__(88);
 
 	var GrapherUtil = _require.GrapherUtil;
 
@@ -4862,7 +4868,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var model = this.props.model;
 	        var xRange = this.props.graph.range[0];
 	        var style = {
-	            stroke: KhanUtil.DYNAMIC
+	            stroke: KhanColors.DYNAMIC
 	        };
 	        var coeffs = model.getCoefficients(this._coords(), this._asymptote());
 	        if (!coeffs) return;
@@ -5079,7 +5085,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(14).Options;
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(86);
 
 	var Renderer = __webpack_require__(7);
 
@@ -5257,7 +5263,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(14).Options;
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(86);
 
 	var Renderer = __webpack_require__(7);
 
@@ -5407,9 +5413,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(8);
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(86);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(85);
+	var WidgetJsonifyDeprecated = __webpack_require__(87);
 
 	var updateQueryString = __webpack_require__(16).updateQueryString;
 
@@ -5556,7 +5562,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(7);
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(86);
 
 	var SvgImage = __webpack_require__(60);
 
@@ -5698,6 +5704,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ParseTex = __webpack_require__(71).parseTex;
 
 	var PossibleAnswers = __webpack_require__(72);
+
+	var KhanAnswerTypes = __webpack_require__(82);
 
 	var ApiClassNames = __webpack_require__(14).ClassNames;
 
@@ -5884,7 +5892,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	_.extend(InputNumber, {
 	    validate: function(state, rubric, onInputError) {
 	        null == rubric.answerType && (rubric.answerType = "number");
-	        var val = Khan.answerTypes.number.createValidatorFunctional(rubric.value, {
+	        var val = KhanAnswerTypes.number.createValidatorFunctional(rubric.value, {
 	            simplify: rubric.simplify,
 	            inexact: rubric.inexact || void 0,
 	            maxError: rubric.maxError,
@@ -5937,7 +5945,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(8);
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(86);
 
 	var Graphie = __webpack_require__(70);
 
@@ -5957,7 +5965,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Rect = Graphie.Rect;
 
-	var kvector = __webpack_require__(96).vector;
+	var kvector = __webpack_require__(100).vector;
 
 	// Memoize KAS parsing
 	var KAShashFunc = function(expr, options) {
@@ -6365,19 +6373,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(8);
 
-	var Graph = __webpack_require__(78);
+	var Graph = __webpack_require__(73);
 
-	var InfoTip = __webpack_require__(79);
+	var InfoTip = __webpack_require__(74);
 
 	var Interactive2 = __webpack_require__(68);
 
-	var NumberInput = __webpack_require__(73);
+	var NumberInput = __webpack_require__(75);
 
 	var Util = __webpack_require__(16);
 
-	var knumber = __webpack_require__(96).number;
+	var knumber = __webpack_require__(100).number;
 
-	var kpoint = __webpack_require__(96).point;
+	var kpoint = __webpack_require__(100).point;
+
+	var KhanColors = __webpack_require__(83);
+
+	var GraphUtils = __webpack_require__(84);
 
 	var DeprecationMixin = Util.DeprecationMixin;
 
@@ -6921,8 +6933,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    });
 	                },
 	                normalStyle: {
-	                    stroke: KhanUtil.INTERACTIVE,
-	                    fill: KhanUtil.INTERACTIVE
+	                    stroke: KhanColors.INTERACTIVE,
+	                    fill: KhanColors.INTERACTIVE
 	                }
 	            });
 	        });
@@ -7004,7 +7016,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        } else {
 	            this.parabola = this.graphie.parabola(a, b, c);
 	            this.parabola.attr({
-	                stroke: KhanUtil.DYNAMIC
+	                stroke: KhanColors.DYNAMIC
 	            });
 	            this.parabola.toBack();
 	        }
@@ -7063,7 +7075,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        } else {
 	            this.sinusoid = this.graphie.sinusoid(a, b, c, d);
 	            this.sinusoid.attr({
-	                stroke: KhanUtil.DYNAMIC
+	                stroke: KhanColors.DYNAMIC
 	            });
 	            this.sinusoid.toBack();
 	        }
@@ -7105,7 +7117,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var _this5 = this;
 	        var graphie = this.graphie;
 	        var coords = InteractiveGraph.getLinearSystemCoords(this.props.graph, this.props);
-	        var segmentColors = [ KhanUtil.INTERACTIVE, KhanUtil.GREEN ];
+	        var segmentColors = [ KhanColors.INTERACTIVE, KhanColors.GREEN ];
 	        var points = this.points = _.map(coords, function(segmentCoords, segmentIndex) {
 	            var segmentPoints = _.map(segmentCoords, function(coord, i) {
 	                return Interactive2.addMovablePoint(graphie, {
@@ -7195,8 +7207,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            },
 	            normalStyle: {
-	                stroke: KhanUtil.INTERACTIVE,
-	                fill: KhanUtil.INTERACTIVE
+	                stroke: KhanColors.INTERACTIVE,
+	                fill: KhanColors.INTERACTIVE
 	            }
 	        });
 	        return point;
@@ -7344,7 +7356,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    angles[rel(j)] = Math.round(angles[rel(j)]);
 	                });
 	                var getAngle = function(a, vertex, b) {
-	                    var angle = KhanUtil.findAngle(coords[rel(a)], coords[rel(b)], coords[rel(vertex)]);
+	                    var angle = GraphUtils.findAngle(coords[rel(a)], coords[rel(b)], coords[rel(vertex)]);
 	                    return (angle + 360) % 360;
 	                };
 	                var innerAngles = [ angles[rel(-1)] - getAngle(-2, -1, 1), angles[rel(1)] - getAngle(-1, 1, 2) ];
@@ -7357,7 +7369,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var onLeft = 1 === sign(ccw(coords[rel(-1)], coords[rel(1)], coords[i]));
 	                // Solve for side by using the law of sines
 	                var side = Math.sin(innerAngles[1] * Math.PI / 180) / Math.sin(innerAngles[2] * Math.PI / 180) * knownSide;
-	                var outerAngle = KhanUtil.findAngle(coords[rel(1)], coords[rel(-1)]);
+	                var outerAngle = GraphUtils.findAngle(coords[rel(1)], coords[rel(-1)]);
 	                var offset = _this6.graphie.polar(side, outerAngle + (onLeft ? 1 : -1) * innerAngles[0]);
 	                return _this6.graphie.addPoints(coords[rel(-1)], offset);
 	            }
@@ -7373,7 +7385,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                if (leq(sides[1] + sides[2], sides[0]) || leq(sides[0] + sides[2], sides[1]) || leq(sides[0] + sides[1], sides[2])) return false;
 	                // Solve for angle by using the law of cosines
 	                var innerAngle = lawOfCosines(sides[0], sides[2], sides[1]);
-	                var outerAngle = KhanUtil.findAngle(coords[rel(1)], coords[rel(-1)]);
+	                var outerAngle = GraphUtils.findAngle(coords[rel(1)], coords[rel(-1)]);
 	                var onLeft = 1 === sign(ccw(coords[rel(-1)], coords[rel(1)], coords[i]));
 	                var offset = _this6.graphie.polar(sides[0], outerAngle + (onLeft ? 1 : -1) * innerAngle);
 	                return _this6.graphie.addPoints(coords[rel(-1)], offset);
@@ -7392,8 +7404,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            },
 	            onMoveEnd: onMoveEndHandler,
 	            normalStyle: {
-	                stroke: KhanUtil.INTERACTIVE,
-	                fill: KhanUtil.INTERACTIVE
+	                stroke: KhanColors.INTERACTIVE,
+	                fill: KhanColors.INTERACTIVE
 	            }
 	        });
 	        point.state.isInitialMove = true;
@@ -7458,8 +7470,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                return Interactive2.addMovablePoint(graphie, {
 	                    coord: coord,
 	                    normalStyle: {
-	                        stroke: KhanUtil.INTERACTIVE,
-	                        fill: KhanUtil.INTERACTIVE
+	                        stroke: KhanColors.INTERACTIVE,
+	                        fill: KhanColors.INTERACTIVE
 	                    },
 	                    constraints: [ Interactive2.MovablePoint.constraints.bound(), Interactive2.MovablePoint.constraints.snap(), function(coord) {
 	                        if (!points) // points hasn't been defined yet because
@@ -7477,10 +7489,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                constraints: [ Interactive2.MovableLine.constraints.bound(), Interactive2.MovableLine.constraints.snap() ],
 	                onMove: [ Interactive2.MovableLine.onMove.updatePoints, updateCoordProps ],
 	                normalStyle: {
-	                    stroke: KhanUtil.INTERACTIVE
+	                    stroke: KhanColors.INTERACTIVE
 	                },
 	                highlightStyle: {
-	                    stroke: KhanUtil.INTERACTING
+	                    stroke: KhanColors.INTERACTING
 	                }
 	            });
 	            _.invoke(points, "toFront");
@@ -7562,8 +7574,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return graphie.addMovablePoint(_.extend({
 	                coord: coord,
 	                normalStyle: {
-	                    stroke: KhanUtil.INTERACTIVE,
-	                    fill: KhanUtil.INTERACTIVE
+	                    stroke: KhanColors.INTERACTIVE,
+	                    fill: KhanColors.INTERACTIVE
 	                }
 	            }, 1 === i ? {
 	                snapX: graphie.snap[0],
@@ -7869,7 +7881,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    getAngleEquationString: function(props) {
 	        var coords = InteractiveGraph.getAngleCoords(props.graph, props);
-	        var angle = KhanUtil.findAngle(coords[2], coords[0], coords[1]);
+	        var angle = GraphUtils.findAngle(coords[2], coords[0], coords[1]);
 	        return angle.toFixed(0) + "° angle at (" + coords[1].join(", ") + ")";
 	    },
 	    validate: function(state, rubric, component) {
@@ -7985,7 +7997,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var match;
 	            if ("congruent" === rubric.correct.match) {
 	                var angles = _.map([ guess, correct ], function(coords) {
-	                    var angle = KhanUtil.findAngle(coords[2], coords[0], coords[1]);
+	                    var angle = GraphUtils.findAngle(coords[2], coords[0], coords[1]);
 	                    return (angle + 360) % 360;
 	                });
 	                match = eq.apply(null, angles);
@@ -8029,9 +8041,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(86);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(85);
+	var WidgetJsonifyDeprecated = __webpack_require__(87);
 
 	var MAX_SIZE = 8;
 
@@ -8324,17 +8336,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(8);
 
-	var NumberInput = __webpack_require__(73);
+	var NumberInput = __webpack_require__(75);
 
 	var Renderer = __webpack_require__(7);
 
-	var TextInput = __webpack_require__(74);
+	var TextInput = __webpack_require__(76);
 
-	var MathOutput = __webpack_require__(75);
+	var MathOutput = __webpack_require__(77);
 
 	var ApiOptions = __webpack_require__(14).Options;
 
-	var assert = __webpack_require__(76).assert;
+	var KhanAnswerTypes = __webpack_require__(82);
+
+	var assert = __webpack_require__(78).assert;
 
 	var stringArrayOfSize = __webpack_require__(16).stringArrayOfSize;
 
@@ -8620,7 +8634,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var solutionSize = getMatrixSize(solution);
 	        var suppliedSize = getMatrixSize(supplied);
 	        var incorrectSize = solutionSize[0] !== suppliedSize[0] || solutionSize[1] !== suppliedSize[1];
-	        var createValidator = Khan.answerTypes.number.createValidatorFunctional;
+	        var createValidator = KhanAnswerTypes.number.createValidatorFunctional;
 	        var message = null;
 	        var hasEmptyCell = false;
 	        var incorrect = false;
@@ -8699,7 +8713,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(7);
 
-	var Sortable = __webpack_require__(77);
+	var Sortable = __webpack_require__(79);
 
 	var shuffle = __webpack_require__(16).shuffle;
 
@@ -8835,6 +8849,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(8);
 
+	var GraphUtils = __webpack_require__(84);
+
 	var defaultImage = {
 	    url: null,
 	    top: 0,
@@ -8907,7 +8923,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    setupGraphie: function() {
 	        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
 	        $(graphieDiv).empty();
-	        var graphie = this.graphie = KhanUtil.createGraphie(graphieDiv);
+	        var graphie = this.graphie = GraphUtils.createGraphie(graphieDiv);
 	        var scale = [ 40, 40 ];
 	        var range = [ [ 0, this.props.box[0] / scale[0] ], [ 0, this.props.box[1] / scale[1] ] ];
 	        graphie.init({
@@ -8979,13 +8995,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(9);
 
-	var draw = __webpack_require__(87);
+	var draw = __webpack_require__(89);
 
-	var _require = __webpack_require__(88);
+	var _require = __webpack_require__(90);
 
 	var layout = _require.layout;
 
-	var SmilesParser = __webpack_require__(89);
+	var SmilesParser = __webpack_require__(91);
 
 	var parse = SmilesParser.parse;
 
@@ -9147,11 +9163,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(8);
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(86);
 
-	var NumberInput = __webpack_require__(73);
+	var NumberInput = __webpack_require__(75);
 
-	var MathOutput = __webpack_require__(75);
+	var MathOutput = __webpack_require__(77);
 
 	var ApiOptions = __webpack_require__(14).Options;
 
@@ -9161,13 +9177,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Line = Graphie.Line;
 
-	var knumber = __webpack_require__(96).number;
+	var knumber = __webpack_require__(100).number;
+
+	var KhanMath = __webpack_require__(85);
+
+	var KhanColors = __webpack_require__(83);
 
 	var bound = function(x, gt, lt) {
 	    return Math.min(Math.max(x, gt), lt);
 	};
 
-	var assert = __webpack_require__(76).assert;
+	var assert = __webpack_require__(78).assert;
 
 	var EN_DASH = "–";
 
@@ -9206,15 +9226,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // and if so, re-save them and remove this check.
 	    if ("decimal" === labelStyle || "decimal ticks" === labelStyle) return graphie.label([ pos, -.53 ], Math.round(100 * value) / 100, "center");
 	    if ("improper" === labelStyle) {
-	        var frac = KhanUtil.toFraction(value);
+	        var frac = KhanMath.toFraction(value);
 	        return graphie.label([ pos, -.53 ], formatImproper(frac[0], frac[1]), "center");
 	    }
 	    if ("mixed" === labelStyle) {
-	        var frac = KhanUtil.toFraction(value);
+	        var frac = KhanMath.toFraction(value);
 	        return graphie.label([ pos, -.53 ], formatMixed(frac[0], frac[1]), "center");
 	    }
 	    if ("non-reduced" === labelStyle) {
-	        var frac = KhanUtil.toFraction(value);
+	        var frac = KhanMath.toFraction(value);
 	        return graphie.label([ pos, -.53 ], formatNonReduced(frac[0], frac[1], base), "center");
 	    }
 	};
@@ -9241,7 +9261,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 	        var denoms = _.map(fractions, getDenom);
 	        base = _.reduce(denoms, function(x, y) {
-	            return KhanUtil.getLCM(x, y);
+	            return KhanMath.getLCM(x, y);
 	        });
 	    } else base = void 0;
 	    // Draw and save the tick marks and tick labels
@@ -9253,14 +9273,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    // Render the text labels
 	    graphie.style({
-	        color: KhanUtil.DYNAMIC
+	        color: KhanColors.DYNAMIC
 	    }, function() {
 	        results.push(_label(graphie, props.labelStyle, leftLabel, leftLabel, base));
 	        results.push(_label(graphie, props.labelStyle, rightLabel, rightLabel, base));
 	    });
 	    // Render the labels' lines
 	    graphie.style({
-	        stroke: KhanUtil.DYNAMIC,
+	        stroke: KhanColors.DYNAMIC,
 	        strokeWidth: 3.5
 	    }, function() {
 	        results.push(graphie.line([ leftLabel, -.2 ], [ leftLabel, .2 ]));
@@ -9398,14 +9418,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // In static mode the point's fill and stroke is blue to signify that
 	        // it can't be interacted with.
 	        var fill;
-	        fill = isOpen ? KhanUtil._BACKGROUND : props["static"] ? KhanUtil.DYNAMIC : KhanUtil.INTERACTIVE;
+	        fill = isOpen ? KhanColors._BACKGROUND : props["static"] ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
 	        var normalStyle = {
 	            fill: fill,
-	            stroke: props["static"] ? KhanUtil.DYNAMIC : KhanUtil.INTERACTIVE,
+	            stroke: props["static"] ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE,
 	            "stroke-width": isOpen ? 3 : 1
 	        };
 	        var highlightStyle = {
-	            fill: isOpen ? KhanUtil._BACKGROUND : KhanUtil.INTERACTING,
+	            fill: isOpen ? KhanColors._BACKGROUND : KhanColors.INTERACTING,
 	            "stroke-width": isOpen ? 3 : 1
 	        };
 	        return React.createElement(MovablePoint, {
@@ -9458,7 +9478,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var end = this._getInequalityEndpoint(props);
 	            var style = {
 	                arrows: "->",
-	                stroke: KhanUtil.DYNAMIC,
+	                stroke: KhanColors.DYNAMIC,
 	                strokeWidth: 3.5
 	            };
 	            return React.createElement(Line, {
@@ -9645,6 +9665,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var EnabledFeatures = __webpack_require__(15);
 
+	var KhanAnswerTypes = __webpack_require__(82);
+
+	var KhanMath = __webpack_require__(85);
+
 	var answerFormButtons = [ {
 	    title: "Integers",
 	    value: "integer",
@@ -9741,8 +9765,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    // problems. See D14742 for some discussion on
 	                    // alternate strategies.
 	                    format = answer.answerForms[0]);
-	                    var answerString = KhanUtil.toNumericString(answer.value, format);
-	                    answer.maxError && (answerString += " ± " + KhanUtil.toNumericString(answer.maxError, format));
+	                    var answerString = KhanMath.toNumericString(answer.value, format);
+	                    answer.maxError && (answerString += " ± " + KhanMath.toNumericString(answer.maxError, format));
 	                    return answerString;
 	                });
 	                answerBlurb = React.createElement(PossibleAnswers, {
@@ -9845,7 +9869,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    validate: function(state, rubric) {
 	        var allAnswerForms = _.pluck(answerFormButtons, "value");
 	        var createValidator = function(answer) {
-	            return Khan.answerTypes.number.createValidatorFunctional(answer.value, {
+	            return KhanAnswerTypes.number.createValidatorFunctional(answer.value, {
 	                message: answer.message,
 	                simplify: "correct" === answer.status ? answer.simplify : "optional",
 	                inexact: true,
@@ -10399,11 +10423,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(8);
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(86);
 
 	var Renderer = __webpack_require__(7);
 
-	var PassageMarkdown = __webpack_require__(90);
+	var PassageMarkdown = __webpack_require__(92);
 
 	var Passage = React.createClass({
 	    displayName: "Passage",
@@ -10641,11 +10665,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(8);
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(86);
 
 	var PerseusMarkdown = __webpack_require__(20);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(85);
+	var WidgetJsonifyDeprecated = __webpack_require__(87);
 
 	var EN_DASH = "–";
 
@@ -10753,9 +10777,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(8);
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(86);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(85);
+	var WidgetJsonifyDeprecated = __webpack_require__(87);
 
 	var Renderer = __webpack_require__(7);
 
@@ -10825,6 +10849,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ApiClassNames = __webpack_require__(14).ClassNames;
 
 	var deepEq = __webpack_require__(16).deepEq;
+
+	var KhanMath = __webpack_require__(85);
+
+	var KhanColors = __webpack_require__(83);
+
+	var GraphUtils = __webpack_require__(84);
 
 	var BAR = "bar", LINE = "line", PIC = "pic", HISTOGRAM = "histogram", DOTPLOT = "dotplot";
 
@@ -10903,7 +10933,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        self.shouldSetupGraphie = false;
 	        var graphieDiv = ReactDOM.findDOMNode(self.refs.graphieDiv);
 	        $(graphieDiv).empty();
-	        var graphie = KhanUtil.createGraphie(graphieDiv);
+	        var graphie = GraphUtils.createGraphie(graphieDiv);
 	        // TODO(jakesandlund): It's not the react way to hang
 	        // something off the component object, but since graphie
 	        // is outside React, it makes it easier to do this.
@@ -10960,7 +10990,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            allowScratchpad: true
 	        });
 	        if (!isTiledPlot) for (var y = 0; y <= c.dimY; y += c.scaleY) {
-	            graphie.label([ 0, y ], KhanUtil.roundToApprox(y, 2), "left", /* isTeX */
+	            graphie.label([ 0, y ], KhanMath.roundToApprox(y, 2), "left", /* isTeX */
 	            true);
 	            graphie.style({
 	                stroke: "#000",
@@ -11083,7 +11113,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 	        graphie.style({
 	            stroke: "none",
-	            fill: KhanUtil.LIGHT_BLUE,
+	            fill: KhanColors.LIGHT_BLUE,
 	            opacity: 1
 	        }, function() {
 	            config.graph.bars[i] = graphie.path([ [ x - barHalfWidth, 0 ], [ x - barHalfWidth, config.scaleY ], [ x + barHalfWidth, config.scaleY ], [ x + barHalfWidth, 0 ], [ x - barHalfWidth, 0 ] ]);
@@ -11104,7 +11134,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                constrainX: true
 	            },
 	            normalStyle: {
-	                stroke: KhanUtil.INTERACTIVE,
+	                stroke: KhanColors.INTERACTIVE,
 	                // Don't display graph handles in static mode
 	                "stroke-width": this.props["static"] ? 0 : 4
 	            }
@@ -11141,8 +11171,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                constrainX: true
 	            },
 	            normalStyle: {
-	                fill: KhanUtil.INTERACTIVE,
-	                stroke: KhanUtil.INTERACTIVE
+	                fill: KhanColors.INTERACTIVE,
+	                stroke: KhanColors.INTERACTIVE
 	            },
 	            snapY: c.scaleY / self.props.snapsPerLine
 	        });
@@ -11175,8 +11205,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var graphie = this.graphie;
 	        return this.setupTiledPlot(i, 1, config, function(x, y) {
 	            return graphie.ellipse([ x, y ], [ DOT_PLOT_POINT_SIZE / graphie.scale[0], DOT_PLOT_POINT_SIZE / graphie.scale[1] ], {
-	                fill: KhanUtil.INTERACTIVE,
-	                stroke: KhanUtil.INTERACTIVE
+	                fill: KhanColors.INTERACTIVE,
+	                stroke: KhanColors.INTERACTIVE
 	            });
 	        });
 	    },
@@ -11318,7 +11348,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var shuffle = __webpack_require__(16).shuffle;
 
-	var Radio = __webpack_require__(91);
+	var Radio = __webpack_require__(93);
 
 	var _choiceTransform = function(editorProps, problemNum) {
 	    var _maybeRandomize = function(array) {
@@ -11546,7 +11576,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(14).Options;
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(86);
 
 	var Renderer = __webpack_require__(7);
 
@@ -11661,7 +11691,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, indent, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-unary-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var InfoTip = __webpack_require__(79);
+	var InfoTip = __webpack_require__(74);
 
 	var React = __webpack_require__(9);
 
@@ -11669,11 +11699,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(8);
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(86);
 
 	var ApiOptions = __webpack_require__(14).Options;
 
-	var assert = __webpack_require__(76).assert;
+	var assert = __webpack_require__(78).assert;
 
 	var Graphie = __webpack_require__(70);
 
@@ -11691,15 +11721,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var MovableLine = Graphie.MovableLine;
 
-	var NumberInput = __webpack_require__(73);
+	var NumberInput = __webpack_require__(75);
 
-	var MathOutput = __webpack_require__(75);
+	var MathOutput = __webpack_require__(77);
 
 	var seededRNG = __webpack_require__(16).seededRNG;
 
 	var Util = __webpack_require__(16);
 
-	var knumber = __webpack_require__(96).number;
+	var knumber = __webpack_require__(100).number;
+
+	var KhanColors = __webpack_require__(83);
+
+	var KhanMath = __webpack_require__(85);
 
 	var defaultBoxSize = 400;
 
@@ -11789,8 +11823,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                sector: 1 !== proportionBelow,
 	                unscaled: true,
 	                style: {
-	                    fill: KhanUtil.LIGHT_RED,
-	                    stroke: KhanUtil.RED
+	                    fill: KhanColors.LIGHT_RED,
+	                    stroke: KhanColors.RED
 	                }
 	            };
 	            return React.createElement(Arc, options);
@@ -11805,8 +11839,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                sector: 0 !== proportionBelow,
 	                unscaled: true,
 	                style: {
-	                    fill: KhanUtil.LIGHT_BLUE,
-	                    stroke: KhanUtil.BLUE
+	                    fill: KhanColors.LIGHT_BLUE,
+	                    stroke: KhanColors.BLUE
 	                }
 	            };
 	            return React.createElement(Arc, options);
@@ -11844,8 +11878,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (!count) return;
 	            var isBelow = null != _this3.state.threshold && i <= _this3.state.threshold;
 	            var style = {
-	                fill: isBelow ? KhanUtil.LIGHT_RED : KhanUtil.LIGHT_BLUE,
-	                stroke: isBelow ? KhanUtil.RED : KhanUtil.BLUE
+	                fill: isBelow ? KhanColors.LIGHT_RED : KhanColors.LIGHT_BLUE,
+	                stroke: isBelow ? KhanColors.RED : KhanColors.BLUE
 	            };
 	            var coords = [ [ i, 0 ], [ i, count ], [ i + barWidth, count ], [ i + barWidth, 0 ] ];
 	            return React.createElement(Path, {
@@ -11898,7 +11932,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var ySkip = Math.ceil(yWidth / maxYAxisEntities);
 	        _.each(_.range(0, range[1][1], ySkip), function(y) {
 	            // If there's no data, we don't label the axes
-	            data && graphie.label([ range[0][0], y ], KhanUtil.roundToApprox(y, 2), "left", /* isTeX */
+	            data && graphie.label([ range[0][0], y ], KhanMath.roundToApprox(y, 2), "left", /* isTeX */
 	            true);
 	            graphie.line([ range[0][0], y ], [ range[0][1], y ], {
 	                stroke: "#000",
@@ -12253,7 +12287,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(8);
 
-	var Sortable = __webpack_require__(77);
+	var Sortable = __webpack_require__(79);
 
 	var shuffle = __webpack_require__(16).shuffle;
 
@@ -12336,7 +12370,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(8);
 
-	var MathOutput = __webpack_require__(75);
+	var MathOutput = __webpack_require__(77);
 
 	var Renderer = __webpack_require__(7);
 
@@ -12344,7 +12378,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(14).Options;
 
-	var assert = __webpack_require__(76).assert;
+	var KhanAnswerTypes = __webpack_require__(82);
+
+	var assert = __webpack_require__(78).assert;
 
 	/* Input handling: Maps a (row, column) pair to a unique ref used by React,
 	 * and extracts (row, column) pairs from input paths, used to allow outsiders
@@ -12543,7 +12579,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            total: 1,
 	            message: null
 	        };
-	        var createValidator = Khan.answerTypes.number.createValidatorFunctional;
+	        var createValidator = KhanAnswerTypes.number.createValidatorFunctional;
 	        var message = null;
 	        var allCorrect = _.every(solution, function(rowSolution) {
 	            var i;
@@ -12615,11 +12651,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(8);
 
-	var Graph = __webpack_require__(78);
+	var Graph = __webpack_require__(73);
 
-	var NumberInput = __webpack_require__(73);
+	var NumberInput = __webpack_require__(75);
 
-	var MathOutput = __webpack_require__(75);
+	var MathOutput = __webpack_require__(77);
 
 	var TeX = __webpack_require__(61);
 
@@ -12643,17 +12679,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var captureScratchpadTouchStart = __webpack_require__(16).captureScratchpadTouchStart;
 
-	var knumber = __webpack_require__(96).number;
+	var knumber = __webpack_require__(100).number;
 
-	var kvector = __webpack_require__(96).vector;
+	var kvector = __webpack_require__(100).vector;
 
-	var kpoint = __webpack_require__(96).point;
+	var kpoint = __webpack_require__(100).point;
 
-	var kray = __webpack_require__(96).ray;
+	var kray = __webpack_require__(100).ray;
 
-	var kline = __webpack_require__(96).line;
+	var kline = __webpack_require__(100).line;
 
-	var assert = __webpack_require__(76).assert;
+	var KhanMath = __webpack_require__(85);
+
+	var KhanColors = __webpack_require__(83);
+
+	var assert = __webpack_require__(78).assert;
 
 	var defaultBoxSize = 400;
 
@@ -12757,7 +12797,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	function colorForTool(tool) {
-	    return tool.constraints.fixed ? KhanUtil.DYNAMIC : KhanUtil.INTERACTIVE;
+	    return tool.constraints.fixed ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
 	}
 
 	/* Scales a distance from the default range of
@@ -12781,11 +12821,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// TODO(jack): i18nize this
 	function stringFromDecimal(number) {
-	    return String(KhanUtil.roundTo(9, number));
+	    return String(KhanMath.roundTo(9, number));
 	}
 
 	function stringFromFraction(number) {
-	    var frac = KhanUtil.toFraction(number, knumber.DEFAULT_TOLERANCE);
+	    var frac = KhanMath.toFraction(number, knumber.DEFAULT_TOLERANCE);
 	    return 1 === frac[1] ? stringFromDecimal(number) : stringFromDecimal(frac[0]) + "/" + stringFromDecimal(frac[1]);
 	}
 
@@ -13678,7 +13718,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var radius = kpoint.distanceToPoint(coord0, coord1);
 	                perimeter.remove();
 	                perimeter = graphie.circle(coord0, radius, _.extend({
-	                    stroke: KhanUtil.DYNAMIC,
+	                    stroke: KhanColors.DYNAMIC,
 	                    "stroke-width": 2
 	                }, options.normalStyle));
 	            };
@@ -13951,7 +13991,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            fixed: true,
 	            shape: this.props.correct.shape,
 	            normalStyle: {
-	                stroke: KhanUtil.GRAY,
+	                stroke: KhanColors.GRAY,
 	                "stroke-dasharray": "",
 	                "stroke-width": 2
 	            }
@@ -13996,8 +14036,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            showPoints: "static" !== this.props.graphMode,
 	            translatable: translatable,
 	            onMove: function(dX, dY) {
-	                dX = KhanUtil.roundToNearest(graphie.snap[0], dX);
-	                dY = KhanUtil.roundToNearest(graphie.snap[1], dY);
+	                dX = KhanMath.roundToNearest(graphie.snap[0], dX);
+	                dY = KhanMath.roundToNearest(graphie.snap[1], dY);
 	                self.addTransform({
 	                    type: "translation",
 	                    vector: [ dX, dY ]
@@ -14005,12 +14045,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                return [ dX, dY ];
 	            },
 	            normalPointStyle: {
-	                fill: translatable ? KhanUtil.INTERACTIVE : KhanUtil.DYNAMIC,
-	                stroke: translatable ? KhanUtil.INTERACTIVE : KhanUtil.DYNAMIC
+	                fill: translatable ? KhanColors.INTERACTIVE : KhanColors.DYNAMIC,
+	                stroke: translatable ? KhanColors.INTERACTIVE : KhanColors.DYNAMIC
 	            },
 	            highlightPointStyle: {
-	                fill: KhanUtil.INTERACTING,
-	                stroke: KhanUtil.INTERACTING
+	                fill: KhanColors.INTERACTING,
+	                stroke: KhanColors.INTERACTING
 	            }
 	        });
 	    },
@@ -14067,7 +14107,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    snapCoord: function(coord) {
 	        var graphie = this.graphie();
 	        return _.map(coord, function(val, dim) {
-	            return KhanUtil.roundToNearest(graphie.snap[dim], val);
+	            return KhanMath.roundToNearest(graphie.snap[dim], val);
 	        });
 	    },
 	    // Normalize the coords into something that fits the new 45 degree
@@ -14075,7 +14115,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    normalizeReflectionCoords: function(messyCoords) {
 	        var midpoint = this.snapCoord(kline.midpoint(messyCoords));
 	        var origDirectionPolar = kvector.polarDegFromCart(kvector.subtract(messyCoords[0], messyCoords[1]));
-	        var directionPolar = [ 1, KhanUtil.roundToNearest(45, origDirectionPolar[1]) ];
+	        var directionPolar = [ 1, KhanMath.roundToNearest(45, origDirectionPolar[1]) ];
 	        var direction = kvector.cartFromPolarDeg(directionPolar);
 	        var coords = _.map([ -1, 1 ], function(directionCoefficient) {
 	            var coord = kvector.add(midpoint, kvector.scale(direction, directionCoefficient * this.scaleToCurrentRange(REFLECT_ROTATE_HANDLE_DIST)));
@@ -14123,7 +14163,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    "stroke-dasharray": "- "
 	                },
 	                highlightStyle: {
-	                    stroke: KhanUtil.INTERACTING,
+	                    stroke: KhanColors.INTERACTING,
 	                    "stroke-width": 2,
 	                    "stroke-dasharray": "- "
 	                },
@@ -14153,9 +14193,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                fill: normalColor
 	            },
 	            highlightStyle: {
-	                stroke: KhanUtil.INTERACTING,
+	                stroke: KhanColors.INTERACTING,
 	                "stroke-width": 3,
-	                fill: KhanUtil.INTERACTING
+	                fill: KhanColors.INTERACTING
 	            },
 	            onMoveEnd: updateReflectionTool
 	        });
@@ -14172,7 +14212,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                hoverWidth: this.scaleToCurrentRange(.4),
 	                lengthAngle: 17,
 	                onMove: function(newAngle) {
-	                    return KhanUtil.roundToNearest(45, newAngle);
+	                    return KhanMath.roundToNearest(45, newAngle);
 	                },
 	                onMoveEnd: updateReflectionTool
 	            });
@@ -14234,8 +14274,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            },
 	            highlightStyle: {
 	                "stroke-dasharray": "",
-	                stroke: KhanUtil.INTERACTING,
-	                fill: KhanUtil.INTERACTING
+	                stroke: KhanColors.INTERACTING,
+	                fill: KhanColors.INTERACTING
 	            }
 	        });
 	        // The point that we move around the center of rotation to actually
@@ -14294,10 +14334,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                "fill-opacity": 0
 	            },
 	            circleHighlightStyle: {
-	                stroke: KhanUtil.INTERACTING,
+	                stroke: KhanColors.INTERACTING,
 	                "stroke-width": 2,
 	                "stroke-dasharray": "",
-	                fill: KhanUtil.INTERACTING,
+	                fill: KhanColors.INTERACTING,
 	                "fill-opacity": .05
 	            },
 	            centerNormalStyle: {
@@ -14573,7 +14613,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// terms of a certain type.
 	// TODO(joel): Allow sigfigs within a range rather than an exact expected
 	// value?
-	var lens = __webpack_require__(94);
+	var lens = __webpack_require__(99);
 
 	var React = __webpack_require__(9);
 
@@ -14585,9 +14625,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(14).Options;
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(86);
 
-	var MathOutput = __webpack_require__(75);
+	var MathOutput = __webpack_require__(77);
 
 	var _require = __webpack_require__(80);
 
@@ -14815,7 +14855,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(8);
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(86);
 
 	var FixedToResponsive = __webpack_require__(81);
 
@@ -14991,11 +15031,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Graphie = __webpack_require__(70);
 
-	var ImageLoader = __webpack_require__(82);
+	var ImageLoader = __webpack_require__(94);
 
 	var Util = __webpack_require__(16);
 
-	var Zoom = __webpack_require__(83);
+	var Zoom = __webpack_require__(95);
 
 	// Minimum image width to make an image appear as zoomable.
 	var ZOOMABLE_THRESHOLD = 700;
@@ -15476,13 +15516,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	/* global katex, MathJax */
 	// TODO(joel) - require MathJax / katex so they don't have to be global
-	var PureRenderMixin = __webpack_require__(92);
+	var PureRenderMixin = __webpack_require__(96);
 
 	var React = __webpack_require__(9);
 
 	var ReactDOM = __webpack_require__(10);
 
-	var katexA11y = __webpack_require__(93);
+	var katexA11y = __webpack_require__(97);
 
 	var pendingScripts = [];
 
@@ -15664,7 +15704,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(9);
 
-	var TextListEditor = __webpack_require__(97);
+	var TextListEditor = __webpack_require__(102);
 
 	var EMPTY_ARRAY = [];
 
@@ -16244,9 +16284,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(7);
 
-	var TextInput = __webpack_require__(74);
+	var TextInput = __webpack_require__(76);
 
-	var MathOutput = __webpack_require__(75);
+	var MathOutput = __webpack_require__(77);
 
 	var captureScratchpadTouchStart = __webpack_require__(16).captureScratchpadTouchStart;
 
@@ -16870,13 +16910,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-var */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var Movable = __webpack_require__(99);
+	var Movable = __webpack_require__(103);
 
-	var MovablePoint = __webpack_require__(100);
+	var MovablePoint = __webpack_require__(104);
 
-	var MovableLine = __webpack_require__(101);
+	var MovableLine = __webpack_require__(105);
 
-	var MovablePolygon = __webpack_require__(102);
+	var MovablePolygon = __webpack_require__(106);
 
 	var Interactive2 = {
 	    MovablePoint: MovablePoint,
@@ -16909,11 +16949,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ReactDOM = __webpack_require__(10);
 
-	var RCSS = __webpack_require__(95);
+	var RCSS = __webpack_require__(98);
 
 	var _ = __webpack_require__(8);
 
-	var styles = __webpack_require__(103);
+	var styles = __webpack_require__(107);
 
 	var buttonStyle = styles.button.buttonStyle;
 
@@ -17007,9 +17047,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(8);
 
-	var GraphieClasses = __webpack_require__(104);
+	var GraphieClasses = __webpack_require__(116);
 
-	var Movables = __webpack_require__(105);
+	var Movables = __webpack_require__(117);
 
 	var GraphieMovable = GraphieClasses.GraphieMovable;
 
@@ -17017,9 +17057,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var nestedMap = __webpack_require__(16).nestedMap;
 
-	var assert = __webpack_require__(76).assert;
+	var assert = __webpack_require__(78).assert;
 
-	var createGraphie = KhanUtil.createGraphie;
+	var GraphUtils = __webpack_require__(84);
+
+	var createGraphie = GraphUtils.createGraphie;
 
 	var Graphie = React.createClass({
 	    displayName: "Graphie",
@@ -17419,6 +17461,329 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-redeclare, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	var React = __webpack_require__(9);
+
+	var ReactDOM = __webpack_require__(10);
+
+	var _ = __webpack_require__(8);
+
+	var Util = __webpack_require__(16);
+
+	var GraphUtils = __webpack_require__(84);
+
+	var SvgImage = __webpack_require__(60);
+
+	var defaultBoxSize = 400;
+
+	var defaultBackgroundImage = {
+	    url: null
+	};
+
+	/* Style objects */
+	var defaultInstructionsStyle = {
+	    fontStyle: "italic",
+	    fontWeight: "bold",
+	    fontSize: "32px",
+	    width: "100%",
+	    height: "100%",
+	    textAlign: "center",
+	    backgroundColor: "white",
+	    position: "absolute",
+	    zIndex: 1,
+	    transition: "opacity .25s ease-in-out",
+	    "-moz-transition": "opacity .25s ease-in-out",
+	    "-webkit-transition": "opacity .25s ease-in-out"
+	};
+
+	var instructionsTextStyle = {
+	    position: "relative",
+	    top: "25%"
+	};
+
+	function numSteps(range, step) {
+	    return Math.floor((range[1] - range[0]) / step);
+	}
+
+	var Graph = React.createClass({
+	    displayName: "Graph",
+	    propTypes: {
+	        box: React.PropTypes.array.isRequired,
+	        labels: React.PropTypes.arrayOf(React.PropTypes.string),
+	        range: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
+	        step: React.PropTypes.arrayOf(React.PropTypes.number),
+	        gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
+	        snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
+	        markings: React.PropTypes.string,
+	        backgroundImage: React.PropTypes.shape({
+	            url: React.PropTypes.string
+	        }),
+	        showProtractor: React.PropTypes.bool,
+	        showRuler: React.PropTypes.bool,
+	        rulerLabel: React.PropTypes.string,
+	        rulerTicks: React.PropTypes.number,
+	        onGraphieUpdated: React.PropTypes.func,
+	        instructions: React.PropTypes.string,
+	        onClick: React.PropTypes.func
+	    },
+	    getDefaultProps: function() {
+	        return {
+	            box: [ defaultBoxSize, defaultBoxSize ],
+	            labels: [ "x", "y" ],
+	            range: [ [ -10, 10 ], [ -10, 10 ] ],
+	            step: [ 1, 1 ],
+	            gridStep: [ 1, 1 ],
+	            snapStep: [ .5, .5 ],
+	            markings: "graph",
+	            backgroundImage: defaultBackgroundImage,
+	            showProtractor: false,
+	            showRuler: false,
+	            rulerLabel: "",
+	            rulerTicks: 10,
+	            instructions: null,
+	            onGraphieUpdated: null,
+	            onClick: null,
+	            onMouseDown: null
+	        };
+	    },
+	    render: function() {
+	        var image;
+	        var imageData = this.props.backgroundImage;
+	        if (imageData.url) {
+	            var scale = this.props.box[0] / defaultBoxSize;
+	            image = React.createElement(SvgImage, {
+	                src: imageData.url,
+	                width: imageData.width,
+	                height: imageData.height,
+	                scale: scale,
+	                responsive: false
+	            });
+	        } else image = null;
+	        return React.createElement("div", {
+	            className: "graphie-container above-scratchpad",
+	            style: {
+	                width: this.props.box[0],
+	                height: this.props.box[1]
+	            },
+	            onMouseOut: this.onMouseOut,
+	            onMouseOver: this.onMouseOver,
+	            onClick: this.onClick
+	        }, image, React.createElement("div", {
+	            className: "graphie",
+	            ref: "graphieDiv"
+	        }));
+	    },
+	    componentDidMount: function() {
+	        this._setupGraphie(true);
+	    },
+	    componentDidUpdate: function() {
+	        // Only setupGraphie once per componentDidUpdate().
+	        // See explanation in setupGraphie().
+	        this._hasSetupGraphieThisUpdate = false;
+	        if (this._shouldSetupGraphie) {
+	            this._setupGraphie(false);
+	            this._shouldSetupGraphie = false;
+	        }
+	    },
+	    componentWillReceiveProps: function(nextProps) {
+	        var potentialChanges = [ "labels", "range", "step", "markings", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep" ];
+	        var self = this;
+	        _.each(potentialChanges, function(prop) {
+	            _.isEqual(self.props[prop], nextProps[prop]) || (self._shouldSetupGraphie = true);
+	        });
+	    },
+	    /* Reset the graphie canvas to its initial state
+	     *
+	     * Use when re-rendering the parent component and you need a blank
+	     * graphie.
+	     */
+	    reset: function() {
+	        this._setupGraphie(false);
+	    },
+	    graphie: function() {
+	        return this._graphie;
+	    },
+	    pointsFromNormalized: function(coordsList, noSnap) {
+	        var self = this;
+	        return _.map(coordsList, function(coords) {
+	            return _.map(coords, function(coord, i) {
+	                var range = self.props.range[i];
+	                if (noSnap) return range[0] + (range[1] - range[0]) * coord;
+	                var step = self.props.step[i];
+	                var nSteps = numSteps(range, step);
+	                var tick = Math.round(coord * nSteps);
+	                return range[0] + step * tick;
+	            });
+	        });
+	    },
+	    _setupGraphie: function(initialMount) {
+	        // Only setupGraphie once per componentDidUpdate().
+	        // This prevents this component from rendering graphie
+	        // and then immediately re-render graphie because its
+	        // parent component asked it to. This will happen when
+	        // props on the parent and props on this component both
+	        // require graphie to be re-rendered.
+	        if (this._hasSetupGraphieThisUpdate) return;
+	        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
+	        $(graphieDiv).empty();
+	        var labels = this.props.labels;
+	        var range = this.props.range;
+	        var graphie = this._graphie = GraphUtils.createGraphie(graphieDiv);
+	        var gridConfig = this._getGridConfig();
+	        graphie.snap = this.props.snapStep;
+	        if ("graph" === this.props.markings) {
+	            graphie.graphInit({
+	                range: range,
+	                scale: _.pluck(gridConfig, "scale"),
+	                axisArrows: "<->",
+	                labelFormat: function(s) {
+	                    return "\\small{" + s + "}";
+	                },
+	                gridStep: this.props.gridStep,
+	                tickStep: _.pluck(gridConfig, "tickStep"),
+	                labelStep: 1,
+	                unityLabels: _.pluck(gridConfig, "unityLabel")
+	            });
+	            graphie.label([ 0, range[1][1] ], labels[1], "above");
+	            graphie.label([ range[0][1], 0 ], labels[0], "right");
+	        } else "grid" === this.props.markings ? graphie.graphInit({
+	            range: range,
+	            scale: _.pluck(gridConfig, "scale"),
+	            gridStep: this.props.gridStep,
+	            axes: false,
+	            ticks: false,
+	            labels: false
+	        }) : "none" === this.props.markings && graphie.init({
+	            range: range,
+	            scale: _.pluck(gridConfig, "scale")
+	        });
+	        // Add instructions just before mouse layer
+	        var visible = .5;
+	        var invisible = 0;
+	        var $instructionsWrapper;
+	        if (this.props.instructions) {
+	            var $instructionsWrapper = $("<div/>");
+	            _.each(defaultInstructionsStyle, function(value, key) {
+	                $instructionsWrapper.css(key, value);
+	            });
+	            $instructionsWrapper.css("opacity", visible);
+	            var $instructions = $("<span/>", {
+	                text: this.props.instructions
+	            });
+	            _.each(instructionsTextStyle, function(value, key) {
+	                $instructions.css(key, value);
+	            });
+	            $instructionsWrapper.append($instructions);
+	            $(graphieDiv).append($instructionsWrapper);
+	        } else $instructionsWrapper = void 0;
+	        // Add some handlers for instructions text (if necessary)
+	        var onMouseDown = $instructionsWrapper || this.props.onMouseDown ? _.bind(function(coord) {
+	            if ($instructionsWrapper) {
+	                $instructionsWrapper.remove();
+	                $instructionsWrapper = null;
+	            }
+	            this.props.onMouseDown(coord);
+	        }, this) : null;
+	        var onMouseOver = $instructionsWrapper ? function() {
+	            $instructionsWrapper && $instructionsWrapper.css("opacity", invisible);
+	        } : null;
+	        var onMouseOut = $instructionsWrapper ? function() {
+	            $instructionsWrapper && $instructionsWrapper.css("opacity", visible);
+	        } : null;
+	        graphie.addMouseLayer({
+	            onClick: this.props.onClick,
+	            onMouseDown: onMouseDown,
+	            onMouseOver: onMouseOver,
+	            onMouseOut: onMouseOut,
+	            onMouseUp: this.props.onMouseUp,
+	            onMouseMove: this.props.onMouseMove,
+	            allowScratchpad: true
+	        });
+	        this._updateProtractor();
+	        this._updateRuler();
+	        // We set this flag before jumping into our callback
+	        // to avoid recursing if our callback calls reset() itself
+	        this._hasSetupGraphieThisUpdate = true;
+	        !initialMount && this.props.onGraphieUpdated && // Calling a parent callback in componentDidMount is bad and
+	        // results in hard-to-reason-about lifecycle problems (esp. with
+	        // refs), so we do it only on update and rely on the parent to
+	        // query for the graphie object on initial mount
+	        this.props.onGraphieUpdated(graphie);
+	    },
+	    _getGridConfig: function() {
+	        var self = this;
+	        return _.map(self.props.step, function(step, i) {
+	            return Util.gridDimensionConfig(step, self.props.range[i], self.props.box[i], self.props.gridStep[i]);
+	        });
+	    },
+	    _updateProtractor: function() {
+	        this.protractor && this.protractor.remove();
+	        if (this.props.showProtractor) {
+	            var coord = this.pointsFromNormalized([ [ .5, .05 ] ])[0];
+	            this.protractor = this._graphie.protractor(coord);
+	        }
+	    },
+	    _updateRuler: function() {
+	        this.ruler && this.ruler.remove();
+	        if (this.props.showRuler) {
+	            var coord = this.pointsFromNormalized([ [ .5, .25 ] ])[0];
+	            var extent = this._graphie.range[0][1] - this._graphie.range[0][0];
+	            this.ruler = this._graphie.ruler({
+	                center: coord,
+	                label: this.props.rulerLabel,
+	                pixelsPerUnit: this._graphie.scale[0],
+	                ticksPerUnit: this.props.rulerTicks,
+	                units: Math.round(.8 * extent)
+	            });
+	        }
+	    },
+	    toJSON: function() {
+	        return _.pick(this.props, "range", "step", "markings", "labels", "backgroundImage", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep");
+	    }
+	});
+
+	module.exports = Graph;
+
+/***/ },
+/* 74 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * A wrapper around react-components/info-tip.jsx that can be rendered on the
+	 * server without causing a checksum mismatch on the client.
+	 * (RCSS generates classnames with a randomSuffix, which ensures that any
+	 * two sets of generated classnames will not match.)
+	 */
+	var React = __webpack_require__(9);
+
+	var ReactComponentsInfoTip = __webpack_require__(108);
+
+	var InfoTip = React.createClass({
+	    displayName: "InfoTip",
+	    getInitialState: function() {
+	        return {
+	            didMount: false
+	        };
+	    },
+	    componentDidMount: function() {
+	        /* eslint-disable react/no-did-mount-set-state */
+	        this.setState({
+	            didMount: true
+	        });
+	    },
+	    render: function() {
+	        return this.state.didMount ? React.createElement(ReactComponentsInfoTip, this.props) : React.createElement("div", null);
+	    }
+	});
+
+	module.exports = InfoTip;
+
+/***/ },
+/* 75 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var _extends = Object.assign || function(target) {
 	    for (var i = 1; i < arguments.length; i++) {
 	        var source = arguments[i];
@@ -17442,11 +17807,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var captureScratchpadTouchStart = __webpack_require__(16).captureScratchpadTouchStart;
 
-	var knumber = __webpack_require__(96).number;
+	var knumber = __webpack_require__(100).number;
 
-	var toNumericString = KhanUtil.toNumericString;
+	var KhanMath = __webpack_require__(85);
 
-	var getNumericFormat = KhanUtil.getNumericFormat;
+	var toNumericString = KhanMath.toNumericString;
+
+	var getNumericFormat = KhanMath.getNumericFormat;
 
 	/* An input box that accepts only numeric strings
 	 *
@@ -17597,7 +17964,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NumberInput;
 
 /***/ },
-/* 74 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -17669,7 +18036,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = TextInput;
 
 /***/ },
-/* 75 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -17775,7 +18142,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MathOutput;
 
 /***/ },
-/* 76 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -17786,7 +18153,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(8);
 
-	var MovableHelperMethods = __webpack_require__(106);
+	var MovableHelperMethods = __webpack_require__(109);
 
 	/**
 	 * Compute the correct vendor-prefixed `transform`.
@@ -17887,7 +18254,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InteractiveUtil;
 
 /***/ },
-/* 77 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -18297,327 +18664,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 	module.exports = Sortable;
-
-/***/ },
-/* 78 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-redeclare, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(9);
-
-	var ReactDOM = __webpack_require__(10);
-
-	var _ = __webpack_require__(8);
-
-	var Util = __webpack_require__(16);
-
-	var SvgImage = __webpack_require__(60);
-
-	var defaultBoxSize = 400;
-
-	var defaultBackgroundImage = {
-	    url: null
-	};
-
-	/* Style objects */
-	var defaultInstructionsStyle = {
-	    fontStyle: "italic",
-	    fontWeight: "bold",
-	    fontSize: "32px",
-	    width: "100%",
-	    height: "100%",
-	    textAlign: "center",
-	    backgroundColor: "white",
-	    position: "absolute",
-	    zIndex: 1,
-	    transition: "opacity .25s ease-in-out",
-	    "-moz-transition": "opacity .25s ease-in-out",
-	    "-webkit-transition": "opacity .25s ease-in-out"
-	};
-
-	var instructionsTextStyle = {
-	    position: "relative",
-	    top: "25%"
-	};
-
-	function numSteps(range, step) {
-	    return Math.floor((range[1] - range[0]) / step);
-	}
-
-	var Graph = React.createClass({
-	    displayName: "Graph",
-	    propTypes: {
-	        box: React.PropTypes.array.isRequired,
-	        labels: React.PropTypes.arrayOf(React.PropTypes.string),
-	        range: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
-	        step: React.PropTypes.arrayOf(React.PropTypes.number),
-	        gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
-	        snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
-	        markings: React.PropTypes.string,
-	        backgroundImage: React.PropTypes.shape({
-	            url: React.PropTypes.string
-	        }),
-	        showProtractor: React.PropTypes.bool,
-	        showRuler: React.PropTypes.bool,
-	        rulerLabel: React.PropTypes.string,
-	        rulerTicks: React.PropTypes.number,
-	        onGraphieUpdated: React.PropTypes.func,
-	        instructions: React.PropTypes.string,
-	        onClick: React.PropTypes.func
-	    },
-	    getDefaultProps: function() {
-	        return {
-	            box: [ defaultBoxSize, defaultBoxSize ],
-	            labels: [ "x", "y" ],
-	            range: [ [ -10, 10 ], [ -10, 10 ] ],
-	            step: [ 1, 1 ],
-	            gridStep: [ 1, 1 ],
-	            snapStep: [ .5, .5 ],
-	            markings: "graph",
-	            backgroundImage: defaultBackgroundImage,
-	            showProtractor: false,
-	            showRuler: false,
-	            rulerLabel: "",
-	            rulerTicks: 10,
-	            instructions: null,
-	            onGraphieUpdated: null,
-	            onClick: null,
-	            onMouseDown: null
-	        };
-	    },
-	    render: function() {
-	        var image;
-	        var imageData = this.props.backgroundImage;
-	        if (imageData.url) {
-	            var scale = this.props.box[0] / defaultBoxSize;
-	            image = React.createElement(SvgImage, {
-	                src: imageData.url,
-	                width: imageData.width,
-	                height: imageData.height,
-	                scale: scale,
-	                responsive: false
-	            });
-	        } else image = null;
-	        return React.createElement("div", {
-	            className: "graphie-container above-scratchpad",
-	            style: {
-	                width: this.props.box[0],
-	                height: this.props.box[1]
-	            },
-	            onMouseOut: this.onMouseOut,
-	            onMouseOver: this.onMouseOver,
-	            onClick: this.onClick
-	        }, image, React.createElement("div", {
-	            className: "graphie",
-	            ref: "graphieDiv"
-	        }));
-	    },
-	    componentDidMount: function() {
-	        this._setupGraphie(true);
-	    },
-	    componentDidUpdate: function() {
-	        // Only setupGraphie once per componentDidUpdate().
-	        // See explanation in setupGraphie().
-	        this._hasSetupGraphieThisUpdate = false;
-	        if (this._shouldSetupGraphie) {
-	            this._setupGraphie(false);
-	            this._shouldSetupGraphie = false;
-	        }
-	    },
-	    componentWillReceiveProps: function(nextProps) {
-	        var potentialChanges = [ "labels", "range", "step", "markings", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep" ];
-	        var self = this;
-	        _.each(potentialChanges, function(prop) {
-	            _.isEqual(self.props[prop], nextProps[prop]) || (self._shouldSetupGraphie = true);
-	        });
-	    },
-	    /* Reset the graphie canvas to its initial state
-	     *
-	     * Use when re-rendering the parent component and you need a blank
-	     * graphie.
-	     */
-	    reset: function() {
-	        this._setupGraphie(false);
-	    },
-	    graphie: function() {
-	        return this._graphie;
-	    },
-	    pointsFromNormalized: function(coordsList, noSnap) {
-	        var self = this;
-	        return _.map(coordsList, function(coords) {
-	            return _.map(coords, function(coord, i) {
-	                var range = self.props.range[i];
-	                if (noSnap) return range[0] + (range[1] - range[0]) * coord;
-	                var step = self.props.step[i];
-	                var nSteps = numSteps(range, step);
-	                var tick = Math.round(coord * nSteps);
-	                return range[0] + step * tick;
-	            });
-	        });
-	    },
-	    _setupGraphie: function(initialMount) {
-	        // Only setupGraphie once per componentDidUpdate().
-	        // This prevents this component from rendering graphie
-	        // and then immediately re-render graphie because its
-	        // parent component asked it to. This will happen when
-	        // props on the parent and props on this component both
-	        // require graphie to be re-rendered.
-	        if (this._hasSetupGraphieThisUpdate) return;
-	        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
-	        $(graphieDiv).empty();
-	        var labels = this.props.labels;
-	        var range = this.props.range;
-	        var graphie = this._graphie = KhanUtil.createGraphie(graphieDiv);
-	        var gridConfig = this._getGridConfig();
-	        graphie.snap = this.props.snapStep;
-	        if ("graph" === this.props.markings) {
-	            graphie.graphInit({
-	                range: range,
-	                scale: _.pluck(gridConfig, "scale"),
-	                axisArrows: "<->",
-	                labelFormat: function(s) {
-	                    return "\\small{" + s + "}";
-	                },
-	                gridStep: this.props.gridStep,
-	                tickStep: _.pluck(gridConfig, "tickStep"),
-	                labelStep: 1,
-	                unityLabels: _.pluck(gridConfig, "unityLabel")
-	            });
-	            graphie.label([ 0, range[1][1] ], labels[1], "above");
-	            graphie.label([ range[0][1], 0 ], labels[0], "right");
-	        } else "grid" === this.props.markings ? graphie.graphInit({
-	            range: range,
-	            scale: _.pluck(gridConfig, "scale"),
-	            gridStep: this.props.gridStep,
-	            axes: false,
-	            ticks: false,
-	            labels: false
-	        }) : "none" === this.props.markings && graphie.init({
-	            range: range,
-	            scale: _.pluck(gridConfig, "scale")
-	        });
-	        // Add instructions just before mouse layer
-	        var visible = .5;
-	        var invisible = 0;
-	        var $instructionsWrapper;
-	        if (this.props.instructions) {
-	            var $instructionsWrapper = $("<div/>");
-	            _.each(defaultInstructionsStyle, function(value, key) {
-	                $instructionsWrapper.css(key, value);
-	            });
-	            $instructionsWrapper.css("opacity", visible);
-	            var $instructions = $("<span/>", {
-	                text: this.props.instructions
-	            });
-	            _.each(instructionsTextStyle, function(value, key) {
-	                $instructions.css(key, value);
-	            });
-	            $instructionsWrapper.append($instructions);
-	            $(graphieDiv).append($instructionsWrapper);
-	        } else $instructionsWrapper = void 0;
-	        // Add some handlers for instructions text (if necessary)
-	        var onMouseDown = $instructionsWrapper || this.props.onMouseDown ? _.bind(function(coord) {
-	            if ($instructionsWrapper) {
-	                $instructionsWrapper.remove();
-	                $instructionsWrapper = null;
-	            }
-	            this.props.onMouseDown(coord);
-	        }, this) : null;
-	        var onMouseOver = $instructionsWrapper ? function() {
-	            $instructionsWrapper && $instructionsWrapper.css("opacity", invisible);
-	        } : null;
-	        var onMouseOut = $instructionsWrapper ? function() {
-	            $instructionsWrapper && $instructionsWrapper.css("opacity", visible);
-	        } : null;
-	        graphie.addMouseLayer({
-	            onClick: this.props.onClick,
-	            onMouseDown: onMouseDown,
-	            onMouseOver: onMouseOver,
-	            onMouseOut: onMouseOut,
-	            onMouseUp: this.props.onMouseUp,
-	            onMouseMove: this.props.onMouseMove,
-	            allowScratchpad: true
-	        });
-	        this._updateProtractor();
-	        this._updateRuler();
-	        // We set this flag before jumping into our callback
-	        // to avoid recursing if our callback calls reset() itself
-	        this._hasSetupGraphieThisUpdate = true;
-	        !initialMount && this.props.onGraphieUpdated && // Calling a parent callback in componentDidMount is bad and
-	        // results in hard-to-reason-about lifecycle problems (esp. with
-	        // refs), so we do it only on update and rely on the parent to
-	        // query for the graphie object on initial mount
-	        this.props.onGraphieUpdated(graphie);
-	    },
-	    _getGridConfig: function() {
-	        var self = this;
-	        return _.map(self.props.step, function(step, i) {
-	            return Util.gridDimensionConfig(step, self.props.range[i], self.props.box[i], self.props.gridStep[i]);
-	        });
-	    },
-	    _updateProtractor: function() {
-	        this.protractor && this.protractor.remove();
-	        if (this.props.showProtractor) {
-	            var coord = this.pointsFromNormalized([ [ .5, .05 ] ])[0];
-	            this.protractor = this._graphie.protractor(coord);
-	        }
-	    },
-	    _updateRuler: function() {
-	        this.ruler && this.ruler.remove();
-	        if (this.props.showRuler) {
-	            var coord = this.pointsFromNormalized([ [ .5, .25 ] ])[0];
-	            var extent = this._graphie.range[0][1] - this._graphie.range[0][0];
-	            this.ruler = this._graphie.ruler({
-	                center: coord,
-	                label: this.props.rulerLabel,
-	                pixelsPerUnit: this._graphie.scale[0],
-	                ticksPerUnit: this.props.rulerTicks,
-	                units: Math.round(.8 * extent)
-	            });
-	        }
-	    },
-	    toJSON: function() {
-	        return _.pick(this.props, "range", "step", "markings", "labels", "backgroundImage", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep");
-	    }
-	});
-
-	module.exports = Graph;
-
-/***/ },
-/* 79 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * A wrapper around react-components/info-tip.jsx that can be rendered on the
-	 * server without causing a checksum mismatch on the client.
-	 * (RCSS generates classnames with a randomSuffix, which ensures that any
-	 * two sets of generated classnames will not match.)
-	 */
-	var React = __webpack_require__(9);
-
-	var ReactComponentsInfoTip = __webpack_require__(107);
-
-	var InfoTip = React.createClass({
-	    displayName: "InfoTip",
-	    getInitialState: function() {
-	        return {
-	            didMount: false
-	        };
-	    },
-	    componentDidMount: function() {
-	        /* eslint-disable react/no-did-mount-set-state */
-	        this.setState({
-	            didMount: true
-	        });
-	    },
-	    render: function() {
-	        return this.state.didMount ? React.createElement(ReactComponentsInfoTip, this.props) : React.createElement("div", null);
-	    }
-	});
-
-	module.exports = InfoTip;
 
 /***/ },
 /* 80 */
@@ -19094,349 +19140,1742 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * Component to display an image (or other React components) while the desired
-	 * image is loading.
-	 *
-	 * Derived from
-	 * https://github.com/hzdg/react-imageloader/blob/master/src/index.js
-	 * to better suit our environment/build tools. Additionally, this one does
-	 * not introduce a wrapper element, which makes styling easier.
-	 */
-	var React = __webpack_require__(9);
+	var $ = __webpack_require__(11);
 
-	var PropTypes = React.PropTypes;
+	var _ = __webpack_require__(8);
 
-	var Status = {
-	    PENDING: "pending",
-	    LOADING: "loading",
-	    LOADED: "loaded",
-	    FAILED: "failed"
+	var retrieveMathFormula = __webpack_require__(110).retrieveMathFormula;
+
+	var localeToFixed = __webpack_require__(111);
+
+	var KhanMath = __webpack_require__(85);
+
+	var MAXERROR_EPSILON = Math.pow(2, -42);
+
+	var extractRawCode = function(elem) {
+	    var $elem = $(elem).clone(true);
+	    var code = $elem.find("code");
+	    code.length && $.each(code, function(i, elem) {
+	        $(elem).replaceWith('<code><script type="math/tex">' + retrieveMathFormula(elem) + "</script></code>");
+	    });
+	    return $elem.html();
 	};
 
-	var ImageLoader = React.createClass({
-	    displayName: "ImageLoader",
-	    propTypes: {
-	        children: React.PropTypes.oneOfType([ React.PropTypes.arrayOf(React.PropTypes.node), React.PropTypes.node ]),
-	        imgProps: PropTypes.any,
-	        onError: PropTypes.func,
-	        onLoad: PropTypes.func,
-	        // When the DOM updates to replace the preloader with the image, or
-	        // vice-versa, we trigger this callback.
-	        onUpdate: PropTypes.func,
-	        preloader: PropTypes.func,
-	        src: PropTypes.string
-	    },
-	    getInitialState: function(props) {
-	        return {
-	            status: this.props.src ? Status.LOADING : Status.PENDING
-	        };
-	    },
-	    componentDidMount: function() {
-	        this.state.status === Status.LOADING && this.createLoader();
-	    },
-	    componentWillReceiveProps: function(nextProps) {
-	        this.props.src !== nextProps.src && this.setState({
-	            status: nextProps.src ? Status.LOADING : Status.PENDING
-	        });
-	    },
-	    componentDidUpdate: function(prevProps, prevState) {
-	        this.state.status !== Status.LOADING || this.img || this.createLoader();
-	        prevState.status !== this.state.status && this.props.onUpdate();
-	    },
-	    componentWillUnmount: function() {
-	        this.destroyLoader();
-	    },
-	    createLoader: function() {
-	        this.destroyLoader();
-	        // We can only have one loader at a time.
-	        this.img = new Image();
-	        this.img.onload = this.handleLoad;
-	        this.img.onerror = this.handleError;
-	        this.img.src = this.props.src;
-	    },
-	    destroyLoader: function() {
-	        if (this.img) {
-	            this.img.onload = null;
-	            this.img.onerror = null;
-	            this.img = null;
+	function getTextSquish(elem) {
+	    return $(elem).text().replace(/\s+/g, "");
+	}
+
+	function checkIfAnswerEmpty(guess) {
+	    return "" === $.trim(guess) || guess instanceof Array && "" === $.trim(guess.join("").replace(/,/g, ""));
+	}
+
+	function addExamplesToInput($input, examples) {
+	    $input.data("qtip") && $input.qtip("destroy", true);
+	    var $examples = $('<ul class="examples" style="display: none"></ul>');
+	    _.each(examples, function(example) {
+	        $examples.append("<li>" + example + "</li>");
+	    });
+	    $input.qtip({
+	        content: {
+	            text: $examples.remove(),
+	            prerender: true
+	        },
+	        style: {
+	            classes: "qtip-light leaf-tooltip"
+	        },
+	        position: {
+	            my: "top left",
+	            at: "bottom left"
+	        },
+	        show: {
+	            delay: 0,
+	            effect: {
+	                length: 0
+	            },
+	            event: "focus"
+	        },
+	        hide: {
+	            delay: 0,
+	            event: "blur"
+	        },
+	        events: {
+	            render: function() {
+	                $examples.children().runModules();
+	            }
+	        }
+	    });
+	}
+
+	function numberAnswerType(forms) {
+	    return {
+	        setupFunctional: function(solutionarea, solutionText, solutionData) {
+	            return KhanAnswerTypes.number.setupFunctional(solutionarea, solutionText, $.extend({}, solutionData, {
+	                forms: forms
+	            }));
+	        },
+	        createValidatorFunctional: function(correct, options) {
+	            return KhanAnswerTypes.number.createValidatorFunctional(correct, $.extend({}, options, {
+	                forms: forms
+	            }));
+	        }
+	    };
+	}
+
+	var KhanAnswerTypes = {
+	    letters: {
+	        setupFunctional: function(solutionarea, solutionText, solutionData) {
+	            return KhanAnswerTypes.text.setupFunctional(solutionarea, solutionText, solutionData, "letters");
+	        },
+	        createValidatorFunctional: function(correct, options) {
+	            return KhanAnswerTypes.text.createValidatorFunctional(correct, options);
 	        }
 	    },
-	    handleLoad: function(event) {
-	        this.destroyLoader();
-	        this.setState({
-	            status: Status.LOADED
-	        });
-	        this.props.onLoad && this.props.onLoad(event);
-	    },
-	    handleError: function(error) {
-	        this.destroyLoader();
-	        this.setState({
-	            status: Status.FAILED
-	        });
-	        this.props.onError && this.props.onError(error);
-	    },
-	    renderImg: function() {
-	        var _props = this.props;
-	        var src = _props.src;
-	        var imgProps = _props.imgProps;
-	        var props = {
-	            src: src
-	        };
-	        for (var k in imgProps) imgProps.hasOwnProperty(k) && (props[k] = imgProps[k]);
-	        return React.createElement("img", props);
-	    },
-	    render: function() {
-	        switch (this.state.status) {
-	          case Status.LOADED:
-	            return this.renderImg();
-
-	          case Status.FAILED:
-	            if (this.props.children) return this.props.children;
-	            break;
-
-	          default:
-	            if (this.props.preloader) return this.props.preloader();
+	    lowers: {
+	        setupFunctional: function(solutionarea, solutionText, solutionData) {
+	            return KhanAnswerTypes.text.setupFunctional(solutionarea, solutionText, solutionData, "lowers");
+	        },
+	        createValidatorFunctional: function(correct, options) {
+	            return KhanAnswerTypes.text.createValidatorFunctional(correct, options);
 	        }
-	        return null;
+	    },
+	    caps: {
+	        setupFunctional: function(solutionarea, solutionText, solutionData) {
+	            return KhanAnswerTypes.text.setupFunctional(solutionarea, solutionText, solutionData, "caps");
+	        },
+	        createValidatorFunctional: function(correct, options) {
+	            return KhanAnswerTypes.text.createValidatorFunctional(correct, options);
+	        }
+	    },
+	    text: {
+	        setupFunctional: function(solutionarea, solutionText, solutionData, solutionGrammar) {
+	            solutionGrammar = solutionGrammar || "text";
+	            var input = void 0;
+	            input = $(window.Modernizr && Modernizr.touchevents ? '<input data-solution-grammar="' + solutionGrammar + '" type="text" autocapitalize="off">' : '<input data-solution-grammar="' + solutionGrammar + '" type="text">');
+	            $(solutionarea).append(input);
+	            return {
+	                validator: KhanAnswerTypes.text.createValidatorFunctional(solutionText, solutionData),
+	                answer: function() {
+	                    return input.val();
+	                },
+	                solution: $.trim(solutionText),
+	                showGuess: function(guess) {
+	                    input.val(void 0 === guess ? "" : guess);
+	                }
+	            };
+	        },
+	        createValidatorFunctional: function(correct, options) {
+	            options = _.extend({
+	                correctCase: "required"
+	            }, options);
+	            correct = $.trim(correct);
+	            return function(guess) {
+	                var fallback = null != options.fallback ? "" + options.fallback : "";
+	                guess = $.trim(guess) || fallback;
+	                var score = {
+	                    empty: false,
+	                    correct: false,
+	                    message: null,
+	                    guess: guess
+	                };
+	                guess.toLowerCase() === correct.toLowerCase() && (correct === guess || "optional" === options.correctCase ? score.correct = true : guess === guess.toLowerCase() ? score.message = i18n._("Your answer is almost correct, but must be in capital letters.") : guess === guess.toUpperCase() ? score.message = i18n._("Your answer is almost correct, but must not be in capital letters.") : score.message = i18n._("Your answer is almost correct, but must be in the correct case."));
+	                return score;
+	            };
+	        }
+	    },
+	    predicate: {
+	        defaultForms: "integer, proper, improper, mixed, decimal",
+	        setupFunctional: function(solutionarea, solutionText, solutionData) {
+	            var options = $.extend({
+	                simplify: "required",
+	                ratio: false,
+	                forms: KhanAnswerTypes.predicate.defaultForms
+	            }, solutionData);
+	            var acceptableForms = options.forms.split(/\s*,\s*/);
+	            void 0 === options.inexact && (options.maxError = 0);
+	            options.maxError = +options.maxError + MAXERROR_EPSILON;
+	            var $input = $('<input type="text" autocapitalize="off">');
+	            $(solutionarea).append($input);
+	            var exampleForms = {
+	                integer: i18n._("an integer, like <code>6</code>"),
+	                proper: function() {
+	                    return "optional" === options.simplify ? i18n._("a <em>proper</em> fraction, like <code>1/2</code> or <code>6/10</code>") : i18n._("a <em>simplified proper</em> fraction, like <code>3/5</code>");
+	                }(),
+	                improper: function() {
+	                    return "optional" === options.simplify ? i18n._("an <em>improper</em> fraction, like <code>10/7</code> or <code>14/8</code>") : i18n._("a <em>simplified improper</em> fraction, like <code>7/4</code>");
+	                }(),
+	                pi: i18n._("a multiple of pi, like <code>12\\ \\text{pi}</code> or <code>2/3\\ \\text{pi}</code>"),
+	                log: i18n._("an expression, like <code>\\log(100)</code>"),
+	                percent: i18n._("a percent, like <code>%(NUM)s\\%</code>", {
+	                    NUM: localeToFixed(12.34, 2)
+	                }),
+	                mixed: i18n._("a mixed number, like <code>1\\ 3/4</code>"),
+	                decimal: function() {
+	                    return void 0 === options.inexact ? i18n._("an <em>exact</em> decimal, like <code>%(NUM)s</code>", {
+	                        NUM: localeToFixed(.75, 2)
+	                    }) : i18n._("a decimal, like <code>%(NUM)s</code>", {
+	                        NUM: localeToFixed(.75, 2)
+	                    });
+	                }()
+	            };
+	            var examples = [];
+	            $.each(acceptableForms, function(i, form) {
+	                null != exampleForms[form] && examples.push(exampleForms[form]);
+	            });
+	            options.forms !== KhanAnswerTypes.predicate.defaultForms && addExamplesToInput($input, examples);
+	            return {
+	                validator: KhanAnswerTypes.predicate.createValidatorFunctional(solutionText, solutionData),
+	                answer: function() {
+	                    return $input.val();
+	                },
+	                solution: $.trim(solutionText),
+	                showGuess: function(guess) {
+	                    $input.val(void 0 === guess ? "" : guess);
+	                }
+	            };
+	        },
+	        createValidatorFunctional: function(predicate, options) {
+	            options = _.extend({
+	                simplify: "required",
+	                ratio: false,
+	                forms: KhanAnswerTypes.predicate.defaultForms
+	            }, options);
+	            var acceptableForms = void 0;
+	            acceptableForms = _.isArray(options.forms) ? options.forms : options.forms.split(/\s*,\s*/);
+	            void 0 === options.inexact && (options.maxError = 0);
+	            options.maxError = +options.maxError + MAXERROR_EPSILON;
+	            if (_.contains(acceptableForms, "percent")) {
+	                acceptableForms = _.without(acceptableForms, "percent");
+	                acceptableForms.push("percent");
+	            }
+	            predicate = _.isFunction(predicate) ? predicate : KhanUtil.tmpl.getVAR(predicate);
+	            var fractionTransformer = function(text) {
+	                text = text.replace(/\u2212/, "-").replace(/([+-])\s+/g, "$1").replace(/(^\s*)|(\s*$)/gi, "");
+	                var match = text.match(/^([+-]?\d+)\s*\/\s*([+-]?\d+)$/);
+	                var parsedInt = parseInt(text, 10);
+	                if (match) {
+	                    var num = parseFloat(match[1]);
+	                    var denom = parseFloat(match[2]);
+	                    var simplified = denom > 0 && (options.ratio || "1" !== match[2]) && 1 === KhanMath.getGCD(num, denom);
+	                    return [ {
+	                        value: num / denom,
+	                        exact: simplified
+	                    } ];
+	                }
+	                if (!isNaN(parsedInt) && "" + parsedInt === text) return [ {
+	                    value: parsedInt,
+	                    exact: true
+	                } ];
+	                return [];
+	            };
+	            var forms = {
+	                integer: function(text) {
+	                    var decimal = forms.decimal(text);
+	                    var rounded = forms.decimal(text, 1);
+	                    if (null != decimal[0].value && decimal[0].value === rounded[0].value || null != decimal[1].value && decimal[1].value === rounded[1].value) return decimal;
+	                    return [];
+	                },
+	                proper: function(text) {
+	                    return $.map(fractionTransformer(text), function(o) {
+	                        return Math.abs(o.value) < 1 ? [ o ] : [];
+	                    });
+	                },
+	                improper: function(text) {
+	                    return $.map(fractionTransformer(text), function(o) {
+	                        return Math.abs(o.value) >= 1 ? [ o ] : [];
+	                    });
+	                },
+	                pi: function(text) {
+	                    var match = void 0;
+	                    var possibilities = [];
+	                    text = text.replace(/\u2212/, "-");
+	                    if (match = text.match(/^([+-]?)\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)) possibilities = [ {
+	                        value: parseFloat(match[1] + "1"),
+	                        exact: true
+	                    } ]; else if (match = text.match(/^([+-]?\s*\d+\s*(?:\/\s*[+-]?\s*\d+)?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)) possibilities = fractionTransformer(match[1]); else if (match = text.match(/^([+-]?)\s*(\d+)\s*([+-]?\d+)\s*\/\s*([+-]?\d+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)) {
+	                        var sign = parseFloat(match[1] + "1");
+	                        var integ = parseFloat(match[2]);
+	                        var num = parseFloat(match[3]);
+	                        var denom = parseFloat(match[4]);
+	                        var simplified = num < denom && 1 === KhanMath.getGCD(num, denom);
+	                        possibilities = [ {
+	                            value: sign * (integ + num / denom),
+	                            exact: simplified
+	                        } ];
+	                    } else if (match = text.match(/^([+-]?\s*\d+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\s*\d+))?$/i)) possibilities = fractionTransformer(match[1] + "/" + match[3]); else if (match = text.match(/^([+-]?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\d+))?$/i)) possibilities = fractionTransformer(match[1] + "1/" + match[3]); else if ("0" === text) possibilities = [ {
+	                        value: 0,
+	                        exact: true
+	                    } ]; else {
+	                        if (!(match = text.match(/^(.+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i))) {
+	                            possibilities = _.reduce(KhanAnswerTypes.predicate.defaultForms.split(/\s*,\s*/), function(memo, form) {
+	                                return memo.concat(forms[form](text));
+	                            }, []);
+	                            _.each(possibilities, function(possibility) {
+	                                possibility.piApprox = true;
+	                            });
+	                            return possibilities;
+	                        }
+	                        possibilities = forms.decimal(match[1]);
+	                    }
+	                    var multiplier = Math.PI;
+	                    text.match(/\\?tau|t|\u03c4/) && (multiplier = 2 * Math.PI);
+	                    text.match(/pau/) && (multiplier = 1.5 * Math.PI);
+	                    $.each(possibilities, function(ix, possibility) {
+	                        possibility.value *= multiplier;
+	                    });
+	                    return possibilities;
+	                },
+	                coefficient: function(text) {
+	                    var possibilities = [];
+	                    text = text.replace(/\u2212/, "-");
+	                    "" === text ? possibilities = [ {
+	                        value: 1,
+	                        exact: true
+	                    } ] : "-" === text && (possibilities = [ {
+	                        value: -1,
+	                        exact: true
+	                    } ]);
+	                    return possibilities;
+	                },
+	                log: function(text) {
+	                    var match = void 0;
+	                    var possibilities = [];
+	                    text = text.replace(/\u2212/, "-");
+	                    text = text.replace(/[ \(\)]/g, "");
+	                    (match = text.match(/^log\s*(\S+)\s*$/i)) ? possibilities = forms.decimal(match[1]) : "0" === text && (possibilities = [ {
+	                        value: 0,
+	                        exact: true
+	                    } ]);
+	                    return possibilities;
+	                },
+	                percent: function(text) {
+	                    text = $.trim(text);
+	                    var hasPercentSign = false;
+	                    if (text.indexOf("%") === text.length - 1) {
+	                        text = $.trim(text.substring(0, text.length - 1));
+	                        hasPercentSign = true;
+	                    }
+	                    var transformed = forms.decimal(text);
+	                    $.each(transformed, function(ix, t) {
+	                        t.exact = hasPercentSign;
+	                        t.value = t.value / 100;
+	                    });
+	                    return transformed;
+	                },
+	                mixed: function(text) {
+	                    var match = text.replace(/\u2212/, "-").replace(/([+-])\s+/g, "$1").match(/^([+-]?)(\d+)\s+(\d+)\s*\/\s*(\d+)$/);
+	                    if (match) {
+	                        var sign = parseFloat(match[1] + "1");
+	                        var integ = parseFloat(match[2]);
+	                        var num = parseFloat(match[3]);
+	                        var denom = parseFloat(match[4]);
+	                        var simplified = num < denom && 1 === KhanMath.getGCD(num, denom);
+	                        return [ {
+	                            value: sign * (integ + num / denom),
+	                            exact: simplified
+	                        } ];
+	                    }
+	                    return [];
+	                },
+	                decimal: function(text, precision) {
+	                    null == precision && (precision = 1e10);
+	                    var normal = function(text) {
+	                        text = $.trim(text);
+	                        var match = text.replace(/\u2212/, "-").replace(/([+-])\s+/g, "$1").match(/^([+-]?(?:\d{1,3}(?:[, ]?\d{3})*\.?|\d{0,3}(?:[, ]?\d{3})*\.(?:\d{3}[, ]?)*\d{1,3}))$/);
+	                        var badLeadingZero = text.match(/^0[0,]*,/);
+	                        if (match && !badLeadingZero) {
+	                            var x = parseFloat(match[1].replace(/[, ]/g, ""));
+	                            void 0 === options.inexact && (x = Math.round(x * precision) / precision);
+	                            return x;
+	                        }
+	                    };
+	                    var commas = function(text) {
+	                        text = text.replace(/([\.,])/g, function(_, c) {
+	                            return "." === c ? "," : ".";
+	                        });
+	                        return normal(text);
+	                    };
+	                    return [ {
+	                        value: normal(text),
+	                        exact: true
+	                    }, {
+	                        value: commas(text),
+	                        exact: true
+	                    } ];
+	                }
+	            };
+	            return function(guess) {
+	                var fallback = null != options.fallback ? "" + options.fallback : "";
+	                guess = $.trim(guess) || fallback;
+	                var score = {
+	                    empty: "" === guess,
+	                    correct: false,
+	                    message: null,
+	                    guess: guess
+	                };
+	                $.each(acceptableForms, function(i, form) {
+	                    var transformed = forms[form](guess);
+	                    for (var j = 0, l = transformed.length; j < l; j++) {
+	                        var val = transformed[j].value;
+	                        var exact = transformed[j].exact;
+	                        var piApprox = transformed[j].piApprox;
+	                        if (predicate(val, options.maxError)) {
+	                            if (exact || "optional" === options.simplify) {
+	                                score.correct = true;
+	                                score.message = options.message || null;
+	                                score.empty = false;
+	                            } else if ("percent" === form) {
+	                                score.empty = true;
+	                                score.message = i18n._("Your answer is almost correct, but it is missing a <code>\\%</code> at the end.");
+	                            } else {
+	                                "enforced" !== options.simplify && (score.empty = true);
+	                                score.message = i18n._("Your answer is almost correct, but it needs to be simplified.");
+	                            }
+	                            return false;
+	                        }
+	                        if (piApprox && predicate(val, Math.abs(.001 * val))) {
+	                            score.empty = true;
+	                            score.message = i18n._("Your answer is close, but you may have approximated pi. Enter your answer as a multiple of pi, like <code>12\\ \\text{pi}</code> or <code>2/3\\ \\text{pi}</code>");
+	                        }
+	                    }
+	                });
+	                if (false === score.correct) {
+	                    var _ret = function() {
+	                        var interpretedGuess = false;
+	                        _.each(forms, function(form) {
+	                            var anyAreNaN = _.any(form(guess), function(t) {
+	                                return null != t.value && !_.isNaN(t.value);
+	                            });
+	                            anyAreNaN && (interpretedGuess = true);
+	                        });
+	                        if (!interpretedGuess) {
+	                            score.empty = true;
+	                            score.message = i18n._("We could not understand your answer. Please check your answer for extra text or symbols.");
+	                            return {
+	                                v: score
+	                            };
+	                        }
+	                    }();
+	                    if ("object" === typeof _ret) return _ret.v;
+	                }
+	                return score;
+	            };
+	        }
+	    },
+	    number: {
+	        convertToPredicate: function(correct, options) {
+	            var correctFloat = parseFloat($.trim(correct));
+	            return [ function(guess, maxError) {
+	                return Math.abs(guess - correctFloat) < maxError;
+	            }, $.extend({}, options, {
+	                type: "predicate"
+	            }) ];
+	        },
+	        setupFunctional: function(solutionarea, solutionText, solutionData) {
+	            var args = KhanAnswerTypes.number.convertToPredicate(solutionText, solutionData);
+	            return KhanAnswerTypes.predicate.setupFunctional(solutionarea, args[0], args[1]);
+	        },
+	        createValidatorFunctional: function(correct, options) {
+	            var _KhanAnswerTypes$predicate;
+	            return (_KhanAnswerTypes$predicate = KhanAnswerTypes.predicate).createValidatorFunctional.apply(_KhanAnswerTypes$predicate, KhanAnswerTypes.number.convertToPredicate(correct, options));
+	        }
+	    },
+	    decimal: numberAnswerType("decimal"),
+	    rational: numberAnswerType("integer, proper, improper, mixed"),
+	    improper: numberAnswerType("integer, proper, improper"),
+	    mixed: numberAnswerType("integer, proper, mixed"),
+	    regex: {
+	        setupFunctional: function(solutionarea, solutionText, solutionData) {
+	            var input = void 0;
+	            input = $(window.Modernizr && Modernizr.touchevents ? '<input type="text" autocapitalize="off">' : '<input type="text">');
+	            $(solutionarea).append(input);
+	            return {
+	                validator: KhanAnswerTypes.regex.createValidatorFunctional(solutionText, solutionData),
+	                answer: function() {
+	                    return input.val();
+	                },
+	                solution: $.trim(solutionText),
+	                showGuess: function(guess) {
+	                    input.val(void 0 === guess ? "" : guess);
+	                }
+	            };
+	        },
+	        createValidatorFunctional: function(regex, options) {
+	            var flags = "";
+	            null != options.caseInsensitive && (flags += "i");
+	            regex = new RegExp($.trim(regex), flags);
+	            return function(guess) {
+	                var fallback = null != options.fallback ? "" + options.fallback : "";
+	                guess = $.trim(guess) || fallback;
+	                return {
+	                    empty: false,
+	                    correct: null != guess.match(regex),
+	                    message: null,
+	                    guess: guess
+	                };
+	            };
+	        }
+	    },
+	    radical: {
+	        setupFunctional: function(solutionarea, solutionText, solutionData) {
+	            var options = $.extend({
+	                simplify: "required"
+	            }, solutionData);
+	            var inte = $('<input type="text" autocapitalize="off">');
+	            var rad = $('<input type="text" autocapitalize="off">');
+	            var examples = "required" === options.simplify ? [ i18n._("a simplified radical, like <code>\\sqrt{2}</code> or <code>3\\sqrt{5}</code>") ] : [ i18n._("a radical, like <code>\\sqrt{8}</code> or <code>2\\sqrt{2}</code>") ];
+	            addExamplesToInput(inte, examples);
+	            addExamplesToInput(rad, examples);
+	            $("<div class='radical'>").append($("<span>").append(inte)).append('<span class="surd">&radic;</span>').append($("<span>").append(rad).addClass("overline")).appendTo(solutionarea);
+	            var ansSquared = parseFloat(solutionText);
+	            var ans = KhanMath.splitRadical(ansSquared);
+	            return {
+	                validator: KhanAnswerTypes.radical.createValidatorFunctional(solutionText, solutionData),
+	                answer: function() {
+	                    return [ $.trim(inte.val()), $.trim(rad.val()) ];
+	                },
+	                solution: ans,
+	                showGuess: function(guess) {
+	                    inte.val(guess ? guess[0] : "");
+	                    rad.val(guess ? guess[1] : "");
+	                }
+	            };
+	        },
+	        createValidatorFunctional: function(ansSquared, options) {
+	            options = $.extend({
+	                simplify: "required"
+	            }, options);
+	            ansSquared = parseFloat(ansSquared);
+	            var ans = KhanMath.splitRadical(ansSquared);
+	            return function(guess) {
+	                if (0 === guess[0].length && 0 === guess[1].length) return {
+	                    empty: true,
+	                    correct: false,
+	                    message: null,
+	                    guess: guess
+	                };
+	                guess[0] = guess[0].length > 0 ? guess[0] : "1";
+	                guess[1] = guess[1].length > 0 ? guess[1] : "1";
+	                var inteGuess = parseFloat(guess[0]);
+	                var radGuess = parseFloat(guess[1]);
+	                var correct = Math.abs(inteGuess) * inteGuess * radGuess === ansSquared;
+	                var simplified = inteGuess === ans[0] && radGuess === ans[1];
+	                var score = {
+	                    empty: false,
+	                    correct: false,
+	                    message: null,
+	                    guess: guess
+	                };
+	                correct && (simplified || "optional" === options.simplify ? score.correct = true : score.message = i18n._("Your answer is almost correct, but it needs to be simplified."));
+	                return score;
+	            };
+	        }
+	    },
+	    cuberoot: {
+	        setupFunctional: function(solutionarea, solutionText, solutionData) {
+	            var options = $.extend({
+	                simplify: "required"
+	            }, solutionData);
+	            var inte = $('<input type="text" autocapitalize="off">');
+	            var rad = $('<input type="text" autocapitalize="off">');
+	            var examples = "required" === options.simplify ? [ i18n._("a simplified radical, like <code>\\sqrt[3]{2}</code> or <code>3\\sqrt[3]{5}</code>") ] : [ i18n._("a radical, like <code>\\sqrt[3]{8}</code> or <code>2\\sqrt[3]{2}</code>") ];
+	            addExamplesToInput(inte, examples);
+	            addExamplesToInput(rad, examples);
+	            $("<div class='radical'>").append($("<span>").append(inte)).append('<span class="surd" style="vertical-align: 6px;"><code>\\sqrt[3]{}</code></span>').append($("<span>").append(rad).addClass("overline")).appendTo(solutionarea).tex();
+	            var ansCubed = parseFloat(solutionText);
+	            var ans = KhanMath.splitCube(ansCubed);
+	            return {
+	                validator: KhanAnswerTypes.cuberoot.createValidatorFunctional(solutionText, solutionData),
+	                answer: function() {
+	                    return [ inte.val(), rad.val() ];
+	                },
+	                solution: ans,
+	                showGuess: function(guess) {
+	                    inte.val(guess ? guess[0] : "");
+	                    rad.val(guess ? guess[1] : "");
+	                }
+	            };
+	        },
+	        createValidatorFunctional: function(ansCubed, options) {
+	            options = $.extend({
+	                simplify: "required"
+	            }, options);
+	            ansCubed = parseFloat(ansCubed);
+	            var ans = KhanMath.splitCube(ansCubed);
+	            return function(guess) {
+	                if (0 === guess[0].length && 0 === guess[1].length) return {
+	                    empty: true,
+	                    correct: false,
+	                    message: null,
+	                    guess: guess
+	                };
+	                guess[0] = guess[0].length > 0 ? guess[0] : "1";
+	                guess[1] = guess[1].length > 0 ? guess[1] : "1";
+	                var inteGuess = parseFloat(guess[0]);
+	                var radGuess = parseFloat(guess[1]);
+	                var correct = Math.abs(inteGuess) * inteGuess * inteGuess * radGuess === ansCubed;
+	                var simplified = inteGuess === ans[0] && radGuess === ans[1];
+	                var score = {
+	                    empty: false,
+	                    correct: false,
+	                    message: null,
+	                    guess: guess
+	                };
+	                correct && (simplified || "optional" === options.simplify ? score.correct = true : score.message = i18n._("Your answer is almost correct, but it needs to be simplified."));
+	                return score;
+	            };
+	        }
+	    },
+	    multiple: {
+	        setup: function(solutionarea, solution) {
+	            $(solutionarea).append($(solution).clone(true).texCleanup().contents().runModules());
+	            var answerDataArray = [];
+	            $(solutionarea).find(".sol").each(function(idx) {
+	                var type = $(this).data("type");
+	                type = null != type ? type : "number";
+	                var sol = $(solution).find(".sol").eq(idx);
+	                var solarea = $(this).empty();
+	                var answerData = KhanAnswerTypes[type].setup(solarea, sol);
+	                answerDataArray.push(answerData);
+	            });
+	            return {
+	                validator: KhanAnswerTypes.multiple.createValidator(solution),
+	                answer: function() {
+	                    var answer = [];
+	                    $.each(answerDataArray, function(i, answerData) {
+	                        answer.push(answerData.answer());
+	                    });
+	                    return answer;
+	                },
+	                solution: function() {
+	                    $.map(answerDataArray, function(answerData) {
+	                        return answerData.solution;
+	                    });
+	                }(),
+	                showGuess: function(guess) {
+	                    $.each(answerDataArray, function(i, answerData) {
+	                        void 0 !== guess ? answerData.showGuess(guess[i]) : answerData.showGuess();
+	                    });
+	                },
+	                showCustomGuess: function(guess) {
+	                    $.each(answerDataArray, function(i, answerData) {
+	                        if (!_.isFunction(answerData.showCustomGuess)) return;
+	                        void 0 !== guess ? answerData.showCustomGuess(guess[i]) : answerData.showCustomGuess();
+	                    });
+	                }
+	            };
+	        },
+	        createValidator: function(solution) {
+	            var validators = [];
+	            $(solution).find(".sol").each(function() {
+	                var sol = $(this);
+	                var type = sol.data("type");
+	                type = null != type ? type : "number";
+	                var validator = KhanAnswerTypes[type].createValidator(sol);
+	                validators.push(validator);
+	            });
+	            return function(guess) {
+	                var score = {
+	                    empty: true,
+	                    correct: true,
+	                    message: null,
+	                    guess: guess
+	                };
+	                var blockGradingMessage = null;
+	                if (checkIfAnswerEmpty(guess)) {
+	                    score.empty = true;
+	                    score.correct = false;
+	                    return score;
+	                }
+	                $.each(guess, function(i, g) {
+	                    var pass = validators[i](g);
+	                    if (pass.message && pass.empty) blockGradingMessage = pass.message; else {
+	                        score.empty = score.empty && pass.empty;
+	                        score.correct = score.correct && pass.correct;
+	                        score.message = score.message || pass.message;
+	                    }
+	                });
+	                if (score.correct && null != blockGradingMessage) return {
+	                    empty: true,
+	                    correct: false,
+	                    message: blockGradingMessage,
+	                    guess: guess
+	                };
+	                score.empty = false;
+	                return score;
+	            };
+	        }
+	    },
+	    set: {
+	        setup: function(solutionarea, solution) {
+	            $(solutionarea).append($(solution).find(".input-format").clone(true).texCleanup().contents().runModules());
+	            var inputArray = [];
+	            var showGuessArray = [];
+	            $(solutionarea).find(".entry").each(function() {
+	                var input = $(this);
+	                var type = $(this).data("type");
+	                type = null != type ? type : "number";
+	                var sol = input.clone(true);
+	                var solarea = input.empty();
+	                var validator = KhanAnswerTypes[type].setup(solarea, sol);
+	                inputArray.push(validator.answer);
+	                showGuessArray.push(validator.showGuess);
+	            });
+	            var solutionArray = [];
+	            $(solution).find(".set-sol").clone(true).each(function() {
+	                var type = $(this).data("type");
+	                type = null != type ? type : "number";
+	                var solarea = $("<div>");
+	                var validator = KhanAnswerTypes[type].setup(solarea, $(this));
+	                solutionArray.push(validator.solution);
+	            });
+	            return {
+	                validator: KhanAnswerTypes.set.createValidator(solution),
+	                answer: function() {
+	                    var answer = [];
+	                    $.each(inputArray, function(i, getAns) {
+	                        answer.push(getAns());
+	                    });
+	                    return answer;
+	                },
+	                solution: solution,
+	                showGuess: function(guess) {
+	                    $.each(showGuessArray, function(i, showGuess) {
+	                        void 0 === guess ? showGuess() : showGuess(guess[i]);
+	                    });
+	                }
+	            };
+	        },
+	        createValidator: function(solution) {
+	            var validatorArray = [];
+	            $(solution).find(".set-sol").clone(true).each(function() {
+	                var type = $(this).data("type");
+	                type = null != type ? type : "number";
+	                var validator = KhanAnswerTypes[type].createValidator($(this));
+	                validatorArray.push(validator);
+	            });
+	            return function(guess) {
+	                var score = {
+	                    empty: 0 !== validatorArray.length,
+	                    correct: true,
+	                    message: null,
+	                    guess: guess
+	                };
+	                var blockGradingMessage = null;
+	                var unusedValidators = validatorArray.slice(0);
+	                $.each(guess, function(i, g) {
+	                    var correct = false;
+	                    $.each(unusedValidators, function(i, validator) {
+	                        var pass = validator(g);
+	                        if (pass.empty && pass.message) {
+	                            unusedValidators.splice(i, 1);
+	                            blockGradingMessage = pass.message;
+	                            correct = true;
+	                            return false;
+	                        }
+	                        if (pass.correct) {
+	                            correct = pass.correct;
+	                            unusedValidators.splice(i, 1);
+	                            return false;
+	                        }
+	                        !pass.correct && pass.message && (correct = pass.message);
+	                    });
+	                    checkIfAnswerEmpty(g) || checkIfAnswerEmpty(correct) || (score.empty = false);
+	                    if (!correct && "" !== $.trim([ g ].join(""))) {
+	                        score.correct = false;
+	                        return false;
+	                    }
+	                    if ("string" === typeof correct) {
+	                        score.message = correct;
+	                        score.correct = false;
+	                    }
+	                });
+	                validatorArray.length > guess.length ? unusedValidators.length > validatorArray.length - guess.length && (score.correct = false) : unusedValidators.length > 0 && (score.correct = false);
+	                return score.correct && null != blockGradingMessage ? {
+	                    empty: true,
+	                    correct: false,
+	                    message: blockGradingMessage,
+	                    guess: guess
+	                } : score;
+	            };
+	        }
+	    },
+	    radio: {
+	        setup: function(solutionarea, solution) {
+	            var $list = $("<ul></ul>");
+	            $(solutionarea).append($list);
+	            var $choices = $(solution).siblings(".choices");
+	            var $choicesClone = $choices.clone(true).texCleanup();
+	            var $solutionClone = $(solution).clone(true).texCleanup();
+	            var solutionText = $solutionClone.text();
+	            var isCategory = !!$choices.data("category");
+	            var possibleChoices = void 0;
+	            isCategory ? !function() {
+	                var correctText = getTextSquish($solutionClone);
+	                possibleChoices = _.map($choicesClone.children().get(), function(elem) {
+	                    return getTextSquish(elem) === correctText ? $solutionClone[0] : elem;
+	                });
+	            }() : possibleChoices = $solutionClone.get().concat(KhanMath.shuffle($choicesClone.children().get()));
+	            var numChoices = +$choices.data("show") || possibleChoices.length;
+	            var showNone = !!$choices.data("none");
+	            var shownChoices = _.uniq(possibleChoices, false, function(elem) {
+	                return getTextSquish(elem);
+	            });
+	            var addNoneChoice = showNone && shownChoices.length === numChoices - 1;
+	            if (shownChoices.length < numChoices && !addNoneChoice) return false;
+	            shownChoices.length > numChoices && (shownChoices = shownChoices.slice(0, numChoices));
+	            isCategory || (shownChoices = KhanMath.shuffle(shownChoices));
+	            var correctIndex = void 0;
+	            _.each(shownChoices, function(choice, i) {
+	                choice === $solutionClone[0] && (correctIndex = i);
+	            });
+	            var noneIsCorrect = showNone && correctIndex === numChoices - 1;
+	            if (showNone) {
+	                var $none = $("<span>").html(i18n._("None of the above"));
+	                $none.data("noneOfTheAbove", true);
+	                noneIsCorrect && $list.data("realAnswer", $("<span>").addClass("value").append($solutionClone.clone(true).contents()));
+	                var noneIndex = shownChoices.length - 1;
+	                addNoneChoice && (noneIndex = shownChoices.length);
+	                shownChoices.splice(noneIndex, 1, $("<span>").append($none));
+	            }
+	            var wrappedChoices = _.map(shownChoices, function(choice, i) {
+	                return $("<li><label></label></li>").find("label").append([ $('<input type="radio" name="solution">').val(i), $('<span class="value"></span>').append($(choice).contents()) ]).end();
+	            });
+	            $list.append(wrappedChoices).runModules();
+	            return {
+	                validator: KhanAnswerTypes.radio.createValidator({
+	                    solution: solution,
+	                    index: correctIndex,
+	                    noneIsCorrect: noneIsCorrect
+	                }),
+	                answer: function() {
+	                    var $choice = $list.find("input:checked");
+	                    if (0 === $choice.length) return null;
+	                    var $choiceVal = $choice.siblings(".value");
+	                    var $choiceNoneChild = $choiceVal.children().eq(0);
+	                    return {
+	                        isNone: $choiceNoneChild.data("noneOfTheAbove"),
+	                        value: extractRawCode($choiceVal),
+	                        index: +$choice.val()
+	                    };
+	                },
+	                solution: solutionText,
+	                showGuess: function(guess) {
+	                    null == guess ? $(solutionarea).find("input:checked").attr("checked", false) : $list.children().filter(function() {
+	                        return guess.index === $(this).find("input").val();
+	                    }).find("input").attr("checked", true);
+	                }
+	            };
+	        },
+	        createValidator: function(solution) {
+	            var correct = extractRawCode(solution.solution || solution);
+	            function showReal() {
+	                var $list = $("#solutionarea").find("ul");
+	                var $choice = $list.children().filter(function() {
+	                    return $(this).find("span.value > span").data("noneOfTheAbove");
+	                }).find("input");
+	                $choice.next().fadeOut("fast", function() {
+	                    var $real = $list.data("realAnswer");
+	                    $(this).replaceWith($real);
+	                    $real.tex().fadeIn("fast");
+	                });
+	            }
+	            return function(guess) {
+	                var score = {
+	                    empty: false,
+	                    correct: false,
+	                    message: null,
+	                    guess: guess
+	                };
+	                if (null == guess) {
+	                    score.empty = true;
+	                    return score;
+	                }
+	                if (guess.index) if (guess.isNone && solution.noneIsCorrect) {
+	                    showReal();
+	                    score.correct = true;
+	                } else score.correct = guess.index === solution.index; else if (guess.isNone && null != $("#solutionarea").find("ul").data("real-answer")) {
+	                    showReal();
+	                    score.correct = true;
+	                } else $.trim(guess.value).replace(/\r\n?|\n/g, "") === $.trim(correct.replace(/\r\n?|\n/g, "")) ? score.correct = true : score.correct = false;
+	                return score;
+	            };
+	        }
+	    },
+	    list: {
+	        setupFunctional: function(solutionarea, solutionText, solutionData) {
+	            var input = $("<select></select>");
+	            $(solutionarea).append(input);
+	            var choices = $.tmpl.getVAR(solutionData.choices);
+	            $.each(choices, function(index, value) {
+	                input.append('<option value="' + value + '">' + value + "</option>");
+	            });
+	            return {
+	                validator: KhanAnswerTypes.list.createValidatorFunctional(solutionText, solutionData),
+	                answer: function() {
+	                    return input.val();
+	                },
+	                solution: $.trim(solutionText),
+	                showGuess: function(guess) {
+	                    input.val(void 0 === guess ? "" : guess);
+	                }
+	            };
+	        },
+	        createValidatorFunctional: function(correct, options) {
+	            correct = $.trim(correct);
+	            return function(guess) {
+	                guess = $.trim(guess);
+	                return {
+	                    empty: false,
+	                    correct: correct === guess,
+	                    message: null,
+	                    guess: guess
+	                };
+	            };
+	        }
+	    },
+	    custom: {
+	        setup: function(solutionarea, solution) {
+	            solution.find(".instruction").appendTo(solutionarea).runModules();
+	            var guessCode = solution.find(".guess").text();
+	            var showCustomGuessCode = solution.find(".show-guess").text();
+	            var showGuessCode = solution.find(".show-guess-solutionarea").text();
+	            return {
+	                validator: KhanAnswerTypes.custom.createValidator(solution),
+	                answer: function() {
+	                    return KhanUtil.tmpl.getVAR(guessCode, KhanUtil.currentGraph);
+	                },
+	                solution: $.trim($(solution).text()),
+	                showCustomGuess: function(guess) {
+	                    var code = "(function() { var guess = " + JSON.stringify(guess) + ";" + showCustomGuessCode + "})()";
+	                    KhanUtil.tmpl.getVAR(code, KhanUtil.currentGraph);
+	                },
+	                showGuess: function(guess) {
+	                    var code = "(function() { var guess = " + JSON.stringify(guess) + ";" + showGuessCode + "})()";
+	                    KhanUtil.tmpl.getVAR(code, KhanUtil.currentGraph);
+	                }
+	            };
+	        },
+	        createValidator: function(solution) {
+	            var validatorCode = $(solution).find(".validator-function").text();
+	            var validator = function(guess) {
+	                var code = "(function() { var guess = " + JSON.stringify(guess) + ";" + validatorCode + "})()";
+	                return KhanUtil.tmpl.getVAR(code, KhanUtil.currentGraph);
+	            };
+	            return function(guess) {
+	                var pass = validator(guess);
+	                return "object" === typeof pass ? pass : {
+	                    empty: "" === pass,
+	                    correct: true === pass,
+	                    message: "string" === typeof pass ? pass : null,
+	                    guess: guess
+	                };
+	            };
+	        }
+	    },
+	    primeFactorization: {
+	        setupFunctional: function(solutionarea, solutionText, solutionData) {
+	            var $input = void 0;
+	            $input = $(window.Modernizr && Modernizr.touchevents ? '<input type="text" autocapitalize="off">' : '<input type="text">');
+	            $input.addClass("prime-factorization");
+	            $(solutionarea).append($input);
+	            var examples = [ i18n._("a product of prime factors, like <code>2 \\times 3</code>"), i18n._("a single prime number, like <code>5</code>") ];
+	            addExamplesToInput($input, examples);
+	            return {
+	                validator: KhanAnswerTypes.primeFactorization.createValidatorFunctional(solutionText, solutionData),
+	                answer: function() {
+	                    return $input.val();
+	                },
+	                solution: $.trim(solutionText),
+	                showGuess: function(guess) {
+	                    $input.val(void 0 === guess ? "" : guess);
+	                }
+	            };
+	        },
+	        createValidatorFunctional: function(correct, options) {
+	            correct = $.trim(correct);
+	            return function(guess) {
+	                guess = guess.split(" ").join("").toLowerCase();
+	                guess = guess.replace(/{|}/g, "");
+	                guess = guess.split(/x|\*|\u00d7|\\times|\\cdot/);
+	                var terms = [];
+	                for (var i = 0; i < guess.length; i++) {
+	                    var t = guess[i].split("^");
+	                    if (t.length > 1) for (var j = 0; j < t[1]; j++) terms.push(t[0]); else terms.push(guess[i]);
+	                }
+	                guess = KhanMath.sortNumbers(terms).join("x");
+	                return {
+	                    empty: "" === guess,
+	                    correct: guess === correct,
+	                    message: null,
+	                    guess: guess
+	                };
+	            };
+	        }
+	    },
+	    checkbox: {
+	        setupFunctional: function(solutionarea, solutionText, solutionData) {
+	            var input = $('<input type="checkbox">');
+	            $(solutionarea).append(input);
+	            return {
+	                validator: KhanAnswerTypes.checkbox.createValidatorFunctional(solutionText, solutionData),
+	                answer: function() {
+	                    return input.is(":checked") || "";
+	                },
+	                solution: $.trim(solutionText),
+	                showGuess: function(guess) {
+	                    input.attr("checked", void 0 === guess ? false : guess);
+	                }
+	            };
+	        },
+	        createValidatorFunctional: function(correct, options) {
+	            correct = "true" === $.trim(correct);
+	            return function(guess) {
+	                var score = {
+	                    empty: false,
+	                    correct: false,
+	                    message: null,
+	                    guess: guess
+	                };
+	                !!correct === !!guess ? score.correct = true : guess ? score.correct = false : score.empty = true;
+	                return score;
+	            };
+	        }
+	    },
+	    expression: {
+	        setup: function(solutionarea, solution) {
+	            var options = this._parseOptions($(solution).data());
+	            var $tex = $('<span class="tex"/>');
+	            var $input = $('<input type="text">');
+	            var $error = $('<div class="error-div" style="display: none;"/>');
+	            $(solutionarea).append($('<span class="expression"/>').append($('<span class="output"/>').append($tex), $('<span class="input"/>').append($input, $error.append($('<i class="icon-exclamation-sign error-icon"/>')))));
+	            var errorTimeout = null;
+	            var lastParsedTex = "";
+	            var update = function() {
+	                clearTimeout(errorTimeout);
+	                var result = KAS.parse($input.val(), options);
+	                if (result.parsed) {
+	                    hideError();
+	                    $tex.css({
+	                        opacity: 1
+	                    });
+	                    var tex = result.expr.asTex(options);
+	                    if (tex !== lastParsedTex) {
+	                        $tex.empty().append($("<code>").text(tex)).tex();
+	                        lastParsedTex = tex;
+	                    }
+	                } else {
+	                    errorTimeout = setTimeout(showError, 2e3);
+	                    $tex.css({
+	                        opacity: .5
+	                    });
+	                }
+	            };
+	            var showError = function() {
+	                if (!$error.is(":visible")) {
+	                    $error.show();
+	                    $input.addClass("error");
+	                }
+	            };
+	            var hideError = function() {
+	                if ($error.is(":visible")) {
+	                    $error.hide();
+	                    $input.removeClass("error");
+	                }
+	            };
+	            $input.on("input propertychange", update);
+	            $input.on("keydown", function(event) {
+	                var input = $input[0];
+	                var start = input.selectionStart;
+	                var end = input.selectionEnd;
+	                var supported = void 0 !== start;
+	                if (supported && 8 === event.which) {
+	                    var val = input.value;
+	                    if (start === end && "()" === val.slice(start - 1, start + 1)) {
+	                        event.preventDefault();
+	                        input.value = val.slice(0, start - 1) + val.slice(start + 1);
+	                        input.selectionStart = start - 1;
+	                        input.selectionEnd = end - 1;
+	                        update();
+	                    }
+	                }
+	            });
+	            $input.on("keypress", function(event) {
+	                var input = $input[0];
+	                var start = input.selectionStart;
+	                var end = input.selectionEnd;
+	                var supported = void 0 !== start;
+	                if (supported && 40 === event.which) !function() {
+	                    var val = input.value;
+	                    event.preventDefault();
+	                    if (start === end) {
+	                        var insertMatched = _.any([ " ", ")", "" ], function(c) {
+	                            return val.charAt(start) === c;
+	                        });
+	                        input.value = val.slice(0, start) + (insertMatched ? "()" : "(") + val.slice(end);
+	                    } else input.value = val.slice(0, start) + "(" + val.slice(start, end) + ")" + val.slice(end);
+	                    input.selectionStart = start + 1;
+	                    input.selectionEnd = end + 1;
+	                    update();
+	                }(); else if (supported && 41 === event.which) {
+	                    var val = input.value;
+	                    if (start === end && ")" === val.charAt(start)) {
+	                        event.preventDefault();
+	                        input.selectionStart = start + 1;
+	                        input.selectionEnd = end + 1;
+	                        update();
+	                    }
+	                }
+	            });
+	            var explicitMul = i18n._("For <code>2\\cdot2</code>, enter <strong>2*2</strong>");
+	            options.times && (explicitMul = explicitMul.replace(/\\cdot/g, "\\times"));
+	            var examples = [ explicitMul, i18n._("For <code>3y</code>, enter <strong>3y</strong> or <strong>3*y</strong>"), i18n._("For <code>\\dfrac{1}{x}</code>, enter <strong>1/x</strong>"), i18n._("For <code>x^{y}</code>, enter <strong>x^y</strong>"), i18n._("For <code>\\sqrt{x}</code>, enter <strong>sqrt(x)</strong>"), i18n._("For <code>\\pi</code>, enter <strong>pi</strong>"), i18n._("For <code>\\sin \\theta</code>, enter <strong>sin(theta)</strong>"), i18n._("For <code>\\le</code> or <code>\\ge</code>, enter <strong><=</strong> or <strong>>=</strong>"), i18n._("For <code>\\neq</code>, enter <strong>=/=</strong>") ];
+	            addExamplesToInput($input, examples);
+	            return {
+	                validator: KhanAnswerTypes.expression.createValidator(solution),
+	                answer: function() {
+	                    return $input.val();
+	                },
+	                solution: solution,
+	                showGuess: function(guess) {
+	                    $input.val(void 0 === guess ? "" : guess);
+	                }
+	            };
+	        },
+	        parseSolution: function(solutionString, options) {
+	            var solution = KAS.parse(solutionString, options);
+	            if (!solution.parsed) throw new Error("The provided solution (" + solutionString + ") didn't parse.");
+	            if (options.simplified && !solution.expr.isSimplified()) throw new Error("The provided solution (" + solutionString + ") isn't fully expanded and simplified.");
+	            solution = solution.expr;
+	            return solution;
+	        },
+	        _parseOptions: function(solutionData) {
+	            var form = void 0 !== solutionData.form ? solutionData.form : solutionData.sameForm;
+	            var notFalseOrNil = function(x) {
+	                return null != x && false !== x;
+	            };
+	            var options = {
+	                form: notFalseOrNil(form),
+	                simplify: notFalseOrNil(solutionData.simplify),
+	                times: notFalseOrNil(solutionData.times)
+	            };
+	            _.isString(solutionData.functions) ? options.functions = _.compact(solutionData.functions.split(/[ ,]+/)) : _.isArray(solutionData.functions) && (options.functions = _.compact(solutionData.functions));
+	            return options;
+	        },
+	        createValidator: function(solution) {
+	            var $solution = $(solution);
+	            var validatorArray = [];
+	            var createValidatorFunctional = this.createValidatorFunctional;
+	            var parseOptions = this._parseOptions;
+	            $(solution).find(".set-sol").each(function() {
+	                var options = parseOptions($(this).data());
+	                validatorArray.push(createValidatorFunctional($(this).text(), options));
+	            });
+	            if (0 === validatorArray.length) {
+	                var options = parseOptions($solution.data());
+	                validatorArray.push(createValidatorFunctional($solution.text(), options));
+	            }
+	            return function(guess) {
+	                var score = {
+	                    empty: false,
+	                    correct: false,
+	                    message: null,
+	                    guess: guess
+	                };
+	                $.each(validatorArray, function(i, validator) {
+	                    var result = validator(guess);
+	                    if (result.correct) {
+	                        score.correct = true;
+	                        score.message = null;
+	                        return false;
+	                    }
+	                    result.message && (score.message = result.message);
+	                    result.empty && (score.empty = true);
+	                });
+	                return score;
+	            };
+	        },
+	        createValidatorFunctional: function(solution, options) {
+	            return function(guess) {
+	                var score = {
+	                    empty: false,
+	                    correct: false,
+	                    message: null,
+	                    guess: guess
+	                };
+	                if (!guess) {
+	                    score.empty = true;
+	                    return score;
+	                }
+	                var answer = KAS.parse(guess, options);
+	                if (!answer.parsed) {
+	                    score.empty = true;
+	                    return score;
+	                }
+	                "string" === typeof solution && (solution = KhanAnswerTypes.expression.parseSolution(solution, options));
+	                var result = KAS.compare(answer.expr, solution, options);
+	                if (result.equal) score.correct = true; else if (result.message) score.message = result.message; else {
+	                    var answerX = KAS.parse(guess.replace(/[xX]/g, "*"), options);
+	                    if (answerX.parsed) {
+	                        var resultX = KAS.compare(answerX.expr, solution, options);
+	                        if (resultX.equal) {
+	                            score.empty = true;
+	                            score.message = "I'm a computer. I only understand multiplication if you use an asterisk (*) as the multiplication sign.";
+	                        } else resultX.message && (score.message = resultX.message + " Also, I'm a computer. I only understand multiplication if you use an asterisk (*) as the multiplication sign.");
+	                    }
+	                }
+	                return score;
+	            };
+	        }
 	    }
-	});
+	};
 
-	module.exports = ImageLoader;
+	module.exports = KhanAnswerTypes;
 
 /***/ },
 /* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-var, space-before-function-paren */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	// Derived from the MIT-licensed:
-	// https://github.com/fat/zoom.js/blob/fd4f3e43153da7596da0bade198e99f98b47791e/js/zoom.js
-	// NOTE(kevindangoor)
-	// This version zooms a new, absolutely positioned image element rather than
-	// scaling the original image element within a new container. The problem that
-	// I ran into was that we had a grandparent node with a z-index
-	// which caused the zoomed image to end up behind the overlay. We sidestep all
-	// of that by simplifying to just use a new image element.
-	/*global $*/
-	/*jshint browser:true, node:true */
-	"use strict";
-
-	/* ========================================================================
-	 * Bootstrap: transition.js v3.3.4
-	 * http://getbootstrap.com/javascript/#transitions
-	 * ========================================================================
-	 * Copyright 2011-2015 Twitter, Inc.
-	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-	 * ======================================================================== */
-	// CSS TRANSITION SUPPORT (Shoutout: http://www.modernizr.com/)
-	// ============================================================
-	function transitionEnd() {
-	    var el = document.createElement("bootstrap");
-	    var transEndEventNames = {
-	        WebkitTransition: "webkitTransitionEnd",
-	        MozTransition: "transitionend",
-	        OTransition: "oTransitionEnd otransitionend",
-	        transition: "transitionend"
-	    };
-	    for (var name in transEndEventNames) if (void 0 !== el.style[name]) return {
-	        end: transEndEventNames[name]
-	    };
-	    return false;
-	}
-
-	// http://blog.alexmaccaw.com/css-transitions
-	$.fn.emulateTransitionEnd = function(duration) {
-	    var called = false;
-	    var $el = this;
-	    $(this).one("bsTransitionEnd", function() {
-	        called = true;
-	    });
-	    var callback = function() {
-	        called || $($el).trigger($.support.transition.end);
-	    };
-	    setTimeout(callback, duration);
-	    return this;
+	/** Color constants we use throughout Perseus (originally on KhanUtil). */
+	var KhanColors = {
+	    BLUE: "#6495ED",
+	    ORANGE: "#FFA500",
+	    PINK: "#FF00AF",
+	    GREEN: "#28AE7B",
+	    PURPLE: "#9D38BD",
+	    RED: "#DF0030",
+	    GRAY: "gray",
+	    BLACK: "black",
+	    LIGHT_BLUE: "#9AB8ED",
+	    LIGHT_ORANGE: "#EDD19B",
+	    LIGHT_PINK: "#ED9BD3",
+	    LIGHT_GREEN: "#9BEDCE",
+	    LIGHT_PURPLE: "#DA9BED",
+	    LIGHT_RED: "#ED9AAC",
+	    LIGHT_GRAY: "#ED9B9B",
+	    LIGHT_BLACK: "#ED9B9B",
+	    GRAY10: "#D6D6D6",
+	    GRAY20: "#CDCDCD",
+	    GRAY30: "#B3B3B3",
+	    GRAY40: "#9A9A9A",
+	    GRAY50: "#808080",
+	    GRAY60: "#666666",
+	    GRAY70: "#4D4D4D",
+	    GRAY80: "#333333",
+	    GRAY90: "#1A1A1A",
+	    BLUE_A: "#C7E9F1",
+	    BLUE_B: "#9CDCEB",
+	    BLUE_C: "#58C4DD",
+	    BLUE_D: "#29ABCA",
+	    BLUE_E: "#1C758A",
+	    TEAL_A: "#ACEAD7",
+	    TEAL_B: "#76DDC0",
+	    TEAL_C: "#5CD0B3",
+	    TEAL_D: "#55C1A7",
+	    TEAL_E: "#49A88F",
+	    GREEN_A: "#C9E2AE",
+	    GREEN_B: "#A6CF8C",
+	    GREEN_C: "#83C167",
+	    GREEN_D: "#77B05D",
+	    GREEN_E: "#699C52",
+	    GOLD_A: "#F7C797",
+	    GOLD_B: "#F9B775",
+	    GOLD_C: "#F0AC5F",
+	    GOLD_D: "#E1A158",
+	    GOLD_E: "#C78D46",
+	    RED_A: "#F7A1A3",
+	    RED_B: "#FF8080",
+	    RED_C: "#FC6255",
+	    RED_D: "#E65A4C",
+	    RED_E: "#CF5044",
+	    MAROON_A: "#ECABC1",
+	    MAROON_B: "#EC92AB",
+	    MAROON_C: "#C55F73",
+	    MAROON_D: "#A24D61",
+	    MAROON_E: "#94424F",
+	    PURPLE_A: "#CAA3E8",
+	    PURPLE_B: "#B189C6",
+	    PURPLE_C: "#9A72AC",
+	    PURPLE_D: "#715582",
+	    PURPLE_E: "#644172",
+	    MINT_A: "#F5F9E8",
+	    MINT_B: "#EDF2DF",
+	    MINT_C: "#E0E5CC",
+	    GRAY_A: "#FDFDFD",
+	    GRAY_B: "#F7F7F7",
+	    GRAY_C: "#EEEEEE",
+	    GRAY_D: "#DDDDDD",
+	    GRAY_E: "#CCCCCC",
+	    GRAY_F: "#AAAAAA",
+	    GRAY_G: "#999999",
+	    GRAY_H: "#555555",
+	    GRAY_I: "#333333",
+	    KA_BLUE: "#314453",
+	    KA_GREEN: "#639B24",
+	    // Don't actually use _BACKGROUND! Make things transparent instead. The
+	    // background color used in exercises is subject to change at the whim
+	    // of fickle designers.
+	    _BACKGROUND: "#FDFDFD"
 	};
 
-	$(function() {
-	    $.support.transition = transitionEnd();
-	    if (!$.support.transition) return;
-	    $.event.special.bsTransitionEnd = {
-	        bindType: $.support.transition.end,
-	        delegateType: $.support.transition.end,
-	        handle: function(e) {
-	            if ($(e.target).is(this)) return e.handleObj.handler.apply(this, arguments);
-	        }
-	    };
-	});
+	KhanColors.INTERACTING = KhanColors.ORANGE;
 
-	/**
-	 * The zoom service
-	 */
-	function ZoomService() {}
+	KhanColors.INTERACTIVE = KhanColors.ORANGE;
 
-	ZoomService.prototype._initialize = function() {
-	    // Check to see if the service is already initialized
-	    if (this._$document) return;
-	    this._activeZoom = this._initialScrollPosition = this._initialTouchPosition = this._touchMoveListener = null;
-	    this._$document = $(document);
-	    this._$window = $(window);
-	    this._$body = $(document.body);
-	    this._boundClick = $.proxy(this._clickHandler, this);
-	};
+	KhanColors.DYNAMIC = KhanColors.BLUE;
 
-	ZoomService.prototype.handleZoomClick = function(e) {
-	    this._initialize();
-	    var target = e.target;
-	    if (!target || "IMG" !== target.tagName) return;
-	    if (this._$body.hasClass("zoom-overlay-open")) return;
-	    if (e.metaKey || e.ctrlKey) return window.open(e.target.src, "_blank");
-	    if (target.width >= window.innerWidth - Zoom.OFFSET) return;
-	    this._activeZoomClose(true);
-	    this._activeZoom = new Zoom(target);
-	    this._activeZoom.zoomImage();
-	    // todo(fat): probably worth throttling this
-	    this._$window.on("scroll.zoom", $.proxy(this._scrollHandler, this));
-	    this._$document.on("keyup.zoom", $.proxy(this._keyHandler, this));
-	    this._$document.on("touchstart.zoom", $.proxy(this._touchStart, this));
-	    // we use a capturing phase here to prevent unintended js events
-	    // sadly no useCapture in jquery api (http://bugs.jquery.com/ticket/14953)
-	    document.addEventListener("click", this._boundClick, true);
-	    e.stopPropagation();
-	};
-
-	ZoomService.prototype._activeZoomClose = function(forceDispose) {
-	    if (!this._activeZoom) return;
-	    forceDispose ? this._activeZoom.dispose() : this._activeZoom.close();
-	    this._$window.off(".zoom");
-	    this._$document.off(".zoom");
-	    document.removeEventListener("click", this._boundClick, true);
-	    this._activeZoom = null;
-	};
-
-	ZoomService.prototype._scrollHandler = function(e) {
-	    null === this._initialScrollPosition && (this._initialScrollPosition = window.scrollY);
-	    var deltaY = this._initialScrollPosition - window.scrollY;
-	    Math.abs(deltaY) >= 40 && this._activeZoomClose();
-	};
-
-	ZoomService.prototype._keyHandler = function(e) {
-	    27 === e.keyCode && this._activeZoomClose();
-	};
-
-	ZoomService.prototype._clickHandler = function(e) {
-	    e.stopPropagation();
-	    e.preventDefault();
-	    this._activeZoomClose();
-	};
-
-	ZoomService.prototype._touchStart = function(e) {
-	    // Our jQuery doesn't include `touches` in its event
-	    // TODO(kevindangoor) Remove `originalEvent` once jQuery is updated
-	    this._initialTouchPosition = e.originalEvent.touches[0].pageY;
-	    $(e.target).on("touchmove.zoom", $.proxy(this._touchMove, this));
-	};
-
-	ZoomService.prototype._touchMove = function(e) {
-	    // Our jQuery doesn't include `touches` in its event
-	    // TODO(kevindangoor) Remove `originalEvent` once jQuery is updated
-	    if (Math.abs(e.originalEvent.touches[0].pageY - this._initialTouchPosition) > 10) {
-	        this._activeZoomClose();
-	        $(e.target).off("touchmove.zoom");
-	    }
-	};
-
-	/**
-	 * The zoom object
-	 */
-	function Zoom(img) {
-	    this._fullHeight = this._fullWidth = this._overlay = null;
-	    this._targetImage = img;
-	    this._$body = $(document.body);
-	}
-
-	Zoom.OFFSET = 80;
-
-	Zoom._MAX_WIDTH = 2560;
-
-	Zoom._MAX_HEIGHT = 4096;
-
-	Zoom.prototype.zoomImage = function() {
-	    var img = document.createElement("img");
-	    var $zoomedImage = $(img);
-	    img.onload = function() {
-	        // Load the image without specifying height and width so that we can find
-	        // the true height and width.
-	        this._fullHeight = Number(img.height);
-	        this._fullWidth = Number(img.width);
-	        // Set up our image to mirror the current image
-	        img.height = this._targetImage.height;
-	        img.width = this._targetImage.width;
-	        var imageOffset = this._imageOffset = $(this._targetImage).offset();
-	        $zoomedImage.css("position", "absolute").css("top", imageOffset.top + "px").css("left", imageOffset.left + "px");
-	        this._zoomOriginal();
-	    }.bind(this);
-	    img.src = this._targetImage.src;
-	    this.$zoomedImage = $zoomedImage;
-	};
-
-	Zoom.prototype._zoomOriginal = function() {
-	    this.$zoomedImage.addClass("zoom-img").attr("data-action", "zoom-out");
-	    $(this._targetImage).css("visibility", "hidden");
-	    this._overlay = document.createElement("div");
-	    this._overlay.className = "zoom-overlay";
-	    document.body.appendChild(this._overlay);
-	    document.body.appendChild(this.$zoomedImage[0]);
-	    this._calculateZoom();
-	    this._triggerAnimation();
-	};
-
-	Zoom.prototype._calculateZoom = function() {
-	    var originalFullImageWidth = this._fullWidth;
-	    var originalFullImageHeight = this._fullHeight;
-	    var maxScaleFactor = originalFullImageWidth / this._targetImage.width;
-	    var viewportHeight = window.innerHeight - Zoom.OFFSET;
-	    var viewportWidth = window.innerWidth - Zoom.OFFSET;
-	    var imageAspectRatio = originalFullImageWidth / originalFullImageHeight;
-	    var viewportAspectRatio = viewportWidth / viewportHeight;
-	    originalFullImageWidth < viewportWidth && originalFullImageHeight < viewportHeight ? this._imgScaleFactor = maxScaleFactor : imageAspectRatio < viewportAspectRatio ? this._imgScaleFactor = viewportHeight / originalFullImageHeight * maxScaleFactor : this._imgScaleFactor = viewportWidth / originalFullImageWidth * maxScaleFactor;
-	};
-
-	Zoom.prototype._triggerAnimation = function() {
-	    var scrollTop = $(window).scrollTop();
-	    var viewportY = scrollTop + window.innerHeight / 2;
-	    var viewportX = window.innerWidth / 2;
-	    var scaleFactor = this._imgScaleFactor;
-	    var imageCenterY = this._imageOffset.top + this._targetImage.height / 2;
-	    var imageCenterX = this._imageOffset.left + this._targetImage.width / 2;
-	    this._translateY = (viewportY - imageCenterY) / scaleFactor;
-	    this._translateX = (viewportX - imageCenterX) / scaleFactor;
-	    this.$zoomedImage.css("transform", "scale(" + this._imgScaleFactor + ") translate(" + this._translateX + "px, " + this._translateY + "px) translateZ(0)");
-	    this._$body.addClass("zoom-overlay-open");
-	};
-
-	Zoom.prototype.close = function() {
-	    this._$body.removeClass("zoom-overlay-open").addClass("zoom-overlay-transitioning");
-	    this.$zoomedImage.css("transform", "");
-	    this.$zoomedImage.one($.support.transition.end, $.proxy(this.dispose, this)).emulateTransitionEnd(300);
-	};
-
-	Zoom.prototype.dispose = function() {
-	    if (this.$zoomedImage && this.$zoomedImage[0].parentNode) {
-	        this.$zoomedImage.remove();
-	        this.$zoomedImage = null;
-	        this._overlay.parentNode.removeChild(this._overlay);
-	        this._$body.removeClass("zoom-overlay-transitioning");
-	    }
-	    $(this._targetImage).css("visibility", "visible");
-	};
-
-	exports.ZoomService = new ZoomService();
+	module.exports = KhanColors;
 
 /***/ },
 /* 84 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * A wrapper around graphie.js and interactive.js to make sure interactive.js
+	 * is always required at the same time as graphie.js. This is because
+	 * interactive.js has side effects that are hard to see (it adds things to
+	 * `Graphie.prototype`), so someone might forget to require interactive.js.
+	 *
+	 * To use the utilities exported from interactive.js, require that file
+	 * itself.
+	 */
+	var GraphUtils = __webpack_require__(112);
+
+	__webpack_require__(113);
+
+	// For side effects
+	module.exports = GraphUtils;
+
+/***/ },
+/* 85 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* global i18n:false */
+	var _ = __webpack_require__(8);
+
+	var knumber = __webpack_require__(100).number;
+
+	var KhanMath = {
+	    // Simplify formulas before display
+	    cleanMath: function(expr) {
+	        return "string" === typeof expr ? expr.replace(/\+\s*-/g, "- ").replace(/-\s*-/g, "+ ").replace(/\^1/g, "") : expr;
+	    },
+	    // A simple random number picker
+	    // Returns a random int in [0, num)
+	    rand: function(num) {
+	        return Math.floor(num * KhanUtil.random());
+	    },
+	    /* Returns an array of the digits of a nonnegative integer in reverse
+	     * order: digits(376) = [6, 7, 3] */
+	    digits: function(n) {
+	        if (0 === n) return [ 0 ];
+	        var list = [];
+	        while (n > 0) {
+	            list.push(n % 10);
+	            n = Math.floor(n / 10);
+	        }
+	        return list;
+	    },
+	    // Similar to above digits, but in original order (not reversed)
+	    integerToDigits: function(n) {
+	        return KhanMath.digits(n).reverse();
+	    },
+	    // Convert a decimal number into an array of digits (reversed)
+	    decimalDigits: function(n) {
+	        var str = "" + Math.abs(n);
+	        str = str.replace(".", "");
+	        var list = [];
+	        for (var i = str.length; i > 0; i--) list.push(str.charAt(i - 1));
+	        return list;
+	    },
+	    // Find number of digits after the decimal place
+	    decimalPlaces: function(n) {
+	        var str = "" + Math.abs(n);
+	        str = str.split(".");
+	        return 1 === str.length ? 0 : str[1].length;
+	    },
+	    digitsToInteger: function(digits) {
+	        var place = Math.floor(Math.pow(10, digits.length - 1));
+	        var number = 0;
+	        $.each(digits, function(index, digit) {
+	            number += digit * place;
+	            place /= 10;
+	        });
+	        return number;
+	    },
+	    padDigitsToNum: function(digits, num) {
+	        digits = digits.slice(0);
+	        while (digits.length < num) digits.push(0);
+	        return digits;
+	    },
+	    placesLeftOfDecimal: [ i18n._("one"), i18n._("ten"), i18n._("hundred"), i18n._("thousand") ],
+	    placesRightOfDecimal: [ i18n._("one"), i18n._("tenth"), i18n._("hundredth"), i18n._("thousandth"), i18n._("ten thousandth") ],
+	    powerToPlace: function(power) {
+	        return power < 0 ? KhanMath.placesRightOfDecimal[-1 * power] : KhanMath.placesLeftOfDecimal[power];
+	    },
+	    // Adds 0.001 because of floating points uncertainty so it errs on the side
+	    // of going further away from 0
+	    roundTowardsZero: function(x) {
+	        if (x < 0) return Math.ceil(x - .001);
+	        return Math.floor(x + .001);
+	    },
+	    // Bound a number by 1e-6 and 1e20 to avoid exponents after toString
+	    bound: function(num) {
+	        return 0 === num ? num : num < 0 ? -KhanMath.bound(-num) : Math.max(1e-6, Math.min(num, 1e20));
+	    },
+	    factorial: function(x) {
+	        return x <= 1 ? x : x * KhanMath.factorial(x - 1);
+	    },
+	    getGCD: function(a, b) {
+	        if (arguments.length > 2) {
+	            var rest = [].slice.call(arguments, 1);
+	            return KhanMath.getGCD(a, KhanMath.getGCD.apply(KhanMath, rest));
+	        }
+	        var mod = void 0;
+	        a = Math.abs(a);
+	        b = Math.abs(b);
+	        while (b) {
+	            mod = a % b;
+	            a = b;
+	            b = mod;
+	        }
+	        return a;
+	    },
+	    getLCM: function(a, b) {
+	        if (arguments.length > 2) {
+	            var rest = [].slice.call(arguments, 1);
+	            return KhanMath.getLCM(a, KhanMath.getLCM.apply(KhanMath, rest));
+	        }
+	        return Math.abs(a * b) / KhanMath.getGCD(a, b);
+	    },
+	    primes: [ 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97 ],
+	    denominators: [ 2, 3, 4, 5, 6, 8, 10, 12, 100 ],
+	    smallDenominators: [ 2, 3, 4, 5, 6, 8, 10, 12 ],
+	    getPrime: function() {
+	        return KhanMath.primes[KhanMath.rand(KhanMath.primes.length)];
+	    },
+	    isPrime: function(n) {
+	        if (n <= 1) return false;
+	        if (n < 101) return !!$.grep(KhanMath.primes, function(p, i) {
+	            return Math.abs(p - n) <= .5;
+	        }).length;
+	        if (n <= 1 || n > 2 && n % 2 === 0) return false;
+	        for (var i = 3, sqrt = Math.sqrt(n); i <= sqrt; i += 2) if (n % i === 0) return false;
+	        return true;
+	    },
+	    isOdd: function(n) {
+	        return n % 2 === 1;
+	    },
+	    isEven: function(n) {
+	        return n % 2 === 0;
+	    },
+	    getOddComposite: function(min, max) {
+	        void 0 === min && (min = 0);
+	        void 0 === max && (max = 100);
+	        var oddComposites = [ 9, 15, 21, 25, 27, 33, 35, 39, 45, 49, 51, 55, 57, 63, 65, 69, 75, 77, 81, 85, 87, 91, 93, 95, 99 ];
+	        var result = -1;
+	        while (result < min || result > max) result = oddComposites[KhanMath.rand(oddComposites.length)];
+	        return result;
+	    },
+	    getEvenComposite: function(min, max) {
+	        void 0 === min && (min = 0);
+	        void 0 === max && (max = 100);
+	        var evenComposites = [ 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92, 94, 96, 98 ];
+	        var result = -1;
+	        while (result < min || result > max) result = evenComposites[KhanMath.rand(evenComposites.length)];
+	        return result;
+	    },
+	    getComposite: function() {
+	        return KhanMath.randRange(0, 1) ? KhanMath.getEvenComposite() : KhanMath.getOddComposite();
+	    },
+	    getPrimeFactorization: function(number) {
+	        if (1 === number) return [];
+	        if (KhanMath.isPrime(number)) return [ number ];
+	        var maxf = Math.sqrt(number);
+	        for (var f = 2; f <= maxf; f++) if (number % f === 0) return $.merge(KhanMath.getPrimeFactorization(f), KhanMath.getPrimeFactorization(number / f));
+	    },
+	    getFactors: function(number) {
+	        var factors = [];
+	        var ins = function(n) {
+	            -1 === _(factors).indexOf(n) && factors.push(n);
+	        };
+	        var maxf2 = number;
+	        for (var f = 1; f * f <= maxf2; f++) if (number % f === 0) {
+	            ins(f);
+	            ins(number / f);
+	        }
+	        return KhanMath.sortNumbers(factors);
+	    },
+	    // Get a random factor of a composite number which is not 1 or that number
+	    getNontrivialFactor: function(number) {
+	        var factors = KhanMath.getFactors(number);
+	        return factors[KhanMath.randRange(1, factors.length - 2)];
+	    },
+	    getMultiples: function(number, upperLimit) {
+	        var multiples = [];
+	        for (var i = 1; i * number <= upperLimit; i++) multiples.push(i * number);
+	        return multiples;
+	    },
+	    // splitRadical(24) gives [2, 6] to mean 2 sqrt(6)
+	    splitRadical: function(n) {
+	        if (0 === n) return [ 0, 1 ];
+	        var coefficient = 1;
+	        var radical = n;
+	        for (var i = 2; i * i <= n; i++) while (radical % (i * i) === 0) {
+	            radical /= i * i;
+	            coefficient *= i;
+	        }
+	        return [ coefficient, radical ];
+	    },
+	    // splitCube(24) gives [2, 3] to mean 2 cube_root(3)
+	    splitCube: function(n) {
+	        if (0 === n) return [ 0, 1 ];
+	        var coefficient = 1;
+	        var radical = n;
+	        for (var i = 2; i * i * i <= n; i++) while (radical % (i * i * i) === 0) {
+	            radical /= i * i * i;
+	            coefficient *= i;
+	        }
+	        return [ coefficient, radical ];
+	    },
+	    // randRange(min, max) - Get a random integer between min and max, inclusive
+	    // randRange(min, max, count) - Get count random integers
+	    // randRange(min, max, rows, cols) - Get a rows x cols matrix of random
+	    //     integers
+	    // randRange(min, max, x, y, z) - You get the point...
+	    randRange: function(min, max) {
+	        var dimensions = [].slice.call(arguments, 2);
+	        if (0 === dimensions.length) return Math.floor(KhanMath.rand(max - min + 1)) + min;
+	        var _ret = function() {
+	            var args = [ min, max ].concat(dimensions.slice(1));
+	            return {
+	                v: $.map(new Array(dimensions[0]), function() {
+	                    return [ KhanMath.randRange.apply(null, args) ];
+	                })
+	            };
+	        }();
+	        if ("object" === typeof _ret) return _ret.v;
+	    },
+	    // Get an array of unique random numbers between min and max
+	    randRangeUnique: function(min, max, count) {
+	        if (null == count) return KhanMath.randRange(min, max);
+	        var toReturn = [];
+	        for (var i = min; i <= max; i++) toReturn.push(i);
+	        return KhanMath.shuffle(toReturn, count);
+	    },
+	    // Get an array of unique random numbers between min and max,
+	    // that ensures that none of the integers in the array are 0.
+	    randRangeUniqueNonZero: function(min, max, count) {
+	        if (null == count) return KhanMath.randRangeNonZero(min, max);
+	        var toReturn = [];
+	        for (var i = min; i <= max; i++) {
+	            if (0 === i) continue;
+	            toReturn.push(i);
+	        }
+	        return KhanMath.shuffle(toReturn, count);
+	    },
+	    // Get a random integer between min and max with a perc chance of hitting
+	    // target (which is assumed to be in the range, but it doesn't have to be).
+	    randRangeWeighted: function(min, max, target, perc) {
+	        return KhanUtil.random() < perc || target === min && target === max ? target : KhanMath.randRangeExclude(min, max, [ target ]);
+	    },
+	    // Get a random integer between min and max that is never any of the values
+	    // in the excludes array.
+	    randRangeExclude: function(min, max, excludes) {
+	        var result = void 0;
+	        do result = KhanMath.randRange(min, max); while (-1 !== _(excludes).indexOf(result));
+	        return result;
+	    },
+	    // Get a random integer between min and max with a perc chance of hitting
+	    // target (which is assumed to be in the range, but it doesn't have to be).
+	    // It never returns any of the values in the excludes array.
+	    randRangeWeightedExclude: function(min, max, target, perc, excludes) {
+	        var result = void 0;
+	        do result = KhanMath.randRangeWeighted(min, max, target, perc); while (-1 !== _(excludes).indexOf(result));
+	        return result;
+	    },
+	    // From limits_1
+	    randRangeNonZero: function(min, max) {
+	        return KhanMath.randRangeExclude(min, max, [ 0 ]);
+	    },
+	    // Returns a random member of the given array
+	    // If a count is passed, it gives an array of random members of the given
+	    // array
+	    randFromArray: function(arr, count) {
+	        return null == count ? arr[KhanMath.rand(arr.length)] : $.map(new Array(count), function() {
+	            return KhanMath.randFromArray(arr);
+	        });
+	    },
+	    // Returns a random member of the given array that is never any of the
+	    // values in the excludes array.
+	    randFromArrayExclude: function(arr, excludes) {
+	        var cleanArr = [];
+	        for (var i = 0; i < arr.length; i++) -1 === _(excludes).indexOf(arr[i]) && cleanArr.push(arr[i]);
+	        return KhanMath.randFromArray(cleanArr);
+	    },
+	    // Round a number to the nearest increment
+	    // E.g., if increment = 30 and num = 40, return 30. if increment = 30 and
+	    //     num = 45, return 60.
+	    roundToNearest: function(increment, num) {
+	        return Math.round(num / increment) * increment;
+	    },
+	    // Round a number to a certain number of decimal places
+	    roundTo: function(precision, num) {
+	        var factor = Math.pow(10, precision).toFixed(5);
+	        return Math.round((num * factor).toFixed(5)) / factor;
+	    },
+	    /**
+	     * Return a string of num rounded to a fixed precision decimal places,
+	     * with an approx symbol if num had to be rounded, and trailing 0s
+	     */
+	    toFixedApprox: function(num, precision) {
+	        // TODO(jack): Make this locale-dependent like
+	        // KhanUtil.localeToFixed
+	        var fixedStr = num.toFixed(precision);
+	        return knumber.equal(+fixedStr, num) ? fixedStr : "\\approx " + fixedStr;
+	    },
+	    /**
+	     * Return a string of num rounded to precision decimal places, with an
+	     * approx symbol if num had to be rounded, but no trailing 0s if it was
+	     * not rounded.
+	     */
+	    roundToApprox: function(num, precision) {
+	        var fixed = KhanMath.roundTo(precision, num);
+	        return knumber.equal(fixed, num) ? String(fixed) : KhanMath.toFixedApprox(num, precision);
+	    },
+	    floorTo: function(precision, num) {
+	        var factor = Math.pow(10, precision).toFixed(5);
+	        return Math.floor((num * factor).toFixed(5)) / factor;
+	    },
+	    ceilTo: function(precision, num) {
+	        var factor = Math.pow(10, precision).toFixed(5);
+	        return Math.ceil((num * factor).toFixed(5)) / factor;
+	    },
+	    // toFraction(4/8) => [1, 2]
+	    // toFraction(0.666) => [333, 500]
+	    // toFraction(0.666, 0.001) => [2, 3]
+	    //
+	    // tolerance can't be bigger than 1, sorry
+	    toFraction: function(decimal, tolerance) {
+	        null == tolerance && (tolerance = Math.pow(2, -46));
+	        if (decimal < 0 || decimal > 1) {
+	            var fract = decimal % 1;
+	            fract += fract < 0 ? 1 : 0;
+	            var nd = KhanMath.toFraction(fract, tolerance);
+	            nd[0] += Math.round(decimal - fract) * nd[1];
+	            return nd;
+	        }
+	        if (Math.abs(Math.round(Number(decimal)) - decimal) <= tolerance) return [ Math.round(decimal), 1 ];
+	        var loN = 0;
+	        var loD = 1;
+	        var hiN = 1;
+	        var hiD = 1;
+	        var midN = 1;
+	        var midD = 2;
+	        while (true) {
+	            // @Nolint(constant condition)
+	            if (Math.abs(Number(midN / midD) - decimal) <= tolerance) return [ midN, midD ];
+	            if (midN / midD < decimal) {
+	                loN = midN;
+	                loD = midD;
+	            } else {
+	                hiN = midN;
+	                hiD = midD;
+	            }
+	            midN = loN + hiN;
+	            midD = loD + hiD;
+	        }
+	    },
+	    // Returns the format (string) of a given numeric string
+	    // Note: purposively more inclusive than answer-types' predicate.forms
+	    // That is, it is not necessarily true that interpreted input are numeric
+	    getNumericFormat: function(text) {
+	        text = $.trim(text);
+	        text = text.replace(/\u2212/, "-").replace(/([+-])\s+/g, "$1");
+	        if (text.match(/^[+-]?\d+$/)) return "integer";
+	        if (text.match(/^[+-]?\d+\s+\d+\s*\/\s*\d+$/)) return "mixed";
+	        var fraction = text.match(/^[+-]?(\d+)\s*\/\s*(\d+)$/);
+	        return fraction ? parseFloat(fraction[1]) > parseFloat(fraction[2]) ? "improper" : "proper" : text.replace(/[,. ]/g, "").match(/^\d+$/) ? "decimal" : text.match(/(pi?|\u03c0|t(?:au)?|\u03c4|pau)/) ? "pi" : null;
+	    },
+	    // Returns a string of the number in a specified format
+	    toNumericString: function(number, format) {
+	        if (null == number) return "";
+	        if (0 === number) return "0";
+	        if ("percent" === format) return 100 * number + "%";
+	        if ("pi" === format) {
+	            var fraction = knumber.toFraction(number / Math.PI);
+	            var numerator = Math.abs(fraction[0]);
+	            var denominator = fraction[1];
+	            if (knumber.isInteger(numerator)) {
+	                var sign = number < 0 ? "-" : "";
+	                var pi = "π";
+	                return sign + (1 === numerator ? "" : numerator) + pi + (1 === denominator ? "" : "/" + denominator);
+	            }
+	        }
+	        if (_([ "proper", "improper", "mixed", "fraction" ]).contains(format)) {
+	            var fraction = knumber.toFraction(number);
+	            var numerator = Math.abs(fraction[0]);
+	            var denominator = fraction[1];
+	            var sign = number < 0 ? "-" : "";
+	            if (1 === denominator) return sign + numerator;
+	            if ("mixed" === format) {
+	                var modulus = numerator % denominator;
+	                var integer = (numerator - modulus) / denominator;
+	                return sign + (integer ? integer + " " : "") + modulus + "/" + denominator;
+	            }
+	            // otherwise proper, improper, or fraction
+	            return sign + numerator + "/" + denominator;
+	        }
+	        // otherwise (decimal, float, long long)
+	        return String(number);
+	    },
+	    // Shuffle an array using a Fischer-Yates shuffle
+	    // If count is passed, returns an random sublist of that size
+	    shuffle: function(array, count) {
+	        array = [].slice.call(array, 0);
+	        var beginning = "undefined" === typeof count || count > array.length ? 0 : array.length - count;
+	        for (var _top = array.length; _top > beginning; _top--) {
+	            var newEnd = Math.floor(KhanUtil.random() * _top);
+	            var tmp = array[newEnd];
+	            array[newEnd] = array[_top - 1];
+	            array[_top - 1] = tmp;
+	        }
+	        return array.slice(beginning);
+	    },
+	    sortNumbers: function(array) {
+	        return array.slice(0).sort(function(a, b) {
+	            return a - b;
+	        });
+	    },
+	    // From limits_1
+	    truncate_to_max: function(num, digits) {
+	        return parseFloat(num.toFixed(digits));
+	    },
+	    // Checks if a number or string representation thereof is an integer
+	    isInt: function(num) {
+	        return parseFloat(num) === parseInt(num, 10) && !isNaN(num);
+	    },
+	    /**
+	     * Add LaTeX color markup to a given value.
+	     */
+	    colorMarkup: function(val, color) {
+	        return "\\color{" + color + "}{" + val + "}";
+	    },
+	    /**
+	     * Like _.contains except using _.isEqual to verify if item is present.
+	     * (Works for lists of non-primitive values.)
+	     */
+	    contains: function(list, item) {
+	        return _.any(list, function(elem) {
+	            if (_.isEqual(item, elem)) return true;
+	            return false;
+	        });
+	    }
+	};
+
+	module.exports = KhanMath;
+
+/***/ },
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -19454,7 +20893,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(8);
 
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(108);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(114);
 
 	var USAGE = 'Usage:\n  this.change({propName: 5}, callback);\n  this.change("propName", 5, callback);\n  this.change("propName")';
 
@@ -19523,7 +20962,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Changeable;
 
 /***/ },
-/* 85 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -19533,7 +20972,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * just returns all the widget's props rather than picking out those which were
 	 * input by the user.
 	 */
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(108);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(114);
 
 	var WidgetJsonifyDeprecated = {
 	    getUserInput: function() {
@@ -19545,7 +20984,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WidgetJsonifyDeprecated;
 
 /***/ },
-/* 86 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -19559,7 +20998,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Plot = Graphie.Plot;
 
-	var kpoint = __webpack_require__(96).point;
+	var kpoint = __webpack_require__(100).point;
 
 	var DEFAULT_BOX_SIZE = 400;
 
@@ -20083,7 +21522,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 87 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20252,7 +21691,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = draw;
 
 /***/ },
-/* 88 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20561,7 +22000,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 89 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -20802,7 +22241,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 90 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -20810,7 +22249,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(9);
 
-	var SimpleMarkdown = __webpack_require__(98);
+	var SimpleMarkdown = __webpack_require__(101);
 
 	var _ = __webpack_require__(8);
 
@@ -21103,7 +22542,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 91 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* global i18n */
@@ -21117,7 +22556,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Util = __webpack_require__(16);
 
-	var BaseRadio = __webpack_require__(109);
+	var BaseRadio = __webpack_require__(115);
 
 	var Radio = React.createClass({
 	    displayName: "Radio",
@@ -21301,13 +22740,358 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Radio;
 
 /***/ },
-/* 92 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_92__;
+	/**
+	 * Component to display an image (or other React components) while the desired
+	 * image is loading.
+	 *
+	 * Derived from
+	 * https://github.com/hzdg/react-imageloader/blob/master/src/index.js
+	 * to better suit our environment/build tools. Additionally, this one does
+	 * not introduce a wrapper element, which makes styling easier.
+	 */
+	var React = __webpack_require__(9);
+
+	var PropTypes = React.PropTypes;
+
+	var Status = {
+	    PENDING: "pending",
+	    LOADING: "loading",
+	    LOADED: "loaded",
+	    FAILED: "failed"
+	};
+
+	var ImageLoader = React.createClass({
+	    displayName: "ImageLoader",
+	    propTypes: {
+	        children: React.PropTypes.oneOfType([ React.PropTypes.arrayOf(React.PropTypes.node), React.PropTypes.node ]),
+	        imgProps: PropTypes.any,
+	        onError: PropTypes.func,
+	        onLoad: PropTypes.func,
+	        // When the DOM updates to replace the preloader with the image, or
+	        // vice-versa, we trigger this callback.
+	        onUpdate: PropTypes.func,
+	        preloader: PropTypes.func,
+	        src: PropTypes.string
+	    },
+	    getInitialState: function(props) {
+	        return {
+	            status: this.props.src ? Status.LOADING : Status.PENDING
+	        };
+	    },
+	    componentDidMount: function() {
+	        this.state.status === Status.LOADING && this.createLoader();
+	    },
+	    componentWillReceiveProps: function(nextProps) {
+	        this.props.src !== nextProps.src && this.setState({
+	            status: nextProps.src ? Status.LOADING : Status.PENDING
+	        });
+	    },
+	    componentDidUpdate: function(prevProps, prevState) {
+	        this.state.status !== Status.LOADING || this.img || this.createLoader();
+	        prevState.status !== this.state.status && this.props.onUpdate();
+	    },
+	    componentWillUnmount: function() {
+	        this.destroyLoader();
+	    },
+	    createLoader: function() {
+	        this.destroyLoader();
+	        // We can only have one loader at a time.
+	        this.img = new Image();
+	        this.img.onload = this.handleLoad;
+	        this.img.onerror = this.handleError;
+	        this.img.src = this.props.src;
+	    },
+	    destroyLoader: function() {
+	        if (this.img) {
+	            this.img.onload = null;
+	            this.img.onerror = null;
+	            this.img = null;
+	        }
+	    },
+	    handleLoad: function(event) {
+	        this.destroyLoader();
+	        this.setState({
+	            status: Status.LOADED
+	        });
+	        this.props.onLoad && this.props.onLoad(event);
+	    },
+	    handleError: function(error) {
+	        this.destroyLoader();
+	        this.setState({
+	            status: Status.FAILED
+	        });
+	        this.props.onError && this.props.onError(error);
+	    },
+	    renderImg: function() {
+	        var _props = this.props;
+	        var src = _props.src;
+	        var imgProps = _props.imgProps;
+	        var props = {
+	            src: src
+	        };
+	        for (var k in imgProps) imgProps.hasOwnProperty(k) && (props[k] = imgProps[k]);
+	        return React.createElement("img", props);
+	    },
+	    render: function() {
+	        switch (this.state.status) {
+	          case Status.LOADED:
+	            return this.renderImg();
+
+	          case Status.FAILED:
+	            if (this.props.children) return this.props.children;
+	            break;
+
+	          default:
+	            if (this.props.preloader) return this.props.preloader();
+	        }
+	        return null;
+	    }
+	});
+
+	module.exports = ImageLoader;
 
 /***/ },
-/* 93 */
+/* 95 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, max-len, no-var, space-before-function-paren */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	// Derived from the MIT-licensed:
+	// https://github.com/fat/zoom.js/blob/fd4f3e43153da7596da0bade198e99f98b47791e/js/zoom.js
+	// NOTE(kevindangoor)
+	// This version zooms a new, absolutely positioned image element rather than
+	// scaling the original image element within a new container. The problem that
+	// I ran into was that we had a grandparent node with a z-index
+	// which caused the zoomed image to end up behind the overlay. We sidestep all
+	// of that by simplifying to just use a new image element.
+	/*global $*/
+	/*jshint browser:true, node:true */
+	"use strict";
+
+	/* ========================================================================
+	 * Bootstrap: transition.js v3.3.4
+	 * http://getbootstrap.com/javascript/#transitions
+	 * ========================================================================
+	 * Copyright 2011-2015 Twitter, Inc.
+	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+	 * ======================================================================== */
+	// CSS TRANSITION SUPPORT (Shoutout: http://www.modernizr.com/)
+	// ============================================================
+	function transitionEnd() {
+	    var el = document.createElement("bootstrap");
+	    var transEndEventNames = {
+	        WebkitTransition: "webkitTransitionEnd",
+	        MozTransition: "transitionend",
+	        OTransition: "oTransitionEnd otransitionend",
+	        transition: "transitionend"
+	    };
+	    for (var name in transEndEventNames) if (void 0 !== el.style[name]) return {
+	        end: transEndEventNames[name]
+	    };
+	    return false;
+	}
+
+	// http://blog.alexmaccaw.com/css-transitions
+	$.fn.emulateTransitionEnd = function(duration) {
+	    var called = false;
+	    var $el = this;
+	    $(this).one("bsTransitionEnd", function() {
+	        called = true;
+	    });
+	    var callback = function() {
+	        called || $($el).trigger($.support.transition.end);
+	    };
+	    setTimeout(callback, duration);
+	    return this;
+	};
+
+	$(function() {
+	    $.support.transition = transitionEnd();
+	    if (!$.support.transition) return;
+	    $.event.special.bsTransitionEnd = {
+	        bindType: $.support.transition.end,
+	        delegateType: $.support.transition.end,
+	        handle: function(e) {
+	            if ($(e.target).is(this)) return e.handleObj.handler.apply(this, arguments);
+	        }
+	    };
+	});
+
+	/**
+	 * The zoom service
+	 */
+	function ZoomService() {}
+
+	ZoomService.prototype._initialize = function() {
+	    // Check to see if the service is already initialized
+	    if (this._$document) return;
+	    this._activeZoom = this._initialScrollPosition = this._initialTouchPosition = this._touchMoveListener = null;
+	    this._$document = $(document);
+	    this._$window = $(window);
+	    this._$body = $(document.body);
+	    this._boundClick = $.proxy(this._clickHandler, this);
+	};
+
+	ZoomService.prototype.handleZoomClick = function(e) {
+	    this._initialize();
+	    var target = e.target;
+	    if (!target || "IMG" !== target.tagName) return;
+	    if (this._$body.hasClass("zoom-overlay-open")) return;
+	    if (e.metaKey || e.ctrlKey) return window.open(e.target.src, "_blank");
+	    if (target.width >= window.innerWidth - Zoom.OFFSET) return;
+	    this._activeZoomClose(true);
+	    this._activeZoom = new Zoom(target);
+	    this._activeZoom.zoomImage();
+	    // todo(fat): probably worth throttling this
+	    this._$window.on("scroll.zoom", $.proxy(this._scrollHandler, this));
+	    this._$document.on("keyup.zoom", $.proxy(this._keyHandler, this));
+	    this._$document.on("touchstart.zoom", $.proxy(this._touchStart, this));
+	    // we use a capturing phase here to prevent unintended js events
+	    // sadly no useCapture in jquery api (http://bugs.jquery.com/ticket/14953)
+	    document.addEventListener("click", this._boundClick, true);
+	    e.stopPropagation();
+	};
+
+	ZoomService.prototype._activeZoomClose = function(forceDispose) {
+	    if (!this._activeZoom) return;
+	    forceDispose ? this._activeZoom.dispose() : this._activeZoom.close();
+	    this._$window.off(".zoom");
+	    this._$document.off(".zoom");
+	    document.removeEventListener("click", this._boundClick, true);
+	    this._activeZoom = null;
+	};
+
+	ZoomService.prototype._scrollHandler = function(e) {
+	    null === this._initialScrollPosition && (this._initialScrollPosition = window.scrollY);
+	    var deltaY = this._initialScrollPosition - window.scrollY;
+	    Math.abs(deltaY) >= 40 && this._activeZoomClose();
+	};
+
+	ZoomService.prototype._keyHandler = function(e) {
+	    27 === e.keyCode && this._activeZoomClose();
+	};
+
+	ZoomService.prototype._clickHandler = function(e) {
+	    e.stopPropagation();
+	    e.preventDefault();
+	    this._activeZoomClose();
+	};
+
+	ZoomService.prototype._touchStart = function(e) {
+	    // Our jQuery doesn't include `touches` in its event
+	    // TODO(kevindangoor) Remove `originalEvent` once jQuery is updated
+	    this._initialTouchPosition = e.originalEvent.touches[0].pageY;
+	    $(e.target).on("touchmove.zoom", $.proxy(this._touchMove, this));
+	};
+
+	ZoomService.prototype._touchMove = function(e) {
+	    // Our jQuery doesn't include `touches` in its event
+	    // TODO(kevindangoor) Remove `originalEvent` once jQuery is updated
+	    if (Math.abs(e.originalEvent.touches[0].pageY - this._initialTouchPosition) > 10) {
+	        this._activeZoomClose();
+	        $(e.target).off("touchmove.zoom");
+	    }
+	};
+
+	/**
+	 * The zoom object
+	 */
+	function Zoom(img) {
+	    this._fullHeight = this._fullWidth = this._overlay = null;
+	    this._targetImage = img;
+	    this._$body = $(document.body);
+	}
+
+	Zoom.OFFSET = 80;
+
+	Zoom._MAX_WIDTH = 2560;
+
+	Zoom._MAX_HEIGHT = 4096;
+
+	Zoom.prototype.zoomImage = function() {
+	    var img = document.createElement("img");
+	    var $zoomedImage = $(img);
+	    img.onload = function() {
+	        // Load the image without specifying height and width so that we can find
+	        // the true height and width.
+	        this._fullHeight = Number(img.height);
+	        this._fullWidth = Number(img.width);
+	        // Set up our image to mirror the current image
+	        img.height = this._targetImage.height;
+	        img.width = this._targetImage.width;
+	        var imageOffset = this._imageOffset = $(this._targetImage).offset();
+	        $zoomedImage.css("position", "absolute").css("top", imageOffset.top + "px").css("left", imageOffset.left + "px");
+	        this._zoomOriginal();
+	    }.bind(this);
+	    img.src = this._targetImage.src;
+	    this.$zoomedImage = $zoomedImage;
+	};
+
+	Zoom.prototype._zoomOriginal = function() {
+	    this.$zoomedImage.addClass("zoom-img").attr("data-action", "zoom-out");
+	    $(this._targetImage).css("visibility", "hidden");
+	    this._overlay = document.createElement("div");
+	    this._overlay.className = "zoom-overlay";
+	    document.body.appendChild(this._overlay);
+	    document.body.appendChild(this.$zoomedImage[0]);
+	    this._calculateZoom();
+	    this._triggerAnimation();
+	};
+
+	Zoom.prototype._calculateZoom = function() {
+	    var originalFullImageWidth = this._fullWidth;
+	    var originalFullImageHeight = this._fullHeight;
+	    var maxScaleFactor = originalFullImageWidth / this._targetImage.width;
+	    var viewportHeight = window.innerHeight - Zoom.OFFSET;
+	    var viewportWidth = window.innerWidth - Zoom.OFFSET;
+	    var imageAspectRatio = originalFullImageWidth / originalFullImageHeight;
+	    var viewportAspectRatio = viewportWidth / viewportHeight;
+	    originalFullImageWidth < viewportWidth && originalFullImageHeight < viewportHeight ? this._imgScaleFactor = maxScaleFactor : imageAspectRatio < viewportAspectRatio ? this._imgScaleFactor = viewportHeight / originalFullImageHeight * maxScaleFactor : this._imgScaleFactor = viewportWidth / originalFullImageWidth * maxScaleFactor;
+	};
+
+	Zoom.prototype._triggerAnimation = function() {
+	    var scrollTop = $(window).scrollTop();
+	    var viewportY = scrollTop + window.innerHeight / 2;
+	    var viewportX = window.innerWidth / 2;
+	    var scaleFactor = this._imgScaleFactor;
+	    var imageCenterY = this._imageOffset.top + this._targetImage.height / 2;
+	    var imageCenterX = this._imageOffset.left + this._targetImage.width / 2;
+	    this._translateY = (viewportY - imageCenterY) / scaleFactor;
+	    this._translateX = (viewportX - imageCenterX) / scaleFactor;
+	    this.$zoomedImage.css("transform", "scale(" + this._imgScaleFactor + ") translate(" + this._translateX + "px, " + this._translateY + "px) translateZ(0)");
+	    this._$body.addClass("zoom-overlay-open");
+	};
+
+	Zoom.prototype.close = function() {
+	    this._$body.removeClass("zoom-overlay-open").addClass("zoom-overlay-transitioning");
+	    this.$zoomedImage.css("transform", "");
+	    this.$zoomedImage.one($.support.transition.end, $.proxy(this.dispose, this)).emulateTransitionEnd(300);
+	};
+
+	Zoom.prototype.dispose = function() {
+	    if (this.$zoomedImage && this.$zoomedImage[0].parentNode) {
+	        this.$zoomedImage.remove();
+	        this.$zoomedImage = null;
+	        this._overlay.parentNode.removeChild(this._overlay);
+	        this._$body.removeClass("zoom-overlay-transitioning");
+	    }
+	    $(this._targetImage).css("visibility", "visible");
+	};
+
+	exports.ZoomService = new ZoomService();
+
+/***/ },
+/* 96 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_96__;
+
+/***/ },
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
@@ -21679,7 +23463,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	} : this.katexA11yRender = render;
 
 /***/ },
-/* 94 */
+/* 98 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_98__;
+
+/***/ },
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO batch *all* mutations
@@ -21687,14 +23477,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * lens constructor thaws, freeze delegates to type's freeze
 	 */
 
-	var util = __webpack_require__(110);
+	var util = __webpack_require__(123);
 	    var clone = util.clone;
 	    var isObject = util.isObject;
 	    var merge = util.merge;
 
-	var arr = __webpack_require__(111);
-	var obj = __webpack_require__(112);
-	var str = __webpack_require__(113);
+	var arr = __webpack_require__(124);
+	var obj = __webpack_require__(125);
+	var str = __webpack_require__(126);
 
 	// equivalents, without requiring it
 	// find the implementation to use for a given object
@@ -21821,147 +23611,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 95 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_95__;
-
-/***/ },
-/* 96 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
-	    number: __webpack_require__(114),
-	    vector: __webpack_require__(115),
-	    point: __webpack_require__(116),
-	    line: __webpack_require__(117),
-	    ray: __webpack_require__(118),
+	    number: __webpack_require__(118),
+	    vector: __webpack_require__(119),
+	    point: __webpack_require__(120),
+	    line: __webpack_require__(121),
+	    ray: __webpack_require__(122),
 	};
 
 
 /***/ },
-/* 97 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-redeclare, no-trailing-spaces, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(9);
-
-	var ReactDOM = __webpack_require__(10);
-
-	var _ = __webpack_require__(8);
-
-	var textWidthCache = {};
-
-	function getTextWidth(text) {
-	    if (!textWidthCache[text]) {
-	        // Hacky way to guess the width of an input box
-	        var $test = $("<span>").text(text).appendTo("body");
-	        textWidthCache[text] = $test.width() + 5;
-	        $test.remove();
-	    }
-	    return textWidthCache[text];
-	}
-
-	var TextListEditor = React.createClass({
-	    displayName: "TextListEditor",
-	    propTypes: {
-	        options: React.PropTypes.array,
-	        layout: React.PropTypes.string,
-	        onChange: React.PropTypes.func.isRequired
-	    },
-	    getDefaultProps: function() {
-	        return {
-	            options: [],
-	            layout: "horizontal"
-	        };
-	    },
-	    getInitialState: function() {
-	        return {
-	            items: this.props.options.concat("")
-	        };
-	    },
-	    componentWillReceiveProps: function(nextProps) {
-	        this.setState({
-	            items: nextProps.options.concat("")
-	        });
-	    },
-	    render: function() {
-	        var className = [ "perseus-text-list-editor", "ui-helper-clearfix", "layout-" + this.props.layout ].join(" ");
-	        var inputs = _.map(this.state.items, function(item, i) {
-	            return React.createElement("li", {
-	                key: i
-	            }, React.createElement("input", {
-	                ref: "input_" + i,
-	                type: "text",
-	                value: item,
-	                onChange: this.onChange.bind(this, i),
-	                onKeyDown: this.onKeyDown.bind(this, i),
-	                style: {
-	                    width: getTextWidth(item)
-	                }
-	            }));
-	        }, this);
-	        return React.createElement("ul", {
-	            className: className
-	        }, inputs);
-	    },
-	    onChange: function(index, event) {
-	        var items = _.clone(this.state.items);
-	        items[index] = event.target.value;
-	        index === items.length - 1 && (items = items.concat(""));
-	        this.setState({
-	            items: items
-	        });
-	        this.props.onChange(_.compact(items));
-	    },
-	    onKeyDown: function(index, event) {
-	        var which = event.nativeEvent.keyCode;
-	        // Backspace deletes an empty input...
-	        if (8 === which && "" === this.state.items[index]) {
-	            event.preventDefault();
-	            var items = _.clone(this.state.items);
-	            var focusIndex = 0 === index ? 0 : index - 1;
-	            if (index !== items.length - 1 || 0 !== index && "" === items[focusIndex]) {
-	                items.splice(index, 1);
-	                this.setState({
-	                    items: items
-	                }, function() {
-	                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
-	                });
-	            } else // ...except for the last one, iff it is the only empty
-	            // input at the end.
-	            ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
-	        } else if (8 === which && 1 === this.state.items[index].length && index === this.state.items.length - 2) {
-	            event.preventDefault();
-	            var items = _.clone(this.state.items);
-	            items.splice(index, 1);
-	            this.setState({
-	                items: items
-	            });
-	            this.props.onChange(_.compact(items));
-	        } else if (13 === which) {
-	            event.preventDefault();
-	            var items = _.clone(this.state.items);
-	            var focusIndex = index + 1;
-	            if (index === items.length - 2) // ...unless the empty input is just below.
-	            ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus(); else {
-	                items.splice(focusIndex, 0, "");
-	                this.setState({
-	                    items: items
-	                }, function() {
-	                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
-	                });
-	            }
-	        }
-	    }
-	});
-
-	module.exports = TextListEditor;
-
-/***/ },
-/* 98 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/* @flow */
@@ -23343,7 +25006,128 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 99 */
+/* 102 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, max-len, no-redeclare, no-trailing-spaces, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	var React = __webpack_require__(9);
+
+	var ReactDOM = __webpack_require__(10);
+
+	var _ = __webpack_require__(8);
+
+	var textWidthCache = {};
+
+	function getTextWidth(text) {
+	    if (!textWidthCache[text]) {
+	        // Hacky way to guess the width of an input box
+	        var $test = $("<span>").text(text).appendTo("body");
+	        textWidthCache[text] = $test.width() + 5;
+	        $test.remove();
+	    }
+	    return textWidthCache[text];
+	}
+
+	var TextListEditor = React.createClass({
+	    displayName: "TextListEditor",
+	    propTypes: {
+	        options: React.PropTypes.array,
+	        layout: React.PropTypes.string,
+	        onChange: React.PropTypes.func.isRequired
+	    },
+	    getDefaultProps: function() {
+	        return {
+	            options: [],
+	            layout: "horizontal"
+	        };
+	    },
+	    getInitialState: function() {
+	        return {
+	            items: this.props.options.concat("")
+	        };
+	    },
+	    componentWillReceiveProps: function(nextProps) {
+	        this.setState({
+	            items: nextProps.options.concat("")
+	        });
+	    },
+	    render: function() {
+	        var className = [ "perseus-text-list-editor", "ui-helper-clearfix", "layout-" + this.props.layout ].join(" ");
+	        var inputs = _.map(this.state.items, function(item, i) {
+	            return React.createElement("li", {
+	                key: i
+	            }, React.createElement("input", {
+	                ref: "input_" + i,
+	                type: "text",
+	                value: item,
+	                onChange: this.onChange.bind(this, i),
+	                onKeyDown: this.onKeyDown.bind(this, i),
+	                style: {
+	                    width: getTextWidth(item)
+	                }
+	            }));
+	        }, this);
+	        return React.createElement("ul", {
+	            className: className
+	        }, inputs);
+	    },
+	    onChange: function(index, event) {
+	        var items = _.clone(this.state.items);
+	        items[index] = event.target.value;
+	        index === items.length - 1 && (items = items.concat(""));
+	        this.setState({
+	            items: items
+	        });
+	        this.props.onChange(_.compact(items));
+	    },
+	    onKeyDown: function(index, event) {
+	        var which = event.nativeEvent.keyCode;
+	        // Backspace deletes an empty input...
+	        if (8 === which && "" === this.state.items[index]) {
+	            event.preventDefault();
+	            var items = _.clone(this.state.items);
+	            var focusIndex = 0 === index ? 0 : index - 1;
+	            if (index !== items.length - 1 || 0 !== index && "" === items[focusIndex]) {
+	                items.splice(index, 1);
+	                this.setState({
+	                    items: items
+	                }, function() {
+	                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+	                });
+	            } else // ...except for the last one, iff it is the only empty
+	            // input at the end.
+	            ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+	        } else if (8 === which && 1 === this.state.items[index].length && index === this.state.items.length - 2) {
+	            event.preventDefault();
+	            var items = _.clone(this.state.items);
+	            items.splice(index, 1);
+	            this.setState({
+	                items: items
+	            });
+	            this.props.onChange(_.compact(items));
+	        } else if (13 === which) {
+	            event.preventDefault();
+	            var items = _.clone(this.state.items);
+	            var focusIndex = index + 1;
+	            if (index === items.length - 2) // ...unless the empty input is just below.
+	            ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus(); else {
+	                items.splice(focusIndex, 0, "");
+	                this.setState({
+	                    items: items
+	                }, function() {
+	                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+	                });
+	            }
+	        }
+	    }
+	});
+
+	module.exports = TextListEditor;
+
+/***/ },
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -23362,13 +25146,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(8);
 
-	var InteractiveUtil = __webpack_require__(76);
+	var InteractiveUtil = __webpack_require__(78);
 
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
 	var assert = InteractiveUtil.assert;
 
-	var kpoint = __webpack_require__(96).point;
+	var kpoint = __webpack_require__(100).point;
 
 	// state parameters that should be converted into an array of
 	// functions
@@ -23544,7 +25328,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Movable;
 
 /***/ },
-/* 100 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -23603,11 +25387,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(8);
 
-	var MovablePointOptions = __webpack_require__(121);
+	var MovablePointOptions = __webpack_require__(127);
 
-	var WrappedEllipse = __webpack_require__(122);
+	var WrappedEllipse = __webpack_require__(128);
 
-	var InteractiveUtil = __webpack_require__(76);
+	var InteractiveUtil = __webpack_require__(78);
 
 	var objective_ = __webpack_require__(59);
 
@@ -23615,7 +25399,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
-	var kpoint = __webpack_require__(96).point;
+	var kpoint = __webpack_require__(100).point;
+
+	var KhanColors = __webpack_require__(83);
 
 	// State parameters that should be converted into an array of
 	// functions
@@ -23703,15 +25489,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // We use _.extend instead of _.defaults because we don't want
 	        // to modify the passed-in copy (especially if it's from
 	        // DEFAULT_PROPS/STATE!)
-	        var normalColor = state["static"] ? KhanUtil.DYNAMIC : KhanUtil.INTERACTIVE;
+	        var normalColor = state["static"] ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
 	        state.normalStyle = _.extend({
 	            fill: normalColor,
 	            stroke: normalColor,
 	            scale: 1
 	        }, state.normalStyle);
 	        state.highlightStyle = _.extend({
-	            fill: KhanUtil.INTERACTING,
-	            stroke: KhanUtil.INTERACTING,
+	            fill: KhanColors.INTERACTING,
+	            stroke: KhanColors.INTERACTING,
 	            scale: 2
 	        }, state.highlightStyle);
 	        if (!state["static"] && !state.mouseTarget) {
@@ -23846,7 +25632,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MovablePoint;
 
 /***/ },
-/* 101 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -23857,11 +25643,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(8);
 
-	var MovableLineOptions = __webpack_require__(119);
+	var MovableLineOptions = __webpack_require__(130);
 
-	var WrappedLine = __webpack_require__(120);
+	var WrappedLine = __webpack_require__(131);
 
-	var InteractiveUtil = __webpack_require__(76);
+	var InteractiveUtil = __webpack_require__(78);
 
 	var objective_ = __webpack_require__(59);
 
@@ -23869,7 +25655,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
-	var kvector = __webpack_require__(96).vector;
+	var kvector = __webpack_require__(100).vector;
+
+	var KhanColors = __webpack_require__(83);
 
 	var FUNCTION_ARRAY_OPTIONS = [ "add", "draw", "remove", "onMoveStart", "constraints", "onMove", "onMoveEnd" ];
 
@@ -23958,13 +25746,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // We use _.extend instead of _.defaults because we don't want
 	        // to modify the passed-in copy (especially if it's from
 	        // DEFAULT_PROPERTIES!)
-	        var normalColor = state["static"] ? KhanUtil.DYNAMIC : KhanUtil.INTERACTIVE;
+	        var normalColor = state["static"] ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
 	        state.normalStyle = _.extend({
 	            stroke: normalColor,
 	            "stroke-width": 2
 	        }, state.normalStyle);
 	        state.highlightStyle = _.extend({
-	            stroke: KhanUtil.INTERACTING,
+	            stroke: KhanColors.INTERACTING,
 	            "stroke-width": 3
 	        }, state.highlightStyle);
 	        if (!state["static"] && !state.mouseTarget) {
@@ -24072,7 +25860,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MovableLine;
 
 /***/ },
-/* 102 */
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -24082,19 +25870,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Creates and adds a polygon to the graph that can be dragged around.
 	 * It allows constraints on its movement and draws when moves happen.
 	 */
-	var kvector = __webpack_require__(96).vector;
+	var kvector = __webpack_require__(100).vector;
 
 	var _ = __webpack_require__(8);
 
-	var MovablePolygonOptions = __webpack_require__(123);
+	var MovablePolygonOptions = __webpack_require__(129);
 
-	var InteractiveUtil = __webpack_require__(76);
+	var InteractiveUtil = __webpack_require__(78);
 
 	var objective_ = __webpack_require__(59);
 
 	var assert = InteractiveUtil.assert;
 
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
+
+	var KhanColors = __webpack_require__(83);
+
+	var GraphUtils = __webpack_require__(84);
 
 	// State parameters that should be converted into an array of
 	// functions
@@ -24192,7 +25984,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // We use _.extend instead of _.defaults because we don't want
 	        // to modify the passed-in copy (especially if it's from
 	        // DEFAULT_PROPS/STATE!)
-	        var normalColor = state["static"] ? KhanUtil.DYNAMIC : KhanUtil.INTERACTIVE;
+	        var normalColor = state["static"] ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
 	        state.normalStyle = _.extend({}, state.normalStyle, {
 	            "stroke-width": 2,
 	            "fill-opacity": 0,
@@ -24200,15 +25992,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	            stroke: normalColor
 	        }, options.normalStyle);
 	        state.highlightStyle = _.extend({}, {
-	            stroke: KhanUtil.INTERACTING,
+	            stroke: KhanColors.INTERACTING,
 	            "stroke-width": 2,
-	            fill: KhanUtil.INTERACTING,
+	            fill: KhanColors.INTERACTING,
 	            "fill-opacity": .05
 	        }, state.highlightStyle);
 	        state.labelStyle = _.extend({}, {
-	            stroke: KhanUtil.DYNAMIC,
+	            stroke: KhanColors.DYNAMIC,
 	            "stroke-width": 1,
-	            color: KhanUtil.DYNAMIC
+	            color: KhanColors.DYNAMIC
 	        }, state.labelStyle);
 	        if (!state["static"] && !state.mouseTarget) {
 	            state.mouseTarget = graphie.mouselayer.path(this.path());
@@ -24271,7 +26063,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // otherwise be clickable (even if the closing line segment
 	        // wasn't drawn
 	        coords = coords.concat(_.clone(coords).reverse());
-	        return KhanUtil.unscaledSvgPath(coords);
+	        return GraphUtils.unscaledSvgPath(coords);
 	    },
 	    coords: function() {
 	        return _.invoke(this.state.points, "coord");
@@ -24334,7 +26126,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MovablePolygon;
 
 /***/ },
-/* 103 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
@@ -24377,7 +26169,4312 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 104 */
+/* 108 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	var React = __webpack_require__(9);
+
+	var RCSS = __webpack_require__(98);
+
+	var _ = __webpack_require__(8);
+
+	var colors = {
+	    grayLight: "#aaa",
+	    basicBorderColor: "#ccc",
+	    white: "#fff"
+	};
+
+	var infoTip = {
+	    display: "inline-block",
+	    marginLeft: "5px",
+	    position: "relative"
+	};
+
+	var infoTipI = {
+	    cursor: "pointer"
+	};
+
+	var infoTipContainer = {
+	    position: "absolute",
+	    top: "-12px",
+	    left: "22px",
+	    zIndex: "1000"
+	};
+
+	var triangleBeforeAfter = {
+	    borderBottom: "9px solid transparent",
+	    borderTop: "9px solid transparent",
+	    content: " ",
+	    height: "0",
+	    position: "absolute",
+	    top: "0",
+	    width: "0"
+	};
+
+	var infoTipTriangle = {
+	    height: "10px",
+	    left: "0",
+	    position: "absolute",
+	    top: "8px",
+	    width: "0",
+	    zIndex: "1",
+	    ":before": _.extend({}, triangleBeforeAfter, {
+	        borderRight: "9px solid #bbb",
+	        right: "0"
+	    }),
+	    ":after": _.extend({}, triangleBeforeAfter, {
+	        borderRight: "9px solid " + colors.white,
+	        right: "-1px"
+	    })
+	};
+
+	var basicBorder = {
+	    border: "1px solid " + colors.basicBorderColor
+	};
+
+	var boxShadow = function(str) {
+	    return {
+	        boxShadow: str
+	    };
+	};
+
+	var verticalShadow = RCSS.merge(basicBorder, boxShadow("0 1px 3px " + colors.basicBorderColor), {
+	    borderBottom: "1px solid " + colors.grayLight
+	});
+
+	var infoTipContentContainer = RCSS.merge(verticalShadow, {
+	    background: colors.white,
+	    padding: "5px 10px",
+	    width: "240px"
+	});
+
+	RCSS.createClass(infoTip);
+
+	RCSS.createClass(infoTipI);
+
+	RCSS.createClass(infoTipTriangle);
+
+	RCSS.createClass(verticalShadow);
+
+	RCSS.createClass(infoTipContainer);
+
+	RCSS.createClass(infoTipContentContainer);
+
+	var questionMark = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo2N2M3NTAxYS04YmVlLTQ0M2MtYmRiNS04OGM2N2IxN2NhYzEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUJCRTk4Qjc4NjAwMTFFMzg3QUJDNEI4Mzk2QTRGQkQiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUJCRTk4QjY4NjAwMTFFMzg3QUJDNEI4Mzk2QTRGQkQiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NGE5ZDI0OTMtODk1NC00OGFkLTlhMTgtZDAwM2MwYWNjNDJlIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjY3Yzc1MDFhLThiZWUtNDQzYy1iZGI1LTg4YzY3YjE3Y2FjMSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pqm89uYAAADMSURBVHjaXJA9DoJAEIUH1M4TUHIFsCMGen9OwCGw1YRGW2ntKel0exsojHIBC0ouQAyUviFDstmXfNmZeS+zm7XSNCXRFiRgJf0bXIHixpbhGdxBBJYC1w/xaA424MhNEATkui71fU9KqfEU78UbD9PdbJRlOdae55GmhIP+1NV1TcMwkOM41DSNHvRtMhTHMRVFQW3b6mOLgx99kue5GRp/gIOZuZGvNpTNwjD8oliANU+qqqKu6/TQBdymN57AHjzBT+B6Jx79BRgAvc49kQA4yxgAAAAASUVORK5CYII=";
+
+	// @NoLint
+	var InfoTip = React.createClass({
+	    displayName: "InfoTip",
+	    getInitialState: function() {
+	        return {
+	            hover: false
+	        };
+	    },
+	    render: function() {
+	        return React.createElement("div", {
+	            className: infoTip.className
+	        }, React.createElement("img", {
+	            width: 10,
+	            height: 10,
+	            src: questionMark,
+	            onMouseEnter: this.handleMouseEnter,
+	            onMouseLeave: this.handleMouseLeave
+	        }), React.createElement("div", {
+	            className: infoTipContainer.className,
+	            style: {
+	                display: this.state.hover ? "block" : "none"
+	            }
+	        }, React.createElement("div", {
+	            className: infoTipTriangle.className
+	        }), React.createElement("div", {
+	            className: infoTipContentContainer.className
+	        }, this.props.children)));
+	    },
+	    handleMouseEnter: function() {
+	        this.setState({
+	            hover: true
+	        });
+	    },
+	    handleMouseLeave: function() {
+	        this.setState({
+	            hover: false
+	        });
+	    }
+	});
+
+	module.exports = InfoTip;
+
+/***/ },
+/* 109 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	/**
+	 * MovableThing convenience methods
+	 *
+	 * Usually added to a Movable* class through
+	 * InteractiveUtils.addMovableHelperMethodsTo(), but these implementations
+	 * are simply for convenience.
+	 */
+	var _ = __webpack_require__(8);
+
+	var kpoint = __webpack_require__(100).point;
+
+	/* Local helper methods. */
+	function getKey(eventName, id) {
+	    return eventName + ":" + id;
+	}
+
+	function getEventName(key) {
+	    return key.split(":")[0];
+	}
+
+	var MovableHelperMethods = {
+	    /**
+	     * Fire an onSomething type event to all functions in listeners
+	     */
+	    _fireEvent: function(listeners, currentValue, previousValue) {
+	        _.invoke(listeners, "call", this, currentValue, previousValue);
+	    },
+	    /**
+	     * Combine the array of constraints functions
+	     * Returns either an [x, y] coordinate or false
+	     */
+	    _applyConstraints: function(current, previous) {
+	        return _.reduce(this.state.constraints, function(memo, constraint) {
+	            // A move that has been cancelled won't be propagated to later
+	            // constraints calls
+	            if (false === memo) return false;
+	            var result = constraint.call(this, memo, previous);
+	            if (false === result) // Returning false cancels the move
+	            return false;
+	            if (kpoint.is(result, 2)) // Returning a coord from constraints overrides the move
+	            return result;
+	            if (true === result || null == result) // Returning true or undefined allow the move to occur
+	            return memo;
+	            // Anything else is an error
+	            throw new Error("Constraint returned invalid result: " + result);
+	        }, current, this);
+	    },
+	    /**
+	     * Call all draw functions, and update our prevState for the next
+	     * draw function
+	     */
+	    draw: function() {
+	        var currState = this.cloneState();
+	        MovableHelperMethods._fireEvent.call(this, this.state.draw, currState, this.prevState);
+	        this.prevState = currState;
+	    },
+	    /**
+	     * Add a listener to any event: startMove, constraints, onMove, onMoveEnd,
+	     * etc. If a listener is already bound to the given eventName and id, then
+	     * it is overwritten by func.
+	     *
+	     * eventName: the string name of the event to listen to. one of:
+	     *   "onMoveStart", "onMove", "onMoveEnd", "draw", "remove"
+	     *
+	     * id: a string id that can be used to remove this event at a later time
+	     *   note: adding multiple listeners with the same id is undefined behavior
+	     *
+	     * func: the function to call when the event happens, which is called
+	     *   with the event's standard parameters [usually (coord, prevCoord) or
+	     *   (state, prevState)]
+	     */
+	    listen: function(eventName, id, func) {
+	        this._listenerMap = this._listenerMap || {};
+	        // If there's an existing handler, replace it by using its index in
+	        // `this.state[eventName]`; otherwise, add this handler to the end
+	        var key = getKey(eventName, id);
+	        var index = this._listenerMap[key] = this._listenerMap[key] || this.state[eventName].length;
+	        this.state[eventName][index] = func;
+	    },
+	    /**
+	     * Remove a previously added listener, by the id specified in the
+	     * corresponding listen() call
+	     *
+	     * If the given id has not been registered already, this is a no-op
+	     */
+	    unlisten: function(eventName, id) {
+	        this._listenerMap = this._listenerMap || {};
+	        var key = getKey(eventName, id);
+	        var index = this._listenerMap[key];
+	        if (void 0 !== index) {
+	            // Remove handler from list of event handlers and listenerMap
+	            this.state[eventName].splice(index, 1);
+	            delete this._listenerMap[key];
+	            // Re-index existing events: if they occur after `index`, decrement
+	            var keys = _.keys(this._listenerMap);
+	            _.each(keys, function(key) {
+	                getEventName(key) === eventName && this._listenerMap[key] > index && this._listenerMap[key]--;
+	            }, this);
+	        }
+	    }
+	};
+
+	module.exports = MovableHelperMethods;
+
+/***/ },
+/* 110 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* globals katex:false, MathJax:false, Exercises:false */
+	var cleanMath = __webpack_require__(85).cleanMath;
+
+	function findChildOrAdd(elem, className) {
+	    var $child = $(elem).find("." + className);
+	    return 0 === $child.length ? $("<span>").addClass(className).appendTo($(elem)) : $child;
+	}
+
+	function doCallback(elem, callback) {
+	    var tries = 0;
+	    !function check() {
+	        var height = elem.scrollHeight;
+	        // Heuristic to guess if the font has kicked in
+	        // so we have box metrics (magic number ick,
+	        // but this seems to work mostly-consistently)
+	        if (height > 18 || tries >= 10) callback(); else {
+	            tries++;
+	            setTimeout(check, 100);
+	        }
+	    }();
+	}
+
+	module.exports = {
+	    // Process a node and add math inside of it. This attempts to use KaTeX to
+	    // format the math, and if that fails it falls back to MathJax.
+	    //
+	    // elem: The element which the math should be added to.
+	    //
+	    // text: The text that should be formatted inside of the node. If the node
+	    //       has already had math formatted inside of it before, this doesn't
+	    //       have to be provided. If this is not provided, and the node hasn't
+	    //       been formatted before, the text content of the node is used.
+	    //
+	    // force: (optional) if the node has been processed before, then it will
+	    //        not be formatted again, unless this argument is true
+	    //
+	    // callback: (optional) a callback to be run after the math has been
+	    //           processed (note: this might be called synchronously or
+	    //           asynchronously, depending on whether KaTeX or MathJax is used)
+	    processMath: function(elem, text, force, callback) {
+	        var $elem = $(elem);
+	        // Only process if it hasn't been done before, or it is forced
+	        if (null == $elem.attr("data-math-formula") || force) {
+	            var $katexHolder = findChildOrAdd($elem, "katex-holder");
+	            var $mathjaxHolder = findChildOrAdd($elem, "mathjax-holder");
+	            // Search for MathJax-y script tags inside of the node. These are
+	            // used by MathJax to denote the formula to be typeset. Before, we
+	            // would update the formula by updating the contents of the script
+	            // tag, which shouldn't happen any more, but we manage them just in
+	            // case.
+	            var script = $mathjaxHolder.find("script[type='math/tex']")[0];
+	            // If text wasn't provided, we look in two places
+	            null == text && ($elem.attr("data-math-formula") ? // The old typeset formula
+	            text = $elem.attr("data-math-formula") : script && (// The contents of the <script> tag
+	            text = script.text || script.textContent));
+	            text = null != text ? text + "" : "";
+	            // Attempt to clean up some of the math
+	            text = cleanMath(text);
+	            // Store the formula that we're using
+	            $elem.attr("data-math-formula", text);
+	            if (Exercises.useKatex) // Try to process the nodes with KaTeX first
+	            try {
+	                katex.render(text, $katexHolder[0]);
+	                // If that worked, and we previously formatted with
+	                // mathjax, do some mathjax cleanup
+	                if ("mathjax" === $elem.attr("data-math-type")) {
+	                    // Remove the old mathjax stuff
+	                    var jax = MathJax.Hub.getJaxFor(script);
+	                    if (jax) {
+	                        var e = jax.SourceElement();
+	                        e.previousSibling && e.previousSibling.className && jax.Remove();
+	                    }
+	                }
+	                $elem.attr("data-math-type", "katex");
+	                // Call the callback
+	                callback && doCallback(elem, callback);
+	                return;
+	            } catch (err) {
+	                // IE doesn't do instanceof correctly, so we resort to
+	                // manual checking
+	                /* jshint -W103 */
+	                if (err.__proto__ !== katex.ParseError.prototype) throw err;
+	            }
+	            // Otherwise, fallback to MathJax
+	            // (Note: we don't need to do any katex cleanup here, because
+	            // KaTeX is smart and cleans itself up)
+	            $elem.attr("data-math-type", "mathjax");
+	            // Update the script tag, or add one if necessary
+	            script ? "text" in script ? script.text = text : script.textContent = text : $mathjaxHolder.append("<script type='math/tex'>" + text.replace(/<\//g, "< /") + "</script>");
+	            if ("undefined" !== typeof MathJax) {
+	                // Put the process, a debug log, and the callback into the
+	                // MathJax queue
+	                MathJax.Hub.Queue([ "Reprocess", MathJax.Hub, $mathjaxHolder[0] ]);
+	                MathJax.Hub.Queue(function() {
+	                    KhanUtil.debugLog("MathJax done typesetting (" + text + ")");
+	                });
+	                callback && MathJax.Hub.Queue(function() {
+	                    var cb = MathJax.Callback(function() {});
+	                    doCallback(elem, function() {
+	                        callback();
+	                        cb();
+	                    });
+	                    return cb;
+	                });
+	            }
+	        }
+	    },
+	    processAllMath: function(elem, force) {
+	        var $elem = $(elem);
+	        $elem.filter("code").add($elem.find("code")).each(function() {
+	            var $this = $(this);
+	            var text = $this.attr("data-math-formula");
+	            if (null == text) {
+	                text = $this.text();
+	                $this.empty();
+	            }
+	            KhanUtil.processMath(this, text, force);
+	        });
+	    },
+	    // Function to restore a node to a non-math-processed state
+	    cleanupMath: function(elem) {
+	        var $elem = $(elem);
+	        // Only mess with it if it's been processed before
+	        if ($elem.attr("data-math-formula")) {
+	            // Remove MathJax remnants
+	            if ("undefined" !== typeof MathJax) {
+	                var jax = MathJax.Hub.getJaxFor($elem.find("script")[0]);
+	                if (jax) {
+	                    var e = jax.SourceElement();
+	                    e.previousSibling && e.previousSibling.className && jax.Remove();
+	                }
+	            }
+	            $elem.text($elem.attr("data-math-formula"));
+	            $elem.attr("data-math-formula", null);
+	            $elem.attr("data-math-type", null);
+	        }
+	        return elem;
+	    },
+	    // Function to retrieve the formula of a typeset math node
+	    retrieveMathFormula: function(elem) {
+	        return $(elem).attr("data-math-formula");
+	    }
+	};
+
+/***/ },
+/* 111 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* globals icu:false */
+	// Rounds num to X places, and uses the proper decimal seperator.
+	// But does *not* insert thousands separators.
+	module.exports = function localeToFixed(num, places) {
+	    var localeDecimalSeperator = icu.getDecimalFormatSymbols().decimal_separator;
+	    var localeFixed = num.toFixed(places).replace(".", localeDecimalSeperator);
+	    "-0" === localeFixed && (localeFixed = "0");
+	    return localeFixed;
+	};
+
+/***/ },
+/* 112 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
+	var kpoint = __webpack_require__(100).point;
+
+	var kvector = __webpack_require__(100).vector;
+
+	var _ = __webpack_require__(8);
+
+	// Minify Raphael ourselves because IE8 has a problem with the 1.5.2 minified
+	// release
+	// http://groups.google.com/group/raphaeljs/browse_thread/thread/c34c75ad8d431544
+	/* globals Raphael:false */
+	__webpack_require__(135);
+
+	__webpack_require__(132);
+
+	var KhanMath = __webpack_require__(85);
+
+	var processMath = __webpack_require__(110).processMath;
+
+	/* Convert cartesian coordinates [x, y] to polar coordinates [r,
+	 * theta], with theta in degrees, or in radians if angleInRadians is
+	 * specified.
+	 */
+	function cartToPolar(coord, angleInRadians) {
+	    var r = Math.sqrt(Math.pow(coord[0], 2) + Math.pow(coord[1], 2));
+	    var theta = Math.atan2(coord[1], coord[0]);
+	    // convert angle range from [-pi, pi] to [0, 2pi]
+	    theta < 0 && (theta += 2 * Math.PI);
+	    angleInRadians || (theta = 180 * theta / Math.PI);
+	    return [ r, theta ];
+	}
+
+	function polar(r, th) {
+	    "number" === typeof r && (r = [ r, r ]);
+	    th = th * Math.PI / 180;
+	    return [ r[0] * Math.cos(th), r[1] * Math.sin(th) ];
+	}
+
+	// Keep track of all the intervalIDs created by setInterval.
+	// This lets us cancel all the intervals when cleaning up.
+	var intervalIDs = [];
+
+	function cleanupIntervals() {
+	    _.each(intervalIDs, function(intervalID) {
+	        window.clearInterval(intervalID);
+	    });
+	    intervalIDs.length = 0;
+	}
+
+	var GraphUtils = {
+	    unscaledSvgPath: function(points) {
+	        // If this is an empty closed path, return "" instead of "z", which
+	        // would give an error
+	        if (true === points[0]) return "";
+	        return $.map(points, function(point, i) {
+	            if (true === point) return "z";
+	            return (0 === i ? "M" : "L") + point[0] + " " + point[1];
+	        }).join("");
+	    },
+	    getDistance: function(point1, point2) {
+	        return kpoint.distanceToPoint(point1, point2);
+	    },
+	    /**
+	    * Return the difference between two sets of coordinates
+	    */
+	    coordDiff: function(startCoord, endCoord) {
+	        return _.map(endCoord, function(val, i) {
+	            return endCoord[i] - startCoord[i];
+	        });
+	    },
+	    /**
+	    * Round the given coordinates to a given snap value
+	    * (e.g., nearest 0.2 increment)
+	    */
+	    snapCoord: function(coord, snap) {
+	        return _.map(coord, function(val, i) {
+	            return KhanMath.roundToNearest(snap[i], val);
+	        });
+	    },
+	    // Find the angle in degrees between two or three points
+	    findAngle: function(point1, point2, vertex) {
+	        if (void 0 === vertex) {
+	            var x = point1[0] - point2[0];
+	            var y = point1[1] - point2[1];
+	            if (!x && !y) return 0;
+	            return (180 + 180 * Math.atan2(-y, -x) / Math.PI + 360) % 360;
+	        }
+	        return GraphUtils.findAngle(point1, vertex) - GraphUtils.findAngle(point2, vertex);
+	    },
+	    graphs: {}
+	};
+
+	var Graphie = GraphUtils.Graphie = function() {};
+
+	_.extend(Graphie.prototype, {
+	    cartToPolar: cartToPolar,
+	    polar: polar
+	});
+
+	var labelDirections = {
+	    center: [ -.5, -.5 ],
+	    above: [ -.5, -1 ],
+	    "above right": [ 0, -1 ],
+	    right: [ 0, -.5 ],
+	    "below right": [ 0, 0 ],
+	    below: [ -.5, 0 ],
+	    "below left": [ -1, 0 ],
+	    left: [ -1, -.5 ],
+	    "above left": [ -1, -1 ]
+	};
+
+	GraphUtils.createGraphie = function(el) {
+	    var xScale = 40;
+	    var yScale = 40;
+	    var xRange = void 0;
+	    var yRange = void 0;
+	    $(el).css("position", "relative");
+	    var raphael = Raphael(el);
+	    // For a sometimes-reproducible IE8 bug; doesn't affect SVG browsers at all
+	    $(el).children("div").css("position", "absolute");
+	    // Set up some reasonable defaults
+	    var currentStyle = {
+	        "stroke-width": 2,
+	        fill: "none"
+	    };
+	    var scaleVector = function(point) {
+	        if ("number" === typeof point) return scaleVector([ point, point ]);
+	        var x = point[0];
+	        var y = point[1];
+	        return [ x * xScale, y * yScale ];
+	    };
+	    var scalePoint = function scalePoint(point) {
+	        if ("number" === typeof point) return scalePoint([ point, point ]);
+	        var x = point[0];
+	        var y = point[1];
+	        return [ (x - xRange[0]) * xScale, (yRange[1] - y) * yScale ];
+	    };
+	    var unscalePoint = function(point) {
+	        if ("number" === typeof point) return unscalePoint([ point, point ]);
+	        var x = point[0];
+	        var y = point[1];
+	        return [ x / xScale + xRange[0], yRange[1] - y / yScale ];
+	    };
+	    var unscaleVector = function(point) {
+	        if ("number" === typeof point) return unscaleVector([ point, point ]);
+	        return [ point[0] / xScale, point[1] / yScale ];
+	    };
+	    var setLabelMargins = function(span, size) {
+	        var $span = $(span);
+	        var direction = $span.data("labelDirection");
+	        $span.css("visibility", "");
+	        if ("number" === typeof direction) {
+	            var x = Math.cos(direction);
+	            var y = Math.sin(direction);
+	            var scale = Math.min(size[0] / 2 / Math.abs(x), size[1] / 2 / Math.abs(y));
+	            $span.css({
+	                marginLeft: -size[0] / 2 + x * scale,
+	                marginTop: -size[1] / 2 - y * scale
+	            });
+	        } else {
+	            var multipliers = labelDirections[direction || "center"];
+	            $span.css({
+	                marginLeft: Math.round(size[0] * multipliers[0]),
+	                marginTop: Math.round(size[1] * multipliers[1])
+	            });
+	        }
+	    };
+	    var svgPath = function(points, alreadyScaled) {
+	        return $.map(points, function(point, i) {
+	            if (true === point) return "z";
+	            var scaled = alreadyScaled ? point : scalePoint(point);
+	            return (0 === i ? "M" : "L") + KhanMath.bound(scaled[0]) + " " + KhanMath.bound(scaled[1]);
+	        }).join("");
+	    };
+	    var svgParabolaPath = function(a, b, c) {
+	        var computeParabola = function(x) {
+	            return (a * x + b) * x + c;
+	        };
+	        // If points are collinear, plot a line instead
+	        if (0 === a) {
+	            var _points = _.map(xRange, function(x) {
+	                return [ x, computeParabola(x) ];
+	            });
+	            return svgPath(_points);
+	        }
+	        // Calculate x coordinates of points on parabola
+	        var xVertex = -b / (2 * a);
+	        var distToEdge = Math.max(Math.abs(xVertex - xRange[0]), Math.abs(xVertex - xRange[1]));
+	        // To guarantee that drawn parabola to spans the viewport, use a point
+	        // on the edge of the graph furtherest from the vertex
+	        var xPoint = xVertex + distToEdge;
+	        // Compute parabola and other point on the curve
+	        var vertex = [ xVertex, computeParabola(xVertex) ];
+	        var point = [ xPoint, computeParabola(xPoint) ];
+	        // Calculate SVG 'control' point, defined by spec
+	        var control = [ vertex[0], vertex[1] - (point[1] - vertex[1]) ];
+	        // Calculate mirror points across parabola's axis of symmetry
+	        var dx = Math.abs(vertex[0] - point[0]);
+	        var left = [ vertex[0] - dx, point[1] ];
+	        var right = [ vertex[0] + dx, point[1] ];
+	        // Scale and bound
+	        var points = _.map([ left, control, right ], scalePoint);
+	        var values = _.map(_.flatten(points), KhanMath.bound);
+	        return "M" + values[0] + "," + values[1] + " Q" + values[2] + "," + values[3] + " " + values[4] + "," + values[5];
+	    };
+	    var svgSinusoidPath = function(a, b, c, d) {
+	        // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
+	        var quarterPeriod = Math.abs(Math.PI / (2 * b));
+	        var computeSine = function(x) {
+	            return a * Math.sin(b * x - c) + d;
+	        };
+	        var computeDerivative = function(x) {
+	            return a * b * Math.cos(c - b * x);
+	        };
+	        var coordsForOffset = function(initial, i) {
+	            // Return the cubic coordinates (including the two anchor and two
+	            // control points) for the ith portion of the sinusoid.
+	            var x0 = initial + quarterPeriod * i;
+	            var x1 = x0 + quarterPeriod;
+	            // Interpolate using derivative technique
+	            // See: http://stackoverflow.com/questions/13932704/how-to-draw-sine-waves-with-svg-js
+	            var xCoords = [ x0, 2 * x0 / 3 + 1 * x1 / 3, 1 * x0 / 3 + 2 * x1 / 3, x1 ];
+	            var yCoords = [ computeSine(x0), computeSine(x0) + computeDerivative(x0) * (x1 - x0) / 3, computeSine(x1) - computeDerivative(x1) * (x1 - x0) / 3, computeSine(x1) ];
+	            // Zip and scale
+	            return _.map(_.zip(xCoords, yCoords), scalePoint);
+	        };
+	        // How many quarter-periods do we need to span the graph?
+	        var extent = xRange[1] - xRange[0];
+	        var numQuarterPeriods = Math.ceil(extent / quarterPeriod) + 1;
+	        // Find starting coordinate: first anchor point curve left of xRange[0]
+	        var initial = c / b;
+	        var distToEdge = initial - xRange[0];
+	        initial -= quarterPeriod * Math.ceil(distToEdge / quarterPeriod);
+	        // First portion of path is special-case, requiring move-to ('M')
+	        var coords = coordsForOffset(initial, 0);
+	        var path = "M" + coords[0][0] + "," + coords[0][1] + " C" + coords[1][0] + "," + coords[1][1] + " " + coords[2][0] + "," + coords[2][1] + " " + coords[3][0] + "," + coords[3][1];
+	        for (var i = 1; i < numQuarterPeriods; i++) {
+	            coords = coordsForOffset(initial, i);
+	            path += " C" + coords[1][0] + "," + coords[1][1] + " " + coords[2][0] + "," + coords[2][1] + " " + coords[3][0] + "," + coords[3][1];
+	        }
+	        return path;
+	    };
+	    // `svgPath` is independent of graphie range, so we export it independently
+	    GraphUtils.svgPath = svgPath;
+	    var processAttributes = function(attrs) {
+	        var transformers = {
+	            scale: function(scale) {
+	                "number" === typeof scale && (scale = [ scale, scale ]);
+	                xScale = scale[0];
+	                yScale = scale[1];
+	                // Update the canvas size
+	                raphael.setSize((xRange[1] - xRange[0]) * xScale, (yRange[1] - yRange[0]) * yScale);
+	            },
+	            clipRect: function(pair) {
+	                var point = pair[0];
+	                var size = pair[1];
+	                point[1] += size[1];
+	                // because our coordinates are flipped
+	                return {
+	                    "clip-rect": scalePoint(point).concat(scaleVector(size)).join(" ")
+	                };
+	            },
+	            strokeWidth: function(val) {
+	                return {
+	                    "stroke-width": parseFloat(val)
+	                };
+	            },
+	            rx: function(val) {
+	                return {
+	                    rx: scaleVector([ val, 0 ])[0]
+	                };
+	            },
+	            ry: function(val) {
+	                return {
+	                    ry: scaleVector([ 0, val ])[1]
+	                };
+	            },
+	            r: function(val) {
+	                var scaled = scaleVector([ val, val ]);
+	                return {
+	                    rx: scaled[0],
+	                    ry: scaled[1]
+	                };
+	            }
+	        };
+	        var processed = {};
+	        $.each(attrs || {}, function(key, value) {
+	            var transformer = transformers[key];
+	            if ("function" === typeof transformer) $.extend(processed, transformer(value)); else {
+	                var dasherized = key.replace(/([A-Z]+)([A-Z][a-z])/g, "$1-$2").replace(/([a-z\d])([A-Z])/g, "$1-$2").toLowerCase();
+	                processed[dasherized] = value;
+	            }
+	        });
+	        return processed;
+	    };
+	    var addArrowheads = function arrows(path) {
+	        var type = path.constructor.prototype;
+	        if (type === Raphael.el) {
+	            if ("path" === path.type && "undefined" === typeof path.arrowheadsDrawn) {
+	                var w = path.attr("stroke-width");
+	                var s = .6 + .4 * w;
+	                var l = path.getTotalLength();
+	                var set = raphael.set();
+	                var head = raphael.path("M-3 4 C-2.75 2.5 0 0.25 0.75 0C0 -0.25 -2.75 -2.5 -3 -4");
+	                var end = path.getPointAtLength(l - .4);
+	                var almostTheEnd = path.getPointAtLength(l - .75 * s);
+	                var angle = 180 * Math.atan2(end.y - almostTheEnd.y, end.x - almostTheEnd.x) / Math.PI;
+	                var attrs = path.attr();
+	                delete attrs.path;
+	                var subpath = path.getSubpath(0, l - .75 * s);
+	                subpath = raphael.path(subpath).attr(attrs);
+	                subpath.arrowheadsDrawn = true;
+	                path.remove();
+	                head.rotate(angle, .75, 0).scale(s, s, .75, 0).translate(almostTheEnd.x, almostTheEnd.y).attr(attrs).attr({
+	                    "stroke-linejoin": "round",
+	                    "stroke-linecap": "round"
+	                });
+	                head.arrowheadsDrawn = true;
+	                set.push(subpath);
+	                set.push(head);
+	                return set;
+	            }
+	        } else if (type === Raphael.st) for (var i = 0, l = path.items.length; i < l; i++) arrows(path.items[i]);
+	        return path;
+	    };
+	    var drawingTools = {
+	        circle: function(center, radius) {
+	            return raphael.ellipse.apply(raphael, scalePoint(center).concat(scaleVector([ radius, radius ])));
+	        },
+	        // (x, y) is coordinate of bottom left corner
+	        rect: function(x, y, width, height) {
+	            // Raphael needs (x, y) to be coordinate of upper left corner
+	            var corner = scalePoint([ x, y + height ]);
+	            var dims = scaleVector([ width, height ]);
+	            return raphael.rect.apply(raphael, corner.concat(dims));
+	        },
+	        ellipse: function(center, radii) {
+	            return raphael.ellipse.apply(raphael, scalePoint(center).concat(scaleVector(radii)));
+	        },
+	        fixedEllipse: function(center, radii, maxScale) {
+	            // Scale point and radius
+	            var scaledPoint = scalePoint(center);
+	            var scaledRadii = scaleVector(radii);
+	            // Padding protects against clipping at the edges
+	            var padding = 2;
+	            var width = 2 * scaledRadii[0] * maxScale + padding;
+	            var height = 2 * scaledRadii[1] * maxScale + padding;
+	            // Calculate absolute left, top
+	            var left = scaledPoint[0] - width / 2;
+	            var top = scaledPoint[1] - height / 2;
+	            // Wrap in <div>
+	            var wrapper = document.createElement("div");
+	            $(wrapper).css({
+	                position: "absolute",
+	                width: width + "px",
+	                height: height + "px",
+	                left: left + "px",
+	                top: top + "px"
+	            });
+	            // Create Raphael canvas
+	            var localRaphael = Raphael(wrapper, width, height);
+	            var visibleShape = localRaphael.ellipse(width / 2, height / 2, scaledRadii[0], scaledRadii[1]);
+	            return {
+	                wrapper: wrapper,
+	                visibleShape: visibleShape
+	            };
+	        },
+	        arc: function(center, radius, startAngle, endAngle, sector) {
+	            startAngle = (startAngle % 360 + 360) % 360;
+	            endAngle = (endAngle % 360 + 360) % 360;
+	            var cent = scalePoint(center);
+	            var radii = scaleVector(radius);
+	            var startVector = polar(radius, startAngle);
+	            var endVector = polar(radius, endAngle);
+	            var startPoint = scalePoint([ center[0] + startVector[0], center[1] + startVector[1] ]);
+	            var endPoint = scalePoint([ center[0] + endVector[0], center[1] + endVector[1] ]);
+	            var largeAngle = ((endAngle - startAngle) % 360 + 360) % 360 > 180;
+	            // sweep flag
+	            return raphael.path("M" + startPoint.join(" ") + "A" + radii.join(" ") + " 0 " + (largeAngle ? 1 : 0) + " 0 " + endPoint.join(" ") + (sector ? "L" + cent.join(" ") + "z" : ""));
+	        },
+	        path: function(points) {
+	            var p = raphael.path(svgPath(points));
+	            p.graphiePath = points;
+	            return p;
+	        },
+	        fixedPath: function(points, center, createPath) {
+	            points = _.map(points, scalePoint);
+	            center = center ? scalePoint(center) : null;
+	            createPath = createPath || svgPath;
+	            var pathLeft = _.min(_.pluck(points, 0));
+	            var pathRight = _.max(_.pluck(points, 0));
+	            var pathTop = _.min(_.pluck(points, 1));
+	            var pathBottom = _.max(_.pluck(points, 1));
+	            // Apply padding to line
+	            var padding = [ 4, 4 ];
+	            // Calculate and apply additional offset
+	            var extraOffset = [ pathLeft, pathTop ];
+	            // Apply padding and offset to points
+	            points = _.map(points, function(point) {
+	                return kvector.add(kvector.subtract(point, extraOffset), kvector.scale(padding, .5));
+	            });
+	            // Calculate <div> dimensions
+	            var width = pathRight - pathLeft + padding[0];
+	            var height = pathBottom - pathTop + padding[1];
+	            var left = extraOffset[0] - padding[0] / 2;
+	            var top = extraOffset[1] - padding[1] / 2;
+	            // Create <div>
+	            var wrapper = document.createElement("div");
+	            $(wrapper).css({
+	                position: "absolute",
+	                width: width + "px",
+	                height: height + "px",
+	                left: left + "px",
+	                top: top + "px",
+	                // If user specified a center, set it
+	                transformOrigin: center ? width / 2 + center[0] + "px " + (height / 2 + center[1]) + "px" : null
+	            });
+	            // Create Raphael canvas
+	            var localRaphael = Raphael(wrapper, width, height);
+	            // Calculate path
+	            var visibleShape = localRaphael.path(createPath(points));
+	            return {
+	                wrapper: wrapper,
+	                visibleShape: visibleShape
+	            };
+	        },
+	        scaledPath: function(points) {
+	            var p = raphael.path(svgPath(points, /* alreadyScaled */ true));
+	            p.graphiePath = points;
+	            return p;
+	        },
+	        line: function(start, end) {
+	            return this.path([ start, end ]);
+	        },
+	        parabola: function(a, b, c) {
+	            // Plot a parabola of the form: f(x) = (a * x + b) * x + c
+	            return raphael.path(svgParabolaPath(a, b, c));
+	        },
+	        fixedLine: function(start, end, thickness) {
+	            // Apply padding to line
+	            var padding = [ thickness, thickness ];
+	            // Scale points to get values in pixels
+	            start = scalePoint(start);
+	            end = scalePoint(end);
+	            // Calculate and apply additional offset
+	            var extraOffset = [ Math.min(start[0], end[0]), Math.min(start[1], end[1]) ];
+	            // Apply padding and offset to start, end points
+	            start = kvector.add(kvector.subtract(start, extraOffset), kvector.scale(padding, .5));
+	            end = kvector.add(kvector.subtract(end, extraOffset), kvector.scale(padding, .5));
+	            // Calculate <div> dimensions
+	            var left = extraOffset[0] - padding[0] / 2;
+	            var top = extraOffset[1] - padding[1] / 2;
+	            var width = Math.abs(start[0] - end[0]) + padding[0];
+	            var height = Math.abs(start[1] - end[1]) + padding[1];
+	            // Create <div>
+	            var wrapper = document.createElement("div");
+	            $(wrapper).css({
+	                position: "absolute",
+	                width: width + "px",
+	                height: height + "px",
+	                left: left + "px",
+	                top: top + "px",
+	                // Outsiders should feel like the line's 'origin' (i.e., for
+	                // rotation) is the starting point
+	                transformOrigin: start[0] + "px " + start[1] + "px"
+	            });
+	            // Create Raphael canvas
+	            var localRaphael = Raphael(wrapper, width, height);
+	            // Calculate path
+	            var path = "M" + start[0] + " " + start[1] + " L" + end[0] + " " + end[1];
+	            var visibleShape = localRaphael.path(path);
+	            visibleShape.graphiePath = [ start, end ];
+	            return {
+	                wrapper: wrapper,
+	                visibleShape: visibleShape
+	            };
+	        },
+	        sinusoid: function(a, b, c, d) {
+	            // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
+	            return raphael.path(svgSinusoidPath(a, b, c, d));
+	        },
+	        grid: function(xr, yr) {
+	            var step = currentStyle.step || [ 1, 1 ];
+	            var set = raphael.set();
+	            var x = step[0] * Math.ceil(xr[0] / step[0]);
+	            for (;x <= xr[1]; x += step[0]) set.push(this.line([ x, yr[0] ], [ x, yr[1] ]));
+	            var y = step[1] * Math.ceil(yr[0] / step[1]);
+	            for (;y <= yr[1]; y += step[1]) set.push(this.line([ xr[0], y ], [ xr[1], y ]));
+	            return set;
+	        },
+	        label: function(point, text, direction, latex) {
+	            latex = "undefined" === typeof latex || latex;
+	            var $span = $("<span>").addClass("graphie-label");
+	            var pad = currentStyle["label-distance"];
+	            // TODO(alpert): Isn't currentStyle applied afterwards
+	            // automatically since this is a 'drawing tool'?
+	            $span.css($.extend({}, currentStyle, {
+	                position: "absolute",
+	                padding: (null != pad ? pad : 7) + "px"
+	            })).data("labelDirection", direction).appendTo(el);
+	            $span.setPosition = function(point) {
+	                var scaledPoint = scalePoint(point);
+	                $span.css({
+	                    left: scaledPoint[0],
+	                    top: scaledPoint[1]
+	                });
+	            };
+	            $span.setPosition(point);
+	            var span = $span[0];
+	            $span.processMath = function(math, force) {
+	                processMath(span, math, force, function() {
+	                    var width = span.scrollWidth;
+	                    var height = span.scrollHeight;
+	                    setLabelMargins(span, [ width, height ]);
+	                });
+	            };
+	            $span.processText = function(text) {
+	                $span.html(text);
+	                var width = span.scrollWidth;
+	                var height = span.scrollHeight;
+	                setLabelMargins(span, [ width, height ]);
+	            };
+	            latex ? $span.processMath(text, /* force */ false) : $span.processText(text);
+	            return $span;
+	        },
+	        plotParametric: function(fn, range, shade, fn2) {
+	            // Note: fn2 should only be set if 'shade' is true, as it denotes
+	            // the function between which fn should have its area shaded.
+	            // In general, plotParametric shouldn't be used to shade the area
+	            // between two arbitrary parametrics functions over an interval,
+	            // as the method assumes that fn and fn2 are both of the form
+	            // fn(t) = (t, fn'(t)) for some initial fn'.
+	            fn2 = fn2 || function(t) {
+	                return [ t, 0 ];
+	            };
+	            currentStyle.strokeLinejoin || (currentStyle.strokeLinejoin = "round");
+	            currentStyle.strokeLinecap || (currentStyle.strokeLinecap = "round");
+	            var min = range[0];
+	            var max = range[1];
+	            var step = (max - min) / (currentStyle["plot-points"] || 800);
+	            0 === step && (step = 1);
+	            var paths = raphael.set();
+	            var points = [];
+	            var lastDiff = GraphUtils.coordDiff(fn(min), fn2(min));
+	            var lastFlip = min;
+	            for (var t = min; t <= max; t += step) {
+	                var _top = fn(t);
+	                var bottom = fn2(t);
+	                var diff = GraphUtils.coordDiff(_top, bottom);
+	                // Find points where it flips
+	                // Create path that sketches area between the two functions
+	                if (diff[1] < 0 !== lastDiff[1] < 0 && Math.abs(diff[1] - lastDiff[1]) > 2 * yScale || Math.abs(diff[1]) > 1e7 || isNaN(diff[1])) {
+	                    // split the path at this point, and draw it
+	                    if (shade) {
+	                        points.push(_top);
+	                        // backtrack to draw paired function
+	                        for (var u = t - step; u >= lastFlip; u -= step) points.push(fn2(u));
+	                        lastFlip = t;
+	                    }
+	                    paths.push(this.path(points));
+	                    // restart the path, excluding this point
+	                    points = [];
+	                    shade && points.push(_top);
+	                } else // otherwise, just add the point to the path
+	                points.push(_top);
+	                lastDiff = diff;
+	            }
+	            if (shade) // backtrack to draw paired function
+	            for (var u = max - step; u >= lastFlip; u -= step) points.push(fn2(u));
+	            paths.push(this.path(points));
+	            return paths;
+	        },
+	        plotPolar: function(fn, range) {
+	            var min = range[0];
+	            var max = range[1];
+	            // There is probably a better heuristic for this
+	            currentStyle["plot-points"] || (currentStyle["plot-points"] = 2 * (max - min) * xScale);
+	            return this.plotParametric(function(th) {
+	                return polar(fn(th), 180 * th / Math.PI);
+	            }, range);
+	        },
+	        plot: function(fn, range, swapAxes, shade, fn2) {
+	            var min = range[0];
+	            var max = range[1];
+	            currentStyle["plot-points"] || (currentStyle["plot-points"] = 2 * (max - min) * xScale);
+	            if (swapAxes) {
+	                if (fn2) // TODO(charlie): support swapped axis area shading
+	                throw new Error("Can't shade area between functions with swapped axes.");
+	                return this.plotParametric(function(y) {
+	                    return [ fn(y), y ];
+	                }, range, shade);
+	            }
+	            if (fn2) {
+	                if (shade) return this.plotParametric(function(x) {
+	                    return [ x, fn(x) ];
+	                }, range, shade, function(x) {
+	                    return [ x, fn2(x) ];
+	                });
+	                throw new Error("fn2 should only be set when 'shade' is True.");
+	            }
+	            return this.plotParametric(function(x) {
+	                return [ x, fn(x) ];
+	            }, range, shade);
+	        },
+	        /**
+	         * Given a piecewise function, return a Raphael set of paths that
+	         * can be used to draw the function, e.g. using style().
+	         * Calls plotParametric.
+	         *
+	         * @param  {[]} fnArray    array of functions which when called
+	         *                         with a parameter i return the value of
+	         *                         the function at i
+	         * @param  {[]} rangeArray array of ranges over which the
+	         *                         corresponding functions are defined
+	         * @return {Raphael set}
+	         */
+	        plotPiecewise: function(fnArray, rangeArray) {
+	            var paths = raphael.set();
+	            var self = this;
+	            _.times(fnArray.length, function(i) {
+	                var fn = fnArray[i];
+	                var range = rangeArray[i];
+	                var fnPaths = self.plotParametric(function(x) {
+	                    return [ x, fn(x) ];
+	                }, range);
+	                _.each(fnPaths, function(fnPath) {
+	                    paths.push(fnPath);
+	                });
+	            });
+	            return paths;
+	        },
+	        /**
+	         * Given an array of coordinates of the form [x, y], create and
+	         * return a Raphael set of Raphael circle objects at those
+	         * coordinates
+	         *
+	         * @param  {Array of arrays} endpointArray
+	         * @return {Raphael set}
+	         */
+	        plotEndpointCircles: function(endpointArray) {
+	            var circles = raphael.set();
+	            var self = this;
+	            _.each(endpointArray, function(coord, i) {
+	                circles.push(self.circle(coord, .15));
+	            });
+	            return circles;
+	        },
+	        plotAsymptotes: function(fn, range) {
+	            var min = range[0];
+	            var max = range[1];
+	            var step = (max - min) / (currentStyle["plot-points"] || 800);
+	            var asymptotes = raphael.set();
+	            var lastVal = fn(min);
+	            for (var t = min; t <= max; t += step) {
+	                var funcVal = fn(t);
+	                funcVal < 0 !== lastVal < 0 && Math.abs(funcVal - lastVal) > 2 * yScale && asymptotes.push(this.line([ t, yScale ], [ t, -yScale ]));
+	                lastVal = funcVal;
+	            }
+	            return asymptotes;
+	        }
+	    };
+	    var graphie = new Graphie();
+	    _.extend(graphie, {
+	        raphael: raphael,
+	        init: function(options) {
+	            var scale = options.scale || [ 40, 40 ];
+	            scale = "number" === typeof scale ? [ scale, scale ] : scale;
+	            xScale = scale[0];
+	            yScale = scale[1];
+	            if (null == options.range) return Khan.error("range should be specified in graph init");
+	            xRange = options.range[0];
+	            yRange = options.range[1];
+	            var w = (xRange[1] - xRange[0]) * xScale;
+	            var h = (yRange[1] - yRange[0]) * yScale;
+	            raphael.setSize(w, h);
+	            $(el).css({
+	                width: w,
+	                height: h
+	            });
+	            this.range = options.range;
+	            this.scale = scale;
+	            this.dimensions = [ w, h ];
+	            this.xpixels = w;
+	            this.ypixels = h;
+	            return this;
+	        },
+	        // Wrap window.setInterval to keep track of all the intervalIDs.
+	        setInterval: function() {
+	            var intervalID = Function.prototype.apply.call(window.setInterval, window, arguments);
+	            intervalIDs.push(intervalID);
+	            return intervalID;
+	        },
+	        style: function(attrs, fn) {
+	            var processed = processAttributes(attrs);
+	            if ("function" === typeof fn) {
+	                var oldStyle = currentStyle;
+	                currentStyle = $.extend({}, currentStyle, processed);
+	                var result = fn.call(graphie);
+	                currentStyle = oldStyle;
+	                return result;
+	            }
+	            $.extend(currentStyle, processed);
+	        },
+	        scalePoint: scalePoint,
+	        scaleVector: scaleVector,
+	        unscalePoint: unscalePoint,
+	        unscaleVector: unscaleVector,
+	        // Custom SVG path functions that are dependent on graphie range
+	        // `svgPath`, while independent of range, is exported for consistency
+	        svgPath: svgPath,
+	        svgParabolaPath: svgParabolaPath,
+	        svgSinusoidPath: svgSinusoidPath
+	    });
+	    $.each(drawingTools, function(name) {
+	        graphie[name] = function() {
+	            var last = arguments[arguments.length - 1];
+	            var oldStyle = currentStyle;
+	            var result = void 0;
+	            // The last argument is probably trying to change the style
+	            if ("object" !== typeof last || _.isArray(last)) {
+	                currentStyle = $.extend({}, currentStyle);
+	                result = drawingTools[name].apply(drawingTools, arguments);
+	            } else {
+	                currentStyle = _extends({}, currentStyle, processAttributes(last));
+	                var rest = [].slice.call(arguments, 0, arguments.length - 1);
+	                result = drawingTools[name].apply(drawingTools, rest);
+	            }
+	            // Bad heuristic for recognizing Raphael elements and sets
+	            var type = result.constructor.prototype;
+	            if (type === Raphael.el || type === Raphael.st) {
+	                result.attr(currentStyle);
+	                currentStyle.arrows && (result = addArrowheads(result));
+	            } else result instanceof $ && result.css(currentStyle);
+	            currentStyle = oldStyle;
+	            return result;
+	        };
+	    });
+	    // Initializes graphie settings for a graph and draws the basic graph
+	    // features (axes, grid, tick marks, and axis labels)
+	    // Options expected are:
+	    // - range: [[a, b], [c, d]] or [a, b]
+	    // - scale: [a, b] or number
+	    // - gridOpacity: number (0 - 1)
+	    // - gridStep: [a, b] or number (relative to units)
+	    // - tickStep: [a, b] or number (relative to grid steps)
+	    // - tickLen: [a, b] or number (in pixels)
+	    // - labelStep: [a, b] or number (relative to tick steps)
+	    // - yLabelFormat: fn to format label string for y-axis
+	    // - xLabelFormat: fn to format label string for x-axis
+	    // - smartLabelPositioning: true or false to ignore minus sign
+	    graphie.graphInit = function(options) {
+	        options = options || {};
+	        $.each(options, function(prop, val) {
+	            // allow options to be specified by a single number for shorthand if
+	            // the horizontal and vertical components are the same
+	            prop.match(/.*Opacity$/) || "range" === prop || "number" !== typeof val || (options[prop] = [ val, val ]);
+	            // allow symmetric ranges to be specified by the absolute values
+	            "range" !== prop && "gridRange" !== prop || (val.constructor === Array ? // but don't mandate symmetric ranges
+	            val[0].constructor !== Array && (options[prop] = [ [ -val[0], val[0] ], [ -val[1], val[1] ] ]) : "number" === typeof val && (options[prop] = [ [ -val, val ], [ -val, val ] ]));
+	        });
+	        var range = options.range || [ [ -10, 10 ], [ -10, 10 ] ];
+	        var gridRange = options.gridRange || options.range;
+	        var scale = options.scale || [ 20, 20 ];
+	        var grid = null != options.grid ? options.grid : true;
+	        var gridOpacity = options.gridOpacity || .1;
+	        var gridStep = options.gridStep || [ 1, 1 ];
+	        var axes = null != options.axes ? options.axes : true;
+	        var axisArrows = options.axisArrows || "";
+	        var axisOpacity = options.axisOpacity || 1;
+	        var axisCenter = options.axisCenter || [ Math.min(Math.max(range[0][0], 0), range[0][1]), Math.min(Math.max(range[1][0], 0), range[1][1]) ];
+	        var axisLabels = null != options.axisLabels ? options.axisLabels : false;
+	        var ticks = null != options.ticks ? options.ticks : true;
+	        var tickStep = options.tickStep || [ 2, 2 ];
+	        var tickLen = options.tickLen || [ 5, 5 ];
+	        var tickOpacity = options.tickOpacity || 1;
+	        var labels = options.labels || options.labelStep || false;
+	        var labelStep = options.labelStep || [ 1, 1 ];
+	        var labelOpacity = options.labelOpacity || 1;
+	        var unityLabels = options.unityLabels || false;
+	        var labelFormat = options.labelFormat || function(a) {
+	            return a;
+	        };
+	        var xLabelFormat = options.xLabelFormat || labelFormat;
+	        var yLabelFormat = options.yLabelFormat || labelFormat;
+	        var smartLabelPositioning = null != options.smartLabelPositioning ? options.smartLabelPositioning : true;
+	        var realRange = [ [ range[0][0] - (range[0][0] > 0 ? 1 : 0), range[0][1] + (range[0][1] < 0 ? 1 : 0) ], [ range[1][0] - (range[1][0] > 0 ? 1 : 0), range[1][1] + (range[1][1] < 0 ? 1 : 0) ] ];
+	        _.isArray(unityLabels) || (unityLabels = [ unityLabels, unityLabels ]);
+	        if (smartLabelPositioning) {
+	            var minusIgnorer = function(lf) {
+	                return function(a) {
+	                    return (lf(a) + "").replace(/-(\d)/g, "\\llap{-}$1");
+	                };
+	            };
+	            xLabelFormat = minusIgnorer(xLabelFormat);
+	            yLabelFormat = minusIgnorer(yLabelFormat);
+	        }
+	        this.init({
+	            range: realRange,
+	            scale: scale
+	        });
+	        // draw grid
+	        grid && this.grid(gridRange[0], gridRange[1], {
+	            stroke: "#000000",
+	            opacity: gridOpacity,
+	            step: gridStep
+	        });
+	        // draw axes
+	        if (axes) {
+	            // this is a slight hack until <-> arrowheads work
+	            "<->" === axisArrows || true === axisArrows ? this.style({
+	                stroke: "#000000",
+	                opacity: axisOpacity,
+	                strokeWidth: 2,
+	                arrows: "->"
+	            }, function() {
+	                if (range[1][0] < 0 && range[1][1] > 0) {
+	                    this.path([ axisCenter, [ gridRange[0][0], axisCenter[1] ] ]);
+	                    this.path([ axisCenter, [ gridRange[0][1], axisCenter[1] ] ]);
+	                }
+	                if (range[0][0] < 0 && range[0][1] > 0) {
+	                    this.path([ axisCenter, [ axisCenter[0], gridRange[1][0] ] ]);
+	                    this.path([ axisCenter, [ axisCenter[0], gridRange[1][1] ] ]);
+	                }
+	            }) : "->" !== axisArrows && "" !== axisArrows || this.style({
+	                stroke: "#000000",
+	                opacity: axisOpacity,
+	                strokeWidth: 2,
+	                arrows: axisArrows
+	            }, function() {
+	                this.path([ [ gridRange[0][0], axisCenter[1] ], [ gridRange[0][1], axisCenter[1] ] ]);
+	                this.path([ [ axisCenter[0], gridRange[1][0] ], [ axisCenter[0], gridRange[1][1] ] ]);
+	            });
+	            if (axisLabels && 2 === axisLabels.length) {
+	                this.label([ gridRange[0][1], axisCenter[1] ], axisLabels[0], "right");
+	                this.label([ axisCenter[0], gridRange[1][1] ], axisLabels[1], "above");
+	            }
+	        }
+	        // draw tick marks
+	        ticks && this.style({
+	            stroke: "#000000",
+	            opacity: tickOpacity,
+	            strokeWidth: 1
+	        }, function() {
+	            // horizontal axis
+	            var step = gridStep[0] * tickStep[0];
+	            var len = tickLen[0] / scale[1];
+	            var start = gridRange[0][0];
+	            var stop = gridRange[0][1];
+	            if (range[1][0] < 0 && range[1][1] > 0) {
+	                for (var x = step + axisCenter[0]; x <= stop; x += step) (x < stop || !axisArrows) && this.line([ x, -len + axisCenter[1] ], [ x, len + axisCenter[1] ]);
+	                for (var x = -step + axisCenter[0]; x >= start; x -= step) (x > start || !axisArrows) && this.line([ x, -len + axisCenter[1] ], [ x, len + axisCenter[1] ]);
+	            }
+	            // vertical axis
+	            step = gridStep[1] * tickStep[1];
+	            len = tickLen[1] / scale[0];
+	            start = gridRange[1][0];
+	            stop = gridRange[1][1];
+	            if (range[0][0] < 0 && range[0][1] > 0) {
+	                for (var y = step + axisCenter[1]; y <= stop; y += step) (y < stop || !axisArrows) && this.line([ -len + axisCenter[0], y ], [ len + axisCenter[0], y ]);
+	                for (var y = -step + axisCenter[1]; y >= start; y -= step) (y > start || !axisArrows) && this.line([ -len + axisCenter[0], y ], [ len + axisCenter[0], y ]);
+	            }
+	        });
+	        // draw axis labels
+	        labels && this.style({
+	            stroke: "#000000",
+	            opacity: labelOpacity
+	        }, function() {
+	            // horizontal axis
+	            var step = gridStep[0] * tickStep[0] * labelStep[0];
+	            var start = gridRange[0][0];
+	            var stop = gridRange[0][1];
+	            var xAxisPosition = axisCenter[0] < 0 ? "above" : "below";
+	            var yAxisPosition = axisCenter[0] < 0 ? "right" : "left";
+	            var xShowZero = 0 === axisCenter[0] && 0 !== axisCenter[1];
+	            var yShowZero = 0 !== axisCenter[0] && 0 === axisCenter[1];
+	            var axisOffCenter = 0 !== axisCenter[0] || 0 !== axisCenter[1];
+	            var showUnityX = unityLabels[0] || axisOffCenter;
+	            var showUnityY = unityLabels[1] || axisOffCenter;
+	            // positive x-axis
+	            for (var x = (xShowZero ? 0 : step) + axisCenter[0]; x <= stop; x += step) (x < stop || !axisArrows) && this.label([ x, axisCenter[1] ], xLabelFormat(x), xAxisPosition);
+	            // negative x-axis
+	            for (var x = -step * (showUnityX ? 1 : 2) + axisCenter[0]; x >= start; x -= step) (x > start || !axisArrows) && this.label([ x, axisCenter[1] ], xLabelFormat(x), xAxisPosition);
+	            step = gridStep[1] * tickStep[1] * labelStep[1];
+	            start = gridRange[1][0];
+	            stop = gridRange[1][1];
+	            // positive y-axis
+	            for (var y = (yShowZero ? 0 : step) + axisCenter[1]; y <= stop; y += step) (y < stop || !axisArrows) && this.label([ axisCenter[0], y ], yLabelFormat(y), yAxisPosition);
+	            // negative y-axis
+	            for (var y = -step * (showUnityY ? 1 : 2) + axisCenter[1]; y >= start; y -= step) (y > start || !axisArrows) && this.label([ axisCenter[0], y ], yLabelFormat(y), yAxisPosition);
+	        });
+	    };
+	    return graphie;
+	};
+
+	$.fn.graphie = function(problem) {
+	    if (null != Khan.query.nographie) return;
+	    var graphies = this.find(".graphie, script[type='text/graphie']").addBack().filter(".graphie, script[type='text/graphie']");
+	    return graphies.each(function() {
+	        // Grab code for later execution
+	        var code = $(this).text();
+	        var graphie = void 0;
+	        // Ignore graphie elements that have already been processed
+	        if (null != $(this).data("graphie")) return;
+	        // Remove any of the code that's in there
+	        $(this).empty();
+	        // Initialize the graph
+	        if ($(this).data("update")) {
+	            var id = $(this).data("update");
+	            $(this).remove();
+	            // Graph could be in either of these
+	            var area = $("#problemarea").add(problem);
+	            graphie = area.find("#" + id + ".graphie").data("graphie");
+	        } else {
+	            var el = this;
+	            if (null != $(this).filter("script")[0]) {
+	                el = $("<div>").addClass("graphie").attr("id", $(this).attr("id")).insertAfter(this)[0];
+	                $(this).remove();
+	            }
+	            graphie = GraphUtils.createGraphie(el);
+	            $(el).data("graphie", graphie);
+	            var id = $(el).attr("id");
+	            id && (GraphUtils.graphs[id] = graphie);
+	        }
+	        // So we can write graph.bwahahaha = 17 to save stuff between updates
+	        "undefined" === typeof graphie.graph && (graphie.graph = {});
+	        // Add newline in case code ends with a // comment
+	        code = "(function() {" + code + "\n})()";
+	        // Execute the graph-specific code
+	        KhanUtil.currentGraph = graphie;
+	        $.tmpl.getVAR(code, graphie);
+	    }).end();
+	};
+
+	$.fn.graphieCleanup = function(problem) {
+	    cleanupIntervals();
+	};
+
+	module.exports = GraphUtils;
+
+/***/ },
+/* 113 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(8);
+
+	__webpack_require__(136);
+
+	var GraphUtils = __webpack_require__(112);
+
+	var kvector = __webpack_require__(100).vector;
+
+	var kpoint = __webpack_require__(100).point;
+
+	var kline = __webpack_require__(100).line;
+
+	var WrappedEllipse = __webpack_require__(128);
+
+	var WrappedLine = __webpack_require__(131);
+
+	var WrappedPath = __webpack_require__(133);
+
+	var KhanMath = __webpack_require__(85);
+
+	var KhanColors = __webpack_require__(83);
+
+	var _require = __webpack_require__(78);
+
+	var getCanUse3dTransform = _require.getCanUse3dTransform;
+
+	function sum(array) {
+	    return _.reduce(array, function(memo, arg) {
+	        return memo + arg;
+	    }, 0);
+	}
+
+	function clockwise(points) {
+	    var segments = _.zip(points, points.slice(1).concat(points.slice(0, 1)));
+	    var areas = _.map(segments, function(segment) {
+	        var p1 = segment[0];
+	        var p2 = segment[1];
+	        return (p2[0] - p1[0]) * (p2[1] + p1[1]);
+	    });
+	    return sum(areas) > 0;
+	}
+
+	function addPoints() {
+	    var points = _.toArray(arguments);
+	    var zipped = _.zip.apply(_, points);
+	    return _.map(zipped, sum);
+	}
+
+	function reverseVector(vector) {
+	    return _.map(vector, function(coord) {
+	        return -1 * coord;
+	    });
+	}
+
+	function scaledDistanceFromAngle(angle) {
+	    var a = 70.2941120352484;
+	    var b = 11.374597405497571;
+	    var c = -.037587715462826674;
+	    return (a - b) * Math.exp(c * angle) + b;
+	}
+
+	function scaledPolarRad(radius, radians) {
+	    return [ radius * Math.cos(radians), radius * Math.sin(radians) * -1 ];
+	}
+
+	function scaledPolarDeg(radius, degrees) {
+	    var radians = degrees * Math.PI / 180;
+	    return scaledPolarRad(radius, radians);
+	}
+
+	var dragging = false;
+
+	var InteractiveUtils = {
+	    FILL_OPACITY: .3,
+	    createSorter: function() {
+	        var sorter = {};
+	        var list = void 0;
+	        sorter.hasAttempted = false;
+	        sorter.init = function(element) {
+	            list = $("[id=" + element + "]").last();
+	            var container = list.wrap("<div>").parent();
+	            var placeholder = $("<li>");
+	            placeholder.addClass("placeholder");
+	            container.addClass("sortable ui-helper-clearfix");
+	            list.find("li").each(function(tileNum, tile) {
+	                $(tile).bind("vmousedown", function(event) {
+	                    var _this = this;
+	                    "vmousedown" !== event.type || 1 !== event.which && 0 !== event.which || !function() {
+	                        event.preventDefault();
+	                        $(tile).addClass("dragging");
+	                        var tileIndex = $(_this).index();
+	                        placeholder.insertAfter(tile);
+	                        placeholder.width($(tile).width());
+	                        $(_this).css("z-index", 100);
+	                        var offset = $(_this).offset();
+	                        var click = {
+	                            left: event.pageX - offset.left - 3,
+	                            top: event.pageY - offset.top - 3
+	                        };
+	                        $(tile).css({
+	                            position: "absolute"
+	                        });
+	                        $(tile).offset({
+	                            left: offset.left,
+	                            top: offset.top
+	                        });
+	                        $(document).bind("vmousemove.tile vmouseup.tile", function(event) {
+	                            event.preventDefault();
+	                            "vmousemove" === event.type ? !function() {
+	                                sorter.hasAttempted = true;
+	                                $(tile).offset({
+	                                    left: event.pageX - click.left,
+	                                    top: event.pageY - click.top
+	                                });
+	                                var leftEdge = list.offset().left;
+	                                var midWidth = $(tile).offset().left - leftEdge;
+	                                var index = 0;
+	                                var sumWidth = 0;
+	                                list.find("li").each(function() {
+	                                    if (this === placeholder[0] || this === tile) return;
+	                                    midWidth > sumWidth + $(this).outerWidth(true) / 2 && (index += 1);
+	                                    sumWidth += $(this).outerWidth(true);
+	                                });
+	                                if (index !== tileIndex) {
+	                                    tileIndex = index;
+	                                    if (0 === index) {
+	                                        placeholder.prependTo(list);
+	                                        $(tile).prependTo(list);
+	                                    } else {
+	                                        placeholder.detach();
+	                                        $(tile).detach();
+	                                        var preceeding = list.find("li")[index - 1];
+	                                        placeholder.insertAfter(preceeding);
+	                                        $(tile).insertAfter(preceeding);
+	                                    }
+	                                }
+	                            }() : "vmouseup" === event.type && !function() {
+	                                $(document).unbind(".tile");
+	                                var position = $(tile).offset();
+	                                $(position).animate(placeholder.offset(), {
+	                                    duration: 150,
+	                                    step: function(now, fx) {
+	                                        position[fx.prop] = now;
+	                                        $(tile).offset(position);
+	                                    },
+	                                    complete: function() {
+	                                        $(tile).css("z-index", 0);
+	                                        placeholder.detach();
+	                                        $(tile).css({
+	                                            position: "static"
+	                                        });
+	                                        $(tile).removeClass("dragging");
+	                                    }
+	                                });
+	                            }();
+	                        });
+	                    }();
+	                });
+	            });
+	        };
+	        sorter.getContent = function() {
+	            var content = [];
+	            list.find("li").each(function(tileNum, tile) {
+	                content.push($.trim($(tile).find(".sort-key").text()));
+	            });
+	            return content;
+	        };
+	        sorter.setContent = function(content) {
+	            var tiles = [];
+	            $.each(content, function(n, sortKey) {
+	                var tile = list.find("li .sort-key").filter(function() {
+	                    return $(this).text() === sortKey;
+	                }).closest("li").get(0);
+	                $(tile).detach();
+	                tiles.push(tile);
+	            });
+	            list.append(tiles);
+	        };
+	        return sorter;
+	    },
+	    bogusShape: {
+	        animate: function() {},
+	        attr: function() {},
+	        remove: function() {}
+	    }
+	};
+
+	_.extend(GraphUtils.Graphie.prototype, {
+	    initAutoscaledGraph: function(range, options) {
+	        var graph = this;
+	        options = $.extend({
+	            xpixels: 500,
+	            ypixels: 500,
+	            xdivisions: 20,
+	            ydivisions: 20,
+	            labels: true,
+	            unityLabels: true,
+	            range: void 0 === range ? [ [ -10, 10 ], [ -10, 10 ] ] : range
+	        }, options);
+	        options.scale = [ options.xpixels / (options.range[0][1] - options.range[0][0]), options.ypixels / (options.range[1][1] - options.range[1][0]) ];
+	        options.gridStep = [ (options.range[0][1] - options.range[0][0]) / options.xdivisions, (options.range[1][1] - options.range[1][0]) / options.ydivisions ];
+	        graph.xpixels = options.xpixels;
+	        graph.ypixels = options.ypixels;
+	        graph.range = options.range;
+	        graph.scale = options.scale;
+	        graph.graphInit(options);
+	    },
+	    addMouseLayer: function(options) {
+	        var graph = this;
+	        options = _.extend({
+	            allowScratchpad: false
+	        }, options);
+	        var mouselayerZIndex = 2;
+	        graph.mouselayer = Raphael(graph.raphael.canvas.parentNode, graph.xpixels, graph.ypixels);
+	        $(graph.mouselayer.canvas).css("z-index", mouselayerZIndex);
+	        (options.onClick || options.onMouseDown || options.onMouseMove || options.onMouseOver || options.onMouseOut) && !function() {
+	            var canvasClickTarget = graph.mouselayer.rect(0, 0, graph.xpixels, graph.ypixels).attr({
+	                fill: "#000",
+	                opacity: 0
+	            });
+	            var isClickingCanvas = false;
+	            $(graph.mouselayer.canvas).on("vmousedown", function(e) {
+	                if (e.target === canvasClickTarget[0]) {
+	                    options.onMouseDown && options.onMouseDown(graph.getMouseCoord(e));
+	                    isClickingCanvas = true;
+	                    options.onMouseMove && $(document).bind("vmousemove.mouseLayer", function(e) {
+	                        if (isClickingCanvas) {
+	                            e.preventDefault();
+	                            options.onMouseMove(graph.getMouseCoord(e));
+	                        }
+	                    });
+	                    $(document).bind("vmouseup.mouseLayer", function(e) {
+	                        $(document).unbind(".mouseLayer");
+	                        isClickingCanvas && options.onClick && options.onClick(graph.getMouseCoord(e));
+	                        isClickingCanvas = false;
+	                    });
+	                }
+	            });
+	            options.onMouseOver && $(graph.mouselayer.canvas).on("vmouseover", function(e) {
+	                options.onMouseOver(graph.getMouseCoord(e));
+	            });
+	            options.onMouseOut && $(graph.mouselayer.canvas).on("vmouseout", function(e) {
+	                options.onMouseOut(graph.getMouseCoord(e));
+	            });
+	        }();
+	        options.allowScratchpad || Khan.scratchpad.disable();
+	        graph._mouselayerWrapper = document.createElement("div");
+	        $(graph._mouselayerWrapper).css({
+	            position: "absolute",
+	            left: 0,
+	            top: 0,
+	            zIndex: mouselayerZIndex
+	        });
+	        graph._visiblelayerWrapper = document.createElement("div");
+	        $(graph._visiblelayerWrapper).css({
+	            position: "absolute",
+	            left: 0,
+	            top: 0
+	        });
+	        var el = graph.raphael.canvas.parentNode;
+	        el.appendChild(graph._visiblelayerWrapper);
+	        el.appendChild(graph._mouselayerWrapper);
+	        graph.addToMouseLayerWrapper = function(el) {
+	            this._mouselayerWrapper.appendChild(el);
+	        };
+	        graph.addToVisibleLayerWrapper = function(el) {
+	            this._visiblelayerWrapper.appendChild(el);
+	        };
+	    },
+	    getMousePx: function(event) {
+	        var graphie = this;
+	        var mouseX = event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;
+	        var mouseY = event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;
+	        return [ mouseX, mouseY ];
+	    },
+	    getMouseCoord: function(event) {
+	        return this.unscalePoint(this.getMousePx(event));
+	    },
+	    drawArcs: function(point1, vertex, point3, numArcs) {
+	        var startAngle = GraphUtils.findAngle(point1, vertex);
+	        var endAngle = GraphUtils.findAngle(point3, vertex);
+	        if (((endAngle - startAngle) % 360 + 360) % 360 > 180) {
+	            var temp = startAngle;
+	            startAngle = endAngle;
+	            endAngle = temp;
+	        }
+	        var radius = .3;
+	        ((endAngle - startAngle) % 360 + 360) % 360 < 75 && (radius = -.6 / 90 * (((endAngle - startAngle) % 360 + 360) % 360) + .8);
+	        var arcset = [];
+	        for (var arc = 0; arc < numArcs; ++arc) arcset.push(this.arc(vertex, radius + .15 * arc, startAngle, endAngle));
+	        return arcset;
+	    },
+	    labelAngle: function(options) {
+	        var graphie = this;
+	        _.defaults(options, {
+	            point1: [ 0, 0 ],
+	            vertex: [ 0, 0 ],
+	            point3: [ 0, 0 ],
+	            label: null,
+	            numArcs: 1,
+	            showRightAngleMarker: true,
+	            pushOut: 0,
+	            clockwise: false,
+	            style: {}
+	        });
+	        var text = void 0 === options.text ? "" : options.text;
+	        var vertex = options.vertex;
+	        var sVertex = graphie.scalePoint(vertex);
+	        var p1 = void 0;
+	        var p3 = void 0;
+	        if (options.clockwise) {
+	            p1 = options.point1;
+	            p3 = options.point3;
+	        } else {
+	            p1 = options.point3;
+	            p3 = options.point1;
+	        }
+	        var startAngle = GraphUtils.findAngle(p1, vertex);
+	        var endAngle = GraphUtils.findAngle(p3, vertex);
+	        var angle = (endAngle + 360 - startAngle) % 360;
+	        var halfAngle = (startAngle + angle / 2) % 360;
+	        var sPadding = 5 * options.pushOut;
+	        var sRadius = sPadding + scaledDistanceFromAngle(angle);
+	        var temp = [];
+	        Math.abs(angle - 90) < 1e-9 && options.showRightAngleMarker ? !function() {
+	            var v1 = addPoints(sVertex, scaledPolarDeg(sRadius, startAngle));
+	            var v2 = addPoints(sVertex, scaledPolarDeg(sRadius, endAngle));
+	            sRadius *= Math.SQRT2;
+	            var v3 = addPoints(sVertex, scaledPolarDeg(sRadius, halfAngle));
+	            _.each([ v1, v2 ], function(v) {
+	                temp.push(graphie.scaledPath([ v, v3 ], options.style));
+	            });
+	        }() : _.times(options.numArcs, function(i) {
+	            temp.push(graphie.arc(vertex, graphie.unscaleVector(sRadius), startAngle, endAngle, options.style));
+	            sRadius += 3;
+	        });
+	        if (text) {
+	            var match = text.match(/\$deg(\d)?/);
+	            if (match) {
+	                var precision = match[1] || 1;
+	                text = text.replace(match[0], KhanMath.toFixedApprox(angle, precision) + "^{\\circ}");
+	            }
+	            var sOffset = scaledPolarDeg(sRadius + 15, halfAngle);
+	            var sPosition = addPoints(sVertex, sOffset);
+	            var position = graphie.unscalePoint(sPosition);
+	            if (options.label) {
+	                options.label.setPosition(position);
+	                options.label.processMath(text, true);
+	            } else graphie.label(position, text, "center", options.style);
+	        }
+	        return temp;
+	    },
+	    labelSide: function(options) {
+	        var graphie = this;
+	        _.defaults(options, {
+	            point1: [ 0, 0 ],
+	            point2: [ 0, 0 ],
+	            label: null,
+	            text: "",
+	            numTicks: 0,
+	            numArrows: 0,
+	            clockwise: false,
+	            style: {}
+	        });
+	        var p1 = void 0;
+	        var p2 = void 0;
+	        if (options.clockwise) {
+	            p1 = options.point1;
+	            p2 = options.point2;
+	        } else {
+	            p1 = options.point2;
+	            p2 = options.point1;
+	        }
+	        var midpoint = [ (p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2 ];
+	        var sMidpoint = graphie.scalePoint(midpoint);
+	        var parallelAngle = Math.atan2(p2[1] - p1[1], p2[0] - p1[0]);
+	        var perpendicularAngle = parallelAngle + Math.PI / 2;
+	        var temp = [];
+	        var sCumulativeOffset = 0;
+	        options.numTicks && !function() {
+	            var n = options.numTicks;
+	            var sSpacing = 5;
+	            var sHeight = 5;
+	            var style = _.extend({}, options.style, {
+	                strokeWidth: 2
+	            });
+	            _.times(n, function(i) {
+	                var sOffset = sSpacing * (i - (n - 1) / 2);
+	                var sOffsetVector = scaledPolarRad(sOffset, parallelAngle);
+	                var sHeightVector = scaledPolarRad(sHeight, perpendicularAngle);
+	                var sPath = [ addPoints(sMidpoint, sOffsetVector, sHeightVector), addPoints(sMidpoint, sOffsetVector, reverseVector(sHeightVector)) ];
+	                temp.push(graphie.scaledPath(sPath, style));
+	            });
+	            sCumulativeOffset += sSpacing * (n - 1) + 15;
+	        }();
+	        options.numArrows && !function() {
+	            var n = options.numArrows;
+	            var start = [ p1, p2 ].sort(function(a, b) {
+	                return a[1] === b[1] ? a[0] - b[0] : a[1] - b[1];
+	            })[0];
+	            var sStart = graphie.scalePoint(start);
+	            var style = _.extend({}, options.style, {
+	                arrows: "->",
+	                strokeWidth: 2
+	            });
+	            var sSpacing = 5;
+	            _.times(n, function(i) {
+	                var sOffset = sCumulativeOffset + sSpacing * i;
+	                var sOffsetVector = scaledPolarRad(sOffset, parallelAngle);
+	                start !== p1 && (sOffsetVector = reverseVector(sOffsetVector));
+	                var sEnd = addPoints(sMidpoint, sOffsetVector);
+	                temp.push(graphie.scaledPath([ sStart, sEnd ], style));
+	            });
+	        }();
+	        var text = options.text;
+	        if (text) {
+	            var match = text.match(/\$len(\d)?/);
+	            if (match) {
+	                var distance = GraphUtils.getDistance(p1, p2);
+	                var precision = match[1] || 1;
+	                text = text.replace(match[0], KhanMath.toFixedApprox(distance, precision));
+	            }
+	            var sOffset = 20;
+	            var sOffsetVector = scaledPolarRad(sOffset, perpendicularAngle);
+	            var sPosition = addPoints(sMidpoint, sOffsetVector);
+	            var position = graphie.unscalePoint(sPosition);
+	            if (options.label) {
+	                options.label.setPosition(position);
+	                options.label.processMath(text, true);
+	            } else graphie.label(position, text, "center", options.style);
+	        }
+	        return temp;
+	    },
+	    labelVertex: function(options) {
+	        var graphie = this;
+	        _.defaults(options, {
+	            point1: null,
+	            vertex: [ 0, 0 ],
+	            point3: null,
+	            label: null,
+	            text: "",
+	            clockwise: false,
+	            style: {}
+	        });
+	        if (!options.text) return;
+	        var vertex = options.vertex;
+	        var sVertex = graphie.scalePoint(vertex);
+	        var p1 = void 0;
+	        var p3 = void 0;
+	        if (options.clockwise) {
+	            p1 = options.point1;
+	            p3 = options.point3;
+	        } else {
+	            p1 = options.point3;
+	            p3 = options.point1;
+	        }
+	        var angle = 135;
+	        var halfAngle = void 0;
+	        if (p1 && p3) {
+	            var startAngle = GraphUtils.findAngle(p1, vertex);
+	            var endAngle = GraphUtils.findAngle(p3, vertex);
+	            angle = (endAngle + 360 - startAngle) % 360;
+	            halfAngle = (startAngle + angle / 2 + 180) % 360;
+	        } else if (p1) {
+	            var parallelAngle = GraphUtils.findAngle(vertex, p1);
+	            halfAngle = parallelAngle + 90;
+	        } else if (p3) {
+	            var parallelAngle = GraphUtils.findAngle(p3, vertex);
+	            halfAngle = parallelAngle + 90;
+	        } else halfAngle = 135;
+	        var sRadius = 10 + scaledDistanceFromAngle(360 - angle);
+	        var sOffsetVector = scaledPolarDeg(sRadius, halfAngle);
+	        var sPosition = addPoints(sVertex, sOffsetVector);
+	        var position = graphie.unscalePoint(sPosition);
+	        if (options.label) {
+	            options.label.setPosition(position);
+	            options.label.processMath(options.text, true);
+	        } else graphie.label(position, options.text, "center", options.style);
+	    },
+	    addMovablePoint: function(options) {
+	        var movablePoint = $.extend(true, {
+	            graph: this,
+	            coord: [ 0, 0 ],
+	            snapX: 0,
+	            snapY: 0,
+	            pointSize: 4,
+	            highlight: false,
+	            dragging: false,
+	            visible: true,
+	            bounded: true,
+	            constraints: {
+	                fixed: false,
+	                constrainX: false,
+	                constrainY: false,
+	                fixedAngle: {},
+	                fixedDistance: {}
+	            },
+	            lineStarts: [],
+	            lineEnds: [],
+	            polygonVertices: [],
+	            normalStyle: {},
+	            highlightStyle: {
+	                fill: KhanColors.INTERACTING,
+	                stroke: KhanColors.INTERACTING
+	            },
+	            labelStyle: {
+	                color: KhanColors.INTERACTIVE
+	            },
+	            vertexLabel: "",
+	            mouseTarget: null
+	        }, options);
+	        var normalColor = movablePoint.constraints.fixed ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
+	        movablePoint.normalStyle = _.extend({}, {
+	            fill: normalColor,
+	            stroke: normalColor
+	        }, options.normalStyle);
+	        void 0 !== options.coordX && (movablePoint.coord[0] = options.coordX);
+	        void 0 !== options.coordY && (movablePoint.coord[1] = options.coordY);
+	        var graph = movablePoint.graph;
+	        var applySnapAndConstraints = function(coord) {
+	            movablePoint.visible && movablePoint.bounded && !movablePoint.constraints.fixed && (coord = graph.constrainToBounds(coord, 10));
+	            var coordX = coord[0];
+	            var coordY = coord[1];
+	            0 !== movablePoint.snapX && (coordX = Math.round(coordX / movablePoint.snapX) * movablePoint.snapX);
+	            0 !== movablePoint.snapY && (coordY = Math.round(coordY / movablePoint.snapY) * movablePoint.snapY);
+	            if (movablePoint.constraints.fixedDistance.snapPoints) {
+	                var mouse = graph.scalePoint(coord);
+	                var mouseX = mouse[0];
+	                var mouseY = mouse[1];
+	                var snapRadians = 2 * Math.PI / movablePoint.constraints.fixedDistance.snapPoints;
+	                var radius = movablePoint.constraints.fixedDistance.dist;
+	                var centerCoord = movablePoint.constraints.fixedDistance.point;
+	                var centerX = (centerCoord[0] - graph.range[0][0]) * graph.scale[0];
+	                var centerY = (-centerCoord[1] + graph.range[1][1]) * graph.scale[1];
+	                var mouseXrel = mouseX - centerX;
+	                var mouseYrel = -mouseY + centerY;
+	                var radians = Math.atan(mouseYrel / mouseXrel);
+	                var outsideArcTanRange = mouseXrel < 0;
+	                outsideArcTanRange && (radians += Math.PI);
+	                radians = Math.round(radians / snapRadians) * snapRadians;
+	                mouseXrel = radius * Math.cos(radians);
+	                mouseYrel = radius * Math.sin(radians);
+	                mouseX = mouseXrel + centerX;
+	                mouseY = -mouseYrel + centerY;
+	                coordX = KhanMath.roundTo(5, mouseX / graph.scale[0] + graph.range[0][0]);
+	                coordY = KhanMath.roundTo(5, graph.range[1][1] - mouseY / graph.scale[1]);
+	            }
+	            var result = movablePoint.applyConstraint([ coordX, coordY ]);
+	            return result;
+	        };
+	        movablePoint.applyConstraint = function(coord, extraConstraints, override) {
+	            var newCoord = coord.slice();
+	            var constraints = {};
+	            override ? $.extend(constraints, {
+	                fixed: false,
+	                constrainX: false,
+	                constrainY: false,
+	                fixedAngle: {},
+	                fixedDistance: {}
+	            }, extraConstraints) : $.extend(constraints, this.constraints, extraConstraints);
+	            if (constraints.constrainX) newCoord = [ this.coord[0], coord[1] ]; else if (constraints.constrainY) newCoord = [ coord[0], this.coord[1] ]; else if ("number" === typeof constraints.fixedAngle.angle && "number" === typeof constraints.fixedDistance.dist) {
+	                var vertex = constraints.fixedAngle.vertex.coord || constraints.fixedAngle.vertex;
+	                var ref = constraints.fixedAngle.ref.coord || constraints.fixedAngle.ref;
+	                var distPoint = constraints.fixedDistance.point.coord || constraints.fixedDistance.point;
+	                var constrainedAngle = (constraints.fixedAngle.angle + GraphUtils.findAngle(ref, vertex)) * Math.PI / 180;
+	                var _length = constraints.fixedDistance.dist;
+	                newCoord[0] = _length * Math.cos(constrainedAngle) + distPoint[0];
+	                newCoord[1] = _length * Math.sin(constrainedAngle) + distPoint[1];
+	            } else if ("number" === typeof constraints.fixedAngle.angle) {
+	                var vertex = constraints.fixedAngle.vertex.coord || constraints.fixedAngle.vertex;
+	                var ref = constraints.fixedAngle.ref.coord || constraints.fixedAngle.ref;
+	                var constrainedAngle = (constraints.fixedAngle.angle + GraphUtils.findAngle(ref, vertex)) * Math.PI / 180;
+	                var angle = GraphUtils.findAngle(coord, vertex) * Math.PI / 180;
+	                var distance = GraphUtils.getDistance(coord, vertex);
+	                var _length2 = distance * Math.cos(constrainedAngle - angle);
+	                _length2 = _length2 < 1 ? 1 : _length2;
+	                newCoord[0] = _length2 * Math.cos(constrainedAngle) + vertex[0];
+	                newCoord[1] = _length2 * Math.sin(constrainedAngle) + vertex[1];
+	            } else if ("number" === typeof constraints.fixedDistance.dist) {
+	                var distPoint = constraints.fixedDistance.point.coord || constraints.fixedDistance.point;
+	                var angle = GraphUtils.findAngle(coord, distPoint);
+	                var _length3 = constraints.fixedDistance.dist;
+	                angle = angle * Math.PI / 180;
+	                newCoord[0] = _length3 * Math.cos(angle) + distPoint[0];
+	                newCoord[1] = _length3 * Math.sin(angle) + distPoint[1];
+	            } else constraints.fixed && (newCoord = movablePoint.coord);
+	            return newCoord;
+	        };
+	        movablePoint.coord = applySnapAndConstraints(movablePoint.coord);
+	        var highlightScale = 2;
+	        movablePoint.visible && graph.style(movablePoint.normalStyle, function() {
+	            var radii = [ movablePoint.pointSize / graph.scale[0], movablePoint.pointSize / graph.scale[1] ];
+	            var options = {
+	                maxScale: highlightScale
+	            };
+	            movablePoint.visibleShape = new WrappedEllipse(graph, movablePoint.coord, radii, options);
+	            movablePoint.visibleShape.attr(_.omit(movablePoint.normalStyle, "scale"));
+	            movablePoint.visibleShape.toFront();
+	        });
+	        movablePoint.normalStyle.scale = 1;
+	        movablePoint.highlightStyle.scale = highlightScale;
+	        movablePoint.vertexLabel && (movablePoint.labeledVertex = this.label([ 0, 0 ], "", "center", movablePoint.labelStyle));
+	        movablePoint.drawLabel = function() {
+	            movablePoint.vertexLabel && movablePoint.graph.labelVertex({
+	                vertex: movablePoint.coord,
+	                label: movablePoint.labeledVertex,
+	                text: movablePoint.vertexLabel,
+	                style: movablePoint.labelStyle
+	            });
+	        };
+	        movablePoint.drawLabel();
+	        movablePoint.grab = function() {
+	            $(document).bind("vmousemove.point vmouseup.point", function(event) {
+	                event.preventDefault();
+	                movablePoint.dragging = true;
+	                dragging = true;
+	                var coord = graph.getMouseCoord(event);
+	                coord = applySnapAndConstraints(coord);
+	                var coordX = coord[0];
+	                var coordY = coord[1];
+	                var mouseX = void 0;
+	                var mouseY = void 0;
+	                if ("vmousemove" === event.type) {
+	                    var doMove = true;
+	                    if (_.isFunction(movablePoint.onMove)) {
+	                        var result = movablePoint.onMove(coordX, coordY);
+	                        false === result && (doMove = false);
+	                        if (_.isArray(result)) {
+	                            coordX = result[0];
+	                            coordY = result[1];
+	                        }
+	                    }
+	                    mouseX = (coordX - graph.range[0][0]) * graph.scale[0];
+	                    mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];
+	                    if (doMove) {
+	                        var point = graph.unscalePoint([ mouseX, mouseY ]);
+	                        movablePoint.visibleShape.moveTo(point);
+	                        movablePoint.mouseTarget.moveTo(point);
+	                        movablePoint.coord = [ coordX, coordY ];
+	                        movablePoint.updateLineEnds();
+	                        $(movablePoint).trigger("move");
+	                    }
+	                    movablePoint.drawLabel();
+	                } else if ("vmouseup" === event.type) {
+	                    $(document).unbind(".point");
+	                    movablePoint.dragging = false;
+	                    dragging = false;
+	                    if (_.isFunction(movablePoint.onMoveEnd)) {
+	                        var result = movablePoint.onMoveEnd(coordX, coordY);
+	                        if (_.isArray(result)) {
+	                            coordX = result[0];
+	                            coordY = result[1];
+	                            mouseX = (coordX - graph.range[0][0]) * graph.scale[0];
+	                            mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];
+	                            var point = graph.unscalePoint([ mouseX, mouseY ]);
+	                            movablePoint.visibleShape.moveTo(point);
+	                            movablePoint.mouseTarget.moveTo(point);
+	                            movablePoint.coord = [ coordX, coordY ];
+	                        }
+	                    }
+	                    if (!movablePoint.highlight) {
+	                        movablePoint.visibleShape.animate(movablePoint.normalStyle, 50);
+	                        movablePoint.onUnhighlight && movablePoint.onUnhighlight();
+	                    }
+	                }
+	            });
+	        };
+	        if (movablePoint.visible && !movablePoint.constraints.fixed) {
+	            if (!movablePoint.mouseTarget) {
+	                var radii = graph.unscaleVector(15);
+	                var _options = {
+	                    mouselayer: true
+	                };
+	                movablePoint.mouseTarget = new WrappedEllipse(graph, movablePoint.coord, radii, _options);
+	                movablePoint.mouseTarget.attr({
+	                    fill: "#000",
+	                    opacity: 0
+	                });
+	            }
+	            var $mouseTarget = $(movablePoint.mouseTarget.getMouseTarget());
+	            $mouseTarget.css("cursor", "move");
+	            $mouseTarget.bind("vmousedown vmouseover vmouseout", function(event) {
+	                if ("vmouseover" === event.type) {
+	                    movablePoint.highlight = true;
+	                    if (!dragging) {
+	                        movablePoint.visibleShape.animate(movablePoint.highlightStyle, 50);
+	                        movablePoint.onHighlight && movablePoint.onHighlight();
+	                    }
+	                } else if ("vmouseout" === event.type) {
+	                    movablePoint.highlight = false;
+	                    if (!movablePoint.dragging && !dragging) {
+	                        movablePoint.visibleShape.animate(movablePoint.normalStyle, 50);
+	                        movablePoint.onUnhighlight && movablePoint.onUnhighlight();
+	                    }
+	                } else if ("vmousedown" === event.type && (1 === event.which || 0 === event.which)) {
+	                    event.preventDefault();
+	                    movablePoint.grab();
+	                }
+	            });
+	        }
+	        movablePoint.moveTo = function(coordX, coordY, updateLines) {
+	            var distance = GraphUtils.getDistance(this.graph.scalePoint([ coordX, coordY ]), this.graph.scalePoint(this.coord));
+	            var time = 5 * distance;
+	            var cb = updateLines && function(coord) {
+	                movablePoint.coord = coord;
+	                movablePoint.updateLineEnds();
+	            };
+	            this.visibleShape.animateTo([ coordX, coordY ], time, cb);
+	            this.mouseTarget.animateTo([ coordX, coordY ], time, cb);
+	            this.coord = [ coordX, coordY ];
+	            _.isFunction(this.onMove) && this.onMove(coordX, coordY);
+	        };
+	        movablePoint.updateLineEnds = function() {
+	            $(this.lineStarts).each(function() {
+	                this.coordA = movablePoint.coord;
+	                this.transform();
+	            });
+	            $(this.lineEnds).each(function() {
+	                this.coordZ = movablePoint.coord;
+	                this.transform();
+	            });
+	            $(this.polygonVertices).each(function() {
+	                this.transform();
+	            });
+	        };
+	        movablePoint.setCoord = function(coord) {
+	            if (this.visible) {
+	                this.visibleShape.moveTo(coord);
+	                null != this.mouseTarget && this.mouseTarget.moveTo(coord);
+	            }
+	            this.coord = coord.slice();
+	        };
+	        movablePoint.setCoordConstrained = function(coord) {
+	            this.setCoord(applySnapAndConstraints(coord));
+	        };
+	        movablePoint.toBack = function() {
+	            if (this.visible) {
+	                null != this.mouseTarget && this.mouseTarget.toBack();
+	                this.visibleShape.toBack();
+	            }
+	        };
+	        movablePoint.toFront = function() {
+	            if (this.visible) {
+	                null != this.mouseTarget && this.mouseTarget.toFront();
+	                this.visibleShape.toFront();
+	            }
+	        };
+	        movablePoint.remove = function() {
+	            this.visibleShape && this.visibleShape.remove();
+	            this.mouseTarget && this.mouseTarget.remove();
+	            this.labeledVertex && this.labeledVertex.remove();
+	        };
+	        return movablePoint;
+	    },
+	    addInteractiveFn: function(fn, options) {
+	        var graph = this;
+	        options = $.extend({
+	            graph: graph,
+	            snap: 0,
+	            range: [ graph.range[0][0], graph.range[0][1] ]
+	        }, options);
+	        var interactiveFn = {
+	            highlight: false
+	        };
+	        graph.style({
+	            stroke: KhanColors.BLUE
+	        }, function() {
+	            interactiveFn.visibleShape = graph.plot(fn, options.range, options.swapAxes);
+	        });
+	        graph.style({
+	            fill: KhanColors.BLUE,
+	            stroke: KhanColors.BLUE
+	        }, function() {
+	            interactiveFn.cursorPoint = graph.ellipse([ 0, fn(0) ], [ 4 / graph.scale[0], 4 / graph.scale[1] ]);
+	        });
+	        interactiveFn.cursorPoint.attr("opacity", 0);
+	        var mouseAreaWidth = 30;
+	        var points = [];
+	        var step = (options.range[1] - options.range[0]) / 100;
+	        var addScaledPoint = function(x, y) {
+	            options.swapAxes ? points.push([ (y - graph.range[0][0]) * graph.scale[0], (graph.range[1][1] - x) * graph.scale[1] ]) : points.push([ (x - graph.range[0][0]) * graph.scale[0], (graph.range[1][1] - y) * graph.scale[1] ]);
+	        };
+	        for (var x = options.range[0]; x <= options.range[1]; x += step) {
+	            var ddx = (fn(x - .001) - fn(x + .001)) / .002;
+	            var x1 = x;
+	            var y1 = fn(x) + mouseAreaWidth / (2 * graph.scale[1]);
+	            if (0 !== ddx) {
+	                var normalslope = -1 / (ddx * (graph.scale[1] / graph.scale[0])) / (graph.scale[1] / graph.scale[0]);
+	                if (ddx < 0) {
+	                    x1 = x - Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);
+	                    y1 = normalslope * (x - x1) + fn(x);
+	                } else if (ddx > 0) {
+	                    x1 = x + Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);
+	                    y1 = normalslope * (x - x1) + fn(x);
+	                }
+	            }
+	            addScaledPoint(x1, y1);
+	        }
+	        for (var x = options.range[1]; x >= options.range[0]; x -= step) {
+	            var ddx = (fn(x - .001) - fn(x + .001)) / .002;
+	            var x1 = x;
+	            var y1 = fn(x) - mouseAreaWidth / (2 * graph.scale[1]);
+	            if (0 !== ddx) {
+	                var normalslope = -1 / (ddx * (graph.scale[1] / graph.scale[0])) / (graph.scale[1] / graph.scale[0]);
+	                if (ddx < 0) {
+	                    x1 = x + Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);
+	                    y1 = normalslope * (x - x1) + fn(x);
+	                } else if (ddx > 0) {
+	                    x1 = x - Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);
+	                    y1 = normalslope * (x - x1) + fn(x);
+	                }
+	            }
+	            addScaledPoint(x1, y1);
+	        }
+	        interactiveFn.mouseTarget = graph.mouselayer.path(GraphUtils.unscaledSvgPath(points));
+	        interactiveFn.mouseTarget.attr({
+	            fill: "#000",
+	            opacity: 0
+	        });
+	        $(interactiveFn.mouseTarget[0]).bind("vmouseover vmouseout vmousemove", function(event) {
+	            event.preventDefault();
+	            var mouseX = event.pageX - $(graph.raphael.canvas.parentNode).offset().left;
+	            var mouseY = event.pageY - $(graph.raphael.canvas.parentNode).offset().top;
+	            mouseX = Math.max(10, Math.min(graph.xpixels - 10, mouseX));
+	            mouseY = Math.max(10, Math.min(graph.ypixels - 10, mouseY));
+	            options.snap && (mouseX = Math.round(mouseX / (graph.scale[0] * options.snap)) * (graph.scale[0] * options.snap));
+	            var coordX = mouseX / graph.scale[0] + graph.range[0][0];
+	            var coordY = graph.range[1][1] - mouseY / graph.scale[1];
+	            var findDistance = function(coordX, coordY) {
+	                var closestX = 0;
+	                var minDist = Math.sqrt(coordX * coordX + coordY * coordY);
+	                for (var x = options.range[0]; x < options.range[1]; x += (options.range[1] - options.range[0]) / graph.xpixels) if (Math.sqrt((x - coordX) * (x - coordX) + (fn(x) - coordY) * (fn(x) - coordY)) < minDist) {
+	                    closestX = x;
+	                    minDist = Math.sqrt((x - coordX) * (x - coordX) + (fn(x) - coordY) * (fn(x) - coordY));
+	                }
+	                return closestX;
+	            };
+	            if (options.swapAxes) {
+	                var closestX = findDistance(coordY, coordX);
+	                coordX = fn(closestX);
+	                coordY = closestX;
+	            } else {
+	                var closestX = findDistance(coordX, coordY);
+	                coordX = closestX;
+	                coordY = fn(closestX);
+	            }
+	            interactiveFn.cursorPoint.attr("cx", (graph.range[0][1] + coordX) * graph.scale[0]);
+	            interactiveFn.cursorPoint.attr("cy", (graph.range[1][1] - coordY) * graph.scale[1]);
+	            _.isFunction(interactiveFn.onMove) && interactiveFn.onMove(coordX, coordY);
+	            if ("vmouseover" === event.type) {
+	                interactiveFn.cursorPoint.animate({
+	                    opacity: 1
+	                }, 50);
+	                interactiveFn.highlight = true;
+	            } else if ("vmouseout" === event.type) {
+	                interactiveFn.highlight = false;
+	                interactiveFn.cursorPoint.animate({
+	                    opacity: 0
+	                }, 50);
+	                _.isFunction(interactiveFn.onLeave) && interactiveFn.onLeave(coordX, coordY);
+	            }
+	        });
+	        interactiveFn.mouseTarget.toBack();
+	        return interactiveFn;
+	    },
+	    addMovableLineSegment: function(options) {
+	        var lineSegment = $.extend({
+	            graph: this,
+	            coordA: [ 0, 0 ],
+	            coordZ: [ 1, 1 ],
+	            snapX: 0,
+	            snapY: 0,
+	            fixed: false,
+	            ticks: 0,
+	            normalStyle: {},
+	            highlightStyle: {
+	                stroke: KhanColors.INTERACTING,
+	                "stroke-width": 6
+	            },
+	            labelStyle: {
+	                stroke: KhanColors.INTERACTIVE,
+	                color: KhanColors.INTERACTIVE
+	            },
+	            highlight: false,
+	            dragging: false,
+	            tick: [],
+	            extendLine: false,
+	            extendRay: false,
+	            constraints: {
+	                fixed: false,
+	                constrainX: false,
+	                constrainY: false
+	            },
+	            sideLabel: "",
+	            vertexLabels: [],
+	            numArrows: 0,
+	            numTicks: 0,
+	            movePointsWithLine: false
+	        }, options);
+	        var normalColor = lineSegment.fixed ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
+	        lineSegment.normalStyle = _.extend({}, {
+	            "stroke-width": 2,
+	            stroke: normalColor
+	        }, options.normalStyle);
+	        lineSegment.arrowStyle = _.extend({}, lineSegment.normalStyle, {
+	            color: lineSegment.normalStyle.stroke
+	        });
+	        if (void 0 !== options.pointA) {
+	            lineSegment.coordA = options.pointA.coord;
+	            lineSegment.pointA.lineStarts.push(lineSegment);
+	        } else void 0 !== options.coordA && (lineSegment.coordA = options.coordA.slice());
+	        if (void 0 !== options.pointZ) {
+	            lineSegment.coordZ = options.pointZ.coord;
+	            lineSegment.pointZ.lineEnds.push(lineSegment);
+	        } else void 0 !== options.coordA && (lineSegment.coordA = lineSegment.coordA.slice());
+	        var graph = lineSegment.graph;
+	        graph.style(lineSegment.normalStyle);
+	        for (var i = 0; i < lineSegment.ticks; ++i) lineSegment.tick[i] = InteractiveUtils.bogusShape;
+	        var path = GraphUtils.unscaledSvgPath([ [ 0, 0 ], [ 1, 0 ] ]);
+	        for (var i = 0; i < lineSegment.ticks; ++i) {
+	            var tickoffset = .5 - (lineSegment.ticks - 1 + 2 * i) / graph.scale[0];
+	            path += GraphUtils.unscaledSvgPath([ [ tickoffset, -7 ], [ tickoffset, 7 ] ]);
+	        }
+	        options = {
+	            thickness: Math.max(lineSegment.normalStyle["stroke-width"], lineSegment.highlightStyle["stroke-width"])
+	        };
+	        lineSegment.visibleLine = new WrappedLine(graph, [ 0, 0 ], [ 1, 0 ], options);
+	        lineSegment.visibleLine.attr(lineSegment.normalStyle);
+	        if (!lineSegment.fixed) {
+	            var _options2 = {
+	                thickness: 30,
+	                mouselayer: true
+	            };
+	            lineSegment.mouseTarget = new WrappedLine(graph, [ 0, 0 ], [ 1, 0 ], _options2);
+	            lineSegment.mouseTarget.attr({
+	                fill: "#000",
+	                opacity: 0
+	            });
+	        }
+	        lineSegment.transform = function(syncToPoints) {
+	            if (syncToPoints) {
+	                "object" === typeof this.pointA && (this.coordA = this.pointA.coord);
+	                "object" === typeof this.pointZ && (this.coordZ = this.pointZ.coord);
+	            }
+	            var getScaledAngle = function(line) {
+	                var scaledA = line.graph.scalePoint(line.coordA);
+	                var scaledZ = line.graph.scalePoint(line.coordZ);
+	                return kvector.polarDegFromCart(kvector.subtract(scaledZ, scaledA))[1];
+	            };
+	            var getClipPoint = function(graph, coord, angle) {
+	                graph = lineSegment.graph;
+	                var xExtent = graph.range[0][1] - graph.range[0][0];
+	                var yExtent = graph.range[1][1] - graph.range[1][0];
+	                var distance = xExtent + yExtent;
+	                var angleVec = graph.unscaleVector(kvector.cartFromPolarDeg([ 1, angle ]));
+	                var distVec = kvector.scale(kvector.normalize(angleVec), distance);
+	                var farCoord = kvector.add(coord, distVec);
+	                var scaledAngle = kvector.polarDegFromCart(angleVec)[1];
+	                var clipPoint = graph.constrainToBoundsOnAngle(farCoord, 4, scaledAngle * Math.PI / 180);
+	                return clipPoint;
+	            };
+	            var angle = getScaledAngle(this);
+	            var start = this.coordA;
+	            var end = this.coordZ;
+	            if (this.extendLine) {
+	                start = getClipPoint(graph, start, 360 - angle);
+	                end = getClipPoint(graph, end, (540 - angle) % 360);
+	            } else this.extendRay && (end = getClipPoint(graph, start, 360 - angle));
+	            var elements = [ this.visibleLine ];
+	            this.fixed || elements.push(this.mouseTarget);
+	            _.each(elements, function(element) {
+	                element.moveTo(start, end);
+	            });
+	            var createArrow = function(graph, style) {
+	                var center = [ .75, 0 ];
+	                var points = [ [ -3, 4 ], [ -2.75, 2.5 ], [ 0, .25 ], center, [ 0, -.25 ], [ -2.75, -2.5 ], [ -3, -4 ] ];
+	                var scale = 1.4;
+	                points = _.map(points, function(point) {
+	                    var pv = kvector.subtract(point, center);
+	                    var pvScaled = kvector.scale(pv, scale);
+	                    return kvector.add(center, pvScaled);
+	                });
+	                var createCubicPath = function(points) {
+	                    var path = "M" + points[0][0] + " " + points[0][1];
+	                    for (var i = 1; i < points.length; i += 3) path += "C" + points[i][0] + " " + points[i][1] + " " + points[i + 1][0] + " " + points[i + 1][1] + " " + points[i + 2][0] + " " + points[i + 2][1];
+	                    return path;
+	                };
+	                var unscaledPoints = _.map(points, graph.unscalePoint);
+	                var options = {
+	                    center: graph.unscalePoint(center),
+	                    createPath: createCubicPath
+	                };
+	                var arrowHead = new WrappedPath(graph, unscaledPoints, options);
+	                arrowHead.attr(_.extend({
+	                    "stroke-linejoin": "round",
+	                    "stroke-linecap": "round",
+	                    "stroke-dasharray": ""
+	                }, style));
+	                arrowHead.toCoordAtAngle = function(coord, angle) {
+	                    var clipPoint = graph.scalePoint(getClipPoint(graph, coord, angle));
+	                    var do3dTransform = getCanUse3dTransform();
+	                    arrowHead.transform("translateX(" + (clipPoint[0] + scale * center[0]) + "px) translateY(" + (clipPoint[1] + scale * center[1]) + "px) " + (do3dTransform ? "translateZ(0) " : "") + "rotate(" + (360 - KhanMath.bound(angle)) + "deg)");
+	                };
+	                return arrowHead;
+	            };
+	            if (null == this._arrows) {
+	                this._arrows = [];
+	                if (this.extendLine) {
+	                    this._arrows.push(createArrow(graph, this.normalStyle));
+	                    this._arrows.push(createArrow(graph, this.normalStyle));
+	                } else this.extendRay && this._arrows.push(createArrow(graph, this.normalStyle));
+	            }
+	            var coordForArrow = [ this.coordA, this.coordZ ];
+	            var angleForArrow = [ 360 - angle, (540 - angle) % 360 ];
+	            _.each(this._arrows, function(arrow, i) {
+	                arrow.toCoordAtAngle(coordForArrow[i], angleForArrow[i]);
+	            });
+	            _.invoke(this.temp, "remove");
+	            this.temp = [];
+	            var isClockwise = this.coordA[0] < this.coordZ[0] || this.coordA[0] === this.coordZ[0] && this.coordA[1] > this.coordZ[1];
+	            this.sideLabel && this.temp.push(this.graph.labelSide({
+	                point1: this.coordA,
+	                point2: this.coordZ,
+	                label: this.labeledSide,
+	                text: this.sideLabel,
+	                numArrows: this.numArrows,
+	                numTicks: this.numTicks,
+	                clockwise: isClockwise,
+	                style: this.labelStyle
+	            }));
+	            if (this.vertexLabels.length) {
+	                this.graph.labelVertex({
+	                    vertex: this.coordA,
+	                    point3: this.coordZ,
+	                    label: this.labeledVertices[0],
+	                    text: this.vertexLabels[0],
+	                    clockwise: isClockwise,
+	                    style: this.labelStyle
+	                });
+	                this.graph.labelVertex({
+	                    point1: this.coordA,
+	                    vertex: this.coordZ,
+	                    label: this.labeledVertices[1],
+	                    text: this.vertexLabels[1],
+	                    clockwise: isClockwise,
+	                    style: this.labelStyle
+	                });
+	            }
+	            this.temp = _.flatten(this.temp);
+	        };
+	        lineSegment.toBack = function() {
+	            lineSegment.fixed || lineSegment.mouseTarget.toBack();
+	            lineSegment.visibleLine.toBack();
+	        };
+	        lineSegment.toFront = function() {
+	            lineSegment.fixed || lineSegment.mouseTarget.toFront();
+	            lineSegment.visibleLine.toFront();
+	        };
+	        lineSegment.remove = function() {
+	            lineSegment.fixed || lineSegment.mouseTarget.remove();
+	            lineSegment.visibleLine.remove();
+	            lineSegment.labeledSide && lineSegment.labeledSide.remove();
+	            lineSegment.labeledVertices && _.invoke(lineSegment.labeledVertices, "remove");
+	            lineSegment._arrows && _.invoke(lineSegment._arrows, "remove");
+	            lineSegment.temp.length && _.invoke(lineSegment.temp, "remove");
+	        };
+	        lineSegment.hide = function() {
+	            lineSegment.visibleLine.hide();
+	            lineSegment.temp.length && _.invoke(lineSegment.temp, "hide");
+	            lineSegment._arrows && _.invoke(lineSegment._arrows, "hide");
+	        };
+	        lineSegment.show = function() {
+	            lineSegment.visibleLine.show();
+	            lineSegment.temp.length && _.invoke(lineSegment.temp, "show");
+	            lineSegment._arrows && _.invoke(lineSegment._arrows, "show");
+	        };
+	        lineSegment.sideLabel && (lineSegment.labeledSide = this.label([ 0, 0 ], "", "center", lineSegment.labelStyle));
+	        lineSegment.vertexLabels.length && (lineSegment.labeledVertices = _.map(lineSegment.vertexLabels, function(label) {
+	            return this.label([ 0, 0 ], "", "center", lineSegment.labelStyle);
+	        }, this));
+	        if (!lineSegment.fixed && !lineSegment.constraints.fixed) {
+	            var $mouseTarget = $(lineSegment.mouseTarget.getMouseTarget());
+	            $mouseTarget.css("cursor", "move");
+	            $mouseTarget.bind("vmousedown vmouseover vmouseout", function(event) {
+	                if ("vmouseover" === event.type) {
+	                    if (!dragging) {
+	                        lineSegment.highlight = true;
+	                        lineSegment.visibleLine.animate(lineSegment.highlightStyle, 50);
+	                        lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {
+	                            color: lineSegment.highlightStyle.stroke,
+	                            stroke: lineSegment.highlightStyle.stroke
+	                        });
+	                        lineSegment.transform();
+	                    }
+	                } else if ("vmouseout" === event.type) {
+	                    lineSegment.highlight = false;
+	                    if (!lineSegment.dragging) {
+	                        lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);
+	                        lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {
+	                            color: lineSegment.normalStyle.stroke,
+	                            stroke: lineSegment.normalStyle.stroke
+	                        });
+	                        lineSegment.transform();
+	                    }
+	                } else "vmousedown" !== event.type || 1 !== event.which && 0 !== event.which || !function() {
+	                    event.preventDefault();
+	                    var coordX = (event.pageX - $(graph.raphael.canvas.parentNode).offset().left) / graph.scale[0] + graph.range[0][0];
+	                    var coordY = graph.range[1][1] - (event.pageY - $(graph.raphael.canvas.parentNode).offset().top) / graph.scale[1];
+	                    lineSegment.snapX > 0 && (coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX);
+	                    lineSegment.snapY > 0 && (coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY);
+	                    var mouseOffsetA = [ lineSegment.coordA[0] - coordX, lineSegment.coordA[1] - coordY ];
+	                    var mouseOffsetZ = [ lineSegment.coordZ[0] - coordX, lineSegment.coordZ[1] - coordY ];
+	                    var offsetLeft = -Math.min(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);
+	                    var offsetRight = Math.max(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);
+	                    var offsetTop = Math.max(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);
+	                    var offsetBottom = -Math.min(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);
+	                    $(document).bind("vmousemove.lineSegment vmouseup.lineSegment", function(event) {
+	                        event.preventDefault();
+	                        lineSegment.dragging = true;
+	                        dragging = true;
+	                        var mouseX = event.pageX - $(graph.raphael.canvas.parentNode).offset().left;
+	                        var mouseY = event.pageY - $(graph.raphael.canvas.parentNode).offset().top;
+	                        mouseX = Math.max(offsetLeft + 10, Math.min(graph.xpixels - 10 - offsetRight, mouseX));
+	                        mouseY = Math.max(offsetTop + 10, Math.min(graph.ypixels - 10 - offsetBottom, mouseY));
+	                        var coordX = mouseX / graph.scale[0] + graph.range[0][0];
+	                        var coordY = graph.range[1][1] - mouseY / graph.scale[1];
+	                        lineSegment.snapX > 0 && (coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX);
+	                        lineSegment.snapY > 0 && (coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY);
+	                        if ("vmousemove" === event.type) {
+	                            lineSegment.constraints.constrainX && (coordX = lineSegment.coordA[0] - mouseOffsetA[0]);
+	                            lineSegment.constraints.constrainY && (coordY = lineSegment.coordA[1] - mouseOffsetA[1]);
+	                            var dX = coordX + mouseOffsetA[0] - lineSegment.coordA[0];
+	                            var dY = coordY + mouseOffsetA[1] - lineSegment.coordA[1];
+	                            lineSegment.coordA = [ coordX + mouseOffsetA[0], coordY + mouseOffsetA[1] ];
+	                            lineSegment.coordZ = [ coordX + mouseOffsetZ[0], coordY + mouseOffsetZ[1] ];
+	                            lineSegment.transform();
+	                            if (lineSegment.movePointsWithLine) {
+	                                "object" === typeof lineSegment.pointA && lineSegment.pointA.setCoord([ lineSegment.pointA.coord[0] + dX, lineSegment.pointA.coord[1] + dY ]);
+	                                "object" === typeof lineSegment.pointZ && lineSegment.pointZ.setCoord([ lineSegment.pointZ.coord[0] + dX, lineSegment.pointZ.coord[1] + dY ]);
+	                            }
+	                            _.isFunction(lineSegment.onMove) && lineSegment.onMove(dX, dY);
+	                        } else if ("vmouseup" === event.type) {
+	                            $(document).unbind(".lineSegment");
+	                            lineSegment.dragging = false;
+	                            dragging = false;
+	                            if (!lineSegment.highlight) {
+	                                lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);
+	                                lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {
+	                                    color: lineSegment.normalStyle.stroke,
+	                                    stroke: lineSegment.normalStyle.stroke
+	                                });
+	                                lineSegment.transform();
+	                            }
+	                            _.isFunction(lineSegment.onMoveEnd) && lineSegment.onMoveEnd();
+	                        }
+	                        $(lineSegment).trigger("move");
+	                    });
+	                }();
+	            });
+	        }
+	        void 0 !== lineSegment.pointA && lineSegment.pointA.toFront();
+	        void 0 !== lineSegment.pointZ && lineSegment.pointZ.toFront();
+	        lineSegment.transform();
+	        return lineSegment;
+	    },
+	    addMovablePolygon: function(options) {
+	        var graphie = this;
+	        var polygon = $.extend({
+	            snapX: 0,
+	            snapY: 0,
+	            fixed: false,
+	            constrainToGraph: true,
+	            normalStyle: {},
+	            highlightStyle: {
+	                stroke: KhanColors.INTERACTING,
+	                "stroke-width": 2,
+	                fill: KhanColors.INTERACTING,
+	                "fill-opacity": .05
+	            },
+	            pointHighlightStyle: {
+	                fill: KhanColors.INTERACTING,
+	                stroke: KhanColors.INTERACTING
+	            },
+	            labelStyle: {
+	                stroke: KhanColors.DYNAMIC,
+	                "stroke-width": 1,
+	                color: KhanColors.DYNAMIC
+	            },
+	            angleLabels: [],
+	            showRightAngleMarkers: [],
+	            sideLabels: [],
+	            vertexLabels: [],
+	            numArcs: [],
+	            numArrows: [],
+	            numTicks: [],
+	            updateOnPointMove: true,
+	            closed: true
+	        }, _.omit(options, "points"));
+	        var normalColor = polygon.fixed ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
+	        polygon.normalStyle = _.extend({
+	            "stroke-width": 2,
+	            "fill-opacity": 0,
+	            fill: normalColor,
+	            stroke: normalColor
+	        }, options.normalStyle);
+	        polygon.points = options.points;
+	        var isPoint = function(coordOrPoint) {
+	            return !_.isArray(coordOrPoint);
+	        };
+	        polygon.update = function() {
+	            var n = polygon.points.length;
+	            polygon.coords = _.map(polygon.points, function(coordOrPoint, i) {
+	                return isPoint(coordOrPoint) ? coordOrPoint.coord : coordOrPoint;
+	            });
+	            polygon.left = _.min(_.pluck(polygon.coords, 0));
+	            polygon.right = _.max(_.pluck(polygon.coords, 0));
+	            polygon.top = _.max(_.pluck(polygon.coords, 1));
+	            polygon.bottom = _.min(_.pluck(polygon.coords, 1));
+	            var scaledCoords = _.map(polygon.coords, function(coord) {
+	                return graphie.scalePoint(coord);
+	            });
+	            polygon.closed ? scaledCoords.push(true) : scaledCoords = scaledCoords.concat(_.clone(scaledCoords).reverse());
+	            polygon.path = GraphUtils.unscaledSvgPath(scaledCoords);
+	            _.invoke(polygon.temp, "remove");
+	            polygon.temp = [];
+	            var isClockwise = clockwise(polygon.coords);
+	            (polygon.angleLabels.length || polygon.showRightAngleMarkers.length) && _.each(polygon.labeledAngles, function(label, i) {
+	                polygon.temp.push(graphie.labelAngle({
+	                    point1: polygon.coords[(i - 1 + n) % n],
+	                    vertex: polygon.coords[i],
+	                    point3: polygon.coords[(i + 1) % n],
+	                    label: label,
+	                    text: polygon.angleLabels[i],
+	                    showRightAngleMarker: polygon.showRightAngleMarkers[i],
+	                    numArcs: polygon.numArcs[i],
+	                    clockwise: isClockwise,
+	                    style: polygon.labelStyle
+	                }));
+	            });
+	            polygon.sideLabels.length && _.each(polygon.labeledSides, function(label, i) {
+	                polygon.temp.push(graphie.labelSide({
+	                    point1: polygon.coords[i],
+	                    point2: polygon.coords[(i + 1) % n],
+	                    label: label,
+	                    text: polygon.sideLabels[i],
+	                    numArrows: polygon.numArrows[i],
+	                    numTicks: polygon.numTicks[i],
+	                    clockwise: isClockwise,
+	                    style: polygon.labelStyle
+	                }));
+	            });
+	            polygon.vertexLabels.length && _.each(polygon.labeledVertices, function(label, i) {
+	                graphie.labelVertex({
+	                    point1: polygon.coords[(i - 1 + n) % n],
+	                    vertex: polygon.coords[i],
+	                    point3: polygon.coords[(i + 1) % n],
+	                    label: label,
+	                    text: polygon.vertexLabels[i],
+	                    clockwise: isClockwise,
+	                    style: polygon.labelStyle
+	                });
+	            });
+	            polygon.temp = _.flatten(polygon.temp);
+	        };
+	        polygon.transform = function() {
+	            polygon.update();
+	            polygon.visibleShape.attr({
+	                path: polygon.path
+	            });
+	            polygon.fixed || polygon.mouseTarget.attr({
+	                path: polygon.path
+	            });
+	        };
+	        polygon.remove = function() {
+	            polygon.visibleShape.remove();
+	            polygon.fixed || polygon.mouseTarget.remove();
+	            polygon.labeledAngles && _.invoke(polygon.labeledAngles, "remove");
+	            polygon.labeledSides && _.invoke(polygon.labeledSides, "remove");
+	            polygon.labeledVertices && _.invoke(polygon.labeledVertices, "remove");
+	            polygon.temp.length && _.invoke(polygon.temp, "remove");
+	        };
+	        polygon.toBack = function() {
+	            polygon.fixed || polygon.mouseTarget.toBack();
+	            polygon.visibleShape.toBack();
+	        };
+	        polygon.toFront = function() {
+	            polygon.fixed || polygon.mouseTarget.toFront();
+	            polygon.visibleShape.toFront();
+	        };
+	        polygon.updateOnPointMove && _.each(_.filter(polygon.points, isPoint), function(coordOrPoint) {
+	            coordOrPoint.polygonVertices.push(polygon);
+	        });
+	        polygon.coords = new Array(polygon.points.length);
+	        polygon.angleLabels.length && (polygon.labeledAngles = _.times(Math.max(polygon.angleLabels.length, polygon.showRightAngleMarkers.length), function() {
+	            return this.label([ 0, 0 ], "", "center", polygon.labelStyle);
+	        }, this));
+	        polygon.sideLabels.length && (polygon.labeledSides = _.map(polygon.sideLabels, function(label) {
+	            return this.label([ 0, 0 ], "", "center", polygon.labelStyle);
+	        }, this));
+	        polygon.vertexLabels.length && (polygon.labeledVertices = _.map(polygon.vertexLabels, function(label) {
+	            return this.label([ 0, 0 ], "", "center", polygon.labelStyle);
+	        }, this));
+	        polygon.update();
+	        polygon.visibleShape = graphie.raphael.path(polygon.path);
+	        polygon.visibleShape.attr(polygon.normalStyle);
+	        if (!polygon.fixed) {
+	            polygon.mouseTarget = graphie.mouselayer.path(polygon.path);
+	            polygon.mouseTarget.attr({
+	                fill: "#000",
+	                opacity: 0,
+	                cursor: "move"
+	            });
+	            $(polygon.mouseTarget[0]).bind("vmousedown vmouseover vmouseout", function(event) {
+	                if ("vmouseover" === event.type) {
+	                    if (!dragging || polygon.dragging) {
+	                        polygon.highlight = true;
+	                        polygon.visibleShape.animate(polygon.highlightStyle, 50);
+	                        _.each(_.filter(polygon.points, isPoint), function(point) {
+	                            point.visibleShape.animate(polygon.pointHighlightStyle, 50);
+	                        });
+	                    }
+	                } else if ("vmouseout" === event.type) {
+	                    polygon.highlight = false;
+	                    if (!polygon.dragging) {
+	                        polygon.visibleShape.animate(polygon.normalStyle, 50);
+	                        var points = _.filter(polygon.points, isPoint);
+	                        _.any(_.pluck(points, "dragging")) || _.each(points, function(point) {
+	                            point.visibleShape.animate(point.normalStyle, 50);
+	                        });
+	                    }
+	                } else "vmousedown" !== event.type || 1 !== event.which && 0 !== event.which || !function() {
+	                    event.preventDefault();
+	                    _.each(_.filter(polygon.points, isPoint), function(point) {
+	                        point.dragging = true;
+	                    });
+	                    var startX = (event.pageX - $(graphie.raphael.canvas.parentNode).offset().left) / graphie.scale[0] + graphie.range[0][0];
+	                    var startY = graphie.range[1][1] - (event.pageY - $(graphie.raphael.canvas.parentNode).offset().top) / graphie.scale[1];
+	                    polygon.snapX > 0 && (startX = Math.round(startX / polygon.snapX) * polygon.snapX);
+	                    polygon.snapY > 0 && (startY = Math.round(startY / polygon.snapY) * polygon.snapY);
+	                    var lastX = startX;
+	                    var lastY = startY;
+	                    var polygonCoords = polygon.coords.slice();
+	                    var offsetLeft = (startX - polygon.left) * graphie.scale[0];
+	                    var offsetRight = (polygon.right - startX) * graphie.scale[0];
+	                    var offsetTop = (polygon.top - startY) * graphie.scale[1];
+	                    var offsetBottom = (startY - polygon.bottom) * graphie.scale[1];
+	                    $(document).bind("vmousemove.polygon vmouseup.polygon", function(event) {
+	                        event.preventDefault();
+	                        polygon.dragging = true;
+	                        dragging = true;
+	                        var mouseX = event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;
+	                        var mouseY = event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;
+	                        if (polygon.constrainToGraph) {
+	                            mouseX = Math.max(offsetLeft + 10, Math.min(graphie.xpixels - 10 - offsetRight, mouseX));
+	                            mouseY = Math.max(offsetTop + 10, Math.min(graphie.ypixels - 10 - offsetBottom, mouseY));
+	                        }
+	                        var currentX = mouseX / graphie.scale[0] + graphie.range[0][0];
+	                        var currentY = graphie.range[1][1] - mouseY / graphie.scale[1];
+	                        polygon.snapX > 0 && (currentX = Math.round(currentX / polygon.snapX) * polygon.snapX);
+	                        polygon.snapY > 0 && (currentY = Math.round(currentY / polygon.snapY) * polygon.snapY);
+	                        if ("vmousemove" === event.type) !function() {
+	                            var dX = currentX - startX;
+	                            var dY = currentY - startY;
+	                            var doMove = true;
+	                            if (_.isFunction(polygon.onMove)) {
+	                                var onMoveResult = polygon.onMove(dX, dY);
+	                                if (false === onMoveResult) doMove = false; else if (_.isArray(onMoveResult)) {
+	                                    dX = onMoveResult[0];
+	                                    dY = onMoveResult[1];
+	                                    currentX = startX + dX;
+	                                    currentY = startY + dY;
+	                                }
+	                            }
+	                            var increment = function(i) {
+	                                return [ polygonCoords[i][0] + dX, polygonCoords[i][1] + dY ];
+	                            };
+	                            if (doMove) {
+	                                _.each(polygon.points, function(coordOrPoint, i) {
+	                                    isPoint(coordOrPoint) ? coordOrPoint.setCoord(increment(i)) : polygon.points[i] = increment(i);
+	                                });
+	                                polygon.transform();
+	                                $(polygon).trigger("move");
+	                                lastX = currentX;
+	                                lastY = currentY;
+	                            }
+	                        }(); else if ("vmouseup" === event.type) {
+	                            $(document).unbind(".polygon");
+	                            var points = _.filter(polygon.points, isPoint);
+	                            _.each(points, function(point) {
+	                                point.dragging = false;
+	                            });
+	                            polygon.dragging = false;
+	                            dragging = false;
+	                            if (!polygon.highlight) {
+	                                polygon.visibleShape.animate(polygon.normalStyle, 50);
+	                                _.each(points, function(point) {
+	                                    point.visibleShape.animate(point.normalStyle, 50);
+	                                });
+	                            }
+	                            _.isFunction(polygon.onMoveEnd) && polygon.onMoveEnd(lastX - startX, lastY - startY);
+	                        }
+	                    });
+	                }();
+	            });
+	        }
+	        _.invoke(_.filter(polygon.points, isPoint), "toFront");
+	        return polygon;
+	    },
+	    constrainToBounds: function(point, padding) {
+	        var lower = this.unscalePoint([ padding, this.ypixels - padding ]);
+	        var upper = this.unscalePoint([ this.xpixels - padding, padding ]);
+	        var coordX = Math.max(lower[0], Math.min(upper[0], point[0]));
+	        var coordY = Math.max(lower[1], Math.min(upper[1], point[1]));
+	        return [ coordX, coordY ];
+	    },
+	    constrainToBoundsOnAngle: function(point, padding, angle) {
+	        var lower = this.unscalePoint([ padding, this.ypixels - padding ]);
+	        var upper = this.unscalePoint([ this.xpixels - padding, padding ]);
+	        var result = point.slice();
+	        result[0] < lower[0] ? result = [ lower[0], result[1] + (lower[0] - result[0]) * Math.tan(angle) ] : result[0] > upper[0] && (result = [ upper[0], result[1] - (result[0] - upper[0]) * Math.tan(angle) ]);
+	        result[1] < lower[1] ? result = [ result[0] + (lower[1] - result[1]) / Math.tan(angle), lower[1] ] : result[1] > upper[1] && (result = [ result[0] - (result[1] - upper[1]) / Math.tan(angle), upper[1] ]);
+	        return result;
+	    },
+	    addMovableAngle: function(options) {
+	        return new MovableAngle(this, options);
+	    },
+	    addArrowWidget: function(options) {
+	        var arrowWidget = $.extend({
+	            graph: this,
+	            direction: "up",
+	            coord: [ 0, 0 ],
+	            onClick: function() {}
+	        }, options);
+	        var graph = arrowWidget.graph;
+	        "up" === arrowWidget.direction ? arrowWidget.visibleShape = graph.path([ [ arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1] ], [ arrowWidget.coord[0] - 4 / graph.scale[0], arrowWidget.coord[1] - 4 / graph.scale[1] ], [ arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1] ], [ arrowWidget.coord[0] + 4 / graph.scale[0], arrowWidget.coord[1] - 4 / graph.scale[1] ], [ arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1] ] ], {
+	            stroke: "",
+	            fill: KhanColors.INTERACTIVE
+	        }) : "down" === arrowWidget.direction && (arrowWidget.visibleShape = graph.path([ [ arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1] ], [ arrowWidget.coord[0] - 4 / graph.scale[0], arrowWidget.coord[1] + 4 / graph.scale[1] ], [ arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1] ], [ arrowWidget.coord[0] + 4 / graph.scale[0], arrowWidget.coord[1] + 4 / graph.scale[1] ], [ arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1] ] ], {
+	            stroke: "",
+	            fill: KhanColors.INTERACTIVE
+	        }));
+	        _.defer(function() {
+	            arrowWidget.visibleShape.attr({
+	                stroke: "",
+	                fill: KhanColors.INTERACTIVE
+	            });
+	        });
+	        arrowWidget.mouseTarget = graph.mouselayer.circle(graph.scalePoint(arrowWidget.coord)[0], graph.scalePoint(arrowWidget.coord)[1], 15);
+	        arrowWidget.mouseTarget.attr({
+	            fill: "#000",
+	            opacity: 0
+	        });
+	        $(arrowWidget.mouseTarget[0]).css("cursor", "pointer");
+	        $(arrowWidget.mouseTarget[0]).bind("vmousedown vmouseover vmouseout", function(event) {
+	            if ("vmouseover" === event.type) arrowWidget.visibleShape.animate({
+	                scale: 2,
+	                fill: KhanColors.INTERACTING
+	            }, 20); else if ("vmouseout" === event.type) arrowWidget.visibleShape.animate({
+	                scale: 1,
+	                fill: KhanColors.INTERACTING
+	            }, 20); else if ("vmousedown" === event.type && (1 === event.which || 0 === event.which)) {
+	                arrowWidget.hidden || arrowWidget.onClick();
+	                return false;
+	            }
+	        });
+	        arrowWidget.hide = function() {
+	            arrowWidget.visibleShape.hide();
+	            arrowWidget.hidden = true;
+	            $(arrowWidget.mouseTarget[0]).css("cursor", "default");
+	        };
+	        arrowWidget.show = function() {
+	            arrowWidget.visibleShape.show();
+	            arrowWidget.hidden = false;
+	            $(arrowWidget.mouseTarget[0]).css("cursor", "pointer");
+	        };
+	        return arrowWidget;
+	    },
+	    addRectGraph: function(options) {
+	        var rect = $.extend(true, {
+	            x: 0,
+	            y: 0,
+	            width: 1,
+	            height: 1,
+	            normalStyle: {
+	                points: {
+	                    stroke: KhanColors.INTERACTIVE,
+	                    fill: KhanColors.INTERACTIVE,
+	                    opacity: 1
+	                },
+	                edges: {
+	                    stroke: KhanColors.INTERACTIVE,
+	                    opacity: 1,
+	                    "stroke-width": 1
+	                },
+	                area: {
+	                    fill: KhanColors.INTERACTIVE,
+	                    "fill-opacity": .1,
+	                    "stroke-width": 0
+	                }
+	            },
+	            hoverStyle: {
+	                points: {
+	                    color: KhanColors.INTERACTING,
+	                    opacity: 1,
+	                    width: 2
+	                },
+	                edges: {
+	                    stroke: KhanColors.INTERACTING,
+	                    opacity: 1,
+	                    "stroke-width": 1
+	                },
+	                area: {
+	                    fill: KhanColors.INTERACTING,
+	                    "fill-opacity": .2,
+	                    "stroke-width": 0
+	                }
+	            },
+	            fixed: {
+	                edges: [ false, false, false, false ],
+	                points: [ false, false, false, false ]
+	            },
+	            constraints: {
+	                constrainX: false,
+	                constrainY: false,
+	                xmin: null,
+	                xmax: null,
+	                ymin: null,
+	                ymax: null
+	            },
+	            snapX: 0,
+	            snapY: 0,
+	            onMove: function() {}
+	        }, options);
+	        rect = $.extend({
+	            initialized: function() {
+	                return rect.points && rect.points.length;
+	            },
+	            x2: function() {
+	                return this.x + this.width;
+	            },
+	            y2: function() {
+	                return this.y + this.height;
+	            },
+	            getX: function() {
+	                if (rect.initialized()) return rect.points[0].coord[0];
+	                return rect.x;
+	            },
+	            getY: function() {
+	                if (rect.initialized()) return rect.points[0].coord[1];
+	                return rect.y;
+	            },
+	            getX2: function() {
+	                return rect.getX() + rect.getWidth();
+	            },
+	            getY2: function() {
+	                return rect.getY() + rect.getHeight();
+	            },
+	            getXLims: function() {
+	                var x = rect.getX();
+	                return [ x, x + rect.getWidth() ];
+	            },
+	            getYLims: function() {
+	                var y = rect.getY();
+	                return [ y, y + rect.getHeight() ];
+	            },
+	            getWidth: function() {
+	                if (rect.initialized()) {
+	                    var x0 = rect.points[1].coord[0];
+	                    var x1 = rect.points[2].coord[0];
+	                    return x1 - x0;
+	                }
+	                return rect.width;
+	            },
+	            getHeight: function() {
+	                if (rect.initialized()) {
+	                    var y0 = rect.points[0].coord[1];
+	                    var y1 = rect.points[1].coord[1];
+	                    return y1 - y0;
+	                }
+	                return rect.height;
+	            },
+	            getCoord: function() {
+	                return [ rect.getX(), rect.getY() ];
+	            },
+	            getRaphaelParamsArr: function() {
+	                var width = rect.getWidth();
+	                var height = rect.getHeight();
+	                var x = rect.getX();
+	                var y = rect.getY();
+	                var point = graphie.scalePoint([ x, y + height ]);
+	                var dims = graphie.scaleVector([ width, height ]);
+	                return point.concat(dims);
+	            },
+	            getRaphaelParams: function() {
+	                var arr = rect.getRaphaelParamsArr();
+	                return {
+	                    x: arr[0],
+	                    y: arr[1],
+	                    width: arr[2],
+	                    height: arr[3]
+	                };
+	            }
+	        }, rect);
+	        var graphie = this;
+	        rect.fillArea = graphie.rect().attr(rect.normalStyle.area);
+	        rect.mouseTarget = graphie.mouselayer.rect().attr({
+	            fill: "#000",
+	            opacity: 0,
+	            "fill-opacity": 0
+	        });
+	        rect.render = function() {
+	            rect.fillArea.attr(rect.getRaphaelParams());
+	            rect.mouseTarget.attr(rect.getRaphaelParams());
+	        };
+	        rect.render();
+	        rect.points = [];
+	        var coords = [ [ rect.x, rect.y ], [ rect.x, rect.y2() ], [ rect.x2(), rect.y2() ], [ rect.x2(), rect.y ] ];
+	        var sames = [ [ 1, 3 ], [ 0, 2 ], [ 3, 1 ], [ 2, 0 ] ];
+	        var moveLimits = [ [ 1, 1 ], [ 1, 0 ], [ 0, 0 ], [ 0, 1 ] ];
+	        function adjustNeighboringPoints(x, y, sameX, sameY) {
+	            rect.points[sameX].setCoord([ x, rect.points[sameX].coord[1] ]);
+	            rect.points[sameY].setCoord([ rect.points[sameY].coord[0], y ]);
+	            rect.points[sameX].updateLineEnds();
+	            rect.points[sameY].updateLineEnds();
+	        }
+	        function coordInBounds(limit, newVal, checkIsGreater) {
+	            return checkIsGreater ? newVal < limit : newVal > limit;
+	        }
+	        function moveIsInBounds(index, newX, newY) {
+	            var xlims = rect.getXLims();
+	            var ylims = rect.getYLims();
+	            var i = moveLimits[index];
+	            var xInBounds = coordInBounds(xlims[i[0]], newX, 1 === i[0]);
+	            var yInBounds = coordInBounds(ylims[i[1]], newY, 1 === i[1]);
+	            return xInBounds && yInBounds;
+	        }
+	        _.times(4, function(i) {
+	            var sameX = sames[i][0];
+	            var sameY = sames[i][1];
+	            var coord = coords[i];
+	            var point = graphie.addMovablePoint({
+	                graph: graphie,
+	                coord: coord,
+	                normalStyle: rect.normalStyle.points,
+	                hoverStyle: rect.hoverStyle.points,
+	                snapX: rect.snapX,
+	                snapY: rect.snapY,
+	                visible: !rect.fixed.points[i],
+	                constraints: {
+	                    fixed: rect.fixed.points[i]
+	                },
+	                onMove: function(x, y) {
+	                    if (!moveIsInBounds(i, x, y)) return false;
+	                    adjustNeighboringPoints(x, y, sameX, sameY);
+	                    rect.render();
+	                }
+	            });
+	            rect.points.push(point);
+	        });
+	        rect.edges = [];
+	        rect.moveEdge = function(dx, dy, edgeIndex) {
+	            var a = rect.edges[edgeIndex].pointA;
+	            var z = rect.edges[edgeIndex].pointZ;
+	            a.setCoord([ a.coord[0] + dx, a.coord[1] + dy ]);
+	            z.setCoord([ z.coord[0] + dx, z.coord[1] + dy ]);
+	            a.updateLineEnds();
+	            z.updateLineEnds();
+	        };
+	        _.times(4, function(i) {
+	            var pointA = rect.points[i];
+	            var pointZ = rect.points[(i + 1) % 4];
+	            var constrainX = i % 2;
+	            var constrainY = (i + 1) % 2;
+	            var edge = graphie.addMovableLineSegment({
+	                graph: graphie,
+	                pointA: pointA,
+	                pointZ: pointZ,
+	                normalStyle: rect.normalStyle.edges,
+	                hoverStyle: rect.hoverStyle.edges,
+	                snapX: rect.snapX,
+	                snapY: rect.snapY,
+	                fixed: rect.fixed.edges[i],
+	                constraints: {
+	                    constrainX: constrainX,
+	                    constrainY: constrainY
+	                },
+	                onMove: function(dx, dy) {
+	                    rect.moveEdge(dx, dy, i);
+	                    rect.render();
+	                }
+	            });
+	            rect.edges.push(edge);
+	        });
+	        var elems = [ rect.fillArea, rect.mouseTarget ];
+	        rect.elems = elems.concat(rect.edges).concat(rect.points);
+	        function constrainTranslation(dx, dy) {
+	            var xC = rect.constraints.constrainX;
+	            var xLT = rect.getX() + dx < rect.constraints.xmin;
+	            var xGT = rect.getX2() + dx > rect.constraints.xmax;
+	            var yC = rect.constraints.constrainY;
+	            var yLT = rect.getY() + dy < rect.constraints.ymin;
+	            var yGT = rect.getY2() + dy > rect.constraints.ymax;
+	            dx = xC || xLT || xGT ? 0 : dx;
+	            dy = yC || yLT || yGT ? 0 : dy;
+	            return [ dx, dy ];
+	        }
+	        rect.translate = function(dx, dy) {
+	            if (rect.constraints.constrainX && rect.constraints.constrainY) return;
+	            var d = constrainTranslation(dx, dy);
+	            dx = d[0];
+	            dy = d[1];
+	            _.each(rect.points, function(point, i) {
+	                var x = point.coord[0] + dx;
+	                var y = point.coord[1] + dy;
+	                point.setCoord([ x, y ]);
+	                point.updateLineEnds();
+	            });
+	            rect.render();
+	            rect.onMove(dx, dy);
+	        };
+	        rect.moveTo = function(x, y) {
+	            var dx = x - rect.getX();
+	            var dy = y - rect.getY();
+	            rect.translate(dx, dy);
+	        };
+	        rect.snap = function() {
+	            var dx = void 0;
+	            var dy = void 0;
+	            _.each(rect.points, function(point, i) {
+	                var x0 = point.coord[0];
+	                var y0 = point.coord[1];
+	                var x1 = x0;
+	                var y1 = y0;
+	                rect.snapX && (x1 = KhanMath.roundToNearest(rect.snapX, x0));
+	                rect.snapY && (y1 = KhanMath.roundToNearest(rect.snapY, y0));
+	                if (!dx || !dy) {
+	                    dx = x1 - x0;
+	                    dy = y1 - y0;
+	                }
+	                point.setCoord([ x1, y1 ]);
+	                point.updateLineEnds();
+	            });
+	            rect.render();
+	            rect.onMove(dx, dy);
+	        };
+	        rect.toFront = function() {
+	            _.each(rect.elems, function(elem) {
+	                elem.toFront();
+	            });
+	        };
+	        rect.hide = function(speed) {
+	            if (rect.hidden) return;
+	            speed = speed || 100;
+	            rect.fillArea.animate({
+	                "fill-opacity": 0
+	            }, speed);
+	            $(rect.mouseTarget[0]).css("display", "none");
+	            rect.hidden = true;
+	        };
+	        rect.show = function(speed) {
+	            if (!rect.hidden) return;
+	            speed = speed || 100;
+	            rect.fillArea.animate(rect.normalStyle.area, speed);
+	            $(rect.mouseTarget[0]).css("display", "block");
+	            rect.hidden = false;
+	        };
+	        rect.enableHoverStyle = function() {
+	            rect.highlight = true;
+	            dragging || rect.fillArea.animate(rect.hoverStyle.area, 100);
+	        };
+	        rect.enableNormalStyle = function() {
+	            rect.highlight = false;
+	            rect.dragging || rect.fillArea.animate(rect.normalStyle.area, 100);
+	        };
+	        var bindTranslation = function() {
+	            $(rect.mouseTarget[0]).css("cursor", "move");
+	            $(rect.mouseTarget[0]).on("vmouseover vmouseout vmousedown", function(event) {
+	                if ("vmouseover" === event.type) rect.enableHoverStyle(); else if ("vmouseout" === event.type) rect.enableNormalStyle(); else if ("vmousedown" === event.type && (1 === event.which || 0 === event.which)) {
+	                    event.preventDefault();
+	                    rect.toFront();
+	                    rect.prevCoord = graphie.getMouseCoord(event);
+	                    rect.enableHoverStyle();
+	                    $(document).on("vmousemove vmouseup", function(event) {
+	                        event.preventDefault();
+	                        rect.dragging = true;
+	                        dragging = true;
+	                        if ("vmousemove" === event.type) {
+	                            var currCoord = graphie.getMouseCoord(event);
+	                            if (rect.prevCoord && 2 === rect.prevCoord.length) {
+	                                var diff = GraphUtils.coordDiff(rect.prevCoord, currCoord);
+	                                rect.translate(diff[0], diff[1]);
+	                            }
+	                            rect.prevCoord = currCoord;
+	                        } else if ("vmouseup" === event.type) {
+	                            $(document).off("vmousemove vmouseup");
+	                            rect.dragging = false;
+	                            dragging = false;
+	                            var currCoord = graphie.getMouseCoord(event);
+	                            (currCoord[0] < rect.getX() || currCoord[0] > rect.getX2() || currCoord[1] < rect.getY() || currCoord[1] > rect.getY2()) && rect.enableNormalStyle();
+	                            rect.snap();
+	                        }
+	                    });
+	                }
+	            });
+	        };
+	        bindTranslation();
+	        return rect;
+	    },
+	    addCircleGraph: function(options) {
+	        var graphie = this;
+	        var circle = $.extend({
+	            center: [ 0, 0 ],
+	            radius: 2,
+	            snapX: .5,
+	            snapY: .5,
+	            snapRadius: .5,
+	            minRadius: 1,
+	            centerConstraints: {},
+	            centerNormalStyle: {},
+	            centerHighlightStyle: {
+	                stroke: KhanColors.INTERACTING,
+	                fill: KhanColors.INTERACTING
+	            },
+	            circleNormalStyle: {
+	                stroke: KhanColors.INTERACTIVE,
+	                "fill-opacity": 0
+	            },
+	            circleHighlightStyle: {
+	                stroke: KhanColors.INTERACTING,
+	                fill: KhanColors.INTERACTING,
+	                "fill-opacity": .05
+	            }
+	        }, options);
+	        var normalColor = circle.centerConstraints.fixed ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
+	        var centerNormalStyle = options ? options.centerNormalStyle : null;
+	        circle.centerNormalStyle = _.extend({}, {
+	            fill: normalColor,
+	            stroke: normalColor
+	        }, centerNormalStyle);
+	        circle.centerPoint = graphie.addMovablePoint({
+	            graph: graphie,
+	            coord: circle.center,
+	            normalStyle: circle.centerNormalStyle,
+	            snapX: circle.snapX,
+	            snapY: circle.snapY,
+	            constraints: circle.centerConstraints
+	        });
+	        circle.circ = graphie.circle(circle.center, circle.radius, circle.circleNormalStyle);
+	        circle.perim = graphie.mouselayer.circle(graphie.scalePoint(circle.center)[0], graphie.scalePoint(circle.center)[1], graphie.scaleVector(circle.radius)[0]).attr({
+	            "stroke-width": 20,
+	            opacity: .002
+	        });
+	        circle.centerConstraints.fixed || $(circle.centerPoint.mouseTarget.getMouseTarget()).on("vmouseover vmouseout", function(event) {
+	            circle.centerPoint.highlight || circle.centerPoint.dragging ? circle.circ.animate(circle.circleHighlightStyle, 50) : circle.circ.animate(circle.circleNormalStyle, 50);
+	        });
+	        circle.toFront = function() {
+	            circle.circ.toFront();
+	            circle.perim.toFront();
+	            circle.centerPoint.visibleShape.toFront();
+	            circle.centerConstraints.fixed || circle.centerPoint.mouseTarget.toFront();
+	        };
+	        circle.centerPoint.onMove = function(x, y) {
+	            circle.toFront();
+	            circle.circ.attr({
+	                cx: graphie.scalePoint(x)[0],
+	                cy: graphie.scalePoint(y)[1]
+	            });
+	            circle.perim.attr({
+	                cx: graphie.scalePoint(x)[0],
+	                cy: graphie.scalePoint(y)[1]
+	            });
+	            circle.onMove && circle.onMove(x, y);
+	        };
+	        $(circle.centerPoint).on("move", function() {
+	            circle.center = this.coord;
+	            $(circle).trigger("move");
+	        });
+	        circle.setCenter = function(x, y) {
+	            circle.centerPoint.setCoord([ x, y ]);
+	            circle.centerPoint.onMove(x, y);
+	            circle.center = [ x, y ];
+	        };
+	        circle.setRadius = function(r) {
+	            circle.radius = r;
+	            circle.perim.attr({
+	                r: graphie.scaleVector(r)[0]
+	            });
+	            circle.circ.attr({
+	                rx: graphie.scaleVector(r)[0],
+	                ry: graphie.scaleVector(r)[1]
+	            });
+	        };
+	        circle.remove = function() {
+	            circle.centerPoint.remove();
+	            circle.circ.remove();
+	            circle.perim.remove();
+	        };
+	        $(circle.perim[0]).css("cursor", "move");
+	        $(circle.perim[0]).on("vmouseover vmouseout vmousedown", function(event) {
+	            if ("vmouseover" === event.type) {
+	                circle.highlight = true;
+	                if (!dragging) {
+	                    circle.circ.animate(circle.circleHighlightStyle, 50);
+	                    circle.centerPoint.visibleShape.animate(circle.centerHighlightStyle, 50);
+	                }
+	            } else if ("vmouseout" === event.type) {
+	                circle.highlight = false;
+	                if (!circle.dragging && !circle.centerPoint.dragging) {
+	                    circle.circ.animate(circle.circleNormalStyle, 50);
+	                    circle.centerPoint.visibleShape.animate(circle.centerNormalStyle, 50);
+	                }
+	            } else "vmousedown" !== event.type || 1 !== event.which && 0 !== event.which || !function() {
+	                event.preventDefault();
+	                circle.toFront();
+	                var startRadius = circle.radius;
+	                $(document).on("vmousemove vmouseup", function(event) {
+	                    event.preventDefault();
+	                    circle.dragging = true;
+	                    dragging = true;
+	                    if ("vmousemove" === event.type) {
+	                        var coord = graphie.constrainToBounds(graphie.getMouseCoord(event), 10);
+	                        var radius = GraphUtils.getDistance(circle.centerPoint.coord, coord);
+	                        radius = Math.max(circle.minRadius, Math.round(radius / circle.snapRadius) * circle.snapRadius);
+	                        var oldRadius = circle.radius;
+	                        var doResize = true;
+	                        if (circle.onResize) {
+	                            var onResizeResult = circle.onResize(radius, oldRadius);
+	                            _.isNumber(onResizeResult) ? radius = onResizeResult : false === onResizeResult && (doResize = false);
+	                        }
+	                        if (doResize) {
+	                            circle.setRadius(radius);
+	                            $(circle).trigger("move");
+	                        }
+	                    } else if ("vmouseup" === event.type) {
+	                        $(document).off("vmousemove vmouseup");
+	                        circle.dragging = false;
+	                        dragging = false;
+	                        circle.onResizeEnd && circle.onResizeEnd(circle.radius, startRadius);
+	                    }
+	                });
+	            }();
+	        });
+	        return circle;
+	    },
+	    interactiveEllipse: function(options) {
+	        var graphie = this;
+	        var ellipse = $.extend({
+	            center: [ 0, 0 ],
+	            radius: 2,
+	            xRadius: 2,
+	            yRadius: 2,
+	            ellipseNormalStyle: {
+	                stroke: KhanColors.BLUE,
+	                "fill-opacity": 0
+	            },
+	            ellipseBoundaryHideStyle: {
+	                "fill-opacity": 0,
+	                "stroke-width": 0
+	            },
+	            ellipseBoundaryShowStyle: {
+	                "fill-opacity": 1,
+	                fill: KhanColors.BLUE
+	            },
+	            onMove: function(coordX, coordY) {},
+	            onLeave: function(coordX, coordY) {}
+	        }, options);
+	        ellipse.circ = graphie.ellipse(ellipse.center, [ ellipse.xRadius, ellipse.yRadius ], ellipse.ellipseNormalStyle);
+	        ellipse.perim = graphie.mouselayer.ellipse(graphie.scalePoint(ellipse.center)[0], graphie.scalePoint(ellipse.center)[1], graphie.scaleVector(ellipse.xRadius)[0], graphie.scaleVector(ellipse.yRadius)[0]).attr({
+	            "stroke-width": 30,
+	            opacity: .002
+	        });
+	        ellipse.boundaryPoint = graphie.circle(ellipse.center, .4, ellipse.ellipseBoundaryHideStyle);
+	        ellipse.remove = function() {
+	            ellipse.circ.remove();
+	            ellipse.perim.remove();
+	        };
+	        ellipse.showPoint = function(event) {
+	            var coord = graphie.constrainToBounds(graphie.getMouseCoord(event), 10);
+	            var dx = ellipse.yRadius * (ellipse.center[0] - coord[0]);
+	            var dy = ellipse.xRadius * (ellipse.center[1] - coord[1]);
+	            var angle = Math.atan2(dy, dx);
+	            coord[0] = ellipse.center[0] - ellipse.xRadius * Math.cos(angle);
+	            coord[1] = ellipse.center[1] - ellipse.yRadius * Math.sin(angle);
+	            var scaledPoint = graphie.scalePoint(coord);
+	            ellipse.boundaryPoint.attr({
+	                cx: scaledPoint[0]
+	            });
+	            ellipse.boundaryPoint.attr({
+	                cy: scaledPoint[1]
+	            });
+	            ellipse.boundaryPoint.animate(ellipse.ellipseBoundaryShowStyle, 50);
+	            ellipse.onMove(coord[0], coord[1]);
+	        };
+	        $(ellipse.perim[0]).on("vmouseover vmouseout vmousemove", function(event) {
+	            if ("vmouseover" === event.type) ellipse.showPoint(event); else if ("vmouseout" === event.type) {
+	                ellipse.boundaryPoint.animate(ellipse.ellipseBoundaryHideStyle, 50);
+	                ellipse.onLeave();
+	            } else "vmousemove" === event.type && ellipse.showPoint(event);
+	        });
+	        return ellipse;
+	    },
+	    addRotateHandle: function() {
+	        var drawRotateHandle = function(graphie, center, radius, halfWidth, lengthAngle, angle, interacting) {
+	            var getRotateHandlePoint = function(offset, distanceFromArrowMidline) {
+	                var distFromRotationCenter = radius + distanceFromArrowMidline;
+	                var vec = kvector.cartFromPolarDeg([ distFromRotationCenter, angle + offset ]);
+	                var absolute = kvector.add(center, vec);
+	                var pixels = graphie.scalePoint(absolute);
+	                return pixels[0] + "," + pixels[1];
+	            };
+	            var innerR = graphie.scaleVector(radius - halfWidth);
+	            var outerR = graphie.scaleVector(radius + halfWidth);
+	            return graphie.raphael.path(" M" + getRotateHandlePoint(lengthAngle, -halfWidth) + " L" + getRotateHandlePoint(lengthAngle, -3 * halfWidth) + " L" + getRotateHandlePoint(2 * lengthAngle, 0) + " L" + getRotateHandlePoint(lengthAngle, 3 * halfWidth) + " L" + getRotateHandlePoint(lengthAngle, halfWidth) + " A" + outerR[0] + "," + outerR[1] + ",0,0,1," + getRotateHandlePoint(-lengthAngle, halfWidth) + " L" + getRotateHandlePoint(-lengthAngle, 3 * halfWidth) + " L" + getRotateHandlePoint(-2 * lengthAngle, 0) + " L" + getRotateHandlePoint(-lengthAngle, -3 * halfWidth) + " L" + getRotateHandlePoint(-lengthAngle, -halfWidth) + " A" + innerR[0] + "," + innerR[1] + ",0,0,0," + getRotateHandlePoint(lengthAngle, -halfWidth) + " Z").attr({
+	                stroke: null,
+	                fill: interacting ? KhanColors.INTERACTING : KhanColors.INTERACTIVE
+	            });
+	        };
+	        return function(options) {
+	            var graph = this;
+	            var rotatePoint = options.center;
+	            var radius = options.radius;
+	            var lengthAngle = options.lengthAngle || 30;
+	            var hideArrow = options.hideArrow || false;
+	            var mouseTarget = options.mouseTarget;
+	            var id = _.uniqueId("rotateHandle");
+	            _.isArray(rotatePoint) && (rotatePoint = {
+	                coord: rotatePoint
+	            });
+	            var rotateHandle = graph.addMovablePoint({
+	                coord: kpoint.addVector(rotatePoint.coord, kvector.cartFromPolarDeg(radius, options.angleDeg || 0)),
+	                constraints: {
+	                    fixedDistance: {
+	                        dist: radius,
+	                        point: rotatePoint
+	                    }
+	                },
+	                mouseTarget: mouseTarget
+	            });
+	            rotatePoint.toFront();
+	            var rotatePointPrevCoord = rotatePoint.coord;
+	            var rotateHandlePrevCoord = rotateHandle.coord;
+	            var rotateHandleStartCoord = rotateHandlePrevCoord;
+	            var isRotating = false;
+	            var isHovering = false;
+	            var drawnRotateHandle = void 0;
+	            var redrawRotateHandle = function(handleCoord) {
+	                if (hideArrow) return;
+	                var handleVec = kvector.subtract(handleCoord, rotatePoint.coord);
+	                var handlePolar = kvector.polarDegFromCart(handleVec);
+	                var angle = handlePolar[1];
+	                drawnRotateHandle && drawnRotateHandle.remove();
+	                drawnRotateHandle = drawRotateHandle(graph, rotatePoint.coord, options.radius, isRotating || isHovering ? options.hoverWidth / 2 : options.width / 2, lengthAngle, angle, isRotating || isHovering);
+	            };
+	            $(rotatePoint).on("move." + id, function() {
+	                var delta = kvector.subtract(rotatePoint.coord, rotatePointPrevCoord);
+	                rotateHandle.setCoord(kvector.add(rotateHandle.coord, delta));
+	                redrawRotateHandle(rotateHandle.coord);
+	                rotatePointPrevCoord = rotatePoint.coord;
+	                rotateHandle.constraints.fixedDistance.point = rotatePoint;
+	                rotateHandlePrevCoord = rotateHandle.coord;
+	            });
+	            rotateHandle.onMove = function(x, y) {
+	                if (!isRotating) {
+	                    rotateHandleStartCoord = rotateHandlePrevCoord;
+	                    isRotating = true;
+	                }
+	                var coord = [ x, y ];
+	                if (options.onMove) {
+	                    var oldPolar = kvector.polarDegFromCart(kvector.subtract(rotateHandlePrevCoord, rotatePoint.coord));
+	                    var newPolar = kvector.polarDegFromCart(kvector.subtract(coord, rotatePoint.coord));
+	                    var oldAngle = oldPolar[1];
+	                    var newAngle = newPolar[1];
+	                    var result = options.onMove(newAngle, oldAngle);
+	                    if (null != result && true !== result) {
+	                        false === result && (result = oldAngle);
+	                        coord = kvector.add(rotatePoint.coord, kvector.cartFromPolarDeg([ oldPolar[0], result ]));
+	                    }
+	                }
+	                redrawRotateHandle(coord);
+	                rotateHandlePrevCoord = coord;
+	                return coord;
+	            };
+	            rotateHandle.onMoveEnd = function() {
+	                isRotating = false;
+	                redrawRotateHandle(rotateHandle.coord);
+	                if (options.onMoveEnd) {
+	                    var oldPolar = kvector.polarDegFromCart(kvector.subtract(rotateHandleStartCoord, rotatePoint.coord));
+	                    var newPolar = kvector.polarDegFromCart(kvector.subtract(rotateHandle.coord, rotatePoint.coord));
+	                    options.onMoveEnd(newPolar[1], oldPolar[1]);
+	                }
+	            };
+	            rotateHandle.visibleShape.remove();
+	            mouseTarget || rotateHandle.mouseTarget.attr({
+	                scale: 2
+	            });
+	            var $mouseTarget = $(rotateHandle.mouseTarget.getMouseTarget());
+	            $mouseTarget.bind("vmouseover", function(e) {
+	                isHovering = true;
+	                redrawRotateHandle(rotateHandle.coord);
+	            });
+	            $mouseTarget.bind("vmouseout", function(e) {
+	                isHovering = false;
+	                redrawRotateHandle(rotateHandle.coord);
+	            });
+	            redrawRotateHandle(rotateHandle.coord);
+	            var oldRemove = rotateHandle.remove;
+	            rotateHandle.remove = function() {
+	                oldRemove.call(rotateHandle);
+	                drawnRotateHandle && drawnRotateHandle.remove();
+	                $(rotatePoint).off("move." + id);
+	            };
+	            rotateHandle.update = function() {
+	                redrawRotateHandle(rotateHandle.coord);
+	            };
+	            return rotateHandle;
+	        };
+	    }(),
+	    addReflectButton: function() {
+	        var drawButton = function(graphie, buttonCoord, lineCoords, size, distanceFromCenter, leftStyle, rightStyle) {
+	            kpoint.equal(lineCoords[0], lineCoords[1]) && (lineCoords = [ lineCoords[0], kpoint.addVector(lineCoords[0], [ 1, 1 ]) ]);
+	            var lineDirection = kvector.normalize(kvector.subtract(lineCoords[1], lineCoords[0]));
+	            var lineVec = kvector.scale(lineDirection, size / 2);
+	            var centerVec = kvector.scale(lineDirection, distanceFromCenter);
+	            var leftCenterVec = kvector.rotateDeg(centerVec, 90);
+	            var rightCenterVec = kvector.rotateDeg(centerVec, -90);
+	            var negLineVec = kvector.negate(lineVec);
+	            var leftVec = kvector.rotateDeg(lineVec, 90);
+	            var rightVec = kvector.rotateDeg(lineVec, -90);
+	            var leftCenter = kpoint.addVectors(buttonCoord, leftCenterVec);
+	            var rightCenter = kpoint.addVectors(buttonCoord, rightCenterVec);
+	            var leftCoord1 = kpoint.addVectors(buttonCoord, leftCenterVec, lineVec, leftVec);
+	            var leftCoord2 = kpoint.addVectors(buttonCoord, leftCenterVec, negLineVec, leftVec);
+	            var rightCoord1 = kpoint.addVectors(buttonCoord, rightCenterVec, lineVec, rightVec);
+	            var rightCoord2 = kpoint.addVectors(buttonCoord, rightCenterVec, negLineVec, rightVec);
+	            var leftButton = graphie.path([ leftCenter, leftCoord1, leftCoord2, true ], leftStyle);
+	            var rightButton = graphie.path([ rightCenter, rightCoord1, rightCoord2, true ], rightStyle);
+	            return {
+	                remove: function() {
+	                    leftButton.remove();
+	                    rightButton.remove();
+	                }
+	            };
+	        };
+	        return function(options) {
+	            var graphie = this;
+	            var line = options.line;
+	            var button = graphie.addMovablePoint({
+	                constraints: options.constraints,
+	                coord: kline.midpoint([ line.pointA.coord, line.pointZ.coord ]),
+	                snapX: graphie.snap[0],
+	                snapY: graphie.snap[1],
+	                onMove: function(x, y) {
+	                    return false;
+	                },
+	                onMoveEnd: function(x, y) {
+	                    options.onMoveEnd && options.onMoveEnd.call(this, x, y);
+	                }
+	            });
+	            var isHovering = false;
+	            var isFlipped = false;
+	            var currentlyDrawnButton = void 0;
+	            var isHighlight = function() {
+	                return isHovering;
+	            };
+	            var styles = _.map([ 0, 1 ], function(isHighlight) {
+	                var baseStyle = isHighlight ? options.highlightStyle : options.normalStyle;
+	                return _.map([ 0, 1 ], function(opacity) {
+	                    return _.defaults({
+	                        "fill-opacity": opacity
+	                    }, baseStyle);
+	                });
+	            });
+	            var getStyle = function(isRight) {
+	                isFlipped && (isRight = !isRight);
+	                return styles[+isHighlight()][+isRight];
+	            };
+	            var redraw = function(coord, lineCoords) {
+	                currentlyDrawnButton && currentlyDrawnButton.remove();
+	                currentlyDrawnButton = drawButton(graphie, coord, lineCoords, isHighlight() ? 1.5 * options.size : options.size, isHighlight() ? .125 * options.size : .25, getStyle(0), getStyle(1));
+	            };
+	            var update = function(coordA, coordZ) {
+	                coordA = coordA || line.pointA.coord;
+	                coordZ = coordZ || line.pointZ.coord;
+	                var buttonCoord = kline.midpoint([ coordA, coordZ ]);
+	                button.setCoord(buttonCoord);
+	                redraw(buttonCoord, [ coordA, coordZ ]);
+	            };
+	            $(line).on("move", _.bind(update, button, null, null));
+	            var $mouseTarget = $(button.mouseTarget.getMouseTarget());
+	            $mouseTarget.on("vclick", function() {
+	                var result = options.onClick();
+	                if (false !== result) {
+	                    isFlipped = !isFlipped;
+	                    redraw(button.coord, [ line.pointA.coord, line.pointZ.coord ]);
+	                }
+	            });
+	            line.pointA.toFront();
+	            line.pointZ.toFront();
+	            button.visibleShape.remove();
+	            var pointScale = graphie.scaleVector(options.size)[0] / 20;
+	            button.mouseTarget.attr({
+	                scale: 1.5 * pointScale
+	            });
+	            $mouseTarget.css("cursor", "pointer");
+	            $mouseTarget.bind("vmouseover", function(e) {
+	                isHovering = true;
+	                redraw(button.coord, [ line.pointA.coord, line.pointZ.coord ]);
+	            });
+	            $mouseTarget.bind("vmouseout", function(e) {
+	                isHovering = false;
+	                redraw(button.coord, [ line.pointA.coord, line.pointZ.coord ]);
+	            });
+	            var oldButtonRemove = button.remove;
+	            button.remove = function() {
+	                currentlyDrawnButton.remove();
+	                oldButtonRemove.call(button);
+	            };
+	            button.update = update;
+	            button.isFlipped = function() {
+	                return isFlipped;
+	            };
+	            update();
+	            return button;
+	        };
+	    }(),
+	    protractor: function(center) {
+	        return new Protractor(this, center);
+	    },
+	    ruler: function(options) {
+	        return new Ruler(this, options || {});
+	    },
+	    addPoints: addPoints
+	});
+
+	function Protractor(graph, center) {
+	    this.set = graph.raphael.set();
+	    this.cx = center[0];
+	    this.cy = center[1];
+	    var pro = this;
+	    var r = graph.unscaleVector(180.5)[0];
+	    var imgPos = graph.scalePoint([ this.cx - r, this.cy + r - graph.unscaleVector(10.5)[1] ]);
+	    this.set.push(graph.mouselayer.image("https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png", imgPos[0], imgPos[1], 360, 180));
+	    var arrowHelper = function(angle, pixelsFromEdge) {
+	        var scaledRadius = graph.scaleVector(r);
+	        scaledRadius[0] -= 16;
+	        scaledRadius[1] -= 16;
+	        var scaledCenter = graph.scalePoint(center);
+	        var x = Math.sin((angle + 90) * Math.PI / 180) * (scaledRadius[0] + pixelsFromEdge) + scaledCenter[0];
+	        var y = Math.cos((angle + 90) * Math.PI / 180) * (scaledRadius[1] + pixelsFromEdge) + scaledCenter[1];
+	        return x + "," + y;
+	    };
+	    var arrow = graph.raphael.path(" M" + arrowHelper(180, 6) + " L" + arrowHelper(180, 2) + " L" + arrowHelper(183, 10) + " L" + arrowHelper(180, 18) + " L" + arrowHelper(180, 14) + " A" + (graph.scaleVector(r)[0] + 10) + "," + (graph.scaleVector(r)[1] + 10) + ",0,0,1," + arrowHelper(170, 14) + " L" + arrowHelper(170, 18) + " L" + arrowHelper(167, 10) + " L" + arrowHelper(170, 2) + " L" + arrowHelper(170, 6) + " A" + (graph.scaleVector(r)[0] + 10) + "," + (graph.scaleVector(r)[1] + 10) + ",0,0,0," + arrowHelper(180, 6) + " Z").attr({
+	        stroke: null,
+	        fill: KhanColors.INTERACTIVE
+	    });
+	    this.set.push(arrow);
+	    this.centerPoint = graph.addMovablePoint({
+	        coord: center,
+	        visible: false
+	    });
+	    this.rotateHandle = graph.addMovablePoint({
+	        coord: [ Math.sin(275 * Math.PI / 180) * (r + .5) + this.cx, Math.cos(275 * Math.PI / 180) * (r + .5) + this.cy ],
+	        onMove: function(x, y) {
+	            var angle = 180 * Math.atan2(pro.centerPoint.coord[1] - y, pro.centerPoint.coord[0] - x) / Math.PI;
+	            pro.rotate(-angle - 5, true);
+	        }
+	    });
+	    this.rotateHandle.constraints.fixedDistance.dist = r + .5;
+	    this.rotateHandle.constraints.fixedDistance.point = this.centerPoint;
+	    this.rotateHandle.visibleShape.remove();
+	    this.rotateHandle.mouseTarget.attr({
+	        scale: 2
+	    });
+	    var isDragging = false;
+	    var isHovering = false;
+	    var isHighlight = function() {
+	        return isHovering || isDragging;
+	    };
+	    var self = this;
+	    var $mouseTarget = $(self.rotateHandle.mouseTarget.getMouseTarget());
+	    $mouseTarget.bind("vmousedown", function(event) {
+	        isDragging = true;
+	        arrow.animate({
+	            scale: 1.5,
+	            fill: KhanColors.INTERACTING
+	        }, 50);
+	        $(document).bind("vmouseup.rotateHandle", function(event) {
+	            isDragging = false;
+	            isHighlight() || arrow.animate({
+	                scale: 1,
+	                fill: KhanColors.INTERACTIVE
+	            }, 50);
+	            $(document).unbind("vmouseup.rotateHandle");
+	        });
+	    });
+	    $mouseTarget.bind("vmouseover", function(event) {
+	        isHovering = true;
+	        arrow.animate({
+	            scale: 1.5,
+	            fill: KhanColors.INTERACTING
+	        }, 50);
+	    });
+	    $mouseTarget.bind("vmouseout", function(event) {
+	        isHovering = false;
+	        isHighlight() || arrow.animate({
+	            scale: 1,
+	            fill: KhanColors.INTERACTIVE
+	        }, 50);
+	    });
+	    var setNodes = $.map(this.set, function(el) {
+	        return el.node;
+	    });
+	    this.makeTranslatable = function makeTranslatable() {
+	        $(setNodes).css("cursor", "move");
+	        $(setNodes).bind("vmousedown", function(event) {
+	            event.preventDefault();
+	            var startx = event.pageX - $(graph.raphael.canvas.parentNode).offset().left;
+	            var starty = event.pageY - $(graph.raphael.canvas.parentNode).offset().top;
+	            $(document).bind("vmousemove.protractor", function(event) {
+	                var mouseX = event.pageX - $(graph.raphael.canvas.parentNode).offset().left;
+	                var mouseY = event.pageY - $(graph.raphael.canvas.parentNode).offset().top;
+	                mouseX = Math.max(10, Math.min(graph.xpixels - 10, mouseX));
+	                mouseY = Math.max(10, Math.min(graph.ypixels - 10, mouseY));
+	                var dx = mouseX - startx;
+	                var dy = mouseY - starty;
+	                $.each(pro.set.items, function() {
+	                    this.translate(dx, dy);
+	                });
+	                pro.centerPoint.setCoord([ pro.centerPoint.coord[0] + dx / graph.scale[0], pro.centerPoint.coord[1] - dy / graph.scale[1] ]);
+	                pro.rotateHandle.setCoord([ pro.rotateHandle.coord[0] + dx / graph.scale[0], pro.rotateHandle.coord[1] - dy / graph.scale[1] ]);
+	                startx = mouseX;
+	                starty = mouseY;
+	            });
+	            $(document).one("vmouseup", function(event) {
+	                $(document).unbind("vmousemove.protractor");
+	            });
+	        });
+	    };
+	    this.rotation = 0;
+	    this.rotate = function(offset, absolute) {
+	        var center = graph.scalePoint(this.centerPoint.coord);
+	        absolute && (this.rotation = 0);
+	        this.set.rotate(this.rotation + offset, center[0], center[1]);
+	        this.rotation = this.rotation + offset;
+	        return this;
+	    };
+	    this.moveTo = function moveTo(x, y) {
+	        var start = graph.scalePoint(pro.centerPoint.coord);
+	        var end = graph.scalePoint([ x, y ]);
+	        var time = 2 * GraphUtils.getDistance(start, end);
+	        $({
+	            x: start[0],
+	            y: start[1]
+	        }).animate({
+	            x: end[0],
+	            y: end[1]
+	        }, {
+	            duration: time,
+	            step: function(now, fx) {
+	                var dx = 0;
+	                var dy = 0;
+	                "x" === fx.prop ? dx = now - graph.scalePoint(pro.centerPoint.coord)[0] : "y" === fx.prop && (dy = now - graph.scalePoint(pro.centerPoint.coord)[1]);
+	                $.each(pro.set.items, function() {
+	                    this.translate(dx, dy);
+	                });
+	                pro.centerPoint.setCoord([ pro.centerPoint.coord[0] + dx / graph.scale[0], pro.centerPoint.coord[1] - dy / graph.scale[1] ]);
+	                pro.rotateHandle.setCoord([ pro.rotateHandle.coord[0] + dx / graph.scale[0], pro.rotateHandle.coord[1] - dy / graph.scale[1] ]);
+	            }
+	        });
+	    };
+	    this.rotateTo = function rotateTo(angle) {
+	        Math.abs(this.rotation - angle) > 180 && (this.rotation += 360);
+	        var time = 5 * Math.abs(this.rotation - angle);
+	        $({
+	            0: this.rotation
+	        }).animate({
+	            0: angle
+	        }, {
+	            duration: time,
+	            step: function(now, fx) {
+	                pro.rotate(now, true);
+	                pro.rotateHandle.setCoord([ Math.sin((now + 275) * Math.PI / 180) * (r + .5) + pro.centerPoint.coord[0], Math.cos((now + 275) * Math.PI / 180) * (r + .5) + pro.centerPoint.coord[1] ]);
+	            }
+	        });
+	    };
+	    this.remove = function() {
+	        this.set.remove();
+	    };
+	    this.makeTranslatable();
+	    return this;
+	}
+
+	function Ruler(graphie, options) {
+	    _.defaults(options, {
+	        center: [ 0, 0 ],
+	        pixelsPerUnit: 40,
+	        ticksPerUnit: 10,
+	        units: 10,
+	        label: "",
+	        style: {
+	            fill: null,
+	            stroke: KhanColors.GRAY
+	        }
+	    });
+	    var light = _.extend({}, options.style, {
+	        strokeWidth: 1
+	    });
+	    var bold = _.extend({}, options.style, {
+	        strokeWidth: 2
+	    });
+	    var width = options.units * options.pixelsPerUnit;
+	    var height = 50;
+	    var leftBottom = graphie.unscalePoint(kvector.subtract(graphie.scalePoint(options.center), kvector.scale([ width, -height ], .5)));
+	    var graphieUnitsPerUnit = options.pixelsPerUnit / graphie.scale[0];
+	    var graphieUnitsHeight = height / graphie.scale[0];
+	    var rightTop = kvector.add(leftBottom, [ options.units * graphieUnitsPerUnit, graphieUnitsHeight ]);
+	    var tickHeight = 1;
+	    var tickHeightMap = void 0;
+	    if (10 === options.ticksPerUnit) tickHeightMap = {
+	        10: tickHeight,
+	        5: .55 * tickHeight,
+	        1: .35 * tickHeight
+	    }; else {
+	        var sizes = [ 1, .6, .45, .3 ];
+	        tickHeightMap = {};
+	        for (var i = options.ticksPerUnit; i >= 1; i /= 2) tickHeightMap[i] = tickHeight * (sizes.shift() || .2);
+	    }
+	    var tickFrequencies = _.keys(tickHeightMap).sort(function(a, b) {
+	        return b - a;
+	    });
+	    function getTickHeight(i) {
+	        for (var k = 0; k < tickFrequencies.length; k++) {
+	            var key = tickFrequencies[k];
+	            if (i % key === 0) return tickHeightMap[key];
+	        }
+	    }
+	    var left = leftBottom[0];
+	    var bottom = leftBottom[1];
+	    var right = rightTop[0];
+	    var top = rightTop[1];
+	    var numTicks = options.units * options.ticksPerUnit + 1;
+	    var set = graphie.raphael.set();
+	    var px = 1 / graphie.scale[0];
+	    set.push(graphie.line([ left - px, bottom ], [ right + px, bottom ], bold));
+	    set.push(graphie.line([ left - px, top ], [ right + px, top ], bold));
+	    _.times(numTicks, function(i) {
+	        var n = i / options.ticksPerUnit;
+	        var x = left + n * graphieUnitsPerUnit;
+	        var height = getTickHeight(i) * graphieUnitsHeight;
+	        var style = 0 === i || i === numTicks - 1 ? bold : light;
+	        set.push(graphie.line([ x, bottom ], [ x, bottom + height ], style));
+	        if (n % 1 === 0) {
+	            var coord = graphie.scalePoint([ x, top ]);
+	            var text = void 0;
+	            var offset = void 0;
+	            if (0 === n) {
+	                text = options.label;
+	                offset = {
+	                    mm: 13,
+	                    cm: 11,
+	                    m: 8,
+	                    km: 11,
+	                    "in": 8,
+	                    ft: 8,
+	                    yd: 10,
+	                    mi: 10
+	                }[text] || 3 * text.toString().length;
+	            } else {
+	                text = n;
+	                offset = -3 * (n.toString().length + 1);
+	            }
+	            var label = graphie.raphael.text(coord[0] + offset, coord[1] + 10, text);
+	            label.attr({
+	                "font-family": "KaTeX_Main",
+	                "font-size": "12px",
+	                color: "#444"
+	            });
+	            set.push(label);
+	        }
+	    });
+	    var mouseTarget = graphie.mouselayer.path(GraphUtils.svgPath([ leftBottom, [ left, top ], rightTop, [ right, bottom ], true ]));
+	    mouseTarget.attr({
+	        fill: "#000",
+	        opacity: 0,
+	        stroke: "#000",
+	        "stroke-width": 2
+	    });
+	    set.push(mouseTarget);
+	    var setNodes = $.map(set, function(el) {
+	        return el.node;
+	    });
+	    $(setNodes).css("cursor", "move");
+	    $(setNodes).bind("vmousedown", function(event) {
+	        event.preventDefault();
+	        var startx = event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;
+	        var starty = event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;
+	        $(document).bind("vmousemove.ruler", function(event) {
+	            var mouseX = event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;
+	            var mouseY = event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;
+	            mouseX = Math.max(10, Math.min(graphie.xpixels - 10, mouseX));
+	            mouseY = Math.max(10, Math.min(graphie.ypixels - 10, mouseY));
+	            var dx = mouseX - startx;
+	            var dy = mouseY - starty;
+	            set.translate(dx, dy);
+	            leftBottomHandle.setCoord([ leftBottomHandle.coord[0] + dx / graphie.scale[0], leftBottomHandle.coord[1] - dy / graphie.scale[1] ]);
+	            rightBottomHandle.setCoord([ rightBottomHandle.coord[0] + dx / graphie.scale[0], rightBottomHandle.coord[1] - dy / graphie.scale[1] ]);
+	            startx = mouseX;
+	            starty = mouseY;
+	        });
+	        $(document).one("vmouseup", function(event) {
+	            $(document).unbind("vmousemove.ruler");
+	        });
+	    });
+	    var leftBottomHandle = graphie.addMovablePoint({
+	        coord: leftBottom,
+	        normalStyle: {
+	            fill: KhanColors.INTERACTIVE,
+	            "fill-opacity": 0,
+	            stroke: KhanColors.INTERACTIVE
+	        },
+	        highlightStyle: {
+	            fill: KhanColors.INTERACTING,
+	            "fill-opacity": .1,
+	            stroke: KhanColors.INTERACTING
+	        },
+	        pointSize: 6,
+	        onMove: function(x, y) {
+	            var dy = rightBottomHandle.coord[1] - y;
+	            var dx = rightBottomHandle.coord[0] - x;
+	            var angle = 180 * Math.atan2(dy, dx) / Math.PI;
+	            var center = kvector.scale(kvector.add([ x, y ], rightBottomHandle.coord), .5);
+	            var scaledCenter = graphie.scalePoint(center);
+	            var oldCenter = kvector.scale(kvector.add(leftBottomHandle.coord, rightBottomHandle.coord), .5);
+	            var scaledOldCenter = graphie.scalePoint(oldCenter);
+	            var diff = kvector.subtract(scaledCenter, scaledOldCenter);
+	            set.rotate(-angle, scaledOldCenter[0], scaledOldCenter[1]);
+	            set.translate(diff[0], diff[1]);
+	        }
+	    });
+	    var rightBottomHandle = graphie.addMovablePoint({
+	        coord: [ right, bottom ],
+	        normalStyle: {
+	            fill: KhanColors.INTERACTIVE,
+	            "fill-opacity": 0,
+	            stroke: KhanColors.INTERACTIVE
+	        },
+	        highlightStyle: {
+	            fill: KhanColors.INTERACTING,
+	            "fill-opacity": .1,
+	            stroke: KhanColors.INTERACTING
+	        },
+	        pointSize: 6,
+	        onMove: function(x, y) {
+	            var dy = y - leftBottomHandle.coord[1];
+	            var dx = x - leftBottomHandle.coord[0];
+	            var angle = 180 * Math.atan2(dy, dx) / Math.PI;
+	            var center = kvector.scale(kvector.add([ x, y ], leftBottomHandle.coord), .5);
+	            var scaledCenter = graphie.scalePoint(center);
+	            var oldCenter = kvector.scale(kvector.add(leftBottomHandle.coord, rightBottomHandle.coord), .5);
+	            var scaledOldCenter = graphie.scalePoint(oldCenter);
+	            var diff = kvector.subtract(scaledCenter, scaledOldCenter);
+	            set.rotate(-angle, scaledOldCenter[0], scaledOldCenter[1]);
+	            set.translate(diff[0], diff[1]);
+	        }
+	    });
+	    leftBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];
+	    leftBottomHandle.constraints.fixedDistance.point = rightBottomHandle;
+	    rightBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];
+	    rightBottomHandle.constraints.fixedDistance.point = leftBottomHandle;
+	    this.remove = function() {
+	        set.remove();
+	        leftBottomHandle.remove();
+	        rightBottomHandle.remove();
+	    };
+	    return this;
+	}
+
+	function MovableAngle(graphie, options) {
+	    this.graphie = graphie;
+	    _.extend(this, options);
+	    _.defaults(this, {
+	        normalStyle: {
+	            stroke: KhanColors.INTERACTIVE,
+	            "stroke-width": 2,
+	            fill: KhanColors.INTERACTIVE
+	        },
+	        highlightStyle: {
+	            stroke: KhanColors.INTERACTING,
+	            "stroke-width": 2,
+	            fill: KhanColors.INTERACTING
+	        },
+	        labelStyle: {
+	            stroke: KhanColors.DYNAMIC,
+	            "stroke-width": 1,
+	            color: KhanColors.DYNAMIC
+	        },
+	        angleStyle: {
+	            stroke: KhanColors.DYNAMIC,
+	            "stroke-width": 1,
+	            color: KhanColors.DYNAMIC
+	        },
+	        allowReflex: true
+	    });
+	    if (!this.points || 3 !== this.points.length) throw new Error("MovableAngle requires 3 points");
+	    this.points = _.map(options.points, function(point) {
+	        return _.isArray(point) ? graphie.addMovablePoint({
+	            coord: point,
+	            visible: false,
+	            constraints: {
+	                fixed: true
+	            },
+	            normalStyle: this.normalStyle
+	        }) : point;
+	    }, this);
+	    this.coords = _.pluck(this.points, "coord");
+	    null == this.reflex && (this.allowReflex ? this.reflex = this._getClockwiseAngle(this.coords) > 180 : this.reflex = false);
+	    this.rays = _.map([ 0, 2 ], function(i) {
+	        return graphie.addMovableLineSegment({
+	            pointA: this.points[1],
+	            pointZ: this.points[i],
+	            fixed: true,
+	            extendRay: true
+	        });
+	    }, this);
+	    this.temp = [];
+	    this.labeledAngle = graphie.label([ 0, 0 ], "", "center", this.labelStyle);
+	    if (!this.fixed) {
+	        this.addMoveHandlers();
+	        this.addHighlightHandlers();
+	    }
+	    this.update();
+	}
+
+	_.extend(MovableAngle.prototype, {
+	    points: [],
+	    snapDegrees: 0,
+	    snapOffsetDeg: 0,
+	    angleLabel: "",
+	    numArcs: 1,
+	    pushOut: 0,
+	    fixed: false,
+	    addMoveHandlers: function() {
+	        var graphie = this.graphie;
+	        function tooClose(point1, point2) {
+	            var safeDistance = 30;
+	            var distance = GraphUtils.getDistance(graphie.scalePoint(point1), graphie.scalePoint(point2));
+	            return distance < safeDistance;
+	        }
+	        var points = this.points;
+	        points[1].onMove = function(x, y) {
+	            var oldVertex = points[1].coord;
+	            var newVertex = [ x, y ];
+	            var delta = addPoints(newVertex, reverseVector(oldVertex));
+	            var valid = true;
+	            var newPoints = {};
+	            _.each([ 0, 2 ], function(i) {
+	                var oldPoint = points[i].coord;
+	                var newPoint = addPoints(oldPoint, delta);
+	                var angle = GraphUtils.findAngle(newVertex, newPoint);
+	                angle *= Math.PI / 180;
+	                newPoint = graphie.constrainToBoundsOnAngle(newPoint, 10, angle);
+	                newPoints[i] = newPoint;
+	                tooClose(newVertex, newPoint) && (valid = false);
+	            });
+	            valid && _.each(newPoints, function(newPoint, i) {
+	                points[i].setCoord(newPoint);
+	            });
+	            return valid;
+	        };
+	        var snap = this.snapDegrees;
+	        var snapOffset = this.snapOffsetDeg;
+	        _.each([ 0, 2 ], function(i) {
+	            points[i].onMove = function(x, y) {
+	                var newPoint = [ x, y ];
+	                var vertex = points[1].coord;
+	                if (tooClose(vertex, newPoint)) return false;
+	                if (snap) {
+	                    var angle = GraphUtils.findAngle(newPoint, vertex);
+	                    angle = Math.round((angle - snapOffset) / snap) * snap + snapOffset;
+	                    var distance = GraphUtils.getDistance(newPoint, vertex);
+	                    return addPoints(vertex, graphie.polar(distance, angle));
+	                }
+	                return true;
+	            };
+	        });
+	        $(points).on("move", function() {
+	            this.update();
+	            $(this).trigger("move");
+	        }.bind(this));
+	    },
+	    addHighlightHandlers: function() {
+	        var vertex = this.points[1];
+	        vertex.onHighlight = function() {
+	            _.each(this.points, function(point) {
+	                point.visibleShape.animate(this.highlightStyle, 50);
+	            }, this);
+	            _.each(this.rays, function(ray) {
+	                ray.visibleLine.animate(this.highlightStyle, 50);
+	                ray.arrowStyle = _.extend({}, ray.arrowStyle, {
+	                    color: this.highlightStyle.stroke,
+	                    stroke: this.highlightStyle.stroke
+	                });
+	            }, this);
+	            this.angleStyle = _.extend({}, this.angleStyle, {
+	                color: this.highlightStyle.stroke,
+	                stroke: this.highlightStyle.stroke
+	            });
+	            this.update();
+	        }.bind(this);
+	        vertex.onUnhighlight = function() {
+	            _.each(this.points, function(point) {
+	                point.visibleShape.animate(this.normalStyle, 50);
+	            }, this);
+	            _.each(this.rays, function(ray) {
+	                ray.visibleLine.animate(ray.normalStyle, 50);
+	                ray.arrowStyle = _.extend({}, ray.arrowStyle, {
+	                    color: ray.normalStyle.stroke,
+	                    stroke: ray.normalStyle.stroke
+	                });
+	            }, this);
+	            this.angleStyle = _.extend({}, this.angleStyle, {
+	                color: KhanColors.DYNAMIC,
+	                stroke: KhanColors.DYNAMIC
+	            });
+	            this.update();
+	        }.bind(this);
+	    },
+	    _getClockwiseAngle: function(coords) {
+	        var clockwiseAngle = (GraphUtils.findAngle(coords[2], coords[0], coords[1]) + 360) % 360;
+	        return clockwiseAngle;
+	    },
+	    isReflex: function() {
+	        return this.reflex;
+	    },
+	    isClockwise: function() {
+	        var clockwiseReflexive = this._getClockwiseAngle(this.coords) > 180;
+	        return clockwiseReflexive === this.reflex;
+	    },
+	    getClockwiseCoords: function() {
+	        return this.isClockwise() ? _.clone(this.coords) : _.clone(this.coords).reverse();
+	    },
+	    update: function(shouldChangeReflexivity) {
+	        var prevCoords = this.coords;
+	        this.coords = _.pluck(this.points, "coord");
+	        _.invoke(this.points, "updateLineEnds");
+	        var prevAngle = this._getClockwiseAngle(prevCoords);
+	        var angle = this._getClockwiseAngle(this.coords);
+	        var prevClockwiseReflexive = prevAngle > 180;
+	        var clockwiseReflexive = angle > 180;
+	        if (this.allowReflex) {
+	            null == shouldChangeReflexivity && (shouldChangeReflexivity = prevClockwiseReflexive !== clockwiseReflexive && Math.abs(angle - prevAngle) < 180);
+	            shouldChangeReflexivity && (this.reflex = !this.reflex);
+	        }
+	        _.invoke(this.temp, "remove");
+	        this.temp = this.graphie.labelAngle({
+	            point1: this.coords[0],
+	            vertex: this.coords[1],
+	            point3: this.coords[2],
+	            label: this.labeledAngle,
+	            text: this.angleLabel,
+	            numArcs: this.numArcs,
+	            pushOut: this.pushOut,
+	            clockwise: this.reflex === clockwiseReflexive,
+	            style: this.angleStyle
+	        });
+	    },
+	    remove: function() {
+	        _.invoke(this.rays, "remove");
+	        _.invoke(this.temp, "remove");
+	        this.labeledAngle.remove();
+	    }
+	});
+
+	module.exports = InteractiveUtils;
+
+/***/ },
+/* 114 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = [ // standard props "added" by react
+	// (technically the renderer still adds them)
+	"key", "ref", // added by src/renderer.jsx
+	"widgetId", "onChange", "problemNum", "enabledFeatures", "apiOptions", "questionCompleted", "interWidgets", // added by src/editor.jsx, for widgets removing themselves
+	// this is soooo not the right place for this, but alas.
+	"onRemove", // also added by src/editor.jsx
+	"id" ];
+
+/***/ },
+/* 115 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* global i18n, $_ */
+	var React = __webpack_require__(9);
+
+	var ReactDOM = __webpack_require__(10);
+
+	var _ = __webpack_require__(8);
+
+	var ApiClassNames = __webpack_require__(14).ClassNames;
+
+	var Renderer = __webpack_require__(7);
+
+	var captureScratchpadTouchStart = __webpack_require__(16).captureScratchpadTouchStart;
+
+	var classNames = __webpack_require__(12);
+
+	var Choice = __webpack_require__(134);
+
+	var ChoiceNoneAbove = React.createClass({
+	    displayName: "ChoiceNoneAbove",
+	    propTypes: {
+	        className: React.PropTypes.string,
+	        content: React.PropTypes.node,
+	        showContent: React.PropTypes.bool
+	    },
+	    getDefaultProps: function() {
+	        return {
+	            showContent: true
+	        };
+	    },
+	    render: function() {
+	        var choiceProps = _.extend({}, this.props, {
+	            className: classNames(this.props.className, "none-of-above"),
+	            content: this.props.showContent ? this.props.content : // We use a Renderer here because that is how
+	            // `this.props.content` is wrapped otherwise.
+	            // We pass in a key here so that we avoid a semi-spurious
+	            // react warning when we render this in the same place
+	            // as the previous choice content renderer.
+	            // Note this destroys state, but since all we're doing
+	            // is outputting "None of the above", that is okay.
+	            React.createElement(Renderer, {
+	                key: "noneOfTheAboveRenderer",
+	                content: i18n._("None of the above")
+	            })
+	        });
+	        return React.createElement(Choice, choiceProps);
+	    }
+	});
+
+	var ChoicesType = React.PropTypes.arrayOf(React.PropTypes.shape({
+	    checked: React.PropTypes.bool,
+	    content: React.PropTypes.node,
+	    clue: React.PropTypes.node,
+	    correct: React.PropTypes.bool,
+	    originalIndex: React.PropTypes.number,
+	    isNoneOfTheAbove: React.PropTypes.bool
+	}));
+
+	var BaseRadio = React.createClass({
+	    displayName: "BaseRadio",
+	    propTypes: {
+	        apiOptions: React.PropTypes.shape({
+	            readOnly: React.PropTypes.bool,
+	            responsiveStyling: React.PropTypes.bool
+	        }),
+	        choices: ChoicesType,
+	        deselectEnabled: React.PropTypes.bool,
+	        labelWrap: React.PropTypes.bool,
+	        multipleSelect: React.PropTypes.bool,
+	        onCheckedChange: React.PropTypes.func,
+	        onePerLine: React.PropTypes.bool,
+	        reviewModeRubric: React.PropTypes.shape({
+	            choices: ChoicesType
+	        })
+	    },
+	    getDefaultProps: function() {
+	        return {
+	            onePerLine: true
+	        };
+	    },
+	    checkOption: function(radioIndex, shouldBeChecked) {
+	        var newChecked = void 0;
+	        newChecked = this.props.multipleSelect ? _.map(this.props.choices, function(choice, i) {
+	            return i === radioIndex ? shouldBeChecked : choice.checked;
+	        }) : _.map(this.props.choices, function(choice, i) {
+	            return i === radioIndex && shouldBeChecked;
+	        });
+	        // We send just the array of [true/false] checked values here;
+	        // onCheckedChange reconstructs the new choices to send to
+	        // this.props.onChange
+	        this.props.onCheckedChange(newChecked);
+	    },
+	    focus: function(i) {
+	        ReactDOM.findDOMNode(this.refs["radio" + (i || 0)]).focus();
+	        return true;
+	    },
+	    render: function() {
+	        // TODO(aria): Stop this from mutating the id every time someone
+	        // clicks on a radio :(
+	        var radioGroupName = _.uniqueId("perseus_radio_");
+	        var inputType = this.props.multipleSelect ? "checkbox" : "radio";
+	        var rubric = this.props.reviewModeRubric;
+	        return React.createElement("fieldset", {
+	            className: "perseus-widget-radio-fieldset"
+	        }, React.createElement("legend", {
+	            className: "perseus-sr-only"
+	        }, this.props.multipleSelect ? $_(null, "Select all that apply.") : $_(null, "Please choose from one of the following options.")), React.createElement("ul", {
+	            className: "perseus-widget-radio above-scratchpad blank-background" + (this.props.apiOptions.responsiveStyling ? " perseus-widget-radio-responsive" : "")
+	        }, this.props.multipleSelect && React.createElement("div", {
+	            className: "instructions"
+	        }, $_(null, "Select all that apply.")), this.props.choices.map(function(choice, i) {
+	            var _this = this;
+	            var reviewModeClues = !!(rubric && rubric.choices[i].clue);
+	            var Element = Choice;
+	            var elementProps = {
+	                ref: "radio" + i,
+	                apiOptions: this.props.apiOptions,
+	                checked: choice.checked,
+	                correct: rubric && rubric.choices[i].correct,
+	                clue: choice.clue,
+	                content: choice.content,
+	                disabled: this.props.apiOptions.readOnly,
+	                groupName: radioGroupName,
+	                showClue: reviewModeClues,
+	                type: inputType,
+	                pos: i,
+	                deselectEnabled: this.props.deselectEnabled,
+	                onChecked: function(checked) {
+	                    _this.checkOption(i, checked);
+	                }
+	            };
+	            if (choice.isNoneOfTheAbove) {
+	                Element = ChoiceNoneAbove;
+	                _.extend(elementProps, {
+	                    showContent: choice.correct
+	                });
+	            }
+	            var className = classNames(ApiClassNames.RADIO.OPTION, choice.checked && ApiClassNames.RADIO.SELECTED, !this.props.onePerLine && "inline", rubric && rubric.choices[i].correct && ApiClassNames.CORRECT, rubric && !rubric.choices[i].correct && ApiClassNames.INCORRECT);
+	            return React.createElement("li", {
+	                className: className,
+	                key: i,
+	                onTouchStart: this.props.labelWrap ? captureScratchpadTouchStart : null
+	            }, React.createElement(Element, elementProps));
+	        }, this)));
+	    }
+	});
+
+	module.exports = BaseRadio;
+
+/***/ },
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -24497,7 +30594,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 105 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -24505,11 +30602,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _ = __webpack_require__(8);
 
-	var GraphieClasses = __webpack_require__(104);
+	var GraphieClasses = __webpack_require__(116);
 
 	var Interactive2 = __webpack_require__(68);
 
-	var InteractiveUtil = __webpack_require__(76);
+	var InteractiveUtil = __webpack_require__(78);
+
+	var KhanColors = __webpack_require__(83);
 
 	var assert = InteractiveUtil.assert;
 
@@ -24651,8 +30750,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Point = GraphieClasses.createSimpleClass(function(graphie, props) {
 	    return graphie.ellipse(props.coord, graphie.unscaleVector([ 4, 4 ]), {
-	        fill: props.color || KhanUtil.BLACK,
-	        stroke: props.color || KhanUtil.BLACK
+	        fill: props.color || KhanColors.BLACK,
+	        stroke: props.color || KhanColors.BLACK
 	    });
 	});
 
@@ -24714,565 +30813,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 106 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	/**
-	 * MovableThing convenience methods
-	 *
-	 * Usually added to a Movable* class through
-	 * InteractiveUtils.addMovableHelperMethodsTo(), but these implementations
-	 * are simply for convenience.
-	 */
-	var _ = __webpack_require__(8);
-
-	var kpoint = __webpack_require__(96).point;
-
-	/* Local helper methods. */
-	function getKey(eventName, id) {
-	    return eventName + ":" + id;
-	}
-
-	function getEventName(key) {
-	    return key.split(":")[0];
-	}
-
-	var MovableHelperMethods = {
-	    /**
-	     * Fire an onSomething type event to all functions in listeners
-	     */
-	    _fireEvent: function(listeners, currentValue, previousValue) {
-	        _.invoke(listeners, "call", this, currentValue, previousValue);
-	    },
-	    /**
-	     * Combine the array of constraints functions
-	     * Returns either an [x, y] coordinate or false
-	     */
-	    _applyConstraints: function(current, previous) {
-	        return _.reduce(this.state.constraints, function(memo, constraint) {
-	            // A move that has been cancelled won't be propagated to later
-	            // constraints calls
-	            if (false === memo) return false;
-	            var result = constraint.call(this, memo, previous);
-	            if (false === result) // Returning false cancels the move
-	            return false;
-	            if (kpoint.is(result, 2)) // Returning a coord from constraints overrides the move
-	            return result;
-	            if (true === result || null == result) // Returning true or undefined allow the move to occur
-	            return memo;
-	            // Anything else is an error
-	            throw new Error("Constraint returned invalid result: " + result);
-	        }, current, this);
-	    },
-	    /**
-	     * Call all draw functions, and update our prevState for the next
-	     * draw function
-	     */
-	    draw: function() {
-	        var currState = this.cloneState();
-	        MovableHelperMethods._fireEvent.call(this, this.state.draw, currState, this.prevState);
-	        this.prevState = currState;
-	    },
-	    /**
-	     * Add a listener to any event: startMove, constraints, onMove, onMoveEnd,
-	     * etc. If a listener is already bound to the given eventName and id, then
-	     * it is overwritten by func.
-	     *
-	     * eventName: the string name of the event to listen to. one of:
-	     *   "onMoveStart", "onMove", "onMoveEnd", "draw", "remove"
-	     *
-	     * id: a string id that can be used to remove this event at a later time
-	     *   note: adding multiple listeners with the same id is undefined behavior
-	     *
-	     * func: the function to call when the event happens, which is called
-	     *   with the event's standard parameters [usually (coord, prevCoord) or
-	     *   (state, prevState)]
-	     */
-	    listen: function(eventName, id, func) {
-	        this._listenerMap = this._listenerMap || {};
-	        // If there's an existing handler, replace it by using its index in
-	        // `this.state[eventName]`; otherwise, add this handler to the end
-	        var key = getKey(eventName, id);
-	        var index = this._listenerMap[key] = this._listenerMap[key] || this.state[eventName].length;
-	        this.state[eventName][index] = func;
-	    },
-	    /**
-	     * Remove a previously added listener, by the id specified in the
-	     * corresponding listen() call
-	     *
-	     * If the given id has not been registered already, this is a no-op
-	     */
-	    unlisten: function(eventName, id) {
-	        this._listenerMap = this._listenerMap || {};
-	        var key = getKey(eventName, id);
-	        var index = this._listenerMap[key];
-	        if (void 0 !== index) {
-	            // Remove handler from list of event handlers and listenerMap
-	            this.state[eventName].splice(index, 1);
-	            delete this._listenerMap[key];
-	            // Re-index existing events: if they occur after `index`, decrement
-	            var keys = _.keys(this._listenerMap);
-	            _.each(keys, function(key) {
-	                getEventName(key) === eventName && this._listenerMap[key] > index && this._listenerMap[key]--;
-	            }, this);
-	        }
-	    }
-	};
-
-	module.exports = MovableHelperMethods;
-
-/***/ },
-/* 107 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(9);
-
-	var RCSS = __webpack_require__(95);
-
-	var _ = __webpack_require__(8);
-
-	var colors = {
-	    grayLight: "#aaa",
-	    basicBorderColor: "#ccc",
-	    white: "#fff"
-	};
-
-	var infoTip = {
-	    display: "inline-block",
-	    marginLeft: "5px",
-	    position: "relative"
-	};
-
-	var infoTipI = {
-	    cursor: "pointer"
-	};
-
-	var infoTipContainer = {
-	    position: "absolute",
-	    top: "-12px",
-	    left: "22px",
-	    zIndex: "1000"
-	};
-
-	var triangleBeforeAfter = {
-	    borderBottom: "9px solid transparent",
-	    borderTop: "9px solid transparent",
-	    content: " ",
-	    height: "0",
-	    position: "absolute",
-	    top: "0",
-	    width: "0"
-	};
-
-	var infoTipTriangle = {
-	    height: "10px",
-	    left: "0",
-	    position: "absolute",
-	    top: "8px",
-	    width: "0",
-	    zIndex: "1",
-	    ":before": _.extend({}, triangleBeforeAfter, {
-	        borderRight: "9px solid #bbb",
-	        right: "0"
-	    }),
-	    ":after": _.extend({}, triangleBeforeAfter, {
-	        borderRight: "9px solid " + colors.white,
-	        right: "-1px"
-	    })
-	};
-
-	var basicBorder = {
-	    border: "1px solid " + colors.basicBorderColor
-	};
-
-	var boxShadow = function(str) {
-	    return {
-	        boxShadow: str
-	    };
-	};
-
-	var verticalShadow = RCSS.merge(basicBorder, boxShadow("0 1px 3px " + colors.basicBorderColor), {
-	    borderBottom: "1px solid " + colors.grayLight
-	});
-
-	var infoTipContentContainer = RCSS.merge(verticalShadow, {
-	    background: colors.white,
-	    padding: "5px 10px",
-	    width: "240px"
-	});
-
-	RCSS.createClass(infoTip);
-
-	RCSS.createClass(infoTipI);
-
-	RCSS.createClass(infoTipTriangle);
-
-	RCSS.createClass(verticalShadow);
-
-	RCSS.createClass(infoTipContainer);
-
-	RCSS.createClass(infoTipContentContainer);
-
-	var questionMark = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo2N2M3NTAxYS04YmVlLTQ0M2MtYmRiNS04OGM2N2IxN2NhYzEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUJCRTk4Qjc4NjAwMTFFMzg3QUJDNEI4Mzk2QTRGQkQiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUJCRTk4QjY4NjAwMTFFMzg3QUJDNEI4Mzk2QTRGQkQiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NGE5ZDI0OTMtODk1NC00OGFkLTlhMTgtZDAwM2MwYWNjNDJlIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjY3Yzc1MDFhLThiZWUtNDQzYy1iZGI1LTg4YzY3YjE3Y2FjMSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pqm89uYAAADMSURBVHjaXJA9DoJAEIUH1M4TUHIFsCMGen9OwCGw1YRGW2ntKel0exsojHIBC0ouQAyUviFDstmXfNmZeS+zm7XSNCXRFiRgJf0bXIHixpbhGdxBBJYC1w/xaA424MhNEATkui71fU9KqfEU78UbD9PdbJRlOdae55GmhIP+1NV1TcMwkOM41DSNHvRtMhTHMRVFQW3b6mOLgx99kue5GRp/gIOZuZGvNpTNwjD8oliANU+qqqKu6/TQBdymN57AHjzBT+B6Jx79BRgAvc49kQA4yxgAAAAASUVORK5CYII=";
-
-	// @NoLint
-	var InfoTip = React.createClass({
-	    displayName: "InfoTip",
-	    getInitialState: function() {
-	        return {
-	            hover: false
-	        };
-	    },
-	    render: function() {
-	        return React.createElement("div", {
-	            className: infoTip.className
-	        }, React.createElement("img", {
-	            width: 10,
-	            height: 10,
-	            src: questionMark,
-	            onMouseEnter: this.handleMouseEnter,
-	            onMouseLeave: this.handleMouseLeave
-	        }), React.createElement("div", {
-	            className: infoTipContainer.className,
-	            style: {
-	                display: this.state.hover ? "block" : "none"
-	            }
-	        }, React.createElement("div", {
-	            className: infoTipTriangle.className
-	        }), React.createElement("div", {
-	            className: infoTipContentContainer.className
-	        }, this.props.children)));
-	    },
-	    handleMouseEnter: function() {
-	        this.setState({
-	            hover: true
-	        });
-	    },
-	    handleMouseLeave: function() {
-	        this.setState({
-	            hover: false
-	        });
-	    }
-	});
-
-	module.exports = InfoTip;
-
-/***/ },
-/* 108 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = [ // standard props "added" by react
-	// (technically the renderer still adds them)
-	"key", "ref", // added by src/renderer.jsx
-	"widgetId", "onChange", "problemNum", "enabledFeatures", "apiOptions", "questionCompleted", "interWidgets", // added by src/editor.jsx, for widgets removing themselves
-	// this is soooo not the right place for this, but alas.
-	"onRemove", // also added by src/editor.jsx
-	"id" ];
-
-/***/ },
-/* 109 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* global i18n, $_ */
-	var React = __webpack_require__(9);
-
-	var ReactDOM = __webpack_require__(10);
-
-	var _ = __webpack_require__(8);
-
-	var ApiClassNames = __webpack_require__(14).ClassNames;
-
-	var Renderer = __webpack_require__(7);
-
-	var captureScratchpadTouchStart = __webpack_require__(16).captureScratchpadTouchStart;
-
-	var classNames = __webpack_require__(12);
-
-	var Choice = __webpack_require__(124);
-
-	var ChoiceNoneAbove = React.createClass({
-	    displayName: "ChoiceNoneAbove",
-	    propTypes: {
-	        className: React.PropTypes.string,
-	        content: React.PropTypes.node,
-	        showContent: React.PropTypes.bool
-	    },
-	    getDefaultProps: function() {
-	        return {
-	            showContent: true
-	        };
-	    },
-	    render: function() {
-	        var choiceProps = _.extend({}, this.props, {
-	            className: classNames(this.props.className, "none-of-above"),
-	            content: this.props.showContent ? this.props.content : // We use a Renderer here because that is how
-	            // `this.props.content` is wrapped otherwise.
-	            // We pass in a key here so that we avoid a semi-spurious
-	            // react warning when we render this in the same place
-	            // as the previous choice content renderer.
-	            // Note this destroys state, but since all we're doing
-	            // is outputting "None of the above", that is okay.
-	            React.createElement(Renderer, {
-	                key: "noneOfTheAboveRenderer",
-	                content: i18n._("None of the above")
-	            })
-	        });
-	        return React.createElement(Choice, choiceProps);
-	    }
-	});
-
-	var ChoicesType = React.PropTypes.arrayOf(React.PropTypes.shape({
-	    checked: React.PropTypes.bool,
-	    content: React.PropTypes.node,
-	    clue: React.PropTypes.node,
-	    correct: React.PropTypes.bool,
-	    originalIndex: React.PropTypes.number,
-	    isNoneOfTheAbove: React.PropTypes.bool
-	}));
-
-	var BaseRadio = React.createClass({
-	    displayName: "BaseRadio",
-	    propTypes: {
-	        apiOptions: React.PropTypes.shape({
-	            readOnly: React.PropTypes.bool,
-	            responsiveStyling: React.PropTypes.bool
-	        }),
-	        choices: ChoicesType,
-	        deselectEnabled: React.PropTypes.bool,
-	        labelWrap: React.PropTypes.bool,
-	        multipleSelect: React.PropTypes.bool,
-	        onCheckedChange: React.PropTypes.func,
-	        onePerLine: React.PropTypes.bool,
-	        reviewModeRubric: React.PropTypes.shape({
-	            choices: ChoicesType
-	        })
-	    },
-	    getDefaultProps: function() {
-	        return {
-	            onePerLine: true
-	        };
-	    },
-	    checkOption: function(radioIndex, shouldBeChecked) {
-	        var newChecked = void 0;
-	        newChecked = this.props.multipleSelect ? _.map(this.props.choices, function(choice, i) {
-	            return i === radioIndex ? shouldBeChecked : choice.checked;
-	        }) : _.map(this.props.choices, function(choice, i) {
-	            return i === radioIndex && shouldBeChecked;
-	        });
-	        // We send just the array of [true/false] checked values here;
-	        // onCheckedChange reconstructs the new choices to send to
-	        // this.props.onChange
-	        this.props.onCheckedChange(newChecked);
-	    },
-	    focus: function(i) {
-	        ReactDOM.findDOMNode(this.refs["radio" + (i || 0)]).focus();
-	        return true;
-	    },
-	    render: function() {
-	        // TODO(aria): Stop this from mutating the id every time someone
-	        // clicks on a radio :(
-	        var radioGroupName = _.uniqueId("perseus_radio_");
-	        var inputType = this.props.multipleSelect ? "checkbox" : "radio";
-	        var rubric = this.props.reviewModeRubric;
-	        return React.createElement("fieldset", {
-	            className: "perseus-widget-radio-fieldset"
-	        }, React.createElement("legend", {
-	            className: "perseus-sr-only"
-	        }, this.props.multipleSelect ? $_(null, "Select all that apply.") : $_(null, "Please choose from one of the following options.")), React.createElement("ul", {
-	            className: "perseus-widget-radio above-scratchpad blank-background" + (this.props.apiOptions.responsiveStyling ? " perseus-widget-radio-responsive" : "")
-	        }, this.props.multipleSelect && React.createElement("div", {
-	            className: "instructions"
-	        }, $_(null, "Select all that apply.")), this.props.choices.map(function(choice, i) {
-	            var _this = this;
-	            var reviewModeClues = !!(rubric && rubric.choices[i].clue);
-	            var Element = Choice;
-	            var elementProps = {
-	                ref: "radio" + i,
-	                apiOptions: this.props.apiOptions,
-	                checked: choice.checked,
-	                correct: rubric && rubric.choices[i].correct,
-	                clue: choice.clue,
-	                content: choice.content,
-	                disabled: this.props.apiOptions.readOnly,
-	                groupName: radioGroupName,
-	                showClue: reviewModeClues,
-	                type: inputType,
-	                pos: i,
-	                deselectEnabled: this.props.deselectEnabled,
-	                onChecked: function(checked) {
-	                    _this.checkOption(i, checked);
-	                }
-	            };
-	            if (choice.isNoneOfTheAbove) {
-	                Element = ChoiceNoneAbove;
-	                _.extend(elementProps, {
-	                    showContent: choice.correct
-	                });
-	            }
-	            var className = classNames(ApiClassNames.RADIO.OPTION, choice.checked && ApiClassNames.RADIO.SELECTED, !this.props.onePerLine && "inline", rubric && rubric.choices[i].correct && ApiClassNames.CORRECT, rubric && !rubric.choices[i].correct && ApiClassNames.INCORRECT);
-	            return React.createElement("li", {
-	                className: className,
-	                key: i,
-	                onTouchStart: this.props.labelWrap ? captureScratchpadTouchStart : null
-	            }, React.createElement(Element, elementProps));
-	        }, this)));
-	    }
-	});
-
-	module.exports = BaseRadio;
-
-/***/ },
-/* 110 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var isObject = function(obj) {
-	    return obj === Object(obj);;
-	}
-
-	var merge = function() {
-	    var obj = {};
-
-	    for (var i = 0; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        if (source) {
-	            for (var prop in source) {
-	                obj[prop] = source[prop];
-	            }
-	        }
-	    }
-
-	    return obj;
-	};
-
-	var clone = function(obj) {
-	    if (!isObject(obj)) {
-	        return obj;
-	    }
-
-	    return Array.isArray(obj) ? obj.slice() : merge(obj);
-	};
-
-	module.exports = { isObject: isObject, merge: merge, clone: clone };
-
-
-/***/ },
-/* 111 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var get = function(arr, monocle) {
-	    return arr[monocle];
-	};
-
-	var set = function(arr, monocle, val) {
-	    var newArr = arr.splice();
-	    newArr[monocle] = val;
-	    return newArr;
-	};
-
-	var mod = function(arr, monocle, f) {
-	    var newArr = arr.slice();
-	    newArr[monocle] = f(arr[monocle]);
-	    return newArr;
-	};
-
-	var del = function(arr, monocle) {
-	    var newArr = arr.slice();
-	    newArr.splice(monocle, 1);
-	    return newArr;
-	};
-
-	/*
-	// Lens must point to a member of an array. We'll insert into that array.
-	lens.prototype.insertAt = function(lensArr, toInsert) {
-	    var obj = this._wrapped;
-
-	    var arrLens = lensArr.slice(0, -1);
-	    var arr = lens(obj).get(arrLens).slice(); // slice to copy
-
-	    var arrIdx = lensArr[lensArr.length-1];
-	    arr.splice(arrIdx, 0, toInsert);
-	    return lens(obj).set(arrLens, arr);
-	};
-
-	lens.prototype.insertBefore = lens.prototype.insertAt;
-	lens.prototype.insertAfter = function(lensArr, toInsert) {
-	    var newLens = lensArr.slice();
-	    newLens[newLens.length-1] += 1;
-	    return lens(this._wrapped).insertAt(newLens, toInsert);
-	};
-	*/
-
-	module.exports = { get: get, set: set, mod: mod, del: del };
-
-
-/***/ },
-/* 112 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var clone = __webpack_require__(110).clone;
-
-	var get = function(obj, monocle) {
-	    return obj[monocle];
-	};
-
-	var set = function(obj, monocle, val) {
-	    var newObj = clone(obj);
-	    newObj[monocle] = val;
-	    return newObj;
-	};
-
-	var mod = function(obj, monocle, f) {
-	    var newObj = clone(obj);
-	    newObj[monocle] = f(obj[monocle]);
-	    return newObj;
-	};
-
-	var del = function(obj, monocle) {
-	    var newObj = clone(obj);
-	    delete newObj[monocle];
-	    return newObj;
-	};
-
-	module.exports = { get: get, set: set, mod: mod, del: del };
-
-
-/***/ },
-/* 113 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var get = function(arr, monocle) {
-	    return arr[monocle];
-	};
-
-	var set = function(arr, monocle, val) {
-	    var newArr = arr.splice();
-	    newArr[monocle] = val;
-	    return newArr;
-	};
-
-	var mod = function(arr, monocle, f) {
-	    var newArr = arr.splice();
-	    newArr[monocle] = f(arr[monocle]);
-	    return newArr;
-	};
-
-	var del = function(arr, monocle) {
-	    var newArr = arr.slice();
-	    newArr.splice(monocle);
-	    return newArr;
-	};
-
-	module.exports = { get: get, set: set, mod: mod, del: del };
-
-
-/***/ },
-/* 114 */
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -25384,7 +30925,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 115 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -25393,7 +30934,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var _ = __webpack_require__(8);
-	var knumber = __webpack_require__(114);
+	var knumber = __webpack_require__(118);
 
 	function arraySum(array) {
 	    return _.reduce(array, function(memo, arg) { return memo + arg; }, 0);
@@ -25602,7 +31143,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 116 */
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -25611,8 +31152,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var _ = __webpack_require__(8);
-	var kvector = __webpack_require__(115);
-	var knumber = __webpack_require__(114);
+	var kvector = __webpack_require__(119);
+	var knumber = __webpack_require__(118);
 
 	var kpoint = {
 
@@ -25718,7 +31259,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 117 */
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -25726,8 +31267,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * A line is an array of two points e.g. [[-5, 0], [5, 0]].
 	 */
 
-	var kpoint = __webpack_require__(116);
-	var kvector = __webpack_require__(115);
+	var kpoint = __webpack_require__(120);
+	var kvector = __webpack_require__(119);
 
 	var kline = {
 
@@ -25771,7 +31312,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 118 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -25781,8 +31322,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * traveling along the positive x-axis.
 	 */
 
-	var kvector = __webpack_require__(115);
-	var kpoint = __webpack_require__(116);
+	var kvector = __webpack_require__(119);
+	var kpoint = __webpack_require__(120);
 
 	var kray = {
 
@@ -25803,335 +31344,151 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 119 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, indent, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	/**
-	 * A library of options to pass to add/draw/remove/constraints
-	 */
-	var _ = __webpack_require__(8);
+	var isObject = function(obj) {
+	    return obj === Object(obj);;
+	}
 
-	var WrappedLine = __webpack_require__(120);
+	var merge = function() {
+	    var obj = {};
 
-	var WrappedPath = __webpack_require__(125);
-
-	var kvector = __webpack_require__(96).vector;
-
-	var kpoint = __webpack_require__(96).point;
-
-	/**
-	 * Helper functions
-	 */
-	var getScaledAngle = function(line) {
-	    var scaledA = line.graphie.scalePoint(line.coord(0));
-	    var scaledZ = line.graphie.scalePoint(line.coord(1));
-	    return kvector.polarDegFromCart(kvector.subtract(scaledZ, scaledA))[1];
-	};
-
-	// Given `coord` and `angle`, find the point where a line extended
-	// from `coord` in the direction of `angle` would be clipped by the
-	// edge of the graphie canvas. Then draw an arrowhead at that point
-	// pointing in the direction of `angle`.
-	var getClipPoint = function(graph, coord, angle) {
-	    // Actually put the arrowheads 4px from the edge so they have
-	    // a bit of room
-	    var xExtent = graph.range[0][1] - graph.range[0][0];
-	    var yExtent = graph.range[1][1] - graph.range[1][0];
-	    // shoot a point off into the distance ...
-	    var distance = xExtent + yExtent;
-	    // we need to scale the point according to the scale of the axes
-	    var angleVec = graph.unscaleVector(kvector.cartFromPolarDeg([ 1, angle ]));
-	    var distVec = kvector.scale(kvector.normalize(angleVec), distance);
-	    var farCoord = kvector.add(coord, distVec);
-	    var scaledAngle = kvector.polarDegFromCart(angleVec)[1];
-	    // ... and then bring it back
-	    var clipPoint = graph.constrainToBoundsOnAngle(farCoord, 4, scaledAngle * Math.PI / 180);
-	    return clipPoint;
-	};
-
-	// Given `coord` and `angle`, find the point where a line extended
-	// from `coord` in the direction of `angle` would be clipped by the
-	// edge of the graphie canvas. Then draw an arrowhead at that point
-	// pointing in the direction of `angle`.
-	var createArrow = function(graph, style) {
-	    // Points that define the arrowhead
-	    var center = [ .75, 0 ];
-	    var points = [ [ -3, 4 ], [ -2.75, 2.5 ], [ 0, .25 ], center, [ 0, -.25 ], [ -2.75, -2.5 ], [ -3, -4 ] ];
-	    // Scale points by 1.4 around (0.75, 0)
-	    var scale = 1.4;
-	    points = _.map(points, function(point) {
-	        var pv = kvector.subtract(point, center);
-	        var pvScaled = kvector.scale(pv, scale);
-	        return kvector.add(center, pvScaled);
-	    });
-	    // We can't just pass in a path to `graph.fixedPath` as we need to modify
-	    // the points in some way, so instead we provide a function for creating
-	    // the path once the points have been transformed
-	    var createCubicPath = function(points) {
-	        var path = "M" + points[0][0] + " " + points[0][1];
-	        for (var i = 1; i < points.length; i += 3) path += "C" + points[i][0] + " " + points[i][1] + " " + points[i + 1][0] + " " + points[i + 1][1] + " " + points[i + 2][0] + " " + points[i + 2][1];
-	        return path;
-	    };
-	    // Create arrowhead
-	    var unscaledPoints = _.map(points, graph.unscalePoint);
-	    var options = {
-	        center: graph.unscalePoint(center),
-	        createPath: createCubicPath
-	    };
-	    var arrowHead = new WrappedPath(graph, unscaledPoints, options);
-	    arrowHead.attr(_.extend({
-	        "stroke-linejoin": "round",
-	        "stroke-linecap": "round",
-	        "stroke-dasharray": ""
-	    }, style));
-	    // Add custom function for transforming arrowheads that accounts for
-	    // center, scaling, etc.
-	    arrowHead.toCoordAtAngle = function(coord, angle) {
-	        var clipPoint = graph.scalePoint(getClipPoint(graph, coord, angle));
-	        arrowHead.transform("translateX(" + (clipPoint[0] + scale * center[0]) + "px) translateY(" + (clipPoint[1] + scale * center[1]) + "px) translateZ(0) rotate(" + (360 - KhanUtil.bound(angle)) + "deg)");
-	    };
-	    return arrowHead;
-	};
-
-	/**
-	 * MovableLine option functions
-	 */
-	var add = {
-	    // We do this in add as well as in standard so that we can call
-	    // pointsToFront after the first draw (which adds `this.visibleShape`)
-	    draw: function() {
-	        this.draw();
-	    },
-	    pointsToFront: function(state) {
-	        _.invoke(state.points, "toFront");
-	    }
-	};
-
-	add.standard = [ add.draw, add.pointsToFront ];
-
-	var modify = {
-	    draw: function() {
-	        this.draw();
-	    }
-	};
-
-	modify.standard = [ modify.draw ];
-
-	var draw = {
-	    basic: function(state) {
-	        var graphie = this.graphie;
-	        var start = this.coord(0);
-	        var end = this.coord(1);
-	        if (!this.state.visibleShape) {
-	            var options = {
-	                thickness: 10
-	            };
-	            this.state.visibleShape = new WrappedLine(graphie, start, end, options);
-	            this.state.visibleShape.attr(this.normalStyle());
-	            this.state.visibleShape.toFront();
-	            this.mouseTarget() && this.mouseTarget().toFront();
-	        }
-	        // Compute angle
-	        var angle = getScaledAngle(this);
-	        // Extend start, end if necessary (i.e., if not a line segment)
-	        if (state.extendLine) {
-	            start = getClipPoint(graphie, start, 360 - angle);
-	            end = getClipPoint(graphie, end, (540 - angle) % 360);
-	        } else state.extendRay && (end = getClipPoint(graphie, end, 360 - angle));
-	        // Move elements
-	        var elements = [ this.state.visibleShape ];
-	        this.mouseTarget() && elements.push(this.mouseTarget());
-	        _.each(elements, function(element) {
-	            element.moveTo(start, end);
-	        });
-	    },
-	    arrows: function(state) {
-	        // Create arrows, if not yet created
-	        if (null == this._arrows) {
-	            this._arrows = [];
-	            if (state.extendLine) {
-	                this._arrows.push(createArrow(this.graphie, this.normalStyle()));
-	                this._arrows.push(createArrow(this.graphie, this.normalStyle()));
-	            } else state.extendRay && this._arrows.push(createArrow(this.graphie, this.normalStyle()));
-	        }
-	        // Transform arrows
-	        var angle = getScaledAngle(this);
-	        var angleForArrow = [ 360 - angle, (540 - angle) % 360 ];
-	        _.each(this._arrows, function(arrow, i) {
-	            arrow.toCoordAtAngle(this.coord(i), angleForArrow[i]);
-	        }, this);
-	    },
-	    highlight: function(state, prevState) {
-	        // TODO(jack): Figure out a way to highlight the points attached to
-	        // the line. Maybe this means an additional isHovering: []
-	        // function to state of movable/movablepoint to define [additional?]
-	        // times it should be highlighted
-	        state.isHovering && !prevState.isHovering ? state.visibleShape.animate(state.highlightStyle, 50) : !state.isHovering && prevState.isHovering && state.visibleShape.animate(state.normalStyle, 50);
-	    }
-	};
-
-	draw.standard = [ draw.basic, draw.arrows, draw.highlight ];
-
-	var remove = {
-	    basic: function() {
-	        this.state.visibleShape && this.state.visibleShape.remove();
-	    },
-	    arrows: function() {
-	        null != this._arrows && _.invoke(this._arrows, "remove");
-	        this._arrows = null;
-	    }
-	};
-
-	remove.standard = [ remove.basic, remove.arrows ];
-
-	var constraints = {
-	    fixed: function() {
-	        return function() {
-	            return false;
-	        };
-	    },
-	    snap: function(snap) {
-	        return function(coord, prevCoord) {
-	            if (null === snap) return true;
-	            var delta = kvector.subtract(coord, prevCoord);
-	            snap = snap || this.graphie.snap;
-	            delta = kpoint.roundTo(delta, snap);
-	            return kvector.add(prevCoord, delta);
-	        };
-	    },
-	    bound: function(range, snap, paddingPx) {
-	        void 0 === paddingPx && (paddingPx = void 0 === range ? 10 : 0);
-	        return function(coord, prevCoord) {
-	            var graphie = this.graphie;
-	            var delta = kvector.subtract(coord, prevCoord);
-	            var range = range || graphie.range;
-	            // A null snap means no snap; an undefined snap means
-	            // default to graphie's
-	            void 0 === snap && (snap = graphie.snap);
-	            // Calculate the bounds for both points
-	            var absoluteLower = graphie.unscalePoint([ paddingPx, graphie.ypixels - paddingPx ]);
-	            var absoluteUpper = graphie.unscalePoint([ graphie.xpixels - paddingPx, paddingPx ]);
-	            if (snap) {
-	                absoluteLower = kpoint.ceilTo(absoluteLower, snap);
-	                absoluteUpper = kpoint.floorTo(absoluteUpper, snap);
+	    for (var i = 0; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        if (source) {
+	            for (var prop in source) {
+	                obj[prop] = source[prop];
 	            }
-	            // Calculate the bounds for the delta.
-	            var deltaBounds = _.map(this.coords(), function(coord, i) {
-	                var max = kvector.subtract(absoluteUpper, coord);
-	                var min = kvector.subtract(absoluteLower, coord);
-	                return [ min, max ];
-	            });
-	            // bound the delta by the calculated bounds
-	            var boundedDelta = _.reduce(deltaBounds, function(delta, bound) {
-	                var lower = bound[0];
-	                var upper = bound[1];
-	                var deltaX = Math.max(lower[0], Math.min(upper[0], delta[0]));
-	                var deltaY = Math.max(lower[1], Math.min(upper[1], delta[1]));
-	                return [ deltaX, deltaY ];
-	            }, delta);
-	            return kvector.add(prevCoord, boundedDelta);
-	        };
+	        }
 	    }
+
+	    return obj;
 	};
 
-	constraints.standard = null;
-
-	var onMove = {
-	    updatePoints: function(coord, prevCoord) {
-	        var actualDelta = kvector.subtract(coord, prevCoord);
-	        _.each(this.state.points, function(point) {
-	            point.setCoord(kvector.add(point.coord(), actualDelta));
-	        });
+	var clone = function(obj) {
+	    if (!isObject(obj)) {
+	        return obj;
 	    }
+
+	    return Array.isArray(obj) ? obj.slice() : merge(obj);
 	};
 
-	onMove.standard = null;
+	module.exports = { isObject: isObject, merge: merge, clone: clone };
 
-	module.exports = {
-	    add: add,
-	    modify: modify,
-	    draw: draw,
-	    remove: remove,
-	    onMoveStart: {
-	        standard: null
-	    },
-	    constraints: constraints,
-	    onMove: onMove,
-	    onMoveEnd: {
-	        standard: null
-	    }
-	};
 
 /***/ },
-/* 120 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var _ = __webpack_require__(8);
-
-	var InteractiveUtil = __webpack_require__(76);
-
-	var WrappedDefaults = __webpack_require__(126);
-
-	var kpoint = __webpack_require__(96).point;
-
-	var kvector = __webpack_require__(96).vector;
-
-	var DEFAULT_OPTIONS = {
-	    thickness: 2,
-	    mouselayer: false
+	var get = function(arr, monocle) {
+	    return arr[monocle];
 	};
 
-	var WrappedLine = function(graphie, start, end, options) {
-	    options = _.extend({}, DEFAULT_OPTIONS, options);
-	    // Always make the line as large as possible and horizontal; this
-	    // simplifies a lot of the transforms, e.g., we can rotate by exactly the
-	    // angle of the argument points in `moveTo`.
-	    var initialStart = [ graphie.range[0][0], 0 ];
-	    var initialEnd = [ graphie.range[0][1], 0 ];
-	    // Add `wrapper` and `visibleShape`
-	    _.extend(this, graphie.fixedLine(initialStart, initialEnd, options.thickness));
-	    // Save properties for computing transformations
-	    _.extend(this, {
-	        graphie: graphie,
-	        initialPoint: graphie.scalePoint(initialStart),
-	        initialLength: kpoint.distanceToPoint(graphie.scalePoint(initialStart), graphie.scalePoint(initialEnd))
-	    });
-	    // Add to appropriate graphie layer
-	    options.mouselayer ? this.graphie.addToMouseLayerWrapper(this.wrapper) : this.graphie.addToVisibleLayerWrapper(this.wrapper);
-	    // Move to argument points
-	    this.moveTo(start, end);
+	var set = function(arr, monocle, val) {
+	    var newArr = arr.splice();
+	    newArr[monocle] = val;
+	    return newArr;
 	};
 
-	_.extend(WrappedLine.prototype, WrappedDefaults, {
-	    getMouseTarget: function() {
-	        return this.wrapper;
-	    },
-	    moveTo: function(start, end) {
-	        var scaledStart = this.graphie.scalePoint(start);
-	        var scaledEnd = this.graphie.scalePoint(end);
-	        // Compute transformation parameters
-	        var polarDiff = kvector.polarDegFromCart(kvector.subtract(scaledEnd, scaledStart));
-	        var lineLength = polarDiff[0];
-	        var angle = KhanUtil.bound(polarDiff[1]);
-	        var delta = kvector.subtract(scaledStart, this.initialPoint);
-	        var scale = KhanUtil.bound(lineLength / this.initialLength);
-	        // Construct and apply transformation string
-	        var do3dTransform = InteractiveUtil.getCanUse3dTransform();
-	        var transformation = "translateX(" + delta[0] + "px) translateY(" + delta[1] + "px) " + (do3dTransform ? " translateZ(0)" : "") + "rotate(" + angle + "deg) scaleX(" + scale + ") scaleY(1)";
-	        this.transform(transformation);
-	    }
-	});
+	var mod = function(arr, monocle, f) {
+	    var newArr = arr.slice();
+	    newArr[monocle] = f(arr[monocle]);
+	    return newArr;
+	};
 
-	module.exports = WrappedLine;
+	var del = function(arr, monocle) {
+	    var newArr = arr.slice();
+	    newArr.splice(monocle, 1);
+	    return newArr;
+	};
+
+	/*
+	// Lens must point to a member of an array. We'll insert into that array.
+	lens.prototype.insertAt = function(lensArr, toInsert) {
+	    var obj = this._wrapped;
+
+	    var arrLens = lensArr.slice(0, -1);
+	    var arr = lens(obj).get(arrLens).slice(); // slice to copy
+
+	    var arrIdx = lensArr[lensArr.length-1];
+	    arr.splice(arrIdx, 0, toInsert);
+	    return lens(obj).set(arrLens, arr);
+	};
+
+	lens.prototype.insertBefore = lens.prototype.insertAt;
+	lens.prototype.insertAfter = function(lensArr, toInsert) {
+	    var newLens = lensArr.slice();
+	    newLens[newLens.length-1] += 1;
+	    return lens(this._wrapped).insertAt(newLens, toInsert);
+	};
+	*/
+
+	module.exports = { get: get, set: set, mod: mod, del: del };
+
 
 /***/ },
-/* 121 */
+/* 125 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var clone = __webpack_require__(123).clone;
+
+	var get = function(obj, monocle) {
+	    return obj[monocle];
+	};
+
+	var set = function(obj, monocle, val) {
+	    var newObj = clone(obj);
+	    newObj[monocle] = val;
+	    return newObj;
+	};
+
+	var mod = function(obj, monocle, f) {
+	    var newObj = clone(obj);
+	    newObj[monocle] = f(obj[monocle]);
+	    return newObj;
+	};
+
+	var del = function(obj, monocle) {
+	    var newObj = clone(obj);
+	    delete newObj[monocle];
+	    return newObj;
+	};
+
+	module.exports = { get: get, set: set, mod: mod, del: del };
+
+
+/***/ },
+/* 126 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var get = function(arr, monocle) {
+	    return arr[monocle];
+	};
+
+	var set = function(arr, monocle, val) {
+	    var newArr = arr.splice();
+	    newArr[monocle] = val;
+	    return newArr;
+	};
+
+	var mod = function(arr, monocle, f) {
+	    var newArr = arr.splice();
+	    newArr[monocle] = f(arr[monocle]);
+	    return newArr;
+	};
+
+	var del = function(arr, monocle) {
+	    var newArr = arr.slice();
+	    newArr.splice(monocle);
+	    return newArr;
+	};
+
+	module.exports = { get: get, set: set, mod: mod, del: del };
+
+
+/***/ },
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -26142,9 +31499,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(8);
 
-	var WrappedEllipse = __webpack_require__(122);
+	var WrappedEllipse = __webpack_require__(128);
 
-	var kpoint = __webpack_require__(96).point;
+	var kpoint = __webpack_require__(100).point;
 
 	var add = {
 	    constrain: function() {
@@ -26253,7 +31610,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 122 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -26261,7 +31618,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _ = __webpack_require__(8);
 
-	var WrappedDefaults = __webpack_require__(126);
+	var WrappedDefaults = __webpack_require__(137);
 
 	var DEFAULT_OPTIONS = {
 	    maxScale: 1,
@@ -26284,7 +31641,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WrappedEllipse;
 
 /***/ },
-/* 123 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -26293,9 +31650,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	/**
 	 * A library of options to pass to add/draw/remove/constraints
 	 */
-	var kpoint = __webpack_require__(96).point;
+	var kpoint = __webpack_require__(100).point;
 
-	var kvector = __webpack_require__(96).vector;
+	var kvector = __webpack_require__(100).vector;
 
 	function sum(array) {
 	    return _.reduce(array, function(memo, arg) {
@@ -26525,7 +31882,852 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 124 */
+/* 130 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, indent, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	/**
+	 * A library of options to pass to add/draw/remove/constraints
+	 */
+	var _ = __webpack_require__(8);
+
+	var WrappedLine = __webpack_require__(131);
+
+	var WrappedPath = __webpack_require__(133);
+
+	var kvector = __webpack_require__(100).vector;
+
+	var kpoint = __webpack_require__(100).point;
+
+	var KhanMath = __webpack_require__(85);
+
+	/**
+	 * Helper functions
+	 */
+	var getScaledAngle = function(line) {
+	    var scaledA = line.graphie.scalePoint(line.coord(0));
+	    var scaledZ = line.graphie.scalePoint(line.coord(1));
+	    return kvector.polarDegFromCart(kvector.subtract(scaledZ, scaledA))[1];
+	};
+
+	// Given `coord` and `angle`, find the point where a line extended
+	// from `coord` in the direction of `angle` would be clipped by the
+	// edge of the graphie canvas. Then draw an arrowhead at that point
+	// pointing in the direction of `angle`.
+	var getClipPoint = function(graph, coord, angle) {
+	    // Actually put the arrowheads 4px from the edge so they have
+	    // a bit of room
+	    var xExtent = graph.range[0][1] - graph.range[0][0];
+	    var yExtent = graph.range[1][1] - graph.range[1][0];
+	    // shoot a point off into the distance ...
+	    var distance = xExtent + yExtent;
+	    // we need to scale the point according to the scale of the axes
+	    var angleVec = graph.unscaleVector(kvector.cartFromPolarDeg([ 1, angle ]));
+	    var distVec = kvector.scale(kvector.normalize(angleVec), distance);
+	    var farCoord = kvector.add(coord, distVec);
+	    var scaledAngle = kvector.polarDegFromCart(angleVec)[1];
+	    // ... and then bring it back
+	    var clipPoint = graph.constrainToBoundsOnAngle(farCoord, 4, scaledAngle * Math.PI / 180);
+	    return clipPoint;
+	};
+
+	// Given `coord` and `angle`, find the point where a line extended
+	// from `coord` in the direction of `angle` would be clipped by the
+	// edge of the graphie canvas. Then draw an arrowhead at that point
+	// pointing in the direction of `angle`.
+	var createArrow = function(graph, style) {
+	    // Points that define the arrowhead
+	    var center = [ .75, 0 ];
+	    var points = [ [ -3, 4 ], [ -2.75, 2.5 ], [ 0, .25 ], center, [ 0, -.25 ], [ -2.75, -2.5 ], [ -3, -4 ] ];
+	    // Scale points by 1.4 around (0.75, 0)
+	    var scale = 1.4;
+	    points = _.map(points, function(point) {
+	        var pv = kvector.subtract(point, center);
+	        var pvScaled = kvector.scale(pv, scale);
+	        return kvector.add(center, pvScaled);
+	    });
+	    // We can't just pass in a path to `graph.fixedPath` as we need to modify
+	    // the points in some way, so instead we provide a function for creating
+	    // the path once the points have been transformed
+	    var createCubicPath = function(points) {
+	        var path = "M" + points[0][0] + " " + points[0][1];
+	        for (var i = 1; i < points.length; i += 3) path += "C" + points[i][0] + " " + points[i][1] + " " + points[i + 1][0] + " " + points[i + 1][1] + " " + points[i + 2][0] + " " + points[i + 2][1];
+	        return path;
+	    };
+	    // Create arrowhead
+	    var unscaledPoints = _.map(points, graph.unscalePoint);
+	    var options = {
+	        center: graph.unscalePoint(center),
+	        createPath: createCubicPath
+	    };
+	    var arrowHead = new WrappedPath(graph, unscaledPoints, options);
+	    arrowHead.attr(_.extend({
+	        "stroke-linejoin": "round",
+	        "stroke-linecap": "round",
+	        "stroke-dasharray": ""
+	    }, style));
+	    // Add custom function for transforming arrowheads that accounts for
+	    // center, scaling, etc.
+	    arrowHead.toCoordAtAngle = function(coord, angle) {
+	        var clipPoint = graph.scalePoint(getClipPoint(graph, coord, angle));
+	        arrowHead.transform("translateX(" + (clipPoint[0] + scale * center[0]) + "px) translateY(" + (clipPoint[1] + scale * center[1]) + "px) translateZ(0) rotate(" + (360 - KhanMath.bound(angle)) + "deg)");
+	    };
+	    return arrowHead;
+	};
+
+	/**
+	 * MovableLine option functions
+	 */
+	var add = {
+	    // We do this in add as well as in standard so that we can call
+	    // pointsToFront after the first draw (which adds `this.visibleShape`)
+	    draw: function() {
+	        this.draw();
+	    },
+	    pointsToFront: function(state) {
+	        _.invoke(state.points, "toFront");
+	    }
+	};
+
+	add.standard = [ add.draw, add.pointsToFront ];
+
+	var modify = {
+	    draw: function() {
+	        this.draw();
+	    }
+	};
+
+	modify.standard = [ modify.draw ];
+
+	var draw = {
+	    basic: function(state) {
+	        var graphie = this.graphie;
+	        var start = this.coord(0);
+	        var end = this.coord(1);
+	        if (!this.state.visibleShape) {
+	            var options = {
+	                thickness: 10
+	            };
+	            this.state.visibleShape = new WrappedLine(graphie, start, end, options);
+	            this.state.visibleShape.attr(this.normalStyle());
+	            this.state.visibleShape.toFront();
+	            this.mouseTarget() && this.mouseTarget().toFront();
+	        }
+	        // Compute angle
+	        var angle = getScaledAngle(this);
+	        // Extend start, end if necessary (i.e., if not a line segment)
+	        if (state.extendLine) {
+	            start = getClipPoint(graphie, start, 360 - angle);
+	            end = getClipPoint(graphie, end, (540 - angle) % 360);
+	        } else state.extendRay && (end = getClipPoint(graphie, end, 360 - angle));
+	        // Move elements
+	        var elements = [ this.state.visibleShape ];
+	        this.mouseTarget() && elements.push(this.mouseTarget());
+	        _.each(elements, function(element) {
+	            element.moveTo(start, end);
+	        });
+	    },
+	    arrows: function(state) {
+	        // Create arrows, if not yet created
+	        if (null == this._arrows) {
+	            this._arrows = [];
+	            if (state.extendLine) {
+	                this._arrows.push(createArrow(this.graphie, this.normalStyle()));
+	                this._arrows.push(createArrow(this.graphie, this.normalStyle()));
+	            } else state.extendRay && this._arrows.push(createArrow(this.graphie, this.normalStyle()));
+	        }
+	        // Transform arrows
+	        var angle = getScaledAngle(this);
+	        var angleForArrow = [ 360 - angle, (540 - angle) % 360 ];
+	        _.each(this._arrows, function(arrow, i) {
+	            arrow.toCoordAtAngle(this.coord(i), angleForArrow[i]);
+	        }, this);
+	    },
+	    highlight: function(state, prevState) {
+	        // TODO(jack): Figure out a way to highlight the points attached to
+	        // the line. Maybe this means an additional isHovering: []
+	        // function to state of movable/movablepoint to define [additional?]
+	        // times it should be highlighted
+	        state.isHovering && !prevState.isHovering ? state.visibleShape.animate(state.highlightStyle, 50) : !state.isHovering && prevState.isHovering && state.visibleShape.animate(state.normalStyle, 50);
+	    }
+	};
+
+	draw.standard = [ draw.basic, draw.arrows, draw.highlight ];
+
+	var remove = {
+	    basic: function() {
+	        this.state.visibleShape && this.state.visibleShape.remove();
+	    },
+	    arrows: function() {
+	        null != this._arrows && _.invoke(this._arrows, "remove");
+	        this._arrows = null;
+	    }
+	};
+
+	remove.standard = [ remove.basic, remove.arrows ];
+
+	var constraints = {
+	    fixed: function() {
+	        return function() {
+	            return false;
+	        };
+	    },
+	    snap: function(snap) {
+	        return function(coord, prevCoord) {
+	            if (null === snap) return true;
+	            var delta = kvector.subtract(coord, prevCoord);
+	            snap = snap || this.graphie.snap;
+	            delta = kpoint.roundTo(delta, snap);
+	            return kvector.add(prevCoord, delta);
+	        };
+	    },
+	    bound: function(range, snap, paddingPx) {
+	        void 0 === paddingPx && (paddingPx = void 0 === range ? 10 : 0);
+	        return function(coord, prevCoord) {
+	            var graphie = this.graphie;
+	            var delta = kvector.subtract(coord, prevCoord);
+	            var range = range || graphie.range;
+	            // A null snap means no snap; an undefined snap means
+	            // default to graphie's
+	            void 0 === snap && (snap = graphie.snap);
+	            // Calculate the bounds for both points
+	            var absoluteLower = graphie.unscalePoint([ paddingPx, graphie.ypixels - paddingPx ]);
+	            var absoluteUpper = graphie.unscalePoint([ graphie.xpixels - paddingPx, paddingPx ]);
+	            if (snap) {
+	                absoluteLower = kpoint.ceilTo(absoluteLower, snap);
+	                absoluteUpper = kpoint.floorTo(absoluteUpper, snap);
+	            }
+	            // Calculate the bounds for the delta.
+	            var deltaBounds = _.map(this.coords(), function(coord, i) {
+	                var max = kvector.subtract(absoluteUpper, coord);
+	                var min = kvector.subtract(absoluteLower, coord);
+	                return [ min, max ];
+	            });
+	            // bound the delta by the calculated bounds
+	            var boundedDelta = _.reduce(deltaBounds, function(delta, bound) {
+	                var lower = bound[0];
+	                var upper = bound[1];
+	                var deltaX = Math.max(lower[0], Math.min(upper[0], delta[0]));
+	                var deltaY = Math.max(lower[1], Math.min(upper[1], delta[1]));
+	                return [ deltaX, deltaY ];
+	            }, delta);
+	            return kvector.add(prevCoord, boundedDelta);
+	        };
+	    }
+	};
+
+	constraints.standard = null;
+
+	var onMove = {
+	    updatePoints: function(coord, prevCoord) {
+	        var actualDelta = kvector.subtract(coord, prevCoord);
+	        _.each(this.state.points, function(point) {
+	            point.setCoord(kvector.add(point.coord(), actualDelta));
+	        });
+	    }
+	};
+
+	onMove.standard = null;
+
+	module.exports = {
+	    add: add,
+	    modify: modify,
+	    draw: draw,
+	    remove: remove,
+	    onMoveStart: {
+	        standard: null
+	    },
+	    constraints: constraints,
+	    onMove: onMove,
+	    onMoveEnd: {
+	        standard: null
+	    }
+	};
+
+/***/ },
+/* 131 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	var _ = __webpack_require__(8);
+
+	var InteractiveUtil = __webpack_require__(78);
+
+	var WrappedDefaults = __webpack_require__(137);
+
+	var kpoint = __webpack_require__(100).point;
+
+	var kvector = __webpack_require__(100).vector;
+
+	var KhanMath = __webpack_require__(85);
+
+	var DEFAULT_OPTIONS = {
+	    thickness: 2,
+	    mouselayer: false
+	};
+
+	var WrappedLine = function(graphie, start, end, options) {
+	    options = _.extend({}, DEFAULT_OPTIONS, options);
+	    // Always make the line as large as possible and horizontal; this
+	    // simplifies a lot of the transforms, e.g., we can rotate by exactly the
+	    // angle of the argument points in `moveTo`.
+	    var initialStart = [ graphie.range[0][0], 0 ];
+	    var initialEnd = [ graphie.range[0][1], 0 ];
+	    // Add `wrapper` and `visibleShape`
+	    _.extend(this, graphie.fixedLine(initialStart, initialEnd, options.thickness));
+	    // Save properties for computing transformations
+	    _.extend(this, {
+	        graphie: graphie,
+	        initialPoint: graphie.scalePoint(initialStart),
+	        initialLength: kpoint.distanceToPoint(graphie.scalePoint(initialStart), graphie.scalePoint(initialEnd))
+	    });
+	    // Add to appropriate graphie layer
+	    options.mouselayer ? this.graphie.addToMouseLayerWrapper(this.wrapper) : this.graphie.addToVisibleLayerWrapper(this.wrapper);
+	    // Move to argument points
+	    this.moveTo(start, end);
+	};
+
+	_.extend(WrappedLine.prototype, WrappedDefaults, {
+	    getMouseTarget: function() {
+	        return this.wrapper;
+	    },
+	    moveTo: function(start, end) {
+	        var scaledStart = this.graphie.scalePoint(start);
+	        var scaledEnd = this.graphie.scalePoint(end);
+	        // Compute transformation parameters
+	        var polarDiff = kvector.polarDegFromCart(kvector.subtract(scaledEnd, scaledStart));
+	        var lineLength = polarDiff[0];
+	        var angle = KhanMath.bound(polarDiff[1]);
+	        var delta = kvector.subtract(scaledStart, this.initialPoint);
+	        var scale = KhanMath.bound(lineLength / this.initialLength);
+	        // Construct and apply transformation string
+	        var do3dTransform = InteractiveUtil.getCanUse3dTransform();
+	        var transformation = "translateX(" + delta[0] + "px) translateY(" + delta[1] + "px) " + (do3dTransform ? " translateZ(0)" : "") + "rotate(" + angle + "deg) scaleX(" + scale + ") scaleY(1)";
+	        this.transform(transformation);
+	    }
+	});
+
+	module.exports = WrappedLine;
+
+/***/ },
+/* 132 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/* globals i18n:false */
+	var $ = __webpack_require__(11);
+
+	var _ = __webpack_require__(8);
+
+	var crc32 = __webpack_require__(138);
+
+	var localMode = void 0;
+
+	// Keep the template variables private, to prevent external access
+	var VARS = {};
+
+	$.tmpl = {
+	    DATA_ENSURE_LOOPS: 0,
+	    // Processors that act based on element attributes
+	    attr: {
+	        "data-ensure": function(elem, ensure) {
+	            // Returns a function in order to run after other templating and
+	            // var assignment
+	            return function(elem) {
+	                // Return a boolean corresponding to the ensure's value False
+	                // means all templating will be run again, so new values will
+	                // be chosen
+	                var result = !!(ensure && $.tmpl.getVAR(ensure));
+	                if (!result && $.tmpl.DATA_ENSURE_LOOPS++ > 1e4 && localMode) {
+	                    // Shucks, probably not possible. Just give up in order
+	                    // to not hang the dev's browser.
+	                    alert("unsatisfiable data-ensure?");
+	                    // @Nolint
+	                    return true;
+	                }
+	                return result;
+	            };
+	        },
+	        "data-if": function(elem, value) {
+	            var $elem = $(elem);
+	            value = value && $.tmpl.getVAR(value);
+	            // Save the result of this data-if in the next sibling for
+	            // data-else-if and data-else Only save the value if no previous
+	            // value has been set
+	            var $nextElem = $elem.next();
+	            void 0 === $nextElem.data("lastCond") && $nextElem.data("lastCond", value);
+	            if (!value) // Delete the element if the data-if evaluated to false
+	            return [];
+	        },
+	        "data-else-if": function(elem, value) {
+	            var $elem = $(elem);
+	            var lastCond = $elem.data("lastCond");
+	            // Show this element iff the preceding element was hidden AND this
+	            // data-if returns truthily
+	            value = !lastCond && value && $.tmpl.getVAR(value);
+	            // Succeeding elements care about the visibility of both me and my
+	            // preceding siblings Only save the value if no previous value has
+	            // been set
+	            var $nextElem = $elem.next();
+	            void 0 === $nextElem.data("lastCond") && $nextElem.data("lastCond", lastCond || value);
+	            if (!value) // Delete the element if appropriate
+	            return [];
+	        },
+	        "data-else": function(elem) {
+	            var $elem = $(elem);
+	            if ($elem.data("lastCond")) // Delete the element if the data-if of the preceding element
+	            // was true
+	            return [];
+	        },
+	        "data-each": function(elem, value) {
+	            var match = void 0;
+	            // Remove the data-each attribute so it doesn't end up in the
+	            // generated elements
+	            $(elem).removeAttr("data-each");
+	            // HINT_COUNT times
+	            // HINT_COUNT times as INDEX
+	            if (match = /^(.+) times(?: as (\w+))?$/.exec(value)) {
+	                var times = $.tmpl.getVAR(match[1]);
+	                return {
+	                    items: $.map(new Array(times), function(e, i) {
+	                        return i;
+	                    }),
+	                    value: match[2],
+	                    oldValue: VARS[match[2]]
+	                };
+	            }
+	            if (match = /^(.*?)(?: as (?:(\w+), )?(\w+))?$/.exec(value)) // See "if (ret.items)" in traverse() for the other half of the
+	            // data-each code
+	            return {
+	                // The collection which we'll iterate through
+	                items: $.tmpl.getVAR(match[1]),
+	                // "value" and "pos" as strings
+	                value: match[3],
+	                pos: match[2],
+	                // Save the values of the iterator variables so we don't
+	                // permanently overwrite them
+	                oldValue: VARS[match[3]],
+	                oldPos: VARS[match[2]]
+	            };
+	        },
+	        "data-unwrap": function(elem) {
+	            return $(elem).contents();
+	        },
+	        "data-video-hint": function(elem) {
+	            var youtubeIds = $(elem).data("youtube-id");
+	            if (!youtubeIds) return;
+	            youtubeIds = youtubeIds.split(/,\s*/);
+	            var author = $(elem).data("video-hint-author") || "Sal";
+	            var msg = i18n._("Watch %(author)s work through a very similar problem:", {
+	                author: author
+	            });
+	            var preface = $("<p>").text(msg);
+	            var wrapper = $("<div>", {
+	                "class": "video-hint"
+	            });
+	            wrapper.append(preface);
+	            _.each(youtubeIds, function(youtubeId) {
+	                var href = "http://www.khanacademy.org/embed_video?v=" + youtubeId;
+	                var iframe = $("<iframe>").attr({
+	                    frameborder: "0",
+	                    scrolling: "no",
+	                    width: "100%",
+	                    height: "360px",
+	                    src: href
+	                });
+	                wrapper.append(iframe);
+	            });
+	            return wrapper;
+	        }
+	    },
+	    // Processors that act based on tag names
+	    type: {
+	        "var": function(elem, value) {
+	            // When called by process(), value is undefined
+	            // If the <var> has any child elements, run later with the innerHTML
+	            // Use $ instead of getElementsByTagName to exclude comment nodes
+	            // in IE
+	            if (!value && $(elem).children().length > 0) return function(elem) {
+	                return $.tmpl.type["var"](elem, elem.innerHTML);
+	            };
+	            // Evaluate the contents of the <var> as a JS string
+	            value = value || $.tmpl.getVAR(elem);
+	            // If an ID was specified then we're going to save the value
+	            var name = elem.id;
+	            if (!name) {
+	                if (null == value) // Don't show anything
+	                return [];
+	                // Convert the value to a string and replace with those
+	                // elements and text nodes Add a space so that it can end
+	                // with a "<" in Safari
+	                var div = $("<div>");
+	                var html = div.append(value + " ").html();
+	                return div.html(html.slice(0, -1)).contents();
+	            }
+	            !function() {
+	                // Utility function for VARS[name] = value, warning if the name
+	                // overshadows a KhanUtil property
+	                var setVAR = function(name, value) {
+	                    KhanUtil[name] && Khan.error("Defining variable '" + name + "' overwrites utility property of same name.");
+	                    VARS[name] = value;
+	                };
+	                // Destructure the array if appropriate
+	                if (-1 !== name.indexOf(",")) {
+	                    // Nested arrays are not supported
+	                    var parts = name.split(/\s*,\s*/);
+	                    $.each(parts, function(i, part) {
+	                        // Ignore empty parts
+	                        part.length > 0 && setVAR(part, value[i]);
+	                    });
+	                } else setVAR(name, value);
+	            }();
+	        }
+	    },
+	    // Eval a string in the context of Math, KhanUtil, VARS, and optionally
+	    // another passed context
+	    getVAR: function(elem, ctx) {
+	        // We need to compute the value
+	        var code = elem.nodeName ? $(elem).text() : elem;
+	        // If no extra context was passed, use an empty object
+	        null == ctx && (ctx = {});
+	        function doEval() {
+	            /* eslint-disable no-with */
+	            // Use the methods from JavaScript's built-in Math methods
+	            with (Math) // And the methods provided by the library
+	            with (KhanUtil) // And the passed-in context
+	            with (ctx) // And all the computed variables
+	            with (VARS) return eval("(function() { return (" + code + "); })()");
+	        }
+	        if (null != Khan.query.debug) // Skip try-catch in debug mode so that the script panel works
+	        return doEval();
+	        try {
+	            return doEval();
+	        } catch (e) {
+	            var info = void 0;
+	            if (elem.nodeName) {
+	                info = elem.nodeName.toLowerCase();
+	                null != elem.id && elem.id.length > 0 && (info += "#" + elem.id);
+	            } else info = JSON.stringify(code);
+	            Khan.error("Error while evaluating " + info, e);
+	        }
+	    },
+	    /**
+	     * Get a hash of the problem variables for duplication detection purposes.
+	     */
+	    // TODO(david): Allow exercise developers to specify which variables are
+	    //     not important for duplicate determination purposes.
+	    // TODO(david): Just a possibility, but allow exercise developers to
+	    //     specify their own variable hash function, so that, eg. for addition
+	    //     1, 2 + 3 could hash to the same value as 3 + 2.
+	    getVarsHash: function() {
+	        // maybe TODO(david): Can base-64 encode the crc32 integer if we want
+	        //     to save a few bytes, since localStorage stores strings only.
+	        // Just convert top-level values to strings instead of recursively
+	        // stringifying, due to issues with circular references.
+	        return crc32(JSON.stringify($.map(VARS, function(value, key) {
+	            return [ key, String(value) ];
+	        })));
+	    }
+	};
+
+	"undefined" !== typeof KhanUtil && (KhanUtil.tmpl = $.tmpl);
+
+	// Reinitialize VARS for each problem
+	$.fn.tmplLoad = function(problem, info) {
+	    VARS = {};
+	    $.tmpl.DATA_ENSURE_LOOPS = 0;
+	    localMode = info.localMode;
+	    // Expose the variables if we're in local mode
+	    localMode && ($.tmpl.VARS = VARS);
+	};
+
+	$.fn.tmpl = function() {
+	    // Call traverse() for each element in the $ object
+	    for (var i = 0, l = this.length; i < l; i++) traverse(this[i]);
+	    return this;
+	    // Walk through the element and its descendants, process()-ing each one
+	    // using the processors defined above
+	    function traverse(elem) {
+	        // Array of functions to run after doing the rest of the processing
+	        var post = [];
+	        // Live NodeList of child nodes to traverse if we don't remove/replace
+	        // this element
+	        var child = elem.childNodes;
+	        // Result of running the attribute and tag processors on the element
+	        var ret = process(elem, post);
+	        if (false === ret) // If false, rerun all templating (like data-ensure)
+	        return traverse(elem);
+	        if (void 0 === ret) ; else {
+	            if ("object" === typeof ret && "undefined" !== typeof ret.length) {
+	                // If a (possibly-empty) array of nodes, replace this one with those
+	                // The type of ret is checked to ensure it is not a function
+	                if (elem.parentNode) {
+	                    // All nodes must be inserted before any are traversed
+	                    $.each(ret, function(i, rep) {
+	                        rep.nodeType && elem.parentNode.insertBefore(rep, elem);
+	                    });
+	                    $.each(ret, function(i, rep) {
+	                        traverse(rep);
+	                    });
+	                    elem.parentNode.removeChild(elem);
+	                }
+	                return null;
+	            }
+	            if (ret.items) {
+	                var _ret2 = function() {
+	                    // If { items: ... }, this is a data-each loop
+	                    // We need these references to insert the elements in the
+	                    // appropriate places
+	                    var origParent = elem.parentNode;
+	                    var origNext = elem.nextSibling;
+	                    // Loop though the given array
+	                    $.each(ret.items, function(pos, value) {
+	                        // Set the value if appropriate
+	                        ret.value && (VARS[ret.value] = value);
+	                        // Set the position if appropriate
+	                        ret.pos && (VARS[ret.pos] = pos);
+	                        // Do a deep clone (including event handlers and data) of the
+	                        // element
+	                        var clone = $(elem).clone(true).removeAttr("data-each").removeData("each")[0];
+	                        // Prepend all conditional statements with a declaration of
+	                        // ret.value and ret.post and an assignment of their current
+	                        // values so that the conditional will still make sense even
+	                        // when outside of the data-each context
+	                        var conditionals = [ "data-if", "data-else-if", "data-else" ];
+	                        var declarations = "";
+	                        declarations += ret.pos ? "var " + ret.pos + " = " + JSON.stringify(pos) + ";" : "";
+	                        declarations += ret.value ? "var " + ret.value + " = " + JSON.stringify(value) + ";" : "";
+	                        var _loop = function(i) {
+	                            var conditional = conditionals[i];
+	                            $(clone).find("[" + conditional + "]").each(function() {
+	                                var code = $(this).attr(conditional);
+	                                code = "(function() { " + declarations + " return " + code + " })()";
+	                                $(this).attr(conditional, code);
+	                            });
+	                        };
+	                        for (var i = 0; i < conditionals.length; i++) _loop(i);
+	                        // Do the same for graphie code
+	                        $(clone).find(".graphie").addBack().filter(".graphie").each(function() {
+	                            var code = $(this).text();
+	                            $(this).text(declarations + code);
+	                        });
+	                        // Insert in the proper place (depends on whether the loops is
+	                        // the last of its siblings)
+	                        origNext ? origParent.insertBefore(clone, origNext) : origParent.appendChild(clone);
+	                        // Run all templating on the new element
+	                        traverse(clone);
+	                    });
+	                    // Restore the old value of the value variable, if it had one
+	                    ret.value && (VARS[ret.value] = ret.oldValue);
+	                    // Restore the old value of the position variable, if it had one
+	                    ret.pos && (VARS[ret.pos] = ret.oldPos);
+	                    // Remove the loop element and its handlers now that we've
+	                    // processed it
+	                    $(elem).remove();
+	                    // Say that the element was removed so that child traversal doesn't
+	                    // skip anything
+	                    return {
+	                        v: null
+	                    };
+	                }();
+	                if ("object" === typeof _ret2) return _ret2.v;
+	            }
+	        }
+	        // Loop through the element's children if it was not removed
+	        for (var i = 0; i < child.length; i++) // Traverse the child; decrement the counter if the child was
+	        // removed
+	        1 === child[i].nodeType && null === traverse(child[i]) && i--;
+	        // Run through each post-processing function
+	        for (var i = 0, l = post.length; i < l; i++) // If false, rerun all templating (for data-ensure and <code> math)
+	        if (false === post[i](elem)) return traverse(elem);
+	        return elem;
+	    }
+	    // Run through the attr and type processors, return as soon as one of them
+	    // is decisive about a plan of action
+	    function process(elem, post) {
+	        var ret = void 0;
+	        var $elem = $(elem);
+	        // Look through each of the attr processors, see if our element has the
+	        // matching attribute
+	        for (var attr in $.tmpl.attr) if ($.tmpl.attr.hasOwnProperty(attr)) {
+	            var value = void 0;
+	            value = /^data-/.test(attr) ? $elem.data(attr.replace(/^data-/, "")) : $elem.attr(attr);
+	            if (void 0 !== value) {
+	                ret = $.tmpl.attr[attr](elem, value);
+	                // If a function, run after all of the other templating
+	                if ("function" === typeof ret) post.push(ret); else if (void 0 !== ret) return ret;
+	            }
+	        }
+	        // Look up the processor based on the tag name
+	        var type = elem.nodeName.toLowerCase();
+	        if (null != $.tmpl.type[type]) {
+	            ret = $.tmpl.type[type](elem);
+	            // If a function, run after all of the other templating
+	            "function" === typeof ret && post.push(ret);
+	        }
+	        return ret;
+	    }
+	};
+
+	$.extend($.expr[":"], {
+	    inherited: function(el) {
+	        return $(el).data("inherited");
+	    }
+	});
+
+	$.fn.extend({
+	    tmplApply: function(options) {
+	        options = options || {};
+	        // Get the attribute which we'll be checking, defaults to "id"
+	        // but "class" is sometimes used
+	        var attribute = options.attribute || "id";
+	        // Figure out the way in which the application will occur
+	        var defaultApply = options.defaultApply || "replace";
+	        // Store for elements to be used later
+	        var parent = {};
+	        return this.each(function() {
+	            var $this = $(this);
+	            var name = $this.attr(attribute);
+	            var hint = $this.data("apply") && !$this.data("apply").indexOf("hint");
+	            // Only operate on the element if it has the attribute that we're
+	            // using
+	            if (name) // The inheritance only works if we've seen an element already
+	            // that matches the particular name and we're not looking at
+	            // hint templating
+	            if (name in parent && !hint) {
+	                // Get the method through which we'll be doing the
+	                // application You can specify an application style
+	                // directly on the sub-element
+	                parent[name] = $.tmplApplyMethods[$this.data("apply") || defaultApply].call(parent[name], this);
+	                null == parent[name] && delete parent[name];
+	            } else $this.closest(":inherited").length > 0 && (parent[name] = this);
+	        });
+	    }
+	});
+
+	$.extend({
+	    // These methods should be called with context being the parent
+	    // and first argument being the child.
+	    tmplApplyMethods: {
+	        // Removes both the parent and the child
+	        remove: function(elem) {
+	            $(this).remove();
+	            $(elem).remove();
+	        },
+	        // Replaces the parent with the child
+	        replace: function(elem) {
+	            $(this).replaceWith(elem);
+	            return elem;
+	        },
+	        // Replaces the parent with the child's content. Useful when
+	        // needed to replace an element without introducing additional
+	        // wrappers.
+	        splice: function(elem) {
+	            $(this).replaceWith($(elem).contents());
+	        },
+	        // Appends the child element to the parent element
+	        append: function(elem) {
+	            $(this).append(elem);
+	            return this;
+	        },
+	        // Appends the child element's contents to the parent element.
+	        appendContents: function(elem) {
+	            $(this).append($(elem).contents());
+	            $(elem).remove();
+	            return this;
+	        },
+	        // Prepends the child element to the parent.
+	        prepend: function(elem) {
+	            $(this).prepend(elem);
+	            return this;
+	        },
+	        // Prepends the child element's contents to the parent element.
+	        prependContents: function(elem) {
+	            $(this).prepend($(elem).contents());
+	            $(elem).remove();
+	            return this;
+	        },
+	        // Insert child before the parent.
+	        before: function(elem) {
+	            $(this).before(elem);
+	            return this;
+	        },
+	        // Insert child's contents before the parent.
+	        beforeContents: function(elem) {
+	            $(this).before($(elem).contents());
+	            $(elem).remove();
+	            return this;
+	        },
+	        // Insert child after the parent.
+	        after: function(elem) {
+	            $(this).after(elem);
+	            return this;
+	        },
+	        // Insert child's contents after the parent.
+	        afterContents: function(elem) {
+	            $(this).after($(elem).contents());
+	            $(elem).remove();
+	            return this;
+	        },
+	        // Like appendContents but also merges the data-ensures
+	        appendVars: function(elem) {
+	            var parentEnsure = $(this).data("ensure") || "1";
+	            var childEnsure = $(elem).data("ensure") || "1";
+	            $(this).data("ensure", "(" + parentEnsure + ") && (" + childEnsure + ")");
+	            return $.tmplApplyMethods.appendContents.call(this, elem);
+	        },
+	        // Like prependContents but also merges the data-ensures
+	        prependVars: function(elem) {
+	            var parentEnsure = $(this).data("ensure") || "1";
+	            var childEnsure = $(elem).data("ensure") || "1";
+	            $(this).data("ensure", "(" + childEnsure + ") && (" + parentEnsure + ")");
+	            return $.tmplApplyMethods.prependContents.call(this, elem);
+	        }
+	    }
+	});
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(140)))
+
+/***/ },
+/* 133 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	var _ = __webpack_require__(8);
+
+	var WrappedDefaults = __webpack_require__(137);
+
+	var DEFAULT_OPTIONS = {
+	    center: null,
+	    // gets ignored in `graphie.fixedPath` if `null`
+	    createPath: null,
+	    // gets defaulted in `graphie.fixedPath` if `null`
+	    mouselayer: false
+	};
+
+	var WrappedPath = function(graphie, points, options) {
+	    options = _.extend({}, DEFAULT_OPTIONS, options);
+	    // Add `wrapper` and `visibleShape`
+	    _.extend(this, graphie.fixedPath(points, options.center, options.createPath));
+	    // Add remaining properties
+	    _.extend(this, {
+	        graphie: graphie,
+	        initialPoint: graphie.scalePoint(_.head(points))
+	    });
+	    // Add to appropriate graphie layer
+	    options.mouselayer ? this.graphie.addToMouseLayerWrapper(this.wrapper) : this.graphie.addToVisibleLayerWrapper(this.wrapper);
+	};
+
+	_.extend(WrappedPath.prototype, WrappedDefaults);
+
+	module.exports = WrappedPath;
+
+/***/ },
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -26547,7 +32749,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ClassNames = _require.ClassNames;
 
-	var ToggleableRadioButton = __webpack_require__(127);
+	var ToggleableRadioButton = __webpack_require__(139);
 
 	var Choice = React.createClass({
 	    displayName: "Choice",
@@ -26661,43 +32863,4281 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Choice;
 
 /***/ },
-/* 125 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var _ = __webpack_require__(8);
+	/*!
+	 * Raphael 1.5.2 - JavaScript Vector Library
+	 *
+	 * Copyright (c) 2010 Dmitry Baranovskiy (http://raphaeljs.com)
+	 * Licensed under the MIT (http://raphaeljs.com/license.html) license.
+	 */
+	(function () {
+	    var setAttr;
+	    if ("".trim) {
+	        setAttr = function(node, att, value) {
+	            node.setAttribute(att, String(value).trim());
+	        };
+	    } else {
+	        setAttr = function(node, att, value) {
+	            node.setAttribute(att, String(value));
+	        };
+	    }
+	    function R() {
+	        if (R.is(arguments[0], array)) {
+	            var a = arguments[0],
+	                cnv = create[apply](R, a.splice(0, 3 + R.is(a[0], nu))),
+	                res = cnv.set();
+	            for (var i = 0, ii = a[length]; i < ii; i++) {
+	                var j = a[i] || {};
+	                elements[has](j.type) && res[push](cnv[j.type]().attr(j));
+	            }
+	            return res;
+	        }
+	        return create[apply](R, arguments);
+	    }
+	    R.version = "1.5.2";
+	    var separator = /[, ]+/,
+	        elements = {circle: 1, rect: 1, path: 1, ellipse: 1, text: 1, image: 1},
+	        formatrg = /\{(\d+)\}/g,
+	        proto = "prototype",
+	        has = "hasOwnProperty",
+	        doc = document,
+	        win = window,
+	        oldRaphael = {
+	            was: Object[proto][has].call(win, "Raphael"),
+	            is: win.Raphael
+	        },
+	        Paper = function () {
+	            this.customAttributes = {};
+	        },
+	        paperproto,
+	        appendChild = "appendChild",
+	        apply = "apply",
+	        concat = "concat",
+	        supportsTouch = "createTouch" in doc,
+	        E = "",
+	        S = " ",
+	        Str = String,
+	        split = "split",
+	        events = "click dblclick mousedown mousemove mouseout mouseover mouseup touchstart touchmove touchend orientationchange touchcancel gesturestart gesturechange gestureend"[split](S),
+	        touchMap = {
+	            mousedown: "touchstart",
+	            mousemove: "touchmove",
+	            mouseup: "touchend"
+	        },
+	        join = "join",
+	        length = "length",
+	        lowerCase = Str[proto].toLowerCase,
+	        math = Math,
+	        mmax = math.max,
+	        mmin = math.min,
+	        abs = math.abs,
+	        pow = math.pow,
+	        PI = math.PI,
+	        nu = "number",
+	        string = "string",
+	        array = "array",
+	        toString = "toString",
+	        fillString = "fill",
+	        objectToString = Object[proto][toString],
+	        paper = {},
+	        push = "push",
+	        ISURL = /^url\(['"]?([^\)]+?)['"]?\)$/i,
+	        colourRegExp = /^\s*((#[a-f\d]{6})|(#[a-f\d]{3})|rgba?\(\s*([\d\.]+%?\s*,\s*[\d\.]+%?\s*,\s*[\d\.]+(?:%?\s*,\s*[\d\.]+)?)%?\s*\)|hsba?\(\s*([\d\.]+(?:deg|\xb0|%)?\s*,\s*[\d\.]+%?\s*,\s*[\d\.]+(?:%?\s*,\s*[\d\.]+)?)%?\s*\)|hsla?\(\s*([\d\.]+(?:deg|\xb0|%)?\s*,\s*[\d\.]+%?\s*,\s*[\d\.]+(?:%?\s*,\s*[\d\.]+)?)%?\s*\))\s*$/i,
+	        isnan = {"NaN": 1, "Infinity": 1, "-Infinity": 1},
+	        bezierrg = /^(?:cubic-)?bezier\(([^,]+),([^,]+),([^,]+),([^\)]+)\)/,
+	        round = math.round,
+	        toFloat = parseFloat,
+	        toInt = parseInt,
+	        ms = " progid:DXImageTransform.Microsoft",
+	        upperCase = Str[proto].toUpperCase,
+	        availableAttrs = {blur: 0, "clip-rect": "0 0 1e9 1e9", cursor: "default", cx: 0, cy: 0, fill: "#fff", "fill-opacity": 1, font: '10px "Arial"', "font-family": '"Arial"', "font-size": "10", "font-style": "normal", "font-weight": 400, gradient: 0, height: 0, href: "http://raphaeljs.com/", opacity: 1, path: "M0,0", r: 0, rotation: 0, rx: 0, ry: 0, scale: "1 1", src: "", stroke: "#000", "stroke-dasharray": "", "stroke-linecap": "butt", "stroke-linejoin": "butt", "stroke-miterlimit": 0, "stroke-opacity": 1, "stroke-width": 1, target: "_blank", "text-anchor": "middle", title: "Raphael", translation: "0 0", width: 0, x: 0, y: 0},
+	        availableAnimAttrs = {along: "along", blur: nu, "clip-rect": "csv", cx: nu, cy: nu, fill: "colour", "fill-opacity": nu, "font-size": nu, height: nu, opacity: nu, path: "path", r: nu, rotation: "csv", rx: nu, ry: nu, scale: "csv", stroke: "colour", "stroke-opacity": nu, "stroke-width": nu, translation: "csv", width: nu, x: nu, y: nu},
+	        rp = "replace",
+	        animKeyFrames= /^(from|to|\d+%?)$/,
+	        commaSpaces = /\s*,\s*/,
+	        hsrg = {hs: 1, rg: 1},
+	        p2s = /,?([achlmqrstvxz]),?/gi,
+	        pathCommand = /([achlmqstvz])[\s,]*((-?\d*\.?\d*(?:e[-+]?\d+)?\s*,?\s*)+)/ig,
+	        pathValues = /(-?\d*\.?\d*(?:e[-+]?\d+)?)\s*,?\s*/ig,
+	        radial_gradient = /^r(?:\(([^,]+?)\s*,\s*([^\)]+?)\))?/,
+	        sortByKey = function (a, b) {
+	            return a.key - b.key;
+	        };
 
-	var WrappedDefaults = __webpack_require__(126);
+	    R.type = (win.SVGAngle || doc.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1") ? "SVG" : "VML");
+	    if (R.type == "VML") {
+	        var d = doc.createElement("div"),
+	            b;
+	        d.innerHTML = '<v:shape adj="1"/>';
+	        b = d.firstChild;
+	        b.style.behavior = "url(#default#VML)";
+	        if (!(b && typeof b.adj == "object")) {
+	            return R.type = null;
+	        }
+	        d = null;
+	    }
+	    R.svg = !(R.vml = R.type == "VML");
+	    Paper[proto] = R[proto];
+	    paperproto = Paper[proto];
+	    R._id = 0;
+	    R._oid = 0;
+	    R.fn = {};
+	    R.is = function (o, type) {
+	        type = lowerCase.call(type);
+	        if (type == "finite") {
+	            return !isnan[has](+o);
+	        }
+	        return  (type == "null" && o === null) ||
+	                (type == typeof o) ||
+	                (type == "object" && o === Object(o)) ||
+	                (type == "array" && Array.isArray && Array.isArray(o)) ||
+	                objectToString.call(o).slice(8, -1).toLowerCase() == type;
+	    };
+	    R.angle = function (x1, y1, x2, y2, x3, y3) {
+	        if (x3 == null) {
+	            var x = x1 - x2,
+	                y = y1 - y2;
+	            if (!x && !y) {
+	                return 0;
+	            }
+	            return ((x < 0) * 180 + math.atan(-y / -x) * 180 / PI + 360) % 360;
+	        } else {
+	            return R.angle(x1, y1, x3, y3) - R.angle(x2, y2, x3, y3);
+	        }
+	    };
+	    R.rad = function (deg) {
+	        return deg % 360 * PI / 180;
+	    };
+	    R.deg = function (rad) {
+	        return rad * 180 / PI % 360;
+	    };
+	    R.snapTo = function (values, value, tolerance) {
+	        tolerance = R.is(tolerance, "finite") ? tolerance : 10;
+	        if (R.is(values, array)) {
+	            var i = values.length;
+	            while (i--) if (abs(values[i] - value) <= tolerance) {
+	                return values[i];
+	            }
+	        } else {
+	            values = +values;
+	            var rem = value % values;
+	            if (rem < tolerance) {
+	                return value - rem;
+	            }
+	            if (rem > values - tolerance) {
+	                return value - rem + values;
+	            }
+	        }
+	        return value;
+	    };
+	    function createUUID() {
+	        // http://www.ietf.org/rfc/rfc4122.txt
+	        var s = [],
+	            i = 0;
+	        for (; i < 32; i++) {
+	            s[i] = (~~(math.random() * 16))[toString](16);
+	        }
+	        s[12] = 4;  // bits 12-15 of the time_hi_and_version field to 0010
+	        s[16] = ((s[16] & 3) | 8)[toString](16);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+	        return "r-" + s[join]("");
+	    }
 
-	var DEFAULT_OPTIONS = {
-	    center: null,
-	    // gets ignored in `graphie.fixedPath` if `null`
-	    createPath: null,
-	    // gets defaulted in `graphie.fixedPath` if `null`
-	    mouselayer: false
-	};
+	    R.setWindow = function (newwin) {
+	        win = newwin;
+	        doc = win.document;
+	    };
+	    // colour utilities
+	    var toHex = function (color) {
+	        if (R.vml) {
+	            // http://dean.edwards.name/weblog/2009/10/convert-any-colour-value-to-hex-in-msie/
+	            var trim = /^\s+|\s+$/g;
+	            var bod;
+	            try {
+	                var docum = new ActiveXObject("htmlfile");
+	                docum.write("<body>");
+	                docum.close();
+	                bod = docum.body;
+	            } catch(e) {
+	                bod = createPopup().document.body;
+	            }
+	            var range = bod.createTextRange();
+	            toHex = cacher(function (color) {
+	                try {
+	                    bod.style.color = Str(color)[rp](trim, E);
+	                    var value = range.queryCommandValue("ForeColor");
+	                    value = ((value & 255) << 16) | (value & 65280) | ((value & 16711680) >>> 16);
+	                    return "#" + ("000000" + value[toString](16)).slice(-6);
+	                } catch(e) {
+	                    return "none";
+	                }
+	            });
+	        } else {
+	            var i = doc.createElement("i");
+	            i.title = "Rapha\xebl Colour Picker";
+	            i.style.display = "none";
+	            doc.body[appendChild](i);
+	            toHex = cacher(function (color) {
+	                i.style.color = color;
+	                return doc.defaultView.getComputedStyle(i, E).getPropertyValue("color");
+	            });
+	        }
+	        return toHex(color);
+	    },
+	    hsbtoString = function () {
+	        return "hsb(" + [this.h, this.s, this.b] + ")";
+	    },
+	    hsltoString = function () {
+	        return "hsl(" + [this.h, this.s, this.l] + ")";
+	    },
+	    rgbtoString = function () {
+	        return this.hex;
+	    };
+	    R.hsb2rgb = function (h, s, b, o) {
+	        if (R.is(h, "object") && "h" in h && "s" in h && "b" in h) {
+	            b = h.b;
+	            s = h.s;
+	            h = h.h;
+	            o = h.o;
+	        }
+	        return R.hsl2rgb(h, s, b / 2, o);
+	    };
+	    R.hsl2rgb = function (h, s, l, o) {
+	        if (R.is(h, "object") && "h" in h && "s" in h && "l" in h) {
+	            l = h.l;
+	            s = h.s;
+	            h = h.h;
+	        }
+	        if (h > 1 || s > 1 || l > 1) {
+	            h /= 360;
+	            s /= 100;
+	            l /= 100;
+	        }
+	        var rgb = {},
+	            channels = ["r", "g", "b"],
+	            t2, t1, t3, r, g, b;
+	        if (!s) {
+	            rgb = {
+	                r: l,
+	                g: l,
+	                b: l
+	            };
+	        } else {
+	            if (l < .5) {
+	                t2 = l * (1 + s);
+	            } else {
+	                t2 = l + s - l * s;
+	            }
+	            t1 = 2 * l - t2;
+	            for (var i = 0; i < 3; i++) {
+	                t3 = h + 1 / 3 * -(i - 1);
+	                t3 < 0 && t3++;
+	                t3 > 1 && t3--;
+	                if (t3 * 6 < 1) {
+	                    rgb[channels[i]] = t1 + (t2 - t1) * 6 * t3;
+	                } else if (t3 * 2 < 1) {
+	                    rgb[channels[i]] = t2;
+	                } else if (t3 * 3 < 2) {
+	                    rgb[channels[i]] = t1 + (t2 - t1) * (2 / 3 - t3) * 6;
+	                } else {
+	                    rgb[channels[i]] = t1;
+	                }
+	            }
+	        }
+	        rgb.r *= 255;
+	        rgb.g *= 255;
+	        rgb.b *= 255;
+	        rgb.hex = "#" + (16777216 | rgb.b | (rgb.g << 8) | (rgb.r << 16)).toString(16).slice(1);
+	        R.is(o, "finite") && (rgb.opacity = o);
+	        rgb.toString = rgbtoString;
+	        return rgb;
+	    };
+	    R.rgb2hsb = function (red, green, blue) {
+	        if (green == null && R.is(red, "object") && "r" in red && "g" in red && "b" in red) {
+	            blue = red.b;
+	            green = red.g;
+	            red = red.r;
+	        }
+	        if (green == null && R.is(red, string)) {
+	            var clr = R.getRGB(red);
+	            red = clr.r;
+	            green = clr.g;
+	            blue = clr.b;
+	        }
+	        if (red > 1 || green > 1 || blue > 1) {
+	            red /= 255;
+	            green /= 255;
+	            blue /= 255;
+	        }
+	        var max = mmax(red, green, blue),
+	            min = mmin(red, green, blue),
+	            hue,
+	            saturation,
+	            brightness = max;
+	        if (min == max) {
+	            return {h: 0, s: 0, b: max, toString: hsbtoString};
+	        } else {
+	            var delta = (max - min);
+	            saturation = delta / max;
+	            if (red == max) {
+	                hue = (green - blue) / delta;
+	            } else if (green == max) {
+	                hue = 2 + ((blue - red) / delta);
+	            } else {
+	                hue = 4 + ((red - green) / delta);
+	            }
+	            hue /= 6;
+	            hue < 0 && hue++;
+	            hue > 1 && hue--;
+	        }
+	        return {h: hue, s: saturation, b: brightness, toString: hsbtoString};
+	    };
+	    R.rgb2hsl = function (red, green, blue) {
+	        if (green == null && R.is(red, "object") && "r" in red && "g" in red && "b" in red) {
+	            blue = red.b;
+	            green = red.g;
+	            red = red.r;
+	        }
+	        if (green == null && R.is(red, string)) {
+	            var clr = R.getRGB(red);
+	            red = clr.r;
+	            green = clr.g;
+	            blue = clr.b;
+	        }
+	        if (red > 1 || green > 1 || blue > 1) {
+	            red /= 255;
+	            green /= 255;
+	            blue /= 255;
+	        }
+	        var max = mmax(red, green, blue),
+	            min = mmin(red, green, blue),
+	            h,
+	            s,
+	            l = (max + min) / 2,
+	            hsl;
+	        if (min == max) {
+	            hsl =  {h: 0, s: 0, l: l};
+	        } else {
+	            var delta = max - min;
+	            s = l < .5 ? delta / (max + min) : delta / (2 - max - min);
+	            if (red == max) {
+	                h = (green - blue) / delta;
+	            } else if (green == max) {
+	                h = 2 + (blue - red) / delta;
+	            } else {
+	                h = 4 + (red - green) / delta;
+	            }
+	            h /= 6;
+	            h < 0 && h++;
+	            h > 1 && h--;
+	            hsl = {h: h, s: s, l: l};
+	        }
+	        hsl.toString = hsltoString;
+	        return hsl;
+	    };
+	    R._path2string = function () {
+	        return this.join(",")[rp](p2s, "$1");
+	    };
+	    function cacher(f, scope, postprocessor) {
+	        function newf() {
+	            var arg = Array[proto].slice.call(arguments, 0),
+	                args = arg[join]("\u25ba"),
+	                cache = newf.cache = newf.cache || {},
+	                count = newf.count = newf.count || [];
+	            if (cache[has](args)) {
+	                return postprocessor ? postprocessor(cache[args]) : cache[args];
+	            }
+	            count[length] >= 1e3 && delete cache[count.shift()];
+	            count[push](args);
+	            cache[args] = f[apply](scope, arg);
+	            return postprocessor ? postprocessor(cache[args]) : cache[args];
+	        }
+	        return newf;
+	    }
 
-	var WrappedPath = function(graphie, points, options) {
-	    options = _.extend({}, DEFAULT_OPTIONS, options);
-	    // Add `wrapper` and `visibleShape`
-	    _.extend(this, graphie.fixedPath(points, options.center, options.createPath));
-	    // Add remaining properties
-	    _.extend(this, {
-	        graphie: graphie,
-	        initialPoint: graphie.scalePoint(_.head(points))
+	    R.getRGB = cacher(function (colour) {
+	        if (!colour || !!((colour = Str(colour)).indexOf("-") + 1)) {
+	            return {r: -1, g: -1, b: -1, hex: "none", error: 1};
+	        }
+	        if (colour == "none") {
+	            return {r: -1, g: -1, b: -1, hex: "none"};
+	        }
+	        !(hsrg[has](colour.toLowerCase().substring(0, 2)) || colour.charAt() == "#") && (colour = toHex(colour));
+	        var res,
+	            red,
+	            green,
+	            blue,
+	            opacity,
+	            t,
+	            values,
+	            rgb = colour.match(colourRegExp);
+	        if (rgb) {
+	            if (rgb[2]) {
+	                blue = toInt(rgb[2].substring(5), 16);
+	                green = toInt(rgb[2].substring(3, 5), 16);
+	                red = toInt(rgb[2].substring(1, 3), 16);
+	            }
+	            if (rgb[3]) {
+	                blue = toInt((t = rgb[3].charAt(3)) + t, 16);
+	                green = toInt((t = rgb[3].charAt(2)) + t, 16);
+	                red = toInt((t = rgb[3].charAt(1)) + t, 16);
+	            }
+	            if (rgb[4]) {
+	                values = rgb[4][split](commaSpaces);
+	                red = toFloat(values[0]);
+	                values[0].slice(-1) == "%" && (red *= 2.55);
+	                green = toFloat(values[1]);
+	                values[1].slice(-1) == "%" && (green *= 2.55);
+	                blue = toFloat(values[2]);
+	                values[2].slice(-1) == "%" && (blue *= 2.55);
+	                rgb[1].toLowerCase().slice(0, 4) == "rgba" && (opacity = toFloat(values[3]));
+	                values[3] && values[3].slice(-1) == "%" && (opacity /= 100);
+	            }
+	            if (rgb[5]) {
+	                values = rgb[5][split](commaSpaces);
+	                red = toFloat(values[0]);
+	                values[0].slice(-1) == "%" && (red *= 2.55);
+	                green = toFloat(values[1]);
+	                values[1].slice(-1) == "%" && (green *= 2.55);
+	                blue = toFloat(values[2]);
+	                values[2].slice(-1) == "%" && (blue *= 2.55);
+	                (values[0].slice(-3) == "deg" || values[0].slice(-1) == "\xb0") && (red /= 360);
+	                rgb[1].toLowerCase().slice(0, 4) == "hsba" && (opacity = toFloat(values[3]));
+	                values[3] && values[3].slice(-1) == "%" && (opacity /= 100);
+	                return R.hsb2rgb(red, green, blue, opacity);
+	            }
+	            if (rgb[6]) {
+	                values = rgb[6][split](commaSpaces);
+	                red = toFloat(values[0]);
+	                values[0].slice(-1) == "%" && (red *= 2.55);
+	                green = toFloat(values[1]);
+	                values[1].slice(-1) == "%" && (green *= 2.55);
+	                blue = toFloat(values[2]);
+	                values[2].slice(-1) == "%" && (blue *= 2.55);
+	                (values[0].slice(-3) == "deg" || values[0].slice(-1) == "\xb0") && (red /= 360);
+	                rgb[1].toLowerCase().slice(0, 4) == "hsla" && (opacity = toFloat(values[3]));
+	                values[3] && values[3].slice(-1) == "%" && (opacity /= 100);
+	                return R.hsl2rgb(red, green, blue, opacity);
+	            }
+	            rgb = {r: red, g: green, b: blue};
+	            rgb.hex = "#" + (16777216 | blue | (green << 8) | (red << 16)).toString(16).slice(1);
+	            R.is(opacity, "finite") && (rgb.opacity = opacity);
+	            return rgb;
+	        }
+	        return {r: -1, g: -1, b: -1, hex: "none", error: 1};
+	    }, R);
+	    R.getColor = function (value) {
+	        var start = this.getColor.start = this.getColor.start || {h: 0, s: 1, b: value || .75},
+	            rgb = this.hsb2rgb(start.h, start.s, start.b);
+	        start.h += .075;
+	        if (start.h > 1) {
+	            start.h = 0;
+	            start.s -= .2;
+	            start.s <= 0 && (this.getColor.start = {h: 0, s: 1, b: start.b});
+	        }
+	        return rgb.hex;
+	    };
+	    R.getColor.reset = function () {
+	        delete this.start;
+	    };
+	    // path utilities
+	    R.parsePathString = cacher(function (pathString) {
+	        if (!pathString) {
+	            return null;
+	        }
+	        var paramCounts = {a: 7, c: 6, h: 1, l: 2, m: 2, q: 4, s: 4, t: 2, v: 1, z: 0},
+	            data = [];
+	        if (R.is(pathString, array) && R.is(pathString[0], array)) { // rough assumption
+	            data = pathClone(pathString);
+	        }
+	        if (!data[length]) {
+	            Str(pathString)[rp](pathCommand, function (a, b, c) {
+	                var params = [],
+	                    name = lowerCase.call(b);
+	                c[rp](pathValues, function (a, b) {
+	                    b && params[push](+b);
+	                });
+	                if (name == "m" && params[length] > 2) {
+	                    data[push]([b][concat](params.splice(0, 2)));
+	                    name = "l";
+	                    b = b == "m" ? "l" : "L";
+	                }
+	                while (params[length] >= paramCounts[name]) {
+	                    data[push]([b][concat](params.splice(0, paramCounts[name])));
+	                    if (!paramCounts[name]) {
+	                        break;
+	                    }
+	                }
+	            });
+	        }
+	        data[toString] = R._path2string;
+	        return data;
 	    });
-	    // Add to appropriate graphie layer
-	    options.mouselayer ? this.graphie.addToMouseLayerWrapper(this.wrapper) : this.graphie.addToVisibleLayerWrapper(this.wrapper);
-	};
+	    R.findDotsAtSegment = function (p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y, t) {
+	        var t1 = 1 - t,
+	            x = pow(t1, 3) * p1x + pow(t1, 2) * 3 * t * c1x + t1 * 3 * t * t * c2x + pow(t, 3) * p2x,
+	            y = pow(t1, 3) * p1y + pow(t1, 2) * 3 * t * c1y + t1 * 3 * t * t * c2y + pow(t, 3) * p2y,
+	            mx = p1x + 2 * t * (c1x - p1x) + t * t * (c2x - 2 * c1x + p1x),
+	            my = p1y + 2 * t * (c1y - p1y) + t * t * (c2y - 2 * c1y + p1y),
+	            nx = c1x + 2 * t * (c2x - c1x) + t * t * (p2x - 2 * c2x + c1x),
+	            ny = c1y + 2 * t * (c2y - c1y) + t * t * (p2y - 2 * c2y + c1y),
+	            ax = (1 - t) * p1x + t * c1x,
+	            ay = (1 - t) * p1y + t * c1y,
+	            cx = (1 - t) * c2x + t * p2x,
+	            cy = (1 - t) * c2y + t * p2y,
+	            alpha = (90 - math.atan((mx - nx) / (my - ny)) * 180 / PI);
+	        (mx > nx || my < ny) && (alpha += 180);
+	        return {x: x, y: y, m: {x: mx, y: my}, n: {x: nx, y: ny}, start: {x: ax, y: ay}, end: {x: cx, y: cy}, alpha: alpha};
+	    };
+	    var pathDimensions = cacher(function (path) {
+	        if (!path) {
+	            return {x: 0, y: 0, width: 0, height: 0};
+	        }
+	        path = path2curve(path);
+	        var x = 0,
+	            y = 0,
+	            X = [],
+	            Y = [],
+	            p;
+	        for (var i = 0, ii = path[length]; i < ii; i++) {
+	            p = path[i];
+	            if (p[0] == "M") {
+	                x = p[1];
+	                y = p[2];
+	                X[push](x);
+	                Y[push](y);
+	            } else {
+	                var dim = curveDim(x, y, p[1], p[2], p[3], p[4], p[5], p[6]);
+	                X = X[concat](dim.min.x, dim.max.x);
+	                Y = Y[concat](dim.min.y, dim.max.y);
+	                x = p[5];
+	                y = p[6];
+	            }
+	        }
+	        var xmin = mmin[apply](0, X),
+	            ymin = mmin[apply](0, Y);
+	        return {
+	            x: xmin,
+	            y: ymin,
+	            width: mmax[apply](0, X) - xmin,
+	            height: mmax[apply](0, Y) - ymin
+	        };
+	    }),
+	        pathClone = function (pathArray) {
+	            var res = [];
+	            if (!R.is(pathArray, array) || !R.is(pathArray && pathArray[0], array)) { // rough assumption
+	                pathArray = R.parsePathString(pathArray);
+	            }
+	            for (var i = 0, ii = pathArray[length]; i < ii; i++) {
+	                res[i] = [];
+	                for (var j = 0, jj = pathArray[i][length]; j < jj; j++) {
+	                    res[i][j] = pathArray[i][j];
+	                }
+	            }
+	            res[toString] = R._path2string;
+	            return res;
+	        },
+	        pathToRelative = cacher(function (pathArray) {
+	            if (!R.is(pathArray, array) || !R.is(pathArray && pathArray[0], array)) { // rough assumption
+	                pathArray = R.parsePathString(pathArray);
+	            }
+	            var res = [],
+	                x = 0,
+	                y = 0,
+	                mx = 0,
+	                my = 0,
+	                start = 0;
+	            if (pathArray[0][0] == "M") {
+	                x = pathArray[0][1];
+	                y = pathArray[0][2];
+	                mx = x;
+	                my = y;
+	                start++;
+	                res[push](["M", x, y]);
+	            }
+	            for (var i = start, ii = pathArray[length]; i < ii; i++) {
+	                var r = res[i] = [],
+	                    pa = pathArray[i];
+	                if (pa[0] != lowerCase.call(pa[0])) {
+	                    r[0] = lowerCase.call(pa[0]);
+	                    switch (r[0]) {
+	                        case "a":
+	                            r[1] = pa[1];
+	                            r[2] = pa[2];
+	                            r[3] = pa[3];
+	                            r[4] = pa[4];
+	                            r[5] = pa[5];
+	                            r[6] = +(pa[6] - x).toFixed(3);
+	                            r[7] = +(pa[7] - y).toFixed(3);
+	                            break;
+	                        case "v":
+	                            r[1] = +(pa[1] - y).toFixed(3);
+	                            break;
+	                        case "m":
+	                            mx = pa[1];
+	                            my = pa[2];
+	                        default:
+	                            for (var j = 1, jj = pa[length]; j < jj; j++) {
+	                                r[j] = +(pa[j] - ((j % 2) ? x : y)).toFixed(3);
+	                            }
+	                    }
+	                } else {
+	                    r = res[i] = [];
+	                    if (pa[0] == "m") {
+	                        mx = pa[1] + x;
+	                        my = pa[2] + y;
+	                    }
+	                    for (var k = 0, kk = pa[length]; k < kk; k++) {
+	                        res[i][k] = pa[k];
+	                    }
+	                }
+	                var len = res[i][length];
+	                switch (res[i][0]) {
+	                    case "z":
+	                        x = mx;
+	                        y = my;
+	                        break;
+	                    case "h":
+	                        x += +res[i][len - 1];
+	                        break;
+	                    case "v":
+	                        y += +res[i][len - 1];
+	                        break;
+	                    default:
+	                        x += +res[i][len - 2];
+	                        y += +res[i][len - 1];
+	                }
+	            }
+	            res[toString] = R._path2string;
+	            return res;
+	        }, 0, pathClone),
+	        pathToAbsolute = cacher(function (pathArray) {
+	            if (!R.is(pathArray, array) || !R.is(pathArray && pathArray[0], array)) { // rough assumption
+	                pathArray = R.parsePathString(pathArray);
+	            }
+	            var res = [],
+	                x = 0,
+	                y = 0,
+	                mx = 0,
+	                my = 0,
+	                start = 0;
+	            if (pathArray[0][0] == "M") {
+	                x = +pathArray[0][1];
+	                y = +pathArray[0][2];
+	                mx = x;
+	                my = y;
+	                start++;
+	                res[0] = ["M", x, y];
+	            }
+	            for (var i = start, ii = pathArray[length]; i < ii; i++) {
+	                var r = res[i] = [],
+	                    pa = pathArray[i];
+	                if (pa[0] != upperCase.call(pa[0])) {
+	                    r[0] = upperCase.call(pa[0]);
+	                    switch (r[0]) {
+	                        case "A":
+	                            r[1] = pa[1];
+	                            r[2] = pa[2];
+	                            r[3] = pa[3];
+	                            r[4] = pa[4];
+	                            r[5] = pa[5];
+	                            r[6] = +(pa[6] + x);
+	                            r[7] = +(pa[7] + y);
+	                            break;
+	                        case "V":
+	                            r[1] = +pa[1] + y;
+	                            break;
+	                        case "H":
+	                            r[1] = +pa[1] + x;
+	                            break;
+	                        case "M":
+	                            mx = +pa[1] + x;
+	                            my = +pa[2] + y;
+	                        default:
+	                            for (var j = 1, jj = pa[length]; j < jj; j++) {
+	                                r[j] = +pa[j] + ((j % 2) ? x : y);
+	                            }
+	                    }
+	                } else {
+	                    for (var k = 0, kk = pa[length]; k < kk; k++) {
+	                        res[i][k] = pa[k];
+	                    }
+	                }
+	                switch (r[0]) {
+	                    case "Z":
+	                        x = mx;
+	                        y = my;
+	                        break;
+	                    case "H":
+	                        x = r[1];
+	                        break;
+	                    case "V":
+	                        y = r[1];
+	                        break;
+	                    case "M":
+	                        mx = res[i][res[i][length] - 2];
+	                        my = res[i][res[i][length] - 1];
+	                    default:
+	                        x = res[i][res[i][length] - 2];
+	                        y = res[i][res[i][length] - 1];
+	                }
+	            }
+	            res[toString] = R._path2string;
+	            return res;
+	        }, null, pathClone),
+	        l2c = function (x1, y1, x2, y2) {
+	            return [x1, y1, x2, y2, x2, y2];
+	        },
+	        q2c = function (x1, y1, ax, ay, x2, y2) {
+	            var _13 = 1 / 3,
+	                _23 = 2 / 3;
+	            return [
+	                    _13 * x1 + _23 * ax,
+	                    _13 * y1 + _23 * ay,
+	                    _13 * x2 + _23 * ax,
+	                    _13 * y2 + _23 * ay,
+	                    x2,
+	                    y2
+	                ];
+	        },
+	        a2c = function (x1, y1, rx, ry, angle, large_arc_flag, sweep_flag, x2, y2, recursive) {
+	            // for more information of where this math came from visit:
+	            // http://www.w3.org/TR/SVG11/implnote.html#ArcImplementationNotes
+	            var _120 = PI * 120 / 180,
+	                rad = PI / 180 * (+angle || 0),
+	                res = [],
+	                xy,
+	                rotate = cacher(function (x, y, rad) {
+	                    var X = x * math.cos(rad) - y * math.sin(rad),
+	                        Y = x * math.sin(rad) + y * math.cos(rad);
+	                    return {x: X, y: Y};
+	                });
+	            if (!recursive) {
+	                xy = rotate(x1, y1, -rad);
+	                x1 = xy.x;
+	                y1 = xy.y;
+	                xy = rotate(x2, y2, -rad);
+	                x2 = xy.x;
+	                y2 = xy.y;
+	                var cos = math.cos(PI / 180 * angle),
+	                    sin = math.sin(PI / 180 * angle),
+	                    x = (x1 - x2) / 2,
+	                    y = (y1 - y2) / 2;
+	                var h = (x * x) / (rx * rx) + (y * y) / (ry * ry);
+	                if (h > 1) {
+	                    h = math.sqrt(h);
+	                    rx = h * rx;
+	                    ry = h * ry;
+	                }
+	                var rx2 = rx * rx,
+	                    ry2 = ry * ry,
+	                    k = (large_arc_flag == sweep_flag ? -1 : 1) *
+	                        math.sqrt(abs((rx2 * ry2 - rx2 * y * y - ry2 * x * x) / (rx2 * y * y + ry2 * x * x))),
+	                    cx = k * rx * y / ry + (x1 + x2) / 2,
+	                    cy = k * -ry * x / rx + (y1 + y2) / 2,
+	                    f1 = math.asin(((y1 - cy) / ry).toFixed(9)),
+	                    f2 = math.asin(((y2 - cy) / ry).toFixed(9));
 
-	_.extend(WrappedPath.prototype, WrappedDefaults);
+	                f1 = x1 < cx ? PI - f1 : f1;
+	                f2 = x2 < cx ? PI - f2 : f2;
+	                f1 < 0 && (f1 = PI * 2 + f1);
+	                f2 < 0 && (f2 = PI * 2 + f2);
+	                if (sweep_flag && f1 > f2) {
+	                    f1 = f1 - PI * 2;
+	                }
+	                if (!sweep_flag && f2 > f1) {
+	                    f2 = f2 - PI * 2;
+	                }
+	            } else {
+	                f1 = recursive[0];
+	                f2 = recursive[1];
+	                cx = recursive[2];
+	                cy = recursive[3];
+	            }
+	            var df = f2 - f1;
+	            if (abs(df) > _120) {
+	                var f2old = f2,
+	                    x2old = x2,
+	                    y2old = y2;
+	                f2 = f1 + _120 * (sweep_flag && f2 > f1 ? 1 : -1);
+	                x2 = cx + rx * math.cos(f2);
+	                y2 = cy + ry * math.sin(f2);
+	                res = a2c(x2, y2, rx, ry, angle, 0, sweep_flag, x2old, y2old, [f2, f2old, cx, cy]);
+	            }
+	            df = f2 - f1;
+	            var c1 = math.cos(f1),
+	                s1 = math.sin(f1),
+	                c2 = math.cos(f2),
+	                s2 = math.sin(f2),
+	                t = math.tan(df / 4),
+	                hx = 4 / 3 * rx * t,
+	                hy = 4 / 3 * ry * t,
+	                m1 = [x1, y1],
+	                m2 = [x1 + hx * s1, y1 - hy * c1],
+	                m3 = [x2 + hx * s2, y2 - hy * c2],
+	                m4 = [x2, y2];
+	            m2[0] = 2 * m1[0] - m2[0];
+	            m2[1] = 2 * m1[1] - m2[1];
+	            if (recursive) {
+	                return [m2, m3, m4][concat](res);
+	            } else {
+	                res = [m2, m3, m4][concat](res)[join]()[split](",");
+	                var newres = [];
+	                for (var i = 0, ii = res[length]; i < ii; i++) {
+	                    newres[i] = i % 2 ? rotate(res[i - 1], res[i], rad).y : rotate(res[i], res[i + 1], rad).x;
+	                }
+	                return newres;
+	            }
+	        },
+	        findDotAtSegment = function (p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y, t) {
+	            var t1 = 1 - t;
+	            return {
+	                x: pow(t1, 3) * p1x + pow(t1, 2) * 3 * t * c1x + t1 * 3 * t * t * c2x + pow(t, 3) * p2x,
+	                y: pow(t1, 3) * p1y + pow(t1, 2) * 3 * t * c1y + t1 * 3 * t * t * c2y + pow(t, 3) * p2y
+	            };
+	        },
+	        curveDim = cacher(function (p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y) {
+	            var a = (c2x - 2 * c1x + p1x) - (p2x - 2 * c2x + c1x),
+	                b = 2 * (c1x - p1x) - 2 * (c2x - c1x),
+	                c = p1x - c1x,
+	                t1 = (-b + math.sqrt(b * b - 4 * a * c)) / 2 / a,
+	                t2 = (-b - math.sqrt(b * b - 4 * a * c)) / 2 / a,
+	                y = [p1y, p2y],
+	                x = [p1x, p2x],
+	                dot;
+	            abs(t1) > "1e12" && (t1 = .5);
+	            abs(t2) > "1e12" && (t2 = .5);
+	            if (t1 > 0 && t1 < 1) {
+	                dot = findDotAtSegment(p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y, t1);
+	                x[push](dot.x);
+	                y[push](dot.y);
+	            }
+	            if (t2 > 0 && t2 < 1) {
+	                dot = findDotAtSegment(p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y, t2);
+	                x[push](dot.x);
+	                y[push](dot.y);
+	            }
+	            a = (c2y - 2 * c1y + p1y) - (p2y - 2 * c2y + c1y);
+	            b = 2 * (c1y - p1y) - 2 * (c2y - c1y);
+	            c = p1y - c1y;
+	            t1 = (-b + math.sqrt(b * b - 4 * a * c)) / 2 / a;
+	            t2 = (-b - math.sqrt(b * b - 4 * a * c)) / 2 / a;
+	            abs(t1) > "1e12" && (t1 = .5);
+	            abs(t2) > "1e12" && (t2 = .5);
+	            if (t1 > 0 && t1 < 1) {
+	                dot = findDotAtSegment(p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y, t1);
+	                x[push](dot.x);
+	                y[push](dot.y);
+	            }
+	            if (t2 > 0 && t2 < 1) {
+	                dot = findDotAtSegment(p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y, t2);
+	                x[push](dot.x);
+	                y[push](dot.y);
+	            }
+	            return {
+	                min: {x: mmin[apply](0, x), y: mmin[apply](0, y)},
+	                max: {x: mmax[apply](0, x), y: mmax[apply](0, y)}
+	            };
+	        }),
+	        path2curve = cacher(function (path, path2) {
+	            var p = pathToAbsolute(path),
+	                p2 = path2 && pathToAbsolute(path2),
+	                attrs = {x: 0, y: 0, bx: 0, by: 0, X: 0, Y: 0, qx: null, qy: null},
+	                attrs2 = {x: 0, y: 0, bx: 0, by: 0, X: 0, Y: 0, qx: null, qy: null},
+	                processPath = function (path, d) {
+	                    var nx, ny;
+	                    if (!path) {
+	                        return ["C", d.x, d.y, d.x, d.y, d.x, d.y];
+	                    }
+	                    !(path[0] in {T:1, Q:1}) && (d.qx = d.qy = null);
+	                    switch (path[0]) {
+	                        case "M":
+	                            d.X = path[1];
+	                            d.Y = path[2];
+	                            break;
+	                        case "A":
+	                            path = ["C"][concat](a2c[apply](0, [d.x, d.y][concat](path.slice(1))));
+	                            break;
+	                        case "S":
+	                            nx = d.x + (d.x - (d.bx || d.x));
+	                            ny = d.y + (d.y - (d.by || d.y));
+	                            path = ["C", nx, ny][concat](path.slice(1));
+	                            break;
+	                        case "T":
+	                            d.qx = d.x + (d.x - (d.qx || d.x));
+	                            d.qy = d.y + (d.y - (d.qy || d.y));
+	                            path = ["C"][concat](q2c(d.x, d.y, d.qx, d.qy, path[1], path[2]));
+	                            break;
+	                        case "Q":
+	                            d.qx = path[1];
+	                            d.qy = path[2];
+	                            path = ["C"][concat](q2c(d.x, d.y, path[1], path[2], path[3], path[4]));
+	                            break;
+	                        case "L":
+	                            path = ["C"][concat](l2c(d.x, d.y, path[1], path[2]));
+	                            break;
+	                        case "H":
+	                            path = ["C"][concat](l2c(d.x, d.y, path[1], d.y));
+	                            break;
+	                        case "V":
+	                            path = ["C"][concat](l2c(d.x, d.y, d.x, path[1]));
+	                            break;
+	                        case "Z":
+	                            path = ["C"][concat](l2c(d.x, d.y, d.X, d.Y));
+	                            break;
+	                    }
+	                    return path;
+	                },
+	                fixArc = function (pp, i) {
+	                    if (pp[i][length] > 7) {
+	                        pp[i].shift();
+	                        var pi = pp[i];
+	                        while (pi[length]) {
+	                            pp.splice(i++, 0, ["C"][concat](pi.splice(0, 6)));
+	                        }
+	                        pp.splice(i, 1);
+	                        ii = mmax(p[length], p2 && p2[length] || 0);
+	                    }
+	                },
+	                fixM = function (path1, path2, a1, a2, i) {
+	                    if (path1 && path2 && path1[i][0] == "M" && path2[i][0] != "M") {
+	                        path2.splice(i, 0, ["M", a2.x, a2.y]);
+	                        a1.bx = 0;
+	                        a1.by = 0;
+	                        a1.x = path1[i][1];
+	                        a1.y = path1[i][2];
+	                        ii = mmax(p[length], p2 && p2[length] || 0);
+	                    }
+	                };
+	            for (var i = 0, ii = mmax(p[length], p2 && p2[length] || 0); i < ii; i++) {
+	                p[i] = processPath(p[i], attrs);
+	                fixArc(p, i);
+	                p2 && (p2[i] = processPath(p2[i], attrs2));
+	                p2 && fixArc(p2, i);
+	                fixM(p, p2, attrs, attrs2, i);
+	                fixM(p2, p, attrs2, attrs, i);
+	                var seg = p[i],
+	                    seg2 = p2 && p2[i],
+	                    seglen = seg[length],
+	                    seg2len = p2 && seg2[length];
+	                attrs.x = seg[seglen - 2];
+	                attrs.y = seg[seglen - 1];
+	                attrs.bx = toFloat(seg[seglen - 4]) || attrs.x;
+	                attrs.by = toFloat(seg[seglen - 3]) || attrs.y;
+	                attrs2.bx = p2 && (toFloat(seg2[seg2len - 4]) || attrs2.x);
+	                attrs2.by = p2 && (toFloat(seg2[seg2len - 3]) || attrs2.y);
+	                attrs2.x = p2 && seg2[seg2len - 2];
+	                attrs2.y = p2 && seg2[seg2len - 1];
+	            }
+	            return p2 ? [p, p2] : p;
+	        }, null, pathClone),
+	        parseDots = cacher(function (gradient) {
+	            var dots = [];
+	            for (var i = 0, ii = gradient[length]; i < ii; i++) {
+	                var dot = {},
+	                    par = gradient[i].match(/^([^:]*):?([\d\.]*)/);
+	                dot.color = R.getRGB(par[1]);
+	                if (dot.color.error) {
+	                    return null;
+	                }
+	                dot.color = dot.color.hex;
+	                par[2] && (dot.offset = par[2] + "%");
+	                dots[push](dot);
+	            }
+	            for (i = 1, ii = dots[length] - 1; i < ii; i++) {
+	                if (!dots[i].offset) {
+	                    var start = toFloat(dots[i - 1].offset || 0),
+	                        end = 0;
+	                    for (var j = i + 1; j < ii; j++) {
+	                        if (dots[j].offset) {
+	                            end = dots[j].offset;
+	                            break;
+	                        }
+	                    }
+	                    if (!end) {
+	                        end = 100;
+	                        j = ii;
+	                    }
+	                    end = toFloat(end);
+	                    var d = (end - start) / (j - i + 1);
+	                    for (; i < j; i++) {
+	                        start += d;
+	                        dots[i].offset = start + "%";
+	                    }
+	                }
+	            }
+	            return dots;
+	        }),
+	        getContainer = function (x, y, w, h) {
+	            var container;
+	            if (R.is(x, string) || R.is(x, "object")) {
+	                container = R.is(x, string) ? doc.getElementById(x) : x;
+	                if (container.tagName) {
+	                    if (y == null) {
+	                        return {
+	                            container: container,
+	                            width: container.style.pixelWidth || container.offsetWidth,
+	                            height: container.style.pixelHeight || container.offsetHeight
+	                        };
+	                    } else {
+	                        return {container: container, width: y, height: w};
+	                    }
+	                }
+	            } else {
+	                return {container: 1, x: x, y: y, width: w, height: h};
+	            }
+	        },
+	        plugins = function (con, add) {
+	            var that = this;
+	            for (var prop in add) {
+	                if (add[has](prop) && !(prop in con)) {
+	                    switch (typeof add[prop]) {
+	                        case "function":
+	                            (function (f) {
+	                                con[prop] = con === that ? f : function () { return f[apply](that, arguments); };
+	                            })(add[prop]);
+	                        break;
+	                        case "object":
+	                            con[prop] = con[prop] || {};
+	                            plugins.call(this, con[prop], add[prop]);
+	                        break;
+	                        default:
+	                            con[prop] = add[prop];
+	                        break;
+	                    }
+	                }
+	            }
+	        },
+	        tear = function (el, paper) {
+	            el == paper.top && (paper.top = el.prev);
+	            el == paper.bottom && (paper.bottom = el.next);
+	            el.next && (el.next.prev = el.prev);
+	            el.prev && (el.prev.next = el.next);
+	        },
+	        tofront = function (el, paper) {
+	            if (paper.top === el) {
+	                return;
+	            }
+	            tear(el, paper);
+	            el.next = null;
+	            el.prev = paper.top;
+	            paper.top.next = el;
+	            paper.top = el;
+	        },
+	        toback = function (el, paper) {
+	            if (paper.bottom === el) {
+	                return;
+	            }
+	            tear(el, paper);
+	            el.next = paper.bottom;
+	            el.prev = null;
+	            paper.bottom.prev = el;
+	            paper.bottom = el;
+	        },
+	        insertafter = function (el, el2, paper) {
+	            tear(el, paper);
+	            el2 == paper.top && (paper.top = el);
+	            el2.next && (el2.next.prev = el);
+	            el.next = el2.next;
+	            el.prev = el2;
+	            el2.next = el;
+	        },
+	        insertbefore = function (el, el2, paper) {
+	            tear(el, paper);
+	            el2 == paper.bottom && (paper.bottom = el);
+	            el2.prev && (el2.prev.next = el);
+	            el.prev = el2.prev;
+	            el2.prev = el;
+	            el.next = el2;
+	        },
+	        removed = function (methodname) {
+	            return function () {
+	                throw new Error("Rapha\xebl: you are calling to method \u201c" + methodname + "\u201d of removed object");
+	            };
+	        };
+	    R.pathToRelative = pathToRelative;
+	    // SVG
+	    if (R.svg) {
+	        paperproto.svgns = "http://www.w3.org/2000/svg";
+	        paperproto.xlink = "http://www.w3.org/1999/xlink";
+	        round = function (num) {
+	            return +num + (~~num === num) * .5;
+	        };
+	        var $ = function (el, attr) {
+	            if (attr) {
+	                for (var key in attr) {
+	                    if (attr[has](key)) {
+	                        setAttr(el, key, Str(attr[key]));
+	                    }
+	                }
+	            } else {
+	                el = doc.createElementNS(paperproto.svgns, el);
+	                el.style.webkitTapHighlightColor = "rgba(0,0,0,0)";
+	                return el;
+	            }
+	        };
+	        R[toString] = function () {
+	            return  "Your browser supports SVG.\nYou are running Rapha\xebl " + this.version;
+	        };
+	        var thePath = function (pathString, SVG) {
+	            var el = $("path");
+	            SVG.canvas && SVG.canvas[appendChild](el);
+	            var p = new Element(el, SVG);
+	            p.type = "path";
+	            setFillAndStroke(p, {fill: "none", stroke: "#000", path: pathString});
+	            return p;
+	        };
+	        var addGradientFill = function (o, gradient, SVG) {
+	            var type = "linear",
+	                fx = .5, fy = .5,
+	                s = o.style;
+	            gradient = Str(gradient)[rp](radial_gradient, function (all, _fx, _fy) {
+	                type = "radial";
+	                if (_fx && _fy) {
+	                    fx = toFloat(_fx);
+	                    fy = toFloat(_fy);
+	                    var dir = ((fy > .5) * 2 - 1);
+	                    pow(fx - .5, 2) + pow(fy - .5, 2) > .25 &&
+	                        (fy = math.sqrt(.25 - pow(fx - .5, 2)) * dir + .5) &&
+	                        fy != .5 &&
+	                        (fy = fy.toFixed(5) - 1e-5 * dir);
+	                }
+	                return E;
+	            });
+	            gradient = gradient[split](/\s*\-\s*/);
+	            if (type == "linear") {
+	                var angle = gradient.shift();
+	                angle = -toFloat(angle);
+	                if (isNaN(angle)) {
+	                    return null;
+	                }
+	                var vector = [0, 0, math.cos(angle * PI / 180), math.sin(angle * PI / 180)],
+	                    max = 1 / (mmax(abs(vector[2]), abs(vector[3])) || 1);
+	                vector[2] *= max;
+	                vector[3] *= max;
+	                if (vector[2] < 0) {
+	                    vector[0] = -vector[2];
+	                    vector[2] = 0;
+	                }
+	                if (vector[3] < 0) {
+	                    vector[1] = -vector[3];
+	                    vector[3] = 0;
+	                }
+	            }
+	            var dots = parseDots(gradient);
+	            if (!dots) {
+	                return null;
+	            }
+	            var id = o.getAttribute(fillString);
+	            id = id.match(/^url\(#(.*)\)$/);
+	            id && SVG.defs.removeChild(doc.getElementById(id[1]));
 
-	module.exports = WrappedPath;
+	            var el = $(type + "Gradient");
+	            el.id = createUUID();
+	            $(el, type == "radial" ? {fx: fx, fy: fy} : {x1: vector[0], y1: vector[1], x2: vector[2], y2: vector[3]});
+	            SVG.defs[appendChild](el);
+	            for (var i = 0, ii = dots[length]; i < ii; i++) {
+	                var stop = $("stop");
+	                $(stop, {
+	                    offset: dots[i].offset ? dots[i].offset : !i ? "0%" : "100%",
+	                    "stop-color": dots[i].color || "#fff"
+	                });
+	                el[appendChild](stop);
+	            }
+	            $(o, {
+	                fill: "url(#" + el.id + ")",
+	                opacity: 1,
+	                "fill-opacity": 1
+	            });
+	            s.fill = E;
+	            s.opacity = 1;
+	            s.fillOpacity = 1;
+	            return 1;
+	        };
+	        var updatePosition = function (o) {
+	            var bbox = o.getBBox();
+	            $(o.pattern, {patternTransform: R.format("translate({0},{1})", bbox.x, bbox.y)});
+	        };
+	        var setFillAndStroke = function (o, params) {
+	            var dasharray = {
+	                    "": [0],
+	                    "none": [0],
+	                    "-": [3, 1],
+	                    ".": [1, 1],
+	                    "-.": [3, 1, 1, 1],
+	                    "-..": [3, 1, 1, 1, 1, 1],
+	                    ". ": [1, 3],
+	                    "- ": [4, 3],
+	                    "--": [8, 3],
+	                    "- .": [4, 3, 1, 3],
+	                    "--.": [8, 3, 1, 3],
+	                    "--..": [8, 3, 1, 3, 1, 3]
+	                },
+	                node = o.node,
+	                attrs = o.attrs,
+	                rot = o.rotate(),
+	                addDashes = function (o, value) {
+	                    value = dasharray[lowerCase.call(value)];
+	                    if (value) {
+	                        var width = o.attrs["stroke-width"] || "1",
+	                            butt = {round: width, square: width, butt: 0}[o.attrs["stroke-linecap"] || params["stroke-linecap"]] || 0,
+	                            dashes = [];
+	                        var i = value[length];
+	                        while (i--) {
+	                            dashes[i] = value[i] * width + ((i % 2) ? 1 : -1) * butt;
+	                        }
+	                        $(node, {"stroke-dasharray": dashes[join](",")});
+	                    }
+	                };
+	            params[has]("rotation") && (rot = params.rotation);
+	            var rotxy = Str(rot)[split](separator);
+	            if (!(rotxy.length - 1)) {
+	                rotxy = null;
+	            } else {
+	                rotxy[1] = +rotxy[1];
+	                rotxy[2] = +rotxy[2];
+	            }
+	            toFloat(rot) && o.rotate(0, true);
+	            for (var att in params) {
+	                if (params[has](att)) {
+	                    if (!availableAttrs[has](att)) {
+	                        continue;
+	                    }
+	                    var value = params[att];
+	                    attrs[att] = value;
+	                    switch (att) {
+	                        case "blur":
+	                            o.blur(value);
+	                            break;
+	                        case "rotation":
+	                            o.rotate(value, true);
+	                            break;
+	                        case "href":
+	                        case "title":
+	                        case "target":
+	                            var pn = node.parentNode;
+	                            if (lowerCase.call(pn.tagName) != "a") {
+	                                var hl = $("a");
+	                                pn.insertBefore(hl, node);
+	                                hl[appendChild](node);
+	                                pn = hl;
+	                            }
+	                            if (att == "target" && value == "blank") {
+	                                pn.setAttributeNS(o.paper.xlink, "show", "new");
+	                            } else {
+	                                pn.setAttributeNS(o.paper.xlink, att, value);
+	                            }
+	                            break;
+	                        case "cursor":
+	                            node.style.cursor = value;
+	                            break;
+	                        case "clip-rect":
+	                            var rect = Str(value)[split](separator);
+	                            if (rect[length] == 4) {
+	                                o.clip && o.clip.parentNode.parentNode.removeChild(o.clip.parentNode);
+	                                var el = $("clipPath"),
+	                                    rc = $("rect");
+	                                el.id = createUUID();
+	                                $(rc, {
+	                                    x: rect[0],
+	                                    y: rect[1],
+	                                    width: rect[2],
+	                                    height: rect[3]
+	                                });
+	                                el[appendChild](rc);
+	                                o.paper.defs[appendChild](el);
+	                                $(node, {"clip-path": "url(#" + el.id + ")"});
+	                                o.clip = rc;
+	                            }
+	                            if (!value) {
+	                                var clip = doc.getElementById(node.getAttribute("clip-path")[rp](/(^url\(#|\)$)/g, E));
+	                                clip && clip.parentNode.removeChild(clip);
+	                                $(node, {"clip-path": E});
+	                                delete o.clip;
+	                            }
+	                        break;
+	                        case "path":
+	                            if (o.type == "path") {
+	                                $(node, {d: value ? attrs.path = pathToAbsolute(value) : "M0,0"});
+	                            }
+	                            break;
+	                        case "width":
+	                            setAttr(node, att, value);
+	                            if (attrs.fx) {
+	                                att = "x";
+	                                value = attrs.x;
+	                            } else {
+	                                break;
+	                            }
+	                        case "x":
+	                            if (attrs.fx) {
+	                                value = -attrs.x - (attrs.width || 0);
+	                            }
+	                        case "rx":
+	                            if (att == "rx" && o.type == "rect") {
+	                                break;
+	                            }
+	                        case "cx":
+	                            rotxy && (att == "x" || att == "cx") && (rotxy[1] += value - attrs[att]);
+	                            setAttr(node, att, value);
+	                            o.pattern && updatePosition(o);
+	                            break;
+	                        case "height":
+	                            setAttr(node, att, value);
+	                            if (attrs.fy) {
+	                                att = "y";
+	                                value = attrs.y;
+	                            } else {
+	                                break;
+	                            }
+	                        case "y":
+	                            if (attrs.fy) {
+	                                value = -attrs.y - (attrs.height || 0);
+	                            }
+	                        case "ry":
+	                            if (att == "ry" && o.type == "rect") {
+	                                break;
+	                            }
+	                        case "cy":
+	                            rotxy && (att == "y" || att == "cy") && (rotxy[2] += value - attrs[att]);
+	                            setAttr(node, att, value);
+	                            o.pattern && updatePosition(o);
+	                            break;
+	                        case "r":
+	                            if (o.type == "rect") {
+	                                $(node, {rx: value, ry: value});
+	                            } else {
+	                                setAttr(node, att, value);
+	                            }
+	                            break;
+	                        case "src":
+	                            if (o.type == "image") {
+	                                node.setAttributeNS(o.paper.xlink, "href", value);
+	                            }
+	                            break;
+	                        case "stroke-width":
+	                            node.style.strokeWidth = value;
+	                            // Need following line for Firefox
+	                            setAttr(node, att, value);
+	                            if (attrs["stroke-dasharray"]) {
+	                                addDashes(o, attrs["stroke-dasharray"]);
+	                            }
+	                            break;
+	                        case "stroke-dasharray":
+	                            addDashes(o, value);
+	                            break;
+	                        case "translation":
+	                            var xy = Str(value)[split](separator);
+	                            xy[0] = +xy[0] || 0;
+	                            xy[1] = +xy[1] || 0;
+	                            if (rotxy) {
+	                                rotxy[1] += xy[0];
+	                                rotxy[2] += xy[1];
+	                            }
+	                            translate.call(o, xy[0], xy[1]);
+	                            break;
+	                        case "scale":
+	                            xy = Str(value)[split](separator);
+	                            o.scale(+xy[0] || 1, +xy[1] || +xy[0] || 1, isNaN(toFloat(xy[2])) ? null : +xy[2], isNaN(toFloat(xy[3])) ? null : +xy[3]);
+	                            break;
+	                        case fillString:
+	                            var isURL = Str(value).match(ISURL);
+	                            if (isURL) {
+	                                el = $("pattern");
+	                                var ig = $("image");
+	                                el.id = createUUID();
+	                                $(el, {x: 0, y: 0, patternUnits: "userSpaceOnUse", height: 1, width: 1});
+	                                $(ig, {x: 0, y: 0});
+	                                ig.setAttributeNS(o.paper.xlink, "href", isURL[1]);
+	                                el[appendChild](ig);
+
+	                                var img = doc.createElement("img");
+	                                img.style.cssText = "position:absolute;left:-9999em;top-9999em";
+	                                img.onload = function () {
+	                                    $(el, {width: this.offsetWidth, height: this.offsetHeight});
+	                                    $(ig, {width: this.offsetWidth, height: this.offsetHeight});
+	                                    doc.body.removeChild(this);
+	                                    o.paper.safari();
+	                                };
+	                                doc.body[appendChild](img);
+	                                img.src = isURL[1];
+	                                o.paper.defs[appendChild](el);
+	                                node.style.fill = "url(#" + el.id + ")";
+	                                $(node, {fill: "url(#" + el.id + ")"});
+	                                o.pattern = el;
+	                                o.pattern && updatePosition(o);
+	                                break;
+	                            }
+	                            var clr = R.getRGB(value);
+	                            if (!clr.error) {
+	                                delete params.gradient;
+	                                delete attrs.gradient;
+	                                !R.is(attrs.opacity, "undefined") &&
+	                                    R.is(params.opacity, "undefined") &&
+	                                    $(node, {opacity: attrs.opacity});
+	                                !R.is(attrs["fill-opacity"], "undefined") &&
+	                                    R.is(params["fill-opacity"], "undefined") &&
+	                                    $(node, {"fill-opacity": attrs["fill-opacity"]});
+	                            } else if ((({circle: 1, ellipse: 1})[has](o.type) || Str(value).charAt() != "r") && addGradientFill(node, value, o.paper)) {
+	                                attrs.gradient = value;
+	                                attrs.fill = "none";
+	                                break;
+	                            }
+	                            clr[has]("opacity") && $(node, {"fill-opacity": clr.opacity > 1 ? clr.opacity / 100 : clr.opacity});
+	                        case "stroke":
+	                            clr = R.getRGB(value);
+	                            setAttr(node, att, clr.hex);
+	                            att == "stroke" && clr[has]("opacity") && $(node, {"stroke-opacity": clr.opacity > 1 ? clr.opacity / 100 : clr.opacity});
+	                            break;
+	                        case "gradient":
+	                            (({circle: 1, ellipse: 1})[has](o.type) || Str(value).charAt() != "r") && addGradientFill(node, value, o.paper);
+	                            break;
+	                        case "opacity":
+	                            if (attrs.gradient && !attrs[has]("stroke-opacity")) {
+	                                $(node, {"stroke-opacity": value > 1 ? value / 100 : value});
+	                            }
+	                            // fall
+	                        case "fill-opacity":
+	                            if (attrs.gradient) {
+	                                var gradient = doc.getElementById(node.getAttribute(fillString)[rp](/^url\(#|\)$/g, E));
+	                                if (gradient) {
+	                                    var stops = gradient.getElementsByTagName("stop");
+	                                    setAttr(stops[stops[length] - 1], "stop-opacity", value);
+	                                }
+	                                break;
+	                            }
+	                        default:
+	                            att == "font-size" && (value = toInt(value, 10) + "px");
+	                            var cssrule = att[rp](/(\-.)/g, function (w) {
+	                                return upperCase.call(w.substring(1));
+	                            });
+	                            node.style[cssrule] = value;
+	                            // Need following line for Firefox
+	                            setAttr(node, att, value);
+	                            break;
+	                    }
+	                }
+	            }
+
+	            tuneText(o, params);
+	            if (rotxy) {
+	                o.rotate(rotxy.join(S));
+	            } else {
+	                toFloat(rot) && o.rotate(rot, true);
+	            }
+	        };
+	        var leading = 1.2,
+	        tuneText = function (el, params) {
+	            if (el.type != "text" || !(params[has]("text") || params[has]("font") || params[has]("font-size") || params[has]("x") || params[has]("y"))) {
+	                return;
+	            }
+	            var a = el.attrs,
+	                node = el.node,
+	                fontSize = node.firstChild ? toInt(doc.defaultView.getComputedStyle(node.firstChild, E).getPropertyValue("font-size"), 10) : 10;
+
+	            if (params[has]("text")) {
+	                a.text = params.text;
+	                while (node.firstChild) {
+	                    node.removeChild(node.firstChild);
+	                }
+	                var texts = Str(params.text)[split]("\n");
+	                for (var i = 0, ii = texts[length]; i < ii; i++) if (texts[i]) {
+	                    var tspan = $("tspan");
+	                    i && $(tspan, {dy: fontSize * leading, x: a.x});
+	                    tspan[appendChild](doc.createTextNode(texts[i]));
+	                    node[appendChild](tspan);
+	                }
+	            } else {
+	                texts = node.getElementsByTagName("tspan");
+	                for (i = 0, ii = texts[length]; i < ii; i++) {
+	                    i && $(texts[i], {dy: fontSize * leading, x: a.x});
+	                }
+	            }
+	            $(node, {y: a.y});
+	            var bb = el.getBBox(),
+	                dif = a.y - (bb.y + bb.height / 2);
+	            dif && R.is(dif, "finite") && $(node, {y: a.y + dif});
+	        },
+	        Element = function (node, svg) {
+	            var X = 0,
+	                Y = 0;
+	            this[0] = node;
+	            this.id = R._oid++;
+	            this.node = node;
+	            node.raphael = this;
+	            this.paper = svg;
+	            this.attrs = this.attrs || {};
+	            this.transformations = []; // rotate, translate, scale
+	            this._ = {
+	                tx: 0,
+	                ty: 0,
+	                rt: {deg: 0, cx: 0, cy: 0},
+	                sx: 1,
+	                sy: 1
+	            };
+	            !svg.bottom && (svg.bottom = this);
+	            this.prev = svg.top;
+	            svg.top && (svg.top.next = this);
+	            svg.top = this;
+	            this.next = null;
+	        };
+	        var elproto = Element[proto];
+	        Element[proto].rotate = function (deg, cx, cy) {
+	            if (this.removed) {
+	                return this;
+	            }
+	            if (deg == null) {
+	                if (this._.rt.cx) {
+	                    return [this._.rt.deg, this._.rt.cx, this._.rt.cy][join](S);
+	                }
+	                return this._.rt.deg;
+	            }
+	            var bbox = this.getBBox();
+	            deg = Str(deg)[split](separator);
+	            if (deg[length] - 1) {
+	                cx = toFloat(deg[1]);
+	                cy = toFloat(deg[2]);
+	            }
+	            deg = toFloat(deg[0]);
+	            if (cx != null && cx !== false) {
+	                this._.rt.deg = deg;
+	            } else {
+	                this._.rt.deg += deg;
+	            }
+	            (cy == null) && (cx = null);
+	            this._.rt.cx = cx;
+	            this._.rt.cy = cy;
+	            cx = cx == null ? bbox.x + bbox.width / 2 : cx;
+	            cy = cy == null ? bbox.y + bbox.height / 2 : cy;
+	            if (this._.rt.deg) {
+	                this.transformations[0] = R.format("rotate({0} {1} {2})", this._.rt.deg, cx, cy);
+	                this.clip && $(this.clip, {transform: R.format("rotate({0} {1} {2})", -this._.rt.deg, cx, cy)});
+	            } else {
+	                this.transformations[0] = E;
+	                this.clip && $(this.clip, {transform: E});
+	            }
+	            $(this.node, {transform: this.transformations[join](S)});
+	            return this;
+	        };
+	        Element[proto].hide = function () {
+	            !this.removed && (this.node.style.display = "none");
+	            return this;
+	        };
+	        Element[proto].show = function () {
+	            !this.removed && (this.node.style.display = "");
+	            return this;
+	        };
+	        Element[proto].remove = function () {
+	            if (this.removed) {
+	                return;
+	            }
+	            tear(this, this.paper);
+	            this.node.parentNode.removeChild(this.node);
+	            for (var i in this) {
+	                delete this[i];
+	            }
+	            this.removed = true;
+	        };
+	        Element[proto].getBBox = function () {
+	            if (this.removed) {
+	                return this;
+	            }
+	            if (this.type == "path") {
+	                return pathDimensions(this.attrs.path);
+	            }
+	            if (this.node.style.display == "none") {
+	                this.show();
+	                var hide = true;
+	            }
+	            var bbox = {};
+	            try {
+	                bbox = this.node.getBBox();
+	            } catch(e) {
+	                // Firefox 3.0.x plays badly here
+	            } finally {
+	                bbox = bbox || {};
+	            }
+	            if (this.type == "text") {
+	                bbox = {x: bbox.x, y: Infinity, width: 0, height: 0};
+	                for (var i = 0, ii = this.node.getNumberOfChars(); i < ii; i++) {
+	                    var bb = this.node.getExtentOfChar(i);
+	                    (bb.y < bbox.y) && (bbox.y = bb.y);
+	                    (bb.y + bb.height - bbox.y > bbox.height) && (bbox.height = bb.y + bb.height - bbox.y);
+	                    (bb.x + bb.width - bbox.x > bbox.width) && (bbox.width = bb.x + bb.width - bbox.x);
+	                }
+	            }
+	            hide && this.hide();
+	            return bbox;
+	        };
+	        Element[proto].attr = function (name, value) {
+	            if (this.removed) {
+	                return this;
+	            }
+	            if (name == null) {
+	                var res = {};
+	                for (var i in this.attrs) if (this.attrs[has](i)) {
+	                    res[i] = this.attrs[i];
+	                }
+	                this._.rt.deg && (res.rotation = this.rotate());
+	                (this._.sx != 1 || this._.sy != 1) && (res.scale = this.scale());
+	                res.gradient && res.fill == "none" && (res.fill = res.gradient) && delete res.gradient;
+	                return res;
+	            }
+	            if (value == null && R.is(name, string)) {
+	                if (name == "translation") {
+	                    return translate.call(this);
+	                }
+	                if (name == "rotation") {
+	                    return this.rotate();
+	                }
+	                if (name == "scale") {
+	                    return this.scale();
+	                }
+	                if (name == fillString && this.attrs.fill == "none" && this.attrs.gradient) {
+	                    return this.attrs.gradient;
+	                }
+	                return this.attrs[name];
+	            }
+	            if (value == null && R.is(name, array)) {
+	                var values = {};
+	                for (var j = 0, jj = name.length; j < jj; j++) {
+	                    values[name[j]] = this.attr(name[j]);
+	                }
+	                return values;
+	            }
+	            if (value != null) {
+	                var params = {};
+	                params[name] = value;
+	            } else if (name != null && R.is(name, "object")) {
+	                params = name;
+	            }
+	            for (var key in this.paper.customAttributes) if (this.paper.customAttributes[has](key) && params[has](key) && R.is(this.paper.customAttributes[key], "function")) {
+	                var par = this.paper.customAttributes[key].apply(this, [][concat](params[key]));
+	                this.attrs[key] = params[key];
+	                for (var subkey in par) if (par[has](subkey)) {
+	                    params[subkey] = par[subkey];
+	                }
+	            }
+	            setFillAndStroke(this, params);
+	            return this;
+	        };
+	        Element[proto].toFront = function () {
+	            if (this.removed) {
+	                return this;
+	            }
+	            this.node.parentNode[appendChild](this.node);
+	            var svg = this.paper;
+	            svg.top != this && tofront(this, svg);
+	            return this;
+	        };
+	        Element[proto].toBack = function () {
+	            if (this.removed) {
+	                return this;
+	            }
+	            if (this.node.parentNode.firstChild != this.node) {
+	                this.node.parentNode.insertBefore(this.node, this.node.parentNode.firstChild);
+	                toback(this, this.paper);
+	                var svg = this.paper;
+	            }
+	            return this;
+	        };
+	        Element[proto].insertAfter = function (element) {
+	            if (this.removed) {
+	                return this;
+	            }
+	            var node = element.node || element[element.length - 1].node;
+	            if (node.nextSibling) {
+	                node.parentNode.insertBefore(this.node, node.nextSibling);
+	            } else {
+	                node.parentNode[appendChild](this.node);
+	            }
+	            insertafter(this, element, this.paper);
+	            return this;
+	        };
+	        Element[proto].insertBefore = function (element) {
+	            if (this.removed) {
+	                return this;
+	            }
+	            var node = element.node || element[0].node;
+	            node.parentNode.insertBefore(this.node, node);
+	            insertbefore(this, element, this.paper);
+	            return this;
+	        };
+	        Element[proto].blur = function (size) {
+	            // Experimental. No Safari support. Use it on your own risk.
+	            var t = this;
+	            if (+size !== 0) {
+	                var fltr = $("filter"),
+	                    blur = $("feGaussianBlur");
+	                t.attrs.blur = size;
+	                fltr.id = createUUID();
+	                $(blur, {stdDeviation: +size || 1.5});
+	                fltr.appendChild(blur);
+	                t.paper.defs.appendChild(fltr);
+	                t._blur = fltr;
+	                $(t.node, {filter: "url(#" + fltr.id + ")"});
+	            } else {
+	                if (t._blur) {
+	                    t._blur.parentNode.removeChild(t._blur);
+	                    delete t._blur;
+	                    delete t.attrs.blur;
+	                }
+	                t.node.removeAttribute("filter");
+	            }
+	        };
+	        var theCircle = function (svg, x, y, r) {
+	            var el = $("circle");
+	            svg.canvas && svg.canvas[appendChild](el);
+	            var res = new Element(el, svg);
+	            res.attrs = {cx: x, cy: y, r: r, fill: "none", stroke: "#000"};
+	            res.type = "circle";
+	            $(el, res.attrs);
+	            return res;
+	        },
+	        theRect = function (svg, x, y, w, h, r) {
+	            var el = $("rect");
+	            svg.canvas && svg.canvas[appendChild](el);
+	            var res = new Element(el, svg);
+	            res.attrs = {x: x, y: y, width: w, height: h, r: r || 0, rx: r || 0, ry: r || 0, fill: "none", stroke: "#000"};
+	            res.type = "rect";
+	            $(el, res.attrs);
+	            return res;
+	        },
+	        theEllipse = function (svg, x, y, rx, ry) {
+	            var el = $("ellipse");
+	            svg.canvas && svg.canvas[appendChild](el);
+	            var res = new Element(el, svg);
+	            res.attrs = {cx: x, cy: y, rx: rx, ry: ry, fill: "none", stroke: "#000"};
+	            res.type = "ellipse";
+	            $(el, res.attrs);
+	            return res;
+	        },
+	        theImage = function (svg, src, x, y, w, h) {
+	            var el = $("image");
+	            $(el, {x: x, y: y, width: w, height: h, preserveAspectRatio: "none"});
+	            el.setAttributeNS(svg.xlink, "href", src);
+	            svg.canvas && svg.canvas[appendChild](el);
+	            var res = new Element(el, svg);
+	            res.attrs = {x: x, y: y, width: w, height: h, src: src};
+	            res.type = "image";
+	            return res;
+	        },
+	        theText = function (svg, x, y, text) {
+	            var el = $("text");
+	            $(el, {x: x, y: y, "text-anchor": "middle"});
+	            svg.canvas && svg.canvas[appendChild](el);
+	            var res = new Element(el, svg);
+	            res.attrs = {x: x, y: y, "text-anchor": "middle", text: text, font: availableAttrs.font, stroke: "none", fill: "#000"};
+	            res.type = "text";
+	            setFillAndStroke(res, res.attrs);
+	            return res;
+	        },
+	        setSize = function (width, height) {
+	            this.width = width || this.width;
+	            this.height = height || this.height;
+	            setAttr(this.canvas, "width", this.width);
+	            setAttr(this.canvas, "height", this.height);
+	            return this;
+	        },
+	        create = function () {
+	            var con = getContainer[apply](0, arguments),
+	                container = con && con.container,
+	                x = con.x,
+	                y = con.y,
+	                width = con.width,
+	                height = con.height;
+	            if (!container) {
+	                throw new Error("SVG container not found.");
+	            }
+	            var cnvs = $("svg");
+	            x = x || 0;
+	            y = y || 0;
+	            width = width || 512;
+	            height = height || 342;
+	            $(cnvs, {
+	                xmlns: "http://www.w3.org/2000/svg",
+	                version: 1.1,
+	                width: width,
+	                height: height
+	            });
+	            if (container == 1) {
+	                cnvs.style.cssText = "position:absolute;left:" + x + "px;top:" + y + "px";
+	                doc.body[appendChild](cnvs);
+	            } else {
+	                if (container.firstChild) {
+	                    container.insertBefore(cnvs, container.firstChild);
+	                } else {
+	                    container[appendChild](cnvs);
+	                }
+	            }
+	            container = new Paper;
+	            container.width = width;
+	            container.height = height;
+	            container.canvas = cnvs;
+	            plugins.call(container, container, R.fn);
+	            container.clear();
+	            return container;
+	        };
+	        paperproto.clear = function () {
+	            var c = this.canvas;
+	            while (c.firstChild) {
+	                c.removeChild(c.firstChild);
+	            }
+	            this.bottom = this.top = null;
+	            (this.desc = $("desc"))[appendChild](doc.createTextNode("Created with Rapha\xebl"));
+	            c[appendChild](this.desc);
+	            c[appendChild](this.defs = $("defs"));
+	        };
+	        paperproto.remove = function () {
+	            this.canvas.parentNode && this.canvas.parentNode.removeChild(this.canvas);
+	            for (var i in this) {
+	                this[i] = removed(i);
+	            }
+	        };
+	    }
+
+	    // VML
+	    if (R.vml) {
+	        var map = {M: "m", L: "l", C: "c", Z: "x", m: "t", l: "r", c: "v", z: "x"},
+	            bites = /([clmz]),?([^clmz]*)/gi,
+	            blurregexp = / progid:\S+Blur\([^\)]+\)/g,
+	            val = /-?[^,\s-]+/g,
+	            coordsize = 1e3 + S + 1e3,
+	            zoom = 10,
+	            pathlike = {path: 1, rect: 1},
+	            path2vml = function (path) {
+	                var total =  /[ahqstv]/ig,
+	                    command = pathToAbsolute;
+	                Str(path).match(total) && (command = path2curve);
+	                total = /[clmz]/g;
+	                if (command == pathToAbsolute && !Str(path).match(total)) {
+	                    var res = Str(path)[rp](bites, function (all, command, args) {
+	                        var vals = [],
+	                            isMove = lowerCase.call(command) == "m",
+	                            res = map[command];
+	                        args[rp](val, function (value) {
+	                            if (isMove && vals[length] == 2) {
+	                                res += vals + map[command == "m" ? "l" : "L"];
+	                                vals = [];
+	                            }
+	                            vals[push](round(value * zoom));
+	                        });
+	                        return res + vals;
+	                    });
+	                    return res;
+	                }
+	                var pa = command(path), p, r;
+	                res = [];
+	                for (var i = 0, ii = pa[length]; i < ii; i++) {
+	                    p = pa[i];
+	                    r = lowerCase.call(pa[i][0]);
+	                    r == "z" && (r = "x");
+	                    for (var j = 1, jj = p[length]; j < jj; j++) {
+	                        r += round(p[j] * zoom) + (j != jj - 1 ? "," : E);
+	                    }
+	                    res[push](r);
+	                }
+	                return res[join](S);
+	            };
+
+	        R[toString] = function () {
+	            return  "Your browser doesn\u2019t support SVG. Falling down to VML.\nYou are running Rapha\xebl " + this.version;
+	        };
+	        thePath = function (pathString, vml) {
+	            var g = createNode("group");
+	            g.style.cssText = "position:absolute;left:0;top:0;width:" + vml.width + "px;height:" + vml.height + "px";
+	            g.coordsize = vml.coordsize;
+	            g.coordorigin = vml.coordorigin;
+	            var el = createNode("shape"), ol = el.style;
+	            ol.width = vml.width + "px";
+	            ol.height = vml.height + "px";
+	            el.coordsize = coordsize;
+	            el.coordorigin = vml.coordorigin;
+	            g[appendChild](el);
+	            var p = new Element(el, g, vml),
+	                attr = {fill: "none", stroke: "#000"};
+	            pathString && (attr.path = pathString);
+	            p.type = "path";
+	            p.path = [];
+	            p.Path = E;
+	            setFillAndStroke(p, attr);
+	            vml.canvas[appendChild](g);
+	            return p;
+	        };
+	        setFillAndStroke = function (o, params) {
+	            o.attrs = o.attrs || {};
+	            var node = o.node,
+	                a = o.attrs,
+	                s = node.style,
+	                xy,
+	                newpath = (params.x != a.x || params.y != a.y || params.width != a.width || params.height != a.height || params.r != a.r) && o.type == "rect",
+	                res = o;
+
+	            for (var par in params) if (params[has](par)) {
+	                a[par] = params[par];
+	            }
+	            if (newpath) {
+	                a.path = rectPath(a.x, a.y, a.width, a.height, a.r);
+	                o.X = a.x;
+	                o.Y = a.y;
+	                o.W = a.width;
+	                o.H = a.height;
+	            }
+	            params.href && (node.href = params.href);
+	            params.title && (node.title = params.title);
+	            params.target && (node.target = params.target);
+	            params.cursor && (s.cursor = params.cursor);
+	            "blur" in params && o.blur(params.blur);
+	            if (params.path && o.type == "path" || newpath) {
+	                node.path = path2vml(a.path);
+	            }
+	            if (params.rotation != null) {
+	                o.rotate(params.rotation, true);
+	            }
+	            if (params.translation) {
+	                xy = Str(params.translation)[split](separator);
+	                translate.call(o, xy[0], xy[1]);
+	                if (o._.rt.cx != null) {
+	                    o._.rt.cx +=+ xy[0];
+	                    o._.rt.cy +=+ xy[1];
+	                    o.setBox(o.attrs, xy[0], xy[1]);
+	                }
+	            }
+	            if (params.scale) {
+	                xy = Str(params.scale)[split](separator);
+	                o.scale(+xy[0] || 1, +xy[1] || +xy[0] || 1, +xy[2] || null, +xy[3] || null);
+	            }
+	            if ("clip-rect" in params) {
+	                var rect = Str(params["clip-rect"])[split](separator);
+	                if (rect[length] == 4) {
+	                    rect[2] = +rect[2] + (+rect[0]);
+	                    rect[3] = +rect[3] + (+rect[1]);
+	                    var div = node.clipRect || doc.createElement("div"),
+	                        dstyle = div.style,
+	                        group = node.parentNode;
+	                    dstyle.clip = R.format("rect({1}px {2}px {3}px {0}px)", rect);
+	                    if (!node.clipRect) {
+	                        dstyle.position = "absolute";
+	                        dstyle.top = 0;
+	                        dstyle.left = 0;
+	                        dstyle.width = o.paper.width + "px";
+	                        dstyle.height = o.paper.height + "px";
+	                        group.parentNode.insertBefore(div, group);
+	                        div[appendChild](group);
+	                        node.clipRect = div;
+	                    }
+	                }
+	                if (!params["clip-rect"]) {
+	                    node.clipRect && (node.clipRect.style.clip = E);
+	                }
+	            }
+	            if (o.type == "image" && params.src) {
+	                node.src = params.src;
+	            }
+	            if (o.type == "image" && params.opacity) {
+	                node.filterOpacity = ms + ".Alpha(opacity=" + (params.opacity * 100) + ")";
+	                s.filter = (node.filterMatrix || E) + (node.filterOpacity || E);
+	            }
+	            params.font && (s.font = params.font);
+	            params["font-family"] && (s.fontFamily = '"' + params["font-family"][split](",")[0][rp](/^['"]+|['"]+$/g, E) + '"');
+	            params["font-size"] && (s.fontSize = params["font-size"]);
+	            params["font-weight"] && (s.fontWeight = params["font-weight"]);
+	            params["font-style"] && (s.fontStyle = params["font-style"]);
+	            if (params.opacity != null ||
+	                params["stroke-width"] != null ||
+	                params.fill != null ||
+	                params.stroke != null ||
+	                params["stroke-width"] != null ||
+	                params["stroke-opacity"] != null ||
+	                params["fill-opacity"] != null ||
+	                params["stroke-dasharray"] != null ||
+	                params["stroke-miterlimit"] != null ||
+	                params["stroke-linejoin"] != null ||
+	                params["stroke-linecap"] != null) {
+	                node = o.shape || node;
+	                var fill = (node.getElementsByTagName(fillString) && node.getElementsByTagName(fillString)[0]),
+	                    newfill = false;
+	                !fill && (newfill = fill = createNode(fillString));
+	                if ("fill-opacity" in params || "opacity" in params) {
+	                    var opacity = ((+a["fill-opacity"] + 1 || 2) - 1) * ((+a.opacity + 1 || 2) - 1) * ((+R.getRGB(params.fill).o + 1 || 2) - 1);
+	                    opacity = mmin(mmax(opacity, 0), 1);
+	                    fill.opacity = opacity;
+	                }
+	                params.fill && (fill.on = true);
+	                if (fill.on == null || params.fill == "none") {
+	                    fill.on = false;
+	                }
+	                if (fill.on && params.fill) {
+	                    var isURL = params.fill.match(ISURL);
+	                    if (isURL) {
+	                        fill.src = isURL[1];
+	                        fill.type = "tile";
+	                    } else {
+	                        fill.color = R.getRGB(params.fill).hex;
+	                        fill.src = E;
+	                        fill.type = "solid";
+	                        if (R.getRGB(params.fill).error && (res.type in {circle: 1, ellipse: 1} || Str(params.fill).charAt() != "r") && addGradientFill(res, params.fill)) {
+	                            a.fill = "none";
+	                            a.gradient = params.fill;
+	                        }
+	                    }
+	                }
+	                newfill && node[appendChild](fill);
+	                var stroke = (node.getElementsByTagName("stroke") && node.getElementsByTagName("stroke")[0]),
+	                newstroke = false;
+	                !stroke && (newstroke = stroke = createNode("stroke"));
+	                if ((params.stroke && params.stroke != "none") ||
+	                    params["stroke-width"] ||
+	                    params["stroke-opacity"] != null ||
+	                    params["stroke-dasharray"] ||
+	                    params["stroke-miterlimit"] ||
+	                    params["stroke-linejoin"] ||
+	                    params["stroke-linecap"]) {
+	                    stroke.on = true;
+	                }
+	                (params.stroke == "none" || stroke.on == null || params.stroke == 0 || params["stroke-width"] == 0) && (stroke.on = false);
+	                var strokeColor = R.getRGB(params.stroke);
+	                stroke.on && params.stroke && (stroke.color = strokeColor.hex);
+	                opacity = ((+a["stroke-opacity"] + 1 || 2) - 1) * ((+a.opacity + 1 || 2) - 1) * ((+strokeColor.o + 1 || 2) - 1);
+	                var width = (toFloat(params["stroke-width"]) || 1) * .75;
+	                opacity = mmin(mmax(opacity, 0), 1);
+	                params["stroke-width"] == null && (width = a["stroke-width"]);
+	                params["stroke-width"] && (stroke.weight = width);
+	                width && width < 1 && (opacity *= width) && (stroke.weight = 1);
+	                stroke.opacity = opacity;
+
+	                params["stroke-linejoin"] && (stroke.joinstyle = params["stroke-linejoin"] || "miter");
+	                stroke.miterlimit = params["stroke-miterlimit"] || 8;
+	                params["stroke-linecap"] && (stroke.endcap = params["stroke-linecap"] == "butt" ? "flat" : params["stroke-linecap"] == "square" ? "square" : "round");
+	                if (params["stroke-dasharray"]) {
+	                    var dasharray = {
+	                        "-": "shortdash",
+	                        ".": "shortdot",
+	                        "-.": "shortdashdot",
+	                        "-..": "shortdashdotdot",
+	                        ". ": "dot",
+	                        "- ": "dash",
+	                        "--": "longdash",
+	                        "- .": "dashdot",
+	                        "--.": "longdashdot",
+	                        "--..": "longdashdotdot"
+	                    };
+	                    stroke.dashstyle = dasharray[has](params["stroke-dasharray"]) ? dasharray[params["stroke-dasharray"]] : E;
+	                }
+	                newstroke && node[appendChild](stroke);
+	            }
+	            if (res.type == "text") {
+	                s = res.paper.span.style;
+	                a.font && (s.font = a.font);
+	                a["font-family"] && (s.fontFamily = a["font-family"]);
+	                a["font-size"] && (s.fontSize = a["font-size"]);
+	                a["font-weight"] && (s.fontWeight = a["font-weight"]);
+	                a["font-style"] && (s.fontStyle = a["font-style"]);
+	                res.node.string && (res.paper.span.innerHTML = Str(res.node.string)[rp](/</g, "&#60;")[rp](/&/g, "&#38;")[rp](/\n/g, "<br>"));
+	                res.W = a.w = res.paper.span.offsetWidth;
+	                res.H = a.h = res.paper.span.offsetHeight;
+	                res.X = a.x;
+	                res.Y = a.y + round(res.H / 2);
+
+	                // text-anchor emulationm
+	                switch (a["text-anchor"]) {
+	                    case "start":
+	                        res.node.style["v-text-align"] = "left";
+	                        res.bbx = round(res.W / 2);
+	                    break;
+	                    case "end":
+	                        res.node.style["v-text-align"] = "right";
+	                        res.bbx = -round(res.W / 2);
+	                    break;
+	                    default:
+	                        res.node.style["v-text-align"] = "center";
+	                    break;
+	                }
+	            }
+	        };
+	        addGradientFill = function (o, gradient) {
+	            o.attrs = o.attrs || {};
+	            var attrs = o.attrs,
+	                fill,
+	                type = "linear",
+	                fxfy = ".5 .5";
+	            o.attrs.gradient = gradient;
+	            gradient = Str(gradient)[rp](radial_gradient, function (all, fx, fy) {
+	                type = "radial";
+	                if (fx && fy) {
+	                    fx = toFloat(fx);
+	                    fy = toFloat(fy);
+	                    pow(fx - .5, 2) + pow(fy - .5, 2) > .25 && (fy = math.sqrt(.25 - pow(fx - .5, 2)) * ((fy > .5) * 2 - 1) + .5);
+	                    fxfy = fx + S + fy;
+	                }
+	                return E;
+	            });
+	            gradient = gradient[split](/\s*\-\s*/);
+	            if (type == "linear") {
+	                var angle = gradient.shift();
+	                angle = -toFloat(angle);
+	                if (isNaN(angle)) {
+	                    return null;
+	                }
+	            }
+	            var dots = parseDots(gradient);
+	            if (!dots) {
+	                return null;
+	            }
+	            o = o.shape || o.node;
+	            fill = o.getElementsByTagName(fillString)[0] || createNode(fillString);
+	            !fill.parentNode && o.appendChild(fill);
+	            if (dots[length]) {
+	                fill.on = true;
+	                fill.method = "none";
+	                fill.color = dots[0].color;
+	                fill.color2 = dots[dots[length] - 1].color;
+	                var clrs = [];
+	                for (var i = 0, ii = dots[length]; i < ii; i++) {
+	                    dots[i].offset && clrs[push](dots[i].offset + S + dots[i].color);
+	                }
+	                fill.colors && (fill.colors.value = clrs[length] ? clrs[join]() : "0% " + fill.color);
+	                if (type == "radial") {
+	                    fill.type = "gradientradial";
+	                    fill.focus = "100%";
+	                    fill.focussize = fxfy;
+	                    fill.focusposition = fxfy;
+	                } else {
+	                    fill.type = "gradient";
+	                    fill.angle = (270 - angle) % 360;
+	                }
+	            }
+	            return 1;
+	        };
+	        Element = function (node, group, vml) {
+	            var Rotation = 0,
+	                RotX = 0,
+	                RotY = 0,
+	                Scale = 1;
+	            this[0] = node;
+	            this.id = R._oid++;
+	            this.node = node;
+	            node.raphael = this;
+	            this.X = 0;
+	            this.Y = 0;
+	            this.attrs = {};
+	            this.Group = group;
+	            this.paper = vml;
+	            this._ = {
+	                tx: 0,
+	                ty: 0,
+	                rt: {deg:0},
+	                sx: 1,
+	                sy: 1
+	            };
+	            !vml.bottom && (vml.bottom = this);
+	            this.prev = vml.top;
+	            vml.top && (vml.top.next = this);
+	            vml.top = this;
+	            this.next = null;
+	        };
+	        elproto = Element[proto];
+	        elproto.rotate = function (deg, cx, cy) {
+	            if (this.removed) {
+	                return this;
+	            }
+	            if (deg == null) {
+	                if (this._.rt.cx) {
+	                    return [this._.rt.deg, this._.rt.cx, this._.rt.cy][join](S);
+	                }
+	                return this._.rt.deg;
+	            }
+	            deg = Str(deg)[split](separator);
+	            if (deg[length] - 1) {
+	                cx = toFloat(deg[1]);
+	                cy = toFloat(deg[2]);
+	            }
+	            deg = toFloat(deg[0]);
+	            if (cx != null) {
+	                this._.rt.deg = deg;
+	            } else {
+	                this._.rt.deg += deg;
+	            }
+	            cy == null && (cx = null);
+	            this._.rt.cx = cx;
+	            this._.rt.cy = cy;
+	            this.setBox(this.attrs, cx, cy);
+	            this.Group.style.rotation = this._.rt.deg;
+	            // gradient fix for rotation. TODO
+	            // var fill = (this.shape || this.node).getElementsByTagName(fillString);
+	            // fill = fill[0] || {};
+	            // var b = ((360 - this._.rt.deg) - 270) % 360;
+	            // !R.is(fill.angle, "undefined") && (fill.angle = b);
+	            return this;
+	        };
+	        elproto.setBox = function (params, cx, cy) {
+	            if (this.removed) {
+	                return this;
+	            }
+	            var gs = this.Group.style,
+	                os = (this.shape && this.shape.style) || this.node.style;
+	            params = params || {};
+	            for (var i in params) if (params[has](i)) {
+	                this.attrs[i] = params[i];
+	            }
+	            cx = cx || this._.rt.cx;
+	            cy = cy || this._.rt.cy;
+	            var attr = this.attrs,
+	                x,
+	                y,
+	                w,
+	                h;
+	            switch (this.type) {
+	                case "circle":
+	                    x = attr.cx - attr.r;
+	                    y = attr.cy - attr.r;
+	                    w = h = attr.r * 2;
+	                    break;
+	                case "ellipse":
+	                    x = attr.cx - attr.rx;
+	                    y = attr.cy - attr.ry;
+	                    w = attr.rx * 2;
+	                    h = attr.ry * 2;
+	                    break;
+	                case "image":
+	                    x = +attr.x;
+	                    y = +attr.y;
+	                    w = attr.width || 0;
+	                    h = attr.height || 0;
+	                    break;
+	                case "text":
+	                    this.textpath.v = ["m", round(attr.x), ", ", round(attr.y - 2), "l", round(attr.x) + 1, ", ", round(attr.y - 2)][join](E);
+	                    x = attr.x - round(this.W / 2);
+	                    y = attr.y - this.H / 2;
+	                    w = this.W;
+	                    h = this.H;
+	                    break;
+	                case "rect":
+	                case "path":
+	                    if (!this.attrs.path) {
+	                        x = 0;
+	                        y = 0;
+	                        w = this.paper.width;
+	                        h = this.paper.height;
+	                    } else {
+	                        var dim = pathDimensions(this.attrs.path);
+	                        x = dim.x;
+	                        y = dim.y;
+	                        w = dim.width;
+	                        h = dim.height;
+	                    }
+	                    break;
+	                default:
+	                    x = 0;
+	                    y = 0;
+	                    w = this.paper.width;
+	                    h = this.paper.height;
+	                    break;
+	            }
+	            cx = (cx == null) ? x + w / 2 : cx;
+	            cy = (cy == null) ? y + h / 2 : cy;
+	            var left = cx - this.paper.width / 2,
+	                top = cy - this.paper.height / 2, t;
+	            gs.left != (t = left + "px") && (gs.left = t);
+	            gs.top != (t = top + "px") && (gs.top = t);
+	            this.X = pathlike[has](this.type) ? -left : x;
+	            this.Y = pathlike[has](this.type) ? -top : y;
+	            this.W = w;
+	            this.H = h;
+	            if (pathlike[has](this.type)) {
+	                os.left != (t = -left * zoom + "px") && (os.left = t);
+	                os.top != (t = -top * zoom + "px") && (os.top = t);
+	            } else if (this.type == "text") {
+	                os.left != (t = -left + "px") && (os.left = t);
+	                os.top != (t = -top + "px") && (os.top = t);
+	            } else {
+	                gs.width != (t = this.paper.width + "px") && (gs.width = t);
+	                gs.height != (t = this.paper.height + "px") && (gs.height = t);
+	                os.left != (t = x - left + "px") && (os.left = t);
+	                os.top != (t = y - top + "px") && (os.top = t);
+	                os.width != (t = w + "px") && (os.width = t);
+	                os.height != (t = h + "px") && (os.height = t);
+	            }
+	        };
+	        elproto.hide = function () {
+	            !this.removed && (this.Group.style.display = "none");
+	            return this;
+	        };
+	        elproto.show = function () {
+	            !this.removed && (this.Group.style.display = "block");
+	            return this;
+	        };
+	        elproto.getBBox = function () {
+	            if (this.removed) {
+	                return this;
+	            }
+	            if (pathlike[has](this.type)) {
+	                return pathDimensions(this.attrs.path);
+	            }
+	            return {
+	                x: this.X + (this.bbx || 0),
+	                y: this.Y,
+	                width: this.W,
+	                height: this.H
+	            };
+	        };
+	        elproto.remove = function () {
+	            if (this.removed) {
+	                return;
+	            }
+	            tear(this, this.paper);
+	            this.node.parentNode.removeChild(this.node);
+	            this.Group.parentNode.removeChild(this.Group);
+	            this.shape && this.shape.parentNode.removeChild(this.shape);
+	            for (var i in this) {
+	                delete this[i];
+	            }
+	            this.removed = true;
+	        };
+	        elproto.attr = function (name, value) {
+	            if (this.removed) {
+	                return this;
+	            }
+	            if (name == null) {
+	                var res = {};
+	                for (var i in this.attrs) if (this.attrs[has](i)) {
+	                    res[i] = this.attrs[i];
+	                }
+	                this._.rt.deg && (res.rotation = this.rotate());
+	                (this._.sx != 1 || this._.sy != 1) && (res.scale = this.scale());
+	                res.gradient && res.fill == "none" && (res.fill = res.gradient) && delete res.gradient;
+	                return res;
+	            }
+	            if (value == null && R.is(name, "string")) {
+	                if (name == "translation") {
+	                    return translate.call(this);
+	                }
+	                if (name == "rotation") {
+	                    return this.rotate();
+	                }
+	                if (name == "scale") {
+	                    return this.scale();
+	                }
+	                if (name == fillString && this.attrs.fill == "none" && this.attrs.gradient) {
+	                    return this.attrs.gradient;
+	                }
+	                return this.attrs[name];
+	            }
+	            if (this.attrs && value == null && R.is(name, array)) {
+	                var ii, values = {};
+	                for (i = 0, ii = name[length]; i < ii; i++) {
+	                    values[name[i]] = this.attr(name[i]);
+	                }
+	                return values;
+	            }
+	            var params;
+	            if (value != null) {
+	                params = {};
+	                params[name] = value;
+	            }
+	            value == null && R.is(name, "object") && (params = name);
+	            if (params) {
+	                for (var key in this.paper.customAttributes) if (this.paper.customAttributes[has](key) && params[has](key) && R.is(this.paper.customAttributes[key], "function")) {
+	                    var par = this.paper.customAttributes[key].apply(this, [][concat](params[key]));
+	                    this.attrs[key] = params[key];
+	                    for (var subkey in par) if (par[has](subkey)) {
+	                        params[subkey] = par[subkey];
+	                    }
+	                }
+	                if (params.text && this.type == "text") {
+	                    this.node.string = params.text;
+	                }
+	                setFillAndStroke(this, params);
+	                if (params.gradient && (({circle: 1, ellipse: 1})[has](this.type) || Str(params.gradient).charAt() != "r")) {
+	                    addGradientFill(this, params.gradient);
+	                }
+	                (!pathlike[has](this.type) || this._.rt.deg) && this.setBox(this.attrs);
+	            }
+	            return this;
+	        };
+	        elproto.toFront = function () {
+	            !this.removed && this.Group.parentNode[appendChild](this.Group);
+	            this.paper.top != this && tofront(this, this.paper);
+	            return this;
+	        };
+	        elproto.toBack = function () {
+	            if (this.removed) {
+	                return this;
+	            }
+	            if (this.Group.parentNode.firstChild != this.Group) {
+	                this.Group.parentNode.insertBefore(this.Group, this.Group.parentNode.firstChild);
+	                toback(this, this.paper);
+	            }
+	            return this;
+	        };
+	        elproto.insertAfter = function (element) {
+	            if (this.removed) {
+	                return this;
+	            }
+	            if (element.constructor == Set) {
+	                element = element[element.length - 1];
+	            }
+	            if (element.Group.nextSibling) {
+	                element.Group.parentNode.insertBefore(this.Group, element.Group.nextSibling);
+	            } else {
+	                element.Group.parentNode[appendChild](this.Group);
+	            }
+	            insertafter(this, element, this.paper);
+	            return this;
+	        };
+	        elproto.insertBefore = function (element) {
+	            if (this.removed) {
+	                return this;
+	            }
+	            if (element.constructor == Set) {
+	                element = element[0];
+	            }
+	            element.Group.parentNode.insertBefore(this.Group, element.Group);
+	            insertbefore(this, element, this.paper);
+	            return this;
+	        };
+	        elproto.blur = function (size) {
+	            var s = this.node.runtimeStyle,
+	                f = s.filter;
+	            f = f.replace(blurregexp, E);
+	            if (+size !== 0) {
+	                this.attrs.blur = size;
+	                s.filter = f + S + ms + ".Blur(pixelradius=" + (+size || 1.5) + ")";
+	                s.margin = R.format("-{0}px 0 0 -{0}px", round(+size || 1.5));
+	            } else {
+	                s.filter = f;
+	                s.margin = 0;
+	                delete this.attrs.blur;
+	            }
+	        };
+
+	        theCircle = function (vml, x, y, r) {
+	            var g = createNode("group"),
+	                o = createNode("oval"),
+	                ol = o.style;
+	            g.style.cssText = "position:absolute;left:0;top:0;width:" + vml.width + "px;height:" + vml.height + "px";
+	            g.coordsize = coordsize;
+	            g.coordorigin = vml.coordorigin;
+	            g[appendChild](o);
+	            var res = new Element(o, g, vml);
+	            res.type = "circle";
+	            setFillAndStroke(res, {stroke: "#000", fill: "none"});
+	            res.attrs.cx = x;
+	            res.attrs.cy = y;
+	            res.attrs.r = r;
+	            res.setBox({x: x - r, y: y - r, width: r * 2, height: r * 2});
+	            vml.canvas[appendChild](g);
+	            return res;
+	        };
+	        function rectPath(x, y, w, h, r) {
+	            if (r) {
+	                return R.format("M{0},{1}l{2},0a{3},{3},0,0,1,{3},{3}l0,{5}a{3},{3},0,0,1,{4},{3}l{6},0a{3},{3},0,0,1,{4},{4}l0,{7}a{3},{3},0,0,1,{3},{4}z", x + r, y, w - r * 2, r, -r, h - r * 2, r * 2 - w, r * 2 - h);
+	            } else {
+	                return R.format("M{0},{1}l{2},0,0,{3},{4},0z", x, y, w, h, -w);
+	            }
+	        }
+	        theRect = function (vml, x, y, w, h, r) {
+	            var path = rectPath(x, y, w, h, r),
+	                res = vml.path(path),
+	                a = res.attrs;
+	            res.X = a.x = x;
+	            res.Y = a.y = y;
+	            res.W = a.width = w;
+	            res.H = a.height = h;
+	            a.r = r;
+	            a.path = path;
+	            res.type = "rect";
+	            return res;
+	        };
+	        theEllipse = function (vml, x, y, rx, ry) {
+	            var g = createNode("group"),
+	                o = createNode("oval"),
+	                ol = o.style;
+	            g.style.cssText = "position:absolute;left:0;top:0;width:" + vml.width + "px;height:" + vml.height + "px";
+	            g.coordsize = coordsize;
+	            g.coordorigin = vml.coordorigin;
+	            g[appendChild](o);
+	            var res = new Element(o, g, vml);
+	            res.type = "ellipse";
+	            setFillAndStroke(res, {stroke: "#000"});
+	            res.attrs.cx = x;
+	            res.attrs.cy = y;
+	            res.attrs.rx = rx;
+	            res.attrs.ry = ry;
+	            res.setBox({x: x - rx, y: y - ry, width: rx * 2, height: ry * 2});
+	            vml.canvas[appendChild](g);
+	            return res;
+	        };
+	        theImage = function (vml, src, x, y, w, h) {
+	            var g = createNode("group"),
+	                o = createNode("image");
+	            g.style.cssText = "position:absolute;left:0;top:0;width:" + vml.width + "px;height:" + vml.height + "px";
+	            g.coordsize = coordsize;
+	            g.coordorigin = vml.coordorigin;
+	            o.src = src;
+	            g[appendChild](o);
+	            var res = new Element(o, g, vml);
+	            res.type = "image";
+	            res.attrs.src = src;
+	            res.attrs.x = x;
+	            res.attrs.y = y;
+	            res.attrs.w = w;
+	            res.attrs.h = h;
+	            res.setBox({x: x, y: y, width: w, height: h});
+	            vml.canvas[appendChild](g);
+	            return res;
+	        };
+	        theText = function (vml, x, y, text) {
+	            var g = createNode("group"),
+	                el = createNode("shape"),
+	                ol = el.style,
+	                path = createNode("path"),
+	                ps = path.style,
+	                o = createNode("textpath");
+	            g.style.cssText = "position:absolute;left:0;top:0;width:" + vml.width + "px;height:" + vml.height + "px";
+	            g.coordsize = coordsize;
+	            g.coordorigin = vml.coordorigin;
+	            path.v = R.format("m{0},{1}l{2},{1}", round(x * 10), round(y * 10), round(x * 10) + 1);
+	            path.textpathok = true;
+	            ol.width = vml.width;
+	            ol.height = vml.height;
+	            o.string = Str(text);
+	            o.on = true;
+	            el[appendChild](o);
+	            el[appendChild](path);
+	            g[appendChild](el);
+	            var res = new Element(o, g, vml);
+	            res.shape = el;
+	            res.textpath = path;
+	            res.type = "text";
+	            res.attrs.text = text;
+	            res.attrs.x = x;
+	            res.attrs.y = y;
+	            res.attrs.w = 1;
+	            res.attrs.h = 1;
+	            setFillAndStroke(res, {font: availableAttrs.font, stroke: "none", fill: "#000"});
+	            res.setBox();
+	            vml.canvas[appendChild](g);
+	            return res;
+	        };
+	        setSize = function (width, height) {
+	            var cs = this.canvas.style;
+	            width == +width && (width += "px");
+	            height == +height && (height += "px");
+	            cs.width = width;
+	            cs.height = height;
+	            cs.clip = "rect(0 " + width + " " + height + " 0)";
+	            return this;
+	        };
+	        var createNode;
+	        doc.createStyleSheet().addRule(".rvml", "behavior:url(#default#VML)");
+	        try {
+	            !doc.namespaces.rvml && doc.namespaces.add("rvml", "urn:schemas-microsoft-com:vml");
+	            createNode = function (tagName) {
+	                return doc.createElement('<rvml:' + tagName + ' class="rvml">');
+	            };
+	        } catch (e) {
+	            createNode = function (tagName) {
+	                return doc.createElement('<' + tagName + ' xmlns="urn:schemas-microsoft.com:vml" class="rvml">');
+	            };
+	        }
+	        create = function () {
+	            var con = getContainer[apply](0, arguments),
+	                container = con.container,
+	                height = con.height,
+	                s,
+	                width = con.width,
+	                x = con.x,
+	                y = con.y;
+	            if (!container) {
+	                throw new Error("VML container not found.");
+	            }
+	            var res = new Paper,
+	                c = res.canvas = doc.createElement("div"),
+	                cs = c.style;
+	            x = x || 0;
+	            y = y || 0;
+	            width = width || 512;
+	            height = height || 342;
+	            width == +width && (width += "px");
+	            height == +height && (height += "px");
+	            res.width = 1e3;
+	            res.height = 1e3;
+	            res.coordsize = zoom * 1e3 + S + zoom * 1e3;
+	            res.coordorigin = "0 0";
+	            res.span = doc.createElement("span");
+	            res.span.style.cssText = "position:absolute;left:-9999em;top:-9999em;padding:0;margin:0;line-height:1;display:inline;";
+	            c[appendChild](res.span);
+	            cs.cssText = R.format("top:0;left:0;width:{0};height:{1};display:inline-block;position:relative;clip:rect(0 {0} {1} 0);overflow:hidden", width, height);
+	            if (container == 1) {
+	                doc.body[appendChild](c);
+	                cs.left = x + "px";
+	                cs.top = y + "px";
+	                cs.position = "absolute";
+	            } else {
+	                if (container.firstChild) {
+	                    container.insertBefore(c, container.firstChild);
+	                } else {
+	                    container[appendChild](c);
+	                }
+	            }
+	            plugins.call(res, res, R.fn);
+	            return res;
+	        };
+	        paperproto.clear = function () {
+	            this.canvas.innerHTML = E;
+	            this.span = doc.createElement("span");
+	            this.span.style.cssText = "position:absolute;left:-9999em;top:-9999em;padding:0;margin:0;line-height:1;display:inline;";
+	            this.canvas[appendChild](this.span);
+	            this.bottom = this.top = null;
+	        };
+	        paperproto.remove = function () {
+	            this.canvas.parentNode.removeChild(this.canvas);
+	            for (var i in this) {
+	                this[i] = removed(i);
+	            }
+	            return true;
+	        };
+	    }
+
+	    // rest
+	    // WebKit rendering bug workaround method
+	    var version = navigator.userAgent.match(/Version\/(.*?)\s/);
+	    if ((navigator.vendor == "Apple Computer, Inc.") && (version && version[1] < 4 || navigator.platform.slice(0, 2) == "iP")) {
+	        paperproto.safari = function () {
+	            var rect = this.rect(-99, -99, this.width + 99, this.height + 99).attr({stroke: "none"});
+	            win.setTimeout(function () {rect.remove();});
+	        };
+	    } else {
+	        paperproto.safari = function () {};
+	    }
+
+	    // Events
+	    var preventDefault = function () {
+	        this.returnValue = false;
+	    },
+	    preventTouch = function () {
+	        return this.originalEvent.preventDefault();
+	    },
+	    stopPropagation = function () {
+	        this.cancelBubble = true;
+	    },
+	    stopTouch = function () {
+	        return this.originalEvent.stopPropagation();
+	    },
+	    addEvent = (function () {
+	        if (doc.addEventListener) {
+	            return function (obj, type, fn, element) {
+	                var realName = supportsTouch && touchMap[type] ? touchMap[type] : type;
+	                var f = function (e) {
+	                    if (supportsTouch && touchMap[has](type)) {
+	                        for (var i = 0, ii = e.targetTouches && e.targetTouches.length; i < ii; i++) {
+	                            if (e.targetTouches[i].target == obj) {
+	                                var olde = e;
+	                                e = e.targetTouches[i];
+	                                e.originalEvent = olde;
+	                                e.preventDefault = preventTouch;
+	                                e.stopPropagation = stopTouch;
+	                                break;
+	                            }
+	                        }
+	                    }
+	                    return fn.call(element, e);
+	                };
+	                obj.addEventListener(realName, f, false);
+	                return function () {
+	                    obj.removeEventListener(realName, f, false);
+	                    return true;
+	                };
+	            };
+	        } else if (doc.attachEvent) {
+	            return function (obj, type, fn, element) {
+	                var f = function (e) {
+	                    e = e || win.event;
+	                    e.preventDefault = e.preventDefault || preventDefault;
+	                    e.stopPropagation = e.stopPropagation || stopPropagation;
+	                    return fn.call(element, e);
+	                };
+	                obj.attachEvent("on" + type, f);
+	                var detacher = function () {
+	                    obj.detachEvent("on" + type, f);
+	                    return true;
+	                };
+	                return detacher;
+	            };
+	        }
+	    })(),
+	    drag = [],
+	    dragMove = function (e) {
+	        var x = e.clientX,
+	            y = e.clientY,
+	            scrollY = doc.documentElement.scrollTop || doc.body.scrollTop,
+	            scrollX = doc.documentElement.scrollLeft || doc.body.scrollLeft,
+	            dragi,
+	            j = drag.length;
+	        while (j--) {
+	            dragi = drag[j];
+	            if (supportsTouch) {
+	                var i = e.touches.length,
+	                    touch;
+	                while (i--) {
+	                    touch = e.touches[i];
+	                    if (touch.identifier == dragi.el._drag.id) {
+	                        x = touch.clientX;
+	                        y = touch.clientY;
+	                        (e.originalEvent ? e.originalEvent : e).preventDefault();
+	                        break;
+	                    }
+	                }
+	            } else {
+	                e.preventDefault();
+	            }
+	            x += scrollX;
+	            y += scrollY;
+	            dragi.move && dragi.move.call(dragi.move_scope || dragi.el, x - dragi.el._drag.x, y - dragi.el._drag.y, x, y, e);
+	        }
+	    },
+	    dragUp = function (e) {
+	        R.unmousemove(dragMove).unmouseup(dragUp);
+	        var i = drag.length,
+	            dragi;
+	        while (i--) {
+	            dragi = drag[i];
+	            dragi.el._drag = {};
+	            dragi.end && dragi.end.call(dragi.end_scope || dragi.start_scope || dragi.move_scope || dragi.el, e);
+	        }
+	        drag = [];
+	    };
+	    for (var i = events[length]; i--;) {
+	        (function (eventName) {
+	            R[eventName] = Element[proto][eventName] = function (fn, scope) {
+	                if (R.is(fn, "function")) {
+	                    this.events = this.events || [];
+	                    this.events.push({name: eventName, f: fn, unbind: addEvent(this.shape || this.node || doc, eventName, fn, scope || this)});
+	                }
+	                return this;
+	            };
+	            R["un" + eventName] = Element[proto]["un" + eventName] = function (fn) {
+	                var events = this.events,
+	                    l = events[length];
+	                while (l--) if (events[l].name == eventName && events[l].f == fn) {
+	                    events[l].unbind();
+	                    events.splice(l, 1);
+	                    !events.length && delete this.events;
+	                    return this;
+	                }
+	                return this;
+	            };
+	        })(events[i]);
+	    }
+	    elproto.hover = function (f_in, f_out, scope_in, scope_out) {
+	        return this.mouseover(f_in, scope_in).mouseout(f_out, scope_out || scope_in);
+	    };
+	    elproto.unhover = function (f_in, f_out) {
+	        return this.unmouseover(f_in).unmouseout(f_out);
+	    };
+	    elproto.drag = function (onmove, onstart, onend, move_scope, start_scope, end_scope) {
+	        this._drag = {};
+	        this.mousedown(function (e) {
+	            (e.originalEvent || e).preventDefault();
+	            var scrollY = doc.documentElement.scrollTop || doc.body.scrollTop,
+	                scrollX = doc.documentElement.scrollLeft || doc.body.scrollLeft;
+	            this._drag.x = e.clientX + scrollX;
+	            this._drag.y = e.clientY + scrollY;
+	            this._drag.id = e.identifier;
+	            onstart && onstart.call(start_scope || move_scope || this, e.clientX + scrollX, e.clientY + scrollY, e);
+	            !drag.length && R.mousemove(dragMove).mouseup(dragUp);
+	            drag.push({el: this, move: onmove, end: onend, move_scope: move_scope, start_scope: start_scope, end_scope: end_scope});
+	        });
+	        return this;
+	    };
+	    elproto.undrag = function (onmove, onstart, onend) {
+	        var i = drag.length;
+	        while (i--) {
+	            drag[i].el == this && (drag[i].move == onmove && drag[i].end == onend) && drag.splice(i++, 1);
+	        }
+	        !drag.length && R.unmousemove(dragMove).unmouseup(dragUp);
+	    };
+	    paperproto.circle = function (x, y, r) {
+	        return theCircle(this, x || 0, y || 0, r || 0);
+	    };
+	    paperproto.rect = function (x, y, w, h, r) {
+	        return theRect(this, x || 0, y || 0, w || 0, h || 0, r || 0);
+	    };
+	    paperproto.ellipse = function (x, y, rx, ry) {
+	        return theEllipse(this, x || 0, y || 0, rx || 0, ry || 0);
+	    };
+	    paperproto.path = function (pathString) {
+	        pathString && !R.is(pathString, string) && !R.is(pathString[0], array) && (pathString += E);
+	        return thePath(R.format[apply](R, arguments), this);
+	    };
+	    paperproto.image = function (src, x, y, w, h) {
+	        return theImage(this, src || "about:blank", x || 0, y || 0, w || 0, h || 0);
+	    };
+	    paperproto.text = function (x, y, text) {
+	        return theText(this, x || 0, y || 0, Str(text));
+	    };
+	    paperproto.set = function (itemsArray) {
+	        arguments[length] > 1 && (itemsArray = Array[proto].splice.call(arguments, 0, arguments[length]));
+	        return new Set(itemsArray);
+	    };
+	    paperproto.setSize = setSize;
+	    paperproto.top = paperproto.bottom = null;
+	    paperproto.raphael = R;
+	    function x_y() {
+	        return this.x + S + this.y;
+	    }
+	    elproto.resetScale = function () {
+	        if (this.removed) {
+	            return this;
+	        }
+	        this._.sx = 1;
+	        this._.sy = 1;
+	        this.attrs.scale = "1 1";
+	    };
+	    elproto.scale = function (x, y, cx, cy) {
+	        if (this.removed) {
+	            return this;
+	        }
+	        if (x == null && y == null) {
+	            return {
+	                x: this._.sx,
+	                y: this._.sy,
+	                toString: x_y
+	            };
+	        }
+	        y = y || x;
+	        !+y && (y = x);
+	        var dx,
+	            dy,
+	            dcx,
+	            dcy,
+	            a = this.attrs;
+	        if (x != 0) {
+	            var bb = this.getBBox(),
+	                rcx = bb.x + bb.width / 2,
+	                rcy = bb.y + bb.height / 2,
+	                kx = abs(x / this._.sx),
+	                ky = abs(y / this._.sy);
+	            cx = (+cx || cx == 0) ? cx : rcx;
+	            cy = (+cy || cy == 0) ? cy : rcy;
+	            var posx = this._.sx > 0,
+	                posy = this._.sy > 0,
+	                dirx = ~~(x / abs(x)),
+	                diry = ~~(y / abs(y)),
+	                dkx = kx * dirx,
+	                dky = ky * diry,
+	                s = this.node.style,
+	                ncx = cx + abs(rcx - cx) * dkx * (rcx > cx == posx ? 1 : -1),
+	                ncy = cy + abs(rcy - cy) * dky * (rcy > cy == posy ? 1 : -1),
+	                fr = (x * dirx > y * diry ? ky : kx);
+	            switch (this.type) {
+	                case "rect":
+	                case "image":
+	                    var neww = a.width * kx,
+	                        newh = a.height * ky;
+	                    this.attr({
+	                        height: newh,
+	                        r: a.r * fr,
+	                        width: neww,
+	                        x: ncx - neww / 2,
+	                        y: ncy - newh / 2
+	                    });
+	                    break;
+	                case "circle":
+	                case "ellipse":
+	                    this.attr({
+	                        rx: a.rx * kx,
+	                        ry: a.ry * ky,
+	                        r: a.r * fr,
+	                        cx: ncx,
+	                        cy: ncy
+	                    });
+	                    break;
+	                case "text":
+	                    this.attr({
+	                        x: ncx,
+	                        y: ncy
+	                    });
+	                    break;
+	                case "path":
+	                    var path = pathToRelative(a.path),
+	                        skip = true,
+	                        fx = posx ? dkx : kx,
+	                        fy = posy ? dky : ky;
+	                    for (var i = 0, ii = path[length]; i < ii; i++) {
+	                        var p = path[i],
+	                            P0 = upperCase.call(p[0]);
+	                        if (P0 == "M" && skip) {
+	                            continue;
+	                        } else {
+	                            skip = false;
+	                        }
+	                        if (P0 == "A") {
+	                            p[path[i][length] - 2] *= fx;
+	                            p[path[i][length] - 1] *= fy;
+	                            p[1] *= kx;
+	                            p[2] *= ky;
+	                            p[5] = +(dirx + diry ? !!+p[5] : !+p[5]);
+	                        } else if (P0 == "H") {
+	                            for (var j = 1, jj = p[length]; j < jj; j++) {
+	                                p[j] *= fx;
+	                            }
+	                        } else if (P0 == "V") {
+	                            for (j = 1, jj = p[length]; j < jj; j++) {
+	                                p[j] *= fy;
+	                            }
+	                         } else {
+	                            for (j = 1, jj = p[length]; j < jj; j++) {
+	                                p[j] *= (j % 2) ? fx : fy;
+	                            }
+	                        }
+	                    }
+	                    var dim2 = pathDimensions(path);
+	                    dx = ncx - dim2.x - dim2.width / 2;
+	                    dy = ncy - dim2.y - dim2.height / 2;
+	                    path[0][1] += dx;
+	                    path[0][2] += dy;
+	                    this.attr({path: path});
+	                break;
+	            }
+	            if (this.type in {text: 1, image:1} && (dirx != 1 || diry != 1)) {
+	                if (this.transformations) {
+	                    this.transformations[2] = "scale("[concat](dirx, ",", diry, ")");
+	                    setAttr(this.node, "transform", this.transformations[join](S));
+	                    dx = (dirx == -1) ? -a.x - (neww || 0) : a.x;
+	                    dy = (diry == -1) ? -a.y - (newh || 0) : a.y;
+	                    this.attr({x: dx, y: dy});
+	                    a.fx = dirx - 1;
+	                    a.fy = diry - 1;
+	                } else {
+	                    this.node.filterMatrix = ms + ".Matrix(M11="[concat](dirx,
+	                        ", M12=0, M21=0, M22=", diry,
+	                        ", Dx=0, Dy=0, sizingmethod='auto expand', filtertype='bilinear')");
+	                    s.filter = (this.node.filterMatrix || E) + (this.node.filterOpacity || E);
+	                }
+	            } else {
+	                if (this.transformations) {
+	                    this.transformations[2] = E;
+	                    setAttr(this.node, "transform", this.transformations[join](S));
+	                    a.fx = 0;
+	                    a.fy = 0;
+	                } else {
+	                    this.node.filterMatrix = E;
+	                    s.filter = (this.node.filterMatrix || E) + (this.node.filterOpacity || E);
+	                }
+	            }
+	            a.scale = [x, y, cx, cy][join](S);
+	            this._.sx = x;
+	            this._.sy = y;
+	        }
+	        return this;
+	    };
+	    elproto.clone = function () {
+	        if (this.removed) {
+	            return null;
+	        }
+	        var attr = this.attr();
+	        delete attr.scale;
+	        delete attr.translation;
+	        return this.paper[this.type]().attr(attr);
+	    };
+	    var curveslengths = {},
+	    getPointAtSegmentLength = function (p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y, length) {
+	        // Is this a straight line?
+	        // Added for huge speed improvements
+	        if ( p1x === c1x && p1y === c1y && c2x === p2x && c2y == p2y ) {
+	            var dx = p2x - p1x, dy = p2y - p1y;
+	            var totalLength = Math.sqrt( dx * dx + dy * dy );
+
+	            if ( length == null ) {
+	                return totalLength;
+	            } else {
+	                var fract = length / totalLength;
+	                return {
+	                    start: { x: p1x, y: p1y },
+	                    m: { x: p1x, y: p1y },
+	                    n: { x: p2x, y: p2y },
+	                    end: { x: p2x, y: p2y },
+	                    x: p1x + fract * dx,
+	                    y: p1y + fract * dy,
+	                    alpha: (90 - math.atan(dx / dy) * 180 / PI)
+	                };
+	            }
+	        }
+
+	        var len = 0,
+	            precision = 100,
+	            name = [p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y].join(),
+	            cache = curveslengths[name],
+	            old, dot;
+	        !cache && (curveslengths[name] = cache = {data: []});
+	        cache.timer && clearTimeout(cache.timer);
+	        cache.timer = setTimeout(function () {delete curveslengths[name];}, 2000);
+	        if (length != null) {
+	            var total = getPointAtSegmentLength(p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y);
+	            precision = ~~total * 10;
+	        }
+	        for (var i = 0; i < precision + 1; i++) {
+	            if (cache.data[length] > i) {
+	                dot = cache.data[i * precision];
+	            } else {
+	                dot = R.findDotsAtSegment(p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y, i / precision);
+	                cache.data[i] = dot;
+	            }
+	            i && (len += pow(pow(old.x - dot.x, 2) + pow(old.y - dot.y, 2), .5));
+	            if (length != null && len >= length) {
+	                return dot;
+	            }
+	            old = dot;
+	        }
+	        if (length == null) {
+	            return len;
+	        }
+	    },
+	    getLengthFactory = function (istotal, subpath) {
+	        return function (path, length, onlystart) {
+	            path = path2curve(path);
+	            var x, y, p, l, sp = "", subpaths = {}, point,
+	                len = 0;
+	            for (var i = 0, ii = path.length; i < ii; i++) {
+	                p = path[i];
+	                if (p[0] == "M") {
+	                    x = +p[1];
+	                    y = +p[2];
+	                } else {
+	                    l = getPointAtSegmentLength(x, y, p[1], p[2], p[3], p[4], p[5], p[6]);
+	                    if (len + l > length) {
+	                        if (subpath && !subpaths.start) {
+	                            point = getPointAtSegmentLength(x, y, p[1], p[2], p[3], p[4], p[5], p[6], length - len);
+	                            sp += ["C", point.start.x, point.start.y, point.m.x, point.m.y, point.x, point.y];
+	                            if (onlystart) {return sp;}
+	                            subpaths.start = sp;
+	                            sp = ["M", point.x, point.y + "C", point.n.x, point.n.y, point.end.x, point.end.y, p[5], p[6]][join]();
+	                            len += l;
+	                            x = +p[5];
+	                            y = +p[6];
+	                            continue;
+	                        }
+	                        if (!istotal && !subpath) {
+	                            point = getPointAtSegmentLength(x, y, p[1], p[2], p[3], p[4], p[5], p[6], length - len);
+	                            return {x: point.x, y: point.y, alpha: point.alpha};
+	                        }
+	                    }
+	                    len += l;
+	                    x = +p[5];
+	                    y = +p[6];
+	                }
+	                sp += p;
+	            }
+	            subpaths.end = sp;
+	            point = istotal ? len : subpath ? subpaths : R.findDotsAtSegment(x, y, p[1], p[2], p[3], p[4], p[5], p[6], 1);
+	            point.alpha && (point = {x: point.x, y: point.y, alpha: point.alpha});
+	            return point;
+	        };
+	    };
+	    var getTotalLength = getLengthFactory(1),
+	        getPointAtLength = getLengthFactory(),
+	        getSubpathsAtLength = getLengthFactory(0, 1);
+	    elproto.getTotalLength = function () {
+	        if (this.type != "path") {return;}
+	        if (this.node.getTotalLength) {
+	            return this.node.getTotalLength();
+	        }
+	        return getTotalLength(this.attrs.path);
+	    };
+	    elproto.getPointAtLength = function (length) {
+	        if (this.type != "path") {return;}
+	        return getPointAtLength(this.attrs.path, length);
+	    };
+	    elproto.getSubpath = function (from, to) {
+	        if (this.type != "path") {return;}
+	        if (abs(this.getTotalLength() - to) < "1e-6") {
+	            return getSubpathsAtLength(this.attrs.path, from).end;
+	        }
+	        var a = getSubpathsAtLength(this.attrs.path, to, 1);
+	        return from ? getSubpathsAtLength(a, from).end : a;
+	    };
+
+	    // animation easing formulas
+	    R.easing_formulas = {
+	        linear: function (n) {
+	            return n;
+	        },
+	        "<": function (n) {
+	            return pow(n, 3);
+	        },
+	        ">": function (n) {
+	            return pow(n - 1, 3) + 1;
+	        },
+	        "<>": function (n) {
+	            n = n * 2;
+	            if (n < 1) {
+	                return pow(n, 3) / 2;
+	            }
+	            n -= 2;
+	            return (pow(n, 3) + 2) / 2;
+	        },
+	        backIn: function (n) {
+	            var s = 1.70158;
+	            return n * n * ((s + 1) * n - s);
+	        },
+	        backOut: function (n) {
+	            n = n - 1;
+	            var s = 1.70158;
+	            return n * n * ((s + 1) * n + s) + 1;
+	        },
+	        elastic: function (n) {
+	            if (n == 0 || n == 1) {
+	                return n;
+	            }
+	            var p = .3,
+	                s = p / 4;
+	            return pow(2, -10 * n) * math.sin((n - s) * (2 * PI) / p) + 1;
+	        },
+	        bounce: function (n) {
+	            var s = 7.5625,
+	                p = 2.75,
+	                l;
+	            if (n < (1 / p)) {
+	                l = s * n * n;
+	            } else {
+	                if (n < (2 / p)) {
+	                    n -= (1.5 / p);
+	                    l = s * n * n + .75;
+	                } else {
+	                    if (n < (2.5 / p)) {
+	                        n -= (2.25 / p);
+	                        l = s * n * n + .9375;
+	                    } else {
+	                        n -= (2.625 / p);
+	                        l = s * n * n + .984375;
+	                    }
+	                }
+	            }
+	            return l;
+	        }
+	    };
+
+	    var animationElements = [],
+	        animation = function () {
+	            var Now = +new Date;
+	            for (var l = 0; l < animationElements[length]; l++) {
+	                var e = animationElements[l];
+	                if (e.stop || e.el.removed) {
+	                    continue;
+	                }
+	                var time = Now - e.start,
+	                    ms = e.ms,
+	                    easing = e.easing,
+	                    from = e.from,
+	                    diff = e.diff,
+	                    to = e.to,
+	                    t = e.t,
+	                    that = e.el,
+	                    set = {},
+	                    now;
+	                if (time < ms) {
+	                    var pos = easing(time / ms);
+	                    for (var attr in from) if (from[has](attr)) {
+	                        switch (availableAnimAttrs[attr]) {
+	                            case "along":
+	                                now = pos * ms * diff[attr];
+	                                to.back && (now = to.len - now);
+	                                var point = getPointAtLength(to[attr], now);
+	                                that.translate(diff.sx - diff.x || 0, diff.sy - diff.y || 0);
+	                                diff.x = point.x;
+	                                diff.y = point.y;
+	                                that.translate(point.x - diff.sx, point.y - diff.sy);
+	                                to.rot && that.rotate(diff.r + point.alpha, point.x, point.y);
+	                                break;
+	                            case nu:
+	                                now = +from[attr] + pos * ms * diff[attr];
+	                                break;
+	                            case "colour":
+	                                now = "rgb(" + [
+	                                    upto255(round(from[attr].r + pos * ms * diff[attr].r)),
+	                                    upto255(round(from[attr].g + pos * ms * diff[attr].g)),
+	                                    upto255(round(from[attr].b + pos * ms * diff[attr].b))
+	                                ][join](",") + ")";
+	                                break;
+	                            case "path":
+	                                now = [];
+	                                for (var i = 0, ii = from[attr][length]; i < ii; i++) {
+	                                    now[i] = [from[attr][i][0]];
+	                                    for (var j = 1, jj = from[attr][i][length]; j < jj; j++) {
+	                                        now[i][j] = +from[attr][i][j] + pos * ms * diff[attr][i][j];
+	                                    }
+	                                    now[i] = now[i][join](S);
+	                                }
+	                                now = now[join](S);
+	                                break;
+	                            case "csv":
+	                                switch (attr) {
+	                                    case "translation":
+	                                        var x = pos * ms * diff[attr][0] - t.x,
+	                                            y = pos * ms * diff[attr][1] - t.y;
+	                                        t.x += x;
+	                                        t.y += y;
+	                                        now = x + S + y;
+	                                    break;
+	                                    case "rotation":
+	                                        now = +from[attr][0] + pos * ms * diff[attr][0];
+	                                        from[attr][1] && (now += "," + from[attr][1] + "," + from[attr][2]);
+	                                    break;
+	                                    case "scale":
+	                                        now = [+from[attr][0] + pos * ms * diff[attr][0], +from[attr][1] + pos * ms * diff[attr][1], (2 in to[attr] ? to[attr][2] : E), (3 in to[attr] ? to[attr][3] : E)][join](S);
+	                                    break;
+	                                    case "clip-rect":
+	                                        now = [];
+	                                        i = 4;
+	                                        while (i--) {
+	                                            now[i] = +from[attr][i] + pos * ms * diff[attr][i];
+	                                        }
+	                                    break;
+	                                }
+	                                break;
+	                            default:
+	                              var from2 = [].concat(from[attr]);
+	                                now = [];
+	                                i = that.paper.customAttributes[attr].length;
+	                                while (i--) {
+	                                    now[i] = +from2[i] + pos * ms * diff[attr][i];
+	                                }
+	                                break;
+	                        }
+	                        set[attr] = now;
+	                    }
+	                    that.attr(set);
+	                    that._run && that._run.call(that);
+	                } else {
+	                    if (to.along) {
+	                        point = getPointAtLength(to.along, to.len * !to.back);
+	                        that.translate(diff.sx - (diff.x || 0) + point.x - diff.sx, diff.sy - (diff.y || 0) + point.y - diff.sy);
+	                        to.rot && that.rotate(diff.r + point.alpha, point.x, point.y);
+	                    }
+	                    (t.x || t.y) && that.translate(-t.x, -t.y);
+	                    to.scale && (to.scale += E);
+	                    that.attr(to);
+	                    animationElements.splice(l--, 1);
+	                }
+	            }
+	            R.svg && that && that.paper && that.paper.safari();
+	            animationElements[length] && setTimeout(animation);
+	        },
+	        keyframesRun = function (attr, element, time, prev, prevcallback) {
+	            var dif = time - prev;
+	            element.timeouts.push(setTimeout(function () {
+	                R.is(prevcallback, "function") && prevcallback.call(element);
+	                element.animate(attr, dif, attr.easing);
+	            }, prev));
+	        },
+	        upto255 = function (color) {
+	            return mmax(mmin(color, 255), 0);
+	        },
+	        translate = function (x, y) {
+	            if (x == null) {
+	                return {x: this._.tx, y: this._.ty, toString: x_y};
+	            }
+	            this._.tx += +x;
+	            this._.ty += +y;
+	            switch (this.type) {
+	                case "circle":
+	                case "ellipse":
+	                    this.attr({cx: +x + this.attrs.cx, cy: +y + this.attrs.cy});
+	                    break;
+	                case "rect":
+	                case "image":
+	                case "text":
+	                    this.attr({x: +x + this.attrs.x, y: +y + this.attrs.y});
+	                    break;
+	                case "path":
+	                    var path = pathToRelative(this.attrs.path);
+	                    path[0][1] += +x;
+	                    path[0][2] += +y;
+	                    this.attr({path: path});
+	                break;
+	            }
+	            return this;
+	        };
+	    elproto.animateWith = function (element, params, ms, easing, callback) {
+	        for (var i = 0, ii = animationElements.length; i < ii; i++) {
+	            if (animationElements[i].el.id == element.id) {
+	                params.start = animationElements[i].start;
+	            }
+	        }
+	        return this.animate(params, ms, easing, callback);
+	    };
+	    elproto.animateAlong = along();
+	    elproto.animateAlongBack = along(1);
+	    function along(isBack) {
+	        return function (path, ms, rotate, callback) {
+	            var params = {back: isBack};
+	            R.is(rotate, "function") ? (callback = rotate) : (params.rot = rotate);
+	            path && path.constructor == Element && (path = path.attrs.path);
+	            path && (params.along = path);
+	            return this.animate(params, ms, callback);
+	        };
+	    }
+	    function CubicBezierAtTime(t, p1x, p1y, p2x, p2y, duration) {
+	        var cx = 3 * p1x,
+	            bx = 3 * (p2x - p1x) - cx,
+	            ax = 1 - cx - bx,
+	            cy = 3 * p1y,
+	            by = 3 * (p2y - p1y) - cy,
+	            ay = 1 - cy - by;
+	        function sampleCurveX(t) {
+	            return ((ax * t + bx) * t + cx) * t;
+	        }
+	        function solve(x, epsilon) {
+	            var t = solveCurveX(x, epsilon);
+	            return ((ay * t + by) * t + cy) * t;
+	        }
+	        function solveCurveX(x, epsilon) {
+	            var t0, t1, t2, x2, d2, i;
+	            for(t2 = x, i = 0; i < 8; i++) {
+	                x2 = sampleCurveX(t2) - x;
+	                if (abs(x2) < epsilon) {
+	                    return t2;
+	                }
+	                d2 = (3 * ax * t2 + 2 * bx) * t2 + cx;
+	                if (abs(d2) < 1e-6) {
+	                    break;
+	                }
+	                t2 = t2 - x2 / d2;
+	            }
+	            t0 = 0;
+	            t1 = 1;
+	            t2 = x;
+	            if (t2 < t0) {
+	                return t0;
+	            }
+	            if (t2 > t1) {
+	                return t1;
+	            }
+	            while (t0 < t1) {
+	                x2 = sampleCurveX(t2);
+	                if (abs(x2 - x) < epsilon) {
+	                    return t2;
+	                }
+	                if (x > x2) {
+	                    t0 = t2;
+	                } else {
+	                    t1 = t2;
+	                }
+	                t2 = (t1 - t0) / 2 + t0;
+	            }
+	            return t2;
+	        }
+	        return solve(t, 1 / (200 * duration));
+	    }
+	    elproto.onAnimation = function (f) {
+	        this._run = f || 0;
+	        return this;
+	    };
+	    elproto.animate = function (params, ms, easing, callback) {
+	        var element = this;
+	        element.timeouts = element.timeouts || [];
+	        if (R.is(easing, "function") || !easing) {
+	            callback = easing || null;
+	        }
+	        if (element.removed) {
+	            callback && callback.call(element);
+	            return element;
+	        }
+	        var from = {},
+	            to = {},
+	            animateable = false,
+	            diff = {};
+	        for (var attr in params) if (params[has](attr)) {
+	            if (availableAnimAttrs[has](attr) || element.paper.customAttributes[has](attr)) {
+	                animateable = true;
+	                from[attr] = element.attr(attr);
+	                (from[attr] == null) && (from[attr] = availableAttrs[attr]);
+	                to[attr] = params[attr];
+	                switch (availableAnimAttrs[attr]) {
+	                    case "along":
+	                        var len = getTotalLength(params[attr]);
+	                        var point = getPointAtLength(params[attr], len * !!params.back);
+	                        var bb = element.getBBox();
+	                        diff[attr] = len / ms;
+	                        diff.tx = bb.x;
+	                        diff.ty = bb.y;
+	                        diff.sx = point.x;
+	                        diff.sy = point.y;
+	                        to.rot = params.rot;
+	                        to.back = params.back;
+	                        to.len = len;
+	                        params.rot && (diff.r = toFloat(element.rotate()) || 0);
+	                        break;
+	                    case nu:
+	                        diff[attr] = (to[attr] - from[attr]) / ms;
+	                        break;
+	                    case "colour":
+	                        from[attr] = R.getRGB(from[attr]);
+	                        var toColour = R.getRGB(to[attr]);
+	                        diff[attr] = {
+	                            r: (toColour.r - from[attr].r) / ms,
+	                            g: (toColour.g - from[attr].g) / ms,
+	                            b: (toColour.b - from[attr].b) / ms
+	                        };
+	                        break;
+	                    case "path":
+	                        var pathes = path2curve(from[attr], to[attr]);
+	                        from[attr] = pathes[0];
+	                        var toPath = pathes[1];
+	                        diff[attr] = [];
+	                        for (var i = 0, ii = from[attr][length]; i < ii; i++) {
+	                            diff[attr][i] = [0];
+	                            for (var j = 1, jj = from[attr][i][length]; j < jj; j++) {
+	                                diff[attr][i][j] = (toPath[i][j] - from[attr][i][j]) / ms;
+	                            }
+	                        }
+	                        break;
+	                    case "csv":
+	                        var values = Str(params[attr])[split](separator),
+	                            from2 = Str(from[attr])[split](separator);
+	                        switch (attr) {
+	                            case "translation":
+	                                from[attr] = [0, 0];
+	                                diff[attr] = [values[0] / ms, values[1] / ms];
+	                            break;
+	                            case "rotation":
+	                                from[attr] = (from2[1] == values[1] && from2[2] == values[2]) ? from2 : [0, values[1], values[2]];
+	                                diff[attr] = [(values[0] - from[attr][0]) / ms, 0, 0];
+	                            break;
+	                            case "scale":
+	                                params[attr] = values;
+	                                from[attr] = Str(from[attr])[split](separator);
+	                                diff[attr] = [(values[0] - from[attr][0]) / ms, (values[1] - from[attr][1]) / ms, 0, 0];
+	                            break;
+	                            case "clip-rect":
+	                                from[attr] = Str(from[attr])[split](separator);
+	                                diff[attr] = [];
+	                                i = 4;
+	                                while (i--) {
+	                                    diff[attr][i] = (values[i] - from[attr][i]) / ms;
+	                                }
+	                            break;
+	                        }
+	                        to[attr] = values;
+	                        break;
+	                    default:
+	                        values = [].concat(params[attr]);
+	                        from2 = [].concat(from[attr]);
+	                        diff[attr] = [];
+	                        i = element.paper.customAttributes[attr][length];
+	                        while (i--) {
+	                            diff[attr][i] = ((values[i] || 0) - (from2[i] || 0)) / ms;
+	                        }
+	                        break;
+	                }
+	            }
+	        }
+	        if (!animateable) {
+	            var attrs = [],
+	                lastcall;
+	            for (var key in params) if (params[has](key) && animKeyFrames.test(key)) {
+	                attr = {value: params[key]};
+	                key == "from" && (key = 0);
+	                key == "to" && (key = 100);
+	                attr.key = toInt(key, 10);
+	                attrs.push(attr);
+	            }
+	            attrs.sort(sortByKey);
+	            if (attrs[0].key) {
+	                attrs.unshift({key: 0, value: element.attrs});
+	            }
+	            for (i = 0, ii = attrs[length]; i < ii; i++) {
+	                keyframesRun(attrs[i].value, element, ms / 100 * attrs[i].key, ms / 100 * (attrs[i - 1] && attrs[i - 1].key || 0), attrs[i - 1] && attrs[i - 1].value.callback);
+	            }
+	            lastcall = attrs[attrs[length] - 1].value.callback;
+	            if (lastcall) {
+	                element.timeouts.push(setTimeout(function () {lastcall.call(element);}, ms));
+	            }
+	        } else {
+	            var easyeasy = R.easing_formulas[easing];
+	            if (!easyeasy) {
+	                easyeasy = Str(easing).match(bezierrg);
+	                if (easyeasy && easyeasy[length] == 5) {
+	                    var curve = easyeasy;
+	                    easyeasy = function (t) {
+	                        return CubicBezierAtTime(t, +curve[1], +curve[2], +curve[3], +curve[4], ms);
+	                    };
+	                } else {
+	                    easyeasy = function (t) {
+	                        return t;
+	                    };
+	                }
+	            }
+	            animationElements.push({
+	                start: params.start || +new Date,
+	                ms: ms,
+	                easing: easyeasy,
+	                from: from,
+	                diff: diff,
+	                to: to,
+	                el: element,
+	                t: {x: 0, y: 0}
+	            });
+	            R.is(callback, "function") && (element._ac = setTimeout(function () {
+	                callback.call(element);
+	            }, ms));
+	            animationElements[length] == 1 && setTimeout(animation);
+	        }
+	        return this;
+	    };
+	    elproto.stop = function () {
+	        for (var i = 0; i < animationElements.length; i++) {
+	            animationElements[i].el.id == this.id && animationElements.splice(i--, 1);
+	        }
+	        for (i = 0, ii = this.timeouts && this.timeouts.length; i < ii; i++) {
+	            clearTimeout(this.timeouts[i]);
+	        }
+	        this.timeouts = [];
+	        clearTimeout(this._ac);
+	        delete this._ac;
+	        return this;
+	    };
+	    elproto.translate = function (x, y) {
+	        return this.attr({translation: x + " " + y});
+	    };
+	    elproto[toString] = function () {
+	        return "Rapha\xebl\u2019s object";
+	    };
+	    R.ae = animationElements;
+
+	    // Set
+	    var Set = function (items) {
+	        this.items = [];
+	        this[length] = 0;
+	        this.type = "set";
+	        if (items) {
+	            for (var i = 0, ii = items[length]; i < ii; i++) {
+	                if (items[i] && (items[i].constructor == Element || items[i].constructor == Set)) {
+	                    this[this.items[length]] = this.items[this.items[length]] = items[i];
+	                    this[length]++;
+	                }
+	            }
+	        }
+	    };
+	    Set[proto][push] = function () {
+	        var item,
+	            len;
+	        for (var i = 0, ii = arguments[length]; i < ii; i++) {
+	            item = arguments[i];
+	            if (item && (item.constructor == Element || item.constructor == Set)) {
+	                len = this.items[length];
+	                this[len] = this.items[len] = item;
+	                this[length]++;
+	            }
+	        }
+	        return this;
+	    };
+	    Set[proto].pop = function () {
+	        delete this[this[length]--];
+	        return this.items.pop();
+	    };
+	    for (var method in elproto) if (elproto[has](method)) {
+	        Set[proto][method] = (function (methodname) {
+	            return function () {
+	                for (var i = 0, ii = this.items[length]; i < ii; i++) {
+	                    this.items[i][methodname][apply](this.items[i], arguments);
+	                }
+	                return this;
+	            };
+	        })(method);
+	    }
+	    Set[proto].attr = function (name, value) {
+	        if (name && R.is(name, array) && R.is(name[0], "object")) {
+	            for (var j = 0, jj = name[length]; j < jj; j++) {
+	                this.items[j].attr(name[j]);
+	            }
+	        } else {
+	            for (var i = 0, ii = this.items[length]; i < ii; i++) {
+	                this.items[i].attr(name, value);
+	            }
+	        }
+	        return this;
+	    };
+	    Set[proto].animate = function (params, ms, easing, callback) {
+	        (R.is(easing, "function") || !easing) && (callback = easing || null);
+	        var len = this.items[length],
+	            i = len,
+	            item,
+	            set = this,
+	            collector;
+	        callback && (collector = function () {
+	            !--len && callback.call(set);
+	        });
+	        easing = R.is(easing, string) ? easing : collector;
+	        item = this.items[--i].animate(params, ms, easing, collector);
+	        while (i--) {
+	            this.items[i] && !this.items[i].removed && this.items[i].animateWith(item, params, ms, easing, collector);
+	        }
+	        return this;
+	    };
+	    Set[proto].insertAfter = function (el) {
+	        var i = this.items[length];
+	        while (i--) {
+	            this.items[i].insertAfter(el);
+	        }
+	        return this;
+	    };
+	    Set[proto].getBBox = function () {
+	        var x = [],
+	            y = [],
+	            w = [],
+	            h = [];
+	        for (var i = this.items[length]; i--;) {
+	            var box = this.items[i].getBBox();
+	            x[push](box.x);
+	            y[push](box.y);
+	            w[push](box.x + box.width);
+	            h[push](box.y + box.height);
+	        }
+	        x = mmin[apply](0, x);
+	        y = mmin[apply](0, y);
+	        return {
+	            x: x,
+	            y: y,
+	            width: mmax[apply](0, w) - x,
+	            height: mmax[apply](0, h) - y
+	        };
+	    };
+	    Set[proto].clone = function (s) {
+	        s = new Set;
+	        for (var i = 0, ii = this.items[length]; i < ii; i++) {
+	            s[push](this.items[i].clone());
+	        }
+	        return s;
+	    };
+
+	    R.registerFont = function (font) {
+	        if (!font.face) {
+	            return font;
+	        }
+	        this.fonts = this.fonts || {};
+	        var fontcopy = {
+	                w: font.w,
+	                face: {},
+	                glyphs: {}
+	            },
+	            family = font.face["font-family"];
+	        for (var prop in font.face) if (font.face[has](prop)) {
+	            fontcopy.face[prop] = font.face[prop];
+	        }
+	        if (this.fonts[family]) {
+	            this.fonts[family][push](fontcopy);
+	        } else {
+	            this.fonts[family] = [fontcopy];
+	        }
+	        if (!font.svg) {
+	            fontcopy.face["units-per-em"] = toInt(font.face["units-per-em"], 10);
+	            for (var glyph in font.glyphs) if (font.glyphs[has](glyph)) {
+	                var path = font.glyphs[glyph];
+	                fontcopy.glyphs[glyph] = {
+	                    w: path.w,
+	                    k: {},
+	                    d: path.d && "M" + path.d[rp](/[mlcxtrv]/g, function (command) {
+	                            return {l: "L", c: "C", x: "z", t: "m", r: "l", v: "c"}[command] || "M";
+	                        }) + "z"
+	                };
+	                if (path.k) {
+	                    for (var k in path.k) if (path[has](k)) {
+	                        fontcopy.glyphs[glyph].k[k] = path.k[k];
+	                    }
+	                }
+	            }
+	        }
+	        return font;
+	    };
+	    paperproto.getFont = function (family, weight, style, stretch) {
+	        stretch = stretch || "normal";
+	        style = style || "normal";
+	        weight = +weight || {normal: 400, bold: 700, lighter: 300, bolder: 800}[weight] || 400;
+	        if (!R.fonts) {
+	            return;
+	        }
+	        var font = R.fonts[family];
+	        if (!font) {
+	            var name = new RegExp("(^|\\s)" + family[rp](/[^\w\d\s+!~.:_-]/g, E) + "(\\s|$)", "i");
+	            for (var fontName in R.fonts) if (R.fonts[has](fontName)) {
+	                if (name.test(fontName)) {
+	                    font = R.fonts[fontName];
+	                    break;
+	                }
+	            }
+	        }
+	        var thefont;
+	        if (font) {
+	            for (var i = 0, ii = font[length]; i < ii; i++) {
+	                thefont = font[i];
+	                if (thefont.face["font-weight"] == weight && (thefont.face["font-style"] == style || !thefont.face["font-style"]) && thefont.face["font-stretch"] == stretch) {
+	                    break;
+	                }
+	            }
+	        }
+	        return thefont;
+	    };
+	    paperproto.print = function (x, y, string, font, size, origin, letter_spacing) {
+	        origin = origin || "middle"; // baseline|middle
+	        letter_spacing = mmax(mmin(letter_spacing || 0, 1), -1);
+	        var out = this.set(),
+	            letters = Str(string)[split](E),
+	            shift = 0,
+	            path = E,
+	            scale;
+	        R.is(font, string) && (font = this.getFont(font));
+	        if (font) {
+	            scale = (size || 16) / font.face["units-per-em"];
+	            var bb = font.face.bbox.split(separator),
+	                top = +bb[0],
+	                height = +bb[1] + (origin == "baseline" ? bb[3] - bb[1] + (+font.face.descent) : (bb[3] - bb[1]) / 2);
+	            for (var i = 0, ii = letters[length]; i < ii; i++) {
+	                var prev = i && font.glyphs[letters[i - 1]] || {},
+	                    curr = font.glyphs[letters[i]];
+	                shift += i ? (prev.w || font.w) + (prev.k && prev.k[letters[i]] || 0) + (font.w * letter_spacing) : 0;
+	                curr && curr.d && out[push](this.path(curr.d).attr({fill: "#000", stroke: "none", translation: [shift, 0]}));
+	            }
+	            out.scale(scale, scale, top, height).translate(x - top, y - height);
+	        }
+	        return out;
+	    };
+
+	    R.format = function (token, params) {
+	        var args = R.is(params, array) ? [0][concat](params) : arguments;
+	        token && R.is(token, string) && args[length] - 1 && (token = token[rp](formatrg, function (str, i) {
+	            return args[++i] == null ? E : args[i];
+	        }));
+	        return token || E;
+	    };
+	    R.ninja = function () {
+	        oldRaphael.was ? (win.Raphael = oldRaphael.is) : delete Raphael;
+	        return R;
+	    };
+	    R.el = elproto;
+	    R.st = Set[proto];
+
+	    oldRaphael.was ? (win.Raphael = R) : (Raphael = R);
+	})();
+
 
 /***/ },
-/* 126 */
+/* 136 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+	* jQuery Mobile Framework : "mouse" plugin
+	* Copyright (c) jQuery Project
+	* Dual licensed under the MIT or GPL Version 2 licenses.
+	* http://jquery.org/license
+	*/
+
+	// This plugin is an experiment for abstracting away the touch and mouse
+	// events so that developers don't have to worry about which method of input
+	// the device their document is loaded on supports.
+	//
+	// The idea here is to allow the developer to register listeners for the
+	// basic mouse events, such as mousedown, mousemove, mouseup, and click,
+	// and the plugin will take care of registering the correct listeners
+	// behind the scenes to invoke the listener at the fastest possible time
+	// for that device, while still retaining the order of event firing in
+	// the traditional mouse environment, should multiple handlers be registered
+	// on the same element for different events.
+	//
+	// The current version exposes the following virtual events to jQuery bind methods:
+	// "vmouseover vmousedown vmousemove vmouseup vclick vmouseout vmousecancel"
+
+	(function( $, window, document, undefined ) {
+
+	var dataPropertyName = "virtualMouseBindings",
+		touchTargetPropertyName = "virtualTouchID",
+		virtualEventNames = "vmouseover vmousedown vmousemove vmouseup vclick vmouseout vmousecancel".split( " " ),
+		touchEventProps = "clientX clientY pageX pageY screenX screenY".split( " " ),
+		mouseHookProps = $.event.mouseHooks ? $.event.mouseHooks.props : [],
+		mouseEventProps = $.event.props.concat( mouseHookProps ),
+		activeDocHandlers = {},
+		resetTimerID = 0,
+		startX = 0,
+		startY = 0,
+		didScroll = false,
+		clickBlockList = [],
+		blockMouseTriggers = false,
+		blockTouchTriggers = false,
+		eventCaptureSupported = "addEventListener" in document,
+		$document = $( document ),
+		nextTouchID = 1,
+		lastTouchID = 0;
+
+	$.vmouse = {
+		moveDistanceThreshold: 10,
+		clickDistanceThreshold: 10,
+		resetTimerDuration: 1500
+	};
+
+	function getNativeEvent( event ) {
+
+		while ( event && typeof event.originalEvent !== "undefined" ) {
+			event = event.originalEvent;
+		}
+		return event;
+	}
+
+	function createVirtualEvent( event, eventType ) {
+
+		var t = event.type,
+			oe, props, ne, prop, ct, touch, i, j;
+
+		event = $.Event(event);
+		event.type = eventType;
+
+		oe = event.originalEvent;
+		props = $.event.props;
+
+		// addresses separation of $.event.props in to $.event.mouseHook.props and Issue 3280
+		// https://github.com/jquery/jquery-mobile/issues/3280
+		if ( t.search(/mouse/) >-1 ) {
+			props = mouseEventProps;
+		}
+
+		// copy original event properties over to the new event
+		// this would happen if we could call $.event.fix instead of $.Event
+		// but we don't have a way to force an event to be fixed multiple times
+		if ( oe ) {
+			for ( i = props.length, prop; i; ) {
+				prop = props[ --i ];
+				event[ prop ] = oe[ prop ];
+			}
+		}
+
+		// make sure that if the mouse and click virtual events are generated
+		// without a .which one is defined
+		if ( t.search(/mouse(down|up)|click/) > -1 && !event.which ){
+			event.which = 1;
+		}
+
+		if ( t.search(/^touch/) !== -1 ) {
+			ne = getNativeEvent( oe );
+			t = ne.touches;
+			ct = ne.changedTouches;
+			touch = ( t && t.length ) ? t[0] : ( (ct && ct.length) ? ct[ 0 ] : undefined );
+
+			if ( touch ) {
+				for ( j = 0, len = touchEventProps.length; j < len; j++){
+					prop = touchEventProps[ j ];
+					event[ prop ] = touch[ prop ];
+				}
+			}
+		}
+
+		return event;
+	}
+
+	function getVirtualBindingFlags( element ) {
+
+		var flags = {},
+			b, k;
+
+		while ( element ) {
+
+			b = $.data( element, dataPropertyName );
+
+			for (  k in b ) {
+				if ( b[ k ] ) {
+					flags[ k ] = flags.hasVirtualBinding = true;
+				}
+			}
+			element = element.parentNode;
+		}
+		return flags;
+	}
+
+	function getClosestElementWithVirtualBinding( element, eventType ) {
+		var b;
+		while ( element ) {
+
+			b = $.data( element, dataPropertyName );
+
+			if ( b && ( !eventType || b[ eventType ] ) ) {
+				return element;
+			}
+			element = element.parentNode;
+		}
+		return null;
+	}
+
+	function enableTouchBindings() {
+		blockTouchTriggers = false;
+	}
+
+	function disableTouchBindings() {
+		blockTouchTriggers = true;
+	}
+
+	function enableMouseBindings() {
+		lastTouchID = 0;
+		clickBlockList.length = 0;
+		blockMouseTriggers = false;
+
+		// When mouse bindings are enabled, our
+		// touch bindings are disabled.
+		disableTouchBindings();
+	}
+
+	function disableMouseBindings() {
+		// When mouse bindings are disabled, our
+		// touch bindings are enabled.
+		enableTouchBindings();
+	}
+
+	function startResetTimer() {
+		clearResetTimer();
+		resetTimerID = setTimeout(function(){
+			resetTimerID = 0;
+			enableMouseBindings();
+		}, $.vmouse.resetTimerDuration );
+	}
+
+	function clearResetTimer() {
+		if ( resetTimerID ){
+			clearTimeout( resetTimerID );
+			resetTimerID = 0;
+		}
+	}
+
+	function triggerVirtualEvent( eventType, event, flags ) {
+		var ve;
+
+		if ( ( flags && flags[ eventType ] ) ||
+					( !flags && getClosestElementWithVirtualBinding( event.target, eventType ) ) ) {
+
+			ve = createVirtualEvent( event, eventType );
+
+			$( event.target).trigger( ve );
+		}
+
+		return ve;
+	}
+
+	function mouseEventCallback( event ) {
+		var touchID = $.data(event.target, touchTargetPropertyName);
+
+		if ( !blockMouseTriggers && ( !lastTouchID || lastTouchID !== touchID ) ){
+			var ve = triggerVirtualEvent( "v" + event.type, event );
+			if ( ve ) {
+				if ( ve.isDefaultPrevented() ) {
+					event.preventDefault();
+				}
+				if ( ve.isPropagationStopped() ) {
+					event.stopPropagation();
+				}
+				if ( ve.isImmediatePropagationStopped() ) {
+					event.stopImmediatePropagation();
+				}
+			}
+		}
+	}
+
+	function handleTouchStart( event ) {
+
+		var touches = getNativeEvent( event ).touches,
+			target, flags;
+
+		if ( touches && touches.length === 1 ) {
+
+			target = event.target;
+			flags = getVirtualBindingFlags( target );
+
+			if ( flags.hasVirtualBinding ) {
+
+				lastTouchID = nextTouchID++;
+				$.data( target, touchTargetPropertyName, lastTouchID );
+
+				clearResetTimer();
+
+				disableMouseBindings();
+				didScroll = false;
+
+				var t = getNativeEvent( event ).touches[ 0 ];
+				startX = t.pageX;
+				startY = t.pageY;
+
+				triggerVirtualEvent( "vmouseover", event, flags );
+				triggerVirtualEvent( "vmousedown", event, flags );
+			}
+		}
+	}
+
+	function handleScroll( event ) {
+		if ( blockTouchTriggers ) {
+			return;
+		}
+
+		if ( !didScroll ) {
+			triggerVirtualEvent( "vmousecancel", event, getVirtualBindingFlags( event.target ) );
+		}
+
+		didScroll = true;
+		startResetTimer();
+	}
+
+	function handleTouchMove( event ) {
+		if ( blockTouchTriggers ) {
+			return;
+		}
+
+		var t = getNativeEvent( event ).touches[ 0 ],
+			didCancel = didScroll,
+			moveThreshold = $.vmouse.moveDistanceThreshold;
+			didScroll = didScroll ||
+				( Math.abs(t.pageX - startX) > moveThreshold ||
+					Math.abs(t.pageY - startY) > moveThreshold ),
+			flags = getVirtualBindingFlags( event.target );
+
+		if ( didScroll && !didCancel ) {
+			triggerVirtualEvent( "vmousecancel", event, flags );
+		}
+
+		triggerVirtualEvent( "vmousemove", event, flags );
+		startResetTimer();
+	}
+
+	function handleTouchEnd( event ) {
+		if ( blockTouchTriggers ) {
+			return;
+		}
+
+		disableTouchBindings();
+
+		var flags = getVirtualBindingFlags( event.target ),
+			t;
+		triggerVirtualEvent( "vmouseup", event, flags );
+
+		if ( !didScroll ) {
+			var ve = triggerVirtualEvent( "vclick", event, flags );
+			if ( ve && ve.isDefaultPrevented() ) {
+				// The target of the mouse events that follow the touchend
+				// event don't necessarily match the target used during the
+				// touch. This means we need to rely on coordinates for blocking
+				// any click that is generated.
+				t = getNativeEvent( event ).changedTouches[ 0 ];
+				clickBlockList.push({
+					touchID: lastTouchID,
+					x: t.clientX,
+					y: t.clientY
+				});
+
+				// Prevent any mouse events that follow from triggering
+				// virtual event notifications.
+				blockMouseTriggers = true;
+			}
+		}
+		triggerVirtualEvent( "vmouseout", event, flags);
+		didScroll = false;
+
+		startResetTimer();
+	}
+
+	function hasVirtualBindings( ele ) {
+		var bindings = $.data( ele, dataPropertyName ),
+			k;
+
+		if ( bindings ) {
+			for ( k in bindings ) {
+				if ( bindings[ k ] ) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	function dummyMouseHandler(){}
+
+	function getSpecialEventObject( eventType ) {
+		var realType = eventType.substr( 1 );
+
+		return {
+			setup: function( data, namespace ) {
+				// If this is the first virtual mouse binding for this element,
+				// add a bindings object to its data.
+
+				if ( !hasVirtualBindings( this ) ) {
+					$.data( this, dataPropertyName, {});
+				}
+
+				// If setup is called, we know it is the first binding for this
+				// eventType, so initialize the count for the eventType to zero.
+				var bindings = $.data( this, dataPropertyName );
+				bindings[ eventType ] = true;
+
+				// If this is the first virtual mouse event for this type,
+				// register a global handler on the document.
+
+				activeDocHandlers[ eventType ] = ( activeDocHandlers[ eventType ] || 0 ) + 1;
+
+				if ( activeDocHandlers[ eventType ] === 1 ) {
+					$document.bind( realType, mouseEventCallback );
+				}
+
+				// Some browsers, like Opera Mini, won't dispatch mouse/click events
+				// for elements unless they actually have handlers registered on them.
+				// To get around this, we register dummy handlers on the elements.
+
+				$( this ).bind( realType, dummyMouseHandler );
+
+				// For now, if event capture is not supported, we rely on mouse handlers.
+				if ( eventCaptureSupported ) {
+					// If this is the first virtual mouse binding for the document,
+					// register our touchstart handler on the document.
+
+					activeDocHandlers[ "touchstart" ] = ( activeDocHandlers[ "touchstart" ] || 0) + 1;
+
+					if (activeDocHandlers[ "touchstart" ] === 1) {
+						$document.bind( "touchstart", handleTouchStart )
+							.bind( "touchend", handleTouchEnd )
+
+							// On touch platforms, touching the screen and then dragging your finger
+							// causes the window content to scroll after some distance threshold is
+							// exceeded. On these platforms, a scroll prevents a click event from being
+							// dispatched, and on some platforms, even the touchend is suppressed. To
+							// mimic the suppression of the click event, we need to watch for a scroll
+							// event. Unfortunately, some platforms like iOS don't dispatch scroll
+							// events until *AFTER* the user lifts their finger (touchend). This means
+							// we need to watch both scroll and touchmove events to figure out whether
+							// or not a scroll happenens before the touchend event is fired.
+
+							.bind( "touchmove", handleTouchMove )
+							.bind( "scroll", handleScroll );
+					}
+				}
+			},
+
+			teardown: function( data, namespace ) {
+				// If this is the last virtual binding for this eventType,
+				// remove its global handler from the document.
+
+				--activeDocHandlers[ eventType ];
+
+				if ( !activeDocHandlers[ eventType ] ) {
+					$document.unbind( realType, mouseEventCallback );
+				}
+
+				if ( eventCaptureSupported ) {
+					// If this is the last virtual mouse binding in existence,
+					// remove our document touchstart listener.
+
+					--activeDocHandlers[ "touchstart" ];
+
+					if ( !activeDocHandlers[ "touchstart" ] ) {
+						$document.unbind( "touchstart", handleTouchStart )
+							.unbind( "touchmove", handleTouchMove )
+							.unbind( "touchend", handleTouchEnd )
+							.unbind( "scroll", handleScroll );
+					}
+				}
+
+				var $this = $( this ),
+					bindings = $.data( this, dataPropertyName );
+
+				// teardown may be called when an element was
+				// removed from the DOM. If this is the case,
+				// jQuery core may have already stripped the element
+				// of any data bindings so we need to check it before
+				// using it.
+				if ( bindings ) {
+					bindings[ eventType ] = false;
+				}
+
+				// Unregister the dummy event handler.
+
+				$this.unbind( realType, dummyMouseHandler );
+
+				// If this is the last virtual mouse binding on the
+				// element, remove the binding data from the element.
+
+				if ( !hasVirtualBindings( this ) ) {
+					$this.removeData( dataPropertyName );
+				}
+			}
+		};
+	}
+
+	// Expose our custom events to the jQuery bind/unbind mechanism.
+
+	for ( var i = 0; i < virtualEventNames.length; i++ ){
+		$.event.special[ virtualEventNames[ i ] ] = getSpecialEventObject( virtualEventNames[ i ] );
+	}
+
+	// Add a capture click handler to block clicks.
+	// Note that we require event capture support for this so if the device
+	// doesn't support it, we punt for now and rely solely on mouse events.
+	if ( eventCaptureSupported ) {
+		document.addEventListener( "click", function( e ){
+			var cnt = clickBlockList.length,
+				target = e.target,
+				x, y, ele, i, o, touchID;
+
+			if ( cnt ) {
+				x = e.clientX;
+				y = e.clientY;
+				threshold = $.vmouse.clickDistanceThreshold;
+
+				// The idea here is to run through the clickBlockList to see if
+				// the current click event is in the proximity of one of our
+				// vclick events that had preventDefault() called on it. If we find
+				// one, then we block the click.
+				//
+				// Why do we have to rely on proximity?
+				//
+				// Because the target of the touch event that triggered the vclick
+				// can be different from the target of the click event synthesized
+				// by the browser. The target of a mouse/click event that is syntehsized
+				// from a touch event seems to be implementation specific. For example,
+				// some browsers will fire mouse/click events for a link that is near
+				// a touch event, even though the target of the touchstart/touchend event
+				// says the user touched outside the link. Also, it seems that with most
+				// browsers, the target of the mouse/click event is not calculated until the
+				// time it is dispatched, so if you replace an element that you touched
+				// with another element, the target of the mouse/click will be the new
+				// element underneath that point.
+				//
+				// Aside from proximity, we also check to see if the target and any
+				// of its ancestors were the ones that blocked a click. This is necessary
+				// because of the strange mouse/click target calculation done in the
+				// Android 2.1 browser, where if you click on an element, and there is a
+				// mouse/click handler on one of its ancestors, the target will be the
+				// innermost child of the touched element, even if that child is no where
+				// near the point of touch.
+
+				ele = target;
+
+				while ( ele ) {
+					for ( i = 0; i < cnt; i++ ) {
+						o = clickBlockList[ i ];
+						touchID = 0;
+
+						if ( ( ele === target && Math.abs( o.x - x ) < threshold && Math.abs( o.y - y ) < threshold ) ||
+									$.data( ele, touchTargetPropertyName ) === o.touchID ) {
+							// XXX: We may want to consider removing matches from the block list
+							//      instead of waiting for the reset timer to fire.
+							e.preventDefault();
+							e.stopPropagation();
+							return;
+						}
+					}
+					ele = ele.parentNode;
+				}
+			}
+		}, true);
+	}
+	})( jQuery, window, document );
+
+
+/***/ },
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -26708,11 +37148,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(8);
 
-	var InteractiveUtil = __webpack_require__(76);
+	var InteractiveUtil = __webpack_require__(78);
 
 	var objective_ = __webpack_require__(59);
 
-	var kvector = __webpack_require__(96).vector;
+	var kvector = __webpack_require__(100).vector;
 
 	/*
 	 * These functions, when called on the wrapped object, simply pass the
@@ -26727,7 +37167,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    toFront: function() {
 	        var parentNode = this.wrapper.parentNode;
-	        parentNode.appendChild(this.wrapper);
+	        // TODO(emily): Sometimes, we call `.remove()` but then hold a
+	        // reference to this object, and sometimes call `.toFront` on it.
+	        // Notably, this happens in the reflection transformation in the
+	        // Transformer widget. This is a hacky fix. Make this less bad.
+	        parentNode && parentNode.appendChild(this.wrapper);
 	    },
 	    toBack: function() {
 	        var parentNode = this.wrapper.parentNode;
@@ -26761,7 +37205,44 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WrappedDefaults;
 
 /***/ },
-/* 127 */
+/* 138 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+	===============================================================================
+	Crc32 is a JavaScript function for computing the CRC32 of a string
+	...............................................................................
+
+	Version: 1.2 - 2006/11 - http://noteslog.com/category/javascript/
+
+	-------------------------------------------------------------------------------
+	Copyright (c) 2006 Andrea Ercolino
+	http://www.opensource.org/licenses/mit-license.php
+	===============================================================================
+	*/
+	// CRC32 Lookup Table
+	var table = "00000000 77073096 EE0E612C 990951BA 076DC419 706AF48F E963A535 9E6495A3 0EDB8832 79DCB8A4 E0D5E91E 97D2D988 09B64C2B 7EB17CBD E7B82D07 90BF1D91 1DB71064 6AB020F2 F3B97148 84BE41DE 1ADAD47D 6DDDE4EB F4D4B551 83D385C7 136C9856 646BA8C0 FD62F97A 8A65C9EC 14015C4F 63066CD9 FA0F3D63 8D080DF5 3B6E20C8 4C69105E D56041E4 A2677172 3C03E4D1 4B04D447 D20D85FD A50AB56B 35B5A8FA 42B2986C DBBBC9D6 ACBCF940 32D86CE3 45DF5C75 DCD60DCF ABD13D59 26D930AC 51DE003A C8D75180 BFD06116 21B4F4B5 56B3C423 CFBA9599 B8BDA50F 2802B89E 5F058808 C60CD9B2 B10BE924 2F6F7C87 58684C11 C1611DAB B6662D3D 76DC4190 01DB7106 98D220BC EFD5102A 71B18589 06B6B51F 9FBFE4A5 E8B8D433 7807C9A2 0F00F934 9609A88E E10E9818 7F6A0DBB 086D3D2D 91646C97 E6635C01 6B6B51F4 1C6C6162 856530D8 F262004E 6C0695ED 1B01A57B 8208F4C1 F50FC457 65B0D9C6 12B7E950 8BBEB8EA FCB9887C 62DD1DDF 15DA2D49 8CD37CF3 FBD44C65 4DB26158 3AB551CE A3BC0074 D4BB30E2 4ADFA541 3DD895D7 A4D1C46D D3D6F4FB 4369E96A 346ED9FC AD678846 DA60B8D0 44042D73 33031DE5 AA0A4C5F DD0D7CC9 5005713C 270241AA BE0B1010 C90C2086 5768B525 206F85B3 B966D409 CE61E49F 5EDEF90E 29D9C998 B0D09822 C7D7A8B4 59B33D17 2EB40D81 B7BD5C3B C0BA6CAD EDB88320 9ABFB3B6 03B6E20C 74B1D29A EAD54739 9DD277AF 04DB2615 73DC1683 E3630B12 94643B84 0D6D6A3E 7A6A5AA8 E40ECF0B 9309FF9D 0A00AE27 7D079EB1 F00F9344 8708A3D2 1E01F268 6906C2FE F762575D 806567CB 196C3671 6E6B06E7 FED41B76 89D32BE0 10DA7A5A 67DD4ACC F9B9DF6F 8EBEEFF9 17B7BE43 60B08ED5 D6D6A3E8 A1D1937E 38D8C2C4 4FDFF252 D1BB67F1 A6BC5767 3FB506DD 48B2364B D80D2BDA AF0A1B4C 36034AF6 41047A60 DF60EFC3 A867DF55 316E8EEF 4669BE79 CB61B38C BC66831A 256FD2A0 5268E236 CC0C7795 BB0B4703 220216B9 5505262F C5BA3BBE B2BD0B28 2BB45A92 5CB36A04 C2D7FFA7 B5D0CF31 2CD99E8B 5BDEAE1D 9B64C2B0 EC63F226 756AA39C 026D930A 9C0906A9 EB0E363F 72076785 05005713 95BF4A82 E2B87A14 7BB12BAE 0CB61B38 92D28E9B E5D5BE0D 7CDCEFB7 0BDBDF21 86D3D2D4 F1D4E242 68DDB3F8 1FDA836E 81BE16CD F6B9265B 6FB077E1 18B74777 88085AE6 FF0F6A70 66063BCA 11010B5C 8F659EFF F862AE69 616BFFD3 166CCF45 A00AE278 D70DD2EE 4E048354 3903B3C2 A7672661 D06016F7 4969474D 3E6E77DB AED16A4A D9D65ADC 40DF0B66 37D83BF0 A9BCAE53 DEBB9EC5 47B2CF7F 30B5FFE9 BDBDF21C CABAC28A 53B39330 24B4A3A6 BAD03605 CDD70693 54DE5729 23D967BF B3667A2E C4614AB8 5D681B02 2A6F2B94 B40BBE37 C30C8EA1 5A05DF1B 2D02EF8D";
+
+	/* Number */
+	var crc32 = function(str, crc) {
+	    null == crc && (crc = 0);
+	    var n = 0;
+	    //a number between 0 and 255
+	    var x = 0;
+	    //a hex number
+	    crc = -1 ^ crc;
+	    for (var i = 0, iTop = str.length; i < iTop; i++) {
+	        n = 255 & (crc ^ str.charCodeAt(i));
+	        x = "0x" + table.substr(9 * n, 8);
+	        crc = crc >>> 8 ^ x;
+	    }
+	    return Math.abs(-1 ^ crc);
+	};
+
+	module.exports = crc32;
+
+/***/ },
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(9);
@@ -26838,6 +37319,70 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 	module.exports = ToggleableRadioButton;
+
+/***/ },
+/* 140 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// shim for using process in browser
+
+	var process = module.exports = {};
+	var queue = [];
+	var draining = false;
+
+	function drainQueue() {
+	    if (draining) {
+	        return;
+	    }
+	    draining = true;
+	    var currentQueue;
+	    var len = queue.length;
+	    while(len) {
+	        currentQueue = queue;
+	        queue = [];
+	        var i = -1;
+	        while (++i < len) {
+	            currentQueue[i]();
+	        }
+	        len = queue.length;
+	    }
+	    draining = false;
+	}
+	process.nextTick = function (fun) {
+	    queue.push(fun);
+	    if (!draining) {
+	        setTimeout(drainQueue, 0);
+	    }
+	};
+
+	process.title = 'browser';
+	process.browser = true;
+	process.env = {};
+	process.argv = [];
+	process.version = ''; // empty string to avoid regexp issues
+	process.versions = {};
+
+	function noop() {}
+
+	process.on = noop;
+	process.addListener = noop;
+	process.once = noop;
+	process.off = noop;
+	process.removeListener = noop;
+	process.removeAllListeners = noop;
+	process.emit = noop;
+
+	process.binding = function (name) {
+	    throw new Error('process.binding is not supported');
+	};
+
+	// TODO(shtylman)
+	process.cwd = function () { return '/' };
+	process.chdir = function (dir) {
+	    throw new Error('process.chdir is not supported');
+	};
+	process.umask = function() { return 0; };
+
 
 /***/ }
 /******/ ])

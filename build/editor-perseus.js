@@ -1,5 +1,5 @@
 /*! Perseus with editors | http://github.com/Khan/perseus */
-// commit 7f0f41798d817d1c2c4b228d28534a9eaec19fbb
+// commit c7b3299098a26ca56d70f943f3716d9d86e5c8fb
 // branch master
 // @generated
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -11,7 +11,7 @@
 		exports["Perseus"] = factory(require("react"), require("underscore"), require("react-dom"), require("react-addons-create-fragment"), require("jquery"), require("classnames"), require("rcss"), require("react-addons-pure-render-mixin"));
 	else
 		root["Perseus"] = factory(root["react"], root["underscore"], root["react-dom"], root["react-addons-create-fragment"], root["jquery"], root["classnames"], root["rcss"], root["react-addons-pure-render-mixin"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_15__, __WEBPACK_EXTERNAL_MODULE_16__, __WEBPACK_EXTERNAL_MODULE_24__, __WEBPACK_EXTERNAL_MODULE_29__, __WEBPACK_EXTERNAL_MODULE_30__, __WEBPACK_EXTERNAL_MODULE_41__, __WEBPACK_EXTERNAL_MODULE_138__, __WEBPACK_EXTERNAL_MODULE_139__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_15__, __WEBPACK_EXTERNAL_MODULE_16__, __WEBPACK_EXTERNAL_MODULE_17__, __WEBPACK_EXTERNAL_MODULE_18__, __WEBPACK_EXTERNAL_MODULE_19__, __WEBPACK_EXTERNAL_MODULE_42__, __WEBPACK_EXTERNAL_MODULE_142__, __WEBPACK_EXTERNAL_MODULE_143__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -81,19 +81,19 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var version = __webpack_require__(56);
+	var version = __webpack_require__(57);
 
-	__webpack_require__(17);
+	__webpack_require__(20);
 
 	module.exports = {
 	    apiVersion: version.apiVersion,
 	    itemDataVersion: version.itemDataVersion,
-	    init: __webpack_require__(18),
-	    ArticleRenderer: __webpack_require__(19),
-	    ItemRenderer: __webpack_require__(20),
-	    ServerItemRenderer: __webpack_require__(21),
-	    HintsRenderer: __webpack_require__(22),
-	    Renderer: __webpack_require__(23) };
+	    init: __webpack_require__(21),
+	    ArticleRenderer: __webpack_require__(22),
+	    ItemRenderer: __webpack_require__(23),
+	    ServerItemRenderer: __webpack_require__(24),
+	    HintsRenderer: __webpack_require__(25),
+	    Renderer: __webpack_require__(26) };
 
 /***/ },
 /* 2 */
@@ -103,9 +103,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* eslint-disable no-undef, no-var */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	__webpack_require__(17);
-	var Version = __webpack_require__(56);
-	var Widgets = __webpack_require__(25);
+	__webpack_require__(20);
+	var Version = __webpack_require__(57);
+	var Widgets = __webpack_require__(27);
 
 	var ItemVersion = _.clone(Widgets.getVersionVector());
 	ItemVersion["::renderer::"] = Version.itemDataVersion;
@@ -389,7 +389,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(15);
 
-	var StubTagEditor = __webpack_require__(27);
+	var StubTagEditor = __webpack_require__(28);
 
 	module.exports = {
 	    Options: {
@@ -467,6 +467,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var _ = __webpack_require__(16);
+	var KhanAnswerTypes = __webpack_require__(34);
 
 	var nestedMap = function (children, func, context) {
 	    if (_.isArray(children)) {
@@ -631,7 +632,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    firstNumericalParse: function (text) {
 	        // TODO(alpert): This is sort of hacky...
 	        var first;
-	        var val = Khan.answerTypes.predicate.createValidatorFunctional(function (ans) {
+	        var val = KhanAnswerTypes.predicate.createValidatorFunctional(function (ans) {
 	            first = ans;
 	            return true; /* break */
 	        }, {
@@ -1045,7 +1046,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 
 	        // Require here to prevent recursive imports
-	        var SvgImage = __webpack_require__(28);
+	        var SvgImage = __webpack_require__(29);
 	        img.src = SvgImage.getRealImageUrl(url);
 	    },
 
@@ -1109,8 +1110,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(16);
 
-	var Traversal = __webpack_require__(26);
-	var Widgets = __webpack_require__(25);
+	var Traversal = __webpack_require__(30);
+	var Widgets = __webpack_require__(27);
 
 	var isUpgradedWidgetInfoRenderableBy = function (widgetInfo, widgetRendererVersion) {
 	    if (widgetRendererVersion == null) {
@@ -1180,8 +1181,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(16);
 
-	var Traversal = __webpack_require__(26);
-	var Widgets = __webpack_require__(25);
+	var Traversal = __webpack_require__(30);
+	var Widgets = __webpack_require__(27);
 
 	module.exports = {
 	    // Returns a list of widgets that cause a given perseus item to require
@@ -1218,8 +1219,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(16);
 
-	var traversal = __webpack_require__(26);
-	var PerseusMarkdown = __webpack_require__(31);
+	var traversal = __webpack_require__(30);
+	var PerseusMarkdown = __webpack_require__(32);
 
 	// Takes a renderer content and parses the markdown for images
 	function findImagesInContent(content, images) {
@@ -1359,10 +1360,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var ArticleRenderer = __webpack_require__(19);
+	var ArticleRenderer = __webpack_require__(22);
 	var Editor = __webpack_require__(11);
-	var EnabledFeatures = __webpack_require__(32);
-	var JsonEditor = __webpack_require__(33);
+	var EnabledFeatures = __webpack_require__(31);
+	var JsonEditor = __webpack_require__(35);
 
 	var rendererProps = React.PropTypes.shape({
 	    content: React.PropTypes.string,
@@ -1691,20 +1692,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
-	var ReactCreateFragment = __webpack_require__(29);
-	var $ = __webpack_require__(30);
+	var ReactDOM = __webpack_require__(17);
+	var ReactCreateFragment = __webpack_require__(18);
+	var $ = __webpack_require__(19);
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var DragTarget = __webpack_require__(42);
-	var EnabledFeatures = __webpack_require__(32);
-	var PerseusMarkdown = __webpack_require__(31);
-	var PropCheckBox = __webpack_require__(36);
+	var DragTarget = __webpack_require__(43);
+	var EnabledFeatures = __webpack_require__(31);
+	var PerseusMarkdown = __webpack_require__(32);
+	var PropCheckBox = __webpack_require__(33);
 	var Util = __webpack_require__(6);
-	var Widgets = __webpack_require__(25);
+	var Widgets = __webpack_require__(27);
 
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(40);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(36);
 
 	// like [[snowman input-number 1]]
 	var widgetPlaceholder = "[[☃ {id}]]";
@@ -2705,16 +2706,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
+	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var CombinedHintsEditor = __webpack_require__(34);
-	var EnabledFeatures = __webpack_require__(32);
-	var FixPassageRefs = __webpack_require__(39);
-	var ItemEditor = __webpack_require__(35);
-	var ItemRenderer = __webpack_require__(20);
-	var JsonEditor = __webpack_require__(33);
+	var CombinedHintsEditor = __webpack_require__(37);
+	var EnabledFeatures = __webpack_require__(31);
+	var FixPassageRefs = __webpack_require__(38);
+	var ItemEditor = __webpack_require__(39);
+	var ItemRenderer = __webpack_require__(23);
+	var JsonEditor = __webpack_require__(35);
 	var ViewportResizer = __webpack_require__(14);
 
 	var EditorPage = React.createClass({
@@ -2925,8 +2926,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	// diffs from widget-differ.
 	var React = __webpack_require__(15);
 
-	var TextDiff = __webpack_require__(37);
-	var WidgetDiff = __webpack_require__(38);
+	var TextDiff = __webpack_require__(40);
+	var WidgetDiff = __webpack_require__(41);
 
 	// Deeply look up a property in an object,
 	// -> getPath(obj, ["a", "b", "c"]) === obj["a"]["b"]["c"]
@@ -3081,7 +3082,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var ButtonGroup = __webpack_require__(43);
+	var ButtonGroup = __webpack_require__(44);
 
 	var DEFAULT_VIEWPORT = "desktop";
 
@@ -3178,6 +3179,24 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = __WEBPACK_EXTERNAL_MODULE_17__;
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_18__;
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_19__;
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable no-var */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -3186,21 +3205,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(16);
 
-	var Widgets = __webpack_require__(25);
+	var Widgets = __webpack_require__(27);
 
 	// As new widgets get added here, please also make sure they get added in
 	// webapp perseus/traversal.py so they can be properly translated.
-	_.each([[__webpack_require__(57), true && __webpack_require__(58)], [__webpack_require__(59), true && __webpack_require__(60)], [__webpack_require__(61), true && __webpack_require__(62)], [__webpack_require__(63), true && __webpack_require__(64)], [__webpack_require__(65), true && __webpack_require__(66)], [__webpack_require__(67), true && __webpack_require__(68)], [__webpack_require__(69), true && __webpack_require__(70)], [__webpack_require__(71), true && __webpack_require__(72)], [__webpack_require__(73), true && __webpack_require__(74)], [__webpack_require__(75), true && __webpack_require__(76)], [__webpack_require__(77), true && __webpack_require__(78)], [__webpack_require__(79), true && __webpack_require__(80)], [__webpack_require__(81), true && __webpack_require__(82)], [__webpack_require__(83), true && __webpack_require__(84)], [__webpack_require__(85), true && __webpack_require__(86)], [__webpack_require__(87), true && __webpack_require__(88)], [__webpack_require__(89), true && __webpack_require__(90)], [__webpack_require__(91), true && __webpack_require__(92)], [__webpack_require__(93), true && __webpack_require__(94)], [__webpack_require__(95), true && __webpack_require__(96)], [__webpack_require__(97), true && __webpack_require__(98)], [__webpack_require__(99), true && __webpack_require__(100)], [__webpack_require__(101), true && __webpack_require__(102)], [__webpack_require__(103), true && __webpack_require__(104)], [__webpack_require__(105), true && __webpack_require__(106)], [__webpack_require__(107), true && __webpack_require__(130)], [__webpack_require__(108), true && __webpack_require__(109)], [__webpack_require__(110), true && __webpack_require__(111)], [__webpack_require__(112), true && __webpack_require__(113)], [__webpack_require__(114), true && __webpack_require__(115)], [__webpack_require__(116), true && __webpack_require__(117)], [__webpack_require__(118), true && __webpack_require__(119)], [__webpack_require__(120), true && __webpack_require__(121)], [__webpack_require__(122), true && __webpack_require__(123)],
+	_.each([[__webpack_require__(58), true && __webpack_require__(59)], [__webpack_require__(60), true && __webpack_require__(61)], [__webpack_require__(62), true && __webpack_require__(63)], [__webpack_require__(64), true && __webpack_require__(65)], [__webpack_require__(66), true && __webpack_require__(67)], [__webpack_require__(68), true && __webpack_require__(69)], [__webpack_require__(70), true && __webpack_require__(71)], [__webpack_require__(72), true && __webpack_require__(73)], [__webpack_require__(74), true && __webpack_require__(75)], [__webpack_require__(76), true && __webpack_require__(77)], [__webpack_require__(78), true && __webpack_require__(79)], [__webpack_require__(80), true && __webpack_require__(81)], [__webpack_require__(82), true && __webpack_require__(83)], [__webpack_require__(84), true && __webpack_require__(85)], [__webpack_require__(86), true && __webpack_require__(87)], [__webpack_require__(88), true && __webpack_require__(89)], [__webpack_require__(90), true && __webpack_require__(91)], [__webpack_require__(92), true && __webpack_require__(93)], [__webpack_require__(94), true && __webpack_require__(95)], [__webpack_require__(96), true && __webpack_require__(97)], [__webpack_require__(98), true && __webpack_require__(99)], [__webpack_require__(100), true && __webpack_require__(101)], [__webpack_require__(102), true && __webpack_require__(103)], [__webpack_require__(104), true && __webpack_require__(105)], [__webpack_require__(106), true && __webpack_require__(107)], [__webpack_require__(108), true && __webpack_require__(131)], [__webpack_require__(109), true && __webpack_require__(110)], [__webpack_require__(111), true && __webpack_require__(112)], [__webpack_require__(113), true && __webpack_require__(114)], [__webpack_require__(115), true && __webpack_require__(116)], [__webpack_require__(117), true && __webpack_require__(118)], [__webpack_require__(119), true && __webpack_require__(120)], [__webpack_require__(121), true && __webpack_require__(122)], [__webpack_require__(123), true && __webpack_require__(124)],
 	// These widgets are only used when testing things, so remove them in the
 	// non-editor bundle.
-	true && [__webpack_require__(124), __webpack_require__(125)], true && [__webpack_require__(126), __webpack_require__(127)], true && [__webpack_require__(128), __webpack_require__(129)]], function (data) {
+	true && [__webpack_require__(125), __webpack_require__(126)], true && [__webpack_require__(127), __webpack_require__(128)], true && [__webpack_require__(129), __webpack_require__(130)]], function (data) {
 	  data && Widgets.register(data[0].name, /* widget */data[0], /* editor */data[1]);
 	});
 
 	Widgets.validateAlignments();
 
 /***/ },
-/* 18 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -3241,7 +3260,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = init;
 
 /***/ },
-/* 19 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3256,7 +3275,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var Renderer = __webpack_require__(23);
+	var Renderer = __webpack_require__(26);
 
 	var rendererProps = React.PropTypes.shape({
 	    content: React.PropTypes.string,
@@ -3322,7 +3341,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ArticleRenderer;
 
 /***/ },
-/* 20 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -3332,17 +3351,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
+	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var EnabledFeatures = __webpack_require__(32);
-	var HintsRenderer = __webpack_require__(22);
-	var Renderer = __webpack_require__(23);
+	var EnabledFeatures = __webpack_require__(31);
+	var HintsRenderer = __webpack_require__(25);
+	var Renderer = __webpack_require__(26);
 	var Util = __webpack_require__(6);
-	var getHintsPlacement = __webpack_require__(44);
+	var getHintsPlacement = __webpack_require__(45);
 
-	var _require = __webpack_require__(131);
+	var _require = __webpack_require__(132);
 
 	var mapObject = _require.mapObject;
 
@@ -3690,7 +3709,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ItemRenderer;
 
 /***/ },
-/* 21 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -3707,12 +3726,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var EnabledFeatures = __webpack_require__(32);
-	var HintsRenderer = __webpack_require__(22);
-	var Renderer = __webpack_require__(23);
+	var EnabledFeatures = __webpack_require__(31);
+	var HintsRenderer = __webpack_require__(25);
+	var Renderer = __webpack_require__(26);
 	var Util = __webpack_require__(6);
 
-	var _require = __webpack_require__(131);
+	var _require = __webpack_require__(132);
 
 	var mapObject = _require.mapObject;
 
@@ -3988,17 +4007,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ItemRenderer;
 
 /***/ },
-/* 22 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
+	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 	var i18n = window.i18n;
 
-	var HintRenderer = __webpack_require__(45);
-	var SvgImage = __webpack_require__(28);
-	var EnabledFeatures = __webpack_require__(32);
+	var HintRenderer = __webpack_require__(46);
+	var SvgImage = __webpack_require__(29);
+	var EnabledFeatures = __webpack_require__(31);
 
 	var HintsRenderer = React.createClass({
 	    displayName: "HintsRenderer",
@@ -4158,7 +4177,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = HintsRenderer;
 
 /***/ },
-/* 23 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -4169,27 +4188,27 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/*eslint-disable no-console */
 	/* globals KA */
-	var $ = __webpack_require__(30);
+	var $ = __webpack_require__(19);
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
+	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
-	var classNames = __webpack_require__(41);
+	var classNames = __webpack_require__(42);
 
-	var JiptParagraphs = __webpack_require__(46);
-	var PerseusMarkdown = __webpack_require__(31);
-	var QuestionParagraph = __webpack_require__(47);
-	var SvgImage = __webpack_require__(28);
-	var TeX = __webpack_require__(48);
-	var WidgetContainer = __webpack_require__(49);
-	var Widgets = __webpack_require__(25);
-	var getHintsIndex = __webpack_require__(50);
+	var JiptParagraphs = __webpack_require__(47);
+	var PerseusMarkdown = __webpack_require__(32);
+	var QuestionParagraph = __webpack_require__(48);
+	var SvgImage = __webpack_require__(29);
+	var TeX = __webpack_require__(49);
+	var WidgetContainer = __webpack_require__(50);
+	var Widgets = __webpack_require__(27);
+	var getHintsIndex = __webpack_require__(51);
 
 	var Util = __webpack_require__(6);
-	var EnabledFeatures = __webpack_require__(32);
+	var EnabledFeatures = __webpack_require__(31);
 	var ApiOptions = __webpack_require__(5).Options;
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 
-	var _require = __webpack_require__(131);
+	var _require = __webpack_require__(132);
 
 	var mapObject = _require.mapObject;
 	var mapObjectFromArray = _require.mapObjectFromArray;
@@ -5465,13 +5484,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   wrap (I don't know why this works, but it does) */
 
 /***/ },
-/* 24 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_24__;
-
-/***/ },
-/* 25 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -5797,126 +5810,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Widgets;
 
 /***/ },
-/* 26 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	/**
-	 * Traverses a {content, widgets, images} renderer props object,
-	 * such as `itemData.question`
-	 *
-	 * This traversal is deep and handles some widget prop upgrades
-	 * (TODO(aria): Handle minor prop upgrades :) )
-	 *
-	 * This is the right way to traverse itemData.
-	 *
-	 * NOTE: We should not expose this on the perseus API yet. Instead,
-	 * build the traversal method you want inside perseus, and use this
-	 * from that. We might eventually expose this, but I'd like to be
-	 * more confident in the interface provided first.
-	 */
-
-	var _ = __webpack_require__(16);
-	// TODO(aria): Pull this out of interactive2 / replace with new _.mapObject
-	var objective_ = __webpack_require__(131);
-
-	var Widgets = __webpack_require__(25);
-
-	var noop = function () {};
-
-	var deepCallbackFor = function (contentCallback, widgetCallback, optionsCallback) {
-	    var deepCallback = function (widgetInfo, widgetId) {
-	        // This doesn't modify the widget info if the widget info
-	        // is at a later version than is supported, which is important
-	        // for our latestVersion test below.
-	        var upgradedWidgetInfo = Widgets.upgradeWidgetInfoToLatestVersion(widgetInfo);
-	        var latestVersion = Widgets.getVersion(upgradedWidgetInfo.type);
-
-	        // Only traverse our children if we can understand this version
-	        // of the widget props.
-	        // TODO(aria): This will break if the traversal code assumes that
-	        // any props that usually get defaulted in are present. That is,
-	        // it can fail on minor version upgrades.
-	        // For this reason, and because the upgrade code doesn't handle
-	        // minor versions correctly (it doesn't report anything useful
-	        // about what minor version a widget is actually at, since it
-	        // doesn't have meaning in the context of upgrades), we
-	        // just check the major version here.
-	        // TODO(aria): This is seriously quirky and would be unpleasant
-	        // to think about while writing traverseChildWidgets code. Please
-	        // make all of this a little tighter.
-	        // I think once we use react class defaultProps instead of relying
-	        // on getDefaultProps, this will become easier.
-	        var newWidgetInfo;
-	        if (latestVersion && upgradedWidgetInfo.version.major === latestVersion.major) {
-	            newWidgetInfo = Widgets.traverseChildWidgets(upgradedWidgetInfo, function (rendererOptions) {
-	                return traverseRenderer(rendererOptions, contentCallback,
-	                // so that we traverse grandchildren, too:
-	                deepCallback, optionsCallback);
-	            });
-	        } else {
-	            newWidgetInfo = upgradedWidgetInfo;
-	        }
-
-	        var userWidgetInfo = widgetCallback(newWidgetInfo, widgetId);
-	        if (userWidgetInfo !== undefined) {
-	            return userWidgetInfo;
-	        } else {
-	            return newWidgetInfo;
-	        }
-	    };
-	    return deepCallback;
-	};
-
-	var traverseRenderer = function (rendererOptions, contentCallback, deepWidgetCallback, optionsCallback) {
-
-	    var newContent = rendererOptions.content;
-	    if (rendererOptions.content != null) {
-	        var modifiedContent = contentCallback(rendererOptions.content);
-	        if (modifiedContent !== undefined) {
-	            newContent = modifiedContent;
-	        }
-	    }
-
-	    var newWidgets = objective_.mapObject(rendererOptions.widgets || {}, function (widgetInfo, widgetId) {
-	        // Widgets without info or a type are empty widgets, and
-	        // should always be renderable. It's also annoying to write
-	        // checks for this everywhere, so we just filter them out once and
-	        // for all!
-	        if (widgetInfo == null || widgetInfo.type == null) {
-	            return widgetInfo;
-	        }
-	        return deepWidgetCallback(widgetInfo, widgetId);
-	    });
-
-	    var newOptions = _.extend({}, rendererOptions, {
-	        content: newContent,
-	        widgets: newWidgets });
-	    var userOptions = optionsCallback(newOptions);
-	    if (userOptions !== undefined) {
-	        return userOptions;
-	    } else {
-	        return newOptions;
-	    }
-	};
-
-	var traverseRendererDeep = function (rendererOptions, contentCallback, widgetCallback, optionsCallback) {
-
-	    contentCallback = contentCallback || noop;
-	    widgetCallback = widgetCallback || noop;
-	    optionsCallback = optionsCallback || noop;
-
-	    return traverseRenderer(rendererOptions, contentCallback, deepCallbackFor(contentCallback, widgetCallback, optionsCallback), optionsCallback);
-	};
-
-	module.exports = {
-	    traverseRendererDeep: traverseRendererDeep };
-
-/***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -5938,7 +5832,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(15);
 
-	var TextListEditor = __webpack_require__(51);
+	var TextListEditor = __webpack_require__(52);
 	var EMPTY_ARRAY = [];
 
 	var StubTagEditor = React.createClass({
@@ -5979,7 +5873,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   through defaultProps */
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -5987,15 +5881,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	/* globals KA */
-	var classNames = __webpack_require__(41);
+	var classNames = __webpack_require__(42);
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var FixedToResponsive = __webpack_require__(52);
-	var Graphie = __webpack_require__(53);
-	var ImageLoader = __webpack_require__(54);
+	var FixedToResponsive = __webpack_require__(53);
+	var Graphie = __webpack_require__(54);
+	var ImageLoader = __webpack_require__(55);
 	var Util = __webpack_require__(6);
-	var Zoom = __webpack_require__(55);
+	var Zoom = __webpack_require__(56);
 
 	// Minimum image width to make an image appear as zoomable.
 	var ZOOMABLE_THRESHOLD = 700;
@@ -6568,19 +6462,154 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = SvgImage;
 
 /***/ },
-/* 29 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_29__;
-
-/***/ },
 /* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_30__;
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/**
+	 * Traverses a {content, widgets, images} renderer props object,
+	 * such as `itemData.question`
+	 *
+	 * This traversal is deep and handles some widget prop upgrades
+	 * (TODO(aria): Handle minor prop upgrades :) )
+	 *
+	 * This is the right way to traverse itemData.
+	 *
+	 * NOTE: We should not expose this on the perseus API yet. Instead,
+	 * build the traversal method you want inside perseus, and use this
+	 * from that. We might eventually expose this, but I'd like to be
+	 * more confident in the interface provided first.
+	 */
+
+	var _ = __webpack_require__(16);
+	// TODO(aria): Pull this out of interactive2 / replace with new _.mapObject
+	var objective_ = __webpack_require__(132);
+
+	var Widgets = __webpack_require__(27);
+
+	var noop = function () {};
+
+	var deepCallbackFor = function (contentCallback, widgetCallback, optionsCallback) {
+	    var deepCallback = function (widgetInfo, widgetId) {
+	        // This doesn't modify the widget info if the widget info
+	        // is at a later version than is supported, which is important
+	        // for our latestVersion test below.
+	        var upgradedWidgetInfo = Widgets.upgradeWidgetInfoToLatestVersion(widgetInfo);
+	        var latestVersion = Widgets.getVersion(upgradedWidgetInfo.type);
+
+	        // Only traverse our children if we can understand this version
+	        // of the widget props.
+	        // TODO(aria): This will break if the traversal code assumes that
+	        // any props that usually get defaulted in are present. That is,
+	        // it can fail on minor version upgrades.
+	        // For this reason, and because the upgrade code doesn't handle
+	        // minor versions correctly (it doesn't report anything useful
+	        // about what minor version a widget is actually at, since it
+	        // doesn't have meaning in the context of upgrades), we
+	        // just check the major version here.
+	        // TODO(aria): This is seriously quirky and would be unpleasant
+	        // to think about while writing traverseChildWidgets code. Please
+	        // make all of this a little tighter.
+	        // I think once we use react class defaultProps instead of relying
+	        // on getDefaultProps, this will become easier.
+	        var newWidgetInfo;
+	        if (latestVersion && upgradedWidgetInfo.version.major === latestVersion.major) {
+	            newWidgetInfo = Widgets.traverseChildWidgets(upgradedWidgetInfo, function (rendererOptions) {
+	                return traverseRenderer(rendererOptions, contentCallback,
+	                // so that we traverse grandchildren, too:
+	                deepCallback, optionsCallback);
+	            });
+	        } else {
+	            newWidgetInfo = upgradedWidgetInfo;
+	        }
+
+	        var userWidgetInfo = widgetCallback(newWidgetInfo, widgetId);
+	        if (userWidgetInfo !== undefined) {
+	            return userWidgetInfo;
+	        } else {
+	            return newWidgetInfo;
+	        }
+	    };
+	    return deepCallback;
+	};
+
+	var traverseRenderer = function (rendererOptions, contentCallback, deepWidgetCallback, optionsCallback) {
+
+	    var newContent = rendererOptions.content;
+	    if (rendererOptions.content != null) {
+	        var modifiedContent = contentCallback(rendererOptions.content);
+	        if (modifiedContent !== undefined) {
+	            newContent = modifiedContent;
+	        }
+	    }
+
+	    var newWidgets = objective_.mapObject(rendererOptions.widgets || {}, function (widgetInfo, widgetId) {
+	        // Widgets without info or a type are empty widgets, and
+	        // should always be renderable. It's also annoying to write
+	        // checks for this everywhere, so we just filter them out once and
+	        // for all!
+	        if (widgetInfo == null || widgetInfo.type == null) {
+	            return widgetInfo;
+	        }
+	        return deepWidgetCallback(widgetInfo, widgetId);
+	    });
+
+	    var newOptions = _.extend({}, rendererOptions, {
+	        content: newContent,
+	        widgets: newWidgets });
+	    var userOptions = optionsCallback(newOptions);
+	    if (userOptions !== undefined) {
+	        return userOptions;
+	    } else {
+	        return newOptions;
+	    }
+	};
+
+	var traverseRendererDeep = function (rendererOptions, contentCallback, widgetCallback, optionsCallback) {
+
+	    contentCallback = contentCallback || noop;
+	    widgetCallback = widgetCallback || noop;
+	    optionsCallback = optionsCallback || noop;
+
+	    return traverseRenderer(rendererOptions, contentCallback, deepCallbackFor(contentCallback, widgetCallback, optionsCallback), optionsCallback);
+	};
+
+	module.exports = {
+	    traverseRendererDeep: traverseRendererDeep };
 
 /***/ },
 /* 31 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(15);
+
+	module.exports = {
+	    propTypes: React.PropTypes.shape({
+	        toolTipFormats: React.PropTypes.bool.isRequired,
+	        useMathQuill: React.PropTypes.bool.isRequired,
+	        // TODO(jared): once web phone exercises experiment is done, remove
+	        // these two flags
+	        dynamicHintsArea: React.PropTypes.bool,
+	        newHintStyles: React.PropTypes.bool }).isRequired,
+
+	    defaults: {
+	        dynamicHintsArea: false,
+	        newHintStyles: false,
+	        // TODO(jack): Remove this two options
+	        toolTipFormats: true,
+	        useMathQuill: false
+	    }
+	};
+
+/***/ },
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -6592,8 +6621,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* globals KA */
 	var _ = __webpack_require__(16);
 
-	var SimpleMarkdown = __webpack_require__(169);
-	var TeX = __webpack_require__(48);
+	var SimpleMarkdown = __webpack_require__(150);
+	var TeX = __webpack_require__(49);
 	var Util = __webpack_require__(6);
 
 	/**
@@ -7034,35 +7063,84 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * technical debt. */
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
+	var _ = __webpack_require__(16);
 
-	module.exports = {
-	    propTypes: React.PropTypes.shape({
-	        toolTipFormats: React.PropTypes.bool.isRequired,
-	        useMathQuill: React.PropTypes.bool.isRequired,
-	        // TODO(jared): once web phone exercises experiment is done, remove
-	        // these two flags
-	        dynamicHintsArea: React.PropTypes.bool,
-	        newHintStyles: React.PropTypes.bool }).isRequired,
+	/* A checkbox that syncs its value to props using the
+	 * renderer's onChange method, and gets the prop name
+	 * dynamically from its props list
+	 */
+	var PropCheckBox = React.createClass({
+	    displayName: "PropCheckBox",
 
-	    defaults: {
-	        dynamicHintsArea: false,
-	        newHintStyles: false,
-	        // TODO(jack): Remove this two options
-	        toolTipFormats: true,
-	        useMathQuill: false
+	    propTypes: {
+	        labelAlignment: React.PropTypes.oneOf(["left", "right"])
+	    },
+
+	    DEFAULT_PROPS: {
+	        label: null,
+	        onChange: null,
+	        labelAlignment: "left"
+	    },
+
+	    getDefaultProps: function () {
+	        return this.DEFAULT_PROPS;
+	    },
+
+	    propName: function () {
+	        var propName = _.find(_.keys(this.props), function (localPropName) {
+	            return !_.has(this.DEFAULT_PROPS, localPropName);
+	        }, this);
+
+	        if (!propName) {
+	            throw new Error("Attempted to create a PropCheckBox with no " + "prop!");
+	        }
+
+	        return propName;
+	    },
+
+	    _labelAlignLeft: function () {
+	        return this.props.labelAlignment === "left";
+	    },
+
+	    render: function () {
+	        var propName = this.propName();
+	        return React.createElement(
+	            "label",
+	            null,
+	            this._labelAlignLeft() && this.props.label,
+	            React.createElement("input", { type: "checkbox",
+	                checked: this.props[propName],
+	                onChange: this.toggle }),
+	            !this._labelAlignLeft() && this.props.label
+	        );
+	    },
+
+	    toggle: function () {
+	        var propName = this.propName();
+	        var changes = {};
+	        changes[propName] = !this.props[propName];
+	        this.props.onChange(changes);
 	    }
-	};
+	});
+
+	module.exports = PropCheckBox;
 
 /***/ },
-/* 33 */
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var $=__webpack_require__(19);var _=__webpack_require__(16);var retrieveMathFormula=__webpack_require__(133).retrieveMathFormula;var localeToFixed=__webpack_require__(134);var KhanMath=__webpack_require__(135);var MAXERROR_EPSILON=Math.pow(2, -42);var extractRawCode=function(elem){var $elem=$(elem).clone(true);var code=$elem.find("code");if(code.length){$.each(code, function(i, elem){$(elem).replaceWith("<code><script type=\"math/tex\">" + retrieveMathFormula(elem) + "</script></code>");});}return $elem.html();};function getTextSquish(elem){return $(elem).text().replace(/\s+/g, "");}function checkIfAnswerEmpty(guess){return $.trim(guess) === "" || guess instanceof Array && $.trim(guess.join("").replace(/,/g, "")) === "";}function addExamplesToInput($input, examples){if($input.data("qtip")){$input.qtip("destroy", true);}var $examples=$("<ul class=\"examples\" style=\"display: none\"></ul>");_.each(examples, function(example){$examples.append("<li>" + example + "</li>");});$input.qtip({content:{text:$examples.remove(), prerender:true}, style:{classes:"qtip-light leaf-tooltip"}, position:{my:"top left", at:"bottom left"}, show:{delay:0, effect:{length:0}, event:"focus"}, hide:{delay:0, event:"blur"}, events:{render:function(){$examples.children().runModules();}}});}function numberAnswerType(forms){return {setupFunctional:function(solutionarea, solutionText, solutionData){return KhanAnswerTypes.number.setupFunctional(solutionarea, solutionText, $.extend({}, solutionData, {forms:forms}));}, createValidatorFunctional:function(correct, options){return KhanAnswerTypes.number.createValidatorFunctional(correct, $.extend({}, options, {forms:forms}));}};}var KhanAnswerTypes={letters:{setupFunctional:function(solutionarea, solutionText, solutionData){return KhanAnswerTypes.text.setupFunctional(solutionarea, solutionText, solutionData, "letters");}, createValidatorFunctional:function(correct, options){return KhanAnswerTypes.text.createValidatorFunctional(correct, options);}}, lowers:{setupFunctional:function(solutionarea, solutionText, solutionData){return KhanAnswerTypes.text.setupFunctional(solutionarea, solutionText, solutionData, "lowers");}, createValidatorFunctional:function(correct, options){return KhanAnswerTypes.text.createValidatorFunctional(correct, options);}}, caps:{setupFunctional:function(solutionarea, solutionText, solutionData){return KhanAnswerTypes.text.setupFunctional(solutionarea, solutionText, solutionData, "caps");}, createValidatorFunctional:function(correct, options){return KhanAnswerTypes.text.createValidatorFunctional(correct, options);}}, text:{setupFunctional:function(solutionarea, solutionText, solutionData, solutionGrammar){solutionGrammar = solutionGrammar || "text";var input=undefined;if(window.Modernizr && Modernizr.touchevents){input = $("<input data-solution-grammar=\"" + solutionGrammar + "\" type=\"text\" autocapitalize=\"off\">");}else {input = $("<input data-solution-grammar=\"" + solutionGrammar + "\" type=\"text\">");}$(solutionarea).append(input);return {validator:KhanAnswerTypes.text.createValidatorFunctional(solutionText, solutionData), answer:function(){return input.val();}, solution:$.trim(solutionText), showGuess:function(guess){input.val(guess === undefined?"":guess);}};}, createValidatorFunctional:function(correct, options){options = _.extend({correctCase:"required"}, options);correct = $.trim(correct);return function(guess){var fallback=options.fallback != null?"" + options.fallback:"";guess = $.trim(guess) || fallback;var score={empty:false, correct:false, message:null, guess:guess};if(guess.toLowerCase() === correct.toLowerCase()){if(correct === guess || options.correctCase === "optional"){score.correct = true;}else {if(guess === guess.toLowerCase()){score.message = i18n._("Your answer is almost correct, but " + "must be in capital letters.");}else if(guess === guess.toUpperCase()){score.message = i18n._("Your answer is almost correct, but " + "must not be in capital letters.");}else {score.message = i18n._("Your answer is almost correct, but " + "must be in the correct case.");}}}return score;};}}, predicate:{defaultForms:"integer, proper, improper, mixed, decimal", setupFunctional:function(solutionarea, solutionText, solutionData){var options=$.extend({simplify:"required", ratio:false, forms:KhanAnswerTypes.predicate.defaultForms}, solutionData);var acceptableForms=options.forms.split(/\s*,\s*/);if(options.inexact === undefined){options.maxError = 0;}options.maxError = +options.maxError + MAXERROR_EPSILON;var $input=$("<input type=\"text\" autocapitalize=\"off\">");$(solutionarea).append($input);var exampleForms={integer:i18n._("an integer, like <code>6</code>"), proper:(function(){if(options.simplify === "optional"){return i18n._("a <em>proper</em> fraction, like " + "<code>1/2</code> or <code>6/10</code>");}else {return i18n._("a <em>simplified proper</em> " + "fraction, like <code>3/5</code>");}})(), improper:(function(){if(options.simplify === "optional"){return i18n._("an <em>improper</em> fraction, like " + "<code>10/7</code> or <code>14/8</code>");}else {return i18n._("a <em>simplified improper</em> " + "fraction, like <code>7/4</code>");}})(), pi:i18n._("a multiple of pi, like <code>12\\ \\text{pi}" + "</code> or <code>2/3\\ \\text{pi}</code>"), log:i18n._("an expression, like <code>\\log(100)</code>"), percent:i18n._("a percent, like <code>%(NUM)s\\%</code>", {NUM:localeToFixed(12.34, 2)}), mixed:i18n._("a mixed number, like <code>1\\ 3/4</code>"), decimal:(function(){if(options.inexact === undefined){return i18n._("an <em>exact</em> decimal, like " + "<code>%(NUM)s</code>", {NUM:localeToFixed(0.75, 2)});}else {return i18n._("a decimal, like <code>%(NUM)s</code>", {NUM:localeToFixed(0.75, 2)});}})()};var examples=[];$.each(acceptableForms, function(i, form){if(exampleForms[form] != null){examples.push(exampleForms[form]);}});if(options.forms !== KhanAnswerTypes.predicate.defaultForms){addExamplesToInput($input, examples);}return {validator:KhanAnswerTypes.predicate.createValidatorFunctional(solutionText, solutionData), answer:function(){return $input.val();}, solution:$.trim(solutionText), showGuess:function(guess){$input.val(guess === undefined?"":guess);}};}, createValidatorFunctional:function(predicate, options){options = _.extend({simplify:"required", ratio:false, forms:KhanAnswerTypes.predicate.defaultForms}, options);var acceptableForms=undefined;if(!_.isArray(options.forms)){acceptableForms = options.forms.split(/\s*,\s*/);}else {acceptableForms = options.forms;}if(options.inexact === undefined){options.maxError = 0;}options.maxError = +options.maxError + MAXERROR_EPSILON;if(_.contains(acceptableForms, "percent")){acceptableForms = _.without(acceptableForms, "percent");acceptableForms.push("percent");}predicate = _.isFunction(predicate)?predicate:KhanUtil.tmpl.getVAR(predicate);var fractionTransformer=function(text){text = text.replace(/\u2212/, "-").replace(/([+-])\s+/g, "$1").replace(/(^\s*)|(\s*$)/gi, "");var match=text.match(/^([+-]?\d+)\s*\/\s*([+-]?\d+)$/);var parsedInt=parseInt(text, 10);if(match){var num=parseFloat(match[1]);var denom=parseFloat(match[2]);var simplified=denom > 0 && (options.ratio || match[2] !== "1") && KhanMath.getGCD(num, denom) === 1;return [{value:num / denom, exact:simplified}];}else if(!isNaN(parsedInt) && "" + parsedInt === text){return [{value:parsedInt, exact:true}];}return [];};var forms={integer:function(text){var decimal=forms.decimal(text);var rounded=forms.decimal(text, 1);if(decimal[0].value != null && decimal[0].value === rounded[0].value || decimal[1].value != null && decimal[1].value === rounded[1].value){return decimal;}return [];}, proper:function(text){return $.map(fractionTransformer(text), function(o){if(Math.abs(o.value) < 1){return [o];}else {return [];}});}, improper:function(text){return $.map(fractionTransformer(text), function(o){if(Math.abs(o.value) >= 1){return [o];}else {return [];}});}, pi:function(text){var match=undefined;var possibilities=[];text = text.replace(/\u2212/, "-");if(match = text.match(/^([+-]?)\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)){possibilities = [{value:parseFloat(match[1] + "1"), exact:true}];}else if(match = text.match(/^([+-]?\s*\d+\s*(?:\/\s*[+-]?\s*\d+)?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)){possibilities = fractionTransformer(match[1]);}else if(match = text.match(/^([+-]?)\s*(\d+)\s*([+-]?\d+)\s*\/\s*([+-]?\d+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)){var sign=parseFloat(match[1] + "1");var integ=parseFloat(match[2]);var num=parseFloat(match[3]);var denom=parseFloat(match[4]);var simplified=num < denom && KhanMath.getGCD(num, denom) === 1;possibilities = [{value:sign * (integ + num / denom), exact:simplified}];}else if(match = text.match(/^([+-]?\s*\d+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\s*\d+))?$/i)){possibilities = fractionTransformer(match[1] + "/" + match[3]);}else if(match = text.match(/^([+-]?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\d+))?$/i)){possibilities = fractionTransformer(match[1] + "1/" + match[3]);}else if(text === "0"){possibilities = [{value:0, exact:true}];}else if(match = text.match(/^(.+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)){possibilities = forms.decimal(match[1]);}else {possibilities = _.reduce(KhanAnswerTypes.predicate.defaultForms.split(/\s*,\s*/), function(memo, form){return memo.concat(forms[form](text));}, []);_.each(possibilities, function(possibility){possibility.piApprox = true;});return possibilities;}var multiplier=Math.PI;if(text.match(/\\?tau|t|\u03c4/)){multiplier = Math.PI * 2;}if(text.match(/pau/)){multiplier = Math.PI * 1.5;}$.each(possibilities, function(ix, possibility){possibility.value *= multiplier;});return possibilities;}, coefficient:function(text){var possibilities=[];text = text.replace(/\u2212/, "-");if(text === ""){possibilities = [{value:1, exact:true}];}else if(text === "-"){possibilities = [{value:-1, exact:true}];}return possibilities;}, log:function(text){var match=undefined;var possibilities=[];text = text.replace(/\u2212/, "-");text = text.replace(/[ \(\)]/g, "");if(match = text.match(/^log\s*(\S+)\s*$/i)){possibilities = forms.decimal(match[1]);}else if(text === "0"){possibilities = [{value:0, exact:true}];}return possibilities;}, percent:function(text){text = $.trim(text);var hasPercentSign=false;if(text.indexOf("%") === text.length - 1){text = $.trim(text.substring(0, text.length - 1));hasPercentSign = true;}var transformed=forms.decimal(text);$.each(transformed, function(ix, t){t.exact = hasPercentSign;t.value = t.value / 100;});return transformed;}, mixed:function(text){var match=text.replace(/\u2212/, "-").replace(/([+-])\s+/g, "$1").match(/^([+-]?)(\d+)\s+(\d+)\s*\/\s*(\d+)$/);if(match){var sign=parseFloat(match[1] + "1");var integ=parseFloat(match[2]);var num=parseFloat(match[3]);var denom=parseFloat(match[4]);var simplified=num < denom && KhanMath.getGCD(num, denom) === 1;return [{value:sign * (integ + num / denom), exact:simplified}];}return [];}, decimal:function(text, precision){if(precision == null){precision = 10000000000;}var normal=function(text){text = $.trim(text);var match=text.replace(/\u2212/, "-").replace(/([+-])\s+/g, "$1").match(/^([+-]?(?:\d{1,3}(?:[, ]?\d{3})*\.?|\d{0,3}(?:[, ]?\d{3})*\.(?:\d{3}[, ]?)*\d{1,3}))$/);var badLeadingZero=text.match(/^0[0,]*,/);if(match && !badLeadingZero){var x=parseFloat(match[1].replace(/[, ]/g, ""));if(options.inexact === undefined){x = Math.round(x * precision) / precision;}return x;}};var commas=function(text){text = text.replace(/([\.,])/g, function(_, c){return c === "."?",":".";});return normal(text);};return [{value:normal(text), exact:true}, {value:commas(text), exact:true}];}};return function(guess){var fallback=options.fallback != null?"" + options.fallback:"";guess = $.trim(guess) || fallback;var score={empty:guess === "", correct:false, message:null, guess:guess};$.each(acceptableForms, function(i, form){var transformed=forms[form](guess);for(var j=0, l=transformed.length; j < l; j++) {var val=transformed[j].value;var exact=transformed[j].exact;var piApprox=transformed[j].piApprox;if(predicate(val, options.maxError)){if(exact || options.simplify === "optional"){score.correct = true;score.message = options.message || null;score.empty = false;}else if(form === "percent"){score.empty = true;score.message = i18n._("Your answer is almost correct, " + "but it is missing a " + "<code>\\%</code> at the end.");}else {if(options.simplify !== "enforced"){score.empty = true;}score.message = i18n._("Your answer is almost correct, " + "but it needs to be simplified.");}return false;}else if(piApprox && predicate(val, Math.abs(val * 0.001))){score.empty = true;score.message = i18n._("Your answer is close, but you may " + "have approximated pi. Enter your " + "answer as a multiple of pi, like " + "<code>12\\ \\text{pi}</code> or " + "<code>2/3\\ \\text{pi}</code>");}}});if(score.correct === false){var _ret=(function(){var interpretedGuess=false;_.each(forms, function(form){var anyAreNaN=_.any(form(guess), function(t){return t.value != null && !_.isNaN(t.value);});if(anyAreNaN){interpretedGuess = true;}});if(!interpretedGuess){score.empty = true;score.message = i18n._("We could not understand your " + "answer. Please check your answer for extra " + "text or symbols.");return {v:score};}})();if(typeof _ret === "object")return _ret.v;}return score;};}}, number:{convertToPredicate:function(correct, options){var correctFloat=parseFloat($.trim(correct));return [function(guess, maxError){return Math.abs(guess - correctFloat) < maxError;}, $.extend({}, options, {type:"predicate"})];}, setupFunctional:function(solutionarea, solutionText, solutionData){var args=KhanAnswerTypes.number.convertToPredicate(solutionText, solutionData);return KhanAnswerTypes.predicate.setupFunctional(solutionarea, args[0], args[1]);}, createValidatorFunctional:function(correct, options){var _KhanAnswerTypes$predicate;return (_KhanAnswerTypes$predicate = KhanAnswerTypes.predicate).createValidatorFunctional.apply(_KhanAnswerTypes$predicate, KhanAnswerTypes.number.convertToPredicate(correct, options));}}, decimal:numberAnswerType("decimal"), rational:numberAnswerType("integer, proper, improper, mixed"), improper:numberAnswerType("integer, proper, improper"), mixed:numberAnswerType("integer, proper, mixed"), regex:{setupFunctional:function(solutionarea, solutionText, solutionData){var input=undefined;if(window.Modernizr && Modernizr.touchevents){input = $("<input type=\"text\" autocapitalize=\"off\">");}else {input = $("<input type=\"text\">");}$(solutionarea).append(input);return {validator:KhanAnswerTypes.regex.createValidatorFunctional(solutionText, solutionData), answer:function(){return input.val();}, solution:$.trim(solutionText), showGuess:function(guess){input.val(guess === undefined?"":guess);}};}, createValidatorFunctional:function(regex, options){var flags="";if(options.caseInsensitive != null){flags += "i";}regex = new RegExp($.trim(regex), flags);return function(guess){var fallback=options.fallback != null?"" + options.fallback:"";guess = $.trim(guess) || fallback;return {empty:false, correct:guess.match(regex) != null, message:null, guess:guess};};}}, radical:{setupFunctional:function(solutionarea, solutionText, solutionData){var options=$.extend({simplify:"required"}, solutionData);var inte=$("<input type=\"text\" autocapitalize=\"off\">");var rad=$("<input type=\"text\" autocapitalize=\"off\">");var examples=options.simplify === "required"?[i18n._("a simplified radical, like <code>\\sqrt{2}</code> " + "or <code>3\\sqrt{5}</code>")]:[i18n._("a radical, like <code>\\sqrt{8}</code> or " + "<code>2\\sqrt{2}</code>")];addExamplesToInput(inte, examples);addExamplesToInput(rad, examples);$("<div class='radical'>").append($("<span>").append(inte)).append("<span class=\"surd\">&radic;</span>").append($("<span>").append(rad).addClass("overline")).appendTo(solutionarea);var ansSquared=parseFloat(solutionText);var ans=KhanMath.splitRadical(ansSquared);return {validator:KhanAnswerTypes.radical.createValidatorFunctional(solutionText, solutionData), answer:function(){return [$.trim(inte.val()), $.trim(rad.val())];}, solution:ans, showGuess:function(guess){inte.val(guess?guess[0]:"");rad.val(guess?guess[1]:"");}};}, createValidatorFunctional:function(ansSquared, options){options = $.extend({simplify:"required"}, options);ansSquared = parseFloat(ansSquared);var ans=KhanMath.splitRadical(ansSquared);return function(guess){if(guess[0].length === 0 && guess[1].length === 0){return {empty:true, correct:false, message:null, guess:guess};}guess[0] = guess[0].length > 0?guess[0]:"1";guess[1] = guess[1].length > 0?guess[1]:"1";var inteGuess=parseFloat(guess[0]);var radGuess=parseFloat(guess[1]);var correct=Math.abs(inteGuess) * inteGuess * radGuess === ansSquared;var simplified=inteGuess === ans[0] && radGuess === ans[1];var score={empty:false, correct:false, message:null, guess:guess};if(correct){if(simplified || options.simplify === "optional"){score.correct = true;}else {score.message = i18n._("Your answer is almost correct, but it needs to " + "be simplified.");}}return score;};}}, cuberoot:{setupFunctional:function(solutionarea, solutionText, solutionData){var options=$.extend({simplify:"required"}, solutionData);var inte=$("<input type=\"text\" autocapitalize=\"off\">");var rad=$("<input type=\"text\" autocapitalize=\"off\">");var examples=options.simplify === "required"?[i18n._("a simplified radical, like <code>\\sqrt[3]{2}</code>" + " or <code>3\\sqrt[3]{5}</code>")]:[i18n._("a radical, like <code>\\sqrt[3]{8}</code> or " + "<code>2\\sqrt[3]{2}</code>")];addExamplesToInput(inte, examples);addExamplesToInput(rad, examples);$("<div class='radical'>").append($("<span>").append(inte)).append("<span class=\"surd\" style=\"vertical-align: 6px;\">" + "<code>\\sqrt[3]{}</code></span>").append($("<span>").append(rad).addClass("overline")).appendTo(solutionarea).tex();var ansCubed=parseFloat(solutionText);var ans=KhanMath.splitCube(ansCubed);return {validator:KhanAnswerTypes.cuberoot.createValidatorFunctional(solutionText, solutionData), answer:function(){return [inte.val(), rad.val()];}, solution:ans, showGuess:function(guess){inte.val(guess?guess[0]:"");rad.val(guess?guess[1]:"");}};}, createValidatorFunctional:function(ansCubed, options){options = $.extend({simplify:"required"}, options);ansCubed = parseFloat(ansCubed);var ans=KhanMath.splitCube(ansCubed);return function(guess){if(guess[0].length === 0 && guess[1].length === 0){return {empty:true, correct:false, message:null, guess:guess};}guess[0] = guess[0].length > 0?guess[0]:"1";guess[1] = guess[1].length > 0?guess[1]:"1";var inteGuess=parseFloat(guess[0]);var radGuess=parseFloat(guess[1]);var correct=Math.abs(inteGuess) * inteGuess * inteGuess * radGuess === ansCubed;var simplified=inteGuess === ans[0] && radGuess === ans[1];var score={empty:false, correct:false, message:null, guess:guess};if(correct){if(simplified || options.simplify === "optional"){score.correct = true;}else {score.message = i18n._("Your answer is almost correct, but it needs to " + "be simplified.");}}return score;};}}, multiple:{setup:function(solutionarea, solution){$(solutionarea).append($(solution).clone(true).texCleanup().contents().runModules());var answerDataArray=[];$(solutionarea).find(".sol").each(function(idx){var type=$(this).data("type");type = type != null?type:"number";var sol=$(solution).find(".sol").eq(idx);var solarea=$(this).empty();var answerData=KhanAnswerTypes[type].setup(solarea, sol);answerDataArray.push(answerData);});return {validator:KhanAnswerTypes.multiple.createValidator(solution), answer:function(){var answer=[];$.each(answerDataArray, function(i, answerData){answer.push(answerData.answer());});return answer;}, solution:(function(){$.map(answerDataArray, function(answerData){return answerData.solution;});})(), showGuess:function(guess){$.each(answerDataArray, function(i, answerData){if(guess !== undefined){answerData.showGuess(guess[i]);}else {answerData.showGuess();}});}, showCustomGuess:function(guess){$.each(answerDataArray, function(i, answerData){if(!_.isFunction(answerData.showCustomGuess)){return;}if(guess !== undefined){answerData.showCustomGuess(guess[i]);}else {answerData.showCustomGuess();}});}};}, createValidator:function(solution){var validators=[];$(solution).find(".sol").each(function(){var sol=$(this);var type=sol.data("type");type = type != null?type:"number";var validator=KhanAnswerTypes[type].createValidator(sol);validators.push(validator);});return function(guess){var score={empty:true, correct:true, message:null, guess:guess};var blockGradingMessage=null;if(checkIfAnswerEmpty(guess)){score.empty = true;score.correct = false;return score;}$.each(guess, function(i, g){var pass=validators[i](g);if(pass.message && pass.empty){blockGradingMessage = pass.message;}else {score.empty = score.empty && pass.empty;score.correct = score.correct && pass.correct;score.message = score.message || pass.message;}});if(score.correct && blockGradingMessage != null){return {empty:true, correct:false, message:blockGradingMessage, guess:guess};}else {score.empty = false;return score;}};}}, set:{setup:function(solutionarea, solution){$(solutionarea).append($(solution).find(".input-format").clone(true).texCleanup().contents().runModules());var inputArray=[];var showGuessArray=[];$(solutionarea).find(".entry").each(function(){var input=$(this);var type=$(this).data("type");type = type != null?type:"number";var sol=input.clone(true);var solarea=input.empty();var validator=KhanAnswerTypes[type].setup(solarea, sol);inputArray.push(validator.answer);showGuessArray.push(validator.showGuess);});var solutionArray=[];$(solution).find(".set-sol").clone(true).each(function(){var type=$(this).data("type");type = type != null?type:"number";var solarea=$("<div>");var validator=KhanAnswerTypes[type].setup(solarea, $(this));solutionArray.push(validator.solution);});return {validator:KhanAnswerTypes.set.createValidator(solution), answer:function(){var answer=[];$.each(inputArray, function(i, getAns){answer.push(getAns());});return answer;}, solution:solution, showGuess:function(guess){$.each(showGuessArray, function(i, showGuess){if(guess === undefined){showGuess();}else {showGuess(guess[i]);}});}};}, createValidator:function(solution){var validatorArray=[];$(solution).find(".set-sol").clone(true).each(function(){var type=$(this).data("type");type = type != null?type:"number";var validator=KhanAnswerTypes[type].createValidator($(this));validatorArray.push(validator);});return function(guess){var score={empty:validatorArray.length === 0?false:true, correct:true, message:null, guess:guess};var blockGradingMessage=null;var unusedValidators=validatorArray.slice(0);$.each(guess, function(i, g){var correct=false;$.each(unusedValidators, function(i, validator){var pass=validator(g);if(pass.empty && pass.message){unusedValidators.splice(i, 1);blockGradingMessage = pass.message;correct = true;return false;}if(pass.correct){correct = pass.correct;unusedValidators.splice(i, 1);return false;}if(!pass.correct && pass.message){correct = pass.message;}});if(!checkIfAnswerEmpty(g) && !checkIfAnswerEmpty(correct)){score.empty = false;}if(!correct && $.trim([g].join("")) !== ""){score.correct = false;return false;}if(typeof correct === "string"){score.message = correct;score.correct = false;}});if(validatorArray.length > guess.length){if(unusedValidators.length > validatorArray.length - guess.length){score.correct = false;}}else if(unusedValidators.length > 0){score.correct = false;}if(score.correct && blockGradingMessage != null){return {empty:true, correct:false, message:blockGradingMessage, guess:guess};}else {return score;}};}}, radio:{setup:function(solutionarea, solution){var $list=$("<ul></ul>");$(solutionarea).append($list);var $choices=$(solution).siblings(".choices");var $choicesClone=$choices.clone(true).texCleanup();var $solutionClone=$(solution).clone(true).texCleanup();var solutionText=$solutionClone.text();var isCategory=!!$choices.data("category");var possibleChoices=undefined;if(isCategory){(function(){var correctText=getTextSquish($solutionClone);possibleChoices = _.map($choicesClone.children().get(), function(elem){if(getTextSquish(elem) === correctText){return $solutionClone[0];}else {return elem;}});})();}else {possibleChoices = $solutionClone.get().concat(KhanMath.shuffle($choicesClone.children().get()));}var numChoices=+$choices.data("show") || possibleChoices.length;var showNone=!!$choices.data("none");var shownChoices=_.uniq(possibleChoices, false, function(elem){return getTextSquish(elem);});var addNoneChoice=showNone && shownChoices.length === numChoices - 1;if(shownChoices.length < numChoices && !addNoneChoice){return false;}else if(shownChoices.length > numChoices){shownChoices = shownChoices.slice(0, numChoices);}if(!isCategory){shownChoices = KhanMath.shuffle(shownChoices);}var correctIndex=undefined;_.each(shownChoices, function(choice, i){if(choice === $solutionClone[0]){correctIndex = i;}});var noneIsCorrect=showNone && correctIndex === numChoices - 1;if(showNone){var $none=$("<span>").html(i18n._("None of the above"));$none.data("noneOfTheAbove", true);if(noneIsCorrect){$list.data("realAnswer", $("<span>").addClass("value").append($solutionClone.clone(true).contents()));}var noneIndex=shownChoices.length - 1;if(addNoneChoice){noneIndex = shownChoices.length;}shownChoices.splice(noneIndex, 1, $("<span>").append($none));}var wrappedChoices=_.map(shownChoices, function(choice, i){return $("<li><label></label></li>").find("label").append([$("<input type=\"radio\" name=\"solution\">").val(i), $("<span class=\"value\"></span>").append($(choice).contents())]).end();});$list.append(wrappedChoices).runModules();return {validator:KhanAnswerTypes.radio.createValidator({solution:solution, index:correctIndex, noneIsCorrect:noneIsCorrect}), answer:function(){var $choice=$list.find("input:checked");if($choice.length === 0){return null;}var $choiceVal=$choice.siblings(".value");var $choiceNoneChild=$choiceVal.children().eq(0);return {isNone:$choiceNoneChild.data("noneOfTheAbove"), value:extractRawCode($choiceVal), index:+$choice.val()};}, solution:solutionText, showGuess:function(guess){if(guess == null){$(solutionarea).find("input:checked").attr("checked", false);}else {$list.children().filter(function(){return guess.index === $(this).find("input").val();}).find("input").attr("checked", true);}}};}, createValidator:function(solution){var correct=extractRawCode(solution.solution || solution);function showReal(){var $list=$("#solutionarea").find("ul");var $choice=$list.children().filter(function(){return $(this).find("span.value > span").data("noneOfTheAbove");}).find("input");$choice.next().fadeOut("fast", function(){var $real=$list.data("realAnswer");$(this).replaceWith($real);$real.tex().fadeIn("fast");});}return function(guess){var score={empty:false, correct:false, message:null, guess:guess};if(guess == null){score.empty = true;return score;}if(guess.index){if(guess.isNone && solution.noneIsCorrect){showReal();score.correct = true;}else {score.correct = guess.index === solution.index;}}else {if(guess.isNone && $("#solutionarea").find("ul").data("real-answer") != null){showReal();score.correct = true;}else if($.trim(guess.value).replace(/\r\n?|\n/g, "") === $.trim(correct.replace(/\r\n?|\n/g, ""))){score.correct = true;}else {score.correct = false;}}return score;};}}, list:{setupFunctional:function(solutionarea, solutionText, solutionData){var input=$("<select></select>");$(solutionarea).append(input);var choices=$.tmpl.getVAR(solutionData.choices);$.each(choices, function(index, value){input.append("<option value=\"" + value + "\">" + value + "</option>");});return {validator:KhanAnswerTypes.list.createValidatorFunctional(solutionText, solutionData), answer:function(){return input.val();}, solution:$.trim(solutionText), showGuess:function(guess){input.val(guess === undefined?"":guess);}};}, createValidatorFunctional:function(correct, options){correct = $.trim(correct);return function(guess){guess = $.trim(guess);return {empty:false, correct:correct === guess, message:null, guess:guess};};}}, custom:{setup:function(solutionarea, solution){solution.find(".instruction").appendTo(solutionarea).runModules();var guessCode=solution.find(".guess").text();var showCustomGuessCode=solution.find(".show-guess").text();var showGuessCode=solution.find(".show-guess-solutionarea").text();return {validator:KhanAnswerTypes.custom.createValidator(solution), answer:function(){return KhanUtil.tmpl.getVAR(guessCode, KhanUtil.currentGraph);}, solution:$.trim($(solution).text()), showCustomGuess:function(guess){var code="(function() { " + "var guess = " + JSON.stringify(guess) + ";" + showCustomGuessCode + "})()";KhanUtil.tmpl.getVAR(code, KhanUtil.currentGraph);}, showGuess:function(guess){var code="(function() { " + "var guess = " + JSON.stringify(guess) + ";" + showGuessCode + "})()";KhanUtil.tmpl.getVAR(code, KhanUtil.currentGraph);}};}, createValidator:function(solution){var validatorCode=$(solution).find(".validator-function").text();var validator=function(guess){var code="(function() { " + "var guess = " + JSON.stringify(guess) + ";" + validatorCode + "})()";return KhanUtil.tmpl.getVAR(code, KhanUtil.currentGraph);};return function(guess){var pass=validator(guess);if(typeof pass === "object"){return pass;}else {return {empty:pass === "", correct:pass === true, message:typeof pass === "string"?pass:null, guess:guess};}};}}, primeFactorization:{setupFunctional:function(solutionarea, solutionText, solutionData){var $input=undefined;if(window.Modernizr && Modernizr.touchevents){$input = $("<input type=\"text\" autocapitalize=\"off\">");}else {$input = $("<input type=\"text\">");}$input.addClass("prime-factorization");$(solutionarea).append($input);var examples=[i18n._("a product of prime factors, like <code>2 \\times 3" + "</code>"), i18n._("a single prime number, like <code>5</code>")];addExamplesToInput($input, examples);return {validator:KhanAnswerTypes.primeFactorization.createValidatorFunctional(solutionText, solutionData), answer:function(){return $input.val();}, solution:$.trim(solutionText), showGuess:function(guess){$input.val(guess === undefined?"":guess);}};}, createValidatorFunctional:function(correct, options){correct = $.trim(correct);return function(guess){guess = guess.split(" ").join("").toLowerCase();guess = guess.replace(/{|}/g, "");guess = guess.split(/x|\*|\u00d7|\\times|\\cdot/);var terms=[];for(var i=0; i < guess.length; i++) {var t=guess[i].split("^");if(t.length > 1){for(var j=0; j < t[1]; j++) {terms.push(t[0]);}}else {terms.push(guess[i]);}}guess = KhanMath.sortNumbers(terms).join("x");return {empty:guess === "", correct:guess === correct, message:null, guess:guess};};}}, checkbox:{setupFunctional:function(solutionarea, solutionText, solutionData){var input=$("<input type=\"checkbox\">");$(solutionarea).append(input);return {validator:KhanAnswerTypes.checkbox.createValidatorFunctional(solutionText, solutionData), answer:function(){return input.is(":checked") || "";}, solution:$.trim(solutionText), showGuess:function(guess){input.attr("checked", guess === undefined?false:guess);}};}, createValidatorFunctional:function(correct, options){correct = $.trim(correct) === "true";return function(guess){var score={empty:false, correct:false, message:null, guess:guess};if(!!correct === !!guess){score.correct = true;}else if(!guess){score.empty = true;}else {score.correct = false;}return score;};}}, expression:{setup:function(solutionarea, solution){var options=this._parseOptions($(solution).data());var $tex=$("<span class=\"tex\"/>");var $input=$("<input type=\"text\">");var $error=$("<div class=\"error-div\" style=\"display: none;\"/>");$(solutionarea).append($("<span class=\"expression\"/>").append($("<span class=\"output\"/>").append($tex), $("<span class=\"input\"/>").append($input, $error.append($("<i class=\"icon-exclamation-sign error-icon\"/>")))));var errorTimeout=null;var lastParsedTex="";var update=function(){clearTimeout(errorTimeout);var result=KAS.parse($input.val(), options);if(result.parsed){hideError();$tex.css({opacity:1});var tex=result.expr.asTex(options);if(tex !== lastParsedTex){$tex.empty().append($("<code>").text(tex)).tex();lastParsedTex = tex;}}else {errorTimeout = setTimeout(showError, 2000);$tex.css({opacity:0.5});}};var showError=function(){if(!$error.is(":visible")){$error.show();$input.addClass("error");}};var hideError=function(){if($error.is(":visible")){$error.hide();$input.removeClass("error");}};$input.on("input propertychange", update);$input.on("keydown", function(event){var input=$input[0];var start=input.selectionStart;var end=input.selectionEnd;var supported=start !== undefined;if(supported && event.which === 8){var val=input.value;if(start === end && val.slice(start - 1, start + 1) === "()"){event.preventDefault();input.value = val.slice(0, start - 1) + val.slice(start + 1);input.selectionStart = start - 1;input.selectionEnd = end - 1;update();}}});$input.on("keypress", function(event){var input=$input[0];var start=input.selectionStart;var end=input.selectionEnd;var supported=start !== undefined;if(supported && event.which === 40){(function(){var val=input.value;event.preventDefault();if(start === end){var insertMatched=_.any([" ", ")", ""], function(c){return val.charAt(start) === c;});input.value = val.slice(0, start) + (insertMatched?"()":"(") + val.slice(end);}else {input.value = val.slice(0, start) + "(" + val.slice(start, end) + ")" + val.slice(end);}input.selectionStart = start + 1;input.selectionEnd = end + 1;update();})();}else if(supported && event.which === 41){var val=input.value;if(start === end && val.charAt(start) === ")"){event.preventDefault();input.selectionStart = start + 1;input.selectionEnd = end + 1;update();}}});var explicitMul=i18n._("For <code>2\\cdot2</code>, enter " + "<strong>2*2</strong>");if(options.times){explicitMul = explicitMul.replace(/\\cdot/g, "\\times");}var examples=[explicitMul, i18n._("For <code>3y</code>, enter <strong>3y</strong> or " + "<strong>3*y</strong>"), i18n._("For <code>\\dfrac{1}{x}</code>, enter <strong>1/x" + "</strong>"), i18n._("For <code>x^{y}</code>, enter <strong>x^y</strong>"), i18n._("For <code>\\sqrt{x}</code>, enter <strong>sqrt(x)" + "</strong>"), i18n._("For <code>\\pi</code>, enter <strong>pi</strong>"), i18n._("For <code>\\sin \\theta</code>, enter <strong>" + "sin(theta)</strong>"), i18n._("For <code>\\le</code> or <code>\\ge</code>, enter " + "<strong><=</strong> or <strong>>=</strong>"), i18n._("For <code>\\neq</code>, enter <strong>=/=</strong>")];addExamplesToInput($input, examples);return {validator:KhanAnswerTypes.expression.createValidator(solution), answer:function(){return $input.val();}, solution:solution, showGuess:function(guess){$input.val(guess === undefined?"":guess);}};}, parseSolution:function(solutionString, options){var solution=KAS.parse(solutionString, options);if(!solution.parsed){throw new Error("The provided solution (" + solutionString + ") didn't parse.");}else if(options.simplified && !solution.expr.isSimplified()){throw new Error("The provided solution (" + solutionString + ") isn't fully expanded and simplified.");}else {solution = solution.expr;}return solution;}, _parseOptions:function(solutionData){var form=solutionData.form !== undefined?solutionData.form:solutionData.sameForm;var notFalseOrNil=function(x){return x != null && x !== false;};var options={form:notFalseOrNil(form), simplify:notFalseOrNil(solutionData.simplify), times:notFalseOrNil(solutionData.times)};if(_.isString(solutionData.functions)){options.functions = _.compact(solutionData.functions.split(/[ ,]+/));}else if(_.isArray(solutionData.functions)){options.functions = _.compact(solutionData.functions);}return options;}, createValidator:function(solution){var $solution=$(solution);var validatorArray=[];var createValidatorFunctional=this.createValidatorFunctional;var parseOptions=this._parseOptions;$(solution).find(".set-sol").each(function(){var options=parseOptions($(this).data());validatorArray.push(createValidatorFunctional($(this).text(), options));});if(validatorArray.length === 0){var options=parseOptions($solution.data());validatorArray.push(createValidatorFunctional($solution.text(), options));}return function(guess){var score={empty:false, correct:false, message:null, guess:guess};$.each(validatorArray, function(i, validator){var result=validator(guess);if(result.correct){score.correct = true;score.message = null;return false;}if(result.message){score.message = result.message;}if(result.empty){score.empty = true;}});return score;};}, createValidatorFunctional:function(solution, options){return function(guess){var score={empty:false, correct:false, message:null, guess:guess};if(!guess){score.empty = true;return score;}var answer=KAS.parse(guess, options);if(!answer.parsed){score.empty = true;return score;}if(typeof solution === "string"){solution = KhanAnswerTypes.expression.parseSolution(solution, options);}var result=KAS.compare(answer.expr, solution, options);if(result.equal){score.correct = true;}else if(result.message){score.message = result.message;}else {var answerX=KAS.parse(guess.replace(/[xX]/g, "*"), options);if(answerX.parsed){var resultX=KAS.compare(answerX.expr, solution, options);if(resultX.equal){score.empty = true;score.message = "I'm a computer. I only " + "understand multiplication if you use an " + "asterisk (*) as the multiplication sign.";}else if(resultX.message){score.message = resultX.message + " Also, " + "I'm a computer. I only " + "understand multiplication if you use an " + "asterisk (*) as the multiplication sign.";}}}return score;};}}};module.exports = KhanAnswerTypes;
+
+/***/ },
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -7173,7 +7251,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = JsonEditor;
 
 /***/ },
-/* 34 */
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = [
+	// standard props "added" by react
+	// (technically the renderer still adds them)
+	"key", "ref",
+	// added by src/renderer.jsx
+	"widgetId", "onChange", "problemNum", "enabledFeatures", "apiOptions", "questionCompleted", "interWidgets",
+	// added by src/editor.jsx, for widgets removing themselves
+	// this is soooo not the right place for this, but alas.
+	"onRemove",
+	// also added by src/editor.jsx
+	"id"];
+
+/***/ },
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -7188,8 +7282,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var Editor = __webpack_require__(11);
-	var HintRenderer = __webpack_require__(45);
-	var InfoTip = __webpack_require__(132);
+	var HintRenderer = __webpack_require__(46);
+	var InfoTip = __webpack_require__(136);
 
 	/* Renders a hint editor box
 	 *
@@ -7473,7 +7567,112 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = CombinedHintsEditor;
 
 /***/ },
-/* 35 */
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var _ = __webpack_require__(16);
+
+	var Traversal = __webpack_require__(30);
+
+	var findPassageRefR = new RegExp(
+	// [[ passage-ref 1]]
+	// capture 1: widget markdown
+	// capture 2: widgetId
+	"(\\[\\[☃ (passage-ref [0-9]+)\\]\\])" +
+	// spaces between the ref and the summary
+	"\\s" +
+	// opening paren + quote
+	"\\([\"“]" +
+	// summary of passage reference text
+	// capture 3: summaryText
+	"([\\s\\S]*)" +
+	// closing quote + paren
+	"[\"”]\\)", "g");
+
+	var fixWholeOptions = function (options) {
+	    // This parsing is technically illegal and should be done via
+	    // PerseusMarkdown, but because of the snowperson it's safe
+	    // in practice.
+	    // We should probably just get rid of this code once all the
+	    // passage-refs have been converted.
+
+	    var newWidgets = _.clone(options.widgets || {});
+	    var newContent = (options.content || "").replace(findPassageRefR, function (passageRefText, widgetMarkdown, widgetId, summaryText) {
+	        newWidgets[widgetId] = _.extend({}, newWidgets[widgetId], {
+	            options: _.extend({}, newWidgets[widgetId].options, {
+	                summaryText: summaryText }) });
+
+	        return widgetMarkdown;
+	    });
+
+	    return _.extend({}, options, {
+	        content: newContent,
+	        widgets: newWidgets });
+	};
+
+	var findRadioRefsR = new RegExp(
+	// passage-ref notation
+	"\\{\\{(passage-ref \\d+ \\d+)}}" +
+	// a space
+	"\\s+" +
+	// ("
+	"\\([\"\\u201C]" +
+	// <capture the content>
+	"([^\"]*)" +
+	// ")
+	"[\"\\u201D]\\)",
+	// find all passage-refs
+	"g");
+	var replaceRadioRefs = function (fullText, reference, summaryText) {
+	    if (/\n\n/.test(summaryText)) {
+	        return fullText;
+	    }
+	    return "{{" + reference + " \"" + summaryText + "\"}}";
+	};
+
+	var fixRadioWidget = function (widgetInfo) {
+	    if (widgetInfo.type !== "radio" || !widgetInfo.options || !widgetInfo.options.choices) {
+	        return widgetInfo;
+	    }
+
+	    var newChoices = _.map(widgetInfo.options.choices, function (choice) {
+	        if (!choice.content) {
+	            return choice;
+	        }
+
+	        var newChoice = choice.content.replace(findRadioRefsR, replaceRadioRefs);
+	        return _.extend({}, choice, {
+	            content: newChoice
+	        });
+	    });
+
+	    return _.extend({}, widgetInfo, {
+	        options: _.extend({}, widgetInfo.options, {
+	            choices: newChoices }) });
+	};
+
+	var fixRendererPassageRefs = function (options) {
+	    return Traversal.traverseRendererDeep(options, null, fixRadioWidget, fixWholeOptions);
+	};
+
+	var FixPassageRefs = function (itemData) {
+	    var newQuestion = fixRendererPassageRefs(itemData.question);
+	    var newHints = _.map(itemData.hints, function (hint) {
+	        return fixRendererPassageRefs(hint);
+	    });
+	    return _.extend({}, itemData, {
+	        question: newQuestion,
+	        hints: newHints });
+	};
+
+	module.exports = FixPassageRefs;
+
+/***/ },
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -7487,8 +7686,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(5).Options;
 	var Editor = __webpack_require__(11);
-	var ItemExtrasEditor = __webpack_require__(133);
-	var ITEM_DATA_VERSION = __webpack_require__(56).itemDataVersion;
+	var ItemExtrasEditor = __webpack_require__(137);
+	var ITEM_DATA_VERSION = __webpack_require__(57).itemDataVersion;
 
 	var ItemEditor = React.createClass({
 	    displayName: "ItemEditor",
@@ -7616,90 +7815,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ItemEditor;
 
 /***/ },
-/* 36 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(15);
-	var _ = __webpack_require__(16);
-
-	/* A checkbox that syncs its value to props using the
-	 * renderer's onChange method, and gets the prop name
-	 * dynamically from its props list
-	 */
-	var PropCheckBox = React.createClass({
-	    displayName: "PropCheckBox",
-
-	    propTypes: {
-	        labelAlignment: React.PropTypes.oneOf(["left", "right"])
-	    },
-
-	    DEFAULT_PROPS: {
-	        label: null,
-	        onChange: null,
-	        labelAlignment: "left"
-	    },
-
-	    getDefaultProps: function () {
-	        return this.DEFAULT_PROPS;
-	    },
-
-	    propName: function () {
-	        var propName = _.find(_.keys(this.props), function (localPropName) {
-	            return !_.has(this.DEFAULT_PROPS, localPropName);
-	        }, this);
-
-	        if (!propName) {
-	            throw new Error("Attempted to create a PropCheckBox with no " + "prop!");
-	        }
-
-	        return propName;
-	    },
-
-	    _labelAlignLeft: function () {
-	        return this.props.labelAlignment === "left";
-	    },
-
-	    render: function () {
-	        var propName = this.propName();
-	        return React.createElement(
-	            "label",
-	            null,
-	            this._labelAlignLeft() && this.props.label,
-	            React.createElement("input", { type: "checkbox",
-	                checked: this.props[propName],
-	                onChange: this.toggle }),
-	            !this._labelAlignLeft() && this.props.label
-	        );
-	    },
-
-	    toggle: function () {
-	        var propName = this.propName();
-	        var changes = {};
-	        changes[propName] = !this.props[propName];
-	        this.props.onChange(changes);
-	    }
-	});
-
-	module.exports = PropCheckBox;
-
-/***/ },
-/* 37 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-undef, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var classNames = __webpack_require__(41);
+	var classNames = __webpack_require__(42);
 	var React = __webpack_require__(15);
 
-	var diff = __webpack_require__(137);
-	var splitDiff = __webpack_require__(134);
-	var stringArrayDiff = __webpack_require__(135);
+	var diff = __webpack_require__(141);
+	var splitDiff = __webpack_require__(138);
+	var stringArrayDiff = __webpack_require__(139);
 
 	var BEFORE = "before";
 	var AFTER = "after";
@@ -7892,17 +8020,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = TextDiff;
 
 /***/ },
-/* 38 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var classNames = __webpack_require__(41);
+	var classNames = __webpack_require__(42);
 	var React = __webpack_require__(15);
 
-	var performDiff = __webpack_require__(136);
+	var performDiff = __webpack_require__(140);
 
 	var indentationFromDepth = function (depth) {
 	    return (depth - 1) * 20;
@@ -8125,134 +8253,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WidgetDiff;
 
 /***/ },
-/* 39 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var _ = __webpack_require__(16);
-
-	var Traversal = __webpack_require__(26);
-
-	var findPassageRefR = new RegExp(
-	// [[ passage-ref 1]]
-	// capture 1: widget markdown
-	// capture 2: widgetId
-	"(\\[\\[☃ (passage-ref [0-9]+)\\]\\])" +
-	// spaces between the ref and the summary
-	"\\s" +
-	// opening paren + quote
-	"\\([\"“]" +
-	// summary of passage reference text
-	// capture 3: summaryText
-	"([\\s\\S]*)" +
-	// closing quote + paren
-	"[\"”]\\)", "g");
-
-	var fixWholeOptions = function (options) {
-	    // This parsing is technically illegal and should be done via
-	    // PerseusMarkdown, but because of the snowperson it's safe
-	    // in practice.
-	    // We should probably just get rid of this code once all the
-	    // passage-refs have been converted.
-
-	    var newWidgets = _.clone(options.widgets || {});
-	    var newContent = (options.content || "").replace(findPassageRefR, function (passageRefText, widgetMarkdown, widgetId, summaryText) {
-	        newWidgets[widgetId] = _.extend({}, newWidgets[widgetId], {
-	            options: _.extend({}, newWidgets[widgetId].options, {
-	                summaryText: summaryText }) });
-
-	        return widgetMarkdown;
-	    });
-
-	    return _.extend({}, options, {
-	        content: newContent,
-	        widgets: newWidgets });
-	};
-
-	var findRadioRefsR = new RegExp(
-	// passage-ref notation
-	"\\{\\{(passage-ref \\d+ \\d+)}}" +
-	// a space
-	"\\s+" +
-	// ("
-	"\\([\"\\u201C]" +
-	// <capture the content>
-	"([^\"]*)" +
-	// ")
-	"[\"\\u201D]\\)",
-	// find all passage-refs
-	"g");
-	var replaceRadioRefs = function (fullText, reference, summaryText) {
-	    if (/\n\n/.test(summaryText)) {
-	        return fullText;
-	    }
-	    return "{{" + reference + " \"" + summaryText + "\"}}";
-	};
-
-	var fixRadioWidget = function (widgetInfo) {
-	    if (widgetInfo.type !== "radio" || !widgetInfo.options || !widgetInfo.options.choices) {
-	        return widgetInfo;
-	    }
-
-	    var newChoices = _.map(widgetInfo.options.choices, function (choice) {
-	        if (!choice.content) {
-	            return choice;
-	        }
-
-	        var newChoice = choice.content.replace(findRadioRefsR, replaceRadioRefs);
-	        return _.extend({}, choice, {
-	            content: newChoice
-	        });
-	    });
-
-	    return _.extend({}, widgetInfo, {
-	        options: _.extend({}, widgetInfo.options, {
-	            choices: newChoices }) });
-	};
-
-	var fixRendererPassageRefs = function (options) {
-	    return Traversal.traverseRendererDeep(options, null, fixRadioWidget, fixWholeOptions);
-	};
-
-	var FixPassageRefs = function (itemData) {
-	    var newQuestion = fixRendererPassageRefs(itemData.question);
-	    var newHints = _.map(itemData.hints, function (hint) {
-	        return fixRendererPassageRefs(hint);
-	    });
-	    return _.extend({}, itemData, {
-	        question: newQuestion,
-	        hints: newHints });
-	};
-
-	module.exports = FixPassageRefs;
-
-/***/ },
-/* 40 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = [
-	// standard props "added" by react
-	// (technically the renderer still adds them)
-	"key", "ref",
-	// added by src/renderer.jsx
-	"widgetId", "onChange", "problemNum", "enabledFeatures", "apiOptions", "questionCompleted", "interWidgets",
-	// added by src/editor.jsx, for widgets removing themselves
-	// this is soooo not the right place for this, but alas.
-	"onRemove",
-	// also added by src/editor.jsx
-	"id"];
-
-/***/ },
-/* 41 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_41__;
-
-/***/ },
 /* 42 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_42__;
+
+/***/ },
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -8341,7 +8348,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = DragTarget;
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
@@ -8349,10 +8356,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
-	var RCSS = __webpack_require__(138);
+	var ReactDOM = __webpack_require__(17);
+	var RCSS = __webpack_require__(142);
 	var _ = __webpack_require__(16);
-	var styles = __webpack_require__(140);
+	var styles = __webpack_require__(144);
 
 	var buttonStyle = styles.button.buttonStyle;
 	var selectedStyle = styles.button.selectedStyle;
@@ -8448,7 +8455,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ButtonGroup;
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -8475,7 +8482,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getHintsPlacement;
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -8483,8 +8490,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var Renderer = __webpack_require__(23);
-	var classnames = __webpack_require__(41);
+	var Renderer = __webpack_require__(26);
+	var classnames = __webpack_require__(42);
 	var i18n = window.i18n;
 
 	/* Renders just a hint preview */
@@ -8548,14 +8555,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = HintRenderer;
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Paragraph parsing/splitting for article jipt i18n
 	 */
 
-	var SimpleMarkdown = __webpack_require__(169);
+	var SimpleMarkdown = __webpack_require__(150);
 
 	var arrayRules = {
 	    paragraph: {
@@ -8586,7 +8593,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    joinFromArray: joinFromArray };
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -8616,7 +8623,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = QuestionParagraph;
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8626,11 +8633,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* global katex, MathJax */
 	// TODO(joel) - require MathJax / katex so they don't have to be global
 
-	var PureRenderMixin = __webpack_require__(139);
+	var PureRenderMixin = __webpack_require__(143);
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
+	var ReactDOM = __webpack_require__(17);
 
-	var katexA11y = __webpack_require__(141);
+	var katexA11y = __webpack_require__(145);
 
 	var pendingScripts = [];
 	var needsProcess = false;
@@ -8833,7 +8840,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// Nothing
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -8842,11 +8849,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var classNames = __webpack_require__(41);
+	var classNames = __webpack_require__(42);
 	var React = __webpack_require__(15);
 
-	var EnabledFeatures = __webpack_require__(32);
-	var Widgets = __webpack_require__(25);
+	var EnabledFeatures = __webpack_require__(31);
+	var Widgets = __webpack_require__(27);
 
 	var WidgetContainer = React.createClass({
 	    displayName: "WidgetContainer",
@@ -8936,7 +8943,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WidgetContainer;
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -8972,7 +8979,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getHintsIndex;
 
 /***/ },
-/* 51 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -8980,7 +8987,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
+	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
 	var textWidthCache = {};
@@ -9111,7 +9118,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = TextListEditor;
 
 /***/ },
-/* 52 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -9133,7 +9140,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *     <img src="top-layer.png" />
 	 * </FixedToResponsive>
 	 */
-	var classNames = __webpack_require__(41);
+	var classNames = __webpack_require__(42);
 	var React = __webpack_require__(15);
 
 	var FixedToResponsive = React.createClass({
@@ -9184,7 +9191,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = FixedToResponsive;
 
 /***/ },
-/* 53 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -9192,19 +9199,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
+	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var GraphieClasses = __webpack_require__(142);
-	var Movables = __webpack_require__(143);
+	var GraphieClasses = __webpack_require__(146);
+	var Movables = __webpack_require__(147);
 
 	var GraphieMovable = GraphieClasses.GraphieMovable;
 
 	var deepEq = __webpack_require__(6).deepEq;
 	var nestedMap = __webpack_require__(6).nestedMap;
-	var assert = __webpack_require__(144).assert;
+	var assert = __webpack_require__(148).assert;
 
-	var createGraphie = KhanUtil.createGraphie;
+	var GraphUtils = __webpack_require__(149);
+	var createGraphie = GraphUtils.createGraphie;
 
 	var Graphie = React.createClass({
 	    displayName: "Graphie",
@@ -9488,7 +9496,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Graphie;
 
 /***/ },
-/* 54 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -9630,7 +9638,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ImageLoader;
 
 /***/ },
-/* 55 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -9946,7 +9954,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.ZoomService = new ZoomService();
 
 /***/ },
-/* 56 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
@@ -9961,7 +9969,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 57 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -9969,13 +9977,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var classNames = __webpack_require__(41);
-	var Changeable = __webpack_require__(145);
-	var WidgetJsonifyDeprecated = __webpack_require__(146);
+	var classNames = __webpack_require__(42);
+	var Changeable = __webpack_require__(151);
+	var WidgetJsonifyDeprecated = __webpack_require__(152);
 	var _ = __webpack_require__(16);
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var Renderer = __webpack_require__(23);
+	var Renderer = __webpack_require__(26);
 	var Util = __webpack_require__(6);
 
 	var Categorizer = React.createClass({
@@ -10152,7 +10160,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   clicked */
 
 /***/ },
-/* 58 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -10160,14 +10168,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var Changeable = __webpack_require__(145);
+	var Changeable = __webpack_require__(151);
 	var _ = __webpack_require__(16);
 
-	var EditorJsonify = __webpack_require__(147);
-	var PropCheckBox = __webpack_require__(36);
-	var TextListEditor = __webpack_require__(51);
+	var EditorJsonify = __webpack_require__(153);
+	var PropCheckBox = __webpack_require__(33);
+	var TextListEditor = __webpack_require__(52);
 
-	var Categorizer = __webpack_require__(57).widget;
+	var Categorizer = __webpack_require__(58).widget;
 
 	var CategorizerEditor = React.createClass({
 	    displayName: "CategorizerEditor",
@@ -10245,7 +10253,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// for content creators to catch and fix.
 
 /***/ },
-/* 59 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -10259,7 +10267,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
+	var Changeable = __webpack_require__(151);
 	var updateQueryString = __webpack_require__(6).updateQueryString;
 
 	var PADDING_WIDTH = 2;
@@ -10426,7 +10434,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: CSProgram };
 
 /***/ },
-/* 60 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -10436,12 +10444,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
-	var EditorJsonify = __webpack_require__(147);
+	var Changeable = __webpack_require__(151);
+	var EditorJsonify = __webpack_require__(153);
 
-	var BlurInput = __webpack_require__(148);
-	var InfoTip = __webpack_require__(132);
-	var PropCheckBox = __webpack_require__(36);
+	var BlurInput = __webpack_require__(154);
+	var InfoTip = __webpack_require__(136);
+	var PropCheckBox = __webpack_require__(33);
 
 	var DEFAULT_WIDTH = 400;
 	var DEFAULT_HEIGHT = 400;
@@ -10644,17 +10652,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = CSProgramEditor;
 
 /***/ },
-/* 61 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var classNames = __webpack_require__(41);
-	var FancySelect = __webpack_require__(149);
+	var classNames = __webpack_require__(42);
+	var FancySelect = __webpack_require__(155);
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
+	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
 	var FancyOption = FancySelect.Option;
@@ -10807,7 +10815,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// Always visible so we can animate them with css
 
 /***/ },
-/* 62 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -10815,11 +10823,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
+	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var InfoTip = __webpack_require__(132);
-	var EditorJsonify = __webpack_require__(147);
+	var InfoTip = __webpack_require__(136);
+	var EditorJsonify = __webpack_require__(153);
 
 	var DropdownEditor = React.createClass({
 	    displayName: "DropdownEditor",
@@ -10987,7 +10995,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = DropdownEditor;
 
 /***/ },
-/* 63 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -10995,12 +11003,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
+	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
+	var Changeable = __webpack_require__(151);
 	var PerseusApi = __webpack_require__(5);
-	var Renderer = __webpack_require__(23);
+	var Renderer = __webpack_require__(26);
 
 	var defaultExplanationProps = {
 	    showPrompt: "Explain",
@@ -11128,7 +11136,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * clickable */
 
 /***/ },
-/* 64 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -11138,11 +11146,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
-	var EditorJsonify = __webpack_require__(147);
+	var Changeable = __webpack_require__(151);
+	var EditorJsonify = __webpack_require__(153);
 
 	var Editor = __webpack_require__(11);
-	var TextInput = __webpack_require__(150);
+	var TextInput = __webpack_require__(156);
 
 	var defaultExplanationProps = {
 	    showPrompt: "Explain",
@@ -11225,34 +11233,35 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ExplanationEditor;
 
 /***/ },
-/* 65 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, indent, no-redeclare, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-before-function-paren */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var classNames = __webpack_require__(41);
+	var classNames = __webpack_require__(42);
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
-	var Tooltip = __webpack_require__(151);
+	var ReactDOM = __webpack_require__(17);
+	var Tooltip = __webpack_require__(157);
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var Changeable = __webpack_require__(145);
+	var Changeable = __webpack_require__(151);
 	var ApiOptions = __webpack_require__(5).Options;
 	var ApiClassNames = __webpack_require__(5).ClassNames;
+	var KhanAnswerTypes = __webpack_require__(34);
 
-	var EnabledFeatures = __webpack_require__(32);
+	var EnabledFeatures = __webpack_require__(31);
 
-	var InputWithExamples = __webpack_require__(152);
-	var MathInput = __webpack_require__(153);
-	var TeX = __webpack_require__(48); // OldExpression only
-	var TexButtons = __webpack_require__(154);
+	var InputWithExamples = __webpack_require__(158);
+	var MathInput = __webpack_require__(159);
+	var TeX = __webpack_require__(49); // OldExpression only
+	var TexButtons = __webpack_require__(160);
 
-	var EnabledFeatures = __webpack_require__(32);
+	var EnabledFeatures = __webpack_require__(31);
 
-	var lens = __webpack_require__(181);
+	var lens = __webpack_require__(187);
 
 	var ERROR_MESSAGE = i18n._("Sorry, I don't understand that!");
 
@@ -11539,7 +11548,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        var createValidator = function (answer) {
-	            return Khan.answerTypes.expression.createValidatorFunctional(
+	            return KhanAnswerTypes.expression.createValidatorFunctional(
 	            // We don't give options to KAS.parse here because that is
 	            // parsing the solution answer, not the student answer, and we
 	            // don't want a solution to work if the student is using a
@@ -11951,7 +11960,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// TODO(alex): Better error feedback for mobile
 
 /***/ },
-/* 66 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -11961,17 +11970,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var lens = __webpack_require__(181);
+	var lens = __webpack_require__(187);
 
-	var Changeable = __webpack_require__(145);
+	var Changeable = __webpack_require__(151);
 
-	var InfoTip = __webpack_require__(132);
-	var PropCheckBox = __webpack_require__(36);
-	var SortableArea = __webpack_require__(155);
-	var TeX = __webpack_require__(48); // OldExpression only
-	var TexButtons = __webpack_require__(154);
+	var InfoTip = __webpack_require__(136);
+	var PropCheckBox = __webpack_require__(33);
+	var SortableArea = __webpack_require__(161);
+	var TeX = __webpack_require__(49); // OldExpression only
+	var TexButtons = __webpack_require__(160);
 
-	var Expression = __webpack_require__(65).Expression;
+	var Expression = __webpack_require__(66).Expression;
 
 	// An answer can be considered correct, wrong, or ungraded.
 	var CONSIDERED = ["correct", "wrong", "ungraded"];
@@ -12479,7 +12488,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ExpressionEditor;
 
 /***/ },
-/* 67 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -12491,24 +12500,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Interactive2 = __webpack_require__(158);
-	var SvgImage = __webpack_require__(28);
+	var Interactive2 = __webpack_require__(162);
+	var SvgImage = __webpack_require__(29);
 	var Util = __webpack_require__(6);
-	var ButtonGroup = __webpack_require__(43);
+	var ButtonGroup = __webpack_require__(44);
 
 	/* Graphie and relevant components. */
-	var Graphie = __webpack_require__(53);
+	var Graphie = __webpack_require__(54);
 	var MovablePoint = Graphie.MovablePoint;
 	var MovableLine = Graphie.MovableLine;
 
-	var knumber = __webpack_require__(182).number;
-	var kvector = __webpack_require__(182).vector;
-	var kpoint = __webpack_require__(182).point;
+	var knumber = __webpack_require__(188).number;
+	var kvector = __webpack_require__(188).vector;
+	var kpoint = __webpack_require__(188).point;
+	var KhanColors = __webpack_require__(163);
 
 	/* Mixins. */
-	var Changeable = __webpack_require__(145);
+	var Changeable = __webpack_require__(151);
 
-	var _require = __webpack_require__(171);
+	var _require = __webpack_require__(177);
 
 	var GrapherUtil = _require.GrapherUtil;
 	var typeToButton = _require.typeToButton;
@@ -12653,7 +12663,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    renderPlot: function () {
 	        var model = this.props.model;
 	        var xRange = this.props.graph.range[0];
-	        var style = { stroke: KhanUtil.DYNAMIC };
+	        var style = { stroke: KhanColors.DYNAMIC };
 
 	        var coeffs = model.getCoefficients(this._coords(), this._asymptote());
 	        if (!coeffs) {
@@ -12875,7 +12885,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    staticTransform: staticTransform };
 
 /***/ },
-/* 68 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -12885,15 +12895,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
+	var Changeable = __webpack_require__(151);
 
-	var GraphSettings = __webpack_require__(156);
-	var InfoTip = __webpack_require__(132);
-	var MultiButtonGroup = __webpack_require__(157);
+	var GraphSettings = __webpack_require__(164);
+	var InfoTip = __webpack_require__(136);
+	var MultiButtonGroup = __webpack_require__(165);
 
-	var Grapher = __webpack_require__(67).widget;
+	var Grapher = __webpack_require__(68).widget;
 
-	var _require = __webpack_require__(171);
+	var _require = __webpack_require__(177);
 
 	var GrapherUtil = _require.GrapherUtil;
 	var allTypes = _require.allTypes;
@@ -13029,7 +13039,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = GrapherEditor;
 
 /***/ },
-/* 69 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -13038,13 +13048,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var classNames = __webpack_require__(41);
+	var classNames = __webpack_require__(42);
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var Changeable = __webpack_require__(145);
-	var Renderer = __webpack_require__(23);
+	var Changeable = __webpack_require__(151);
+	var Renderer = __webpack_require__(26);
 
 	// A Graded Group is more or less a Group widget that displays a check
 	// answer button below the rendered content. When clicked, the widget grades
@@ -13221,7 +13231,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    tracking: "all" };
 
 /***/ },
-/* 70 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -13232,7 +13242,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var Changeable = __webpack_require__(145);
+	var Changeable = __webpack_require__(151);
 	var Editor = __webpack_require__(11);
 
 	var GradedGroupEditor = React.createClass({
@@ -13280,7 +13290,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = GradedGroupEditor;
 
 /***/ },
-/* 71 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -13293,8 +13303,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var Changeable = __webpack_require__(145);
-	var Renderer = __webpack_require__(23);
+	var Changeable = __webpack_require__(151);
+	var Renderer = __webpack_require__(26);
 
 	var Group = React.createClass({
 	    displayName: "Group",
@@ -13458,7 +13468,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    hidden: false };
 
 /***/ },
-/* 72 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -13469,7 +13479,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var Changeable = __webpack_require__(145);
+	var Changeable = __webpack_require__(151);
 
 	var Editor = __webpack_require__(11);
 
@@ -13538,7 +13548,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* the metadata editor; used for tags on khanacademy.org */
 
 /***/ },
-/* 73 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -13558,8 +13568,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
-	var WidgetJsonifyDeprecated = __webpack_require__(146);
+	var Changeable = __webpack_require__(151);
+	var WidgetJsonifyDeprecated = __webpack_require__(152);
 	var updateQueryString = __webpack_require__(6).updateQueryString;
 
 	/* This renders the iframe and handles validation via window.postMessage */
@@ -13709,7 +13719,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    hidden: true };
 
 /***/ },
-/* 74 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -13719,11 +13729,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
-	var EditorJsonify = __webpack_require__(147);
+	var Changeable = __webpack_require__(151);
+	var EditorJsonify = __webpack_require__(153);
 
-	var BlurInput = __webpack_require__(148);
-	var PropCheckBox = __webpack_require__(36);
+	var BlurInput = __webpack_require__(154);
+	var PropCheckBox = __webpack_require__(33);
 
 	/**
 	 * This is used for editing a name/value pair.
@@ -13885,7 +13895,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = IframeEditor;
 
 /***/ },
-/* 75 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -13901,11 +13911,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var Renderer = __webpack_require__(23);
+	var Renderer = __webpack_require__(26);
 
-	var Changeable = __webpack_require__(145);
+	var Changeable = __webpack_require__(151);
 
-	var SvgImage = __webpack_require__(28);
+	var SvgImage = __webpack_require__(29);
 
 	var defaultBoxSize = 400;
 	var defaultRange = [0, 10];
@@ -14072,7 +14082,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: ImageWidget };
 
 /***/ },
-/* 76 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -14084,13 +14094,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Util = __webpack_require__(6);
 
-	var Changeable = __webpack_require__(145);
-	var EditorJsonify = __webpack_require__(147);
+	var Changeable = __webpack_require__(151);
+	var EditorJsonify = __webpack_require__(153);
 
-	var BlurInput = __webpack_require__(148);
+	var BlurInput = __webpack_require__(154);
 	var Editor = __webpack_require__(11);
-	var InfoTip = __webpack_require__(132);
-	var RangeInput = __webpack_require__(159);
+	var InfoTip = __webpack_require__(136);
+	var RangeInput = __webpack_require__(166);
 
 	var defaultBoxSize = 400;
 	var defaultRange = [0, 10];
@@ -14503,24 +14513,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ImageEditor;
 
 /***/ },
-/* 77 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-undef, no-var, react/forbid-prop-types, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var classNames = __webpack_require__(41);
+	var classNames = __webpack_require__(42);
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var InputWithExamples = __webpack_require__(152);
-	var ParseTex = __webpack_require__(160).parseTex;
-	var PossibleAnswers = __webpack_require__(161);
+	var InputWithExamples = __webpack_require__(158);
+	var ParseTex = __webpack_require__(167).parseTex;
+	var PossibleAnswers = __webpack_require__(168);
+	var KhanAnswerTypes = __webpack_require__(34);
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 	var ApiOptions = __webpack_require__(5).Options;
-	var EnabledFeatures = __webpack_require__(32);
+	var EnabledFeatures = __webpack_require__(31);
 
 	var answerTypes = {
 	    number: {
@@ -14741,7 +14752,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (rubric.answerType == null) {
 	            rubric.answerType = "number";
 	        }
-	        var val = Khan.answerTypes.number.createValidatorFunctional(rubric.value, {
+	        var val = KhanAnswerTypes.number.createValidatorFunctional(rubric.value, {
 	            simplify: rubric.simplify,
 	            inexact: rubric.inexact || undefined,
 	            maxError: rubric.maxError,
@@ -14787,7 +14798,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    transform: propTransform };
 
 /***/ },
-/* 78 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -14795,13 +14806,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
+	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
 	var Util = __webpack_require__(6);
 
-	var BlurInput = __webpack_require__(148);
-	var InfoTip = __webpack_require__(132);
+	var BlurInput = __webpack_require__(154);
+	var InfoTip = __webpack_require__(136);
 
 	var answerTypes = {
 	    number: {
@@ -15050,7 +15061,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* TODO(emily): don't use a hidden checkbox for alignment */
 
 /***/ },
-/* 79 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -15060,9 +15071,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
+	var Changeable = __webpack_require__(151);
 
-	var Graphie = __webpack_require__(53);
+	var Graphie = __webpack_require__(54);
 
 	var Label = Graphie.Label;
 	var Line = Graphie.Line;
@@ -15073,7 +15084,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Point = Graphie.Point;
 	var Rect = Graphie.Rect;
 
-	var kvector = __webpack_require__(182).vector;
+	var kvector = __webpack_require__(188).vector;
 
 	// Memoize KAS parsing
 	var KAShashFunc = function (expr, options) {
@@ -15499,7 +15510,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// TODO(eater): why so slow?
 
 /***/ },
-/* 80 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -15511,19 +15522,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
-	var EditorJsonify = __webpack_require__(147);
+	var Changeable = __webpack_require__(151);
+	var EditorJsonify = __webpack_require__(153);
 
-	var ArrowPicker = __webpack_require__(172);
-	var ColorPicker = __webpack_require__(173);
-	var ConstraintEditor = __webpack_require__(174);
-	var DashPicker = __webpack_require__(175);
-	var ElementContainer = __webpack_require__(176);
-	var GraphSettings = __webpack_require__(156);
-	var MathInput = __webpack_require__(153);
-	var NumberInput = __webpack_require__(162);
-	var TeX = __webpack_require__(48);
-	var TextInput = __webpack_require__(150);
+	var ArrowPicker = __webpack_require__(178);
+	var ColorPicker = __webpack_require__(179);
+	var ConstraintEditor = __webpack_require__(180);
+	var DashPicker = __webpack_require__(181);
+	var ElementContainer = __webpack_require__(182);
+	var GraphSettings = __webpack_require__(164);
+	var MathInput = __webpack_require__(159);
+	var NumberInput = __webpack_require__(169);
+	var TeX = __webpack_require__(49);
+	var TextInput = __webpack_require__(156);
+
+	var KhanColors = __webpack_require__(163);
 
 	var defaultInteractionProps = {
 	    graph: {
@@ -15554,7 +15567,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return {
 	            coordX: "0",
 	            coordY: "0",
-	            color: KhanUtil.BLACK };
+	            color: KhanColors.BLACK };
 	    },
 
 	    render: function () {
@@ -15631,7 +15644,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            startY: "5",
 	            endX: "5",
 	            endY: "5",
-	            color: KhanUtil.BLACK,
+	            color: KhanColors.BLACK,
 	            strokeDasharray: "",
 	            arrows: "",
 	            strokeWidth: 2 };
@@ -16015,7 +16028,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            value: "x",
 	            rangeMin: "-10",
 	            rangeMax: "10",
-	            color: KhanUtil.BLUE,
+	            color: KhanColors.BLUE,
 	            strokeDasharray: "",
 	            strokeWidth: 2 };
 	    },
@@ -16129,7 +16142,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            y: "sin(t)",
 	            rangeMin: "0",
 	            rangeMax: "2\\pi",
-	            color: KhanUtil.BLUE,
+	            color: KhanColors.BLUE,
 	            strokeDasharray: "",
 	            strokeWidth: 2 };
 	    },
@@ -16255,7 +16268,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return {
 	            coordX: "0",
 	            coordY: "0",
-	            color: KhanUtil.BLACK,
+	            color: KhanColors.BLACK,
 	            label: "\\phi" };
 	    },
 
@@ -16340,7 +16353,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            coordY: "5",
 	            width: "2",
 	            height: "3",
-	            color: KhanUtil.LIGHT_BLUE };
+	            color: KhanColors.LIGHT_BLUE };
 	    },
 
 	    render: function () {
@@ -16844,7 +16857,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InteractionEditor;
 
 /***/ },
-/* 81 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -16854,14 +16867,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Graph = __webpack_require__(163);
-	var InfoTip = __webpack_require__(132);
-	var Interactive2 = __webpack_require__(158);
-	var NumberInput = __webpack_require__(162);
+	var Graph = __webpack_require__(170);
+	var InfoTip = __webpack_require__(136);
+	var Interactive2 = __webpack_require__(162);
+	var NumberInput = __webpack_require__(169);
 	var Util = __webpack_require__(6);
 
-	var knumber = __webpack_require__(182).number;
-	var kpoint = __webpack_require__(182).point;
+	var knumber = __webpack_require__(188).number;
+	var kpoint = __webpack_require__(188).point;
+	var KhanColors = __webpack_require__(163);
+	var GraphUtils = __webpack_require__(149);
 
 	var DeprecationMixin = Util.DeprecationMixin;
 
@@ -17710,8 +17725,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    self.onChange({ graph: graph });
 	                },
 	                normalStyle: {
-	                    stroke: KhanUtil.INTERACTIVE,
-	                    fill: KhanUtil.INTERACTIVE
+	                    stroke: KhanColors.INTERACTIVE,
+	                    fill: KhanColors.INTERACTIVE
 	                }
 	            });
 	        });
@@ -17815,7 +17830,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.parabola.attr({ path: path });
 	        } else {
 	            this.parabola = this.graphie.parabola(a, b, c);
-	            this.parabola.attr({ stroke: KhanUtil.DYNAMIC });
+	            this.parabola.attr({ stroke: KhanColors.DYNAMIC });
 	            this.parabola.toBack();
 	        }
 	    },
@@ -17885,7 +17900,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.sinusoid.attr({ path: path });
 	        } else {
 	            this.sinusoid = this.graphie.sinusoid(a, b, c, d);
-	            this.sinusoid.attr({ stroke: KhanUtil.DYNAMIC });
+	            this.sinusoid.attr({ stroke: KhanColors.DYNAMIC });
 	            this.sinusoid.toBack();
 	        }
 	    },
@@ -17933,7 +17948,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var graphie = this.graphie;
 	        var coords = InteractiveGraph.getLinearSystemCoords(this.props.graph, this.props);
 
-	        var segmentColors = [KhanUtil.INTERACTIVE, KhanUtil.GREEN];
+	        var segmentColors = [KhanColors.INTERACTIVE, KhanColors.GREEN];
 	        var points = this.points = _.map(coords, function (segmentCoords, segmentIndex) {
 	            var segmentPoints = _.map(segmentCoords, function (coord, i) {
 	                return Interactive2.addMovablePoint(graphie, {
@@ -18030,8 +18045,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            },
 	            normalStyle: {
-	                stroke: KhanUtil.INTERACTIVE,
-	                fill: KhanUtil.INTERACTIVE
+	                stroke: KhanColors.INTERACTIVE,
+	                fill: KhanColors.INTERACTIVE
 	            }
 	        });
 
@@ -18205,7 +18220,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                });
 
 	                var getAngle = function (a, vertex, b) {
-	                    var angle = KhanUtil.findAngle(coords[rel(a)], coords[rel(b)], coords[rel(vertex)]);
+	                    var angle = GraphUtils.findAngle(coords[rel(a)], coords[rel(b)], coords[rel(vertex)]);
 	                    return (angle + 360) % 360;
 	                };
 
@@ -18226,7 +18241,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                // Solve for side by using the law of sines
 	                var side = Math.sin(innerAngles[1] * Math.PI / 180) / Math.sin(innerAngles[2] * Math.PI / 180) * knownSide;
 
-	                var outerAngle = KhanUtil.findAngle(coords[rel(1)], coords[rel(-1)]);
+	                var outerAngle = GraphUtils.findAngle(coords[rel(1)], coords[rel(-1)]);
 
 	                var offset = _this6.graphie.polar(side, outerAngle + (onLeft ? 1 : -1) * innerAngles[0]);
 
@@ -18250,7 +18265,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                // Solve for angle by using the law of cosines
 	                var innerAngle = lawOfCosines(sides[0], sides[2], sides[1]);
 
-	                var outerAngle = KhanUtil.findAngle(coords[rel(1)], coords[rel(-1)]);
+	                var outerAngle = GraphUtils.findAngle(coords[rel(1)], coords[rel(-1)]);
 
 	                var onLeft = sign(ccw(coords[rel(-1)], coords[rel(1)], coords[i])) === 1;
 
@@ -18278,8 +18293,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            },
 	            onMoveEnd: onMoveEndHandler,
 	            normalStyle: {
-	                stroke: KhanUtil.INTERACTIVE,
-	                fill: KhanUtil.INTERACTIVE
+	                stroke: KhanColors.INTERACTIVE,
+	                fill: KhanColors.INTERACTIVE
 	            }
 	        });
 	        point.state.isInitialMove = true;
@@ -18348,8 +18363,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                return Interactive2.addMovablePoint(graphie, {
 	                    coord: coord,
 	                    normalStyle: {
-	                        stroke: KhanUtil.INTERACTIVE,
-	                        fill: KhanUtil.INTERACTIVE
+	                        stroke: KhanColors.INTERACTIVE,
+	                        fill: KhanColors.INTERACTIVE
 	                    },
 	                    constraints: [Interactive2.MovablePoint.constraints.bound(), Interactive2.MovablePoint.constraints.snap(), function (coord) {
 	                        if (!points) {
@@ -18370,10 +18385,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                constraints: [Interactive2.MovableLine.constraints.bound(), Interactive2.MovableLine.constraints.snap()],
 	                onMove: [Interactive2.MovableLine.onMove.updatePoints, updateCoordProps],
 	                normalStyle: {
-	                    stroke: KhanUtil.INTERACTIVE
+	                    stroke: KhanColors.INTERACTIVE
 	                },
 	                highlightStyle: {
-	                    stroke: KhanUtil.INTERACTING
+	                    stroke: KhanColors.INTERACTING
 	                }
 	            });
 	            _.invoke(points, "toFront");
@@ -18501,8 +18516,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return graphie.addMovablePoint(_.extend({
 	                coord: coord,
 	                normalStyle: {
-	                    stroke: KhanUtil.INTERACTIVE,
-	                    fill: KhanUtil.INTERACTIVE
+	                    stroke: KhanColors.INTERACTIVE,
+	                    fill: KhanColors.INTERACTIVE
 	                }
 	            }, i === 1 ? {
 	                snapX: graphie.snap[0],
@@ -18883,7 +18898,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    getAngleEquationString: function (props) {
 	        var coords = InteractiveGraph.getAngleCoords(props.graph, props);
-	        var angle = KhanUtil.findAngle(coords[2], coords[0], coords[1]);
+	        var angle = GraphUtils.findAngle(coords[2], coords[0], coords[1]);
 	        return angle.toFixed(0) + "° angle" + " at (" + coords[1].join(", ") + ")";
 	    },
 
@@ -19031,7 +19046,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var match;
 	                if (rubric.correct.match === "congruent") {
 	                    var angles = _.map([guess, correct], function (coords) {
-	                        var angle = KhanUtil.findAngle(coords[2], coords[0], coords[1]);
+	                        var angle = GraphUtils.findAngle(coords[2], coords[0], coords[1]);
 	                        return (angle + 360) % 360;
 	                    });
 	                    match = eq.apply(null, angles);
@@ -19081,7 +19096,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// supports "grid"
 
 /***/ },
-/* 82 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -19095,10 +19110,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var DeprecationMixin = Util.DeprecationMixin;
 
-	var GraphSettings = __webpack_require__(156);
-	var InfoTip = __webpack_require__(132);
+	var GraphSettings = __webpack_require__(164);
+	var InfoTip = __webpack_require__(136);
 
-	var InteractiveGraph = __webpack_require__(81).widget;
+	var InteractiveGraph = __webpack_require__(82).widget;
 
 	var defaultBoxSize = 400;
 	var defaultEditorBoxSize = 340;
@@ -19409,7 +19424,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InteractiveGraphEditor;
 
 /***/ },
-/* 83 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -19417,8 +19432,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var Changeable = __webpack_require__(145);
-	var WidgetJsonifyDeprecated = __webpack_require__(146);
+	var Changeable = __webpack_require__(151);
+	var WidgetJsonifyDeprecated = __webpack_require__(152);
 
 	var MAX_SIZE = 8;
 
@@ -19744,7 +19759,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 84 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -19754,12 +19769,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
-	var EditorJsonify = __webpack_require__(147);
+	var Changeable = __webpack_require__(151);
+	var EditorJsonify = __webpack_require__(153);
 
-	var NumberInput = __webpack_require__(162);
-	var PropCheckBox = __webpack_require__(36);
-	var InfoTip = __webpack_require__(132);
+	var NumberInput = __webpack_require__(169);
+	var PropCheckBox = __webpack_require__(33);
+	var InfoTip = __webpack_require__(136);
 
 	var MAX_SIZE = 8;
 
@@ -20015,26 +20030,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = LightsPuzzleEditor;
 
 /***/ },
-/* 85 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, max-len, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-before-function-paren */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var classNames = __webpack_require__(41);
+	var classNames = __webpack_require__(42);
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
+	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var NumberInput = __webpack_require__(162);
-	var Renderer = __webpack_require__(23);
-	var TextInput = __webpack_require__(150);
-	var MathOutput = __webpack_require__(165);
+	var NumberInput = __webpack_require__(169);
+	var Renderer = __webpack_require__(26);
+	var TextInput = __webpack_require__(156);
+	var MathOutput = __webpack_require__(171);
 
 	var ApiOptions = __webpack_require__(5).Options;
+	var KhanAnswerTypes = __webpack_require__(34);
 
-	var assert = __webpack_require__(144).assert;
+	var assert = __webpack_require__(148).assert;
 	var stringArrayOfSize = __webpack_require__(6).stringArrayOfSize;
 
 	// We store two sets of dimensions for the brackets, because mobile formatting
@@ -20404,7 +20420,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        var incorrectSize = solutionSize[0] !== suppliedSize[0] || solutionSize[1] !== suppliedSize[1];
 
-	        var createValidator = Khan.answerTypes.number.createValidatorFunctional;
+	        var createValidator = KhanAnswerTypes.number.createValidatorFunctional;
 	        var message = null;
 	        var hasEmptyCell = false;
 	        var incorrect = false;
@@ -20497,7 +20513,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// the matrix shouldn't be focused
 
 /***/ },
-/* 86 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -20507,13 +20523,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
-	var EditorJsonify = __webpack_require__(147);
+	var Changeable = __webpack_require__(151);
+	var EditorJsonify = __webpack_require__(153);
 
 	var Editor = __webpack_require__(11);
-	var RangeInput = __webpack_require__(159);
+	var RangeInput = __webpack_require__(166);
 
-	var Matrix = __webpack_require__(85).widget;
+	var Matrix = __webpack_require__(86).widget;
 
 	// Really large matrices will cause issues with question formatting, so we
 	// have to cap it at some point.
@@ -20647,7 +20663,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MatrixEditor;
 
 /***/ },
-/* 87 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -20657,8 +20673,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Renderer = __webpack_require__(23);
-	var Sortable = __webpack_require__(164);
+	var Renderer = __webpack_require__(26);
+	var Sortable = __webpack_require__(172);
 
 	var shuffle = __webpack_require__(6).shuffle;
 	var seededRNG = __webpack_require__(6).seededRNG;
@@ -20801,7 +20817,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: Matcher };
 
 /***/ },
-/* 88 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -20811,9 +20827,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var InfoTip = __webpack_require__(132);
-	var PropCheckBox = __webpack_require__(36);
-	var TextListEditor = __webpack_require__(51);
+	var InfoTip = __webpack_require__(136);
+	var PropCheckBox = __webpack_require__(33);
+	var TextListEditor = __webpack_require__(52);
 
 	var MatcherEditor = React.createClass({
 	    displayName: "MatcherEditor",
@@ -20963,7 +20979,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MatcherEditor;
 
 /***/ },
-/* 89 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -20971,8 +20987,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
+	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
+
+	var GraphUtils = __webpack_require__(149);
 
 	var defaultImage = {
 	    url: null,
@@ -21053,7 +21071,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    setupGraphie: function () {
 	        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
 	        $(graphieDiv).empty();
-	        var graphie = this.graphie = KhanUtil.createGraphie(graphieDiv);
+	        var graphie = this.graphie = GraphUtils.createGraphie(graphieDiv);
 
 	        var scale = [40, 40];
 	        var range = [[0, this.props.box[0] / scale[0]], [0, this.props.box[1] / scale[1]]];
@@ -21133,7 +21151,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 90 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -21143,13 +21161,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
-	var EditorJsonify = __webpack_require__(147);
+	var Changeable = __webpack_require__(151);
+	var EditorJsonify = __webpack_require__(153);
 
-	var InfoTip = __webpack_require__(132);
-	var NumberInput = __webpack_require__(162);
-	var PropCheckBox = __webpack_require__(36);
-	var RangeInput = __webpack_require__(159);
+	var InfoTip = __webpack_require__(136);
+	var NumberInput = __webpack_require__(169);
+	var PropCheckBox = __webpack_require__(33);
+	var RangeInput = __webpack_require__(166);
 
 	var defaultImage = {
 	    url: null,
@@ -21410,18 +21428,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MeasurerEditor;
 
 /***/ },
-/* 91 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(15);
 
-	var draw = __webpack_require__(177);
+	var draw = __webpack_require__(183);
 
-	var _require = __webpack_require__(178);
+	var _require = __webpack_require__(184);
 
 	var layout = _require.layout;
 
-	var SmilesParser = __webpack_require__(179);
+	var SmilesParser = __webpack_require__(185);
 
 	var parse = SmilesParser.parse;
 	var ParseError = SmilesParser.ParseError;
@@ -21582,7 +21600,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    molecule: Molecule };
 
 /***/ },
-/* 92 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -21591,10 +21609,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var EditorJsonify = __webpack_require__(147);
-	var Changeable = __webpack_require__(145);
-	var NumberInput = __webpack_require__(162);
-	var TextInput = __webpack_require__(150);
+	var EditorJsonify = __webpack_require__(153);
+	var Changeable = __webpack_require__(151);
+	var NumberInput = __webpack_require__(169);
+	var TextInput = __webpack_require__(156);
 
 	var MoleculeWidgetEditor = React.createClass({
 	    displayName: "MoleculeWidgetEditor",
@@ -21651,7 +21669,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   spacing right. */
 
 /***/ },
-/* 93 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -21660,26 +21678,28 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/* globals i18n, $_ */
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
+	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
+	var Changeable = __webpack_require__(151);
 
-	var NumberInput = __webpack_require__(162);
-	var MathOutput = __webpack_require__(165);
+	var NumberInput = __webpack_require__(169);
+	var MathOutput = __webpack_require__(171);
 
 	var ApiOptions = __webpack_require__(5).Options;
 
-	var Graphie = __webpack_require__(53);
+	var Graphie = __webpack_require__(54);
 	var MovablePoint = Graphie.MovablePoint;
 	var Line = Graphie.Line;
 
-	var knumber = __webpack_require__(182).number;
+	var knumber = __webpack_require__(188).number;
+	var KhanMath = __webpack_require__(135);
+	var KhanColors = __webpack_require__(163);
 
 	var bound = function (x, gt, lt) {
 	    return Math.min(Math.max(x, gt), lt);
 	};
-	var assert = __webpack_require__(144).assert;
+	var assert = __webpack_require__(148).assert;
 
 	var EN_DASH = "–";
 
@@ -21730,13 +21750,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (labelStyle === "decimal" || labelStyle === "decimal ticks") {
 	        return graphie.label([pos, -0.53], Math.round(value * 100) / 100, "center");
 	    } else if (labelStyle === "improper") {
-	        var frac = KhanUtil.toFraction(value);
+	        var frac = KhanMath.toFraction(value);
 	        return graphie.label([pos, -0.53], formatImproper(frac[0], frac[1]), "center");
 	    } else if (labelStyle === "mixed") {
-	        var frac = KhanUtil.toFraction(value);
+	        var frac = KhanMath.toFraction(value);
 	        return graphie.label([pos, -0.53], formatMixed(frac[0], frac[1]), "center");
 	    } else if (labelStyle === "non-reduced") {
-	        var frac = KhanUtil.toFraction(value);
+	        var frac = KhanMath.toFraction(value);
 	        return graphie.label([pos, -0.53], formatNonReduced(frac[0], frac[1], base), "center");
 	    }
 	};
@@ -21768,7 +21788,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 	        var denoms = _.map(fractions, getDenom);
 	        base = _.reduce(denoms, function (x, y) {
-	            return KhanUtil.getLCM(x, y);
+	            return KhanMath.getLCM(x, y);
 	        });
 	    } else {
 	        base = undefined;
@@ -21786,14 +21806,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    // Render the text labels
-	    graphie.style({ color: KhanUtil.DYNAMIC }, function () {
+	    graphie.style({ color: KhanColors.DYNAMIC }, function () {
 	        results.push(_label(graphie, props.labelStyle, leftLabel, leftLabel, base));
 	        results.push(_label(graphie, props.labelStyle, rightLabel, rightLabel, base));
 	    });
 
 	    // Render the labels' lines
 	    graphie.style({
-	        stroke: KhanUtil.DYNAMIC,
+	        stroke: KhanColors.DYNAMIC,
 	        strokeWidth: 3.5 }, function () {
 	        results.push(graphie.line([leftLabel, -0.2], [leftLabel, 0.2]));
 	        results.push(graphie.line([rightLabel, -0.2], [rightLabel, 0.2]));
@@ -21984,18 +22004,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // it can't be interacted with.
 	        var fill;
 	        if (isOpen) {
-	            fill = KhanUtil._BACKGROUND;
+	            fill = KhanColors._BACKGROUND;
 	        } else if (props.static) {
-	            fill = KhanUtil.DYNAMIC;
+	            fill = KhanColors.DYNAMIC;
 	        } else {
-	            fill = KhanUtil.INTERACTIVE;
+	            fill = KhanColors.INTERACTIVE;
 	        }
 	        var normalStyle = {
 	            fill: fill,
-	            stroke: props.static ? KhanUtil.DYNAMIC : KhanUtil.INTERACTIVE,
+	            stroke: props.static ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE,
 	            "stroke-width": isOpen ? 3 : 1 };
 	        var highlightStyle = {
-	            fill: isOpen ? KhanUtil._BACKGROUND : KhanUtil.INTERACTING,
+	            fill: isOpen ? KhanColors._BACKGROUND : KhanColors.INTERACTING,
 	            "stroke-width": isOpen ? 3 : 1 };
 
 	        return React.createElement(MovablePoint, {
@@ -22046,7 +22066,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var end = this._getInequalityEndpoint(props);
 	            var style = {
 	                arrows: "->",
-	                stroke: KhanUtil.DYNAMIC,
+	                stroke: KhanColors.DYNAMIC,
 	                strokeWidth: 3.5 };
 
 	            return React.createElement(Line, {
@@ -22266,7 +22286,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    staticTransform: staticTransform };
 
 /***/ },
-/* 94 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -22276,15 +22296,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var EditorJsonify = __webpack_require__(147);
+	var EditorJsonify = __webpack_require__(153);
 
-	var ButtonGroup = __webpack_require__(43);
-	var InfoTip = __webpack_require__(132);
-	var NumberInput = __webpack_require__(162);
-	var PropCheckBox = __webpack_require__(36);
-	var RangeInput = __webpack_require__(159);
+	var ButtonGroup = __webpack_require__(44);
+	var InfoTip = __webpack_require__(136);
+	var NumberInput = __webpack_require__(169);
+	var PropCheckBox = __webpack_require__(33);
+	var RangeInput = __webpack_require__(166);
 
-	var knumber = __webpack_require__(182).number;
+	var knumber = __webpack_require__(188).number;
 	var bound = function (x, gt, lt) {
 	    return Math.min(Math.max(x, gt), lt);
 	};
@@ -22787,24 +22807,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	   since it isn't used. */ /* element of (little E) symbol @Nolint */
 
 /***/ },
-/* 95 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable brace-style, comma-dangle, indent, no-undef, no-var, react/forbid-prop-types, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var classNames = __webpack_require__(41);
+	var classNames = __webpack_require__(42);
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var InputWithExamples = __webpack_require__(152);
-	var ParseTex = __webpack_require__(160).parseTex;
-	var PossibleAnswers = __webpack_require__(161);
+	var InputWithExamples = __webpack_require__(158);
+	var ParseTex = __webpack_require__(167).parseTex;
+	var PossibleAnswers = __webpack_require__(168);
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 	var ApiOptions = __webpack_require__(5).Options;
-	var EnabledFeatures = __webpack_require__(32);
+	var EnabledFeatures = __webpack_require__(31);
+	var KhanAnswerTypes = __webpack_require__(34);
+	var KhanMath = __webpack_require__(135);
 
 	var answerFormButtons = [{ title: "Integers", value: "integer", content: "6" }, { title: "Decimals", value: "decimal", content: "0.75" }, { title: "Proper fractions", value: "proper", content: "⅗" }, { title: "Improper fractions", value: "improper",
 	    content: "⁷⁄₄" }, { title: "Mixed numbers", value: "mixed", content: "1¾" }, { title: "Numbers with π", value: "pi", content: "π" }];
@@ -22883,9 +22905,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        format = answer.answerForms[0];
 	                    }
 
-	                    var answerString = KhanUtil.toNumericString(answer.value, format);
+	                    var answerString = KhanMath.toNumericString(answer.value, format);
 	                    if (answer.maxError) {
-	                        answerString += " ± " + KhanUtil.toNumericString(answer.maxError, format);
+	                        answerString += " ± " + KhanMath.toNumericString(answer.maxError, format);
 	                    }
 	                    return answerString;
 	                });
@@ -23017,7 +23039,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var allAnswerForms = _.pluck(answerFormButtons, "value");
 
 	        var createValidator = function (answer) {
-	            return Khan.answerTypes.number.createValidatorFunctional(answer.value, {
+	            return KhanAnswerTypes.number.createValidatorFunctional(answer.value, {
 	                message: answer.message,
 	                simplify: answer.status === "correct" ? answer.simplify : "optional",
 	                inexact: true, // TODO(merlob) backfill / delete
@@ -23146,7 +23168,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 96 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -23156,16 +23178,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
-	var EditorJsonify = __webpack_require__(147);
+	var Changeable = __webpack_require__(151);
+	var EditorJsonify = __webpack_require__(153);
 
-	var ButtonGroup = __webpack_require__(43);
+	var ButtonGroup = __webpack_require__(44);
 	var Editor = __webpack_require__(11);
-	var InfoTip = __webpack_require__(132);
-	var MultiButtonGroup = __webpack_require__(157);
-	var NumberInput = __webpack_require__(162);
-	var PropCheckBox = __webpack_require__(36);
-	var TextInput = __webpack_require__(150);
+	var InfoTip = __webpack_require__(136);
+	var MultiButtonGroup = __webpack_require__(165);
+	var NumberInput = __webpack_require__(169);
+	var PropCheckBox = __webpack_require__(33);
+	var TextInput = __webpack_require__(156);
 
 	var firstNumericalParse = __webpack_require__(6).firstNumericalParse;
 
@@ -23651,7 +23673,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NumericInputEditor;
 
 /***/ },
-/* 97 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -23659,10 +23681,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
+	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var Renderer = __webpack_require__(23);
+	var Renderer = __webpack_require__(26);
 	var Util = __webpack_require__(6);
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
@@ -24202,7 +24224,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: Orderer };
 
 /***/ },
-/* 98 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -24212,8 +24234,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var InfoTip = __webpack_require__(132);
-	var TextListEditor = __webpack_require__(51);
+	var InfoTip = __webpack_require__(136);
+	var TextListEditor = __webpack_require__(52);
 
 	var NORMAL = "normal",
 	    AUTO = "auto",
@@ -24404,7 +24426,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = OrdererEditor;
 
 /***/ },
-/* 99 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -24412,13 +24434,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
+	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
+	var Changeable = __webpack_require__(151);
 
-	var Renderer = __webpack_require__(23);
-	var PassageMarkdown = __webpack_require__(180);
+	var Renderer = __webpack_require__(26);
+	var PassageMarkdown = __webpack_require__(186);
 
 	var Passage = React.createClass({
 	    displayName: "Passage",
@@ -24737,7 +24759,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 100 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -24747,12 +24769,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
-	var EditorJsonify = __webpack_require__(147);
+	var Changeable = __webpack_require__(151);
+	var EditorJsonify = __webpack_require__(153);
 
 	var Editor = __webpack_require__(11);
-	var InfoTip = __webpack_require__(132);
-	var PropCheckBox = __webpack_require__(36);
+	var InfoTip = __webpack_require__(136);
+	var PropCheckBox = __webpack_require__(33);
 
 	var PassageEditor = React.createClass({
 	    displayName: "PassageEditor",
@@ -24860,7 +24882,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = PassageEditor;
 
 /***/ },
-/* 101 */
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -24870,9 +24892,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
-	var PerseusMarkdown = __webpack_require__(31);
-	var WidgetJsonifyDeprecated = __webpack_require__(146);
+	var Changeable = __webpack_require__(151);
+	var PerseusMarkdown = __webpack_require__(32);
+	var WidgetJsonifyDeprecated = __webpack_require__(152);
 
 	var EN_DASH = "–";
 
@@ -25007,7 +25029,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* curly quotes */
 
 /***/ },
-/* 102 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -25016,12 +25038,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var Changeable = __webpack_require__(145);
-	var EditorJsonify = __webpack_require__(147);
+	var Changeable = __webpack_require__(151);
+	var EditorJsonify = __webpack_require__(153);
 
-	var InfoTip = __webpack_require__(132);
-	var NumberInput = __webpack_require__(162);
-	var TextInput = __webpack_require__(150);
+	var InfoTip = __webpack_require__(136);
+	var NumberInput = __webpack_require__(169);
+	var TextInput = __webpack_require__(156);
 
 	var PassageRefEditor = React.createClass({
 	    displayName: "PassageRefEditor",
@@ -25101,7 +25123,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = PassageRefEditor;
 
 /***/ },
-/* 103 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -25111,9 +25133,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
-	var WidgetJsonifyDeprecated = __webpack_require__(146);
-	var Renderer = __webpack_require__(23);
+	var Changeable = __webpack_require__(151);
+	var WidgetJsonifyDeprecated = __webpack_require__(152);
+	var Renderer = __webpack_require__(26);
 
 	var PassageRefTarget = React.createClass({
 	    displayName: "PassageRefTarget",
@@ -25168,7 +25190,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 104 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -25178,8 +25200,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
-	var EditorJsonify = __webpack_require__(147);
+	var Changeable = __webpack_require__(151);
+	var EditorJsonify = __webpack_require__(153);
 
 	var PassageRefTargetEditor = React.createClass({
 	    displayName: "PassageRefTargetEditor",
@@ -25215,7 +25237,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = PassageRefTargetEditor;
 
 /***/ },
-/* 105 */
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -25223,12 +25245,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
+	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 
 	var deepEq = __webpack_require__(6).deepEq;
+	var KhanMath = __webpack_require__(135);
+	var KhanColors = __webpack_require__(163);
+	var GraphUtils = __webpack_require__(149);
 
 	var BAR = "bar",
 	    LINE = "line",
@@ -25323,7 +25348,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        self.shouldSetupGraphie = false;
 	        var graphieDiv = ReactDOM.findDOMNode(self.refs.graphieDiv);
 	        $(graphieDiv).empty();
-	        var graphie = KhanUtil.createGraphie(graphieDiv);
+	        var graphie = GraphUtils.createGraphie(graphieDiv);
 
 	        // TODO(jakesandlund): It's not the react way to hang
 	        // something off the component object, but since graphie
@@ -25404,7 +25429,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        if (!isTiledPlot) {
 	            for (var y = 0; y <= c.dimY; y += c.scaleY) {
-	                graphie.label([0, y], KhanUtil.roundToApprox(y, 2), "left",
+	                graphie.label([0, y], KhanMath.roundToApprox(y, 2), "left",
 	                /* isTeX */true /* for the \approx symbol */
 	                );
 	                graphie.style({ stroke: "#000", strokeWidth: 1, opacity: 0.3 }, function () {
@@ -25562,7 +25587,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 
 	        graphie.style({
-	            stroke: "none", fill: KhanUtil.LIGHT_BLUE, opacity: 1
+	            stroke: "none", fill: KhanColors.LIGHT_BLUE, opacity: 1
 	        }, function () {
 	            config.graph.bars[i] = graphie.path([[x - barHalfWidth, 0], [x - barHalfWidth, config.scaleY], [x + barHalfWidth, config.scaleY], [x + barHalfWidth, 0], [x - barHalfWidth, 0]]);
 	        });
@@ -25586,7 +25611,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                constrainX: true
 	            },
 	            normalStyle: {
-	                "stroke": KhanUtil.INTERACTIVE,
+	                "stroke": KhanColors.INTERACTIVE,
 	                // Don't display graph handles in static mode
 	                "stroke-width": this.props.static ? 0 : 4 } });
 
@@ -25623,8 +25648,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                constrainX: true
 	            },
 	            normalStyle: {
-	                fill: KhanUtil.INTERACTIVE,
-	                stroke: KhanUtil.INTERACTIVE
+	                fill: KhanColors.INTERACTIVE,
+	                stroke: KhanColors.INTERACTIVE
 	            },
 	            snapY: c.scaleY / self.props.snapsPerLine });
 	        c.graph.points[i].onMove = function (x, y) {
@@ -25655,8 +25680,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var graphie = this.graphie;
 	        return this.setupTiledPlot(i, 1, config, function (x, y) {
 	            return graphie.ellipse([x, y], [DOT_PLOT_POINT_SIZE / graphie.scale[0], DOT_PLOT_POINT_SIZE / graphie.scale[1]], {
-	                fill: KhanUtil.INTERACTIVE,
-	                stroke: KhanUtil.INTERACTIVE
+	                fill: KhanColors.INTERACTIVE,
+	                stroke: KhanColors.INTERACTIVE
 	            });
 	        });
 	    },
@@ -25802,7 +25827,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// ...widgetPropTypes,
 
 /***/ },
-/* 106 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -25812,19 +25837,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
+	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var BlurInput = __webpack_require__(148);
-	var InfoTip = __webpack_require__(132);
-	var NumberInput = __webpack_require__(162);
-	var RangeInput = __webpack_require__(159);
-	var SvgImage = __webpack_require__(28);
-	var TextListEditor = __webpack_require__(51);
+	var BlurInput = __webpack_require__(154);
+	var InfoTip = __webpack_require__(136);
+	var NumberInput = __webpack_require__(169);
+	var RangeInput = __webpack_require__(166);
+	var SvgImage = __webpack_require__(29);
+	var TextListEditor = __webpack_require__(52);
 
-	var Plotter = __webpack_require__(105).widget;
+	var Plotter = __webpack_require__(106).widget;
 
-	var knumber = __webpack_require__(182).knumber;
+	var knumber = __webpack_require__(188).knumber;
 
 	var BAR = "bar",
 	    LINE = "line",
@@ -26338,7 +26363,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = PlotterEditor;
 
 /***/ },
-/* 107 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -26349,7 +26374,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var shuffle = __webpack_require__(6).shuffle;
 
-	var Radio = __webpack_require__(166);
+	var Radio = __webpack_require__(173);
 
 	var _choiceTransform = function (editorProps, problemNum) {
 	    var _maybeRandomize = function (array) {
@@ -26439,12 +26464,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    propUpgrades: propUpgrades };
 
 /***/ },
-/* 108 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(15);
 
-	var Molecule = __webpack_require__(91).molecule;
+	var Molecule = __webpack_require__(92).molecule;
 
 	var Separator = React.createClass({
 	    displayName: "Separator",
@@ -26579,7 +26604,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: ReactionDiagramWidget };
 
 /***/ },
-/* 109 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -26590,11 +26615,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var Changeable = __webpack_require__(145);
-	var EditorJsonify = __webpack_require__(147);
+	var Changeable = __webpack_require__(151);
+	var EditorJsonify = __webpack_require__(153);
 
-	var NumberInput = __webpack_require__(162);
-	var TextInput = __webpack_require__(150);
+	var NumberInput = __webpack_require__(169);
+	var TextInput = __webpack_require__(156);
 
 	var ReactionDiagramWidgetEditor = React.createClass({
 	    displayName: "ReactionDiagramWidgetEditor",
@@ -26730,7 +26755,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ReactionDiagramWidgetEditor;
 
 /***/ },
-/* 110 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -26741,8 +26766,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var Changeable = __webpack_require__(145);
-	var Renderer = __webpack_require__(23);
+	var Changeable = __webpack_require__(151);
+	var Renderer = __webpack_require__(26);
 	var Util = __webpack_require__(6);
 
 	var Sequence = React.createClass({
@@ -26850,7 +26875,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    tracking: "all" };
 
 /***/ },
-/* 111 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -27031,24 +27056,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = SequenceEditor;
 
 /***/ },
-/* 112 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, indent, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-unary-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var InfoTip = __webpack_require__(132);
+	var InfoTip = __webpack_require__(136);
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
+	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
+	var Changeable = __webpack_require__(151);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var assert = __webpack_require__(144).assert;
+	var assert = __webpack_require__(148).assert;
 
-	var Graphie = __webpack_require__(53);
+	var Graphie = __webpack_require__(54);
 	var Path = Graphie.Path;
 	var Arc = Graphie.Arc;
 	var Circle = Graphie.Circle;
@@ -27057,11 +27082,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	var MovablePoint = Graphie.MovablePoint;
 	var MovableLine = Graphie.MovableLine;
 
-	var NumberInput = __webpack_require__(162);
-	var MathOutput = __webpack_require__(165);
+	var NumberInput = __webpack_require__(169);
+	var MathOutput = __webpack_require__(171);
 	var seededRNG = __webpack_require__(6).seededRNG;
 	var Util = __webpack_require__(6);
-	var knumber = __webpack_require__(182).number;
+	var knumber = __webpack_require__(188).number;
+	var KhanColors = __webpack_require__(163);
+	var KhanMath = __webpack_require__(135);
 
 	var defaultBoxSize = 400;
 	var maxSampleSize = 1000;
@@ -27166,8 +27193,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                sector: proportionBelow !== 1,
 	                unscaled: true,
 	                style: {
-	                    fill: KhanUtil.LIGHT_RED,
-	                    stroke: KhanUtil.RED
+	                    fill: KhanColors.LIGHT_RED,
+	                    stroke: KhanColors.RED
 	                }
 	            };
 
@@ -27183,8 +27210,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                sector: proportionBelow !== 0,
 	                unscaled: true,
 	                style: {
-	                    fill: KhanUtil.LIGHT_BLUE,
-	                    stroke: KhanUtil.BLUE
+	                    fill: KhanColors.LIGHT_BLUE,
+	                    stroke: KhanColors.BLUE
 	                } };
 
 	            return React.createElement(Arc, options);
@@ -27230,8 +27257,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            var isBelow = _this3.state.threshold != null && i <= _this3.state.threshold;
 	            var style = {
-	                fill: isBelow ? KhanUtil.LIGHT_RED : KhanUtil.LIGHT_BLUE,
-	                stroke: isBelow ? KhanUtil.RED : KhanUtil.BLUE
+	                fill: isBelow ? KhanColors.LIGHT_RED : KhanColors.LIGHT_BLUE,
+	                stroke: isBelow ? KhanColors.RED : KhanColors.BLUE
 	            };
 	            var coords = [[i, 0], [i, count], [i + barWidth, count], [i + barWidth, 0]];
 	            return React.createElement(Path, { key: i, coords: coords, style: style });
@@ -27291,7 +27318,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            // If there's no data, we don't label the axes
 	            if (data) {
-	                graphie.label([range[0][0], y], KhanUtil.roundToApprox(y, 2), "left",
+	                graphie.label([range[0][0], y], KhanMath.roundToApprox(y, 2), "left",
 	                /* isTeX */true /* for the \approx symbol */
 	                );
 	            }
@@ -27787,7 +27814,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* Only plot these cool extra features if there's data */
 
 /***/ },
-/* 113 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -27797,11 +27824,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
-	var EditorJsonify = __webpack_require__(147);
+	var Changeable = __webpack_require__(151);
+	var EditorJsonify = __webpack_require__(153);
 
-	var InfoTip = __webpack_require__(132);
-	var NumberInput = __webpack_require__(162);
+	var InfoTip = __webpack_require__(136);
+	var NumberInput = __webpack_require__(169);
 
 	var maxTrials = 5000;
 
@@ -27938,7 +27965,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = SimulatorEditor;
 
 /***/ },
-/* 114 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -27948,7 +27975,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Sortable = __webpack_require__(164);
+	var Sortable = __webpack_require__(172);
 
 	var shuffle = __webpack_require__(6).shuffle;
 
@@ -28026,7 +28053,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: Sorter };
 
 /***/ },
-/* 115 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -28036,9 +28063,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var InfoTip = __webpack_require__(132);
-	var PropCheckBox = __webpack_require__(36);
-	var TextListEditor = __webpack_require__(51);
+	var InfoTip = __webpack_require__(136);
+	var PropCheckBox = __webpack_require__(33);
+	var TextListEditor = __webpack_require__(52);
 
 	var HORIZONTAL = "horizontal";
 	var VERTICAL = "vertical";
@@ -28155,7 +28182,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = SorterEditor;
 
 /***/ },
-/* 116 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -28163,16 +28190,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
+	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var MathOutput = __webpack_require__(165);
-	var Renderer = __webpack_require__(23);
+	var MathOutput = __webpack_require__(171);
+	var Renderer = __webpack_require__(26);
 	var Util = __webpack_require__(6);
 
 	var ApiOptions = __webpack_require__(5).Options;
+	var KhanAnswerTypes = __webpack_require__(34);
 
-	var assert = __webpack_require__(144).assert;
+	var assert = __webpack_require__(148).assert;
 
 	/* Input handling: Maps a (row, column) pair to a unique ref used by React,
 	 * and extracts (row, column) pairs from input paths, used to allow outsiders
@@ -28432,7 +28460,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                message: null
 	            };
 	        }
-	        var createValidator = Khan.answerTypes.number.createValidatorFunctional;
+	        var createValidator = KhanAnswerTypes.number.createValidatorFunctional;
 	        var message = null;
 	        var allCorrect = _.every(solution, function (rowSolution) {
 	            var i;
@@ -28486,7 +28514,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 117 */
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -28494,16 +28522,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
+	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
 	var Util = __webpack_require__(6);
 
-	var InfoTip = __webpack_require__(132);
-	var NumberInput = __webpack_require__(162);
+	var InfoTip = __webpack_require__(136);
+	var NumberInput = __webpack_require__(169);
 	var Editor = __webpack_require__(11);
 
-	var Table = __webpack_require__(116).widget;
+	var Table = __webpack_require__(117).widget;
 
 	var TableEditor = React.createClass({
 	    displayName: "TableEditor",
@@ -28662,7 +28690,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = TableEditor;
 
 /***/ },
-/* 118 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -28672,13 +28700,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
+	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var Graph = __webpack_require__(163);
-	var NumberInput = __webpack_require__(162);
-	var MathOutput = __webpack_require__(165);
-	var TeX = __webpack_require__(48);
+	var Graph = __webpack_require__(170);
+	var NumberInput = __webpack_require__(169);
+	var MathOutput = __webpack_require__(171);
+	var TeX = __webpack_require__(49);
 
 	var ApiOptions = __webpack_require__(5).Options;
 
@@ -28693,13 +28721,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	var getGridStep = __webpack_require__(6).getGridStep;
 	var captureScratchpadTouchStart = __webpack_require__(6).captureScratchpadTouchStart;
 
-	var knumber = __webpack_require__(182).number;
-	var kvector = __webpack_require__(182).vector;
-	var kpoint = __webpack_require__(182).point;
-	var kray = __webpack_require__(182).ray;
-	var kline = __webpack_require__(182).line;
+	var knumber = __webpack_require__(188).number;
+	var kvector = __webpack_require__(188).vector;
+	var kpoint = __webpack_require__(188).point;
+	var kray = __webpack_require__(188).ray;
+	var kline = __webpack_require__(188).line;
+	var KhanMath = __webpack_require__(135);
+	var KhanColors = __webpack_require__(163);
 
-	var assert = __webpack_require__(144).assert;
+	var assert = __webpack_require__(148).assert;
 
 	var defaultBoxSize = 400;
 	var defaultBackgroundImage = {
@@ -28800,7 +28830,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	function colorForTool(tool) {
-	    return tool.constraints.fixed ? KhanUtil.DYNAMIC : KhanUtil.INTERACTIVE;
+	    return tool.constraints.fixed ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
 	}
 
 	/* Scales a distance from the default range of
@@ -28825,11 +28855,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// TODO(jack): i18nize this
 	function stringFromDecimal(number) {
-	    return String(KhanUtil.roundTo(9, number));
+	    return String(KhanMath.roundTo(9, number));
 	}
 
 	function stringFromFraction(number) {
-	    var frac = KhanUtil.toFraction(number, knumber.DEFAULT_TOLERANCE);
+	    var frac = KhanMath.toFraction(number, knumber.DEFAULT_TOLERANCE);
 	    if (frac[1] === 1) {
 	        return stringFromDecimal(number);
 	    } else {
@@ -29933,7 +29963,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var radius = kpoint.distanceToPoint(coord0, coord1);
 	                perimeter.remove();
 	                perimeter = graphie.circle(coord0, radius, _.extend({
-	                    stroke: KhanUtil.DYNAMIC,
+	                    stroke: KhanColors.DYNAMIC,
 	                    "stroke-width": 2 }, options.normalStyle));
 	            };
 
@@ -30312,7 +30342,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                fixed: true,
 	                shape: this.props.correct.shape,
 	                normalStyle: {
-	                    stroke: KhanUtil.GRAY,
+	                    stroke: KhanColors.GRAY,
 	                    "stroke-dasharray": "",
 	                    "stroke-width": 2
 	                }
@@ -30363,8 +30393,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            showPoints: this.props.graphMode !== "static",
 	            translatable: translatable,
 	            onMove: function (dX, dY) {
-	                dX = KhanUtil.roundToNearest(graphie.snap[0], dX);
-	                dY = KhanUtil.roundToNearest(graphie.snap[1], dY);
+	                dX = KhanMath.roundToNearest(graphie.snap[0], dX);
+	                dY = KhanMath.roundToNearest(graphie.snap[1], dY);
 	                self.addTransform({
 	                    type: "translation",
 	                    vector: [dX, dY]
@@ -30372,12 +30402,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                return [dX, dY];
 	            },
 	            normalPointStyle: {
-	                fill: translatable ? KhanUtil.INTERACTIVE : KhanUtil.DYNAMIC,
-	                stroke: translatable ? KhanUtil.INTERACTIVE : KhanUtil.DYNAMIC
+	                fill: translatable ? KhanColors.INTERACTIVE : KhanColors.DYNAMIC,
+	                stroke: translatable ? KhanColors.INTERACTIVE : KhanColors.DYNAMIC
 	            },
 	            highlightPointStyle: {
-	                fill: KhanUtil.INTERACTING,
-	                stroke: KhanUtil.INTERACTING
+	                fill: KhanColors.INTERACTING,
+	                stroke: KhanColors.INTERACTING
 	            }
 	        });
 	    },
@@ -30459,7 +30489,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    snapCoord: function (coord) {
 	        var graphie = this.graphie();
 	        return _.map(coord, function (val, dim) {
-	            return KhanUtil.roundToNearest(graphie.snap[dim], val);
+	            return KhanMath.roundToNearest(graphie.snap[dim], val);
 	        });
 	    },
 
@@ -30468,7 +30498,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    normalizeReflectionCoords: function (messyCoords) {
 	        var midpoint = this.snapCoord(kline.midpoint(messyCoords));
 	        var origDirectionPolar = kvector.polarDegFromCart(kvector.subtract(messyCoords[0], messyCoords[1]));
-	        var directionPolar = [1, KhanUtil.roundToNearest(45, origDirectionPolar[1])];
+	        var directionPolar = [1, KhanMath.roundToNearest(45, origDirectionPolar[1])];
 	        var direction = kvector.cartFromPolarDeg(directionPolar);
 	        var coords = _.map([-1, 1], function (directionCoefficient) {
 	            var coord = kvector.add(midpoint, kvector.scale(direction, directionCoefficient * this.scaleToCurrentRange(REFLECT_ROTATE_HANDLE_DIST)));
@@ -30523,7 +30553,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    "stroke-dasharray": "- "
 	                },
 	                highlightStyle: {
-	                    "stroke": KhanUtil.INTERACTING,
+	                    "stroke": KhanColors.INTERACTING,
 	                    "stroke-width": 2,
 	                    "stroke-dasharray": "- " // TODO(jack) solid doesn't
 	                    // work here, but would be
@@ -30556,9 +30586,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                fill: normalColor
 	            },
 	            highlightStyle: {
-	                stroke: KhanUtil.INTERACTING,
+	                stroke: KhanColors.INTERACTING,
 	                "stroke-width": 3,
-	                fill: KhanUtil.INTERACTING
+	                fill: KhanColors.INTERACTING
 	            },
 	            onMoveEnd: updateReflectionTool
 	        });
@@ -30575,7 +30605,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                hoverWidth: this.scaleToCurrentRange(0.4),
 	                lengthAngle: 17,
 	                onMove: function (newAngle) {
-	                    return KhanUtil.roundToNearest(45, newAngle);
+	                    return KhanMath.roundToNearest(45, newAngle);
 	                },
 	                onMoveEnd: updateReflectionTool
 	            });
@@ -30585,7 +30615,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        $(reflectLine).on("move", function () {
 	            reflectButton.update();
 	            $(reflectButton).trigger("move"); // update the rotation handle,
-	            // which watches for this in ke/utils/interactive.js.
+	            // which watches for this in util/interactive.js.
 	        });
 
 	        // Update the line and reflect button when the reflectRotateHandle is
@@ -30651,8 +30681,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            },
 	            highlightStyle: {
 	                "stroke-dasharray": "",
-	                stroke: KhanUtil.INTERACTING,
-	                fill: KhanUtil.INTERACTING
+	                stroke: KhanColors.INTERACTING,
+	                fill: KhanColors.INTERACTING
 	            }
 	        });
 
@@ -30720,10 +30750,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                "fill-opacity": 0
 	            },
 	            circleHighlightStyle: {
-	                "stroke": KhanUtil.INTERACTING,
+	                "stroke": KhanColors.INTERACTING,
 	                "stroke-width": 2,
 	                "stroke-dasharray": "",
-	                "fill": KhanUtil.INTERACTING,
+	                "fill": KhanColors.INTERACTING,
 	                "fill-opacity": 0.05
 	            },
 	            centerNormalStyle: {
@@ -31047,7 +31077,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: Transformer };
 
 /***/ },
-/* 119 */
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -31059,20 +31089,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(5).Options;
 
-	var Graph = __webpack_require__(163);
-	var GraphSettings = __webpack_require__(156);
-	var InfoTip = __webpack_require__(132);
-	var PropCheckBox = __webpack_require__(36);
+	var Graph = __webpack_require__(170);
+	var GraphSettings = __webpack_require__(164);
+	var InfoTip = __webpack_require__(136);
+	var PropCheckBox = __webpack_require__(33);
 
-	var Transformer = __webpack_require__(118).widget;
+	var Transformer = __webpack_require__(119).widget;
 
 	var deepEq = __webpack_require__(6).deepEq;
 	var getGridStep = __webpack_require__(6).getGridStep;
-	var kline = __webpack_require__(182).line;
-	var knumber = __webpack_require__(182).number;
-	var kpoint = __webpack_require__(182).point;
-	var kray = __webpack_require__(182).ray;
-	var kvector = __webpack_require__(182).vector;
+	var kline = __webpack_require__(188).line;
+	var knumber = __webpack_require__(188).number;
+	var kpoint = __webpack_require__(188).point;
+	var kray = __webpack_require__(188).ray;
+	var kvector = __webpack_require__(188).vector;
+	var KhanColors = __webpack_require__(163);
 
 	function arraySum(array) {
 	    return _.reduce(array, function (memo, arg) {
@@ -31677,7 +31708,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var radius = kpoint.distanceToPoint(coord0, coord1);
 	                perimeter.remove();
 	                perimeter = graphie.circle(coord0, radius, _.extend({
-	                    stroke: KhanUtil.DYNAMIC,
+	                    stroke: KhanColors.DYNAMIC,
 	                    "stroke-width": 2 }, options.normalStyle));
 	            };
 
@@ -32042,7 +32073,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = TransformerEditor;
 
 /***/ },
-/* 120 */
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -32054,17 +32085,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	// TODO(joel): Allow sigfigs within a range rather than an exact expected
 	// value?
 
-	var lens = __webpack_require__(181);
+	var lens = __webpack_require__(187);
 	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
+	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 	var ApiOptions = __webpack_require__(5).Options;
-	var Changeable = __webpack_require__(145);
-	var MathOutput = __webpack_require__(165);
+	var Changeable = __webpack_require__(151);
+	var MathOutput = __webpack_require__(171);
 
-	var _require = __webpack_require__(167);
+	var _require = __webpack_require__(174);
 
 	var SignificantFigures = _require.SignificantFigures;
 	var displaySigFigs = _require.displaySigFigs;
@@ -32321,7 +32352,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// end mobile stuff
 
 /***/ },
-/* 121 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -32336,12 +32367,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
-	var EditorJsonify = __webpack_require__(147);
+	var Changeable = __webpack_require__(151);
+	var EditorJsonify = __webpack_require__(153);
 
-	var NumberInput = __webpack_require__(162);
+	var NumberInput = __webpack_require__(169);
 
-	var _require = __webpack_require__(167);
+	var _require = __webpack_require__(174);
 
 	var displaySigFigs = _require.displaySigFigs;
 
@@ -32609,7 +32640,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = UnitInputEditor;
 
 /***/ },
-/* 122 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -32623,8 +32654,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
-	var FixedToResponsive = __webpack_require__(52);
+	var Changeable = __webpack_require__(151);
+	var FixedToResponsive = __webpack_require__(53);
 
 	// Current default is 720p, based on the typical videos we upload currently
 	var DEFAULT_WIDTH = 1280;
@@ -32712,7 +32743,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: Video };
 
 /***/ },
-/* 123 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -32722,11 +32753,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
-	var EditorJsonify = __webpack_require__(147);
+	var Changeable = __webpack_require__(151);
+	var EditorJsonify = __webpack_require__(153);
 
-	var InfoTip = __webpack_require__(132);
-	var BlurInput = __webpack_require__(148);
+	var InfoTip = __webpack_require__(136);
+	var BlurInput = __webpack_require__(154);
 
 	var KA_VIDEO_URL = /khanacademy\.org\/.*\/v\/(.*)$/;
 
@@ -32790,7 +32821,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = VideoEditor;
 
 /***/ },
-/* 124 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -32807,14 +32838,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var Util = __webpack_require__(6);
-	var Changeable = __webpack_require__(145);
-	var WidgetJsonifyDeprecated = __webpack_require__(146);
+	var Changeable = __webpack_require__(151);
+	var WidgetJsonifyDeprecated = __webpack_require__(152);
 
-	var Graphie = __webpack_require__(53);
+	var Graphie = __webpack_require__(54);
 	var MovablePoint = Graphie.MovablePoint;
 
-	var knumber = __webpack_require__(182).number;
-	var kpoint = __webpack_require__(182).point;
+	var knumber = __webpack_require__(188).number;
+	var kpoint = __webpack_require__(188).point;
 
 	/**
 	 * This is the widget's renderer. It shows up in the right column
@@ -32940,7 +32971,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: ExampleGraphieWidget };
 
 /***/ },
-/* 125 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -32949,10 +32980,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var Changeable = __webpack_require__(145);
-	var EditorJsonify = __webpack_require__(147);
+	var Changeable = __webpack_require__(151);
+	var EditorJsonify = __webpack_require__(153);
 
-	var ExampleGraphieWidget = __webpack_require__(124).widget;
+	var ExampleGraphieWidget = __webpack_require__(125).widget;
 
 	/**
 	 * This is the widget's editor. This is what shows up on the left side
@@ -33003,7 +33034,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ExampleGraphieWidgetEditor;
 
 /***/ },
-/* 126 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -33020,7 +33051,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var React = __webpack_require__(15);
-	var Changeable = __webpack_require__(145);
+	var Changeable = __webpack_require__(151);
 	var _ = __webpack_require__(16);
 
 	var TextInput = React.createClass({
@@ -33155,7 +33186,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: ExampleWidget };
 
 /***/ },
-/* 127 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -33164,8 +33195,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var Changeable = __webpack_require__(145);
-	var EditorJsonify = __webpack_require__(147);
+	var Changeable = __webpack_require__(151);
+	var EditorJsonify = __webpack_require__(153);
 
 	/**
 	 * This is the widget's editor. This is what shows up on the left side
@@ -33213,7 +33244,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ExampleWidgetEditor;
 
 /***/ },
-/* 128 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -33223,9 +33254,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
+	var Changeable = __webpack_require__(151);
 
-	var PerseusMarkdown = __webpack_require__(31);
+	var PerseusMarkdown = __webpack_require__(32);
 	var mdParse = PerseusMarkdown.parse;
 	var mdOutput = PerseusMarkdown.basicOutput;
 
@@ -33317,7 +33348,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 129 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -33331,8 +33362,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(15);
 
-	var Changeable = __webpack_require__(145);
-	var EditorJsonify = __webpack_require__(147);
+	var Changeable = __webpack_require__(151);
+	var EditorJsonify = __webpack_require__(153);
 
 	var TextArea = React.createClass({
 	    displayName: "TextArea",
@@ -33400,7 +33431,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = SimpleMarkdownTesterEditor;
 
 /***/ },
-/* 130 */
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -33411,12 +33442,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(145);
+	var Changeable = __webpack_require__(151);
 	var Editor = __webpack_require__(11);
-	var PropCheckBox = __webpack_require__(36);
+	var PropCheckBox = __webpack_require__(33);
 
-	var InfoTip = __webpack_require__(132);
-	var BaseRadio = __webpack_require__(168);
+	var InfoTip = __webpack_require__(136);
+	var BaseRadio = __webpack_require__(175);
 
 	var ChoiceEditor = React.createClass({
 	    displayName: "ChoiceEditor",
@@ -33726,7 +33757,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = RadioEditor;
 
 /***/ },
-/* 131 */
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -33805,7 +33836,883 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 132 */
+/* 133 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* globals katex:false, MathJax:false, Exercises:false */
+
+	var cleanMath = __webpack_require__(135).cleanMath;
+
+	function findChildOrAdd(elem, className) {
+	    var $child = $(elem).find("." + className);
+	    if ($child.length === 0) {
+	        return $("<span>").addClass(className).appendTo($(elem));
+	    } else {
+	        return $child;
+	    }
+	}
+
+	function doCallback(elem, callback) {
+	    var tries = 0;
+	    (function check() {
+	        var height = elem.scrollHeight;
+	        // Heuristic to guess if the font has kicked in
+	        // so we have box metrics (magic number ick,
+	        // but this seems to work mostly-consistently)
+	        if (height > 18 || tries >= 10) {
+	            callback();
+	        } else {
+	            tries++;
+	            setTimeout(check, 100);
+	        }
+	    })();
+	}
+
+	module.exports = {
+	    // Process a node and add math inside of it. This attempts to use KaTeX to
+	    // format the math, and if that fails it falls back to MathJax.
+	    //
+	    // elem: The element which the math should be added to.
+	    //
+	    // text: The text that should be formatted inside of the node. If the node
+	    //       has already had math formatted inside of it before, this doesn't
+	    //       have to be provided. If this is not provided, and the node hasn't
+	    //       been formatted before, the text content of the node is used.
+	    //
+	    // force: (optional) if the node has been processed before, then it will
+	    //        not be formatted again, unless this argument is true
+	    //
+	    // callback: (optional) a callback to be run after the math has been
+	    //           processed (note: this might be called synchronously or
+	    //           asynchronously, depending on whether KaTeX or MathJax is used)
+	    processMath: function (elem, text, force, callback) {
+	        var $elem = $(elem);
+
+	        // Only process if it hasn't been done before, or it is forced
+	        if ($elem.attr("data-math-formula") == null || force) {
+	            var $katexHolder = findChildOrAdd($elem, "katex-holder");
+	            var $mathjaxHolder = findChildOrAdd($elem, "mathjax-holder");
+
+	            // Search for MathJax-y script tags inside of the node. These are
+	            // used by MathJax to denote the formula to be typeset. Before, we
+	            // would update the formula by updating the contents of the script
+	            // tag, which shouldn't happen any more, but we manage them just in
+	            // case.
+	            var script = $mathjaxHolder.find("script[type='math/tex']")[0];
+
+	            // If text wasn't provided, we look in two places
+	            if (text == null) {
+	                if ($elem.attr("data-math-formula")) {
+	                    // The old typeset formula
+	                    text = $elem.attr("data-math-formula");
+	                } else if (script) {
+	                    // The contents of the <script> tag
+	                    text = script.text || script.textContent;
+	                }
+	            }
+
+	            text = text != null ? text + "" : "";
+
+	            // Attempt to clean up some of the math
+	            text = cleanMath(text);
+
+	            // Store the formula that we're using
+	            $elem.attr("data-math-formula", text);
+
+	            if (Exercises.useKatex) {
+	                // Try to process the nodes with KaTeX first
+	                try {
+	                    katex.render(text, $katexHolder[0]);
+	                    // If that worked, and we previously formatted with
+	                    // mathjax, do some mathjax cleanup
+	                    if ($elem.attr("data-math-type") === "mathjax") {
+	                        // Remove the old mathjax stuff
+	                        var jax = MathJax.Hub.getJaxFor(script);
+	                        if (jax) {
+	                            var e = jax.SourceElement();
+	                            if (e.previousSibling && e.previousSibling.className) {
+	                                jax.Remove();
+	                            }
+	                        }
+	                    }
+	                    $elem.attr("data-math-type", "katex");
+	                    // Call the callback
+	                    if (callback) {
+	                        doCallback(elem, callback);
+	                    }
+	                    return;
+	                } catch (err) {
+	                    // IE doesn't do instanceof correctly, so we resort to
+	                    // manual checking
+	                    /* jshint -W103 */
+	                    if (err.__proto__ !== katex.ParseError.prototype) {
+	                        throw err;
+	                    }
+	                    /* jshint +W103 */
+	                }
+	            }
+
+	            // Otherwise, fallback to MathJax
+
+	            // (Note: we don't need to do any katex cleanup here, because
+	            // KaTeX is smart and cleans itself up)
+	            $elem.attr("data-math-type", "mathjax");
+	            // Update the script tag, or add one if necessary
+	            if (!script) {
+	                $mathjaxHolder.append("<script type='math/tex'>" + text.replace(/<\//g, "< /") + "</script>");
+	            } else {
+	                if ("text" in script) {
+	                    // IE8, etc
+	                    script.text = text;
+	                } else {
+	                    script.textContent = text;
+	                }
+	            }
+	            if (typeof MathJax !== "undefined") {
+	                // Put the process, a debug log, and the callback into the
+	                // MathJax queue
+	                MathJax.Hub.Queue(["Reprocess", MathJax.Hub, $mathjaxHolder[0]]);
+	                MathJax.Hub.Queue(function () {
+	                    KhanUtil.debugLog("MathJax done typesetting (" + text + ")");
+	                });
+	                if (callback) {
+	                    MathJax.Hub.Queue(function () {
+	                        var cb = MathJax.Callback(function () {});
+	                        doCallback(elem, function () {
+	                            callback();
+	                            cb();
+	                        });
+	                        return cb;
+	                    });
+	                }
+	            }
+	        }
+	    },
+
+	    processAllMath: function (elem, force) {
+	        var $elem = $(elem);
+	        $elem.filter("code").add($elem.find("code")).each(function () {
+	            var $this = $(this);
+	            var text = $this.attr("data-math-formula");
+	            if (text == null) {
+	                text = $this.text();
+	                $this.empty();
+	            }
+	            KhanUtil.processMath(this, text, force);
+	        });
+	    },
+
+	    // Function to restore a node to a non-math-processed state
+	    cleanupMath: function (elem) {
+	        var $elem = $(elem);
+
+	        // Only mess with it if it's been processed before
+	        if ($elem.attr("data-math-formula")) {
+	            // Remove MathJax remnants
+	            if (typeof MathJax !== "undefined") {
+	                var jax = MathJax.Hub.getJaxFor($elem.find("script")[0]);
+	                if (jax) {
+	                    var e = jax.SourceElement();
+	                    if (e.previousSibling && e.previousSibling.className) {
+	                        jax.Remove();
+	                    }
+	                }
+	            }
+
+	            $elem.text($elem.attr("data-math-formula"));
+	            $elem.attr("data-math-formula", null);
+	            $elem.attr("data-math-type", null);
+	        }
+
+	        return elem;
+	    },
+
+	    // Function to retrieve the formula of a typeset math node
+	    retrieveMathFormula: function (elem) {
+	        return $(elem).attr("data-math-formula");
+	    } };
+
+/***/ },
+/* 134 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* globals icu:false */
+
+	// Rounds num to X places, and uses the proper decimal seperator.
+	// But does *not* insert thousands separators.
+	module.exports = function localeToFixed(num, places) {
+	    var localeDecimalSeperator = icu.getDecimalFormatSymbols().decimal_separator;
+	    var localeFixed = num.toFixed(places).replace(".", localeDecimalSeperator);
+	    if (localeFixed === "-0") {
+	        localeFixed = "0";
+	    }
+	    return localeFixed;
+	};
+
+/***/ },
+/* 135 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* global i18n:false */
+
+	var _ = __webpack_require__(16);
+	var knumber = __webpack_require__(188).number;
+
+	var KhanMath = {
+	    // Simplify formulas before display
+	    cleanMath: function (expr) {
+	        return typeof expr === "string" ? expr.replace(/\+\s*-/g, "- ").replace(/-\s*-/g, "+ ").replace(/\^1/g, "") : expr;
+	    },
+
+	    // A simple random number picker
+	    // Returns a random int in [0, num)
+	    rand: function (num) {
+	        return Math.floor(num * KhanUtil.random());
+	    },
+
+	    /* Returns an array of the digits of a nonnegative integer in reverse
+	     * order: digits(376) = [6, 7, 3] */
+	    digits: function (n) {
+	        if (n === 0) {
+	            return [0];
+	        }
+
+	        var list = [];
+
+	        while (n > 0) {
+	            list.push(n % 10);
+	            n = Math.floor(n / 10);
+	        }
+
+	        return list;
+	    },
+
+	    // Similar to above digits, but in original order (not reversed)
+	    integerToDigits: function (n) {
+	        return KhanMath.digits(n).reverse();
+	    },
+
+	    // Convert a decimal number into an array of digits (reversed)
+	    decimalDigits: function (n) {
+	        var str = "" + Math.abs(n);
+	        str = str.replace(".", "");
+
+	        var list = [];
+	        for (var i = str.length; i > 0; i--) {
+	            list.push(str.charAt(i - 1));
+	        }
+
+	        return list;
+	    },
+
+	    // Find number of digits after the decimal place
+	    decimalPlaces: function (n) {
+	        var str = "" + Math.abs(n);
+	        str = str.split(".");
+
+	        if (str.length === 1) {
+	            return 0;
+	        } else {
+	            return str[1].length;
+	        }
+	    },
+
+	    digitsToInteger: function (digits) {
+	        var place = Math.floor(Math.pow(10, digits.length - 1));
+	        var number = 0;
+
+	        $.each(digits, function (index, digit) {
+	            number += digit * place;
+	            place /= 10;
+	        });
+
+	        return number;
+	    },
+
+	    padDigitsToNum: function (digits, num) {
+	        digits = digits.slice(0);
+	        while (digits.length < num) {
+	            digits.push(0);
+	        }
+	        return digits;
+	    },
+
+	    placesLeftOfDecimal: [i18n._("one"), i18n._("ten"), i18n._("hundred"), i18n._("thousand")],
+	    placesRightOfDecimal: [i18n._("one"), i18n._("tenth"), i18n._("hundredth"), i18n._("thousandth"), i18n._("ten thousandth")],
+
+	    powerToPlace: function (power) {
+	        if (power < 0) {
+	            return KhanMath.placesRightOfDecimal[-1 * power];
+	        } else {
+	            return KhanMath.placesLeftOfDecimal[power];
+	        }
+	    },
+
+	    // Adds 0.001 because of floating points uncertainty so it errs on the side
+	    // of going further away from 0
+	    roundTowardsZero: function (x) {
+	        if (x < 0) {
+	            return Math.ceil(x - 0.001);
+	        }
+	        return Math.floor(x + 0.001);
+	    },
+
+	    // Bound a number by 1e-6 and 1e20 to avoid exponents after toString
+	    bound: function (num) {
+	        if (num === 0) {
+	            return num;
+	        } else if (num < 0) {
+	            return -KhanMath.bound(-num);
+	        } else {
+	            return Math.max(0.000001, Math.min(num, 100000000000000000000));
+	        }
+	    },
+
+	    factorial: function (x) {
+	        if (x <= 1) {
+	            return x;
+	        } else {
+	            return x * KhanMath.factorial(x - 1);
+	        }
+	    },
+
+	    getGCD: function (a, b) {
+	        if (arguments.length > 2) {
+	            var rest = [].slice.call(arguments, 1);
+	            return KhanMath.getGCD(a, KhanMath.getGCD.apply(KhanMath, rest));
+	        } else {
+	            var mod = undefined;
+
+	            a = Math.abs(a);
+	            b = Math.abs(b);
+
+	            while (b) {
+	                mod = a % b;
+	                a = b;
+	                b = mod;
+	            }
+
+	            return a;
+	        }
+	    },
+
+	    getLCM: function (a, b) {
+	        if (arguments.length > 2) {
+	            var rest = [].slice.call(arguments, 1);
+	            return KhanMath.getLCM(a, KhanMath.getLCM.apply(KhanMath, rest));
+	        } else {
+	            return Math.abs(a * b) / KhanMath.getGCD(a, b);
+	        }
+	    },
+
+	    primes: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97],
+
+	    denominators: [2, 3, 4, 5, 6, 8, 10, 12, 100],
+	    smallDenominators: [2, 3, 4, 5, 6, 8, 10, 12],
+
+	    getPrime: function () {
+	        return KhanMath.primes[KhanMath.rand(KhanMath.primes.length)];
+	    },
+
+	    isPrime: function (n) {
+	        if (n <= 1) {
+	            return false;
+	        } else if (n < 101) {
+	            return !!$.grep(KhanMath.primes, function (p, i) {
+	                return Math.abs(p - n) <= 0.5;
+	            }).length;
+	        } else {
+	            if (n <= 1 || n > 2 && n % 2 === 0) {
+	                return false;
+	            } else {
+	                for (var i = 3, sqrt = Math.sqrt(n); i <= sqrt; i += 2) {
+	                    if (n % i === 0) {
+	                        return false;
+	                    }
+	                }
+	            }
+
+	            return true;
+	        }
+	    },
+
+	    isOdd: function (n) {
+	        return n % 2 === 1;
+	    },
+
+	    isEven: function (n) {
+	        return n % 2 === 0;
+	    },
+
+	    getOddComposite: function (min, max) {
+	        if (min === undefined) {
+	            min = 0;
+	        }
+
+	        if (max === undefined) {
+	            max = 100;
+	        }
+
+	        var oddComposites = [9, 15, 21, 25, 27, 33, 35, 39, 45, 49, 51, 55, 57, 63, 65, 69, 75, 77, 81, 85, 87, 91, 93, 95, 99];
+
+	        var result = -1;
+	        while (result < min || result > max) {
+	            result = oddComposites[KhanMath.rand(oddComposites.length)];
+	        }
+	        return result;
+	    },
+
+	    getEvenComposite: function (min, max) {
+	        if (min === undefined) {
+	            min = 0;
+	        }
+
+	        if (max === undefined) {
+	            max = 100;
+	        }
+
+	        var evenComposites = [4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92, 94, 96, 98];
+
+	        var result = -1;
+	        while (result < min || result > max) {
+	            result = evenComposites[KhanMath.rand(evenComposites.length)];
+	        }
+	        return result;
+	    },
+
+	    getComposite: function () {
+	        if (KhanMath.randRange(0, 1)) {
+	            return KhanMath.getEvenComposite();
+	        } else {
+	            return KhanMath.getOddComposite();
+	        }
+	    },
+
+	    getPrimeFactorization: function (number) {
+	        if (number === 1) {
+	            return [];
+	        } else if (KhanMath.isPrime(number)) {
+	            return [number];
+	        }
+
+	        var maxf = Math.sqrt(number);
+	        for (var f = 2; f <= maxf; f++) {
+	            if (number % f === 0) {
+	                return $.merge(KhanMath.getPrimeFactorization(f), KhanMath.getPrimeFactorization(number / f));
+	            }
+	        }
+	    },
+
+	    getFactors: function (number) {
+	        var factors = [];
+	        var ins = function (n) {
+	            if (_(factors).indexOf(n) === -1) {
+	                factors.push(n);
+	            }
+	        };
+
+	        var maxf2 = number;
+	        for (var f = 1; f * f <= maxf2; f++) {
+	            if (number % f === 0) {
+	                ins(f);
+	                ins(number / f);
+	            }
+	        }
+	        return KhanMath.sortNumbers(factors);
+	    },
+
+	    // Get a random factor of a composite number which is not 1 or that number
+	    getNontrivialFactor: function (number) {
+	        var factors = KhanMath.getFactors(number);
+	        return factors[KhanMath.randRange(1, factors.length - 2)];
+	    },
+
+	    getMultiples: function (number, upperLimit) {
+	        var multiples = [];
+	        for (var i = 1; i * number <= upperLimit; i++) {
+	            multiples.push(i * number);
+	        }
+	        return multiples;
+	    },
+
+	    // splitRadical(24) gives [2, 6] to mean 2 sqrt(6)
+	    splitRadical: function (n) {
+	        if (n === 0) {
+	            return [0, 1];
+	        }
+
+	        var coefficient = 1;
+	        var radical = n;
+
+	        for (var i = 2; i * i <= n; i++) {
+	            while (radical % (i * i) === 0) {
+	                radical /= i * i;
+	                coefficient *= i;
+	            }
+	        }
+
+	        return [coefficient, radical];
+	    },
+
+	    // splitCube(24) gives [2, 3] to mean 2 cube_root(3)
+	    splitCube: function (n) {
+	        if (n === 0) {
+	            return [0, 1];
+	        }
+
+	        var coefficient = 1;
+	        var radical = n;
+
+	        for (var i = 2; i * i * i <= n; i++) {
+	            while (radical % (i * i * i) === 0) {
+	                radical /= i * i * i;
+	                coefficient *= i;
+	            }
+	        }
+
+	        return [coefficient, radical];
+	    },
+
+	    // randRange(min, max) - Get a random integer between min and max, inclusive
+	    // randRange(min, max, count) - Get count random integers
+	    // randRange(min, max, rows, cols) - Get a rows x cols matrix of random
+	    //     integers
+	    // randRange(min, max, x, y, z) - You get the point...
+	    randRange: function (min, max) {
+	        var dimensions = [].slice.call(arguments, 2);
+
+	        if (dimensions.length === 0) {
+	            return Math.floor(KhanMath.rand(max - min + 1)) + min;
+	        } else {
+	            var _ret = (function () {
+	                var args = [min, max].concat(dimensions.slice(1));
+	                return {
+	                    v: $.map(new Array(dimensions[0]), function () {
+	                        return [KhanMath.randRange.apply(null, args)];
+	                    })
+	                };
+	            })();
+
+	            if (typeof _ret === "object") return _ret.v;
+	        }
+	    },
+
+	    // Get an array of unique random numbers between min and max
+	    randRangeUnique: function (min, max, count) {
+	        if (count == null) {
+	            return KhanMath.randRange(min, max);
+	        } else {
+	            var toReturn = [];
+	            for (var i = min; i <= max; i++) {
+	                toReturn.push(i);
+	            }
+
+	            return KhanMath.shuffle(toReturn, count);
+	        }
+	    },
+
+	    // Get an array of unique random numbers between min and max,
+	    // that ensures that none of the integers in the array are 0.
+	    randRangeUniqueNonZero: function (min, max, count) {
+	        if (count == null) {
+	            return KhanMath.randRangeNonZero(min, max);
+	        } else {
+	            var toReturn = [];
+	            for (var i = min; i <= max; i++) {
+	                if (i === 0) {
+	                    continue;
+	                }
+	                toReturn.push(i);
+	            }
+
+	            return KhanMath.shuffle(toReturn, count);
+	        }
+	    },
+
+	    // Get a random integer between min and max with a perc chance of hitting
+	    // target (which is assumed to be in the range, but it doesn't have to be).
+	    randRangeWeighted: function (min, max, target, perc) {
+	        if (KhanUtil.random() < perc || target === min && target === max) {
+	            return target;
+	        } else {
+	            return KhanMath.randRangeExclude(min, max, [target]);
+	        }
+	    },
+
+	    // Get a random integer between min and max that is never any of the values
+	    // in the excludes array.
+	    randRangeExclude: function (min, max, excludes) {
+	        var result = undefined;
+
+	        do {
+	            result = KhanMath.randRange(min, max);
+	        } while (_(excludes).indexOf(result) !== -1);
+
+	        return result;
+	    },
+
+	    // Get a random integer between min and max with a perc chance of hitting
+	    // target (which is assumed to be in the range, but it doesn't have to be).
+	    // It never returns any of the values in the excludes array.
+	    randRangeWeightedExclude: function (min, max, target, perc, excludes) {
+	        var result = undefined;
+
+	        do {
+	            result = KhanMath.randRangeWeighted(min, max, target, perc);
+	        } while (_(excludes).indexOf(result) !== -1);
+
+	        return result;
+	    },
+
+	    // From limits_1
+	    randRangeNonZero: function (min, max) {
+	        return KhanMath.randRangeExclude(min, max, [0]);
+	    },
+
+	    // Returns a random member of the given array
+	    // If a count is passed, it gives an array of random members of the given
+	    // array
+	    randFromArray: function (arr, count) {
+	        if (count == null) {
+	            return arr[KhanMath.rand(arr.length)];
+	        } else {
+	            return $.map(new Array(count), function () {
+	                return KhanMath.randFromArray(arr);
+	            });
+	        }
+	    },
+
+	    // Returns a random member of the given array that is never any of the
+	    // values in the excludes array.
+	    randFromArrayExclude: function (arr, excludes) {
+	        var cleanArr = [];
+	        for (var i = 0; i < arr.length; i++) {
+	            if (_(excludes).indexOf(arr[i]) === -1) {
+	                cleanArr.push(arr[i]);
+	            }
+	        }
+	        return KhanMath.randFromArray(cleanArr);
+	    },
+
+	    // Round a number to the nearest increment
+	    // E.g., if increment = 30 and num = 40, return 30. if increment = 30 and
+	    //     num = 45, return 60.
+	    roundToNearest: function (increment, num) {
+	        return Math.round(num / increment) * increment;
+	    },
+
+	    // Round a number to a certain number of decimal places
+	    roundTo: function (precision, num) {
+	        var factor = Math.pow(10, precision).toFixed(5);
+	        return Math.round((num * factor).toFixed(5)) / factor;
+	    },
+
+	    /**
+	     * Return a string of num rounded to a fixed precision decimal places,
+	     * with an approx symbol if num had to be rounded, and trailing 0s
+	     */
+	    toFixedApprox: function (num, precision) {
+	        // TODO(jack): Make this locale-dependent like
+	        // KhanUtil.localeToFixed
+	        var fixedStr = num.toFixed(precision);
+	        if (knumber.equal(+fixedStr, num)) {
+	            return fixedStr;
+	        } else {
+	            return "\\approx " + fixedStr;
+	        }
+	    },
+
+	    /**
+	     * Return a string of num rounded to precision decimal places, with an
+	     * approx symbol if num had to be rounded, but no trailing 0s if it was
+	     * not rounded.
+	     */
+	    roundToApprox: function (num, precision) {
+	        var fixed = KhanMath.roundTo(precision, num);
+	        if (knumber.equal(fixed, num)) {
+	            return String(fixed);
+	        } else {
+	            return KhanMath.toFixedApprox(num, precision);
+	        }
+	    },
+
+	    floorTo: function (precision, num) {
+	        var factor = Math.pow(10, precision).toFixed(5);
+	        return Math.floor((num * factor).toFixed(5)) / factor;
+	    },
+
+	    ceilTo: function (precision, num) {
+	        var factor = Math.pow(10, precision).toFixed(5);
+	        return Math.ceil((num * factor).toFixed(5)) / factor;
+	    },
+
+	    // toFraction(4/8) => [1, 2]
+	    // toFraction(0.666) => [333, 500]
+	    // toFraction(0.666, 0.001) => [2, 3]
+	    //
+	    // tolerance can't be bigger than 1, sorry
+	    toFraction: function (decimal, tolerance) {
+	        if (tolerance == null) {
+	            tolerance = Math.pow(2, -46);
+	        }
+
+	        if (decimal < 0 || decimal > 1) {
+	            var fract = decimal % 1;
+	            fract += fract < 0 ? 1 : 0;
+
+	            var nd = KhanMath.toFraction(fract, tolerance);
+	            nd[0] += Math.round(decimal - fract) * nd[1];
+	            return nd;
+	        } else if (Math.abs(Math.round(Number(decimal)) - decimal) <= tolerance) {
+	            return [Math.round(decimal), 1];
+	        } else {
+	            var loN = 0;
+	            var loD = 1;
+	            var hiN = 1;
+	            var hiD = 1;
+	            var midN = 1;
+	            var midD = 2;
+
+	            while (true) {
+	                // @Nolint(constant condition)
+	                if (Math.abs(Number(midN / midD) - decimal) <= tolerance) {
+	                    return [midN, midD];
+	                } else if (midN / midD < decimal) {
+	                    loN = midN;
+	                    loD = midD;
+	                } else {
+	                    hiN = midN;
+	                    hiD = midD;
+	                }
+
+	                midN = loN + hiN;
+	                midD = loD + hiD;
+	            }
+	        }
+	    },
+
+	    // Returns the format (string) of a given numeric string
+	    // Note: purposively more inclusive than answer-types' predicate.forms
+	    // That is, it is not necessarily true that interpreted input are numeric
+	    getNumericFormat: function (text) {
+	        text = $.trim(text);
+	        text = text.replace(/\u2212/, "-").replace(/([+-])\s+/g, "$1");
+	        if (text.match(/^[+-]?\d+$/)) {
+	            return "integer";
+	        } else if (text.match(/^[+-]?\d+\s+\d+\s*\/\s*\d+$/)) {
+	            return "mixed";
+	        }
+	        var fraction = text.match(/^[+-]?(\d+)\s*\/\s*(\d+)$/);
+	        if (fraction) {
+	            return parseFloat(fraction[1]) > parseFloat(fraction[2]) ? "improper" : "proper";
+	        } else if (text.replace(/[,. ]/g, "").match(/^\d+$/)) {
+	            return "decimal";
+	        } else if (text.match(/(pi?|\u03c0|t(?:au)?|\u03c4|pau)/)) {
+	            return "pi";
+	        } else {
+	            return null;
+	        }
+	    },
+
+	    // Returns a string of the number in a specified format
+	    toNumericString: function (number, format) {
+	        if (number == null) {
+	            return "";
+	        } else if (number === 0) {
+	            return "0"; // otherwise it might end up as 0% or 0pi
+	        }
+
+	        if (format === "percent") {
+	            return number * 100 + "%";
+	        }
+
+	        if (format === "pi") {
+	            var fraction = knumber.toFraction(number / Math.PI);
+	            var numerator = Math.abs(fraction[0]);
+	            var denominator = fraction[1];
+	            if (knumber.isInteger(numerator)) {
+	                var sign = number < 0 ? "-" : "";
+	                var pi = "π";
+	                return sign + (numerator === 1 ? "" : numerator) + pi + (denominator === 1 ? "" : "/" + denominator);
+	            }
+	        }
+
+	        if (_(["proper", "improper", "mixed", "fraction"]).contains(format)) {
+	            var fraction = knumber.toFraction(number);
+	            var numerator = Math.abs(fraction[0]);
+	            var denominator = fraction[1];
+	            var sign = number < 0 ? "-" : "";
+	            if (denominator === 1) {
+	                return sign + numerator; // for integers, irrational, d > 1000
+	            } else if (format === "mixed") {
+	                var modulus = numerator % denominator;
+	                var integer = (numerator - modulus) / denominator;
+	                return sign + (integer ? integer + " " : "") + modulus + "/" + denominator;
+	            } // otherwise proper, improper, or fraction
+	            return sign + numerator + "/" + denominator;
+	        }
+
+	        // otherwise (decimal, float, long long)
+	        return String(number);
+	    },
+
+	    // Shuffle an array using a Fischer-Yates shuffle
+	    // If count is passed, returns an random sublist of that size
+	    shuffle: function (array, count) {
+	        array = [].slice.call(array, 0);
+	        var beginning = typeof count === "undefined" || count > array.length ? 0 : array.length - count;
+
+	        for (var _top = array.length; _top > beginning; _top--) {
+	            var newEnd = Math.floor(KhanUtil.random() * _top);
+	            var tmp = array[newEnd];
+
+	            array[newEnd] = array[_top - 1];
+	            array[_top - 1] = tmp;
+	        }
+
+	        return array.slice(beginning);
+	    },
+
+	    sortNumbers: function (array) {
+	        return array.slice(0).sort(function (a, b) {
+	            return a - b;
+	        });
+	    },
+
+	    // From limits_1
+	    truncate_to_max: function (num, digits) {
+	        return parseFloat(num.toFixed(digits));
+	    },
+
+	    // Checks if a number or string representation thereof is an integer
+	    isInt: function (num) {
+	        return parseFloat(num) === parseInt(num, 10) && !isNaN(num);
+	    },
+
+	    /**
+	     * Add LaTeX color markup to a given value.
+	     */
+	    colorMarkup: function (val, color) {
+	        return "\\color{" + color + "}{" + val + "}";
+	    },
+
+	    /**
+	     * Like _.contains except using _.isEqual to verify if item is present.
+	     * (Works for lists of non-primitive values.)
+	     */
+	    contains: function (list, item) {
+	        return _.any(list, function (elem) {
+	            if (_.isEqual(item, elem)) {
+	                return true;
+	            }
+	            return false;
+	        });
+	    } };
+
+	module.exports = KhanMath;
+
+/***/ },
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -33817,7 +34724,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var ReactComponentsInfoTip = __webpack_require__(170);
+	var ReactComponentsInfoTip = __webpack_require__(176);
 
 	var InfoTip = React.createClass({
 	    displayName: "InfoTip",
@@ -33844,7 +34751,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InfoTip;
 
 /***/ },
-/* 133 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -33853,7 +34760,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var InfoTip = __webpack_require__(132);
+	var InfoTip = __webpack_require__(136);
 
 	var ItemExtrasEditor = React.createClass({
 	    displayName: "ItemExtrasEditor",
@@ -34005,7 +34912,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ItemExtrasEditor;
 
 /***/ },
-/* 134 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -34041,14 +34948,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = splitDiff;
 
 /***/ },
-/* 135 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-var */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var jsdiff = __webpack_require__(137);
+	var jsdiff = __webpack_require__(141);
 	var _ = __webpack_require__(16);
 
 	var statusFor = function (chunk) {
@@ -34133,7 +35040,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = stringArrayDiff;
 
 /***/ },
-/* 136 */
+/* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -34210,7 +35117,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = performDiff;
 
 /***/ },
-/* 137 */
+/* 141 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -34617,19 +35524,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 138 */
+/* 142 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_138__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_142__;
 
 /***/ },
-/* 139 */
+/* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_139__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_143__;
 
 /***/ },
-/* 140 */
+/* 144 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
@@ -34677,7 +35584,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 141 */
+/* 145 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
@@ -35159,7 +36066,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 142 */
+/* 146 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -35292,7 +36199,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* no op */
 
 /***/ },
-/* 143 */
+/* 147 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -35300,9 +36207,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var _ = __webpack_require__(16);
-	var GraphieClasses = __webpack_require__(142);
-	var Interactive2 = __webpack_require__(158);
-	var InteractiveUtil = __webpack_require__(144);
+	var GraphieClasses = __webpack_require__(146);
+	var Interactive2 = __webpack_require__(162);
+	var InteractiveUtil = __webpack_require__(148);
+
+	var KhanColors = __webpack_require__(163);
 
 	var assert = InteractiveUtil.assert;
 
@@ -35467,8 +36376,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Point = GraphieClasses.createSimpleClass(function (graphie, props) {
 	    return graphie.ellipse(props.coord, graphie.unscaleVector([4, 4]), {
-	        fill: props.color || KhanUtil.BLACK,
-	        stroke: props.color || KhanUtil.BLACK });
+	        fill: props.color || KhanColors.BLACK,
+	        stroke: props.color || KhanColors.BLACK });
 	});
 
 	var Path = GraphieClasses.createClass({
@@ -35533,7 +36442,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 144 */
+/* 148 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -35545,7 +36454,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var _ = __webpack_require__(16);
-	var MovableHelperMethods = __webpack_require__(183);
+	var MovableHelperMethods = __webpack_require__(189);
 
 	/**
 	 * Compute the correct vendor-prefixed `transform`.
@@ -35669,4946 +36578,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InteractiveUtil;
 
 /***/ },
-/* 145 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	/**
-	 * Changeable
-	 *
-	 * Adds a this.change() function to a component
-	 *
-	 * This.change takes prop changes as parameters, and calls
-	 * this.props.onChange with the modified props.
-	 */
-
-	var React = __webpack_require__(15);
-	var _ = __webpack_require__(16);
-
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(40);
-
-	var USAGE = "Usage:\n" + "  this.change({propName: 5}, callback);\n" + "  this.change(\"propName\", 5, callback);\n" + "  this.change(\"propName\")";
-
-	/**
-	 * Primary helper function for this.change()
-	 *
-	 * Takes the parameters in a consistent style, once this.change() has
-	 * figured out which way it was called.
-	 */
-	var _changeMultiple = function (component, newProps, callback) {
-	    // Omit "default" props:
-	    // ref and key come from react, and don't actually represent
-	    //   the conceptual state of our component
-	    // onChange comes from our parent to allow this modification,
-	    //   and doesn't conceptually represent the state of our component
-	    var currProps = _.omit(component.props, WIDGET_PROP_BLACKLIST);
-	    var nextProps = _.extend(currProps, newProps);
-	    component.props.onChange(nextProps, callback);
-	};
-
-	/**
-	 * Helper function for changing a single prop
-	 */
-	var _changeSingle = function (component, propName, value, callback) {
-	    if (value === undefined) {
-	        // If called with a single prop name, return a lambda to change
-	        // a single prop on the current object
-	        return _.partial(_changeSingle, component, propName);
-	    } else {
-	        // If called with two values, change a single prop of the
-	        // current object
-	        var newProps = {};
-	        newProps[propName] = value;
-	        _changeMultiple(component, newProps, callback);
-	    }
-	};
-
-	/**
-	 * this.change()
-	 *
-	 * Can be called as follows:
-	 * this.change(newProps, callback);
-	 *
-	 * this.change(propName, propValue, callback);
-	 *
-	 * this.change(propName) -> returns a lambda that takes a prop value to
-	 * set and a callback to call after having set that value.
-	 */
-	var change = function (newPropsOrSinglePropName, propValue, callback) {
-
-	    if (_.isObject(newPropsOrSinglePropName) && callback === undefined) {
-	        // Called with an object of multiple props to change
-	        callback = propValue;
-	        return _changeMultiple(this, newPropsOrSinglePropName, // object newProps
-	        callback);
-	    } else if (_.isString(newPropsOrSinglePropName)) {
-	        // Called with a string propName of a single prop to change
-	        return _changeSingle(this, newPropsOrSinglePropName, // string propName
-	        propValue, callback);
-	    } else {
-	        throw new Error("Invalid types sent to this.change(): " + _.toArray(arguments).join() + "\n" + USAGE);
-	    }
-	};
-
-	var Changeable = {
-	    propTypes: {
-	        onChange: React.PropTypes.func.isRequired
-	    },
-	    change: change
-	};
-
-	module.exports = Changeable;
-
-/***/ },
-/* 146 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-undef, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	/* Free implementation of getUserInput. This should be used sparingly, since it
-	 * just returns all the widget's props rather than picking out those which were
-	 * input by the user.
-	 */
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(40);
-
-	var WidgetJsonifyDeprecated = {
-	    getUserInput: function () {
-	        // Omit props that get passed to all widgets
-	        return _.omit(this.props, WIDGET_PROP_BLACKLIST);
-	    }
-	};
-
-	module.exports = WidgetJsonifyDeprecated;
-
-/***/ },
-/* 147 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var _ = __webpack_require__(16);
-
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(40);
-
-	var EditorJsonify = {
-	    serialize: function () {
-	        // Omit props that get passed to all widgets
-	        return _.omit(this.props, WIDGET_PROP_BLACKLIST);
-	    }
-	};
-
-	module.exports = EditorJsonify;
-
-/***/ },
-/* 148 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(15);
-
-	/* You know when you want to propagate input to a parent...
-	 * but then that parent does something with the input...
-	 * then changing the props of the input...
-	 * on every keystroke...
-	 * so if some input is invalid or incomplete...
-	 * the input gets reset or otherwise effed...
-	 *
-	 * This is the solution.
-	 *
-	 * Enough melodrama. Its an input that only sends changes
-	 * to its parent on blur.
-	 */
-	var BlurInput = React.createClass({
-	    displayName: "BlurInput",
-
-	    propTypes: {
-	        value: React.PropTypes.string.isRequired,
-	        onChange: React.PropTypes.func.isRequired
-	    },
-	    getInitialState: function () {
-	        return { value: this.props.value };
-	    },
-	    render: function () {
-	        return React.createElement("input", _extends({}, this.props, {
-	            type: "text",
-	            value: this.state.value,
-	            onChange: this.handleChange,
-	            onBlur: this.handleBlur }));
-	    },
-	    componentWillReceiveProps: function (nextProps) {
-	        this.setState({ value: nextProps.value });
-	    },
-	    handleChange: function (e) {
-	        this.setState({ value: e.target.value });
-	    },
-	    handleBlur: function (e) {
-	        this.props.onChange(e.target.value);
-	    }
-	});
-
-	module.exports = BlurInput;
-
-/***/ },
 /* 149 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, indent, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 	/**
-	 * A <select> component rendered with classes instead of natively,
-	 * so that the classes may be styled/animated/magics
+	 * A wrapper around graphie.js and interactive.js to make sure interactive.js
+	 * is always required at the same time as graphie.js. This is because
+	 * interactive.js has side effects that are hard to see (it adds things to
+	 * `Graphie.prototype`), so someone might forget to require interactive.js.
 	 *
-	 * Usage:
-	 * <FancySelect value={1}>
-	 *     <FancySelect.Option value={0}>text0</FancySelect.Option>
-	 *     <FancySelect.Option value={1}>text1</FancySelect.Option>
-	 *     <FancySelect.Option value={2}>text2</FancySelect.Option>
-	 * </FancySelect>
-	 *
-	 * Here be dragons.
+	 * To use the utilities exported from interactive.js, require that file
+	 * itself.
 	 */
+	var GraphUtils = __webpack_require__(190);
+	__webpack_require__(191); // For side effects
 
-	var classNames = __webpack_require__(41);
-	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
-
-	var DROPDOWN_OFFSET = 76;
-	var ITEM_HEIGHT = 48;
-
-	var FancyOption = React.createClass({
-	    displayName: "FancyOption",
-
-	    render: function () {
-	        throw new Error("FancyOption shouldn't ever be actually rendered");
-	    }
-	});
-
-	var FancySelect = React.createClass({
-	    displayName: "FancySelect",
-
-	    propTypes: {
-	        value: React.PropTypes.any.isRequired,
-	        className: React.PropTypes.string,
-	        onChange: React.PropTypes.func
-	    },
-
-	    getDefaultProps: function () {
-	        return {
-	            onChange: function () {}
-	        };
-	    },
-
-	    getInitialState: function () {
-	        return {
-	            active: false,
-	            // Keep track of whether we've closed this select
-	            // from open so that we can only run CSS animations
-	            // when closing/opening, and not on page load
-	            // If we just use active, we get a closing animation
-	            // when the element loads :(.
-	            closed: false,
-	            // Used to namespace $(document) event handlers
-	            selectorNamespace: _.uniqueId("fancy"),
-	            nodeOffset: 0 };
-	    },
-
-	    render: function () {
-	        var _this = this;
-
-	        // Some css-box magic:
-	        // We render all of the options on top of each other in a hidden,
-	        // floated span. This span then forces the <FancySelect>'s
-	        // width to be large enough to fit the largest option when
-	        // selected, so that the page doesn't have to re-flow when changing
-	        // select items.
-	        var optionSizer = React.createElement(
-	            "span",
-	            { style: {
-	                    display: "inline-block",
-	                    float: "left",
-	                    visibility: "hidden",
-	                    height: 0
-	                } },
-	            React.Children.map(this.props.children, function (option) {
-	                return React.createElement(
-	                    "div",
-	                    { className: "fancy-select-value-hidden",
-	                        style: { height: 0 } },
-	                    option.props.children
-	                );
-	            })
-	        );
-
-	        var childCount = 0;
-	        var selectedOption;
-	        React.Children.forEach(this.props.children, function (option) {
-	            childCount++;
-	            if (option.props.value === _this.props.value) {
-	                selectedOption = option;
-	            }
-	        });
-
-	        var selectBoxClassName = classNames({
-	            "fancy-select": true,
-	            active: this.state.active,
-	            closed: this.state.closed
-	        });
-
-	        var selectBox = React.createElement(
-	            "div",
-	            { className: selectBoxClassName,
-	                onClick: this._swapActive },
-	            optionSizer,
-	            React.createElement(
-	                "span",
-	                {
-	                    className: "fancy-select-value",
-	                    style: { position: "absolute" } },
-	                selectedOption.props.children
-	            )
-	        );
-
-	        var options = React.Children.map(this.props.children, function (option, i) {
-	            // options can specify visible={true|false|null/undefined} to
-	            // control whether they are displayed always, never, or when
-	            // active (the default). `true` is useful if you want to manage
-	            // visibility manually via css.
-	            var visible = option.props.visible != null ? option.props.visible : _this.state.active;
-	            if (!visible) {
-	                return null;
-	            }
-
-	            var className = classNames({
-	                "fancy-option": true,
-	                active: _this.state.active,
-	                closed: _this.state.closed,
-	                selected: option.props.value === _this.props.value
-	            });
-	            if (option.props.className) {
-	                className += " " + option.props.className;
-	            }
-
-	            var translate;
-	            var transition;
-	            if (_this.state.active) {
-	                var offset = DROPDOWN_OFFSET * i + _this.state.nodeOffset;
-	                translate = "translate3d(0, " + offset + "px, 0)";
-	                transition = "0.35s ease-in";
-	            } else {
-	                translate = "translate3d(0, 0, 0)";
-	                transition = "0.35s ease-out";
-	            }
-	            var style = _.extend({}, option.props.style, {
-	                WebkitTransform: translate,
-	                transform: translate,
-	                WebkitTransition: transition,
-	                transition: transition
-	            });
-
-	            return React.createElement(
-	                "li",
-	                {
-	                    className: className,
-	                    style: style,
-	                    onClick: function () {
-	                        _this._unbindClickHandler();
-	                        _this.props.onChange(option.props.value, option);
-	                        _this.setState({
-	                            active: false,
-	                            closed: true
-	                        });
-	                    } },
-	                option.props.children
-	            );
-	        });
-
-	        var optionsBoxClassName = classNames({
-	            "fancy-select-options": true,
-	            active: this.state.active,
-	            closed: this.state.closed
-	        });
-
-	        var height = DROPDOWN_OFFSET * childCount;
-	        var clipOffset = this.state.active ? this.state.nodeOffset : 0;
-	        var style = {
-	            clip: "rect(" + clipOffset + "px, auto, " + height + "px, 0)",
-	            WebkitTransition: ".35s ease-in" };
-
-	        return React.createElement(
-	            "div",
-	            { className: this.props.className },
-	            selectBox,
-	            React.createElement(
-	                "div",
-	                { className: "fancy-select-options-wrapper" },
-	                React.createElement(
-	                    "ul",
-	                    { className: optionsBoxClassName, style: style },
-	                    options
-	                )
-	            )
-	        );
-	    },
-
-	    _swapActive: function () {
-	        var active = !this.state.active;
-	        var closed = !active;
-	        var nodeOffset = 0;
-
-	        // Prepare to detect clicks outside of the dropdown
-	        if (active) {
-	            this._bindClickHandler();
-	        } else {
-	            this._unbindClickHandler();
-	        }
-
-	        // We only need to know the position on screen if it's opening
-	        // TODO(jared): it could be useful to recalculate this when the device
-	        // is rotated. Maybe "onorientationchange"? Not sure if that is fired
-	        // in a webview though.
-	        if (active) {
-	            var nodeBox = ReactDOM.findDOMNode(this).getBoundingClientRect();
-	            var distToBottom = window.innerHeight - nodeBox.bottom;
-	            // One of the children is the placeholder
-	            var numOptions = React.Children.count(this.props.children) - 1;
-	            var overflow = numOptions * ITEM_HEIGHT - distToBottom;
-	            if (overflow > 0) {
-	                nodeOffset = -overflow;
-	            }
-	        }
-
-	        this.setState({
-	            active: active,
-	            closed: closed,
-	            nodeOffset: nodeOffset });
-	    },
-
-	    _bindClickHandler: function () {
-	        var _this2 = this;
-
-	        // Close the dropdown when the user clicks elsewhere
-	        $(document).on("vclick." + this.state.selectorNamespace, function (e) {
-	            // Detect whether the target has our React DOM node as a parent
-	            var $this = $(ReactDOM.findDOMNode(_this2));
-	            var $closestWidget = $(e.target).closest($this);
-	            if (!$closestWidget.length) {
-	                _this2._swapActive();
-	            }
-	        });
-	    },
-
-	    _unbindClickHandler: function () {
-	        $(document).off("." + this.state.selectorNamespace);
-	    },
-
-	    componentWillUnmount: function () {
-	        this._unbindClickHandler();
-	    } });
-
-	FancySelect.Option = FancyOption;
-
-	module.exports = FancySelect;
-	/* position this absolutely so it goes on top
-	   of the optionSizer, not next to it */
+	module.exports = GraphUtils;
 
 /***/ },
 /* 150 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(15);
-
-	var ReactDOM = __webpack_require__(24);
-
-	var TextInput = React.createClass({
-	    displayName: "TextInput",
-
-	    propTypes: {
-	        value: React.PropTypes.string,
-	        onChange: React.PropTypes.func.isRequired,
-	        className: React.PropTypes.string,
-	        labelText: React.PropTypes.string,
-	        onFocus: React.PropTypes.func,
-	        onBlur: React.PropTypes.func,
-	        disabled: React.PropTypes.bool },
-
-	    getDefaultProps: function () {
-	        return {
-	            value: "",
-	            disabled: false };
-	    },
-
-	    render: function () {
-	        var _this = this;
-
-	        return React.createElement("input", _extends({}, this.props, {
-	            type: "text",
-	            disabled: this.props.disabled,
-	            "aria-label": this.props.labelText,
-	            onChange: function (e) {
-	                return _this.props.onChange(e.target.value);
-	            } }));
-	    },
-
-	    focus: function () {
-	        ReactDOM.findDOMNode(this).focus();
-	    },
-
-	    blur: function () {
-	        ReactDOM.findDOMNode(this).blur();
-	    },
-
-	    getValue: function () {
-	        return ReactDOM.findDOMNode(this).value;
-	    },
-
-	    getStringValue: function () {
-	        return ReactDOM.findDOMNode(this).value.toString();
-	    },
-
-	    setSelectionRange: function (selectionStart, selectionEnd) {
-	        ReactDOM.findDOMNode(this).setSelectionRange(selectionStart, selectionEnd);
-	    },
-
-	    getSelectionStart: function () {
-	        return ReactDOM.findDOMNode(this).selectionStart;
-	    },
-
-	    getSelectionEnd: function () {
-	        return ReactDOM.findDOMNode(this).selectionEnd;
-	    }
-
-	});
-
-	module.exports = TextInput;
-
-/***/ },
-/* 151 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, indent, no-var, one-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
-	var _ = __webpack_require__(16);
-
-	// TODO(joel/jack) fix z-index issues https://s3.amazonaws.com/uploads.hipchat.com/6574/29028/yOApjwmgiMhEZYJ/Screen%20Shot%202014-05-30%20at%203.34.18%20PM.png
-	// z-index: 3 on perseus-formats-tooltip seemed to work
-
-	/**
-	 * A generic tooltip library for React.js
-	 *
-	 * This should eventually end up in react-components
-	 *
-	 * Interface: ({a, b} means one of a or b)
-	 * var Tooltip = require("./tooltip.jsx");
-	 * <Tooltip
-	 *         className="class-for-tooltip-contents"
-	 *         horizontalPosition="left" // one of "left", "right"
-	 *         horizontalAlign="left" // one of "left", "right"
-	 *         verticalPosition="bottom" // one of "top", "bottom"
-	 *         arrowSize={10} // arrow size in pixels
-	 *         borderColor="#ccc" // color of the border for the tooltip
-	 *         show={true} // whether the tooltip should currently be visible
-	 *         >
-	 *     <TargetElementOfTheTooltip />
-	 *     <TooltipContents1 />
-	 *     <TooltipContents2 />
-	 * </Tooltip>
-	 *
-	 * To show/hide the tooltip, the parent component should call the
-	 * .show() and .hide() methods of the tooltip when appropriate.
-	 * (These are usually set up as handlers of events on the target element.)
-	 *
-	 * Notes:
-	 *     className should not specify a border; that is handled by borderColor
-	 *     so that the arrow and tooltip match
-	 */
-
-	//          __,,--``\\
-	//  _,,-''``         \\     ,
-	// '----------_.------'-.___|\__
-	//    _.--''``    `)__   )__   @\__
-	//   (  .. ''---/___,,E/__,E'------`
-	//    `-''`''
-	// Here be dragons.
-
-	var zIndex = 10;
-
-	var Triangle = React.createClass({
-	    displayName: "Triangle",
-
-	    propTypes: {
-	        color: React.PropTypes.string.isRequired,
-	        left: React.PropTypes.number.isRequired,
-	        "top": React.PropTypes.number.isRequired,
-	        width: React.PropTypes.number.isRequired,
-	        height: React.PropTypes.number.isRequired,
-	        horizontalDirection: React.PropTypes.oneOf(["left", "right"]).isRequired,
-	        verticalDirection: React.PropTypes.oneOf(["top", "bottom"]).isRequired },
-
-	    render: function () {
-	        var borderLeft, borderRight, borderTop, borderBottom;
-
-	        var hBorder = "" + this.props.width + "px solid transparent";
-	        if (this.props.horizontalDirection === "right") {
-	            borderLeft = hBorder;
-	        } else {
-	            borderRight = hBorder;
-	        }
-
-	        var vBorder = "" + this.props.height + "px solid " + this.props.color;
-	        if (this.props.verticalDirection === "top") {
-	            borderTop = vBorder;
-	        } else {
-	            borderBottom = vBorder;
-	        }
-
-	        return React.createElement("div", { style: {
-	                display: "block",
-	                height: 0,
-	                width: 0,
-	                position: "absolute",
-	                left: this.props.left,
-	                "top": this.props["top"],
-	                borderLeft: borderLeft,
-	                borderRight: borderRight,
-	                borderTop: borderTop,
-	                borderBottom: borderBottom
-	            } });
-	    }
-	});
-
-	var TooltipArrow = React.createClass({
-	    displayName: "TooltipArrow",
-
-	    propTypes: {
-	        position: React.PropTypes.string,
-	        visibility: React.PropTypes.string,
-	        left: React.PropTypes.number,
-	        "top": React.PropTypes.number,
-	        color: React.PropTypes.string.isRequired, // a css color
-	        border: React.PropTypes.string.isRequired, // a css color
-	        width: React.PropTypes.number.isRequired,
-	        height: React.PropTypes.number.isRequired,
-	        horizontalDirection: React.PropTypes.oneOf(["left", "right"]).isRequired,
-	        verticalDirection: React.PropTypes.oneOf(["top", "bottom"]).isRequired
-	    },
-
-	    getDefaultProps: function () {
-	        return {
-	            position: "relative",
-	            visibility: "visible",
-	            left: 0,
-	            "top": 0
-	        };
-	    },
-
-	    // TODO(jack): Think about adding a box-shadow to the triangle here
-	    // See http://css-tricks.com/triangle-with-shadow/
-	    render: function () {
-	        //var isRight = (this.props.horizontalDirection === "right");
-	        var isTop = this.props.verticalDirection === "top";
-
-	        var frontTopOffset = isTop ? 0 : 1;
-	        var borderTopOffset = isTop ? 0 : -1;
-
-	        return React.createElement(
-	            "div",
-	            { style: {
-	                    display: "block",
-	                    position: this.props.position,
-	                    visibility: this.props.visibility,
-	                    left: this.props.left,
-	                    "top": this.props["top"],
-	                    width: this.props.width + 2,
-	                    height: this.props.height + 1,
-	                    marginTop: -1,
-	                    marginBottom: -2,
-	                    zIndex: zIndex
-	                } },
-	            React.createElement(Triangle, {
-	                horizontalDirection: this.props.horizontalDirection,
-	                verticalDirection: this.props.verticalDirection,
-	                color: this.props.border,
-	                left: 0,
-	                top: borderTopOffset,
-	                width: this.props.width + 2,
-	                height: this.props.height + 2 }),
-	            React.createElement(Triangle, {
-	                horizontalDirection: this.props.horizontalDirection,
-	                verticalDirection: this.props.verticalDirection,
-	                color: this.props.color,
-	                left: 1,
-	                top: frontTopOffset,
-	                width: this.props.width,
-	                height: this.props.height })
-	        );
-	    }
-	});
-
-	var VERTICAL_CORNERS = {
-	    "top": {
-	        "top": "-100%"
-	    },
-	    bottom: {
-	        "top": 0
-	    }
-	};
-
-	var HORIZONTAL_CORNERS = {
-	    left: {
-	        targetLeft: 0 },
-
-	    right: {
-	        targetLeft: "100%" }
-	};
-
-	var HORIZONTAL_ALIGNMNENTS = {
-	    left: {
-	        tooltipLeft: 0,
-	        arrowLeft: function (arrowSize) {
-	            return 0;
-	        }
-	    },
-	    right: {
-	        tooltipLeft: "-100%",
-	        arrowLeft: function (arrowSize) {
-	            return -arrowSize - 2;
-	        }
-	    }
-	};
-
-	var Tooltip = React.createClass({
-	    displayName: "Tooltip",
-
-	    propTypes: {
-	        show: React.PropTypes.bool.isRequired,
-	        className: React.PropTypes.string,
-	        arrowSize: React.PropTypes.number,
-	        borderColor: React.PropTypes.string,
-	        verticalPosition: React.PropTypes.oneOf(_.keys(VERTICAL_CORNERS)),
-	        horizontalPosition: React.PropTypes.oneOf(_.keys(HORIZONTAL_CORNERS)),
-	        horizontalAlign: React.PropTypes.oneOf(_.keys(HORIZONTAL_ALIGNMNENTS)),
-	        children: React.PropTypes.arrayOf(React.PropTypes.element).isRequired
-	    },
-
-	    getDefaultProps: function () {
-	        return {
-	            className: "",
-	            arrowSize: 10,
-	            borderColor: "#ccc",
-	            verticalPosition: "bottom",
-	            horizontalPosition: "left",
-	            horizontalAlign: "left"
-	        };
-	    },
-
-	    getInitialState: function () {
-	        return {
-	            height: null // used for offsetting "top" positioned tooltips
-	        };
-	    },
-
-	    componentWillReceiveProps: function () {
-	        // If the contents have changed, reset our measure of the height
-	        this.setState({ height: null });
-	    },
-
-	    render: function () {
-	        var isTooltipAbove = this.props.verticalPosition === "top";
-
-	        /* We wrap the entire output in a span so that it displays inline */
-	        return React.createElement(
-	            "span",
-	            null,
-	            isTooltipAbove && this._renderToolTipDiv(isTooltipAbove),
-	            React.createElement(
-	                "div",
-	                null,
-	                _.first(this.props.children)
-	            ),
-	            !isTooltipAbove && this._renderToolTipDiv()
-	        );
-	    },
-
-	    _renderToolTipDiv: function (isTooltipAbove) {
-	        var settings = _.extend({}, HORIZONTAL_CORNERS[this.props.horizontalPosition], HORIZONTAL_ALIGNMNENTS[this.props.horizontalAlign], VERTICAL_CORNERS[this.props.verticalPosition]);
-
-	        var arrowAbove;
-	        var arrowBelow;
-
-	        if (isTooltipAbove) {
-	            // We put an absolutely positioned arrow in the correct place
-	            arrowAbove = React.createElement(TooltipArrow, {
-	                verticalDirection: "top",
-	                horizontalDirection: this.props.horizontalAlign,
-	                position: "absolute",
-	                color: "white",
-	                border: this.props.borderColor,
-	                left: settings.arrowLeft(this.props.arrowSize),
-	                top: -this.props.arrowSize + 2,
-	                width: this.props.arrowSize,
-	                height: this.props.arrowSize,
-	                zIndex: zIndex });
-
-	            // And we use a visibility: hidden arrow below to shift up the
-	            // content by the correct amount
-	            arrowBelow = React.createElement(TooltipArrow, {
-	                verticalDirection: "top",
-	                horizontalDirection: this.props.horizontalAlign,
-	                visibility: "hidden",
-	                color: "white",
-	                border: this.props.borderColor,
-	                left: settings.arrowLeft(this.props.arrowSize),
-	                top: -1,
-	                width: this.props.arrowSize,
-	                height: this.props.arrowSize,
-	                zIndex: zIndex });
-	        } else {
-	            arrowAbove = React.createElement(TooltipArrow, {
-	                verticalDirection: "bottom",
-	                horizontalDirection: this.props.horizontalAlign,
-	                color: "white",
-	                border: this.props.borderColor,
-	                left: settings.arrowLeft(this.props.arrowSize),
-	                top: -1,
-	                width: this.props.arrowSize,
-	                height: this.props.arrowSize,
-	                zIndex: zIndex });
-
-	            arrowBelow = null;
-	        }
-
-	        /* A positioned div below the input to be the parent for our
-	            tooltip */
-	        return React.createElement(
-	            "div",
-	            { style: {
-	                    position: "relative",
-	                    height: 0,
-	                    display: this.props.show ? "block" : "none" } },
-	            React.createElement(
-	                "div",
-	                { ref: "tooltipContainer", className: "tooltipContainer", style: {
-	                        position: "absolute",
-	                        height: this.state.height || undefined,
-	                        left: settings.targetLeft
-	                    } },
-	                arrowAbove,
-	                React.createElement(
-	                    "div",
-	                    { className: this.props.className,
-	                        ref: "tooltipContent",
-	                        style: {
-	                            position: "relative",
-	                            top: settings["top"],
-	                            left: settings.tooltipLeft,
-	                            border: "1px solid " + this.props.borderColor,
-	                            WebkitBoxShadow: "0 1px 3px " + this.props.borderColor,
-	                            MozBoxShadow: "0 1px 3px " + this.props.borderColor,
-	                            boxShadow: "0 1px 3px " + this.props.borderColor,
-	                            zIndex: zIndex - 1
-	                        } },
-	                    _.rest(this.props.children)
-	                ),
-	                arrowBelow
-	            )
-	        );
-	    },
-
-	    componentDidMount: function () {
-	        this._updateHeight();
-	    },
-
-	    componentDidUpdate: function () {
-	        this._updateHeight();
-	    },
-
-	    _updateHeight: function () {
-	        var height = ReactDOM.findDOMNode(this.refs.tooltipContainer).offsetHeight;
-	        if (height !== this.state.height) {
-	            this.setState({ height: height });
-	        }
-	    }
-	});
-
-	// Sorry.  // Apology-Oriented-Programming
-	module.exports = Tooltip;
-	/* The background triangle used to create the effect of a
-	   border around the foreground triangle*/ // one extra for the diagonal
-	/* The foreground triangle covers all but the left/right edges
-	   of the background triangle */ /* We wrap our input in a div so that we can put the tooltip in a
-	                                    div above/below it */
-	// height must start out undefined, not null, so that
-	// we can measure the actual height with jquery.
-	// This is used to position the tooltip with top: -100%
-	// when in verticalPosition: "top" mode
-	/* The contents of the tooltip */
-
-/***/ },
-/* 152 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(15);
-	var Tooltip = __webpack_require__(151);
-	var _ = __webpack_require__(16);
-
-	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var MathInput = __webpack_require__(153);
-	var Renderer = __webpack_require__(23);
-	var TextInput = __webpack_require__(150);
-	var MathOutput = __webpack_require__(165);
-
-	var captureScratchpadTouchStart = __webpack_require__(6).captureScratchpadTouchStart;
-
-	var MATH = "math";
-	var TEXT = "text";
-	var TEX = "tex";
-
-	var InputWithExamples = React.createClass({
-	    displayName: "InputWithExamples",
-
-	    propTypes: {
-	        type: React.PropTypes.oneOf([MATH, TEXT, TEX]),
-	        value: React.PropTypes.string,
-	        onChange: React.PropTypes.func.isRequired,
-	        className: React.PropTypes.string,
-	        examples: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-	        shouldShowExamples: React.PropTypes.bool,
-	        convertDotToTimes: React.PropTypes.bool,
-	        buttonSet: React.PropTypes.string,
-	        buttonsVisible: React.PropTypes.oneOf(["always", "never", "focused"]),
-	        labelText: React.PropTypes.string,
-	        onFocus: React.PropTypes.func,
-	        onBlur: React.PropTypes.func,
-	        disabled: React.PropTypes.bool,
-
-	        // A unique string identifying this InputWithExamples
-	        id: React.PropTypes.string.isRequired },
-
-	    getDefaultProps: function () {
-	        return {
-	            type: TEXT,
-	            shouldShowExamples: true,
-	            onFocus: function () {},
-	            onBlur: function () {},
-	            disabled: false };
-	    },
-
-	    getInitialState: function () {
-	        return {
-	            focused: false,
-	            showExamples: false };
-	    },
-
-	    _getUniqueId: function () {
-	        return "input-with-examples-" + btoa(this.props.id).replace(/=/g, "");
-	    },
-
-	    _getInputClassName: function () {
-	        // <MathOutput> is a special component that manages its own class and
-	        // state, as it's a <span> that wants to act like an <input>.
-	        if (this.props.type === TEX) {
-	            return this.props.className;
-	        }
-
-	        // Otherwise, we need to add these INPUT and FOCUSED tags here.
-	        var className = ApiClassNames.INPUT + " " + ApiClassNames.INTERACTIVE;
-	        if (this.state.focused) {
-	            className += " " + ApiClassNames.FOCUSED;
-	        }
-	        if (this.props.className) {
-	            className += " " + this.props.className;
-	        }
-	        return className;
-	    },
-
-	    _getPropsForInputType: function () {
-	        // Minimal set of props, used by each input type
-	        var inputProps = {
-	            "aria-describedby": this._getUniqueId(),
-	            ref: "input",
-	            className: this._getInputClassName(),
-	            labelText: this.props.labelText,
-	            value: this.props.value,
-	            onFocus: this._handleFocus,
-	            onBlur: this._handleBlur,
-	            disabled: this.props.disabled };
-
-	        if (this.props.type === TEX) {
-	            return inputProps;
-	        }
-
-	        // Add useful props required for MATH and TEXT modes
-	        _.extend(inputProps, {
-	            buttonSet: this.props.buttonSet,
-	            buttonsVisible: this.props.buttonsVisible,
-	            onChange: this.props.onChange,
-	            onTouchStart: captureScratchpadTouchStart
-	        });
-
-	        // And add final props that are MATH- and TEXT-specific
-	        if (this.props.type === MATH) {
-	            return _.extend({
-	                convertDotToTimes: this.props.convertDotToTimes }, inputProps);
-	        } else if (this.props.type === TEXT) {
-	            return _.extend({
-	                autoCapitalize: "off",
-	                autoComplete: "off",
-	                autoCorrect: "off",
-	                spellCheck: "false" }, inputProps);
-	        }
-	    },
-
-	    _getComponentForInputType: function () {
-	        switch (this.props.type) {
-	            case TEX:
-	                return MathOutput;
-
-	            case MATH:
-	                return MathInput;
-
-	            case TEXT:
-	                return TextInput;
-
-	            default:
-	                return null;
-	        }
-	    },
-
-	    _renderInput: function () {
-	        var inputProps = this._getPropsForInputType();
-	        var InputComponent = this._getComponentForInputType();
-	        return React.createElement(InputComponent, inputProps);
-	    },
-
-	    render: function () {
-	        var input = this._renderInput();
-
-	        // Static rendering, which doesn't include the 'tooltip' logic that the
-	        // other types require, and is hence handled separately.
-	        if (this.props.type === TEX) {
-	            return input;
-	        }
-
-	        // Else, we need to be able to show examples
-	        var examplesContent = _.map(this.props.examples, function (example) {
-	            return "- " + example;
-	        }).join("\n");
-
-	        var showExamples = this.props.shouldShowExamples && this.state.showExamples;
-
-	        return React.createElement(
-	            Tooltip,
-	            {
-	                ref: "tooltip",
-	                className: "perseus-formats-tooltip",
-	                horizontalPosition: "left",
-	                horizontalAlign: "left",
-	                verticalPosition: "bottom",
-	                arrowSize: 10,
-	                borderColor: "#ccc",
-	                show: showExamples },
-	            input,
-	            React.createElement(
-	                "div",
-	                { id: this._getUniqueId() },
-	                React.createElement(Renderer, { content: examplesContent })
-	            )
-	        );
-	    },
-
-	    _handleFocus: function () {
-	        this.props.onFocus();
-	        this.setState({
-	            focused: true,
-	            showExamples: true
-	        });
-	    },
-
-	    show: function () {
-	        this.setState({ showExamples: true });
-	    },
-
-	    hide: function () {
-	        this.setState({ showExamples: false });
-	    },
-
-	    _handleBlur: function () {
-	        this.props.onBlur();
-	        this.setState({
-	            focused: false,
-	            showExamples: false
-	        });
-	    },
-
-	    focus: function () {
-	        this.refs.input.focus();
-	    },
-
-	    blur: function () {
-	        this.refs.input.blur();
-	    },
-
-	    handleChange: function (e) {
-	        this.props.onChange(e.target.value);
-	    }
-	});
-
-	module.exports = InputWithExamples;
-
-/***/ },
-/* 153 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var classNames = __webpack_require__(41);
-	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
-	var _ = __webpack_require__(16);
-
-	var TexButtons = __webpack_require__(154);
-
-	// TODO(alex): Package MathQuill
-	var MathQuill = window.MathQuill;
-	var PT = React.PropTypes;
-
-	// A WYSIWYG math input that calls `onChange(LaTeX-string)`
-	var MathInput = React.createClass({
-	    displayName: "MathInput",
-
-	    propTypes: {
-	        value: PT.string,
-	        onChange: PT.func.isRequired,
-	        convertDotToTimes: PT.bool,
-	        buttonsVisible: PT.oneOf(["always", "never", "focused"]),
-	        buttonSets: TexButtons.buttonSetsType.isRequired,
-	        labelText: React.PropTypes.string,
-	        onFocus: PT.func,
-	        onBlur: PT.func },
-
-	    render: function () {
-	        var className = classNames({
-	            "perseus-math-input": true,
-
-	            // mathquill usually adds these itself but react removes them when
-	            // updating the component.
-	            "mq-editable-field": true,
-	            "mq-math-mode": true
-	        });
-
-	        if (this.props.className) {
-	            className = className + " " + this.props.className;
-	        }
-
-	        var buttons = null;
-	        if (this._shouldShowButtons()) {
-	            buttons = React.createElement(TexButtons, {
-	                sets: this.props.buttonSets,
-	                className: "math-input-buttons absolute",
-	                convertDotToTimes: this.props.convertDotToTimes,
-	                onInsert: this.insert });
-	        }
-
-	        return React.createElement(
-	            "div",
-	            { style: { display: "inline-block" } },
-	            React.createElement(
-	                "div",
-	                { style: { display: "inline-block" } },
-	                React.createElement("span", { className: className,
-	                    ref: "mathinput",
-	                    "aria-label": this.props.labelText,
-	                    onFocus: this.handleFocus,
-	                    onBlur: this.handleBlur })
-	            ),
-	            React.createElement(
-	                "div",
-	                { style: { position: "relative" } },
-	                buttons
-	            )
-	        );
-	    },
-
-	    // handlers:
-	    // keep track of two related bits of state:
-	    // * this.state.focused - whether the buttons are currently shown
-	    // * this.mouseDown - whether a mouse click is active that started in the
-	    //   buttons div
-
-	    handleFocus: function () {
-	        this.setState({ focused: true });
-	        // TODO(joel) fix properly - we should probably allow onFocus handlers
-	        // to this property, but we need to work correctly with them.
-	        // if (this.props.onFocus) {
-	        //     this.props.onFocus();
-	        // }
-	    },
-
-	    handleMouseDown: function (event) {
-	        var focused = ReactDOM.findDOMNode(this).contains(event.target);
-	        this.mouseDown = focused;
-	        if (!focused) {
-	            this.setState({ focused: false });
-	        }
-	    },
-
-	    handleMouseUp: function () {
-	        // this mouse click started in the buttons div so we should focus the
-	        // input
-	        if (this.mouseDown) {
-	            this.focus();
-	        }
-	        this.mouseDown = false;
-	    },
-
-	    handleBlur: function () {
-	        if (!this.mouseDown) {
-	            this.setState({ focused: false });
-	        }
-	    },
-
-	    _shouldShowButtons: function () {
-	        if (this.props.buttonsVisible === "always") {
-	            return true;
-	        } else if (this.props.buttonsVisible === "never") {
-	            return false;
-	        } else {
-	            return this.state.focused;
-	        }
-	    },
-
-	    getDefaultProps: function () {
-	        return {
-	            value: "",
-	            convertDotToTimes: false,
-	            buttonsVisible: "focused"
-	        };
-	    },
-
-	    getInitialState: function () {
-	        return { focused: false };
-	    },
-
-	    insert: function (value) {
-	        var input = this.mathField();
-	        if (_(value).isFunction()) {
-	            value(input);
-	        } else if (value[0] === "\\") {
-	            input.cmd(value).focus();
-	        } else {
-	            input.write(value).focus();
-	        }
-	        input.focus();
-	    },
-
-	    mathField: function (options) {
-	        // The MathQuill API is now "versioned" through its own "InterVer" system.
-	        // See: https://github.com/mathquill/mathquill/pull/459
-	        var MQ = MathQuill.getInterface(2);
-
-	        // MathQuill.MathField takes a DOM node, MathQuill-ifies it if it's
-	        // seeing that node for the first time, then returns the associated
-	        // MathQuill object for that node. It is stable - will always return
-	        // the same object when called on the same DOM node.
-	        return MQ.MathField(ReactDOM.findDOMNode(this.refs.mathinput), options);
-	    },
-
-	    componentWillUnmount: function () {
-	        window.removeEventListener("mousedown", this.handleMouseDown);
-	        window.removeEventListener("mouseup", this.handleMouseUp);
-	    },
-
-	    componentDidMount: function () {
-	        var _this = this;
-
-	        window.addEventListener("mousedown", this.handleMouseDown);
-	        window.addEventListener("mouseup", this.handleMouseUp);
-
-	        var initialized = false;
-
-	        // Initialize MathQuill.MathField instance
-	        this.mathField({
-	            // LaTeX commands that, when typed, are immediately replaced by the
-	            // appropriate symbol. This does not include ln, log, or any of the
-	            // trig functions; those are always interpreted as commands.
-	            autoCommands: "pi theta phi sqrt nthroot",
-
-	            // Pop the cursor out of super/subscripts on arithmetic operators
-	            // or (in)equalities.
-	            charsThatBreakOutOfSupSub: "+-*/=<>≠≤≥",
-
-	            // Prevent excessive super/subscripts or fractions from being created
-	            // without operands, e.g. when somebody holds down a key
-	            supSubsRequireOperand: true,
-
-	            // The name of this option is somewhat misleading, as tabbing in
-	            // MathQuill breaks you out of a nested context (fraction/script)
-	            // if you're in one, but moves focus to the next input if you're
-	            // not. Spaces (with this option enabled) are just ignored in the
-	            // latter case.
-	            //
-	            // TODO(alex): In order to allow inputting mixed numbers, we will
-	            // have to accept spaces in certain cases. The desired behavior is
-	            // still to escape nested contexts if currently in one, but to
-	            // insert a space if not (we don't expect mixed numbers in nested
-	            // contexts). We should also limit to one consecutive space.
-	            spaceBehavesLikeTab: true,
-
-	            handlers: {
-	                edited: function (mathField) {
-	                    // This handler is guaranteed to be called on change, but
-	                    // unlike React it sometimes generates false positives.
-	                    // One of these is on initialization (with an empty string
-	                    // value), so we have to guard against that below.
-	                    var value = mathField.latex();
-
-	                    // Provide a MathQuill-compatible way to generate the
-	                    // not-equals sign without pasting unicode or typing TeX
-	                    value = value.replace(/<>/g, "\\ne");
-
-	                    // Use the specified symbol to represent multiplication
-	                    // TODO(alex): Add an option to disallow variables, in
-	                    // which case 'x' should get converted to '\\times'
-	                    if (_this.props.convertDotToTimes) {
-	                        value = value.replace(/\\cdot/g, "\\times");
-
-	                        // Preserve cursor position in the common case:
-	                        // typing '*' to insert a multiplication sign.
-	                        // We do this by modifying internal MathQuill state
-	                        // directly, instead of waiting for `.latex()` to be
-	                        // called in `componentDidUpdate()`.
-	                        var left = mathField.__controller.cursor[MathQuill.L];
-	                        if (left && left.ctrlSeq === "\\cdot ") {
-	                            mathField.__controller.backspace();
-	                            mathField.cmd("\\times");
-	                        }
-	                    } else {
-	                        value = value.replace(/\\times/g, "\\cdot");
-	                    }
-
-	                    if (initialized && _this.props.value !== value) {
-	                        _this.props.onChange(value);
-	                    }
-	                },
-	                enter: function () {
-	                    // This handler is called when the user presses the enter
-	                    // key. Since this isn't an actual <input> element, we have
-	                    // to manually trigger the usually automatic form submit.
-	                    $(ReactDOM.findDOMNode(_this.refs.mathinput)).submit();
-	                },
-	                upOutOf: function (mathField) {
-	                    // This handler is called when the user presses the up
-	                    // arrow key, but there is nowhere in the expression to go
-	                    // up to (no numerator or exponent). For ease of use,
-	                    // interpret this as an attempt to create an exponent.
-	                    mathField.typedText("^");
-	                }
-	            }
-	        });
-
-	        // Ideally, we would be able to pass an initial value directly into
-	        // the constructor above
-	        this.mathField().latex(this.props.value);
-
-	        initialized = true;
-	    },
-
-	    componentDidUpdate: function () {
-	        if (!_.isEqual(this.mathField().latex(), this.props.value)) {
-	            this.mathField().latex(this.props.value);
-	        }
-	    },
-
-	    focus: function () {
-	        this.mathField().focus();
-	        this.setState({ focused: true });
-	    },
-
-	    blur: function () {
-	        this.mathField().blur();
-	        this.setState({ focused: false });
-	    }
-	});
-
-	module.exports = MathInput;
-
-/***/ },
-/* 154 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(15);
-	var _ = __webpack_require__(16);
-
-	var TeX = __webpack_require__(48);
-
-	var prettyBig = { fontSize: "150%" };
-	var slightlyBig = { fontSize: "120%" };
-	var symbStyle = { fontSize: "130%" };
-
-	// These are functions because we want to generate a new component for each use
-	// on the page rather than reusing an instance (which will cause an error).
-	// Also, it's useful for things which might look different depending on the
-	// props.
-
-	var basic = [function () {
-	    return [React.createElement(
-	        "span",
-	        { key: "plus", style: slightlyBig },
-	        "+"
-	    ), "+"];
-	}, function () {
-	    return [React.createElement(
-	        "span",
-	        { key: "minus", style: prettyBig },
-	        "-"
-	    ), "-"];
-	},
-
-	// TODO(joel) - display as \cdot when appropriate
-	function (props) {
-	    if (props.convertDotToTimes) {
-	        return [React.createElement(
-	            TeX,
-	            { key: "times", style: prettyBig },
-	            "\\times"
-	        ), "\\times"];
-	    } else {
-	        return [React.createElement(
-	            TeX,
-	            { key: "times", style: prettyBig },
-	            "\\cdot"
-	        ), "\\cdot"];
-	    }
-	}, function () {
-	    return [React.createElement(
-	        TeX,
-	        { key: "frac", style: prettyBig },
-	        "\\frac{□}{□}"
-	    ),
-
-	    // If there's something in the input that can become part of a
-	    // fraction, typing "/" puts it in the numerator. If not, typing
-	    // "/" does nothing. In that case, enter a \frac.
-	    function (input) {
-	        var contents = input.latex();
-	        input.typedText("/");
-	        if (input.latex() === contents) {
-	            input.cmd("\\frac");
-	        }
-	    }];
-	}];
-
-	var buttonSets = {
-	    basic: basic,
-
-	    "basic+div": basic.concat([function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "div" },
-	            "\\div"
-	        ), "\\div"];
-	    }]),
-
-	    trig: [function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "sin" },
-	            "\\sin"
-	        ), "\\sin"];
-	    }, function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "cos" },
-	            "\\cos"
-	        ), "\\cos"];
-	    }, function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "tan" },
-	            "\\tan"
-	        ), "\\tan"];
-	    }, function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "theta", style: symbStyle },
-	            "\\theta"
-	        ), "\\theta"];
-	    }, function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "pi", style: symbStyle },
-	            "\\phi"
-	        ), "\\phi"];
-	    }],
-
-	    prealgebra: [function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "sqrt" },
-	            "\\sqrt{x}"
-	        ), "\\sqrt"];
-	    },
-	    // TODO(joel) - how does desmos do this?
-	    function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "nthroot" },
-	            "\\sqrt[3]{x}"
-	        ), function (input) {
-	            input.typedText("nthroot3");
-	            input.keystroke("Right");
-	        }];
-	    }, function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "pow", style: slightlyBig },
-	            "□^a"
-	        ), function (input) {
-	            var contents = input.latex();
-	            input.keystroke("Up");
-	            if (input.latex() === contents) {
-	                input.typedText("a^b");
-	            }
-	        }];
-	    }, function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "pi", style: slightlyBig },
-	            "\\pi"
-	        ), "\\pi"];
-	    }],
-
-	    logarithms: [function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "log" },
-	            "\\log"
-	        ), "\\log"];
-	    }, function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "ln" },
-	            "\\ln"
-	        ), "\\ln"];
-	    }, function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "log_b" },
-	            "\\log_b"
-	        ), function (input) {
-	            input.typedText("log_");
-	            input.keystroke("Right");
-	            input.typedText("(");
-	            input.keystroke("Left");
-	            input.keystroke("Left");
-	        }];
-	    }],
-
-	    "basic relations": [function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "eq" },
-	            "="
-	        ), "="];
-	    }, function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "lt" },
-	            "\\lt"
-	        ), "\\lt"];
-	    }, function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "gt" },
-	            "\\gt"
-	        ), "\\gt"];
-	    }],
-
-	    "advanced relations": [function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "neq" },
-	            "\\neq"
-	        ), "\\neq"];
-	    }, function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "leq" },
-	            "\\leq"
-	        ), "\\leq"];
-	    }, function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "geq" },
-	            "\\geq"
-	        ), "\\geq"];
-	    }] };
-
-	var buttonSetsType = React.PropTypes.arrayOf(React.PropTypes.oneOf(_(buttonSets).keys()));
-
-	var TexButtons = React.createClass({
-	    displayName: "TexButtons",
-
-	    propTypes: {
-	        sets: buttonSetsType.isRequired,
-	        onInsert: React.PropTypes.func.isRequired
-	    },
-
-	    render: function () {
-	        var _this = this;
-
-	        // Always show buttonSets in the same order. Note: Technically it's ok
-	        // for _.keys() to return the keys in an arbitrary order, but in
-	        // practice, they will be ordered as listed above.
-	        var sortedButtonSets = _.sortBy(this.props.sets, function (setName) {
-	            return _.keys(buttonSets).indexOf(setName);
-	        });
-
-	        var buttons = _(sortedButtonSets).map(function (setName) {
-	            return buttonSets[setName];
-	        });
-
-	        var buttonRows = _(buttons).map(function (row) {
-	            return row.map(function (symbGen) {
-	                // create a (component, thing we should send to mathquill) pair
-	                var symbol = symbGen(_this.props);
-	                return React.createElement(
-	                    "button",
-	                    { onClick: function () {
-	                            return _this.props.onInsert(symbol[1]);
-	                        },
-	                        className: "tex-button",
-	                        key: symbol[0].key,
-	                        tabIndex: -1,
-	                        type: "button" },
-	                    symbol[0]
-	                );
-	            });
-	        });
-
-	        var buttonPopup = _(buttonRows).map(function (row, i) {
-	            return React.createElement(
-	                "div",
-	                { className: "clearfix tex-button-row",
-	                    key: _this.props.sets[i] },
-	                row
-	            );
-	        });
-
-	        return React.createElement(
-	            "div",
-	            { className: this.props.className },
-	            buttonPopup
-	        );
-	    },
-
-	    statics: {
-	        buttonSets: buttonSets,
-	        buttonSetsType: buttonSetsType
-	    }
-	});
-
-	module.exports = TexButtons;
-
-/***/ },
-/* 155 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
-	var _ = __webpack_require__(16);
-
-	var PT = React.PropTypes;
-
-	// Takes an array of components to sort
-	var SortableArea = React.createClass({
-	    displayName: 'SortableArea',
-
-	    propTypes: {
-	        components: PT.arrayOf(PT.node).isRequired,
-	        onReorder: PT.func.isRequired,
-	        verify: PT.func
-	    },
-	    render: function () {
-	        var _this = this;
-
-	        var sortables = _(this.state.components).map(function (component, index) {
-	            return React.createElement(SortableItem, {
-	                index: index,
-	                component: component,
-	                area: _this,
-	                key: component.key,
-	                draggable: component.props.draggable,
-	                dragging: index === _this.state.dragging });
-	        });
-	        return React.createElement(
-	            'ol',
-	            { className: this.props.className, style: this.props.style },
-	            sortables
-	        );
-	    },
-	    getDefaultProps: function () {
-	        return { verify: function () {
-	                return true;
-	            } };
-	    },
-	    getInitialState: function () {
-	        return {
-	            // index of the component being dragged
-	            dragging: null,
-	            components: this.props.components
-	        };
-	    },
-	    componentWillReceiveProps: function (nextProps) {
-	        this.setState({ components: nextProps.components });
-	    },
-	    // Alternatively send each handler to each component individually,
-	    // partially applied
-	    onDragStart: function (startIndex) {
-	        this.setState({ dragging: startIndex });
-	    },
-	    onDrop: function () {
-	        // tell the parent component
-	        this.setState({ dragging: null });
-	        this.props.onReorder(this.state.components);
-	    },
-	    onDragEnter: function (enterIndex) {
-	        // When a label is first dragged it triggers a dragEnter with itself,
-	        // which we don't care about.
-	        if (this.state.dragging === enterIndex) {
-	            return;
-	        }
-
-	        var newComponents = this.state.components.slice();
-
-	        // splice the tab out of its old position
-	        var removed = newComponents.splice(this.state.dragging, 1);
-	        // ... and into its new position
-	        newComponents.splice(enterIndex, 0, removed[0]);
-
-	        var verified = this.props.verify(newComponents);
-	        if (verified) {
-	            this.setState({
-	                dragging: enterIndex,
-	                components: newComponents
-	            });
-	        }
-	        return verified;
-	    },
-
-	    // Firefox refuses to drag an element unless you set data on it. Hackily
-	    // add data each time an item is dragged.
-	    componentDidMount: function () {
-	        this._setDragEvents();
-	    },
-	    componentDidUpdate: function () {
-	        this._setDragEvents();
-	    },
-	    _listenEvent: function (e) {
-	        e.dataTransfer.setData('hackhackhack', 'because browsers!');
-	    },
-	    _cancelEvent: function (e) {
-	        // prevent the browser from redirecting to 'because browsers!'
-	        e.preventDefault();
-	    },
-	    _setDragEvents: function () {
-	        var _this2 = this;
-
-	        this._dragItems = this._dragItems || [];
-	        var items = ReactDOM.findDOMNode(this).querySelectorAll('[draggable=true]');
-	        var oldItems = _(this._dragItems).difference(items);
-	        var newItems = _(items).difference(this._dragItems);
-
-	        _(newItems).each(function (dragItem) {
-	            dragItem.addEventListener('dragstart', _this2._listenEvent);
-	            dragItem.addEventListener('drop', _this2._cancelEvent);
-	        });
-
-	        _(oldItems).each(function (dragItem) {
-	            dragItem.removeEventListener('dragstart', _this2._listenEvent);
-	            dragItem.removeEventListener('drop', _this2._cancelEvent);
-	        });
-	    }
-	});
-
-	// An individual sortable item
-	var SortableItem = React.createClass({
-	    displayName: 'SortableItem',
-
-	    propTypes: {},
-	    render: function () {
-	        var dragState = 'sortable-disabled';
-	        if (this.props.dragging) {
-	            dragState = 'sortable-dragging';
-	        } else if (this.props.draggable) {
-	            dragState = 'sortable-enabled';
-	        }
-
-	        return React.createElement(
-	            'li',
-	            { draggable: this.props.draggable,
-	                className: dragState,
-	                onDragStart: this.handleDragStart,
-	                onDrop: this.handleDrop,
-	                onDragEnter: this.handleDragEnter,
-	                onDragOver: this.handleDragOver },
-	            this.props.component
-	        );
-	    },
-	    handleDragStart: function (e) {
-	        e.nativeEvent.dataTransfer.effectAllowed = 'move';
-	        this.props.area.onDragStart(this.props.index);
-	    },
-	    handleDrop: function () {
-	        this.props.area.onDrop(this.props.index);
-	    },
-	    handleDragEnter: function (e) {
-	        var verified = this.props.area.onDragEnter(this.props.index);
-	        // Ideally this would change the cursor based on whether this is a
-	        // valid place to drop.
-	        e.nativeEvent.dataTransfer.effectAllowed = verified ? 'move' : 'none';
-	    },
-	    handleDragOver: function (e) {
-	        // allow a drop by preventing default handling
-	        e.preventDefault();
-	    }
-	});
-
-	module.exports = SortableArea;
-
-	// item: what is this?
-
-/***/ },
-/* 156 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-unused-vars, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp, space-unary-ops */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
-	var _ = __webpack_require__(16);
-
-	var Changeable = __webpack_require__(145);
-
-	var ButtonGroup = __webpack_require__(43);
-	var InfoTip = __webpack_require__(132);
-	var NumberInput = __webpack_require__(162);
-	var PropCheckBox = __webpack_require__(36);
-	var RangeInput = __webpack_require__(159);
-	var TeX = __webpack_require__(48);
-	var Util = __webpack_require__(6);
-
-	var defaultBoxSize = 340;
-	var defaultBackgroundImage = {
-	    url: null,
-	    width: 0,
-	    height: 0
-	};
-
-	function numSteps(range, step) {
-	    return Math.floor((range[1] - range[0]) / step);
-	}
-
-	var GraphSettings = React.createClass({
-	    displayName: "GraphSettings",
-
-	    mixins: [Changeable],
-
-	    propTypes: {
-	        editableSettings: React.PropTypes.arrayOf(React.PropTypes.oneOf(["canvas", "graph", "snap", "image", "measure"])),
-	        box: React.PropTypes.arrayOf(React.PropTypes.number),
-	        labels: React.PropTypes.arrayOf(React.PropTypes.string),
-	        range: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
-	        step: React.PropTypes.arrayOf(React.PropTypes.number),
-	        gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
-	        snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
-	        valid: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.string]),
-	        backgroundImage: React.PropTypes.object,
-	        markings: React.PropTypes.oneOf(["graph", "grid", "none"]),
-	        showProtractor: React.PropTypes.bool,
-	        showRuler: React.PropTypes.bool,
-	        rulerLabel: React.PropTypes.string,
-	        rulerTicks: React.PropTypes.number
-	    },
-
-	    getInitialState: function () {
-	        return {
-	            labelsTextbox: this.props.labels,
-	            gridStepTextbox: this.props.gridStep,
-	            snapStepTextbox: this.props.snapStep,
-	            stepTextbox: this.props.step,
-	            rangeTextbox: this.props.range,
-	            backgroundImage: _.clone(this.props.backgroundImage)
-	        };
-	    },
-
-	    getDefaultProps: function () {
-	        return {
-	            editableSettings: ["graph", "snap", "image", "measure"],
-	            box: [defaultBoxSize, defaultBoxSize],
-	            labels: ["x", "y"],
-	            range: [[-10, 10], [-10, 10]],
-	            step: [1, 1],
-	            gridStep: [1, 1],
-	            snapStep: [1, 1],
-	            valid: true,
-	            backgroundImage: defaultBackgroundImage,
-	            markings: "graph",
-	            showProtractor: false,
-	            showRuler: false,
-	            rulerLabel: "",
-	            rulerTicks: 10
-	        };
-	    },
-
-	    render: function () {
-	        var _this = this;
-
-	        var scale = [KhanUtil.roundTo(2, Util.scaleFromExtent(this.props.range[0], this.props.box[0])), KhanUtil.roundTo(2, Util.scaleFromExtent(this.props.range[1], this.props.box[1]))];
-
-	        return React.createElement(
-	            "div",
-	            null,
-	            _.contains(this.props.editableSettings, "canvas") && React.createElement(
-	                "div",
-	                { className: "graph-settings" },
-	                React.createElement(
-	                    "div",
-	                    { className: "perseus-widget-row" },
-	                    "Canvas size (x,y pixels)",
-	                    React.createElement(RangeInput, {
-	                        value: this.props.box,
-	                        onChange: function (box) {
-	                            _this.change({ box: box });
-	                        } })
-	                ),
-	                React.createElement(
-	                    "div",
-	                    { className: "perseus-widget-row" },
-	                    "Scale (px per div): ",
-	                    React.createElement(
-	                        TeX,
-	                        null,
-	                        "(" + scale[0] + ", " + scale[1] + ")"
-	                    )
-	                )
-	            ),
-	            _.contains(this.props.editableSettings, "graph") && React.createElement(
-	                "div",
-	                { className: "graph-settings" },
-	                React.createElement(
-	                    "div",
-	                    { className: "perseus-widget-row" },
-	                    React.createElement(
-	                        "div",
-	                        { className: "perseus-widget-left-col" },
-	                        " x Label",
-	                        React.createElement("input", { type: "text",
-	                            className: "graph-settings-axis-label",
-	                            ref: "labels-0",
-	                            onChange: function (e) {
-	                                return _this.changeLabel(0, e);
-	                            },
-	                            value: this.state.labelsTextbox[0] })
-	                    ),
-	                    React.createElement(
-	                        "div",
-	                        { className: "perseus-widget-right-col" },
-	                        "y Label",
-	                        React.createElement("input", { type: "text",
-	                            className: "graph-settings-axis-label",
-	                            ref: "labels-1",
-	                            onChange: function (e) {
-	                                return _this.changeLabel(1, e);
-	                            },
-	                            value: this.state.labelsTextbox[1] })
-	                    )
-	                ),
-	                React.createElement(
-	                    "div",
-	                    { className: "perseus-widget-row" },
-	                    React.createElement(
-	                        "div",
-	                        { className: "perseus-widget-left-col" },
-	                        "x Range",
-	                        React.createElement(RangeInput, {
-	                            value: this.state.rangeTextbox[0],
-	                            onChange: function (vals) {
-	                                return _this.changeRange(0, vals);
-	                            } })
-	                    ),
-	                    React.createElement(
-	                        "div",
-	                        { className: "perseus-widget-right-col" },
-	                        "y Range",
-	                        React.createElement(RangeInput, {
-	                            value: this.state.rangeTextbox[1],
-	                            onChange: function (vals) {
-	                                return _this.changeRange(1, vals);
-	                            } })
-	                    )
-	                ),
-	                React.createElement(
-	                    "div",
-	                    { className: "perseus-widget-row" },
-	                    React.createElement(
-	                        "div",
-	                        { className: "perseus-widget-left-col" },
-	                        "Tick Step",
-	                        React.createElement(RangeInput, { value: this.state.stepTextbox,
-	                            onChange: this.changeStep })
-	                    ),
-	                    React.createElement(
-	                        "div",
-	                        { className: "perseus-widget-right-col" },
-	                        "Grid Step",
-	                        React.createElement(RangeInput, { value: this.state.gridStepTextbox,
-	                            onChange: this.changeGridStep })
-	                    )
-	                ),
-	                _.contains(this.props.editableSettings, "snap") && React.createElement(
-	                    "div",
-	                    { className: "perseus-widget-row" },
-	                    React.createElement(
-	                        "div",
-	                        { className: "perseus-widget-left-col" },
-	                        "Snap Step",
-	                        React.createElement(RangeInput, { value: this.state.snapStepTextbox,
-	                            onChange: this.changeSnapStep })
-	                    )
-	                ),
-	                React.createElement(
-	                    "div",
-	                    { className: "perseus-widget-row" },
-	                    React.createElement(
-	                        "label",
-	                        null,
-	                        "Markings:",
-	                        " ",
-	                        " "
-	                    ),
-	                    React.createElement(ButtonGroup, { value: this.props.markings,
-	                        allowEmpty: false,
-	                        buttons: [{ value: "graph", content: "Graph" }, { value: "grid", content: "Grid" }, { value: "none", content: "None" }],
-	                        onChange: this.change("markings") })
-	                )
-	            ),
-	            _.contains(this.props.editableSettings, "image") && React.createElement(
-	                "div",
-	                { className: "image-settings" },
-	                React.createElement(
-	                    "div",
-	                    null,
-	                    "Background image:"
-	                ),
-	                React.createElement(
-	                    "div",
-	                    null,
-	                    "Url:",
-	                    " ",
-	                    React.createElement("input", { type: "text",
-	                        className: "graph-settings-background-url",
-	                        ref: "bg-url",
-	                        defaultValue: this.state.backgroundImage.url,
-	                        onKeyPress: this.changeBackgroundUrl,
-	                        onBlur: this.changeBackgroundUrl }),
-	                    React.createElement(
-	                        InfoTip,
-	                        null,
-	                        React.createElement(
-	                            "p",
-	                            null,
-	                            "Create an image in graphie, or use the \"Add image\" function to create a background."
-	                        )
-	                    )
-	                )
-	            ),
-	            _.contains(this.props.editableSettings, "measure") && React.createElement(
-	                "div",
-	                { className: "misc-settings" },
-	                React.createElement(
-	                    "div",
-	                    { className: "perseus-widget-row" },
-	                    React.createElement(
-	                        "div",
-	                        { className: "perseus-widget-left-col" },
-	                        React.createElement(PropCheckBox, { label: "Show ruler",
-	                            showRuler: this.props.showRuler,
-	                            onChange: this.change })
-	                    ),
-	                    React.createElement(
-	                        "div",
-	                        { className: "perseus-widget-right-col" },
-	                        React.createElement(PropCheckBox, { label: "Show protractor",
-	                            showProtractor: this.props.showProtractor,
-	                            onChange: this.change })
-	                    )
-	                ),
-	                this.props.showRuler && React.createElement(
-	                    "div",
-	                    null,
-	                    React.createElement(
-	                        "div",
-	                        null,
-	                        React.createElement(
-	                            "label",
-	                            null,
-	                            " ",
-	                            "Ruler label:",
-	                            " ",
-	                            React.createElement(
-	                                "select",
-	                                {
-	                                    onChange: this.changeRulerLabel,
-	                                    value: this.props.rulerLabel },
-	                                React.createElement(
-	                                    "option",
-	                                    { value: "" },
-	                                    "None"
-	                                ),
-	                                React.createElement(
-	                                    "optgroup",
-	                                    { label: "Metric" },
-	                                    this.renderLabelChoices([["milimeters", "mm"], ["centimeters", "cm"], ["meters", "m"], ["kilometers", "km"]])
-	                                ),
-	                                React.createElement(
-	                                    "optgroup",
-	                                    { label: "Imperial" },
-	                                    this.renderLabelChoices([["inches", "in"], ["feet", "ft"], ["yards", "yd"], ["miles", "mi"]])
-	                                )
-	                            )
-	                        )
-	                    ),
-	                    React.createElement(
-	                        "div",
-	                        null,
-	                        React.createElement(
-	                            "label",
-	                            null,
-	                            " ",
-	                            "Ruler ticks:",
-	                            " ",
-	                            React.createElement(
-	                                "select",
-	                                {
-	                                    onChange: this.changeRulerTicks,
-	                                    value: this.props.rulerTicks },
-	                                _.map([1, 2, 4, 8, 10, 16], function (n) {
-	                                    return React.createElement(
-	                                        "option",
-	                                        { value: n },
-	                                        n
-	                                    );
-	                                })
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    },
-
-	    renderLabelChoices: function (choices) {
-	        return _.map(choices, function (nameAndValue) {
-	            return React.createElement(
-	                "option",
-	                { value: nameAndValue[1] },
-	                nameAndValue[0]
-	            );
-	        });
-	    },
-
-	    componentDidMount: function () {
-	        this.changeGraph = _.debounce(this.changeGraph, 300);
-	    },
-
-	    validRange: function (range) {
-	        var numbers = _.every(range, function (num) {
-	            return _.isFinite(num);
-	        });
-	        if (!numbers) {
-	            return "Range must be a valid number";
-	        }
-	        if (range[0] >= range[1]) {
-	            return "Range must have a higher number on the right";
-	        }
-	        return true;
-	    },
-
-	    validateStepValue: function (settings) {
-	        var step = settings.step;
-	        var range = settings.range;
-	        var name = settings.name;
-	        var minTicks = settings.minTicks;
-	        var maxTicks = settings.maxTicks;
-
-	        if (!_.isFinite(step)) {
-	            return name + " must be a valid number";
-	        }
-	        var nSteps = numSteps(range, step);
-	        if (nSteps < minTicks) {
-	            return name + " is too large, there must be at least " + minTicks + " ticks.";
-	        }
-	        if (nSteps > maxTicks) {
-	            return name + " is too small, there can be at most " + maxTicks + " ticks.";
-	        }
-	        return true;
-	    },
-
-	    validSnapStep: function (step, range) {
-	        return this.validateStepValue({
-	            step: step,
-	            range: range,
-	            name: "Snap step",
-	            minTicks: 5,
-	            maxTicks: 60
-	        });
-	    },
-
-	    validGridStep: function (step, range) {
-	        return this.validateStepValue({
-	            step: step,
-	            range: range,
-	            name: "Grid step",
-	            minTicks: 3,
-	            maxTicks: 60
-	        });
-	    },
-
-	    validStep: function (step, range) {
-	        return this.validateStepValue({
-	            step: step,
-	            range: range,
-	            name: "Step",
-	            minTicks: 3,
-	            maxTicks: 20
-	        });
-	    },
-
-	    validBackgroundImageSize: function (image) {
-	        // Ignore empty images
-	        if (!image.url) {
-	            return true;
-	        }
-
-	        var validSize = image.width <= 450 && image.height <= 450;
-
-	        if (!validSize) {
-	            return "Image must be smaller than 450px x 450px.";
-	        }
-	        return true;
-	    },
-
-	    validateGraphSettings: function (range, step, gridStep, snapStep, image) {
-	        var self = this;
-	        var msg;
-	        var goodRange = _.every(range, function (range) {
-	            msg = self.validRange(range);
-	            return msg === true;
-	        });
-	        if (!goodRange) {
-	            return msg;
-	        }
-	        var goodStep = _.every(step, function (step, i) {
-	            msg = self.validStep(step, range[i]);
-	            return msg === true;
-	        });
-	        if (!goodStep) {
-	            return msg;
-	        }
-	        var goodGridStep = _.every(gridStep, function (gridStep, i) {
-	            msg = self.validGridStep(gridStep, range[i]);
-	            return msg === true;
-	        });
-	        if (!goodGridStep) {
-	            return msg;
-	        }
-	        var goodSnapStep = _.every(snapStep, function (snapStep, i) {
-	            msg = self.validSnapStep(snapStep, range[i]);
-	            return msg === true;
-	        });
-	        if (!goodSnapStep) {
-	            return msg;
-	        }
-	        var goodImageSize = this.validBackgroundImageSize(image);
-	        if (goodImageSize !== true) {
-	            msg = goodImageSize;
-	            return msg;
-	        }
-	        return true;
-	    },
-
-	    changeLabel: function (i, e) {
-	        var val = e.target.value;
-	        var labels = this.state.labelsTextbox.slice();
-	        labels[i] = val;
-	        this.setState({ labelsTextbox: labels }, this.changeGraph);
-	    },
-
-	    changeRange: function (i, values) {
-	        var ranges = this.state.rangeTextbox.slice();
-	        ranges[i] = values;
-	        var step = this.state.stepTextbox.slice();
-	        var gridStep = this.state.gridStepTextbox.slice();
-	        var snapStep = this.state.snapStepTextbox.slice();
-	        var scale = Util.scaleFromExtent(ranges[i], this.props.box[i]);
-	        if (this.validRange(ranges[i]) === true) {
-	            step[i] = Util.tickStepFromExtent(ranges[i], this.props.box[i]);
-	            gridStep[i] = Util.gridStepFromTickStep(step[i], scale);
-	            snapStep[i] = gridStep[i] / 2;
-	        }
-	        this.setState({
-	            stepTextbox: step,
-	            gridStepTextbox: gridStep,
-	            snapStepTextbox: snapStep,
-	            rangeTextbox: ranges
-	        }, this.changeGraph);
-	    },
-
-	    changeStep: function (step) {
-	        this.setState({ stepTextbox: step }, this.changeGraph);
-	    },
-
-	    changeSnapStep: function (snapStep) {
-	        this.setState({ snapStepTextbox: snapStep }, this.changeGraph);
-	    },
-
-	    changeGridStep: function (gridStep) {
-	        this.setState({
-	            gridStepTextbox: gridStep,
-	            snapStepTextbox: _.map(gridStep, function (step) {
-	                return step / 2;
-	            })
-	        }, this.changeGraph);
-	    },
-
-	    changeGraph: function () {
-	        var labels = this.state.labelsTextbox;
-	        var range = _.map(this.state.rangeTextbox, function (range) {
-	            return _.map(range, Number);
-	        });
-	        var step = _.map(this.state.stepTextbox, Number);
-	        var gridStep = this.state.gridStepTextbox;
-	        var snapStep = this.state.snapStepTextbox;
-	        var image = this.state.backgroundImage;
-
-	        // validationResult is either:
-	        //   true -> the settings are valid
-	        //   a string -> the settings are invalid, and the explanation
-	        //               is contained in the string
-	        // TODO(aria): Refactor this to not be confusing
-	        var validationResult = this.validateGraphSettings(range, step, gridStep, snapStep, image);
-
-	        if (validationResult === true) {
-	            // either true or a string
-	            this.change({
-	                valid: true,
-	                labels: labels,
-	                range: range,
-	                step: step,
-	                gridStep: gridStep,
-	                snapStep: snapStep,
-	                backgroundImage: image
-	            });
-	        } else {
-	            this.change({
-	                valid: validationResult // a string message, not false
-	            });
-	        }
-	    },
-
-	    changeBackgroundUrl: function (e) {
-	        var _this2 = this;
-
-	        // Only continue on blur or "enter"
-	        if (e.type === "keypress" && e.key !== "Enter") {
-	            return;
-	        }
-
-	        var setUrl = function (url, width, height) {
-	            var image = _.clone(_this2.props.backgroundImage);
-	            image.url = url;
-	            image.width = width;
-	            image.height = height;
-	            _this2.setState({
-	                backgroundImage: image
-	            }, _this2.changeGraph);
-	        };
-
-	        var url = ReactDOM.findDOMNode(this.refs["bg-url"]).value;
-	        if (url) {
-	            Util.getImageSize(url, function (width, height) {
-	                if (_this2.isMounted()) {
-	                    setUrl(url, width, height);
-	                }
-	            });
-	        } else {
-	            setUrl(null, 0, 0);
-	        }
-	    },
-
-	    // TODO(aria): Make either a wrapper for standard events to work
-	    // with this.change, or make these use some TextInput/NumberInput box
-	    changeRulerLabel: function (e) {
-	        this.change({ rulerLabel: e.target.value });
-	    },
-
-	    changeRulerTicks: function (e) {
-	        this.change({ rulerTicks: +e.target.value });
-	    }
-	});
-
-	module.exports = GraphSettings;
-
-/***/ },
-/* 157 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
-	var RCSS = __webpack_require__(138);
-	var _ = __webpack_require__(16);
-	var styles = __webpack_require__(140);
-
-	var buttonStyle = styles.button.buttonStyle;
-	var selectedStyle = styles.button.selectedStyle;
-
-	RCSS.createClass(buttonStyle);
-	RCSS.createClass(selectedStyle);
-
-	/* MultiButtonGroup is an aesthetically pleasing group of buttons,
-	 * which allows multiple buttons to be selected at the same time.
-	 *
-	 * The class requires these properties:
-	 *   buttons - an array of objects with keys:
-	 *     "value": this is the value returned when the button is selected
-	 *     "content": this is the JSX shown within the button, typically a string
-	 *         that gets rendered as the button's display text
-	 *     "title": this is the title-text shown on hover
-	 *   onChange - a function that is provided with an array of the updated
-	 *     values (which it then is responsible for updating)
-	 *
-	 * The class has these optional properties:
-	 *   values - an array of the initial values of the buttons selected.
-	 *
-	 * Requires stylesheets/perseus-admin-package/editor.less to look nice.
-	 */
-
-	var MultiButtonGroup = React.createClass({
-	    displayName: 'MultiButtonGroup',
-
-	    propTypes: {
-	        values: React.PropTypes.arrayOf(React.PropTypes.any),
-	        buttons: React.PropTypes.arrayOf(React.PropTypes.shape({
-	            value: React.PropTypes.any.isRequired,
-	            content: React.PropTypes.node,
-	            title: React.PropTypes.string
-	        })).isRequired,
-	        onChange: React.PropTypes.func.isRequired,
-	        allowEmpty: React.PropTypes.bool
-	    },
-
-	    getDefaultProps: function () {
-	        return {
-	            values: [],
-	            allowEmpty: true
-	        };
-	    },
-
-	    render: function () {
-	        var _this = this;
-
-	        var values = this.props.values;
-	        var buttons = _(this.props.buttons).map(function (button, i) {
-	            var maybeSelected = _.contains(values, button.value) ? selectedStyle.className : '';
-	            return React.createElement(
-	                'button',
-	                { title: button.title,
-	                    type: 'button',
-	                    id: '' + i,
-	                    key: '' + i,
-	                    ref: 'button' + i,
-	                    className: '' + buttonStyle.className + ' ' + maybeSelected,
-	                    onClick: _this.toggleSelect.bind(_this, button.value) },
-	                button.content || '' + button.value
-	            );
-	        });
-
-	        var outerStyle = {
-	            display: 'inline-block'
-	        };
-	        return React.createElement(
-	            'div',
-	            { style: outerStyle },
-	            buttons
-	        );
-	    },
-
-	    focus: function () {
-	        ReactDOM.findDOMNode(this).focus();
-	        return true;
-	    },
-
-	    toggleSelect: function (newValue) {
-	        var values = this.props.values;
-	        var allowEmpty = this.props.allowEmpty;
-
-	        if (_.contains(values, newValue) && (values.length > 1 || allowEmpty)) {
-	            // If the value is already selected, unselect it
-	            this.props.onChange(_.without(values, newValue));
-	        } else {
-	            // Otherwise merge with other values and return
-	            this.props.onChange(_.union(values, [newValue]));
-	        }
-	    }
-	});
-
-	module.exports = MultiButtonGroup;
-
-/***/ },
-/* 158 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var Movable = __webpack_require__(184);
-	var MovablePoint = __webpack_require__(185);
-	var MovableLine = __webpack_require__(186);
-	var MovablePolygon = __webpack_require__(187);
-
-	var Interactive2 = {
-	    MovablePoint: MovablePoint,
-	    addMovablePoint: function (graphie, options) {
-	        var movable = new Movable(graphie, {});
-	        return new MovablePoint(graphie, movable, options);
-	    },
-	    MovableLine: MovableLine,
-	    addMovableLine: function (graphie, options) {
-	        var movable = new Movable(graphie, {});
-	        return new MovableLine(graphie, movable, options);
-	    },
-	    MovablePolygon: MovablePolygon,
-	    addMovablePolygon: function (graphie, options) {
-	        var movable = new Movable(graphie, {});
-	        return new MovablePolygon(graphie, movable, options);
-	    }
-	};
-
-	module.exports = Interactive2;
-
-/***/ },
-/* 159 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(15);
-	var NumberInput = __webpack_require__(162);
-
-	var truth = function () {
-	    return true;
-	};
-
-	/* A minor abstraction on top of NumberInput for ranges
-	 *
-	 */
-	var RangeInput = React.createClass({
-	    displayName: "RangeInput",
-
-	    propTypes: {
-	        value: React.PropTypes.array.isRequired,
-	        onChange: React.PropTypes.func.isRequired,
-	        placeholder: React.PropTypes.array,
-	        checkValidity: React.PropTypes.func
-	    },
-
-	    getDefaultProps: function () {
-	        return {
-	            placeholder: [null, null]
-	        };
-	    },
-
-	    render: function () {
-	        var value = this.props.value;
-	        var checkValidity = this.props.checkValidity || truth;
-
-	        return React.createElement(
-	            "div",
-	            { className: "range-input" },
-	            React.createElement(NumberInput, _extends({}, this.props, {
-	                value: value[0],
-	                checkValidity: function (val) {
-	                    return checkValidity([val, value[1]]);
-	                },
-	                onChange: this.onChange.bind(this, 0),
-	                placeholder: this.props.placeholder[0] })),
-	            React.createElement(NumberInput, _extends({}, this.props, {
-	                value: value[1],
-	                checkValidity: function (val) {
-	                    return checkValidity([value[0], val]);
-	                },
-	                onChange: this.onChange.bind(this, 1),
-	                placeholder: this.props.placeholder[1] }))
-	        );
-	    },
-
-	    onChange: function (i, newVal) {
-	        var value = this.props.value;
-	        if (i === 0) {
-	            this.props.onChange([newVal, value[1]]);
-	        } else {
-	            this.props.onChange([value[0], newVal]);
-	        }
-	    }
-
-	});
-
-	module.exports = RangeInput;
-
-/***/ },
-/* 160 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	/*
-	 * In this file, an `expression` is some portion of valid TeX enclosed in
-	 * curly brackets.
-	 */
-
-	/*
-	 * Find the index at which an expression ends, i.e., has an unmatched
-	 * closing curly bracket. This method assumes that we start with a non-open
-	 * bracket character and end when we've seen more left than right brackets
-	 * (rather than assuming that we start with a bracket character and wait for
-	 * bracket equality).
-	 */
-	function findEndpoint(tex, currentIndex) {
-	    var bracketDepth = 0;
-
-	    for (var i = currentIndex, len = tex.length; i < len; i++) {
-	        var c = tex[i];
-
-	        if (c === '{') {
-	            bracketDepth++;
-	        } else if (c === '}') {
-	            bracketDepth--;
-	        }
-
-	        if (bracketDepth < 0) {
-	            return i;
-	        }
-	    }
-	    // If we never see unbalanced curly brackets, default to the
-	    // entire string
-	    return tex.length;
-	}
-
-	/*
-	 * Parses an individual set of curly brackets into TeX.
-	 */
-	function parseNextExpression(tex, currentIndex, handler) {
-	    // Find the first '{' and grab subsequent TeX
-	    // Ex) tex: '{3}{7}', and we want the '3'
-	    var openBracketIndex = tex.indexOf('{', currentIndex);
-	    var nextExpIndex = openBracketIndex + 1;
-
-	    // Truncate to only contain remaining TeX
-	    var endpoint = findEndpoint(tex, nextExpIndex);
-	    var expressionTeX = tex.substring(nextExpIndex, endpoint);
-	    var parsedExp = walkTex(expressionTeX, handler);
-
-	    return {
-	        endpoint: endpoint,
-	        expression: parsedExp
-	    };
-	}
-
-	function getNextFracIndex(tex, currentIndex) {
-	    var dfrac = '\\dfrac';
-	    var frac = '\\frac';
-
-	    var nextFrac = tex.indexOf(frac, currentIndex);
-	    var nextDFrac = tex.indexOf(dfrac, currentIndex);
-
-	    if (nextFrac > -1 && nextDFrac > -1) {
-	        return Math.min(nextFrac, nextDFrac);
-	    } else if (nextFrac > -1) {
-	        return nextFrac;
-	    } else if (nextDFrac > -1) {
-	        return nextDFrac;
-	    } else {
-	        return -1;
-	    }
-	}
-
-	function walkTex(tex, handler) {
-	    // Ex) tex: '2 \dfrac {3}{7}'
-	    var parsedString = '';
-	    var currentIndex = 0;
-	    var nextFrac = getNextFracIndex(tex, currentIndex);
-
-	    // For each \dfrac, find the two expressions (wrapped in {}) and recur
-	    while (nextFrac > -1) {
-	        // Gather first fragment, preceding \dfrac
-	        // Ex) parsedString: '2 '
-	        parsedString += tex.substring(currentIndex, nextFrac);
-
-	        // Remove everything preceding \dfrac, which has been parsed
-	        currentIndex = nextFrac;
-
-	        // Parse first expression and move index past it
-	        // Ex) firstParsedExpression.expression: '3'
-	        var firstParsedExpression = parseNextExpression(tex, currentIndex, handler);
-	        currentIndex = firstParsedExpression.endpoint + 1;
-
-	        // Parse second expression
-	        // Ex) secondParsedExpression.expression: '7'
-	        var secondParsedExpression = parseNextExpression(tex, currentIndex, handler);
-	        currentIndex = secondParsedExpression.endpoint + 1;
-
-	        // Add expressions to running total of parsed expressions
-	        if (parsedString.length) {
-	            parsedString += ' ';
-	        }
-
-	        // Apply a custom handler based on the parsed subexpressions
-	        parsedString += handler(firstParsedExpression.expression, secondParsedExpression.expression);
-
-	        // Find next DFrac, relative to currentIndex
-	        nextFrac = getNextFracIndex(tex, currentIndex);
-	    }
-
-	    // Add remaining TeX, which is \dfrac-free
-	    parsedString += tex.slice(currentIndex);
-
-	    return parsedString;
-	}
-
-	/*
-	 * Modify a TeX expression, returning another TeX expression. The resulting
-	 * expression will have its innermost fractions stubbed out with \fracs
-	 * (as opposed to \dfracs). All other content will remain untouched.
-	 */
-	function modifyTex(tex) {
-	    function isNestedFraction(tex) {
-	        return tex.indexOf('\\frac') > -1 || tex.indexOf('\\dfrac') > -1;
-	    }
-	    var handler = function (exp1, exp2) {
-	        var prefix;
-	        if (isNestedFraction(exp1) || isNestedFraction(exp2)) {
-	            prefix = '\\dfrac';
-	        } else {
-	            prefix = '\\frac';
-	        }
-	        return prefix + ' {' + exp1 + '}{' + exp2 + '}';
-	    };
-	    return walkTex(tex, handler);
-	}
-
-	/*
-	 * Parse a TeX expression into something interpretable by input-number.
-	 * The process is exclusively concerned with parsing fractions, i.e., \dfracs.
-	 * The basic algorithm splits on \dfracs and then recurs on the subsequent
-	 * "expressions", i.e., the {} pairs that follow \dfrac. The recursion is to
-	 * allow for nested \dfrac elements.
-	 */
-	function parseTex(tex) {
-	    var handler = function (exp1, exp2) {
-	        return exp1 + '/' + exp2;
-	    };
-	    return walkTex(tex, handler);
-	}
-
-	module.exports = {
-	    parseTex: parseTex,
-	    modifyTex: modifyTex
-	};
-
-/***/ },
-/* 161 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	/**
-	 * In review mode (currently only visible in the sat-mission), NumericInput and
-	 * InputNumber use this component to display the set of correct answers.
-	 */
-
-	var React = __webpack_require__(15);
-	var _ = __webpack_require__(16);
-
-	var PossibleAnswers = React.createClass({
-	    displayName: "PossibleAnswers",
-
-	    propTypes: {
-	        answers: React.PropTypes.arrayOf(React.PropTypes.string)
-	    },
-	    render: function () {
-	        // It's redundant to show duplicate answers.
-	        // So, remove duplicates from the given list of answer strings.
-	        var answers = _.uniq(this.props.answers);
-
-	        var answerComponents = _.map(answers, function (answer) {
-	            // Plus, now that our answers are distinct, we can safely use the
-	            // answer string as a key.
-	            return React.createElement(
-	                "dd",
-	                { key: answer },
-	                answer
-	            );
-	        });
-	        return React.createElement(
-	            "dl",
-	            { className: "perseus-possible-answers" },
-	            React.createElement(
-	                "dt",
-	                null,
-	                "Correct Answer"
-	            ),
-	            answerComponents
-	        );
-	    }
-	});
-
-	module.exports = PossibleAnswers;
-
-/***/ },
-/* 162 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-after-keywords */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var classNames = __webpack_require__(41);
-	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
-	var _ = __webpack_require__(16);
-
-	var firstNumericalParse = __webpack_require__(6).firstNumericalParse;
-	var captureScratchpadTouchStart = __webpack_require__(6).captureScratchpadTouchStart;
-	var knumber = __webpack_require__(182).number;
-	var toNumericString = KhanUtil.toNumericString;
-	var getNumericFormat = KhanUtil.getNumericFormat;
-
-	/* An input box that accepts only numeric strings
-	 *
-	 * Calls onChange(value, format) for valid numbers.
-	 * Reverts to the current value onBlur or on [ENTER],
-	 *   but maintains the format (i.e. 3/2, 1 1/2, 150%)
-	 * Accepts empty input and sends it to onChange as null
-	 *   if no numeric placeholder is set.
-	 * If given a checkValidity function, will turn
-	 *   the background/outline red when invalid
-	 * If useArrowKeys is set to true, up/down arrows will
-	 *   increment/decrement integers
-	 * Optionally takes a size ("mini", "small", "normal")
-	 */
-	var NumberInput = React.createClass({
-	    displayName: "NumberInput",
-
-	    propTypes: {
-	        value: React.PropTypes.number,
-	        format: React.PropTypes.string,
-	        placeholder: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-	        onChange: React.PropTypes.func.isRequired,
-	        onFormatChange: React.PropTypes.func,
-	        checkValidity: React.PropTypes.func,
-	        size: React.PropTypes.string,
-	        label: React.PropTypes.oneOf(["put your labels outside your inputs!"]) },
-
-	    getDefaultProps: function () {
-	        return {
-	            value: null,
-	            placeholder: null,
-	            format: null,
-	            onFormatChange: function () {
-	                return null;
-	            },
-	            checkValidity: function () {
-	                return true;
-	            },
-	            useArrowKeys: false
-	        };
-	    },
-
-	    getInitialState: function () {
-	        return {
-	            format: this.props.format
-	        };
-	    },
-
-	    render: function () {
-	        var classes = classNames({
-	            "number-input": true,
-	            "invalid-input": !this._checkValidity(this.props.value),
-	            "mini": this.props.size === "mini",
-	            "small": this.props.size === "small",
-	            "normal": this.props.size === "normal"
-	        });
-	        if (this.props.className != null) {
-	            classes = classes + " " + this.props.className;
-	        }
-
-	        return React.createElement("input", _extends({}, this.props, {
-	            className: classes,
-	            type: "text",
-	            ref: "input",
-	            onChange: this._handleChange,
-	            onFocus: this._handleFocus,
-	            onBlur: this._handleBlur,
-	            onKeyPress: this._handleBlur,
-	            onKeyDown: this._onKeyDown,
-	            onTouchStart: captureScratchpadTouchStart,
-	            defaultValue: toNumericString(this.props.value, this.state.format),
-	            value: undefined }));
-	    },
-
-	    componentDidUpdate: function (prevProps) {
-	        if (!knumber.equal(this.getValue(), this.props.value)) {
-	            this._setValue(this.props.value, this.state.format);
-	        }
-	    },
-
-	    /* Return the current "value" of this input
-	     * If empty, it returns the placeholder (if it is a number) or null
-	     */
-	    getValue: function () {
-	        return this.parseInputValue(ReactDOM.findDOMNode(this.refs.input).value);
-	    },
-
-	    /* Return the current string value of this input */
-	    getStringValue: function () {
-	        return ReactDOM.findDOMNode(this.refs.input).value.toString();
-	    },
-
-	    parseInputValue: function (value) {
-	        if (value === "") {
-	            placeholder = this.props.placeholder;
-	            return _.isFinite(placeholder) ? +placeholder : null;
-	        } else {
-	            var result = firstNumericalParse(value);
-	            return _.isFinite(result) ? result : this.props.value;
-	        }
-	    },
-
-	    /* Set text input focus to this input */
-	    focus: function () {
-	        ReactDOM.findDOMNode(this.refs.input).focus();
-	        this._handleFocus();
-	    },
-
-	    blur: function () {
-	        ReactDOM.findDOMNode(this.refs.input).blur();
-	        this._handleBlur();
-	    },
-
-	    setSelectionRange: function (selectionStart, selectionEnd) {
-	        ReactDOM.findDOMNode(this).setSelectionRange(selectionStart, selectionEnd);
-	    },
-
-	    getSelectionStart: function () {
-	        return ReactDOM.findDOMNode(this).selectionStart;
-	    },
-
-	    getSelectionEnd: function () {
-	        return ReactDOM.findDOMNode(this).selectionEnd;
-	    },
-
-	    _checkValidity: function (value) {
-	        if (value == null) {
-	            return true;
-	        }
-
-	        var val = firstNumericalParse(value);
-	        var checkValidity = this.props.checkValidity;
-
-	        return _.isFinite(val) && checkValidity(val);
-	    },
-
-	    _handleChange: function (e) {
-	        var text = e.target.value;
-	        var value = this.parseInputValue(text);
-	        var format = getNumericFormat(text);
-
-	        this.props.onChange(value);
-	        if (format) {
-	            this.props.onFormatChange(value, format);
-	            this.setState({ format: format });
-	        }
-	    },
-
-	    _handleFocus: function () {
-	        if (this.props.onFocus) {
-	            this.props.onFocus();
-	        }
-	    },
-
-	    _handleBlur: function (e) {
-	        // Only continue on blur or "enter"
-	        if (e && e.type === "keypress" && e.keyCode !== 13) {
-	            return;
-	        }
-
-	        this._setValue(this.props.value, this.state.format);
-	        if (this.props.onBlur) {
-	            this.props.onBlur();
-	        }
-	    },
-
-	    _onKeyDown: function (e) {
-	        if (this.props.onKeyDown) {
-	            this.props.onKeyDown(e);
-	        }
-
-	        if (!this.props.useArrowKeys || !_.contains(["ArrowUp", "ArrowDown"], e.key)) {
-	            return;
-	        }
-
-	        var val = this.getValue();
-	        if (val !== Math.floor(val)) {
-	            return; // bail if not an integer
-	        }
-
-	        if (e.key === "ArrowUp") {
-	            val = val + 1;
-	        } else if (e.key === "ArrowDown") {
-	            val = val - 1;
-	        }
-
-	        if (this._checkValidity(val)) {
-	            this.props.onChange(val);
-	        }
-	    },
-
-	    _setValue: function (val, format) {
-	        $(ReactDOM.findDOMNode(this.refs.input)).val(toNumericString(val, format));
-	    }
-	});
-
-	module.exports = NumberInput;
-
-/***/ },
-/* 163 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-redeclare, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
-	var _ = __webpack_require__(16);
-
-	var Util = __webpack_require__(6);
-
-	var SvgImage = __webpack_require__(28);
-
-	var defaultBoxSize = 400;
-	var defaultBackgroundImage = {
-	    url: null
-	};
-
-	/* Style objects */
-	var defaultInstructionsStyle = {
-	    fontStyle: "italic",
-	    fontWeight: "bold",
-	    fontSize: "32px",
-	    width: "100%",
-	    height: "100%",
-	    textAlign: "center",
-	    backgroundColor: "white",
-	    position: "absolute",
-	    zIndex: 1,
-	    transition: "opacity .25s ease-in-out",
-	    "-moz-transition": "opacity .25s ease-in-out",
-	    "-webkit-transition": "opacity .25s ease-in-out"
-	};
-
-	var instructionsTextStyle = {
-	    position: "relative",
-	    top: "25%"
-	};
-
-	function numSteps(range, step) {
-	    return Math.floor((range[1] - range[0]) / step);
-	}
-
-	var Graph = React.createClass({
-	    displayName: "Graph",
-
-	    propTypes: {
-	        box: React.PropTypes.array.isRequired,
-	        labels: React.PropTypes.arrayOf(React.PropTypes.string),
-	        range: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
-	        step: React.PropTypes.arrayOf(React.PropTypes.number),
-	        gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
-	        snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
-	        markings: React.PropTypes.string,
-	        backgroundImage: React.PropTypes.shape({
-	            url: React.PropTypes.string
-	        }),
-	        showProtractor: React.PropTypes.bool,
-	        showRuler: React.PropTypes.bool,
-	        rulerLabel: React.PropTypes.string,
-	        rulerTicks: React.PropTypes.number,
-	        onGraphieUpdated: React.PropTypes.func,
-	        instructions: React.PropTypes.string,
-	        onClick: React.PropTypes.func
-	    },
-
-	    getDefaultProps: function () {
-	        return {
-	            box: [defaultBoxSize, defaultBoxSize],
-	            labels: ["x", "y"],
-	            range: [[-10, 10], [-10, 10]],
-	            step: [1, 1],
-	            gridStep: [1, 1],
-	            snapStep: [0.5, 0.5],
-	            markings: "graph",
-	            backgroundImage: defaultBackgroundImage,
-	            showProtractor: false,
-	            showRuler: false,
-	            rulerLabel: "",
-	            rulerTicks: 10,
-	            instructions: null,
-	            onGraphieUpdated: null,
-	            onClick: null,
-	            onMouseDown: null };
-	    },
-
-	    render: function () {
-	        var image;
-	        var imageData = this.props.backgroundImage;
-	        if (imageData.url) {
-	            var scale = this.props.box[0] / defaultBoxSize;
-	            image = React.createElement(SvgImage, { src: imageData.url,
-	                width: imageData.width,
-	                height: imageData.height,
-	                scale: scale,
-	                responsive: false });
-	        } else {
-	            image = null;
-	        }
-
-	        return React.createElement(
-	            "div",
-	            {
-	                className: "graphie-container above-scratchpad",
-	                style: {
-	                    width: this.props.box[0],
-	                    height: this.props.box[1]
-	                },
-	                onMouseOut: this.onMouseOut,
-	                onMouseOver: this.onMouseOver,
-	                onClick: this.onClick },
-	            image,
-	            React.createElement("div", { className: "graphie", ref: "graphieDiv" })
-	        );
-	    },
-
-	    componentDidMount: function () {
-	        this._setupGraphie(true);
-	    },
-
-	    componentDidUpdate: function () {
-	        // Only setupGraphie once per componentDidUpdate().
-	        // See explanation in setupGraphie().
-	        this._hasSetupGraphieThisUpdate = false;
-	        if (this._shouldSetupGraphie) {
-	            this._setupGraphie(false);
-	            this._shouldSetupGraphie = false;
-	        }
-	    },
-
-	    componentWillReceiveProps: function (nextProps) {
-	        var potentialChanges = ["labels", "range", "step", "markings", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep"];
-	        var self = this;
-	        _.each(potentialChanges, function (prop) {
-	            if (!_.isEqual(self.props[prop], nextProps[prop])) {
-	                self._shouldSetupGraphie = true;
-	            }
-	        });
-	    },
-
-	    /* Reset the graphie canvas to its initial state
-	     *
-	     * Use when re-rendering the parent component and you need a blank
-	     * graphie.
-	     */
-	    reset: function () {
-	        this._setupGraphie(false);
-	    },
-
-	    graphie: function () {
-	        return this._graphie;
-	    },
-
-	    pointsFromNormalized: function (coordsList, noSnap) {
-	        var self = this;
-	        return _.map(coordsList, function (coords) {
-	            return _.map(coords, function (coord, i) {
-	                var range = self.props.range[i];
-	                if (noSnap) {
-	                    return range[0] + (range[1] - range[0]) * coord;
-	                } else {
-	                    var step = self.props.step[i];
-	                    var nSteps = numSteps(range, step);
-	                    var tick = Math.round(coord * nSteps);
-	                    return range[0] + step * tick;
-	                }
-	            });
-	        });
-	    },
-
-	    _setupGraphie: function (initialMount) {
-	        // Only setupGraphie once per componentDidUpdate().
-	        // This prevents this component from rendering graphie
-	        // and then immediately re-render graphie because its
-	        // parent component asked it to. This will happen when
-	        // props on the parent and props on this component both
-	        // require graphie to be re-rendered.
-	        if (this._hasSetupGraphieThisUpdate) {
-	            return;
-	        }
-
-	        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
-	        $(graphieDiv).empty();
-	        var labels = this.props.labels;
-	        var range = this.props.range;
-	        var graphie = this._graphie = KhanUtil.createGraphie(graphieDiv);
-
-	        var gridConfig = this._getGridConfig();
-	        graphie.snap = this.props.snapStep;
-
-	        if (this.props.markings === "graph") {
-	            graphie.graphInit({
-	                range: range,
-	                scale: _.pluck(gridConfig, "scale"),
-	                axisArrows: "<->",
-	                labelFormat: function (s) {
-	                    return "\\small{" + s + "}";
-	                },
-	                gridStep: this.props.gridStep,
-	                tickStep: _.pluck(gridConfig, "tickStep"),
-	                labelStep: 1,
-	                unityLabels: _.pluck(gridConfig, "unityLabel")
-	            });
-	            graphie.label([0, range[1][1]], labels[1], "above");
-	            graphie.label([range[0][1], 0], labels[0], "right");
-	        } else if (this.props.markings === "grid") {
-	            graphie.graphInit({
-	                range: range,
-	                scale: _.pluck(gridConfig, "scale"),
-	                gridStep: this.props.gridStep,
-	                axes: false,
-	                ticks: false,
-	                labels: false
-	            });
-	        } else if (this.props.markings === "none") {
-	            graphie.init({
-	                range: range,
-	                scale: _.pluck(gridConfig, "scale")
-	            });
-	        }
-
-	        // Add instructions just before mouse layer
-	        var visible = 0.5;
-	        var invisible = 0;
-	        var $instructionsWrapper;
-	        if (this.props.instructions) {
-	            var $instructionsWrapper = $("<div/>");
-	            _.each(defaultInstructionsStyle, function (value, key) {
-	                $instructionsWrapper.css(key, value);
-	            });
-	            $instructionsWrapper.css("opacity", visible);
-
-	            var $instructions = $("<span/>", {
-	                text: this.props.instructions
-	            });
-	            _.each(instructionsTextStyle, function (value, key) {
-	                $instructions.css(key, value);
-	            });
-
-	            $instructionsWrapper.append($instructions);
-	            $(graphieDiv).append($instructionsWrapper);
-	        } else {
-	            $instructionsWrapper = undefined;
-	        }
-
-	        // Add some handlers for instructions text (if necessary)
-	        var onMouseDown = $instructionsWrapper || this.props.onMouseDown ? _.bind(function (coord) {
-	            if ($instructionsWrapper) {
-	                $instructionsWrapper.remove();
-	                $instructionsWrapper = null;
-	            }
-	            this.props.onMouseDown(coord);
-	        }, this) : null;
-
-	        var onMouseOver = $instructionsWrapper ? function () {
-	            $instructionsWrapper && $instructionsWrapper.css("opacity", invisible);
-	        } : null;
-
-	        var onMouseOut = $instructionsWrapper ? function () {
-	            $instructionsWrapper && $instructionsWrapper.css("opacity", visible);
-	        } : null;
-
-	        graphie.addMouseLayer({
-	            onClick: this.props.onClick,
-	            onMouseDown: onMouseDown,
-	            onMouseOver: onMouseOver,
-	            onMouseOut: onMouseOut,
-	            onMouseUp: this.props.onMouseUp,
-	            onMouseMove: this.props.onMouseMove,
-	            allowScratchpad: true
-	        });
-
-	        this._updateProtractor();
-	        this._updateRuler();
-
-	        // We set this flag before jumping into our callback
-	        // to avoid recursing if our callback calls reset() itself
-	        this._hasSetupGraphieThisUpdate = true;
-	        if (!initialMount && this.props.onGraphieUpdated) {
-	            // Calling a parent callback in componentDidMount is bad and
-	            // results in hard-to-reason-about lifecycle problems (esp. with
-	            // refs), so we do it only on update and rely on the parent to
-	            // query for the graphie object on initial mount
-	            this.props.onGraphieUpdated(graphie);
-	        }
-	    },
-
-	    _getGridConfig: function () {
-	        var self = this;
-	        return _.map(self.props.step, function (step, i) {
-	            return Util.gridDimensionConfig(step, self.props.range[i], self.props.box[i], self.props.gridStep[i]);
-	        });
-	    },
-
-	    _updateProtractor: function () {
-	        if (this.protractor) {
-	            this.protractor.remove();
-	        }
-
-	        if (this.props.showProtractor) {
-	            var coord = this.pointsFromNormalized([[0.5, 0.05]])[0];
-	            this.protractor = this._graphie.protractor(coord);
-	        }
-	    },
-
-	    _updateRuler: function () {
-	        if (this.ruler) {
-	            this.ruler.remove();
-	        }
-
-	        if (this.props.showRuler) {
-	            var coord = this.pointsFromNormalized([[0.5, 0.25]])[0];
-	            var extent = this._graphie.range[0][1] - this._graphie.range[0][0];
-	            this.ruler = this._graphie.ruler({
-	                center: coord,
-	                label: this.props.rulerLabel,
-	                pixelsPerUnit: this._graphie.scale[0],
-	                ticksPerUnit: this.props.rulerTicks,
-	                units: Math.round(0.8 * extent)
-	            });
-	        }
-	    },
-
-	    toJSON: function () {
-	        return _.pick(this.props, "range", "step", "markings", "labels", "backgroundImage", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep");
-	    }
-	});
-
-	module.exports = Graph;
-
-/***/ },
-/* 164 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, indent, max-len, no-irregular-whitespace, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
-	var _ = __webpack_require__(16);
-
-	var Util = __webpack_require__(6);
-	var Renderer = __webpack_require__(23);
-
-	var ApiClassNames = __webpack_require__(5).ClassNames;
-
-	var PREFIX = "perseus-sortable";
-
-	// A placeholder that appears in the sortable whenever an item is dragged.
-	var Placeholder = React.createClass({
-	    displayName: "Placeholder",
-
-	    propTypes: {
-	        width: React.PropTypes.number.isRequired,
-	        height: React.PropTypes.number.isRequired
-	    },
-
-	    render: function () {
-	        var className = [PREFIX + "-card", PREFIX + "-placeholder"].join(" ");
-	        var style = { width: this.props.width, height: this.props.height };
-
-	        if (this.props.margin != null) {
-	            style.margin = this.props.margin;
-	        }
-
-	        return React.createElement("li", { className: className, style: style });
-	    }
-	});
-
-	var STATIC = "static",
-	    DRAGGING = "dragging",
-	    ANIMATING = "animating",
-	    DISABLED = "disabled";
-
-	// A draggable item in the sortable. Can be in one of four states:
-	//     Static:    The item is not being interacted with.
-	//     Dragging:  The item is being dragged.
-	//     Animating: The item has been released, and is moving to its destination.
-	//     Disabled:  The item cannot be interacted with.
-	//
-	// Usual flow:      Static -> Dragging -> Animating -> Static
-	// [Dis|en]abling:  Static|Dragging|Animating -> Disabled -> Static
-	var Draggable = React.createClass({
-	    displayName: "Draggable",
-
-	    propTypes: {
-	        type: React.PropTypes.oneOf([STATIC, DRAGGING, ANIMATING, DISABLED]),
-	        content: React.PropTypes.string.isRequired,
-	        endPosition: React.PropTypes.object.isRequired,
-	        onRender: React.PropTypes.func.isRequired,
-	        onMouseDown: React.PropTypes.func.isRequired,
-	        onMouseMove: React.PropTypes.func.isRequired,
-	        onMouseUp: React.PropTypes.func.isRequired,
-	        onAnimationEnd: React.PropTypes.func.isRequired
-	    },
-
-	    getDefaultProps: function () {
-	        return {
-	            type: STATIC
-	        };
-	    },
-
-	    getInitialState: function () {
-	        return {
-	            startPosition: { left: 0, top: 0 },
-	            startMouse: { left: 0, top: 0 },
-	            mouse: { left: 0, top: 0 }
-	        };
-	    },
-
-	    componentDidMount: function () {
-	        this.isMouseMoveUpBound = false;
-	    },
-
-	    componentWillUnmount: function () {
-	        // Event handlers should be unbound before component unmounting, but
-	        // just in case...
-	        if (this.isMouseMoveUpBound) {
-	            this.unbindMouseMoveUp();
-	        }
-	    },
-
-	    getCurrentPosition: function () {
-	        return {
-	            left: this.state.startPosition.left + this.state.mouse.left - this.state.startMouse.left,
-	            top: this.state.startPosition.top + this.state.mouse.top - this.state.startMouse.top
-	        };
-	    },
-
-	    render: function () {
-	        var className = [PREFIX + "-card", PREFIX + "-draggable", PREFIX + "-" + this.props.type, ApiClassNames.INTERACTIVE].join(" ");
-
-	        var style = {
-	            position: "static"
-	        };
-
-	        if (this.props.type === DRAGGING || this.props.type === ANIMATING) {
-	            _.extend(style, { position: "absolute" }, this.getCurrentPosition());
-	        }
-
-	        if (this.props.width) {
-	            style.width = this.props.width + 1; // Fix for non-integer widths
-	        }
-	        if (this.props.height) {
-	            style.height = this.props.height;
-	        }
-	        if (this.props.margin != null) {
-	            style.margin = this.props.margin;
-	        }
-
-	        return React.createElement(
-	            "li",
-	            {
-	                className: className,
-	                style: style,
-	                onMouseDown: this.onMouseDown,
-	                onTouchStart: this.onMouseDown,
-	                onTouchMove: this.onMouseMove,
-	                onTouchEnd: this.onMouseUp,
-	                onTouchCancel: this.onMouseUp },
-	            React.createElement(Renderer, {
-	                content: this.props.content,
-	                onRender: this.props.onRender })
-	        );
-	    },
-
-	    componentDidUpdate: function (prevProps) {
-	        if (this.props.type === prevProps.type) {
-	            return;
-	        }
-
-	        if (this.props.type === ANIMATING) {
-	            // Start animating
-	            var current = this.getCurrentPosition();
-	            var duration = 15 * Math.sqrt(Math.sqrt(Math.pow(this.props.endPosition.left - current.left, 2) + Math.pow(this.props.endPosition.top - current.top, 2)));
-
-	            $(ReactDOM.findDOMNode(this)).animate(this.props.endPosition, {
-	                duration: Math.max(duration, 1),
-	                // Animating -> Static
-	                complete: this.props.onAnimationEnd
-	            });
-	        } else if (this.props.type === STATIC) {
-	            // Ensure that any animations are done
-	            $(ReactDOM.findDOMNode(this)).finish();
-	        }
-	    },
-
-	    bindMouseMoveUp: function () {
-	        this.isMouseMoveUpBound = true;
-	        $(document).on("mousemove", this.onMouseMove);
-	        $(document).on("mouseup", this.onMouseUp);
-	    },
-
-	    unbindMouseMoveUp: function () {
-	        this.isMouseMoveUpBound = false;
-	        $(document).off("mousemove", this.onMouseMove);
-	        $(document).off("mouseup", this.onMouseUp);
-	    },
-
-	    onMouseDown: function (event) {
-	        if (this.props.type !== STATIC) {
-	            return;
-	        }
-
-	        if (!(event.button === 0 || event.touches != null && event.touches.length === 1)) {
-	            return;
-	        }
-
-	        event.preventDefault();
-	        var loc = Util.extractPointerLocation(event);
-	        if (loc) {
-	            this.setState({
-	                startPosition: $(ReactDOM.findDOMNode(this)).position(),
-	                startMouse: loc,
-	                mouse: loc
-	            }, function () {
-	                this.bindMouseMoveUp();
-
-	                // Static -> Dragging
-	                this.props.onMouseDown();
-	            });
-	        }
-	    },
-
-	    onMouseMove: function (event) {
-	        if (this.props.type !== DRAGGING) {
-	            return;
-	        }
-
-	        event.preventDefault();
-	        var loc = Util.extractPointerLocation(event);
-	        if (loc) {
-	            this.setState({
-	                mouse: loc }, this.props.onMouseMove);
-	        }
-	    },
-
-	    onMouseUp: function (event) {
-	        if (this.props.type !== DRAGGING) {
-	            return;
-	        }
-
-	        event.preventDefault();
-	        var loc = Util.extractPointerLocation(event);
-	        if (loc) {
-	            this.unbindMouseMoveUp();
-
-	            // Dragging -> Animating
-	            this.props.onMouseUp();
-	        }
-	    }
-	});
-
-	var HORIZONTAL = "horizontal",
-	    VERTICAL = "vertical";
-
-	// The main sortable component.
-	var Sortable = React.createClass({
-	    displayName: "Sortable",
-
-	    propTypes: {
-	        options: React.PropTypes.array.isRequired,
-	        layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
-	        padding: React.PropTypes.bool,
-	        disabled: React.PropTypes.bool,
-	        constraints: React.PropTypes.object,
-	        onMeasure: React.PropTypes.func,
-	        margin: React.PropTypes.number,
-	        onChange: React.PropTypes.func
-	    },
-
-	    getDefaultProps: function () {
-	        return {
-	            layout: HORIZONTAL,
-	            padding: true,
-	            disabled: false,
-	            constraints: {},
-	            onMeasure: function () {},
-	            margin: 5,
-	            onChange: function () {}
-	        };
-	    },
-
-	    getInitialState: function () {
-	        return {
-	            items: this.itemsFromProps(this.props)
-	        };
-	    },
-
-	    componentWillReceiveProps: function (nextProps) {
-	        var prevProps = this.props;
-
-	        if (!_.isEqual(nextProps.options, prevProps.options)) {
-
-	            // Regenerate items
-	            this.setState({
-	                items: this.itemsFromProps(nextProps)
-	            });
-	        } else if (nextProps.layout !== prevProps.layout || nextProps.padding !== prevProps.padding || nextProps.disabled !== prevProps.disabled || !_.isEqual(nextProps.constraints, prevProps.constraints)) {
-
-	            // Clear item measurements
-	            this.setState({
-	                items: this.clearItemMeasurements(this.state.items)
-	            });
-	        }
-	    },
-
-	    componentDidUpdate: function (prevProps) {
-	        // Measure items if their dimensions have been reset
-	        if (this.state.items.length && !this.state.items[0].width) {
-	            this.measureItems();
-	        }
-	    },
-
-	    itemsFromProps: function (props) {
-	        var type = props.disabled ? DISABLED : STATIC;
-	        return _.map(props.options, function (option, i) {
-	            return {
-	                option: option,
-	                key: i,
-	                type: type,
-	                endPosition: {},
-	                width: 0,
-	                height: 0
-	            };
-	        });
-	    },
-
-	    clearItemMeasurements: function (items) {
-	        return _.map(items, function (item) {
-	            return _.extend(item, {
-	                width: 0,
-	                height: 0
-	            });
-	        });
-	    },
-
-	    measureItems: function () {
-	        var _this = this;
-
-	        // Measure all items and cache what their dimensions should be, taking
-	        // into account constraints and the current layout. This allows syncing
-	        // widths and heights for pretty rows/columns. Note that dimensions are
-	        // explictly set on Draggables - this prevents them from changing size
-	        // or shape while being dragged.
-
-	        var items = _.clone(this.state.items);
-	        var $items = _.map(items, function (item) {
-	            return $(ReactDOM.findDOMNode(this.refs[item.key]));
-	        }, this);
-
-	        var widths = _.invoke($items, "outerWidth");
-	        var heights = _.invoke($items, "outerHeight");
-
-	        var constraints = this.props.constraints;
-	        var layout = this.props.layout;
-
-	        var syncWidth;
-	        if (constraints.width) {
-	            // Items must be at least as wide as the specified constraint
-	            syncWidth = _.max(widths.concat(constraints.width));
-	        } else if (layout === VERTICAL) {
-	            // Sync widths to get a clean column
-	            syncWidth = _.max(widths);
-	        }
-
-	        var syncHeight;
-	        if (constraints.height) {
-	            // Items must be at least as high as the specified constraint
-	            syncHeight = _.max(heights.concat(constraints.height));
-	        } else if (layout === HORIZONTAL) {
-	            // Sync widths to get a clean row
-	            syncHeight = _.max(heights);
-	        }
-
-	        items = _.map(items, function (item, i) {
-	            item.width = syncWidth || widths[i];
-	            item.height = syncHeight || heights[i];
-	            return item;
-	        });
-
-	        this.setState({ items: items }, function () {
-	            _this.props.onMeasure({ widths: widths, heights: heights });
-	        });
-	    },
-
-	    remeasureItems: _.debounce(function () {
-	        this.setState({
-	            // Clear item measurements
-	            items: this.clearItemMeasurements(this.state.items)
-	        }, this.measureItems);
-	    }, 20),
-
-	    render: function () {
-	        var className = [PREFIX, "layout-" + this.props.layout].join(" ");
-	        var cards = [];
-
-	        className += this.props.padding ? "" : " unpadded";
-
-	        _.each(this.state.items, function (item, i, items) {
-	            var isLast = i === items.length - 1;
-	            var isStatic = item.type === STATIC || item.type === DISABLED;
-	            var margin;
-
-	            if (this.props.layout === HORIZONTAL) {
-	                margin = "0 " + this.props.margin + "px 0 0"; // right
-	            } else if (this.props.layout === VERTICAL) {
-	                margin = "0 0 " + this.props.margin + "px 0"; // bottom
-	            }
-
-	            cards.push(React.createElement(Draggable, {
-	                content: item.option,
-	                key: item.key,
-	                type: item.type,
-	                ref: item.key,
-	                width: item.width,
-	                height: item.height,
-	                margin: isLast && isStatic ? 0 : margin,
-	                endPosition: item.endPosition,
-	                onRender: this.remeasureItems,
-	                onMouseDown: this.onMouseDown.bind(this, item.key),
-	                onMouseMove: this.onMouseMove.bind(this, item.key),
-	                onMouseUp: this.onMouseUp.bind(this, item.key),
-	                onTouchMove: this.onMouseMove.bind(this, item.key),
-	                onTouchEnd: this.onMouseUp.bind(this, item.key),
-	                onTouchCancel: this.onMouseUp.bind(this, item.key),
-	                onAnimationEnd: this.onAnimationEnd.bind(this, item.key) }));
-
-	            if (item.type === DRAGGING || item.type === ANIMATING) {
-	                cards.push(React.createElement(Placeholder, {
-	                    key: "placeholder_" + item.key,
-	                    ref: "placeholder_" + item.key,
-	                    width: item.width,
-	                    height: item.height,
-	                    margin: isLast ? 0 : margin }));
-	            }
-	        }, this);
-
-	        return React.createElement(
-	            "ul",
-	            { className: className },
-	            cards
-	        );
-	    },
-
-	    onMouseDown: function (key) {
-	        // Static -> Dragging
-	        var items = _.map(this.state.items, function (item) {
-	            if (item.key === key) {
-	                item.type = DRAGGING;
-	            }
-	            return item;
-	        });
-
-	        this.setState({ items: items });
-	    },
-
-	    onMouseMove: function (key) {
-	        // Dragging: Rearrange items based on draggable's position
-	        var $draggable = $(ReactDOM.findDOMNode(this.refs[key]));
-	        var $sortable = $(ReactDOM.findDOMNode(this));
-	        var items = _.clone(this.state.items);
-	        var item = _.findWhere(this.state.items, { key: key });
-	        var margin = this.props.margin;
-	        var currentIndex = _.indexOf(items, item);
-	        var newIndex = 0;
-
-	        items.splice(currentIndex, 1);
-
-	        if (this.props.layout === HORIZONTAL) {
-	            var midWidth = $draggable.offset().left - $sortable.offset().left;
-	            var sumWidth = 0;
-	            var cardWidth;
-
-	            _.each(items, function (item) {
-	                cardWidth = item.width;
-	                if (midWidth > sumWidth + cardWidth / 2) {
-	                    newIndex += 1;
-	                }
-	                sumWidth += cardWidth + margin;
-	            });
-	        } else {
-	            var midHeight = $draggable.offset().top - $sortable.offset().top;
-	            var sumHeight = 0;
-	            var cardHeight;
-
-	            _.each(items, function (item) {
-	                cardHeight = item.height;
-	                if (midHeight > sumHeight + cardHeight / 2) {
-	                    newIndex += 1;
-	                }
-	                sumHeight += cardHeight + margin;
-	            });
-	        }
-
-	        if (newIndex !== currentIndex) {
-	            items.splice(newIndex, 0, item);
-	            this.setState({ items: items });
-	        }
-	    },
-
-	    onMouseUp: function (key) {
-	        // Dragging -> Animating
-	        var items = _.map(this.state.items, function (item) {
-	            if (item.key === key) {
-	                item.type = ANIMATING;
-	                item.endPosition = $(ReactDOM.findDOMNode(this.refs["placeholder_" + key])).position();
-	            }
-	            return item;
-	        }, this);
-
-	        this.setState({ items: items });
-	        // HACK: We need to know *that* the widget changed, but currently it's
-	        // not set up in a nice way to tell us *how* it changed, since the
-	        // permutation of the items is stored in state.
-	        this.props.onChange({});
-	    },
-
-	    onAnimationEnd: function (key) {
-	        // Animating -> Static
-	        var items = _.map(this.state.items, function (item) {
-	            if (item.key === key) {
-	                item.type = STATIC;
-	            }
-	            return item;
-	        });
-
-	        this.setState({ items: items });
-	    },
-
-	    getOptions: function () {
-	        return _.pluck(this.state.items, "option");
-	    }
-	});
-
-	module.exports = Sortable;
-
-/***/ },
-/* 165 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
-	var TeX = __webpack_require__(48);
-	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var Tooltip = __webpack_require__(151);
-	var ModifyTex = __webpack_require__(160).modifyTex;
-
-	var MathOutput = React.createClass({
-	    displayName: "MathOutput",
-
-	    propTypes: {
-	        value: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-	        className: React.PropTypes.string,
-	        labelText: React.PropTypes.string,
-	        onFocus: React.PropTypes.func,
-	        onBlur: React.PropTypes.func
-	    },
-
-	    getDefaultProps: function () {
-	        return {
-	            value: "",
-	            onFocus: function () {},
-	            onBlur: function () {}
-	        };
-	    },
-
-	    getInitialState: function () {
-	        return {
-	            focused: false,
-	            selectorNamespace: _.uniqueId("math-output")
-	        };
-	    },
-
-	    _getInputClassName: function () {
-	        var className = "math-output " + ApiClassNames.INPUT + " " + ApiClassNames.INTERACTIVE;
-	        if (this.state.focused) {
-	            className += " " + ApiClassNames.FOCUSED;
-	        }
-	        if (this.props.className) {
-	            className += " " + this.props.className;
-	        }
-	        return className;
-	    },
-
-	    _getDisplayValue: function (value) {
-	        // Cast from (potentially a) number to string
-	        var displayText;
-	        if (value != null) {
-	            displayText = "" + value;
-	        } else {
-	            displayText = "";
-	        }
-	        return ModifyTex(displayText);
-	    },
-
-	    render: function () {
-	        var divStyle = {
-	            textAlign: "center"
-	        };
-
-	        return React.createElement(
-	            "span",
-	            { ref: "input",
-	                className: this._getInputClassName(),
-	                "aria-label": this.props.labelText,
-	                onMouseDown: this.focus,
-	                onTouchStart: this.focus },
-	            React.createElement(
-	                "div",
-	                { style: divStyle },
-	                React.createElement(
-	                    TeX,
-	                    null,
-	                    this._getDisplayValue(this.props.value)
-	                )
-	            )
-	        );
-	    },
-
-	    getValue: function () {
-	        return this.props.value;
-	    },
-
-	    focus: function () {
-	        if (!this.state.focused) {
-	            this.props.onFocus();
-	            this._bindBlurHandler();
-	            this.setState({
-	                focused: true
-	            });
-	        }
-	    },
-
-	    blur: function () {
-	        if (this.state.focused) {
-	            this.props.onBlur();
-	            this._unbindBlurHandler();
-	            this.setState({
-	                focused: false
-	            });
-	        }
-	    },
-
-	    _bindBlurHandler: function () {
-	        var _this = this;
-
-	        $(document).bind("vclick." + this.state.selectorNamespace, function (e) {
-	            // Detect whether the target has our React DOM node as a parent
-	            var $closestWidget = $(e.target).closest(ReactDOM.findDOMNode(_this));
-	            if (!$closestWidget.length) {
-	                _this.blur();
-	            }
-	        });
-	    },
-
-	    _unbindBlurHandler: function () {
-	        $(document).unbind("." + this.state.selectorNamespace);
-	    },
-
-	    componentWillUnmount: function () {
-	        this._unbindBlurHandler();
-	    }
-	});
-
-	module.exports = MathOutput;
-
-/***/ },
-/* 166 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* global i18n */
-
-	var React = __webpack_require__(15);
-	var _ = __webpack_require__(16);
-
-	var Renderer = __webpack_require__(23);
-	var PassageRef = __webpack_require__(101);
-	var Util = __webpack_require__(6);
-
-	var BaseRadio = __webpack_require__(168);
-
-	var Radio = React.createClass({
-	    displayName: "Radio",
-
-	    propTypes: {
-	        apiOptions: BaseRadio.propTypes.apiOptions,
-	        choices: BaseRadio.propTypes.choices,
-
-	        deselectEnabled: React.PropTypes.bool,
-	        displayCount: React.PropTypes.any,
-	        interWidgets: React.PropTypes.func,
-	        multipleSelect: React.PropTypes.bool,
-	        onChange: React.PropTypes.func.isRequired,
-
-	        onePerLine: BaseRadio.propTypes.onePerLine,
-
-	        questionCompleted: React.PropTypes.bool,
-	        reviewModeRubric: BaseRadio.propTypes.reviewModeRubric,
-	        trackInteraction: React.PropTypes.func.isRequired,
-	        values: React.PropTypes.arrayOf(React.PropTypes.bool) },
-
-	    getDefaultProps: function () {
-	        return {
-	            choices: [{}],
-	            displayCount: null,
-	            multipleSelect: false,
-	            deselectEnabled: false };
-	    },
-
-	    _renderRenderer: function (content) {
-	        content = content || "";
-
-	        var nextPassageRefId = 1;
-	        var widgets = {};
-
-	        var modContent = content.replace(/\{\{passage-ref (\d+) (\d+)(?: "([^"]*)")?\}\}/g, function (match, passageNum, refNum, summaryText) {
-	            var widgetId = "passage-ref " + nextPassageRefId;
-	            nextPassageRefId++;
-
-	            widgets[widgetId] = {
-	                type: "passage-ref",
-	                graded: false,
-	                options: {
-	                    passageNumber: parseInt(passageNum),
-	                    referenceNumber: parseInt(refNum),
-	                    summaryText: summaryText },
-	                version: PassageRef.version };
-
-	            return "[[" + Util.snowman + " " + widgetId + "]]";
-	        });
-
-	        // alwaysUpdate={true} so that passage-refs interwidgets
-	        // get called when the outer passage updates the renderer
-	        // TODO(aria): This is really hacky
-	        // We pass in a key here so that we avoid a semi-spurious
-	        // react warning when the ChoiceNoneAbove renders a
-	        // different renderer in the same place. Note this destroys
-	        // state, but since all we're doing is outputting
-	        // "None of the above", that is okay.
-	        return React.createElement(Renderer, {
-	            key: "choiceContentRenderer",
-	            content: modContent,
-	            widgets: widgets,
-	            interWidgets: this._interWidgets,
-	            alwaysUpdate: true
-	        });
-	    },
-
-	    _interWidgets: function (filterCriterion, localResults) {
-	        // If local results are not found, forward interwidgets
-	        // calls to our parent renderer.
-	        // For passage-refs to communicate with their passages.
-	        if (localResults.length) {
-	            return localResults;
-	        } else {
-	            return this.props.interWidgets(filterCriterion);
-	        }
-	    },
-
-	    focus: function (i) {
-	        return this.refs.baseRadio.focus(i);
-	    },
-
-	    onCheckedChange: function (checked) {
-	        this.props.onChange({
-	            values: checked });
-	        this.props.trackInteraction();
-	    },
-
-	    getUserInput: function () {
-	        // Return checked inputs in the form {values: [bool]}. (Dear future
-	        // timeline implementers: this used to be {value: i} before multiple
-	        // select was added)
-	        if (this.props.values) {
-	            var noneOfTheAboveIndex = null;
-	            var noneOfTheAboveSelected = false;
-
-	            var values = this.props.values.slice();
-
-	            for (var i = 0; i < this.props.values.length; i++) {
-	                var index = this.props.choices[i].originalIndex;
-	                values[index] = this.props.values[i];
-
-	                if (this.props.choices[i].isNoneOfTheAbove) {
-	                    noneOfTheAboveIndex = index;
-
-	                    if (values[i]) {
-	                        noneOfTheAboveSelected = true;
-	                    }
-	                }
-	            }
-
-	            return {
-	                values: values,
-	                noneOfTheAboveIndex: noneOfTheAboveIndex,
-	                noneOfTheAboveSelected: noneOfTheAboveSelected };
-	        } else {
-	            // Nothing checked
-	            return {
-	                values: _.map(this.props.choices, function () {
-	                    return false;
-	                }) };
-	        }
-	    },
-
-	    simpleValidate: function (rubric) {
-	        return Radio.validate(this.getUserInput(), rubric);
-	    },
-
-	    enforceOrdering: function (choices) {
-	        var content = _.pluck(choices, "content");
-	        if (_.isEqual(content, [i18n._("False"), i18n._("True")]) || _.isEqual(content, [i18n._("No"), i18n._("Yes")])) {
-	            return [choices[1]].concat([choices[0]]);
-	        }
-	        return choices;
-	    },
-
-	    render: function () {
-	        var _this = this;
-
-	        var choices = this.props.choices;
-	        var values = this.props.values || _.map(choices, function () {
-	            return false;
-	        });
-
-	        choices = _.map(choices, function (choice, i) {
-	            var content = choice.isNoneOfTheAbove && !choice.content ?
-	            // we use i18n._ instead of $_ here because the content
-	            // sent to a renderer needs to be a string, not a react
-	            // node (/renderable/fragment).
-	            i18n._("None of the above") : choice.content;
-	            return {
-	                content: _this._renderRenderer(content),
-	                checked: values[i],
-	                correct: _this.props.questionCompleted && values[i],
-	                clue: _this._renderRenderer(choice.clue),
-	                isNoneOfTheAbove: choice.isNoneOfTheAbove };
-	        });
-	        choices = this.enforceOrdering(choices);
-
-	        return React.createElement(BaseRadio, {
-	            ref: "baseRadio",
-	            labelWrap: true,
-	            onePerLine: this.props.onePerLine,
-	            multipleSelect: this.props.multipleSelect,
-	            choices: choices,
-	            onCheckedChange: this.onCheckedChange,
-	            reviewModeRubric: this.props.reviewModeRubric,
-	            deselectEnabled: this.props.deselectEnabled,
-	            apiOptions: this.props.apiOptions
-	        });
-	    } });
-
-	_.extend(Radio, {
-	    validate: function (state, rubric) {
-	        var numSelected = _.reduce(state.values, function (sum, selected) {
-	            return sum + (selected ? 1 : 0);
-	        }, 0);
-
-	        if (numSelected === 0) {
-	            return {
-	                type: "invalid",
-	                message: null };
-	            // If NOTA and some other answer are checked, ...
-	        } else if (state.noneOfTheAboveSelected && numSelected > 1) {
-	            return {
-	                type: "invalid",
-	                message: i18n._("'None of the above' may not be selected " + "when other answers are selected.") };
-	        } else {
-	            /* jshint -W018 */
-	            var correct = _.all(state.values, function (selected, i) {
-	                var isCorrect = undefined;
-	                if (state.noneOfTheAboveIndex === i) {
-	                    isCorrect = _.all(rubric.choices, function (choice, j) {
-	                        return i === j || !choice.correct;
-	                    });
-	                } else {
-	                    isCorrect = !!rubric.choices[i].correct;
-	                }
-	                return isCorrect === selected;
-	            });
-	            /* jshint +W018 */
-
-	            return {
-	                type: "points",
-	                earned: correct ? 1 : 0,
-	                total: 1,
-	                message: null };
-	        }
-	    } });
-
-	module.exports = Radio;
-
-/***/ },
-/* 167 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*
-	 * A class for formatting number to significant digits.
-	 * Copyright (C) 2001 Stephen Ostermiller
-	 * http://ostermiller.org/contact.pl?regarding?JavaScript+Significant+Figures
-	 *
-	 * This program is free software; you can redistribute it and/or modify
-	 * it under the terms of the GNU General Public License as published by
-	 * the Free Software Foundation; either version 2 of the License, or
-	 * (at your option) any later version.
-	 *
-	 * This program is distributed in the hope that it will be useful,
-	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
-	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	 * GNU General Public License for more details.
-	 */
-
-	/**
-	 * An object tho both scans floating points to
-	 * determine the number of significant figures.
-	 * and can display a floating point using any number
-	 * of significant figures.
-	 *
-	 * @param s A string representation of a floating point.
-	 */
-	function SignificantFigures(s) {
-	    this.order = parseOrder(s);
-	    this.mantissa = parseMantissa(s);
-	    this.positive = parseSign(s);
-
-	    /**
-	     * Get the number of significant figures this object uses.
-	     * Leading zeros are not significant.  Traling zeros up to
-	     * and after the decimal point are significant.
-	     * Significant figures is good to know when the number is
-	     * used in multiplication.
-	     *
-	     * @return the number of significant figures.
-	     */
-	    this.sigFigs = this.mantissa.length;
-
-	    /**
-	     * Get the least significant decimal this object uses.
-	     * This is useful to know if a number is being used
-	     * in addition.
-	     * 400 - 2 the hundreds place (10^2) is the least significant decimal.
-	     * 75 - 0 the ones place (10^0) is the least significant decimal.
-	     * .543 - -3 the 1/1000's place (10^-3) is the least significant decimal.
-	     *
-	     * @return an integer representing the least significant decimal place.
-	     */
-	    this.sigDecs = this.order - this.mantissa.length;
-	}
-
-	/**
-	 * Format a floating point for display using the specified
-	 * number of significant figures and least significant decimal.
-	 * Scientific notation may used by this method if this
-	 * object is very small, very large, has many significant
-	 * figures, or the number of significant figures would be
-	 * ambiguous in the output if scientific notation were not
-	 * used.
-	 *
-	 * @param f A floating point number that should be displayed
-	 * @param sigFigs desired number of significant figures (integer).
-	 * @param sigDecs the least significant decimal place (integer).
-	 * @param scientific true iff scientific notation should always be used.
-	 * @return a string of this object formatted correctly.
-	 */
-	function displaySigFigs(f, sigFigs, sigDecs, scientific) {
-	    var s = "" + f;
-	    var order = parseOrder(s);
-	    var mantissa = parseMantissa(s);
-	    var positive = parseSign(s);
-	    var add;
-	    var decAdd;
-	    var sigAdd;
-	    var zeroScientific = false;
-	    if (f == 0 || mantissa == "" || mantissa == "0") {
-	        mantissa = "";
-	        for (i = 0; i < sigFigs; i++) {
-	            mantissa += "0";
-	        }
-	        order = sigFigs + sigDecs;
-	        if (sigDecs < 0 && -sigDecs >= sigFigs) {
-	            zeroScientific = true;
-	        }
-	    } else {
-	        decAdd = order - mantissa.length - sigDecs;
-	        sigAdd = sigFigs - mantissa.length;
-	        add = Math.min(sigAdd, decAdd);
-	        if (add < 0) {
-	            var rounded = round(mantissa, -add);
-	            if (rounded.length > mantissa.length + add) {
-	                order++;
-	                if (decAdd > sigAdd) {
-	                    rounded = round(rounded, 1);
-	                }
-	            }
-	            mantissa = rounded;
-	        } else if (add > 0) {
-	            for (i = 0; i < add; i++) {
-	                mantissa += "0";
-	            }
-	        }
-	        if (mantissa == "" || mantissa == "0") {
-	            mantissa = "0";
-	            positive = true;
-	            order = 1 + sigDecs;
-	            if (order != 0) {
-	                zeroScientific = true;
-	            }
-	        }
-	    }
-	    var useScientific = scientific || mantissa.length > 20 || order > 4 || order < -2 || order - mantissa.length > 0 && trailingZeros(mantissa) > 0 || zeroScientific;
-	    var returnVal = "";
-	    if (!positive) {
-	        returnVal += "-";
-	    }
-	    if (useScientific) {
-	        returnVal += mantissa.charAt(0);
-	        if (mantissa.length > 1) {
-	            returnVal += "." + mantissa.substring(1, mantissa.length);
-	        }
-	        if (order - 1 != 0) {
-	            returnVal += " x 10^" + (order - 1);
-	        }
-	    } else {
-	        var wholePart = "";
-	        var fractPart = "";
-	        var needDot = true;
-	        if (order > 0) {
-	            if (mantissa.length > order) {
-	                wholePart = mantissa.substring(0, order);
-	                fractPart = mantissa.substring(order, mantissa.length);
-	            } else {
-	                wholePart = mantissa;
-	                needDot = trailingZeros(mantissa) != 0;
-	                for (var i = 0; i < order - mantissa.length; i++) {
-	                    wholePart += "0";
-	                }
-	            }
-	        } else {
-	            for (i = 0; i < -order; i++) {
-	                fractPart += "0";
-	            }
-	            fractPart += mantissa;
-	        }
-	        returnVal += (wholePart == "" ? "0" : wholePart) + (needDot ? "." : "") + fractPart;
-	    }
-	    return returnVal;
-	}
-
-	/**
-	 * Count the significant trailing zeros on this object.
-	 *
-	 * @return the number of trailing zeros
-	 */
-	function trailingZeros(mantissa) {
-	    var zeros = 0;
-	    for (var i = mantissa.length - 1; i >= 0; i--) {
-	        var c = mantissa.charAt(i);
-	        if (c == "0") {
-	            zeros++;
-	        } else {
-	            return zeros;
-	        }
-	    }
-	    return zeros;
-	}
-
-	/**
-	 * Parse a string representation of a floating point
-	 * and pull out the sign.
-	 *
-	 * @param s the string representation of a floating point.
-	 * @return true iff this is a positive number
-	 */
-	function parseSign(s) {
-	    var beginning = true;
-	    var seenDot = false;
-	    var seenSomething = false;
-	    var zeros = "";
-	    var leadZeros = "";
-	    var all = "";
-	    var decPlaces = 0;
-	    var totalDecs = 0;
-	    var pos = true;
-	    for (var i = 0; i < s.length; i++) {
-	        var c = s.charAt(i);
-	        if (c >= "1" && c <= "9") {
-	            all += zeros + c;
-	            zeros = "";
-	            seenSomething = true;
-	            if (!seenDot) {
-	                totalDecs++;
-	                decPlaces++;
-	            }
-	            beginning = false;
-	        } else if (c == "0") {
-	            if (seenDot) {
-	                if (seenSomething) {
-	                    all += zeros + c;
-	                    zeros = "";
-	                } else {
-	                    leadZeros += c;
-	                    decPlaces--;
-	                }
-	            } else {
-	                totalDecs++;
-	                if (seenSomething) {
-	                    leadZeros += c;
-	                    decPlaces++;
-	                    zeros += c;
-	                } else {
-	                    leadZeros += c;
-	                }
-	            }
-	            beginning = false;
-	        } else if (!seenDot && c == ".") {
-	            all += zeros;
-	            zeros = "";
-	            seenDot = true;
-	            beginning = false;
-	        } else if (c == "e" || c == "E" && i + 1 < s.length) {
-	            var raised = parseInt(s.substring(i + 1, s.length));
-	            decPlaces += raised;
-	            totalDecs += raised;
-	            i = s.length;
-	        } else if (beginning && (c == "+" || c == "-")) {
-	            if (c == "-") {
-	                pos = !pos;
-	            }
-	        }
-	    }
-	    if (all == "") {
-	        return true;
-	    } else {
-	        return pos;
-	    }
-	}
-
-	/**
-	 * Parse a string representation of a floating point
-	 * and pull out the mantissa.
-	 *
-	 * @param s the string representation of a floating point.
-	 * @return the mantissa of this number.
-	 */
-	function parseMantissa(s) {
-	    var beginning = true;
-	    var seenDot = false;
-	    var seenSomething = false;
-	    var zeros = "";
-	    var leadZeros = "";
-	    var all = "";
-	    var decPlaces = 0;
-	    var totalDecs = 0;
-	    var pos = true;
-	    for (var i = 0; i < s.length; i++) {
-	        var c = s.charAt(i);
-	        if (c >= "1" && c <= "9") {
-	            all += zeros + c;
-	            zeros = "";
-	            seenSomething = true;
-	            if (!seenDot) {
-	                totalDecs++;
-	                decPlaces++;
-	            }
-	            beginning = false;
-	        } else if (c == "0") {
-	            if (seenDot) {
-	                if (seenSomething) {
-	                    all += zeros + c;
-	                    zeros = "";
-	                } else {
-	                    leadZeros += c;
-	                    decPlaces--;
-	                }
-	            } else {
-	                totalDecs++;
-	                if (seenSomething) {
-	                    leadZeros += c;
-	                    decPlaces++;
-	                    zeros += c;
-	                } else {
-	                    leadZeros += c;
-	                }
-	            }
-	            beginning = false;
-	        } else if (!seenDot && c == ".") {
-	            all += zeros;
-	            zeros = "";
-	            seenDot = true;
-	            beginning = false;
-	        } else if (c == "e" || c == "E" && i + 1 < s.length) {
-	            var raised = parseInt(s.substring(i + 1, s.length));
-	            decPlaces += raised;
-	            totalDecs += raised;
-	            i = s.length;
-	        } else if (beginning && (c == "+" || c == "-")) {
-	            if (c == "-") {
-	                pos = !pos;
-	            }
-	        }
-	    }
-	    if (all == "") {
-	        return leadZeros;
-	    } else {
-	        return all;
-	    }
-	}
-
-	/**
-	 * Parse a string representation of a floating point
-	 * and pull out the exponent.
-	 *
-	 * @param s the string representation of a floating point.
-	 * @return (integer) the number after the e.
-	 */
-	function parseOrder(s) {
-	    var beginning = true;
-	    var seenDot = false;
-	    var seenSomething = false;
-	    var zeros = "";
-	    var leadZeros = "";
-	    var all = "";
-	    var decPlaces = 0;
-	    var totalDecs = 0;
-	    var pos = true;
-	    for (var i = 0; i < s.length; i++) {
-	        var c = s.charAt(i);
-	        if (c >= "1" && c <= "9") {
-	            all += zeros + c;
-	            zeros = "";
-	            seenSomething = true;
-	            if (!seenDot) {
-	                totalDecs++;
-	                decPlaces++;
-	            }
-	            beginning = false;
-	        } else if (c == "0") {
-	            if (seenDot) {
-	                if (seenSomething) {
-	                    all += zeros + c;
-	                    zeros = "";
-	                } else {
-	                    leadZeros += c;
-	                    decPlaces--;
-	                }
-	            } else {
-	                totalDecs++;
-	                if (seenSomething) {
-	                    leadZeros += c;
-	                    decPlaces++;
-	                    zeros += c;
-	                } else {
-	                    leadZeros += c;
-	                }
-	            }
-	            beginning = false;
-	        } else if (!seenDot && c == ".") {
-	            all += zeros;
-	            zeros = "";
-	            seenDot = true;
-	            beginning = false;
-	        } else if (c == "e" || c == "E" && i + 1 < s.length) {
-	            var raised = parseInt(s.substring(i + 1, s.length));
-	            decPlaces += raised;
-	            totalDecs += raised;
-	            i = s.length;
-	        } else if (beginning && (c == "+" || c == "-")) {
-	            if (c == "-") {
-	                pos = !pos;
-	            }
-	        }
-	    }
-	    if (all == "") {
-	        return totalDecs;
-	    } else {
-	        return decPlaces;
-	    }
-	}
-
-	/**
-	 * Remove the specified number of digits from string by
-	 * rounding.  Proper rounding rules for scientific purposes
-	 * are followed.
-	 * This method may cause an extra significant figure
-	 * to be added to the number.  For example, if 999999
-	 * were rounded, A one would carry over and become
-	 * a significant figure.  Those who call this method
-	 * should check for this and call round again if needed.
-	 *
-	 * @param mantissa A string representing an whole number of arbitrary length.
-	 * @param digits A number of digits to remove
-	 * @return A string represted the rounded version of mantissa
-	 */
-	function round(mantissa, digits) {
-	    var last = mantissa.length - digits - 1;
-	    if (last < 0) {
-	        return "";
-	    } else if (last >= mantissa.length - 1) {
-	        return mantissa;
-	    } else {
-	        var nextToLast = mantissa.charAt(last + 1);
-	        var lastChar = mantissa.charAt(last);
-	        var roundUp = false;
-	        if (nextToLast > "5") {
-	            roundUp = true;
-	        } else if (nextToLast == "5") {
-	            for (var j = last + 2; j < mantissa.length; j++) {
-	                if (mantissa.charAt(j) != "0") {
-	                    roundUp = true;
-	                }
-	            }
-	            if (lastChar % 2 == 1) {
-	                roundUp = true;
-	            }
-	        }
-	        var result = "";
-	        for (var i = last; i >= 0; i--) {
-	            var c = mantissa.charAt(i);
-	            if (roundUp) {
-	                var nextChar;
-	                if (c == "9") {
-	                    nextChar = "0";
-	                } else {
-	                    switch (c) {
-	                        case "0":
-	                            nextChar = "1";break;
-	                        case "1":
-	                            nextChar = "2";break;
-	                        case "2":
-	                            nextChar = "3";break;
-	                        case "3":
-	                            nextChar = "4";break;
-	                        case "4":
-	                            nextChar = "5";break;
-	                        case "5":
-	                            nextChar = "6";break;
-	                        case "6":
-	                            nextChar = "7";break;
-	                        case "7":
-	                            nextChar = "8";break;
-	                        case "8":
-	                            nextChar = "9";break;
-	                    }
-	                    roundUp = false;
-	                }
-	                result = nextChar + result;
-	            } else {
-	                result = c + result;
-	            }
-	        }
-	        if (roundUp) {
-	            result = "1" + result;
-	        }
-	        return result;
-	    }
-	}
-
-	module.exports = {
-	    SignificantFigures: SignificantFigures,
-	    displaySigFigs: displaySigFigs };
-
-/***/ },
-/* 168 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* global i18n, $_ */
-
-	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(24);
-	var _ = __webpack_require__(16);
-
-	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var Renderer = __webpack_require__(23);
-
-	var captureScratchpadTouchStart = __webpack_require__(6).captureScratchpadTouchStart;
-
-	var classNames = __webpack_require__(41);
-
-	var Choice = __webpack_require__(188);
-
-	var ChoiceNoneAbove = React.createClass({
-	    displayName: "ChoiceNoneAbove",
-
-	    propTypes: {
-	        className: React.PropTypes.string,
-	        content: React.PropTypes.node,
-	        showContent: React.PropTypes.bool },
-
-	    getDefaultProps: function () {
-	        return {
-	            showContent: true };
-	    },
-
-	    render: function () {
-	        var choiceProps = _.extend({}, this.props, {
-	            className: classNames(this.props.className, "none-of-above"),
-	            content: this.props.showContent ? this.props.content :
-	            // We use a Renderer here because that is how
-	            // `this.props.content` is wrapped otherwise.
-	            // We pass in a key here so that we avoid a semi-spurious
-	            // react warning when we render this in the same place
-	            // as the previous choice content renderer.
-	            // Note this destroys state, but since all we're doing
-	            // is outputting "None of the above", that is okay.
-	            React.createElement(Renderer, {
-	                key: "noneOfTheAboveRenderer",
-	                content: i18n._("None of the above")
-	            }) });
-
-	        return React.createElement(Choice, choiceProps);
-	    } });
-
-	var ChoicesType = React.PropTypes.arrayOf(React.PropTypes.shape({
-	    checked: React.PropTypes.bool,
-	    content: React.PropTypes.node,
-	    clue: React.PropTypes.node,
-	    correct: React.PropTypes.bool,
-	    originalIndex: React.PropTypes.number,
-	    isNoneOfTheAbove: React.PropTypes.bool }));
-
-	var BaseRadio = React.createClass({
-	    displayName: "BaseRadio",
-
-	    propTypes: {
-	        apiOptions: React.PropTypes.shape({
-	            readOnly: React.PropTypes.bool,
-	            responsiveStyling: React.PropTypes.bool }),
-	        choices: ChoicesType,
-	        deselectEnabled: React.PropTypes.bool,
-	        labelWrap: React.PropTypes.bool,
-	        multipleSelect: React.PropTypes.bool,
-	        onCheckedChange: React.PropTypes.func,
-	        onePerLine: React.PropTypes.bool,
-	        reviewModeRubric: React.PropTypes.shape({
-	            choices: ChoicesType }) },
-
-	    getDefaultProps: function () {
-	        return {
-	            onePerLine: true };
-	    },
-
-	    checkOption: function (radioIndex, shouldBeChecked) {
-	        var newChecked = undefined;
-	        if (this.props.multipleSelect) {
-	            // When multipleSelect is on, clicking an index toggles the
-	            // selection of just that index.
-	            newChecked = _.map(this.props.choices, function (choice, i) {
-	                return i === radioIndex ? shouldBeChecked : choice.checked;
-	            });
-	        } else {
-	            // When multipleSelect is turned off we always unselect everything
-	            // that wasn't clicked.
-	            newChecked = _.map(this.props.choices, function (choice, i) {
-	                return i === radioIndex && shouldBeChecked;
-	            });
-	        }
-
-	        // We send just the array of [true/false] checked values here;
-	        // onCheckedChange reconstructs the new choices to send to
-	        // this.props.onChange
-	        this.props.onCheckedChange(newChecked);
-	    },
-
-	    focus: function (i) {
-	        ReactDOM.findDOMNode(this.refs["radio" + (i || 0)]).focus();
-	        return true;
-	    },
-
-	    render: function () {
-	        // TODO(aria): Stop this from mutating the id every time someone
-	        // clicks on a radio :(
-	        var radioGroupName = _.uniqueId("perseus_radio_");
-	        var inputType = this.props.multipleSelect ? "checkbox" : "radio";
-	        var rubric = this.props.reviewModeRubric;
-
-	        return React.createElement(
-	            "fieldset",
-	            { className: "perseus-widget-radio-fieldset" },
-	            React.createElement(
-	                "legend",
-	                { className: "perseus-sr-only" },
-	                this.props.multipleSelect ? $_(null, "Select all that apply.") : $_(null, "Please choose from one of the following options.")
-	            ),
-	            React.createElement(
-	                "ul",
-	                { className: "perseus-widget-radio " + "above-scratchpad blank-background" + (this.props.apiOptions.responsiveStyling ? " perseus-widget-radio-responsive" : "")
-	                },
-	                this.props.multipleSelect && React.createElement(
-	                    "div",
-	                    { className: "instructions" },
-	                    $_(null, "Select all that apply.")
-	                ),
-	                this.props.choices.map(function (choice, i) {
-	                    var _this = this;
-
-	                    var reviewModeClues = !!(rubric && rubric.choices[i].clue);
-
-	                    var Element = Choice;
-	                    var elementProps = {
-	                        ref: "radio" + i,
-	                        apiOptions: this.props.apiOptions,
-	                        checked: choice.checked,
-	                        correct: rubric && rubric.choices[i].correct,
-	                        clue: choice.clue,
-	                        content: choice.content,
-	                        disabled: this.props.apiOptions.readOnly,
-	                        groupName: radioGroupName,
-	                        showClue: reviewModeClues,
-	                        type: inputType,
-	                        pos: i,
-	                        deselectEnabled: this.props.deselectEnabled,
-	                        onChecked: function (checked) {
-	                            _this.checkOption(i, checked);
-	                        } };
-
-	                    if (choice.isNoneOfTheAbove) {
-	                        Element = ChoiceNoneAbove;
-	                        _.extend(elementProps, { showContent: choice.correct });
-	                    }
-
-	                    var className = classNames(ApiClassNames.RADIO.OPTION, choice.checked && ApiClassNames.RADIO.SELECTED, !this.props.onePerLine && "inline", rubric && rubric.choices[i].correct && ApiClassNames.CORRECT, rubric && !rubric.choices[i].correct && ApiClassNames.INCORRECT);
-
-	                    return React.createElement(
-	                        "li",
-	                        { className: className, key: i,
-	                            onTouchStart: !this.props.labelWrap ? null : captureScratchpadTouchStart
-	                        },
-	                        React.createElement(Element, elementProps)
-	                    );
-	                }, this)
-	            )
-	        );
-	    } });
-
-	module.exports = BaseRadio;
-
-	// True if we're in review mode and a clue (aka rationale)
-	// is available. These are only used for SAT questions,
-	// though there was historically an inconclusive AB test
-	// that showed clues for other exercises.
-	// (See content/targeted_clues_exercises.py for more)
-	// TODO(marcia): Aria recommends bringing this logic up a
-	// level, as with this.props.questionCompleted.
-
-	// TODO(aria): Make test case for these API classNames
-	// TODO(mattdr): Index isn't a *good* choice of key here;
-	// is there a better one? Can we use choice content
-	// somehow? Would changing our choice of key somehow break
-	// any voodoo happening inside a choice's child Renderers
-	// by changing when we mount/unmount?
-
-/***/ },
-/* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/* @flow */
@@ -41990,7 +37978,5043 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
+/* 151 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/**
+	 * Changeable
+	 *
+	 * Adds a this.change() function to a component
+	 *
+	 * This.change takes prop changes as parameters, and calls
+	 * this.props.onChange with the modified props.
+	 */
+
+	var React = __webpack_require__(15);
+	var _ = __webpack_require__(16);
+
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(36);
+
+	var USAGE = "Usage:\n" + "  this.change({propName: 5}, callback);\n" + "  this.change(\"propName\", 5, callback);\n" + "  this.change(\"propName\")";
+
+	/**
+	 * Primary helper function for this.change()
+	 *
+	 * Takes the parameters in a consistent style, once this.change() has
+	 * figured out which way it was called.
+	 */
+	var _changeMultiple = function (component, newProps, callback) {
+	    // Omit "default" props:
+	    // ref and key come from react, and don't actually represent
+	    //   the conceptual state of our component
+	    // onChange comes from our parent to allow this modification,
+	    //   and doesn't conceptually represent the state of our component
+	    var currProps = _.omit(component.props, WIDGET_PROP_BLACKLIST);
+	    var nextProps = _.extend(currProps, newProps);
+	    component.props.onChange(nextProps, callback);
+	};
+
+	/**
+	 * Helper function for changing a single prop
+	 */
+	var _changeSingle = function (component, propName, value, callback) {
+	    if (value === undefined) {
+	        // If called with a single prop name, return a lambda to change
+	        // a single prop on the current object
+	        return _.partial(_changeSingle, component, propName);
+	    } else {
+	        // If called with two values, change a single prop of the
+	        // current object
+	        var newProps = {};
+	        newProps[propName] = value;
+	        _changeMultiple(component, newProps, callback);
+	    }
+	};
+
+	/**
+	 * this.change()
+	 *
+	 * Can be called as follows:
+	 * this.change(newProps, callback);
+	 *
+	 * this.change(propName, propValue, callback);
+	 *
+	 * this.change(propName) -> returns a lambda that takes a prop value to
+	 * set and a callback to call after having set that value.
+	 */
+	var change = function (newPropsOrSinglePropName, propValue, callback) {
+
+	    if (_.isObject(newPropsOrSinglePropName) && callback === undefined) {
+	        // Called with an object of multiple props to change
+	        callback = propValue;
+	        return _changeMultiple(this, newPropsOrSinglePropName, // object newProps
+	        callback);
+	    } else if (_.isString(newPropsOrSinglePropName)) {
+	        // Called with a string propName of a single prop to change
+	        return _changeSingle(this, newPropsOrSinglePropName, // string propName
+	        propValue, callback);
+	    } else {
+	        throw new Error("Invalid types sent to this.change(): " + _.toArray(arguments).join() + "\n" + USAGE);
+	    }
+	};
+
+	var Changeable = {
+	    propTypes: {
+	        onChange: React.PropTypes.func.isRequired
+	    },
+	    change: change
+	};
+
+	module.exports = Changeable;
+
+/***/ },
+/* 152 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-undef, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/* Free implementation of getUserInput. This should be used sparingly, since it
+	 * just returns all the widget's props rather than picking out those which were
+	 * input by the user.
+	 */
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(36);
+
+	var WidgetJsonifyDeprecated = {
+	    getUserInput: function () {
+	        // Omit props that get passed to all widgets
+	        return _.omit(this.props, WIDGET_PROP_BLACKLIST);
+	    }
+	};
+
+	module.exports = WidgetJsonifyDeprecated;
+
+/***/ },
+/* 153 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var _ = __webpack_require__(16);
+
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(36);
+
+	var EditorJsonify = {
+	    serialize: function () {
+	        // Omit props that get passed to all widgets
+	        return _.omit(this.props, WIDGET_PROP_BLACKLIST);
+	    }
+	};
+
+	module.exports = EditorJsonify;
+
+/***/ },
+/* 154 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(15);
+
+	/* You know when you want to propagate input to a parent...
+	 * but then that parent does something with the input...
+	 * then changing the props of the input...
+	 * on every keystroke...
+	 * so if some input is invalid or incomplete...
+	 * the input gets reset or otherwise effed...
+	 *
+	 * This is the solution.
+	 *
+	 * Enough melodrama. Its an input that only sends changes
+	 * to its parent on blur.
+	 */
+	var BlurInput = React.createClass({
+	    displayName: "BlurInput",
+
+	    propTypes: {
+	        value: React.PropTypes.string.isRequired,
+	        onChange: React.PropTypes.func.isRequired
+	    },
+	    getInitialState: function () {
+	        return { value: this.props.value };
+	    },
+	    render: function () {
+	        return React.createElement("input", _extends({}, this.props, {
+	            type: "text",
+	            value: this.state.value,
+	            onChange: this.handleChange,
+	            onBlur: this.handleBlur }));
+	    },
+	    componentWillReceiveProps: function (nextProps) {
+	        this.setState({ value: nextProps.value });
+	    },
+	    handleChange: function (e) {
+	        this.setState({ value: e.target.value });
+	    },
+	    handleBlur: function (e) {
+	        this.props.onChange(e.target.value);
+	    }
+	});
+
+	module.exports = BlurInput;
+
+/***/ },
+/* 155 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, indent, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/**
+	 * A <select> component rendered with classes instead of natively,
+	 * so that the classes may be styled/animated/magics
+	 *
+	 * Usage:
+	 * <FancySelect value={1}>
+	 *     <FancySelect.Option value={0}>text0</FancySelect.Option>
+	 *     <FancySelect.Option value={1}>text1</FancySelect.Option>
+	 *     <FancySelect.Option value={2}>text2</FancySelect.Option>
+	 * </FancySelect>
+	 *
+	 * Here be dragons.
+	 */
+
+	var classNames = __webpack_require__(42);
+	var React = __webpack_require__(15);
+	var ReactDOM = __webpack_require__(17);
+
+	var DROPDOWN_OFFSET = 76;
+	var ITEM_HEIGHT = 48;
+
+	var FancyOption = React.createClass({
+	    displayName: "FancyOption",
+
+	    render: function () {
+	        throw new Error("FancyOption shouldn't ever be actually rendered");
+	    }
+	});
+
+	var FancySelect = React.createClass({
+	    displayName: "FancySelect",
+
+	    propTypes: {
+	        value: React.PropTypes.any.isRequired,
+	        className: React.PropTypes.string,
+	        onChange: React.PropTypes.func
+	    },
+
+	    getDefaultProps: function () {
+	        return {
+	            onChange: function () {}
+	        };
+	    },
+
+	    getInitialState: function () {
+	        return {
+	            active: false,
+	            // Keep track of whether we've closed this select
+	            // from open so that we can only run CSS animations
+	            // when closing/opening, and not on page load
+	            // If we just use active, we get a closing animation
+	            // when the element loads :(.
+	            closed: false,
+	            // Used to namespace $(document) event handlers
+	            selectorNamespace: _.uniqueId("fancy"),
+	            nodeOffset: 0 };
+	    },
+
+	    render: function () {
+	        var _this = this;
+
+	        // Some css-box magic:
+	        // We render all of the options on top of each other in a hidden,
+	        // floated span. This span then forces the <FancySelect>'s
+	        // width to be large enough to fit the largest option when
+	        // selected, so that the page doesn't have to re-flow when changing
+	        // select items.
+	        var optionSizer = React.createElement(
+	            "span",
+	            { style: {
+	                    display: "inline-block",
+	                    float: "left",
+	                    visibility: "hidden",
+	                    height: 0
+	                } },
+	            React.Children.map(this.props.children, function (option) {
+	                return React.createElement(
+	                    "div",
+	                    { className: "fancy-select-value-hidden",
+	                        style: { height: 0 } },
+	                    option.props.children
+	                );
+	            })
+	        );
+
+	        var childCount = 0;
+	        var selectedOption;
+	        React.Children.forEach(this.props.children, function (option) {
+	            childCount++;
+	            if (option.props.value === _this.props.value) {
+	                selectedOption = option;
+	            }
+	        });
+
+	        var selectBoxClassName = classNames({
+	            "fancy-select": true,
+	            active: this.state.active,
+	            closed: this.state.closed
+	        });
+
+	        var selectBox = React.createElement(
+	            "div",
+	            { className: selectBoxClassName,
+	                onClick: this._swapActive },
+	            optionSizer,
+	            React.createElement(
+	                "span",
+	                {
+	                    className: "fancy-select-value",
+	                    style: { position: "absolute" } },
+	                selectedOption.props.children
+	            )
+	        );
+
+	        var options = React.Children.map(this.props.children, function (option, i) {
+	            // options can specify visible={true|false|null/undefined} to
+	            // control whether they are displayed always, never, or when
+	            // active (the default). `true` is useful if you want to manage
+	            // visibility manually via css.
+	            var visible = option.props.visible != null ? option.props.visible : _this.state.active;
+	            if (!visible) {
+	                return null;
+	            }
+
+	            var className = classNames({
+	                "fancy-option": true,
+	                active: _this.state.active,
+	                closed: _this.state.closed,
+	                selected: option.props.value === _this.props.value
+	            });
+	            if (option.props.className) {
+	                className += " " + option.props.className;
+	            }
+
+	            var translate;
+	            var transition;
+	            if (_this.state.active) {
+	                var offset = DROPDOWN_OFFSET * i + _this.state.nodeOffset;
+	                translate = "translate3d(0, " + offset + "px, 0)";
+	                transition = "0.35s ease-in";
+	            } else {
+	                translate = "translate3d(0, 0, 0)";
+	                transition = "0.35s ease-out";
+	            }
+	            var style = _.extend({}, option.props.style, {
+	                WebkitTransform: translate,
+	                transform: translate,
+	                WebkitTransition: transition,
+	                transition: transition
+	            });
+
+	            return React.createElement(
+	                "li",
+	                {
+	                    className: className,
+	                    style: style,
+	                    onClick: function () {
+	                        _this._unbindClickHandler();
+	                        _this.props.onChange(option.props.value, option);
+	                        _this.setState({
+	                            active: false,
+	                            closed: true
+	                        });
+	                    } },
+	                option.props.children
+	            );
+	        });
+
+	        var optionsBoxClassName = classNames({
+	            "fancy-select-options": true,
+	            active: this.state.active,
+	            closed: this.state.closed
+	        });
+
+	        var height = DROPDOWN_OFFSET * childCount;
+	        var clipOffset = this.state.active ? this.state.nodeOffset : 0;
+	        var style = {
+	            clip: "rect(" + clipOffset + "px, auto, " + height + "px, 0)",
+	            WebkitTransition: ".35s ease-in" };
+
+	        return React.createElement(
+	            "div",
+	            { className: this.props.className },
+	            selectBox,
+	            React.createElement(
+	                "div",
+	                { className: "fancy-select-options-wrapper" },
+	                React.createElement(
+	                    "ul",
+	                    { className: optionsBoxClassName, style: style },
+	                    options
+	                )
+	            )
+	        );
+	    },
+
+	    _swapActive: function () {
+	        var active = !this.state.active;
+	        var closed = !active;
+	        var nodeOffset = 0;
+
+	        // Prepare to detect clicks outside of the dropdown
+	        if (active) {
+	            this._bindClickHandler();
+	        } else {
+	            this._unbindClickHandler();
+	        }
+
+	        // We only need to know the position on screen if it's opening
+	        // TODO(jared): it could be useful to recalculate this when the device
+	        // is rotated. Maybe "onorientationchange"? Not sure if that is fired
+	        // in a webview though.
+	        if (active) {
+	            var nodeBox = ReactDOM.findDOMNode(this).getBoundingClientRect();
+	            var distToBottom = window.innerHeight - nodeBox.bottom;
+	            // One of the children is the placeholder
+	            var numOptions = React.Children.count(this.props.children) - 1;
+	            var overflow = numOptions * ITEM_HEIGHT - distToBottom;
+	            if (overflow > 0) {
+	                nodeOffset = -overflow;
+	            }
+	        }
+
+	        this.setState({
+	            active: active,
+	            closed: closed,
+	            nodeOffset: nodeOffset });
+	    },
+
+	    _bindClickHandler: function () {
+	        var _this2 = this;
+
+	        // Close the dropdown when the user clicks elsewhere
+	        $(document).on("vclick." + this.state.selectorNamespace, function (e) {
+	            // Detect whether the target has our React DOM node as a parent
+	            var $this = $(ReactDOM.findDOMNode(_this2));
+	            var $closestWidget = $(e.target).closest($this);
+	            if (!$closestWidget.length) {
+	                _this2._swapActive();
+	            }
+	        });
+	    },
+
+	    _unbindClickHandler: function () {
+	        $(document).off("." + this.state.selectorNamespace);
+	    },
+
+	    componentWillUnmount: function () {
+	        this._unbindClickHandler();
+	    } });
+
+	FancySelect.Option = FancyOption;
+
+	module.exports = FancySelect;
+	/* position this absolutely so it goes on top
+	   of the optionSizer, not next to it */
+
+/***/ },
+/* 156 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(15);
+
+	var ReactDOM = __webpack_require__(17);
+
+	var TextInput = React.createClass({
+	    displayName: "TextInput",
+
+	    propTypes: {
+	        value: React.PropTypes.string,
+	        onChange: React.PropTypes.func.isRequired,
+	        className: React.PropTypes.string,
+	        labelText: React.PropTypes.string,
+	        onFocus: React.PropTypes.func,
+	        onBlur: React.PropTypes.func,
+	        disabled: React.PropTypes.bool },
+
+	    getDefaultProps: function () {
+	        return {
+	            value: "",
+	            disabled: false };
+	    },
+
+	    render: function () {
+	        var _this = this;
+
+	        return React.createElement("input", _extends({}, this.props, {
+	            type: "text",
+	            disabled: this.props.disabled,
+	            "aria-label": this.props.labelText,
+	            onChange: function (e) {
+	                return _this.props.onChange(e.target.value);
+	            } }));
+	    },
+
+	    focus: function () {
+	        ReactDOM.findDOMNode(this).focus();
+	    },
+
+	    blur: function () {
+	        ReactDOM.findDOMNode(this).blur();
+	    },
+
+	    getValue: function () {
+	        return ReactDOM.findDOMNode(this).value;
+	    },
+
+	    getStringValue: function () {
+	        return ReactDOM.findDOMNode(this).value.toString();
+	    },
+
+	    setSelectionRange: function (selectionStart, selectionEnd) {
+	        ReactDOM.findDOMNode(this).setSelectionRange(selectionStart, selectionEnd);
+	    },
+
+	    getSelectionStart: function () {
+	        return ReactDOM.findDOMNode(this).selectionStart;
+	    },
+
+	    getSelectionEnd: function () {
+	        return ReactDOM.findDOMNode(this).selectionEnd;
+	    }
+
+	});
+
+	module.exports = TextInput;
+
+/***/ },
+/* 157 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, indent, no-var, one-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(15);
+	var ReactDOM = __webpack_require__(17);
+	var _ = __webpack_require__(16);
+
+	// TODO(joel/jack) fix z-index issues https://s3.amazonaws.com/uploads.hipchat.com/6574/29028/yOApjwmgiMhEZYJ/Screen%20Shot%202014-05-30%20at%203.34.18%20PM.png
+	// z-index: 3 on perseus-formats-tooltip seemed to work
+
+	/**
+	 * A generic tooltip library for React.js
+	 *
+	 * This should eventually end up in react-components
+	 *
+	 * Interface: ({a, b} means one of a or b)
+	 * var Tooltip = require("./tooltip.jsx");
+	 * <Tooltip
+	 *         className="class-for-tooltip-contents"
+	 *         horizontalPosition="left" // one of "left", "right"
+	 *         horizontalAlign="left" // one of "left", "right"
+	 *         verticalPosition="bottom" // one of "top", "bottom"
+	 *         arrowSize={10} // arrow size in pixels
+	 *         borderColor="#ccc" // color of the border for the tooltip
+	 *         show={true} // whether the tooltip should currently be visible
+	 *         >
+	 *     <TargetElementOfTheTooltip />
+	 *     <TooltipContents1 />
+	 *     <TooltipContents2 />
+	 * </Tooltip>
+	 *
+	 * To show/hide the tooltip, the parent component should call the
+	 * .show() and .hide() methods of the tooltip when appropriate.
+	 * (These are usually set up as handlers of events on the target element.)
+	 *
+	 * Notes:
+	 *     className should not specify a border; that is handled by borderColor
+	 *     so that the arrow and tooltip match
+	 */
+
+	//          __,,--``\\
+	//  _,,-''``         \\     ,
+	// '----------_.------'-.___|\__
+	//    _.--''``    `)__   )__   @\__
+	//   (  .. ''---/___,,E/__,E'------`
+	//    `-''`''
+	// Here be dragons.
+
+	var zIndex = 10;
+
+	var Triangle = React.createClass({
+	    displayName: "Triangle",
+
+	    propTypes: {
+	        color: React.PropTypes.string.isRequired,
+	        left: React.PropTypes.number.isRequired,
+	        "top": React.PropTypes.number.isRequired,
+	        width: React.PropTypes.number.isRequired,
+	        height: React.PropTypes.number.isRequired,
+	        horizontalDirection: React.PropTypes.oneOf(["left", "right"]).isRequired,
+	        verticalDirection: React.PropTypes.oneOf(["top", "bottom"]).isRequired },
+
+	    render: function () {
+	        var borderLeft, borderRight, borderTop, borderBottom;
+
+	        var hBorder = "" + this.props.width + "px solid transparent";
+	        if (this.props.horizontalDirection === "right") {
+	            borderLeft = hBorder;
+	        } else {
+	            borderRight = hBorder;
+	        }
+
+	        var vBorder = "" + this.props.height + "px solid " + this.props.color;
+	        if (this.props.verticalDirection === "top") {
+	            borderTop = vBorder;
+	        } else {
+	            borderBottom = vBorder;
+	        }
+
+	        return React.createElement("div", { style: {
+	                display: "block",
+	                height: 0,
+	                width: 0,
+	                position: "absolute",
+	                left: this.props.left,
+	                "top": this.props["top"],
+	                borderLeft: borderLeft,
+	                borderRight: borderRight,
+	                borderTop: borderTop,
+	                borderBottom: borderBottom
+	            } });
+	    }
+	});
+
+	var TooltipArrow = React.createClass({
+	    displayName: "TooltipArrow",
+
+	    propTypes: {
+	        position: React.PropTypes.string,
+	        visibility: React.PropTypes.string,
+	        left: React.PropTypes.number,
+	        "top": React.PropTypes.number,
+	        color: React.PropTypes.string.isRequired, // a css color
+	        border: React.PropTypes.string.isRequired, // a css color
+	        width: React.PropTypes.number.isRequired,
+	        height: React.PropTypes.number.isRequired,
+	        horizontalDirection: React.PropTypes.oneOf(["left", "right"]).isRequired,
+	        verticalDirection: React.PropTypes.oneOf(["top", "bottom"]).isRequired
+	    },
+
+	    getDefaultProps: function () {
+	        return {
+	            position: "relative",
+	            visibility: "visible",
+	            left: 0,
+	            "top": 0
+	        };
+	    },
+
+	    // TODO(jack): Think about adding a box-shadow to the triangle here
+	    // See http://css-tricks.com/triangle-with-shadow/
+	    render: function () {
+	        //var isRight = (this.props.horizontalDirection === "right");
+	        var isTop = this.props.verticalDirection === "top";
+
+	        var frontTopOffset = isTop ? 0 : 1;
+	        var borderTopOffset = isTop ? 0 : -1;
+
+	        return React.createElement(
+	            "div",
+	            { style: {
+	                    display: "block",
+	                    position: this.props.position,
+	                    visibility: this.props.visibility,
+	                    left: this.props.left,
+	                    "top": this.props["top"],
+	                    width: this.props.width + 2,
+	                    height: this.props.height + 1,
+	                    marginTop: -1,
+	                    marginBottom: -2,
+	                    zIndex: zIndex
+	                } },
+	            React.createElement(Triangle, {
+	                horizontalDirection: this.props.horizontalDirection,
+	                verticalDirection: this.props.verticalDirection,
+	                color: this.props.border,
+	                left: 0,
+	                top: borderTopOffset,
+	                width: this.props.width + 2,
+	                height: this.props.height + 2 }),
+	            React.createElement(Triangle, {
+	                horizontalDirection: this.props.horizontalDirection,
+	                verticalDirection: this.props.verticalDirection,
+	                color: this.props.color,
+	                left: 1,
+	                top: frontTopOffset,
+	                width: this.props.width,
+	                height: this.props.height })
+	        );
+	    }
+	});
+
+	var VERTICAL_CORNERS = {
+	    "top": {
+	        "top": "-100%"
+	    },
+	    bottom: {
+	        "top": 0
+	    }
+	};
+
+	var HORIZONTAL_CORNERS = {
+	    left: {
+	        targetLeft: 0 },
+
+	    right: {
+	        targetLeft: "100%" }
+	};
+
+	var HORIZONTAL_ALIGNMNENTS = {
+	    left: {
+	        tooltipLeft: 0,
+	        arrowLeft: function (arrowSize) {
+	            return 0;
+	        }
+	    },
+	    right: {
+	        tooltipLeft: "-100%",
+	        arrowLeft: function (arrowSize) {
+	            return -arrowSize - 2;
+	        }
+	    }
+	};
+
+	var Tooltip = React.createClass({
+	    displayName: "Tooltip",
+
+	    propTypes: {
+	        show: React.PropTypes.bool.isRequired,
+	        className: React.PropTypes.string,
+	        arrowSize: React.PropTypes.number,
+	        borderColor: React.PropTypes.string,
+	        verticalPosition: React.PropTypes.oneOf(_.keys(VERTICAL_CORNERS)),
+	        horizontalPosition: React.PropTypes.oneOf(_.keys(HORIZONTAL_CORNERS)),
+	        horizontalAlign: React.PropTypes.oneOf(_.keys(HORIZONTAL_ALIGNMNENTS)),
+	        children: React.PropTypes.arrayOf(React.PropTypes.element).isRequired
+	    },
+
+	    getDefaultProps: function () {
+	        return {
+	            className: "",
+	            arrowSize: 10,
+	            borderColor: "#ccc",
+	            verticalPosition: "bottom",
+	            horizontalPosition: "left",
+	            horizontalAlign: "left"
+	        };
+	    },
+
+	    getInitialState: function () {
+	        return {
+	            height: null // used for offsetting "top" positioned tooltips
+	        };
+	    },
+
+	    componentWillReceiveProps: function () {
+	        // If the contents have changed, reset our measure of the height
+	        this.setState({ height: null });
+	    },
+
+	    render: function () {
+	        var isTooltipAbove = this.props.verticalPosition === "top";
+
+	        /* We wrap the entire output in a span so that it displays inline */
+	        return React.createElement(
+	            "span",
+	            null,
+	            isTooltipAbove && this._renderToolTipDiv(isTooltipAbove),
+	            React.createElement(
+	                "div",
+	                null,
+	                _.first(this.props.children)
+	            ),
+	            !isTooltipAbove && this._renderToolTipDiv()
+	        );
+	    },
+
+	    _renderToolTipDiv: function (isTooltipAbove) {
+	        var settings = _.extend({}, HORIZONTAL_CORNERS[this.props.horizontalPosition], HORIZONTAL_ALIGNMNENTS[this.props.horizontalAlign], VERTICAL_CORNERS[this.props.verticalPosition]);
+
+	        var arrowAbove;
+	        var arrowBelow;
+
+	        if (isTooltipAbove) {
+	            // We put an absolutely positioned arrow in the correct place
+	            arrowAbove = React.createElement(TooltipArrow, {
+	                verticalDirection: "top",
+	                horizontalDirection: this.props.horizontalAlign,
+	                position: "absolute",
+	                color: "white",
+	                border: this.props.borderColor,
+	                left: settings.arrowLeft(this.props.arrowSize),
+	                top: -this.props.arrowSize + 2,
+	                width: this.props.arrowSize,
+	                height: this.props.arrowSize,
+	                zIndex: zIndex });
+
+	            // And we use a visibility: hidden arrow below to shift up the
+	            // content by the correct amount
+	            arrowBelow = React.createElement(TooltipArrow, {
+	                verticalDirection: "top",
+	                horizontalDirection: this.props.horizontalAlign,
+	                visibility: "hidden",
+	                color: "white",
+	                border: this.props.borderColor,
+	                left: settings.arrowLeft(this.props.arrowSize),
+	                top: -1,
+	                width: this.props.arrowSize,
+	                height: this.props.arrowSize,
+	                zIndex: zIndex });
+	        } else {
+	            arrowAbove = React.createElement(TooltipArrow, {
+	                verticalDirection: "bottom",
+	                horizontalDirection: this.props.horizontalAlign,
+	                color: "white",
+	                border: this.props.borderColor,
+	                left: settings.arrowLeft(this.props.arrowSize),
+	                top: -1,
+	                width: this.props.arrowSize,
+	                height: this.props.arrowSize,
+	                zIndex: zIndex });
+
+	            arrowBelow = null;
+	        }
+
+	        /* A positioned div below the input to be the parent for our
+	            tooltip */
+	        return React.createElement(
+	            "div",
+	            { style: {
+	                    position: "relative",
+	                    height: 0,
+	                    display: this.props.show ? "block" : "none" } },
+	            React.createElement(
+	                "div",
+	                { ref: "tooltipContainer", className: "tooltipContainer", style: {
+	                        position: "absolute",
+	                        height: this.state.height || undefined,
+	                        left: settings.targetLeft
+	                    } },
+	                arrowAbove,
+	                React.createElement(
+	                    "div",
+	                    { className: this.props.className,
+	                        ref: "tooltipContent",
+	                        style: {
+	                            position: "relative",
+	                            top: settings["top"],
+	                            left: settings.tooltipLeft,
+	                            border: "1px solid " + this.props.borderColor,
+	                            WebkitBoxShadow: "0 1px 3px " + this.props.borderColor,
+	                            MozBoxShadow: "0 1px 3px " + this.props.borderColor,
+	                            boxShadow: "0 1px 3px " + this.props.borderColor,
+	                            zIndex: zIndex - 1
+	                        } },
+	                    _.rest(this.props.children)
+	                ),
+	                arrowBelow
+	            )
+	        );
+	    },
+
+	    componentDidMount: function () {
+	        this._updateHeight();
+	    },
+
+	    componentDidUpdate: function () {
+	        this._updateHeight();
+	    },
+
+	    _updateHeight: function () {
+	        var height = ReactDOM.findDOMNode(this.refs.tooltipContainer).offsetHeight;
+	        if (height !== this.state.height) {
+	            this.setState({ height: height });
+	        }
+	    }
+	});
+
+	// Sorry.  // Apology-Oriented-Programming
+	module.exports = Tooltip;
+	/* The background triangle used to create the effect of a
+	   border around the foreground triangle*/ // one extra for the diagonal
+	/* The foreground triangle covers all but the left/right edges
+	   of the background triangle */ /* We wrap our input in a div so that we can put the tooltip in a
+	                                    div above/below it */
+	// height must start out undefined, not null, so that
+	// we can measure the actual height with jquery.
+	// This is used to position the tooltip with top: -100%
+	// when in verticalPosition: "top" mode
+	/* The contents of the tooltip */
+
+/***/ },
+/* 158 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(15);
+	var Tooltip = __webpack_require__(157);
+	var _ = __webpack_require__(16);
+
+	var ApiClassNames = __webpack_require__(5).ClassNames;
+	var MathInput = __webpack_require__(159);
+	var Renderer = __webpack_require__(26);
+	var TextInput = __webpack_require__(156);
+	var MathOutput = __webpack_require__(171);
+
+	var captureScratchpadTouchStart = __webpack_require__(6).captureScratchpadTouchStart;
+
+	var MATH = "math";
+	var TEXT = "text";
+	var TEX = "tex";
+
+	var InputWithExamples = React.createClass({
+	    displayName: "InputWithExamples",
+
+	    propTypes: {
+	        type: React.PropTypes.oneOf([MATH, TEXT, TEX]),
+	        value: React.PropTypes.string,
+	        onChange: React.PropTypes.func.isRequired,
+	        className: React.PropTypes.string,
+	        examples: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+	        shouldShowExamples: React.PropTypes.bool,
+	        convertDotToTimes: React.PropTypes.bool,
+	        buttonSet: React.PropTypes.string,
+	        buttonsVisible: React.PropTypes.oneOf(["always", "never", "focused"]),
+	        labelText: React.PropTypes.string,
+	        onFocus: React.PropTypes.func,
+	        onBlur: React.PropTypes.func,
+	        disabled: React.PropTypes.bool,
+
+	        // A unique string identifying this InputWithExamples
+	        id: React.PropTypes.string.isRequired },
+
+	    getDefaultProps: function () {
+	        return {
+	            type: TEXT,
+	            shouldShowExamples: true,
+	            onFocus: function () {},
+	            onBlur: function () {},
+	            disabled: false };
+	    },
+
+	    getInitialState: function () {
+	        return {
+	            focused: false,
+	            showExamples: false };
+	    },
+
+	    _getUniqueId: function () {
+	        return "input-with-examples-" + btoa(this.props.id).replace(/=/g, "");
+	    },
+
+	    _getInputClassName: function () {
+	        // <MathOutput> is a special component that manages its own class and
+	        // state, as it's a <span> that wants to act like an <input>.
+	        if (this.props.type === TEX) {
+	            return this.props.className;
+	        }
+
+	        // Otherwise, we need to add these INPUT and FOCUSED tags here.
+	        var className = ApiClassNames.INPUT + " " + ApiClassNames.INTERACTIVE;
+	        if (this.state.focused) {
+	            className += " " + ApiClassNames.FOCUSED;
+	        }
+	        if (this.props.className) {
+	            className += " " + this.props.className;
+	        }
+	        return className;
+	    },
+
+	    _getPropsForInputType: function () {
+	        // Minimal set of props, used by each input type
+	        var inputProps = {
+	            "aria-describedby": this._getUniqueId(),
+	            ref: "input",
+	            className: this._getInputClassName(),
+	            labelText: this.props.labelText,
+	            value: this.props.value,
+	            onFocus: this._handleFocus,
+	            onBlur: this._handleBlur,
+	            disabled: this.props.disabled };
+
+	        if (this.props.type === TEX) {
+	            return inputProps;
+	        }
+
+	        // Add useful props required for MATH and TEXT modes
+	        _.extend(inputProps, {
+	            buttonSet: this.props.buttonSet,
+	            buttonsVisible: this.props.buttonsVisible,
+	            onChange: this.props.onChange,
+	            onTouchStart: captureScratchpadTouchStart
+	        });
+
+	        // And add final props that are MATH- and TEXT-specific
+	        if (this.props.type === MATH) {
+	            return _.extend({
+	                convertDotToTimes: this.props.convertDotToTimes }, inputProps);
+	        } else if (this.props.type === TEXT) {
+	            return _.extend({
+	                autoCapitalize: "off",
+	                autoComplete: "off",
+	                autoCorrect: "off",
+	                spellCheck: "false" }, inputProps);
+	        }
+	    },
+
+	    _getComponentForInputType: function () {
+	        switch (this.props.type) {
+	            case TEX:
+	                return MathOutput;
+
+	            case MATH:
+	                return MathInput;
+
+	            case TEXT:
+	                return TextInput;
+
+	            default:
+	                return null;
+	        }
+	    },
+
+	    _renderInput: function () {
+	        var inputProps = this._getPropsForInputType();
+	        var InputComponent = this._getComponentForInputType();
+	        return React.createElement(InputComponent, inputProps);
+	    },
+
+	    render: function () {
+	        var input = this._renderInput();
+
+	        // Static rendering, which doesn't include the 'tooltip' logic that the
+	        // other types require, and is hence handled separately.
+	        if (this.props.type === TEX) {
+	            return input;
+	        }
+
+	        // Else, we need to be able to show examples
+	        var examplesContent = _.map(this.props.examples, function (example) {
+	            return "- " + example;
+	        }).join("\n");
+
+	        var showExamples = this.props.shouldShowExamples && this.state.showExamples;
+
+	        return React.createElement(
+	            Tooltip,
+	            {
+	                ref: "tooltip",
+	                className: "perseus-formats-tooltip",
+	                horizontalPosition: "left",
+	                horizontalAlign: "left",
+	                verticalPosition: "bottom",
+	                arrowSize: 10,
+	                borderColor: "#ccc",
+	                show: showExamples },
+	            input,
+	            React.createElement(
+	                "div",
+	                { id: this._getUniqueId() },
+	                React.createElement(Renderer, { content: examplesContent })
+	            )
+	        );
+	    },
+
+	    _handleFocus: function () {
+	        this.props.onFocus();
+	        this.setState({
+	            focused: true,
+	            showExamples: true
+	        });
+	    },
+
+	    show: function () {
+	        this.setState({ showExamples: true });
+	    },
+
+	    hide: function () {
+	        this.setState({ showExamples: false });
+	    },
+
+	    _handleBlur: function () {
+	        this.props.onBlur();
+	        this.setState({
+	            focused: false,
+	            showExamples: false
+	        });
+	    },
+
+	    focus: function () {
+	        this.refs.input.focus();
+	    },
+
+	    blur: function () {
+	        this.refs.input.blur();
+	    },
+
+	    handleChange: function (e) {
+	        this.props.onChange(e.target.value);
+	    }
+	});
+
+	module.exports = InputWithExamples;
+
+/***/ },
+/* 159 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var classNames = __webpack_require__(42);
+	var React = __webpack_require__(15);
+	var ReactDOM = __webpack_require__(17);
+	var _ = __webpack_require__(16);
+
+	var TexButtons = __webpack_require__(160);
+
+	// TODO(alex): Package MathQuill
+	var MathQuill = window.MathQuill;
+	var PT = React.PropTypes;
+
+	// A WYSIWYG math input that calls `onChange(LaTeX-string)`
+	var MathInput = React.createClass({
+	    displayName: "MathInput",
+
+	    propTypes: {
+	        value: PT.string,
+	        onChange: PT.func.isRequired,
+	        convertDotToTimes: PT.bool,
+	        buttonsVisible: PT.oneOf(["always", "never", "focused"]),
+	        buttonSets: TexButtons.buttonSetsType.isRequired,
+	        labelText: React.PropTypes.string,
+	        onFocus: PT.func,
+	        onBlur: PT.func },
+
+	    render: function () {
+	        var className = classNames({
+	            "perseus-math-input": true,
+
+	            // mathquill usually adds these itself but react removes them when
+	            // updating the component.
+	            "mq-editable-field": true,
+	            "mq-math-mode": true
+	        });
+
+	        if (this.props.className) {
+	            className = className + " " + this.props.className;
+	        }
+
+	        var buttons = null;
+	        if (this._shouldShowButtons()) {
+	            buttons = React.createElement(TexButtons, {
+	                sets: this.props.buttonSets,
+	                className: "math-input-buttons absolute",
+	                convertDotToTimes: this.props.convertDotToTimes,
+	                onInsert: this.insert });
+	        }
+
+	        return React.createElement(
+	            "div",
+	            { style: { display: "inline-block" } },
+	            React.createElement(
+	                "div",
+	                { style: { display: "inline-block" } },
+	                React.createElement("span", { className: className,
+	                    ref: "mathinput",
+	                    "aria-label": this.props.labelText,
+	                    onFocus: this.handleFocus,
+	                    onBlur: this.handleBlur })
+	            ),
+	            React.createElement(
+	                "div",
+	                { style: { position: "relative" } },
+	                buttons
+	            )
+	        );
+	    },
+
+	    // handlers:
+	    // keep track of two related bits of state:
+	    // * this.state.focused - whether the buttons are currently shown
+	    // * this.mouseDown - whether a mouse click is active that started in the
+	    //   buttons div
+
+	    handleFocus: function () {
+	        this.setState({ focused: true });
+	        // TODO(joel) fix properly - we should probably allow onFocus handlers
+	        // to this property, but we need to work correctly with them.
+	        // if (this.props.onFocus) {
+	        //     this.props.onFocus();
+	        // }
+	    },
+
+	    handleMouseDown: function (event) {
+	        var focused = ReactDOM.findDOMNode(this).contains(event.target);
+	        this.mouseDown = focused;
+	        if (!focused) {
+	            this.setState({ focused: false });
+	        }
+	    },
+
+	    handleMouseUp: function () {
+	        // this mouse click started in the buttons div so we should focus the
+	        // input
+	        if (this.mouseDown) {
+	            this.focus();
+	        }
+	        this.mouseDown = false;
+	    },
+
+	    handleBlur: function () {
+	        if (!this.mouseDown) {
+	            this.setState({ focused: false });
+	        }
+	    },
+
+	    _shouldShowButtons: function () {
+	        if (this.props.buttonsVisible === "always") {
+	            return true;
+	        } else if (this.props.buttonsVisible === "never") {
+	            return false;
+	        } else {
+	            return this.state.focused;
+	        }
+	    },
+
+	    getDefaultProps: function () {
+	        return {
+	            value: "",
+	            convertDotToTimes: false,
+	            buttonsVisible: "focused"
+	        };
+	    },
+
+	    getInitialState: function () {
+	        return { focused: false };
+	    },
+
+	    insert: function (value) {
+	        var input = this.mathField();
+	        if (_(value).isFunction()) {
+	            value(input);
+	        } else if (value[0] === "\\") {
+	            input.cmd(value).focus();
+	        } else {
+	            input.write(value).focus();
+	        }
+	        input.focus();
+	    },
+
+	    mathField: function (options) {
+	        // The MathQuill API is now "versioned" through its own "InterVer" system.
+	        // See: https://github.com/mathquill/mathquill/pull/459
+	        var MQ = MathQuill.getInterface(2);
+
+	        // MathQuill.MathField takes a DOM node, MathQuill-ifies it if it's
+	        // seeing that node for the first time, then returns the associated
+	        // MathQuill object for that node. It is stable - will always return
+	        // the same object when called on the same DOM node.
+	        return MQ.MathField(ReactDOM.findDOMNode(this.refs.mathinput), options);
+	    },
+
+	    componentWillUnmount: function () {
+	        window.removeEventListener("mousedown", this.handleMouseDown);
+	        window.removeEventListener("mouseup", this.handleMouseUp);
+	    },
+
+	    componentDidMount: function () {
+	        var _this = this;
+
+	        window.addEventListener("mousedown", this.handleMouseDown);
+	        window.addEventListener("mouseup", this.handleMouseUp);
+
+	        var initialized = false;
+
+	        // Initialize MathQuill.MathField instance
+	        this.mathField({
+	            // LaTeX commands that, when typed, are immediately replaced by the
+	            // appropriate symbol. This does not include ln, log, or any of the
+	            // trig functions; those are always interpreted as commands.
+	            autoCommands: "pi theta phi sqrt nthroot",
+
+	            // Pop the cursor out of super/subscripts on arithmetic operators
+	            // or (in)equalities.
+	            charsThatBreakOutOfSupSub: "+-*/=<>≠≤≥",
+
+	            // Prevent excessive super/subscripts or fractions from being created
+	            // without operands, e.g. when somebody holds down a key
+	            supSubsRequireOperand: true,
+
+	            // The name of this option is somewhat misleading, as tabbing in
+	            // MathQuill breaks you out of a nested context (fraction/script)
+	            // if you're in one, but moves focus to the next input if you're
+	            // not. Spaces (with this option enabled) are just ignored in the
+	            // latter case.
+	            //
+	            // TODO(alex): In order to allow inputting mixed numbers, we will
+	            // have to accept spaces in certain cases. The desired behavior is
+	            // still to escape nested contexts if currently in one, but to
+	            // insert a space if not (we don't expect mixed numbers in nested
+	            // contexts). We should also limit to one consecutive space.
+	            spaceBehavesLikeTab: true,
+
+	            handlers: {
+	                edited: function (mathField) {
+	                    // This handler is guaranteed to be called on change, but
+	                    // unlike React it sometimes generates false positives.
+	                    // One of these is on initialization (with an empty string
+	                    // value), so we have to guard against that below.
+	                    var value = mathField.latex();
+
+	                    // Provide a MathQuill-compatible way to generate the
+	                    // not-equals sign without pasting unicode or typing TeX
+	                    value = value.replace(/<>/g, "\\ne");
+
+	                    // Use the specified symbol to represent multiplication
+	                    // TODO(alex): Add an option to disallow variables, in
+	                    // which case 'x' should get converted to '\\times'
+	                    if (_this.props.convertDotToTimes) {
+	                        value = value.replace(/\\cdot/g, "\\times");
+
+	                        // Preserve cursor position in the common case:
+	                        // typing '*' to insert a multiplication sign.
+	                        // We do this by modifying internal MathQuill state
+	                        // directly, instead of waiting for `.latex()` to be
+	                        // called in `componentDidUpdate()`.
+	                        var left = mathField.__controller.cursor[MathQuill.L];
+	                        if (left && left.ctrlSeq === "\\cdot ") {
+	                            mathField.__controller.backspace();
+	                            mathField.cmd("\\times");
+	                        }
+	                    } else {
+	                        value = value.replace(/\\times/g, "\\cdot");
+	                    }
+
+	                    if (initialized && _this.props.value !== value) {
+	                        _this.props.onChange(value);
+	                    }
+	                },
+	                enter: function () {
+	                    // This handler is called when the user presses the enter
+	                    // key. Since this isn't an actual <input> element, we have
+	                    // to manually trigger the usually automatic form submit.
+	                    $(ReactDOM.findDOMNode(_this.refs.mathinput)).submit();
+	                },
+	                upOutOf: function (mathField) {
+	                    // This handler is called when the user presses the up
+	                    // arrow key, but there is nowhere in the expression to go
+	                    // up to (no numerator or exponent). For ease of use,
+	                    // interpret this as an attempt to create an exponent.
+	                    mathField.typedText("^");
+	                }
+	            }
+	        });
+
+	        // Ideally, we would be able to pass an initial value directly into
+	        // the constructor above
+	        this.mathField().latex(this.props.value);
+
+	        initialized = true;
+	    },
+
+	    componentDidUpdate: function () {
+	        if (!_.isEqual(this.mathField().latex(), this.props.value)) {
+	            this.mathField().latex(this.props.value);
+	        }
+	    },
+
+	    focus: function () {
+	        this.mathField().focus();
+	        this.setState({ focused: true });
+	    },
+
+	    blur: function () {
+	        this.mathField().blur();
+	        this.setState({ focused: false });
+	    }
+	});
+
+	module.exports = MathInput;
+
+/***/ },
+/* 160 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(15);
+	var _ = __webpack_require__(16);
+
+	var TeX = __webpack_require__(49);
+
+	var prettyBig = { fontSize: "150%" };
+	var slightlyBig = { fontSize: "120%" };
+	var symbStyle = { fontSize: "130%" };
+
+	// These are functions because we want to generate a new component for each use
+	// on the page rather than reusing an instance (which will cause an error).
+	// Also, it's useful for things which might look different depending on the
+	// props.
+
+	var basic = [function () {
+	    return [React.createElement(
+	        "span",
+	        { key: "plus", style: slightlyBig },
+	        "+"
+	    ), "+"];
+	}, function () {
+	    return [React.createElement(
+	        "span",
+	        { key: "minus", style: prettyBig },
+	        "-"
+	    ), "-"];
+	},
+
+	// TODO(joel) - display as \cdot when appropriate
+	function (props) {
+	    if (props.convertDotToTimes) {
+	        return [React.createElement(
+	            TeX,
+	            { key: "times", style: prettyBig },
+	            "\\times"
+	        ), "\\times"];
+	    } else {
+	        return [React.createElement(
+	            TeX,
+	            { key: "times", style: prettyBig },
+	            "\\cdot"
+	        ), "\\cdot"];
+	    }
+	}, function () {
+	    return [React.createElement(
+	        TeX,
+	        { key: "frac", style: prettyBig },
+	        "\\frac{□}{□}"
+	    ),
+
+	    // If there's something in the input that can become part of a
+	    // fraction, typing "/" puts it in the numerator. If not, typing
+	    // "/" does nothing. In that case, enter a \frac.
+	    function (input) {
+	        var contents = input.latex();
+	        input.typedText("/");
+	        if (input.latex() === contents) {
+	            input.cmd("\\frac");
+	        }
+	    }];
+	}];
+
+	var buttonSets = {
+	    basic: basic,
+
+	    "basic+div": basic.concat([function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "div" },
+	            "\\div"
+	        ), "\\div"];
+	    }]),
+
+	    trig: [function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "sin" },
+	            "\\sin"
+	        ), "\\sin"];
+	    }, function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "cos" },
+	            "\\cos"
+	        ), "\\cos"];
+	    }, function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "tan" },
+	            "\\tan"
+	        ), "\\tan"];
+	    }, function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "theta", style: symbStyle },
+	            "\\theta"
+	        ), "\\theta"];
+	    }, function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "pi", style: symbStyle },
+	            "\\phi"
+	        ), "\\phi"];
+	    }],
+
+	    prealgebra: [function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "sqrt" },
+	            "\\sqrt{x}"
+	        ), "\\sqrt"];
+	    },
+	    // TODO(joel) - how does desmos do this?
+	    function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "nthroot" },
+	            "\\sqrt[3]{x}"
+	        ), function (input) {
+	            input.typedText("nthroot3");
+	            input.keystroke("Right");
+	        }];
+	    }, function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "pow", style: slightlyBig },
+	            "□^a"
+	        ), function (input) {
+	            var contents = input.latex();
+	            input.keystroke("Up");
+	            if (input.latex() === contents) {
+	                input.typedText("a^b");
+	            }
+	        }];
+	    }, function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "pi", style: slightlyBig },
+	            "\\pi"
+	        ), "\\pi"];
+	    }],
+
+	    logarithms: [function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "log" },
+	            "\\log"
+	        ), "\\log"];
+	    }, function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "ln" },
+	            "\\ln"
+	        ), "\\ln"];
+	    }, function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "log_b" },
+	            "\\log_b"
+	        ), function (input) {
+	            input.typedText("log_");
+	            input.keystroke("Right");
+	            input.typedText("(");
+	            input.keystroke("Left");
+	            input.keystroke("Left");
+	        }];
+	    }],
+
+	    "basic relations": [function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "eq" },
+	            "="
+	        ), "="];
+	    }, function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "lt" },
+	            "\\lt"
+	        ), "\\lt"];
+	    }, function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "gt" },
+	            "\\gt"
+	        ), "\\gt"];
+	    }],
+
+	    "advanced relations": [function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "neq" },
+	            "\\neq"
+	        ), "\\neq"];
+	    }, function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "leq" },
+	            "\\leq"
+	        ), "\\leq"];
+	    }, function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "geq" },
+	            "\\geq"
+	        ), "\\geq"];
+	    }] };
+
+	var buttonSetsType = React.PropTypes.arrayOf(React.PropTypes.oneOf(_(buttonSets).keys()));
+
+	var TexButtons = React.createClass({
+	    displayName: "TexButtons",
+
+	    propTypes: {
+	        sets: buttonSetsType.isRequired,
+	        onInsert: React.PropTypes.func.isRequired
+	    },
+
+	    render: function () {
+	        var _this = this;
+
+	        // Always show buttonSets in the same order. Note: Technically it's ok
+	        // for _.keys() to return the keys in an arbitrary order, but in
+	        // practice, they will be ordered as listed above.
+	        var sortedButtonSets = _.sortBy(this.props.sets, function (setName) {
+	            return _.keys(buttonSets).indexOf(setName);
+	        });
+
+	        var buttons = _(sortedButtonSets).map(function (setName) {
+	            return buttonSets[setName];
+	        });
+
+	        var buttonRows = _(buttons).map(function (row) {
+	            return row.map(function (symbGen) {
+	                // create a (component, thing we should send to mathquill) pair
+	                var symbol = symbGen(_this.props);
+	                return React.createElement(
+	                    "button",
+	                    { onClick: function () {
+	                            return _this.props.onInsert(symbol[1]);
+	                        },
+	                        className: "tex-button",
+	                        key: symbol[0].key,
+	                        tabIndex: -1,
+	                        type: "button" },
+	                    symbol[0]
+	                );
+	            });
+	        });
+
+	        var buttonPopup = _(buttonRows).map(function (row, i) {
+	            return React.createElement(
+	                "div",
+	                { className: "clearfix tex-button-row",
+	                    key: _this.props.sets[i] },
+	                row
+	            );
+	        });
+
+	        return React.createElement(
+	            "div",
+	            { className: this.props.className },
+	            buttonPopup
+	        );
+	    },
+
+	    statics: {
+	        buttonSets: buttonSets,
+	        buttonSetsType: buttonSetsType
+	    }
+	});
+
+	module.exports = TexButtons;
+
+/***/ },
+/* 161 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(15);
+	var ReactDOM = __webpack_require__(17);
+	var _ = __webpack_require__(16);
+
+	var PT = React.PropTypes;
+
+	// Takes an array of components to sort
+	var SortableArea = React.createClass({
+	    displayName: 'SortableArea',
+
+	    propTypes: {
+	        components: PT.arrayOf(PT.node).isRequired,
+	        onReorder: PT.func.isRequired,
+	        verify: PT.func
+	    },
+	    render: function () {
+	        var _this = this;
+
+	        var sortables = _(this.state.components).map(function (component, index) {
+	            return React.createElement(SortableItem, {
+	                index: index,
+	                component: component,
+	                area: _this,
+	                key: component.key,
+	                draggable: component.props.draggable,
+	                dragging: index === _this.state.dragging });
+	        });
+	        return React.createElement(
+	            'ol',
+	            { className: this.props.className, style: this.props.style },
+	            sortables
+	        );
+	    },
+	    getDefaultProps: function () {
+	        return { verify: function () {
+	                return true;
+	            } };
+	    },
+	    getInitialState: function () {
+	        return {
+	            // index of the component being dragged
+	            dragging: null,
+	            components: this.props.components
+	        };
+	    },
+	    componentWillReceiveProps: function (nextProps) {
+	        this.setState({ components: nextProps.components });
+	    },
+	    // Alternatively send each handler to each component individually,
+	    // partially applied
+	    onDragStart: function (startIndex) {
+	        this.setState({ dragging: startIndex });
+	    },
+	    onDrop: function () {
+	        // tell the parent component
+	        this.setState({ dragging: null });
+	        this.props.onReorder(this.state.components);
+	    },
+	    onDragEnter: function (enterIndex) {
+	        // When a label is first dragged it triggers a dragEnter with itself,
+	        // which we don't care about.
+	        if (this.state.dragging === enterIndex) {
+	            return;
+	        }
+
+	        var newComponents = this.state.components.slice();
+
+	        // splice the tab out of its old position
+	        var removed = newComponents.splice(this.state.dragging, 1);
+	        // ... and into its new position
+	        newComponents.splice(enterIndex, 0, removed[0]);
+
+	        var verified = this.props.verify(newComponents);
+	        if (verified) {
+	            this.setState({
+	                dragging: enterIndex,
+	                components: newComponents
+	            });
+	        }
+	        return verified;
+	    },
+
+	    // Firefox refuses to drag an element unless you set data on it. Hackily
+	    // add data each time an item is dragged.
+	    componentDidMount: function () {
+	        this._setDragEvents();
+	    },
+	    componentDidUpdate: function () {
+	        this._setDragEvents();
+	    },
+	    _listenEvent: function (e) {
+	        e.dataTransfer.setData('hackhackhack', 'because browsers!');
+	    },
+	    _cancelEvent: function (e) {
+	        // prevent the browser from redirecting to 'because browsers!'
+	        e.preventDefault();
+	    },
+	    _setDragEvents: function () {
+	        var _this2 = this;
+
+	        this._dragItems = this._dragItems || [];
+	        var items = ReactDOM.findDOMNode(this).querySelectorAll('[draggable=true]');
+	        var oldItems = _(this._dragItems).difference(items);
+	        var newItems = _(items).difference(this._dragItems);
+
+	        _(newItems).each(function (dragItem) {
+	            dragItem.addEventListener('dragstart', _this2._listenEvent);
+	            dragItem.addEventListener('drop', _this2._cancelEvent);
+	        });
+
+	        _(oldItems).each(function (dragItem) {
+	            dragItem.removeEventListener('dragstart', _this2._listenEvent);
+	            dragItem.removeEventListener('drop', _this2._cancelEvent);
+	        });
+	    }
+	});
+
+	// An individual sortable item
+	var SortableItem = React.createClass({
+	    displayName: 'SortableItem',
+
+	    propTypes: {},
+	    render: function () {
+	        var dragState = 'sortable-disabled';
+	        if (this.props.dragging) {
+	            dragState = 'sortable-dragging';
+	        } else if (this.props.draggable) {
+	            dragState = 'sortable-enabled';
+	        }
+
+	        return React.createElement(
+	            'li',
+	            { draggable: this.props.draggable,
+	                className: dragState,
+	                onDragStart: this.handleDragStart,
+	                onDrop: this.handleDrop,
+	                onDragEnter: this.handleDragEnter,
+	                onDragOver: this.handleDragOver },
+	            this.props.component
+	        );
+	    },
+	    handleDragStart: function (e) {
+	        e.nativeEvent.dataTransfer.effectAllowed = 'move';
+	        this.props.area.onDragStart(this.props.index);
+	    },
+	    handleDrop: function () {
+	        this.props.area.onDrop(this.props.index);
+	    },
+	    handleDragEnter: function (e) {
+	        var verified = this.props.area.onDragEnter(this.props.index);
+	        // Ideally this would change the cursor based on whether this is a
+	        // valid place to drop.
+	        e.nativeEvent.dataTransfer.effectAllowed = verified ? 'move' : 'none';
+	    },
+	    handleDragOver: function (e) {
+	        // allow a drop by preventing default handling
+	        e.preventDefault();
+	    }
+	});
+
+	module.exports = SortableArea;
+
+	// item: what is this?
+
+/***/ },
+/* 162 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var Movable = __webpack_require__(192);
+	var MovablePoint = __webpack_require__(193);
+	var MovableLine = __webpack_require__(194);
+	var MovablePolygon = __webpack_require__(195);
+
+	var Interactive2 = {
+	    MovablePoint: MovablePoint,
+	    addMovablePoint: function (graphie, options) {
+	        var movable = new Movable(graphie, {});
+	        return new MovablePoint(graphie, movable, options);
+	    },
+	    MovableLine: MovableLine,
+	    addMovableLine: function (graphie, options) {
+	        var movable = new Movable(graphie, {});
+	        return new MovableLine(graphie, movable, options);
+	    },
+	    MovablePolygon: MovablePolygon,
+	    addMovablePolygon: function (graphie, options) {
+	        var movable = new Movable(graphie, {});
+	        return new MovablePolygon(graphie, movable, options);
+	    }
+	};
+
+	module.exports = Interactive2;
+
+/***/ },
+/* 163 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/** Color constants we use throughout Perseus (originally on KhanUtil). */
+	var KhanColors = {
+	    BLUE: "#6495ED",
+	    ORANGE: "#FFA500",
+	    PINK: "#FF00AF",
+	    GREEN: "#28AE7B",
+	    PURPLE: "#9D38BD",
+	    RED: "#DF0030",
+	    GRAY: "gray",
+	    BLACK: "black",
+	    LIGHT_BLUE: "#9AB8ED",
+	    LIGHT_ORANGE: "#EDD19B",
+	    LIGHT_PINK: "#ED9BD3",
+	    LIGHT_GREEN: "#9BEDCE",
+	    LIGHT_PURPLE: "#DA9BED",
+	    LIGHT_RED: "#ED9AAC",
+	    LIGHT_GRAY: "#ED9B9B",
+	    LIGHT_BLACK: "#ED9B9B",
+	    GRAY10: "#D6D6D6",
+	    GRAY20: "#CDCDCD",
+	    GRAY30: "#B3B3B3",
+	    GRAY40: "#9A9A9A",
+	    GRAY50: "#808080",
+	    GRAY60: "#666666",
+	    GRAY70: "#4D4D4D",
+	    GRAY80: "#333333",
+	    GRAY90: "#1A1A1A",
+	    BLUE_A: "#C7E9F1",
+	    BLUE_B: "#9CDCEB",
+	    BLUE_C: "#58C4DD",
+	    BLUE_D: "#29ABCA",
+	    BLUE_E: "#1C758A",
+	    TEAL_A: "#ACEAD7",
+	    TEAL_B: "#76DDC0",
+	    TEAL_C: "#5CD0B3",
+	    TEAL_D: "#55C1A7",
+	    TEAL_E: "#49A88F",
+	    GREEN_A: "#C9E2AE",
+	    GREEN_B: "#A6CF8C",
+	    GREEN_C: "#83C167",
+	    GREEN_D: "#77B05D",
+	    GREEN_E: "#699C52",
+	    GOLD_A: "#F7C797",
+	    GOLD_B: "#F9B775",
+	    GOLD_C: "#F0AC5F",
+	    GOLD_D: "#E1A158",
+	    GOLD_E: "#C78D46",
+	    RED_A: "#F7A1A3",
+	    RED_B: "#FF8080",
+	    RED_C: "#FC6255",
+	    RED_D: "#E65A4C",
+	    RED_E: "#CF5044",
+	    MAROON_A: "#ECABC1",
+	    MAROON_B: "#EC92AB",
+	    MAROON_C: "#C55F73",
+	    MAROON_D: "#A24D61",
+	    MAROON_E: "#94424F",
+	    PURPLE_A: "#CAA3E8",
+	    PURPLE_B: "#B189C6",
+	    PURPLE_C: "#9A72AC",
+	    PURPLE_D: "#715582",
+	    PURPLE_E: "#644172",
+	    MINT_A: "#F5F9E8",
+	    MINT_B: "#EDF2DF",
+	    MINT_C: "#E0E5CC",
+	    GRAY_A: "#FDFDFD",
+	    GRAY_B: "#F7F7F7",
+	    GRAY_C: "#EEEEEE",
+	    GRAY_D: "#DDDDDD",
+	    GRAY_E: "#CCCCCC",
+	    GRAY_F: "#AAAAAA",
+	    GRAY_G: "#999999",
+	    GRAY_H: "#555555",
+	    GRAY_I: "#333333",
+	    KA_BLUE: "#314453",
+	    KA_GREEN: "#639B24",
+	    // Don't actually use _BACKGROUND! Make things transparent instead. The
+	    // background color used in exercises is subject to change at the whim
+	    // of fickle designers.
+	    _BACKGROUND: "#FDFDFD" };
+
+	KhanColors.INTERACTING = KhanColors.ORANGE;
+	KhanColors.INTERACTIVE = KhanColors.ORANGE;
+	KhanColors.DYNAMIC = KhanColors.BLUE;
+
+	module.exports = KhanColors;
+	// TODO(eater): Get rid of this altogether.
+	// For consistent coloring throughout Perseus
+
+/***/ },
+/* 164 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-unused-vars, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp, space-unary-ops */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(15);
+	var ReactDOM = __webpack_require__(17);
+	var _ = __webpack_require__(16);
+
+	var Changeable = __webpack_require__(151);
+
+	var ButtonGroup = __webpack_require__(44);
+	var InfoTip = __webpack_require__(136);
+	var NumberInput = __webpack_require__(169);
+	var PropCheckBox = __webpack_require__(33);
+	var RangeInput = __webpack_require__(166);
+	var TeX = __webpack_require__(49);
+	var Util = __webpack_require__(6);
+	var KhanMath = __webpack_require__(135);
+
+	var defaultBoxSize = 340;
+	var defaultBackgroundImage = {
+	    url: null,
+	    width: 0,
+	    height: 0
+	};
+
+	function numSteps(range, step) {
+	    return Math.floor((range[1] - range[0]) / step);
+	}
+
+	var GraphSettings = React.createClass({
+	    displayName: "GraphSettings",
+
+	    mixins: [Changeable],
+
+	    propTypes: {
+	        editableSettings: React.PropTypes.arrayOf(React.PropTypes.oneOf(["canvas", "graph", "snap", "image", "measure"])),
+	        box: React.PropTypes.arrayOf(React.PropTypes.number),
+	        labels: React.PropTypes.arrayOf(React.PropTypes.string),
+	        range: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
+	        step: React.PropTypes.arrayOf(React.PropTypes.number),
+	        gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
+	        snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
+	        valid: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.string]),
+	        backgroundImage: React.PropTypes.object,
+	        markings: React.PropTypes.oneOf(["graph", "grid", "none"]),
+	        showProtractor: React.PropTypes.bool,
+	        showRuler: React.PropTypes.bool,
+	        rulerLabel: React.PropTypes.string,
+	        rulerTicks: React.PropTypes.number
+	    },
+
+	    getInitialState: function () {
+	        return {
+	            labelsTextbox: this.props.labels,
+	            gridStepTextbox: this.props.gridStep,
+	            snapStepTextbox: this.props.snapStep,
+	            stepTextbox: this.props.step,
+	            rangeTextbox: this.props.range,
+	            backgroundImage: _.clone(this.props.backgroundImage)
+	        };
+	    },
+
+	    getDefaultProps: function () {
+	        return {
+	            editableSettings: ["graph", "snap", "image", "measure"],
+	            box: [defaultBoxSize, defaultBoxSize],
+	            labels: ["x", "y"],
+	            range: [[-10, 10], [-10, 10]],
+	            step: [1, 1],
+	            gridStep: [1, 1],
+	            snapStep: [1, 1],
+	            valid: true,
+	            backgroundImage: defaultBackgroundImage,
+	            markings: "graph",
+	            showProtractor: false,
+	            showRuler: false,
+	            rulerLabel: "",
+	            rulerTicks: 10
+	        };
+	    },
+
+	    render: function () {
+	        var _this = this;
+
+	        var scale = [KhanMath.roundTo(2, Util.scaleFromExtent(this.props.range[0], this.props.box[0])), KhanMath.roundTo(2, Util.scaleFromExtent(this.props.range[1], this.props.box[1]))];
+
+	        return React.createElement(
+	            "div",
+	            null,
+	            _.contains(this.props.editableSettings, "canvas") && React.createElement(
+	                "div",
+	                { className: "graph-settings" },
+	                React.createElement(
+	                    "div",
+	                    { className: "perseus-widget-row" },
+	                    "Canvas size (x,y pixels)",
+	                    React.createElement(RangeInput, {
+	                        value: this.props.box,
+	                        onChange: function (box) {
+	                            _this.change({ box: box });
+	                        } })
+	                ),
+	                React.createElement(
+	                    "div",
+	                    { className: "perseus-widget-row" },
+	                    "Scale (px per div): ",
+	                    React.createElement(
+	                        TeX,
+	                        null,
+	                        "(" + scale[0] + ", " + scale[1] + ")"
+	                    )
+	                )
+	            ),
+	            _.contains(this.props.editableSettings, "graph") && React.createElement(
+	                "div",
+	                { className: "graph-settings" },
+	                React.createElement(
+	                    "div",
+	                    { className: "perseus-widget-row" },
+	                    React.createElement(
+	                        "div",
+	                        { className: "perseus-widget-left-col" },
+	                        " x Label",
+	                        React.createElement("input", { type: "text",
+	                            className: "graph-settings-axis-label",
+	                            ref: "labels-0",
+	                            onChange: function (e) {
+	                                return _this.changeLabel(0, e);
+	                            },
+	                            value: this.state.labelsTextbox[0] })
+	                    ),
+	                    React.createElement(
+	                        "div",
+	                        { className: "perseus-widget-right-col" },
+	                        "y Label",
+	                        React.createElement("input", { type: "text",
+	                            className: "graph-settings-axis-label",
+	                            ref: "labels-1",
+	                            onChange: function (e) {
+	                                return _this.changeLabel(1, e);
+	                            },
+	                            value: this.state.labelsTextbox[1] })
+	                    )
+	                ),
+	                React.createElement(
+	                    "div",
+	                    { className: "perseus-widget-row" },
+	                    React.createElement(
+	                        "div",
+	                        { className: "perseus-widget-left-col" },
+	                        "x Range",
+	                        React.createElement(RangeInput, {
+	                            value: this.state.rangeTextbox[0],
+	                            onChange: function (vals) {
+	                                return _this.changeRange(0, vals);
+	                            } })
+	                    ),
+	                    React.createElement(
+	                        "div",
+	                        { className: "perseus-widget-right-col" },
+	                        "y Range",
+	                        React.createElement(RangeInput, {
+	                            value: this.state.rangeTextbox[1],
+	                            onChange: function (vals) {
+	                                return _this.changeRange(1, vals);
+	                            } })
+	                    )
+	                ),
+	                React.createElement(
+	                    "div",
+	                    { className: "perseus-widget-row" },
+	                    React.createElement(
+	                        "div",
+	                        { className: "perseus-widget-left-col" },
+	                        "Tick Step",
+	                        React.createElement(RangeInput, { value: this.state.stepTextbox,
+	                            onChange: this.changeStep })
+	                    ),
+	                    React.createElement(
+	                        "div",
+	                        { className: "perseus-widget-right-col" },
+	                        "Grid Step",
+	                        React.createElement(RangeInput, { value: this.state.gridStepTextbox,
+	                            onChange: this.changeGridStep })
+	                    )
+	                ),
+	                _.contains(this.props.editableSettings, "snap") && React.createElement(
+	                    "div",
+	                    { className: "perseus-widget-row" },
+	                    React.createElement(
+	                        "div",
+	                        { className: "perseus-widget-left-col" },
+	                        "Snap Step",
+	                        React.createElement(RangeInput, { value: this.state.snapStepTextbox,
+	                            onChange: this.changeSnapStep })
+	                    )
+	                ),
+	                React.createElement(
+	                    "div",
+	                    { className: "perseus-widget-row" },
+	                    React.createElement(
+	                        "label",
+	                        null,
+	                        "Markings:",
+	                        " ",
+	                        " "
+	                    ),
+	                    React.createElement(ButtonGroup, { value: this.props.markings,
+	                        allowEmpty: false,
+	                        buttons: [{ value: "graph", content: "Graph" }, { value: "grid", content: "Grid" }, { value: "none", content: "None" }],
+	                        onChange: this.change("markings") })
+	                )
+	            ),
+	            _.contains(this.props.editableSettings, "image") && React.createElement(
+	                "div",
+	                { className: "image-settings" },
+	                React.createElement(
+	                    "div",
+	                    null,
+	                    "Background image:"
+	                ),
+	                React.createElement(
+	                    "div",
+	                    null,
+	                    "Url:",
+	                    " ",
+	                    React.createElement("input", { type: "text",
+	                        className: "graph-settings-background-url",
+	                        ref: "bg-url",
+	                        defaultValue: this.state.backgroundImage.url,
+	                        onKeyPress: this.changeBackgroundUrl,
+	                        onBlur: this.changeBackgroundUrl }),
+	                    React.createElement(
+	                        InfoTip,
+	                        null,
+	                        React.createElement(
+	                            "p",
+	                            null,
+	                            "Create an image in graphie, or use the \"Add image\" function to create a background."
+	                        )
+	                    )
+	                )
+	            ),
+	            _.contains(this.props.editableSettings, "measure") && React.createElement(
+	                "div",
+	                { className: "misc-settings" },
+	                React.createElement(
+	                    "div",
+	                    { className: "perseus-widget-row" },
+	                    React.createElement(
+	                        "div",
+	                        { className: "perseus-widget-left-col" },
+	                        React.createElement(PropCheckBox, { label: "Show ruler",
+	                            showRuler: this.props.showRuler,
+	                            onChange: this.change })
+	                    ),
+	                    React.createElement(
+	                        "div",
+	                        { className: "perseus-widget-right-col" },
+	                        React.createElement(PropCheckBox, { label: "Show protractor",
+	                            showProtractor: this.props.showProtractor,
+	                            onChange: this.change })
+	                    )
+	                ),
+	                this.props.showRuler && React.createElement(
+	                    "div",
+	                    null,
+	                    React.createElement(
+	                        "div",
+	                        null,
+	                        React.createElement(
+	                            "label",
+	                            null,
+	                            " ",
+	                            "Ruler label:",
+	                            " ",
+	                            React.createElement(
+	                                "select",
+	                                {
+	                                    onChange: this.changeRulerLabel,
+	                                    value: this.props.rulerLabel },
+	                                React.createElement(
+	                                    "option",
+	                                    { value: "" },
+	                                    "None"
+	                                ),
+	                                React.createElement(
+	                                    "optgroup",
+	                                    { label: "Metric" },
+	                                    this.renderLabelChoices([["milimeters", "mm"], ["centimeters", "cm"], ["meters", "m"], ["kilometers", "km"]])
+	                                ),
+	                                React.createElement(
+	                                    "optgroup",
+	                                    { label: "Imperial" },
+	                                    this.renderLabelChoices([["inches", "in"], ["feet", "ft"], ["yards", "yd"], ["miles", "mi"]])
+	                                )
+	                            )
+	                        )
+	                    ),
+	                    React.createElement(
+	                        "div",
+	                        null,
+	                        React.createElement(
+	                            "label",
+	                            null,
+	                            " ",
+	                            "Ruler ticks:",
+	                            " ",
+	                            React.createElement(
+	                                "select",
+	                                {
+	                                    onChange: this.changeRulerTicks,
+	                                    value: this.props.rulerTicks },
+	                                _.map([1, 2, 4, 8, 10, 16], function (n) {
+	                                    return React.createElement(
+	                                        "option",
+	                                        { value: n },
+	                                        n
+	                                    );
+	                                })
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    },
+
+	    renderLabelChoices: function (choices) {
+	        return _.map(choices, function (nameAndValue) {
+	            return React.createElement(
+	                "option",
+	                { value: nameAndValue[1] },
+	                nameAndValue[0]
+	            );
+	        });
+	    },
+
+	    componentDidMount: function () {
+	        this.changeGraph = _.debounce(this.changeGraph, 300);
+	    },
+
+	    validRange: function (range) {
+	        var numbers = _.every(range, function (num) {
+	            return _.isFinite(num);
+	        });
+	        if (!numbers) {
+	            return "Range must be a valid number";
+	        }
+	        if (range[0] >= range[1]) {
+	            return "Range must have a higher number on the right";
+	        }
+	        return true;
+	    },
+
+	    validateStepValue: function (settings) {
+	        var step = settings.step;
+	        var range = settings.range;
+	        var name = settings.name;
+	        var minTicks = settings.minTicks;
+	        var maxTicks = settings.maxTicks;
+
+	        if (!_.isFinite(step)) {
+	            return name + " must be a valid number";
+	        }
+	        var nSteps = numSteps(range, step);
+	        if (nSteps < minTicks) {
+	            return name + " is too large, there must be at least " + minTicks + " ticks.";
+	        }
+	        if (nSteps > maxTicks) {
+	            return name + " is too small, there can be at most " + maxTicks + " ticks.";
+	        }
+	        return true;
+	    },
+
+	    validSnapStep: function (step, range) {
+	        return this.validateStepValue({
+	            step: step,
+	            range: range,
+	            name: "Snap step",
+	            minTicks: 5,
+	            maxTicks: 60
+	        });
+	    },
+
+	    validGridStep: function (step, range) {
+	        return this.validateStepValue({
+	            step: step,
+	            range: range,
+	            name: "Grid step",
+	            minTicks: 3,
+	            maxTicks: 60
+	        });
+	    },
+
+	    validStep: function (step, range) {
+	        return this.validateStepValue({
+	            step: step,
+	            range: range,
+	            name: "Step",
+	            minTicks: 3,
+	            maxTicks: 20
+	        });
+	    },
+
+	    validBackgroundImageSize: function (image) {
+	        // Ignore empty images
+	        if (!image.url) {
+	            return true;
+	        }
+
+	        var validSize = image.width <= 450 && image.height <= 450;
+
+	        if (!validSize) {
+	            return "Image must be smaller than 450px x 450px.";
+	        }
+	        return true;
+	    },
+
+	    validateGraphSettings: function (range, step, gridStep, snapStep, image) {
+	        var self = this;
+	        var msg;
+	        var goodRange = _.every(range, function (range) {
+	            msg = self.validRange(range);
+	            return msg === true;
+	        });
+	        if (!goodRange) {
+	            return msg;
+	        }
+	        var goodStep = _.every(step, function (step, i) {
+	            msg = self.validStep(step, range[i]);
+	            return msg === true;
+	        });
+	        if (!goodStep) {
+	            return msg;
+	        }
+	        var goodGridStep = _.every(gridStep, function (gridStep, i) {
+	            msg = self.validGridStep(gridStep, range[i]);
+	            return msg === true;
+	        });
+	        if (!goodGridStep) {
+	            return msg;
+	        }
+	        var goodSnapStep = _.every(snapStep, function (snapStep, i) {
+	            msg = self.validSnapStep(snapStep, range[i]);
+	            return msg === true;
+	        });
+	        if (!goodSnapStep) {
+	            return msg;
+	        }
+	        var goodImageSize = this.validBackgroundImageSize(image);
+	        if (goodImageSize !== true) {
+	            msg = goodImageSize;
+	            return msg;
+	        }
+	        return true;
+	    },
+
+	    changeLabel: function (i, e) {
+	        var val = e.target.value;
+	        var labels = this.state.labelsTextbox.slice();
+	        labels[i] = val;
+	        this.setState({ labelsTextbox: labels }, this.changeGraph);
+	    },
+
+	    changeRange: function (i, values) {
+	        var ranges = this.state.rangeTextbox.slice();
+	        ranges[i] = values;
+	        var step = this.state.stepTextbox.slice();
+	        var gridStep = this.state.gridStepTextbox.slice();
+	        var snapStep = this.state.snapStepTextbox.slice();
+	        var scale = Util.scaleFromExtent(ranges[i], this.props.box[i]);
+	        if (this.validRange(ranges[i]) === true) {
+	            step[i] = Util.tickStepFromExtent(ranges[i], this.props.box[i]);
+	            gridStep[i] = Util.gridStepFromTickStep(step[i], scale);
+	            snapStep[i] = gridStep[i] / 2;
+	        }
+	        this.setState({
+	            stepTextbox: step,
+	            gridStepTextbox: gridStep,
+	            snapStepTextbox: snapStep,
+	            rangeTextbox: ranges
+	        }, this.changeGraph);
+	    },
+
+	    changeStep: function (step) {
+	        this.setState({ stepTextbox: step }, this.changeGraph);
+	    },
+
+	    changeSnapStep: function (snapStep) {
+	        this.setState({ snapStepTextbox: snapStep }, this.changeGraph);
+	    },
+
+	    changeGridStep: function (gridStep) {
+	        this.setState({
+	            gridStepTextbox: gridStep,
+	            snapStepTextbox: _.map(gridStep, function (step) {
+	                return step / 2;
+	            })
+	        }, this.changeGraph);
+	    },
+
+	    changeGraph: function () {
+	        var labels = this.state.labelsTextbox;
+	        var range = _.map(this.state.rangeTextbox, function (range) {
+	            return _.map(range, Number);
+	        });
+	        var step = _.map(this.state.stepTextbox, Number);
+	        var gridStep = this.state.gridStepTextbox;
+	        var snapStep = this.state.snapStepTextbox;
+	        var image = this.state.backgroundImage;
+
+	        // validationResult is either:
+	        //   true -> the settings are valid
+	        //   a string -> the settings are invalid, and the explanation
+	        //               is contained in the string
+	        // TODO(aria): Refactor this to not be confusing
+	        var validationResult = this.validateGraphSettings(range, step, gridStep, snapStep, image);
+
+	        if (validationResult === true) {
+	            // either true or a string
+	            this.change({
+	                valid: true,
+	                labels: labels,
+	                range: range,
+	                step: step,
+	                gridStep: gridStep,
+	                snapStep: snapStep,
+	                backgroundImage: image
+	            });
+	        } else {
+	            this.change({
+	                valid: validationResult // a string message, not false
+	            });
+	        }
+	    },
+
+	    changeBackgroundUrl: function (e) {
+	        var _this2 = this;
+
+	        // Only continue on blur or "enter"
+	        if (e.type === "keypress" && e.key !== "Enter") {
+	            return;
+	        }
+
+	        var setUrl = function (url, width, height) {
+	            var image = _.clone(_this2.props.backgroundImage);
+	            image.url = url;
+	            image.width = width;
+	            image.height = height;
+	            _this2.setState({
+	                backgroundImage: image
+	            }, _this2.changeGraph);
+	        };
+
+	        var url = ReactDOM.findDOMNode(this.refs["bg-url"]).value;
+	        if (url) {
+	            Util.getImageSize(url, function (width, height) {
+	                if (_this2.isMounted()) {
+	                    setUrl(url, width, height);
+	                }
+	            });
+	        } else {
+	            setUrl(null, 0, 0);
+	        }
+	    },
+
+	    // TODO(aria): Make either a wrapper for standard events to work
+	    // with this.change, or make these use some TextInput/NumberInput box
+	    changeRulerLabel: function (e) {
+	        this.change({ rulerLabel: e.target.value });
+	    },
+
+	    changeRulerTicks: function (e) {
+	        this.change({ rulerTicks: +e.target.value });
+	    }
+	});
+
+	module.exports = GraphSettings;
+
+/***/ },
+/* 165 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(15);
+	var ReactDOM = __webpack_require__(17);
+	var RCSS = __webpack_require__(142);
+	var _ = __webpack_require__(16);
+	var styles = __webpack_require__(144);
+
+	var buttonStyle = styles.button.buttonStyle;
+	var selectedStyle = styles.button.selectedStyle;
+
+	RCSS.createClass(buttonStyle);
+	RCSS.createClass(selectedStyle);
+
+	/* MultiButtonGroup is an aesthetically pleasing group of buttons,
+	 * which allows multiple buttons to be selected at the same time.
+	 *
+	 * The class requires these properties:
+	 *   buttons - an array of objects with keys:
+	 *     "value": this is the value returned when the button is selected
+	 *     "content": this is the JSX shown within the button, typically a string
+	 *         that gets rendered as the button's display text
+	 *     "title": this is the title-text shown on hover
+	 *   onChange - a function that is provided with an array of the updated
+	 *     values (which it then is responsible for updating)
+	 *
+	 * The class has these optional properties:
+	 *   values - an array of the initial values of the buttons selected.
+	 *
+	 * Requires stylesheets/perseus-admin-package/editor.less to look nice.
+	 */
+
+	var MultiButtonGroup = React.createClass({
+	    displayName: 'MultiButtonGroup',
+
+	    propTypes: {
+	        values: React.PropTypes.arrayOf(React.PropTypes.any),
+	        buttons: React.PropTypes.arrayOf(React.PropTypes.shape({
+	            value: React.PropTypes.any.isRequired,
+	            content: React.PropTypes.node,
+	            title: React.PropTypes.string
+	        })).isRequired,
+	        onChange: React.PropTypes.func.isRequired,
+	        allowEmpty: React.PropTypes.bool
+	    },
+
+	    getDefaultProps: function () {
+	        return {
+	            values: [],
+	            allowEmpty: true
+	        };
+	    },
+
+	    render: function () {
+	        var _this = this;
+
+	        var values = this.props.values;
+	        var buttons = _(this.props.buttons).map(function (button, i) {
+	            var maybeSelected = _.contains(values, button.value) ? selectedStyle.className : '';
+	            return React.createElement(
+	                'button',
+	                { title: button.title,
+	                    type: 'button',
+	                    id: '' + i,
+	                    key: '' + i,
+	                    ref: 'button' + i,
+	                    className: '' + buttonStyle.className + ' ' + maybeSelected,
+	                    onClick: _this.toggleSelect.bind(_this, button.value) },
+	                button.content || '' + button.value
+	            );
+	        });
+
+	        var outerStyle = {
+	            display: 'inline-block'
+	        };
+	        return React.createElement(
+	            'div',
+	            { style: outerStyle },
+	            buttons
+	        );
+	    },
+
+	    focus: function () {
+	        ReactDOM.findDOMNode(this).focus();
+	        return true;
+	    },
+
+	    toggleSelect: function (newValue) {
+	        var values = this.props.values;
+	        var allowEmpty = this.props.allowEmpty;
+
+	        if (_.contains(values, newValue) && (values.length > 1 || allowEmpty)) {
+	            // If the value is already selected, unselect it
+	            this.props.onChange(_.without(values, newValue));
+	        } else {
+	            // Otherwise merge with other values and return
+	            this.props.onChange(_.union(values, [newValue]));
+	        }
+	    }
+	});
+
+	module.exports = MultiButtonGroup;
+
+/***/ },
+/* 166 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(15);
+	var NumberInput = __webpack_require__(169);
+
+	var truth = function () {
+	    return true;
+	};
+
+	/* A minor abstraction on top of NumberInput for ranges
+	 *
+	 */
+	var RangeInput = React.createClass({
+	    displayName: "RangeInput",
+
+	    propTypes: {
+	        value: React.PropTypes.array.isRequired,
+	        onChange: React.PropTypes.func.isRequired,
+	        placeholder: React.PropTypes.array,
+	        checkValidity: React.PropTypes.func
+	    },
+
+	    getDefaultProps: function () {
+	        return {
+	            placeholder: [null, null]
+	        };
+	    },
+
+	    render: function () {
+	        var value = this.props.value;
+	        var checkValidity = this.props.checkValidity || truth;
+
+	        return React.createElement(
+	            "div",
+	            { className: "range-input" },
+	            React.createElement(NumberInput, _extends({}, this.props, {
+	                value: value[0],
+	                checkValidity: function (val) {
+	                    return checkValidity([val, value[1]]);
+	                },
+	                onChange: this.onChange.bind(this, 0),
+	                placeholder: this.props.placeholder[0] })),
+	            React.createElement(NumberInput, _extends({}, this.props, {
+	                value: value[1],
+	                checkValidity: function (val) {
+	                    return checkValidity([value[0], val]);
+	                },
+	                onChange: this.onChange.bind(this, 1),
+	                placeholder: this.props.placeholder[1] }))
+	        );
+	    },
+
+	    onChange: function (i, newVal) {
+	        var value = this.props.value;
+	        if (i === 0) {
+	            this.props.onChange([newVal, value[1]]);
+	        } else {
+	            this.props.onChange([value[0], newVal]);
+	        }
+	    }
+
+	});
+
+	module.exports = RangeInput;
+
+/***/ },
+/* 167 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/*
+	 * In this file, an `expression` is some portion of valid TeX enclosed in
+	 * curly brackets.
+	 */
+
+	/*
+	 * Find the index at which an expression ends, i.e., has an unmatched
+	 * closing curly bracket. This method assumes that we start with a non-open
+	 * bracket character and end when we've seen more left than right brackets
+	 * (rather than assuming that we start with a bracket character and wait for
+	 * bracket equality).
+	 */
+	function findEndpoint(tex, currentIndex) {
+	    var bracketDepth = 0;
+
+	    for (var i = currentIndex, len = tex.length; i < len; i++) {
+	        var c = tex[i];
+
+	        if (c === '{') {
+	            bracketDepth++;
+	        } else if (c === '}') {
+	            bracketDepth--;
+	        }
+
+	        if (bracketDepth < 0) {
+	            return i;
+	        }
+	    }
+	    // If we never see unbalanced curly brackets, default to the
+	    // entire string
+	    return tex.length;
+	}
+
+	/*
+	 * Parses an individual set of curly brackets into TeX.
+	 */
+	function parseNextExpression(tex, currentIndex, handler) {
+	    // Find the first '{' and grab subsequent TeX
+	    // Ex) tex: '{3}{7}', and we want the '3'
+	    var openBracketIndex = tex.indexOf('{', currentIndex);
+	    var nextExpIndex = openBracketIndex + 1;
+
+	    // Truncate to only contain remaining TeX
+	    var endpoint = findEndpoint(tex, nextExpIndex);
+	    var expressionTeX = tex.substring(nextExpIndex, endpoint);
+	    var parsedExp = walkTex(expressionTeX, handler);
+
+	    return {
+	        endpoint: endpoint,
+	        expression: parsedExp
+	    };
+	}
+
+	function getNextFracIndex(tex, currentIndex) {
+	    var dfrac = '\\dfrac';
+	    var frac = '\\frac';
+
+	    var nextFrac = tex.indexOf(frac, currentIndex);
+	    var nextDFrac = tex.indexOf(dfrac, currentIndex);
+
+	    if (nextFrac > -1 && nextDFrac > -1) {
+	        return Math.min(nextFrac, nextDFrac);
+	    } else if (nextFrac > -1) {
+	        return nextFrac;
+	    } else if (nextDFrac > -1) {
+	        return nextDFrac;
+	    } else {
+	        return -1;
+	    }
+	}
+
+	function walkTex(tex, handler) {
+	    // Ex) tex: '2 \dfrac {3}{7}'
+	    var parsedString = '';
+	    var currentIndex = 0;
+	    var nextFrac = getNextFracIndex(tex, currentIndex);
+
+	    // For each \dfrac, find the two expressions (wrapped in {}) and recur
+	    while (nextFrac > -1) {
+	        // Gather first fragment, preceding \dfrac
+	        // Ex) parsedString: '2 '
+	        parsedString += tex.substring(currentIndex, nextFrac);
+
+	        // Remove everything preceding \dfrac, which has been parsed
+	        currentIndex = nextFrac;
+
+	        // Parse first expression and move index past it
+	        // Ex) firstParsedExpression.expression: '3'
+	        var firstParsedExpression = parseNextExpression(tex, currentIndex, handler);
+	        currentIndex = firstParsedExpression.endpoint + 1;
+
+	        // Parse second expression
+	        // Ex) secondParsedExpression.expression: '7'
+	        var secondParsedExpression = parseNextExpression(tex, currentIndex, handler);
+	        currentIndex = secondParsedExpression.endpoint + 1;
+
+	        // Add expressions to running total of parsed expressions
+	        if (parsedString.length) {
+	            parsedString += ' ';
+	        }
+
+	        // Apply a custom handler based on the parsed subexpressions
+	        parsedString += handler(firstParsedExpression.expression, secondParsedExpression.expression);
+
+	        // Find next DFrac, relative to currentIndex
+	        nextFrac = getNextFracIndex(tex, currentIndex);
+	    }
+
+	    // Add remaining TeX, which is \dfrac-free
+	    parsedString += tex.slice(currentIndex);
+
+	    return parsedString;
+	}
+
+	/*
+	 * Modify a TeX expression, returning another TeX expression. The resulting
+	 * expression will have its innermost fractions stubbed out with \fracs
+	 * (as opposed to \dfracs). All other content will remain untouched.
+	 */
+	function modifyTex(tex) {
+	    function isNestedFraction(tex) {
+	        return tex.indexOf('\\frac') > -1 || tex.indexOf('\\dfrac') > -1;
+	    }
+	    var handler = function (exp1, exp2) {
+	        var prefix;
+	        if (isNestedFraction(exp1) || isNestedFraction(exp2)) {
+	            prefix = '\\dfrac';
+	        } else {
+	            prefix = '\\frac';
+	        }
+	        return prefix + ' {' + exp1 + '}{' + exp2 + '}';
+	    };
+	    return walkTex(tex, handler);
+	}
+
+	/*
+	 * Parse a TeX expression into something interpretable by input-number.
+	 * The process is exclusively concerned with parsing fractions, i.e., \dfracs.
+	 * The basic algorithm splits on \dfracs and then recurs on the subsequent
+	 * "expressions", i.e., the {} pairs that follow \dfrac. The recursion is to
+	 * allow for nested \dfrac elements.
+	 */
+	function parseTex(tex) {
+	    var handler = function (exp1, exp2) {
+	        return exp1 + '/' + exp2;
+	    };
+	    return walkTex(tex, handler);
+	}
+
+	module.exports = {
+	    parseTex: parseTex,
+	    modifyTex: modifyTex
+	};
+
+/***/ },
+/* 168 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/**
+	 * In review mode (currently only visible in the sat-mission), NumericInput and
+	 * InputNumber use this component to display the set of correct answers.
+	 */
+
+	var React = __webpack_require__(15);
+	var _ = __webpack_require__(16);
+
+	var PossibleAnswers = React.createClass({
+	    displayName: "PossibleAnswers",
+
+	    propTypes: {
+	        answers: React.PropTypes.arrayOf(React.PropTypes.string)
+	    },
+	    render: function () {
+	        // It's redundant to show duplicate answers.
+	        // So, remove duplicates from the given list of answer strings.
+	        var answers = _.uniq(this.props.answers);
+
+	        var answerComponents = _.map(answers, function (answer) {
+	            // Plus, now that our answers are distinct, we can safely use the
+	            // answer string as a key.
+	            return React.createElement(
+	                "dd",
+	                { key: answer },
+	                answer
+	            );
+	        });
+	        return React.createElement(
+	            "dl",
+	            { className: "perseus-possible-answers" },
+	            React.createElement(
+	                "dt",
+	                null,
+	                "Correct Answer"
+	            ),
+	            answerComponents
+	        );
+	    }
+	});
+
+	module.exports = PossibleAnswers;
+
+/***/ },
+/* 169 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, max-len, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-after-keywords */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var classNames = __webpack_require__(42);
+	var React = __webpack_require__(15);
+	var ReactDOM = __webpack_require__(17);
+	var _ = __webpack_require__(16);
+
+	var firstNumericalParse = __webpack_require__(6).firstNumericalParse;
+	var captureScratchpadTouchStart = __webpack_require__(6).captureScratchpadTouchStart;
+	var knumber = __webpack_require__(188).number;
+	var KhanMath = __webpack_require__(135);
+
+	var toNumericString = KhanMath.toNumericString;
+	var getNumericFormat = KhanMath.getNumericFormat;
+
+	/* An input box that accepts only numeric strings
+	 *
+	 * Calls onChange(value, format) for valid numbers.
+	 * Reverts to the current value onBlur or on [ENTER],
+	 *   but maintains the format (i.e. 3/2, 1 1/2, 150%)
+	 * Accepts empty input and sends it to onChange as null
+	 *   if no numeric placeholder is set.
+	 * If given a checkValidity function, will turn
+	 *   the background/outline red when invalid
+	 * If useArrowKeys is set to true, up/down arrows will
+	 *   increment/decrement integers
+	 * Optionally takes a size ("mini", "small", "normal")
+	 */
+	var NumberInput = React.createClass({
+	    displayName: "NumberInput",
+
+	    propTypes: {
+	        value: React.PropTypes.number,
+	        format: React.PropTypes.string,
+	        placeholder: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+	        onChange: React.PropTypes.func.isRequired,
+	        onFormatChange: React.PropTypes.func,
+	        checkValidity: React.PropTypes.func,
+	        size: React.PropTypes.string,
+	        label: React.PropTypes.oneOf(["put your labels outside your inputs!"]) },
+
+	    getDefaultProps: function () {
+	        return {
+	            value: null,
+	            placeholder: null,
+	            format: null,
+	            onFormatChange: function () {
+	                return null;
+	            },
+	            checkValidity: function () {
+	                return true;
+	            },
+	            useArrowKeys: false
+	        };
+	    },
+
+	    getInitialState: function () {
+	        return {
+	            format: this.props.format
+	        };
+	    },
+
+	    render: function () {
+	        var classes = classNames({
+	            "number-input": true,
+	            "invalid-input": !this._checkValidity(this.props.value),
+	            "mini": this.props.size === "mini",
+	            "small": this.props.size === "small",
+	            "normal": this.props.size === "normal"
+	        });
+	        if (this.props.className != null) {
+	            classes = classes + " " + this.props.className;
+	        }
+
+	        return React.createElement("input", _extends({}, this.props, {
+	            className: classes,
+	            type: "text",
+	            ref: "input",
+	            onChange: this._handleChange,
+	            onFocus: this._handleFocus,
+	            onBlur: this._handleBlur,
+	            onKeyPress: this._handleBlur,
+	            onKeyDown: this._onKeyDown,
+	            onTouchStart: captureScratchpadTouchStart,
+	            defaultValue: toNumericString(this.props.value, this.state.format),
+	            value: undefined }));
+	    },
+
+	    componentDidUpdate: function (prevProps) {
+	        if (!knumber.equal(this.getValue(), this.props.value)) {
+	            this._setValue(this.props.value, this.state.format);
+	        }
+	    },
+
+	    /* Return the current "value" of this input
+	     * If empty, it returns the placeholder (if it is a number) or null
+	     */
+	    getValue: function () {
+	        return this.parseInputValue(ReactDOM.findDOMNode(this.refs.input).value);
+	    },
+
+	    /* Return the current string value of this input */
+	    getStringValue: function () {
+	        return ReactDOM.findDOMNode(this.refs.input).value.toString();
+	    },
+
+	    parseInputValue: function (value) {
+	        if (value === "") {
+	            placeholder = this.props.placeholder;
+	            return _.isFinite(placeholder) ? +placeholder : null;
+	        } else {
+	            var result = firstNumericalParse(value);
+	            return _.isFinite(result) ? result : this.props.value;
+	        }
+	    },
+
+	    /* Set text input focus to this input */
+	    focus: function () {
+	        ReactDOM.findDOMNode(this.refs.input).focus();
+	        this._handleFocus();
+	    },
+
+	    blur: function () {
+	        ReactDOM.findDOMNode(this.refs.input).blur();
+	        this._handleBlur();
+	    },
+
+	    setSelectionRange: function (selectionStart, selectionEnd) {
+	        ReactDOM.findDOMNode(this).setSelectionRange(selectionStart, selectionEnd);
+	    },
+
+	    getSelectionStart: function () {
+	        return ReactDOM.findDOMNode(this).selectionStart;
+	    },
+
+	    getSelectionEnd: function () {
+	        return ReactDOM.findDOMNode(this).selectionEnd;
+	    },
+
+	    _checkValidity: function (value) {
+	        if (value == null) {
+	            return true;
+	        }
+
+	        var val = firstNumericalParse(value);
+	        var checkValidity = this.props.checkValidity;
+
+	        return _.isFinite(val) && checkValidity(val);
+	    },
+
+	    _handleChange: function (e) {
+	        var text = e.target.value;
+	        var value = this.parseInputValue(text);
+	        var format = getNumericFormat(text);
+
+	        this.props.onChange(value);
+	        if (format) {
+	            this.props.onFormatChange(value, format);
+	            this.setState({ format: format });
+	        }
+	    },
+
+	    _handleFocus: function () {
+	        if (this.props.onFocus) {
+	            this.props.onFocus();
+	        }
+	    },
+
+	    _handleBlur: function (e) {
+	        // Only continue on blur or "enter"
+	        if (e && e.type === "keypress" && e.keyCode !== 13) {
+	            return;
+	        }
+
+	        this._setValue(this.props.value, this.state.format);
+	        if (this.props.onBlur) {
+	            this.props.onBlur();
+	        }
+	    },
+
+	    _onKeyDown: function (e) {
+	        if (this.props.onKeyDown) {
+	            this.props.onKeyDown(e);
+	        }
+
+	        if (!this.props.useArrowKeys || !_.contains(["ArrowUp", "ArrowDown"], e.key)) {
+	            return;
+	        }
+
+	        var val = this.getValue();
+	        if (val !== Math.floor(val)) {
+	            return; // bail if not an integer
+	        }
+
+	        if (e.key === "ArrowUp") {
+	            val = val + 1;
+	        } else if (e.key === "ArrowDown") {
+	            val = val - 1;
+	        }
+
+	        if (this._checkValidity(val)) {
+	            this.props.onChange(val);
+	        }
+	    },
+
+	    _setValue: function (val, format) {
+	        $(ReactDOM.findDOMNode(this.refs.input)).val(toNumericString(val, format));
+	    }
+	});
+
+	module.exports = NumberInput;
+
+/***/ },
 /* 170 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-redeclare, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(15);
+	var ReactDOM = __webpack_require__(17);
+	var _ = __webpack_require__(16);
+
+	var Util = __webpack_require__(6);
+	var GraphUtils = __webpack_require__(149);
+
+	var SvgImage = __webpack_require__(29);
+
+	var defaultBoxSize = 400;
+	var defaultBackgroundImage = {
+	    url: null
+	};
+
+	/* Style objects */
+	var defaultInstructionsStyle = {
+	    fontStyle: "italic",
+	    fontWeight: "bold",
+	    fontSize: "32px",
+	    width: "100%",
+	    height: "100%",
+	    textAlign: "center",
+	    backgroundColor: "white",
+	    position: "absolute",
+	    zIndex: 1,
+	    transition: "opacity .25s ease-in-out",
+	    "-moz-transition": "opacity .25s ease-in-out",
+	    "-webkit-transition": "opacity .25s ease-in-out"
+	};
+
+	var instructionsTextStyle = {
+	    position: "relative",
+	    top: "25%"
+	};
+
+	function numSteps(range, step) {
+	    return Math.floor((range[1] - range[0]) / step);
+	}
+
+	var Graph = React.createClass({
+	    displayName: "Graph",
+
+	    propTypes: {
+	        box: React.PropTypes.array.isRequired,
+	        labels: React.PropTypes.arrayOf(React.PropTypes.string),
+	        range: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
+	        step: React.PropTypes.arrayOf(React.PropTypes.number),
+	        gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
+	        snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
+	        markings: React.PropTypes.string,
+	        backgroundImage: React.PropTypes.shape({
+	            url: React.PropTypes.string
+	        }),
+	        showProtractor: React.PropTypes.bool,
+	        showRuler: React.PropTypes.bool,
+	        rulerLabel: React.PropTypes.string,
+	        rulerTicks: React.PropTypes.number,
+	        onGraphieUpdated: React.PropTypes.func,
+	        instructions: React.PropTypes.string,
+	        onClick: React.PropTypes.func
+	    },
+
+	    getDefaultProps: function () {
+	        return {
+	            box: [defaultBoxSize, defaultBoxSize],
+	            labels: ["x", "y"],
+	            range: [[-10, 10], [-10, 10]],
+	            step: [1, 1],
+	            gridStep: [1, 1],
+	            snapStep: [0.5, 0.5],
+	            markings: "graph",
+	            backgroundImage: defaultBackgroundImage,
+	            showProtractor: false,
+	            showRuler: false,
+	            rulerLabel: "",
+	            rulerTicks: 10,
+	            instructions: null,
+	            onGraphieUpdated: null,
+	            onClick: null,
+	            onMouseDown: null };
+	    },
+
+	    render: function () {
+	        var image;
+	        var imageData = this.props.backgroundImage;
+	        if (imageData.url) {
+	            var scale = this.props.box[0] / defaultBoxSize;
+	            image = React.createElement(SvgImage, { src: imageData.url,
+	                width: imageData.width,
+	                height: imageData.height,
+	                scale: scale,
+	                responsive: false });
+	        } else {
+	            image = null;
+	        }
+
+	        return React.createElement(
+	            "div",
+	            {
+	                className: "graphie-container above-scratchpad",
+	                style: {
+	                    width: this.props.box[0],
+	                    height: this.props.box[1]
+	                },
+	                onMouseOut: this.onMouseOut,
+	                onMouseOver: this.onMouseOver,
+	                onClick: this.onClick },
+	            image,
+	            React.createElement("div", { className: "graphie", ref: "graphieDiv" })
+	        );
+	    },
+
+	    componentDidMount: function () {
+	        this._setupGraphie(true);
+	    },
+
+	    componentDidUpdate: function () {
+	        // Only setupGraphie once per componentDidUpdate().
+	        // See explanation in setupGraphie().
+	        this._hasSetupGraphieThisUpdate = false;
+	        if (this._shouldSetupGraphie) {
+	            this._setupGraphie(false);
+	            this._shouldSetupGraphie = false;
+	        }
+	    },
+
+	    componentWillReceiveProps: function (nextProps) {
+	        var potentialChanges = ["labels", "range", "step", "markings", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep"];
+	        var self = this;
+	        _.each(potentialChanges, function (prop) {
+	            if (!_.isEqual(self.props[prop], nextProps[prop])) {
+	                self._shouldSetupGraphie = true;
+	            }
+	        });
+	    },
+
+	    /* Reset the graphie canvas to its initial state
+	     *
+	     * Use when re-rendering the parent component and you need a blank
+	     * graphie.
+	     */
+	    reset: function () {
+	        this._setupGraphie(false);
+	    },
+
+	    graphie: function () {
+	        return this._graphie;
+	    },
+
+	    pointsFromNormalized: function (coordsList, noSnap) {
+	        var self = this;
+	        return _.map(coordsList, function (coords) {
+	            return _.map(coords, function (coord, i) {
+	                var range = self.props.range[i];
+	                if (noSnap) {
+	                    return range[0] + (range[1] - range[0]) * coord;
+	                } else {
+	                    var step = self.props.step[i];
+	                    var nSteps = numSteps(range, step);
+	                    var tick = Math.round(coord * nSteps);
+	                    return range[0] + step * tick;
+	                }
+	            });
+	        });
+	    },
+
+	    _setupGraphie: function (initialMount) {
+	        // Only setupGraphie once per componentDidUpdate().
+	        // This prevents this component from rendering graphie
+	        // and then immediately re-render graphie because its
+	        // parent component asked it to. This will happen when
+	        // props on the parent and props on this component both
+	        // require graphie to be re-rendered.
+	        if (this._hasSetupGraphieThisUpdate) {
+	            return;
+	        }
+
+	        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
+	        $(graphieDiv).empty();
+	        var labels = this.props.labels;
+	        var range = this.props.range;
+	        var graphie = this._graphie = GraphUtils.createGraphie(graphieDiv);
+
+	        var gridConfig = this._getGridConfig();
+	        graphie.snap = this.props.snapStep;
+
+	        if (this.props.markings === "graph") {
+	            graphie.graphInit({
+	                range: range,
+	                scale: _.pluck(gridConfig, "scale"),
+	                axisArrows: "<->",
+	                labelFormat: function (s) {
+	                    return "\\small{" + s + "}";
+	                },
+	                gridStep: this.props.gridStep,
+	                tickStep: _.pluck(gridConfig, "tickStep"),
+	                labelStep: 1,
+	                unityLabels: _.pluck(gridConfig, "unityLabel")
+	            });
+	            graphie.label([0, range[1][1]], labels[1], "above");
+	            graphie.label([range[0][1], 0], labels[0], "right");
+	        } else if (this.props.markings === "grid") {
+	            graphie.graphInit({
+	                range: range,
+	                scale: _.pluck(gridConfig, "scale"),
+	                gridStep: this.props.gridStep,
+	                axes: false,
+	                ticks: false,
+	                labels: false
+	            });
+	        } else if (this.props.markings === "none") {
+	            graphie.init({
+	                range: range,
+	                scale: _.pluck(gridConfig, "scale")
+	            });
+	        }
+
+	        // Add instructions just before mouse layer
+	        var visible = 0.5;
+	        var invisible = 0;
+	        var $instructionsWrapper;
+	        if (this.props.instructions) {
+	            var $instructionsWrapper = $("<div/>");
+	            _.each(defaultInstructionsStyle, function (value, key) {
+	                $instructionsWrapper.css(key, value);
+	            });
+	            $instructionsWrapper.css("opacity", visible);
+
+	            var $instructions = $("<span/>", {
+	                text: this.props.instructions
+	            });
+	            _.each(instructionsTextStyle, function (value, key) {
+	                $instructions.css(key, value);
+	            });
+
+	            $instructionsWrapper.append($instructions);
+	            $(graphieDiv).append($instructionsWrapper);
+	        } else {
+	            $instructionsWrapper = undefined;
+	        }
+
+	        // Add some handlers for instructions text (if necessary)
+	        var onMouseDown = $instructionsWrapper || this.props.onMouseDown ? _.bind(function (coord) {
+	            if ($instructionsWrapper) {
+	                $instructionsWrapper.remove();
+	                $instructionsWrapper = null;
+	            }
+	            this.props.onMouseDown(coord);
+	        }, this) : null;
+
+	        var onMouseOver = $instructionsWrapper ? function () {
+	            $instructionsWrapper && $instructionsWrapper.css("opacity", invisible);
+	        } : null;
+
+	        var onMouseOut = $instructionsWrapper ? function () {
+	            $instructionsWrapper && $instructionsWrapper.css("opacity", visible);
+	        } : null;
+
+	        graphie.addMouseLayer({
+	            onClick: this.props.onClick,
+	            onMouseDown: onMouseDown,
+	            onMouseOver: onMouseOver,
+	            onMouseOut: onMouseOut,
+	            onMouseUp: this.props.onMouseUp,
+	            onMouseMove: this.props.onMouseMove,
+	            allowScratchpad: true
+	        });
+
+	        this._updateProtractor();
+	        this._updateRuler();
+
+	        // We set this flag before jumping into our callback
+	        // to avoid recursing if our callback calls reset() itself
+	        this._hasSetupGraphieThisUpdate = true;
+	        if (!initialMount && this.props.onGraphieUpdated) {
+	            // Calling a parent callback in componentDidMount is bad and
+	            // results in hard-to-reason-about lifecycle problems (esp. with
+	            // refs), so we do it only on update and rely on the parent to
+	            // query for the graphie object on initial mount
+	            this.props.onGraphieUpdated(graphie);
+	        }
+	    },
+
+	    _getGridConfig: function () {
+	        var self = this;
+	        return _.map(self.props.step, function (step, i) {
+	            return Util.gridDimensionConfig(step, self.props.range[i], self.props.box[i], self.props.gridStep[i]);
+	        });
+	    },
+
+	    _updateProtractor: function () {
+	        if (this.protractor) {
+	            this.protractor.remove();
+	        }
+
+	        if (this.props.showProtractor) {
+	            var coord = this.pointsFromNormalized([[0.5, 0.05]])[0];
+	            this.protractor = this._graphie.protractor(coord);
+	        }
+	    },
+
+	    _updateRuler: function () {
+	        if (this.ruler) {
+	            this.ruler.remove();
+	        }
+
+	        if (this.props.showRuler) {
+	            var coord = this.pointsFromNormalized([[0.5, 0.25]])[0];
+	            var extent = this._graphie.range[0][1] - this._graphie.range[0][0];
+	            this.ruler = this._graphie.ruler({
+	                center: coord,
+	                label: this.props.rulerLabel,
+	                pixelsPerUnit: this._graphie.scale[0],
+	                ticksPerUnit: this.props.rulerTicks,
+	                units: Math.round(0.8 * extent)
+	            });
+	        }
+	    },
+
+	    toJSON: function () {
+	        return _.pick(this.props, "range", "step", "markings", "labels", "backgroundImage", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep");
+	    }
+	});
+
+	module.exports = Graph;
+
+/***/ },
+/* 171 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, max-len, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(15);
+	var ReactDOM = __webpack_require__(17);
+	var TeX = __webpack_require__(49);
+	var ApiClassNames = __webpack_require__(5).ClassNames;
+	var Tooltip = __webpack_require__(157);
+	var ModifyTex = __webpack_require__(167).modifyTex;
+
+	var MathOutput = React.createClass({
+	    displayName: "MathOutput",
+
+	    propTypes: {
+	        value: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+	        className: React.PropTypes.string,
+	        labelText: React.PropTypes.string,
+	        onFocus: React.PropTypes.func,
+	        onBlur: React.PropTypes.func
+	    },
+
+	    getDefaultProps: function () {
+	        return {
+	            value: "",
+	            onFocus: function () {},
+	            onBlur: function () {}
+	        };
+	    },
+
+	    getInitialState: function () {
+	        return {
+	            focused: false,
+	            selectorNamespace: _.uniqueId("math-output")
+	        };
+	    },
+
+	    _getInputClassName: function () {
+	        var className = "math-output " + ApiClassNames.INPUT + " " + ApiClassNames.INTERACTIVE;
+	        if (this.state.focused) {
+	            className += " " + ApiClassNames.FOCUSED;
+	        }
+	        if (this.props.className) {
+	            className += " " + this.props.className;
+	        }
+	        return className;
+	    },
+
+	    _getDisplayValue: function (value) {
+	        // Cast from (potentially a) number to string
+	        var displayText;
+	        if (value != null) {
+	            displayText = "" + value;
+	        } else {
+	            displayText = "";
+	        }
+	        return ModifyTex(displayText);
+	    },
+
+	    render: function () {
+	        var divStyle = {
+	            textAlign: "center"
+	        };
+
+	        return React.createElement(
+	            "span",
+	            { ref: "input",
+	                className: this._getInputClassName(),
+	                "aria-label": this.props.labelText,
+	                onMouseDown: this.focus,
+	                onTouchStart: this.focus },
+	            React.createElement(
+	                "div",
+	                { style: divStyle },
+	                React.createElement(
+	                    TeX,
+	                    null,
+	                    this._getDisplayValue(this.props.value)
+	                )
+	            )
+	        );
+	    },
+
+	    getValue: function () {
+	        return this.props.value;
+	    },
+
+	    focus: function () {
+	        if (!this.state.focused) {
+	            this.props.onFocus();
+	            this._bindBlurHandler();
+	            this.setState({
+	                focused: true
+	            });
+	        }
+	    },
+
+	    blur: function () {
+	        if (this.state.focused) {
+	            this.props.onBlur();
+	            this._unbindBlurHandler();
+	            this.setState({
+	                focused: false
+	            });
+	        }
+	    },
+
+	    _bindBlurHandler: function () {
+	        var _this = this;
+
+	        $(document).bind("vclick." + this.state.selectorNamespace, function (e) {
+	            // Detect whether the target has our React DOM node as a parent
+	            var $closestWidget = $(e.target).closest(ReactDOM.findDOMNode(_this));
+	            if (!$closestWidget.length) {
+	                _this.blur();
+	            }
+	        });
+	    },
+
+	    _unbindBlurHandler: function () {
+	        $(document).unbind("." + this.state.selectorNamespace);
+	    },
+
+	    componentWillUnmount: function () {
+	        this._unbindBlurHandler();
+	    }
+	});
+
+	module.exports = MathOutput;
+
+/***/ },
+/* 172 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, indent, max-len, no-irregular-whitespace, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(15);
+	var ReactDOM = __webpack_require__(17);
+	var _ = __webpack_require__(16);
+
+	var Util = __webpack_require__(6);
+	var Renderer = __webpack_require__(26);
+
+	var ApiClassNames = __webpack_require__(5).ClassNames;
+
+	var PREFIX = "perseus-sortable";
+
+	// A placeholder that appears in the sortable whenever an item is dragged.
+	var Placeholder = React.createClass({
+	    displayName: "Placeholder",
+
+	    propTypes: {
+	        width: React.PropTypes.number.isRequired,
+	        height: React.PropTypes.number.isRequired
+	    },
+
+	    render: function () {
+	        var className = [PREFIX + "-card", PREFIX + "-placeholder"].join(" ");
+	        var style = { width: this.props.width, height: this.props.height };
+
+	        if (this.props.margin != null) {
+	            style.margin = this.props.margin;
+	        }
+
+	        return React.createElement("li", { className: className, style: style });
+	    }
+	});
+
+	var STATIC = "static",
+	    DRAGGING = "dragging",
+	    ANIMATING = "animating",
+	    DISABLED = "disabled";
+
+	// A draggable item in the sortable. Can be in one of four states:
+	//     Static:    The item is not being interacted with.
+	//     Dragging:  The item is being dragged.
+	//     Animating: The item has been released, and is moving to its destination.
+	//     Disabled:  The item cannot be interacted with.
+	//
+	// Usual flow:      Static -> Dragging -> Animating -> Static
+	// [Dis|en]abling:  Static|Dragging|Animating -> Disabled -> Static
+	var Draggable = React.createClass({
+	    displayName: "Draggable",
+
+	    propTypes: {
+	        type: React.PropTypes.oneOf([STATIC, DRAGGING, ANIMATING, DISABLED]),
+	        content: React.PropTypes.string.isRequired,
+	        endPosition: React.PropTypes.object.isRequired,
+	        onRender: React.PropTypes.func.isRequired,
+	        onMouseDown: React.PropTypes.func.isRequired,
+	        onMouseMove: React.PropTypes.func.isRequired,
+	        onMouseUp: React.PropTypes.func.isRequired,
+	        onAnimationEnd: React.PropTypes.func.isRequired
+	    },
+
+	    getDefaultProps: function () {
+	        return {
+	            type: STATIC
+	        };
+	    },
+
+	    getInitialState: function () {
+	        return {
+	            startPosition: { left: 0, top: 0 },
+	            startMouse: { left: 0, top: 0 },
+	            mouse: { left: 0, top: 0 }
+	        };
+	    },
+
+	    componentDidMount: function () {
+	        this.isMouseMoveUpBound = false;
+	    },
+
+	    componentWillUnmount: function () {
+	        // Event handlers should be unbound before component unmounting, but
+	        // just in case...
+	        if (this.isMouseMoveUpBound) {
+	            this.unbindMouseMoveUp();
+	        }
+	    },
+
+	    getCurrentPosition: function () {
+	        return {
+	            left: this.state.startPosition.left + this.state.mouse.left - this.state.startMouse.left,
+	            top: this.state.startPosition.top + this.state.mouse.top - this.state.startMouse.top
+	        };
+	    },
+
+	    render: function () {
+	        var className = [PREFIX + "-card", PREFIX + "-draggable", PREFIX + "-" + this.props.type, ApiClassNames.INTERACTIVE].join(" ");
+
+	        var style = {
+	            position: "static"
+	        };
+
+	        if (this.props.type === DRAGGING || this.props.type === ANIMATING) {
+	            _.extend(style, { position: "absolute" }, this.getCurrentPosition());
+	        }
+
+	        if (this.props.width) {
+	            style.width = this.props.width + 1; // Fix for non-integer widths
+	        }
+	        if (this.props.height) {
+	            style.height = this.props.height;
+	        }
+	        if (this.props.margin != null) {
+	            style.margin = this.props.margin;
+	        }
+
+	        return React.createElement(
+	            "li",
+	            {
+	                className: className,
+	                style: style,
+	                onMouseDown: this.onMouseDown,
+	                onTouchStart: this.onMouseDown,
+	                onTouchMove: this.onMouseMove,
+	                onTouchEnd: this.onMouseUp,
+	                onTouchCancel: this.onMouseUp },
+	            React.createElement(Renderer, {
+	                content: this.props.content,
+	                onRender: this.props.onRender })
+	        );
+	    },
+
+	    componentDidUpdate: function (prevProps) {
+	        if (this.props.type === prevProps.type) {
+	            return;
+	        }
+
+	        if (this.props.type === ANIMATING) {
+	            // Start animating
+	            var current = this.getCurrentPosition();
+	            var duration = 15 * Math.sqrt(Math.sqrt(Math.pow(this.props.endPosition.left - current.left, 2) + Math.pow(this.props.endPosition.top - current.top, 2)));
+
+	            $(ReactDOM.findDOMNode(this)).animate(this.props.endPosition, {
+	                duration: Math.max(duration, 1),
+	                // Animating -> Static
+	                complete: this.props.onAnimationEnd
+	            });
+	        } else if (this.props.type === STATIC) {
+	            // Ensure that any animations are done
+	            $(ReactDOM.findDOMNode(this)).finish();
+	        }
+	    },
+
+	    bindMouseMoveUp: function () {
+	        this.isMouseMoveUpBound = true;
+	        $(document).on("mousemove", this.onMouseMove);
+	        $(document).on("mouseup", this.onMouseUp);
+	    },
+
+	    unbindMouseMoveUp: function () {
+	        this.isMouseMoveUpBound = false;
+	        $(document).off("mousemove", this.onMouseMove);
+	        $(document).off("mouseup", this.onMouseUp);
+	    },
+
+	    onMouseDown: function (event) {
+	        if (this.props.type !== STATIC) {
+	            return;
+	        }
+
+	        if (!(event.button === 0 || event.touches != null && event.touches.length === 1)) {
+	            return;
+	        }
+
+	        event.preventDefault();
+	        var loc = Util.extractPointerLocation(event);
+	        if (loc) {
+	            this.setState({
+	                startPosition: $(ReactDOM.findDOMNode(this)).position(),
+	                startMouse: loc,
+	                mouse: loc
+	            }, function () {
+	                this.bindMouseMoveUp();
+
+	                // Static -> Dragging
+	                this.props.onMouseDown();
+	            });
+	        }
+	    },
+
+	    onMouseMove: function (event) {
+	        if (this.props.type !== DRAGGING) {
+	            return;
+	        }
+
+	        event.preventDefault();
+	        var loc = Util.extractPointerLocation(event);
+	        if (loc) {
+	            this.setState({
+	                mouse: loc }, this.props.onMouseMove);
+	        }
+	    },
+
+	    onMouseUp: function (event) {
+	        if (this.props.type !== DRAGGING) {
+	            return;
+	        }
+
+	        event.preventDefault();
+	        var loc = Util.extractPointerLocation(event);
+	        if (loc) {
+	            this.unbindMouseMoveUp();
+
+	            // Dragging -> Animating
+	            this.props.onMouseUp();
+	        }
+	    }
+	});
+
+	var HORIZONTAL = "horizontal",
+	    VERTICAL = "vertical";
+
+	// The main sortable component.
+	var Sortable = React.createClass({
+	    displayName: "Sortable",
+
+	    propTypes: {
+	        options: React.PropTypes.array.isRequired,
+	        layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
+	        padding: React.PropTypes.bool,
+	        disabled: React.PropTypes.bool,
+	        constraints: React.PropTypes.object,
+	        onMeasure: React.PropTypes.func,
+	        margin: React.PropTypes.number,
+	        onChange: React.PropTypes.func
+	    },
+
+	    getDefaultProps: function () {
+	        return {
+	            layout: HORIZONTAL,
+	            padding: true,
+	            disabled: false,
+	            constraints: {},
+	            onMeasure: function () {},
+	            margin: 5,
+	            onChange: function () {}
+	        };
+	    },
+
+	    getInitialState: function () {
+	        return {
+	            items: this.itemsFromProps(this.props)
+	        };
+	    },
+
+	    componentWillReceiveProps: function (nextProps) {
+	        var prevProps = this.props;
+
+	        if (!_.isEqual(nextProps.options, prevProps.options)) {
+
+	            // Regenerate items
+	            this.setState({
+	                items: this.itemsFromProps(nextProps)
+	            });
+	        } else if (nextProps.layout !== prevProps.layout || nextProps.padding !== prevProps.padding || nextProps.disabled !== prevProps.disabled || !_.isEqual(nextProps.constraints, prevProps.constraints)) {
+
+	            // Clear item measurements
+	            this.setState({
+	                items: this.clearItemMeasurements(this.state.items)
+	            });
+	        }
+	    },
+
+	    componentDidUpdate: function (prevProps) {
+	        // Measure items if their dimensions have been reset
+	        if (this.state.items.length && !this.state.items[0].width) {
+	            this.measureItems();
+	        }
+	    },
+
+	    itemsFromProps: function (props) {
+	        var type = props.disabled ? DISABLED : STATIC;
+	        return _.map(props.options, function (option, i) {
+	            return {
+	                option: option,
+	                key: i,
+	                type: type,
+	                endPosition: {},
+	                width: 0,
+	                height: 0
+	            };
+	        });
+	    },
+
+	    clearItemMeasurements: function (items) {
+	        return _.map(items, function (item) {
+	            return _.extend(item, {
+	                width: 0,
+	                height: 0
+	            });
+	        });
+	    },
+
+	    measureItems: function () {
+	        var _this = this;
+
+	        // Measure all items and cache what their dimensions should be, taking
+	        // into account constraints and the current layout. This allows syncing
+	        // widths and heights for pretty rows/columns. Note that dimensions are
+	        // explictly set on Draggables - this prevents them from changing size
+	        // or shape while being dragged.
+
+	        var items = _.clone(this.state.items);
+	        var $items = _.map(items, function (item) {
+	            return $(ReactDOM.findDOMNode(this.refs[item.key]));
+	        }, this);
+
+	        var widths = _.invoke($items, "outerWidth");
+	        var heights = _.invoke($items, "outerHeight");
+
+	        var constraints = this.props.constraints;
+	        var layout = this.props.layout;
+
+	        var syncWidth;
+	        if (constraints.width) {
+	            // Items must be at least as wide as the specified constraint
+	            syncWidth = _.max(widths.concat(constraints.width));
+	        } else if (layout === VERTICAL) {
+	            // Sync widths to get a clean column
+	            syncWidth = _.max(widths);
+	        }
+
+	        var syncHeight;
+	        if (constraints.height) {
+	            // Items must be at least as high as the specified constraint
+	            syncHeight = _.max(heights.concat(constraints.height));
+	        } else if (layout === HORIZONTAL) {
+	            // Sync widths to get a clean row
+	            syncHeight = _.max(heights);
+	        }
+
+	        items = _.map(items, function (item, i) {
+	            item.width = syncWidth || widths[i];
+	            item.height = syncHeight || heights[i];
+	            return item;
+	        });
+
+	        this.setState({ items: items }, function () {
+	            _this.props.onMeasure({ widths: widths, heights: heights });
+	        });
+	    },
+
+	    remeasureItems: _.debounce(function () {
+	        this.setState({
+	            // Clear item measurements
+	            items: this.clearItemMeasurements(this.state.items)
+	        }, this.measureItems);
+	    }, 20),
+
+	    render: function () {
+	        var className = [PREFIX, "layout-" + this.props.layout].join(" ");
+	        var cards = [];
+
+	        className += this.props.padding ? "" : " unpadded";
+
+	        _.each(this.state.items, function (item, i, items) {
+	            var isLast = i === items.length - 1;
+	            var isStatic = item.type === STATIC || item.type === DISABLED;
+	            var margin;
+
+	            if (this.props.layout === HORIZONTAL) {
+	                margin = "0 " + this.props.margin + "px 0 0"; // right
+	            } else if (this.props.layout === VERTICAL) {
+	                margin = "0 0 " + this.props.margin + "px 0"; // bottom
+	            }
+
+	            cards.push(React.createElement(Draggable, {
+	                content: item.option,
+	                key: item.key,
+	                type: item.type,
+	                ref: item.key,
+	                width: item.width,
+	                height: item.height,
+	                margin: isLast && isStatic ? 0 : margin,
+	                endPosition: item.endPosition,
+	                onRender: this.remeasureItems,
+	                onMouseDown: this.onMouseDown.bind(this, item.key),
+	                onMouseMove: this.onMouseMove.bind(this, item.key),
+	                onMouseUp: this.onMouseUp.bind(this, item.key),
+	                onTouchMove: this.onMouseMove.bind(this, item.key),
+	                onTouchEnd: this.onMouseUp.bind(this, item.key),
+	                onTouchCancel: this.onMouseUp.bind(this, item.key),
+	                onAnimationEnd: this.onAnimationEnd.bind(this, item.key) }));
+
+	            if (item.type === DRAGGING || item.type === ANIMATING) {
+	                cards.push(React.createElement(Placeholder, {
+	                    key: "placeholder_" + item.key,
+	                    ref: "placeholder_" + item.key,
+	                    width: item.width,
+	                    height: item.height,
+	                    margin: isLast ? 0 : margin }));
+	            }
+	        }, this);
+
+	        return React.createElement(
+	            "ul",
+	            { className: className },
+	            cards
+	        );
+	    },
+
+	    onMouseDown: function (key) {
+	        // Static -> Dragging
+	        var items = _.map(this.state.items, function (item) {
+	            if (item.key === key) {
+	                item.type = DRAGGING;
+	            }
+	            return item;
+	        });
+
+	        this.setState({ items: items });
+	    },
+
+	    onMouseMove: function (key) {
+	        // Dragging: Rearrange items based on draggable's position
+	        var $draggable = $(ReactDOM.findDOMNode(this.refs[key]));
+	        var $sortable = $(ReactDOM.findDOMNode(this));
+	        var items = _.clone(this.state.items);
+	        var item = _.findWhere(this.state.items, { key: key });
+	        var margin = this.props.margin;
+	        var currentIndex = _.indexOf(items, item);
+	        var newIndex = 0;
+
+	        items.splice(currentIndex, 1);
+
+	        if (this.props.layout === HORIZONTAL) {
+	            var midWidth = $draggable.offset().left - $sortable.offset().left;
+	            var sumWidth = 0;
+	            var cardWidth;
+
+	            _.each(items, function (item) {
+	                cardWidth = item.width;
+	                if (midWidth > sumWidth + cardWidth / 2) {
+	                    newIndex += 1;
+	                }
+	                sumWidth += cardWidth + margin;
+	            });
+	        } else {
+	            var midHeight = $draggable.offset().top - $sortable.offset().top;
+	            var sumHeight = 0;
+	            var cardHeight;
+
+	            _.each(items, function (item) {
+	                cardHeight = item.height;
+	                if (midHeight > sumHeight + cardHeight / 2) {
+	                    newIndex += 1;
+	                }
+	                sumHeight += cardHeight + margin;
+	            });
+	        }
+
+	        if (newIndex !== currentIndex) {
+	            items.splice(newIndex, 0, item);
+	            this.setState({ items: items });
+	        }
+	    },
+
+	    onMouseUp: function (key) {
+	        // Dragging -> Animating
+	        var items = _.map(this.state.items, function (item) {
+	            if (item.key === key) {
+	                item.type = ANIMATING;
+	                item.endPosition = $(ReactDOM.findDOMNode(this.refs["placeholder_" + key])).position();
+	            }
+	            return item;
+	        }, this);
+
+	        this.setState({ items: items });
+	        // HACK: We need to know *that* the widget changed, but currently it's
+	        // not set up in a nice way to tell us *how* it changed, since the
+	        // permutation of the items is stored in state.
+	        this.props.onChange({});
+	    },
+
+	    onAnimationEnd: function (key) {
+	        // Animating -> Static
+	        var items = _.map(this.state.items, function (item) {
+	            if (item.key === key) {
+	                item.type = STATIC;
+	            }
+	            return item;
+	        });
+
+	        this.setState({ items: items });
+	    },
+
+	    getOptions: function () {
+	        return _.pluck(this.state.items, "option");
+	    }
+	});
+
+	module.exports = Sortable;
+
+/***/ },
+/* 173 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* global i18n */
+
+	var React = __webpack_require__(15);
+	var _ = __webpack_require__(16);
+
+	var Renderer = __webpack_require__(26);
+	var PassageRef = __webpack_require__(102);
+	var Util = __webpack_require__(6);
+
+	var BaseRadio = __webpack_require__(175);
+
+	var Radio = React.createClass({
+	    displayName: "Radio",
+
+	    propTypes: {
+	        apiOptions: BaseRadio.propTypes.apiOptions,
+	        choices: BaseRadio.propTypes.choices,
+
+	        deselectEnabled: React.PropTypes.bool,
+	        displayCount: React.PropTypes.any,
+	        interWidgets: React.PropTypes.func,
+	        multipleSelect: React.PropTypes.bool,
+	        onChange: React.PropTypes.func.isRequired,
+
+	        onePerLine: BaseRadio.propTypes.onePerLine,
+
+	        questionCompleted: React.PropTypes.bool,
+	        reviewModeRubric: BaseRadio.propTypes.reviewModeRubric,
+	        trackInteraction: React.PropTypes.func.isRequired,
+	        values: React.PropTypes.arrayOf(React.PropTypes.bool) },
+
+	    getDefaultProps: function () {
+	        return {
+	            choices: [{}],
+	            displayCount: null,
+	            multipleSelect: false,
+	            deselectEnabled: false };
+	    },
+
+	    _renderRenderer: function (content) {
+	        content = content || "";
+
+	        var nextPassageRefId = 1;
+	        var widgets = {};
+
+	        var modContent = content.replace(/\{\{passage-ref (\d+) (\d+)(?: "([^"]*)")?\}\}/g, function (match, passageNum, refNum, summaryText) {
+	            var widgetId = "passage-ref " + nextPassageRefId;
+	            nextPassageRefId++;
+
+	            widgets[widgetId] = {
+	                type: "passage-ref",
+	                graded: false,
+	                options: {
+	                    passageNumber: parseInt(passageNum),
+	                    referenceNumber: parseInt(refNum),
+	                    summaryText: summaryText },
+	                version: PassageRef.version };
+
+	            return "[[" + Util.snowman + " " + widgetId + "]]";
+	        });
+
+	        // alwaysUpdate={true} so that passage-refs interwidgets
+	        // get called when the outer passage updates the renderer
+	        // TODO(aria): This is really hacky
+	        // We pass in a key here so that we avoid a semi-spurious
+	        // react warning when the ChoiceNoneAbove renders a
+	        // different renderer in the same place. Note this destroys
+	        // state, but since all we're doing is outputting
+	        // "None of the above", that is okay.
+	        return React.createElement(Renderer, {
+	            key: "choiceContentRenderer",
+	            content: modContent,
+	            widgets: widgets,
+	            interWidgets: this._interWidgets,
+	            alwaysUpdate: true
+	        });
+	    },
+
+	    _interWidgets: function (filterCriterion, localResults) {
+	        // If local results are not found, forward interwidgets
+	        // calls to our parent renderer.
+	        // For passage-refs to communicate with their passages.
+	        if (localResults.length) {
+	            return localResults;
+	        } else {
+	            return this.props.interWidgets(filterCriterion);
+	        }
+	    },
+
+	    focus: function (i) {
+	        return this.refs.baseRadio.focus(i);
+	    },
+
+	    onCheckedChange: function (checked) {
+	        this.props.onChange({
+	            values: checked });
+	        this.props.trackInteraction();
+	    },
+
+	    getUserInput: function () {
+	        // Return checked inputs in the form {values: [bool]}. (Dear future
+	        // timeline implementers: this used to be {value: i} before multiple
+	        // select was added)
+	        if (this.props.values) {
+	            var noneOfTheAboveIndex = null;
+	            var noneOfTheAboveSelected = false;
+
+	            var values = this.props.values.slice();
+
+	            for (var i = 0; i < this.props.values.length; i++) {
+	                var index = this.props.choices[i].originalIndex;
+	                values[index] = this.props.values[i];
+
+	                if (this.props.choices[i].isNoneOfTheAbove) {
+	                    noneOfTheAboveIndex = index;
+
+	                    if (values[i]) {
+	                        noneOfTheAboveSelected = true;
+	                    }
+	                }
+	            }
+
+	            return {
+	                values: values,
+	                noneOfTheAboveIndex: noneOfTheAboveIndex,
+	                noneOfTheAboveSelected: noneOfTheAboveSelected };
+	        } else {
+	            // Nothing checked
+	            return {
+	                values: _.map(this.props.choices, function () {
+	                    return false;
+	                }) };
+	        }
+	    },
+
+	    simpleValidate: function (rubric) {
+	        return Radio.validate(this.getUserInput(), rubric);
+	    },
+
+	    enforceOrdering: function (choices) {
+	        var content = _.pluck(choices, "content");
+	        if (_.isEqual(content, [i18n._("False"), i18n._("True")]) || _.isEqual(content, [i18n._("No"), i18n._("Yes")])) {
+	            return [choices[1]].concat([choices[0]]);
+	        }
+	        return choices;
+	    },
+
+	    render: function () {
+	        var _this = this;
+
+	        var choices = this.props.choices;
+	        var values = this.props.values || _.map(choices, function () {
+	            return false;
+	        });
+
+	        choices = _.map(choices, function (choice, i) {
+	            var content = choice.isNoneOfTheAbove && !choice.content ?
+	            // we use i18n._ instead of $_ here because the content
+	            // sent to a renderer needs to be a string, not a react
+	            // node (/renderable/fragment).
+	            i18n._("None of the above") : choice.content;
+	            return {
+	                content: _this._renderRenderer(content),
+	                checked: values[i],
+	                correct: _this.props.questionCompleted && values[i],
+	                clue: _this._renderRenderer(choice.clue),
+	                isNoneOfTheAbove: choice.isNoneOfTheAbove };
+	        });
+	        choices = this.enforceOrdering(choices);
+
+	        return React.createElement(BaseRadio, {
+	            ref: "baseRadio",
+	            labelWrap: true,
+	            onePerLine: this.props.onePerLine,
+	            multipleSelect: this.props.multipleSelect,
+	            choices: choices,
+	            onCheckedChange: this.onCheckedChange,
+	            reviewModeRubric: this.props.reviewModeRubric,
+	            deselectEnabled: this.props.deselectEnabled,
+	            apiOptions: this.props.apiOptions
+	        });
+	    } });
+
+	_.extend(Radio, {
+	    validate: function (state, rubric) {
+	        var numSelected = _.reduce(state.values, function (sum, selected) {
+	            return sum + (selected ? 1 : 0);
+	        }, 0);
+
+	        if (numSelected === 0) {
+	            return {
+	                type: "invalid",
+	                message: null };
+	            // If NOTA and some other answer are checked, ...
+	        } else if (state.noneOfTheAboveSelected && numSelected > 1) {
+	            return {
+	                type: "invalid",
+	                message: i18n._("'None of the above' may not be selected " + "when other answers are selected.") };
+	        } else {
+	            /* jshint -W018 */
+	            var correct = _.all(state.values, function (selected, i) {
+	                var isCorrect = undefined;
+	                if (state.noneOfTheAboveIndex === i) {
+	                    isCorrect = _.all(rubric.choices, function (choice, j) {
+	                        return i === j || !choice.correct;
+	                    });
+	                } else {
+	                    isCorrect = !!rubric.choices[i].correct;
+	                }
+	                return isCorrect === selected;
+	            });
+	            /* jshint +W018 */
+
+	            return {
+	                type: "points",
+	                earned: correct ? 1 : 0,
+	                total: 1,
+	                message: null };
+	        }
+	    } });
+
+	module.exports = Radio;
+
+/***/ },
+/* 174 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+	 * A class for formatting number to significant digits.
+	 * Copyright (C) 2001 Stephen Ostermiller
+	 * http://ostermiller.org/contact.pl?regarding?JavaScript+Significant+Figures
+	 *
+	 * This program is free software; you can redistribute it and/or modify
+	 * it under the terms of the GNU General Public License as published by
+	 * the Free Software Foundation; either version 2 of the License, or
+	 * (at your option) any later version.
+	 *
+	 * This program is distributed in the hope that it will be useful,
+	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 * GNU General Public License for more details.
+	 */
+
+	/**
+	 * An object tho both scans floating points to
+	 * determine the number of significant figures.
+	 * and can display a floating point using any number
+	 * of significant figures.
+	 *
+	 * @param s A string representation of a floating point.
+	 */
+	function SignificantFigures(s) {
+	    this.order = parseOrder(s);
+	    this.mantissa = parseMantissa(s);
+	    this.positive = parseSign(s);
+
+	    /**
+	     * Get the number of significant figures this object uses.
+	     * Leading zeros are not significant.  Traling zeros up to
+	     * and after the decimal point are significant.
+	     * Significant figures is good to know when the number is
+	     * used in multiplication.
+	     *
+	     * @return the number of significant figures.
+	     */
+	    this.sigFigs = this.mantissa.length;
+
+	    /**
+	     * Get the least significant decimal this object uses.
+	     * This is useful to know if a number is being used
+	     * in addition.
+	     * 400 - 2 the hundreds place (10^2) is the least significant decimal.
+	     * 75 - 0 the ones place (10^0) is the least significant decimal.
+	     * .543 - -3 the 1/1000's place (10^-3) is the least significant decimal.
+	     *
+	     * @return an integer representing the least significant decimal place.
+	     */
+	    this.sigDecs = this.order - this.mantissa.length;
+	}
+
+	/**
+	 * Format a floating point for display using the specified
+	 * number of significant figures and least significant decimal.
+	 * Scientific notation may used by this method if this
+	 * object is very small, very large, has many significant
+	 * figures, or the number of significant figures would be
+	 * ambiguous in the output if scientific notation were not
+	 * used.
+	 *
+	 * @param f A floating point number that should be displayed
+	 * @param sigFigs desired number of significant figures (integer).
+	 * @param sigDecs the least significant decimal place (integer).
+	 * @param scientific true iff scientific notation should always be used.
+	 * @return a string of this object formatted correctly.
+	 */
+	function displaySigFigs(f, sigFigs, sigDecs, scientific) {
+	    var s = "" + f;
+	    var order = parseOrder(s);
+	    var mantissa = parseMantissa(s);
+	    var positive = parseSign(s);
+	    var add;
+	    var decAdd;
+	    var sigAdd;
+	    var zeroScientific = false;
+	    if (f == 0 || mantissa == "" || mantissa == "0") {
+	        mantissa = "";
+	        for (i = 0; i < sigFigs; i++) {
+	            mantissa += "0";
+	        }
+	        order = sigFigs + sigDecs;
+	        if (sigDecs < 0 && -sigDecs >= sigFigs) {
+	            zeroScientific = true;
+	        }
+	    } else {
+	        decAdd = order - mantissa.length - sigDecs;
+	        sigAdd = sigFigs - mantissa.length;
+	        add = Math.min(sigAdd, decAdd);
+	        if (add < 0) {
+	            var rounded = round(mantissa, -add);
+	            if (rounded.length > mantissa.length + add) {
+	                order++;
+	                if (decAdd > sigAdd) {
+	                    rounded = round(rounded, 1);
+	                }
+	            }
+	            mantissa = rounded;
+	        } else if (add > 0) {
+	            for (i = 0; i < add; i++) {
+	                mantissa += "0";
+	            }
+	        }
+	        if (mantissa == "" || mantissa == "0") {
+	            mantissa = "0";
+	            positive = true;
+	            order = 1 + sigDecs;
+	            if (order != 0) {
+	                zeroScientific = true;
+	            }
+	        }
+	    }
+	    var useScientific = scientific || mantissa.length > 20 || order > 4 || order < -2 || order - mantissa.length > 0 && trailingZeros(mantissa) > 0 || zeroScientific;
+	    var returnVal = "";
+	    if (!positive) {
+	        returnVal += "-";
+	    }
+	    if (useScientific) {
+	        returnVal += mantissa.charAt(0);
+	        if (mantissa.length > 1) {
+	            returnVal += "." + mantissa.substring(1, mantissa.length);
+	        }
+	        if (order - 1 != 0) {
+	            returnVal += " x 10^" + (order - 1);
+	        }
+	    } else {
+	        var wholePart = "";
+	        var fractPart = "";
+	        var needDot = true;
+	        if (order > 0) {
+	            if (mantissa.length > order) {
+	                wholePart = mantissa.substring(0, order);
+	                fractPart = mantissa.substring(order, mantissa.length);
+	            } else {
+	                wholePart = mantissa;
+	                needDot = trailingZeros(mantissa) != 0;
+	                for (var i = 0; i < order - mantissa.length; i++) {
+	                    wholePart += "0";
+	                }
+	            }
+	        } else {
+	            for (i = 0; i < -order; i++) {
+	                fractPart += "0";
+	            }
+	            fractPart += mantissa;
+	        }
+	        returnVal += (wholePart == "" ? "0" : wholePart) + (needDot ? "." : "") + fractPart;
+	    }
+	    return returnVal;
+	}
+
+	/**
+	 * Count the significant trailing zeros on this object.
+	 *
+	 * @return the number of trailing zeros
+	 */
+	function trailingZeros(mantissa) {
+	    var zeros = 0;
+	    for (var i = mantissa.length - 1; i >= 0; i--) {
+	        var c = mantissa.charAt(i);
+	        if (c == "0") {
+	            zeros++;
+	        } else {
+	            return zeros;
+	        }
+	    }
+	    return zeros;
+	}
+
+	/**
+	 * Parse a string representation of a floating point
+	 * and pull out the sign.
+	 *
+	 * @param s the string representation of a floating point.
+	 * @return true iff this is a positive number
+	 */
+	function parseSign(s) {
+	    var beginning = true;
+	    var seenDot = false;
+	    var seenSomething = false;
+	    var zeros = "";
+	    var leadZeros = "";
+	    var all = "";
+	    var decPlaces = 0;
+	    var totalDecs = 0;
+	    var pos = true;
+	    for (var i = 0; i < s.length; i++) {
+	        var c = s.charAt(i);
+	        if (c >= "1" && c <= "9") {
+	            all += zeros + c;
+	            zeros = "";
+	            seenSomething = true;
+	            if (!seenDot) {
+	                totalDecs++;
+	                decPlaces++;
+	            }
+	            beginning = false;
+	        } else if (c == "0") {
+	            if (seenDot) {
+	                if (seenSomething) {
+	                    all += zeros + c;
+	                    zeros = "";
+	                } else {
+	                    leadZeros += c;
+	                    decPlaces--;
+	                }
+	            } else {
+	                totalDecs++;
+	                if (seenSomething) {
+	                    leadZeros += c;
+	                    decPlaces++;
+	                    zeros += c;
+	                } else {
+	                    leadZeros += c;
+	                }
+	            }
+	            beginning = false;
+	        } else if (!seenDot && c == ".") {
+	            all += zeros;
+	            zeros = "";
+	            seenDot = true;
+	            beginning = false;
+	        } else if (c == "e" || c == "E" && i + 1 < s.length) {
+	            var raised = parseInt(s.substring(i + 1, s.length));
+	            decPlaces += raised;
+	            totalDecs += raised;
+	            i = s.length;
+	        } else if (beginning && (c == "+" || c == "-")) {
+	            if (c == "-") {
+	                pos = !pos;
+	            }
+	        }
+	    }
+	    if (all == "") {
+	        return true;
+	    } else {
+	        return pos;
+	    }
+	}
+
+	/**
+	 * Parse a string representation of a floating point
+	 * and pull out the mantissa.
+	 *
+	 * @param s the string representation of a floating point.
+	 * @return the mantissa of this number.
+	 */
+	function parseMantissa(s) {
+	    var beginning = true;
+	    var seenDot = false;
+	    var seenSomething = false;
+	    var zeros = "";
+	    var leadZeros = "";
+	    var all = "";
+	    var decPlaces = 0;
+	    var totalDecs = 0;
+	    var pos = true;
+	    for (var i = 0; i < s.length; i++) {
+	        var c = s.charAt(i);
+	        if (c >= "1" && c <= "9") {
+	            all += zeros + c;
+	            zeros = "";
+	            seenSomething = true;
+	            if (!seenDot) {
+	                totalDecs++;
+	                decPlaces++;
+	            }
+	            beginning = false;
+	        } else if (c == "0") {
+	            if (seenDot) {
+	                if (seenSomething) {
+	                    all += zeros + c;
+	                    zeros = "";
+	                } else {
+	                    leadZeros += c;
+	                    decPlaces--;
+	                }
+	            } else {
+	                totalDecs++;
+	                if (seenSomething) {
+	                    leadZeros += c;
+	                    decPlaces++;
+	                    zeros += c;
+	                } else {
+	                    leadZeros += c;
+	                }
+	            }
+	            beginning = false;
+	        } else if (!seenDot && c == ".") {
+	            all += zeros;
+	            zeros = "";
+	            seenDot = true;
+	            beginning = false;
+	        } else if (c == "e" || c == "E" && i + 1 < s.length) {
+	            var raised = parseInt(s.substring(i + 1, s.length));
+	            decPlaces += raised;
+	            totalDecs += raised;
+	            i = s.length;
+	        } else if (beginning && (c == "+" || c == "-")) {
+	            if (c == "-") {
+	                pos = !pos;
+	            }
+	        }
+	    }
+	    if (all == "") {
+	        return leadZeros;
+	    } else {
+	        return all;
+	    }
+	}
+
+	/**
+	 * Parse a string representation of a floating point
+	 * and pull out the exponent.
+	 *
+	 * @param s the string representation of a floating point.
+	 * @return (integer) the number after the e.
+	 */
+	function parseOrder(s) {
+	    var beginning = true;
+	    var seenDot = false;
+	    var seenSomething = false;
+	    var zeros = "";
+	    var leadZeros = "";
+	    var all = "";
+	    var decPlaces = 0;
+	    var totalDecs = 0;
+	    var pos = true;
+	    for (var i = 0; i < s.length; i++) {
+	        var c = s.charAt(i);
+	        if (c >= "1" && c <= "9") {
+	            all += zeros + c;
+	            zeros = "";
+	            seenSomething = true;
+	            if (!seenDot) {
+	                totalDecs++;
+	                decPlaces++;
+	            }
+	            beginning = false;
+	        } else if (c == "0") {
+	            if (seenDot) {
+	                if (seenSomething) {
+	                    all += zeros + c;
+	                    zeros = "";
+	                } else {
+	                    leadZeros += c;
+	                    decPlaces--;
+	                }
+	            } else {
+	                totalDecs++;
+	                if (seenSomething) {
+	                    leadZeros += c;
+	                    decPlaces++;
+	                    zeros += c;
+	                } else {
+	                    leadZeros += c;
+	                }
+	            }
+	            beginning = false;
+	        } else if (!seenDot && c == ".") {
+	            all += zeros;
+	            zeros = "";
+	            seenDot = true;
+	            beginning = false;
+	        } else if (c == "e" || c == "E" && i + 1 < s.length) {
+	            var raised = parseInt(s.substring(i + 1, s.length));
+	            decPlaces += raised;
+	            totalDecs += raised;
+	            i = s.length;
+	        } else if (beginning && (c == "+" || c == "-")) {
+	            if (c == "-") {
+	                pos = !pos;
+	            }
+	        }
+	    }
+	    if (all == "") {
+	        return totalDecs;
+	    } else {
+	        return decPlaces;
+	    }
+	}
+
+	/**
+	 * Remove the specified number of digits from string by
+	 * rounding.  Proper rounding rules for scientific purposes
+	 * are followed.
+	 * This method may cause an extra significant figure
+	 * to be added to the number.  For example, if 999999
+	 * were rounded, A one would carry over and become
+	 * a significant figure.  Those who call this method
+	 * should check for this and call round again if needed.
+	 *
+	 * @param mantissa A string representing an whole number of arbitrary length.
+	 * @param digits A number of digits to remove
+	 * @return A string represted the rounded version of mantissa
+	 */
+	function round(mantissa, digits) {
+	    var last = mantissa.length - digits - 1;
+	    if (last < 0) {
+	        return "";
+	    } else if (last >= mantissa.length - 1) {
+	        return mantissa;
+	    } else {
+	        var nextToLast = mantissa.charAt(last + 1);
+	        var lastChar = mantissa.charAt(last);
+	        var roundUp = false;
+	        if (nextToLast > "5") {
+	            roundUp = true;
+	        } else if (nextToLast == "5") {
+	            for (var j = last + 2; j < mantissa.length; j++) {
+	                if (mantissa.charAt(j) != "0") {
+	                    roundUp = true;
+	                }
+	            }
+	            if (lastChar % 2 == 1) {
+	                roundUp = true;
+	            }
+	        }
+	        var result = "";
+	        for (var i = last; i >= 0; i--) {
+	            var c = mantissa.charAt(i);
+	            if (roundUp) {
+	                var nextChar;
+	                if (c == "9") {
+	                    nextChar = "0";
+	                } else {
+	                    switch (c) {
+	                        case "0":
+	                            nextChar = "1";break;
+	                        case "1":
+	                            nextChar = "2";break;
+	                        case "2":
+	                            nextChar = "3";break;
+	                        case "3":
+	                            nextChar = "4";break;
+	                        case "4":
+	                            nextChar = "5";break;
+	                        case "5":
+	                            nextChar = "6";break;
+	                        case "6":
+	                            nextChar = "7";break;
+	                        case "7":
+	                            nextChar = "8";break;
+	                        case "8":
+	                            nextChar = "9";break;
+	                    }
+	                    roundUp = false;
+	                }
+	                result = nextChar + result;
+	            } else {
+	                result = c + result;
+	            }
+	        }
+	        if (roundUp) {
+	            result = "1" + result;
+	        }
+	        return result;
+	    }
+	}
+
+	module.exports = {
+	    SignificantFigures: SignificantFigures,
+	    displaySigFigs: displaySigFigs };
+
+/***/ },
+/* 175 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* global i18n, $_ */
+
+	var React = __webpack_require__(15);
+	var ReactDOM = __webpack_require__(17);
+	var _ = __webpack_require__(16);
+
+	var ApiClassNames = __webpack_require__(5).ClassNames;
+	var Renderer = __webpack_require__(26);
+
+	var captureScratchpadTouchStart = __webpack_require__(6).captureScratchpadTouchStart;
+
+	var classNames = __webpack_require__(42);
+
+	var Choice = __webpack_require__(196);
+
+	var ChoiceNoneAbove = React.createClass({
+	    displayName: "ChoiceNoneAbove",
+
+	    propTypes: {
+	        className: React.PropTypes.string,
+	        content: React.PropTypes.node,
+	        showContent: React.PropTypes.bool },
+
+	    getDefaultProps: function () {
+	        return {
+	            showContent: true };
+	    },
+
+	    render: function () {
+	        var choiceProps = _.extend({}, this.props, {
+	            className: classNames(this.props.className, "none-of-above"),
+	            content: this.props.showContent ? this.props.content :
+	            // We use a Renderer here because that is how
+	            // `this.props.content` is wrapped otherwise.
+	            // We pass in a key here so that we avoid a semi-spurious
+	            // react warning when we render this in the same place
+	            // as the previous choice content renderer.
+	            // Note this destroys state, but since all we're doing
+	            // is outputting "None of the above", that is okay.
+	            React.createElement(Renderer, {
+	                key: "noneOfTheAboveRenderer",
+	                content: i18n._("None of the above")
+	            }) });
+
+	        return React.createElement(Choice, choiceProps);
+	    } });
+
+	var ChoicesType = React.PropTypes.arrayOf(React.PropTypes.shape({
+	    checked: React.PropTypes.bool,
+	    content: React.PropTypes.node,
+	    clue: React.PropTypes.node,
+	    correct: React.PropTypes.bool,
+	    originalIndex: React.PropTypes.number,
+	    isNoneOfTheAbove: React.PropTypes.bool }));
+
+	var BaseRadio = React.createClass({
+	    displayName: "BaseRadio",
+
+	    propTypes: {
+	        apiOptions: React.PropTypes.shape({
+	            readOnly: React.PropTypes.bool,
+	            responsiveStyling: React.PropTypes.bool }),
+	        choices: ChoicesType,
+	        deselectEnabled: React.PropTypes.bool,
+	        labelWrap: React.PropTypes.bool,
+	        multipleSelect: React.PropTypes.bool,
+	        onCheckedChange: React.PropTypes.func,
+	        onePerLine: React.PropTypes.bool,
+	        reviewModeRubric: React.PropTypes.shape({
+	            choices: ChoicesType }) },
+
+	    getDefaultProps: function () {
+	        return {
+	            onePerLine: true };
+	    },
+
+	    checkOption: function (radioIndex, shouldBeChecked) {
+	        var newChecked = undefined;
+	        if (this.props.multipleSelect) {
+	            // When multipleSelect is on, clicking an index toggles the
+	            // selection of just that index.
+	            newChecked = _.map(this.props.choices, function (choice, i) {
+	                return i === radioIndex ? shouldBeChecked : choice.checked;
+	            });
+	        } else {
+	            // When multipleSelect is turned off we always unselect everything
+	            // that wasn't clicked.
+	            newChecked = _.map(this.props.choices, function (choice, i) {
+	                return i === radioIndex && shouldBeChecked;
+	            });
+	        }
+
+	        // We send just the array of [true/false] checked values here;
+	        // onCheckedChange reconstructs the new choices to send to
+	        // this.props.onChange
+	        this.props.onCheckedChange(newChecked);
+	    },
+
+	    focus: function (i) {
+	        ReactDOM.findDOMNode(this.refs["radio" + (i || 0)]).focus();
+	        return true;
+	    },
+
+	    render: function () {
+	        // TODO(aria): Stop this from mutating the id every time someone
+	        // clicks on a radio :(
+	        var radioGroupName = _.uniqueId("perseus_radio_");
+	        var inputType = this.props.multipleSelect ? "checkbox" : "radio";
+	        var rubric = this.props.reviewModeRubric;
+
+	        return React.createElement(
+	            "fieldset",
+	            { className: "perseus-widget-radio-fieldset" },
+	            React.createElement(
+	                "legend",
+	                { className: "perseus-sr-only" },
+	                this.props.multipleSelect ? $_(null, "Select all that apply.") : $_(null, "Please choose from one of the following options.")
+	            ),
+	            React.createElement(
+	                "ul",
+	                { className: "perseus-widget-radio " + "above-scratchpad blank-background" + (this.props.apiOptions.responsiveStyling ? " perseus-widget-radio-responsive" : "")
+	                },
+	                this.props.multipleSelect && React.createElement(
+	                    "div",
+	                    { className: "instructions" },
+	                    $_(null, "Select all that apply.")
+	                ),
+	                this.props.choices.map(function (choice, i) {
+	                    var _this = this;
+
+	                    var reviewModeClues = !!(rubric && rubric.choices[i].clue);
+
+	                    var Element = Choice;
+	                    var elementProps = {
+	                        ref: "radio" + i,
+	                        apiOptions: this.props.apiOptions,
+	                        checked: choice.checked,
+	                        correct: rubric && rubric.choices[i].correct,
+	                        clue: choice.clue,
+	                        content: choice.content,
+	                        disabled: this.props.apiOptions.readOnly,
+	                        groupName: radioGroupName,
+	                        showClue: reviewModeClues,
+	                        type: inputType,
+	                        pos: i,
+	                        deselectEnabled: this.props.deselectEnabled,
+	                        onChecked: function (checked) {
+	                            _this.checkOption(i, checked);
+	                        } };
+
+	                    if (choice.isNoneOfTheAbove) {
+	                        Element = ChoiceNoneAbove;
+	                        _.extend(elementProps, { showContent: choice.correct });
+	                    }
+
+	                    var className = classNames(ApiClassNames.RADIO.OPTION, choice.checked && ApiClassNames.RADIO.SELECTED, !this.props.onePerLine && "inline", rubric && rubric.choices[i].correct && ApiClassNames.CORRECT, rubric && !rubric.choices[i].correct && ApiClassNames.INCORRECT);
+
+	                    return React.createElement(
+	                        "li",
+	                        { className: className, key: i,
+	                            onTouchStart: !this.props.labelWrap ? null : captureScratchpadTouchStart
+	                        },
+	                        React.createElement(Element, elementProps)
+	                    );
+	                }, this)
+	            )
+	        );
+	    } });
+
+	module.exports = BaseRadio;
+
+	// True if we're in review mode and a clue (aka rationale)
+	// is available. These are only used for SAT questions,
+	// though there was historically an inconclusive AB test
+	// that showed clues for other exercises.
+	// (See content/targeted_clues_exercises.py for more)
+	// TODO(marcia): Aria recommends bringing this logic up a
+	// level, as with this.props.questionCompleted.
+
+	// TODO(aria): Make test case for these API classNames
+	// TODO(mattdr): Index isn't a *good* choice of key here;
+	// is there a better one? Can we use choice content
+	// somehow? Would changing our choice of key somehow break
+	// any voodoo happening inside a choice's child Renderers
+	// by changing when we mount/unmount?
+
+/***/ },
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
@@ -41998,7 +43022,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var RCSS = __webpack_require__(138);
+	var RCSS = __webpack_require__(142);
 	var _ = __webpack_require__(16);
 
 	var colors = {
@@ -42122,7 +43146,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* keep the classes here - used for selectors on KA */
 
 /***/ },
-/* 171 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -42132,9 +43156,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var Util = __webpack_require__(6);
-	var Graphie = __webpack_require__(53);
+	var Graphie = __webpack_require__(54);
 	var Plot = Graphie.Plot;
-	var kpoint = __webpack_require__(182).point;
+	var kpoint = __webpack_require__(188).point;
 
 	var DEFAULT_BOX_SIZE = 400;
 	var DEFAULT_EDITOR_BOX_SIZE = 340;
@@ -42802,14 +43826,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    DEFAULT_BACKGROUND_IMAGE: DEFAULT_BACKGROUND_IMAGE };
 
 /***/ },
-/* 172 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, indent, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var ButtonGroup = __webpack_require__(43);
+	var ButtonGroup = __webpack_require__(44);
 	var React = __webpack_require__(15);
 
 	var ArrowPicker = React.createClass({
@@ -42851,22 +43875,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	*/
 
 /***/ },
-/* 173 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var ButtonGroup = __webpack_require__(43);
+	var ButtonGroup = __webpack_require__(44);
 	var React = __webpack_require__(15);
+
+	var KhanColors = __webpack_require__(163);
 
 	var ColorPicker = React.createClass({
 	    displayName: "ColorPicker",
 
-	    COLORS: [KhanUtil.BLACK, KhanUtil.BLUE, KhanUtil.GREEN, KhanUtil.PINK, KhanUtil.PURPLE, KhanUtil.RED, KhanUtil.GRAY],
+	    COLORS: [KhanColors.BLACK, KhanColors.BLUE, KhanColors.GREEN, KhanColors.PINK, KhanColors.PURPLE, KhanColors.RED, KhanColors.GRAY],
 
-	    LIGHT_COLORS: [KhanUtil.LIGHT_BLUE, KhanUtil.LIGHT_ORANGE, KhanUtil.LIGHT_PINK, KhanUtil.LIGHT_GREEN, KhanUtil.LIGHT_PURPLE, KhanUtil.LIGHT_RED, "#fff"],
+	    LIGHT_COLORS: [KhanColors.LIGHT_BLUE, KhanColors.LIGHT_ORANGE, KhanColors.LIGHT_PINK, KhanColors.LIGHT_GREEN, KhanColors.LIGHT_PURPLE, KhanColors.LIGHT_RED, "#fff"],
 
 	    propTypes: {
 	        value: React.PropTypes.string,
@@ -42876,7 +43902,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    getDefaultProps: function () {
 	        return {
-	            value: KhanUtil.BLACK,
+	            value: KhanColors.BLACK,
 	            lightColors: false
 	        };
 	    },
@@ -42904,7 +43930,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ColorPicker;
 
 /***/ },
-/* 174 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -42912,12 +43938,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var TeX = __webpack_require__(48);
+	var TeX = __webpack_require__(49);
 
-	var ButtonGroup = __webpack_require__(43);
-	var Changeable = __webpack_require__(145);
-	var MathInput = __webpack_require__(153);
-	var NumberInput = __webpack_require__(162);
+	var ButtonGroup = __webpack_require__(44);
+	var Changeable = __webpack_require__(151);
+	var MathInput = __webpack_require__(159);
+	var NumberInput = __webpack_require__(169);
 
 	var ConstraintEditor = React.createClass({
 	    displayName: "ConstraintEditor",
@@ -43089,14 +44115,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ConstraintEditor;
 
 /***/ },
-/* 175 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var ButtonGroup = __webpack_require__(43);
+	var ButtonGroup = __webpack_require__(44);
 	var React = __webpack_require__(15);
 
 	var DashPicker = React.createClass({
@@ -43144,7 +44170,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = DashPicker;
 
 /***/ },
-/* 176 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -43228,7 +44254,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ElementContainer;
 
 /***/ },
-/* 177 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -43400,7 +44426,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = draw;
 
 /***/ },
-/* 178 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -43721,7 +44747,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _convertTree: convertTree };
 
 /***/ },
-/* 179 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -43999,7 +45025,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = { parse: parse, ParseError: ParseError };
 
 /***/ },
-/* 180 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -44007,7 +45033,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var SimpleMarkdown = __webpack_require__(169);
+	var SimpleMarkdown = __webpack_require__(150);
 	var _ = __webpack_require__(16);
 
 	var START_REF_PREFIX = "start-ref-";
@@ -44336,7 +45362,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _rulesForTesting: rules };
 
 /***/ },
-/* 181 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO batch *all* mutations
@@ -44344,14 +45370,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * lens constructor thaws, freeze delegates to type's freeze
 	 */
 
-	var util = __webpack_require__(194);
+	var util = __webpack_require__(197);
 	    var clone = util.clone;
 	    var isObject = util.isObject;
 	    var merge = util.merge;
 
-	var arr = __webpack_require__(195);
-	var obj = __webpack_require__(196);
-	var str = __webpack_require__(197);
+	var arr = __webpack_require__(198);
+	var obj = __webpack_require__(199);
+	var str = __webpack_require__(200);
 
 	// equivalents, without requiring it
 	// find the implementation to use for a given object
@@ -44478,20 +45504,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 182 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
-	    number: __webpack_require__(189),
-	    vector: __webpack_require__(190),
-	    point: __webpack_require__(191),
-	    line: __webpack_require__(192),
-	    ray: __webpack_require__(193),
+	    number: __webpack_require__(201),
+	    vector: __webpack_require__(202),
+	    point: __webpack_require__(203),
+	    line: __webpack_require__(204),
+	    ray: __webpack_require__(205),
 	};
 
 
 /***/ },
-/* 183 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -44507,7 +45533,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var _ = __webpack_require__(16);
-	var kpoint = __webpack_require__(182).point;
+	var kpoint = __webpack_require__(188).point;
 
 	/* Local helper methods. */
 
@@ -44621,7 +45647,1262 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MovableHelperMethods;
 
 /***/ },
-/* 184 */
+/* 190 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var kpoint = __webpack_require__(188).point;
+	var kvector = __webpack_require__(188).vector;
+	var _ = __webpack_require__(16);
+
+	// Minify Raphael ourselves because IE8 has a problem with the 1.5.2 minified
+	// release
+	// http://groups.google.com/group/raphaeljs/browse_thread/thread/c34c75ad8d431544
+	/* globals Raphael:false */
+	__webpack_require__(206);
+
+	__webpack_require__(207);
+
+	var KhanMath = __webpack_require__(135);
+	var processMath = __webpack_require__(133).processMath;
+
+	/* Convert cartesian coordinates [x, y] to polar coordinates [r,
+	 * theta], with theta in degrees, or in radians if angleInRadians is
+	 * specified.
+	 */
+	function cartToPolar(coord, angleInRadians) {
+	    var r = Math.sqrt(Math.pow(coord[0], 2) + Math.pow(coord[1], 2));
+	    var theta = Math.atan2(coord[1], coord[0]);
+	    // convert angle range from [-pi, pi] to [0, 2pi]
+	    if (theta < 0) {
+	        theta += 2 * Math.PI;
+	    }
+	    if (!angleInRadians) {
+	        theta = theta * 180 / Math.PI;
+	    }
+	    return [r, theta];
+	}
+
+	function polar(r, th) {
+	    if (typeof r === "number") {
+	        r = [r, r];
+	    }
+	    th = th * Math.PI / 180;
+	    return [r[0] * Math.cos(th), r[1] * Math.sin(th)];
+	}
+
+	// Keep track of all the intervalIDs created by setInterval.
+	// This lets us cancel all the intervals when cleaning up.
+	var intervalIDs = [];
+	function cleanupIntervals() {
+	    _.each(intervalIDs, function (intervalID) {
+	        window.clearInterval(intervalID);
+	    });
+	    intervalIDs.length = 0;
+	}
+
+	var GraphUtils = {
+	    unscaledSvgPath: function (points) {
+	        // If this is an empty closed path, return "" instead of "z", which
+	        // would give an error
+	        if (points[0] === true) {
+	            return "";
+	        }
+	        return $.map(points, function (point, i) {
+	            if (point === true) {
+	                return "z";
+	            }
+	            return (i === 0 ? "M" : "L") + point[0] + " " + point[1];
+	        }).join("");
+	    },
+
+	    getDistance: function (point1, point2) {
+	        return kpoint.distanceToPoint(point1, point2);
+	    },
+
+	    /**
+	    * Return the difference between two sets of coordinates
+	    */
+	    coordDiff: function (startCoord, endCoord) {
+	        return _.map(endCoord, function (val, i) {
+	            return endCoord[i] - startCoord[i];
+	        });
+	    },
+
+	    /**
+	    * Round the given coordinates to a given snap value
+	    * (e.g., nearest 0.2 increment)
+	    */
+	    snapCoord: function (coord, snap) {
+	        return _.map(coord, function (val, i) {
+	            return KhanMath.roundToNearest(snap[i], val);
+	        });
+	    },
+
+	    // Find the angle in degrees between two or three points
+	    findAngle: function (point1, point2, vertex) {
+	        if (vertex === undefined) {
+	            var x = point1[0] - point2[0];
+	            var y = point1[1] - point2[1];
+	            if (!x && !y) {
+	                return 0;
+	            }
+	            return (180 + Math.atan2(-y, -x) * 180 / Math.PI + 360) % 360;
+	        } else {
+	            return GraphUtils.findAngle(point1, vertex) - GraphUtils.findAngle(point2, vertex);
+	        }
+	    },
+
+	    graphs: {} };
+
+	var Graphie = GraphUtils.Graphie = function () {};
+
+	_.extend(Graphie.prototype, {
+	    cartToPolar: cartToPolar,
+	    polar: polar });
+
+	var labelDirections = {
+	    "center": [-0.5, -0.5],
+	    "above": [-0.5, -1],
+	    "above right": [0, -1],
+	    "right": [0, -0.5],
+	    "below right": [0, 0],
+	    "below": [-0.5, 0],
+	    "below left": [-1, 0],
+	    "left": [-1, -0.5],
+	    "above left": [-1, -1] };
+
+	GraphUtils.createGraphie = function (el) {
+	    var xScale = 40;
+	    var yScale = 40;
+	    var xRange = undefined;
+	    var yRange = undefined;
+
+	    $(el).css("position", "relative");
+	    var raphael = Raphael(el);
+
+	    // For a sometimes-reproducible IE8 bug; doesn't affect SVG browsers at all
+	    $(el).children("div").css("position", "absolute");
+
+	    // Set up some reasonable defaults
+	    var currentStyle = {
+	        "stroke-width": 2,
+	        "fill": "none" };
+
+	    var scaleVector = function (point) {
+	        if (typeof point === "number") {
+	            return scaleVector([point, point]);
+	        }
+
+	        var x = point[0];
+	        var y = point[1];
+	        return [x * xScale, y * yScale];
+	    };
+
+	    var scalePoint = function scalePoint(point) {
+	        if (typeof point === "number") {
+	            return scalePoint([point, point]);
+	        }
+
+	        var x = point[0];
+	        var y = point[1];
+	        return [(x - xRange[0]) * xScale, (yRange[1] - y) * yScale];
+	    };
+
+	    var unscalePoint = function (point) {
+	        if (typeof point === "number") {
+	            return unscalePoint([point, point]);
+	        }
+
+	        var x = point[0];
+	        var y = point[1];
+	        return [x / xScale + xRange[0], yRange[1] - y / yScale];
+	    };
+
+	    var unscaleVector = function (point) {
+	        if (typeof point === "number") {
+	            return unscaleVector([point, point]);
+	        }
+
+	        return [point[0] / xScale, point[1] / yScale];
+	    };
+
+	    var setLabelMargins = function (span, size) {
+	        var $span = $(span);
+	        var direction = $span.data("labelDirection");
+	        $span.css("visibility", "");
+
+	        if (typeof direction === "number") {
+	            var x = Math.cos(direction);
+	            var y = Math.sin(direction);
+
+	            var scale = Math.min(size[0] / 2 / Math.abs(x), size[1] / 2 / Math.abs(y));
+
+	            $span.css({
+	                marginLeft: -size[0] / 2 + x * scale,
+	                marginTop: -size[1] / 2 - y * scale });
+	        } else {
+	            var multipliers = labelDirections[direction || "center"];
+	            $span.css({
+	                marginLeft: Math.round(size[0] * multipliers[0]),
+	                marginTop: Math.round(size[1] * multipliers[1]) });
+	        }
+	    };
+
+	    var svgPath = function (points, alreadyScaled) {
+	        return $.map(points, function (point, i) {
+	            if (point === true) {
+	                return "z";
+	            } else {
+	                var scaled = alreadyScaled ? point : scalePoint(point);
+	                return (i === 0 ? "M" : "L") + KhanMath.bound(scaled[0]) + " " + KhanMath.bound(scaled[1]);
+	            }
+	        }).join("");
+	    };
+
+	    var svgParabolaPath = function (a, b, c) {
+	        var computeParabola = function (x) {
+	            return (a * x + b) * x + c;
+	        };
+
+	        // If points are collinear, plot a line instead
+	        if (a === 0) {
+	            var _points = _.map(xRange, function (x) {
+	                return [x, computeParabola(x)];
+	            });
+	            return svgPath(_points);
+	        }
+
+	        // Calculate x coordinates of points on parabola
+	        var xVertex = -b / (2 * a);
+	        var distToEdge = Math.max(Math.abs(xVertex - xRange[0]), Math.abs(xVertex - xRange[1]));
+
+	        // To guarantee that drawn parabola to spans the viewport, use a point
+	        // on the edge of the graph furtherest from the vertex
+	        var xPoint = xVertex + distToEdge;
+
+	        // Compute parabola and other point on the curve
+	        var vertex = [xVertex, computeParabola(xVertex)];
+	        var point = [xPoint, computeParabola(xPoint)];
+
+	        // Calculate SVG 'control' point, defined by spec
+	        var control = [vertex[0], vertex[1] - (point[1] - vertex[1])];
+
+	        // Calculate mirror points across parabola's axis of symmetry
+	        var dx = Math.abs(vertex[0] - point[0]);
+	        var left = [vertex[0] - dx, point[1]];
+	        var right = [vertex[0] + dx, point[1]];
+
+	        // Scale and bound
+	        var points = _.map([left, control, right], scalePoint);
+	        var values = _.map(_.flatten(points), KhanMath.bound);
+	        return "M" + values[0] + "," + values[1] + " Q" + values[2] + "," + values[3] + " " + values[4] + "," + values[5];
+	    };
+
+	    var svgSinusoidPath = function (a, b, c, d) {
+	        // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
+	        var quarterPeriod = Math.abs(Math.PI / (2 * b));
+
+	        var computeSine = function (x) {
+	            return a * Math.sin(b * x - c) + d;
+	        };
+
+	        var computeDerivative = function (x) {
+	            return a * b * Math.cos(c - b * x);
+	        };
+
+	        var coordsForOffset = function (initial, i) {
+	            // Return the cubic coordinates (including the two anchor and two
+	            // control points) for the ith portion of the sinusoid.
+	            var x0 = initial + quarterPeriod * i;
+	            var x1 = x0 + quarterPeriod;
+
+	            // Interpolate using derivative technique
+	            // See: http://stackoverflow.com/questions/13932704/how-to-draw-sine-waves-with-svg-js
+	            var xCoords = [x0, x0 * 2 / 3 + x1 * 1 / 3, x0 * 1 / 3 + x1 * 2 / 3, x1];
+	            var yCoords = [computeSine(x0), computeSine(x0) + computeDerivative(x0) * (x1 - x0) / 3, computeSine(x1) - computeDerivative(x1) * (x1 - x0) / 3, computeSine(x1)];
+
+	            // Zip and scale
+	            return _.map(_.zip(xCoords, yCoords), scalePoint);
+	        };
+
+	        // How many quarter-periods do we need to span the graph?
+	        var extent = xRange[1] - xRange[0];
+	        var numQuarterPeriods = Math.ceil(extent / quarterPeriod) + 1;
+
+	        // Find starting coordinate: first anchor point curve left of xRange[0]
+	        var initial = c / b;
+	        var distToEdge = initial - xRange[0];
+	        initial -= quarterPeriod * Math.ceil(distToEdge / quarterPeriod);
+
+	        // First portion of path is special-case, requiring move-to ('M')
+	        var coords = coordsForOffset(initial, 0);
+	        var path = "M" + coords[0][0] + "," + coords[0][1] + " C" + coords[1][0] + "," + coords[1][1] + " " + coords[2][0] + "," + coords[2][1] + " " + coords[3][0] + "," + coords[3][1];
+	        for (var i = 1; i < numQuarterPeriods; i++) {
+	            coords = coordsForOffset(initial, i);
+	            path += " C" + coords[1][0] + "," + coords[1][1] + " " + coords[2][0] + "," + coords[2][1] + " " + coords[3][0] + "," + coords[3][1];
+	        }
+
+	        return path;
+	    };
+
+	    // `svgPath` is independent of graphie range, so we export it independently
+	    GraphUtils.svgPath = svgPath;
+
+	    var processAttributes = function (attrs) {
+	        var transformers = {
+	            scale: function (scale) {
+	                if (typeof scale === "number") {
+	                    scale = [scale, scale];
+	                }
+
+	                xScale = scale[0];
+	                yScale = scale[1];
+
+	                // Update the canvas size
+	                raphael.setSize((xRange[1] - xRange[0]) * xScale, (yRange[1] - yRange[0]) * yScale);
+	            },
+
+	            clipRect: function (pair) {
+	                var point = pair[0];
+	                var size = pair[1];
+	                point[1] += size[1]; // because our coordinates are flipped
+
+	                return {
+	                    "clip-rect": scalePoint(point).concat(scaleVector(size)).join(" ") };
+	            },
+
+	            strokeWidth: function (val) {
+	                return { "stroke-width": parseFloat(val) };
+	            },
+
+	            rx: function (val) {
+	                return { rx: scaleVector([val, 0])[0] };
+	            },
+
+	            ry: function (val) {
+	                return { ry: scaleVector([0, val])[1] };
+	            },
+
+	            r: function (val) {
+	                var scaled = scaleVector([val, val]);
+	                return { rx: scaled[0], ry: scaled[1] };
+	            } };
+
+	        var processed = {};
+	        $.each(attrs || {}, function (key, value) {
+	            var transformer = transformers[key];
+
+	            if (typeof transformer === "function") {
+	                $.extend(processed, transformer(value));
+	            } else {
+	                var dasherized = key.replace(/([A-Z]+)([A-Z][a-z])/g, "$1-$2").replace(/([a-z\d])([A-Z])/g, "$1-$2").toLowerCase();
+	                processed[dasherized] = value;
+	            }
+	        });
+
+	        return processed;
+	    };
+
+	    var addArrowheads = function arrows(path) {
+	        var type = path.constructor.prototype;
+
+	        if (type === Raphael.el) {
+	            if (path.type === "path" && typeof path.arrowheadsDrawn === "undefined") {
+	                var w = path.attr("stroke-width");
+	                var s = 0.6 + 0.4 * w;
+	                var l = path.getTotalLength();
+	                var set = raphael.set();
+	                var head = raphael.path("M-3 4 C-2.75 2.5 0 0.25 0.75 0C0 -0.25 -2.75 -2.5 -3 -4");
+	                var end = path.getPointAtLength(l - 0.4);
+	                var almostTheEnd = path.getPointAtLength(l - 0.75 * s);
+	                var angle = Math.atan2(end.y - almostTheEnd.y, end.x - almostTheEnd.x) * 180 / Math.PI;
+	                var attrs = path.attr();
+	                delete attrs.path;
+
+	                var subpath = path.getSubpath(0, l - 0.75 * s);
+	                subpath = raphael.path(subpath).attr(attrs);
+	                subpath.arrowheadsDrawn = true;
+	                path.remove();
+
+	                head.rotate(angle, 0.75, 0).scale(s, s, 0.75, 0).translate(almostTheEnd.x, almostTheEnd.y).attr(attrs).attr({
+	                    "stroke-linejoin": "round",
+	                    "stroke-linecap": "round" });
+	                head.arrowheadsDrawn = true;
+	                set.push(subpath);
+	                set.push(head);
+	                return set;
+	            }
+	        } else if (type === Raphael.st) {
+	            for (var i = 0, l = path.items.length; i < l; i++) {
+	                arrows(path.items[i]);
+	            }
+	        }
+	        return path;
+	    };
+
+	    var drawingTools = {
+	        circle: function (center, radius) {
+	            return raphael.ellipse.apply(raphael, scalePoint(center).concat(scaleVector([radius, radius])));
+	        },
+
+	        // (x, y) is coordinate of bottom left corner
+	        rect: function (x, y, width, height) {
+	            // Raphael needs (x, y) to be coordinate of upper left corner
+	            var corner = scalePoint([x, y + height]);
+	            var dims = scaleVector([width, height]);
+	            return raphael.rect.apply(raphael, corner.concat(dims));
+	        },
+
+	        ellipse: function (center, radii) {
+	            return raphael.ellipse.apply(raphael, scalePoint(center).concat(scaleVector(radii)));
+	        },
+
+	        fixedEllipse: function (center, radii, maxScale) {
+	            // Scale point and radius
+	            var scaledPoint = scalePoint(center);
+	            var scaledRadii = scaleVector(radii);
+
+	            // Padding protects against clipping at the edges
+	            var padding = 2;
+	            var width = 2 * scaledRadii[0] * maxScale + padding;
+	            var height = 2 * scaledRadii[1] * maxScale + padding;
+
+	            // Calculate absolute left, top
+	            var left = scaledPoint[0] - width / 2;
+	            var top = scaledPoint[1] - height / 2;
+
+	            // Wrap in <div>
+	            var wrapper = document.createElement("div");
+	            $(wrapper).css({
+	                position: "absolute",
+	                width: width + "px",
+	                height: height + "px",
+	                left: left + "px",
+	                top: top + "px" });
+
+	            // Create Raphael canvas
+	            var localRaphael = Raphael(wrapper, width, height);
+	            var visibleShape = localRaphael.ellipse(width / 2, height / 2, scaledRadii[0], scaledRadii[1]);
+
+	            return {
+	                wrapper: wrapper,
+	                visibleShape: visibleShape };
+	        },
+
+	        arc: function (center, radius, startAngle, endAngle, sector) {
+	            startAngle = (startAngle % 360 + 360) % 360;
+	            endAngle = (endAngle % 360 + 360) % 360;
+
+	            var cent = scalePoint(center);
+	            var radii = scaleVector(radius);
+	            var startVector = polar(radius, startAngle);
+	            var endVector = polar(radius, endAngle);
+
+	            var startPoint = scalePoint([center[0] + startVector[0], center[1] + startVector[1]]);
+	            var endPoint = scalePoint([center[0] + endVector[0], center[1] + endVector[1]]);
+
+	            var largeAngle = ((endAngle - startAngle) % 360 + 360) % 360 > 180;
+
+	            return raphael.path("M" + startPoint.join(" ") + "A" + radii.join(" ") + " 0 " + (largeAngle ? 1 : 0) + " 0 " + // sweep flag
+	            endPoint.join(" ") + (sector ? "L" + cent.join(" ") + "z" : ""));
+	        },
+
+	        path: function (points) {
+	            var p = raphael.path(svgPath(points));
+	            p.graphiePath = points;
+	            return p;
+	        },
+
+	        fixedPath: function (points, center, createPath) {
+	            points = _.map(points, scalePoint);
+	            center = center ? scalePoint(center) : null;
+	            createPath = createPath || svgPath;
+
+	            var pathLeft = _.min(_.pluck(points, 0));
+	            var pathRight = _.max(_.pluck(points, 0));
+	            var pathTop = _.min(_.pluck(points, 1));
+	            var pathBottom = _.max(_.pluck(points, 1));
+
+	            // Apply padding to line
+	            var padding = [4, 4];
+
+	            // Calculate and apply additional offset
+	            var extraOffset = [pathLeft, pathTop];
+
+	            // Apply padding and offset to points
+	            points = _.map(points, function (point) {
+	                return kvector.add(kvector.subtract(point, extraOffset), kvector.scale(padding, 0.5));
+	            });
+
+	            // Calculate <div> dimensions
+	            var width = pathRight - pathLeft + padding[0];
+	            var height = pathBottom - pathTop + padding[1];
+	            var left = extraOffset[0] - padding[0] / 2;
+	            var top = extraOffset[1] - padding[1] / 2;
+
+	            // Create <div>
+	            var wrapper = document.createElement("div");
+	            $(wrapper).css({
+	                position: "absolute",
+	                width: width + "px",
+	                height: height + "px",
+	                left: left + "px",
+	                top: top + "px",
+	                // If user specified a center, set it
+	                transformOrigin: center ? width / 2 + center[0] + "px " + (height / 2 + center[1]) + "px" : null });
+
+	            // Create Raphael canvas
+	            var localRaphael = Raphael(wrapper, width, height);
+
+	            // Calculate path
+	            var visibleShape = localRaphael.path(createPath(points));
+
+	            return {
+	                wrapper: wrapper,
+	                visibleShape: visibleShape };
+	        },
+
+	        scaledPath: function (points) {
+	            var p = raphael.path(svgPath(points, /* alreadyScaled */true));
+	            p.graphiePath = points;
+	            return p;
+	        },
+
+	        line: function (start, end) {
+	            return this.path([start, end]);
+	        },
+
+	        parabola: function (a, b, c) {
+	            // Plot a parabola of the form: f(x) = (a * x + b) * x + c
+	            return raphael.path(svgParabolaPath(a, b, c));
+	        },
+
+	        fixedLine: function (start, end, thickness) {
+	            // Apply padding to line
+	            var padding = [thickness, thickness];
+
+	            // Scale points to get values in pixels
+	            start = scalePoint(start);
+	            end = scalePoint(end);
+
+	            // Calculate and apply additional offset
+	            var extraOffset = [Math.min(start[0], end[0]), Math.min(start[1], end[1])];
+
+	            // Apply padding and offset to start, end points
+	            start = kvector.add(kvector.subtract(start, extraOffset), kvector.scale(padding, 0.5));
+	            end = kvector.add(kvector.subtract(end, extraOffset), kvector.scale(padding, 0.5));
+
+	            // Calculate <div> dimensions
+	            var left = extraOffset[0] - padding[0] / 2;
+	            var top = extraOffset[1] - padding[1] / 2;
+	            var width = Math.abs(start[0] - end[0]) + padding[0];
+	            var height = Math.abs(start[1] - end[1]) + padding[1];
+
+	            // Create <div>
+	            var wrapper = document.createElement("div");
+	            $(wrapper).css({
+	                position: "absolute",
+	                width: width + "px",
+	                height: height + "px",
+	                left: left + "px",
+	                top: top + "px",
+	                // Outsiders should feel like the line's 'origin' (i.e., for
+	                // rotation) is the starting point
+	                transformOrigin: start[0] + "px " + start[1] + "px" });
+
+	            // Create Raphael canvas
+	            var localRaphael = Raphael(wrapper, width, height);
+
+	            // Calculate path
+	            var path = "M" + start[0] + " " + start[1] + " " + "L" + end[0] + " " + end[1];
+	            var visibleShape = localRaphael.path(path);
+	            visibleShape.graphiePath = [start, end];
+
+	            return {
+	                wrapper: wrapper,
+	                visibleShape: visibleShape };
+	        },
+
+	        sinusoid: function (a, b, c, d) {
+	            // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
+	            return raphael.path(svgSinusoidPath(a, b, c, d));
+	        },
+
+	        grid: function (xr, yr) {
+	            var step = currentStyle.step || [1, 1];
+	            var set = raphael.set();
+
+	            var x = step[0] * Math.ceil(xr[0] / step[0]);
+	            for (; x <= xr[1]; x += step[0]) {
+	                set.push(this.line([x, yr[0]], [x, yr[1]]));
+	            }
+
+	            var y = step[1] * Math.ceil(yr[0] / step[1]);
+	            for (; y <= yr[1]; y += step[1]) {
+	                set.push(this.line([xr[0], y], [xr[1], y]));
+	            }
+
+	            return set;
+	        },
+
+	        label: function (point, text, direction, latex) {
+	            latex = typeof latex === "undefined" || latex;
+
+	            var $span = $("<span>").addClass("graphie-label");
+
+	            var pad = currentStyle["label-distance"];
+
+	            // TODO(alpert): Isn't currentStyle applied afterwards
+	            // automatically since this is a 'drawing tool'?
+	            $span.css($.extend({}, currentStyle, {
+	                position: "absolute",
+	                padding: (pad != null ? pad : 7) + "px" })).data("labelDirection", direction).appendTo(el);
+
+	            $span.setPosition = function (point) {
+	                var scaledPoint = scalePoint(point);
+	                $span.css({
+	                    left: scaledPoint[0],
+	                    top: scaledPoint[1] });
+	            };
+
+	            $span.setPosition(point);
+
+	            var span = $span[0];
+
+	            $span.processMath = function (math, force) {
+	                processMath(span, math, force, function () {
+	                    var width = span.scrollWidth;
+	                    var height = span.scrollHeight;
+	                    setLabelMargins(span, [width, height]);
+	                });
+	            };
+
+	            $span.processText = function (text) {
+	                $span.html(text);
+	                var width = span.scrollWidth;
+	                var height = span.scrollHeight;
+	                setLabelMargins(span, [width, height]);
+	            };
+
+	            if (latex) {
+	                $span.processMath(text, /* force */false);
+	            } else {
+	                $span.processText(text);
+	            }
+
+	            return $span;
+	        },
+
+	        plotParametric: function (fn, range, shade, fn2) {
+	            // Note: fn2 should only be set if 'shade' is true, as it denotes
+	            // the function between which fn should have its area shaded.
+	            // In general, plotParametric shouldn't be used to shade the area
+	            // between two arbitrary parametrics functions over an interval,
+	            // as the method assumes that fn and fn2 are both of the form
+	            // fn(t) = (t, fn'(t)) for some initial fn'.
+	            fn2 = fn2 || function (t) {
+	                return [t, 0];
+	            };
+
+	            if (!currentStyle.strokeLinejoin) {
+	                currentStyle.strokeLinejoin = "round";
+	            }
+	            if (!currentStyle.strokeLinecap) {
+	                currentStyle.strokeLinecap = "round";
+	            }
+
+	            var min = range[0];
+	            var max = range[1];
+	            var step = (max - min) / (currentStyle["plot-points"] || 800);
+	            if (step === 0) {
+	                step = 1;
+	            }
+
+	            var paths = raphael.set();
+	            var points = [];
+	            var lastDiff = GraphUtils.coordDiff(fn(min), fn2(min));
+
+	            var lastFlip = min;
+	            for (var t = min; t <= max; t += step) {
+	                var _top = fn(t);
+	                var bottom = fn2(t);
+	                var diff = GraphUtils.coordDiff(_top, bottom);
+
+	                // Find points where it flips
+	                // Create path that sketches area between the two functions
+	                if (
+	                // if there is an asymptote here, meaning that the graph
+	                // switches signs and has a large difference
+	                diff[1] < 0 !== lastDiff[1] < 0 && Math.abs(diff[1] - lastDiff[1]) > 2 * yScale ||
+	                // or the function value gets really high (which breaks
+	                // raphael)
+	                Math.abs(diff[1]) > 10000000 ||
+	                // or the function is undefined
+	                isNaN(diff[1])) {
+	                    // split the path at this point, and draw it
+	                    if (shade) {
+	                        points.push(_top);
+
+	                        // backtrack to draw paired function
+	                        for (var u = t - step; u >= lastFlip; u -= step) {
+	                            points.push(fn2(u));
+	                        }
+	                        lastFlip = t;
+	                    }
+	                    paths.push(this.path(points));
+	                    // restart the path, excluding this point
+	                    points = [];
+	                    if (shade) {
+	                        points.push(_top);
+	                    }
+	                } else {
+	                    // otherwise, just add the point to the path
+	                    points.push(_top);
+	                }
+
+	                lastDiff = diff;
+	            }
+
+	            if (shade) {
+	                // backtrack to draw paired function
+	                for (var u = max - step; u >= lastFlip; u -= step) {
+	                    points.push(fn2(u));
+	                }
+	            }
+	            paths.push(this.path(points));
+
+	            return paths;
+	        },
+
+	        plotPolar: function (fn, range) {
+	            var min = range[0];
+	            var max = range[1];
+
+	            // There is probably a better heuristic for this
+	            if (!currentStyle["plot-points"]) {
+	                currentStyle["plot-points"] = 2 * (max - min) * xScale;
+	            }
+
+	            return this.plotParametric(function (th) {
+	                return polar(fn(th), th * 180 / Math.PI);
+	            }, range);
+	        },
+
+	        plot: function (fn, range, swapAxes, shade, fn2) {
+	            var min = range[0];
+	            var max = range[1];
+	            if (!currentStyle["plot-points"]) {
+	                currentStyle["plot-points"] = 2 * (max - min) * xScale;
+	            }
+
+	            if (swapAxes) {
+	                if (fn2) {
+	                    // TODO(charlie): support swapped axis area shading
+	                    throw new Error("Can't shade area between functions with swapped axes.");
+	                }
+	                return this.plotParametric(function (y) {
+	                    return [fn(y), y];
+	                }, range, shade);
+	            } else {
+	                if (fn2) {
+	                    if (shade) {
+	                        return this.plotParametric(function (x) {
+	                            return [x, fn(x)];
+	                        }, range, shade, function (x) {
+	                            return [x, fn2(x)];
+	                        });
+	                    } else {
+	                        throw new Error("fn2 should only be set when 'shade' is True.");
+	                    }
+	                }
+	                return this.plotParametric(function (x) {
+	                    return [x, fn(x)];
+	                }, range, shade);
+	            }
+	        },
+
+	        /**
+	         * Given a piecewise function, return a Raphael set of paths that
+	         * can be used to draw the function, e.g. using style().
+	         * Calls plotParametric.
+	         *
+	         * @param  {[]} fnArray    array of functions which when called
+	         *                         with a parameter i return the value of
+	         *                         the function at i
+	         * @param  {[]} rangeArray array of ranges over which the
+	         *                         corresponding functions are defined
+	         * @return {Raphael set}
+	         */
+	        plotPiecewise: function (fnArray, rangeArray) {
+	            var paths = raphael.set();
+	            var self = this;
+	            _.times(fnArray.length, function (i) {
+	                var fn = fnArray[i];
+	                var range = rangeArray[i];
+	                var fnPaths = self.plotParametric(function (x) {
+	                    return [x, fn(x)];
+	                }, range);
+	                _.each(fnPaths, function (fnPath) {
+	                    paths.push(fnPath);
+	                });
+	            });
+
+	            return paths;
+	        },
+
+	        /**
+	         * Given an array of coordinates of the form [x, y], create and
+	         * return a Raphael set of Raphael circle objects at those
+	         * coordinates
+	         *
+	         * @param  {Array of arrays} endpointArray
+	         * @return {Raphael set}
+	         */
+	        plotEndpointCircles: function (endpointArray) {
+	            var circles = raphael.set();
+	            var self = this;
+
+	            _.each(endpointArray, function (coord, i) {
+	                circles.push(self.circle(coord, 0.15));
+	            });
+
+	            return circles;
+	        },
+
+	        plotAsymptotes: function (fn, range) {
+	            var min = range[0];
+	            var max = range[1];
+	            var step = (max - min) / (currentStyle["plot-points"] || 800);
+
+	            var asymptotes = raphael.set();
+	            var lastVal = fn(min);
+
+	            for (var t = min; t <= max; t += step) {
+	                var funcVal = fn(t);
+
+	                if (funcVal < 0 !== lastVal < 0 && Math.abs(funcVal - lastVal) > 2 * yScale) {
+	                    asymptotes.push(this.line([t, yScale], [t, -yScale]));
+	                }
+
+	                lastVal = funcVal;
+	            }
+
+	            return asymptotes;
+	        } };
+
+	    var graphie = new Graphie();
+	    _.extend(graphie, {
+	        raphael: raphael,
+
+	        init: function (options) {
+	            var scale = options.scale || [40, 40];
+	            scale = typeof scale === "number" ? [scale, scale] : scale;
+
+	            xScale = scale[0];
+	            yScale = scale[1];
+
+	            if (options.range == null) {
+	                return Khan.error("range should be specified in graph init");
+	            }
+
+	            xRange = options.range[0];
+	            yRange = options.range[1];
+
+	            var w = (xRange[1] - xRange[0]) * xScale;
+	            var h = (yRange[1] - yRange[0]) * yScale;
+	            raphael.setSize(w, h);
+
+	            $(el).css({
+	                "width": w,
+	                "height": h });
+
+	            this.range = options.range;
+	            this.scale = scale;
+	            this.dimensions = [w, h];
+	            this.xpixels = w;
+	            this.ypixels = h;
+
+	            return this;
+	        },
+
+	        // Wrap window.setInterval to keep track of all the intervalIDs.
+	        setInterval: function () {
+	            var intervalID = Function.prototype.apply.call(window.setInterval, window, arguments);
+	            intervalIDs.push(intervalID);
+	            return intervalID;
+	        },
+
+	        style: function (attrs, fn) {
+	            var processed = processAttributes(attrs);
+
+	            if (typeof fn === "function") {
+	                var oldStyle = currentStyle;
+	                currentStyle = $.extend({}, currentStyle, processed);
+	                var result = fn.call(graphie);
+	                currentStyle = oldStyle;
+	                return result;
+	            } else {
+	                $.extend(currentStyle, processed);
+	            }
+	        },
+
+	        scalePoint: scalePoint,
+	        scaleVector: scaleVector,
+
+	        unscalePoint: unscalePoint,
+	        unscaleVector: unscaleVector,
+
+	        // Custom SVG path functions that are dependent on graphie range
+	        // `svgPath`, while independent of range, is exported for consistency
+	        svgPath: svgPath,
+	        svgParabolaPath: svgParabolaPath,
+	        svgSinusoidPath: svgSinusoidPath });
+
+	    $.each(drawingTools, function (name) {
+	        graphie[name] = function () {
+	            var last = arguments[arguments.length - 1];
+	            var oldStyle = currentStyle;
+	            var result = undefined;
+
+	            // The last argument is probably trying to change the style
+	            if (typeof last === "object" && !_.isArray(last)) {
+	                currentStyle = _extends({}, currentStyle, processAttributes(last));
+
+	                var rest = [].slice.call(arguments, 0, arguments.length - 1);
+	                result = drawingTools[name].apply(drawingTools, rest);
+	            } else {
+	                currentStyle = $.extend({}, currentStyle);
+
+	                result = drawingTools[name].apply(drawingTools, arguments);
+	            }
+
+	            // Bad heuristic for recognizing Raphael elements and sets
+	            var type = result.constructor.prototype;
+	            if (type === Raphael.el || type === Raphael.st) {
+	                result.attr(currentStyle);
+
+	                if (currentStyle.arrows) {
+	                    result = addArrowheads(result);
+	                }
+	            } else if (result instanceof $) {
+	                result.css(currentStyle);
+	            }
+
+	            currentStyle = oldStyle;
+	            return result;
+	        };
+	    });
+
+	    // Initializes graphie settings for a graph and draws the basic graph
+	    // features (axes, grid, tick marks, and axis labels)
+	    // Options expected are:
+	    // - range: [[a, b], [c, d]] or [a, b]
+	    // - scale: [a, b] or number
+	    // - gridOpacity: number (0 - 1)
+	    // - gridStep: [a, b] or number (relative to units)
+	    // - tickStep: [a, b] or number (relative to grid steps)
+	    // - tickLen: [a, b] or number (in pixels)
+	    // - labelStep: [a, b] or number (relative to tick steps)
+	    // - yLabelFormat: fn to format label string for y-axis
+	    // - xLabelFormat: fn to format label string for x-axis
+	    // - smartLabelPositioning: true or false to ignore minus sign
+	    graphie.graphInit = function (options) {
+
+	        options = options || {};
+
+	        $.each(options, function (prop, val) {
+
+	            // allow options to be specified by a single number for shorthand if
+	            // the horizontal and vertical components are the same
+	            if (!prop.match(/.*Opacity$/) && prop !== "range" && typeof val === "number") {
+	                options[prop] = [val, val];
+	            }
+
+	            // allow symmetric ranges to be specified by the absolute values
+	            if (prop === "range" || prop === "gridRange") {
+	                if (val.constructor === Array) {
+	                    // but don't mandate symmetric ranges
+	                    if (val[0].constructor !== Array) {
+	                        options[prop] = [[-val[0], val[0]], [-val[1], val[1]]];
+	                    }
+	                } else if (typeof val === "number") {
+	                    options[prop] = [[-val, val], [-val, val]];
+	                }
+	            }
+	        });
+
+	        var range = options.range || [[-10, 10], [-10, 10]];
+	        var gridRange = options.gridRange || options.range;
+	        var scale = options.scale || [20, 20];
+	        var grid = options.grid != null ? options.grid : true;
+	        var gridOpacity = options.gridOpacity || 0.1;
+	        var gridStep = options.gridStep || [1, 1];
+	        var axes = options.axes != null ? options.axes : true;
+	        var axisArrows = options.axisArrows || "";
+	        var axisOpacity = options.axisOpacity || 1;
+	        var axisCenter = options.axisCenter || [Math.min(Math.max(range[0][0], 0), range[0][1]), Math.min(Math.max(range[1][0], 0), range[1][1])];
+	        var axisLabels = options.axisLabels != null ? options.axisLabels : false;
+	        var ticks = options.ticks != null ? options.ticks : true;
+	        var tickStep = options.tickStep || [2, 2];
+	        var tickLen = options.tickLen || [5, 5];
+	        var tickOpacity = options.tickOpacity || 1;
+	        var labels = options.labels || options.labelStep || false;
+	        var labelStep = options.labelStep || [1, 1];
+	        var labelOpacity = options.labelOpacity || 1;
+	        var unityLabels = options.unityLabels || false;
+	        var labelFormat = options.labelFormat || function (a) {
+	            return a;
+	        };
+	        var xLabelFormat = options.xLabelFormat || labelFormat;
+	        var yLabelFormat = options.yLabelFormat || labelFormat;
+	        var smartLabelPositioning = options.smartLabelPositioning != null ? options.smartLabelPositioning : true;
+	        var realRange = [[range[0][0] - (range[0][0] > 0 ? 1 : 0), range[0][1] + (range[0][1] < 0 ? 1 : 0)], [range[1][0] - (range[1][0] > 0 ? 1 : 0), range[1][1] + (range[1][1] < 0 ? 1 : 0)]];
+
+	        if (!_.isArray(unityLabels)) {
+	            unityLabels = [unityLabels, unityLabels];
+	        }
+
+	        if (smartLabelPositioning) {
+	            var minusIgnorer = function (lf) {
+	                return function (a) {
+	                    return (lf(a) + "").replace(/-(\d)/g, "\\llap{-}$1");
+	                };
+	            };
+
+	            xLabelFormat = minusIgnorer(xLabelFormat);
+	            yLabelFormat = minusIgnorer(yLabelFormat);
+	        }
+
+	        this.init({
+	            range: realRange,
+	            scale: scale });
+
+	        // draw grid
+	        if (grid) {
+	            this.grid(gridRange[0], gridRange[1], {
+	                stroke: "#000000",
+	                opacity: gridOpacity,
+	                step: gridStep });
+	        }
+
+	        // draw axes
+	        if (axes) {
+
+	            // this is a slight hack until <-> arrowheads work
+	            if (axisArrows === "<->" || axisArrows === true) {
+	                this.style({
+	                    stroke: "#000000",
+	                    opacity: axisOpacity,
+	                    strokeWidth: 2,
+	                    arrows: "->" }, function () {
+	                    if (range[1][0] < 0 && range[1][1] > 0) {
+	                        this.path([axisCenter, [gridRange[0][0], axisCenter[1]]]);
+	                        this.path([axisCenter, [gridRange[0][1], axisCenter[1]]]);
+	                    }
+	                    if (range[0][0] < 0 && range[0][1] > 0) {
+	                        this.path([axisCenter, [axisCenter[0], gridRange[1][0]]]);
+	                        this.path([axisCenter, [axisCenter[0], gridRange[1][1]]]);
+	                    }
+	                });
+
+	                // also, we don't support "<-" arrows yet, but why you
+	                // would want that on your graph is beyond me.
+	            } else if (axisArrows === "->" || axisArrows === "") {
+	                this.style({
+	                    stroke: "#000000",
+	                    opacity: axisOpacity,
+	                    strokeWidth: 2,
+	                    arrows: axisArrows }, function () {
+	                    this.path([[gridRange[0][0], axisCenter[1]], [gridRange[0][1], axisCenter[1]]]);
+	                    this.path([[axisCenter[0], gridRange[1][0]], [axisCenter[0], gridRange[1][1]]]);
+	                });
+	            }
+
+	            if (axisLabels && axisLabels.length === 2) {
+	                this.label([gridRange[0][1], axisCenter[1]], axisLabels[0], "right");
+	                this.label([axisCenter[0], gridRange[1][1]], axisLabels[1], "above");
+	            }
+	        }
+
+	        // draw tick marks
+	        if (ticks) {
+	            this.style({
+	                stroke: "#000000",
+	                opacity: tickOpacity,
+	                strokeWidth: 1 }, function () {
+
+	                // horizontal axis
+	                var step = gridStep[0] * tickStep[0];
+	                var len = tickLen[0] / scale[1];
+	                var start = gridRange[0][0];
+	                var stop = gridRange[0][1];
+
+	                if (range[1][0] < 0 && range[1][1] > 0) {
+	                    for (var x = step + axisCenter[0]; x <= stop; x += step) {
+	                        if (x < stop || !axisArrows) {
+	                            this.line([x, -len + axisCenter[1]], [x, len + axisCenter[1]]);
+	                        }
+	                    }
+
+	                    for (var x = -step + axisCenter[0]; x >= start; x -= step) {
+	                        if (x > start || !axisArrows) {
+	                            this.line([x, -len + axisCenter[1]], [x, len + axisCenter[1]]);
+	                        }
+	                    }
+	                }
+
+	                // vertical axis
+	                step = gridStep[1] * tickStep[1];
+	                len = tickLen[1] / scale[0];
+	                start = gridRange[1][0];
+	                stop = gridRange[1][1];
+
+	                if (range[0][0] < 0 && range[0][1] > 0) {
+	                    for (var y = step + axisCenter[1]; y <= stop; y += step) {
+	                        if (y < stop || !axisArrows) {
+	                            this.line([-len + axisCenter[0], y], [len + axisCenter[0], y]);
+	                        }
+	                    }
+
+	                    for (var y = -step + axisCenter[1]; y >= start; y -= step) {
+	                        if (y > start || !axisArrows) {
+	                            this.line([-len + axisCenter[0], y], [len + axisCenter[0], y]);
+	                        }
+	                    }
+	                }
+	            });
+	        }
+
+	        // draw axis labels
+	        if (labels) {
+	            this.style({
+	                stroke: "#000000",
+	                opacity: labelOpacity }, function () {
+
+	                // horizontal axis
+	                var step = gridStep[0] * tickStep[0] * labelStep[0];
+	                var start = gridRange[0][0];
+	                var stop = gridRange[0][1];
+	                var xAxisPosition = axisCenter[0] < 0 ? "above" : "below";
+	                var yAxisPosition = axisCenter[0] < 0 ? "right" : "left";
+	                var xShowZero = axisCenter[0] === 0 && axisCenter[1] !== 0;
+	                var yShowZero = axisCenter[0] !== 0 && axisCenter[1] === 0;
+	                var axisOffCenter = axisCenter[0] !== 0 || axisCenter[1] !== 0;
+	                var showUnityX = unityLabels[0] || axisOffCenter;
+	                var showUnityY = unityLabels[1] || axisOffCenter;
+
+	                // positive x-axis
+	                for (var x = (xShowZero ? 0 : step) + axisCenter[0]; x <= stop; x += step) {
+	                    if (x < stop || !axisArrows) {
+	                        this.label([x, axisCenter[1]], xLabelFormat(x), xAxisPosition);
+	                    }
+	                }
+
+	                // negative x-axis
+	                for (var x = -step * (showUnityX ? 1 : 2) + axisCenter[0]; x >= start; x -= step) {
+	                    if (x > start || !axisArrows) {
+	                        this.label([x, axisCenter[1]], xLabelFormat(x), xAxisPosition);
+	                    }
+	                }
+
+	                step = gridStep[1] * tickStep[1] * labelStep[1];
+	                start = gridRange[1][0];
+	                stop = gridRange[1][1];
+
+	                // positive y-axis
+	                for (var y = (yShowZero ? 0 : step) + axisCenter[1]; y <= stop; y += step) {
+	                    if (y < stop || !axisArrows) {
+	                        this.label([axisCenter[0], y], yLabelFormat(y), yAxisPosition);
+	                    }
+	                }
+
+	                // negative y-axis
+	                for (var y = -step * (showUnityY ? 1 : 2) + axisCenter[1]; y >= start; y -= step) {
+	                    if (y > start || !axisArrows) {
+	                        this.label([axisCenter[0], y], yLabelFormat(y), yAxisPosition);
+	                    }
+	                }
+	            });
+	        }
+	    };
+
+	    return graphie;
+	};
+
+	$.fn.graphie = function (problem) {
+	    if (Khan.query.nographie != null) {
+	        return;
+	    }
+
+	    var graphies = this.find(".graphie, script[type='text/graphie']").addBack().filter(".graphie, script[type='text/graphie']");
+	    return graphies.each(function () {
+	        // Grab code for later execution
+	        var code = $(this).text();
+	        var graphie = undefined;
+
+	        // Ignore graphie elements that have already been processed
+	        if ($(this).data("graphie") != null) {
+	            return;
+	        }
+
+	        // Remove any of the code that's in there
+	        $(this).empty();
+
+	        // Initialize the graph
+	        if ($(this).data("update")) {
+	            var id = $(this).data("update");
+	            $(this).remove();
+
+	            // Graph could be in either of these
+	            var area = $("#problemarea").add(problem);
+	            graphie = area.find("#" + id + ".graphie").data("graphie");
+	        } else {
+	            var el = this;
+	            if ($(this).filter("script")[0] != null) {
+	                el = $("<div>").addClass("graphie").attr("id", $(this).attr("id")).insertAfter(this)[0];
+	                $(this).remove();
+	            }
+	            graphie = GraphUtils.createGraphie(el);
+	            $(el).data("graphie", graphie);
+
+	            var id = $(el).attr("id");
+	            if (id) {
+	                GraphUtils.graphs[id] = graphie;
+	            }
+	        }
+
+	        // So we can write graph.bwahahaha = 17 to save stuff between updates
+	        if (typeof graphie.graph === "undefined") {
+	            graphie.graph = {};
+	        }
+
+	        // Add newline in case code ends with a // comment
+	        code = "(function() {" + code + "\n})()";
+
+	        // Execute the graph-specific code
+	        KhanUtil.currentGraph = graphie;
+	        $.tmpl.getVAR(code, graphie);
+	        // delete KhanUtil.currentGraph;
+	    }).end();
+	};
+
+	$.fn.graphieCleanup = function (problem) {
+	    cleanupIntervals();
+	};
+
+	module.exports = GraphUtils;
+	// ellipse rotation
+
+/***/ },
+/* 191 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _=__webpack_require__(16);__webpack_require__(210);var GraphUtils=__webpack_require__(190);var kvector=__webpack_require__(188).vector;var kpoint=__webpack_require__(188).point;var kline=__webpack_require__(188).line;var WrappedEllipse=__webpack_require__(211);var WrappedLine=__webpack_require__(209);var WrappedPath=__webpack_require__(212);var KhanMath=__webpack_require__(135);var KhanColors=__webpack_require__(163);var _require=__webpack_require__(148);var getCanUse3dTransform=_require.getCanUse3dTransform;function sum(array){return _.reduce(array, function(memo, arg){return memo + arg;}, 0);}function clockwise(points){var segments=_.zip(points, points.slice(1).concat(points.slice(0, 1)));var areas=_.map(segments, function(segment){var p1=segment[0];var p2=segment[1];return (p2[0] - p1[0]) * (p2[1] + p1[1]);});return sum(areas) > 0;}function addPoints(){var points=_.toArray(arguments);var zipped=_.zip.apply(_, points);return _.map(zipped, sum);}function reverseVector(vector){return _.map(vector, function(coord){return coord * -1;});}function scaledDistanceFromAngle(angle){var a=3.51470560176242 * 20;var b=0.5687298702748785 * 20;var c=-0.037587715462826674;return (a - b) * Math.exp(c * angle) + b;}function scaledPolarRad(radius, radians){return [radius * Math.cos(radians), radius * Math.sin(radians) * -1];}function scaledPolarDeg(radius, degrees){var radians=degrees * Math.PI / 180;return scaledPolarRad(radius, radians);}var dragging=false;var InteractiveUtils={FILL_OPACITY:0.3, createSorter:function(){var sorter={};var list=undefined;sorter.hasAttempted = false;sorter.init = function(element){list = $("[id=" + element + "]").last();var container=list.wrap("<div>").parent();var placeholder=$("<li>");placeholder.addClass("placeholder");container.addClass("sortable ui-helper-clearfix");list.find("li").each(function(tileNum, tile){$(tile).bind("vmousedown", function(event){var _this=this;if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();$(tile).addClass("dragging");var tileIndex=$(_this).index();placeholder.insertAfter(tile);placeholder.width($(tile).width());$(_this).css("z-index", 100);var offset=$(_this).offset();var click={left:event.pageX - offset.left - 3, top:event.pageY - offset.top - 3};$(tile).css({position:"absolute"});$(tile).offset({left:offset.left, top:offset.top});$(document).bind("vmousemove.tile vmouseup.tile", function(event){event.preventDefault();if(event.type === "vmousemove"){(function(){sorter.hasAttempted = true;$(tile).offset({left:event.pageX - click.left, top:event.pageY - click.top});var leftEdge=list.offset().left;var midWidth=$(tile).offset().left - leftEdge;var index=0;var sumWidth=0;list.find("li").each(function(){if(this === placeholder[0] || this === tile){return;}if(midWidth > sumWidth + $(this).outerWidth(true) / 2){index += 1;}sumWidth += $(this).outerWidth(true);});if(index !== tileIndex){tileIndex = index;if(index === 0){placeholder.prependTo(list);$(tile).prependTo(list);}else {placeholder.detach();$(tile).detach();var preceeding=list.find("li")[index - 1];placeholder.insertAfter(preceeding);$(tile).insertAfter(preceeding);}}})();}else if(event.type === "vmouseup"){(function(){$(document).unbind(".tile");var position=$(tile).offset();$(position).animate(placeholder.offset(), {duration:150, step:function(now, fx){position[fx.prop] = now;$(tile).offset(position);}, complete:function(){$(tile).css("z-index", 0);placeholder.detach();$(tile).css({position:"static"});$(tile).removeClass("dragging");}});})();}});})();}});});};sorter.getContent = function(){var content=[];list.find("li").each(function(tileNum, tile){content.push($.trim($(tile).find(".sort-key").text()));});return content;};sorter.setContent = function(content){var tiles=[];$.each(content, function(n, sortKey){var tile=list.find("li .sort-key").filter(function(){return $(this).text() === sortKey;}).closest("li").get(0);$(tile).detach();tiles.push(tile);});list.append(tiles);};return sorter;}, bogusShape:{animate:function(){}, attr:function(){}, remove:function(){}}};_.extend(GraphUtils.Graphie.prototype, {initAutoscaledGraph:function(range, options){var graph=this;options = $.extend({xpixels:500, ypixels:500, xdivisions:20, ydivisions:20, labels:true, unityLabels:true, range:range === undefined?[[-10, 10], [-10, 10]]:range}, options);options.scale = [options.xpixels / (options.range[0][1] - options.range[0][0]), options.ypixels / (options.range[1][1] - options.range[1][0])];options.gridStep = [(options.range[0][1] - options.range[0][0]) / options.xdivisions, (options.range[1][1] - options.range[1][0]) / options.ydivisions];graph.xpixels = options.xpixels;graph.ypixels = options.ypixels;graph.range = options.range;graph.scale = options.scale;graph.graphInit(options);}, addMouseLayer:function(options){var graph=this;options = _.extend({allowScratchpad:false}, options);var mouselayerZIndex=2;graph.mouselayer = Raphael(graph.raphael.canvas.parentNode, graph.xpixels, graph.ypixels);$(graph.mouselayer.canvas).css("z-index", mouselayerZIndex);if(options.onClick || options.onMouseDown || options.onMouseMove || options.onMouseOver || options.onMouseOut){(function(){var canvasClickTarget=graph.mouselayer.rect(0, 0, graph.xpixels, graph.ypixels).attr({fill:"#000", opacity:0});var isClickingCanvas=false;$(graph.mouselayer.canvas).on("vmousedown", function(e){if(e.target === canvasClickTarget[0]){if(options.onMouseDown){options.onMouseDown(graph.getMouseCoord(e));}isClickingCanvas = true;if(options.onMouseMove){$(document).bind("vmousemove.mouseLayer", function(e){if(isClickingCanvas){e.preventDefault();options.onMouseMove(graph.getMouseCoord(e));}});}$(document).bind("vmouseup.mouseLayer", function(e){$(document).unbind(".mouseLayer");if(isClickingCanvas && options.onClick){options.onClick(graph.getMouseCoord(e));}isClickingCanvas = false;});}});if(options.onMouseOver){$(graph.mouselayer.canvas).on("vmouseover", function(e){options.onMouseOver(graph.getMouseCoord(e));});}if(options.onMouseOut){$(graph.mouselayer.canvas).on("vmouseout", function(e){options.onMouseOut(graph.getMouseCoord(e));});}})();}if(!options.allowScratchpad){Khan.scratchpad.disable();}graph._mouselayerWrapper = document.createElement("div");$(graph._mouselayerWrapper).css({position:"absolute", left:0, top:0, zIndex:mouselayerZIndex});graph._visiblelayerWrapper = document.createElement("div");$(graph._visiblelayerWrapper).css({position:"absolute", left:0, top:0});var el=graph.raphael.canvas.parentNode;el.appendChild(graph._visiblelayerWrapper);el.appendChild(graph._mouselayerWrapper);graph.addToMouseLayerWrapper = function(el){this._mouselayerWrapper.appendChild(el);};graph.addToVisibleLayerWrapper = function(el){this._visiblelayerWrapper.appendChild(el);};}, getMousePx:function(event){var graphie=this;var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;return [mouseX, mouseY];}, getMouseCoord:function(event){return this.unscalePoint(this.getMousePx(event));}, drawArcs:function(point1, vertex, point3, numArcs){var startAngle=GraphUtils.findAngle(point1, vertex);var endAngle=GraphUtils.findAngle(point3, vertex);if(((endAngle - startAngle) % 360 + 360) % 360 > 180){var temp=startAngle;startAngle = endAngle;endAngle = temp;}var radius=0.3;if(((endAngle - startAngle) % 360 + 360) % 360 < 75){radius = -0.6 / 90 * (((endAngle - startAngle) % 360 + 360) % 360) + 0.8;}var arcset=[];for(var arc=0; arc < numArcs; ++arc) {arcset.push(this.arc(vertex, radius + 0.15 * arc, startAngle, endAngle));}return arcset;}, labelAngle:function(options){var graphie=this;_.defaults(options, {point1:[0, 0], vertex:[0, 0], point3:[0, 0], label:null, numArcs:1, showRightAngleMarker:true, pushOut:0, clockwise:false, style:{}});var text=options.text === undefined?"":options.text;var vertex=options.vertex;var sVertex=graphie.scalePoint(vertex);var p1=undefined;var p3=undefined;if(options.clockwise){p1 = options.point1;p3 = options.point3;}else {p1 = options.point3;p3 = options.point1;}var startAngle=GraphUtils.findAngle(p1, vertex);var endAngle=GraphUtils.findAngle(p3, vertex);var angle=(endAngle + 360 - startAngle) % 360;var halfAngle=(startAngle + angle / 2) % 360;var sPadding=5 * options.pushOut;var sRadius=sPadding + scaledDistanceFromAngle(angle);var temp=[];if(Math.abs(angle - 90) < 1e-9 && options.showRightAngleMarker){(function(){var v1=addPoints(sVertex, scaledPolarDeg(sRadius, startAngle));var v2=addPoints(sVertex, scaledPolarDeg(sRadius, endAngle));sRadius *= Math.SQRT2;var v3=addPoints(sVertex, scaledPolarDeg(sRadius, halfAngle));_.each([v1, v2], function(v){temp.push(graphie.scaledPath([v, v3], options.style));});})();}else {_.times(options.numArcs, function(i){temp.push(graphie.arc(vertex, graphie.unscaleVector(sRadius), startAngle, endAngle, options.style));sRadius += 3;});}if(text){var match=text.match(/\$deg(\d)?/);if(match){var precision=match[1] || 1;text = text.replace(match[0], KhanMath.toFixedApprox(angle, precision) + "^{\\circ}");}var sOffset=scaledPolarDeg(sRadius + 15, halfAngle);var sPosition=addPoints(sVertex, sOffset);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(text, true);}else {graphie.label(position, text, "center", options.style);}}return temp;}, labelSide:function(options){var graphie=this;_.defaults(options, {point1:[0, 0], point2:[0, 0], label:null, text:"", numTicks:0, numArrows:0, clockwise:false, style:{}});var p1=undefined;var p2=undefined;if(options.clockwise){p1 = options.point1;p2 = options.point2;}else {p1 = options.point2;p2 = options.point1;}var midpoint=[(p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2];var sMidpoint=graphie.scalePoint(midpoint);var parallelAngle=Math.atan2(p2[1] - p1[1], p2[0] - p1[0]);var perpendicularAngle=parallelAngle + Math.PI / 2;var temp=[];var sCumulativeOffset=0;if(options.numTicks){(function(){var n=options.numTicks;var sSpacing=5;var sHeight=5;var style=_.extend({}, options.style, {strokeWidth:2});_.times(n, function(i){var sOffset=sSpacing * (i - (n - 1) / 2);var sOffsetVector=scaledPolarRad(sOffset, parallelAngle);var sHeightVector=scaledPolarRad(sHeight, perpendicularAngle);var sPath=[addPoints(sMidpoint, sOffsetVector, sHeightVector), addPoints(sMidpoint, sOffsetVector, reverseVector(sHeightVector))];temp.push(graphie.scaledPath(sPath, style));});sCumulativeOffset += sSpacing * (n - 1) + 15;})();}if(options.numArrows){(function(){var n=options.numArrows;var start=[p1, p2].sort(function(a, b){if(a[1] === b[1]){return a[0] - b[0];}else {return a[1] - b[1];}})[0];var sStart=graphie.scalePoint(start);var style=_.extend({}, options.style, {arrows:"->", strokeWidth:2});var sSpacing=5;_.times(n, function(i){var sOffset=sCumulativeOffset + sSpacing * i;var sOffsetVector=scaledPolarRad(sOffset, parallelAngle);if(start !== p1){sOffsetVector = reverseVector(sOffsetVector);}var sEnd=addPoints(sMidpoint, sOffsetVector);temp.push(graphie.scaledPath([sStart, sEnd], style));});})();}var text=options.text;if(text){var match=text.match(/\$len(\d)?/);if(match){var distance=GraphUtils.getDistance(p1, p2);var precision=match[1] || 1;text = text.replace(match[0], KhanMath.toFixedApprox(distance, precision));}var sOffset=20;var sOffsetVector=scaledPolarRad(sOffset, perpendicularAngle);var sPosition=addPoints(sMidpoint, sOffsetVector);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(text, true);}else {graphie.label(position, text, "center", options.style);}}return temp;}, labelVertex:function(options){var graphie=this;_.defaults(options, {point1:null, vertex:[0, 0], point3:null, label:null, text:"", clockwise:false, style:{}});if(!options.text){return;}var vertex=options.vertex;var sVertex=graphie.scalePoint(vertex);var p1=undefined;var p3=undefined;if(options.clockwise){p1 = options.point1;p3 = options.point3;}else {p1 = options.point3;p3 = options.point1;}var angle=135;var halfAngle=undefined;if(p1 && p3){var startAngle=GraphUtils.findAngle(p1, vertex);var endAngle=GraphUtils.findAngle(p3, vertex);angle = (endAngle + 360 - startAngle) % 360;halfAngle = (startAngle + angle / 2 + 180) % 360;}else if(p1){var parallelAngle=GraphUtils.findAngle(vertex, p1);halfAngle = parallelAngle + 90;}else if(p3){var parallelAngle=GraphUtils.findAngle(p3, vertex);halfAngle = parallelAngle + 90;}else {halfAngle = 135;}var sRadius=10 + scaledDistanceFromAngle(360 - angle);var sOffsetVector=scaledPolarDeg(sRadius, halfAngle);var sPosition=addPoints(sVertex, sOffsetVector);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(options.text, true);}else {graphie.label(position, options.text, "center", options.style);}}, addMovablePoint:function(options){var movablePoint=$.extend(true, {graph:this, coord:[0, 0], snapX:0, snapY:0, pointSize:4, highlight:false, dragging:false, visible:true, bounded:true, constraints:{fixed:false, constrainX:false, constrainY:false, fixedAngle:{}, fixedDistance:{}}, lineStarts:[], lineEnds:[], polygonVertices:[], normalStyle:{}, highlightStyle:{fill:KhanColors.INTERACTING, stroke:KhanColors.INTERACTING}, labelStyle:{color:KhanColors.INTERACTIVE}, vertexLabel:"", mouseTarget:null}, options);var normalColor=movablePoint.constraints.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;movablePoint.normalStyle = _.extend({}, {"fill":normalColor, "stroke":normalColor}, options.normalStyle);if(options.coordX !== undefined){movablePoint.coord[0] = options.coordX;}if(options.coordY !== undefined){movablePoint.coord[1] = options.coordY;}var graph=movablePoint.graph;var applySnapAndConstraints=function(coord){if(movablePoint.visible && movablePoint.bounded && !movablePoint.constraints.fixed){coord = graph.constrainToBounds(coord, 10);}var coordX=coord[0];var coordY=coord[1];if(movablePoint.snapX !== 0){coordX = Math.round(coordX / movablePoint.snapX) * movablePoint.snapX;}if(movablePoint.snapY !== 0){coordY = Math.round(coordY / movablePoint.snapY) * movablePoint.snapY;}if(movablePoint.constraints.fixedDistance.snapPoints){var mouse=graph.scalePoint(coord);var mouseX=mouse[0];var mouseY=mouse[1];var snapRadians=2 * Math.PI / movablePoint.constraints.fixedDistance.snapPoints;var radius=movablePoint.constraints.fixedDistance.dist;var centerCoord=movablePoint.constraints.fixedDistance.point;var centerX=(centerCoord[0] - graph.range[0][0]) * graph.scale[0];var centerY=(-centerCoord[1] + graph.range[1][1]) * graph.scale[1];var mouseXrel=mouseX - centerX;var mouseYrel=-mouseY + centerY;var radians=Math.atan(mouseYrel / mouseXrel);var outsideArcTanRange=mouseXrel < 0;if(outsideArcTanRange){radians += Math.PI;}radians = Math.round(radians / snapRadians) * snapRadians;mouseXrel = radius * Math.cos(radians);mouseYrel = radius * Math.sin(radians);mouseX = mouseXrel + centerX;mouseY = -mouseYrel + centerY;coordX = KhanMath.roundTo(5, mouseX / graph.scale[0] + graph.range[0][0]);coordY = KhanMath.roundTo(5, graph.range[1][1] - mouseY / graph.scale[1]);}var result=movablePoint.applyConstraint([coordX, coordY]);return result;};movablePoint.applyConstraint = function(coord, extraConstraints, override){var newCoord=coord.slice();var constraints={};if(override){$.extend(constraints, {fixed:false, constrainX:false, constrainY:false, fixedAngle:{}, fixedDistance:{}}, extraConstraints);}else {$.extend(constraints, this.constraints, extraConstraints);}if(constraints.constrainX){newCoord = [this.coord[0], coord[1]];}else if(constraints.constrainY){newCoord = [coord[0], this.coord[1]];}else if(typeof constraints.fixedAngle.angle === "number" && typeof constraints.fixedDistance.dist === "number"){var vertex=constraints.fixedAngle.vertex.coord || constraints.fixedAngle.vertex;var ref=constraints.fixedAngle.ref.coord || constraints.fixedAngle.ref;var distPoint=constraints.fixedDistance.point.coord || constraints.fixedDistance.point;var constrainedAngle=(constraints.fixedAngle.angle + GraphUtils.findAngle(ref, vertex)) * Math.PI / 180;var _length=constraints.fixedDistance.dist;newCoord[0] = _length * Math.cos(constrainedAngle) + distPoint[0];newCoord[1] = _length * Math.sin(constrainedAngle) + distPoint[1];}else if(typeof constraints.fixedAngle.angle === "number"){var vertex=constraints.fixedAngle.vertex.coord || constraints.fixedAngle.vertex;var ref=constraints.fixedAngle.ref.coord || constraints.fixedAngle.ref;var constrainedAngle=(constraints.fixedAngle.angle + GraphUtils.findAngle(ref, vertex)) * Math.PI / 180;var angle=GraphUtils.findAngle(coord, vertex) * Math.PI / 180;var distance=GraphUtils.getDistance(coord, vertex);var _length2=distance * Math.cos(constrainedAngle - angle);_length2 = _length2 < 1?1:_length2;newCoord[0] = _length2 * Math.cos(constrainedAngle) + vertex[0];newCoord[1] = _length2 * Math.sin(constrainedAngle) + vertex[1];}else if(typeof constraints.fixedDistance.dist === "number"){var distPoint=constraints.fixedDistance.point.coord || constraints.fixedDistance.point;var angle=GraphUtils.findAngle(coord, distPoint);var _length3=constraints.fixedDistance.dist;angle = angle * Math.PI / 180;newCoord[0] = _length3 * Math.cos(angle) + distPoint[0];newCoord[1] = _length3 * Math.sin(angle) + distPoint[1];}else if(constraints.fixed){newCoord = movablePoint.coord;}return newCoord;};movablePoint.coord = applySnapAndConstraints(movablePoint.coord);var highlightScale=2;if(movablePoint.visible){graph.style(movablePoint.normalStyle, function(){var radii=[movablePoint.pointSize / graph.scale[0], movablePoint.pointSize / graph.scale[1]];var options={maxScale:highlightScale};movablePoint.visibleShape = new WrappedEllipse(graph, movablePoint.coord, radii, options);movablePoint.visibleShape.attr(_.omit(movablePoint.normalStyle, "scale"));movablePoint.visibleShape.toFront();});}movablePoint.normalStyle.scale = 1;movablePoint.highlightStyle.scale = highlightScale;if(movablePoint.vertexLabel){movablePoint.labeledVertex = this.label([0, 0], "", "center", movablePoint.labelStyle);}movablePoint.drawLabel = function(){if(movablePoint.vertexLabel){movablePoint.graph.labelVertex({vertex:movablePoint.coord, label:movablePoint.labeledVertex, text:movablePoint.vertexLabel, style:movablePoint.labelStyle});}};movablePoint.drawLabel();movablePoint.grab = function(){$(document).bind("vmousemove.point vmouseup.point", function(event){event.preventDefault();movablePoint.dragging = true;dragging = true;var coord=graph.getMouseCoord(event);coord = applySnapAndConstraints(coord);var coordX=coord[0];var coordY=coord[1];var mouseX=undefined;var mouseY=undefined;if(event.type === "vmousemove"){var doMove=true;if(_.isFunction(movablePoint.onMove)){var result=movablePoint.onMove(coordX, coordY);if(result === false){doMove = false;}if(_.isArray(result)){coordX = result[0];coordY = result[1];}}mouseX = (coordX - graph.range[0][0]) * graph.scale[0];mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];if(doMove){var point=graph.unscalePoint([mouseX, mouseY]);movablePoint.visibleShape.moveTo(point);movablePoint.mouseTarget.moveTo(point);movablePoint.coord = [coordX, coordY];movablePoint.updateLineEnds();$(movablePoint).trigger("move");}movablePoint.drawLabel();}else if(event.type === "vmouseup"){$(document).unbind(".point");movablePoint.dragging = false;dragging = false;if(_.isFunction(movablePoint.onMoveEnd)){var result=movablePoint.onMoveEnd(coordX, coordY);if(_.isArray(result)){coordX = result[0];coordY = result[1];mouseX = (coordX - graph.range[0][0]) * graph.scale[0];mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];var point=graph.unscalePoint([mouseX, mouseY]);movablePoint.visibleShape.moveTo(point);movablePoint.mouseTarget.moveTo(point);movablePoint.coord = [coordX, coordY];}}if(!movablePoint.highlight){movablePoint.visibleShape.animate(movablePoint.normalStyle, 50);if(movablePoint.onUnhighlight){movablePoint.onUnhighlight();}}}});};if(movablePoint.visible && !movablePoint.constraints.fixed){if(!movablePoint.mouseTarget){var radii=graph.unscaleVector(15);var _options={mouselayer:true};movablePoint.mouseTarget = new WrappedEllipse(graph, movablePoint.coord, radii, _options);movablePoint.mouseTarget.attr({fill:"#000", opacity:0});}var $mouseTarget=$(movablePoint.mouseTarget.getMouseTarget());$mouseTarget.css("cursor", "move");$mouseTarget.bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){movablePoint.highlight = true;if(!dragging){movablePoint.visibleShape.animate(movablePoint.highlightStyle, 50);if(movablePoint.onHighlight){movablePoint.onHighlight();}}}else if(event.type === "vmouseout"){movablePoint.highlight = false;if(!movablePoint.dragging && !dragging){movablePoint.visibleShape.animate(movablePoint.normalStyle, 50);if(movablePoint.onUnhighlight){movablePoint.onUnhighlight();}}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){event.preventDefault();movablePoint.grab();}});}movablePoint.moveTo = function(coordX, coordY, updateLines){var distance=GraphUtils.getDistance(this.graph.scalePoint([coordX, coordY]), this.graph.scalePoint(this.coord));var time=distance * 5;var cb=updateLines && function(coord){movablePoint.coord = coord;movablePoint.updateLineEnds();};this.visibleShape.animateTo([coordX, coordY], time, cb);this.mouseTarget.animateTo([coordX, coordY], time, cb);this.coord = [coordX, coordY];if(_.isFunction(this.onMove)){this.onMove(coordX, coordY);}};movablePoint.updateLineEnds = function(){$(this.lineStarts).each(function(){this.coordA = movablePoint.coord;this.transform();});$(this.lineEnds).each(function(){this.coordZ = movablePoint.coord;this.transform();});$(this.polygonVertices).each(function(){this.transform();});};movablePoint.setCoord = function(coord){if(this.visible){this.visibleShape.moveTo(coord);if(this.mouseTarget != null){this.mouseTarget.moveTo(coord);}}this.coord = coord.slice();};movablePoint.setCoordConstrained = function(coord){this.setCoord(applySnapAndConstraints(coord));};movablePoint.toBack = function(){if(this.visible){if(this.mouseTarget != null){this.mouseTarget.toBack();}this.visibleShape.toBack();}};movablePoint.toFront = function(){if(this.visible){if(this.mouseTarget != null){this.mouseTarget.toFront();}this.visibleShape.toFront();}};movablePoint.remove = function(){if(this.visibleShape){this.visibleShape.remove();}if(this.mouseTarget){this.mouseTarget.remove();}if(this.labeledVertex){this.labeledVertex.remove();}};return movablePoint;}, addInteractiveFn:function(fn, options){var graph=this;options = $.extend({graph:graph, snap:0, range:[graph.range[0][0], graph.range[0][1]]}, options);var interactiveFn={highlight:false};graph.style({stroke:KhanColors.BLUE}, function(){interactiveFn.visibleShape = graph.plot(fn, options.range, options.swapAxes);});graph.style({fill:KhanColors.BLUE, stroke:KhanColors.BLUE}, function(){interactiveFn.cursorPoint = graph.ellipse([0, fn(0)], [4 / graph.scale[0], 4 / graph.scale[1]]);});interactiveFn.cursorPoint.attr("opacity", 0);var mouseAreaWidth=30;var points=[];var step=(options.range[1] - options.range[0]) / 100;var addScaledPoint=function(x, y){if(options.swapAxes){points.push([(y - graph.range[0][0]) * graph.scale[0], (graph.range[1][1] - x) * graph.scale[1]]);}else {points.push([(x - graph.range[0][0]) * graph.scale[0], (graph.range[1][1] - y) * graph.scale[1]]);}};for(var x=options.range[0]; x <= options.range[1]; x += step) {var ddx=(fn(x - 0.001) - fn(x + 0.001)) / 0.002;var x1=x;var y1=fn(x) + mouseAreaWidth / (2 * graph.scale[1]);if(ddx !== 0){var normalslope=-1 / (ddx * (graph.scale[1] / graph.scale[0])) / (graph.scale[1] / graph.scale[0]);if(ddx < 0){x1 = x - Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}else if(ddx > 0){x1 = x + Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}}addScaledPoint(x1, y1);}for(var x=options.range[1]; x >= options.range[0]; x -= step) {var ddx=(fn(x - 0.001) - fn(x + 0.001)) / 0.002;var x1=x;var y1=fn(x) - mouseAreaWidth / (2 * graph.scale[1]);if(ddx !== 0){var normalslope=-1 / (ddx * (graph.scale[1] / graph.scale[0])) / (graph.scale[1] / graph.scale[0]);if(ddx < 0){x1 = x + Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}else if(ddx > 0){x1 = x - Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}}addScaledPoint(x1, y1);}interactiveFn.mouseTarget = graph.mouselayer.path(GraphUtils.unscaledSvgPath(points));interactiveFn.mouseTarget.attr({fill:"#000", "opacity":0});$(interactiveFn.mouseTarget[0]).bind("vmouseover vmouseout vmousemove", function(event){event.preventDefault();var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graph.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graph.ypixels - 10, mouseY));if(options.snap){mouseX = Math.round(mouseX / (graph.scale[0] * options.snap)) * (graph.scale[0] * options.snap);}var coordX=mouseX / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - mouseY / graph.scale[1];var findDistance=function(coordX, coordY){var closestX=0;var minDist=Math.sqrt(coordX * coordX + coordY * coordY);for(var x=options.range[0]; x < options.range[1]; x += (options.range[1] - options.range[0]) / graph.xpixels) {if(Math.sqrt((x - coordX) * (x - coordX) + (fn(x) - coordY) * (fn(x) - coordY)) < minDist){closestX = x;minDist = Math.sqrt((x - coordX) * (x - coordX) + (fn(x) - coordY) * (fn(x) - coordY));}}return closestX;};if(options.swapAxes){var closestX=findDistance(coordY, coordX);coordX = fn(closestX);coordY = closestX;}else {var closestX=findDistance(coordX, coordY);coordX = closestX;coordY = fn(closestX);}interactiveFn.cursorPoint.attr("cx", (graph.range[0][1] + coordX) * graph.scale[0]);interactiveFn.cursorPoint.attr("cy", (graph.range[1][1] - coordY) * graph.scale[1]);if(_.isFunction(interactiveFn.onMove)){interactiveFn.onMove(coordX, coordY);}if(event.type === "vmouseover"){interactiveFn.cursorPoint.animate({opacity:1}, 50);interactiveFn.highlight = true;}else if(event.type === "vmouseout"){interactiveFn.highlight = false;interactiveFn.cursorPoint.animate({opacity:0}, 50);if(_.isFunction(interactiveFn.onLeave)){interactiveFn.onLeave(coordX, coordY);}}});interactiveFn.mouseTarget.toBack();return interactiveFn;}, addMovableLineSegment:function(options){var lineSegment=$.extend({graph:this, coordA:[0, 0], coordZ:[1, 1], snapX:0, snapY:0, fixed:false, ticks:0, normalStyle:{}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":6}, labelStyle:{"stroke":KhanColors.INTERACTIVE, "color":KhanColors.INTERACTIVE}, highlight:false, dragging:false, tick:[], extendLine:false, extendRay:false, constraints:{fixed:false, constrainX:false, constrainY:false}, sideLabel:"", vertexLabels:[], numArrows:0, numTicks:0, movePointsWithLine:false}, options);var normalColor=lineSegment.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;lineSegment.normalStyle = _.extend({}, {"stroke-width":2, "stroke":normalColor}, options.normalStyle);lineSegment.arrowStyle = _.extend({}, lineSegment.normalStyle, {"color":lineSegment.normalStyle.stroke});if(options.pointA !== undefined){lineSegment.coordA = options.pointA.coord;lineSegment.pointA.lineStarts.push(lineSegment);}else if(options.coordA !== undefined){lineSegment.coordA = options.coordA.slice();}if(options.pointZ !== undefined){lineSegment.coordZ = options.pointZ.coord;lineSegment.pointZ.lineEnds.push(lineSegment);}else if(options.coordA !== undefined){lineSegment.coordA = lineSegment.coordA.slice();}var graph=lineSegment.graph;graph.style(lineSegment.normalStyle);for(var i=0; i < lineSegment.ticks; ++i) {lineSegment.tick[i] = InteractiveUtils.bogusShape;}var path=GraphUtils.unscaledSvgPath([[0, 0], [1, 0]]);for(var i=0; i < lineSegment.ticks; ++i) {var tickoffset=0.5 - (lineSegment.ticks - 1 + i * 2) / graph.scale[0];path += GraphUtils.unscaledSvgPath([[tickoffset, -7], [tickoffset, 7]]);}options = {thickness:Math.max(lineSegment.normalStyle["stroke-width"], lineSegment.highlightStyle["stroke-width"])};lineSegment.visibleLine = new WrappedLine(graph, [0, 0], [1, 0], options);lineSegment.visibleLine.attr(lineSegment.normalStyle);if(!lineSegment.fixed){var _options2={thickness:30, mouselayer:true};lineSegment.mouseTarget = new WrappedLine(graph, [0, 0], [1, 0], _options2);lineSegment.mouseTarget.attr({fill:"#000", "opacity":0});}lineSegment.transform = function(syncToPoints){if(syncToPoints){if(typeof this.pointA === "object"){this.coordA = this.pointA.coord;}if(typeof this.pointZ === "object"){this.coordZ = this.pointZ.coord;}}var getScaledAngle=function(line){var scaledA=line.graph.scalePoint(line.coordA);var scaledZ=line.graph.scalePoint(line.coordZ);return kvector.polarDegFromCart(kvector.subtract(scaledZ, scaledA))[1];};var getClipPoint=function(graph, coord, angle){graph = lineSegment.graph;var xExtent=graph.range[0][1] - graph.range[0][0];var yExtent=graph.range[1][1] - graph.range[1][0];var distance=xExtent + yExtent;var angleVec=graph.unscaleVector(kvector.cartFromPolarDeg([1, angle]));var distVec=kvector.scale(kvector.normalize(angleVec), distance);var farCoord=kvector.add(coord, distVec);var scaledAngle=kvector.polarDegFromCart(angleVec)[1];var clipPoint=graph.constrainToBoundsOnAngle(farCoord, 4, scaledAngle * Math.PI / 180);return clipPoint;};var angle=getScaledAngle(this);var start=this.coordA;var end=this.coordZ;if(this.extendLine){start = getClipPoint(graph, start, 360 - angle);end = getClipPoint(graph, end, (540 - angle) % 360);}else if(this.extendRay){end = getClipPoint(graph, start, 360 - angle);}var elements=[this.visibleLine];if(!this.fixed){elements.push(this.mouseTarget);}_.each(elements, function(element){element.moveTo(start, end);});var createArrow=function(graph, style){var center=[0.75, 0];var points=[[-3, 4], [-2.75, 2.5], [0, 0.25], center, [0, -0.25], [-2.75, -2.5], [-3, -4]];var scale=1.4;points = _.map(points, function(point){var pv=kvector.subtract(point, center);var pvScaled=kvector.scale(pv, scale);return kvector.add(center, pvScaled);});var createCubicPath=function(points){var path="M" + points[0][0] + " " + points[0][1];for(var i=1; i < points.length; i += 3) {path += "C" + points[i][0] + " " + points[i][1] + " " + points[i + 1][0] + " " + points[i + 1][1] + " " + points[i + 2][0] + " " + points[i + 2][1];}return path;};var unscaledPoints=_.map(points, graph.unscalePoint);var options={center:graph.unscalePoint(center), createPath:createCubicPath};var arrowHead=new WrappedPath(graph, unscaledPoints, options);arrowHead.attr(_.extend({"stroke-linejoin":"round", "stroke-linecap":"round", "stroke-dasharray":""}, style));arrowHead.toCoordAtAngle = function(coord, angle){var clipPoint=graph.scalePoint(getClipPoint(graph, coord, angle));var do3dTransform=getCanUse3dTransform();arrowHead.transform("translateX(" + (clipPoint[0] + scale * center[0]) + "px) " + "translateY(" + (clipPoint[1] + scale * center[1]) + "px) " + (do3dTransform?"translateZ(0) ":"") + "rotate(" + (360 - KhanMath.bound(angle)) + "deg)");};return arrowHead;};if(this._arrows == null){this._arrows = [];if(this.extendLine){this._arrows.push(createArrow(graph, this.normalStyle));this._arrows.push(createArrow(graph, this.normalStyle));}else if(this.extendRay){this._arrows.push(createArrow(graph, this.normalStyle));}}var coordForArrow=[this.coordA, this.coordZ];var angleForArrow=[360 - angle, (540 - angle) % 360];_.each(this._arrows, function(arrow, i){arrow.toCoordAtAngle(coordForArrow[i], angleForArrow[i]);});_.invoke(this.temp, "remove");this.temp = [];var isClockwise=this.coordA[0] < this.coordZ[0] || this.coordA[0] === this.coordZ[0] && this.coordA[1] > this.coordZ[1];if(this.sideLabel){this.temp.push(this.graph.labelSide({point1:this.coordA, point2:this.coordZ, label:this.labeledSide, text:this.sideLabel, numArrows:this.numArrows, numTicks:this.numTicks, clockwise:isClockwise, style:this.labelStyle}));}if(this.vertexLabels.length){this.graph.labelVertex({vertex:this.coordA, point3:this.coordZ, label:this.labeledVertices[0], text:this.vertexLabels[0], clockwise:isClockwise, style:this.labelStyle});this.graph.labelVertex({point1:this.coordA, vertex:this.coordZ, label:this.labeledVertices[1], text:this.vertexLabels[1], clockwise:isClockwise, style:this.labelStyle});}this.temp = _.flatten(this.temp);};lineSegment.toBack = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.toBack();}lineSegment.visibleLine.toBack();};lineSegment.toFront = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.toFront();}lineSegment.visibleLine.toFront();};lineSegment.remove = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.remove();}lineSegment.visibleLine.remove();if(lineSegment.labeledSide){lineSegment.labeledSide.remove();}if(lineSegment.labeledVertices){_.invoke(lineSegment.labeledVertices, "remove");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "remove");}if(lineSegment.temp.length){_.invoke(lineSegment.temp, "remove");}};lineSegment.hide = function(){lineSegment.visibleLine.hide();if(lineSegment.temp.length){_.invoke(lineSegment.temp, "hide");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "hide");}};lineSegment.show = function(){lineSegment.visibleLine.show();if(lineSegment.temp.length){_.invoke(lineSegment.temp, "show");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "show");}};if(lineSegment.sideLabel){lineSegment.labeledSide = this.label([0, 0], "", "center", lineSegment.labelStyle);}if(lineSegment.vertexLabels.length){lineSegment.labeledVertices = _.map(lineSegment.vertexLabels, function(label){return this.label([0, 0], "", "center", lineSegment.labelStyle);}, this);}if(!lineSegment.fixed && !lineSegment.constraints.fixed){var $mouseTarget=$(lineSegment.mouseTarget.getMouseTarget());$mouseTarget.css("cursor", "move");$mouseTarget.bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){if(!dragging){lineSegment.highlight = true;lineSegment.visibleLine.animate(lineSegment.highlightStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.highlightStyle.stroke, "stroke":lineSegment.highlightStyle.stroke});lineSegment.transform();}}else if(event.type === "vmouseout"){lineSegment.highlight = false;if(!lineSegment.dragging){lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.normalStyle.stroke, "stroke":lineSegment.normalStyle.stroke});lineSegment.transform();}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();var coordX=(event.pageX - $(graph.raphael.canvas.parentNode).offset().left) / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - (event.pageY - $(graph.raphael.canvas.parentNode).offset().top) / graph.scale[1];if(lineSegment.snapX > 0){coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;}if(lineSegment.snapY > 0){coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;}var mouseOffsetA=[lineSegment.coordA[0] - coordX, lineSegment.coordA[1] - coordY];var mouseOffsetZ=[lineSegment.coordZ[0] - coordX, lineSegment.coordZ[1] - coordY];var offsetLeft=-Math.min(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);var offsetRight=Math.max(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);var offsetTop=Math.max(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);var offsetBottom=-Math.min(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);$(document).bind("vmousemove.lineSegment vmouseup.lineSegment", function(event){event.preventDefault();lineSegment.dragging = true;dragging = true;var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(offsetLeft + 10, Math.min(graph.xpixels - 10 - offsetRight, mouseX));mouseY = Math.max(offsetTop + 10, Math.min(graph.ypixels - 10 - offsetBottom, mouseY));var coordX=mouseX / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - mouseY / graph.scale[1];if(lineSegment.snapX > 0){coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;}if(lineSegment.snapY > 0){coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;}if(event.type === "vmousemove"){if(lineSegment.constraints.constrainX){coordX = lineSegment.coordA[0] - mouseOffsetA[0];}if(lineSegment.constraints.constrainY){coordY = lineSegment.coordA[1] - mouseOffsetA[1];}var dX=coordX + mouseOffsetA[0] - lineSegment.coordA[0];var dY=coordY + mouseOffsetA[1] - lineSegment.coordA[1];lineSegment.coordA = [coordX + mouseOffsetA[0], coordY + mouseOffsetA[1]];lineSegment.coordZ = [coordX + mouseOffsetZ[0], coordY + mouseOffsetZ[1]];lineSegment.transform();if(lineSegment.movePointsWithLine){if(typeof lineSegment.pointA === "object"){lineSegment.pointA.setCoord([lineSegment.pointA.coord[0] + dX, lineSegment.pointA.coord[1] + dY]);}if(typeof lineSegment.pointZ === "object"){lineSegment.pointZ.setCoord([lineSegment.pointZ.coord[0] + dX, lineSegment.pointZ.coord[1] + dY]);}}if(_.isFunction(lineSegment.onMove)){lineSegment.onMove(dX, dY);}}else if(event.type === "vmouseup"){$(document).unbind(".lineSegment");lineSegment.dragging = false;dragging = false;if(!lineSegment.highlight){lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.normalStyle.stroke, "stroke":lineSegment.normalStyle.stroke});lineSegment.transform();}if(_.isFunction(lineSegment.onMoveEnd)){lineSegment.onMoveEnd();}}$(lineSegment).trigger("move");});})();}});}if(lineSegment.pointA !== undefined){lineSegment.pointA.toFront();}if(lineSegment.pointZ !== undefined){lineSegment.pointZ.toFront();}lineSegment.transform();return lineSegment;}, addMovablePolygon:function(options){var graphie=this;var polygon=$.extend({snapX:0, snapY:0, fixed:false, constrainToGraph:true, normalStyle:{}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":2, "fill":KhanColors.INTERACTING, "fill-opacity":0.05}, pointHighlightStyle:{"fill":KhanColors.INTERACTING, "stroke":KhanColors.INTERACTING}, labelStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, angleLabels:[], showRightAngleMarkers:[], sideLabels:[], vertexLabels:[], numArcs:[], numArrows:[], numTicks:[], updateOnPointMove:true, closed:true}, _.omit(options, "points"));var normalColor=polygon.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;polygon.normalStyle = _.extend({"stroke-width":2, "fill-opacity":0, "fill":normalColor, "stroke":normalColor}, options.normalStyle);polygon.points = options.points;var isPoint=function(coordOrPoint){return !_.isArray(coordOrPoint);};polygon.update = function(){var n=polygon.points.length;polygon.coords = _.map(polygon.points, function(coordOrPoint, i){if(isPoint(coordOrPoint)){return coordOrPoint.coord;}else {return coordOrPoint;}});polygon.left = _.min(_.pluck(polygon.coords, 0));polygon.right = _.max(_.pluck(polygon.coords, 0));polygon.top = _.max(_.pluck(polygon.coords, 1));polygon.bottom = _.min(_.pluck(polygon.coords, 1));var scaledCoords=_.map(polygon.coords, function(coord){return graphie.scalePoint(coord);});if(polygon.closed){scaledCoords.push(true);}else {scaledCoords = scaledCoords.concat(_.clone(scaledCoords).reverse());}polygon.path = GraphUtils.unscaledSvgPath(scaledCoords);_.invoke(polygon.temp, "remove");polygon.temp = [];var isClockwise=clockwise(polygon.coords);if(polygon.angleLabels.length || polygon.showRightAngleMarkers.length){_.each(polygon.labeledAngles, function(label, i){polygon.temp.push(graphie.labelAngle({point1:polygon.coords[(i - 1 + n) % n], vertex:polygon.coords[i], point3:polygon.coords[(i + 1) % n], label:label, text:polygon.angleLabels[i], showRightAngleMarker:polygon.showRightAngleMarkers[i], numArcs:polygon.numArcs[i], clockwise:isClockwise, style:polygon.labelStyle}));});}if(polygon.sideLabels.length){_.each(polygon.labeledSides, function(label, i){polygon.temp.push(graphie.labelSide({point1:polygon.coords[i], point2:polygon.coords[(i + 1) % n], label:label, text:polygon.sideLabels[i], numArrows:polygon.numArrows[i], numTicks:polygon.numTicks[i], clockwise:isClockwise, style:polygon.labelStyle}));});}if(polygon.vertexLabels.length){_.each(polygon.labeledVertices, function(label, i){graphie.labelVertex({point1:polygon.coords[(i - 1 + n) % n], vertex:polygon.coords[i], point3:polygon.coords[(i + 1) % n], label:label, text:polygon.vertexLabels[i], clockwise:isClockwise, style:polygon.labelStyle});});}polygon.temp = _.flatten(polygon.temp);};polygon.transform = function(){polygon.update();polygon.visibleShape.attr({path:polygon.path});if(!polygon.fixed){polygon.mouseTarget.attr({path:polygon.path});}};polygon.remove = function(){polygon.visibleShape.remove();if(!polygon.fixed){polygon.mouseTarget.remove();}if(polygon.labeledAngles){_.invoke(polygon.labeledAngles, "remove");}if(polygon.labeledSides){_.invoke(polygon.labeledSides, "remove");}if(polygon.labeledVertices){_.invoke(polygon.labeledVertices, "remove");}if(polygon.temp.length){_.invoke(polygon.temp, "remove");}};polygon.toBack = function(){if(!polygon.fixed){polygon.mouseTarget.toBack();}polygon.visibleShape.toBack();};polygon.toFront = function(){if(!polygon.fixed){polygon.mouseTarget.toFront();}polygon.visibleShape.toFront();};if(polygon.updateOnPointMove){_.each(_.filter(polygon.points, isPoint), function(coordOrPoint){coordOrPoint.polygonVertices.push(polygon);});}polygon.coords = new Array(polygon.points.length);if(polygon.angleLabels.length){polygon.labeledAngles = _.times(Math.max(polygon.angleLabels.length, polygon.showRightAngleMarkers.length), function(){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}if(polygon.sideLabels.length){polygon.labeledSides = _.map(polygon.sideLabels, function(label){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}if(polygon.vertexLabels.length){polygon.labeledVertices = _.map(polygon.vertexLabels, function(label){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}polygon.update();polygon.visibleShape = graphie.raphael.path(polygon.path);polygon.visibleShape.attr(polygon.normalStyle);if(!polygon.fixed){polygon.mouseTarget = graphie.mouselayer.path(polygon.path);polygon.mouseTarget.attr({fill:"#000", opacity:0, cursor:"move"});$(polygon.mouseTarget[0]).bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){if(!dragging || polygon.dragging){polygon.highlight = true;polygon.visibleShape.animate(polygon.highlightStyle, 50);_.each(_.filter(polygon.points, isPoint), function(point){point.visibleShape.animate(polygon.pointHighlightStyle, 50);});}}else if(event.type === "vmouseout"){polygon.highlight = false;if(!polygon.dragging){polygon.visibleShape.animate(polygon.normalStyle, 50);var points=_.filter(polygon.points, isPoint);if(!_.any(_.pluck(points, "dragging"))){_.each(points, function(point){point.visibleShape.animate(point.normalStyle, 50);});}}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();_.each(_.filter(polygon.points, isPoint), function(point){point.dragging = true;});var startX=(event.pageX - $(graphie.raphael.canvas.parentNode).offset().left) / graphie.scale[0] + graphie.range[0][0];var startY=graphie.range[1][1] - (event.pageY - $(graphie.raphael.canvas.parentNode).offset().top) / graphie.scale[1];if(polygon.snapX > 0){startX = Math.round(startX / polygon.snapX) * polygon.snapX;}if(polygon.snapY > 0){startY = Math.round(startY / polygon.snapY) * polygon.snapY;}var lastX=startX;var lastY=startY;var polygonCoords=polygon.coords.slice();var offsetLeft=(startX - polygon.left) * graphie.scale[0];var offsetRight=(polygon.right - startX) * graphie.scale[0];var offsetTop=(polygon.top - startY) * graphie.scale[1];var offsetBottom=(startY - polygon.bottom) * graphie.scale[1];$(document).bind("vmousemove.polygon vmouseup.polygon", function(event){event.preventDefault();polygon.dragging = true;dragging = true;var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;if(polygon.constrainToGraph){mouseX = Math.max(offsetLeft + 10, Math.min(graphie.xpixels - 10 - offsetRight, mouseX));mouseY = Math.max(offsetTop + 10, Math.min(graphie.ypixels - 10 - offsetBottom, mouseY));}var currentX=mouseX / graphie.scale[0] + graphie.range[0][0];var currentY=graphie.range[1][1] - mouseY / graphie.scale[1];if(polygon.snapX > 0){currentX = Math.round(currentX / polygon.snapX) * polygon.snapX;}if(polygon.snapY > 0){currentY = Math.round(currentY / polygon.snapY) * polygon.snapY;}if(event.type === "vmousemove"){(function(){var dX=currentX - startX;var dY=currentY - startY;var doMove=true;if(_.isFunction(polygon.onMove)){var onMoveResult=polygon.onMove(dX, dY);if(onMoveResult === false){doMove = false;}else if(_.isArray(onMoveResult)){dX = onMoveResult[0];dY = onMoveResult[1];currentX = startX + dX;currentY = startY + dY;}}var increment=function(i){return [polygonCoords[i][0] + dX, polygonCoords[i][1] + dY];};if(doMove){_.each(polygon.points, function(coordOrPoint, i){if(isPoint(coordOrPoint)){coordOrPoint.setCoord(increment(i));}else {polygon.points[i] = increment(i);}});polygon.transform();$(polygon).trigger("move");lastX = currentX;lastY = currentY;}})();}else if(event.type === "vmouseup"){$(document).unbind(".polygon");var points=_.filter(polygon.points, isPoint);_.each(points, function(point){point.dragging = false;});polygon.dragging = false;dragging = false;if(!polygon.highlight){polygon.visibleShape.animate(polygon.normalStyle, 50);_.each(points, function(point){point.visibleShape.animate(point.normalStyle, 50);});}if(_.isFunction(polygon.onMoveEnd)){polygon.onMoveEnd(lastX - startX, lastY - startY);}}});})();}});}_.invoke(_.filter(polygon.points, isPoint), "toFront");return polygon;}, constrainToBounds:function(point, padding){var lower=this.unscalePoint([padding, this.ypixels - padding]);var upper=this.unscalePoint([this.xpixels - padding, padding]);var coordX=Math.max(lower[0], Math.min(upper[0], point[0]));var coordY=Math.max(lower[1], Math.min(upper[1], point[1]));return [coordX, coordY];}, constrainToBoundsOnAngle:function(point, padding, angle){var lower=this.unscalePoint([padding, this.ypixels - padding]);var upper=this.unscalePoint([this.xpixels - padding, padding]);var result=point.slice();if(result[0] < lower[0]){result = [lower[0], result[1] + (lower[0] - result[0]) * Math.tan(angle)];}else if(result[0] > upper[0]){result = [upper[0], result[1] - (result[0] - upper[0]) * Math.tan(angle)];}if(result[1] < lower[1]){result = [result[0] + (lower[1] - result[1]) / Math.tan(angle), lower[1]];}else if(result[1] > upper[1]){result = [result[0] - (result[1] - upper[1]) / Math.tan(angle), upper[1]];}return result;}, addMovableAngle:function(options){return new MovableAngle(this, options);}, addArrowWidget:function(options){var arrowWidget=$.extend({graph:this, direction:"up", coord:[0, 0], onClick:function(){}}, options);var graph=arrowWidget.graph;if(arrowWidget.direction === "up"){arrowWidget.visibleShape = graph.path([[arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0] - 4 / graph.scale[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0] + 4 / graph.scale[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]]], {stroke:"", fill:KhanColors.INTERACTIVE});}else if(arrowWidget.direction === "down"){arrowWidget.visibleShape = graph.path([[arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0] - 4 / graph.scale[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0] + 4 / graph.scale[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]]], {stroke:"", fill:KhanColors.INTERACTIVE});}_.defer(function(){arrowWidget.visibleShape.attr({stroke:"", fill:KhanColors.INTERACTIVE});});arrowWidget.mouseTarget = graph.mouselayer.circle(graph.scalePoint(arrowWidget.coord)[0], graph.scalePoint(arrowWidget.coord)[1], 15);arrowWidget.mouseTarget.attr({fill:"#000", "opacity":0});$(arrowWidget.mouseTarget[0]).css("cursor", "pointer");$(arrowWidget.mouseTarget[0]).bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){arrowWidget.visibleShape.animate({scale:2, fill:KhanColors.INTERACTING}, 20);}else if(event.type === "vmouseout"){arrowWidget.visibleShape.animate({scale:1, fill:KhanColors.INTERACTING}, 20);}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){if(!arrowWidget.hidden){arrowWidget.onClick();}return false;}});arrowWidget.hide = function(){arrowWidget.visibleShape.hide();arrowWidget.hidden = true;$(arrowWidget.mouseTarget[0]).css("cursor", "default");};arrowWidget.show = function(){arrowWidget.visibleShape.show();arrowWidget.hidden = false;$(arrowWidget.mouseTarget[0]).css("cursor", "pointer");};return arrowWidget;}, addRectGraph:function(options){var rect=$.extend(true, {x:0, y:0, width:1, height:1, normalStyle:{points:{stroke:KhanColors.INTERACTIVE, fill:KhanColors.INTERACTIVE, opacity:1}, edges:{stroke:KhanColors.INTERACTIVE, opacity:1, "stroke-width":1}, area:{fill:KhanColors.INTERACTIVE, "fill-opacity":0.1, "stroke-width":0}}, hoverStyle:{points:{color:KhanColors.INTERACTING, opacity:1, width:2}, edges:{stroke:KhanColors.INTERACTING, opacity:1, "stroke-width":1}, area:{fill:KhanColors.INTERACTING, "fill-opacity":0.2, "stroke-width":0}}, fixed:{edges:[false, false, false, false], points:[false, false, false, false]}, constraints:{constrainX:false, constrainY:false, xmin:null, xmax:null, ymin:null, ymax:null}, snapX:0, snapY:0, onMove:function(){}}, options);rect = $.extend({initialized:function(){return rect.points && rect.points.length;}, x2:function(){return this.x + this.width;}, y2:function(){return this.y + this.height;}, getX:function(){if(rect.initialized()){return rect.points[0].coord[0];}return rect.x;}, getY:function(){if(rect.initialized()){return rect.points[0].coord[1];}return rect.y;}, getX2:function(){return rect.getX() + rect.getWidth();}, getY2:function(){return rect.getY() + rect.getHeight();}, getXLims:function(){var x=rect.getX();return [x, x + rect.getWidth()];}, getYLims:function(){var y=rect.getY();return [y, y + rect.getHeight()];}, getWidth:function(){if(rect.initialized()){var x0=rect.points[1].coord[0];var x1=rect.points[2].coord[0];return x1 - x0;}return rect.width;}, getHeight:function(){if(rect.initialized()){var y0=rect.points[0].coord[1];var y1=rect.points[1].coord[1];return y1 - y0;}return rect.height;}, getCoord:function(){return [rect.getX(), rect.getY()];}, getRaphaelParamsArr:function(){var width=rect.getWidth();var height=rect.getHeight();var x=rect.getX();var y=rect.getY();var point=graphie.scalePoint([x, y + height]);var dims=graphie.scaleVector([width, height]);return point.concat(dims);}, getRaphaelParams:function(){var arr=rect.getRaphaelParamsArr();return {x:arr[0], y:arr[1], width:arr[2], height:arr[3]};}}, rect);var graphie=this;rect.fillArea = graphie.rect().attr(rect.normalStyle.area);rect.mouseTarget = graphie.mouselayer.rect().attr({fill:"#000", opacity:0, "fill-opacity":0});rect.render = function(){rect.fillArea.attr(rect.getRaphaelParams());rect.mouseTarget.attr(rect.getRaphaelParams());};rect.render();rect.points = [];var coords=[[rect.x, rect.y], [rect.x, rect.y2()], [rect.x2(), rect.y2()], [rect.x2(), rect.y]];var sames=[[1, 3], [0, 2], [3, 1], [2, 0]];var moveLimits=[[1, 1], [1, 0], [0, 0], [0, 1]];function adjustNeighboringPoints(x, y, sameX, sameY){rect.points[sameX].setCoord([x, rect.points[sameX].coord[1]]);rect.points[sameY].setCoord([rect.points[sameY].coord[0], y]);rect.points[sameX].updateLineEnds();rect.points[sameY].updateLineEnds();}function coordInBounds(limit, newVal, checkIsGreater){return checkIsGreater?newVal < limit:newVal > limit;}function moveIsInBounds(index, newX, newY){var xlims=rect.getXLims();var ylims=rect.getYLims();var i=moveLimits[index];var xInBounds=coordInBounds(xlims[i[0]], newX, i[0] === 1);var yInBounds=coordInBounds(ylims[i[1]], newY, i[1] === 1);return xInBounds && yInBounds;}_.times(4, function(i){var sameX=sames[i][0];var sameY=sames[i][1];var coord=coords[i];var point=graphie.addMovablePoint({graph:graphie, coord:coord, normalStyle:rect.normalStyle.points, hoverStyle:rect.hoverStyle.points, snapX:rect.snapX, snapY:rect.snapY, visible:!rect.fixed.points[i], constraints:{fixed:rect.fixed.points[i]}, onMove:function(x, y){if(!moveIsInBounds(i, x, y)){return false;}adjustNeighboringPoints(x, y, sameX, sameY);rect.render();}});rect.points.push(point);});rect.edges = [];rect.moveEdge = function(dx, dy, edgeIndex){var a=rect.edges[edgeIndex].pointA;var z=rect.edges[edgeIndex].pointZ;a.setCoord([a.coord[0] + dx, a.coord[1] + dy]);z.setCoord([z.coord[0] + dx, z.coord[1] + dy]);a.updateLineEnds();z.updateLineEnds();};_.times(4, function(i){var pointA=rect.points[i];var pointZ=rect.points[(i + 1) % 4];var constrainX=i % 2;var constrainY=(i + 1) % 2;var edge=graphie.addMovableLineSegment({graph:graphie, pointA:pointA, pointZ:pointZ, normalStyle:rect.normalStyle.edges, hoverStyle:rect.hoverStyle.edges, snapX:rect.snapX, snapY:rect.snapY, fixed:rect.fixed.edges[i], constraints:{constrainX:constrainX, constrainY:constrainY}, onMove:function(dx, dy){rect.moveEdge(dx, dy, i);rect.render();}});rect.edges.push(edge);});var elems=[rect.fillArea, rect.mouseTarget];rect.elems = elems.concat(rect.edges).concat(rect.points);function constrainTranslation(dx, dy){var xC=rect.constraints.constrainX;var xLT=rect.getX() + dx < rect.constraints.xmin;var xGT=rect.getX2() + dx > rect.constraints.xmax;var yC=rect.constraints.constrainY;var yLT=rect.getY() + dy < rect.constraints.ymin;var yGT=rect.getY2() + dy > rect.constraints.ymax;dx = xC || xLT || xGT?0:dx;dy = yC || yLT || yGT?0:dy;return [dx, dy];}rect.translate = function(dx, dy){if(rect.constraints.constrainX && rect.constraints.constrainY){return;}var d=constrainTranslation(dx, dy);dx = d[0];dy = d[1];_.each(rect.points, function(point, i){var x=point.coord[0] + dx;var y=point.coord[1] + dy;point.setCoord([x, y]);point.updateLineEnds();});rect.render();rect.onMove(dx, dy);};rect.moveTo = function(x, y){var dx=x - rect.getX();var dy=y - rect.getY();rect.translate(dx, dy);};rect.snap = function(){var dx=undefined;var dy=undefined;_.each(rect.points, function(point, i){var x0=point.coord[0];var y0=point.coord[1];var x1=x0;var y1=y0;if(rect.snapX){x1 = KhanMath.roundToNearest(rect.snapX, x0);}if(rect.snapY){y1 = KhanMath.roundToNearest(rect.snapY, y0);}if(!dx || !dy){dx = x1 - x0;dy = y1 - y0;}point.setCoord([x1, y1]);point.updateLineEnds();});rect.render();rect.onMove(dx, dy);};rect.toFront = function(){_.each(rect.elems, function(elem){elem.toFront();});};rect.hide = function(speed){if(rect.hidden){return;}speed = speed || 100;rect.fillArea.animate({"fill-opacity":0}, speed);$(rect.mouseTarget[0]).css("display", "none");rect.hidden = true;};rect.show = function(speed){if(!rect.hidden){return;}speed = speed || 100;rect.fillArea.animate(rect.normalStyle.area, speed);$(rect.mouseTarget[0]).css("display", "block");rect.hidden = false;};rect.enableHoverStyle = function(){rect.highlight = true;if(!dragging){rect.fillArea.animate(rect.hoverStyle.area, 100);}};rect.enableNormalStyle = function(){rect.highlight = false;if(!rect.dragging){rect.fillArea.animate(rect.normalStyle.area, 100);}};var bindTranslation=function(){$(rect.mouseTarget[0]).css("cursor", "move");$(rect.mouseTarget[0]).on("vmouseover vmouseout vmousedown", function(event){if(event.type === "vmouseover"){rect.enableHoverStyle();}else if(event.type === "vmouseout"){rect.enableNormalStyle();}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){event.preventDefault();rect.toFront();rect.prevCoord = graphie.getMouseCoord(event);rect.enableHoverStyle();$(document).on("vmousemove vmouseup", function(event){event.preventDefault();rect.dragging = true;dragging = true;if(event.type === "vmousemove"){var currCoord=graphie.getMouseCoord(event);if(rect.prevCoord && rect.prevCoord.length === 2){var diff=GraphUtils.coordDiff(rect.prevCoord, currCoord);rect.translate(diff[0], diff[1]);}rect.prevCoord = currCoord;}else if(event.type === "vmouseup"){$(document).off("vmousemove vmouseup");rect.dragging = false;dragging = false;var currCoord=graphie.getMouseCoord(event);if(currCoord[0] < rect.getX() || currCoord[0] > rect.getX2() || currCoord[1] < rect.getY() || currCoord[1] > rect.getY2()){rect.enableNormalStyle();}rect.snap();}});}});};bindTranslation();return rect;}, addCircleGraph:function(options){var graphie=this;var circle=$.extend({center:[0, 0], radius:2, snapX:0.5, snapY:0.5, snapRadius:0.5, minRadius:1, centerConstraints:{}, centerNormalStyle:{}, centerHighlightStyle:{stroke:KhanColors.INTERACTING, fill:KhanColors.INTERACTING}, circleNormalStyle:{stroke:KhanColors.INTERACTIVE, "fill-opacity":0}, circleHighlightStyle:{stroke:KhanColors.INTERACTING, fill:KhanColors.INTERACTING, "fill-opacity":0.05}}, options);var normalColor=circle.centerConstraints.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;var centerNormalStyle=options?options.centerNormalStyle:null;circle.centerNormalStyle = _.extend({}, {"fill":normalColor, "stroke":normalColor}, centerNormalStyle);circle.centerPoint = graphie.addMovablePoint({graph:graphie, coord:circle.center, normalStyle:circle.centerNormalStyle, snapX:circle.snapX, snapY:circle.snapY, constraints:circle.centerConstraints});circle.circ = graphie.circle(circle.center, circle.radius, circle.circleNormalStyle);circle.perim = graphie.mouselayer.circle(graphie.scalePoint(circle.center)[0], graphie.scalePoint(circle.center)[1], graphie.scaleVector(circle.radius)[0]).attr({"stroke-width":20, "opacity":0.002});if(!circle.centerConstraints.fixed){$(circle.centerPoint.mouseTarget.getMouseTarget()).on("vmouseover vmouseout", function(event){if(circle.centerPoint.highlight || circle.centerPoint.dragging){circle.circ.animate(circle.circleHighlightStyle, 50);}else {circle.circ.animate(circle.circleNormalStyle, 50);}});}circle.toFront = function(){circle.circ.toFront();circle.perim.toFront();circle.centerPoint.visibleShape.toFront();if(!circle.centerConstraints.fixed){circle.centerPoint.mouseTarget.toFront();}};circle.centerPoint.onMove = function(x, y){circle.toFront();circle.circ.attr({cx:graphie.scalePoint(x)[0], cy:graphie.scalePoint(y)[1]});circle.perim.attr({cx:graphie.scalePoint(x)[0], cy:graphie.scalePoint(y)[1]});if(circle.onMove){circle.onMove(x, y);}};$(circle.centerPoint).on("move", function(){circle.center = this.coord;$(circle).trigger("move");});circle.setCenter = function(x, y){circle.centerPoint.setCoord([x, y]);circle.centerPoint.onMove(x, y);circle.center = [x, y];};circle.setRadius = function(r){circle.radius = r;circle.perim.attr({r:graphie.scaleVector(r)[0]});circle.circ.attr({rx:graphie.scaleVector(r)[0], ry:graphie.scaleVector(r)[1]});};circle.remove = function(){circle.centerPoint.remove();circle.circ.remove();circle.perim.remove();};$(circle.perim[0]).css("cursor", "move");$(circle.perim[0]).on("vmouseover vmouseout vmousedown", function(event){if(event.type === "vmouseover"){circle.highlight = true;if(!dragging){circle.circ.animate(circle.circleHighlightStyle, 50);circle.centerPoint.visibleShape.animate(circle.centerHighlightStyle, 50);}}else if(event.type === "vmouseout"){circle.highlight = false;if(!circle.dragging && !circle.centerPoint.dragging){circle.circ.animate(circle.circleNormalStyle, 50);circle.centerPoint.visibleShape.animate(circle.centerNormalStyle, 50);}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();circle.toFront();var startRadius=circle.radius;$(document).on("vmousemove vmouseup", function(event){event.preventDefault();circle.dragging = true;dragging = true;if(event.type === "vmousemove"){var coord=graphie.constrainToBounds(graphie.getMouseCoord(event), 10);var radius=GraphUtils.getDistance(circle.centerPoint.coord, coord);radius = Math.max(circle.minRadius, Math.round(radius / circle.snapRadius) * circle.snapRadius);var oldRadius=circle.radius;var doResize=true;if(circle.onResize){var onResizeResult=circle.onResize(radius, oldRadius);if(_.isNumber(onResizeResult)){radius = onResizeResult;}else if(onResizeResult === false){doResize = false;}}if(doResize){circle.setRadius(radius);$(circle).trigger("move");}}else if(event.type === "vmouseup"){$(document).off("vmousemove vmouseup");circle.dragging = false;dragging = false;if(circle.onResizeEnd){circle.onResizeEnd(circle.radius, startRadius);}}});})();}});return circle;}, interactiveEllipse:function(options){var graphie=this;var ellipse=$.extend({center:[0, 0], radius:2, xRadius:2, yRadius:2, ellipseNormalStyle:{stroke:KhanColors.BLUE, "fill-opacity":0}, ellipseBoundaryHideStyle:{"fill-opacity":0, "stroke-width":0}, ellipseBoundaryShowStyle:{"fill-opacity":1, fill:KhanColors.BLUE}, onMove:function(coordX, coordY){}, onLeave:function(coordX, coordY){}}, options);ellipse.circ = graphie.ellipse(ellipse.center, [ellipse.xRadius, ellipse.yRadius], ellipse.ellipseNormalStyle);ellipse.perim = graphie.mouselayer.ellipse(graphie.scalePoint(ellipse.center)[0], graphie.scalePoint(ellipse.center)[1], graphie.scaleVector(ellipse.xRadius)[0], graphie.scaleVector(ellipse.yRadius)[0]).attr({"stroke-width":30, "opacity":0.002});ellipse.boundaryPoint = graphie.circle(ellipse.center, 0.4, ellipse.ellipseBoundaryHideStyle);ellipse.remove = function(){ellipse.circ.remove();ellipse.perim.remove();};ellipse.showPoint = function(event){var coord=graphie.constrainToBounds(graphie.getMouseCoord(event), 10);var dx=ellipse.yRadius * (ellipse.center[0] - coord[0]);var dy=ellipse.xRadius * (ellipse.center[1] - coord[1]);var angle=Math.atan2(dy, dx);coord[0] = ellipse.center[0] - ellipse.xRadius * Math.cos(angle);coord[1] = ellipse.center[1] - ellipse.yRadius * Math.sin(angle);var scaledPoint=graphie.scalePoint(coord);ellipse.boundaryPoint.attr({cx:scaledPoint[0]});ellipse.boundaryPoint.attr({cy:scaledPoint[1]});ellipse.boundaryPoint.animate(ellipse.ellipseBoundaryShowStyle, 50);ellipse.onMove(coord[0], coord[1]);};$(ellipse.perim[0]).on("vmouseover vmouseout vmousemove", function(event){if(event.type === "vmouseover"){ellipse.showPoint(event);}else if(event.type === "vmouseout"){ellipse.boundaryPoint.animate(ellipse.ellipseBoundaryHideStyle, 50);ellipse.onLeave();}else if(event.type === "vmousemove"){ellipse.showPoint(event);}});return ellipse;}, addRotateHandle:(function(){var drawRotateHandle=function(graphie, center, radius, halfWidth, lengthAngle, angle, interacting){var getRotateHandlePoint=function(offset, distanceFromArrowMidline){var distFromRotationCenter=radius + distanceFromArrowMidline;var vec=kvector.cartFromPolarDeg([distFromRotationCenter, angle + offset]);var absolute=kvector.add(center, vec);var pixels=graphie.scalePoint(absolute);return pixels[0] + "," + pixels[1];};var innerR=graphie.scaleVector(radius - halfWidth);var outerR=graphie.scaleVector(radius + halfWidth);return graphie.raphael.path(" M" + getRotateHandlePoint(lengthAngle, -halfWidth) + " L" + getRotateHandlePoint(lengthAngle, -3 * halfWidth) + " L" + getRotateHandlePoint(2 * lengthAngle, 0) + " L" + getRotateHandlePoint(lengthAngle, 3 * halfWidth) + " L" + getRotateHandlePoint(lengthAngle, halfWidth) + " A" + outerR[0] + "," + outerR[1] + ",0,0,1," + getRotateHandlePoint(-lengthAngle, halfWidth) + " L" + getRotateHandlePoint(-lengthAngle, 3 * halfWidth) + " L" + getRotateHandlePoint(-2 * lengthAngle, 0) + " L" + getRotateHandlePoint(-lengthAngle, -3 * halfWidth) + " L" + getRotateHandlePoint(-lengthAngle, -halfWidth) + " A" + innerR[0] + "," + innerR[1] + ",0,0,0," + getRotateHandlePoint(lengthAngle, -halfWidth) + " Z").attr({stroke:null, fill:interacting?KhanColors.INTERACTING:KhanColors.INTERACTIVE});};return function(options){var graph=this;var rotatePoint=options.center;var radius=options.radius;var lengthAngle=options.lengthAngle || 30;var hideArrow=options.hideArrow || false;var mouseTarget=options.mouseTarget;var id=_.uniqueId("rotateHandle");if(_.isArray(rotatePoint)){rotatePoint = {coord:rotatePoint};}var rotateHandle=graph.addMovablePoint({coord:kpoint.addVector(rotatePoint.coord, kvector.cartFromPolarDeg(radius, options.angleDeg || 0)), constraints:{fixedDistance:{dist:radius, point:rotatePoint}}, mouseTarget:mouseTarget});rotatePoint.toFront();var rotatePointPrevCoord=rotatePoint.coord;var rotateHandlePrevCoord=rotateHandle.coord;var rotateHandleStartCoord=rotateHandlePrevCoord;var isRotating=false;var isHovering=false;var drawnRotateHandle=undefined;var redrawRotateHandle=function(handleCoord){if(hideArrow){return;}var handleVec=kvector.subtract(handleCoord, rotatePoint.coord);var handlePolar=kvector.polarDegFromCart(handleVec);var angle=handlePolar[1];if(drawnRotateHandle){drawnRotateHandle.remove();}drawnRotateHandle = drawRotateHandle(graph, rotatePoint.coord, options.radius, isRotating || isHovering?options.hoverWidth / 2:options.width / 2, lengthAngle, angle, isRotating || isHovering);};$(rotatePoint).on("move." + id, function(){var delta=kvector.subtract(rotatePoint.coord, rotatePointPrevCoord);rotateHandle.setCoord(kvector.add(rotateHandle.coord, delta));redrawRotateHandle(rotateHandle.coord);rotatePointPrevCoord = rotatePoint.coord;rotateHandle.constraints.fixedDistance.point = rotatePoint;rotateHandlePrevCoord = rotateHandle.coord;});rotateHandle.onMove = function(x, y){if(!isRotating){rotateHandleStartCoord = rotateHandlePrevCoord;isRotating = true;}var coord=[x, y];if(options.onMove){var oldPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandlePrevCoord, rotatePoint.coord));var newPolar=kvector.polarDegFromCart(kvector.subtract(coord, rotatePoint.coord));var oldAngle=oldPolar[1];var newAngle=newPolar[1];var result=options.onMove(newAngle, oldAngle);if(result != null && result !== true){if(result === false){result = oldAngle;}coord = kvector.add(rotatePoint.coord, kvector.cartFromPolarDeg([oldPolar[0], result]));}}redrawRotateHandle(coord);rotateHandlePrevCoord = coord;return coord;};rotateHandle.onMoveEnd = function(){isRotating = false;redrawRotateHandle(rotateHandle.coord);if(options.onMoveEnd){var oldPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandleStartCoord, rotatePoint.coord));var newPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandle.coord, rotatePoint.coord));options.onMoveEnd(newPolar[1], oldPolar[1]);}};rotateHandle.visibleShape.remove();if(!mouseTarget){rotateHandle.mouseTarget.attr({scale:2});}var $mouseTarget=$(rotateHandle.mouseTarget.getMouseTarget());$mouseTarget.bind("vmouseover", function(e){isHovering = true;redrawRotateHandle(rotateHandle.coord);});$mouseTarget.bind("vmouseout", function(e){isHovering = false;redrawRotateHandle(rotateHandle.coord);});redrawRotateHandle(rotateHandle.coord);var oldRemove=rotateHandle.remove;rotateHandle.remove = function(){oldRemove.call(rotateHandle);if(drawnRotateHandle){drawnRotateHandle.remove();}$(rotatePoint).off("move." + id);};rotateHandle.update = function(){redrawRotateHandle(rotateHandle.coord);};return rotateHandle;};})(), addReflectButton:(function(){var drawButton=function(graphie, buttonCoord, lineCoords, size, distanceFromCenter, leftStyle, rightStyle){if(kpoint.equal(lineCoords[0], lineCoords[1])){lineCoords = [lineCoords[0], kpoint.addVector(lineCoords[0], [1, 1])];}var lineDirection=kvector.normalize(kvector.subtract(lineCoords[1], lineCoords[0]));var lineVec=kvector.scale(lineDirection, size / 2);var centerVec=kvector.scale(lineDirection, distanceFromCenter);var leftCenterVec=kvector.rotateDeg(centerVec, 90);var rightCenterVec=kvector.rotateDeg(centerVec, -90);var negLineVec=kvector.negate(lineVec);var leftVec=kvector.rotateDeg(lineVec, 90);var rightVec=kvector.rotateDeg(lineVec, -90);var leftCenter=kpoint.addVectors(buttonCoord, leftCenterVec);var rightCenter=kpoint.addVectors(buttonCoord, rightCenterVec);var leftCoord1=kpoint.addVectors(buttonCoord, leftCenterVec, lineVec, leftVec);var leftCoord2=kpoint.addVectors(buttonCoord, leftCenterVec, negLineVec, leftVec);var rightCoord1=kpoint.addVectors(buttonCoord, rightCenterVec, lineVec, rightVec);var rightCoord2=kpoint.addVectors(buttonCoord, rightCenterVec, negLineVec, rightVec);var leftButton=graphie.path([leftCenter, leftCoord1, leftCoord2, true], leftStyle);var rightButton=graphie.path([rightCenter, rightCoord1, rightCoord2, true], rightStyle);return {remove:function(){leftButton.remove();rightButton.remove();}};};return function(options){var graphie=this;var line=options.line;var button=graphie.addMovablePoint({constraints:options.constraints, coord:kline.midpoint([line.pointA.coord, line.pointZ.coord]), snapX:graphie.snap[0], snapY:graphie.snap[1], onMove:function(x, y){return false;}, onMoveEnd:function(x, y){if(options.onMoveEnd){options.onMoveEnd.call(this, x, y);}}});var isHovering=false;var isFlipped=false;var currentlyDrawnButton=undefined;var isHighlight=function(){return isHovering;};var styles=_.map([0, 1], function(isHighlight){var baseStyle=isHighlight?options.highlightStyle:options.normalStyle;return _.map([0, 1], function(opacity){return _.defaults({"fill-opacity":opacity}, baseStyle);});});var getStyle=function(isRight){if(isFlipped){isRight = !isRight;}return styles[+isHighlight()][+isRight];};var redraw=function(coord, lineCoords){if(currentlyDrawnButton){currentlyDrawnButton.remove();}currentlyDrawnButton = drawButton(graphie, coord, lineCoords, isHighlight()?options.size * 1.5:options.size, isHighlight()?options.size * 0.125:0.25, getStyle(0), getStyle(1));};var update=function(coordA, coordZ){coordA = coordA || line.pointA.coord;coordZ = coordZ || line.pointZ.coord;var buttonCoord=kline.midpoint([coordA, coordZ]);button.setCoord(buttonCoord);redraw(buttonCoord, [coordA, coordZ]);};$(line).on("move", _.bind(update, button, null, null));var $mouseTarget=$(button.mouseTarget.getMouseTarget());$mouseTarget.on("vclick", function(){var result=options.onClick();if(result !== false){isFlipped = !isFlipped;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);}});line.pointA.toFront();line.pointZ.toFront();button.visibleShape.remove();var pointScale=graphie.scaleVector(options.size)[0] / 20;button.mouseTarget.attr({scale:1.5 * pointScale});$mouseTarget.css("cursor", "pointer");$mouseTarget.bind("vmouseover", function(e){isHovering = true;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);});$mouseTarget.bind("vmouseout", function(e){isHovering = false;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);});var oldButtonRemove=button.remove;button.remove = function(){currentlyDrawnButton.remove();oldButtonRemove.call(button);};button.update = update;button.isFlipped = function(){return isFlipped;};update();return button;};})(), protractor:function(center){return new Protractor(this, center);}, ruler:function(options){return new Ruler(this, options || {});}, addPoints:addPoints});function Protractor(graph, center){this.set = graph.raphael.set();this.cx = center[0];this.cy = center[1];var pro=this;var r=graph.unscaleVector(180.5)[0];var imgPos=graph.scalePoint([this.cx - r, this.cy + r - graph.unscaleVector(10.5)[1]]);this.set.push(graph.mouselayer.image("https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png", imgPos[0], imgPos[1], 360, 180));var arrowHelper=function(angle, pixelsFromEdge){var scaledRadius=graph.scaleVector(r);scaledRadius[0] -= 16;scaledRadius[1] -= 16;var scaledCenter=graph.scalePoint(center);var x=Math.sin((angle + 90) * Math.PI / 180) * (scaledRadius[0] + pixelsFromEdge) + scaledCenter[0];var y=Math.cos((angle + 90) * Math.PI / 180) * (scaledRadius[1] + pixelsFromEdge) + scaledCenter[1];return x + "," + y;};var arrow=graph.raphael.path(" M" + arrowHelper(180, 6) + " L" + arrowHelper(180, 2) + " L" + arrowHelper(183, 10) + " L" + arrowHelper(180, 18) + " L" + arrowHelper(180, 14) + " A" + (graph.scaleVector(r)[0] + 10) + "," + (graph.scaleVector(r)[1] + 10) + ",0,0,1," + arrowHelper(170, 14) + " L" + arrowHelper(170, 18) + " L" + arrowHelper(167, 10) + " L" + arrowHelper(170, 2) + " L" + arrowHelper(170, 6) + " A" + (graph.scaleVector(r)[0] + 10) + "," + (graph.scaleVector(r)[1] + 10) + ",0,0,0," + arrowHelper(180, 6) + " Z").attr({"stroke":null, "fill":KhanColors.INTERACTIVE});this.set.push(arrow);this.centerPoint = graph.addMovablePoint({coord:center, visible:false});this.rotateHandle = graph.addMovablePoint({coord:[Math.sin(275 * Math.PI / 180) * (r + 0.5) + this.cx, Math.cos(275 * Math.PI / 180) * (r + 0.5) + this.cy], onMove:function(x, y){var angle=Math.atan2(pro.centerPoint.coord[1] - y, pro.centerPoint.coord[0] - x) * 180 / Math.PI;pro.rotate(-angle - 5, true);}});this.rotateHandle.constraints.fixedDistance.dist = r + 0.5;this.rotateHandle.constraints.fixedDistance.point = this.centerPoint;this.rotateHandle.visibleShape.remove();this.rotateHandle.mouseTarget.attr({scale:2});var isDragging=false;var isHovering=false;var isHighlight=function(){return isHovering || isDragging;};var self=this;var $mouseTarget=$(self.rotateHandle.mouseTarget.getMouseTarget());$mouseTarget.bind("vmousedown", function(event){isDragging = true;arrow.animate({scale:1.5, fill:KhanColors.INTERACTING}, 50);$(document).bind("vmouseup.rotateHandle", function(event){isDragging = false;if(!isHighlight()){arrow.animate({scale:1, fill:KhanColors.INTERACTIVE}, 50);}$(document).unbind("vmouseup.rotateHandle");});});$mouseTarget.bind("vmouseover", function(event){isHovering = true;arrow.animate({scale:1.5, fill:KhanColors.INTERACTING}, 50);});$mouseTarget.bind("vmouseout", function(event){isHovering = false;if(!isHighlight()){arrow.animate({scale:1, fill:KhanColors.INTERACTIVE}, 50);}});var setNodes=$.map(this.set, function(el){return el.node;});this.makeTranslatable = function makeTranslatable(){$(setNodes).css("cursor", "move");$(setNodes).bind("vmousedown", function(event){event.preventDefault();var startx=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var starty=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;$(document).bind("vmousemove.protractor", function(event){var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graph.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graph.ypixels - 10, mouseY));var dx=mouseX - startx;var dy=mouseY - starty;$.each(pro.set.items, function(){this.translate(dx, dy);});pro.centerPoint.setCoord([pro.centerPoint.coord[0] + dx / graph.scale[0], pro.centerPoint.coord[1] - dy / graph.scale[1]]);pro.rotateHandle.setCoord([pro.rotateHandle.coord[0] + dx / graph.scale[0], pro.rotateHandle.coord[1] - dy / graph.scale[1]]);startx = mouseX;starty = mouseY;});$(document).one("vmouseup", function(event){$(document).unbind("vmousemove.protractor");});});};this.rotation = 0;this.rotate = function(offset, absolute){var center=graph.scalePoint(this.centerPoint.coord);if(absolute){this.rotation = 0;}this.set.rotate(this.rotation + offset, center[0], center[1]);this.rotation = this.rotation + offset;return this;};this.moveTo = function moveTo(x, y){var start=graph.scalePoint(pro.centerPoint.coord);var end=graph.scalePoint([x, y]);var time=GraphUtils.getDistance(start, end) * 2;$({x:start[0], y:start[1]}).animate({x:end[0], y:end[1]}, {duration:time, step:function(now, fx){var dx=0;var dy=0;if(fx.prop === "x"){dx = now - graph.scalePoint(pro.centerPoint.coord)[0];}else if(fx.prop === "y"){dy = now - graph.scalePoint(pro.centerPoint.coord)[1];}$.each(pro.set.items, function(){this.translate(dx, dy);});pro.centerPoint.setCoord([pro.centerPoint.coord[0] + dx / graph.scale[0], pro.centerPoint.coord[1] - dy / graph.scale[1]]);pro.rotateHandle.setCoord([pro.rotateHandle.coord[0] + dx / graph.scale[0], pro.rotateHandle.coord[1] - dy / graph.scale[1]]);}});};this.rotateTo = function rotateTo(angle){if(Math.abs(this.rotation - angle) > 180){this.rotation += 360;}var time=Math.abs(this.rotation - angle) * 5;$({0:this.rotation}).animate({0:angle}, {duration:time, step:function(now, fx){pro.rotate(now, true);pro.rotateHandle.setCoord([Math.sin((now + 275) * Math.PI / 180) * (r + 0.5) + pro.centerPoint.coord[0], Math.cos((now + 275) * Math.PI / 180) * (r + 0.5) + pro.centerPoint.coord[1]]);}});};this.remove = function(){this.set.remove();};this.makeTranslatable();return this;}function Ruler(graphie, options){_.defaults(options, {center:[0, 0], pixelsPerUnit:40, ticksPerUnit:10, units:10, label:"", style:{fill:null, stroke:KhanColors.GRAY}});var light=_.extend({}, options.style, {strokeWidth:1});var bold=_.extend({}, options.style, {strokeWidth:2});var width=options.units * options.pixelsPerUnit;var height=50;var leftBottom=graphie.unscalePoint(kvector.subtract(graphie.scalePoint(options.center), kvector.scale([width, -height], 0.5)));var graphieUnitsPerUnit=options.pixelsPerUnit / graphie.scale[0];var graphieUnitsHeight=height / graphie.scale[0];var rightTop=kvector.add(leftBottom, [options.units * graphieUnitsPerUnit, graphieUnitsHeight]);var tickHeight=1;var tickHeightMap=undefined;if(options.ticksPerUnit === 10){tickHeightMap = {10:tickHeight, 5:tickHeight * 0.55, 1:tickHeight * 0.35};}else {var sizes=[1, 0.6, 0.45, 0.3];tickHeightMap = {};for(var i=options.ticksPerUnit; i >= 1; i /= 2) {tickHeightMap[i] = tickHeight * (sizes.shift() || 0.2);}}var tickFrequencies=_.keys(tickHeightMap).sort(function(a, b){return b - a;});function getTickHeight(i){for(var k=0; k < tickFrequencies.length; k++) {var key=tickFrequencies[k];if(i % key === 0){return tickHeightMap[key];}}}var left=leftBottom[0];var bottom=leftBottom[1];var right=rightTop[0];var top=rightTop[1];var numTicks=options.units * options.ticksPerUnit + 1;var set=graphie.raphael.set();var px=1 / graphie.scale[0];set.push(graphie.line([left - px, bottom], [right + px, bottom], bold));set.push(graphie.line([left - px, top], [right + px, top], bold));_.times(numTicks, function(i){var n=i / options.ticksPerUnit;var x=left + n * graphieUnitsPerUnit;var height=getTickHeight(i) * graphieUnitsHeight;var style=i === 0 || i === numTicks - 1?bold:light;set.push(graphie.line([x, bottom], [x, bottom + height], style));if(n % 1 === 0){var coord=graphie.scalePoint([x, top]);var text=undefined;var offset=undefined;if(n === 0){text = options.label;offset = ({mm:13, cm:11, m:8, km:11, in:8, ft:8, yd:10, mi:10})[text] || 3 * text.toString().length;}else {text = n;offset = -3 * (n.toString().length + 1);}var label=graphie.raphael.text(coord[0] + offset, coord[1] + 10, text);label.attr({"font-family":"KaTeX_Main", "font-size":"12px", "color":"#444"});set.push(label);}});var mouseTarget=graphie.mouselayer.path(GraphUtils.svgPath([leftBottom, [left, top], rightTop, [right, bottom], true]));mouseTarget.attr({fill:"#000", opacity:0, stroke:"#000", "stroke-width":2});set.push(mouseTarget);var setNodes=$.map(set, function(el){return el.node;});$(setNodes).css("cursor", "move");$(setNodes).bind("vmousedown", function(event){event.preventDefault();var startx=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var starty=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;$(document).bind("vmousemove.ruler", function(event){var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graphie.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graphie.ypixels - 10, mouseY));var dx=mouseX - startx;var dy=mouseY - starty;set.translate(dx, dy);leftBottomHandle.setCoord([leftBottomHandle.coord[0] + dx / graphie.scale[0], leftBottomHandle.coord[1] - dy / graphie.scale[1]]);rightBottomHandle.setCoord([rightBottomHandle.coord[0] + dx / graphie.scale[0], rightBottomHandle.coord[1] - dy / graphie.scale[1]]);startx = mouseX;starty = mouseY;});$(document).one("vmouseup", function(event){$(document).unbind("vmousemove.ruler");});});var leftBottomHandle=graphie.addMovablePoint({coord:leftBottom, normalStyle:{fill:KhanColors.INTERACTIVE, "fill-opacity":0, stroke:KhanColors.INTERACTIVE}, highlightStyle:{fill:KhanColors.INTERACTING, "fill-opacity":0.1, stroke:KhanColors.INTERACTING}, pointSize:6, onMove:function(x, y){var dy=rightBottomHandle.coord[1] - y;var dx=rightBottomHandle.coord[0] - x;var angle=Math.atan2(dy, dx) * 180 / Math.PI;var center=kvector.scale(kvector.add([x, y], rightBottomHandle.coord), 0.5);var scaledCenter=graphie.scalePoint(center);var oldCenter=kvector.scale(kvector.add(leftBottomHandle.coord, rightBottomHandle.coord), 0.5);var scaledOldCenter=graphie.scalePoint(oldCenter);var diff=kvector.subtract(scaledCenter, scaledOldCenter);set.rotate(-angle, scaledOldCenter[0], scaledOldCenter[1]);set.translate(diff[0], diff[1]);}});var rightBottomHandle=graphie.addMovablePoint({coord:[right, bottom], normalStyle:{fill:KhanColors.INTERACTIVE, "fill-opacity":0, stroke:KhanColors.INTERACTIVE}, highlightStyle:{fill:KhanColors.INTERACTING, "fill-opacity":0.1, stroke:KhanColors.INTERACTING}, pointSize:6, onMove:function(x, y){var dy=y - leftBottomHandle.coord[1];var dx=x - leftBottomHandle.coord[0];var angle=Math.atan2(dy, dx) * 180 / Math.PI;var center=kvector.scale(kvector.add([x, y], leftBottomHandle.coord), 0.5);var scaledCenter=graphie.scalePoint(center);var oldCenter=kvector.scale(kvector.add(leftBottomHandle.coord, rightBottomHandle.coord), 0.5);var scaledOldCenter=graphie.scalePoint(oldCenter);var diff=kvector.subtract(scaledCenter, scaledOldCenter);set.rotate(-angle, scaledOldCenter[0], scaledOldCenter[1]);set.translate(diff[0], diff[1]);}});leftBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];leftBottomHandle.constraints.fixedDistance.point = rightBottomHandle;rightBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];rightBottomHandle.constraints.fixedDistance.point = leftBottomHandle;this.remove = function(){set.remove();leftBottomHandle.remove();rightBottomHandle.remove();};return this;}function MovableAngle(graphie, options){this.graphie = graphie;_.extend(this, options);_.defaults(this, {normalStyle:{"stroke":KhanColors.INTERACTIVE, "stroke-width":2, "fill":KhanColors.INTERACTIVE}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":2, "fill":KhanColors.INTERACTING}, labelStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, angleStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, allowReflex:true});if(!this.points || this.points.length !== 3){throw new Error("MovableAngle requires 3 points");}this.points = _.map(options.points, function(point){if(_.isArray(point)){return graphie.addMovablePoint({coord:point, visible:false, constraints:{fixed:true}, normalStyle:this.normalStyle});}else {return point;}}, this);this.coords = _.pluck(this.points, "coord");if(this.reflex == null){if(this.allowReflex){this.reflex = this._getClockwiseAngle(this.coords) > 180;}else {this.reflex = false;}}this.rays = _.map([0, 2], function(i){return graphie.addMovableLineSegment({pointA:this.points[1], pointZ:this.points[i], fixed:true, extendRay:true});}, this);this.temp = [];this.labeledAngle = graphie.label([0, 0], "", "center", this.labelStyle);if(!this.fixed){this.addMoveHandlers();this.addHighlightHandlers();}this.update();}_.extend(MovableAngle.prototype, {points:[], snapDegrees:0, snapOffsetDeg:0, angleLabel:"", numArcs:1, pushOut:0, fixed:false, addMoveHandlers:function(){var graphie=this.graphie;function tooClose(point1, point2){var safeDistance=30;var distance=GraphUtils.getDistance(graphie.scalePoint(point1), graphie.scalePoint(point2));return distance < safeDistance;}var points=this.points;points[1].onMove = function(x, y){var oldVertex=points[1].coord;var newVertex=[x, y];var delta=addPoints(newVertex, reverseVector(oldVertex));var valid=true;var newPoints={};_.each([0, 2], function(i){var oldPoint=points[i].coord;var newPoint=addPoints(oldPoint, delta);var angle=GraphUtils.findAngle(newVertex, newPoint);angle *= Math.PI / 180;newPoint = graphie.constrainToBoundsOnAngle(newPoint, 10, angle);newPoints[i] = newPoint;if(tooClose(newVertex, newPoint)){valid = false;}});if(valid){_.each(newPoints, function(newPoint, i){points[i].setCoord(newPoint);});}return valid;};var snap=this.snapDegrees;var snapOffset=this.snapOffsetDeg;_.each([0, 2], function(i){points[i].onMove = function(x, y){var newPoint=[x, y];var vertex=points[1].coord;if(tooClose(vertex, newPoint)){return false;}else if(snap){var angle=GraphUtils.findAngle(newPoint, vertex);angle = Math.round((angle - snapOffset) / snap) * snap + snapOffset;var distance=GraphUtils.getDistance(newPoint, vertex);return addPoints(vertex, graphie.polar(distance, angle));}else {return true;}};});$(points).on("move", (function(){this.update();$(this).trigger("move");}).bind(this));}, addHighlightHandlers:function(){var vertex=this.points[1];vertex.onHighlight = (function(){_.each(this.points, function(point){point.visibleShape.animate(this.highlightStyle, 50);}, this);_.each(this.rays, function(ray){ray.visibleLine.animate(this.highlightStyle, 50);ray.arrowStyle = _.extend({}, ray.arrowStyle, {"color":this.highlightStyle.stroke, "stroke":this.highlightStyle.stroke});}, this);this.angleStyle = _.extend({}, this.angleStyle, {"color":this.highlightStyle.stroke, "stroke":this.highlightStyle.stroke});this.update();}).bind(this);vertex.onUnhighlight = (function(){_.each(this.points, function(point){point.visibleShape.animate(this.normalStyle, 50);}, this);_.each(this.rays, function(ray){ray.visibleLine.animate(ray.normalStyle, 50);ray.arrowStyle = _.extend({}, ray.arrowStyle, {"color":ray.normalStyle.stroke, "stroke":ray.normalStyle.stroke});}, this);this.angleStyle = _.extend({}, this.angleStyle, {"color":KhanColors.DYNAMIC, "stroke":KhanColors.DYNAMIC});this.update();}).bind(this);}, _getClockwiseAngle:function(coords){var clockwiseAngle=(GraphUtils.findAngle(coords[2], coords[0], coords[1]) + 360) % 360;return clockwiseAngle;}, isReflex:function(){return this.reflex;}, isClockwise:function(){var clockwiseReflexive=this._getClockwiseAngle(this.coords) > 180;return clockwiseReflexive === this.reflex;}, getClockwiseCoords:function(){if(this.isClockwise()){return _.clone(this.coords);}else {return _.clone(this.coords).reverse();}}, update:function(shouldChangeReflexivity){var prevCoords=this.coords;this.coords = _.pluck(this.points, "coord");_.invoke(this.points, "updateLineEnds");var prevAngle=this._getClockwiseAngle(prevCoords);var angle=this._getClockwiseAngle(this.coords);var prevClockwiseReflexive=prevAngle > 180;var clockwiseReflexive=angle > 180;if(this.allowReflex){if(shouldChangeReflexivity == null){shouldChangeReflexivity = prevClockwiseReflexive !== clockwiseReflexive && Math.abs(angle - prevAngle) < 180;}if(shouldChangeReflexivity){this.reflex = !this.reflex;}}_.invoke(this.temp, "remove");this.temp = this.graphie.labelAngle({point1:this.coords[0], vertex:this.coords[1], point3:this.coords[2], label:this.labeledAngle, text:this.angleLabel, numArcs:this.numArcs, pushOut:this.pushOut, clockwise:this.reflex === clockwiseReflexive, style:this.angleStyle});}, remove:function(){_.invoke(this.rays, "remove");_.invoke(this.temp, "remove");this.labeledAngle.remove();}});module.exports = InteractiveUtils;
+
+/***/ },
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -44641,11 +46922,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(16);
 
-	var InteractiveUtil = __webpack_require__(144);
+	var InteractiveUtil = __webpack_require__(148);
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
 	var assert = InteractiveUtil.assert;
-	var kpoint = __webpack_require__(182).point;
+	var kpoint = __webpack_require__(188).point;
 
 	// state parameters that should be converted into an array of
 	// functions
@@ -44873,7 +47154,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Movable;
 
 /***/ },
-/* 185 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -44933,14 +47214,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(16);
 
-	var MovablePointOptions = __webpack_require__(198);
-	var WrappedEllipse = __webpack_require__(199);
-	var InteractiveUtil = __webpack_require__(144);
-	var objective_ = __webpack_require__(131);
+	var MovablePointOptions = __webpack_require__(214);
+	var WrappedEllipse = __webpack_require__(211);
+	var InteractiveUtil = __webpack_require__(148);
+	var objective_ = __webpack_require__(132);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
-	var kpoint = __webpack_require__(182).point;
+	var kpoint = __webpack_require__(188).point;
+	var KhanColors = __webpack_require__(163);
 
 	// State parameters that should be converted into an array of
 	// functions
@@ -45035,7 +47317,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // We use _.extend instead of _.defaults because we don't want
 	        // to modify the passed-in copy (especially if it's from
 	        // DEFAULT_PROPS/STATE!)
-	        var normalColor = state.static ? KhanUtil.DYNAMIC : KhanUtil.INTERACTIVE;
+	        var normalColor = state.static ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
 	        state.normalStyle = _.extend({
 	            fill: normalColor,
 	            stroke: normalColor,
@@ -45043,8 +47325,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }, state.normalStyle);
 
 	        state.highlightStyle = _.extend({
-	            fill: KhanUtil.INTERACTING,
-	            stroke: KhanUtil.INTERACTING,
+	            fill: KhanColors.INTERACTING,
+	            stroke: KhanColors.INTERACTING,
 	            scale: 2
 	        }, state.highlightStyle);
 
@@ -45212,7 +47494,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MovablePoint;
 
 /***/ },
-/* 186 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -45224,14 +47506,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(16);
 
-	var MovableLineOptions = __webpack_require__(200);
-	var WrappedLine = __webpack_require__(201);
-	var InteractiveUtil = __webpack_require__(144);
-	var objective_ = __webpack_require__(131);
+	var MovableLineOptions = __webpack_require__(208);
+	var WrappedLine = __webpack_require__(209);
+	var InteractiveUtil = __webpack_require__(148);
+	var objective_ = __webpack_require__(132);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
-	var kvector = __webpack_require__(182).vector;
+	var kvector = __webpack_require__(188).vector;
+	var KhanColors = __webpack_require__(163);
 
 	var FUNCTION_ARRAY_OPTIONS = ["add", "draw", "remove", "onMoveStart", "constraints", "onMove", "onMoveEnd"];
 
@@ -45321,14 +47604,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // We use _.extend instead of _.defaults because we don't want
 	        // to modify the passed-in copy (especially if it's from
 	        // DEFAULT_PROPERTIES!)
-	        var normalColor = state.static ? KhanUtil.DYNAMIC : KhanUtil.INTERACTIVE;
+	        var normalColor = state.static ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
 	        state.normalStyle = _.extend({
 	            stroke: normalColor,
 	            "stroke-width": 2
 	        }, state.normalStyle);
 
 	        state.highlightStyle = _.extend({
-	            stroke: KhanUtil.INTERACTING,
+	            stroke: KhanColors.INTERACTING,
 	            "stroke-width": 3
 	        }, state.highlightStyle);
 
@@ -45469,7 +47752,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MovableLine;
 
 /***/ },
-/* 187 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -45480,14 +47763,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Creates and adds a polygon to the graph that can be dragged around.
 	 * It allows constraints on its movement and draws when moves happen.
 	 */
-	var kvector = __webpack_require__(182).vector;
+	var kvector = __webpack_require__(188).vector;
 	var _ = __webpack_require__(16);
 
-	var MovablePolygonOptions = __webpack_require__(202);
-	var InteractiveUtil = __webpack_require__(144);
-	var objective_ = __webpack_require__(131);
+	var MovablePolygonOptions = __webpack_require__(213);
+	var InteractiveUtil = __webpack_require__(148);
+	var objective_ = __webpack_require__(132);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
+	var KhanColors = __webpack_require__(163);
+	var GraphUtils = __webpack_require__(149);
 
 	// State parameters that should be converted into an array of
 	// functions
@@ -45591,7 +47876,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // We use _.extend instead of _.defaults because we don't want
 	        // to modify the passed-in copy (especially if it's from
 	        // DEFAULT_PROPS/STATE!)
-	        var normalColor = state.static ? KhanUtil.DYNAMIC : KhanUtil.INTERACTIVE;
+	        var normalColor = state.static ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
 	        state.normalStyle = _.extend({}, state.normalStyle, {
 	            "stroke-width": 2,
 	            "fill-opacity": 0,
@@ -45600,16 +47885,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }, options.normalStyle);
 
 	        state.highlightStyle = _.extend({}, {
-	            "stroke": KhanUtil.INTERACTING,
+	            "stroke": KhanColors.INTERACTING,
 	            "stroke-width": 2,
-	            "fill": KhanUtil.INTERACTING,
+	            "fill": KhanColors.INTERACTING,
 	            "fill-opacity": 0.05
 	        }, state.highlightStyle);
 
 	        state.labelStyle = _.extend({}, {
-	            "stroke": KhanUtil.DYNAMIC,
+	            "stroke": KhanColors.DYNAMIC,
 	            "stroke-width": 1,
-	            "color": KhanUtil.DYNAMIC
+	            "color": KhanColors.DYNAMIC
 	        }, state.labelStyle);
 
 	        if (!state.static) {
@@ -45690,7 +47975,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            coords = coords.concat(_.clone(coords).reverse());
 	        }
 
-	        return KhanUtil.unscaledSvgPath(coords);
+	        return GraphUtils.unscaledSvgPath(coords);
 	    },
 
 	    coords: function () {
@@ -45780,7 +48065,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MovablePolygon;
 
 /***/ },
-/* 188 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -45789,13 +48074,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(16);
 	var React = __webpack_require__(15);
-	var classNames = __webpack_require__(41);
+	var classNames = __webpack_require__(42);
 
 	var _require = __webpack_require__(5);
 
 	var ClassNames = _require.ClassNames;
 
-	var ToggleableRadioButton = __webpack_require__(203);
+	var ToggleableRadioButton = __webpack_require__(215);
 
 	var Choice = React.createClass({
 	    displayName: "Choice",
@@ -45949,7 +48234,151 @@ return /******/ (function(modules) { // webpackBootstrap
 	   simplest to just work around that everywhere. */
 
 /***/ },
-/* 189 */
+/* 197 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isObject = function(obj) {
+	    return obj === Object(obj);;
+	}
+
+	var merge = function() {
+	    var obj = {};
+
+	    for (var i = 0; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        if (source) {
+	            for (var prop in source) {
+	                obj[prop] = source[prop];
+	            }
+	        }
+	    }
+
+	    return obj;
+	};
+
+	var clone = function(obj) {
+	    if (!isObject(obj)) {
+	        return obj;
+	    }
+
+	    return Array.isArray(obj) ? obj.slice() : merge(obj);
+	};
+
+	module.exports = { isObject: isObject, merge: merge, clone: clone };
+
+
+/***/ },
+/* 198 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var get = function(arr, monocle) {
+	    return arr[monocle];
+	};
+
+	var set = function(arr, monocle, val) {
+	    var newArr = arr.splice();
+	    newArr[monocle] = val;
+	    return newArr;
+	};
+
+	var mod = function(arr, monocle, f) {
+	    var newArr = arr.slice();
+	    newArr[monocle] = f(arr[monocle]);
+	    return newArr;
+	};
+
+	var del = function(arr, monocle) {
+	    var newArr = arr.slice();
+	    newArr.splice(monocle, 1);
+	    return newArr;
+	};
+
+	/*
+	// Lens must point to a member of an array. We'll insert into that array.
+	lens.prototype.insertAt = function(lensArr, toInsert) {
+	    var obj = this._wrapped;
+
+	    var arrLens = lensArr.slice(0, -1);
+	    var arr = lens(obj).get(arrLens).slice(); // slice to copy
+
+	    var arrIdx = lensArr[lensArr.length-1];
+	    arr.splice(arrIdx, 0, toInsert);
+	    return lens(obj).set(arrLens, arr);
+	};
+
+	lens.prototype.insertBefore = lens.prototype.insertAt;
+	lens.prototype.insertAfter = function(lensArr, toInsert) {
+	    var newLens = lensArr.slice();
+	    newLens[newLens.length-1] += 1;
+	    return lens(this._wrapped).insertAt(newLens, toInsert);
+	};
+	*/
+
+	module.exports = { get: get, set: set, mod: mod, del: del };
+
+
+/***/ },
+/* 199 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var clone = __webpack_require__(197).clone;
+
+	var get = function(obj, monocle) {
+	    return obj[monocle];
+	};
+
+	var set = function(obj, monocle, val) {
+	    var newObj = clone(obj);
+	    newObj[monocle] = val;
+	    return newObj;
+	};
+
+	var mod = function(obj, monocle, f) {
+	    var newObj = clone(obj);
+	    newObj[monocle] = f(obj[monocle]);
+	    return newObj;
+	};
+
+	var del = function(obj, monocle) {
+	    var newObj = clone(obj);
+	    delete newObj[monocle];
+	    return newObj;
+	};
+
+	module.exports = { get: get, set: set, mod: mod, del: del };
+
+
+/***/ },
+/* 200 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var get = function(arr, monocle) {
+	    return arr[monocle];
+	};
+
+	var set = function(arr, monocle, val) {
+	    var newArr = arr.splice();
+	    newArr[monocle] = val;
+	    return newArr;
+	};
+
+	var mod = function(arr, monocle, f) {
+	    var newArr = arr.splice();
+	    newArr[monocle] = f(arr[monocle]);
+	    return newArr;
+	};
+
+	var del = function(arr, monocle) {
+	    var newArr = arr.slice();
+	    newArr.splice(monocle);
+	    return newArr;
+	};
+
+	module.exports = { get: get, set: set, mod: mod, del: del };
+
+
+/***/ },
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -46061,7 +48490,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 190 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -46070,7 +48499,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var _ = __webpack_require__(16);
-	var knumber = __webpack_require__(189);
+	var knumber = __webpack_require__(201);
 
 	function arraySum(array) {
 	    return _.reduce(array, function(memo, arg) { return memo + arg; }, 0);
@@ -46279,7 +48708,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 191 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -46288,8 +48717,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var _ = __webpack_require__(16);
-	var kvector = __webpack_require__(190);
-	var knumber = __webpack_require__(189);
+	var kvector = __webpack_require__(202);
+	var knumber = __webpack_require__(201);
 
 	var kpoint = {
 
@@ -46395,7 +48824,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 192 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -46403,8 +48832,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * A line is an array of two points e.g. [[-5, 0], [5, 0]].
 	 */
 
-	var kpoint = __webpack_require__(191);
-	var kvector = __webpack_require__(190);
+	var kpoint = __webpack_require__(203);
+	var kvector = __webpack_require__(202);
 
 	var kline = {
 
@@ -46448,7 +48877,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 193 */
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -46458,8 +48887,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * traveling along the positive x-axis.
 	 */
 
-	var kvector = __webpack_require__(190);
-	var kpoint = __webpack_require__(191);
+	var kvector = __webpack_require__(202);
+	var kpoint = __webpack_require__(203);
 
 	var kray = {
 
@@ -46480,329 +48909,4445 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 194 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = function(obj) {
-	    return obj === Object(obj);;
+	/*!
+	 * Raphael 1.5.2 - JavaScript Vector Library
+	 *
+	 * Copyright (c) 2010 Dmitry Baranovskiy (http://raphaeljs.com)
+	 * Licensed under the MIT (http://raphaeljs.com/license.html) license.
+	 */
+	(function () {
+	    var setAttr;
+	    if ("".trim) {
+	        setAttr = function(node, att, value) {
+	            node.setAttribute(att, String(value).trim());
+	        };
+	    } else {
+	        setAttr = function(node, att, value) {
+	            node.setAttribute(att, String(value));
+	        };
+	    }
+	    function R() {
+	        if (R.is(arguments[0], array)) {
+	            var a = arguments[0],
+	                cnv = create[apply](R, a.splice(0, 3 + R.is(a[0], nu))),
+	                res = cnv.set();
+	            for (var i = 0, ii = a[length]; i < ii; i++) {
+	                var j = a[i] || {};
+	                elements[has](j.type) && res[push](cnv[j.type]().attr(j));
+	            }
+	            return res;
+	        }
+	        return create[apply](R, arguments);
+	    }
+	    R.version = "1.5.2";
+	    var separator = /[, ]+/,
+	        elements = {circle: 1, rect: 1, path: 1, ellipse: 1, text: 1, image: 1},
+	        formatrg = /\{(\d+)\}/g,
+	        proto = "prototype",
+	        has = "hasOwnProperty",
+	        doc = document,
+	        win = window,
+	        oldRaphael = {
+	            was: Object[proto][has].call(win, "Raphael"),
+	            is: win.Raphael
+	        },
+	        Paper = function () {
+	            this.customAttributes = {};
+	        },
+	        paperproto,
+	        appendChild = "appendChild",
+	        apply = "apply",
+	        concat = "concat",
+	        supportsTouch = "createTouch" in doc,
+	        E = "",
+	        S = " ",
+	        Str = String,
+	        split = "split",
+	        events = "click dblclick mousedown mousemove mouseout mouseover mouseup touchstart touchmove touchend orientationchange touchcancel gesturestart gesturechange gestureend"[split](S),
+	        touchMap = {
+	            mousedown: "touchstart",
+	            mousemove: "touchmove",
+	            mouseup: "touchend"
+	        },
+	        join = "join",
+	        length = "length",
+	        lowerCase = Str[proto].toLowerCase,
+	        math = Math,
+	        mmax = math.max,
+	        mmin = math.min,
+	        abs = math.abs,
+	        pow = math.pow,
+	        PI = math.PI,
+	        nu = "number",
+	        string = "string",
+	        array = "array",
+	        toString = "toString",
+	        fillString = "fill",
+	        objectToString = Object[proto][toString],
+	        paper = {},
+	        push = "push",
+	        ISURL = /^url\(['"]?([^\)]+?)['"]?\)$/i,
+	        colourRegExp = /^\s*((#[a-f\d]{6})|(#[a-f\d]{3})|rgba?\(\s*([\d\.]+%?\s*,\s*[\d\.]+%?\s*,\s*[\d\.]+(?:%?\s*,\s*[\d\.]+)?)%?\s*\)|hsba?\(\s*([\d\.]+(?:deg|\xb0|%)?\s*,\s*[\d\.]+%?\s*,\s*[\d\.]+(?:%?\s*,\s*[\d\.]+)?)%?\s*\)|hsla?\(\s*([\d\.]+(?:deg|\xb0|%)?\s*,\s*[\d\.]+%?\s*,\s*[\d\.]+(?:%?\s*,\s*[\d\.]+)?)%?\s*\))\s*$/i,
+	        isnan = {"NaN": 1, "Infinity": 1, "-Infinity": 1},
+	        bezierrg = /^(?:cubic-)?bezier\(([^,]+),([^,]+),([^,]+),([^\)]+)\)/,
+	        round = math.round,
+	        toFloat = parseFloat,
+	        toInt = parseInt,
+	        ms = " progid:DXImageTransform.Microsoft",
+	        upperCase = Str[proto].toUpperCase,
+	        availableAttrs = {blur: 0, "clip-rect": "0 0 1e9 1e9", cursor: "default", cx: 0, cy: 0, fill: "#fff", "fill-opacity": 1, font: '10px "Arial"', "font-family": '"Arial"', "font-size": "10", "font-style": "normal", "font-weight": 400, gradient: 0, height: 0, href: "http://raphaeljs.com/", opacity: 1, path: "M0,0", r: 0, rotation: 0, rx: 0, ry: 0, scale: "1 1", src: "", stroke: "#000", "stroke-dasharray": "", "stroke-linecap": "butt", "stroke-linejoin": "butt", "stroke-miterlimit": 0, "stroke-opacity": 1, "stroke-width": 1, target: "_blank", "text-anchor": "middle", title: "Raphael", translation: "0 0", width: 0, x: 0, y: 0},
+	        availableAnimAttrs = {along: "along", blur: nu, "clip-rect": "csv", cx: nu, cy: nu, fill: "colour", "fill-opacity": nu, "font-size": nu, height: nu, opacity: nu, path: "path", r: nu, rotation: "csv", rx: nu, ry: nu, scale: "csv", stroke: "colour", "stroke-opacity": nu, "stroke-width": nu, translation: "csv", width: nu, x: nu, y: nu},
+	        rp = "replace",
+	        animKeyFrames= /^(from|to|\d+%?)$/,
+	        commaSpaces = /\s*,\s*/,
+	        hsrg = {hs: 1, rg: 1},
+	        p2s = /,?([achlmqrstvxz]),?/gi,
+	        pathCommand = /([achlmqstvz])[\s,]*((-?\d*\.?\d*(?:e[-+]?\d+)?\s*,?\s*)+)/ig,
+	        pathValues = /(-?\d*\.?\d*(?:e[-+]?\d+)?)\s*,?\s*/ig,
+	        radial_gradient = /^r(?:\(([^,]+?)\s*,\s*([^\)]+?)\))?/,
+	        sortByKey = function (a, b) {
+	            return a.key - b.key;
+	        };
+
+	    R.type = (win.SVGAngle || doc.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1") ? "SVG" : "VML");
+	    if (R.type == "VML") {
+	        var d = doc.createElement("div"),
+	            b;
+	        d.innerHTML = '<v:shape adj="1"/>';
+	        b = d.firstChild;
+	        b.style.behavior = "url(#default#VML)";
+	        if (!(b && typeof b.adj == "object")) {
+	            return R.type = null;
+	        }
+	        d = null;
+	    }
+	    R.svg = !(R.vml = R.type == "VML");
+	    Paper[proto] = R[proto];
+	    paperproto = Paper[proto];
+	    R._id = 0;
+	    R._oid = 0;
+	    R.fn = {};
+	    R.is = function (o, type) {
+	        type = lowerCase.call(type);
+	        if (type == "finite") {
+	            return !isnan[has](+o);
+	        }
+	        return  (type == "null" && o === null) ||
+	                (type == typeof o) ||
+	                (type == "object" && o === Object(o)) ||
+	                (type == "array" && Array.isArray && Array.isArray(o)) ||
+	                objectToString.call(o).slice(8, -1).toLowerCase() == type;
+	    };
+	    R.angle = function (x1, y1, x2, y2, x3, y3) {
+	        if (x3 == null) {
+	            var x = x1 - x2,
+	                y = y1 - y2;
+	            if (!x && !y) {
+	                return 0;
+	            }
+	            return ((x < 0) * 180 + math.atan(-y / -x) * 180 / PI + 360) % 360;
+	        } else {
+	            return R.angle(x1, y1, x3, y3) - R.angle(x2, y2, x3, y3);
+	        }
+	    };
+	    R.rad = function (deg) {
+	        return deg % 360 * PI / 180;
+	    };
+	    R.deg = function (rad) {
+	        return rad * 180 / PI % 360;
+	    };
+	    R.snapTo = function (values, value, tolerance) {
+	        tolerance = R.is(tolerance, "finite") ? tolerance : 10;
+	        if (R.is(values, array)) {
+	            var i = values.length;
+	            while (i--) if (abs(values[i] - value) <= tolerance) {
+	                return values[i];
+	            }
+	        } else {
+	            values = +values;
+	            var rem = value % values;
+	            if (rem < tolerance) {
+	                return value - rem;
+	            }
+	            if (rem > values - tolerance) {
+	                return value - rem + values;
+	            }
+	        }
+	        return value;
+	    };
+	    function createUUID() {
+	        // http://www.ietf.org/rfc/rfc4122.txt
+	        var s = [],
+	            i = 0;
+	        for (; i < 32; i++) {
+	            s[i] = (~~(math.random() * 16))[toString](16);
+	        }
+	        s[12] = 4;  // bits 12-15 of the time_hi_and_version field to 0010
+	        s[16] = ((s[16] & 3) | 8)[toString](16);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+	        return "r-" + s[join]("");
+	    }
+
+	    R.setWindow = function (newwin) {
+	        win = newwin;
+	        doc = win.document;
+	    };
+	    // colour utilities
+	    var toHex = function (color) {
+	        if (R.vml) {
+	            // http://dean.edwards.name/weblog/2009/10/convert-any-colour-value-to-hex-in-msie/
+	            var trim = /^\s+|\s+$/g;
+	            var bod;
+	            try {
+	                var docum = new ActiveXObject("htmlfile");
+	                docum.write("<body>");
+	                docum.close();
+	                bod = docum.body;
+	            } catch(e) {
+	                bod = createPopup().document.body;
+	            }
+	            var range = bod.createTextRange();
+	            toHex = cacher(function (color) {
+	                try {
+	                    bod.style.color = Str(color)[rp](trim, E);
+	                    var value = range.queryCommandValue("ForeColor");
+	                    value = ((value & 255) << 16) | (value & 65280) | ((value & 16711680) >>> 16);
+	                    return "#" + ("000000" + value[toString](16)).slice(-6);
+	                } catch(e) {
+	                    return "none";
+	                }
+	            });
+	        } else {
+	            var i = doc.createElement("i");
+	            i.title = "Rapha\xebl Colour Picker";
+	            i.style.display = "none";
+	            doc.body[appendChild](i);
+	            toHex = cacher(function (color) {
+	                i.style.color = color;
+	                return doc.defaultView.getComputedStyle(i, E).getPropertyValue("color");
+	            });
+	        }
+	        return toHex(color);
+	    },
+	    hsbtoString = function () {
+	        return "hsb(" + [this.h, this.s, this.b] + ")";
+	    },
+	    hsltoString = function () {
+	        return "hsl(" + [this.h, this.s, this.l] + ")";
+	    },
+	    rgbtoString = function () {
+	        return this.hex;
+	    };
+	    R.hsb2rgb = function (h, s, b, o) {
+	        if (R.is(h, "object") && "h" in h && "s" in h && "b" in h) {
+	            b = h.b;
+	            s = h.s;
+	            h = h.h;
+	            o = h.o;
+	        }
+	        return R.hsl2rgb(h, s, b / 2, o);
+	    };
+	    R.hsl2rgb = function (h, s, l, o) {
+	        if (R.is(h, "object") && "h" in h && "s" in h && "l" in h) {
+	            l = h.l;
+	            s = h.s;
+	            h = h.h;
+	        }
+	        if (h > 1 || s > 1 || l > 1) {
+	            h /= 360;
+	            s /= 100;
+	            l /= 100;
+	        }
+	        var rgb = {},
+	            channels = ["r", "g", "b"],
+	            t2, t1, t3, r, g, b;
+	        if (!s) {
+	            rgb = {
+	                r: l,
+	                g: l,
+	                b: l
+	            };
+	        } else {
+	            if (l < .5) {
+	                t2 = l * (1 + s);
+	            } else {
+	                t2 = l + s - l * s;
+	            }
+	            t1 = 2 * l - t2;
+	            for (var i = 0; i < 3; i++) {
+	                t3 = h + 1 / 3 * -(i - 1);
+	                t3 < 0 && t3++;
+	                t3 > 1 && t3--;
+	                if (t3 * 6 < 1) {
+	                    rgb[channels[i]] = t1 + (t2 - t1) * 6 * t3;
+	                } else if (t3 * 2 < 1) {
+	                    rgb[channels[i]] = t2;
+	                } else if (t3 * 3 < 2) {
+	                    rgb[channels[i]] = t1 + (t2 - t1) * (2 / 3 - t3) * 6;
+	                } else {
+	                    rgb[channels[i]] = t1;
+	                }
+	            }
+	        }
+	        rgb.r *= 255;
+	        rgb.g *= 255;
+	        rgb.b *= 255;
+	        rgb.hex = "#" + (16777216 | rgb.b | (rgb.g << 8) | (rgb.r << 16)).toString(16).slice(1);
+	        R.is(o, "finite") && (rgb.opacity = o);
+	        rgb.toString = rgbtoString;
+	        return rgb;
+	    };
+	    R.rgb2hsb = function (red, green, blue) {
+	        if (green == null && R.is(red, "object") && "r" in red && "g" in red && "b" in red) {
+	            blue = red.b;
+	            green = red.g;
+	            red = red.r;
+	        }
+	        if (green == null && R.is(red, string)) {
+	            var clr = R.getRGB(red);
+	            red = clr.r;
+	            green = clr.g;
+	            blue = clr.b;
+	        }
+	        if (red > 1 || green > 1 || blue > 1) {
+	            red /= 255;
+	            green /= 255;
+	            blue /= 255;
+	        }
+	        var max = mmax(red, green, blue),
+	            min = mmin(red, green, blue),
+	            hue,
+	            saturation,
+	            brightness = max;
+	        if (min == max) {
+	            return {h: 0, s: 0, b: max, toString: hsbtoString};
+	        } else {
+	            var delta = (max - min);
+	            saturation = delta / max;
+	            if (red == max) {
+	                hue = (green - blue) / delta;
+	            } else if (green == max) {
+	                hue = 2 + ((blue - red) / delta);
+	            } else {
+	                hue = 4 + ((red - green) / delta);
+	            }
+	            hue /= 6;
+	            hue < 0 && hue++;
+	            hue > 1 && hue--;
+	        }
+	        return {h: hue, s: saturation, b: brightness, toString: hsbtoString};
+	    };
+	    R.rgb2hsl = function (red, green, blue) {
+	        if (green == null && R.is(red, "object") && "r" in red && "g" in red && "b" in red) {
+	            blue = red.b;
+	            green = red.g;
+	            red = red.r;
+	        }
+	        if (green == null && R.is(red, string)) {
+	            var clr = R.getRGB(red);
+	            red = clr.r;
+	            green = clr.g;
+	            blue = clr.b;
+	        }
+	        if (red > 1 || green > 1 || blue > 1) {
+	            red /= 255;
+	            green /= 255;
+	            blue /= 255;
+	        }
+	        var max = mmax(red, green, blue),
+	            min = mmin(red, green, blue),
+	            h,
+	            s,
+	            l = (max + min) / 2,
+	            hsl;
+	        if (min == max) {
+	            hsl =  {h: 0, s: 0, l: l};
+	        } else {
+	            var delta = max - min;
+	            s = l < .5 ? delta / (max + min) : delta / (2 - max - min);
+	            if (red == max) {
+	                h = (green - blue) / delta;
+	            } else if (green == max) {
+	                h = 2 + (blue - red) / delta;
+	            } else {
+	                h = 4 + (red - green) / delta;
+	            }
+	            h /= 6;
+	            h < 0 && h++;
+	            h > 1 && h--;
+	            hsl = {h: h, s: s, l: l};
+	        }
+	        hsl.toString = hsltoString;
+	        return hsl;
+	    };
+	    R._path2string = function () {
+	        return this.join(",")[rp](p2s, "$1");
+	    };
+	    function cacher(f, scope, postprocessor) {
+	        function newf() {
+	            var arg = Array[proto].slice.call(arguments, 0),
+	                args = arg[join]("\u25ba"),
+	                cache = newf.cache = newf.cache || {},
+	                count = newf.count = newf.count || [];
+	            if (cache[has](args)) {
+	                return postprocessor ? postprocessor(cache[args]) : cache[args];
+	            }
+	            count[length] >= 1e3 && delete cache[count.shift()];
+	            count[push](args);
+	            cache[args] = f[apply](scope, arg);
+	            return postprocessor ? postprocessor(cache[args]) : cache[args];
+	        }
+	        return newf;
+	    }
+
+	    R.getRGB = cacher(function (colour) {
+	        if (!colour || !!((colour = Str(colour)).indexOf("-") + 1)) {
+	            return {r: -1, g: -1, b: -1, hex: "none", error: 1};
+	        }
+	        if (colour == "none") {
+	            return {r: -1, g: -1, b: -1, hex: "none"};
+	        }
+	        !(hsrg[has](colour.toLowerCase().substring(0, 2)) || colour.charAt() == "#") && (colour = toHex(colour));
+	        var res,
+	            red,
+	            green,
+	            blue,
+	            opacity,
+	            t,
+	            values,
+	            rgb = colour.match(colourRegExp);
+	        if (rgb) {
+	            if (rgb[2]) {
+	                blue = toInt(rgb[2].substring(5), 16);
+	                green = toInt(rgb[2].substring(3, 5), 16);
+	                red = toInt(rgb[2].substring(1, 3), 16);
+	            }
+	            if (rgb[3]) {
+	                blue = toInt((t = rgb[3].charAt(3)) + t, 16);
+	                green = toInt((t = rgb[3].charAt(2)) + t, 16);
+	                red = toInt((t = rgb[3].charAt(1)) + t, 16);
+	            }
+	            if (rgb[4]) {
+	                values = rgb[4][split](commaSpaces);
+	                red = toFloat(values[0]);
+	                values[0].slice(-1) == "%" && (red *= 2.55);
+	                green = toFloat(values[1]);
+	                values[1].slice(-1) == "%" && (green *= 2.55);
+	                blue = toFloat(values[2]);
+	                values[2].slice(-1) == "%" && (blue *= 2.55);
+	                rgb[1].toLowerCase().slice(0, 4) == "rgba" && (opacity = toFloat(values[3]));
+	                values[3] && values[3].slice(-1) == "%" && (opacity /= 100);
+	            }
+	            if (rgb[5]) {
+	                values = rgb[5][split](commaSpaces);
+	                red = toFloat(values[0]);
+	                values[0].slice(-1) == "%" && (red *= 2.55);
+	                green = toFloat(values[1]);
+	                values[1].slice(-1) == "%" && (green *= 2.55);
+	                blue = toFloat(values[2]);
+	                values[2].slice(-1) == "%" && (blue *= 2.55);
+	                (values[0].slice(-3) == "deg" || values[0].slice(-1) == "\xb0") && (red /= 360);
+	                rgb[1].toLowerCase().slice(0, 4) == "hsba" && (opacity = toFloat(values[3]));
+	                values[3] && values[3].slice(-1) == "%" && (opacity /= 100);
+	                return R.hsb2rgb(red, green, blue, opacity);
+	            }
+	            if (rgb[6]) {
+	                values = rgb[6][split](commaSpaces);
+	                red = toFloat(values[0]);
+	                values[0].slice(-1) == "%" && (red *= 2.55);
+	                green = toFloat(values[1]);
+	                values[1].slice(-1) == "%" && (green *= 2.55);
+	                blue = toFloat(values[2]);
+	                values[2].slice(-1) == "%" && (blue *= 2.55);
+	                (values[0].slice(-3) == "deg" || values[0].slice(-1) == "\xb0") && (red /= 360);
+	                rgb[1].toLowerCase().slice(0, 4) == "hsla" && (opacity = toFloat(values[3]));
+	                values[3] && values[3].slice(-1) == "%" && (opacity /= 100);
+	                return R.hsl2rgb(red, green, blue, opacity);
+	            }
+	            rgb = {r: red, g: green, b: blue};
+	            rgb.hex = "#" + (16777216 | blue | (green << 8) | (red << 16)).toString(16).slice(1);
+	            R.is(opacity, "finite") && (rgb.opacity = opacity);
+	            return rgb;
+	        }
+	        return {r: -1, g: -1, b: -1, hex: "none", error: 1};
+	    }, R);
+	    R.getColor = function (value) {
+	        var start = this.getColor.start = this.getColor.start || {h: 0, s: 1, b: value || .75},
+	            rgb = this.hsb2rgb(start.h, start.s, start.b);
+	        start.h += .075;
+	        if (start.h > 1) {
+	            start.h = 0;
+	            start.s -= .2;
+	            start.s <= 0 && (this.getColor.start = {h: 0, s: 1, b: start.b});
+	        }
+	        return rgb.hex;
+	    };
+	    R.getColor.reset = function () {
+	        delete this.start;
+	    };
+	    // path utilities
+	    R.parsePathString = cacher(function (pathString) {
+	        if (!pathString) {
+	            return null;
+	        }
+	        var paramCounts = {a: 7, c: 6, h: 1, l: 2, m: 2, q: 4, s: 4, t: 2, v: 1, z: 0},
+	            data = [];
+	        if (R.is(pathString, array) && R.is(pathString[0], array)) { // rough assumption
+	            data = pathClone(pathString);
+	        }
+	        if (!data[length]) {
+	            Str(pathString)[rp](pathCommand, function (a, b, c) {
+	                var params = [],
+	                    name = lowerCase.call(b);
+	                c[rp](pathValues, function (a, b) {
+	                    b && params[push](+b);
+	                });
+	                if (name == "m" && params[length] > 2) {
+	                    data[push]([b][concat](params.splice(0, 2)));
+	                    name = "l";
+	                    b = b == "m" ? "l" : "L";
+	                }
+	                while (params[length] >= paramCounts[name]) {
+	                    data[push]([b][concat](params.splice(0, paramCounts[name])));
+	                    if (!paramCounts[name]) {
+	                        break;
+	                    }
+	                }
+	            });
+	        }
+	        data[toString] = R._path2string;
+	        return data;
+	    });
+	    R.findDotsAtSegment = function (p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y, t) {
+	        var t1 = 1 - t,
+	            x = pow(t1, 3) * p1x + pow(t1, 2) * 3 * t * c1x + t1 * 3 * t * t * c2x + pow(t, 3) * p2x,
+	            y = pow(t1, 3) * p1y + pow(t1, 2) * 3 * t * c1y + t1 * 3 * t * t * c2y + pow(t, 3) * p2y,
+	            mx = p1x + 2 * t * (c1x - p1x) + t * t * (c2x - 2 * c1x + p1x),
+	            my = p1y + 2 * t * (c1y - p1y) + t * t * (c2y - 2 * c1y + p1y),
+	            nx = c1x + 2 * t * (c2x - c1x) + t * t * (p2x - 2 * c2x + c1x),
+	            ny = c1y + 2 * t * (c2y - c1y) + t * t * (p2y - 2 * c2y + c1y),
+	            ax = (1 - t) * p1x + t * c1x,
+	            ay = (1 - t) * p1y + t * c1y,
+	            cx = (1 - t) * c2x + t * p2x,
+	            cy = (1 - t) * c2y + t * p2y,
+	            alpha = (90 - math.atan((mx - nx) / (my - ny)) * 180 / PI);
+	        (mx > nx || my < ny) && (alpha += 180);
+	        return {x: x, y: y, m: {x: mx, y: my}, n: {x: nx, y: ny}, start: {x: ax, y: ay}, end: {x: cx, y: cy}, alpha: alpha};
+	    };
+	    var pathDimensions = cacher(function (path) {
+	        if (!path) {
+	            return {x: 0, y: 0, width: 0, height: 0};
+	        }
+	        path = path2curve(path);
+	        var x = 0,
+	            y = 0,
+	            X = [],
+	            Y = [],
+	            p;
+	        for (var i = 0, ii = path[length]; i < ii; i++) {
+	            p = path[i];
+	            if (p[0] == "M") {
+	                x = p[1];
+	                y = p[2];
+	                X[push](x);
+	                Y[push](y);
+	            } else {
+	                var dim = curveDim(x, y, p[1], p[2], p[3], p[4], p[5], p[6]);
+	                X = X[concat](dim.min.x, dim.max.x);
+	                Y = Y[concat](dim.min.y, dim.max.y);
+	                x = p[5];
+	                y = p[6];
+	            }
+	        }
+	        var xmin = mmin[apply](0, X),
+	            ymin = mmin[apply](0, Y);
+	        return {
+	            x: xmin,
+	            y: ymin,
+	            width: mmax[apply](0, X) - xmin,
+	            height: mmax[apply](0, Y) - ymin
+	        };
+	    }),
+	        pathClone = function (pathArray) {
+	            var res = [];
+	            if (!R.is(pathArray, array) || !R.is(pathArray && pathArray[0], array)) { // rough assumption
+	                pathArray = R.parsePathString(pathArray);
+	            }
+	            for (var i = 0, ii = pathArray[length]; i < ii; i++) {
+	                res[i] = [];
+	                for (var j = 0, jj = pathArray[i][length]; j < jj; j++) {
+	                    res[i][j] = pathArray[i][j];
+	                }
+	            }
+	            res[toString] = R._path2string;
+	            return res;
+	        },
+	        pathToRelative = cacher(function (pathArray) {
+	            if (!R.is(pathArray, array) || !R.is(pathArray && pathArray[0], array)) { // rough assumption
+	                pathArray = R.parsePathString(pathArray);
+	            }
+	            var res = [],
+	                x = 0,
+	                y = 0,
+	                mx = 0,
+	                my = 0,
+	                start = 0;
+	            if (pathArray[0][0] == "M") {
+	                x = pathArray[0][1];
+	                y = pathArray[0][2];
+	                mx = x;
+	                my = y;
+	                start++;
+	                res[push](["M", x, y]);
+	            }
+	            for (var i = start, ii = pathArray[length]; i < ii; i++) {
+	                var r = res[i] = [],
+	                    pa = pathArray[i];
+	                if (pa[0] != lowerCase.call(pa[0])) {
+	                    r[0] = lowerCase.call(pa[0]);
+	                    switch (r[0]) {
+	                        case "a":
+	                            r[1] = pa[1];
+	                            r[2] = pa[2];
+	                            r[3] = pa[3];
+	                            r[4] = pa[4];
+	                            r[5] = pa[5];
+	                            r[6] = +(pa[6] - x).toFixed(3);
+	                            r[7] = +(pa[7] - y).toFixed(3);
+	                            break;
+	                        case "v":
+	                            r[1] = +(pa[1] - y).toFixed(3);
+	                            break;
+	                        case "m":
+	                            mx = pa[1];
+	                            my = pa[2];
+	                        default:
+	                            for (var j = 1, jj = pa[length]; j < jj; j++) {
+	                                r[j] = +(pa[j] - ((j % 2) ? x : y)).toFixed(3);
+	                            }
+	                    }
+	                } else {
+	                    r = res[i] = [];
+	                    if (pa[0] == "m") {
+	                        mx = pa[1] + x;
+	                        my = pa[2] + y;
+	                    }
+	                    for (var k = 0, kk = pa[length]; k < kk; k++) {
+	                        res[i][k] = pa[k];
+	                    }
+	                }
+	                var len = res[i][length];
+	                switch (res[i][0]) {
+	                    case "z":
+	                        x = mx;
+	                        y = my;
+	                        break;
+	                    case "h":
+	                        x += +res[i][len - 1];
+	                        break;
+	                    case "v":
+	                        y += +res[i][len - 1];
+	                        break;
+	                    default:
+	                        x += +res[i][len - 2];
+	                        y += +res[i][len - 1];
+	                }
+	            }
+	            res[toString] = R._path2string;
+	            return res;
+	        }, 0, pathClone),
+	        pathToAbsolute = cacher(function (pathArray) {
+	            if (!R.is(pathArray, array) || !R.is(pathArray && pathArray[0], array)) { // rough assumption
+	                pathArray = R.parsePathString(pathArray);
+	            }
+	            var res = [],
+	                x = 0,
+	                y = 0,
+	                mx = 0,
+	                my = 0,
+	                start = 0;
+	            if (pathArray[0][0] == "M") {
+	                x = +pathArray[0][1];
+	                y = +pathArray[0][2];
+	                mx = x;
+	                my = y;
+	                start++;
+	                res[0] = ["M", x, y];
+	            }
+	            for (var i = start, ii = pathArray[length]; i < ii; i++) {
+	                var r = res[i] = [],
+	                    pa = pathArray[i];
+	                if (pa[0] != upperCase.call(pa[0])) {
+	                    r[0] = upperCase.call(pa[0]);
+	                    switch (r[0]) {
+	                        case "A":
+	                            r[1] = pa[1];
+	                            r[2] = pa[2];
+	                            r[3] = pa[3];
+	                            r[4] = pa[4];
+	                            r[5] = pa[5];
+	                            r[6] = +(pa[6] + x);
+	                            r[7] = +(pa[7] + y);
+	                            break;
+	                        case "V":
+	                            r[1] = +pa[1] + y;
+	                            break;
+	                        case "H":
+	                            r[1] = +pa[1] + x;
+	                            break;
+	                        case "M":
+	                            mx = +pa[1] + x;
+	                            my = +pa[2] + y;
+	                        default:
+	                            for (var j = 1, jj = pa[length]; j < jj; j++) {
+	                                r[j] = +pa[j] + ((j % 2) ? x : y);
+	                            }
+	                    }
+	                } else {
+	                    for (var k = 0, kk = pa[length]; k < kk; k++) {
+	                        res[i][k] = pa[k];
+	                    }
+	                }
+	                switch (r[0]) {
+	                    case "Z":
+	                        x = mx;
+	                        y = my;
+	                        break;
+	                    case "H":
+	                        x = r[1];
+	                        break;
+	                    case "V":
+	                        y = r[1];
+	                        break;
+	                    case "M":
+	                        mx = res[i][res[i][length] - 2];
+	                        my = res[i][res[i][length] - 1];
+	                    default:
+	                        x = res[i][res[i][length] - 2];
+	                        y = res[i][res[i][length] - 1];
+	                }
+	            }
+	            res[toString] = R._path2string;
+	            return res;
+	        }, null, pathClone),
+	        l2c = function (x1, y1, x2, y2) {
+	            return [x1, y1, x2, y2, x2, y2];
+	        },
+	        q2c = function (x1, y1, ax, ay, x2, y2) {
+	            var _13 = 1 / 3,
+	                _23 = 2 / 3;
+	            return [
+	                    _13 * x1 + _23 * ax,
+	                    _13 * y1 + _23 * ay,
+	                    _13 * x2 + _23 * ax,
+	                    _13 * y2 + _23 * ay,
+	                    x2,
+	                    y2
+	                ];
+	        },
+	        a2c = function (x1, y1, rx, ry, angle, large_arc_flag, sweep_flag, x2, y2, recursive) {
+	            // for more information of where this math came from visit:
+	            // http://www.w3.org/TR/SVG11/implnote.html#ArcImplementationNotes
+	            var _120 = PI * 120 / 180,
+	                rad = PI / 180 * (+angle || 0),
+	                res = [],
+	                xy,
+	                rotate = cacher(function (x, y, rad) {
+	                    var X = x * math.cos(rad) - y * math.sin(rad),
+	                        Y = x * math.sin(rad) + y * math.cos(rad);
+	                    return {x: X, y: Y};
+	                });
+	            if (!recursive) {
+	                xy = rotate(x1, y1, -rad);
+	                x1 = xy.x;
+	                y1 = xy.y;
+	                xy = rotate(x2, y2, -rad);
+	                x2 = xy.x;
+	                y2 = xy.y;
+	                var cos = math.cos(PI / 180 * angle),
+	                    sin = math.sin(PI / 180 * angle),
+	                    x = (x1 - x2) / 2,
+	                    y = (y1 - y2) / 2;
+	                var h = (x * x) / (rx * rx) + (y * y) / (ry * ry);
+	                if (h > 1) {
+	                    h = math.sqrt(h);
+	                    rx = h * rx;
+	                    ry = h * ry;
+	                }
+	                var rx2 = rx * rx,
+	                    ry2 = ry * ry,
+	                    k = (large_arc_flag == sweep_flag ? -1 : 1) *
+	                        math.sqrt(abs((rx2 * ry2 - rx2 * y * y - ry2 * x * x) / (rx2 * y * y + ry2 * x * x))),
+	                    cx = k * rx * y / ry + (x1 + x2) / 2,
+	                    cy = k * -ry * x / rx + (y1 + y2) / 2,
+	                    f1 = math.asin(((y1 - cy) / ry).toFixed(9)),
+	                    f2 = math.asin(((y2 - cy) / ry).toFixed(9));
+
+	                f1 = x1 < cx ? PI - f1 : f1;
+	                f2 = x2 < cx ? PI - f2 : f2;
+	                f1 < 0 && (f1 = PI * 2 + f1);
+	                f2 < 0 && (f2 = PI * 2 + f2);
+	                if (sweep_flag && f1 > f2) {
+	                    f1 = f1 - PI * 2;
+	                }
+	                if (!sweep_flag && f2 > f1) {
+	                    f2 = f2 - PI * 2;
+	                }
+	            } else {
+	                f1 = recursive[0];
+	                f2 = recursive[1];
+	                cx = recursive[2];
+	                cy = recursive[3];
+	            }
+	            var df = f2 - f1;
+	            if (abs(df) > _120) {
+	                var f2old = f2,
+	                    x2old = x2,
+	                    y2old = y2;
+	                f2 = f1 + _120 * (sweep_flag && f2 > f1 ? 1 : -1);
+	                x2 = cx + rx * math.cos(f2);
+	                y2 = cy + ry * math.sin(f2);
+	                res = a2c(x2, y2, rx, ry, angle, 0, sweep_flag, x2old, y2old, [f2, f2old, cx, cy]);
+	            }
+	            df = f2 - f1;
+	            var c1 = math.cos(f1),
+	                s1 = math.sin(f1),
+	                c2 = math.cos(f2),
+	                s2 = math.sin(f2),
+	                t = math.tan(df / 4),
+	                hx = 4 / 3 * rx * t,
+	                hy = 4 / 3 * ry * t,
+	                m1 = [x1, y1],
+	                m2 = [x1 + hx * s1, y1 - hy * c1],
+	                m3 = [x2 + hx * s2, y2 - hy * c2],
+	                m4 = [x2, y2];
+	            m2[0] = 2 * m1[0] - m2[0];
+	            m2[1] = 2 * m1[1] - m2[1];
+	            if (recursive) {
+	                return [m2, m3, m4][concat](res);
+	            } else {
+	                res = [m2, m3, m4][concat](res)[join]()[split](",");
+	                var newres = [];
+	                for (var i = 0, ii = res[length]; i < ii; i++) {
+	                    newres[i] = i % 2 ? rotate(res[i - 1], res[i], rad).y : rotate(res[i], res[i + 1], rad).x;
+	                }
+	                return newres;
+	            }
+	        },
+	        findDotAtSegment = function (p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y, t) {
+	            var t1 = 1 - t;
+	            return {
+	                x: pow(t1, 3) * p1x + pow(t1, 2) * 3 * t * c1x + t1 * 3 * t * t * c2x + pow(t, 3) * p2x,
+	                y: pow(t1, 3) * p1y + pow(t1, 2) * 3 * t * c1y + t1 * 3 * t * t * c2y + pow(t, 3) * p2y
+	            };
+	        },
+	        curveDim = cacher(function (p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y) {
+	            var a = (c2x - 2 * c1x + p1x) - (p2x - 2 * c2x + c1x),
+	                b = 2 * (c1x - p1x) - 2 * (c2x - c1x),
+	                c = p1x - c1x,
+	                t1 = (-b + math.sqrt(b * b - 4 * a * c)) / 2 / a,
+	                t2 = (-b - math.sqrt(b * b - 4 * a * c)) / 2 / a,
+	                y = [p1y, p2y],
+	                x = [p1x, p2x],
+	                dot;
+	            abs(t1) > "1e12" && (t1 = .5);
+	            abs(t2) > "1e12" && (t2 = .5);
+	            if (t1 > 0 && t1 < 1) {
+	                dot = findDotAtSegment(p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y, t1);
+	                x[push](dot.x);
+	                y[push](dot.y);
+	            }
+	            if (t2 > 0 && t2 < 1) {
+	                dot = findDotAtSegment(p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y, t2);
+	                x[push](dot.x);
+	                y[push](dot.y);
+	            }
+	            a = (c2y - 2 * c1y + p1y) - (p2y - 2 * c2y + c1y);
+	            b = 2 * (c1y - p1y) - 2 * (c2y - c1y);
+	            c = p1y - c1y;
+	            t1 = (-b + math.sqrt(b * b - 4 * a * c)) / 2 / a;
+	            t2 = (-b - math.sqrt(b * b - 4 * a * c)) / 2 / a;
+	            abs(t1) > "1e12" && (t1 = .5);
+	            abs(t2) > "1e12" && (t2 = .5);
+	            if (t1 > 0 && t1 < 1) {
+	                dot = findDotAtSegment(p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y, t1);
+	                x[push](dot.x);
+	                y[push](dot.y);
+	            }
+	            if (t2 > 0 && t2 < 1) {
+	                dot = findDotAtSegment(p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y, t2);
+	                x[push](dot.x);
+	                y[push](dot.y);
+	            }
+	            return {
+	                min: {x: mmin[apply](0, x), y: mmin[apply](0, y)},
+	                max: {x: mmax[apply](0, x), y: mmax[apply](0, y)}
+	            };
+	        }),
+	        path2curve = cacher(function (path, path2) {
+	            var p = pathToAbsolute(path),
+	                p2 = path2 && pathToAbsolute(path2),
+	                attrs = {x: 0, y: 0, bx: 0, by: 0, X: 0, Y: 0, qx: null, qy: null},
+	                attrs2 = {x: 0, y: 0, bx: 0, by: 0, X: 0, Y: 0, qx: null, qy: null},
+	                processPath = function (path, d) {
+	                    var nx, ny;
+	                    if (!path) {
+	                        return ["C", d.x, d.y, d.x, d.y, d.x, d.y];
+	                    }
+	                    !(path[0] in {T:1, Q:1}) && (d.qx = d.qy = null);
+	                    switch (path[0]) {
+	                        case "M":
+	                            d.X = path[1];
+	                            d.Y = path[2];
+	                            break;
+	                        case "A":
+	                            path = ["C"][concat](a2c[apply](0, [d.x, d.y][concat](path.slice(1))));
+	                            break;
+	                        case "S":
+	                            nx = d.x + (d.x - (d.bx || d.x));
+	                            ny = d.y + (d.y - (d.by || d.y));
+	                            path = ["C", nx, ny][concat](path.slice(1));
+	                            break;
+	                        case "T":
+	                            d.qx = d.x + (d.x - (d.qx || d.x));
+	                            d.qy = d.y + (d.y - (d.qy || d.y));
+	                            path = ["C"][concat](q2c(d.x, d.y, d.qx, d.qy, path[1], path[2]));
+	                            break;
+	                        case "Q":
+	                            d.qx = path[1];
+	                            d.qy = path[2];
+	                            path = ["C"][concat](q2c(d.x, d.y, path[1], path[2], path[3], path[4]));
+	                            break;
+	                        case "L":
+	                            path = ["C"][concat](l2c(d.x, d.y, path[1], path[2]));
+	                            break;
+	                        case "H":
+	                            path = ["C"][concat](l2c(d.x, d.y, path[1], d.y));
+	                            break;
+	                        case "V":
+	                            path = ["C"][concat](l2c(d.x, d.y, d.x, path[1]));
+	                            break;
+	                        case "Z":
+	                            path = ["C"][concat](l2c(d.x, d.y, d.X, d.Y));
+	                            break;
+	                    }
+	                    return path;
+	                },
+	                fixArc = function (pp, i) {
+	                    if (pp[i][length] > 7) {
+	                        pp[i].shift();
+	                        var pi = pp[i];
+	                        while (pi[length]) {
+	                            pp.splice(i++, 0, ["C"][concat](pi.splice(0, 6)));
+	                        }
+	                        pp.splice(i, 1);
+	                        ii = mmax(p[length], p2 && p2[length] || 0);
+	                    }
+	                },
+	                fixM = function (path1, path2, a1, a2, i) {
+	                    if (path1 && path2 && path1[i][0] == "M" && path2[i][0] != "M") {
+	                        path2.splice(i, 0, ["M", a2.x, a2.y]);
+	                        a1.bx = 0;
+	                        a1.by = 0;
+	                        a1.x = path1[i][1];
+	                        a1.y = path1[i][2];
+	                        ii = mmax(p[length], p2 && p2[length] || 0);
+	                    }
+	                };
+	            for (var i = 0, ii = mmax(p[length], p2 && p2[length] || 0); i < ii; i++) {
+	                p[i] = processPath(p[i], attrs);
+	                fixArc(p, i);
+	                p2 && (p2[i] = processPath(p2[i], attrs2));
+	                p2 && fixArc(p2, i);
+	                fixM(p, p2, attrs, attrs2, i);
+	                fixM(p2, p, attrs2, attrs, i);
+	                var seg = p[i],
+	                    seg2 = p2 && p2[i],
+	                    seglen = seg[length],
+	                    seg2len = p2 && seg2[length];
+	                attrs.x = seg[seglen - 2];
+	                attrs.y = seg[seglen - 1];
+	                attrs.bx = toFloat(seg[seglen - 4]) || attrs.x;
+	                attrs.by = toFloat(seg[seglen - 3]) || attrs.y;
+	                attrs2.bx = p2 && (toFloat(seg2[seg2len - 4]) || attrs2.x);
+	                attrs2.by = p2 && (toFloat(seg2[seg2len - 3]) || attrs2.y);
+	                attrs2.x = p2 && seg2[seg2len - 2];
+	                attrs2.y = p2 && seg2[seg2len - 1];
+	            }
+	            return p2 ? [p, p2] : p;
+	        }, null, pathClone),
+	        parseDots = cacher(function (gradient) {
+	            var dots = [];
+	            for (var i = 0, ii = gradient[length]; i < ii; i++) {
+	                var dot = {},
+	                    par = gradient[i].match(/^([^:]*):?([\d\.]*)/);
+	                dot.color = R.getRGB(par[1]);
+	                if (dot.color.error) {
+	                    return null;
+	                }
+	                dot.color = dot.color.hex;
+	                par[2] && (dot.offset = par[2] + "%");
+	                dots[push](dot);
+	            }
+	            for (i = 1, ii = dots[length] - 1; i < ii; i++) {
+	                if (!dots[i].offset) {
+	                    var start = toFloat(dots[i - 1].offset || 0),
+	                        end = 0;
+	                    for (var j = i + 1; j < ii; j++) {
+	                        if (dots[j].offset) {
+	                            end = dots[j].offset;
+	                            break;
+	                        }
+	                    }
+	                    if (!end) {
+	                        end = 100;
+	                        j = ii;
+	                    }
+	                    end = toFloat(end);
+	                    var d = (end - start) / (j - i + 1);
+	                    for (; i < j; i++) {
+	                        start += d;
+	                        dots[i].offset = start + "%";
+	                    }
+	                }
+	            }
+	            return dots;
+	        }),
+	        getContainer = function (x, y, w, h) {
+	            var container;
+	            if (R.is(x, string) || R.is(x, "object")) {
+	                container = R.is(x, string) ? doc.getElementById(x) : x;
+	                if (container.tagName) {
+	                    if (y == null) {
+	                        return {
+	                            container: container,
+	                            width: container.style.pixelWidth || container.offsetWidth,
+	                            height: container.style.pixelHeight || container.offsetHeight
+	                        };
+	                    } else {
+	                        return {container: container, width: y, height: w};
+	                    }
+	                }
+	            } else {
+	                return {container: 1, x: x, y: y, width: w, height: h};
+	            }
+	        },
+	        plugins = function (con, add) {
+	            var that = this;
+	            for (var prop in add) {
+	                if (add[has](prop) && !(prop in con)) {
+	                    switch (typeof add[prop]) {
+	                        case "function":
+	                            (function (f) {
+	                                con[prop] = con === that ? f : function () { return f[apply](that, arguments); };
+	                            })(add[prop]);
+	                        break;
+	                        case "object":
+	                            con[prop] = con[prop] || {};
+	                            plugins.call(this, con[prop], add[prop]);
+	                        break;
+	                        default:
+	                            con[prop] = add[prop];
+	                        break;
+	                    }
+	                }
+	            }
+	        },
+	        tear = function (el, paper) {
+	            el == paper.top && (paper.top = el.prev);
+	            el == paper.bottom && (paper.bottom = el.next);
+	            el.next && (el.next.prev = el.prev);
+	            el.prev && (el.prev.next = el.next);
+	        },
+	        tofront = function (el, paper) {
+	            if (paper.top === el) {
+	                return;
+	            }
+	            tear(el, paper);
+	            el.next = null;
+	            el.prev = paper.top;
+	            paper.top.next = el;
+	            paper.top = el;
+	        },
+	        toback = function (el, paper) {
+	            if (paper.bottom === el) {
+	                return;
+	            }
+	            tear(el, paper);
+	            el.next = paper.bottom;
+	            el.prev = null;
+	            paper.bottom.prev = el;
+	            paper.bottom = el;
+	        },
+	        insertafter = function (el, el2, paper) {
+	            tear(el, paper);
+	            el2 == paper.top && (paper.top = el);
+	            el2.next && (el2.next.prev = el);
+	            el.next = el2.next;
+	            el.prev = el2;
+	            el2.next = el;
+	        },
+	        insertbefore = function (el, el2, paper) {
+	            tear(el, paper);
+	            el2 == paper.bottom && (paper.bottom = el);
+	            el2.prev && (el2.prev.next = el);
+	            el.prev = el2.prev;
+	            el2.prev = el;
+	            el.next = el2;
+	        },
+	        removed = function (methodname) {
+	            return function () {
+	                throw new Error("Rapha\xebl: you are calling to method \u201c" + methodname + "\u201d of removed object");
+	            };
+	        };
+	    R.pathToRelative = pathToRelative;
+	    // SVG
+	    if (R.svg) {
+	        paperproto.svgns = "http://www.w3.org/2000/svg";
+	        paperproto.xlink = "http://www.w3.org/1999/xlink";
+	        round = function (num) {
+	            return +num + (~~num === num) * .5;
+	        };
+	        var $ = function (el, attr) {
+	            if (attr) {
+	                for (var key in attr) {
+	                    if (attr[has](key)) {
+	                        setAttr(el, key, Str(attr[key]));
+	                    }
+	                }
+	            } else {
+	                el = doc.createElementNS(paperproto.svgns, el);
+	                el.style.webkitTapHighlightColor = "rgba(0,0,0,0)";
+	                return el;
+	            }
+	        };
+	        R[toString] = function () {
+	            return  "Your browser supports SVG.\nYou are running Rapha\xebl " + this.version;
+	        };
+	        var thePath = function (pathString, SVG) {
+	            var el = $("path");
+	            SVG.canvas && SVG.canvas[appendChild](el);
+	            var p = new Element(el, SVG);
+	            p.type = "path";
+	            setFillAndStroke(p, {fill: "none", stroke: "#000", path: pathString});
+	            return p;
+	        };
+	        var addGradientFill = function (o, gradient, SVG) {
+	            var type = "linear",
+	                fx = .5, fy = .5,
+	                s = o.style;
+	            gradient = Str(gradient)[rp](radial_gradient, function (all, _fx, _fy) {
+	                type = "radial";
+	                if (_fx && _fy) {
+	                    fx = toFloat(_fx);
+	                    fy = toFloat(_fy);
+	                    var dir = ((fy > .5) * 2 - 1);
+	                    pow(fx - .5, 2) + pow(fy - .5, 2) > .25 &&
+	                        (fy = math.sqrt(.25 - pow(fx - .5, 2)) * dir + .5) &&
+	                        fy != .5 &&
+	                        (fy = fy.toFixed(5) - 1e-5 * dir);
+	                }
+	                return E;
+	            });
+	            gradient = gradient[split](/\s*\-\s*/);
+	            if (type == "linear") {
+	                var angle = gradient.shift();
+	                angle = -toFloat(angle);
+	                if (isNaN(angle)) {
+	                    return null;
+	                }
+	                var vector = [0, 0, math.cos(angle * PI / 180), math.sin(angle * PI / 180)],
+	                    max = 1 / (mmax(abs(vector[2]), abs(vector[3])) || 1);
+	                vector[2] *= max;
+	                vector[3] *= max;
+	                if (vector[2] < 0) {
+	                    vector[0] = -vector[2];
+	                    vector[2] = 0;
+	                }
+	                if (vector[3] < 0) {
+	                    vector[1] = -vector[3];
+	                    vector[3] = 0;
+	                }
+	            }
+	            var dots = parseDots(gradient);
+	            if (!dots) {
+	                return null;
+	            }
+	            var id = o.getAttribute(fillString);
+	            id = id.match(/^url\(#(.*)\)$/);
+	            id && SVG.defs.removeChild(doc.getElementById(id[1]));
+
+	            var el = $(type + "Gradient");
+	            el.id = createUUID();
+	            $(el, type == "radial" ? {fx: fx, fy: fy} : {x1: vector[0], y1: vector[1], x2: vector[2], y2: vector[3]});
+	            SVG.defs[appendChild](el);
+	            for (var i = 0, ii = dots[length]; i < ii; i++) {
+	                var stop = $("stop");
+	                $(stop, {
+	                    offset: dots[i].offset ? dots[i].offset : !i ? "0%" : "100%",
+	                    "stop-color": dots[i].color || "#fff"
+	                });
+	                el[appendChild](stop);
+	            }
+	            $(o, {
+	                fill: "url(#" + el.id + ")",
+	                opacity: 1,
+	                "fill-opacity": 1
+	            });
+	            s.fill = E;
+	            s.opacity = 1;
+	            s.fillOpacity = 1;
+	            return 1;
+	        };
+	        var updatePosition = function (o) {
+	            var bbox = o.getBBox();
+	            $(o.pattern, {patternTransform: R.format("translate({0},{1})", bbox.x, bbox.y)});
+	        };
+	        var setFillAndStroke = function (o, params) {
+	            var dasharray = {
+	                    "": [0],
+	                    "none": [0],
+	                    "-": [3, 1],
+	                    ".": [1, 1],
+	                    "-.": [3, 1, 1, 1],
+	                    "-..": [3, 1, 1, 1, 1, 1],
+	                    ". ": [1, 3],
+	                    "- ": [4, 3],
+	                    "--": [8, 3],
+	                    "- .": [4, 3, 1, 3],
+	                    "--.": [8, 3, 1, 3],
+	                    "--..": [8, 3, 1, 3, 1, 3]
+	                },
+	                node = o.node,
+	                attrs = o.attrs,
+	                rot = o.rotate(),
+	                addDashes = function (o, value) {
+	                    value = dasharray[lowerCase.call(value)];
+	                    if (value) {
+	                        var width = o.attrs["stroke-width"] || "1",
+	                            butt = {round: width, square: width, butt: 0}[o.attrs["stroke-linecap"] || params["stroke-linecap"]] || 0,
+	                            dashes = [];
+	                        var i = value[length];
+	                        while (i--) {
+	                            dashes[i] = value[i] * width + ((i % 2) ? 1 : -1) * butt;
+	                        }
+	                        $(node, {"stroke-dasharray": dashes[join](",")});
+	                    }
+	                };
+	            params[has]("rotation") && (rot = params.rotation);
+	            var rotxy = Str(rot)[split](separator);
+	            if (!(rotxy.length - 1)) {
+	                rotxy = null;
+	            } else {
+	                rotxy[1] = +rotxy[1];
+	                rotxy[2] = +rotxy[2];
+	            }
+	            toFloat(rot) && o.rotate(0, true);
+	            for (var att in params) {
+	                if (params[has](att)) {
+	                    if (!availableAttrs[has](att)) {
+	                        continue;
+	                    }
+	                    var value = params[att];
+	                    attrs[att] = value;
+	                    switch (att) {
+	                        case "blur":
+	                            o.blur(value);
+	                            break;
+	                        case "rotation":
+	                            o.rotate(value, true);
+	                            break;
+	                        case "href":
+	                        case "title":
+	                        case "target":
+	                            var pn = node.parentNode;
+	                            if (lowerCase.call(pn.tagName) != "a") {
+	                                var hl = $("a");
+	                                pn.insertBefore(hl, node);
+	                                hl[appendChild](node);
+	                                pn = hl;
+	                            }
+	                            if (att == "target" && value == "blank") {
+	                                pn.setAttributeNS(o.paper.xlink, "show", "new");
+	                            } else {
+	                                pn.setAttributeNS(o.paper.xlink, att, value);
+	                            }
+	                            break;
+	                        case "cursor":
+	                            node.style.cursor = value;
+	                            break;
+	                        case "clip-rect":
+	                            var rect = Str(value)[split](separator);
+	                            if (rect[length] == 4) {
+	                                o.clip && o.clip.parentNode.parentNode.removeChild(o.clip.parentNode);
+	                                var el = $("clipPath"),
+	                                    rc = $("rect");
+	                                el.id = createUUID();
+	                                $(rc, {
+	                                    x: rect[0],
+	                                    y: rect[1],
+	                                    width: rect[2],
+	                                    height: rect[3]
+	                                });
+	                                el[appendChild](rc);
+	                                o.paper.defs[appendChild](el);
+	                                $(node, {"clip-path": "url(#" + el.id + ")"});
+	                                o.clip = rc;
+	                            }
+	                            if (!value) {
+	                                var clip = doc.getElementById(node.getAttribute("clip-path")[rp](/(^url\(#|\)$)/g, E));
+	                                clip && clip.parentNode.removeChild(clip);
+	                                $(node, {"clip-path": E});
+	                                delete o.clip;
+	                            }
+	                        break;
+	                        case "path":
+	                            if (o.type == "path") {
+	                                $(node, {d: value ? attrs.path = pathToAbsolute(value) : "M0,0"});
+	                            }
+	                            break;
+	                        case "width":
+	                            setAttr(node, att, value);
+	                            if (attrs.fx) {
+	                                att = "x";
+	                                value = attrs.x;
+	                            } else {
+	                                break;
+	                            }
+	                        case "x":
+	                            if (attrs.fx) {
+	                                value = -attrs.x - (attrs.width || 0);
+	                            }
+	                        case "rx":
+	                            if (att == "rx" && o.type == "rect") {
+	                                break;
+	                            }
+	                        case "cx":
+	                            rotxy && (att == "x" || att == "cx") && (rotxy[1] += value - attrs[att]);
+	                            setAttr(node, att, value);
+	                            o.pattern && updatePosition(o);
+	                            break;
+	                        case "height":
+	                            setAttr(node, att, value);
+	                            if (attrs.fy) {
+	                                att = "y";
+	                                value = attrs.y;
+	                            } else {
+	                                break;
+	                            }
+	                        case "y":
+	                            if (attrs.fy) {
+	                                value = -attrs.y - (attrs.height || 0);
+	                            }
+	                        case "ry":
+	                            if (att == "ry" && o.type == "rect") {
+	                                break;
+	                            }
+	                        case "cy":
+	                            rotxy && (att == "y" || att == "cy") && (rotxy[2] += value - attrs[att]);
+	                            setAttr(node, att, value);
+	                            o.pattern && updatePosition(o);
+	                            break;
+	                        case "r":
+	                            if (o.type == "rect") {
+	                                $(node, {rx: value, ry: value});
+	                            } else {
+	                                setAttr(node, att, value);
+	                            }
+	                            break;
+	                        case "src":
+	                            if (o.type == "image") {
+	                                node.setAttributeNS(o.paper.xlink, "href", value);
+	                            }
+	                            break;
+	                        case "stroke-width":
+	                            node.style.strokeWidth = value;
+	                            // Need following line for Firefox
+	                            setAttr(node, att, value);
+	                            if (attrs["stroke-dasharray"]) {
+	                                addDashes(o, attrs["stroke-dasharray"]);
+	                            }
+	                            break;
+	                        case "stroke-dasharray":
+	                            addDashes(o, value);
+	                            break;
+	                        case "translation":
+	                            var xy = Str(value)[split](separator);
+	                            xy[0] = +xy[0] || 0;
+	                            xy[1] = +xy[1] || 0;
+	                            if (rotxy) {
+	                                rotxy[1] += xy[0];
+	                                rotxy[2] += xy[1];
+	                            }
+	                            translate.call(o, xy[0], xy[1]);
+	                            break;
+	                        case "scale":
+	                            xy = Str(value)[split](separator);
+	                            o.scale(+xy[0] || 1, +xy[1] || +xy[0] || 1, isNaN(toFloat(xy[2])) ? null : +xy[2], isNaN(toFloat(xy[3])) ? null : +xy[3]);
+	                            break;
+	                        case fillString:
+	                            var isURL = Str(value).match(ISURL);
+	                            if (isURL) {
+	                                el = $("pattern");
+	                                var ig = $("image");
+	                                el.id = createUUID();
+	                                $(el, {x: 0, y: 0, patternUnits: "userSpaceOnUse", height: 1, width: 1});
+	                                $(ig, {x: 0, y: 0});
+	                                ig.setAttributeNS(o.paper.xlink, "href", isURL[1]);
+	                                el[appendChild](ig);
+
+	                                var img = doc.createElement("img");
+	                                img.style.cssText = "position:absolute;left:-9999em;top-9999em";
+	                                img.onload = function () {
+	                                    $(el, {width: this.offsetWidth, height: this.offsetHeight});
+	                                    $(ig, {width: this.offsetWidth, height: this.offsetHeight});
+	                                    doc.body.removeChild(this);
+	                                    o.paper.safari();
+	                                };
+	                                doc.body[appendChild](img);
+	                                img.src = isURL[1];
+	                                o.paper.defs[appendChild](el);
+	                                node.style.fill = "url(#" + el.id + ")";
+	                                $(node, {fill: "url(#" + el.id + ")"});
+	                                o.pattern = el;
+	                                o.pattern && updatePosition(o);
+	                                break;
+	                            }
+	                            var clr = R.getRGB(value);
+	                            if (!clr.error) {
+	                                delete params.gradient;
+	                                delete attrs.gradient;
+	                                !R.is(attrs.opacity, "undefined") &&
+	                                    R.is(params.opacity, "undefined") &&
+	                                    $(node, {opacity: attrs.opacity});
+	                                !R.is(attrs["fill-opacity"], "undefined") &&
+	                                    R.is(params["fill-opacity"], "undefined") &&
+	                                    $(node, {"fill-opacity": attrs["fill-opacity"]});
+	                            } else if ((({circle: 1, ellipse: 1})[has](o.type) || Str(value).charAt() != "r") && addGradientFill(node, value, o.paper)) {
+	                                attrs.gradient = value;
+	                                attrs.fill = "none";
+	                                break;
+	                            }
+	                            clr[has]("opacity") && $(node, {"fill-opacity": clr.opacity > 1 ? clr.opacity / 100 : clr.opacity});
+	                        case "stroke":
+	                            clr = R.getRGB(value);
+	                            setAttr(node, att, clr.hex);
+	                            att == "stroke" && clr[has]("opacity") && $(node, {"stroke-opacity": clr.opacity > 1 ? clr.opacity / 100 : clr.opacity});
+	                            break;
+	                        case "gradient":
+	                            (({circle: 1, ellipse: 1})[has](o.type) || Str(value).charAt() != "r") && addGradientFill(node, value, o.paper);
+	                            break;
+	                        case "opacity":
+	                            if (attrs.gradient && !attrs[has]("stroke-opacity")) {
+	                                $(node, {"stroke-opacity": value > 1 ? value / 100 : value});
+	                            }
+	                            // fall
+	                        case "fill-opacity":
+	                            if (attrs.gradient) {
+	                                var gradient = doc.getElementById(node.getAttribute(fillString)[rp](/^url\(#|\)$/g, E));
+	                                if (gradient) {
+	                                    var stops = gradient.getElementsByTagName("stop");
+	                                    setAttr(stops[stops[length] - 1], "stop-opacity", value);
+	                                }
+	                                break;
+	                            }
+	                        default:
+	                            att == "font-size" && (value = toInt(value, 10) + "px");
+	                            var cssrule = att[rp](/(\-.)/g, function (w) {
+	                                return upperCase.call(w.substring(1));
+	                            });
+	                            node.style[cssrule] = value;
+	                            // Need following line for Firefox
+	                            setAttr(node, att, value);
+	                            break;
+	                    }
+	                }
+	            }
+
+	            tuneText(o, params);
+	            if (rotxy) {
+	                o.rotate(rotxy.join(S));
+	            } else {
+	                toFloat(rot) && o.rotate(rot, true);
+	            }
+	        };
+	        var leading = 1.2,
+	        tuneText = function (el, params) {
+	            if (el.type != "text" || !(params[has]("text") || params[has]("font") || params[has]("font-size") || params[has]("x") || params[has]("y"))) {
+	                return;
+	            }
+	            var a = el.attrs,
+	                node = el.node,
+	                fontSize = node.firstChild ? toInt(doc.defaultView.getComputedStyle(node.firstChild, E).getPropertyValue("font-size"), 10) : 10;
+
+	            if (params[has]("text")) {
+	                a.text = params.text;
+	                while (node.firstChild) {
+	                    node.removeChild(node.firstChild);
+	                }
+	                var texts = Str(params.text)[split]("\n");
+	                for (var i = 0, ii = texts[length]; i < ii; i++) if (texts[i]) {
+	                    var tspan = $("tspan");
+	                    i && $(tspan, {dy: fontSize * leading, x: a.x});
+	                    tspan[appendChild](doc.createTextNode(texts[i]));
+	                    node[appendChild](tspan);
+	                }
+	            } else {
+	                texts = node.getElementsByTagName("tspan");
+	                for (i = 0, ii = texts[length]; i < ii; i++) {
+	                    i && $(texts[i], {dy: fontSize * leading, x: a.x});
+	                }
+	            }
+	            $(node, {y: a.y});
+	            var bb = el.getBBox(),
+	                dif = a.y - (bb.y + bb.height / 2);
+	            dif && R.is(dif, "finite") && $(node, {y: a.y + dif});
+	        },
+	        Element = function (node, svg) {
+	            var X = 0,
+	                Y = 0;
+	            this[0] = node;
+	            this.id = R._oid++;
+	            this.node = node;
+	            node.raphael = this;
+	            this.paper = svg;
+	            this.attrs = this.attrs || {};
+	            this.transformations = []; // rotate, translate, scale
+	            this._ = {
+	                tx: 0,
+	                ty: 0,
+	                rt: {deg: 0, cx: 0, cy: 0},
+	                sx: 1,
+	                sy: 1
+	            };
+	            !svg.bottom && (svg.bottom = this);
+	            this.prev = svg.top;
+	            svg.top && (svg.top.next = this);
+	            svg.top = this;
+	            this.next = null;
+	        };
+	        var elproto = Element[proto];
+	        Element[proto].rotate = function (deg, cx, cy) {
+	            if (this.removed) {
+	                return this;
+	            }
+	            if (deg == null) {
+	                if (this._.rt.cx) {
+	                    return [this._.rt.deg, this._.rt.cx, this._.rt.cy][join](S);
+	                }
+	                return this._.rt.deg;
+	            }
+	            var bbox = this.getBBox();
+	            deg = Str(deg)[split](separator);
+	            if (deg[length] - 1) {
+	                cx = toFloat(deg[1]);
+	                cy = toFloat(deg[2]);
+	            }
+	            deg = toFloat(deg[0]);
+	            if (cx != null && cx !== false) {
+	                this._.rt.deg = deg;
+	            } else {
+	                this._.rt.deg += deg;
+	            }
+	            (cy == null) && (cx = null);
+	            this._.rt.cx = cx;
+	            this._.rt.cy = cy;
+	            cx = cx == null ? bbox.x + bbox.width / 2 : cx;
+	            cy = cy == null ? bbox.y + bbox.height / 2 : cy;
+	            if (this._.rt.deg) {
+	                this.transformations[0] = R.format("rotate({0} {1} {2})", this._.rt.deg, cx, cy);
+	                this.clip && $(this.clip, {transform: R.format("rotate({0} {1} {2})", -this._.rt.deg, cx, cy)});
+	            } else {
+	                this.transformations[0] = E;
+	                this.clip && $(this.clip, {transform: E});
+	            }
+	            $(this.node, {transform: this.transformations[join](S)});
+	            return this;
+	        };
+	        Element[proto].hide = function () {
+	            !this.removed && (this.node.style.display = "none");
+	            return this;
+	        };
+	        Element[proto].show = function () {
+	            !this.removed && (this.node.style.display = "");
+	            return this;
+	        };
+	        Element[proto].remove = function () {
+	            if (this.removed) {
+	                return;
+	            }
+	            tear(this, this.paper);
+	            this.node.parentNode.removeChild(this.node);
+	            for (var i in this) {
+	                delete this[i];
+	            }
+	            this.removed = true;
+	        };
+	        Element[proto].getBBox = function () {
+	            if (this.removed) {
+	                return this;
+	            }
+	            if (this.type == "path") {
+	                return pathDimensions(this.attrs.path);
+	            }
+	            if (this.node.style.display == "none") {
+	                this.show();
+	                var hide = true;
+	            }
+	            var bbox = {};
+	            try {
+	                bbox = this.node.getBBox();
+	            } catch(e) {
+	                // Firefox 3.0.x plays badly here
+	            } finally {
+	                bbox = bbox || {};
+	            }
+	            if (this.type == "text") {
+	                bbox = {x: bbox.x, y: Infinity, width: 0, height: 0};
+	                for (var i = 0, ii = this.node.getNumberOfChars(); i < ii; i++) {
+	                    var bb = this.node.getExtentOfChar(i);
+	                    (bb.y < bbox.y) && (bbox.y = bb.y);
+	                    (bb.y + bb.height - bbox.y > bbox.height) && (bbox.height = bb.y + bb.height - bbox.y);
+	                    (bb.x + bb.width - bbox.x > bbox.width) && (bbox.width = bb.x + bb.width - bbox.x);
+	                }
+	            }
+	            hide && this.hide();
+	            return bbox;
+	        };
+	        Element[proto].attr = function (name, value) {
+	            if (this.removed) {
+	                return this;
+	            }
+	            if (name == null) {
+	                var res = {};
+	                for (var i in this.attrs) if (this.attrs[has](i)) {
+	                    res[i] = this.attrs[i];
+	                }
+	                this._.rt.deg && (res.rotation = this.rotate());
+	                (this._.sx != 1 || this._.sy != 1) && (res.scale = this.scale());
+	                res.gradient && res.fill == "none" && (res.fill = res.gradient) && delete res.gradient;
+	                return res;
+	            }
+	            if (value == null && R.is(name, string)) {
+	                if (name == "translation") {
+	                    return translate.call(this);
+	                }
+	                if (name == "rotation") {
+	                    return this.rotate();
+	                }
+	                if (name == "scale") {
+	                    return this.scale();
+	                }
+	                if (name == fillString && this.attrs.fill == "none" && this.attrs.gradient) {
+	                    return this.attrs.gradient;
+	                }
+	                return this.attrs[name];
+	            }
+	            if (value == null && R.is(name, array)) {
+	                var values = {};
+	                for (var j = 0, jj = name.length; j < jj; j++) {
+	                    values[name[j]] = this.attr(name[j]);
+	                }
+	                return values;
+	            }
+	            if (value != null) {
+	                var params = {};
+	                params[name] = value;
+	            } else if (name != null && R.is(name, "object")) {
+	                params = name;
+	            }
+	            for (var key in this.paper.customAttributes) if (this.paper.customAttributes[has](key) && params[has](key) && R.is(this.paper.customAttributes[key], "function")) {
+	                var par = this.paper.customAttributes[key].apply(this, [][concat](params[key]));
+	                this.attrs[key] = params[key];
+	                for (var subkey in par) if (par[has](subkey)) {
+	                    params[subkey] = par[subkey];
+	                }
+	            }
+	            setFillAndStroke(this, params);
+	            return this;
+	        };
+	        Element[proto].toFront = function () {
+	            if (this.removed) {
+	                return this;
+	            }
+	            this.node.parentNode[appendChild](this.node);
+	            var svg = this.paper;
+	            svg.top != this && tofront(this, svg);
+	            return this;
+	        };
+	        Element[proto].toBack = function () {
+	            if (this.removed) {
+	                return this;
+	            }
+	            if (this.node.parentNode.firstChild != this.node) {
+	                this.node.parentNode.insertBefore(this.node, this.node.parentNode.firstChild);
+	                toback(this, this.paper);
+	                var svg = this.paper;
+	            }
+	            return this;
+	        };
+	        Element[proto].insertAfter = function (element) {
+	            if (this.removed) {
+	                return this;
+	            }
+	            var node = element.node || element[element.length - 1].node;
+	            if (node.nextSibling) {
+	                node.parentNode.insertBefore(this.node, node.nextSibling);
+	            } else {
+	                node.parentNode[appendChild](this.node);
+	            }
+	            insertafter(this, element, this.paper);
+	            return this;
+	        };
+	        Element[proto].insertBefore = function (element) {
+	            if (this.removed) {
+	                return this;
+	            }
+	            var node = element.node || element[0].node;
+	            node.parentNode.insertBefore(this.node, node);
+	            insertbefore(this, element, this.paper);
+	            return this;
+	        };
+	        Element[proto].blur = function (size) {
+	            // Experimental. No Safari support. Use it on your own risk.
+	            var t = this;
+	            if (+size !== 0) {
+	                var fltr = $("filter"),
+	                    blur = $("feGaussianBlur");
+	                t.attrs.blur = size;
+	                fltr.id = createUUID();
+	                $(blur, {stdDeviation: +size || 1.5});
+	                fltr.appendChild(blur);
+	                t.paper.defs.appendChild(fltr);
+	                t._blur = fltr;
+	                $(t.node, {filter: "url(#" + fltr.id + ")"});
+	            } else {
+	                if (t._blur) {
+	                    t._blur.parentNode.removeChild(t._blur);
+	                    delete t._blur;
+	                    delete t.attrs.blur;
+	                }
+	                t.node.removeAttribute("filter");
+	            }
+	        };
+	        var theCircle = function (svg, x, y, r) {
+	            var el = $("circle");
+	            svg.canvas && svg.canvas[appendChild](el);
+	            var res = new Element(el, svg);
+	            res.attrs = {cx: x, cy: y, r: r, fill: "none", stroke: "#000"};
+	            res.type = "circle";
+	            $(el, res.attrs);
+	            return res;
+	        },
+	        theRect = function (svg, x, y, w, h, r) {
+	            var el = $("rect");
+	            svg.canvas && svg.canvas[appendChild](el);
+	            var res = new Element(el, svg);
+	            res.attrs = {x: x, y: y, width: w, height: h, r: r || 0, rx: r || 0, ry: r || 0, fill: "none", stroke: "#000"};
+	            res.type = "rect";
+	            $(el, res.attrs);
+	            return res;
+	        },
+	        theEllipse = function (svg, x, y, rx, ry) {
+	            var el = $("ellipse");
+	            svg.canvas && svg.canvas[appendChild](el);
+	            var res = new Element(el, svg);
+	            res.attrs = {cx: x, cy: y, rx: rx, ry: ry, fill: "none", stroke: "#000"};
+	            res.type = "ellipse";
+	            $(el, res.attrs);
+	            return res;
+	        },
+	        theImage = function (svg, src, x, y, w, h) {
+	            var el = $("image");
+	            $(el, {x: x, y: y, width: w, height: h, preserveAspectRatio: "none"});
+	            el.setAttributeNS(svg.xlink, "href", src);
+	            svg.canvas && svg.canvas[appendChild](el);
+	            var res = new Element(el, svg);
+	            res.attrs = {x: x, y: y, width: w, height: h, src: src};
+	            res.type = "image";
+	            return res;
+	        },
+	        theText = function (svg, x, y, text) {
+	            var el = $("text");
+	            $(el, {x: x, y: y, "text-anchor": "middle"});
+	            svg.canvas && svg.canvas[appendChild](el);
+	            var res = new Element(el, svg);
+	            res.attrs = {x: x, y: y, "text-anchor": "middle", text: text, font: availableAttrs.font, stroke: "none", fill: "#000"};
+	            res.type = "text";
+	            setFillAndStroke(res, res.attrs);
+	            return res;
+	        },
+	        setSize = function (width, height) {
+	            this.width = width || this.width;
+	            this.height = height || this.height;
+	            setAttr(this.canvas, "width", this.width);
+	            setAttr(this.canvas, "height", this.height);
+	            return this;
+	        },
+	        create = function () {
+	            var con = getContainer[apply](0, arguments),
+	                container = con && con.container,
+	                x = con.x,
+	                y = con.y,
+	                width = con.width,
+	                height = con.height;
+	            if (!container) {
+	                throw new Error("SVG container not found.");
+	            }
+	            var cnvs = $("svg");
+	            x = x || 0;
+	            y = y || 0;
+	            width = width || 512;
+	            height = height || 342;
+	            $(cnvs, {
+	                xmlns: "http://www.w3.org/2000/svg",
+	                version: 1.1,
+	                width: width,
+	                height: height
+	            });
+	            if (container == 1) {
+	                cnvs.style.cssText = "position:absolute;left:" + x + "px;top:" + y + "px";
+	                doc.body[appendChild](cnvs);
+	            } else {
+	                if (container.firstChild) {
+	                    container.insertBefore(cnvs, container.firstChild);
+	                } else {
+	                    container[appendChild](cnvs);
+	                }
+	            }
+	            container = new Paper;
+	            container.width = width;
+	            container.height = height;
+	            container.canvas = cnvs;
+	            plugins.call(container, container, R.fn);
+	            container.clear();
+	            return container;
+	        };
+	        paperproto.clear = function () {
+	            var c = this.canvas;
+	            while (c.firstChild) {
+	                c.removeChild(c.firstChild);
+	            }
+	            this.bottom = this.top = null;
+	            (this.desc = $("desc"))[appendChild](doc.createTextNode("Created with Rapha\xebl"));
+	            c[appendChild](this.desc);
+	            c[appendChild](this.defs = $("defs"));
+	        };
+	        paperproto.remove = function () {
+	            this.canvas.parentNode && this.canvas.parentNode.removeChild(this.canvas);
+	            for (var i in this) {
+	                this[i] = removed(i);
+	            }
+	        };
+	    }
+
+	    // VML
+	    if (R.vml) {
+	        var map = {M: "m", L: "l", C: "c", Z: "x", m: "t", l: "r", c: "v", z: "x"},
+	            bites = /([clmz]),?([^clmz]*)/gi,
+	            blurregexp = / progid:\S+Blur\([^\)]+\)/g,
+	            val = /-?[^,\s-]+/g,
+	            coordsize = 1e3 + S + 1e3,
+	            zoom = 10,
+	            pathlike = {path: 1, rect: 1},
+	            path2vml = function (path) {
+	                var total =  /[ahqstv]/ig,
+	                    command = pathToAbsolute;
+	                Str(path).match(total) && (command = path2curve);
+	                total = /[clmz]/g;
+	                if (command == pathToAbsolute && !Str(path).match(total)) {
+	                    var res = Str(path)[rp](bites, function (all, command, args) {
+	                        var vals = [],
+	                            isMove = lowerCase.call(command) == "m",
+	                            res = map[command];
+	                        args[rp](val, function (value) {
+	                            if (isMove && vals[length] == 2) {
+	                                res += vals + map[command == "m" ? "l" : "L"];
+	                                vals = [];
+	                            }
+	                            vals[push](round(value * zoom));
+	                        });
+	                        return res + vals;
+	                    });
+	                    return res;
+	                }
+	                var pa = command(path), p, r;
+	                res = [];
+	                for (var i = 0, ii = pa[length]; i < ii; i++) {
+	                    p = pa[i];
+	                    r = lowerCase.call(pa[i][0]);
+	                    r == "z" && (r = "x");
+	                    for (var j = 1, jj = p[length]; j < jj; j++) {
+	                        r += round(p[j] * zoom) + (j != jj - 1 ? "," : E);
+	                    }
+	                    res[push](r);
+	                }
+	                return res[join](S);
+	            };
+
+	        R[toString] = function () {
+	            return  "Your browser doesn\u2019t support SVG. Falling down to VML.\nYou are running Rapha\xebl " + this.version;
+	        };
+	        thePath = function (pathString, vml) {
+	            var g = createNode("group");
+	            g.style.cssText = "position:absolute;left:0;top:0;width:" + vml.width + "px;height:" + vml.height + "px";
+	            g.coordsize = vml.coordsize;
+	            g.coordorigin = vml.coordorigin;
+	            var el = createNode("shape"), ol = el.style;
+	            ol.width = vml.width + "px";
+	            ol.height = vml.height + "px";
+	            el.coordsize = coordsize;
+	            el.coordorigin = vml.coordorigin;
+	            g[appendChild](el);
+	            var p = new Element(el, g, vml),
+	                attr = {fill: "none", stroke: "#000"};
+	            pathString && (attr.path = pathString);
+	            p.type = "path";
+	            p.path = [];
+	            p.Path = E;
+	            setFillAndStroke(p, attr);
+	            vml.canvas[appendChild](g);
+	            return p;
+	        };
+	        setFillAndStroke = function (o, params) {
+	            o.attrs = o.attrs || {};
+	            var node = o.node,
+	                a = o.attrs,
+	                s = node.style,
+	                xy,
+	                newpath = (params.x != a.x || params.y != a.y || params.width != a.width || params.height != a.height || params.r != a.r) && o.type == "rect",
+	                res = o;
+
+	            for (var par in params) if (params[has](par)) {
+	                a[par] = params[par];
+	            }
+	            if (newpath) {
+	                a.path = rectPath(a.x, a.y, a.width, a.height, a.r);
+	                o.X = a.x;
+	                o.Y = a.y;
+	                o.W = a.width;
+	                o.H = a.height;
+	            }
+	            params.href && (node.href = params.href);
+	            params.title && (node.title = params.title);
+	            params.target && (node.target = params.target);
+	            params.cursor && (s.cursor = params.cursor);
+	            "blur" in params && o.blur(params.blur);
+	            if (params.path && o.type == "path" || newpath) {
+	                node.path = path2vml(a.path);
+	            }
+	            if (params.rotation != null) {
+	                o.rotate(params.rotation, true);
+	            }
+	            if (params.translation) {
+	                xy = Str(params.translation)[split](separator);
+	                translate.call(o, xy[0], xy[1]);
+	                if (o._.rt.cx != null) {
+	                    o._.rt.cx +=+ xy[0];
+	                    o._.rt.cy +=+ xy[1];
+	                    o.setBox(o.attrs, xy[0], xy[1]);
+	                }
+	            }
+	            if (params.scale) {
+	                xy = Str(params.scale)[split](separator);
+	                o.scale(+xy[0] || 1, +xy[1] || +xy[0] || 1, +xy[2] || null, +xy[3] || null);
+	            }
+	            if ("clip-rect" in params) {
+	                var rect = Str(params["clip-rect"])[split](separator);
+	                if (rect[length] == 4) {
+	                    rect[2] = +rect[2] + (+rect[0]);
+	                    rect[3] = +rect[3] + (+rect[1]);
+	                    var div = node.clipRect || doc.createElement("div"),
+	                        dstyle = div.style,
+	                        group = node.parentNode;
+	                    dstyle.clip = R.format("rect({1}px {2}px {3}px {0}px)", rect);
+	                    if (!node.clipRect) {
+	                        dstyle.position = "absolute";
+	                        dstyle.top = 0;
+	                        dstyle.left = 0;
+	                        dstyle.width = o.paper.width + "px";
+	                        dstyle.height = o.paper.height + "px";
+	                        group.parentNode.insertBefore(div, group);
+	                        div[appendChild](group);
+	                        node.clipRect = div;
+	                    }
+	                }
+	                if (!params["clip-rect"]) {
+	                    node.clipRect && (node.clipRect.style.clip = E);
+	                }
+	            }
+	            if (o.type == "image" && params.src) {
+	                node.src = params.src;
+	            }
+	            if (o.type == "image" && params.opacity) {
+	                node.filterOpacity = ms + ".Alpha(opacity=" + (params.opacity * 100) + ")";
+	                s.filter = (node.filterMatrix || E) + (node.filterOpacity || E);
+	            }
+	            params.font && (s.font = params.font);
+	            params["font-family"] && (s.fontFamily = '"' + params["font-family"][split](",")[0][rp](/^['"]+|['"]+$/g, E) + '"');
+	            params["font-size"] && (s.fontSize = params["font-size"]);
+	            params["font-weight"] && (s.fontWeight = params["font-weight"]);
+	            params["font-style"] && (s.fontStyle = params["font-style"]);
+	            if (params.opacity != null ||
+	                params["stroke-width"] != null ||
+	                params.fill != null ||
+	                params.stroke != null ||
+	                params["stroke-width"] != null ||
+	                params["stroke-opacity"] != null ||
+	                params["fill-opacity"] != null ||
+	                params["stroke-dasharray"] != null ||
+	                params["stroke-miterlimit"] != null ||
+	                params["stroke-linejoin"] != null ||
+	                params["stroke-linecap"] != null) {
+	                node = o.shape || node;
+	                var fill = (node.getElementsByTagName(fillString) && node.getElementsByTagName(fillString)[0]),
+	                    newfill = false;
+	                !fill && (newfill = fill = createNode(fillString));
+	                if ("fill-opacity" in params || "opacity" in params) {
+	                    var opacity = ((+a["fill-opacity"] + 1 || 2) - 1) * ((+a.opacity + 1 || 2) - 1) * ((+R.getRGB(params.fill).o + 1 || 2) - 1);
+	                    opacity = mmin(mmax(opacity, 0), 1);
+	                    fill.opacity = opacity;
+	                }
+	                params.fill && (fill.on = true);
+	                if (fill.on == null || params.fill == "none") {
+	                    fill.on = false;
+	                }
+	                if (fill.on && params.fill) {
+	                    var isURL = params.fill.match(ISURL);
+	                    if (isURL) {
+	                        fill.src = isURL[1];
+	                        fill.type = "tile";
+	                    } else {
+	                        fill.color = R.getRGB(params.fill).hex;
+	                        fill.src = E;
+	                        fill.type = "solid";
+	                        if (R.getRGB(params.fill).error && (res.type in {circle: 1, ellipse: 1} || Str(params.fill).charAt() != "r") && addGradientFill(res, params.fill)) {
+	                            a.fill = "none";
+	                            a.gradient = params.fill;
+	                        }
+	                    }
+	                }
+	                newfill && node[appendChild](fill);
+	                var stroke = (node.getElementsByTagName("stroke") && node.getElementsByTagName("stroke")[0]),
+	                newstroke = false;
+	                !stroke && (newstroke = stroke = createNode("stroke"));
+	                if ((params.stroke && params.stroke != "none") ||
+	                    params["stroke-width"] ||
+	                    params["stroke-opacity"] != null ||
+	                    params["stroke-dasharray"] ||
+	                    params["stroke-miterlimit"] ||
+	                    params["stroke-linejoin"] ||
+	                    params["stroke-linecap"]) {
+	                    stroke.on = true;
+	                }
+	                (params.stroke == "none" || stroke.on == null || params.stroke == 0 || params["stroke-width"] == 0) && (stroke.on = false);
+	                var strokeColor = R.getRGB(params.stroke);
+	                stroke.on && params.stroke && (stroke.color = strokeColor.hex);
+	                opacity = ((+a["stroke-opacity"] + 1 || 2) - 1) * ((+a.opacity + 1 || 2) - 1) * ((+strokeColor.o + 1 || 2) - 1);
+	                var width = (toFloat(params["stroke-width"]) || 1) * .75;
+	                opacity = mmin(mmax(opacity, 0), 1);
+	                params["stroke-width"] == null && (width = a["stroke-width"]);
+	                params["stroke-width"] && (stroke.weight = width);
+	                width && width < 1 && (opacity *= width) && (stroke.weight = 1);
+	                stroke.opacity = opacity;
+
+	                params["stroke-linejoin"] && (stroke.joinstyle = params["stroke-linejoin"] || "miter");
+	                stroke.miterlimit = params["stroke-miterlimit"] || 8;
+	                params["stroke-linecap"] && (stroke.endcap = params["stroke-linecap"] == "butt" ? "flat" : params["stroke-linecap"] == "square" ? "square" : "round");
+	                if (params["stroke-dasharray"]) {
+	                    var dasharray = {
+	                        "-": "shortdash",
+	                        ".": "shortdot",
+	                        "-.": "shortdashdot",
+	                        "-..": "shortdashdotdot",
+	                        ". ": "dot",
+	                        "- ": "dash",
+	                        "--": "longdash",
+	                        "- .": "dashdot",
+	                        "--.": "longdashdot",
+	                        "--..": "longdashdotdot"
+	                    };
+	                    stroke.dashstyle = dasharray[has](params["stroke-dasharray"]) ? dasharray[params["stroke-dasharray"]] : E;
+	                }
+	                newstroke && node[appendChild](stroke);
+	            }
+	            if (res.type == "text") {
+	                s = res.paper.span.style;
+	                a.font && (s.font = a.font);
+	                a["font-family"] && (s.fontFamily = a["font-family"]);
+	                a["font-size"] && (s.fontSize = a["font-size"]);
+	                a["font-weight"] && (s.fontWeight = a["font-weight"]);
+	                a["font-style"] && (s.fontStyle = a["font-style"]);
+	                res.node.string && (res.paper.span.innerHTML = Str(res.node.string)[rp](/</g, "&#60;")[rp](/&/g, "&#38;")[rp](/\n/g, "<br>"));
+	                res.W = a.w = res.paper.span.offsetWidth;
+	                res.H = a.h = res.paper.span.offsetHeight;
+	                res.X = a.x;
+	                res.Y = a.y + round(res.H / 2);
+
+	                // text-anchor emulationm
+	                switch (a["text-anchor"]) {
+	                    case "start":
+	                        res.node.style["v-text-align"] = "left";
+	                        res.bbx = round(res.W / 2);
+	                    break;
+	                    case "end":
+	                        res.node.style["v-text-align"] = "right";
+	                        res.bbx = -round(res.W / 2);
+	                    break;
+	                    default:
+	                        res.node.style["v-text-align"] = "center";
+	                    break;
+	                }
+	            }
+	        };
+	        addGradientFill = function (o, gradient) {
+	            o.attrs = o.attrs || {};
+	            var attrs = o.attrs,
+	                fill,
+	                type = "linear",
+	                fxfy = ".5 .5";
+	            o.attrs.gradient = gradient;
+	            gradient = Str(gradient)[rp](radial_gradient, function (all, fx, fy) {
+	                type = "radial";
+	                if (fx && fy) {
+	                    fx = toFloat(fx);
+	                    fy = toFloat(fy);
+	                    pow(fx - .5, 2) + pow(fy - .5, 2) > .25 && (fy = math.sqrt(.25 - pow(fx - .5, 2)) * ((fy > .5) * 2 - 1) + .5);
+	                    fxfy = fx + S + fy;
+	                }
+	                return E;
+	            });
+	            gradient = gradient[split](/\s*\-\s*/);
+	            if (type == "linear") {
+	                var angle = gradient.shift();
+	                angle = -toFloat(angle);
+	                if (isNaN(angle)) {
+	                    return null;
+	                }
+	            }
+	            var dots = parseDots(gradient);
+	            if (!dots) {
+	                return null;
+	            }
+	            o = o.shape || o.node;
+	            fill = o.getElementsByTagName(fillString)[0] || createNode(fillString);
+	            !fill.parentNode && o.appendChild(fill);
+	            if (dots[length]) {
+	                fill.on = true;
+	                fill.method = "none";
+	                fill.color = dots[0].color;
+	                fill.color2 = dots[dots[length] - 1].color;
+	                var clrs = [];
+	                for (var i = 0, ii = dots[length]; i < ii; i++) {
+	                    dots[i].offset && clrs[push](dots[i].offset + S + dots[i].color);
+	                }
+	                fill.colors && (fill.colors.value = clrs[length] ? clrs[join]() : "0% " + fill.color);
+	                if (type == "radial") {
+	                    fill.type = "gradientradial";
+	                    fill.focus = "100%";
+	                    fill.focussize = fxfy;
+	                    fill.focusposition = fxfy;
+	                } else {
+	                    fill.type = "gradient";
+	                    fill.angle = (270 - angle) % 360;
+	                }
+	            }
+	            return 1;
+	        };
+	        Element = function (node, group, vml) {
+	            var Rotation = 0,
+	                RotX = 0,
+	                RotY = 0,
+	                Scale = 1;
+	            this[0] = node;
+	            this.id = R._oid++;
+	            this.node = node;
+	            node.raphael = this;
+	            this.X = 0;
+	            this.Y = 0;
+	            this.attrs = {};
+	            this.Group = group;
+	            this.paper = vml;
+	            this._ = {
+	                tx: 0,
+	                ty: 0,
+	                rt: {deg:0},
+	                sx: 1,
+	                sy: 1
+	            };
+	            !vml.bottom && (vml.bottom = this);
+	            this.prev = vml.top;
+	            vml.top && (vml.top.next = this);
+	            vml.top = this;
+	            this.next = null;
+	        };
+	        elproto = Element[proto];
+	        elproto.rotate = function (deg, cx, cy) {
+	            if (this.removed) {
+	                return this;
+	            }
+	            if (deg == null) {
+	                if (this._.rt.cx) {
+	                    return [this._.rt.deg, this._.rt.cx, this._.rt.cy][join](S);
+	                }
+	                return this._.rt.deg;
+	            }
+	            deg = Str(deg)[split](separator);
+	            if (deg[length] - 1) {
+	                cx = toFloat(deg[1]);
+	                cy = toFloat(deg[2]);
+	            }
+	            deg = toFloat(deg[0]);
+	            if (cx != null) {
+	                this._.rt.deg = deg;
+	            } else {
+	                this._.rt.deg += deg;
+	            }
+	            cy == null && (cx = null);
+	            this._.rt.cx = cx;
+	            this._.rt.cy = cy;
+	            this.setBox(this.attrs, cx, cy);
+	            this.Group.style.rotation = this._.rt.deg;
+	            // gradient fix for rotation. TODO
+	            // var fill = (this.shape || this.node).getElementsByTagName(fillString);
+	            // fill = fill[0] || {};
+	            // var b = ((360 - this._.rt.deg) - 270) % 360;
+	            // !R.is(fill.angle, "undefined") && (fill.angle = b);
+	            return this;
+	        };
+	        elproto.setBox = function (params, cx, cy) {
+	            if (this.removed) {
+	                return this;
+	            }
+	            var gs = this.Group.style,
+	                os = (this.shape && this.shape.style) || this.node.style;
+	            params = params || {};
+	            for (var i in params) if (params[has](i)) {
+	                this.attrs[i] = params[i];
+	            }
+	            cx = cx || this._.rt.cx;
+	            cy = cy || this._.rt.cy;
+	            var attr = this.attrs,
+	                x,
+	                y,
+	                w,
+	                h;
+	            switch (this.type) {
+	                case "circle":
+	                    x = attr.cx - attr.r;
+	                    y = attr.cy - attr.r;
+	                    w = h = attr.r * 2;
+	                    break;
+	                case "ellipse":
+	                    x = attr.cx - attr.rx;
+	                    y = attr.cy - attr.ry;
+	                    w = attr.rx * 2;
+	                    h = attr.ry * 2;
+	                    break;
+	                case "image":
+	                    x = +attr.x;
+	                    y = +attr.y;
+	                    w = attr.width || 0;
+	                    h = attr.height || 0;
+	                    break;
+	                case "text":
+	                    this.textpath.v = ["m", round(attr.x), ", ", round(attr.y - 2), "l", round(attr.x) + 1, ", ", round(attr.y - 2)][join](E);
+	                    x = attr.x - round(this.W / 2);
+	                    y = attr.y - this.H / 2;
+	                    w = this.W;
+	                    h = this.H;
+	                    break;
+	                case "rect":
+	                case "path":
+	                    if (!this.attrs.path) {
+	                        x = 0;
+	                        y = 0;
+	                        w = this.paper.width;
+	                        h = this.paper.height;
+	                    } else {
+	                        var dim = pathDimensions(this.attrs.path);
+	                        x = dim.x;
+	                        y = dim.y;
+	                        w = dim.width;
+	                        h = dim.height;
+	                    }
+	                    break;
+	                default:
+	                    x = 0;
+	                    y = 0;
+	                    w = this.paper.width;
+	                    h = this.paper.height;
+	                    break;
+	            }
+	            cx = (cx == null) ? x + w / 2 : cx;
+	            cy = (cy == null) ? y + h / 2 : cy;
+	            var left = cx - this.paper.width / 2,
+	                top = cy - this.paper.height / 2, t;
+	            gs.left != (t = left + "px") && (gs.left = t);
+	            gs.top != (t = top + "px") && (gs.top = t);
+	            this.X = pathlike[has](this.type) ? -left : x;
+	            this.Y = pathlike[has](this.type) ? -top : y;
+	            this.W = w;
+	            this.H = h;
+	            if (pathlike[has](this.type)) {
+	                os.left != (t = -left * zoom + "px") && (os.left = t);
+	                os.top != (t = -top * zoom + "px") && (os.top = t);
+	            } else if (this.type == "text") {
+	                os.left != (t = -left + "px") && (os.left = t);
+	                os.top != (t = -top + "px") && (os.top = t);
+	            } else {
+	                gs.width != (t = this.paper.width + "px") && (gs.width = t);
+	                gs.height != (t = this.paper.height + "px") && (gs.height = t);
+	                os.left != (t = x - left + "px") && (os.left = t);
+	                os.top != (t = y - top + "px") && (os.top = t);
+	                os.width != (t = w + "px") && (os.width = t);
+	                os.height != (t = h + "px") && (os.height = t);
+	            }
+	        };
+	        elproto.hide = function () {
+	            !this.removed && (this.Group.style.display = "none");
+	            return this;
+	        };
+	        elproto.show = function () {
+	            !this.removed && (this.Group.style.display = "block");
+	            return this;
+	        };
+	        elproto.getBBox = function () {
+	            if (this.removed) {
+	                return this;
+	            }
+	            if (pathlike[has](this.type)) {
+	                return pathDimensions(this.attrs.path);
+	            }
+	            return {
+	                x: this.X + (this.bbx || 0),
+	                y: this.Y,
+	                width: this.W,
+	                height: this.H
+	            };
+	        };
+	        elproto.remove = function () {
+	            if (this.removed) {
+	                return;
+	            }
+	            tear(this, this.paper);
+	            this.node.parentNode.removeChild(this.node);
+	            this.Group.parentNode.removeChild(this.Group);
+	            this.shape && this.shape.parentNode.removeChild(this.shape);
+	            for (var i in this) {
+	                delete this[i];
+	            }
+	            this.removed = true;
+	        };
+	        elproto.attr = function (name, value) {
+	            if (this.removed) {
+	                return this;
+	            }
+	            if (name == null) {
+	                var res = {};
+	                for (var i in this.attrs) if (this.attrs[has](i)) {
+	                    res[i] = this.attrs[i];
+	                }
+	                this._.rt.deg && (res.rotation = this.rotate());
+	                (this._.sx != 1 || this._.sy != 1) && (res.scale = this.scale());
+	                res.gradient && res.fill == "none" && (res.fill = res.gradient) && delete res.gradient;
+	                return res;
+	            }
+	            if (value == null && R.is(name, "string")) {
+	                if (name == "translation") {
+	                    return translate.call(this);
+	                }
+	                if (name == "rotation") {
+	                    return this.rotate();
+	                }
+	                if (name == "scale") {
+	                    return this.scale();
+	                }
+	                if (name == fillString && this.attrs.fill == "none" && this.attrs.gradient) {
+	                    return this.attrs.gradient;
+	                }
+	                return this.attrs[name];
+	            }
+	            if (this.attrs && value == null && R.is(name, array)) {
+	                var ii, values = {};
+	                for (i = 0, ii = name[length]; i < ii; i++) {
+	                    values[name[i]] = this.attr(name[i]);
+	                }
+	                return values;
+	            }
+	            var params;
+	            if (value != null) {
+	                params = {};
+	                params[name] = value;
+	            }
+	            value == null && R.is(name, "object") && (params = name);
+	            if (params) {
+	                for (var key in this.paper.customAttributes) if (this.paper.customAttributes[has](key) && params[has](key) && R.is(this.paper.customAttributes[key], "function")) {
+	                    var par = this.paper.customAttributes[key].apply(this, [][concat](params[key]));
+	                    this.attrs[key] = params[key];
+	                    for (var subkey in par) if (par[has](subkey)) {
+	                        params[subkey] = par[subkey];
+	                    }
+	                }
+	                if (params.text && this.type == "text") {
+	                    this.node.string = params.text;
+	                }
+	                setFillAndStroke(this, params);
+	                if (params.gradient && (({circle: 1, ellipse: 1})[has](this.type) || Str(params.gradient).charAt() != "r")) {
+	                    addGradientFill(this, params.gradient);
+	                }
+	                (!pathlike[has](this.type) || this._.rt.deg) && this.setBox(this.attrs);
+	            }
+	            return this;
+	        };
+	        elproto.toFront = function () {
+	            !this.removed && this.Group.parentNode[appendChild](this.Group);
+	            this.paper.top != this && tofront(this, this.paper);
+	            return this;
+	        };
+	        elproto.toBack = function () {
+	            if (this.removed) {
+	                return this;
+	            }
+	            if (this.Group.parentNode.firstChild != this.Group) {
+	                this.Group.parentNode.insertBefore(this.Group, this.Group.parentNode.firstChild);
+	                toback(this, this.paper);
+	            }
+	            return this;
+	        };
+	        elproto.insertAfter = function (element) {
+	            if (this.removed) {
+	                return this;
+	            }
+	            if (element.constructor == Set) {
+	                element = element[element.length - 1];
+	            }
+	            if (element.Group.nextSibling) {
+	                element.Group.parentNode.insertBefore(this.Group, element.Group.nextSibling);
+	            } else {
+	                element.Group.parentNode[appendChild](this.Group);
+	            }
+	            insertafter(this, element, this.paper);
+	            return this;
+	        };
+	        elproto.insertBefore = function (element) {
+	            if (this.removed) {
+	                return this;
+	            }
+	            if (element.constructor == Set) {
+	                element = element[0];
+	            }
+	            element.Group.parentNode.insertBefore(this.Group, element.Group);
+	            insertbefore(this, element, this.paper);
+	            return this;
+	        };
+	        elproto.blur = function (size) {
+	            var s = this.node.runtimeStyle,
+	                f = s.filter;
+	            f = f.replace(blurregexp, E);
+	            if (+size !== 0) {
+	                this.attrs.blur = size;
+	                s.filter = f + S + ms + ".Blur(pixelradius=" + (+size || 1.5) + ")";
+	                s.margin = R.format("-{0}px 0 0 -{0}px", round(+size || 1.5));
+	            } else {
+	                s.filter = f;
+	                s.margin = 0;
+	                delete this.attrs.blur;
+	            }
+	        };
+
+	        theCircle = function (vml, x, y, r) {
+	            var g = createNode("group"),
+	                o = createNode("oval"),
+	                ol = o.style;
+	            g.style.cssText = "position:absolute;left:0;top:0;width:" + vml.width + "px;height:" + vml.height + "px";
+	            g.coordsize = coordsize;
+	            g.coordorigin = vml.coordorigin;
+	            g[appendChild](o);
+	            var res = new Element(o, g, vml);
+	            res.type = "circle";
+	            setFillAndStroke(res, {stroke: "#000", fill: "none"});
+	            res.attrs.cx = x;
+	            res.attrs.cy = y;
+	            res.attrs.r = r;
+	            res.setBox({x: x - r, y: y - r, width: r * 2, height: r * 2});
+	            vml.canvas[appendChild](g);
+	            return res;
+	        };
+	        function rectPath(x, y, w, h, r) {
+	            if (r) {
+	                return R.format("M{0},{1}l{2},0a{3},{3},0,0,1,{3},{3}l0,{5}a{3},{3},0,0,1,{4},{3}l{6},0a{3},{3},0,0,1,{4},{4}l0,{7}a{3},{3},0,0,1,{3},{4}z", x + r, y, w - r * 2, r, -r, h - r * 2, r * 2 - w, r * 2 - h);
+	            } else {
+	                return R.format("M{0},{1}l{2},0,0,{3},{4},0z", x, y, w, h, -w);
+	            }
+	        }
+	        theRect = function (vml, x, y, w, h, r) {
+	            var path = rectPath(x, y, w, h, r),
+	                res = vml.path(path),
+	                a = res.attrs;
+	            res.X = a.x = x;
+	            res.Y = a.y = y;
+	            res.W = a.width = w;
+	            res.H = a.height = h;
+	            a.r = r;
+	            a.path = path;
+	            res.type = "rect";
+	            return res;
+	        };
+	        theEllipse = function (vml, x, y, rx, ry) {
+	            var g = createNode("group"),
+	                o = createNode("oval"),
+	                ol = o.style;
+	            g.style.cssText = "position:absolute;left:0;top:0;width:" + vml.width + "px;height:" + vml.height + "px";
+	            g.coordsize = coordsize;
+	            g.coordorigin = vml.coordorigin;
+	            g[appendChild](o);
+	            var res = new Element(o, g, vml);
+	            res.type = "ellipse";
+	            setFillAndStroke(res, {stroke: "#000"});
+	            res.attrs.cx = x;
+	            res.attrs.cy = y;
+	            res.attrs.rx = rx;
+	            res.attrs.ry = ry;
+	            res.setBox({x: x - rx, y: y - ry, width: rx * 2, height: ry * 2});
+	            vml.canvas[appendChild](g);
+	            return res;
+	        };
+	        theImage = function (vml, src, x, y, w, h) {
+	            var g = createNode("group"),
+	                o = createNode("image");
+	            g.style.cssText = "position:absolute;left:0;top:0;width:" + vml.width + "px;height:" + vml.height + "px";
+	            g.coordsize = coordsize;
+	            g.coordorigin = vml.coordorigin;
+	            o.src = src;
+	            g[appendChild](o);
+	            var res = new Element(o, g, vml);
+	            res.type = "image";
+	            res.attrs.src = src;
+	            res.attrs.x = x;
+	            res.attrs.y = y;
+	            res.attrs.w = w;
+	            res.attrs.h = h;
+	            res.setBox({x: x, y: y, width: w, height: h});
+	            vml.canvas[appendChild](g);
+	            return res;
+	        };
+	        theText = function (vml, x, y, text) {
+	            var g = createNode("group"),
+	                el = createNode("shape"),
+	                ol = el.style,
+	                path = createNode("path"),
+	                ps = path.style,
+	                o = createNode("textpath");
+	            g.style.cssText = "position:absolute;left:0;top:0;width:" + vml.width + "px;height:" + vml.height + "px";
+	            g.coordsize = coordsize;
+	            g.coordorigin = vml.coordorigin;
+	            path.v = R.format("m{0},{1}l{2},{1}", round(x * 10), round(y * 10), round(x * 10) + 1);
+	            path.textpathok = true;
+	            ol.width = vml.width;
+	            ol.height = vml.height;
+	            o.string = Str(text);
+	            o.on = true;
+	            el[appendChild](o);
+	            el[appendChild](path);
+	            g[appendChild](el);
+	            var res = new Element(o, g, vml);
+	            res.shape = el;
+	            res.textpath = path;
+	            res.type = "text";
+	            res.attrs.text = text;
+	            res.attrs.x = x;
+	            res.attrs.y = y;
+	            res.attrs.w = 1;
+	            res.attrs.h = 1;
+	            setFillAndStroke(res, {font: availableAttrs.font, stroke: "none", fill: "#000"});
+	            res.setBox();
+	            vml.canvas[appendChild](g);
+	            return res;
+	        };
+	        setSize = function (width, height) {
+	            var cs = this.canvas.style;
+	            width == +width && (width += "px");
+	            height == +height && (height += "px");
+	            cs.width = width;
+	            cs.height = height;
+	            cs.clip = "rect(0 " + width + " " + height + " 0)";
+	            return this;
+	        };
+	        var createNode;
+	        doc.createStyleSheet().addRule(".rvml", "behavior:url(#default#VML)");
+	        try {
+	            !doc.namespaces.rvml && doc.namespaces.add("rvml", "urn:schemas-microsoft-com:vml");
+	            createNode = function (tagName) {
+	                return doc.createElement('<rvml:' + tagName + ' class="rvml">');
+	            };
+	        } catch (e) {
+	            createNode = function (tagName) {
+	                return doc.createElement('<' + tagName + ' xmlns="urn:schemas-microsoft.com:vml" class="rvml">');
+	            };
+	        }
+	        create = function () {
+	            var con = getContainer[apply](0, arguments),
+	                container = con.container,
+	                height = con.height,
+	                s,
+	                width = con.width,
+	                x = con.x,
+	                y = con.y;
+	            if (!container) {
+	                throw new Error("VML container not found.");
+	            }
+	            var res = new Paper,
+	                c = res.canvas = doc.createElement("div"),
+	                cs = c.style;
+	            x = x || 0;
+	            y = y || 0;
+	            width = width || 512;
+	            height = height || 342;
+	            width == +width && (width += "px");
+	            height == +height && (height += "px");
+	            res.width = 1e3;
+	            res.height = 1e3;
+	            res.coordsize = zoom * 1e3 + S + zoom * 1e3;
+	            res.coordorigin = "0 0";
+	            res.span = doc.createElement("span");
+	            res.span.style.cssText = "position:absolute;left:-9999em;top:-9999em;padding:0;margin:0;line-height:1;display:inline;";
+	            c[appendChild](res.span);
+	            cs.cssText = R.format("top:0;left:0;width:{0};height:{1};display:inline-block;position:relative;clip:rect(0 {0} {1} 0);overflow:hidden", width, height);
+	            if (container == 1) {
+	                doc.body[appendChild](c);
+	                cs.left = x + "px";
+	                cs.top = y + "px";
+	                cs.position = "absolute";
+	            } else {
+	                if (container.firstChild) {
+	                    container.insertBefore(c, container.firstChild);
+	                } else {
+	                    container[appendChild](c);
+	                }
+	            }
+	            plugins.call(res, res, R.fn);
+	            return res;
+	        };
+	        paperproto.clear = function () {
+	            this.canvas.innerHTML = E;
+	            this.span = doc.createElement("span");
+	            this.span.style.cssText = "position:absolute;left:-9999em;top:-9999em;padding:0;margin:0;line-height:1;display:inline;";
+	            this.canvas[appendChild](this.span);
+	            this.bottom = this.top = null;
+	        };
+	        paperproto.remove = function () {
+	            this.canvas.parentNode.removeChild(this.canvas);
+	            for (var i in this) {
+	                this[i] = removed(i);
+	            }
+	            return true;
+	        };
+	    }
+
+	    // rest
+	    // WebKit rendering bug workaround method
+	    var version = navigator.userAgent.match(/Version\/(.*?)\s/);
+	    if ((navigator.vendor == "Apple Computer, Inc.") && (version && version[1] < 4 || navigator.platform.slice(0, 2) == "iP")) {
+	        paperproto.safari = function () {
+	            var rect = this.rect(-99, -99, this.width + 99, this.height + 99).attr({stroke: "none"});
+	            win.setTimeout(function () {rect.remove();});
+	        };
+	    } else {
+	        paperproto.safari = function () {};
+	    }
+
+	    // Events
+	    var preventDefault = function () {
+	        this.returnValue = false;
+	    },
+	    preventTouch = function () {
+	        return this.originalEvent.preventDefault();
+	    },
+	    stopPropagation = function () {
+	        this.cancelBubble = true;
+	    },
+	    stopTouch = function () {
+	        return this.originalEvent.stopPropagation();
+	    },
+	    addEvent = (function () {
+	        if (doc.addEventListener) {
+	            return function (obj, type, fn, element) {
+	                var realName = supportsTouch && touchMap[type] ? touchMap[type] : type;
+	                var f = function (e) {
+	                    if (supportsTouch && touchMap[has](type)) {
+	                        for (var i = 0, ii = e.targetTouches && e.targetTouches.length; i < ii; i++) {
+	                            if (e.targetTouches[i].target == obj) {
+	                                var olde = e;
+	                                e = e.targetTouches[i];
+	                                e.originalEvent = olde;
+	                                e.preventDefault = preventTouch;
+	                                e.stopPropagation = stopTouch;
+	                                break;
+	                            }
+	                        }
+	                    }
+	                    return fn.call(element, e);
+	                };
+	                obj.addEventListener(realName, f, false);
+	                return function () {
+	                    obj.removeEventListener(realName, f, false);
+	                    return true;
+	                };
+	            };
+	        } else if (doc.attachEvent) {
+	            return function (obj, type, fn, element) {
+	                var f = function (e) {
+	                    e = e || win.event;
+	                    e.preventDefault = e.preventDefault || preventDefault;
+	                    e.stopPropagation = e.stopPropagation || stopPropagation;
+	                    return fn.call(element, e);
+	                };
+	                obj.attachEvent("on" + type, f);
+	                var detacher = function () {
+	                    obj.detachEvent("on" + type, f);
+	                    return true;
+	                };
+	                return detacher;
+	            };
+	        }
+	    })(),
+	    drag = [],
+	    dragMove = function (e) {
+	        var x = e.clientX,
+	            y = e.clientY,
+	            scrollY = doc.documentElement.scrollTop || doc.body.scrollTop,
+	            scrollX = doc.documentElement.scrollLeft || doc.body.scrollLeft,
+	            dragi,
+	            j = drag.length;
+	        while (j--) {
+	            dragi = drag[j];
+	            if (supportsTouch) {
+	                var i = e.touches.length,
+	                    touch;
+	                while (i--) {
+	                    touch = e.touches[i];
+	                    if (touch.identifier == dragi.el._drag.id) {
+	                        x = touch.clientX;
+	                        y = touch.clientY;
+	                        (e.originalEvent ? e.originalEvent : e).preventDefault();
+	                        break;
+	                    }
+	                }
+	            } else {
+	                e.preventDefault();
+	            }
+	            x += scrollX;
+	            y += scrollY;
+	            dragi.move && dragi.move.call(dragi.move_scope || dragi.el, x - dragi.el._drag.x, y - dragi.el._drag.y, x, y, e);
+	        }
+	    },
+	    dragUp = function (e) {
+	        R.unmousemove(dragMove).unmouseup(dragUp);
+	        var i = drag.length,
+	            dragi;
+	        while (i--) {
+	            dragi = drag[i];
+	            dragi.el._drag = {};
+	            dragi.end && dragi.end.call(dragi.end_scope || dragi.start_scope || dragi.move_scope || dragi.el, e);
+	        }
+	        drag = [];
+	    };
+	    for (var i = events[length]; i--;) {
+	        (function (eventName) {
+	            R[eventName] = Element[proto][eventName] = function (fn, scope) {
+	                if (R.is(fn, "function")) {
+	                    this.events = this.events || [];
+	                    this.events.push({name: eventName, f: fn, unbind: addEvent(this.shape || this.node || doc, eventName, fn, scope || this)});
+	                }
+	                return this;
+	            };
+	            R["un" + eventName] = Element[proto]["un" + eventName] = function (fn) {
+	                var events = this.events,
+	                    l = events[length];
+	                while (l--) if (events[l].name == eventName && events[l].f == fn) {
+	                    events[l].unbind();
+	                    events.splice(l, 1);
+	                    !events.length && delete this.events;
+	                    return this;
+	                }
+	                return this;
+	            };
+	        })(events[i]);
+	    }
+	    elproto.hover = function (f_in, f_out, scope_in, scope_out) {
+	        return this.mouseover(f_in, scope_in).mouseout(f_out, scope_out || scope_in);
+	    };
+	    elproto.unhover = function (f_in, f_out) {
+	        return this.unmouseover(f_in).unmouseout(f_out);
+	    };
+	    elproto.drag = function (onmove, onstart, onend, move_scope, start_scope, end_scope) {
+	        this._drag = {};
+	        this.mousedown(function (e) {
+	            (e.originalEvent || e).preventDefault();
+	            var scrollY = doc.documentElement.scrollTop || doc.body.scrollTop,
+	                scrollX = doc.documentElement.scrollLeft || doc.body.scrollLeft;
+	            this._drag.x = e.clientX + scrollX;
+	            this._drag.y = e.clientY + scrollY;
+	            this._drag.id = e.identifier;
+	            onstart && onstart.call(start_scope || move_scope || this, e.clientX + scrollX, e.clientY + scrollY, e);
+	            !drag.length && R.mousemove(dragMove).mouseup(dragUp);
+	            drag.push({el: this, move: onmove, end: onend, move_scope: move_scope, start_scope: start_scope, end_scope: end_scope});
+	        });
+	        return this;
+	    };
+	    elproto.undrag = function (onmove, onstart, onend) {
+	        var i = drag.length;
+	        while (i--) {
+	            drag[i].el == this && (drag[i].move == onmove && drag[i].end == onend) && drag.splice(i++, 1);
+	        }
+	        !drag.length && R.unmousemove(dragMove).unmouseup(dragUp);
+	    };
+	    paperproto.circle = function (x, y, r) {
+	        return theCircle(this, x || 0, y || 0, r || 0);
+	    };
+	    paperproto.rect = function (x, y, w, h, r) {
+	        return theRect(this, x || 0, y || 0, w || 0, h || 0, r || 0);
+	    };
+	    paperproto.ellipse = function (x, y, rx, ry) {
+	        return theEllipse(this, x || 0, y || 0, rx || 0, ry || 0);
+	    };
+	    paperproto.path = function (pathString) {
+	        pathString && !R.is(pathString, string) && !R.is(pathString[0], array) && (pathString += E);
+	        return thePath(R.format[apply](R, arguments), this);
+	    };
+	    paperproto.image = function (src, x, y, w, h) {
+	        return theImage(this, src || "about:blank", x || 0, y || 0, w || 0, h || 0);
+	    };
+	    paperproto.text = function (x, y, text) {
+	        return theText(this, x || 0, y || 0, Str(text));
+	    };
+	    paperproto.set = function (itemsArray) {
+	        arguments[length] > 1 && (itemsArray = Array[proto].splice.call(arguments, 0, arguments[length]));
+	        return new Set(itemsArray);
+	    };
+	    paperproto.setSize = setSize;
+	    paperproto.top = paperproto.bottom = null;
+	    paperproto.raphael = R;
+	    function x_y() {
+	        return this.x + S + this.y;
+	    }
+	    elproto.resetScale = function () {
+	        if (this.removed) {
+	            return this;
+	        }
+	        this._.sx = 1;
+	        this._.sy = 1;
+	        this.attrs.scale = "1 1";
+	    };
+	    elproto.scale = function (x, y, cx, cy) {
+	        if (this.removed) {
+	            return this;
+	        }
+	        if (x == null && y == null) {
+	            return {
+	                x: this._.sx,
+	                y: this._.sy,
+	                toString: x_y
+	            };
+	        }
+	        y = y || x;
+	        !+y && (y = x);
+	        var dx,
+	            dy,
+	            dcx,
+	            dcy,
+	            a = this.attrs;
+	        if (x != 0) {
+	            var bb = this.getBBox(),
+	                rcx = bb.x + bb.width / 2,
+	                rcy = bb.y + bb.height / 2,
+	                kx = abs(x / this._.sx),
+	                ky = abs(y / this._.sy);
+	            cx = (+cx || cx == 0) ? cx : rcx;
+	            cy = (+cy || cy == 0) ? cy : rcy;
+	            var posx = this._.sx > 0,
+	                posy = this._.sy > 0,
+	                dirx = ~~(x / abs(x)),
+	                diry = ~~(y / abs(y)),
+	                dkx = kx * dirx,
+	                dky = ky * diry,
+	                s = this.node.style,
+	                ncx = cx + abs(rcx - cx) * dkx * (rcx > cx == posx ? 1 : -1),
+	                ncy = cy + abs(rcy - cy) * dky * (rcy > cy == posy ? 1 : -1),
+	                fr = (x * dirx > y * diry ? ky : kx);
+	            switch (this.type) {
+	                case "rect":
+	                case "image":
+	                    var neww = a.width * kx,
+	                        newh = a.height * ky;
+	                    this.attr({
+	                        height: newh,
+	                        r: a.r * fr,
+	                        width: neww,
+	                        x: ncx - neww / 2,
+	                        y: ncy - newh / 2
+	                    });
+	                    break;
+	                case "circle":
+	                case "ellipse":
+	                    this.attr({
+	                        rx: a.rx * kx,
+	                        ry: a.ry * ky,
+	                        r: a.r * fr,
+	                        cx: ncx,
+	                        cy: ncy
+	                    });
+	                    break;
+	                case "text":
+	                    this.attr({
+	                        x: ncx,
+	                        y: ncy
+	                    });
+	                    break;
+	                case "path":
+	                    var path = pathToRelative(a.path),
+	                        skip = true,
+	                        fx = posx ? dkx : kx,
+	                        fy = posy ? dky : ky;
+	                    for (var i = 0, ii = path[length]; i < ii; i++) {
+	                        var p = path[i],
+	                            P0 = upperCase.call(p[0]);
+	                        if (P0 == "M" && skip) {
+	                            continue;
+	                        } else {
+	                            skip = false;
+	                        }
+	                        if (P0 == "A") {
+	                            p[path[i][length] - 2] *= fx;
+	                            p[path[i][length] - 1] *= fy;
+	                            p[1] *= kx;
+	                            p[2] *= ky;
+	                            p[5] = +(dirx + diry ? !!+p[5] : !+p[5]);
+	                        } else if (P0 == "H") {
+	                            for (var j = 1, jj = p[length]; j < jj; j++) {
+	                                p[j] *= fx;
+	                            }
+	                        } else if (P0 == "V") {
+	                            for (j = 1, jj = p[length]; j < jj; j++) {
+	                                p[j] *= fy;
+	                            }
+	                         } else {
+	                            for (j = 1, jj = p[length]; j < jj; j++) {
+	                                p[j] *= (j % 2) ? fx : fy;
+	                            }
+	                        }
+	                    }
+	                    var dim2 = pathDimensions(path);
+	                    dx = ncx - dim2.x - dim2.width / 2;
+	                    dy = ncy - dim2.y - dim2.height / 2;
+	                    path[0][1] += dx;
+	                    path[0][2] += dy;
+	                    this.attr({path: path});
+	                break;
+	            }
+	            if (this.type in {text: 1, image:1} && (dirx != 1 || diry != 1)) {
+	                if (this.transformations) {
+	                    this.transformations[2] = "scale("[concat](dirx, ",", diry, ")");
+	                    setAttr(this.node, "transform", this.transformations[join](S));
+	                    dx = (dirx == -1) ? -a.x - (neww || 0) : a.x;
+	                    dy = (diry == -1) ? -a.y - (newh || 0) : a.y;
+	                    this.attr({x: dx, y: dy});
+	                    a.fx = dirx - 1;
+	                    a.fy = diry - 1;
+	                } else {
+	                    this.node.filterMatrix = ms + ".Matrix(M11="[concat](dirx,
+	                        ", M12=0, M21=0, M22=", diry,
+	                        ", Dx=0, Dy=0, sizingmethod='auto expand', filtertype='bilinear')");
+	                    s.filter = (this.node.filterMatrix || E) + (this.node.filterOpacity || E);
+	                }
+	            } else {
+	                if (this.transformations) {
+	                    this.transformations[2] = E;
+	                    setAttr(this.node, "transform", this.transformations[join](S));
+	                    a.fx = 0;
+	                    a.fy = 0;
+	                } else {
+	                    this.node.filterMatrix = E;
+	                    s.filter = (this.node.filterMatrix || E) + (this.node.filterOpacity || E);
+	                }
+	            }
+	            a.scale = [x, y, cx, cy][join](S);
+	            this._.sx = x;
+	            this._.sy = y;
+	        }
+	        return this;
+	    };
+	    elproto.clone = function () {
+	        if (this.removed) {
+	            return null;
+	        }
+	        var attr = this.attr();
+	        delete attr.scale;
+	        delete attr.translation;
+	        return this.paper[this.type]().attr(attr);
+	    };
+	    var curveslengths = {},
+	    getPointAtSegmentLength = function (p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y, length) {
+	        // Is this a straight line?
+	        // Added for huge speed improvements
+	        if ( p1x === c1x && p1y === c1y && c2x === p2x && c2y == p2y ) {
+	            var dx = p2x - p1x, dy = p2y - p1y;
+	            var totalLength = Math.sqrt( dx * dx + dy * dy );
+
+	            if ( length == null ) {
+	                return totalLength;
+	            } else {
+	                var fract = length / totalLength;
+	                return {
+	                    start: { x: p1x, y: p1y },
+	                    m: { x: p1x, y: p1y },
+	                    n: { x: p2x, y: p2y },
+	                    end: { x: p2x, y: p2y },
+	                    x: p1x + fract * dx,
+	                    y: p1y + fract * dy,
+	                    alpha: (90 - math.atan(dx / dy) * 180 / PI)
+	                };
+	            }
+	        }
+
+	        var len = 0,
+	            precision = 100,
+	            name = [p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y].join(),
+	            cache = curveslengths[name],
+	            old, dot;
+	        !cache && (curveslengths[name] = cache = {data: []});
+	        cache.timer && clearTimeout(cache.timer);
+	        cache.timer = setTimeout(function () {delete curveslengths[name];}, 2000);
+	        if (length != null) {
+	            var total = getPointAtSegmentLength(p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y);
+	            precision = ~~total * 10;
+	        }
+	        for (var i = 0; i < precision + 1; i++) {
+	            if (cache.data[length] > i) {
+	                dot = cache.data[i * precision];
+	            } else {
+	                dot = R.findDotsAtSegment(p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y, i / precision);
+	                cache.data[i] = dot;
+	            }
+	            i && (len += pow(pow(old.x - dot.x, 2) + pow(old.y - dot.y, 2), .5));
+	            if (length != null && len >= length) {
+	                return dot;
+	            }
+	            old = dot;
+	        }
+	        if (length == null) {
+	            return len;
+	        }
+	    },
+	    getLengthFactory = function (istotal, subpath) {
+	        return function (path, length, onlystart) {
+	            path = path2curve(path);
+	            var x, y, p, l, sp = "", subpaths = {}, point,
+	                len = 0;
+	            for (var i = 0, ii = path.length; i < ii; i++) {
+	                p = path[i];
+	                if (p[0] == "M") {
+	                    x = +p[1];
+	                    y = +p[2];
+	                } else {
+	                    l = getPointAtSegmentLength(x, y, p[1], p[2], p[3], p[4], p[5], p[6]);
+	                    if (len + l > length) {
+	                        if (subpath && !subpaths.start) {
+	                            point = getPointAtSegmentLength(x, y, p[1], p[2], p[3], p[4], p[5], p[6], length - len);
+	                            sp += ["C", point.start.x, point.start.y, point.m.x, point.m.y, point.x, point.y];
+	                            if (onlystart) {return sp;}
+	                            subpaths.start = sp;
+	                            sp = ["M", point.x, point.y + "C", point.n.x, point.n.y, point.end.x, point.end.y, p[5], p[6]][join]();
+	                            len += l;
+	                            x = +p[5];
+	                            y = +p[6];
+	                            continue;
+	                        }
+	                        if (!istotal && !subpath) {
+	                            point = getPointAtSegmentLength(x, y, p[1], p[2], p[3], p[4], p[5], p[6], length - len);
+	                            return {x: point.x, y: point.y, alpha: point.alpha};
+	                        }
+	                    }
+	                    len += l;
+	                    x = +p[5];
+	                    y = +p[6];
+	                }
+	                sp += p;
+	            }
+	            subpaths.end = sp;
+	            point = istotal ? len : subpath ? subpaths : R.findDotsAtSegment(x, y, p[1], p[2], p[3], p[4], p[5], p[6], 1);
+	            point.alpha && (point = {x: point.x, y: point.y, alpha: point.alpha});
+	            return point;
+	        };
+	    };
+	    var getTotalLength = getLengthFactory(1),
+	        getPointAtLength = getLengthFactory(),
+	        getSubpathsAtLength = getLengthFactory(0, 1);
+	    elproto.getTotalLength = function () {
+	        if (this.type != "path") {return;}
+	        if (this.node.getTotalLength) {
+	            return this.node.getTotalLength();
+	        }
+	        return getTotalLength(this.attrs.path);
+	    };
+	    elproto.getPointAtLength = function (length) {
+	        if (this.type != "path") {return;}
+	        return getPointAtLength(this.attrs.path, length);
+	    };
+	    elproto.getSubpath = function (from, to) {
+	        if (this.type != "path") {return;}
+	        if (abs(this.getTotalLength() - to) < "1e-6") {
+	            return getSubpathsAtLength(this.attrs.path, from).end;
+	        }
+	        var a = getSubpathsAtLength(this.attrs.path, to, 1);
+	        return from ? getSubpathsAtLength(a, from).end : a;
+	    };
+
+	    // animation easing formulas
+	    R.easing_formulas = {
+	        linear: function (n) {
+	            return n;
+	        },
+	        "<": function (n) {
+	            return pow(n, 3);
+	        },
+	        ">": function (n) {
+	            return pow(n - 1, 3) + 1;
+	        },
+	        "<>": function (n) {
+	            n = n * 2;
+	            if (n < 1) {
+	                return pow(n, 3) / 2;
+	            }
+	            n -= 2;
+	            return (pow(n, 3) + 2) / 2;
+	        },
+	        backIn: function (n) {
+	            var s = 1.70158;
+	            return n * n * ((s + 1) * n - s);
+	        },
+	        backOut: function (n) {
+	            n = n - 1;
+	            var s = 1.70158;
+	            return n * n * ((s + 1) * n + s) + 1;
+	        },
+	        elastic: function (n) {
+	            if (n == 0 || n == 1) {
+	                return n;
+	            }
+	            var p = .3,
+	                s = p / 4;
+	            return pow(2, -10 * n) * math.sin((n - s) * (2 * PI) / p) + 1;
+	        },
+	        bounce: function (n) {
+	            var s = 7.5625,
+	                p = 2.75,
+	                l;
+	            if (n < (1 / p)) {
+	                l = s * n * n;
+	            } else {
+	                if (n < (2 / p)) {
+	                    n -= (1.5 / p);
+	                    l = s * n * n + .75;
+	                } else {
+	                    if (n < (2.5 / p)) {
+	                        n -= (2.25 / p);
+	                        l = s * n * n + .9375;
+	                    } else {
+	                        n -= (2.625 / p);
+	                        l = s * n * n + .984375;
+	                    }
+	                }
+	            }
+	            return l;
+	        }
+	    };
+
+	    var animationElements = [],
+	        animation = function () {
+	            var Now = +new Date;
+	            for (var l = 0; l < animationElements[length]; l++) {
+	                var e = animationElements[l];
+	                if (e.stop || e.el.removed) {
+	                    continue;
+	                }
+	                var time = Now - e.start,
+	                    ms = e.ms,
+	                    easing = e.easing,
+	                    from = e.from,
+	                    diff = e.diff,
+	                    to = e.to,
+	                    t = e.t,
+	                    that = e.el,
+	                    set = {},
+	                    now;
+	                if (time < ms) {
+	                    var pos = easing(time / ms);
+	                    for (var attr in from) if (from[has](attr)) {
+	                        switch (availableAnimAttrs[attr]) {
+	                            case "along":
+	                                now = pos * ms * diff[attr];
+	                                to.back && (now = to.len - now);
+	                                var point = getPointAtLength(to[attr], now);
+	                                that.translate(diff.sx - diff.x || 0, diff.sy - diff.y || 0);
+	                                diff.x = point.x;
+	                                diff.y = point.y;
+	                                that.translate(point.x - diff.sx, point.y - diff.sy);
+	                                to.rot && that.rotate(diff.r + point.alpha, point.x, point.y);
+	                                break;
+	                            case nu:
+	                                now = +from[attr] + pos * ms * diff[attr];
+	                                break;
+	                            case "colour":
+	                                now = "rgb(" + [
+	                                    upto255(round(from[attr].r + pos * ms * diff[attr].r)),
+	                                    upto255(round(from[attr].g + pos * ms * diff[attr].g)),
+	                                    upto255(round(from[attr].b + pos * ms * diff[attr].b))
+	                                ][join](",") + ")";
+	                                break;
+	                            case "path":
+	                                now = [];
+	                                for (var i = 0, ii = from[attr][length]; i < ii; i++) {
+	                                    now[i] = [from[attr][i][0]];
+	                                    for (var j = 1, jj = from[attr][i][length]; j < jj; j++) {
+	                                        now[i][j] = +from[attr][i][j] + pos * ms * diff[attr][i][j];
+	                                    }
+	                                    now[i] = now[i][join](S);
+	                                }
+	                                now = now[join](S);
+	                                break;
+	                            case "csv":
+	                                switch (attr) {
+	                                    case "translation":
+	                                        var x = pos * ms * diff[attr][0] - t.x,
+	                                            y = pos * ms * diff[attr][1] - t.y;
+	                                        t.x += x;
+	                                        t.y += y;
+	                                        now = x + S + y;
+	                                    break;
+	                                    case "rotation":
+	                                        now = +from[attr][0] + pos * ms * diff[attr][0];
+	                                        from[attr][1] && (now += "," + from[attr][1] + "," + from[attr][2]);
+	                                    break;
+	                                    case "scale":
+	                                        now = [+from[attr][0] + pos * ms * diff[attr][0], +from[attr][1] + pos * ms * diff[attr][1], (2 in to[attr] ? to[attr][2] : E), (3 in to[attr] ? to[attr][3] : E)][join](S);
+	                                    break;
+	                                    case "clip-rect":
+	                                        now = [];
+	                                        i = 4;
+	                                        while (i--) {
+	                                            now[i] = +from[attr][i] + pos * ms * diff[attr][i];
+	                                        }
+	                                    break;
+	                                }
+	                                break;
+	                            default:
+	                              var from2 = [].concat(from[attr]);
+	                                now = [];
+	                                i = that.paper.customAttributes[attr].length;
+	                                while (i--) {
+	                                    now[i] = +from2[i] + pos * ms * diff[attr][i];
+	                                }
+	                                break;
+	                        }
+	                        set[attr] = now;
+	                    }
+	                    that.attr(set);
+	                    that._run && that._run.call(that);
+	                } else {
+	                    if (to.along) {
+	                        point = getPointAtLength(to.along, to.len * !to.back);
+	                        that.translate(diff.sx - (diff.x || 0) + point.x - diff.sx, diff.sy - (diff.y || 0) + point.y - diff.sy);
+	                        to.rot && that.rotate(diff.r + point.alpha, point.x, point.y);
+	                    }
+	                    (t.x || t.y) && that.translate(-t.x, -t.y);
+	                    to.scale && (to.scale += E);
+	                    that.attr(to);
+	                    animationElements.splice(l--, 1);
+	                }
+	            }
+	            R.svg && that && that.paper && that.paper.safari();
+	            animationElements[length] && setTimeout(animation);
+	        },
+	        keyframesRun = function (attr, element, time, prev, prevcallback) {
+	            var dif = time - prev;
+	            element.timeouts.push(setTimeout(function () {
+	                R.is(prevcallback, "function") && prevcallback.call(element);
+	                element.animate(attr, dif, attr.easing);
+	            }, prev));
+	        },
+	        upto255 = function (color) {
+	            return mmax(mmin(color, 255), 0);
+	        },
+	        translate = function (x, y) {
+	            if (x == null) {
+	                return {x: this._.tx, y: this._.ty, toString: x_y};
+	            }
+	            this._.tx += +x;
+	            this._.ty += +y;
+	            switch (this.type) {
+	                case "circle":
+	                case "ellipse":
+	                    this.attr({cx: +x + this.attrs.cx, cy: +y + this.attrs.cy});
+	                    break;
+	                case "rect":
+	                case "image":
+	                case "text":
+	                    this.attr({x: +x + this.attrs.x, y: +y + this.attrs.y});
+	                    break;
+	                case "path":
+	                    var path = pathToRelative(this.attrs.path);
+	                    path[0][1] += +x;
+	                    path[0][2] += +y;
+	                    this.attr({path: path});
+	                break;
+	            }
+	            return this;
+	        };
+	    elproto.animateWith = function (element, params, ms, easing, callback) {
+	        for (var i = 0, ii = animationElements.length; i < ii; i++) {
+	            if (animationElements[i].el.id == element.id) {
+	                params.start = animationElements[i].start;
+	            }
+	        }
+	        return this.animate(params, ms, easing, callback);
+	    };
+	    elproto.animateAlong = along();
+	    elproto.animateAlongBack = along(1);
+	    function along(isBack) {
+	        return function (path, ms, rotate, callback) {
+	            var params = {back: isBack};
+	            R.is(rotate, "function") ? (callback = rotate) : (params.rot = rotate);
+	            path && path.constructor == Element && (path = path.attrs.path);
+	            path && (params.along = path);
+	            return this.animate(params, ms, callback);
+	        };
+	    }
+	    function CubicBezierAtTime(t, p1x, p1y, p2x, p2y, duration) {
+	        var cx = 3 * p1x,
+	            bx = 3 * (p2x - p1x) - cx,
+	            ax = 1 - cx - bx,
+	            cy = 3 * p1y,
+	            by = 3 * (p2y - p1y) - cy,
+	            ay = 1 - cy - by;
+	        function sampleCurveX(t) {
+	            return ((ax * t + bx) * t + cx) * t;
+	        }
+	        function solve(x, epsilon) {
+	            var t = solveCurveX(x, epsilon);
+	            return ((ay * t + by) * t + cy) * t;
+	        }
+	        function solveCurveX(x, epsilon) {
+	            var t0, t1, t2, x2, d2, i;
+	            for(t2 = x, i = 0; i < 8; i++) {
+	                x2 = sampleCurveX(t2) - x;
+	                if (abs(x2) < epsilon) {
+	                    return t2;
+	                }
+	                d2 = (3 * ax * t2 + 2 * bx) * t2 + cx;
+	                if (abs(d2) < 1e-6) {
+	                    break;
+	                }
+	                t2 = t2 - x2 / d2;
+	            }
+	            t0 = 0;
+	            t1 = 1;
+	            t2 = x;
+	            if (t2 < t0) {
+	                return t0;
+	            }
+	            if (t2 > t1) {
+	                return t1;
+	            }
+	            while (t0 < t1) {
+	                x2 = sampleCurveX(t2);
+	                if (abs(x2 - x) < epsilon) {
+	                    return t2;
+	                }
+	                if (x > x2) {
+	                    t0 = t2;
+	                } else {
+	                    t1 = t2;
+	                }
+	                t2 = (t1 - t0) / 2 + t0;
+	            }
+	            return t2;
+	        }
+	        return solve(t, 1 / (200 * duration));
+	    }
+	    elproto.onAnimation = function (f) {
+	        this._run = f || 0;
+	        return this;
+	    };
+	    elproto.animate = function (params, ms, easing, callback) {
+	        var element = this;
+	        element.timeouts = element.timeouts || [];
+	        if (R.is(easing, "function") || !easing) {
+	            callback = easing || null;
+	        }
+	        if (element.removed) {
+	            callback && callback.call(element);
+	            return element;
+	        }
+	        var from = {},
+	            to = {},
+	            animateable = false,
+	            diff = {};
+	        for (var attr in params) if (params[has](attr)) {
+	            if (availableAnimAttrs[has](attr) || element.paper.customAttributes[has](attr)) {
+	                animateable = true;
+	                from[attr] = element.attr(attr);
+	                (from[attr] == null) && (from[attr] = availableAttrs[attr]);
+	                to[attr] = params[attr];
+	                switch (availableAnimAttrs[attr]) {
+	                    case "along":
+	                        var len = getTotalLength(params[attr]);
+	                        var point = getPointAtLength(params[attr], len * !!params.back);
+	                        var bb = element.getBBox();
+	                        diff[attr] = len / ms;
+	                        diff.tx = bb.x;
+	                        diff.ty = bb.y;
+	                        diff.sx = point.x;
+	                        diff.sy = point.y;
+	                        to.rot = params.rot;
+	                        to.back = params.back;
+	                        to.len = len;
+	                        params.rot && (diff.r = toFloat(element.rotate()) || 0);
+	                        break;
+	                    case nu:
+	                        diff[attr] = (to[attr] - from[attr]) / ms;
+	                        break;
+	                    case "colour":
+	                        from[attr] = R.getRGB(from[attr]);
+	                        var toColour = R.getRGB(to[attr]);
+	                        diff[attr] = {
+	                            r: (toColour.r - from[attr].r) / ms,
+	                            g: (toColour.g - from[attr].g) / ms,
+	                            b: (toColour.b - from[attr].b) / ms
+	                        };
+	                        break;
+	                    case "path":
+	                        var pathes = path2curve(from[attr], to[attr]);
+	                        from[attr] = pathes[0];
+	                        var toPath = pathes[1];
+	                        diff[attr] = [];
+	                        for (var i = 0, ii = from[attr][length]; i < ii; i++) {
+	                            diff[attr][i] = [0];
+	                            for (var j = 1, jj = from[attr][i][length]; j < jj; j++) {
+	                                diff[attr][i][j] = (toPath[i][j] - from[attr][i][j]) / ms;
+	                            }
+	                        }
+	                        break;
+	                    case "csv":
+	                        var values = Str(params[attr])[split](separator),
+	                            from2 = Str(from[attr])[split](separator);
+	                        switch (attr) {
+	                            case "translation":
+	                                from[attr] = [0, 0];
+	                                diff[attr] = [values[0] / ms, values[1] / ms];
+	                            break;
+	                            case "rotation":
+	                                from[attr] = (from2[1] == values[1] && from2[2] == values[2]) ? from2 : [0, values[1], values[2]];
+	                                diff[attr] = [(values[0] - from[attr][0]) / ms, 0, 0];
+	                            break;
+	                            case "scale":
+	                                params[attr] = values;
+	                                from[attr] = Str(from[attr])[split](separator);
+	                                diff[attr] = [(values[0] - from[attr][0]) / ms, (values[1] - from[attr][1]) / ms, 0, 0];
+	                            break;
+	                            case "clip-rect":
+	                                from[attr] = Str(from[attr])[split](separator);
+	                                diff[attr] = [];
+	                                i = 4;
+	                                while (i--) {
+	                                    diff[attr][i] = (values[i] - from[attr][i]) / ms;
+	                                }
+	                            break;
+	                        }
+	                        to[attr] = values;
+	                        break;
+	                    default:
+	                        values = [].concat(params[attr]);
+	                        from2 = [].concat(from[attr]);
+	                        diff[attr] = [];
+	                        i = element.paper.customAttributes[attr][length];
+	                        while (i--) {
+	                            diff[attr][i] = ((values[i] || 0) - (from2[i] || 0)) / ms;
+	                        }
+	                        break;
+	                }
+	            }
+	        }
+	        if (!animateable) {
+	            var attrs = [],
+	                lastcall;
+	            for (var key in params) if (params[has](key) && animKeyFrames.test(key)) {
+	                attr = {value: params[key]};
+	                key == "from" && (key = 0);
+	                key == "to" && (key = 100);
+	                attr.key = toInt(key, 10);
+	                attrs.push(attr);
+	            }
+	            attrs.sort(sortByKey);
+	            if (attrs[0].key) {
+	                attrs.unshift({key: 0, value: element.attrs});
+	            }
+	            for (i = 0, ii = attrs[length]; i < ii; i++) {
+	                keyframesRun(attrs[i].value, element, ms / 100 * attrs[i].key, ms / 100 * (attrs[i - 1] && attrs[i - 1].key || 0), attrs[i - 1] && attrs[i - 1].value.callback);
+	            }
+	            lastcall = attrs[attrs[length] - 1].value.callback;
+	            if (lastcall) {
+	                element.timeouts.push(setTimeout(function () {lastcall.call(element);}, ms));
+	            }
+	        } else {
+	            var easyeasy = R.easing_formulas[easing];
+	            if (!easyeasy) {
+	                easyeasy = Str(easing).match(bezierrg);
+	                if (easyeasy && easyeasy[length] == 5) {
+	                    var curve = easyeasy;
+	                    easyeasy = function (t) {
+	                        return CubicBezierAtTime(t, +curve[1], +curve[2], +curve[3], +curve[4], ms);
+	                    };
+	                } else {
+	                    easyeasy = function (t) {
+	                        return t;
+	                    };
+	                }
+	            }
+	            animationElements.push({
+	                start: params.start || +new Date,
+	                ms: ms,
+	                easing: easyeasy,
+	                from: from,
+	                diff: diff,
+	                to: to,
+	                el: element,
+	                t: {x: 0, y: 0}
+	            });
+	            R.is(callback, "function") && (element._ac = setTimeout(function () {
+	                callback.call(element);
+	            }, ms));
+	            animationElements[length] == 1 && setTimeout(animation);
+	        }
+	        return this;
+	    };
+	    elproto.stop = function () {
+	        for (var i = 0; i < animationElements.length; i++) {
+	            animationElements[i].el.id == this.id && animationElements.splice(i--, 1);
+	        }
+	        for (i = 0, ii = this.timeouts && this.timeouts.length; i < ii; i++) {
+	            clearTimeout(this.timeouts[i]);
+	        }
+	        this.timeouts = [];
+	        clearTimeout(this._ac);
+	        delete this._ac;
+	        return this;
+	    };
+	    elproto.translate = function (x, y) {
+	        return this.attr({translation: x + " " + y});
+	    };
+	    elproto[toString] = function () {
+	        return "Rapha\xebl\u2019s object";
+	    };
+	    R.ae = animationElements;
+
+	    // Set
+	    var Set = function (items) {
+	        this.items = [];
+	        this[length] = 0;
+	        this.type = "set";
+	        if (items) {
+	            for (var i = 0, ii = items[length]; i < ii; i++) {
+	                if (items[i] && (items[i].constructor == Element || items[i].constructor == Set)) {
+	                    this[this.items[length]] = this.items[this.items[length]] = items[i];
+	                    this[length]++;
+	                }
+	            }
+	        }
+	    };
+	    Set[proto][push] = function () {
+	        var item,
+	            len;
+	        for (var i = 0, ii = arguments[length]; i < ii; i++) {
+	            item = arguments[i];
+	            if (item && (item.constructor == Element || item.constructor == Set)) {
+	                len = this.items[length];
+	                this[len] = this.items[len] = item;
+	                this[length]++;
+	            }
+	        }
+	        return this;
+	    };
+	    Set[proto].pop = function () {
+	        delete this[this[length]--];
+	        return this.items.pop();
+	    };
+	    for (var method in elproto) if (elproto[has](method)) {
+	        Set[proto][method] = (function (methodname) {
+	            return function () {
+	                for (var i = 0, ii = this.items[length]; i < ii; i++) {
+	                    this.items[i][methodname][apply](this.items[i], arguments);
+	                }
+	                return this;
+	            };
+	        })(method);
+	    }
+	    Set[proto].attr = function (name, value) {
+	        if (name && R.is(name, array) && R.is(name[0], "object")) {
+	            for (var j = 0, jj = name[length]; j < jj; j++) {
+	                this.items[j].attr(name[j]);
+	            }
+	        } else {
+	            for (var i = 0, ii = this.items[length]; i < ii; i++) {
+	                this.items[i].attr(name, value);
+	            }
+	        }
+	        return this;
+	    };
+	    Set[proto].animate = function (params, ms, easing, callback) {
+	        (R.is(easing, "function") || !easing) && (callback = easing || null);
+	        var len = this.items[length],
+	            i = len,
+	            item,
+	            set = this,
+	            collector;
+	        callback && (collector = function () {
+	            !--len && callback.call(set);
+	        });
+	        easing = R.is(easing, string) ? easing : collector;
+	        item = this.items[--i].animate(params, ms, easing, collector);
+	        while (i--) {
+	            this.items[i] && !this.items[i].removed && this.items[i].animateWith(item, params, ms, easing, collector);
+	        }
+	        return this;
+	    };
+	    Set[proto].insertAfter = function (el) {
+	        var i = this.items[length];
+	        while (i--) {
+	            this.items[i].insertAfter(el);
+	        }
+	        return this;
+	    };
+	    Set[proto].getBBox = function () {
+	        var x = [],
+	            y = [],
+	            w = [],
+	            h = [];
+	        for (var i = this.items[length]; i--;) {
+	            var box = this.items[i].getBBox();
+	            x[push](box.x);
+	            y[push](box.y);
+	            w[push](box.x + box.width);
+	            h[push](box.y + box.height);
+	        }
+	        x = mmin[apply](0, x);
+	        y = mmin[apply](0, y);
+	        return {
+	            x: x,
+	            y: y,
+	            width: mmax[apply](0, w) - x,
+	            height: mmax[apply](0, h) - y
+	        };
+	    };
+	    Set[proto].clone = function (s) {
+	        s = new Set;
+	        for (var i = 0, ii = this.items[length]; i < ii; i++) {
+	            s[push](this.items[i].clone());
+	        }
+	        return s;
+	    };
+
+	    R.registerFont = function (font) {
+	        if (!font.face) {
+	            return font;
+	        }
+	        this.fonts = this.fonts || {};
+	        var fontcopy = {
+	                w: font.w,
+	                face: {},
+	                glyphs: {}
+	            },
+	            family = font.face["font-family"];
+	        for (var prop in font.face) if (font.face[has](prop)) {
+	            fontcopy.face[prop] = font.face[prop];
+	        }
+	        if (this.fonts[family]) {
+	            this.fonts[family][push](fontcopy);
+	        } else {
+	            this.fonts[family] = [fontcopy];
+	        }
+	        if (!font.svg) {
+	            fontcopy.face["units-per-em"] = toInt(font.face["units-per-em"], 10);
+	            for (var glyph in font.glyphs) if (font.glyphs[has](glyph)) {
+	                var path = font.glyphs[glyph];
+	                fontcopy.glyphs[glyph] = {
+	                    w: path.w,
+	                    k: {},
+	                    d: path.d && "M" + path.d[rp](/[mlcxtrv]/g, function (command) {
+	                            return {l: "L", c: "C", x: "z", t: "m", r: "l", v: "c"}[command] || "M";
+	                        }) + "z"
+	                };
+	                if (path.k) {
+	                    for (var k in path.k) if (path[has](k)) {
+	                        fontcopy.glyphs[glyph].k[k] = path.k[k];
+	                    }
+	                }
+	            }
+	        }
+	        return font;
+	    };
+	    paperproto.getFont = function (family, weight, style, stretch) {
+	        stretch = stretch || "normal";
+	        style = style || "normal";
+	        weight = +weight || {normal: 400, bold: 700, lighter: 300, bolder: 800}[weight] || 400;
+	        if (!R.fonts) {
+	            return;
+	        }
+	        var font = R.fonts[family];
+	        if (!font) {
+	            var name = new RegExp("(^|\\s)" + family[rp](/[^\w\d\s+!~.:_-]/g, E) + "(\\s|$)", "i");
+	            for (var fontName in R.fonts) if (R.fonts[has](fontName)) {
+	                if (name.test(fontName)) {
+	                    font = R.fonts[fontName];
+	                    break;
+	                }
+	            }
+	        }
+	        var thefont;
+	        if (font) {
+	            for (var i = 0, ii = font[length]; i < ii; i++) {
+	                thefont = font[i];
+	                if (thefont.face["font-weight"] == weight && (thefont.face["font-style"] == style || !thefont.face["font-style"]) && thefont.face["font-stretch"] == stretch) {
+	                    break;
+	                }
+	            }
+	        }
+	        return thefont;
+	    };
+	    paperproto.print = function (x, y, string, font, size, origin, letter_spacing) {
+	        origin = origin || "middle"; // baseline|middle
+	        letter_spacing = mmax(mmin(letter_spacing || 0, 1), -1);
+	        var out = this.set(),
+	            letters = Str(string)[split](E),
+	            shift = 0,
+	            path = E,
+	            scale;
+	        R.is(font, string) && (font = this.getFont(font));
+	        if (font) {
+	            scale = (size || 16) / font.face["units-per-em"];
+	            var bb = font.face.bbox.split(separator),
+	                top = +bb[0],
+	                height = +bb[1] + (origin == "baseline" ? bb[3] - bb[1] + (+font.face.descent) : (bb[3] - bb[1]) / 2);
+	            for (var i = 0, ii = letters[length]; i < ii; i++) {
+	                var prev = i && font.glyphs[letters[i - 1]] || {},
+	                    curr = font.glyphs[letters[i]];
+	                shift += i ? (prev.w || font.w) + (prev.k && prev.k[letters[i]] || 0) + (font.w * letter_spacing) : 0;
+	                curr && curr.d && out[push](this.path(curr.d).attr({fill: "#000", stroke: "none", translation: [shift, 0]}));
+	            }
+	            out.scale(scale, scale, top, height).translate(x - top, y - height);
+	        }
+	        return out;
+	    };
+
+	    R.format = function (token, params) {
+	        var args = R.is(params, array) ? [0][concat](params) : arguments;
+	        token && R.is(token, string) && args[length] - 1 && (token = token[rp](formatrg, function (str, i) {
+	            return args[++i] == null ? E : args[i];
+	        }));
+	        return token || E;
+	    };
+	    R.ninja = function () {
+	        oldRaphael.was ? (win.Raphael = oldRaphael.is) : delete Raphael;
+	        return R;
+	    };
+	    R.el = elproto;
+	    R.st = Set[proto];
+
+	    oldRaphael.was ? (win.Raphael = R) : (Raphael = R);
+	})();
+
+
+/***/ },
+/* 207 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/* globals i18n:false */
+
+	var $ = __webpack_require__(19);
+	var _ = __webpack_require__(16);
+
+	var crc32 = __webpack_require__(216);
+
+	var localMode = undefined;
+
+	// Keep the template variables private, to prevent external access
+	var VARS = {};
+
+	$.tmpl = {
+	    DATA_ENSURE_LOOPS: 0,
+
+	    // Processors that act based on element attributes
+	    attr: {
+	        "data-ensure": function (elem, ensure) {
+	            // Returns a function in order to run after other templating and
+	            // var assignment
+	            return function (elem) {
+	                // Return a boolean corresponding to the ensure's value False
+	                // means all templating will be run again, so new values will
+	                // be chosen
+	                var result = !!(ensure && $.tmpl.getVAR(ensure));
+	                if (!result) {
+	                    if ($.tmpl.DATA_ENSURE_LOOPS++ > 10000 && localMode) {
+	                        // Shucks, probably not possible. Just give up in order
+	                        // to not hang the dev's browser.
+	                        alert("unsatisfiable data-ensure?"); // @Nolint
+	                        return true;
+	                    }
+	                }
+	                return result;
+	            };
+	        },
+
+	        "data-if": function (elem, value) {
+	            var $elem = $(elem);
+
+	            value = value && $.tmpl.getVAR(value);
+
+	            // Save the result of this data-if in the next sibling for
+	            // data-else-if and data-else Only save the value if no previous
+	            // value has been set
+	            var $nextElem = $elem.next();
+	            if ($nextElem.data("lastCond") === undefined) {
+	                $nextElem.data("lastCond", value);
+	            }
+
+	            if (!value) {
+	                // Delete the element if the data-if evaluated to false
+	                return [];
+	            }
+	        },
+
+	        "data-else-if": function (elem, value) {
+	            var $elem = $(elem);
+
+	            var lastCond = $elem.data("lastCond");
+
+	            // Show this element iff the preceding element was hidden AND this
+	            // data-if returns truthily
+	            value = !lastCond && value && $.tmpl.getVAR(value);
+
+	            // Succeeding elements care about the visibility of both me and my
+	            // preceding siblings Only save the value if no previous value has
+	            // been set
+	            var $nextElem = $elem.next();
+	            if ($nextElem.data("lastCond") === undefined) {
+	                $nextElem.data("lastCond", lastCond || value);
+	            }
+
+	            if (!value) {
+	                // Delete the element if appropriate
+	                return [];
+	            }
+	        },
+
+	        "data-else": function (elem) {
+	            var $elem = $(elem);
+
+	            if ($elem.data("lastCond")) {
+	                // Delete the element if the data-if of the preceding element
+	                // was true
+	                return [];
+	            }
+	        },
+
+	        "data-each": function (elem, value) {
+	            var match = undefined;
+
+	            // Remove the data-each attribute so it doesn't end up in the
+	            // generated elements
+	            $(elem).removeAttr("data-each");
+
+	            // HINT_COUNT times
+	            // HINT_COUNT times as INDEX
+	            if (match = /^(.+) times(?: as (\w+))?$/.exec(value)) {
+	                var times = $.tmpl.getVAR(match[1]);
+
+	                return {
+	                    items: $.map(new Array(times), function (e, i) {
+	                        return i;
+	                    }),
+	                    value: match[2],
+	                    oldValue: VARS[match[2]] };
+
+	                // Extract the 1, 2, or 3 parts of the data-each attribute, which
+	                // could be
+	                //   - items
+	                //   - items as value
+	                //   - items as pos, value
+	            } else if (match = /^(.*?)(?: as (?:(\w+), )?(\w+))?$/.exec(value)) {
+	                // See "if (ret.items)" in traverse() for the other half of the
+	                // data-each code
+	                return {
+	                    // The collection which we'll iterate through
+	                    items: $.tmpl.getVAR(match[1]),
+
+	                    // "value" and "pos" as strings
+	                    value: match[3],
+	                    pos: match[2],
+
+	                    // Save the values of the iterator variables so we don't
+	                    // permanently overwrite them
+	                    oldValue: VARS[match[3]],
+	                    oldPos: VARS[match[2]] };
+	            }
+	        },
+
+	        "data-unwrap": function (elem) {
+	            return $(elem).contents();
+	        },
+
+	        "data-video-hint": function (elem) {
+	            var youtubeIds = $(elem).data("youtube-id");
+	            if (!youtubeIds) {
+	                return;
+	            }
+
+	            youtubeIds = youtubeIds.split(/,\s*/);
+
+	            var author = $(elem).data("video-hint-author") || "Sal";
+	            var msg = i18n._("Watch %(author)s work through a very similar " + "problem:", { author: author });
+	            var preface = $("<p>").text(msg);
+
+	            var wrapper = $("<div>", { "class": "video-hint" });
+	            wrapper.append(preface);
+
+	            _.each(youtubeIds, function (youtubeId) {
+	                var href = "http://www.khanacademy.org/embed_video?v=" + youtubeId;
+	                var iframe = $("<iframe>").attr({
+	                    "frameborder": "0",
+	                    "scrolling": "no",
+	                    "width": "100%",
+	                    "height": "360px",
+	                    "src": href });
+
+	                wrapper.append(iframe);
+	            });
+
+	            return wrapper;
+	        } },
+
+	    // Processors that act based on tag names
+	    type: {
+	        "var": function (elem, value) {
+	            // When called by process(), value is undefined
+
+	            // If the <var> has any child elements, run later with the innerHTML
+	            // Use $ instead of getElementsByTagName to exclude comment nodes
+	            // in IE
+	            if (!value && $(elem).children().length > 0) {
+	                return function (elem) {
+	                    return $.tmpl.type["var"](elem, elem.innerHTML);
+	                };
+	            }
+
+	            // Evaluate the contents of the <var> as a JS string
+	            value = value || $.tmpl.getVAR(elem);
+
+	            // If an ID was specified then we're going to save the value
+	            var name = elem.id;
+	            if (name) {
+	                (function () {
+
+	                    // Utility function for VARS[name] = value, warning if the name
+	                    // overshadows a KhanUtil property
+	                    var setVAR = function (name, value) {
+	                        if (KhanUtil[name]) {
+	                            Khan.error("Defining variable '" + name + "' " + "overwrites utility property of same name.");
+	                        }
+
+	                        VARS[name] = value;
+	                    };
+
+	                    // Destructure the array if appropriate
+	                    if (name.indexOf(",") !== -1) {
+	                        // Nested arrays are not supported
+	                        var parts = name.split(/\s*,\s*/);
+
+	                        $.each(parts, function (i, part) {
+	                            // Ignore empty parts
+	                            if (part.length > 0) {
+	                                setVAR(part, value[i]);
+	                            }
+	                        });
+
+	                        // Just a normal assignment
+	                    } else {
+	                        setVAR(name, value);
+	                    }
+
+	                    // No value was specified so we replace it with a text node of the
+	                    // value
+	                })();
+	            } else {
+	                if (value == null) {
+	                    // Don't show anything
+	                    return [];
+	                } else {
+	                    // Convert the value to a string and replace with those
+	                    // elements and text nodes Add a space so that it can end
+	                    // with a "<" in Safari
+	                    var div = $("<div>");
+	                    var html = div.append(value + " ").html();
+	                    return div.html(html.slice(0, -1)).contents();
+	                }
+	            }
+	        } },
+
+	    // Eval a string in the context of Math, KhanUtil, VARS, and optionally
+	    // another passed context
+	    getVAR: function (elem, ctx) {
+	        // We need to compute the value
+	        var code = elem.nodeName ? $(elem).text() : elem;
+
+	        // If no extra context was passed, use an empty object
+	        if (ctx == null) {
+	            ctx = {};
+	        }
+
+	        function doEval() {
+	            /* eslint-disable no-with */
+	            // Use the methods from JavaScript's built-in Math methods
+	            with (Math) {
+	                // And the methods provided by the library
+	                with (KhanUtil) {
+	                    // And the passed-in context
+	                    with (ctx) {
+	                        // And all the computed variables
+	                        with (VARS) {
+	                            return eval("(function() { return (" + code + "); })()");
+	                        }
+	                    }
+	                }
+	            }
+	            /* eslint-enable no-with */
+	        }
+
+	        if (Khan.query.debug != null) {
+	            // Skip try-catch in debug mode so that the script panel works
+	            return doEval();
+	        } else {
+	            try {
+	                return doEval();
+	            } catch (e) {
+	                var info = undefined;
+
+	                if (elem.nodeName) {
+	                    info = elem.nodeName.toLowerCase();
+
+	                    if (elem.id != null && elem.id.length > 0) {
+	                        info += "#" + elem.id;
+	                    }
+	                } else {
+	                    info = JSON.stringify(code);
+	                }
+
+	                Khan.error("Error while evaluating " + info, e);
+	            }
+	        }
+	    },
+
+	    /**
+	     * Get a hash of the problem variables for duplication detection purposes.
+	     */
+	    // TODO(david): Allow exercise developers to specify which variables are
+	    //     not important for duplicate determination purposes.
+	    // TODO(david): Just a possibility, but allow exercise developers to
+	    //     specify their own variable hash function, so that, eg. for addition
+	    //     1, 2 + 3 could hash to the same value as 3 + 2.
+	    getVarsHash: function () {
+	        // maybe TODO(david): Can base-64 encode the crc32 integer if we want
+	        //     to save a few bytes, since localStorage stores strings only.
+
+	        // Just convert top-level values to strings instead of recursively
+	        // stringifying, due to issues with circular references.
+	        return crc32(JSON.stringify($.map(VARS, function (value, key) {
+	            return [key, String(value)];
+	        })));
+	    } };
+
+	if (typeof KhanUtil !== "undefined") {
+	    KhanUtil.tmpl = $.tmpl;
 	}
 
-	var merge = function() {
-	    var obj = {};
+	// Reinitialize VARS for each problem
+	$.fn.tmplLoad = function (problem, info) {
+	    VARS = {};
+	    $.tmpl.DATA_ENSURE_LOOPS = 0;
 
-	    for (var i = 0; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        if (source) {
-	            for (var prop in source) {
-	                obj[prop] = source[prop];
-	            }
-	        }
-	    }
+	    localMode = info.localMode;
 
-	    return obj;
-	};
-
-	var clone = function(obj) {
-	    if (!isObject(obj)) {
-	        return obj;
-	    }
-
-	    return Array.isArray(obj) ? obj.slice() : merge(obj);
-	};
-
-	module.exports = { isObject: isObject, merge: merge, clone: clone };
-
-
-/***/ },
-/* 195 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var get = function(arr, monocle) {
-	    return arr[monocle];
-	};
-
-	var set = function(arr, monocle, val) {
-	    var newArr = arr.splice();
-	    newArr[monocle] = val;
-	    return newArr;
-	};
-
-	var mod = function(arr, monocle, f) {
-	    var newArr = arr.slice();
-	    newArr[monocle] = f(arr[monocle]);
-	    return newArr;
-	};
-
-	var del = function(arr, monocle) {
-	    var newArr = arr.slice();
-	    newArr.splice(monocle, 1);
-	    return newArr;
-	};
-
-	/*
-	// Lens must point to a member of an array. We'll insert into that array.
-	lens.prototype.insertAt = function(lensArr, toInsert) {
-	    var obj = this._wrapped;
-
-	    var arrLens = lensArr.slice(0, -1);
-	    var arr = lens(obj).get(arrLens).slice(); // slice to copy
-
-	    var arrIdx = lensArr[lensArr.length-1];
-	    arr.splice(arrIdx, 0, toInsert);
-	    return lens(obj).set(arrLens, arr);
-	};
-
-	lens.prototype.insertBefore = lens.prototype.insertAt;
-	lens.prototype.insertAfter = function(lensArr, toInsert) {
-	    var newLens = lensArr.slice();
-	    newLens[newLens.length-1] += 1;
-	    return lens(this._wrapped).insertAt(newLens, toInsert);
-	};
-	*/
-
-	module.exports = { get: get, set: set, mod: mod, del: del };
-
-
-/***/ },
-/* 196 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var clone = __webpack_require__(194).clone;
-
-	var get = function(obj, monocle) {
-	    return obj[monocle];
-	};
-
-	var set = function(obj, monocle, val) {
-	    var newObj = clone(obj);
-	    newObj[monocle] = val;
-	    return newObj;
-	};
-
-	var mod = function(obj, monocle, f) {
-	    var newObj = clone(obj);
-	    newObj[monocle] = f(obj[monocle]);
-	    return newObj;
-	};
-
-	var del = function(obj, monocle) {
-	    var newObj = clone(obj);
-	    delete newObj[monocle];
-	    return newObj;
-	};
-
-	module.exports = { get: get, set: set, mod: mod, del: del };
-
-
-/***/ },
-/* 197 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var get = function(arr, monocle) {
-	    return arr[monocle];
-	};
-
-	var set = function(arr, monocle, val) {
-	    var newArr = arr.splice();
-	    newArr[monocle] = val;
-	    return newArr;
-	};
-
-	var mod = function(arr, monocle, f) {
-	    var newArr = arr.splice();
-	    newArr[monocle] = f(arr[monocle]);
-	    return newArr;
-	};
-
-	var del = function(arr, monocle) {
-	    var newArr = arr.slice();
-	    newArr.splice(monocle);
-	    return newArr;
-	};
-
-	module.exports = { get: get, set: set, mod: mod, del: del };
-
-
-/***/ },
-/* 198 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	/**
-	 * A library of options to pass to add/draw/remove/constraints
-	 */
-	var _ = __webpack_require__(16);
-
-	var WrappedEllipse = __webpack_require__(199);
-	var kpoint = __webpack_require__(182).point;
-
-	var add = {
-	    constrain: function () {
-	        this.constrain();
+	    // Expose the variables if we're in local mode
+	    if (localMode) {
+	        $.tmpl.VARS = VARS;
 	    }
 	};
 
-	add.standard = [add.constrain];
-
-	var modify = {
-	    draw: function () {
-	        this.draw();
+	$.fn.tmpl = function () {
+	    // Call traverse() for each element in the $ object
+	    for (var i = 0, l = this.length; i < l; i++) {
+	        traverse(this[i]);
 	    }
-	};
 
-	modify.standard = [modify.draw];
+	    return this;
 
-	var draw = {
-	    basic: function (state, prevState) {
-	        var graphie = this.graphie;
-	        if (!this.state.visibleShape) {
-	            var radii = [this.pointSize() / graphie.scale[0], this.pointSize() / graphie.scale[1]];
-	            var options = {
-	                maxScale: Math.max(this.highlightStyle().scale, this.normalStyle().scale)
-	            };
-	            this.state.visibleShape = new WrappedEllipse(graphie, this.coord(), radii, options);
-	            this.state.visibleShape.attr(_.omit(this.normalStyle(), "scale"));
-	            this.state.visibleShape.toFront();
+	    // Walk through the element and its descendants, process()-ing each one
+	    // using the processors defined above
+	    function traverse(elem) {
+	        // Array of functions to run after doing the rest of the processing
+	        var post = [];
 
-	            // Keep mouseTarget in front of visible shape
-	            if (this.mouseTarget()) {
-	                this.mouseTarget().toFront();
-	            }
-	        }
-	        if (state.normalStyle !== prevState.normalStyle && !_.isEqual(state.normalStyle, prevState.normalStyle)) {
-	            this.state.visibleShape.attr(this.normalStyle());
-	        }
+	        // Live NodeList of child nodes to traverse if we don't remove/replace
+	        // this element
+	        var child = elem.childNodes;
 
-	        this.state.visibleShape.moveTo(this.coord());
-	        if (this.mouseTarget()) {
-	            this.mouseTarget().moveTo(this.coord());
-	        }
-	    },
+	        // Result of running the attribute and tag processors on the element
+	        var ret = process(elem, post);
 
-	    highlight: function (state, prevState) {
-	        if (state.isHovering && !prevState.isHovering) {
-	            state.visibleShape.animate(this.highlightStyle(), 50);
-	        } else if (!state.isHovering && prevState.isHovering) {
-	            state.visibleShape.animate(this.normalStyle(), 50);
-	        }
-	    }
-	};
+	        if (ret === false) {
+	            // If false, rerun all templating (like data-ensure)
+	            return traverse(elem);
+	        } else if (ret === undefined) {} else if (typeof ret === "object" && typeof ret.length !== "undefined") {
+	            // If a (possibly-empty) array of nodes, replace this one with those
+	            // The type of ret is checked to ensure it is not a function
+	            if (elem.parentNode) {
+	                // All nodes must be inserted before any are traversed
+	                $.each(ret, function (i, rep) {
+	                    if (rep.nodeType) {
+	                        elem.parentNode.insertBefore(rep, elem);
+	                    }
+	                });
 
-	draw.standard = [draw.basic, draw.highlight];
+	                $.each(ret, function (i, rep) {
+	                    traverse(rep);
+	                });
 
-	var remove = {
-	    basic: function () {
-	        if (this.state.visibleShape) {
-	            this.state.visibleShape.remove();
-	            this.state.visibleShape = null;
-	        }
-	    }
-	};
-
-	remove.standard = remove.basic;
-
-	var constraints = {
-	    fixed: function () {
-	        return function () {
-	            return false;
-	        };
-	    },
-
-	    snap: function (snap) {
-	        return function (coord) {
-	            if (snap === null) {
-	                return true;
-	            }
-	            snap = snap || this.graphie.snap;
-	            return kpoint.roundTo(coord, snap);
-	        };
-	    },
-
-	    bound: function (range, snap, paddingPx) {
-	        if (paddingPx === undefined) {
-	            if (range === undefined) {
-	                paddingPx = 10;
-	            } else {
-	                paddingPx = 0;
-	            }
-	        }
-	        return function (coord) {
-	            var graphie = this.graphie;
-	            range = range || graphie.range;
-	            if (snap === undefined) {
-	                snap = graphie.snap;
+	                elem.parentNode.removeChild(elem);
 	            }
 
-	            var lower = graphie.unscalePoint([paddingPx, graphie.ypixels - paddingPx]);
-	            var upper = graphie.unscalePoint([graphie.xpixels - paddingPx, paddingPx]);
-	            if (snap) {
-	                lower = kpoint.ceilTo(lower, snap);
-	                upper = kpoint.floorTo(upper, snap);
+	            return null;
+	        } else if (ret.items) {
+	            var _ret2 = (function () {
+	                // If { items: ... }, this is a data-each loop
+
+	                // We need these references to insert the elements in the
+	                // appropriate places
+	                var origParent = elem.parentNode;
+	                var origNext = elem.nextSibling;
+
+	                // Loop though the given array
+	                $.each(ret.items, function (pos, value) {
+	                    // Set the value if appropriate
+	                    if (ret.value) {
+	                        VARS[ret.value] = value;
+	                    }
+
+	                    // Set the position if appropriate
+	                    if (ret.pos) {
+	                        VARS[ret.pos] = pos;
+	                    }
+
+	                    // Do a deep clone (including event handlers and data) of the
+	                    // element
+	                    var clone = $(elem).clone(true).removeAttr("data-each").removeData("each")[0];
+
+	                    // Prepend all conditional statements with a declaration of
+	                    // ret.value and ret.post and an assignment of their current
+	                    // values so that the conditional will still make sense even
+	                    // when outside of the data-each context
+	                    var conditionals = ["data-if", "data-else-if", "data-else"];
+
+	                    var declarations = "";
+	                    declarations += ret.pos ? "var " + ret.pos + " = " + JSON.stringify(pos) + ";" : "";
+	                    declarations += ret.value ? "var " + ret.value + " = " + JSON.stringify(value) + ";" : "";
+
+	                    var _loop = function (i) {
+	                        var conditional = conditionals[i];
+	                        $(clone).find("[" + conditional + "]").each(function () {
+	                            var code = $(this).attr(conditional);
+	                            code = "(function() { " + declarations + " return " + code + " })()";
+	                            $(this).attr(conditional, code);
+	                        });
+	                    };
+
+	                    for (var i = 0; i < conditionals.length; i++) {
+	                        _loop(i);
+	                    }
+
+	                    // Do the same for graphie code
+	                    $(clone).find(".graphie").addBack().filter(".graphie").each(function () {
+	                        var code = $(this).text();
+	                        $(this).text(declarations + code);
+	                    });
+
+	                    // Insert in the proper place (depends on whether the loops is
+	                    // the last of its siblings)
+	                    if (origNext) {
+	                        origParent.insertBefore(clone, origNext);
+	                    } else {
+	                        origParent.appendChild(clone);
+	                    }
+
+	                    // Run all templating on the new element
+	                    traverse(clone);
+	                });
+
+	                // Restore the old value of the value variable, if it had one
+	                if (ret.value) {
+	                    VARS[ret.value] = ret.oldValue;
+	                }
+
+	                // Restore the old value of the position variable, if it had one
+	                if (ret.pos) {
+	                    VARS[ret.pos] = ret.oldPos;
+	                }
+
+	                // Remove the loop element and its handlers now that we've
+	                // processed it
+	                $(elem).remove();
+
+	                // Say that the element was removed so that child traversal doesn't
+	                // skip anything
+	                return {
+	                    v: null
+	                };
+	            })();
+
+	            if (typeof _ret2 === "object") return _ret2.v;
+	        }
+
+	        // Loop through the element's children if it was not removed
+	        for (var i = 0; i < child.length; i++) {
+	            // Traverse the child; decrement the counter if the child was
+	            // removed
+	            if (child[i].nodeType === 1 && traverse(child[i]) === null) {
+	                i--;
 	            }
-	            var coordX = Math.max(lower[0], Math.min(upper[0], coord[0]));
-	            var coordY = Math.max(lower[1], Math.min(upper[1], coord[1]));
-	            return [coordX, coordY];
-	        };
+	        }
+
+	        // Run through each post-processing function
+	        for (var i = 0, l = post.length; i < l; i++) {
+	            // If false, rerun all templating (for data-ensure and <code> math)
+	            if (post[i](elem) === false) {
+	                return traverse(elem);
+	            }
+	        }
+
+	        return elem;
+	    }
+
+	    // Run through the attr and type processors, return as soon as one of them
+	    // is decisive about a plan of action
+	    function process(elem, post) {
+	        var ret = undefined;
+	        var $elem = $(elem);
+
+	        // Look through each of the attr processors, see if our element has the
+	        // matching attribute
+	        for (var attr in $.tmpl.attr) {
+	            if ($.tmpl.attr.hasOwnProperty(attr)) {
+	                var value = undefined;
+
+	                if (/^data-/.test(attr)) {
+	                    value = $elem.data(attr.replace(/^data-/, ""));
+	                } else {
+	                    value = $elem.attr(attr);
+	                }
+
+	                if (value !== undefined) {
+	                    ret = $.tmpl.attr[attr](elem, value);
+
+	                    // If a function, run after all of the other templating
+	                    if (typeof ret === "function") {
+	                        post.push(ret);
+
+	                        // Return anything else (boolean, array of nodes for
+	                        // replacement, object for data-each)
+	                    } else if (ret !== undefined) {
+	                        return ret;
+	                    }
+	                }
+	            }
+	        }
+
+	        // Look up the processor based on the tag name
+	        var type = elem.nodeName.toLowerCase();
+	        if ($.tmpl.type[type] != null) {
+	            ret = $.tmpl.type[type](elem);
+
+	            // If a function, run after all of the other templating
+	            if (typeof ret === "function") {
+	                post.push(ret);
+	            }
+	        }
+
+	        return ret;
 	    }
 	};
 
-	constraints.standard = null;
+	$.extend($.expr[":"], {
+	    inherited: function (el) {
+	        return $(el).data("inherited");
+	    } });
 
-	module.exports = {
-	    add: add,
-	    modify: modify,
-	    draw: draw,
-	    remove: remove,
+	$.fn.extend({
+	    tmplApply: function (options) {
+	        options = options || {};
 
-	    onMoveStart: { standard: null },
-	    constraints: constraints,
-	    onMove: { standard: null },
-	    onMoveEnd: { standard: null },
-	    onClick: { standard: null }
-	};
+	        // Get the attribute which we'll be checking, defaults to "id"
+	        // but "class" is sometimes used
+	        var attribute = options.attribute || "id";
+
+	        // Figure out the way in which the application will occur
+	        var defaultApply = options.defaultApply || "replace";
+
+	        // Store for elements to be used later
+	        var parent = {};
+
+	        return this.each(function () {
+	            var $this = $(this);
+	            var name = $this.attr(attribute);
+	            var hint = $this.data("apply") && !$this.data("apply").indexOf("hint");
+
+	            // Only operate on the element if it has the attribute that we're
+	            // using
+	            if (name) {
+	                // The inheritance only works if we've seen an element already
+	                // that matches the particular name and we're not looking at
+	                // hint templating
+	                if (name in parent && !hint) {
+	                    // Get the method through which we'll be doing the
+	                    // application You can specify an application style
+	                    // directly on the sub-element
+	                    parent[name] = $.tmplApplyMethods[$this.data("apply") || defaultApply]
+
+	                    // Call it with the context of the parent and the
+	                    // sub-element itself
+	                    .call(parent[name], this);
+
+	                    if (parent[name] == null) {
+	                        delete parent[name];
+	                    }
+
+	                    // Store the parent element for later use if it was inherited
+	                    // from somewhere else
+	                } else if ($this.closest(":inherited").length > 0) {
+	                    parent[name] = this;
+	                }
+	            }
+	        });
+	    } });
+
+	$.extend({
+	    // These methods should be called with context being the parent
+	    // and first argument being the child.
+	    tmplApplyMethods: {
+	        // Removes both the parent and the child
+	        remove: function (elem) {
+	            $(this).remove();
+	            $(elem).remove();
+	        },
+
+	        // Replaces the parent with the child
+	        replace: function (elem) {
+	            $(this).replaceWith(elem);
+	            return elem;
+	        },
+
+	        // Replaces the parent with the child's content. Useful when
+	        // needed to replace an element without introducing additional
+	        // wrappers.
+	        splice: function (elem) {
+	            $(this).replaceWith($(elem).contents());
+	        },
+
+	        // Appends the child element to the parent element
+	        append: function (elem) {
+	            $(this).append(elem);
+	            return this;
+	        },
+
+	        // Appends the child element's contents to the parent element.
+	        appendContents: function (elem) {
+	            $(this).append($(elem).contents());
+	            $(elem).remove();
+	            return this;
+	        },
+
+	        // Prepends the child element to the parent.
+	        prepend: function (elem) {
+	            $(this).prepend(elem);
+	            return this;
+	        },
+
+	        // Prepends the child element's contents to the parent element.
+	        prependContents: function (elem) {
+	            $(this).prepend($(elem).contents());
+	            $(elem).remove();
+	            return this;
+	        },
+
+	        // Insert child before the parent.
+	        before: function (elem) {
+	            $(this).before(elem);
+	            return this;
+	        },
+
+	        // Insert child's contents before the parent.
+	        beforeContents: function (elem) {
+	            $(this).before($(elem).contents());
+	            $(elem).remove();
+	            return this;
+	        },
+
+	        // Insert child after the parent.
+	        after: function (elem) {
+	            $(this).after(elem);
+	            return this;
+	        },
+
+	        // Insert child's contents after the parent.
+	        afterContents: function (elem) {
+	            $(this).after($(elem).contents());
+	            $(elem).remove();
+	            return this;
+	        },
+
+	        // Like appendContents but also merges the data-ensures
+	        appendVars: function (elem) {
+	            var parentEnsure = $(this).data("ensure") || "1";
+	            var childEnsure = $(elem).data("ensure") || "1";
+	            $(this).data("ensure", "(" + parentEnsure + ") && (" + childEnsure + ")");
+
+	            return $.tmplApplyMethods.appendContents.call(this, elem);
+	        },
+
+	        // Like prependContents but also merges the data-ensures
+	        prependVars: function (elem) {
+	            var parentEnsure = $(this).data("ensure") || "1";
+	            var childEnsure = $(elem).data("ensure") || "1";
+	            $(this).data("ensure", "(" + childEnsure + ") && (" + parentEnsure + ")");
+
+	            return $.tmplApplyMethods.prependContents.call(this, elem);
+	        } } });
+
+	// If undefined, do nothing
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(218)))
 
 /***/ },
-/* 199 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var _ = __webpack_require__(16);
-	var WrappedDefaults = __webpack_require__(204);
-
-	var DEFAULT_OPTIONS = {
-	    maxScale: 1,
-	    mouselayer: false
-	};
-
-	var WrappedEllipse = function (graphie, center, radii, options) {
-	    options = _.extend({}, DEFAULT_OPTIONS, options);
-
-	    // Add `wrapper`, `visibleShape`, and remaining properties
-	    _.extend(this, graphie.fixedEllipse(center, radii, options.maxScale), {
-	        graphie: graphie,
-	        initialPoint: center
-	    });
-
-	    // Add to appropriate graphie layer
-	    if (options.mouselayer) {
-	        this.graphie.addToMouseLayerWrapper(this.wrapper);
-	    } else {
-	        this.graphie.addToVisibleLayerWrapper(this.wrapper);
-	    }
-	};
-
-	_.extend(WrappedEllipse.prototype, WrappedDefaults);
-
-	module.exports = WrappedEllipse;
-
-/***/ },
-/* 200 */
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -46813,10 +53358,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * A library of options to pass to add/draw/remove/constraints
 	 */
 	var _ = __webpack_require__(16);
-	var WrappedLine = __webpack_require__(201);
-	var WrappedPath = __webpack_require__(205);
-	var kvector = __webpack_require__(182).vector;
-	var kpoint = __webpack_require__(182).point;
+	var WrappedLine = __webpack_require__(209);
+	var WrappedPath = __webpack_require__(212);
+	var kvector = __webpack_require__(188).vector;
+	var kpoint = __webpack_require__(188).point;
+	var KhanMath = __webpack_require__(135);
 
 	/**
 	 * Helper functions
@@ -46894,7 +53440,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // center, scaling, etc.
 	    arrowHead.toCoordAtAngle = function (coord, angle) {
 	        var clipPoint = graph.scalePoint(getClipPoint(graph, coord, angle));
-	        arrowHead.transform("translateX(" + (clipPoint[0] + scale * center[0]) + "px) " + "translateY(" + (clipPoint[1] + scale * center[1]) + "px) " + "translateZ(0) " + "rotate(" + (360 - KhanUtil.bound(angle)) + "deg)");
+	        arrowHead.transform("translateX(" + (clipPoint[0] + scale * center[0]) + "px) " + "translateY(" + (clipPoint[1] + scale * center[1]) + "px) " + "translateZ(0) " + "rotate(" + (360 - KhanMath.bound(angle)) + "deg)");
 	    };
 
 	    return arrowHead;
@@ -47109,7 +53655,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    onMoveEnd: { standard: null } };
 
 /***/ },
-/* 201 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -47117,10 +53663,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var _ = __webpack_require__(16);
-	var InteractiveUtil = __webpack_require__(144);
-	var WrappedDefaults = __webpack_require__(204);
-	var kpoint = __webpack_require__(182).point;
-	var kvector = __webpack_require__(182).vector;
+	var InteractiveUtil = __webpack_require__(148);
+	var WrappedDefaults = __webpack_require__(217);
+	var kpoint = __webpack_require__(188).point;
+	var kvector = __webpack_require__(188).vector;
+	var KhanMath = __webpack_require__(135);
 
 	var DEFAULT_OPTIONS = {
 	    thickness: 2,
@@ -47169,9 +53716,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // Compute transformation parameters
 	        var polarDiff = kvector.polarDegFromCart(kvector.subtract(scaledEnd, scaledStart));
 	        var lineLength = polarDiff[0];
-	        var angle = KhanUtil.bound(polarDiff[1]);
+	        var angle = KhanMath.bound(polarDiff[1]);
 	        var delta = kvector.subtract(scaledStart, this.initialPoint);
-	        var scale = KhanUtil.bound(lineLength / this.initialLength);
+	        var scale = KhanMath.bound(lineLength / this.initialLength);
 
 	        // Construct and apply transformation string
 	        var do3dTransform = InteractiveUtil.getCanUse3dTransform();
@@ -47183,7 +53730,597 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WrappedLine;
 
 /***/ },
-/* 202 */
+/* 210 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+	* jQuery Mobile Framework : "mouse" plugin
+	* Copyright (c) jQuery Project
+	* Dual licensed under the MIT or GPL Version 2 licenses.
+	* http://jquery.org/license
+	*/
+
+	// This plugin is an experiment for abstracting away the touch and mouse
+	// events so that developers don't have to worry about which method of input
+	// the device their document is loaded on supports.
+	//
+	// The idea here is to allow the developer to register listeners for the
+	// basic mouse events, such as mousedown, mousemove, mouseup, and click,
+	// and the plugin will take care of registering the correct listeners
+	// behind the scenes to invoke the listener at the fastest possible time
+	// for that device, while still retaining the order of event firing in
+	// the traditional mouse environment, should multiple handlers be registered
+	// on the same element for different events.
+	//
+	// The current version exposes the following virtual events to jQuery bind methods:
+	// "vmouseover vmousedown vmousemove vmouseup vclick vmouseout vmousecancel"
+
+	(function( $, window, document, undefined ) {
+
+	var dataPropertyName = "virtualMouseBindings",
+		touchTargetPropertyName = "virtualTouchID",
+		virtualEventNames = "vmouseover vmousedown vmousemove vmouseup vclick vmouseout vmousecancel".split( " " ),
+		touchEventProps = "clientX clientY pageX pageY screenX screenY".split( " " ),
+		mouseHookProps = $.event.mouseHooks ? $.event.mouseHooks.props : [],
+		mouseEventProps = $.event.props.concat( mouseHookProps ),
+		activeDocHandlers = {},
+		resetTimerID = 0,
+		startX = 0,
+		startY = 0,
+		didScroll = false,
+		clickBlockList = [],
+		blockMouseTriggers = false,
+		blockTouchTriggers = false,
+		eventCaptureSupported = "addEventListener" in document,
+		$document = $( document ),
+		nextTouchID = 1,
+		lastTouchID = 0;
+
+	$.vmouse = {
+		moveDistanceThreshold: 10,
+		clickDistanceThreshold: 10,
+		resetTimerDuration: 1500
+	};
+
+	function getNativeEvent( event ) {
+
+		while ( event && typeof event.originalEvent !== "undefined" ) {
+			event = event.originalEvent;
+		}
+		return event;
+	}
+
+	function createVirtualEvent( event, eventType ) {
+
+		var t = event.type,
+			oe, props, ne, prop, ct, touch, i, j;
+
+		event = $.Event(event);
+		event.type = eventType;
+
+		oe = event.originalEvent;
+		props = $.event.props;
+
+		// addresses separation of $.event.props in to $.event.mouseHook.props and Issue 3280
+		// https://github.com/jquery/jquery-mobile/issues/3280
+		if ( t.search(/mouse/) >-1 ) {
+			props = mouseEventProps;
+		}
+
+		// copy original event properties over to the new event
+		// this would happen if we could call $.event.fix instead of $.Event
+		// but we don't have a way to force an event to be fixed multiple times
+		if ( oe ) {
+			for ( i = props.length, prop; i; ) {
+				prop = props[ --i ];
+				event[ prop ] = oe[ prop ];
+			}
+		}
+
+		// make sure that if the mouse and click virtual events are generated
+		// without a .which one is defined
+		if ( t.search(/mouse(down|up)|click/) > -1 && !event.which ){
+			event.which = 1;
+		}
+
+		if ( t.search(/^touch/) !== -1 ) {
+			ne = getNativeEvent( oe );
+			t = ne.touches;
+			ct = ne.changedTouches;
+			touch = ( t && t.length ) ? t[0] : ( (ct && ct.length) ? ct[ 0 ] : undefined );
+
+			if ( touch ) {
+				for ( j = 0, len = touchEventProps.length; j < len; j++){
+					prop = touchEventProps[ j ];
+					event[ prop ] = touch[ prop ];
+				}
+			}
+		}
+
+		return event;
+	}
+
+	function getVirtualBindingFlags( element ) {
+
+		var flags = {},
+			b, k;
+
+		while ( element ) {
+
+			b = $.data( element, dataPropertyName );
+
+			for (  k in b ) {
+				if ( b[ k ] ) {
+					flags[ k ] = flags.hasVirtualBinding = true;
+				}
+			}
+			element = element.parentNode;
+		}
+		return flags;
+	}
+
+	function getClosestElementWithVirtualBinding( element, eventType ) {
+		var b;
+		while ( element ) {
+
+			b = $.data( element, dataPropertyName );
+
+			if ( b && ( !eventType || b[ eventType ] ) ) {
+				return element;
+			}
+			element = element.parentNode;
+		}
+		return null;
+	}
+
+	function enableTouchBindings() {
+		blockTouchTriggers = false;
+	}
+
+	function disableTouchBindings() {
+		blockTouchTriggers = true;
+	}
+
+	function enableMouseBindings() {
+		lastTouchID = 0;
+		clickBlockList.length = 0;
+		blockMouseTriggers = false;
+
+		// When mouse bindings are enabled, our
+		// touch bindings are disabled.
+		disableTouchBindings();
+	}
+
+	function disableMouseBindings() {
+		// When mouse bindings are disabled, our
+		// touch bindings are enabled.
+		enableTouchBindings();
+	}
+
+	function startResetTimer() {
+		clearResetTimer();
+		resetTimerID = setTimeout(function(){
+			resetTimerID = 0;
+			enableMouseBindings();
+		}, $.vmouse.resetTimerDuration );
+	}
+
+	function clearResetTimer() {
+		if ( resetTimerID ){
+			clearTimeout( resetTimerID );
+			resetTimerID = 0;
+		}
+	}
+
+	function triggerVirtualEvent( eventType, event, flags ) {
+		var ve;
+
+		if ( ( flags && flags[ eventType ] ) ||
+					( !flags && getClosestElementWithVirtualBinding( event.target, eventType ) ) ) {
+
+			ve = createVirtualEvent( event, eventType );
+
+			$( event.target).trigger( ve );
+		}
+
+		return ve;
+	}
+
+	function mouseEventCallback( event ) {
+		var touchID = $.data(event.target, touchTargetPropertyName);
+
+		if ( !blockMouseTriggers && ( !lastTouchID || lastTouchID !== touchID ) ){
+			var ve = triggerVirtualEvent( "v" + event.type, event );
+			if ( ve ) {
+				if ( ve.isDefaultPrevented() ) {
+					event.preventDefault();
+				}
+				if ( ve.isPropagationStopped() ) {
+					event.stopPropagation();
+				}
+				if ( ve.isImmediatePropagationStopped() ) {
+					event.stopImmediatePropagation();
+				}
+			}
+		}
+	}
+
+	function handleTouchStart( event ) {
+
+		var touches = getNativeEvent( event ).touches,
+			target, flags;
+
+		if ( touches && touches.length === 1 ) {
+
+			target = event.target;
+			flags = getVirtualBindingFlags( target );
+
+			if ( flags.hasVirtualBinding ) {
+
+				lastTouchID = nextTouchID++;
+				$.data( target, touchTargetPropertyName, lastTouchID );
+
+				clearResetTimer();
+
+				disableMouseBindings();
+				didScroll = false;
+
+				var t = getNativeEvent( event ).touches[ 0 ];
+				startX = t.pageX;
+				startY = t.pageY;
+
+				triggerVirtualEvent( "vmouseover", event, flags );
+				triggerVirtualEvent( "vmousedown", event, flags );
+			}
+		}
+	}
+
+	function handleScroll( event ) {
+		if ( blockTouchTriggers ) {
+			return;
+		}
+
+		if ( !didScroll ) {
+			triggerVirtualEvent( "vmousecancel", event, getVirtualBindingFlags( event.target ) );
+		}
+
+		didScroll = true;
+		startResetTimer();
+	}
+
+	function handleTouchMove( event ) {
+		if ( blockTouchTriggers ) {
+			return;
+		}
+
+		var t = getNativeEvent( event ).touches[ 0 ],
+			didCancel = didScroll,
+			moveThreshold = $.vmouse.moveDistanceThreshold;
+			didScroll = didScroll ||
+				( Math.abs(t.pageX - startX) > moveThreshold ||
+					Math.abs(t.pageY - startY) > moveThreshold ),
+			flags = getVirtualBindingFlags( event.target );
+
+		if ( didScroll && !didCancel ) {
+			triggerVirtualEvent( "vmousecancel", event, flags );
+		}
+
+		triggerVirtualEvent( "vmousemove", event, flags );
+		startResetTimer();
+	}
+
+	function handleTouchEnd( event ) {
+		if ( blockTouchTriggers ) {
+			return;
+		}
+
+		disableTouchBindings();
+
+		var flags = getVirtualBindingFlags( event.target ),
+			t;
+		triggerVirtualEvent( "vmouseup", event, flags );
+
+		if ( !didScroll ) {
+			var ve = triggerVirtualEvent( "vclick", event, flags );
+			if ( ve && ve.isDefaultPrevented() ) {
+				// The target of the mouse events that follow the touchend
+				// event don't necessarily match the target used during the
+				// touch. This means we need to rely on coordinates for blocking
+				// any click that is generated.
+				t = getNativeEvent( event ).changedTouches[ 0 ];
+				clickBlockList.push({
+					touchID: lastTouchID,
+					x: t.clientX,
+					y: t.clientY
+				});
+
+				// Prevent any mouse events that follow from triggering
+				// virtual event notifications.
+				blockMouseTriggers = true;
+			}
+		}
+		triggerVirtualEvent( "vmouseout", event, flags);
+		didScroll = false;
+
+		startResetTimer();
+	}
+
+	function hasVirtualBindings( ele ) {
+		var bindings = $.data( ele, dataPropertyName ),
+			k;
+
+		if ( bindings ) {
+			for ( k in bindings ) {
+				if ( bindings[ k ] ) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	function dummyMouseHandler(){}
+
+	function getSpecialEventObject( eventType ) {
+		var realType = eventType.substr( 1 );
+
+		return {
+			setup: function( data, namespace ) {
+				// If this is the first virtual mouse binding for this element,
+				// add a bindings object to its data.
+
+				if ( !hasVirtualBindings( this ) ) {
+					$.data( this, dataPropertyName, {});
+				}
+
+				// If setup is called, we know it is the first binding for this
+				// eventType, so initialize the count for the eventType to zero.
+				var bindings = $.data( this, dataPropertyName );
+				bindings[ eventType ] = true;
+
+				// If this is the first virtual mouse event for this type,
+				// register a global handler on the document.
+
+				activeDocHandlers[ eventType ] = ( activeDocHandlers[ eventType ] || 0 ) + 1;
+
+				if ( activeDocHandlers[ eventType ] === 1 ) {
+					$document.bind( realType, mouseEventCallback );
+				}
+
+				// Some browsers, like Opera Mini, won't dispatch mouse/click events
+				// for elements unless they actually have handlers registered on them.
+				// To get around this, we register dummy handlers on the elements.
+
+				$( this ).bind( realType, dummyMouseHandler );
+
+				// For now, if event capture is not supported, we rely on mouse handlers.
+				if ( eventCaptureSupported ) {
+					// If this is the first virtual mouse binding for the document,
+					// register our touchstart handler on the document.
+
+					activeDocHandlers[ "touchstart" ] = ( activeDocHandlers[ "touchstart" ] || 0) + 1;
+
+					if (activeDocHandlers[ "touchstart" ] === 1) {
+						$document.bind( "touchstart", handleTouchStart )
+							.bind( "touchend", handleTouchEnd )
+
+							// On touch platforms, touching the screen and then dragging your finger
+							// causes the window content to scroll after some distance threshold is
+							// exceeded. On these platforms, a scroll prevents a click event from being
+							// dispatched, and on some platforms, even the touchend is suppressed. To
+							// mimic the suppression of the click event, we need to watch for a scroll
+							// event. Unfortunately, some platforms like iOS don't dispatch scroll
+							// events until *AFTER* the user lifts their finger (touchend). This means
+							// we need to watch both scroll and touchmove events to figure out whether
+							// or not a scroll happenens before the touchend event is fired.
+
+							.bind( "touchmove", handleTouchMove )
+							.bind( "scroll", handleScroll );
+					}
+				}
+			},
+
+			teardown: function( data, namespace ) {
+				// If this is the last virtual binding for this eventType,
+				// remove its global handler from the document.
+
+				--activeDocHandlers[ eventType ];
+
+				if ( !activeDocHandlers[ eventType ] ) {
+					$document.unbind( realType, mouseEventCallback );
+				}
+
+				if ( eventCaptureSupported ) {
+					// If this is the last virtual mouse binding in existence,
+					// remove our document touchstart listener.
+
+					--activeDocHandlers[ "touchstart" ];
+
+					if ( !activeDocHandlers[ "touchstart" ] ) {
+						$document.unbind( "touchstart", handleTouchStart )
+							.unbind( "touchmove", handleTouchMove )
+							.unbind( "touchend", handleTouchEnd )
+							.unbind( "scroll", handleScroll );
+					}
+				}
+
+				var $this = $( this ),
+					bindings = $.data( this, dataPropertyName );
+
+				// teardown may be called when an element was
+				// removed from the DOM. If this is the case,
+				// jQuery core may have already stripped the element
+				// of any data bindings so we need to check it before
+				// using it.
+				if ( bindings ) {
+					bindings[ eventType ] = false;
+				}
+
+				// Unregister the dummy event handler.
+
+				$this.unbind( realType, dummyMouseHandler );
+
+				// If this is the last virtual mouse binding on the
+				// element, remove the binding data from the element.
+
+				if ( !hasVirtualBindings( this ) ) {
+					$this.removeData( dataPropertyName );
+				}
+			}
+		};
+	}
+
+	// Expose our custom events to the jQuery bind/unbind mechanism.
+
+	for ( var i = 0; i < virtualEventNames.length; i++ ){
+		$.event.special[ virtualEventNames[ i ] ] = getSpecialEventObject( virtualEventNames[ i ] );
+	}
+
+	// Add a capture click handler to block clicks.
+	// Note that we require event capture support for this so if the device
+	// doesn't support it, we punt for now and rely solely on mouse events.
+	if ( eventCaptureSupported ) {
+		document.addEventListener( "click", function( e ){
+			var cnt = clickBlockList.length,
+				target = e.target,
+				x, y, ele, i, o, touchID;
+
+			if ( cnt ) {
+				x = e.clientX;
+				y = e.clientY;
+				threshold = $.vmouse.clickDistanceThreshold;
+
+				// The idea here is to run through the clickBlockList to see if
+				// the current click event is in the proximity of one of our
+				// vclick events that had preventDefault() called on it. If we find
+				// one, then we block the click.
+				//
+				// Why do we have to rely on proximity?
+				//
+				// Because the target of the touch event that triggered the vclick
+				// can be different from the target of the click event synthesized
+				// by the browser. The target of a mouse/click event that is syntehsized
+				// from a touch event seems to be implementation specific. For example,
+				// some browsers will fire mouse/click events for a link that is near
+				// a touch event, even though the target of the touchstart/touchend event
+				// says the user touched outside the link. Also, it seems that with most
+				// browsers, the target of the mouse/click event is not calculated until the
+				// time it is dispatched, so if you replace an element that you touched
+				// with another element, the target of the mouse/click will be the new
+				// element underneath that point.
+				//
+				// Aside from proximity, we also check to see if the target and any
+				// of its ancestors were the ones that blocked a click. This is necessary
+				// because of the strange mouse/click target calculation done in the
+				// Android 2.1 browser, where if you click on an element, and there is a
+				// mouse/click handler on one of its ancestors, the target will be the
+				// innermost child of the touched element, even if that child is no where
+				// near the point of touch.
+
+				ele = target;
+
+				while ( ele ) {
+					for ( i = 0; i < cnt; i++ ) {
+						o = clickBlockList[ i ];
+						touchID = 0;
+
+						if ( ( ele === target && Math.abs( o.x - x ) < threshold && Math.abs( o.y - y ) < threshold ) ||
+									$.data( ele, touchTargetPropertyName ) === o.touchID ) {
+							// XXX: We may want to consider removing matches from the block list
+							//      instead of waiting for the reset timer to fire.
+							e.preventDefault();
+							e.stopPropagation();
+							return;
+						}
+					}
+					ele = ele.parentNode;
+				}
+			}
+		}, true);
+	}
+	})( jQuery, window, document );
+
+
+/***/ },
+/* 211 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var _ = __webpack_require__(16);
+	var WrappedDefaults = __webpack_require__(217);
+
+	var DEFAULT_OPTIONS = {
+	    maxScale: 1,
+	    mouselayer: false
+	};
+
+	var WrappedEllipse = function (graphie, center, radii, options) {
+	    options = _.extend({}, DEFAULT_OPTIONS, options);
+
+	    // Add `wrapper`, `visibleShape`, and remaining properties
+	    _.extend(this, graphie.fixedEllipse(center, radii, options.maxScale), {
+	        graphie: graphie,
+	        initialPoint: center
+	    });
+
+	    // Add to appropriate graphie layer
+	    if (options.mouselayer) {
+	        this.graphie.addToMouseLayerWrapper(this.wrapper);
+	    } else {
+	        this.graphie.addToVisibleLayerWrapper(this.wrapper);
+	    }
+	};
+
+	_.extend(WrappedEllipse.prototype, WrappedDefaults);
+
+	module.exports = WrappedEllipse;
+
+/***/ },
+/* 212 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var _ = __webpack_require__(16);
+	var WrappedDefaults = __webpack_require__(217);
+
+	var DEFAULT_OPTIONS = {
+	    center: null, // gets ignored in `graphie.fixedPath` if `null`
+	    createPath: null, // gets defaulted in `graphie.fixedPath` if `null`
+	    mouselayer: false
+	};
+
+	var WrappedPath = function (graphie, points, options) {
+	    options = _.extend({}, DEFAULT_OPTIONS, options);
+
+	    // Add `wrapper` and `visibleShape`
+	    _.extend(this, graphie.fixedPath(points, options.center, options.createPath));
+
+	    // Add remaining properties
+	    _.extend(this, {
+	        graphie: graphie,
+	        initialPoint: graphie.scalePoint(_.head(points))
+	    });
+
+	    // Add to appropriate graphie layer
+	    if (options.mouselayer) {
+	        this.graphie.addToMouseLayerWrapper(this.wrapper);
+	    } else {
+	        this.graphie.addToVisibleLayerWrapper(this.wrapper);
+	    }
+	};
+
+	_.extend(WrappedPath.prototype, WrappedDefaults);
+
+	module.exports = WrappedPath;
+
+/***/ },
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -47194,8 +54331,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * A library of options to pass to add/draw/remove/constraints
 	 */
 
-	var kpoint = __webpack_require__(182).point;
-	var kvector = __webpack_require__(182).vector;
+	var kpoint = __webpack_require__(188).point;
+	var kvector = __webpack_require__(188).vector;
 
 	function sum(array) {
 	    return _.reduce(array, function (memo, arg) {
@@ -47467,7 +54604,148 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 203 */
+/* 214 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/**
+	 * A library of options to pass to add/draw/remove/constraints
+	 */
+	var _ = __webpack_require__(16);
+
+	var WrappedEllipse = __webpack_require__(211);
+	var kpoint = __webpack_require__(188).point;
+
+	var add = {
+	    constrain: function () {
+	        this.constrain();
+	    }
+	};
+
+	add.standard = [add.constrain];
+
+	var modify = {
+	    draw: function () {
+	        this.draw();
+	    }
+	};
+
+	modify.standard = [modify.draw];
+
+	var draw = {
+	    basic: function (state, prevState) {
+	        var graphie = this.graphie;
+	        if (!this.state.visibleShape) {
+	            var radii = [this.pointSize() / graphie.scale[0], this.pointSize() / graphie.scale[1]];
+	            var options = {
+	                maxScale: Math.max(this.highlightStyle().scale, this.normalStyle().scale)
+	            };
+	            this.state.visibleShape = new WrappedEllipse(graphie, this.coord(), radii, options);
+	            this.state.visibleShape.attr(_.omit(this.normalStyle(), "scale"));
+	            this.state.visibleShape.toFront();
+
+	            // Keep mouseTarget in front of visible shape
+	            if (this.mouseTarget()) {
+	                this.mouseTarget().toFront();
+	            }
+	        }
+	        if (state.normalStyle !== prevState.normalStyle && !_.isEqual(state.normalStyle, prevState.normalStyle)) {
+	            this.state.visibleShape.attr(this.normalStyle());
+	        }
+
+	        this.state.visibleShape.moveTo(this.coord());
+	        if (this.mouseTarget()) {
+	            this.mouseTarget().moveTo(this.coord());
+	        }
+	    },
+
+	    highlight: function (state, prevState) {
+	        if (state.isHovering && !prevState.isHovering) {
+	            state.visibleShape.animate(this.highlightStyle(), 50);
+	        } else if (!state.isHovering && prevState.isHovering) {
+	            state.visibleShape.animate(this.normalStyle(), 50);
+	        }
+	    }
+	};
+
+	draw.standard = [draw.basic, draw.highlight];
+
+	var remove = {
+	    basic: function () {
+	        if (this.state.visibleShape) {
+	            this.state.visibleShape.remove();
+	            this.state.visibleShape = null;
+	        }
+	    }
+	};
+
+	remove.standard = remove.basic;
+
+	var constraints = {
+	    fixed: function () {
+	        return function () {
+	            return false;
+	        };
+	    },
+
+	    snap: function (snap) {
+	        return function (coord) {
+	            if (snap === null) {
+	                return true;
+	            }
+	            snap = snap || this.graphie.snap;
+	            return kpoint.roundTo(coord, snap);
+	        };
+	    },
+
+	    bound: function (range, snap, paddingPx) {
+	        if (paddingPx === undefined) {
+	            if (range === undefined) {
+	                paddingPx = 10;
+	            } else {
+	                paddingPx = 0;
+	            }
+	        }
+	        return function (coord) {
+	            var graphie = this.graphie;
+	            range = range || graphie.range;
+	            if (snap === undefined) {
+	                snap = graphie.snap;
+	            }
+
+	            var lower = graphie.unscalePoint([paddingPx, graphie.ypixels - paddingPx]);
+	            var upper = graphie.unscalePoint([graphie.xpixels - paddingPx, paddingPx]);
+	            if (snap) {
+	                lower = kpoint.ceilTo(lower, snap);
+	                upper = kpoint.floorTo(upper, snap);
+	            }
+	            var coordX = Math.max(lower[0], Math.min(upper[0], coord[0]));
+	            var coordY = Math.max(lower[1], Math.min(upper[1], coord[1]));
+	            return [coordX, coordY];
+	        };
+	    }
+	};
+
+	constraints.standard = null;
+
+	module.exports = {
+	    add: add,
+	    modify: modify,
+	    draw: draw,
+	    remove: remove,
+
+	    onMoveStart: { standard: null },
+	    constraints: constraints,
+	    onMove: { standard: null },
+	    onMoveEnd: { standard: null },
+	    onClick: { standard: null }
+	};
+
+/***/ },
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(15);
@@ -47560,7 +54838,46 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ToggleableRadioButton;
 
 /***/ },
-/* 204 */
+/* 216 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+	===============================================================================
+	Crc32 is a JavaScript function for computing the CRC32 of a string
+	...............................................................................
+
+	Version: 1.2 - 2006/11 - http://noteslog.com/category/javascript/
+
+	-------------------------------------------------------------------------------
+	Copyright (c) 2006 Andrea Ercolino
+	http://www.opensource.org/licenses/mit-license.php
+	===============================================================================
+	*/
+
+	// CRC32 Lookup Table
+	var table = "00000000 77073096 EE0E612C 990951BA 076DC419 706AF48F E963A535 " + "9E6495A3 0EDB8832 79DCB8A4 E0D5E91E 97D2D988 09B64C2B 7EB17CBD " + "E7B82D07 90BF1D91 1DB71064 6AB020F2 F3B97148 84BE41DE 1ADAD47D " + "6DDDE4EB F4D4B551 83D385C7 136C9856 646BA8C0 FD62F97A 8A65C9EC " + "14015C4F 63066CD9 FA0F3D63 8D080DF5 3B6E20C8 4C69105E D56041E4 " + "A2677172 3C03E4D1 4B04D447 D20D85FD A50AB56B 35B5A8FA 42B2986C " + "DBBBC9D6 ACBCF940 32D86CE3 45DF5C75 DCD60DCF ABD13D59 26D930AC " + "51DE003A C8D75180 BFD06116 21B4F4B5 56B3C423 CFBA9599 B8BDA50F " + "2802B89E 5F058808 C60CD9B2 B10BE924 2F6F7C87 58684C11 C1611DAB " + "B6662D3D 76DC4190 01DB7106 98D220BC EFD5102A 71B18589 06B6B51F " + "9FBFE4A5 E8B8D433 7807C9A2 0F00F934 9609A88E E10E9818 7F6A0DBB " + "086D3D2D 91646C97 E6635C01 6B6B51F4 1C6C6162 856530D8 F262004E " + "6C0695ED 1B01A57B 8208F4C1 F50FC457 65B0D9C6 12B7E950 8BBEB8EA " + "FCB9887C 62DD1DDF 15DA2D49 8CD37CF3 FBD44C65 4DB26158 3AB551CE " + "A3BC0074 D4BB30E2 4ADFA541 3DD895D7 A4D1C46D D3D6F4FB 4369E96A " + "346ED9FC AD678846 DA60B8D0 44042D73 33031DE5 AA0A4C5F DD0D7CC9 " + "5005713C 270241AA BE0B1010 C90C2086 5768B525 206F85B3 B966D409 " + "CE61E49F 5EDEF90E 29D9C998 B0D09822 C7D7A8B4 59B33D17 2EB40D81 " + "B7BD5C3B C0BA6CAD EDB88320 9ABFB3B6 03B6E20C 74B1D29A EAD54739 " + "9DD277AF 04DB2615 73DC1683 E3630B12 94643B84 0D6D6A3E 7A6A5AA8 " + "E40ECF0B 9309FF9D 0A00AE27 7D079EB1 F00F9344 8708A3D2 1E01F268 " + "6906C2FE F762575D 806567CB 196C3671 6E6B06E7 FED41B76 89D32BE0 " + "10DA7A5A 67DD4ACC F9B9DF6F 8EBEEFF9 17B7BE43 60B08ED5 D6D6A3E8 " + "A1D1937E 38D8C2C4 4FDFF252 D1BB67F1 A6BC5767 3FB506DD 48B2364B " + "D80D2BDA AF0A1B4C 36034AF6 41047A60 DF60EFC3 A867DF55 316E8EEF " + "4669BE79 CB61B38C BC66831A 256FD2A0 5268E236 CC0C7795 BB0B4703 " + "220216B9 5505262F C5BA3BBE B2BD0B28 2BB45A92 5CB36A04 C2D7FFA7 " + "B5D0CF31 2CD99E8B 5BDEAE1D 9B64C2B0 EC63F226 756AA39C 026D930A " + "9C0906A9 EB0E363F 72076785 05005713 95BF4A82 E2B87A14 7BB12BAE " + "0CB61B38 92D28E9B E5D5BE0D 7CDCEFB7 0BDBDF21 86D3D2D4 F1D4E242 " + "68DDB3F8 1FDA836E 81BE16CD F6B9265B 6FB077E1 18B74777 88085AE6 " + "FF0F6A70 66063BCA 11010B5C 8F659EFF F862AE69 616BFFD3 166CCF45 " + "A00AE278 D70DD2EE 4E048354 3903B3C2 A7672661 D06016F7 4969474D " + "3E6E77DB AED16A4A D9D65ADC 40DF0B66 37D83BF0 A9BCAE53 DEBB9EC5 " + "47B2CF7F 30B5FFE9 BDBDF21C CABAC28A 53B39330 24B4A3A6 BAD03605 " + "CDD70693 54DE5729 23D967BF B3667A2E C4614AB8 5D681B02 2A6F2B94 " + "B40BBE37 C30C8EA1 5A05DF1B 2D02EF8D";
+
+	/* Number */
+	var crc32 = function (str, crc) {
+	    if (crc == null) {
+	        crc = 0;
+	    }
+	    var n = 0; //a number between 0 and 255
+	    var x = 0; //a hex number
+
+	    crc = crc ^ -1;
+	    for (var i = 0, iTop = str.length; i < iTop; i++) {
+	        n = (crc ^ str.charCodeAt(i)) & 255;
+	        x = "0x" + table.substr(n * 9, 8);
+	        crc = crc >>> 8 ^ x;
+	    }
+	    return Math.abs(crc ^ -1);
+	};
+
+	module.exports = crc32;
+
+/***/ },
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -47572,9 +54889,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var _ = __webpack_require__(16);
-	var InteractiveUtil = __webpack_require__(144);
-	var objective_ = __webpack_require__(131);
-	var kvector = __webpack_require__(182).vector;
+	var InteractiveUtil = __webpack_require__(148);
+	var objective_ = __webpack_require__(132);
+	var kvector = __webpack_require__(188).vector;
 
 	/*
 	 * These functions, when called on the wrapped object, simply pass the
@@ -47590,7 +54907,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    toFront: function () {
 	        var parentNode = this.wrapper.parentNode;
-	        parentNode.appendChild(this.wrapper);
+	        // TODO(emily): Sometimes, we call `.remove()` but then hold a
+	        // reference to this object, and sometimes call `.toFront` on it.
+	        // Notably, this happens in the reflection transformation in the
+	        // Transformer widget. This is a hacky fix. Make this less bad.
+	        if (parentNode) {
+	            parentNode.appendChild(this.wrapper);
+	        }
 	    },
 
 	    toBack: function () {
@@ -47632,45 +54955,68 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WrappedDefaults;
 
 /***/ },
-/* 205 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	// shim for using process in browser
 
-	var _ = __webpack_require__(16);
-	var WrappedDefaults = __webpack_require__(204);
+	var process = module.exports = {};
+	var queue = [];
+	var draining = false;
 
-	var DEFAULT_OPTIONS = {
-	    center: null, // gets ignored in `graphie.fixedPath` if `null`
-	    createPath: null, // gets defaulted in `graphie.fixedPath` if `null`
-	    mouselayer: false
-	};
-
-	var WrappedPath = function (graphie, points, options) {
-	    options = _.extend({}, DEFAULT_OPTIONS, options);
-
-	    // Add `wrapper` and `visibleShape`
-	    _.extend(this, graphie.fixedPath(points, options.center, options.createPath));
-
-	    // Add remaining properties
-	    _.extend(this, {
-	        graphie: graphie,
-	        initialPoint: graphie.scalePoint(_.head(points))
-	    });
-
-	    // Add to appropriate graphie layer
-	    if (options.mouselayer) {
-	        this.graphie.addToMouseLayerWrapper(this.wrapper);
-	    } else {
-	        this.graphie.addToVisibleLayerWrapper(this.wrapper);
+	function drainQueue() {
+	    if (draining) {
+	        return;
+	    }
+	    draining = true;
+	    var currentQueue;
+	    var len = queue.length;
+	    while(len) {
+	        currentQueue = queue;
+	        queue = [];
+	        var i = -1;
+	        while (++i < len) {
+	            currentQueue[i]();
+	        }
+	        len = queue.length;
+	    }
+	    draining = false;
+	}
+	process.nextTick = function (fun) {
+	    queue.push(fun);
+	    if (!draining) {
+	        setTimeout(drainQueue, 0);
 	    }
 	};
 
-	_.extend(WrappedPath.prototype, WrappedDefaults);
+	process.title = 'browser';
+	process.browser = true;
+	process.env = {};
+	process.argv = [];
+	process.version = ''; // empty string to avoid regexp issues
+	process.versions = {};
 
-	module.exports = WrappedPath;
+	function noop() {}
+
+	process.on = noop;
+	process.addListener = noop;
+	process.once = noop;
+	process.off = noop;
+	process.removeListener = noop;
+	process.removeAllListeners = noop;
+	process.emit = noop;
+
+	process.binding = function (name) {
+	    throw new Error('process.binding is not supported');
+	};
+
+	// TODO(shtylman)
+	process.cwd = function () { return '/' };
+	process.chdir = function (dir) {
+	    throw new Error('process.chdir is not supported');
+	};
+	process.umask = function() { return 0; };
+
 
 /***/ }
 /******/ ])

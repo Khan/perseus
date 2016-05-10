@@ -1,5 +1,6 @@
 /* global i18n:false, Modernizr:false */
 
+const $ = require("jquery");
 const _ = require("underscore");
 
 const retrieveMathFormula = require("./tex.js").retrieveMathFormula;
@@ -771,7 +772,7 @@ const KhanAnswerTypes = {
 
                 // iterate over all the acceptable forms, and if one of the
                 // answers is correct, return true
-                _.each(acceptableForms, function(form, i) {
+                $.each(acceptableForms, function(i, form) {
                     const transformed = forms[form](guess);
 
                     for (let j = 0, l = transformed.length; j < l; j++) {
