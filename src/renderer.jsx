@@ -18,6 +18,8 @@ var TeX = require("react-components/tex.jsx");
 var WidgetContainer = require("./widget-container.jsx");
 var Widgets = require("./widgets.js");
 var getHintsIndex = require("./get-hints-index.jsx");
+var Keypad = require("../math-input/src/components/provided-keypad.js");
+var { configureKeypad, dismissKeypad } = require("../math-input/src/actions");
 
 var Util = require("./util.js");
 var EnabledFeatures = require("./enabled-features.jsx");
@@ -208,6 +210,24 @@ var Renderer = React.createClass({
     componentDidMount: function() {
         this.handleRender({});
         this._currentFocus = null;
+
+        var apiOptions = this.getApiOptions(this.props);
+
+        if (apiOptions.softwareKeypad) {
+            // We create the keypad when the item is rendered.  The keypad is
+            // initially off-screen.  When a user taps on an input
+            // the keypad will animate into view from the bottom of the page.
+            // The reason why we're adding it to the body is that there may be
+            // other elements on the page outside of the perseus renderer and
+            // we want to be sure that the keypad will appear from the bottom
+            // of the page and appear above other content.
+            const keypadContainer = document.createElement('div');
+            document.body.appendChild(keypadContainer);
+
+            // TODO(kevinb) add an onDismiss handler so that we can blur the
+            // current epression widget when the keypad is dismissed.
+            ReactDOM.render(<Keypad />, keypadContainer);
+        }
     },
 
     componentWillReceiveProps: function(nextProps) {
@@ -916,6 +936,21 @@ var Renderer = React.createClass({
                     prevFocus
                 );
             }
+        }
+
+        const didFocusInput = path && this.getInputPaths().some((inputPath) =>
+            inputPath.length === path.length &&
+                inputPath.every((item, index) => path[index] === item)
+        );
+
+        if (didFocusInput) {
+            // TODO(kevinb): import constants from math-input
+            configureKeypad({
+                keypadType: 'ADVANCED_EXPRESSION',
+                extraSymbols: [],
+            });
+        } else {
+            dismissKeypad();
         }
     },
 

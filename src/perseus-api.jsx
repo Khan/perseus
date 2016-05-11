@@ -78,6 +78,13 @@ module.exports = {
             // include a boolean "correct" value. This is used for keeping
             // track of widget interactions.
             trackInteraction: React.PropTypes.func,
+
+            // A boolean that indicates whether or not a software keypad is
+            // being used.  For mobile web this will be the ProvidedKeypad
+            // component.  In this situation we the MathInput component from
+            // the math-input repo instead of the existing perseus math input
+            // components.
+            softwareKeypad: React.PropTypes.bool,
         }).isRequired,
 
         defaults: {

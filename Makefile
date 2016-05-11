@@ -132,6 +132,9 @@ ifneq ("$(SUPPRESSINSTALL)","TRUE")
 	rm -rf simple-markdown/node_modules
 	rm -rf kmath/node_modules
 	rm -rf react-components/node_modules
+	rm -rf math-input/node_modules/react
+	rm -rf math-input/node_modules/react-dom
+	rm -rf math-input/node_modules/react-addons*
 endif
 
 clean:

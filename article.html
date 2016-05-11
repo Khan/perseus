@@ -15,6 +15,11 @@
 <link rel="stylesheet/less" type="text/css" href="stylesheets/exercise-content-package/articles.less" />
 <link rel="stylesheet/less" type="text/css" href="stylesheets/perseus-admin-package/editor.less" />
 
+<link rel="stylesheet" type="text/css" href="math-input/css/dismiss.css">
+<link rel="stylesheet" type="text/css" href="math-input/css/echo.css">
+<link rel="stylesheet" type="text/css" href="math-input/css/overrides.css">
+<link rel="stylesheet" type="text/css" href="math-input/css/proxima-nova.css">
+
 <script>less = {env: 'development', logLevel: 1};</script>
 <script src="lib/less.js"></script>
 
@@ -178,6 +183,8 @@ Perseus.init({skipMathJax: false}).then(function() {
                 console.log("Interaction with", trackData.type,
                         trackData);
             },
+            __readOnly: true,
+            __softwareKeypad: true,
         },
         useNewStyles: true,
         componentClass: Perseus.ArticleEditor

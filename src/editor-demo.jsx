@@ -110,6 +110,7 @@ const EditorDemo = React.createClass({
                 },
                 // staticRender: true,
                 // readOnly: true,
+                softwareKeypad: true,
             },
             componentClass: EditorPage,
         };

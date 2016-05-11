@@ -14,6 +14,8 @@ const externalVals = {
         ["React", "__internalAddons", "createFragment"],
     "react-addons-pure-render-mixin":
         ["React", "__internalAddons", "PureRenderMixin"],
+    "react-addons-css-transition-group":
+        ["React", "__internalAddons", "CSSTransitionGroup"],
 
     "underscore": "_",
     "jquery": "jQuery",
@@ -79,6 +81,8 @@ module.exports = {
                 test: /\.jsx?$/,
                 include: [
                     path.join(__dirname, "src/"),
+                    // TODO(kevinb) figure out a better way to package this
+                    path.join(__dirname, "math-input/src/"),
                     path.join(__dirname, "node_modules/react-components/"),
                 ],
                 // https://github.com/webpack/webpack/issues/119
