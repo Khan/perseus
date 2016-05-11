@@ -1,6 +1,6 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 35b81a72e35b32345b68c6a17d387960ac93ef9b
-// branch HEAD
+// commit 15006052762d9044011587048c871bc9b4c72dce
+// branch sat-exam-question-header
 // @generated
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -58,7 +58,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var version = __webpack_require__(24);
+	var version = __webpack_require__(19);
 
 	__webpack_require__(1);
 
@@ -930,21 +930,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var classNames = __webpack_require__(12);
 
-	var JiptParagraphs = __webpack_require__(19);
+	var JiptParagraphs = __webpack_require__(20);
 
-	var PerseusMarkdown = __webpack_require__(20);
+	var PerseusMarkdown = __webpack_require__(21);
 
-	var QuestionParagraph = __webpack_require__(21);
+	var QuestionParagraph = __webpack_require__(22);
 
 	var SvgImage = __webpack_require__(60);
 
 	var TeX = __webpack_require__(61);
 
-	var WidgetContainer = __webpack_require__(22);
+	var WidgetContainer = __webpack_require__(23);
 
 	var Widgets = __webpack_require__(13);
 
-	var getHintsIndex = __webpack_require__(23);
+	var getHintsIndex = __webpack_require__(24);
 
 	var Util = __webpack_require__(16);
 
@@ -2916,6 +2916,21 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = {
+		"apiVersion": {
+			"major": 6,
+			"minor": 1
+		},
+		"itemDataVersion": {
+			"major": 0,
+			"minor": 1
+		}
+	};
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/**
 	 * Paragraph parsing/splitting for article jipt i18n
 	 */
@@ -2955,7 +2970,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -3352,7 +3367,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -3377,7 +3392,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = QuestionParagraph;
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function(target) {
@@ -3477,7 +3492,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WidgetContainer;
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -3504,21 +3519,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	module.exports = getHintsIndex;
-
-/***/ },
-/* 24 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = {
-		"apiVersion": {
-			"major": 6,
-			"minor": 1
-		},
-		"itemDataVersion": {
-			"major": 0,
-			"minor": 1
-		}
-	};
 
 /***/ },
 /* 25 */
@@ -10667,7 +10667,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(88);
 
-	var PerseusMarkdown = __webpack_require__(20);
+	var PerseusMarkdown = __webpack_require__(21);
 
 	var WidgetJsonifyDeprecated = __webpack_require__(89);
 
@@ -25387,9 +25387,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(8);
 
-	var MovablePointOptions = __webpack_require__(130);
+	var MovablePointOptions = __webpack_require__(127);
 
-	var WrappedEllipse = __webpack_require__(131);
+	var WrappedEllipse = __webpack_require__(128);
 
 	var InteractiveUtil = __webpack_require__(78);
 
@@ -25643,9 +25643,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(8);
 
-	var MovableLineOptions = __webpack_require__(127);
+	var MovableLineOptions = __webpack_require__(129);
 
-	var WrappedLine = __webpack_require__(128);
+	var WrappedLine = __webpack_require__(130);
 
 	var InteractiveUtil = __webpack_require__(78);
 
@@ -25874,7 +25874,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(8);
 
-	var MovablePolygonOptions = __webpack_require__(129);
+	var MovablePolygonOptions = __webpack_require__(131);
 
 	var InteractiveUtil = __webpack_require__(78);
 
@@ -26779,7 +26779,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// release
 	// http://groups.google.com/group/raphaeljs/browse_thread/thread/c34c75ad8d431544
 	/* globals Raphael:false */
-	__webpack_require__(135);
+	__webpack_require__(134);
 
 	__webpack_require__(132);
 
@@ -27713,7 +27713,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(8);
 
-	__webpack_require__(136);
+	__webpack_require__(135);
 
 	var GraphUtils = __webpack_require__(112);
 
@@ -27723,9 +27723,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var kline = __webpack_require__(100).line;
 
-	var WrappedEllipse = __webpack_require__(131);
+	var WrappedEllipse = __webpack_require__(128);
 
-	var WrappedLine = __webpack_require__(128);
+	var WrappedLine = __webpack_require__(130);
 
 	var WrappedPath = __webpack_require__(133);
 
@@ -30679,7 +30679,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var classNames = __webpack_require__(12);
 
-	var Choice = __webpack_require__(134);
+	var Choice = __webpack_require__(136);
 
 	var ChoiceNoneAbove = React.createClass({
 	    displayName: "ChoiceNoneAbove",
@@ -31492,6 +31492,159 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	/**
+	 * A library of options to pass to add/draw/remove/constraints
+	 */
+	var _ = __webpack_require__(8);
+
+	var WrappedEllipse = __webpack_require__(128);
+
+	var kpoint = __webpack_require__(100).point;
+
+	var add = {
+	    constrain: function() {
+	        this.constrain();
+	    }
+	};
+
+	add.standard = [ add.constrain ];
+
+	var modify = {
+	    draw: function() {
+	        this.draw();
+	    }
+	};
+
+	modify.standard = [ modify.draw ];
+
+	var draw = {
+	    basic: function(state, prevState) {
+	        var graphie = this.graphie;
+	        if (!this.state.visibleShape) {
+	            var radii = [ this.pointSize() / graphie.scale[0], this.pointSize() / graphie.scale[1] ];
+	            var options = {
+	                maxScale: Math.max(this.highlightStyle().scale, this.normalStyle().scale)
+	            };
+	            this.state.visibleShape = new WrappedEllipse(graphie, this.coord(), radii, options);
+	            this.state.visibleShape.attr(_.omit(this.normalStyle(), "scale"));
+	            this.state.visibleShape.toFront();
+	            // Keep mouseTarget in front of visible shape
+	            this.mouseTarget() && this.mouseTarget().toFront();
+	        }
+	        state.normalStyle === prevState.normalStyle || _.isEqual(state.normalStyle, prevState.normalStyle) || this.state.visibleShape.attr(this.normalStyle());
+	        this.state.visibleShape.moveTo(this.coord());
+	        this.mouseTarget() && this.mouseTarget().moveTo(this.coord());
+	    },
+	    highlight: function(state, prevState) {
+	        state.isHovering && !prevState.isHovering ? state.visibleShape.animate(this.highlightStyle(), 50) : !state.isHovering && prevState.isHovering && state.visibleShape.animate(this.normalStyle(), 50);
+	    }
+	};
+
+	draw.standard = [ draw.basic, draw.highlight ];
+
+	var remove = {
+	    basic: function() {
+	        if (this.state.visibleShape) {
+	            this.state.visibleShape.remove();
+	            this.state.visibleShape = null;
+	        }
+	    }
+	};
+
+	remove.standard = remove.basic;
+
+	var constraints = {
+	    fixed: function() {
+	        return function() {
+	            return false;
+	        };
+	    },
+	    snap: function(snap) {
+	        return function(coord) {
+	            if (null === snap) return true;
+	            snap = snap || this.graphie.snap;
+	            return kpoint.roundTo(coord, snap);
+	        };
+	    },
+	    bound: function(range, snap, paddingPx) {
+	        void 0 === paddingPx && (paddingPx = void 0 === range ? 10 : 0);
+	        return function(coord) {
+	            var graphie = this.graphie;
+	            range = range || graphie.range;
+	            void 0 === snap && (snap = graphie.snap);
+	            var lower = graphie.unscalePoint([ paddingPx, graphie.ypixels - paddingPx ]);
+	            var upper = graphie.unscalePoint([ graphie.xpixels - paddingPx, paddingPx ]);
+	            if (snap) {
+	                lower = kpoint.ceilTo(lower, snap);
+	                upper = kpoint.floorTo(upper, snap);
+	            }
+	            var coordX = Math.max(lower[0], Math.min(upper[0], coord[0]));
+	            var coordY = Math.max(lower[1], Math.min(upper[1], coord[1]));
+	            return [ coordX, coordY ];
+	        };
+	    }
+	};
+
+	constraints.standard = null;
+
+	module.exports = {
+	    add: add,
+	    modify: modify,
+	    draw: draw,
+	    remove: remove,
+	    onMoveStart: {
+	        standard: null
+	    },
+	    constraints: constraints,
+	    onMove: {
+	        standard: null
+	    },
+	    onMoveEnd: {
+	        standard: null
+	    },
+	    onClick: {
+	        standard: null
+	    }
+	};
+
+/***/ },
+/* 128 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	var _ = __webpack_require__(8);
+
+	var WrappedDefaults = __webpack_require__(137);
+
+	var DEFAULT_OPTIONS = {
+	    maxScale: 1,
+	    mouselayer: false
+	};
+
+	var WrappedEllipse = function(graphie, center, radii, options) {
+	    options = _.extend({}, DEFAULT_OPTIONS, options);
+	    // Add `wrapper`, `visibleShape`, and remaining properties
+	    _.extend(this, graphie.fixedEllipse(center, radii, options.maxScale), {
+	        graphie: graphie,
+	        initialPoint: center
+	    });
+	    // Add to appropriate graphie layer
+	    options.mouselayer ? this.graphie.addToMouseLayerWrapper(this.wrapper) : this.graphie.addToVisibleLayerWrapper(this.wrapper);
+	};
+
+	_.extend(WrappedEllipse.prototype, WrappedDefaults);
+
+	module.exports = WrappedEllipse;
+
+/***/ },
+/* 129 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, indent, no-var */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/**
@@ -31499,7 +31652,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(8);
 
-	var WrappedLine = __webpack_require__(128);
+	var WrappedLine = __webpack_require__(130);
 
 	var WrappedPath = __webpack_require__(133);
 
@@ -31753,7 +31906,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 128 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -31820,7 +31973,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WrappedLine;
 
 /***/ },
-/* 129 */
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -32059,159 +32212,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        standard: null
 	    }
 	};
-
-/***/ },
-/* 130 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	/**
-	 * A library of options to pass to add/draw/remove/constraints
-	 */
-	var _ = __webpack_require__(8);
-
-	var WrappedEllipse = __webpack_require__(131);
-
-	var kpoint = __webpack_require__(100).point;
-
-	var add = {
-	    constrain: function() {
-	        this.constrain();
-	    }
-	};
-
-	add.standard = [ add.constrain ];
-
-	var modify = {
-	    draw: function() {
-	        this.draw();
-	    }
-	};
-
-	modify.standard = [ modify.draw ];
-
-	var draw = {
-	    basic: function(state, prevState) {
-	        var graphie = this.graphie;
-	        if (!this.state.visibleShape) {
-	            var radii = [ this.pointSize() / graphie.scale[0], this.pointSize() / graphie.scale[1] ];
-	            var options = {
-	                maxScale: Math.max(this.highlightStyle().scale, this.normalStyle().scale)
-	            };
-	            this.state.visibleShape = new WrappedEllipse(graphie, this.coord(), radii, options);
-	            this.state.visibleShape.attr(_.omit(this.normalStyle(), "scale"));
-	            this.state.visibleShape.toFront();
-	            // Keep mouseTarget in front of visible shape
-	            this.mouseTarget() && this.mouseTarget().toFront();
-	        }
-	        state.normalStyle === prevState.normalStyle || _.isEqual(state.normalStyle, prevState.normalStyle) || this.state.visibleShape.attr(this.normalStyle());
-	        this.state.visibleShape.moveTo(this.coord());
-	        this.mouseTarget() && this.mouseTarget().moveTo(this.coord());
-	    },
-	    highlight: function(state, prevState) {
-	        state.isHovering && !prevState.isHovering ? state.visibleShape.animate(this.highlightStyle(), 50) : !state.isHovering && prevState.isHovering && state.visibleShape.animate(this.normalStyle(), 50);
-	    }
-	};
-
-	draw.standard = [ draw.basic, draw.highlight ];
-
-	var remove = {
-	    basic: function() {
-	        if (this.state.visibleShape) {
-	            this.state.visibleShape.remove();
-	            this.state.visibleShape = null;
-	        }
-	    }
-	};
-
-	remove.standard = remove.basic;
-
-	var constraints = {
-	    fixed: function() {
-	        return function() {
-	            return false;
-	        };
-	    },
-	    snap: function(snap) {
-	        return function(coord) {
-	            if (null === snap) return true;
-	            snap = snap || this.graphie.snap;
-	            return kpoint.roundTo(coord, snap);
-	        };
-	    },
-	    bound: function(range, snap, paddingPx) {
-	        void 0 === paddingPx && (paddingPx = void 0 === range ? 10 : 0);
-	        return function(coord) {
-	            var graphie = this.graphie;
-	            range = range || graphie.range;
-	            void 0 === snap && (snap = graphie.snap);
-	            var lower = graphie.unscalePoint([ paddingPx, graphie.ypixels - paddingPx ]);
-	            var upper = graphie.unscalePoint([ graphie.xpixels - paddingPx, paddingPx ]);
-	            if (snap) {
-	                lower = kpoint.ceilTo(lower, snap);
-	                upper = kpoint.floorTo(upper, snap);
-	            }
-	            var coordX = Math.max(lower[0], Math.min(upper[0], coord[0]));
-	            var coordY = Math.max(lower[1], Math.min(upper[1], coord[1]));
-	            return [ coordX, coordY ];
-	        };
-	    }
-	};
-
-	constraints.standard = null;
-
-	module.exports = {
-	    add: add,
-	    modify: modify,
-	    draw: draw,
-	    remove: remove,
-	    onMoveStart: {
-	        standard: null
-	    },
-	    constraints: constraints,
-	    onMove: {
-	        standard: null
-	    },
-	    onMoveEnd: {
-	        standard: null
-	    },
-	    onClick: {
-	        standard: null
-	    }
-	};
-
-/***/ },
-/* 131 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var _ = __webpack_require__(8);
-
-	var WrappedDefaults = __webpack_require__(137);
-
-	var DEFAULT_OPTIONS = {
-	    maxScale: 1,
-	    mouselayer: false
-	};
-
-	var WrappedEllipse = function(graphie, center, radii, options) {
-	    options = _.extend({}, DEFAULT_OPTIONS, options);
-	    // Add `wrapper`, `visibleShape`, and remaining properties
-	    _.extend(this, graphie.fixedEllipse(center, radii, options.maxScale), {
-	        graphie: graphie,
-	        initialPoint: center
-	    });
-	    // Add to appropriate graphie layer
-	    options.mouselayer ? this.graphie.addToMouseLayerWrapper(this.wrapper) : this.graphie.addToVisibleLayerWrapper(this.wrapper);
-	};
-
-	_.extend(WrappedEllipse.prototype, WrappedDefaults);
-
-	module.exports = WrappedEllipse;
 
 /***/ },
 /* 132 */
@@ -32728,142 +32728,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 134 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _extends = Object.assign || function(target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-	    }
-	    return target;
-	};
-
-	/* global i18n */
-	var _ = __webpack_require__(8);
-
-	var React = __webpack_require__(9);
-
-	var classNames = __webpack_require__(12);
-
-	var _require = __webpack_require__(14);
-
-	var ClassNames = _require.ClassNames;
-
-	var ToggleableRadioButton = __webpack_require__(139);
-
-	var Choice = React.createClass({
-	    displayName: "Choice",
-	    propTypes: {
-	        // TODO(kevinb) use Options.propTypes from perseus-api.jsx
-	        // This change will also require make sure that item-renderer.jsx and
-	        // server-item-renderer.jsx have appropriate defaults for apiOptions
-	        // because many of the properties on Options.propTypes are required.
-	        apiOptions: React.PropTypes.shape({
-	            responsiveStyling: React.PropTypes.bool
-	        }),
-	        checked: React.PropTypes.bool,
-	        className: React.PropTypes.string,
-	        clue: React.PropTypes.node,
-	        content: React.PropTypes.node,
-	        correct: React.PropTypes.bool,
-	        deselectEnabled: React.PropTypes.bool,
-	        disabled: React.PropTypes.bool,
-	        groupName: React.PropTypes.string,
-	        onChecked: React.PropTypes.func.isRequired,
-	        // This indicates the position of the choice relative to others
-	        // (so that we can display a nice little (A), (B), etc. next to it)
-	        pos: React.PropTypes.number,
-	        showClue: React.PropTypes.bool,
-	        type: React.PropTypes.string
-	    },
-	    getDefaultProps: function() {
-	        return {
-	            checked: false,
-	            classSet: {},
-	            disabled: false,
-	            showClue: false,
-	            type: "radio",
-	            pos: 0
-	        };
-	    },
-	    render: function() {
-	        var _this = this;
-	        // NOTE(jeresig): This is not i18n appropriate and should probably be
-	        // changed to a map of common options that are properly translated.
-	        var letter = String.fromCharCode(65 + this.props.pos);
-	        var a11yText = function() {
-	            // If the option was checked we need to reveal more context about
-	            // what the result was (correct/incorrect)
-	            if (_this.props.checked) {
-	                if ("boolean" === typeof _this.props.correct) return _this.props.correct ? i18n._("(Choice %(letter)s, Checked, Correct)", {
-	                    letter: letter
-	                }) : i18n._("(Choice %(letter)s, Checked, Incorrect)", {
-	                    letter: letter
-	                });
-	                return i18n._("(Choice %(letter)s, Checked)", {
-	                    letter: letter
-	                });
-	            }
-	            if (_this.props.correct) return i18n._("(Choice %(letter)s, Correct Answer)", {
-	                letter: letter
-	            });
-	            return i18n._("(Choice %(letter)s)", {
-	                letter: letter
-	            });
-	        };
-	        var className = classNames(this.props.className, "checkbox-label");
-	        // There's two different input components we could use (the builtin
-	        // input component, or the ToggleableRadioButton component). These are
-	        // the props that we will pass to either.
-	        var commonInputProps = {
-	            type: this.props.type,
-	            name: this.props.groupName,
-	            checked: this.props.checked,
-	            disabled: this.props.disabled
-	        };
-	        var input = null;
-	        input = "radio" === this.props.type && this.props.deselectEnabled ? React.createElement(ToggleableRadioButton, _extends({
-	            onChecked: this.props.onChecked
-	        }, commonInputProps)) : React.createElement("input", _extends({
-	            onChange: function(event) {
-	                _this.props.onChecked(event.target.checked);
-	            }
-	        }, commonInputProps));
-	        var fadeOutLabelWhenDisabled = this.props.disabled && this.props.apiOptions.responsiveStyling;
-	        return React.createElement("label", {
-	            className: className,
-	            style: {
-	                opacity: fadeOutLabelWhenDisabled ? .5 : 1
-	            }
-	        }, input, React.createElement("div", {
-	            className: "description"
-	        }, React.createElement("div", {
-	            className: "checkbox-and-option"
-	        }, React.createElement("span", {
-	            className: "checkbox"
-	        }, React.createElement("div", {
-	            className: "pos-back"
-	        }), React.createElement("div", {
-	            className: "pos"
-	        }, React.createElement("span", {
-	            className: "perseus-sr-only"
-	        }, a11yText()), React.createElement("span", {
-	            "aria-hidden": "true"
-	        }, letter))), React.createElement("span", {
-	            className: ClassNames.RADIO.OPTION_CONTENT + " " + ClassNames.INTERACTIVE,
-	            style: {
-	                cursor: "default"
-	            }
-	        }, React.createElement("div", null, this.props.content))), this.props.showClue && React.createElement("div", {
-	            className: "perseus-radio-clue"
-	        }, this.props.clue)));
-	    }
-	});
-
-	module.exports = Choice;
-
-/***/ },
-/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*!
@@ -36625,7 +36489,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 136 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -37135,6 +36999,142 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	})( jQuery, window, document );
 
+
+/***/ },
+/* 136 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
+	/* global i18n */
+	var _ = __webpack_require__(8);
+
+	var React = __webpack_require__(9);
+
+	var classNames = __webpack_require__(12);
+
+	var _require = __webpack_require__(14);
+
+	var ClassNames = _require.ClassNames;
+
+	var ToggleableRadioButton = __webpack_require__(139);
+
+	var Choice = React.createClass({
+	    displayName: "Choice",
+	    propTypes: {
+	        // TODO(kevinb) use Options.propTypes from perseus-api.jsx
+	        // This change will also require make sure that item-renderer.jsx and
+	        // server-item-renderer.jsx have appropriate defaults for apiOptions
+	        // because many of the properties on Options.propTypes are required.
+	        apiOptions: React.PropTypes.shape({
+	            responsiveStyling: React.PropTypes.bool
+	        }),
+	        checked: React.PropTypes.bool,
+	        className: React.PropTypes.string,
+	        clue: React.PropTypes.node,
+	        content: React.PropTypes.node,
+	        correct: React.PropTypes.bool,
+	        deselectEnabled: React.PropTypes.bool,
+	        disabled: React.PropTypes.bool,
+	        groupName: React.PropTypes.string,
+	        onChecked: React.PropTypes.func.isRequired,
+	        // This indicates the position of the choice relative to others
+	        // (so that we can display a nice little (A), (B), etc. next to it)
+	        pos: React.PropTypes.number,
+	        showClue: React.PropTypes.bool,
+	        type: React.PropTypes.string
+	    },
+	    getDefaultProps: function() {
+	        return {
+	            checked: false,
+	            classSet: {},
+	            disabled: false,
+	            showClue: false,
+	            type: "radio",
+	            pos: 0
+	        };
+	    },
+	    render: function() {
+	        var _this = this;
+	        // NOTE(jeresig): This is not i18n appropriate and should probably be
+	        // changed to a map of common options that are properly translated.
+	        var letter = String.fromCharCode(65 + this.props.pos);
+	        var a11yText = function() {
+	            // If the option was checked we need to reveal more context about
+	            // what the result was (correct/incorrect)
+	            if (_this.props.checked) {
+	                if ("boolean" === typeof _this.props.correct) return _this.props.correct ? i18n._("(Choice %(letter)s, Checked, Correct)", {
+	                    letter: letter
+	                }) : i18n._("(Choice %(letter)s, Checked, Incorrect)", {
+	                    letter: letter
+	                });
+	                return i18n._("(Choice %(letter)s, Checked)", {
+	                    letter: letter
+	                });
+	            }
+	            if (_this.props.correct) return i18n._("(Choice %(letter)s, Correct Answer)", {
+	                letter: letter
+	            });
+	            return i18n._("(Choice %(letter)s)", {
+	                letter: letter
+	            });
+	        };
+	        var className = classNames(this.props.className, "checkbox-label");
+	        // There's two different input components we could use (the builtin
+	        // input component, or the ToggleableRadioButton component). These are
+	        // the props that we will pass to either.
+	        var commonInputProps = {
+	            type: this.props.type,
+	            name: this.props.groupName,
+	            checked: this.props.checked,
+	            disabled: this.props.disabled
+	        };
+	        var input = null;
+	        input = "radio" === this.props.type && this.props.deselectEnabled ? React.createElement(ToggleableRadioButton, _extends({
+	            onChecked: this.props.onChecked
+	        }, commonInputProps)) : React.createElement("input", _extends({
+	            onChange: function(event) {
+	                _this.props.onChecked(event.target.checked);
+	            }
+	        }, commonInputProps));
+	        var fadeOutLabelWhenDisabled = this.props.disabled && this.props.apiOptions.responsiveStyling;
+	        return React.createElement("label", {
+	            className: className,
+	            style: {
+	                opacity: fadeOutLabelWhenDisabled ? .5 : 1
+	            }
+	        }, input, React.createElement("div", {
+	            className: "description"
+	        }, React.createElement("div", {
+	            className: "checkbox-and-option"
+	        }, React.createElement("span", {
+	            className: "checkbox"
+	        }, React.createElement("div", {
+	            className: "pos-back"
+	        }), React.createElement("div", {
+	            className: "pos"
+	        }, React.createElement("span", {
+	            className: "perseus-sr-only"
+	        }, a11yText()), React.createElement("span", {
+	            "aria-hidden": "true"
+	        }, letter))), React.createElement("span", {
+	            className: ClassNames.RADIO.OPTION_CONTENT + " " + ClassNames.INTERACTIVE,
+	            style: {
+	                cursor: "default"
+	            }
+	        }, React.createElement("div", null, this.props.content))), this.props.showClue && React.createElement("div", {
+	            className: "perseus-radio-clue"
+	        }, this.props.clue)));
+	    }
+	});
+
+	module.exports = Choice;
 
 /***/ },
 /* 137 */
