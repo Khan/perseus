@@ -12,8 +12,6 @@ const _ = require("underscore");
 /* globals Raphael:false */
 require("../../lib/raphael.js");
 
-require("./tmpl.js");
-
 const KhanMath = require("./math.js");
 const processMath = require("./tex.js").processMath;
 const KhanColors = require("./colors");
@@ -41,16 +39,6 @@ function polar(r, th) {
     }
     th = th * Math.PI / 180;
     return [r[0] * Math.cos(th), r[1] * Math.sin(th)];
-}
-
-// Keep track of all the intervalIDs created by setInterval.
-// This lets us cancel all the intervals when cleaning up.
-const intervalIDs = [];
-function cleanupIntervals() {
-    _.each(intervalIDs, function(intervalID) {
-        window.clearInterval(intervalID);
-    });
-    intervalIDs.length = 0;
 }
 
 const GraphUtils = {
@@ -983,15 +971,6 @@ GraphUtils.createGraphie = function(el) {
             return this;
         },
 
-        // Wrap window.setInterval to keep track of all the intervalIDs.
-        setInterval: function() {
-            const intervalID = Function.prototype.apply.call(window.setInterval,
-                                                           window,
-                                                           arguments);
-            intervalIDs.push(intervalID);
-            return intervalID;
-        },
-
         style: function(attrs, fn) {
             const processed = processAttributes(attrs);
 
@@ -1361,70 +1340,6 @@ GraphUtils.createGraphie = function(el) {
     };
 
     return graphie;
-};
-
-$.fn.graphie = function(problem) {
-    if (Khan.query.nographie != null) {
-        return;
-    }
-
-    const graphies = this.find(".graphie, script[type='text/graphie']")
-          .addBack()
-          .filter(".graphie, script[type='text/graphie']");
-    return graphies.each(function() {
-        // Grab code for later execution
-        let code = $(this).text();
-        let graphie;
-
-        // Ignore graphie elements that have already been processed
-        if ($(this).data("graphie") != null) {
-            return;
-        }
-
-        // Remove any of the code that's in there
-        $(this).empty();
-
-        // Initialize the graph
-        if ($(this).data("update")) {
-            const id = $(this).data("update");
-            $(this).remove();
-
-            // Graph could be in either of these
-            const area = $("#problemarea").add(problem);
-            graphie = area.find("#" + id + ".graphie").data("graphie");
-        } else {
-            let el = this;
-            if ($(this).filter("script")[0] != null) {
-                el = $("<div>").addClass("graphie")
-                    .attr("id", $(this).attr("id")).insertAfter(this)[0];
-                $(this).remove();
-            }
-            graphie = GraphUtils.createGraphie(el);
-            $(el).data("graphie", graphie);
-
-            const id = $(el).attr("id");
-            if (id) {
-                GraphUtils.graphs[id] = graphie;
-            }
-        }
-
-        // So we can write graph.bwahahaha = 17 to save stuff between updates
-        if (typeof graphie.graph === "undefined") {
-            graphie.graph = {};
-        }
-
-        // Add newline in case code ends with a // comment
-        code = "(function() {" + code + "\n})()";
-
-        // Execute the graph-specific code
-        KhanUtil.currentGraph = graphie;
-        $.tmpl.getVAR(code, graphie);
-        // delete KhanUtil.currentGraph;
-    }).end();
-};
-
-$.fn.graphieCleanup = function(problem) {
-    cleanupIntervals();
 };
 
 module.exports = GraphUtils;
