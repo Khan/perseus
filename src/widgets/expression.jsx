@@ -701,25 +701,36 @@ const keypadConfigurationForProps = (props) => {
     }
 
     // Extract any and all variables and constants from the answer forms.
-    const uniqueExtraSymbols = {};
+    const uniqueExtraVariables = {};
+    const uniqueExtraConstants = {};
     for (const answerForm of props.answerForms) {
         const maybeExpr = KAS.parse(answerForm.value, props);
         if (maybeExpr.parsed) {
             const expr = maybeExpr.expr;
             for (const variable of expr.getVars()) {
-                uniqueExtraSymbols[variable] = true;
+                uniqueExtraVariables[variable] = true;
             }
             for (const constant of expr.getConsts()) {
-                uniqueExtraSymbols[constant] = true;
+                uniqueExtraConstants[constant] = true;
             }
         }
     }
 
+    // Convert from a set of variables (like 'x') and constants (like 'pi') to
+    // a properly ordered list of keys (upper-case, sorted lexographically), to
+    // be consumed by the keypad.
+    const convertToKeys = (tokens) => {
+        const symbols = tokens.map(token => token.toUpperCase());
+        symbols.sort();
+        return symbols;
+    };
+
     // TODO(charlie): Alert the keypad as to which of these symbols should be
     // treated as functions.
-    const extraKeys = Object.keys(uniqueExtraSymbols).map(
-        symbol => symbol.toUpperCase()
-    );
+    const extraKeys = [
+        ...convertToKeys(Object.keys(uniqueExtraVariables)),
+        ...convertToKeys(Object.keys(uniqueExtraConstants)),
+    ];
 
     return { keypadType, extraKeys };
 };
