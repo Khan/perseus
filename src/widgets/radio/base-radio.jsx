@@ -72,6 +72,7 @@ const BaseRadio = React.createClass({
             readOnly: React.PropTypes.bool,
             responsiveStyling: React.PropTypes.bool,
             mobileStyling: React.PropTypes.bool,
+            satStyling: React.PropTypes.bool,
         }),
         choices: ChoicesType,
         deselectEnabled: React.PropTypes.bool,
@@ -121,6 +122,13 @@ const BaseRadio = React.createClass({
                 },
             },
 
+            satRadio: {
+                background: "none",
+                marginLeft: 0,
+                marginTop: 24,
+                userSelect: "none",
+            },
+
             mobileRadioOption: {
                 [mediaQueries.mdOrLarger]: {
                     background: "white",
@@ -142,6 +150,15 @@ const BaseRadio = React.createClass({
                         color: "white",
                     },
                 },
+            },
+
+            satRadioOption: {
+                margin: 0,
+                padding: 0,
+            },
+
+            satReviewRadioOption: {
+                pointerEvents: "none",
             },
 
             mobileRadioSelected: {
@@ -226,6 +243,7 @@ const BaseRadio = React.createClass({
 
         const responsive = this.props.apiOptions.responsiveStyling;
         const mobile = this.props.apiOptions.mobileStyling;
+        const sat = this.props.apiOptions.satStyling;
 
         const className = classNames(
             "perseus-widget-radio",
@@ -234,7 +252,8 @@ const BaseRadio = React.createClass({
                 sharedStyles.blankBackground,
                 styles.radio,
                 responsive && styles.responsiveRadio,
-                mobile && styles.mobileRadio
+                mobile && styles.mobileRadio,
+                sat && styles.satRadio
             ),
             "above-scratchpad",
             "blank-background",
@@ -272,11 +291,13 @@ const BaseRadio = React.createClass({
                         ref: `radio${i}`,
                         apiOptions: this.props.apiOptions,
                         checked: choice.checked,
+                        reviewMode: !!rubric,
                         correct: (rubric && rubric.choices[i].correct),
                         clue: choice.clue,
                         content: choice.content,
                         disabled: this.props.apiOptions.readOnly,
                         groupName: radioGroupName,
+                        isLastChoice: i === this.props.choices.length - 1,
                         showClue: reviewModeClues,
                         type: inputType,
                         pos: i,
@@ -298,7 +319,10 @@ const BaseRadio = React.createClass({
                             responsive && styles.responsiveItem,
                             mobile && styles.mobileRadioOption,
                             mobile &&
-                                choice.checked && styles.mobileRadioSelected
+                                choice.checked && styles.mobileRadioSelected,
+                            sat && styles.satRadioOption,
+                            sat && choice.checked && styles.satRadioSelected,
+                            sat && rubric && styles.satReviewRadioOption
                         ),
                         // TODO(aria): Make test case for these API classNames
                         ApiClassNames.RADIO.OPTION,
