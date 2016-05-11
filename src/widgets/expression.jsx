@@ -670,6 +670,31 @@ var OldExpression = React.createClass({
     }
 });
 
+/**
+ * Determine the keypad configuration parameters for the input, based on the
+ * provided properties.
+ *
+ * There are two configuration parameters to be determined:
+ *   (1) The keypad type. Typically, the Expression widget will use the Basic
+ *       Expression keypad, although if the question requires use of the
+ *       trigonometric or logarithm functions, then it upgrades to the Advanced
+ *       Expression keypad.
+ *   (2) The extra keys; namely, any variables or constants (like Pi) that need
+ *       to be included as keys on the keypad. These are scraped from the answer
+ *       forms.
+ */
+const keypadConfigurationForProps = (props) => {
+    let keypadType;
+    if (props.buttonSets.includes("trig") ||
+            props.buttonSets.includes("logarithms")) {
+        keypadType = "ADVANCED_EXPRESSION";
+    } else {
+        keypadType = "BASIC_EXPRESSION";
+    }
+
+    return { keypadType, extraKeys: [] };
+};
+
 /*
  * v0 props follow this schema:
  *
@@ -726,8 +751,14 @@ module.exports = {
         return enabledFeatures.useMathQuill ? Expression : OldExpression;
     },
     transform: (editorProps) => {
-        return _.pick(editorProps, "times", "functions", "buttonSets",
-                      "buttonsVisible", "answerForms");
+        const { times, functions, buttonSets, buttonsVisible } = editorProps;
+        return {
+            keypadConfiguration: keypadConfigurationForProps(editorProps),
+            times,
+            functions,
+            buttonSets,
+            buttonsVisible,
+        };
     },
     version: { major: 1, minor: 0 },
     propUpgrades: propUpgrades,
