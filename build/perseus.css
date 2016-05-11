@@ -1,6 +1,6 @@
 /* Perseus CSS
- * commit c7b3299098a26ca56d70f943f3716d9d86e5c8fb
- * branch master
+ * commit 35b81a72e35b32345b68c6a17d387960ac93ef9b
+ * branch HEAD
  * @generated */
 .perseus-sr-only {
   border: 0;
@@ -2258,13 +2258,16 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
 #sat-mission .invalid-answer input[type=number]:valid:focus {
   box-shadow: 0 0 10px rgba(204, 82, 82, 0.8);
 }
-#sat-mission #sat-route-task .content-area > .perseus-renderer {
+#sat-mission #sat-route-task .content-area > .perseus-renderer,
+#sat-mission #sat-route-section .content-area > .perseus-renderer {
   margin-top: 80px;
 }
-#sat-mission #sat-route-task .content-area > .perseus-renderer.perseus-renderer-two-columns {
+#sat-mission #sat-route-task .content-area > .perseus-renderer.perseus-renderer-two-columns,
+#sat-mission #sat-route-section .content-area > .perseus-renderer.perseus-renderer-two-columns {
   margin-top: 0;
 }
-#sat-mission #sat-route-task .content-area > .perseus-renderer.perseus-renderer-two-columns .perseus-column:nth-child(2) > *:first-child {
+#sat-mission #sat-route-task .content-area > .perseus-renderer.perseus-renderer-two-columns .perseus-column:nth-child(2) > *:first-child,
+#sat-mission #sat-route-section .content-area > .perseus-renderer.perseus-renderer-two-columns .perseus-column:nth-child(2) > *:first-child {
   margin-top: 48px;
 }
 .perseus-error {
