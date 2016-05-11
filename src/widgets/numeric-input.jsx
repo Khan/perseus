@@ -9,12 +9,15 @@ var _ = require("underscore");
 var InputWithExamples = require("../components/input-with-examples.jsx");
 var ParseTex = require("../tex-wrangler.js").parseTex;
 var PossibleAnswers = require("../components/possible-answers.jsx");
+const KeypadMathInput = require("../../math-input/src/components/input/math-input.js");
 
 var ApiClassNames   = require("../perseus-api.jsx").ClassNames;
 var ApiOptions      = require("../perseus-api.jsx").Options;
 var EnabledFeatures = require("../enabled-features.jsx");
 const KhanAnswerTypes = require("../util/answer-types.js");
 const KhanMath = require("../util/math.js");
+const { configureKeypad } = require("../../math-input/src/actions");
+const { keypadConfigurationPropType } = require("../../math-input/src/components/prop-types.js");
 
 var answerFormButtons = [
     {title: "Integers", value: "integer", content: "6"},
@@ -54,6 +57,7 @@ var NumericInput = React.createClass({
                 "optional"
             ]).isRequired,
         })),
+        keypadConfiguration: keypadConfigurationPropType,
         labelText: React.PropTypes.string,
         reviewModeRubric: React.PropTypes.object,
         trackInteraction: React.PropTypes.func.isRequired,
@@ -73,77 +77,94 @@ var NumericInput = React.createClass({
     },
 
     render: function() {
-        // HACK(johnsullivan): Create a function with shared logic between this
-        // and InputNumber.
-        var correct;
-        var answerBlurb;
-        var rubric = this.props.reviewModeRubric;
-        if (rubric) {
-            var score = this.simpleValidate(rubric);
-            correct = score.type === "points" &&
-                      score.earned === score.total;
-
-            if (!correct) {
-                var correctAnswers = _.filter(
-                    rubric.answers, (answer) => answer.status === "correct");
-                var answerStrings = _.map(correctAnswers, (answer) => {
-                    // Figure out how this answer is supposed to be displayed
-                    var format = "decimal";
-                    if (answer.answerForms && answer.answerForms[0]) {
-                        // NOTE(johnsullivan): This isn't exactly ideal, but
-                        // it does behave well for all the currently known
-                        // problems. See D14742 for some discussion on
-                        // alternate strategies.
-                        format = answer.answerForms[0];
-                    }
-
-                    var answerString = KhanMath.toNumericString(answer.value,
-                                                                format);
-                    if (answer.maxError) {
-                        answerString += " \u00B1 " +
-                            KhanMath.toNumericString(answer.maxError, format);
-                    }
-                    return answerString;
-                });
-                answerBlurb = <PossibleAnswers answers={answerStrings} />;
-            }
-        }
-
-        var classes = {};
-        classes["perseus-input-size-" + this.props.size] = true;
-        classes[ApiClassNames.CORRECT] =
-            rubric && correct && this.props.currentValue;
-        classes[ApiClassNames.INCORRECT] =
-            rubric && !correct && this.props.currentValue;
-        classes[ApiClassNames.UNANSWERED] = rubric && !this.props.currentValue;
-
-        var labelText = this.props.labelText;
-        if (labelText == null || labelText === "") {
-            labelText = i18n._("Your answer:");
-        }
-
-        var input = <InputWithExamples
-            ref="input"
-            value={this.props.currentValue}
-            onChange={this.handleChange}
-            className={classNames(classes)}
-            labelText={labelText}
-            type={this._getInputType()}
-            examples={this.examples()}
-            shouldShowExamples={this.shouldShowExamples()}
-            onFocus={this._handleFocus}
-            onBlur={this._handleBlur}
-            id={this.props.widgetId}
-            disabled={this.props.apiOptions.readOnly}
-        />;
-
-        if (answerBlurb) {
-            return <span className="perseus-input-with-answer-blurb">
-                {input}
-                {answerBlurb}
-            </span>;
+        if (this.props.apiOptions.customKeypad) {
+            // TODO(charlie): Support "Review Mode".
+            return <KeypadMathInput
+                ref="input"
+                value={this.props.currentValue}
+                onChange={this.handleChange}
+                onFocus={() => {
+                    configureKeypad(this.props.keypadConfiguration);
+                    this._handleFocus();
+                }}
+                onBlur={this._handleBlur}
+            />;
         } else {
-            return input;
+            // HACK(johnsullivan): Create a function with shared logic between
+            // this and InputNumber.
+            var correct;
+            var answerBlurb;
+            var rubric = this.props.reviewModeRubric;
+            if (rubric) {
+                var score = this.simpleValidate(rubric);
+                correct = score.type === "points" &&
+                          score.earned === score.total;
+
+                if (!correct) {
+                    var correctAnswers = _.filter(
+                        rubric.answers, answer => answer.status === "correct");
+                    var answerStrings = _.map(correctAnswers, (answer) => {
+                        // Figure out how this answer is supposed to be
+                        // displayed
+                        var format = "decimal";
+                        if (answer.answerForms && answer.answerForms[0]) {
+                            // NOTE(johnsullivan): This isn't exactly ideal, but
+                            // it does behave well for all the currently known
+                            // problems. See D14742 for some discussion on
+                            // alternate strategies.
+                            format = answer.answerForms[0];
+                        }
+
+                        var answerString = KhanMath.toNumericString(
+                            answer.value, format);
+                        if (answer.maxError) {
+                            answerString += " \u00B1 " +
+                                KhanMath.toNumericString(answer.maxError,
+                                    format);
+                        }
+                        return answerString;
+                    });
+                    answerBlurb = <PossibleAnswers answers={answerStrings} />;
+                }
+            }
+
+            var classes = {};
+            classes["perseus-input-size-" + this.props.size] = true;
+            classes[ApiClassNames.CORRECT] =
+                rubric && correct && this.props.currentValue;
+            classes[ApiClassNames.INCORRECT] =
+                rubric && !correct && this.props.currentValue;
+            classes[ApiClassNames.UNANSWERED] = rubric &&
+                !this.props.currentValue;
+
+            var labelText = this.props.labelText;
+            if (labelText == null || labelText === "") {
+                labelText = i18n._("Your answer:");
+            }
+
+            var input = <InputWithExamples
+                ref="input"
+                value={this.props.currentValue}
+                onChange={this.handleChange}
+                className={classNames(classes)}
+                labelText={labelText}
+                type={this._getInputType()}
+                examples={this.examples()}
+                shouldShowExamples={this.shouldShowExamples()}
+                onFocus={this._handleFocus}
+                onBlur={this._handleBlur}
+                id={this.props.widgetId}
+                disabled={this.props.apiOptions.readOnly}
+            />;
+
+            if (answerBlurb) {
+                return <span className="perseus-input-with-answer-blurb">
+                    {input}
+                    {answerBlurb}
+                </span>;
+            } else {
+                return input;
+            }
         }
     },
 
@@ -343,6 +364,55 @@ var unionAnswerForms = function(answerFormsList) {
     });
 };
 
+/**
+ * Determine the keypad configuration parameters for the input, based on the
+ * provided properties.
+ *
+ * There are two configuration parameters to be determined:
+ *   (1) The keypad type. Typically, the NumericInput widget will use the
+ *       Fraction keypad, although if the question requires use of Pi, then
+ *       it upgrades to the Basic Expression keypad, and if it only requires
+ *       integer input, then it downgrades to the Number keypad.
+ *   (2) The extra keys; namely, any variables or constants (like Pi) that need
+ *       to be included as keys on the keypad. The only symbol that the
+ *       NumericInput widget would ever need would be Pi.
+ */
+const keypadConfigurationForProps = (props) => {
+    // TODO(charlie): These are somewhat hacky and rely on the way that the
+    // widget currently stores its input values and answer formats.
+    // Specifically, answers are stored as raw values and formats, not as plain
+    // text, so we can _only_ detect that an answer is using Pi if it's made
+    // explicit in its answer formats. Unfortunately, the answer formats aren't
+    // all encompassing in that they don't automatically resolve to the proper
+    // values for integer or decimal input (and according to Cam, the content
+    // team would like to remove the automatic resolution altogether), so we
+    // also need to look at the raw answers to determine if we can get by with
+    // integer input alone.
+    const values = props.answers.map(answer => answer.value);
+    const formNames = props.answers.map(answer => answer.answerForms || [])
+        .reduce((a, b) => a.concat(b));
+
+    const includePi = formNames.includes('pi');
+    const integersOnly = values.every(value => /^[1-9]+[0-9]*$/.test(value));
+
+    if (includePi) {
+        return {
+            keypadType: "BASIC_EXPRESSION",
+            extraKeys: ["PI"],
+        };
+    } else if (integersOnly) {
+        return {
+            keypadType: "NUMBER",
+            extraSymbols: [],
+        };
+    } else {
+        return {
+            keypadType: "FRACTION",
+            extraKeys: [],
+        };
+    }
+};
+
 var propsTransform = function(editorProps) {
     var rendererProps = _.extend(
         _.omit(editorProps, "answers"),
@@ -361,7 +431,10 @@ var propsTransform = function(editorProps) {
             )
         }
     );
-    return rendererProps;
+    return {
+        ...rendererProps,
+        keypadConfiguration: keypadConfigurationForProps(editorProps),
+    };
 };
 
 module.exports = {

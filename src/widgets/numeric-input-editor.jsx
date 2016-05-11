@@ -205,6 +205,16 @@ const NumericInputEditor = React.createClass({
                         placeholder="answer"
                         format={_.last(answer.answerForms)}
                         onFormatChange={(newValue, format) => {
+                            // NOTE(charlie): The mobile web expression editor
+                            // relies on this automatic answer form resolution
+                            // for determining when to show the Pi symbol. If we
+                            // get rid of it, we should also disable Pi for
+                            // NumericInput and require problems that use Pi to
+                            // build on Expression. Alternatively, we could
+                            // store answers as plaintext and parse them to
+                            // determine whether or not to reveal Pi on the
+                            // keypad (right now, answers are stored as resolved
+                            // values, like '0.125' rather than '1/8').
                             var forms;
                             if (format === "pi") {
                                 forms = ["pi"];

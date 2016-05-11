@@ -10,6 +10,9 @@ var InputWithExamples = require("../components/input-with-examples.jsx");
 var ParseTex          = require("../tex-wrangler.js").parseTex;
 var PossibleAnswers = require("../components/possible-answers.jsx");
 const KhanAnswerTypes = require("../util/answer-types.js");
+const KeypadMathInput = require("../../math-input/src/components/input/math-input.js");
+const { configureKeypad } = require("../../math-input/src/actions");
+const { keypadConfigurationPropType } = require("../../math-input/src/components/prop-types.js");
 
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var ApiOptions = require("../perseus-api.jsx").Options;
@@ -82,8 +85,10 @@ var formExamples = {
 
 var InputNumber = React.createClass({
     propTypes: {
+        answerType: React.PropTypes.oneOf(Object.keys(answerTypes)),
         currentValue: React.PropTypes.string,
         enabledFeatures: EnabledFeatures.propTypes,
+        keypadConfiguration: keypadConfigurationPropType,
         reviewModeRubric: React.PropTypes.object,
         widgetId: React.PropTypes.string.isRequired,
     },
@@ -105,56 +110,72 @@ var InputNumber = React.createClass({
     },
 
     render: function() {
-        // HACK(johnsullivan): Create a function with shared logic between this
-        // and NumericInput.
-        var rubric = this.props.reviewModeRubric;
-        var correct = null;
-        var answerBlurb = null;
-        if (rubric) {
-            var score = this.simpleValidate(rubric);
-            correct = score.type === "points" &&
-                          score.earned === score.total;
-
-            if (!correct) {
-                // TODO(johnsullivan): Make this a little more human-friendly.
-                var answerString = String(rubric.value);
-                if (rubric.inexact && rubric.maxError) {
-                    answerString += " \u00B1 " + rubric.maxError;
-                }
-                var answerStrings = [answerString];
-                answerBlurb = <PossibleAnswers answers={answerStrings} />;
-            }
-        }
-
-        var classes = {};
-        classes["perseus-input-size-" + this.props.size] = true;
-        classes[ApiClassNames.CORRECT] =
-            rubric && correct && this.props.currentValue;
-        classes[ApiClassNames.INCORRECT] =
-            rubric && !correct && this.props.currentValue;
-        classes[ApiClassNames.UNANSWERED] = rubric && !this.props.currentValue;
-
-        var input = <InputWithExamples
-            ref="input"
-            value={this.props.currentValue}
-            onChange={this.handleChange}
-            className={classNames(classes)}
-            type={this._getInputType()}
-            examples={this.examples()}
-            shouldShowExamples={this.shouldShowExamples()}
-            onFocus={this._handleFocus}
-            onBlur={this._handleBlur}
-            id={this.props.widgetId}
-            disabled={this.props.apiOptions.readOnly}
-        />;
-
-        if (answerBlurb) {
-            return <span className="perseus-input-with-answer-blurb">
-                {input}
-                {answerBlurb}
-            </span>;
+        if (this.props.apiOptions.customKeypad) {
+            // TODO(charlie): Support "Review Mode".
+            return <KeypadMathInput
+                ref="input"
+                value={this.props.currentValue}
+                onChange={this.handleChange}
+                onFocus={() => {
+                    configureKeypad(this.props.keypadConfiguration);
+                    this._handleFocus();
+                }}
+                onBlur={this._handleBlur}
+            />;
         } else {
-            return input;
+            // HACK(johnsullivan): Create a function with shared logic between
+            // this and NumericInput.
+            var rubric = this.props.reviewModeRubric;
+            var correct = null;
+            var answerBlurb = null;
+            if (rubric) {
+                var score = this.simpleValidate(rubric);
+                correct = score.type === "points" &&
+                              score.earned === score.total;
+
+                if (!correct) {
+                    // TODO(johnsullivan): Make this a little more
+                    // human-friendly.
+                    var answerString = String(rubric.value);
+                    if (rubric.inexact && rubric.maxError) {
+                        answerString += " \u00B1 " + rubric.maxError;
+                    }
+                    var answerStrings = [answerString];
+                    answerBlurb = <PossibleAnswers answers={answerStrings} />;
+                }
+            }
+
+            var classes = {};
+            classes["perseus-input-size-" + this.props.size] = true;
+            classes[ApiClassNames.CORRECT] =
+                rubric && correct && this.props.currentValue;
+            classes[ApiClassNames.INCORRECT] =
+                rubric && !correct && this.props.currentValue;
+            classes[ApiClassNames.UNANSWERED] =
+                rubric && !this.props.currentValue;
+
+            var input = <InputWithExamples
+                ref="input"
+                value={this.props.currentValue}
+                onChange={this.handleChange}
+                className={classNames(classes)}
+                type={this._getInputType()}
+                examples={this.examples()}
+                shouldShowExamples={this.shouldShowExamples()}
+                onFocus={this._handleFocus}
+                onBlur={this._handleBlur}
+                id={this.props.widgetId}
+                disabled={this.props.apiOptions.readOnly}
+            />;
+
+            if (answerBlurb) {
+                return <span className="perseus-input-with-answer-blurb">
+                    {input}
+                    {answerBlurb}
+                </span>;
+            } else {
+                return input;
+            }
         }
     },
 
@@ -276,8 +297,70 @@ _.extend(InputNumber, {
     }
 });
 
+/**
+ * Determine the keypad configuration parameters for the input, based on the
+ * provided properties.
+ *
+ * There are two configuration parameters to be determined:
+ *   (1) The keypad type. The InputNumber widget will try to use the Fraction,
+ *       Number, or Basic Expression keypad (with Pi available) if it has an
+ *       explicit `answerType` that makes the choice clear. If no `answerType`
+ *       is specified, it again attempts to use the Number keypad if the value
+ *       is integer-only, but defaults to using the Basic Expression keypad
+ *       (with Pi), as it has no way of knowing whether the answer requires Pi
+ *       or just fractions or decimals based on the answer value alone.
+ *
+ *   (2) The extra keys; namely, any variables or constants (like Pi) that need
+ *       to be included as keys on the keypad. The only symbol that the
+ *       InputNumber widget would ever need would be Pi.
+ */
+const keypadConfigurationForProps = (props) => {
+    switch (props.answerType) {
+        case "number":
+            const integersOnly = /^[1-9]+[0-9]*$/.test(props.value);
+            if (integersOnly) {
+                return {
+                    keypadType: "NUMBER",
+                    extraKeys: [],
+                };
+            }
+            return {
+                keypadType: "BASIC_EXPRESSION",
+                extraKeys: ["PI"],
+            };
+
+        case "pi":
+            return {
+                keypadType: "BASIC_EXPRESSION",
+                extraKeys: ["PI"],
+            };
+
+        case "decimal":
+        case "rational":
+        case "improper":
+        case "mixed":
+        case "percent":
+            return {
+                keypadType: "FRACTION",
+                extraKeys: [],
+            };
+
+        case "integer":
+            return {
+                keypadType: "NUMBER",
+                extraKeys: [],
+            };
+    }
+};
+
 var propTransform = (editorProps) => {
-    return _.pick(editorProps, "simplify", "size", "answerType");
+    const { simplify, size, answerType } = editorProps;
+    return {
+        keypadConfiguration: keypadConfigurationForProps(editorProps),
+        simplify,
+        size,
+        answerType,
+    };
 };
 
 module.exports = {
