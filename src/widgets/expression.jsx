@@ -697,7 +697,28 @@ const keypadConfigurationForProps = (props) => {
         keypadType = "BASIC_EXPRESSION";
     }
 
-    return { keypadType, extraKeys: [] };
+    // Extract any and all variables and constants from the answer forms.
+    const uniqueExtraSymbols = {};
+    for (const answerForm of props.answerForms) {
+        const maybeExpr = KAS.parse(answerForm.value, props);
+        if (maybeExpr.parsed) {
+            const expr = maybeExpr.expr;
+            for (const variable of expr.getVars()) {
+                uniqueExtraSymbols[variable] = true;
+            }
+            for (const constant of expr.getConsts()) {
+                uniqueExtraSymbols[constant] = true;
+            }
+        }
+    }
+
+    // TODO(charlie): Alert the keypad as to which of these symbols should be
+    // treated as functions.
+    const extraKeys = Object.keys(uniqueExtraSymbols).map(
+        symbol => symbol.toUpperCase()
+    );
+
+    return { keypadType, extraKeys };
 };
 
 /*
