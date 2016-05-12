@@ -6,9 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Perseus</title>
 
-<!--STOPSHIP(kevinb) revert before merging with master-->
-<!--<link rel="stylesheet" type="text/css" href="stylesheets/local-only/khan-site.css" />
-<link rel="stylesheet" type="text/css" href="stylesheets/local-only/khan-exercise.css" />-->
+<link rel="stylesheet" type="text/css" href="stylesheets/local-only/khan-site.css" />
+<link rel="stylesheet" type="text/css" href="stylesheets/local-only/khan-exercise.css" />
 <link rel="stylesheet" type="text/css" href="lib/katex/katex.css" />
 <link rel="stylesheet" type="text/css" href="lib/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="lib/mathquill/mathquill.css" />
@@ -20,6 +19,13 @@
 
 <link rel="stylesheet/less" type="text/css" href="stylesheets/exercise-content-package/perseus.less" />
 <link rel="stylesheet/less" type="text/css" href="stylesheets/perseus-admin-package/editor.less" />
+
+<style>
+    body {
+        min-width: 0 !important;
+        /* overrides body { min-width: 1000px; } in khan-site.css */
+    }
+</style>
 
 <script>less = {env: 'development', logLevel: 1};</script>
 <script src="lib/less.js"></script>
