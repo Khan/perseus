@@ -126,6 +126,8 @@ var Expression = React.createClass({
         if (this.props.apiOptions.customKeypad) {
             return <KeypadMathInput
                 ref="input"
+                value={this.props.value}
+                onChange={this.changeAndTrack}
                 onFocus={() => {
                     configureKeypad(this.props.keypadConfiguration);
                     this._handleFocus();
