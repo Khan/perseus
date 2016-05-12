@@ -1,5 +1,5 @@
 /* Perseus CSS
- * commit 4c00f80963fd2efd3c356eec0f5e5ecb63960075
+ * commit 340b67b44a1e870d1eb4f0c018144dcae021a1be
  * branch master
  * @generated */
 .perseus-sr-only {
@@ -2218,10 +2218,7 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
   color: #999;
   font-size: 100%;
   font-family: inherit;
-  margin-bottom: 24px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 80px;
+  margin: 80px auto 24px auto;
   max-width: 592px;
   text-transform: uppercase;
 }
@@ -2261,33 +2258,17 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
 #sat-mission .invalid-answer input[type=number]:valid:focus {
   box-shadow: 0 0 10px rgba(204, 82, 82, 0.8);
 }
-#sat-mission #sat-route-task .content-area > .perseus-renderer {
+#sat-mission #sat-route-task .content-area > .perseus-renderer,
+#sat-mission #sat-route-section .content-area > .perseus-renderer {
   margin-top: 80px;
 }
-#sat-mission #sat-route-task .content-area > .perseus-renderer-two-columns,
-#sat-mission #sat-route-section .content-area > .perseus-renderer-two-columns {
+#sat-mission #sat-route-task .content-area > .perseus-renderer.perseus-renderer-two-columns,
+#sat-mission #sat-route-section .content-area > .perseus-renderer.perseus-renderer-two-columns {
   margin-top: 0;
 }
-#sat-mission #sat-route-task .content-area > .perseus-renderer-two-columns .perseus-column:nth-child(2) > *:first-child,
-#sat-mission #sat-route-section .content-area > .perseus-renderer-two-columns .perseus-column:nth-child(2) > *:first-child {
-  display: block;
+#sat-mission #sat-route-task .content-area > .perseus-renderer.perseus-renderer-two-columns .perseus-column:nth-child(2) > *:first-child,
+#sat-mission #sat-route-section .content-area > .perseus-renderer.perseus-renderer-two-columns .perseus-column:nth-child(2) > *:first-child {
   margin-top: 48px;
-}
-#sat-mission #sat-route-task .sat-perseus-renderer-two-columns-with-question-header .question-header-container,
-#sat-mission #sat-route-section .sat-perseus-renderer-two-columns-with-question-header .question-header-container {
-  position: relative;
-  width: 1024px;
-}
-#sat-mission #sat-route-task .sat-perseus-renderer-two-columns-with-question-header .question-annotation,
-#sat-mission #sat-route-section .sat-perseus-renderer-two-columns-with-question-header .question-annotation {
-  left: 544px;
-  margin-top: 0;
-  position: absolute;
-  top: 48px;
-}
-#sat-mission #sat-route-task .sat-perseus-renderer-two-columns-with-question-header > div.perseus-renderer-two-columns .perseus-column:nth-child(2) > *:first-child,
-#sat-mission #sat-route-section .sat-perseus-renderer-two-columns-with-question-header > div.perseus-renderer-two-columns .perseus-column:nth-child(2) > *:first-child {
-  margin-top: 91px;
 }
 .perseus-error {
   background: #ffbaba;
