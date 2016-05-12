@@ -7,20 +7,17 @@ Note: if you're a KA employee and have the webapp repo checked out, you should c
     git submodule init
     git submodule update
 
-After cloning the repo and initializing the submodule, you'll want to open
-test.html, which is the main page.
-
-You'll need to serve the files from some sort of a server. You can't just open
-the files directly in a browser.
+After cloning the repo and initializing the submodule, you'll need to serve the
+files from some sort of a server. You can't just open the files directly in a
+browser.
 
 We recommend installing `npm` and `make`, and running 'make server'
 
     cd perseus
     make server PORT=9000
 
-Now if you open your browser to `http://localhost:9000/test.html`
-(or `http://127.0.0.1:9000/test.html`) you should see the Perseus
-question editor.
+Now if you open your browser to `http://localhost:9000/`
+(or `http://127.0.0.1:9000/`) you should see the Perseus question editor.
 
 
 ## Fundamental technologies
@@ -66,7 +63,7 @@ parts of the code (and aren't necessary to understand to work with Perseus code)
 The root React components of perseus are:
 
  * EditorPage (src/editor-page.jsx): This renders the entire editor,
-   and is what you see on test.html.
+   and is what you see on the demo page.
  * Editor (src/editor.jsx): This renders the left text editor for the
    question area, custom-format answer area, or a hint. It manages
    much of question and widget serialization.

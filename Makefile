@@ -85,7 +85,7 @@ serve: server
 server: install server-offline
 
 server-offline:
-	(sleep 1; echo; echo http://localhost:$(PORT)/test.html) &
+	(sleep 1; echo; echo http://localhost:$(PORT)/) &
 	INCLUDE_EDITORS=true __DEV__=true ./node_modules/.bin/webpack-dev-server --config webpack.config.demo-perseus.js --port $(PORT) --output-public-path build/ --devtool inline-source-map
 
 demo:

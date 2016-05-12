@@ -37,7 +37,7 @@ var TextInput = React.createClass({
 
 /**
  * This is the widget's renderer. It shows up in the right column
- * in test.html, and is what is visible to users, and where
+ * in the demo, and is what is visible to users, and where
  * users enter their answers.
  */
 var ExampleWidget = React.createClass({

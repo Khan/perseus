@@ -17,7 +17,7 @@ Our test page isn't much yet, but you can check out a
 
 To get the dev server running locally, try `make server PORT=9000`
 which will run the local perseus server on localhost:9000.
-Then visit http://localhost:9000/test.html.
+Then visit http://localhost:9000/.
 
 To package perseus for distribution, run `make build` and to package a debug-friendly build, run `make debug`.
 

@@ -11,7 +11,7 @@ var ExampleGraphieWidget = require("./example-graphie-widget.jsx").widget;
 
 /**
  * This is the widget's editor. This is what shows up on the left side
- * of the screen in test.html. Only the question writer sees this.
+ * of the screen in the demo page. Only the question writer sees this.
  */
 var ExampleGraphieWidgetEditor = React.createClass({
     mixins: [Changeable, EditorJsonify],

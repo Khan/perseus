@@ -9,7 +9,7 @@ var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
 /**
  * This is the widget's editor. This is what shows up on the left side
- * of the screen in test.html. Only the question writer sees this.
+ * of the screen in the demo. Only the question writer sees this.
  */
 var ExampleWidgetEditor = React.createClass({
     mixins: [Changeable, EditorJsonify],

@@ -13,7 +13,7 @@
  * edit raw Tag ID strings in perseus zero (please don't use this).
  *
  * It also gives a nicer interface for the group metadata editor
- * in local test.html mode.
+ * in local demo mode.
  */
 var React = require("react");
 

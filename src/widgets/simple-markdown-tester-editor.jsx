@@ -4,7 +4,7 @@
 
 /**
  * This is the editor for the simple-markdown-tester widget. This is what shows
- * up on the left side of the screen in test.html. Only the question writer
+ * up on the left side of the screen in the demo. Only the question writer
  * sees this.
  */
 var React = require('react');
