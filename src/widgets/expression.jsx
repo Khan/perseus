@@ -249,13 +249,11 @@ var Expression = React.createClass({
     },
 
     focusInputPath: function(inputPath) {
-        // TODO(kevinb) add this method to KeypadMathInput
-        this.refs.input.focus && this.refs.input.focus();
+        this.refs.input.focus();
     },
 
     blurInputPath: function(inputPath) {
-        // TODO(kevinb) add this method to KeypadMathInput
-        this.refs.input.focus && this.refs.input.blur();
+        this.refs.input.blur();
     },
 
     // HACK(joel)

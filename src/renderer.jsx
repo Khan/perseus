@@ -224,9 +224,10 @@ var Renderer = React.createClass({
             const keypadContainer = document.createElement('div');
             document.body.appendChild(keypadContainer);
 
-            // TODO(kevinb) add an onDismiss handler so that we can blur the
-            // current epression widget when the keypad is dismissed.
-            ReactDOM.render(<Keypad />, keypadContainer);
+            ReactDOM.render(
+                <Keypad onDismiss={() => this.blur()}/>,
+                keypadContainer
+            );
         }
     },
 
