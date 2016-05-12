@@ -19,7 +19,7 @@ var WidgetContainer = require("./widget-container.jsx");
 var Widgets = require("./widgets.js");
 var getHintsIndex = require("./get-hints-index.jsx");
 var Keypad = require("../math-input/src/components/provided-keypad.js");
-var { configureKeypad, dismissKeypad } = require("../math-input/src/actions");
+var { activateKeypad, dismissKeypad } = require("../math-input/src/actions");
 
 var Util = require("./util.js");
 var EnabledFeatures = require("./enabled-features.jsx");
@@ -939,19 +939,17 @@ var Renderer = React.createClass({
             }
         }
 
-        const didFocusInput = path && this.getInputPaths().some((inputPath) =>
-            inputPath.length === path.length &&
-                inputPath.every((item, index) => path[index] === item)
-        );
+        if (this.props.apiOptions.customKeypad) {
+            const didFocusInput = path && this.getInputPaths().some(inputPath =>
+                inputPath.length === path.length &&
+                    inputPath.every((item, index) => path[index] === item)
+            );
 
-        if (didFocusInput) {
-            // TODO(kevinb): import constants from math-input
-            configureKeypad({
-                keypadType: 'ADVANCED_EXPRESSION',
-                extraSymbols: [],
-            });
-        } else {
-            dismissKeypad();
+            if (didFocusInput) {
+                activateKeypad();
+            } else {
+                dismissKeypad();
+            }
         }
     },
 

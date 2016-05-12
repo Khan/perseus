@@ -21,6 +21,8 @@ var MathInput = require("../components/math-input.jsx");
 var TeX = require("react-components/tex.jsx");// OldExpression only
 var TexButtons = require("../components/tex-buttons.jsx");
 var KeypadMathInput = require("../../math-input/src/components/input/math-input.js");
+const { configureKeypad } = require("../../math-input/src/actions");
+const { keypadConfigurationPropType } = require("../../math-input/src/components/prop-types.js");
 
 var EnabledFeatures = require("../enabled-features.jsx");
 
@@ -83,6 +85,7 @@ var Expression = React.createClass({
         buttonsVisible: React.PropTypes.oneOf(['always', 'never', 'focused']),
         enabledFeatures: EnabledFeatures.propTypes,
         functions: React.PropTypes.arrayOf(React.PropTypes.string),
+        keypadConfiguration: keypadConfigurationPropType,
         times: React.PropTypes.bool,
         trackInteraction: React.PropTypes.func.isRequired,
         value: React.PropTypes.string,
@@ -123,9 +126,11 @@ var Expression = React.createClass({
         if (this.props.apiOptions.customKeypad) {
             return <KeypadMathInput
                 ref="input"
-                onFocus={this._handleFocus}
+                onFocus={() => {
+                    configureKeypad(this.props.keypadConfiguration);
+                    this._handleFocus();
+                }}
                 onBlur={this._handleBlur}
-                onTouchStart={() => {}}
             />;
         } else if (this.props.apiOptions.staticRender) {
             // To make things slightly easier, we just use an InputWithExamples
