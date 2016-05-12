@@ -61,12 +61,15 @@ const RendererDemo = React.createClass({
                 toolTipFormats: true,
                 dynamicHintsArea: true,
                 newHintStyles: true,
+                useMathQuill: true,
             }}
             apiOptions={{
                 responsiveStyling: true,
                 getAnotherHint: () => {
                     this.refs.itemRenderer.showHint();
                 },
+                // STOPSHIP(kevinb) remove this before merging with master
+                customKeypad: true,
             }}
         />;
 
@@ -98,7 +101,6 @@ const RendererDemo = React.createClass({
                     <div className={css(styles.answerAreaWrap)}>
                         <div id="answer-area">
                             <div className={css(styles.infoBox)}>
-                                <b>Answer</b>
                                 <div id="solutionarea"></div>
                                 <div className={css(styles.answerButtons)}>
                                 {answerButton}
@@ -130,8 +132,7 @@ const RendererDemo = React.createClass({
 
 const styles = StyleSheet.create({
     problemAndAnswer: {
-        width: 797,
-        minHeight: 257,
+        minHeight: 180,
         margin: 20,
         position: "relative",
         border: "1px solid #cccccc",
@@ -149,9 +150,11 @@ const styles = StyleSheet.create({
         display: 'none',
     },
     answerAreaWrap: {
-        margin: "52px -8px 0 0",
-        float: "right",
-        width: "27%",
+        margin: "0px -8px 0 0",
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        width: 80,
     },
     answerButtons: {
         margin: '0 -10px',
