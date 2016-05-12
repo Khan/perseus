@@ -43,7 +43,12 @@ var StatefulEditorPage = React.createClass({
     // (This component is currently re-rendered by the "Add image" button.)
     componentWillReceiveProps: function(nextProps) {
         // be careful not to overwrite our onChange and ref
-        this.setState(_(nextProps).omit("onChange", "ref"));
+        this.setState(_(nextProps).pick(
+            "apiOptions",
+            "enabledFeatures",
+            "imageUploader",
+            "jsonMode"
+        ));
     },
 
     getSaveWarnings: function() {

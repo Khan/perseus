@@ -3,8 +3,8 @@
  /**
   * Demonstrates the main Perseus editor
   *
-  * This mounts the StatefulEditorPage component as well as
-  * buttons to perform tasks such as display the rendered version
+  * This is ran by demo-perseus.js and handles adding debugger
+  * buttons and their event listeners above a StatefulEditorPage
   */
 
 const React = require('react');
