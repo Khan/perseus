@@ -79,12 +79,12 @@ module.exports = {
             // track of widget interactions.
             trackInteraction: React.PropTypes.func,
 
-            // A boolean that indicates whether or not a software keypad is
+            // A boolean that indicates whether or not a custom keypad is
             // being used.  For mobile web this will be the ProvidedKeypad
-            // component.  In this situation we the MathInput component from
-            // the math-input repo instead of the existing perseus math input
-            // components.
-            softwareKeypad: React.PropTypes.bool,
+            // component.  In this situation we use the MathInput component
+            // from the math-input repo instead of the existing perseus math
+            // input components.
+            customKeypad: React.PropTypes.bool,
         }).isRequired,
 
         defaults: {

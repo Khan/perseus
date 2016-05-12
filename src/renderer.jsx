@@ -213,7 +213,7 @@ var Renderer = React.createClass({
 
         var apiOptions = this.getApiOptions(this.props);
 
-        if (apiOptions.softwareKeypad) {
+        if (apiOptions.customKeypad) {
             // We create the keypad when the item is rendered.  The keypad is
             // initially off-screen.  When a user taps on an input
             // the keypad will animate into view from the bottom of the page.

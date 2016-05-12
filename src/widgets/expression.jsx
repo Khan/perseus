@@ -120,7 +120,7 @@ var Expression = React.createClass({
     },
 
     render: function() {
-        if (this.props.apiOptions.softwareKeypad) {
+        if (this.props.apiOptions.customKeypad) {
             return <KeypadMathInput
                 ref="input"
                 onFocus={this._handleFocus}
