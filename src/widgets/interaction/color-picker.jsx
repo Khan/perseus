@@ -29,18 +29,18 @@ var ColorPicker = React.createClass({
     },
 
     render: function() {
+        var colors = this.props.lightColors ? this.LIGHT_COLORS : this.COLORS;
         return <ButtonGroup value={this.props.value}
             allowEmpty={false}
-            buttons={_.map(this.props.lightColors ? this.LIGHT_COLORS :
-                this.COLORS, (color) => {
-                    return {
-                        value: color,
-                        content: <span><span
-                            className="colorpicker-circle"
-                            style={{background: color}}>
-                        </span>&nbsp;</span>
-                    };
-                })}
+            buttons={_.map(colors, (color) => {
+                return {
+                    value: color,
+                    content: <span><span
+                        className="colorpicker-circle"
+                        style={{background: color}}>
+                    </span>&nbsp;</span>
+                };
+            })}
             onChange={this.props.onChange} />;
     }
 });

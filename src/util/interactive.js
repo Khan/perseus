@@ -2013,12 +2013,13 @@ _.extend(GraphUtils.Graphie.prototype, {
         polygon.coords = new Array(polygon.points.length);
 
         if (polygon.angleLabels.length) {
-            polygon.labeledAngles = _.times(Math.max(
-                        polygon.angleLabels.length,
-                        polygon.showRightAngleMarkers.length
-                    ), function() {
-                        return this.label([0, 0], "", "center", polygon.labelStyle);
-                    }, this);
+            const numLabels = Math.max(
+                polygon.angleLabels.length,
+                polygon.showRightAngleMarkers.length
+            );
+            polygon.labeledAngles = _.times(numLabels, function() {
+                return this.label([0, 0], "", "center", polygon.labelStyle);
+            }, this);
         }
 
         if (polygon.sideLabels.length) {
