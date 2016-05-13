@@ -203,8 +203,8 @@ var Expression = React.createClass({
         }
     },
 
-    changeAndTrack: function(e) {
-        this.change("value")(e);
+    changeAndTrack: function(e, cb) {
+        this.change("value", e, cb);
         this.props.trackInteraction();
     },
 

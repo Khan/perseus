@@ -180,8 +180,8 @@ var InputNumber = React.createClass({
         }
     },
 
-    handleChange: function(newValue) {
-        this.props.onChange({ currentValue: newValue });
+    handleChange: function(newValue, cb) {
+        this.props.onChange({ currentValue: newValue }, cb);
     },
 
     _getInputType: function() {
