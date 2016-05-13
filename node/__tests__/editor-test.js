@@ -35,18 +35,21 @@ describe("No-editor-perseus", function() {
                 content: "hello world! [[\u2603 numeric-input 1]]",
                 widgets: {
                     "numeric-input 1": {
-                        answers: [{
-                            value: 2,
-                            status: "correct",
-                            message: "",
-                            simplify: "required",
-                            answerForms: [],
-                            strict: false,
-                            maxError: null,
-                        }],
-                        size: "normal",
-                        coefficient: false,
-                        labelText: "",
+                        options: {
+                            answers: [{
+                                value: 2,
+                                status: "correct",
+                                message: "",
+                                simplify: "required",
+                                answerForms: [],
+                                strict: false,
+                                maxError: null,
+                            }],
+                            size: "normal",
+                            coefficient: false,
+                            labelText: "",
+                        },
+                        "type": "numeric-input",
                     },
                 },
             }),
