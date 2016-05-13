@@ -136,6 +136,12 @@ ifneq ("$(SUPPRESSINSTALL)","TRUE")
 	rm -rf math-input/node_modules/react
 	rm -rf math-input/node_modules/react-dom
 	rm -rf math-input/node_modules/react-addons*
+# Moar very hacks b/c for some reason babel-register tries to use the .babelrc
+# in input-math even though we're passing it the same options we pass to
+# babel-core webpack.config.js.  Perseus uses babel 5 which works with .babelrc
+# files, but it does not know how to interpret the "presets" option which was
+# introduced in babel 6.  When it see "presets" it fails.
+	rm math-input/.babelrc
 endif
 
 clean:
