@@ -117,8 +117,6 @@ const EditorDemo = React.createClass({
     },
 
     render: function() {
-        const {problemNum} = this.props;
-
         const editorProps = this.getEditorProps();
 
         const featuresDisplay = Object.keys(enabledFeatures).map((feature) => {
@@ -142,11 +140,11 @@ const EditorDemo = React.createClass({
                     <button onClick={this.viewRendered}>view rendered</button>{' '}
                     <button onClick={this.inputVersion}>contains only inputs?</button>{' '}
                     <button onClick={this.saveWarnings}>save warnings</button>{' '}
-                    <span>Seed:{problemNum} </span>{' '}
+                    <span>Seed:{this.props.problemNum} </span>{' '}
                     <span>Features:{featuresDisplay}</span>{' '}
                     <span>Scratchpad:{Khan.scratchpad.enabled ? 'enabled' : 'disabled'}</span>
                 </div>
-                <StatefulEditorPage ref="editor" {...editorProps}/>
+                <StatefulEditorPage key={this.props.question} ref="editor" {...editorProps}/>
             </div>
         );
     },

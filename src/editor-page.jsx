@@ -17,16 +17,39 @@ var ViewportResizer = require("./components/viewport-resizer.jsx");
 
 var EditorPage = React.createClass({
     propTypes: {
+        answerArea: React.PropTypes.any, // related to the question
+
         // We don't specify a more specific type here because it's valid
         // for a client of Perseus to specify a subset of the API options,
         // in which case we default the rest in `this._apiOptions()`
         apiOptions: React.PropTypes.object,
+
+        developerMode: React.PropTypes.bool,
         enabledFeatures: EnabledFeatures.propTypes,
+
+        hints: React.PropTypes.any, // related to the question
+
         // A function which takes a file object (guaranteed to be an image) and
         // a callback, then calls the callback with the url where the image
         // will be hosted. Image drag and drop is disabled when imageUploader
         // is null.
         imageUploader: React.PropTypes.func,
+
+        // Part of the question
+        itemDataVersion: React.PropTypes.shape({
+            major: React.PropTypes.number,
+            minor: React.PropTypes.number,
+        }),
+
+        // Whether the question is displaying as JSON or if it is
+        // showing the editor itself with the rendering
+        jsonMode: React.PropTypes.bool,
+
+        // A function which is called with the new JSON blob of content
+        onChange: React.PropTypes.func,
+
+        // Initial value of the question being edited
+        question: React.PropTypes.any,
     },
 
     getDefaultProps: function() {
@@ -38,6 +61,8 @@ var EditorPage = React.createClass({
                 useMathQuill: true,
             },
             jsonMode: false,
+            onChange: () => {},
+            ref: '',
         };
     },
 
