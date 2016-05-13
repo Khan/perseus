@@ -10,9 +10,10 @@ var InputWithExamples = require("../components/input-with-examples.jsx");
 var ParseTex          = require("../tex-wrangler.js").parseTex;
 var PossibleAnswers = require("../components/possible-answers.jsx");
 const KhanAnswerTypes = require("../util/answer-types.js");
-const KeypadMathInput = require("../../math-input/src/components/input/math-input.js");
-const { configureKeypad } = require("../../math-input/src/actions");
-const { keypadConfigurationPropType } = require("../../math-input/src/components/prop-types.js");
+const { KeypadInput } = require("../../math-input").components;
+const { configureKeypad } = require("../../math-input").actions;
+const { keypadConfigurationPropType } = require("../../math-input").propTypes;
+const { KeypadTypes } = require("../../math-input").consts;
 
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var ApiOptions = require("../perseus-api.jsx").Options;
@@ -112,7 +113,7 @@ var InputNumber = React.createClass({
     render: function() {
         if (this.props.apiOptions.customKeypad) {
             // TODO(charlie): Support "Review Mode".
-            return <KeypadMathInput
+            return <KeypadInput
                 ref="input"
                 value={this.props.currentValue}
                 onChange={this.handleChange}
@@ -320,18 +321,18 @@ const keypadConfigurationForProps = (props) => {
             const integersOnly = /^[1-9]+[0-9]*$/.test(props.value);
             if (integersOnly) {
                 return {
-                    keypadType: "NUMBER",
+                    keypadType: KeypadTypes.NUMBER,
                     extraKeys: [],
                 };
             }
             return {
-                keypadType: "BASIC_EXPRESSION",
+                keypadType: KeypadTypes.BASIC_EXPRESSION,
                 extraKeys: ["PI"],
             };
 
         case "pi":
             return {
-                keypadType: "BASIC_EXPRESSION",
+                keypadType: KeypadTypes.BASIC_EXPRESSION,
                 extraKeys: ["PI"],
             };
 
@@ -341,13 +342,13 @@ const keypadConfigurationForProps = (props) => {
         case "mixed":
         case "percent":
             return {
-                keypadType: "FRACTION",
+                keypadType: KeypadTypes.FRACTION,
                 extraKeys: [],
             };
 
         case "integer":
             return {
-                keypadType: "NUMBER",
+                keypadType: KeypadTypes.NUMBER,
                 extraKeys: [],
             };
     }

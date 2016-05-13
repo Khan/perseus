@@ -20,9 +20,10 @@ var InputWithExamples = require("../components/input-with-examples.jsx");
 var MathInput = require("../components/math-input.jsx");
 var TeX = require("react-components/tex.jsx");// OldExpression only
 var TexButtons = require("../components/tex-buttons.jsx");
-var KeypadMathInput = require("../../math-input/src/components/input/math-input.js");
-const { configureKeypad } = require("../../math-input/src/actions");
-const { keypadConfigurationPropType } = require("../../math-input/src/components/prop-types.js");
+const { KeypadInput } = require("../../math-input").components;
+const { configureKeypad } = require("../../math-input").actions;
+const { keypadConfigurationPropType } = require("../../math-input").propTypes;
+const { KeypadTypes } = require("../../math-input").consts;
 
 var EnabledFeatures = require("../enabled-features.jsx");
 
@@ -124,7 +125,7 @@ var Expression = React.createClass({
 
     render: function() {
         if (this.props.apiOptions.customKeypad) {
-            return <KeypadMathInput
+            return <KeypadInput
                 ref="input"
                 value={this.props.value}
                 onChange={this.changeAndTrack}
@@ -694,9 +695,9 @@ const keypadConfigurationForProps = (props) => {
     let keypadType;
     if (props.buttonSets.includes("trig") ||
             props.buttonSets.includes("logarithms")) {
-        keypadType = "ADVANCED_EXPRESSION";
+        keypadType = KeypadTypes.ADVANCED_EXPRESSION;
     } else {
-        keypadType = "BASIC_EXPRESSION";
+        keypadType = KeypadTypes.BASIC_EXPRESSION;
     }
 
     // Extract any and all variables and constants from the answer forms.

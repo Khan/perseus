@@ -82,7 +82,7 @@ module.exports = {
                 include: [
                     path.join(__dirname, "src/"),
                     // TODO(kevinb) figure out a better way to package this
-                    path.join(__dirname, "math-input/src/"),
+                    path.join(__dirname, "math-input/"),
                     path.join(__dirname, "node_modules/react-components/"),
                 ],
                 // https://github.com/webpack/webpack/issues/119

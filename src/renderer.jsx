@@ -18,8 +18,8 @@ var TeX = require("react-components/tex.jsx");
 var WidgetContainer = require("./widget-container.jsx");
 var Widgets = require("./widgets.js");
 var getHintsIndex = require("./get-hints-index.jsx");
-var Keypad = require("../math-input/src/components/provided-keypad.js");
-var { activateKeypad, dismissKeypad } = require("../math-input/src/actions");
+const { Keypad } = require("../math-input").components;
+const { activateKeypad, dismissKeypad } = require("../math-input").actions;
 
 var Util = require("./util.js");
 var EnabledFeatures = require("./enabled-features.jsx");

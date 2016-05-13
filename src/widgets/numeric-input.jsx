@@ -9,15 +9,16 @@ var _ = require("underscore");
 var InputWithExamples = require("../components/input-with-examples.jsx");
 var ParseTex = require("../tex-wrangler.js").parseTex;
 var PossibleAnswers = require("../components/possible-answers.jsx");
-const KeypadMathInput = require("../../math-input/src/components/input/math-input.js");
+const { KeypadInput } = require("../../math-input").components;
 
 var ApiClassNames   = require("../perseus-api.jsx").ClassNames;
 var ApiOptions      = require("../perseus-api.jsx").Options;
 var EnabledFeatures = require("../enabled-features.jsx");
 const KhanAnswerTypes = require("../util/answer-types.js");
 const KhanMath = require("../util/math.js");
-const { configureKeypad } = require("../../math-input/src/actions");
-const { keypadConfigurationPropType } = require("../../math-input/src/components/prop-types.js");
+const { configureKeypad } = require("../../math-input").actions;
+const { keypadConfigurationPropType } = require("../../math-input").propTypes;
+const { KeypadTypes } = require("../../math-input").consts;
 
 var answerFormButtons = [
     {title: "Integers", value: "integer", content: "6"},
@@ -79,7 +80,7 @@ var NumericInput = React.createClass({
     render: function() {
         if (this.props.apiOptions.customKeypad) {
             // TODO(charlie): Support "Review Mode".
-            return <KeypadMathInput
+            return <KeypadInput
                 ref="input"
                 value={this.props.currentValue}
                 onChange={this.handleChange}
@@ -397,17 +398,17 @@ const keypadConfigurationForProps = (props) => {
 
     if (includePi) {
         return {
-            keypadType: "BASIC_EXPRESSION",
+            keypadType: KeypadTypes.BASIC_EXPRESSION,
             extraKeys: ["PI"],
         };
     } else if (integersOnly) {
         return {
-            keypadType: "NUMBER",
+            keypadType: KeypadTypes.NUMBER,
             extraSymbols: [],
         };
     } else {
         return {
-            keypadType: "FRACTION",
+            keypadType: KeypadTypes.FRACTION,
             extraKeys: [],
         };
     }
