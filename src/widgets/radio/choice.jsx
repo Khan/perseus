@@ -578,7 +578,7 @@ const Choice = React.createClass({
                         className={classNames(
                             "perseus-radio-clue",
                             css(styles.clue,
-                                reviewMode && styles.satReviewClue)}
+                                reviewMode && styles.satReviewClue)
                         )}
                     >
                         {this.props.clue}
