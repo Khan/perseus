@@ -2,6 +2,7 @@
 /* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
+/* globals $_ */
 var React = require("react");
 var _ = require("underscore");
 
@@ -44,18 +45,15 @@ var PassageRef = React.createClass({
         var lineRange = this.state.lineRange;
         var lineRangeOutput;
         if (!lineRange) {
-            lineRangeOutput = <$_ lineRange={"?" + EN_DASH + "?"}>
-                lines %(lineRange)s
-            </$_>;
+            lineRangeOutput = $_({lineRange: `?${EN_DASH}?`},
+                "lines %(lineRange)s");
         } else if (lineRange[0] === lineRange[1]) {
-            lineRangeOutput = <$_ lineNumber={lineRange[0]}>
-                line %(lineNumber)s
-            </$_>;
+            lineRangeOutput = $_({lineNumber: lineRange[0]},
+                "line %(lineNumber)s");
         } else {
-            lineRangeOutput = <$_
-                    lineRange={lineRange[0] + EN_DASH + lineRange[1]}>
-                lines %(lineRange)s
-            </$_>;
+            lineRangeOutput = $_({
+                lineRange: lineRange[0] + EN_DASH + lineRange[1]
+            }, "lines %(lineRange)s");
         }
 
         var summaryOutput;

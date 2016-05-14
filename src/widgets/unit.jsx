@@ -71,7 +71,7 @@ var OldUnitInput = React.createClass({
             <div ref="error"
                  className="error"
                  style={{display: "none"}}>
-                <$_>{"I don't understand that"}</$_>
+                {i18n._("I don't understand that")}
             </div>
         </div>;
     },

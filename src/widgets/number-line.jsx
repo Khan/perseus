@@ -507,7 +507,7 @@ var NumberLine = React.createClass({
                 Input = NumberInput;
             }
             tickCtrl = <label>
-                <$_>Number of divisions:</$_>{" "}
+                {i18n._("Number of divisions:")}{" "}
                 <Input
                     ref={"tick-ctrl"}
                     value={this.props.numDivisions || divisionRange[0]}
@@ -531,10 +531,9 @@ var NumberLine = React.createClass({
                 </div> :
                 (this.props.isTickCtrl && invalidNumDivisions ?
                     <div className="perseus-error">
-                        <$_ divRangeString={divRangeString}>
-                            Please make sure the number of divisions is in the
-                            range %(divRangeString)s.
-                        </$_>
+                        {$_({divRangeString: divRangeString},
+                            "Please make sure the number of divisions is in " +
+                            "the range %(divRangeString)s.")}
                     </div> : this._renderGraphie())}
             {!this.props.static && this.props.isInequality &&
                 inequalityControls}

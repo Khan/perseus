@@ -1,4 +1,4 @@
-/* global i18n, $_ */
+/* global i18n */
 
 const { StyleSheet, css } = require("aphrodite");
 const classNames = require("classnames");
@@ -267,13 +267,13 @@ const BaseRadio = React.createClass({
 
         return <fieldset className="perseus-widget-radio-fieldset">
             <legend className="perseus-sr-only">{this.props.multipleSelect ?
-                <$_>Select all that apply.</$_> :
-                <$_>Please choose from one of the following options.</$_>
+                i18n._("Select all that apply.") :
+                i18n._("Please choose from one of the following options.")
             }</legend>
             <ul className={className}>
                 {this.props.multipleSelect &&
                     <div className={instructionsClassName}>
-                        <$_>Select all that apply.</$_>
+                        {i18n._("Select all that apply.")}
                     </div>}
                 {this.props.choices.map(function(choice, i) {
                     // True if we're in review mode and a clue (aka rationale)

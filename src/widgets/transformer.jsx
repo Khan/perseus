@@ -430,9 +430,8 @@ var Transformations = {
         },
         toTeX: function(transform) {
             // I18N: As in the command, "Translation by <3, 1>"
-            return <$_ vector={texFromVector(transform.vector)}>
-                Translation by %(vector)s
-            </$_>;
+            return $_({vector: texFromVector(transform.vector)},
+                "Translation by %(vector)s");
         },
         Input: React.createClass({
             getInitialState: function() {
@@ -481,9 +480,8 @@ var Transformations = {
                     <TeX>\rangle</TeX>
                 ];
                 return <div>
-                    <$_ vector={vector}>
-                        Translation by %(vector)s
-                    </$_>
+                    {$_({vector: vector},
+                        "Translation by %(vector)s")}
                 </div>;
             },
             value: function() {
@@ -546,10 +544,10 @@ var Transformations = {
             };
         },
         toTeX: function(transform) {
-            return <$_ degrees={texFromAngleDeg(transform.angleDeg)}
-                       point={texFromPoint(transform.center)}>
-                Rotation by %(degrees)s about %(point)s
-            </$_>;
+            return $_({
+                degrees: texFromAngleDeg(transform.angleDeg),
+                point: texFromPoint(transform.center)
+            }, "Rotation by %(degrees)s about %(point)s");
         },
         Input: React.createClass({
             getInitialState: function() {
@@ -617,9 +615,8 @@ var Transformations = {
                     DEGREE_SIGN
                 ];
                 // I18N: %(point)s must come before %(degrees)s in this phrase
-                var text = <$_ point={point} degrees={degrees}>
-                    Rotation about %(point)s by %(degrees)s
-                </$_>;
+                var text = $_({point, degrees},
+                    "Rotation about %(point)s by %(degrees)s");
 
                 return <div>{text}</div>;
             },
@@ -690,10 +687,10 @@ var Transformations = {
         toTeX: function(transform) {
             var point1 = transform.line[0];
             var point2 = transform.line[1];
-            return <$_ point1={texFromPoint(point1)}
-                       point2={texFromPoint(point2)}>
-                Reflection over the line from %(point1)s to %(point2)s
-            </$_>;
+            return $_({
+                point1: texFromPoint(point1),
+                point2: texFromPoint(point2)
+            }, "Reflection over the line from %(point1)s to %(point2)s");
         },
         Input: React.createClass({
             getInitialState: function() {
@@ -751,9 +748,9 @@ var Transformations = {
                     <TeX>)</TeX>
                 ];
                 return <div>
-                    <$_ point1={point1} point2={point2}>
-                        Reflection over the line from %(point1)s to %(point2)s
-                    </$_>
+                    {$_({point1, point2},
+                        "Reflection over the line from " +
+                        "%(point1)s to %(point2)s")}
                 </div>;
             },
             changePoint: function(i, j, val, cb) {
@@ -830,10 +827,10 @@ var Transformations = {
         },
         toTeX: function(transform) {
             var scaleString = stringFromFraction(transform.scale);
-            return <$_ scale={scaleString}
-                       point={texFromPoint(transform.center)}>
-                Dilation of scale %(scale)s about %(point)s
-            </$_>;
+            return $_({
+                scale: scaleString,
+                point: texFromPoint(transform.center),
+            }, "Dilation of scale %(scale)s about %(point)s");
         },
         Input: React.createClass({
             getInitialState: function() {
@@ -897,9 +894,8 @@ var Transformations = {
                     onFocus={_.partial(this.props.onFocus, "scale")}
                     onBlur={_.partial(this.props.onBlur, "scale")} />;
                 return <div>
-                    <$_ point={point} scale={scale}>
-                        Dilation about %(point)s by %(scale)s
-                    </$_>
+                    {$_({point, scale},
+                        "Dilation about %(point)s by %(scale)s")}
                 </div>;
             },
             value: function() {

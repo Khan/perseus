@@ -2,6 +2,7 @@
 /* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
+/* globals $_ */
 var React = require("react");
 var SimpleMarkdown = require("simple-markdown");
 var _ = require("underscore");
@@ -235,9 +236,8 @@ var rules = {
                     </span>
                 </span>,
                 <span key="alt-text" className="perseus-sr-only">
-                    <$_ number={node.content}>
-                        [Marker for question %(number)s]
-                    </$_>
+                    {$_({number: node.content},
+                        "[Marker for question %(number)s]")}
                 </span>,
                 (node.space ? "\u00A0" : null)
             ];
@@ -264,9 +264,8 @@ var rules = {
                     </span>
                 </span>,
                 <span key="alt-text" className="perseus-sr-only">
-                    <$_ number={node.content}>
-                        [Circle marker %(number)s]
-                    </$_>
+                    {$_({number: node.content},
+                        "[Circle marker %(number)s]")}
                 </span>,
                 (node.space ? "\u00A0" : null)
             ];
@@ -293,9 +292,8 @@ var rules = {
                     [{node.content}]
                 </span>,
                 <span key="alt-text" className="perseus-sr-only">
-                    <$_ number={node.content}>
-                        [Sentence %(number)s]
-                    </$_>
+                    {$_({number: node.content},
+                        "[Sentence %(number)s]")}
                 </span>,
                 (node.space ? "\u00A0" : null)
             ];

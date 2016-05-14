@@ -2,6 +2,7 @@
 /* eslint-disable comma-dangle, indent, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-unary-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
+/* globals $_, i18n */
 var InfoTip = require("../components/info-tip.jsx");
 var React = require("react");
 var ReactDOM = require("react-dom");
@@ -524,7 +525,7 @@ var Simulator = React.createClass({
                 style={buttonStyle}
                 disabled={this.props.apiOptions.readOnly}
                 onClick={this.handleRunSimulation}>
-            <$_>Run simulation</$_>
+            {i18n._("Run simulation")}
         </button>;
 
         // When we plot data, ticks on the x-axis require some vertical padding

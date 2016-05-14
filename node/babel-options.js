@@ -22,6 +22,5 @@ module.exports = {
         'es7.objectRestSpread',
         'react',
     ],
-    plugins: ['i18n-babel-plugin'],
     loose: 'all',
 };

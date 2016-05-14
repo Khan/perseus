@@ -80,21 +80,21 @@ var Passage = React.createClass({
                     </div>
                 }
                 <h3 className="perseus-sr-only">
-                    <$_>Beginning of reading passage.</$_>
+                    {i18n._("Beginning of reading passage.")}
                 </h3>
                 <div className="passage-text">
                     {this._renderContent(parsedContent)}
                 </div>
                 {this._hasFootnotes() && [
                     <h4 key="footnote-start" className="perseus-sr-only">
-                        <$_>Beginning of reading passage footnotes.</$_>
+                        {i18n._("Beginning of reading passage footnotes.")}
                     </h4>,
                     <div key="footnotes" className="footnotes">
                         {this._renderFootnotes()}
                     </div>
                 ]}
                 <div className="perseus-sr-only">
-                    <$_>End of reading passage.</$_>
+                    {i18n._("End of reading passage.")}
                 </div>
             </div>
         </div>;

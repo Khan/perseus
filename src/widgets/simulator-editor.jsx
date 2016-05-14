@@ -2,6 +2,7 @@
 /* eslint-disable comma-dangle, eol-last, react/jsx-closing-bracket-location, react/jsx-no-undef, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
+/* globals i18n */
 const React = require("react");
 const _ = require("underscore");
 
@@ -37,7 +38,7 @@ const SimulatorEditor = React.createClass({
     render: function() {
         return <div className="perseus-widget-simulator">
             <div>
-                <$_>X-Axis Label</$_>:
+                {i18n._("X-Axis Label")}:
                 <input
                     type="text"
                     className="graph-settings-axis-label"
@@ -46,7 +47,7 @@ const SimulatorEditor = React.createClass({
                         "xAxisLabel")} />
             </div>
             <div>
-                <$_>Y-Axis Label</$_>:
+                {i18n._("Y-Axis Label")}:
                 <input
                     type="text"
                     className="graph-settings-axis-label"
@@ -55,7 +56,7 @@ const SimulatorEditor = React.createClass({
                         "yAxisLabel")} />
             </div>
             <div>
-                <$_>"True Proportion" Label</$_>:
+                {i18n._('"True Proportion" Label')}:
                 <input
                     type="text"
                     className="graph-settings-axis-label"
@@ -71,7 +72,7 @@ const SimulatorEditor = React.createClass({
                 </InfoTip>
             </div>
             <div>
-                <$_>Proportion or Percentage</$_>:
+                {i18n._("Proportion or Percentage")}:
                 <select
                     className="perseus-widget-dropdown"
                     value={this.props.proportionOrPercentage}
@@ -90,7 +91,7 @@ const SimulatorEditor = React.createClass({
                 </InfoTip>
             </div>
             <div>
-                <$_>Number of trials</$_>:
+                {i18n._("Number of trials")}:
                 <NumberInput
                     value={this.props.numTrials}
                     checkValidity={(val) => {
