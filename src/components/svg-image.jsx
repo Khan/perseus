@@ -361,7 +361,7 @@ var SvgImage = React.createClass({
     },
 
     onDataLoaded: function(data) {
-        if (this.isMounted()) {
+        if (this.isMounted() && data.labels && data.range) {
             this.setState({
                 dataLoaded: true,
                 labels: data.labels,
