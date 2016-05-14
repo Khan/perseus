@@ -132,10 +132,9 @@ ifneq ("$(SUPPRESSINSTALL)","TRUE")
 	rm -rf simple-markdown/node_modules
 	rm -rf kmath/node_modules
 	rm -rf react-components/node_modules
-	cd math-input && npm install && cd ..
-	rm -rf math-input/node_modules/react
-	rm -rf math-input/node_modules/react-dom
-	rm -rf math-input/node_modules/react-addons*
+# Use --production so that math-input doesn't install any devDepedencies, which
+# include React and friends.
+	cd math-input && npm install --production && cd ..
 # Moar very hacks b/c for some reason babel-register tries to use the .babelrc
 # in input-math even though we're passing it the same options we pass to
 # babel-core webpack.config.js.  Perseus uses babel 5 which works with .babelrc
