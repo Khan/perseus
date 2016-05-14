@@ -8,5 +8,6 @@ module.exports = {
     devServer: {
         historyApiFallback: "/build/",
     },
+    plugins: require('./webpack.config.js').plugins,
     module: require('./webpack.config.js').module,
 };

@@ -7,5 +7,6 @@ module.exports = {
         libraryTarget: "commonjs2",
     },
     target: "node",
+    plugins: require('./webpack.config.js').plugins,
     module: require('./webpack.config.js').module,
 };

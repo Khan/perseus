@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 
 const includeEditor = process.env.INCLUDE_EDITORS === "true";
 const prod = process.env.NODE_ENV === "production";
@@ -71,6 +72,11 @@ module.exports = {
         libraryTarget: "umd",
     },
     externals: externals,
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`,
+        }),
+    ],
     module: {
         loaders: [
             {
