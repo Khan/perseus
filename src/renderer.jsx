@@ -221,12 +221,12 @@ var Renderer = React.createClass({
             // other elements on the page outside of the perseus renderer and
             // we want to be sure that the keypad will appear from the bottom
             // of the page and appear above other content.
-            const keypadContainer = document.createElement('div');
-            document.body.appendChild(keypadContainer);
+            this._keypadContainer = document.createElement('div');
+            document.body.appendChild(this._keypadContainer);
 
             ReactDOM.render(
                 <Keypad onDismiss={() => this.blur()}/>,
-                keypadContainer
+                this._keypadContainer
             );
         }
     },
@@ -296,6 +296,12 @@ var Renderer = React.createClass({
     },
 
     componentWillUnmount: function() {
+        if (this._keypadContainer) {
+            ReactDOM.unmountComponentAtNode(this._keypadContainer);
+            this._keypadContainer.remove();
+            this._keypadContainer = null;
+        }
+
         if (this.translationIndex != null) {
             window.PerseusTranslationComponents[this.translationIndex] = null;
         }

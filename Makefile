@@ -141,7 +141,7 @@ ifneq ("$(SUPPRESSINSTALL)","TRUE")
 # babel-core webpack.config.js.  Perseus uses babel 5 which works with .babelrc
 # files, but it does not know how to interpret the "presets" option which was
 # introduced in babel 6.  When it see "presets" it fails.
-	rm math-input/.babelrc
+	rm -f math-input/.babelrc
 endif
 
 clean:
