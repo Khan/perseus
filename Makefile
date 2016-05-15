@@ -135,12 +135,6 @@ ifneq ("$(SUPPRESSINSTALL)","TRUE")
 # Use --production so that math-input doesn't install any devDepedencies, which
 # include React and friends.
 	cd math-input && npm install --production && cd ..
-# Moar very hacks b/c for some reason babel-register tries to use the .babelrc
-# in input-math even though we're passing it the same options we pass to
-# babel-core webpack.config.js.  Perseus uses babel 5 which works with .babelrc
-# files, but it does not know how to interpret the "presets" option which was
-# introduced in babel 6.  When it see "presets" it fails.
-	rm -f math-input/.babelrc
 endif
 
 clean:
