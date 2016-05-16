@@ -1,6 +1,6 @@
 /* Perseus CSS
- * commit 40dee2e807769071493959d42b837302a32b9416
- * branch master
+ * commit 354332fe1fe4506df7ca066d0bc4418ae15b2317
+ * branch crm-update-input
  * @generated */
 .perseus-sr-only {
   border: 0;
@@ -2003,6 +2003,6 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
 .keypad-input .mq-editable-field .mq-selection .mq-scaled {
     background: #78c008 !important;
     color: white !important;
-    border-color: transparent !important;
+    border-color: white !important;
 }
 
