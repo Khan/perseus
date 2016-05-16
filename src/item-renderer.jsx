@@ -43,6 +43,13 @@ var ItemRenderer = React.createClass({
             hints: RP.arrayOf(RP.object),
             question: RP.object,
         }).isRequired,
+
+        onShowCalculator: RP.func,
+        onShowChi2Table: RP.func,
+        onShowPeriodicTable: RP.func,
+        onShowTTable: RP.func,
+        onShowZTable: RP.func,
+
         problemNum: RP.number,
         savedState: RP.any,
         workAreaSelector: RP.string,
@@ -166,14 +173,31 @@ var ItemRenderer = React.createClass({
                 />,
                 document.querySelector(this.props.workAreaSelector));
 
+        var answerArea = this.props.item.answerArea || {};
         if (this.props.controlPeripherals) {
-            var answerArea = this.props.item.answerArea || {};
             $("#calculator").toggle(answerArea.calculator || false);
             $(".periodic-table-info-box").toggle(
                 answerArea.periodicTable || false);
             $(".z-table-info-box").toggle(answerArea.zTable || false);
             $(".t-table-info-box").toggle(answerArea.tTable || false);
             $(".chi2-table-info-box").toggle(answerArea.chi2Table || false);
+        } else {
+            if (answerArea.calculator) {
+                this.props.onShowCalculator && this.props.onShowCalculator();
+            }
+            if (answerArea.periodicTable) {
+                this.props.onShowPeriodicTable &&
+                    this.props.onShowPeriodicTable();
+            }
+            if (answerArea.zTable) {
+                this.props.onShowZTable && this.props.onShowZTable();
+            }
+            if (answerArea.tTable) {
+                this.props.onShowTTable && this.props.onShowTTable();
+            }
+            if (answerArea.chi2Table) {
+                this.props.onShowChi2Table && this.props.onShowChi2Table();
+            }
         }
 
         if (apiOptions.answerableCallback) {
