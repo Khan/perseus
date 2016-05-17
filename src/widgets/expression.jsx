@@ -251,8 +251,13 @@ var Expression = React.createClass({
     },
 
     focus: function() {
-        // The buttons are often on top of text you're trying to read, so don't
-        // focus the editor automatically.
+        if (this.props.apiOptions.customKeypad) {
+            this.refs.input.focus();
+        } else {
+            // The buttons are often on top of text you're trying to read, so
+            // don't focus the editor automatically.
+        }
+
         return true;
     },
 
