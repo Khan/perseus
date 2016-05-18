@@ -1,11 +1,7 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const React = require('react');
+const _ = require("underscore");
 
-var React = require('react');
-var _ = require("underscore");
-
-var EditorPage = require("./editor-page.jsx");
+const EditorPage = require("./editor-page.jsx");
 
 /* Renders an EditorPage (or an ArticleEditor) as a non-controlled component.
  *
@@ -14,26 +10,22 @@ var EditorPage = require("./editor-page.jsx");
  * changes. With StatefulEditorPage changes are stored in state so you can
  * query them with serialize.
  */
-var StatefulEditorPage = React.createClass({
+const StatefulEditorPage = React.createClass({
 
     propTypes: {
-        componentClass: React.PropTypes.func
+        componentClass: React.PropTypes.func,
     },
 
     getDefaultProps: function() {
         return {
-            componentClass: EditorPage
+            componentClass: EditorPage,
         };
-    },
-
-    render: function() {
-        return <this.props.componentClass {...this.state} />;
     },
 
     getInitialState: function() {
         return _({}).extend(_.omit(this.props, 'componentClass'), {
             onChange: this.handleChange,
-            ref: "editor"
+            ref: "editor",
         });
     },
 
@@ -67,7 +59,11 @@ var StatefulEditorPage = React.createClass({
 
     scorePreview: function() {
         return this.refs.editor.scorePreview();
-    }
+    },
+
+    render: function() {
+        return <this.props.componentClass {...this.state} />;
+    },
 });
 
 module.exports = StatefulEditorPage;

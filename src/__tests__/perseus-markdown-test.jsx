@@ -1,15 +1,11 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-console, no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const assert = require("assert");
+const nodeUtil = require("util");
+const React = require("react");
+const _ = require("underscore");
 
-var assert = require("assert");
-var nodeUtil = require("util");
-var React = require("react");
-var _ = require("underscore");
-
-var PerseusMarkdown = require("../perseus-markdown.jsx");
-var parse = PerseusMarkdown.parse;
-var characterCount = PerseusMarkdown.characterCount;
+const PerseusMarkdown = require("../perseus-markdown.jsx");
+const parse = PerseusMarkdown.parse;
+const characterCount = PerseusMarkdown.characterCount;
 
 // TODO(aria): Don't duplicate these two methods from simple-markdown:
 
@@ -18,17 +14,17 @@ var characterCount = PerseusMarkdown.characterCount;
 // Important because some AST node fields can be undefined, and
 // if those don't show up in the assert output, it can be
 // very confusing to figure out how the actual and expected differ
-var prettyPrintAST = (ast) => {
+const prettyPrintAST = (ast) => {
     return nodeUtil.inspect(ast, {
         depth: null,
         colors: false,
     });
 };
 
-var validateParse = function(parsed, expected) {
+const validateParse = function(parsed, expected) {
     if (!_.isEqual(parsed, expected)) {
-        var parsedStr = prettyPrintAST(parsed);
-        var expectedStr = prettyPrintAST(expected);
+        const parsedStr = prettyPrintAST(parsed);
+        const expectedStr = prettyPrintAST(expected);
         // assert.fail doesn't seem to print the
         // expected and actual anymore, so we just
         // throw our own exception.
@@ -40,36 +36,38 @@ var validateParse = function(parsed, expected) {
     }
 };
 
-var htmlThroughReact = function(parsed) {
-    var output = PerseusMarkdown.basicOutput(parsed);
+const htmlThroughReact = function(parsed) {
+    const output = PerseusMarkdown.basicOutput(parsed);
     // TODO(emily): Replace this with ReactDOMServer.
-    var rawHtml = React.renderToStaticMarkup(
+    const rawHtml = React.renderToStaticMarkup(
         React.DOM.div(null, output)
     );
-    var innerHtml = rawHtml
+    const innerHtml = rawHtml
         .replace(/^<div>/, '')
         .replace(/<\/div>$/, '');
-    var simplifiedHtml = innerHtml
+    const simplifiedHtml = innerHtml
         .replace(/>\n*/g, '>')
         .replace(/\n*</g, '<')
         .replace(/\s+/g, ' ');
     return simplifiedHtml;
 };
 
-var htmlFromMarkdown = function(source) {
+const htmlFromMarkdown = function(source) {
     return htmlThroughReact(parse(source));
 };
 
-var assertParsesToReact = function(source, html) {
-    var actualHtml = htmlFromMarkdown(source);
+const assertParsesToReact = function(source, html) {
+    const actualHtml = htmlFromMarkdown(source);
     if (actualHtml !== html) {
+        /* eslint-disable no-console */
         console.warn(actualHtml);
         console.warn(html);
+        /* eslint-enable no-console */
     }
     assert.strictEqual(actualHtml, html);
 };
 
-var validateCount = (source, expectedCount) => {
+const validateCount = (source, expectedCount) => {
     assert.equal(characterCount(source),
                  expectedCount,
                  "characterCount(" + source + ") !== " + expectedCount);
@@ -78,7 +76,7 @@ var validateCount = (source, expectedCount) => {
 describe("perseus markdown", () => {
     describe("parser", () => {
         it("should parse math", () => {
-            var parsed = parse("math $y = x + 1$");
+            const parsed = parse("math $y = x + 1$");
             validateParse(parsed, [{
                 type: "paragraph",
                 content: [
@@ -87,7 +85,7 @@ describe("perseus markdown", () => {
                 ],
             }]);
 
-            var parsed2 = parse("hi $y = x + 1$ there");
+            const parsed2 = parse("hi $y = x + 1$ there");
             validateParse(parsed2, [{
                 type: "paragraph",
                 content: [
@@ -99,7 +97,7 @@ describe("perseus markdown", () => {
         });
 
         it("should parse nested math", () => {
-            var parsed = parse("math $y = \\text{$x + 1$}$");
+            const parsed = parse("math $y = \\text{$x + 1$}$");
             validateParse(parsed, [{
                 type: "paragraph",
                 content: [
@@ -108,7 +106,7 @@ describe("perseus markdown", () => {
                 ],
             }]);
 
-            var parsed2 = parse(
+            const parsed2 = parse(
                 "math $ x^2 \\text{blah $math \\text{some $more math$} $ } $"
             );
             validateParse(parsed2, [{
@@ -122,7 +120,7 @@ describe("perseus markdown", () => {
         });
 
         it("should allow escaping in math", () => {
-            var parsed = parse("math $\\\\$");
+            const parsed = parse("math $\\\\$");
             validateParse(parsed, [{
                 type: "paragraph",
                 content: [
@@ -131,7 +129,7 @@ describe("perseus markdown", () => {
                 ],
             }]);
 
-            var parsed2 = parse("math $\\$$");
+            const parsed2 = parse("math $\\$$");
             validateParse(parsed2, [{
                 type: "paragraph",
                 content: [
@@ -140,7 +138,7 @@ describe("perseus markdown", () => {
                 ],
             }]);
 
-            var parsed3 = parse("${$");
+            const parsed3 = parse("${$");
             validateParse(parsed3, [{
                 type: "paragraph",
                 content: [
@@ -150,7 +148,7 @@ describe("perseus markdown", () => {
                 ],
             }]);
 
-            var parsed4 = parse("math $\\{$");
+            const parsed4 = parse("math $\\{$");
             validateParse(parsed4, [{
                 type: "paragraph",
                 content: [
@@ -159,7 +157,7 @@ describe("perseus markdown", () => {
                 ],
             }]);
 
-            var parsed5 = parse("hello $ escaped dollar \\$ $ not math");
+            const parsed5 = parse("hello $ escaped dollar \\$ $ not math");
             validateParse(parsed5, [{
                 type: "paragraph",
                 content: [
@@ -171,13 +169,13 @@ describe("perseus markdown", () => {
         });
 
         it("should parse block math", () => {
-            var parsed = parse("$x + y = 7$");
+            const parsed = parse("$x + y = 7$");
             validateParse(parsed, [{
                 type: "blockMath",
                 content: "x + y = 7",
             }]);
 
-            var parsed2 = parse("$x + y = 7$\nnot math");
+            const parsed2 = parse("$x + y = 7$\nnot math");
             validateParse(parsed2, [{
                 type: "paragraph",
                 content: [
@@ -186,7 +184,7 @@ describe("perseus markdown", () => {
                 ],
             }]);
 
-            var parsed3 = parse("  $x + y = 7$  \n\n    \n$3 + 5 = 7$");
+            const parsed3 = parse("  $x + y = 7$  \n\n    \n$3 + 5 = 7$");
             validateParse(parsed3, [{
                 type: "blockMath",
                 content: "x + y = 7",
@@ -195,14 +193,14 @@ describe("perseus markdown", () => {
                 content: "3 + 5 = 7",
             }]);
 
-            var parsed4 = parse("    $x + y = 7$");
+            const parsed4 = parse("    $x + y = 7$");
             validateParse(parsed4, [{
                 type: "codeBlock",
                 content: "$x + y = 7$",
                 lang: undefined,
             }]);
 
-            var parsed5 = parse("> $x + y = 7$");
+            const parsed5 = parse("> $x + y = 7$");
             validateParse(parsed5, [{
                 type: "blockQuote",
                 content: [{
@@ -213,7 +211,7 @@ describe("perseus markdown", () => {
         });
 
         it("should break on paragraphs", () => {
-            var parsed = parse("hello $ single dollar");
+            const parsed = parse("hello $ single dollar");
             validateParse(parsed, [{
                 type: "paragraph",
                 content: [
@@ -222,7 +220,7 @@ describe("perseus markdown", () => {
                 ],
             }]);
 
-            var parsed2 = parse(
+            const parsed2 = parse(
                 "hello $ single dollar paragraph\n\n not math"
             );
             validateParse(parsed2, [
@@ -241,7 +239,7 @@ describe("perseus markdown", () => {
                 },
             ]);
 
-            var parsed3 = parse("hello $ bad { math $");
+            const parsed3 = parse("hello $ bad { math $");
             validateParse(parsed3, [{
                 type: "paragraph",
                 content: [
@@ -255,7 +253,7 @@ describe("perseus markdown", () => {
         });
 
         it("should parse widget types and ids", () => {
-            var parsed = parse("[[☃ test 1]]");
+            const parsed = parse("[[☃ test 1]]");
             validateParse(parsed, [{
                 type: "paragraph",
                 content: [{
@@ -265,7 +263,7 @@ describe("perseus markdown", () => {
                 }],
             }]);
 
-            var parsed2 = parse("[[☃ test 1]]+[[☃ input-number 2]]");
+            const parsed2 = parse("[[☃ test 1]]+[[☃ input-number 2]]");
             validateParse(parsed2, [{
                 type: "paragraph",
                 content: [
@@ -286,7 +284,7 @@ describe("perseus markdown", () => {
                 ],
             }]);
 
-            var parsed3 = parse("*[[☃ test 2]]* [[☃ input-number 1]]");
+            const parsed3 = parse("*[[☃ test 2]]* [[☃ input-number 1]]");
             validateParse(parsed3, [{
                 type: "paragraph",
                 content: [
@@ -312,7 +310,7 @@ describe("perseus markdown", () => {
         });
 
         it("should allow escaping widget identifiers", () => {
-            var parsed = parse("\\[[☃ test 1]]");
+            const parsed = parse("\\[[☃ test 1]]");
             validateParse(parsed, [{
                 type: "paragraph",
                 content: [
@@ -325,7 +323,7 @@ describe("perseus markdown", () => {
         });
 
         it("should parse widgets next to each other as widgets", () => {
-            var parsed = parse("[[☃ test 1]][[☃ test 2]]");
+            const parsed = parse("[[☃ test 1]][[☃ test 2]]");
             validateParse(parsed, [{
                 type: "paragraph",
                 content: [
@@ -334,7 +332,7 @@ describe("perseus markdown", () => {
                 ],
             }]);
 
-            var parsed2 = parse("[[☃ test 1]] [[☃ test 2]]");
+            const parsed2 = parse("[[☃ test 1]] [[☃ test 2]]");
             validateParse(parsed2, [{
                 type: "paragraph",
                 content: [
@@ -346,7 +344,7 @@ describe("perseus markdown", () => {
         });
 
         it("should parse multiple columns", () => {
-            var parsed = parse(
+            const parsed = parse(
                 "hi\n\n" +
                 "=====\n\n" +
                 "there\n\n"
@@ -375,7 +373,7 @@ describe("perseus markdown", () => {
         });
 
         it("should ignore lists in jipt mode", () => {
-            var parsed = parse(
+            let parsed = parse(
                 "1. test\n\n" +
                 "2. boo\n\n",
                 { isJipt: true }

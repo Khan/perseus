@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, no-redeclare, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-infix-ops */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const _ = require("underscore");
 
@@ -25,7 +21,7 @@ const answerFormButtons = [
     {title: "Improper fractions", value: "improper",
         content: "\u2077\u2044\u2084"},
     {title: "Mixed numbers", value: "mixed", content: "1\u00BE"},
-    {title: "Numbers with \u03C0", value: "pi", content: "\u03C0"}
+    {title: "Numbers with \u03C0", value: "pi", content: "\u03C0"},
 ];
 
 const initAnswer = (status) => {
@@ -36,41 +32,136 @@ const initAnswer = (status) => {
         simplify: "required",
         answerForms: [],
         strict: false,
-        maxError: null
+        maxError: null,
     };
 };
 
 const NumericInputEditor = React.createClass({
+    propTypes: {
+        answers: React.PropTypes.arrayOf(React.PropTypes.object),
+        coefficient: React.PropTypes.bool,
+        labelText: React.PropTypes.string,
+        onChange: React.PropTypes.func.isRequired,
+        size: React.PropTypes.string,
+    },
+
     mixins: [EditorJsonify, Changeable],
 
     getDefaultProps: function() {
         return {
             answers: [initAnswer("correct")],
-            size: "normal",
             coefficient: false,
             labelText: "",
+            size: "normal",
         };
     },
 
     getInitialState: function() {
         return {
             lastStatus: "wrong",
-            showOptions: _.map(this.props.answers, () => false)
+            showOptions: _.map(this.props.answers, () => false),
         };
     },
 
-    render: function() {
-        var answers = this.props.answers;
+    onToggleOptions: function(choiceIndex) {
+        const showOptions = this.state.showOptions.slice();
+        showOptions[choiceIndex] = !showOptions[choiceIndex];
+        this.setState({showOptions: showOptions});
+    },
 
-        var unsimplifiedAnswers = (i) => <div className="perseus-widget-row">
+    onTrashAnswer: function(choiceIndex) {
+        if (choiceIndex >= 0 && choiceIndex < this.props.answers.length) {
+            const answers = this.props.answers.slice(0);
+            answers.splice(choiceIndex, 1);
+            this.props.onChange({answers: answers});
+        }
+    },
+
+    onSpace: function(e, callback) {
+        if (e.key === " ") {
+            e.preventDefault(); // prevent page shifting
+            const args = _.toArray(arguments).slice(2);
+            callback.apply(this, args);
+        }
+    },
+
+    onStatusChange: function(choiceIndex) {
+        const statuses = ["wrong", "ungraded", "correct"];
+        const answers = this.props.answers;
+        const i = _.indexOf(statuses, answers[choiceIndex].status);
+        const newStatus = statuses[(i + 1) % statuses.length];
+
+        this.updateAnswer(choiceIndex, {
+            status: newStatus,
+            simplify: newStatus === "correct" ? "required" : "accepted",
+        });
+    },
+
+    updateAnswer: function(choiceIndex, update) {
+        if (!_.isObject(update)) {
+            return _.partial((choiceIndex, key, value) => {
+                const update = {};
+                update[key] = value;
+                this.updateAnswer(choiceIndex, update);
+            }, choiceIndex, update);
+        }
+
+        let answers = _.clone(this.props.answers);
+
+        // Don't bother to make a new answer box unless we are editing the last
+        // one.
+        // TODO(oliver): This might not be necessary anymore.
+        if (choiceIndex === answers.length) {
+            const lastAnswer = initAnswer(this.state.lastStatus);
+            answers = answers.concat(lastAnswer);
+        }
+
+        answers[choiceIndex] = _.extend({}, answers[choiceIndex], update);
+        this.props.onChange({answers: answers});
+    },
+
+    addAnswer: function() {
+        const lastAnswer = initAnswer(this.state.lastStatus);
+        const answers = this.props.answers.concat(lastAnswer);
+        this.props.onChange({answers: answers});
+    },
+
+    getSaveWarnings: function() {
+        // Filter out all the empty answers
+        const warnings = [];
+        // TODO(emily): This doesn't actually work, because the value is either
+        // null or undefined when undefined, probably.
+        if (_.contains(_.pluck(this.props.answers, "value"), "")) {
+            warnings.push("One or more answers is empty");
+        }
+        if (this.props.labelText === "") {
+            warnings.push("No label is specified");
+        }
+        this.props.answers.forEach((answer, i) => {
+            const formatError = (answer.strict &&
+                (!answer.answerForms || answer.answerForms.length === 0));
+            if (formatError) {
+                warnings.push(`Answer ${i + 1} is set to string format ` +
+                              "matching, but no format was selected");
+            }
+        });
+        return warnings;
+    },
+
+    render: function() {
+        const answers = this.props.answers;
+
+        const unsimplifiedAnswers = (i) => <div className="perseus-widget-row">
             <label>Unsimplified answers are</label>
-            <ButtonGroup value={answers[i]["simplify"]}
-                         allowEmpty={false}
-                         buttons={[
-                            {value: "required", content: "ungraded"},
-                            {value: "optional", content: "accepted"},
-                            {value: "enforced", content: "wrong"}]}
-                         onChange={this.updateAnswer(i, "simplify")} />
+            <ButtonGroup
+                value={answers[i]["simplify"]}
+                allowEmpty={false}
+                buttons={[
+                    {value: "required", content: "ungraded"},
+                    {value: "optional", content: "accepted"},
+                    {value: "enforced", content: "wrong"}]}
+                onChange={this.updateAnswer(i, "simplify")}
+            />
             <InfoTip>
                 <p>Normally select "ungraded". This will give the
                 user a message saying the answer is correct but not
@@ -84,12 +175,14 @@ const NumericInputEditor = React.createClass({
             </InfoTip>
         </div>;
 
-        var suggestedAnswerTypes = (i) => <div>
+        const suggestedAnswerTypes = (i) => <div>
             <div className="perseus-widget-row">
                 <label>Choose the suggested answer formats</label>
-                <MultiButtonGroup buttons={answerFormButtons}
+                <MultiButtonGroup
+                    buttons={answerFormButtons}
                     values={answers[i]["answerForms"]}
-                    onChange={this.updateAnswer(i, "answerForms")} />
+                    onChange={this.updateAnswer(i, "answerForms")}
+                />
                 <InfoTip>
                     <p>Formats will be autoselected for you based on the
                         given answer; to show no suggested formats and
@@ -111,13 +204,15 @@ const NumericInputEditor = React.createClass({
                 </InfoTip>
             </div>
             <div className="perseus-widget-row">
-                <PropCheckBox label="Strictly match only these formats"
+                <PropCheckBox
+                    label="Strictly match only these formats"
                     strict={answers[i]["strict"]}
-                    onChange={this.updateAnswer.bind(this, i)} />
+                    onChange={this.updateAnswer.bind(this, i)}
+                />
             </div>
         </div>;
 
-        var maxError = (i) => <div className="perseus-widget-row">
+        const maxError = (i) => <div className="perseus-widget-row">
             <label>
                 Max error
                 {" "}
@@ -125,17 +220,19 @@ const NumericInputEditor = React.createClass({
                     className="max-error"
                     value={answers[i]["maxError"]}
                     onChange={this.updateAnswer(i, "maxError")}
-                    placeholder="0" />
+                    placeholder="0"
+                />
             </label>
         </div>;
 
-        var inputSize = <div className="perseus-widget-row">
+        const inputSize = <div className="perseus-widget-row">
                 <label>Width:{' '} </label>
                 <ButtonGroup value={this.props.size} allowEmpty={false}
                     buttons={[
                         {value: "normal", content: "Normal (80px)"},
                         {value: "small", content: "Small (40px)"}]}
-                    onChange={this.change("size")} />
+                    onChange={this.change("size")}
+                />
                 <InfoTip>
                     <p>Use size "Normal" for all text boxes, unless there are
                     multiple text boxes in one line and the answer area is too
@@ -143,12 +240,13 @@ const NumericInputEditor = React.createClass({
                 </InfoTip>
             </div>;
 
-        var labelText = <div className="perseus-widget-row">
+        const labelText = <div className="perseus-widget-row">
                 <label>
                     Label text:{' '}
                     <TextInput
                         value={this.props.labelText}
-                        onChange={this.change("labelText")} />
+                        onChange={this.change("labelText")}
+                    />
                 </label>
                 <InfoTip>
                     <p>Text to describe this input. This will be shown to users
@@ -156,11 +254,12 @@ const NumericInputEditor = React.createClass({
                 </InfoTip>
             </div>;
 
-        var coefficientCheck = <div>
+        const coefficientCheck = <div>
             <div className="perseus-widget-row">
                 <PropCheckBox label="Coefficient"
                     coefficient={this.props.coefficient}
-                    onChange={this.props.onChange} />
+                    onChange={this.props.onChange}
+                />
                 <InfoTip>
                     <p>
                         A coefficient style number allows the student to use -
@@ -170,24 +269,25 @@ const NumericInputEditor = React.createClass({
             </div>
         </div>;
 
-        var addAnswerButton = <div>
+        const addAnswerButton = <div>
             <a
                 href="javascript:void(0)"
                 className="simple-button orange"
                 onClick={() => this.addAnswer()}
-                onKeyDown={(e) => this.onSpace(e, this.addAnswer)}>
+                onKeyDown={(e) => this.onSpace(e, this.addAnswer)}
+            >
               <span>Add new answer</span>
             </a>
         </div>;
 
-        var instructions = {
+        const instructions = {
             "wrong":    "(address the mistake/misconception)",
             "ungraded": "(explain in detail to avoid confusion)",
-            "correct":  "(reinforce the user's understanding)"
+            "correct":  "(reinforce the user's understanding)",
         };
 
-        var generateInputAnswerEditors = () => answers.map((answer, i) => {
-            var editor = <Editor
+        const generateInputAnswerEditors = () => answers.map((answer, i) => {
+            const editor = <Editor
                 content={answer.message || ""}
                 placeholder={"Why is this answer " + answer.status + "?\t" +
                     instructions[answer.status]}
@@ -196,10 +296,13 @@ const NumericInputEditor = React.createClass({
                     if ("content" in newProps) {
                         this.updateAnswer(i, {message: newProps.content});
                     }
-                }} />;
+                }}
+            />;
             return <div className="perseus-widget-row" key={i}>
-                <div className={"input-answer-editor-value-container" +
-                    (answer.maxError ? " with-max-error" : "")}>
+                <div
+                    className={"input-answer-editor-value-container" +
+                        (answer.maxError ? " with-max-error" : "")}
+                >
                     <NumberInput value={answer.value}
                         className="numeric-input-value"
                         placeholder="answer"
@@ -215,7 +318,7 @@ const NumericInputEditor = React.createClass({
                             // determine whether or not to reveal Pi on the
                             // keypad (right now, answers are stored as resolved
                             // values, like '0.125' rather than '1/8').
-                            var forms;
+                            let forms;
                             if (format === "pi") {
                                 forms = ["pi"];
                             } else if (format === "mixed") {
@@ -226,32 +329,40 @@ const NumericInputEditor = React.createClass({
                             }
                             this.updateAnswer(i, {
                                 value: firstNumericalParse(newValue),
-                                answerForms: forms
+                                answerForms: forms,
                             });
                         }}
                         onChange={(newValue) => {
                             this.updateAnswer(i, {
                                 value: firstNumericalParse(newValue)});
-                        }} />
-                    {answer.strict && <div className="is-strict-indicator"
-                        title="strictly equivalent to">&equiv;</div>}
+                        }}
+                    />
+                    {answer.strict && <div
+                        className="is-strict-indicator"
+                        title="strictly equivalent to"
+                    >&equiv;</div>}
                     {answer.simplify !== "required" &&
                      answer.status === "correct" &&
-                      <div className={"simplify-indicator " + answer.simplify}
-                        title="accepts unsimplified answers">&permil;</div>}
+                    <div
+                        className={"simplify-indicator " + answer.simplify}
+                        title="accepts unsimplified answers"
+                    >&permil;</div>}
                     {answer.maxError ? <div className="max-error-container">
                         <div className="max-error-plusmn">&plusmn;</div>
-                        <NumberInput placeholder={0}
+                        <NumberInput
+                            placeholder={0}
                             value={answers[i]["maxError"]}
                             format={_.last(answer.answerForms)}
-                            onChange={this.updateAnswer(i, "maxError")} />
+                            onChange={this.updateAnswer(i, "maxError")}
+                        />
                     </div> : null}
                     <div className="value-divider" />
                     <a href="javascript:void(0)"
                         className={"answer-status " + answer.status}
                         onClick={() => this.onStatusChange(i)}
                         onKeyDown={(e) =>
-                            this.onSpace(e, this.onStatusChange, i)}>
+                            this.onSpace(e, this.onStatusChange, i)}
+                    >
                         {answer.status}
                     </a>
                     <a
@@ -259,14 +370,16 @@ const NumericInputEditor = React.createClass({
                         className="answer-trash"
                         onClick={() => this.onTrashAnswer(i)}
                         onKeyDown={(e) =>
-                            this.onSpace(e, this.onTrashAnswer, i)}>
+                            this.onSpace(e, this.onTrashAnswer, i)}
+                    >
                       <span className="icon-trash" />
                     </a>
                     <a href="javascript:void(0)"
                         className="options-toggle"
                         onClick={() => this.onToggleOptions(i)}
                         onKeyDown={(e) =>
-                            this.onSpace(e, this.onToggleOptions, i)}>
+                            this.onSpace(e, this.onToggleOptions, i)}
+                    >
                       <i className="icon-gear" />
                     </a>
                 </div>
@@ -289,92 +402,6 @@ const NumericInputEditor = React.createClass({
             {coefficientCheck}
             {labelText}
         </div>;
-
-    },
-
-    onToggleOptions: function(choiceIndex) {
-        var showOptions = this.state.showOptions.slice();
-        showOptions[choiceIndex] = !showOptions[choiceIndex];
-        this.setState({showOptions: showOptions});
-    },
-
-    onTrashAnswer: function(choiceIndex) {
-        if (choiceIndex >= 0 && choiceIndex < this.props.answers.length) {
-            var answers = this.props.answers.slice(0);
-            answers.splice(choiceIndex, 1);
-            this.props.onChange({answers: answers});
-        }
-    },
-
-    onSpace: function(e, callback) {
-        if (e.key === " ") {
-            e.preventDefault(); // prevent page shifting
-            var args = _.toArray(arguments).slice(2);
-            callback.apply(this, args);
-        }
-    },
-
-    onStatusChange: function(choiceIndex) {
-        var statuses = ["wrong", "ungraded", "correct"];
-        var answers = this.props.answers;
-        var i = _.indexOf(statuses, answers[choiceIndex].status);
-        var newStatus = statuses[(i + 1) % statuses.length];
-
-        this.updateAnswer(choiceIndex, {
-            status: newStatus,
-            simplify: newStatus === "correct" ? "required" : "accepted"
-        });
-    },
-
-    updateAnswer: function(choiceIndex, update) {
-        if (!_.isObject(update)) {
-            return _.partial((choiceIndex, key, value) => {
-                var update = {};
-                update[key] = value;
-                this.updateAnswer(choiceIndex, update);
-            }, choiceIndex, update);
-        }
-
-        var answers = _.clone(this.props.answers);
-
-        // Don't bother to make a new answer box unless we are editing the last
-        // one.
-        // TODO(oliver): This might not be necessary anymore.
-        if (choiceIndex === answers.length) {
-            var lastAnswer = initAnswer(this.state.lastStatus);
-            var answers = answers.concat(lastAnswer);
-        }
-
-        answers[choiceIndex] = _.extend({}, answers[choiceIndex], update);
-        this.props.onChange({answers: answers});
-    },
-
-    addAnswer: function() {
-        var lastAnswer = initAnswer(this.state.lastStatus);
-        var answers = this.props.answers.concat(lastAnswer);
-        this.props.onChange({answers: answers});
-    },
-
-    getSaveWarnings: function() {
-        // Filter out all the empty answers
-        var warnings = [];
-        // TODO(emily): This doesn't actually work, because the value is either
-        // null or undefined when undefined, probably.
-        if (_.contains(_.pluck(this.props.answers, "value"), "")) {
-            warnings.push("One or more answers is empty");
-        }
-        if (this.props.labelText === "") {
-            warnings.push("No label is specified");
-        }
-        this.props.answers.forEach((answer, i) => {
-            var formatError = (answer.strict &&
-                (!answer.answerForms || answer.answerForms.length === 0));
-            if (formatError) {
-                warnings.push(`Answer ${i+1} is set to string format ` +
-                              "matching, but no format was selected");
-            }
-        });
-        return warnings;
     },
 });
 

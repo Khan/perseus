@@ -1,19 +1,15 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-console, no-undef, no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const assert = require("assert");
+const React = require("react");
+const _ = require("underscore");
 
-var assert = require("assert");
-var React = require("react");
-var _ = require("underscore");
+const PassageMarkdown = require("../passage-markdown.jsx");
+const parse = PassageMarkdown.parse;
+const rules = PassageMarkdown._rulesForTesting;
 
-var PassageMarkdown = require("../passage-markdown.jsx");
-var parse = PassageMarkdown.parse;
-var rules = PassageMarkdown._rulesForTesting;
-
-validateParse = (parsed, expected) => {
+const validateParse = (parsed, expected) => {
     if (!_.isEqual(parsed, expected)) {
-        var parsedStr = JSON.stringify(parsed, null, 4);
-        var expectedStr = JSON.stringify(expected, null, 4);
+        let parsedStr = JSON.stringify(parsed, null, 4);
+        let expectedStr = JSON.stringify(expected, null, 4);
         if (parsedStr === expectedStr) {
             // If these two are the same, there were some different
             // properties that didn't get picked up in JSON.stringify,
@@ -31,31 +27,33 @@ validateParse = (parsed, expected) => {
     }
 };
 
-var htmlThroughReact = function(parsed) {
-    var output = PassageMarkdown.output(parsed);
+const htmlThroughReact = function(parsed) {
+    const output = PassageMarkdown.output(parsed);
     // TODO(emily): Replace this with ReactDOMServer.
-    var rawHtml = React.renderToStaticMarkup(
+    const rawHtml = React.renderToStaticMarkup(
         React.DOM.div(null, output)
     );
-    var innerHtml = rawHtml
+    const innerHtml = rawHtml
         .replace(/^<div>/, '')
         .replace(/<\/div>$/, '');
-    var simplifiedHtml = innerHtml
+    const simplifiedHtml = innerHtml
         .replace(/>\n*/g, '>')
         .replace(/\n*</g, '<')
         .replace(/\s+/g, ' ');
     return simplifiedHtml;
 };
 
-var htmlFromMarkdown = function(source) {
+const htmlFromMarkdown = function(source) {
     return htmlThroughReact(parse(source));
 };
 
-var assertParsesToReact = function(source, html) {
-    var actualHtml = htmlFromMarkdown(source);
+const assertParsesToReact = function(source, html) {
+    const actualHtml = htmlFromMarkdown(source);
     if (actualHtml !== html) {
+        /* eslint-disable no-console */
         console.warn(actualHtml);
         console.warn(html);
+        /* eslint-enable no-console */
     }
     assert.strictEqual(actualHtml, html);
 };
@@ -63,13 +61,13 @@ var assertParsesToReact = function(source, html) {
 describe("passage markdown", () => {
     describe("ref parsing", () => {
         it("should handle a single ref in plain text", () => {
-            var parsed = parse("this is a {{ref}}");
+            const parsed = parse("this is a {{ref}}");
             validateParse(parsed, [{
                 type: "paragraph",
                 content: [
                     {
                         type: "text",
-                        content: "this is a "
+                        content: "this is a ",
                     },
                     {
                         type: "refStart",
@@ -79,23 +77,23 @@ describe("passage markdown", () => {
                             content: [
                                 {type: "text", content: "(\u201Cref\u201D"},
                                 {type: "text", content: ")"},
-                            ]
+                            ],
                         }],
                     },
                     {
                         type: "text",
-                        content: "ref"
+                        content: "ref",
                     },
                     {
                         type: "refEnd",
-                        ref: 1
+                        ref: 1,
                     },
-                ]
+                ],
             }]);
         });
 
         it("should handle nested refs", () => {
-            var parsed = parse(
+            const parsed = parse(
                 "This is a {{ref {{inside of another ref}}}}"
             );
             validateParse(parsed, [{
@@ -122,7 +120,7 @@ describe("passage markdown", () => {
                                 },
                                 {
                                     type: "text",
-                                    content: "inside of another ref"
+                                    content: "inside of another ref",
                                 },
                                 {
                                     type: "refEnd",
@@ -135,7 +133,7 @@ describe("passage markdown", () => {
                                 {
                                     type: "text",
                                     content: ")",
-                                }
+                                },
                             ],
                         }],
                     },
@@ -181,56 +179,56 @@ describe("passage markdown", () => {
 
     describe("footnote parsing", () => {
         it("should handle a single footnote in plain text", () => {
-            var parsed = parse("this is a footnote^");
+            const parsed = parse("this is a footnote^");
             validateParse(parsed, [{
                 type: "paragraph",
                 content: [
                     {
                         type: "text",
-                        content: "this is a footnote"
+                        content: "this is a footnote",
                     },
                     {
                         type: "passageFootnote",
                         id: 1,
-                        text: "*"
+                        text: "*",
                     },
-                ]
+                ],
             }]);
         });
 
         it("should handle two footnotes in plain text", () => {
-            var parsed = parse("a^b^c");
+            const parsed = parse("a^b^c");
             validateParse(parsed, [{
                 type: "paragraph",
                 content: [
                     {
                         type: "text",
-                        content: "a"
+                        content: "a",
                     },
                     {
                         type: "passageFootnote",
                         id: 1,
-                        text: "1"
+                        text: "1",
                     },
                     {
                         type: "text",
-                        content: "b"
+                        content: "b",
                     },
                     {
                         type: "passageFootnote",
                         id: 2,
-                        text: "2"
+                        text: "2",
                     },
                     {
                         type: "text",
-                        content: "c"
+                        content: "c",
                     },
-                ]
+                ],
             }]);
         });
 
         it("should handle three footnotes in paragraphs", () => {
-            var parsed = parse(
+            const parsed = parse(
                 "para 1 has this footnote^\n\n" +
                 "para 2 has two^ more^ footnotes\n\n"
             );
@@ -240,49 +238,49 @@ describe("passage markdown", () => {
                     content: [
                         {
                             type: "text",
-                            content: "para 1 has this footnote"
+                            content: "para 1 has this footnote",
                         },
                         {
                             type: "passageFootnote",
                             id: 1,
-                            text: "1"
+                            text: "1",
                         },
-                    ]
+                    ],
                 },
                 {
                     type: "paragraph",
                     content: [
                         {
                             type: "text",
-                            content: "para 2 has two"
+                            content: "para 2 has two",
                         },
                         {
                             type: "passageFootnote",
                             id: 2,
-                            text: "2"
+                            text: "2",
                         },
                         {
                             type: "text",
-                            content: " more"
+                            content: " more",
                         },
                         {
                             type: "passageFootnote",
                             id: 3,
-                            text: "3"
+                            text: "3",
                         },
                         {
                             type: "text",
-                            content: " footnotes"
+                            content: " footnotes",
                         },
-                    ]
-                }
+                    ],
+                },
             ]);
         });
     });
 
     describe("label parsing", () => {
         it("should parse square labels", () => {
-            var parsed = parse(
+            const parsed = parse(
                 "[[1]] Hi\n\n"
             );
             validateParse(parsed, [{
@@ -291,18 +289,18 @@ describe("passage markdown", () => {
                     {
                         type: "squareLabel",
                         space: true,
-                        content: "1"
+                        content: "1",
                     },
                     {
                         type: "text",
-                        content: "Hi"
+                        content: "Hi",
                     },
                 ],
             }]);
         });
 
         it("should parse circle labels", () => {
-            var parsed = parse(
+            const parsed = parse(
                 "((2)) Hi\n\n"
             );
             validateParse(parsed, [{
@@ -311,18 +309,18 @@ describe("passage markdown", () => {
                     {
                         type: "circleLabel",
                         space: true,
-                        content: "2"
+                        content: "2",
                     },
                     {
                         type: "text",
-                        content: "Hi"
+                        content: "Hi",
                     },
                 ],
             }]);
         });
 
         it("should parse bracket labels", () => {
-            var parsed = parse(
+            const parsed = parse(
                 "[3] Hi\n\n"
             );
             validateParse(parsed, [{
@@ -331,11 +329,11 @@ describe("passage markdown", () => {
                     {
                         type: "squareBracketRef",
                         space: true,
-                        content: "3"
+                        content: "3",
                     },
                     {
                         type: "text",
-                        content: "Hi"
+                        content: "Hi",
                     },
                 ],
             }]);

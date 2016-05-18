@@ -1,66 +1,142 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const classNames = require("classnames");
+const React = require("react");
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var classNames = require("classnames");
-var React = require("react");
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
-
-var TexButtons = require("./tex-buttons.jsx");
+const TexButtons = require("./tex-buttons.jsx");
 
 // TODO(alex): Package MathQuill
-var MathQuill = window.MathQuill;
-var PT = React.PropTypes;
+const MathQuill = window.MathQuill;
+const PT = React.PropTypes;
 
 // A WYSIWYG math input that calls `onChange(LaTeX-string)`
-var MathInput = React.createClass({
+const MathInput = React.createClass({
     propTypes: {
-        value: PT.string,
-        onChange: PT.func.isRequired,
-        convertDotToTimes: PT.bool,
-        buttonsVisible: PT.oneOf(['always', 'never', 'focused']),
         buttonSets: TexButtons.buttonSetsType.isRequired,
+        buttonsVisible: PT.oneOf(['always', 'never', 'focused']),
+        className: React.PropTypes.string,
+        convertDotToTimes: PT.bool,
         labelText: React.PropTypes.string,
-        onFocus: PT.func,
         onBlur: PT.func,
+        onChange: PT.func.isRequired,
+        onFocus: PT.func,
+        value: PT.string,
     },
 
-    render: function() {
-        var className = classNames({
-            "perseus-math-input": true,
+    getDefaultProps: function() {
+        return {
+            buttonsVisible: 'focused',
+            convertDotToTimes: false,
+            value: "",
+        };
+    },
 
-            // mathquill usually adds these itself but react removes them when
-            // updating the component.
-            "mq-editable-field": true,
-            "mq-math-mode": true
+    getInitialState: function() {
+        return { focused: false };
+    },
+
+    componentDidMount: function() {
+        window.addEventListener("mousedown", this.handleMouseDown);
+        window.addEventListener("mouseup", this.handleMouseUp);
+
+        let initialized = false;
+
+        // Initialize MathQuill.MathField instance
+        this.mathField({
+            // LaTeX commands that, when typed, are immediately replaced by the
+            // appropriate symbol. This does not include ln, log, or any of the
+            // trig functions; those are always interpreted as commands.
+            autoCommands: "pi theta phi sqrt nthroot",
+
+            // Pop the cursor out of super/subscripts on arithmetic operators
+            // or (in)equalities.
+            charsThatBreakOutOfSupSub: "+-*/=<>≠≤≥",
+
+            // Prevent excessive super/subscripts or fractions from being
+            // created without operands, e.g. when somebody holds down a key
+            supSubsRequireOperand: true,
+
+            // The name of this option is somewhat misleading, as tabbing in
+            // MathQuill breaks you out of a nested context (fraction/script)
+            // if you're in one, but moves focus to the next input if you're
+            // not. Spaces (with this option enabled) are just ignored in the
+            // latter case.
+            //
+            // TODO(alex): In order to allow inputting mixed numbers, we will
+            // have to accept spaces in certain cases. The desired behavior is
+            // still to escape nested contexts if currently in one, but to
+            // insert a space if not (we don't expect mixed numbers in nested
+            // contexts). We should also limit to one consecutive space.
+            spaceBehavesLikeTab: true,
+
+            handlers: {
+                edited: (mathField) => {
+                    // This handler is guaranteed to be called on change, but
+                    // unlike React it sometimes generates false positives.
+                    // One of these is on initialization (with an empty string
+                    // value), so we have to guard against that below.
+                    let value = mathField.latex();
+
+                    // Provide a MathQuill-compatible way to generate the
+                    // not-equals sign without pasting unicode or typing TeX
+                    value = value.replace(/<>/g, "\\ne");
+
+                    // Use the specified symbol to represent multiplication
+                    // TODO(alex): Add an option to disallow variables, in
+                    // which case 'x' should get converted to '\\times'
+                    if (this.props.convertDotToTimes) {
+                        value = value.replace(/\\cdot/g, "\\times");
+
+                        // Preserve cursor position in the common case:
+                        // typing '*' to insert a multiplication sign.
+                        // We do this by modifying internal MathQuill state
+                        // directly, instead of waiting for `.latex()` to be
+                        // called in `componentDidUpdate()`.
+                        const left = mathField.__controller.cursor[MathQuill.L];
+                        if (left && left.ctrlSeq === '\\cdot ') {
+                            mathField.__controller.backspace();
+                            mathField.cmd('\\times');
+                        }
+                    } else {
+                        value = value.replace(/\\times/g, "\\cdot");
+                    }
+
+                    if (initialized && this.props.value !== value) {
+                        this.props.onChange(value);
+                    }
+                },
+                enter: () => {
+                    // This handler is called when the user presses the enter
+                    // key. Since this isn't an actual <input> element, we have
+                    // to manually trigger the usually automatic form submit.
+                    $(ReactDOM.findDOMNode(this.refs.mathinput)).submit();
+                },
+                upOutOf: (mathField) => {
+                    // This handler is called when the user presses the up
+                    // arrow key, but there is nowhere in the expression to go
+                    // up to (no numerator or exponent). For ease of use,
+                    // interpret this as an attempt to create an exponent.
+                    mathField.typedText("^");
+                },
+            },
         });
 
-        if (this.props.className) {
-            className = className + " " + this.props.className;
-        }
+        // Ideally, we would be able to pass an initial value directly into
+        // the constructor above
+        this.mathField().latex(this.props.value);
 
-        var buttons = null;
-        if (this._shouldShowButtons()) {
-            buttons = <TexButtons
-                sets={this.props.buttonSets}
-                className="math-input-buttons absolute"
-                convertDotToTimes={this.props.convertDotToTimes}
-                onInsert={this.insert} />;
-        }
+        initialized = true;
+    },
 
-        return <div style={{display: "inline-block"}}>
-            <div style={{display: 'inline-block'}}>
-                <span className={className}
-                      ref="mathinput"
-                      aria-label={this.props.labelText}
-                      onFocus={this.handleFocus}
-                      onBlur={this.handleBlur} />
-            </div>
-            <div style={{position: "relative"}}>
-                {buttons}
-            </div>
-        </div>;
+    componentDidUpdate: function() {
+        if (!_.isEqual(this.mathField().latex(), this.props.value)) {
+            this.mathField().latex(this.props.value);
+        }
+    },
+
+    componentWillUnmount: function() {
+        window.removeEventListener("mousedown", this.handleMouseDown);
+        window.removeEventListener("mouseup", this.handleMouseUp);
     },
 
     // handlers:
@@ -79,7 +155,7 @@ var MathInput = React.createClass({
     },
 
     handleMouseDown: function(event) {
-        var focused = ReactDOM.findDOMNode(this).contains(event.target);
+        const focused = ReactDOM.findDOMNode(this).contains(event.target);
         this.mouseDown = focused;
         if (!focused) {
             this.setState({ focused: false });
@@ -111,20 +187,8 @@ var MathInput = React.createClass({
         }
     },
 
-    getDefaultProps: function() {
-        return {
-            value: "",
-            convertDotToTimes: false,
-            buttonsVisible: 'focused'
-        };
-    },
-
-    getInitialState: function() {
-        return { focused: false };
-    },
-
     insert: function(value) {
-        var input = this.mathField();
+        const input = this.mathField();
         if (_(value).isFunction()) {
             value(input);
         } else if (value[0] === '\\') {
@@ -136,119 +200,15 @@ var MathInput = React.createClass({
     },
 
     mathField: function(options) {
-        // The MathQuill API is now "versioned" through its own "InterVer" system.
-        // See: https://github.com/mathquill/mathquill/pull/459
-        var MQ = MathQuill.getInterface(2);
+        // The MathQuill API is now "versioned" through its own "InterVer"
+        // system. See: https://github.com/mathquill/mathquill/pull/459
+        const MQ = MathQuill.getInterface(2);
 
         // MathQuill.MathField takes a DOM node, MathQuill-ifies it if it's
         // seeing that node for the first time, then returns the associated
         // MathQuill object for that node. It is stable - will always return
         // the same object when called on the same DOM node.
         return MQ.MathField(ReactDOM.findDOMNode(this.refs.mathinput), options);
-    },
-
-    componentWillUnmount: function() {
-        window.removeEventListener("mousedown", this.handleMouseDown);
-        window.removeEventListener("mouseup", this.handleMouseUp);
-    },
-
-    componentDidMount: function() {
-        window.addEventListener("mousedown", this.handleMouseDown);
-        window.addEventListener("mouseup", this.handleMouseUp);
-
-        var initialized = false;
-
-        // Initialize MathQuill.MathField instance
-        this.mathField({
-            // LaTeX commands that, when typed, are immediately replaced by the
-            // appropriate symbol. This does not include ln, log, or any of the
-            // trig functions; those are always interpreted as commands.
-            autoCommands: "pi theta phi sqrt nthroot",
-
-            // Pop the cursor out of super/subscripts on arithmetic operators
-            // or (in)equalities.
-            charsThatBreakOutOfSupSub: "+-*/=<>≠≤≥",
-
-            // Prevent excessive super/subscripts or fractions from being created
-            // without operands, e.g. when somebody holds down a key
-            supSubsRequireOperand: true,
-
-            // The name of this option is somewhat misleading, as tabbing in
-            // MathQuill breaks you out of a nested context (fraction/script)
-            // if you're in one, but moves focus to the next input if you're
-            // not. Spaces (with this option enabled) are just ignored in the
-            // latter case.
-            //
-            // TODO(alex): In order to allow inputting mixed numbers, we will
-            // have to accept spaces in certain cases. The desired behavior is
-            // still to escape nested contexts if currently in one, but to
-            // insert a space if not (we don't expect mixed numbers in nested
-            // contexts). We should also limit to one consecutive space.
-            spaceBehavesLikeTab: true,
-
-            handlers: {
-                edited: (mathField) => {
-                    // This handler is guaranteed to be called on change, but
-                    // unlike React it sometimes generates false positives.
-                    // One of these is on initialization (with an empty string
-                    // value), so we have to guard against that below.
-                    var value = mathField.latex();
-
-                    // Provide a MathQuill-compatible way to generate the
-                    // not-equals sign without pasting unicode or typing TeX
-                    value = value.replace(/<>/g, "\\ne");
-
-                    // Use the specified symbol to represent multiplication
-                    // TODO(alex): Add an option to disallow variables, in
-                    // which case 'x' should get converted to '\\times'
-                    if (this.props.convertDotToTimes) {
-                        value = value.replace(/\\cdot/g, "\\times");
-
-                        // Preserve cursor position in the common case:
-                        // typing '*' to insert a multiplication sign.
-                        // We do this by modifying internal MathQuill state
-                        // directly, instead of waiting for `.latex()` to be
-                        // called in `componentDidUpdate()`.
-                        var left = mathField.__controller.cursor[MathQuill.L];
-                        if (left && left.ctrlSeq === '\\cdot ') {
-                            mathField.__controller.backspace();
-                            mathField.cmd('\\times');
-                        }
-                    } else {
-                        value = value.replace(/\\times/g, "\\cdot");
-                    }
-
-                    if (initialized && this.props.value !== value) {
-                        this.props.onChange(value);
-                    }
-                },
-                enter: () => {
-                    // This handler is called when the user presses the enter
-                    // key. Since this isn't an actual <input> element, we have
-                    // to manually trigger the usually automatic form submit.
-                    $(ReactDOM.findDOMNode(this.refs.mathinput)).submit();
-                },
-                upOutOf: (mathField) => {
-                    // This handler is called when the user presses the up
-                    // arrow key, but there is nowhere in the expression to go
-                    // up to (no numerator or exponent). For ease of use,
-                    // interpret this as an attempt to create an exponent.
-                    mathField.typedText("^");
-                }
-            }
-        });
-
-        // Ideally, we would be able to pass an initial value directly into
-        // the constructor above
-        this.mathField().latex(this.props.value);
-
-        initialized = true;
-    },
-
-    componentDidUpdate: function() {
-        if (!_.isEqual(this.mathField().latex(), this.props.value)) {
-            this.mathField().latex(this.props.value);
-        }
     },
 
     focus: function() {
@@ -259,7 +219,47 @@ var MathInput = React.createClass({
     blur: function() {
         this.mathField().blur();
         this.setState({ focused: false });
-    }
+    },
+
+    render: function() {
+        let className = classNames({
+            "perseus-math-input": true,
+
+            // mathquill usually adds these itself but react removes them when
+            // updating the component.
+            "mq-editable-field": true,
+            "mq-math-mode": true,
+        });
+
+        if (this.props.className) {
+            className = className + " " + this.props.className;
+        }
+
+        let buttons = null;
+        if (this._shouldShowButtons()) {
+            buttons = <TexButtons
+                sets={this.props.buttonSets}
+                className="math-input-buttons absolute"
+                convertDotToTimes={this.props.convertDotToTimes}
+                onInsert={this.insert}
+            />;
+        }
+
+        return <div style={{display: "inline-block"}}>
+            <div style={{display: 'inline-block'}}>
+                <span
+                    className={className}
+                    ref="mathinput"
+                    aria-label={this.props.labelText}
+                    onFocus={this.handleFocus}
+                    onBlur={this.handleBlur}
+                />
+            </div>
+            <div style={{position: "relative"}}>
+                {buttons}
+            </div>
+        </div>;
+    },
 });
 
 module.exports = MathInput;

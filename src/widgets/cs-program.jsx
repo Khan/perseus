@@ -1,27 +1,27 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-undef, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-undef */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
  * This widget is for embedding Khan Academy CS programs.
  */
 
-var React = require("react");
-var _ = require("underscore");
+const React = require("react");
+const _ = require("underscore");
 
-var Changeable = require("../mixins/changeable.jsx");
-var updateQueryString = require("../util.js").updateQueryString;
+const Changeable = require("../mixins/changeable.jsx");
+const updateQueryString = require("../util.js").updateQueryString;
 
-var PADDING_WIDTH = 2;
+const PADDING_WIDTH = 2;
 
-var IS_KA_SITE = /khanacademy\.org/;
-var KA_EMBED_URL = "https://{hostname}/computer-programming/program/" +
+const IS_KA_SITE = /khanacademy\.org/;
+const KA_EMBED_URL = "https://{hostname}/computer-programming/program/" +
         "{programID}/embedded?embed=yes&author=no";
 
 function getUrlFromProgramID(programID) {
-    var url = KA_EMBED_URL.replace("{programID}", programID);
-    var currentHostname = document.location.hostname;
-    var embedHostname = "www.khanacademy.org";
+    const url = KA_EMBED_URL.replace("{programID}", programID);
+    const currentHostname = document.location.hostname;
+    let embedHostname = "www.khanacademy.org";
     if (IS_KA_SITE.test(currentHostname)) {
         embedHostname = currentHostname;
     }
@@ -30,51 +30,56 @@ function getUrlFromProgramID(programID) {
 
 /* This renders the scratchpad in an iframe and handles validation via
  * window.postMessage */
-var CSProgram = React.createClass({
+const CSProgram = React.createClass({
+    propTypes: {
+        height: React.PropTypes.number,
+        message: React.PropTypes.string,
+        programID: React.PropTypes.string,
+        settings: React.PropTypes.arrayOf(React.PropTypes.object),
+        showButtons: React.PropTypes.bool,
+        showEditor: React.PropTypes.bool,
+        status: React.PropTypes.oneOf(['incomplete', 'incorrect', 'correct']),
+        width: React.PropTypes.number,
+    },
 
     mixins: [Changeable],
 
-    propTypes: {
-        programID: React.PropTypes.string,
-        width: React.PropTypes.number,
-        height: React.PropTypes.number,
-        settings: React.PropTypes.array,
-        showEditor: React.PropTypes.bool,
-        showButtons: React.PropTypes.bool,
-        status: React.PropTypes.oneOf(['incomplete', 'incorrect', 'correct']),
-        message: React.PropTypes.string,
+    statics: {
+        // The widget's grading function
+        validate: function(state, rubric) {
+            // The iframe can tell us whether it's correct or incorrect,
+            //  and pass an optional message
+            if (state.status === "correct") {
+                return {
+                    type: "points",
+                    earned: 1,
+                    total: 1,
+                    message: state.message || null,
+                };
+            } else if (state.status === "incorrect") {
+                return {
+                    type: "points",
+                    earned: 0,
+                    total: 1,
+                    message: state.message || null,
+                };
+            } else {
+                return {
+                    type: "invalid",
+                    message: "Keep going, you're not there yet!",
+                };
+            }
+        },
     },
 
     getDefaultProps: function() {
         return {
-            showEditor: false,
-            showButtons: false,
-            status: "incomplete",
             // optional message
             message: null,
+            showButtons: false,
+            showEditor: false,
+            status: "incomplete",
         };
-    },
-
-    handleMessageEvent: function(e) {
-        // We receive data from the iframe that contains {passed: true/false}
-        //  and use that to set the status
-        // It could also contain an optional message
-        var data = {};
-        try {
-            data = JSON.parse(e.originalEvent.data);
-        } catch (err) {
-            return;
-        }
-
-        if (_.isUndefined(data.testsPassed)) {
-            return;
-        }
-
-        var status = (data.testsPassed ? "correct" : "incorrect");
-        this.change({
-            status: status,
-            message: data.message
-        });
     },
 
     componentDidMount: function() {
@@ -85,15 +90,44 @@ var CSProgram = React.createClass({
         $(window).off("message", this.handleMessageEvent);
     },
 
+    handleMessageEvent: function(e) {
+        // We receive data from the iframe that contains {passed: true/false}
+        //  and use that to set the status
+        // It could also contain an optional message
+        let data = {};
+        try {
+            data = JSON.parse(e.originalEvent.data);
+        } catch (err) {
+            return;
+        }
+
+        if (_.isUndefined(data.testsPassed)) {
+            return;
+        }
+
+        const status = (data.testsPassed ? "correct" : "incorrect");
+        this.change({
+            status: status,
+            message: data.message,
+        });
+    },
+
+    simpleValidate: function(rubric) {
+        return Scratchpad.validate({
+            status: this.props.status,
+            message: this.props.message,
+        }, rubric);
+    },
+
     render: function() {
         if (!this.props.programID) {
             return <div/>;
         }
 
-        var url = getUrlFromProgramID(this.props.programID);
-        var className;
-        var style = {
-            height: this.props.height
+        let url = getUrlFromProgramID(this.props.programID);
+        let className;
+        const style = {
+            height: this.props.height,
         };
 
         if (this.props.showEditor) {
@@ -115,7 +149,7 @@ var CSProgram = React.createClass({
 
         // Turn array of [{name: "", value: ""}] into object
         if (this.props.settings) {
-            var settings = {};
+            const settings = {};
             _.each(this.props.settings, function(setting) {
                 if (setting.name && setting.value) {
                     settings[setting.name] = setting.value;
@@ -129,46 +163,13 @@ var CSProgram = React.createClass({
         //  that we need. This makes it a bit safer in case some content
         //  creator "went wild".
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
-        return <iframe sandbox="allow-same-origin allow-scripts"
-                       src={url}
-                       style={style}
-                       className={className}
-                       allowFullScreen={true} />;
-    },
-
-    simpleValidate: function(rubric) {
-        return Scratchpad.validate({
-            status: this.props.status,
-            message: this.props.message
-        }, rubric);
-    },
-
-    statics: {
-        // The widget's grading function
-        validate: function(state, rubric) {
-            // The iframe can tell us whether it's correct or incorrect,
-            //  and pass an optional message
-            if (state.status === "correct") {
-                return {
-                    type: "points",
-                    earned: 1,
-                    total: 1,
-                    message: state.message || null
-                };
-            } else if (state.status === "incorrect") {
-                return {
-                    type: "points",
-                    earned: 0,
-                    total: 1,
-                    message: state.message || null
-                };
-            } else {
-                return {
-                    type: "invalid",
-                    message: "Keep going, you're not there yet!"
-                };
-            }
-        }
+        return <iframe
+            sandbox="allow-same-origin allow-scripts"
+            src={url}
+            style={style}
+            className={className}
+            allowFullScreen={true}
+        />;
     },
 });
 

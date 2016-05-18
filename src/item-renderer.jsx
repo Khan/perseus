@@ -1,23 +1,19 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, prefer-spread */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const React = require('react');
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var React = require('react');
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const ApiOptions = require("./perseus-api.jsx").Options;
+const EnabledFeatures = require("./enabled-features.jsx");
+const HintsRenderer = require("./hints-renderer.jsx");
+const Renderer = require("./renderer.jsx");
+const Util = require("./util.js");
+const getHintsPlacement = require("./get-hints-placement.jsx");
 
-var ApiOptions = require("./perseus-api.jsx").Options;
-var EnabledFeatures = require("./enabled-features.jsx");
-var HintsRenderer = require("./hints-renderer.jsx");
-var Renderer = require("./renderer.jsx");
-var Util = require("./util.js");
-var getHintsPlacement = require("./get-hints-placement.jsx");
+const {mapObject} = require("./interactive2/objective_.js");
 
-var {mapObject} = require("./interactive2/objective_.js");
+const RP = React.PropTypes;
 
-var RP = React.PropTypes;
-
-var ItemRenderer = React.createClass({
+const ItemRenderer = React.createClass({
     propTypes: {
         apiOptions: RP.shape({
             getAnotherHint: RP.func,
@@ -99,7 +95,7 @@ var ItemRenderer = React.createClass({
                 document.querySelector(this.props.hintsAreaSelector));
 
         if (this.props.controlPeripherals) {
-            var answerArea = this.props.item.answerArea || {};
+            const answerArea = this.props.item.answerArea || {};
             if (answerArea.calculator) {
                 $("#calculator").hide();
             }
@@ -119,13 +115,13 @@ var ItemRenderer = React.createClass({
     },
 
     update: function() {
-        var enabledFeatures = _.extend(
+        const enabledFeatures = _.extend(
             {},
             EnabledFeatures.defaults,
             this.props.enabledFeatures
         );
 
-        var apiOptions = _.extend(
+        const apiOptions = _.extend(
             {},
             ApiOptions.defaults,
             this.props.apiOptions,
@@ -173,7 +169,7 @@ var ItemRenderer = React.createClass({
                 />,
                 document.querySelector(this.props.workAreaSelector));
 
-        var answerArea = this.props.item.answerArea || {};
+        const answerArea = this.props.item.answerArea || {};
         if (this.props.controlPeripherals) {
             $("#calculator").toggle(answerArea.calculator || false);
             $(".periodic-table-info-box").toggle(
@@ -223,7 +219,7 @@ var ItemRenderer = React.createClass({
         // an onFocusChange within a renderer, which is only called when
         // this is not a prefix, or between the question and answer areas,
         // which can never prefix each other.
-        var prevFocus = this._currentFocus;
+        const prevFocus = this._currentFocus;
         this._currentFocus = newFocus;
         if (this.props.apiOptions.onFocusChange != null) {
             this.props.apiOptions.onFocusChange(this._currentFocus, prevFocus);
@@ -231,7 +227,7 @@ var ItemRenderer = React.createClass({
     },
 
     _onRendererBlur: function(blurPath) {
-        var blurringFocusPath = this._currentFocus;
+        const blurringFocusPath = this._currentFocus;
 
         // Failsafe: abort if ID is different, because focus probably happened
         // before blur
@@ -266,10 +262,10 @@ var ItemRenderer = React.createClass({
 
     _handleAPICall: function(functionName, path) {
         // Get arguments to pass to function, including `path`
-        var functionArgs = _.rest(arguments);
-        var caller = this.questionRenderer;
+        const functionArgs = _.rest(arguments);
+        const caller = this.questionRenderer;
 
-        return caller[functionName].apply(caller, functionArgs);
+        return caller[functionName](...functionArgs);
     },
 
     setInputValue: function(path, newValue, focus) {
@@ -293,12 +289,12 @@ var ItemRenderer = React.createClass({
     },
 
     getInputPaths: function() {
-        var questionAreaInputPaths = this.questionRenderer.getInputPaths();
+        const questionAreaInputPaths = this.questionRenderer.getInputPaths();
         return questionAreaInputPaths;
     },
 
     handleInteractWithWidget: function(widgetId) {
-        var withRemoved = _.difference(this.state.questionHighlightedWidgets,
+        const withRemoved = _.difference(this.state.questionHighlightedWidgets,
                                        [widgetId]);
         this.setState({
             questionCompleted: false,
@@ -336,18 +332,18 @@ var ItemRenderer = React.createClass({
      * }
      */
     scoreInput: function() {
-        var guessAndScore = this.questionRenderer.guessAndScore();
-        var guess = guessAndScore[0];
-        var score = guessAndScore[1];
+        const guessAndScore = this.questionRenderer.guessAndScore();
+        const guess = guessAndScore[0];
+        const score = guessAndScore[1];
 
         // Continue to include an empty guess for the now defunct answer area.
         // TODO(alex): Check whether we rely on the format here for
         //             analyzing ProblemLogs. If not, remove this layer.
-        var maxCompatGuess = [guess, []];
+        const maxCompatGuess = [guess, []];
 
-        var keScore = Util.keScoreFromPerseusScore(score, maxCompatGuess);
+        const keScore = Util.keScoreFromPerseusScore(score, maxCompatGuess);
 
-        var emptyQuestionAreaWidgets = this.questionRenderer.emptyWidgets();
+        const emptyQuestionAreaWidgets = this.questionRenderer.emptyWidgets();
 
         this.setState({
             questionCompleted: keScore.correct,
@@ -371,8 +367,8 @@ var ItemRenderer = React.createClass({
      * from `getWidgetIds`.
      */
     scoreWidgets: function() {
-        var qScore = this.questionRenderer.scoreWidgets();
-        var qGuess = this.questionRenderer.getUserInputForWidgets();
+        const qScore = this.questionRenderer.scoreWidgets();
+        const qGuess = this.questionRenderer.getUserInputForWidgets();
         return mapObject(qScore, (score, id) => {
             return Util.keScoreFromPerseusScore(score, qGuess[id]);
         });
@@ -391,8 +387,8 @@ var ItemRenderer = React.createClass({
     restoreSerializedState: function(state, callback) {
         // We need to wait for both the question renderer and the hints
         // renderer to finish restoring their states.
-        var numCallbacks = 2;
-        var fireCallback = () => {
+        let numCallbacks = 2;
+        const fireCallback = () => {
             --numCallbacks;
             if (callback && numCallbacks === 0) {
                 callback();

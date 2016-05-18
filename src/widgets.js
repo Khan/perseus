@@ -1,18 +1,14 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-console, no-var, space-before-function-paren */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const _ = require("underscore");
 
-var _ = require("underscore");
+const DEFAULT_ALIGNMENT = "block";
+const DEFAULT_SUPPORTED_ALIGNMENTS = ["default"];
+const DEFAULT_STATIC = false;
+const DEFAULT_TRACKING = "";
 
-var DEFAULT_ALIGNMENT = "block";
-var DEFAULT_SUPPORTED_ALIGNMENTS = ["default"];
-var DEFAULT_STATIC = false;
-var DEFAULT_TRACKING = "";
+const widgets = {};
+const editors = {};
 
-var widgets = {};
-var editors = {};
-
-var Widgets = {
+const Widgets = {
     // Widgets must be registered to avoid circular dependencies with the
     // core Editor and Renderer components.
     register: function(name, widget, editor) {
@@ -46,7 +42,7 @@ var Widgets = {
     },
 
     getVersion: function(name) {
-        var widgetInfo = widgets[name];
+        const widgetInfo = widgets[name];
         if (widgetInfo) {
             return widgets[name].version || {major: 0, minor: 0};
         } else {
@@ -55,7 +51,7 @@ var Widgets = {
     },
 
     getVersionVector: function() {
-        var version = {};
+        const version = {};
         _.each(_.keys(widgets), function(name) {
             version[name] = Widgets.getVersion(name);
         });
@@ -70,7 +66,7 @@ var Widgets = {
     },
 
     isAccessible: function(widgetInfo) {
-        var accessible = widgets[widgetInfo.type].accessible;
+        const accessible = widgets[widgetInfo.type].accessible;
         if (typeof accessible === "function") {
             return accessible(widgetInfo.options);
         } else {
@@ -83,11 +79,11 @@ var Widgets = {
     },
 
     upgradeWidgetInfoToLatestVersion: function(oldWidgetInfo) {
-        var type = oldWidgetInfo.type;
+        const type = oldWidgetInfo.type;
         if (!_.isString(type)) {
             throw new Error("widget type must be a string, but was: " + type);
         }
-        var widgetExports = widgets[type];
+        const widgetExports = widgets[type];
 
         if (widgetExports == null) {
             // If we have a widget that isn't registered, we can't upgrade it
@@ -96,8 +92,8 @@ var Widgets = {
         }
 
         // Unversioned widgets (pre-July 2014) are all implicitly 0.0
-        var initialVersion = oldWidgetInfo.version || {major: 0, minor: 0};
-        var latestVersion = widgetExports.version || {major: 0, minor: 0};
+        const initialVersion = oldWidgetInfo.version || {major: 0, minor: 0};
+        const latestVersion = widgetExports.version || {major: 0, minor: 0};
 
         // If the widget version is later than what we understand (major
         // version is higher than latest, or major versions are equal and minor
@@ -111,9 +107,9 @@ var Widgets = {
         // We do a clone here so that it's safe to mutate the input parameter
         // in propUpgrades functions (which I will probably accidentally do at
         // some point, and we would like to not break when that happens).
-        var newEditorProps = _.clone(oldWidgetInfo.options) || {};
+        let newEditorProps = _.clone(oldWidgetInfo.options) || {};
 
-        var upgradePropsMap = widgetExports.propUpgrades || {};
+        const upgradePropsMap = widgetExports.propUpgrades || {};
 
         // Empty props usually mean a newly created widget by the editor,
         // and are always considerered up-to-date.
@@ -128,7 +124,7 @@ var Widgets = {
             // There is a little subtlety here in that we call
             // upgradePropsMap[1] to upgrade *to* version 1,
             // (not from version 1).
-            for (var nextVersion = initialVersion.major + 1;
+            for (let nextVersion = initialVersion.major + 1;
                     nextVersion <= latestVersion.major;
                     nextVersion++) {
 
@@ -137,6 +133,7 @@ var Widgets = {
                         newEditorProps
                     );
 
+                /* eslint-disable no-console */
                 } else if ((typeof console !== 'undefined') && console.warn) {
                     // This is a warning because it is unlikely to be hit in
                     // local testing, and a warning is slightly less scary in
@@ -147,6 +144,8 @@ var Widgets = {
                         "major version `" + nextVersion + "` found. This " +
                         "is necessary to render this `" + type + "` correctly."
                     );
+                    /* eslint-enable no-console */
+
                     // But try to keep going anyways (yolo!)
                     // (Throwing an error here would just break the page
                     // silently anyways, so that doesn't seem much better
@@ -159,10 +158,10 @@ var Widgets = {
         // Minor version upgrades (eg. new optional props) don't have
         // transform functions. Instead, we fill in the new props with their
         // defaults.
-        var defaultProps = editors[type].defaultProps;
+        const defaultProps = editors[type].defaultProps;
         newEditorProps = _.extend({}, defaultProps, newEditorProps);
 
-        var alignment = oldWidgetInfo.alignment;
+        let alignment = oldWidgetInfo.alignment;
 
         // Widgets that support multiple alignments will "lock in" the
         // alignment to the alignment that would be listed first in the
@@ -172,7 +171,7 @@ var Widgets = {
             alignment = Widgets.getSupportedAlignments(type)[0];
         }
 
-        var widgetStatic = oldWidgetInfo.static;
+        let widgetStatic = oldWidgetInfo.static;
 
         if (widgetStatic == null) {
             widgetStatic = DEFAULT_STATIC;
@@ -192,8 +191,8 @@ var Widgets = {
     },
 
     getRendererPropsForWidgetInfo: function(widgetInfo, problemNum) {
-        var type = widgetInfo.type;
-        var widgetExports = widgets[type];
+        const type = widgetInfo.type;
+        const widgetExports = widgets[type];
         if (widgetExports == null) {
             // The widget is not a registered widget
             // It shouldn't matter what we return here, but for consistency
@@ -201,7 +200,7 @@ var Widgets = {
             // not have a transform defined.
             return widgetInfo.options;
         }
-        var transform;
+        let transform;
         if (widgetInfo.static) {
             // There aren't a lot of real places where we'll have to default to
             // _.identity, but it's theoretically possile if someone changes
@@ -227,11 +226,11 @@ var Widgets = {
             return widgetInfo;
         }
 
-        var widgetExports = widgets[widgetInfo.type];
-        var props = widgetInfo.options;
+        const widgetExports = widgets[widgetInfo.type];
+        const props = widgetInfo.options;
 
         if (widgetExports.traverseChildWidgets && props) {
-            var newProps = widgetExports.traverseChildWidgets(
+            const newProps = widgetExports.traverseChildWidgets(
                 props,
                 traverseRenderer
             );
@@ -255,7 +254,7 @@ var Widgets = {
      * a widget's module.
      */
     getSupportedAlignments: function(type) {
-        var widgetInfo = widgets[type];
+        const widgetInfo = widgets[type];
         return (widgetInfo && widgetInfo.supportedAlignments) ||
             DEFAULT_SUPPORTED_ALIGNMENTS;
     },
@@ -271,8 +270,8 @@ var Widgets = {
      * the exports of a widget's module.
      */
     getDefaultAlignment: function(type, enabledFeatures) {
-        var widgetInfo = widgets[type];
-        var alignment;
+        const widgetInfo = widgets[type];
+        let alignment;
         if (!widgetInfo) {
             return DEFAULT_ALIGNMENT;
         }
@@ -299,8 +298,8 @@ var Widgets = {
      * invalid.
      */
     // TODO(alex): Change this to run as a testcase (vs. being run at runtime)
-    validateAlignments: function () {
-        _.each(widgets, function (widgetInfo) {
+    validateAlignments: function() {
+        _.each(widgets, function(widgetInfo) {
             if (widgetInfo.defaultAlignment &&
                 !_.contains(Widgets.validAlignments,
                             widgetInfo.defaultAlignment)) {
@@ -310,7 +309,7 @@ var Widgets = {
             }
 
             if (widgetInfo.supportedAlignments) {
-                var unknownAlignments = _.difference(
+                const unknownAlignments = _.difference(
                      widgetInfo.supportedAlignments,
                      Widgets.validAlignments);
 
@@ -333,7 +332,7 @@ var Widgets = {
      * staticTransform function.
      */
     supportsStaticMode: function(type) {
-        var widgetInfo = widgets[type];
+        const widgetInfo = widgets[type];
         return widgetInfo && widgetInfo.staticTransform != null;
     },
 
@@ -342,7 +341,7 @@ var Widgets = {
      * the rendered widget state.
      */
     getStaticTransform: function(type) {
-        var widgetInfo = widgets[type];
+        const widgetInfo = widgets[type];
         return widgetInfo && widgetInfo.staticTransform;
     },
 
@@ -352,7 +351,7 @@ var Widgets = {
      * option is "all" which means to track all interactions.
      */
     getTracking: function(type) {
-        var widgetInfo = widgets[type];
+        const widgetInfo = widgets[type];
         return (widgetInfo && widgetInfo.tracking) || DEFAULT_TRACKING;
     },
 };

@@ -1,32 +1,32 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-infix-ops */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+/* global i18n:false, $_:false */
 
-var React = require("react");
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const React = require("react");
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var Changeable   = require("../mixins/changeable.jsx");
+const Changeable   = require("../mixins/changeable.jsx");
 
-var Renderer = require("../renderer.jsx");
-var PassageMarkdown = require("./passage/passage-markdown.jsx");
+const Renderer = require("../renderer.jsx");
+const PassageMarkdown = require("./passage/passage-markdown.jsx");
 
-var Passage = React.createClass({
-    mixins: [Changeable],
-
+const Passage = React.createClass({
     propTypes: {
-        passageTitle: React.PropTypes.string,
-        passageText: React.PropTypes.string,
         footnotes: React.PropTypes.string,
-        showLineNumbers: React.PropTypes.bool
+        interWidgets: React.PropTypes.func,
+        passageText: React.PropTypes.string,
+        passageTitle: React.PropTypes.string,
+        showLineNumbers: React.PropTypes.bool,
+        widgetId: React.PropTypes.string,
     },
+
+    mixins: [Changeable],
 
     getDefaultProps: function() {
         return {
-            passageTitle: "",
-            passageText: "",
             footnotes: "",
-            showLineNumbers: true
+            passageText: "",
+            passageTitle: "",
+            showLineNumbers: true,
         };
     },
 
@@ -37,14 +37,206 @@ var Passage = React.createClass({
         };
     },
 
+    componentDidMount: function() {
+        this._updateState();
+    },
+
     shouldComponentUpdate: function(nextProps, nextState) {
         return !_.isEqual(this.props, nextProps) ||
             !_.isEqual(this.state, nextState);
     },
 
+    componentDidUpdate: function() {
+        this._updateState();
+    },
+
+    _updateState: function() {
+        this.setState({
+            nLines: this._measureLines(),
+            startLineNumbersAfter: this._getInitialLineNumber(),
+        });
+    },
+
+    _measureLines: function() {
+        const $renderer = $(ReactDOM.findDOMNode(this.refs.content));
+        const contentsHeight = $renderer.height();
+        const lineHeight = parseInt($renderer.css("line-height"));
+        const nLines = Math.round(contentsHeight / lineHeight);
+        return nLines;
+    },
+
+    _getInitialLineNumber: function() {
+        let isPassageBeforeThisPassage = true;
+        const passagesBeforeUs = this.props.interWidgets((id, widgetInfo) => {
+            if (widgetInfo.type !== "passage") {
+                return false;
+            }
+            if (id === this.props.widgetId) {
+                isPassageBeforeThisPassage = false;
+            }
+            return isPassageBeforeThisPassage;
+        });
+
+        return passagesBeforeUs.map((passageWidget) => {
+            return passageWidget.getLineCount();
+        }).reduce((a, b) => a + b, 0);
+    },
+
+    getLineCount: function() {
+        if (this.state.nLines != null) {
+            return this.state.nLines;
+        } else {
+            return this._measureLines();
+        }
+    },
+
+    _renderInstructions: function(parseState) {
+        const firstQuestionNumber = parseState.firstQuestionRef;
+        const firstSentenceRef = parseState.firstSentenceRef;
+
+        let instructions = "";
+        if (firstQuestionNumber) {
+            instructions += i18n._(
+                "The symbol %(questionSymbol)s indicates that question " +
+                "%(questionNumber)s references this portion of the passage.",
+                {
+                    questionSymbol: "[[" + firstQuestionNumber + "]]",
+                    questionNumber: firstQuestionNumber,
+                }
+            );
+        }
+        if (firstSentenceRef) {
+            instructions += i18n._(
+                " The symbol %(sentenceSymbol)s indicates that the " +
+                "following sentence is referenced in a question.",
+                {
+                    sentenceSymbol: "[" + firstSentenceRef + "]",
+                }
+            );
+        }
+        const parsedInstructions = PassageMarkdown.parse(instructions);
+        return <div className="perseus-widget-passage-instructions">
+            {PassageMarkdown.output(parsedInstructions)}
+        </div>;
+    },
+
+    _renderContent: function(parsed) {
+        return <div ref="content">
+            {PassageMarkdown.output(parsed)}
+        </div>;
+    },
+
+    _hasFootnotes: function() {
+        const rawContent = this.props.footnotes;
+        const isEmpty = /^\s*$/.test(rawContent);
+        return !isEmpty;
+    },
+
+    _renderFootnotes: function() {
+        const rawContent = this.props.footnotes;
+        const parsed = PassageMarkdown.parse(rawContent);
+        return PassageMarkdown.output(parsed);
+    },
+
+    _getStartRefLineNumber: function(referenceNumber) {
+        const refRef = PassageMarkdown.START_REF_PREFIX + referenceNumber;
+        const ref = this.refs[refRef];
+        if (!ref) {
+            return null;
+        }
+
+        const $ref = $(ReactDOM.findDOMNode(ref));
+        // We really care about the first text after the ref, not the
+        // ref element itself:
+        let $refText = $ref.next();
+        if ($refText.length === 0) {
+            // But if there are no elements after the ref, just
+            // use the ref itself.
+            $refText = $ref;
+        }
+        const vPos = $refText.offset().top;
+
+        return this.state.startLineNumbersAfter + 1 +
+            this._convertPosToLineNumber(vPos);
+    },
+
+    _getEndRefLineNumber: function(referenceNumber) {
+        const refRef = PassageMarkdown.END_REF_PREFIX + referenceNumber;
+        const ref = this.refs[refRef];
+        if (!ref) {
+            return null;
+        }
+
+        const $ref = $(ReactDOM.findDOMNode(ref));
+        // We really care about the last text before the ref, not the
+        // ref element itself:
+        let $refText = $ref.prev();
+        if ($refText.length === 0) {
+            // But if there are no elements before the ref, just
+            // use the ref itself.
+            $refText = $ref;
+        }
+        const height = $refText.height();
+        const vPos = $refText.offset().top;
+
+        let line = this._convertPosToLineNumber(vPos + height);
+        if (height === 0) {
+            // If the element before the end ref span was the start
+            // ref span, it might have 0 height. This is obviously not
+            // the intended use case, but we should handle it gracefully.
+            // If this is the case, then the "bottom" of our element is
+            // actually the top of the line we're on, so we need to add
+            // one to the line number.
+            line += 1;
+        }
+
+        return this.state.startLineNumbersAfter + line;
+    },
+
+    _convertPosToLineNumber: function(absoluteVPos) {
+        const $content = $(ReactDOM.findDOMNode(this.refs.content));
+        const relativeVPos = absoluteVPos - $content.offset().top;
+        const lineHeight = parseInt($content.css("line-height"));
+
+        const line = Math.round(relativeVPos / lineHeight);
+        return line;
+    },
+
+    _getRefContent: function(referenceNumber) {
+        const refRef = PassageMarkdown.START_REF_PREFIX + referenceNumber;
+        const ref = this.refs[refRef];
+        if (!ref) {
+            return null;
+        }
+        return ref.getRefContent();
+    },
+
+    getReference: function(referenceNumber) {
+        const refStartLine = this._getStartRefLineNumber(referenceNumber);
+        const refEndLine = this._getEndRefLineNumber(referenceNumber);
+        if (refStartLine == null || refEndLine == null) {
+            return null;
+        }
+        const refContent = this._getRefContent(referenceNumber);
+
+        return {
+            startLine: refStartLine,
+            endLine: refEndLine,
+            content: refContent,
+        };
+    },
+
+    getUserInput: function() {
+        return null;
+    },
+
+    simpleValidate: function(rubric) {
+        return Passage.validate(this.getUserInput(), rubric);
+    },
+
     render: function() {
-        var lineNumbers;
-        var nLines = this.state.nLines;
+        let lineNumbers;
+        const nLines = this.state.nLines;
         if (this.props.showLineNumbers && nLines) {
             // lineN is the line number in the current passage;
             // the displayed line number is
@@ -54,8 +246,9 @@ var Passage = React.createClass({
             lineNumbers = _.range(1, nLines + 1).map((lineN) => {
                 if (lineN === 4 && nLines > 4) {
                     return <span
-                            key="line-marker"
-                            className="line-marker">
+                        key="line-marker"
+                        className="line-marker"
+                    >
                         Line
                     </span>;
                 } else if (lineN % 5 === 0) {
@@ -66,9 +259,9 @@ var Passage = React.createClass({
             });
         }
 
-        var rawContent = this.props.passageText;
-        var parseState = {};
-        var parsedContent = PassageMarkdown.parse(rawContent, parseState);
+        const rawContent = this.props.passageText;
+        const parseState = {};
+        const parsedContent = PassageMarkdown.parse(rawContent, parseState);
 
         return <div className="perseus-widget-passage-container">
             {this._renderInstructions(parseState)}
@@ -93,7 +286,7 @@ var Passage = React.createClass({
                     </h4>,
                     <div key="footnotes" className="footnotes">
                         {this._renderFootnotes()}
-                    </div>
+                    </div>,
                 ]}
                 <div className="perseus-sr-only">
                     <$_>End of reading passage.</$_>
@@ -101,198 +294,6 @@ var Passage = React.createClass({
             </div>
         </div>;
     },
-
-    componentDidMount: function() {
-        this._updateState();
-    },
-
-    componentDidUpdate: function() {
-        this._updateState();
-    },
-
-    _updateState: function() {
-        this.setState({
-            nLines: this._measureLines(),
-            startLineNumbersAfter: this._getInitialLineNumber(),
-        });
-    },
-
-    _measureLines: function() {
-        var $renderer = $(ReactDOM.findDOMNode(this.refs.content));
-        var contentsHeight = $renderer.height();
-        var lineHeight = parseInt($renderer.css("line-height"));
-        var nLines = Math.round(contentsHeight / lineHeight);
-        return nLines;
-    },
-
-    _getInitialLineNumber: function() {
-        var isPassageBeforeThisPassage = true;
-        var passagesBeforeUs = this.props.interWidgets((id, widgetInfo) => {
-            if (widgetInfo.type !== "passage") {
-                return false;
-            }
-            if (id === this.props.widgetId) {
-                isPassageBeforeThisPassage = false;
-            }
-            return isPassageBeforeThisPassage;
-        });
-
-        return passagesBeforeUs.map((passageWidget) => {
-            return passageWidget.getLineCount();
-        }).reduce((a, b) => a + b, 0);
-    },
-
-    getLineCount: function() {
-        if (this.state.nLines != null) {
-            return this.state.nLines;
-        } else {
-            return this._measureLines();
-        }
-    },
-
-    _renderInstructions: function(parseState) {
-        var firstQuestionNumber = parseState.firstQuestionRef;
-        var firstSentenceRef = parseState.firstSentenceRef;
-
-        var instructions = "";
-        if (firstQuestionNumber) {
-            instructions += i18n._(
-                "The symbol %(questionSymbol)s indicates that question " +
-                "%(questionNumber)s references this portion of the passage.",
-                {
-                    questionSymbol: "[[" + firstQuestionNumber + "]]",
-                    questionNumber: firstQuestionNumber,
-                }
-            );
-        }
-        if (firstSentenceRef) {
-            instructions += i18n._(
-                " The symbol %(sentenceSymbol)s indicates that the " +
-                "following sentence is referenced in a question.",
-                {
-                    sentenceSymbol: "[" + firstSentenceRef + "]",
-                }
-            );
-        }
-        var parsedInstructions = PassageMarkdown.parse(instructions);
-        return <div className="perseus-widget-passage-instructions">
-            {PassageMarkdown.output(parsedInstructions)}
-        </div>;
-    },
-
-    _renderContent: function(parsed) {
-        return <div ref="content">
-            {PassageMarkdown.output(parsed)}
-        </div>;
-    },
-
-    _hasFootnotes: function() {
-        var rawContent = this.props.footnotes;
-        var isEmpty = /^\s*$/.test(rawContent);
-        return !isEmpty;
-    },
-
-    _renderFootnotes: function() {
-        var rawContent = this.props.footnotes;
-        var parsed = PassageMarkdown.parse(rawContent);
-        return PassageMarkdown.output(parsed);
-    },
-
-    _getStartRefLineNumber: function(referenceNumber) {
-        var refRef = PassageMarkdown.START_REF_PREFIX + referenceNumber;
-        var ref = this.refs[refRef];
-        if (!ref) {
-            return null;
-        }
-
-        var $ref = $(ReactDOM.findDOMNode(ref));
-        // We really care about the first text after the ref, not the
-        // ref element itself:
-        var $refText = $ref.next();
-        if ($refText.length === 0) {
-            // But if there are no elements after the ref, just
-            // use the ref itself.
-            $refText = $ref;
-        }
-        var vPos = $refText.offset().top;
-
-        return this.state.startLineNumbersAfter + 1 +
-            this._convertPosToLineNumber(vPos);
-    },
-
-    _getEndRefLineNumber: function(referenceNumber) {
-        var refRef = PassageMarkdown.END_REF_PREFIX + referenceNumber;
-        var ref = this.refs[refRef];
-        if (!ref) {
-            return null;
-        }
-
-        var $ref = $(ReactDOM.findDOMNode(ref));
-        // We really care about the last text before the ref, not the
-        // ref element itself:
-        var $refText = $ref.prev();
-        if ($refText.length === 0) {
-            // But if there are no elements before the ref, just
-            // use the ref itself.
-            $refText = $ref;
-        }
-        var height = $refText.height();
-        var vPos = $refText.offset().top;
-
-        var line = this._convertPosToLineNumber(vPos + height);
-        if (height === 0) {
-            // If the element before the end ref span was the start
-            // ref span, it might have 0 height. This is obviously not
-            // the intended use case, but we should handle it gracefully.
-            // If this is the case, then the "bottom" of our element is
-            // actually the top of the line we're on, so we need to add
-            // one to the line number.
-            line += 1;
-        }
-
-        return this.state.startLineNumbersAfter + line;
-    },
-
-    _convertPosToLineNumber: function(absoluteVPos) {
-        var $content= $(ReactDOM.findDOMNode(this.refs.content));
-        var relativeVPos = absoluteVPos - $content.offset().top;
-        var lineHeight = parseInt($content.css("line-height"));
-
-        var line = Math.round(relativeVPos / lineHeight);
-        return line;
-    },
-
-    _getRefContent: function(referenceNumber) {
-        var refRef = PassageMarkdown.START_REF_PREFIX + referenceNumber;
-        var ref = this.refs[refRef];
-        if (!ref) {
-            return null;
-        }
-        return ref.getRefContent();
-    },
-
-    getReference: function(referenceNumber) {
-        var refStartLine = this._getStartRefLineNumber(referenceNumber);
-        var refEndLine = this._getEndRefLineNumber(referenceNumber);
-        if (refStartLine == null || refEndLine == null) {
-            return null;
-        }
-        var refContent = this._getRefContent(referenceNumber);
-
-        return {
-            startLine: refStartLine,
-            endLine: refEndLine,
-            content: refContent,
-        };
-    },
-
-    getUserInput: function() {
-        return null;
-    },
-
-    simpleValidate: function(rubric) {
-        return Passage.validate(this.getUserInput(), rubric);
-    }
 });
 
 _.extend(Passage, {
@@ -301,9 +302,9 @@ _.extend(Passage, {
             type: "points",
             earned: 0,
             total: 0,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 module.exports = {
@@ -313,5 +314,5 @@ module.exports = {
     transform: (editorProps) => {
         return _.pick(editorProps, "passageTitle", "passageText", "footnotes",
             "showLineNumbers");
-    }
+    },
 };

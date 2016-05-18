@@ -1,22 +1,18 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const _ = require("underscore");
+const WrappedDefaults = require("./wrapped-defaults.js");
 
-var _ = require("underscore");
-var WrappedDefaults = require("./wrapped-defaults.js");
-
-var DEFAULT_OPTIONS = {
+const DEFAULT_OPTIONS = {
     maxScale: 1,
-    mouselayer: false
+    mouselayer: false,
 };
 
-var WrappedEllipse = function(graphie, center, radii, options) {
+const WrappedEllipse = function(graphie, center, radii, options) {
     options = _.extend({}, DEFAULT_OPTIONS, options);
 
     // Add `wrapper`, `visibleShape`, and remaining properties
     _.extend(this, graphie.fixedEllipse(center, radii, options.maxScale), {
         graphie: graphie,
-        initialPoint: center
+        initialPoint: center,
     });
 
     // Add to appropriate graphie layer

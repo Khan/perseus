@@ -1,12 +1,8 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const assert = require("assert");
+const Renderability = require("../renderability.jsx");
+const PerseusItemVersion = require("../item-version.js");
 
-var assert = require("assert");
-var Renderability = require("../renderability.jsx");
-var PerseusItemVersion = require("../item-version.js");
-
-var sampleItemNoWidgets = {
+const sampleItemNoWidgets = {
     "question": {
         "content": "hi 14",
         "images": {},
@@ -22,7 +18,7 @@ var sampleItemNoWidgets = {
     "hints": [],
 };
 
-var sampleV0InputNumberItem = {
+const sampleV0InputNumberItem = {
     "question": {
         "content": "[[☃ input-number 1]]",
         "images": {},
@@ -55,7 +51,7 @@ var sampleV0InputNumberItem = {
     "hints": [],
 };
 
-var sampleV1MeasurerItem = {
+const sampleV1MeasurerItem = {
     "question": {
         "content": "[[☃ measurer 1]]",
         "images": {},
@@ -93,7 +89,7 @@ var sampleV1MeasurerItem = {
     "hints": [],
 };
 
-var sampleImpossibleWidgetsItem = {
+const sampleImpossibleWidgetsItem = {
     "question": {
         "content": "[[☃ impossible-to-render-widget 1]]",
         "images": {},
@@ -119,8 +115,8 @@ var sampleImpossibleWidgetsItem = {
     "hints": [],
 };
 
-var IMPOSSIBLY_HIGH_VERSION_NUMBER = 68921;
-var sampleImpossibleInputNumberItem1 = {
+const IMPOSSIBLY_HIGH_VERSION_NUMBER = 68921;
+const sampleImpossibleInputNumberItem1 = {
     "question": {
         "content": "[[☃ input-number 1]]",
         "images": {},
@@ -152,7 +148,7 @@ var sampleImpossibleInputNumberItem1 = {
     },
     "hints": [],
 };
-var sampleImpossibleInputNumberItem2 = {
+const sampleImpossibleInputNumberItem2 = {
     "question": {
         "content": "[[☃ input-number 1]]",
         "images": {},
@@ -185,7 +181,7 @@ var sampleImpossibleInputNumberItem2 = {
     "hints": [],
 };
 
-var sampleEmptyGroupItem = {
+const sampleEmptyGroupItem = {
     "question": {
         "content": "[[☃ group 1]]\n\n",
         "images": {},
@@ -215,7 +211,7 @@ var sampleEmptyGroupItem = {
     "hints": [],
 };
 
-var sampleGroupWithInputNumberItem = {
+const sampleGroupWithInputNumberItem = {
     "question": {
         "content": "[[☃ group 1]]\n\n",
         "images": {},
@@ -262,7 +258,7 @@ var sampleGroupWithInputNumberItem = {
     "hints": [],
 };
 
-var sampleGroupWithRadioItem = {
+const sampleGroupWithRadioItem = {
     "question": {
         "content": "[[☃ group 1]]\n\n",
         "images": {},
@@ -323,7 +319,7 @@ describe("Renderability", () => {
     describe("isItemRenderableByVersion", () => {
         describe("Current Perseus Version", () => {
             it("should be renderable with no widgets", () => {
-                var result = Renderability.isItemRenderableByVersion(
+                const result = Renderability.isItemRenderableByVersion(
                     sampleItemNoWidgets,
                     PerseusItemVersion
                 );
@@ -331,11 +327,11 @@ describe("Renderability", () => {
             });
 
             it("should be able to render v0 or v1 widgets", () => {
-                var result1 = Renderability.isItemRenderableByVersion(
+                const result1 = Renderability.isItemRenderableByVersion(
                     sampleV0InputNumberItem,
                     PerseusItemVersion
                 );
-                var result2 = Renderability.isItemRenderableByVersion(
+                const result2 = Renderability.isItemRenderableByVersion(
                     sampleV1MeasurerItem,
                     PerseusItemVersion
                 );
@@ -344,15 +340,15 @@ describe("Renderability", () => {
             });
 
             it("should not be able to render future widgets", () => {
-                var result1 = Renderability.isItemRenderableByVersion(
+                const result1 = Renderability.isItemRenderableByVersion(
                     sampleImpossibleWidgetsItem,
                     PerseusItemVersion
                 );
-                var result2 = Renderability.isItemRenderableByVersion(
+                const result2 = Renderability.isItemRenderableByVersion(
                     sampleImpossibleInputNumberItem1,
                     PerseusItemVersion
                 );
-                var result3 = Renderability.isItemRenderableByVersion(
+                const result3 = Renderability.isItemRenderableByVersion(
                     sampleImpossibleInputNumberItem2,
                     PerseusItemVersion
                 );
@@ -363,7 +359,7 @@ describe("Renderability", () => {
         });
 
         describe("A input-only version of perseus", () => {
-            var inputOnlyPerseusVersion = {
+            const inputOnlyPerseusVersion = {
                 '::renderer::': { major: 100, minor: 0 },
                 'group': { major: 100, minor: 0 },
                 'sequence': { major: 100, minor: 0 },
@@ -372,7 +368,7 @@ describe("Renderability", () => {
             };
 
             it("should be able to render no widgets", () => {
-                var result = Renderability.isItemRenderableByVersion(
+                const result = Renderability.isItemRenderableByVersion(
                     sampleItemNoWidgets,
                     inputOnlyPerseusVersion
                 );
@@ -380,7 +376,7 @@ describe("Renderability", () => {
             });
 
             it("should be able to render just an input-number", () => {
-                var result = Renderability.isItemRenderableByVersion(
+                const result = Renderability.isItemRenderableByVersion(
                     sampleV0InputNumberItem,
                     inputOnlyPerseusVersion
                 );
@@ -388,7 +384,7 @@ describe("Renderability", () => {
             });
 
             it("should not be able to render just a measurer", () => {
-                var result = Renderability.isItemRenderableByVersion(
+                const result = Renderability.isItemRenderableByVersion(
                     sampleV1MeasurerItem,
                     inputOnlyPerseusVersion
                 );
@@ -396,7 +392,7 @@ describe("Renderability", () => {
             });
 
             it("should be able to render just a group widget", () => {
-                var result = Renderability.isItemRenderableByVersion(
+                const result = Renderability.isItemRenderableByVersion(
                     sampleEmptyGroupItem,
                     inputOnlyPerseusVersion
                 );
@@ -404,7 +400,7 @@ describe("Renderability", () => {
             });
 
             it("should be able to render a group with an input number", () => {
-                var result = Renderability.isItemRenderableByVersion(
+                const result = Renderability.isItemRenderableByVersion(
                     sampleGroupWithInputNumberItem,
                     inputOnlyPerseusVersion
                 );
@@ -412,7 +408,7 @@ describe("Renderability", () => {
             });
 
             it("should not be able to render a group with a radio", () => {
-                var result = Renderability.isItemRenderableByVersion(
+                const result = Renderability.isItemRenderableByVersion(
                     sampleGroupWithRadioItem,
                     inputOnlyPerseusVersion
                 );

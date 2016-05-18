@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * [Most of] the Perseus client API.
  *
@@ -34,9 +30,9 @@
  * These are css class names that will continue to preserve their
  * semantic meaning across the same perseus api major version.
  */
-var React = require("react");
+const React = require("react");
 
-var StubTagEditor = require("./components/stub-tag-editor.jsx");
+const StubTagEditor = require("./components/stub-tag-editor.jsx");
 
 module.exports = {
     Options: {

@@ -1,24 +1,23 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+/* global $_:false */
 
-var React = require("react");
-var _ = require("underscore");
+const React = require("react");
+const _ = require("underscore");
 
-var Changeable   = require("../mixins/changeable.jsx");
-var PerseusMarkdown = require("../perseus-markdown.jsx");
-var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
+const Changeable   = require("../mixins/changeable.jsx");
+const PerseusMarkdown = require("../perseus-markdown.jsx");
+const WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
-var EN_DASH = "\u2013";
+const EN_DASH = "\u2013";
 
-var PassageRef = React.createClass({
-    mixins: [WidgetJsonifyDeprecated, Changeable],
-
+const PassageRef = React.createClass({
     propTypes: {
+        interWidgets: React.PropTypes.func,
         passageNumber: React.PropTypes.number,
         referenceNumber: React.PropTypes.number,
         summaryText: React.PropTypes.string,
     },
+
+    mixins: [WidgetJsonifyDeprecated, Changeable],
 
     getDefaultProps: function() {
         return {
@@ -35,14 +34,50 @@ var PassageRef = React.createClass({
         };
     },
 
+    componentDidMount: function() {
+        _.defer(this._updateRange);
+    },
+
     shouldComponentUpdate: function(nextProps, nextState) {
         return !_.isEqual(this.props, nextProps) ||
             !_.isEqual(this.state, nextState);
     },
 
+    componentDidUpdate: function() {
+        _.defer(this._updateRange);
+    },
+
+    _updateRange: function() {
+        const passage = this.props.interWidgets(
+                "passage " + this.props.passageNumber)[0];
+
+        let refInfo = null;
+        if (passage) {
+            refInfo = passage.getReference(this.props.referenceNumber);
+        }
+
+        if (this.isMounted()) {
+            if (refInfo) {
+                this.setState({
+                    lineRange: [refInfo.startLine, refInfo.endLine],
+                    content: refInfo.content,
+                });
+            } else {
+                this.setState({
+                    lineRange: null,
+                    content: null,
+                });
+            }
+        }
+    },
+
+    simpleValidate: function(rubric) {
+        return PassageRef.validate(this.getUserInput(), rubric);
+    },
+
     render: function() {
-        var lineRange = this.state.lineRange;
-        var lineRangeOutput;
+        const lineRange = this.state.lineRange;
+        let lineRangeOutput;
         if (!lineRange) {
             lineRangeOutput = <$_ lineRange={"?" + EN_DASH + "?"}>
                 lines %(lineRange)s
@@ -53,14 +88,15 @@ var PassageRef = React.createClass({
             </$_>;
         } else {
             lineRangeOutput = <$_
-                    lineRange={lineRange[0] + EN_DASH + lineRange[1]}>
+                lineRange={lineRange[0] + EN_DASH + lineRange[1]}
+            >
                 lines %(lineRange)s
             </$_>;
         }
 
-        var summaryOutput;
+        let summaryOutput;
         if (this.props.summaryText) {
-            var summaryTree = PerseusMarkdown.parseInline(
+            const summaryTree = PerseusMarkdown.parseInline(
                 this.props.summaryText
             );
             summaryOutput = <span aria-hidden={true}>
@@ -84,42 +120,6 @@ var PassageRef = React.createClass({
             }
         </span>;
     },
-
-    componentDidMount: function() {
-        _.defer(this._updateRange);
-    },
-
-    componentDidUpdate: function() {
-        _.defer(this._updateRange);
-    },
-
-    _updateRange: function() {
-        var passage = this.props.interWidgets(
-                "passage " + this.props.passageNumber)[0];
-
-        var refInfo = null;
-        if (passage) {
-            refInfo = passage.getReference(this.props.referenceNumber);
-        }
-
-        if (this.isMounted()) {
-            if (refInfo) {
-                this.setState({
-                    lineRange: [refInfo.startLine, refInfo.endLine],
-                    content: refInfo.content,
-                });
-            } else {
-                this.setState({
-                    lineRange: null,
-                    content: null
-                });
-            }
-        }
-    },
-
-    simpleValidate: function(rubric) {
-        return PassageRef.validate(this.getUserInput(), rubric);
-    }
 });
 
 _.extend(PassageRef, {
@@ -128,9 +128,9 @@ _.extend(PassageRef, {
             type: "points",
             earned: 0,
             total: 0,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 module.exports = {
@@ -145,5 +145,5 @@ module.exports = {
             "summaryText"
         );
     },
-    version: {major: 0, minor: 1}
+    version: {major: 0, minor: 1},
 };

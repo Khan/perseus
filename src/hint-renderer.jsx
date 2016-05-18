@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const Renderer = require("./renderer.jsx");
 const classnames = require('classnames');
@@ -10,8 +6,14 @@ const i18n = window.i18n;
 /* Renders just a hint preview */
 const HintRenderer = React.createClass({
     propTypes: {
+        // We don't use EnabledFeatures.propTypes here because it requires the
+        // props and they're optional for this component.
+        enabledFeatures: React.PropTypes.shape({
+            newHintStyles: React.PropTypes.bool,
+        }),
         hint: React.PropTypes.any,
         lastHint: React.PropTypes.bool,
+        lastRendered: React.PropTypes.bool,
         pos: React.PropTypes.number,
         totalHints: React.PropTypes.number,
     },

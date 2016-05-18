@@ -1,11 +1,7 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, max-len, no-trailing-spaces, no-var, one-var, prefer-spread */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-var _ = require("underscore");
+const _ = require("underscore");
 const KhanAnswerTypes = require("./util/answer-types.js");
 
-var nestedMap = function(children, func, context) {
+const nestedMap = function(children, func, context) {
     if (_.isArray(children)) {
         return _.map(children, function(child) {
             return nestedMap(child, func);
@@ -15,7 +11,7 @@ var nestedMap = function(children, func, context) {
     }
 };
 
-var Util = {
+const Util = {
     nestedMap: nestedMap,
 
     rWidgetParts: /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]$/,
@@ -27,15 +23,15 @@ var Util = {
         type: "points",
         earned: 0,
         total: 0,
-        message: null
+        message: null,
     },
 
     seededRNG: function(seed) {
-        var randomSeed = seed;
+        let randomSeed = seed;
 
         return function() {
             // Robert Jenkins' 32 bit integer hash function.
-            var seed = randomSeed;
+            let seed = randomSeed;
             seed = ((seed + 0x7ed55d16) + (seed << 12)) & 0xffffffff;
             seed = ((seed ^ 0xc761c23c) ^ (seed >>> 19)) & 0xffffffff;
             seed = ((seed + 0x165667b1) + (seed << 5)) & 0xffffffff;
@@ -51,16 +47,16 @@ var Util = {
     // distinct permutations.
     shuffle: function(array, randomSeed, ensurePermuted) {
         // Always return a copy of the input array
-        var shuffled = _.clone(array);
+        const shuffled = _.clone(array);
 
         // Handle edge cases (input array is empty or uniform)
         if (!shuffled.length || _.all(shuffled, function(value) {
-                                    return _.isEqual(value, shuffled[0]);
-                                })) {
+            return _.isEqual(value, shuffled[0]);
+        })) {
             return shuffled;
         }
 
-        var random;
+        let random;
         if (_.isFunction(randomSeed)) {
             random = randomSeed;
         } else {
@@ -69,9 +65,9 @@ var Util = {
 
         do {
             // Fischer-Yates shuffle
-            for (var top = shuffled.length; top > 0; top--) {
-                var newEnd = Math.floor(random() * top),
-                    temp = shuffled[newEnd];
+            for (let top = shuffled.length; top > 0; top--) {
+                const newEnd = Math.floor(random() * top);
+                const temp = shuffled[newEnd];
 
                 shuffled[newEnd] = shuffled[top - 1];
                 shuffled[top - 1] = temp;
@@ -87,13 +83,13 @@ var Util = {
         function(str, r) {
             // Based on Steven Levithan's MIT-licensed split, available at
             // http://blog.stevenlevithan.com/archives/cross-browser-split
-            var output = [];
-            var lastIndex = r.lastIndex = 0;
-            var match;
+            const output = [];
+            let lastIndex = r.lastIndex = 0;
+            let match;
 
             while ((match = r.exec(str))) {
                 output.push(str.slice(lastIndex, match.index));
-                output.push.apply(output, match.slice(1));
+                output.push(...match.slice(1));
                 lastIndex = match.index + match[0].length;
             }
 
@@ -106,7 +102,7 @@ var Util = {
      * if one is wrong, the total score is wrong, etc.
      */
     combineScores: function(scoreA, scoreB) {
-        var message;
+        let message;
 
         if (scoreA.type === "points" && scoreB.type === "points") {
             if (scoreA.message && scoreB.message &&
@@ -121,7 +117,7 @@ var Util = {
                 type: "points",
                 earned: scoreA.earned + scoreB.earned,
                 total: scoreA.total + scoreB.total,
-                message: message
+                message: message,
             };
 
         } else if (scoreA.type === "points" && scoreB.type === "invalid") {
@@ -141,7 +137,7 @@ var Util = {
 
             return {
                 type: "invalid",
-                message: message
+                message: message,
             };
         }
     },
@@ -152,14 +148,14 @@ var Util = {
                 empty: false,
                 correct: score.earned >= score.total,
                 message: score.message,
-                guess: guess
+                guess: guess,
             };
         } else if (score.type === "invalid") {
             return {
                 empty: true,
                 correct: false,
                 message: score.message,
-                guess: guess
+                guess: guess,
             };
         } else {
             throw new Error("Invalid score type: " + score.type);
@@ -172,15 +168,15 @@ var Util = {
      */
     firstNumericalParse: function(text) {
         // TODO(alpert): This is sort of hacky...
-        var first;
-        var val = KhanAnswerTypes.predicate.createValidatorFunctional(
+        let first;
+        const val = KhanAnswerTypes.predicate.createValidatorFunctional(
             function(ans) {
                 first = ans;
                 return true;  /* break */
             }, {
                 simplify: "optional",
                 inexact: true,
-                forms: "integer, proper, improper, pi, log, mixed, decimal"
+                forms: "integer, proper, improper, pi, log, mixed, decimal",
             });
 
         val(text);
@@ -210,13 +206,13 @@ var Util = {
      */
     gridDimensionConfig: function(absTickStep, extent, dimensionConstraint,
                                      gridStep) {
-        var scale = Util.scaleFromExtent(extent, dimensionConstraint);
-        var stepPx = absTickStep * scale;
-        var unityLabel = stepPx > 30;
+        const scale = Util.scaleFromExtent(extent, dimensionConstraint);
+        const stepPx = absTickStep * scale;
+        const unityLabel = stepPx > 30;
         return {
             scale: scale,
             tickStep: absTickStep / gridStep,
-            unityLabel: unityLabel
+            unityLabel: unityLabel,
         };
     },
 
@@ -231,8 +227,8 @@ var Util = {
      */
     getGridStep: function(range, step, boxSize) {
         return _(2).times(function(i) {
-            var scale = Util.scaleFromExtent(range[i], boxSize);
-            var gridStep = Util.gridStepFromTickStep(step[i], scale);
+            const scale = Util.scaleFromExtent(range[i], boxSize);
+            const gridStep = Util.gridStepFromTickStep(step[i], scale);
             return gridStep;
         });
     },
@@ -248,8 +244,8 @@ var Util = {
      *      scaleFromExtent([-25, 25], 500) // returns 10
      */
     scaleFromExtent: function(extent, dimensionConstraint) {
-        var span = extent[1] - extent[0];
-        var scale = dimensionConstraint / span;
+        const span = extent[1] - extent[0];
+        const scale = dimensionConstraint / span;
         return scale;
     },
 
@@ -260,9 +256,9 @@ var Util = {
      *      tickStepFromExtent([-10, 10], 300) // returns 2
      */
     tickStepFromExtent: function(extent, dimensionConstraint) {
-        var span = extent[1] - extent[0];
+        const span = extent[1] - extent[0];
 
-        var tickFactor;
+        let tickFactor;
         // If single number digits
         if (15 < span && span <= 20) {
             tickFactor = 23;
@@ -275,8 +271,8 @@ var Util = {
         } else {
             tickFactor = 16;
         }
-        var constraintFactor = dimensionConstraint / 500;
-        var desiredNumTicks = tickFactor * constraintFactor;
+        const constraintFactor = dimensionConstraint / 500;
+        const desiredNumTicks = tickFactor * constraintFactor;
         return Util.tickStepFromNumTicks(span, desiredNumTicks);
     },
 
@@ -287,10 +283,10 @@ var Util = {
      *      gridStepFromTickStep(200, 0.2) // returns 100
      */
     gridStepFromTickStep: function(tickStep, scale) {
-        var tickWidth = tickStep * scale;
-        var x = tickStep;
-        var y = Math.pow(10, Math.floor(Math.log(x) / Math.LN10));
-        var leadingDigit = Math.floor(x / y);
+        const tickWidth = tickStep * scale;
+        const x = tickStep;
+        const y = Math.pow(10, Math.floor(Math.log(x) / Math.LN10));
+        const leadingDigit = Math.floor(x / y);
         if (tickWidth < 25) {
             return tickStep;
         }
@@ -320,8 +316,9 @@ var Util = {
      *      tickStepFromNumTicks(50, 6) // returns 10
      */
     tickStepFromNumTicks: function(span, numTicks) {
-        var step = Math.pow(10, Math.floor(Math.log(span / numTicks) / Math.LN10));
-        var err = numTicks / span * step;
+        let step = Math.pow(10,
+            Math.floor(Math.log(span / numTicks) / Math.LN10));
+        const err = numTicks / span * step;
 
         // Filter ticks to get closer to the desired count.
         if (err <= 0.15) {
@@ -351,7 +348,7 @@ var Util = {
     DeprecationMixin: {
         // This lifecycle stage is only called before first render
         componentWillMount: function() {
-            var newProps = {};
+            const newProps = {};
 
             _.each(this.deprecatedProps, function(func, prop) {
                 if (_.has(this.props, prop)) {
@@ -369,7 +366,7 @@ var Util = {
                 // back down again.
                 setTimeout(this.props.onChange, 0, newProps);
             }
-        }
+        },
     },
 
     /**
@@ -391,7 +388,7 @@ var Util = {
             if (x.length !== y.length) {
                 return false;
             }
-            for (var i = 0; i < x.length; i++) {
+            for (let i = 0; i < x.length; i++) {
                 if (!Util.deepEq(x[i], y[i])) {
                     return false;
                 }
@@ -423,11 +420,11 @@ var Util = {
      */
     parseQueryString: function(query) {
         query = query || window.location.search.substring(1);
-        var urlParams = {},
-            e,
-            a = /\+/g,  // Regex for replacing addition symbol with a space
-            r = /([^&=]+)=?([^&]*)/g,
-            d = function(s) { return decodeURIComponent(s.replace(a, " ")); };
+        const urlParams = {};
+        let e;
+        const a = /\+/g;  // Regex for replacing addition symbol with a space
+        const r = /([^&=]+)=?([^&]*)/g;
+        const d = function(s) { return decodeURIComponent(s.replace(a, " ")); };
 
         while ((e = r.exec(query))) {
             urlParams[d(e[1])] = d(e[2]);
@@ -436,7 +433,7 @@ var Util = {
         return urlParams;
     },
 
-    /** 
+    /**
      * Query string adder
      * Works for URLs without #.
      * Original from:
@@ -444,8 +441,8 @@ var Util = {
      */
     updateQueryString: function(uri, key, value) {
         value = encodeURIComponent(value);
-        var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
-        var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+        const re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+        const separator = uri.indexOf('?') !== -1 ? "&" : "?";
         if (uri.match(re)) {
             return uri.replace(re, '$1' + key + "=" + value + '$2');
         } else {
@@ -480,7 +477,7 @@ var Util = {
         if (!widget) {
             return false;
         }
-        var HIGHLIGHT_BAR_BLACKLIST = ["measurer", "protractor"];
+        const HIGHLIGHT_BAR_BLACKLIST = ["measurer", "protractor"];
         return !_.contains(HIGHLIGHT_BAR_BLACKLIST, widget.type);
     },
 
@@ -504,24 +501,25 @@ var Util = {
 
     touchHandlers: {
         pointerDown: false,
-        currentTouchIdentifier: null
+        currentTouchIdentifier: null,
     },
 
     resetTouchHandlers: function() {
         _.extend(Util.touchHandlers, {
             pointerDown: false,
-            currentTouchIdentifier: null
+            currentTouchIdentifier: null,
         });
     },
 
     extractPointerLocation: function(event) {
-        var touchOrEvent;
+        let touchOrEvent;
 
         if (Util.touchHandlers.pointerDown) {
             // Look for the touch matching the one we're tracking; ignore others
             if (Util.touchHandlers.currentTouchIdentifier != null) {
-                var len = event.changedTouches ? event.changedTouches.length : 0;
-                for (var i = 0; i < len; i++) {
+                const len = event.changedTouches ?
+                    event.changedTouches.length : 0;
+                for (let i = 0; i < len; i++) {
                     if (event.changedTouches[i].identifier ===
                             Util.touchHandlers.currentTouchIdentifier) {
                         touchOrEvent = event.changedTouches[i];
@@ -531,7 +529,7 @@ var Util = {
                 touchOrEvent = event;
             }
 
-            var isEndish =
+            const isEndish =
                     event.type === "touchend" || event.type === "touchcancel";
             if (touchOrEvent && isEndish) {
                 Util.touchHandlers.pointerDown = false;
@@ -542,7 +540,8 @@ var Util = {
             Util.touchHandlers.pointerDown = true;
             if (event.changedTouches) {
                 touchOrEvent = event.changedTouches[0];
-                Util.touchHandlers.currentTouchIdentifier = touchOrEvent.identifier;
+                Util.touchHandlers.currentTouchIdentifier =
+                    touchOrEvent.identifier;
             } else {
                 touchOrEvent = event;
             }
@@ -551,7 +550,7 @@ var Util = {
         if (touchOrEvent) {
             return {
                 left: touchOrEvent.pageX,
-                top: touchOrEvent.pageY
+                top: touchOrEvent.pageY,
             };
         }
     },
@@ -565,7 +564,7 @@ var Util = {
     },
 
     getImageSize: function(url, callback) {
-        var img = new Image();
+        const img = new Image();
         img.onload = function() {
             // IE 11 seems to have problems calculating the heights of svgs
             // if they're not in the DOM. To solve this, we add the element to
@@ -585,7 +584,7 @@ var Util = {
         };
 
         // Require here to prevent recursive imports
-        var SvgImage = require("./components/svg-image.jsx");
+        const SvgImage = require("./components/svg-image.jsx");
         img.src = SvgImage.getRealImageUrl(url);
     },
 
@@ -595,20 +594,23 @@ var Util = {
          * Gets the word right before where the textarea cursor is
          *
          * @param {Element} textarea - The textarea DOM element
-         * @return {JSON} - An object with the word and its starting and ending positions in the textarea
+         * @return {JSON} - An object with the word and its starting and ending
+         * positions in the textarea
          */
         getWordBeforeCursor: function(textarea) {
-            var text = textarea.value;
+            const text = textarea.value;
 
-            var endPos = textarea.selectionStart - 1;
-            var startPos = Math.max(text.lastIndexOf("\n", endPos), text.lastIndexOf(' ', endPos)) + 1;
+            const endPos = textarea.selectionStart - 1;
+            const startPos = Math.max(
+                text.lastIndexOf("\n", endPos),
+                text.lastIndexOf(' ', endPos)) + 1;
 
             return {
                 string: text.substring(startPos, endPos + 1),
                 pos: {
                     start: startPos,
-                    end: endPos
-                }
+                    end: endPos,
+                },
             };
         },
 
@@ -621,8 +623,8 @@ var Util = {
         moveCursor: function(textarea, pos) {
             textarea.selectionStart = pos;
             textarea.selectionEnd = pos;
-        }
-    }
+        },
+    },
 };
 
 Util.random = Util.seededRNG(new Date().getTime() & 0xffffffff);

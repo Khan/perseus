@@ -1,21 +1,20 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const React = require('react');
+const _ = require("underscore");
 
-var React = require('react');
-var _ = require("underscore");
+const InfoTip        = require("../components/info-tip.jsx");
+const PropCheckBox   = require("../components/prop-check-box.jsx");
+const TextListEditor = require("../components/text-list-editor.jsx");
 
-var InfoTip        = require("../components/info-tip.jsx");
-var PropCheckBox   = require("../components/prop-check-box.jsx");
-var TextListEditor = require("../components/text-list-editor.jsx");
-
-var MatcherEditor = React.createClass({
+const MatcherEditor = React.createClass({
     propTypes: {
-        left: React.PropTypes.array,
-        right: React.PropTypes.array,
-        labels: React.PropTypes.array,
+        /* eslint-disable react/jsx-sort-prop-types */
+        left: React.PropTypes.arrayOf(React.PropTypes.string),
+        right: React.PropTypes.arrayOf(React.PropTypes.string),
+        labels: React.PropTypes.arrayOf(React.PropTypes.string),
+        onChange: React.PropTypes.func.isRequired,
         orderMatters: React.PropTypes.bool,
-        padding: React.PropTypes.bool
+        padding: React.PropTypes.bool,
+        /* eslint-enable react/jsx-sort-prop-types */
     },
 
     getDefaultProps: function() {
@@ -24,8 +23,30 @@ var MatcherEditor = React.createClass({
             right: ["$1$", "$2$", "$3$"],
             labels: ["test", "label"],
             orderMatters: false,
-            padding: true
+            padding: true,
         };
+    },
+
+    onLabelChange: function(index, e) {
+        const labels = _.clone(this.props.labels);
+        labels[index] = e.target.value;
+        this.props.onChange({labels: labels});
+    },
+
+    getSaveWarnings: function() {
+        if (this.props.left.length !== this.props.right.length) {
+            return [
+                "The two halves of the matcher have different numbers" +
+                " of cards.",
+            ];
+        }
+        return [];
+    },
+
+    serialize: function() {
+        return _.pick(this.props,
+            "left", "right", "labels", "orderMatters", "padding"
+        );
     },
 
     render: function() {
@@ -44,13 +65,15 @@ var MatcherEditor = React.createClass({
                     onChange={(options, cb) => {
                         this.props.onChange({left: options}, cb);
                     }}
-                    layout="vertical" />
+                    layout="vertical"
+                />
                 <TextListEditor
                     options={this.props.right}
                     onChange={(options, cb) => {
                         this.props.onChange({right: options}, cb);
                     }}
-                    layout="vertical" />
+                    layout="vertical"
+                />
             </div>
             <span>
                 {' '}Labels:{' '}
@@ -59,18 +82,23 @@ var MatcherEditor = React.createClass({
                 </InfoTip>
             </span>
             <div>
-                <input type="text"
+                <input
+                    type="text"
                     defaultValue={this.props.labels[0]}
-                    onChange={this.onLabelChange.bind(this, 0)} />
-                <input type="text"
+                    onChange={this.onLabelChange.bind(this, 0)}
+                />
+                <input
+                    type="text"
                     defaultValue={this.props.labels[1]}
-                    onChange={this.onLabelChange.bind(this, 1)} />
+                    onChange={this.onLabelChange.bind(this, 1)}
+                />
             </div>
             <div>
                 <PropCheckBox
                     label="Order of the matched pairs matters:"
                     orderMatters={this.props.orderMatters}
-                    onChange={this.props.onChange} />
+                    onChange={this.props.onChange}
+                />
                 <InfoTip>
                     <p>With this option enabled, only the order provided above
                     will be treated as correct. This is useful when ordering is
@@ -85,35 +113,14 @@ var MatcherEditor = React.createClass({
                 <PropCheckBox
                     label="Padding:"
                     padding={this.props.padding}
-                    onChange={this.props.onChange} />
+                    onChange={this.props.onChange}
+                />
                 <InfoTip>
                     <p>Padding is good for text, but not needed for images.</p>
                 </InfoTip>
             </div>
         </div>;
     },
-
-    onLabelChange: function(index, e) {
-        var labels = _.clone(this.props.labels);
-        labels[index] = e.target.value;
-        this.props.onChange({labels: labels});
-    },
-
-    getSaveWarnings: function() {
-        if (this.props.left.length !== this.props.right.length) {
-            return [
-                "The two halves of the matcher have different numbers" +
-                " of cards."
-            ];
-        }
-        return [];
-    },
-
-    serialize: function() {
-        return _.pick(this.props,
-            "left", "right", "labels", "orderMatters", "padding"
-        );
-    }
 });
 
 module.exports = MatcherEditor;

@@ -1,125 +1,132 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const classNames = require("classnames");
+const React = require("react");
+const _ = require("underscore");
 
-var classNames = require("classnames");
-var React = require("react");
+const performDiff = require("./widget-diff-performer.jsx");
 
-var performDiff = require("./widget-diff-performer.jsx");
-
-var indentationFromDepth = function(depth) {
+const indentationFromDepth = function(depth) {
     return (depth - 1) * 20;
 };
 
-var BEFORE = "before";
-var AFTER = "after";
+const BEFORE = "before";
+const AFTER = "after";
 
-var UNCHANGED = "unchanged";
+const UNCHANGED = "unchanged";
 
-var DiffSide = React.createClass({
+const DiffSide = React.createClass({
     propTypes: {
-        side: React.PropTypes.oneOf([BEFORE, AFTER]).isRequired,
         className: React.PropTypes.string.isRequired,
-        showKey: React.PropTypes.bool.isRequired,
+        depth: React.PropTypes.number.isRequired,
         propKey: React.PropTypes.string.isRequired,
+        showKey: React.PropTypes.bool.isRequired,
+        side: React.PropTypes.oneOf([BEFORE, AFTER]).isRequired,
         value: React.PropTypes.string,
-        depth: React.PropTypes.number.isRequired
     },
 
     render: function() {
-        var className = classNames(this.props.className, {
+        const className = classNames(this.props.className, {
             "diff-row": true,
             before: this.props.side === BEFORE,
-            after: this.props.side === AFTER
+            after: this.props.side === AFTER,
         });
         return <div className={className} >
-            <div style={{
-                paddingLeft: indentationFromDepth(this.props.depth)
-            }} >
+            <div
+                style={{
+                    paddingLeft: indentationFromDepth(this.props.depth),
+                }}
+            >
                 {this.props.showKey && this.props.propKey + ": "}
                 <span className={"inner-value dark " + this.props.className} >
                     {this.props.value}
                 </span>
             </div>
         </div>;
-    }
+    },
 });
 
-var CollapsedRow = React.createClass({
+const CollapsedRow = React.createClass({
     propTypes: {
         depth: React.PropTypes.number,
-        onClick: React.PropTypes.func.isRequired
+        onClick: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
         return {
-            depth: 0
+            depth: 0,
         };
     },
 
     render: function() {
-        var self = this;
+        const self = this;
         return <div onClick={self.props.onClick}>
             {_.map([BEFORE, AFTER], function(side) {
-                return <div className={"diff-row collapsed " + side}
-                    key={side} >
-                        <div style={{
-                            paddingLeft: indentationFromDepth(self.props.depth)
-                        }}>
+                return <div
+                    className={"diff-row collapsed " + side}
+                    key={side}
+                >
+                    <div
+                        style={{
+                            paddingLeft: indentationFromDepth(self.props.depth),
+                        }}
+                    >
                         <span> [ show unmodified ] </span>
                     </div>
                 </div>;
             })}
         </div>;
-    }
+    },
 });
 
 // Component representing a single property that may be nested.
-var DiffEntry = React.createClass({
+const DiffEntry = React.createClass({
     propTypes: {
+        depth: React.PropTypes.number,
         entry: React.PropTypes.shape({
             key: React.PropTypes.string,
             children: React.PropTypes.array,
             before: React.PropTypes.string,
-            after: React.PropTypes.string
+            after: React.PropTypes.string,
         }),
-        depth: React.PropTypes.number,
-        expanded: React.PropTypes.bool
+        expanded: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
         return {
-            depth: 0
+            depth: 0,
         };
     },
 
     getInitialState: function() {
         return {
-            expanded: this.props.expanded
+            expanded: this.props.expanded,
         };
     },
 
+    expand: function() {
+        this.setState({ expanded: true });
+    },
+
     render: function() {
-        var entry = this.props.entry;
-        var propertyDeleted = entry.status === "removed";
-        var propertyAdded   = entry.status === "added";
-        var propertyChanged = entry.status === "changed";
+        const entry = this.props.entry;
+        const propertyDeleted = entry.status === "removed";
+        const propertyAdded   = entry.status === "added";
+        const propertyChanged = entry.status === "changed";
 
-        var hasChildren = entry.children.length > 0;
+        const hasChildren = entry.children.length > 0;
 
-        var leftClass = classNames({
+        const leftClass = classNames({
             "removed": (propertyDeleted || propertyChanged) && !hasChildren,
             "dark": propertyDeleted,
-            "blank-space": propertyAdded
+            "blank-space": propertyAdded,
         });
 
-        var rightClass = classNames({
+        const rightClass = classNames({
             "added": (propertyAdded || propertyChanged) && !hasChildren,
             "dark": propertyAdded,
-            "blank-space": propertyDeleted
+            "blank-space": propertyDeleted,
         });
 
-        var shownChildren;
+        let shownChildren;
         if (this.state.expanded) {
             shownChildren = entry.children;
         } else {
@@ -128,7 +135,7 @@ var DiffEntry = React.createClass({
             });
         }
 
-        var collapsed = shownChildren.length < entry.children.length;
+        let collapsed = shownChildren.length < entry.children.length;
 
         // don't hide just one entry
         if (entry.children.length === shownChildren.length + 1) {
@@ -136,7 +143,7 @@ var DiffEntry = React.createClass({
             collapsed = false;
         }
 
-        var self = this;
+        const self = this;
         return <div>
             {entry.key && <div>
             <DiffSide
@@ -145,54 +152,54 @@ var DiffEntry = React.createClass({
                 depth={this.props.depth}
                 propKey={entry.key}
                 showKey={!propertyAdded}
-                value={entry.before} />
+                value={entry.before}
+            />
             <DiffSide
                 side={AFTER}
                 className={rightClass}
                 depth={this.props.depth}
                 propKey={entry.key}
                 showKey={!propertyDeleted}
-                value={entry.after} />
+                value={entry.after}
+            />
             </div>}
             {_.map(shownChildren, function(child) {
                 return <DiffEntry
                     key={child.key}
                     depth={self.props.depth + 1}
                     entry={child}
-                    expanded={self.state.expanded} />;
+                    expanded={self.state.expanded}
+                />;
             })}
             {collapsed &&
                 <CollapsedRow
                     depth={this.props.depth + 1}
-                    onClick={this.expand} />}
+                    onClick={this.expand}
+                />}
         </div>;
     },
-
-    expand: function() {
-        this.setState({ expanded: true });
-    }
 });
 
-var WidgetDiff = React.createClass({
+const WidgetDiff = React.createClass({
     propTypes: {
-        before: React.PropTypes.shape({
-            options: React.PropTypes.object
-        }).isRequired,
         after: React.PropTypes.shape({
-            options: React.PropTypes.object
+            options: React.PropTypes.object,
         }).isRequired,
-        title: React.PropTypes.string.isRequired
+        before: React.PropTypes.shape({
+            options: React.PropTypes.object,
+        }).isRequired,
+        title: React.PropTypes.string.isRequired,
     },
 
     render: function() {
-        var diff = performDiff(this.props.before,
+        const diff = performDiff(this.props.before,
                                this.props.after);
         return <div>
             <div className="ui-helper-clearfix">
                 <DiffEntry entry={diff} />
             </div>
         </div>;
-    }
+    },
 });
 
 module.exports = WidgetDiff;

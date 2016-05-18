@@ -1,16 +1,12 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, max-len, no-redeclare, no-trailing-spaces, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const React = require("react");
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var React = require("react");
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
-
-var textWidthCache = {};
+const textWidthCache = {};
 function getTextWidth(text) {
     if (!textWidthCache[text]) {
         // Hacky way to guess the width of an input box
-        var $test = $("<span>").text(text).appendTo("body");
+        const $test = $("<span>").text(text).appendTo("body");
         textWidthCache[text] = $test.width() + 5;
         $test.remove();
     }
@@ -18,56 +14,34 @@ function getTextWidth(text) {
 }
 
 
-var TextListEditor = React.createClass({
+const TextListEditor = React.createClass({
     propTypes: {
-        options: React.PropTypes.array,
         layout: React.PropTypes.string,
-        onChange: React.PropTypes.func.isRequired
+        onChange: React.PropTypes.func.isRequired,
+        options: React.PropTypes.arrayOf(React.PropTypes.string),
     },
 
     getDefaultProps: function() {
         return {
+            layout: "horizontal",
             options: [],
-            layout: "horizontal"
         };
     },
 
     getInitialState: function() {
         return {
-            items: this.props.options.concat("")
+            items: this.props.options.concat(""),
         };
     },
 
     componentWillReceiveProps: function(nextProps) {
         this.setState({
-            items: nextProps.options.concat("")
+            items: nextProps.options.concat(""),
         });
     },
 
-    render: function() {
-        var className = [
-            "perseus-text-list-editor",
-            "ui-helper-clearfix",
-            "layout-" + this.props.layout
-        ].join(" ");
-
-        var inputs = _.map(this.state.items, function(item, i) {
-            return <li key={i}>
-                <input
-                    ref={"input_" + i}
-                    type="text"
-                    value={item}
-                    onChange={this.onChange.bind(this, i)}
-                    onKeyDown={this.onKeyDown.bind(this, i)}
-                    style={{width: getTextWidth(item)}} />
-            </li>;
-        }, this);
-
-        return <ul className={className}>{inputs}</ul>;
-    },
-
     onChange: function(index, event) {
-        var items = _.clone(this.state.items);
+        let items = _.clone(this.state.items);
         items[index] = event.target.value;
 
         if (index === items.length - 1) {
@@ -79,14 +53,14 @@ var TextListEditor = React.createClass({
     },
 
     onKeyDown: function(index, event) {
-        var which = event.nativeEvent.keyCode;
+        const which = event.nativeEvent.keyCode;
 
         // Backspace deletes an empty input...
         if (which === 8 /* backspace */ && this.state.items[index] === "") {
             event.preventDefault();
 
-            var items = _.clone(this.state.items);
-            var focusIndex = (index === 0) ? 0 : index - 1;
+            const items = _.clone(this.state.items);
+            const focusIndex = (index === 0) ? 0 : index - 1;
 
             if (index === items.length - 1 &&
                     (index === 0 || items[focusIndex] !== "")) {
@@ -96,8 +70,9 @@ var TextListEditor = React.createClass({
             } else {
                 items.splice(index, 1);
                 this.setState({items: items}, function() {
-                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
-                });                
+                    ReactDOM.findDOMNode(
+                        this.refs["input_" + focusIndex]).focus();
+                });
             }
 
         // Deleting the last character in the second-to-last input removes it
@@ -106,7 +81,7 @@ var TextListEditor = React.createClass({
                 index === this.state.items.length - 2) {
             event.preventDefault();
 
-            var items = _.clone(this.state.items);
+            const items = _.clone(this.state.items);
             items.splice(index, 1);
             this.setState({items: items});
             this.props.onChange(_.compact(items));
@@ -115,8 +90,8 @@ var TextListEditor = React.createClass({
         } else if (which === 13 /* enter */) {
             event.preventDefault();
 
-            var items = _.clone(this.state.items);
-            var focusIndex = index + 1;
+            const items = _.clone(this.state.items);
+            const focusIndex = index + 1;
 
             if (index === items.length - 2) {
                 // ...unless the empty input is just below.
@@ -124,11 +99,35 @@ var TextListEditor = React.createClass({
             } else {
                 items.splice(focusIndex, 0, "");
                 this.setState({items: items}, function() {
-                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+                    ReactDOM.findDOMNode(
+                        this.refs["input_" + focusIndex]).focus();
                 });
             }
         }
-    }
+    },
+
+    render: function() {
+        const className = [
+            "perseus-text-list-editor",
+            "ui-helper-clearfix",
+            "layout-" + this.props.layout,
+        ].join(" ");
+
+        const inputs = _.map(this.state.items, function(item, i) {
+            return <li key={i}>
+                <input
+                    ref={"input_" + i}
+                    type="text"
+                    value={item}
+                    onChange={this.onChange.bind(this, i)}
+                    onKeyDown={this.onKeyDown.bind(this, i)}
+                    style={{width: getTextWidth(item)}}
+                />
+            </li>;
+        }, this);
+
+        return <ul className={className}>{inputs}</ul>;
+    },
 });
 
 module.exports = TextListEditor;

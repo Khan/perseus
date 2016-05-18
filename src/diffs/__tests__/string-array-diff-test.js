@@ -1,17 +1,14 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-undef, no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+/* global expect:false */
 
-
-var stringArrayDiff = require("../string-array-diff.jsx");
+const stringArrayDiff = require("../string-array-diff.jsx");
 
 describe("string array diff", function() {
     it("diffs an empty diff", function() {
         expect(stringArrayDiff([], [])).toEqual(
-                  {
-                      before: [],
-                      after: []
-                  });
+            {
+                before: [],
+                after: [],
+            });
     });
 
     it("diffs the same values", function() {
@@ -21,12 +18,12 @@ describe("string array diff", function() {
             {
                 before: [
                     { status: "unchanged",
-                      value: 1 }
+                      value: 1 },
                 ],
                 after: [
                     { status: "unchanged",
-                      value: 1 }
-                ]
+                      value: 1 },
+                ],
             });
     });
 
@@ -37,14 +34,14 @@ describe("string array diff", function() {
             {
                 before: [
                     { status: "unchanged",
-                      value: 1 }
+                      value: 1 },
                 ],
                 after: [
                     { status: "unchanged",
                       value: 1 },
                     { status: "added",
-                      value: 2 }
-                ]
+                      value: 2 },
+                ],
             });
     });
 
@@ -59,12 +56,12 @@ describe("string array diff", function() {
                     { status: "removed",
                       value: 2 },
                     { status: "removed",
-                      value: 3 }
+                      value: 3 },
                 ],
                 after: [
                     { status: "unchanged",
-                      value: 1 }
-                ]
+                      value: 1 },
+                ],
             });
     });
 });

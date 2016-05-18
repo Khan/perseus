@@ -1,19 +1,15 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const ButtonGroup = require("react-components/button-group.jsx");
+const React = require("react");
 
-var ButtonGroup = require("react-components/button-group.jsx");
-var React = require("react");
-
-var DashPicker = React.createClass({
+const DashPicker = React.createClass({
     propTypes: {
+        onChange: React.PropTypes.func.isRequired,
         value: React.PropTypes.string,
-        onChange: React.PropTypes.func.isRequired
     },
 
     getDefaultProps: function() {
         return {
-            value: ""
+            value: "",
         };
     },
 
@@ -27,8 +23,9 @@ var DashPicker = React.createClass({
             {value: ".", content: <span>&middot;&middot;&middot;&middot;
                 </span>},
             {value: ". ", content: <span>&middot; &middot; &middot;</span>}]}
-            onChange={this.props.onChange} />;
-    }
+            onChange={this.props.onChange}
+        />;
+    },
 });
 
 module.exports = DashPicker;

@@ -1,54 +1,66 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+/* global i18n:false */
 
-var React = require('react');
-var classNames = require("classnames");
-var Changeable = require("../mixins/changeable.jsx");
-var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
-var _ = require("underscore");
+const React = require('react');
+const classNames = require("classnames");
+const Changeable = require("../mixins/changeable.jsx");
+const WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
+const _ = require("underscore");
 
-var ApiClassNames = require("../perseus-api.jsx").ClassNames;
-var Renderer = require("../renderer.jsx");
-var Util = require("../util.js");
+const ApiClassNames = require("../perseus-api.jsx").ClassNames;
+const Renderer = require("../renderer.jsx");
+const Util = require("../util.js");
 
-var Categorizer = React.createClass({
-    mixins: [WidgetJsonifyDeprecated, Changeable],
-
+const Categorizer = React.createClass({
     propTypes: {
         // List of categories (across the top)
         categories: React.PropTypes.arrayOf(React.PropTypes.string),
         // List of items that are being categorized (along the left side)
         items: React.PropTypes.arrayOf(React.PropTypes.string),
+        problemNum: React.PropTypes.number,
+        randomizeItems: React.PropTypes.bool,
+        static: React.PropTypes.bool,
         trackInteraction: React.PropTypes.func.isRequired,
         // Ordered list of correct answers, mapping items to categories thusly:
         //   values[<items_index>] == <categories_index>
         values: React.PropTypes.arrayOf(React.PropTypes.number),
     },
 
+    mixins: [WidgetJsonifyDeprecated, Changeable],
+
     getDefaultProps: function() {
         return {
             items: [],
             categories: [],
-            values: []
+            values: [],
         };
     },
 
     getInitialState: function() {
         return {
-            uniqueId: _.uniqueId("perseus_radio_")
+            uniqueId: _.uniqueId("perseus_radio_"),
         };
     },
 
-    render: function() {
-        var self = this;
+    onChange: function(itemNum, catNum) {
+        const values = _.clone(this.props.values);
+        values[itemNum] = catNum;
+        this.change("values", values);
+        this.props.trackInteraction();
+    },
 
-        var indexedItems = _.map(this.props.items, (item, n) => [item, n]);
+    simpleValidate: function(rubric) {
+        return Categorizer.validate(this.getUserInput(), rubric);
+    },
+
+    render: function() {
+        const self = this;
+
+        let indexedItems = _.map(this.props.items, (item, n) => [item, n]);
         if (this.props.randomizeItems) {
             indexedItems = Util.shuffle(indexedItems, this.props.problemNum);
         }
 
-        var className = classNames({
+        const className = classNames({
             "categorizer-container": true,
             "clearfix": true,
             "static-mode": this.props.static,
@@ -68,9 +80,9 @@ var Categorizer = React.createClass({
                 })}
             </tr></thead>
             <tbody>{_.map(indexedItems, (indexedItem) => {
-                var item = indexedItem[0];
-                var itemNum = indexedItem[1];
-                var uniqueId = self.state.uniqueId + "_" + itemNum;
+                const item = indexedItem[0];
+                const itemNum = indexedItem[1];
+                const uniqueId = self.state.uniqueId + "_" + itemNum;
                 return <tr key={itemNum}>
                     <td><Renderer content={item}/></td>
                     {_.range(self.props.categories.length).map(catNum => {
@@ -78,12 +90,14 @@ var Categorizer = React.createClass({
                             {/* a pseudo-label: toggle the value of the
                                 checkbox when this div or the checkbox is
                                 clicked */}
-                            <div className={ApiClassNames.INTERACTIVE}
-                                    onClick={this.onChange.bind(
-                                        this,
-                                        itemNum,
-                                        catNum
-                                    )}>
+                            <div
+                                className={ApiClassNames.INTERACTIVE}
+                                onClick={this.onChange.bind(
+                                    this,
+                                    itemNum,
+                                    catNum
+                                )}
+                            >
                                 <input
                                     type="radio"
                                     name={uniqueId}
@@ -96,7 +110,7 @@ var Categorizer = React.createClass({
                                         catNum
                                     )}
                                     onClick={(e) => e.stopPropagation()}
-                                    />
+                                />
                                 <span></span>
                             </div>
                         </td>;
@@ -105,24 +119,13 @@ var Categorizer = React.createClass({
             })}</tbody>
         </table></div>;
     },
-
-    onChange: function(itemNum, catNum) {
-        var values = _.clone(this.props.values);
-        values[itemNum] = catNum;
-        this.change("values", values);
-        this.props.trackInteraction();
-    },
-
-    simpleValidate: function(rubric) {
-        return Categorizer.validate(this.getUserInput(), rubric);
-    }
 });
 
 
 _.extend(Categorizer, {
     validate: function(state, rubric) {
-        var completed = true;
-        var allCorrect = true;
+        let completed = true;
+        let allCorrect = true;
         _.each(rubric.values, function(value, i) {
             if (state.values[i] == null) {
                 completed = false;
@@ -134,16 +137,17 @@ _.extend(Categorizer, {
         if (!completed) {
             return {
                 type: "invalid",
-                message: i18n._("Make sure you select something for every row.")
+                message:
+                    i18n._("Make sure you select something for every row."),
             };
         }
         return {
             type: "points",
             earned: allCorrect ? 1 : 0,
             total: 1,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 module.exports = {

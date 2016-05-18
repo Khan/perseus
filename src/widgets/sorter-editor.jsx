@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const _ = require("underscore");
 
@@ -14,21 +10,30 @@ const VERTICAL = "vertical";
 
 const SorterEditor = React.createClass({
     propTypes: {
-        correct: React.PropTypes.array,
+        correct: React.PropTypes.arrayOf(React.PropTypes.string),
         layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
-        padding: React.PropTypes.bool
+        onChange: React.PropTypes.func.isRequired,
+        padding: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
         return {
             correct: ["$x$", "$y$", "$z$"],
             layout: HORIZONTAL,
-            padding: true
+            padding: true,
         };
     },
 
+    onLayoutChange: function(e) {
+        this.props.onChange({layout: e.target.value});
+    },
+
+    serialize: function() {
+        return _.pick(this.props, "correct", "layout", "padding");
+    },
+
     render: function() {
-        var editor = this;
+        const editor = this;
 
         return <div>
             <div>
@@ -44,12 +49,15 @@ const SorterEditor = React.createClass({
                 onChange={function(options, cb) {
                     editor.props.onChange({correct: options}, cb);
                 }}
-                layout={this.props.layout} />
+                layout={this.props.layout}
+            />
             <div>
                 <label>
                     {' '}Layout:{' '}
-                    <select value={this.props.layout}
-                            onChange={this.onLayoutChange}>
+                    <select
+                        value={this.props.layout}
+                        onChange={this.onLayoutChange}
+                    >
                         <option value={HORIZONTAL}>Horizontal</option>
                         <option value={VERTICAL}>Vertical</option>
                     </select>
@@ -64,21 +72,14 @@ const SorterEditor = React.createClass({
                 <PropCheckBox
                     label="Padding:"
                     padding={this.props.padding}
-                    onChange={this.props.onChange} />
+                    onChange={this.props.onChange}
+                />
                 <InfoTip>
                     <p>Padding is good for text, but not needed for images.</p>
                 </InfoTip>
             </div>
         </div>;
     },
-
-    onLayoutChange: function(e) {
-        this.props.onChange({layout: e.target.value});
-    },
-
-    serialize: function() {
-        return _.pick(this.props, "correct", "layout", "padding");
-    }
 });
 
 module.exports = SorterEditor;

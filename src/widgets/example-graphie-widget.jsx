@@ -1,38 +1,34 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-unused-vars, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * This is an example graphie-using widget
  *
  * TODO(jack): Add more comments
  */
 
-var React = require('react');
-var _ = require("underscore");
+const React = require('react');
+const _ = require("underscore");
 
-var Util = require("../util.js");
-var Changeable = require("../mixins/changeable.jsx");
-var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
+const Util = require("../util.js");
+const Changeable = require("../mixins/changeable.jsx");
+const WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
-var Graphie = require("../components/graphie.jsx");
-var MovablePoint = Graphie.MovablePoint;
+const Graphie = require("../components/graphie.jsx");
+const MovablePoint = Graphie.MovablePoint;
 
-var knumber = require("kmath").number;
-var kpoint = require("kmath").point;
+const kpoint = require("kmath").point;
 
 /**
  * This is the widget's renderer. It shows up in the right column
  * in the demo, and is what is visible to users, and where
  * users enter their answers.
  */
-var ExampleGraphieWidget = React.createClass({
-    mixins: [Changeable, WidgetJsonifyDeprecated],
-
+const ExampleGraphieWidget = React.createClass({
     propTypes: {
-        graph: React.PropTypes.object.isRequired,
-        coord: React.PropTypes.arrayOf(React.PropTypes.number)
+        coord: React.PropTypes.arrayOf(React.PropTypes.number),
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        graph: React.PropTypes.any.isRequired,
     },
+
+    mixins: [Changeable, WidgetJsonifyDeprecated],
 
     getDefaultProps: function() {
         return {
@@ -48,32 +44,14 @@ var ExampleGraphieWidget = React.createClass({
                 valid: true,
                 backgroundImage: null,
                 markings: "grid",
-                showProtractor: false
-            }
+                showProtractor: false,
+            },
         };
-    },
-
-    render: function() {
-        return <Graphie
-                ref="graphie"
-                box={this.props.graph.box}
-                range={this.props.graph.range}
-                options={this.props.graph}
-                setup={this.setupGraphie}>
-            <MovablePoint
-                    pointSize={5}
-                    coord={this.props.coord || [0, 0]}
-                    constraints={[
-                        MovablePoint.constraints.snap(),
-                        MovablePoint.constraints.bound()
-                    ]}
-                    onMove={this.movePoint} />
-        </Graphie>;
     },
 
     movePoint: function(newCoord) {
         this.change({
-            coord: newCoord
+            coord: newCoord,
         });
     },
 
@@ -88,7 +66,7 @@ var ExampleGraphieWidget = React.createClass({
     },
 
     setupGraphie: function(graphie, options) {
-        var gridConfig = this._getGridConfig(options);
+        const gridConfig = this._getGridConfig(options);
         graphie.graphInit({
             range: options.range,
             scale: _.pluck(gridConfig, "scale"),
@@ -97,14 +75,34 @@ var ExampleGraphieWidget = React.createClass({
             gridStep: options.gridStep,
             tickStep: _.pluck(gridConfig, "tickStep"),
             labelStep: 1,
-            unityLabels: _.pluck(gridConfig, "unityLabel")
+            unityLabels: _.pluck(gridConfig, "unityLabel"),
         });
         graphie.label([0, options.range[1][1]], options.labels[1], "above");
     },
 
     simpleValidate: function(rubric) {
         return ExampleGraphieWidget.validate(this.getUserInput(), rubric);
-    }
+    },
+
+    render: function() {
+        return <Graphie
+            ref="graphie"
+            box={this.props.graph.box}
+            range={this.props.graph.range}
+            options={this.props.graph}
+            setup={this.setupGraphie}
+        >
+            <MovablePoint
+                pointSize={5}
+                coord={this.props.coord || [0, 0]}
+                constraints={[
+                    MovablePoint.constraints.snap(),
+                    MovablePoint.constraints.bound(),
+                ]}
+                onMove={this.movePoint}
+            />
+        </Graphie>;
+    },
 });
 
 
@@ -116,24 +114,24 @@ _.extend(ExampleGraphieWidget, {
         if (state.coord == null) {
             return {
                 type: "invalid",
-                message: null
+                message: null,
             };
         } else if (kpoint.equal(state.coord, rubric.correct)) {
             return {
                 type: "points",
                 earned: 1,
                 total: 1,
-                message: null
+                message: null,
             };
         } else {
             return {
                 type: "points",
                 earned: 0,
                 total: 1,
-                message: null
+                message: null,
             };
         }
-    }
+    },
 });
 
 /**

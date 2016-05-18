@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, max-len, no-var, one-var, react/jsx-closing-bracket-location, react/sort-comp, space-before-function-paren */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
@@ -17,17 +13,17 @@ const Plotter = require("./plotter.jsx").widget;
 
 const knumber = require("kmath").knumber;
 
-const BAR = "bar",
-    LINE = "line",
-    PIC = "pic",
-    HISTOGRAM = "histogram",
-    DOTPLOT = "dotplot";
+const BAR = "bar";
+const LINE = "line";
+const PIC = "pic";
+const HISTOGRAM = "histogram";
+const DOTPLOT = "dotplot";
 
 // Return a copy of array with length n, padded with given value
 function padArray(array, n, value) {
-    var copy = _.clone(array);
+    const copy = _.clone(array);
     copy.length = n;
-    for (var i = array.length; i < n; i++) {
+    for (let i = array.length; i < n; i++) {
         copy[i] = value;
     }
     return copy;
@@ -36,7 +32,7 @@ function padArray(array, n, value) {
 const editorDefaults = {
     scaleY: 1,
     maxY: 10,
-    snapsPerLine: 2
+    snapsPerLine: 2,
 };
 
 const widgetPropTypes = {
@@ -44,7 +40,7 @@ const widgetPropTypes = {
     labels: React.PropTypes.arrayOf(React.PropTypes.string),
     categories: React.PropTypes.arrayOf(React.PropTypes.oneOfType([
         React.PropTypes.number,
-        React.PropTypes.string
+        React.PropTypes.string,
     ])),
 
     scaleY: React.PropTypes.number,
@@ -61,12 +57,12 @@ const widgetPropTypes = {
     static: React.PropTypes.bool,
 };
 
-var formatNumber = (num) => "$" + knumber.round(num, 2) + "$";
+const formatNumber = (num) => "$" + knumber.round(num, 2) + "$";
 
 const PlotterEditor = React.createClass({
     propTypes: widgetPropTypes,
 
-    getDefaultProps: function () {
+    getDefaultProps: function() {
         return _.extend({}, editorDefaults, {
             correct: [1],
             starting: [1],
@@ -80,7 +76,7 @@ const PlotterEditor = React.createClass({
             picUrl: Khan.imageBase + "badges/earth-small.png",
 
             plotDimensions: [275, 200],
-            labelInterval: 1
+            labelInterval: 1,
         });
     },
 
@@ -91,7 +87,7 @@ const PlotterEditor = React.createClass({
             loadedUrl: null,
             minX: null,
             maxX: null,
-            tickStep: null
+            tickStep: null,
         };
     },
 
@@ -105,22 +101,167 @@ const PlotterEditor = React.createClass({
 
     fetchPic: function(url) {
         if (this.state.loadedUrl !== url) {
-            var pic = new Image();
+            const pic = new Image();
             pic.src = url;
             pic.onload = () => {
                 this.setState({
                     pic: pic,
-                    loadedUrl: url
+                    loadedUrl: url,
                 });
             };
         }
     },
 
+    handleChangeTickStep: function(value) {
+        this.setState({
+            tickStep: value,
+        });
+    },
+
+    handleChangeRange: function(newValue) {
+        this.setState({
+            minX: newValue[0],
+            maxX: newValue[1],
+        });
+    },
+
+    changeLabelInterval: function(value) {
+        this.props.onChange({
+            labelInterval: value,
+        });
+    },
+
+    handlePlotterChange: function(newProps) {
+        const props = {};
+        props[this.state.editing] = newProps.values;
+        this.props.onChange(props);
+    },
+
+    changeType: function(type) {
+        let categories;
+        if (type === HISTOGRAM) {
+            // Switching to histogram, add a label (0) to the left
+            categories = [formatNumber(0)].concat(this.props.categories);
+            this.props.onChange({type: type, categories: categories});
+        } else if (this.props.type === HISTOGRAM) {
+            // Switching from histogram, remove a label from the left
+            categories = this.props.categories.slice(1);
+            this.props.onChange({type: type, categories: categories});
+        } else {
+            this.props.onChange({type: type});
+        }
+
+        if (categories) {
+            ReactDOM.findDOMNode(this.refs.categories).value =
+                categories.join(", ");
+        }
+    },
+
+    changeLabel: function(i, e) {
+        const labels = _.clone(this.props.labels);
+        labels[i] = e.target.value;
+        this.props.onChange({labels: labels});
+    },
+
+    changePicUrl: function(value) {
+        // We don't need the labels and other data in the plotter, so just
+        // extract the raw image and use that.
+        // TODO(emily): Maybe indicate that such a change has happened?
+        const url = SvgImage.getRealImageUrl(value);
+
+        this.props.onChange({picUrl: url});
+    },
+
+    changeCategories: function(categories) {
+        let n = categories.length;
+        if (this.props.type === HISTOGRAM) {
+            // Histograms with n labels/categories have n - 1 buckets
+            n--;
+        }
+        const value = this.props.scaleY;
+
+        this.props.onChange({
+            categories: categories,
+            correct: padArray(this.props.correct, n, value),
+            starting: padArray(this.props.starting, n, value),
+        });
+    },
+
+    changeScale: function(e) {
+        const oldScale = this.props.scaleY;
+        const newScale = +e.target.value || editorDefaults.scaleY;
+
+        const scale = function(value) {
+            return value * newScale / oldScale;
+        };
+
+        const maxY = scale(this.props.maxY);
+
+        this.props.onChange({
+            scaleY: newScale,
+            maxY: maxY,
+            correct: _.map(this.props.correct, scale),
+            starting: _.map(this.props.starting, scale),
+        });
+
+        ReactDOM.findDOMNode(this.refs.maxY).value = maxY;
+    },
+
+    changeMax: function(e) {
+        this.props.onChange({
+            maxY: +e.target.value || editorDefaults.maxY,
+        });
+    },
+
+    changeSnaps: function(e) {
+        this.props.onChange({
+            snapsPerLine: +e.target.value || editorDefaults.snapsPerLine,
+        });
+    },
+
+    changeEditing: function(editing) {
+        this.setState({editing: editing});
+    },
+
+    setCategoriesFromScale: function() {
+        const scale = this.state.tickStep || 1;
+        const min = this.state.minX || 0;
+        const max = this.state.maxX || 0;
+        const length = Math.floor((max - min) / scale) * scale;
+
+        let categories;
+        if (this.props.type === HISTOGRAM || this.props.type === DOTPLOT) {
+            // Ranges for histogram and dotplot labels should start at zero
+            categories = _.range(0, length + scale, scale);
+        } else {
+            categories = _.range(scale, length + scale, scale);
+        }
+
+        categories = _.map(categories, (num) => num + min);
+        categories = _.map(categories, formatNumber);
+
+        this.changeCategories(categories);
+
+        ReactDOM.findDOMNode(this.refs.categories).value =
+            categories.join(", ");
+    },
+
+    serialize: function() {
+        const json = _.pick(this.props, "correct", "starting", "type", "labels",
+            "categories", "scaleY", "maxY", "snapsPerLine", "labelInterval");
+
+        if (this.props.type === PIC) {
+            json.picUrl = this.props.picUrl;
+        }
+
+        return json;
+    },
+
     render: function() {
-        var setFromScale = _.contains([LINE, HISTOGRAM, DOTPLOT],
+        const setFromScale = _.contains([LINE, HISTOGRAM, DOTPLOT],
                                       this.props.type);
-        var canChangeSnaps = !_.contains([PIC, DOTPLOT], this.props.type);
-        var props = {
+        const canChangeSnaps = !_.contains([PIC, DOTPLOT], this.props.type);
+        const props = {
             trackInteraction: () => {},
             ...this.props,
         };
@@ -134,7 +275,8 @@ const PlotterEditor = React.createClass({
                             type="radio"
                             name="chart-type"
                             checked={this.props.type === type}
-                            onChange={_.partial(this.changeType, type)} />
+                            onChange={_.partial(this.changeType, type)}
+                        />
                         {type}
                     </label>;
                 }, this)}
@@ -147,7 +289,8 @@ const PlotterEditor = React.createClass({
                         <input
                             type="text"
                             onChange={_.partial(this.changeLabel, i)}
-                            defaultValue={this.props.labels[i]} />
+                            defaultValue={this.props.labels[i]}
+                        />
                     </label>;
                 }, this)}
             </div>
@@ -163,7 +306,8 @@ const PlotterEditor = React.createClass({
                             placeholder={1}
                             useArrowKeys={true}
                             value={this.state.tickStep}
-                            onChange={this.handleChangeTickStep} />
+                            onChange={this.handleChangeTickStep}
+                        />
                     </label>
                     <InfoTip>
                         <p>The difference between adjacent ticks.</p>
@@ -176,7 +320,8 @@ const PlotterEditor = React.createClass({
                             placeholder={[0, 10]}
                             useArrowKeys={true}
                             value={[this.state.minX, this.state.maxX]}
-                            onChange={this.handleChangeRange} />
+                            onChange={this.handleChangeRange}
+                        />
                     </label>
                 </div>
                 <div>
@@ -191,7 +336,8 @@ const PlotterEditor = React.createClass({
                     <NumberInput
                         useArrowKeys={true}
                         value={this.props.labelInterval}
-                        onChange={this.changeLabelInterval} />
+                        onChange={this.changeLabelInterval}
+                    />
                 </label>
                 <InfoTip>
                     <p>Which ticks to display the labels for. For instance,
@@ -205,7 +351,8 @@ const PlotterEditor = React.createClass({
                     <BlurInput
                         className="pic-url"
                         value={this.props.picUrl}
-                        onChange={this.changePicUrl} />
+                        onChange={this.changePicUrl}
+                    />
                 <InfoTip>
                     <p>Use the default picture of Earth, or insert the URL for
                     a different picture using the "Add image" function.</p>
@@ -226,7 +373,8 @@ const PlotterEditor = React.createClass({
                         ref="categories"
                         layout="horizontal"
                         options={this.props.categories}
-                        onChange={this.changeCategories} />
+                        onChange={this.changeCategories}
+                    />
                 </label>
             </div>
             <div>
@@ -235,7 +383,8 @@ const PlotterEditor = React.createClass({
                     <input
                         type="text"
                         onChange={this.changeScale}
-                        defaultValue={this.props.scaleY} />
+                        defaultValue={this.props.scaleY}
+                    />
                 </label>
             </div>
             <div>
@@ -245,7 +394,8 @@ const PlotterEditor = React.createClass({
                         type="text"
                         ref="maxY"
                         onChange={this.changeMax}
-                        defaultValue={this.props.maxY} />
+                        defaultValue={this.props.maxY}
+                    />
                 </label>
             </div>
             {canChangeSnaps && <div>
@@ -254,7 +404,8 @@ const PlotterEditor = React.createClass({
                     <input
                         type="text"
                         onChange={this.changeSnaps}
-                        defaultValue={this.props.snapsPerLine} />
+                        defaultValue={this.props.snapsPerLine}
+                    />
                 </label>
                 <InfoTip>
                     <p>Creates the specified number of divisions between the
@@ -270,7 +421,8 @@ const PlotterEditor = React.createClass({
                             type="radio"
                             name="editing"
                             checked={this.state.editing === editing}
-                            onChange={_.partial(this.changeEditing, editing)}/>
+                            onChange={_.partial(this.changeEditing, editing)}
+                        />
                         {editing}
                     </label>;
                 }, this)}
@@ -287,152 +439,10 @@ const PlotterEditor = React.createClass({
             <Plotter
                 {...props}
                 starting={this.props[this.state.editing]}
-                onChange={this.handlePlotterChange} />
+                onChange={this.handlePlotterChange}
+            />
         </div>;
     },
-
-    handleChangeTickStep: function(value) {
-        this.setState({
-            tickStep: value
-        });
-    },
-
-    handleChangeRange: function(newValue) {
-        this.setState({
-            minX: newValue[0],
-            maxX: newValue[1]
-        });
-    },
-
-    changeLabelInterval: function(value) {
-        this.props.onChange({
-            labelInterval: value
-        });
-    },
-
-    handlePlotterChange: function(newProps) {
-        var props = {};
-        props[this.state.editing] = newProps.values;
-        this.props.onChange(props);
-    },
-
-    changeType: function(type) {
-        var categories;
-        if (type === HISTOGRAM) {
-            // Switching to histogram, add a label (0) to the left
-            categories = [formatNumber(0)].concat(this.props.categories);
-            this.props.onChange({type: type, categories: categories});
-        } else if (this.props.type === HISTOGRAM) {
-            // Switching from histogram, remove a label from the left
-            categories = this.props.categories.slice(1);
-            this.props.onChange({type: type, categories: categories});
-        } else {
-            this.props.onChange({type: type});
-        }
-
-        if (categories) {
-            ReactDOM.findDOMNode(this.refs.categories).value = categories.join(", ");
-        }
-    },
-
-    changeLabel: function(i, e) {
-        var labels = _.clone(this.props.labels);
-        labels[i] = e.target.value;
-        this.props.onChange({labels: labels});
-    },
-
-    changePicUrl: function(value) {
-        // We don't need the labels and other data in the plotter, so just
-        // extract the raw image and use that.
-        // TODO(emily): Maybe indicate that such a change has happened?
-        var url = SvgImage.getRealImageUrl(value);
-
-        this.props.onChange({picUrl: url});
-    },
-
-    changeCategories: function(categories) {
-        var n = categories.length;
-        if (this.props.type === HISTOGRAM) {
-            // Histograms with n labels/categories have n - 1 buckets
-            n--;
-        }
-        var value = this.props.scaleY;
-
-        this.props.onChange({
-            categories: categories,
-            correct: padArray(this.props.correct, n, value),
-            starting: padArray(this.props.starting, n, value)
-        });
-    },
-
-    changeScale: function(e) {
-        var oldScale = this.props.scaleY;
-        var newScale = +e.target.value || editorDefaults.scaleY;
-
-        var scale = function(value) {
-            return value * newScale / oldScale;
-        };
-
-        var maxY = scale(this.props.maxY);
-
-        this.props.onChange({
-            scaleY: newScale,
-            maxY: maxY,
-            correct: _.map(this.props.correct, scale),
-            starting: _.map(this.props.starting, scale)
-        });
-
-        ReactDOM.findDOMNode(this.refs.maxY).value = maxY;
-    },
-
-    changeMax: function(e) {
-        this.props.onChange({
-            maxY: +e.target.value || editorDefaults.maxY
-        });
-    },
-
-    changeSnaps: function(e) {
-        this.props.onChange({
-            snapsPerLine: +e.target.value || editorDefaults.snapsPerLine
-        });
-    },
-
-    changeEditing: function(editing) {
-        this.setState({editing: editing});
-    },
-
-    setCategoriesFromScale: function() {
-        var scale = this.state.tickStep || 1;
-        var min = this.state.minX || 0;
-        var max = this.state.maxX || 0;
-        var length = Math.floor((max - min) / scale) * scale;
-
-        var categories;
-        if (this.props.type === HISTOGRAM || this.props.type === DOTPLOT) {
-            // Ranges for histogram and dotplot labels should start at zero
-            categories = _.range(0, length + scale, scale);
-        } else {
-            categories = _.range(scale, length + scale, scale);
-        }
-
-        categories = _.map(categories, (num) => num + min);
-        categories = _.map(categories, formatNumber);
-
-        this.changeCategories(categories);
-
-        ReactDOM.findDOMNode(this.refs.categories).value = categories.join(", ");
-    },
-
-    serialize: function() {
-        var json = _.pick(this.props, "correct", "starting", "type", "labels",
-            "categories", "scaleY", "maxY", "snapsPerLine", "labelInterval");
-
-        if (this.props.type === PIC) {
-            json.picUrl = this.props.picUrl;
-        }
-
-        return json;
-    }
 });
 
 module.exports = PlotterEditor;

@@ -1,34 +1,29 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-/*eslint-disable no-console */
 /* globals KA */
-var $ = require("jquery");
-var React = require('react');
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
-var classNames = require("classnames");
+const $ = require("jquery");
+const React = require('react');
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
+const classNames = require("classnames");
 
-var JiptParagraphs = require("./jipt-paragraphs.jsx");
-var PerseusMarkdown = require("./perseus-markdown.jsx");
-var QuestionParagraph = require("./question-paragraph.jsx");
-var SvgImage = require("./components/svg-image.jsx");
-var TeX = require("react-components/tex.jsx");
-var WidgetContainer = require("./widget-container.jsx");
-var Widgets = require("./widgets.js");
-var getHintsIndex = require("./get-hints-index.jsx");
+const JiptParagraphs = require("./jipt-paragraphs.jsx");
+const PerseusMarkdown = require("./perseus-markdown.jsx");
+const QuestionParagraph = require("./question-paragraph.jsx");
+const SvgImage = require("./components/svg-image.jsx");
+const TeX = require("react-components/tex.jsx");
+const WidgetContainer = require("./widget-container.jsx");
+const Widgets = require("./widgets.js");
+const getHintsIndex = require("./get-hints-index.jsx");
 const { Keypad } = require("../math-input").components;
 const { activateKeypad, dismissKeypad } = require("../math-input").actions;
 
-var Util = require("./util.js");
-var EnabledFeatures = require("./enabled-features.jsx");
-var ApiOptions = require("./perseus-api.jsx").Options;
-var ApiClassNames = require("./perseus-api.jsx").ClassNames;
+const Util = require("./util.js");
+const EnabledFeatures = require("./enabled-features.jsx");
+const ApiOptions = require("./perseus-api.jsx").Options;
+const ApiClassNames = require("./perseus-api.jsx").ClassNames;
 
-var {mapObject, mapObjectFromArray} = require("./interactive2/objective_.js");
+const {mapObject, mapObjectFromArray} = require("./interactive2/objective_.js");
 
-var specialChars = {
+const specialChars = {
     // escaped: original
     "\\a": "\u0007", // \a isn't valid javascript
     "\\b": "\b",
@@ -40,8 +35,8 @@ var specialChars = {
     "\\\\": "\\",
 };
 
-var rEscapedChars = /\\a|\\b|\\t|\\n|\\v|\\f|\\r|\\\\/g;
-var rContainsNonWhitespace = /\S/;
+const rEscapedChars = /\\a|\\b|\\t|\\n|\\v|\\f|\\r|\\\\/g;
+const rContainsNonWhitespace = /\S/;
 
 if (typeof KA !== "undefined" && KA.language === "en-pt") {
     // When using crowdin's jipt (Just in place translation), we need to keep a
@@ -56,12 +51,12 @@ if (typeof KA !== "undefined" && KA.language === "en-pt") {
     // We add a function that will get called whenever jipt says the dom needs
     // to be updated
     KA.jipt_dom_insert_checks.push(function(text, node, attribute) {
-        var $node = $(node);
-        var index = $node.data("perseus-component-index");
-        var paragraphIndex = $node.data("perseus-paragraph-index");
+        const $node = $(node);
+        const index = $node.data("perseus-component-index");
+        const paragraphIndex = $node.data("perseus-paragraph-index");
         // We only update if we had added an index onto the node's data.
         if (node && typeof index !== "undefined") {
-            var component = window.PerseusTranslationComponents[index];
+            const component = window.PerseusTranslationComponents[index];
 
             if (!component) {
                 // The component has disappeared, so we tell jipt not to try
@@ -87,7 +82,7 @@ if (typeof KA !== "undefined" && KA.language === "en-pt") {
     });
 }
 
-var SHOULD_CLEAR_WIDGETS_PROP_LIST = [
+const SHOULD_CLEAR_WIDGETS_PROP_LIST = [
     "content",
     "problemNum",
     "widgets",
@@ -99,7 +94,7 @@ var SHOULD_CLEAR_WIDGETS_PROP_LIST = [
 // Otherwise, prefix is calculated by whether every array
 // element in the prefix is present in the same position in the
 // wholeArray path.
-var isIdPathPrefix = function(prefixArray, wholeArray) {
+const isIdPathPrefix = function(prefixArray, wholeArray) {
     if (prefixArray === null || wholeArray === null) {
         return prefixArray === wholeArray;
     }
@@ -117,7 +112,7 @@ var isIdPathPrefix = function(prefixArray, wholeArray) {
  * @param setting string setting for tracking (either "" for track once or
  *          "all")
  */
-var InteractionTracker = function(trackApi, widgetType, widgetID, setting) {
+const InteractionTracker = function(trackApi, widgetType, widgetID, setting) {
     if (!trackApi) {
         this.track = this._noop;
     } else {
@@ -158,7 +153,7 @@ InteractionTracker.prototype._track = function(extraData) {
 InteractionTracker.prototype._noop = function() {};
 
 
-var Renderer = React.createClass({
+const Renderer = React.createClass({
     propTypes: {
         alwaysUpdate: React.PropTypes.bool,
         apiOptions: React.PropTypes.any,
@@ -211,7 +206,7 @@ var Renderer = React.createClass({
         this.handleRender({});
         this._currentFocus = null;
 
-        var apiOptions = this.getApiOptions(this.props);
+        const apiOptions = this.getApiOptions(this.props);
 
         if (apiOptions.customKeypad) {
             // We create the keypad when the item is rendered.  The keypad is
@@ -248,18 +243,20 @@ var Renderer = React.createClass({
             // TODO(aria): cry
             return true;
         }
-        var stateChanged = !_.isEqual(this.state, nextState);
-        var propsChanged = !_.isEqual(this.props, nextProps);
+        const stateChanged = !_.isEqual(this.state, nextState);
+        const propsChanged = !_.isEqual(this.props, nextProps);
         return propsChanged || stateChanged;
     },
 
     componentWillUpdate: function(nextProps, nextState) {
-        var oldJipt = this.shouldRenderJiptPlaceholder(this.props, this.state);
-        var newJipt = this.shouldRenderJiptPlaceholder(nextProps, nextState);
-        var oldContent = this.getContent(this.props, this.state);
-        var newContent = this.getContent(nextProps, nextState);
-        var oldHighlightedWidgets = this.props.highlightedWidgets;
-        var newHighlightedWidgets = nextProps.highlightedWidgets;
+        const oldJipt =
+            this.shouldRenderJiptPlaceholder(this.props, this.state);
+        const newJipt =
+            this.shouldRenderJiptPlaceholder(nextProps, nextState);
+        const oldContent = this.getContent(this.props, this.state);
+        const newContent = this.getContent(nextProps, nextState);
+        const oldHighlightedWidgets = this.props.highlightedWidgets;
+        const newHighlightedWidgets = nextProps.highlightedWidgets;
 
         // TODO(jared): This seems to be a perfect overlap with
         // "shouldComponentUpdate" -- can we just remove this
@@ -288,7 +285,7 @@ var Renderer = React.createClass({
         // they are re-rendered, so even if they've been
         // re-rendered we need to call these methods on them.
         _.each(this.widgetIds, (id) => {
-            var container = this.refs["container:" + id];
+            const container = this.refs["container:" + id];
             container.replaceWidgetProps(
                 this.getWidgetProps(id)
             );
@@ -309,7 +306,7 @@ var Renderer = React.createClass({
 
     _getInitialWidgetState: function(props) {
         props = props || this.props;
-        var allWidgetInfo = this._getAllWidgetsInfo(props);
+        const allWidgetInfo = this._getAllWidgetsInfo(props);
         return {
             widgetInfo: allWidgetInfo,
             widgetProps: this._getAllWidgetsStartProps(allWidgetInfo, props),
@@ -320,7 +317,7 @@ var Renderer = React.createClass({
         props = props || this.props;
         return mapObject(props.widgets, (widgetInfo, widgetId) => {
             if (!widgetInfo.type || !widgetInfo.alignment) {
-                var newValues = {};
+                const newValues = {};
 
                 if (!widgetInfo.type) {
                     newValues.type = widgetId.split(" ")[0];
@@ -345,7 +342,7 @@ var Renderer = React.createClass({
     },
 
     _getDefaultWidgetInfo: function(widgetId) {
-        var widgetIdParts = Util.rTypeFromWidgetId.exec(widgetId);
+        const widgetIdParts = Util.rTypeFromWidgetId.exec(widgetId);
         if (widgetIdParts == null) {
             return {};
         }
@@ -362,7 +359,7 @@ var Renderer = React.createClass({
     },
 
     renderWidget: function(impliedType, id, state) {
-        var widgetInfo = this.state.widgetInfo[id];
+        const widgetInfo = this.state.widgetInfo[id];
 
         if (widgetInfo && widgetInfo.alignment === "full-width") {
             state.foundFullWidth = true;
@@ -370,8 +367,8 @@ var Renderer = React.createClass({
 
         if (widgetInfo || this.props.ignoreMissingWidgets) {
 
-            var type = (widgetInfo && widgetInfo.type) || impliedType;
-            var shouldHighlight = _.contains(
+            const type = (widgetInfo && widgetInfo.type) || impliedType;
+            const shouldHighlight = _.contains(
                 this.props.highlightedWidgets,
                 id
             );
@@ -401,12 +398,12 @@ var Renderer = React.createClass({
     },
 
     getWidgetProps: function(id) {
-        var widgetProps = this.state.widgetProps[id] || {};
+        const widgetProps = this.state.widgetProps[id] || {};
 
         // The widget needs access to its "rubric" at all times when in review
         // mode (which is really just part of its widget info).
-        var reviewModeRubric = null;
-        var widgetInfo = this.state.widgetInfo[id];
+        let reviewModeRubric = null;
+        const widgetInfo = this.state.widgetInfo[id];
         if (this.props.reviewMode && widgetInfo) {
             reviewModeRubric = widgetInfo.options;
         }
@@ -415,7 +412,7 @@ var Renderer = React.createClass({
             this._interactionTrackers = {};
         }
 
-        var interactionTracker = this._interactionTrackers[id];
+        let interactionTracker = this._interactionTrackers[id];
         if (!interactionTracker) {
             interactionTracker = this._interactionTrackers[id] =
                 new InteractionTracker(this.props.apiOptions.trackInteraction,
@@ -451,7 +448,7 @@ var Renderer = React.createClass({
     */
     getSerializedState: function() {
         return mapObject(this.state.widgetProps, (props, widgetId) => {
-            var widget = this.getWidgetInstance(widgetId);
+            const widget = this.getWidgetInstance(widgetId);
             if (widget && widget.getSerializedState) {
                 return widget.getSerializedState();
             } else {
@@ -463,24 +460,26 @@ var Renderer = React.createClass({
     restoreSerializedState: function(serializedState, callback) {
         // Do some basic validation on the serialized state (just make sure the
         // widget IDs are what we expect).
-        var serializedWidgetIds = _.keys(serializedState);
-        var widgetPropIds = _.keys(this.state.widgetProps);
+        const serializedWidgetIds = _.keys(serializedState);
+        const widgetPropIds = _.keys(this.state.widgetProps);
 
         // If the two lists of IDs match (ignoring order)
         if (serializedWidgetIds.length !== widgetPropIds.length ||
                 _.intersection(serializedWidgetIds, widgetPropIds).length !==
                     serializedWidgetIds.length) {
+            /* eslint-disable no-console */
             console.error("Refusing to restore bad serialized state:",
                           serializedState, "Current props:",
                           this.state.widgetProps);
+            /* eslint-enable no-console */
             return;
         }
 
         // We want to wait until any children widgets who have a
         // restoreSerializedState function also call their own callbacks before
         // we declare that the operation is finished.
-        var numCallbacks = 1;
-        var fireCallback = () => {
+        let numCallbacks = 1;
+        const fireCallback = () => {
             --numCallbacks;
             if (callback && numCallbacks === 0) {
                 callback();
@@ -489,7 +488,7 @@ var Renderer = React.createClass({
 
         this.setState({
             widgetProps: mapObject(serializedState, (props, widgetId) => {
-                var widget = this.getWidgetInstance(widgetId);
+                const widget = this.getWidgetInstance(widgetId);
                 if (widget && widget.restoreSerializedState) {
                     // Note that we probably can't call
                     // `this.change()/this.props.onChange()` in this
@@ -500,7 +499,7 @@ var Renderer = React.createClass({
                     // If a widget has no props to change, it can
                     // safely return null.
                     ++numCallbacks;
-                    var restoreResult =
+                    const restoreResult =
                         widget.restoreSerializedState(props, fireCallback);
                     return _.extend(
                         {},
@@ -536,16 +535,16 @@ var Renderer = React.createClass({
      * Please use this one with caution.
      */
     interWidgets: function(filterCriterion) {
-        var filterFunc;
+        let filterFunc;
         // Convenience filters:
         // "interactive-graph 3" will give you [[interactive-graph 3]]
         // "interactive-graph" will give you all interactive-graphs
         if (typeof filterCriterion === "string") {
             if (filterCriterion.indexOf(' ') !== -1) {
-                var widgetId = filterCriterion;
+                const widgetId = filterCriterion;
                 filterFunc = (id, widgetInfo) => id === widgetId;
             } else {
-                var widgetType = filterCriterion;
+                const widgetType = filterCriterion;
                 filterFunc = (id, widgetInfo) => {
                     return widgetInfo.type === widgetType;
                 };
@@ -554,15 +553,15 @@ var Renderer = React.createClass({
             filterFunc = filterCriterion;
         }
 
-        var results = this.widgetIds.filter((id) => {
-            var widgetInfo = this._getWidgetInfo(id);
-            var widget = this.getWidgetInstance(id);
+        const results = this.widgetIds.filter((id) => {
+            const widgetInfo = this._getWidgetInfo(id);
+            const widget = this.getWidgetInstance(id);
             return filterFunc(id, widgetInfo, widget);
         }).map(this.getWidgetInstance);
 
         // We allow the parent of our renderer to intercept our
         // interwidgets call.
-        var propsInterWidgetResult = this.props.interWidgets(
+        const propsInterWidgetResult = this.props.interWidgets(
             filterCriterion,
             results // allow our parent to inspect the local
                     // interwidget results before acting
@@ -576,7 +575,7 @@ var Renderer = React.createClass({
     },
 
     getWidgetInstance: function(id) {
-        var ref = this.refs["container:" + id];
+        const ref = this.refs["container:" + id];
         if (!ref) {
             return null;
         }
@@ -598,11 +597,11 @@ var Renderer = React.createClass({
     },
 
     _onWidgetBlur: function(id, blurPath) {
-        var blurringFocusPath = this._currentFocus;
+        const blurringFocusPath = this._currentFocus;
 
         // Failsafe: abort if ID is different, because focus probably happened
         // before blur
-        var fullPath = [id].concat(blurPath);
+        const fullPath = [id].concat(blurPath);
         if (!_.isEqual(fullPath, blurringFocusPath)) {
             return;
         }
@@ -661,8 +660,8 @@ var Renderer = React.createClass({
             // Split the paragraphs; we have to use getContent() in case
             // nothing has been translated yet (in which case we just have
             // this.props.content)
-            var allContent = this.getContent(this.props, this.state);
-            var paragraphs = JiptParagraphs.parseToArray(allContent);
+            const allContent = this.getContent(this.props, this.state);
+            const paragraphs = JiptParagraphs.parseToArray(allContent);
             paragraphs[paragraphIndex] = content;
             this.setState({
                 jiptContent: JiptParagraphs.joinFromArray(paragraphs),
@@ -676,19 +675,19 @@ var Renderer = React.createClass({
         if (_.isArray(ast)) {
             // This is duplicated from simple-markdown
             // TODO(aria): Don't duplicate this logic
-            var oldKey = state.key;
-            var result = [];
+            const oldKey = state.key;
+            const result = [];
 
             // map nestedOutput over the ast, except group any text
             // nodes together into a single string output.
             // NOTE(aria): These are never strings--always QuestionParagraphs
             // TODO(aria): We probably don't need this string logic here.
-            var lastWasString = false;
-            for (var i = 0; i < ast.length; i++) {
+            let lastWasString = false;
+            for (let i = 0; i < ast.length; i++) {
                 state.key = i;
                 state.paragraphIndex = i;
-                var nodeOut = this.outputMarkdown(ast[i], state);
-                var isString = (typeof nodeOut === "string");
+                const nodeOut = this.outputMarkdown(ast[i], state);
+                const isString = (typeof nodeOut === "string");
                 if (isString && lastWasString) {
                     result[result.length - 1] += nodeOut;
                 } else {
@@ -704,7 +703,7 @@ var Renderer = React.createClass({
             // because I wrote a bad interface to simple-markdown.js' `output`
             this._foundTextNodes = false;
             state.foundFullWidth = false;
-            var output = this.outputNested(ast, state);
+            const output = this.outputNested(ast, state);
 
             // In Jipt-land, we need to render the exact same outer
             // QuestionParagraph nodes always. This means the number of
@@ -720,7 +719,7 @@ var Renderer = React.createClass({
             // the same because we don't know at the time of the first
             // render whether they are full-bleed or centered, since they
             // only contain crowdin IDs like `crwdns:972384209:0...`
-            var className;
+            let className;
             if (this.translationIndex != null) {
                 className = null;
             } else {
@@ -750,16 +749,16 @@ var Renderer = React.createClass({
         if (_.isArray(ast)) {
             // This is duplicated from simple-markdown
             // TODO(aria): Don't duplicate this logic
-            var oldKey = state.key;
-            var result = [];
+            const oldKey = state.key;
+            const result = [];
 
             // map nestedOutput over the ast, except group any text
             // nodes together into a single string output.
-            var lastWasString = false;
-            for (var i = 0; i < ast.length; i++) {
+            let lastWasString = false;
+            for (let i = 0; i < ast.length; i++) {
                 state.key = i;
-                var nodeOut = this.outputNested(ast[i], state);
-                var isString = (typeof nodeOut === "string");
+                const nodeOut = this.outputNested(ast[i], state);
+                const isString = (typeof nodeOut === "string");
                 if (isString && lastWasString) {
                     result[result.length - 1] += nodeOut;
                 } else {
@@ -777,10 +776,10 @@ var Renderer = React.createClass({
 
     // output individual AST nodes [not arrays]
     outputNode: function(node, nestedOutput, state) {
-        var apiOptions = this.getApiOptions(this.props);
+        const apiOptions = this.getApiOptions(this.props);
 
         if (node.type === "widget") {
-            var widgetPlaceholder = apiOptions.widgetPlaceholder;
+            const widgetPlaceholder = apiOptions.widgetPlaceholder;
 
             if (widgetPlaceholder) {
                 return widgetPlaceholder;
@@ -841,7 +840,7 @@ var Renderer = React.createClass({
             </span>;
 
         } else if (node.type === "image") {
-            var imagePlaceholder = apiOptions.imagePlaceholder;
+            const imagePlaceholder = apiOptions.imagePlaceholder;
 
             if (imagePlaceholder) {
                 return imagePlaceholder;
@@ -852,7 +851,7 @@ var Renderer = React.createClass({
 
             // We do a _.has check here to avoid weird things like
             // 'toString' or '__proto__' as a url.
-            var extraAttrs = (_.has(this.props.images, node.target)) ?
+            const extraAttrs = (_.has(this.props.images, node.target)) ?
                 this.props.images[node.target] :
                 null;
 
@@ -862,7 +861,7 @@ var Renderer = React.createClass({
             // responsive images don't do very well within tables. To avoid
             // haphazard sizing, simply make images within tables unresponsive.
             // TODO(alex): Make tables themselves responsive.
-            var responsive = !state.inTable;
+            const responsive = !state.inTable;
 
             return <SvgImage
                 key={state.key}
@@ -891,7 +890,8 @@ var Renderer = React.createClass({
 
         } else if (node.type === "table") {
             state.inTable = true;
-            var output = PerseusMarkdown.ruleOutput(node, nestedOutput, state);
+            const output =
+                PerseusMarkdown.ruleOutput(node, nestedOutput, state);
             state.inTable = false;
             return output;
 
@@ -903,9 +903,9 @@ var Renderer = React.createClass({
     },
 
     handleRender: function(prevProps) {
-        var onRender = this.props.onRender;
-        var oldOnRender = prevProps.onRender;
-        var $images = $(ReactDOM.findDOMNode(this)).find("img");
+        const onRender = this.props.onRender;
+        const oldOnRender = prevProps.onRender;
+        const $images = $(ReactDOM.findDOMNode(this)).find("img");
 
         // Fire callback on image load...
         // TODO (jack): make this call happen exactly once through promises!
@@ -930,7 +930,7 @@ var Renderer = React.createClass({
         // of that widget (i.e. a transformation NumberInput inside
         // of a transformer widget).
         if (!isIdPathPrefix(path, this._currentFocus)) {
-            var prevFocus = this._currentFocus;
+            const prevFocus = this._currentFocus;
 
             if (prevFocus) {
                 this.blurPath(prevFocus);
@@ -960,12 +960,12 @@ var Renderer = React.createClass({
     },
 
     focus: function() {
-        var id;
-        var focusResult;
-        for (var i = 0; i < this.widgetIds.length; i++) {
-            var widgetId = this.widgetIds[i];
-            var widget = this.getWidgetInstance(widgetId);
-            var widgetFocusResult = widget && widget.focus && widget.focus();
+        let id;
+        let focusResult;
+        for (let i = 0; i < this.widgetIds.length; i++) {
+            const widgetId = this.widgetIds[i];
+            const widget = this.getWidgetInstance(widgetId);
+            const widgetFocusResult = widget && widget.focus && widget.focus();
             if (widgetFocusResult) {
                 id = widgetId;
                 focusResult = widgetFocusResult;
@@ -975,7 +975,7 @@ var Renderer = React.createClass({
 
         if (id) {
             // reconstruct a {path, element} focus object
-            var path;
+            let path;
             if (_.isObject(focusResult)) {
                 // The result of focus was a {path, id} object itself
                 path = [id].concat(focusResult.path || []);
@@ -991,14 +991,14 @@ var Renderer = React.createClass({
     },
 
     getDOMNodeForPath: function(path) {
-        var widgetId = _.first(path);
-        var interWidgetPath = _.rest(path);
+        const widgetId = _.first(path);
+        const interWidgetPath = _.rest(path);
 
         // Widget handles parsing of the interWidgetPath. If the path is empty
         // beyond the widgetID, as a special case we just return the widget's
         // DOM node.
-        var widget = this.getWidgetInstance(widgetId);
-        var getNode = widget.getDOMNodeForPath;
+        const widget = this.getWidgetInstance(widgetId);
+        const getNode = widget.getDOMNodeForPath;
         if (getNode) {
             return getNode(interWidgetPath);
         } else if (interWidgetPath.length === 0) {
@@ -1007,24 +1007,24 @@ var Renderer = React.createClass({
     },
 
     getGrammarTypeForPath: function(path) {
-        var widgetId = _.first(path);
-        var interWidgetPath = _.rest(path);
+        const widgetId = _.first(path);
+        const interWidgetPath = _.rest(path);
 
-        var widget = this.getWidgetInstance(widgetId);
+        const widget = this.getWidgetInstance(widgetId);
         return widget.getGrammarTypeForPath(interWidgetPath);
     },
 
     getInputPaths: function() {
-        var inputPaths = [];
+        const inputPaths = [];
         _.each(this.widgetIds, (widgetId) => {
-            var widget = this.getWidgetInstance(widgetId);
+            const widget = this.getWidgetInstance(widgetId);
             if (widget.getInputPaths) {
                 // Grab all input paths and add widgetID to the front
-                var widgetInputPaths = widget.getInputPaths();
+                const widgetInputPaths = widget.getInputPaths();
                 // Prefix paths with their widgetID and add to collective
                 // list of paths.
                 _.each(widgetInputPaths, (inputPath) => {
-                    var relativeInputPath = [widgetId].concat(inputPath);
+                    const relativeInputPath = [widgetId].concat(inputPath);
                     inputPaths.push(relativeInputPath);
                 });
             }
@@ -1042,11 +1042,11 @@ var Renderer = React.createClass({
             this.blurPath(this._currentFocus);
         }
 
-        var widgetId = _.first(path);
-        var interWidgetPath = _.rest(path);
+        const widgetId = _.first(path);
+        const interWidgetPath = _.rest(path);
 
         // Widget handles parsing of the interWidgetPath
-        var focusWidget = this.getWidgetInstance(widgetId).focusInputPath;
+        const focusWidget = this.getWidgetInstance(widgetId).focusInputPath;
         focusWidget && focusWidget(interWidgetPath);
     },
 
@@ -1056,13 +1056,13 @@ var Renderer = React.createClass({
             return;
         }
 
-        var widgetId = _.first(path);
-        var interWidgetPath = _.rest(path);
-        var widget = this.getWidgetInstance(widgetId);
+        const widgetId = _.first(path);
+        const interWidgetPath = _.rest(path);
+        const widget = this.getWidgetInstance(widgetId);
         // We might be in the editor and blurring a widget that no
         // longer exists, so only blur if we actually found the widget
         if (widget) {
-            var blurWidget = this.getWidgetInstance(widgetId).blurInputPath;
+            const blurWidget = this.getWidgetInstance(widgetId).blurInputPath;
             // Widget handles parsing of the interWidgetPath
             blurWidget && blurWidget(interWidgetPath);
         }
@@ -1075,10 +1075,10 @@ var Renderer = React.createClass({
     },
 
     serialize: function() {
-        var state = {};
+        const state = {};
         _.each(this.state.widgetInfo, function(info, id) {
-            var widget = this.getWidgetInstance(id);
-            var s = widget.serialize();
+            const widget = this.getWidgetInstance(id);
+            const s = widget.serialize();
             if (!_.isEmpty(s)) {
                 state[id] = s;
             }
@@ -1088,8 +1088,8 @@ var Renderer = React.createClass({
 
     emptyWidgets: function() {
         return _.filter(this.widgetIds, (id) => {
-            var widgetInfo = this._getWidgetInfo(id);
-            var score = this.getWidgetInstance(id).simpleValidate(
+            const widgetInfo = this._getWidgetInfo(id);
+            const score = this.getWidgetInstance(id).simpleValidate(
                 widgetInfo.options,
                 null
             );
@@ -1098,10 +1098,10 @@ var Renderer = React.createClass({
     },
 
     _setWidgetProps: function(id, newProps, cb) {
-        var widgetProps = _.clone(this.state.widgetProps);
+        const widgetProps = _.clone(this.state.widgetProps);
         widgetProps[id] = _.extend({}, widgetProps[id], newProps);
         this.setState({widgetProps: widgetProps}, () => {
-            var cbResult = cb && cb();
+            const cbResult = cb && cb();
             this.props.onInteractWithWidget(id);
             if (cbResult !== false) {
                 // TODO(jack): For some reason, some widgets don't always end
@@ -1118,9 +1118,9 @@ var Renderer = React.createClass({
     },
 
     setInputValue: function(path, newValue, focus) {
-        var widgetId = _.first(path);
-        var interWidgetPath = _.rest(path);
-        var widget = this.getWidgetInstance(widgetId);
+        const widgetId = _.first(path);
+        const interWidgetPath = _.rest(path);
+        const widget = this.getWidgetInstance(widgetId);
 
         // Widget handles parsing of the interWidgetPath.
         widget.setInputValue(interWidgetPath, newValue, focus);
@@ -1176,7 +1176,7 @@ var Renderer = React.createClass({
     getAllWidgetIds: function() {
         // Recursively builds our result
         return _.map(this.getWidgetIds(), (id) => {
-            var groupPrefix = "group";
+            const groupPrefix = "group";
             if (id.substring(0, groupPrefix.length) === groupPrefix &&
                     this.getWidgetInstance(id)) {
                 return {
@@ -1209,20 +1209,20 @@ var Renderer = React.createClass({
      * from `getWidgetIds`.
      */
     scoreWidgets: function() {
-        var widgetProps = this.state.widgetInfo;
-        var onInputError = this.props.apiOptions.onInputError ||
+        const widgetProps = this.state.widgetInfo;
+        const onInputError = this.props.apiOptions.onInputError ||
                 function() { };
 
-        var gradedWidgetIds = _.filter(this.widgetIds, (id) => {
-            var props = widgetProps[id];
+        const gradedWidgetIds = _.filter(this.widgetIds, (id) => {
+            const props = widgetProps[id];
             // props.graded is unset or true
             return props.graded == null || props.graded;
         });
 
-        var widgetScores = {};
+        const widgetScores = {};
         _.each(gradedWidgetIds, (id) => {
-            var props = widgetProps[id];
-            var widget = this.getWidgetInstance(id);
+            const props = widgetProps[id];
+            const widget = this.getWidgetInstance(id);
             if (!widget) {
                 // This can occur if the widget has not yet been rendered
                 return;
@@ -1249,15 +1249,15 @@ var Renderer = React.createClass({
     },
 
     guessAndScore: function() {
-        var totalGuess = this.getUserInput();
-        var totalScore = this.score();
+        const totalGuess = this.getUserInput();
+        const totalScore = this.score();
 
         return [totalGuess, totalScore];
     },
 
     examples: function() {
-        var widgets = this.widgetIds;
-        var examples = _.compact(_.map(widgets, function(widget) {
+        const widgets = this.widgetIds;
+        const examples = _.compact(_.map(widgets, function(widget) {
             return widget.examples ? widget.examples() : null;
         }));
 
@@ -1266,7 +1266,7 @@ var Renderer = React.createClass({
             return null;
         }
 
-        var allEqual = _.all(examples, function(example) {
+        const allEqual = _.all(examples, function(example) {
             return _.isEqual(examples[0], example);
         });
 
@@ -1284,7 +1284,7 @@ var Renderer = React.createClass({
             return this.lastRenderedMarkdown;
         }
 
-        var content = this.getContent(this.props, this.state);
+        const content = this.getContent(this.props, this.state);
         // `this.widgetIds` is appended to in `this.outputMarkdown`:
         this.widgetIds = [];
 
@@ -1341,16 +1341,16 @@ var Renderer = React.createClass({
         // state on this component to do this in a less hacky way.
         this._isTwoColumn = false;
 
-        var parsedMarkdown = PerseusMarkdown.parse(content, {
+        const parsedMarkdown = PerseusMarkdown.parse(content, {
             // Recognize crowdin IDs while translating articles
             // (This should never be hit by exercises, though if you
             // decide you want to add a check that this is an article,
             // go for it.)
             isJipt: this.translationIndex != null,
         });
-        var markdownContents = this.outputMarkdown(parsedMarkdown, {});
+        const markdownContents = this.outputMarkdown(parsedMarkdown, {});
 
-        var className = this._isTwoColumn ?
+        let className = this._isTwoColumn ?
         ApiClassNames.RENDERER + " " + ApiClassNames.TWO_COLUMN_RENDERER :
             ApiClassNames.RENDERER;
         if (this.props.apiOptions.responsiveStyling) {

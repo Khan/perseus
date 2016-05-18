@@ -1,12 +1,8 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const React = require('react');
 
-var React = require('react');
+const InfoTip = require("./components/info-tip.jsx");
 
-var InfoTip = require("./components/info-tip.jsx");
-
-var ItemExtrasEditor = React.createClass({
+const ItemExtrasEditor = React.createClass({
     propTypes: {
         calculator: React.PropTypes.bool,
         chi2Table: React.PropTypes.bool,

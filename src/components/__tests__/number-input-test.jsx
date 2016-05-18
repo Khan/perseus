@@ -1,32 +1,29 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, max-len, no-undef, no-var, react/jsx-closing-bracket-location, space-infix-ops */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const assert = require("assert");
+const React = require("react");
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var assert = require("assert");
-var React = require("react");
+const NumberInput = require("../number-input.jsx");
+const TestUtils = React.addons.TestUtils;
 
-var ReactDOM = require("react-dom");
-
-var NumberInput = require("../number-input.jsx");
-var TestUtils = React.addons.TestUtils;
-
-var STARTING_VALUE = 1;
+const STARTING_VALUE = 1;
 
 describe("NumberInput", function() {
 
-    var testInputResult = function(input, result, extraProps) {
-        var newVal;
-        var handleChange = function(val) {
+    const testInputResult = function(input, result, extraProps) {
+        let newVal;
+        const handleChange = function(val) {
             newVal = val;
         };
 
-        var props = _.extend({
+        const props = _.extend({
             value: STARTING_VALUE,
-            onChange: handleChange
+            onChange: handleChange,
         }, extraProps);
 
-        var node = TestUtils.renderIntoDocument(<NumberInput {...props} />);
-        TestUtils.Simulate.change(ReactDOM.findDOMNode(node), {target: {value: input}});
+        const node = TestUtils.renderIntoDocument(<NumberInput {...props} />);
+        TestUtils.Simulate.change(
+            ReactDOM.findDOMNode(node), {target: {value: input}});
         assert.deepEqual(newVal, result);
     };
 
@@ -40,26 +37,27 @@ describe("NumberInput", function() {
 
     it("should use placeholder value if blank and has placeholder", () => {
         testInputResult("", 15, {
-            placeholder: 15
+            placeholder: 15,
         });
     });
 
-    var testArrowKeys = function(args) {
-        var key = args.key;
-        var startingValue = args.startingValue;
-        var endingValue = args.endingValue;
-        var keysEnabled = args.keysEnabled;
+    const testArrowKeys = function(args) {
+        const key = args.key;
+        const startingValue = args.startingValue;
+        const endingValue = args.endingValue;
+        const keysEnabled = args.keysEnabled;
 
-        var newVal = startingValue;
-        var handleChange = function(val) {
+        let newVal = startingValue;
+        const handleChange = function(val) {
             newVal = val;
         };
 
-        var node = TestUtils.renderIntoDocument(
+        const node = TestUtils.renderIntoDocument(
             <NumberInput
                 value={startingValue}
                 onChange={handleChange}
-                useArrowKeys={keysEnabled} />
+                useArrowKeys={keysEnabled}
+            />
             );
         TestUtils.Simulate.keyDown(ReactDOM.findDOMNode(node), {key: key});
         assert.deepEqual(newVal, endingValue);
@@ -70,7 +68,7 @@ describe("NumberInput", function() {
             key: "ArrowUp",
             startingValue: 0,
             endingValue: 1,
-            keysEnabled: true
+            keysEnabled: true,
         });
     });
 
@@ -79,23 +77,23 @@ describe("NumberInput", function() {
             key: "ArrowDown",
             startingValue: 0,
             endingValue: -1,
-            keysEnabled: true
+            keysEnabled: true,
         });
     });
 
     it("does not increment and decrement non-integers", function() {
         testArrowKeys({
             key: "ArrowDown",
-            startingValue: 1/2,
-            endingValue: 1/2,
-            keysEnabled: true
+            startingValue: 1 / 2,
+            endingValue: 1 / 2,
+            keysEnabled: true,
         });
 
         testArrowKeys({
             key: "ArrowUp",
             startingValue: 0.5,
             endingValue: 0.5,
-            keysEnabled: true
+            keysEnabled: true,
         });
     });
 
@@ -104,7 +102,7 @@ describe("NumberInput", function() {
             key: "ArrowUp",
             startingValue: 0,
             endingValue: 0,
-            keysEnabled: false
+            keysEnabled: false,
         });
     });
 

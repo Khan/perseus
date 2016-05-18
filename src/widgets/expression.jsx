@@ -1,38 +1,32 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-redeclare, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-before-function-paren */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+/* global i18n:false */
 
-var classNames = require("classnames");
-var React = require("react");
-var ReactDOM = require("react-dom");
-var Tooltip = require("react-components/tooltip.jsx");
-var _ = require("underscore");
+const classNames = require("classnames");
+const React = require("react");
+const ReactDOM = require("react-dom");
+const Tooltip = require("react-components/tooltip.jsx");
+const _ = require("underscore");
 
-var ApiOptions = require("../perseus-api.jsx").Options;
-var Changeable = require("../mixins/changeable.jsx");
-var ApiOptions = require("../perseus-api.jsx").Options;
-var ApiClassNames = require("../perseus-api.jsx").ClassNames;
+const ApiOptions = require("../perseus-api.jsx").Options;
+const Changeable = require("../mixins/changeable.jsx");
+const ApiClassNames = require("../perseus-api.jsx").ClassNames;
 const KhanAnswerTypes = require("../util/answer-types.js");
 
-var EnabledFeatures = require("../enabled-features.jsx");
+const EnabledFeatures = require("../enabled-features.jsx");
 
-var InputWithExamples = require("../components/input-with-examples.jsx");
-var MathInput = require("../components/math-input.jsx");
-var TeX = require("react-components/tex.jsx");// OldExpression only
-var TexButtons = require("../components/tex-buttons.jsx");
+const InputWithExamples = require("../components/input-with-examples.jsx");
+const MathInput = require("../components/math-input.jsx");
+const TeX = require("react-components/tex.jsx");// OldExpression only
+const TexButtons = require("../components/tex-buttons.jsx");
 const { KeypadInput } = require("../../math-input").components;
 const { configureKeypad } = require("../../math-input").actions;
 const { keypadConfigurationPropType } = require("../../math-input").propTypes;
 const { KeypadTypes } = require("../../math-input").consts;
 
-var EnabledFeatures = require("../enabled-features.jsx");
-
-var lens = require("../../hubble/index.js");
-
-var ERROR_MESSAGE = i18n._("Sorry, I don't understand that!");
+const ERROR_MESSAGE = i18n._("Sorry, I don't understand that!");
 
 // TODON'T(emily): Don't delete these.
-var NO_ANSWERS_WARNING = [
+/* eslint-disable no-unused-vars */
+const NO_ANSWERS_WARNING = [
     "An expression without an answer",
     "is no expression to me.",
     "Who can learn from an input",
@@ -40,21 +34,22 @@ var NO_ANSWERS_WARNING = [
     "Put something in there",
     "won't you please?",
     "A few digits will do -",
-    "might I suggest some threes?"
-    ].join("\n");
-var NO_CORRECT_ANSWERS_WARNING = "This question is probably going to be too " +
-    "hard because the expression has no correct answer.";
-var SIMPLIFY_WARNING = str => {
+    "might I suggest some threes?",
+].join("\n");
+const NO_CORRECT_ANSWERS_WARNING = "This question is probably going to be " +
+    "too hard because the expression has no correct answer.";
+const SIMPLIFY_WARNING = str => {
     return `"${str}" is required to be simplified but is not considered ` +
         "simplified by our fancy computer algebra system. This will be " +
         "graded as incorrect.";
 };
-var PARSE_WARNING = str => `"${str}" <- you sure that's math?`;
-var NOT_SPECIFIED_WARNING = ix => {
+const PARSE_WARNING = str => `"${str}" <- you sure that's math?`;
+const NOT_SPECIFIED_WARNING = ix => {
     return `mind filling in answer ${ix}? (the blank one)`;
 };
+/* eslint-enable no-unused-vars */
 
-var insertBraces = value => {
+const insertBraces = value => {
     // HACK(alex): Make sure that all LaTeX super/subscripts are wrapped
     // in curly braces to avoid the mismatch between KAS and LaTeX sup/sub
     // parsing.
@@ -77,9 +72,7 @@ var insertBraces = value => {
 };
 
 // The new, MathQuill input expression widget
-var Expression = React.createClass({
-    mixins: [Changeable],
-
+const Expression = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         buttonSets: TexButtons.buttonSetsType,
@@ -87,136 +80,36 @@ var Expression = React.createClass({
         enabledFeatures: EnabledFeatures.propTypes,
         functions: React.PropTypes.arrayOf(React.PropTypes.string),
         keypadConfiguration: keypadConfigurationPropType,
+        onBlur: React.PropTypes.func,
+        onChange: React.PropTypes.func.isRequired,
+        onFocus: React.PropTypes.func,
         times: React.PropTypes.bool,
         trackInteraction: React.PropTypes.func.isRequired,
         value: React.PropTypes.string,
         widgetId: React.PropTypes.string.isRequired,
     },
 
+    mixins: [Changeable],
+
     getDefaultProps: function() {
         return {
-            value: "",
-            times: false,
-            functions: [],
+            apiOptions: ApiOptions.defaults,
             buttonSets: ["basic", "trig", "prealgebra", "logarithms"],
-            onFocus: function() { },
-            onBlur: function() { },
             enabledFeatures: EnabledFeatures.defaults,
-            apiOptions: ApiOptions.defaults
+            functions: [],
+            onBlur: function() { },
+            onFocus: function() { },
+            times: false,
+            value: "",
         };
     },
 
     getInitialState: function() {
         return {
             showErrorTooltip: false,
-            showErrorText: false
+            showErrorText: false,
         };
     },
-
-    parse: function(value, props) {
-        // TODO(jack): Disable icu for content creators here, or
-        // make it so that solution answers with ','s or '.'s work
-        var options = _.pick(props || this.props, "functions");
-        if (window.icu && window.icu.getDecimalFormatSymbols) {
-            _.extend(options, window.icu.getDecimalFormatSymbols());
-        }
-        return KAS.parse(insertBraces(value), options);
-    },
-
-    render: function() {
-        if (this.props.apiOptions.customKeypad) {
-            return <KeypadInput
-                ref="input"
-                value={this.props.value}
-                onChange={this.changeAndTrack}
-                onFocus={() => {
-                    configureKeypad(this.props.keypadConfiguration);
-                    this._handleFocus();
-                }}
-                onBlur={this._handleBlur}
-            />;
-        } else if (this.props.apiOptions.staticRender) {
-            // To make things slightly easier, we just use an InputWithExamples
-            // component to handle the static rendering, which is the same
-            // component used by InputNumber and NumericInput
-            return <InputWithExamples
-                ref="input"
-                value={this.props.value}
-                type={"tex"}
-                examples={[]}
-                shouldShowExamples={false}
-                onChange={this.changeAndTrack}
-                onFocus={this._handleFocus}
-                onBlur={this._handleBlur}
-                id={this.props.widgetId}
-            />;
-        } else {
-            // TODO(alex): Style this tooltip to be more consistent with other
-            // tooltips on the site; align to left middle (once possible)
-            var errorTooltip = <span className="error-tooltip">
-                <Tooltip
-                        className="error-text-container"
-                        horizontalPosition="right"
-                        horizontalAlign="left"
-                        verticalPosition="top"
-                        arrowSize={10}
-                        borderColor="#fcc335"
-                        show={this.state.showErrorText} >
-                    <i
-                        className="icon-exclamation-sign error-icon"
-                        onMouseEnter={() => {
-                            this.setState({showErrorText: true});
-                        }}
-                        onMouseLeave={() => {
-                            this.setState({showErrorText: false});
-                        }}
-                        onClick={() => {
-                            // TODO(alex): Better error feedback for mobile
-                            this.setState({
-                                showErrorText: !this.state.showErrorText
-                            });
-                        }} />
-                    <div className="error-text">
-                        {ERROR_MESSAGE}
-                    </div>
-                </Tooltip>
-            </span>;
-
-            var className = classNames({
-                "perseus-widget-expression": true,
-                "show-error-tooltip": this.state.showErrorTooltip
-            });
-
-            return <span className={className}>
-                <MathInput
-                    ref="input"
-                    className={ApiClassNames.INTERACTIVE}
-                    value={this.props.value}
-                    onChange={this.changeAndTrack}
-                    convertDotToTimes={this.props.times}
-                    buttonsVisible={this.props.buttonsVisible || "focused"}
-                    buttonSets={this.props.buttonSets}
-                    onFocus={this._handleFocus}
-                    onBlur={this._handleBlur} />
-                {this.state.showErrorTooltip && errorTooltip}
-            </span>;
-        }
-    },
-
-    changeAndTrack: function(e, cb) {
-        this.change("value", e, cb);
-        this.props.trackInteraction();
-    },
-
-    _handleFocus: function() {
-        this.props.onFocus([]);
-    },
-
-    _handleBlur: function() {
-        this.props.onBlur([]);
-    },
-
-    errorTimeout: null,
 
     // Whenever the input value changes, attempt to parse it.
     //
@@ -233,7 +126,7 @@ var Expression = React.createClass({
             } else {
                 // Store timeout ID so that we can clear it above
                 this.errorTimeout = setTimeout(() => {
-                    var apiResult = this.props.apiOptions.onInputError(
+                    const apiResult = this.props.apiOptions.onInputError(
                         null, // reserved for some widget identifier
                         this.props.value,
                         ERROR_MESSAGE
@@ -249,6 +142,31 @@ var Expression = React.createClass({
     componentWillUnmount: function() {
         clearTimeout(this.errorTimeout);
     },
+
+    parse: function(value, props) {
+        // TODO(jack): Disable icu for content creators here, or
+        // make it so that solution answers with ','s or '.'s work
+        const options = _.pick(props || this.props, "functions");
+        if (window.icu && window.icu.getDecimalFormatSymbols) {
+            _.extend(options, window.icu.getDecimalFormatSymbols());
+        }
+        return KAS.parse(insertBraces(value), options);
+    },
+
+    changeAndTrack: function(e, cb) {
+        this.change("value", e, cb);
+        this.props.trackInteraction();
+    },
+
+    _handleFocus: function() {
+        this.props.onFocus([]);
+    },
+
+    _handleBlur: function() {
+        this.props.onBlur([]);
+    },
+
+    errorTimeout: null,
 
     focus: function() {
         if (this.props.apiOptions.customKeypad) {
@@ -288,7 +206,7 @@ var Expression = React.createClass({
 
     setInputValue: function(path, newValue, cb) {
         this.props.onChange({
-            value: newValue
+            value: newValue,
         }, cb);
     },
 
@@ -304,7 +222,90 @@ var Expression = React.createClass({
     simpleValidate: function(rubric, onInputError) {
         onInputError = onInputError || function() { };
         return Expression.validate(this.getUserInput(), rubric, onInputError);
-    }
+    },
+
+    render: function() {
+        if (this.props.apiOptions.customKeypad) {
+            return <KeypadInput
+                ref="input"
+                value={this.props.value}
+                onChange={this.changeAndTrack}
+                onFocus={() => {
+                    configureKeypad(this.props.keypadConfiguration);
+                    this._handleFocus();
+                }}
+                onBlur={this._handleBlur}
+            />;
+        } else if (this.props.apiOptions.staticRender) {
+            // To make things slightly easier, we just use an InputWithExamples
+            // component to handle the static rendering, which is the same
+            // component used by InputNumber and NumericInput
+            return <InputWithExamples
+                ref="input"
+                value={this.props.value}
+                type={"tex"}
+                examples={[]}
+                shouldShowExamples={false}
+                onChange={this.changeAndTrack}
+                onFocus={this._handleFocus}
+                onBlur={this._handleBlur}
+                id={this.props.widgetId}
+            />;
+        } else {
+            // TODO(alex): Style this tooltip to be more consistent with other
+            // tooltips on the site; align to left middle (once possible)
+            const errorTooltip = <span className="error-tooltip">
+                <Tooltip
+                    className="error-text-container"
+                    horizontalPosition="right"
+                    horizontalAlign="left"
+                    verticalPosition="top"
+                    arrowSize={10}
+                    borderColor="#fcc335"
+                    show={this.state.showErrorText}
+                >
+                    <i
+                        className="icon-exclamation-sign error-icon"
+                        onMouseEnter={() => {
+                            this.setState({showErrorText: true});
+                        }}
+                        onMouseLeave={() => {
+                            this.setState({showErrorText: false});
+                        }}
+                        onClick={() => {
+                            // TODO(alex): Better error feedback for mobile
+                            this.setState({
+                                showErrorText: !this.state.showErrorText,
+                            });
+                        }}
+                    />
+                    <div className="error-text">
+                        {ERROR_MESSAGE}
+                    </div>
+                </Tooltip>
+            </span>;
+
+            const className = classNames({
+                "perseus-widget-expression": true,
+                "show-error-tooltip": this.state.showErrorTooltip,
+            });
+
+            return <span className={className}>
+                <MathInput
+                    ref="input"
+                    className={ApiClassNames.INTERACTIVE}
+                    value={this.props.value}
+                    onChange={this.changeAndTrack}
+                    convertDotToTimes={this.props.times}
+                    buttonsVisible={this.props.buttonsVisible || "focused"}
+                    buttonSets={this.props.buttonSets}
+                    onFocus={this._handleFocus}
+                    onBlur={this._handleBlur}
+                />
+                {this.state.showErrorTooltip && errorTooltip}
+            </span>;
+        }
+    },
 });
 
 /* Content creators input a list of answers which are matched from top to
@@ -327,12 +328,12 @@ var Expression = React.createClass({
  */
 _.extend(Expression, {
     validate: function(state, rubric, onInputError) {
-        var options = _.clone(rubric);
+        const options = _.clone(rubric);
         if (window.icu && window.icu.getDecimalFormatSymbols) {
             _.extend(options, window.icu.getDecimalFormatSymbols());
         }
 
-        var createValidator = answer => {
+        const createValidator = answer => {
             return KhanAnswerTypes.expression.createValidatorFunctional(
                 // We don't give options to KAS.parse here because that is
                 // parsing the solution answer, not the student answer, and we
@@ -341,17 +342,17 @@ _.extend(Expression, {
                 KAS.parse(answer.value, rubric).expr,
                 _({}).extend(options, {
                     simplify: answer.simplify,
-                    form: answer.form
+                    form: answer.form,
                 })
             );
         };
 
         // find the first result to match the user's input
-        var result;
-        var matchingAnswer;
-        var allEmpty = true;
-        var foundMatch = !!_(rubric.answerForms).find(answer => {
-            var validate = createValidator(answer);
+        let result;
+        let matchingAnswer;
+        let allEmpty = true;
+        const foundMatch = !!_(rubric.answerForms).find(answer => {
+            const validate = createValidator(answer);
 
             // save these because they'll be needed if this answer matches
             result = validate(state);
@@ -362,7 +363,7 @@ _.extend(Expression, {
             return result.correct;
         });
 
-        var message = "" || (result && result.message);
+        const message = "" || (result && result.message);
 
         // now check to see whether it's considered correct, incorrect, or
         // ungraded
@@ -371,7 +372,7 @@ _.extend(Expression, {
                 // If everything graded as empty, it's invalid.
                 return {
                     type: "invalid",
-                    message: null
+                    message: null,
                 };
             } else {
                 // We fell through all the possibilities and we're not empty,
@@ -379,20 +380,20 @@ _.extend(Expression, {
                 return {
                     type: "points",
                     earned: 0,
-                    total: 1
+                    total: 1,
                 };
             }
 
         // we matched an ungraded answer - return "invalid"
         } else if (matchingAnswer.considered === "ungraded") {
-            var apiResult = onInputError(
+            const apiResult = onInputError(
                 null, // reserved for some widget identifier
                 state,
                 message
             );
             return {
                 type: "invalid",
-                message: apiResult === false ? null : message
+                message: apiResult === false ? null : message,
             };
 
         // The user's input matched one of the answers - is it correct or
@@ -406,105 +407,54 @@ _.extend(Expression, {
                 type: "points",
                 earned: matchingAnswer.considered === "correct" ? 1 : 0,
                 total: 1,
-                message: message
+                message: message,
             };
         }
-    }
+    },
 });
 
 // The old, plain-text input expression widget
-var OldExpression = React.createClass({
+const OldExpression = React.createClass({
     propTypes: {
-        value: React.PropTypes.string,
-        times: React.PropTypes.bool,
-        functions: React.PropTypes.arrayOf(React.PropTypes.string),
+        apiOptions: ApiOptions.propTypes,
         enabledFeatures: EnabledFeatures.propTypes,
+        functions: React.PropTypes.arrayOf(React.PropTypes.string),
+        onBlur: React.PropTypes.func,
+        onChange: React.PropTypes.func.isRequired,
+        onFocus: React.PropTypes.func,
+        times: React.PropTypes.bool,
+        value: React.PropTypes.string,
         widgetId: React.PropTypes.string.isRequired,
     },
 
     getDefaultProps: function() {
         return {
-            value: "",
-            times: false,
-            functions: [],
-            onFocus: function() { },
-            onBlur: function() { },
+            apiOptions: ApiOptions.defaults,
             enabledFeatures: EnabledFeatures.defaults,
-            apiOptions: ApiOptions.defaults
+            functions: [],
+            onBlur: function() { },
+            onFocus: function() { },
+            times: false,
+            value: "",
         };
     },
 
     getInitialState: function() {
         return {
-            lastParsedTex: ""
+            lastParsedTex: "",
         };
-    },
-
-    parse: function(value, props) {
-        // TODO(jack): Disable icu for content creators here, or
-        // make it so that solution answers with ','s or '.'s work
-        var options = _.pick(props || this.props, "functions");
-        if (window.icu && window.icu.getDecimalFormatSymbols) {
-            _.extend(options, window.icu.getDecimalFormatSymbols());
-        }
-        return KAS.parse(value, options);
     },
 
     componentWillMount: function() {
         this.updateParsedTex(this.props.value);
     },
 
-    componentWillReceiveProps: function(nextProps) {
-        this.updateParsedTex(nextProps.value, nextProps);
-    },
-
-    render: function() {
-        var result = this.parse(this.props.value);
-        var shouldShowExamples = this.props.enabledFeatures.toolTipFormats;
-
-        return <span className="perseus-widget-expression-old">
-            <span className="output">
-                <span className="tex"
-                        style={{opacity: result.parsed ? 1.0 : 0.5}}>
-                    <TeX>{this.state.lastParsedTex}</TeX>
-                </span>
-                <span className="placeholder">
-                    <span ref="error" className="error"
-                            style={{display: "none"}}>
-                        <span className="buddy" />
-                        <span className="message"><span>
-                            {ERROR_MESSAGE}
-                        </span></span>
-                    </span>
-                </span>
-            </span>
-            <InputWithExamples
-                ref="input"
-                value={this.props.value}
-                onKeyDown={this.handleKeyDown}
-                onKeyPress={this.handleKeyPress}
-                onChange={this.handleChange}
-                examples={this.examples()}
-                shouldShowExamples={shouldShowExamples}
-                onFocus={this._handleFocus}
-                onBlur={this._handleBlur}
-                id={this.props.widgetId}
-            />
-        </span>;
-    },
-
-    _handleFocus: function() {
-        this.props.onFocus([]);
-    },
-
-    _handleBlur: function() {
-        this.props.onBlur([]);
-    },
-
-    errorTimeout: null,
-
     componentDidMount: function() {
         this.componentDidUpdate();
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+        this.updateParsedTex(nextProps.value, nextProps);
     },
 
     componentDidUpdate: function() {
@@ -520,14 +470,34 @@ var OldExpression = React.createClass({
         clearTimeout(this.errorTimeout);
     },
 
+    parse: function(value, props) {
+        // TODO(jack): Disable icu for content creators here, or
+        // make it so that solution answers with ','s or '.'s work
+        const options = _.pick(props || this.props, "functions");
+        if (window.icu && window.icu.getDecimalFormatSymbols) {
+            _.extend(options, window.icu.getDecimalFormatSymbols());
+        }
+        return KAS.parse(value, options);
+    },
+
+    _handleFocus: function() {
+        this.props.onFocus([]);
+    },
+
+    _handleBlur: function() {
+        this.props.onBlur([]);
+    },
+
+    errorTimeout: null,
+
     showError: function() {
-        var apiResult = this.props.apiOptions.onInputError(
+        const apiResult = this.props.apiOptions.onInputError(
             null, // reserved for some widget identifier
             this.props.value,
             ERROR_MESSAGE
         );
         if (apiResult !== false) {
-            var $error = $(ReactDOM.findDOMNode(this.refs.error));
+            const $error = $(ReactDOM.findDOMNode(this.refs.error));
             if (!$error.is(":visible")) {
                 $error.css({ top: 50, opacity: 0.1 }).show()
                     .animate({ top: 0, opacity: 1.0 }, 300);
@@ -538,7 +508,7 @@ var OldExpression = React.createClass({
     },
 
     hideError: function() {
-        var $error = $(ReactDOM.findDOMNode(this.refs.error));
+        const $error = $(ReactDOM.findDOMNode(this.refs.error));
         if ($error.is(":visible")) {
             $error.animate({ top: 50, opacity: 0.1 }, 300, function() {
                 $(this).hide();
@@ -552,19 +522,19 @@ var OldExpression = React.createClass({
      * appropriate...
      */
     handleKeyDown: function(event) {
-        var input = ReactDOM.findDOMNode(this.refs.input);
-        var text = input.value;
+        const input = ReactDOM.findDOMNode(this.refs.input);
+        const text = input.value;
 
-        var start = input.selectionStart;
-        var end = input.selectionEnd;
-        var supported = start !== undefined;
+        const start = input.selectionStart;
+        const end = input.selectionEnd;
+        const supported = start !== undefined;
 
-        var which = event.nativeEvent.keyCode;
+        const which = event.nativeEvent.keyCode;
 
         if (supported && which === 8 /* backspace */) {
             if (start === end && text.slice(start - 1, start + 1) === "()") {
                 event.preventDefault();
-                var val = text.slice(0, start - 1) + text.slice(start + 1);
+                const val = text.slice(0, start - 1) + text.slice(start + 1);
 
                 // this.props.onChange will update the value for us, but
                 // asynchronously, making it harder to set the selection
@@ -583,21 +553,21 @@ var OldExpression = React.createClass({
      * open paren '(' instead of keydown which gives 57, the code for '9').
      */
     handleKeyPress: function(event) {
-        var input = ReactDOM.findDOMNode(this.refs.input);
-        var text = input.value;
+        const input = ReactDOM.findDOMNode(this.refs.input);
+        const text = input.value;
 
-        var start = input.selectionStart;
-        var end = input.selectionEnd;
-        var supported = start !== undefined;
+        const start = input.selectionStart;
+        const end = input.selectionEnd;
+        const supported = start !== undefined;
 
-        var which = event.nativeEvent.charCode;
+        const which = event.nativeEvent.charCode;
 
         if (supported && which === 40 /* left paren */) {
             event.preventDefault();
 
-            var val;
+            let val;
             if (start === end) {
-                var insertMatched = _.any([" ", ")", ""], function(val) {
+                const insertMatched = _.any([" ", ")", ""], function(val) {
                     return text.charAt(start) === val;
                 });
 
@@ -646,8 +616,8 @@ var OldExpression = React.createClass({
     },
 
     updateParsedTex: function(value, props) {
-        var result = this.parse(value, props);
-        var options = _.pick(this.props, "times");
+        const result = this.parse(value, props);
+        const options = _.pick(this.props, "times");
         if (result.parsed) {
             this.setState({lastParsedTex: result.expr.asTex(options)});
         }
@@ -659,7 +629,7 @@ var OldExpression = React.createClass({
     },
 
     examples: function() {
-        var mult = i18n._("For $2\\cdot2$, enter **2*2**");
+        let mult = i18n._("For $2\\cdot2$, enter **2*2**");
         if (this.props.times) {
             mult = mult.replace(/\\cdot/g, "\\times");
         }
@@ -678,9 +648,48 @@ var OldExpression = React.createClass({
             i18n._("For $\\pi$, enter **pi**"),
             i18n._("For $\\sin \\theta$, enter **sin(theta)**"),
             i18n._("For $\\le$ or $\\ge$, enter **<=** or **>=**"),
-            i18n._("For $\\neq$, enter **=/=**")
+            i18n._("For $\\neq$, enter **=/=**"),
         ];
-    }
+    },
+
+    render: function() {
+        const result = this.parse(this.props.value);
+        const shouldShowExamples = this.props.enabledFeatures.toolTipFormats;
+
+        return <span className="perseus-widget-expression-old">
+            <span className="output">
+                <span
+                    className="tex"
+                    style={{opacity: result.parsed ? 1.0 : 0.5}}
+                >
+                    <TeX>{this.state.lastParsedTex}</TeX>
+                </span>
+                <span className="placeholder">
+                    <span
+                        ref="error" className="error"
+                        style={{display: "none"}}
+                    >
+                        <span className="buddy" />
+                        <span className="message"><span>
+                            {ERROR_MESSAGE}
+                        </span></span>
+                    </span>
+                </span>
+            </span>
+            <InputWithExamples
+                ref="input"
+                value={this.props.value}
+                onKeyDown={this.handleKeyDown}
+                onKeyPress={this.handleKeyPress}
+                onChange={this.handleChange}
+                examples={this.examples()}
+                shouldShowExamples={shouldShowExamples}
+                onFocus={this._handleFocus}
+                onBlur={this._handleBlur}
+                id={this.props.widgetId}
+            />
+        </span>;
+    },
 });
 
 /**
@@ -769,7 +778,7 @@ const keypadConfigurationForProps = (props) => {
  *     }]
  */
 
-var propUpgrades = {
+const propUpgrades = {
     1: (v0props) => ({
         times: v0props.times,
         buttonSets: v0props.buttonSets,
@@ -782,14 +791,14 @@ var propUpgrades = {
             simplify: v0props.simplify,
             value: v0props.value,
             key: 0,
-        }]
-    })
+        }],
+    }),
 };
 
 module.exports = {
     name: "expression",
     displayName: "Expression / Equation",
-    getDefaultAlignment: function (enabledFeatures) {
+    getDefaultAlignment: function(enabledFeatures) {
         // Each version of the widget has different alignments
         return enabledFeatures.useMathQuill ? "inline-block" : "block";
     },

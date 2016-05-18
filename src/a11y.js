@@ -1,16 +1,12 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * Identifies whether or not a given perseus item requires the use of a mouse
  * or screen, based on the widgets it contains.
  */
 
-var _ = require("underscore");
+const _ = require("underscore");
 
-var Traversal = require("./traversal.jsx");
-var Widgets = require("./widgets.js");
+const Traversal = require("./traversal.jsx");
+const Widgets = require("./widgets.js");
 
 module.exports = {
     // Returns a list of widgets that cause a given perseus item to require
@@ -21,7 +17,7 @@ module.exports = {
     // each widget with higher granularity.
     violatingWidgets: function(itemData) {
         // TODO(jordan): Hints as well
-        var widgets = [];
+        const widgets = [];
 
         // Traverse the question data
         Traversal.traverseRendererDeep(

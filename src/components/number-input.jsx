@@ -1,20 +1,16 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, max-len, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-after-keywords */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const classNames = require("classnames");
+const React = require('react');
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var classNames = require("classnames");
-var React = require('react');
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
-
-var firstNumericalParse = require("../util.js").firstNumericalParse;
-var captureScratchpadTouchStart =
+const firstNumericalParse = require("../util.js").firstNumericalParse;
+const captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
-var knumber = require("kmath").number;
+const knumber = require("kmath").number;
 const KhanMath = require("../util/math.js");
 
-var toNumericString = KhanMath.toNumericString;
-var getNumericFormat = KhanMath.getNumericFormat;
+const toNumericString = KhanMath.toNumericString;
+const getNumericFormat = KhanMath.getNumericFormat;
 
 /* An input box that accepts only numeric strings
  *
@@ -29,63 +25,41 @@ var getNumericFormat = KhanMath.getNumericFormat;
  *   increment/decrement integers
  * Optionally takes a size ("mini", "small", "normal")
  */
-var NumberInput = React.createClass({
+const NumberInput = React.createClass({
     propTypes: {
-        value: React.PropTypes.number,
+        checkValidity: React.PropTypes.func,
+        className: React.PropTypes.string,
         format: React.PropTypes.string,
+        label: React.PropTypes.oneOf(["put your labels outside your inputs!"]),
+        onBlur: React.PropTypes.func,
+        onChange: React.PropTypes.func.isRequired,
+        onFocus: React.PropTypes.func,
+        onFormatChange: React.PropTypes.func,
+        onKeyDown: React.PropTypes.func,
         placeholder: React.PropTypes.oneOfType([
             React.PropTypes.string,
-            React.PropTypes.number
+            React.PropTypes.number,
         ]),
-        onChange: React.PropTypes.func.isRequired,
-        onFormatChange: React.PropTypes.func,
-        checkValidity: React.PropTypes.func,
         size: React.PropTypes.string,
-        label: React.PropTypes.oneOf(["put your labels outside your inputs!"]),
+        useArrowKeys: React.PropTypes.bool,
+        value: React.PropTypes.number,
     },
 
     getDefaultProps: function() {
         return {
-            value: null,
-            placeholder: null,
+            checkValidity: () => true,
             format: null,
             onFormatChange: () => null,
-            checkValidity: () => true,
-            useArrowKeys: false
+            placeholder: null,
+            useArrowKeys: false,
+            value: null,
         };
     },
 
     getInitialState: function() {
         return {
-            format: this.props.format
+            format: this.props.format,
         };
-    },
-
-    render: function() {
-        var classes = classNames({
-            "number-input": true,
-            "invalid-input": !this._checkValidity(this.props.value),
-            "mini": this.props.size === "mini",
-            "small": this.props.size === "small",
-            "normal": this.props.size === "normal"
-        });
-        if (this.props.className != null) {
-            classes = classes + " " + this.props.className;
-        }
-
-        return <input
-            {...this.props}
-            className={classes}
-            type="text"
-            ref="input"
-            onChange={this._handleChange}
-            onFocus={this._handleFocus}
-            onBlur={this._handleBlur}
-            onKeyPress={this._handleBlur}
-            onKeyDown={this._onKeyDown}
-            onTouchStart={captureScratchpadTouchStart}
-            defaultValue={toNumericString(this.props.value, this.state.format)}
-            value={undefined} />;
     },
 
     componentDidUpdate: function(prevProps) {
@@ -98,7 +72,8 @@ var NumberInput = React.createClass({
      * If empty, it returns the placeholder (if it is a number) or null
      */
     getValue: function() {
-        return this.parseInputValue(ReactDOM.findDOMNode(this.refs.input).value);
+        return this.parseInputValue(
+            ReactDOM.findDOMNode(this.refs.input).value);
     },
 
     /* Return the current string value of this input */
@@ -108,10 +83,10 @@ var NumberInput = React.createClass({
 
     parseInputValue: function(value) {
         if (value === "") {
-            placeholder = this.props.placeholder;
+            const placeholder = this.props.placeholder;
             return _.isFinite(placeholder) ? +placeholder : null;
         } else {
-            var result = firstNumericalParse(value);
+            const result = firstNumericalParse(value);
             return _.isFinite(result) ? result : this.props.value;
         }
     },
@@ -128,7 +103,8 @@ var NumberInput = React.createClass({
     },
 
     setSelectionRange: function(selectionStart, selectionEnd) {
-        ReactDOM.findDOMNode(this).setSelectionRange(selectionStart, selectionEnd);
+        ReactDOM.findDOMNode(this).setSelectionRange(
+            selectionStart, selectionEnd);
     },
 
     getSelectionStart: function() {
@@ -140,20 +116,20 @@ var NumberInput = React.createClass({
     },
 
     _checkValidity: function(value) {
-        if(value == null) {
+        if (value == null) {
             return true;
         }
 
-        var val = firstNumericalParse(value);
-        var checkValidity = this.props.checkValidity;
+        const val = firstNumericalParse(value);
+        const checkValidity = this.props.checkValidity;
 
         return _.isFinite(val) && checkValidity(val);
     },
 
     _handleChange: function(e) {
-        var text = e.target.value;
-        var value = this.parseInputValue(text);
-        var format = getNumericFormat(text);
+        const text = e.target.value;
+        const value = this.parseInputValue(text);
+        const format = getNumericFormat(text);
 
         this.props.onChange(value);
         if (format) {
@@ -190,7 +166,7 @@ var NumberInput = React.createClass({
             return;
         }
 
-        var val = this.getValue();
+        let val = this.getValue();
         if (val !== Math.floor(val)) {
             return; // bail if not an integer
         }
@@ -207,8 +183,37 @@ var NumberInput = React.createClass({
     },
 
     _setValue: function(val, format) {
-        $(ReactDOM.findDOMNode(this.refs.input)).val(toNumericString(val, format));
-    }
+        $(ReactDOM.findDOMNode(this.refs.input)).val(
+            toNumericString(val, format));
+    },
+
+    render: function() {
+        let classes = classNames({
+            "number-input": true,
+            "invalid-input": !this._checkValidity(this.props.value),
+            "mini": this.props.size === "mini",
+            "small": this.props.size === "small",
+            "normal": this.props.size === "normal",
+        });
+        if (this.props.className != null) {
+            classes = classes + " " + this.props.className;
+        }
+
+        return <input
+            {...this.props}
+            className={classes}
+            type="text"
+            ref="input"
+            onChange={this._handleChange}
+            onFocus={this._handleFocus}
+            onBlur={this._handleBlur}
+            onKeyPress={this._handleBlur}
+            onKeyDown={this._onKeyDown}
+            onTouchStart={captureScratchpadTouchStart}
+            defaultValue={toNumericString(this.props.value, this.state.format)}
+            value={undefined}
+        />;
+    },
 });
 
 module.exports = NumberInput;

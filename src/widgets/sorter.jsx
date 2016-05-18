@@ -1,20 +1,16 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, one-var, react/forbid-prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const React = require('react');
+const _ = require("underscore");
 
-var React = require('react');
-var _ = require("underscore");
+const Sortable = require("../components/sortable.jsx");
 
-var Sortable = require("../components/sortable.jsx");
+const shuffle = require("../util.js").shuffle;
 
-var shuffle = require("../util.js").shuffle;
+const HORIZONTAL = "horizontal";
+const VERTICAL = "vertical";
 
-var HORIZONTAL = "horizontal",
-    VERTICAL = "vertical";
-
-var Sorter = React.createClass({
+const Sorter = React.createClass({
     propTypes: {
-        correct: React.PropTypes.array,
+        correct: React.PropTypes.arrayOf(React.PropTypes.string),
         layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
         onChange: React.PropTypes.func,
         padding: React.PropTypes.bool,
@@ -28,12 +24,25 @@ var Sorter = React.createClass({
             layout: HORIZONTAL,
             padding: true,
             problemNum: 0,
-            onChange: function() {}
+            onChange: function() {},
         };
     },
 
+    handleChange: function(e) {
+        this.props.onChange(e);
+        this.props.trackInteraction();
+    },
+
+    getUserInput: function() {
+        return {options: this.refs.sortable.getOptions()};
+    },
+
+    simpleValidate: function(rubric) {
+        return Sorter.validate(this.getUserInput(), rubric);
+    },
+
     render: function() {
-        var options = shuffle(
+        const options = shuffle(
             this.props.correct,
             this.props.problemNum,
             /* ensurePermuted */ true
@@ -49,33 +58,20 @@ var Sorter = React.createClass({
             />
         </div>;
     },
-
-    handleChange: function(e) {
-        this.props.onChange(e);
-        this.props.trackInteraction();
-    },
-
-    getUserInput: function() {
-        return {options: this.refs.sortable.getOptions()};
-    },
-
-    simpleValidate: function(rubric) {
-        return Sorter.validate(this.getUserInput(), rubric);
-    }
 });
 
 
 _.extend(Sorter, {
     validate: function(state, rubric) {
-        var correct = _.isEqual(state.options, rubric.correct);
+        const correct = _.isEqual(state.options, rubric.correct);
 
         return {
             type: "points",
             earned: correct ? 1 : 0,
             total: 1,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 module.exports = {

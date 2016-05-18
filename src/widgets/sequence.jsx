@@ -1,20 +1,16 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const React = require("react");
+const _ = require("underscore");
 
-var React = require("react");
-var _ = require("underscore");
+const ApiOptions = require("../perseus-api.jsx").Options;
+const Changeable   = require("../mixins/changeable.jsx");
+const EnabledFeatures = require("../enabled-features.jsx");
+const Renderer = require("../renderer.jsx");
+const Util = require("../util.js");
 
-var ApiOptions = require("../perseus-api.jsx").Options;
-var Changeable   = require("../mixins/changeable.jsx");
-var Renderer = require("../renderer.jsx");
-var Util = require("../util.js");
-
-var Sequence = React.createClass({
-    mixins: [Changeable],
-
+const Sequence = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
+        enabledFeatures: EnabledFeatures.propTypes,
         json:  React.PropTypes.arrayOf(React.PropTypes.shape({
             content: React.PropTypes.string,
             images: React.PropTypes.object,
@@ -23,19 +19,21 @@ var Sequence = React.createClass({
         trackInteraction: React.PropTypes.func.isRequired,
     },
 
+    mixins: [Changeable],
+
     getDefaultProps: function() {
         return {
             json: [{
                 content: "",
                 widgets: {},
                 images: {},
-            }]
+            }],
         };
     },
 
     getInitialState: function() {
         return {
-            visible: 1
+            visible: 1,
         };
     },
 
@@ -43,25 +41,43 @@ var Sequence = React.createClass({
         return nextProps !== this.props || nextState !== this.state;
     },
 
-    render: function() {
-        var icon = <div className="icon-ok" style={{color: "green"}} />;
+    _handleInteraction: function(groupWidgetId) {
+        const step = parseInt(groupWidgetId.split(" ")[1]);
+        if (step === this.state.visible - 1) {
+            const widget =
+                this.refs.renderer.getWidgetInstance("group " + step);
+            const score = widget.simpleValidate();
 
-        var content = _.chain(this.props.json)
+            if (score.type === "points" && score.total === score.earned) {
+                this.setState({
+                    visible: this.state.visible + 1,
+                });
+                this.props.trackInteraction({
+                    visible: this.state.visible + 1,
+                });
+            }
+        }
+    },
+
+    render: function() {
+        const icon = <div className="icon-ok" style={{color: "green"}} />;
+
+        const content = _.chain(this.props.json)
                 .first(this.state.visible)
                 .map((step, i) => `[[${Util.snowman} group ${i}]]`)
                 .join("\n\n")
                 .value();
 
-        var widgets = {};
+        const widgets = {};
         _.each(this.props.json, (step, i) => {
-            var widgetId = `group ${i}`;
+            const widgetId = `group ${i}`;
             widgets[widgetId] = {
                 type: "group",
                 graded: true,
                 version: {major: 0, minor: 0},
                 options: _.extend({}, step, {
-                    icon: i < this.state.visible - 1 ? icon : null
-                })
+                    icon: i < this.state.visible - 1 ? icon : null,
+                }),
             };
         });
 
@@ -72,37 +88,21 @@ var Sequence = React.createClass({
                 widgets={widgets}
                 onInteractWithWidget={this._handleInteraction}
                 apiOptions={this.props.apiOptions}
-                enabledFeatures={this.props.enabledFeatures} />
+                enabledFeatures={this.props.enabledFeatures}
+            />
         </div>;
     },
-
-    _handleInteraction: function(groupWidgetId) {
-        var step = parseInt(groupWidgetId.split(" ")[1]);
-        if (step === this.state.visible - 1) {
-            var widget = this.refs.renderer.getWidgetInstance("group " + step);
-            var score = widget.simpleValidate();
-
-            if (score.type === "points" && score.total === score.earned) {
-                this.setState({
-                    visible: this.state.visible + 1
-                });
-                this.props.trackInteraction({
-                    visible: this.state.visible + 1,
-                });
-            }
-        }
-    }
 });
 
-var traverseChildWidgets = function(
+const traverseChildWidgets = function(
         props,
         traverseRenderer) {
 
-    var oldJson = props.json;
+    let oldJson = props.json;
     if (!_.isArray(oldJson)) {
         oldJson = [oldJson];
     }
-    var json = _.map(oldJson, (rendererOptions) => {
+    const json = _.map(oldJson, (rendererOptions) => {
         return traverseRenderer(rendererOptions);
     });
 

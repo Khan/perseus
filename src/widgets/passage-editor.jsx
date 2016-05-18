@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const _ = require("underscore");
 
@@ -13,26 +9,27 @@ const InfoTip = require("../components/info-tip.jsx");
 const PropCheckBox  = require("../components/prop-check-box.jsx");
 
 const PassageEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
     propTypes: {
-        passageTitle: React.PropTypes.string,
-        passageText: React.PropTypes.string,
         footnotes: React.PropTypes.string,
-        showLineNumbers: React.PropTypes.bool
+        onChange: React.PropTypes.func.isRequired,
+        passageText: React.PropTypes.string,
+        passageTitle: React.PropTypes.string,
+        showLineNumbers: React.PropTypes.bool,
     },
+
+    mixins: [EditorJsonify, Changeable],
 
     getDefaultProps: function() {
         return {
-            passageTitle: "",
-            passageText: "",
             footnotes: "",
-            showLineNumbers: true
+            passageText: "",
+            passageTitle: "",
+            showLineNumbers: true,
         };
     },
 
     render: function() {
-        var passageEditor = <Editor
+        const passageEditor = <Editor
             ref="passage-editor"
             content={this.props.passageText}
             widgetEnabled={false}
@@ -42,7 +39,7 @@ const PassageEditor = React.createClass({
             }}
             showWordCount={true}
         />;
-        var footnotesEditor = <Editor
+        const footnotesEditor = <Editor
             ref="passage-footnotes-editor"
             content={this.props.footnotes}
             widgetEnabled={false}
@@ -57,7 +54,8 @@ const PassageEditor = React.createClass({
                     label="Show line numbers"
                     labelAlignment="right"
                     showLineNumbers={this.props.showLineNumbers}
-                    onChange={this.props.onChange} />
+                    onChange={this.props.onChange}
+                />
             </div>
             <div>
                 Passage title:
@@ -71,7 +69,8 @@ const PassageEditor = React.createClass({
                         defaultValue={this.props.passageTitle}
                         onChange={(e) => {
                             this.change({ passageTitle: e.target.value });
-                        }} />
+                        }}
+                    />
                 </div>
             </div>
             <div>

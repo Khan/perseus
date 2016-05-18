@@ -1,36 +1,23 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const React = require("react");
 
-var React = require("react");
+const ReactDOM = require("react-dom");
 
-var ReactDOM = require("react-dom");
-
-var TextInput = React.createClass({
+const TextInput = React.createClass({
     propTypes: {
-        value: React.PropTypes.string,
-        onChange: React.PropTypes.func.isRequired,
         className: React.PropTypes.string,
-        labelText: React.PropTypes.string,
-        onFocus: React.PropTypes.func,
-        onBlur: React.PropTypes.func,
         disabled: React.PropTypes.bool,
+        labelText: React.PropTypes.string,
+        onBlur: React.PropTypes.func,
+        onChange: React.PropTypes.func.isRequired,
+        onFocus: React.PropTypes.func,
+        value: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
-            value: "",
             disabled: false,
+            value: "",
         };
-    },
-
-    render: function() {
-        return <input
-            {...this.props}
-            type="text"
-            disabled={this.props.disabled}
-            aria-label={this.props.labelText}
-            onChange={(e) => this.props.onChange(e.target.value)} />;
     },
 
     focus: function() {
@@ -50,7 +37,8 @@ var TextInput = React.createClass({
     },
 
     setSelectionRange: function(selectionStart, selectionEnd) {
-        ReactDOM.findDOMNode(this).setSelectionRange(selectionStart, selectionEnd);
+        ReactDOM.findDOMNode(this).setSelectionRange(
+            selectionStart, selectionEnd);
     },
 
     getSelectionStart: function() {
@@ -59,8 +47,17 @@ var TextInput = React.createClass({
 
     getSelectionEnd: function() {
         return ReactDOM.findDOMNode(this).selectionEnd;
-    }
+    },
 
+    render: function() {
+        return <input
+            {...this.props}
+            type="text"
+            disabled={this.props.disabled}
+            aria-label={this.props.labelText}
+            onChange={(e) => this.props.onChange(e.target.value)}
+        />;
+    },
 });
 
 module.exports = TextInput;

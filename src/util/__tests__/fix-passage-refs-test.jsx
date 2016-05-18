@@ -1,13 +1,9 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const assert = require("assert");
+const _ = require("underscore");
 
-var assert = require("assert");
-var _ = require("underscore");
+const FixPassageRefs = require("../fix-passage-refs.jsx");
 
-var FixPassageRefs = require("../fix-passage-refs.jsx");
-
-var sampleItem = {
+const sampleItem = {
     "question": {
         "content": "[[☃ passage-ref 1]] (\"hi ... there\")",
         "images": {},
@@ -18,27 +14,27 @@ var sampleItem = {
                 "static": false,
                 "options": {
                     "passageNumber": 1,
-                    "referenceNumber": 1
+                    "referenceNumber": 1,
                 },
                 "version": {
                     "major": 0,
-                    "minor": 1
-                }
-            }
-        }
+                    "minor": 1,
+                },
+            },
+        },
     },
     "answerArea": {
         "calculator": false,
-        "periodicTable": false
+        "periodicTable": false,
     },
     "itemDataVersion": {
         "major": 0,
-        "minor": 1
+        "minor": 1,
     },
-    "hints": []
+    "hints": [],
 };
 
-var sampleGroupItem = {
+const sampleGroupItem = {
     "question": {
         "content": "[[☃ group 1]]\n\n",
         "images": {},
@@ -57,19 +53,19 @@ var sampleGroupItem = {
                             "static": false,
                             "options": {
                                 "passageNumber": 1,
-                                "referenceNumber": 1
+                                "referenceNumber": 1,
                             },
                             "version": {
                                 "major": 0,
-                                "minor": 1
-                            }
-                        }
-                    }
+                                "minor": 1,
+                            },
+                        },
+                    },
                 },
                 "version": {
                     "major": 0,
-                    "minor": 0
-                }
+                    "minor": 0,
+                },
             },
             "passage-ref 1": {
                 "type": "passage-ref",
@@ -77,27 +73,27 @@ var sampleGroupItem = {
                 "static": false,
                 "options": {
                     "passageNumber": 1,
-                    "referenceNumber": 1
+                    "referenceNumber": 1,
                 },
                 "version": {
                     "major": 0,
-                    "minor": 1
-                }
-            }
-        }
+                    "minor": 1,
+                },
+            },
+        },
     },
     "answerArea": {
         "calculator": false,
-        "periodicTable": false
+        "periodicTable": false,
     },
     "itemDataVersion": {
         "major": 0,
-        "minor": 1
+        "minor": 1,
     },
-    "hints": []
+    "hints": [],
 };
 
-var sampleRadioItem = {
+const sampleRadioItem = {
     "question": {
         "content": "[[☃ radio 1]]\n\n",
         "images": {},
@@ -109,40 +105,40 @@ var sampleRadioItem = {
                 "options": {
                     "choices": [
                         {
-                            "content": "{{passage-ref 1 2}} (\"hi ... there\")"
+                            "content": "{{passage-ref 1 2}} (\"hi ... there\")",
                         },
-                        {}
+                        {},
                     ],
                     "randomize": false,
                     "multipleSelect": false,
                     "displayCount": null,
                     "hasNoneOfTheAbove": false,
                     "onePerLine": true,
-                    "deselectEnabled": false
+                    "deselectEnabled": false,
                 },
                 "version": {
                     "major": 1,
-                    "minor": 0
-                }
-            }
-        }
+                    "minor": 0,
+                },
+            },
+        },
     },
     "answerArea": {
         "calculator": false,
-        "periodicTable": false
+        "periodicTable": false,
     },
     "itemDataVersion": {
         "major": 0,
-        "minor": 1
+        "minor": 1,
     },
-    "hints": []
+    "hints": [],
 };
 
-var clonedSampleItem = _.clone(sampleItem);
-var clonedSampleGroupItem = _.clone(sampleGroupItem);
-var clonedSampleRadioItem = _.clone(sampleRadioItem);
+const clonedSampleItem = _.clone(sampleItem);
+const clonedSampleGroupItem = _.clone(sampleGroupItem);
+const clonedSampleRadioItem = _.clone(sampleRadioItem);
 
-var assertNonMutative = () => {
+const assertNonMutative = () => {
     assert.deepEqual(sampleItem, clonedSampleItem);
     assert.deepEqual(sampleGroupItem, clonedSampleGroupItem);
     assert.deepEqual(sampleRadioItem, clonedSampleRadioItem);
@@ -150,7 +146,7 @@ var assertNonMutative = () => {
 
 describe("fix-passage-refs", () => {
     it("should modify a basic passage ref", () => {
-        var newItem = FixPassageRefs(sampleItem);
+        const newItem = FixPassageRefs(sampleItem);
         assert.strictEqual(
             newItem.question.content,
             "[[☃ passage-ref 1]]"
@@ -164,13 +160,13 @@ describe("fix-passage-refs", () => {
                 "options": {
                     "passageNumber": 1,
                     "referenceNumber": 1,
-                    "summaryText": "hi ... there"
+                    "summaryText": "hi ... there",
                 },
                 "version": {
                     "major": 0,
                     // TODO(aria): Update this when we do minor updates as
                     // a part of version upgrading
-                    "minor": 1
+                    "minor": 1,
                 },
                 "alignment": "default",
             }
@@ -179,8 +175,8 @@ describe("fix-passage-refs", () => {
     });
 
     it("should modify a passage ref in a group", () => {
-        var newItem = FixPassageRefs(sampleGroupItem);
-        var group = newItem.question.widgets["group 1"];
+        const newItem = FixPassageRefs(sampleGroupItem);
+        const group = newItem.question.widgets["group 1"];
         assert.strictEqual(
             group.options.content,
             "[[☃ passage-ref 1]]"
@@ -194,13 +190,13 @@ describe("fix-passage-refs", () => {
                 "options": {
                     "passageNumber": 1,
                     "referenceNumber": 1,
-                    "summaryText": "hi ... there"
+                    "summaryText": "hi ... there",
                 },
                 "version": {
                     "major": 0,
                     // TODO(aria): Update this when we merge the passage-ref
                     // changes
-                    "minor": 1
+                    "minor": 1,
                 },
                 "alignment": "default",
             }
@@ -209,8 +205,8 @@ describe("fix-passage-refs", () => {
     });
 
     it("should modify a passage ref in a radio", () => {
-        var newItem = FixPassageRefs(sampleRadioItem);
-        var radio = newItem.question.widgets["radio 1"];
+        const newItem = FixPassageRefs(sampleRadioItem);
+        const radio = newItem.question.widgets["radio 1"];
         assert.strictEqual(
             radio.options.choices[0].content,
             "{{passage-ref 1 2 \"hi ... there\"}}"

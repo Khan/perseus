@@ -1,32 +1,29 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-redeclare, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 // TODO(joel): teach KAS how to accept an answer only if it's expressed in
 // terms of a certain type.
 // TODO(joel): Allow sigfigs within a range rather than an exact expected
 // value?
 
-var lens = require("../../hubble/index.js");
-var React = require("react");
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+/* global i18n:false, $_:false */
 
-var ApiClassNames = require("../perseus-api.jsx").ClassNames;
-var ApiOptions = require("../perseus-api.jsx").Options;
-var Changeable = require("../mixins/changeable.jsx");
-var MathOutput   = require("../components/math-output.jsx");
-var { SignificantFigures, displaySigFigs } = require("../sigfigs.jsx");
+const lens = require("../../hubble/index.js");
+const React = require("react");
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var ALL = "all";
-var SOME = "some";
-var MAX_SIGFIGS = 10;
+const ApiClassNames = require("../perseus-api.jsx").ClassNames;
+const ApiOptions = require("../perseus-api.jsx").Options;
+const Changeable = require("../mixins/changeable.jsx");
+const MathOutput   = require("../components/math-output.jsx");
+const { SignificantFigures, displaySigFigs } = require("../sigfigs.jsx");
 
-var countSigfigs = function(value) {
+const ALL = "all";
+const MAX_SIGFIGS = 10;
+
+const countSigfigs = function(value) {
     return new SignificantFigures(value).sigFigs;
 };
 
-var sigfigPrint = function(num, sigfigs) {
+const sigfigPrint = function(num, sigfigs) {
     return displaySigFigs(num, sigfigs, -MAX_SIGFIGS, false);
 };
 
@@ -38,65 +35,22 @@ var sigfigPrint = function(num, sigfigs) {
  * shows and hides an error buddy. The error message is only shown after a
 * rolling two second delay, but hidden immediately on further typing.
  */
-var OldUnitInput = React.createClass({
-    mixins: [Changeable],
-
+const OldUnitInput = React.createClass({
     propTypes: {
+        apiOptions: ApiOptions.propTypes,
+        onBlur: React.PropTypes.func,
+        onChange: React.PropTypes.func,
+        onFocus: React.PropTypes.func,
         value: React.PropTypes.string,
     },
+
+    mixins: [Changeable],
 
     getDefaultProps: function() {
         return {
             apiOptions: ApiOptions.defaults,
             value: "",
         };
-    },
-
-    // TODO(joel) think about showing the error buddy
-    render: function() {
-        var inputType = this.props.apiOptions.staticRender ?
-                React.createFactory(MathOutput) :
-                React.DOM.input;
-        var input = inputType({
-            onChange: this.handleChange,
-            ref: "input",
-            className: ApiClassNames.INTERACTIVE,
-            value: this.props.value,
-            onFocus: this.handleFocus,
-            onBlur: this.handleBlur,
-        });
-
-        return <div className="old-unit-input">
-            {input}
-            <div ref="error"
-                 className="error"
-                 style={{display: "none"}}>
-                <$_>{"I don't understand that"}</$_>
-            </div>
-        </div>;
-    },
-
-    _errorTimeout: null,
-
-    _showError: function() {
-        if (this.props.value === "") {
-            return;
-        }
-
-        var $error = $(ReactDOM.findDOMNode(this.refs.error));
-        if (!$error.is(":visible")) {
-            $error.css({ top: 50, opacity: 0.1 }).show()
-                .animate({ top: 0, opacity: 1.0 }, 300);
-        }
-    },
-
-    _hideError: function() {
-        var $error = $(ReactDOM.findDOMNode(this.refs.error));
-        if ($error.is(":visible")) {
-            $error.animate({ top: 50, opacity: 0.1 }, 300, function() {
-                $(this).hide();
-            });
-        }
     },
 
     componentDidUpdate: function() {
@@ -110,6 +64,29 @@ var OldUnitInput = React.createClass({
 
     componentWillUnmount: function() {
         clearTimeout(this._errorTimeout);
+    },
+
+    _errorTimeout: null,
+
+    _showError: function() {
+        if (this.props.value === "") {
+            return;
+        }
+
+        const $error = $(ReactDOM.findDOMNode(this.refs.error));
+        if (!$error.is(":visible")) {
+            $error.css({ top: 50, opacity: 0.1 }).show()
+                .animate({ top: 0, opacity: 1.0 }, 300);
+        }
+    },
+
+    _hideError: function() {
+        const $error = $(ReactDOM.findDOMNode(this.refs.error));
+        if ($error.is(":visible")) {
+            $error.animate({ top: 50, opacity: 0.1 }, 300, function() {
+                $(this).hide();
+            });
+        }
     },
 
     handleBlur: function() {
@@ -156,7 +133,7 @@ var OldUnitInput = React.createClass({
 
     setInputValue: function(path, newValue, cb) {
         this.props.onChange({
-            value: newValue
+            value: newValue,
         }, cb);
     },
 
@@ -169,18 +146,44 @@ var OldUnitInput = React.createClass({
     },
 
     // end mobile stuff
+
+    // TODO(joel) think about showing the error buddy
+    render: function() {
+        const inputType = this.props.apiOptions.staticRender ?
+                React.createFactory(MathOutput) :
+                React.DOM.input;
+        const input = inputType({
+            onChange: this.handleChange,
+            ref: "input",
+            className: ApiClassNames.INTERACTIVE,
+            value: this.props.value,
+            onFocus: this.handleFocus,
+            onBlur: this.handleBlur,
+        });
+
+        return <div className="old-unit-input">
+            {input}
+            <div
+                ref="error"
+                className="error"
+                style={{display: "none"}}
+            >
+                <$_>{"I don't understand that"}</$_>
+            </div>
+        </div>;
+    },
 });
 
 // Extract the primitive units from a unit expression. This first simplifies
 // `expr` to a `Mul` like "5 kg m / s^2" then removes the first term.
-var primUnits = function(expr) {
+const primUnits = function(expr) {
     return expr.simplify().asMul().partition()[1].flatten().simplify();
 };
 
 _.extend(OldUnitInput, {
     validate: function(state, rubric) {
-        var answer = KAS.unitParse(rubric.value).expr;
-        var guess = KAS.unitParse(state);
+        const answer = KAS.unitParse(rubric.value).expr;
+        const guess = KAS.unitParse(state);
         if (!guess.parsed) {
             return  {
                 type: "invalid",
@@ -191,29 +194,29 @@ _.extend(OldUnitInput, {
         // Note: we check sigfigs, then numerical correctness, then units, so
         // the most significant things come last, that way the user will see
         // the most important message.
-        var message = null;
+        let message = null;
 
         // did the user specify the right number of sigfigs?
         // TODO(joel) - add a grading mode where the wrong number of sigfigs
         // isn't marked wrong
-        var sigfigs = rubric.sigfigs;
-        var sigfigsCorrect = countSigfigs(guess.coefficient) === sigfigs;
+        const sigfigs = rubric.sigfigs;
+        const sigfigsCorrect = countSigfigs(guess.coefficient) === sigfigs;
         if (!sigfigsCorrect) {
             message = i18n._("Check your significant figures.");
         }
 
         // now we need to check that the answer is correct to the precision we
         // require.
-        var numericallyCorrect;
+        let numericallyCorrect;
         try {
-            var x = new KAS.Var("x");
-            var equality = new KAS.Eq(
+            const x = new KAS.Var("x");
+            const equality = new KAS.Eq(
                 answer.simplify(),
                 "=",
                 new KAS.Mul(x, guess.expr.simplify())
             );
 
-            var conversion = equality.solveLinearEquationForVariable(x);
+            const conversion = equality.solveLinearEquationForVariable(x);
 
             // Make sure the conversion factor between the user's input answer
             // and the canonical answer is 1, to sigfig places.
@@ -229,9 +232,9 @@ _.extend(OldUnitInput, {
             message = i18n._("That answer is numerically incorrect.");
         }
 
-        var kasCorrect;
-        var guessUnit = primUnits(guess.expr.simplify());
-        var answerUnit = primUnits(answer.simplify());
+        let kasCorrect;
+        const guessUnit = primUnits(guess.expr.simplify());
+        const answerUnit = primUnits(answer.simplify());
 
         if (rubric.accepting === ALL) {
             // We're accepting all units - KAS does the hard work of figuring
@@ -243,7 +246,7 @@ _.extend(OldUnitInput, {
         } else {
             // Are any of the accepted units the same as what the user entered?
             kasCorrect = _(rubric.acceptingUnits).any(unit => {
-                var thisAnswerUnit = primUnits(
+                const thisAnswerUnit = primUnits(
                     KAS.unitParse(unit).unit.simplify()
                 );
                 return KAS.compare(
@@ -255,10 +258,10 @@ _.extend(OldUnitInput, {
             });
         }
         if (!kasCorrect) {
-            var message = i18n._("Check your units.");
+            message = i18n._("Check your units.");
         }
 
-        var correct = kasCorrect && numericallyCorrect && sigfigsCorrect;
+        const correct = kasCorrect && numericallyCorrect && sigfigsCorrect;
 
         return {
             type: "points",
@@ -266,7 +269,7 @@ _.extend(OldUnitInput, {
             total: 1,
             message,
         };
-    }
+    },
 });
 
 module.exports = {

@@ -1,44 +1,40 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * A library of options to pass to add/draw/remove/constraints
  */
-var _ = require("underscore");
+const _ = require("underscore");
 
-var WrappedEllipse = require("./wrapped-ellipse.js");
-var kpoint = require("kmath").point;
+const WrappedEllipse = require("./wrapped-ellipse.js");
+const kpoint = require("kmath").point;
 
-var add = {
+const add = {
     constrain: function() {
         this.constrain();
-    }
+    },
 };
 
 add.standard = [add.constrain];
 
 
-var modify = {
+const modify = {
     draw: function() {
         this.draw();
-    }
+    },
 };
 
 modify.standard = [modify.draw];
 
 
-var draw = {
+const draw = {
     basic: function(state, prevState) {
-        var graphie = this.graphie;
+        const graphie = this.graphie;
         if (!this.state.visibleShape) {
-            var radii = [
+            const radii = [
                 this.pointSize() / graphie.scale[0],
-                this.pointSize() / graphie.scale[1]
+                this.pointSize() / graphie.scale[1],
             ];
-            var options = {
+            const options = {
                 maxScale: Math.max(
-                    this.highlightStyle().scale, this.normalStyle().scale)
+                    this.highlightStyle().scale, this.normalStyle().scale),
             };
             this.state.visibleShape = new WrappedEllipse(graphie, this.coord(),
                 radii, options);
@@ -73,25 +69,25 @@ var draw = {
                 50
             );
         }
-    }
+    },
 };
 
 draw.standard = [draw.basic, draw.highlight];
 
 
-var remove = {
+const remove = {
     basic: function() {
         if (this.state.visibleShape) {
             this.state.visibleShape.remove();
             this.state.visibleShape = null;
         }
-    }
+    },
 };
 
 remove.standard = remove.basic;
 
 
-var constraints = {
+const constraints = {
     fixed: function() {
         return function() { return false; };
     },
@@ -115,29 +111,29 @@ var constraints = {
             }
         }
         return function(coord) {
-            var graphie = this.graphie;
+            const graphie = this.graphie;
             range = range || graphie.range;
             if (snap === undefined) {
                 snap = graphie.snap;
             }
 
-            var lower = graphie.unscalePoint([
+            let lower = graphie.unscalePoint([
                 paddingPx,
-                graphie.ypixels - paddingPx
+                graphie.ypixels - paddingPx,
             ]);
-            var upper = graphie.unscalePoint([
+            let upper = graphie.unscalePoint([
                 graphie.xpixels - paddingPx,
-                paddingPx
+                paddingPx,
             ]);
             if (snap) {
                 lower = kpoint.ceilTo(lower, snap);
                 upper = kpoint.floorTo(upper, snap);
             }
-            var coordX = Math.max(lower[0], Math.min(upper[0], coord[0]));
-            var coordY = Math.max(lower[1], Math.min(upper[1], coord[1]));
+            const coordX = Math.max(lower[0], Math.min(upper[0], coord[0]));
+            const coordY = Math.max(lower[1], Math.min(upper[1], coord[1]));
             return [coordX, coordY];
         };
-    }
+    },
 };
 
 constraints.standard = null;
@@ -152,5 +148,5 @@ module.exports = {
     constraints: constraints,
     onMove: {standard: null},
     onMoveEnd: {standard: null},
-    onClick: {standard: null}
+    onClick: {standard: null},
 };

@@ -1,15 +1,11 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-redeclare, no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const assert = require("assert");
+// const Perseus = require("../../perseus.js");
 
-var assert = require("assert");
-// var Perseus = require("../../perseus.js");
+// const TestUtils = React.addons.TestUtils;
+// const delayedPromise = require("../../testutils/delayed-promise.jsx");
 
-// var TestUtils = React.addons.TestUtils;
-// var delayedPromise = require("../../testutils/delayed-promise.jsx");
-
-var { getWidget, countSigfigs, sigfigPrint } = require("../unit.jsx");
-var UnitWidget = getWidget();
+const { getWidget, countSigfigs, sigfigPrint } = require("../unit.jsx");
+const UnitWidget = getWidget();
 
 describe("countSigfigs", () => {
     it("gets a few simple cases right", () => {
@@ -32,45 +28,55 @@ describe("displaySigFigs", () => {
 
 describe("Unit Widget Grading", () => {
     it("accepts correct answers", () => {
-        var maybeValid = UnitWidget.validate("5 tbsp", {
-            value: "5 tbsp",
-            accepting: "all",
-            sigfigs: 1,
-        });
-        assert.equal(maybeValid.earned, 1);
+        {
+            const maybeValid = UnitWidget.validate("5 tbsp", {
+                value: "5 tbsp",
+                accepting: "all",
+                sigfigs: 1,
+            });
+            assert.equal(maybeValid.earned, 1);
+        }
 
-        var maybeValid = UnitWidget.validate("0.0739 L", {
-            value: "5.00 tbsp",
-            accepting: "all",
-            sigfigs: 3,
-        });
-        assert.equal(maybeValid.earned, 1);
+        {
+            const maybeValid = UnitWidget.validate("0.0739 L", {
+                value: "5.00 tbsp",
+                accepting: "all",
+                sigfigs: 3,
+            });
+            assert.equal(maybeValid.earned, 1);
+        }
 
-        var maybeValid = UnitWidget.validate("5.00 tbsp", {
-            value: "0.0739 L",
-            accepting: "all",
-            sigfigs: 3,
-        });
-        assert.equal(maybeValid.earned, 1);
+        {
+            const maybeValid = UnitWidget.validate("5.00 tbsp", {
+                value: "0.0739 L",
+                accepting: "all",
+                sigfigs: 3,
+            });
+            assert.equal(maybeValid.earned, 1);
+        }
 
-        var maybeValid = UnitWidget.validate("1124 lb", {
-            value: "5000 N",
-            accepting: "all",
-            sigfigs: 4,
-        });
-        assert.equal(maybeValid.earned, 1);
+        {
+            const maybeValid = UnitWidget.validate("1124 lb", {
+                value: "5000 N",
+                accepting: "all",
+                sigfigs: 4,
+            });
+            assert.equal(maybeValid.earned, 1);
+        }
 
-        var maybeValid = UnitWidget.validate("1124 lb", {
-            value: "5000 N",
-            accepting: "some",
-            acceptingUnits: ["lb"],
-            sigfigs: 4,
-        });
-        assert.equal(maybeValid.earned, 1);
+        {
+            const maybeValid = UnitWidget.validate("1124 lb", {
+                value: "5000 N",
+                accepting: "some",
+                acceptingUnits: ["lb"],
+                sigfigs: 4,
+            });
+            assert.equal(maybeValid.earned, 1);
+        }
     });
 
     it("handles loss of precision gracefully", () => {
-        var maybeValid = UnitWidget.validate("1.12 lb", {
+        const maybeValid = UnitWidget.validate("1.12 lb", {
             value: "5 N",
             accepting: "some",
             acceptingUnits: ["lb"],
@@ -80,7 +86,7 @@ describe("Unit Widget Grading", () => {
     });
 
     it("flags incorrect units", () => {
-        var maybeValid = UnitWidget.validate("5 tbsp", {
+        const maybeValid = UnitWidget.validate("5 tbsp", {
             value: "5 m",
             accepting: "all",
             sigfigs: 1,
@@ -90,25 +96,29 @@ describe("Unit Widget Grading", () => {
     });
 
     it("flags incorrect sigfigs", () => {
-        var maybeValid = UnitWidget.validate("5.0 tbsp", {
-            value: "5 tbsp",
-            accepting: "all",
-            sigfigs: 1,
-        });
-        assert.equal(maybeValid.earned, 0);
-        assert.equal(maybeValid.message, "Check your significant figures.");
+        {
+            const maybeValid = UnitWidget.validate("5.0 tbsp", {
+                value: "5 tbsp",
+                accepting: "all",
+                sigfigs: 1,
+            });
+            assert.equal(maybeValid.earned, 0);
+            assert.equal(maybeValid.message, "Check your significant figures.");
+        }
 
-        var maybeValid = UnitWidget.validate("5 tbsp", {
-            value: "5.0 tbsp",
-            accepting: "all",
-            sigfigs: 2,
-        });
-        assert.equal(maybeValid.earned, 0);
-        assert.equal(maybeValid.message, "Check your significant figures.");
+        {
+            const maybeValid = UnitWidget.validate("5 tbsp", {
+                value: "5.0 tbsp",
+                accepting: "all",
+                sigfigs: 2,
+            });
+            assert.equal(maybeValid.earned, 0);
+            assert.equal(maybeValid.message, "Check your significant figures.");
+        }
     });
 
     it("flags numerically incorrect answers", () => {
-        var maybeValid = UnitWidget.validate("8.1 tbsp", {
+        const maybeValid = UnitWidget.validate("8.1 tbsp", {
             value: "5.0 tbsp",
             accepting: "all",
             sigfigs: 2,

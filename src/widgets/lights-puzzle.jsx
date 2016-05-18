@@ -1,48 +1,46 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+/* global i18n:false */
 
-var React = require('react');
-var Changeable = require("../mixins/changeable.jsx");
-var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
-
-var MAX_SIZE = 8;
+const React = require('react');
+const _ = require("underscore");
+const Changeable = require("../mixins/changeable.jsx");
+const WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
 // Styling
-var CELL_PADDING = 5;
+const CELL_PADDING = 5;
 
-var TABLE_STYLE = {
+const TABLE_STYLE = {
     display: "table",
-    tableLayout: "fixed"
+    tableLayout: "fixed",
 };
 
-var ROW_STYLE = {
-    display: "table-row"
+const ROW_STYLE = {
+    display: "table-row",
 };
 
-var CELL_STYLE = {
+const CELL_STYLE = {
     display: "table-cell",
-    padding: CELL_PADDING
-};
-
-var BASE_TILE_STYLE = {
-    borderRadius: 10,
-    cursor: "pointer"
-};
-
-var MOVE_COUNT_STYLE = {
     padding: CELL_PADDING,
-    display: "inline-block"
 };
 
-var RESET_BUTTON_STYLE = {
+const BASE_TILE_STYLE = {
+    borderRadius: 10,
+    cursor: "pointer",
+};
+
+const MOVE_COUNT_STYLE = {
+    padding: CELL_PADDING,
+    display: "inline-block",
+};
+
+const RESET_BUTTON_STYLE = {
     "float": "right",
-    paddingRight: CELL_PADDING
+    paddingRight: CELL_PADDING,
 };
 
-var MAIN_TILE_SIZE = 50;
+const MAIN_TILE_SIZE = 50;
 
-var mapCells = (cells, func) => {
+/* eslint-disable no-unused-vars */
+const mapCells = (cells, func) => {
     return _.map(cells, (row, y) => {
         return _.map(row, (value, x) => {
             return func(value, y, x);
@@ -50,72 +48,65 @@ var mapCells = (cells, func) => {
     });
 };
 
-var genCells = (height, width, func) => {
+const genCells = (height, width, func) => {
     return _.times(height, (y) => {
         return _.times(width, (x) => {
             return func(y, x);
         });
     });
 };
+/* eslint-enable no-unused-vars */
 
-var PATTERNS = {
+const PATTERNS = {
     plus: () => [
         [false, true, false],
         [true,  true, true ],
-        [false, true, false]
+        [false, true, false],
     ],
     x: () => [
         [true,  false, true ],
         [false, true,  false],
-        [true,  false, true ]
+        [true,  false, true ],
     ],
     "plus/x": (iter) => {
         return (iter % 2) ? PATTERNS.x() : PATTERNS.plus();
-    }
-};
-
-
-/**
- * Clamps value to an integer in the range [min, max]
- */
-var clampToInt = function(value, min, max) {
-    value = Math.floor(value);
-    value = Math.max(value, min);
-    value = Math.min(value, max);
-    return value;
+    },
 };
 
 // A single glowy cell
-var Tile = React.createClass({
+const Tile = React.createClass({
     propTypes: {
+        onChange: React.PropTypes.func.isRequired,
+        size: React.PropTypes.number.isRequired,
         value: React.PropTypes.bool.isRequired,
-        size: React.PropTypes.number.isRequired
-    },
-
-    render: function() {
-        var color = this.props.value ? "#55dd55" : "#115511";
-        var style = _.extend({}, BASE_TILE_STYLE, {
-            width: this.props.size,
-            height: this.props.size,
-            backgroundColor: color
-        });
-        return <div
-            style={style}
-            onClick={this._flip} />;
     },
 
     _flip: function() {
         this.props.onChange(!this.props.value);
     },
+
+    render: function() {
+        const color = this.props.value ? "#55dd55" : "#115511";
+        const style = _.extend({}, BASE_TILE_STYLE, {
+            width: this.props.size,
+            height: this.props.size,
+            backgroundColor: color,
+        });
+        return <div
+            style={style}
+            onClick={this._flip}
+        />;
+    },
 });
 
 // A grid of glowy cells
-var TileGrid = React.createClass({
+const TileGrid = React.createClass({
     propTypes: {
         cells: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(React.PropTypes.bool)
         ).isRequired,
-        size: React.PropTypes.number.isRequired
+        onChange: React.PropTypes.func.isRequired,
+        size: React.PropTypes.number.isRequired,
     },
 
     render: function() {
@@ -128,7 +119,7 @@ var TileGrid = React.createClass({
                                 value={cell}
                                 size={this.props.size}
                                 onChange={_.partial(this.props.onChange, y, x)}
-                                />
+                            />
                         </div>;
                     })}
                 </div>;
@@ -139,7 +130,7 @@ var TileGrid = React.createClass({
 
 // Returns a copy of the tiles, with tiles flipped according to
 // whether or not their y, x position satisfies the predicate
-var flipTilesPredicate = (oldCells, predicate) => {
+const flipTilesPredicate = (oldCells, predicate) => {
     return _.map(oldCells, (row, y) => {
         return _.map(row, (cell, x) => {
             return predicate(y, x) ? !cell : cell;
@@ -147,10 +138,10 @@ var flipTilesPredicate = (oldCells, predicate) => {
     });
 };
 
-var flipTilesPattern = (oldCells, tileY, tileX, pattern) => {
+const flipTilesPattern = (oldCells, tileY, tileX, pattern) => {
     return flipTilesPredicate(oldCells, (y, x) => {
-        var offsetY = y - tileY;
-        var offsetX = x - tileX;
+        const offsetY = y - tileY;
+        const offsetX = x - tileX;
         if (Math.abs(offsetY) <= 1 && Math.abs(offsetX) <= 1) {
             return pattern[offsetY + 1][offsetX + 1];
         } else {
@@ -160,10 +151,9 @@ var flipTilesPattern = (oldCells, tileY, tileX, pattern) => {
 };
 
 // The lights puzzle widget
-var LightsPuzzle = React.createClass({
-    mixins: [Changeable, WidgetJsonifyDeprecated],
-
+const LightsPuzzle = React.createClass({
     propTypes: {
+        /* eslint-disable react/jsx-sort-prop-types */
         cells: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(React.PropTypes.bool)
         ),
@@ -171,57 +161,27 @@ var LightsPuzzle = React.createClass({
             React.PropTypes.arrayOf(React.PropTypes.bool)
         ),
         flipPattern: React.PropTypes.string.isRequired,
-        moveCount: React.PropTypes.number.isRequired
+        moveCount: React.PropTypes.number.isRequired,
+        /* eslint-enable react/jsx-sort-prop-types */
     },
+
+    mixins: [Changeable, WidgetJsonifyDeprecated],
 
     getDefaultProps: function() {
         return {
             cells: [
                 [false, false, false],
                 [false, false, false],
-                [false, false, false]
+                [false, false, false],
             ],
             startCells: [
                 [false, false, false],
                 [false, false, false],
-                [false, false, false]
+                [false, false, false],
             ],
             flipPattern: "plus",
-            moveCount: 0
+            moveCount: 0,
         };
-    },
-
-    render: function() {
-        var width = this._width();
-        var tileSize = MAIN_TILE_SIZE;
-        var pxWidth = width * (tileSize + 2 * CELL_PADDING);
-        return <div>
-            <TileGrid
-                cells={this.props.cells}
-                size={tileSize}
-                onChange={this._flipTile} />
-            <div style={{width: pxWidth}}>
-                <div style={MOVE_COUNT_STYLE}>
-                    Moves: {this.props.moveCount}
-                </div>
-                <div style={RESET_BUTTON_STYLE}>
-                <input
-                    type="button"
-                    value="Reset"
-                    onClick={this._reset}
-                    className="simple-button" />
-                </div>
-            </div>
-            <div className="clearfix" />
-        </div>;
-    },
-
-    _width: function() {
-        if (this.props.cells.length !== 0) {
-            return this.props.cells[0].length;
-        } else {
-            return 0; // default to 0
-        }
     },
 
     componentDidMount: function() {
@@ -231,6 +191,14 @@ var LightsPuzzle = React.createClass({
     componentDidUpdate: function(prevProps) {
         if (prevProps.flipPattern !== this.props.flipPattern) {
             this._initNextPatterns();
+        }
+    },
+
+    _width: function() {
+        if (this.props.cells.length !== 0) {
+            return this.props.cells[0].length;
+        } else {
+            return 0; // default to 0
         }
     },
 
@@ -249,7 +217,7 @@ var LightsPuzzle = React.createClass({
     },
 
     _flipTile: function(tileY, tileX) {
-        var newCells = flipTilesPattern(
+        const newCells = flipTilesPattern(
             this.props.cells,
             tileY,
             tileX,
@@ -259,25 +227,52 @@ var LightsPuzzle = React.createClass({
 
         this.change({
             cells: newCells,
-            moveCount: this.props.moveCount + 1
+            moveCount: this.props.moveCount + 1,
         });
     },
 
     _reset: function() {
         this.change({
             cells: this.props.startCells,
-            moveCount: 0
+            moveCount: 0,
         });
     },
 
     simpleValidate: function(rubric) {
         return validate(rubric, this.getUserInput());
-    }
+    },
+
+    render: function() {
+        const width = this._width();
+        const tileSize = MAIN_TILE_SIZE;
+        const pxWidth = width * (tileSize + 2 * CELL_PADDING);
+        return <div>
+            <TileGrid
+                cells={this.props.cells}
+                size={tileSize}
+                onChange={this._flipTile}
+            />
+            <div style={{width: pxWidth}}>
+                <div style={MOVE_COUNT_STYLE}>
+                    Moves: {this.props.moveCount}
+                </div>
+                <div style={RESET_BUTTON_STYLE}>
+                <input
+                    type="button"
+                    value="Reset"
+                    onClick={this._reset}
+                    className="simple-button"
+                />
+                </div>
+            </div>
+            <div className="clearfix" />
+        </div>;
+    },
 });
 
 // grading function
-var validate = function(rubric, state) {
-    var empty = _.all(state.cells, (row, y) => {
+const validate = function(rubric, state) {
+    const empty = _.all(state.cells, (row, y) => {
         return _.all(row, (cell, x) => {
             return cell === rubric.startCells[y][x];
         });
@@ -285,11 +280,11 @@ var validate = function(rubric, state) {
     if (empty) {
         return {
             type: "invalid",
-            message: i18n._("Click on the tiles to change the lights.")
+            message: i18n._("Click on the tiles to change the lights."),
         };
     }
 
-    var correct = _.all(state.cells, (row) => {
+    const correct = _.all(state.cells, (row) => {
         return _.all(row, (cell) => {
             return cell;
         });
@@ -300,29 +295,29 @@ var validate = function(rubric, state) {
             type: "points",
             earned: 1,
             total: 1,
-            message: null
+            message: null,
         };
     } else if (rubric.gradeIncompleteAsWrong) {
         return {
             type: "points",
             earned: 0,
             total: 1,
-            message: null
+            message: null,
         };
     } else {
         return {
             type: "invalid",
-            message: i18n._("You must turn on all of the lights to continue.")
+            message: i18n._("You must turn on all of the lights to continue."),
         };
     }
 };
 
 // The function run on the editor props to create the widget props
-var transformProps = function(editorProps) {
+const transformProps = function(editorProps) {
     return {
         cells: editorProps.startCells,
         startCells: editorProps.startCells,
-        flipPattern: editorProps.flipPattern
+        flipPattern: editorProps.flipPattern,
     };
 };
 
@@ -331,5 +326,5 @@ module.exports = {
     displayName: "Lights Puzzle",
     hidden: true,
     widget: LightsPuzzle,
-    transform: transformProps
+    transform: transformProps,
 };

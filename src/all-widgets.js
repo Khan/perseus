@@ -1,12 +1,8 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /* globals __EDITOR__ */
 
-var _ = require("underscore");
+const _ = require("underscore");
 
-var Widgets = require("./widgets.js");
+const Widgets = require("./widgets.js");
 
 // As new widgets get added here, please also make sure they get added in
 // webapp perseus/traversal.py so they can be properly translated.

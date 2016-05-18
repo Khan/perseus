@@ -1,23 +1,28 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /* A div that shows/hides its children.
  * (meant for use with editor widgets)
  */
-var React = require("react");
+const React = require("react");
 
-var MoreOptions = React.createClass({
+const MoreOptions = React.createClass({
+    propTypes: {
+        children: React.PropTypes.node,
+        show: React.PropTypes.bool,
+    },
+
     getDefaultProps: function() {
         return {
-            show: false
+            show: false,
         };
     },
 
     getInitialState: function() {
         return {
-            show: this.props.show
+            show: this.props.show,
         };
+    },
+
+    toggle: function() {
+        this.setState({show: !this.state.show});
     },
 
     render: function() {
@@ -31,10 +36,6 @@ var MoreOptions = React.createClass({
             </div>
         </div>;
     },
-
-    toggle: function() {
-        this.setState({show: !this.state.show});
-    }
 });
 
 module.exports = MoreOptions;

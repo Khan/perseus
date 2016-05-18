@@ -1,22 +1,18 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const classNames = require("classnames");
+const FancySelect = require("../components/fancy-select.jsx");
+const React = require('react');
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var classNames = require("classnames");
-var FancySelect = require("../components/fancy-select.jsx");
-var React = require('react');
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const FancyOption = FancySelect.Option;
 
-var FancyOption = FancySelect.Option;
+const ApiClassNames = require("../perseus-api.jsx").ClassNames;
+const ApiOptions = require("../perseus-api.jsx").Options;
 
-var ApiClassNames = require("../perseus-api.jsx").ClassNames;
-var ApiOptions = require("../perseus-api.jsx").Options;
-
-var captureScratchpadTouchStart =
+const captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
 
-var Dropdown = React.createClass({
+const Dropdown = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         choices: React.PropTypes.arrayOf(React.PropTypes.string),
@@ -31,55 +27,8 @@ var Dropdown = React.createClass({
             choices: [],
             selected: 0,
             placeholder: "",
-            apiOptions: ApiOptions.defaults
+            apiOptions: ApiOptions.defaults,
         };
-    },
-
-    render: function() {
-        var choices = this.props.choices.slice();
-
-        var selectClasses = classNames({
-            "perseus-widget-dropdown": true,
-            "perseus-fancy-dropdown": this.props.apiOptions.fancyDropdowns
-        });
-
-        if (this.props.apiOptions.fancyDropdowns) {
-            return <FancySelect
-                    onChange={this._handleChange}
-                    className={selectClasses + " " + ApiClassNames.INTERACTIVE}
-                    value={this.props.selected}>
-                <FancyOption value={0} visible={false}>
-                    <span className="placeholder">
-                        {this.props.placeholder}
-                    </span>
-                </FancyOption>
-                {choices.map((choice, i) => {
-                    // Always visible so we can animate them with css
-                    return <FancyOption key={i + 1} value={i + 1} visible>
-                        {choice}
-                    </FancyOption>;
-                })}
-            </FancySelect>;
-
-        } else {
-            return <select
-                    onChange={this._handleChangeEvent}
-                    onTouchStart={captureScratchpadTouchStart}
-                    className={selectClasses + " " + ApiClassNames.INTERACTIVE}
-                    disabled={this.props.apiOptions.readOnly}
-                    value={this.props.selected}>
-                <option value={0} disabled>
-                    {this.props.placeholder}
-                </option>
-                {choices.map((choice, i) => {
-                    return <option
-                            key={"" + (i + 1)}
-                            value={i + 1}>
-                        {choice}
-                    </option>;
-                })}
-            </select>;
-        }
     },
 
     focus: function() {
@@ -102,33 +51,83 @@ var Dropdown = React.createClass({
 
     simpleValidate: function(rubric) {
         return Dropdown.validate(this.getUserInput(), rubric);
-    }
+    },
+
+    render: function() {
+        const choices = this.props.choices.slice();
+
+        const selectClasses = classNames({
+            "perseus-widget-dropdown": true,
+            "perseus-fancy-dropdown": this.props.apiOptions.fancyDropdowns,
+        });
+
+        if (this.props.apiOptions.fancyDropdowns) {
+            return <FancySelect
+                onChange={this._handleChange}
+                className={selectClasses + " " + ApiClassNames.INTERACTIVE}
+                value={this.props.selected}
+            >
+                <FancyOption value={0} visible={false}>
+                    <span className="placeholder">
+                        {this.props.placeholder}
+                    </span>
+                </FancyOption>
+                {choices.map((choice, i) => {
+                    // Always visible so we can animate them with css
+                    return <FancyOption key={i + 1} value={i + 1} visible>
+                        {choice}
+                    </FancyOption>;
+                })}
+            </FancySelect>;
+
+        } else {
+            return <select
+                onChange={this._handleChangeEvent}
+                onTouchStart={captureScratchpadTouchStart}
+                className={selectClasses + " " + ApiClassNames.INTERACTIVE}
+                disabled={this.props.apiOptions.readOnly}
+                value={this.props.selected}
+            >
+                <option value={0} disabled>
+                    {this.props.placeholder}
+                </option>
+                {choices.map((choice, i) => {
+                    return <option
+                        key={"" + (i + 1)}
+                        value={i + 1}
+                    >
+                        {choice}
+                    </option>;
+                })}
+            </select>;
+        }
+    },
 });
 
 _.extend(Dropdown, {
     validate: function(state, rubric) {
-        var selected = state.value;
+        const selected = state.value;
         if (selected === 0) {
             return {
                 type: "invalid",
-                message: null
+                message: null,
             };
         } else {
-            var correct = rubric.choices[selected - 1].correct;
+            const correct = rubric.choices[selected - 1].correct;
             return {
                 type: "points",
                 earned: correct ? 1 : 0,
                 total: 1,
-                message: null
+                message: null,
             };
         }
-    }
+    },
 });
 
-var propTransform = (editorProps) => {
+const propTransform = (editorProps) => {
     return {
         placeholder: editorProps.placeholder,
-        choices: _.map(editorProps.choices, (choice) => choice.content)
+        choices: _.map(editorProps.choices, (choice) => choice.content),
     };
 };
 
@@ -138,5 +137,5 @@ module.exports = {
     defaultAlignment: "inline-block",
     accessible: true,
     widget: Dropdown,
-    transform: propTransform
+    transform: propTransform,
 };

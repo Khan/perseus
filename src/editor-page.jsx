@@ -1,28 +1,25 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/forbid-prop-types, react/prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const React = require('react');
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var React = require('react');
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const ApiOptions = require("./perseus-api.jsx").Options;
+const CombinedHintsEditor = require("./hint-editor.jsx");
+const EnabledFeatures = require("./enabled-features.jsx");
+const FixPassageRefs = require("./util/fix-passage-refs.jsx");
+const ItemEditor = require("./item-editor.jsx");
+const ItemRenderer = require("./item-renderer.jsx");
+const JsonEditor = require("./json-editor.jsx");
+const ViewportResizer = require("./components/viewport-resizer.jsx");
 
-var ApiOptions = require("./perseus-api.jsx").Options;
-var CombinedHintsEditor = require("./hint-editor.jsx");
-var EnabledFeatures = require("./enabled-features.jsx");
-var FixPassageRefs = require("./util/fix-passage-refs.jsx");
-var ItemEditor = require("./item-editor.jsx");
-var ItemRenderer = require("./item-renderer.jsx");
-var JsonEditor = require("./json-editor.jsx");
-var ViewportResizer = require("./components/viewport-resizer.jsx");
-
-var EditorPage = React.createClass({
+const EditorPage = React.createClass({
     propTypes: {
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
         answerArea: React.PropTypes.any, // related to the question
 
         // We don't specify a more specific type here because it's valid
         // for a client of Perseus to specify a subset of the API options,
         // in which case we default the rest in `this._apiOptions()`
-        apiOptions: React.PropTypes.object,
+        apiOptions: React.PropTypes.any,
 
         developerMode: React.PropTypes.bool,
         enabledFeatures: EnabledFeatures.propTypes,
@@ -49,6 +46,7 @@ var EditorPage = React.createClass({
         onChange: React.PropTypes.func,
 
         // Initial value of the question being edited
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
         question: React.PropTypes.any,
     },
 
@@ -81,8 +79,17 @@ var EditorPage = React.createClass({
         };
     },
 
+    componentDidMount: function() {
+        this.rendererMountNode = document.createElement("div");
+        this.updateRenderer();
+    },
+
+    componentDidUpdate: function() {
+        this.updateRenderer();
+    },
+
     handleCheckAnswer: function() {
-        var result = this.scorePreview();
+        const result = this.scorePreview();
         this.setState({
             gradeMessage: result.message,
             wasAnswered: result.correct,
@@ -99,15 +106,6 @@ var EditorPage = React.createClass({
         });
     },
 
-    componentDidMount: function() {
-        this.rendererMountNode = document.createElement("div");
-        this.updateRenderer();
-    },
-
-    componentDidUpdate: function() {
-        this.updateRenderer();
-    },
-
     updateRenderer: function(cb) {
         // Some widgets (namely the image widget) like to call onChange before
         // anything has actually been mounted, which causes problems here. We
@@ -115,7 +113,7 @@ var EditorPage = React.createClass({
         if (this.rendererMountNode == null || this.props.jsonMode) {
             return;
         }
-        var rendererConfig = _({
+        const rendererConfig = _({
             item: this.serialize(),
             enabledFeatures: {
                 toolTipFormats: true,
@@ -145,7 +143,7 @@ var EditorPage = React.createClass({
     },
 
     handleChange: function(toChange, cb, silent) {
-        var newProps = _(this.props).pick("question", "hints", "answerArea");
+        const newProps = _(this.props).pick("question", "hints", "answerArea");
         _(newProps).extend(toChange);
         this.props.onChange(newProps, cb, silent);
     },
@@ -162,8 +160,8 @@ var EditorPage = React.createClass({
     },
 
     _fixPassageRefs: function() {
-        var itemData = this.serialize();
-        var newItemData = FixPassageRefs(itemData);
+        const itemData = this.serialize();
+        const newItemData = FixPassageRefs(itemData);
         this.setState({
             json: newItemData,
         });
@@ -175,6 +173,22 @@ var EditorPage = React.createClass({
             return this.renderer.scoreInput();
         } else {
             return null;
+        }
+    },
+
+    getSaveWarnings: function() {
+        const issues1 = this.refs.itemEditor.getSaveWarnings();
+        const issues2 = this.refs.hintsEditor.getSaveWarnings();
+        return issues1.concat(issues2);
+    },
+
+    serialize: function(options) {
+        if (this.props.jsonMode) {
+            return this.state.json;
+        } else {
+            return _.extend(this.refs.itemEditor.serialize(options), {
+                hints: this.refs.hintsEditor.serialize(options),
+            });
         }
     },
 
@@ -247,23 +261,6 @@ var EditorPage = React.createClass({
         </div>;
 
     },
-
-    getSaveWarnings: function() {
-        var issues1 = this.refs.itemEditor.getSaveWarnings();
-        var issues2 = this.refs.hintsEditor.getSaveWarnings();
-        return issues1.concat(issues2);
-    },
-
-    serialize: function(options) {
-        if (this.props.jsonMode) {
-            return this.state.json;
-        } else {
-            return _.extend(this.refs.itemEditor.serialize(options), {
-                hints: this.refs.hintsEditor.serialize(options),
-            });
-        }
-    },
-
 });
 
 module.exports = EditorPage;

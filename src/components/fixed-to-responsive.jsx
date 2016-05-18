@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-trailing-spaces, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * A wrapper for a component that would otherwise have a fixed width and
  * height, that magically makes it reponsive while preserving its aspect ratio.
@@ -10,22 +6,23 @@
  *
  * Can wrap multiple components with the same dimensions at the same time;
  * these will be overlaid on top of each other.
- * 
+ *
  * Usage:
  * <FixedToResponsive width={400} height={400}>
  *     <img src="bottom-layer.png" />
  *     <img src="top-layer.png" />
  * </FixedToResponsive>
  */
-var classNames = require("classnames");
-var React = require("react");
+const classNames = require("classnames");
+const React = require("react");
 
-var FixedToResponsive = React.createClass({
+const FixedToResponsive = React.createClass({
 
     propTypes: {
-        width: React.PropTypes.number.isRequired,
-        height: React.PropTypes.number.isRequired,
+        children: React.PropTypes.node,
         className: React.PropTypes.string,
+        height: React.PropTypes.number.isRequired,
+        width: React.PropTypes.number.isRequired,
     },
 
     getDefaultProps: function() {
@@ -40,23 +37,25 @@ var FixedToResponsive = React.createClass({
         // but never grow larger than their original dimensions. We accomplish
         // this by absolutely positioning the children and telling them to fill
         // up all of a space that has the correct aspect ratio.
-        var aspectRatio = this.props.width / this.props.height;
+        const aspectRatio = this.props.width / this.props.height;
 
         // This works because padding percentages are interpreted in terms of
         // the width of the containing block, so:
         //     (fixed height / fixed width) * display width = display height
         // Based on http://refills.bourbon.io/components/#video && medium.com
-        var spacer = <div style={{
-            paddingBottom: (1 / aspectRatio).toFixed(4) * 100 + '%'
-        }} />;
+        const spacer = <div
+            style={{
+                paddingBottom: (1 / aspectRatio).toFixed(4) * 100 + '%',
+            }}
+        />;
 
         // Prevent child components from growing (aka "the Peter Pan effect")
-        var style = {
+        const style = {
             maxWidth: this.props.width,
             maxHeight: this.props.height,
         };
 
-        var className = classNames(
+        const className = classNames(
             "fixed-to-responsive",
             this.props.className
         );
@@ -65,7 +64,7 @@ var FixedToResponsive = React.createClass({
             {spacer}
             {this.props.children}
         </div>;
-    }
+    },
 });
 
 module.exports = FixedToResponsive;

@@ -1,31 +1,22 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const React = require("react");
+const _ = require("underscore");
 
-// TODO(kevindangoor) fix these lint errors
-/*eslint-disable react/sort-comp, react/jsx-indent-props, react/prop-types,
-    react/jsx-closing-bracket-location
-*/
+const ApiOptions   = require("../perseus-api.jsx").Options;
+const Renderer     = require("../renderer.jsx");
 
-var React = require("react");
-var _ = require("underscore");
+const Changeable    = require("../mixins/changeable.jsx");
 
-var ApiOptions   = require("../perseus-api.jsx").Options;
-var Renderer     = require("../renderer.jsx");
+const SvgImage     = require("../components/svg-image.jsx");
 
-var Changeable    = require("../mixins/changeable.jsx");
-
-var SvgImage     = require("../components/svg-image.jsx");
-
-var defaultBoxSize = 400;
-var defaultRange = [0, 10];
-var defaultBackgroundImage = {
+const defaultBoxSize = 400;
+const defaultRange = [0, 10];
+const defaultBackgroundImage = {
     url: null,
     width: 0,
     height: 0,
 };
 
-var ImageWidget = React.createClass({
+const ImageWidget = React.createClass({
     propTypes: {
         alt: React.PropTypes.string,
         apiOptions: ApiOptions.propTypes,
@@ -72,12 +63,22 @@ var ImageWidget = React.createClass({
         };
     },
 
+    getUserInput: function() {
+        return null;
+    },
+
+    simpleValidate: function(rubric) {
+        return ImageWidget.validate(this.getUserInput(), rubric);
+    },
+
+    focus: $.noop,
+
     render: function() {
-        var title;
-        var image;
-        var alt;
-        var caption;
-        var {apiOptions} = this.props;
+        let title;
+        let image;
+        let alt;
+        let caption;
+        const {apiOptions} = this.props;
 
         if (this.props.title) {
             title = <div className="perseus-image-title">
@@ -88,44 +89,36 @@ var ImageWidget = React.createClass({
             </div>;
         }
 
-        var backgroundImage = this.props.backgroundImage;
+        const backgroundImage = this.props.backgroundImage;
 
         if (backgroundImage.url) {
             image = <SvgImage
-                        src={backgroundImage.url}
-                        alt={
-                            /* alt text is formatted in a sr-only
-                               div next to the image, so we make
-                               this empty here.
-                               If there is no alt text at all,
-                               we don't put an alt attribute on
-                               the image, so that screen readers
-                               know there's something they can't
-                               read there :(.
-                               NOTE: React <=0.13 (maybe later)
-                               has a bug where it won't ever
-                               remove an attribute, so if this
-                               alt node is ever defined it's
-                               not removed. This is sort of
-                               dangerous, but we usually re-key
-                               new renderers so that they're
-                               rendered from scratch anyways,
-                               so this shouldn't be a problem
-                               in practice right now, although
-                               it will exhibit weird behaviour
-                               while editing. */
-                            this.props.alt ? "" : undefined
-                        }
-                        width={backgroundImage.width}
-                        height={backgroundImage.height}
-                        preloader={apiOptions ?
-                            apiOptions.imagePreloader : null}
-                        extraGraphie={{
-                            box: this.props.box,
-                            range: this.props.range,
-                            labels: this.props.labels,
-                        }}
-                        trackInteraction={this.props.trackInteraction}
+                src={backgroundImage.url}
+                alt={
+                    /* alt text is formatted in a sr-only div next to the image,
+                       so we make this empty here. If there is no alt text at
+                       all, we don't put an alt attribute on the image, so that
+                       screen readers know there's something they can't read
+                       there :(.
+                       NOTE: React <=0.13 (maybe later) has a bug where it won't
+                       ever remove an attribute, so if this alt node is ever
+                       defined it's not removed. This is sort of dangerous, but
+                       we usually re-key new renderers so that they're rendered
+                       from scratch anyways, so this shouldn't be a problem in
+                       practice right now, although it will exhibit weird
+                       behaviour while editing. */
+                    this.props.alt ? "" : undefined
+                }
+                width={backgroundImage.width}
+                height={backgroundImage.height}
+                preloader={apiOptions ?
+                    apiOptions.imagePreloader : null}
+                extraGraphie={{
+                    box: this.props.box,
+                    range: this.props.range,
+                    labels: this.props.labels,
+                }}
+                trackInteraction={this.props.trackInteraction}
             />;
         }
 
@@ -151,16 +144,6 @@ var ImageWidget = React.createClass({
             {caption}
         </div>;
     },
-
-    getUserInput: function() {
-        return null;
-    },
-
-    simpleValidate: function(rubric) {
-        return ImageWidget.validate(this.getUserInput(), rubric);
-    },
-
-    focus: $.noop,
 });
 
 _.extend(ImageWidget, {
@@ -179,7 +162,7 @@ module.exports = {
     // This widget's accessibility depends on its contents: if the image has
     // has a background but no alt text, it is not accessible
     accessible: (props) => {
-        var bgImage = props.backgroundImage;
+        const bgImage = props.backgroundImage;
         return !(bgImage && bgImage.url && !props.alt);
     },
     supportedAlignments: ["block", "float-left", "float-right", "full-width"],

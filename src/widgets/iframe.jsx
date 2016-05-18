@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * This is an iframe widget. It is used for rendering an iframe that
  *  then communicates its state via window.postMessage
@@ -12,42 +8,50 @@
  */
 
 /* globals KA */
-var React = require("react");
-var _ = require("underscore");
+const React = require("react");
+const _ = require("underscore");
 
-var Changeable = require("../mixins/changeable.jsx");
-var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
-var updateQueryString = require("../util.js").updateQueryString;
+const Changeable = require("../mixins/changeable.jsx");
+const WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
+const updateQueryString = require("../util.js").updateQueryString;
 
 
 /* This renders the iframe and handles validation via window.postMessage */
-var Iframe = React.createClass({
+const Iframe = React.createClass({
+    propTypes: {
+        allowFullScreen: React.PropTypes.bool,
+        height: React.PropTypes.string,
+        message: React.PropTypes.string,
+        settings: React.PropTypes.arrayOf(React.PropTypes.object),
+        status: React.PropTypes.oneOf(['incomplete', 'incorrect', 'correct']),
+        url: React.PropTypes.string,
+        width: React.PropTypes.string,
+    },
 
     mixins: [Changeable, WidgetJsonifyDeprecated],
 
-    propTypes: {
-        width: React.PropTypes.string,
-        height: React.PropTypes.string,
-        url: React.PropTypes.string,
-        settings: React.PropTypes.array,
-        status: React.PropTypes.oneOf(['incomplete', 'incorrect', 'correct']),
-        message: React.PropTypes.string,
-        allowFullScreen: React.PropTypes.bool,
-    },
-
     getDefaultProps: function() {
         return {
-            status: "incomplete",
+            allowFullScreen: false,
             // optional message
             message: null,
-            allowFullScreen: false,
+            status: "incomplete",
         };
     },
+
+    componentDidMount: function() {
+        $(window).on("message", this.handleMessageEvent);
+    },
+
+    componentWillUnmount: function() {
+        $(window).off("message", this.handleMessageEvent);
+    },
+
     handleMessageEvent: function(e) {
         // We receive data from the iframe that contains {passed: true/false}
         //  and use that to set the status
         // It could also contain an optional message
-        var data = {};
+        let data = {};
         try {
             data = JSON.parse(e.originalEvent.data);
         } catch (err) {
@@ -58,26 +62,23 @@ var Iframe = React.createClass({
             return;
         }
 
-        var status = (data.testsPassed ? "correct" : "incorrect");
+        const status = (data.testsPassed ? "correct" : "incorrect");
         this.change({
             status: status,
-            message: data.message
+            message: data.message,
         });
     },
-    componentDidMount: function() {
-        $(window).on("message", this.handleMessageEvent);
-    },
 
-    componentWillUnmount: function() {
-        $(window).off("message", this.handleMessageEvent);
+    simpleValidate: function(rubric) {
+        return Iframe.validate(this.getUserInput(), rubric);
     },
 
     render: function() {
-        var style = {
+        const style = {
             width: this.props.width,
-            height: this.props.height
+            height: this.props.height,
         };
-        var url = this.props.url;
+        let url = this.props.url;
 
         // If the URL doesnt start with http, it must be a program ID
         if (url && url.length && url.indexOf("http") !== 0) {
@@ -109,7 +110,7 @@ var Iframe = React.createClass({
 
         // Turn array of [{name: "", value: ""}] into object
         if (this.props.settings) {
-            var settings = {};
+            const settings = {};
             _.each(this.props.settings, function(setting) {
                 if (setting.name && setting.value) {
                     settings[setting.name] = setting.value;
@@ -123,14 +124,12 @@ var Iframe = React.createClass({
         //  that we need. This makes it a bit safer in case some content
         //  creator "went wild".
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
-        return <iframe sandbox="allow-same-origin allow-scripts"
-                       style={style} src={url}
-                       allowFullScreen={this.props.allowFullScreen} />;
+        return <iframe
+            sandbox="allow-same-origin allow-scripts"
+            style={style} src={url}
+            allowFullScreen={this.props.allowFullScreen}
+        />;
     },
-
-    simpleValidate: function(rubric) {
-        return Iframe.validate(this.getUserInput(), rubric);
-    }
 });
 
 
@@ -146,22 +145,22 @@ _.extend(Iframe, {
                 type: "points",
                 earned: 1,
                 total: 1,
-                message: state.message || null
+                message: state.message || null,
             };
         } else if (state.status === "incorrect") {
             return {
                 type: "points",
                 earned: 0,
                 total: 1,
-                message: state.message || null
+                message: state.message || null,
             };
         } else {
             return {
                 type: "invalid",
-                message: "Keep going, you're not there yet!"
+                message: "Keep going, you're not there yet!",
             };
         }
-    }
+    },
 });
 
 module.exports = {

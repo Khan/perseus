@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const _ = require("underscore");
 
@@ -21,7 +17,8 @@ const TextInput = require("../components/text-input.jsx");
 
 const KhanColors = require("../util/colors.js");
 
-var defaultInteractionProps = {
+const defaultInteractionProps = {
+    elements: [],
     graph: {
         box: [400, 400],
         labels: ["x", "y"],
@@ -30,7 +27,6 @@ var defaultInteractionProps = {
         gridStep: [1, 1],
         markings: "graph",
     },
-    elements: [],
 };
 
 //
@@ -39,19 +35,19 @@ var defaultInteractionProps = {
 // TODO(eater): Factor this out
 //
 const PointEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
     propTypes: {
+        color: React.PropTypes.string,
         coordX: React.PropTypes.string,
         coordY: React.PropTypes.string,
-        color: React.PropTypes.string,
     },
+
+    mixins: [EditorJsonify, Changeable],
 
     getDefaultProps: function() {
         return {
+            color: KhanColors.BLACK,
             coordX: "0",
             coordY: "0",
-            color: KhanColors.BLACK,
         };
     },
 
@@ -88,29 +84,29 @@ const PointEditor = React.createClass({
 //
 // TODO(eater): Factor this out
 //
-var LineEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
+const LineEditor = React.createClass({
     propTypes: {
-        startX: React.PropTypes.string,
-        startY: React.PropTypes.string,
+        arrows: React.PropTypes.string,
+        color: React.PropTypes.string,
         endX: React.PropTypes.string,
         endY: React.PropTypes.string,
-        color: React.PropTypes.string,
+        startX: React.PropTypes.string,
+        startY: React.PropTypes.string,
         strokeDasharray: React.PropTypes.string,
-        arrows: React.PropTypes.string,
         strokeWidth: React.PropTypes.number,
     },
 
+    mixins: [EditorJsonify, Changeable],
+
     getDefaultProps: function() {
         return {
-            startX: "-5",
-            startY: "5",
+            arrows: "",
+            color: KhanColors.BLACK,
             endX: "5",
             endY: "5",
-            color: KhanColors.BLACK,
+            startX: "-5",
+            startY: "5",
             strokeDasharray: "",
-            arrows: "",
             strokeWidth: 2,
         };
     },
@@ -156,7 +152,8 @@ var LineEditor = React.createClass({
             <div className="perseus-widget-row">
                 <DashPicker
                     value={this.props.strokeDasharray}
-                    onChange={this.change("strokeDasharray")} />
+                    onChange={this.change("strokeDasharray")}
+                />
                 &nbsp; &nbsp;
                 <ArrowPicker
                     value={this.props.arrows}
@@ -168,7 +165,8 @@ var LineEditor = React.createClass({
                     Width: <NumberInput
                         value={this.props.strokeWidth}
                         placeholder={2}
-                        onChange={this.change("strokeWidth")}/>
+                        onChange={this.change("strokeWidth")}
+                    />
                 </div>
             </div>
         </div>;
@@ -182,28 +180,29 @@ var LineEditor = React.createClass({
 // TODO(eater): Factor this out
 // TODO(eater): Rethink how constraints are represented
 //
-var MovablePointEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
+const MovablePointEditor = React.createClass({
     propTypes: {
+        constraint: React.PropTypes.string,
+        constraintFn: React.PropTypes.string,
+        snap: React.PropTypes.number,
         startX: React.PropTypes.string,
         startY: React.PropTypes.string,
-        constraint: React.PropTypes.string,
-        snap: React.PropTypes.number,
-        constraintFn: React.PropTypes.string,
+        varSubscript: React.PropTypes.number,
     },
+
+    mixins: [EditorJsonify, Changeable],
 
     getDefaultProps: function() {
         return {
+            constraint: "none",
+            constraintFn: "0",
+            constraintXMax: "10",
+            constraintXMin: "-10",
+            constraintYMax: "10",
+            constraintYMin: "-10",
+            snap: 0.5,
             startX: "0",
             startY: "0",
-            constraint: "none",
-            snap: 0.5,
-            constraintFn: "0",
-            constraintXMin: "-10",
-            constraintXMax: "10",
-            constraintYMin: "-10",
-            constraintYMax: "10",
         };
     },
 
@@ -243,32 +242,34 @@ var MovablePointEditor = React.createClass({
 // TODO(eater): Factor this out
 // TODO(eater): Rethink how constraints are represented
 //
-var MovableLineEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
+const MovableLineEditor = React.createClass({
     propTypes: {
-        startX: React.PropTypes.string,
-        startY: React.PropTypes.string,
+        constraint: React.PropTypes.string,
+        constraintFn: React.PropTypes.string,
+        endSubscript: React.PropTypes.number,
         endX: React.PropTypes.string,
         endY: React.PropTypes.string,
-        constraint: React.PropTypes.string,
         snap: React.PropTypes.number,
-        constraintFn: React.PropTypes.string,
+        startSubscript: React.PropTypes.number,
+        startX: React.PropTypes.string,
+        startY: React.PropTypes.string,
     },
+
+    mixins: [EditorJsonify, Changeable],
 
     getDefaultProps: function() {
         return {
-            startX: "-5",
-            startY: "5",
+            constraint: "none",
+            constraintFn: "0",
+            constraintXMax: "10",
+            constraintXMin: "-10",
+            constraintYMax: "10",
+            constraintYMin: "-10",
             endX: "5",
             endY: "5",
-            constraint: "none",
             snap: 0.5,
-            constraintFn: "0",
-            constraintXMin: "-10",
-            constraintXMax: "10",
-            constraintYMin: "-10",
-            constraintYMax: "10",
+            startX: "-5",
+            startY: "5",
         };
     },
 
@@ -307,17 +308,19 @@ var MovableLineEditor = React.createClass({
             </div>
             <div className="perseus-widget-row">
                 Start updates <TeX>(x_n, y_n)</TeX> for <TeX>n =</TeX>
-                    <NumberInput
-                        value={this.props.startSubscript}
-                        placeholder={0}
-                        onChange={this.change("startSubscript")}/>
+                <NumberInput
+                    value={this.props.startSubscript}
+                    placeholder={0}
+                    onChange={this.change("startSubscript")}
+                />
             </div>
             <div className="perseus-widget-row">
                 End updates <TeX>(x_m, y_m)</TeX> for <TeX>m =</TeX>
-                    <NumberInput
-                        value={this.props.endSubscript}
-                        placeholder={0}
-                        onChange={this.change("endSubscript")}/>
+                <NumberInput
+                    value={this.props.endSubscript}
+                    placeholder={0}
+                    onChange={this.change("endSubscript")}
+                />
             </div>
             <div className="perseus-widget-row">
                 All constraints are applied to the start point.
@@ -333,26 +336,27 @@ var MovableLineEditor = React.createClass({
 //
 // TODO(eater): Factor this out
 //
-var FunctionEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
+const FunctionEditor = React.createClass({
     propTypes: {
-        value: React.PropTypes.string,
-        rangeMin: React.PropTypes.string,
-        rangeMax: React.PropTypes.string,
         color: React.PropTypes.string,
-        strokeDashArray: React.PropTypes.string,
+        funcName: React.PropTypes.string,
+        rangeMax: React.PropTypes.string,
+        rangeMin: React.PropTypes.string,
+        strokeDasharray: React.PropTypes.string,
         strokeWidth: React.PropTypes.number,
+        value: React.PropTypes.string,
     },
+
+    mixins: [EditorJsonify, Changeable],
 
     getDefaultProps: function() {
         return {
-            value: "x",
-            rangeMin: "-10",
-            rangeMax: "10",
             color: KhanColors.BLUE,
+            rangeMax: "10",
+            rangeMin: "-10",
             strokeDasharray: "",
             strokeWidth: 2,
+            value: "x",
         };
     },
 
@@ -390,14 +394,16 @@ var FunctionEditor = React.createClass({
             <div className="perseus-widget-row">
                 <DashPicker
                     value={this.props.strokeDasharray}
-                    onChange={this.change("strokeDasharray")} />
+                    onChange={this.change("strokeDasharray")}
+                />
             </div>
             <div className="perseus-widget-row">
                 <div className="perseus-widget-left-col">
                     Width: <NumberInput
                         value={this.props.strokeWidth}
                         placeholder={2}
-                        onChange={this.change("strokeWidth")}/>
+                        onChange={this.change("strokeWidth")}
+                    />
                 </div>
             </div>
         </div>;
@@ -410,28 +416,28 @@ var FunctionEditor = React.createClass({
 //
 // TODO(eater): Factor this out
 //
-var ParametricEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
+const ParametricEditor = React.createClass({
     propTypes: {
+        color: React.PropTypes.string,
+        rangeMax: React.PropTypes.string,
+        rangeMin: React.PropTypes.string,
+        strokeDasharray: React.PropTypes.string,
+        strokeWidth: React.PropTypes.number,
         x: React.PropTypes.string,
         y: React.PropTypes.string,
-        rangeMin: React.PropTypes.string,
-        rangeMax: React.PropTypes.string,
-        color: React.PropTypes.string,
-        strokeDashArray: React.PropTypes.string,
-        strokeWidth: React.PropTypes.number,
     },
+
+    mixins: [EditorJsonify, Changeable],
 
     getDefaultProps: function() {
         return {
-            x: "cos(t)",
-            y: "sin(t)",
-            rangeMin: "0",
-            rangeMax: "2\\pi",
             color: KhanColors.BLUE,
+            rangeMax: "2\\pi",
+            rangeMin: "0",
             strokeDasharray: "",
             strokeWidth: 2,
+            x: "cos(t)",
+            y: "sin(t)",
         };
     },
 
@@ -477,14 +483,16 @@ var ParametricEditor = React.createClass({
             <div className="perseus-widget-row">
                 <DashPicker
                     value={this.props.strokeDasharray}
-                    onChange={this.change("strokeDasharray")} />
+                    onChange={this.change("strokeDasharray")}
+                />
             </div>
             <div className="perseus-widget-row">
                 <div className="perseus-widget-left-col">
                     Width: <NumberInput
                         value={this.props.strokeWidth}
                         placeholder={2}
-                        onChange={this.change("strokeWidth")}/>
+                        onChange={this.change("strokeWidth")}
+                    />
                 </div>
             </div>
         </div>;
@@ -498,9 +506,7 @@ var ParametricEditor = React.createClass({
 // TODO(eater): Factor this out maybe?
 // TODO(eater): Add text direction
 //
-var LabelEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
+const LabelEditor = React.createClass({
     propTypes: {
         color: React.PropTypes.string,
         coordX: React.PropTypes.string,
@@ -508,11 +514,13 @@ var LabelEditor = React.createClass({
         label: React.PropTypes.string,
     },
 
+    mixins: [EditorJsonify, Changeable],
+
     getDefaultProps: function() {
         return {
+            color: KhanColors.BLACK,
             coordX: "0",
             coordY: "0",
-            color: KhanColors.BLACK,
             label: "\\phi",
         };
     },
@@ -559,9 +567,7 @@ var LabelEditor = React.createClass({
 //
 // TODO(eater): Factor this out maybe?
 //
-var RectangleEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
+const RectangleEditor = React.createClass({
     propTypes: {
         color: React.PropTypes.string,
         coordX: React.PropTypes.string,
@@ -570,13 +576,15 @@ var RectangleEditor = React.createClass({
         width: React.PropTypes.string,
     },
 
+    mixins: [EditorJsonify, Changeable],
+
     getDefaultProps: function() {
         return {
+            color: KhanColors.LIGHT_BLUE,
             coordX: "-5",
             coordY: "5",
-            width: "2",
             height: "3",
-            color: KhanColors.LIGHT_BLUE,
+            width: "2",
         };
     },
 
@@ -627,14 +635,14 @@ var RectangleEditor = React.createClass({
     },
 });
 
-var InteractionEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
+const InteractionEditor = React.createClass({
     // TODO(eater): Make more better
     propTypes: {
         elements: React.PropTypes.arrayOf(React.PropTypes.object),
         graph: React.PropTypes.objectOf(React.PropTypes.any),
     },
+
+    mixins: [EditorJsonify, Changeable],
 
     getDefaultProps: function() {
         return defaultInteractionProps;
@@ -679,12 +687,12 @@ var InteractionEditor = React.createClass({
     },
 
     _addNewElement: function(e) {
-        var elementType = e.target.value;
+        const elementType = e.target.value;
         if (elementType === "") {
             return;
         }
         e.target.value = "";
-        var newElement = {
+        const newElement = {
             type: elementType,
             key: elementType + "-" +
                 (Math.random() * 0xffffff << 0).toString(16),
@@ -706,7 +714,7 @@ var InteractionEditor = React.createClass({
                         _.clone(RectangleEditor.defaultProps) : {},
         };
 
-        var nextSubscript;
+        let nextSubscript;
         if (elementType === "movable-point") {
             nextSubscript =
                 _.max([_.max(this.state.usedVarSubscripts), -1]) + 1;
@@ -719,7 +727,7 @@ var InteractionEditor = React.createClass({
         } else if (elementType === "function") {
             // TODO(eater): The 22nd function added will be {(x) since '{'
             // comes after 'z'
-            var nextLetter = String.fromCharCode(_.max([_.max(_.map(
+            const nextLetter = String.fromCharCode(_.max([_.max(_.map(
                 this.state.usedFunctionNames, function(c) {
                     return c.charCodeAt(0);
                 })),
@@ -732,29 +740,27 @@ var InteractionEditor = React.createClass({
     },
 
     _deleteElement: function(index) {
-        var element = this.props.elements[index];
+        const element = this.props.elements[index];
         this.change({elements: _.without(this.props.elements, element)});
     },
 
     _moveElementUp: function(index) {
-        var element = this.props.elements[index];
-        var newElements = _.without(this.props.elements, element);
+        const element = this.props.elements[index];
+        const newElements = _.without(this.props.elements, element);
         newElements.splice(index - 1, 0, element);
         this.change({elements: newElements});
     },
 
     _moveElementDown: function(index) {
-        var element = this.props.elements[index];
-        var newElements = _.without(this.props.elements, element);
+        const element = this.props.elements[index];
+        const newElements = _.without(this.props.elements, element);
         newElements.splice(index + 1, 0, element);
         this.change({elements: newElements});
     },
 
     render: function() {
         return <div className="perseus-widget-interaction-editor">
-            <ElementContainer
-                    title="Grid settings"
-            >
+            <ElementContainer title="Grid settings">
                 <GraphSettings
                     editableSettings={["canvas", "graph"]}
                     box={this.props.graph.box}
@@ -772,22 +778,22 @@ var InteractionEditor = React.createClass({
             {_.map(this.props.elements, function(element, n) {
                 if (element.type === "movable-point") {
                     return <ElementContainer
-                            title={<span>Movable point <TeX>
-                                    {"(x_{" + element.options.varSubscript +
-                                    "}, y_{" + element.options.varSubscript +
-                                    "})"}</TeX>
-                                </span>}
-                            onUp={n === 0 ?
-                                null : this._moveElementUp.bind(this, n)}
-                            onDown={n === this.props.elements.length - 1 ?
-                                null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement.bind(this, n)}
-                            key={element.key}
+                        title={<span>Movable point <TeX>
+                                {"(x_{" + element.options.varSubscript +
+                                "}, y_{" + element.options.varSubscript +
+                                "})"}</TeX>
+                            </span>}
+                        onUp={n === 0 ?
+                            null : this._moveElementUp.bind(this, n)}
+                        onDown={n === this.props.elements.length - 1 ?
+                            null : this._moveElementDown.bind(this, n)}
+                        onDelete={this._deleteElement.bind(this, n)}
+                        key={element.key}
                     >
                         <MovablePointEditor
                             {...element.options}
                             onChange={(newProps) => {
-                                var elements = JSON.parse(JSON.stringify(
+                                const elements = JSON.parse(JSON.stringify(
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});
@@ -796,25 +802,25 @@ var InteractionEditor = React.createClass({
                     </ElementContainer>;
                 } else if (element.type === "movable-line") {
                     return <ElementContainer
-                            title={<span>Movable line <TeX>
-                                    {"(x_{" + element.options.startSubscript +
-                                    "}, y_{" + element.options.startSubscript +
-                                    "})"}</TeX> to <TeX>
-                                    {"(x_{" + element.options.endSubscript +
-                                    "}, y_{" + element.options.endSubscript +
-                                    "})"}</TeX>
-                                </span>}
-                            onUp={n === 0 ?
-                                null : this._moveElementUp.bind(this, n)}
-                            onDown={n === this.props.elements.length - 1 ?
-                                null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement.bind(this, n)}
-                            key={element.key}
+                        title={<span>Movable line <TeX>
+                                {"(x_{" + element.options.startSubscript +
+                                "}, y_{" + element.options.startSubscript +
+                                "})"}</TeX> to <TeX>
+                                {"(x_{" + element.options.endSubscript +
+                                "}, y_{" + element.options.endSubscript +
+                                "})"}</TeX>
+                            </span>}
+                        onUp={n === 0 ?
+                            null : this._moveElementUp.bind(this, n)}
+                        onDown={n === this.props.elements.length - 1 ?
+                            null : this._moveElementDown.bind(this, n)}
+                        onDelete={this._deleteElement.bind(this, n)}
+                        key={element.key}
                     >
                         <MovableLineEditor
                             {...element.options}
                             onChange={(newProps) => {
-                                var elements = JSON.parse(JSON.stringify(
+                                const elements = JSON.parse(JSON.stringify(
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});
@@ -823,22 +829,22 @@ var InteractionEditor = React.createClass({
                     </ElementContainer>;
                 } else if (element.type === "point") {
                     return <ElementContainer
-                            title={<span>Point <TeX>
-                                    {"(" + element.options.coordX +
-                                    ", " + element.options.coordY +
-                                    ")"}</TeX>
-                                </span>}
-                            onUp={n === 0 ?
-                                null : this._moveElementUp.bind(this, n)}
-                            onDown={n === this.props.elements.length - 1 ?
-                                null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement.bind(this, n)}
-                            key={element.key}
+                        title={<span>Point <TeX>
+                                {"(" + element.options.coordX +
+                                ", " + element.options.coordY +
+                                ")"}</TeX>
+                            </span>}
+                        onUp={n === 0 ?
+                            null : this._moveElementUp.bind(this, n)}
+                        onDown={n === this.props.elements.length - 1 ?
+                            null : this._moveElementDown.bind(this, n)}
+                        onDelete={this._deleteElement.bind(this, n)}
+                        key={element.key}
                     >
                         <PointEditor
                             {...element.options}
                             onChange={(newProps) => {
-                                var elements = JSON.parse(JSON.stringify(
+                                const elements = JSON.parse(JSON.stringify(
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});
@@ -847,25 +853,25 @@ var InteractionEditor = React.createClass({
                     </ElementContainer>;
                 } else if (element.type === "line") {
                     return <ElementContainer
-                            title={<span>Line <TeX>
-                                    {"(" + element.options.startX +
-                                    ", " + element.options.startY +
-                                    ")"}</TeX> to <TeX>
-                                    {"(" + element.options.endX +
-                                    ", " + element.options.endY +
-                                    ")"}</TeX>
-                                </span>}
-                            onUp={n === 0 ?
-                                null : this._moveElementUp.bind(this, n)}
-                            onDown={n === this.props.elements.length - 1 ?
-                                null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement.bind(this, n)}
-                            key={element.key}
+                        title={<span>Line <TeX>
+                                {"(" + element.options.startX +
+                                ", " + element.options.startY +
+                                ")"}</TeX> to <TeX>
+                                {"(" + element.options.endX +
+                                ", " + element.options.endY +
+                                ")"}</TeX>
+                            </span>}
+                        onUp={n === 0 ?
+                            null : this._moveElementUp.bind(this, n)}
+                        onDown={n === this.props.elements.length - 1 ?
+                            null : this._moveElementDown.bind(this, n)}
+                        onDelete={this._deleteElement.bind(this, n)}
+                        key={element.key}
                     >
                         <LineEditor
                             {...element.options}
                             onChange={(newProps) => {
-                                var elements = JSON.parse(JSON.stringify(
+                                const elements = JSON.parse(JSON.stringify(
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});
@@ -874,21 +880,21 @@ var InteractionEditor = React.createClass({
                     </ElementContainer>;
                 } else if (element.type === "function") {
                     return <ElementContainer
-                            title={<span>Function <TeX>{
-                                element.options.funcName + "(x) = " +
-                                element.options.value
-                            }</TeX></span>}
-                            onUp={n === 0 ?
-                                null : this._moveElementUp.bind(this, n)}
-                            onDown={n === this.props.elements.length - 1 ?
-                                null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement}
-                            key={element.key}
+                        title={<span>Function <TeX>{
+                            element.options.funcName + "(x) = " +
+                            element.options.value
+                        }</TeX></span>}
+                        onUp={n === 0 ?
+                            null : this._moveElementUp.bind(this, n)}
+                        onDown={n === this.props.elements.length - 1 ?
+                            null : this._moveElementDown.bind(this, n)}
+                        onDelete={this._deleteElement}
+                        key={element.key}
                     >
                         <FunctionEditor
                             {...element.options}
                             onChange={(newProps) => {
-                                var elements = JSON.parse(JSON.stringify(
+                                const elements = JSON.parse(JSON.stringify(
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});
@@ -897,18 +903,18 @@ var InteractionEditor = React.createClass({
                     </ElementContainer>;
                 } else if (element.type === "parametric") {
                     return <ElementContainer
-                            title={<span>Parametric</span>}
-                            onUp={n === 0 ?
-                                null : this._moveElementUp.bind(this, n)}
-                            onDown={n === this.props.elements.length - 1 ?
-                                null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement}
-                            key={element.key}
+                        title={<span>Parametric</span>}
+                        onUp={n === 0 ?
+                            null : this._moveElementUp.bind(this, n)}
+                        onDown={n === this.props.elements.length - 1 ?
+                            null : this._moveElementDown.bind(this, n)}
+                        onDelete={this._deleteElement}
+                        key={element.key}
                     >
                         <ParametricEditor
                             {...element.options}
                             onChange={(newProps) => {
-                                var elements = JSON.parse(JSON.stringify(
+                                const elements = JSON.parse(JSON.stringify(
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});
@@ -917,19 +923,19 @@ var InteractionEditor = React.createClass({
                     </ElementContainer>;
                 } else if (element.type === "label") {
                     return <ElementContainer
-                            title={<span>Label <TeX>
-                                {element.options.label}</TeX> </span>}
-                            onUp={n === 0 ?
-                                null : this._moveElementUp.bind(this, n)}
-                            onDown={n === this.props.elements.length - 1 ?
-                                null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement}
-                            key={element.key}
+                        title={<span>Label <TeX>
+                            {element.options.label}</TeX> </span>}
+                        onUp={n === 0 ?
+                            null : this._moveElementUp.bind(this, n)}
+                        onDown={n === this.props.elements.length - 1 ?
+                            null : this._moveElementDown.bind(this, n)}
+                        onDelete={this._deleteElement}
+                        key={element.key}
                     >
                         <LabelEditor
                             {...element.options}
                             onChange={(newProps) => {
-                                var elements = JSON.parse(JSON.stringify(
+                                const elements = JSON.parse(JSON.stringify(
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});
@@ -938,24 +944,24 @@ var InteractionEditor = React.createClass({
                     </ElementContainer>;
                 } else if (element.type === "rectangle") {
                     return <ElementContainer
-                            title={<span>Rectangle <TeX>{"(" +
-                                element.options.coordX + ", " +
-                                element.options.coordY + ")"}</TeX>
-                                &nbsp;&mdash;&nbsp;
-                                <TeX>{element.options.width + " \\times " +
-                                element.options.height}</TeX>
-                                </span>}
-                            onUp={n === 0 ?
-                                null : this._moveElementUp.bind(this, n)}
-                            onDown={n === this.props.elements.length - 1 ?
-                                null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement}
-                            key={element.key}
+                        title={<span>Rectangle <TeX>{"(" +
+                            element.options.coordX + ", " +
+                            element.options.coordY + ")"}</TeX>
+                            &nbsp;&mdash;&nbsp;
+                            <TeX>{element.options.width + " \\times " +
+                            element.options.height}</TeX>
+                            </span>}
+                        onUp={n === 0 ?
+                            null : this._moveElementUp.bind(this, n)}
+                        onDown={n === this.props.elements.length - 1 ?
+                            null : this._moveElementDown.bind(this, n)}
+                        onDelete={this._deleteElement}
+                        key={element.key}
                     >
                         <RectangleEditor
                             {...element.options}
                             onChange={(newProps) => {
-                                var elements = JSON.parse(JSON.stringify(
+                                const elements = JSON.parse(JSON.stringify(
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});

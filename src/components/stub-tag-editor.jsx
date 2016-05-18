@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * Stub Tag Editor.
  *
@@ -15,20 +11,20 @@
  * It also gives a nicer interface for the group metadata editor
  * in local demo mode.
  */
-var React = require("react");
+const React = require("react");
 
-var TextListEditor = require("./text-list-editor.jsx");
-var EMPTY_ARRAY = [];
+const TextListEditor = require("./text-list-editor.jsx");
+const EMPTY_ARRAY = [];
 
-var StubTagEditor = React.createClass({
+const StubTagEditor = React.createClass({
     propTypes: {
+        onChange: React.PropTypes.func.isRequired,
         value: React.PropTypes.arrayOf(React.PropTypes.string),
-        onChange: React.PropTypes.func.isRequired
     },
 
     getDefaultProps: function() {
         return {
-            value: EMPTY_ARRAY
+            value: EMPTY_ARRAY,
         };
     },
 
@@ -42,9 +38,10 @@ var StubTagEditor = React.createClass({
             <TextListEditor
                 options={this.props.value || EMPTY_ARRAY}
                 layout="vertical"
-                onChange={this.props.onChange} />
+                onChange={this.props.onChange}
+            />
         </div>;
-    }
+    },
 });
 
 module.exports = StubTagEditor;

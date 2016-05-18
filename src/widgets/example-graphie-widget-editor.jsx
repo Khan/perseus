@@ -1,19 +1,21 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const React = require('react');
 
-var React = require('react');
+const Changeable = require("../mixins/changeable.jsx");
+const EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
-var Changeable = require("../mixins/changeable.jsx");
-var EditorJsonify = require("../mixins/editor-jsonify.jsx");
-
-var ExampleGraphieWidget = require("./example-graphie-widget.jsx").widget;
+const ExampleGraphieWidget = require("./example-graphie-widget.jsx").widget;
 
 /**
  * This is the widget's editor. This is what shows up on the left side
  * of the screen in the demo page. Only the question writer sees this.
  */
-var ExampleGraphieWidgetEditor = React.createClass({
+const ExampleGraphieWidgetEditor = React.createClass({
+    propTypes: {
+        correct: React.PropTypes.arrayOf(React.PropTypes.number),
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        graph: React.PropTypes.any,
+    },
+
     mixins: [Changeable, EditorJsonify],
 
     getDefaultProps: function() {
@@ -28,9 +30,17 @@ var ExampleGraphieWidgetEditor = React.createClass({
                 valid: true,
                 backgroundImage: null,
                 markings: "grid",
-                showProtractor: false
-            }
+                showProtractor: false,
+            },
         };
+    },
+
+    handleChange: function(newProps) {
+        if (newProps.coord) {
+            this.change({
+                correct: newProps.coord,
+            });
+        }
     },
 
     render: function() {
@@ -38,17 +48,10 @@ var ExampleGraphieWidgetEditor = React.createClass({
             <ExampleGraphieWidget
                 graph={this.props.graph}
                 coord={this.props.correct}
-                onChange={this.handleChange} />
+                onChange={this.handleChange}
+            />
         </div>;
     },
-
-    handleChange: function(newProps) {
-        if (newProps.coord) {
-            this.change({
-                correct: newProps.coord
-            });
-        }
-    }
 });
 
 module.exports = ExampleGraphieWidgetEditor;

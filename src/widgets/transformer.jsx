@@ -1,43 +1,41 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable camelcase, comma-dangle, indent, no-redeclare, no-undef, no-var, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/no-did-update-set-state, react/prop-types, react/sort-comp, space-before-function-paren, space-infix-ops */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+/* global i18n:false, $_:false */
 
-var React = require('react');
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const React = require('react');
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var Graph         = require("../components/graph.jsx");
-var NumberInput   = require("../components/number-input.jsx");
-var MathOutput    = require("../components/math-output.jsx");
-var TeX           = require("react-components/tex.jsx");
+const Graph         = require("../components/graph.jsx");
+const NumberInput   = require("../components/number-input.jsx");
+const MathOutput    = require("../components/math-output.jsx");
+const TeX           = require("react-components/tex.jsx");
 
-var ApiOptions = require("../perseus-api.jsx").Options;
+const ApiOptions = require("../perseus-api.jsx").Options;
 
-var ROTATE_SNAP_DEGREES = 15;
-var DEGREE_SIGN = "\u00B0";
-var RENDER_TRANSFORM_DELAY_IN_MS = 300;
-var ROTATE_HANDLE_DIST = 1.5;
-var REFLECT_ROTATE_HANDLE_DIST = 2;
-var REFLECT_BUTTON_SIZE = 1;
+const ROTATE_SNAP_DEGREES = 15;
+const DEGREE_SIGN = "\u00B0";
+const RENDER_TRANSFORM_DELAY_IN_MS = 300;
+const ROTATE_HANDLE_DIST = 1.5;
+const REFLECT_ROTATE_HANDLE_DIST = 2;
+const REFLECT_BUTTON_SIZE = 1;
 
-var deepEq = require("../util.js").deepEq;
-var getGridStep = require("../util.js").getGridStep;
-var captureScratchpadTouchStart =
+const deepEq = require("../util.js").deepEq;
+const getGridStep = require("../util.js").getGridStep;
+const captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
 
-var knumber = require("kmath").number;
-var kvector = require("kmath").vector;
-var kpoint = require("kmath").point;
-var kray = require("kmath").ray;
-var kline = require("kmath").line;
+const knumber = require("kmath").number;
+const kvector = require("kmath").vector;
+const kpoint = require("kmath").point;
+const kray = require("kmath").ray;
+const kline = require("kmath").line;
 const KhanMath = require("../util/math.js");
 const KhanColors = require("../util/colors.js");
 
-var assert = require("../interactive2/interactive-util.js").assert;
+const assert = require("../interactive2/interactive-util.js").assert;
 
-var defaultBoxSize = 400;
-var defaultBackgroundImage = {
-    url: null
+const defaultBoxSize = 400;
+const defaultBackgroundImage = {
+    url: null,
 };
 
 /* Does a pluck on keys inside objects in an object
@@ -57,18 +55,18 @@ var defaultBackgroundImage = {
  * }
  */
 function pluckObject(object, subKey) {
-    return _.object(_.map(object, function (value, key) {
+    return _.object(_.map(object, function(value, key) {
         return [key, value[subKey]];
     }));
 }
 
 
-var defaultGraphProps = function(setProps, boxSize) {
+const defaultGraphProps = function(setProps, boxSize) {
     setProps = setProps || {};
-    var labels = setProps.labels || ["x", "y"];
-    var range = setProps.range || [[-10, 10], [-10, 10]];
-    var step = setProps.step || [1, 1];
-    var gridStep = setProps.gridStep ||
+    const labels = setProps.labels || ["x", "y"];
+    const range = setProps.range || [[-10, 10], [-10, 10]];
+    const step = setProps.step || [1, 1];
+    const gridStep = setProps.gridStep ||
                getGridStep(range, step, boxSize);
     return {
         box: [boxSize, boxSize],
@@ -79,11 +77,11 @@ var defaultGraphProps = function(setProps, boxSize) {
         valid: true,
         backgroundImage: defaultBackgroundImage,
         markings: "grid",
-        showProtractor: false
+        showProtractor: false,
     };
 };
 
-var defaultTransformerProps = {
+const defaultTransformerProps = {
     apiOptions: ApiOptions.defaults,
     gradeEmpty: false,
     graphMode: "interactive",
@@ -93,32 +91,32 @@ var defaultTransformerProps = {
         translation: {
             enabled: true,
             required: false,
-            constraints: {}
+            constraints: {},
         },
         rotation: {
             enabled: true,
             required: false,
             constraints: {
-                fixed: false
+                fixed: false,
             },
-            coord: [1, 6]
+            coord: [1, 6],
         },
         reflection: {
             enabled: true,
             required: false,
             constraints: {
-                fixed: false
+                fixed: false,
             },
-            coords: [[2, -4], [2, 2]]
+            coords: [[2, -4], [2, 2]],
         },
         dilation: {
             enabled: true,
             required: false,
             constraints: {
-                fixed: false
+                fixed: false,
             },
-            coord: [6, 6]
-        }
+            coord: [6, 6],
+        },
     },
     drawSolutionShape: true,
     starting: {
@@ -126,15 +124,15 @@ var defaultTransformerProps = {
             type: "polygon-3",
             coords: [[2, 2], [2, 6], [7, 2]],
         },
-        transformations: []
+        transformations: [],
     },
     correct: {
         shape: {
             type: "polygon-3",
             coords: [[2, 2], [2, 6], [7, 2]],
         },
-        transformations: []
-    }
+        transformations: [],
+    },
 };
 
 function colorForTool(tool) {
@@ -150,16 +148,16 @@ function colorForTool(tool) {
  * (rotation handle, dilation circle)
  */
 function scaleToRange(dist, range) {
-    var spreadX = range[0][1] - range[0][0];
-    var spreadY = range[1][1] - range[1][0];
+    const spreadX = range[0][1] - range[0][0];
+    const spreadY = range[1][1] - range[1][0];
 
     return dist * Math.max(spreadX, spreadY) / 20;
 }
 
 function dilatePointFromCenter(point, dilationCenter, scale) {
-    var pv = kvector.subtract(point, dilationCenter);
-    var pvScaled = kvector.scale(pv, scale);
-    var transformedPoint = kvector.add(dilationCenter, pvScaled);
+    const pv = kvector.subtract(point, dilationCenter);
+    const pvScaled = kvector.scale(pv, scale);
+    const transformedPoint = kvector.add(dilationCenter, pvScaled);
     return transformedPoint;
 }
 
@@ -169,7 +167,7 @@ function stringFromDecimal(number) {
 }
 
 function stringFromFraction(number) {
-    var frac = KhanMath.toFraction(number, knumber.DEFAULT_TOLERANCE);
+    const frac = KhanMath.toFraction(number, knumber.DEFAULT_TOLERANCE);
     if (frac[1] === 1) {
         return stringFromDecimal(number);
     } else {
@@ -184,7 +182,7 @@ function texFromPoint(point) {
         stringFromDecimal(point[0]),
         <TeX>{", {}"}</TeX>,
         stringFromDecimal(point[1]),
-        <TeX>{")"}</TeX>
+        <TeX>{")"}</TeX>,
     ];
 }
 
@@ -194,7 +192,7 @@ function texFromVector(vector) {
         stringFromDecimal(vector[0]),
         <TeX>{", {}"}</TeX>,
         stringFromDecimal(vector[1]),
-        <TeX>{"\\rangle"}</TeX>
+        <TeX>{"\\rangle"}</TeX>,
     ];
 }
 
@@ -206,7 +204,7 @@ function orderInsensitiveCoordsEqual(coords1, coords2) {
     coords1 = _.clone(coords1).sort(kpoint.compare);
     coords2 = _.clone(coords2).sort(kpoint.compare);
     return _.all(_.map(coords1, function(coord1, i) {
-        var coord2 = coords2[i];
+        const coord2 = coords2[i];
         return kpoint.equal(coord1, coord2);
     }));
 }
@@ -214,7 +212,7 @@ function orderInsensitiveCoordsEqual(coords1, coords2) {
 
 
 /* Perform operations on raw transform objects */
-var TransformOps = {
+const TransformOps = {
     apply: function(transform) {
         // Any transformation with empty text boxes is a no-op until
         // filled out (these show up as nulls in transform.vector/line/etc).
@@ -231,7 +229,7 @@ var TransformOps = {
     append: function(transformList, newTransform) {
         // Append newTransform to transformList, and collapse the last
         // two transforms if they are collapsable
-        var results = TransformOps._appendAndCollapseLastTwo(
+        const results = TransformOps._appendAndCollapseLastTwo(
             transformList,
             newTransform
         );
@@ -252,7 +250,7 @@ var TransformOps = {
         if (!transformList.length) {
             return [newTransform];
         } else {
-            var collapsed = TransformOps.collapse(
+            const collapsed = TransformOps.collapse(
                 _.last(transformList),
                 newTransform
             );
@@ -297,7 +295,7 @@ var TransformOps = {
     },
 
     _collapseValidMonotypedTransforms: function(transform1, transform2) {
-        var collapsed = Transformations[transform1.type].collapse(
+        let collapsed = Transformations[transform1.type].collapse(
             transform1,
             transform2
         );
@@ -323,26 +321,17 @@ var TransformOps = {
 
     /* A react representation of this transform object */
     ListItem: React.createClass({
-        render: function() {
-            if (this.props.mode === "dynamic") {
-                return <div>
-                    {TransformOps.toTeX(this.props.transform)}
-                </div>;
-            } else if (this.props.mode === "interactive") {
-                var TransformClass =
-                        Transformations[this.props.transform.type].Input;
-                return <TransformClass
-                    ref="transform"
-                    onChange={this.handleChange}
-                    onFocus={this.props.onFocus}
-                    onBlur={this.props.onBlur}
-                    apiOptions={this.props.apiOptions}
-                    {...this.props.transform}
-                    />;
-            } else {
-                throw new Error("Invalid mode: " + this.props.mode);
-            }
+        propTypes: {
+            apiOptions: ApiOptions.propTypes,
+            mode: React.PropTypes.string.isRequired,
+            onBlur: React.PropTypes.func,
+            onChange: React.PropTypes.func,
+            onFocus: React.PropTypes.func,
+            // TODO(JJC1138): This could be replaced with a more specific prop
+            // spec:
+            transform: React.PropTypes.any.isRequired,
         },
+
         value: function() {
             if (this.props.mode === "interactive") {
                 return _.extend({
@@ -360,13 +349,13 @@ var TransformOps = {
          * navigating to the right ref and calling the function on that
          * component, or threading the call down and returning the result. */
         _getComponentAtPath: function(path) {
-            var transform = this.refs.transform;
-            var ref = _.head(path);
+            const transform = this.refs.transform;
+            const ref = _.head(path);
             return transform.refs[ref];
         },
         focus: function() {
-            var transform = this.refs.transform;
-            var path = _.head(transform.getInputPaths());
+            const transform = this.refs.transform;
+            const path = _.head(transform.getInputPaths());
             if (path) {
                 this.focusInputPath(path);
             }
@@ -394,11 +383,31 @@ var TransformOps = {
             } else {
                 return this.refs.transform.getInputPaths();
             }
-        }
-    })
+        },
+        render: function() {
+            if (this.props.mode === "dynamic") {
+                return <div>
+                    {TransformOps.toTeX(this.props.transform)}
+                </div>;
+            } else if (this.props.mode === "interactive") {
+                const TransformClass =
+                        Transformations[this.props.transform.type].Input;
+                return <TransformClass
+                    ref="transform"
+                    onChange={this.handleChange}
+                    onFocus={this.props.onFocus}
+                    onBlur={this.props.onBlur}
+                    apiOptions={this.props.apiOptions}
+                    {...this.props.transform}
+                />;
+            } else {
+                throw new Error("Invalid mode: " + this.props.mode);
+            }
+        },
+    }),
 };
 
-var Transformations = {
+const Transformations = {
     translation: {
         // I18N: As in the command, "Translate the polygon"
         verbName: i18n._("Translate"),
@@ -425,7 +434,7 @@ var Transformations = {
                 vector: kvector.add(
                     transform1.vector,
                     transform2.vector
-                )
+                ),
             };
         },
         toTeX: function(transform) {
@@ -435,68 +444,36 @@ var Transformations = {
             </$_>;
         },
         Input: React.createClass({
+            propTypes: {
+                apiOptions: ApiOptions.propTypes,
+                onBlur: React.PropTypes.func,
+                onChange: React.PropTypes.func,
+                onFocus: React.PropTypes.func,
+                vector: React.PropTypes.arrayOf(React.PropTypes.number),
+            },
             getInitialState: function() {
                 return {
-                    vector: this.props.vector || [null, null]
+                    vector: this.props.vector || [null, null],
                 };
             },
             componentDidUpdate: function(prevProps) {
                 if (!deepEq(this.props, prevProps)) {
+                    /* eslint-disable react/no-did-update-set-state */
                     this.setState({vector: this.props.vector});
+                    /* eslint-enable react/no-did-update-set-state */
                 }
             },
-            render: function() {
-                var InputComponent = (this.props.apiOptions.staticRender) ?
-                        MathOutput :
-                        NumberInput;
-                var vector = [
-                    <TeX>\langle</TeX>,
-                    <InputComponent
-                        ref="x"
-                        placeholder={0}
-                        value={this.state.vector[0]}
-                        useArrowKeys={true}
-                        onChange={(val0) => {
-                            var val1 = this.state.vector[1];
-                            this.setState({vector: [val0, val1]}, () => {
-                                this.props.onChange();
-                            });
-                        }}
-                        onFocus={_.partial(this.props.onFocus, "x")}
-                        onBlur={_.partial(this.props.onBlur, "x")} />,
-                    <TeX>{", {}"}</TeX>,
-                    <InputComponent
-                        ref="y"
-                        placeholder={0}
-                        value={this.state.vector[1]}
-                        useArrowKeys={true}
-                        onChange={(val1) => {
-                            var val0 = this.state.vector[0];
-                            this.setState({vector: [val0, val1]}, () => {
-                                this.props.onChange();
-                            });
-                        }}
-                        onFocus={_.partial(this.props.onFocus, "y")}
-                        onBlur={_.partial(this.props.onBlur, "y")} />,
-                    <TeX>\rangle</TeX>
-                ];
-                return <div>
-                    <$_ vector={vector}>
-                        Translation by %(vector)s
-                    </$_>
-                </div>;
-            },
             value: function() {
-                var x = this.refs.x.getValue();
-                var y = this.refs.y.getValue();
+                const x = this.refs.x.getValue();
+                const y = this.refs.y.getValue();
                 return {
-                    vector: [x, y]
+                    vector: [x, y],
                 };
             },
             /* InputPath API */
             setInputValue: function(path, value, cb) {
-                var id = _.first(path);
-                var vector = _.clone(this.state.vector);
+                const id = _.first(path);
+                const vector = _.clone(this.state.vector);
                 if (id === "x") {
                     vector[0] = value;
                 } else if (id === "y") {
@@ -508,8 +485,51 @@ var Transformations = {
             },
             getInputPaths: function() {
                 return [["x"], ["y"]];
-            }
-        })
+            },
+            render: function() {
+                const InputComponent = (this.props.apiOptions.staticRender) ?
+                        MathOutput :
+                        NumberInput;
+                const vector = [
+                    <TeX>\langle</TeX>,
+                    <InputComponent
+                        ref="x"
+                        placeholder={0}
+                        value={this.state.vector[0]}
+                        useArrowKeys={true}
+                        onChange={(val0) => {
+                            const val1 = this.state.vector[1];
+                            this.setState({vector: [val0, val1]}, () => {
+                                this.props.onChange();
+                            });
+                        }}
+                        onFocus={_.partial(this.props.onFocus, "x")}
+                        onBlur={_.partial(this.props.onBlur, "x")}
+                    />,
+                    <TeX>{", {}"}</TeX>,
+                    <InputComponent
+                        ref="y"
+                        placeholder={0}
+                        value={this.state.vector[1]}
+                        useArrowKeys={true}
+                        onChange={(val1) => {
+                            const val0 = this.state.vector[0];
+                            this.setState({vector: [val0, val1]}, () => {
+                                this.props.onChange();
+                            });
+                        }}
+                        onFocus={_.partial(this.props.onFocus, "y")}
+                        onBlur={_.partial(this.props.onBlur, "y")}
+                    />,
+                    <TeX>\rangle</TeX>,
+                ];
+                return <div>
+                    <$_ vector={vector}>
+                        Translation by %(vector)s
+                    </$_>
+                </div>;
+            },
+        }),
     },
 
     rotation: {
@@ -542,101 +562,56 @@ var Transformations = {
             }
             return {
                 center: transform1.center,
-                angleDeg: transform1.angleDeg + transform2.angleDeg
+                angleDeg: transform1.angleDeg + transform2.angleDeg,
             };
         },
         toTeX: function(transform) {
-            return <$_ degrees={texFromAngleDeg(transform.angleDeg)}
-                       point={texFromPoint(transform.center)}>
+            return <$_
+                degrees={texFromAngleDeg(transform.angleDeg)}
+                point={texFromPoint(transform.center)}
+            >
                 Rotation by %(degrees)s about %(point)s
             </$_>;
         },
         Input: React.createClass({
+            propTypes: {
+                angleDeg: React.PropTypes.number,
+                apiOptions: ApiOptions.propTypes,
+                center: React.PropTypes.arrayOf(React.PropTypes.number),
+                onBlur: React.PropTypes.func,
+                onChange: React.PropTypes.func,
+                onFocus: React.PropTypes.func,
+            },
             getInitialState: function() {
                 return {
                     center: this.props.center || [null, null],
-                    angleDeg: this.props.angleDeg || null
+                    angleDeg: this.props.angleDeg || null,
                 };
             },
             componentDidUpdate: function(prevProps) {
                 if (!deepEq(this.props, prevProps)) {
+                    /* eslint-disable react/no-did-update-set-state */
                     this.setState({
                         center: this.props.center,
-                        angleDeg: this.props.angleDeg
+                        angleDeg: this.props.angleDeg,
                     });
+                    /* eslint-enable react/no-did-update-set-state */
                 }
             },
-            render: function() {
-                var InputComponent = (this.props.apiOptions.staticRender) ?
-                        MathOutput :
-                        NumberInput;
-                var point = [
-                    <TeX>(</TeX>,
-                    <InputComponent
-                        ref="centerX"
-                        placeholder={0}
-                        value={this.state.center[0]}
-                        useArrowKeys={true}
-                        onChange={(val0) => {
-                            var val1 = this.state.center[1];
-                            this.setState({center: [val0, val1]}, () => {
-                                this.props.onChange();
-                            });
-                        }}
-                        onFocus={_.partial(this.props.onFocus, "centerX")}
-                        onBlur={_.partial(this.props.onBlur, "centerX")} />,
-                    <TeX>{", {}"}</TeX>,
-                    <InputComponent
-                        ref="centerY"
-                        placeholder={0}
-                        value={this.state.center[1]}
-                        useArrowKeys={true}
-                        onChange={(val1) => {
-                            var val0 = this.state.center[0];
-                            this.setState({center: [val0, val1]}, () => {
-                                this.props.onChange();
-                            });
-                        }}
-                        onFocus={_.partial(this.props.onFocus, "centerY")}
-                        onBlur={_.partial(this.props.onBlur, "centerY")} />,
-                    <TeX>)</TeX>
-                ];
-                var degrees = [
-                    <InputComponent
-                        ref="angleDeg"
-                        placeholder={0}
-                        value={this.state.angleDeg}
-                        useArrowKeys={true}
-                        onChange={(val) => {
-                            this.setState({angleDeg: val}, () => {
-                                this.props.onChange();
-                            });
-                        }}
-                        onFocus={_.partial(this.props.onFocus, "angleDeg")}
-                        onBlur={_.partial(this.props.onBlur, "angleDeg")} />,
-                    DEGREE_SIGN
-                ];
-                // I18N: %(point)s must come before %(degrees)s in this phrase
-                var text = <$_ point={point} degrees={degrees}>
-                    Rotation about %(point)s by %(degrees)s
-                </$_>;
-
-                return <div>{text}</div>;
-            },
             value: function() {
-                var angleDeg = this.refs.angleDeg.getValue();
-                var centerX = this.refs.centerX.getValue();
-                var centerY = this.refs.centerY.getValue();
+                const angleDeg = this.refs.angleDeg.getValue();
+                const centerX = this.refs.centerX.getValue();
+                const centerY = this.refs.centerY.getValue();
                 return {
                     angleDeg: angleDeg,
-                    center: [centerX, centerY]
+                    center: [centerX, centerY],
                 };
             },
             /* InputPath API */
             setInputValue: function(path, value, cb) {
-                var id = _.first(path);
-                var angleDeg = _.clone(this.state.angleDeg);
-                var center = _.clone(this.state.center);
+                const id = _.first(path);
+                let angleDeg = _.clone(this.state.angleDeg);
+                const center = _.clone(this.state.center);
                 if (id === "angleDeg") {
                     angleDeg = value;
                 } else if (id === "centerX") {
@@ -650,8 +625,68 @@ var Transformations = {
             },
             getInputPaths: function() {
                 return [["centerX"], ["centerY"], ["angleDeg"]];
-            }
-        })
+            },
+            render: function() {
+                const InputComponent = (this.props.apiOptions.staticRender) ?
+                        MathOutput :
+                        NumberInput;
+                const point = [
+                    <TeX>(</TeX>,
+                    <InputComponent
+                        ref="centerX"
+                        placeholder={0}
+                        value={this.state.center[0]}
+                        useArrowKeys={true}
+                        onChange={(val0) => {
+                            const val1 = this.state.center[1];
+                            this.setState({center: [val0, val1]}, () => {
+                                this.props.onChange();
+                            });
+                        }}
+                        onFocus={_.partial(this.props.onFocus, "centerX")}
+                        onBlur={_.partial(this.props.onBlur, "centerX")}
+                    />,
+                    <TeX>{", {}"}</TeX>,
+                    <InputComponent
+                        ref="centerY"
+                        placeholder={0}
+                        value={this.state.center[1]}
+                        useArrowKeys={true}
+                        onChange={(val1) => {
+                            const val0 = this.state.center[0];
+                            this.setState({center: [val0, val1]}, () => {
+                                this.props.onChange();
+                            });
+                        }}
+                        onFocus={_.partial(this.props.onFocus, "centerY")}
+                        onBlur={_.partial(this.props.onBlur, "centerY")}
+                    />,
+                    <TeX>)</TeX>,
+                ];
+                const degrees = [
+                    <InputComponent
+                        ref="angleDeg"
+                        placeholder={0}
+                        value={this.state.angleDeg}
+                        useArrowKeys={true}
+                        onChange={(val) => {
+                            this.setState({angleDeg: val}, () => {
+                                this.props.onChange();
+                            });
+                        }}
+                        onFocus={_.partial(this.props.onFocus, "angleDeg")}
+                        onBlur={_.partial(this.props.onBlur, "angleDeg")}
+                    />,
+                    DEGREE_SIGN,
+                ];
+                // I18N: %(point)s must come before %(degrees)s in this phrase
+                const text = <$_ point={point} degrees={degrees}>
+                    Rotation about %(point)s by %(degrees)s
+                </$_>;
+
+                return <div>{text}</div>;
+            },
+        }),
     },
 
     reflection: {
@@ -688,29 +723,77 @@ var Transformations = {
             return [];
         },
         toTeX: function(transform) {
-            var point1 = transform.line[0];
-            var point2 = transform.line[1];
-            return <$_ point1={texFromPoint(point1)}
-                       point2={texFromPoint(point2)}>
+            const point1 = transform.line[0];
+            const point2 = transform.line[1];
+            return <$_
+                point1={texFromPoint(point1)}
+                point2={texFromPoint(point2)}
+            >
                 Reflection over the line from %(point1)s to %(point2)s
             </$_>;
         },
         Input: React.createClass({
+            propTypes: {
+                apiOptions: ApiOptions.propTypes,
+                line: React.PropTypes.arrayOf(React.PropTypes.arrayOf(
+                    React.PropTypes.number)),
+                onBlur: React.PropTypes.func,
+                onChange: React.PropTypes.func,
+                onFocus: React.PropTypes.func,
+            },
             getInitialState: function() {
                 return {
-                    line: this.props.line || [[null, null], [null, null]]
+                    line: this.props.line || [[null, null], [null, null]],
                 };
             },
             componentDidUpdate: function(prevProps) {
                 if (!deepEq(this.props, prevProps)) {
+                    /* eslint-disable react/no-did-update-set-state */
                     this.setState({line: this.props.line});
+                    /* eslint-enable react/no-did-update-set-state */
                 }
             },
+            changePoint: function(i, j, val, cb) {
+                const line = _.map(this.state.line, _.clone);
+                line[i][j] = val;
+                this.setState({line: line}, () => {
+                    this.props.onChange(cb);
+                });
+            },
+            value: function() {
+                const x1 = this.refs.x1.getValue();
+                const y1 = this.refs.y1.getValue();
+                const x2 = this.refs.x2.getValue();
+                const y2 = this.refs.y2.getValue();
+                return {
+                    line: [[x1, y1], [x2, y2]],
+                };
+            },
+            /* InputPath API */
+            setInputValue: function(path, value, cb) {
+                const id = _.first(path);
+                let j;
+                if (id[0] === "x") {
+                    j = 0;
+                } else if (id[0] === "y") {
+                    j = 1;
+                }
+                let i;
+                if (id[1] === "1") {
+                    i = 0;
+                } else if (id[1] === "2") {
+                    i = 1;
+                }
+                this.changePoint(i, j, value, cb);
+            },
+            getInputPaths: function() {
+                return [["x1"], ["y1"], ["x2"], ["y2"]];
+            },
             render: function() {
-                var InputComponent = (this.props.apiOptions.staticRender) ?
+                const InputComponent = (this.props.apiOptions.staticRender) ?
                         MathOutput :
                         NumberInput;
-                var point1 = [<TeX>(</TeX>,
+                const point1 = [<TeX>(</TeX>,
                     <InputComponent
                         ref="x1"
                         value={this.state.line[0][0]}
@@ -721,7 +804,8 @@ var Transformations = {
                         )}
                         onBlur={_.partial(
                             this.props.onBlur, "x1"
-                        )}/>,
+                        )}
+                    />,
                     <TeX>{", {}"}</TeX>,
                     <InputComponent
                         ref="y1"
@@ -729,17 +813,19 @@ var Transformations = {
                         useArrowKeys={true}
                         onChange={this.changePoint.bind(this, 0, 1)}
                         onFocus={_.partial(this.props.onFocus, "y1")}
-                        onBlur={_.partial(this.props.onBlur, "y1")}/>,
-                    <TeX>)</TeX>
+                        onBlur={_.partial(this.props.onBlur, "y1")}
+                    />,
+                    <TeX>)</TeX>,
                 ];
-                var point2 = [<TeX>(</TeX>,
+                const point2 = [<TeX>(</TeX>,
                     <InputComponent
                         ref="x2"
                         value={this.state.line[1][0]}
                         useArrowKeys={true}
                         onChange={this.changePoint.bind(this, 1, 0)}
                         onFocus={_.partial(this.props.onFocus, "x2")}
-                        onBlur={_.partial(this.props.onBlur, "x2")} />,
+                        onBlur={_.partial(this.props.onBlur, "x2")}
+                    />,
                     <TeX>{", {}"}</TeX>,
                     <InputComponent
                         ref="y2"
@@ -747,8 +833,9 @@ var Transformations = {
                         useArrowKeys={true}
                         onChange={this.changePoint.bind(this, 1, 1)}
                         onFocus={_.partial(this.props.onFocus, "y2")}
-                        onBlur={_.partial(this.props.onBlur, "y2")} />,
-                    <TeX>)</TeX>
+                        onBlur={_.partial(this.props.onBlur, "y2")}
+                    />,
+                    <TeX>)</TeX>,
                 ];
                 return <div>
                     <$_ point1={point1} point2={point2}>
@@ -756,43 +843,7 @@ var Transformations = {
                     </$_>
                 </div>;
             },
-            changePoint: function(i, j, val, cb) {
-                var line = _.map(this.state.line, _.clone);
-                line[i][j] = val;
-                this.setState({line: line}, () => {
-                    this.props.onChange(cb);
-                });
-            },
-            value: function() {
-                var x1 = this.refs.x1.getValue();
-                var y1 = this.refs.y1.getValue();
-                var x2 = this.refs.x2.getValue();
-                var y2 = this.refs.y2.getValue();
-                return {
-                    line: [[x1, y1], [x2, y2]]
-                };
-            },
-            /* InputPath API */
-            setInputValue: function(path, value, cb) {
-                var id = _.first(path);
-                var j;
-                if (id[0] === "x") {
-                    j = 0;
-                } else if (id[0] === "y") {
-                    j = 1;
-                }
-                var i;
-                if (id[1] === "1") {
-                    i = 0;
-                } else if (id[1] === "2") {
-                    i = 1;
-                }
-                this.changePoint(i, j, value, cb);
-            },
-            getInputPaths: function() {
-                return [["x1"], ["y1"], ["x2"], ["y2"]];
-            }
-        })
+        }),
     },
 
     dilation: {
@@ -825,97 +876,57 @@ var Transformations = {
             }
             return {
                 center: transform1.center,
-                scale: transform1.scale * transform2.scale
+                scale: transform1.scale * transform2.scale,
             };
         },
         toTeX: function(transform) {
-            var scaleString = stringFromFraction(transform.scale);
-            return <$_ scale={scaleString}
-                       point={texFromPoint(transform.center)}>
+            const scaleString = stringFromFraction(transform.scale);
+            return <$_
+                scale={scaleString}
+                point={texFromPoint(transform.center)}
+            >
                 Dilation of scale %(scale)s about %(point)s
             </$_>;
         },
         Input: React.createClass({
+            propTypes: {
+                apiOptions: ApiOptions.propTypes,
+                center: React.PropTypes.arrayOf(React.PropTypes.number),
+                onBlur: React.PropTypes.func,
+                onChange: React.PropTypes.func,
+                onFocus: React.PropTypes.func,
+                scale: React.PropTypes.number,
+            },
             getInitialState: function() {
                 return {
                     center: this.props.center || [null, null],
-                    scale: this.props.scale || null
+                    scale: this.props.scale || null,
                 };
             },
             componentDidUpdate: function(prevProps) {
                 if (!deepEq(this.props, prevProps)) {
+                    /* eslint-disable react/no-did-update-set-state */
                     this.setState({
                         center: this.props.center,
-                        scale: this.props.scale
+                        scale: this.props.scale,
                     });
+                    /* eslint-enable react/no-did-update-set-state */
                 }
             },
-            render: function() {
-                var InputComponent = (this.props.apiOptions.staticRender) ?
-                        MathOutput :
-                        NumberInput;
-                var point = [<TeX>(</TeX>,
-                    <InputComponent
-                        ref="x"
-                        placeholder={0}
-                        value={this.state.center[0]}
-                        useArrowKeys={true}
-                        onChange={(val0) => {
-                            var val1 = this.state.center[1];
-                            this.setState({center: [val0, val1]}, () => {
-                                this.props.onChange();
-                            });
-                        }}
-                        onFocus={_.partial(this.props.onFocus, "x")}
-                        onBlur={_.partial(this.props.onBlur, "x")} />,
-                    <TeX>{", {}"}</TeX>,
-                    <InputComponent
-                        ref="y"
-                        placeholder={0}
-                        value={this.state.center[1]}
-                        useArrowKeys={true}
-                        onChange={(val1) => {
-                            var val0 = this.state.center[0];
-                            this.setState({center: [val0, val1]}, () => {
-                                this.props.onChange();
-                            });
-                        }}
-                        onFocus={_.partial(this.props.onFocus, "y")}
-                        onBlur={_.partial(this.props.onBlur, "y")} />,
-                    <TeX>)</TeX>
-                ];
-                var scale = <InputComponent
-                    ref="scale"
-                    placeholder={1}
-                    value={this.state.scale}
-                    useArrowKeys={true}
-                    onChange={(val) => {
-                            this.setState({scale: val}, () => {
-                                this.props.onChange();
-                            });
-                        }}
-                    onFocus={_.partial(this.props.onFocus, "scale")}
-                    onBlur={_.partial(this.props.onBlur, "scale")} />;
-                return <div>
-                    <$_ point={point} scale={scale}>
-                        Dilation about %(point)s by %(scale)s
-                    </$_>
-                </div>;
-            },
             value: function() {
-                var scale = this.refs.scale.getValue();
-                var x = this.refs.x.getValue();
-                var y = this.refs.y.getValue();
+                const scale = this.refs.scale.getValue();
+                const x = this.refs.x.getValue();
+                const y = this.refs.y.getValue();
                 return {
                     scale: scale,
-                    center: [x, y]
+                    center: [x, y],
                 };
             },
             /* InputPath API */
             setInputValue: function(path, value, cb) {
-                var id = _.first(path);
-                var scale = this.state.scale;
-                var center = _.clone(this.state.center);
+                const id = _.first(path);
+                let scale = this.state.scale;
+                const center = _.clone(this.state.center);
                 if (id === "x") {
                     center[0] = value;
                 } else if (id === "y") {
@@ -929,16 +940,71 @@ var Transformations = {
             },
             getInputPaths: function() {
                 return [["x"], ["y"], ["scale"]];
-            }
-        })
-    }
+            },
+            render: function() {
+                const InputComponent = (this.props.apiOptions.staticRender) ?
+                        MathOutput :
+                        NumberInput;
+                const point = [<TeX>(</TeX>,
+                    <InputComponent
+                        ref="x"
+                        placeholder={0}
+                        value={this.state.center[0]}
+                        useArrowKeys={true}
+                        onChange={(val0) => {
+                            const val1 = this.state.center[1];
+                            this.setState({center: [val0, val1]}, () => {
+                                this.props.onChange();
+                            });
+                        }}
+                        onFocus={_.partial(this.props.onFocus, "x")}
+                        onBlur={_.partial(this.props.onBlur, "x")}
+                    />,
+                    <TeX>{", {}"}</TeX>,
+                    <InputComponent
+                        ref="y"
+                        placeholder={0}
+                        value={this.state.center[1]}
+                        useArrowKeys={true}
+                        onChange={(val1) => {
+                            const val0 = this.state.center[0];
+                            this.setState({center: [val0, val1]}, () => {
+                                this.props.onChange();
+                            });
+                        }}
+                        onFocus={_.partial(this.props.onFocus, "y")}
+                        onBlur={_.partial(this.props.onBlur, "y")}
+                    />,
+                    <TeX>)</TeX>,
+                ];
+                const scale = <InputComponent
+                    ref="scale"
+                    placeholder={1}
+                    value={this.state.scale}
+                    useArrowKeys={true}
+                    onChange={(val) => {
+                        this.setState({scale: val}, () => {
+                            this.props.onChange();
+                        });
+                    }}
+                    onFocus={_.partial(this.props.onFocus, "scale")}
+                    onBlur={_.partial(this.props.onBlur, "scale")}
+                />;
+                return <div>
+                    <$_ point={point} scale={scale}>
+                        Dilation about %(point)s by %(scale)s
+                    </$_>
+                </div>;
+            },
+        }),
+    },
 };
 
 
 /* Various functions to deal with different shape types */
-var ShapeTypes = {
+const ShapeTypes = {
     getPointCountForType: function(type) {
-        var splitType = type.split("-");
+        const splitType = type.split("-");
         if (splitType[0] === "polygon") {
             return splitType[1] || 3;
         } else if (splitType[0] === "line" ||
@@ -960,19 +1026,19 @@ var ShapeTypes = {
                     "simultaneously. options: " + JSON.stringify(options));
         }
 
-        var shape;
-        var points = _.map(options.shape.coords, function(coord) {
-            var currentPoint;
-            var isMoving = false;
-            var previousCoord = coord;
+        let shape;
+        const points = _.map(options.shape.coords, function(coord) {
+            let currentPoint;
+            let isMoving = false;
+            let previousCoord = coord;
 
-            var onMove = function(x, y) {
+            const onMove = function(x, y) {
                 if (!isMoving) {
                     previousCoord = currentPoint.coord;
                     isMoving = true;
                 }
 
-                var moveVector = kvector.subtract(
+                let moveVector = kvector.subtract(
                     [x, y],
                     currentPoint.coord
                 );
@@ -1006,8 +1072,8 @@ var ShapeTypes = {
                 // Without this, some shapes (circles, angles) appear
                 // "bouncy" as they are updated with currentPoint at the
                 // current mouse coordinate (oldCoord), rather than newCoord
-                var oldCoord = currentPoint.coord;
-                var newCoord = kvector.add(
+                const oldCoord = currentPoint.coord;
+                const newCoord = kvector.add(
                     currentPoint.coord,
                     moveVector
                 );
@@ -1021,7 +1087,7 @@ var ShapeTypes = {
                 return newCoord;
             };
 
-            var onMoveEnd = function() {
+            const onMoveEnd = function() {
                 // onMove isn't guaranteed to be called before onMoveEnd, so
                 // we have to take into account that we may not have moved and
                 // set previousCoord.
@@ -1031,7 +1097,7 @@ var ShapeTypes = {
                     // because MovablePoint's onMoveEnd semantics suck.
                     // It returns the mouseX, mouseY without processing them
                     // through onMove, leaving us with weird fractional moves
-                    var change = kvector.subtract(
+                    const change = kvector.subtract(
                         currentPoint.coord,
                         previousCoord
                     );
@@ -1045,14 +1111,14 @@ var ShapeTypes = {
                 normalStyle: options.normalPointStyle,
                 highlightStyle: options.highlightPointStyle,
                 constraints: {
-                    fixed: !options.translatable && !options.editable
+                    fixed: !options.translatable && !options.editable,
                 },
                 visible: options.showPoints,
                 snapX: options.snap && options.snap[0] || 0,
                 snapY: options.snap && options.snap[1] || 0,
                 bounded: false, // Don't bound it when placing it on the graph
                 onMove: onMove,
-                onMoveEnd: onMoveEnd
+                onMoveEnd: onMoveEnd,
             });
 
             // Bound it when moving
@@ -1065,7 +1131,7 @@ var ShapeTypes = {
         });
 
         shape = ShapeTypes.addShape(graphie, options, points);
-        var removeShapeWithoutPoints = shape.remove;
+        const removeShapeWithoutPoints = shape.remove;
         shape.remove = function() {
             removeShapeWithoutPoints.apply(shape);
             _.invoke(points, "remove");
@@ -1076,27 +1142,28 @@ var ShapeTypes = {
     addShape: function(graphie, options, points) {
         points = points || options.shape.coords;
 
-        var types = ShapeTypes._typesOf(options.shape);
-        var typeOptions = options.shape.options ||
+        const types = ShapeTypes._typesOf(options.shape);
+        const typeOptions = options.shape.options ||
                 ShapeTypes.defaultOptions(types);
 
-        var shapes = ShapeTypes._mapTypes(types, points,
-                function(type, points, i) {
-            var shapeOptions = _.extend({}, options, typeOptions[i]);
+        const shapes = ShapeTypes._mapTypes(types, points, function(
+            type, points, i) {
+
+            const shapeOptions = _.extend({}, options, typeOptions[i]);
             return ShapeTypes._addType(graphie, type, points, shapeOptions);
         });
 
-        var updateFuncs = _.filter(_.pluck(shapes, "update"), _.identity);
-        var update = function() {
+        const updateFuncs = _.filter(_.pluck(shapes, "update"), _.identity);
+        const update = function() {
             _.invoke(updateFuncs, "call");
         };
 
-        var removeFuncs = _.filter(_.pluck(shapes, "remove"), _.identity);
-        var remove = function() {
+        const removeFuncs = _.filter(_.pluck(shapes, "remove"), _.identity);
+        const remove = function() {
             _.invoke(removeFuncs, "call");
         };
 
-        var getOptions = function() {
+        const getOptions = function() {
             return _.map(shapes, function(shape) {
                 if (shape.getOptions) {
                     return shape.getOptions();
@@ -1106,8 +1173,8 @@ var ShapeTypes = {
             });
         };
 
-        var toJSON = function() {
-            var coords = _.map(points, function(pt) {
+        const toJSON = function() {
+            const coords = _.map(points, function(pt) {
                 if (_.isArray(pt)) {
                     return pt;
                 } else {
@@ -1117,7 +1184,7 @@ var ShapeTypes = {
             return {
                 type: types,
                 coords: coords,
-                options: getOptions()
+                options: getOptions(),
             };
         };
 
@@ -1127,22 +1194,22 @@ var ShapeTypes = {
             update: update,
             remove: remove,
             toJSON: toJSON,
-            getOptions: getOptions
+            getOptions: getOptions,
         };
     },
 
     equal: function(shape1, shape2) {
-        var types1 = ShapeTypes._typesOf(shape1);
-        var types2 = ShapeTypes._typesOf(shape2);
+        const types1 = ShapeTypes._typesOf(shape1);
+        const types2 = ShapeTypes._typesOf(shape2);
         if (types1.length !== types2.length) {
             return false;
         }
-        var shapes1 = ShapeTypes._mapTypes(types1, shape1.coords,
+        const shapes1 = ShapeTypes._mapTypes(types1, shape1.coords,
                 ShapeTypes._combine);
-        var shapes2 = ShapeTypes._mapTypes(types2, shape2.coords,
+        const shapes2 = ShapeTypes._mapTypes(types2, shape2.coords,
                 ShapeTypes._combine);
         return _.all(_.map(shapes1, function(partialShape1, i) {
-            var partialShape2 = shapes2[i];
+            const partialShape2 = shapes2[i];
             if (partialShape1.type !== partialShape2.type) {
                 return false;
             }
@@ -1154,7 +1221,7 @@ var ShapeTypes = {
     },
 
     _typesOf: function(shape) {
-        var types = shape.type;
+        let types = shape.type;
         if (!_.isArray(types)) {
             types = [types];
         }
@@ -1169,27 +1236,27 @@ var ShapeTypes = {
 
     defaultOptions: function(types) {
         return _.map(types, function(type) {
-            var typeDefaultOptions = ShapeTypes._forType(type).defaultOptions;
+            const typeDefaultOptions = ShapeTypes._forType(type).defaultOptions;
             return _.extend({}, typeDefaultOptions);
         });
     },
 
     _forType: function(type) {
-        var baseType = type.split("-")[0];
+        const baseType = type.split("-")[0];
         return ShapeTypes[baseType];
     },
 
     _mapTypes: function(types, points, func, context) {
         return _.map(types, function(type, i) {
-            var pointCount = ShapeTypes.getPointCountForType(type);
-            var currentPoints = _.first(points, pointCount);
+            const pointCount = ShapeTypes.getPointCountForType(type);
+            const currentPoints = _.first(points, pointCount);
             points = _.rest(points, pointCount);
             return func.call(context, type, currentPoints, i);
         });
     },
 
     _addType: function(graphie, type, points, options) {
-        var lineCoords = _.isArray(points[0]) ? {
+        const lineCoords = _.isArray(points[0]) ? {
             coordA: points[0],
             coordZ: points[1],
         } : {
@@ -1199,27 +1266,27 @@ var ShapeTypes = {
 
         type = type.split("-")[0];
         if (type === "polygon") {
-            var polygon = graphie.addMovablePolygon(_.extend({}, options, {
+            const polygon = graphie.addMovablePolygon(_.extend({}, options, {
                 fixed: !options.editable,
                 snapX: options.snap && options.snap[0] || 0,
                 snapY: options.snap && options.snap[1] || 0,
                 points: points,
-                constrainToGraph: false
+                constrainToGraph: false,
             }));
             return {
                 update: polygon.transform.bind(polygon),
-                remove: polygon.remove.bind(polygon)
+                remove: polygon.remove.bind(polygon),
             };
         } else if (type === "line" || type === "lineSegment") {
-            var line = graphie.addMovableLineSegment(
-                    _.extend({}, options, lineCoords, {
-                movePointsWithLine: true,
-                fixed: true,
-                constraints: {
-                    fixed: true
-                },
-                extendLine: (type === "line")
-            }));
+            const line = graphie.addMovableLineSegment(
+                _.extend({}, options, lineCoords, {
+                    movePointsWithLine: true,
+                    fixed: true,
+                    constraints: {
+                        fixed: true,
+                    },
+                    extendLine: (type === "line"),
+                }));
 
             // TODO(jack): Hide points on uneditable lines when translation
             // is a vector.
@@ -1227,7 +1294,7 @@ var ShapeTypes = {
             // translation handle for the line.
             return {
                 update: line.transform.bind(line, true),
-                remove: line.remove.bind(line)
+                remove: line.remove.bind(line),
             };
         } else if (type === "angle") {
             // If this angle is editable, we want to be able to make angles
@@ -1235,14 +1302,14 @@ var ShapeTypes = {
             // If this angle is not editable, it should always maintain
             // it's angle measure, even if it is reflected (causing the
             // clockwise-ness of the points to change)
-            var shouldChangeReflexivity = options.editable ? null : false;
+            const shouldChangeReflexivity = options.editable ? null : false;
 
-            var angle = graphie.addMovableAngle({
+            const angle = graphie.addMovableAngle({
                 angleLabel: "$deg0",
                 fixed: true,
                 points: points,
                 normalStyle: options.normalStyle,
-                reflex: options.reflex
+                reflex: options.reflex,
             });
 
             // Hide non-vertex points on uneditable angles
@@ -1255,19 +1322,19 @@ var ShapeTypes = {
                 remove: angle.remove.bind(angle),
                 getOptions: function() {
                     return {
-                        reflex: angle.isReflex()
+                        reflex: angle.isReflex(),
                     };
-                }
+                },
             };
         } else if (type === "circle") {
-            var perimeter = {
+            let perimeter = {
                 // temporary object for the first removal
-                remove: _.identity
+                remove: _.identity,
             };
-            var redrawPerim = function() {
-                var coord0 = points[0].coord || points[0];
-                var coord1 = points[1].coord || points[1];
-                var radius = kpoint.distanceToPoint(coord0, coord1);
+            const redrawPerim = function() {
+                const coord0 = points[0].coord || points[0];
+                const coord1 = points[1].coord || points[1];
+                const radius = kpoint.distanceToPoint(coord0, coord1);
                 perimeter.remove();
                 perimeter = graphie.circle(coord0, radius, _.extend({
                     stroke: KhanColors.DYNAMIC,
@@ -1286,13 +1353,13 @@ var ShapeTypes = {
                     // Not _.bind because the remove function changes
                     // when the perimeter is redrawn
                     perimeter.remove();
-                }
+                },
             };
         } else if (type === "point") {
             // do nothing
             return {
                 update: null,
-                remove: null
+                remove: null,
             };
         } else {
             throw new Error("Invalid shape type " + type);
@@ -1302,20 +1369,20 @@ var ShapeTypes = {
     _combine: function(type, coords) {
         return {
             type: type,
-            coords: coords
+            coords: coords,
         };
     },
 
     polygon: {
-        equal: orderInsensitiveCoordsEqual
+        equal: orderInsensitiveCoordsEqual,
     },
 
     line: {
-        equal: kline.equal
+        equal: kline.equal,
     },
 
     lineSegment: {
-        equal: orderInsensitiveCoordsEqual
+        equal: orderInsensitiveCoordsEqual,
     },
 
     angle: {
@@ -1324,65 +1391,50 @@ var ShapeTypes = {
                 return false;
             }
 
-            var line1_0 = [points1[1], points1[0]];
-            var line1_2 = [points1[1], points1[2]];
-            var line2_0 = [points2[1], points2[0]];
-            var line2_2 = [points2[1], points2[2]];
+            /* eslint-disable camelcase */
+            const line1_0 = [points1[1], points1[0]];
+            const line1_2 = [points1[1], points1[2]];
+            const line2_0 = [points2[1], points2[0]];
+            const line2_2 = [points2[1], points2[2]];
+            /* eslint-enable camelcase */
 
-            var equalUnflipped = kray.equal(line1_0, line2_0) &&
+            const equalUnflipped = kray.equal(line1_0, line2_0) &&
                     kray.equal(line1_2, line2_2);
-            var equalFlipped = kray.equal(line1_0, line2_2) &&
+            const equalFlipped = kray.equal(line1_0, line2_2) &&
                     kray.equal(line1_2, line2_0);
 
             return equalUnflipped || equalFlipped;
         },
 
         defaultOptions: {
-            reflex: false
-        }
+            reflex: false,
+        },
     },
 
     circle: {
         equal: function(points1, points2) {
-            var radius1 = kpoint.distanceToPoint(points1[0], points1[1]);
-            var radius2 = kpoint.distanceToPoint(points2[0], points2[1]);
+            const radius1 = kpoint.distanceToPoint(points1[0], points1[1]);
+            const radius2 = kpoint.distanceToPoint(points2[0], points2[1]);
             return kpoint.equal(points1[0], points2[0]) &&
                 knumber.equal(radius1, radius2);
-        }
+        },
     },
 
     point: {
-        equal: kpoint.equal
-    }
+        equal: kpoint.equal,
+    },
 };
 
-var TransformationListItem = TransformOps.ListItem;
+const TransformationListItem = TransformOps.ListItem;
 
-var TransformationList = React.createClass({
-    render: function() {
-        if (this.props.mode === "static") {
-            return <span />;  // don't render anything
-        }
-
-        var transformationList = _.map(
-            this.props.transformations,
-            function(transform, i) {
-                return <TransformationListItem
-                            ref={"transformation" + i}
-                            key={"transformation" + i}
-                            transform={transform}
-                            mode={this.props.mode}
-                            onChange={this.handleChange}
-                            onFocus={_.partial(this.props.onFocus, "" + i)}
-                            onBlur={_.partial(this.props.onBlur, "" + i)}
-                            apiOptions={this.props.apiOptions} />;
-            },
-            this
-        );
-
-        return <div className="perseus-transformation-list">
-            {transformationList}
-        </div>;
+const TransformationList = React.createClass({
+    propTypes: {
+        apiOptions: ApiOptions.propTypes,
+        mode: React.PropTypes.string,
+        onBlur: React.PropTypes.func,
+        onChange: React.PropTypes.func,
+        onFocus: React.PropTypes.func,
+        transformations: React.PropTypes.arrayOf(React.PropTypes.object),
     },
 
     _transformationRefs: function() {
@@ -1400,45 +1452,104 @@ var TransformationList = React.createClass({
     },
 
     focusLast: function() {
-        var transformationRefs = this._transformationRefs();
+        const transformationRefs = this._transformationRefs();
         if (transformationRefs.length !== 0) {
             _.last(transformationRefs).focus();
         }
-    }
+    },
+
+    render: function() {
+        if (this.props.mode === "static") {
+            return <span />;  // don't render anything
+        }
+
+        const transformationList = _.map(
+            this.props.transformations,
+            function(transform, i) {
+                return <TransformationListItem
+                    ref={"transformation" + i}
+                    key={"transformation" + i}
+                    transform={transform}
+                    mode={this.props.mode}
+                    onChange={this.handleChange}
+                    onFocus={_.partial(this.props.onFocus, "" + i)}
+                    onBlur={_.partial(this.props.onBlur, "" + i)}
+                    apiOptions={this.props.apiOptions}
+                />;
+            },
+            this
+        );
+
+        return <div className="perseus-transformation-list">
+            {transformationList}
+        </div>;
+    },
 });
 
-var ToolButton = React.createClass({
+const ToolButton = React.createClass({
+    propTypes: {
+        children: React.PropTypes.node,
+        disabled: React.PropTypes.bool,
+        onClick: React.PropTypes.func,
+        toggled: React.PropTypes.bool,
+    },
+
     render: function() {
-        var classes = this.props.toggled ?
+        const classes = this.props.toggled ?
             "simple-button exercise-orange toggled highlighted-tool-button" :
             "simple-button";
 
         return <button
-                type="button"
-                className={classes}
-                disabled={this.props.disabled}
-                onClick={this.props.onClick}
-                onTouchStart={captureScratchpadTouchStart}>
+            type="button"
+            className={classes}
+            disabled={this.props.disabled}
+            onClick={this.props.onClick}
+            onTouchStart={captureScratchpadTouchStart}
+        >
             {this.props.children}
         </button>;
-    }
+    },
 });
 
-var ToolsBar = React.createClass({
+const ToolsBar = React.createClass({
+    propTypes: {
+        addTool: React.PropTypes.func,
+        apiOptions: ApiOptions.propTypes,
+        enabled: React.PropTypes.objectOf(React.PropTypes.bool),
+        onUndoClick: React.PropTypes.func,
+        removeTool: React.PropTypes.func,
+    },
+
     getInitialState: function() {
         return {
-            selected: null
+            selected: null,
         };
     },
 
+    changeSelected: function(tool) {
+        this.props.removeTool(this.state.selected);
+
+        if (!tool || tool === this.state.selected) {
+            this.setState({
+                selected: null,
+            });
+        } else {
+            this.props.addTool(tool);
+            this.setState({
+                selected: tool,
+            });
+        }
+    },
+
     render: function() {
-        var tools = _.map(Transformations, function(tool, type) {
+        const tools = _.map(Transformations, function(tool, type) {
             if (this.props.enabled[type]) {
                 return <ToolButton
-                        key={type}
-                        disabled={this.props.apiOptions.readOnly}
-                        toggled={this.state.selected === type}
-                        onClick={this.changeSelected.bind(this, type)}>
+                    key={type}
+                    disabled={this.props.apiOptions.readOnly}
+                    toggled={this.state.selected === type}
+                    onClick={this.changeSelected.bind(this, type)}
+                >
                     {tool.verbName}
                 </ToolButton>;
             }
@@ -1449,11 +1560,12 @@ var ToolsBar = React.createClass({
                 {tools}
             </span>
             <button
-                    className="transformer-undo-button simple-button"
-                    type="button"
-                    disabled={this.props.apiOptions.readOnly}
-                    onClick={this.props.onUndoClick}
-                    onTouchStart={captureScratchpadTouchStart}>
+                className="transformer-undo-button simple-button"
+                type="button"
+                disabled={this.props.apiOptions.readOnly}
+                onClick={this.props.onUndoClick}
+                onTouchStart={captureScratchpadTouchStart}
+            >
                 <span className="icon-undo" />
                 {" "}
                 Undo
@@ -1461,32 +1573,31 @@ var ToolsBar = React.createClass({
             <div className="clear"></div>
         </div>;
     },
-
-    changeSelected: function(tool) {
-        this.props.removeTool(this.state.selected);
-
-        if (!tool || tool === this.state.selected) {
-            this.setState({
-                selected: null
-            });
-        } else {
-            this.props.addTool(tool);
-            this.setState({
-                selected: tool
-            });
-        }
-    }
 });
 
-var AddTransformBar = React.createClass({
+const AddTransformBar = React.createClass({
+    propTypes: {
+        addTool: React.PropTypes.func,
+        apiOptions: ApiOptions.propTypes,
+        enabled: React.PropTypes.objectOf(React.PropTypes.bool),
+        onUndoClick: React.PropTypes.func,
+    },
+
+    changeSelected: function(tool) {
+        if (tool) {
+            this.props.addTool(tool);
+        }
+    },
+
     render: function() {
-        var tools = _.map(Transformations, function(tool, type) {
+        const tools = _.map(Transformations, function(tool, type) {
             if (this.props.enabled[type]) {
                 return <ToolButton
-                        key={type}
-                        toggled={false}
-                        disabled={this.props.apiOptions.readOnly}
-                        onClick={this.changeSelected.bind(this, type)}>
+                    key={type}
+                    toggled={false}
+                    disabled={this.props.apiOptions.readOnly}
+                    onClick={this.changeSelected.bind(this, type)}
+                >
                     <span className="icon-plus" />
                     {" "}
                     {tool.nounName}
@@ -1497,11 +1608,12 @@ var AddTransformBar = React.createClass({
         return <div className="transformer-tools-bar">
             {tools}
             <button
-                    className="transformer-undo-button simple-button"
-                    type="button"
-                    onClick={this.props.onUndoClick}
-                    disabled={this.props.apiOptions.readOnly}
-                    onTouchStart={captureScratchpadTouchStart}>
+                className="transformer-undo-button simple-button"
+                type="button"
+                onClick={this.props.onUndoClick}
+                disabled={this.props.apiOptions.readOnly}
+                onTouchStart={captureScratchpadTouchStart}
+            >
                 <span className="icon-undo" />
                 {" "}
                 Undo
@@ -1509,93 +1621,34 @@ var AddTransformBar = React.createClass({
             <div className="clear"></div>
         </div>;
     },
-
-    changeSelected: function(tool) {
-        if (tool) {
-            this.props.addTool(tool);
-        }
-    }
 });
 
-var Transformer = React.createClass({
+const Transformer = React.createClass({
     propTypes: {
+        apiOptions: ApiOptions.propTypes,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        correct: React.PropTypes.any,
+        drawSolutionShape: React.PropTypes.bool,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        graph: React.PropTypes.any,
+        graphMode: React.PropTypes.string,
+        listMode: React.PropTypes.string,
+        onBlur: React.PropTypes.func,
+        onChange: React.PropTypes.func,
+        onFocus: React.PropTypes.func,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        starting: React.PropTypes.any,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        tools: React.PropTypes.any,
         trackInteraction: React.PropTypes.func.isRequired,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        transformations: React.PropTypes.arrayOf(React.PropTypes.any),
     },
 
     getDefaultProps: function() {
         return _.defaults({
-            transformations: []
+            transformations: [],
         }, defaultTransformerProps);
-    },
-
-    render: function() {
-        // Fill in any missing value in this.props.graph
-        // this can happen because the graph json doesn't include
-        // box, for example
-        var graph = _.extend(
-                defaultGraphProps(this.props.graph, defaultBoxSize),
-                this.props.graph
-        );
-
-        var interactiveToolsMode = this.props.graphMode === "interactive";
-
-        var ToolsBarClass = interactiveToolsMode ?
-                ToolsBar :
-                AddTransformBar;
-
-        // This style is applied inline because it is dependent on the
-        // size of the graph as set by the graph.box prop, and this also
-        // lets us specify it in the same place the graph's width is
-        // specified.
-        var toolsBar = <div style={{width: graph.box[0]}}>
-            <ToolsBarClass
-                ref="toolsBar"
-                enabled={pluckObject(this.props.tools, "enabled")}
-                apiOptions={this.props.apiOptions}
-                addTool={this.addTool}
-                removeTool={this.removeTool}
-                onUndoClick={this.handleUndoClick} />
-        </div>;
-
-        return <div className={"perseus-widget " +
-                        "perseus-widget-transformer"}>
-            <Graph
-                ref="graph"
-                box={graph.box}
-                range={graph.range}
-                labels={graph.labels}
-                step={graph.step}
-                gridStep={graph.gridStep}
-                markings={graph.markings}
-                backgroundImage={graph.backgroundImage}
-                showProtractor={graph.showProtractor}
-                onGraphieUpdated={this.setupGraphie} />
-
-            {!interactiveToolsMode && (
-                "Add transformations below:"
-            )}
-
-            {this.props.graphMode === "static" && [
-                <br key="static-br" />,
-                <em key="static-nomove">
-                    {' '}Note: For this question, the shape will not move.{' '}
-                </em>
-            ]}
-
-            {interactiveToolsMode && toolsBar}
-
-            <TransformationList
-                ref="transformationList"
-                mode={this.props.listMode}
-                transformations={this.props.transformations}
-                onChange={this.setTransformationProps}
-                onFocus={this._handleFocus}
-                onBlur={this._handleBlur}
-                apiOptions={this.props.apiOptions} />
-
-            {!interactiveToolsMode && toolsBar}
-
-        </div>;
     },
 
     componentDidMount: function() {
@@ -1646,8 +1699,8 @@ var Transformer = React.createClass({
                 normalStyle: {
                     stroke: KhanColors.GRAY,
                     "stroke-dasharray": "",
-                    "stroke-width": 2
-                }
+                    "stroke-width": 2,
+                },
             });
         }
 
@@ -1668,7 +1721,7 @@ var Transformer = React.createClass({
             translation: _.clone(this.props.tools.translation),
             rotation: _.clone(this.props.tools.rotation),
             reflection: _.clone(this.props.tools.reflection),
-            dilation: _.clone(this.props.tools.dilation)
+            dilation: _.clone(this.props.tools.dilation),
         };
     },
 
@@ -1686,20 +1739,20 @@ var Transformer = React.createClass({
 
     // the polygon that we transform
     addTransformerShape: function(shape, translatable) {
-        var self = this;
-        var graphie = this.graphie();
+        const self = this;
+        const graphie = this.graphie();
 
         this.shape = ShapeTypes.addMovableShape(graphie, {
             shape: shape,
             editable: false,
             showPoints: (this.props.graphMode !== "static"),
             translatable: translatable,
-            onMove: function (dX, dY) {
+            onMove: function(dX, dY) {
                 dX = KhanMath.roundToNearest(graphie.snap[0], dX);
                 dY = KhanMath.roundToNearest(graphie.snap[1], dY);
                 self.addTransform({
                     type: "translation",
-                    vector: [dX, dY]
+                    vector: [dX, dY],
                 });
                 return [dX, dY];
             },
@@ -1707,17 +1760,17 @@ var Transformer = React.createClass({
                 fill: (translatable ? KhanColors.INTERACTIVE
                                     : KhanColors.DYNAMIC),
                 stroke: (translatable ? KhanColors.INTERACTIVE
-                                      : KhanColors.DYNAMIC)
+                                      : KhanColors.DYNAMIC),
             },
             highlightPointStyle: {
                 fill: KhanColors.INTERACTING,
-                stroke: KhanColors.INTERACTING
-            }
+                stroke: KhanColors.INTERACTING,
+            },
         });
     },
 
     addTool: function(toolId) {
-        var self = this;
+        const self = this;
 
         if (this.props.graphMode === "interactive") {
             if (toolId === "translation") {
@@ -1732,30 +1785,30 @@ var Transformer = React.createClass({
                 throw new Error("Invalid tool id: " + toolId);
             }
         } else {
-            var transform;
+            let transform;
             if (toolId === "translation") {
                 transform = {
                     type: toolId,
-                    vector: [null, null]
+                    vector: [null, null],
                 };
             } else if (toolId === "rotation") {
                 transform = {
                     type: toolId,
                     center: [null, null],
-                    angleDeg: null
+                    angleDeg: null,
                 };
             } else if (toolId === "reflection") {
                 // Reflections with nulls in them won't be applied until
                 // fills in the blanks
                 transform = {
                     type: toolId,
-                    line: [[null, null], [null, null]]
+                    line: [[null, null], [null, null]],
                 };
             } else if (toolId === "dilation") {
                 transform = {
                     type: toolId,
                     center: [null, null],
-                    scale: null
+                    scale: null,
                 };
             } else {
                 throw new Error("Invalid tool id: " + toolId);
@@ -1775,7 +1828,7 @@ var Transformer = React.createClass({
     },
 
     addTranslationTool: function() {
-        var self = this;
+        const self = this;
         this.shape.remove();
         this.addTransformerShape(this.shape.toJSON(),
                 /* translatable */ true);
@@ -1785,14 +1838,14 @@ var Transformer = React.createClass({
                 self.shape.remove();
                 self.addTransformerShape(self.shape.toJSON(),
                         /* translatable */ false);
-            }
+            },
         };
     },
 
     // Snaps a coord to this.graphie()'s snap
     snapCoord: function(coord) {
-        var graphie = this.graphie();
-        return _.map(coord, function (val, dim) {
+        const graphie = this.graphie();
+        return _.map(coord, function(val, dim) {
             return KhanMath.roundToNearest(graphie.snap[dim], val);
         });
     },
@@ -1800,17 +1853,17 @@ var Transformer = React.createClass({
     // Normalize the coords into something that fits the new 45 degree
     // reflection line.
     normalizeReflectionCoords: function(messyCoords) {
-        var midpoint = this.snapCoord(kline.midpoint(messyCoords));
-        var origDirectionPolar = kvector.polarDegFromCart(
+        const midpoint = this.snapCoord(kline.midpoint(messyCoords));
+        const origDirectionPolar = kvector.polarDegFromCart(
             kvector.subtract(messyCoords[0], messyCoords[1])
         );
-        var directionPolar = [
+        const directionPolar = [
             1,
-            KhanMath.roundToNearest(45, origDirectionPolar[1])
+            KhanMath.roundToNearest(45, origDirectionPolar[1]),
         ];
-        var direction = kvector.cartFromPolarDeg(directionPolar);
-        var coords = _.map([-1, 1], function(directionCoefficient) {
-            var coord = kvector.add(
+        const direction = kvector.cartFromPolarDeg(directionPolar);
+        const coords = _.map([-1, 1], function(directionCoefficient) {
+            const coord = kvector.add(
                 midpoint,
                 kvector.scale(
                     direction,
@@ -1824,27 +1877,27 @@ var Transformer = React.createClass({
     },
 
     addReflectionTool: function() {
-        var options = this.props.tools.reflection;
+        const options = this.props.tools.reflection;
         if (!options.enabled) {
             return;
         }
-        var self = this;
-        var graphie = this.refs.graph.graphie();
+        const self = this;
+        const graphie = this.refs.graph.graphie();
 
-        var updateReflectionTool = function() {
+        const updateReflectionTool = function() {
             self.changeTool("reflection", {
-                coords: _.pluck(reflectPoints, "coord")
+                coords: _.pluck(reflectPoints, "coord"),
             });
         };
 
-        var coords = this.normalizeReflectionCoords(options.coords);
+        const coords = this.normalizeReflectionCoords(options.coords);
 
         // The points defining the line of reflection; hidden from the
         // user.
-        var reflectPoints = _.map(coords, function(coord) {
+        const reflectPoints = _.map(coords, function(coord) {
             return graphie.addMovablePoint({
                 coord: coord,
-                visible: false
+                visible: false,
             });
         }, this);
 
@@ -1852,8 +1905,8 @@ var Transformer = React.createClass({
         // TODO(jack): graphie.style here is a hack to prevent the dashed
         // style from leaking into the rest of the shapes. Remove when
         // graphie.addMovableLineSegment doesn't leak styles anymore.
-        var reflectLine;
-        var normalColor = colorForTool(options);
+        let reflectLine;
+        const normalColor = colorForTool(options);
         graphie.style({}, function() {
             reflectLine = graphie.addMovableLineSegment({
                 fixed: options.constraints.fixed,
@@ -1866,29 +1919,29 @@ var Transformer = React.createClass({
                 normalStyle: {
                     "stroke": normalColor,
                     "stroke-width": 2,
-                    "stroke-dasharray": "- "
+                    "stroke-dasharray": "- ",
                 },
                 highlightStyle: {
                     "stroke": KhanColors.INTERACTING,
                     "stroke-width": 2,
-                    "stroke-dasharray": "- " // TODO(jack) solid doesn't
-                                             // work here, but would be
-                                             // nicer
+                    "stroke-dasharray": "- ", // TODO(jack) solid doesn't
+                                              // work here, but would be
+                                              // nicer
                 },
                 movePointsWithLine: true,
-                onMoveEnd: updateReflectionTool
+                onMoveEnd: updateReflectionTool,
             });
         });
 
         // the "button" point in the center of the line of reflection
-        var reflectButton = graphie.addReflectButton({
+        const reflectButton = graphie.addReflectButton({
             fixed: options.constraints.fixed,
             line: reflectLine,
             size: this.scaleToCurrentRange(REFLECT_BUTTON_SIZE),
             onClick: function() {
                 self.doTransform({
                     type: "reflection",
-                    line: _.pluck(reflectPoints, "coord")
+                    line: _.pluck(reflectPoints, "coord"),
                 });
                 if (reflectRotateHandle) {
                     // flip the rotation handle
@@ -1905,20 +1958,20 @@ var Transformer = React.createClass({
             normalStyle: {
                 stroke: normalColor,
                 "stroke-width": 2,
-                fill: normalColor
+                fill: normalColor,
             },
             highlightStyle: {
                 stroke: KhanColors.INTERACTING,
                 "stroke-width": 3,
-                fill: KhanColors.INTERACTING
+                fill: KhanColors.INTERACTING,
             },
-            onMoveEnd: updateReflectionTool
+            onMoveEnd: updateReflectionTool,
         });
 
-        var reflectRotateHandle = null;
+        let reflectRotateHandle = null;
         if (!options.constraints.fixed) {
             // The rotation handle for rotating the line of reflection
-            var initRotateHandleAngle = kvector.polarDegFromCart(
+            const initRotateHandleAngle = kvector.polarDegFromCart(
                 kvector.subtract(
                     reflectPoints[1].coord,
                     reflectPoints[0].coord
@@ -1934,13 +1987,12 @@ var Transformer = React.createClass({
                 onMove: function(newAngle) {
                     return KhanMath.roundToNearest(45, newAngle);
                 },
-                onMoveEnd: updateReflectionTool
+                onMoveEnd: updateReflectionTool,
             });
         }
 
         // Move the reflectButton and reflectRotateHandle with the line
-        $(reflectLine).on("move",
-                function() {
+        $(reflectLine).on("move", function() {
             reflectButton.update();
             $(reflectButton).trigger("move"); // update the rotation handle,
                     // which watches for this in util/interactive.js.
@@ -1950,16 +2002,16 @@ var Transformer = React.createClass({
         // rotated
         if (reflectRotateHandle) {
             $(reflectRotateHandle).on("move", function() {
-                var rotateHandleApprox = self.snapCoord(
+                const rotateHandleApprox = self.snapCoord(
                     reflectRotateHandle.coord
                 );
 
-                var rotateVector = kvector.subtract(
+                const rotateVector = kvector.subtract(
                     rotateHandleApprox,
                     reflectButton.coord
                 );
 
-                var flipped = reflectButton.isFlipped() ? 1 : 0;
+                const flipped = reflectButton.isFlipped() ? 1 : 0;
                 reflectPoints[flipped].setCoord(kvector.add(
                     reflectButton.coord,
                     kvector.rotateDeg(rotateVector, 90)
@@ -1983,7 +2035,7 @@ var Transformer = React.createClass({
                 reflectLine.remove();
                 reflectPoints[0].remove();
                 reflectPoints[1].remove();
-            }
+            },
         };
     },
 
@@ -1998,14 +2050,14 @@ var Transformer = React.createClass({
     },
 
     addRotationTool: function() {
-        var options = this.props.tools.rotation;
+        const options = this.props.tools.rotation;
         if (!options.enabled) {
             return;
         }
-        var self = this;
-        var graphie = this.refs.graph.graphie();
+        const self = this;
+        const graphie = this.refs.graph.graphie();
 
-        var pointColor = colorForTool(options);
+        const pointColor = colorForTool(options);
         // The center of our rotation, which can be moved to change the
         // center of rotation
         this.rotatePoint = graphie.addMovablePoint({
@@ -2016,13 +2068,13 @@ var Transformer = React.createClass({
             normalStyle: {               // ugh, this seems to be a global and
                 "stroke-dasharray": "",  // is set to dash above
                 stroke: pointColor,
-                fill: pointColor
+                fill: pointColor,
             },
             highlightStyle: {
                 "stroke-dasharray": "",
                 stroke: KhanColors.INTERACTING,
-                fill: KhanColors.INTERACTING
-            }
+                fill: KhanColors.INTERACTING,
+            },
         });
 
         // The point that we move around the center of rotation to actually
@@ -2033,7 +2085,7 @@ var Transformer = React.createClass({
             width: this.scaleToCurrentRange(0.24),
             hoverWidth: this.scaleToCurrentRange(0.4),
             onMove: function(newAngle, oldAngle) {
-                var transform = self.getRotationTransformFromAngle(
+                const transform = self.getRotationTransformFromAngle(
                     self.rotatePoint.coord,
                     newAngle - oldAngle
                 );
@@ -2042,13 +2094,13 @@ var Transformer = React.createClass({
                 self.doTransform(transform);
 
                 return oldAngle + transform.angleDeg;
-            }
+            },
         });
 
         // Update tools.rotation.coord
         this.rotatePoint.onMoveEnd = function(x, y) {
             self.changeTool("rotation", {
-                coord: [x, y]
+                coord: [x, y],
             });
         };
 
@@ -2057,19 +2109,19 @@ var Transformer = React.createClass({
             remove: function() {
                 self.rotateHandle.remove();
                 self.rotatePoint.remove();
-            }
+            },
         };
     },
 
     addDilationTool: function() {
-        var options = this.props.tools.dilation;
+        const options = this.props.tools.dilation;
         if (!options.enabled) {
             return;
         }
-        var self = this;
-        var graphie = this.refs.graph.graphie();
+        const self = this;
+        const graphie = this.refs.graph.graphie();
 
-        var pointColor = colorForTool(options);
+        const pointColor = colorForTool(options);
         // the circle for causing dilation transforms
         self.dilationCircle = graphie.addCircleGraph({
             centerConstraints: options.constraints,
@@ -2083,50 +2135,50 @@ var Transformer = React.createClass({
                 self.doTransform({
                     type: "dilation",
                     center: self.dilationCircle.centerPoint.coord,
-                    scale: newRadius/oldRadius
+                    scale: newRadius / oldRadius,
                 });
             },
             circleNormalStyle: {
                 "stroke": pointColor,
                 "stroke-width": 2,
                 "stroke-dasharray": "- ",
-                "fill-opacity": 0
+                "fill-opacity": 0,
             },
             circleHighlightStyle: {
                 "stroke": KhanColors.INTERACTING,
                 "stroke-width": 2,
                 "stroke-dasharray": "",
                 "fill": KhanColors.INTERACTING,
-                "fill-opacity": 0.05
+                "fill-opacity": 0.05,
             },
             centerNormalStyle: {
                 "stroke": pointColor,
                 "fill": pointColor,
                 "stroke-width": 2,
-                "stroke-dasharray": ""
+                "stroke-dasharray": "",
             },
             centerHighlightStyle: {
                 "stroke": pointColor,
                 "fill": pointColor,
                 "stroke-width": 2,
-                "stroke-dasharray": ""
-            }
+                "stroke-dasharray": "",
+            },
         });
 
-        var origOnMoveEnd = this.dilationCircle.centerPoint.onMoveEnd;
+        const origOnMoveEnd = this.dilationCircle.centerPoint.onMoveEnd;
         this.dilationCircle.centerPoint.onMoveEnd = function() {
             if (origOnMoveEnd) {
                 origOnMoveEnd.apply(this, _.toArray(arguments));
             }
             self.changeTool("dilation", {
-                coord: self.dilationCircle.centerPoint.coord
+                coord: self.dilationCircle.centerPoint.coord,
             });
         };
 
         return {
             remove: function() {
                 self.dilationCircle.remove();
-            }
+            },
         };
     },
 
@@ -2137,14 +2189,14 @@ var Transformer = React.createClass({
         if (angleChanged > 180) {
             angleChanged -= 360;
         }
-        var roundedAngle = Math.round(
+        const roundedAngle = Math.round(
                 angleChanged / ROTATE_SNAP_DEGREES
             ) * ROTATE_SNAP_DEGREES;
 
         return {
             type: "rotation",
             center: center,
-            angleDeg: roundedAngle
+            angleDeg: roundedAngle,
         };
     },
 
@@ -2158,7 +2210,7 @@ var Transformer = React.createClass({
     // list)
     applyTransform: function(transform) {
         if (this.props.graphMode !== "static") {
-            var transformFunc = TransformOps.apply(transform);
+            const transformFunc = TransformOps.apply(transform);
             this.applyCoordTransformation(transformFunc);
         }
     },
@@ -2166,14 +2218,14 @@ var Transformer = React.createClass({
     // transform our polygon by transforming each point using a given function
     applyCoordTransformation: function(pointTransform) {
         _.each(this.shape.points, function(point) {
-            var newCoord = pointTransform(point.coord);
+            const newCoord = pointTransform(point.coord);
             point.setCoord(newCoord);
         });
         this.shape.update();
     },
 
     resetCoords: function() {
-        var startCoords = this.props.starting.shape.coords;
+        const startCoords = this.props.starting.shape.coords;
         _.each(this.shape.points, function(point, i) {
             point.setCoord(startCoords[i]);
         });
@@ -2185,14 +2237,14 @@ var Transformer = React.createClass({
         this.refs.toolsBar.changeSelected(null);
         if (this.props.transformations.length) {
             this.props.onChange({
-                transformations: _.initial(this.props.transformations)
+                transformations: _.initial(this.props.transformations),
             });
         }
     },
 
     setTransformationProps: function(newTransfomationList, callback) {
         this.props.onChange({
-            transformations: newTransfomationList
+            transformations: newTransfomationList,
         }, callback);
     },
 
@@ -2203,12 +2255,12 @@ var Transformer = React.createClass({
                 transform
         );
         this.props.onChange({
-            transformations: _.clone(this.transformations)
+            transformations: _.clone(this.transformations),
         }, callback);
     },
 
     changeTool: function(tool, changes) {
-        var newTools = _.clone(this.props.tools);
+        const newTools = _.clone(this.props.tools);
         newTools[tool] = _.extend({}, this.props.tools[tool], changes);
         this.tools[tool] = _.clone(newTools[tool]);
         this.props.onChange({
@@ -2227,15 +2279,15 @@ var Transformer = React.createClass({
      * (and thus the actual movablepoints may not have moved
      */
     getCoords: function() {
-        var startCoords = this.props.starting.shape.coords;
-        var transforms = this.props.transformations;
-        return _.reduce(transforms, function (coords, transform) {
+        const startCoords = this.props.starting.shape.coords;
+        const transforms = this.props.transformations;
+        return _.reduce(transforms, function(coords, transform) {
             return _.map(coords, TransformOps.apply(transform));
         }, startCoords);
     },
 
     getEditorJSON: function() {
-        var json = _.pick(this.props, "grading", "starting", "graphMode",
+        const json = _.pick(this.props, "grading", "starting", "graphMode",
                 "listMode", "tools", "drawSolutionShape", "gradeEmpty");
         json.graph = this.refs.graph.toJSON();
         json.version = 1.2; // Give us some safety to change the format
@@ -2255,32 +2307,32 @@ var Transformer = React.createClass({
             shape: {
                 type: this.shape.type,
                 coords: this.getCoords(),
-                options: this.shape.getOptions()
-            }
+                options: this.shape.getOptions(),
+            },
         };
     },
 
     /* InputPath API */
 
     _handleFocus: function() {
-        var path = Array.prototype.slice.call(arguments);
+        const path = Array.prototype.slice.call(arguments);
         this.props.onFocus(path);
     },
 
     _handleBlur: function() {
-        var path = Array.prototype.slice.call(arguments);
+        const path = Array.prototype.slice.call(arguments);
         this.props.onBlur(path);
     },
 
     _getTransformationForID: function(transformationID) {
         // Returns the 'transformation' component corresponding to a given ID
-        var refPath = [
+        const refPath = [
             "transformationList",
-            "transformation" + transformationID
+            "transformation" + transformationID,
         ];
 
         // Follow the path of references
-        var component = this;
+        let component = this;
         _.each(refPath, (ref) => {
             component = component.refs[ref];
         });
@@ -2294,11 +2346,11 @@ var Transformer = React.createClass({
             return [];
         }
 
-        var inputPaths = [];
+        let inputPaths = [];
         _.each(this.props.transformations, (transformation, i) => {
-            var transformation = this._getTransformationForID(i);
-            var innerPaths = transformation.getInputPaths();
-            var fullPaths = _.map(innerPaths, (innerPath) => {
+            transformation = this._getTransformationForID(i);
+            const innerPaths = transformation.getInputPaths();
+            const fullPaths = _.map(innerPaths, (innerPath) => {
                 return ["" + i].concat(innerPath);
             });
             inputPaths = inputPaths.concat(fullPaths);
@@ -2314,18 +2366,18 @@ var Transformer = React.createClass({
         // First argument tells us which transformation will receive the call;
         // remaining arguments are used within that transformation to identify
         // a specific input.
-        var innerPath = _.rest(path);
-        var args = [innerPath].concat(_.rest(arguments, 2));
+        const innerPath = _.rest(path);
+        const args = [innerPath].concat(_.rest(arguments, 2));
 
         // Pass arguments down to appropriate 'transformation' component
-        var transformationID = _.head(path);
-        var caller = this._getTransformationForID(transformationID);
-        return caller[functionName].apply(caller, args);
+        const transformationID = _.head(path);
+        const caller = this._getTransformationForID(transformationID);
+        return caller[functionName](...args);
     },
 
     focus: function() {
         // Just focus the first showing input
-        var inputs = this.getInputPaths();
+        const inputs = this.getInputPaths();
         if (inputs.length > 0) {
             this.focusInputPath(inputs[0]);
             return true;
@@ -2373,16 +2425,89 @@ var Transformer = React.createClass({
     getGrammarTypeForPath: function(path) {
         assert(path.length >= 2);
         return this._passToInner('getGrammarTypeForPath', path);
-    }
+    },
+
+    render: function() {
+        // Fill in any missing value in this.props.graph
+        // this can happen because the graph json doesn't include
+        // box, for example
+        const graph = _.extend(
+                defaultGraphProps(this.props.graph, defaultBoxSize),
+                this.props.graph
+        );
+
+        const interactiveToolsMode = this.props.graphMode === "interactive";
+
+        const ToolsBarClass = interactiveToolsMode ?
+                ToolsBar :
+                AddTransformBar;
+
+        // This style is applied inline because it is dependent on the
+        // size of the graph as set by the graph.box prop, and this also
+        // lets us specify it in the same place the graph's width is
+        // specified.
+        const toolsBar = <div style={{width: graph.box[0]}}>
+            <ToolsBarClass
+                ref="toolsBar"
+                enabled={pluckObject(this.props.tools, "enabled")}
+                apiOptions={this.props.apiOptions}
+                addTool={this.addTool}
+                removeTool={this.removeTool}
+                onUndoClick={this.handleUndoClick}
+            />
+        </div>;
+
+        return <div className={"perseus-widget perseus-widget-transformer"}>
+            <Graph
+                ref="graph"
+                box={graph.box}
+                range={graph.range}
+                labels={graph.labels}
+                step={graph.step}
+                gridStep={graph.gridStep}
+                markings={graph.markings}
+                backgroundImage={graph.backgroundImage}
+                showProtractor={graph.showProtractor}
+                onGraphieUpdated={this.setupGraphie}
+            />
+
+            {!interactiveToolsMode && (
+                "Add transformations below:"
+            )}
+
+            {this.props.graphMode === "static" && [
+                <br key="static-br" />,
+                <em key="static-nomove">
+                    {' '}Note: For this question, the shape will not move.{' '}
+                </em>,
+            ]}
+
+            {interactiveToolsMode && toolsBar}
+
+            <TransformationList
+                ref="transformationList"
+                mode={this.props.listMode}
+                transformations={this.props.transformations}
+                onChange={this.setTransformationProps}
+                onFocus={this._handleFocus}
+                onBlur={this._handleBlur}
+                apiOptions={this.props.apiOptions}
+            />
+
+            {!interactiveToolsMode && toolsBar}
+
+        </div>;
+    },
 });
 
 _.extend(Transformer, {
-    validate: function (guess, rubric) {
+    validate: function(guess, rubric) {
         // Check for any required transformations
-        for (var type in Transformations) {
+        for (const type in Transformations) {
             if (rubric.tools[type].required) {
-                var isUsed = _.any(_.map(guess.transformations,
-                        function(transform) {
+                const isUsed = _.any(_.map(guess.transformations, function(
+                    transform) {
+
                     // Required transformations must appear in the
                     // transformation list, and must not be no-ops
                     return (transform.type === type) &&
@@ -2394,9 +2519,9 @@ _.extend(Transformer, {
                     return {
                         type: "invalid",
                         message: i18n._("Your transformation must use a " +
-                                "%(type)s.", {
-                            type: Transformations[type].lowerNounName
-                        })
+                            "%(type)s.", {
+                                type: Transformations[type].lowerNounName,
+                            }),
                     };
                 }
             }
@@ -2409,7 +2534,7 @@ _.extend(Transformer, {
                 type: "points",
                 earned: 1,
                 total: 1,
-                message: null
+                message: null,
             };
         } else if (!rubric.gradeEmpty && deepEq(
                     guess.shape.coords,
@@ -2418,17 +2543,17 @@ _.extend(Transformer, {
             return {
                 type: "invalid",
                 message: i18n._("Use the interactive graph to define a " +
-                    "correct transformation.")
+                    "correct transformation."),
             };
         } else {
             return {
                 type: "points",
                 earned: 0,
                 total: 1,
-                message: null
+                message: null,
             };
         }
-    }
+    },
 });
 
 module.exports = {

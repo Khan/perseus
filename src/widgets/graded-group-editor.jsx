@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const _ = require("underscore");
 
@@ -10,21 +6,32 @@ const Changeable   = require("../mixins/changeable.jsx");
 const Editor = require("../editor.jsx");
 
 const GradedGroupEditor = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
-        content: React.PropTypes.string,
-        widgets: React.PropTypes.object,
-        images: React.PropTypes.object,
         apiOptions: ApiOptions.propTypes,
+        content: React.PropTypes.string,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        images: React.PropTypes.any,
+        onChange: React.PropTypes.func.isRequired,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        widgets: React.PropTypes.any,
     },
+
+    mixins: [Changeable],
 
     getDefaultProps: function() {
         return {
             content: "",
-            widgets: {},
             images: {},
+            widgets: {},
         };
+    },
+
+    getSaveWarnings: function() {
+        return this.refs.editor.getSaveWarnings();
+    },
+
+    serialize: function() {
+        return this.refs.editor.serialize();
     },
 
     render: function() {
@@ -37,16 +44,9 @@ const GradedGroupEditor = React.createClass({
             images={this.props.images}
             widgetEnabled={true}
             immutableWidgets={false}
-            onChange={this.props.onChange} />
+            onChange={this.props.onChange}
+        />
         </div>;
-    },
-
-    getSaveWarnings: function() {
-        return this.refs.editor.getSaveWarnings();
-    },
-
-    serialize: function() {
-        return this.refs.editor.serialize();
     },
 });
 

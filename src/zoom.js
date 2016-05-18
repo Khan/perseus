@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, max-len, no-var, space-before-function-paren */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 // Derived from the MIT-licensed:
 // https://github.com/fat/zoom.js/blob/fd4f3e43153da7596da0bade198e99f98b47791e/js/zoom.js
 
@@ -30,19 +26,19 @@
 // ============================================================
 
 function transitionEnd() {
-    var el = document.createElement('bootstrap');
+    const el = document.createElement('bootstrap');
 
-    var transEndEventNames = {
+    const transEndEventNames = {
         WebkitTransition: 'webkitTransitionEnd',
         MozTransition: 'transitionend',
         OTransition: 'oTransitionEnd otransitionend',
         transition: 'transitionend',
     };
 
-    for (var name in transEndEventNames) {
+    for (const name in transEndEventNames) {
         if (el.style[name] !== undefined) {
             return {
-                end: transEndEventNames[name]
+                end: transEndEventNames[name],
             };
         }
     }
@@ -52,12 +48,12 @@ function transitionEnd() {
 
 // http://blog.alexmaccaw.com/css-transitions
 $.fn.emulateTransitionEnd = function(duration) {
-    var called = false;
-    var $el = this;
+    let called = false;
+    const $el = this;
     $(this).one('bsTransitionEnd', function() {
         called = true;
     });
-    var callback = function() {
+    const callback = function() {
         if (!called) {
             $($el).trigger($.support.transition.end);
         }
@@ -91,7 +87,7 @@ $(function() {
 function ZoomService() {
 }
 
-ZoomService.prototype._initialize = function () {
+ZoomService.prototype._initialize = function() {
     // Check to see if the service is already initialized
     if (this._$document) {
         return;
@@ -110,7 +106,7 @@ ZoomService.prototype._initialize = function () {
 
 ZoomService.prototype.handleZoomClick = function(e) {
     this._initialize();
-    var target = e.target;
+    const target = e.target;
 
     if (!target || target.tagName !== 'IMG') {
         return;
@@ -169,7 +165,7 @@ ZoomService.prototype._scrollHandler = function(e) {
     if (this._initialScrollPosition === null) {
         this._initialScrollPosition = window.scrollY;
     }
-    var deltaY = this._initialScrollPosition - window.scrollY;
+    const deltaY = this._initialScrollPosition - window.scrollY;
     if (Math.abs(deltaY) >= 40) {
         this._activeZoomClose();
     }
@@ -197,7 +193,8 @@ ZoomService.prototype._touchStart = function(e) {
 ZoomService.prototype._touchMove = function(e) {
     // Our jQuery doesn't include `touches` in its event
     // TODO(kevindangoor) Remove `originalEvent` once jQuery is updated
-    if (Math.abs(e.originalEvent.touches[0].pageY - this._initialTouchPosition) > 10) {
+    if (Math.abs(e.originalEvent.touches[0].pageY -
+            this._initialTouchPosition) > 10) {
         this._activeZoomClose();
         $(e.target).off('touchmove.zoom');
     }
@@ -222,19 +219,19 @@ Zoom._MAX_WIDTH = 2560;
 Zoom._MAX_HEIGHT = 4096;
 
 Zoom.prototype.zoomImage = function() {
-    var img = document.createElement('img');
-    var $zoomedImage = $(img);
+    const img = document.createElement('img');
+    const $zoomedImage = $(img);
 
     img.onload = function() {
-        // Load the image without specifying height and width so that we can find
-        // the true height and width.
+        // Load the image without specifying height and width so that we can
+        // find the true height and width.
         this._fullHeight = Number(img.height);
         this._fullWidth = Number(img.width);
 
         // Set up our image to mirror the current image
         img.height = this._targetImage.height;
         img.width = this._targetImage.width;
-        var imageOffset = this._imageOffset = $(this._targetImage).offset();
+        const imageOffset = this._imageOffset = $(this._targetImage).offset();
         $zoomedImage.css("position", "absolute")
             .css("top", imageOffset.top + "px")
             .css("left", imageOffset.left + "px");
@@ -263,16 +260,16 @@ Zoom.prototype._zoomOriginal = function() {
 };
 
 Zoom.prototype._calculateZoom = function() {
-    var originalFullImageWidth = this._fullWidth;
-    var originalFullImageHeight = this._fullHeight;
+    const originalFullImageWidth = this._fullWidth;
+    const originalFullImageHeight = this._fullHeight;
 
-    var maxScaleFactor = originalFullImageWidth / this._targetImage.width;
+    const maxScaleFactor = originalFullImageWidth / this._targetImage.width;
 
-    var viewportHeight = (window.innerHeight - Zoom.OFFSET);
-    var viewportWidth = (window.innerWidth - Zoom.OFFSET);
+    const viewportHeight = (window.innerHeight - Zoom.OFFSET);
+    const viewportWidth = (window.innerWidth - Zoom.OFFSET);
 
-    var imageAspectRatio = originalFullImageWidth / originalFullImageHeight;
-    var viewportAspectRatio = viewportWidth / viewportHeight;
+    const imageAspectRatio = originalFullImageWidth / originalFullImageHeight;
+    const viewportAspectRatio = viewportWidth / viewportHeight;
 
     if (originalFullImageWidth < viewportWidth && originalFullImageHeight <
         viewportHeight) {
@@ -289,15 +286,15 @@ Zoom.prototype._calculateZoom = function() {
 };
 
 Zoom.prototype._triggerAnimation = function() {
-    var scrollTop = $(window).scrollTop();
+    const scrollTop = $(window).scrollTop();
 
-    var viewportY = scrollTop + (window.innerHeight / 2);
-    var viewportX = (window.innerWidth / 2);
+    const viewportY = scrollTop + (window.innerHeight / 2);
+    const viewportX = (window.innerWidth / 2);
 
-    var scaleFactor = this._imgScaleFactor;
+    const scaleFactor = this._imgScaleFactor;
 
-    var imageCenterY = this._imageOffset.top + (this._targetImage.height / 2);
-    var imageCenterX = this._imageOffset.left + (this._targetImage.width / 2);
+    const imageCenterY = this._imageOffset.top + (this._targetImage.height / 2);
+    const imageCenterX = this._imageOffset.left + (this._targetImage.width / 2);
 
     this._translateY = (viewportY - imageCenterY) / scaleFactor;
     this._translateX = (viewportX - imageCenterX) / scaleFactor;

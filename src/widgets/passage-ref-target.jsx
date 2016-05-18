@@ -1,25 +1,30 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const React = require("react");
+const _ = require("underscore");
 
-var React = require("react");
-var _ = require("underscore");
+const Changeable   = require("../mixins/changeable.jsx");
+const WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
+const Renderer = require("../renderer.jsx");
 
-var Changeable   = require("../mixins/changeable.jsx");
-var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
-var Renderer = require("../renderer.jsx");
-
-var PassageRefTarget = React.createClass({
-    mixins: [WidgetJsonifyDeprecated, Changeable],
-
+const PassageRefTarget = React.createClass({
     propTypes: {
-        content: React.PropTypes.string
+        // We don't use ApiOptions.propTypes or EnabledFeatures.PropTypes here
+        // because they require the props and they're optional for this
+        // component.
+        apiOptions: React.PropTypes.any,
+        content: React.PropTypes.string,
+        enabledFeatures: React.PropTypes.any,
     },
+
+    mixins: [WidgetJsonifyDeprecated, Changeable],
 
     getDefaultProps: function() {
         return {
-            content: ""
+            content: "",
         };
+    },
+
+    simpleValidate: function(rubric) {
+        return PassageRefTarget.validate(this.getUserInput(), rubric);
     },
 
     render: function() {
@@ -28,12 +33,8 @@ var PassageRefTarget = React.createClass({
             inline={true}
             enabledFeatures={this.props.enabledFeatures}
             apiOptions={this.props.apiOptions}
-            />;
+        />;
     },
-
-    simpleValidate: function(rubric) {
-        return PassageRefTarget.validate(this.getUserInput(), rubric);
-    }
 });
 
 _.extend(PassageRefTarget, {
@@ -42,9 +43,9 @@ _.extend(PassageRefTarget, {
             type: "points",
             earned: 0,
             total: 0,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 module.exports = {
@@ -56,5 +57,5 @@ module.exports = {
     transform: (editorProps) => {
         return _.pick(editorProps, "content");
     },
-    version: {major: 0, minor: 0}
+    version: {major: 0, minor: 0},
 };

@@ -1,30 +1,24 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-undef, no-unused-vars, no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * Disclaimer: Definitely not thorough enough
  */
 
-var assert = require("assert");
-var React = require('react');
-var InputNumber = require("../input-number.jsx");
+const assert = require("assert");
+const _ = require("underscore");
+const InputNumber = require("../input-number.jsx");
 
-var TestUtils = React.addons.TestUtils;
-
-var transform = InputNumber.transform;
+const transform = InputNumber.transform;
 
 describe("input-number", function() {
     it("transform should remove the `value` field", function() {
-        var editorProps = {
+        const editorProps = {
             value: 5,
             simplify: "required",
             size: "normal",
             inexact: false,
             maxError: 0.1,
-            answerType: "number"
+            answerType: "number",
         };
-        var widgetProps = transform(editorProps);
+        const widgetProps = transform(editorProps);
         assert.strictEqual(_.has(widgetProps, "value"), false);
     });
 });

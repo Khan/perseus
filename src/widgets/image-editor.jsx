@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const _ = require("underscore");
 
@@ -26,7 +22,7 @@ const defaultBackgroundImage = {
 /**
  * Alignment option for captions, relative to specified coordinates.
  */
-var captionAlignments = [
+const captionAlignments = [
     "center",
     "above",
     "above right",
@@ -47,15 +43,32 @@ function blankLabel() {
 }
 
 const ImageEditor = React.createClass({
-    mixins: [Changeable, EditorJsonify],
+    propTypes: {
+        alt: React.PropTypes.string,
+        backgroundImage: React.PropTypes.shape({
+            url: React.PropTypes.string,
+        }),
 
-    componentDidMount: function() {
-        // defer this because it can call a change handler synchronously
-        _.defer(() => {
-            var url = this.props.backgroundImage.url;
-            this.onUrlChange(url, true);
-        });
+        caption: React.PropTypes.string,
+
+        labels: React.PropTypes.arrayOf(
+            React.PropTypes.shape({
+                content: React.PropTypes.string,
+                coordinates: React.PropTypes.arrayOf(React.PropTypes.number),
+                alignment: React.PropTypes.string,
+            })
+        ),
+
+        onChange: React.PropTypes.func.isRequired,
+
+        range: React.PropTypes.arrayOf(
+            React.PropTypes.arrayOf(React.PropTypes.number)
+        ),
+
+        title: React.PropTypes.string,
     },
+
+    mixins: [Changeable, EditorJsonify],
 
     getDefaultProps: function() {
         return {
@@ -76,10 +89,175 @@ const ImageEditor = React.createClass({
         };
     },
 
-    render: function() {
-        var backgroundImage = this.props.backgroundImage;
+    componentDidMount: function() {
+        // defer this because it can call a change handler synchronously
+        _.defer(() => {
+            const url = this.props.backgroundImage.url;
+            this.onUrlChange(url, true);
+        });
+    },
 
-        var imageSettings = <div className="image-settings">
+    _toggleAdvancedSettings: function(e) {
+        e.preventDefault();
+        this.setState({
+            showAdvancedSettings: !this.state.showAdvancedSettings,
+        });
+    },
+
+    _renderRowForLabel: function(label, i) {
+        return <tr key={i}>
+            <td>
+                <RangeInput
+                    value={label.coordinates}
+                    onChange={this.onCoordinateChange.bind(this, i)}
+                />
+            </td>
+            <td style={{verticalAlign: "bottom", width: "5px"}}>
+                <input
+                    type="text"
+                    className="graph-settings-axis-label"
+                    value={label.content}
+                    onChange={this.onContentChange.bind(this, i)}
+                />
+            </td>
+            <td>
+                <select
+                    className="perseus-widget-dropdown"
+                    value={label.alignment}
+                    onChange={this.onAlignmentChange.bind(this, i)}
+                >
+                    {captionAlignments.map(function(alignment, i) {
+                        return <option key={"" + i} value={alignment}>
+                            {alignment}
+                        </option>;
+                    }, this)}
+                </select>
+            </td>
+            <td>
+                <a
+                    href="#"
+                    className="simple-button orange delete-label"
+                    title="Remove this label"
+                    onClick={this.removeLabel.bind(this, i)}
+                >
+                    <span className="icon-trash" />
+                </a>
+            </td>
+        </tr>;
+    },
+
+    addLabel: function(e) {
+        e.preventDefault();
+        const labels = this.props.labels.slice();
+        const label = blankLabel();
+        labels.push(label);
+        this.props.onChange({
+            labels: labels,
+        });
+    },
+
+    removeLabel: function(labelIndex, e) {
+        e.preventDefault();
+        const labels = _(this.props.labels).clone();
+        labels.splice(labelIndex, 1);
+        this.props.onChange({labels: labels});
+    },
+
+    onCoordinateChange: function(labelIndex, newCoordinates) {
+        const labels = this.props.labels.slice();
+        labels[labelIndex] = _.extend({}, labels[labelIndex], {
+            coordinates: newCoordinates,
+        });
+        this.props.onChange({labels: labels});
+    },
+
+    onContentChange: function(labelIndex, e) {
+        const newContent = e.target.value;
+        const labels = this.props.labels.slice();
+        labels[labelIndex] = _.extend({}, labels[labelIndex], {
+            content: newContent,
+        });
+        this.props.onChange({labels: labels});
+    },
+
+    onAlignmentChange: function(labelIndex, e) {
+        const newAlignment = e.target.value;
+        const labels = this.props.labels.slice();
+        labels[labelIndex] = _.extend({}, labels[labelIndex], {
+            alignment: newAlignment,
+        });
+        this.props.onChange({labels: labels});
+    },
+
+    setUrl: function(url, width, height, silent) {
+        // Because this calls into WidgetEditor._handleWidgetChange, which
+        // checks for this widget's ref to serialize it.
+        //
+        // Errors if you switch items before the `Image` from `onUrlChange`
+        // loads.
+        if (!this.isMounted()) {
+            return;
+        }
+
+        const image = _.clone(this.props.backgroundImage);
+        image.url = url;
+        image.width = width;
+        image.height = height;
+        const box = [image.width, image.height];
+        this.props.onChange({
+            backgroundImage: image,
+            box: box,
+        },
+            null,
+            silent
+        );
+    },
+
+    // silently load the image when the component mounts
+    // silently update url and sizes when the image loads
+    // noisily load the image in response to the author changing it
+    onUrlChange: function(url, silent) {
+        // We update our background image prop after the image loads below. To
+        // avoid weirdness when we change to a very slow URL, then a much
+        // faster URL, we keep track of the URL we're trying to change to.
+        this._leadingUrl = url;
+
+        if (!url) {
+            this.setUrl(url, 0, 0, silent);
+            return;
+        }
+
+        Util.getImageSize(
+            url,
+            (width, height) => {
+                if (this._leadingUrl !== url) {
+                    return;
+                }
+
+                this.setUrl(url, width, height, true);
+            });
+    },
+
+    onRangeChange: function(type, newRange) {
+        const range = this.props.range.slice();
+        range[type] = newRange;
+        this.props.onChange({range: range});
+    },
+
+    getSaveWarnings: function() {
+        const warnings = [];
+
+        if (this.props.backgroundImage.url && !this.props.alt) {
+            warnings.push("No alt text");
+        }
+
+        return warnings;
+    },
+
+    render: function() {
+        const backgroundImage = this.props.backgroundImage;
+
+        const imageSettings = <div className="image-settings">
             <div>
                 <label>
                     <div>
@@ -118,19 +296,21 @@ const ImageEditor = React.createClass({
             </div>
         </div>;
 
-        var advancedSettings = <div className="graph-settings">
+        const advancedSettings = <div className="graph-settings">
             <div>
                 <label>Graphie X range:{' '}
                     <RangeInput
                         value={this.props.range[0]}
-                        onChange={_.partial(this.onRangeChange, 0)} />
+                        onChange={_.partial(this.onRangeChange, 0)}
+                    />
                 </label>
             </div>
             <div>
                 <label>Graphie Y range:{' '}
                     <RangeInput
                         value={this.props.range[1]}
-                        onChange={_.partial(this.onRangeChange, 1)} />
+                        onChange={_.partial(this.onRangeChange, 1)}
+                    />
                 </label>
             </div>
             <div className="add-label">
@@ -171,7 +351,7 @@ const ImageEditor = React.createClass({
             </div>
         </div>;
 
-        var showHideAdvancedSettings = <div>
+        const showHideAdvancedSettings = <div>
             <a href="#" onClick={this._toggleAdvancedSettings}>
                 {this.state.showAdvancedSettings ? "Hide " : "Show "}
                 advanced settings
@@ -188,166 +368,13 @@ const ImageEditor = React.createClass({
                 <BlurInput
                     value={backgroundImage.url || ''}
                     style={{width: 332}}
-                    onChange={url => this.onUrlChange(url, false)} />
+                    onChange={url => this.onUrlChange(url, false)}
+                />
             </label>
 
             {backgroundImage.url && imageSettings}
             {backgroundImage.url && showHideAdvancedSettings}
         </div>;
-    },
-
-    _toggleAdvancedSettings: function(e) {
-        e.preventDefault();
-        this.setState({
-            showAdvancedSettings: !this.state.showAdvancedSettings,
-        });
-    },
-
-    _renderRowForLabel: function(label, i) {
-        return <tr key={i}>
-            <td>
-                <RangeInput
-                    value={label.coordinates}
-                    onChange={this.onCoordinateChange.bind(this, i)} />
-            </td>
-            <td style={{verticalAlign: "bottom", width: "5px"}}>
-                <input
-                    type="text"
-                    className="graph-settings-axis-label"
-                    value={label.content}
-                    onChange={this.onContentChange.bind(this, i)} />
-            </td>
-            <td>
-                <select
-                    className="perseus-widget-dropdown"
-                    value={label.alignment}
-                    onChange={this.onAlignmentChange.bind(this, i)}>
-                    {captionAlignments.map(function(alignment, i) {
-                        return <option key={"" + i} value={alignment}>
-                            {alignment}
-                        </option>;
-                    }, this)}
-                </select>
-            </td>
-            <td>
-                <a
-                    href="#"
-                    className="simple-button orange delete-label"
-                    title="Remove this label"
-                    onClick={this.removeLabel.bind(this, i)}
-                >
-                    <span className="icon-trash" />
-                </a>
-            </td>
-        </tr>;
-    },
-
-    addLabel: function(e) {
-        e.preventDefault();
-        var labels = this.props.labels.slice();
-        var label = blankLabel();
-        labels.push(label);
-        this.props.onChange({
-            labels: labels,
-        });
-    },
-
-    removeLabel: function(labelIndex, e) {
-        e.preventDefault();
-        var labels = _(this.props.labels).clone();
-        labels.splice(labelIndex, 1);
-        this.props.onChange({labels: labels});
-    },
-
-    onCoordinateChange: function(labelIndex, newCoordinates) {
-        var labels = this.props.labels.slice();
-        labels[labelIndex] = _.extend({}, labels[labelIndex], {
-            coordinates: newCoordinates,
-        });
-        this.props.onChange({labels: labels});
-    },
-
-    onContentChange: function(labelIndex, e) {
-        var newContent = e.target.value;
-        var labels = this.props.labels.slice();
-        labels[labelIndex] = _.extend({}, labels[labelIndex], {
-            content: newContent,
-        });
-        this.props.onChange({labels: labels});
-    },
-
-    onAlignmentChange: function(labelIndex, e) {
-        var newAlignment = e.target.value;
-        var labels = this.props.labels.slice();
-        labels[labelIndex] = _.extend({}, labels[labelIndex], {
-            alignment: newAlignment,
-        });
-        this.props.onChange({labels: labels});
-    },
-
-    setUrl: function(url, width, height, silent) {
-        // Because this calls into WidgetEditor._handleWidgetChange, which
-        // checks for this widget's ref to serialize it.
-        //
-        // Errors if you switch items before the `Image` from `onUrlChange`
-        // loads.
-        if (!this.isMounted()) {
-            return;
-        }
-
-        var image = _.clone(this.props.backgroundImage);
-        image.url = url;
-        image.width = width;
-        image.height = height;
-        var box = [image.width, image.height];
-        this.props.onChange({
-            backgroundImage: image,
-            box: box,
-        },
-            null,
-            silent
-        );
-    },
-
-    // silently load the image when the component mounts
-    // silently update url and sizes when the image loads
-    // noisily load the image in response to the author changing it
-    onUrlChange: function(url, silent) {
-        // We update our background image prop after the image loads below. To
-        // avoid weirdness when we change to a very slow URL, then a much
-        // faster URL, we keep track of the URL we're trying to change to.
-        this._leadingUrl = url;
-
-        if (!url) {
-            this.setUrl(url, 0, 0, silent);
-            return;
-        }
-
-        Util.getImageSize(
-            url,
-            (width, height) => {
-                if (this._leadingUrl !== url) {
-                    return;
-                }
-
-                this.setUrl(url, width, height, true);
-            });
-    },
-
-    onRangeChange: function(type, newRange) {
-        var range = this.props.range.slice();
-        range[type] = newRange;
-        this.props.onChange({range: range});
-    },
-
-    getSaveWarnings: function() {
-        var warnings = [];
-
-        if (this.props.backgroundImage.url && !this.props.alt) {
-            warnings.push("No alt text");
-        }
-
-        return warnings;
     },
 });
 

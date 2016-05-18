@@ -1,25 +1,22 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var, react/jsx-sort-prop-types */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const React = require('react');
+const _ = require("underscore");
 
-var React = require('react');
-var _ = require("underscore");
+const EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
-var EditorJsonify = require("../mixins/editor-jsonify.jsx");
+const ButtonGroup  = require("react-components/button-group.jsx");
+const InfoTip      = require("../components/info-tip.jsx");
+const NumberInput  = require("../components/number-input.jsx");
+const PropCheckBox = require("../components/prop-check-box.jsx");
+const RangeInput   = require("../components/range-input.jsx");
 
-var ButtonGroup  = require("react-components/button-group.jsx");
-var InfoTip      = require("../components/info-tip.jsx");
-var NumberInput  = require("../components/number-input.jsx");
-var PropCheckBox = require("../components/prop-check-box.jsx");
-var RangeInput   = require("../components/range-input.jsx");
+const knumber = require("kmath").number;
+const bound = (x, gt, lt) => Math.min(Math.max(x, gt), lt);
 
-var knumber = require("kmath").number;
-var bound = (x, gt, lt) => Math.min(Math.max(x, gt), lt);
+const EN_DASH = "\u2013";
 
-var EN_DASH = "\u2013";
-
-var NumberLineEditor = React.createClass({
+const NumberLineEditor = React.createClass({
     propTypes: {
+        /* eslint-disable react/jsx-sort-prop-types */
         range: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
 
         labelRange: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
@@ -41,6 +38,7 @@ var NumberLineEditor = React.createClass({
         onChange: React.PropTypes.func.isRequired,
 
         static: React.PropTypes.bool,
+        /* eslint-enable react/jsx-sort-prop-types */
     },
 
     mixins: [EditorJsonify],
@@ -74,8 +72,8 @@ var NumberLineEditor = React.createClass({
     },
 
     onLabelRangeChange: function(i, num) {
-        var labelRange = this.props.labelRange.slice();
-        var otherNum = labelRange[1 - i];
+        let labelRange = this.props.labelRange.slice();
+        const otherNum = labelRange[1 - i];
 
         if (num == null || otherNum == null) {
             labelRange[i] = num;
@@ -90,7 +88,7 @@ var NumberLineEditor = React.createClass({
     },
 
     onDivisionRangeChange: function(divisionRange) {
-        var numDivisions = this.props.numDivisions;
+        let numDivisions = this.props.numDivisions;
         numDivisions = bound(numDivisions, divisionRange[0], divisionRange[1]);
         this.props.onChange({
             divisionRange: divisionRange,
@@ -98,13 +96,13 @@ var NumberLineEditor = React.createClass({
     },
 
     onNumChange: function(key, value) {
-        var opts = {};
+        const opts = {};
         opts[key] = value;
         this.props.onChange(opts);
     },
 
     onNumDivisionsChange: function(numDivisions) {
-        var divRange = this.props.divisionRange.slice();
+        const divRange = this.props.divisionRange.slice();
 
         if (!_.isFinite(numDivisions)) {
             numDivisions = null;
@@ -154,17 +152,17 @@ var NumberLineEditor = React.createClass({
     },
 
     render: function() {
-        var range = this.props.range;
-        var labelRange = this.props.labelRange;
-        var divisionRange = this.props.divisionRange;
+        const range = this.props.range;
+        const labelRange = this.props.labelRange;
+        const divisionRange = this.props.divisionRange;
 
         range[0] = +range[0]; range[1] = +range[1];
 
-        var width = range[1] - range[0];
-        var numDivisions = this.props.numDivisions;
-        var snapDivisions = this.props.snapDivisions;
-        var tickStep = this.props.tickStep;
-        var isTickCtrl = this.props.isTickCtrl;
+        const width = range[1] - range[0];
+        const numDivisions = this.props.numDivisions;
+        const snapDivisions = this.props.snapDivisions;
+        const tickStep = this.props.tickStep;
+        const isTickCtrl = this.props.isTickCtrl;
 
         let step;
         if (!isTickCtrl) {
@@ -177,7 +175,7 @@ var NumberLineEditor = React.createClass({
             step = null;
         }
 
-        var labelStyleEditorButtons = [
+        const labelStyleEditorButtons = [
               {value: "decimal", content: "0.75", title: "Decimals"},
               {value: "improper", content: "\u2077\u2044\u2084",
                 title: "Improper fractions"},

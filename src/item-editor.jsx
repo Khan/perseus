@@ -1,42 +1,69 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const React = require('react');
+const _ = require("underscore");
 
-var React = require('react');
-var _ = require("underscore");
+const ApiOptions = require("./perseus-api.jsx").Options;
+const Editor = require("./editor.jsx");
+const ItemExtrasEditor = require("./item-extras-editor.jsx");
+const ITEM_DATA_VERSION = require("./version.json").itemDataVersion;
 
-var ApiOptions = require("./perseus-api.jsx").Options;
-var Editor = require("./editor.jsx");
-var ItemExtrasEditor = require("./item-extras-editor.jsx");
-var ITEM_DATA_VERSION = require("./version.json").itemDataVersion;
-
-var ItemEditor = React.createClass({
+const ItemEditor = React.createClass({
     propTypes: {
-        imageUploader: React.PropTypes.func,
-        wasAnswered: React.PropTypes.bool,
-        gradeMessage: React.PropTypes.string,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        answerArea: React.PropTypes.any,
         apiOptions: ApiOptions.propTypes,
+        gradeMessage: React.PropTypes.string,
+        imageUploader: React.PropTypes.func,
+        onChange: React.PropTypes.func,
         previewWidth: React.PropTypes.number.isRequired,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        question: React.PropTypes.any,
+        wasAnswered: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
         return {
-            onChange: () => {},
-            question: {},
             answerArea: {},
             apiOptions: ApiOptions.defaults,
+            onChange: () => {},
+            question: {},
         };
     },
 
     // Notify the parent that the question or answer area has been updated.
     updateProps: function(newProps, cb, silent) {
-        var props = _(this.props).pick("question", "answerArea");
+        const props = _(this.props).pick("question", "answerArea");
 
         this.props.onChange(_(props).extend(newProps), cb, silent);
     },
 
+    handleEditorChange: function(newProps, cb, silent) {
+        const question = _.extend({}, this.props.question, newProps);
+        this.updateProps({ question }, cb, silent);
+    },
+
+    handleItemExtrasChange: function(newProps, cb, silent) {
+        const answerArea = _.extend({}, this.props.answerArea, newProps);
+        this.updateProps({ answerArea }, cb, silent);
+    },
+
+    getSaveWarnings: function() {
+        return this.refs.questionEditor.getSaveWarnings();
+    },
+
+    serialize: function(options) {
+        return {
+            question: this.refs.questionEditor.serialize(options),
+            answerArea: this.refs.itemExtrasEditor.serialize(options),
+            itemDataVersion: ITEM_DATA_VERSION,
+        };
+    },
+
+    focus: function() {
+        this.questionEditor.focus();
+    },
+
     render: function() {
-        var previewWidth = this.props.previewWidth;
+        const previewWidth = this.props.previewWidth;
 
         return <div className="perseus-editor-table">
             <div className="perseus-editor-row perseus-question-container">
@@ -87,32 +114,6 @@ var ItemEditor = React.createClass({
                 </div>
             </div>
         </div>;
-    },
-
-    handleEditorChange: function(newProps, cb, silent) {
-        var question = _.extend({}, this.props.question, newProps);
-        this.updateProps({ question }, cb, silent);
-    },
-
-    handleItemExtrasChange: function(newProps, cb, silent) {
-        var answerArea = _.extend({}, this.props.answerArea, newProps);
-        this.updateProps({ answerArea }, cb, silent);
-    },
-
-    getSaveWarnings: function() {
-        return this.refs.questionEditor.getSaveWarnings();
-    },
-
-    serialize: function(options) {
-        return {
-            question: this.refs.questionEditor.serialize(options),
-            answerArea: this.refs.itemExtrasEditor.serialize(options),
-            itemDataVersion: ITEM_DATA_VERSION,
-        };
-    },
-
-    focus: function() {
-        this.questionEditor.focus();
     },
 });
 

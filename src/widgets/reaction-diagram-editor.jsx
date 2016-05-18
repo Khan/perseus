@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 
 const Changeable = require("../mixins/changeable.jsx");
@@ -10,7 +6,7 @@ const EditorJsonify = require("../mixins/editor-jsonify.jsx");
 const NumberInput = require("../components/number-input.jsx");
 const TextInput = require("../components/text-input.jsx");
 
-var ReactionDiagramWidgetEditor = React.createClass({
+const ReactionDiagramWidgetEditor = React.createClass({
     propTypes: {
         rotationAngle: React.PropTypes.arrayOf(React.PropTypes.number),
         separators: React.PropTypes.arrayOf(React.PropTypes.object),

@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, react/jsx-closing-bracket-location, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 
 const Changeable = require("../mixins/changeable.jsx");
@@ -12,13 +8,13 @@ const NumberInput = require("../components/number-input.jsx");
 const TextInput = require("../components/text-input.jsx");
 
 const PassageRefEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
     propTypes: {
         passageNumber: React.PropTypes.number,
         referenceNumber: React.PropTypes.number,
         summaryText: React.PropTypes.string,
     },
+
+    mixins: [EditorJsonify, Changeable],
 
     getDefaultProps: function() {
         return {
@@ -35,7 +31,8 @@ const PassageRefEditor = React.createClass({
                     {"Passage Number: "}
                     <NumberInput
                         value={this.props.passageNumber}
-                        onChange={this.change("passageNumber")} />
+                        onChange={this.change("passageNumber")}
+                    />
                 </label>
             </div>
             <div>
@@ -43,7 +40,8 @@ const PassageRefEditor = React.createClass({
                     {"Reference Number: "}
                     <NumberInput
                         value={this.props.referenceNumber}
-                        onChange={this.change("referenceNumber")} />
+                        onChange={this.change("referenceNumber")}
+                    />
                 </label>
             </div>
             <div>
@@ -51,7 +49,8 @@ const PassageRefEditor = React.createClass({
                     {"Summary Text: "}
                     <TextInput
                         value={this.props.summaryText}
-                        onChange={this.change("summaryText")} />
+                        onChange={this.change("summaryText")}
+                    />
                     <InfoTip>
                         <p>
                             Short summary of the referenced section. This
@@ -65,7 +64,7 @@ const PassageRefEditor = React.createClass({
                 </label>
             </div>
         </div>;
-    }
+    },
 });
 
 module.exports = PassageRefEditor;

@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable camelcase, comma-dangle, eol-last, indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const _ = require("underscore");
 
@@ -27,8 +23,8 @@ function arraySum(array) {
     return _.reduce(array, function(memo, arg) { return memo + arg; }, 0);
 }
 
-var defaultBackgroundImage = {
-    url: null
+const defaultBackgroundImage = {
+    url: null,
 };
 
 /* Scales a distance from the default range of
@@ -38,8 +34,8 @@ var defaultBackgroundImage = {
  * (rotation handle, dilation circle)
  */
 function scaleToRange(dist, range) {
-    var spreadX = range[0][1] - range[0][0];
-    var spreadY = range[1][1] - range[1][0];
+    const spreadX = range[0][1] - range[0][0];
+    const spreadY = range[1][1] - range[1][0];
 
     return dist * Math.max(spreadX, spreadY) / 20;
 }
@@ -48,17 +44,17 @@ function orderInsensitiveCoordsEqual(coords1, coords2) {
     coords1 = _.clone(coords1).sort(kpoint.compare);
     coords2 = _.clone(coords2).sort(kpoint.compare);
     return _.all(_.map(coords1, function(coord1, i) {
-        var coord2 = coords2[i];
+        const coord2 = coords2[i];
         return kpoint.equal(coord1, coord2);
     }));
 }
 
-var defaultGraphProps = function(setProps, boxSize) {
+const defaultGraphProps = function(setProps, boxSize) {
     setProps = setProps || {};
-    var labels = setProps.labels || ["x", "y"];
-    var range = setProps.range || [[-10, 10], [-10, 10]];
-    var step = setProps.step || [1, 1];
-    var gridStep = setProps.gridStep ||
+    const labels = setProps.labels || ["x", "y"];
+    const range = setProps.range || [[-10, 10], [-10, 10]];
+    const step = setProps.step || [1, 1];
+    const gridStep = setProps.gridStep ||
                getGridStep(range, step, boxSize);
     return {
         box: [boxSize, boxSize],
@@ -69,11 +65,11 @@ var defaultGraphProps = function(setProps, boxSize) {
         valid: true,
         backgroundImage: defaultBackgroundImage,
         markings: "grid",
-        showProtractor: false
+        showProtractor: false,
     };
 };
 
-var defaultTransformerProps = {
+const defaultTransformerProps = {
     apiOptions: ApiOptions.defaults,
     gradeEmpty: false,
     graphMode: "interactive",
@@ -83,32 +79,32 @@ var defaultTransformerProps = {
         translation: {
             enabled: true,
             required: false,
-            constraints: {}
+            constraints: {},
         },
         rotation: {
             enabled: true,
             required: false,
             constraints: {
-                fixed: false
+                fixed: false,
             },
-            coord: [1, 6]
+            coord: [1, 6],
         },
         reflection: {
             enabled: true,
             required: false,
             constraints: {
-                fixed: false
+                fixed: false,
             },
-            coords: [[2, -4], [2, 2]]
+            coords: [[2, -4], [2, 2]],
         },
         dilation: {
             enabled: true,
             required: false,
             constraints: {
-                fixed: false
+                fixed: false,
             },
-            coord: [6, 6]
-        }
+            coord: [6, 6],
+        },
     },
     drawSolutionShape: true,
     starting: {
@@ -116,22 +112,39 @@ var defaultTransformerProps = {
             type: "polygon-3",
             coords: [[2, 2], [2, 6], [7, 2]],
         },
-        transformations: []
+        transformations: [],
     },
     correct: {
         shape: {
             type: "polygon-3",
             coords: [[2, 2], [2, 6], [7, 2]],
         },
-        transformations: []
-    }
+        transformations: [],
+    },
 };
 
 const ToolSettings = React.createClass({
+    propTypes: {
+        allowFixed: React.PropTypes.bool,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        constraints: React.PropTypes.any,
+        name: React.PropTypes.string,
+        onChange: React.PropTypes.func.isRequired,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        settings: React.PropTypes.any.isRequired,
+    },
+
     getDefaultProps: function() {
         return {
-            allowFixed: true
+            allowFixed: true,
         };
+    },
+
+    changeConstraints: function(changed) {
+        const newConstraints = _.extend({}, this.props.constraints, changed);
+        this.props.onChange({
+            constraints: newConstraints,
+        });
     },
 
     render: function() {
@@ -141,13 +154,15 @@ const ToolSettings = React.createClass({
             <PropCheckBox
                 label="enabled:"
                 enabled={this.props.settings.enabled}
-                onChange={this.props.onChange} />
+                onChange={this.props.onChange}
+            />
             {" "}
             {this.props.settings.enabled &&
                 <PropCheckBox
                     label="required:"
                     required={this.props.settings.required}
-                    onChange={this.props.onChange} />
+                    onChange={this.props.onChange}
+                />
             }
             {this.props.settings.enabled &&
                 <InfoTip>
@@ -160,7 +175,8 @@ const ToolSettings = React.createClass({
                 <PropCheckBox
                     label="fixed:"
                     fixed={this.props.settings.constraints.fixed}
-                    onChange={this.changeConstraints} />
+                    onChange={this.changeConstraints}
+                />
             }
             {this.props.allowFixed && this.props.settings.enabled &&
                 <InfoTip>
@@ -171,23 +187,53 @@ const ToolSettings = React.createClass({
             }
         </div>;
     },
-
-    changeConstraints: function(changed) {
-        var newConstraints = _.extend({}, this.props.constraints, changed);
-        this.props.onChange({
-            constraints: newConstraints
-        });
-    }
 });
 
-var TransformationExplorerSettings = React.createClass({
+const TransformationExplorerSettings = React.createClass({
+    propTypes: {
+        drawSolutionShape: React.PropTypes.bool,
+        graphMode: React.PropTypes.string,
+        listMode: React.PropTypes.string,
+        onChange: React.PropTypes.func.isRequired,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        tools: React.PropTypes.any.isRequired,
+    },
+
+    getMode: function() {
+        return this.props.graphMode + "," + this.props.listMode;
+    },
+
+    changeMode: function(e) {
+        const selected = e.target.value;
+        const modes = selected.split(",");
+
+        this.props.onChange({
+            graphMode: modes[0],
+            listMode: modes[1],
+        });
+    },
+
+    changeHandlerFor: function(toolName) {
+        return change => {
+            const newTools = _.clone(this.props.tools);
+            newTools[toolName] = _.extend({}, this.props.tools[toolName],
+                    change);
+
+            this.props.onChange({
+                tools: newTools,
+            });
+        };
+    },
+
     render: function() {
 
         return <div className="transformer-settings">
             <div>
                 {' '}Mode:{' '}
-                <select value={this.getMode()}
-                        onChange={this.changeMode}>
+                <select
+                    value={this.getMode()}
+                    onChange={this.changeMode}
+                >
                     <option value="interactive,dynamic">
                         {' '}Exploration with text{' '}
                     </option>
@@ -222,58 +268,37 @@ var TransformationExplorerSettings = React.createClass({
                 </InfoTip>
             </div>
             <ToolSettings
-                    name="Translations"
-                    settings={this.props.tools.translation}
-                    allowFixed={false}
-                    onChange={this.changeHandlerFor("translation")} />
+                name="Translations"
+                settings={this.props.tools.translation}
+                allowFixed={false}
+                onChange={this.changeHandlerFor("translation")}
+            />
             <ToolSettings
-                    name="Rotations"
-                    settings={this.props.tools.rotation}
-                    onChange={this.changeHandlerFor("rotation")} />
+                name="Rotations"
+                settings={this.props.tools.rotation}
+                onChange={this.changeHandlerFor("rotation")}
+            />
             <ToolSettings
-                    name="Reflections"
-                    settings={this.props.tools.reflection}
-                    onChange={this.changeHandlerFor("reflection")} />
+                name="Reflections"
+                settings={this.props.tools.reflection}
+                onChange={this.changeHandlerFor("reflection")}
+            />
             <ToolSettings
-                    name="Dilations"
-                    settings={this.props.tools.dilation}
-                    onChange={this.changeHandlerFor("dilation")} />
+                name="Dilations"
+                settings={this.props.tools.dilation}
+                onChange={this.changeHandlerFor("dilation")}
+            />
             <PropCheckBox
-                    label="Draw Solution:"
-                    drawSolutionShape={this.props.drawSolutionShape}
-                    onChange={this.props.onChange} />
+                label="Draw Solution:"
+                drawSolutionShape={this.props.drawSolutionShape}
+                onChange={this.props.onChange}
+            />
         </div>;
     },
-
-    getMode: function() {
-        return this.props.graphMode + "," + this.props.listMode;
-    },
-
-    changeMode: function(e) {
-        var selected = e.target.value;
-        var modes = selected.split(",");
-
-        this.props.onChange({
-            graphMode: modes[0],
-            listMode: modes[1]
-        });
-    },
-
-    changeHandlerFor: function(toolName) {
-        return change => {
-            var newTools = _.clone(this.props.tools);
-            newTools[toolName] = _.extend({}, this.props.tools[toolName],
-                    change);
-
-            this.props.onChange({
-                tools: newTools
-            });
-        };
-    }
 });
-var ShapeTypes = {
+const ShapeTypes = {
     getPointCountForType: function(type) {
-        var splitType = type.split("-");
+        const splitType = type.split("-");
         if (splitType[0] === "polygon") {
             return splitType[1] || 3;
         } else if (splitType[0] === "line" ||
@@ -295,19 +320,19 @@ var ShapeTypes = {
                     "simultaneously. options: " + JSON.stringify(options));
         }
 
-        var shape;
-        var points = _.map(options.shape.coords, function(coord) {
-            var currentPoint;
-            var isMoving = false;
-            var previousCoord = coord;
+        let shape;
+        const points = _.map(options.shape.coords, function(coord) {
+            let currentPoint;
+            let isMoving = false;
+            let previousCoord = coord;
 
-            var onMove = function(x, y) {
+            const onMove = function(x, y) {
                 if (!isMoving) {
                     previousCoord = currentPoint.coord;
                     isMoving = true;
                 }
 
-                var moveVector = kvector.subtract(
+                let moveVector = kvector.subtract(
                     [x, y],
                     currentPoint.coord
                 );
@@ -341,8 +366,8 @@ var ShapeTypes = {
                 // Without this, some shapes (circles, angles) appear
                 // "bouncy" as they are updated with currentPoint at the
                 // current mouse coordinate (oldCoord), rather than newCoord
-                var oldCoord = currentPoint.coord;
-                var newCoord = kvector.add(
+                const oldCoord = currentPoint.coord;
+                const newCoord = kvector.add(
                     currentPoint.coord,
                     moveVector
                 );
@@ -356,7 +381,7 @@ var ShapeTypes = {
                 return newCoord;
             };
 
-            var onMoveEnd = function() {
+            const onMoveEnd = function() {
                 // onMove isn't guaranteed to be called before onMoveEnd, so
                 // we have to take into account that we may not have moved and
                 // set previousCoord.
@@ -366,7 +391,7 @@ var ShapeTypes = {
                     // because MovablePoint's onMoveEnd semantics suck.
                     // It returns the mouseX, mouseY without processing them
                     // through onMove, leaving us with weird fractional moves
-                    var change = kvector.subtract(
+                    const change = kvector.subtract(
                         currentPoint.coord,
                         previousCoord
                     );
@@ -380,14 +405,14 @@ var ShapeTypes = {
                 normalStyle: options.normalPointStyle,
                 highlightStyle: options.highlightPointStyle,
                 constraints: {
-                    fixed: !options.translatable && !options.editable
+                    fixed: !options.translatable && !options.editable,
                 },
                 visible: options.showPoints,
                 snapX: options.snap && options.snap[0] || 0,
                 snapY: options.snap && options.snap[1] || 0,
                 bounded: false, // Don't bound it when placing it on the graph
                 onMove: onMove,
-                onMoveEnd: onMoveEnd
+                onMoveEnd: onMoveEnd,
             });
 
             // Bound it when moving
@@ -400,7 +425,7 @@ var ShapeTypes = {
         });
 
         shape = ShapeTypes.addShape(graphie, options, points);
-        var removeShapeWithoutPoints = shape.remove;
+        const removeShapeWithoutPoints = shape.remove;
         shape.remove = function() {
             removeShapeWithoutPoints.apply(shape);
             _.invoke(points, "remove");
@@ -411,27 +436,28 @@ var ShapeTypes = {
     addShape: function(graphie, options, points) {
         points = points || options.shape.coords;
 
-        var types = ShapeTypes._typesOf(options.shape);
-        var typeOptions = options.shape.options ||
+        const types = ShapeTypes._typesOf(options.shape);
+        const typeOptions = options.shape.options ||
                 ShapeTypes.defaultOptions(types);
 
-        var shapes = ShapeTypes._mapTypes(types, points,
-                function(type, points, i) {
-            var shapeOptions = _.extend({}, options, typeOptions[i]);
+        const shapes = ShapeTypes._mapTypes(types, points, function(
+            type, points, i) {
+
+            const shapeOptions = _.extend({}, options, typeOptions[i]);
             return ShapeTypes._addType(graphie, type, points, shapeOptions);
         });
 
-        var updateFuncs = _.filter(_.pluck(shapes, "update"), _.identity);
-        var update = function() {
+        const updateFuncs = _.filter(_.pluck(shapes, "update"), _.identity);
+        const update = function() {
             _.invoke(updateFuncs, "call");
         };
 
-        var removeFuncs = _.filter(_.pluck(shapes, "remove"), _.identity);
-        var remove = function() {
+        const removeFuncs = _.filter(_.pluck(shapes, "remove"), _.identity);
+        const remove = function() {
             _.invoke(removeFuncs, "call");
         };
 
-        var getOptions = function() {
+        const getOptions = function() {
             return _.map(shapes, function(shape) {
                 if (shape.getOptions) {
                     return shape.getOptions();
@@ -441,8 +467,8 @@ var ShapeTypes = {
             });
         };
 
-        var toJSON = function() {
-            var coords = _.map(points, function(pt) {
+        const toJSON = function() {
+            const coords = _.map(points, function(pt) {
                 if (_.isArray(pt)) {
                     return pt;
                 } else {
@@ -452,7 +478,7 @@ var ShapeTypes = {
             return {
                 type: types,
                 coords: coords,
-                options: getOptions()
+                options: getOptions(),
             };
         };
 
@@ -462,22 +488,22 @@ var ShapeTypes = {
             update: update,
             remove: remove,
             toJSON: toJSON,
-            getOptions: getOptions
+            getOptions: getOptions,
         };
     },
 
     equal: function(shape1, shape2) {
-        var types1 = ShapeTypes._typesOf(shape1);
-        var types2 = ShapeTypes._typesOf(shape2);
+        const types1 = ShapeTypes._typesOf(shape1);
+        const types2 = ShapeTypes._typesOf(shape2);
         if (types1.length !== types2.length) {
             return false;
         }
-        var shapes1 = ShapeTypes._mapTypes(types1, shape1.coords,
+        const shapes1 = ShapeTypes._mapTypes(types1, shape1.coords,
                 ShapeTypes._combine);
-        var shapes2 = ShapeTypes._mapTypes(types2, shape2.coords,
+        const shapes2 = ShapeTypes._mapTypes(types2, shape2.coords,
                 ShapeTypes._combine);
         return _.all(_.map(shapes1, function(partialShape1, i) {
-            var partialShape2 = shapes2[i];
+            const partialShape2 = shapes2[i];
             if (partialShape1.type !== partialShape2.type) {
                 return false;
             }
@@ -489,7 +515,7 @@ var ShapeTypes = {
     },
 
     _typesOf: function(shape) {
-        var types = shape.type;
+        let types = shape.type;
         if (!_.isArray(types)) {
             types = [types];
         }
@@ -504,27 +530,27 @@ var ShapeTypes = {
 
     defaultOptions: function(types) {
         return _.map(types, function(type) {
-            var typeDefaultOptions = ShapeTypes._forType(type).defaultOptions;
+            const typeDefaultOptions = ShapeTypes._forType(type).defaultOptions;
             return _.extend({}, typeDefaultOptions);
         });
     },
 
     _forType: function(type) {
-        var baseType = type.split("-")[0];
+        const baseType = type.split("-")[0];
         return ShapeTypes[baseType];
     },
 
     _mapTypes: function(types, points, func, context) {
         return _.map(types, function(type, i) {
-            var pointCount = ShapeTypes.getPointCountForType(type);
-            var currentPoints = _.first(points, pointCount);
+            const pointCount = ShapeTypes.getPointCountForType(type);
+            const currentPoints = _.first(points, pointCount);
             points = _.rest(points, pointCount);
             return func.call(context, type, currentPoints, i);
         });
     },
 
     _addType: function(graphie, type, points, options) {
-        var lineCoords = _.isArray(points[0]) ? {
+        const lineCoords = _.isArray(points[0]) ? {
             coordA: points[0],
             coordZ: points[1],
         } : {
@@ -534,27 +560,27 @@ var ShapeTypes = {
 
         type = type.split("-")[0];
         if (type === "polygon") {
-            var polygon = graphie.addMovablePolygon(_.extend({}, options, {
+            const polygon = graphie.addMovablePolygon(_.extend({}, options, {
                 fixed: !options.editable,
                 snapX: options.snap && options.snap[0] || 0,
                 snapY: options.snap && options.snap[1] || 0,
                 points: points,
-                constrainToGraph: false
+                constrainToGraph: false,
             }));
             return {
                 update: polygon.transform.bind(polygon),
-                remove: polygon.remove.bind(polygon)
+                remove: polygon.remove.bind(polygon),
             };
         } else if (type === "line" || type === "lineSegment") {
-            var line = graphie.addMovableLineSegment(
-                    _.extend({}, options, lineCoords, {
-                movePointsWithLine: true,
-                fixed: true,
-                constraints: {
-                    fixed: true
-                },
-                extendLine: (type === "line")
-            }));
+            const line = graphie.addMovableLineSegment(
+                _.extend({}, options, lineCoords, {
+                    movePointsWithLine: true,
+                    fixed: true,
+                    constraints: {
+                        fixed: true,
+                    },
+                    extendLine: (type === "line"),
+                }));
 
             // TODO(jack): Hide points on uneditable lines when translation
             // is a vector.
@@ -562,7 +588,7 @@ var ShapeTypes = {
             // translation handle for the line.
             return {
                 update: line.transform.bind(line, true),
-                remove: line.remove.bind(line)
+                remove: line.remove.bind(line),
             };
         } else if (type === "angle") {
             // If this angle is editable, we want to be able to make angles
@@ -570,14 +596,14 @@ var ShapeTypes = {
             // If this angle is not editable, it should always maintain
             // it's angle measure, even if it is reflected (causing the
             // clockwise-ness of the points to change)
-            var shouldChangeReflexivity = options.editable ? null : false;
+            const shouldChangeReflexivity = options.editable ? null : false;
 
-            var angle = graphie.addMovableAngle({
+            const angle = graphie.addMovableAngle({
                 angleLabel: "$deg0",
                 fixed: true,
                 points: points,
                 normalStyle: options.normalStyle,
-                reflex: options.reflex
+                reflex: options.reflex,
             });
 
             // Hide non-vertex points on uneditable angles
@@ -590,19 +616,19 @@ var ShapeTypes = {
                 remove: angle.remove.bind(angle),
                 getOptions: function() {
                     return {
-                        reflex: angle.isReflex()
+                        reflex: angle.isReflex(),
                     };
-                }
+                },
             };
         } else if (type === "circle") {
-            var perimeter = {
+            let perimeter = {
                 // temporary object for the first removal
-                remove: _.identity
+                remove: _.identity,
             };
-            var redrawPerim = function() {
-                var coord0 = points[0].coord || points[0];
-                var coord1 = points[1].coord || points[1];
-                var radius = kpoint.distanceToPoint(coord0, coord1);
+            const redrawPerim = function() {
+                const coord0 = points[0].coord || points[0];
+                const coord1 = points[1].coord || points[1];
+                const radius = kpoint.distanceToPoint(coord0, coord1);
                 perimeter.remove();
                 perimeter = graphie.circle(coord0, radius, _.extend({
                     stroke: KhanColors.DYNAMIC,
@@ -621,13 +647,13 @@ var ShapeTypes = {
                     // Not _.bind because the remove function changes
                     // when the perimeter is redrawn
                     perimeter.remove();
-                }
+                },
             };
         } else if (type === "point") {
             // do nothing
             return {
                 update: null,
-                remove: null
+                remove: null,
             };
         } else {
             throw new Error("Invalid shape type " + type);
@@ -637,20 +663,20 @@ var ShapeTypes = {
     _combine: function(type, coords) {
         return {
             type: type,
-            coords: coords
+            coords: coords,
         };
     },
 
     polygon: {
-        equal: orderInsensitiveCoordsEqual
+        equal: orderInsensitiveCoordsEqual,
     },
 
     line: {
-        equal: kline.equal
+        equal: kline.equal,
     },
 
     lineSegment: {
-        equal: orderInsensitiveCoordsEqual
+        equal: orderInsensitiveCoordsEqual,
     },
 
     angle: {
@@ -659,69 +685,57 @@ var ShapeTypes = {
                 return false;
             }
 
-            var line1_0 = [points1[1], points1[0]];
-            var line1_2 = [points1[1], points1[2]];
-            var line2_0 = [points2[1], points2[0]];
-            var line2_2 = [points2[1], points2[2]];
+            /* eslint-disable camelcase */
+            const line1_0 = [points1[1], points1[0]];
+            const line1_2 = [points1[1], points1[2]];
+            const line2_0 = [points2[1], points2[0]];
+            const line2_2 = [points2[1], points2[2]];
+            /* eslint-enable camelcase */
 
-            var equalUnflipped = kray.equal(line1_0, line2_0) &&
+            const equalUnflipped = kray.equal(line1_0, line2_0) &&
                     kray.equal(line1_2, line2_2);
-            var equalFlipped = kray.equal(line1_0, line2_2) &&
+            const equalFlipped = kray.equal(line1_0, line2_2) &&
                     kray.equal(line1_2, line2_0);
 
             return equalUnflipped || equalFlipped;
         },
 
         defaultOptions: {
-            reflex: false
-        }
+            reflex: false,
+        },
     },
 
     circle: {
         equal: function(points1, points2) {
-            var radius1 = kpoint.distanceToPoint(points1[0], points1[1]);
-            var radius2 = kpoint.distanceToPoint(points2[0], points2[1]);
+            const radius1 = kpoint.distanceToPoint(points1[0], points1[1]);
+            const radius2 = kpoint.distanceToPoint(points2[0], points2[1]);
             return kpoint.equal(points1[0], points2[0]) &&
                 knumber.equal(radius1, radius2);
-        }
+        },
     },
 
     point: {
-        equal: kpoint.equal
-    }
+        equal: kpoint.equal,
+    },
 };
 
-var TransformationsShapeEditor = React.createClass({
-    render: function() {
-        return <div>
-            <Graph
-                ref="graph"
-                box={this.props.graph.box}
-                range={this.props.graph.range}
-                labels={this.props.graph.labels}
-                step={this.props.graph.step}
-                gridStep={this.props.graph.gridStep}
-                markings={this.props.graph.markings}
-                backgroundImage={this.props.graph.backgroundImage}
-                onGraphieUpdated={this.setupGraphie} />
-            <select
-                    key="type-select"
-                    value={this.getTypeString(this.props.shape.type)}
-                    onChange={this.changeType} >
-                <option value="polygon-3">Triangle</option>
-                <option value="polygon-4">Quadrilateral</option>
-                <option value="polygon-5">Pentagon</option>
-                <option value="polygon-6">Hexagon</option>
-                <option value="line">Line</option>
-                <option value="line,line">2 lines</option>
-                <option value="lineSegment">Line segment</option>
-                <option value="lineSegment,lineSegment">
-                    {' '}2 line segments{' '}
-                </option>
-                <option value="angle">Angle</option>
-                <option value="circle">Circle</option>
-            </select>
-        </div>;
+const TransformationsShapeEditor = React.createClass({
+    propTypes: {
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        graph: React.PropTypes.any,
+        onChange: React.PropTypes.func.isRequired,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        shape: React.PropTypes.any,
+    },
+
+    componentDidMount: function() {
+        this.setupGraphie(this.refs.graph.graphie());
+    },
+
+    componentDidUpdate: function(prevProps) {
+        if (!deepEq(prevProps.shape, this.props.shape)) {
+            this.refs.graph.reset();
+        }
     },
 
     /* Return the option string for a given type */
@@ -740,15 +754,15 @@ var TransformationsShapeEditor = React.createClass({
      * e.target.value is the new type string
      */
     changeType: function(e) {
-        var types = String(e.target.value).split(",");
-        var pointCount = arraySum(_.map(
+        const types = String(e.target.value).split(",");
+        const pointCount = arraySum(_.map(
                 types,
                 ShapeTypes.getPointCountForType
         ));
 
-        var radius = scaleToRange(4, this.refs.graph.props.range);
-        var offset = (1 / 2 - 1 / pointCount) * 180;
-        var coords = _.times(pointCount, function(i) {
+        const radius = scaleToRange(4, this.refs.graph.props.range);
+        const offset = (1 / 2 - 1 / pointCount) * 180;
+        const coords = _.times(pointCount, function(i) {
             return kpoint.rotateDeg([radius, 0],
                 360 * i / pointCount + offset);
         });
@@ -757,24 +771,14 @@ var TransformationsShapeEditor = React.createClass({
             shape: {
                 type: types,
                 coords: coords,
-                options: ShapeTypes.defaultOptions(types)
-            }
+                options: ShapeTypes.defaultOptions(types),
+            },
         });
-    },
-
-    componentDidMount: function() {
-        this.setupGraphie(this.refs.graph.graphie());
-    },
-
-    componentDidUpdate: function(prevProps) {
-        if (!deepEq(prevProps.shape, this.props.shape)) {
-            this.refs.graph.reset();
-        }
     },
 
     updateCoords: function() {
         this.props.onChange({
-            shape: this.shape.toJSON()
+            shape: this.shape.toJSON(),
         });
     },
 
@@ -783,24 +787,109 @@ var TransformationsShapeEditor = React.createClass({
             editable: true,
             snap: graphie.snap,
             shape: this.props.shape,
-            onMoveEnd: this.updateCoords
+            onMoveEnd: this.updateCoords,
         });
     },
 
+    render: function() {
+        return <div>
+            <Graph
+                ref="graph"
+                box={this.props.graph.box}
+                range={this.props.graph.range}
+                labels={this.props.graph.labels}
+                step={this.props.graph.step}
+                gridStep={this.props.graph.gridStep}
+                markings={this.props.graph.markings}
+                backgroundImage={this.props.graph.backgroundImage}
+                onGraphieUpdated={this.setupGraphie}
+            />
+            <select
+                key="type-select"
+                value={this.getTypeString(this.props.shape.type)}
+                onChange={this.changeType}
+            >
+                <option value="polygon-3">Triangle</option>
+                <option value="polygon-4">Quadrilateral</option>
+                <option value="polygon-5">Pentagon</option>
+                <option value="polygon-6">Hexagon</option>
+                <option value="line">Line</option>
+                <option value="line,line">2 lines</option>
+                <option value="lineSegment">Line segment</option>
+                <option value="lineSegment,lineSegment">
+                    {' '}2 line segments{' '}
+                </option>
+                <option value="angle">Angle</option>
+                <option value="circle">Circle</option>
+            </select>
+        </div>;
+    },
 });
 
-var TransformerEditor = React.createClass({
+const TransformerEditor = React.createClass({
+    propTypes: {
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        correct: React.PropTypes.any,
+        drawSolutionShape: React.PropTypes.bool,
+        gradeEmpty: React.PropTypes.bool,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        graph: React.PropTypes.any,
+        graphMode: React.PropTypes.string,
+        listMode: React.PropTypes.string,
+        onChange: React.PropTypes.func.isRequired,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        starting: React.PropTypes.any,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        tools: React.PropTypes.any,
+    },
+
     // TODO (jack): These should be refactored into a nice object at the top
     // so that we don't have all this duplication
     getDefaultProps: function() {
         return defaultTransformerProps;
     },
 
+    // propagate a props change on our graph settings to
+    // this.props.graph
+    changeGraph: function(graphChanges, callback) {
+        const newGraph = _.extend({}, this.props.graph, graphChanges);
+        this.props.onChange({
+            graph: newGraph,
+        }, callback);
+    },
+
+    // propagate a props change on our starting graph to
+    // this.props.starting
+    changeStarting: function(startingChanges) {
+        const newStarting = _.extend({}, this.props.starting, startingChanges);
+        this.props.onChange({
+            starting: newStarting,
+        });
+    },
+
+    // propagate a transformations change onto correct.transformations
+    changeTransformer: function(changes, callback) {
+        if (changes.transformations) {
+            changes.correct = {
+                transformations: changes.transformations,
+            };
+            delete changes.transformations;
+        }
+        this.props.onChange(changes, callback);
+    },
+
+    serialize: function() {
+        const json = this.refs.explorer.getEditorJSON();
+        json.correct = json.answer;
+        delete json.answer;
+        return json;
+    },
+
     render: function() {
         // Fill in any missing value in this.props.graph
         // this can happen because the graph json doesn't include
         // box, for example
-        var graph = _.extend(
+        const graph = _.extend(
                 defaultGraphProps(this.props.graph, 340),
                 this.props.graph
         );
@@ -810,7 +899,8 @@ var TransformerEditor = React.createClass({
                 <PropCheckBox
                     label="Grade empty answers as wrong:"
                     gradeEmpty={this.props.gradeEmpty}
-                    onChange={this.props.onChange} />
+                    onChange={this.props.onChange}
+                />
                 <InfoTip>
                     <p>
                         We generally do not grade empty answers. This usually
@@ -838,7 +928,8 @@ var TransformerEditor = React.createClass({
                 backgroundImage={graph.backgroundImage}
                 markings={graph.markings}
                 showProtractor={graph.showProtractor}
-                onChange={this.changeGraph} />
+                onChange={this.changeGraph}
+            />
             <div>Transformation settings:</div>
             <TransformationExplorerSettings
                 ref="transformationSettings"
@@ -846,13 +937,15 @@ var TransformerEditor = React.createClass({
                 listMode={this.props.listMode}
                 tools={this.props.tools}
                 drawSolutionShape={this.props.drawSolutionShape}
-                onChange={this.props.onChange} />
+                onChange={this.props.onChange}
+            />
             <div>Starting location:</div>
             <TransformationsShapeEditor
                 ref="shapeEditor"
                 graph={graph}
                 shape={this.props.starting.shape}
-                onChange={this.changeStarting} />
+                onChange={this.changeStarting}
+            />
             <div>Solution transformations:</div>
             <Transformer
                 ref="explorer"
@@ -870,42 +963,6 @@ var TransformerEditor = React.createClass({
             />
         </div>;
     },
-
-    // propagate a props change on our graph settings to
-    // this.props.graph
-    changeGraph: function(graphChanges, callback) {
-        var newGraph = _.extend({}, this.props.graph, graphChanges);
-        this.props.onChange({
-            graph: newGraph
-        }, callback);
-    },
-
-    // propagate a props change on our starting graph to
-    // this.props.starting
-    changeStarting: function(startingChanges) {
-        var newStarting = _.extend({}, this.props.starting, startingChanges);
-        this.props.onChange({
-            starting: newStarting
-        });
-    },
-
-    // propagate a transformations change onto correct.transformations
-    changeTransformer: function(changes, callback) {
-        if (changes.transformations) {
-            changes.correct = {
-                transformations: changes.transformations
-            };
-            delete changes.transformations;
-        }
-        this.props.onChange(changes, callback);
-    },
-
-    serialize: function() {
-        var json = this.refs.explorer.getEditorJSON();
-        json.correct = json.answer;
-        delete json.answer;
-        return json;
-    }
 });
 
 module.exports = TransformerEditor;

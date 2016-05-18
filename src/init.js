@@ -1,16 +1,12 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const _ = require("underscore");
 
-var _ = require("underscore");
-
-var init = function(options) {
+const init = function(options) {
     _.defaults(options, {
         // Pass skipMathJax: true if MathJax is already loaded and configured.
-        skipMathJax: false
+        skipMathJax: false,
     });
 
-    var deferred = $.Deferred();
+    const deferred = $.Deferred();
 
     if (options.skipMathJax) {
         deferred.resolve();
@@ -22,8 +18,8 @@ var init = function(options) {
                 availableFonts: ["TeX"],
                 imageFont: null,
                 scale: 100,
-                showMathMenu: false
-            }
+                showMathMenu: false,
+            },
         });
 
         MathJax.Hub.Configured();

@@ -1,39 +1,27 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const React = require('react');
+const _ = require("underscore");
 
-var React = require('react');
-var _ = require("underscore");
+const Changeable = require("../mixins/changeable.jsx");
 
-var Changeable = require("../mixins/changeable.jsx");
+const PerseusMarkdown = require("../perseus-markdown.jsx");
+const mdParse = PerseusMarkdown.parse;
+const mdOutput = PerseusMarkdown.basicOutput;
 
-var PerseusMarkdown = require("../perseus-markdown.jsx");
-var mdParse = PerseusMarkdown.parse;
-var mdOutput = PerseusMarkdown.basicOutput;
-
-var SimpleMarkdownTester = React.createClass({
+const SimpleMarkdownTester = React.createClass({
     propTypes: {
-        value: React.PropTypes.string
-    },
-
-    getDefaultProps: function() {
-        return {
-            value: ""
-        };
+        value: React.PropTypes.string,
     },
 
     mixins: [Changeable],
 
-    toJSON: function() {
-        return {};
+    getDefaultProps: function() {
+        return {
+            value: "",
+        };
     },
 
-    render: function() {
-        var parsed = mdParse(this.props.value);
-        var output = mdOutput(parsed);
-        return <div>
-            {output}
-        </div>;
+    toJSON: function() {
+        return {};
     },
 
     /**
@@ -60,7 +48,15 @@ var SimpleMarkdownTester = React.createClass({
      */
     simpleValidate: function(rubric) {
         return SimpleMarkdownTester.validate(this.toJSON(), rubric);
-    }
+    },
+
+    render: function() {
+        const parsed = mdParse(this.props.value);
+        const output = mdOutput(parsed);
+        return <div>
+            {output}
+        </div>;
+    },
 });
 
 
@@ -79,9 +75,9 @@ _.extend(SimpleMarkdownTester, {
             type: "points",
             earned: 0,
             total: 0,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 /**
@@ -92,5 +88,5 @@ module.exports = {
     displayName: "Simple Markdown Tester",
     hidden: true,   // Hides this widget from the Perseus.Editor widget select
     widget: SimpleMarkdownTester,
-    transform: _.identity
+    transform: _.identity,
 };

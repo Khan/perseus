@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-redeclare, no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * Creates and adds a point to the graph that can be dragged around.
  * It allows constraints on its movement and draws when moves happen.
@@ -53,21 +49,21 @@
  *   remove:
  *     removes the point from graphie
  */
-var _ = require("underscore");
+const _ = require("underscore");
 
-var MovablePointOptions = require("./movable-point-options.js");
-var WrappedEllipse = require("./wrapped-ellipse.js");
-var InteractiveUtil = require("./interactive-util.js");
-var objective_ = require("./objective_.js");
-var assert = InteractiveUtil.assert;
-var normalizeOptions = InteractiveUtil.normalizeOptions;
+const MovablePointOptions = require("./movable-point-options.js");
+const WrappedEllipse = require("./wrapped-ellipse.js");
+const InteractiveUtil = require("./interactive-util.js");
+const objective_ = require("./objective_.js");
+const assert = InteractiveUtil.assert;
+const normalizeOptions = InteractiveUtil.normalizeOptions;
 
-var kpoint = require("kmath").point;
+const kpoint = require("kmath").point;
 const KhanColors = require("../util/colors.js");
 
 // State parameters that should be converted into an array of
 // functions
-var FUNCTION_ARRAY_OPTIONS = _.keys(MovablePointOptions);
+const FUNCTION_ARRAY_OPTIONS = _.keys(MovablePointOptions);
 
 // Default "props" and "state". Both are added to this.state and
 // receive magic getter methods (this.coord() etc).
@@ -75,29 +71,29 @@ var FUNCTION_ARRAY_OPTIONS = _.keys(MovablePointOptions);
 // while those in DEFAULT_STATE persist and are not updated.
 // Things that the user might want to change should be on "props",
 // while things used to render the point should be on "state".
-var DEFAULT_PROPS = {
+const DEFAULT_PROPS = {
     coord: [0, 0],
     pointSize: 4,
     static: false,
     cursor: "move",
-    normalStyle: null,    // turned into an object in this.modify
-    highlightStyle: null  // likewise
+    normalStyle: null,     // turned into an object in this.modify
+    highlightStyle: null,  // likewise
 };
-var DEFAULT_STATE = {
+const DEFAULT_STATE = {
     added: false,
     hasMoved: false,
     visibleShape: null,
-    mouseTarget: null
+    mouseTarget: null,
 };
 
-var MovablePoint = function(graphie, movable, options) {
+const MovablePoint = function(graphie, movable, options) {
     _.extend(this, {
         graphie: graphie,
         movable: movable,
         state: {
             // Set here because this must be unique for each instance
-            id: _.uniqueId("movablePoint")
-        }
+            id: _.uniqueId("movablePoint"),
+        },
     });
 
     // We only set DEFAULT_STATE once, here
@@ -152,9 +148,9 @@ _.extend(MovablePoint.prototype, {
      * Analogous to React.js's setProps
      */
     update: function(options) {
-        var self = this;
-        var graphie = self.graphie;
-        var state = _.extend(
+        const self = this;
+        const graphie = self.graphie;
+        const state = _.extend(
             self.state,
             normalizeOptions(FUNCTION_ARRAY_OPTIONS, options)
         );
@@ -166,27 +162,27 @@ _.extend(MovablePoint.prototype, {
         // We use _.extend instead of _.defaults because we don't want
         // to modify the passed-in copy (especially if it's from
         // DEFAULT_PROPS/STATE!)
-        var normalColor = (state.static) ? KhanColors.DYNAMIC
+        const normalColor = (state.static) ? KhanColors.DYNAMIC
                                          : KhanColors.INTERACTIVE;
         state.normalStyle = _.extend({
             fill: normalColor,
             stroke: normalColor,
-            scale: 1
+            scale: 1,
         }, state.normalStyle);
 
         state.highlightStyle = _.extend({
             fill: KhanColors.INTERACTING,
             stroke: KhanColors.INTERACTING,
-            scale: 2
+            scale: 2,
         }, state.highlightStyle);
 
         if (!state.static) {
             // the invisible shape in front of the point that gets mouse events
             if (!state.mouseTarget) {
-                var center = self.state.coord;
-                var radii = graphie.unscaleVector(15);
-                var options = {
-                    mouselayer: true
+                const center = self.state.coord;
+                const radii = graphie.unscaleVector(15);
+                const options = {
+                    mouselayer: true,
                 };
                 state.mouseTarget = new WrappedEllipse(graphie, center, radii,
                     options);
@@ -196,7 +192,7 @@ _.extend(MovablePoint.prototype, {
 
         // The starting coord of any move, sent to onMoveEnd as the previous
         // value
-        var startCoord = state.coord;
+        let startCoord = state.coord;
 
         // The Movable representing this movablePoint's representation
         // This handles mouse events for us, which we propagate in
@@ -220,7 +216,7 @@ _.extend(MovablePoint.prototype, {
                 self._fireEvent(state.onMoveEnd, state.coord, startCoord);
                 state.hasMoved = false;
                 self.draw();
-            }
+            },
         }));
 
         // Trigger an add event if this hasn't been added before
@@ -250,7 +246,7 @@ _.extend(MovablePoint.prototype, {
     },
 
     constrain: function() {
-        var result = this._applyConstraints(this.coord(), this.coord());
+        const result = this._applyConstraints(this.coord(), this.coord());
         if (kpoint.is(result)) {
             this.setCoord(result);
         }
@@ -265,7 +261,7 @@ _.extend(MovablePoint.prototype, {
 
     setCoordConstrained: function(coord) {
         assert(kpoint.is(coord, 2));
-        var result = this._applyConstraints(coord, this.coord());
+        const result = this._applyConstraints(coord, this.coord());
         if (result !== false) {
             this.state.coord = _.clone(result);
             this.draw();
@@ -279,15 +275,15 @@ _.extend(MovablePoint.prototype, {
         // providing custom constraints on where the point can be moved.
         // By returning array [x, y], the move can be overridden
 
-        var state = this.state;
-        var result = this._applyConstraints(coord, state.coord);
+        const state = this.state;
+        const result = this._applyConstraints(coord, state.coord);
         if (result === false) {
             return;
         } else if (kpoint.is(result)) {
             coord = result;
         }
         if (!kpoint.equal(coord, state.coord)) {
-            var prevCoord = state.coord;
+            const prevCoord = state.coord;
             state.coord = coord;
             state.hasMoved = true;
             this._fireEvent(state.onMove, state.coord, prevCoord);
@@ -339,7 +335,7 @@ _.extend(MovablePoint.prototype, {
     grab: function(coord) {
         this.movable.grab(coord);
         this.moveTo(coord);
-    }
+    },
 });
 
 module.exports = MovablePoint;

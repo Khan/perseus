@@ -1,12 +1,8 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const _ = require("underscore");
 
-var _ = require("underscore");
+const Traversal = require("../traversal.jsx");
 
-var Traversal = require("../traversal.jsx");
-
-var findPassageRefR = new RegExp(
+const findPassageRefR = new RegExp(
     // [[ passage-ref 1]]
     // capture 1: widget markdown
     // capture 2: widgetId
@@ -23,15 +19,15 @@ var findPassageRefR = new RegExp(
     "g"
 );
 
-var fixWholeOptions = (options) => {
+const fixWholeOptions = (options) => {
     // This parsing is technically illegal and should be done via
     // PerseusMarkdown, but because of the snowperson it's safe
     // in practice.
     // We should probably just get rid of this code once all the
     // passage-refs have been converted.
 
-    var newWidgets = _.clone(options.widgets || {});
-    var newContent = (options.content || "").replace(
+    const newWidgets = _.clone(options.widgets || {});
+    const newContent = (options.content || "").replace(
         findPassageRefR,
         (passageRefText, widgetMarkdown, widgetId, summaryText) => {
             newWidgets[widgetId] = _.extend({}, newWidgets[widgetId], {
@@ -50,7 +46,7 @@ var fixWholeOptions = (options) => {
     });
 };
 
-var findRadioRefsR = new RegExp(
+const findRadioRefsR = new RegExp(
     // passage-ref notation
     "\\{\\{(passage-ref \\d+ \\d+)}}" +
     // a space
@@ -64,31 +60,31 @@ var findRadioRefsR = new RegExp(
     // find all passage-refs
     "g"
 );
-var replaceRadioRefs = (fullText, reference, summaryText) => {
+const replaceRadioRefs = (fullText, reference, summaryText) => {
     if (/\n\n/.test(summaryText)) {
         return fullText;
     }
     return "{{" + reference + " \"" + summaryText + "\"}}";
 };
 
-var fixRadioWidget = (widgetInfo) => {
+const fixRadioWidget = (widgetInfo) => {
     if (widgetInfo.type !== "radio" ||
             !widgetInfo.options ||
             !widgetInfo.options.choices) {
         return widgetInfo;
     }
 
-    var newChoices = _.map(widgetInfo.options.choices, (choice) => {
+    const newChoices = _.map(widgetInfo.options.choices, (choice) => {
         if (!choice.content) {
             return choice;
         }
 
-        var newChoice = choice.content.replace(
+        const newChoice = choice.content.replace(
             findRadioRefsR,
             replaceRadioRefs
         );
         return _.extend({}, choice, {
-            content: newChoice
+            content: newChoice,
         });
     });
 
@@ -99,7 +95,7 @@ var fixRadioWidget = (widgetInfo) => {
     });
 };
 
-var fixRendererPassageRefs = (options) => {
+const fixRendererPassageRefs = (options) => {
     return Traversal.traverseRendererDeep(
         options,
         null,
@@ -108,9 +104,9 @@ var fixRendererPassageRefs = (options) => {
     );
 };
 
-var FixPassageRefs = (itemData) => {
-    var newQuestion = fixRendererPassageRefs(itemData.question);
-    var newHints = _.map(
+const FixPassageRefs = (itemData) => {
+    const newQuestion = fixRendererPassageRefs(itemData.question);
+    const newHints = _.map(
         itemData.hints,
         (hint) => fixRendererPassageRefs(hint)
     );

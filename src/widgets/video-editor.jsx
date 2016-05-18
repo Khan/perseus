@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const _ = require("underscore");
 
@@ -18,7 +14,7 @@ const KA_VIDEO_URL = /khanacademy\.org\/.*\/v\/(.*)$/;
  * returned unchanged.
  */
 function getSlugFromUrl(url) {
-    var match = KA_VIDEO_URL.exec(url);
+    const match = KA_VIDEO_URL.exec(url);
     if (match) {
         return match[1];
     }
