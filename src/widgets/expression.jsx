@@ -22,7 +22,10 @@ var TeX = require("react-components/tex.jsx");// OldExpression only
 var TexButtons = require("../components/tex-buttons.jsx");
 const { KeypadInput } = require("../../math-input").components;
 const { configureKeypad } = require("../../math-input").actions;
-const { keypadConfigurationPropType } = require("../../math-input").propTypes;
+const {
+    keypadConfigurationPropType,
+    keypadElementPropType,
+} = require("../../math-input").propTypes;
 const { KeypadTypes } = require("../../math-input").consts;
 
 var EnabledFeatures = require("../enabled-features.jsx");
@@ -87,6 +90,7 @@ var Expression = React.createClass({
         enabledFeatures: EnabledFeatures.propTypes,
         functions: React.PropTypes.arrayOf(React.PropTypes.string),
         keypadConfiguration: keypadConfigurationPropType,
+        keypadElement: keypadElementPropType,
         times: React.PropTypes.bool,
         trackInteraction: React.PropTypes.func.isRequired,
         value: React.PropTypes.string,
@@ -128,6 +132,7 @@ var Expression = React.createClass({
             return <KeypadInput
                 ref="input"
                 value={this.props.value}
+                keypadElement={this.props.keypadElement}
                 onChange={this.changeAndTrack}
                 onFocus={() => {
                     configureKeypad(this.props.keypadConfiguration);

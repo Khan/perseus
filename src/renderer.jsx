@@ -202,9 +202,10 @@ var Renderer = React.createClass({
     },
 
     getInitialState: function() {
-        return _.extend(
-            {jiptContent: null},
-            this._getInitialWidgetState());
+        return _.extend({
+            jiptContent: null,
+            keypadElement: null,
+        }, this._getInitialWidgetState());
     },
 
     componentDidMount: function() {
@@ -225,7 +226,14 @@ var Renderer = React.createClass({
             document.body.appendChild(this._keypadContainer);
 
             ReactDOM.render(
-                <Keypad onDismiss={() => this.blur()}/>,
+                <Keypad
+                    onElementMounted={(element) => {
+                        this.setState({
+                            keypadElement: element,
+                        });
+                    }}
+                    onDismiss={() => this.blur()}
+                />,
                 this._keypadContainer
             );
         }
@@ -431,6 +439,7 @@ var Renderer = React.createClass({
             problemNum: this.props.problemNum,
             enabledFeatures: this.props.enabledFeatures,
             apiOptions: this.getApiOptions(this.props),
+            keypadElement: this.state.keypadElement,
             questionCompleted: this.props.questionCompleted,
             onFocus: _.partial(this._onWidgetFocus, id),
             onBlur: _.partial(this._onWidgetBlur, id),

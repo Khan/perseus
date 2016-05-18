@@ -12,7 +12,10 @@ var PossibleAnswers = require("../components/possible-answers.jsx");
 const KhanAnswerTypes = require("../util/answer-types.js");
 const { KeypadInput } = require("../../math-input").components;
 const { configureKeypad } = require("../../math-input").actions;
-const { keypadConfigurationPropType } = require("../../math-input").propTypes;
+const {
+    keypadConfigurationPropType,
+    keypadElementPropType,
+} = require("../../math-input").propTypes;
 const { KeypadTypes } = require("../../math-input").consts;
 
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
@@ -90,6 +93,7 @@ var InputNumber = React.createClass({
         currentValue: React.PropTypes.string,
         enabledFeatures: EnabledFeatures.propTypes,
         keypadConfiguration: keypadConfigurationPropType,
+        keypadElement: keypadElementPropType,
         reviewModeRubric: React.PropTypes.object,
         widgetId: React.PropTypes.string.isRequired,
     },
@@ -116,6 +120,7 @@ var InputNumber = React.createClass({
             return <KeypadInput
                 ref="input"
                 value={this.props.currentValue}
+                keypadElement={this.props.keypadElement}
                 onChange={this.handleChange}
                 onFocus={() => {
                     configureKeypad(this.props.keypadConfiguration);

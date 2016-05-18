@@ -17,7 +17,10 @@ var EnabledFeatures = require("../enabled-features.jsx");
 const KhanAnswerTypes = require("../util/answer-types.js");
 const KhanMath = require("../util/math.js");
 const { configureKeypad } = require("../../math-input").actions;
-const { keypadConfigurationPropType } = require("../../math-input").propTypes;
+const {
+    keypadConfigurationPropType,
+    keypadElementPropType,
+} = require("../../math-input").propTypes;
 const { KeypadTypes } = require("../../math-input").consts;
 
 var answerFormButtons = [
@@ -59,6 +62,7 @@ var NumericInput = React.createClass({
             ]).isRequired,
         })),
         keypadConfiguration: keypadConfigurationPropType,
+        keypadElement: keypadElementPropType,
         labelText: React.PropTypes.string,
         reviewModeRubric: React.PropTypes.object,
         trackInteraction: React.PropTypes.func.isRequired,
@@ -83,6 +87,7 @@ var NumericInput = React.createClass({
             return <KeypadInput
                 ref="input"
                 value={this.props.currentValue}
+                keypadElement={this.props.keypadElement}
                 onChange={this.handleChange}
                 onFocus={() => {
                     configureKeypad(this.props.keypadConfiguration);

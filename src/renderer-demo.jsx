@@ -68,7 +68,7 @@ const RendererDemo = React.createClass({
                 getAnotherHint: () => {
                     this.refs.itemRenderer.showHint();
                 },
-                __customKeypad: true,
+                customKeypad: true,
             }}
         />;
 
@@ -131,8 +131,9 @@ const RendererDemo = React.createClass({
 
 const styles = StyleSheet.create({
     problemAndAnswer: {
-        minHeight: 180,
+        minHeight: 1800,
         margin: 20,
+        marginTop: 500,
         position: "relative",
         border: "1px solid #cccccc",
         borderBottom: "1px solid #aaa",
