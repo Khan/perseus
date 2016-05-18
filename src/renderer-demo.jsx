@@ -68,8 +68,7 @@ const RendererDemo = React.createClass({
                 getAnotherHint: () => {
                     this.refs.itemRenderer.showHint();
                 },
-                // STOPSHIP(kevinb) remove this before merging with master
-                customKeypad: true,
+                __customKeypad: true,
             }}
         />;
 
