@@ -55,17 +55,20 @@
 
         // Make sure each line-number takes up a full line
         span {
-            box-sizing: border-box;
             display: block;
-            height: @line-height;
+            line-height: @line-height;
 
             // Align with .text-content baseline.
-            padding-top: 3px;
+            position: relative;
+            top: 2px;
+
+            visibility: hidden;
         }
 
-        // The word "Line" needs to be pushed down closer to the "5" below it
+        // Show every 5th line number, as well as the "Line" text
+        span:nth-of-type(5n),
         .line-marker {
-            padding-top: 3px;
+            visibility: visible;
         }
     }
 }

@@ -58,10 +58,8 @@ var Passage = React.createClass({
                             className="line-marker">
                         Line
                     </span>;
-                } else if (lineN % 5 === 0) {
-                    return lineN + this.state.startLineNumbersAfter;
                 } else {
-                    return "\n";
+                    return lineN + this.state.startLineNumbersAfter;
                 }
             });
         }
