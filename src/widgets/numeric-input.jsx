@@ -370,55 +370,6 @@ var unionAnswerForms = function(answerFormsList) {
     });
 };
 
-/**
- * Determine the keypad configuration parameters for the input, based on the
- * provided properties.
- *
- * There are two configuration parameters to be determined:
- *   (1) The keypad type. Typically, the NumericInput widget will use the
- *       Fraction keypad, although if the question requires use of Pi, then
- *       it upgrades to the Basic Expression keypad, and if it only requires
- *       integer input, then it downgrades to the Number keypad.
- *   (2) The extra keys; namely, any variables or constants (like Pi) that need
- *       to be included as keys on the keypad. The only symbol that the
- *       NumericInput widget would ever need would be Pi.
- */
-const keypadConfigurationForProps = (props) => {
-    // TODO(charlie): These are somewhat hacky and rely on the way that the
-    // widget currently stores its input values and answer formats.
-    // Specifically, answers are stored as raw values and formats, not as plain
-    // text, so we can _only_ detect that an answer is using Pi if it's made
-    // explicit in its answer formats. Unfortunately, the answer formats aren't
-    // all encompassing in that they don't automatically resolve to the proper
-    // values for integer or decimal input (and according to Cam, the content
-    // team would like to remove the automatic resolution altogether), so we
-    // also need to look at the raw answers to determine if we can get by with
-    // integer input alone.
-    const values = props.answers.map(answer => answer.value);
-    const formNames = props.answers.map(answer => answer.answerForms || [])
-        .reduce((a, b) => a.concat(b));
-
-    const includePi = formNames.includes('pi');
-    const integersOnly = values.every(value => /^[1-9]+[0-9]*$/.test(value));
-
-    if (includePi) {
-        return {
-            keypadType: KeypadTypes.BASIC_EXPRESSION,
-            extraKeys: ["PI"],
-        };
-    } else if (integersOnly) {
-        return {
-            keypadType: KeypadTypes.NUMBER,
-            extraSymbols: [],
-        };
-    } else {
-        return {
-            keypadType: KeypadTypes.FRACTION,
-            extraKeys: [],
-        };
-    }
-};
-
 var propsTransform = function(editorProps) {
     var rendererProps = _.extend(
         _.omit(editorProps, "answers"),
@@ -439,7 +390,9 @@ var propsTransform = function(editorProps) {
     );
     return {
         ...rendererProps,
-        keypadConfiguration: keypadConfigurationForProps(editorProps),
+        keypadConfiguration: {
+            keypadType: KeypadTypes.FRACTION,
+        },
     };
 };
 

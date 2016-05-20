@@ -303,69 +303,15 @@ _.extend(InputNumber, {
     }
 });
 
-/**
- * Determine the keypad configuration parameters for the input, based on the
- * provided properties.
- *
- * There are two configuration parameters to be determined:
- *   (1) The keypad type. The InputNumber widget will try to use the Fraction,
- *       Number, or Basic Expression keypad (with Pi available) if it has an
- *       explicit `answerType` that makes the choice clear. If no `answerType`
- *       is specified, it again attempts to use the Number keypad if the value
- *       is integer-only, but defaults to using the Basic Expression keypad
- *       (with Pi), as it has no way of knowing whether the answer requires Pi
- *       or just fractions or decimals based on the answer value alone.
- *
- *   (2) The extra keys; namely, any variables or constants (like Pi) that need
- *       to be included as keys on the keypad. The only symbol that the
- *       InputNumber widget would ever need would be Pi.
- */
-const keypadConfigurationForProps = (props) => {
-    switch (props.answerType) {
-        case "number":
-            const integersOnly = /^[1-9]+[0-9]*$/.test(props.value);
-            if (integersOnly) {
-                return {
-                    keypadType: KeypadTypes.NUMBER,
-                    extraKeys: [],
-                };
-            }
-            return {
-                keypadType: KeypadTypes.BASIC_EXPRESSION,
-                extraKeys: ["PI"],
-            };
-
-        case "pi":
-            return {
-                keypadType: KeypadTypes.BASIC_EXPRESSION,
-                extraKeys: ["PI"],
-            };
-
-        case "decimal":
-        case "rational":
-        case "improper":
-        case "mixed":
-        case "percent":
-            return {
-                keypadType: KeypadTypes.FRACTION,
-                extraKeys: [],
-            };
-
-        case "integer":
-            return {
-                keypadType: KeypadTypes.NUMBER,
-                extraKeys: [],
-            };
-    }
-};
-
 var propTransform = (editorProps) => {
     const { simplify, size, answerType } = editorProps;
     return {
-        keypadConfiguration: keypadConfigurationForProps(editorProps),
         simplify,
         size,
         answerType,
+        keypadConfiguration: {
+            keypadType: KeypadTypes.FRACTION,
+        },
     };
 };
 
