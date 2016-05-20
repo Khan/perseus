@@ -1,6 +1,6 @@
 /* Perseus CSS
- * commit 145db8ec0135a00676af2652c1c8a764f5dc6665
- * branch crm-scroll-into-view
+ * commit f02389370a0d02ac918d22cee9fe1e5222f75912
+ * branch master
  * @generated */
 .perseus-sr-only {
   border: 0;
@@ -1076,13 +1076,15 @@ body.mobile .perseus-matrix .math-output {
   width: 25px;
 }
 .perseus-widget-passage-container .line-numbers span {
-  box-sizing: border-box;
   display: block;
-  height: 22px;
-  padding-top: 3px;
+  line-height: 22px;
+  position: relative;
+  top: 2px;
+  visibility: hidden;
 }
+.perseus-widget-passage-container .line-numbers span:nth-of-type(5n),
 .perseus-widget-passage-container .line-numbers .line-marker {
-  padding-top: 3px;
+  visibility: visible;
 }
 .perseus-widget-passage-editor .perseus-single-editor {
   font-family: Times, "Times New Roman", serif;
