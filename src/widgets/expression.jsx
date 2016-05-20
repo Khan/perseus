@@ -744,6 +744,12 @@ const keypadConfigurationForProps = (props) => {
         ...convertToKeys(Object.keys(uniqueExtraConstants)),
     ];
 
+    if (!extraKeys.length) {
+        // If there are no extra symbols available, we include Pi anyway, so
+        // that the "extra symbols" button doesn't appear empty.
+        extraKeys.push("PI");
+    }
+
     return { keypadType, extraKeys };
 };
 
