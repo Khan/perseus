@@ -75,7 +75,11 @@ var buttonSets = {
             <TeX key="pow" style={slightlyBig}>□^a</TeX>,
             input => {
                 var contents = input.latex();
-                input.keystroke("Up");
+                input.typedText("^");
+
+                // If the input hasn't changed (for example, if we're
+                // attempting to add an exponent on an empty input or an empty
+                // denominator), insert our own "a^b"
                 if (input.latex() === contents) {
                     input.typedText("a^b");
                 }
