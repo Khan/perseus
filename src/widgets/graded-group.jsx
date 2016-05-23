@@ -2,7 +2,7 @@
 /* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-/* globals i18n, $_ */
+/* globals i18n */
 var classNames = require("classnames");
 var React = require("react");
 var _ = require("underscore");
