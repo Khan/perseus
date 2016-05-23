@@ -100,7 +100,7 @@ var GradedGroup = React.createClass({
             <p>{this.state.message}</p>
             <input
                 type="button"
-                value="Check Answer"
+                value={i18n._("Check Answer")}
                 className="simple-button"
                 disabled={this.props.apiOptions.readOnly}
                 onClick={this._checkAnswer} />
