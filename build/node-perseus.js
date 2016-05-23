@@ -1,6 +1,6 @@
 /*! Nodeified Perseus | http://github.com/Khan/perseus */
-// commit 4b2fd4f3824ba0709ad4d2b542db2a6c751e8515
-// branch fix_build
+// commit 69d7cc6a7ef2ccd3fc4bcd11cc4d339f80bcfb2e
+// branch master
 // @generated
 module.exports =
 /******/ (function(modules) { // webpackBootstrap
@@ -194,19 +194,19 @@ module.exports =
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var version = __webpack_require__(128);
+	var version = __webpack_require__(53);
 
 	__webpack_require__(23);
 
 	module.exports = {
 	    apiVersion: version.apiVersion,
 	    itemDataVersion: version.itemDataVersion,
-	    init: __webpack_require__(25),
-	    ArticleRenderer: __webpack_require__(26),
-	    ItemRenderer: __webpack_require__(27),
-	    ServerItemRenderer: __webpack_require__(28),
-	    HintsRenderer: __webpack_require__(29),
-	    Renderer: __webpack_require__(30) };
+	    init: __webpack_require__(24),
+	    ArticleRenderer: __webpack_require__(25),
+	    ItemRenderer: __webpack_require__(26),
+	    ServerItemRenderer: __webpack_require__(27),
+	    HintsRenderer: __webpack_require__(28),
+	    Renderer: __webpack_require__(29) };
 
 /***/ },
 /* 6 */
@@ -217,8 +217,8 @@ module.exports =
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	__webpack_require__(23);
-	var Version = __webpack_require__(128);
-	var Widgets = __webpack_require__(24);
+	var Version = __webpack_require__(53);
+	var Widgets = __webpack_require__(30);
 
 	var ItemVersion = _.clone(Widgets.getVersionVector());
 	ItemVersion["::renderer::"] = Version.itemDataVersion;
@@ -702,12 +702,18 @@ module.exports =
 	            // component.  In this situation we use the MathInput component
 	            // from the math-input repo instead of the existing perseus math
 	            // input components.
-	            customKeypad: React.PropTypes.bool }).isRequired,
+	            customKeypad: React.PropTypes.bool,
+
+	            // Indicates whether or not to enable changes for the x-on-mobile,
+	            // 'manatee' milestone.  Changes are outlined in
+	            // https://docs.google.com/document/d/1aE3aaZD-vR2HJ-HVK7hH9Jzo2euCH-kKTQihSmzrEfI/edit
+	            xomManatee: React.PropTypes.bool }).isRequired,
 
 	        defaults: {
 	            isArticle: false,
 	            fancyDropdowns: false,
 	            responsiveStyling: false,
+	            xomManatee: false,
 	            mobileStyling: false,
 	            satStyling: false,
 	            onInputError: function () {},
@@ -1483,7 +1489,7 @@ module.exports =
 	var _ = __webpack_require__(46);
 
 	var Traversal = __webpack_require__(36);
-	var Widgets = __webpack_require__(24);
+	var Widgets = __webpack_require__(30);
 
 	var isUpgradedWidgetInfoRenderableBy = function (widgetInfo, widgetRendererVersion) {
 	    if (widgetRendererVersion == null) {
@@ -1554,7 +1560,7 @@ module.exports =
 	var _ = __webpack_require__(46);
 
 	var Traversal = __webpack_require__(36);
-	var Widgets = __webpack_require__(24);
+	var Widgets = __webpack_require__(30);
 
 	module.exports = {
 	    // Returns a list of widgets that cause a given perseus item to require
@@ -1732,7 +1738,7 @@ module.exports =
 	var _ = __webpack_require__(46);
 
 	var ApiOptions = __webpack_require__(10).Options;
-	var ArticleRenderer = __webpack_require__(26);
+	var ArticleRenderer = __webpack_require__(25);
 	var Editor = __webpack_require__(17);
 	var EnabledFeatures = __webpack_require__(38);
 	var JsonEditor = __webpack_require__(39);
@@ -2075,7 +2081,7 @@ module.exports =
 	var PerseusMarkdown = __webpack_require__(37);
 	var PropCheckBox = __webpack_require__(40);
 	var Util = __webpack_require__(11);
-	var Widgets = __webpack_require__(24);
+	var Widgets = __webpack_require__(30);
 
 	var WIDGET_PROP_BLACKLIST = __webpack_require__(41);
 
@@ -3086,7 +3092,7 @@ module.exports =
 	var EnabledFeatures = __webpack_require__(38);
 	var FixPassageRefs = __webpack_require__(43);
 	var ItemEditor = __webpack_require__(44);
-	var ItemRenderer = __webpack_require__(27);
+	var ItemRenderer = __webpack_require__(26);
 	var JsonEditor = __webpack_require__(39);
 	var ViewportResizer = __webpack_require__(12);
 
@@ -35503,7 +35509,7 @@ module.exports =
 	// file names, and jQuery is normally delivered in a lowercase file name.
 	// Do this after creating the global so that if an AMD module wants to call
 	// noConflict to hide this version of jQuery, it will work.
-	if ( "function" === "function" && __webpack_require__(127) && __webpack_require__(127).jQuery ) {
+	if ( "function" === "function" && __webpack_require__(54) && __webpack_require__(54).jQuery ) {
 		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () { return jQuery; }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	}
 
@@ -35901,14 +35907,14 @@ module.exports =
 
 	var _ = __webpack_require__(46);
 
-	var Widgets = __webpack_require__(24);
+	var Widgets = __webpack_require__(30);
 
 	// As new widgets get added here, please also make sure they get added in
 	// webapp perseus/traversal.py so they can be properly translated.
-	_.each([[__webpack_require__(53), true && __webpack_require__(54)], [__webpack_require__(55), true && __webpack_require__(56)], [__webpack_require__(57), true && __webpack_require__(58)], [__webpack_require__(59), true && __webpack_require__(60)], [__webpack_require__(61), true && __webpack_require__(62)], [__webpack_require__(63), true && __webpack_require__(64)], [__webpack_require__(65), true && __webpack_require__(66)], [__webpack_require__(67), true && __webpack_require__(68)], [__webpack_require__(69), true && __webpack_require__(70)], [__webpack_require__(71), true && __webpack_require__(72)], [__webpack_require__(73), true && __webpack_require__(74)], [__webpack_require__(75), true && __webpack_require__(76)], [__webpack_require__(77), true && __webpack_require__(78)], [__webpack_require__(79), true && __webpack_require__(80)], [__webpack_require__(81), true && __webpack_require__(82)], [__webpack_require__(83), true && __webpack_require__(84)], [__webpack_require__(85), true && __webpack_require__(86)], [__webpack_require__(87), true && __webpack_require__(88)], [__webpack_require__(89), true && __webpack_require__(90)], [__webpack_require__(91), true && __webpack_require__(92)], [__webpack_require__(93), true && __webpack_require__(94)], [__webpack_require__(95), true && __webpack_require__(96)], [__webpack_require__(97), true && __webpack_require__(98)], [__webpack_require__(99), true && __webpack_require__(100)], [__webpack_require__(101), true && __webpack_require__(102)], [__webpack_require__(103), true && __webpack_require__(104)], [__webpack_require__(105), true && __webpack_require__(106)], [__webpack_require__(107), true && __webpack_require__(108)], [__webpack_require__(109), true && __webpack_require__(110)], [__webpack_require__(111), true && __webpack_require__(112)], [__webpack_require__(113), true && __webpack_require__(114)], [__webpack_require__(115), true && __webpack_require__(116)], [__webpack_require__(117), true && __webpack_require__(118)], [__webpack_require__(119), true && __webpack_require__(120)],
+	_.each([[__webpack_require__(55), true && __webpack_require__(56)], [__webpack_require__(57), true && __webpack_require__(58)], [__webpack_require__(59), true && __webpack_require__(60)], [__webpack_require__(61), true && __webpack_require__(62)], [__webpack_require__(63), true && __webpack_require__(64)], [__webpack_require__(65), true && __webpack_require__(66)], [__webpack_require__(67), true && __webpack_require__(68)], [__webpack_require__(69), true && __webpack_require__(70)], [__webpack_require__(71), true && __webpack_require__(72)], [__webpack_require__(73), true && __webpack_require__(74)], [__webpack_require__(75), true && __webpack_require__(76)], [__webpack_require__(77), true && __webpack_require__(78)], [__webpack_require__(79), true && __webpack_require__(80)], [__webpack_require__(81), true && __webpack_require__(82)], [__webpack_require__(83), true && __webpack_require__(84)], [__webpack_require__(85), true && __webpack_require__(86)], [__webpack_require__(87), true && __webpack_require__(88)], [__webpack_require__(89), true && __webpack_require__(90)], [__webpack_require__(91), true && __webpack_require__(92)], [__webpack_require__(93), true && __webpack_require__(94)], [__webpack_require__(95), true && __webpack_require__(96)], [__webpack_require__(97), true && __webpack_require__(98)], [__webpack_require__(99), true && __webpack_require__(100)], [__webpack_require__(101), true && __webpack_require__(102)], [__webpack_require__(103), true && __webpack_require__(104)], [__webpack_require__(105), true && __webpack_require__(106)], [__webpack_require__(107), true && __webpack_require__(108)], [__webpack_require__(109), true && __webpack_require__(110)], [__webpack_require__(111), true && __webpack_require__(112)], [__webpack_require__(113), true && __webpack_require__(114)], [__webpack_require__(115), true && __webpack_require__(116)], [__webpack_require__(117), true && __webpack_require__(118)], [__webpack_require__(119), true && __webpack_require__(120)], [__webpack_require__(121), true && __webpack_require__(122)],
 	// These widgets are only used when testing things, so remove them in the
 	// non-editor bundle.
-	true && [__webpack_require__(121), __webpack_require__(122)], true && [__webpack_require__(123), __webpack_require__(124)], true && [__webpack_require__(125), __webpack_require__(126)]], function (data) {
+	true && [__webpack_require__(123), __webpack_require__(124)], true && [__webpack_require__(125), __webpack_require__(126)], true && [__webpack_require__(127), __webpack_require__(128)]], function (data) {
 	  data && Widgets.register(data[0].name, /* widget */data[0], /* editor */data[1]);
 	});
 
@@ -35916,332 +35922,6 @@ module.exports =
 
 /***/ },
 /* 24 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable no-console, no-var, space-before-function-paren */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var _ = __webpack_require__(46);
-
-	var DEFAULT_ALIGNMENT = "block";
-	var DEFAULT_SUPPORTED_ALIGNMENTS = ["default"];
-	var DEFAULT_STATIC = false;
-	var DEFAULT_TRACKING = "";
-
-	var widgets = {};
-	var editors = {};
-
-	var Widgets = {
-	    // Widgets must be registered to avoid circular dependencies with the
-	    // core Editor and Renderer components.
-	    register: function (name, widget, editor) {
-	        widgets[name] = widget;
-	        editors[name] = editor;
-	    },
-
-	    getWidget: function (name, enabledFeatures) {
-	        // TODO(alex): Consider referring to these as renderers to avoid
-	        // overloading "widget"
-	        if (!_.has(widgets, name)) {
-	            return null;
-	        }
-
-	        // Allow widgets to specify a widget directly or via a function
-	        if (widgets[name].getWidget) {
-	            return widgets[name].getWidget(enabledFeatures);
-	        } else {
-	            return widgets[name].widget;
-	        }
-	    },
-
-	    getEditor: function (name) {
-	        return _.has(editors, name) ? editors[name] : null;
-	    },
-
-	    getTransform: function (name) {
-	        return _.has(widgets, name) ? widgets[name].transform || _.identity : null;
-	    },
-
-	    getVersion: function (name) {
-	        var widgetInfo = widgets[name];
-	        if (widgetInfo) {
-	            return widgets[name].version || { major: 0, minor: 0 };
-	        } else {
-	            return null;
-	        }
-	    },
-
-	    getVersionVector: function () {
-	        var version = {};
-	        _.each(_.keys(widgets), function (name) {
-	            version[name] = Widgets.getVersion(name);
-	        });
-	        return version;
-	    },
-
-	    getPublicWidgets: function () {
-	        // TODO(alex): Update underscore.js so that _.pick can take a function.
-	        return _.pick(widgets, _.reject(_.keys(widgets), function (name) {
-	            return widgets[name].hidden;
-	        }));
-	    },
-
-	    isAccessible: function (widgetInfo) {
-	        var accessible = widgets[widgetInfo.type].accessible;
-	        if (typeof accessible === "function") {
-	            return accessible(widgetInfo.options);
-	        } else {
-	            return !!accessible;
-	        }
-	    },
-
-	    getAllWidgetTypes: function () {
-	        return _.keys(widgets);
-	    },
-
-	    upgradeWidgetInfoToLatestVersion: function (oldWidgetInfo) {
-	        var type = oldWidgetInfo.type;
-	        if (!_.isString(type)) {
-	            throw new Error("widget type must be a string, but was: " + type);
-	        }
-	        var widgetExports = widgets[type];
-
-	        if (widgetExports == null) {
-	            // If we have a widget that isn't registered, we can't upgrade it
-	            // TODO(aria): Figure out what the best thing to do here would be
-	            return oldWidgetInfo;
-	        }
-
-	        // Unversioned widgets (pre-July 2014) are all implicitly 0.0
-	        var initialVersion = oldWidgetInfo.version || { major: 0, minor: 0 };
-	        var latestVersion = widgetExports.version || { major: 0, minor: 0 };
-
-	        // If the widget version is later than what we understand (major
-	        // version is higher than latest, or major versions are equal and minor
-	        // version is higher than latest), don't perform any upgrades.
-	        if (initialVersion.major > latestVersion.major || initialVersion.major === latestVersion.major && initialVersion.minor > latestVersion.minor) {
-	            return oldWidgetInfo;
-	        }
-
-	        // We do a clone here so that it's safe to mutate the input parameter
-	        // in propUpgrades functions (which I will probably accidentally do at
-	        // some point, and we would like to not break when that happens).
-	        var newEditorProps = _.clone(oldWidgetInfo.options) || {};
-
-	        var upgradePropsMap = widgetExports.propUpgrades || {};
-
-	        // Empty props usually mean a newly created widget by the editor,
-	        // and are always considerered up-to-date.
-	        // Mostly, we'd rather not run upgrade functions on props that are
-	        // not complete.
-	        if (_.keys(newEditorProps).length !== 0) {
-
-	            // We loop through all the versions after the current version of
-	            // the loaded widget, up to and including the latest version of the
-	            // loaded widget, and run the upgrade function to bring our loaded
-	            // widget's props up to that version.
-	            // There is a little subtlety here in that we call
-	            // upgradePropsMap[1] to upgrade *to* version 1,
-	            // (not from version 1).
-	            for (var nextVersion = initialVersion.major + 1; nextVersion <= latestVersion.major; nextVersion++) {
-
-	                if (upgradePropsMap[nextVersion]) {
-	                    newEditorProps = upgradePropsMap[nextVersion](newEditorProps);
-	                } else if (typeof console !== "undefined" && console.warn) {
-	                    // This is a warning because it is unlikely to be hit in
-	                    // local testing, and a warning is slightly less scary in
-	                    // prod than a `throw new Error`
-	                    console.warn("No upgrade found for widget `" + type + "` from " + "major version `" + (nextVersion - 1) + "` to " + "major version `" + nextVersion + "` found. This " + "is necessary to render this `" + type + "` correctly.");
-	                    // But try to keep going anyways (yolo!)
-	                    // (Throwing an error here would just break the page
-	                    // silently anyways, so that doesn't seem much better
-	                    // than a halfhearted attempt to continue, however
-	                    // shallow...)
-	                }
-	            }
-	        }
-
-	        // Minor version upgrades (eg. new optional props) don't have
-	        // transform functions. Instead, we fill in the new props with their
-	        // defaults.
-	        var defaultProps = editors[type].defaultProps;
-	        newEditorProps = _.extend({}, defaultProps, newEditorProps);
-
-	        var alignment = oldWidgetInfo.alignment;
-
-	        // Widgets that support multiple alignments will "lock in" the
-	        // alignment to the alignment that would be listed first in the
-	        // select box. If the widget only supports one alignment, the
-	        // alignment value will likely just end up as "default".
-	        if (alignment == null || alignment === "default") {
-	            alignment = Widgets.getSupportedAlignments(type)[0];
-	        }
-
-	        var widgetStatic = oldWidgetInfo.static;
-
-	        if (widgetStatic == null) {
-	            widgetStatic = DEFAULT_STATIC;
-	        }
-
-	        return _.extend({}, oldWidgetInfo, { // maintain other info, like type
-	            // After upgrading we guarantee that the version is up-to-date
-	            version: latestVersion,
-	            // Default graded to true (so null/undefined becomes true):
-	            graded: oldWidgetInfo.graded != null ? oldWidgetInfo.graded : true,
-	            alignment: alignment,
-	            static: widgetStatic,
-	            options: newEditorProps });
-	    },
-
-	    getRendererPropsForWidgetInfo: function (widgetInfo, problemNum) {
-	        var type = widgetInfo.type;
-	        var widgetExports = widgets[type];
-	        if (widgetExports == null) {
-	            // The widget is not a registered widget
-	            // It shouldn't matter what we return here, but for consistency
-	            // we return the untransformed options, as if the widget did
-	            // not have a transform defined.
-	            return widgetInfo.options;
-	        }
-	        var transform;
-	        if (widgetInfo.static) {
-	            // There aren't a lot of real places where we'll have to default to
-	            // _.identity, but it's theoretically possile if someone changes
-	            // the JSON manually / we have to back out static support for a
-	            // widget.
-	            transform = this.getStaticTransform(type) || _.identity;
-	        } else {
-	            transform = widgetExports.transform || _.identity;
-	        }
-	        // widgetInfo.options are the widgetEditor's props:
-	        return transform(widgetInfo.options, problemNum);
-	    },
-
-	    traverseChildWidgets: function (widgetInfo, traverseRenderer) {
-
-	        if (!traverseRenderer) {
-	            throw new Error("traverseRenderer must be provided, but was not");
-	        }
-
-	        if (!widgetInfo || !widgetInfo.type || !widgets[widgetInfo.type]) {
-	            return widgetInfo;
-	        }
-
-	        var widgetExports = widgets[widgetInfo.type];
-	        var props = widgetInfo.options;
-
-	        if (widgetExports.traverseChildWidgets && props) {
-	            var newProps = widgetExports.traverseChildWidgets(props, traverseRenderer);
-	            return _.extend({}, widgetInfo, { options: newProps });
-	        } else {
-	            return widgetInfo;
-	        }
-	    },
-
-	    /**
-	     * Handling for the optional alignments for widgets
-	     * See widget-container.jsx for details on how alignments are implemented.
-	     */
-
-	    /**
-	     * Returns the list of supported alignments for the given (string) widget
-	     * type. This is used primarily at editing time to display the choices
-	     * for the user.
-	     *
-	     * Supported alignments are given as an array of strings in the exports of
-	     * a widget's module.
-	     */
-	    getSupportedAlignments: function (type) {
-	        var widgetInfo = widgets[type];
-	        return widgetInfo && widgetInfo.supportedAlignments || DEFAULT_SUPPORTED_ALIGNMENTS;
-	    },
-
-	    /**
-	     * For the given (string) widget type and enabledFeatures, determine the
-	     * default alignment for the widget. This is used at rendering time to
-	     * go from "default" alignment to the actual alignment displayed on the
-	     * screen.
-	     *
-	     * The default alignment is given either as a string (called
-	     * `defaultAlignment`) or a function (called `getDefaultAlignment`) on
-	     * the exports of a widget's module.
-	     */
-	    getDefaultAlignment: function (type, enabledFeatures) {
-	        var widgetInfo = widgets[type];
-	        var alignment;
-	        if (!widgetInfo) {
-	            return DEFAULT_ALIGNMENT;
-	        }
-
-	        if (widgetInfo.getDefaultAlignment) {
-	            alignment = widgetInfo.getDefaultAlignment(enabledFeatures);
-	        } else {
-	            alignment = widgetInfo.defaultAlignment;
-	        }
-	        return alignment || DEFAULT_ALIGNMENT;
-	    },
-
-	    validAlignments: ["block", "inline-block", "inline", "float-left", "float-right", "full-width"],
-
-	    /**
-	     * Used at startup to fail fast if an alignment given by a widget is
-	     * invalid.
-	     */
-	    // TODO(alex): Change this to run as a testcase (vs. being run at runtime)
-	    validateAlignments: function () {
-	        _.each(widgets, function (widgetInfo) {
-	            if (widgetInfo.defaultAlignment && !_.contains(Widgets.validAlignments, widgetInfo.defaultAlignment)) {
-	                throw new Error("Widget '" + widgetInfo.displayName + "' has an invalid defaultAlignment value: " + widgetInfo.defaultAlignment);
-	            }
-
-	            if (widgetInfo.supportedAlignments) {
-	                var unknownAlignments = _.difference(widgetInfo.supportedAlignments, Widgets.validAlignments);
-
-	                if (unknownAlignments.length) {
-	                    throw new Error("Widget '" + widgetInfo.displayName + "' has an invalid value for supportedAlignments: " + unknownAlignments.join(" "));
-	                }
-	            }
-	        });
-	    },
-
-	    /**
-	     * Handling for static mode for widgets that support it.
-	     */
-
-	    /**
-	     * Returns true iff the widget supports static mode.
-	     * A widget implicitly supports static mode if it exports a
-	     * staticTransform function.
-	     */
-	    supportsStaticMode: function (type) {
-	        var widgetInfo = widgets[type];
-	        return widgetInfo && widgetInfo.staticTransform != null;
-	    },
-
-	    /**
-	     * Return the staticTransform function used to convert the editorProps to
-	     * the rendered widget state.
-	     */
-	    getStaticTransform: function (type) {
-	        var widgetInfo = widgets[type];
-	        return widgetInfo && widgetInfo.staticTransform;
-	    },
-
-	    /**
-	     * Returns the tracking option for the widget. The default is "",
-	     * which means simply to track interactions once. The other available
-	     * option is "all" which means to track all interactions.
-	     */
-	    getTracking: function (type) {
-	        var widgetInfo = widgets[type];
-	        return widgetInfo && widgetInfo.tracking || DEFAULT_TRACKING;
-	    } };
-
-	module.exports = Widgets;
-
-/***/ },
-/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -36282,7 +35962,7 @@ module.exports =
 	module.exports = init;
 
 /***/ },
-/* 26 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36297,7 +35977,7 @@ module.exports =
 	var React = __webpack_require__(45);
 
 	var ApiOptions = __webpack_require__(10).Options;
-	var Renderer = __webpack_require__(30);
+	var Renderer = __webpack_require__(29);
 
 	var rendererProps = React.PropTypes.shape({
 	    content: React.PropTypes.string,
@@ -36363,7 +36043,7 @@ module.exports =
 	module.exports = ArticleRenderer;
 
 /***/ },
-/* 27 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -36378,12 +36058,12 @@ module.exports =
 
 	var ApiOptions = __webpack_require__(10).Options;
 	var EnabledFeatures = __webpack_require__(38);
-	var HintsRenderer = __webpack_require__(29);
-	var Renderer = __webpack_require__(30);
+	var HintsRenderer = __webpack_require__(28);
+	var Renderer = __webpack_require__(29);
 	var Util = __webpack_require__(11);
-	var getHintsPlacement = __webpack_require__(130);
+	var getHintsPlacement = __webpack_require__(129);
 
-	var _require = __webpack_require__(129);
+	var _require = __webpack_require__(130);
 
 	var mapObject = _require.mapObject;
 
@@ -36754,7 +36434,7 @@ module.exports =
 	module.exports = ItemRenderer;
 
 /***/ },
-/* 28 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -36772,11 +36452,11 @@ module.exports =
 
 	var ApiOptions = __webpack_require__(10).Options;
 	var EnabledFeatures = __webpack_require__(38);
-	var HintsRenderer = __webpack_require__(29);
-	var Renderer = __webpack_require__(30);
+	var HintsRenderer = __webpack_require__(28);
+	var Renderer = __webpack_require__(29);
 	var Util = __webpack_require__(11);
 
-	var _require = __webpack_require__(129);
+	var _require = __webpack_require__(130);
 
 	var mapObject = _require.mapObject;
 
@@ -37052,7 +36732,7 @@ module.exports =
 	module.exports = ItemRenderer;
 
 /***/ },
-/* 29 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(45);
@@ -37222,7 +36902,7 @@ module.exports =
 	module.exports = HintsRenderer;
 
 /***/ },
-/* 30 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -37245,7 +36925,7 @@ module.exports =
 	var SvgImage = __webpack_require__(35);
 	var TeX = __webpack_require__(134);
 	var WidgetContainer = __webpack_require__(135);
-	var Widgets = __webpack_require__(24);
+	var Widgets = __webpack_require__(30);
 	var getHintsIndex = __webpack_require__(136);
 
 	var Keypad = __webpack_require__(153).components.Keypad;
@@ -37260,7 +36940,7 @@ module.exports =
 	var ApiOptions = __webpack_require__(10).Options;
 	var ApiClassNames = __webpack_require__(10).ClassNames;
 
-	var _require = __webpack_require__(129);
+	var _require = __webpack_require__(130);
 
 	var mapObject = _require.mapObject;
 	var mapObjectFromArray = _require.mapObjectFromArray;
@@ -38585,6 +38265,332 @@ module.exports =
 	   wrap (I don't know why this works, but it does) */
 
 /***/ },
+/* 30 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable no-console, no-var, space-before-function-paren */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var _ = __webpack_require__(46);
+
+	var DEFAULT_ALIGNMENT = "block";
+	var DEFAULT_SUPPORTED_ALIGNMENTS = ["default"];
+	var DEFAULT_STATIC = false;
+	var DEFAULT_TRACKING = "";
+
+	var widgets = {};
+	var editors = {};
+
+	var Widgets = {
+	    // Widgets must be registered to avoid circular dependencies with the
+	    // core Editor and Renderer components.
+	    register: function (name, widget, editor) {
+	        widgets[name] = widget;
+	        editors[name] = editor;
+	    },
+
+	    getWidget: function (name, enabledFeatures) {
+	        // TODO(alex): Consider referring to these as renderers to avoid
+	        // overloading "widget"
+	        if (!_.has(widgets, name)) {
+	            return null;
+	        }
+
+	        // Allow widgets to specify a widget directly or via a function
+	        if (widgets[name].getWidget) {
+	            return widgets[name].getWidget(enabledFeatures);
+	        } else {
+	            return widgets[name].widget;
+	        }
+	    },
+
+	    getEditor: function (name) {
+	        return _.has(editors, name) ? editors[name] : null;
+	    },
+
+	    getTransform: function (name) {
+	        return _.has(widgets, name) ? widgets[name].transform || _.identity : null;
+	    },
+
+	    getVersion: function (name) {
+	        var widgetInfo = widgets[name];
+	        if (widgetInfo) {
+	            return widgets[name].version || { major: 0, minor: 0 };
+	        } else {
+	            return null;
+	        }
+	    },
+
+	    getVersionVector: function () {
+	        var version = {};
+	        _.each(_.keys(widgets), function (name) {
+	            version[name] = Widgets.getVersion(name);
+	        });
+	        return version;
+	    },
+
+	    getPublicWidgets: function () {
+	        // TODO(alex): Update underscore.js so that _.pick can take a function.
+	        return _.pick(widgets, _.reject(_.keys(widgets), function (name) {
+	            return widgets[name].hidden;
+	        }));
+	    },
+
+	    isAccessible: function (widgetInfo) {
+	        var accessible = widgets[widgetInfo.type].accessible;
+	        if (typeof accessible === "function") {
+	            return accessible(widgetInfo.options);
+	        } else {
+	            return !!accessible;
+	        }
+	    },
+
+	    getAllWidgetTypes: function () {
+	        return _.keys(widgets);
+	    },
+
+	    upgradeWidgetInfoToLatestVersion: function (oldWidgetInfo) {
+	        var type = oldWidgetInfo.type;
+	        if (!_.isString(type)) {
+	            throw new Error("widget type must be a string, but was: " + type);
+	        }
+	        var widgetExports = widgets[type];
+
+	        if (widgetExports == null) {
+	            // If we have a widget that isn't registered, we can't upgrade it
+	            // TODO(aria): Figure out what the best thing to do here would be
+	            return oldWidgetInfo;
+	        }
+
+	        // Unversioned widgets (pre-July 2014) are all implicitly 0.0
+	        var initialVersion = oldWidgetInfo.version || { major: 0, minor: 0 };
+	        var latestVersion = widgetExports.version || { major: 0, minor: 0 };
+
+	        // If the widget version is later than what we understand (major
+	        // version is higher than latest, or major versions are equal and minor
+	        // version is higher than latest), don't perform any upgrades.
+	        if (initialVersion.major > latestVersion.major || initialVersion.major === latestVersion.major && initialVersion.minor > latestVersion.minor) {
+	            return oldWidgetInfo;
+	        }
+
+	        // We do a clone here so that it's safe to mutate the input parameter
+	        // in propUpgrades functions (which I will probably accidentally do at
+	        // some point, and we would like to not break when that happens).
+	        var newEditorProps = _.clone(oldWidgetInfo.options) || {};
+
+	        var upgradePropsMap = widgetExports.propUpgrades || {};
+
+	        // Empty props usually mean a newly created widget by the editor,
+	        // and are always considerered up-to-date.
+	        // Mostly, we'd rather not run upgrade functions on props that are
+	        // not complete.
+	        if (_.keys(newEditorProps).length !== 0) {
+
+	            // We loop through all the versions after the current version of
+	            // the loaded widget, up to and including the latest version of the
+	            // loaded widget, and run the upgrade function to bring our loaded
+	            // widget's props up to that version.
+	            // There is a little subtlety here in that we call
+	            // upgradePropsMap[1] to upgrade *to* version 1,
+	            // (not from version 1).
+	            for (var nextVersion = initialVersion.major + 1; nextVersion <= latestVersion.major; nextVersion++) {
+
+	                if (upgradePropsMap[nextVersion]) {
+	                    newEditorProps = upgradePropsMap[nextVersion](newEditorProps);
+	                } else if (typeof console !== "undefined" && console.warn) {
+	                    // This is a warning because it is unlikely to be hit in
+	                    // local testing, and a warning is slightly less scary in
+	                    // prod than a `throw new Error`
+	                    console.warn("No upgrade found for widget `" + type + "` from " + "major version `" + (nextVersion - 1) + "` to " + "major version `" + nextVersion + "` found. This " + "is necessary to render this `" + type + "` correctly.");
+	                    // But try to keep going anyways (yolo!)
+	                    // (Throwing an error here would just break the page
+	                    // silently anyways, so that doesn't seem much better
+	                    // than a halfhearted attempt to continue, however
+	                    // shallow...)
+	                }
+	            }
+	        }
+
+	        // Minor version upgrades (eg. new optional props) don't have
+	        // transform functions. Instead, we fill in the new props with their
+	        // defaults.
+	        var defaultProps = editors[type].defaultProps;
+	        newEditorProps = _.extend({}, defaultProps, newEditorProps);
+
+	        var alignment = oldWidgetInfo.alignment;
+
+	        // Widgets that support multiple alignments will "lock in" the
+	        // alignment to the alignment that would be listed first in the
+	        // select box. If the widget only supports one alignment, the
+	        // alignment value will likely just end up as "default".
+	        if (alignment == null || alignment === "default") {
+	            alignment = Widgets.getSupportedAlignments(type)[0];
+	        }
+
+	        var widgetStatic = oldWidgetInfo.static;
+
+	        if (widgetStatic == null) {
+	            widgetStatic = DEFAULT_STATIC;
+	        }
+
+	        return _.extend({}, oldWidgetInfo, { // maintain other info, like type
+	            // After upgrading we guarantee that the version is up-to-date
+	            version: latestVersion,
+	            // Default graded to true (so null/undefined becomes true):
+	            graded: oldWidgetInfo.graded != null ? oldWidgetInfo.graded : true,
+	            alignment: alignment,
+	            static: widgetStatic,
+	            options: newEditorProps });
+	    },
+
+	    getRendererPropsForWidgetInfo: function (widgetInfo, problemNum) {
+	        var type = widgetInfo.type;
+	        var widgetExports = widgets[type];
+	        if (widgetExports == null) {
+	            // The widget is not a registered widget
+	            // It shouldn't matter what we return here, but for consistency
+	            // we return the untransformed options, as if the widget did
+	            // not have a transform defined.
+	            return widgetInfo.options;
+	        }
+	        var transform;
+	        if (widgetInfo.static) {
+	            // There aren't a lot of real places where we'll have to default to
+	            // _.identity, but it's theoretically possile if someone changes
+	            // the JSON manually / we have to back out static support for a
+	            // widget.
+	            transform = this.getStaticTransform(type) || _.identity;
+	        } else {
+	            transform = widgetExports.transform || _.identity;
+	        }
+	        // widgetInfo.options are the widgetEditor's props:
+	        return transform(widgetInfo.options, problemNum);
+	    },
+
+	    traverseChildWidgets: function (widgetInfo, traverseRenderer) {
+
+	        if (!traverseRenderer) {
+	            throw new Error("traverseRenderer must be provided, but was not");
+	        }
+
+	        if (!widgetInfo || !widgetInfo.type || !widgets[widgetInfo.type]) {
+	            return widgetInfo;
+	        }
+
+	        var widgetExports = widgets[widgetInfo.type];
+	        var props = widgetInfo.options;
+
+	        if (widgetExports.traverseChildWidgets && props) {
+	            var newProps = widgetExports.traverseChildWidgets(props, traverseRenderer);
+	            return _.extend({}, widgetInfo, { options: newProps });
+	        } else {
+	            return widgetInfo;
+	        }
+	    },
+
+	    /**
+	     * Handling for the optional alignments for widgets
+	     * See widget-container.jsx for details on how alignments are implemented.
+	     */
+
+	    /**
+	     * Returns the list of supported alignments for the given (string) widget
+	     * type. This is used primarily at editing time to display the choices
+	     * for the user.
+	     *
+	     * Supported alignments are given as an array of strings in the exports of
+	     * a widget's module.
+	     */
+	    getSupportedAlignments: function (type) {
+	        var widgetInfo = widgets[type];
+	        return widgetInfo && widgetInfo.supportedAlignments || DEFAULT_SUPPORTED_ALIGNMENTS;
+	    },
+
+	    /**
+	     * For the given (string) widget type and enabledFeatures, determine the
+	     * default alignment for the widget. This is used at rendering time to
+	     * go from "default" alignment to the actual alignment displayed on the
+	     * screen.
+	     *
+	     * The default alignment is given either as a string (called
+	     * `defaultAlignment`) or a function (called `getDefaultAlignment`) on
+	     * the exports of a widget's module.
+	     */
+	    getDefaultAlignment: function (type, enabledFeatures) {
+	        var widgetInfo = widgets[type];
+	        var alignment;
+	        if (!widgetInfo) {
+	            return DEFAULT_ALIGNMENT;
+	        }
+
+	        if (widgetInfo.getDefaultAlignment) {
+	            alignment = widgetInfo.getDefaultAlignment(enabledFeatures);
+	        } else {
+	            alignment = widgetInfo.defaultAlignment;
+	        }
+	        return alignment || DEFAULT_ALIGNMENT;
+	    },
+
+	    validAlignments: ["block", "inline-block", "inline", "float-left", "float-right", "full-width"],
+
+	    /**
+	     * Used at startup to fail fast if an alignment given by a widget is
+	     * invalid.
+	     */
+	    // TODO(alex): Change this to run as a testcase (vs. being run at runtime)
+	    validateAlignments: function () {
+	        _.each(widgets, function (widgetInfo) {
+	            if (widgetInfo.defaultAlignment && !_.contains(Widgets.validAlignments, widgetInfo.defaultAlignment)) {
+	                throw new Error("Widget '" + widgetInfo.displayName + "' has an invalid defaultAlignment value: " + widgetInfo.defaultAlignment);
+	            }
+
+	            if (widgetInfo.supportedAlignments) {
+	                var unknownAlignments = _.difference(widgetInfo.supportedAlignments, Widgets.validAlignments);
+
+	                if (unknownAlignments.length) {
+	                    throw new Error("Widget '" + widgetInfo.displayName + "' has an invalid value for supportedAlignments: " + unknownAlignments.join(" "));
+	                }
+	            }
+	        });
+	    },
+
+	    /**
+	     * Handling for static mode for widgets that support it.
+	     */
+
+	    /**
+	     * Returns true iff the widget supports static mode.
+	     * A widget implicitly supports static mode if it exports a
+	     * staticTransform function.
+	     */
+	    supportsStaticMode: function (type) {
+	        var widgetInfo = widgets[type];
+	        return widgetInfo && widgetInfo.staticTransform != null;
+	    },
+
+	    /**
+	     * Return the staticTransform function used to convert the editorProps to
+	     * the rendered widget state.
+	     */
+	    getStaticTransform: function (type) {
+	        var widgetInfo = widgets[type];
+	        return widgetInfo && widgetInfo.staticTransform;
+	    },
+
+	    /**
+	     * Returns the tracking option for the widget. The default is "",
+	     * which means simply to track interactions once. The other available
+	     * option is "all" which means to track all interactions.
+	     */
+	    getTracking: function (type) {
+	        var widgetInfo = widgets[type];
+	        return widgetInfo && widgetInfo.tracking || DEFAULT_TRACKING;
+	    } };
+
+	module.exports = Widgets;
+
+/***/ },
 /* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -39705,9 +39711,9 @@ module.exports =
 
 	var _ = __webpack_require__(46);
 	// TODO(aria): Pull this out of interactive2 / replace with new _.mapObject
-	var objective_ = __webpack_require__(129);
+	var objective_ = __webpack_require__(130);
 
-	var Widgets = __webpack_require__(24);
+	var Widgets = __webpack_require__(30);
 
 	var noop = function () {};
 
@@ -40900,7 +40906,7 @@ module.exports =
 	var ApiOptions = __webpack_require__(10).Options;
 	var Editor = __webpack_require__(17);
 	var ItemExtrasEditor = __webpack_require__(150);
-	var ITEM_DATA_VERSION = __webpack_require__(128).itemDataVersion;
+	var ITEM_DATA_VERSION = __webpack_require__(53).itemDataVersion;
 
 	var ItemEditor = React.createClass({
 	    displayName: "ItemEditor",
@@ -41325,6 +41331,29 @@ module.exports =
 /* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = {
+		"apiVersion": {
+			"major": 7,
+			"minor": 1
+		},
+		"itemDataVersion": {
+			"major": 0,
+			"minor": 1
+		}
+	};
+
+/***/ },
+/* 54 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, {}))
+
+/***/ },
+/* 55 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -41332,11 +41361,11 @@ module.exports =
 	var React = __webpack_require__(45);
 	var classNames = __webpack_require__(152);
 	var Changeable = __webpack_require__(154);
-	var WidgetJsonifyDeprecated = __webpack_require__(155);
+	var WidgetJsonifyDeprecated = __webpack_require__(156);
 	var _ = __webpack_require__(46);
 
 	var ApiClassNames = __webpack_require__(10).ClassNames;
-	var Renderer = __webpack_require__(30);
+	var Renderer = __webpack_require__(29);
 	var Util = __webpack_require__(11);
 
 	var Categorizer = React.createClass({
@@ -41513,7 +41542,7 @@ module.exports =
 	   clicked */
 
 /***/ },
-/* 54 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -41524,11 +41553,11 @@ module.exports =
 	var Changeable = __webpack_require__(154);
 	var _ = __webpack_require__(46);
 
-	var EditorJsonify = __webpack_require__(156);
+	var EditorJsonify = __webpack_require__(155);
 	var PropCheckBox = __webpack_require__(40);
 	var TextListEditor = __webpack_require__(141);
 
-	var Categorizer = __webpack_require__(53).widget;
+	var Categorizer = __webpack_require__(55).widget;
 
 	var CategorizerEditor = React.createClass({
 	    displayName: "CategorizerEditor",
@@ -41606,7 +41635,7 @@ module.exports =
 	// for content creators to catch and fix.
 
 /***/ },
-/* 55 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -41787,7 +41816,7 @@ module.exports =
 	    widget: CSProgram };
 
 /***/ },
-/* 56 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -41798,7 +41827,7 @@ module.exports =
 	var _ = __webpack_require__(46);
 
 	var Changeable = __webpack_require__(154);
-	var EditorJsonify = __webpack_require__(156);
+	var EditorJsonify = __webpack_require__(155);
 
 	var BlurInput = __webpack_require__(157);
 	var InfoTip = __webpack_require__(149);
@@ -42005,7 +42034,7 @@ module.exports =
 	module.exports = CSProgramEditor;
 
 /***/ },
-/* 57 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -42168,7 +42197,7 @@ module.exports =
 	// Always visible so we can animate them with css
 
 /***/ },
-/* 58 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -42180,7 +42209,7 @@ module.exports =
 	var _ = __webpack_require__(46);
 
 	var InfoTip = __webpack_require__(149);
-	var EditorJsonify = __webpack_require__(156);
+	var EditorJsonify = __webpack_require__(155);
 
 	var DropdownEditor = React.createClass({
 	    displayName: "DropdownEditor",
@@ -42348,7 +42377,7 @@ module.exports =
 	module.exports = DropdownEditor;
 
 /***/ },
-/* 59 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -42361,7 +42390,7 @@ module.exports =
 
 	var Changeable = __webpack_require__(154);
 	var PerseusApi = __webpack_require__(10);
-	var Renderer = __webpack_require__(30);
+	var Renderer = __webpack_require__(29);
 
 	var defaultExplanationProps = {
 	    showPrompt: "Explain",
@@ -42489,7 +42518,7 @@ module.exports =
 	 * clickable */
 
 /***/ },
-/* 60 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -42500,7 +42529,7 @@ module.exports =
 	var _ = __webpack_require__(46);
 
 	var Changeable = __webpack_require__(154);
-	var EditorJsonify = __webpack_require__(156);
+	var EditorJsonify = __webpack_require__(155);
 
 	var Editor = __webpack_require__(17);
 	var TextInput = __webpack_require__(159);
@@ -42586,7 +42615,7 @@ module.exports =
 	module.exports = ExplanationEditor;
 
 /***/ },
-/* 61 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -42723,8 +42752,11 @@ module.exports =
 	                keypadElement: this.props.keypadElement,
 	                onChange: this.changeAndTrack,
 	                onFocus: function () {
-	                    configureKeypad(_this.props.keypadConfiguration);
-	                    _this._handleFocus();
+	                    configureKeypad(_this.props.keypadConfiguration, function () {
+	                        if (_this.isMounted()) {
+	                            _this._handleFocus();
+	                        }
+	                    });
 	                },
 	                onBlur: this._handleBlur
 	            });
@@ -43455,7 +43487,7 @@ module.exports =
 	// don't focus the editor automatically.
 
 /***/ },
-/* 62 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -43475,7 +43507,7 @@ module.exports =
 	var TeX = __webpack_require__(134); // OldExpression only
 	var TexButtons = __webpack_require__(163);
 
-	var Expression = __webpack_require__(61).Expression;
+	var Expression = __webpack_require__(63).Expression;
 
 	// An answer can be considered correct, wrong, or ungraded.
 	var CONSIDERED = ["correct", "wrong", "ungraded"];
@@ -43983,7 +44015,7 @@ module.exports =
 	module.exports = ExpressionEditor;
 
 /***/ },
-/* 63 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -44380,7 +44412,7 @@ module.exports =
 	    staticTransform: staticTransform };
 
 /***/ },
-/* 64 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -44396,7 +44428,7 @@ module.exports =
 	var InfoTip = __webpack_require__(149);
 	var MultiButtonGroup = __webpack_require__(170);
 
-	var Grapher = __webpack_require__(63).widget;
+	var Grapher = __webpack_require__(65).widget;
 
 	var _require = __webpack_require__(168);
 
@@ -44534,7 +44566,7 @@ module.exports =
 	module.exports = GrapherEditor;
 
 /***/ },
-/* 65 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -44550,7 +44582,7 @@ module.exports =
 
 	var ApiOptions = __webpack_require__(10).Options;
 	var Changeable = __webpack_require__(154);
-	var Renderer = __webpack_require__(30);
+	var Renderer = __webpack_require__(29);
 
 	// A Graded Group is more or less a Group widget that displays a check
 	// answer button below the rendered content. When clicked, the widget grades
@@ -44727,7 +44759,7 @@ module.exports =
 	    tracking: "all" };
 
 /***/ },
-/* 66 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -44786,7 +44818,7 @@ module.exports =
 	module.exports = GradedGroupEditor;
 
 /***/ },
-/* 67 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -44800,7 +44832,7 @@ module.exports =
 
 	var ApiOptions = __webpack_require__(10).Options;
 	var Changeable = __webpack_require__(154);
-	var Renderer = __webpack_require__(30);
+	var Renderer = __webpack_require__(29);
 
 	var Group = React.createClass({
 	    displayName: "Group",
@@ -44964,7 +44996,7 @@ module.exports =
 	    hidden: false };
 
 /***/ },
-/* 68 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -45044,7 +45076,7 @@ module.exports =
 	/* the metadata editor; used for tags on khanacademy.org */
 
 /***/ },
-/* 69 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -45065,7 +45097,7 @@ module.exports =
 	var _ = __webpack_require__(46);
 
 	var Changeable = __webpack_require__(154);
-	var WidgetJsonifyDeprecated = __webpack_require__(155);
+	var WidgetJsonifyDeprecated = __webpack_require__(156);
 	var updateQueryString = __webpack_require__(11).updateQueryString;
 
 	/* This renders the iframe and handles validation via window.postMessage */
@@ -45215,7 +45247,7 @@ module.exports =
 	    hidden: true };
 
 /***/ },
-/* 70 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -45226,7 +45258,7 @@ module.exports =
 	var _ = __webpack_require__(46);
 
 	var Changeable = __webpack_require__(154);
-	var EditorJsonify = __webpack_require__(156);
+	var EditorJsonify = __webpack_require__(155);
 
 	var BlurInput = __webpack_require__(157);
 	var PropCheckBox = __webpack_require__(40);
@@ -45391,7 +45423,7 @@ module.exports =
 	module.exports = IframeEditor;
 
 /***/ },
-/* 71 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -45407,7 +45439,7 @@ module.exports =
 	var _ = __webpack_require__(46);
 
 	var ApiOptions = __webpack_require__(10).Options;
-	var Renderer = __webpack_require__(30);
+	var Renderer = __webpack_require__(29);
 
 	var Changeable = __webpack_require__(154);
 
@@ -45578,7 +45610,7 @@ module.exports =
 	    widget: ImageWidget };
 
 /***/ },
-/* 72 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -45591,7 +45623,7 @@ module.exports =
 	var Util = __webpack_require__(11);
 
 	var Changeable = __webpack_require__(154);
-	var EditorJsonify = __webpack_require__(156);
+	var EditorJsonify = __webpack_require__(155);
 
 	var BlurInput = __webpack_require__(157);
 	var Editor = __webpack_require__(17);
@@ -46009,7 +46041,7 @@ module.exports =
 	module.exports = ImageEditor;
 
 /***/ },
-/* 73 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -46143,8 +46175,11 @@ module.exports =
 	                keypadElement: this.props.keypadElement,
 	                onChange: this.handleChange,
 	                onFocus: function () {
-	                    configureKeypad(_this.props.keypadConfiguration);
-	                    _this._handleFocus();
+	                    configureKeypad(_this.props.keypadConfiguration, function () {
+	                        if (_this.isMounted()) {
+	                            _this._handleFocus();
+	                        }
+	                    });
 	                },
 	                onBlur: this._handleBlur
 	            });
@@ -46335,7 +46370,7 @@ module.exports =
 	    transform: propTransform };
 
 /***/ },
-/* 74 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -46598,7 +46633,7 @@ module.exports =
 	/* TODO(emily): don't use a hidden checkbox for alignment */
 
 /***/ },
-/* 75 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -47047,7 +47082,7 @@ module.exports =
 	// TODO(eater): why so slow?
 
 /***/ },
-/* 76 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -47060,7 +47095,7 @@ module.exports =
 	var _ = __webpack_require__(46);
 
 	var Changeable = __webpack_require__(154);
-	var EditorJsonify = __webpack_require__(156);
+	var EditorJsonify = __webpack_require__(155);
 
 	var ArrowPicker = __webpack_require__(174);
 	var ColorPicker = __webpack_require__(175);
@@ -48394,7 +48429,7 @@ module.exports =
 	module.exports = InteractionEditor;
 
 /***/ },
-/* 77 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -50633,7 +50668,7 @@ module.exports =
 	// supports "grid"
 
 /***/ },
-/* 78 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -50650,7 +50685,7 @@ module.exports =
 	var GraphSettings = __webpack_require__(169);
 	var InfoTip = __webpack_require__(149);
 
-	var InteractiveGraph = __webpack_require__(77).widget;
+	var InteractiveGraph = __webpack_require__(79).widget;
 
 	var defaultBoxSize = 400;
 	var defaultEditorBoxSize = 340;
@@ -50961,7 +50996,7 @@ module.exports =
 	module.exports = InteractiveGraphEditor;
 
 /***/ },
-/* 79 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -50970,7 +51005,7 @@ module.exports =
 
 	var React = __webpack_require__(45);
 	var Changeable = __webpack_require__(154);
-	var WidgetJsonifyDeprecated = __webpack_require__(155);
+	var WidgetJsonifyDeprecated = __webpack_require__(156);
 
 	var MAX_SIZE = 8;
 
@@ -51296,7 +51331,7 @@ module.exports =
 	};
 
 /***/ },
-/* 80 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -51307,7 +51342,7 @@ module.exports =
 	var _ = __webpack_require__(46);
 
 	var Changeable = __webpack_require__(154);
-	var EditorJsonify = __webpack_require__(156);
+	var EditorJsonify = __webpack_require__(155);
 
 	var NumberInput = __webpack_require__(179);
 	var PropCheckBox = __webpack_require__(40);
@@ -51567,7 +51602,7 @@ module.exports =
 	module.exports = LightsPuzzleEditor;
 
 /***/ },
-/* 81 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -51580,7 +51615,7 @@ module.exports =
 	var _ = __webpack_require__(46);
 
 	var NumberInput = __webpack_require__(179);
-	var Renderer = __webpack_require__(30);
+	var Renderer = __webpack_require__(29);
 	var TextInput = __webpack_require__(159);
 	var MathOutput = __webpack_require__(182);
 
@@ -52050,7 +52085,7 @@ module.exports =
 	// the matrix shouldn't be focused
 
 /***/ },
-/* 82 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -52061,12 +52096,12 @@ module.exports =
 	var _ = __webpack_require__(46);
 
 	var Changeable = __webpack_require__(154);
-	var EditorJsonify = __webpack_require__(156);
+	var EditorJsonify = __webpack_require__(155);
 
 	var Editor = __webpack_require__(17);
 	var RangeInput = __webpack_require__(171);
 
-	var Matrix = __webpack_require__(81).widget;
+	var Matrix = __webpack_require__(83).widget;
 
 	// Really large matrices will cause issues with question formatting, so we
 	// have to cap it at some point.
@@ -52200,7 +52235,7 @@ module.exports =
 	module.exports = MatrixEditor;
 
 /***/ },
-/* 83 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -52210,7 +52245,7 @@ module.exports =
 	var React = __webpack_require__(45);
 	var _ = __webpack_require__(46);
 
-	var Renderer = __webpack_require__(30);
+	var Renderer = __webpack_require__(29);
 	var Sortable = __webpack_require__(184);
 
 	var shuffle = __webpack_require__(11).shuffle;
@@ -52354,7 +52389,7 @@ module.exports =
 	    widget: Matcher };
 
 /***/ },
-/* 84 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -52516,7 +52551,7 @@ module.exports =
 	module.exports = MatcherEditor;
 
 /***/ },
-/* 85 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -52688,7 +52723,7 @@ module.exports =
 	};
 
 /***/ },
-/* 86 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -52699,7 +52734,7 @@ module.exports =
 	var _ = __webpack_require__(46);
 
 	var Changeable = __webpack_require__(154);
-	var EditorJsonify = __webpack_require__(156);
+	var EditorJsonify = __webpack_require__(155);
 
 	var InfoTip = __webpack_require__(149);
 	var NumberInput = __webpack_require__(179);
@@ -52965,7 +53000,7 @@ module.exports =
 	module.exports = MeasurerEditor;
 
 /***/ },
-/* 87 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(45);
@@ -53137,7 +53172,7 @@ module.exports =
 	    molecule: Molecule };
 
 /***/ },
-/* 88 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -53146,7 +53181,7 @@ module.exports =
 
 	var React = __webpack_require__(45);
 
-	var EditorJsonify = __webpack_require__(156);
+	var EditorJsonify = __webpack_require__(155);
 	var Changeable = __webpack_require__(154);
 	var NumberInput = __webpack_require__(179);
 	var TextInput = __webpack_require__(159);
@@ -53206,7 +53241,7 @@ module.exports =
 	   spacing right. */
 
 /***/ },
-/* 89 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -53821,7 +53856,7 @@ module.exports =
 	    staticTransform: staticTransform };
 
 /***/ },
-/* 90 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -53831,7 +53866,7 @@ module.exports =
 	var React = __webpack_require__(45);
 	var _ = __webpack_require__(46);
 
-	var EditorJsonify = __webpack_require__(156);
+	var EditorJsonify = __webpack_require__(155);
 
 	var ButtonGroup = __webpack_require__(47);
 	var InfoTip = __webpack_require__(149);
@@ -54342,7 +54377,7 @@ module.exports =
 	   since it isn't used. */ /* element of (little E) symbol @Nolint */
 
 /***/ },
-/* 91 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -54441,8 +54476,11 @@ module.exports =
 	                keypadElement: this.props.keypadElement,
 	                onChange: this.handleChange,
 	                onFocus: function () {
-	                    configureKeypad(_this.props.keypadConfiguration);
-	                    _this._handleFocus();
+	                    configureKeypad(_this.props.keypadConfiguration, function () {
+	                        if (_this.isMounted()) {
+	                            _this._handleFocus();
+	                        }
+	                    });
 	                },
 	                onBlur: this._handleBlur
 	            });
@@ -54738,7 +54776,7 @@ module.exports =
 	};
 
 /***/ },
-/* 92 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -54749,7 +54787,7 @@ module.exports =
 	var _ = __webpack_require__(46);
 
 	var Changeable = __webpack_require__(154);
-	var EditorJsonify = __webpack_require__(156);
+	var EditorJsonify = __webpack_require__(155);
 
 	var ButtonGroup = __webpack_require__(47);
 	var Editor = __webpack_require__(17);
@@ -55254,7 +55292,7 @@ module.exports =
 	// values, like '0.125' rather than '1/8').
 
 /***/ },
-/* 93 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -55265,7 +55303,7 @@ module.exports =
 	var ReactDOM = __webpack_require__(49);
 	var _ = __webpack_require__(46);
 
-	var Renderer = __webpack_require__(30);
+	var Renderer = __webpack_require__(29);
 	var Util = __webpack_require__(11);
 
 	var ApiClassNames = __webpack_require__(10).ClassNames;
@@ -55805,7 +55843,7 @@ module.exports =
 	    widget: Orderer };
 
 /***/ },
-/* 94 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -56007,7 +56045,7 @@ module.exports =
 	module.exports = OrdererEditor;
 
 /***/ },
-/* 95 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -56020,7 +56058,7 @@ module.exports =
 
 	var Changeable = __webpack_require__(154);
 
-	var Renderer = __webpack_require__(30);
+	var Renderer = __webpack_require__(29);
 	var PassageMarkdown = __webpack_require__(188);
 
 	var Passage = React.createClass({
@@ -56338,7 +56376,7 @@ module.exports =
 	};
 
 /***/ },
-/* 96 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -56349,7 +56387,7 @@ module.exports =
 	var _ = __webpack_require__(46);
 
 	var Changeable = __webpack_require__(154);
-	var EditorJsonify = __webpack_require__(156);
+	var EditorJsonify = __webpack_require__(155);
 
 	var Editor = __webpack_require__(17);
 	var InfoTip = __webpack_require__(149);
@@ -56461,7 +56499,7 @@ module.exports =
 	module.exports = PassageEditor;
 
 /***/ },
-/* 97 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -56474,7 +56512,7 @@ module.exports =
 
 	var Changeable = __webpack_require__(154);
 	var PerseusMarkdown = __webpack_require__(37);
-	var WidgetJsonifyDeprecated = __webpack_require__(155);
+	var WidgetJsonifyDeprecated = __webpack_require__(156);
 
 	var EN_DASH = "–";
 
@@ -56605,7 +56643,7 @@ module.exports =
 	/* curly quotes */
 
 /***/ },
-/* 98 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -56615,7 +56653,7 @@ module.exports =
 	var React = __webpack_require__(45);
 
 	var Changeable = __webpack_require__(154);
-	var EditorJsonify = __webpack_require__(156);
+	var EditorJsonify = __webpack_require__(155);
 
 	var InfoTip = __webpack_require__(149);
 	var NumberInput = __webpack_require__(179);
@@ -56699,7 +56737,7 @@ module.exports =
 	module.exports = PassageRefEditor;
 
 /***/ },
-/* 99 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -56710,8 +56748,8 @@ module.exports =
 	var _ = __webpack_require__(46);
 
 	var Changeable = __webpack_require__(154);
-	var WidgetJsonifyDeprecated = __webpack_require__(155);
-	var Renderer = __webpack_require__(30);
+	var WidgetJsonifyDeprecated = __webpack_require__(156);
+	var Renderer = __webpack_require__(29);
 
 	var PassageRefTarget = React.createClass({
 	    displayName: "PassageRefTarget",
@@ -56766,7 +56804,7 @@ module.exports =
 	};
 
 /***/ },
-/* 100 */
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -56777,7 +56815,7 @@ module.exports =
 	var _ = __webpack_require__(46);
 
 	var Changeable = __webpack_require__(154);
-	var EditorJsonify = __webpack_require__(156);
+	var EditorJsonify = __webpack_require__(155);
 
 	var PassageRefTargetEditor = React.createClass({
 	    displayName: "PassageRefTargetEditor",
@@ -56813,7 +56851,7 @@ module.exports =
 	module.exports = PassageRefTargetEditor;
 
 /***/ },
-/* 101 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -57403,7 +57441,7 @@ module.exports =
 	// ...widgetPropTypes,
 
 /***/ },
-/* 102 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -57423,7 +57461,7 @@ module.exports =
 	var SvgImage = __webpack_require__(35);
 	var TextListEditor = __webpack_require__(141);
 
-	var Plotter = __webpack_require__(101).widget;
+	var Plotter = __webpack_require__(103).widget;
 
 	var knumber = __webpack_require__(199).knumber;
 
@@ -57939,7 +57977,7 @@ module.exports =
 	module.exports = PlotterEditor;
 
 /***/ },
-/* 103 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -58040,7 +58078,7 @@ module.exports =
 	    propUpgrades: propUpgrades };
 
 /***/ },
-/* 104 */
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -58366,12 +58404,12 @@ module.exports =
 	module.exports = RadioEditor;
 
 /***/ },
-/* 105 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(45);
 
-	var Molecule = __webpack_require__(87).molecule;
+	var Molecule = __webpack_require__(89).molecule;
 
 	var Separator = React.createClass({
 	    displayName: "Separator",
@@ -58506,7 +58544,7 @@ module.exports =
 	    widget: ReactionDiagramWidget };
 
 /***/ },
-/* 106 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -58518,7 +58556,7 @@ module.exports =
 	var React = __webpack_require__(45);
 
 	var Changeable = __webpack_require__(154);
-	var EditorJsonify = __webpack_require__(156);
+	var EditorJsonify = __webpack_require__(155);
 
 	var NumberInput = __webpack_require__(179);
 	var TextInput = __webpack_require__(159);
@@ -58657,7 +58695,7 @@ module.exports =
 	module.exports = ReactionDiagramWidgetEditor;
 
 /***/ },
-/* 107 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -58669,7 +58707,7 @@ module.exports =
 
 	var ApiOptions = __webpack_require__(10).Options;
 	var Changeable = __webpack_require__(154);
-	var Renderer = __webpack_require__(30);
+	var Renderer = __webpack_require__(29);
 	var Util = __webpack_require__(11);
 
 	var Sequence = React.createClass({
@@ -58777,7 +58815,7 @@ module.exports =
 	    tracking: "all" };
 
 /***/ },
-/* 108 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -58958,7 +58996,7 @@ module.exports =
 	module.exports = SequenceEditor;
 
 /***/ },
-/* 109 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -59717,7 +59755,7 @@ module.exports =
 	/* Only plot these cool extra features if there's data */
 
 /***/ },
-/* 110 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -59729,7 +59767,7 @@ module.exports =
 	var _ = __webpack_require__(46);
 
 	var Changeable = __webpack_require__(154);
-	var EditorJsonify = __webpack_require__(156);
+	var EditorJsonify = __webpack_require__(155);
 
 	var InfoTip = __webpack_require__(149);
 	var NumberInput = __webpack_require__(179);
@@ -59869,7 +59907,7 @@ module.exports =
 	module.exports = SimulatorEditor;
 
 /***/ },
-/* 111 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -59957,7 +59995,7 @@ module.exports =
 	    widget: Sorter };
 
 /***/ },
-/* 112 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -60086,7 +60124,7 @@ module.exports =
 	module.exports = SorterEditor;
 
 /***/ },
-/* 113 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -60098,7 +60136,7 @@ module.exports =
 	var _ = __webpack_require__(46);
 
 	var MathOutput = __webpack_require__(182);
-	var Renderer = __webpack_require__(30);
+	var Renderer = __webpack_require__(29);
 	var Util = __webpack_require__(11);
 
 	var ApiOptions = __webpack_require__(10).Options;
@@ -60418,7 +60456,7 @@ module.exports =
 	};
 
 /***/ },
-/* 114 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -60435,7 +60473,7 @@ module.exports =
 	var NumberInput = __webpack_require__(179);
 	var Editor = __webpack_require__(17);
 
-	var Table = __webpack_require__(113).widget;
+	var Table = __webpack_require__(115).widget;
 
 	var TableEditor = React.createClass({
 	    displayName: "TableEditor",
@@ -60594,7 +60632,7 @@ module.exports =
 	module.exports = TableEditor;
 
 /***/ },
-/* 115 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -62967,7 +63005,7 @@ module.exports =
 	    widget: Transformer };
 
 /***/ },
-/* 116 */
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -62984,7 +63022,7 @@ module.exports =
 	var InfoTip = __webpack_require__(149);
 	var PropCheckBox = __webpack_require__(40);
 
-	var Transformer = __webpack_require__(115).widget;
+	var Transformer = __webpack_require__(117).widget;
 
 	var deepEq = __webpack_require__(11).deepEq;
 	var getGridStep = __webpack_require__(11).getGridStep;
@@ -63963,7 +64001,7 @@ module.exports =
 	module.exports = TransformerEditor;
 
 /***/ },
-/* 117 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -64242,7 +64280,7 @@ module.exports =
 	// end mobile stuff
 
 /***/ },
-/* 118 */
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -64258,7 +64296,7 @@ module.exports =
 	var _ = __webpack_require__(46);
 
 	var Changeable = __webpack_require__(154);
-	var EditorJsonify = __webpack_require__(156);
+	var EditorJsonify = __webpack_require__(155);
 
 	var NumberInput = __webpack_require__(179);
 
@@ -64530,7 +64568,7 @@ module.exports =
 	module.exports = UnitInputEditor;
 
 /***/ },
-/* 119 */
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -64633,7 +64671,7 @@ module.exports =
 	    widget: Video };
 
 /***/ },
-/* 120 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -64644,7 +64682,7 @@ module.exports =
 	var _ = __webpack_require__(46);
 
 	var Changeable = __webpack_require__(154);
-	var EditorJsonify = __webpack_require__(156);
+	var EditorJsonify = __webpack_require__(155);
 
 	var InfoTip = __webpack_require__(149);
 	var BlurInput = __webpack_require__(157);
@@ -64711,7 +64749,7 @@ module.exports =
 	module.exports = VideoEditor;
 
 /***/ },
-/* 121 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -64729,7 +64767,7 @@ module.exports =
 
 	var Util = __webpack_require__(11);
 	var Changeable = __webpack_require__(154);
-	var WidgetJsonifyDeprecated = __webpack_require__(155);
+	var WidgetJsonifyDeprecated = __webpack_require__(156);
 
 	var Graphie = __webpack_require__(146);
 	var MovablePoint = Graphie.MovablePoint;
@@ -64861,7 +64899,7 @@ module.exports =
 	    widget: ExampleGraphieWidget };
 
 /***/ },
-/* 122 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -64871,9 +64909,9 @@ module.exports =
 	var React = __webpack_require__(45);
 
 	var Changeable = __webpack_require__(154);
-	var EditorJsonify = __webpack_require__(156);
+	var EditorJsonify = __webpack_require__(155);
 
-	var ExampleGraphieWidget = __webpack_require__(121).widget;
+	var ExampleGraphieWidget = __webpack_require__(123).widget;
 
 	/**
 	 * This is the widget's editor. This is what shows up on the left side
@@ -64924,7 +64962,7 @@ module.exports =
 	module.exports = ExampleGraphieWidgetEditor;
 
 /***/ },
-/* 123 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -65076,7 +65114,7 @@ module.exports =
 	    widget: ExampleWidget };
 
 /***/ },
-/* 124 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -65086,7 +65124,7 @@ module.exports =
 	var React = __webpack_require__(45);
 
 	var Changeable = __webpack_require__(154);
-	var EditorJsonify = __webpack_require__(156);
+	var EditorJsonify = __webpack_require__(155);
 
 	/**
 	 * This is the widget's editor. This is what shows up on the left side
@@ -65134,7 +65172,7 @@ module.exports =
 	module.exports = ExampleWidgetEditor;
 
 /***/ },
-/* 125 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -65238,7 +65276,7 @@ module.exports =
 	};
 
 /***/ },
-/* 126 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -65253,7 +65291,7 @@ module.exports =
 	var React = __webpack_require__(45);
 
 	var Changeable = __webpack_require__(154);
-	var EditorJsonify = __webpack_require__(156);
+	var EditorJsonify = __webpack_require__(155);
 
 	var TextArea = React.createClass({
 	    displayName: "TextArea",
@@ -65321,30 +65359,34 @@ module.exports =
 	module.exports = SimpleMarkdownTesterEditor;
 
 /***/ },
-/* 127 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, {}))
+	/**
+	 * Determine where hints should be placed from the Perseus problem JSON.
+	 *
+	 * NOTE(jared): Currently we only check for problems that have one widget,
+	 * that is a radio widget. We'll probably add more heuristics later.
+	 */
 
-/***/ },
-/* 128 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = {
-		"apiVersion": {
-			"major": 7,
-			"minor": 1
-		},
-		"itemDataVersion": {
-			"major": 0,
-			"minor": 1
-		}
+	var getValues = function (object) {
+	    return Object.keys(object).map(function (key) {
+	        return object[key];
+	    });
 	};
 
+	function getHintsPlacement(item) {
+	    var widgets = getValues(item.question.widgets);
+	    if (widgets.length === 1 && widgets[0].type === "radio") {
+	        return "before-widget";
+	    }
+	    return "end";
+	}
+
+	module.exports = getHintsPlacement;
+
 /***/ },
-/* 129 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -65423,33 +65465,6 @@ module.exports =
 	};
 
 /***/ },
-/* 130 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Determine where hints should be placed from the Perseus problem JSON.
-	 *
-	 * NOTE(jared): Currently we only check for problems that have one widget,
-	 * that is a radio widget. We'll probably add more heuristics later.
-	 */
-
-	var getValues = function (object) {
-	    return Object.keys(object).map(function (key) {
-	        return object[key];
-	    });
-	};
-
-	function getHintsPlacement(item) {
-	    var widgets = getValues(item.question.widgets);
-	    if (widgets.length === 1 && widgets[0].type === "radio") {
-	        return "before-widget";
-	    }
-	    return "end";
-	}
-
-	module.exports = getHintsPlacement;
-
-/***/ },
 /* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -65458,7 +65473,7 @@ module.exports =
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(45);
-	var Renderer = __webpack_require__(30);
+	var Renderer = __webpack_require__(29);
 	var classnames = __webpack_require__(152);
 	var i18n = window.i18n;
 
@@ -65821,7 +65836,7 @@ module.exports =
 	var React = __webpack_require__(45);
 
 	var EnabledFeatures = __webpack_require__(38);
-	var Widgets = __webpack_require__(24);
+	var Widgets = __webpack_require__(30);
 
 	var WidgetContainer = React.createClass({
 	    displayName: "WidgetContainer",
@@ -68821,6 +68836,27 @@ module.exports =
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var _ = __webpack_require__(46);
+
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(41);
+
+	var EditorJsonify = {
+	    serialize: function () {
+	        // Omit props that get passed to all widgets
+	        return _.omit(this.props, WIDGET_PROP_BLACKLIST);
+	    }
+	};
+
+	module.exports = EditorJsonify;
+
+/***/ },
+/* 156 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-undef, no-var */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
@@ -68838,27 +68874,6 @@ module.exports =
 	};
 
 	module.exports = WidgetJsonifyDeprecated;
-
-/***/ },
-/* 156 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var _ = __webpack_require__(46);
-
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(41);
-
-	var EditorJsonify = {
-	    serialize: function () {
-	        // Omit props that get passed to all widgets
-	        return _.omit(this.props, WIDGET_PROP_BLACKLIST);
-	    }
-	};
-
-	module.exports = EditorJsonify;
 
 /***/ },
 /* 157 */
@@ -69635,7 +69650,7 @@ module.exports =
 
 	var ApiClassNames = __webpack_require__(10).ClassNames;
 	var MathInput = __webpack_require__(162);
-	var Renderer = __webpack_require__(30);
+	var Renderer = __webpack_require__(29);
 	var TextInput = __webpack_require__(159);
 	var MathOutput = __webpack_require__(182);
 
@@ -73780,7 +73795,7 @@ module.exports =
 	var _ = __webpack_require__(46);
 
 	var Util = __webpack_require__(11);
-	var Renderer = __webpack_require__(30);
+	var Renderer = __webpack_require__(29);
 
 	var ApiClassNames = __webpack_require__(10).ClassNames;
 
@@ -75387,8 +75402,8 @@ module.exports =
 	var React = __webpack_require__(45);
 	var _ = __webpack_require__(46);
 
-	var Renderer = __webpack_require__(30);
-	var PassageRef = __webpack_require__(97);
+	var Renderer = __webpack_require__(29);
+	var PassageRef = __webpack_require__(99);
 	var Util = __webpack_require__(11);
 
 	var BaseRadio = __webpack_require__(190);
@@ -75624,7 +75639,7 @@ module.exports =
 	var _ = __webpack_require__(46);
 
 	var ApiClassNames = __webpack_require__(10).ClassNames;
-	var Renderer = __webpack_require__(30);
+	var Renderer = __webpack_require__(29);
 	var sharedStyles = __webpack_require__(215);
 	var styleConstants = __webpack_require__(216);
 	var mediaQueries = __webpack_require__(217);
@@ -78846,7 +78861,7 @@ module.exports =
 
 	var React = __webpack_require__(45);
 
-	var _require = __webpack_require__(259);
+	var _require = __webpack_require__(257);
 
 	var Provider = _require.Provider;
 
@@ -78875,7 +78890,7 @@ module.exports =
 	var React = __webpack_require__(45);
 	var ReactDOM = __webpack_require__(49);
 
-	var _require = __webpack_require__(258);
+	var _require = __webpack_require__(259);
 
 	var css = _require.css;
 	var StyleSheet = _require.StyleSheet;
@@ -78888,12 +78903,12 @@ module.exports =
 
 	var View = _require3.View;
 
-	var CursorHandle = __webpack_require__(230);
-	var SelectionRect = __webpack_require__(231);
-	var MathWrapper = __webpack_require__(232);
-	var scrollIntoView = __webpack_require__(233);
+	var CursorHandle = __webpack_require__(228);
+	var SelectionRect = __webpack_require__(229);
+	var MathWrapper = __webpack_require__(230);
+	var scrollIntoView = __webpack_require__(231);
 
-	var _require4 = __webpack_require__(234);
+	var _require4 = __webpack_require__(232);
 
 	var cursorHandleRadiusPx = _require4.cursorHandleRadiusPx;
 	var cursorHandleDistanceMultiplier = _require4.cursorHandleDistanceMultiplier;
@@ -78984,6 +78999,13 @@ module.exports =
 	        // unbind the handler.
 	        this.mathField.mathField.__controller.container.unbind('mousedown.mathquill');
 
+	        // NOTE(charlie): MathQuill uses this method to do some layout in the
+	        // case that an input overflows its bounds and must become scrollable.
+	        // We're not taking advantage of that behavior (our input expands
+	        // arbitrarily), and it causes layout jank due to jQuery animations of
+	        // scroll properties, so we stub it out for now.
+	        this.mathField.mathField.__controller.scrollHoriz = function () {};
+
 	        this.mathField.setContent(this.props.value);
 
 	        this._container = ReactDOM.findDOMNode(this);
@@ -79006,20 +79028,25 @@ module.exports =
 	                    var touchStartInKeypad = maybeKeypadNode && maybeKeypadNode.contains(evt.target);
 
 	                    if (!touchStartInKeypad) {
-	                        _this.touchStartInitialScroll = document.body.scrollTop;
+	                        _this.didTouchOutside = true;
+	                        _this.scrollListener = function () {
+	                            _this.didScroll = true;
+	                        };
+	                        window.addEventListener('scroll', _this.scrollListener);
 	                    }
 	                }
 	            }
 	        };
 
 	        this.blurOnTouchEndOutside = function (evt) {
-	            // If the user didn't scroll, blur the input. This won't work
-	            // properly in the case that the user scrolls, but returns to the
-	            // original scroll position, but that seems exceptionally unlikely.
-	            if (_this.state.focused && _this.touchStartInitialScroll === document.body.scrollTop) {
+	            // If the user didn't scroll, blur the input.
+	            if (_this.state.focused && _this.didTouchOutside && !_this.didScroll) {
 	                _this.blur();
 	            }
-	            _this.touchStartInitialScroll = null;
+
+	            _this.didTouchOutside = false;
+	            _this.didScroll = false;
+	            window.removeEventListener('scroll', _this.scrollListener);
 	        };
 
 	        window.addEventListener('touchstart', this.recordTouchStartOutside);
@@ -79093,7 +79120,7 @@ module.exports =
 	    },
 
 	    blur: function () {
-	        this.mathField.getCursor().hide();
+	        this.mathField.blur();
 	        this.props.onBlur && this.props.onBlur();
 	        this.setState({ focused: false, handle: { visible: false } });
 	    },
@@ -79127,7 +79154,7 @@ module.exports =
 	            return cursor;
 	        });
 
-	        this.mathField.getCursor().show();
+	        this.mathField.focus();
 	        this.props.onFocus && this.props.onFocus();
 	        this.setState({ focused: true }, function () {
 	            // NOTE(charlie): We use `setTimeout` to allow for a layout pass to
@@ -79353,20 +79380,27 @@ module.exports =
 	        // handling the touch event.
 	        this._hideCursorHandle();
 
-	        // Set the handle-less cursor's location.
-	        var touch = e.changedTouches[0];
-	        this._insertCursorAtClosestNode(touch.clientX, touch.clientY);
+	        // Cache the container bounds, so as to avoid re-computing. If we don't
+	        // have any content, then it's not necessary, since the cursor can't be
+	        // moved anyway.
+	        if (this.mathField.getContent() !== '') {
+	            this._containerBounds = this._container.getBoundingClientRect();
 
-	        // Cache the container bounds, so as to avoid re-computing.
-	        this._containerBounds = this._container.getBoundingClientRect();
+	            // Set the handle-less cursor's location.
+	            var touch = e.changedTouches[0];
+	            this._insertCursorAtClosestNode(touch.clientX, touch.clientY);
+	        }
 
 	        this.focus();
 	    },
 
 	    handleTouchMove: function (e) {
-	        // Update the handle-less cursor's location on move.
-	        var touch = e.changedTouches[0];
-	        this._insertCursorAtClosestNode(touch.clientX, touch.clientY);
+	        // Update the handle-less cursor's location on move, if there's any
+	        // content in the box.
+	        if (this.mathField.getContent() !== '') {
+	            var touch = e.changedTouches[0];
+	            this._insertCursorAtClosestNode(touch.clientX, touch.clientY);
+	        }
 	    },
 
 	    handleTouchEnd: function (e) {
@@ -79596,8 +79630,8 @@ module.exports =
 
 	var React = __webpack_require__(45);
 
-	var KeyConfigs = __webpack_require__(228);
-	var CursorContexts = __webpack_require__(229);
+	var KeyConfigs = __webpack_require__(233);
+	var CursorContexts = __webpack_require__(234);
 
 	var _require = __webpack_require__(202);
 
@@ -80124,7 +80158,7 @@ module.exports =
 	var MovablePointOptions = __webpack_require__(235);
 	var WrappedEllipse = __webpack_require__(236);
 	var InteractiveUtil = __webpack_require__(183);
-	var objective_ = __webpack_require__(129);
+	var objective_ = __webpack_require__(130);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
@@ -80416,7 +80450,7 @@ module.exports =
 	var MovableLineOptions = __webpack_require__(237);
 	var WrappedLine = __webpack_require__(238);
 	var InteractiveUtil = __webpack_require__(183);
-	var objective_ = __webpack_require__(129);
+	var objective_ = __webpack_require__(130);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
@@ -80675,7 +80709,7 @@ module.exports =
 
 	var MovablePolygonOptions = __webpack_require__(239);
 	var InteractiveUtil = __webpack_require__(183);
-	var objective_ = __webpack_require__(129);
+	var objective_ = __webpack_require__(130);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 	var KhanColors = __webpack_require__(167);
@@ -83025,10 +83059,27 @@ module.exports =
 	            type: 'ActivateKeypad' });
 	    },
 
-	    configureKeypad: function (configuration) {
+	    /**
+	     * Configure the keypad with the provided configuration parameters,
+	     * triggering the callback upon completion.
+	     *
+	     * See: `prop-types.js#keypadConfigurationPropType`.
+	     */
+	    configureKeypad: function (configuration, cb) {
 	        store.dispatch({
 	            type: 'ConfigureKeypad',
 	            configuration: configuration });
+
+	        // HACK(charlie): In Perseus, triggering a focus causes the keypad to
+	        // animate into view and re-configure. We'd like to provide the option
+	        // to re-render the re-configured keypad before animating it into view,
+	        // to avoid jank in the animation. As such, we support passing a
+	        // callback into `configureKeypad`. However, implementing this properly
+	        // would require middleware, etc., so we just hack it on with
+	        // `setTimeout` for now.
+	        setTimeout(function () {
+	            return cb && cb();
+	        });
 	    },
 
 	    setButtonHeightPx: function (buttonHeightPx) {
@@ -84066,7 +84117,7 @@ module.exports =
 
 	var React = __webpack_require__(45);
 
-	var _require = __webpack_require__(259);
+	var _require = __webpack_require__(257);
 
 	var connect = _require.connect;
 
@@ -84076,7 +84127,7 @@ module.exports =
 	var BasicExpressionKeypad = __webpack_require__(251);
 	var AdvancedExpressionKeypad = __webpack_require__(252);
 
-	var _require2 = __webpack_require__(234);
+	var _require2 = __webpack_require__(232);
 
 	var getButtonHeightPx = _require2.getButtonHeightPx;
 
@@ -84193,282 +84244,13 @@ module.exports =
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	var _KeyConfigs;
-
-	/**
-	 * This file contains configuration settings for the buttons in the keypad.
-	 */
-
-	/* globals i18n */
-
-	var Keys = __webpack_require__(253);
-
-	var _require = __webpack_require__(202);
-
-	var KeyTypes = _require.KeyTypes;
-
-	var KeyConfigs = (_KeyConfigs = {}, _KeyConfigs[Keys.PLUS] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a plus sign.
-	    ariaLabel: i18n._('Plus') }, _KeyConfigs[Keys.MINUS] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a minus sign.
-	    ariaLabel: i18n._('Minus') }, _KeyConfigs[Keys.TOGGLE_SIGN] = {
-	    type: KeyTypes.MATH,
-	    // TODO(charlie): Change this to 'Toggle negative' and add an
-	    // aria-pressed={true} based on the current state of the input. Right
-	    // now, that's tricky to do as the rendering of the keypad button is
-	    // ignorant of the contents of the input.
-	    // I18N: A label for a button that will change the input from positive
-	    // to negative or the other way around.
-	    ariaLabel: i18n._('Toggle positive/negative') }, _KeyConfigs[Keys.TIMES] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a multiplication sign (represented with an 'x').
-	    ariaLabel: i18n._('Multiply') }, _KeyConfigs[Keys.DIVIDE] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a division sign.
-	    ariaLabel: i18n._('Divide') }, _KeyConfigs[Keys.DECIMAL] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a percent symbol.
-	    ariaLabel: i18n._('Decimal') }, _KeyConfigs[Keys.PERCENT] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a percent sign.
-	    ariaLabel: i18n._('Percent') }, _KeyConfigs[Keys.CDOT] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a multiplication sign (represented as a dot).
-	    ariaLabel: i18n._('Multiply') }, _KeyConfigs[Keys.EQUAL] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Equals sign') }, _KeyConfigs[Keys.NEQ] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Not-equals sign') }, _KeyConfigs[Keys.GT] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a 'greater than' sign (represented as '>').
-	    ariaLabel: i18n._('Greater than sign') }, _KeyConfigs[Keys.LT] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a 'less than' sign (represented as '<').
-	    ariaLabel: i18n._('Less than sign') }, _KeyConfigs[Keys.GEQ] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Greater than or equal to sign') }, _KeyConfigs[Keys.LEQ] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Less than or equal to sign') }, _KeyConfigs[Keys.FRAC] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a 'fraction' symbol.
-	    ariaLabel: i18n._('Fraction') }, _KeyConfigs[Keys.EXP] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a button that will allow the user to input a custom
-	    // exponent.
-	    ariaLabel: i18n._('Custom exponent') }, _KeyConfigs[Keys.EXP_2] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a button that will square (take to the second
-	    // power) some math.
-	    ariaLabel: i18n._('Square') }, _KeyConfigs[Keys.EXP_3] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a button that will cube (take to the third power)
-	    // some math.
-	    ariaLabel: i18n._('Cube') }, _KeyConfigs[Keys.SQRT] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Square root') }, _KeyConfigs[Keys.CUBE_ROOT] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Cube root') }, _KeyConfigs[Keys.RADICAL] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Radical with custom root') }, _KeyConfigs[Keys.PARENS] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Parentheses') }, _KeyConfigs[Keys.LN] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Natural logarithm') }, _KeyConfigs[Keys.LOG] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Logarithm with base 10') }, _KeyConfigs[Keys.LOG_N] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Logarithm with custom base') }, _KeyConfigs[Keys.SIN] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Sine') }, _KeyConfigs[Keys.COS] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Cosine') }, _KeyConfigs[Keys.TAN] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Tangent') }, _KeyConfigs[Keys.PI] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Pi'),
-	    unicodeSymbol: {
-	        character: 'π',
-	        italicized: true } }, _KeyConfigs[Keys.THETA] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Theta'),
-	    unicodeSymbol: {
-	        character: 'θ',
-	        italicized: true } }, _KeyConfigs[Keys.NOOP] = {
-	    type: KeyTypes.EMPTY }, _KeyConfigs[Keys.LEFT] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._('Left arrow') }, _KeyConfigs[Keys.RIGHT] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._('Right arrow') }, _KeyConfigs[Keys.JUMP_OUT] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._('Navigate right') }, _KeyConfigs[Keys.BACKSPACE] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    // I18N: A label for a button that will delete some input.
-	    ariaLabel: i18n._('Delete') }, _KeyConfigs[Keys.DISMISS] = {
-	    type: KeyTypes.KEYPAD_NAVIGATION,
-	    // I18N: A label for a button that will dismiss/hide a keypad.
-	    ariaLabel: i18n._('Dismiss') }, _KeyConfigs[Keys.MORE] = {
-	    type: KeyTypes.KEYPAD_NAVIGATION,
-	    ariaLabel: i18n._('Go to advanced button set') }, _KeyConfigs[Keys.NUMBERS] = {
-	    type: KeyTypes.KEYPAD_NAVIGATION,
-	    ariaLabel: i18n._('Go to basic button set') }, _KeyConfigs);
-
-	// Add in the multi-function buttons, which inherit some fields from the simple
-	// buttons.
-	// TODO(charlie): Make the multi-function button's long-press interaction
-	// accessible. Right now, it isn't possible to trigger any of the hidden buttons
-	// with a VoiceOver cursor--all you can do is trigger the default action.
-	KeyConfigs[Keys.FRAC_MULTI] = {
-	    type: KeyTypes.MATH,
-	    childKeyIds: [Keys.FRAC, Keys.DIVIDE],
-	    ariaLabel: KeyConfigs[Keys.FRAC].ariaLabel };
-	KeyConfigs[Keys.PARENS_MULTI] = {
-	    type: KeyTypes.MATH,
-	    childKeyIds: [Keys.PARENS, Keys.CDOT, Keys.TIMES],
-	    ariaLabel: KeyConfigs[Keys.PARENS].ariaLabel };
-
-	// NOTE(charlie): The multi-functional keys below use the icons of their
-	// 'default' keys by pointing to them in iconography/index.js. If the defaults
-	// change for any of these keys, the reference in iconography/index.js should
-	// change as well.
-	KeyConfigs[Keys.EQUAL_MULTI] = {
-	    type: KeyTypes.MATH,
-	    childKeyIds: [Keys.EQUAL, Keys.NEQ],
-	    ariaLabel: KeyConfigs[Keys.EQUAL].ariaLabel };
-	KeyConfigs[Keys.GREATER_MULTI] = {
-	    type: KeyTypes.MATH,
-	    childKeyIds: [Keys.GT, Keys.GEQ],
-	    ariaLabel: KeyConfigs[Keys.GT].ariaLabel };
-	KeyConfigs[Keys.LESS_MULTI] = {
-	    type: KeyTypes.MATH,
-	    childKeyIds: [Keys.LT, Keys.LEQ],
-	    ariaLabel: KeyConfigs[Keys.LT].ariaLabel };
-	KeyConfigs[Keys.EXP_MULTI] = {
-	    type: KeyTypes.MATH,
-	    childKeyIds: [Keys.EXP_2, Keys.EXP_3, Keys.EXP],
-	    ariaLabel: KeyConfigs[Keys.EXP_2].ariaLabel };
-	KeyConfigs[Keys.RADICAL_MULTI] = {
-	    type: KeyTypes.MATH,
-	    childKeyIds: [Keys.SQRT, Keys.CUBE_ROOT, Keys.RADICAL],
-	    ariaLabel: KeyConfigs[Keys.SQRT].ariaLabel };
-	KeyConfigs[Keys.LOG_MULTI] = {
-	    type: KeyTypes.MATH,
-	    childKeyIds: [Keys.LOG, Keys.LN, Keys.LOG_N],
-	    ariaLabel: KeyConfigs[Keys.LOG].ariaLabel };
-
-	KeyConfigs[Keys.MANY] = {
-	    type: KeyTypes.MANY };
-
-	// Add in every numeral.
-	var NUMBERS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-	for (var _iterator = NUMBERS, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
-	    var _ref;
-
-	    if (_isArray) {
-	        if (_i >= _iterator.length) break;
-	        _ref = _iterator[_i++];
-	    } else {
-	        _i = _iterator.next();
-	        if (_i.done) break;
-	        _ref = _i.value;
-	    }
-
-	    var num = _ref;
-
-	    // TODO(charlie): Consider removing the SVG icons that we have for the
-	    // numeral keys. They can be rendered just as easily with text (though that
-	    // would mean that we'd be using text beyond the variable key).
-	    var textRepresentation = '' + num;
-	    KeyConfigs['NUM_' + num] = {
-	        type: KeyTypes.NUMERAL,
-	        ariaLabel: textRepresentation,
-	        unicodeSymbol: {
-	            character: textRepresentation,
-	            italicized: false } };
-	}
-
-	// Add in every variable.
-	var LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-	for (var _iterator2 = LETTERS, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
-	    var _ref2;
-
-	    if (_isArray2) {
-	        if (_i2 >= _iterator2.length) break;
-	        _ref2 = _iterator2[_i2++];
-	    } else {
-	        _i2 = _iterator2.next();
-	        if (_i2.done) break;
-	        _ref2 = _i2.value;
-	    }
-
-	    var letter = _ref2;
-
-	    var textRepresentation = letter.toLowerCase();
-	    KeyConfigs[letter] = {
-	        type: KeyTypes.MATH,
-	        ariaLabel: textRepresentation,
-	        unicodeSymbol: {
-	            character: textRepresentation,
-	            italicized: true } };
-	}
-
-	for (var _iterator3 = Object.keys(KeyConfigs), _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : _iterator3[Symbol.iterator]();;) {
-	    var _ref3;
-
-	    if (_isArray3) {
-	        if (_i3 >= _iterator3.length) break;
-	        _ref3 = _iterator3[_i3++];
-	    } else {
-	        _i3 = _iterator3.next();
-	        if (_i3.done) break;
-	        _ref3 = _i3.value;
-	    }
-
-	    var key = _ref3;
-
-	    KeyConfigs[key] = _extends({}, KeyConfigs[key], {
-	        id: key });
-	}
-
-	module.exports = KeyConfigs;
-
-	// Basic math keys.
-
-	// Input navigation keys.
-
-	// Keypad navigation keys.
-
-	// childKeyIds will be configured by the client.
-
-/***/ },
-/* 229 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Constants that define the various contexts in which a cursor can exist. In
-	 * the future, we may, for example, have a context for being in a numerator, a
-	 * context for being in a denominator, a context for being in an exponent, and
-	 * so forth.
-	 */
-
-	module.exports = {
-	  TOP_LEVEL: 'TOP_LEVEL',
-	  NESTED: 'NESTED' };
-
-/***/ },
-/* 230 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 	/**
 	 * Renders the green tear-shaped handle under the cursor.
 	 */
 
 	var React = __webpack_require__(45);
 
-	var _require = __webpack_require__(234);
+	var _require = __webpack_require__(232);
 
 	var cursorHandleRadiusPx = _require.cursorHandleRadiusPx;
 	var brightGreen = _require.brightGreen;
@@ -84553,7 +84335,7 @@ module.exports =
 	module.exports = CursorHandle;
 
 /***/ },
-/* 231 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -84563,7 +84345,7 @@ module.exports =
 
 	var React = __webpack_require__(45);
 
-	var _require = __webpack_require__(258);
+	var _require = __webpack_require__(259);
 
 	var StyleSheet = _require.StyleSheet;
 
@@ -84571,7 +84353,7 @@ module.exports =
 
 	var View = _require2.View;
 
-	var zIndexes = __webpack_require__(254);
+	var zIndexes = __webpack_require__(253);
 
 	var SelectionRect = React.createClass({
 	    displayName: 'SelectionRect',
@@ -84605,7 +84387,7 @@ module.exports =
 	module.exports = SelectionRect;
 
 /***/ },
-/* 232 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _KeyActions, _NormalCommands;
@@ -84622,8 +84404,8 @@ module.exports =
 	// TODO(kevinb) allow test code to use const MathQuill = require('mathquill');
 	var MathQuill = window.MathQuill;
 
-	var Keys = __webpack_require__(253);
-	var CursorContexts = __webpack_require__(229);
+	var Keys = __webpack_require__(254);
+	var CursorContexts = __webpack_require__(234);
 
 	var _require = __webpack_require__(202);
 
@@ -84665,6 +84447,25 @@ module.exports =
 	        this.callbacks = callbacks;
 	    }
 
+	    MathWrapper.prototype.focus = function focus() {
+	        // HACK(charlie): We shouldn't reaching into MathQuill internals like
+	        // this, but it's the easiest way to allow us to manage the focus state
+	        // ourselves.
+	        var controller = this.mathField.__controller;
+	        controller.cursor.show();
+
+	        // Set MathQuill's internal state to reflect the focus, otherwise it
+	        // will consistently try to hide the cursor on key-press and introduce
+	        // layout jank.
+	        controller.blurred = false;
+	    };
+
+	    MathWrapper.prototype.blur = function blur() {
+	        var controller = this.mathField.__controller;
+	        controller.cursor.hide();
+	        controller.blurred = true;
+	    };
+
 	    MathWrapper.prototype._writeNormalFunction = function _writeNormalFunction(name) {
 	        this.mathField.write('\\' + name + '\\left(\\right)');
 	        this.mathField.keystroke('Left');
@@ -84686,7 +84487,7 @@ module.exports =
 	            var fn = _KeyActions$key.fn;
 
 	            if (str && fn) {
-	                this.mathField[fn](str).focus();
+	                this.mathField[fn](str);
 	            }
 	        } else if (key === Keys.PARENS) {
 	            this.mathField.write('\\left(\\right)');
@@ -84706,9 +84507,9 @@ module.exports =
 	        } else if (key === Keys.BACKSPACE) {
 	            this._handleBackspace(cursor);
 	        } else if (/^[A-Z]$/.test(key)) {
-	            this.mathField[WRITE](key.toLowerCase()).focus();
+	            this.mathField[WRITE](key.toLowerCase());
 	        } else if (/^NUM_\d/.test(key)) {
-	            this.mathField[WRITE](key[4]).focus();
+	            this.mathField[WRITE](key[4]);
 	        }
 
 	        if (!cursor.selection) {
@@ -85236,7 +85037,7 @@ module.exports =
 	// index of the radical.
 
 /***/ },
-/* 233 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -85251,6 +85052,8 @@ module.exports =
 	 */
 
 	var scrollIntoView = function (containerNode, keypadNode) {
+	    // TODO(charlie): See if we can cache all of the reads here to avoid
+	    // introducing jank into the initial dismiss animation.
 	    var containerBounds = containerNode.getBoundingClientRect();
 	    var containerBottomPx = containerBounds.bottom;
 	    var containerTopPx = containerBounds.top;
@@ -85289,7 +85092,7 @@ module.exports =
 	module.exports = scrollIntoView;
 
 /***/ },
-/* 234 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -85348,6 +85151,275 @@ module.exports =
 	    commandGrey: '#FAFAFA',
 	    controlGrey: '#F6F7F7',
 	    disabledGrey: '#F0F1F2' };
+
+/***/ },
+/* 233 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _KeyConfigs;
+
+	/**
+	 * This file contains configuration settings for the buttons in the keypad.
+	 */
+
+	/* globals i18n */
+
+	var Keys = __webpack_require__(254);
+
+	var _require = __webpack_require__(202);
+
+	var KeyTypes = _require.KeyTypes;
+
+	var KeyConfigs = (_KeyConfigs = {}, _KeyConfigs[Keys.PLUS] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a plus sign.
+	    ariaLabel: i18n._('Plus') }, _KeyConfigs[Keys.MINUS] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a minus sign.
+	    ariaLabel: i18n._('Minus') }, _KeyConfigs[Keys.TOGGLE_SIGN] = {
+	    type: KeyTypes.MATH,
+	    // TODO(charlie): Change this to 'Toggle negative' and add an
+	    // aria-pressed={true} based on the current state of the input. Right
+	    // now, that's tricky to do as the rendering of the keypad button is
+	    // ignorant of the contents of the input.
+	    // I18N: A label for a button that will change the input from positive
+	    // to negative or the other way around.
+	    ariaLabel: i18n._('Toggle positive/negative') }, _KeyConfigs[Keys.TIMES] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a multiplication sign (represented with an 'x').
+	    ariaLabel: i18n._('Multiply') }, _KeyConfigs[Keys.DIVIDE] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a division sign.
+	    ariaLabel: i18n._('Divide') }, _KeyConfigs[Keys.DECIMAL] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a percent symbol.
+	    ariaLabel: i18n._('Decimal') }, _KeyConfigs[Keys.PERCENT] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a percent sign.
+	    ariaLabel: i18n._('Percent') }, _KeyConfigs[Keys.CDOT] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a multiplication sign (represented as a dot).
+	    ariaLabel: i18n._('Multiply') }, _KeyConfigs[Keys.EQUAL] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Equals sign') }, _KeyConfigs[Keys.NEQ] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Not-equals sign') }, _KeyConfigs[Keys.GT] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a 'greater than' sign (represented as '>').
+	    ariaLabel: i18n._('Greater than sign') }, _KeyConfigs[Keys.LT] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a 'less than' sign (represented as '<').
+	    ariaLabel: i18n._('Less than sign') }, _KeyConfigs[Keys.GEQ] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Greater than or equal to sign') }, _KeyConfigs[Keys.LEQ] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Less than or equal to sign') }, _KeyConfigs[Keys.FRAC] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a 'fraction' symbol.
+	    ariaLabel: i18n._('Fraction') }, _KeyConfigs[Keys.EXP] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a button that will allow the user to input a custom
+	    // exponent.
+	    ariaLabel: i18n._('Custom exponent') }, _KeyConfigs[Keys.EXP_2] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a button that will square (take to the second
+	    // power) some math.
+	    ariaLabel: i18n._('Square') }, _KeyConfigs[Keys.EXP_3] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a button that will cube (take to the third power)
+	    // some math.
+	    ariaLabel: i18n._('Cube') }, _KeyConfigs[Keys.SQRT] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Square root') }, _KeyConfigs[Keys.CUBE_ROOT] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Cube root') }, _KeyConfigs[Keys.RADICAL] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Radical with custom root') }, _KeyConfigs[Keys.PARENS] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Parentheses') }, _KeyConfigs[Keys.LN] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Natural logarithm') }, _KeyConfigs[Keys.LOG] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Logarithm with base 10') }, _KeyConfigs[Keys.LOG_N] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Logarithm with custom base') }, _KeyConfigs[Keys.SIN] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Sine') }, _KeyConfigs[Keys.COS] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Cosine') }, _KeyConfigs[Keys.TAN] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Tangent') }, _KeyConfigs[Keys.PI] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Pi'),
+	    unicodeSymbol: {
+	        character: 'π',
+	        italicized: true } }, _KeyConfigs[Keys.THETA] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Theta'),
+	    unicodeSymbol: {
+	        character: 'θ',
+	        italicized: true } }, _KeyConfigs[Keys.NOOP] = {
+	    type: KeyTypes.EMPTY }, _KeyConfigs[Keys.LEFT] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._('Left arrow') }, _KeyConfigs[Keys.RIGHT] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._('Right arrow') }, _KeyConfigs[Keys.JUMP_OUT] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._('Navigate right') }, _KeyConfigs[Keys.BACKSPACE] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    // I18N: A label for a button that will delete some input.
+	    ariaLabel: i18n._('Delete') }, _KeyConfigs[Keys.DISMISS] = {
+	    type: KeyTypes.KEYPAD_NAVIGATION,
+	    // I18N: A label for a button that will dismiss/hide a keypad.
+	    ariaLabel: i18n._('Dismiss') }, _KeyConfigs[Keys.MORE] = {
+	    type: KeyTypes.KEYPAD_NAVIGATION,
+	    ariaLabel: i18n._('Go to advanced button set') }, _KeyConfigs[Keys.NUMBERS] = {
+	    type: KeyTypes.KEYPAD_NAVIGATION,
+	    ariaLabel: i18n._('Go to basic button set') }, _KeyConfigs);
+
+	// Add in the multi-function buttons, which inherit some fields from the simple
+	// buttons.
+	// TODO(charlie): Make the multi-function button's long-press interaction
+	// accessible. Right now, it isn't possible to trigger any of the hidden buttons
+	// with a VoiceOver cursor--all you can do is trigger the default action.
+	KeyConfigs[Keys.FRAC_MULTI] = {
+	    type: KeyTypes.MATH,
+	    childKeyIds: [Keys.FRAC, Keys.DIVIDE],
+	    ariaLabel: KeyConfigs[Keys.FRAC].ariaLabel };
+	KeyConfigs[Keys.PARENS_MULTI] = {
+	    type: KeyTypes.MATH,
+	    childKeyIds: [Keys.PARENS, Keys.CDOT, Keys.TIMES],
+	    ariaLabel: KeyConfigs[Keys.PARENS].ariaLabel };
+
+	// NOTE(charlie): The multi-functional keys below use the icons of their
+	// 'default' keys by pointing to them in iconography/index.js. If the defaults
+	// change for any of these keys, the reference in iconography/index.js should
+	// change as well.
+	KeyConfigs[Keys.EQUAL_MULTI] = {
+	    type: KeyTypes.MATH,
+	    childKeyIds: [Keys.EQUAL, Keys.NEQ],
+	    ariaLabel: KeyConfigs[Keys.EQUAL].ariaLabel };
+	KeyConfigs[Keys.GREATER_MULTI] = {
+	    type: KeyTypes.MATH,
+	    childKeyIds: [Keys.GT, Keys.GEQ],
+	    ariaLabel: KeyConfigs[Keys.GT].ariaLabel };
+	KeyConfigs[Keys.LESS_MULTI] = {
+	    type: KeyTypes.MATH,
+	    childKeyIds: [Keys.LT, Keys.LEQ],
+	    ariaLabel: KeyConfigs[Keys.LT].ariaLabel };
+	KeyConfigs[Keys.EXP_MULTI] = {
+	    type: KeyTypes.MATH,
+	    childKeyIds: [Keys.EXP_2, Keys.EXP_3, Keys.EXP],
+	    ariaLabel: KeyConfigs[Keys.EXP_2].ariaLabel };
+	KeyConfigs[Keys.RADICAL_MULTI] = {
+	    type: KeyTypes.MATH,
+	    childKeyIds: [Keys.SQRT, Keys.CUBE_ROOT, Keys.RADICAL],
+	    ariaLabel: KeyConfigs[Keys.SQRT].ariaLabel };
+	KeyConfigs[Keys.LOG_MULTI] = {
+	    type: KeyTypes.MATH,
+	    childKeyIds: [Keys.LOG, Keys.LN, Keys.LOG_N],
+	    ariaLabel: KeyConfigs[Keys.LOG].ariaLabel };
+
+	KeyConfigs[Keys.MANY] = {
+	    type: KeyTypes.MANY };
+
+	// Add in every numeral.
+	var NUMBERS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+	for (var _iterator = NUMBERS, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+	    var _ref;
+
+	    if (_isArray) {
+	        if (_i >= _iterator.length) break;
+	        _ref = _iterator[_i++];
+	    } else {
+	        _i = _iterator.next();
+	        if (_i.done) break;
+	        _ref = _i.value;
+	    }
+
+	    var num = _ref;
+
+	    // TODO(charlie): Consider removing the SVG icons that we have for the
+	    // numeral keys. They can be rendered just as easily with text (though that
+	    // would mean that we'd be using text beyond the variable key).
+	    var textRepresentation = '' + num;
+	    KeyConfigs['NUM_' + num] = {
+	        type: KeyTypes.NUMERAL,
+	        ariaLabel: textRepresentation,
+	        unicodeSymbol: {
+	            character: textRepresentation,
+	            italicized: false } };
+	}
+
+	// Add in every variable.
+	var LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+	for (var _iterator2 = LETTERS, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
+	    var _ref2;
+
+	    if (_isArray2) {
+	        if (_i2 >= _iterator2.length) break;
+	        _ref2 = _iterator2[_i2++];
+	    } else {
+	        _i2 = _iterator2.next();
+	        if (_i2.done) break;
+	        _ref2 = _i2.value;
+	    }
+
+	    var letter = _ref2;
+
+	    var textRepresentation = letter.toLowerCase();
+	    KeyConfigs[letter] = {
+	        type: KeyTypes.MATH,
+	        ariaLabel: textRepresentation,
+	        unicodeSymbol: {
+	            character: textRepresentation,
+	            italicized: true } };
+	}
+
+	for (var _iterator3 = Object.keys(KeyConfigs), _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : _iterator3[Symbol.iterator]();;) {
+	    var _ref3;
+
+	    if (_isArray3) {
+	        if (_i3 >= _iterator3.length) break;
+	        _ref3 = _iterator3[_i3++];
+	    } else {
+	        _i3 = _iterator3.next();
+	        if (_i3.done) break;
+	        _ref3 = _i3.value;
+	    }
+
+	    var key = _ref3;
+
+	    KeyConfigs[key] = _extends({}, KeyConfigs[key], {
+	        id: key });
+	}
+
+	module.exports = KeyConfigs;
+
+	// Basic math keys.
+
+	// Input navigation keys.
+
+	// Keypad navigation keys.
+
+	// childKeyIds will be configured by the client.
+
+/***/ },
+/* 234 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Constants that define the various contexts in which a cursor can exist. In
+	 * the future, we may, for example, have a context for being in a numerator, a
+	 * context for being in a denominator, a context for being in an exponent, and
+	 * so forth.
+	 */
+
+	module.exports = {
+	  TOP_LEVEL: 'TOP_LEVEL',
+	  NESTED: 'NESTED' };
 
 /***/ },
 /* 235 */
@@ -89965,7 +90037,7 @@ module.exports =
 	var $ = __webpack_require__(51);
 	var _ = __webpack_require__(46);
 
-	var crc32 = __webpack_require__(257);
+	var crc32 = __webpack_require__(258);
 
 	var localMode = undefined;
 
@@ -91283,9 +91355,9 @@ module.exports =
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	var Redux = __webpack_require__(278);
+	var Redux = __webpack_require__(276);
 
-	var _require = __webpack_require__(234);
+	var _require = __webpack_require__(232);
 
 	var defaultButtonHeightPx = _require.defaultButtonHeightPx;
 
@@ -91293,10 +91365,10 @@ module.exports =
 
 	var KeyTypes = _require2.KeyTypes;
 
-	var Keys = __webpack_require__(253);
-	var KeyConfigs = __webpack_require__(228);
+	var Keys = __webpack_require__(254);
+	var KeyConfigs = __webpack_require__(233);
 	var Keypads = __webpack_require__(260);
-	var CursorContexts = __webpack_require__(229);
+	var CursorContexts = __webpack_require__(234);
 	var GestureManager = __webpack_require__(261);
 	var VelocityTracker = __webpack_require__(262);
 
@@ -91640,7 +91712,7 @@ module.exports =
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _inlineStylePrefixAll = __webpack_require__(282);
+	var _inlineStylePrefixAll = __webpack_require__(283);
 
 	var _inlineStylePrefixAll2 = _interopRequireDefault(_inlineStylePrefixAll);
 
@@ -91727,14 +91799,14 @@ module.exports =
 	var View = _require.View;
 
 	var Keypad = __webpack_require__(267);
-	var EmptyKeypadButton = __webpack_require__(270);
-	var TouchableKeypadButton = __webpack_require__(268);
+	var EmptyKeypadButton = __webpack_require__(268);
+	var TouchableKeypadButton = __webpack_require__(269);
 
-	var _require2 = __webpack_require__(269);
+	var _require2 = __webpack_require__(270);
 
 	var row = _require2.row;
 
-	var KeyConfigs = __webpack_require__(228);
+	var KeyConfigs = __webpack_require__(233);
 
 	var DefaultKeypad = React.createClass({
 	    displayName: 'DefaultKeypad',
@@ -91823,9 +91895,9 @@ module.exports =
 	var View = _require.View;
 
 	var Keypad = __webpack_require__(267);
-	var TouchableKeypadButton = __webpack_require__(268);
+	var TouchableKeypadButton = __webpack_require__(269);
 
-	var _require2 = __webpack_require__(269);
+	var _require2 = __webpack_require__(270);
 
 	var row = _require2.row;
 
@@ -91833,7 +91905,7 @@ module.exports =
 
 	var BorderStyles = _require3.BorderStyles;
 
-	var KeyConfigs = __webpack_require__(228);
+	var KeyConfigs = __webpack_require__(233);
 
 	var NumberKeypad = React.createClass({
 	    displayName: 'NumberKeypad',
@@ -91927,9 +91999,9 @@ module.exports =
 	var View = _require.View;
 
 	var Keypad = __webpack_require__(267);
-	var TouchableKeypadButton = __webpack_require__(268);
+	var TouchableKeypadButton = __webpack_require__(269);
 
-	var _require2 = __webpack_require__(269);
+	var _require2 = __webpack_require__(270);
 
 	var row = _require2.row;
 
@@ -91937,7 +92009,7 @@ module.exports =
 
 	var BorderStyles = _require3.BorderStyles;
 
-	var KeyConfigs = __webpack_require__(228);
+	var KeyConfigs = __webpack_require__(233);
 
 	var FractionKeypad = React.createClass({
 	    displayName: 'FractionKeypad',
@@ -92035,11 +92107,11 @@ module.exports =
 
 	var React = __webpack_require__(45);
 
-	var _require = __webpack_require__(259);
+	var _require = __webpack_require__(257);
 
 	var connect = _require.connect;
 
-	var _require2 = __webpack_require__(258);
+	var _require2 = __webpack_require__(259);
 
 	var StyleSheet = _require2.StyleSheet;
 
@@ -92048,11 +92120,11 @@ module.exports =
 	var View = _require3.View;
 
 	var TwoPageKeypad = __webpack_require__(271);
-	var EmptyKeypadButton = __webpack_require__(270);
+	var EmptyKeypadButton = __webpack_require__(268);
 	var ManyKeypadButton = __webpack_require__(272);
-	var TouchableKeypadButton = __webpack_require__(268);
+	var TouchableKeypadButton = __webpack_require__(269);
 
-	var _require4 = __webpack_require__(269);
+	var _require4 = __webpack_require__(270);
 
 	var row = _require4.row;
 	var column = _require4.column;
@@ -92064,7 +92136,7 @@ module.exports =
 	var SwitchTypes = _require5.SwitchTypes;
 	var JumpOutTypes = _require5.JumpOutTypes;
 
-	var _require6 = __webpack_require__(234);
+	var _require6 = __webpack_require__(232);
 
 	var numeralGrey = _require6.numeralGrey;
 	var commandGrey = _require6.commandGrey;
@@ -92074,8 +92146,8 @@ module.exports =
 	var cursorContextPropType = _require7.cursorContextPropType;
 	var keyIdPropType = _require7.keyIdPropType;
 
-	var KeyConfigs = __webpack_require__(228);
-	var CursorContexts = __webpack_require__(229);
+	var KeyConfigs = __webpack_require__(233);
+	var CursorContexts = __webpack_require__(234);
 
 	var _require8 = __webpack_require__(255);
 
@@ -92281,11 +92353,11 @@ module.exports =
 
 	var React = __webpack_require__(45);
 
-	var _require = __webpack_require__(259);
+	var _require = __webpack_require__(257);
 
 	var connect = _require.connect;
 
-	var _require2 = __webpack_require__(258);
+	var _require2 = __webpack_require__(259);
 
 	var StyleSheet = _require2.StyleSheet;
 
@@ -92294,11 +92366,11 @@ module.exports =
 	var View = _require3.View;
 
 	var TwoPageKeypad = __webpack_require__(271);
-	var EmptyKeypadButton = __webpack_require__(270);
+	var EmptyKeypadButton = __webpack_require__(268);
 	var ManyKeypadButton = __webpack_require__(272);
-	var TouchableKeypadButton = __webpack_require__(268);
+	var TouchableKeypadButton = __webpack_require__(269);
 
-	var _require4 = __webpack_require__(269);
+	var _require4 = __webpack_require__(270);
 
 	var row = _require4.row;
 	var column = _require4.column;
@@ -92310,7 +92382,7 @@ module.exports =
 	var SwitchTypes = _require5.SwitchTypes;
 	var JumpOutTypes = _require5.JumpOutTypes;
 
-	var _require6 = __webpack_require__(234);
+	var _require6 = __webpack_require__(232);
 
 	var numeralGrey = _require6.numeralGrey;
 	var commandGrey = _require6.commandGrey;
@@ -92320,8 +92392,8 @@ module.exports =
 	var cursorContextPropType = _require7.cursorContextPropType;
 	var keyIdPropType = _require7.keyIdPropType;
 
-	var KeyConfigs = __webpack_require__(228);
-	var CursorContexts = __webpack_require__(229);
+	var KeyConfigs = __webpack_require__(233);
+	var CursorContexts = __webpack_require__(234);
 
 	var _require8 = __webpack_require__(255);
 
@@ -92530,6 +92602,21 @@ module.exports =
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
+	 * This file contains all of the z-index values used throughout the math-input
+	 * component and its children.  The goal of the different z-indexes is to have
+	 * a container that clips the selection rectangle while allowing the cursor
+	 * handle to extend below the bounds of the outer container.
+	 */
+
+	module.exports = {
+	  selectionRect: -1,
+	  keypad: 1060 };
+
+/***/ },
+/* 254 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
 	 * This file contains constants for keypad buttons that aren't single
 	 * alphanumeric characters.
 	 */
@@ -92595,21 +92682,6 @@ module.exports =
 	    MANY: 'MANY' };
 
 	module.exports = Keys;
-
-/***/ },
-/* 254 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * This file contains all of the z-index values used throughout the math-input
-	 * component and its children.  The goal of the different z-indexes is to have
-	 * a container that clips the selection rectangle while allowing the cursor
-	 * handle to extend below the bounds of the outer container.
-	 */
-
-	module.exports = {
-	  selectionRect: -1,
-	  keypad: 1060 };
 
 /***/ },
 /* 255 */
@@ -92698,7 +92770,7 @@ module.exports =
 
 	var _ = __webpack_require__(46);
 	var InteractiveUtil = __webpack_require__(183);
-	var objective_ = __webpack_require__(129);
+	var objective_ = __webpack_require__(130);
 	var kvector = __webpack_require__(199).vector;
 
 	/*
@@ -92766,6 +92838,30 @@ module.exports =
 /* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	exports.__esModule = true;
+	exports.connect = exports.Provider = undefined;
+
+	var _Provider = __webpack_require__(274);
+
+	var _Provider2 = _interopRequireDefault(_Provider);
+
+	var _connect = __webpack_require__(275);
+
+	var _connect2 = _interopRequireDefault(_connect);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { 'default': obj };
+	}
+
+	exports.Provider = _Provider2['default'];
+	exports.connect = _connect2['default'];
+
+/***/ },
+/* 258 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/*
 	===============================================================================
 	Crc32 is a JavaScript function for computing the CRC32 of a string
@@ -92802,7 +92898,7 @@ module.exports =
 	module.exports = crc32;
 
 /***/ },
-/* 258 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -92837,9 +92933,9 @@ module.exports =
 	    };
 	})();
 
-	var _util = __webpack_require__(274);
+	var _util = __webpack_require__(280);
 
-	var _inject = __webpack_require__(275);
+	var _inject = __webpack_require__(281);
 
 	var StyleSheet = {
 	    create: function create(sheetDefinition) {
@@ -92916,30 +93012,6 @@ module.exports =
 	module.exports = exports['default'];
 
 /***/ },
-/* 259 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.connect = exports.Provider = undefined;
-
-	var _Provider = __webpack_require__(276);
-
-	var _Provider2 = _interopRequireDefault(_Provider);
-
-	var _connect = __webpack_require__(277);
-
-	var _connect2 = _interopRequireDefault(_connect);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { 'default': obj };
-	}
-
-	exports.Provider = _Provider2['default'];
-	exports.connect = _connect2['default'];
-
-/***/ },
 /* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -92949,7 +93021,7 @@ module.exports =
 	 * Data used to define the various keypads available.
 	 */
 
-	var Keys = __webpack_require__(253);
+	var Keys = __webpack_require__(254);
 
 	var _require = __webpack_require__(202);
 
@@ -92985,9 +93057,9 @@ module.exports =
 	 * and links them together.
 	 */
 
-	var NodeManager = __webpack_require__(279);
-	var PopoverStateMachine = __webpack_require__(280);
-	var GestureStateMachine = __webpack_require__(281);
+	var NodeManager = __webpack_require__(277);
+	var PopoverStateMachine = __webpack_require__(278);
+	var GestureStateMachine = __webpack_require__(279);
 
 	var coordsForEvent = function (evt) {
 	    return [evt.changedTouches[0].clientX, evt.changedTouches[0].clientY];
@@ -93174,7 +93246,7 @@ module.exports =
 	 * occurred in the last 100 milliseconds.
 	 */
 
-	var now = __webpack_require__(302);
+	var now = __webpack_require__(301);
 
 	var VelocityTracker = (function () {
 	    function VelocityTracker(options) {
@@ -93262,7 +93334,7 @@ module.exports =
 
 	var React = __webpack_require__(45);
 
-	var _require = __webpack_require__(258);
+	var _require = __webpack_require__(259);
 
 	var StyleSheet = _require.StyleSheet;
 	var css = _require.css;
@@ -93466,7 +93538,7 @@ module.exports =
 
 	var React = __webpack_require__(45);
 
-	var _require = __webpack_require__(258);
+	var _require = __webpack_require__(259);
 
 	var StyleSheet = _require.StyleSheet;
 	var css = _require.css;
@@ -93517,7 +93589,7 @@ module.exports =
 
 	var React = __webpack_require__(45);
 
-	var _require = __webpack_require__(258);
+	var _require = __webpack_require__(259);
 
 	var StyleSheet = _require.StyleSheet;
 	var css = _require.css;
@@ -93596,7 +93668,7 @@ module.exports =
 
 	"use strict";
 
-	var rawAsap = __webpack_require__(283);
+	var rawAsap = __webpack_require__(282);
 	var freeTasks = [];
 
 	/**
@@ -93677,11 +93749,11 @@ module.exports =
 	var React = __webpack_require__(45);
 	var ReactDOM = __webpack_require__(49);
 
-	var _require = __webpack_require__(259);
+	var _require = __webpack_require__(257);
 
 	var connect = _require.connect;
 
-	var _require2 = __webpack_require__(258);
+	var _require2 = __webpack_require__(259);
 
 	var StyleSheet = _require2.StyleSheet;
 
@@ -93691,9 +93763,9 @@ module.exports =
 
 	var EchoManager = __webpack_require__(285);
 	var PopoverManager = __webpack_require__(286);
-	var zIndexes = __webpack_require__(254);
+	var zIndexes = __webpack_require__(253);
 
-	var _require4 = __webpack_require__(234);
+	var _require4 = __webpack_require__(232);
 
 	var numeralGrey = _require4.numeralGrey;
 
@@ -93703,6 +93775,8 @@ module.exports =
 	var popoverPropType = _require5.popoverPropType;
 
 	var keypadBorderWidthPx = 1;
+
+	var animationDurationMs = 300;
 
 	var Keypad = React.createClass({
 	    displayName: 'Keypad',
@@ -93716,57 +93790,63 @@ module.exports =
 	        popover: popoverPropType,
 	        style: React.PropTypes.any },
 
-	    componentWillMount: function () {
-	        // NOTE(charlie): We assume that there are no echoes in the initial
-	        // render, since we can't measure the container beforehand and thus any
-	        // echoes would be improperly offset.
-	        this._container = {
-	            top: 0,
-	            right: 0,
-	            bottom: 0,
-	            left: 0 };
+	    componentDidMount: function () {
+	        window.addEventListener('resize', this._onResize);
 	    },
 
 	    componentWillReceiveProps: function (newProps) {
-	        // We cheat a bit and only re-measure the container if we're about to
-	        // kick off a new animation, be it an echo or a popover reveal.
-	        var shouldComputeContainer = false;
-	        var existingIds = this.props.echoes.map(function (echo) {
-	            return echo.animationId;
-	        });
-	        var newIds = newProps.echoes.map(function (echo) {
-	            return echo.animationId;
-	        });
-	        for (var _iterator = newIds, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
-	            var _ref;
+	        var _this = this;
 
-	            if (_isArray) {
-	                if (_i >= _iterator.length) break;
-	                _ref = _iterator[_i++];
-	            } else {
-	                _i = _iterator.next();
-	                if (_i.done) break;
-	                _ref = _i.value;
-	            }
-
-	            var newAnimationId = _ref;
-
-	            if (!existingIds.includes(newAnimationId)) {
-	                shouldComputeContainer = true;
-	                break;
-	            }
+	        if (!this._container && !this.props.active && newProps.active) {
+	            // On first appearance, compute the bounds of the container, but be
+	            // sure to wait until the view has finished animating into place,
+	            // taking care not to creep into the end of the animation, lest we
+	            // introduce jank.
+	            setTimeout(function () {
+	                if (_this.isMounted()) {
+	                    _this._computeContainer();
+	                }
+	            }, 2 * animationDurationMs);
 	        }
 
-	        shouldComputeContainer |= this.props.popover !== newProps.popover;
+	        // If the user was interacts with the keypad before the timer went off,
+	        // be sure to compute the container.
+	        if (!this._container && (newProps.popover || newProps.echoes.length)) {
+	            this._computeContainer();
+	        }
+	    },
 
-	        if (shouldComputeContainer) {
-	            var domNode = ReactDOM.findDOMNode(this);
-	            this._container = domNode.getBoundingClientRect();
+	    componentWillUnmount: function () {
+	        window.removeEventListener('resize', this._onResize);
+	    },
+
+	    _computeContainer: function () {
+	        var domNode = ReactDOM.findDOMNode(this);
+	        this._container = domNode.getBoundingClientRect();
+	    },
+
+	    _onResize: function () {
+	        var _this2 = this;
+
+	        // Whenever the page resizes, we need to recompute the container's
+	        // bounding box. This is the only time that the bounding box can change.
+
+	        // Throttle resize events -- taken from:
+	        //    https://developer.mozilla.org/en-US/docs/Web/Events/resize
+	        if (this._resizeTimeout == null) {
+	            this._resizeTimeout = setTimeout(function () {
+	                _this2._resizeTimeout = null;
+
+	                // Recompute the bounding box.
+	                if (_this2.isMounted()) {
+	                    _this2._computeContainer();
+	                }
+	            }, 66);
 	        }
 	    },
 
 	    render: function () {
-	        var _this = this;
+	        var _this3 = this;
 
 	        var _props = this.props;
 	        var children = _props.children;
@@ -93783,10 +93863,10 @@ module.exports =
 
 	            return _extends({}, rest, {
 	                initialBounds: {
-	                    top: initialBounds.top - _this._container.top - keypadBorderWidthPx,
-	                    right: initialBounds.right - _this._container.left,
-	                    bottom: initialBounds.bottom - _this._container.top - keypadBorderWidthPx,
-	                    left: initialBounds.left - _this._container.left,
+	                    top: initialBounds.top - _this3._container.top - keypadBorderWidthPx,
+	                    right: initialBounds.right - _this3._container.left,
+	                    bottom: initialBounds.bottom - _this3._container.top - keypadBorderWidthPx,
+	                    left: initialBounds.left - _this3._container.left,
 	                    width: initialBounds.width,
 	                    height: initialBounds.height } });
 	        });
@@ -93824,7 +93904,7 @@ module.exports =
 	        borderTop: '' + keypadBorderWidthPx + 'px solid rgba(0, 0, 0, 0.2)',
 	        backgroundColor: numeralGrey,
 	        zIndex: zIndexes.keypad,
-	        transition: '300ms ease-out' } });
+	        transition: '' + animationDurationMs + 'ms ease-out' } });
 
 	var inlineStyles = {
 	    hidden: {
@@ -93850,6 +93930,70 @@ module.exports =
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 	/**
+	 * A keypad button containing no symbols and triggering no actions on click.
+	 */
+
+	var React = __webpack_require__(45);
+
+	var _require = __webpack_require__(257);
+
+	var connect = _require.connect;
+
+	var GestureManager = __webpack_require__(261);
+	var KeyConfigs = __webpack_require__(233);
+	var KeypadButton = __webpack_require__(287);
+
+	var EmptyKeypadButton = React.createClass({
+	    displayName: 'EmptyKeypadButton',
+
+	    propTypes: {
+	        gestureManager: React.PropTypes.instanceOf(GestureManager) },
+
+	    render: function () {
+	        var _props = this.props;
+	        var gestureManager = _props.gestureManager;
+
+	        var rest = _objectWithoutProperties(_props, ['gestureManager']);
+
+	        // Register touch events on the button, but don't register its DOM node
+	        // or compute focus state or anything like that. We want the gesture
+	        // manager to know about touch events that start on empty buttons, but
+	        // we don't need it to know about their DOM nodes, as it doesn't need
+	        // to focus them or trigger presses.
+	        return React.createElement(KeypadButton, _extends({
+	            onTouchStart: function (evt) {
+	                return gestureManager.onTouchStart(evt);
+	            },
+	            onTouchEnd: function (evt) {
+	                return gestureManager.onTouchEnd(evt);
+	            },
+	            onTouchMove: function (evt) {
+	                return gestureManager.onTouchMove(evt);
+	            },
+	            onTouchCancel: function (evt) {
+	                return gestureManager.onTouchCancel(evt);
+	            }
+	        }, KeyConfigs.NOOP, rest));
+	    } });
+
+	var mapStateToProps = function (state) {
+	    var gestures = state.gestures;
+
+	    return {
+	        gestureManager: gestures.gestureManager };
+	};
+
+	module.exports = connect(mapStateToProps)(EmptyKeypadButton);
+
+/***/ },
+/* 269 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+	/**
 	 * A touchable wrapper around the base KeypadButton component. This button is
 	 * responsible for keeping our button ID system (which will be used to handle
 	 * touch events globally) opaque to the KeypadButton.
@@ -93858,12 +94002,12 @@ module.exports =
 	var React = __webpack_require__(45);
 	var ReactDOM = __webpack_require__(49);
 
-	var _require = __webpack_require__(259);
+	var _require = __webpack_require__(257);
 
 	var connect = _require.connect;
 
 	var KeypadButton = __webpack_require__(287);
-	var KeyConfigs = __webpack_require__(228);
+	var KeyConfigs = __webpack_require__(233);
 	var GestureManager = __webpack_require__(261);
 
 	var _require2 = __webpack_require__(203);
@@ -93961,14 +94105,14 @@ module.exports =
 	module.exports = connect(mapStateToProps)(TouchableKeypadButton);
 
 /***/ },
-/* 269 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Common styles shared across components.
 	 */
 
-	var _require = __webpack_require__(258);
+	var _require = __webpack_require__(259);
 
 	var StyleSheet = _require.StyleSheet;
 
@@ -93986,70 +94130,6 @@ module.exports =
 	        alignItems: 'center' } });
 
 /***/ },
-/* 270 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-	/**
-	 * A keypad button containing no symbols and triggering no actions on click.
-	 */
-
-	var React = __webpack_require__(45);
-
-	var _require = __webpack_require__(259);
-
-	var connect = _require.connect;
-
-	var GestureManager = __webpack_require__(261);
-	var KeyConfigs = __webpack_require__(228);
-	var KeypadButton = __webpack_require__(287);
-
-	var EmptyKeypadButton = React.createClass({
-	    displayName: 'EmptyKeypadButton',
-
-	    propTypes: {
-	        gestureManager: React.PropTypes.instanceOf(GestureManager) },
-
-	    render: function () {
-	        var _props = this.props;
-	        var gestureManager = _props.gestureManager;
-
-	        var rest = _objectWithoutProperties(_props, ['gestureManager']);
-
-	        // Register touch events on the button, but don't register its DOM node
-	        // or compute focus state or anything like that. We want the gesture
-	        // manager to know about touch events that start on empty buttons, but
-	        // we don't need it to know about their DOM nodes, as it doesn't need
-	        // to focus them or trigger presses.
-	        return React.createElement(KeypadButton, _extends({
-	            onTouchStart: function (evt) {
-	                return gestureManager.onTouchStart(evt);
-	            },
-	            onTouchEnd: function (evt) {
-	                return gestureManager.onTouchEnd(evt);
-	            },
-	            onTouchMove: function (evt) {
-	                return gestureManager.onTouchMove(evt);
-	            },
-	            onTouchCancel: function (evt) {
-	                return gestureManager.onTouchCancel(evt);
-	            }
-	        }, KeyConfigs.NOOP, rest));
-	    } });
-
-	var mapStateToProps = function (state) {
-	    var gestures = state.gestures;
-
-	    return {
-	        gestureManager: gestures.gestureManager };
-	};
-
-	module.exports = connect(mapStateToProps)(EmptyKeypadButton);
-
-/***/ },
 /* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -94059,7 +94139,7 @@ module.exports =
 
 	var React = __webpack_require__(45);
 
-	var _require = __webpack_require__(258);
+	var _require = __webpack_require__(259);
 
 	var StyleSheet = _require.StyleSheet;
 
@@ -94072,12 +94152,12 @@ module.exports =
 
 	var View = _require2.View;
 
-	var _require3 = __webpack_require__(269);
+	var _require3 = __webpack_require__(270);
 
 	var column = _require3.column;
 	var row = _require3.row;
 
-	var _require4 = __webpack_require__(234);
+	var _require4 = __webpack_require__(232);
 
 	var buttonBorderColor = _require4.buttonBorderColor;
 	var buttonBorderStyle = _require4.buttonBorderStyle;
@@ -94198,11 +94278,11 @@ module.exports =
 
 	var React = __webpack_require__(45);
 
-	var EmptyKeypadButton = __webpack_require__(270);
-	var TouchableKeypadButton = __webpack_require__(268);
+	var EmptyKeypadButton = __webpack_require__(268);
+	var TouchableKeypadButton = __webpack_require__(269);
 
-	var Keys = __webpack_require__(253);
-	var KeyConfigs = __webpack_require__(228);
+	var Keys = __webpack_require__(254);
+	var KeyConfigs = __webpack_require__(233);
 
 	var _require = __webpack_require__(202);
 
@@ -94247,421 +94327,10 @@ module.exports =
 /* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(global, factory){if(typeof module === "object" && typeof module.exports === "object"){module.exports = global.document?factory(global, true):function(w){if(!w.document){throw new Error("jQuery requires a window with a document");}return factory(w);};}else {factory(global);}})(typeof window !== "undefined"?window:this, function(window, noGlobal){var deletedIds=[];var document=window.document;var slice=deletedIds.slice;var concat=deletedIds.concat;var push=deletedIds.push;var indexOf=deletedIds.indexOf;var class2type={};var toString=class2type.toString;var hasOwn=class2type.hasOwnProperty;var support={};var version="1.12.3", jQuery=function(selector, context){return new jQuery.fn.init(selector, context);}, rtrim=/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, rmsPrefix=/^-ms-/, rdashAlpha=/-([\da-z])/gi, fcamelCase=function(all, letter){return letter.toUpperCase();};jQuery.fn = jQuery.prototype = {jquery:version, constructor:jQuery, selector:"", length:0, toArray:function(){return slice.call(this);}, get:function(num){return num != null?num < 0?this[num + this.length]:this[num]:slice.call(this);}, pushStack:function(elems){var ret=jQuery.merge(this.constructor(), elems);ret.prevObject = this;ret.context = this.context;return ret;}, each:function(callback){return jQuery.each(this, callback);}, map:function(callback){return this.pushStack(jQuery.map(this, function(elem, i){return callback.call(elem, i, elem);}));}, slice:function(){return this.pushStack(slice.apply(this, arguments));}, first:function(){return this.eq(0);}, last:function(){return this.eq(-1);}, eq:function(i){var len=this.length, j=+i + (i < 0?len:0);return this.pushStack(j >= 0 && j < len?[this[j]]:[]);}, end:function(){return this.prevObject || this.constructor();}, push:push, sort:deletedIds.sort, splice:deletedIds.splice};jQuery.extend = jQuery.fn.extend = function(){var src, copyIsArray, copy, name, options, clone, target=arguments[0] || {}, i=1, length=arguments.length, deep=false;if(typeof target === "boolean"){deep = target;target = arguments[i] || {};i++;}if(typeof target !== "object" && !jQuery.isFunction(target)){target = {};}if(i === length){target = this;i--;}for(; i < length; i++) {if((options = arguments[i]) != null){for(name in options) {src = target[name];copy = options[name];if(target === copy){continue;}if(deep && copy && (jQuery.isPlainObject(copy) || (copyIsArray = jQuery.isArray(copy)))){if(copyIsArray){copyIsArray = false;clone = src && jQuery.isArray(src)?src:[];}else {clone = src && jQuery.isPlainObject(src)?src:{};}target[name] = jQuery.extend(deep, clone, copy);}else if(copy !== undefined){target[name] = copy;}}}}return target;};jQuery.extend({expando:"jQuery" + (version + Math.random()).replace(/\D/g, ""), isReady:true, error:function(msg){throw new Error(msg);}, noop:function(){}, isFunction:function(obj){return jQuery.type(obj) === "function";}, isArray:Array.isArray || function(obj){return jQuery.type(obj) === "array";}, isWindow:function(obj){return obj != null && obj == obj.window;}, isNumeric:function(obj){var realStringObj=obj && obj.toString();return !jQuery.isArray(obj) && realStringObj - parseFloat(realStringObj) + 1 >= 0;}, isEmptyObject:function(obj){var name;for(name in obj) {return false;}return true;}, isPlainObject:function(obj){var key;if(!obj || jQuery.type(obj) !== "object" || obj.nodeType || jQuery.isWindow(obj)){return false;}try{if(obj.constructor && !hasOwn.call(obj, "constructor") && !hasOwn.call(obj.constructor.prototype, "isPrototypeOf")){return false;}}catch(e) {return false;}if(!support.ownFirst){for(key in obj) {return hasOwn.call(obj, key);}}for(key in obj) {}return key === undefined || hasOwn.call(obj, key);}, type:function(obj){if(obj == null){return obj + "";}return typeof obj === "object" || typeof obj === "function"?class2type[toString.call(obj)] || "object":typeof obj;}, globalEval:function(data){if(data && jQuery.trim(data)){(window.execScript || function(data){window["eval"].call(window, data);})(data);}}, camelCase:function(string){return string.replace(rmsPrefix, "ms-").replace(rdashAlpha, fcamelCase);}, nodeName:function(elem, name){return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();}, each:function(obj, callback){var length, i=0;if(isArrayLike(obj)){length = obj.length;for(; i < length; i++) {if(callback.call(obj[i], i, obj[i]) === false){break;}}}else {for(i in obj) {if(callback.call(obj[i], i, obj[i]) === false){break;}}}return obj;}, trim:function(text){return text == null?"":(text + "").replace(rtrim, "");}, makeArray:function(arr, results){var ret=results || [];if(arr != null){if(isArrayLike(Object(arr))){jQuery.merge(ret, typeof arr === "string"?[arr]:arr);}else {push.call(ret, arr);}}return ret;}, inArray:function(elem, arr, i){var len;if(arr){if(indexOf){return indexOf.call(arr, elem, i);}len = arr.length;i = i?i < 0?Math.max(0, len + i):i:0;for(; i < len; i++) {if(i in arr && arr[i] === elem){return i;}}}return -1;}, merge:function(first, second){var len=+second.length, j=0, i=first.length;while(j < len) {first[i++] = second[j++];}if(len !== len){while(second[j] !== undefined) {first[i++] = second[j++];}}first.length = i;return first;}, grep:function(elems, callback, invert){var callbackInverse, matches=[], i=0, length=elems.length, callbackExpect=!invert;for(; i < length; i++) {callbackInverse = !callback(elems[i], i);if(callbackInverse !== callbackExpect){matches.push(elems[i]);}}return matches;}, map:function(elems, callback, arg){var length, value, i=0, ret=[];if(isArrayLike(elems)){length = elems.length;for(; i < length; i++) {value = callback(elems[i], i, arg);if(value != null){ret.push(value);}}}else {for(i in elems) {value = callback(elems[i], i, arg);if(value != null){ret.push(value);}}}return concat.apply([], ret);}, guid:1, proxy:function(fn, context){var args, proxy, tmp;if(typeof context === "string"){tmp = fn[context];context = fn;fn = tmp;}if(!jQuery.isFunction(fn)){return undefined;}args = slice.call(arguments, 2);proxy = function(){return fn.apply(context || this, args.concat(slice.call(arguments)));};proxy.guid = fn.guid = fn.guid || jQuery.guid++;return proxy;}, now:function(){return +new Date();}, support:support});if(typeof Symbol === "function"){jQuery.fn[Symbol.iterator] = deletedIds[Symbol.iterator];}jQuery.each("Boolean Number String Function Array Date RegExp Object Error Symbol".split(" "), function(i, name){class2type["[object " + name + "]"] = name.toLowerCase();});function isArrayLike(obj){var length=!!obj && "length" in obj && obj.length, type=jQuery.type(obj);if(type === "function" || jQuery.isWindow(obj)){return false;}return type === "array" || length === 0 || typeof length === "number" && length > 0 && length - 1 in obj;}var Sizzle=(function(window){var i, support, Expr, getText, isXML, tokenize, compile, select, outermostContext, sortInput, hasDuplicate, setDocument, document, docElem, documentIsHTML, rbuggyQSA, rbuggyMatches, matches, contains, expando="sizzle" + 1 * new Date(), preferredDoc=window.document, dirruns=0, done=0, classCache=createCache(), tokenCache=createCache(), compilerCache=createCache(), sortOrder=function(a, b){if(a === b){hasDuplicate = true;}return 0;}, MAX_NEGATIVE=1 << 31, hasOwn=({}).hasOwnProperty, arr=[], pop=arr.pop, push_native=arr.push, push=arr.push, slice=arr.slice, indexOf=function(list, elem){var i=0, len=list.length;for(; i < len; i++) {if(list[i] === elem){return i;}}return -1;}, booleans="checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped", whitespace="[\\x20\\t\\r\\n\\f]", identifier="(?:\\\\.|[\\w-]|[^\\x00-\\xa0])+", attributes="\\[" + whitespace + "*(" + identifier + ")(?:" + whitespace + "*([*^$|!~]?=)" + whitespace + "*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|(" + identifier + "))|)" + whitespace + "*\\]", pseudos=":(" + identifier + ")(?:\\((" + "('((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\")|" + "((?:\\\\.|[^\\\\()[\\]]|" + attributes + ")*)|" + ".*" + ")\\)|)", rwhitespace=new RegExp(whitespace + "+", "g"), rtrim=new RegExp("^" + whitespace + "+|((?:^|[^\\\\])(?:\\\\.)*)" + whitespace + "+$", "g"), rcomma=new RegExp("^" + whitespace + "*," + whitespace + "*"), rcombinators=new RegExp("^" + whitespace + "*([>+~]|" + whitespace + ")" + whitespace + "*"), rattributeQuotes=new RegExp("=" + whitespace + "*([^\\]'\"]*?)" + whitespace + "*\\]", "g"), rpseudo=new RegExp(pseudos), ridentifier=new RegExp("^" + identifier + "$"), matchExpr={"ID":new RegExp("^#(" + identifier + ")"), "CLASS":new RegExp("^\\.(" + identifier + ")"), "TAG":new RegExp("^(" + identifier + "|[*])"), "ATTR":new RegExp("^" + attributes), "PSEUDO":new RegExp("^" + pseudos), "CHILD":new RegExp("^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\(" + whitespace + "*(even|odd|(([+-]|)(\\d*)n|)" + whitespace + "*(?:([+-]|)" + whitespace + "*(\\d+)|))" + whitespace + "*\\)|)", "i"), "bool":new RegExp("^(?:" + booleans + ")$", "i"), "needsContext":new RegExp("^" + whitespace + "*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\(" + whitespace + "*((?:-\\d)?\\d*)" + whitespace + "*\\)|)(?=[^-]|$)", "i")}, rinputs=/^(?:input|select|textarea|button)$/i, rheader=/^h\d$/i, rnative=/^[^{]+\{\s*\[native \w/, rquickExpr=/^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/, rsibling=/[+~]/, rescape=/'|\\/g, runescape=new RegExp("\\\\([\\da-f]{1,6}" + whitespace + "?|(" + whitespace + ")|.)", "ig"), funescape=function(_, escaped, escapedWhitespace){var high="0x" + escaped - 65536;return high !== high || escapedWhitespace?escaped:high < 0?String.fromCharCode(high + 65536):String.fromCharCode(high >> 10 | 55296, high & 1023 | 56320);}, unloadHandler=function(){setDocument();};try{push.apply(arr = slice.call(preferredDoc.childNodes), preferredDoc.childNodes);arr[preferredDoc.childNodes.length].nodeType;}catch(e) {push = {apply:arr.length?function(target, els){push_native.apply(target, slice.call(els));}:function(target, els){var j=target.length, i=0;while(target[j++] = els[i++]) {}target.length = j - 1;}};}function Sizzle(selector, context, results, seed){var m, i, elem, nid, nidselect, match, groups, newSelector, newContext=context && context.ownerDocument, nodeType=context?context.nodeType:9;results = results || [];if(typeof selector !== "string" || !selector || nodeType !== 1 && nodeType !== 9 && nodeType !== 11){return results;}if(!seed){if((context?context.ownerDocument || context:preferredDoc) !== document){setDocument(context);}context = context || document;if(documentIsHTML){if(nodeType !== 11 && (match = rquickExpr.exec(selector))){if(m = match[1]){if(nodeType === 9){if(elem = context.getElementById(m)){if(elem.id === m){results.push(elem);return results;}}else {return results;}}else {if(newContext && (elem = newContext.getElementById(m)) && contains(context, elem) && elem.id === m){results.push(elem);return results;}}}else if(match[2]){push.apply(results, context.getElementsByTagName(selector));return results;}else if((m = match[3]) && support.getElementsByClassName && context.getElementsByClassName){push.apply(results, context.getElementsByClassName(m));return results;}}if(support.qsa && !compilerCache[selector + " "] && (!rbuggyQSA || !rbuggyQSA.test(selector))){if(nodeType !== 1){newContext = context;newSelector = selector;}else if(context.nodeName.toLowerCase() !== "object"){if(nid = context.getAttribute("id")){nid = nid.replace(rescape, "\\$&");}else {context.setAttribute("id", nid = expando);}groups = tokenize(selector);i = groups.length;nidselect = ridentifier.test(nid)?"#" + nid:"[id='" + nid + "']";while(i--) {groups[i] = nidselect + " " + toSelector(groups[i]);}newSelector = groups.join(",");newContext = rsibling.test(selector) && testContext(context.parentNode) || context;}if(newSelector){try{push.apply(results, newContext.querySelectorAll(newSelector));return results;}catch(qsaError) {}finally {if(nid === expando){context.removeAttribute("id");}}}}}}return select(selector.replace(rtrim, "$1"), context, results, seed);}function createCache(){var keys=[];function cache(key, value){if(keys.push(key + " ") > Expr.cacheLength){delete cache[keys.shift()];}return cache[key + " "] = value;}return cache;}function markFunction(fn){fn[expando] = true;return fn;}function assert(fn){var div=document.createElement("div");try{return !!fn(div);}catch(e) {return false;}finally {if(div.parentNode){div.parentNode.removeChild(div);}div = null;}}function addHandle(attrs, handler){var arr=attrs.split("|"), i=arr.length;while(i--) {Expr.attrHandle[arr[i]] = handler;}}function siblingCheck(a, b){var cur=b && a, diff=cur && a.nodeType === 1 && b.nodeType === 1 && (~b.sourceIndex || MAX_NEGATIVE) - (~a.sourceIndex || MAX_NEGATIVE);if(diff){return diff;}if(cur){while(cur = cur.nextSibling) {if(cur === b){return -1;}}}return a?1:-1;}function createInputPseudo(type){return function(elem){var name=elem.nodeName.toLowerCase();return name === "input" && elem.type === type;};}function createButtonPseudo(type){return function(elem){var name=elem.nodeName.toLowerCase();return (name === "input" || name === "button") && elem.type === type;};}function createPositionalPseudo(fn){return markFunction(function(argument){argument = +argument;return markFunction(function(seed, matches){var j, matchIndexes=fn([], seed.length, argument), i=matchIndexes.length;while(i--) {if(seed[j = matchIndexes[i]]){seed[j] = !(matches[j] = seed[j]);}}});});}function testContext(context){return context && typeof context.getElementsByTagName !== "undefined" && context;}support = Sizzle.support = {};isXML = Sizzle.isXML = function(elem){var documentElement=elem && (elem.ownerDocument || elem).documentElement;return documentElement?documentElement.nodeName !== "HTML":false;};setDocument = Sizzle.setDocument = function(node){var hasCompare, parent, doc=node?node.ownerDocument || node:preferredDoc;if(doc === document || doc.nodeType !== 9 || !doc.documentElement){return document;}document = doc;docElem = document.documentElement;documentIsHTML = !isXML(document);if((parent = document.defaultView) && parent.top !== parent){if(parent.addEventListener){parent.addEventListener("unload", unloadHandler, false);}else if(parent.attachEvent){parent.attachEvent("onunload", unloadHandler);}}support.attributes = assert(function(div){div.className = "i";return !div.getAttribute("className");});support.getElementsByTagName = assert(function(div){div.appendChild(document.createComment(""));return !div.getElementsByTagName("*").length;});support.getElementsByClassName = rnative.test(document.getElementsByClassName);support.getById = assert(function(div){docElem.appendChild(div).id = expando;return !document.getElementsByName || !document.getElementsByName(expando).length;});if(support.getById){Expr.find["ID"] = function(id, context){if(typeof context.getElementById !== "undefined" && documentIsHTML){var m=context.getElementById(id);return m?[m]:[];}};Expr.filter["ID"] = function(id){var attrId=id.replace(runescape, funescape);return function(elem){return elem.getAttribute("id") === attrId;};};}else {delete Expr.find["ID"];Expr.filter["ID"] = function(id){var attrId=id.replace(runescape, funescape);return function(elem){var node=typeof elem.getAttributeNode !== "undefined" && elem.getAttributeNode("id");return node && node.value === attrId;};};}Expr.find["TAG"] = support.getElementsByTagName?function(tag, context){if(typeof context.getElementsByTagName !== "undefined"){return context.getElementsByTagName(tag);}else if(support.qsa){return context.querySelectorAll(tag);}}:function(tag, context){var elem, tmp=[], i=0, results=context.getElementsByTagName(tag);if(tag === "*"){while(elem = results[i++]) {if(elem.nodeType === 1){tmp.push(elem);}}return tmp;}return results;};Expr.find["CLASS"] = support.getElementsByClassName && function(className, context){if(typeof context.getElementsByClassName !== "undefined" && documentIsHTML){return context.getElementsByClassName(className);}};rbuggyMatches = [];rbuggyQSA = [];if(support.qsa = rnative.test(document.querySelectorAll)){assert(function(div){docElem.appendChild(div).innerHTML = "<a id='" + expando + "'></a>" + "<select id='" + expando + "-\r\\' msallowcapture=''>" + "<option selected=''></option></select>";if(div.querySelectorAll("[msallowcapture^='']").length){rbuggyQSA.push("[*^$]=" + whitespace + "*(?:''|\"\")");}if(!div.querySelectorAll("[selected]").length){rbuggyQSA.push("\\[" + whitespace + "*(?:value|" + booleans + ")");}if(!div.querySelectorAll("[id~=" + expando + "-]").length){rbuggyQSA.push("~=");}if(!div.querySelectorAll(":checked").length){rbuggyQSA.push(":checked");}if(!div.querySelectorAll("a#" + expando + "+*").length){rbuggyQSA.push(".#.+[+~]");}});assert(function(div){var input=document.createElement("input");input.setAttribute("type", "hidden");div.appendChild(input).setAttribute("name", "D");if(div.querySelectorAll("[name=d]").length){rbuggyQSA.push("name" + whitespace + "*[*^$|!~]?=");}if(!div.querySelectorAll(":enabled").length){rbuggyQSA.push(":enabled", ":disabled");}div.querySelectorAll("*,:x");rbuggyQSA.push(",.*:");});}if(support.matchesSelector = rnative.test(matches = docElem.matches || docElem.webkitMatchesSelector || docElem.mozMatchesSelector || docElem.oMatchesSelector || docElem.msMatchesSelector)){assert(function(div){support.disconnectedMatch = matches.call(div, "div");matches.call(div, "[s!='']:x");rbuggyMatches.push("!=", pseudos);});}rbuggyQSA = rbuggyQSA.length && new RegExp(rbuggyQSA.join("|"));rbuggyMatches = rbuggyMatches.length && new RegExp(rbuggyMatches.join("|"));hasCompare = rnative.test(docElem.compareDocumentPosition);contains = hasCompare || rnative.test(docElem.contains)?function(a, b){var adown=a.nodeType === 9?a.documentElement:a, bup=b && b.parentNode;return a === bup || !!(bup && bup.nodeType === 1 && (adown.contains?adown.contains(bup):a.compareDocumentPosition && a.compareDocumentPosition(bup) & 16));}:function(a, b){if(b){while(b = b.parentNode) {if(b === a){return true;}}}return false;};sortOrder = hasCompare?function(a, b){if(a === b){hasDuplicate = true;return 0;}var compare=!a.compareDocumentPosition - !b.compareDocumentPosition;if(compare){return compare;}compare = (a.ownerDocument || a) === (b.ownerDocument || b)?a.compareDocumentPosition(b):1;if(compare & 1 || !support.sortDetached && b.compareDocumentPosition(a) === compare){if(a === document || a.ownerDocument === preferredDoc && contains(preferredDoc, a)){return -1;}if(b === document || b.ownerDocument === preferredDoc && contains(preferredDoc, b)){return 1;}return sortInput?indexOf(sortInput, a) - indexOf(sortInput, b):0;}return compare & 4?-1:1;}:function(a, b){if(a === b){hasDuplicate = true;return 0;}var cur, i=0, aup=a.parentNode, bup=b.parentNode, ap=[a], bp=[b];if(!aup || !bup){return a === document?-1:b === document?1:aup?-1:bup?1:sortInput?indexOf(sortInput, a) - indexOf(sortInput, b):0;}else if(aup === bup){return siblingCheck(a, b);}cur = a;while(cur = cur.parentNode) {ap.unshift(cur);}cur = b;while(cur = cur.parentNode) {bp.unshift(cur);}while(ap[i] === bp[i]) {i++;}return i?siblingCheck(ap[i], bp[i]):ap[i] === preferredDoc?-1:bp[i] === preferredDoc?1:0;};return document;};Sizzle.matches = function(expr, elements){return Sizzle(expr, null, null, elements);};Sizzle.matchesSelector = function(elem, expr){if((elem.ownerDocument || elem) !== document){setDocument(elem);}expr = expr.replace(rattributeQuotes, "='$1']");if(support.matchesSelector && documentIsHTML && !compilerCache[expr + " "] && (!rbuggyMatches || !rbuggyMatches.test(expr)) && (!rbuggyQSA || !rbuggyQSA.test(expr))){try{var ret=matches.call(elem, expr);if(ret || support.disconnectedMatch || elem.document && elem.document.nodeType !== 11){return ret;}}catch(e) {}}return Sizzle(expr, document, null, [elem]).length > 0;};Sizzle.contains = function(context, elem){if((context.ownerDocument || context) !== document){setDocument(context);}return contains(context, elem);};Sizzle.attr = function(elem, name){if((elem.ownerDocument || elem) !== document){setDocument(elem);}var fn=Expr.attrHandle[name.toLowerCase()], val=fn && hasOwn.call(Expr.attrHandle, name.toLowerCase())?fn(elem, name, !documentIsHTML):undefined;return val !== undefined?val:support.attributes || !documentIsHTML?elem.getAttribute(name):(val = elem.getAttributeNode(name)) && val.specified?val.value:null;};Sizzle.error = function(msg){throw new Error("Syntax error, unrecognized expression: " + msg);};Sizzle.uniqueSort = function(results){var elem, duplicates=[], j=0, i=0;hasDuplicate = !support.detectDuplicates;sortInput = !support.sortStable && results.slice(0);results.sort(sortOrder);if(hasDuplicate){while(elem = results[i++]) {if(elem === results[i]){j = duplicates.push(i);}}while(j--) {results.splice(duplicates[j], 1);}}sortInput = null;return results;};getText = Sizzle.getText = function(elem){var node, ret="", i=0, nodeType=elem.nodeType;if(!nodeType){while(node = elem[i++]) {ret += getText(node);}}else if(nodeType === 1 || nodeType === 9 || nodeType === 11){if(typeof elem.textContent === "string"){return elem.textContent;}else {for(elem = elem.firstChild; elem; elem = elem.nextSibling) {ret += getText(elem);}}}else if(nodeType === 3 || nodeType === 4){return elem.nodeValue;}return ret;};Expr = Sizzle.selectors = {cacheLength:50, createPseudo:markFunction, match:matchExpr, attrHandle:{}, find:{}, relative:{">":{dir:"parentNode", first:true}, " ":{dir:"parentNode"}, "+":{dir:"previousSibling", first:true}, "~":{dir:"previousSibling"}}, preFilter:{"ATTR":function(match){match[1] = match[1].replace(runescape, funescape);match[3] = (match[3] || match[4] || match[5] || "").replace(runescape, funescape);if(match[2] === "~="){match[3] = " " + match[3] + " ";}return match.slice(0, 4);}, "CHILD":function(match){match[1] = match[1].toLowerCase();if(match[1].slice(0, 3) === "nth"){if(!match[3]){Sizzle.error(match[0]);}match[4] = +(match[4]?match[5] + (match[6] || 1):2 * (match[3] === "even" || match[3] === "odd"));match[5] = +(match[7] + match[8] || match[3] === "odd");}else if(match[3]){Sizzle.error(match[0]);}return match;}, "PSEUDO":function(match){var excess, unquoted=!match[6] && match[2];if(matchExpr["CHILD"].test(match[0])){return null;}if(match[3]){match[2] = match[4] || match[5] || "";}else if(unquoted && rpseudo.test(unquoted) && (excess = tokenize(unquoted, true)) && (excess = unquoted.indexOf(")", unquoted.length - excess) - unquoted.length)){match[0] = match[0].slice(0, excess);match[2] = unquoted.slice(0, excess);}return match.slice(0, 3);}}, filter:{"TAG":function(nodeNameSelector){var nodeName=nodeNameSelector.replace(runescape, funescape).toLowerCase();return nodeNameSelector === "*"?function(){return true;}:function(elem){return elem.nodeName && elem.nodeName.toLowerCase() === nodeName;};}, "CLASS":function(className){var pattern=classCache[className + " "];return pattern || (pattern = new RegExp("(^|" + whitespace + ")" + className + "(" + whitespace + "|$)")) && classCache(className, function(elem){return pattern.test(typeof elem.className === "string" && elem.className || typeof elem.getAttribute !== "undefined" && elem.getAttribute("class") || "");});}, "ATTR":function(name, operator, check){return function(elem){var result=Sizzle.attr(elem, name);if(result == null){return operator === "!=";}if(!operator){return true;}result += "";return operator === "="?result === check:operator === "!="?result !== check:operator === "^="?check && result.indexOf(check) === 0:operator === "*="?check && result.indexOf(check) > -1:operator === "$="?check && result.slice(-check.length) === check:operator === "~="?(" " + result.replace(rwhitespace, " ") + " ").indexOf(check) > -1:operator === "|="?result === check || result.slice(0, check.length + 1) === check + "-":false;};}, "CHILD":function(type, what, argument, first, last){var simple=type.slice(0, 3) !== "nth", forward=type.slice(-4) !== "last", ofType=what === "of-type";return first === 1 && last === 0?function(elem){return !!elem.parentNode;}:function(elem, context, xml){var cache, uniqueCache, outerCache, node, nodeIndex, start, dir=simple !== forward?"nextSibling":"previousSibling", parent=elem.parentNode, name=ofType && elem.nodeName.toLowerCase(), useCache=!xml && !ofType, diff=false;if(parent){if(simple){while(dir) {node = elem;while(node = node[dir]) {if(ofType?node.nodeName.toLowerCase() === name:node.nodeType === 1){return false;}}start = dir = type === "only" && !start && "nextSibling";}return true;}start = [forward?parent.firstChild:parent.lastChild];if(forward && useCache){node = parent;outerCache = node[expando] || (node[expando] = {});uniqueCache = outerCache[node.uniqueID] || (outerCache[node.uniqueID] = {});cache = uniqueCache[type] || [];nodeIndex = cache[0] === dirruns && cache[1];diff = nodeIndex && cache[2];node = nodeIndex && parent.childNodes[nodeIndex];while(node = ++nodeIndex && node && node[dir] || (diff = nodeIndex = 0) || start.pop()) {if(node.nodeType === 1 && ++diff && node === elem){uniqueCache[type] = [dirruns, nodeIndex, diff];break;}}}else {if(useCache){node = elem;outerCache = node[expando] || (node[expando] = {});uniqueCache = outerCache[node.uniqueID] || (outerCache[node.uniqueID] = {});cache = uniqueCache[type] || [];nodeIndex = cache[0] === dirruns && cache[1];diff = nodeIndex;}if(diff === false){while(node = ++nodeIndex && node && node[dir] || (diff = nodeIndex = 0) || start.pop()) {if((ofType?node.nodeName.toLowerCase() === name:node.nodeType === 1) && ++diff){if(useCache){outerCache = node[expando] || (node[expando] = {});uniqueCache = outerCache[node.uniqueID] || (outerCache[node.uniqueID] = {});uniqueCache[type] = [dirruns, diff];}if(node === elem){break;}}}}}diff -= last;return diff === first || diff % first === 0 && diff / first >= 0;}};}, "PSEUDO":function(pseudo, argument){var args, fn=Expr.pseudos[pseudo] || Expr.setFilters[pseudo.toLowerCase()] || Sizzle.error("unsupported pseudo: " + pseudo);if(fn[expando]){return fn(argument);}if(fn.length > 1){args = [pseudo, pseudo, "", argument];return Expr.setFilters.hasOwnProperty(pseudo.toLowerCase())?markFunction(function(seed, matches){var idx, matched=fn(seed, argument), i=matched.length;while(i--) {idx = indexOf(seed, matched[i]);seed[idx] = !(matches[idx] = matched[i]);}}):function(elem){return fn(elem, 0, args);};}return fn;}}, pseudos:{"not":markFunction(function(selector){var input=[], results=[], matcher=compile(selector.replace(rtrim, "$1"));return matcher[expando]?markFunction(function(seed, matches, context, xml){var elem, unmatched=matcher(seed, null, xml, []), i=seed.length;while(i--) {if(elem = unmatched[i]){seed[i] = !(matches[i] = elem);}}}):function(elem, context, xml){input[0] = elem;matcher(input, null, xml, results);input[0] = null;return !results.pop();};}), "has":markFunction(function(selector){return function(elem){return Sizzle(selector, elem).length > 0;};}), "contains":markFunction(function(text){text = text.replace(runescape, funescape);return function(elem){return (elem.textContent || elem.innerText || getText(elem)).indexOf(text) > -1;};}), "lang":markFunction(function(lang){if(!ridentifier.test(lang || "")){Sizzle.error("unsupported lang: " + lang);}lang = lang.replace(runescape, funescape).toLowerCase();return function(elem){var elemLang;do {if(elemLang = documentIsHTML?elem.lang:elem.getAttribute("xml:lang") || elem.getAttribute("lang")){elemLang = elemLang.toLowerCase();return elemLang === lang || elemLang.indexOf(lang + "-") === 0;}}while((elem = elem.parentNode) && elem.nodeType === 1);return false;};}), "target":function(elem){var hash=window.location && window.location.hash;return hash && hash.slice(1) === elem.id;}, "root":function(elem){return elem === docElem;}, "focus":function(elem){return elem === document.activeElement && (!document.hasFocus || document.hasFocus()) && !!(elem.type || elem.href || ~elem.tabIndex);}, "enabled":function(elem){return elem.disabled === false;}, "disabled":function(elem){return elem.disabled === true;}, "checked":function(elem){var nodeName=elem.nodeName.toLowerCase();return nodeName === "input" && !!elem.checked || nodeName === "option" && !!elem.selected;}, "selected":function(elem){if(elem.parentNode){elem.parentNode.selectedIndex;}return elem.selected === true;}, "empty":function(elem){for(elem = elem.firstChild; elem; elem = elem.nextSibling) {if(elem.nodeType < 6){return false;}}return true;}, "parent":function(elem){return !Expr.pseudos["empty"](elem);}, "header":function(elem){return rheader.test(elem.nodeName);}, "input":function(elem){return rinputs.test(elem.nodeName);}, "button":function(elem){var name=elem.nodeName.toLowerCase();return name === "input" && elem.type === "button" || name === "button";}, "text":function(elem){var attr;return elem.nodeName.toLowerCase() === "input" && elem.type === "text" && ((attr = elem.getAttribute("type")) == null || attr.toLowerCase() === "text");}, "first":createPositionalPseudo(function(){return [0];}), "last":createPositionalPseudo(function(matchIndexes, length){return [length - 1];}), "eq":createPositionalPseudo(function(matchIndexes, length, argument){return [argument < 0?argument + length:argument];}), "even":createPositionalPseudo(function(matchIndexes, length){var i=0;for(; i < length; i += 2) {matchIndexes.push(i);}return matchIndexes;}), "odd":createPositionalPseudo(function(matchIndexes, length){var i=1;for(; i < length; i += 2) {matchIndexes.push(i);}return matchIndexes;}), "lt":createPositionalPseudo(function(matchIndexes, length, argument){var i=argument < 0?argument + length:argument;for(; --i >= 0;) {matchIndexes.push(i);}return matchIndexes;}), "gt":createPositionalPseudo(function(matchIndexes, length, argument){var i=argument < 0?argument + length:argument;for(; ++i < length;) {matchIndexes.push(i);}return matchIndexes;})}};Expr.pseudos["nth"] = Expr.pseudos["eq"];for(i in {radio:true, checkbox:true, file:true, password:true, image:true}) {Expr.pseudos[i] = createInputPseudo(i);}for(i in {submit:true, reset:true}) {Expr.pseudos[i] = createButtonPseudo(i);}function setFilters(){}setFilters.prototype = Expr.filters = Expr.pseudos;Expr.setFilters = new setFilters();tokenize = Sizzle.tokenize = function(selector, parseOnly){var matched, match, tokens, type, soFar, groups, preFilters, cached=tokenCache[selector + " "];if(cached){return parseOnly?0:cached.slice(0);}soFar = selector;groups = [];preFilters = Expr.preFilter;while(soFar) {if(!matched || (match = rcomma.exec(soFar))){if(match){soFar = soFar.slice(match[0].length) || soFar;}groups.push(tokens = []);}matched = false;if(match = rcombinators.exec(soFar)){matched = match.shift();tokens.push({value:matched, type:match[0].replace(rtrim, " ")});soFar = soFar.slice(matched.length);}for(type in Expr.filter) {if((match = matchExpr[type].exec(soFar)) && (!preFilters[type] || (match = preFilters[type](match)))){matched = match.shift();tokens.push({value:matched, type:type, matches:match});soFar = soFar.slice(matched.length);}}if(!matched){break;}}return parseOnly?soFar.length:soFar?Sizzle.error(selector):tokenCache(selector, groups).slice(0);};function toSelector(tokens){var i=0, len=tokens.length, selector="";for(; i < len; i++) {selector += tokens[i].value;}return selector;}function addCombinator(matcher, combinator, base){var dir=combinator.dir, checkNonElements=base && dir === "parentNode", doneName=done++;return combinator.first?function(elem, context, xml){while(elem = elem[dir]) {if(elem.nodeType === 1 || checkNonElements){return matcher(elem, context, xml);}}}:function(elem, context, xml){var oldCache, uniqueCache, outerCache, newCache=[dirruns, doneName];if(xml){while(elem = elem[dir]) {if(elem.nodeType === 1 || checkNonElements){if(matcher(elem, context, xml)){return true;}}}}else {while(elem = elem[dir]) {if(elem.nodeType === 1 || checkNonElements){outerCache = elem[expando] || (elem[expando] = {});uniqueCache = outerCache[elem.uniqueID] || (outerCache[elem.uniqueID] = {});if((oldCache = uniqueCache[dir]) && oldCache[0] === dirruns && oldCache[1] === doneName){return newCache[2] = oldCache[2];}else {uniqueCache[dir] = newCache;if(newCache[2] = matcher(elem, context, xml)){return true;}}}}}};}function elementMatcher(matchers){return matchers.length > 1?function(elem, context, xml){var i=matchers.length;while(i--) {if(!matchers[i](elem, context, xml)){return false;}}return true;}:matchers[0];}function multipleContexts(selector, contexts, results){var i=0, len=contexts.length;for(; i < len; i++) {Sizzle(selector, contexts[i], results);}return results;}function condense(unmatched, map, filter, context, xml){var elem, newUnmatched=[], i=0, len=unmatched.length, mapped=map != null;for(; i < len; i++) {if(elem = unmatched[i]){if(!filter || filter(elem, context, xml)){newUnmatched.push(elem);if(mapped){map.push(i);}}}}return newUnmatched;}function setMatcher(preFilter, selector, matcher, postFilter, postFinder, postSelector){if(postFilter && !postFilter[expando]){postFilter = setMatcher(postFilter);}if(postFinder && !postFinder[expando]){postFinder = setMatcher(postFinder, postSelector);}return markFunction(function(seed, results, context, xml){var temp, i, elem, preMap=[], postMap=[], preexisting=results.length, elems=seed || multipleContexts(selector || "*", context.nodeType?[context]:context, []), matcherIn=preFilter && (seed || !selector)?condense(elems, preMap, preFilter, context, xml):elems, matcherOut=matcher?postFinder || (seed?preFilter:preexisting || postFilter)?[]:results:matcherIn;if(matcher){matcher(matcherIn, matcherOut, context, xml);}if(postFilter){temp = condense(matcherOut, postMap);postFilter(temp, [], context, xml);i = temp.length;while(i--) {if(elem = temp[i]){matcherOut[postMap[i]] = !(matcherIn[postMap[i]] = elem);}}}if(seed){if(postFinder || preFilter){if(postFinder){temp = [];i = matcherOut.length;while(i--) {if(elem = matcherOut[i]){temp.push(matcherIn[i] = elem);}}postFinder(null, matcherOut = [], temp, xml);}i = matcherOut.length;while(i--) {if((elem = matcherOut[i]) && (temp = postFinder?indexOf(seed, elem):preMap[i]) > -1){seed[temp] = !(results[temp] = elem);}}}}else {matcherOut = condense(matcherOut === results?matcherOut.splice(preexisting, matcherOut.length):matcherOut);if(postFinder){postFinder(null, results, matcherOut, xml);}else {push.apply(results, matcherOut);}}});}function matcherFromTokens(tokens){var checkContext, matcher, j, len=tokens.length, leadingRelative=Expr.relative[tokens[0].type], implicitRelative=leadingRelative || Expr.relative[" "], i=leadingRelative?1:0, matchContext=addCombinator(function(elem){return elem === checkContext;}, implicitRelative, true), matchAnyContext=addCombinator(function(elem){return indexOf(checkContext, elem) > -1;}, implicitRelative, true), matchers=[function(elem, context, xml){var ret=!leadingRelative && (xml || context !== outermostContext) || ((checkContext = context).nodeType?matchContext(elem, context, xml):matchAnyContext(elem, context, xml));checkContext = null;return ret;}];for(; i < len; i++) {if(matcher = Expr.relative[tokens[i].type]){matchers = [addCombinator(elementMatcher(matchers), matcher)];}else {matcher = Expr.filter[tokens[i].type].apply(null, tokens[i].matches);if(matcher[expando]){j = ++i;for(; j < len; j++) {if(Expr.relative[tokens[j].type]){break;}}return setMatcher(i > 1 && elementMatcher(matchers), i > 1 && toSelector(tokens.slice(0, i - 1).concat({value:tokens[i - 2].type === " "?"*":""})).replace(rtrim, "$1"), matcher, i < j && matcherFromTokens(tokens.slice(i, j)), j < len && matcherFromTokens(tokens = tokens.slice(j)), j < len && toSelector(tokens));}matchers.push(matcher);}}return elementMatcher(matchers);}function matcherFromGroupMatchers(elementMatchers, setMatchers){var bySet=setMatchers.length > 0, byElement=elementMatchers.length > 0, superMatcher=function(seed, context, xml, results, outermost){var elem, j, matcher, matchedCount=0, i="0", unmatched=seed && [], setMatched=[], contextBackup=outermostContext, elems=seed || byElement && Expr.find["TAG"]("*", outermost), dirrunsUnique=dirruns += contextBackup == null?1:Math.random() || 0.1, len=elems.length;if(outermost){outermostContext = context === document || context || outermost;}for(; i !== len && (elem = elems[i]) != null; i++) {if(byElement && elem){j = 0;if(!context && elem.ownerDocument !== document){setDocument(elem);xml = !documentIsHTML;}while(matcher = elementMatchers[j++]) {if(matcher(elem, context || document, xml)){results.push(elem);break;}}if(outermost){dirruns = dirrunsUnique;}}if(bySet){if(elem = !matcher && elem){matchedCount--;}if(seed){unmatched.push(elem);}}}matchedCount += i;if(bySet && i !== matchedCount){j = 0;while(matcher = setMatchers[j++]) {matcher(unmatched, setMatched, context, xml);}if(seed){if(matchedCount > 0){while(i--) {if(!(unmatched[i] || setMatched[i])){setMatched[i] = pop.call(results);}}}setMatched = condense(setMatched);}push.apply(results, setMatched);if(outermost && !seed && setMatched.length > 0 && matchedCount + setMatchers.length > 1){Sizzle.uniqueSort(results);}}if(outermost){dirruns = dirrunsUnique;outermostContext = contextBackup;}return unmatched;};return bySet?markFunction(superMatcher):superMatcher;}compile = Sizzle.compile = function(selector, match){var i, setMatchers=[], elementMatchers=[], cached=compilerCache[selector + " "];if(!cached){if(!match){match = tokenize(selector);}i = match.length;while(i--) {cached = matcherFromTokens(match[i]);if(cached[expando]){setMatchers.push(cached);}else {elementMatchers.push(cached);}}cached = compilerCache(selector, matcherFromGroupMatchers(elementMatchers, setMatchers));cached.selector = selector;}return cached;};select = Sizzle.select = function(selector, context, results, seed){var i, tokens, token, type, find, compiled=typeof selector === "function" && selector, match=!seed && tokenize(selector = compiled.selector || selector);results = results || [];if(match.length === 1){tokens = match[0] = match[0].slice(0);if(tokens.length > 2 && (token = tokens[0]).type === "ID" && support.getById && context.nodeType === 9 && documentIsHTML && Expr.relative[tokens[1].type]){context = (Expr.find["ID"](token.matches[0].replace(runescape, funescape), context) || [])[0];if(!context){return results;}else if(compiled){context = context.parentNode;}selector = selector.slice(tokens.shift().value.length);}i = matchExpr["needsContext"].test(selector)?0:tokens.length;while(i--) {token = tokens[i];if(Expr.relative[type = token.type]){break;}if(find = Expr.find[type]){if(seed = find(token.matches[0].replace(runescape, funescape), rsibling.test(tokens[0].type) && testContext(context.parentNode) || context)){tokens.splice(i, 1);selector = seed.length && toSelector(tokens);if(!selector){push.apply(results, seed);return results;}break;}}}}(compiled || compile(selector, match))(seed, context, !documentIsHTML, results, !context || rsibling.test(selector) && testContext(context.parentNode) || context);return results;};support.sortStable = expando.split("").sort(sortOrder).join("") === expando;support.detectDuplicates = !!hasDuplicate;setDocument();support.sortDetached = assert(function(div1){return div1.compareDocumentPosition(document.createElement("div")) & 1;});if(!assert(function(div){div.innerHTML = "<a href='#'></a>";return div.firstChild.getAttribute("href") === "#";})){addHandle("type|href|height|width", function(elem, name, isXML){if(!isXML){return elem.getAttribute(name, name.toLowerCase() === "type"?1:2);}});}if(!support.attributes || !assert(function(div){div.innerHTML = "<input/>";div.firstChild.setAttribute("value", "");return div.firstChild.getAttribute("value") === "";})){addHandle("value", function(elem, name, isXML){if(!isXML && elem.nodeName.toLowerCase() === "input"){return elem.defaultValue;}});}if(!assert(function(div){return div.getAttribute("disabled") == null;})){addHandle(booleans, function(elem, name, isXML){var val;if(!isXML){return elem[name] === true?name.toLowerCase():(val = elem.getAttributeNode(name)) && val.specified?val.value:null;}});}return Sizzle;})(window);jQuery.find = Sizzle;jQuery.expr = Sizzle.selectors;jQuery.expr[":"] = jQuery.expr.pseudos;jQuery.uniqueSort = jQuery.unique = Sizzle.uniqueSort;jQuery.text = Sizzle.getText;jQuery.isXMLDoc = Sizzle.isXML;jQuery.contains = Sizzle.contains;var dir=function(elem, dir, until){var matched=[], truncate=until !== undefined;while((elem = elem[dir]) && elem.nodeType !== 9) {if(elem.nodeType === 1){if(truncate && jQuery(elem).is(until)){break;}matched.push(elem);}}return matched;};var siblings=function(n, elem){var matched=[];for(; n; n = n.nextSibling) {if(n.nodeType === 1 && n !== elem){matched.push(n);}}return matched;};var rneedsContext=jQuery.expr.match.needsContext;var rsingleTag=/^<([\w-]+)\s*\/?>(?:<\/\1>|)$/;var risSimple=/^.[^:#\[\.,]*$/;function winnow(elements, qualifier, not){if(jQuery.isFunction(qualifier)){return jQuery.grep(elements, function(elem, i){return !!qualifier.call(elem, i, elem) !== not;});}if(qualifier.nodeType){return jQuery.grep(elements, function(elem){return elem === qualifier !== not;});}if(typeof qualifier === "string"){if(risSimple.test(qualifier)){return jQuery.filter(qualifier, elements, not);}qualifier = jQuery.filter(qualifier, elements);}return jQuery.grep(elements, function(elem){return jQuery.inArray(elem, qualifier) > -1 !== not;});}jQuery.filter = function(expr, elems, not){var elem=elems[0];if(not){expr = ":not(" + expr + ")";}return elems.length === 1 && elem.nodeType === 1?jQuery.find.matchesSelector(elem, expr)?[elem]:[]:jQuery.find.matches(expr, jQuery.grep(elems, function(elem){return elem.nodeType === 1;}));};jQuery.fn.extend({find:function(selector){var i, ret=[], self=this, len=self.length;if(typeof selector !== "string"){return this.pushStack(jQuery(selector).filter(function(){for(i = 0; i < len; i++) {if(jQuery.contains(self[i], this)){return true;}}}));}for(i = 0; i < len; i++) {jQuery.find(selector, self[i], ret);}ret = this.pushStack(len > 1?jQuery.unique(ret):ret);ret.selector = this.selector?this.selector + " " + selector:selector;return ret;}, filter:function(selector){return this.pushStack(winnow(this, selector || [], false));}, not:function(selector){return this.pushStack(winnow(this, selector || [], true));}, is:function(selector){return !!winnow(this, typeof selector === "string" && rneedsContext.test(selector)?jQuery(selector):selector || [], false).length;}});var rootjQuery, rquickExpr=/^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/, init=jQuery.fn.init = function(selector, context, root){var match, elem;if(!selector){return this;}root = root || rootjQuery;if(typeof selector === "string"){if(selector.charAt(0) === "<" && selector.charAt(selector.length - 1) === ">" && selector.length >= 3){match = [null, selector, null];}else {match = rquickExpr.exec(selector);}if(match && (match[1] || !context)){if(match[1]){context = context instanceof jQuery?context[0]:context;jQuery.merge(this, jQuery.parseHTML(match[1], context && context.nodeType?context.ownerDocument || context:document, true));if(rsingleTag.test(match[1]) && jQuery.isPlainObject(context)){for(match in context) {if(jQuery.isFunction(this[match])){this[match](context[match]);}else {this.attr(match, context[match]);}}}return this;}else {elem = document.getElementById(match[2]);if(elem && elem.parentNode){if(elem.id !== match[2]){return rootjQuery.find(selector);}this.length = 1;this[0] = elem;}this.context = document;this.selector = selector;return this;}}else if(!context || context.jquery){return (context || root).find(selector);}else {return this.constructor(context).find(selector);}}else if(selector.nodeType){this.context = this[0] = selector;this.length = 1;return this;}else if(jQuery.isFunction(selector)){return typeof root.ready !== "undefined"?root.ready(selector):selector(jQuery);}if(selector.selector !== undefined){this.selector = selector.selector;this.context = selector.context;}return jQuery.makeArray(selector, this);};init.prototype = jQuery.fn;rootjQuery = jQuery(document);var rparentsprev=/^(?:parents|prev(?:Until|All))/, guaranteedUnique={children:true, contents:true, next:true, prev:true};jQuery.fn.extend({has:function(target){var i, targets=jQuery(target, this), len=targets.length;return this.filter(function(){for(i = 0; i < len; i++) {if(jQuery.contains(this, targets[i])){return true;}}});}, closest:function(selectors, context){var cur, i=0, l=this.length, matched=[], pos=rneedsContext.test(selectors) || typeof selectors !== "string"?jQuery(selectors, context || this.context):0;for(; i < l; i++) {for(cur = this[i]; cur && cur !== context; cur = cur.parentNode) {if(cur.nodeType < 11 && (pos?pos.index(cur) > -1:cur.nodeType === 1 && jQuery.find.matchesSelector(cur, selectors))){matched.push(cur);break;}}}return this.pushStack(matched.length > 1?jQuery.uniqueSort(matched):matched);}, index:function(elem){if(!elem){return this[0] && this[0].parentNode?this.first().prevAll().length:-1;}if(typeof elem === "string"){return jQuery.inArray(this[0], jQuery(elem));}return jQuery.inArray(elem.jquery?elem[0]:elem, this);}, add:function(selector, context){return this.pushStack(jQuery.uniqueSort(jQuery.merge(this.get(), jQuery(selector, context))));}, addBack:function(selector){return this.add(selector == null?this.prevObject:this.prevObject.filter(selector));}});function sibling(cur, dir){do {cur = cur[dir];}while(cur && cur.nodeType !== 1);return cur;}jQuery.each({parent:function(elem){var parent=elem.parentNode;return parent && parent.nodeType !== 11?parent:null;}, parents:function(elem){return dir(elem, "parentNode");}, parentsUntil:function(elem, i, until){return dir(elem, "parentNode", until);}, next:function(elem){return sibling(elem, "nextSibling");}, prev:function(elem){return sibling(elem, "previousSibling");}, nextAll:function(elem){return dir(elem, "nextSibling");}, prevAll:function(elem){return dir(elem, "previousSibling");}, nextUntil:function(elem, i, until){return dir(elem, "nextSibling", until);}, prevUntil:function(elem, i, until){return dir(elem, "previousSibling", until);}, siblings:function(elem){return siblings((elem.parentNode || {}).firstChild, elem);}, children:function(elem){return siblings(elem.firstChild);}, contents:function(elem){return jQuery.nodeName(elem, "iframe")?elem.contentDocument || elem.contentWindow.document:jQuery.merge([], elem.childNodes);}}, function(name, fn){jQuery.fn[name] = function(until, selector){var ret=jQuery.map(this, fn, until);if(name.slice(-5) !== "Until"){selector = until;}if(selector && typeof selector === "string"){ret = jQuery.filter(selector, ret);}if(this.length > 1){if(!guaranteedUnique[name]){ret = jQuery.uniqueSort(ret);}if(rparentsprev.test(name)){ret = ret.reverse();}}return this.pushStack(ret);};});var rnotwhite=/\S+/g;function createOptions(options){var object={};jQuery.each(options.match(rnotwhite) || [], function(_, flag){object[flag] = true;});return object;}jQuery.Callbacks = function(options){options = typeof options === "string"?createOptions(options):jQuery.extend({}, options);var firing, memory, fired, locked, list=[], queue=[], firingIndex=-1, fire=function(){locked = options.once;fired = firing = true;for(; queue.length; firingIndex = -1) {memory = queue.shift();while(++firingIndex < list.length) {if(list[firingIndex].apply(memory[0], memory[1]) === false && options.stopOnFalse){firingIndex = list.length;memory = false;}}}if(!options.memory){memory = false;}firing = false;if(locked){if(memory){list = [];}else {list = "";}}}, self={add:function(){if(list){if(memory && !firing){firingIndex = list.length - 1;queue.push(memory);}(function add(args){jQuery.each(args, function(_, arg){if(jQuery.isFunction(arg)){if(!options.unique || !self.has(arg)){list.push(arg);}}else if(arg && arg.length && jQuery.type(arg) !== "string"){add(arg);}});})(arguments);if(memory && !firing){fire();}}return this;}, remove:function(){jQuery.each(arguments, function(_, arg){var index;while((index = jQuery.inArray(arg, list, index)) > -1) {list.splice(index, 1);if(index <= firingIndex){firingIndex--;}}});return this;}, has:function(fn){return fn?jQuery.inArray(fn, list) > -1:list.length > 0;}, empty:function(){if(list){list = [];}return this;}, disable:function(){locked = queue = [];list = memory = "";return this;}, disabled:function(){return !list;}, lock:function(){locked = true;if(!memory){self.disable();}return this;}, locked:function(){return !!locked;}, fireWith:function(context, args){if(!locked){args = args || [];args = [context, args.slice?args.slice():args];queue.push(args);if(!firing){fire();}}return this;}, fire:function(){self.fireWith(this, arguments);return this;}, fired:function(){return !!fired;}};return self;};jQuery.extend({Deferred:function(func){var tuples=[["resolve", "done", jQuery.Callbacks("once memory"), "resolved"], ["reject", "fail", jQuery.Callbacks("once memory"), "rejected"], ["notify", "progress", jQuery.Callbacks("memory")]], state="pending", promise={state:function(){return state;}, always:function(){deferred.done(arguments).fail(arguments);return this;}, then:function(){var fns=arguments;return jQuery.Deferred(function(newDefer){jQuery.each(tuples, function(i, tuple){var fn=jQuery.isFunction(fns[i]) && fns[i];deferred[tuple[1]](function(){var returned=fn && fn.apply(this, arguments);if(returned && jQuery.isFunction(returned.promise)){returned.promise().progress(newDefer.notify).done(newDefer.resolve).fail(newDefer.reject);}else {newDefer[tuple[0] + "With"](this === promise?newDefer.promise():this, fn?[returned]:arguments);}});});fns = null;}).promise();}, promise:function(obj){return obj != null?jQuery.extend(obj, promise):promise;}}, deferred={};promise.pipe = promise.then;jQuery.each(tuples, function(i, tuple){var list=tuple[2], stateString=tuple[3];promise[tuple[1]] = list.add;if(stateString){list.add(function(){state = stateString;}, tuples[i ^ 1][2].disable, tuples[2][2].lock);}deferred[tuple[0]] = function(){deferred[tuple[0] + "With"](this === deferred?promise:this, arguments);return this;};deferred[tuple[0] + "With"] = list.fireWith;});promise.promise(deferred);if(func){func.call(deferred, deferred);}return deferred;}, when:function(subordinate){var i=0, resolveValues=slice.call(arguments), length=resolveValues.length, remaining=length !== 1 || subordinate && jQuery.isFunction(subordinate.promise)?length:0, deferred=remaining === 1?subordinate:jQuery.Deferred(), updateFunc=function(i, contexts, values){return function(value){contexts[i] = this;values[i] = arguments.length > 1?slice.call(arguments):value;if(values === progressValues){deferred.notifyWith(contexts, values);}else if(! --remaining){deferred.resolveWith(contexts, values);}};}, progressValues, progressContexts, resolveContexts;if(length > 1){progressValues = new Array(length);progressContexts = new Array(length);resolveContexts = new Array(length);for(; i < length; i++) {if(resolveValues[i] && jQuery.isFunction(resolveValues[i].promise)){resolveValues[i].promise().progress(updateFunc(i, progressContexts, progressValues)).done(updateFunc(i, resolveContexts, resolveValues)).fail(deferred.reject);}else {--remaining;}}}if(!remaining){deferred.resolveWith(resolveContexts, resolveValues);}return deferred.promise();}});var readyList;jQuery.fn.ready = function(fn){jQuery.ready.promise().done(fn);return this;};jQuery.extend({isReady:false, readyWait:1, holdReady:function(hold){if(hold){jQuery.readyWait++;}else {jQuery.ready(true);}}, ready:function(wait){if(wait === true?--jQuery.readyWait:jQuery.isReady){return;}jQuery.isReady = true;if(wait !== true && --jQuery.readyWait > 0){return;}readyList.resolveWith(document, [jQuery]);if(jQuery.fn.triggerHandler){jQuery(document).triggerHandler("ready");jQuery(document).off("ready");}}});function detach(){if(document.addEventListener){document.removeEventListener("DOMContentLoaded", completed);window.removeEventListener("load", completed);}else {document.detachEvent("onreadystatechange", completed);window.detachEvent("onload", completed);}}function completed(){if(document.addEventListener || window.event.type === "load" || document.readyState === "complete"){detach();jQuery.ready();}}jQuery.ready.promise = function(obj){if(!readyList){readyList = jQuery.Deferred();if(document.readyState === "complete" || document.readyState !== "loading" && !document.documentElement.doScroll){window.setTimeout(jQuery.ready);}else if(document.addEventListener){document.addEventListener("DOMContentLoaded", completed);window.addEventListener("load", completed);}else {document.attachEvent("onreadystatechange", completed);window.attachEvent("onload", completed);var top=false;try{top = window.frameElement == null && document.documentElement;}catch(e) {}if(top && top.doScroll){(function doScrollCheck(){if(!jQuery.isReady){try{top.doScroll("left");}catch(e) {return window.setTimeout(doScrollCheck, 50);}detach();jQuery.ready();}})();}}}return readyList.promise(obj);};jQuery.ready.promise();var i;for(i in jQuery(support)) {break;}support.ownFirst = i === "0";support.inlineBlockNeedsLayout = false;jQuery(function(){var val, div, body, container;body = document.getElementsByTagName("body")[0];if(!body || !body.style){return;}div = document.createElement("div");container = document.createElement("div");container.style.cssText = "position:absolute;border:0;width:0;height:0;top:0;left:-9999px";body.appendChild(container).appendChild(div);if(typeof div.style.zoom !== "undefined"){div.style.cssText = "display:inline;margin:0;border:0;padding:1px;width:1px;zoom:1";support.inlineBlockNeedsLayout = val = div.offsetWidth === 3;if(val){body.style.zoom = 1;}}body.removeChild(container);});(function(){var div=document.createElement("div");support.deleteExpando = true;try{delete div.test;}catch(e) {support.deleteExpando = false;}div = null;})();var acceptData=function(elem){var noData=jQuery.noData[(elem.nodeName + " ").toLowerCase()], nodeType=+elem.nodeType || 1;return nodeType !== 1 && nodeType !== 9?false:!noData || noData !== true && elem.getAttribute("classid") === noData;};var rbrace=/^(?:\{[\w\W]*\}|\[[\w\W]*\])$/, rmultiDash=/([A-Z])/g;function dataAttr(elem, key, data){if(data === undefined && elem.nodeType === 1){var name="data-" + key.replace(rmultiDash, "-$1").toLowerCase();data = elem.getAttribute(name);if(typeof data === "string"){try{data = data === "true"?true:data === "false"?false:data === "null"?null:+data + "" === data?+data:rbrace.test(data)?jQuery.parseJSON(data):data;}catch(e) {}jQuery.data(elem, key, data);}else {data = undefined;}}return data;}function isEmptyDataObject(obj){var name;for(name in obj) {if(name === "data" && jQuery.isEmptyObject(obj[name])){continue;}if(name !== "toJSON"){return false;}}return true;}function internalData(elem, name, data, pvt){if(!acceptData(elem)){return;}var ret, thisCache, internalKey=jQuery.expando, isNode=elem.nodeType, cache=isNode?jQuery.cache:elem, id=isNode?elem[internalKey]:elem[internalKey] && internalKey;if((!id || !cache[id] || !pvt && !cache[id].data) && data === undefined && typeof name === "string"){return;}if(!id){if(isNode){id = elem[internalKey] = deletedIds.pop() || jQuery.guid++;}else {id = internalKey;}}if(!cache[id]){cache[id] = isNode?{}:{toJSON:jQuery.noop};}if(typeof name === "object" || typeof name === "function"){if(pvt){cache[id] = jQuery.extend(cache[id], name);}else {cache[id].data = jQuery.extend(cache[id].data, name);}}thisCache = cache[id];if(!pvt){if(!thisCache.data){thisCache.data = {};}thisCache = thisCache.data;}if(data !== undefined){thisCache[jQuery.camelCase(name)] = data;}if(typeof name === "string"){ret = thisCache[name];if(ret == null){ret = thisCache[jQuery.camelCase(name)];}}else {ret = thisCache;}return ret;}function internalRemoveData(elem, name, pvt){if(!acceptData(elem)){return;}var thisCache, i, isNode=elem.nodeType, cache=isNode?jQuery.cache:elem, id=isNode?elem[jQuery.expando]:jQuery.expando;if(!cache[id]){return;}if(name){thisCache = pvt?cache[id]:cache[id].data;if(thisCache){if(!jQuery.isArray(name)){if(name in thisCache){name = [name];}else {name = jQuery.camelCase(name);if(name in thisCache){name = [name];}else {name = name.split(" ");}}}else {name = name.concat(jQuery.map(name, jQuery.camelCase));}i = name.length;while(i--) {delete thisCache[name[i]];}if(pvt?!isEmptyDataObject(thisCache):!jQuery.isEmptyObject(thisCache)){return;}}}if(!pvt){delete cache[id].data;if(!isEmptyDataObject(cache[id])){return;}}if(isNode){jQuery.cleanData([elem], true);}else if(support.deleteExpando || cache != cache.window){delete cache[id];}else {cache[id] = undefined;}}jQuery.extend({cache:{}, noData:{"applet ":true, "embed ":true, "object ":"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"}, hasData:function(elem){elem = elem.nodeType?jQuery.cache[elem[jQuery.expando]]:elem[jQuery.expando];return !!elem && !isEmptyDataObject(elem);}, data:function(elem, name, data){return internalData(elem, name, data);}, removeData:function(elem, name){return internalRemoveData(elem, name);}, _data:function(elem, name, data){return internalData(elem, name, data, true);}, _removeData:function(elem, name){return internalRemoveData(elem, name, true);}});jQuery.fn.extend({data:function(key, value){var i, name, data, elem=this[0], attrs=elem && elem.attributes;if(key === undefined){if(this.length){data = jQuery.data(elem);if(elem.nodeType === 1 && !jQuery._data(elem, "parsedAttrs")){i = attrs.length;while(i--) {if(attrs[i]){name = attrs[i].name;if(name.indexOf("data-") === 0){name = jQuery.camelCase(name.slice(5));dataAttr(elem, name, data[name]);}}}jQuery._data(elem, "parsedAttrs", true);}}return data;}if(typeof key === "object"){return this.each(function(){jQuery.data(this, key);});}return arguments.length > 1?this.each(function(){jQuery.data(this, key, value);}):elem?dataAttr(elem, key, jQuery.data(elem, key)):undefined;}, removeData:function(key){return this.each(function(){jQuery.removeData(this, key);});}});jQuery.extend({queue:function(elem, type, data){var queue;if(elem){type = (type || "fx") + "queue";queue = jQuery._data(elem, type);if(data){if(!queue || jQuery.isArray(data)){queue = jQuery._data(elem, type, jQuery.makeArray(data));}else {queue.push(data);}}return queue || [];}}, dequeue:function(elem, type){type = type || "fx";var queue=jQuery.queue(elem, type), startLength=queue.length, fn=queue.shift(), hooks=jQuery._queueHooks(elem, type), next=function(){jQuery.dequeue(elem, type);};if(fn === "inprogress"){fn = queue.shift();startLength--;}if(fn){if(type === "fx"){queue.unshift("inprogress");}delete hooks.stop;fn.call(elem, next, hooks);}if(!startLength && hooks){hooks.empty.fire();}}, _queueHooks:function(elem, type){var key=type + "queueHooks";return jQuery._data(elem, key) || jQuery._data(elem, key, {empty:jQuery.Callbacks("once memory").add(function(){jQuery._removeData(elem, type + "queue");jQuery._removeData(elem, key);})});}});jQuery.fn.extend({queue:function(type, data){var setter=2;if(typeof type !== "string"){data = type;type = "fx";setter--;}if(arguments.length < setter){return jQuery.queue(this[0], type);}return data === undefined?this:this.each(function(){var queue=jQuery.queue(this, type, data);jQuery._queueHooks(this, type);if(type === "fx" && queue[0] !== "inprogress"){jQuery.dequeue(this, type);}});}, dequeue:function(type){return this.each(function(){jQuery.dequeue(this, type);});}, clearQueue:function(type){return this.queue(type || "fx", []);}, promise:function(type, obj){var tmp, count=1, defer=jQuery.Deferred(), elements=this, i=this.length, resolve=function(){if(! --count){defer.resolveWith(elements, [elements]);}};if(typeof type !== "string"){obj = type;type = undefined;}type = type || "fx";while(i--) {tmp = jQuery._data(elements[i], type + "queueHooks");if(tmp && tmp.empty){count++;tmp.empty.add(resolve);}}resolve();return defer.promise(obj);}});(function(){var shrinkWrapBlocksVal;support.shrinkWrapBlocks = function(){if(shrinkWrapBlocksVal != null){return shrinkWrapBlocksVal;}shrinkWrapBlocksVal = false;var div, body, container;body = document.getElementsByTagName("body")[0];if(!body || !body.style){return;}div = document.createElement("div");container = document.createElement("div");container.style.cssText = "position:absolute;border:0;width:0;height:0;top:0;left:-9999px";body.appendChild(container).appendChild(div);if(typeof div.style.zoom !== "undefined"){div.style.cssText = "-webkit-box-sizing:content-box;-moz-box-sizing:content-box;" + "box-sizing:content-box;display:block;margin:0;border:0;" + "padding:1px;width:1px;zoom:1";div.appendChild(document.createElement("div")).style.width = "5px";shrinkWrapBlocksVal = div.offsetWidth !== 3;}body.removeChild(container);return shrinkWrapBlocksVal;};})();var pnum=/[+-]?(?:\d*\.|)\d+(?:[eE][+-]?\d+|)/.source;var rcssNum=new RegExp("^(?:([+-])=|)(" + pnum + ")([a-z%]*)$", "i");var cssExpand=["Top", "Right", "Bottom", "Left"];var isHidden=function(elem, el){elem = el || elem;return jQuery.css(elem, "display") === "none" || !jQuery.contains(elem.ownerDocument, elem);};function adjustCSS(elem, prop, valueParts, tween){var adjusted, scale=1, maxIterations=20, currentValue=tween?function(){return tween.cur();}:function(){return jQuery.css(elem, prop, "");}, initial=currentValue(), unit=valueParts && valueParts[3] || (jQuery.cssNumber[prop]?"":"px"), initialInUnit=(jQuery.cssNumber[prop] || unit !== "px" && +initial) && rcssNum.exec(jQuery.css(elem, prop));if(initialInUnit && initialInUnit[3] !== unit){unit = unit || initialInUnit[3];valueParts = valueParts || [];initialInUnit = +initial || 1;do {scale = scale || ".5";initialInUnit = initialInUnit / scale;jQuery.style(elem, prop, initialInUnit + unit);}while(scale !== (scale = currentValue() / initial) && scale !== 1 && --maxIterations);}if(valueParts){initialInUnit = +initialInUnit || +initial || 0;adjusted = valueParts[1]?initialInUnit + (valueParts[1] + 1) * valueParts[2]:+valueParts[2];if(tween){tween.unit = unit;tween.start = initialInUnit;tween.end = adjusted;}}return adjusted;}var access=function(elems, fn, key, value, chainable, emptyGet, raw){var i=0, length=elems.length, bulk=key == null;if(jQuery.type(key) === "object"){chainable = true;for(i in key) {access(elems, fn, i, key[i], true, emptyGet, raw);}}else if(value !== undefined){chainable = true;if(!jQuery.isFunction(value)){raw = true;}if(bulk){if(raw){fn.call(elems, value);fn = null;}else {bulk = fn;fn = function(elem, key, value){return bulk.call(jQuery(elem), value);};}}if(fn){for(; i < length; i++) {fn(elems[i], key, raw?value:value.call(elems[i], i, fn(elems[i], key)));}}}return chainable?elems:bulk?fn.call(elems):length?fn(elems[0], key):emptyGet;};var rcheckableType=/^(?:checkbox|radio)$/i;var rtagName=/<([\w:-]+)/;var rscriptType=/^$|\/(?:java|ecma)script/i;var rleadingWhitespace=/^\s+/;var nodeNames="abbr|article|aside|audio|bdi|canvas|data|datalist|" + "details|dialog|figcaption|figure|footer|header|hgroup|main|" + "mark|meter|nav|output|picture|progress|section|summary|template|time|video";function createSafeFragment(document){var list=nodeNames.split("|"), safeFrag=document.createDocumentFragment();if(safeFrag.createElement){while(list.length) {safeFrag.createElement(list.pop());}}return safeFrag;}(function(){var div=document.createElement("div"), fragment=document.createDocumentFragment(), input=document.createElement("input");div.innerHTML = "  <link/><table></table><a href='/a'>a</a><input type='checkbox'/>";support.leadingWhitespace = div.firstChild.nodeType === 3;support.tbody = !div.getElementsByTagName("tbody").length;support.htmlSerialize = !!div.getElementsByTagName("link").length;support.html5Clone = document.createElement("nav").cloneNode(true).outerHTML !== "<:nav></:nav>";input.type = "checkbox";input.checked = true;fragment.appendChild(input);support.appendChecked = input.checked;div.innerHTML = "<textarea>x</textarea>";support.noCloneChecked = !!div.cloneNode(true).lastChild.defaultValue;fragment.appendChild(div);input = document.createElement("input");input.setAttribute("type", "radio");input.setAttribute("checked", "checked");input.setAttribute("name", "t");div.appendChild(input);support.checkClone = div.cloneNode(true).cloneNode(true).lastChild.checked;support.noCloneEvent = !!div.addEventListener;div[jQuery.expando] = 1;support.attributes = !div.getAttribute(jQuery.expando);})();var wrapMap={option:[1, "<select multiple='multiple'>", "</select>"], legend:[1, "<fieldset>", "</fieldset>"], area:[1, "<map>", "</map>"], param:[1, "<object>", "</object>"], thead:[1, "<table>", "</table>"], tr:[2, "<table><tbody>", "</tbody></table>"], col:[2, "<table><tbody></tbody><colgroup>", "</colgroup></table>"], td:[3, "<table><tbody><tr>", "</tr></tbody></table>"], _default:support.htmlSerialize?[0, "", ""]:[1, "X<div>", "</div>"]};wrapMap.optgroup = wrapMap.option;wrapMap.tbody = wrapMap.tfoot = wrapMap.colgroup = wrapMap.caption = wrapMap.thead;wrapMap.th = wrapMap.td;function getAll(context, tag){var elems, elem, i=0, found=typeof context.getElementsByTagName !== "undefined"?context.getElementsByTagName(tag || "*"):typeof context.querySelectorAll !== "undefined"?context.querySelectorAll(tag || "*"):undefined;if(!found){for(found = [], elems = context.childNodes || context; (elem = elems[i]) != null; i++) {if(!tag || jQuery.nodeName(elem, tag)){found.push(elem);}else {jQuery.merge(found, getAll(elem, tag));}}}return tag === undefined || tag && jQuery.nodeName(context, tag)?jQuery.merge([context], found):found;}function setGlobalEval(elems, refElements){var elem, i=0;for(; (elem = elems[i]) != null; i++) {jQuery._data(elem, "globalEval", !refElements || jQuery._data(refElements[i], "globalEval"));}}var rhtml=/<|&#?\w+;/, rtbody=/<tbody/i;function fixDefaultChecked(elem){if(rcheckableType.test(elem.type)){elem.defaultChecked = elem.checked;}}function buildFragment(elems, context, scripts, selection, ignored){var j, elem, contains, tmp, tag, tbody, wrap, l=elems.length, safe=createSafeFragment(context), nodes=[], i=0;for(; i < l; i++) {elem = elems[i];if(elem || elem === 0){if(jQuery.type(elem) === "object"){jQuery.merge(nodes, elem.nodeType?[elem]:elem);}else if(!rhtml.test(elem)){nodes.push(context.createTextNode(elem));}else {tmp = tmp || safe.appendChild(context.createElement("div"));tag = (rtagName.exec(elem) || ["", ""])[1].toLowerCase();wrap = wrapMap[tag] || wrapMap._default;tmp.innerHTML = wrap[1] + jQuery.htmlPrefilter(elem) + wrap[2];j = wrap[0];while(j--) {tmp = tmp.lastChild;}if(!support.leadingWhitespace && rleadingWhitespace.test(elem)){nodes.push(context.createTextNode(rleadingWhitespace.exec(elem)[0]));}if(!support.tbody){elem = tag === "table" && !rtbody.test(elem)?tmp.firstChild:wrap[1] === "<table>" && !rtbody.test(elem)?tmp:0;j = elem && elem.childNodes.length;while(j--) {if(jQuery.nodeName(tbody = elem.childNodes[j], "tbody") && !tbody.childNodes.length){elem.removeChild(tbody);}}}jQuery.merge(nodes, tmp.childNodes);tmp.textContent = "";while(tmp.firstChild) {tmp.removeChild(tmp.firstChild);}tmp = safe.lastChild;}}}if(tmp){safe.removeChild(tmp);}if(!support.appendChecked){jQuery.grep(getAll(nodes, "input"), fixDefaultChecked);}i = 0;while(elem = nodes[i++]) {if(selection && jQuery.inArray(elem, selection) > -1){if(ignored){ignored.push(elem);}continue;}contains = jQuery.contains(elem.ownerDocument, elem);tmp = getAll(safe.appendChild(elem), "script");if(contains){setGlobalEval(tmp);}if(scripts){j = 0;while(elem = tmp[j++]) {if(rscriptType.test(elem.type || "")){scripts.push(elem);}}}}tmp = null;return safe;}(function(){var i, eventName, div=document.createElement("div");for(i in {submit:true, change:true, focusin:true}) {eventName = "on" + i;if(!(support[i] = eventName in window)){div.setAttribute(eventName, "t");support[i] = div.attributes[eventName].expando === false;}}div = null;})();var rformElems=/^(?:input|select|textarea)$/i, rkeyEvent=/^key/, rmouseEvent=/^(?:mouse|pointer|contextmenu|drag|drop)|click/, rfocusMorph=/^(?:focusinfocus|focusoutblur)$/, rtypenamespace=/^([^.]*)(?:\.(.+)|)/;function returnTrue(){return true;}function returnFalse(){return false;}function safeActiveElement(){try{return document.activeElement;}catch(err) {}}function on(elem, types, selector, data, fn, one){var origFn, type;if(typeof types === "object"){if(typeof selector !== "string"){data = data || selector;selector = undefined;}for(type in types) {on(elem, type, selector, data, types[type], one);}return elem;}if(data == null && fn == null){fn = selector;data = selector = undefined;}else if(fn == null){if(typeof selector === "string"){fn = data;data = undefined;}else {fn = data;data = selector;selector = undefined;}}if(fn === false){fn = returnFalse;}else if(!fn){return elem;}if(one === 1){origFn = fn;fn = function(event){jQuery().off(event);return origFn.apply(this, arguments);};fn.guid = origFn.guid || (origFn.guid = jQuery.guid++);}return elem.each(function(){jQuery.event.add(this, types, fn, data, selector);});}jQuery.event = {global:{}, add:function(elem, types, handler, data, selector){var tmp, events, t, handleObjIn, special, eventHandle, handleObj, handlers, type, namespaces, origType, elemData=jQuery._data(elem);if(!elemData){return;}if(handler.handler){handleObjIn = handler;handler = handleObjIn.handler;selector = handleObjIn.selector;}if(!handler.guid){handler.guid = jQuery.guid++;}if(!(events = elemData.events)){events = elemData.events = {};}if(!(eventHandle = elemData.handle)){eventHandle = elemData.handle = function(e){return typeof jQuery !== "undefined" && (!e || jQuery.event.triggered !== e.type)?jQuery.event.dispatch.apply(eventHandle.elem, arguments):undefined;};eventHandle.elem = elem;}types = (types || "").match(rnotwhite) || [""];t = types.length;while(t--) {tmp = rtypenamespace.exec(types[t]) || [];type = origType = tmp[1];namespaces = (tmp[2] || "").split(".").sort();if(!type){continue;}special = jQuery.event.special[type] || {};type = (selector?special.delegateType:special.bindType) || type;special = jQuery.event.special[type] || {};handleObj = jQuery.extend({type:type, origType:origType, data:data, handler:handler, guid:handler.guid, selector:selector, needsContext:selector && jQuery.expr.match.needsContext.test(selector), namespace:namespaces.join(".")}, handleObjIn);if(!(handlers = events[type])){handlers = events[type] = [];handlers.delegateCount = 0;if(!special.setup || special.setup.call(elem, data, namespaces, eventHandle) === false){if(elem.addEventListener){elem.addEventListener(type, eventHandle, false);}else if(elem.attachEvent){elem.attachEvent("on" + type, eventHandle);}}}if(special.add){special.add.call(elem, handleObj);if(!handleObj.handler.guid){handleObj.handler.guid = handler.guid;}}if(selector){handlers.splice(handlers.delegateCount++, 0, handleObj);}else {handlers.push(handleObj);}jQuery.event.global[type] = true;}elem = null;}, remove:function(elem, types, handler, selector, mappedTypes){var j, handleObj, tmp, origCount, t, events, special, handlers, type, namespaces, origType, elemData=jQuery.hasData(elem) && jQuery._data(elem);if(!elemData || !(events = elemData.events)){return;}types = (types || "").match(rnotwhite) || [""];t = types.length;while(t--) {tmp = rtypenamespace.exec(types[t]) || [];type = origType = tmp[1];namespaces = (tmp[2] || "").split(".").sort();if(!type){for(type in events) {jQuery.event.remove(elem, type + types[t], handler, selector, true);}continue;}special = jQuery.event.special[type] || {};type = (selector?special.delegateType:special.bindType) || type;handlers = events[type] || [];tmp = tmp[2] && new RegExp("(^|\\.)" + namespaces.join("\\.(?:.*\\.|)") + "(\\.|$)");origCount = j = handlers.length;while(j--) {handleObj = handlers[j];if((mappedTypes || origType === handleObj.origType) && (!handler || handler.guid === handleObj.guid) && (!tmp || tmp.test(handleObj.namespace)) && (!selector || selector === handleObj.selector || selector === "**" && handleObj.selector)){handlers.splice(j, 1);if(handleObj.selector){handlers.delegateCount--;}if(special.remove){special.remove.call(elem, handleObj);}}}if(origCount && !handlers.length){if(!special.teardown || special.teardown.call(elem, namespaces, elemData.handle) === false){jQuery.removeEvent(elem, type, elemData.handle);}delete events[type];}}if(jQuery.isEmptyObject(events)){delete elemData.handle;jQuery._removeData(elem, "events");}}, trigger:function(event, data, elem, onlyHandlers){var handle, ontype, cur, bubbleType, special, tmp, i, eventPath=[elem || document], type=hasOwn.call(event, "type")?event.type:event, namespaces=hasOwn.call(event, "namespace")?event.namespace.split("."):[];cur = tmp = elem = elem || document;if(elem.nodeType === 3 || elem.nodeType === 8){return;}if(rfocusMorph.test(type + jQuery.event.triggered)){return;}if(type.indexOf(".") > -1){namespaces = type.split(".");type = namespaces.shift();namespaces.sort();}ontype = type.indexOf(":") < 0 && "on" + type;event = event[jQuery.expando]?event:new jQuery.Event(type, typeof event === "object" && event);event.isTrigger = onlyHandlers?2:3;event.namespace = namespaces.join(".");event.rnamespace = event.namespace?new RegExp("(^|\\.)" + namespaces.join("\\.(?:.*\\.|)") + "(\\.|$)"):null;event.result = undefined;if(!event.target){event.target = elem;}data = data == null?[event]:jQuery.makeArray(data, [event]);special = jQuery.event.special[type] || {};if(!onlyHandlers && special.trigger && special.trigger.apply(elem, data) === false){return;}if(!onlyHandlers && !special.noBubble && !jQuery.isWindow(elem)){bubbleType = special.delegateType || type;if(!rfocusMorph.test(bubbleType + type)){cur = cur.parentNode;}for(; cur; cur = cur.parentNode) {eventPath.push(cur);tmp = cur;}if(tmp === (elem.ownerDocument || document)){eventPath.push(tmp.defaultView || tmp.parentWindow || window);}}i = 0;while((cur = eventPath[i++]) && !event.isPropagationStopped()) {event.type = i > 1?bubbleType:special.bindType || type;handle = (jQuery._data(cur, "events") || {})[event.type] && jQuery._data(cur, "handle");if(handle){handle.apply(cur, data);}handle = ontype && cur[ontype];if(handle && handle.apply && acceptData(cur)){event.result = handle.apply(cur, data);if(event.result === false){event.preventDefault();}}}event.type = type;if(!onlyHandlers && !event.isDefaultPrevented()){if((!special._default || special._default.apply(eventPath.pop(), data) === false) && acceptData(elem)){if(ontype && elem[type] && !jQuery.isWindow(elem)){tmp = elem[ontype];if(tmp){elem[ontype] = null;}jQuery.event.triggered = type;try{elem[type]();}catch(e) {}jQuery.event.triggered = undefined;if(tmp){elem[ontype] = tmp;}}}}return event.result;}, dispatch:function(event){event = jQuery.event.fix(event);var i, j, ret, matched, handleObj, handlerQueue=[], args=slice.call(arguments), handlers=(jQuery._data(this, "events") || {})[event.type] || [], special=jQuery.event.special[event.type] || {};args[0] = event;event.delegateTarget = this;if(special.preDispatch && special.preDispatch.call(this, event) === false){return;}handlerQueue = jQuery.event.handlers.call(this, event, handlers);i = 0;while((matched = handlerQueue[i++]) && !event.isPropagationStopped()) {event.currentTarget = matched.elem;j = 0;while((handleObj = matched.handlers[j++]) && !event.isImmediatePropagationStopped()) {if(!event.rnamespace || event.rnamespace.test(handleObj.namespace)){event.handleObj = handleObj;event.data = handleObj.data;ret = ((jQuery.event.special[handleObj.origType] || {}).handle || handleObj.handler).apply(matched.elem, args);if(ret !== undefined){if((event.result = ret) === false){event.preventDefault();event.stopPropagation();}}}}}if(special.postDispatch){special.postDispatch.call(this, event);}return event.result;}, handlers:function(event, handlers){var i, matches, sel, handleObj, handlerQueue=[], delegateCount=handlers.delegateCount, cur=event.target;if(delegateCount && cur.nodeType && (event.type !== "click" || isNaN(event.button) || event.button < 1)){for(; cur != this; cur = cur.parentNode || this) {if(cur.nodeType === 1 && (cur.disabled !== true || event.type !== "click")){matches = [];for(i = 0; i < delegateCount; i++) {handleObj = handlers[i];sel = handleObj.selector + " ";if(matches[sel] === undefined){matches[sel] = handleObj.needsContext?jQuery(sel, this).index(cur) > -1:jQuery.find(sel, this, null, [cur]).length;}if(matches[sel]){matches.push(handleObj);}}if(matches.length){handlerQueue.push({elem:cur, handlers:matches});}}}}if(delegateCount < handlers.length){handlerQueue.push({elem:this, handlers:handlers.slice(delegateCount)});}return handlerQueue;}, fix:function(event){if(event[jQuery.expando]){return event;}var i, prop, copy, type=event.type, originalEvent=event, fixHook=this.fixHooks[type];if(!fixHook){this.fixHooks[type] = fixHook = rmouseEvent.test(type)?this.mouseHooks:rkeyEvent.test(type)?this.keyHooks:{};}copy = fixHook.props?this.props.concat(fixHook.props):this.props;event = new jQuery.Event(originalEvent);i = copy.length;while(i--) {prop = copy[i];event[prop] = originalEvent[prop];}if(!event.target){event.target = originalEvent.srcElement || document;}if(event.target.nodeType === 3){event.target = event.target.parentNode;}event.metaKey = !!event.metaKey;return fixHook.filter?fixHook.filter(event, originalEvent):event;}, props:("altKey bubbles cancelable ctrlKey currentTarget detail eventPhase " + "metaKey relatedTarget shiftKey target timeStamp view which").split(" "), fixHooks:{}, keyHooks:{props:"char charCode key keyCode".split(" "), filter:function(event, original){if(event.which == null){event.which = original.charCode != null?original.charCode:original.keyCode;}return event;}}, mouseHooks:{props:("button buttons clientX clientY fromElement offsetX offsetY " + "pageX pageY screenX screenY toElement").split(" "), filter:function(event, original){var body, eventDoc, doc, button=original.button, fromElement=original.fromElement;if(event.pageX == null && original.clientX != null){eventDoc = event.target.ownerDocument || document;doc = eventDoc.documentElement;body = eventDoc.body;event.pageX = original.clientX + (doc && doc.scrollLeft || body && body.scrollLeft || 0) - (doc && doc.clientLeft || body && body.clientLeft || 0);event.pageY = original.clientY + (doc && doc.scrollTop || body && body.scrollTop || 0) - (doc && doc.clientTop || body && body.clientTop || 0);}if(!event.relatedTarget && fromElement){event.relatedTarget = fromElement === event.target?original.toElement:fromElement;}if(!event.which && button !== undefined){event.which = button & 1?1:button & 2?3:button & 4?2:0;}return event;}}, special:{load:{noBubble:true}, focus:{trigger:function(){if(this !== safeActiveElement() && this.focus){try{this.focus();return false;}catch(e) {}}}, delegateType:"focusin"}, blur:{trigger:function(){if(this === safeActiveElement() && this.blur){this.blur();return false;}}, delegateType:"focusout"}, click:{trigger:function(){if(jQuery.nodeName(this, "input") && this.type === "checkbox" && this.click){this.click();return false;}}, _default:function(event){return jQuery.nodeName(event.target, "a");}}, beforeunload:{postDispatch:function(event){if(event.result !== undefined && event.originalEvent){event.originalEvent.returnValue = event.result;}}}}, simulate:function(type, elem, event){var e=jQuery.extend(new jQuery.Event(), event, {type:type, isSimulated:true});jQuery.event.trigger(e, null, elem);if(e.isDefaultPrevented()){event.preventDefault();}}};jQuery.removeEvent = document.removeEventListener?function(elem, type, handle){if(elem.removeEventListener){elem.removeEventListener(type, handle);}}:function(elem, type, handle){var name="on" + type;if(elem.detachEvent){if(typeof elem[name] === "undefined"){elem[name] = null;}elem.detachEvent(name, handle);}};jQuery.Event = function(src, props){if(!(this instanceof jQuery.Event)){return new jQuery.Event(src, props);}if(src && src.type){this.originalEvent = src;this.type = src.type;this.isDefaultPrevented = src.defaultPrevented || src.defaultPrevented === undefined && src.returnValue === false?returnTrue:returnFalse;}else {this.type = src;}if(props){jQuery.extend(this, props);}this.timeStamp = src && src.timeStamp || jQuery.now();this[jQuery.expando] = true;};jQuery.Event.prototype = {constructor:jQuery.Event, isDefaultPrevented:returnFalse, isPropagationStopped:returnFalse, isImmediatePropagationStopped:returnFalse, preventDefault:function(){var e=this.originalEvent;this.isDefaultPrevented = returnTrue;if(!e){return;}if(e.preventDefault){e.preventDefault();}else {e.returnValue = false;}}, stopPropagation:function(){var e=this.originalEvent;this.isPropagationStopped = returnTrue;if(!e || this.isSimulated){return;}if(e.stopPropagation){e.stopPropagation();}e.cancelBubble = true;}, stopImmediatePropagation:function(){var e=this.originalEvent;this.isImmediatePropagationStopped = returnTrue;if(e && e.stopImmediatePropagation){e.stopImmediatePropagation();}this.stopPropagation();}};jQuery.each({mouseenter:"mouseover", mouseleave:"mouseout", pointerenter:"pointerover", pointerleave:"pointerout"}, function(orig, fix){jQuery.event.special[orig] = {delegateType:fix, bindType:fix, handle:function(event){var ret, target=this, related=event.relatedTarget, handleObj=event.handleObj;if(!related || related !== target && !jQuery.contains(target, related)){event.type = handleObj.origType;ret = handleObj.handler.apply(this, arguments);event.type = fix;}return ret;}};});if(!support.submit){jQuery.event.special.submit = {setup:function(){if(jQuery.nodeName(this, "form")){return false;}jQuery.event.add(this, "click._submit keypress._submit", function(e){var elem=e.target, form=jQuery.nodeName(elem, "input") || jQuery.nodeName(elem, "button")?jQuery.prop(elem, "form"):undefined;if(form && !jQuery._data(form, "submit")){jQuery.event.add(form, "submit._submit", function(event){event._submitBubble = true;});jQuery._data(form, "submit", true);}});}, postDispatch:function(event){if(event._submitBubble){delete event._submitBubble;if(this.parentNode && !event.isTrigger){jQuery.event.simulate("submit", this.parentNode, event);}}}, teardown:function(){if(jQuery.nodeName(this, "form")){return false;}jQuery.event.remove(this, "._submit");}};}if(!support.change){jQuery.event.special.change = {setup:function(){if(rformElems.test(this.nodeName)){if(this.type === "checkbox" || this.type === "radio"){jQuery.event.add(this, "propertychange._change", function(event){if(event.originalEvent.propertyName === "checked"){this._justChanged = true;}});jQuery.event.add(this, "click._change", function(event){if(this._justChanged && !event.isTrigger){this._justChanged = false;}jQuery.event.simulate("change", this, event);});}return false;}jQuery.event.add(this, "beforeactivate._change", function(e){var elem=e.target;if(rformElems.test(elem.nodeName) && !jQuery._data(elem, "change")){jQuery.event.add(elem, "change._change", function(event){if(this.parentNode && !event.isSimulated && !event.isTrigger){jQuery.event.simulate("change", this.parentNode, event);}});jQuery._data(elem, "change", true);}});}, handle:function(event){var elem=event.target;if(this !== elem || event.isSimulated || event.isTrigger || elem.type !== "radio" && elem.type !== "checkbox"){return event.handleObj.handler.apply(this, arguments);}}, teardown:function(){jQuery.event.remove(this, "._change");return !rformElems.test(this.nodeName);}};}if(!support.focusin){jQuery.each({focus:"focusin", blur:"focusout"}, function(orig, fix){var handler=function(event){jQuery.event.simulate(fix, event.target, jQuery.event.fix(event));};jQuery.event.special[fix] = {setup:function(){var doc=this.ownerDocument || this, attaches=jQuery._data(doc, fix);if(!attaches){doc.addEventListener(orig, handler, true);}jQuery._data(doc, fix, (attaches || 0) + 1);}, teardown:function(){var doc=this.ownerDocument || this, attaches=jQuery._data(doc, fix) - 1;if(!attaches){doc.removeEventListener(orig, handler, true);jQuery._removeData(doc, fix);}else {jQuery._data(doc, fix, attaches);}}};});}jQuery.fn.extend({on:function(types, selector, data, fn){return on(this, types, selector, data, fn);}, one:function(types, selector, data, fn){return on(this, types, selector, data, fn, 1);}, off:function(types, selector, fn){var handleObj, type;if(types && types.preventDefault && types.handleObj){handleObj = types.handleObj;jQuery(types.delegateTarget).off(handleObj.namespace?handleObj.origType + "." + handleObj.namespace:handleObj.origType, handleObj.selector, handleObj.handler);return this;}if(typeof types === "object"){for(type in types) {this.off(type, selector, types[type]);}return this;}if(selector === false || typeof selector === "function"){fn = selector;selector = undefined;}if(fn === false){fn = returnFalse;}return this.each(function(){jQuery.event.remove(this, types, fn, selector);});}, trigger:function(type, data){return this.each(function(){jQuery.event.trigger(type, data, this);});}, triggerHandler:function(type, data){var elem=this[0];if(elem){return jQuery.event.trigger(type, data, elem, true);}}});var rinlinejQuery=/ jQuery\d+="(?:null|\d+)"/g, rnoshimcache=new RegExp("<(?:" + nodeNames + ")[\\s/>]", "i"), rxhtmlTag=/<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:-]+)[^>]*)\/>/gi, rnoInnerhtml=/<script|<style|<link/i, rchecked=/checked\s*(?:[^=]|=\s*.checked.)/i, rscriptTypeMasked=/^true\/(.*)/, rcleanScript=/^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g, safeFragment=createSafeFragment(document), fragmentDiv=safeFragment.appendChild(document.createElement("div"));function manipulationTarget(elem, content){return jQuery.nodeName(elem, "table") && jQuery.nodeName(content.nodeType !== 11?content:content.firstChild, "tr")?elem.getElementsByTagName("tbody")[0] || elem.appendChild(elem.ownerDocument.createElement("tbody")):elem;}function disableScript(elem){elem.type = (jQuery.find.attr(elem, "type") !== null) + "/" + elem.type;return elem;}function restoreScript(elem){var match=rscriptTypeMasked.exec(elem.type);if(match){elem.type = match[1];}else {elem.removeAttribute("type");}return elem;}function cloneCopyEvent(src, dest){if(dest.nodeType !== 1 || !jQuery.hasData(src)){return;}var type, i, l, oldData=jQuery._data(src), curData=jQuery._data(dest, oldData), events=oldData.events;if(events){delete curData.handle;curData.events = {};for(type in events) {for(i = 0, l = events[type].length; i < l; i++) {jQuery.event.add(dest, type, events[type][i]);}}}if(curData.data){curData.data = jQuery.extend({}, curData.data);}}function fixCloneNodeIssues(src, dest){var nodeName, e, data;if(dest.nodeType !== 1){return;}nodeName = dest.nodeName.toLowerCase();if(!support.noCloneEvent && dest[jQuery.expando]){data = jQuery._data(dest);for(e in data.events) {jQuery.removeEvent(dest, e, data.handle);}dest.removeAttribute(jQuery.expando);}if(nodeName === "script" && dest.text !== src.text){disableScript(dest).text = src.text;restoreScript(dest);}else if(nodeName === "object"){if(dest.parentNode){dest.outerHTML = src.outerHTML;}if(support.html5Clone && (src.innerHTML && !jQuery.trim(dest.innerHTML))){dest.innerHTML = src.innerHTML;}}else if(nodeName === "input" && rcheckableType.test(src.type)){dest.defaultChecked = dest.checked = src.checked;if(dest.value !== src.value){dest.value = src.value;}}else if(nodeName === "option"){dest.defaultSelected = dest.selected = src.defaultSelected;}else if(nodeName === "input" || nodeName === "textarea"){dest.defaultValue = src.defaultValue;}}function domManip(collection, args, callback, ignored){args = concat.apply([], args);var first, node, hasScripts, scripts, doc, fragment, i=0, l=collection.length, iNoClone=l - 1, value=args[0], isFunction=jQuery.isFunction(value);if(isFunction || l > 1 && typeof value === "string" && !support.checkClone && rchecked.test(value)){return collection.each(function(index){var self=collection.eq(index);if(isFunction){args[0] = value.call(this, index, self.html());}domManip(self, args, callback, ignored);});}if(l){fragment = buildFragment(args, collection[0].ownerDocument, false, collection, ignored);first = fragment.firstChild;if(fragment.childNodes.length === 1){fragment = first;}if(first || ignored){scripts = jQuery.map(getAll(fragment, "script"), disableScript);hasScripts = scripts.length;for(; i < l; i++) {node = fragment;if(i !== iNoClone){node = jQuery.clone(node, true, true);if(hasScripts){jQuery.merge(scripts, getAll(node, "script"));}}callback.call(collection[i], node, i);}if(hasScripts){doc = scripts[scripts.length - 1].ownerDocument;jQuery.map(scripts, restoreScript);for(i = 0; i < hasScripts; i++) {node = scripts[i];if(rscriptType.test(node.type || "") && !jQuery._data(node, "globalEval") && jQuery.contains(doc, node)){if(node.src){if(jQuery._evalUrl){jQuery._evalUrl(node.src);}}else {jQuery.globalEval((node.text || node.textContent || node.innerHTML || "").replace(rcleanScript, ""));}}}}fragment = first = null;}}return collection;}function remove(elem, selector, keepData){var node, elems=selector?jQuery.filter(selector, elem):elem, i=0;for(; (node = elems[i]) != null; i++) {if(!keepData && node.nodeType === 1){jQuery.cleanData(getAll(node));}if(node.parentNode){if(keepData && jQuery.contains(node.ownerDocument, node)){setGlobalEval(getAll(node, "script"));}node.parentNode.removeChild(node);}}return elem;}jQuery.extend({htmlPrefilter:function(html){return html.replace(rxhtmlTag, "<$1></$2>");}, clone:function(elem, dataAndEvents, deepDataAndEvents){var destElements, node, clone, i, srcElements, inPage=jQuery.contains(elem.ownerDocument, elem);if(support.html5Clone || jQuery.isXMLDoc(elem) || !rnoshimcache.test("<" + elem.nodeName + ">")){clone = elem.cloneNode(true);}else {fragmentDiv.innerHTML = elem.outerHTML;fragmentDiv.removeChild(clone = fragmentDiv.firstChild);}if((!support.noCloneEvent || !support.noCloneChecked) && (elem.nodeType === 1 || elem.nodeType === 11) && !jQuery.isXMLDoc(elem)){destElements = getAll(clone);srcElements = getAll(elem);for(i = 0; (node = srcElements[i]) != null; ++i) {if(destElements[i]){fixCloneNodeIssues(node, destElements[i]);}}}if(dataAndEvents){if(deepDataAndEvents){srcElements = srcElements || getAll(elem);destElements = destElements || getAll(clone);for(i = 0; (node = srcElements[i]) != null; i++) {cloneCopyEvent(node, destElements[i]);}}else {cloneCopyEvent(elem, clone);}}destElements = getAll(clone, "script");if(destElements.length > 0){setGlobalEval(destElements, !inPage && getAll(elem, "script"));}destElements = srcElements = node = null;return clone;}, cleanData:function(elems, forceAcceptData){var elem, type, id, data, i=0, internalKey=jQuery.expando, cache=jQuery.cache, attributes=support.attributes, special=jQuery.event.special;for(; (elem = elems[i]) != null; i++) {if(forceAcceptData || acceptData(elem)){id = elem[internalKey];data = id && cache[id];if(data){if(data.events){for(type in data.events) {if(special[type]){jQuery.event.remove(elem, type);}else {jQuery.removeEvent(elem, type, data.handle);}}}if(cache[id]){delete cache[id];if(!attributes && typeof elem.removeAttribute !== "undefined"){elem.removeAttribute(internalKey);}else {elem[internalKey] = undefined;}deletedIds.push(id);}}}}}});jQuery.fn.extend({domManip:domManip, detach:function(selector){return remove(this, selector, true);}, remove:function(selector){return remove(this, selector);}, text:function(value){return access(this, function(value){return value === undefined?jQuery.text(this):this.empty().append((this[0] && this[0].ownerDocument || document).createTextNode(value));}, null, value, arguments.length);}, append:function(){return domManip(this, arguments, function(elem){if(this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9){var target=manipulationTarget(this, elem);target.appendChild(elem);}});}, prepend:function(){return domManip(this, arguments, function(elem){if(this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9){var target=manipulationTarget(this, elem);target.insertBefore(elem, target.firstChild);}});}, before:function(){return domManip(this, arguments, function(elem){if(this.parentNode){this.parentNode.insertBefore(elem, this);}});}, after:function(){return domManip(this, arguments, function(elem){if(this.parentNode){this.parentNode.insertBefore(elem, this.nextSibling);}});}, empty:function(){var elem, i=0;for(; (elem = this[i]) != null; i++) {if(elem.nodeType === 1){jQuery.cleanData(getAll(elem, false));}while(elem.firstChild) {elem.removeChild(elem.firstChild);}if(elem.options && jQuery.nodeName(elem, "select")){elem.options.length = 0;}}return this;}, clone:function(dataAndEvents, deepDataAndEvents){dataAndEvents = dataAndEvents == null?false:dataAndEvents;deepDataAndEvents = deepDataAndEvents == null?dataAndEvents:deepDataAndEvents;return this.map(function(){return jQuery.clone(this, dataAndEvents, deepDataAndEvents);});}, html:function(value){return access(this, function(value){var elem=this[0] || {}, i=0, l=this.length;if(value === undefined){return elem.nodeType === 1?elem.innerHTML.replace(rinlinejQuery, ""):undefined;}if(typeof value === "string" && !rnoInnerhtml.test(value) && (support.htmlSerialize || !rnoshimcache.test(value)) && (support.leadingWhitespace || !rleadingWhitespace.test(value)) && !wrapMap[(rtagName.exec(value) || ["", ""])[1].toLowerCase()]){value = jQuery.htmlPrefilter(value);try{for(; i < l; i++) {elem = this[i] || {};if(elem.nodeType === 1){jQuery.cleanData(getAll(elem, false));elem.innerHTML = value;}}elem = 0;}catch(e) {}}if(elem){this.empty().append(value);}}, null, value, arguments.length);}, replaceWith:function(){var ignored=[];return domManip(this, arguments, function(elem){var parent=this.parentNode;if(jQuery.inArray(this, ignored) < 0){jQuery.cleanData(getAll(this));if(parent){parent.replaceChild(elem, this);}}}, ignored);}});jQuery.each({appendTo:"append", prependTo:"prepend", insertBefore:"before", insertAfter:"after", replaceAll:"replaceWith"}, function(name, original){jQuery.fn[name] = function(selector){var elems, i=0, ret=[], insert=jQuery(selector), last=insert.length - 1;for(; i <= last; i++) {elems = i === last?this:this.clone(true);jQuery(insert[i])[original](elems);push.apply(ret, elems.get());}return this.pushStack(ret);};});var iframe, elemdisplay={HTML:"block", BODY:"block"};function actualDisplay(name, doc){var elem=jQuery(doc.createElement(name)).appendTo(doc.body), display=jQuery.css(elem[0], "display");elem.detach();return display;}function defaultDisplay(nodeName){var doc=document, display=elemdisplay[nodeName];if(!display){display = actualDisplay(nodeName, doc);if(display === "none" || !display){iframe = (iframe || jQuery("<iframe frameborder='0' width='0' height='0'/>")).appendTo(doc.documentElement);doc = (iframe[0].contentWindow || iframe[0].contentDocument).document;doc.write();doc.close();display = actualDisplay(nodeName, doc);iframe.detach();}elemdisplay[nodeName] = display;}return display;}var rmargin=/^margin/;var rnumnonpx=new RegExp("^(" + pnum + ")(?!px)[a-z%]+$", "i");var swap=function(elem, options, callback, args){var ret, name, old={};for(name in options) {old[name] = elem.style[name];elem.style[name] = options[name];}ret = callback.apply(elem, args || []);for(name in options) {elem.style[name] = old[name];}return ret;};var documentElement=document.documentElement;(function(){var pixelPositionVal, pixelMarginRightVal, boxSizingReliableVal, reliableHiddenOffsetsVal, reliableMarginRightVal, reliableMarginLeftVal, container=document.createElement("div"), div=document.createElement("div");if(!div.style){return;}div.style.cssText = "float:left;opacity:.5";support.opacity = div.style.opacity === "0.5";support.cssFloat = !!div.style.cssFloat;div.style.backgroundClip = "content-box";div.cloneNode(true).style.backgroundClip = "";support.clearCloneStyle = div.style.backgroundClip === "content-box";container = document.createElement("div");container.style.cssText = "border:0;width:8px;height:0;top:0;left:-9999px;" + "padding:0;margin-top:1px;position:absolute";div.innerHTML = "";container.appendChild(div);support.boxSizing = div.style.boxSizing === "" || div.style.MozBoxSizing === "" || div.style.WebkitBoxSizing === "";jQuery.extend(support, {reliableHiddenOffsets:function(){if(pixelPositionVal == null){computeStyleTests();}return reliableHiddenOffsetsVal;}, boxSizingReliable:function(){if(pixelPositionVal == null){computeStyleTests();}return boxSizingReliableVal;}, pixelMarginRight:function(){if(pixelPositionVal == null){computeStyleTests();}return pixelMarginRightVal;}, pixelPosition:function(){if(pixelPositionVal == null){computeStyleTests();}return pixelPositionVal;}, reliableMarginRight:function(){if(pixelPositionVal == null){computeStyleTests();}return reliableMarginRightVal;}, reliableMarginLeft:function(){if(pixelPositionVal == null){computeStyleTests();}return reliableMarginLeftVal;}});function computeStyleTests(){var contents, divStyle, documentElement=document.documentElement;documentElement.appendChild(container);div.style.cssText = "-webkit-box-sizing:border-box;box-sizing:border-box;" + "position:relative;display:block;" + "margin:auto;border:1px;padding:1px;" + "top:1%;width:50%";pixelPositionVal = boxSizingReliableVal = reliableMarginLeftVal = false;pixelMarginRightVal = reliableMarginRightVal = true;if(window.getComputedStyle){divStyle = window.getComputedStyle(div);pixelPositionVal = (divStyle || {}).top !== "1%";reliableMarginLeftVal = (divStyle || {}).marginLeft === "2px";boxSizingReliableVal = (divStyle || {width:"4px"}).width === "4px";div.style.marginRight = "50%";pixelMarginRightVal = (divStyle || {marginRight:"4px"}).marginRight === "4px";contents = div.appendChild(document.createElement("div"));contents.style.cssText = div.style.cssText = "-webkit-box-sizing:content-box;-moz-box-sizing:content-box;" + "box-sizing:content-box;display:block;margin:0;border:0;padding:0";contents.style.marginRight = contents.style.width = "0";div.style.width = "1px";reliableMarginRightVal = !parseFloat((window.getComputedStyle(contents) || {}).marginRight);div.removeChild(contents);}div.style.display = "none";reliableHiddenOffsetsVal = div.getClientRects().length === 0;if(reliableHiddenOffsetsVal){div.style.display = "";div.innerHTML = "<table><tr><td></td><td>t</td></tr></table>";contents = div.getElementsByTagName("td");contents[0].style.cssText = "margin:0;border:0;padding:0;display:none";reliableHiddenOffsetsVal = contents[0].offsetHeight === 0;if(reliableHiddenOffsetsVal){contents[0].style.display = "";contents[1].style.display = "none";reliableHiddenOffsetsVal = contents[0].offsetHeight === 0;}}documentElement.removeChild(container);}})();var getStyles, curCSS, rposition=/^(top|right|bottom|left)$/;if(window.getComputedStyle){getStyles = function(elem){var view=elem.ownerDocument.defaultView;if(!view || !view.opener){view = window;}return view.getComputedStyle(elem);};curCSS = function(elem, name, computed){var width, minWidth, maxWidth, ret, style=elem.style;computed = computed || getStyles(elem);ret = computed?computed.getPropertyValue(name) || computed[name]:undefined;if((ret === "" || ret === undefined) && !jQuery.contains(elem.ownerDocument, elem)){ret = jQuery.style(elem, name);}if(computed){if(!support.pixelMarginRight() && rnumnonpx.test(ret) && rmargin.test(name)){width = style.width;minWidth = style.minWidth;maxWidth = style.maxWidth;style.minWidth = style.maxWidth = style.width = ret;ret = computed.width;style.width = width;style.minWidth = minWidth;style.maxWidth = maxWidth;}}return ret === undefined?ret:ret + "";};}else if(documentElement.currentStyle){getStyles = function(elem){return elem.currentStyle;};curCSS = function(elem, name, computed){var left, rs, rsLeft, ret, style=elem.style;computed = computed || getStyles(elem);ret = computed?computed[name]:undefined;if(ret == null && style && style[name]){ret = style[name];}if(rnumnonpx.test(ret) && !rposition.test(name)){left = style.left;rs = elem.runtimeStyle;rsLeft = rs && rs.left;if(rsLeft){rs.left = elem.currentStyle.left;}style.left = name === "fontSize"?"1em":ret;ret = style.pixelLeft + "px";style.left = left;if(rsLeft){rs.left = rsLeft;}}return ret === undefined?ret:ret + "" || "auto";};}function addGetHookIf(conditionFn, hookFn){return {get:function(){if(conditionFn()){delete this.get;return;}return (this.get = hookFn).apply(this, arguments);}};}var ralpha=/alpha\([^)]*\)/i, ropacity=/opacity\s*=\s*([^)]*)/i, rdisplayswap=/^(none|table(?!-c[ea]).+)/, rnumsplit=new RegExp("^(" + pnum + ")(.*)$", "i"), cssShow={position:"absolute", visibility:"hidden", display:"block"}, cssNormalTransform={letterSpacing:"0", fontWeight:"400"}, cssPrefixes=["Webkit", "O", "Moz", "ms"], emptyStyle=document.createElement("div").style;function vendorPropName(name){if(name in emptyStyle){return name;}var capName=name.charAt(0).toUpperCase() + name.slice(1), i=cssPrefixes.length;while(i--) {name = cssPrefixes[i] + capName;if(name in emptyStyle){return name;}}}function showHide(elements, show){var display, elem, hidden, values=[], index=0, length=elements.length;for(; index < length; index++) {elem = elements[index];if(!elem.style){continue;}values[index] = jQuery._data(elem, "olddisplay");display = elem.style.display;if(show){if(!values[index] && display === "none"){elem.style.display = "";}if(elem.style.display === "" && isHidden(elem)){values[index] = jQuery._data(elem, "olddisplay", defaultDisplay(elem.nodeName));}}else {hidden = isHidden(elem);if(display && display !== "none" || !hidden){jQuery._data(elem, "olddisplay", hidden?display:jQuery.css(elem, "display"));}}}for(index = 0; index < length; index++) {elem = elements[index];if(!elem.style){continue;}if(!show || elem.style.display === "none" || elem.style.display === ""){elem.style.display = show?values[index] || "":"none";}}return elements;}function setPositiveNumber(elem, value, subtract){var matches=rnumsplit.exec(value);return matches?Math.max(0, matches[1] - (subtract || 0)) + (matches[2] || "px"):value;}function augmentWidthOrHeight(elem, name, extra, isBorderBox, styles){var i=extra === (isBorderBox?"border":"content")?4:name === "width"?1:0, val=0;for(; i < 4; i += 2) {if(extra === "margin"){val += jQuery.css(elem, extra + cssExpand[i], true, styles);}if(isBorderBox){if(extra === "content"){val -= jQuery.css(elem, "padding" + cssExpand[i], true, styles);}if(extra !== "margin"){val -= jQuery.css(elem, "border" + cssExpand[i] + "Width", true, styles);}}else {val += jQuery.css(elem, "padding" + cssExpand[i], true, styles);if(extra !== "padding"){val += jQuery.css(elem, "border" + cssExpand[i] + "Width", true, styles);}}}return val;}function getWidthOrHeight(elem, name, extra){var valueIsBorderBox=true, val=name === "width"?elem.offsetWidth:elem.offsetHeight, styles=getStyles(elem), isBorderBox=support.boxSizing && jQuery.css(elem, "boxSizing", false, styles) === "border-box";if(document.msFullscreenElement && window.top !== window){if(elem.getClientRects().length){val = Math.round(elem.getBoundingClientRect()[name] * 100);}}if(val <= 0 || val == null){val = curCSS(elem, name, styles);if(val < 0 || val == null){val = elem.style[name];}if(rnumnonpx.test(val)){return val;}valueIsBorderBox = isBorderBox && (support.boxSizingReliable() || val === elem.style[name]);val = parseFloat(val) || 0;}return val + augmentWidthOrHeight(elem, name, extra || (isBorderBox?"border":"content"), valueIsBorderBox, styles) + "px";}jQuery.extend({cssHooks:{opacity:{get:function(elem, computed){if(computed){var ret=curCSS(elem, "opacity");return ret === ""?"1":ret;}}}}, cssNumber:{"animationIterationCount":true, "columnCount":true, "fillOpacity":true, "flexGrow":true, "flexShrink":true, "fontWeight":true, "lineHeight":true, "opacity":true, "order":true, "orphans":true, "widows":true, "zIndex":true, "zoom":true}, cssProps:{"float":support.cssFloat?"cssFloat":"styleFloat"}, style:function(elem, name, value, extra){if(!elem || elem.nodeType === 3 || elem.nodeType === 8 || !elem.style){return;}var ret, type, hooks, origName=jQuery.camelCase(name), style=elem.style;name = jQuery.cssProps[origName] || (jQuery.cssProps[origName] = vendorPropName(origName) || origName);hooks = jQuery.cssHooks[name] || jQuery.cssHooks[origName];if(value !== undefined){type = typeof value;if(type === "string" && (ret = rcssNum.exec(value)) && ret[1]){value = adjustCSS(elem, name, ret);type = "number";}if(value == null || value !== value){return;}if(type === "number"){value += ret && ret[3] || (jQuery.cssNumber[origName]?"":"px");}if(!support.clearCloneStyle && value === "" && name.indexOf("background") === 0){style[name] = "inherit";}if(!hooks || !("set" in hooks) || (value = hooks.set(elem, value, extra)) !== undefined){try{style[name] = value;}catch(e) {}}}else {if(hooks && "get" in hooks && (ret = hooks.get(elem, false, extra)) !== undefined){return ret;}return style[name];}}, css:function(elem, name, extra, styles){var num, val, hooks, origName=jQuery.camelCase(name);name = jQuery.cssProps[origName] || (jQuery.cssProps[origName] = vendorPropName(origName) || origName);hooks = jQuery.cssHooks[name] || jQuery.cssHooks[origName];if(hooks && "get" in hooks){val = hooks.get(elem, true, extra);}if(val === undefined){val = curCSS(elem, name, styles);}if(val === "normal" && name in cssNormalTransform){val = cssNormalTransform[name];}if(extra === "" || extra){num = parseFloat(val);return extra === true || isFinite(num)?num || 0:val;}return val;}});jQuery.each(["height", "width"], function(i, name){jQuery.cssHooks[name] = {get:function(elem, computed, extra){if(computed){return rdisplayswap.test(jQuery.css(elem, "display")) && elem.offsetWidth === 0?swap(elem, cssShow, function(){return getWidthOrHeight(elem, name, extra);}):getWidthOrHeight(elem, name, extra);}}, set:function(elem, value, extra){var styles=extra && getStyles(elem);return setPositiveNumber(elem, value, extra?augmentWidthOrHeight(elem, name, extra, support.boxSizing && jQuery.css(elem, "boxSizing", false, styles) === "border-box", styles):0);}};});if(!support.opacity){jQuery.cssHooks.opacity = {get:function(elem, computed){return ropacity.test((computed && elem.currentStyle?elem.currentStyle.filter:elem.style.filter) || "")?0.01 * parseFloat(RegExp.$1) + "":computed?"1":"";}, set:function(elem, value){var style=elem.style, currentStyle=elem.currentStyle, opacity=jQuery.isNumeric(value)?"alpha(opacity=" + value * 100 + ")":"", filter=currentStyle && currentStyle.filter || style.filter || "";style.zoom = 1;if((value >= 1 || value === "") && jQuery.trim(filter.replace(ralpha, "")) === "" && style.removeAttribute){style.removeAttribute("filter");if(value === "" || currentStyle && !currentStyle.filter){return;}}style.filter = ralpha.test(filter)?filter.replace(ralpha, opacity):filter + " " + opacity;}};}jQuery.cssHooks.marginRight = addGetHookIf(support.reliableMarginRight, function(elem, computed){if(computed){return swap(elem, {"display":"inline-block"}, curCSS, [elem, "marginRight"]);}});jQuery.cssHooks.marginLeft = addGetHookIf(support.reliableMarginLeft, function(elem, computed){if(computed){return (parseFloat(curCSS(elem, "marginLeft")) || (jQuery.contains(elem.ownerDocument, elem)?elem.getBoundingClientRect().left - swap(elem, {marginLeft:0}, function(){return elem.getBoundingClientRect().left;}):0)) + "px";}});jQuery.each({margin:"", padding:"", border:"Width"}, function(prefix, suffix){jQuery.cssHooks[prefix + suffix] = {expand:function(value){var i=0, expanded={}, parts=typeof value === "string"?value.split(" "):[value];for(; i < 4; i++) {expanded[prefix + cssExpand[i] + suffix] = parts[i] || parts[i - 2] || parts[0];}return expanded;}};if(!rmargin.test(prefix)){jQuery.cssHooks[prefix + suffix].set = setPositiveNumber;}});jQuery.fn.extend({css:function(name, value){return access(this, function(elem, name, value){var styles, len, map={}, i=0;if(jQuery.isArray(name)){styles = getStyles(elem);len = name.length;for(; i < len; i++) {map[name[i]] = jQuery.css(elem, name[i], false, styles);}return map;}return value !== undefined?jQuery.style(elem, name, value):jQuery.css(elem, name);}, name, value, arguments.length > 1);}, show:function(){return showHide(this, true);}, hide:function(){return showHide(this);}, toggle:function(state){if(typeof state === "boolean"){return state?this.show():this.hide();}return this.each(function(){if(isHidden(this)){jQuery(this).show();}else {jQuery(this).hide();}});}});function Tween(elem, options, prop, end, easing){return new Tween.prototype.init(elem, options, prop, end, easing);}jQuery.Tween = Tween;Tween.prototype = {constructor:Tween, init:function(elem, options, prop, end, easing, unit){this.elem = elem;this.prop = prop;this.easing = easing || jQuery.easing._default;this.options = options;this.start = this.now = this.cur();this.end = end;this.unit = unit || (jQuery.cssNumber[prop]?"":"px");}, cur:function(){var hooks=Tween.propHooks[this.prop];return hooks && hooks.get?hooks.get(this):Tween.propHooks._default.get(this);}, run:function(percent){var eased, hooks=Tween.propHooks[this.prop];if(this.options.duration){this.pos = eased = jQuery.easing[this.easing](percent, this.options.duration * percent, 0, 1, this.options.duration);}else {this.pos = eased = percent;}this.now = (this.end - this.start) * eased + this.start;if(this.options.step){this.options.step.call(this.elem, this.now, this);}if(hooks && hooks.set){hooks.set(this);}else {Tween.propHooks._default.set(this);}return this;}};Tween.prototype.init.prototype = Tween.prototype;Tween.propHooks = {_default:{get:function(tween){var result;if(tween.elem.nodeType !== 1 || tween.elem[tween.prop] != null && tween.elem.style[tween.prop] == null){return tween.elem[tween.prop];}result = jQuery.css(tween.elem, tween.prop, "");return !result || result === "auto"?0:result;}, set:function(tween){if(jQuery.fx.step[tween.prop]){jQuery.fx.step[tween.prop](tween);}else if(tween.elem.nodeType === 1 && (tween.elem.style[jQuery.cssProps[tween.prop]] != null || jQuery.cssHooks[tween.prop])){jQuery.style(tween.elem, tween.prop, tween.now + tween.unit);}else {tween.elem[tween.prop] = tween.now;}}}};Tween.propHooks.scrollTop = Tween.propHooks.scrollLeft = {set:function(tween){if(tween.elem.nodeType && tween.elem.parentNode){tween.elem[tween.prop] = tween.now;}}};jQuery.easing = {linear:function(p){return p;}, swing:function(p){return 0.5 - Math.cos(p * Math.PI) / 2;}, _default:"swing"};jQuery.fx = Tween.prototype.init;jQuery.fx.step = {};var fxNow, timerId, rfxtypes=/^(?:toggle|show|hide)$/, rrun=/queueHooks$/;function createFxNow(){window.setTimeout(function(){fxNow = undefined;});return fxNow = jQuery.now();}function genFx(type, includeWidth){var which, attrs={height:type}, i=0;includeWidth = includeWidth?1:0;for(; i < 4; i += 2 - includeWidth) {which = cssExpand[i];attrs["margin" + which] = attrs["padding" + which] = type;}if(includeWidth){attrs.opacity = attrs.width = type;}return attrs;}function createTween(value, prop, animation){var tween, collection=(Animation.tweeners[prop] || []).concat(Animation.tweeners["*"]), index=0, length=collection.length;for(; index < length; index++) {if(tween = collection[index].call(animation, prop, value)){return tween;}}}function defaultPrefilter(elem, props, opts){var prop, value, toggle, tween, hooks, oldfire, display, checkDisplay, anim=this, orig={}, style=elem.style, hidden=elem.nodeType && isHidden(elem), dataShow=jQuery._data(elem, "fxshow");if(!opts.queue){hooks = jQuery._queueHooks(elem, "fx");if(hooks.unqueued == null){hooks.unqueued = 0;oldfire = hooks.empty.fire;hooks.empty.fire = function(){if(!hooks.unqueued){oldfire();}};}hooks.unqueued++;anim.always(function(){anim.always(function(){hooks.unqueued--;if(!jQuery.queue(elem, "fx").length){hooks.empty.fire();}});});}if(elem.nodeType === 1 && ("height" in props || "width" in props)){opts.overflow = [style.overflow, style.overflowX, style.overflowY];display = jQuery.css(elem, "display");checkDisplay = display === "none"?jQuery._data(elem, "olddisplay") || defaultDisplay(elem.nodeName):display;if(checkDisplay === "inline" && jQuery.css(elem, "float") === "none"){if(!support.inlineBlockNeedsLayout || defaultDisplay(elem.nodeName) === "inline"){style.display = "inline-block";}else {style.zoom = 1;}}}if(opts.overflow){style.overflow = "hidden";if(!support.shrinkWrapBlocks()){anim.always(function(){style.overflow = opts.overflow[0];style.overflowX = opts.overflow[1];style.overflowY = opts.overflow[2];});}}for(prop in props) {value = props[prop];if(rfxtypes.exec(value)){delete props[prop];toggle = toggle || value === "toggle";if(value === (hidden?"hide":"show")){if(value === "show" && dataShow && dataShow[prop] !== undefined){hidden = true;}else {continue;}}orig[prop] = dataShow && dataShow[prop] || jQuery.style(elem, prop);}else {display = undefined;}}if(!jQuery.isEmptyObject(orig)){if(dataShow){if("hidden" in dataShow){hidden = dataShow.hidden;}}else {dataShow = jQuery._data(elem, "fxshow", {});}if(toggle){dataShow.hidden = !hidden;}if(hidden){jQuery(elem).show();}else {anim.done(function(){jQuery(elem).hide();});}anim.done(function(){var prop;jQuery._removeData(elem, "fxshow");for(prop in orig) {jQuery.style(elem, prop, orig[prop]);}});for(prop in orig) {tween = createTween(hidden?dataShow[prop]:0, prop, anim);if(!(prop in dataShow)){dataShow[prop] = tween.start;if(hidden){tween.end = tween.start;tween.start = prop === "width" || prop === "height"?1:0;}}}}else if((display === "none"?defaultDisplay(elem.nodeName):display) === "inline"){style.display = display;}}function propFilter(props, specialEasing){var index, name, easing, value, hooks;for(index in props) {name = jQuery.camelCase(index);easing = specialEasing[name];value = props[index];if(jQuery.isArray(value)){easing = value[1];value = props[index] = value[0];}if(index !== name){props[name] = value;delete props[index];}hooks = jQuery.cssHooks[name];if(hooks && "expand" in hooks){value = hooks.expand(value);delete props[name];for(index in value) {if(!(index in props)){props[index] = value[index];specialEasing[index] = easing;}}}else {specialEasing[name] = easing;}}}function Animation(elem, properties, options){var result, stopped, index=0, length=Animation.prefilters.length, deferred=jQuery.Deferred().always(function(){delete tick.elem;}), tick=function(){if(stopped){return false;}var currentTime=fxNow || createFxNow(), remaining=Math.max(0, animation.startTime + animation.duration - currentTime), temp=remaining / animation.duration || 0, percent=1 - temp, index=0, length=animation.tweens.length;for(; index < length; index++) {animation.tweens[index].run(percent);}deferred.notifyWith(elem, [animation, percent, remaining]);if(percent < 1 && length){return remaining;}else {deferred.resolveWith(elem, [animation]);return false;}}, animation=deferred.promise({elem:elem, props:jQuery.extend({}, properties), opts:jQuery.extend(true, {specialEasing:{}, easing:jQuery.easing._default}, options), originalProperties:properties, originalOptions:options, startTime:fxNow || createFxNow(), duration:options.duration, tweens:[], createTween:function(prop, end){var tween=jQuery.Tween(elem, animation.opts, prop, end, animation.opts.specialEasing[prop] || animation.opts.easing);animation.tweens.push(tween);return tween;}, stop:function(gotoEnd){var index=0, length=gotoEnd?animation.tweens.length:0;if(stopped){return this;}stopped = true;for(; index < length; index++) {animation.tweens[index].run(1);}if(gotoEnd){deferred.notifyWith(elem, [animation, 1, 0]);deferred.resolveWith(elem, [animation, gotoEnd]);}else {deferred.rejectWith(elem, [animation, gotoEnd]);}return this;}}), props=animation.props;propFilter(props, animation.opts.specialEasing);for(; index < length; index++) {result = Animation.prefilters[index].call(animation, elem, props, animation.opts);if(result){if(jQuery.isFunction(result.stop)){jQuery._queueHooks(animation.elem, animation.opts.queue).stop = jQuery.proxy(result.stop, result);}return result;}}jQuery.map(props, createTween, animation);if(jQuery.isFunction(animation.opts.start)){animation.opts.start.call(elem, animation);}jQuery.fx.timer(jQuery.extend(tick, {elem:elem, anim:animation, queue:animation.opts.queue}));return animation.progress(animation.opts.progress).done(animation.opts.done, animation.opts.complete).fail(animation.opts.fail).always(animation.opts.always);}jQuery.Animation = jQuery.extend(Animation, {tweeners:{"*":[function(prop, value){var tween=this.createTween(prop, value);adjustCSS(tween.elem, prop, rcssNum.exec(value), tween);return tween;}]}, tweener:function(props, callback){if(jQuery.isFunction(props)){callback = props;props = ["*"];}else {props = props.match(rnotwhite);}var prop, index=0, length=props.length;for(; index < length; index++) {prop = props[index];Animation.tweeners[prop] = Animation.tweeners[prop] || [];Animation.tweeners[prop].unshift(callback);}}, prefilters:[defaultPrefilter], prefilter:function(callback, prepend){if(prepend){Animation.prefilters.unshift(callback);}else {Animation.prefilters.push(callback);}}});jQuery.speed = function(speed, easing, fn){var opt=speed && typeof speed === "object"?jQuery.extend({}, speed):{complete:fn || !fn && easing || jQuery.isFunction(speed) && speed, duration:speed, easing:fn && easing || easing && !jQuery.isFunction(easing) && easing};opt.duration = jQuery.fx.off?0:typeof opt.duration === "number"?opt.duration:opt.duration in jQuery.fx.speeds?jQuery.fx.speeds[opt.duration]:jQuery.fx.speeds._default;if(opt.queue == null || opt.queue === true){opt.queue = "fx";}opt.old = opt.complete;opt.complete = function(){if(jQuery.isFunction(opt.old)){opt.old.call(this);}if(opt.queue){jQuery.dequeue(this, opt.queue);}};return opt;};jQuery.fn.extend({fadeTo:function(speed, to, easing, callback){return this.filter(isHidden).css("opacity", 0).show().end().animate({opacity:to}, speed, easing, callback);}, animate:function(prop, speed, easing, callback){var empty=jQuery.isEmptyObject(prop), optall=jQuery.speed(speed, easing, callback), doAnimation=function(){var anim=Animation(this, jQuery.extend({}, prop), optall);if(empty || jQuery._data(this, "finish")){anim.stop(true);}};doAnimation.finish = doAnimation;return empty || optall.queue === false?this.each(doAnimation):this.queue(optall.queue, doAnimation);}, stop:function(type, clearQueue, gotoEnd){var stopQueue=function(hooks){var stop=hooks.stop;delete hooks.stop;stop(gotoEnd);};if(typeof type !== "string"){gotoEnd = clearQueue;clearQueue = type;type = undefined;}if(clearQueue && type !== false){this.queue(type || "fx", []);}return this.each(function(){var dequeue=true, index=type != null && type + "queueHooks", timers=jQuery.timers, data=jQuery._data(this);if(index){if(data[index] && data[index].stop){stopQueue(data[index]);}}else {for(index in data) {if(data[index] && data[index].stop && rrun.test(index)){stopQueue(data[index]);}}}for(index = timers.length; index--;) {if(timers[index].elem === this && (type == null || timers[index].queue === type)){timers[index].anim.stop(gotoEnd);dequeue = false;timers.splice(index, 1);}}if(dequeue || !gotoEnd){jQuery.dequeue(this, type);}});}, finish:function(type){if(type !== false){type = type || "fx";}return this.each(function(){var index, data=jQuery._data(this), queue=data[type + "queue"], hooks=data[type + "queueHooks"], timers=jQuery.timers, length=queue?queue.length:0;data.finish = true;jQuery.queue(this, type, []);if(hooks && hooks.stop){hooks.stop.call(this, true);}for(index = timers.length; index--;) {if(timers[index].elem === this && timers[index].queue === type){timers[index].anim.stop(true);timers.splice(index, 1);}}for(index = 0; index < length; index++) {if(queue[index] && queue[index].finish){queue[index].finish.call(this);}}delete data.finish;});}});jQuery.each(["toggle", "show", "hide"], function(i, name){var cssFn=jQuery.fn[name];jQuery.fn[name] = function(speed, easing, callback){return speed == null || typeof speed === "boolean"?cssFn.apply(this, arguments):this.animate(genFx(name, true), speed, easing, callback);};});jQuery.each({slideDown:genFx("show"), slideUp:genFx("hide"), slideToggle:genFx("toggle"), fadeIn:{opacity:"show"}, fadeOut:{opacity:"hide"}, fadeToggle:{opacity:"toggle"}}, function(name, props){jQuery.fn[name] = function(speed, easing, callback){return this.animate(props, speed, easing, callback);};});jQuery.timers = [];jQuery.fx.tick = function(){var timer, timers=jQuery.timers, i=0;fxNow = jQuery.now();for(; i < timers.length; i++) {timer = timers[i];if(!timer() && timers[i] === timer){timers.splice(i--, 1);}}if(!timers.length){jQuery.fx.stop();}fxNow = undefined;};jQuery.fx.timer = function(timer){jQuery.timers.push(timer);if(timer()){jQuery.fx.start();}else {jQuery.timers.pop();}};jQuery.fx.interval = 13;jQuery.fx.start = function(){if(!timerId){timerId = window.setInterval(jQuery.fx.tick, jQuery.fx.interval);}};jQuery.fx.stop = function(){window.clearInterval(timerId);timerId = null;};jQuery.fx.speeds = {slow:600, fast:200, _default:400};jQuery.fn.delay = function(time, type){time = jQuery.fx?jQuery.fx.speeds[time] || time:time;type = type || "fx";return this.queue(type, function(next, hooks){var timeout=window.setTimeout(next, time);hooks.stop = function(){window.clearTimeout(timeout);};});};(function(){var a, input=document.createElement("input"), div=document.createElement("div"), select=document.createElement("select"), opt=select.appendChild(document.createElement("option"));div = document.createElement("div");div.setAttribute("className", "t");div.innerHTML = "  <link/><table></table><a href='/a'>a</a><input type='checkbox'/>";a = div.getElementsByTagName("a")[0];input.setAttribute("type", "checkbox");div.appendChild(input);a = div.getElementsByTagName("a")[0];a.style.cssText = "top:1px";support.getSetAttribute = div.className !== "t";support.style = /top/.test(a.getAttribute("style"));support.hrefNormalized = a.getAttribute("href") === "/a";support.checkOn = !!input.value;support.optSelected = opt.selected;support.enctype = !!document.createElement("form").enctype;select.disabled = true;support.optDisabled = !opt.disabled;input = document.createElement("input");input.setAttribute("value", "");support.input = input.getAttribute("value") === "";input.value = "t";input.setAttribute("type", "radio");support.radioValue = input.value === "t";})();var rreturn=/\r/g, rspaces=/[\x20\t\r\n\f]+/g;jQuery.fn.extend({val:function(value){var hooks, ret, isFunction, elem=this[0];if(!arguments.length){if(elem){hooks = jQuery.valHooks[elem.type] || jQuery.valHooks[elem.nodeName.toLowerCase()];if(hooks && "get" in hooks && (ret = hooks.get(elem, "value")) !== undefined){return ret;}ret = elem.value;return typeof ret === "string"?ret.replace(rreturn, ""):ret == null?"":ret;}return;}isFunction = jQuery.isFunction(value);return this.each(function(i){var val;if(this.nodeType !== 1){return;}if(isFunction){val = value.call(this, i, jQuery(this).val());}else {val = value;}if(val == null){val = "";}else if(typeof val === "number"){val += "";}else if(jQuery.isArray(val)){val = jQuery.map(val, function(value){return value == null?"":value + "";});}hooks = jQuery.valHooks[this.type] || jQuery.valHooks[this.nodeName.toLowerCase()];if(!hooks || !("set" in hooks) || hooks.set(this, val, "value") === undefined){this.value = val;}});}});jQuery.extend({valHooks:{option:{get:function(elem){var val=jQuery.find.attr(elem, "value");return val != null?val:jQuery.trim(jQuery.text(elem)).replace(rspaces, " ");}}, select:{get:function(elem){var value, option, options=elem.options, index=elem.selectedIndex, one=elem.type === "select-one" || index < 0, values=one?null:[], max=one?index + 1:options.length, i=index < 0?max:one?index:0;for(; i < max; i++) {option = options[i];if((option.selected || i === index) && (support.optDisabled?!option.disabled:option.getAttribute("disabled") === null) && (!option.parentNode.disabled || !jQuery.nodeName(option.parentNode, "optgroup"))){value = jQuery(option).val();if(one){return value;}values.push(value);}}return values;}, set:function(elem, value){var optionSet, option, options=elem.options, values=jQuery.makeArray(value), i=options.length;while(i--) {option = options[i];if(jQuery.inArray(jQuery.valHooks.option.get(option), values) > -1){try{option.selected = optionSet = true;}catch(_) {option.scrollHeight;}}else {option.selected = false;}}if(!optionSet){elem.selectedIndex = -1;}return options;}}}});jQuery.each(["radio", "checkbox"], function(){jQuery.valHooks[this] = {set:function(elem, value){if(jQuery.isArray(value)){return elem.checked = jQuery.inArray(jQuery(elem).val(), value) > -1;}}};if(!support.checkOn){jQuery.valHooks[this].get = function(elem){return elem.getAttribute("value") === null?"on":elem.value;};}});var nodeHook, boolHook, attrHandle=jQuery.expr.attrHandle, ruseDefault=/^(?:checked|selected)$/i, getSetAttribute=support.getSetAttribute, getSetInput=support.input;jQuery.fn.extend({attr:function(name, value){return access(this, jQuery.attr, name, value, arguments.length > 1);}, removeAttr:function(name){return this.each(function(){jQuery.removeAttr(this, name);});}});jQuery.extend({attr:function(elem, name, value){var ret, hooks, nType=elem.nodeType;if(nType === 3 || nType === 8 || nType === 2){return;}if(typeof elem.getAttribute === "undefined"){return jQuery.prop(elem, name, value);}if(nType !== 1 || !jQuery.isXMLDoc(elem)){name = name.toLowerCase();hooks = jQuery.attrHooks[name] || (jQuery.expr.match.bool.test(name)?boolHook:nodeHook);}if(value !== undefined){if(value === null){jQuery.removeAttr(elem, name);return;}if(hooks && "set" in hooks && (ret = hooks.set(elem, value, name)) !== undefined){return ret;}elem.setAttribute(name, value + "");return value;}if(hooks && "get" in hooks && (ret = hooks.get(elem, name)) !== null){return ret;}ret = jQuery.find.attr(elem, name);return ret == null?undefined:ret;}, attrHooks:{type:{set:function(elem, value){if(!support.radioValue && value === "radio" && jQuery.nodeName(elem, "input")){var val=elem.value;elem.setAttribute("type", value);if(val){elem.value = val;}return value;}}}}, removeAttr:function(elem, value){var name, propName, i=0, attrNames=value && value.match(rnotwhite);if(attrNames && elem.nodeType === 1){while(name = attrNames[i++]) {propName = jQuery.propFix[name] || name;if(jQuery.expr.match.bool.test(name)){if(getSetInput && getSetAttribute || !ruseDefault.test(name)){elem[propName] = false;}else {elem[jQuery.camelCase("default-" + name)] = elem[propName] = false;}}else {jQuery.attr(elem, name, "");}elem.removeAttribute(getSetAttribute?name:propName);}}}});boolHook = {set:function(elem, value, name){if(value === false){jQuery.removeAttr(elem, name);}else if(getSetInput && getSetAttribute || !ruseDefault.test(name)){elem.setAttribute(!getSetAttribute && jQuery.propFix[name] || name, name);}else {elem[jQuery.camelCase("default-" + name)] = elem[name] = true;}return name;}};jQuery.each(jQuery.expr.match.bool.source.match(/\w+/g), function(i, name){var getter=attrHandle[name] || jQuery.find.attr;if(getSetInput && getSetAttribute || !ruseDefault.test(name)){attrHandle[name] = function(elem, name, isXML){var ret, handle;if(!isXML){handle = attrHandle[name];attrHandle[name] = ret;ret = getter(elem, name, isXML) != null?name.toLowerCase():null;attrHandle[name] = handle;}return ret;};}else {attrHandle[name] = function(elem, name, isXML){if(!isXML){return elem[jQuery.camelCase("default-" + name)]?name.toLowerCase():null;}};}});if(!getSetInput || !getSetAttribute){jQuery.attrHooks.value = {set:function(elem, value, name){if(jQuery.nodeName(elem, "input")){elem.defaultValue = value;}else {return nodeHook && nodeHook.set(elem, value, name);}}};}if(!getSetAttribute){nodeHook = {set:function(elem, value, name){var ret=elem.getAttributeNode(name);if(!ret){elem.setAttributeNode(ret = elem.ownerDocument.createAttribute(name));}ret.value = value += "";if(name === "value" || value === elem.getAttribute(name)){return value;}}};attrHandle.id = attrHandle.name = attrHandle.coords = function(elem, name, isXML){var ret;if(!isXML){return (ret = elem.getAttributeNode(name)) && ret.value !== ""?ret.value:null;}};jQuery.valHooks.button = {get:function(elem, name){var ret=elem.getAttributeNode(name);if(ret && ret.specified){return ret.value;}}, set:nodeHook.set};jQuery.attrHooks.contenteditable = {set:function(elem, value, name){nodeHook.set(elem, value === ""?false:value, name);}};jQuery.each(["width", "height"], function(i, name){jQuery.attrHooks[name] = {set:function(elem, value){if(value === ""){elem.setAttribute(name, "auto");return value;}}};});}if(!support.style){jQuery.attrHooks.style = {get:function(elem){return elem.style.cssText || undefined;}, set:function(elem, value){return elem.style.cssText = value + "";}};}var rfocusable=/^(?:input|select|textarea|button|object)$/i, rclickable=/^(?:a|area)$/i;jQuery.fn.extend({prop:function(name, value){return access(this, jQuery.prop, name, value, arguments.length > 1);}, removeProp:function(name){name = jQuery.propFix[name] || name;return this.each(function(){try{this[name] = undefined;delete this[name];}catch(e) {}});}});jQuery.extend({prop:function(elem, name, value){var ret, hooks, nType=elem.nodeType;if(nType === 3 || nType === 8 || nType === 2){return;}if(nType !== 1 || !jQuery.isXMLDoc(elem)){name = jQuery.propFix[name] || name;hooks = jQuery.propHooks[name];}if(value !== undefined){if(hooks && "set" in hooks && (ret = hooks.set(elem, value, name)) !== undefined){return ret;}return elem[name] = value;}if(hooks && "get" in hooks && (ret = hooks.get(elem, name)) !== null){return ret;}return elem[name];}, propHooks:{tabIndex:{get:function(elem){var tabindex=jQuery.find.attr(elem, "tabindex");return tabindex?parseInt(tabindex, 10):rfocusable.test(elem.nodeName) || rclickable.test(elem.nodeName) && elem.href?0:-1;}}}, propFix:{"for":"htmlFor", "class":"className"}});if(!support.hrefNormalized){jQuery.each(["href", "src"], function(i, name){jQuery.propHooks[name] = {get:function(elem){return elem.getAttribute(name, 4);}};});}if(!support.optSelected){jQuery.propHooks.selected = {get:function(elem){var parent=elem.parentNode;if(parent){parent.selectedIndex;if(parent.parentNode){parent.parentNode.selectedIndex;}}return null;}, set:function(elem){var parent=elem.parentNode;if(parent){parent.selectedIndex;if(parent.parentNode){parent.parentNode.selectedIndex;}}}};}jQuery.each(["tabIndex", "readOnly", "maxLength", "cellSpacing", "cellPadding", "rowSpan", "colSpan", "useMap", "frameBorder", "contentEditable"], function(){jQuery.propFix[this.toLowerCase()] = this;});if(!support.enctype){jQuery.propFix.enctype = "encoding";}var rclass=/[\t\r\n\f]/g;function getClass(elem){return jQuery.attr(elem, "class") || "";}jQuery.fn.extend({addClass:function(value){var classes, elem, cur, curValue, clazz, j, finalValue, i=0;if(jQuery.isFunction(value)){return this.each(function(j){jQuery(this).addClass(value.call(this, j, getClass(this)));});}if(typeof value === "string" && value){classes = value.match(rnotwhite) || [];while(elem = this[i++]) {curValue = getClass(elem);cur = elem.nodeType === 1 && (" " + curValue + " ").replace(rclass, " ");if(cur){j = 0;while(clazz = classes[j++]) {if(cur.indexOf(" " + clazz + " ") < 0){cur += clazz + " ";}}finalValue = jQuery.trim(cur);if(curValue !== finalValue){jQuery.attr(elem, "class", finalValue);}}}}return this;}, removeClass:function(value){var classes, elem, cur, curValue, clazz, j, finalValue, i=0;if(jQuery.isFunction(value)){return this.each(function(j){jQuery(this).removeClass(value.call(this, j, getClass(this)));});}if(!arguments.length){return this.attr("class", "");}if(typeof value === "string" && value){classes = value.match(rnotwhite) || [];while(elem = this[i++]) {curValue = getClass(elem);cur = elem.nodeType === 1 && (" " + curValue + " ").replace(rclass, " ");if(cur){j = 0;while(clazz = classes[j++]) {while(cur.indexOf(" " + clazz + " ") > -1) {cur = cur.replace(" " + clazz + " ", " ");}}finalValue = jQuery.trim(cur);if(curValue !== finalValue){jQuery.attr(elem, "class", finalValue);}}}}return this;}, toggleClass:function(value, stateVal){var type=typeof value;if(typeof stateVal === "boolean" && type === "string"){return stateVal?this.addClass(value):this.removeClass(value);}if(jQuery.isFunction(value)){return this.each(function(i){jQuery(this).toggleClass(value.call(this, i, getClass(this), stateVal), stateVal);});}return this.each(function(){var className, i, self, classNames;if(type === "string"){i = 0;self = jQuery(this);classNames = value.match(rnotwhite) || [];while(className = classNames[i++]) {if(self.hasClass(className)){self.removeClass(className);}else {self.addClass(className);}}}else if(value === undefined || type === "boolean"){className = getClass(this);if(className){jQuery._data(this, "__className__", className);}jQuery.attr(this, "class", className || value === false?"":jQuery._data(this, "__className__") || "");}});}, hasClass:function(selector){var className, elem, i=0;className = " " + selector + " ";while(elem = this[i++]) {if(elem.nodeType === 1 && (" " + getClass(elem) + " ").replace(rclass, " ").indexOf(className) > -1){return true;}}return false;}});jQuery.each(("blur focus focusin focusout load resize scroll unload click dblclick " + "mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " + "change select submit keydown keypress keyup error contextmenu").split(" "), function(i, name){jQuery.fn[name] = function(data, fn){return arguments.length > 0?this.on(name, null, data, fn):this.trigger(name);};});jQuery.fn.extend({hover:function(fnOver, fnOut){return this.mouseenter(fnOver).mouseleave(fnOut || fnOver);}});var location=window.location;var nonce=jQuery.now();var rquery=/\?/;var rvalidtokens=/(,)|(\[|{)|(}|])|"(?:[^"\\\r\n]|\\["\\\/bfnrt]|\\u[\da-fA-F]{4})*"\s*:?|true|false|null|-?(?!0\d)\d+(?:\.\d+|)(?:[eE][+-]?\d+|)/g;jQuery.parseJSON = function(data){if(window.JSON && window.JSON.parse){return window.JSON.parse(data + "");}var requireNonComma, depth=null, str=jQuery.trim(data + "");return str && !jQuery.trim(str.replace(rvalidtokens, function(token, comma, open, close){if(requireNonComma && comma){depth = 0;}if(depth === 0){return token;}requireNonComma = open || comma;depth += !close - !open;return "";}))?Function("return " + str)():jQuery.error("Invalid JSON: " + data);};jQuery.parseXML = function(data){var xml, tmp;if(!data || typeof data !== "string"){return null;}try{if(window.DOMParser){tmp = new window.DOMParser();xml = tmp.parseFromString(data, "text/xml");}else {xml = new window.ActiveXObject("Microsoft.XMLDOM");xml.async = "false";xml.loadXML(data);}}catch(e) {xml = undefined;}if(!xml || !xml.documentElement || xml.getElementsByTagName("parsererror").length){jQuery.error("Invalid XML: " + data);}return xml;};var rhash=/#.*$/, rts=/([?&])_=[^&]*/, rheaders=/^(.*?):[ \t]*([^\r\n]*)\r?$/mg, rlocalProtocol=/^(?:about|app|app-storage|.+-extension|file|res|widget):$/, rnoContent=/^(?:GET|HEAD)$/, rprotocol=/^\/\//, rurl=/^([\w.+-]+:)(?:\/\/(?:[^\/?#]*@|)([^\/?#:]*)(?::(\d+)|)|)/, prefilters={}, transports={}, allTypes="*/".concat("*"), ajaxLocation=location.href, ajaxLocParts=rurl.exec(ajaxLocation.toLowerCase()) || [];function addToPrefiltersOrTransports(structure){return function(dataTypeExpression, func){if(typeof dataTypeExpression !== "string"){func = dataTypeExpression;dataTypeExpression = "*";}var dataType, i=0, dataTypes=dataTypeExpression.toLowerCase().match(rnotwhite) || [];if(jQuery.isFunction(func)){while(dataType = dataTypes[i++]) {if(dataType.charAt(0) === "+"){dataType = dataType.slice(1) || "*";(structure[dataType] = structure[dataType] || []).unshift(func);}else {(structure[dataType] = structure[dataType] || []).push(func);}}}};}function inspectPrefiltersOrTransports(structure, options, originalOptions, jqXHR){var inspected={}, seekingTransport=structure === transports;function inspect(dataType){var selected;inspected[dataType] = true;jQuery.each(structure[dataType] || [], function(_, prefilterOrFactory){var dataTypeOrTransport=prefilterOrFactory(options, originalOptions, jqXHR);if(typeof dataTypeOrTransport === "string" && !seekingTransport && !inspected[dataTypeOrTransport]){options.dataTypes.unshift(dataTypeOrTransport);inspect(dataTypeOrTransport);return false;}else if(seekingTransport){return !(selected = dataTypeOrTransport);}});return selected;}return inspect(options.dataTypes[0]) || !inspected["*"] && inspect("*");}function ajaxExtend(target, src){var deep, key, flatOptions=jQuery.ajaxSettings.flatOptions || {};for(key in src) {if(src[key] !== undefined){(flatOptions[key]?target:deep || (deep = {}))[key] = src[key];}}if(deep){jQuery.extend(true, target, deep);}return target;}function ajaxHandleResponses(s, jqXHR, responses){var firstDataType, ct, finalDataType, type, contents=s.contents, dataTypes=s.dataTypes;while(dataTypes[0] === "*") {dataTypes.shift();if(ct === undefined){ct = s.mimeType || jqXHR.getResponseHeader("Content-Type");}}if(ct){for(type in contents) {if(contents[type] && contents[type].test(ct)){dataTypes.unshift(type);break;}}}if(dataTypes[0] in responses){finalDataType = dataTypes[0];}else {for(type in responses) {if(!dataTypes[0] || s.converters[type + " " + dataTypes[0]]){finalDataType = type;break;}if(!firstDataType){firstDataType = type;}}finalDataType = finalDataType || firstDataType;}if(finalDataType){if(finalDataType !== dataTypes[0]){dataTypes.unshift(finalDataType);}return responses[finalDataType];}}function ajaxConvert(s, response, jqXHR, isSuccess){var conv2, current, conv, tmp, prev, converters={}, dataTypes=s.dataTypes.slice();if(dataTypes[1]){for(conv in s.converters) {converters[conv.toLowerCase()] = s.converters[conv];}}current = dataTypes.shift();while(current) {if(s.responseFields[current]){jqXHR[s.responseFields[current]] = response;}if(!prev && isSuccess && s.dataFilter){response = s.dataFilter(response, s.dataType);}prev = current;current = dataTypes.shift();if(current){if(current === "*"){current = prev;}else if(prev !== "*" && prev !== current){conv = converters[prev + " " + current] || converters["* " + current];if(!conv){for(conv2 in converters) {tmp = conv2.split(" ");if(tmp[1] === current){conv = converters[prev + " " + tmp[0]] || converters["* " + tmp[0]];if(conv){if(conv === true){conv = converters[conv2];}else if(converters[conv2] !== true){current = tmp[0];dataTypes.unshift(tmp[1]);}break;}}}}if(conv !== true){if(conv && s["throws"]){response = conv(response);}else {try{response = conv(response);}catch(e) {return {state:"parsererror", error:conv?e:"No conversion from " + prev + " to " + current};}}}}}}return {state:"success", data:response};}jQuery.extend({active:0, lastModified:{}, etag:{}, ajaxSettings:{url:ajaxLocation, type:"GET", isLocal:rlocalProtocol.test(ajaxLocParts[1]), global:true, processData:true, async:true, contentType:"application/x-www-form-urlencoded; charset=UTF-8", accepts:{"*":allTypes, text:"text/plain", html:"text/html", xml:"application/xml, text/xml", json:"application/json, text/javascript"}, contents:{xml:/\bxml\b/, html:/\bhtml/, json:/\bjson\b/}, responseFields:{xml:"responseXML", text:"responseText", json:"responseJSON"}, converters:{"* text":String, "text html":true, "text json":jQuery.parseJSON, "text xml":jQuery.parseXML}, flatOptions:{url:true, context:true}}, ajaxSetup:function(target, settings){return settings?ajaxExtend(ajaxExtend(target, jQuery.ajaxSettings), settings):ajaxExtend(jQuery.ajaxSettings, target);}, ajaxPrefilter:addToPrefiltersOrTransports(prefilters), ajaxTransport:addToPrefiltersOrTransports(transports), ajax:function(url, options){if(typeof url === "object"){options = url;url = undefined;}options = options || {};var parts, i, cacheURL, responseHeadersString, timeoutTimer, fireGlobals, transport, responseHeaders, s=jQuery.ajaxSetup({}, options), callbackContext=s.context || s, globalEventContext=s.context && (callbackContext.nodeType || callbackContext.jquery)?jQuery(callbackContext):jQuery.event, deferred=jQuery.Deferred(), completeDeferred=jQuery.Callbacks("once memory"), statusCode=s.statusCode || {}, requestHeaders={}, requestHeadersNames={}, state=0, strAbort="canceled", jqXHR={readyState:0, getResponseHeader:function(key){var match;if(state === 2){if(!responseHeaders){responseHeaders = {};while(match = rheaders.exec(responseHeadersString)) {responseHeaders[match[1].toLowerCase()] = match[2];}}match = responseHeaders[key.toLowerCase()];}return match == null?null:match;}, getAllResponseHeaders:function(){return state === 2?responseHeadersString:null;}, setRequestHeader:function(name, value){var lname=name.toLowerCase();if(!state){name = requestHeadersNames[lname] = requestHeadersNames[lname] || name;requestHeaders[name] = value;}return this;}, overrideMimeType:function(type){if(!state){s.mimeType = type;}return this;}, statusCode:function(map){var code;if(map){if(state < 2){for(code in map) {statusCode[code] = [statusCode[code], map[code]];}}else {jqXHR.always(map[jqXHR.status]);}}return this;}, abort:function(statusText){var finalText=statusText || strAbort;if(transport){transport.abort(finalText);}done(0, finalText);return this;}};deferred.promise(jqXHR).complete = completeDeferred.add;jqXHR.success = jqXHR.done;jqXHR.error = jqXHR.fail;s.url = ((url || s.url || ajaxLocation) + "").replace(rhash, "").replace(rprotocol, ajaxLocParts[1] + "//");s.type = options.method || options.type || s.method || s.type;s.dataTypes = jQuery.trim(s.dataType || "*").toLowerCase().match(rnotwhite) || [""];if(s.crossDomain == null){parts = rurl.exec(s.url.toLowerCase());s.crossDomain = !!(parts && (parts[1] !== ajaxLocParts[1] || parts[2] !== ajaxLocParts[2] || (parts[3] || (parts[1] === "http:"?"80":"443")) !== (ajaxLocParts[3] || (ajaxLocParts[1] === "http:"?"80":"443"))));}if(s.data && s.processData && typeof s.data !== "string"){s.data = jQuery.param(s.data, s.traditional);}inspectPrefiltersOrTransports(prefilters, s, options, jqXHR);if(state === 2){return jqXHR;}fireGlobals = jQuery.event && s.global;if(fireGlobals && jQuery.active++ === 0){jQuery.event.trigger("ajaxStart");}s.type = s.type.toUpperCase();s.hasContent = !rnoContent.test(s.type);cacheURL = s.url;if(!s.hasContent){if(s.data){cacheURL = s.url += (rquery.test(cacheURL)?"&":"?") + s.data;delete s.data;}if(s.cache === false){s.url = rts.test(cacheURL)?cacheURL.replace(rts, "$1_=" + nonce++):cacheURL + (rquery.test(cacheURL)?"&":"?") + "_=" + nonce++;}}if(s.ifModified){if(jQuery.lastModified[cacheURL]){jqXHR.setRequestHeader("If-Modified-Since", jQuery.lastModified[cacheURL]);}if(jQuery.etag[cacheURL]){jqXHR.setRequestHeader("If-None-Match", jQuery.etag[cacheURL]);}}if(s.data && s.hasContent && s.contentType !== false || options.contentType){jqXHR.setRequestHeader("Content-Type", s.contentType);}jqXHR.setRequestHeader("Accept", s.dataTypes[0] && s.accepts[s.dataTypes[0]]?s.accepts[s.dataTypes[0]] + (s.dataTypes[0] !== "*"?", " + allTypes + "; q=0.01":""):s.accepts["*"]);for(i in s.headers) {jqXHR.setRequestHeader(i, s.headers[i]);}if(s.beforeSend && (s.beforeSend.call(callbackContext, jqXHR, s) === false || state === 2)){return jqXHR.abort();}strAbort = "abort";for(i in {success:1, error:1, complete:1}) {jqXHR[i](s[i]);}transport = inspectPrefiltersOrTransports(transports, s, options, jqXHR);if(!transport){done(-1, "No Transport");}else {jqXHR.readyState = 1;if(fireGlobals){globalEventContext.trigger("ajaxSend", [jqXHR, s]);}if(state === 2){return jqXHR;}if(s.async && s.timeout > 0){timeoutTimer = window.setTimeout(function(){jqXHR.abort("timeout");}, s.timeout);}try{state = 1;transport.send(requestHeaders, done);}catch(e) {if(state < 2){done(-1, e);}else {throw e;}}}function done(status, nativeStatusText, responses, headers){var isSuccess, success, error, response, modified, statusText=nativeStatusText;if(state === 2){return;}state = 2;if(timeoutTimer){window.clearTimeout(timeoutTimer);}transport = undefined;responseHeadersString = headers || "";jqXHR.readyState = status > 0?4:0;isSuccess = status >= 200 && status < 300 || status === 304;if(responses){response = ajaxHandleResponses(s, jqXHR, responses);}response = ajaxConvert(s, response, jqXHR, isSuccess);if(isSuccess){if(s.ifModified){modified = jqXHR.getResponseHeader("Last-Modified");if(modified){jQuery.lastModified[cacheURL] = modified;}modified = jqXHR.getResponseHeader("etag");if(modified){jQuery.etag[cacheURL] = modified;}}if(status === 204 || s.type === "HEAD"){statusText = "nocontent";}else if(status === 304){statusText = "notmodified";}else {statusText = response.state;success = response.data;error = response.error;isSuccess = !error;}}else {error = statusText;if(status || !statusText){statusText = "error";if(status < 0){status = 0;}}}jqXHR.status = status;jqXHR.statusText = (nativeStatusText || statusText) + "";if(isSuccess){deferred.resolveWith(callbackContext, [success, statusText, jqXHR]);}else {deferred.rejectWith(callbackContext, [jqXHR, statusText, error]);}jqXHR.statusCode(statusCode);statusCode = undefined;if(fireGlobals){globalEventContext.trigger(isSuccess?"ajaxSuccess":"ajaxError", [jqXHR, s, isSuccess?success:error]);}completeDeferred.fireWith(callbackContext, [jqXHR, statusText]);if(fireGlobals){globalEventContext.trigger("ajaxComplete", [jqXHR, s]);if(! --jQuery.active){jQuery.event.trigger("ajaxStop");}}}return jqXHR;}, getJSON:function(url, data, callback){return jQuery.get(url, data, callback, "json");}, getScript:function(url, callback){return jQuery.get(url, undefined, callback, "script");}});jQuery.each(["get", "post"], function(i, method){jQuery[method] = function(url, data, callback, type){if(jQuery.isFunction(data)){type = type || callback;callback = data;data = undefined;}return jQuery.ajax(jQuery.extend({url:url, type:method, dataType:type, data:data, success:callback}, jQuery.isPlainObject(url) && url));};});jQuery._evalUrl = function(url){return jQuery.ajax({url:url, type:"GET", dataType:"script", cache:true, async:false, global:false, "throws":true});};jQuery.fn.extend({wrapAll:function(html){if(jQuery.isFunction(html)){return this.each(function(i){jQuery(this).wrapAll(html.call(this, i));});}if(this[0]){var wrap=jQuery(html, this[0].ownerDocument).eq(0).clone(true);if(this[0].parentNode){wrap.insertBefore(this[0]);}wrap.map(function(){var elem=this;while(elem.firstChild && elem.firstChild.nodeType === 1) {elem = elem.firstChild;}return elem;}).append(this);}return this;}, wrapInner:function(html){if(jQuery.isFunction(html)){return this.each(function(i){jQuery(this).wrapInner(html.call(this, i));});}return this.each(function(){var self=jQuery(this), contents=self.contents();if(contents.length){contents.wrapAll(html);}else {self.append(html);}});}, wrap:function(html){var isFunction=jQuery.isFunction(html);return this.each(function(i){jQuery(this).wrapAll(isFunction?html.call(this, i):html);});}, unwrap:function(){return this.parent().each(function(){if(!jQuery.nodeName(this, "body")){jQuery(this).replaceWith(this.childNodes);}}).end();}});function getDisplay(elem){return elem.style && elem.style.display || jQuery.css(elem, "display");}function filterHidden(elem){while(elem && elem.nodeType === 1) {if(getDisplay(elem) === "none" || elem.type === "hidden"){return true;}elem = elem.parentNode;}return false;}jQuery.expr.filters.hidden = function(elem){return support.reliableHiddenOffsets()?elem.offsetWidth <= 0 && elem.offsetHeight <= 0 && !elem.getClientRects().length:filterHidden(elem);};jQuery.expr.filters.visible = function(elem){return !jQuery.expr.filters.hidden(elem);};var r20=/%20/g, rbracket=/\[\]$/, rCRLF=/\r?\n/g, rsubmitterTypes=/^(?:submit|button|image|reset|file)$/i, rsubmittable=/^(?:input|select|textarea|keygen)/i;function buildParams(prefix, obj, traditional, add){var name;if(jQuery.isArray(obj)){jQuery.each(obj, function(i, v){if(traditional || rbracket.test(prefix)){add(prefix, v);}else {buildParams(prefix + "[" + (typeof v === "object" && v != null?i:"") + "]", v, traditional, add);}});}else if(!traditional && jQuery.type(obj) === "object"){for(name in obj) {buildParams(prefix + "[" + name + "]", obj[name], traditional, add);}}else {add(prefix, obj);}}jQuery.param = function(a, traditional){var prefix, s=[], add=function(key, value){value = jQuery.isFunction(value)?value():value == null?"":value;s[s.length] = encodeURIComponent(key) + "=" + encodeURIComponent(value);};if(traditional === undefined){traditional = jQuery.ajaxSettings && jQuery.ajaxSettings.traditional;}if(jQuery.isArray(a) || a.jquery && !jQuery.isPlainObject(a)){jQuery.each(a, function(){add(this.name, this.value);});}else {for(prefix in a) {buildParams(prefix, a[prefix], traditional, add);}}return s.join("&").replace(r20, "+");};jQuery.fn.extend({serialize:function(){return jQuery.param(this.serializeArray());}, serializeArray:function(){return this.map(function(){var elements=jQuery.prop(this, "elements");return elements?jQuery.makeArray(elements):this;}).filter(function(){var type=this.type;return this.name && !jQuery(this).is(":disabled") && rsubmittable.test(this.nodeName) && !rsubmitterTypes.test(type) && (this.checked || !rcheckableType.test(type));}).map(function(i, elem){var val=jQuery(this).val();return val == null?null:jQuery.isArray(val)?jQuery.map(val, function(val){return {name:elem.name, value:val.replace(rCRLF, "\r\n")};}):{name:elem.name, value:val.replace(rCRLF, "\r\n")};}).get();}});jQuery.ajaxSettings.xhr = window.ActiveXObject !== undefined?function(){if(this.isLocal){return createActiveXHR();}if(document.documentMode > 8){return createStandardXHR();}return /^(get|post|head|put|delete|options)$/i.test(this.type) && createStandardXHR() || createActiveXHR();}:createStandardXHR;var xhrId=0, xhrCallbacks={}, xhrSupported=jQuery.ajaxSettings.xhr();if(window.attachEvent){window.attachEvent("onunload", function(){for(var key in xhrCallbacks) {xhrCallbacks[key](undefined, true);}});}support.cors = !!xhrSupported && "withCredentials" in xhrSupported;xhrSupported = support.ajax = !!xhrSupported;if(xhrSupported){jQuery.ajaxTransport(function(options){if(!options.crossDomain || support.cors){var callback;return {send:function(headers, complete){var i, xhr=options.xhr(), id=++xhrId;xhr.open(options.type, options.url, options.async, options.username, options.password);if(options.xhrFields){for(i in options.xhrFields) {xhr[i] = options.xhrFields[i];}}if(options.mimeType && xhr.overrideMimeType){xhr.overrideMimeType(options.mimeType);}if(!options.crossDomain && !headers["X-Requested-With"]){headers["X-Requested-With"] = "XMLHttpRequest";}for(i in headers) {if(headers[i] !== undefined){xhr.setRequestHeader(i, headers[i] + "");}}xhr.send(options.hasContent && options.data || null);callback = function(_, isAbort){var status, statusText, responses;if(callback && (isAbort || xhr.readyState === 4)){delete xhrCallbacks[id];callback = undefined;xhr.onreadystatechange = jQuery.noop;if(isAbort){if(xhr.readyState !== 4){xhr.abort();}}else {responses = {};status = xhr.status;if(typeof xhr.responseText === "string"){responses.text = xhr.responseText;}try{statusText = xhr.statusText;}catch(e) {statusText = "";}if(!status && options.isLocal && !options.crossDomain){status = responses.text?200:404;}else if(status === 1223){status = 204;}}}if(responses){complete(status, statusText, responses, xhr.getAllResponseHeaders());}};if(!options.async){callback();}else if(xhr.readyState === 4){window.setTimeout(callback);}else {xhr.onreadystatechange = xhrCallbacks[id] = callback;}}, abort:function(){if(callback){callback(undefined, true);}}};}});}function createStandardXHR(){try{return new window.XMLHttpRequest();}catch(e) {}}function createActiveXHR(){try{return new window.ActiveXObject("Microsoft.XMLHTTP");}catch(e) {}}jQuery.ajaxSetup({accepts:{script:"text/javascript, application/javascript, " + "application/ecmascript, application/x-ecmascript"}, contents:{script:/\b(?:java|ecma)script\b/}, converters:{"text script":function(text){jQuery.globalEval(text);return text;}}});jQuery.ajaxPrefilter("script", function(s){if(s.cache === undefined){s.cache = false;}if(s.crossDomain){s.type = "GET";s.global = false;}});jQuery.ajaxTransport("script", function(s){if(s.crossDomain){var script, head=document.head || jQuery("head")[0] || document.documentElement;return {send:function(_, callback){script = document.createElement("script");script.async = true;if(s.scriptCharset){script.charset = s.scriptCharset;}script.src = s.url;script.onload = script.onreadystatechange = function(_, isAbort){if(isAbort || !script.readyState || /loaded|complete/.test(script.readyState)){script.onload = script.onreadystatechange = null;if(script.parentNode){script.parentNode.removeChild(script);}script = null;if(!isAbort){callback(200, "success");}}};head.insertBefore(script, head.firstChild);}, abort:function(){if(script){script.onload(undefined, true);}}};}});var oldCallbacks=[], rjsonp=/(=)\?(?=&|$)|\?\?/;jQuery.ajaxSetup({jsonp:"callback", jsonpCallback:function(){var callback=oldCallbacks.pop() || jQuery.expando + "_" + nonce++;this[callback] = true;return callback;}});jQuery.ajaxPrefilter("json jsonp", function(s, originalSettings, jqXHR){var callbackName, overwritten, responseContainer, jsonProp=s.jsonp !== false && (rjsonp.test(s.url)?"url":typeof s.data === "string" && (s.contentType || "").indexOf("application/x-www-form-urlencoded") === 0 && rjsonp.test(s.data) && "data");if(jsonProp || s.dataTypes[0] === "jsonp"){callbackName = s.jsonpCallback = jQuery.isFunction(s.jsonpCallback)?s.jsonpCallback():s.jsonpCallback;if(jsonProp){s[jsonProp] = s[jsonProp].replace(rjsonp, "$1" + callbackName);}else if(s.jsonp !== false){s.url += (rquery.test(s.url)?"&":"?") + s.jsonp + "=" + callbackName;}s.converters["script json"] = function(){if(!responseContainer){jQuery.error(callbackName + " was not called");}return responseContainer[0];};s.dataTypes[0] = "json";overwritten = window[callbackName];window[callbackName] = function(){responseContainer = arguments;};jqXHR.always(function(){if(overwritten === undefined){jQuery(window).removeProp(callbackName);}else {window[callbackName] = overwritten;}if(s[callbackName]){s.jsonpCallback = originalSettings.jsonpCallback;oldCallbacks.push(callbackName);}if(responseContainer && jQuery.isFunction(overwritten)){overwritten(responseContainer[0]);}responseContainer = overwritten = undefined;});return "script";}});jQuery.parseHTML = function(data, context, keepScripts){if(!data || typeof data !== "string"){return null;}if(typeof context === "boolean"){keepScripts = context;context = false;}context = context || document;var parsed=rsingleTag.exec(data), scripts=!keepScripts && [];if(parsed){return [context.createElement(parsed[1])];}parsed = buildFragment([data], context, scripts);if(scripts && scripts.length){jQuery(scripts).remove();}return jQuery.merge([], parsed.childNodes);};var _load=jQuery.fn.load;jQuery.fn.load = function(url, params, callback){if(typeof url !== "string" && _load){return _load.apply(this, arguments);}var selector, type, response, self=this, off=url.indexOf(" ");if(off > -1){selector = jQuery.trim(url.slice(off, url.length));url = url.slice(0, off);}if(jQuery.isFunction(params)){callback = params;params = undefined;}else if(params && typeof params === "object"){type = "POST";}if(self.length > 0){jQuery.ajax({url:url, type:type || "GET", dataType:"html", data:params}).done(function(responseText){response = arguments;self.html(selector?jQuery("<div>").append(jQuery.parseHTML(responseText)).find(selector):responseText);}).always(callback && function(jqXHR, status){self.each(function(){callback.apply(this, response || [jqXHR.responseText, status, jqXHR]);});});}return this;};jQuery.each(["ajaxStart", "ajaxStop", "ajaxComplete", "ajaxError", "ajaxSuccess", "ajaxSend"], function(i, type){jQuery.fn[type] = function(fn){return this.on(type, fn);};});jQuery.expr.filters.animated = function(elem){return jQuery.grep(jQuery.timers, function(fn){return elem === fn.elem;}).length;};function getWindow(elem){return jQuery.isWindow(elem)?elem:elem.nodeType === 9?elem.defaultView || elem.parentWindow:false;}jQuery.offset = {setOffset:function(elem, options, i){var curPosition, curLeft, curCSSTop, curTop, curOffset, curCSSLeft, calculatePosition, position=jQuery.css(elem, "position"), curElem=jQuery(elem), props={};if(position === "static"){elem.style.position = "relative";}curOffset = curElem.offset();curCSSTop = jQuery.css(elem, "top");curCSSLeft = jQuery.css(elem, "left");calculatePosition = (position === "absolute" || position === "fixed") && jQuery.inArray("auto", [curCSSTop, curCSSLeft]) > -1;if(calculatePosition){curPosition = curElem.position();curTop = curPosition.top;curLeft = curPosition.left;}else {curTop = parseFloat(curCSSTop) || 0;curLeft = parseFloat(curCSSLeft) || 0;}if(jQuery.isFunction(options)){options = options.call(elem, i, jQuery.extend({}, curOffset));}if(options.top != null){props.top = options.top - curOffset.top + curTop;}if(options.left != null){props.left = options.left - curOffset.left + curLeft;}if("using" in options){options.using.call(elem, props);}else {curElem.css(props);}}};jQuery.fn.extend({offset:function(options){if(arguments.length){return options === undefined?this:this.each(function(i){jQuery.offset.setOffset(this, options, i);});}var docElem, win, box={top:0, left:0}, elem=this[0], doc=elem && elem.ownerDocument;if(!doc){return;}docElem = doc.documentElement;if(!jQuery.contains(docElem, elem)){return box;}if(typeof elem.getBoundingClientRect !== "undefined"){box = elem.getBoundingClientRect();}win = getWindow(doc);return {top:box.top + (win.pageYOffset || docElem.scrollTop) - (docElem.clientTop || 0), left:box.left + (win.pageXOffset || docElem.scrollLeft) - (docElem.clientLeft || 0)};}, position:function(){if(!this[0]){return;}var offsetParent, offset, parentOffset={top:0, left:0}, elem=this[0];if(jQuery.css(elem, "position") === "fixed"){offset = elem.getBoundingClientRect();}else {offsetParent = this.offsetParent();offset = this.offset();if(!jQuery.nodeName(offsetParent[0], "html")){parentOffset = offsetParent.offset();}parentOffset.top += jQuery.css(offsetParent[0], "borderTopWidth", true);parentOffset.left += jQuery.css(offsetParent[0], "borderLeftWidth", true);}return {top:offset.top - parentOffset.top - jQuery.css(elem, "marginTop", true), left:offset.left - parentOffset.left - jQuery.css(elem, "marginLeft", true)};}, offsetParent:function(){return this.map(function(){var offsetParent=this.offsetParent;while(offsetParent && (!jQuery.nodeName(offsetParent, "html") && jQuery.css(offsetParent, "position") === "static")) {offsetParent = offsetParent.offsetParent;}return offsetParent || documentElement;});}});jQuery.each({scrollLeft:"pageXOffset", scrollTop:"pageYOffset"}, function(method, prop){var top=/Y/.test(prop);jQuery.fn[method] = function(val){return access(this, function(elem, method, val){var win=getWindow(elem);if(val === undefined){return win?prop in win?win[prop]:win.document.documentElement[method]:elem[method];}if(win){win.scrollTo(!top?val:jQuery(win).scrollLeft(), top?val:jQuery(win).scrollTop());}else {elem[method] = val;}}, method, val, arguments.length, null);};});jQuery.each(["top", "left"], function(i, prop){jQuery.cssHooks[prop] = addGetHookIf(support.pixelPosition, function(elem, computed){if(computed){computed = curCSS(elem, prop);return rnumnonpx.test(computed)?jQuery(elem).position()[prop] + "px":computed;}});});jQuery.each({Height:"height", Width:"width"}, function(name, type){jQuery.each({padding:"inner" + name, content:type, "":"outer" + name}, function(defaultExtra, funcName){jQuery.fn[funcName] = function(margin, value){var chainable=arguments.length && (defaultExtra || typeof margin !== "boolean"), extra=defaultExtra || (margin === true || value === true?"margin":"border");return access(this, function(elem, type, value){var doc;if(jQuery.isWindow(elem)){return elem.document.documentElement["client" + name];}if(elem.nodeType === 9){doc = elem.documentElement;return Math.max(elem.body["scroll" + name], doc["scroll" + name], elem.body["offset" + name], doc["offset" + name], doc["client" + name]);}return value === undefined?jQuery.css(elem, type, extra):jQuery.style(elem, type, value, extra);}, type, chainable?margin:undefined, chainable, null);};});});jQuery.fn.extend({bind:function(types, data, fn){return this.on(types, null, data, fn);}, unbind:function(types, fn){return this.off(types, null, fn);}, delegate:function(selector, types, data, fn){return this.on(types, selector, data, fn);}, undelegate:function(selector, types, fn){return arguments.length === 1?this.off(selector, "**"):this.off(types, selector || "**", fn);}});jQuery.fn.size = function(){return this.length;};jQuery.fn.andSelf = jQuery.fn.addBack;if(true){!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function(){return jQuery;}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));}var _jQuery=window.jQuery, _$=window.$;jQuery.noConflict = function(deep){if(window.$ === jQuery){window.$ = _$;}if(deep && window.jQuery === jQuery){window.jQuery = _jQuery;}return jQuery;};if(!noGlobal){window.jQuery = window.$ = jQuery;}return jQuery;});
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(global, factory){if(typeof module === "object" && typeof module.exports === "object"){module.exports = global.document?factory(global, true):function(w){if(!w.document){throw new Error("jQuery requires a window with a document");}return factory(w);};}else {factory(global);}})(typeof window !== "undefined"?window:this, function(window, noGlobal){var deletedIds=[];var document=window.document;var slice=deletedIds.slice;var concat=deletedIds.concat;var push=deletedIds.push;var indexOf=deletedIds.indexOf;var class2type={};var toString=class2type.toString;var hasOwn=class2type.hasOwnProperty;var support={};var version="1.12.4", jQuery=function(selector, context){return new jQuery.fn.init(selector, context);}, rtrim=/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, rmsPrefix=/^-ms-/, rdashAlpha=/-([\da-z])/gi, fcamelCase=function(all, letter){return letter.toUpperCase();};jQuery.fn = jQuery.prototype = {jquery:version, constructor:jQuery, selector:"", length:0, toArray:function(){return slice.call(this);}, get:function(num){return num != null?num < 0?this[num + this.length]:this[num]:slice.call(this);}, pushStack:function(elems){var ret=jQuery.merge(this.constructor(), elems);ret.prevObject = this;ret.context = this.context;return ret;}, each:function(callback){return jQuery.each(this, callback);}, map:function(callback){return this.pushStack(jQuery.map(this, function(elem, i){return callback.call(elem, i, elem);}));}, slice:function(){return this.pushStack(slice.apply(this, arguments));}, first:function(){return this.eq(0);}, last:function(){return this.eq(-1);}, eq:function(i){var len=this.length, j=+i + (i < 0?len:0);return this.pushStack(j >= 0 && j < len?[this[j]]:[]);}, end:function(){return this.prevObject || this.constructor();}, push:push, sort:deletedIds.sort, splice:deletedIds.splice};jQuery.extend = jQuery.fn.extend = function(){var src, copyIsArray, copy, name, options, clone, target=arguments[0] || {}, i=1, length=arguments.length, deep=false;if(typeof target === "boolean"){deep = target;target = arguments[i] || {};i++;}if(typeof target !== "object" && !jQuery.isFunction(target)){target = {};}if(i === length){target = this;i--;}for(; i < length; i++) {if((options = arguments[i]) != null){for(name in options) {src = target[name];copy = options[name];if(target === copy){continue;}if(deep && copy && (jQuery.isPlainObject(copy) || (copyIsArray = jQuery.isArray(copy)))){if(copyIsArray){copyIsArray = false;clone = src && jQuery.isArray(src)?src:[];}else {clone = src && jQuery.isPlainObject(src)?src:{};}target[name] = jQuery.extend(deep, clone, copy);}else if(copy !== undefined){target[name] = copy;}}}}return target;};jQuery.extend({expando:"jQuery" + (version + Math.random()).replace(/\D/g, ""), isReady:true, error:function(msg){throw new Error(msg);}, noop:function(){}, isFunction:function(obj){return jQuery.type(obj) === "function";}, isArray:Array.isArray || function(obj){return jQuery.type(obj) === "array";}, isWindow:function(obj){return obj != null && obj == obj.window;}, isNumeric:function(obj){var realStringObj=obj && obj.toString();return !jQuery.isArray(obj) && realStringObj - parseFloat(realStringObj) + 1 >= 0;}, isEmptyObject:function(obj){var name;for(name in obj) {return false;}return true;}, isPlainObject:function(obj){var key;if(!obj || jQuery.type(obj) !== "object" || obj.nodeType || jQuery.isWindow(obj)){return false;}try{if(obj.constructor && !hasOwn.call(obj, "constructor") && !hasOwn.call(obj.constructor.prototype, "isPrototypeOf")){return false;}}catch(e) {return false;}if(!support.ownFirst){for(key in obj) {return hasOwn.call(obj, key);}}for(key in obj) {}return key === undefined || hasOwn.call(obj, key);}, type:function(obj){if(obj == null){return obj + "";}return typeof obj === "object" || typeof obj === "function"?class2type[toString.call(obj)] || "object":typeof obj;}, globalEval:function(data){if(data && jQuery.trim(data)){(window.execScript || function(data){window["eval"].call(window, data);})(data);}}, camelCase:function(string){return string.replace(rmsPrefix, "ms-").replace(rdashAlpha, fcamelCase);}, nodeName:function(elem, name){return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();}, each:function(obj, callback){var length, i=0;if(isArrayLike(obj)){length = obj.length;for(; i < length; i++) {if(callback.call(obj[i], i, obj[i]) === false){break;}}}else {for(i in obj) {if(callback.call(obj[i], i, obj[i]) === false){break;}}}return obj;}, trim:function(text){return text == null?"":(text + "").replace(rtrim, "");}, makeArray:function(arr, results){var ret=results || [];if(arr != null){if(isArrayLike(Object(arr))){jQuery.merge(ret, typeof arr === "string"?[arr]:arr);}else {push.call(ret, arr);}}return ret;}, inArray:function(elem, arr, i){var len;if(arr){if(indexOf){return indexOf.call(arr, elem, i);}len = arr.length;i = i?i < 0?Math.max(0, len + i):i:0;for(; i < len; i++) {if(i in arr && arr[i] === elem){return i;}}}return -1;}, merge:function(first, second){var len=+second.length, j=0, i=first.length;while(j < len) {first[i++] = second[j++];}if(len !== len){while(second[j] !== undefined) {first[i++] = second[j++];}}first.length = i;return first;}, grep:function(elems, callback, invert){var callbackInverse, matches=[], i=0, length=elems.length, callbackExpect=!invert;for(; i < length; i++) {callbackInverse = !callback(elems[i], i);if(callbackInverse !== callbackExpect){matches.push(elems[i]);}}return matches;}, map:function(elems, callback, arg){var length, value, i=0, ret=[];if(isArrayLike(elems)){length = elems.length;for(; i < length; i++) {value = callback(elems[i], i, arg);if(value != null){ret.push(value);}}}else {for(i in elems) {value = callback(elems[i], i, arg);if(value != null){ret.push(value);}}}return concat.apply([], ret);}, guid:1, proxy:function(fn, context){var args, proxy, tmp;if(typeof context === "string"){tmp = fn[context];context = fn;fn = tmp;}if(!jQuery.isFunction(fn)){return undefined;}args = slice.call(arguments, 2);proxy = function(){return fn.apply(context || this, args.concat(slice.call(arguments)));};proxy.guid = fn.guid = fn.guid || jQuery.guid++;return proxy;}, now:function(){return +new Date();}, support:support});if(typeof Symbol === "function"){jQuery.fn[Symbol.iterator] = deletedIds[Symbol.iterator];}jQuery.each("Boolean Number String Function Array Date RegExp Object Error Symbol".split(" "), function(i, name){class2type["[object " + name + "]"] = name.toLowerCase();});function isArrayLike(obj){var length=!!obj && "length" in obj && obj.length, type=jQuery.type(obj);if(type === "function" || jQuery.isWindow(obj)){return false;}return type === "array" || length === 0 || typeof length === "number" && length > 0 && length - 1 in obj;}var Sizzle=(function(window){var i, support, Expr, getText, isXML, tokenize, compile, select, outermostContext, sortInput, hasDuplicate, setDocument, document, docElem, documentIsHTML, rbuggyQSA, rbuggyMatches, matches, contains, expando="sizzle" + 1 * new Date(), preferredDoc=window.document, dirruns=0, done=0, classCache=createCache(), tokenCache=createCache(), compilerCache=createCache(), sortOrder=function(a, b){if(a === b){hasDuplicate = true;}return 0;}, MAX_NEGATIVE=1 << 31, hasOwn=({}).hasOwnProperty, arr=[], pop=arr.pop, push_native=arr.push, push=arr.push, slice=arr.slice, indexOf=function(list, elem){var i=0, len=list.length;for(; i < len; i++) {if(list[i] === elem){return i;}}return -1;}, booleans="checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped", whitespace="[\\x20\\t\\r\\n\\f]", identifier="(?:\\\\.|[\\w-]|[^\\x00-\\xa0])+", attributes="\\[" + whitespace + "*(" + identifier + ")(?:" + whitespace + "*([*^$|!~]?=)" + whitespace + "*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|(" + identifier + "))|)" + whitespace + "*\\]", pseudos=":(" + identifier + ")(?:\\((" + "('((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\")|" + "((?:\\\\.|[^\\\\()[\\]]|" + attributes + ")*)|" + ".*" + ")\\)|)", rwhitespace=new RegExp(whitespace + "+", "g"), rtrim=new RegExp("^" + whitespace + "+|((?:^|[^\\\\])(?:\\\\.)*)" + whitespace + "+$", "g"), rcomma=new RegExp("^" + whitespace + "*," + whitespace + "*"), rcombinators=new RegExp("^" + whitespace + "*([>+~]|" + whitespace + ")" + whitespace + "*"), rattributeQuotes=new RegExp("=" + whitespace + "*([^\\]'\"]*?)" + whitespace + "*\\]", "g"), rpseudo=new RegExp(pseudos), ridentifier=new RegExp("^" + identifier + "$"), matchExpr={"ID":new RegExp("^#(" + identifier + ")"), "CLASS":new RegExp("^\\.(" + identifier + ")"), "TAG":new RegExp("^(" + identifier + "|[*])"), "ATTR":new RegExp("^" + attributes), "PSEUDO":new RegExp("^" + pseudos), "CHILD":new RegExp("^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\(" + whitespace + "*(even|odd|(([+-]|)(\\d*)n|)" + whitespace + "*(?:([+-]|)" + whitespace + "*(\\d+)|))" + whitespace + "*\\)|)", "i"), "bool":new RegExp("^(?:" + booleans + ")$", "i"), "needsContext":new RegExp("^" + whitespace + "*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\(" + whitespace + "*((?:-\\d)?\\d*)" + whitespace + "*\\)|)(?=[^-]|$)", "i")}, rinputs=/^(?:input|select|textarea|button)$/i, rheader=/^h\d$/i, rnative=/^[^{]+\{\s*\[native \w/, rquickExpr=/^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/, rsibling=/[+~]/, rescape=/'|\\/g, runescape=new RegExp("\\\\([\\da-f]{1,6}" + whitespace + "?|(" + whitespace + ")|.)", "ig"), funescape=function(_, escaped, escapedWhitespace){var high="0x" + escaped - 65536;return high !== high || escapedWhitespace?escaped:high < 0?String.fromCharCode(high + 65536):String.fromCharCode(high >> 10 | 55296, high & 1023 | 56320);}, unloadHandler=function(){setDocument();};try{push.apply(arr = slice.call(preferredDoc.childNodes), preferredDoc.childNodes);arr[preferredDoc.childNodes.length].nodeType;}catch(e) {push = {apply:arr.length?function(target, els){push_native.apply(target, slice.call(els));}:function(target, els){var j=target.length, i=0;while(target[j++] = els[i++]) {}target.length = j - 1;}};}function Sizzle(selector, context, results, seed){var m, i, elem, nid, nidselect, match, groups, newSelector, newContext=context && context.ownerDocument, nodeType=context?context.nodeType:9;results = results || [];if(typeof selector !== "string" || !selector || nodeType !== 1 && nodeType !== 9 && nodeType !== 11){return results;}if(!seed){if((context?context.ownerDocument || context:preferredDoc) !== document){setDocument(context);}context = context || document;if(documentIsHTML){if(nodeType !== 11 && (match = rquickExpr.exec(selector))){if(m = match[1]){if(nodeType === 9){if(elem = context.getElementById(m)){if(elem.id === m){results.push(elem);return results;}}else {return results;}}else {if(newContext && (elem = newContext.getElementById(m)) && contains(context, elem) && elem.id === m){results.push(elem);return results;}}}else if(match[2]){push.apply(results, context.getElementsByTagName(selector));return results;}else if((m = match[3]) && support.getElementsByClassName && context.getElementsByClassName){push.apply(results, context.getElementsByClassName(m));return results;}}if(support.qsa && !compilerCache[selector + " "] && (!rbuggyQSA || !rbuggyQSA.test(selector))){if(nodeType !== 1){newContext = context;newSelector = selector;}else if(context.nodeName.toLowerCase() !== "object"){if(nid = context.getAttribute("id")){nid = nid.replace(rescape, "\\$&");}else {context.setAttribute("id", nid = expando);}groups = tokenize(selector);i = groups.length;nidselect = ridentifier.test(nid)?"#" + nid:"[id='" + nid + "']";while(i--) {groups[i] = nidselect + " " + toSelector(groups[i]);}newSelector = groups.join(",");newContext = rsibling.test(selector) && testContext(context.parentNode) || context;}if(newSelector){try{push.apply(results, newContext.querySelectorAll(newSelector));return results;}catch(qsaError) {}finally {if(nid === expando){context.removeAttribute("id");}}}}}}return select(selector.replace(rtrim, "$1"), context, results, seed);}function createCache(){var keys=[];function cache(key, value){if(keys.push(key + " ") > Expr.cacheLength){delete cache[keys.shift()];}return cache[key + " "] = value;}return cache;}function markFunction(fn){fn[expando] = true;return fn;}function assert(fn){var div=document.createElement("div");try{return !!fn(div);}catch(e) {return false;}finally {if(div.parentNode){div.parentNode.removeChild(div);}div = null;}}function addHandle(attrs, handler){var arr=attrs.split("|"), i=arr.length;while(i--) {Expr.attrHandle[arr[i]] = handler;}}function siblingCheck(a, b){var cur=b && a, diff=cur && a.nodeType === 1 && b.nodeType === 1 && (~b.sourceIndex || MAX_NEGATIVE) - (~a.sourceIndex || MAX_NEGATIVE);if(diff){return diff;}if(cur){while(cur = cur.nextSibling) {if(cur === b){return -1;}}}return a?1:-1;}function createInputPseudo(type){return function(elem){var name=elem.nodeName.toLowerCase();return name === "input" && elem.type === type;};}function createButtonPseudo(type){return function(elem){var name=elem.nodeName.toLowerCase();return (name === "input" || name === "button") && elem.type === type;};}function createPositionalPseudo(fn){return markFunction(function(argument){argument = +argument;return markFunction(function(seed, matches){var j, matchIndexes=fn([], seed.length, argument), i=matchIndexes.length;while(i--) {if(seed[j = matchIndexes[i]]){seed[j] = !(matches[j] = seed[j]);}}});});}function testContext(context){return context && typeof context.getElementsByTagName !== "undefined" && context;}support = Sizzle.support = {};isXML = Sizzle.isXML = function(elem){var documentElement=elem && (elem.ownerDocument || elem).documentElement;return documentElement?documentElement.nodeName !== "HTML":false;};setDocument = Sizzle.setDocument = function(node){var hasCompare, parent, doc=node?node.ownerDocument || node:preferredDoc;if(doc === document || doc.nodeType !== 9 || !doc.documentElement){return document;}document = doc;docElem = document.documentElement;documentIsHTML = !isXML(document);if((parent = document.defaultView) && parent.top !== parent){if(parent.addEventListener){parent.addEventListener("unload", unloadHandler, false);}else if(parent.attachEvent){parent.attachEvent("onunload", unloadHandler);}}support.attributes = assert(function(div){div.className = "i";return !div.getAttribute("className");});support.getElementsByTagName = assert(function(div){div.appendChild(document.createComment(""));return !div.getElementsByTagName("*").length;});support.getElementsByClassName = rnative.test(document.getElementsByClassName);support.getById = assert(function(div){docElem.appendChild(div).id = expando;return !document.getElementsByName || !document.getElementsByName(expando).length;});if(support.getById){Expr.find["ID"] = function(id, context){if(typeof context.getElementById !== "undefined" && documentIsHTML){var m=context.getElementById(id);return m?[m]:[];}};Expr.filter["ID"] = function(id){var attrId=id.replace(runescape, funescape);return function(elem){return elem.getAttribute("id") === attrId;};};}else {delete Expr.find["ID"];Expr.filter["ID"] = function(id){var attrId=id.replace(runescape, funescape);return function(elem){var node=typeof elem.getAttributeNode !== "undefined" && elem.getAttributeNode("id");return node && node.value === attrId;};};}Expr.find["TAG"] = support.getElementsByTagName?function(tag, context){if(typeof context.getElementsByTagName !== "undefined"){return context.getElementsByTagName(tag);}else if(support.qsa){return context.querySelectorAll(tag);}}:function(tag, context){var elem, tmp=[], i=0, results=context.getElementsByTagName(tag);if(tag === "*"){while(elem = results[i++]) {if(elem.nodeType === 1){tmp.push(elem);}}return tmp;}return results;};Expr.find["CLASS"] = support.getElementsByClassName && function(className, context){if(typeof context.getElementsByClassName !== "undefined" && documentIsHTML){return context.getElementsByClassName(className);}};rbuggyMatches = [];rbuggyQSA = [];if(support.qsa = rnative.test(document.querySelectorAll)){assert(function(div){docElem.appendChild(div).innerHTML = "<a id='" + expando + "'></a>" + "<select id='" + expando + "-\r\\' msallowcapture=''>" + "<option selected=''></option></select>";if(div.querySelectorAll("[msallowcapture^='']").length){rbuggyQSA.push("[*^$]=" + whitespace + "*(?:''|\"\")");}if(!div.querySelectorAll("[selected]").length){rbuggyQSA.push("\\[" + whitespace + "*(?:value|" + booleans + ")");}if(!div.querySelectorAll("[id~=" + expando + "-]").length){rbuggyQSA.push("~=");}if(!div.querySelectorAll(":checked").length){rbuggyQSA.push(":checked");}if(!div.querySelectorAll("a#" + expando + "+*").length){rbuggyQSA.push(".#.+[+~]");}});assert(function(div){var input=document.createElement("input");input.setAttribute("type", "hidden");div.appendChild(input).setAttribute("name", "D");if(div.querySelectorAll("[name=d]").length){rbuggyQSA.push("name" + whitespace + "*[*^$|!~]?=");}if(!div.querySelectorAll(":enabled").length){rbuggyQSA.push(":enabled", ":disabled");}div.querySelectorAll("*,:x");rbuggyQSA.push(",.*:");});}if(support.matchesSelector = rnative.test(matches = docElem.matches || docElem.webkitMatchesSelector || docElem.mozMatchesSelector || docElem.oMatchesSelector || docElem.msMatchesSelector)){assert(function(div){support.disconnectedMatch = matches.call(div, "div");matches.call(div, "[s!='']:x");rbuggyMatches.push("!=", pseudos);});}rbuggyQSA = rbuggyQSA.length && new RegExp(rbuggyQSA.join("|"));rbuggyMatches = rbuggyMatches.length && new RegExp(rbuggyMatches.join("|"));hasCompare = rnative.test(docElem.compareDocumentPosition);contains = hasCompare || rnative.test(docElem.contains)?function(a, b){var adown=a.nodeType === 9?a.documentElement:a, bup=b && b.parentNode;return a === bup || !!(bup && bup.nodeType === 1 && (adown.contains?adown.contains(bup):a.compareDocumentPosition && a.compareDocumentPosition(bup) & 16));}:function(a, b){if(b){while(b = b.parentNode) {if(b === a){return true;}}}return false;};sortOrder = hasCompare?function(a, b){if(a === b){hasDuplicate = true;return 0;}var compare=!a.compareDocumentPosition - !b.compareDocumentPosition;if(compare){return compare;}compare = (a.ownerDocument || a) === (b.ownerDocument || b)?a.compareDocumentPosition(b):1;if(compare & 1 || !support.sortDetached && b.compareDocumentPosition(a) === compare){if(a === document || a.ownerDocument === preferredDoc && contains(preferredDoc, a)){return -1;}if(b === document || b.ownerDocument === preferredDoc && contains(preferredDoc, b)){return 1;}return sortInput?indexOf(sortInput, a) - indexOf(sortInput, b):0;}return compare & 4?-1:1;}:function(a, b){if(a === b){hasDuplicate = true;return 0;}var cur, i=0, aup=a.parentNode, bup=b.parentNode, ap=[a], bp=[b];if(!aup || !bup){return a === document?-1:b === document?1:aup?-1:bup?1:sortInput?indexOf(sortInput, a) - indexOf(sortInput, b):0;}else if(aup === bup){return siblingCheck(a, b);}cur = a;while(cur = cur.parentNode) {ap.unshift(cur);}cur = b;while(cur = cur.parentNode) {bp.unshift(cur);}while(ap[i] === bp[i]) {i++;}return i?siblingCheck(ap[i], bp[i]):ap[i] === preferredDoc?-1:bp[i] === preferredDoc?1:0;};return document;};Sizzle.matches = function(expr, elements){return Sizzle(expr, null, null, elements);};Sizzle.matchesSelector = function(elem, expr){if((elem.ownerDocument || elem) !== document){setDocument(elem);}expr = expr.replace(rattributeQuotes, "='$1']");if(support.matchesSelector && documentIsHTML && !compilerCache[expr + " "] && (!rbuggyMatches || !rbuggyMatches.test(expr)) && (!rbuggyQSA || !rbuggyQSA.test(expr))){try{var ret=matches.call(elem, expr);if(ret || support.disconnectedMatch || elem.document && elem.document.nodeType !== 11){return ret;}}catch(e) {}}return Sizzle(expr, document, null, [elem]).length > 0;};Sizzle.contains = function(context, elem){if((context.ownerDocument || context) !== document){setDocument(context);}return contains(context, elem);};Sizzle.attr = function(elem, name){if((elem.ownerDocument || elem) !== document){setDocument(elem);}var fn=Expr.attrHandle[name.toLowerCase()], val=fn && hasOwn.call(Expr.attrHandle, name.toLowerCase())?fn(elem, name, !documentIsHTML):undefined;return val !== undefined?val:support.attributes || !documentIsHTML?elem.getAttribute(name):(val = elem.getAttributeNode(name)) && val.specified?val.value:null;};Sizzle.error = function(msg){throw new Error("Syntax error, unrecognized expression: " + msg);};Sizzle.uniqueSort = function(results){var elem, duplicates=[], j=0, i=0;hasDuplicate = !support.detectDuplicates;sortInput = !support.sortStable && results.slice(0);results.sort(sortOrder);if(hasDuplicate){while(elem = results[i++]) {if(elem === results[i]){j = duplicates.push(i);}}while(j--) {results.splice(duplicates[j], 1);}}sortInput = null;return results;};getText = Sizzle.getText = function(elem){var node, ret="", i=0, nodeType=elem.nodeType;if(!nodeType){while(node = elem[i++]) {ret += getText(node);}}else if(nodeType === 1 || nodeType === 9 || nodeType === 11){if(typeof elem.textContent === "string"){return elem.textContent;}else {for(elem = elem.firstChild; elem; elem = elem.nextSibling) {ret += getText(elem);}}}else if(nodeType === 3 || nodeType === 4){return elem.nodeValue;}return ret;};Expr = Sizzle.selectors = {cacheLength:50, createPseudo:markFunction, match:matchExpr, attrHandle:{}, find:{}, relative:{">":{dir:"parentNode", first:true}, " ":{dir:"parentNode"}, "+":{dir:"previousSibling", first:true}, "~":{dir:"previousSibling"}}, preFilter:{"ATTR":function(match){match[1] = match[1].replace(runescape, funescape);match[3] = (match[3] || match[4] || match[5] || "").replace(runescape, funescape);if(match[2] === "~="){match[3] = " " + match[3] + " ";}return match.slice(0, 4);}, "CHILD":function(match){match[1] = match[1].toLowerCase();if(match[1].slice(0, 3) === "nth"){if(!match[3]){Sizzle.error(match[0]);}match[4] = +(match[4]?match[5] + (match[6] || 1):2 * (match[3] === "even" || match[3] === "odd"));match[5] = +(match[7] + match[8] || match[3] === "odd");}else if(match[3]){Sizzle.error(match[0]);}return match;}, "PSEUDO":function(match){var excess, unquoted=!match[6] && match[2];if(matchExpr["CHILD"].test(match[0])){return null;}if(match[3]){match[2] = match[4] || match[5] || "";}else if(unquoted && rpseudo.test(unquoted) && (excess = tokenize(unquoted, true)) && (excess = unquoted.indexOf(")", unquoted.length - excess) - unquoted.length)){match[0] = match[0].slice(0, excess);match[2] = unquoted.slice(0, excess);}return match.slice(0, 3);}}, filter:{"TAG":function(nodeNameSelector){var nodeName=nodeNameSelector.replace(runescape, funescape).toLowerCase();return nodeNameSelector === "*"?function(){return true;}:function(elem){return elem.nodeName && elem.nodeName.toLowerCase() === nodeName;};}, "CLASS":function(className){var pattern=classCache[className + " "];return pattern || (pattern = new RegExp("(^|" + whitespace + ")" + className + "(" + whitespace + "|$)")) && classCache(className, function(elem){return pattern.test(typeof elem.className === "string" && elem.className || typeof elem.getAttribute !== "undefined" && elem.getAttribute("class") || "");});}, "ATTR":function(name, operator, check){return function(elem){var result=Sizzle.attr(elem, name);if(result == null){return operator === "!=";}if(!operator){return true;}result += "";return operator === "="?result === check:operator === "!="?result !== check:operator === "^="?check && result.indexOf(check) === 0:operator === "*="?check && result.indexOf(check) > -1:operator === "$="?check && result.slice(-check.length) === check:operator === "~="?(" " + result.replace(rwhitespace, " ") + " ").indexOf(check) > -1:operator === "|="?result === check || result.slice(0, check.length + 1) === check + "-":false;};}, "CHILD":function(type, what, argument, first, last){var simple=type.slice(0, 3) !== "nth", forward=type.slice(-4) !== "last", ofType=what === "of-type";return first === 1 && last === 0?function(elem){return !!elem.parentNode;}:function(elem, context, xml){var cache, uniqueCache, outerCache, node, nodeIndex, start, dir=simple !== forward?"nextSibling":"previousSibling", parent=elem.parentNode, name=ofType && elem.nodeName.toLowerCase(), useCache=!xml && !ofType, diff=false;if(parent){if(simple){while(dir) {node = elem;while(node = node[dir]) {if(ofType?node.nodeName.toLowerCase() === name:node.nodeType === 1){return false;}}start = dir = type === "only" && !start && "nextSibling";}return true;}start = [forward?parent.firstChild:parent.lastChild];if(forward && useCache){node = parent;outerCache = node[expando] || (node[expando] = {});uniqueCache = outerCache[node.uniqueID] || (outerCache[node.uniqueID] = {});cache = uniqueCache[type] || [];nodeIndex = cache[0] === dirruns && cache[1];diff = nodeIndex && cache[2];node = nodeIndex && parent.childNodes[nodeIndex];while(node = ++nodeIndex && node && node[dir] || (diff = nodeIndex = 0) || start.pop()) {if(node.nodeType === 1 && ++diff && node === elem){uniqueCache[type] = [dirruns, nodeIndex, diff];break;}}}else {if(useCache){node = elem;outerCache = node[expando] || (node[expando] = {});uniqueCache = outerCache[node.uniqueID] || (outerCache[node.uniqueID] = {});cache = uniqueCache[type] || [];nodeIndex = cache[0] === dirruns && cache[1];diff = nodeIndex;}if(diff === false){while(node = ++nodeIndex && node && node[dir] || (diff = nodeIndex = 0) || start.pop()) {if((ofType?node.nodeName.toLowerCase() === name:node.nodeType === 1) && ++diff){if(useCache){outerCache = node[expando] || (node[expando] = {});uniqueCache = outerCache[node.uniqueID] || (outerCache[node.uniqueID] = {});uniqueCache[type] = [dirruns, diff];}if(node === elem){break;}}}}}diff -= last;return diff === first || diff % first === 0 && diff / first >= 0;}};}, "PSEUDO":function(pseudo, argument){var args, fn=Expr.pseudos[pseudo] || Expr.setFilters[pseudo.toLowerCase()] || Sizzle.error("unsupported pseudo: " + pseudo);if(fn[expando]){return fn(argument);}if(fn.length > 1){args = [pseudo, pseudo, "", argument];return Expr.setFilters.hasOwnProperty(pseudo.toLowerCase())?markFunction(function(seed, matches){var idx, matched=fn(seed, argument), i=matched.length;while(i--) {idx = indexOf(seed, matched[i]);seed[idx] = !(matches[idx] = matched[i]);}}):function(elem){return fn(elem, 0, args);};}return fn;}}, pseudos:{"not":markFunction(function(selector){var input=[], results=[], matcher=compile(selector.replace(rtrim, "$1"));return matcher[expando]?markFunction(function(seed, matches, context, xml){var elem, unmatched=matcher(seed, null, xml, []), i=seed.length;while(i--) {if(elem = unmatched[i]){seed[i] = !(matches[i] = elem);}}}):function(elem, context, xml){input[0] = elem;matcher(input, null, xml, results);input[0] = null;return !results.pop();};}), "has":markFunction(function(selector){return function(elem){return Sizzle(selector, elem).length > 0;};}), "contains":markFunction(function(text){text = text.replace(runescape, funescape);return function(elem){return (elem.textContent || elem.innerText || getText(elem)).indexOf(text) > -1;};}), "lang":markFunction(function(lang){if(!ridentifier.test(lang || "")){Sizzle.error("unsupported lang: " + lang);}lang = lang.replace(runescape, funescape).toLowerCase();return function(elem){var elemLang;do {if(elemLang = documentIsHTML?elem.lang:elem.getAttribute("xml:lang") || elem.getAttribute("lang")){elemLang = elemLang.toLowerCase();return elemLang === lang || elemLang.indexOf(lang + "-") === 0;}}while((elem = elem.parentNode) && elem.nodeType === 1);return false;};}), "target":function(elem){var hash=window.location && window.location.hash;return hash && hash.slice(1) === elem.id;}, "root":function(elem){return elem === docElem;}, "focus":function(elem){return elem === document.activeElement && (!document.hasFocus || document.hasFocus()) && !!(elem.type || elem.href || ~elem.tabIndex);}, "enabled":function(elem){return elem.disabled === false;}, "disabled":function(elem){return elem.disabled === true;}, "checked":function(elem){var nodeName=elem.nodeName.toLowerCase();return nodeName === "input" && !!elem.checked || nodeName === "option" && !!elem.selected;}, "selected":function(elem){if(elem.parentNode){elem.parentNode.selectedIndex;}return elem.selected === true;}, "empty":function(elem){for(elem = elem.firstChild; elem; elem = elem.nextSibling) {if(elem.nodeType < 6){return false;}}return true;}, "parent":function(elem){return !Expr.pseudos["empty"](elem);}, "header":function(elem){return rheader.test(elem.nodeName);}, "input":function(elem){return rinputs.test(elem.nodeName);}, "button":function(elem){var name=elem.nodeName.toLowerCase();return name === "input" && elem.type === "button" || name === "button";}, "text":function(elem){var attr;return elem.nodeName.toLowerCase() === "input" && elem.type === "text" && ((attr = elem.getAttribute("type")) == null || attr.toLowerCase() === "text");}, "first":createPositionalPseudo(function(){return [0];}), "last":createPositionalPseudo(function(matchIndexes, length){return [length - 1];}), "eq":createPositionalPseudo(function(matchIndexes, length, argument){return [argument < 0?argument + length:argument];}), "even":createPositionalPseudo(function(matchIndexes, length){var i=0;for(; i < length; i += 2) {matchIndexes.push(i);}return matchIndexes;}), "odd":createPositionalPseudo(function(matchIndexes, length){var i=1;for(; i < length; i += 2) {matchIndexes.push(i);}return matchIndexes;}), "lt":createPositionalPseudo(function(matchIndexes, length, argument){var i=argument < 0?argument + length:argument;for(; --i >= 0;) {matchIndexes.push(i);}return matchIndexes;}), "gt":createPositionalPseudo(function(matchIndexes, length, argument){var i=argument < 0?argument + length:argument;for(; ++i < length;) {matchIndexes.push(i);}return matchIndexes;})}};Expr.pseudos["nth"] = Expr.pseudos["eq"];for(i in {radio:true, checkbox:true, file:true, password:true, image:true}) {Expr.pseudos[i] = createInputPseudo(i);}for(i in {submit:true, reset:true}) {Expr.pseudos[i] = createButtonPseudo(i);}function setFilters(){}setFilters.prototype = Expr.filters = Expr.pseudos;Expr.setFilters = new setFilters();tokenize = Sizzle.tokenize = function(selector, parseOnly){var matched, match, tokens, type, soFar, groups, preFilters, cached=tokenCache[selector + " "];if(cached){return parseOnly?0:cached.slice(0);}soFar = selector;groups = [];preFilters = Expr.preFilter;while(soFar) {if(!matched || (match = rcomma.exec(soFar))){if(match){soFar = soFar.slice(match[0].length) || soFar;}groups.push(tokens = []);}matched = false;if(match = rcombinators.exec(soFar)){matched = match.shift();tokens.push({value:matched, type:match[0].replace(rtrim, " ")});soFar = soFar.slice(matched.length);}for(type in Expr.filter) {if((match = matchExpr[type].exec(soFar)) && (!preFilters[type] || (match = preFilters[type](match)))){matched = match.shift();tokens.push({value:matched, type:type, matches:match});soFar = soFar.slice(matched.length);}}if(!matched){break;}}return parseOnly?soFar.length:soFar?Sizzle.error(selector):tokenCache(selector, groups).slice(0);};function toSelector(tokens){var i=0, len=tokens.length, selector="";for(; i < len; i++) {selector += tokens[i].value;}return selector;}function addCombinator(matcher, combinator, base){var dir=combinator.dir, checkNonElements=base && dir === "parentNode", doneName=done++;return combinator.first?function(elem, context, xml){while(elem = elem[dir]) {if(elem.nodeType === 1 || checkNonElements){return matcher(elem, context, xml);}}}:function(elem, context, xml){var oldCache, uniqueCache, outerCache, newCache=[dirruns, doneName];if(xml){while(elem = elem[dir]) {if(elem.nodeType === 1 || checkNonElements){if(matcher(elem, context, xml)){return true;}}}}else {while(elem = elem[dir]) {if(elem.nodeType === 1 || checkNonElements){outerCache = elem[expando] || (elem[expando] = {});uniqueCache = outerCache[elem.uniqueID] || (outerCache[elem.uniqueID] = {});if((oldCache = uniqueCache[dir]) && oldCache[0] === dirruns && oldCache[1] === doneName){return newCache[2] = oldCache[2];}else {uniqueCache[dir] = newCache;if(newCache[2] = matcher(elem, context, xml)){return true;}}}}}};}function elementMatcher(matchers){return matchers.length > 1?function(elem, context, xml){var i=matchers.length;while(i--) {if(!matchers[i](elem, context, xml)){return false;}}return true;}:matchers[0];}function multipleContexts(selector, contexts, results){var i=0, len=contexts.length;for(; i < len; i++) {Sizzle(selector, contexts[i], results);}return results;}function condense(unmatched, map, filter, context, xml){var elem, newUnmatched=[], i=0, len=unmatched.length, mapped=map != null;for(; i < len; i++) {if(elem = unmatched[i]){if(!filter || filter(elem, context, xml)){newUnmatched.push(elem);if(mapped){map.push(i);}}}}return newUnmatched;}function setMatcher(preFilter, selector, matcher, postFilter, postFinder, postSelector){if(postFilter && !postFilter[expando]){postFilter = setMatcher(postFilter);}if(postFinder && !postFinder[expando]){postFinder = setMatcher(postFinder, postSelector);}return markFunction(function(seed, results, context, xml){var temp, i, elem, preMap=[], postMap=[], preexisting=results.length, elems=seed || multipleContexts(selector || "*", context.nodeType?[context]:context, []), matcherIn=preFilter && (seed || !selector)?condense(elems, preMap, preFilter, context, xml):elems, matcherOut=matcher?postFinder || (seed?preFilter:preexisting || postFilter)?[]:results:matcherIn;if(matcher){matcher(matcherIn, matcherOut, context, xml);}if(postFilter){temp = condense(matcherOut, postMap);postFilter(temp, [], context, xml);i = temp.length;while(i--) {if(elem = temp[i]){matcherOut[postMap[i]] = !(matcherIn[postMap[i]] = elem);}}}if(seed){if(postFinder || preFilter){if(postFinder){temp = [];i = matcherOut.length;while(i--) {if(elem = matcherOut[i]){temp.push(matcherIn[i] = elem);}}postFinder(null, matcherOut = [], temp, xml);}i = matcherOut.length;while(i--) {if((elem = matcherOut[i]) && (temp = postFinder?indexOf(seed, elem):preMap[i]) > -1){seed[temp] = !(results[temp] = elem);}}}}else {matcherOut = condense(matcherOut === results?matcherOut.splice(preexisting, matcherOut.length):matcherOut);if(postFinder){postFinder(null, results, matcherOut, xml);}else {push.apply(results, matcherOut);}}});}function matcherFromTokens(tokens){var checkContext, matcher, j, len=tokens.length, leadingRelative=Expr.relative[tokens[0].type], implicitRelative=leadingRelative || Expr.relative[" "], i=leadingRelative?1:0, matchContext=addCombinator(function(elem){return elem === checkContext;}, implicitRelative, true), matchAnyContext=addCombinator(function(elem){return indexOf(checkContext, elem) > -1;}, implicitRelative, true), matchers=[function(elem, context, xml){var ret=!leadingRelative && (xml || context !== outermostContext) || ((checkContext = context).nodeType?matchContext(elem, context, xml):matchAnyContext(elem, context, xml));checkContext = null;return ret;}];for(; i < len; i++) {if(matcher = Expr.relative[tokens[i].type]){matchers = [addCombinator(elementMatcher(matchers), matcher)];}else {matcher = Expr.filter[tokens[i].type].apply(null, tokens[i].matches);if(matcher[expando]){j = ++i;for(; j < len; j++) {if(Expr.relative[tokens[j].type]){break;}}return setMatcher(i > 1 && elementMatcher(matchers), i > 1 && toSelector(tokens.slice(0, i - 1).concat({value:tokens[i - 2].type === " "?"*":""})).replace(rtrim, "$1"), matcher, i < j && matcherFromTokens(tokens.slice(i, j)), j < len && matcherFromTokens(tokens = tokens.slice(j)), j < len && toSelector(tokens));}matchers.push(matcher);}}return elementMatcher(matchers);}function matcherFromGroupMatchers(elementMatchers, setMatchers){var bySet=setMatchers.length > 0, byElement=elementMatchers.length > 0, superMatcher=function(seed, context, xml, results, outermost){var elem, j, matcher, matchedCount=0, i="0", unmatched=seed && [], setMatched=[], contextBackup=outermostContext, elems=seed || byElement && Expr.find["TAG"]("*", outermost), dirrunsUnique=dirruns += contextBackup == null?1:Math.random() || 0.1, len=elems.length;if(outermost){outermostContext = context === document || context || outermost;}for(; i !== len && (elem = elems[i]) != null; i++) {if(byElement && elem){j = 0;if(!context && elem.ownerDocument !== document){setDocument(elem);xml = !documentIsHTML;}while(matcher = elementMatchers[j++]) {if(matcher(elem, context || document, xml)){results.push(elem);break;}}if(outermost){dirruns = dirrunsUnique;}}if(bySet){if(elem = !matcher && elem){matchedCount--;}if(seed){unmatched.push(elem);}}}matchedCount += i;if(bySet && i !== matchedCount){j = 0;while(matcher = setMatchers[j++]) {matcher(unmatched, setMatched, context, xml);}if(seed){if(matchedCount > 0){while(i--) {if(!(unmatched[i] || setMatched[i])){setMatched[i] = pop.call(results);}}}setMatched = condense(setMatched);}push.apply(results, setMatched);if(outermost && !seed && setMatched.length > 0 && matchedCount + setMatchers.length > 1){Sizzle.uniqueSort(results);}}if(outermost){dirruns = dirrunsUnique;outermostContext = contextBackup;}return unmatched;};return bySet?markFunction(superMatcher):superMatcher;}compile = Sizzle.compile = function(selector, match){var i, setMatchers=[], elementMatchers=[], cached=compilerCache[selector + " "];if(!cached){if(!match){match = tokenize(selector);}i = match.length;while(i--) {cached = matcherFromTokens(match[i]);if(cached[expando]){setMatchers.push(cached);}else {elementMatchers.push(cached);}}cached = compilerCache(selector, matcherFromGroupMatchers(elementMatchers, setMatchers));cached.selector = selector;}return cached;};select = Sizzle.select = function(selector, context, results, seed){var i, tokens, token, type, find, compiled=typeof selector === "function" && selector, match=!seed && tokenize(selector = compiled.selector || selector);results = results || [];if(match.length === 1){tokens = match[0] = match[0].slice(0);if(tokens.length > 2 && (token = tokens[0]).type === "ID" && support.getById && context.nodeType === 9 && documentIsHTML && Expr.relative[tokens[1].type]){context = (Expr.find["ID"](token.matches[0].replace(runescape, funescape), context) || [])[0];if(!context){return results;}else if(compiled){context = context.parentNode;}selector = selector.slice(tokens.shift().value.length);}i = matchExpr["needsContext"].test(selector)?0:tokens.length;while(i--) {token = tokens[i];if(Expr.relative[type = token.type]){break;}if(find = Expr.find[type]){if(seed = find(token.matches[0].replace(runescape, funescape), rsibling.test(tokens[0].type) && testContext(context.parentNode) || context)){tokens.splice(i, 1);selector = seed.length && toSelector(tokens);if(!selector){push.apply(results, seed);return results;}break;}}}}(compiled || compile(selector, match))(seed, context, !documentIsHTML, results, !context || rsibling.test(selector) && testContext(context.parentNode) || context);return results;};support.sortStable = expando.split("").sort(sortOrder).join("") === expando;support.detectDuplicates = !!hasDuplicate;setDocument();support.sortDetached = assert(function(div1){return div1.compareDocumentPosition(document.createElement("div")) & 1;});if(!assert(function(div){div.innerHTML = "<a href='#'></a>";return div.firstChild.getAttribute("href") === "#";})){addHandle("type|href|height|width", function(elem, name, isXML){if(!isXML){return elem.getAttribute(name, name.toLowerCase() === "type"?1:2);}});}if(!support.attributes || !assert(function(div){div.innerHTML = "<input/>";div.firstChild.setAttribute("value", "");return div.firstChild.getAttribute("value") === "";})){addHandle("value", function(elem, name, isXML){if(!isXML && elem.nodeName.toLowerCase() === "input"){return elem.defaultValue;}});}if(!assert(function(div){return div.getAttribute("disabled") == null;})){addHandle(booleans, function(elem, name, isXML){var val;if(!isXML){return elem[name] === true?name.toLowerCase():(val = elem.getAttributeNode(name)) && val.specified?val.value:null;}});}return Sizzle;})(window);jQuery.find = Sizzle;jQuery.expr = Sizzle.selectors;jQuery.expr[":"] = jQuery.expr.pseudos;jQuery.uniqueSort = jQuery.unique = Sizzle.uniqueSort;jQuery.text = Sizzle.getText;jQuery.isXMLDoc = Sizzle.isXML;jQuery.contains = Sizzle.contains;var dir=function(elem, dir, until){var matched=[], truncate=until !== undefined;while((elem = elem[dir]) && elem.nodeType !== 9) {if(elem.nodeType === 1){if(truncate && jQuery(elem).is(until)){break;}matched.push(elem);}}return matched;};var siblings=function(n, elem){var matched=[];for(; n; n = n.nextSibling) {if(n.nodeType === 1 && n !== elem){matched.push(n);}}return matched;};var rneedsContext=jQuery.expr.match.needsContext;var rsingleTag=/^<([\w-]+)\s*\/?>(?:<\/\1>|)$/;var risSimple=/^.[^:#\[\.,]*$/;function winnow(elements, qualifier, not){if(jQuery.isFunction(qualifier)){return jQuery.grep(elements, function(elem, i){return !!qualifier.call(elem, i, elem) !== not;});}if(qualifier.nodeType){return jQuery.grep(elements, function(elem){return elem === qualifier !== not;});}if(typeof qualifier === "string"){if(risSimple.test(qualifier)){return jQuery.filter(qualifier, elements, not);}qualifier = jQuery.filter(qualifier, elements);}return jQuery.grep(elements, function(elem){return jQuery.inArray(elem, qualifier) > -1 !== not;});}jQuery.filter = function(expr, elems, not){var elem=elems[0];if(not){expr = ":not(" + expr + ")";}return elems.length === 1 && elem.nodeType === 1?jQuery.find.matchesSelector(elem, expr)?[elem]:[]:jQuery.find.matches(expr, jQuery.grep(elems, function(elem){return elem.nodeType === 1;}));};jQuery.fn.extend({find:function(selector){var i, ret=[], self=this, len=self.length;if(typeof selector !== "string"){return this.pushStack(jQuery(selector).filter(function(){for(i = 0; i < len; i++) {if(jQuery.contains(self[i], this)){return true;}}}));}for(i = 0; i < len; i++) {jQuery.find(selector, self[i], ret);}ret = this.pushStack(len > 1?jQuery.unique(ret):ret);ret.selector = this.selector?this.selector + " " + selector:selector;return ret;}, filter:function(selector){return this.pushStack(winnow(this, selector || [], false));}, not:function(selector){return this.pushStack(winnow(this, selector || [], true));}, is:function(selector){return !!winnow(this, typeof selector === "string" && rneedsContext.test(selector)?jQuery(selector):selector || [], false).length;}});var rootjQuery, rquickExpr=/^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/, init=jQuery.fn.init = function(selector, context, root){var match, elem;if(!selector){return this;}root = root || rootjQuery;if(typeof selector === "string"){if(selector.charAt(0) === "<" && selector.charAt(selector.length - 1) === ">" && selector.length >= 3){match = [null, selector, null];}else {match = rquickExpr.exec(selector);}if(match && (match[1] || !context)){if(match[1]){context = context instanceof jQuery?context[0]:context;jQuery.merge(this, jQuery.parseHTML(match[1], context && context.nodeType?context.ownerDocument || context:document, true));if(rsingleTag.test(match[1]) && jQuery.isPlainObject(context)){for(match in context) {if(jQuery.isFunction(this[match])){this[match](context[match]);}else {this.attr(match, context[match]);}}}return this;}else {elem = document.getElementById(match[2]);if(elem && elem.parentNode){if(elem.id !== match[2]){return rootjQuery.find(selector);}this.length = 1;this[0] = elem;}this.context = document;this.selector = selector;return this;}}else if(!context || context.jquery){return (context || root).find(selector);}else {return this.constructor(context).find(selector);}}else if(selector.nodeType){this.context = this[0] = selector;this.length = 1;return this;}else if(jQuery.isFunction(selector)){return typeof root.ready !== "undefined"?root.ready(selector):selector(jQuery);}if(selector.selector !== undefined){this.selector = selector.selector;this.context = selector.context;}return jQuery.makeArray(selector, this);};init.prototype = jQuery.fn;rootjQuery = jQuery(document);var rparentsprev=/^(?:parents|prev(?:Until|All))/, guaranteedUnique={children:true, contents:true, next:true, prev:true};jQuery.fn.extend({has:function(target){var i, targets=jQuery(target, this), len=targets.length;return this.filter(function(){for(i = 0; i < len; i++) {if(jQuery.contains(this, targets[i])){return true;}}});}, closest:function(selectors, context){var cur, i=0, l=this.length, matched=[], pos=rneedsContext.test(selectors) || typeof selectors !== "string"?jQuery(selectors, context || this.context):0;for(; i < l; i++) {for(cur = this[i]; cur && cur !== context; cur = cur.parentNode) {if(cur.nodeType < 11 && (pos?pos.index(cur) > -1:cur.nodeType === 1 && jQuery.find.matchesSelector(cur, selectors))){matched.push(cur);break;}}}return this.pushStack(matched.length > 1?jQuery.uniqueSort(matched):matched);}, index:function(elem){if(!elem){return this[0] && this[0].parentNode?this.first().prevAll().length:-1;}if(typeof elem === "string"){return jQuery.inArray(this[0], jQuery(elem));}return jQuery.inArray(elem.jquery?elem[0]:elem, this);}, add:function(selector, context){return this.pushStack(jQuery.uniqueSort(jQuery.merge(this.get(), jQuery(selector, context))));}, addBack:function(selector){return this.add(selector == null?this.prevObject:this.prevObject.filter(selector));}});function sibling(cur, dir){do {cur = cur[dir];}while(cur && cur.nodeType !== 1);return cur;}jQuery.each({parent:function(elem){var parent=elem.parentNode;return parent && parent.nodeType !== 11?parent:null;}, parents:function(elem){return dir(elem, "parentNode");}, parentsUntil:function(elem, i, until){return dir(elem, "parentNode", until);}, next:function(elem){return sibling(elem, "nextSibling");}, prev:function(elem){return sibling(elem, "previousSibling");}, nextAll:function(elem){return dir(elem, "nextSibling");}, prevAll:function(elem){return dir(elem, "previousSibling");}, nextUntil:function(elem, i, until){return dir(elem, "nextSibling", until);}, prevUntil:function(elem, i, until){return dir(elem, "previousSibling", until);}, siblings:function(elem){return siblings((elem.parentNode || {}).firstChild, elem);}, children:function(elem){return siblings(elem.firstChild);}, contents:function(elem){return jQuery.nodeName(elem, "iframe")?elem.contentDocument || elem.contentWindow.document:jQuery.merge([], elem.childNodes);}}, function(name, fn){jQuery.fn[name] = function(until, selector){var ret=jQuery.map(this, fn, until);if(name.slice(-5) !== "Until"){selector = until;}if(selector && typeof selector === "string"){ret = jQuery.filter(selector, ret);}if(this.length > 1){if(!guaranteedUnique[name]){ret = jQuery.uniqueSort(ret);}if(rparentsprev.test(name)){ret = ret.reverse();}}return this.pushStack(ret);};});var rnotwhite=/\S+/g;function createOptions(options){var object={};jQuery.each(options.match(rnotwhite) || [], function(_, flag){object[flag] = true;});return object;}jQuery.Callbacks = function(options){options = typeof options === "string"?createOptions(options):jQuery.extend({}, options);var firing, memory, fired, locked, list=[], queue=[], firingIndex=-1, fire=function(){locked = options.once;fired = firing = true;for(; queue.length; firingIndex = -1) {memory = queue.shift();while(++firingIndex < list.length) {if(list[firingIndex].apply(memory[0], memory[1]) === false && options.stopOnFalse){firingIndex = list.length;memory = false;}}}if(!options.memory){memory = false;}firing = false;if(locked){if(memory){list = [];}else {list = "";}}}, self={add:function(){if(list){if(memory && !firing){firingIndex = list.length - 1;queue.push(memory);}(function add(args){jQuery.each(args, function(_, arg){if(jQuery.isFunction(arg)){if(!options.unique || !self.has(arg)){list.push(arg);}}else if(arg && arg.length && jQuery.type(arg) !== "string"){add(arg);}});})(arguments);if(memory && !firing){fire();}}return this;}, remove:function(){jQuery.each(arguments, function(_, arg){var index;while((index = jQuery.inArray(arg, list, index)) > -1) {list.splice(index, 1);if(index <= firingIndex){firingIndex--;}}});return this;}, has:function(fn){return fn?jQuery.inArray(fn, list) > -1:list.length > 0;}, empty:function(){if(list){list = [];}return this;}, disable:function(){locked = queue = [];list = memory = "";return this;}, disabled:function(){return !list;}, lock:function(){locked = true;if(!memory){self.disable();}return this;}, locked:function(){return !!locked;}, fireWith:function(context, args){if(!locked){args = args || [];args = [context, args.slice?args.slice():args];queue.push(args);if(!firing){fire();}}return this;}, fire:function(){self.fireWith(this, arguments);return this;}, fired:function(){return !!fired;}};return self;};jQuery.extend({Deferred:function(func){var tuples=[["resolve", "done", jQuery.Callbacks("once memory"), "resolved"], ["reject", "fail", jQuery.Callbacks("once memory"), "rejected"], ["notify", "progress", jQuery.Callbacks("memory")]], state="pending", promise={state:function(){return state;}, always:function(){deferred.done(arguments).fail(arguments);return this;}, then:function(){var fns=arguments;return jQuery.Deferred(function(newDefer){jQuery.each(tuples, function(i, tuple){var fn=jQuery.isFunction(fns[i]) && fns[i];deferred[tuple[1]](function(){var returned=fn && fn.apply(this, arguments);if(returned && jQuery.isFunction(returned.promise)){returned.promise().progress(newDefer.notify).done(newDefer.resolve).fail(newDefer.reject);}else {newDefer[tuple[0] + "With"](this === promise?newDefer.promise():this, fn?[returned]:arguments);}});});fns = null;}).promise();}, promise:function(obj){return obj != null?jQuery.extend(obj, promise):promise;}}, deferred={};promise.pipe = promise.then;jQuery.each(tuples, function(i, tuple){var list=tuple[2], stateString=tuple[3];promise[tuple[1]] = list.add;if(stateString){list.add(function(){state = stateString;}, tuples[i ^ 1][2].disable, tuples[2][2].lock);}deferred[tuple[0]] = function(){deferred[tuple[0] + "With"](this === deferred?promise:this, arguments);return this;};deferred[tuple[0] + "With"] = list.fireWith;});promise.promise(deferred);if(func){func.call(deferred, deferred);}return deferred;}, when:function(subordinate){var i=0, resolveValues=slice.call(arguments), length=resolveValues.length, remaining=length !== 1 || subordinate && jQuery.isFunction(subordinate.promise)?length:0, deferred=remaining === 1?subordinate:jQuery.Deferred(), updateFunc=function(i, contexts, values){return function(value){contexts[i] = this;values[i] = arguments.length > 1?slice.call(arguments):value;if(values === progressValues){deferred.notifyWith(contexts, values);}else if(! --remaining){deferred.resolveWith(contexts, values);}};}, progressValues, progressContexts, resolveContexts;if(length > 1){progressValues = new Array(length);progressContexts = new Array(length);resolveContexts = new Array(length);for(; i < length; i++) {if(resolveValues[i] && jQuery.isFunction(resolveValues[i].promise)){resolveValues[i].promise().progress(updateFunc(i, progressContexts, progressValues)).done(updateFunc(i, resolveContexts, resolveValues)).fail(deferred.reject);}else {--remaining;}}}if(!remaining){deferred.resolveWith(resolveContexts, resolveValues);}return deferred.promise();}});var readyList;jQuery.fn.ready = function(fn){jQuery.ready.promise().done(fn);return this;};jQuery.extend({isReady:false, readyWait:1, holdReady:function(hold){if(hold){jQuery.readyWait++;}else {jQuery.ready(true);}}, ready:function(wait){if(wait === true?--jQuery.readyWait:jQuery.isReady){return;}jQuery.isReady = true;if(wait !== true && --jQuery.readyWait > 0){return;}readyList.resolveWith(document, [jQuery]);if(jQuery.fn.triggerHandler){jQuery(document).triggerHandler("ready");jQuery(document).off("ready");}}});function detach(){if(document.addEventListener){document.removeEventListener("DOMContentLoaded", completed);window.removeEventListener("load", completed);}else {document.detachEvent("onreadystatechange", completed);window.detachEvent("onload", completed);}}function completed(){if(document.addEventListener || window.event.type === "load" || document.readyState === "complete"){detach();jQuery.ready();}}jQuery.ready.promise = function(obj){if(!readyList){readyList = jQuery.Deferred();if(document.readyState === "complete" || document.readyState !== "loading" && !document.documentElement.doScroll){window.setTimeout(jQuery.ready);}else if(document.addEventListener){document.addEventListener("DOMContentLoaded", completed);window.addEventListener("load", completed);}else {document.attachEvent("onreadystatechange", completed);window.attachEvent("onload", completed);var top=false;try{top = window.frameElement == null && document.documentElement;}catch(e) {}if(top && top.doScroll){(function doScrollCheck(){if(!jQuery.isReady){try{top.doScroll("left");}catch(e) {return window.setTimeout(doScrollCheck, 50);}detach();jQuery.ready();}})();}}}return readyList.promise(obj);};jQuery.ready.promise();var i;for(i in jQuery(support)) {break;}support.ownFirst = i === "0";support.inlineBlockNeedsLayout = false;jQuery(function(){var val, div, body, container;body = document.getElementsByTagName("body")[0];if(!body || !body.style){return;}div = document.createElement("div");container = document.createElement("div");container.style.cssText = "position:absolute;border:0;width:0;height:0;top:0;left:-9999px";body.appendChild(container).appendChild(div);if(typeof div.style.zoom !== "undefined"){div.style.cssText = "display:inline;margin:0;border:0;padding:1px;width:1px;zoom:1";support.inlineBlockNeedsLayout = val = div.offsetWidth === 3;if(val){body.style.zoom = 1;}}body.removeChild(container);});(function(){var div=document.createElement("div");support.deleteExpando = true;try{delete div.test;}catch(e) {support.deleteExpando = false;}div = null;})();var acceptData=function(elem){var noData=jQuery.noData[(elem.nodeName + " ").toLowerCase()], nodeType=+elem.nodeType || 1;return nodeType !== 1 && nodeType !== 9?false:!noData || noData !== true && elem.getAttribute("classid") === noData;};var rbrace=/^(?:\{[\w\W]*\}|\[[\w\W]*\])$/, rmultiDash=/([A-Z])/g;function dataAttr(elem, key, data){if(data === undefined && elem.nodeType === 1){var name="data-" + key.replace(rmultiDash, "-$1").toLowerCase();data = elem.getAttribute(name);if(typeof data === "string"){try{data = data === "true"?true:data === "false"?false:data === "null"?null:+data + "" === data?+data:rbrace.test(data)?jQuery.parseJSON(data):data;}catch(e) {}jQuery.data(elem, key, data);}else {data = undefined;}}return data;}function isEmptyDataObject(obj){var name;for(name in obj) {if(name === "data" && jQuery.isEmptyObject(obj[name])){continue;}if(name !== "toJSON"){return false;}}return true;}function internalData(elem, name, data, pvt){if(!acceptData(elem)){return;}var ret, thisCache, internalKey=jQuery.expando, isNode=elem.nodeType, cache=isNode?jQuery.cache:elem, id=isNode?elem[internalKey]:elem[internalKey] && internalKey;if((!id || !cache[id] || !pvt && !cache[id].data) && data === undefined && typeof name === "string"){return;}if(!id){if(isNode){id = elem[internalKey] = deletedIds.pop() || jQuery.guid++;}else {id = internalKey;}}if(!cache[id]){cache[id] = isNode?{}:{toJSON:jQuery.noop};}if(typeof name === "object" || typeof name === "function"){if(pvt){cache[id] = jQuery.extend(cache[id], name);}else {cache[id].data = jQuery.extend(cache[id].data, name);}}thisCache = cache[id];if(!pvt){if(!thisCache.data){thisCache.data = {};}thisCache = thisCache.data;}if(data !== undefined){thisCache[jQuery.camelCase(name)] = data;}if(typeof name === "string"){ret = thisCache[name];if(ret == null){ret = thisCache[jQuery.camelCase(name)];}}else {ret = thisCache;}return ret;}function internalRemoveData(elem, name, pvt){if(!acceptData(elem)){return;}var thisCache, i, isNode=elem.nodeType, cache=isNode?jQuery.cache:elem, id=isNode?elem[jQuery.expando]:jQuery.expando;if(!cache[id]){return;}if(name){thisCache = pvt?cache[id]:cache[id].data;if(thisCache){if(!jQuery.isArray(name)){if(name in thisCache){name = [name];}else {name = jQuery.camelCase(name);if(name in thisCache){name = [name];}else {name = name.split(" ");}}}else {name = name.concat(jQuery.map(name, jQuery.camelCase));}i = name.length;while(i--) {delete thisCache[name[i]];}if(pvt?!isEmptyDataObject(thisCache):!jQuery.isEmptyObject(thisCache)){return;}}}if(!pvt){delete cache[id].data;if(!isEmptyDataObject(cache[id])){return;}}if(isNode){jQuery.cleanData([elem], true);}else if(support.deleteExpando || cache != cache.window){delete cache[id];}else {cache[id] = undefined;}}jQuery.extend({cache:{}, noData:{"applet ":true, "embed ":true, "object ":"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"}, hasData:function(elem){elem = elem.nodeType?jQuery.cache[elem[jQuery.expando]]:elem[jQuery.expando];return !!elem && !isEmptyDataObject(elem);}, data:function(elem, name, data){return internalData(elem, name, data);}, removeData:function(elem, name){return internalRemoveData(elem, name);}, _data:function(elem, name, data){return internalData(elem, name, data, true);}, _removeData:function(elem, name){return internalRemoveData(elem, name, true);}});jQuery.fn.extend({data:function(key, value){var i, name, data, elem=this[0], attrs=elem && elem.attributes;if(key === undefined){if(this.length){data = jQuery.data(elem);if(elem.nodeType === 1 && !jQuery._data(elem, "parsedAttrs")){i = attrs.length;while(i--) {if(attrs[i]){name = attrs[i].name;if(name.indexOf("data-") === 0){name = jQuery.camelCase(name.slice(5));dataAttr(elem, name, data[name]);}}}jQuery._data(elem, "parsedAttrs", true);}}return data;}if(typeof key === "object"){return this.each(function(){jQuery.data(this, key);});}return arguments.length > 1?this.each(function(){jQuery.data(this, key, value);}):elem?dataAttr(elem, key, jQuery.data(elem, key)):undefined;}, removeData:function(key){return this.each(function(){jQuery.removeData(this, key);});}});jQuery.extend({queue:function(elem, type, data){var queue;if(elem){type = (type || "fx") + "queue";queue = jQuery._data(elem, type);if(data){if(!queue || jQuery.isArray(data)){queue = jQuery._data(elem, type, jQuery.makeArray(data));}else {queue.push(data);}}return queue || [];}}, dequeue:function(elem, type){type = type || "fx";var queue=jQuery.queue(elem, type), startLength=queue.length, fn=queue.shift(), hooks=jQuery._queueHooks(elem, type), next=function(){jQuery.dequeue(elem, type);};if(fn === "inprogress"){fn = queue.shift();startLength--;}if(fn){if(type === "fx"){queue.unshift("inprogress");}delete hooks.stop;fn.call(elem, next, hooks);}if(!startLength && hooks){hooks.empty.fire();}}, _queueHooks:function(elem, type){var key=type + "queueHooks";return jQuery._data(elem, key) || jQuery._data(elem, key, {empty:jQuery.Callbacks("once memory").add(function(){jQuery._removeData(elem, type + "queue");jQuery._removeData(elem, key);})});}});jQuery.fn.extend({queue:function(type, data){var setter=2;if(typeof type !== "string"){data = type;type = "fx";setter--;}if(arguments.length < setter){return jQuery.queue(this[0], type);}return data === undefined?this:this.each(function(){var queue=jQuery.queue(this, type, data);jQuery._queueHooks(this, type);if(type === "fx" && queue[0] !== "inprogress"){jQuery.dequeue(this, type);}});}, dequeue:function(type){return this.each(function(){jQuery.dequeue(this, type);});}, clearQueue:function(type){return this.queue(type || "fx", []);}, promise:function(type, obj){var tmp, count=1, defer=jQuery.Deferred(), elements=this, i=this.length, resolve=function(){if(! --count){defer.resolveWith(elements, [elements]);}};if(typeof type !== "string"){obj = type;type = undefined;}type = type || "fx";while(i--) {tmp = jQuery._data(elements[i], type + "queueHooks");if(tmp && tmp.empty){count++;tmp.empty.add(resolve);}}resolve();return defer.promise(obj);}});(function(){var shrinkWrapBlocksVal;support.shrinkWrapBlocks = function(){if(shrinkWrapBlocksVal != null){return shrinkWrapBlocksVal;}shrinkWrapBlocksVal = false;var div, body, container;body = document.getElementsByTagName("body")[0];if(!body || !body.style){return;}div = document.createElement("div");container = document.createElement("div");container.style.cssText = "position:absolute;border:0;width:0;height:0;top:0;left:-9999px";body.appendChild(container).appendChild(div);if(typeof div.style.zoom !== "undefined"){div.style.cssText = "-webkit-box-sizing:content-box;-moz-box-sizing:content-box;" + "box-sizing:content-box;display:block;margin:0;border:0;" + "padding:1px;width:1px;zoom:1";div.appendChild(document.createElement("div")).style.width = "5px";shrinkWrapBlocksVal = div.offsetWidth !== 3;}body.removeChild(container);return shrinkWrapBlocksVal;};})();var pnum=/[+-]?(?:\d*\.|)\d+(?:[eE][+-]?\d+|)/.source;var rcssNum=new RegExp("^(?:([+-])=|)(" + pnum + ")([a-z%]*)$", "i");var cssExpand=["Top", "Right", "Bottom", "Left"];var isHidden=function(elem, el){elem = el || elem;return jQuery.css(elem, "display") === "none" || !jQuery.contains(elem.ownerDocument, elem);};function adjustCSS(elem, prop, valueParts, tween){var adjusted, scale=1, maxIterations=20, currentValue=tween?function(){return tween.cur();}:function(){return jQuery.css(elem, prop, "");}, initial=currentValue(), unit=valueParts && valueParts[3] || (jQuery.cssNumber[prop]?"":"px"), initialInUnit=(jQuery.cssNumber[prop] || unit !== "px" && +initial) && rcssNum.exec(jQuery.css(elem, prop));if(initialInUnit && initialInUnit[3] !== unit){unit = unit || initialInUnit[3];valueParts = valueParts || [];initialInUnit = +initial || 1;do {scale = scale || ".5";initialInUnit = initialInUnit / scale;jQuery.style(elem, prop, initialInUnit + unit);}while(scale !== (scale = currentValue() / initial) && scale !== 1 && --maxIterations);}if(valueParts){initialInUnit = +initialInUnit || +initial || 0;adjusted = valueParts[1]?initialInUnit + (valueParts[1] + 1) * valueParts[2]:+valueParts[2];if(tween){tween.unit = unit;tween.start = initialInUnit;tween.end = adjusted;}}return adjusted;}var access=function(elems, fn, key, value, chainable, emptyGet, raw){var i=0, length=elems.length, bulk=key == null;if(jQuery.type(key) === "object"){chainable = true;for(i in key) {access(elems, fn, i, key[i], true, emptyGet, raw);}}else if(value !== undefined){chainable = true;if(!jQuery.isFunction(value)){raw = true;}if(bulk){if(raw){fn.call(elems, value);fn = null;}else {bulk = fn;fn = function(elem, key, value){return bulk.call(jQuery(elem), value);};}}if(fn){for(; i < length; i++) {fn(elems[i], key, raw?value:value.call(elems[i], i, fn(elems[i], key)));}}}return chainable?elems:bulk?fn.call(elems):length?fn(elems[0], key):emptyGet;};var rcheckableType=/^(?:checkbox|radio)$/i;var rtagName=/<([\w:-]+)/;var rscriptType=/^$|\/(?:java|ecma)script/i;var rleadingWhitespace=/^\s+/;var nodeNames="abbr|article|aside|audio|bdi|canvas|data|datalist|" + "details|dialog|figcaption|figure|footer|header|hgroup|main|" + "mark|meter|nav|output|picture|progress|section|summary|template|time|video";function createSafeFragment(document){var list=nodeNames.split("|"), safeFrag=document.createDocumentFragment();if(safeFrag.createElement){while(list.length) {safeFrag.createElement(list.pop());}}return safeFrag;}(function(){var div=document.createElement("div"), fragment=document.createDocumentFragment(), input=document.createElement("input");div.innerHTML = "  <link/><table></table><a href='/a'>a</a><input type='checkbox'/>";support.leadingWhitespace = div.firstChild.nodeType === 3;support.tbody = !div.getElementsByTagName("tbody").length;support.htmlSerialize = !!div.getElementsByTagName("link").length;support.html5Clone = document.createElement("nav").cloneNode(true).outerHTML !== "<:nav></:nav>";input.type = "checkbox";input.checked = true;fragment.appendChild(input);support.appendChecked = input.checked;div.innerHTML = "<textarea>x</textarea>";support.noCloneChecked = !!div.cloneNode(true).lastChild.defaultValue;fragment.appendChild(div);input = document.createElement("input");input.setAttribute("type", "radio");input.setAttribute("checked", "checked");input.setAttribute("name", "t");div.appendChild(input);support.checkClone = div.cloneNode(true).cloneNode(true).lastChild.checked;support.noCloneEvent = !!div.addEventListener;div[jQuery.expando] = 1;support.attributes = !div.getAttribute(jQuery.expando);})();var wrapMap={option:[1, "<select multiple='multiple'>", "</select>"], legend:[1, "<fieldset>", "</fieldset>"], area:[1, "<map>", "</map>"], param:[1, "<object>", "</object>"], thead:[1, "<table>", "</table>"], tr:[2, "<table><tbody>", "</tbody></table>"], col:[2, "<table><tbody></tbody><colgroup>", "</colgroup></table>"], td:[3, "<table><tbody><tr>", "</tr></tbody></table>"], _default:support.htmlSerialize?[0, "", ""]:[1, "X<div>", "</div>"]};wrapMap.optgroup = wrapMap.option;wrapMap.tbody = wrapMap.tfoot = wrapMap.colgroup = wrapMap.caption = wrapMap.thead;wrapMap.th = wrapMap.td;function getAll(context, tag){var elems, elem, i=0, found=typeof context.getElementsByTagName !== "undefined"?context.getElementsByTagName(tag || "*"):typeof context.querySelectorAll !== "undefined"?context.querySelectorAll(tag || "*"):undefined;if(!found){for(found = [], elems = context.childNodes || context; (elem = elems[i]) != null; i++) {if(!tag || jQuery.nodeName(elem, tag)){found.push(elem);}else {jQuery.merge(found, getAll(elem, tag));}}}return tag === undefined || tag && jQuery.nodeName(context, tag)?jQuery.merge([context], found):found;}function setGlobalEval(elems, refElements){var elem, i=0;for(; (elem = elems[i]) != null; i++) {jQuery._data(elem, "globalEval", !refElements || jQuery._data(refElements[i], "globalEval"));}}var rhtml=/<|&#?\w+;/, rtbody=/<tbody/i;function fixDefaultChecked(elem){if(rcheckableType.test(elem.type)){elem.defaultChecked = elem.checked;}}function buildFragment(elems, context, scripts, selection, ignored){var j, elem, contains, tmp, tag, tbody, wrap, l=elems.length, safe=createSafeFragment(context), nodes=[], i=0;for(; i < l; i++) {elem = elems[i];if(elem || elem === 0){if(jQuery.type(elem) === "object"){jQuery.merge(nodes, elem.nodeType?[elem]:elem);}else if(!rhtml.test(elem)){nodes.push(context.createTextNode(elem));}else {tmp = tmp || safe.appendChild(context.createElement("div"));tag = (rtagName.exec(elem) || ["", ""])[1].toLowerCase();wrap = wrapMap[tag] || wrapMap._default;tmp.innerHTML = wrap[1] + jQuery.htmlPrefilter(elem) + wrap[2];j = wrap[0];while(j--) {tmp = tmp.lastChild;}if(!support.leadingWhitespace && rleadingWhitespace.test(elem)){nodes.push(context.createTextNode(rleadingWhitespace.exec(elem)[0]));}if(!support.tbody){elem = tag === "table" && !rtbody.test(elem)?tmp.firstChild:wrap[1] === "<table>" && !rtbody.test(elem)?tmp:0;j = elem && elem.childNodes.length;while(j--) {if(jQuery.nodeName(tbody = elem.childNodes[j], "tbody") && !tbody.childNodes.length){elem.removeChild(tbody);}}}jQuery.merge(nodes, tmp.childNodes);tmp.textContent = "";while(tmp.firstChild) {tmp.removeChild(tmp.firstChild);}tmp = safe.lastChild;}}}if(tmp){safe.removeChild(tmp);}if(!support.appendChecked){jQuery.grep(getAll(nodes, "input"), fixDefaultChecked);}i = 0;while(elem = nodes[i++]) {if(selection && jQuery.inArray(elem, selection) > -1){if(ignored){ignored.push(elem);}continue;}contains = jQuery.contains(elem.ownerDocument, elem);tmp = getAll(safe.appendChild(elem), "script");if(contains){setGlobalEval(tmp);}if(scripts){j = 0;while(elem = tmp[j++]) {if(rscriptType.test(elem.type || "")){scripts.push(elem);}}}}tmp = null;return safe;}(function(){var i, eventName, div=document.createElement("div");for(i in {submit:true, change:true, focusin:true}) {eventName = "on" + i;if(!(support[i] = eventName in window)){div.setAttribute(eventName, "t");support[i] = div.attributes[eventName].expando === false;}}div = null;})();var rformElems=/^(?:input|select|textarea)$/i, rkeyEvent=/^key/, rmouseEvent=/^(?:mouse|pointer|contextmenu|drag|drop)|click/, rfocusMorph=/^(?:focusinfocus|focusoutblur)$/, rtypenamespace=/^([^.]*)(?:\.(.+)|)/;function returnTrue(){return true;}function returnFalse(){return false;}function safeActiveElement(){try{return document.activeElement;}catch(err) {}}function on(elem, types, selector, data, fn, one){var origFn, type;if(typeof types === "object"){if(typeof selector !== "string"){data = data || selector;selector = undefined;}for(type in types) {on(elem, type, selector, data, types[type], one);}return elem;}if(data == null && fn == null){fn = selector;data = selector = undefined;}else if(fn == null){if(typeof selector === "string"){fn = data;data = undefined;}else {fn = data;data = selector;selector = undefined;}}if(fn === false){fn = returnFalse;}else if(!fn){return elem;}if(one === 1){origFn = fn;fn = function(event){jQuery().off(event);return origFn.apply(this, arguments);};fn.guid = origFn.guid || (origFn.guid = jQuery.guid++);}return elem.each(function(){jQuery.event.add(this, types, fn, data, selector);});}jQuery.event = {global:{}, add:function(elem, types, handler, data, selector){var tmp, events, t, handleObjIn, special, eventHandle, handleObj, handlers, type, namespaces, origType, elemData=jQuery._data(elem);if(!elemData){return;}if(handler.handler){handleObjIn = handler;handler = handleObjIn.handler;selector = handleObjIn.selector;}if(!handler.guid){handler.guid = jQuery.guid++;}if(!(events = elemData.events)){events = elemData.events = {};}if(!(eventHandle = elemData.handle)){eventHandle = elemData.handle = function(e){return typeof jQuery !== "undefined" && (!e || jQuery.event.triggered !== e.type)?jQuery.event.dispatch.apply(eventHandle.elem, arguments):undefined;};eventHandle.elem = elem;}types = (types || "").match(rnotwhite) || [""];t = types.length;while(t--) {tmp = rtypenamespace.exec(types[t]) || [];type = origType = tmp[1];namespaces = (tmp[2] || "").split(".").sort();if(!type){continue;}special = jQuery.event.special[type] || {};type = (selector?special.delegateType:special.bindType) || type;special = jQuery.event.special[type] || {};handleObj = jQuery.extend({type:type, origType:origType, data:data, handler:handler, guid:handler.guid, selector:selector, needsContext:selector && jQuery.expr.match.needsContext.test(selector), namespace:namespaces.join(".")}, handleObjIn);if(!(handlers = events[type])){handlers = events[type] = [];handlers.delegateCount = 0;if(!special.setup || special.setup.call(elem, data, namespaces, eventHandle) === false){if(elem.addEventListener){elem.addEventListener(type, eventHandle, false);}else if(elem.attachEvent){elem.attachEvent("on" + type, eventHandle);}}}if(special.add){special.add.call(elem, handleObj);if(!handleObj.handler.guid){handleObj.handler.guid = handler.guid;}}if(selector){handlers.splice(handlers.delegateCount++, 0, handleObj);}else {handlers.push(handleObj);}jQuery.event.global[type] = true;}elem = null;}, remove:function(elem, types, handler, selector, mappedTypes){var j, handleObj, tmp, origCount, t, events, special, handlers, type, namespaces, origType, elemData=jQuery.hasData(elem) && jQuery._data(elem);if(!elemData || !(events = elemData.events)){return;}types = (types || "").match(rnotwhite) || [""];t = types.length;while(t--) {tmp = rtypenamespace.exec(types[t]) || [];type = origType = tmp[1];namespaces = (tmp[2] || "").split(".").sort();if(!type){for(type in events) {jQuery.event.remove(elem, type + types[t], handler, selector, true);}continue;}special = jQuery.event.special[type] || {};type = (selector?special.delegateType:special.bindType) || type;handlers = events[type] || [];tmp = tmp[2] && new RegExp("(^|\\.)" + namespaces.join("\\.(?:.*\\.|)") + "(\\.|$)");origCount = j = handlers.length;while(j--) {handleObj = handlers[j];if((mappedTypes || origType === handleObj.origType) && (!handler || handler.guid === handleObj.guid) && (!tmp || tmp.test(handleObj.namespace)) && (!selector || selector === handleObj.selector || selector === "**" && handleObj.selector)){handlers.splice(j, 1);if(handleObj.selector){handlers.delegateCount--;}if(special.remove){special.remove.call(elem, handleObj);}}}if(origCount && !handlers.length){if(!special.teardown || special.teardown.call(elem, namespaces, elemData.handle) === false){jQuery.removeEvent(elem, type, elemData.handle);}delete events[type];}}if(jQuery.isEmptyObject(events)){delete elemData.handle;jQuery._removeData(elem, "events");}}, trigger:function(event, data, elem, onlyHandlers){var handle, ontype, cur, bubbleType, special, tmp, i, eventPath=[elem || document], type=hasOwn.call(event, "type")?event.type:event, namespaces=hasOwn.call(event, "namespace")?event.namespace.split("."):[];cur = tmp = elem = elem || document;if(elem.nodeType === 3 || elem.nodeType === 8){return;}if(rfocusMorph.test(type + jQuery.event.triggered)){return;}if(type.indexOf(".") > -1){namespaces = type.split(".");type = namespaces.shift();namespaces.sort();}ontype = type.indexOf(":") < 0 && "on" + type;event = event[jQuery.expando]?event:new jQuery.Event(type, typeof event === "object" && event);event.isTrigger = onlyHandlers?2:3;event.namespace = namespaces.join(".");event.rnamespace = event.namespace?new RegExp("(^|\\.)" + namespaces.join("\\.(?:.*\\.|)") + "(\\.|$)"):null;event.result = undefined;if(!event.target){event.target = elem;}data = data == null?[event]:jQuery.makeArray(data, [event]);special = jQuery.event.special[type] || {};if(!onlyHandlers && special.trigger && special.trigger.apply(elem, data) === false){return;}if(!onlyHandlers && !special.noBubble && !jQuery.isWindow(elem)){bubbleType = special.delegateType || type;if(!rfocusMorph.test(bubbleType + type)){cur = cur.parentNode;}for(; cur; cur = cur.parentNode) {eventPath.push(cur);tmp = cur;}if(tmp === (elem.ownerDocument || document)){eventPath.push(tmp.defaultView || tmp.parentWindow || window);}}i = 0;while((cur = eventPath[i++]) && !event.isPropagationStopped()) {event.type = i > 1?bubbleType:special.bindType || type;handle = (jQuery._data(cur, "events") || {})[event.type] && jQuery._data(cur, "handle");if(handle){handle.apply(cur, data);}handle = ontype && cur[ontype];if(handle && handle.apply && acceptData(cur)){event.result = handle.apply(cur, data);if(event.result === false){event.preventDefault();}}}event.type = type;if(!onlyHandlers && !event.isDefaultPrevented()){if((!special._default || special._default.apply(eventPath.pop(), data) === false) && acceptData(elem)){if(ontype && elem[type] && !jQuery.isWindow(elem)){tmp = elem[ontype];if(tmp){elem[ontype] = null;}jQuery.event.triggered = type;try{elem[type]();}catch(e) {}jQuery.event.triggered = undefined;if(tmp){elem[ontype] = tmp;}}}}return event.result;}, dispatch:function(event){event = jQuery.event.fix(event);var i, j, ret, matched, handleObj, handlerQueue=[], args=slice.call(arguments), handlers=(jQuery._data(this, "events") || {})[event.type] || [], special=jQuery.event.special[event.type] || {};args[0] = event;event.delegateTarget = this;if(special.preDispatch && special.preDispatch.call(this, event) === false){return;}handlerQueue = jQuery.event.handlers.call(this, event, handlers);i = 0;while((matched = handlerQueue[i++]) && !event.isPropagationStopped()) {event.currentTarget = matched.elem;j = 0;while((handleObj = matched.handlers[j++]) && !event.isImmediatePropagationStopped()) {if(!event.rnamespace || event.rnamespace.test(handleObj.namespace)){event.handleObj = handleObj;event.data = handleObj.data;ret = ((jQuery.event.special[handleObj.origType] || {}).handle || handleObj.handler).apply(matched.elem, args);if(ret !== undefined){if((event.result = ret) === false){event.preventDefault();event.stopPropagation();}}}}}if(special.postDispatch){special.postDispatch.call(this, event);}return event.result;}, handlers:function(event, handlers){var i, matches, sel, handleObj, handlerQueue=[], delegateCount=handlers.delegateCount, cur=event.target;if(delegateCount && cur.nodeType && (event.type !== "click" || isNaN(event.button) || event.button < 1)){for(; cur != this; cur = cur.parentNode || this) {if(cur.nodeType === 1 && (cur.disabled !== true || event.type !== "click")){matches = [];for(i = 0; i < delegateCount; i++) {handleObj = handlers[i];sel = handleObj.selector + " ";if(matches[sel] === undefined){matches[sel] = handleObj.needsContext?jQuery(sel, this).index(cur) > -1:jQuery.find(sel, this, null, [cur]).length;}if(matches[sel]){matches.push(handleObj);}}if(matches.length){handlerQueue.push({elem:cur, handlers:matches});}}}}if(delegateCount < handlers.length){handlerQueue.push({elem:this, handlers:handlers.slice(delegateCount)});}return handlerQueue;}, fix:function(event){if(event[jQuery.expando]){return event;}var i, prop, copy, type=event.type, originalEvent=event, fixHook=this.fixHooks[type];if(!fixHook){this.fixHooks[type] = fixHook = rmouseEvent.test(type)?this.mouseHooks:rkeyEvent.test(type)?this.keyHooks:{};}copy = fixHook.props?this.props.concat(fixHook.props):this.props;event = new jQuery.Event(originalEvent);i = copy.length;while(i--) {prop = copy[i];event[prop] = originalEvent[prop];}if(!event.target){event.target = originalEvent.srcElement || document;}if(event.target.nodeType === 3){event.target = event.target.parentNode;}event.metaKey = !!event.metaKey;return fixHook.filter?fixHook.filter(event, originalEvent):event;}, props:("altKey bubbles cancelable ctrlKey currentTarget detail eventPhase " + "metaKey relatedTarget shiftKey target timeStamp view which").split(" "), fixHooks:{}, keyHooks:{props:"char charCode key keyCode".split(" "), filter:function(event, original){if(event.which == null){event.which = original.charCode != null?original.charCode:original.keyCode;}return event;}}, mouseHooks:{props:("button buttons clientX clientY fromElement offsetX offsetY " + "pageX pageY screenX screenY toElement").split(" "), filter:function(event, original){var body, eventDoc, doc, button=original.button, fromElement=original.fromElement;if(event.pageX == null && original.clientX != null){eventDoc = event.target.ownerDocument || document;doc = eventDoc.documentElement;body = eventDoc.body;event.pageX = original.clientX + (doc && doc.scrollLeft || body && body.scrollLeft || 0) - (doc && doc.clientLeft || body && body.clientLeft || 0);event.pageY = original.clientY + (doc && doc.scrollTop || body && body.scrollTop || 0) - (doc && doc.clientTop || body && body.clientTop || 0);}if(!event.relatedTarget && fromElement){event.relatedTarget = fromElement === event.target?original.toElement:fromElement;}if(!event.which && button !== undefined){event.which = button & 1?1:button & 2?3:button & 4?2:0;}return event;}}, special:{load:{noBubble:true}, focus:{trigger:function(){if(this !== safeActiveElement() && this.focus){try{this.focus();return false;}catch(e) {}}}, delegateType:"focusin"}, blur:{trigger:function(){if(this === safeActiveElement() && this.blur){this.blur();return false;}}, delegateType:"focusout"}, click:{trigger:function(){if(jQuery.nodeName(this, "input") && this.type === "checkbox" && this.click){this.click();return false;}}, _default:function(event){return jQuery.nodeName(event.target, "a");}}, beforeunload:{postDispatch:function(event){if(event.result !== undefined && event.originalEvent){event.originalEvent.returnValue = event.result;}}}}, simulate:function(type, elem, event){var e=jQuery.extend(new jQuery.Event(), event, {type:type, isSimulated:true});jQuery.event.trigger(e, null, elem);if(e.isDefaultPrevented()){event.preventDefault();}}};jQuery.removeEvent = document.removeEventListener?function(elem, type, handle){if(elem.removeEventListener){elem.removeEventListener(type, handle);}}:function(elem, type, handle){var name="on" + type;if(elem.detachEvent){if(typeof elem[name] === "undefined"){elem[name] = null;}elem.detachEvent(name, handle);}};jQuery.Event = function(src, props){if(!(this instanceof jQuery.Event)){return new jQuery.Event(src, props);}if(src && src.type){this.originalEvent = src;this.type = src.type;this.isDefaultPrevented = src.defaultPrevented || src.defaultPrevented === undefined && src.returnValue === false?returnTrue:returnFalse;}else {this.type = src;}if(props){jQuery.extend(this, props);}this.timeStamp = src && src.timeStamp || jQuery.now();this[jQuery.expando] = true;};jQuery.Event.prototype = {constructor:jQuery.Event, isDefaultPrevented:returnFalse, isPropagationStopped:returnFalse, isImmediatePropagationStopped:returnFalse, preventDefault:function(){var e=this.originalEvent;this.isDefaultPrevented = returnTrue;if(!e){return;}if(e.preventDefault){e.preventDefault();}else {e.returnValue = false;}}, stopPropagation:function(){var e=this.originalEvent;this.isPropagationStopped = returnTrue;if(!e || this.isSimulated){return;}if(e.stopPropagation){e.stopPropagation();}e.cancelBubble = true;}, stopImmediatePropagation:function(){var e=this.originalEvent;this.isImmediatePropagationStopped = returnTrue;if(e && e.stopImmediatePropagation){e.stopImmediatePropagation();}this.stopPropagation();}};jQuery.each({mouseenter:"mouseover", mouseleave:"mouseout", pointerenter:"pointerover", pointerleave:"pointerout"}, function(orig, fix){jQuery.event.special[orig] = {delegateType:fix, bindType:fix, handle:function(event){var ret, target=this, related=event.relatedTarget, handleObj=event.handleObj;if(!related || related !== target && !jQuery.contains(target, related)){event.type = handleObj.origType;ret = handleObj.handler.apply(this, arguments);event.type = fix;}return ret;}};});if(!support.submit){jQuery.event.special.submit = {setup:function(){if(jQuery.nodeName(this, "form")){return false;}jQuery.event.add(this, "click._submit keypress._submit", function(e){var elem=e.target, form=jQuery.nodeName(elem, "input") || jQuery.nodeName(elem, "button")?jQuery.prop(elem, "form"):undefined;if(form && !jQuery._data(form, "submit")){jQuery.event.add(form, "submit._submit", function(event){event._submitBubble = true;});jQuery._data(form, "submit", true);}});}, postDispatch:function(event){if(event._submitBubble){delete event._submitBubble;if(this.parentNode && !event.isTrigger){jQuery.event.simulate("submit", this.parentNode, event);}}}, teardown:function(){if(jQuery.nodeName(this, "form")){return false;}jQuery.event.remove(this, "._submit");}};}if(!support.change){jQuery.event.special.change = {setup:function(){if(rformElems.test(this.nodeName)){if(this.type === "checkbox" || this.type === "radio"){jQuery.event.add(this, "propertychange._change", function(event){if(event.originalEvent.propertyName === "checked"){this._justChanged = true;}});jQuery.event.add(this, "click._change", function(event){if(this._justChanged && !event.isTrigger){this._justChanged = false;}jQuery.event.simulate("change", this, event);});}return false;}jQuery.event.add(this, "beforeactivate._change", function(e){var elem=e.target;if(rformElems.test(elem.nodeName) && !jQuery._data(elem, "change")){jQuery.event.add(elem, "change._change", function(event){if(this.parentNode && !event.isSimulated && !event.isTrigger){jQuery.event.simulate("change", this.parentNode, event);}});jQuery._data(elem, "change", true);}});}, handle:function(event){var elem=event.target;if(this !== elem || event.isSimulated || event.isTrigger || elem.type !== "radio" && elem.type !== "checkbox"){return event.handleObj.handler.apply(this, arguments);}}, teardown:function(){jQuery.event.remove(this, "._change");return !rformElems.test(this.nodeName);}};}if(!support.focusin){jQuery.each({focus:"focusin", blur:"focusout"}, function(orig, fix){var handler=function(event){jQuery.event.simulate(fix, event.target, jQuery.event.fix(event));};jQuery.event.special[fix] = {setup:function(){var doc=this.ownerDocument || this, attaches=jQuery._data(doc, fix);if(!attaches){doc.addEventListener(orig, handler, true);}jQuery._data(doc, fix, (attaches || 0) + 1);}, teardown:function(){var doc=this.ownerDocument || this, attaches=jQuery._data(doc, fix) - 1;if(!attaches){doc.removeEventListener(orig, handler, true);jQuery._removeData(doc, fix);}else {jQuery._data(doc, fix, attaches);}}};});}jQuery.fn.extend({on:function(types, selector, data, fn){return on(this, types, selector, data, fn);}, one:function(types, selector, data, fn){return on(this, types, selector, data, fn, 1);}, off:function(types, selector, fn){var handleObj, type;if(types && types.preventDefault && types.handleObj){handleObj = types.handleObj;jQuery(types.delegateTarget).off(handleObj.namespace?handleObj.origType + "." + handleObj.namespace:handleObj.origType, handleObj.selector, handleObj.handler);return this;}if(typeof types === "object"){for(type in types) {this.off(type, selector, types[type]);}return this;}if(selector === false || typeof selector === "function"){fn = selector;selector = undefined;}if(fn === false){fn = returnFalse;}return this.each(function(){jQuery.event.remove(this, types, fn, selector);});}, trigger:function(type, data){return this.each(function(){jQuery.event.trigger(type, data, this);});}, triggerHandler:function(type, data){var elem=this[0];if(elem){return jQuery.event.trigger(type, data, elem, true);}}});var rinlinejQuery=/ jQuery\d+="(?:null|\d+)"/g, rnoshimcache=new RegExp("<(?:" + nodeNames + ")[\\s/>]", "i"), rxhtmlTag=/<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:-]+)[^>]*)\/>/gi, rnoInnerhtml=/<script|<style|<link/i, rchecked=/checked\s*(?:[^=]|=\s*.checked.)/i, rscriptTypeMasked=/^true\/(.*)/, rcleanScript=/^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g, safeFragment=createSafeFragment(document), fragmentDiv=safeFragment.appendChild(document.createElement("div"));function manipulationTarget(elem, content){return jQuery.nodeName(elem, "table") && jQuery.nodeName(content.nodeType !== 11?content:content.firstChild, "tr")?elem.getElementsByTagName("tbody")[0] || elem.appendChild(elem.ownerDocument.createElement("tbody")):elem;}function disableScript(elem){elem.type = (jQuery.find.attr(elem, "type") !== null) + "/" + elem.type;return elem;}function restoreScript(elem){var match=rscriptTypeMasked.exec(elem.type);if(match){elem.type = match[1];}else {elem.removeAttribute("type");}return elem;}function cloneCopyEvent(src, dest){if(dest.nodeType !== 1 || !jQuery.hasData(src)){return;}var type, i, l, oldData=jQuery._data(src), curData=jQuery._data(dest, oldData), events=oldData.events;if(events){delete curData.handle;curData.events = {};for(type in events) {for(i = 0, l = events[type].length; i < l; i++) {jQuery.event.add(dest, type, events[type][i]);}}}if(curData.data){curData.data = jQuery.extend({}, curData.data);}}function fixCloneNodeIssues(src, dest){var nodeName, e, data;if(dest.nodeType !== 1){return;}nodeName = dest.nodeName.toLowerCase();if(!support.noCloneEvent && dest[jQuery.expando]){data = jQuery._data(dest);for(e in data.events) {jQuery.removeEvent(dest, e, data.handle);}dest.removeAttribute(jQuery.expando);}if(nodeName === "script" && dest.text !== src.text){disableScript(dest).text = src.text;restoreScript(dest);}else if(nodeName === "object"){if(dest.parentNode){dest.outerHTML = src.outerHTML;}if(support.html5Clone && (src.innerHTML && !jQuery.trim(dest.innerHTML))){dest.innerHTML = src.innerHTML;}}else if(nodeName === "input" && rcheckableType.test(src.type)){dest.defaultChecked = dest.checked = src.checked;if(dest.value !== src.value){dest.value = src.value;}}else if(nodeName === "option"){dest.defaultSelected = dest.selected = src.defaultSelected;}else if(nodeName === "input" || nodeName === "textarea"){dest.defaultValue = src.defaultValue;}}function domManip(collection, args, callback, ignored){args = concat.apply([], args);var first, node, hasScripts, scripts, doc, fragment, i=0, l=collection.length, iNoClone=l - 1, value=args[0], isFunction=jQuery.isFunction(value);if(isFunction || l > 1 && typeof value === "string" && !support.checkClone && rchecked.test(value)){return collection.each(function(index){var self=collection.eq(index);if(isFunction){args[0] = value.call(this, index, self.html());}domManip(self, args, callback, ignored);});}if(l){fragment = buildFragment(args, collection[0].ownerDocument, false, collection, ignored);first = fragment.firstChild;if(fragment.childNodes.length === 1){fragment = first;}if(first || ignored){scripts = jQuery.map(getAll(fragment, "script"), disableScript);hasScripts = scripts.length;for(; i < l; i++) {node = fragment;if(i !== iNoClone){node = jQuery.clone(node, true, true);if(hasScripts){jQuery.merge(scripts, getAll(node, "script"));}}callback.call(collection[i], node, i);}if(hasScripts){doc = scripts[scripts.length - 1].ownerDocument;jQuery.map(scripts, restoreScript);for(i = 0; i < hasScripts; i++) {node = scripts[i];if(rscriptType.test(node.type || "") && !jQuery._data(node, "globalEval") && jQuery.contains(doc, node)){if(node.src){if(jQuery._evalUrl){jQuery._evalUrl(node.src);}}else {jQuery.globalEval((node.text || node.textContent || node.innerHTML || "").replace(rcleanScript, ""));}}}}fragment = first = null;}}return collection;}function remove(elem, selector, keepData){var node, elems=selector?jQuery.filter(selector, elem):elem, i=0;for(; (node = elems[i]) != null; i++) {if(!keepData && node.nodeType === 1){jQuery.cleanData(getAll(node));}if(node.parentNode){if(keepData && jQuery.contains(node.ownerDocument, node)){setGlobalEval(getAll(node, "script"));}node.parentNode.removeChild(node);}}return elem;}jQuery.extend({htmlPrefilter:function(html){return html.replace(rxhtmlTag, "<$1></$2>");}, clone:function(elem, dataAndEvents, deepDataAndEvents){var destElements, node, clone, i, srcElements, inPage=jQuery.contains(elem.ownerDocument, elem);if(support.html5Clone || jQuery.isXMLDoc(elem) || !rnoshimcache.test("<" + elem.nodeName + ">")){clone = elem.cloneNode(true);}else {fragmentDiv.innerHTML = elem.outerHTML;fragmentDiv.removeChild(clone = fragmentDiv.firstChild);}if((!support.noCloneEvent || !support.noCloneChecked) && (elem.nodeType === 1 || elem.nodeType === 11) && !jQuery.isXMLDoc(elem)){destElements = getAll(clone);srcElements = getAll(elem);for(i = 0; (node = srcElements[i]) != null; ++i) {if(destElements[i]){fixCloneNodeIssues(node, destElements[i]);}}}if(dataAndEvents){if(deepDataAndEvents){srcElements = srcElements || getAll(elem);destElements = destElements || getAll(clone);for(i = 0; (node = srcElements[i]) != null; i++) {cloneCopyEvent(node, destElements[i]);}}else {cloneCopyEvent(elem, clone);}}destElements = getAll(clone, "script");if(destElements.length > 0){setGlobalEval(destElements, !inPage && getAll(elem, "script"));}destElements = srcElements = node = null;return clone;}, cleanData:function(elems, forceAcceptData){var elem, type, id, data, i=0, internalKey=jQuery.expando, cache=jQuery.cache, attributes=support.attributes, special=jQuery.event.special;for(; (elem = elems[i]) != null; i++) {if(forceAcceptData || acceptData(elem)){id = elem[internalKey];data = id && cache[id];if(data){if(data.events){for(type in data.events) {if(special[type]){jQuery.event.remove(elem, type);}else {jQuery.removeEvent(elem, type, data.handle);}}}if(cache[id]){delete cache[id];if(!attributes && typeof elem.removeAttribute !== "undefined"){elem.removeAttribute(internalKey);}else {elem[internalKey] = undefined;}deletedIds.push(id);}}}}}});jQuery.fn.extend({domManip:domManip, detach:function(selector){return remove(this, selector, true);}, remove:function(selector){return remove(this, selector);}, text:function(value){return access(this, function(value){return value === undefined?jQuery.text(this):this.empty().append((this[0] && this[0].ownerDocument || document).createTextNode(value));}, null, value, arguments.length);}, append:function(){return domManip(this, arguments, function(elem){if(this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9){var target=manipulationTarget(this, elem);target.appendChild(elem);}});}, prepend:function(){return domManip(this, arguments, function(elem){if(this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9){var target=manipulationTarget(this, elem);target.insertBefore(elem, target.firstChild);}});}, before:function(){return domManip(this, arguments, function(elem){if(this.parentNode){this.parentNode.insertBefore(elem, this);}});}, after:function(){return domManip(this, arguments, function(elem){if(this.parentNode){this.parentNode.insertBefore(elem, this.nextSibling);}});}, empty:function(){var elem, i=0;for(; (elem = this[i]) != null; i++) {if(elem.nodeType === 1){jQuery.cleanData(getAll(elem, false));}while(elem.firstChild) {elem.removeChild(elem.firstChild);}if(elem.options && jQuery.nodeName(elem, "select")){elem.options.length = 0;}}return this;}, clone:function(dataAndEvents, deepDataAndEvents){dataAndEvents = dataAndEvents == null?false:dataAndEvents;deepDataAndEvents = deepDataAndEvents == null?dataAndEvents:deepDataAndEvents;return this.map(function(){return jQuery.clone(this, dataAndEvents, deepDataAndEvents);});}, html:function(value){return access(this, function(value){var elem=this[0] || {}, i=0, l=this.length;if(value === undefined){return elem.nodeType === 1?elem.innerHTML.replace(rinlinejQuery, ""):undefined;}if(typeof value === "string" && !rnoInnerhtml.test(value) && (support.htmlSerialize || !rnoshimcache.test(value)) && (support.leadingWhitespace || !rleadingWhitespace.test(value)) && !wrapMap[(rtagName.exec(value) || ["", ""])[1].toLowerCase()]){value = jQuery.htmlPrefilter(value);try{for(; i < l; i++) {elem = this[i] || {};if(elem.nodeType === 1){jQuery.cleanData(getAll(elem, false));elem.innerHTML = value;}}elem = 0;}catch(e) {}}if(elem){this.empty().append(value);}}, null, value, arguments.length);}, replaceWith:function(){var ignored=[];return domManip(this, arguments, function(elem){var parent=this.parentNode;if(jQuery.inArray(this, ignored) < 0){jQuery.cleanData(getAll(this));if(parent){parent.replaceChild(elem, this);}}}, ignored);}});jQuery.each({appendTo:"append", prependTo:"prepend", insertBefore:"before", insertAfter:"after", replaceAll:"replaceWith"}, function(name, original){jQuery.fn[name] = function(selector){var elems, i=0, ret=[], insert=jQuery(selector), last=insert.length - 1;for(; i <= last; i++) {elems = i === last?this:this.clone(true);jQuery(insert[i])[original](elems);push.apply(ret, elems.get());}return this.pushStack(ret);};});var iframe, elemdisplay={HTML:"block", BODY:"block"};function actualDisplay(name, doc){var elem=jQuery(doc.createElement(name)).appendTo(doc.body), display=jQuery.css(elem[0], "display");elem.detach();return display;}function defaultDisplay(nodeName){var doc=document, display=elemdisplay[nodeName];if(!display){display = actualDisplay(nodeName, doc);if(display === "none" || !display){iframe = (iframe || jQuery("<iframe frameborder='0' width='0' height='0'/>")).appendTo(doc.documentElement);doc = (iframe[0].contentWindow || iframe[0].contentDocument).document;doc.write();doc.close();display = actualDisplay(nodeName, doc);iframe.detach();}elemdisplay[nodeName] = display;}return display;}var rmargin=/^margin/;var rnumnonpx=new RegExp("^(" + pnum + ")(?!px)[a-z%]+$", "i");var swap=function(elem, options, callback, args){var ret, name, old={};for(name in options) {old[name] = elem.style[name];elem.style[name] = options[name];}ret = callback.apply(elem, args || []);for(name in options) {elem.style[name] = old[name];}return ret;};var documentElement=document.documentElement;(function(){var pixelPositionVal, pixelMarginRightVal, boxSizingReliableVal, reliableHiddenOffsetsVal, reliableMarginRightVal, reliableMarginLeftVal, container=document.createElement("div"), div=document.createElement("div");if(!div.style){return;}div.style.cssText = "float:left;opacity:.5";support.opacity = div.style.opacity === "0.5";support.cssFloat = !!div.style.cssFloat;div.style.backgroundClip = "content-box";div.cloneNode(true).style.backgroundClip = "";support.clearCloneStyle = div.style.backgroundClip === "content-box";container = document.createElement("div");container.style.cssText = "border:0;width:8px;height:0;top:0;left:-9999px;" + "padding:0;margin-top:1px;position:absolute";div.innerHTML = "";container.appendChild(div);support.boxSizing = div.style.boxSizing === "" || div.style.MozBoxSizing === "" || div.style.WebkitBoxSizing === "";jQuery.extend(support, {reliableHiddenOffsets:function(){if(pixelPositionVal == null){computeStyleTests();}return reliableHiddenOffsetsVal;}, boxSizingReliable:function(){if(pixelPositionVal == null){computeStyleTests();}return boxSizingReliableVal;}, pixelMarginRight:function(){if(pixelPositionVal == null){computeStyleTests();}return pixelMarginRightVal;}, pixelPosition:function(){if(pixelPositionVal == null){computeStyleTests();}return pixelPositionVal;}, reliableMarginRight:function(){if(pixelPositionVal == null){computeStyleTests();}return reliableMarginRightVal;}, reliableMarginLeft:function(){if(pixelPositionVal == null){computeStyleTests();}return reliableMarginLeftVal;}});function computeStyleTests(){var contents, divStyle, documentElement=document.documentElement;documentElement.appendChild(container);div.style.cssText = "-webkit-box-sizing:border-box;box-sizing:border-box;" + "position:relative;display:block;" + "margin:auto;border:1px;padding:1px;" + "top:1%;width:50%";pixelPositionVal = boxSizingReliableVal = reliableMarginLeftVal = false;pixelMarginRightVal = reliableMarginRightVal = true;if(window.getComputedStyle){divStyle = window.getComputedStyle(div);pixelPositionVal = (divStyle || {}).top !== "1%";reliableMarginLeftVal = (divStyle || {}).marginLeft === "2px";boxSizingReliableVal = (divStyle || {width:"4px"}).width === "4px";div.style.marginRight = "50%";pixelMarginRightVal = (divStyle || {marginRight:"4px"}).marginRight === "4px";contents = div.appendChild(document.createElement("div"));contents.style.cssText = div.style.cssText = "-webkit-box-sizing:content-box;-moz-box-sizing:content-box;" + "box-sizing:content-box;display:block;margin:0;border:0;padding:0";contents.style.marginRight = contents.style.width = "0";div.style.width = "1px";reliableMarginRightVal = !parseFloat((window.getComputedStyle(contents) || {}).marginRight);div.removeChild(contents);}div.style.display = "none";reliableHiddenOffsetsVal = div.getClientRects().length === 0;if(reliableHiddenOffsetsVal){div.style.display = "";div.innerHTML = "<table><tr><td></td><td>t</td></tr></table>";div.childNodes[0].style.borderCollapse = "separate";contents = div.getElementsByTagName("td");contents[0].style.cssText = "margin:0;border:0;padding:0;display:none";reliableHiddenOffsetsVal = contents[0].offsetHeight === 0;if(reliableHiddenOffsetsVal){contents[0].style.display = "";contents[1].style.display = "none";reliableHiddenOffsetsVal = contents[0].offsetHeight === 0;}}documentElement.removeChild(container);}})();var getStyles, curCSS, rposition=/^(top|right|bottom|left)$/;if(window.getComputedStyle){getStyles = function(elem){var view=elem.ownerDocument.defaultView;if(!view || !view.opener){view = window;}return view.getComputedStyle(elem);};curCSS = function(elem, name, computed){var width, minWidth, maxWidth, ret, style=elem.style;computed = computed || getStyles(elem);ret = computed?computed.getPropertyValue(name) || computed[name]:undefined;if((ret === "" || ret === undefined) && !jQuery.contains(elem.ownerDocument, elem)){ret = jQuery.style(elem, name);}if(computed){if(!support.pixelMarginRight() && rnumnonpx.test(ret) && rmargin.test(name)){width = style.width;minWidth = style.minWidth;maxWidth = style.maxWidth;style.minWidth = style.maxWidth = style.width = ret;ret = computed.width;style.width = width;style.minWidth = minWidth;style.maxWidth = maxWidth;}}return ret === undefined?ret:ret + "";};}else if(documentElement.currentStyle){getStyles = function(elem){return elem.currentStyle;};curCSS = function(elem, name, computed){var left, rs, rsLeft, ret, style=elem.style;computed = computed || getStyles(elem);ret = computed?computed[name]:undefined;if(ret == null && style && style[name]){ret = style[name];}if(rnumnonpx.test(ret) && !rposition.test(name)){left = style.left;rs = elem.runtimeStyle;rsLeft = rs && rs.left;if(rsLeft){rs.left = elem.currentStyle.left;}style.left = name === "fontSize"?"1em":ret;ret = style.pixelLeft + "px";style.left = left;if(rsLeft){rs.left = rsLeft;}}return ret === undefined?ret:ret + "" || "auto";};}function addGetHookIf(conditionFn, hookFn){return {get:function(){if(conditionFn()){delete this.get;return;}return (this.get = hookFn).apply(this, arguments);}};}var ralpha=/alpha\([^)]*\)/i, ropacity=/opacity\s*=\s*([^)]*)/i, rdisplayswap=/^(none|table(?!-c[ea]).+)/, rnumsplit=new RegExp("^(" + pnum + ")(.*)$", "i"), cssShow={position:"absolute", visibility:"hidden", display:"block"}, cssNormalTransform={letterSpacing:"0", fontWeight:"400"}, cssPrefixes=["Webkit", "O", "Moz", "ms"], emptyStyle=document.createElement("div").style;function vendorPropName(name){if(name in emptyStyle){return name;}var capName=name.charAt(0).toUpperCase() + name.slice(1), i=cssPrefixes.length;while(i--) {name = cssPrefixes[i] + capName;if(name in emptyStyle){return name;}}}function showHide(elements, show){var display, elem, hidden, values=[], index=0, length=elements.length;for(; index < length; index++) {elem = elements[index];if(!elem.style){continue;}values[index] = jQuery._data(elem, "olddisplay");display = elem.style.display;if(show){if(!values[index] && display === "none"){elem.style.display = "";}if(elem.style.display === "" && isHidden(elem)){values[index] = jQuery._data(elem, "olddisplay", defaultDisplay(elem.nodeName));}}else {hidden = isHidden(elem);if(display && display !== "none" || !hidden){jQuery._data(elem, "olddisplay", hidden?display:jQuery.css(elem, "display"));}}}for(index = 0; index < length; index++) {elem = elements[index];if(!elem.style){continue;}if(!show || elem.style.display === "none" || elem.style.display === ""){elem.style.display = show?values[index] || "":"none";}}return elements;}function setPositiveNumber(elem, value, subtract){var matches=rnumsplit.exec(value);return matches?Math.max(0, matches[1] - (subtract || 0)) + (matches[2] || "px"):value;}function augmentWidthOrHeight(elem, name, extra, isBorderBox, styles){var i=extra === (isBorderBox?"border":"content")?4:name === "width"?1:0, val=0;for(; i < 4; i += 2) {if(extra === "margin"){val += jQuery.css(elem, extra + cssExpand[i], true, styles);}if(isBorderBox){if(extra === "content"){val -= jQuery.css(elem, "padding" + cssExpand[i], true, styles);}if(extra !== "margin"){val -= jQuery.css(elem, "border" + cssExpand[i] + "Width", true, styles);}}else {val += jQuery.css(elem, "padding" + cssExpand[i], true, styles);if(extra !== "padding"){val += jQuery.css(elem, "border" + cssExpand[i] + "Width", true, styles);}}}return val;}function getWidthOrHeight(elem, name, extra){var valueIsBorderBox=true, val=name === "width"?elem.offsetWidth:elem.offsetHeight, styles=getStyles(elem), isBorderBox=support.boxSizing && jQuery.css(elem, "boxSizing", false, styles) === "border-box";if(val <= 0 || val == null){val = curCSS(elem, name, styles);if(val < 0 || val == null){val = elem.style[name];}if(rnumnonpx.test(val)){return val;}valueIsBorderBox = isBorderBox && (support.boxSizingReliable() || val === elem.style[name]);val = parseFloat(val) || 0;}return val + augmentWidthOrHeight(elem, name, extra || (isBorderBox?"border":"content"), valueIsBorderBox, styles) + "px";}jQuery.extend({cssHooks:{opacity:{get:function(elem, computed){if(computed){var ret=curCSS(elem, "opacity");return ret === ""?"1":ret;}}}}, cssNumber:{"animationIterationCount":true, "columnCount":true, "fillOpacity":true, "flexGrow":true, "flexShrink":true, "fontWeight":true, "lineHeight":true, "opacity":true, "order":true, "orphans":true, "widows":true, "zIndex":true, "zoom":true}, cssProps:{"float":support.cssFloat?"cssFloat":"styleFloat"}, style:function(elem, name, value, extra){if(!elem || elem.nodeType === 3 || elem.nodeType === 8 || !elem.style){return;}var ret, type, hooks, origName=jQuery.camelCase(name), style=elem.style;name = jQuery.cssProps[origName] || (jQuery.cssProps[origName] = vendorPropName(origName) || origName);hooks = jQuery.cssHooks[name] || jQuery.cssHooks[origName];if(value !== undefined){type = typeof value;if(type === "string" && (ret = rcssNum.exec(value)) && ret[1]){value = adjustCSS(elem, name, ret);type = "number";}if(value == null || value !== value){return;}if(type === "number"){value += ret && ret[3] || (jQuery.cssNumber[origName]?"":"px");}if(!support.clearCloneStyle && value === "" && name.indexOf("background") === 0){style[name] = "inherit";}if(!hooks || !("set" in hooks) || (value = hooks.set(elem, value, extra)) !== undefined){try{style[name] = value;}catch(e) {}}}else {if(hooks && "get" in hooks && (ret = hooks.get(elem, false, extra)) !== undefined){return ret;}return style[name];}}, css:function(elem, name, extra, styles){var num, val, hooks, origName=jQuery.camelCase(name);name = jQuery.cssProps[origName] || (jQuery.cssProps[origName] = vendorPropName(origName) || origName);hooks = jQuery.cssHooks[name] || jQuery.cssHooks[origName];if(hooks && "get" in hooks){val = hooks.get(elem, true, extra);}if(val === undefined){val = curCSS(elem, name, styles);}if(val === "normal" && name in cssNormalTransform){val = cssNormalTransform[name];}if(extra === "" || extra){num = parseFloat(val);return extra === true || isFinite(num)?num || 0:val;}return val;}});jQuery.each(["height", "width"], function(i, name){jQuery.cssHooks[name] = {get:function(elem, computed, extra){if(computed){return rdisplayswap.test(jQuery.css(elem, "display")) && elem.offsetWidth === 0?swap(elem, cssShow, function(){return getWidthOrHeight(elem, name, extra);}):getWidthOrHeight(elem, name, extra);}}, set:function(elem, value, extra){var styles=extra && getStyles(elem);return setPositiveNumber(elem, value, extra?augmentWidthOrHeight(elem, name, extra, support.boxSizing && jQuery.css(elem, "boxSizing", false, styles) === "border-box", styles):0);}};});if(!support.opacity){jQuery.cssHooks.opacity = {get:function(elem, computed){return ropacity.test((computed && elem.currentStyle?elem.currentStyle.filter:elem.style.filter) || "")?0.01 * parseFloat(RegExp.$1) + "":computed?"1":"";}, set:function(elem, value){var style=elem.style, currentStyle=elem.currentStyle, opacity=jQuery.isNumeric(value)?"alpha(opacity=" + value * 100 + ")":"", filter=currentStyle && currentStyle.filter || style.filter || "";style.zoom = 1;if((value >= 1 || value === "") && jQuery.trim(filter.replace(ralpha, "")) === "" && style.removeAttribute){style.removeAttribute("filter");if(value === "" || currentStyle && !currentStyle.filter){return;}}style.filter = ralpha.test(filter)?filter.replace(ralpha, opacity):filter + " " + opacity;}};}jQuery.cssHooks.marginRight = addGetHookIf(support.reliableMarginRight, function(elem, computed){if(computed){return swap(elem, {"display":"inline-block"}, curCSS, [elem, "marginRight"]);}});jQuery.cssHooks.marginLeft = addGetHookIf(support.reliableMarginLeft, function(elem, computed){if(computed){return (parseFloat(curCSS(elem, "marginLeft")) || (jQuery.contains(elem.ownerDocument, elem)?elem.getBoundingClientRect().left - swap(elem, {marginLeft:0}, function(){return elem.getBoundingClientRect().left;}):0)) + "px";}});jQuery.each({margin:"", padding:"", border:"Width"}, function(prefix, suffix){jQuery.cssHooks[prefix + suffix] = {expand:function(value){var i=0, expanded={}, parts=typeof value === "string"?value.split(" "):[value];for(; i < 4; i++) {expanded[prefix + cssExpand[i] + suffix] = parts[i] || parts[i - 2] || parts[0];}return expanded;}};if(!rmargin.test(prefix)){jQuery.cssHooks[prefix + suffix].set = setPositiveNumber;}});jQuery.fn.extend({css:function(name, value){return access(this, function(elem, name, value){var styles, len, map={}, i=0;if(jQuery.isArray(name)){styles = getStyles(elem);len = name.length;for(; i < len; i++) {map[name[i]] = jQuery.css(elem, name[i], false, styles);}return map;}return value !== undefined?jQuery.style(elem, name, value):jQuery.css(elem, name);}, name, value, arguments.length > 1);}, show:function(){return showHide(this, true);}, hide:function(){return showHide(this);}, toggle:function(state){if(typeof state === "boolean"){return state?this.show():this.hide();}return this.each(function(){if(isHidden(this)){jQuery(this).show();}else {jQuery(this).hide();}});}});function Tween(elem, options, prop, end, easing){return new Tween.prototype.init(elem, options, prop, end, easing);}jQuery.Tween = Tween;Tween.prototype = {constructor:Tween, init:function(elem, options, prop, end, easing, unit){this.elem = elem;this.prop = prop;this.easing = easing || jQuery.easing._default;this.options = options;this.start = this.now = this.cur();this.end = end;this.unit = unit || (jQuery.cssNumber[prop]?"":"px");}, cur:function(){var hooks=Tween.propHooks[this.prop];return hooks && hooks.get?hooks.get(this):Tween.propHooks._default.get(this);}, run:function(percent){var eased, hooks=Tween.propHooks[this.prop];if(this.options.duration){this.pos = eased = jQuery.easing[this.easing](percent, this.options.duration * percent, 0, 1, this.options.duration);}else {this.pos = eased = percent;}this.now = (this.end - this.start) * eased + this.start;if(this.options.step){this.options.step.call(this.elem, this.now, this);}if(hooks && hooks.set){hooks.set(this);}else {Tween.propHooks._default.set(this);}return this;}};Tween.prototype.init.prototype = Tween.prototype;Tween.propHooks = {_default:{get:function(tween){var result;if(tween.elem.nodeType !== 1 || tween.elem[tween.prop] != null && tween.elem.style[tween.prop] == null){return tween.elem[tween.prop];}result = jQuery.css(tween.elem, tween.prop, "");return !result || result === "auto"?0:result;}, set:function(tween){if(jQuery.fx.step[tween.prop]){jQuery.fx.step[tween.prop](tween);}else if(tween.elem.nodeType === 1 && (tween.elem.style[jQuery.cssProps[tween.prop]] != null || jQuery.cssHooks[tween.prop])){jQuery.style(tween.elem, tween.prop, tween.now + tween.unit);}else {tween.elem[tween.prop] = tween.now;}}}};Tween.propHooks.scrollTop = Tween.propHooks.scrollLeft = {set:function(tween){if(tween.elem.nodeType && tween.elem.parentNode){tween.elem[tween.prop] = tween.now;}}};jQuery.easing = {linear:function(p){return p;}, swing:function(p){return 0.5 - Math.cos(p * Math.PI) / 2;}, _default:"swing"};jQuery.fx = Tween.prototype.init;jQuery.fx.step = {};var fxNow, timerId, rfxtypes=/^(?:toggle|show|hide)$/, rrun=/queueHooks$/;function createFxNow(){window.setTimeout(function(){fxNow = undefined;});return fxNow = jQuery.now();}function genFx(type, includeWidth){var which, attrs={height:type}, i=0;includeWidth = includeWidth?1:0;for(; i < 4; i += 2 - includeWidth) {which = cssExpand[i];attrs["margin" + which] = attrs["padding" + which] = type;}if(includeWidth){attrs.opacity = attrs.width = type;}return attrs;}function createTween(value, prop, animation){var tween, collection=(Animation.tweeners[prop] || []).concat(Animation.tweeners["*"]), index=0, length=collection.length;for(; index < length; index++) {if(tween = collection[index].call(animation, prop, value)){return tween;}}}function defaultPrefilter(elem, props, opts){var prop, value, toggle, tween, hooks, oldfire, display, checkDisplay, anim=this, orig={}, style=elem.style, hidden=elem.nodeType && isHidden(elem), dataShow=jQuery._data(elem, "fxshow");if(!opts.queue){hooks = jQuery._queueHooks(elem, "fx");if(hooks.unqueued == null){hooks.unqueued = 0;oldfire = hooks.empty.fire;hooks.empty.fire = function(){if(!hooks.unqueued){oldfire();}};}hooks.unqueued++;anim.always(function(){anim.always(function(){hooks.unqueued--;if(!jQuery.queue(elem, "fx").length){hooks.empty.fire();}});});}if(elem.nodeType === 1 && ("height" in props || "width" in props)){opts.overflow = [style.overflow, style.overflowX, style.overflowY];display = jQuery.css(elem, "display");checkDisplay = display === "none"?jQuery._data(elem, "olddisplay") || defaultDisplay(elem.nodeName):display;if(checkDisplay === "inline" && jQuery.css(elem, "float") === "none"){if(!support.inlineBlockNeedsLayout || defaultDisplay(elem.nodeName) === "inline"){style.display = "inline-block";}else {style.zoom = 1;}}}if(opts.overflow){style.overflow = "hidden";if(!support.shrinkWrapBlocks()){anim.always(function(){style.overflow = opts.overflow[0];style.overflowX = opts.overflow[1];style.overflowY = opts.overflow[2];});}}for(prop in props) {value = props[prop];if(rfxtypes.exec(value)){delete props[prop];toggle = toggle || value === "toggle";if(value === (hidden?"hide":"show")){if(value === "show" && dataShow && dataShow[prop] !== undefined){hidden = true;}else {continue;}}orig[prop] = dataShow && dataShow[prop] || jQuery.style(elem, prop);}else {display = undefined;}}if(!jQuery.isEmptyObject(orig)){if(dataShow){if("hidden" in dataShow){hidden = dataShow.hidden;}}else {dataShow = jQuery._data(elem, "fxshow", {});}if(toggle){dataShow.hidden = !hidden;}if(hidden){jQuery(elem).show();}else {anim.done(function(){jQuery(elem).hide();});}anim.done(function(){var prop;jQuery._removeData(elem, "fxshow");for(prop in orig) {jQuery.style(elem, prop, orig[prop]);}});for(prop in orig) {tween = createTween(hidden?dataShow[prop]:0, prop, anim);if(!(prop in dataShow)){dataShow[prop] = tween.start;if(hidden){tween.end = tween.start;tween.start = prop === "width" || prop === "height"?1:0;}}}}else if((display === "none"?defaultDisplay(elem.nodeName):display) === "inline"){style.display = display;}}function propFilter(props, specialEasing){var index, name, easing, value, hooks;for(index in props) {name = jQuery.camelCase(index);easing = specialEasing[name];value = props[index];if(jQuery.isArray(value)){easing = value[1];value = props[index] = value[0];}if(index !== name){props[name] = value;delete props[index];}hooks = jQuery.cssHooks[name];if(hooks && "expand" in hooks){value = hooks.expand(value);delete props[name];for(index in value) {if(!(index in props)){props[index] = value[index];specialEasing[index] = easing;}}}else {specialEasing[name] = easing;}}}function Animation(elem, properties, options){var result, stopped, index=0, length=Animation.prefilters.length, deferred=jQuery.Deferred().always(function(){delete tick.elem;}), tick=function(){if(stopped){return false;}var currentTime=fxNow || createFxNow(), remaining=Math.max(0, animation.startTime + animation.duration - currentTime), temp=remaining / animation.duration || 0, percent=1 - temp, index=0, length=animation.tweens.length;for(; index < length; index++) {animation.tweens[index].run(percent);}deferred.notifyWith(elem, [animation, percent, remaining]);if(percent < 1 && length){return remaining;}else {deferred.resolveWith(elem, [animation]);return false;}}, animation=deferred.promise({elem:elem, props:jQuery.extend({}, properties), opts:jQuery.extend(true, {specialEasing:{}, easing:jQuery.easing._default}, options), originalProperties:properties, originalOptions:options, startTime:fxNow || createFxNow(), duration:options.duration, tweens:[], createTween:function(prop, end){var tween=jQuery.Tween(elem, animation.opts, prop, end, animation.opts.specialEasing[prop] || animation.opts.easing);animation.tweens.push(tween);return tween;}, stop:function(gotoEnd){var index=0, length=gotoEnd?animation.tweens.length:0;if(stopped){return this;}stopped = true;for(; index < length; index++) {animation.tweens[index].run(1);}if(gotoEnd){deferred.notifyWith(elem, [animation, 1, 0]);deferred.resolveWith(elem, [animation, gotoEnd]);}else {deferred.rejectWith(elem, [animation, gotoEnd]);}return this;}}), props=animation.props;propFilter(props, animation.opts.specialEasing);for(; index < length; index++) {result = Animation.prefilters[index].call(animation, elem, props, animation.opts);if(result){if(jQuery.isFunction(result.stop)){jQuery._queueHooks(animation.elem, animation.opts.queue).stop = jQuery.proxy(result.stop, result);}return result;}}jQuery.map(props, createTween, animation);if(jQuery.isFunction(animation.opts.start)){animation.opts.start.call(elem, animation);}jQuery.fx.timer(jQuery.extend(tick, {elem:elem, anim:animation, queue:animation.opts.queue}));return animation.progress(animation.opts.progress).done(animation.opts.done, animation.opts.complete).fail(animation.opts.fail).always(animation.opts.always);}jQuery.Animation = jQuery.extend(Animation, {tweeners:{"*":[function(prop, value){var tween=this.createTween(prop, value);adjustCSS(tween.elem, prop, rcssNum.exec(value), tween);return tween;}]}, tweener:function(props, callback){if(jQuery.isFunction(props)){callback = props;props = ["*"];}else {props = props.match(rnotwhite);}var prop, index=0, length=props.length;for(; index < length; index++) {prop = props[index];Animation.tweeners[prop] = Animation.tweeners[prop] || [];Animation.tweeners[prop].unshift(callback);}}, prefilters:[defaultPrefilter], prefilter:function(callback, prepend){if(prepend){Animation.prefilters.unshift(callback);}else {Animation.prefilters.push(callback);}}});jQuery.speed = function(speed, easing, fn){var opt=speed && typeof speed === "object"?jQuery.extend({}, speed):{complete:fn || !fn && easing || jQuery.isFunction(speed) && speed, duration:speed, easing:fn && easing || easing && !jQuery.isFunction(easing) && easing};opt.duration = jQuery.fx.off?0:typeof opt.duration === "number"?opt.duration:opt.duration in jQuery.fx.speeds?jQuery.fx.speeds[opt.duration]:jQuery.fx.speeds._default;if(opt.queue == null || opt.queue === true){opt.queue = "fx";}opt.old = opt.complete;opt.complete = function(){if(jQuery.isFunction(opt.old)){opt.old.call(this);}if(opt.queue){jQuery.dequeue(this, opt.queue);}};return opt;};jQuery.fn.extend({fadeTo:function(speed, to, easing, callback){return this.filter(isHidden).css("opacity", 0).show().end().animate({opacity:to}, speed, easing, callback);}, animate:function(prop, speed, easing, callback){var empty=jQuery.isEmptyObject(prop), optall=jQuery.speed(speed, easing, callback), doAnimation=function(){var anim=Animation(this, jQuery.extend({}, prop), optall);if(empty || jQuery._data(this, "finish")){anim.stop(true);}};doAnimation.finish = doAnimation;return empty || optall.queue === false?this.each(doAnimation):this.queue(optall.queue, doAnimation);}, stop:function(type, clearQueue, gotoEnd){var stopQueue=function(hooks){var stop=hooks.stop;delete hooks.stop;stop(gotoEnd);};if(typeof type !== "string"){gotoEnd = clearQueue;clearQueue = type;type = undefined;}if(clearQueue && type !== false){this.queue(type || "fx", []);}return this.each(function(){var dequeue=true, index=type != null && type + "queueHooks", timers=jQuery.timers, data=jQuery._data(this);if(index){if(data[index] && data[index].stop){stopQueue(data[index]);}}else {for(index in data) {if(data[index] && data[index].stop && rrun.test(index)){stopQueue(data[index]);}}}for(index = timers.length; index--;) {if(timers[index].elem === this && (type == null || timers[index].queue === type)){timers[index].anim.stop(gotoEnd);dequeue = false;timers.splice(index, 1);}}if(dequeue || !gotoEnd){jQuery.dequeue(this, type);}});}, finish:function(type){if(type !== false){type = type || "fx";}return this.each(function(){var index, data=jQuery._data(this), queue=data[type + "queue"], hooks=data[type + "queueHooks"], timers=jQuery.timers, length=queue?queue.length:0;data.finish = true;jQuery.queue(this, type, []);if(hooks && hooks.stop){hooks.stop.call(this, true);}for(index = timers.length; index--;) {if(timers[index].elem === this && timers[index].queue === type){timers[index].anim.stop(true);timers.splice(index, 1);}}for(index = 0; index < length; index++) {if(queue[index] && queue[index].finish){queue[index].finish.call(this);}}delete data.finish;});}});jQuery.each(["toggle", "show", "hide"], function(i, name){var cssFn=jQuery.fn[name];jQuery.fn[name] = function(speed, easing, callback){return speed == null || typeof speed === "boolean"?cssFn.apply(this, arguments):this.animate(genFx(name, true), speed, easing, callback);};});jQuery.each({slideDown:genFx("show"), slideUp:genFx("hide"), slideToggle:genFx("toggle"), fadeIn:{opacity:"show"}, fadeOut:{opacity:"hide"}, fadeToggle:{opacity:"toggle"}}, function(name, props){jQuery.fn[name] = function(speed, easing, callback){return this.animate(props, speed, easing, callback);};});jQuery.timers = [];jQuery.fx.tick = function(){var timer, timers=jQuery.timers, i=0;fxNow = jQuery.now();for(; i < timers.length; i++) {timer = timers[i];if(!timer() && timers[i] === timer){timers.splice(i--, 1);}}if(!timers.length){jQuery.fx.stop();}fxNow = undefined;};jQuery.fx.timer = function(timer){jQuery.timers.push(timer);if(timer()){jQuery.fx.start();}else {jQuery.timers.pop();}};jQuery.fx.interval = 13;jQuery.fx.start = function(){if(!timerId){timerId = window.setInterval(jQuery.fx.tick, jQuery.fx.interval);}};jQuery.fx.stop = function(){window.clearInterval(timerId);timerId = null;};jQuery.fx.speeds = {slow:600, fast:200, _default:400};jQuery.fn.delay = function(time, type){time = jQuery.fx?jQuery.fx.speeds[time] || time:time;type = type || "fx";return this.queue(type, function(next, hooks){var timeout=window.setTimeout(next, time);hooks.stop = function(){window.clearTimeout(timeout);};});};(function(){var a, input=document.createElement("input"), div=document.createElement("div"), select=document.createElement("select"), opt=select.appendChild(document.createElement("option"));div = document.createElement("div");div.setAttribute("className", "t");div.innerHTML = "  <link/><table></table><a href='/a'>a</a><input type='checkbox'/>";a = div.getElementsByTagName("a")[0];input.setAttribute("type", "checkbox");div.appendChild(input);a = div.getElementsByTagName("a")[0];a.style.cssText = "top:1px";support.getSetAttribute = div.className !== "t";support.style = /top/.test(a.getAttribute("style"));support.hrefNormalized = a.getAttribute("href") === "/a";support.checkOn = !!input.value;support.optSelected = opt.selected;support.enctype = !!document.createElement("form").enctype;select.disabled = true;support.optDisabled = !opt.disabled;input = document.createElement("input");input.setAttribute("value", "");support.input = input.getAttribute("value") === "";input.value = "t";input.setAttribute("type", "radio");support.radioValue = input.value === "t";})();var rreturn=/\r/g, rspaces=/[\x20\t\r\n\f]+/g;jQuery.fn.extend({val:function(value){var hooks, ret, isFunction, elem=this[0];if(!arguments.length){if(elem){hooks = jQuery.valHooks[elem.type] || jQuery.valHooks[elem.nodeName.toLowerCase()];if(hooks && "get" in hooks && (ret = hooks.get(elem, "value")) !== undefined){return ret;}ret = elem.value;return typeof ret === "string"?ret.replace(rreturn, ""):ret == null?"":ret;}return;}isFunction = jQuery.isFunction(value);return this.each(function(i){var val;if(this.nodeType !== 1){return;}if(isFunction){val = value.call(this, i, jQuery(this).val());}else {val = value;}if(val == null){val = "";}else if(typeof val === "number"){val += "";}else if(jQuery.isArray(val)){val = jQuery.map(val, function(value){return value == null?"":value + "";});}hooks = jQuery.valHooks[this.type] || jQuery.valHooks[this.nodeName.toLowerCase()];if(!hooks || !("set" in hooks) || hooks.set(this, val, "value") === undefined){this.value = val;}});}});jQuery.extend({valHooks:{option:{get:function(elem){var val=jQuery.find.attr(elem, "value");return val != null?val:jQuery.trim(jQuery.text(elem)).replace(rspaces, " ");}}, select:{get:function(elem){var value, option, options=elem.options, index=elem.selectedIndex, one=elem.type === "select-one" || index < 0, values=one?null:[], max=one?index + 1:options.length, i=index < 0?max:one?index:0;for(; i < max; i++) {option = options[i];if((option.selected || i === index) && (support.optDisabled?!option.disabled:option.getAttribute("disabled") === null) && (!option.parentNode.disabled || !jQuery.nodeName(option.parentNode, "optgroup"))){value = jQuery(option).val();if(one){return value;}values.push(value);}}return values;}, set:function(elem, value){var optionSet, option, options=elem.options, values=jQuery.makeArray(value), i=options.length;while(i--) {option = options[i];if(jQuery.inArray(jQuery.valHooks.option.get(option), values) > -1){try{option.selected = optionSet = true;}catch(_) {option.scrollHeight;}}else {option.selected = false;}}if(!optionSet){elem.selectedIndex = -1;}return options;}}}});jQuery.each(["radio", "checkbox"], function(){jQuery.valHooks[this] = {set:function(elem, value){if(jQuery.isArray(value)){return elem.checked = jQuery.inArray(jQuery(elem).val(), value) > -1;}}};if(!support.checkOn){jQuery.valHooks[this].get = function(elem){return elem.getAttribute("value") === null?"on":elem.value;};}});var nodeHook, boolHook, attrHandle=jQuery.expr.attrHandle, ruseDefault=/^(?:checked|selected)$/i, getSetAttribute=support.getSetAttribute, getSetInput=support.input;jQuery.fn.extend({attr:function(name, value){return access(this, jQuery.attr, name, value, arguments.length > 1);}, removeAttr:function(name){return this.each(function(){jQuery.removeAttr(this, name);});}});jQuery.extend({attr:function(elem, name, value){var ret, hooks, nType=elem.nodeType;if(nType === 3 || nType === 8 || nType === 2){return;}if(typeof elem.getAttribute === "undefined"){return jQuery.prop(elem, name, value);}if(nType !== 1 || !jQuery.isXMLDoc(elem)){name = name.toLowerCase();hooks = jQuery.attrHooks[name] || (jQuery.expr.match.bool.test(name)?boolHook:nodeHook);}if(value !== undefined){if(value === null){jQuery.removeAttr(elem, name);return;}if(hooks && "set" in hooks && (ret = hooks.set(elem, value, name)) !== undefined){return ret;}elem.setAttribute(name, value + "");return value;}if(hooks && "get" in hooks && (ret = hooks.get(elem, name)) !== null){return ret;}ret = jQuery.find.attr(elem, name);return ret == null?undefined:ret;}, attrHooks:{type:{set:function(elem, value){if(!support.radioValue && value === "radio" && jQuery.nodeName(elem, "input")){var val=elem.value;elem.setAttribute("type", value);if(val){elem.value = val;}return value;}}}}, removeAttr:function(elem, value){var name, propName, i=0, attrNames=value && value.match(rnotwhite);if(attrNames && elem.nodeType === 1){while(name = attrNames[i++]) {propName = jQuery.propFix[name] || name;if(jQuery.expr.match.bool.test(name)){if(getSetInput && getSetAttribute || !ruseDefault.test(name)){elem[propName] = false;}else {elem[jQuery.camelCase("default-" + name)] = elem[propName] = false;}}else {jQuery.attr(elem, name, "");}elem.removeAttribute(getSetAttribute?name:propName);}}}});boolHook = {set:function(elem, value, name){if(value === false){jQuery.removeAttr(elem, name);}else if(getSetInput && getSetAttribute || !ruseDefault.test(name)){elem.setAttribute(!getSetAttribute && jQuery.propFix[name] || name, name);}else {elem[jQuery.camelCase("default-" + name)] = elem[name] = true;}return name;}};jQuery.each(jQuery.expr.match.bool.source.match(/\w+/g), function(i, name){var getter=attrHandle[name] || jQuery.find.attr;if(getSetInput && getSetAttribute || !ruseDefault.test(name)){attrHandle[name] = function(elem, name, isXML){var ret, handle;if(!isXML){handle = attrHandle[name];attrHandle[name] = ret;ret = getter(elem, name, isXML) != null?name.toLowerCase():null;attrHandle[name] = handle;}return ret;};}else {attrHandle[name] = function(elem, name, isXML){if(!isXML){return elem[jQuery.camelCase("default-" + name)]?name.toLowerCase():null;}};}});if(!getSetInput || !getSetAttribute){jQuery.attrHooks.value = {set:function(elem, value, name){if(jQuery.nodeName(elem, "input")){elem.defaultValue = value;}else {return nodeHook && nodeHook.set(elem, value, name);}}};}if(!getSetAttribute){nodeHook = {set:function(elem, value, name){var ret=elem.getAttributeNode(name);if(!ret){elem.setAttributeNode(ret = elem.ownerDocument.createAttribute(name));}ret.value = value += "";if(name === "value" || value === elem.getAttribute(name)){return value;}}};attrHandle.id = attrHandle.name = attrHandle.coords = function(elem, name, isXML){var ret;if(!isXML){return (ret = elem.getAttributeNode(name)) && ret.value !== ""?ret.value:null;}};jQuery.valHooks.button = {get:function(elem, name){var ret=elem.getAttributeNode(name);if(ret && ret.specified){return ret.value;}}, set:nodeHook.set};jQuery.attrHooks.contenteditable = {set:function(elem, value, name){nodeHook.set(elem, value === ""?false:value, name);}};jQuery.each(["width", "height"], function(i, name){jQuery.attrHooks[name] = {set:function(elem, value){if(value === ""){elem.setAttribute(name, "auto");return value;}}};});}if(!support.style){jQuery.attrHooks.style = {get:function(elem){return elem.style.cssText || undefined;}, set:function(elem, value){return elem.style.cssText = value + "";}};}var rfocusable=/^(?:input|select|textarea|button|object)$/i, rclickable=/^(?:a|area)$/i;jQuery.fn.extend({prop:function(name, value){return access(this, jQuery.prop, name, value, arguments.length > 1);}, removeProp:function(name){name = jQuery.propFix[name] || name;return this.each(function(){try{this[name] = undefined;delete this[name];}catch(e) {}});}});jQuery.extend({prop:function(elem, name, value){var ret, hooks, nType=elem.nodeType;if(nType === 3 || nType === 8 || nType === 2){return;}if(nType !== 1 || !jQuery.isXMLDoc(elem)){name = jQuery.propFix[name] || name;hooks = jQuery.propHooks[name];}if(value !== undefined){if(hooks && "set" in hooks && (ret = hooks.set(elem, value, name)) !== undefined){return ret;}return elem[name] = value;}if(hooks && "get" in hooks && (ret = hooks.get(elem, name)) !== null){return ret;}return elem[name];}, propHooks:{tabIndex:{get:function(elem){var tabindex=jQuery.find.attr(elem, "tabindex");return tabindex?parseInt(tabindex, 10):rfocusable.test(elem.nodeName) || rclickable.test(elem.nodeName) && elem.href?0:-1;}}}, propFix:{"for":"htmlFor", "class":"className"}});if(!support.hrefNormalized){jQuery.each(["href", "src"], function(i, name){jQuery.propHooks[name] = {get:function(elem){return elem.getAttribute(name, 4);}};});}if(!support.optSelected){jQuery.propHooks.selected = {get:function(elem){var parent=elem.parentNode;if(parent){parent.selectedIndex;if(parent.parentNode){parent.parentNode.selectedIndex;}}return null;}, set:function(elem){var parent=elem.parentNode;if(parent){parent.selectedIndex;if(parent.parentNode){parent.parentNode.selectedIndex;}}}};}jQuery.each(["tabIndex", "readOnly", "maxLength", "cellSpacing", "cellPadding", "rowSpan", "colSpan", "useMap", "frameBorder", "contentEditable"], function(){jQuery.propFix[this.toLowerCase()] = this;});if(!support.enctype){jQuery.propFix.enctype = "encoding";}var rclass=/[\t\r\n\f]/g;function getClass(elem){return jQuery.attr(elem, "class") || "";}jQuery.fn.extend({addClass:function(value){var classes, elem, cur, curValue, clazz, j, finalValue, i=0;if(jQuery.isFunction(value)){return this.each(function(j){jQuery(this).addClass(value.call(this, j, getClass(this)));});}if(typeof value === "string" && value){classes = value.match(rnotwhite) || [];while(elem = this[i++]) {curValue = getClass(elem);cur = elem.nodeType === 1 && (" " + curValue + " ").replace(rclass, " ");if(cur){j = 0;while(clazz = classes[j++]) {if(cur.indexOf(" " + clazz + " ") < 0){cur += clazz + " ";}}finalValue = jQuery.trim(cur);if(curValue !== finalValue){jQuery.attr(elem, "class", finalValue);}}}}return this;}, removeClass:function(value){var classes, elem, cur, curValue, clazz, j, finalValue, i=0;if(jQuery.isFunction(value)){return this.each(function(j){jQuery(this).removeClass(value.call(this, j, getClass(this)));});}if(!arguments.length){return this.attr("class", "");}if(typeof value === "string" && value){classes = value.match(rnotwhite) || [];while(elem = this[i++]) {curValue = getClass(elem);cur = elem.nodeType === 1 && (" " + curValue + " ").replace(rclass, " ");if(cur){j = 0;while(clazz = classes[j++]) {while(cur.indexOf(" " + clazz + " ") > -1) {cur = cur.replace(" " + clazz + " ", " ");}}finalValue = jQuery.trim(cur);if(curValue !== finalValue){jQuery.attr(elem, "class", finalValue);}}}}return this;}, toggleClass:function(value, stateVal){var type=typeof value;if(typeof stateVal === "boolean" && type === "string"){return stateVal?this.addClass(value):this.removeClass(value);}if(jQuery.isFunction(value)){return this.each(function(i){jQuery(this).toggleClass(value.call(this, i, getClass(this), stateVal), stateVal);});}return this.each(function(){var className, i, self, classNames;if(type === "string"){i = 0;self = jQuery(this);classNames = value.match(rnotwhite) || [];while(className = classNames[i++]) {if(self.hasClass(className)){self.removeClass(className);}else {self.addClass(className);}}}else if(value === undefined || type === "boolean"){className = getClass(this);if(className){jQuery._data(this, "__className__", className);}jQuery.attr(this, "class", className || value === false?"":jQuery._data(this, "__className__") || "");}});}, hasClass:function(selector){var className, elem, i=0;className = " " + selector + " ";while(elem = this[i++]) {if(elem.nodeType === 1 && (" " + getClass(elem) + " ").replace(rclass, " ").indexOf(className) > -1){return true;}}return false;}});jQuery.each(("blur focus focusin focusout load resize scroll unload click dblclick " + "mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " + "change select submit keydown keypress keyup error contextmenu").split(" "), function(i, name){jQuery.fn[name] = function(data, fn){return arguments.length > 0?this.on(name, null, data, fn):this.trigger(name);};});jQuery.fn.extend({hover:function(fnOver, fnOut){return this.mouseenter(fnOver).mouseleave(fnOut || fnOver);}});var location=window.location;var nonce=jQuery.now();var rquery=/\?/;var rvalidtokens=/(,)|(\[|{)|(}|])|"(?:[^"\\\r\n]|\\["\\\/bfnrt]|\\u[\da-fA-F]{4})*"\s*:?|true|false|null|-?(?!0\d)\d+(?:\.\d+|)(?:[eE][+-]?\d+|)/g;jQuery.parseJSON = function(data){if(window.JSON && window.JSON.parse){return window.JSON.parse(data + "");}var requireNonComma, depth=null, str=jQuery.trim(data + "");return str && !jQuery.trim(str.replace(rvalidtokens, function(token, comma, open, close){if(requireNonComma && comma){depth = 0;}if(depth === 0){return token;}requireNonComma = open || comma;depth += !close - !open;return "";}))?Function("return " + str)():jQuery.error("Invalid JSON: " + data);};jQuery.parseXML = function(data){var xml, tmp;if(!data || typeof data !== "string"){return null;}try{if(window.DOMParser){tmp = new window.DOMParser();xml = tmp.parseFromString(data, "text/xml");}else {xml = new window.ActiveXObject("Microsoft.XMLDOM");xml.async = "false";xml.loadXML(data);}}catch(e) {xml = undefined;}if(!xml || !xml.documentElement || xml.getElementsByTagName("parsererror").length){jQuery.error("Invalid XML: " + data);}return xml;};var rhash=/#.*$/, rts=/([?&])_=[^&]*/, rheaders=/^(.*?):[ \t]*([^\r\n]*)\r?$/mg, rlocalProtocol=/^(?:about|app|app-storage|.+-extension|file|res|widget):$/, rnoContent=/^(?:GET|HEAD)$/, rprotocol=/^\/\//, rurl=/^([\w.+-]+:)(?:\/\/(?:[^\/?#]*@|)([^\/?#:]*)(?::(\d+)|)|)/, prefilters={}, transports={}, allTypes="*/".concat("*"), ajaxLocation=location.href, ajaxLocParts=rurl.exec(ajaxLocation.toLowerCase()) || [];function addToPrefiltersOrTransports(structure){return function(dataTypeExpression, func){if(typeof dataTypeExpression !== "string"){func = dataTypeExpression;dataTypeExpression = "*";}var dataType, i=0, dataTypes=dataTypeExpression.toLowerCase().match(rnotwhite) || [];if(jQuery.isFunction(func)){while(dataType = dataTypes[i++]) {if(dataType.charAt(0) === "+"){dataType = dataType.slice(1) || "*";(structure[dataType] = structure[dataType] || []).unshift(func);}else {(structure[dataType] = structure[dataType] || []).push(func);}}}};}function inspectPrefiltersOrTransports(structure, options, originalOptions, jqXHR){var inspected={}, seekingTransport=structure === transports;function inspect(dataType){var selected;inspected[dataType] = true;jQuery.each(structure[dataType] || [], function(_, prefilterOrFactory){var dataTypeOrTransport=prefilterOrFactory(options, originalOptions, jqXHR);if(typeof dataTypeOrTransport === "string" && !seekingTransport && !inspected[dataTypeOrTransport]){options.dataTypes.unshift(dataTypeOrTransport);inspect(dataTypeOrTransport);return false;}else if(seekingTransport){return !(selected = dataTypeOrTransport);}});return selected;}return inspect(options.dataTypes[0]) || !inspected["*"] && inspect("*");}function ajaxExtend(target, src){var deep, key, flatOptions=jQuery.ajaxSettings.flatOptions || {};for(key in src) {if(src[key] !== undefined){(flatOptions[key]?target:deep || (deep = {}))[key] = src[key];}}if(deep){jQuery.extend(true, target, deep);}return target;}function ajaxHandleResponses(s, jqXHR, responses){var firstDataType, ct, finalDataType, type, contents=s.contents, dataTypes=s.dataTypes;while(dataTypes[0] === "*") {dataTypes.shift();if(ct === undefined){ct = s.mimeType || jqXHR.getResponseHeader("Content-Type");}}if(ct){for(type in contents) {if(contents[type] && contents[type].test(ct)){dataTypes.unshift(type);break;}}}if(dataTypes[0] in responses){finalDataType = dataTypes[0];}else {for(type in responses) {if(!dataTypes[0] || s.converters[type + " " + dataTypes[0]]){finalDataType = type;break;}if(!firstDataType){firstDataType = type;}}finalDataType = finalDataType || firstDataType;}if(finalDataType){if(finalDataType !== dataTypes[0]){dataTypes.unshift(finalDataType);}return responses[finalDataType];}}function ajaxConvert(s, response, jqXHR, isSuccess){var conv2, current, conv, tmp, prev, converters={}, dataTypes=s.dataTypes.slice();if(dataTypes[1]){for(conv in s.converters) {converters[conv.toLowerCase()] = s.converters[conv];}}current = dataTypes.shift();while(current) {if(s.responseFields[current]){jqXHR[s.responseFields[current]] = response;}if(!prev && isSuccess && s.dataFilter){response = s.dataFilter(response, s.dataType);}prev = current;current = dataTypes.shift();if(current){if(current === "*"){current = prev;}else if(prev !== "*" && prev !== current){conv = converters[prev + " " + current] || converters["* " + current];if(!conv){for(conv2 in converters) {tmp = conv2.split(" ");if(tmp[1] === current){conv = converters[prev + " " + tmp[0]] || converters["* " + tmp[0]];if(conv){if(conv === true){conv = converters[conv2];}else if(converters[conv2] !== true){current = tmp[0];dataTypes.unshift(tmp[1]);}break;}}}}if(conv !== true){if(conv && s["throws"]){response = conv(response);}else {try{response = conv(response);}catch(e) {return {state:"parsererror", error:conv?e:"No conversion from " + prev + " to " + current};}}}}}}return {state:"success", data:response};}jQuery.extend({active:0, lastModified:{}, etag:{}, ajaxSettings:{url:ajaxLocation, type:"GET", isLocal:rlocalProtocol.test(ajaxLocParts[1]), global:true, processData:true, async:true, contentType:"application/x-www-form-urlencoded; charset=UTF-8", accepts:{"*":allTypes, text:"text/plain", html:"text/html", xml:"application/xml, text/xml", json:"application/json, text/javascript"}, contents:{xml:/\bxml\b/, html:/\bhtml/, json:/\bjson\b/}, responseFields:{xml:"responseXML", text:"responseText", json:"responseJSON"}, converters:{"* text":String, "text html":true, "text json":jQuery.parseJSON, "text xml":jQuery.parseXML}, flatOptions:{url:true, context:true}}, ajaxSetup:function(target, settings){return settings?ajaxExtend(ajaxExtend(target, jQuery.ajaxSettings), settings):ajaxExtend(jQuery.ajaxSettings, target);}, ajaxPrefilter:addToPrefiltersOrTransports(prefilters), ajaxTransport:addToPrefiltersOrTransports(transports), ajax:function(url, options){if(typeof url === "object"){options = url;url = undefined;}options = options || {};var parts, i, cacheURL, responseHeadersString, timeoutTimer, fireGlobals, transport, responseHeaders, s=jQuery.ajaxSetup({}, options), callbackContext=s.context || s, globalEventContext=s.context && (callbackContext.nodeType || callbackContext.jquery)?jQuery(callbackContext):jQuery.event, deferred=jQuery.Deferred(), completeDeferred=jQuery.Callbacks("once memory"), statusCode=s.statusCode || {}, requestHeaders={}, requestHeadersNames={}, state=0, strAbort="canceled", jqXHR={readyState:0, getResponseHeader:function(key){var match;if(state === 2){if(!responseHeaders){responseHeaders = {};while(match = rheaders.exec(responseHeadersString)) {responseHeaders[match[1].toLowerCase()] = match[2];}}match = responseHeaders[key.toLowerCase()];}return match == null?null:match;}, getAllResponseHeaders:function(){return state === 2?responseHeadersString:null;}, setRequestHeader:function(name, value){var lname=name.toLowerCase();if(!state){name = requestHeadersNames[lname] = requestHeadersNames[lname] || name;requestHeaders[name] = value;}return this;}, overrideMimeType:function(type){if(!state){s.mimeType = type;}return this;}, statusCode:function(map){var code;if(map){if(state < 2){for(code in map) {statusCode[code] = [statusCode[code], map[code]];}}else {jqXHR.always(map[jqXHR.status]);}}return this;}, abort:function(statusText){var finalText=statusText || strAbort;if(transport){transport.abort(finalText);}done(0, finalText);return this;}};deferred.promise(jqXHR).complete = completeDeferred.add;jqXHR.success = jqXHR.done;jqXHR.error = jqXHR.fail;s.url = ((url || s.url || ajaxLocation) + "").replace(rhash, "").replace(rprotocol, ajaxLocParts[1] + "//");s.type = options.method || options.type || s.method || s.type;s.dataTypes = jQuery.trim(s.dataType || "*").toLowerCase().match(rnotwhite) || [""];if(s.crossDomain == null){parts = rurl.exec(s.url.toLowerCase());s.crossDomain = !!(parts && (parts[1] !== ajaxLocParts[1] || parts[2] !== ajaxLocParts[2] || (parts[3] || (parts[1] === "http:"?"80":"443")) !== (ajaxLocParts[3] || (ajaxLocParts[1] === "http:"?"80":"443"))));}if(s.data && s.processData && typeof s.data !== "string"){s.data = jQuery.param(s.data, s.traditional);}inspectPrefiltersOrTransports(prefilters, s, options, jqXHR);if(state === 2){return jqXHR;}fireGlobals = jQuery.event && s.global;if(fireGlobals && jQuery.active++ === 0){jQuery.event.trigger("ajaxStart");}s.type = s.type.toUpperCase();s.hasContent = !rnoContent.test(s.type);cacheURL = s.url;if(!s.hasContent){if(s.data){cacheURL = s.url += (rquery.test(cacheURL)?"&":"?") + s.data;delete s.data;}if(s.cache === false){s.url = rts.test(cacheURL)?cacheURL.replace(rts, "$1_=" + nonce++):cacheURL + (rquery.test(cacheURL)?"&":"?") + "_=" + nonce++;}}if(s.ifModified){if(jQuery.lastModified[cacheURL]){jqXHR.setRequestHeader("If-Modified-Since", jQuery.lastModified[cacheURL]);}if(jQuery.etag[cacheURL]){jqXHR.setRequestHeader("If-None-Match", jQuery.etag[cacheURL]);}}if(s.data && s.hasContent && s.contentType !== false || options.contentType){jqXHR.setRequestHeader("Content-Type", s.contentType);}jqXHR.setRequestHeader("Accept", s.dataTypes[0] && s.accepts[s.dataTypes[0]]?s.accepts[s.dataTypes[0]] + (s.dataTypes[0] !== "*"?", " + allTypes + "; q=0.01":""):s.accepts["*"]);for(i in s.headers) {jqXHR.setRequestHeader(i, s.headers[i]);}if(s.beforeSend && (s.beforeSend.call(callbackContext, jqXHR, s) === false || state === 2)){return jqXHR.abort();}strAbort = "abort";for(i in {success:1, error:1, complete:1}) {jqXHR[i](s[i]);}transport = inspectPrefiltersOrTransports(transports, s, options, jqXHR);if(!transport){done(-1, "No Transport");}else {jqXHR.readyState = 1;if(fireGlobals){globalEventContext.trigger("ajaxSend", [jqXHR, s]);}if(state === 2){return jqXHR;}if(s.async && s.timeout > 0){timeoutTimer = window.setTimeout(function(){jqXHR.abort("timeout");}, s.timeout);}try{state = 1;transport.send(requestHeaders, done);}catch(e) {if(state < 2){done(-1, e);}else {throw e;}}}function done(status, nativeStatusText, responses, headers){var isSuccess, success, error, response, modified, statusText=nativeStatusText;if(state === 2){return;}state = 2;if(timeoutTimer){window.clearTimeout(timeoutTimer);}transport = undefined;responseHeadersString = headers || "";jqXHR.readyState = status > 0?4:0;isSuccess = status >= 200 && status < 300 || status === 304;if(responses){response = ajaxHandleResponses(s, jqXHR, responses);}response = ajaxConvert(s, response, jqXHR, isSuccess);if(isSuccess){if(s.ifModified){modified = jqXHR.getResponseHeader("Last-Modified");if(modified){jQuery.lastModified[cacheURL] = modified;}modified = jqXHR.getResponseHeader("etag");if(modified){jQuery.etag[cacheURL] = modified;}}if(status === 204 || s.type === "HEAD"){statusText = "nocontent";}else if(status === 304){statusText = "notmodified";}else {statusText = response.state;success = response.data;error = response.error;isSuccess = !error;}}else {error = statusText;if(status || !statusText){statusText = "error";if(status < 0){status = 0;}}}jqXHR.status = status;jqXHR.statusText = (nativeStatusText || statusText) + "";if(isSuccess){deferred.resolveWith(callbackContext, [success, statusText, jqXHR]);}else {deferred.rejectWith(callbackContext, [jqXHR, statusText, error]);}jqXHR.statusCode(statusCode);statusCode = undefined;if(fireGlobals){globalEventContext.trigger(isSuccess?"ajaxSuccess":"ajaxError", [jqXHR, s, isSuccess?success:error]);}completeDeferred.fireWith(callbackContext, [jqXHR, statusText]);if(fireGlobals){globalEventContext.trigger("ajaxComplete", [jqXHR, s]);if(! --jQuery.active){jQuery.event.trigger("ajaxStop");}}}return jqXHR;}, getJSON:function(url, data, callback){return jQuery.get(url, data, callback, "json");}, getScript:function(url, callback){return jQuery.get(url, undefined, callback, "script");}});jQuery.each(["get", "post"], function(i, method){jQuery[method] = function(url, data, callback, type){if(jQuery.isFunction(data)){type = type || callback;callback = data;data = undefined;}return jQuery.ajax(jQuery.extend({url:url, type:method, dataType:type, data:data, success:callback}, jQuery.isPlainObject(url) && url));};});jQuery._evalUrl = function(url){return jQuery.ajax({url:url, type:"GET", dataType:"script", cache:true, async:false, global:false, "throws":true});};jQuery.fn.extend({wrapAll:function(html){if(jQuery.isFunction(html)){return this.each(function(i){jQuery(this).wrapAll(html.call(this, i));});}if(this[0]){var wrap=jQuery(html, this[0].ownerDocument).eq(0).clone(true);if(this[0].parentNode){wrap.insertBefore(this[0]);}wrap.map(function(){var elem=this;while(elem.firstChild && elem.firstChild.nodeType === 1) {elem = elem.firstChild;}return elem;}).append(this);}return this;}, wrapInner:function(html){if(jQuery.isFunction(html)){return this.each(function(i){jQuery(this).wrapInner(html.call(this, i));});}return this.each(function(){var self=jQuery(this), contents=self.contents();if(contents.length){contents.wrapAll(html);}else {self.append(html);}});}, wrap:function(html){var isFunction=jQuery.isFunction(html);return this.each(function(i){jQuery(this).wrapAll(isFunction?html.call(this, i):html);});}, unwrap:function(){return this.parent().each(function(){if(!jQuery.nodeName(this, "body")){jQuery(this).replaceWith(this.childNodes);}}).end();}});function getDisplay(elem){return elem.style && elem.style.display || jQuery.css(elem, "display");}function filterHidden(elem){if(!jQuery.contains(elem.ownerDocument || document, elem)){return true;}while(elem && elem.nodeType === 1) {if(getDisplay(elem) === "none" || elem.type === "hidden"){return true;}elem = elem.parentNode;}return false;}jQuery.expr.filters.hidden = function(elem){return support.reliableHiddenOffsets()?elem.offsetWidth <= 0 && elem.offsetHeight <= 0 && !elem.getClientRects().length:filterHidden(elem);};jQuery.expr.filters.visible = function(elem){return !jQuery.expr.filters.hidden(elem);};var r20=/%20/g, rbracket=/\[\]$/, rCRLF=/\r?\n/g, rsubmitterTypes=/^(?:submit|button|image|reset|file)$/i, rsubmittable=/^(?:input|select|textarea|keygen)/i;function buildParams(prefix, obj, traditional, add){var name;if(jQuery.isArray(obj)){jQuery.each(obj, function(i, v){if(traditional || rbracket.test(prefix)){add(prefix, v);}else {buildParams(prefix + "[" + (typeof v === "object" && v != null?i:"") + "]", v, traditional, add);}});}else if(!traditional && jQuery.type(obj) === "object"){for(name in obj) {buildParams(prefix + "[" + name + "]", obj[name], traditional, add);}}else {add(prefix, obj);}}jQuery.param = function(a, traditional){var prefix, s=[], add=function(key, value){value = jQuery.isFunction(value)?value():value == null?"":value;s[s.length] = encodeURIComponent(key) + "=" + encodeURIComponent(value);};if(traditional === undefined){traditional = jQuery.ajaxSettings && jQuery.ajaxSettings.traditional;}if(jQuery.isArray(a) || a.jquery && !jQuery.isPlainObject(a)){jQuery.each(a, function(){add(this.name, this.value);});}else {for(prefix in a) {buildParams(prefix, a[prefix], traditional, add);}}return s.join("&").replace(r20, "+");};jQuery.fn.extend({serialize:function(){return jQuery.param(this.serializeArray());}, serializeArray:function(){return this.map(function(){var elements=jQuery.prop(this, "elements");return elements?jQuery.makeArray(elements):this;}).filter(function(){var type=this.type;return this.name && !jQuery(this).is(":disabled") && rsubmittable.test(this.nodeName) && !rsubmitterTypes.test(type) && (this.checked || !rcheckableType.test(type));}).map(function(i, elem){var val=jQuery(this).val();return val == null?null:jQuery.isArray(val)?jQuery.map(val, function(val){return {name:elem.name, value:val.replace(rCRLF, "\r\n")};}):{name:elem.name, value:val.replace(rCRLF, "\r\n")};}).get();}});jQuery.ajaxSettings.xhr = window.ActiveXObject !== undefined?function(){if(this.isLocal){return createActiveXHR();}if(document.documentMode > 8){return createStandardXHR();}return /^(get|post|head|put|delete|options)$/i.test(this.type) && createStandardXHR() || createActiveXHR();}:createStandardXHR;var xhrId=0, xhrCallbacks={}, xhrSupported=jQuery.ajaxSettings.xhr();if(window.attachEvent){window.attachEvent("onunload", function(){for(var key in xhrCallbacks) {xhrCallbacks[key](undefined, true);}});}support.cors = !!xhrSupported && "withCredentials" in xhrSupported;xhrSupported = support.ajax = !!xhrSupported;if(xhrSupported){jQuery.ajaxTransport(function(options){if(!options.crossDomain || support.cors){var callback;return {send:function(headers, complete){var i, xhr=options.xhr(), id=++xhrId;xhr.open(options.type, options.url, options.async, options.username, options.password);if(options.xhrFields){for(i in options.xhrFields) {xhr[i] = options.xhrFields[i];}}if(options.mimeType && xhr.overrideMimeType){xhr.overrideMimeType(options.mimeType);}if(!options.crossDomain && !headers["X-Requested-With"]){headers["X-Requested-With"] = "XMLHttpRequest";}for(i in headers) {if(headers[i] !== undefined){xhr.setRequestHeader(i, headers[i] + "");}}xhr.send(options.hasContent && options.data || null);callback = function(_, isAbort){var status, statusText, responses;if(callback && (isAbort || xhr.readyState === 4)){delete xhrCallbacks[id];callback = undefined;xhr.onreadystatechange = jQuery.noop;if(isAbort){if(xhr.readyState !== 4){xhr.abort();}}else {responses = {};status = xhr.status;if(typeof xhr.responseText === "string"){responses.text = xhr.responseText;}try{statusText = xhr.statusText;}catch(e) {statusText = "";}if(!status && options.isLocal && !options.crossDomain){status = responses.text?200:404;}else if(status === 1223){status = 204;}}}if(responses){complete(status, statusText, responses, xhr.getAllResponseHeaders());}};if(!options.async){callback();}else if(xhr.readyState === 4){window.setTimeout(callback);}else {xhr.onreadystatechange = xhrCallbacks[id] = callback;}}, abort:function(){if(callback){callback(undefined, true);}}};}});}function createStandardXHR(){try{return new window.XMLHttpRequest();}catch(e) {}}function createActiveXHR(){try{return new window.ActiveXObject("Microsoft.XMLHTTP");}catch(e) {}}jQuery.ajaxSetup({accepts:{script:"text/javascript, application/javascript, " + "application/ecmascript, application/x-ecmascript"}, contents:{script:/\b(?:java|ecma)script\b/}, converters:{"text script":function(text){jQuery.globalEval(text);return text;}}});jQuery.ajaxPrefilter("script", function(s){if(s.cache === undefined){s.cache = false;}if(s.crossDomain){s.type = "GET";s.global = false;}});jQuery.ajaxTransport("script", function(s){if(s.crossDomain){var script, head=document.head || jQuery("head")[0] || document.documentElement;return {send:function(_, callback){script = document.createElement("script");script.async = true;if(s.scriptCharset){script.charset = s.scriptCharset;}script.src = s.url;script.onload = script.onreadystatechange = function(_, isAbort){if(isAbort || !script.readyState || /loaded|complete/.test(script.readyState)){script.onload = script.onreadystatechange = null;if(script.parentNode){script.parentNode.removeChild(script);}script = null;if(!isAbort){callback(200, "success");}}};head.insertBefore(script, head.firstChild);}, abort:function(){if(script){script.onload(undefined, true);}}};}});var oldCallbacks=[], rjsonp=/(=)\?(?=&|$)|\?\?/;jQuery.ajaxSetup({jsonp:"callback", jsonpCallback:function(){var callback=oldCallbacks.pop() || jQuery.expando + "_" + nonce++;this[callback] = true;return callback;}});jQuery.ajaxPrefilter("json jsonp", function(s, originalSettings, jqXHR){var callbackName, overwritten, responseContainer, jsonProp=s.jsonp !== false && (rjsonp.test(s.url)?"url":typeof s.data === "string" && (s.contentType || "").indexOf("application/x-www-form-urlencoded") === 0 && rjsonp.test(s.data) && "data");if(jsonProp || s.dataTypes[0] === "jsonp"){callbackName = s.jsonpCallback = jQuery.isFunction(s.jsonpCallback)?s.jsonpCallback():s.jsonpCallback;if(jsonProp){s[jsonProp] = s[jsonProp].replace(rjsonp, "$1" + callbackName);}else if(s.jsonp !== false){s.url += (rquery.test(s.url)?"&":"?") + s.jsonp + "=" + callbackName;}s.converters["script json"] = function(){if(!responseContainer){jQuery.error(callbackName + " was not called");}return responseContainer[0];};s.dataTypes[0] = "json";overwritten = window[callbackName];window[callbackName] = function(){responseContainer = arguments;};jqXHR.always(function(){if(overwritten === undefined){jQuery(window).removeProp(callbackName);}else {window[callbackName] = overwritten;}if(s[callbackName]){s.jsonpCallback = originalSettings.jsonpCallback;oldCallbacks.push(callbackName);}if(responseContainer && jQuery.isFunction(overwritten)){overwritten(responseContainer[0]);}responseContainer = overwritten = undefined;});return "script";}});jQuery.parseHTML = function(data, context, keepScripts){if(!data || typeof data !== "string"){return null;}if(typeof context === "boolean"){keepScripts = context;context = false;}context = context || document;var parsed=rsingleTag.exec(data), scripts=!keepScripts && [];if(parsed){return [context.createElement(parsed[1])];}parsed = buildFragment([data], context, scripts);if(scripts && scripts.length){jQuery(scripts).remove();}return jQuery.merge([], parsed.childNodes);};var _load=jQuery.fn.load;jQuery.fn.load = function(url, params, callback){if(typeof url !== "string" && _load){return _load.apply(this, arguments);}var selector, type, response, self=this, off=url.indexOf(" ");if(off > -1){selector = jQuery.trim(url.slice(off, url.length));url = url.slice(0, off);}if(jQuery.isFunction(params)){callback = params;params = undefined;}else if(params && typeof params === "object"){type = "POST";}if(self.length > 0){jQuery.ajax({url:url, type:type || "GET", dataType:"html", data:params}).done(function(responseText){response = arguments;self.html(selector?jQuery("<div>").append(jQuery.parseHTML(responseText)).find(selector):responseText);}).always(callback && function(jqXHR, status){self.each(function(){callback.apply(this, response || [jqXHR.responseText, status, jqXHR]);});});}return this;};jQuery.each(["ajaxStart", "ajaxStop", "ajaxComplete", "ajaxError", "ajaxSuccess", "ajaxSend"], function(i, type){jQuery.fn[type] = function(fn){return this.on(type, fn);};});jQuery.expr.filters.animated = function(elem){return jQuery.grep(jQuery.timers, function(fn){return elem === fn.elem;}).length;};function getWindow(elem){return jQuery.isWindow(elem)?elem:elem.nodeType === 9?elem.defaultView || elem.parentWindow:false;}jQuery.offset = {setOffset:function(elem, options, i){var curPosition, curLeft, curCSSTop, curTop, curOffset, curCSSLeft, calculatePosition, position=jQuery.css(elem, "position"), curElem=jQuery(elem), props={};if(position === "static"){elem.style.position = "relative";}curOffset = curElem.offset();curCSSTop = jQuery.css(elem, "top");curCSSLeft = jQuery.css(elem, "left");calculatePosition = (position === "absolute" || position === "fixed") && jQuery.inArray("auto", [curCSSTop, curCSSLeft]) > -1;if(calculatePosition){curPosition = curElem.position();curTop = curPosition.top;curLeft = curPosition.left;}else {curTop = parseFloat(curCSSTop) || 0;curLeft = parseFloat(curCSSLeft) || 0;}if(jQuery.isFunction(options)){options = options.call(elem, i, jQuery.extend({}, curOffset));}if(options.top != null){props.top = options.top - curOffset.top + curTop;}if(options.left != null){props.left = options.left - curOffset.left + curLeft;}if("using" in options){options.using.call(elem, props);}else {curElem.css(props);}}};jQuery.fn.extend({offset:function(options){if(arguments.length){return options === undefined?this:this.each(function(i){jQuery.offset.setOffset(this, options, i);});}var docElem, win, box={top:0, left:0}, elem=this[0], doc=elem && elem.ownerDocument;if(!doc){return;}docElem = doc.documentElement;if(!jQuery.contains(docElem, elem)){return box;}if(typeof elem.getBoundingClientRect !== "undefined"){box = elem.getBoundingClientRect();}win = getWindow(doc);return {top:box.top + (win.pageYOffset || docElem.scrollTop) - (docElem.clientTop || 0), left:box.left + (win.pageXOffset || docElem.scrollLeft) - (docElem.clientLeft || 0)};}, position:function(){if(!this[0]){return;}var offsetParent, offset, parentOffset={top:0, left:0}, elem=this[0];if(jQuery.css(elem, "position") === "fixed"){offset = elem.getBoundingClientRect();}else {offsetParent = this.offsetParent();offset = this.offset();if(!jQuery.nodeName(offsetParent[0], "html")){parentOffset = offsetParent.offset();}parentOffset.top += jQuery.css(offsetParent[0], "borderTopWidth", true);parentOffset.left += jQuery.css(offsetParent[0], "borderLeftWidth", true);}return {top:offset.top - parentOffset.top - jQuery.css(elem, "marginTop", true), left:offset.left - parentOffset.left - jQuery.css(elem, "marginLeft", true)};}, offsetParent:function(){return this.map(function(){var offsetParent=this.offsetParent;while(offsetParent && (!jQuery.nodeName(offsetParent, "html") && jQuery.css(offsetParent, "position") === "static")) {offsetParent = offsetParent.offsetParent;}return offsetParent || documentElement;});}});jQuery.each({scrollLeft:"pageXOffset", scrollTop:"pageYOffset"}, function(method, prop){var top=/Y/.test(prop);jQuery.fn[method] = function(val){return access(this, function(elem, method, val){var win=getWindow(elem);if(val === undefined){return win?prop in win?win[prop]:win.document.documentElement[method]:elem[method];}if(win){win.scrollTo(!top?val:jQuery(win).scrollLeft(), top?val:jQuery(win).scrollTop());}else {elem[method] = val;}}, method, val, arguments.length, null);};});jQuery.each(["top", "left"], function(i, prop){jQuery.cssHooks[prop] = addGetHookIf(support.pixelPosition, function(elem, computed){if(computed){computed = curCSS(elem, prop);return rnumnonpx.test(computed)?jQuery(elem).position()[prop] + "px":computed;}});});jQuery.each({Height:"height", Width:"width"}, function(name, type){jQuery.each({padding:"inner" + name, content:type, "":"outer" + name}, function(defaultExtra, funcName){jQuery.fn[funcName] = function(margin, value){var chainable=arguments.length && (defaultExtra || typeof margin !== "boolean"), extra=defaultExtra || (margin === true || value === true?"margin":"border");return access(this, function(elem, type, value){var doc;if(jQuery.isWindow(elem)){return elem.document.documentElement["client" + name];}if(elem.nodeType === 9){doc = elem.documentElement;return Math.max(elem.body["scroll" + name], doc["scroll" + name], elem.body["offset" + name], doc["offset" + name], doc["client" + name]);}return value === undefined?jQuery.css(elem, type, extra):jQuery.style(elem, type, value, extra);}, type, chainable?margin:undefined, chainable, null);};});});jQuery.fn.extend({bind:function(types, data, fn){return this.on(types, null, data, fn);}, unbind:function(types, fn){return this.off(types, null, fn);}, delegate:function(selector, types, data, fn){return this.on(types, selector, data, fn);}, undelegate:function(selector, types, fn){return arguments.length === 1?this.off(selector, "**"):this.off(types, selector || "**", fn);}});jQuery.fn.size = function(){return this.length;};jQuery.fn.andSelf = jQuery.fn.addBack;if(true){!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function(){return jQuery;}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));}var _jQuery=window.jQuery, _$=window.$;jQuery.noConflict = function(deep){if(window.$ === jQuery){window.$ = _$;}if(deep && window.jQuery === jQuery){window.jQuery = _jQuery;}return jQuery;};if(!noGlobal){window.jQuery = window.$ = jQuery;}return jQuery;});
 
 /***/ },
 /* 274 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// {K1: V1, K2: V2, ...} -> [[K1, V1], [K2, V2]]
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _slicedToArray = (function () {
-	    function sliceIterator(arr, i) {
-	        var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
-	            for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-	                _arr.push(_s.value);if (i && _arr.length === i) break;
-	            }
-	        } catch (err) {
-	            _d = true;_e = err;
-	        } finally {
-	            try {
-	                if (!_n && _i['return']) _i['return']();
-	            } finally {
-	                if (_d) throw _e;
-	            }
-	        }return _arr;
-	    }return function (arr, i) {
-	        if (Array.isArray(arr)) {
-	            return arr;
-	        } else if (Symbol.iterator in Object(arr)) {
-	            return sliceIterator(arr, i);
-	        } else {
-	            throw new TypeError('Invalid attempt to destructure non-iterable instance');
-	        }
-	    };
-	})();
-
-	var _extends = Object.assign || function (target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];for (var key in source) {
-	            if (Object.prototype.hasOwnProperty.call(source, key)) {
-	                target[key] = source[key];
-	            }
-	        }
-	    }return target;
-	};
-
-	var objectToPairs = function objectToPairs(obj) {
-	    return Object.keys(obj).map(function (key) {
-	        return [key, obj[key]];
-	    });
-	};
-
-	exports.objectToPairs = objectToPairs;
-	// [[K1, V1], [K2, V2]] -> {K1: V1, K2: V2, ...}
-	var pairsToObject = function pairsToObject(pairs) {
-	    var result = {};
-	    pairs.forEach(function (_ref) {
-	        var _ref2 = _slicedToArray(_ref, 2);
-
-	        var key = _ref2[0];
-	        var val = _ref2[1];
-
-	        result[key] = val;
-	    });
-	    return result;
-	};
-
-	var mapObj = function mapObj(obj, fn) {
-	    return pairsToObject(objectToPairs(obj).map(fn));
-	};
-
-	exports.mapObj = mapObj;
-	var UPPERCASE_RE = /([A-Z])/g;
-	var MS_RE = /^ms-/;
-
-	var kebabify = function kebabify(string) {
-	    return string.replace(UPPERCASE_RE, '-$1').toLowerCase();
-	};
-	var kebabifyStyleName = function kebabifyStyleName(string) {
-	    return kebabify(string).replace(MS_RE, '-ms-');
-	};
-
-	exports.kebabifyStyleName = kebabifyStyleName;
-	var recursiveMerge = function recursiveMerge(a, b) {
-	    // TODO(jlfwong): Handle malformed input where a and b are not the same
-	    // type.
-
-	    if (typeof a !== 'object') {
-	        return b;
-	    }
-
-	    var ret = _extends({}, a);
-
-	    Object.keys(b).forEach(function (key) {
-	        if (ret.hasOwnProperty(key)) {
-	            ret[key] = recursiveMerge(a[key], b[key]);
-	        } else {
-	            ret[key] = b[key];
-	        }
-	    });
-
-	    return ret;
-	};
-
-	exports.recursiveMerge = recursiveMerge;
-	/**
-	 * CSS properties which accept numbers but are not in units of "px".
-	 * Taken from React's CSSProperty.js
-	 */
-	var isUnitlessNumber = {
-	    animationIterationCount: true,
-	    boxFlex: true,
-	    boxFlexGroup: true,
-	    boxOrdinalGroup: true,
-	    columnCount: true,
-	    flex: true,
-	    flexGrow: true,
-	    flexPositive: true,
-	    flexShrink: true,
-	    flexNegative: true,
-	    flexOrder: true,
-	    gridRow: true,
-	    gridColumn: true,
-	    fontWeight: true,
-	    lineClamp: true,
-	    lineHeight: true,
-	    opacity: true,
-	    order: true,
-	    orphans: true,
-	    tabSize: true,
-	    widows: true,
-	    zIndex: true,
-	    zoom: true,
-
-	    // SVG-related properties
-	    fillOpacity: true,
-	    stopOpacity: true,
-	    strokeDashoffset: true,
-	    strokeOpacity: true,
-	    strokeWidth: true
-	};
-
-	/**
-	 * Taken from React's CSSProperty.js
-	 *
-	 * @param {string} prefix vendor-specific prefix, eg: Webkit
-	 * @param {string} key style name, eg: transitionDuration
-	 * @return {string} style name prefixed with `prefix`, properly camelCased, eg:
-	 * WebkitTransitionDuration
-	 */
-	function prefixKey(prefix, key) {
-	    return prefix + key.charAt(0).toUpperCase() + key.substring(1);
-	}
-
-	/**
-	 * Support style names that may come passed in prefixed by adding permutations
-	 * of vendor prefixes.
-	 * Taken from React's CSSProperty.js
-	 */
-	var prefixes = ['Webkit', 'ms', 'Moz', 'O'];
-
-	// Using Object.keys here, or else the vanilla for-in loop makes IE8 go into an
-	// infinite loop, because it iterates over the newly added props too.
-	// Taken from React's CSSProperty.js
-	Object.keys(isUnitlessNumber).forEach(function (prop) {
-	    prefixes.forEach(function (prefix) {
-	        isUnitlessNumber[prefixKey(prefix, prop)] = isUnitlessNumber[prop];
-	    });
-	});
-
-	var stringifyValue = function stringifyValue(key, prop) {
-	    if (typeof prop === 'number') {
-	        if (isUnitlessNumber[key]) {
-	            return '' + prop;
-	        } else {
-	            return prop + 'px';
-	        }
-	    } else {
-	        return prop;
-	    }
-	};
-
-	exports.stringifyValue = stringifyValue;
-	/**
-	 * JS Implementation of MurmurHash2
-	 *
-	 * @author <a href="mailto:gary.court@gmail.com">Gary Court</a>
-	 * @see http://github.com/garycourt/murmurhash-js
-	 * @author <a href="mailto:aappleby@gmail.com">Austin Appleby</a>
-	 * @see http://sites.google.com/site/murmurhash/
-	 *
-	 * @param {string} str ASCII only
-	 * @return {string} Base 36 encoded hash result
-	 */
-	function murmurhash2_32_gc(str) {
-	    var l = str.length;
-	    var h = l;
-	    var i = 0;
-	    var k = undefined;
-
-	    while (l >= 4) {
-	        k = str.charCodeAt(i) & 255 | (str.charCodeAt(++i) & 255) << 8 | (str.charCodeAt(++i) & 255) << 16 | (str.charCodeAt(++i) & 255) << 24;
-
-	        k = (k & 65535) * 1540483477 + (((k >>> 16) * 1540483477 & 65535) << 16);
-	        k ^= k >>> 24;
-	        k = (k & 65535) * 1540483477 + (((k >>> 16) * 1540483477 & 65535) << 16);
-
-	        h = (h & 65535) * 1540483477 + (((h >>> 16) * 1540483477 & 65535) << 16) ^ k;
-
-	        l -= 4;
-	        ++i;
-	    }
-
-	    switch (l) {
-	        case 3:
-	            h ^= (str.charCodeAt(i + 2) & 255) << 16;
-	        case 2:
-	            h ^= (str.charCodeAt(i + 1) & 255) << 8;
-	        case 1:
-	            h ^= str.charCodeAt(i) & 255;
-	            h = (h & 65535) * 1540483477 + (((h >>> 16) * 1540483477 & 65535) << 16);
-	    }
-
-	    h ^= h >>> 13;
-	    h = (h & 65535) * 1540483477 + (((h >>> 16) * 1540483477 & 65535) << 16);
-	    h ^= h >>> 15;
-
-	    return (h >>> 0).toString(36);
-	}
-
-	// Hash a javascript object using JSON.stringify. This is very fast, about 3
-	// microseconds on my computer for a sample object:
-	// http://jsperf.com/test-hashfnv32a-hash/5
-	//
-	// Note that this uses JSON.stringify to stringify the objects so in order for
-	// this to produce consistent hashes browsers need to have a consistent
-	// ordering of objects. Ben Alpert says that Facebook depends on this, so we
-	// can probably depend on this too.
-	var hashObject = function hashObject(object) {
-	    return murmurhash2_32_gc(JSON.stringify(object));
-	};
-
-	exports.hashObject = hashObject;
-	var importantRegexp = /^([^:]+:.*?)( !important)?$/;
-
-	// Given a style string like "a: b; c: d;", adds !important to each of the
-	// properties to generate "a: b !important; c: d !important;".
-	var importantify = function importantify(string) {
-	    return string.split(';').map(function (str) {
-	        return str.replace(importantRegexp, function (_, base, important) {
-	            return base + ' !important';
-	        });
-	    }).join(';');
-	};
-	exports.importantify = importantify;
-
-/***/ },
-/* 275 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	function _interopRequireDefault(obj) {
-	    return obj && obj.__esModule ? obj : { 'default': obj };
-	}
-
-	var _asap = __webpack_require__(323);
-
-	var _asap2 = _interopRequireDefault(_asap);
-
-	var _generate = __webpack_require__(293);
-
-	// The current <style> tag we are inserting into, or null if we haven't
-	// inserted anything yet. We could find this each time using
-	// `document.querySelector("style[data-aphrodite"])`, but holding onto it is
-	// faster.
-	var styleTag = null;
-
-	// Inject a string of styles into a <style> tag in the head of the document. This
-	// will automatically create a style tag and then continue to use it for
-	// multiple injections. It will also use a style tag with the `data-aphrodite`
-	// tag on it if that exists in the DOM. This could be used for e.g. reusing the
-	// same style tag that server-side rendering inserts.
-	var injectStyleTag = function injectStyleTag(cssContents) {
-	    if (styleTag == null) {
-	        // Try to find a style tag with the `data-aphrodite` attribute first.
-	        styleTag = document.querySelector('style[data-aphrodite]');
-
-	        // If that doesn't work, generate a new style tag.
-	        if (styleTag == null) {
-	            // Taken from
-	            // http://stackoverflow.com/questions/524696/how-to-create-a-style-tag-with-javascript
-	            var head = document.head || document.getElementsByTagName('head')[0];
-	            styleTag = document.createElement('style');
-
-	            styleTag.type = 'text/css';
-	            styleTag.setAttribute('data-aphrodite', '');
-	            head.appendChild(styleTag);
-	        }
-	    }
-
-	    if (styleTag.styleSheet) {
-	        styleTag.styleSheet.cssText += cssContents;
-	    } else {
-	        styleTag.appendChild(document.createTextNode(cssContents));
-	    }
-	};
-
-	// Custom handlers for stringifying CSS values that have side effects
-	// (such as fontFamily, which can cause @font-face rules to be injected)
-	var stringHandlers = {
-	    // With fontFamily we look for objects that are passed in and interpret
-	    // them as @font-face rules that we need to inject. The value of fontFamily
-	    // can either be a string (as normal), an object (a single font face), or
-	    // an array of objects and strings.
-	    fontFamily: function fontFamily(val) {
-	        if (Array.isArray(val)) {
-	            return val.map(fontFamily).join(',');
-	        } else if (typeof val === 'object') {
-	            injectStyleOnce(val.fontFamily, '@font-face', [val], false);
-	            return '"' + val.fontFamily + '"';
-	        } else {
-	            return val;
-	        }
-	    }
-	};
-
-	// This is a map from Aphrodite's generated class names to `true` (acting as a
-	// set of class names)
-	var alreadyInjected = {};
-
-	// This is the buffer of styles which have not yet been flushed.
-	var injectionBuffer = '';
-
-	// A flag to tell if we are already buffering styles. This could happen either
-	// because we scheduled a flush call already, so newly added styles will
-	// already be flushed, or because we are statically buffering on the server.
-	var isBuffering = false;
-
-	var injectStyleOnce = function injectStyleOnce(key, selector, definitions, useImportant) {
-	    if (!alreadyInjected[key]) {
-	        var generated = (0, _generate.generateCSS)(selector, definitions, stringHandlers, useImportant);
-
-	        if (!isBuffering) {
-	            // We should never be automatically buffering on the server (or any
-	            // place without a document), so guard against that.
-	            if (typeof document === 'undefined') {
-	                throw new Error('Cannot automatically buffer without a document');
-	            }
-
-	            // If we're not already buffering, schedule a call to flush the
-	            // current styles.
-	            isBuffering = true;
-	            (0, _asap2['default'])(flushToStyleTag);
-	        }
-
-	        injectionBuffer += generated;
-	        alreadyInjected[key] = true;
-	    }
-	};
-
-	exports.injectStyleOnce = injectStyleOnce;
-	var reset = function reset() {
-	    injectionBuffer = '';
-	    alreadyInjected = {};
-	    isBuffering = false;
-	    styleTag = null;
-	};
-
-	exports.reset = reset;
-	var startBuffering = function startBuffering() {
-	    if (isBuffering) {
-	        throw new Error('Cannot buffer while already buffering');
-	    }
-	    isBuffering = true;
-	};
-
-	exports.startBuffering = startBuffering;
-	var flushToString = function flushToString() {
-	    isBuffering = false;
-	    var ret = injectionBuffer;
-	    injectionBuffer = '';
-	    return ret;
-	};
-
-	exports.flushToString = flushToString;
-	var flushToStyleTag = function flushToStyleTag() {
-	    var cssContent = flushToString();
-	    if (cssContent.length > 0) {
-	        injectStyleTag(cssContent);
-	    }
-	};
-
-	exports.flushToStyleTag = flushToStyleTag;
-	var getRenderedClassNames = function getRenderedClassNames() {
-	    return Object.keys(alreadyInjected);
-	};
-
-	exports.getRenderedClassNames = getRenderedClassNames;
-	var addRenderedClassNames = function addRenderedClassNames(classNames) {
-	    classNames.forEach(function (className) {
-	        alreadyInjected[className] = true;
-	    });
-	};
-	exports.addRenderedClassNames = addRenderedClassNames;
-
-/***/ },
-/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -94758,7 +94427,7 @@ module.exports =
 	};
 
 /***/ },
-/* 277 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -94782,11 +94451,11 @@ module.exports =
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _shallowEqual = __webpack_require__(294);
+	var _shallowEqual = __webpack_require__(293);
 
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
-	var _wrapActionCreators = __webpack_require__(295);
+	var _wrapActionCreators = __webpack_require__(294);
 
 	var _wrapActionCreators2 = _interopRequireDefault(_wrapActionCreators);
 
@@ -94794,15 +94463,15 @@ module.exports =
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _isPlainObject = __webpack_require__(315);
+	var _isPlainObject = __webpack_require__(303);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _hoistNonReactStatics = __webpack_require__(320);
+	var _hoistNonReactStatics = __webpack_require__(316);
 
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
-	var _invariant = __webpack_require__(322);
+	var _invariant = __webpack_require__(321);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -95178,7 +94847,7 @@ module.exports =
 	}
 
 /***/ },
-/* 278 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -95186,27 +94855,27 @@ module.exports =
 	exports.__esModule = true;
 	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
 
-	var _createStore = __webpack_require__(296);
+	var _createStore = __webpack_require__(295);
 
 	var _createStore2 = _interopRequireDefault(_createStore);
 
-	var _combineReducers = __webpack_require__(297);
+	var _combineReducers = __webpack_require__(296);
 
 	var _combineReducers2 = _interopRequireDefault(_combineReducers);
 
-	var _bindActionCreators = __webpack_require__(298);
+	var _bindActionCreators = __webpack_require__(297);
 
 	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
 
-	var _applyMiddleware = __webpack_require__(299);
+	var _applyMiddleware = __webpack_require__(298);
 
 	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
 
-	var _compose = __webpack_require__(300);
+	var _compose = __webpack_require__(299);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
-	var _warning = __webpack_require__(301);
+	var _warning = __webpack_require__(300);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -95231,10 +94900,10 @@ module.exports =
 	exports.compose = _compose2['default'];
 
 /***/ },
-/* 279 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	/**
 	 * A manager for our node-to-ID system. In particular, this class is
@@ -95246,6 +94915,8 @@ module.exports =
 
 	var NodeManager = (function () {
 	    function NodeManager() {
+	        var _this = this;
+
 	        _classCallCheck(this, NodeManager);
 
 	        // A mapping from IDs to DOM nodes.
@@ -95261,6 +94932,19 @@ module.exports =
 	        // is registered as a child of another DOM node, but hasn't appeared in
 	        // the DOM yet).
 	        this._orderedIds = [];
+
+	        // Cache bounding boxes aggressively, re-computing on page resize. Our
+	        // caching here makes the strict assumption that if a node is reasonably
+	        // assumed to be on-screen, its bounds won't change. For example, if we
+	        // see that a touch occurred within the bounds of a node, we cache those
+	        // bounds.
+	        // TODO(charlie): It'd be great if we could pre-compute these when the
+	        // page is idle and the keypad is visible (i.e., the nodes are in their
+	        // proper positions).
+	        this._cachedBoundingBoxesById = {};
+	        window.addEventListener('resize', function () {
+	            _this._cachedBoundingBoxesById = {};
+	        });
 	    }
 
 	    /**
@@ -95327,7 +95011,6 @@ module.exports =
 	     */
 
 	    NodeManager.prototype.idForCoords = function idForCoords(x, y) {
-	        var endNode = document.elementFromPoint(x, y);
 	        for (var _iterator2 = this._orderedIds, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
 	            var _ref2;
 
@@ -95343,8 +95026,12 @@ module.exports =
 	            var id = _ref2;
 
 	            var domNode = this._nodesById[id];
-	            if (domNode && domNode.contains(endNode)) {
-	                return id;
+	            if (domNode) {
+	                var bounds = domNode.getBoundingClientRect();
+	                if (bounds.left <= x && bounds.right > x && bounds.top <= y && bounds.bottom > y) {
+	                    this._cachedBoundingBoxesById[id] = bounds;
+	                    return id;
+	                }
 	            }
 	        }
 	    };
@@ -95360,8 +95047,12 @@ module.exports =
 	     */
 
 	    NodeManager.prototype.layoutPropsForId = function layoutPropsForId(id) {
+	        if (!this._cachedBoundingBoxesById[id]) {
+	            this._cachedBoundingBoxesById[id] = this._nodesById[id].getBoundingClientRect();
+	        }
+
 	        return {
-	            initialBounds: this._nodesById[id].getBoundingClientRect(),
+	            initialBounds: this._cachedBoundingBoxesById[id],
 	            borders: this._bordersById[id] };
 	    };
 
@@ -95371,7 +95062,7 @@ module.exports =
 	module.exports = NodeManager;
 
 /***/ },
-/* 280 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -95534,7 +95225,7 @@ module.exports =
 	module.exports = PopoverStateMachine;
 
 /***/ },
-/* 281 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -95734,101 +95425,418 @@ module.exports =
 	module.exports = GestureStateMachine;
 
 /***/ },
-/* 282 */
+/* 280 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// {K1: V1, K2: V2, ...} -> [[K1, V1], [K2, V2]]
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _slicedToArray = (function () {
+	    function sliceIterator(arr, i) {
+	        var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
+	            for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+	                _arr.push(_s.value);if (i && _arr.length === i) break;
+	            }
+	        } catch (err) {
+	            _d = true;_e = err;
+	        } finally {
+	            try {
+	                if (!_n && _i['return']) _i['return']();
+	            } finally {
+	                if (_d) throw _e;
+	            }
+	        }return _arr;
+	    }return function (arr, i) {
+	        if (Array.isArray(arr)) {
+	            return arr;
+	        } else if (Symbol.iterator in Object(arr)) {
+	            return sliceIterator(arr, i);
+	        } else {
+	            throw new TypeError('Invalid attempt to destructure non-iterable instance');
+	        }
+	    };
+	})();
+
+	var _extends = Object.assign || function (target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];for (var key in source) {
+	            if (Object.prototype.hasOwnProperty.call(source, key)) {
+	                target[key] = source[key];
+	            }
+	        }
+	    }return target;
+	};
+
+	var objectToPairs = function objectToPairs(obj) {
+	    return Object.keys(obj).map(function (key) {
+	        return [key, obj[key]];
+	    });
+	};
+
+	exports.objectToPairs = objectToPairs;
+	// [[K1, V1], [K2, V2]] -> {K1: V1, K2: V2, ...}
+	var pairsToObject = function pairsToObject(pairs) {
+	    var result = {};
+	    pairs.forEach(function (_ref) {
+	        var _ref2 = _slicedToArray(_ref, 2);
+
+	        var key = _ref2[0];
+	        var val = _ref2[1];
+
+	        result[key] = val;
+	    });
+	    return result;
+	};
+
+	var mapObj = function mapObj(obj, fn) {
+	    return pairsToObject(objectToPairs(obj).map(fn));
+	};
+
+	exports.mapObj = mapObj;
+	var UPPERCASE_RE = /([A-Z])/g;
+	var MS_RE = /^ms-/;
+
+	var kebabify = function kebabify(string) {
+	    return string.replace(UPPERCASE_RE, '-$1').toLowerCase();
+	};
+	var kebabifyStyleName = function kebabifyStyleName(string) {
+	    return kebabify(string).replace(MS_RE, '-ms-');
+	};
+
+	exports.kebabifyStyleName = kebabifyStyleName;
+	var recursiveMerge = function recursiveMerge(a, b) {
+	    // TODO(jlfwong): Handle malformed input where a and b are not the same
+	    // type.
+
+	    if (typeof a !== 'object') {
+	        return b;
+	    }
+
+	    var ret = _extends({}, a);
+
+	    Object.keys(b).forEach(function (key) {
+	        if (ret.hasOwnProperty(key)) {
+	            ret[key] = recursiveMerge(a[key], b[key]);
+	        } else {
+	            ret[key] = b[key];
+	        }
+	    });
+
+	    return ret;
+	};
+
+	exports.recursiveMerge = recursiveMerge;
+	/**
+	 * CSS properties which accept numbers but are not in units of "px".
+	 * Taken from React's CSSProperty.js
+	 */
+	var isUnitlessNumber = {
+	    animationIterationCount: true,
+	    boxFlex: true,
+	    boxFlexGroup: true,
+	    boxOrdinalGroup: true,
+	    columnCount: true,
+	    flex: true,
+	    flexGrow: true,
+	    flexPositive: true,
+	    flexShrink: true,
+	    flexNegative: true,
+	    flexOrder: true,
+	    gridRow: true,
+	    gridColumn: true,
+	    fontWeight: true,
+	    lineClamp: true,
+	    lineHeight: true,
+	    opacity: true,
+	    order: true,
+	    orphans: true,
+	    tabSize: true,
+	    widows: true,
+	    zIndex: true,
+	    zoom: true,
+
+	    // SVG-related properties
+	    fillOpacity: true,
+	    stopOpacity: true,
+	    strokeDashoffset: true,
+	    strokeOpacity: true,
+	    strokeWidth: true
+	};
+
+	/**
+	 * Taken from React's CSSProperty.js
+	 *
+	 * @param {string} prefix vendor-specific prefix, eg: Webkit
+	 * @param {string} key style name, eg: transitionDuration
+	 * @return {string} style name prefixed with `prefix`, properly camelCased, eg:
+	 * WebkitTransitionDuration
+	 */
+	function prefixKey(prefix, key) {
+	    return prefix + key.charAt(0).toUpperCase() + key.substring(1);
+	}
+
+	/**
+	 * Support style names that may come passed in prefixed by adding permutations
+	 * of vendor prefixes.
+	 * Taken from React's CSSProperty.js
+	 */
+	var prefixes = ['Webkit', 'ms', 'Moz', 'O'];
+
+	// Using Object.keys here, or else the vanilla for-in loop makes IE8 go into an
+	// infinite loop, because it iterates over the newly added props too.
+	// Taken from React's CSSProperty.js
+	Object.keys(isUnitlessNumber).forEach(function (prop) {
+	    prefixes.forEach(function (prefix) {
+	        isUnitlessNumber[prefixKey(prefix, prop)] = isUnitlessNumber[prop];
+	    });
+	});
+
+	var stringifyValue = function stringifyValue(key, prop) {
+	    if (typeof prop === 'number') {
+	        if (isUnitlessNumber[key]) {
+	            return '' + prop;
+	        } else {
+	            return prop + 'px';
+	        }
+	    } else {
+	        return prop;
+	    }
+	};
+
+	exports.stringifyValue = stringifyValue;
+	/**
+	 * JS Implementation of MurmurHash2
+	 *
+	 * @author <a href="mailto:gary.court@gmail.com">Gary Court</a>
+	 * @see http://github.com/garycourt/murmurhash-js
+	 * @author <a href="mailto:aappleby@gmail.com">Austin Appleby</a>
+	 * @see http://sites.google.com/site/murmurhash/
+	 *
+	 * @param {string} str ASCII only
+	 * @return {string} Base 36 encoded hash result
+	 */
+	function murmurhash2_32_gc(str) {
+	    var l = str.length;
+	    var h = l;
+	    var i = 0;
+	    var k = undefined;
+
+	    while (l >= 4) {
+	        k = str.charCodeAt(i) & 255 | (str.charCodeAt(++i) & 255) << 8 | (str.charCodeAt(++i) & 255) << 16 | (str.charCodeAt(++i) & 255) << 24;
+
+	        k = (k & 65535) * 1540483477 + (((k >>> 16) * 1540483477 & 65535) << 16);
+	        k ^= k >>> 24;
+	        k = (k & 65535) * 1540483477 + (((k >>> 16) * 1540483477 & 65535) << 16);
+
+	        h = (h & 65535) * 1540483477 + (((h >>> 16) * 1540483477 & 65535) << 16) ^ k;
+
+	        l -= 4;
+	        ++i;
+	    }
+
+	    switch (l) {
+	        case 3:
+	            h ^= (str.charCodeAt(i + 2) & 255) << 16;
+	        case 2:
+	            h ^= (str.charCodeAt(i + 1) & 255) << 8;
+	        case 1:
+	            h ^= str.charCodeAt(i) & 255;
+	            h = (h & 65535) * 1540483477 + (((h >>> 16) * 1540483477 & 65535) << 16);
+	    }
+
+	    h ^= h >>> 13;
+	    h = (h & 65535) * 1540483477 + (((h >>> 16) * 1540483477 & 65535) << 16);
+	    h ^= h >>> 15;
+
+	    return (h >>> 0).toString(36);
+	}
+
+	// Hash a javascript object using JSON.stringify. This is very fast, about 3
+	// microseconds on my computer for a sample object:
+	// http://jsperf.com/test-hashfnv32a-hash/5
+	//
+	// Note that this uses JSON.stringify to stringify the objects so in order for
+	// this to produce consistent hashes browsers need to have a consistent
+	// ordering of objects. Ben Alpert says that Facebook depends on this, so we
+	// can probably depend on this too.
+	var hashObject = function hashObject(object) {
+	    return murmurhash2_32_gc(JSON.stringify(object));
+	};
+
+	exports.hashObject = hashObject;
+	var importantRegexp = /^([^:]+:.*?)( !important)?$/;
+
+	// Given a style string like "a: b; c: d;", adds !important to each of the
+	// properties to generate "a: b !important; c: d !important;".
+	var importantify = function importantify(string) {
+	    return string.split(';').map(function (str) {
+	        return str.replace(importantRegexp, function (_, base, important) {
+	            return base + ' !important';
+	        });
+	    }).join(';');
+	};
+	exports.importantify = importantify;
+
+/***/ },
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-	  value: true
+	    value: true
 	});
-	exports['default'] = prefixAll;
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _prefixProps = __webpack_require__(304);
-
-	var _prefixProps2 = _interopRequireDefault(_prefixProps);
-
-	var _utilsCapitalizeString = __webpack_require__(305);
-
-	var _utilsCapitalizeString2 = _interopRequireDefault(_utilsCapitalizeString);
-
-	var _utilsAssign = __webpack_require__(306);
-
-	var _utilsAssign2 = _interopRequireDefault(_utilsAssign);
-
-	var _pluginsCalc = __webpack_require__(307);
-
-	var _pluginsCalc2 = _interopRequireDefault(_pluginsCalc);
-
-	var _pluginsCursor = __webpack_require__(308);
-
-	var _pluginsCursor2 = _interopRequireDefault(_pluginsCursor);
-
-	var _pluginsFlex = __webpack_require__(309);
-
-	var _pluginsFlex2 = _interopRequireDefault(_pluginsFlex);
-
-	var _pluginsSizing = __webpack_require__(310);
-
-	var _pluginsSizing2 = _interopRequireDefault(_pluginsSizing);
-
-	var _pluginsGradient = __webpack_require__(311);
-
-	var _pluginsGradient2 = _interopRequireDefault(_pluginsGradient);
-
-	var _pluginsTransition = __webpack_require__(312);
-
-	var _pluginsTransition2 = _interopRequireDefault(_pluginsTransition);
-
-	// special flexbox specifications
-
-	var _pluginsFlexboxIE = __webpack_require__(313);
-
-	var _pluginsFlexboxIE2 = _interopRequireDefault(_pluginsFlexboxIE);
-
-	var _pluginsFlexboxOld = __webpack_require__(314);
-
-	var _pluginsFlexboxOld2 = _interopRequireDefault(_pluginsFlexboxOld);
-
-	var plugins = [_pluginsCalc2['default'], _pluginsCursor2['default'], _pluginsSizing2['default'], _pluginsGradient2['default'], _pluginsTransition2['default'], _pluginsFlexboxIE2['default'], _pluginsFlexboxOld2['default'], _pluginsFlex2['default']];
-
-	/**
-	 * Returns a prefixed version of the style object using all vendor prefixes
-	 * @param {Object} styles - Style object that gets prefixed properties added
-	 * @returns {Object} - Style object with prefixed properties and values
-	 */
-
-	function prefixAll(styles) {
-	  return Object.keys(styles).reduce(function (prefixedStyles, property) {
-	    var value = styles[property];
-	    if (value instanceof Object) {
-	      // recurse through nested style objects
-	      prefixedStyles[property] = prefixAll(value);
-	    } else {
-	      Object.keys(_prefixProps2['default']).forEach(function (prefix) {
-	        var properties = _prefixProps2['default'][prefix];
-	        // add prefixes if needed
-	        if (properties[property]) {
-	          prefixedStyles[prefix + (0, _utilsCapitalizeString2['default'])(property)] = value;
-	        }
-	      });
-
-	      // resolve every special plugins
-	      plugins.forEach(function (plugin) {
-	        return (0, _utilsAssign2['default'])(prefixedStyles, plugin(property, value));
-	      });
-	    }
-
-	    return prefixedStyles;
-	  }, styles);
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { 'default': obj };
 	}
 
-	module.exports = exports['default'];
+	var _asap = __webpack_require__(326);
+
+	var _asap2 = _interopRequireDefault(_asap);
+
+	var _generate = __webpack_require__(304);
+
+	// The current <style> tag we are inserting into, or null if we haven't
+	// inserted anything yet. We could find this each time using
+	// `document.querySelector("style[data-aphrodite"])`, but holding onto it is
+	// faster.
+	var styleTag = null;
+
+	// Inject a string of styles into a <style> tag in the head of the document. This
+	// will automatically create a style tag and then continue to use it for
+	// multiple injections. It will also use a style tag with the `data-aphrodite`
+	// tag on it if that exists in the DOM. This could be used for e.g. reusing the
+	// same style tag that server-side rendering inserts.
+	var injectStyleTag = function injectStyleTag(cssContents) {
+	    if (styleTag == null) {
+	        // Try to find a style tag with the `data-aphrodite` attribute first.
+	        styleTag = document.querySelector('style[data-aphrodite]');
+
+	        // If that doesn't work, generate a new style tag.
+	        if (styleTag == null) {
+	            // Taken from
+	            // http://stackoverflow.com/questions/524696/how-to-create-a-style-tag-with-javascript
+	            var head = document.head || document.getElementsByTagName('head')[0];
+	            styleTag = document.createElement('style');
+
+	            styleTag.type = 'text/css';
+	            styleTag.setAttribute('data-aphrodite', '');
+	            head.appendChild(styleTag);
+	        }
+	    }
+
+	    if (styleTag.styleSheet) {
+	        styleTag.styleSheet.cssText += cssContents;
+	    } else {
+	        styleTag.appendChild(document.createTextNode(cssContents));
+	    }
+	};
+
+	// Custom handlers for stringifying CSS values that have side effects
+	// (such as fontFamily, which can cause @font-face rules to be injected)
+	var stringHandlers = {
+	    // With fontFamily we look for objects that are passed in and interpret
+	    // them as @font-face rules that we need to inject. The value of fontFamily
+	    // can either be a string (as normal), an object (a single font face), or
+	    // an array of objects and strings.
+	    fontFamily: function fontFamily(val) {
+	        if (Array.isArray(val)) {
+	            return val.map(fontFamily).join(',');
+	        } else if (typeof val === 'object') {
+	            injectStyleOnce(val.fontFamily, '@font-face', [val], false);
+	            return '"' + val.fontFamily + '"';
+	        } else {
+	            return val;
+	        }
+	    }
+	};
+
+	// This is a map from Aphrodite's generated class names to `true` (acting as a
+	// set of class names)
+	var alreadyInjected = {};
+
+	// This is the buffer of styles which have not yet been flushed.
+	var injectionBuffer = '';
+
+	// A flag to tell if we are already buffering styles. This could happen either
+	// because we scheduled a flush call already, so newly added styles will
+	// already be flushed, or because we are statically buffering on the server.
+	var isBuffering = false;
+
+	var injectStyleOnce = function injectStyleOnce(key, selector, definitions, useImportant) {
+	    if (!alreadyInjected[key]) {
+	        var generated = (0, _generate.generateCSS)(selector, definitions, stringHandlers, useImportant);
+
+	        if (!isBuffering) {
+	            // We should never be automatically buffering on the server (or any
+	            // place without a document), so guard against that.
+	            if (typeof document === 'undefined') {
+	                throw new Error('Cannot automatically buffer without a document');
+	            }
+
+	            // If we're not already buffering, schedule a call to flush the
+	            // current styles.
+	            isBuffering = true;
+	            (0, _asap2['default'])(flushToStyleTag);
+	        }
+
+	        injectionBuffer += generated;
+	        alreadyInjected[key] = true;
+	    }
+	};
+
+	exports.injectStyleOnce = injectStyleOnce;
+	var reset = function reset() {
+	    injectionBuffer = '';
+	    alreadyInjected = {};
+	    isBuffering = false;
+	    styleTag = null;
+	};
+
+	exports.reset = reset;
+	var startBuffering = function startBuffering() {
+	    if (isBuffering) {
+	        throw new Error('Cannot buffer while already buffering');
+	    }
+	    isBuffering = true;
+	};
+
+	exports.startBuffering = startBuffering;
+	var flushToString = function flushToString() {
+	    isBuffering = false;
+	    var ret = injectionBuffer;
+	    injectionBuffer = '';
+	    return ret;
+	};
+
+	exports.flushToString = flushToString;
+	var flushToStyleTag = function flushToStyleTag() {
+	    var cssContent = flushToString();
+	    if (cssContent.length > 0) {
+	        injectStyleTag(cssContent);
+	    }
+	};
+
+	exports.flushToStyleTag = flushToStyleTag;
+	var getRenderedClassNames = function getRenderedClassNames() {
+	    return Object.keys(alreadyInjected);
+	};
+
+	exports.getRenderedClassNames = getRenderedClassNames;
+	var addRenderedClassNames = function addRenderedClassNames(classNames) {
+	    classNames.forEach(function (className) {
+	        alreadyInjected[className] = true;
+	    });
+	};
+	exports.addRenderedClassNames = addRenderedClassNames;
 
 /***/ },
-/* 283 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -95911,7 +95919,7 @@ module.exports =
 	        if (!domain) {
 	            // Lazy execute the domain module.
 	            // Only employed if the user elects to use domains.
-	            domain = __webpack_require__(303);
+	            domain = __webpack_require__(302);
 	        }
 	        domain.active = process.domain = null;
 	    }
@@ -95935,11 +95943,105 @@ module.exports =
 
 
 /***/ },
+/* 283 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports['default'] = prefixAll;
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _prefixProps = __webpack_require__(305);
+
+	var _prefixProps2 = _interopRequireDefault(_prefixProps);
+
+	var _utilsCapitalizeString = __webpack_require__(306);
+
+	var _utilsCapitalizeString2 = _interopRequireDefault(_utilsCapitalizeString);
+
+	var _utilsAssign = __webpack_require__(307);
+
+	var _utilsAssign2 = _interopRequireDefault(_utilsAssign);
+
+	var _pluginsCalc = __webpack_require__(308);
+
+	var _pluginsCalc2 = _interopRequireDefault(_pluginsCalc);
+
+	var _pluginsCursor = __webpack_require__(309);
+
+	var _pluginsCursor2 = _interopRequireDefault(_pluginsCursor);
+
+	var _pluginsFlex = __webpack_require__(310);
+
+	var _pluginsFlex2 = _interopRequireDefault(_pluginsFlex);
+
+	var _pluginsSizing = __webpack_require__(311);
+
+	var _pluginsSizing2 = _interopRequireDefault(_pluginsSizing);
+
+	var _pluginsGradient = __webpack_require__(312);
+
+	var _pluginsGradient2 = _interopRequireDefault(_pluginsGradient);
+
+	var _pluginsTransition = __webpack_require__(313);
+
+	var _pluginsTransition2 = _interopRequireDefault(_pluginsTransition);
+
+	// special flexbox specifications
+
+	var _pluginsFlexboxIE = __webpack_require__(314);
+
+	var _pluginsFlexboxIE2 = _interopRequireDefault(_pluginsFlexboxIE);
+
+	var _pluginsFlexboxOld = __webpack_require__(315);
+
+	var _pluginsFlexboxOld2 = _interopRequireDefault(_pluginsFlexboxOld);
+
+	var plugins = [_pluginsCalc2['default'], _pluginsCursor2['default'], _pluginsSizing2['default'], _pluginsGradient2['default'], _pluginsTransition2['default'], _pluginsFlexboxIE2['default'], _pluginsFlexboxOld2['default'], _pluginsFlex2['default']];
+
+	/**
+	 * Returns a prefixed version of the style object using all vendor prefixes
+	 * @param {Object} styles - Style object that gets prefixed properties added
+	 * @returns {Object} - Style object with prefixed properties and values
+	 */
+
+	function prefixAll(styles) {
+	  return Object.keys(styles).reduce(function (prefixedStyles, property) {
+	    var value = styles[property];
+	    if (value instanceof Object) {
+	      // recurse through nested style objects
+	      prefixedStyles[property] = prefixAll(value);
+	    } else {
+	      Object.keys(_prefixProps2['default']).forEach(function (prefix) {
+	        var properties = _prefixProps2['default'][prefix];
+	        // add prefixes if needed
+	        if (properties[property]) {
+	          prefixedStyles[prefix + (0, _utilsCapitalizeString2['default'])(property)] = value;
+	        }
+	      });
+
+	      // resolve every special plugins
+	      plugins.forEach(function (plugin) {
+	        return (0, _utilsAssign2['default'])(prefixedStyles, plugin(property, value));
+	      });
+	    }
+
+	    return prefixedStyles;
+	  }, styles);
+	}
+
+	module.exports = exports['default'];
+
+/***/ },
 /* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var strictUriEncode = __webpack_require__(331);
+	var strictUriEncode = __webpack_require__(330);
 
 	function encode(value, strict) {
 		return strict ? strictUriEncode(value) : encodeURIComponent(value);
@@ -96040,14 +96142,14 @@ module.exports =
 	 */
 
 	var React = __webpack_require__(45);
-	var ReactCSSTransitionGroup = __webpack_require__(321);
+	var ReactCSSTransitionGroup = __webpack_require__(322);
 
 	var _require = __webpack_require__(219);
 
 	var removeEcho = _require.removeEcho;
 
 	var KeypadButton = __webpack_require__(287);
-	var KeyConfigs = __webpack_require__(228);
+	var KeyConfigs = __webpack_require__(233);
 
 	var _require2 = __webpack_require__(202);
 
@@ -96201,10 +96303,10 @@ module.exports =
 	 */
 
 	var React = __webpack_require__(45);
-	var ReactCSSTransitionGroup = __webpack_require__(321);
+	var ReactCSSTransitionGroup = __webpack_require__(322);
 
-	var KeyConfigs = __webpack_require__(228);
-	var MultiSymbolPopover = __webpack_require__(316);
+	var KeyConfigs = __webpack_require__(233);
+	var MultiSymbolPopover = __webpack_require__(317);
 
 	var _require = __webpack_require__(203);
 
@@ -96283,11 +96385,11 @@ module.exports =
 
 	var React = __webpack_require__(45);
 
-	var _require = __webpack_require__(259);
+	var _require = __webpack_require__(257);
 
 	var connect = _require.connect;
 
-	var _require2 = __webpack_require__(258);
+	var _require2 = __webpack_require__(259);
 
 	var StyleSheet = _require2.StyleSheet;
 
@@ -96295,9 +96397,9 @@ module.exports =
 
 	var View = _require3.View;
 
-	var Icon = __webpack_require__(317);
-	var MultiSymbolGrid = __webpack_require__(318);
-	var CornerDecal = __webpack_require__(319);
+	var Icon = __webpack_require__(318);
+	var MultiSymbolGrid = __webpack_require__(319);
+	var CornerDecal = __webpack_require__(320);
 
 	var _require4 = __webpack_require__(202);
 
@@ -96305,7 +96407,7 @@ module.exports =
 	var BorderDirections = _require4.BorderDirections;
 	var BorderStyles = _require4.BorderStyles;
 
-	var _require5 = __webpack_require__(234);
+	var _require5 = __webpack_require__(232);
 
 	var brightGreen = _require5.brightGreen;
 	var buttonBorderColor = _require5.buttonBorderColor;
@@ -96574,11 +96676,11 @@ module.exports =
 	var React = __webpack_require__(45);
 	var ReactDOM = __webpack_require__(49);
 
-	var _require = __webpack_require__(259);
+	var _require = __webpack_require__(257);
 
 	var connect = _require.connect;
 
-	var _require2 = __webpack_require__(258);
+	var _require2 = __webpack_require__(259);
 
 	var StyleSheet = _require2.StyleSheet;
 
@@ -96586,7 +96688,7 @@ module.exports =
 
 	var View = _require3.View;
 
-	var _require4 = __webpack_require__(269);
+	var _require4 = __webpack_require__(270);
 
 	var row = _require4.row;
 
@@ -96726,7 +96828,7 @@ module.exports =
 
 	var React = __webpack_require__(45);
 
-	var _require = __webpack_require__(258);
+	var _require = __webpack_require__(259);
 
 	var StyleSheet = _require.StyleSheet;
 
@@ -96735,7 +96837,7 @@ module.exports =
 	var Text = _require2.Text;
 	var View = _require2.View;
 
-	var _require3 = __webpack_require__(234);
+	var _require3 = __webpack_require__(232);
 
 	var brightGreen = _require3.brightGreen;
 	var darkGrey = _require3.darkGrey;
@@ -96917,7 +97019,7 @@ module.exports =
 
 	var React = __webpack_require__(45);
 
-	var _require = __webpack_require__(258);
+	var _require = __webpack_require__(259);
 
 	var StyleSheet = _require.StyleSheet;
 
@@ -96925,7 +97027,7 @@ module.exports =
 
 	var View = _require2.View;
 
-	var _require3 = __webpack_require__(234);
+	var _require3 = __webpack_require__(232);
 
 	var darkGrey = _require3.darkGrey;
 	var lightGrey = _require3.lightGrey;
@@ -97066,118 +97168,6 @@ module.exports =
 /* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _slicedToArray = (function () {
-	    function sliceIterator(arr, i) {
-	        var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
-	            for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-	                _arr.push(_s.value);if (i && _arr.length === i) break;
-	            }
-	        } catch (err) {
-	            _d = true;_e = err;
-	        } finally {
-	            try {
-	                if (!_n && _i['return']) _i['return']();
-	            } finally {
-	                if (_d) throw _e;
-	            }
-	        }return _arr;
-	    }return function (arr, i) {
-	        if (Array.isArray(arr)) {
-	            return arr;
-	        } else if (Symbol.iterator in Object(arr)) {
-	            return sliceIterator(arr, i);
-	        } else {
-	            throw new TypeError('Invalid attempt to destructure non-iterable instance');
-	        }
-	    };
-	})();
-
-	function _interopRequireDefault(obj) {
-	    return obj && obj.__esModule ? obj : { 'default': obj };
-	}
-
-	var _inlineStylePrefixer = __webpack_require__(334);
-
-	var _inlineStylePrefixer2 = _interopRequireDefault(_inlineStylePrefixer);
-
-	var _util = __webpack_require__(274);
-
-	var generateCSS = function generateCSS(selector, styleTypes, stringHandlers, useImportant) {
-	    var merged = styleTypes.reduce(_util.recursiveMerge);
-
-	    var declarations = {};
-	    var mediaQueries = {};
-	    var pseudoStyles = {};
-
-	    Object.keys(merged).forEach(function (key) {
-	        if (key[0] === ':') {
-	            pseudoStyles[key] = merged[key];
-	        } else if (key[0] === '@') {
-	            mediaQueries[key] = merged[key];
-	        } else {
-	            declarations[key] = merged[key];
-	        }
-	    });
-
-	    return generateCSSRuleset(selector, declarations, stringHandlers, useImportant) + Object.keys(pseudoStyles).map(function (pseudoSelector) {
-	        return generateCSSRuleset(selector + pseudoSelector, pseudoStyles[pseudoSelector], stringHandlers, useImportant);
-	    }).join('') + Object.keys(mediaQueries).map(function (mediaQuery) {
-	        var ruleset = generateCSS(selector, [mediaQueries[mediaQuery]], stringHandlers, useImportant);
-	        return mediaQuery + '{' + ruleset + '}';
-	    }).join('');
-	};
-
-	exports.generateCSS = generateCSS;
-	var runStringHandlers = function runStringHandlers(declarations, stringHandlers) {
-	    var result = {};
-
-	    Object.keys(declarations).forEach(function (key) {
-	        // If a handler exists for this particular key, let it interpret
-	        // that value first before continuing
-	        if (stringHandlers && stringHandlers.hasOwnProperty(key)) {
-	            result[key] = stringHandlers[key](declarations[key]);
-	        } else {
-	            result[key] = declarations[key];
-	        }
-	    });
-
-	    return result;
-	};
-
-	var generateCSSRuleset = function generateCSSRuleset(selector, declarations, stringHandlers, useImportant) {
-	    var handledDeclarations = runStringHandlers(declarations, stringHandlers);
-
-	    var prefixedDeclarations = _inlineStylePrefixer2['default'].prefixAll(handledDeclarations);
-
-	    var rules = (0, _util.objectToPairs)(prefixedDeclarations).map(function (_ref) {
-	        var _ref2 = _slicedToArray(_ref, 2);
-
-	        var key = _ref2[0];
-	        var value = _ref2[1];
-
-	        var stringValue = (0, _util.stringifyValue)(key, value);
-	        var ret = (0, _util.kebabifyStyleName)(key) + ':' + stringValue + ';';
-	        return useImportant === false ? ret : (0, _util.importantify)(ret);
-	    }).join('');
-
-	    if (rules) {
-	        return selector + '{' + rules + '}';
-	    } else {
-	        return '';
-	    }
-	};
-	exports.generateCSSRuleset = generateCSSRuleset;
-
-/***/ },
-/* 294 */
-/***/ function(module, exports, __webpack_require__) {
-
 	"use strict";
 
 	exports.__esModule = true;
@@ -97206,7 +97196,7 @@ module.exports =
 	}
 
 /***/ },
-/* 295 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -97214,7 +97204,7 @@ module.exports =
 	exports.__esModule = true;
 	exports['default'] = wrapActionCreators;
 
-	var _redux = __webpack_require__(278);
+	var _redux = __webpack_require__(276);
 
 	function wrapActionCreators(actionCreators) {
 	  return function (dispatch) {
@@ -97223,7 +97213,7 @@ module.exports =
 	}
 
 /***/ },
-/* 296 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -97232,11 +97222,11 @@ module.exports =
 	exports.ActionTypes = undefined;
 	exports['default'] = createStore;
 
-	var _isPlainObject = __webpack_require__(330);
+	var _isPlainObject = __webpack_require__(303);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _symbolObservable = __webpack_require__(335);
+	var _symbolObservable = __webpack_require__(333);
 
 	var _symbolObservable2 = _interopRequireDefault(_symbolObservable);
 
@@ -97492,7 +97482,7 @@ module.exports =
 	}
 
 /***/ },
-/* 297 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -97500,13 +97490,13 @@ module.exports =
 	exports.__esModule = true;
 	exports['default'] = combineReducers;
 
-	var _createStore = __webpack_require__(296);
+	var _createStore = __webpack_require__(295);
 
-	var _isPlainObject = __webpack_require__(330);
+	var _isPlainObject = __webpack_require__(303);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _warning = __webpack_require__(301);
+	var _warning = __webpack_require__(300);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -97626,7 +97616,7 @@ module.exports =
 	}
 
 /***/ },
-/* 298 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -97682,7 +97672,7 @@ module.exports =
 	}
 
 /***/ },
-/* 299 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -97701,7 +97691,7 @@ module.exports =
 
 	exports['default'] = applyMiddleware;
 
-	var _compose = __webpack_require__(300);
+	var _compose = __webpack_require__(299);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
@@ -97755,7 +97745,7 @@ module.exports =
 	}
 
 /***/ },
-/* 300 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -97800,7 +97790,7 @@ module.exports =
 	}
 
 /***/ },
-/* 301 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -97830,7 +97820,7 @@ module.exports =
 	}
 
 /***/ },
-/* 302 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Generated by CoffeeScript 1.7.1
@@ -97866,395 +97856,18 @@ module.exports =
 	}).call(this);
 
 /***/ },
-/* 303 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = require("domain");
 
 /***/ },
-/* 304 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports["default"] = { "Webkit": { "transform": true, "transformOrigin": true, "transformOriginX": true, "transformOriginY": true, "backfaceVisibility": true, "perspective": true, "perspectiveOrigin": true, "transformStyle": true, "transformOriginZ": true, "animation": true, "animationDelay": true, "animationDirection": true, "animationFillMode": true, "animationDuration": true, "animationIterationCount": true, "animationName": true, "animationPlayState": true, "animationTimingFunction": true, "appearance": true, "userSelect": true, "fontKerning": true, "textEmphasisPosition": true, "textEmphasis": true, "textEmphasisStyle": true, "textEmphasisColor": true, "boxDecorationBreak": true, "clipPath": true, "maskImage": true, "maskMode": true, "maskRepeat": true, "maskPosition": true, "maskClip": true, "maskOrigin": true, "maskSize": true, "maskComposite": true, "mask": true, "maskBorderSource": true, "maskBorderMode": true, "maskBorderSlice": true, "maskBorderWidth": true, "maskBorderOutset": true, "maskBorderRepeat": true, "maskBorder": true, "maskType": true, "textDecorationStyle": true, "textDecorationSkip": true, "textDecorationLine": true, "textDecorationColor": true, "filter": true, "fontFeatureSettings": true, "breakAfter": true, "breakBefore": true, "breakInside": true, "columnCount": true, "columnFill": true, "columnGap": true, "columnRule": true, "columnRuleColor": true, "columnRuleStyle": true, "columnRuleWidth": true, "columns": true, "columnSpan": true, "columnWidth": true, "flex": true, "flexBasis": true, "flexDirection": true, "flexGrow": true, "flexFlow": true, "flexShrink": true, "flexWrap": true, "alignContent": true, "alignItems": true, "alignSelf": true, "justifyContent": true, "order": true, "transition": true, "transitionDelay": true, "transitionDuration": true, "transitionProperty": true, "transitionTimingFunction": true, "backdropFilter": true, "scrollSnapType": true, "scrollSnapPointsX": true, "scrollSnapPointsY": true, "scrollSnapDestination": true, "scrollSnapCoordinate": true, "shapeImageThreshold": true, "shapeImageMargin": true, "shapeImageOutside": true, "hyphens": true, "flowInto": true, "flowFrom": true, "regionFragment": true, "textSizeAdjust": true, "borderImage": true, "borderImageOutset": true, "borderImageRepeat": true, "borderImageSlice": true, "borderImageSource": true, "borderImageWidth": true, "tabSize": true, "objectFit": true, "objectPosition": true }, "Moz": { "appearance": true, "userSelect": true, "boxSizing": true, "textAlignLast": true, "textDecorationStyle": true, "textDecorationSkip": true, "textDecorationLine": true, "textDecorationColor": true, "tabSize": true, "hyphens": true, "fontFeatureSettings": true, "breakAfter": true, "breakBefore": true, "breakInside": true, "columnCount": true, "columnFill": true, "columnGap": true, "columnRule": true, "columnRuleColor": true, "columnRuleStyle": true, "columnRuleWidth": true, "columns": true, "columnSpan": true, "columnWidth": true }, "ms": { "flex": true, "flexBasis": false, "flexDirection": true, "flexGrow": false, "flexFlow": true, "flexShrink": false, "flexWrap": true, "alignContent": false, "alignItems": false, "alignSelf": false, "justifyContent": false, "order": false, "transform": true, "transformOrigin": true, "transformOriginX": true, "transformOriginY": true, "userSelect": true, "wrapFlow": true, "wrapThrough": true, "wrapMargin": true, "scrollSnapType": true, "scrollSnapPointsX": true, "scrollSnapPointsY": true, "scrollSnapDestination": true, "scrollSnapCoordinate": true, "touchAction": true, "hyphens": true, "flowInto": true, "flowFrom": true, "breakBefore": true, "breakAfter": true, "breakInside": true, "regionFragment": true, "gridTemplateColumns": true, "gridTemplateRows": true, "gridTemplateAreas": true, "gridTemplate": true, "gridAutoColumns": true, "gridAutoRows": true, "gridAutoFlow": true, "grid": true, "gridRowStart": true, "gridColumnStart": true, "gridRowEnd": true, "gridRow": true, "gridColumn": true, "gridColumnEnd": true, "gridColumnGap": true, "gridRowGap": true, "gridArea": true, "gridGap": true, "textSizeAdjust": true } };
-	module.exports = exports["default"];
-
-/***/ },
-/* 305 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// helper to capitalize strings
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	exports["default"] = function (str) {
-	  return str.charAt(0).toUpperCase() + str.slice(1);
-	};
-
-	module.exports = exports["default"];
-
-/***/ },
-/* 306 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// leight polyfill for Object.assign
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	exports["default"] = function (base) {
-	  var extend = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-	  return Object.keys(extend).reduce(function (out, key) {
-	    base[key] = extend[key];
-	    return out;
-	  }, {});
-	};
-
-	module.exports = exports["default"];
-
-/***/ },
-/* 307 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports['default'] = calc;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _utilsJoinPrefixedRules = __webpack_require__(324);
-
-	var _utilsJoinPrefixedRules2 = _interopRequireDefault(_utilsJoinPrefixedRules);
-
-	function calc(property, value) {
-	  if (typeof value === 'string' && value.indexOf('calc(') > -1) {
-	    return (0, _utilsJoinPrefixedRules2['default'])(property, value, function (prefix, value) {
-	      return value.replace(/calc\(/g, prefix + 'calc(');
-	    });
-	  }
-	}
-
-	module.exports = exports['default'];
-
-/***/ },
-/* 308 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports['default'] = cursor;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _utilsJoinPrefixedRules = __webpack_require__(324);
-
-	var _utilsJoinPrefixedRules2 = _interopRequireDefault(_utilsJoinPrefixedRules);
-
-	var values = {
-	  'zoom-in': true,
-	  'zoom-out': true,
-	  'grab': true,
-	  'grabbing': true
-	};
-
-	function cursor(property, value) {
-	  if (property === 'cursor' && values[value]) {
-	    return (0, _utilsJoinPrefixedRules2['default'])(property, value);
-	  }
-	}
-
-	module.exports = exports['default'];
-
-/***/ },
-/* 309 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports['default'] = flex;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _utilsCamelToDashCase = __webpack_require__(325);
-
-	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
-
-	var values = {
-	  'flex': true,
-	  'inline-flex': true
-	};
-
-	function flex(property, value) {
-	  if (property === 'display' && values[value]) {
-	    return {
-	      display: ['-webkit-box', '-moz-box', '-ms-' + value + 'box', '-webkit-' + value, value].join(';' + (0, _utilsCamelToDashCase2['default'])(property) + ':')
-	    };
-	  }
-	}
-
-	module.exports = exports['default'];
-
-/***/ },
-/* 310 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports['default'] = sizing;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _utilsJoinPrefixedRules = __webpack_require__(324);
-
-	var _utilsJoinPrefixedRules2 = _interopRequireDefault(_utilsJoinPrefixedRules);
-
-	var properties = {
-	  maxHeight: true,
-	  maxWidth: true,
-	  width: true,
-	  height: true,
-	  columnWidth: true,
-	  minWidth: true,
-	  minHeight: true
-	};
-	var values = {
-	  'min-content': true,
-	  'max-content': true,
-	  'fill-available': true,
-	  'fit-content': true,
-	  'contain-floats': true
-	};
-
-	function sizing(property, value) {
-	  if (properties[property] && values[value]) {
-	    return (0, _utilsJoinPrefixedRules2['default'])(property, value);
-	  }
-	}
-
-	module.exports = exports['default'];
-
-/***/ },
-/* 311 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports['default'] = gradient;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _utilsJoinPrefixedRules = __webpack_require__(324);
-
-	var _utilsJoinPrefixedRules2 = _interopRequireDefault(_utilsJoinPrefixedRules);
-
-	var values = /linear-gradient|radial-gradient|repeating-linear-gradient|repeating-radial-gradient/;
-
-	function gradient(property, value) {
-	  if (typeof value === 'string' && value.match(values) !== null) {
-	    return (0, _utilsJoinPrefixedRules2['default'])(property, value);
-	  }
-	}
-
-	module.exports = exports['default'];
-
-/***/ },
-/* 312 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports['default'] = transition;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-	var _utilsCamelToDashCase = __webpack_require__(325);
-
-	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
-
-	var _utilsCapitalizeString = __webpack_require__(305);
-
-	var _utilsCapitalizeString2 = _interopRequireDefault(_utilsCapitalizeString);
-
-	var _utilsUnprefixProperty = __webpack_require__(326);
-
-	var _utilsUnprefixProperty2 = _interopRequireDefault(_utilsUnprefixProperty);
-
-	var _prefixProps = __webpack_require__(304);
-
-	var _prefixProps2 = _interopRequireDefault(_prefixProps);
-
-	var properties = { transition: true, transitionProperty: true };
-
-	function transition(property, value) {
-	  // also check for already prefixed transitions
-	  var unprefixedProperty = (0, _utilsUnprefixProperty2['default'])(property);
-	  if (typeof value === 'string' && properties[unprefixedProperty]) {
-	    var _ref2;
-
-	    var _ret = (function () {
-	      // only split multi values, not cubic beziers
-	      var multipleValues = value.split(/,(?![^()]*(?:\([^()]*\))?\))/g);
-
-	      // iterate each single value and check for transitioned properties
-	      // that need to be prefixed as well
-	      multipleValues.forEach(function (val, index) {
-	        multipleValues[index] = Object.keys(_prefixProps2['default']).reduce(function (out, prefix) {
-	          var dashCasePrefix = '-' + prefix.toLowerCase() + '-';
-
-	          Object.keys(_prefixProps2['default'][prefix]).forEach(function (prop) {
-	            var dashCaseProperty = (0, _utilsCamelToDashCase2['default'])(prop);
-	            if (val.indexOf(dashCaseProperty) > -1) {
-	              // join all prefixes and create a new value
-	              out = val.replace(dashCaseProperty, dashCasePrefix + dashCaseProperty) + ',' + out;
-	            }
-	          });
-	          return out;
-	        }, val);
-	      });
-
-	      var outputValue = multipleValues.join(',');
-
-	      if (unprefixedProperty !== property) {
-	        return {
-	          v: _defineProperty({}, property, outputValue)
-	        };
-	      }
-
-	      return {
-	        v: (_ref2 = {}, _defineProperty(_ref2, 'Webkit' + (0, _utilsCapitalizeString2['default'])(property), outputValue.split(',').filter(function (value) {
-	          return value.match(/-moz-|-ms-/) === null;
-	        }).join(',')), _defineProperty(_ref2, property, outputValue), _ref2)
-	      };
-	    })();
-
-	    if (typeof _ret === 'object') return _ret.v;
-	  }
-	}
-
-	module.exports = exports['default'];
-
-/***/ },
-/* 313 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports['default'] = flexboxIE;
-
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-	var alternativeValues = {
-	  'space-around': 'distribute',
-	  'space-between': 'justify',
-	  'flex-start': 'start',
-	  'flex-end': 'end'
-	};
-	var alternativeProps = {
-	  alignContent: 'msFlexLinePack',
-	  alignSelf: 'msFlexItemAlign',
-	  alignItems: 'msFlexAlign',
-	  justifyContent: 'msFlexPack',
-	  order: 'msFlexOrder',
-	  flexGrow: 'msFlexPositive',
-	  flexShrink: 'msFlexNegative',
-	  flexBasis: 'msPreferredSize'
-	};
-
-	function flexboxIE(property, value) {
-	  if (alternativeProps[property]) {
-	    return _defineProperty({}, alternativeProps[property], alternativeValues[value] || value);
-	  }
-	}
-
-	module.exports = exports['default'];
-
-/***/ },
-/* 314 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports['default'] = flexboxOld;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-	var _utilsCamelToDashCase = __webpack_require__(325);
-
-	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
-
-	var alternativeValues = {
-	  'space-around': 'justify',
-	  'space-between': 'justify',
-	  'flex-start': 'start',
-	  'flex-end': 'end',
-	  'wrap-reverse': 'multiple',
-	  wrap: 'multiple'
-	};
-
-	var alternativeProps = {
-	  alignItems: 'WebkitBoxAlign',
-	  justifyContent: 'WebkitBoxPack',
-	  flexWrap: 'WebkitBoxLines'
-	};
-
-	function flexboxOld(property, value) {
-	  if (property === 'flexDirection') {
-	    return {
-	      WebkitBoxOrient: value.indexOf('column') > -1 ? 'vertical' : 'horizontal',
-	      WebkitBoxDirection: value.indexOf('reverse') > -1 ? 'reverse' : 'normal'
-	    };
-	  }
-	  if (alternativeProps[property]) {
-	    return _defineProperty({}, alternativeProps[property], alternativeValues[value] || value);
-	  }
-	}
-
-	module.exports = exports['default'];
-
-/***/ },
-/* 315 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var getPrototype = __webpack_require__(327),
-	    isHostObject = __webpack_require__(328),
-	    isObjectLike = __webpack_require__(329);
+	var getPrototype = __webpack_require__(323),
+	    isHostObject = __webpack_require__(324),
+	    isObjectLike = __webpack_require__(325);
 
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -98322,7 +97935,542 @@ module.exports =
 	module.exports = isPlainObject;
 
 /***/ },
+/* 304 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _slicedToArray = (function () {
+	    function sliceIterator(arr, i) {
+	        var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
+	            for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+	                _arr.push(_s.value);if (i && _arr.length === i) break;
+	            }
+	        } catch (err) {
+	            _d = true;_e = err;
+	        } finally {
+	            try {
+	                if (!_n && _i['return']) _i['return']();
+	            } finally {
+	                if (_d) throw _e;
+	            }
+	        }return _arr;
+	    }return function (arr, i) {
+	        if (Array.isArray(arr)) {
+	            return arr;
+	        } else if (Symbol.iterator in Object(arr)) {
+	            return sliceIterator(arr, i);
+	        } else {
+	            throw new TypeError('Invalid attempt to destructure non-iterable instance');
+	        }
+	    };
+	})();
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { 'default': obj };
+	}
+
+	var _inlineStylePrefixer = __webpack_require__(335);
+
+	var _inlineStylePrefixer2 = _interopRequireDefault(_inlineStylePrefixer);
+
+	var _util = __webpack_require__(280);
+
+	var generateCSS = function generateCSS(selector, styleTypes, stringHandlers, useImportant) {
+	    var merged = styleTypes.reduce(_util.recursiveMerge);
+
+	    var declarations = {};
+	    var mediaQueries = {};
+	    var pseudoStyles = {};
+
+	    Object.keys(merged).forEach(function (key) {
+	        if (key[0] === ':') {
+	            pseudoStyles[key] = merged[key];
+	        } else if (key[0] === '@') {
+	            mediaQueries[key] = merged[key];
+	        } else {
+	            declarations[key] = merged[key];
+	        }
+	    });
+
+	    return generateCSSRuleset(selector, declarations, stringHandlers, useImportant) + Object.keys(pseudoStyles).map(function (pseudoSelector) {
+	        return generateCSSRuleset(selector + pseudoSelector, pseudoStyles[pseudoSelector], stringHandlers, useImportant);
+	    }).join('') + Object.keys(mediaQueries).map(function (mediaQuery) {
+	        var ruleset = generateCSS(selector, [mediaQueries[mediaQuery]], stringHandlers, useImportant);
+	        return mediaQuery + '{' + ruleset + '}';
+	    }).join('');
+	};
+
+	exports.generateCSS = generateCSS;
+	var runStringHandlers = function runStringHandlers(declarations, stringHandlers) {
+	    var result = {};
+
+	    Object.keys(declarations).forEach(function (key) {
+	        // If a handler exists for this particular key, let it interpret
+	        // that value first before continuing
+	        if (stringHandlers && stringHandlers.hasOwnProperty(key)) {
+	            result[key] = stringHandlers[key](declarations[key]);
+	        } else {
+	            result[key] = declarations[key];
+	        }
+	    });
+
+	    return result;
+	};
+
+	var generateCSSRuleset = function generateCSSRuleset(selector, declarations, stringHandlers, useImportant) {
+	    var handledDeclarations = runStringHandlers(declarations, stringHandlers);
+
+	    var prefixedDeclarations = _inlineStylePrefixer2['default'].prefixAll(handledDeclarations);
+
+	    var rules = (0, _util.objectToPairs)(prefixedDeclarations).map(function (_ref) {
+	        var _ref2 = _slicedToArray(_ref, 2);
+
+	        var key = _ref2[0];
+	        var value = _ref2[1];
+
+	        var stringValue = (0, _util.stringifyValue)(key, value);
+	        var ret = (0, _util.kebabifyStyleName)(key) + ':' + stringValue + ';';
+	        return useImportant === false ? ret : (0, _util.importantify)(ret);
+	    }).join('');
+
+	    if (rules) {
+	        return selector + '{' + rules + '}';
+	    } else {
+	        return '';
+	    }
+	};
+	exports.generateCSSRuleset = generateCSSRuleset;
+
+/***/ },
+/* 305 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports["default"] = { "Webkit": { "transform": true, "transformOrigin": true, "transformOriginX": true, "transformOriginY": true, "backfaceVisibility": true, "perspective": true, "perspectiveOrigin": true, "transformStyle": true, "transformOriginZ": true, "animation": true, "animationDelay": true, "animationDirection": true, "animationFillMode": true, "animationDuration": true, "animationIterationCount": true, "animationName": true, "animationPlayState": true, "animationTimingFunction": true, "appearance": true, "userSelect": true, "fontKerning": true, "textEmphasisPosition": true, "textEmphasis": true, "textEmphasisStyle": true, "textEmphasisColor": true, "boxDecorationBreak": true, "clipPath": true, "maskImage": true, "maskMode": true, "maskRepeat": true, "maskPosition": true, "maskClip": true, "maskOrigin": true, "maskSize": true, "maskComposite": true, "mask": true, "maskBorderSource": true, "maskBorderMode": true, "maskBorderSlice": true, "maskBorderWidth": true, "maskBorderOutset": true, "maskBorderRepeat": true, "maskBorder": true, "maskType": true, "textDecorationStyle": true, "textDecorationSkip": true, "textDecorationLine": true, "textDecorationColor": true, "filter": true, "fontFeatureSettings": true, "breakAfter": true, "breakBefore": true, "breakInside": true, "columnCount": true, "columnFill": true, "columnGap": true, "columnRule": true, "columnRuleColor": true, "columnRuleStyle": true, "columnRuleWidth": true, "columns": true, "columnSpan": true, "columnWidth": true, "flex": true, "flexBasis": true, "flexDirection": true, "flexGrow": true, "flexFlow": true, "flexShrink": true, "flexWrap": true, "alignContent": true, "alignItems": true, "alignSelf": true, "justifyContent": true, "order": true, "transition": true, "transitionDelay": true, "transitionDuration": true, "transitionProperty": true, "transitionTimingFunction": true, "backdropFilter": true, "scrollSnapType": true, "scrollSnapPointsX": true, "scrollSnapPointsY": true, "scrollSnapDestination": true, "scrollSnapCoordinate": true, "shapeImageThreshold": true, "shapeImageMargin": true, "shapeImageOutside": true, "hyphens": true, "flowInto": true, "flowFrom": true, "regionFragment": true, "textSizeAdjust": true, "borderImage": true, "borderImageOutset": true, "borderImageRepeat": true, "borderImageSlice": true, "borderImageSource": true, "borderImageWidth": true, "tabSize": true, "objectFit": true, "objectPosition": true }, "Moz": { "appearance": true, "userSelect": true, "boxSizing": true, "textAlignLast": true, "textDecorationStyle": true, "textDecorationSkip": true, "textDecorationLine": true, "textDecorationColor": true, "tabSize": true, "hyphens": true, "fontFeatureSettings": true, "breakAfter": true, "breakBefore": true, "breakInside": true, "columnCount": true, "columnFill": true, "columnGap": true, "columnRule": true, "columnRuleColor": true, "columnRuleStyle": true, "columnRuleWidth": true, "columns": true, "columnSpan": true, "columnWidth": true }, "ms": { "flex": true, "flexBasis": false, "flexDirection": true, "flexGrow": false, "flexFlow": true, "flexShrink": false, "flexWrap": true, "alignContent": false, "alignItems": false, "alignSelf": false, "justifyContent": false, "order": false, "transform": true, "transformOrigin": true, "transformOriginX": true, "transformOriginY": true, "userSelect": true, "wrapFlow": true, "wrapThrough": true, "wrapMargin": true, "scrollSnapType": true, "scrollSnapPointsX": true, "scrollSnapPointsY": true, "scrollSnapDestination": true, "scrollSnapCoordinate": true, "touchAction": true, "hyphens": true, "flowInto": true, "flowFrom": true, "breakBefore": true, "breakAfter": true, "breakInside": true, "regionFragment": true, "gridTemplateColumns": true, "gridTemplateRows": true, "gridTemplateAreas": true, "gridTemplate": true, "gridAutoColumns": true, "gridAutoRows": true, "gridAutoFlow": true, "grid": true, "gridRowStart": true, "gridColumnStart": true, "gridRowEnd": true, "gridRow": true, "gridColumn": true, "gridColumnEnd": true, "gridColumnGap": true, "gridRowGap": true, "gridArea": true, "gridGap": true, "textSizeAdjust": true } };
+	module.exports = exports["default"];
+
+/***/ },
+/* 306 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// helper to capitalize strings
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	exports["default"] = function (str) {
+	  return str.charAt(0).toUpperCase() + str.slice(1);
+	};
+
+	module.exports = exports["default"];
+
+/***/ },
+/* 307 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// leight polyfill for Object.assign
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	exports["default"] = function (base) {
+	  var extend = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	  return Object.keys(extend).reduce(function (out, key) {
+	    base[key] = extend[key];
+	    return out;
+	  }, {});
+	};
+
+	module.exports = exports["default"];
+
+/***/ },
+/* 308 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports['default'] = calc;
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _utilsJoinPrefixedRules = __webpack_require__(327);
+
+	var _utilsJoinPrefixedRules2 = _interopRequireDefault(_utilsJoinPrefixedRules);
+
+	function calc(property, value) {
+	  if (typeof value === 'string' && value.indexOf('calc(') > -1) {
+	    return (0, _utilsJoinPrefixedRules2['default'])(property, value, function (prefix, value) {
+	      return value.replace(/calc\(/g, prefix + 'calc(');
+	    });
+	  }
+	}
+
+	module.exports = exports['default'];
+
+/***/ },
+/* 309 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports['default'] = cursor;
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _utilsJoinPrefixedRules = __webpack_require__(327);
+
+	var _utilsJoinPrefixedRules2 = _interopRequireDefault(_utilsJoinPrefixedRules);
+
+	var values = {
+	  'zoom-in': true,
+	  'zoom-out': true,
+	  'grab': true,
+	  'grabbing': true
+	};
+
+	function cursor(property, value) {
+	  if (property === 'cursor' && values[value]) {
+	    return (0, _utilsJoinPrefixedRules2['default'])(property, value);
+	  }
+	}
+
+	module.exports = exports['default'];
+
+/***/ },
+/* 310 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports['default'] = flex;
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _utilsCamelToDashCase = __webpack_require__(328);
+
+	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
+
+	var values = {
+	  'flex': true,
+	  'inline-flex': true
+	};
+
+	function flex(property, value) {
+	  if (property === 'display' && values[value]) {
+	    return {
+	      display: ['-webkit-box', '-moz-box', '-ms-' + value + 'box', '-webkit-' + value, value].join(';' + (0, _utilsCamelToDashCase2['default'])(property) + ':')
+	    };
+	  }
+	}
+
+	module.exports = exports['default'];
+
+/***/ },
+/* 311 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports['default'] = sizing;
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _utilsJoinPrefixedRules = __webpack_require__(327);
+
+	var _utilsJoinPrefixedRules2 = _interopRequireDefault(_utilsJoinPrefixedRules);
+
+	var properties = {
+	  maxHeight: true,
+	  maxWidth: true,
+	  width: true,
+	  height: true,
+	  columnWidth: true,
+	  minWidth: true,
+	  minHeight: true
+	};
+	var values = {
+	  'min-content': true,
+	  'max-content': true,
+	  'fill-available': true,
+	  'fit-content': true,
+	  'contain-floats': true
+	};
+
+	function sizing(property, value) {
+	  if (properties[property] && values[value]) {
+	    return (0, _utilsJoinPrefixedRules2['default'])(property, value);
+	  }
+	}
+
+	module.exports = exports['default'];
+
+/***/ },
+/* 312 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports['default'] = gradient;
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _utilsJoinPrefixedRules = __webpack_require__(327);
+
+	var _utilsJoinPrefixedRules2 = _interopRequireDefault(_utilsJoinPrefixedRules);
+
+	var values = /linear-gradient|radial-gradient|repeating-linear-gradient|repeating-radial-gradient/;
+
+	function gradient(property, value) {
+	  if (typeof value === 'string' && value.match(values) !== null) {
+	    return (0, _utilsJoinPrefixedRules2['default'])(property, value);
+	  }
+	}
+
+	module.exports = exports['default'];
+
+/***/ },
+/* 313 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports['default'] = transition;
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	var _utilsCamelToDashCase = __webpack_require__(328);
+
+	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
+
+	var _utilsCapitalizeString = __webpack_require__(306);
+
+	var _utilsCapitalizeString2 = _interopRequireDefault(_utilsCapitalizeString);
+
+	var _utilsUnprefixProperty = __webpack_require__(329);
+
+	var _utilsUnprefixProperty2 = _interopRequireDefault(_utilsUnprefixProperty);
+
+	var _prefixProps = __webpack_require__(305);
+
+	var _prefixProps2 = _interopRequireDefault(_prefixProps);
+
+	var properties = { transition: true, transitionProperty: true };
+
+	function transition(property, value) {
+	  // also check for already prefixed transitions
+	  var unprefixedProperty = (0, _utilsUnprefixProperty2['default'])(property);
+	  if (typeof value === 'string' && properties[unprefixedProperty]) {
+	    var _ref2;
+
+	    var _ret = (function () {
+	      // only split multi values, not cubic beziers
+	      var multipleValues = value.split(/,(?![^()]*(?:\([^()]*\))?\))/g);
+
+	      // iterate each single value and check for transitioned properties
+	      // that need to be prefixed as well
+	      multipleValues.forEach(function (val, index) {
+	        multipleValues[index] = Object.keys(_prefixProps2['default']).reduce(function (out, prefix) {
+	          var dashCasePrefix = '-' + prefix.toLowerCase() + '-';
+
+	          Object.keys(_prefixProps2['default'][prefix]).forEach(function (prop) {
+	            var dashCaseProperty = (0, _utilsCamelToDashCase2['default'])(prop);
+	            if (val.indexOf(dashCaseProperty) > -1) {
+	              // join all prefixes and create a new value
+	              out = val.replace(dashCaseProperty, dashCasePrefix + dashCaseProperty) + ',' + out;
+	            }
+	          });
+	          return out;
+	        }, val);
+	      });
+
+	      var outputValue = multipleValues.join(',');
+
+	      if (unprefixedProperty !== property) {
+	        return {
+	          v: _defineProperty({}, property, outputValue)
+	        };
+	      }
+
+	      return {
+	        v: (_ref2 = {}, _defineProperty(_ref2, 'Webkit' + (0, _utilsCapitalizeString2['default'])(property), outputValue.split(',').filter(function (value) {
+	          return value.match(/-moz-|-ms-/) === null;
+	        }).join(',')), _defineProperty(_ref2, property, outputValue), _ref2)
+	      };
+	    })();
+
+	    if (typeof _ret === 'object') return _ret.v;
+	  }
+	}
+
+	module.exports = exports['default'];
+
+/***/ },
+/* 314 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports['default'] = flexboxIE;
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	var alternativeValues = {
+	  'space-around': 'distribute',
+	  'space-between': 'justify',
+	  'flex-start': 'start',
+	  'flex-end': 'end'
+	};
+	var alternativeProps = {
+	  alignContent: 'msFlexLinePack',
+	  alignSelf: 'msFlexItemAlign',
+	  alignItems: 'msFlexAlign',
+	  justifyContent: 'msFlexPack',
+	  order: 'msFlexOrder',
+	  flexGrow: 'msFlexPositive',
+	  flexShrink: 'msFlexNegative',
+	  flexBasis: 'msPreferredSize'
+	};
+
+	function flexboxIE(property, value) {
+	  if (alternativeProps[property]) {
+	    return _defineProperty({}, alternativeProps[property], alternativeValues[value] || value);
+	  }
+	}
+
+	module.exports = exports['default'];
+
+/***/ },
+/* 315 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports['default'] = flexboxOld;
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	var _utilsCamelToDashCase = __webpack_require__(328);
+
+	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
+
+	var alternativeValues = {
+	  'space-around': 'justify',
+	  'space-between': 'justify',
+	  'flex-start': 'start',
+	  'flex-end': 'end',
+	  'wrap-reverse': 'multiple',
+	  wrap: 'multiple'
+	};
+
+	var alternativeProps = {
+	  alignItems: 'WebkitBoxAlign',
+	  justifyContent: 'WebkitBoxPack',
+	  flexWrap: 'WebkitBoxLines'
+	};
+
+	function flexboxOld(property, value) {
+	  if (property === 'flexDirection') {
+	    return {
+	      WebkitBoxOrient: value.indexOf('column') > -1 ? 'vertical' : 'horizontal',
+	      WebkitBoxDirection: value.indexOf('reverse') > -1 ? 'reverse' : 'normal'
+	    };
+	  }
+	  if (alternativeProps[property]) {
+	    return _defineProperty({}, alternativeProps[property], alternativeValues[value] || value);
+	  }
+	}
+
+	module.exports = exports['default'];
+
+/***/ },
 /* 316 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2015, Yahoo! Inc.
+	 * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
+	 */
+	'use strict';
+
+	var REACT_STATICS = {
+	    childContextTypes: true,
+	    contextTypes: true,
+	    defaultProps: true,
+	    displayName: true,
+	    getDefaultProps: true,
+	    mixins: true,
+	    propTypes: true,
+	    type: true
+	};
+
+	var KNOWN_STATICS = {
+	    name: true,
+	    length: true,
+	    prototype: true,
+	    caller: true,
+	    arguments: true,
+	    arity: true
+	};
+
+	module.exports = function hoistNonReactStatics(targetComponent, sourceComponent) {
+	    if (typeof sourceComponent !== 'string') {
+	        // don't hoist over string (html) components
+	        var keys = Object.getOwnPropertyNames(sourceComponent);
+	        for (var i = 0; i < keys.length; ++i) {
+	            if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]]) {
+	                try {
+	                    targetComponent[keys[i]] = sourceComponent[keys[i]];
+	                } catch (error) {}
+	            }
+	        }
+	    }
+
+	    return targetComponent;
+	};
+
+/***/ },
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -98333,7 +98481,7 @@ module.exports =
 
 	var React = __webpack_require__(45);
 
-	var _require = __webpack_require__(258);
+	var _require = __webpack_require__(259);
 
 	var StyleSheet = _require.StyleSheet;
 
@@ -98361,7 +98509,7 @@ module.exports =
 
 	        // TODO(charlie): We have to require this lazily because of a cyclic
 	        // dependence in our components.
-	        var TouchableKeypadButton = __webpack_require__(268);
+	        var TouchableKeypadButton = __webpack_require__(269);
 	        return React.createElement(
 	            View,
 	            { style: styles.container },
@@ -98399,7 +98547,7 @@ module.exports =
 	// logic to mimic a different button type.
 
 /***/ },
-/* 317 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -98409,8 +98557,8 @@ module.exports =
 	var React = __webpack_require__(45);
 	var ReactDOM = __webpack_require__(49);
 
-	var Iconography = __webpack_require__(336);
-	var UnicodeIcon = __webpack_require__(332);
+	var Iconography = __webpack_require__(334);
+	var UnicodeIcon = __webpack_require__(331);
 
 	var _require = __webpack_require__(203);
 
@@ -98461,7 +98609,7 @@ module.exports =
 	module.exports = Icon;
 
 /***/ },
-/* 318 */
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -98471,7 +98619,7 @@ module.exports =
 
 	var React = __webpack_require__(45);
 
-	var _require = __webpack_require__(258);
+	var _require = __webpack_require__(259);
 
 	var StyleSheet = _require.StyleSheet;
 
@@ -98479,17 +98627,17 @@ module.exports =
 
 	var View = _require2.View;
 
-	var UnicodeIcon = __webpack_require__(332);
-	var UnicodeSymbol = __webpack_require__(333);
+	var UnicodeIcon = __webpack_require__(331);
+	var UnicodeSymbol = __webpack_require__(332);
 
-	var _require3 = __webpack_require__(269);
+	var _require3 = __webpack_require__(270);
 
 	var row = _require3.row;
 	var column = _require3.column;
 	var centered = _require3.centered;
 	var fullWidth = _require3.fullWidth;
 
-	var _require4 = __webpack_require__(234);
+	var _require4 = __webpack_require__(232);
 
 	var iconGrey = _require4.iconGrey;
 	var secondaryIconOpacity = _require4.secondaryIconOpacity;
@@ -98618,7 +98766,7 @@ module.exports =
 	module.exports = MultiSymbolGrid;
 
 /***/ },
-/* 319 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -98627,7 +98775,7 @@ module.exports =
 
 	var React = __webpack_require__(45);
 
-	var _require = __webpack_require__(258);
+	var _require = __webpack_require__(259);
 
 	var StyleSheet = _require.StyleSheet;
 
@@ -98635,7 +98783,7 @@ module.exports =
 
 	var View = _require2.View;
 
-	var _require3 = __webpack_require__(234);
+	var _require3 = __webpack_require__(232);
 
 	var mediumGrey = _require3.mediumGrey;
 
@@ -98671,62 +98819,7 @@ module.exports =
 	module.exports = CornerDecal;
 
 /***/ },
-/* 320 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2015, Yahoo! Inc.
-	 * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
-	 */
-	'use strict';
-
-	var REACT_STATICS = {
-	    childContextTypes: true,
-	    contextTypes: true,
-	    defaultProps: true,
-	    displayName: true,
-	    getDefaultProps: true,
-	    mixins: true,
-	    propTypes: true,
-	    type: true
-	};
-
-	var KNOWN_STATICS = {
-	    name: true,
-	    length: true,
-	    prototype: true,
-	    caller: true,
-	    arguments: true,
-	    arity: true
-	};
-
-	module.exports = function hoistNonReactStatics(targetComponent, sourceComponent) {
-	    if (typeof sourceComponent !== 'string') {
-	        // don't hoist over string (html) components
-	        var keys = Object.getOwnPropertyNames(sourceComponent);
-	        for (var i = 0; i < keys.length; ++i) {
-	            if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]]) {
-	                try {
-	                    targetComponent[keys[i]] = sourceComponent[keys[i]];
-	                } catch (error) {}
-	            }
-	        }
-	    }
-
-	    return targetComponent;
-	};
-
-/***/ },
 /* 321 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* NOTE: This mimics what we do in webapp and links to our custom version of
-	React -- this was not added with npm */
-	module.exports = __webpack_require__(45).__internalAddons.CSSTransitionGroup;
-
-
-/***/ },
-/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -98781,12 +98874,100 @@ module.exports =
 	module.exports = invariant;
 
 /***/ },
+/* 322 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* NOTE: This mimics what we do in webapp and links to our custom version of
+	React -- this was not added with npm */
+	module.exports = __webpack_require__(45).__internalAddons.CSSTransitionGroup;
+
+
+/***/ },
 /* 323 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* Built-in method references for those with the same name as other `lodash` methods. */
+	var nativeGetPrototype = Object.getPrototypeOf;
+
+	/**
+	 * Gets the `[[Prototype]]` of `value`.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @returns {null|Object} Returns the `[[Prototype]]`.
+	 */
+	function getPrototype(value) {
+	  return nativeGetPrototype(Object(value));
+	}
+
+	module.exports = getPrototype;
+
+/***/ },
+/* 324 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Checks if `value` is a host object in IE < 9.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
+	 */
+	function isHostObject(value) {
+	  // Many host objects are `Object` objects that can coerce to strings
+	  // despite having improperly defined `toString` methods.
+	  var result = false;
+	  if (value != null && typeof value.toString != 'function') {
+	    try {
+	      result = !!(value + '');
+	    } catch (e) {}
+	  }
+	  return result;
+	}
+
+	module.exports = isHostObject;
+
+/***/ },
+/* 325 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Checks if `value` is object-like. A value is object-like if it's not `null`
+	 * and has a `typeof` result of "object".
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+	 * @example
+	 *
+	 * _.isObjectLike({});
+	 * // => true
+	 *
+	 * _.isObjectLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObjectLike(_.noop);
+	 * // => false
+	 *
+	 * _.isObjectLike(null);
+	 * // => false
+	 */
+	function isObjectLike(value) {
+	  return !!value && typeof value == 'object';
+	}
+
+	module.exports = isObjectLike;
+
+/***/ },
+/* 326 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var rawAsap = __webpack_require__(337);
+	var rawAsap = __webpack_require__(336);
 	var freeTasks = [];
 
 	/**
@@ -98850,7 +99031,7 @@ module.exports =
 	};
 
 /***/ },
-/* 324 */
+/* 327 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -98863,7 +99044,7 @@ module.exports =
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-	var _camelToDashCase = __webpack_require__(325);
+	var _camelToDashCase = __webpack_require__(328);
 
 	var _camelToDashCase2 = _interopRequireDefault(_camelToDashCase);
 
@@ -98883,7 +99064,7 @@ module.exports =
 	module.exports = exports['default'];
 
 /***/ },
-/* 325 */
+/* 328 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -98905,7 +99086,7 @@ module.exports =
 	module.exports = exports['default'];
 
 /***/ },
-/* 326 */
+/* 329 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -98922,159 +99103,7 @@ module.exports =
 	module.exports = exports['default'];
 
 /***/ },
-/* 327 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* Built-in method references for those with the same name as other `lodash` methods. */
-	var nativeGetPrototype = Object.getPrototypeOf;
-
-	/**
-	 * Gets the `[[Prototype]]` of `value`.
-	 *
-	 * @private
-	 * @param {*} value The value to query.
-	 * @returns {null|Object} Returns the `[[Prototype]]`.
-	 */
-	function getPrototype(value) {
-	  return nativeGetPrototype(Object(value));
-	}
-
-	module.exports = getPrototype;
-
-/***/ },
-/* 328 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Checks if `value` is a host object in IE < 9.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
-	 */
-	function isHostObject(value) {
-	  // Many host objects are `Object` objects that can coerce to strings
-	  // despite having improperly defined `toString` methods.
-	  var result = false;
-	  if (value != null && typeof value.toString != 'function') {
-	    try {
-	      result = !!(value + '');
-	    } catch (e) {}
-	  }
-	  return result;
-	}
-
-	module.exports = isHostObject;
-
-/***/ },
-/* 329 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Checks if `value` is object-like. A value is object-like if it's not `null`
-	 * and has a `typeof` result of "object".
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 4.0.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
-	 * @example
-	 *
-	 * _.isObjectLike({});
-	 * // => true
-	 *
-	 * _.isObjectLike([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObjectLike(_.noop);
-	 * // => false
-	 *
-	 * _.isObjectLike(null);
-	 * // => false
-	 */
-	function isObjectLike(value) {
-	  return !!value && typeof value == 'object';
-	}
-
-	module.exports = isObjectLike;
-
-/***/ },
 /* 330 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var getPrototype = __webpack_require__(338),
-	    isHostObject = __webpack_require__(339),
-	    isObjectLike = __webpack_require__(340);
-
-	/** `Object#toString` result references. */
-	var objectTag = '[object Object]';
-
-	/** Used for built-in method references. */
-	var objectProto = Object.prototype;
-
-	/** Used to resolve the decompiled source of functions. */
-	var funcToString = Function.prototype.toString;
-
-	/** Used to check objects for own properties. */
-	var hasOwnProperty = objectProto.hasOwnProperty;
-
-	/** Used to infer the `Object` constructor. */
-	var objectCtorString = funcToString.call(Object);
-
-	/**
-	 * Used to resolve the
-	 * [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
-	 * of values.
-	 */
-	var objectToString = objectProto.toString;
-
-	/**
-	 * Checks if `value` is a plain object, that is, an object created by the
-	 * `Object` constructor or one with a `[[Prototype]]` of `null`.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.8.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a plain object,
-	 *  else `false`.
-	 * @example
-	 *
-	 * function Foo() {
-	 *   this.a = 1;
-	 * }
-	 *
-	 * _.isPlainObject(new Foo);
-	 * // => false
-	 *
-	 * _.isPlainObject([1, 2, 3]);
-	 * // => false
-	 *
-	 * _.isPlainObject({ 'x': 0, 'y': 0 });
-	 * // => true
-	 *
-	 * _.isPlainObject(Object.create(null));
-	 * // => true
-	 */
-	function isPlainObject(value) {
-	  if (!isObjectLike(value) || objectToString.call(value) != objectTag || isHostObject(value)) {
-	    return false;
-	  }
-	  var proto = getPrototype(value);
-	  if (proto === null) {
-	    return true;
-	  }
-	  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
-	  return typeof Ctor == 'function' && Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString;
-	}
-
-	module.exports = isPlainObject;
-
-/***/ },
-/* 331 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -99085,7 +99114,7 @@ module.exports =
 	};
 
 /***/ },
-/* 332 */
+/* 331 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -99094,7 +99123,7 @@ module.exports =
 
 	var React = __webpack_require__(45);
 
-	var _require = __webpack_require__(258);
+	var _require = __webpack_require__(259);
 
 	var StyleSheet = _require.StyleSheet;
 
@@ -99102,14 +99131,14 @@ module.exports =
 
 	var View = _require2.View;
 
-	var UnicodeSymbol = __webpack_require__(333);
+	var UnicodeSymbol = __webpack_require__(332);
 
-	var _require3 = __webpack_require__(269);
+	var _require3 = __webpack_require__(270);
 
 	var row = _require3.row;
 	var centered = _require3.centered;
 
-	var _require4 = __webpack_require__(234);
+	var _require4 = __webpack_require__(232);
 
 	var iconGrey = _require4.iconGrey;
 	var iconSizeHeightPx = _require4.iconSizeHeightPx;
@@ -99156,7 +99185,7 @@ module.exports =
 	module.exports = UnicodeIcon;
 
 /***/ },
-/* 333 */
+/* 332 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -99166,7 +99195,7 @@ module.exports =
 
 	var React = __webpack_require__(45);
 
-	var _require = __webpack_require__(258);
+	var _require = __webpack_require__(259);
 
 	var StyleSheet = _require.StyleSheet;
 
@@ -99208,7 +99237,71 @@ module.exports =
 	module.exports = UnicodeSymbol;
 
 /***/ },
+/* 333 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* global window */
+	'use strict';
+
+	module.exports = __webpack_require__(337)(global || window || this);
+
+/***/ },
 /* 334 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * A directory of autogenerated icon components.
+	 */
+
+	module.exports = {
+	    COS: __webpack_require__(338),
+	    LOG: __webpack_require__(339),
+	    EQUAL: __webpack_require__(340),
+	    BACKSPACE: __webpack_require__(341),
+	    SQRT: __webpack_require__(342),
+	    EXP: __webpack_require__(343),
+	    NEQ: __webpack_require__(344),
+	    GEQ: __webpack_require__(345),
+	    LN: __webpack_require__(346),
+	    JUMP_OUT: __webpack_require__(347),
+	    DISMISS: __webpack_require__(348),
+	    SIN: __webpack_require__(349),
+	    LT: __webpack_require__(350),
+	    FRAC_MULTI: __webpack_require__(351),
+	    NUMBERS: __webpack_require__(352),
+	    CUBE_ROOT: __webpack_require__(353),
+	    PLUS: __webpack_require__(354),
+	    TAN: __webpack_require__(355),
+	    LEFT: __webpack_require__(356),
+	    PARENS: __webpack_require__(357),
+	    GT: __webpack_require__(358),
+	    FRAC: __webpack_require__(359),
+	    DIVIDE: __webpack_require__(360),
+	    DECIMAL: __webpack_require__(361),
+	    PERCENT: __webpack_require__(362),
+	    TIMES: __webpack_require__(363),
+	    TOGGLE_SIGN: __webpack_require__(364),
+	    EXP_3: __webpack_require__(365),
+	    EXP_2: __webpack_require__(366),
+	    PARENS_MULTI: __webpack_require__(367),
+	    RIGHT: __webpack_require__(368),
+	    CDOT: __webpack_require__(369),
+	    LOG_N: __webpack_require__(370),
+	    LEQ: __webpack_require__(371),
+	    MINUS: __webpack_require__(372),
+	    RADICAL: __webpack_require__(373),
+	    MORE: __webpack_require__(374),
+
+	    // These multi-functional keys use the symbols of their 'default' keys.
+	    EQUAL_MULTI: __webpack_require__(340),
+	    GREATER_MULTI: __webpack_require__(358),
+	    LESS_MULTI: __webpack_require__(350),
+	    EXP_MULTI: __webpack_require__(366),
+	    RADICAL_MULTI: __webpack_require__(342),
+	    LOG_MULTI: __webpack_require__(339) };
+
+/***/ },
+/* 335 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -99237,23 +99330,23 @@ module.exports =
 	  }
 	}
 
-	var _utilsGetBrowserInformation = __webpack_require__(341);
+	var _utilsGetBrowserInformation = __webpack_require__(375);
 
 	var _utilsGetBrowserInformation2 = _interopRequireDefault(_utilsGetBrowserInformation);
 
-	var _utilsCapitalizeString = __webpack_require__(342);
+	var _utilsCapitalizeString = __webpack_require__(376);
 
 	var _utilsCapitalizeString2 = _interopRequireDefault(_utilsCapitalizeString);
 
-	var _utilsAssign = __webpack_require__(343);
+	var _utilsAssign = __webpack_require__(377);
 
 	var _utilsAssign2 = _interopRequireDefault(_utilsAssign);
 
-	var _caniuseData = __webpack_require__(344);
+	var _caniuseData = __webpack_require__(378);
 
 	var _caniuseData2 = _interopRequireDefault(_caniuseData);
 
-	var _Plugins = __webpack_require__(345);
+	var _Plugins = __webpack_require__(379);
 
 	var _Plugins2 = _interopRequireDefault(_Plugins);
 
@@ -99317,71 +99410,7 @@ module.exports =
 	module.exports = exports['default'];
 
 /***/ },
-/* 335 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* global window */
-	'use strict';
-
-	module.exports = __webpack_require__(346)(global || window || this);
-
-/***/ },
 /* 336 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * A directory of autogenerated icon components.
-	 */
-
-	module.exports = {
-	    COS: __webpack_require__(347),
-	    LOG: __webpack_require__(348),
-	    EQUAL: __webpack_require__(349),
-	    BACKSPACE: __webpack_require__(350),
-	    SQRT: __webpack_require__(351),
-	    EXP: __webpack_require__(352),
-	    NEQ: __webpack_require__(353),
-	    GEQ: __webpack_require__(354),
-	    LN: __webpack_require__(355),
-	    JUMP_OUT: __webpack_require__(356),
-	    DISMISS: __webpack_require__(357),
-	    SIN: __webpack_require__(358),
-	    LT: __webpack_require__(359),
-	    FRAC_MULTI: __webpack_require__(360),
-	    NUMBERS: __webpack_require__(361),
-	    CUBE_ROOT: __webpack_require__(362),
-	    PLUS: __webpack_require__(363),
-	    TAN: __webpack_require__(364),
-	    LEFT: __webpack_require__(365),
-	    PARENS: __webpack_require__(366),
-	    GT: __webpack_require__(367),
-	    FRAC: __webpack_require__(368),
-	    DIVIDE: __webpack_require__(369),
-	    DECIMAL: __webpack_require__(370),
-	    PERCENT: __webpack_require__(371),
-	    TIMES: __webpack_require__(372),
-	    TOGGLE_SIGN: __webpack_require__(373),
-	    EXP_3: __webpack_require__(374),
-	    EXP_2: __webpack_require__(375),
-	    PARENS_MULTI: __webpack_require__(376),
-	    RIGHT: __webpack_require__(377),
-	    CDOT: __webpack_require__(378),
-	    LOG_N: __webpack_require__(379),
-	    LEQ: __webpack_require__(380),
-	    MINUS: __webpack_require__(381),
-	    RADICAL: __webpack_require__(382),
-	    MORE: __webpack_require__(383),
-
-	    // These multi-functional keys use the symbols of their 'default' keys.
-	    EQUAL_MULTI: __webpack_require__(349),
-	    GREATER_MULTI: __webpack_require__(367),
-	    LESS_MULTI: __webpack_require__(359),
-	    EXP_MULTI: __webpack_require__(375),
-	    RADICAL_MULTI: __webpack_require__(351),
-	    LOG_MULTI: __webpack_require__(348) };
-
-/***/ },
-/* 337 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -99464,7 +99493,7 @@ module.exports =
 	        if (!domain) {
 	            // Lazy execute the domain module.
 	            // Only employed if the user elects to use domains.
-	            domain = __webpack_require__(303);
+	            domain = __webpack_require__(302);
 	        }
 	        domain.active = process.domain = null;
 	    }
@@ -99487,86 +99516,1990 @@ module.exports =
 	}
 
 /***/ },
+/* 337 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = function symbolObservablePonyfill(root) {
+		var result;
+		var Symbol = root.Symbol;
+
+		if (typeof Symbol === 'function') {
+			if (Symbol.observable) {
+				result = Symbol.observable;
+			} else {
+				result = Symbol('observable');
+				Symbol.observable = result;
+			}
+		} else {
+			result = '@@observable';
+		}
+
+		return result;
+	};
+
+/***/ },
 /* 338 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* Built-in method references for those with the same name as other `lodash` methods. */
-	var nativeGetPrototype = Object.getPrototypeOf;
-
 	/**
-	 * Gets the `[[Prototype]]` of `value`.
+	 * An autogenerated component that renders the COS iconograpy in SVG.
 	 *
-	 * @private
-	 * @param {*} value The value to query.
-	 * @returns {null|Object} Returns the `[[Prototype]]`.
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
 	 */
-	function getPrototype(value) {
-	  return nativeGetPrototype(Object(value));
-	}
+	var React = __webpack_require__(45);
 
-	module.exports = getPrototype;
+	var Cos = React.createClass({
+	    displayName: 'Cos',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1476.000000, -902.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_cos', transform: 'translate(1476.000000, 902.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon', strokeWidth: '1', transform: 'translate(13.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('path', { d: 'M5.182,17.168 C6.568,17.168 7.408,16.566 7.856,15.936 L6.694,14.858 C6.372,15.306 5.882,15.586 5.266,15.586 C4.188,15.586 3.432,14.788 3.432,13.612 C3.432,12.436 4.188,11.652 5.266,11.652 C5.882,11.652 6.372,11.904 6.694,12.38 L7.856,11.288 C7.408,10.672 6.568,10.07 5.182,10.07 C3.096,10.07 1.598,11.54 1.598,13.612 C1.598,15.698 3.096,17.168 5.182,17.168 L5.182,17.168 Z M12.154,17.168 C14.394,17.168 15.738,15.544 15.738,13.612 C15.738,11.694 14.394,10.07 12.154,10.07 C9.928,10.07 8.584,11.694 8.584,13.612 C8.584,15.544 9.928,17.168 12.154,17.168 L12.154,17.168 Z M12.154,15.586 C11.048,15.586 10.432,14.676 10.432,13.612 C10.432,12.562 11.048,11.652 12.154,11.652 C13.26,11.652 13.89,12.562 13.89,13.612 C13.89,14.676 13.26,15.586 12.154,15.586 L12.154,15.586 Z M19.49,17.168 C21.366,17.168 22.416,16.23 22.416,14.998 C22.416,12.268 18.412,13.108 18.412,12.1 C18.412,11.722 18.832,11.428 19.476,11.428 C20.302,11.428 21.072,11.778 21.478,12.212 L22.192,10.994 C21.52,10.462 20.61,10.07 19.462,10.07 C17.684,10.07 16.69,11.064 16.69,12.198 C16.69,14.858 20.708,13.948 20.708,15.068 C20.708,15.488 20.344,15.796 19.574,15.796 C18.734,15.796 17.726,15.334 17.236,14.872 L16.466,16.118 C17.18,16.776 18.314,17.168 19.49,17.168 L19.49,17.168 Z', id: 'cos', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Cos;
 
 /***/ },
 /* 339 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * Checks if `value` is a host object in IE < 9.
+	 * An autogenerated component that renders the LOG iconograpy in SVG.
 	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
 	 */
-	function isHostObject(value) {
-	  // Many host objects are `Object` objects that can coerce to strings
-	  // despite having improperly defined `toString` methods.
-	  var result = false;
-	  if (value != null && typeof value.toString != 'function') {
-	    try {
-	      result = !!(value + '');
-	    } catch (e) {}
-	  }
-	  return result;
-	}
+	var React = __webpack_require__(45);
 
-	module.exports = isHostObject;
+	var Log = React.createClass({
+	    displayName: 'Log',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1340.000000, -834.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_log_10', transform: 'translate(1340.000000, 834.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M16.776,29 L16.776,19.662 L14.998,19.662 L14.998,29 L16.776,29 Z M21.676,29.168 C23.916,29.168 25.26,27.544 25.26,25.612 C25.26,23.694 23.916,22.07 21.676,22.07 C19.45,22.07 18.106,23.694 18.106,25.612 C18.106,27.544 19.45,29.168 21.676,29.168 L21.676,29.168 Z M21.676,27.586 C20.57,27.586 19.954,26.676 19.954,25.612 C19.954,24.562 20.57,23.652 21.676,23.652 C22.782,23.652 23.412,24.562 23.412,25.612 C23.412,26.676 22.782,27.586 21.676,27.586 L21.676,27.586 Z M29.348,31.744 C31.014,31.744 33.002,31.114 33.002,28.538 L33.002,22.238 L31.21,22.238 L31.21,23.106 C30.664,22.42 29.936,22.07 29.124,22.07 C27.416,22.07 26.142,23.302 26.142,25.514 C26.142,27.768 27.43,28.958 29.124,28.958 C29.95,28.958 30.678,28.566 31.21,27.894 L31.21,28.58 C31.21,29.91 30.202,30.288 29.348,30.288 C28.494,30.288 27.78,30.05 27.234,29.448 L26.436,30.736 C27.29,31.478 28.186,31.744 29.348,31.744 L29.348,31.744 Z M29.684,27.376 C28.676,27.376 27.976,26.676 27.976,25.514 C27.976,24.352 28.676,23.652 29.684,23.652 C30.272,23.652 30.916,23.974 31.21,24.422 L31.21,26.606 C30.916,27.04 30.272,27.376 29.684,27.376 L29.684,27.376 Z', id: 'log', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Log;
 
 /***/ },
 /* 340 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * Checks if `value` is object-like. A value is object-like if it's not `null`
-	 * and has a `typeof` result of "object".
+	 * An autogenerated component that renders the EQUAL iconograpy in SVG.
 	 *
-	 * @static
-	 * @memberOf _
-	 * @since 4.0.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
-	 * @example
-	 *
-	 * _.isObjectLike({});
-	 * // => true
-	 *
-	 * _.isObjectLike([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObjectLike(_.noop);
-	 * // => false
-	 *
-	 * _.isObjectLike(null);
-	 * // => false
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
 	 */
-	function isObjectLike(value) {
-	  return !!value && typeof value == 'object';
-	}
+	var React = __webpack_require__(45);
 
-	module.exports = isObjectLike;
+	var Equal = React.createClass({
+	    displayName: 'Equal',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1000.000000, -834.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_equals', transform: 'translate(1000.000000, 834.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement(
+	                                'g',
+	                                { id: 'math_keypad_icon_equals' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                                React.createElement(
+	                                    'g',
+	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
+	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                    React.createElement('path', { d: 'M4,9 L21,9', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                    React.createElement('path', { d: 'M4,15 L21,15', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Equal;
 
 /***/ },
 /* 341 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the BACKSPACE iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Backspace = function () {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1136.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_delete", transform: "translate(1136.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", fillRule: "evenodd", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement("path", { d: "M13,24 L13,24 L19,30 L33,30 L33,18 L19,18 L13,24 Z M11.5857864,22.5857864 L11.5857864,22.5857864 L17.5857864,16.5857864 C17.9608592,16.2107137 18.469567,16 19,16 L33,16 C34.1045695,16 35,16.8954305 35,18 L35,30 C35,31.1045695 34.1045695,32 33,32 L19,32 C18.469567,32 17.9608592,31.7892863 17.5857864,31.4142136 L11.5857864,25.4142136 C10.8047379,24.633165 10.8047379,23.366835 11.5857864,22.5857864 L11.5857864,22.5857864 Z", id: "outline", fill: "#888D93", fillRule: "evenodd" }),
+	                    React.createElement("path", { d: "M23,21 L29,27", id: "slash", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
+	                    React.createElement("path", { d: "M23,21 L29,27", id: "slash", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", transform: "translate(26.000000, 24.000000) scale(-1, 1) translate(-26.000000, -24.000000) " })
+	                )
+	            )
+	        )
+	    );
+	};
+
+	module.exports = Backspace;
+
+/***/ },
+/* 342 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the SQRT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Sqrt = React.createClass({
+	    displayName: 'Sqrt',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -834.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_radical_2', transform: 'translate(1272.000000, 834.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('polyline', { id: 'root', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '14 29 18 35 27 21 34 21' })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Sqrt;
+
+/***/ },
+/* 343 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the EXP iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Exp = React.createClass({
+	    displayName: 'Exp',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -698.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_exponent', transform: 'translate(1204.000000, 698.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M28,16.9970301 C28,16.4463856 28.4530363,16 28.9970301,16 L35.0029699,16 C35.5536144,16 36,16.4530363 36,16.9970301 L36,23.0029699 C36,23.5536144 35.5469637,24 35.0029699,24 L28.9970301,24 C28.4463856,24 28,23.5469637 28,23.0029699 L28,16.9970301 Z M30,18 L34,18 L34,22 L30,22 L30,18 Z', id: 'block', fill: this.props.primaryColor }),
+	                            React.createElement('path', { d: 'M14,21.0008717 C14,20.4481055 14.455761,20 15.0024733,20 L24.9975267,20 C25.5511774,20 26,20.4446309 26,21.0008717 L26,34.9991283 C26,35.5518945 25.544239,36 24.9975267,36 L15.0024733,36 C14.4488226,36 14,35.5553691 14,34.9991283 L14,21.0008717 Z M16,22 L24,22 L24,34 L16,34 L16,22 Z', id: 'block', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Exp;
+
+/***/ },
+/* 344 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the NEQ iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Neq = React.createClass({
+	    displayName: 'Neq',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1000.000000, -766.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_equals_not', transform: 'translate(1000.000000, 766.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement(
+	                                'g',
+	                                { id: 'math_keypad_icon_equals' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                                React.createElement(
+	                                    'g',
+	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
+	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                    React.createElement('path', { d: 'M7,21 L17,3', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                    React.createElement('path', { d: 'M4,9 L21,9', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                    React.createElement('path', { d: 'M4,15 L21,15', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Neq;
+
+/***/ },
+/* 345 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the GEQ iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Geq = React.createClass({
+	    displayName: 'Geq',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -766.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_greater_than_not', transform: 'translate(1136.000000, 766.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement(
+	                                'g',
+	                                { id: 'math_keypad_icon_greater_than' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                                React.createElement(
+	                                    'g',
+	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
+	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                    React.createElement('path', { d: 'M4,21 L20,21', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '4 18 20 12 4 6' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Geq;
+
+/***/ },
+/* 346 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the LN iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Ln = React.createClass({
+	    displayName: 'Ln',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1340.000000, -766.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_log_e', transform: 'translate(1340.000000, 766.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M20.836,29 L20.836,19.662 L19.058,19.662 L19.058,29 L20.836,29 Z M28.942,29 L28.942,24.226 C28.942,22.91 28.228,22.07 26.744,22.07 C25.638,22.07 24.812,22.602 24.378,23.12 L24.378,22.238 L22.6,22.238 L22.6,29 L24.378,29 L24.378,24.45 C24.672,24.044 25.218,23.652 25.918,23.652 C26.674,23.652 27.164,23.974 27.164,24.912 L27.164,29 L28.942,29 Z', id: 'ln', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Ln;
+
+/***/ },
+/* 347 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the JUMP_OUT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var JumpOut = function () {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1408.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_jump_out", transform: "translate(1408.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement(
+	                        "g",
+	                        { id: "icon", strokeWidth: "1", transform: "translate(12.000000, 12.000000)" },
+	                        React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "24", height: "24" }),
+	                        React.createElement("path", { d: "M2,4.99508929 L2,4.99508929 L2,19.0049107 C2,19.0007808 1.99921607,19 2.00276013,19 L10.9972399,19 C11.0020427,19 11,19.002037 11,19.0049107 L11,4.99508929 C11,4.99921924 11.0007839,5 10.9972399,5 L2.00276013,5 C1.99795733,5 2,4.99796296 2,4.99508929 L2,4.99508929 Z M0,4.99508929 C0,3.8932319 0.893542647,3 2.00276013,3 L10.9972399,3 C12.1033337,3 13,3.8926228 13,4.99508929 L13,19.0049107 C13,20.1067681 12.1064574,21 10.9972399,21 L2.00276013,21 C0.896666251,21 0,20.1073772 0,19.0049107 L0,4.99508929 L0,4.99508929 Z", id: "box", fill: "#888D93" }),
+	                        React.createElement("path", { d: "M18,12 L9,12", id: "tail", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
+	                        React.createElement("polyline", { id: "head", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "16 9 19 12 16 15" }),
+	                        React.createElement("path", { d: "M23,4 L23,20", id: "caret", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
+	                        React.createElement("path", { d: "M5,8 L5,16", id: "caret", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" })
+	                    )
+	                )
+	            )
+	        )
+	    );
+	};
+
+	module.exports = JumpOut;
+
+/***/ },
+/* 348 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the DISMISS iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Dismiss = function () {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1204.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_dismiss", transform: "translate(1204.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", fillRule: "evenodd", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement("polyline", { id: "chevron", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "20 32 24 36 28 32" }),
+	                    React.createElement(
+	                        "g",
+	                        { id: "keyboard", strokeWidth: "1", fillRule: "evenodd", transform: "translate(14.000000, 12.000000)", fill: "#78C008" },
+	                        React.createElement("path", { d: "M0,1.00684547 C0,0.450780073 0.455305576,0 0.99180311,0 L19.0081969,0 C19.5559546,0 20,0.449948758 20,1.00684547 L20,12.9931545 C20,13.5492199 19.5446944,14 19.0081969,14 L0.99180311,14 C0.444045377,14 0,13.5500512 0,12.9931545 L0,1.00684547 Z M6,0 L7,0 L7,14 L6,14 L6,0 Z M13,0 L14,0 L14,14 L13,14 L13,0 Z M0,9 L6,9 L6,10 L0,10 L0,9 Z M0,4 L6,4 L6,5 L0,5 L0,4 Z M7,9 L13,9 L13,10 L7,10 L7,9 Z M7,4 L13,4 L13,5 L7,5 L7,4 Z M14,9 L20,9 L20,10 L14,10 L14,9 Z M14,4 L20,4 L20,5 L14,5 L14,4 Z", id: "keypad" })
+	                    )
+	                )
+	            )
+	        )
+	    );
+	};
+
+	module.exports = Dismiss;
+
+/***/ },
+/* 349 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the SIN iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Sin = React.createClass({
+	    displayName: 'Sin',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1408.000000, -902.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_sin', transform: 'translate(1408.000000, 902.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('path', { d: 'M6.655,17.168 C8.531,17.168 9.581,16.23 9.581,14.998 C9.581,12.268 5.577,13.108 5.577,12.1 C5.577,11.722 5.997,11.428 6.641,11.428 C7.467,11.428 8.237,11.778 8.643,12.212 L9.357,10.994 C8.685,10.462 7.775,10.07 6.627,10.07 C4.849,10.07 3.855,11.064 3.855,12.198 C3.855,14.858 7.873,13.948 7.873,15.068 C7.873,15.488 7.509,15.796 6.739,15.796 C5.899,15.796 4.891,15.334 4.401,14.872 L3.631,16.118 C4.345,16.776 5.479,17.168 6.655,17.168 L6.655,17.168 Z M11.779,9.51 C12.367,9.51 12.843,9.034 12.843,8.446 C12.843,7.858 12.367,7.396 11.779,7.396 C11.205,7.396 10.715,7.858 10.715,8.446 C10.715,9.034 11.205,9.51 11.779,9.51 L11.779,9.51 Z M12.675,17 L12.675,10.238 L10.897,10.238 L10.897,17 L12.675,17 Z M20.781,17 L20.781,12.226 C20.781,10.91 20.067,10.07 18.583,10.07 C17.477,10.07 16.651,10.602 16.217,11.12 L16.217,10.238 L14.439,10.238 L14.439,17 L16.217,17 L16.217,12.45 C16.511,12.044 17.057,11.652 17.757,11.652 C18.513,11.652 19.003,11.974 19.003,12.912 L19.003,17 L20.781,17 Z', id: 'sin', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Sin;
+
+/***/ },
+/* 350 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the LT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Lt = React.createClass({
+	    displayName: 'Lt',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1068.000000, -834.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_less_than', transform: 'translate(1068.000000, 834.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement(
+	                                'g',
+	                                { id: 'math_keypad_icon_less_than' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                                React.createElement(
+	                                    'g',
+	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
+	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '20 18 4 12 20 6' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Lt;
+
+/***/ },
+/* 351 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the FRAC_MULTI iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var FracMulti = React.createClass({
+	    displayName: 'FracMulti',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -600.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_division_multi', transform: 'translate(1204.000000, 600.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            null,
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'fraction', transform: 'translate(6.000000, 12.000000)' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                React.createElement('path', { d: 'M8,16.9970301 C8,16.4463856 8.45303631,16 8.99703014,16 L15.0029699,16 C15.5536144,16 16,16.4530363 16,16.9970301 L16,23.0029699 C16,23.5536144 15.5469637,24 15.0029699,24 L8.99703014,24 C8.4463856,24 8,23.5469637 8,23.0029699 L8,16.9970301 Z M10,18 L14,18 L14,22 L10,22 L10,18 Z', id: 'block', fill: this.props.primaryColor }),
+	                                React.createElement('rect', { id: 'bar', fill: this.props.primaryColor, x: '2', y: '11', width: '20', height: '2', rx: '1' }),
+	                                React.createElement('path', { d: 'M8,0.997030139 C8,0.446385598 8.45303631,0 8.99703014,0 L15.0029699,0 C15.5536144,0 16,0.453036308 16,0.997030139 L16,7.00296986 C16,7.5536144 15.5469637,8 15.0029699,8 L8.99703014,8 C8.4463856,8 8,7.54696369 8,7.00296986 L8,0.997030139 Z M10,2 L14,2 L14,6 L10,6 L10,2 Z', id: 'block', fill: this.props.primaryColor })
+	                            ),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'division', opacity: '0.3', transform: 'translate(34.000000, 12.000000)' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '8', height: '8' }),
+	                                React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, cx: '4', cy: '7', r: '1' }),
+	                                React.createElement('path', { d: 'M1,4 L7,4', id: 'bar', stroke: this.props.primaryColor, strokeWidth: '1.5', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                React.createElement('path', { d: 'M4,2 C4.55228475,2 5,1.55228475 5,1 C5,0.44771525 4.55228475,0 4,0 C3.44771525,0 3,0.44771525 3,1 C3,1.55228475 3.44771525,2 4,2 Z', id: 'dot', fill: this.props.primaryColor })
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = FracMulti;
+
+/***/ },
+/* 352 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the NUMBERS iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Numbers = function () {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1068.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_on_page_symbols", transform: "translate(1068.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement(
+	                        "g",
+	                        { id: "arithmetic", strokeWidth: "1", transform: "translate(13.000000, 13.000000)" },
+	                        React.createElement(
+	                            "g",
+	                            { id: "divide", transform: "translate(14.000000, 13.000000)" },
+	                            React.createElement("path", { d: "M0,5 L8,5", id: "line", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
+	                            React.createElement("circle", { id: "Oval-30", fill: "#888D93", cx: "4", cy: "1.5", r: "1.5" }),
+	                            React.createElement("circle", { id: "Oval-30", fill: "#888D93", cx: "4", cy: "8.5", r: "1.5" })
+	                        ),
+	                        React.createElement(
+	                            "g",
+	                            { id: "multiply", transform: "translate(1.000000, 15.000000)", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
+	                            React.createElement("path", { d: "M0,6 L6,0", id: "line" }),
+	                            React.createElement("path", { d: "M0,0 L6,6", id: "line" })
+	                        ),
+	                        React.createElement(
+	                            "g",
+	                            { id: "subtract", transform: "translate(14.000000, 3.000000)", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
+	                            React.createElement("path", { d: "M0,1 L8,1", id: "line" })
+	                        ),
+	                        React.createElement(
+	                            "g",
+	                            { id: "add", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
+	                            React.createElement("path", { d: "M4,8 L4,0", id: "line" }),
+	                            React.createElement("path", { d: "M0,4 L8,4", id: "line" })
+	                        )
+	                    )
+	                )
+	            )
+	        )
+	    );
+	};
+
+	module.exports = Numbers;
+
+/***/ },
+/* 353 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the CUBE_ROOT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var CubeRoot = React.createClass({
+	    displayName: 'CubeRoot',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -766.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_radical_3', transform: 'translate(1272.000000, 766.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M17.91,23.12 C19.57,23.12 20.67,22.31 20.67,21.14 C20.67,20.18 19.81,19.63 19.1,19.56 C19.89,19.43 20.56,18.84 20.56,18.06 C20.56,16.96 19.61,16.23 17.91,16.23 C16.68,16.23 15.8,16.68 15.24,17.31 L16.07,18.39 C16.54,17.97 17.12,17.75 17.73,17.75 C18.37,17.75 18.85,17.94 18.85,18.36 C18.85,18.71 18.46,18.88 17.77,18.88 C17.52,18.88 17,18.88 16.87,18.87 L16.87,20.4 C16.97,20.39 17.48,20.39 17.77,20.39 C18.68,20.39 18.96,20.57 18.96,20.95 C18.96,21.32 18.58,21.6 17.84,21.6 C17.26,21.6 16.5,21.37 16.02,20.9 L15.15,22.07 C15.67,22.67 16.63,23.12 17.91,23.12 L17.91,23.12 Z', id: '3', fill: this.props.primaryColor }),
+	                            React.createElement('polyline', { id: 'root', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '14 29 18 35 27 21 34 21' })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = CubeRoot;
+
+/***/ },
+/* 354 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the PLUS iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Plus = React.createClass({
+	    displayName: 'Plus',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1000.000000, -600.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_addition', transform: 'translate(1000.000000, 600.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', fillRule: 'evenodd', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement('path', { d: 'M19,24 L29,24', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                        React.createElement('path', { d: 'M24,29 L24,19', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Plus;
+
+/***/ },
+/* 355 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the TAN iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Tan = React.createClass({
+	    displayName: 'Tan',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1544.000000, -902.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_tangent', transform: 'translate(1544.000000, 902.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('path', { d: 'M4.93,17.168 C5.672,17.168 6.148,16.972 6.414,16.734 L6.036,15.39 C5.938,15.488 5.686,15.586 5.42,15.586 C5.028,15.586 4.804,15.264 4.804,14.844 L4.804,11.792 L6.176,11.792 L6.176,10.238 L4.804,10.238 L4.804,8.39 L3.012,8.39 L3.012,10.238 L1.892,10.238 L1.892,11.792 L3.012,11.792 L3.012,15.32 C3.012,16.524 3.684,17.168 4.93,17.168 L4.93,17.168 Z M13.232,17 L13.232,12.632 C13.232,10.686 11.818,10.07 10.278,10.07 C9.214,10.07 8.15,10.406 7.324,11.134 L7.996,12.324 C8.57,11.792 9.242,11.526 9.97,11.526 C10.866,11.526 11.454,11.974 11.454,12.66 L11.454,13.57 C11.006,13.038 10.208,12.744 9.312,12.744 C8.234,12.744 6.96,13.346 6.96,14.928 C6.96,16.44 8.234,17.168 9.312,17.168 C10.194,17.168 10.992,16.846 11.454,16.3 L11.454,17 L13.232,17 Z M10.026,15.964 C9.326,15.964 8.752,15.6 8.752,14.97 C8.752,14.312 9.326,13.948 10.026,13.948 C10.6,13.948 11.16,14.144 11.454,14.536 L11.454,15.376 C11.16,15.768 10.6,15.964 10.026,15.964 L10.026,15.964 Z M21.338,17 L21.338,12.226 C21.338,10.91 20.624,10.07 19.14,10.07 C18.034,10.07 17.208,10.602 16.774,11.12 L16.774,10.238 L14.996,10.238 L14.996,17 L16.774,17 L16.774,12.45 C17.068,12.044 17.614,11.652 18.314,11.652 C19.07,11.652 19.56,11.974 19.56,12.912 L19.56,17 L21.338,17 Z', id: 'tan', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Tan;
+
+/***/ },
+/* 356 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the LEFT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Left = function () {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1272.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_move_backward", transform: "translate(1272.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement(
+	                        "g",
+	                        { id: "arrow", strokeWidth: "1", transform: "translate(12.000000, 12.000000)" },
+	                        React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "24", height: "24" }),
+	                        React.createElement("polyline", { id: "head", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "10 6 4 12 10 18" }),
+	                        React.createElement("path", { d: "M4,12 L20,12", id: "tail", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" })
+	                    )
+	                )
+	            )
+	        )
+	    );
+	};
+
+	module.exports = Left;
+
+/***/ },
+/* 357 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the PARENS iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Parens = React.createClass({
+	    displayName: 'Parens',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -532.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_parentheses', transform: 'translate(1136.000000, 532.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'parentheses', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('path', { d: 'M7,2 C2.99999998,8 3.00000002,16 7,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                            React.createElement('path', { d: 'M20,2 C16,8 16,16 20,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(18.500000, 12.000000) scale(-1, 1) translate(-18.500000, -12.000000) ' })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Parens;
+
+/***/ },
+/* 358 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the GT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Gt = React.createClass({
+	    displayName: 'Gt',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -834.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_greater_than', transform: 'translate(1136.000000, 834.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement(
+	                                'g',
+	                                { id: 'math_keypad_icon_greater_than' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                                React.createElement(
+	                                    'g',
+	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
+	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '4 18 20 12 4 6' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Gt;
+
+/***/ },
+/* 359 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the FRAC iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Frac = React.createClass({
+	    displayName: 'Frac',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -532.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_fraction', transform: 'translate(1204.000000, 532.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'fraction', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('path', { d: 'M8,16.9970301 C8,16.4463856 8.45303631,16 8.99703014,16 L15.0029699,16 C15.5536144,16 16,16.4530363 16,16.9970301 L16,23.0029699 C16,23.5536144 15.5469637,24 15.0029699,24 L8.99703014,24 C8.4463856,24 8,23.5469637 8,23.0029699 L8,16.9970301 Z M10,18 L14,18 L14,22 L10,22 L10,18 Z', id: 'block', fill: this.props.primaryColor }),
+	                            React.createElement('rect', { id: 'bar', fill: this.props.primaryColor, x: '2', y: '11', width: '20', height: '2', rx: '1' }),
+	                            React.createElement('path', { d: 'M8,0.997030139 C8,0.446385598 8.45303631,0 8.99703014,0 L15.0029699,0 C15.5536144,0 16,0.453036308 16,0.997030139 L16,7.00296986 C16,7.5536144 15.5469637,8 15.0029699,8 L8.99703014,8 C8.4463856,8 8,7.54696369 8,7.00296986 L8,0.997030139 Z M10,2 L14,2 L14,6 L10,6 L10,2 Z', id: 'block', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Frac;
+
+/***/ },
+/* 360 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the DIVIDE iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Divide = React.createClass({
+	    displayName: 'Divide',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -464.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_division', transform: 'translate(1204.000000, 464.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', fillRule: 'evenodd', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement('path', { d: 'M19,24 L29,24', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                        React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, fillRule: 'evenodd', cx: '24', cy: '19.5', r: '1.5' }),
+	                        React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, fillRule: 'evenodd', cx: '24', cy: '28.5', r: '1.5' })
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Divide;
+
+/***/ },
+/* 361 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the DECIMAL iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Decimal = React.createClass({
+	    displayName: 'Decimal',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1680.000000, -298.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_radix_character', transform: 'translate(1680.000000, 298.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, cx: '24', cy: '30', r: '2' })
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Decimal;
+
+/***/ },
+/* 362 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the PERCENT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Percent = React.createClass({
+	    displayName: 'Percent',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -600.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_percent', transform: 'translate(1272.000000, 600.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'percent', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('path', { d: 'M16,4 L8,20', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                            React.createElement('circle', { id: 'circle', stroke: this.props.primaryColor, strokeWidth: '2', cx: '7', cy: '7', r: '3' }),
+	                            React.createElement('circle', { id: 'circle', stroke: this.props.primaryColor, strokeWidth: '2', cx: '17', cy: '17', r: '3' })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Percent;
+
+/***/ },
+/* 363 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the TIMES iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Times = React.createClass({
+	    displayName: 'Times',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -396.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_multiplication_cross', transform: 'translate(1136.000000, 396.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'math_keypad_icon_multiply_cross' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'cross', transform: 'translate(12.000000, 12.000000)' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                React.createElement('path', { d: 'M8,8 L16,16', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                React.createElement('path', { d: 'M8,8 L16,16', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(12.000000, 12.000000) scale(-1, 1) translate(-12.000000, -12.000000) ' })
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Times;
+
+/***/ },
+/* 364 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the TOGGLE_SIGN iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var ToggleSign = React.createClass({
+	    displayName: 'ToggleSign',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1748.000000, -298.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_negate', transform: 'translate(1748.000000, 298.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'subtract', transform: 'translate(15.000000, 15.000000)', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' },
+	                                React.createElement('path', { d: 'M0,1 L8,1', id: 'line' })
+	                            ),
+	                            React.createElement('path', { d: 'M16,4 L8,20', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'add', transform: 'translate(1.000000, 4.000000)', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' },
+	                                React.createElement('path', { d: 'M0,4 L8,4', id: 'line' }),
+	                                React.createElement('path', { d: 'M4,0 L4,8', id: 'line' })
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = ToggleSign;
+
+/***/ },
+/* 365 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the EXP_3 iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Exp3 = React.createClass({
+	    displayName: 'Exp3',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -766.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_exponent_3', transform: 'translate(1204.000000, 766.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M14,21.0008717 C14,20.4481055 14.455761,20 15.0024733,20 L24.9975267,20 C25.5511774,20 26,20.4446309 26,21.0008717 L26,34.9991283 C26,35.5518945 25.544239,36 24.9975267,36 L15.0024733,36 C14.4488226,36 14,35.5553691 14,34.9991283 L14,21.0008717 Z M16,22 L24,22 L24,34 L16,34 L16,22 Z', id: 'block', fill: this.props.primaryColor }),
+	                            React.createElement('path', { d: 'M30.92,23.12 C32.58,23.12 33.68,22.31 33.68,21.14 C33.68,20.18 32.82,19.63 32.11,19.56 C32.9,19.43 33.57,18.84 33.57,18.06 C33.57,16.96 32.62,16.23 30.92,16.23 C29.69,16.23 28.81,16.68 28.25,17.31 L29.08,18.39 C29.55,17.97 30.13,17.75 30.74,17.75 C31.38,17.75 31.86,17.94 31.86,18.36 C31.86,18.71 31.47,18.88 30.78,18.88 C30.53,18.88 30.01,18.88 29.88,18.87 L29.88,20.4 C29.98,20.39 30.49,20.39 30.78,20.39 C31.69,20.39 31.97,20.57 31.97,20.95 C31.97,21.32 31.59,21.6 30.85,21.6 C30.27,21.6 29.51,21.37 29.03,20.9 L28.16,22.07 C28.68,22.67 29.64,23.12 30.92,23.12 L30.92,23.12 Z', id: '3', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Exp3;
+
+/***/ },
+/* 366 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the EXP_2 iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Exp2 = React.createClass({
+	    displayName: 'Exp2',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -834.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_exponent_2', transform: 'translate(1204.000000, 834.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M14,21.0008717 C14,20.4481055 14.455761,20 15.0024733,20 L24.9975267,20 C25.5511774,20 26,20.4446309 26,21.0008717 L26,34.9991283 C26,35.5518945 25.544239,36 24.9975267,36 L15.0024733,36 C14.4488226,36 14,35.5553691 14,34.9991283 L14,21.0008717 Z M16,22 L24,22 L24,34 L16,34 L16,22 Z', id: 'block', fill: this.props.primaryColor }),
+	                            React.createElement('path', { d: 'M33.67,23 L33.67,21.5 L31.23,21.5 C32.89,20.34 33.62,19.47 33.62,18.45 C33.62,17.11 32.49,16.23 30.92,16.23 C29.99,16.23 28.93,16.56 28.22,17.34 L29.17,18.48 C29.65,18.03 30.21,17.75 30.95,17.75 C31.44,17.75 31.87,17.99 31.87,18.45 C31.87,19.11 31.33,19.57 28.44,21.66 L28.44,23 L33.67,23 Z', id: '2', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Exp2;
+
+/***/ },
+/* 367 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the PARENS_MULTI iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var ParensMulti = React.createClass({
+	    displayName: 'ParensMulti',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -600.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_multiplication_multi', transform: 'translate(1136.000000, 600.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            null,
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'parentheses', transform: 'translate(6.000000, 12.000000)' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                React.createElement('path', { d: 'M7,2 C2.99999998,8 3.00000002,16 7,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                React.createElement('path', { d: 'M20,2 C16,8 16,16 20,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(18.500000, 12.000000) scale(-1, 1) translate(-18.500000, -12.000000) ' })
+	                            ),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'dot', opacity: '0.3', transform: 'translate(34.000000, 12.000000)' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '8', height: '8' }),
+	                                React.createElement('circle', { fill: this.props.primaryColor, cx: '4', cy: '4', r: '2' })
+	                            ),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'cross', opacity: '0.3', transform: 'translate(34.000000, 28.000000)' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '8', height: '8' }),
+	                                React.createElement('path', { d: 'M1,1 L7,7', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                React.createElement('path', { d: 'M1,1 L7,7', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(4.000000, 4.000000) scale(-1, 1) translate(-4.000000, -4.000000) ' })
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = ParensMulti;
+
+/***/ },
+/* 368 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the RIGHT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Right = function () {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1340.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_move_forward", transform: "translate(1340.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement(
+	                        "g",
+	                        { id: "arrow", strokeWidth: "1", transform: "translate(12.000000, 12.000000)" },
+	                        React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "24", height: "24" }),
+	                        React.createElement("polyline", { id: "head", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "14 6 20 12 14 18" }),
+	                        React.createElement("path", { d: "M4,12 L20,12", id: "tail", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" })
+	                    )
+	                )
+	            )
+	        )
+	    );
+	};
+
+	module.exports = Right;
+
+/***/ },
+/* 369 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the CDOT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Cdot = React.createClass({
+	    displayName: 'Cdot',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -464.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_multiplication_dot', transform: 'translate(1136.000000, 464.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'cross', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, cx: '12', cy: '12', r: '3' })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Cdot;
+
+/***/ },
+/* 370 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the LOG_N iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var LogN = React.createClass({
+	    displayName: 'LogN',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1340.000000, -698.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_log', transform: 'translate(1340.000000, 698.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M30,28.9970301 C30,28.4463856 30.4530363,28 30.9970301,28 L37.0029699,28 C37.5536144,28 38,28.4530363 38,28.9970301 L38,35.0029699 C38,35.5536144 37.5469637,36 37.0029699,36 L30.9970301,36 C30.4463856,36 30,35.5469637 30,35.0029699 L30,28.9970301 Z M32,30 L36,30 L36,34 L32,34 L32,30 Z', id: 'block', fill: this.props.primaryColor }),
+	                            React.createElement('path', { d: 'M12.776,29 L12.776,19.662 L10.998,19.662 L10.998,29 L12.776,29 Z M17.676,29.168 C19.916,29.168 21.26,27.544 21.26,25.612 C21.26,23.694 19.916,22.07 17.676,22.07 C15.45,22.07 14.106,23.694 14.106,25.612 C14.106,27.544 15.45,29.168 17.676,29.168 L17.676,29.168 Z M17.676,27.586 C16.57,27.586 15.954,26.676 15.954,25.612 C15.954,24.562 16.57,23.652 17.676,23.652 C18.782,23.652 19.412,24.562 19.412,25.612 C19.412,26.676 18.782,27.586 17.676,27.586 L17.676,27.586 Z M25.348,31.744 C27.014,31.744 29.002,31.114 29.002,28.538 L29.002,22.238 L27.21,22.238 L27.21,23.106 C26.664,22.42 25.936,22.07 25.124,22.07 C23.416,22.07 22.142,23.302 22.142,25.514 C22.142,27.768 23.43,28.958 25.124,28.958 C25.95,28.958 26.678,28.566 27.21,27.894 L27.21,28.58 C27.21,29.91 26.202,30.288 25.348,30.288 C24.494,30.288 23.78,30.05 23.234,29.448 L22.436,30.736 C23.29,31.478 24.186,31.744 25.348,31.744 L25.348,31.744 Z M25.684,27.376 C24.676,27.376 23.976,26.676 23.976,25.514 C23.976,24.352 24.676,23.652 25.684,23.652 C26.272,23.652 26.916,23.974 27.21,24.422 L27.21,26.606 C26.916,27.04 26.272,27.376 25.684,27.376 L25.684,27.376 Z', id: 'log', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = LogN;
+
+/***/ },
+/* 371 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the LEQ iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Leq = React.createClass({
+	    displayName: 'Leq',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1068.000000, -766.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_less_than_not', transform: 'translate(1068.000000, 766.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement(
+	                                'g',
+	                                { id: 'math_keypad_icon_less_than' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                                React.createElement(
+	                                    'g',
+	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
+	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                    React.createElement('path', { d: 'M4,21 L20,21', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '20 18 4 12 20 6' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Leq;
+
+/***/ },
+/* 372 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the MINUS iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Minus = React.createClass({
+	    displayName: 'Minus',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1068.000000, -600.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_subtraction', transform: 'translate(1068.000000, 600.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', fillRule: 'evenodd', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement('path', { d: 'M19,24 L29,24', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Minus;
+
+/***/ },
+/* 373 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the RADICAL iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var Radical = React.createClass({
+	    displayName: 'Radical',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -698.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_radical', transform: 'translate(1272.000000, 698.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M13,16.9970301 C13,16.4463856 13.4530363,16 13.9970301,16 L20.0029699,16 C20.5536144,16 21,16.4530363 21,16.9970301 L21,23.0029699 C21,23.5536144 20.5469637,24 20.0029699,24 L13.9970301,24 C13.4463856,24 13,23.5469637 13,23.0029699 L13,16.9970301 Z M15,18 L19,18 L19,22 L15,22 L15,18 Z', id: 'block', fill: this.props.primaryColor }),
+	                            React.createElement('polyline', { id: 'root', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '14 29 18 35 27 21 34 21' })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Radical;
+
+/***/ },
+/* 374 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the MORE iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(45);
+
+	var More = function () {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1000.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_on_page_numbers", transform: "translate(1000.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement(
+	                        "g",
+	                        { id: "symbols", strokeWidth: "1", transform: "translate(13.000000, 15.000000)", stroke: "#888D93", strokeLinecap: "round", strokeLinejoin: "round" },
+	                        React.createElement("polyline", { id: "radical", strokeWidth: "2", points: "14 15 16 19 20 11 22 11" }),
+	                        React.createElement(
+	                            "g",
+	                            { id: "equals", transform: "translate(14.000000, 0.000000)", strokeWidth: "2" },
+	                            React.createElement("path", { d: "M0,1 L8,1", id: "line" }),
+	                            React.createElement("path", { d: "M0,5 L8,5", id: "line" })
+	                        ),
+	                        React.createElement(
+	                            "g",
+	                            { id: "greater-than", strokeWidth: "2" },
+	                            React.createElement("polyline", { id: "line", points: "0 0 8 3 0 6" })
+	                        ),
+	                        React.createElement(
+	                            "g",
+	                            { id: "less-than", transform: "translate(4.000000, 15.000000) scale(-1, 1) translate(-4.000000, -15.000000) translate(0.000000, 12.000000)", strokeWidth: "2" },
+	                            React.createElement("polyline", { id: "line", points: "0 0 8 3 0 6" })
+	                        )
+	                    )
+	                )
+	            )
+	        )
+	    );
+	};
+
+	module.exports = More;
+
+/***/ },
+/* 375 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -99662,7 +101595,7 @@ module.exports =
 	module.exports = exports['default'];
 
 /***/ },
-/* 342 */
+/* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// helper to capitalize strings
@@ -99679,7 +101612,7 @@ module.exports =
 	module.exports = exports["default"];
 
 /***/ },
-/* 343 */
+/* 377 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// leight polyfill for Object.assign
@@ -99701,13 +101634,13 @@ module.exports =
 	module.exports = exports["default"];
 
 /***/ },
-/* 344 */
+/* 378 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = { "transform": 0, "transformOrigin": 0, "transformOriginX": 0, "transformOriginY": 0, "backfaceVisibility": 0, "perspective": 0, "perspectiveOrigin": 0, "transformStyle": 0, "transformOriginZ": 0, "animation": 0, "animationDelay": 0, "animationDirection": 0, "animationFillMode": 0, "animationDuration": 0, "animationIterationCount": 0, "animationName": 0, "animationPlayState": 0, "animationTimingFunction": 0, "appearance": 0, "userSelect": 0, "fontKerning": 0, "textEmphasisPosition": 0, "textEmphasis": 0, "textEmphasisStyle": 0, "textEmphasisColor": 0, "boxDecorationBreak": 0, "clipPath": 0, "maskImage": 0, "maskMode": 0, "maskRepeat": 0, "maskPosition": 0, "maskClip": 0, "maskOrigin": 0, "maskSize": 0, "maskComposite": 0, "mask": 0, "maskBorderSource": 0, "maskBorderMode": 0, "maskBorderSlice": 0, "maskBorderWidth": 0, "maskBorderOutset": 0, "maskBorderRepeat": 0, "maskBorder": 0, "maskType": 0, "textDecorationStyle": 0, "textDecorationSkip": 0, "textDecorationLine": 0, "textDecorationColor": 0, "filter": 0, "fontFeatureSettings": 0, "breakAfter": 0, "breakBefore": 0, "breakInside": 0, "columnCount": 0, "columnFill": 0, "columnGap": 0, "columnRule": 0, "columnRuleColor": 0, "columnRuleStyle": 0, "columnRuleWidth": 0, "columns": 0, "columnSpan": 0, "columnWidth": 0, "flex": 0, "flexBasis": 0, "flexDirection": 0, "flexGrow": 0, "flexFlow": 0, "flexShrink": 0, "flexWrap": 0, "alignContent": 0, "alignItems": 0, "alignSelf": 0, "justifyContent": 0, "order": 0, "transition": 0, "transitionDelay": 0, "transitionDuration": 0, "transitionProperty": 0, "transitionTimingFunction": 0, "backdropFilter": 0, "scrollSnapType": 0, "scrollSnapPointsX": 0, "scrollSnapPointsY": 0, "scrollSnapDestination": 0, "scrollSnapCoordinate": 0, "shapeImageThreshold": 0, "shapeImageMargin": 0, "shapeImageOutside": 0, "hyphens": 0, "flowInto": 0, "flowFrom": 0, "regionFragment": 0, "boxSizing": 0, "textAlignLast": 0, "tabSize": 0, "grid": 0, "gridColumnStart": 0, "gridRow": 0, "gridTemplateColumns": 0, "gridRowStart": 0, "gridRowEnd": 0, "gridTemplateRows": 0, "gridAutoRows": 0, "wrapThrough": 0, "wrapFlow": 0, "gridColumnGap": 0, "touchAction": 0, "gridRowGap": 0, "gridAutoFlow": 0, "gridColumn": 0, "gridGap": 0, "gridTemplateAreas": 0, "gridTemplate": 0, "gridArea": 0, "wrapMargin": 0, "gridAutoColumns": 0, "gridColumnEnd": 0, "textSizeAdjust": 0, "borderImage": 0, "borderImageOutset": 0, "borderImageRepeat": 0, "borderImageSlice": 0, "borderImageSource": 0, "borderImageWidth": 0, "objectFit": 0, "objectPosition": 0 };
 
 /***/ },
-/* 345 */
+/* 379 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -99720,37 +101653,37 @@ module.exports =
 	  return obj && obj.__esModule ? obj : { 'default': obj };
 	}
 
-	var _pluginsCalc = __webpack_require__(384);
+	var _pluginsCalc = __webpack_require__(380);
 
 	var _pluginsCalc2 = _interopRequireDefault(_pluginsCalc);
 
-	var _pluginsCursor = __webpack_require__(385);
+	var _pluginsCursor = __webpack_require__(381);
 
 	var _pluginsCursor2 = _interopRequireDefault(_pluginsCursor);
 
-	var _pluginsFlex = __webpack_require__(386);
+	var _pluginsFlex = __webpack_require__(382);
 
 	var _pluginsFlex2 = _interopRequireDefault(_pluginsFlex);
 
-	var _pluginsSizing = __webpack_require__(387);
+	var _pluginsSizing = __webpack_require__(383);
 
 	var _pluginsSizing2 = _interopRequireDefault(_pluginsSizing);
 
-	var _pluginsGradient = __webpack_require__(388);
+	var _pluginsGradient = __webpack_require__(384);
 
 	var _pluginsGradient2 = _interopRequireDefault(_pluginsGradient);
 
-	var _pluginsTransition = __webpack_require__(389);
+	var _pluginsTransition = __webpack_require__(385);
 
 	var _pluginsTransition2 = _interopRequireDefault(_pluginsTransition);
 
 	// special flexbox specifications
 
-	var _pluginsFlexboxIE = __webpack_require__(390);
+	var _pluginsFlexboxIE = __webpack_require__(386);
 
 	var _pluginsFlexboxIE2 = _interopRequireDefault(_pluginsFlexboxIE);
 
-	var _pluginsFlexboxOld = __webpack_require__(391);
+	var _pluginsFlexboxOld = __webpack_require__(387);
 
 	var _pluginsFlexboxOld2 = _interopRequireDefault(_pluginsFlexboxOld);
 
@@ -99760,1990 +101693,7 @@ module.exports =
 	module.exports = exports['default'];
 
 /***/ },
-/* 346 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	module.exports = function symbolObservablePonyfill(root) {
-		var result;
-		var Symbol = root.Symbol;
-
-		if (typeof Symbol === 'function') {
-			if (Symbol.observable) {
-				result = Symbol.observable;
-			} else {
-				result = Symbol('observable');
-				Symbol.observable = result;
-			}
-		} else {
-			result = '@@observable';
-		}
-
-		return result;
-	};
-
-/***/ },
-/* 347 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the COS iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Cos = React.createClass({
-	    displayName: 'Cos',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1476.000000, -902.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_cos', transform: 'translate(1476.000000, 902.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon', strokeWidth: '1', transform: 'translate(13.000000, 12.000000)' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                            React.createElement('path', { d: 'M5.182,17.168 C6.568,17.168 7.408,16.566 7.856,15.936 L6.694,14.858 C6.372,15.306 5.882,15.586 5.266,15.586 C4.188,15.586 3.432,14.788 3.432,13.612 C3.432,12.436 4.188,11.652 5.266,11.652 C5.882,11.652 6.372,11.904 6.694,12.38 L7.856,11.288 C7.408,10.672 6.568,10.07 5.182,10.07 C3.096,10.07 1.598,11.54 1.598,13.612 C1.598,15.698 3.096,17.168 5.182,17.168 L5.182,17.168 Z M12.154,17.168 C14.394,17.168 15.738,15.544 15.738,13.612 C15.738,11.694 14.394,10.07 12.154,10.07 C9.928,10.07 8.584,11.694 8.584,13.612 C8.584,15.544 9.928,17.168 12.154,17.168 L12.154,17.168 Z M12.154,15.586 C11.048,15.586 10.432,14.676 10.432,13.612 C10.432,12.562 11.048,11.652 12.154,11.652 C13.26,11.652 13.89,12.562 13.89,13.612 C13.89,14.676 13.26,15.586 12.154,15.586 L12.154,15.586 Z M19.49,17.168 C21.366,17.168 22.416,16.23 22.416,14.998 C22.416,12.268 18.412,13.108 18.412,12.1 C18.412,11.722 18.832,11.428 19.476,11.428 C20.302,11.428 21.072,11.778 21.478,12.212 L22.192,10.994 C21.52,10.462 20.61,10.07 19.462,10.07 C17.684,10.07 16.69,11.064 16.69,12.198 C16.69,14.858 20.708,13.948 20.708,15.068 C20.708,15.488 20.344,15.796 19.574,15.796 C18.734,15.796 17.726,15.334 17.236,14.872 L16.466,16.118 C17.18,16.776 18.314,17.168 19.49,17.168 L19.49,17.168 Z', id: 'cos', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Cos;
-
-/***/ },
-/* 348 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the LOG iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Log = React.createClass({
-	    displayName: 'Log',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1340.000000, -834.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_log_10', transform: 'translate(1340.000000, 834.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('path', { d: 'M16.776,29 L16.776,19.662 L14.998,19.662 L14.998,29 L16.776,29 Z M21.676,29.168 C23.916,29.168 25.26,27.544 25.26,25.612 C25.26,23.694 23.916,22.07 21.676,22.07 C19.45,22.07 18.106,23.694 18.106,25.612 C18.106,27.544 19.45,29.168 21.676,29.168 L21.676,29.168 Z M21.676,27.586 C20.57,27.586 19.954,26.676 19.954,25.612 C19.954,24.562 20.57,23.652 21.676,23.652 C22.782,23.652 23.412,24.562 23.412,25.612 C23.412,26.676 22.782,27.586 21.676,27.586 L21.676,27.586 Z M29.348,31.744 C31.014,31.744 33.002,31.114 33.002,28.538 L33.002,22.238 L31.21,22.238 L31.21,23.106 C30.664,22.42 29.936,22.07 29.124,22.07 C27.416,22.07 26.142,23.302 26.142,25.514 C26.142,27.768 27.43,28.958 29.124,28.958 C29.95,28.958 30.678,28.566 31.21,27.894 L31.21,28.58 C31.21,29.91 30.202,30.288 29.348,30.288 C28.494,30.288 27.78,30.05 27.234,29.448 L26.436,30.736 C27.29,31.478 28.186,31.744 29.348,31.744 L29.348,31.744 Z M29.684,27.376 C28.676,27.376 27.976,26.676 27.976,25.514 C27.976,24.352 28.676,23.652 29.684,23.652 C30.272,23.652 30.916,23.974 31.21,24.422 L31.21,26.606 C30.916,27.04 30.272,27.376 29.684,27.376 L29.684,27.376 Z', id: 'log', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Log;
-
-/***/ },
-/* 349 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the EQUAL iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Equal = React.createClass({
-	    displayName: 'Equal',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1000.000000, -834.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_equals', transform: 'translate(1000.000000, 834.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement(
-	                                'g',
-	                                { id: 'math_keypad_icon_equals' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                                React.createElement(
-	                                    'g',
-	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
-	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                    React.createElement('path', { d: 'M4,9 L21,9', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                    React.createElement('path', { d: 'M4,15 L21,15', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Equal;
-
-/***/ },
-/* 350 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the BACKSPACE iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Backspace = function () {
-	    return React.createElement(
-	        "svg",
-	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
-	        React.createElement(
-	            "g",
-	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
-	            React.createElement(
-	                "g",
-	                { id: "[Assets]-Math-Input", transform: "translate(-1136.000000, -200.000000)" },
-	                React.createElement(
-	                    "g",
-	                    { id: "math_keypad_icon_delete", transform: "translate(1136.000000, 200.000000)" },
-	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", fillRule: "evenodd", x: "0", y: "0", width: "48", height: "48" }),
-	                    React.createElement("path", { d: "M13,24 L13,24 L19,30 L33,30 L33,18 L19,18 L13,24 Z M11.5857864,22.5857864 L11.5857864,22.5857864 L17.5857864,16.5857864 C17.9608592,16.2107137 18.469567,16 19,16 L33,16 C34.1045695,16 35,16.8954305 35,18 L35,30 C35,31.1045695 34.1045695,32 33,32 L19,32 C18.469567,32 17.9608592,31.7892863 17.5857864,31.4142136 L11.5857864,25.4142136 C10.8047379,24.633165 10.8047379,23.366835 11.5857864,22.5857864 L11.5857864,22.5857864 Z", id: "outline", fill: "#888D93", fillRule: "evenodd" }),
-	                    React.createElement("path", { d: "M23,21 L29,27", id: "slash", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
-	                    React.createElement("path", { d: "M23,21 L29,27", id: "slash", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", transform: "translate(26.000000, 24.000000) scale(-1, 1) translate(-26.000000, -24.000000) " })
-	                )
-	            )
-	        )
-	    );
-	};
-
-	module.exports = Backspace;
-
-/***/ },
-/* 351 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the SQRT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Sqrt = React.createClass({
-	    displayName: 'Sqrt',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -834.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_radical_2', transform: 'translate(1272.000000, 834.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('polyline', { id: 'root', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '14 29 18 35 27 21 34 21' })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Sqrt;
-
-/***/ },
-/* 352 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the EXP iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Exp = React.createClass({
-	    displayName: 'Exp',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -698.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_exponent', transform: 'translate(1204.000000, 698.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('path', { d: 'M28,16.9970301 C28,16.4463856 28.4530363,16 28.9970301,16 L35.0029699,16 C35.5536144,16 36,16.4530363 36,16.9970301 L36,23.0029699 C36,23.5536144 35.5469637,24 35.0029699,24 L28.9970301,24 C28.4463856,24 28,23.5469637 28,23.0029699 L28,16.9970301 Z M30,18 L34,18 L34,22 L30,22 L30,18 Z', id: 'block', fill: this.props.primaryColor }),
-	                            React.createElement('path', { d: 'M14,21.0008717 C14,20.4481055 14.455761,20 15.0024733,20 L24.9975267,20 C25.5511774,20 26,20.4446309 26,21.0008717 L26,34.9991283 C26,35.5518945 25.544239,36 24.9975267,36 L15.0024733,36 C14.4488226,36 14,35.5553691 14,34.9991283 L14,21.0008717 Z M16,22 L24,22 L24,34 L16,34 L16,22 Z', id: 'block', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Exp;
-
-/***/ },
-/* 353 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the NEQ iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Neq = React.createClass({
-	    displayName: 'Neq',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1000.000000, -766.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_equals_not', transform: 'translate(1000.000000, 766.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement(
-	                                'g',
-	                                { id: 'math_keypad_icon_equals' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                                React.createElement(
-	                                    'g',
-	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
-	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                    React.createElement('path', { d: 'M7,21 L17,3', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                    React.createElement('path', { d: 'M4,9 L21,9', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                    React.createElement('path', { d: 'M4,15 L21,15', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Neq;
-
-/***/ },
-/* 354 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the GEQ iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Geq = React.createClass({
-	    displayName: 'Geq',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -766.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_greater_than_not', transform: 'translate(1136.000000, 766.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement(
-	                                'g',
-	                                { id: 'math_keypad_icon_greater_than' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                                React.createElement(
-	                                    'g',
-	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
-	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                    React.createElement('path', { d: 'M4,21 L20,21', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '4 18 20 12 4 6' })
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Geq;
-
-/***/ },
-/* 355 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the LN iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Ln = React.createClass({
-	    displayName: 'Ln',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1340.000000, -766.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_log_e', transform: 'translate(1340.000000, 766.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('path', { d: 'M20.836,29 L20.836,19.662 L19.058,19.662 L19.058,29 L20.836,29 Z M28.942,29 L28.942,24.226 C28.942,22.91 28.228,22.07 26.744,22.07 C25.638,22.07 24.812,22.602 24.378,23.12 L24.378,22.238 L22.6,22.238 L22.6,29 L24.378,29 L24.378,24.45 C24.672,24.044 25.218,23.652 25.918,23.652 C26.674,23.652 27.164,23.974 27.164,24.912 L27.164,29 L28.942,29 Z', id: 'ln', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Ln;
-
-/***/ },
-/* 356 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the JUMP_OUT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var JumpOut = function () {
-	    return React.createElement(
-	        "svg",
-	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
-	        React.createElement(
-	            "g",
-	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
-	            React.createElement(
-	                "g",
-	                { id: "[Assets]-Math-Input", transform: "translate(-1408.000000, -200.000000)" },
-	                React.createElement(
-	                    "g",
-	                    { id: "math_keypad_icon_jump_out", transform: "translate(1408.000000, 200.000000)" },
-	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
-	                    React.createElement(
-	                        "g",
-	                        { id: "icon", strokeWidth: "1", transform: "translate(12.000000, 12.000000)" },
-	                        React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "24", height: "24" }),
-	                        React.createElement("path", { d: "M2,4.99508929 L2,4.99508929 L2,19.0049107 C2,19.0007808 1.99921607,19 2.00276013,19 L10.9972399,19 C11.0020427,19 11,19.002037 11,19.0049107 L11,4.99508929 C11,4.99921924 11.0007839,5 10.9972399,5 L2.00276013,5 C1.99795733,5 2,4.99796296 2,4.99508929 L2,4.99508929 Z M0,4.99508929 C0,3.8932319 0.893542647,3 2.00276013,3 L10.9972399,3 C12.1033337,3 13,3.8926228 13,4.99508929 L13,19.0049107 C13,20.1067681 12.1064574,21 10.9972399,21 L2.00276013,21 C0.896666251,21 0,20.1073772 0,19.0049107 L0,4.99508929 L0,4.99508929 Z", id: "box", fill: "#888D93" }),
-	                        React.createElement("path", { d: "M18,12 L9,12", id: "tail", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
-	                        React.createElement("polyline", { id: "head", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "16 9 19 12 16 15" }),
-	                        React.createElement("path", { d: "M23,4 L23,20", id: "caret", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
-	                        React.createElement("path", { d: "M5,8 L5,16", id: "caret", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" })
-	                    )
-	                )
-	            )
-	        )
-	    );
-	};
-
-	module.exports = JumpOut;
-
-/***/ },
-/* 357 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the DISMISS iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Dismiss = function () {
-	    return React.createElement(
-	        "svg",
-	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
-	        React.createElement(
-	            "g",
-	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
-	            React.createElement(
-	                "g",
-	                { id: "[Assets]-Math-Input", transform: "translate(-1204.000000, -200.000000)" },
-	                React.createElement(
-	                    "g",
-	                    { id: "math_keypad_icon_dismiss", transform: "translate(1204.000000, 200.000000)" },
-	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", fillRule: "evenodd", x: "0", y: "0", width: "48", height: "48" }),
-	                    React.createElement("polyline", { id: "chevron", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "20 32 24 36 28 32" }),
-	                    React.createElement(
-	                        "g",
-	                        { id: "keyboard", strokeWidth: "1", fillRule: "evenodd", transform: "translate(14.000000, 12.000000)", fill: "#78C008" },
-	                        React.createElement("path", { d: "M0,1.00684547 C0,0.450780073 0.455305576,0 0.99180311,0 L19.0081969,0 C19.5559546,0 20,0.449948758 20,1.00684547 L20,12.9931545 C20,13.5492199 19.5446944,14 19.0081969,14 L0.99180311,14 C0.444045377,14 0,13.5500512 0,12.9931545 L0,1.00684547 Z M6,0 L7,0 L7,14 L6,14 L6,0 Z M13,0 L14,0 L14,14 L13,14 L13,0 Z M0,9 L6,9 L6,10 L0,10 L0,9 Z M0,4 L6,4 L6,5 L0,5 L0,4 Z M7,9 L13,9 L13,10 L7,10 L7,9 Z M7,4 L13,4 L13,5 L7,5 L7,4 Z M14,9 L20,9 L20,10 L14,10 L14,9 Z M14,4 L20,4 L20,5 L14,5 L14,4 Z", id: "keypad" })
-	                    )
-	                )
-	            )
-	        )
-	    );
-	};
-
-	module.exports = Dismiss;
-
-/***/ },
-/* 358 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the SIN iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Sin = React.createClass({
-	    displayName: 'Sin',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1408.000000, -902.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_sin', transform: 'translate(1408.000000, 902.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                            React.createElement('path', { d: 'M6.655,17.168 C8.531,17.168 9.581,16.23 9.581,14.998 C9.581,12.268 5.577,13.108 5.577,12.1 C5.577,11.722 5.997,11.428 6.641,11.428 C7.467,11.428 8.237,11.778 8.643,12.212 L9.357,10.994 C8.685,10.462 7.775,10.07 6.627,10.07 C4.849,10.07 3.855,11.064 3.855,12.198 C3.855,14.858 7.873,13.948 7.873,15.068 C7.873,15.488 7.509,15.796 6.739,15.796 C5.899,15.796 4.891,15.334 4.401,14.872 L3.631,16.118 C4.345,16.776 5.479,17.168 6.655,17.168 L6.655,17.168 Z M11.779,9.51 C12.367,9.51 12.843,9.034 12.843,8.446 C12.843,7.858 12.367,7.396 11.779,7.396 C11.205,7.396 10.715,7.858 10.715,8.446 C10.715,9.034 11.205,9.51 11.779,9.51 L11.779,9.51 Z M12.675,17 L12.675,10.238 L10.897,10.238 L10.897,17 L12.675,17 Z M20.781,17 L20.781,12.226 C20.781,10.91 20.067,10.07 18.583,10.07 C17.477,10.07 16.651,10.602 16.217,11.12 L16.217,10.238 L14.439,10.238 L14.439,17 L16.217,17 L16.217,12.45 C16.511,12.044 17.057,11.652 17.757,11.652 C18.513,11.652 19.003,11.974 19.003,12.912 L19.003,17 L20.781,17 Z', id: 'sin', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Sin;
-
-/***/ },
-/* 359 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the LT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Lt = React.createClass({
-	    displayName: 'Lt',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1068.000000, -834.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_less_than', transform: 'translate(1068.000000, 834.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement(
-	                                'g',
-	                                { id: 'math_keypad_icon_less_than' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                                React.createElement(
-	                                    'g',
-	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
-	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '20 18 4 12 20 6' })
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Lt;
-
-/***/ },
-/* 360 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the FRAC_MULTI iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var FracMulti = React.createClass({
-	    displayName: 'FracMulti',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -600.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_division_multi', transform: 'translate(1204.000000, 600.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            null,
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement(
-	                                'g',
-	                                { id: 'fraction', transform: 'translate(6.000000, 12.000000)' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                React.createElement('path', { d: 'M8,16.9970301 C8,16.4463856 8.45303631,16 8.99703014,16 L15.0029699,16 C15.5536144,16 16,16.4530363 16,16.9970301 L16,23.0029699 C16,23.5536144 15.5469637,24 15.0029699,24 L8.99703014,24 C8.4463856,24 8,23.5469637 8,23.0029699 L8,16.9970301 Z M10,18 L14,18 L14,22 L10,22 L10,18 Z', id: 'block', fill: this.props.primaryColor }),
-	                                React.createElement('rect', { id: 'bar', fill: this.props.primaryColor, x: '2', y: '11', width: '20', height: '2', rx: '1' }),
-	                                React.createElement('path', { d: 'M8,0.997030139 C8,0.446385598 8.45303631,0 8.99703014,0 L15.0029699,0 C15.5536144,0 16,0.453036308 16,0.997030139 L16,7.00296986 C16,7.5536144 15.5469637,8 15.0029699,8 L8.99703014,8 C8.4463856,8 8,7.54696369 8,7.00296986 L8,0.997030139 Z M10,2 L14,2 L14,6 L10,6 L10,2 Z', id: 'block', fill: this.props.primaryColor })
-	                            ),
-	                            React.createElement(
-	                                'g',
-	                                { id: 'division', opacity: '0.3', transform: 'translate(34.000000, 12.000000)' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '8', height: '8' }),
-	                                React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, cx: '4', cy: '7', r: '1' }),
-	                                React.createElement('path', { d: 'M1,4 L7,4', id: 'bar', stroke: this.props.primaryColor, strokeWidth: '1.5', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                React.createElement('path', { d: 'M4,2 C4.55228475,2 5,1.55228475 5,1 C5,0.44771525 4.55228475,0 4,0 C3.44771525,0 3,0.44771525 3,1 C3,1.55228475 3.44771525,2 4,2 Z', id: 'dot', fill: this.props.primaryColor })
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = FracMulti;
-
-/***/ },
-/* 361 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the NUMBERS iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Numbers = function () {
-	    return React.createElement(
-	        "svg",
-	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
-	        React.createElement(
-	            "g",
-	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
-	            React.createElement(
-	                "g",
-	                { id: "[Assets]-Math-Input", transform: "translate(-1068.000000, -200.000000)" },
-	                React.createElement(
-	                    "g",
-	                    { id: "math_keypad_icon_on_page_symbols", transform: "translate(1068.000000, 200.000000)" },
-	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
-	                    React.createElement(
-	                        "g",
-	                        { id: "arithmetic", strokeWidth: "1", transform: "translate(13.000000, 13.000000)" },
-	                        React.createElement(
-	                            "g",
-	                            { id: "divide", transform: "translate(14.000000, 13.000000)" },
-	                            React.createElement("path", { d: "M0,5 L8,5", id: "line", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
-	                            React.createElement("circle", { id: "Oval-30", fill: "#888D93", cx: "4", cy: "1.5", r: "1.5" }),
-	                            React.createElement("circle", { id: "Oval-30", fill: "#888D93", cx: "4", cy: "8.5", r: "1.5" })
-	                        ),
-	                        React.createElement(
-	                            "g",
-	                            { id: "multiply", transform: "translate(1.000000, 15.000000)", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
-	                            React.createElement("path", { d: "M0,6 L6,0", id: "line" }),
-	                            React.createElement("path", { d: "M0,0 L6,6", id: "line" })
-	                        ),
-	                        React.createElement(
-	                            "g",
-	                            { id: "subtract", transform: "translate(14.000000, 3.000000)", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
-	                            React.createElement("path", { d: "M0,1 L8,1", id: "line" })
-	                        ),
-	                        React.createElement(
-	                            "g",
-	                            { id: "add", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
-	                            React.createElement("path", { d: "M4,8 L4,0", id: "line" }),
-	                            React.createElement("path", { d: "M0,4 L8,4", id: "line" })
-	                        )
-	                    )
-	                )
-	            )
-	        )
-	    );
-	};
-
-	module.exports = Numbers;
-
-/***/ },
-/* 362 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the CUBE_ROOT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var CubeRoot = React.createClass({
-	    displayName: 'CubeRoot',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -766.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_radical_3', transform: 'translate(1272.000000, 766.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('path', { d: 'M17.91,23.12 C19.57,23.12 20.67,22.31 20.67,21.14 C20.67,20.18 19.81,19.63 19.1,19.56 C19.89,19.43 20.56,18.84 20.56,18.06 C20.56,16.96 19.61,16.23 17.91,16.23 C16.68,16.23 15.8,16.68 15.24,17.31 L16.07,18.39 C16.54,17.97 17.12,17.75 17.73,17.75 C18.37,17.75 18.85,17.94 18.85,18.36 C18.85,18.71 18.46,18.88 17.77,18.88 C17.52,18.88 17,18.88 16.87,18.87 L16.87,20.4 C16.97,20.39 17.48,20.39 17.77,20.39 C18.68,20.39 18.96,20.57 18.96,20.95 C18.96,21.32 18.58,21.6 17.84,21.6 C17.26,21.6 16.5,21.37 16.02,20.9 L15.15,22.07 C15.67,22.67 16.63,23.12 17.91,23.12 L17.91,23.12 Z', id: '3', fill: this.props.primaryColor }),
-	                            React.createElement('polyline', { id: 'root', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '14 29 18 35 27 21 34 21' })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = CubeRoot;
-
-/***/ },
-/* 363 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the PLUS iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Plus = React.createClass({
-	    displayName: 'Plus',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1000.000000, -600.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_addition', transform: 'translate(1000.000000, 600.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', fillRule: 'evenodd', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement('path', { d: 'M19,24 L29,24', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                        React.createElement('path', { d: 'M24,29 L24,19', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Plus;
-
-/***/ },
-/* 364 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the TAN iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Tan = React.createClass({
-	    displayName: 'Tan',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1544.000000, -902.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_tangent', transform: 'translate(1544.000000, 902.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                            React.createElement('path', { d: 'M4.93,17.168 C5.672,17.168 6.148,16.972 6.414,16.734 L6.036,15.39 C5.938,15.488 5.686,15.586 5.42,15.586 C5.028,15.586 4.804,15.264 4.804,14.844 L4.804,11.792 L6.176,11.792 L6.176,10.238 L4.804,10.238 L4.804,8.39 L3.012,8.39 L3.012,10.238 L1.892,10.238 L1.892,11.792 L3.012,11.792 L3.012,15.32 C3.012,16.524 3.684,17.168 4.93,17.168 L4.93,17.168 Z M13.232,17 L13.232,12.632 C13.232,10.686 11.818,10.07 10.278,10.07 C9.214,10.07 8.15,10.406 7.324,11.134 L7.996,12.324 C8.57,11.792 9.242,11.526 9.97,11.526 C10.866,11.526 11.454,11.974 11.454,12.66 L11.454,13.57 C11.006,13.038 10.208,12.744 9.312,12.744 C8.234,12.744 6.96,13.346 6.96,14.928 C6.96,16.44 8.234,17.168 9.312,17.168 C10.194,17.168 10.992,16.846 11.454,16.3 L11.454,17 L13.232,17 Z M10.026,15.964 C9.326,15.964 8.752,15.6 8.752,14.97 C8.752,14.312 9.326,13.948 10.026,13.948 C10.6,13.948 11.16,14.144 11.454,14.536 L11.454,15.376 C11.16,15.768 10.6,15.964 10.026,15.964 L10.026,15.964 Z M21.338,17 L21.338,12.226 C21.338,10.91 20.624,10.07 19.14,10.07 C18.034,10.07 17.208,10.602 16.774,11.12 L16.774,10.238 L14.996,10.238 L14.996,17 L16.774,17 L16.774,12.45 C17.068,12.044 17.614,11.652 18.314,11.652 C19.07,11.652 19.56,11.974 19.56,12.912 L19.56,17 L21.338,17 Z', id: 'tan', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Tan;
-
-/***/ },
-/* 365 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the LEFT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Left = function () {
-	    return React.createElement(
-	        "svg",
-	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
-	        React.createElement(
-	            "g",
-	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
-	            React.createElement(
-	                "g",
-	                { id: "[Assets]-Math-Input", transform: "translate(-1272.000000, -200.000000)" },
-	                React.createElement(
-	                    "g",
-	                    { id: "math_keypad_icon_move_backward", transform: "translate(1272.000000, 200.000000)" },
-	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
-	                    React.createElement(
-	                        "g",
-	                        { id: "arrow", strokeWidth: "1", transform: "translate(12.000000, 12.000000)" },
-	                        React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "24", height: "24" }),
-	                        React.createElement("polyline", { id: "head", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "10 6 4 12 10 18" }),
-	                        React.createElement("path", { d: "M4,12 L20,12", id: "tail", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" })
-	                    )
-	                )
-	            )
-	        )
-	    );
-	};
-
-	module.exports = Left;
-
-/***/ },
-/* 366 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the PARENS iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Parens = React.createClass({
-	    displayName: 'Parens',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -532.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_parentheses', transform: 'translate(1136.000000, 532.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement(
-	                            'g',
-	                            { id: 'parentheses', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                            React.createElement('path', { d: 'M7,2 C2.99999998,8 3.00000002,16 7,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                            React.createElement('path', { d: 'M20,2 C16,8 16,16 20,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(18.500000, 12.000000) scale(-1, 1) translate(-18.500000, -12.000000) ' })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Parens;
-
-/***/ },
-/* 367 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the GT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Gt = React.createClass({
-	    displayName: 'Gt',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -834.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_greater_than', transform: 'translate(1136.000000, 834.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement(
-	                                'g',
-	                                { id: 'math_keypad_icon_greater_than' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                                React.createElement(
-	                                    'g',
-	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
-	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '4 18 20 12 4 6' })
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Gt;
-
-/***/ },
-/* 368 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the FRAC iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Frac = React.createClass({
-	    displayName: 'Frac',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -532.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_fraction', transform: 'translate(1204.000000, 532.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement(
-	                            'g',
-	                            { id: 'fraction', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                            React.createElement('path', { d: 'M8,16.9970301 C8,16.4463856 8.45303631,16 8.99703014,16 L15.0029699,16 C15.5536144,16 16,16.4530363 16,16.9970301 L16,23.0029699 C16,23.5536144 15.5469637,24 15.0029699,24 L8.99703014,24 C8.4463856,24 8,23.5469637 8,23.0029699 L8,16.9970301 Z M10,18 L14,18 L14,22 L10,22 L10,18 Z', id: 'block', fill: this.props.primaryColor }),
-	                            React.createElement('rect', { id: 'bar', fill: this.props.primaryColor, x: '2', y: '11', width: '20', height: '2', rx: '1' }),
-	                            React.createElement('path', { d: 'M8,0.997030139 C8,0.446385598 8.45303631,0 8.99703014,0 L15.0029699,0 C15.5536144,0 16,0.453036308 16,0.997030139 L16,7.00296986 C16,7.5536144 15.5469637,8 15.0029699,8 L8.99703014,8 C8.4463856,8 8,7.54696369 8,7.00296986 L8,0.997030139 Z M10,2 L14,2 L14,6 L10,6 L10,2 Z', id: 'block', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Frac;
-
-/***/ },
-/* 369 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the DIVIDE iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Divide = React.createClass({
-	    displayName: 'Divide',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -464.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_division', transform: 'translate(1204.000000, 464.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', fillRule: 'evenodd', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement('path', { d: 'M19,24 L29,24', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                        React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, fillRule: 'evenodd', cx: '24', cy: '19.5', r: '1.5' }),
-	                        React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, fillRule: 'evenodd', cx: '24', cy: '28.5', r: '1.5' })
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Divide;
-
-/***/ },
-/* 370 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the DECIMAL iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Decimal = React.createClass({
-	    displayName: 'Decimal',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1680.000000, -298.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_radix_character', transform: 'translate(1680.000000, 298.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, cx: '24', cy: '30', r: '2' })
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Decimal;
-
-/***/ },
-/* 371 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the PERCENT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Percent = React.createClass({
-	    displayName: 'Percent',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -600.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_percent', transform: 'translate(1272.000000, 600.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement(
-	                            'g',
-	                            { id: 'percent', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                            React.createElement('path', { d: 'M16,4 L8,20', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                            React.createElement('circle', { id: 'circle', stroke: this.props.primaryColor, strokeWidth: '2', cx: '7', cy: '7', r: '3' }),
-	                            React.createElement('circle', { id: 'circle', stroke: this.props.primaryColor, strokeWidth: '2', cx: '17', cy: '17', r: '3' })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Percent;
-
-/***/ },
-/* 372 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the TIMES iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Times = React.createClass({
-	    displayName: 'Times',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -396.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_multiplication_cross', transform: 'translate(1136.000000, 396.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'math_keypad_icon_multiply_cross' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement(
-	                                'g',
-	                                { id: 'cross', transform: 'translate(12.000000, 12.000000)' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                React.createElement('path', { d: 'M8,8 L16,16', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                React.createElement('path', { d: 'M8,8 L16,16', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(12.000000, 12.000000) scale(-1, 1) translate(-12.000000, -12.000000) ' })
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Times;
-
-/***/ },
-/* 373 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the TOGGLE_SIGN iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var ToggleSign = React.createClass({
-	    displayName: 'ToggleSign',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1748.000000, -298.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_negate', transform: 'translate(1748.000000, 298.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                            React.createElement(
-	                                'g',
-	                                { id: 'subtract', transform: 'translate(15.000000, 15.000000)', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' },
-	                                React.createElement('path', { d: 'M0,1 L8,1', id: 'line' })
-	                            ),
-	                            React.createElement('path', { d: 'M16,4 L8,20', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                            React.createElement(
-	                                'g',
-	                                { id: 'add', transform: 'translate(1.000000, 4.000000)', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' },
-	                                React.createElement('path', { d: 'M0,4 L8,4', id: 'line' }),
-	                                React.createElement('path', { d: 'M4,0 L4,8', id: 'line' })
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = ToggleSign;
-
-/***/ },
-/* 374 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the EXP_3 iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Exp3 = React.createClass({
-	    displayName: 'Exp3',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -766.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_exponent_3', transform: 'translate(1204.000000, 766.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('path', { d: 'M14,21.0008717 C14,20.4481055 14.455761,20 15.0024733,20 L24.9975267,20 C25.5511774,20 26,20.4446309 26,21.0008717 L26,34.9991283 C26,35.5518945 25.544239,36 24.9975267,36 L15.0024733,36 C14.4488226,36 14,35.5553691 14,34.9991283 L14,21.0008717 Z M16,22 L24,22 L24,34 L16,34 L16,22 Z', id: 'block', fill: this.props.primaryColor }),
-	                            React.createElement('path', { d: 'M30.92,23.12 C32.58,23.12 33.68,22.31 33.68,21.14 C33.68,20.18 32.82,19.63 32.11,19.56 C32.9,19.43 33.57,18.84 33.57,18.06 C33.57,16.96 32.62,16.23 30.92,16.23 C29.69,16.23 28.81,16.68 28.25,17.31 L29.08,18.39 C29.55,17.97 30.13,17.75 30.74,17.75 C31.38,17.75 31.86,17.94 31.86,18.36 C31.86,18.71 31.47,18.88 30.78,18.88 C30.53,18.88 30.01,18.88 29.88,18.87 L29.88,20.4 C29.98,20.39 30.49,20.39 30.78,20.39 C31.69,20.39 31.97,20.57 31.97,20.95 C31.97,21.32 31.59,21.6 30.85,21.6 C30.27,21.6 29.51,21.37 29.03,20.9 L28.16,22.07 C28.68,22.67 29.64,23.12 30.92,23.12 L30.92,23.12 Z', id: '3', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Exp3;
-
-/***/ },
-/* 375 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the EXP_2 iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Exp2 = React.createClass({
-	    displayName: 'Exp2',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -834.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_exponent_2', transform: 'translate(1204.000000, 834.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('path', { d: 'M14,21.0008717 C14,20.4481055 14.455761,20 15.0024733,20 L24.9975267,20 C25.5511774,20 26,20.4446309 26,21.0008717 L26,34.9991283 C26,35.5518945 25.544239,36 24.9975267,36 L15.0024733,36 C14.4488226,36 14,35.5553691 14,34.9991283 L14,21.0008717 Z M16,22 L24,22 L24,34 L16,34 L16,22 Z', id: 'block', fill: this.props.primaryColor }),
-	                            React.createElement('path', { d: 'M33.67,23 L33.67,21.5 L31.23,21.5 C32.89,20.34 33.62,19.47 33.62,18.45 C33.62,17.11 32.49,16.23 30.92,16.23 C29.99,16.23 28.93,16.56 28.22,17.34 L29.17,18.48 C29.65,18.03 30.21,17.75 30.95,17.75 C31.44,17.75 31.87,17.99 31.87,18.45 C31.87,19.11 31.33,19.57 28.44,21.66 L28.44,23 L33.67,23 Z', id: '2', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Exp2;
-
-/***/ },
-/* 376 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the PARENS_MULTI iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var ParensMulti = React.createClass({
-	    displayName: 'ParensMulti',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -600.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_multiplication_multi', transform: 'translate(1136.000000, 600.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            null,
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement(
-	                                'g',
-	                                { id: 'parentheses', transform: 'translate(6.000000, 12.000000)' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                React.createElement('path', { d: 'M7,2 C2.99999998,8 3.00000002,16 7,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                React.createElement('path', { d: 'M20,2 C16,8 16,16 20,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(18.500000, 12.000000) scale(-1, 1) translate(-18.500000, -12.000000) ' })
-	                            ),
-	                            React.createElement(
-	                                'g',
-	                                { id: 'dot', opacity: '0.3', transform: 'translate(34.000000, 12.000000)' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '8', height: '8' }),
-	                                React.createElement('circle', { fill: this.props.primaryColor, cx: '4', cy: '4', r: '2' })
-	                            ),
-	                            React.createElement(
-	                                'g',
-	                                { id: 'cross', opacity: '0.3', transform: 'translate(34.000000, 28.000000)' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '8', height: '8' }),
-	                                React.createElement('path', { d: 'M1,1 L7,7', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                React.createElement('path', { d: 'M1,1 L7,7', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(4.000000, 4.000000) scale(-1, 1) translate(-4.000000, -4.000000) ' })
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = ParensMulti;
-
-/***/ },
-/* 377 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the RIGHT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Right = function () {
-	    return React.createElement(
-	        "svg",
-	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
-	        React.createElement(
-	            "g",
-	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
-	            React.createElement(
-	                "g",
-	                { id: "[Assets]-Math-Input", transform: "translate(-1340.000000, -200.000000)" },
-	                React.createElement(
-	                    "g",
-	                    { id: "math_keypad_icon_move_forward", transform: "translate(1340.000000, 200.000000)" },
-	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
-	                    React.createElement(
-	                        "g",
-	                        { id: "arrow", strokeWidth: "1", transform: "translate(12.000000, 12.000000)" },
-	                        React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "24", height: "24" }),
-	                        React.createElement("polyline", { id: "head", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "14 6 20 12 14 18" }),
-	                        React.createElement("path", { d: "M4,12 L20,12", id: "tail", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" })
-	                    )
-	                )
-	            )
-	        )
-	    );
-	};
-
-	module.exports = Right;
-
-/***/ },
-/* 378 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the CDOT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Cdot = React.createClass({
-	    displayName: 'Cdot',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -464.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_multiplication_dot', transform: 'translate(1136.000000, 464.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement(
-	                            'g',
-	                            { id: 'cross', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                            React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, cx: '12', cy: '12', r: '3' })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Cdot;
-
-/***/ },
-/* 379 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the LOG_N iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var LogN = React.createClass({
-	    displayName: 'LogN',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1340.000000, -698.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_log', transform: 'translate(1340.000000, 698.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('path', { d: 'M30,28.9970301 C30,28.4463856 30.4530363,28 30.9970301,28 L37.0029699,28 C37.5536144,28 38,28.4530363 38,28.9970301 L38,35.0029699 C38,35.5536144 37.5469637,36 37.0029699,36 L30.9970301,36 C30.4463856,36 30,35.5469637 30,35.0029699 L30,28.9970301 Z M32,30 L36,30 L36,34 L32,34 L32,30 Z', id: 'block', fill: this.props.primaryColor }),
-	                            React.createElement('path', { d: 'M12.776,29 L12.776,19.662 L10.998,19.662 L10.998,29 L12.776,29 Z M17.676,29.168 C19.916,29.168 21.26,27.544 21.26,25.612 C21.26,23.694 19.916,22.07 17.676,22.07 C15.45,22.07 14.106,23.694 14.106,25.612 C14.106,27.544 15.45,29.168 17.676,29.168 L17.676,29.168 Z M17.676,27.586 C16.57,27.586 15.954,26.676 15.954,25.612 C15.954,24.562 16.57,23.652 17.676,23.652 C18.782,23.652 19.412,24.562 19.412,25.612 C19.412,26.676 18.782,27.586 17.676,27.586 L17.676,27.586 Z M25.348,31.744 C27.014,31.744 29.002,31.114 29.002,28.538 L29.002,22.238 L27.21,22.238 L27.21,23.106 C26.664,22.42 25.936,22.07 25.124,22.07 C23.416,22.07 22.142,23.302 22.142,25.514 C22.142,27.768 23.43,28.958 25.124,28.958 C25.95,28.958 26.678,28.566 27.21,27.894 L27.21,28.58 C27.21,29.91 26.202,30.288 25.348,30.288 C24.494,30.288 23.78,30.05 23.234,29.448 L22.436,30.736 C23.29,31.478 24.186,31.744 25.348,31.744 L25.348,31.744 Z M25.684,27.376 C24.676,27.376 23.976,26.676 23.976,25.514 C23.976,24.352 24.676,23.652 25.684,23.652 C26.272,23.652 26.916,23.974 27.21,24.422 L27.21,26.606 C26.916,27.04 26.272,27.376 25.684,27.376 L25.684,27.376 Z', id: 'log', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = LogN;
-
-/***/ },
 /* 380 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the LEQ iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Leq = React.createClass({
-	    displayName: 'Leq',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1068.000000, -766.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_less_than_not', transform: 'translate(1068.000000, 766.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement(
-	                                'g',
-	                                { id: 'math_keypad_icon_less_than' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                                React.createElement(
-	                                    'g',
-	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
-	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                    React.createElement('path', { d: 'M4,21 L20,21', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '20 18 4 12 20 6' })
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Leq;
-
-/***/ },
-/* 381 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the MINUS iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Minus = React.createClass({
-	    displayName: 'Minus',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1068.000000, -600.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_subtraction', transform: 'translate(1068.000000, 600.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', fillRule: 'evenodd', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement('path', { d: 'M19,24 L29,24', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Minus;
-
-/***/ },
-/* 382 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the RADICAL iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var Radical = React.createClass({
-	    displayName: 'Radical',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -698.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_radical', transform: 'translate(1272.000000, 698.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('path', { d: 'M13,16.9970301 C13,16.4463856 13.4530363,16 13.9970301,16 L20.0029699,16 C20.5536144,16 21,16.4530363 21,16.9970301 L21,23.0029699 C21,23.5536144 20.5469637,24 20.0029699,24 L13.9970301,24 C13.4463856,24 13,23.5469637 13,23.0029699 L13,16.9970301 Z M15,18 L19,18 L19,22 L15,22 L15,18 Z', id: 'block', fill: this.props.primaryColor }),
-	                            React.createElement('polyline', { id: 'root', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '14 29 18 35 27 21 34 21' })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Radical;
-
-/***/ },
-/* 383 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the MORE iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(45);
-
-	var More = function () {
-	    return React.createElement(
-	        "svg",
-	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
-	        React.createElement(
-	            "g",
-	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
-	            React.createElement(
-	                "g",
-	                { id: "[Assets]-Math-Input", transform: "translate(-1000.000000, -200.000000)" },
-	                React.createElement(
-	                    "g",
-	                    { id: "math_keypad_icon_on_page_numbers", transform: "translate(1000.000000, 200.000000)" },
-	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
-	                    React.createElement(
-	                        "g",
-	                        { id: "symbols", strokeWidth: "1", transform: "translate(13.000000, 15.000000)", stroke: "#888D93", strokeLinecap: "round", strokeLinejoin: "round" },
-	                        React.createElement("polyline", { id: "radical", strokeWidth: "2", points: "14 15 16 19 20 11 22 11" }),
-	                        React.createElement(
-	                            "g",
-	                            { id: "equals", transform: "translate(14.000000, 0.000000)", strokeWidth: "2" },
-	                            React.createElement("path", { d: "M0,1 L8,1", id: "line" }),
-	                            React.createElement("path", { d: "M0,5 L8,5", id: "line" })
-	                        ),
-	                        React.createElement(
-	                            "g",
-	                            { id: "greater-than", strokeWidth: "2" },
-	                            React.createElement("polyline", { id: "line", points: "0 0 8 3 0 6" })
-	                        ),
-	                        React.createElement(
-	                            "g",
-	                            { id: "less-than", transform: "translate(4.000000, 15.000000) scale(-1, 1) translate(-4.000000, -15.000000) translate(0.000000, 12.000000)", strokeWidth: "2" },
-	                            React.createElement("polyline", { id: "line", points: "0 0 8 3 0 6" })
-	                        )
-	                    )
-	                )
-	            )
-	        )
-	    );
-	};
-
-	module.exports = More;
-
-/***/ },
-/* 384 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -101765,7 +101715,7 @@ module.exports =
 	  }return obj;
 	}
 
-	var _utilsCamelToDashCase = __webpack_require__(392);
+	var _utilsCamelToDashCase = __webpack_require__(388);
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
@@ -101788,7 +101738,7 @@ module.exports =
 	module.exports = exports['default'];
 
 /***/ },
-/* 385 */
+/* 381 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -101823,7 +101773,7 @@ module.exports =
 	module.exports = exports['default'];
 
 /***/ },
-/* 386 */
+/* 382 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -101851,7 +101801,7 @@ module.exports =
 	module.exports = exports['default'];
 
 /***/ },
-/* 387 */
+/* 383 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -101873,7 +101823,7 @@ module.exports =
 	  }return obj;
 	}
 
-	var _utilsCamelToDashCase = __webpack_require__(392);
+	var _utilsCamelToDashCase = __webpack_require__(388);
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
@@ -101915,7 +101865,7 @@ module.exports =
 	module.exports = exports['default'];
 
 /***/ },
-/* 388 */
+/* 384 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -101937,7 +101887,7 @@ module.exports =
 	  }return obj;
 	}
 
-	var _utilsCamelToDashCase = __webpack_require__(392);
+	var _utilsCamelToDashCase = __webpack_require__(388);
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
@@ -101962,7 +101912,7 @@ module.exports =
 	module.exports = exports['default'];
 
 /***/ },
-/* 389 */
+/* 385 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -101984,11 +101934,11 @@ module.exports =
 	  }return obj;
 	}
 
-	var _utilsCamelToDashCase = __webpack_require__(392);
+	var _utilsCamelToDashCase = __webpack_require__(388);
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
-	var _utilsCapitalizeString = __webpack_require__(342);
+	var _utilsCapitalizeString = __webpack_require__(376);
 
 	var _utilsCapitalizeString2 = _interopRequireDefault(_utilsCapitalizeString);
 
@@ -102039,7 +101989,7 @@ module.exports =
 	module.exports = exports['default'];
 
 /***/ },
-/* 390 */
+/* 386 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -102072,7 +102022,7 @@ module.exports =
 	  }return obj;
 	}
 
-	var _utilsCamelToDashCase = __webpack_require__(392);
+	var _utilsCamelToDashCase = __webpack_require__(388);
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
@@ -102125,7 +102075,7 @@ module.exports =
 	module.exports = exports['default'];
 
 /***/ },
-/* 391 */
+/* 387 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -102158,7 +102108,7 @@ module.exports =
 	  }return obj;
 	}
 
-	var _utilsCamelToDashCase = __webpack_require__(392);
+	var _utilsCamelToDashCase = __webpack_require__(388);
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
@@ -102219,7 +102169,7 @@ module.exports =
 	module.exports = exports['default'];
 
 /***/ },
-/* 392 */
+/* 388 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**

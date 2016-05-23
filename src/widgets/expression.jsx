@@ -135,8 +135,11 @@ var Expression = React.createClass({
                 keypadElement={this.props.keypadElement}
                 onChange={this.changeAndTrack}
                 onFocus={() => {
-                    configureKeypad(this.props.keypadConfiguration);
-                    this._handleFocus();
+                    configureKeypad(this.props.keypadConfiguration, () => {
+                        if (this.isMounted()) {
+                            this._handleFocus();
+                        }
+                    });
                 }}
                 onBlur={this._handleBlur}
             />;
