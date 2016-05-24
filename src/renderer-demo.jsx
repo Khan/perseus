@@ -51,6 +51,17 @@ const RendererDemo = React.createClass({
     },
 
     render: function() {
+        const xomManatee = localStorage.xomManatee;
+
+        const options = {
+            responsiveStyling: true,
+            getAnotherHint: () => {
+                this.refs.itemRenderer.showHint();
+            },
+            xomManatee,
+            customKeypad: xomManatee,
+        };
+
         const rendererComponent = <ItemRenderer
             item={this.props.question}
             ref="itemRenderer"
@@ -63,14 +74,7 @@ const RendererDemo = React.createClass({
                 newHintStyles: true,
                 useMathQuill: true,
             }}
-            apiOptions={{
-                responsiveStyling: true,
-                getAnotherHint: () => {
-                    this.refs.itemRenderer.showHint();
-                },
-                __customKeypad: true,
-                __xomManatee: true,
-            }}
+            apiOptions={options}
         />;
 
         const answer = this.state.answer;
@@ -91,42 +95,54 @@ const RendererDemo = React.createClass({
 
         const scratchpadEnabled = Khan.scratchpad.enabled;
 
-        return (
-            <div className="renderer-demo">
-                <div className={css(styles.problemAndAnswer)}>
-                    <div id="problem-area">
-                        <div id="workarea"/>
-                        <div id="hintsarea"/>
-                    </div>
-                    <div className={css(styles.answerAreaWrap)}>
-                        <div id="answer-area">
-                            <div className={css(styles.infoBox)}>
-                                <div id="solutionarea"></div>
-                                <div className={css(styles.answerButtons)}>
-                                {answerButton}
+        if (xomManatee) {
+            return <div>
+                {rendererComponent}
+                <div id="problem-area">
+                    <div id="workarea" style={{marginLeft:0}}/>
+                    <div id="hintsarea"/>
+                </div>
+            </div>;
+        } else {
+            return (
+                <div className="renderer-demo">
+                    <div className={css(styles.problemAndAnswer)}>
+                        <div id="problem-area">
+                            <div id="workarea"/>
+                            <div id="hintsarea"/>
+                        </div>
+                        <div className={css(styles.answerAreaWrap)}>
+                            <div id="answer-area">
+                                <div className={css(styles.infoBox)}>
+                                    <div id="solutionarea"></div>
+                                    <div className={css(styles.answerButtons)}>
+                                    {answerButton}
+                                    </div>
+                                </div>
+                                <div className={css(styles.infoBox)}>
+                                    <SimpleButton
+                                        color={'orange'}
+                                        onClick={this.takeHint}
+                                    >
+                                        Hint
+                                    </SimpleButton>
                                 </div>
                             </div>
-                            <div className={css(styles.infoBox)}>
-                                <SimpleButton
-                                    color={'orange'}
-                                    onClick={this.takeHint}
-                                >
-                                    Hint
-                                </SimpleButton>
-                            </div>
                         </div>
+                        <div style={{clear: "both"}}/>
                     </div>
-                    <div style={{clear: "both"}}/>
+                    <div className="extras" style={{margin: 20}}>
+                        <button onClick={this.onScore}>Score</button>
+                        <span style={{marginLeft: 15}}>
+                            Scratchpad
+                            {scratchpadEnabled ? '' : 'not '}
+                            available
+                        </span>
+                    </div>
+                    {rendererComponent}
                 </div>
-                <div className="extras" style={{margin: 20}}>
-                    <button onClick={this.onScore}>Score</button>
-                    <span style={{marginLeft: 15}}>
-                        Scratchpad {scratchpadEnabled ? '' : 'not '}available
-                    </span>
-                </div>
-                {rendererComponent}
-            </div>
-        );
+            );
+        }
     },
 });
 
