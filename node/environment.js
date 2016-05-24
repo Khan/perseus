@@ -8,8 +8,8 @@ var src = path.normalize(path.join(__dirname, "..", "src"));
 var options = require("./babel-options.js");
 options = _.extend({}, options, {
     // Generate a regexp that matches files we want to babelify. For now, this
-    // is things in src/ and react-components
-    only: new RegExp(src + "|react-components"),
+    // is things in src/, react-components, and math-input
+    only: new RegExp(src + "|react-components|math-input"),
     extensions: [".js", ".jsx"],
 });
 require("babel-core/register")(options);

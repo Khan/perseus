@@ -1,6 +1,6 @@
 /*! Perseus with editors | http://github.com/Khan/perseus */
-// commit 1560a10cc75b23d62f7906f4fe1e8fe0b06d2fed
-// branch use_compiled_math-input
+// commit 4b2fd4f3824ba0709ad4d2b542db2a6c751e8515
+// branch fix_build
 // @generated
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -6706,7 +6706,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* globals KA */
 	var _ = __webpack_require__(16);
 
-	var SimpleMarkdown = __webpack_require__(147);
+	var SimpleMarkdown = __webpack_require__(151);
 	var TeX = __webpack_require__(49);
 	var Util = __webpack_require__(6);
 
@@ -8668,7 +8668,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Paragraph parsing/splitting for article jipt i18n
 	 */
 
-	var SimpleMarkdown = __webpack_require__(147);
+	var SimpleMarkdown = __webpack_require__(151);
 
 	var arrayRules = {
 	    paragraph: {
@@ -9308,16 +9308,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var GraphieClasses = __webpack_require__(148);
-	var Movables = __webpack_require__(149);
+	var GraphieClasses = __webpack_require__(147);
+	var Movables = __webpack_require__(148);
 
 	var GraphieMovable = GraphieClasses.GraphieMovable;
 
 	var deepEq = __webpack_require__(6).deepEq;
 	var nestedMap = __webpack_require__(6).nestedMap;
-	var assert = __webpack_require__(150).assert;
+	var assert = __webpack_require__(149).assert;
 
-	var GraphUtils = __webpack_require__(151);
+	var GraphUtils = __webpack_require__(150);
 	var createGraphie = GraphUtils.createGraphie;
 
 	var Graphie = React.createClass({
@@ -17366,7 +17366,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var knumber = __webpack_require__(189).number;
 	var kpoint = __webpack_require__(189).point;
 	var KhanColors = __webpack_require__(165);
-	var GraphUtils = __webpack_require__(151);
+	var GraphUtils = __webpack_require__(150);
 
 	var DeprecationMixin = Util.DeprecationMixin;
 
@@ -20540,7 +20540,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ApiOptions = __webpack_require__(5).Options;
 	var KhanAnswerTypes = __webpack_require__(39);
 
-	var assert = __webpack_require__(150).assert;
+	var assert = __webpack_require__(149).assert;
 	var stringArrayOfSize = __webpack_require__(6).stringArrayOfSize;
 
 	// We store two sets of dimensions for the brackets, because mobile formatting
@@ -21480,7 +21480,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var GraphUtils = __webpack_require__(151);
+	var GraphUtils = __webpack_require__(150);
 
 	var defaultImage = {
 	    url: null,
@@ -22189,7 +22189,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var bound = function (x, gt, lt) {
 	    return Math.min(Math.max(x, gt), lt);
 	};
-	var assert = __webpack_require__(150).assert;
+	var assert = __webpack_require__(149).assert;
 
 	var EN_DASH = "–";
 
@@ -25782,7 +25782,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var deepEq = __webpack_require__(6).deepEq;
 	var KhanMath = __webpack_require__(140);
 	var KhanColors = __webpack_require__(165);
-	var GraphUtils = __webpack_require__(151);
+	var GraphUtils = __webpack_require__(150);
 
 	var BAR = "bar",
 	    LINE = "line",
@@ -27601,7 +27601,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(153);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var assert = __webpack_require__(150).assert;
+	var assert = __webpack_require__(149).assert;
 
 	var Graphie = __webpack_require__(54);
 	var Path = Graphie.Path;
@@ -28731,7 +28731,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ApiOptions = __webpack_require__(5).Options;
 	var KhanAnswerTypes = __webpack_require__(39);
 
-	var assert = __webpack_require__(150).assert;
+	var assert = __webpack_require__(149).assert;
 
 	/* Input handling: Maps a (row, column) pair to a unique ref used by React,
 	 * and extracts (row, column) pairs from input paths, used to allow outsiders
@@ -29260,7 +29260,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var KhanMath = __webpack_require__(140);
 	var KhanColors = __webpack_require__(165);
 
-	var assert = __webpack_require__(150).assert;
+	var assert = __webpack_require__(149).assert;
 
 	var defaultBoxSize = 400;
 	var defaultBackgroundImage = {
@@ -36378,8 +36378,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 146 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
 	/**
 	 * A single entry-point for all of the external-facing functionality.
 	 */
@@ -36394,8 +36392,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var components = {
 	    Keypad: __webpack_require__(200),
-	    KeypadInput: __webpack_require__(202)
-	};
+	    KeypadInput: __webpack_require__(202) };
 
 	var _require2 = __webpack_require__(190);
 
@@ -36414,11 +36411,540 @@ return /******/ (function(modules) { // webpackBootstrap
 	    actions: actions,
 	    components: components,
 	    consts: consts,
-	    propTypes: propTypes
-	};
+	    propTypes: propTypes };
 
 /***/ },
 /* 147 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var Util = __webpack_require__(6);
+	var nestedMap = Util.nestedMap;
+	var deepEq = Util.deepEq;
+	var _ = __webpack_require__(16);
+
+	/**
+	 * A base class for all Graphie Movables
+	 *
+	 * Used for checking that all Graphie children are, in fact,
+	 * GraphieMovables
+	 */
+	function GraphieMovable(descriptor) {
+	    _.extend(this, descriptor);
+	}
+
+	var abstractMethod = function () {
+	    throw new Error("Abstract method! Must be implemented by Graphie Movable" + this.constructor.displayName);
+	};
+
+	_.extend(GraphieMovable.prototype, {
+	    movableProps: [],
+	    add: abstractMethod,
+	    modify: abstractMethod,
+	    remove: abstractMethod,
+	    toFront: function () {}
+	});
+
+	/**
+	 * returns cloned props modified with `children: childrenArray`
+	 */
+	var rewriteProps = function (props, childrenArray) {
+	    // Clone the props and add `children:`
+	    // childrenArray is always an array here because this is only called
+	    // from createClass, which initializes childrenArray as _.rest(arguments)
+	    return _.extend({}, props, {
+	        children: _.filter(_.flatten(childrenArray), _.identity)
+	    });
+	};
+
+	/**
+	 * Create a custom GraphieMovable class
+	 */
+	var createClass = function (spec) {
+	    var GraphieClass = function (props) {
+	        if (!(this instanceof GraphieClass)) {
+	            throw new Error("Use createElement or JSX with graphie movables");
+	        }
+	        this.props = rewriteProps(props, props.children || []);
+	        return this;
+	    };
+
+	    spec.displayName = spec.displayName || _.uniqueId("GraphieClass");
+
+	    // Add the displayName to the constructor for compatibility with
+	    // React's myDescriptor.constructor.displayName
+	    GraphieClass.displayName = spec.displayName;
+
+	    GraphieClass.prototype = new GraphieMovable(spec);
+	    GraphieClass.prototype.constructor = GraphieClass;
+
+	    return GraphieClass;
+	};
+
+	/**
+	 * Create a GraphieMovable class from a function that describes
+	 * how to add said class to a graphie, and returns an array of
+	 * `.remove()`able elements to be used when a remove() or
+	 * modify() is called.
+	 *
+	 * This convenience method creates an inefficient class, although
+	 * it does check for a difference in this.props and prevProps before
+	 * removing and re-adding itself.
+	 *
+	 * The primary benefit of this is being able to very easily create
+	 * a wrapper for old graphie code to make it interface with <Graphie>
+	 *
+	 * Commonly used elements should use the fully-fledged createClass
+	 * and implement an efficient modify() operation.
+	 */
+	var createSimpleClass = function (addFunction) {
+	    return createClass({
+	        displayName: addFunction.name || _.uniqueId("GraphieSimpleClass"),
+	        movableProps: ["children"],
+
+	        add: function (graphie) {
+	            this._elements = addFunction(graphie, this.props);
+	            this._prevProps = this.props;
+	        },
+
+	        modify: function (graphie) {
+	            if (!deepEq(this.props, this._prevProps)) {
+	                this.remove();
+	                this.add(graphie);
+	                this._prevProps = this.props;
+	                return "reordered";
+	            }
+	        },
+
+	        remove: function () {
+	            nestedMap(this._elements, function (elem) {
+	                if (elem) {
+	                    elem.remove();
+	                }
+	            });
+	            this._elements = null;
+	            this._prevProps = null;
+	        },
+
+	        toFront: function () {
+	            nestedMap(this._elements, function (elem) {
+	                if (_.isFunction(elem.toFront)) {
+	                    elem.toFront();
+	                }
+	            });
+	        }
+	    });
+	};
+
+	module.exports = {
+	    GraphieMovable: GraphieMovable,
+	    createClass: createClass,
+	    createSimpleClass: createSimpleClass
+	};
+	/* no op */
+
+/***/ },
+/* 148 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-unused-vars, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var _ = __webpack_require__(16);
+	var GraphieClasses = __webpack_require__(147);
+	var Interactive2 = __webpack_require__(164);
+	var InteractiveUtil = __webpack_require__(149);
+
+	var KhanColors = __webpack_require__(165);
+
+	var assert = InteractiveUtil.assert;
+
+	var MovablePoint = GraphieClasses.createClass({
+	    displayName: "MovablePoint",
+
+	    movableProps: ["children"],
+
+	    add: function (graphie) {
+	        this.point = Interactive2.addMovablePoint(graphie, this.props);
+	    },
+
+	    modify: function () {
+	        this.point.modify(this.props);
+	    },
+
+	    remove: function () {
+	        this.point.remove();
+	    },
+
+	    toFront: function () {
+	        this.point.toFront();
+	    },
+
+	    grab: function (coord) {
+	        this.point.grab(coord);
+	    }
+	});
+
+	// Include helper methods, such as MovablePoint.constrain.snap()
+	_.extend(MovablePoint, Interactive2.MovablePoint);
+
+	var MovableLine = GraphieClasses.createClass({
+	    displayName: "MovableLine",
+
+	    movableProps: ["children"],
+
+	    add: function (graphie) {
+	        // Add MovablePoint children
+	        var points = _.pluck(this.props.children, "point");
+	        var props = _.extend({}, this.props, {
+	            points: points
+	        });
+	        this.line = Interactive2.addMovableLine(graphie, props);
+	    },
+
+	    modify: function () {
+	        // Add MovablePoint children
+	        var points = _.pluck(this.props.children, "point");
+	        var props = _.extend({}, this.props, {
+	            points: points
+	        });
+	        this.line.modify(props);
+	    },
+
+	    remove: function () {
+	        this.line.remove();
+	    },
+
+	    toFront: function () {
+	        this.line.toFront();
+	    }
+	});
+
+	// Include helper methods, such as MovableLine.constrain.snap()
+	_.extend(MovableLine, Interactive2.MovableLine);
+
+	var Label = GraphieClasses.createSimpleClass(function (graphie, props) {
+	    var coord = props.coord;
+	    if (props.unscaled) {
+	        coord = graphie.unscalePoint(coord);
+	    }
+
+	    return graphie.label(coord, props.text, props.direction, props.tex, props.style);
+	});
+
+	var Line = GraphieClasses.createClass({
+	    displayName: "Line",
+
+	    movableProps: ["children"],
+
+	    add: function (graphie) {
+	        var props = this.props;
+	        this.graphie = graphie;
+	        this.line = this.graphie.line(props.start, props.end, props.style);
+	    },
+
+	    modify: function () {
+	        var props = this.props;
+	        var path = this.graphie.svgPath([props.start, props.end]);
+	        this.line.attr(_.extend({}, props.style, { path: path }));
+	    },
+
+	    remove: function () {
+	        this.line.remove();
+	    },
+
+	    toFront: function () {
+	        this.line.toFront();
+	    }
+	});
+
+	var Parabola = GraphieClasses.createClass({
+	    displayName: "Parabola",
+
+	    movableProps: ["children"],
+
+	    add: function (graphie) {
+	        var props = this.props;
+	        this.graphie = graphie;
+	        this.parabola = this.graphie.parabola(props.a, props.b, props.c, props.style);
+	    },
+
+	    modify: function () {
+	        var props = this.props;
+	        var path = this.graphie.svgParabolaPath(props.a, props.b, props.c);
+	        this.parabola.attr(_.extend({}, props.style, { path: path }));
+	    },
+
+	    remove: function () {
+	        this.parabola.remove();
+	    },
+
+	    toFront: function () {
+	        this.parabola.toFront();
+	    }
+	});
+
+	var Sinusoid = GraphieClasses.createClass({
+	    displayName: "Sinusoid",
+
+	    movableProps: ["children"],
+
+	    add: function (graphie) {
+	        var props = this.props;
+	        this.graphie = graphie;
+	        this.sinusoid = this.graphie.sinusoid(props.a, props.b, props.c, props.d, props.style);
+	    },
+
+	    modify: function () {
+	        var props = this.props;
+	        var path = this.graphie.svgSinusoidPath(props.a, props.b, props.c, props.d);
+	        this.sinusoid.attr(_.extend({}, props.style, { path: path }));
+	    },
+
+	    remove: function () {
+	        this.sinusoid.remove();
+	    },
+
+	    toFront: function () {
+	        this.sinusoid.toFront();
+	    }
+	});
+
+	var Plot = GraphieClasses.createSimpleClass(function (graphie, props) {
+	    return graphie.plot(props.fn, props.range, props.style);
+	});
+
+	var PlotParametric = GraphieClasses.createSimpleClass(function (graphie, props) {
+	    return graphie.plotParametric(props.fn, props.range, props.style);
+	});
+
+	var Point = GraphieClasses.createSimpleClass(function (graphie, props) {
+	    return graphie.ellipse(props.coord, graphie.unscaleVector([4, 4]), {
+	        fill: props.color || KhanColors.BLACK,
+	        stroke: props.color || KhanColors.BLACK });
+	});
+
+	var Path = GraphieClasses.createClass({
+	    displayName: "Path",
+
+	    movableProps: ["children"],
+
+	    add: function (graphie) {
+	        var props = this.props;
+	        this.graphie = graphie;
+	        this.path = this.graphie.path(props.coords, props.style);
+	    },
+
+	    modify: function () {
+	        var props = this.props;
+	        var path = this.graphie.svgPath(props.coords);
+	        this.path.attr({ path: path });
+	    },
+
+	    remove: function () {
+	        this.path.remove();
+	    },
+
+	    toFront: function () {
+	        this.path.toFront();
+	    }
+	});
+
+	var Arc = GraphieClasses.createSimpleClass(function (graphie, props) {
+	    var center = props.center;
+	    var radius = props.radius;
+	    if (props.unscaled) {
+	        center = graphie.unscalePoint(center);
+	        radius = graphie.unscaleVector(radius);
+	    }
+
+	    return graphie.arc(center, radius, props.startAngle, props.endAngle, props.sector, props.style);
+	});
+
+	var Circle = GraphieClasses.createSimpleClass(function (graphie, props) {
+	    return graphie.circle(props.center, props.radius, props.style);
+	});
+
+	var Rect = GraphieClasses.createSimpleClass(function (graphie, props) {
+	    return graphie.rect(props.x, props.y, props.width, props.height, props.style);
+	});
+
+	module.exports = {
+	    Arc: Arc,
+	    Circle: Circle,
+	    Label: Label,
+	    Line: Line,
+	    MovableLine: MovableLine,
+	    MovablePoint: MovablePoint,
+	    Parabola: Parabola,
+	    Path: Path,
+	    Plot: Plot,
+	    PlotParametric: PlotParametric,
+	    Point: Point,
+	    Sinusoid: Sinusoid,
+	    Rect: Rect
+	};
+
+/***/ },
+/* 149 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/**
+	 * Utility functions for writing Interactive2 movablethings
+	 */
+
+	var _ = __webpack_require__(16);
+	var MovableHelperMethods = __webpack_require__(191);
+
+	/**
+	 * Compute the correct vendor-prefixed `transform`.
+	 */
+	var prefixedTransform = null;
+	function computePrefixedTransform() {
+	    // Temporary element for testing prefix validity
+	    var el = document.createElement("div");
+
+	    var prefixes = ["transform", "msTransform", "MozTransform", "WebkitTransform", "OTransform"];
+	    var correctPrefix = null;
+	    _.each(prefixes, function (prefix) {
+	        if (typeof el.style[prefix] !== "undefined") {
+	            correctPrefix = prefix;
+	        }
+	    });
+	    return correctPrefix;
+	}
+
+	/**
+	 * Compute whether the browser can use 3d transforms by trying to use the
+	 * translateZ transformation.
+	 */
+	var canUse3dTransform = null;
+	function computeCanUse3dTransform() {
+	    var el = document.createElement("div");
+
+	    var prefix = InteractiveUtil.getPrefixedTransform();
+
+	    el.style[prefix] = "translateZ(0px)";
+	    return !!el.style[prefix];
+	}
+
+	var InteractiveUtil = {
+	    assert: function (isTrue, message) {
+	        if (!isTrue) {
+	            throw new Error("Assertion Error" + (message ? ": " + message : ""));
+	        }
+	    },
+
+	    /**
+	     * Create getters for this.state, based on the default state, `defaults`
+	     */
+	    createGettersFor: function (Class, defaults) {
+	        _.each(_.keys(defaults), function (key) {
+	            if (Class.prototype[key] === undefined) {
+	                Class.prototype[key] = function () {
+	                    return this.state[key];
+	                };
+	            }
+	        });
+	    },
+
+	    /**
+	     * Add MovableHelperMethods methods to a MovableThing class
+	     */
+	    addMovableHelperMethodsTo: function (Class) {
+	        _.each(MovableHelperMethods, function (methodFunc, methodName) {
+	            if (Class.prototype[methodName] === undefined) {
+	                Class.prototype[methodName] = methodFunc;
+	            }
+	        });
+	    },
+
+	    /**
+	     * Turn a function or an array of functions into an array of functions
+	     */
+	    arrayify: function (funcOrArray) {
+	        if (funcOrArray == null) {
+	            return [];
+	        } else if (_.isArray(funcOrArray)) {
+	            return _.filter(_.flatten(funcOrArray), _.identity);
+	        } else {
+	            return [funcOrArray];
+	        }
+	    },
+
+	    /**
+	     * Convert all function-or-array arguments to arrays of functions
+	     */
+	    normalizeOptions: function (arrayOptionNames, options) {
+	        // TODO(jack): Having to clone here is annoying; this
+	        // function should really just modify this.state in place
+	        // (and maybe be a function on MovableHelperMethods to get access
+	        // to this.state), which would also be nicer because we could
+	        // normalizeOptions once in this.modify
+	        var result = _.clone(options);
+	        _.each(arrayOptionNames, function (eventName) {
+	            var funcOrArray = options[eventName];
+	            // Only propagate values which were set; not present values
+	            // shouldn't be added to options because we'd like them to
+	            // fall through to defaults
+	            if (funcOrArray !== undefined) {
+	                var funcArray = InteractiveUtil.arrayify(funcOrArray);
+	                result[eventName] = funcArray;
+	            }
+	        });
+	        return result;
+	    },
+
+	    /**
+	     * Get the correct vendor-prefixed `transform`.
+	     */
+	    getPrefixedTransform: function () {
+	        // Cache result to avoid re-computation
+	        prefixedTransform = prefixedTransform || computePrefixedTransform();
+	        return prefixedTransform;
+	    },
+
+	    /**
+	     * Get whether the browser can use 3d transforms.
+	     */
+	    getCanUse3dTransform: function () {
+	        if (canUse3dTransform == null) {
+	            canUse3dTransform = computeCanUse3dTransform();
+	        }
+	        return canUse3dTransform;
+	    }
+	};
+
+	module.exports = InteractiveUtil;
+
+/***/ },
+/* 150 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * A wrapper around graphie.js and interactive.js to make sure interactive.js
+	 * is always required at the same time as graphie.js. This is because
+	 * interactive.js has side effects that are hard to see (it adds things to
+	 * `Graphie.prototype`), so someone might forget to require interactive.js.
+	 *
+	 * To use the utilities exported from interactive.js, require that file
+	 * itself.
+	 */
+	var GraphUtils = __webpack_require__(192);
+	__webpack_require__(193); // For side effects
+
+	module.exports = GraphUtils;
+
+/***/ },
+/* 151 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/* @flow */
@@ -37798,536 +38324,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	})();
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 148 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var Util = __webpack_require__(6);
-	var nestedMap = Util.nestedMap;
-	var deepEq = Util.deepEq;
-	var _ = __webpack_require__(16);
-
-	/**
-	 * A base class for all Graphie Movables
-	 *
-	 * Used for checking that all Graphie children are, in fact,
-	 * GraphieMovables
-	 */
-	function GraphieMovable(descriptor) {
-	    _.extend(this, descriptor);
-	}
-
-	var abstractMethod = function () {
-	    throw new Error("Abstract method! Must be implemented by Graphie Movable" + this.constructor.displayName);
-	};
-
-	_.extend(GraphieMovable.prototype, {
-	    movableProps: [],
-	    add: abstractMethod,
-	    modify: abstractMethod,
-	    remove: abstractMethod,
-	    toFront: function () {}
-	});
-
-	/**
-	 * returns cloned props modified with `children: childrenArray`
-	 */
-	var rewriteProps = function (props, childrenArray) {
-	    // Clone the props and add `children:`
-	    // childrenArray is always an array here because this is only called
-	    // from createClass, which initializes childrenArray as _.rest(arguments)
-	    return _.extend({}, props, {
-	        children: _.filter(_.flatten(childrenArray), _.identity)
-	    });
-	};
-
-	/**
-	 * Create a custom GraphieMovable class
-	 */
-	var createClass = function (spec) {
-	    var GraphieClass = function (props) {
-	        if (!(this instanceof GraphieClass)) {
-	            throw new Error("Use createElement or JSX with graphie movables");
-	        }
-	        this.props = rewriteProps(props, props.children || []);
-	        return this;
-	    };
-
-	    spec.displayName = spec.displayName || _.uniqueId("GraphieClass");
-
-	    // Add the displayName to the constructor for compatibility with
-	    // React's myDescriptor.constructor.displayName
-	    GraphieClass.displayName = spec.displayName;
-
-	    GraphieClass.prototype = new GraphieMovable(spec);
-	    GraphieClass.prototype.constructor = GraphieClass;
-
-	    return GraphieClass;
-	};
-
-	/**
-	 * Create a GraphieMovable class from a function that describes
-	 * how to add said class to a graphie, and returns an array of
-	 * `.remove()`able elements to be used when a remove() or
-	 * modify() is called.
-	 *
-	 * This convenience method creates an inefficient class, although
-	 * it does check for a difference in this.props and prevProps before
-	 * removing and re-adding itself.
-	 *
-	 * The primary benefit of this is being able to very easily create
-	 * a wrapper for old graphie code to make it interface with <Graphie>
-	 *
-	 * Commonly used elements should use the fully-fledged createClass
-	 * and implement an efficient modify() operation.
-	 */
-	var createSimpleClass = function (addFunction) {
-	    return createClass({
-	        displayName: addFunction.name || _.uniqueId("GraphieSimpleClass"),
-	        movableProps: ["children"],
-
-	        add: function (graphie) {
-	            this._elements = addFunction(graphie, this.props);
-	            this._prevProps = this.props;
-	        },
-
-	        modify: function (graphie) {
-	            if (!deepEq(this.props, this._prevProps)) {
-	                this.remove();
-	                this.add(graphie);
-	                this._prevProps = this.props;
-	                return "reordered";
-	            }
-	        },
-
-	        remove: function () {
-	            nestedMap(this._elements, function (elem) {
-	                if (elem) {
-	                    elem.remove();
-	                }
-	            });
-	            this._elements = null;
-	            this._prevProps = null;
-	        },
-
-	        toFront: function () {
-	            nestedMap(this._elements, function (elem) {
-	                if (_.isFunction(elem.toFront)) {
-	                    elem.toFront();
-	                }
-	            });
-	        }
-	    });
-	};
-
-	module.exports = {
-	    GraphieMovable: GraphieMovable,
-	    createClass: createClass,
-	    createSimpleClass: createSimpleClass
-	};
-	/* no op */
-
-/***/ },
-/* 149 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-unused-vars, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var _ = __webpack_require__(16);
-	var GraphieClasses = __webpack_require__(148);
-	var Interactive2 = __webpack_require__(164);
-	var InteractiveUtil = __webpack_require__(150);
-
-	var KhanColors = __webpack_require__(165);
-
-	var assert = InteractiveUtil.assert;
-
-	var MovablePoint = GraphieClasses.createClass({
-	    displayName: "MovablePoint",
-
-	    movableProps: ["children"],
-
-	    add: function (graphie) {
-	        this.point = Interactive2.addMovablePoint(graphie, this.props);
-	    },
-
-	    modify: function () {
-	        this.point.modify(this.props);
-	    },
-
-	    remove: function () {
-	        this.point.remove();
-	    },
-
-	    toFront: function () {
-	        this.point.toFront();
-	    },
-
-	    grab: function (coord) {
-	        this.point.grab(coord);
-	    }
-	});
-
-	// Include helper methods, such as MovablePoint.constrain.snap()
-	_.extend(MovablePoint, Interactive2.MovablePoint);
-
-	var MovableLine = GraphieClasses.createClass({
-	    displayName: "MovableLine",
-
-	    movableProps: ["children"],
-
-	    add: function (graphie) {
-	        // Add MovablePoint children
-	        var points = _.pluck(this.props.children, "point");
-	        var props = _.extend({}, this.props, {
-	            points: points
-	        });
-	        this.line = Interactive2.addMovableLine(graphie, props);
-	    },
-
-	    modify: function () {
-	        // Add MovablePoint children
-	        var points = _.pluck(this.props.children, "point");
-	        var props = _.extend({}, this.props, {
-	            points: points
-	        });
-	        this.line.modify(props);
-	    },
-
-	    remove: function () {
-	        this.line.remove();
-	    },
-
-	    toFront: function () {
-	        this.line.toFront();
-	    }
-	});
-
-	// Include helper methods, such as MovableLine.constrain.snap()
-	_.extend(MovableLine, Interactive2.MovableLine);
-
-	var Label = GraphieClasses.createSimpleClass(function (graphie, props) {
-	    var coord = props.coord;
-	    if (props.unscaled) {
-	        coord = graphie.unscalePoint(coord);
-	    }
-
-	    return graphie.label(coord, props.text, props.direction, props.tex, props.style);
-	});
-
-	var Line = GraphieClasses.createClass({
-	    displayName: "Line",
-
-	    movableProps: ["children"],
-
-	    add: function (graphie) {
-	        var props = this.props;
-	        this.graphie = graphie;
-	        this.line = this.graphie.line(props.start, props.end, props.style);
-	    },
-
-	    modify: function () {
-	        var props = this.props;
-	        var path = this.graphie.svgPath([props.start, props.end]);
-	        this.line.attr(_.extend({}, props.style, { path: path }));
-	    },
-
-	    remove: function () {
-	        this.line.remove();
-	    },
-
-	    toFront: function () {
-	        this.line.toFront();
-	    }
-	});
-
-	var Parabola = GraphieClasses.createClass({
-	    displayName: "Parabola",
-
-	    movableProps: ["children"],
-
-	    add: function (graphie) {
-	        var props = this.props;
-	        this.graphie = graphie;
-	        this.parabola = this.graphie.parabola(props.a, props.b, props.c, props.style);
-	    },
-
-	    modify: function () {
-	        var props = this.props;
-	        var path = this.graphie.svgParabolaPath(props.a, props.b, props.c);
-	        this.parabola.attr(_.extend({}, props.style, { path: path }));
-	    },
-
-	    remove: function () {
-	        this.parabola.remove();
-	    },
-
-	    toFront: function () {
-	        this.parabola.toFront();
-	    }
-	});
-
-	var Sinusoid = GraphieClasses.createClass({
-	    displayName: "Sinusoid",
-
-	    movableProps: ["children"],
-
-	    add: function (graphie) {
-	        var props = this.props;
-	        this.graphie = graphie;
-	        this.sinusoid = this.graphie.sinusoid(props.a, props.b, props.c, props.d, props.style);
-	    },
-
-	    modify: function () {
-	        var props = this.props;
-	        var path = this.graphie.svgSinusoidPath(props.a, props.b, props.c, props.d);
-	        this.sinusoid.attr(_.extend({}, props.style, { path: path }));
-	    },
-
-	    remove: function () {
-	        this.sinusoid.remove();
-	    },
-
-	    toFront: function () {
-	        this.sinusoid.toFront();
-	    }
-	});
-
-	var Plot = GraphieClasses.createSimpleClass(function (graphie, props) {
-	    return graphie.plot(props.fn, props.range, props.style);
-	});
-
-	var PlotParametric = GraphieClasses.createSimpleClass(function (graphie, props) {
-	    return graphie.plotParametric(props.fn, props.range, props.style);
-	});
-
-	var Point = GraphieClasses.createSimpleClass(function (graphie, props) {
-	    return graphie.ellipse(props.coord, graphie.unscaleVector([4, 4]), {
-	        fill: props.color || KhanColors.BLACK,
-	        stroke: props.color || KhanColors.BLACK });
-	});
-
-	var Path = GraphieClasses.createClass({
-	    displayName: "Path",
-
-	    movableProps: ["children"],
-
-	    add: function (graphie) {
-	        var props = this.props;
-	        this.graphie = graphie;
-	        this.path = this.graphie.path(props.coords, props.style);
-	    },
-
-	    modify: function () {
-	        var props = this.props;
-	        var path = this.graphie.svgPath(props.coords);
-	        this.path.attr({ path: path });
-	    },
-
-	    remove: function () {
-	        this.path.remove();
-	    },
-
-	    toFront: function () {
-	        this.path.toFront();
-	    }
-	});
-
-	var Arc = GraphieClasses.createSimpleClass(function (graphie, props) {
-	    var center = props.center;
-	    var radius = props.radius;
-	    if (props.unscaled) {
-	        center = graphie.unscalePoint(center);
-	        radius = graphie.unscaleVector(radius);
-	    }
-
-	    return graphie.arc(center, radius, props.startAngle, props.endAngle, props.sector, props.style);
-	});
-
-	var Circle = GraphieClasses.createSimpleClass(function (graphie, props) {
-	    return graphie.circle(props.center, props.radius, props.style);
-	});
-
-	var Rect = GraphieClasses.createSimpleClass(function (graphie, props) {
-	    return graphie.rect(props.x, props.y, props.width, props.height, props.style);
-	});
-
-	module.exports = {
-	    Arc: Arc,
-	    Circle: Circle,
-	    Label: Label,
-	    Line: Line,
-	    MovableLine: MovableLine,
-	    MovablePoint: MovablePoint,
-	    Parabola: Parabola,
-	    Path: Path,
-	    Plot: Plot,
-	    PlotParametric: PlotParametric,
-	    Point: Point,
-	    Sinusoid: Sinusoid,
-	    Rect: Rect
-	};
-
-/***/ },
-/* 150 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	/**
-	 * Utility functions for writing Interactive2 movablethings
-	 */
-
-	var _ = __webpack_require__(16);
-	var MovableHelperMethods = __webpack_require__(191);
-
-	/**
-	 * Compute the correct vendor-prefixed `transform`.
-	 */
-	var prefixedTransform = null;
-	function computePrefixedTransform() {
-	    // Temporary element for testing prefix validity
-	    var el = document.createElement("div");
-
-	    var prefixes = ["transform", "msTransform", "MozTransform", "WebkitTransform", "OTransform"];
-	    var correctPrefix = null;
-	    _.each(prefixes, function (prefix) {
-	        if (typeof el.style[prefix] !== "undefined") {
-	            correctPrefix = prefix;
-	        }
-	    });
-	    return correctPrefix;
-	}
-
-	/**
-	 * Compute whether the browser can use 3d transforms by trying to use the
-	 * translateZ transformation.
-	 */
-	var canUse3dTransform = null;
-	function computeCanUse3dTransform() {
-	    var el = document.createElement("div");
-
-	    var prefix = InteractiveUtil.getPrefixedTransform();
-
-	    el.style[prefix] = "translateZ(0px)";
-	    return !!el.style[prefix];
-	}
-
-	var InteractiveUtil = {
-	    assert: function (isTrue, message) {
-	        if (!isTrue) {
-	            throw new Error("Assertion Error" + (message ? ": " + message : ""));
-	        }
-	    },
-
-	    /**
-	     * Create getters for this.state, based on the default state, `defaults`
-	     */
-	    createGettersFor: function (Class, defaults) {
-	        _.each(_.keys(defaults), function (key) {
-	            if (Class.prototype[key] === undefined) {
-	                Class.prototype[key] = function () {
-	                    return this.state[key];
-	                };
-	            }
-	        });
-	    },
-
-	    /**
-	     * Add MovableHelperMethods methods to a MovableThing class
-	     */
-	    addMovableHelperMethodsTo: function (Class) {
-	        _.each(MovableHelperMethods, function (methodFunc, methodName) {
-	            if (Class.prototype[methodName] === undefined) {
-	                Class.prototype[methodName] = methodFunc;
-	            }
-	        });
-	    },
-
-	    /**
-	     * Turn a function or an array of functions into an array of functions
-	     */
-	    arrayify: function (funcOrArray) {
-	        if (funcOrArray == null) {
-	            return [];
-	        } else if (_.isArray(funcOrArray)) {
-	            return _.filter(_.flatten(funcOrArray), _.identity);
-	        } else {
-	            return [funcOrArray];
-	        }
-	    },
-
-	    /**
-	     * Convert all function-or-array arguments to arrays of functions
-	     */
-	    normalizeOptions: function (arrayOptionNames, options) {
-	        // TODO(jack): Having to clone here is annoying; this
-	        // function should really just modify this.state in place
-	        // (and maybe be a function on MovableHelperMethods to get access
-	        // to this.state), which would also be nicer because we could
-	        // normalizeOptions once in this.modify
-	        var result = _.clone(options);
-	        _.each(arrayOptionNames, function (eventName) {
-	            var funcOrArray = options[eventName];
-	            // Only propagate values which were set; not present values
-	            // shouldn't be added to options because we'd like them to
-	            // fall through to defaults
-	            if (funcOrArray !== undefined) {
-	                var funcArray = InteractiveUtil.arrayify(funcOrArray);
-	                result[eventName] = funcArray;
-	            }
-	        });
-	        return result;
-	    },
-
-	    /**
-	     * Get the correct vendor-prefixed `transform`.
-	     */
-	    getPrefixedTransform: function () {
-	        // Cache result to avoid re-computation
-	        prefixedTransform = prefixedTransform || computePrefixedTransform();
-	        return prefixedTransform;
-	    },
-
-	    /**
-	     * Get whether the browser can use 3d transforms.
-	     */
-	    getCanUse3dTransform: function () {
-	        if (canUse3dTransform == null) {
-	            canUse3dTransform = computeCanUse3dTransform();
-	        }
-	        return canUse3dTransform;
-	    }
-	};
-
-	module.exports = InteractiveUtil;
-
-/***/ },
-/* 151 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * A wrapper around graphie.js and interactive.js to make sure interactive.js
-	 * is always required at the same time as graphie.js. This is because
-	 * interactive.js has side effects that are hard to see (it adds things to
-	 * `Graphie.prototype`), so someone might forget to require interactive.js.
-	 *
-	 * To use the utilities exported from interactive.js, require that file
-	 * itself.
-	 */
-	var GraphUtils = __webpack_require__(192);
-	__webpack_require__(193); // For side effects
-
-	module.exports = GraphUtils;
 
 /***/ },
 /* 152 */
@@ -41632,7 +41628,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var Util = __webpack_require__(6);
-	var GraphUtils = __webpack_require__(151);
+	var GraphUtils = __webpack_require__(150);
 
 	var SvgImage = __webpack_require__(29);
 
@@ -45478,7 +45474,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/* globals $_ */
 	var React = __webpack_require__(15);
-	var SimpleMarkdown = __webpack_require__(147);
+	var SimpleMarkdown = __webpack_require__(151);
 	var _ = __webpack_require__(16);
 
 	var START_REF_PREFIX = "start-ref-";
@@ -45959,8 +45955,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
 	/**
 	 * Constants that are shared between multiple files.
 	 */
@@ -45971,8 +45965,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        FRACTION: 'FRACTION',
 	        DEFAULT: 'DEFAULT',
 	        ADVANCED_EXPRESSION: 'ADVANCED_EXPRESSION',
-	        BASIC_EXPRESSION: 'BASIC_EXPRESSION'
-	    },
+	        BASIC_EXPRESSION: 'BASIC_EXPRESSION' },
 
 	    KeyTypes: {
 	        EMPTY: 'EMPTY',
@@ -45990,43 +45983,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // themselves.
 	        MANY: 'MANY',
 	        // For the echo animation that appears on press.
-	        ECHO: 'ECHO'
-	    },
+	        ECHO: 'ECHO' },
 
 	    BorderDirections: {
 	        LEFT: 'LEFT',
-	        BOTTOM: 'BOTTOM'
-	    },
+	        BOTTOM: 'BOTTOM' },
 	    BorderStyles: {
 	        LEFT: ['LEFT'],
 	        BOTTOM: ['BOTTOM'],
 	        ALL: ['LEFT', 'BOTTOM'],
-	        NONE: []
-	    },
+	        NONE: [] },
 
 	    // Configurable settings.
 	    SwitchTypes: {
 	        TOGGLE: 'TOGGLE',
 	        TAB_BAR: 'TAB_BAR',
-	        PAGE_CONTROL: 'PAGE_CONTROL'
-	    },
+	        PAGE_CONTROL: 'PAGE_CONTROL' },
 	    FractionBehaviorTypes: {
 	        INCLUSIVE: 'INCLUSIVE',
-	        EXCLUSIVE: 'EXCLUSIVE'
-	    },
+	        EXCLUSIVE: 'EXCLUSIVE' },
 	    JumpOutTypes: {
 	        STATIC: 'STATIC',
-	        DYNAMIC: 'DYNAMIC'
-	    },
+	        DYNAMIC: 'DYNAMIC' },
 	    EchoAnimationTypes: {
 	        SLIDE_AND_FADE: 'SLIDE_AND_FADE',
-	        FADE_ONLY: 'FADE_ONLY'
-	    },
+	        FADE_ONLY: 'FADE_ONLY' },
 	    DebugSwitcherTypes: {
 	        ENABLED: 'ENABLED',
-	        DISABLED: 'DISABLED'
-	    }
-	};
+	        DISABLED: 'DISABLED' } };
 
 /***/ },
 /* 191 */
@@ -47411,7 +47395,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _=__webpack_require__(16);__webpack_require__(217);var GraphUtils=__webpack_require__(192);var kvector=__webpack_require__(189).vector;var kpoint=__webpack_require__(189).point;var kline=__webpack_require__(189).line;var WrappedEllipse=__webpack_require__(218);var WrappedLine=__webpack_require__(219);var WrappedPath=__webpack_require__(220);var KhanMath=__webpack_require__(140);var KhanColors=__webpack_require__(165);var _require=__webpack_require__(150);var getCanUse3dTransform=_require.getCanUse3dTransform;function sum(array){return _.reduce(array, function(memo, arg){return memo + arg;}, 0);}function clockwise(points){var segments=_.zip(points, points.slice(1).concat(points.slice(0, 1)));var areas=_.map(segments, function(segment){var p1=segment[0];var p2=segment[1];return (p2[0] - p1[0]) * (p2[1] + p1[1]);});return sum(areas) > 0;}function addPoints(){var points=_.toArray(arguments);var zipped=_.zip.apply(_, points);return _.map(zipped, sum);}function reverseVector(vector){return _.map(vector, function(coord){return coord * -1;});}function scaledDistanceFromAngle(angle){var a=3.51470560176242 * 20;var b=0.5687298702748785 * 20;var c=-0.037587715462826674;return (a - b) * Math.exp(c * angle) + b;}function scaledPolarRad(radius, radians){return [radius * Math.cos(radians), radius * Math.sin(radians) * -1];}function scaledPolarDeg(radius, degrees){var radians=degrees * Math.PI / 180;return scaledPolarRad(radius, radians);}var dragging=false;var InteractiveUtils={FILL_OPACITY:0.3, createSorter:function(){var sorter={};var list=undefined;sorter.hasAttempted = false;sorter.init = function(element){list = $("[id=" + element + "]").last();var container=list.wrap("<div>").parent();var placeholder=$("<li>");placeholder.addClass("placeholder");container.addClass("sortable ui-helper-clearfix");list.find("li").each(function(tileNum, tile){$(tile).bind("vmousedown", function(event){var _this=this;if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();$(tile).addClass("dragging");var tileIndex=$(_this).index();placeholder.insertAfter(tile);placeholder.width($(tile).width());$(_this).css("z-index", 100);var offset=$(_this).offset();var click={left:event.pageX - offset.left - 3, top:event.pageY - offset.top - 3};$(tile).css({position:"absolute"});$(tile).offset({left:offset.left, top:offset.top});$(document).bind("vmousemove.tile vmouseup.tile", function(event){event.preventDefault();if(event.type === "vmousemove"){(function(){sorter.hasAttempted = true;$(tile).offset({left:event.pageX - click.left, top:event.pageY - click.top});var leftEdge=list.offset().left;var midWidth=$(tile).offset().left - leftEdge;var index=0;var sumWidth=0;list.find("li").each(function(){if(this === placeholder[0] || this === tile){return;}if(midWidth > sumWidth + $(this).outerWidth(true) / 2){index += 1;}sumWidth += $(this).outerWidth(true);});if(index !== tileIndex){tileIndex = index;if(index === 0){placeholder.prependTo(list);$(tile).prependTo(list);}else {placeholder.detach();$(tile).detach();var preceeding=list.find("li")[index - 1];placeholder.insertAfter(preceeding);$(tile).insertAfter(preceeding);}}})();}else if(event.type === "vmouseup"){(function(){$(document).unbind(".tile");var position=$(tile).offset();$(position).animate(placeholder.offset(), {duration:150, step:function(now, fx){position[fx.prop] = now;$(tile).offset(position);}, complete:function(){$(tile).css("z-index", 0);placeholder.detach();$(tile).css({position:"static"});$(tile).removeClass("dragging");}});})();}});})();}});});};sorter.getContent = function(){var content=[];list.find("li").each(function(tileNum, tile){content.push($.trim($(tile).find(".sort-key").text()));});return content;};sorter.setContent = function(content){var tiles=[];$.each(content, function(n, sortKey){var tile=list.find("li .sort-key").filter(function(){return $(this).text() === sortKey;}).closest("li").get(0);$(tile).detach();tiles.push(tile);});list.append(tiles);};return sorter;}, bogusShape:{animate:function(){}, attr:function(){}, remove:function(){}}};_.extend(GraphUtils.Graphie.prototype, {initAutoscaledGraph:function(range, options){var graph=this;options = $.extend({xpixels:500, ypixels:500, xdivisions:20, ydivisions:20, labels:true, unityLabels:true, range:range === undefined?[[-10, 10], [-10, 10]]:range}, options);options.scale = [options.xpixels / (options.range[0][1] - options.range[0][0]), options.ypixels / (options.range[1][1] - options.range[1][0])];options.gridStep = [(options.range[0][1] - options.range[0][0]) / options.xdivisions, (options.range[1][1] - options.range[1][0]) / options.ydivisions];graph.xpixels = options.xpixels;graph.ypixels = options.ypixels;graph.range = options.range;graph.scale = options.scale;graph.graphInit(options);}, addMouseLayer:function(options){var graph=this;options = _.extend({allowScratchpad:false}, options);var mouselayerZIndex=2;graph.mouselayer = Raphael(graph.raphael.canvas.parentNode, graph.xpixels, graph.ypixels);$(graph.mouselayer.canvas).css("z-index", mouselayerZIndex);if(options.onClick || options.onMouseDown || options.onMouseMove || options.onMouseOver || options.onMouseOut){(function(){var canvasClickTarget=graph.mouselayer.rect(0, 0, graph.xpixels, graph.ypixels).attr({fill:"#000", opacity:0});var isClickingCanvas=false;$(graph.mouselayer.canvas).on("vmousedown", function(e){if(e.target === canvasClickTarget[0]){if(options.onMouseDown){options.onMouseDown(graph.getMouseCoord(e));}isClickingCanvas = true;if(options.onMouseMove){$(document).bind("vmousemove.mouseLayer", function(e){if(isClickingCanvas){e.preventDefault();options.onMouseMove(graph.getMouseCoord(e));}});}$(document).bind("vmouseup.mouseLayer", function(e){$(document).unbind(".mouseLayer");if(isClickingCanvas && options.onClick){options.onClick(graph.getMouseCoord(e));}isClickingCanvas = false;});}});if(options.onMouseOver){$(graph.mouselayer.canvas).on("vmouseover", function(e){options.onMouseOver(graph.getMouseCoord(e));});}if(options.onMouseOut){$(graph.mouselayer.canvas).on("vmouseout", function(e){options.onMouseOut(graph.getMouseCoord(e));});}})();}if(!options.allowScratchpad){Khan.scratchpad.disable();}graph._mouselayerWrapper = document.createElement("div");$(graph._mouselayerWrapper).css({position:"absolute", left:0, top:0, zIndex:mouselayerZIndex});graph._visiblelayerWrapper = document.createElement("div");$(graph._visiblelayerWrapper).css({position:"absolute", left:0, top:0});var el=graph.raphael.canvas.parentNode;el.appendChild(graph._visiblelayerWrapper);el.appendChild(graph._mouselayerWrapper);graph.addToMouseLayerWrapper = function(el){this._mouselayerWrapper.appendChild(el);};graph.addToVisibleLayerWrapper = function(el){this._visiblelayerWrapper.appendChild(el);};}, getMousePx:function(event){var graphie=this;var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;return [mouseX, mouseY];}, getMouseCoord:function(event){return this.unscalePoint(this.getMousePx(event));}, drawArcs:function(point1, vertex, point3, numArcs){var startAngle=GraphUtils.findAngle(point1, vertex);var endAngle=GraphUtils.findAngle(point3, vertex);if(((endAngle - startAngle) % 360 + 360) % 360 > 180){var temp=startAngle;startAngle = endAngle;endAngle = temp;}var radius=0.3;if(((endAngle - startAngle) % 360 + 360) % 360 < 75){radius = -0.6 / 90 * (((endAngle - startAngle) % 360 + 360) % 360) + 0.8;}var arcset=[];for(var arc=0; arc < numArcs; ++arc) {arcset.push(this.arc(vertex, radius + 0.15 * arc, startAngle, endAngle));}return arcset;}, labelAngle:function(options){var graphie=this;_.defaults(options, {point1:[0, 0], vertex:[0, 0], point3:[0, 0], label:null, numArcs:1, showRightAngleMarker:true, pushOut:0, clockwise:false, style:{}});var text=options.text === undefined?"":options.text;var vertex=options.vertex;var sVertex=graphie.scalePoint(vertex);var p1=undefined;var p3=undefined;if(options.clockwise){p1 = options.point1;p3 = options.point3;}else {p1 = options.point3;p3 = options.point1;}var startAngle=GraphUtils.findAngle(p1, vertex);var endAngle=GraphUtils.findAngle(p3, vertex);var angle=(endAngle + 360 - startAngle) % 360;var halfAngle=(startAngle + angle / 2) % 360;var sPadding=5 * options.pushOut;var sRadius=sPadding + scaledDistanceFromAngle(angle);var temp=[];if(Math.abs(angle - 90) < 1e-9 && options.showRightAngleMarker){(function(){var v1=addPoints(sVertex, scaledPolarDeg(sRadius, startAngle));var v2=addPoints(sVertex, scaledPolarDeg(sRadius, endAngle));sRadius *= Math.SQRT2;var v3=addPoints(sVertex, scaledPolarDeg(sRadius, halfAngle));_.each([v1, v2], function(v){temp.push(graphie.scaledPath([v, v3], options.style));});})();}else {_.times(options.numArcs, function(i){temp.push(graphie.arc(vertex, graphie.unscaleVector(sRadius), startAngle, endAngle, options.style));sRadius += 3;});}if(text){var match=text.match(/\$deg(\d)?/);if(match){var precision=match[1] || 1;text = text.replace(match[0], KhanMath.toFixedApprox(angle, precision) + "^{\\circ}");}var sOffset=scaledPolarDeg(sRadius + 15, halfAngle);var sPosition=addPoints(sVertex, sOffset);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(text, true);}else {graphie.label(position, text, "center", options.style);}}return temp;}, labelSide:function(options){var graphie=this;_.defaults(options, {point1:[0, 0], point2:[0, 0], label:null, text:"", numTicks:0, numArrows:0, clockwise:false, style:{}});var p1=undefined;var p2=undefined;if(options.clockwise){p1 = options.point1;p2 = options.point2;}else {p1 = options.point2;p2 = options.point1;}var midpoint=[(p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2];var sMidpoint=graphie.scalePoint(midpoint);var parallelAngle=Math.atan2(p2[1] - p1[1], p2[0] - p1[0]);var perpendicularAngle=parallelAngle + Math.PI / 2;var temp=[];var sCumulativeOffset=0;if(options.numTicks){(function(){var n=options.numTicks;var sSpacing=5;var sHeight=5;var style=_.extend({}, options.style, {strokeWidth:2});_.times(n, function(i){var sOffset=sSpacing * (i - (n - 1) / 2);var sOffsetVector=scaledPolarRad(sOffset, parallelAngle);var sHeightVector=scaledPolarRad(sHeight, perpendicularAngle);var sPath=[addPoints(sMidpoint, sOffsetVector, sHeightVector), addPoints(sMidpoint, sOffsetVector, reverseVector(sHeightVector))];temp.push(graphie.scaledPath(sPath, style));});sCumulativeOffset += sSpacing * (n - 1) + 15;})();}if(options.numArrows){(function(){var n=options.numArrows;var start=[p1, p2].sort(function(a, b){if(a[1] === b[1]){return a[0] - b[0];}else {return a[1] - b[1];}})[0];var sStart=graphie.scalePoint(start);var style=_.extend({}, options.style, {arrows:"->", strokeWidth:2});var sSpacing=5;_.times(n, function(i){var sOffset=sCumulativeOffset + sSpacing * i;var sOffsetVector=scaledPolarRad(sOffset, parallelAngle);if(start !== p1){sOffsetVector = reverseVector(sOffsetVector);}var sEnd=addPoints(sMidpoint, sOffsetVector);temp.push(graphie.scaledPath([sStart, sEnd], style));});})();}var text=options.text;if(text){var match=text.match(/\$len(\d)?/);if(match){var distance=GraphUtils.getDistance(p1, p2);var precision=match[1] || 1;text = text.replace(match[0], KhanMath.toFixedApprox(distance, precision));}var sOffset=20;var sOffsetVector=scaledPolarRad(sOffset, perpendicularAngle);var sPosition=addPoints(sMidpoint, sOffsetVector);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(text, true);}else {graphie.label(position, text, "center", options.style);}}return temp;}, labelVertex:function(options){var graphie=this;_.defaults(options, {point1:null, vertex:[0, 0], point3:null, label:null, text:"", clockwise:false, style:{}});if(!options.text){return;}var vertex=options.vertex;var sVertex=graphie.scalePoint(vertex);var p1=undefined;var p3=undefined;if(options.clockwise){p1 = options.point1;p3 = options.point3;}else {p1 = options.point3;p3 = options.point1;}var angle=135;var halfAngle=undefined;if(p1 && p3){var startAngle=GraphUtils.findAngle(p1, vertex);var endAngle=GraphUtils.findAngle(p3, vertex);angle = (endAngle + 360 - startAngle) % 360;halfAngle = (startAngle + angle / 2 + 180) % 360;}else if(p1){var parallelAngle=GraphUtils.findAngle(vertex, p1);halfAngle = parallelAngle + 90;}else if(p3){var parallelAngle=GraphUtils.findAngle(p3, vertex);halfAngle = parallelAngle + 90;}else {halfAngle = 135;}var sRadius=10 + scaledDistanceFromAngle(360 - angle);var sOffsetVector=scaledPolarDeg(sRadius, halfAngle);var sPosition=addPoints(sVertex, sOffsetVector);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(options.text, true);}else {graphie.label(position, options.text, "center", options.style);}}, addMovablePoint:function(options){var movablePoint=$.extend(true, {graph:this, coord:[0, 0], snapX:0, snapY:0, pointSize:4, highlight:false, dragging:false, visible:true, bounded:true, constraints:{fixed:false, constrainX:false, constrainY:false, fixedAngle:{}, fixedDistance:{}}, lineStarts:[], lineEnds:[], polygonVertices:[], normalStyle:{}, highlightStyle:{fill:KhanColors.INTERACTING, stroke:KhanColors.INTERACTING}, labelStyle:{color:KhanColors.INTERACTIVE}, vertexLabel:"", mouseTarget:null}, options);var normalColor=movablePoint.constraints.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;movablePoint.normalStyle = _.extend({}, {"fill":normalColor, "stroke":normalColor}, options.normalStyle);if(options.coordX !== undefined){movablePoint.coord[0] = options.coordX;}if(options.coordY !== undefined){movablePoint.coord[1] = options.coordY;}var graph=movablePoint.graph;var applySnapAndConstraints=function(coord){if(movablePoint.visible && movablePoint.bounded && !movablePoint.constraints.fixed){coord = graph.constrainToBounds(coord, 10);}var coordX=coord[0];var coordY=coord[1];if(movablePoint.snapX !== 0){coordX = Math.round(coordX / movablePoint.snapX) * movablePoint.snapX;}if(movablePoint.snapY !== 0){coordY = Math.round(coordY / movablePoint.snapY) * movablePoint.snapY;}if(movablePoint.constraints.fixedDistance.snapPoints){var mouse=graph.scalePoint(coord);var mouseX=mouse[0];var mouseY=mouse[1];var snapRadians=2 * Math.PI / movablePoint.constraints.fixedDistance.snapPoints;var radius=movablePoint.constraints.fixedDistance.dist;var centerCoord=movablePoint.constraints.fixedDistance.point;var centerX=(centerCoord[0] - graph.range[0][0]) * graph.scale[0];var centerY=(-centerCoord[1] + graph.range[1][1]) * graph.scale[1];var mouseXrel=mouseX - centerX;var mouseYrel=-mouseY + centerY;var radians=Math.atan(mouseYrel / mouseXrel);var outsideArcTanRange=mouseXrel < 0;if(outsideArcTanRange){radians += Math.PI;}radians = Math.round(radians / snapRadians) * snapRadians;mouseXrel = radius * Math.cos(radians);mouseYrel = radius * Math.sin(radians);mouseX = mouseXrel + centerX;mouseY = -mouseYrel + centerY;coordX = KhanMath.roundTo(5, mouseX / graph.scale[0] + graph.range[0][0]);coordY = KhanMath.roundTo(5, graph.range[1][1] - mouseY / graph.scale[1]);}var result=movablePoint.applyConstraint([coordX, coordY]);return result;};movablePoint.applyConstraint = function(coord, extraConstraints, override){var newCoord=coord.slice();var constraints={};if(override){$.extend(constraints, {fixed:false, constrainX:false, constrainY:false, fixedAngle:{}, fixedDistance:{}}, extraConstraints);}else {$.extend(constraints, this.constraints, extraConstraints);}if(constraints.constrainX){newCoord = [this.coord[0], coord[1]];}else if(constraints.constrainY){newCoord = [coord[0], this.coord[1]];}else if(typeof constraints.fixedAngle.angle === "number" && typeof constraints.fixedDistance.dist === "number"){var vertex=constraints.fixedAngle.vertex.coord || constraints.fixedAngle.vertex;var ref=constraints.fixedAngle.ref.coord || constraints.fixedAngle.ref;var distPoint=constraints.fixedDistance.point.coord || constraints.fixedDistance.point;var constrainedAngle=(constraints.fixedAngle.angle + GraphUtils.findAngle(ref, vertex)) * Math.PI / 180;var _length=constraints.fixedDistance.dist;newCoord[0] = _length * Math.cos(constrainedAngle) + distPoint[0];newCoord[1] = _length * Math.sin(constrainedAngle) + distPoint[1];}else if(typeof constraints.fixedAngle.angle === "number"){var vertex=constraints.fixedAngle.vertex.coord || constraints.fixedAngle.vertex;var ref=constraints.fixedAngle.ref.coord || constraints.fixedAngle.ref;var constrainedAngle=(constraints.fixedAngle.angle + GraphUtils.findAngle(ref, vertex)) * Math.PI / 180;var angle=GraphUtils.findAngle(coord, vertex) * Math.PI / 180;var distance=GraphUtils.getDistance(coord, vertex);var _length2=distance * Math.cos(constrainedAngle - angle);_length2 = _length2 < 1?1:_length2;newCoord[0] = _length2 * Math.cos(constrainedAngle) + vertex[0];newCoord[1] = _length2 * Math.sin(constrainedAngle) + vertex[1];}else if(typeof constraints.fixedDistance.dist === "number"){var distPoint=constraints.fixedDistance.point.coord || constraints.fixedDistance.point;var angle=GraphUtils.findAngle(coord, distPoint);var _length3=constraints.fixedDistance.dist;angle = angle * Math.PI / 180;newCoord[0] = _length3 * Math.cos(angle) + distPoint[0];newCoord[1] = _length3 * Math.sin(angle) + distPoint[1];}else if(constraints.fixed){newCoord = movablePoint.coord;}return newCoord;};movablePoint.coord = applySnapAndConstraints(movablePoint.coord);var highlightScale=2;if(movablePoint.visible){graph.style(movablePoint.normalStyle, function(){var radii=[movablePoint.pointSize / graph.scale[0], movablePoint.pointSize / graph.scale[1]];var options={maxScale:highlightScale};movablePoint.visibleShape = new WrappedEllipse(graph, movablePoint.coord, radii, options);movablePoint.visibleShape.attr(_.omit(movablePoint.normalStyle, "scale"));movablePoint.visibleShape.toFront();});}movablePoint.normalStyle.scale = 1;movablePoint.highlightStyle.scale = highlightScale;if(movablePoint.vertexLabel){movablePoint.labeledVertex = this.label([0, 0], "", "center", movablePoint.labelStyle);}movablePoint.drawLabel = function(){if(movablePoint.vertexLabel){movablePoint.graph.labelVertex({vertex:movablePoint.coord, label:movablePoint.labeledVertex, text:movablePoint.vertexLabel, style:movablePoint.labelStyle});}};movablePoint.drawLabel();movablePoint.grab = function(){$(document).bind("vmousemove.point vmouseup.point", function(event){event.preventDefault();movablePoint.dragging = true;dragging = true;var coord=graph.getMouseCoord(event);coord = applySnapAndConstraints(coord);var coordX=coord[0];var coordY=coord[1];var mouseX=undefined;var mouseY=undefined;if(event.type === "vmousemove"){var doMove=true;if(_.isFunction(movablePoint.onMove)){var result=movablePoint.onMove(coordX, coordY);if(result === false){doMove = false;}if(_.isArray(result)){coordX = result[0];coordY = result[1];}}mouseX = (coordX - graph.range[0][0]) * graph.scale[0];mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];if(doMove){var point=graph.unscalePoint([mouseX, mouseY]);movablePoint.visibleShape.moveTo(point);movablePoint.mouseTarget.moveTo(point);movablePoint.coord = [coordX, coordY];movablePoint.updateLineEnds();$(movablePoint).trigger("move");}movablePoint.drawLabel();}else if(event.type === "vmouseup"){$(document).unbind(".point");movablePoint.dragging = false;dragging = false;if(_.isFunction(movablePoint.onMoveEnd)){var result=movablePoint.onMoveEnd(coordX, coordY);if(_.isArray(result)){coordX = result[0];coordY = result[1];mouseX = (coordX - graph.range[0][0]) * graph.scale[0];mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];var point=graph.unscalePoint([mouseX, mouseY]);movablePoint.visibleShape.moveTo(point);movablePoint.mouseTarget.moveTo(point);movablePoint.coord = [coordX, coordY];}}if(!movablePoint.highlight){movablePoint.visibleShape.animate(movablePoint.normalStyle, 50);if(movablePoint.onUnhighlight){movablePoint.onUnhighlight();}}}});};if(movablePoint.visible && !movablePoint.constraints.fixed){if(!movablePoint.mouseTarget){var radii=graph.unscaleVector(15);var _options={mouselayer:true};movablePoint.mouseTarget = new WrappedEllipse(graph, movablePoint.coord, radii, _options);movablePoint.mouseTarget.attr({fill:"#000", opacity:0});}var $mouseTarget=$(movablePoint.mouseTarget.getMouseTarget());$mouseTarget.css("cursor", "move");$mouseTarget.bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){movablePoint.highlight = true;if(!dragging){movablePoint.visibleShape.animate(movablePoint.highlightStyle, 50);if(movablePoint.onHighlight){movablePoint.onHighlight();}}}else if(event.type === "vmouseout"){movablePoint.highlight = false;if(!movablePoint.dragging && !dragging){movablePoint.visibleShape.animate(movablePoint.normalStyle, 50);if(movablePoint.onUnhighlight){movablePoint.onUnhighlight();}}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){event.preventDefault();movablePoint.grab();}});}movablePoint.moveTo = function(coordX, coordY, updateLines){var distance=GraphUtils.getDistance(this.graph.scalePoint([coordX, coordY]), this.graph.scalePoint(this.coord));var time=distance * 5;var cb=updateLines && function(coord){movablePoint.coord = coord;movablePoint.updateLineEnds();};this.visibleShape.animateTo([coordX, coordY], time, cb);this.mouseTarget.animateTo([coordX, coordY], time, cb);this.coord = [coordX, coordY];if(_.isFunction(this.onMove)){this.onMove(coordX, coordY);}};movablePoint.updateLineEnds = function(){$(this.lineStarts).each(function(){this.coordA = movablePoint.coord;this.transform();});$(this.lineEnds).each(function(){this.coordZ = movablePoint.coord;this.transform();});$(this.polygonVertices).each(function(){this.transform();});};movablePoint.setCoord = function(coord){if(this.visible){this.visibleShape.moveTo(coord);if(this.mouseTarget != null){this.mouseTarget.moveTo(coord);}}this.coord = coord.slice();};movablePoint.setCoordConstrained = function(coord){this.setCoord(applySnapAndConstraints(coord));};movablePoint.toBack = function(){if(this.visible){if(this.mouseTarget != null){this.mouseTarget.toBack();}this.visibleShape.toBack();}};movablePoint.toFront = function(){if(this.visible){if(this.mouseTarget != null){this.mouseTarget.toFront();}this.visibleShape.toFront();}};movablePoint.remove = function(){if(this.visibleShape){this.visibleShape.remove();}if(this.mouseTarget){this.mouseTarget.remove();}if(this.labeledVertex){this.labeledVertex.remove();}};return movablePoint;}, addInteractiveFn:function(fn, options){var graph=this;options = $.extend({graph:graph, snap:0, range:[graph.range[0][0], graph.range[0][1]]}, options);var interactiveFn={highlight:false};graph.style({stroke:KhanColors.BLUE}, function(){interactiveFn.visibleShape = graph.plot(fn, options.range, options.swapAxes);});graph.style({fill:KhanColors.BLUE, stroke:KhanColors.BLUE}, function(){interactiveFn.cursorPoint = graph.ellipse([0, fn(0)], [4 / graph.scale[0], 4 / graph.scale[1]]);});interactiveFn.cursorPoint.attr("opacity", 0);var mouseAreaWidth=30;var points=[];var step=(options.range[1] - options.range[0]) / 100;var addScaledPoint=function(x, y){if(options.swapAxes){points.push([(y - graph.range[0][0]) * graph.scale[0], (graph.range[1][1] - x) * graph.scale[1]]);}else {points.push([(x - graph.range[0][0]) * graph.scale[0], (graph.range[1][1] - y) * graph.scale[1]]);}};for(var x=options.range[0]; x <= options.range[1]; x += step) {var ddx=(fn(x - 0.001) - fn(x + 0.001)) / 0.002;var x1=x;var y1=fn(x) + mouseAreaWidth / (2 * graph.scale[1]);if(ddx !== 0){var normalslope=-1 / (ddx * (graph.scale[1] / graph.scale[0])) / (graph.scale[1] / graph.scale[0]);if(ddx < 0){x1 = x - Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}else if(ddx > 0){x1 = x + Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}}addScaledPoint(x1, y1);}for(var x=options.range[1]; x >= options.range[0]; x -= step) {var ddx=(fn(x - 0.001) - fn(x + 0.001)) / 0.002;var x1=x;var y1=fn(x) - mouseAreaWidth / (2 * graph.scale[1]);if(ddx !== 0){var normalslope=-1 / (ddx * (graph.scale[1] / graph.scale[0])) / (graph.scale[1] / graph.scale[0]);if(ddx < 0){x1 = x + Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}else if(ddx > 0){x1 = x - Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}}addScaledPoint(x1, y1);}interactiveFn.mouseTarget = graph.mouselayer.path(GraphUtils.unscaledSvgPath(points));interactiveFn.mouseTarget.attr({fill:"#000", "opacity":0});$(interactiveFn.mouseTarget[0]).bind("vmouseover vmouseout vmousemove", function(event){event.preventDefault();var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graph.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graph.ypixels - 10, mouseY));if(options.snap){mouseX = Math.round(mouseX / (graph.scale[0] * options.snap)) * (graph.scale[0] * options.snap);}var coordX=mouseX / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - mouseY / graph.scale[1];var findDistance=function(coordX, coordY){var closestX=0;var minDist=Math.sqrt(coordX * coordX + coordY * coordY);for(var x=options.range[0]; x < options.range[1]; x += (options.range[1] - options.range[0]) / graph.xpixels) {if(Math.sqrt((x - coordX) * (x - coordX) + (fn(x) - coordY) * (fn(x) - coordY)) < minDist){closestX = x;minDist = Math.sqrt((x - coordX) * (x - coordX) + (fn(x) - coordY) * (fn(x) - coordY));}}return closestX;};if(options.swapAxes){var closestX=findDistance(coordY, coordX);coordX = fn(closestX);coordY = closestX;}else {var closestX=findDistance(coordX, coordY);coordX = closestX;coordY = fn(closestX);}interactiveFn.cursorPoint.attr("cx", (graph.range[0][1] + coordX) * graph.scale[0]);interactiveFn.cursorPoint.attr("cy", (graph.range[1][1] - coordY) * graph.scale[1]);if(_.isFunction(interactiveFn.onMove)){interactiveFn.onMove(coordX, coordY);}if(event.type === "vmouseover"){interactiveFn.cursorPoint.animate({opacity:1}, 50);interactiveFn.highlight = true;}else if(event.type === "vmouseout"){interactiveFn.highlight = false;interactiveFn.cursorPoint.animate({opacity:0}, 50);if(_.isFunction(interactiveFn.onLeave)){interactiveFn.onLeave(coordX, coordY);}}});interactiveFn.mouseTarget.toBack();return interactiveFn;}, addMovableLineSegment:function(options){var lineSegment=$.extend({graph:this, coordA:[0, 0], coordZ:[1, 1], snapX:0, snapY:0, fixed:false, ticks:0, normalStyle:{}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":6}, labelStyle:{"stroke":KhanColors.INTERACTIVE, "color":KhanColors.INTERACTIVE}, highlight:false, dragging:false, tick:[], extendLine:false, extendRay:false, constraints:{fixed:false, constrainX:false, constrainY:false}, sideLabel:"", vertexLabels:[], numArrows:0, numTicks:0, movePointsWithLine:false}, options);var normalColor=lineSegment.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;lineSegment.normalStyle = _.extend({}, {"stroke-width":2, "stroke":normalColor}, options.normalStyle);lineSegment.arrowStyle = _.extend({}, lineSegment.normalStyle, {"color":lineSegment.normalStyle.stroke});if(options.pointA !== undefined){lineSegment.coordA = options.pointA.coord;lineSegment.pointA.lineStarts.push(lineSegment);}else if(options.coordA !== undefined){lineSegment.coordA = options.coordA.slice();}if(options.pointZ !== undefined){lineSegment.coordZ = options.pointZ.coord;lineSegment.pointZ.lineEnds.push(lineSegment);}else if(options.coordA !== undefined){lineSegment.coordA = lineSegment.coordA.slice();}var graph=lineSegment.graph;graph.style(lineSegment.normalStyle);for(var i=0; i < lineSegment.ticks; ++i) {lineSegment.tick[i] = InteractiveUtils.bogusShape;}var path=GraphUtils.unscaledSvgPath([[0, 0], [1, 0]]);for(var i=0; i < lineSegment.ticks; ++i) {var tickoffset=0.5 - (lineSegment.ticks - 1 + i * 2) / graph.scale[0];path += GraphUtils.unscaledSvgPath([[tickoffset, -7], [tickoffset, 7]]);}options = {thickness:Math.max(lineSegment.normalStyle["stroke-width"], lineSegment.highlightStyle["stroke-width"])};lineSegment.visibleLine = new WrappedLine(graph, [0, 0], [1, 0], options);lineSegment.visibleLine.attr(lineSegment.normalStyle);if(!lineSegment.fixed){var _options2={thickness:30, mouselayer:true};lineSegment.mouseTarget = new WrappedLine(graph, [0, 0], [1, 0], _options2);lineSegment.mouseTarget.attr({fill:"#000", "opacity":0});}lineSegment.transform = function(syncToPoints){if(syncToPoints){if(typeof this.pointA === "object"){this.coordA = this.pointA.coord;}if(typeof this.pointZ === "object"){this.coordZ = this.pointZ.coord;}}var getScaledAngle=function(line){var scaledA=line.graph.scalePoint(line.coordA);var scaledZ=line.graph.scalePoint(line.coordZ);return kvector.polarDegFromCart(kvector.subtract(scaledZ, scaledA))[1];};var getClipPoint=function(graph, coord, angle){graph = lineSegment.graph;var xExtent=graph.range[0][1] - graph.range[0][0];var yExtent=graph.range[1][1] - graph.range[1][0];var distance=xExtent + yExtent;var angleVec=graph.unscaleVector(kvector.cartFromPolarDeg([1, angle]));var distVec=kvector.scale(kvector.normalize(angleVec), distance);var farCoord=kvector.add(coord, distVec);var scaledAngle=kvector.polarDegFromCart(angleVec)[1];var clipPoint=graph.constrainToBoundsOnAngle(farCoord, 4, scaledAngle * Math.PI / 180);return clipPoint;};var angle=getScaledAngle(this);var start=this.coordA;var end=this.coordZ;if(this.extendLine){start = getClipPoint(graph, start, 360 - angle);end = getClipPoint(graph, end, (540 - angle) % 360);}else if(this.extendRay){end = getClipPoint(graph, start, 360 - angle);}var elements=[this.visibleLine];if(!this.fixed){elements.push(this.mouseTarget);}_.each(elements, function(element){element.moveTo(start, end);});var createArrow=function(graph, style){var center=[0.75, 0];var points=[[-3, 4], [-2.75, 2.5], [0, 0.25], center, [0, -0.25], [-2.75, -2.5], [-3, -4]];var scale=1.4;points = _.map(points, function(point){var pv=kvector.subtract(point, center);var pvScaled=kvector.scale(pv, scale);return kvector.add(center, pvScaled);});var createCubicPath=function(points){var path="M" + points[0][0] + " " + points[0][1];for(var i=1; i < points.length; i += 3) {path += "C" + points[i][0] + " " + points[i][1] + " " + points[i + 1][0] + " " + points[i + 1][1] + " " + points[i + 2][0] + " " + points[i + 2][1];}return path;};var unscaledPoints=_.map(points, graph.unscalePoint);var options={center:graph.unscalePoint(center), createPath:createCubicPath};var arrowHead=new WrappedPath(graph, unscaledPoints, options);arrowHead.attr(_.extend({"stroke-linejoin":"round", "stroke-linecap":"round", "stroke-dasharray":""}, style));arrowHead.toCoordAtAngle = function(coord, angle){var clipPoint=graph.scalePoint(getClipPoint(graph, coord, angle));var do3dTransform=getCanUse3dTransform();arrowHead.transform("translateX(" + (clipPoint[0] + scale * center[0]) + "px) " + "translateY(" + (clipPoint[1] + scale * center[1]) + "px) " + (do3dTransform?"translateZ(0) ":"") + "rotate(" + (360 - KhanMath.bound(angle)) + "deg)");};return arrowHead;};if(this._arrows == null){this._arrows = [];if(this.extendLine){this._arrows.push(createArrow(graph, this.normalStyle));this._arrows.push(createArrow(graph, this.normalStyle));}else if(this.extendRay){this._arrows.push(createArrow(graph, this.normalStyle));}}var coordForArrow=[this.coordA, this.coordZ];var angleForArrow=[360 - angle, (540 - angle) % 360];_.each(this._arrows, function(arrow, i){arrow.toCoordAtAngle(coordForArrow[i], angleForArrow[i]);});_.invoke(this.temp, "remove");this.temp = [];var isClockwise=this.coordA[0] < this.coordZ[0] || this.coordA[0] === this.coordZ[0] && this.coordA[1] > this.coordZ[1];if(this.sideLabel){this.temp.push(this.graph.labelSide({point1:this.coordA, point2:this.coordZ, label:this.labeledSide, text:this.sideLabel, numArrows:this.numArrows, numTicks:this.numTicks, clockwise:isClockwise, style:this.labelStyle}));}if(this.vertexLabels.length){this.graph.labelVertex({vertex:this.coordA, point3:this.coordZ, label:this.labeledVertices[0], text:this.vertexLabels[0], clockwise:isClockwise, style:this.labelStyle});this.graph.labelVertex({point1:this.coordA, vertex:this.coordZ, label:this.labeledVertices[1], text:this.vertexLabels[1], clockwise:isClockwise, style:this.labelStyle});}this.temp = _.flatten(this.temp);};lineSegment.toBack = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.toBack();}lineSegment.visibleLine.toBack();};lineSegment.toFront = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.toFront();}lineSegment.visibleLine.toFront();};lineSegment.remove = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.remove();}lineSegment.visibleLine.remove();if(lineSegment.labeledSide){lineSegment.labeledSide.remove();}if(lineSegment.labeledVertices){_.invoke(lineSegment.labeledVertices, "remove");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "remove");}if(lineSegment.temp.length){_.invoke(lineSegment.temp, "remove");}};lineSegment.hide = function(){lineSegment.visibleLine.hide();if(lineSegment.temp.length){_.invoke(lineSegment.temp, "hide");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "hide");}};lineSegment.show = function(){lineSegment.visibleLine.show();if(lineSegment.temp.length){_.invoke(lineSegment.temp, "show");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "show");}};if(lineSegment.sideLabel){lineSegment.labeledSide = this.label([0, 0], "", "center", lineSegment.labelStyle);}if(lineSegment.vertexLabels.length){lineSegment.labeledVertices = _.map(lineSegment.vertexLabels, function(label){return this.label([0, 0], "", "center", lineSegment.labelStyle);}, this);}if(!lineSegment.fixed && !lineSegment.constraints.fixed){var $mouseTarget=$(lineSegment.mouseTarget.getMouseTarget());$mouseTarget.css("cursor", "move");$mouseTarget.bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){if(!dragging){lineSegment.highlight = true;lineSegment.visibleLine.animate(lineSegment.highlightStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.highlightStyle.stroke, "stroke":lineSegment.highlightStyle.stroke});lineSegment.transform();}}else if(event.type === "vmouseout"){lineSegment.highlight = false;if(!lineSegment.dragging){lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.normalStyle.stroke, "stroke":lineSegment.normalStyle.stroke});lineSegment.transform();}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();var coordX=(event.pageX - $(graph.raphael.canvas.parentNode).offset().left) / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - (event.pageY - $(graph.raphael.canvas.parentNode).offset().top) / graph.scale[1];if(lineSegment.snapX > 0){coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;}if(lineSegment.snapY > 0){coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;}var mouseOffsetA=[lineSegment.coordA[0] - coordX, lineSegment.coordA[1] - coordY];var mouseOffsetZ=[lineSegment.coordZ[0] - coordX, lineSegment.coordZ[1] - coordY];var offsetLeft=-Math.min(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);var offsetRight=Math.max(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);var offsetTop=Math.max(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);var offsetBottom=-Math.min(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);$(document).bind("vmousemove.lineSegment vmouseup.lineSegment", function(event){event.preventDefault();lineSegment.dragging = true;dragging = true;var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(offsetLeft + 10, Math.min(graph.xpixels - 10 - offsetRight, mouseX));mouseY = Math.max(offsetTop + 10, Math.min(graph.ypixels - 10 - offsetBottom, mouseY));var coordX=mouseX / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - mouseY / graph.scale[1];if(lineSegment.snapX > 0){coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;}if(lineSegment.snapY > 0){coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;}if(event.type === "vmousemove"){if(lineSegment.constraints.constrainX){coordX = lineSegment.coordA[0] - mouseOffsetA[0];}if(lineSegment.constraints.constrainY){coordY = lineSegment.coordA[1] - mouseOffsetA[1];}var dX=coordX + mouseOffsetA[0] - lineSegment.coordA[0];var dY=coordY + mouseOffsetA[1] - lineSegment.coordA[1];lineSegment.coordA = [coordX + mouseOffsetA[0], coordY + mouseOffsetA[1]];lineSegment.coordZ = [coordX + mouseOffsetZ[0], coordY + mouseOffsetZ[1]];lineSegment.transform();if(lineSegment.movePointsWithLine){if(typeof lineSegment.pointA === "object"){lineSegment.pointA.setCoord([lineSegment.pointA.coord[0] + dX, lineSegment.pointA.coord[1] + dY]);}if(typeof lineSegment.pointZ === "object"){lineSegment.pointZ.setCoord([lineSegment.pointZ.coord[0] + dX, lineSegment.pointZ.coord[1] + dY]);}}if(_.isFunction(lineSegment.onMove)){lineSegment.onMove(dX, dY);}}else if(event.type === "vmouseup"){$(document).unbind(".lineSegment");lineSegment.dragging = false;dragging = false;if(!lineSegment.highlight){lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.normalStyle.stroke, "stroke":lineSegment.normalStyle.stroke});lineSegment.transform();}if(_.isFunction(lineSegment.onMoveEnd)){lineSegment.onMoveEnd();}}$(lineSegment).trigger("move");});})();}});}if(lineSegment.pointA !== undefined){lineSegment.pointA.toFront();}if(lineSegment.pointZ !== undefined){lineSegment.pointZ.toFront();}lineSegment.transform();return lineSegment;}, addMovablePolygon:function(options){var graphie=this;var polygon=$.extend({snapX:0, snapY:0, fixed:false, constrainToGraph:true, normalStyle:{}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":2, "fill":KhanColors.INTERACTING, "fill-opacity":0.05}, pointHighlightStyle:{"fill":KhanColors.INTERACTING, "stroke":KhanColors.INTERACTING}, labelStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, angleLabels:[], showRightAngleMarkers:[], sideLabels:[], vertexLabels:[], numArcs:[], numArrows:[], numTicks:[], updateOnPointMove:true, closed:true}, _.omit(options, "points"));var normalColor=polygon.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;polygon.normalStyle = _.extend({"stroke-width":2, "fill-opacity":0, "fill":normalColor, "stroke":normalColor}, options.normalStyle);polygon.points = options.points;var isPoint=function(coordOrPoint){return !_.isArray(coordOrPoint);};polygon.update = function(){var n=polygon.points.length;polygon.coords = _.map(polygon.points, function(coordOrPoint, i){if(isPoint(coordOrPoint)){return coordOrPoint.coord;}else {return coordOrPoint;}});polygon.left = _.min(_.pluck(polygon.coords, 0));polygon.right = _.max(_.pluck(polygon.coords, 0));polygon.top = _.max(_.pluck(polygon.coords, 1));polygon.bottom = _.min(_.pluck(polygon.coords, 1));var scaledCoords=_.map(polygon.coords, function(coord){return graphie.scalePoint(coord);});if(polygon.closed){scaledCoords.push(true);}else {scaledCoords = scaledCoords.concat(_.clone(scaledCoords).reverse());}polygon.path = GraphUtils.unscaledSvgPath(scaledCoords);_.invoke(polygon.temp, "remove");polygon.temp = [];var isClockwise=clockwise(polygon.coords);if(polygon.angleLabels.length || polygon.showRightAngleMarkers.length){_.each(polygon.labeledAngles, function(label, i){polygon.temp.push(graphie.labelAngle({point1:polygon.coords[(i - 1 + n) % n], vertex:polygon.coords[i], point3:polygon.coords[(i + 1) % n], label:label, text:polygon.angleLabels[i], showRightAngleMarker:polygon.showRightAngleMarkers[i], numArcs:polygon.numArcs[i], clockwise:isClockwise, style:polygon.labelStyle}));});}if(polygon.sideLabels.length){_.each(polygon.labeledSides, function(label, i){polygon.temp.push(graphie.labelSide({point1:polygon.coords[i], point2:polygon.coords[(i + 1) % n], label:label, text:polygon.sideLabels[i], numArrows:polygon.numArrows[i], numTicks:polygon.numTicks[i], clockwise:isClockwise, style:polygon.labelStyle}));});}if(polygon.vertexLabels.length){_.each(polygon.labeledVertices, function(label, i){graphie.labelVertex({point1:polygon.coords[(i - 1 + n) % n], vertex:polygon.coords[i], point3:polygon.coords[(i + 1) % n], label:label, text:polygon.vertexLabels[i], clockwise:isClockwise, style:polygon.labelStyle});});}polygon.temp = _.flatten(polygon.temp);};polygon.transform = function(){polygon.update();polygon.visibleShape.attr({path:polygon.path});if(!polygon.fixed){polygon.mouseTarget.attr({path:polygon.path});}};polygon.remove = function(){polygon.visibleShape.remove();if(!polygon.fixed){polygon.mouseTarget.remove();}if(polygon.labeledAngles){_.invoke(polygon.labeledAngles, "remove");}if(polygon.labeledSides){_.invoke(polygon.labeledSides, "remove");}if(polygon.labeledVertices){_.invoke(polygon.labeledVertices, "remove");}if(polygon.temp.length){_.invoke(polygon.temp, "remove");}};polygon.toBack = function(){if(!polygon.fixed){polygon.mouseTarget.toBack();}polygon.visibleShape.toBack();};polygon.toFront = function(){if(!polygon.fixed){polygon.mouseTarget.toFront();}polygon.visibleShape.toFront();};if(polygon.updateOnPointMove){_.each(_.filter(polygon.points, isPoint), function(coordOrPoint){coordOrPoint.polygonVertices.push(polygon);});}polygon.coords = new Array(polygon.points.length);if(polygon.angleLabels.length){var numLabels=Math.max(polygon.angleLabels.length, polygon.showRightAngleMarkers.length);polygon.labeledAngles = _.times(numLabels, function(){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}if(polygon.sideLabels.length){polygon.labeledSides = _.map(polygon.sideLabels, function(label){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}if(polygon.vertexLabels.length){polygon.labeledVertices = _.map(polygon.vertexLabels, function(label){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}polygon.update();polygon.visibleShape = graphie.raphael.path(polygon.path);polygon.visibleShape.attr(polygon.normalStyle);if(!polygon.fixed){polygon.mouseTarget = graphie.mouselayer.path(polygon.path);polygon.mouseTarget.attr({fill:"#000", opacity:0, cursor:"move"});$(polygon.mouseTarget[0]).bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){if(!dragging || polygon.dragging){polygon.highlight = true;polygon.visibleShape.animate(polygon.highlightStyle, 50);_.each(_.filter(polygon.points, isPoint), function(point){point.visibleShape.animate(polygon.pointHighlightStyle, 50);});}}else if(event.type === "vmouseout"){polygon.highlight = false;if(!polygon.dragging){polygon.visibleShape.animate(polygon.normalStyle, 50);var points=_.filter(polygon.points, isPoint);if(!_.any(_.pluck(points, "dragging"))){_.each(points, function(point){point.visibleShape.animate(point.normalStyle, 50);});}}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();_.each(_.filter(polygon.points, isPoint), function(point){point.dragging = true;});var startX=(event.pageX - $(graphie.raphael.canvas.parentNode).offset().left) / graphie.scale[0] + graphie.range[0][0];var startY=graphie.range[1][1] - (event.pageY - $(graphie.raphael.canvas.parentNode).offset().top) / graphie.scale[1];if(polygon.snapX > 0){startX = Math.round(startX / polygon.snapX) * polygon.snapX;}if(polygon.snapY > 0){startY = Math.round(startY / polygon.snapY) * polygon.snapY;}var lastX=startX;var lastY=startY;var polygonCoords=polygon.coords.slice();var offsetLeft=(startX - polygon.left) * graphie.scale[0];var offsetRight=(polygon.right - startX) * graphie.scale[0];var offsetTop=(polygon.top - startY) * graphie.scale[1];var offsetBottom=(startY - polygon.bottom) * graphie.scale[1];$(document).bind("vmousemove.polygon vmouseup.polygon", function(event){event.preventDefault();polygon.dragging = true;dragging = true;var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;if(polygon.constrainToGraph){mouseX = Math.max(offsetLeft + 10, Math.min(graphie.xpixels - 10 - offsetRight, mouseX));mouseY = Math.max(offsetTop + 10, Math.min(graphie.ypixels - 10 - offsetBottom, mouseY));}var currentX=mouseX / graphie.scale[0] + graphie.range[0][0];var currentY=graphie.range[1][1] - mouseY / graphie.scale[1];if(polygon.snapX > 0){currentX = Math.round(currentX / polygon.snapX) * polygon.snapX;}if(polygon.snapY > 0){currentY = Math.round(currentY / polygon.snapY) * polygon.snapY;}if(event.type === "vmousemove"){(function(){var dX=currentX - startX;var dY=currentY - startY;var doMove=true;if(_.isFunction(polygon.onMove)){var onMoveResult=polygon.onMove(dX, dY);if(onMoveResult === false){doMove = false;}else if(_.isArray(onMoveResult)){dX = onMoveResult[0];dY = onMoveResult[1];currentX = startX + dX;currentY = startY + dY;}}var increment=function(i){return [polygonCoords[i][0] + dX, polygonCoords[i][1] + dY];};if(doMove){_.each(polygon.points, function(coordOrPoint, i){if(isPoint(coordOrPoint)){coordOrPoint.setCoord(increment(i));}else {polygon.points[i] = increment(i);}});polygon.transform();$(polygon).trigger("move");lastX = currentX;lastY = currentY;}})();}else if(event.type === "vmouseup"){$(document).unbind(".polygon");var points=_.filter(polygon.points, isPoint);_.each(points, function(point){point.dragging = false;});polygon.dragging = false;dragging = false;if(!polygon.highlight){polygon.visibleShape.animate(polygon.normalStyle, 50);_.each(points, function(point){point.visibleShape.animate(point.normalStyle, 50);});}if(_.isFunction(polygon.onMoveEnd)){polygon.onMoveEnd(lastX - startX, lastY - startY);}}});})();}});}_.invoke(_.filter(polygon.points, isPoint), "toFront");return polygon;}, constrainToBounds:function(point, padding){var lower=this.unscalePoint([padding, this.ypixels - padding]);var upper=this.unscalePoint([this.xpixels - padding, padding]);var coordX=Math.max(lower[0], Math.min(upper[0], point[0]));var coordY=Math.max(lower[1], Math.min(upper[1], point[1]));return [coordX, coordY];}, constrainToBoundsOnAngle:function(point, padding, angle){var lower=this.unscalePoint([padding, this.ypixels - padding]);var upper=this.unscalePoint([this.xpixels - padding, padding]);var result=point.slice();if(result[0] < lower[0]){result = [lower[0], result[1] + (lower[0] - result[0]) * Math.tan(angle)];}else if(result[0] > upper[0]){result = [upper[0], result[1] - (result[0] - upper[0]) * Math.tan(angle)];}if(result[1] < lower[1]){result = [result[0] + (lower[1] - result[1]) / Math.tan(angle), lower[1]];}else if(result[1] > upper[1]){result = [result[0] - (result[1] - upper[1]) / Math.tan(angle), upper[1]];}return result;}, addMovableAngle:function(options){return new MovableAngle(this, options);}, addArrowWidget:function(options){var arrowWidget=$.extend({graph:this, direction:"up", coord:[0, 0], onClick:function(){}}, options);var graph=arrowWidget.graph;if(arrowWidget.direction === "up"){arrowWidget.visibleShape = graph.path([[arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0] - 4 / graph.scale[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0] + 4 / graph.scale[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]]], {stroke:"", fill:KhanColors.INTERACTIVE});}else if(arrowWidget.direction === "down"){arrowWidget.visibleShape = graph.path([[arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0] - 4 / graph.scale[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0] + 4 / graph.scale[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]]], {stroke:"", fill:KhanColors.INTERACTIVE});}_.defer(function(){arrowWidget.visibleShape.attr({stroke:"", fill:KhanColors.INTERACTIVE});});arrowWidget.mouseTarget = graph.mouselayer.circle(graph.scalePoint(arrowWidget.coord)[0], graph.scalePoint(arrowWidget.coord)[1], 15);arrowWidget.mouseTarget.attr({fill:"#000", "opacity":0});$(arrowWidget.mouseTarget[0]).css("cursor", "pointer");$(arrowWidget.mouseTarget[0]).bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){arrowWidget.visibleShape.animate({scale:2, fill:KhanColors.INTERACTING}, 20);}else if(event.type === "vmouseout"){arrowWidget.visibleShape.animate({scale:1, fill:KhanColors.INTERACTING}, 20);}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){if(!arrowWidget.hidden){arrowWidget.onClick();}return false;}});arrowWidget.hide = function(){arrowWidget.visibleShape.hide();arrowWidget.hidden = true;$(arrowWidget.mouseTarget[0]).css("cursor", "default");};arrowWidget.show = function(){arrowWidget.visibleShape.show();arrowWidget.hidden = false;$(arrowWidget.mouseTarget[0]).css("cursor", "pointer");};return arrowWidget;}, addRectGraph:function(options){var rect=$.extend(true, {x:0, y:0, width:1, height:1, normalStyle:{points:{stroke:KhanColors.INTERACTIVE, fill:KhanColors.INTERACTIVE, opacity:1}, edges:{stroke:KhanColors.INTERACTIVE, opacity:1, "stroke-width":1}, area:{fill:KhanColors.INTERACTIVE, "fill-opacity":0.1, "stroke-width":0}}, hoverStyle:{points:{color:KhanColors.INTERACTING, opacity:1, width:2}, edges:{stroke:KhanColors.INTERACTING, opacity:1, "stroke-width":1}, area:{fill:KhanColors.INTERACTING, "fill-opacity":0.2, "stroke-width":0}}, fixed:{edges:[false, false, false, false], points:[false, false, false, false]}, constraints:{constrainX:false, constrainY:false, xmin:null, xmax:null, ymin:null, ymax:null}, snapX:0, snapY:0, onMove:function(){}}, options);rect = $.extend({initialized:function(){return rect.points && rect.points.length;}, x2:function(){return this.x + this.width;}, y2:function(){return this.y + this.height;}, getX:function(){if(rect.initialized()){return rect.points[0].coord[0];}return rect.x;}, getY:function(){if(rect.initialized()){return rect.points[0].coord[1];}return rect.y;}, getX2:function(){return rect.getX() + rect.getWidth();}, getY2:function(){return rect.getY() + rect.getHeight();}, getXLims:function(){var x=rect.getX();return [x, x + rect.getWidth()];}, getYLims:function(){var y=rect.getY();return [y, y + rect.getHeight()];}, getWidth:function(){if(rect.initialized()){var x0=rect.points[1].coord[0];var x1=rect.points[2].coord[0];return x1 - x0;}return rect.width;}, getHeight:function(){if(rect.initialized()){var y0=rect.points[0].coord[1];var y1=rect.points[1].coord[1];return y1 - y0;}return rect.height;}, getCoord:function(){return [rect.getX(), rect.getY()];}, getRaphaelParamsArr:function(){var width=rect.getWidth();var height=rect.getHeight();var x=rect.getX();var y=rect.getY();var point=graphie.scalePoint([x, y + height]);var dims=graphie.scaleVector([width, height]);return point.concat(dims);}, getRaphaelParams:function(){var arr=rect.getRaphaelParamsArr();return {x:arr[0], y:arr[1], width:arr[2], height:arr[3]};}}, rect);var graphie=this;rect.fillArea = graphie.rect().attr(rect.normalStyle.area);rect.mouseTarget = graphie.mouselayer.rect().attr({fill:"#000", opacity:0, "fill-opacity":0});rect.render = function(){rect.fillArea.attr(rect.getRaphaelParams());rect.mouseTarget.attr(rect.getRaphaelParams());};rect.render();rect.points = [];var coords=[[rect.x, rect.y], [rect.x, rect.y2()], [rect.x2(), rect.y2()], [rect.x2(), rect.y]];var sames=[[1, 3], [0, 2], [3, 1], [2, 0]];var moveLimits=[[1, 1], [1, 0], [0, 0], [0, 1]];function adjustNeighboringPoints(x, y, sameX, sameY){rect.points[sameX].setCoord([x, rect.points[sameX].coord[1]]);rect.points[sameY].setCoord([rect.points[sameY].coord[0], y]);rect.points[sameX].updateLineEnds();rect.points[sameY].updateLineEnds();}function coordInBounds(limit, newVal, checkIsGreater){return checkIsGreater?newVal < limit:newVal > limit;}function moveIsInBounds(index, newX, newY){var xlims=rect.getXLims();var ylims=rect.getYLims();var i=moveLimits[index];var xInBounds=coordInBounds(xlims[i[0]], newX, i[0] === 1);var yInBounds=coordInBounds(ylims[i[1]], newY, i[1] === 1);return xInBounds && yInBounds;}_.times(4, function(i){var sameX=sames[i][0];var sameY=sames[i][1];var coord=coords[i];var point=graphie.addMovablePoint({graph:graphie, coord:coord, normalStyle:rect.normalStyle.points, hoverStyle:rect.hoverStyle.points, snapX:rect.snapX, snapY:rect.snapY, visible:!rect.fixed.points[i], constraints:{fixed:rect.fixed.points[i]}, onMove:function(x, y){if(!moveIsInBounds(i, x, y)){return false;}adjustNeighboringPoints(x, y, sameX, sameY);rect.render();}});rect.points.push(point);});rect.edges = [];rect.moveEdge = function(dx, dy, edgeIndex){var a=rect.edges[edgeIndex].pointA;var z=rect.edges[edgeIndex].pointZ;a.setCoord([a.coord[0] + dx, a.coord[1] + dy]);z.setCoord([z.coord[0] + dx, z.coord[1] + dy]);a.updateLineEnds();z.updateLineEnds();};_.times(4, function(i){var pointA=rect.points[i];var pointZ=rect.points[(i + 1) % 4];var constrainX=i % 2;var constrainY=(i + 1) % 2;var edge=graphie.addMovableLineSegment({graph:graphie, pointA:pointA, pointZ:pointZ, normalStyle:rect.normalStyle.edges, hoverStyle:rect.hoverStyle.edges, snapX:rect.snapX, snapY:rect.snapY, fixed:rect.fixed.edges[i], constraints:{constrainX:constrainX, constrainY:constrainY}, onMove:function(dx, dy){rect.moveEdge(dx, dy, i);rect.render();}});rect.edges.push(edge);});var elems=[rect.fillArea, rect.mouseTarget];rect.elems = elems.concat(rect.edges).concat(rect.points);function constrainTranslation(dx, dy){var xC=rect.constraints.constrainX;var xLT=rect.getX() + dx < rect.constraints.xmin;var xGT=rect.getX2() + dx > rect.constraints.xmax;var yC=rect.constraints.constrainY;var yLT=rect.getY() + dy < rect.constraints.ymin;var yGT=rect.getY2() + dy > rect.constraints.ymax;dx = xC || xLT || xGT?0:dx;dy = yC || yLT || yGT?0:dy;return [dx, dy];}rect.translate = function(dx, dy){if(rect.constraints.constrainX && rect.constraints.constrainY){return;}var d=constrainTranslation(dx, dy);dx = d[0];dy = d[1];_.each(rect.points, function(point, i){var x=point.coord[0] + dx;var y=point.coord[1] + dy;point.setCoord([x, y]);point.updateLineEnds();});rect.render();rect.onMove(dx, dy);};rect.moveTo = function(x, y){var dx=x - rect.getX();var dy=y - rect.getY();rect.translate(dx, dy);};rect.snap = function(){var dx=undefined;var dy=undefined;_.each(rect.points, function(point, i){var x0=point.coord[0];var y0=point.coord[1];var x1=x0;var y1=y0;if(rect.snapX){x1 = KhanMath.roundToNearest(rect.snapX, x0);}if(rect.snapY){y1 = KhanMath.roundToNearest(rect.snapY, y0);}if(!dx || !dy){dx = x1 - x0;dy = y1 - y0;}point.setCoord([x1, y1]);point.updateLineEnds();});rect.render();rect.onMove(dx, dy);};rect.toFront = function(){_.each(rect.elems, function(elem){elem.toFront();});};rect.hide = function(speed){if(rect.hidden){return;}speed = speed || 100;rect.fillArea.animate({"fill-opacity":0}, speed);$(rect.mouseTarget[0]).css("display", "none");rect.hidden = true;};rect.show = function(speed){if(!rect.hidden){return;}speed = speed || 100;rect.fillArea.animate(rect.normalStyle.area, speed);$(rect.mouseTarget[0]).css("display", "block");rect.hidden = false;};rect.enableHoverStyle = function(){rect.highlight = true;if(!dragging){rect.fillArea.animate(rect.hoverStyle.area, 100);}};rect.enableNormalStyle = function(){rect.highlight = false;if(!rect.dragging){rect.fillArea.animate(rect.normalStyle.area, 100);}};var bindTranslation=function(){$(rect.mouseTarget[0]).css("cursor", "move");$(rect.mouseTarget[0]).on("vmouseover vmouseout vmousedown", function(event){if(event.type === "vmouseover"){rect.enableHoverStyle();}else if(event.type === "vmouseout"){rect.enableNormalStyle();}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){event.preventDefault();rect.toFront();rect.prevCoord = graphie.getMouseCoord(event);rect.enableHoverStyle();$(document).on("vmousemove vmouseup", function(event){event.preventDefault();rect.dragging = true;dragging = true;if(event.type === "vmousemove"){var currCoord=graphie.getMouseCoord(event);if(rect.prevCoord && rect.prevCoord.length === 2){var diff=GraphUtils.coordDiff(rect.prevCoord, currCoord);rect.translate(diff[0], diff[1]);}rect.prevCoord = currCoord;}else if(event.type === "vmouseup"){$(document).off("vmousemove vmouseup");rect.dragging = false;dragging = false;var currCoord=graphie.getMouseCoord(event);if(currCoord[0] < rect.getX() || currCoord[0] > rect.getX2() || currCoord[1] < rect.getY() || currCoord[1] > rect.getY2()){rect.enableNormalStyle();}rect.snap();}});}});};bindTranslation();return rect;}, addCircleGraph:function(options){var graphie=this;var circle=$.extend({center:[0, 0], radius:2, snapX:0.5, snapY:0.5, snapRadius:0.5, minRadius:1, centerConstraints:{}, centerNormalStyle:{}, centerHighlightStyle:{stroke:KhanColors.INTERACTING, fill:KhanColors.INTERACTING}, circleNormalStyle:{stroke:KhanColors.INTERACTIVE, "fill-opacity":0}, circleHighlightStyle:{stroke:KhanColors.INTERACTING, fill:KhanColors.INTERACTING, "fill-opacity":0.05}}, options);var normalColor=circle.centerConstraints.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;var centerNormalStyle=options?options.centerNormalStyle:null;circle.centerNormalStyle = _.extend({}, {"fill":normalColor, "stroke":normalColor}, centerNormalStyle);circle.centerPoint = graphie.addMovablePoint({graph:graphie, coord:circle.center, normalStyle:circle.centerNormalStyle, snapX:circle.snapX, snapY:circle.snapY, constraints:circle.centerConstraints});circle.circ = graphie.circle(circle.center, circle.radius, circle.circleNormalStyle);circle.perim = graphie.mouselayer.circle(graphie.scalePoint(circle.center)[0], graphie.scalePoint(circle.center)[1], graphie.scaleVector(circle.radius)[0]).attr({"stroke-width":20, "opacity":0.002});if(!circle.centerConstraints.fixed){$(circle.centerPoint.mouseTarget.getMouseTarget()).on("vmouseover vmouseout", function(event){if(circle.centerPoint.highlight || circle.centerPoint.dragging){circle.circ.animate(circle.circleHighlightStyle, 50);}else {circle.circ.animate(circle.circleNormalStyle, 50);}});}circle.toFront = function(){circle.circ.toFront();circle.perim.toFront();circle.centerPoint.visibleShape.toFront();if(!circle.centerConstraints.fixed){circle.centerPoint.mouseTarget.toFront();}};circle.centerPoint.onMove = function(x, y){circle.toFront();circle.circ.attr({cx:graphie.scalePoint(x)[0], cy:graphie.scalePoint(y)[1]});circle.perim.attr({cx:graphie.scalePoint(x)[0], cy:graphie.scalePoint(y)[1]});if(circle.onMove){circle.onMove(x, y);}};$(circle.centerPoint).on("move", function(){circle.center = this.coord;$(circle).trigger("move");});circle.setCenter = function(x, y){circle.centerPoint.setCoord([x, y]);circle.centerPoint.onMove(x, y);circle.center = [x, y];};circle.setRadius = function(r){circle.radius = r;circle.perim.attr({r:graphie.scaleVector(r)[0]});circle.circ.attr({rx:graphie.scaleVector(r)[0], ry:graphie.scaleVector(r)[1]});};circle.remove = function(){circle.centerPoint.remove();circle.circ.remove();circle.perim.remove();};$(circle.perim[0]).css("cursor", "move");$(circle.perim[0]).on("vmouseover vmouseout vmousedown", function(event){if(event.type === "vmouseover"){circle.highlight = true;if(!dragging){circle.circ.animate(circle.circleHighlightStyle, 50);circle.centerPoint.visibleShape.animate(circle.centerHighlightStyle, 50);}}else if(event.type === "vmouseout"){circle.highlight = false;if(!circle.dragging && !circle.centerPoint.dragging){circle.circ.animate(circle.circleNormalStyle, 50);circle.centerPoint.visibleShape.animate(circle.centerNormalStyle, 50);}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();circle.toFront();var startRadius=circle.radius;$(document).on("vmousemove vmouseup", function(event){event.preventDefault();circle.dragging = true;dragging = true;if(event.type === "vmousemove"){var coord=graphie.constrainToBounds(graphie.getMouseCoord(event), 10);var radius=GraphUtils.getDistance(circle.centerPoint.coord, coord);radius = Math.max(circle.minRadius, Math.round(radius / circle.snapRadius) * circle.snapRadius);var oldRadius=circle.radius;var doResize=true;if(circle.onResize){var onResizeResult=circle.onResize(radius, oldRadius);if(_.isNumber(onResizeResult)){radius = onResizeResult;}else if(onResizeResult === false){doResize = false;}}if(doResize){circle.setRadius(radius);$(circle).trigger("move");}}else if(event.type === "vmouseup"){$(document).off("vmousemove vmouseup");circle.dragging = false;dragging = false;if(circle.onResizeEnd){circle.onResizeEnd(circle.radius, startRadius);}}});})();}});return circle;}, interactiveEllipse:function(options){var graphie=this;var ellipse=$.extend({center:[0, 0], radius:2, xRadius:2, yRadius:2, ellipseNormalStyle:{stroke:KhanColors.BLUE, "fill-opacity":0}, ellipseBoundaryHideStyle:{"fill-opacity":0, "stroke-width":0}, ellipseBoundaryShowStyle:{"fill-opacity":1, fill:KhanColors.BLUE}, onMove:function(coordX, coordY){}, onLeave:function(coordX, coordY){}}, options);ellipse.circ = graphie.ellipse(ellipse.center, [ellipse.xRadius, ellipse.yRadius], ellipse.ellipseNormalStyle);ellipse.perim = graphie.mouselayer.ellipse(graphie.scalePoint(ellipse.center)[0], graphie.scalePoint(ellipse.center)[1], graphie.scaleVector(ellipse.xRadius)[0], graphie.scaleVector(ellipse.yRadius)[0]).attr({"stroke-width":30, "opacity":0.002});ellipse.boundaryPoint = graphie.circle(ellipse.center, 0.4, ellipse.ellipseBoundaryHideStyle);ellipse.remove = function(){ellipse.circ.remove();ellipse.perim.remove();};ellipse.showPoint = function(event){var coord=graphie.constrainToBounds(graphie.getMouseCoord(event), 10);var dx=ellipse.yRadius * (ellipse.center[0] - coord[0]);var dy=ellipse.xRadius * (ellipse.center[1] - coord[1]);var angle=Math.atan2(dy, dx);coord[0] = ellipse.center[0] - ellipse.xRadius * Math.cos(angle);coord[1] = ellipse.center[1] - ellipse.yRadius * Math.sin(angle);var scaledPoint=graphie.scalePoint(coord);ellipse.boundaryPoint.attr({cx:scaledPoint[0]});ellipse.boundaryPoint.attr({cy:scaledPoint[1]});ellipse.boundaryPoint.animate(ellipse.ellipseBoundaryShowStyle, 50);ellipse.onMove(coord[0], coord[1]);};$(ellipse.perim[0]).on("vmouseover vmouseout vmousemove", function(event){if(event.type === "vmouseover"){ellipse.showPoint(event);}else if(event.type === "vmouseout"){ellipse.boundaryPoint.animate(ellipse.ellipseBoundaryHideStyle, 50);ellipse.onLeave();}else if(event.type === "vmousemove"){ellipse.showPoint(event);}});return ellipse;}, addRotateHandle:(function(){var drawRotateHandle=function(graphie, center, radius, halfWidth, lengthAngle, angle, interacting){var getRotateHandlePoint=function(offset, distanceFromArrowMidline){var distFromRotationCenter=radius + distanceFromArrowMidline;var vec=kvector.cartFromPolarDeg([distFromRotationCenter, angle + offset]);var absolute=kvector.add(center, vec);var pixels=graphie.scalePoint(absolute);return pixels[0] + "," + pixels[1];};var innerR=graphie.scaleVector(radius - halfWidth);var outerR=graphie.scaleVector(radius + halfWidth);return graphie.raphael.path(" M" + getRotateHandlePoint(lengthAngle, -halfWidth) + " L" + getRotateHandlePoint(lengthAngle, -3 * halfWidth) + " L" + getRotateHandlePoint(2 * lengthAngle, 0) + " L" + getRotateHandlePoint(lengthAngle, 3 * halfWidth) + " L" + getRotateHandlePoint(lengthAngle, halfWidth) + " A" + outerR[0] + "," + outerR[1] + ",0,0,1," + getRotateHandlePoint(-lengthAngle, halfWidth) + " L" + getRotateHandlePoint(-lengthAngle, 3 * halfWidth) + " L" + getRotateHandlePoint(-2 * lengthAngle, 0) + " L" + getRotateHandlePoint(-lengthAngle, -3 * halfWidth) + " L" + getRotateHandlePoint(-lengthAngle, -halfWidth) + " A" + innerR[0] + "," + innerR[1] + ",0,0,0," + getRotateHandlePoint(lengthAngle, -halfWidth) + " Z").attr({stroke:null, fill:interacting?KhanColors.INTERACTING:KhanColors.INTERACTIVE});};return function(options){var graph=this;var rotatePoint=options.center;var radius=options.radius;var lengthAngle=options.lengthAngle || 30;var hideArrow=options.hideArrow || false;var mouseTarget=options.mouseTarget;var id=_.uniqueId("rotateHandle");if(_.isArray(rotatePoint)){rotatePoint = {coord:rotatePoint};}var rotateHandle=graph.addMovablePoint({coord:kpoint.addVector(rotatePoint.coord, kvector.cartFromPolarDeg(radius, options.angleDeg || 0)), constraints:{fixedDistance:{dist:radius, point:rotatePoint}}, mouseTarget:mouseTarget});rotatePoint.toFront();var rotatePointPrevCoord=rotatePoint.coord;var rotateHandlePrevCoord=rotateHandle.coord;var rotateHandleStartCoord=rotateHandlePrevCoord;var isRotating=false;var isHovering=false;var drawnRotateHandle=undefined;var redrawRotateHandle=function(handleCoord){if(hideArrow){return;}var handleVec=kvector.subtract(handleCoord, rotatePoint.coord);var handlePolar=kvector.polarDegFromCart(handleVec);var angle=handlePolar[1];if(drawnRotateHandle){drawnRotateHandle.remove();}drawnRotateHandle = drawRotateHandle(graph, rotatePoint.coord, options.radius, isRotating || isHovering?options.hoverWidth / 2:options.width / 2, lengthAngle, angle, isRotating || isHovering);};$(rotatePoint).on("move." + id, function(){var delta=kvector.subtract(rotatePoint.coord, rotatePointPrevCoord);rotateHandle.setCoord(kvector.add(rotateHandle.coord, delta));redrawRotateHandle(rotateHandle.coord);rotatePointPrevCoord = rotatePoint.coord;rotateHandle.constraints.fixedDistance.point = rotatePoint;rotateHandlePrevCoord = rotateHandle.coord;});rotateHandle.onMove = function(x, y){if(!isRotating){rotateHandleStartCoord = rotateHandlePrevCoord;isRotating = true;}var coord=[x, y];if(options.onMove){var oldPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandlePrevCoord, rotatePoint.coord));var newPolar=kvector.polarDegFromCart(kvector.subtract(coord, rotatePoint.coord));var oldAngle=oldPolar[1];var newAngle=newPolar[1];var result=options.onMove(newAngle, oldAngle);if(result != null && result !== true){if(result === false){result = oldAngle;}coord = kvector.add(rotatePoint.coord, kvector.cartFromPolarDeg([oldPolar[0], result]));}}redrawRotateHandle(coord);rotateHandlePrevCoord = coord;return coord;};rotateHandle.onMoveEnd = function(){isRotating = false;redrawRotateHandle(rotateHandle.coord);if(options.onMoveEnd){var oldPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandleStartCoord, rotatePoint.coord));var newPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandle.coord, rotatePoint.coord));options.onMoveEnd(newPolar[1], oldPolar[1]);}};rotateHandle.visibleShape.remove();if(!mouseTarget){rotateHandle.mouseTarget.attr({scale:2});}var $mouseTarget=$(rotateHandle.mouseTarget.getMouseTarget());$mouseTarget.bind("vmouseover", function(e){isHovering = true;redrawRotateHandle(rotateHandle.coord);});$mouseTarget.bind("vmouseout", function(e){isHovering = false;redrawRotateHandle(rotateHandle.coord);});redrawRotateHandle(rotateHandle.coord);var oldRemove=rotateHandle.remove;rotateHandle.remove = function(){oldRemove.call(rotateHandle);if(drawnRotateHandle){drawnRotateHandle.remove();}$(rotatePoint).off("move." + id);};rotateHandle.update = function(){redrawRotateHandle(rotateHandle.coord);};return rotateHandle;};})(), addReflectButton:(function(){var drawButton=function(graphie, buttonCoord, lineCoords, size, distanceFromCenter, leftStyle, rightStyle){if(kpoint.equal(lineCoords[0], lineCoords[1])){lineCoords = [lineCoords[0], kpoint.addVector(lineCoords[0], [1, 1])];}var lineDirection=kvector.normalize(kvector.subtract(lineCoords[1], lineCoords[0]));var lineVec=kvector.scale(lineDirection, size / 2);var centerVec=kvector.scale(lineDirection, distanceFromCenter);var leftCenterVec=kvector.rotateDeg(centerVec, 90);var rightCenterVec=kvector.rotateDeg(centerVec, -90);var negLineVec=kvector.negate(lineVec);var leftVec=kvector.rotateDeg(lineVec, 90);var rightVec=kvector.rotateDeg(lineVec, -90);var leftCenter=kpoint.addVectors(buttonCoord, leftCenterVec);var rightCenter=kpoint.addVectors(buttonCoord, rightCenterVec);var leftCoord1=kpoint.addVectors(buttonCoord, leftCenterVec, lineVec, leftVec);var leftCoord2=kpoint.addVectors(buttonCoord, leftCenterVec, negLineVec, leftVec);var rightCoord1=kpoint.addVectors(buttonCoord, rightCenterVec, lineVec, rightVec);var rightCoord2=kpoint.addVectors(buttonCoord, rightCenterVec, negLineVec, rightVec);var leftButton=graphie.path([leftCenter, leftCoord1, leftCoord2, true], leftStyle);var rightButton=graphie.path([rightCenter, rightCoord1, rightCoord2, true], rightStyle);return {remove:function(){leftButton.remove();rightButton.remove();}};};return function(options){var graphie=this;var line=options.line;var button=graphie.addMovablePoint({constraints:options.constraints, coord:kline.midpoint([line.pointA.coord, line.pointZ.coord]), snapX:graphie.snap[0], snapY:graphie.snap[1], onMove:function(x, y){return false;}, onMoveEnd:function(x, y){if(options.onMoveEnd){options.onMoveEnd.call(this, x, y);}}});var isHovering=false;var isFlipped=false;var currentlyDrawnButton=undefined;var isHighlight=function(){return isHovering;};var styles=_.map([0, 1], function(isHighlight){var baseStyle=isHighlight?options.highlightStyle:options.normalStyle;return _.map([0, 1], function(opacity){return _.defaults({"fill-opacity":opacity}, baseStyle);});});var getStyle=function(isRight){if(isFlipped){isRight = !isRight;}return styles[+isHighlight()][+isRight];};var redraw=function(coord, lineCoords){if(currentlyDrawnButton){currentlyDrawnButton.remove();}currentlyDrawnButton = drawButton(graphie, coord, lineCoords, isHighlight()?options.size * 1.5:options.size, isHighlight()?options.size * 0.125:0.25, getStyle(0), getStyle(1));};var update=function(coordA, coordZ){coordA = coordA || line.pointA.coord;coordZ = coordZ || line.pointZ.coord;var buttonCoord=kline.midpoint([coordA, coordZ]);button.setCoord(buttonCoord);redraw(buttonCoord, [coordA, coordZ]);};$(line).on("move", _.bind(update, button, null, null));var $mouseTarget=$(button.mouseTarget.getMouseTarget());$mouseTarget.on("vclick", function(){var result=options.onClick();if(result !== false){isFlipped = !isFlipped;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);}});line.pointA.toFront();line.pointZ.toFront();button.visibleShape.remove();var pointScale=graphie.scaleVector(options.size)[0] / 20;button.mouseTarget.attr({scale:1.5 * pointScale});$mouseTarget.css("cursor", "pointer");$mouseTarget.bind("vmouseover", function(e){isHovering = true;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);});$mouseTarget.bind("vmouseout", function(e){isHovering = false;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);});var oldButtonRemove=button.remove;button.remove = function(){currentlyDrawnButton.remove();oldButtonRemove.call(button);};button.update = update;button.isFlipped = function(){return isFlipped;};update();return button;};})(), protractor:function(center){return new Protractor(this, center);}, ruler:function(options){return new Ruler(this, options || {});}, addPoints:addPoints});function Protractor(graph, center){this.set = graph.raphael.set();this.cx = center[0];this.cy = center[1];var pro=this;var r=graph.unscaleVector(180.5)[0];var imgPos=graph.scalePoint([this.cx - r, this.cy + r - graph.unscaleVector(10.5)[1]]);this.set.push(graph.mouselayer.image("https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png", imgPos[0], imgPos[1], 360, 180));var arrowHelper=function(angle, pixelsFromEdge){var scaledRadius=graph.scaleVector(r);scaledRadius[0] -= 16;scaledRadius[1] -= 16;var scaledCenter=graph.scalePoint(center);var x=Math.sin((angle + 90) * Math.PI / 180) * (scaledRadius[0] + pixelsFromEdge) + scaledCenter[0];var y=Math.cos((angle + 90) * Math.PI / 180) * (scaledRadius[1] + pixelsFromEdge) + scaledCenter[1];return x + "," + y;};var arrow=graph.raphael.path(" M" + arrowHelper(180, 6) + " L" + arrowHelper(180, 2) + " L" + arrowHelper(183, 10) + " L" + arrowHelper(180, 18) + " L" + arrowHelper(180, 14) + " A" + (graph.scaleVector(r)[0] + 10) + "," + (graph.scaleVector(r)[1] + 10) + ",0,0,1," + arrowHelper(170, 14) + " L" + arrowHelper(170, 18) + " L" + arrowHelper(167, 10) + " L" + arrowHelper(170, 2) + " L" + arrowHelper(170, 6) + " A" + (graph.scaleVector(r)[0] + 10) + "," + (graph.scaleVector(r)[1] + 10) + ",0,0,0," + arrowHelper(180, 6) + " Z").attr({"stroke":null, "fill":KhanColors.INTERACTIVE});this.set.push(arrow);this.centerPoint = graph.addMovablePoint({coord:center, visible:false});this.rotateHandle = graph.addMovablePoint({coord:[Math.sin(275 * Math.PI / 180) * (r + 0.5) + this.cx, Math.cos(275 * Math.PI / 180) * (r + 0.5) + this.cy], onMove:function(x, y){var angle=Math.atan2(pro.centerPoint.coord[1] - y, pro.centerPoint.coord[0] - x) * 180 / Math.PI;pro.rotate(-angle - 5, true);}});this.rotateHandle.constraints.fixedDistance.dist = r + 0.5;this.rotateHandle.constraints.fixedDistance.point = this.centerPoint;this.rotateHandle.visibleShape.remove();this.rotateHandle.mouseTarget.attr({scale:2});var isDragging=false;var isHovering=false;var isHighlight=function(){return isHovering || isDragging;};var self=this;var $mouseTarget=$(self.rotateHandle.mouseTarget.getMouseTarget());$mouseTarget.bind("vmousedown", function(event){isDragging = true;arrow.animate({scale:1.5, fill:KhanColors.INTERACTING}, 50);$(document).bind("vmouseup.rotateHandle", function(event){isDragging = false;if(!isHighlight()){arrow.animate({scale:1, fill:KhanColors.INTERACTIVE}, 50);}$(document).unbind("vmouseup.rotateHandle");});});$mouseTarget.bind("vmouseover", function(event){isHovering = true;arrow.animate({scale:1.5, fill:KhanColors.INTERACTING}, 50);});$mouseTarget.bind("vmouseout", function(event){isHovering = false;if(!isHighlight()){arrow.animate({scale:1, fill:KhanColors.INTERACTIVE}, 50);}});var setNodes=$.map(this.set, function(el){return el.node;});this.makeTranslatable = function makeTranslatable(){$(setNodes).css("cursor", "move");$(setNodes).bind("vmousedown", function(event){event.preventDefault();var startx=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var starty=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;$(document).bind("vmousemove.protractor", function(event){var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graph.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graph.ypixels - 10, mouseY));var dx=mouseX - startx;var dy=mouseY - starty;$.each(pro.set.items, function(){this.translate(dx, dy);});pro.centerPoint.setCoord([pro.centerPoint.coord[0] + dx / graph.scale[0], pro.centerPoint.coord[1] - dy / graph.scale[1]]);pro.rotateHandle.setCoord([pro.rotateHandle.coord[0] + dx / graph.scale[0], pro.rotateHandle.coord[1] - dy / graph.scale[1]]);startx = mouseX;starty = mouseY;});$(document).one("vmouseup", function(event){$(document).unbind("vmousemove.protractor");});});};this.rotation = 0;this.rotate = function(offset, absolute){var center=graph.scalePoint(this.centerPoint.coord);if(absolute){this.rotation = 0;}this.set.rotate(this.rotation + offset, center[0], center[1]);this.rotation = this.rotation + offset;return this;};this.moveTo = function moveTo(x, y){var start=graph.scalePoint(pro.centerPoint.coord);var end=graph.scalePoint([x, y]);var time=GraphUtils.getDistance(start, end) * 2;$({x:start[0], y:start[1]}).animate({x:end[0], y:end[1]}, {duration:time, step:function(now, fx){var dx=0;var dy=0;if(fx.prop === "x"){dx = now - graph.scalePoint(pro.centerPoint.coord)[0];}else if(fx.prop === "y"){dy = now - graph.scalePoint(pro.centerPoint.coord)[1];}$.each(pro.set.items, function(){this.translate(dx, dy);});pro.centerPoint.setCoord([pro.centerPoint.coord[0] + dx / graph.scale[0], pro.centerPoint.coord[1] - dy / graph.scale[1]]);pro.rotateHandle.setCoord([pro.rotateHandle.coord[0] + dx / graph.scale[0], pro.rotateHandle.coord[1] - dy / graph.scale[1]]);}});};this.rotateTo = function rotateTo(angle){if(Math.abs(this.rotation - angle) > 180){this.rotation += 360;}var time=Math.abs(this.rotation - angle) * 5;$({0:this.rotation}).animate({0:angle}, {duration:time, step:function(now, fx){pro.rotate(now, true);pro.rotateHandle.setCoord([Math.sin((now + 275) * Math.PI / 180) * (r + 0.5) + pro.centerPoint.coord[0], Math.cos((now + 275) * Math.PI / 180) * (r + 0.5) + pro.centerPoint.coord[1]]);}});};this.remove = function(){this.set.remove();};this.makeTranslatable();return this;}function Ruler(graphie, options){_.defaults(options, {center:[0, 0], pixelsPerUnit:40, ticksPerUnit:10, units:10, label:"", style:{fill:null, stroke:KhanColors.GRAY}});var light=_.extend({}, options.style, {strokeWidth:1});var bold=_.extend({}, options.style, {strokeWidth:2});var width=options.units * options.pixelsPerUnit;var height=50;var leftBottom=graphie.unscalePoint(kvector.subtract(graphie.scalePoint(options.center), kvector.scale([width, -height], 0.5)));var graphieUnitsPerUnit=options.pixelsPerUnit / graphie.scale[0];var graphieUnitsHeight=height / graphie.scale[0];var rightTop=kvector.add(leftBottom, [options.units * graphieUnitsPerUnit, graphieUnitsHeight]);var tickHeight=1;var tickHeightMap=undefined;if(options.ticksPerUnit === 10){tickHeightMap = {10:tickHeight, 5:tickHeight * 0.55, 1:tickHeight * 0.35};}else {var sizes=[1, 0.6, 0.45, 0.3];tickHeightMap = {};for(var i=options.ticksPerUnit; i >= 1; i /= 2) {tickHeightMap[i] = tickHeight * (sizes.shift() || 0.2);}}var tickFrequencies=_.keys(tickHeightMap).sort(function(a, b){return b - a;});function getTickHeight(i){for(var k=0; k < tickFrequencies.length; k++) {var key=tickFrequencies[k];if(i % key === 0){return tickHeightMap[key];}}}var left=leftBottom[0];var bottom=leftBottom[1];var right=rightTop[0];var top=rightTop[1];var numTicks=options.units * options.ticksPerUnit + 1;var set=graphie.raphael.set();var px=1 / graphie.scale[0];set.push(graphie.line([left - px, bottom], [right + px, bottom], bold));set.push(graphie.line([left - px, top], [right + px, top], bold));_.times(numTicks, function(i){var n=i / options.ticksPerUnit;var x=left + n * graphieUnitsPerUnit;var height=getTickHeight(i) * graphieUnitsHeight;var style=i === 0 || i === numTicks - 1?bold:light;set.push(graphie.line([x, bottom], [x, bottom + height], style));if(n % 1 === 0){var coord=graphie.scalePoint([x, top]);var text=undefined;var offset=undefined;if(n === 0){text = options.label;offset = ({mm:13, cm:11, m:8, km:11, in:8, ft:8, yd:10, mi:10})[text] || 3 * text.toString().length;}else {text = n;offset = -3 * (n.toString().length + 1);}var label=graphie.raphael.text(coord[0] + offset, coord[1] + 10, text);label.attr({"font-family":"KaTeX_Main", "font-size":"12px", "color":"#444"});set.push(label);}});var mouseTarget=graphie.mouselayer.path(GraphUtils.svgPath([leftBottom, [left, top], rightTop, [right, bottom], true]));mouseTarget.attr({fill:"#000", opacity:0, stroke:"#000", "stroke-width":2});set.push(mouseTarget);var setNodes=$.map(set, function(el){return el.node;});$(setNodes).css("cursor", "move");$(setNodes).bind("vmousedown", function(event){event.preventDefault();var startx=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var starty=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;$(document).bind("vmousemove.ruler", function(event){var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graphie.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graphie.ypixels - 10, mouseY));var dx=mouseX - startx;var dy=mouseY - starty;set.translate(dx, dy);leftBottomHandle.setCoord([leftBottomHandle.coord[0] + dx / graphie.scale[0], leftBottomHandle.coord[1] - dy / graphie.scale[1]]);rightBottomHandle.setCoord([rightBottomHandle.coord[0] + dx / graphie.scale[0], rightBottomHandle.coord[1] - dy / graphie.scale[1]]);startx = mouseX;starty = mouseY;});$(document).one("vmouseup", function(event){$(document).unbind("vmousemove.ruler");});});var leftBottomHandle=graphie.addMovablePoint({coord:leftBottom, normalStyle:{fill:KhanColors.INTERACTIVE, "fill-opacity":0, stroke:KhanColors.INTERACTIVE}, highlightStyle:{fill:KhanColors.INTERACTING, "fill-opacity":0.1, stroke:KhanColors.INTERACTING}, pointSize:6, onMove:function(x, y){var dy=rightBottomHandle.coord[1] - y;var dx=rightBottomHandle.coord[0] - x;var angle=Math.atan2(dy, dx) * 180 / Math.PI;var center=kvector.scale(kvector.add([x, y], rightBottomHandle.coord), 0.5);var scaledCenter=graphie.scalePoint(center);var oldCenter=kvector.scale(kvector.add(leftBottomHandle.coord, rightBottomHandle.coord), 0.5);var scaledOldCenter=graphie.scalePoint(oldCenter);var diff=kvector.subtract(scaledCenter, scaledOldCenter);set.rotate(-angle, scaledOldCenter[0], scaledOldCenter[1]);set.translate(diff[0], diff[1]);}});var rightBottomHandle=graphie.addMovablePoint({coord:[right, bottom], normalStyle:{fill:KhanColors.INTERACTIVE, "fill-opacity":0, stroke:KhanColors.INTERACTIVE}, highlightStyle:{fill:KhanColors.INTERACTING, "fill-opacity":0.1, stroke:KhanColors.INTERACTING}, pointSize:6, onMove:function(x, y){var dy=y - leftBottomHandle.coord[1];var dx=x - leftBottomHandle.coord[0];var angle=Math.atan2(dy, dx) * 180 / Math.PI;var center=kvector.scale(kvector.add([x, y], leftBottomHandle.coord), 0.5);var scaledCenter=graphie.scalePoint(center);var oldCenter=kvector.scale(kvector.add(leftBottomHandle.coord, rightBottomHandle.coord), 0.5);var scaledOldCenter=graphie.scalePoint(oldCenter);var diff=kvector.subtract(scaledCenter, scaledOldCenter);set.rotate(-angle, scaledOldCenter[0], scaledOldCenter[1]);set.translate(diff[0], diff[1]);}});leftBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];leftBottomHandle.constraints.fixedDistance.point = rightBottomHandle;rightBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];rightBottomHandle.constraints.fixedDistance.point = leftBottomHandle;this.remove = function(){set.remove();leftBottomHandle.remove();rightBottomHandle.remove();};return this;}function MovableAngle(graphie, options){this.graphie = graphie;_.extend(this, options);_.defaults(this, {normalStyle:{"stroke":KhanColors.INTERACTIVE, "stroke-width":2, "fill":KhanColors.INTERACTIVE}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":2, "fill":KhanColors.INTERACTING}, labelStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, angleStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, allowReflex:true});if(!this.points || this.points.length !== 3){throw new Error("MovableAngle requires 3 points");}this.points = _.map(options.points, function(point){if(_.isArray(point)){return graphie.addMovablePoint({coord:point, visible:false, constraints:{fixed:true}, normalStyle:this.normalStyle});}else {return point;}}, this);this.coords = _.pluck(this.points, "coord");if(this.reflex == null){if(this.allowReflex){this.reflex = this._getClockwiseAngle(this.coords) > 180;}else {this.reflex = false;}}this.rays = _.map([0, 2], function(i){return graphie.addMovableLineSegment({pointA:this.points[1], pointZ:this.points[i], fixed:true, extendRay:true});}, this);this.temp = [];this.labeledAngle = graphie.label([0, 0], "", "center", this.labelStyle);if(!this.fixed){this.addMoveHandlers();this.addHighlightHandlers();}this.update();}_.extend(MovableAngle.prototype, {points:[], snapDegrees:0, snapOffsetDeg:0, angleLabel:"", numArcs:1, pushOut:0, fixed:false, addMoveHandlers:function(){var graphie=this.graphie;function tooClose(point1, point2){var safeDistance=30;var distance=GraphUtils.getDistance(graphie.scalePoint(point1), graphie.scalePoint(point2));return distance < safeDistance;}var points=this.points;points[1].onMove = function(x, y){var oldVertex=points[1].coord;var newVertex=[x, y];var delta=addPoints(newVertex, reverseVector(oldVertex));var valid=true;var newPoints={};_.each([0, 2], function(i){var oldPoint=points[i].coord;var newPoint=addPoints(oldPoint, delta);var angle=GraphUtils.findAngle(newVertex, newPoint);angle *= Math.PI / 180;newPoint = graphie.constrainToBoundsOnAngle(newPoint, 10, angle);newPoints[i] = newPoint;if(tooClose(newVertex, newPoint)){valid = false;}});if(valid){_.each(newPoints, function(newPoint, i){points[i].setCoord(newPoint);});}return valid;};var snap=this.snapDegrees;var snapOffset=this.snapOffsetDeg;_.each([0, 2], function(i){points[i].onMove = function(x, y){var newPoint=[x, y];var vertex=points[1].coord;if(tooClose(vertex, newPoint)){return false;}else if(snap){var angle=GraphUtils.findAngle(newPoint, vertex);angle = Math.round((angle - snapOffset) / snap) * snap + snapOffset;var distance=GraphUtils.getDistance(newPoint, vertex);return addPoints(vertex, graphie.polar(distance, angle));}else {return true;}};});$(points).on("move", (function(){this.update();$(this).trigger("move");}).bind(this));}, addHighlightHandlers:function(){var vertex=this.points[1];vertex.onHighlight = (function(){_.each(this.points, function(point){point.visibleShape.animate(this.highlightStyle, 50);}, this);_.each(this.rays, function(ray){ray.visibleLine.animate(this.highlightStyle, 50);ray.arrowStyle = _.extend({}, ray.arrowStyle, {"color":this.highlightStyle.stroke, "stroke":this.highlightStyle.stroke});}, this);this.angleStyle = _.extend({}, this.angleStyle, {"color":this.highlightStyle.stroke, "stroke":this.highlightStyle.stroke});this.update();}).bind(this);vertex.onUnhighlight = (function(){_.each(this.points, function(point){point.visibleShape.animate(this.normalStyle, 50);}, this);_.each(this.rays, function(ray){ray.visibleLine.animate(ray.normalStyle, 50);ray.arrowStyle = _.extend({}, ray.arrowStyle, {"color":ray.normalStyle.stroke, "stroke":ray.normalStyle.stroke});}, this);this.angleStyle = _.extend({}, this.angleStyle, {"color":KhanColors.DYNAMIC, "stroke":KhanColors.DYNAMIC});this.update();}).bind(this);}, _getClockwiseAngle:function(coords){var clockwiseAngle=(GraphUtils.findAngle(coords[2], coords[0], coords[1]) + 360) % 360;return clockwiseAngle;}, isReflex:function(){return this.reflex;}, isClockwise:function(){var clockwiseReflexive=this._getClockwiseAngle(this.coords) > 180;return clockwiseReflexive === this.reflex;}, getClockwiseCoords:function(){if(this.isClockwise()){return _.clone(this.coords);}else {return _.clone(this.coords).reverse();}}, update:function(shouldChangeReflexivity){var prevCoords=this.coords;this.coords = _.pluck(this.points, "coord");_.invoke(this.points, "updateLineEnds");var prevAngle=this._getClockwiseAngle(prevCoords);var angle=this._getClockwiseAngle(this.coords);var prevClockwiseReflexive=prevAngle > 180;var clockwiseReflexive=angle > 180;if(this.allowReflex){if(shouldChangeReflexivity == null){shouldChangeReflexivity = prevClockwiseReflexive !== clockwiseReflexive && Math.abs(angle - prevAngle) < 180;}if(shouldChangeReflexivity){this.reflex = !this.reflex;}}_.invoke(this.temp, "remove");this.temp = this.graphie.labelAngle({point1:this.coords[0], vertex:this.coords[1], point3:this.coords[2], label:this.labeledAngle, text:this.angleLabel, numArcs:this.numArcs, pushOut:this.pushOut, clockwise:this.reflex === clockwiseReflexive, style:this.angleStyle});}, remove:function(){_.invoke(this.rays, "remove");_.invoke(this.temp, "remove");this.labeledAngle.remove();}});module.exports = InteractiveUtils;
+	var _=__webpack_require__(16);__webpack_require__(217);var GraphUtils=__webpack_require__(192);var kvector=__webpack_require__(189).vector;var kpoint=__webpack_require__(189).point;var kline=__webpack_require__(189).line;var WrappedEllipse=__webpack_require__(218);var WrappedLine=__webpack_require__(219);var WrappedPath=__webpack_require__(220);var KhanMath=__webpack_require__(140);var KhanColors=__webpack_require__(165);var _require=__webpack_require__(149);var getCanUse3dTransform=_require.getCanUse3dTransform;function sum(array){return _.reduce(array, function(memo, arg){return memo + arg;}, 0);}function clockwise(points){var segments=_.zip(points, points.slice(1).concat(points.slice(0, 1)));var areas=_.map(segments, function(segment){var p1=segment[0];var p2=segment[1];return (p2[0] - p1[0]) * (p2[1] + p1[1]);});return sum(areas) > 0;}function addPoints(){var points=_.toArray(arguments);var zipped=_.zip.apply(_, points);return _.map(zipped, sum);}function reverseVector(vector){return _.map(vector, function(coord){return coord * -1;});}function scaledDistanceFromAngle(angle){var a=3.51470560176242 * 20;var b=0.5687298702748785 * 20;var c=-0.037587715462826674;return (a - b) * Math.exp(c * angle) + b;}function scaledPolarRad(radius, radians){return [radius * Math.cos(radians), radius * Math.sin(radians) * -1];}function scaledPolarDeg(radius, degrees){var radians=degrees * Math.PI / 180;return scaledPolarRad(radius, radians);}var dragging=false;var InteractiveUtils={FILL_OPACITY:0.3, createSorter:function(){var sorter={};var list=undefined;sorter.hasAttempted = false;sorter.init = function(element){list = $("[id=" + element + "]").last();var container=list.wrap("<div>").parent();var placeholder=$("<li>");placeholder.addClass("placeholder");container.addClass("sortable ui-helper-clearfix");list.find("li").each(function(tileNum, tile){$(tile).bind("vmousedown", function(event){var _this=this;if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();$(tile).addClass("dragging");var tileIndex=$(_this).index();placeholder.insertAfter(tile);placeholder.width($(tile).width());$(_this).css("z-index", 100);var offset=$(_this).offset();var click={left:event.pageX - offset.left - 3, top:event.pageY - offset.top - 3};$(tile).css({position:"absolute"});$(tile).offset({left:offset.left, top:offset.top});$(document).bind("vmousemove.tile vmouseup.tile", function(event){event.preventDefault();if(event.type === "vmousemove"){(function(){sorter.hasAttempted = true;$(tile).offset({left:event.pageX - click.left, top:event.pageY - click.top});var leftEdge=list.offset().left;var midWidth=$(tile).offset().left - leftEdge;var index=0;var sumWidth=0;list.find("li").each(function(){if(this === placeholder[0] || this === tile){return;}if(midWidth > sumWidth + $(this).outerWidth(true) / 2){index += 1;}sumWidth += $(this).outerWidth(true);});if(index !== tileIndex){tileIndex = index;if(index === 0){placeholder.prependTo(list);$(tile).prependTo(list);}else {placeholder.detach();$(tile).detach();var preceeding=list.find("li")[index - 1];placeholder.insertAfter(preceeding);$(tile).insertAfter(preceeding);}}})();}else if(event.type === "vmouseup"){(function(){$(document).unbind(".tile");var position=$(tile).offset();$(position).animate(placeholder.offset(), {duration:150, step:function(now, fx){position[fx.prop] = now;$(tile).offset(position);}, complete:function(){$(tile).css("z-index", 0);placeholder.detach();$(tile).css({position:"static"});$(tile).removeClass("dragging");}});})();}});})();}});});};sorter.getContent = function(){var content=[];list.find("li").each(function(tileNum, tile){content.push($.trim($(tile).find(".sort-key").text()));});return content;};sorter.setContent = function(content){var tiles=[];$.each(content, function(n, sortKey){var tile=list.find("li .sort-key").filter(function(){return $(this).text() === sortKey;}).closest("li").get(0);$(tile).detach();tiles.push(tile);});list.append(tiles);};return sorter;}, bogusShape:{animate:function(){}, attr:function(){}, remove:function(){}}};_.extend(GraphUtils.Graphie.prototype, {initAutoscaledGraph:function(range, options){var graph=this;options = $.extend({xpixels:500, ypixels:500, xdivisions:20, ydivisions:20, labels:true, unityLabels:true, range:range === undefined?[[-10, 10], [-10, 10]]:range}, options);options.scale = [options.xpixels / (options.range[0][1] - options.range[0][0]), options.ypixels / (options.range[1][1] - options.range[1][0])];options.gridStep = [(options.range[0][1] - options.range[0][0]) / options.xdivisions, (options.range[1][1] - options.range[1][0]) / options.ydivisions];graph.xpixels = options.xpixels;graph.ypixels = options.ypixels;graph.range = options.range;graph.scale = options.scale;graph.graphInit(options);}, addMouseLayer:function(options){var graph=this;options = _.extend({allowScratchpad:false}, options);var mouselayerZIndex=2;graph.mouselayer = Raphael(graph.raphael.canvas.parentNode, graph.xpixels, graph.ypixels);$(graph.mouselayer.canvas).css("z-index", mouselayerZIndex);if(options.onClick || options.onMouseDown || options.onMouseMove || options.onMouseOver || options.onMouseOut){(function(){var canvasClickTarget=graph.mouselayer.rect(0, 0, graph.xpixels, graph.ypixels).attr({fill:"#000", opacity:0});var isClickingCanvas=false;$(graph.mouselayer.canvas).on("vmousedown", function(e){if(e.target === canvasClickTarget[0]){if(options.onMouseDown){options.onMouseDown(graph.getMouseCoord(e));}isClickingCanvas = true;if(options.onMouseMove){$(document).bind("vmousemove.mouseLayer", function(e){if(isClickingCanvas){e.preventDefault();options.onMouseMove(graph.getMouseCoord(e));}});}$(document).bind("vmouseup.mouseLayer", function(e){$(document).unbind(".mouseLayer");if(isClickingCanvas && options.onClick){options.onClick(graph.getMouseCoord(e));}isClickingCanvas = false;});}});if(options.onMouseOver){$(graph.mouselayer.canvas).on("vmouseover", function(e){options.onMouseOver(graph.getMouseCoord(e));});}if(options.onMouseOut){$(graph.mouselayer.canvas).on("vmouseout", function(e){options.onMouseOut(graph.getMouseCoord(e));});}})();}if(!options.allowScratchpad){Khan.scratchpad.disable();}graph._mouselayerWrapper = document.createElement("div");$(graph._mouselayerWrapper).css({position:"absolute", left:0, top:0, zIndex:mouselayerZIndex});graph._visiblelayerWrapper = document.createElement("div");$(graph._visiblelayerWrapper).css({position:"absolute", left:0, top:0});var el=graph.raphael.canvas.parentNode;el.appendChild(graph._visiblelayerWrapper);el.appendChild(graph._mouselayerWrapper);graph.addToMouseLayerWrapper = function(el){this._mouselayerWrapper.appendChild(el);};graph.addToVisibleLayerWrapper = function(el){this._visiblelayerWrapper.appendChild(el);};}, getMousePx:function(event){var graphie=this;var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;return [mouseX, mouseY];}, getMouseCoord:function(event){return this.unscalePoint(this.getMousePx(event));}, drawArcs:function(point1, vertex, point3, numArcs){var startAngle=GraphUtils.findAngle(point1, vertex);var endAngle=GraphUtils.findAngle(point3, vertex);if(((endAngle - startAngle) % 360 + 360) % 360 > 180){var temp=startAngle;startAngle = endAngle;endAngle = temp;}var radius=0.3;if(((endAngle - startAngle) % 360 + 360) % 360 < 75){radius = -0.6 / 90 * (((endAngle - startAngle) % 360 + 360) % 360) + 0.8;}var arcset=[];for(var arc=0; arc < numArcs; ++arc) {arcset.push(this.arc(vertex, radius + 0.15 * arc, startAngle, endAngle));}return arcset;}, labelAngle:function(options){var graphie=this;_.defaults(options, {point1:[0, 0], vertex:[0, 0], point3:[0, 0], label:null, numArcs:1, showRightAngleMarker:true, pushOut:0, clockwise:false, style:{}});var text=options.text === undefined?"":options.text;var vertex=options.vertex;var sVertex=graphie.scalePoint(vertex);var p1=undefined;var p3=undefined;if(options.clockwise){p1 = options.point1;p3 = options.point3;}else {p1 = options.point3;p3 = options.point1;}var startAngle=GraphUtils.findAngle(p1, vertex);var endAngle=GraphUtils.findAngle(p3, vertex);var angle=(endAngle + 360 - startAngle) % 360;var halfAngle=(startAngle + angle / 2) % 360;var sPadding=5 * options.pushOut;var sRadius=sPadding + scaledDistanceFromAngle(angle);var temp=[];if(Math.abs(angle - 90) < 1e-9 && options.showRightAngleMarker){(function(){var v1=addPoints(sVertex, scaledPolarDeg(sRadius, startAngle));var v2=addPoints(sVertex, scaledPolarDeg(sRadius, endAngle));sRadius *= Math.SQRT2;var v3=addPoints(sVertex, scaledPolarDeg(sRadius, halfAngle));_.each([v1, v2], function(v){temp.push(graphie.scaledPath([v, v3], options.style));});})();}else {_.times(options.numArcs, function(i){temp.push(graphie.arc(vertex, graphie.unscaleVector(sRadius), startAngle, endAngle, options.style));sRadius += 3;});}if(text){var match=text.match(/\$deg(\d)?/);if(match){var precision=match[1] || 1;text = text.replace(match[0], KhanMath.toFixedApprox(angle, precision) + "^{\\circ}");}var sOffset=scaledPolarDeg(sRadius + 15, halfAngle);var sPosition=addPoints(sVertex, sOffset);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(text, true);}else {graphie.label(position, text, "center", options.style);}}return temp;}, labelSide:function(options){var graphie=this;_.defaults(options, {point1:[0, 0], point2:[0, 0], label:null, text:"", numTicks:0, numArrows:0, clockwise:false, style:{}});var p1=undefined;var p2=undefined;if(options.clockwise){p1 = options.point1;p2 = options.point2;}else {p1 = options.point2;p2 = options.point1;}var midpoint=[(p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2];var sMidpoint=graphie.scalePoint(midpoint);var parallelAngle=Math.atan2(p2[1] - p1[1], p2[0] - p1[0]);var perpendicularAngle=parallelAngle + Math.PI / 2;var temp=[];var sCumulativeOffset=0;if(options.numTicks){(function(){var n=options.numTicks;var sSpacing=5;var sHeight=5;var style=_.extend({}, options.style, {strokeWidth:2});_.times(n, function(i){var sOffset=sSpacing * (i - (n - 1) / 2);var sOffsetVector=scaledPolarRad(sOffset, parallelAngle);var sHeightVector=scaledPolarRad(sHeight, perpendicularAngle);var sPath=[addPoints(sMidpoint, sOffsetVector, sHeightVector), addPoints(sMidpoint, sOffsetVector, reverseVector(sHeightVector))];temp.push(graphie.scaledPath(sPath, style));});sCumulativeOffset += sSpacing * (n - 1) + 15;})();}if(options.numArrows){(function(){var n=options.numArrows;var start=[p1, p2].sort(function(a, b){if(a[1] === b[1]){return a[0] - b[0];}else {return a[1] - b[1];}})[0];var sStart=graphie.scalePoint(start);var style=_.extend({}, options.style, {arrows:"->", strokeWidth:2});var sSpacing=5;_.times(n, function(i){var sOffset=sCumulativeOffset + sSpacing * i;var sOffsetVector=scaledPolarRad(sOffset, parallelAngle);if(start !== p1){sOffsetVector = reverseVector(sOffsetVector);}var sEnd=addPoints(sMidpoint, sOffsetVector);temp.push(graphie.scaledPath([sStart, sEnd], style));});})();}var text=options.text;if(text){var match=text.match(/\$len(\d)?/);if(match){var distance=GraphUtils.getDistance(p1, p2);var precision=match[1] || 1;text = text.replace(match[0], KhanMath.toFixedApprox(distance, precision));}var sOffset=20;var sOffsetVector=scaledPolarRad(sOffset, perpendicularAngle);var sPosition=addPoints(sMidpoint, sOffsetVector);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(text, true);}else {graphie.label(position, text, "center", options.style);}}return temp;}, labelVertex:function(options){var graphie=this;_.defaults(options, {point1:null, vertex:[0, 0], point3:null, label:null, text:"", clockwise:false, style:{}});if(!options.text){return;}var vertex=options.vertex;var sVertex=graphie.scalePoint(vertex);var p1=undefined;var p3=undefined;if(options.clockwise){p1 = options.point1;p3 = options.point3;}else {p1 = options.point3;p3 = options.point1;}var angle=135;var halfAngle=undefined;if(p1 && p3){var startAngle=GraphUtils.findAngle(p1, vertex);var endAngle=GraphUtils.findAngle(p3, vertex);angle = (endAngle + 360 - startAngle) % 360;halfAngle = (startAngle + angle / 2 + 180) % 360;}else if(p1){var parallelAngle=GraphUtils.findAngle(vertex, p1);halfAngle = parallelAngle + 90;}else if(p3){var parallelAngle=GraphUtils.findAngle(p3, vertex);halfAngle = parallelAngle + 90;}else {halfAngle = 135;}var sRadius=10 + scaledDistanceFromAngle(360 - angle);var sOffsetVector=scaledPolarDeg(sRadius, halfAngle);var sPosition=addPoints(sVertex, sOffsetVector);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(options.text, true);}else {graphie.label(position, options.text, "center", options.style);}}, addMovablePoint:function(options){var movablePoint=$.extend(true, {graph:this, coord:[0, 0], snapX:0, snapY:0, pointSize:4, highlight:false, dragging:false, visible:true, bounded:true, constraints:{fixed:false, constrainX:false, constrainY:false, fixedAngle:{}, fixedDistance:{}}, lineStarts:[], lineEnds:[], polygonVertices:[], normalStyle:{}, highlightStyle:{fill:KhanColors.INTERACTING, stroke:KhanColors.INTERACTING}, labelStyle:{color:KhanColors.INTERACTIVE}, vertexLabel:"", mouseTarget:null}, options);var normalColor=movablePoint.constraints.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;movablePoint.normalStyle = _.extend({}, {"fill":normalColor, "stroke":normalColor}, options.normalStyle);if(options.coordX !== undefined){movablePoint.coord[0] = options.coordX;}if(options.coordY !== undefined){movablePoint.coord[1] = options.coordY;}var graph=movablePoint.graph;var applySnapAndConstraints=function(coord){if(movablePoint.visible && movablePoint.bounded && !movablePoint.constraints.fixed){coord = graph.constrainToBounds(coord, 10);}var coordX=coord[0];var coordY=coord[1];if(movablePoint.snapX !== 0){coordX = Math.round(coordX / movablePoint.snapX) * movablePoint.snapX;}if(movablePoint.snapY !== 0){coordY = Math.round(coordY / movablePoint.snapY) * movablePoint.snapY;}if(movablePoint.constraints.fixedDistance.snapPoints){var mouse=graph.scalePoint(coord);var mouseX=mouse[0];var mouseY=mouse[1];var snapRadians=2 * Math.PI / movablePoint.constraints.fixedDistance.snapPoints;var radius=movablePoint.constraints.fixedDistance.dist;var centerCoord=movablePoint.constraints.fixedDistance.point;var centerX=(centerCoord[0] - graph.range[0][0]) * graph.scale[0];var centerY=(-centerCoord[1] + graph.range[1][1]) * graph.scale[1];var mouseXrel=mouseX - centerX;var mouseYrel=-mouseY + centerY;var radians=Math.atan(mouseYrel / mouseXrel);var outsideArcTanRange=mouseXrel < 0;if(outsideArcTanRange){radians += Math.PI;}radians = Math.round(radians / snapRadians) * snapRadians;mouseXrel = radius * Math.cos(radians);mouseYrel = radius * Math.sin(radians);mouseX = mouseXrel + centerX;mouseY = -mouseYrel + centerY;coordX = KhanMath.roundTo(5, mouseX / graph.scale[0] + graph.range[0][0]);coordY = KhanMath.roundTo(5, graph.range[1][1] - mouseY / graph.scale[1]);}var result=movablePoint.applyConstraint([coordX, coordY]);return result;};movablePoint.applyConstraint = function(coord, extraConstraints, override){var newCoord=coord.slice();var constraints={};if(override){$.extend(constraints, {fixed:false, constrainX:false, constrainY:false, fixedAngle:{}, fixedDistance:{}}, extraConstraints);}else {$.extend(constraints, this.constraints, extraConstraints);}if(constraints.constrainX){newCoord = [this.coord[0], coord[1]];}else if(constraints.constrainY){newCoord = [coord[0], this.coord[1]];}else if(typeof constraints.fixedAngle.angle === "number" && typeof constraints.fixedDistance.dist === "number"){var vertex=constraints.fixedAngle.vertex.coord || constraints.fixedAngle.vertex;var ref=constraints.fixedAngle.ref.coord || constraints.fixedAngle.ref;var distPoint=constraints.fixedDistance.point.coord || constraints.fixedDistance.point;var constrainedAngle=(constraints.fixedAngle.angle + GraphUtils.findAngle(ref, vertex)) * Math.PI / 180;var _length=constraints.fixedDistance.dist;newCoord[0] = _length * Math.cos(constrainedAngle) + distPoint[0];newCoord[1] = _length * Math.sin(constrainedAngle) + distPoint[1];}else if(typeof constraints.fixedAngle.angle === "number"){var vertex=constraints.fixedAngle.vertex.coord || constraints.fixedAngle.vertex;var ref=constraints.fixedAngle.ref.coord || constraints.fixedAngle.ref;var constrainedAngle=(constraints.fixedAngle.angle + GraphUtils.findAngle(ref, vertex)) * Math.PI / 180;var angle=GraphUtils.findAngle(coord, vertex) * Math.PI / 180;var distance=GraphUtils.getDistance(coord, vertex);var _length2=distance * Math.cos(constrainedAngle - angle);_length2 = _length2 < 1?1:_length2;newCoord[0] = _length2 * Math.cos(constrainedAngle) + vertex[0];newCoord[1] = _length2 * Math.sin(constrainedAngle) + vertex[1];}else if(typeof constraints.fixedDistance.dist === "number"){var distPoint=constraints.fixedDistance.point.coord || constraints.fixedDistance.point;var angle=GraphUtils.findAngle(coord, distPoint);var _length3=constraints.fixedDistance.dist;angle = angle * Math.PI / 180;newCoord[0] = _length3 * Math.cos(angle) + distPoint[0];newCoord[1] = _length3 * Math.sin(angle) + distPoint[1];}else if(constraints.fixed){newCoord = movablePoint.coord;}return newCoord;};movablePoint.coord = applySnapAndConstraints(movablePoint.coord);var highlightScale=2;if(movablePoint.visible){graph.style(movablePoint.normalStyle, function(){var radii=[movablePoint.pointSize / graph.scale[0], movablePoint.pointSize / graph.scale[1]];var options={maxScale:highlightScale};movablePoint.visibleShape = new WrappedEllipse(graph, movablePoint.coord, radii, options);movablePoint.visibleShape.attr(_.omit(movablePoint.normalStyle, "scale"));movablePoint.visibleShape.toFront();});}movablePoint.normalStyle.scale = 1;movablePoint.highlightStyle.scale = highlightScale;if(movablePoint.vertexLabel){movablePoint.labeledVertex = this.label([0, 0], "", "center", movablePoint.labelStyle);}movablePoint.drawLabel = function(){if(movablePoint.vertexLabel){movablePoint.graph.labelVertex({vertex:movablePoint.coord, label:movablePoint.labeledVertex, text:movablePoint.vertexLabel, style:movablePoint.labelStyle});}};movablePoint.drawLabel();movablePoint.grab = function(){$(document).bind("vmousemove.point vmouseup.point", function(event){event.preventDefault();movablePoint.dragging = true;dragging = true;var coord=graph.getMouseCoord(event);coord = applySnapAndConstraints(coord);var coordX=coord[0];var coordY=coord[1];var mouseX=undefined;var mouseY=undefined;if(event.type === "vmousemove"){var doMove=true;if(_.isFunction(movablePoint.onMove)){var result=movablePoint.onMove(coordX, coordY);if(result === false){doMove = false;}if(_.isArray(result)){coordX = result[0];coordY = result[1];}}mouseX = (coordX - graph.range[0][0]) * graph.scale[0];mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];if(doMove){var point=graph.unscalePoint([mouseX, mouseY]);movablePoint.visibleShape.moveTo(point);movablePoint.mouseTarget.moveTo(point);movablePoint.coord = [coordX, coordY];movablePoint.updateLineEnds();$(movablePoint).trigger("move");}movablePoint.drawLabel();}else if(event.type === "vmouseup"){$(document).unbind(".point");movablePoint.dragging = false;dragging = false;if(_.isFunction(movablePoint.onMoveEnd)){var result=movablePoint.onMoveEnd(coordX, coordY);if(_.isArray(result)){coordX = result[0];coordY = result[1];mouseX = (coordX - graph.range[0][0]) * graph.scale[0];mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];var point=graph.unscalePoint([mouseX, mouseY]);movablePoint.visibleShape.moveTo(point);movablePoint.mouseTarget.moveTo(point);movablePoint.coord = [coordX, coordY];}}if(!movablePoint.highlight){movablePoint.visibleShape.animate(movablePoint.normalStyle, 50);if(movablePoint.onUnhighlight){movablePoint.onUnhighlight();}}}});};if(movablePoint.visible && !movablePoint.constraints.fixed){if(!movablePoint.mouseTarget){var radii=graph.unscaleVector(15);var _options={mouselayer:true};movablePoint.mouseTarget = new WrappedEllipse(graph, movablePoint.coord, radii, _options);movablePoint.mouseTarget.attr({fill:"#000", opacity:0});}var $mouseTarget=$(movablePoint.mouseTarget.getMouseTarget());$mouseTarget.css("cursor", "move");$mouseTarget.bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){movablePoint.highlight = true;if(!dragging){movablePoint.visibleShape.animate(movablePoint.highlightStyle, 50);if(movablePoint.onHighlight){movablePoint.onHighlight();}}}else if(event.type === "vmouseout"){movablePoint.highlight = false;if(!movablePoint.dragging && !dragging){movablePoint.visibleShape.animate(movablePoint.normalStyle, 50);if(movablePoint.onUnhighlight){movablePoint.onUnhighlight();}}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){event.preventDefault();movablePoint.grab();}});}movablePoint.moveTo = function(coordX, coordY, updateLines){var distance=GraphUtils.getDistance(this.graph.scalePoint([coordX, coordY]), this.graph.scalePoint(this.coord));var time=distance * 5;var cb=updateLines && function(coord){movablePoint.coord = coord;movablePoint.updateLineEnds();};this.visibleShape.animateTo([coordX, coordY], time, cb);this.mouseTarget.animateTo([coordX, coordY], time, cb);this.coord = [coordX, coordY];if(_.isFunction(this.onMove)){this.onMove(coordX, coordY);}};movablePoint.updateLineEnds = function(){$(this.lineStarts).each(function(){this.coordA = movablePoint.coord;this.transform();});$(this.lineEnds).each(function(){this.coordZ = movablePoint.coord;this.transform();});$(this.polygonVertices).each(function(){this.transform();});};movablePoint.setCoord = function(coord){if(this.visible){this.visibleShape.moveTo(coord);if(this.mouseTarget != null){this.mouseTarget.moveTo(coord);}}this.coord = coord.slice();};movablePoint.setCoordConstrained = function(coord){this.setCoord(applySnapAndConstraints(coord));};movablePoint.toBack = function(){if(this.visible){if(this.mouseTarget != null){this.mouseTarget.toBack();}this.visibleShape.toBack();}};movablePoint.toFront = function(){if(this.visible){if(this.mouseTarget != null){this.mouseTarget.toFront();}this.visibleShape.toFront();}};movablePoint.remove = function(){if(this.visibleShape){this.visibleShape.remove();}if(this.mouseTarget){this.mouseTarget.remove();}if(this.labeledVertex){this.labeledVertex.remove();}};return movablePoint;}, addInteractiveFn:function(fn, options){var graph=this;options = $.extend({graph:graph, snap:0, range:[graph.range[0][0], graph.range[0][1]]}, options);var interactiveFn={highlight:false};graph.style({stroke:KhanColors.BLUE}, function(){interactiveFn.visibleShape = graph.plot(fn, options.range, options.swapAxes);});graph.style({fill:KhanColors.BLUE, stroke:KhanColors.BLUE}, function(){interactiveFn.cursorPoint = graph.ellipse([0, fn(0)], [4 / graph.scale[0], 4 / graph.scale[1]]);});interactiveFn.cursorPoint.attr("opacity", 0);var mouseAreaWidth=30;var points=[];var step=(options.range[1] - options.range[0]) / 100;var addScaledPoint=function(x, y){if(options.swapAxes){points.push([(y - graph.range[0][0]) * graph.scale[0], (graph.range[1][1] - x) * graph.scale[1]]);}else {points.push([(x - graph.range[0][0]) * graph.scale[0], (graph.range[1][1] - y) * graph.scale[1]]);}};for(var x=options.range[0]; x <= options.range[1]; x += step) {var ddx=(fn(x - 0.001) - fn(x + 0.001)) / 0.002;var x1=x;var y1=fn(x) + mouseAreaWidth / (2 * graph.scale[1]);if(ddx !== 0){var normalslope=-1 / (ddx * (graph.scale[1] / graph.scale[0])) / (graph.scale[1] / graph.scale[0]);if(ddx < 0){x1 = x - Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}else if(ddx > 0){x1 = x + Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}}addScaledPoint(x1, y1);}for(var x=options.range[1]; x >= options.range[0]; x -= step) {var ddx=(fn(x - 0.001) - fn(x + 0.001)) / 0.002;var x1=x;var y1=fn(x) - mouseAreaWidth / (2 * graph.scale[1]);if(ddx !== 0){var normalslope=-1 / (ddx * (graph.scale[1] / graph.scale[0])) / (graph.scale[1] / graph.scale[0]);if(ddx < 0){x1 = x + Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}else if(ddx > 0){x1 = x - Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}}addScaledPoint(x1, y1);}interactiveFn.mouseTarget = graph.mouselayer.path(GraphUtils.unscaledSvgPath(points));interactiveFn.mouseTarget.attr({fill:"#000", "opacity":0});$(interactiveFn.mouseTarget[0]).bind("vmouseover vmouseout vmousemove", function(event){event.preventDefault();var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graph.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graph.ypixels - 10, mouseY));if(options.snap){mouseX = Math.round(mouseX / (graph.scale[0] * options.snap)) * (graph.scale[0] * options.snap);}var coordX=mouseX / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - mouseY / graph.scale[1];var findDistance=function(coordX, coordY){var closestX=0;var minDist=Math.sqrt(coordX * coordX + coordY * coordY);for(var x=options.range[0]; x < options.range[1]; x += (options.range[1] - options.range[0]) / graph.xpixels) {if(Math.sqrt((x - coordX) * (x - coordX) + (fn(x) - coordY) * (fn(x) - coordY)) < minDist){closestX = x;minDist = Math.sqrt((x - coordX) * (x - coordX) + (fn(x) - coordY) * (fn(x) - coordY));}}return closestX;};if(options.swapAxes){var closestX=findDistance(coordY, coordX);coordX = fn(closestX);coordY = closestX;}else {var closestX=findDistance(coordX, coordY);coordX = closestX;coordY = fn(closestX);}interactiveFn.cursorPoint.attr("cx", (graph.range[0][1] + coordX) * graph.scale[0]);interactiveFn.cursorPoint.attr("cy", (graph.range[1][1] - coordY) * graph.scale[1]);if(_.isFunction(interactiveFn.onMove)){interactiveFn.onMove(coordX, coordY);}if(event.type === "vmouseover"){interactiveFn.cursorPoint.animate({opacity:1}, 50);interactiveFn.highlight = true;}else if(event.type === "vmouseout"){interactiveFn.highlight = false;interactiveFn.cursorPoint.animate({opacity:0}, 50);if(_.isFunction(interactiveFn.onLeave)){interactiveFn.onLeave(coordX, coordY);}}});interactiveFn.mouseTarget.toBack();return interactiveFn;}, addMovableLineSegment:function(options){var lineSegment=$.extend({graph:this, coordA:[0, 0], coordZ:[1, 1], snapX:0, snapY:0, fixed:false, ticks:0, normalStyle:{}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":6}, labelStyle:{"stroke":KhanColors.INTERACTIVE, "color":KhanColors.INTERACTIVE}, highlight:false, dragging:false, tick:[], extendLine:false, extendRay:false, constraints:{fixed:false, constrainX:false, constrainY:false}, sideLabel:"", vertexLabels:[], numArrows:0, numTicks:0, movePointsWithLine:false}, options);var normalColor=lineSegment.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;lineSegment.normalStyle = _.extend({}, {"stroke-width":2, "stroke":normalColor}, options.normalStyle);lineSegment.arrowStyle = _.extend({}, lineSegment.normalStyle, {"color":lineSegment.normalStyle.stroke});if(options.pointA !== undefined){lineSegment.coordA = options.pointA.coord;lineSegment.pointA.lineStarts.push(lineSegment);}else if(options.coordA !== undefined){lineSegment.coordA = options.coordA.slice();}if(options.pointZ !== undefined){lineSegment.coordZ = options.pointZ.coord;lineSegment.pointZ.lineEnds.push(lineSegment);}else if(options.coordA !== undefined){lineSegment.coordA = lineSegment.coordA.slice();}var graph=lineSegment.graph;graph.style(lineSegment.normalStyle);for(var i=0; i < lineSegment.ticks; ++i) {lineSegment.tick[i] = InteractiveUtils.bogusShape;}var path=GraphUtils.unscaledSvgPath([[0, 0], [1, 0]]);for(var i=0; i < lineSegment.ticks; ++i) {var tickoffset=0.5 - (lineSegment.ticks - 1 + i * 2) / graph.scale[0];path += GraphUtils.unscaledSvgPath([[tickoffset, -7], [tickoffset, 7]]);}options = {thickness:Math.max(lineSegment.normalStyle["stroke-width"], lineSegment.highlightStyle["stroke-width"])};lineSegment.visibleLine = new WrappedLine(graph, [0, 0], [1, 0], options);lineSegment.visibleLine.attr(lineSegment.normalStyle);if(!lineSegment.fixed){var _options2={thickness:30, mouselayer:true};lineSegment.mouseTarget = new WrappedLine(graph, [0, 0], [1, 0], _options2);lineSegment.mouseTarget.attr({fill:"#000", "opacity":0});}lineSegment.transform = function(syncToPoints){if(syncToPoints){if(typeof this.pointA === "object"){this.coordA = this.pointA.coord;}if(typeof this.pointZ === "object"){this.coordZ = this.pointZ.coord;}}var getScaledAngle=function(line){var scaledA=line.graph.scalePoint(line.coordA);var scaledZ=line.graph.scalePoint(line.coordZ);return kvector.polarDegFromCart(kvector.subtract(scaledZ, scaledA))[1];};var getClipPoint=function(graph, coord, angle){graph = lineSegment.graph;var xExtent=graph.range[0][1] - graph.range[0][0];var yExtent=graph.range[1][1] - graph.range[1][0];var distance=xExtent + yExtent;var angleVec=graph.unscaleVector(kvector.cartFromPolarDeg([1, angle]));var distVec=kvector.scale(kvector.normalize(angleVec), distance);var farCoord=kvector.add(coord, distVec);var scaledAngle=kvector.polarDegFromCart(angleVec)[1];var clipPoint=graph.constrainToBoundsOnAngle(farCoord, 4, scaledAngle * Math.PI / 180);return clipPoint;};var angle=getScaledAngle(this);var start=this.coordA;var end=this.coordZ;if(this.extendLine){start = getClipPoint(graph, start, 360 - angle);end = getClipPoint(graph, end, (540 - angle) % 360);}else if(this.extendRay){end = getClipPoint(graph, start, 360 - angle);}var elements=[this.visibleLine];if(!this.fixed){elements.push(this.mouseTarget);}_.each(elements, function(element){element.moveTo(start, end);});var createArrow=function(graph, style){var center=[0.75, 0];var points=[[-3, 4], [-2.75, 2.5], [0, 0.25], center, [0, -0.25], [-2.75, -2.5], [-3, -4]];var scale=1.4;points = _.map(points, function(point){var pv=kvector.subtract(point, center);var pvScaled=kvector.scale(pv, scale);return kvector.add(center, pvScaled);});var createCubicPath=function(points){var path="M" + points[0][0] + " " + points[0][1];for(var i=1; i < points.length; i += 3) {path += "C" + points[i][0] + " " + points[i][1] + " " + points[i + 1][0] + " " + points[i + 1][1] + " " + points[i + 2][0] + " " + points[i + 2][1];}return path;};var unscaledPoints=_.map(points, graph.unscalePoint);var options={center:graph.unscalePoint(center), createPath:createCubicPath};var arrowHead=new WrappedPath(graph, unscaledPoints, options);arrowHead.attr(_.extend({"stroke-linejoin":"round", "stroke-linecap":"round", "stroke-dasharray":""}, style));arrowHead.toCoordAtAngle = function(coord, angle){var clipPoint=graph.scalePoint(getClipPoint(graph, coord, angle));var do3dTransform=getCanUse3dTransform();arrowHead.transform("translateX(" + (clipPoint[0] + scale * center[0]) + "px) " + "translateY(" + (clipPoint[1] + scale * center[1]) + "px) " + (do3dTransform?"translateZ(0) ":"") + "rotate(" + (360 - KhanMath.bound(angle)) + "deg)");};return arrowHead;};if(this._arrows == null){this._arrows = [];if(this.extendLine){this._arrows.push(createArrow(graph, this.normalStyle));this._arrows.push(createArrow(graph, this.normalStyle));}else if(this.extendRay){this._arrows.push(createArrow(graph, this.normalStyle));}}var coordForArrow=[this.coordA, this.coordZ];var angleForArrow=[360 - angle, (540 - angle) % 360];_.each(this._arrows, function(arrow, i){arrow.toCoordAtAngle(coordForArrow[i], angleForArrow[i]);});_.invoke(this.temp, "remove");this.temp = [];var isClockwise=this.coordA[0] < this.coordZ[0] || this.coordA[0] === this.coordZ[0] && this.coordA[1] > this.coordZ[1];if(this.sideLabel){this.temp.push(this.graph.labelSide({point1:this.coordA, point2:this.coordZ, label:this.labeledSide, text:this.sideLabel, numArrows:this.numArrows, numTicks:this.numTicks, clockwise:isClockwise, style:this.labelStyle}));}if(this.vertexLabels.length){this.graph.labelVertex({vertex:this.coordA, point3:this.coordZ, label:this.labeledVertices[0], text:this.vertexLabels[0], clockwise:isClockwise, style:this.labelStyle});this.graph.labelVertex({point1:this.coordA, vertex:this.coordZ, label:this.labeledVertices[1], text:this.vertexLabels[1], clockwise:isClockwise, style:this.labelStyle});}this.temp = _.flatten(this.temp);};lineSegment.toBack = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.toBack();}lineSegment.visibleLine.toBack();};lineSegment.toFront = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.toFront();}lineSegment.visibleLine.toFront();};lineSegment.remove = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.remove();}lineSegment.visibleLine.remove();if(lineSegment.labeledSide){lineSegment.labeledSide.remove();}if(lineSegment.labeledVertices){_.invoke(lineSegment.labeledVertices, "remove");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "remove");}if(lineSegment.temp.length){_.invoke(lineSegment.temp, "remove");}};lineSegment.hide = function(){lineSegment.visibleLine.hide();if(lineSegment.temp.length){_.invoke(lineSegment.temp, "hide");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "hide");}};lineSegment.show = function(){lineSegment.visibleLine.show();if(lineSegment.temp.length){_.invoke(lineSegment.temp, "show");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "show");}};if(lineSegment.sideLabel){lineSegment.labeledSide = this.label([0, 0], "", "center", lineSegment.labelStyle);}if(lineSegment.vertexLabels.length){lineSegment.labeledVertices = _.map(lineSegment.vertexLabels, function(label){return this.label([0, 0], "", "center", lineSegment.labelStyle);}, this);}if(!lineSegment.fixed && !lineSegment.constraints.fixed){var $mouseTarget=$(lineSegment.mouseTarget.getMouseTarget());$mouseTarget.css("cursor", "move");$mouseTarget.bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){if(!dragging){lineSegment.highlight = true;lineSegment.visibleLine.animate(lineSegment.highlightStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.highlightStyle.stroke, "stroke":lineSegment.highlightStyle.stroke});lineSegment.transform();}}else if(event.type === "vmouseout"){lineSegment.highlight = false;if(!lineSegment.dragging){lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.normalStyle.stroke, "stroke":lineSegment.normalStyle.stroke});lineSegment.transform();}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();var coordX=(event.pageX - $(graph.raphael.canvas.parentNode).offset().left) / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - (event.pageY - $(graph.raphael.canvas.parentNode).offset().top) / graph.scale[1];if(lineSegment.snapX > 0){coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;}if(lineSegment.snapY > 0){coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;}var mouseOffsetA=[lineSegment.coordA[0] - coordX, lineSegment.coordA[1] - coordY];var mouseOffsetZ=[lineSegment.coordZ[0] - coordX, lineSegment.coordZ[1] - coordY];var offsetLeft=-Math.min(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);var offsetRight=Math.max(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);var offsetTop=Math.max(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);var offsetBottom=-Math.min(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);$(document).bind("vmousemove.lineSegment vmouseup.lineSegment", function(event){event.preventDefault();lineSegment.dragging = true;dragging = true;var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(offsetLeft + 10, Math.min(graph.xpixels - 10 - offsetRight, mouseX));mouseY = Math.max(offsetTop + 10, Math.min(graph.ypixels - 10 - offsetBottom, mouseY));var coordX=mouseX / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - mouseY / graph.scale[1];if(lineSegment.snapX > 0){coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;}if(lineSegment.snapY > 0){coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;}if(event.type === "vmousemove"){if(lineSegment.constraints.constrainX){coordX = lineSegment.coordA[0] - mouseOffsetA[0];}if(lineSegment.constraints.constrainY){coordY = lineSegment.coordA[1] - mouseOffsetA[1];}var dX=coordX + mouseOffsetA[0] - lineSegment.coordA[0];var dY=coordY + mouseOffsetA[1] - lineSegment.coordA[1];lineSegment.coordA = [coordX + mouseOffsetA[0], coordY + mouseOffsetA[1]];lineSegment.coordZ = [coordX + mouseOffsetZ[0], coordY + mouseOffsetZ[1]];lineSegment.transform();if(lineSegment.movePointsWithLine){if(typeof lineSegment.pointA === "object"){lineSegment.pointA.setCoord([lineSegment.pointA.coord[0] + dX, lineSegment.pointA.coord[1] + dY]);}if(typeof lineSegment.pointZ === "object"){lineSegment.pointZ.setCoord([lineSegment.pointZ.coord[0] + dX, lineSegment.pointZ.coord[1] + dY]);}}if(_.isFunction(lineSegment.onMove)){lineSegment.onMove(dX, dY);}}else if(event.type === "vmouseup"){$(document).unbind(".lineSegment");lineSegment.dragging = false;dragging = false;if(!lineSegment.highlight){lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.normalStyle.stroke, "stroke":lineSegment.normalStyle.stroke});lineSegment.transform();}if(_.isFunction(lineSegment.onMoveEnd)){lineSegment.onMoveEnd();}}$(lineSegment).trigger("move");});})();}});}if(lineSegment.pointA !== undefined){lineSegment.pointA.toFront();}if(lineSegment.pointZ !== undefined){lineSegment.pointZ.toFront();}lineSegment.transform();return lineSegment;}, addMovablePolygon:function(options){var graphie=this;var polygon=$.extend({snapX:0, snapY:0, fixed:false, constrainToGraph:true, normalStyle:{}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":2, "fill":KhanColors.INTERACTING, "fill-opacity":0.05}, pointHighlightStyle:{"fill":KhanColors.INTERACTING, "stroke":KhanColors.INTERACTING}, labelStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, angleLabels:[], showRightAngleMarkers:[], sideLabels:[], vertexLabels:[], numArcs:[], numArrows:[], numTicks:[], updateOnPointMove:true, closed:true}, _.omit(options, "points"));var normalColor=polygon.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;polygon.normalStyle = _.extend({"stroke-width":2, "fill-opacity":0, "fill":normalColor, "stroke":normalColor}, options.normalStyle);polygon.points = options.points;var isPoint=function(coordOrPoint){return !_.isArray(coordOrPoint);};polygon.update = function(){var n=polygon.points.length;polygon.coords = _.map(polygon.points, function(coordOrPoint, i){if(isPoint(coordOrPoint)){return coordOrPoint.coord;}else {return coordOrPoint;}});polygon.left = _.min(_.pluck(polygon.coords, 0));polygon.right = _.max(_.pluck(polygon.coords, 0));polygon.top = _.max(_.pluck(polygon.coords, 1));polygon.bottom = _.min(_.pluck(polygon.coords, 1));var scaledCoords=_.map(polygon.coords, function(coord){return graphie.scalePoint(coord);});if(polygon.closed){scaledCoords.push(true);}else {scaledCoords = scaledCoords.concat(_.clone(scaledCoords).reverse());}polygon.path = GraphUtils.unscaledSvgPath(scaledCoords);_.invoke(polygon.temp, "remove");polygon.temp = [];var isClockwise=clockwise(polygon.coords);if(polygon.angleLabels.length || polygon.showRightAngleMarkers.length){_.each(polygon.labeledAngles, function(label, i){polygon.temp.push(graphie.labelAngle({point1:polygon.coords[(i - 1 + n) % n], vertex:polygon.coords[i], point3:polygon.coords[(i + 1) % n], label:label, text:polygon.angleLabels[i], showRightAngleMarker:polygon.showRightAngleMarkers[i], numArcs:polygon.numArcs[i], clockwise:isClockwise, style:polygon.labelStyle}));});}if(polygon.sideLabels.length){_.each(polygon.labeledSides, function(label, i){polygon.temp.push(graphie.labelSide({point1:polygon.coords[i], point2:polygon.coords[(i + 1) % n], label:label, text:polygon.sideLabels[i], numArrows:polygon.numArrows[i], numTicks:polygon.numTicks[i], clockwise:isClockwise, style:polygon.labelStyle}));});}if(polygon.vertexLabels.length){_.each(polygon.labeledVertices, function(label, i){graphie.labelVertex({point1:polygon.coords[(i - 1 + n) % n], vertex:polygon.coords[i], point3:polygon.coords[(i + 1) % n], label:label, text:polygon.vertexLabels[i], clockwise:isClockwise, style:polygon.labelStyle});});}polygon.temp = _.flatten(polygon.temp);};polygon.transform = function(){polygon.update();polygon.visibleShape.attr({path:polygon.path});if(!polygon.fixed){polygon.mouseTarget.attr({path:polygon.path});}};polygon.remove = function(){polygon.visibleShape.remove();if(!polygon.fixed){polygon.mouseTarget.remove();}if(polygon.labeledAngles){_.invoke(polygon.labeledAngles, "remove");}if(polygon.labeledSides){_.invoke(polygon.labeledSides, "remove");}if(polygon.labeledVertices){_.invoke(polygon.labeledVertices, "remove");}if(polygon.temp.length){_.invoke(polygon.temp, "remove");}};polygon.toBack = function(){if(!polygon.fixed){polygon.mouseTarget.toBack();}polygon.visibleShape.toBack();};polygon.toFront = function(){if(!polygon.fixed){polygon.mouseTarget.toFront();}polygon.visibleShape.toFront();};if(polygon.updateOnPointMove){_.each(_.filter(polygon.points, isPoint), function(coordOrPoint){coordOrPoint.polygonVertices.push(polygon);});}polygon.coords = new Array(polygon.points.length);if(polygon.angleLabels.length){var numLabels=Math.max(polygon.angleLabels.length, polygon.showRightAngleMarkers.length);polygon.labeledAngles = _.times(numLabels, function(){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}if(polygon.sideLabels.length){polygon.labeledSides = _.map(polygon.sideLabels, function(label){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}if(polygon.vertexLabels.length){polygon.labeledVertices = _.map(polygon.vertexLabels, function(label){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}polygon.update();polygon.visibleShape = graphie.raphael.path(polygon.path);polygon.visibleShape.attr(polygon.normalStyle);if(!polygon.fixed){polygon.mouseTarget = graphie.mouselayer.path(polygon.path);polygon.mouseTarget.attr({fill:"#000", opacity:0, cursor:"move"});$(polygon.mouseTarget[0]).bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){if(!dragging || polygon.dragging){polygon.highlight = true;polygon.visibleShape.animate(polygon.highlightStyle, 50);_.each(_.filter(polygon.points, isPoint), function(point){point.visibleShape.animate(polygon.pointHighlightStyle, 50);});}}else if(event.type === "vmouseout"){polygon.highlight = false;if(!polygon.dragging){polygon.visibleShape.animate(polygon.normalStyle, 50);var points=_.filter(polygon.points, isPoint);if(!_.any(_.pluck(points, "dragging"))){_.each(points, function(point){point.visibleShape.animate(point.normalStyle, 50);});}}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();_.each(_.filter(polygon.points, isPoint), function(point){point.dragging = true;});var startX=(event.pageX - $(graphie.raphael.canvas.parentNode).offset().left) / graphie.scale[0] + graphie.range[0][0];var startY=graphie.range[1][1] - (event.pageY - $(graphie.raphael.canvas.parentNode).offset().top) / graphie.scale[1];if(polygon.snapX > 0){startX = Math.round(startX / polygon.snapX) * polygon.snapX;}if(polygon.snapY > 0){startY = Math.round(startY / polygon.snapY) * polygon.snapY;}var lastX=startX;var lastY=startY;var polygonCoords=polygon.coords.slice();var offsetLeft=(startX - polygon.left) * graphie.scale[0];var offsetRight=(polygon.right - startX) * graphie.scale[0];var offsetTop=(polygon.top - startY) * graphie.scale[1];var offsetBottom=(startY - polygon.bottom) * graphie.scale[1];$(document).bind("vmousemove.polygon vmouseup.polygon", function(event){event.preventDefault();polygon.dragging = true;dragging = true;var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;if(polygon.constrainToGraph){mouseX = Math.max(offsetLeft + 10, Math.min(graphie.xpixels - 10 - offsetRight, mouseX));mouseY = Math.max(offsetTop + 10, Math.min(graphie.ypixels - 10 - offsetBottom, mouseY));}var currentX=mouseX / graphie.scale[0] + graphie.range[0][0];var currentY=graphie.range[1][1] - mouseY / graphie.scale[1];if(polygon.snapX > 0){currentX = Math.round(currentX / polygon.snapX) * polygon.snapX;}if(polygon.snapY > 0){currentY = Math.round(currentY / polygon.snapY) * polygon.snapY;}if(event.type === "vmousemove"){(function(){var dX=currentX - startX;var dY=currentY - startY;var doMove=true;if(_.isFunction(polygon.onMove)){var onMoveResult=polygon.onMove(dX, dY);if(onMoveResult === false){doMove = false;}else if(_.isArray(onMoveResult)){dX = onMoveResult[0];dY = onMoveResult[1];currentX = startX + dX;currentY = startY + dY;}}var increment=function(i){return [polygonCoords[i][0] + dX, polygonCoords[i][1] + dY];};if(doMove){_.each(polygon.points, function(coordOrPoint, i){if(isPoint(coordOrPoint)){coordOrPoint.setCoord(increment(i));}else {polygon.points[i] = increment(i);}});polygon.transform();$(polygon).trigger("move");lastX = currentX;lastY = currentY;}})();}else if(event.type === "vmouseup"){$(document).unbind(".polygon");var points=_.filter(polygon.points, isPoint);_.each(points, function(point){point.dragging = false;});polygon.dragging = false;dragging = false;if(!polygon.highlight){polygon.visibleShape.animate(polygon.normalStyle, 50);_.each(points, function(point){point.visibleShape.animate(point.normalStyle, 50);});}if(_.isFunction(polygon.onMoveEnd)){polygon.onMoveEnd(lastX - startX, lastY - startY);}}});})();}});}_.invoke(_.filter(polygon.points, isPoint), "toFront");return polygon;}, constrainToBounds:function(point, padding){var lower=this.unscalePoint([padding, this.ypixels - padding]);var upper=this.unscalePoint([this.xpixels - padding, padding]);var coordX=Math.max(lower[0], Math.min(upper[0], point[0]));var coordY=Math.max(lower[1], Math.min(upper[1], point[1]));return [coordX, coordY];}, constrainToBoundsOnAngle:function(point, padding, angle){var lower=this.unscalePoint([padding, this.ypixels - padding]);var upper=this.unscalePoint([this.xpixels - padding, padding]);var result=point.slice();if(result[0] < lower[0]){result = [lower[0], result[1] + (lower[0] - result[0]) * Math.tan(angle)];}else if(result[0] > upper[0]){result = [upper[0], result[1] - (result[0] - upper[0]) * Math.tan(angle)];}if(result[1] < lower[1]){result = [result[0] + (lower[1] - result[1]) / Math.tan(angle), lower[1]];}else if(result[1] > upper[1]){result = [result[0] - (result[1] - upper[1]) / Math.tan(angle), upper[1]];}return result;}, addMovableAngle:function(options){return new MovableAngle(this, options);}, addArrowWidget:function(options){var arrowWidget=$.extend({graph:this, direction:"up", coord:[0, 0], onClick:function(){}}, options);var graph=arrowWidget.graph;if(arrowWidget.direction === "up"){arrowWidget.visibleShape = graph.path([[arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0] - 4 / graph.scale[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0] + 4 / graph.scale[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]]], {stroke:"", fill:KhanColors.INTERACTIVE});}else if(arrowWidget.direction === "down"){arrowWidget.visibleShape = graph.path([[arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0] - 4 / graph.scale[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0] + 4 / graph.scale[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]]], {stroke:"", fill:KhanColors.INTERACTIVE});}_.defer(function(){arrowWidget.visibleShape.attr({stroke:"", fill:KhanColors.INTERACTIVE});});arrowWidget.mouseTarget = graph.mouselayer.circle(graph.scalePoint(arrowWidget.coord)[0], graph.scalePoint(arrowWidget.coord)[1], 15);arrowWidget.mouseTarget.attr({fill:"#000", "opacity":0});$(arrowWidget.mouseTarget[0]).css("cursor", "pointer");$(arrowWidget.mouseTarget[0]).bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){arrowWidget.visibleShape.animate({scale:2, fill:KhanColors.INTERACTING}, 20);}else if(event.type === "vmouseout"){arrowWidget.visibleShape.animate({scale:1, fill:KhanColors.INTERACTING}, 20);}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){if(!arrowWidget.hidden){arrowWidget.onClick();}return false;}});arrowWidget.hide = function(){arrowWidget.visibleShape.hide();arrowWidget.hidden = true;$(arrowWidget.mouseTarget[0]).css("cursor", "default");};arrowWidget.show = function(){arrowWidget.visibleShape.show();arrowWidget.hidden = false;$(arrowWidget.mouseTarget[0]).css("cursor", "pointer");};return arrowWidget;}, addRectGraph:function(options){var rect=$.extend(true, {x:0, y:0, width:1, height:1, normalStyle:{points:{stroke:KhanColors.INTERACTIVE, fill:KhanColors.INTERACTIVE, opacity:1}, edges:{stroke:KhanColors.INTERACTIVE, opacity:1, "stroke-width":1}, area:{fill:KhanColors.INTERACTIVE, "fill-opacity":0.1, "stroke-width":0}}, hoverStyle:{points:{color:KhanColors.INTERACTING, opacity:1, width:2}, edges:{stroke:KhanColors.INTERACTING, opacity:1, "stroke-width":1}, area:{fill:KhanColors.INTERACTING, "fill-opacity":0.2, "stroke-width":0}}, fixed:{edges:[false, false, false, false], points:[false, false, false, false]}, constraints:{constrainX:false, constrainY:false, xmin:null, xmax:null, ymin:null, ymax:null}, snapX:0, snapY:0, onMove:function(){}}, options);rect = $.extend({initialized:function(){return rect.points && rect.points.length;}, x2:function(){return this.x + this.width;}, y2:function(){return this.y + this.height;}, getX:function(){if(rect.initialized()){return rect.points[0].coord[0];}return rect.x;}, getY:function(){if(rect.initialized()){return rect.points[0].coord[1];}return rect.y;}, getX2:function(){return rect.getX() + rect.getWidth();}, getY2:function(){return rect.getY() + rect.getHeight();}, getXLims:function(){var x=rect.getX();return [x, x + rect.getWidth()];}, getYLims:function(){var y=rect.getY();return [y, y + rect.getHeight()];}, getWidth:function(){if(rect.initialized()){var x0=rect.points[1].coord[0];var x1=rect.points[2].coord[0];return x1 - x0;}return rect.width;}, getHeight:function(){if(rect.initialized()){var y0=rect.points[0].coord[1];var y1=rect.points[1].coord[1];return y1 - y0;}return rect.height;}, getCoord:function(){return [rect.getX(), rect.getY()];}, getRaphaelParamsArr:function(){var width=rect.getWidth();var height=rect.getHeight();var x=rect.getX();var y=rect.getY();var point=graphie.scalePoint([x, y + height]);var dims=graphie.scaleVector([width, height]);return point.concat(dims);}, getRaphaelParams:function(){var arr=rect.getRaphaelParamsArr();return {x:arr[0], y:arr[1], width:arr[2], height:arr[3]};}}, rect);var graphie=this;rect.fillArea = graphie.rect().attr(rect.normalStyle.area);rect.mouseTarget = graphie.mouselayer.rect().attr({fill:"#000", opacity:0, "fill-opacity":0});rect.render = function(){rect.fillArea.attr(rect.getRaphaelParams());rect.mouseTarget.attr(rect.getRaphaelParams());};rect.render();rect.points = [];var coords=[[rect.x, rect.y], [rect.x, rect.y2()], [rect.x2(), rect.y2()], [rect.x2(), rect.y]];var sames=[[1, 3], [0, 2], [3, 1], [2, 0]];var moveLimits=[[1, 1], [1, 0], [0, 0], [0, 1]];function adjustNeighboringPoints(x, y, sameX, sameY){rect.points[sameX].setCoord([x, rect.points[sameX].coord[1]]);rect.points[sameY].setCoord([rect.points[sameY].coord[0], y]);rect.points[sameX].updateLineEnds();rect.points[sameY].updateLineEnds();}function coordInBounds(limit, newVal, checkIsGreater){return checkIsGreater?newVal < limit:newVal > limit;}function moveIsInBounds(index, newX, newY){var xlims=rect.getXLims();var ylims=rect.getYLims();var i=moveLimits[index];var xInBounds=coordInBounds(xlims[i[0]], newX, i[0] === 1);var yInBounds=coordInBounds(ylims[i[1]], newY, i[1] === 1);return xInBounds && yInBounds;}_.times(4, function(i){var sameX=sames[i][0];var sameY=sames[i][1];var coord=coords[i];var point=graphie.addMovablePoint({graph:graphie, coord:coord, normalStyle:rect.normalStyle.points, hoverStyle:rect.hoverStyle.points, snapX:rect.snapX, snapY:rect.snapY, visible:!rect.fixed.points[i], constraints:{fixed:rect.fixed.points[i]}, onMove:function(x, y){if(!moveIsInBounds(i, x, y)){return false;}adjustNeighboringPoints(x, y, sameX, sameY);rect.render();}});rect.points.push(point);});rect.edges = [];rect.moveEdge = function(dx, dy, edgeIndex){var a=rect.edges[edgeIndex].pointA;var z=rect.edges[edgeIndex].pointZ;a.setCoord([a.coord[0] + dx, a.coord[1] + dy]);z.setCoord([z.coord[0] + dx, z.coord[1] + dy]);a.updateLineEnds();z.updateLineEnds();};_.times(4, function(i){var pointA=rect.points[i];var pointZ=rect.points[(i + 1) % 4];var constrainX=i % 2;var constrainY=(i + 1) % 2;var edge=graphie.addMovableLineSegment({graph:graphie, pointA:pointA, pointZ:pointZ, normalStyle:rect.normalStyle.edges, hoverStyle:rect.hoverStyle.edges, snapX:rect.snapX, snapY:rect.snapY, fixed:rect.fixed.edges[i], constraints:{constrainX:constrainX, constrainY:constrainY}, onMove:function(dx, dy){rect.moveEdge(dx, dy, i);rect.render();}});rect.edges.push(edge);});var elems=[rect.fillArea, rect.mouseTarget];rect.elems = elems.concat(rect.edges).concat(rect.points);function constrainTranslation(dx, dy){var xC=rect.constraints.constrainX;var xLT=rect.getX() + dx < rect.constraints.xmin;var xGT=rect.getX2() + dx > rect.constraints.xmax;var yC=rect.constraints.constrainY;var yLT=rect.getY() + dy < rect.constraints.ymin;var yGT=rect.getY2() + dy > rect.constraints.ymax;dx = xC || xLT || xGT?0:dx;dy = yC || yLT || yGT?0:dy;return [dx, dy];}rect.translate = function(dx, dy){if(rect.constraints.constrainX && rect.constraints.constrainY){return;}var d=constrainTranslation(dx, dy);dx = d[0];dy = d[1];_.each(rect.points, function(point, i){var x=point.coord[0] + dx;var y=point.coord[1] + dy;point.setCoord([x, y]);point.updateLineEnds();});rect.render();rect.onMove(dx, dy);};rect.moveTo = function(x, y){var dx=x - rect.getX();var dy=y - rect.getY();rect.translate(dx, dy);};rect.snap = function(){var dx=undefined;var dy=undefined;_.each(rect.points, function(point, i){var x0=point.coord[0];var y0=point.coord[1];var x1=x0;var y1=y0;if(rect.snapX){x1 = KhanMath.roundToNearest(rect.snapX, x0);}if(rect.snapY){y1 = KhanMath.roundToNearest(rect.snapY, y0);}if(!dx || !dy){dx = x1 - x0;dy = y1 - y0;}point.setCoord([x1, y1]);point.updateLineEnds();});rect.render();rect.onMove(dx, dy);};rect.toFront = function(){_.each(rect.elems, function(elem){elem.toFront();});};rect.hide = function(speed){if(rect.hidden){return;}speed = speed || 100;rect.fillArea.animate({"fill-opacity":0}, speed);$(rect.mouseTarget[0]).css("display", "none");rect.hidden = true;};rect.show = function(speed){if(!rect.hidden){return;}speed = speed || 100;rect.fillArea.animate(rect.normalStyle.area, speed);$(rect.mouseTarget[0]).css("display", "block");rect.hidden = false;};rect.enableHoverStyle = function(){rect.highlight = true;if(!dragging){rect.fillArea.animate(rect.hoverStyle.area, 100);}};rect.enableNormalStyle = function(){rect.highlight = false;if(!rect.dragging){rect.fillArea.animate(rect.normalStyle.area, 100);}};var bindTranslation=function(){$(rect.mouseTarget[0]).css("cursor", "move");$(rect.mouseTarget[0]).on("vmouseover vmouseout vmousedown", function(event){if(event.type === "vmouseover"){rect.enableHoverStyle();}else if(event.type === "vmouseout"){rect.enableNormalStyle();}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){event.preventDefault();rect.toFront();rect.prevCoord = graphie.getMouseCoord(event);rect.enableHoverStyle();$(document).on("vmousemove vmouseup", function(event){event.preventDefault();rect.dragging = true;dragging = true;if(event.type === "vmousemove"){var currCoord=graphie.getMouseCoord(event);if(rect.prevCoord && rect.prevCoord.length === 2){var diff=GraphUtils.coordDiff(rect.prevCoord, currCoord);rect.translate(diff[0], diff[1]);}rect.prevCoord = currCoord;}else if(event.type === "vmouseup"){$(document).off("vmousemove vmouseup");rect.dragging = false;dragging = false;var currCoord=graphie.getMouseCoord(event);if(currCoord[0] < rect.getX() || currCoord[0] > rect.getX2() || currCoord[1] < rect.getY() || currCoord[1] > rect.getY2()){rect.enableNormalStyle();}rect.snap();}});}});};bindTranslation();return rect;}, addCircleGraph:function(options){var graphie=this;var circle=$.extend({center:[0, 0], radius:2, snapX:0.5, snapY:0.5, snapRadius:0.5, minRadius:1, centerConstraints:{}, centerNormalStyle:{}, centerHighlightStyle:{stroke:KhanColors.INTERACTING, fill:KhanColors.INTERACTING}, circleNormalStyle:{stroke:KhanColors.INTERACTIVE, "fill-opacity":0}, circleHighlightStyle:{stroke:KhanColors.INTERACTING, fill:KhanColors.INTERACTING, "fill-opacity":0.05}}, options);var normalColor=circle.centerConstraints.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;var centerNormalStyle=options?options.centerNormalStyle:null;circle.centerNormalStyle = _.extend({}, {"fill":normalColor, "stroke":normalColor}, centerNormalStyle);circle.centerPoint = graphie.addMovablePoint({graph:graphie, coord:circle.center, normalStyle:circle.centerNormalStyle, snapX:circle.snapX, snapY:circle.snapY, constraints:circle.centerConstraints});circle.circ = graphie.circle(circle.center, circle.radius, circle.circleNormalStyle);circle.perim = graphie.mouselayer.circle(graphie.scalePoint(circle.center)[0], graphie.scalePoint(circle.center)[1], graphie.scaleVector(circle.radius)[0]).attr({"stroke-width":20, "opacity":0.002});if(!circle.centerConstraints.fixed){$(circle.centerPoint.mouseTarget.getMouseTarget()).on("vmouseover vmouseout", function(event){if(circle.centerPoint.highlight || circle.centerPoint.dragging){circle.circ.animate(circle.circleHighlightStyle, 50);}else {circle.circ.animate(circle.circleNormalStyle, 50);}});}circle.toFront = function(){circle.circ.toFront();circle.perim.toFront();circle.centerPoint.visibleShape.toFront();if(!circle.centerConstraints.fixed){circle.centerPoint.mouseTarget.toFront();}};circle.centerPoint.onMove = function(x, y){circle.toFront();circle.circ.attr({cx:graphie.scalePoint(x)[0], cy:graphie.scalePoint(y)[1]});circle.perim.attr({cx:graphie.scalePoint(x)[0], cy:graphie.scalePoint(y)[1]});if(circle.onMove){circle.onMove(x, y);}};$(circle.centerPoint).on("move", function(){circle.center = this.coord;$(circle).trigger("move");});circle.setCenter = function(x, y){circle.centerPoint.setCoord([x, y]);circle.centerPoint.onMove(x, y);circle.center = [x, y];};circle.setRadius = function(r){circle.radius = r;circle.perim.attr({r:graphie.scaleVector(r)[0]});circle.circ.attr({rx:graphie.scaleVector(r)[0], ry:graphie.scaleVector(r)[1]});};circle.remove = function(){circle.centerPoint.remove();circle.circ.remove();circle.perim.remove();};$(circle.perim[0]).css("cursor", "move");$(circle.perim[0]).on("vmouseover vmouseout vmousedown", function(event){if(event.type === "vmouseover"){circle.highlight = true;if(!dragging){circle.circ.animate(circle.circleHighlightStyle, 50);circle.centerPoint.visibleShape.animate(circle.centerHighlightStyle, 50);}}else if(event.type === "vmouseout"){circle.highlight = false;if(!circle.dragging && !circle.centerPoint.dragging){circle.circ.animate(circle.circleNormalStyle, 50);circle.centerPoint.visibleShape.animate(circle.centerNormalStyle, 50);}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();circle.toFront();var startRadius=circle.radius;$(document).on("vmousemove vmouseup", function(event){event.preventDefault();circle.dragging = true;dragging = true;if(event.type === "vmousemove"){var coord=graphie.constrainToBounds(graphie.getMouseCoord(event), 10);var radius=GraphUtils.getDistance(circle.centerPoint.coord, coord);radius = Math.max(circle.minRadius, Math.round(radius / circle.snapRadius) * circle.snapRadius);var oldRadius=circle.radius;var doResize=true;if(circle.onResize){var onResizeResult=circle.onResize(radius, oldRadius);if(_.isNumber(onResizeResult)){radius = onResizeResult;}else if(onResizeResult === false){doResize = false;}}if(doResize){circle.setRadius(radius);$(circle).trigger("move");}}else if(event.type === "vmouseup"){$(document).off("vmousemove vmouseup");circle.dragging = false;dragging = false;if(circle.onResizeEnd){circle.onResizeEnd(circle.radius, startRadius);}}});})();}});return circle;}, interactiveEllipse:function(options){var graphie=this;var ellipse=$.extend({center:[0, 0], radius:2, xRadius:2, yRadius:2, ellipseNormalStyle:{stroke:KhanColors.BLUE, "fill-opacity":0}, ellipseBoundaryHideStyle:{"fill-opacity":0, "stroke-width":0}, ellipseBoundaryShowStyle:{"fill-opacity":1, fill:KhanColors.BLUE}, onMove:function(coordX, coordY){}, onLeave:function(coordX, coordY){}}, options);ellipse.circ = graphie.ellipse(ellipse.center, [ellipse.xRadius, ellipse.yRadius], ellipse.ellipseNormalStyle);ellipse.perim = graphie.mouselayer.ellipse(graphie.scalePoint(ellipse.center)[0], graphie.scalePoint(ellipse.center)[1], graphie.scaleVector(ellipse.xRadius)[0], graphie.scaleVector(ellipse.yRadius)[0]).attr({"stroke-width":30, "opacity":0.002});ellipse.boundaryPoint = graphie.circle(ellipse.center, 0.4, ellipse.ellipseBoundaryHideStyle);ellipse.remove = function(){ellipse.circ.remove();ellipse.perim.remove();};ellipse.showPoint = function(event){var coord=graphie.constrainToBounds(graphie.getMouseCoord(event), 10);var dx=ellipse.yRadius * (ellipse.center[0] - coord[0]);var dy=ellipse.xRadius * (ellipse.center[1] - coord[1]);var angle=Math.atan2(dy, dx);coord[0] = ellipse.center[0] - ellipse.xRadius * Math.cos(angle);coord[1] = ellipse.center[1] - ellipse.yRadius * Math.sin(angle);var scaledPoint=graphie.scalePoint(coord);ellipse.boundaryPoint.attr({cx:scaledPoint[0]});ellipse.boundaryPoint.attr({cy:scaledPoint[1]});ellipse.boundaryPoint.animate(ellipse.ellipseBoundaryShowStyle, 50);ellipse.onMove(coord[0], coord[1]);};$(ellipse.perim[0]).on("vmouseover vmouseout vmousemove", function(event){if(event.type === "vmouseover"){ellipse.showPoint(event);}else if(event.type === "vmouseout"){ellipse.boundaryPoint.animate(ellipse.ellipseBoundaryHideStyle, 50);ellipse.onLeave();}else if(event.type === "vmousemove"){ellipse.showPoint(event);}});return ellipse;}, addRotateHandle:(function(){var drawRotateHandle=function(graphie, center, radius, halfWidth, lengthAngle, angle, interacting){var getRotateHandlePoint=function(offset, distanceFromArrowMidline){var distFromRotationCenter=radius + distanceFromArrowMidline;var vec=kvector.cartFromPolarDeg([distFromRotationCenter, angle + offset]);var absolute=kvector.add(center, vec);var pixels=graphie.scalePoint(absolute);return pixels[0] + "," + pixels[1];};var innerR=graphie.scaleVector(radius - halfWidth);var outerR=graphie.scaleVector(radius + halfWidth);return graphie.raphael.path(" M" + getRotateHandlePoint(lengthAngle, -halfWidth) + " L" + getRotateHandlePoint(lengthAngle, -3 * halfWidth) + " L" + getRotateHandlePoint(2 * lengthAngle, 0) + " L" + getRotateHandlePoint(lengthAngle, 3 * halfWidth) + " L" + getRotateHandlePoint(lengthAngle, halfWidth) + " A" + outerR[0] + "," + outerR[1] + ",0,0,1," + getRotateHandlePoint(-lengthAngle, halfWidth) + " L" + getRotateHandlePoint(-lengthAngle, 3 * halfWidth) + " L" + getRotateHandlePoint(-2 * lengthAngle, 0) + " L" + getRotateHandlePoint(-lengthAngle, -3 * halfWidth) + " L" + getRotateHandlePoint(-lengthAngle, -halfWidth) + " A" + innerR[0] + "," + innerR[1] + ",0,0,0," + getRotateHandlePoint(lengthAngle, -halfWidth) + " Z").attr({stroke:null, fill:interacting?KhanColors.INTERACTING:KhanColors.INTERACTIVE});};return function(options){var graph=this;var rotatePoint=options.center;var radius=options.radius;var lengthAngle=options.lengthAngle || 30;var hideArrow=options.hideArrow || false;var mouseTarget=options.mouseTarget;var id=_.uniqueId("rotateHandle");if(_.isArray(rotatePoint)){rotatePoint = {coord:rotatePoint};}var rotateHandle=graph.addMovablePoint({coord:kpoint.addVector(rotatePoint.coord, kvector.cartFromPolarDeg(radius, options.angleDeg || 0)), constraints:{fixedDistance:{dist:radius, point:rotatePoint}}, mouseTarget:mouseTarget});rotatePoint.toFront();var rotatePointPrevCoord=rotatePoint.coord;var rotateHandlePrevCoord=rotateHandle.coord;var rotateHandleStartCoord=rotateHandlePrevCoord;var isRotating=false;var isHovering=false;var drawnRotateHandle=undefined;var redrawRotateHandle=function(handleCoord){if(hideArrow){return;}var handleVec=kvector.subtract(handleCoord, rotatePoint.coord);var handlePolar=kvector.polarDegFromCart(handleVec);var angle=handlePolar[1];if(drawnRotateHandle){drawnRotateHandle.remove();}drawnRotateHandle = drawRotateHandle(graph, rotatePoint.coord, options.radius, isRotating || isHovering?options.hoverWidth / 2:options.width / 2, lengthAngle, angle, isRotating || isHovering);};$(rotatePoint).on("move." + id, function(){var delta=kvector.subtract(rotatePoint.coord, rotatePointPrevCoord);rotateHandle.setCoord(kvector.add(rotateHandle.coord, delta));redrawRotateHandle(rotateHandle.coord);rotatePointPrevCoord = rotatePoint.coord;rotateHandle.constraints.fixedDistance.point = rotatePoint;rotateHandlePrevCoord = rotateHandle.coord;});rotateHandle.onMove = function(x, y){if(!isRotating){rotateHandleStartCoord = rotateHandlePrevCoord;isRotating = true;}var coord=[x, y];if(options.onMove){var oldPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandlePrevCoord, rotatePoint.coord));var newPolar=kvector.polarDegFromCart(kvector.subtract(coord, rotatePoint.coord));var oldAngle=oldPolar[1];var newAngle=newPolar[1];var result=options.onMove(newAngle, oldAngle);if(result != null && result !== true){if(result === false){result = oldAngle;}coord = kvector.add(rotatePoint.coord, kvector.cartFromPolarDeg([oldPolar[0], result]));}}redrawRotateHandle(coord);rotateHandlePrevCoord = coord;return coord;};rotateHandle.onMoveEnd = function(){isRotating = false;redrawRotateHandle(rotateHandle.coord);if(options.onMoveEnd){var oldPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandleStartCoord, rotatePoint.coord));var newPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandle.coord, rotatePoint.coord));options.onMoveEnd(newPolar[1], oldPolar[1]);}};rotateHandle.visibleShape.remove();if(!mouseTarget){rotateHandle.mouseTarget.attr({scale:2});}var $mouseTarget=$(rotateHandle.mouseTarget.getMouseTarget());$mouseTarget.bind("vmouseover", function(e){isHovering = true;redrawRotateHandle(rotateHandle.coord);});$mouseTarget.bind("vmouseout", function(e){isHovering = false;redrawRotateHandle(rotateHandle.coord);});redrawRotateHandle(rotateHandle.coord);var oldRemove=rotateHandle.remove;rotateHandle.remove = function(){oldRemove.call(rotateHandle);if(drawnRotateHandle){drawnRotateHandle.remove();}$(rotatePoint).off("move." + id);};rotateHandle.update = function(){redrawRotateHandle(rotateHandle.coord);};return rotateHandle;};})(), addReflectButton:(function(){var drawButton=function(graphie, buttonCoord, lineCoords, size, distanceFromCenter, leftStyle, rightStyle){if(kpoint.equal(lineCoords[0], lineCoords[1])){lineCoords = [lineCoords[0], kpoint.addVector(lineCoords[0], [1, 1])];}var lineDirection=kvector.normalize(kvector.subtract(lineCoords[1], lineCoords[0]));var lineVec=kvector.scale(lineDirection, size / 2);var centerVec=kvector.scale(lineDirection, distanceFromCenter);var leftCenterVec=kvector.rotateDeg(centerVec, 90);var rightCenterVec=kvector.rotateDeg(centerVec, -90);var negLineVec=kvector.negate(lineVec);var leftVec=kvector.rotateDeg(lineVec, 90);var rightVec=kvector.rotateDeg(lineVec, -90);var leftCenter=kpoint.addVectors(buttonCoord, leftCenterVec);var rightCenter=kpoint.addVectors(buttonCoord, rightCenterVec);var leftCoord1=kpoint.addVectors(buttonCoord, leftCenterVec, lineVec, leftVec);var leftCoord2=kpoint.addVectors(buttonCoord, leftCenterVec, negLineVec, leftVec);var rightCoord1=kpoint.addVectors(buttonCoord, rightCenterVec, lineVec, rightVec);var rightCoord2=kpoint.addVectors(buttonCoord, rightCenterVec, negLineVec, rightVec);var leftButton=graphie.path([leftCenter, leftCoord1, leftCoord2, true], leftStyle);var rightButton=graphie.path([rightCenter, rightCoord1, rightCoord2, true], rightStyle);return {remove:function(){leftButton.remove();rightButton.remove();}};};return function(options){var graphie=this;var line=options.line;var button=graphie.addMovablePoint({constraints:options.constraints, coord:kline.midpoint([line.pointA.coord, line.pointZ.coord]), snapX:graphie.snap[0], snapY:graphie.snap[1], onMove:function(x, y){return false;}, onMoveEnd:function(x, y){if(options.onMoveEnd){options.onMoveEnd.call(this, x, y);}}});var isHovering=false;var isFlipped=false;var currentlyDrawnButton=undefined;var isHighlight=function(){return isHovering;};var styles=_.map([0, 1], function(isHighlight){var baseStyle=isHighlight?options.highlightStyle:options.normalStyle;return _.map([0, 1], function(opacity){return _.defaults({"fill-opacity":opacity}, baseStyle);});});var getStyle=function(isRight){if(isFlipped){isRight = !isRight;}return styles[+isHighlight()][+isRight];};var redraw=function(coord, lineCoords){if(currentlyDrawnButton){currentlyDrawnButton.remove();}currentlyDrawnButton = drawButton(graphie, coord, lineCoords, isHighlight()?options.size * 1.5:options.size, isHighlight()?options.size * 0.125:0.25, getStyle(0), getStyle(1));};var update=function(coordA, coordZ){coordA = coordA || line.pointA.coord;coordZ = coordZ || line.pointZ.coord;var buttonCoord=kline.midpoint([coordA, coordZ]);button.setCoord(buttonCoord);redraw(buttonCoord, [coordA, coordZ]);};$(line).on("move", _.bind(update, button, null, null));var $mouseTarget=$(button.mouseTarget.getMouseTarget());$mouseTarget.on("vclick", function(){var result=options.onClick();if(result !== false){isFlipped = !isFlipped;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);}});line.pointA.toFront();line.pointZ.toFront();button.visibleShape.remove();var pointScale=graphie.scaleVector(options.size)[0] / 20;button.mouseTarget.attr({scale:1.5 * pointScale});$mouseTarget.css("cursor", "pointer");$mouseTarget.bind("vmouseover", function(e){isHovering = true;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);});$mouseTarget.bind("vmouseout", function(e){isHovering = false;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);});var oldButtonRemove=button.remove;button.remove = function(){currentlyDrawnButton.remove();oldButtonRemove.call(button);};button.update = update;button.isFlipped = function(){return isFlipped;};update();return button;};})(), protractor:function(center){return new Protractor(this, center);}, ruler:function(options){return new Ruler(this, options || {});}, addPoints:addPoints});function Protractor(graph, center){this.set = graph.raphael.set();this.cx = center[0];this.cy = center[1];var pro=this;var r=graph.unscaleVector(180.5)[0];var imgPos=graph.scalePoint([this.cx - r, this.cy + r - graph.unscaleVector(10.5)[1]]);this.set.push(graph.mouselayer.image("https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png", imgPos[0], imgPos[1], 360, 180));var arrowHelper=function(angle, pixelsFromEdge){var scaledRadius=graph.scaleVector(r);scaledRadius[0] -= 16;scaledRadius[1] -= 16;var scaledCenter=graph.scalePoint(center);var x=Math.sin((angle + 90) * Math.PI / 180) * (scaledRadius[0] + pixelsFromEdge) + scaledCenter[0];var y=Math.cos((angle + 90) * Math.PI / 180) * (scaledRadius[1] + pixelsFromEdge) + scaledCenter[1];return x + "," + y;};var arrow=graph.raphael.path(" M" + arrowHelper(180, 6) + " L" + arrowHelper(180, 2) + " L" + arrowHelper(183, 10) + " L" + arrowHelper(180, 18) + " L" + arrowHelper(180, 14) + " A" + (graph.scaleVector(r)[0] + 10) + "," + (graph.scaleVector(r)[1] + 10) + ",0,0,1," + arrowHelper(170, 14) + " L" + arrowHelper(170, 18) + " L" + arrowHelper(167, 10) + " L" + arrowHelper(170, 2) + " L" + arrowHelper(170, 6) + " A" + (graph.scaleVector(r)[0] + 10) + "," + (graph.scaleVector(r)[1] + 10) + ",0,0,0," + arrowHelper(180, 6) + " Z").attr({"stroke":null, "fill":KhanColors.INTERACTIVE});this.set.push(arrow);this.centerPoint = graph.addMovablePoint({coord:center, visible:false});this.rotateHandle = graph.addMovablePoint({coord:[Math.sin(275 * Math.PI / 180) * (r + 0.5) + this.cx, Math.cos(275 * Math.PI / 180) * (r + 0.5) + this.cy], onMove:function(x, y){var angle=Math.atan2(pro.centerPoint.coord[1] - y, pro.centerPoint.coord[0] - x) * 180 / Math.PI;pro.rotate(-angle - 5, true);}});this.rotateHandle.constraints.fixedDistance.dist = r + 0.5;this.rotateHandle.constraints.fixedDistance.point = this.centerPoint;this.rotateHandle.visibleShape.remove();this.rotateHandle.mouseTarget.attr({scale:2});var isDragging=false;var isHovering=false;var isHighlight=function(){return isHovering || isDragging;};var self=this;var $mouseTarget=$(self.rotateHandle.mouseTarget.getMouseTarget());$mouseTarget.bind("vmousedown", function(event){isDragging = true;arrow.animate({scale:1.5, fill:KhanColors.INTERACTING}, 50);$(document).bind("vmouseup.rotateHandle", function(event){isDragging = false;if(!isHighlight()){arrow.animate({scale:1, fill:KhanColors.INTERACTIVE}, 50);}$(document).unbind("vmouseup.rotateHandle");});});$mouseTarget.bind("vmouseover", function(event){isHovering = true;arrow.animate({scale:1.5, fill:KhanColors.INTERACTING}, 50);});$mouseTarget.bind("vmouseout", function(event){isHovering = false;if(!isHighlight()){arrow.animate({scale:1, fill:KhanColors.INTERACTIVE}, 50);}});var setNodes=$.map(this.set, function(el){return el.node;});this.makeTranslatable = function makeTranslatable(){$(setNodes).css("cursor", "move");$(setNodes).bind("vmousedown", function(event){event.preventDefault();var startx=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var starty=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;$(document).bind("vmousemove.protractor", function(event){var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graph.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graph.ypixels - 10, mouseY));var dx=mouseX - startx;var dy=mouseY - starty;$.each(pro.set.items, function(){this.translate(dx, dy);});pro.centerPoint.setCoord([pro.centerPoint.coord[0] + dx / graph.scale[0], pro.centerPoint.coord[1] - dy / graph.scale[1]]);pro.rotateHandle.setCoord([pro.rotateHandle.coord[0] + dx / graph.scale[0], pro.rotateHandle.coord[1] - dy / graph.scale[1]]);startx = mouseX;starty = mouseY;});$(document).one("vmouseup", function(event){$(document).unbind("vmousemove.protractor");});});};this.rotation = 0;this.rotate = function(offset, absolute){var center=graph.scalePoint(this.centerPoint.coord);if(absolute){this.rotation = 0;}this.set.rotate(this.rotation + offset, center[0], center[1]);this.rotation = this.rotation + offset;return this;};this.moveTo = function moveTo(x, y){var start=graph.scalePoint(pro.centerPoint.coord);var end=graph.scalePoint([x, y]);var time=GraphUtils.getDistance(start, end) * 2;$({x:start[0], y:start[1]}).animate({x:end[0], y:end[1]}, {duration:time, step:function(now, fx){var dx=0;var dy=0;if(fx.prop === "x"){dx = now - graph.scalePoint(pro.centerPoint.coord)[0];}else if(fx.prop === "y"){dy = now - graph.scalePoint(pro.centerPoint.coord)[1];}$.each(pro.set.items, function(){this.translate(dx, dy);});pro.centerPoint.setCoord([pro.centerPoint.coord[0] + dx / graph.scale[0], pro.centerPoint.coord[1] - dy / graph.scale[1]]);pro.rotateHandle.setCoord([pro.rotateHandle.coord[0] + dx / graph.scale[0], pro.rotateHandle.coord[1] - dy / graph.scale[1]]);}});};this.rotateTo = function rotateTo(angle){if(Math.abs(this.rotation - angle) > 180){this.rotation += 360;}var time=Math.abs(this.rotation - angle) * 5;$({0:this.rotation}).animate({0:angle}, {duration:time, step:function(now, fx){pro.rotate(now, true);pro.rotateHandle.setCoord([Math.sin((now + 275) * Math.PI / 180) * (r + 0.5) + pro.centerPoint.coord[0], Math.cos((now + 275) * Math.PI / 180) * (r + 0.5) + pro.centerPoint.coord[1]]);}});};this.remove = function(){this.set.remove();};this.makeTranslatable();return this;}function Ruler(graphie, options){_.defaults(options, {center:[0, 0], pixelsPerUnit:40, ticksPerUnit:10, units:10, label:"", style:{fill:null, stroke:KhanColors.GRAY}});var light=_.extend({}, options.style, {strokeWidth:1});var bold=_.extend({}, options.style, {strokeWidth:2});var width=options.units * options.pixelsPerUnit;var height=50;var leftBottom=graphie.unscalePoint(kvector.subtract(graphie.scalePoint(options.center), kvector.scale([width, -height], 0.5)));var graphieUnitsPerUnit=options.pixelsPerUnit / graphie.scale[0];var graphieUnitsHeight=height / graphie.scale[0];var rightTop=kvector.add(leftBottom, [options.units * graphieUnitsPerUnit, graphieUnitsHeight]);var tickHeight=1;var tickHeightMap=undefined;if(options.ticksPerUnit === 10){tickHeightMap = {10:tickHeight, 5:tickHeight * 0.55, 1:tickHeight * 0.35};}else {var sizes=[1, 0.6, 0.45, 0.3];tickHeightMap = {};for(var i=options.ticksPerUnit; i >= 1; i /= 2) {tickHeightMap[i] = tickHeight * (sizes.shift() || 0.2);}}var tickFrequencies=_.keys(tickHeightMap).sort(function(a, b){return b - a;});function getTickHeight(i){for(var k=0; k < tickFrequencies.length; k++) {var key=tickFrequencies[k];if(i % key === 0){return tickHeightMap[key];}}}var left=leftBottom[0];var bottom=leftBottom[1];var right=rightTop[0];var top=rightTop[1];var numTicks=options.units * options.ticksPerUnit + 1;var set=graphie.raphael.set();var px=1 / graphie.scale[0];set.push(graphie.line([left - px, bottom], [right + px, bottom], bold));set.push(graphie.line([left - px, top], [right + px, top], bold));_.times(numTicks, function(i){var n=i / options.ticksPerUnit;var x=left + n * graphieUnitsPerUnit;var height=getTickHeight(i) * graphieUnitsHeight;var style=i === 0 || i === numTicks - 1?bold:light;set.push(graphie.line([x, bottom], [x, bottom + height], style));if(n % 1 === 0){var coord=graphie.scalePoint([x, top]);var text=undefined;var offset=undefined;if(n === 0){text = options.label;offset = ({mm:13, cm:11, m:8, km:11, in:8, ft:8, yd:10, mi:10})[text] || 3 * text.toString().length;}else {text = n;offset = -3 * (n.toString().length + 1);}var label=graphie.raphael.text(coord[0] + offset, coord[1] + 10, text);label.attr({"font-family":"KaTeX_Main", "font-size":"12px", "color":"#444"});set.push(label);}});var mouseTarget=graphie.mouselayer.path(GraphUtils.svgPath([leftBottom, [left, top], rightTop, [right, bottom], true]));mouseTarget.attr({fill:"#000", opacity:0, stroke:"#000", "stroke-width":2});set.push(mouseTarget);var setNodes=$.map(set, function(el){return el.node;});$(setNodes).css("cursor", "move");$(setNodes).bind("vmousedown", function(event){event.preventDefault();var startx=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var starty=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;$(document).bind("vmousemove.ruler", function(event){var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graphie.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graphie.ypixels - 10, mouseY));var dx=mouseX - startx;var dy=mouseY - starty;set.translate(dx, dy);leftBottomHandle.setCoord([leftBottomHandle.coord[0] + dx / graphie.scale[0], leftBottomHandle.coord[1] - dy / graphie.scale[1]]);rightBottomHandle.setCoord([rightBottomHandle.coord[0] + dx / graphie.scale[0], rightBottomHandle.coord[1] - dy / graphie.scale[1]]);startx = mouseX;starty = mouseY;});$(document).one("vmouseup", function(event){$(document).unbind("vmousemove.ruler");});});var leftBottomHandle=graphie.addMovablePoint({coord:leftBottom, normalStyle:{fill:KhanColors.INTERACTIVE, "fill-opacity":0, stroke:KhanColors.INTERACTIVE}, highlightStyle:{fill:KhanColors.INTERACTING, "fill-opacity":0.1, stroke:KhanColors.INTERACTING}, pointSize:6, onMove:function(x, y){var dy=rightBottomHandle.coord[1] - y;var dx=rightBottomHandle.coord[0] - x;var angle=Math.atan2(dy, dx) * 180 / Math.PI;var center=kvector.scale(kvector.add([x, y], rightBottomHandle.coord), 0.5);var scaledCenter=graphie.scalePoint(center);var oldCenter=kvector.scale(kvector.add(leftBottomHandle.coord, rightBottomHandle.coord), 0.5);var scaledOldCenter=graphie.scalePoint(oldCenter);var diff=kvector.subtract(scaledCenter, scaledOldCenter);set.rotate(-angle, scaledOldCenter[0], scaledOldCenter[1]);set.translate(diff[0], diff[1]);}});var rightBottomHandle=graphie.addMovablePoint({coord:[right, bottom], normalStyle:{fill:KhanColors.INTERACTIVE, "fill-opacity":0, stroke:KhanColors.INTERACTIVE}, highlightStyle:{fill:KhanColors.INTERACTING, "fill-opacity":0.1, stroke:KhanColors.INTERACTING}, pointSize:6, onMove:function(x, y){var dy=y - leftBottomHandle.coord[1];var dx=x - leftBottomHandle.coord[0];var angle=Math.atan2(dy, dx) * 180 / Math.PI;var center=kvector.scale(kvector.add([x, y], leftBottomHandle.coord), 0.5);var scaledCenter=graphie.scalePoint(center);var oldCenter=kvector.scale(kvector.add(leftBottomHandle.coord, rightBottomHandle.coord), 0.5);var scaledOldCenter=graphie.scalePoint(oldCenter);var diff=kvector.subtract(scaledCenter, scaledOldCenter);set.rotate(-angle, scaledOldCenter[0], scaledOldCenter[1]);set.translate(diff[0], diff[1]);}});leftBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];leftBottomHandle.constraints.fixedDistance.point = rightBottomHandle;rightBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];rightBottomHandle.constraints.fixedDistance.point = leftBottomHandle;this.remove = function(){set.remove();leftBottomHandle.remove();rightBottomHandle.remove();};return this;}function MovableAngle(graphie, options){this.graphie = graphie;_.extend(this, options);_.defaults(this, {normalStyle:{"stroke":KhanColors.INTERACTIVE, "stroke-width":2, "fill":KhanColors.INTERACTIVE}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":2, "fill":KhanColors.INTERACTING}, labelStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, angleStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, allowReflex:true});if(!this.points || this.points.length !== 3){throw new Error("MovableAngle requires 3 points");}this.points = _.map(options.points, function(point){if(_.isArray(point)){return graphie.addMovablePoint({coord:point, visible:false, constraints:{fixed:true}, normalStyle:this.normalStyle});}else {return point;}}, this);this.coords = _.pluck(this.points, "coord");if(this.reflex == null){if(this.allowReflex){this.reflex = this._getClockwiseAngle(this.coords) > 180;}else {this.reflex = false;}}this.rays = _.map([0, 2], function(i){return graphie.addMovableLineSegment({pointA:this.points[1], pointZ:this.points[i], fixed:true, extendRay:true});}, this);this.temp = [];this.labeledAngle = graphie.label([0, 0], "", "center", this.labelStyle);if(!this.fixed){this.addMoveHandlers();this.addHighlightHandlers();}this.update();}_.extend(MovableAngle.prototype, {points:[], snapDegrees:0, snapOffsetDeg:0, angleLabel:"", numArcs:1, pushOut:0, fixed:false, addMoveHandlers:function(){var graphie=this.graphie;function tooClose(point1, point2){var safeDistance=30;var distance=GraphUtils.getDistance(graphie.scalePoint(point1), graphie.scalePoint(point2));return distance < safeDistance;}var points=this.points;points[1].onMove = function(x, y){var oldVertex=points[1].coord;var newVertex=[x, y];var delta=addPoints(newVertex, reverseVector(oldVertex));var valid=true;var newPoints={};_.each([0, 2], function(i){var oldPoint=points[i].coord;var newPoint=addPoints(oldPoint, delta);var angle=GraphUtils.findAngle(newVertex, newPoint);angle *= Math.PI / 180;newPoint = graphie.constrainToBoundsOnAngle(newPoint, 10, angle);newPoints[i] = newPoint;if(tooClose(newVertex, newPoint)){valid = false;}});if(valid){_.each(newPoints, function(newPoint, i){points[i].setCoord(newPoint);});}return valid;};var snap=this.snapDegrees;var snapOffset=this.snapOffsetDeg;_.each([0, 2], function(i){points[i].onMove = function(x, y){var newPoint=[x, y];var vertex=points[1].coord;if(tooClose(vertex, newPoint)){return false;}else if(snap){var angle=GraphUtils.findAngle(newPoint, vertex);angle = Math.round((angle - snapOffset) / snap) * snap + snapOffset;var distance=GraphUtils.getDistance(newPoint, vertex);return addPoints(vertex, graphie.polar(distance, angle));}else {return true;}};});$(points).on("move", (function(){this.update();$(this).trigger("move");}).bind(this));}, addHighlightHandlers:function(){var vertex=this.points[1];vertex.onHighlight = (function(){_.each(this.points, function(point){point.visibleShape.animate(this.highlightStyle, 50);}, this);_.each(this.rays, function(ray){ray.visibleLine.animate(this.highlightStyle, 50);ray.arrowStyle = _.extend({}, ray.arrowStyle, {"color":this.highlightStyle.stroke, "stroke":this.highlightStyle.stroke});}, this);this.angleStyle = _.extend({}, this.angleStyle, {"color":this.highlightStyle.stroke, "stroke":this.highlightStyle.stroke});this.update();}).bind(this);vertex.onUnhighlight = (function(){_.each(this.points, function(point){point.visibleShape.animate(this.normalStyle, 50);}, this);_.each(this.rays, function(ray){ray.visibleLine.animate(ray.normalStyle, 50);ray.arrowStyle = _.extend({}, ray.arrowStyle, {"color":ray.normalStyle.stroke, "stroke":ray.normalStyle.stroke});}, this);this.angleStyle = _.extend({}, this.angleStyle, {"color":KhanColors.DYNAMIC, "stroke":KhanColors.DYNAMIC});this.update();}).bind(this);}, _getClockwiseAngle:function(coords){var clockwiseAngle=(GraphUtils.findAngle(coords[2], coords[0], coords[1]) + 360) % 360;return clockwiseAngle;}, isReflex:function(){return this.reflex;}, isClockwise:function(){var clockwiseReflexive=this._getClockwiseAngle(this.coords) > 180;return clockwiseReflexive === this.reflex;}, getClockwiseCoords:function(){if(this.isClockwise()){return _.clone(this.coords);}else {return _.clone(this.coords).reverse();}}, update:function(shouldChangeReflexivity){var prevCoords=this.coords;this.coords = _.pluck(this.points, "coord");_.invoke(this.points, "updateLineEnds");var prevAngle=this._getClockwiseAngle(prevCoords);var angle=this._getClockwiseAngle(this.coords);var prevClockwiseReflexive=prevAngle > 180;var clockwiseReflexive=angle > 180;if(this.allowReflex){if(shouldChangeReflexivity == null){shouldChangeReflexivity = prevClockwiseReflexive !== clockwiseReflexive && Math.abs(angle - prevAngle) < 180;}if(shouldChangeReflexivity){this.reflex = !this.reflex;}}_.invoke(this.temp, "remove");this.temp = this.graphie.labelAngle({point1:this.coords[0], vertex:this.coords[1], point3:this.coords[2], label:this.labeledAngle, text:this.angleLabel, numArcs:this.numArcs, pushOut:this.pushOut, clockwise:this.reflex === clockwiseReflexive, style:this.angleStyle});}, remove:function(){_.invoke(this.rays, "remove");_.invoke(this.temp, "remove");this.labeledAngle.remove();}});module.exports = InteractiveUtils;
 
 /***/ },
 /* 194 */
@@ -47434,7 +47418,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(16);
 
-	var InteractiveUtil = __webpack_require__(150);
+	var InteractiveUtil = __webpack_require__(149);
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
 	var assert = InteractiveUtil.assert;
@@ -47728,7 +47712,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var MovablePointOptions = __webpack_require__(221);
 	var WrappedEllipse = __webpack_require__(218);
-	var InteractiveUtil = __webpack_require__(150);
+	var InteractiveUtil = __webpack_require__(149);
 	var objective_ = __webpack_require__(134);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
@@ -48020,7 +48004,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var MovableLineOptions = __webpack_require__(222);
 	var WrappedLine = __webpack_require__(219);
-	var InteractiveUtil = __webpack_require__(150);
+	var InteractiveUtil = __webpack_require__(149);
 	var objective_ = __webpack_require__(134);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
@@ -48279,12 +48263,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var MovablePolygonOptions = __webpack_require__(223);
-	var InteractiveUtil = __webpack_require__(150);
+	var InteractiveUtil = __webpack_require__(149);
 	var objective_ = __webpack_require__(134);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 	var KhanColors = __webpack_require__(165);
-	var GraphUtils = __webpack_require__(151);
+	var GraphUtils = __webpack_require__(150);
 
 	// State parameters that should be converted into an array of
 	// functions
@@ -49068,113 +49052,94 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
 	var store = __webpack_require__(232);
 
 	module.exports = {
 	    // naming convetion: verb + noun
 	    // the noun should be one of the other properties in the object that's
 	    // being dispatched
-	    dismissKeypad: function dismissKeypad() {
+	    dismissKeypad: function () {
 	        store.dispatch({
-	            type: 'DismissKeypad'
-	        });
+	            type: 'DismissKeypad' });
 	    },
 
-	    activateKeypad: function activateKeypad() {
+	    activateKeypad: function () {
 	        store.dispatch({
-	            type: 'ActivateKeypad'
-	        });
+	            type: 'ActivateKeypad' });
 	    },
 
-	    configureKeypad: function configureKeypad(configuration) {
+	    configureKeypad: function (configuration) {
 	        store.dispatch({
 	            type: 'ConfigureKeypad',
-	            configuration: configuration
-	        });
+	            configuration: configuration });
 	    },
 
-	    setButtonHeightPx: function setButtonHeightPx(buttonHeightPx) {
+	    setButtonHeightPx: function (buttonHeightPx) {
 	        store.dispatch({
 	            type: 'SetButtonHeightPx',
-	            buttonHeightPx: buttonHeightPx
-	        });
+	            buttonHeightPx: buttonHeightPx });
 	    },
 
-	    setPageWidthPx: function setPageWidthPx(pageWidthPx) {
+	    setPageWidthPx: function (pageWidthPx) {
 	        store.dispatch({
 	            type: 'SetPageWidthPx',
-	            pageWidthPx: pageWidthPx
-	        });
+	            pageWidthPx: pageWidthPx });
 	    },
 
-	    resetKeypadPage: function resetKeypadPage() {
+	    resetKeypadPage: function () {
 	        store.dispatch({
-	            type: 'ResetKeypadPage'
-	        });
+	            type: 'ResetKeypadPage' });
 	    },
 
-	    pageKeypadRight: function pageKeypadRight() {
+	    pageKeypadRight: function () {
 	        store.dispatch({
-	            type: 'PageKeypadRight'
-	        });
+	            type: 'PageKeypadRight' });
 	    },
 
-	    pageKeypadLeft: function pageKeypadLeft() {
+	    pageKeypadLeft: function () {
 	        store.dispatch({
-	            type: 'PageKeypadLeft'
-	        });
+	            type: 'PageKeypadLeft' });
 	    },
 
-	    setKeypadCurrentPage: function setKeypadCurrentPage(page) {
+	    setKeypadCurrentPage: function (page) {
 	        store.dispatch({
 	            type: 'SetKeypadCurrentPage',
-	            page: page
-	        });
+	            page: page });
 	    },
 
-	    pressKey: function pressKey(key) {
+	    pressKey: function (key) {
 	        store.dispatch({
 	            type: 'PressKey',
-	            key: key
-	        });
+	            key: key });
 	    },
 
-	    setKeyHandler: function setKeyHandler(keyHandler) {
+	    setKeyHandler: function (keyHandler) {
 	        store.dispatch({
 	            type: 'SetKeyHandler',
-	            keyHandler: keyHandler
-	        });
+	            keyHandler: keyHandler });
 	    },
 
-	    setCursor: function setCursor(cursor) {
+	    setCursor: function (cursor) {
 	        store.dispatch({
 	            type: 'SetCursor',
-	            cursor: cursor
-	        });
+	            cursor: cursor });
 	    },
 
-	    setActiveNodes: function setActiveNodes(activeNodes) {
+	    setActiveNodes: function (activeNodes) {
 	        store.dispatch({
 	            type: 'SetActiveNodes',
-	            activeNodes: activeNodes
-	        });
+	            activeNodes: activeNodes });
 	    },
 
-	    removeEcho: function removeEcho(animationId) {
+	    removeEcho: function (animationId) {
 	        store.dispatch({
 	            type: 'RemoveEcho',
-	            animationId: animationId
-	        });
-	    }
-	};
+	            animationId: animationId });
+	    } };
 
 /***/ },
 /* 200 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	var React = __webpack_require__(15);
 
@@ -49187,16 +49152,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = React.createClass({
 	    displayName: 'exports',
-	    render: function render() {
-	        return React.createElement(Provider, { store: store }, React.createElement(MathKeypad, this.props));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            Provider,
+	            { store: store },
+	            React.createElement(MathKeypad, this.props)
+	        );
+	    } });
 
 /***/ },
 /* 201 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * React PropTypes that may be shared between components.
@@ -49204,8 +49171,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var KeyConfigs = __webpack_require__(234);
-	var CursorContexts = __webpack_require__(231);
+	var KeyConfigs = __webpack_require__(233);
+	var CursorContexts = __webpack_require__(226);
 
 	var _require = __webpack_require__(190);
 
@@ -49215,8 +49182,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var unicodeSymbolPropType = React.PropTypes.shape({
 	    character: React.PropTypes.string.isRequired,
-	    italicized: React.PropTypes.bool
-	});
+	    italicized: React.PropTypes.bool });
 
 	var keyIdPropType = React.PropTypes.oneOf(Object.keys(KeyConfigs));
 
@@ -49225,13 +49191,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    id: keyIdPropType.isRequired,
 	    type: React.PropTypes.oneOf(Object.keys(KeyTypes)).isRequired,
 	    childKeyIds: React.PropTypes.arrayOf(keyIdPropType),
-	    unicodeSymbol: unicodeSymbolPropType
-	});
+	    unicodeSymbol: unicodeSymbolPropType });
 
 	var keypadConfigurationPropType = React.PropTypes.shape({
 	    keypadType: React.PropTypes.oneOf(Object.keys(KeypadTypes)).isRequired,
-	    extraKeys: React.PropTypes.arrayOf(keyIdPropType)
-	});
+	    extraKeys: React.PropTypes.arrayOf(keyIdPropType) });
 
 	// TODO(charlie): This should be `React.PropTypes.element`, but I keep getting
 	// errors. It may be related to the fact that the keypad is rendered in a
@@ -49246,22 +49210,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	    top: React.PropTypes.number,
 	    right: React.PropTypes.number,
 	    bottom: React.PropTypes.number,
-	    left: React.PropTypes.number
-	});
+	    left: React.PropTypes.number });
 
 	var echoPropType = React.PropTypes.shape({
 	    animationId: React.PropTypes.string.isRequired,
 	    borders: bordersPropType,
 	    id: keyIdPropType.isRequired,
-	    initialBounds: boundingBoxPropType.isRequired
-	});
+	    initialBounds: boundingBoxPropType.isRequired });
 
 	var cursorContextPropType = React.PropTypes.oneOf(Object.keys(CursorContexts));
 
 	var popoverPropType = React.PropTypes.shape({
 	    bounds: boundingBoxPropType.isRequired,
-	    childKeyIds: React.PropTypes.arrayOf(keyIdPropType).isRequired
-	});
+	    childKeyIds: React.PropTypes.arrayOf(keyIdPropType).isRequired });
 
 	var childrenPropType = React.PropTypes.oneOfType([React.PropTypes.arrayOf(React.PropTypes.node), React.PropTypes.node]);
 
@@ -49276,60 +49237,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    cursorContextPropType: cursorContextPropType,
 	    popoverPropType: popoverPropType,
 	    unicodeSymbolPropType: unicodeSymbolPropType,
-	    childrenPropType: childrenPropType
-	};
+	    childrenPropType: childrenPropType };
 
 /***/ },
 /* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-
-	var _extends = Object.assign || function (target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];for (var key in source) {
-	            if (Object.prototype.hasOwnProperty.call(source, key)) {
-	                target[key] = source[key];
-	            }
-	        }
-	    }return target;
-	};
-
-	var _slicedToArray = (function () {
-	    function sliceIterator(arr, i) {
-	        var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
-	            for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-	                _arr.push(_s.value);if (i && _arr.length === i) break;
-	            }
-	        } catch (err) {
-	            _d = true;_e = err;
-	        } finally {
-	            try {
-	                if (!_n && _i["return"]) _i["return"]();
-	            } finally {
-	                if (_d) throw _e;
-	            }
-	        }return _arr;
-	    }return function (arr, i) {
-	        if (Array.isArray(arr)) {
-	            return arr;
-	        } else if (Symbol.iterator in Object(arr)) {
-	            return sliceIterator(arr, i);
-	        } else {
-	            throw new TypeError("Invalid attempt to destructure non-iterable instance");
-	        }
-	    };
-	})();
-
-	function _toConsumableArray(arr) {
-	    if (Array.isArray(arr)) {
-	        for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-	            arr2[i] = arr[i];
-	        }return arr2;
-	    } else {
-	        return Array.from(arr);
-	    }
-	}
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	/* globals i18n */
 
@@ -49345,16 +49259,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var setKeyHandler = _require2.setKeyHandler;
 
-	var _require3 = __webpack_require__(233);
+	var _require3 = __webpack_require__(234);
 
 	var View = _require3.View;
 
-	var CursorHandle = __webpack_require__(226);
-	var SelectionRect = __webpack_require__(227);
-	var MathWrapper = __webpack_require__(228);
-	var scrollIntoView = __webpack_require__(229);
+	var CursorHandle = __webpack_require__(227);
+	var SelectionRect = __webpack_require__(228);
+	var MathWrapper = __webpack_require__(229);
+	var scrollIntoView = __webpack_require__(230);
 
-	var _require4 = __webpack_require__(230);
+	var _require4 = __webpack_require__(231);
 
 	var cursorHandleRadiusPx = _require4.cursorHandleRadiusPx;
 	var cursorHandleDistanceMultiplier = _require4.cursorHandleDistanceMultiplier;
@@ -49369,27 +49283,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	    x: 0,
 	    y: 0,
 	    width: 0,
-	    height: 0
-	};
+	    height: 0 };
 
-	var unionRects = function unionRects(rects) {
+	var unionRects = function (rects) {
 	    return rects.reduce(function (previous, current) {
 	        return {
 	            top: Math.min(previous.top, current.top),
 	            right: Math.max(previous.right, current.right),
 	            bottom: Math.max(previous.bottom, current.bottom),
-	            left: Math.min(previous.left, current.left)
-	        };
+	            left: Math.min(previous.left, current.left) };
 	    }, {
 	        top: Infinity,
 	        right: -Infinity,
 	        bottom: -Infinity,
-	        left: Infinity
-	    });
+	        left: Infinity });
 	};
 
 	var MathInput = React.createClass({
-	    displayName: "MathInput",
+	    displayName: 'MathInput',
 
 	    propTypes: {
 	        // The React element node associated with the keypad that will send
@@ -49411,32 +49322,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	        onCursorMove: React.PropTypes.func,
 
 	        onFocus: React.PropTypes.func,
-	        value: React.PropTypes.string
+	        value: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            value: '' };
 	    },
 
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            value: ""
-	        };
-	    },
-	    getInitialState: function getInitialState() {
+	    getInitialState: function () {
 	        return {
 	            focused: false,
 	            handle: {
 	                animateIntoPosition: false,
 	                visible: false,
 	                x: 0,
-	                y: 0
-	            },
-	            selectionRect: defaultSelectionRect
-	        };
+	                y: 0 },
+	            selectionRect: defaultSelectionRect };
 	    },
-	    componentDidMount: function componentDidMount() {
+
+	    componentDidMount: function () {
 	        var _this = this;
 
 	        this.mathField = new MathWrapper(this._mathContainer, {
-	            onCursorMove: this.props.onCursorMove
-	        });
+	            onCursorMove: this.props.onCursorMove });
 
 	        // NOTE(charlie): MathQuill binds this handler to manage its
 	        // drag-to-select behavior. For reasons that I can't explain, the event
@@ -49449,15 +49357,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // treats itself as unfocused. Thankfully, we don't need this behavior--
 	        // we manage all of the cursor interactions ourselves--so we can safely
 	        // unbind the handler.
-	        this.mathField.mathField.__controller.container.unbind("mousedown.mathquill");
+	        this.mathField.mathField.__controller.container.unbind('mousedown.mathquill');
 
 	        this.mathField.setContent(this.props.value);
 
 	        this._container = ReactDOM.findDOMNode(this);
 
-	        this._root = this._container.querySelector(".mq-root-block");
-	        this._root.style.border = "solid " + paddingWidthPx + "px white";
-	        this._root.style.fontSize = fontSizePt + "pt";
+	        this._root = this._container.querySelector('.mq-root-block');
+	        this._root.style.border = 'solid ' + paddingWidthPx + 'px white';
+	        this._root.style.fontSize = '' + fontSizePt + 'pt';
 
 	        // Record the initial scroll displacement on touch start. This allows
 	        // us to detect whether a touch event was a scroll and only blur the
@@ -49489,30 +49397,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	            _this.touchStartInitialScroll = null;
 	        };
 
-	        window.addEventListener("touchstart", this.recordTouchStartOutside);
-	        window.addEventListener("touchend", this.blurOnTouchEndOutside);
-	        window.addEventListener("touchcancel", this.blurOnTouchEndOutside);
+	        window.addEventListener('touchstart', this.recordTouchStartOutside);
+	        window.addEventListener('touchend', this.blurOnTouchEndOutside);
+	        window.addEventListener('touchcancel', this.blurOnTouchEndOutside);
 	    },
-	    componentDidUpdate: function componentDidUpdate() {
+
+	    componentDidUpdate: function () {
 	        if (this.mathField.getContent() !== this.props.value) {
 	            this.mathField.setContent(this.props.value);
 	        }
 	    },
-	    componentWillUnmount: function componentWillUnmount() {
-	        window.removeEventListener("touchstart", this.recordTouchStartOutside);
-	        window.removeEventListener("touchend", this.blurOnTouchEndOutside);
-	        window.removeEventListener("touchcancel", this.blurOnTouchEndOutside);
+
+	    componentWillUnmount: function () {
+	        window.removeEventListener('touchstart', this.recordTouchStartOutside);
+	        window.removeEventListener('touchend', this.blurOnTouchEndOutside);
+	        window.removeEventListener('touchcancel', this.blurOnTouchEndOutside);
 	    },
-	    rectForSelection: function rectForSelection(selection) {
+
+	    rectForSelection: function (selection) {
 	        if (!selection) {
 	            return defaultSelectionRect;
 	        }
 
-	        var selectionRoot = this._container.querySelector(".mq-selection");
+	        var selectionRoot = this._container.querySelector('.mq-selection');
 	        var bounds = unionRects(
 	        // Grab all the DOMNodes within the selection and calculate the
 	        // union of all of their bounding boxes.
-	        [].concat(_toConsumableArray(selectionRoot.querySelectorAll("*"))).map(function (elem) {
+	        [].concat(selectionRoot.querySelectorAll('*')).map(function (elem) {
 	            return elem.getBoundingClientRect();
 	        }));
 
@@ -49526,12 +49437,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            x: bounds.left - mathContainerBounds.left - borderWidth - padding,
 	            y: bounds.top - mathContainerBounds.top - borderWidth - padding,
 	            width: bounds.right - bounds.left + 2 * padding,
-	            height: bounds.bottom - bounds.top + 2 * padding
-	        };
+	            height: bounds.bottom - bounds.top + 2 * padding };
 	    },
-	    _updateCursorHandle: function _updateCursorHandle(animateIntoPosition) {
+
+	    _updateCursorHandle: function (animateIntoPosition) {
 	        var containerBounds = this._container.getBoundingClientRect();
-	        var cursor = this._container.querySelector(".mq-cursor");
+	        var cursor = this._container.querySelector('.mq-cursor');
 	        var cursorBounds = cursor.getBoundingClientRect();
 
 	        var cursorWidth = 2;
@@ -49544,26 +49455,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	                // We subtract containerBounds' left/top to correct for the
 	                // position of the container within the page.
 	                x: cursorBounds.left + cursorWidth / 2 - containerBounds.left,
-	                y: cursorBounds.bottom + gapBelowCursor - containerBounds.top
-	            },
-	            selectionRect: defaultSelectionRect
-	        });
+	                y: cursorBounds.bottom + gapBelowCursor - containerBounds.top },
+	            selectionRect: defaultSelectionRect });
 	    },
-	    _hideCursorHandle: function _hideCursorHandle() {
+
+	    _hideCursorHandle: function () {
 	        this.setState({
 	            handle: {
 	                visible: false,
 	                x: 0,
-	                y: 0
-	            }
-	        });
+	                y: 0 } });
 	    },
-	    blur: function blur() {
+
+	    blur: function () {
 	        this.mathField.getCursor().hide();
 	        this.props.onBlur && this.props.onBlur();
 	        this.setState({ focused: false, handle: { visible: false } });
 	    },
-	    focus: function focus() {
+
+	    focus: function () {
 	        var _this2 = this;
 
 	        // Pass this component's handleKey method to the store so it can call
@@ -49576,13 +49486,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // types a key. If the value changed as a result of a keypress, we
 	            // need to be careful not to call `setState` until after `onChange`
 	            // has resolved.
-	            var hideCursorAndUpdateSelectionRect = function hideCursorAndUpdateSelectionRect() {
+	            var hideCursorAndUpdateSelectionRect = function () {
 	                _this2.setState({
 	                    handle: {
-	                        visible: false
-	                    },
-	                    selectionRect: _this2.rectForSelection(cursor.selection)
-	                });
+	                        visible: false },
+	                    selectionRect: _this2.rectForSelection(cursor.selection) });
 	            };
 	            var value = _this2.mathField.getContent();
 	            if (_this2.props.value !== value) {
@@ -49634,7 +49542,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     *                      sign determines direction.
 	     * @returns {boolean} - true if a node was hit, false otherwise.
 	     */
-	    _findHitNode: function _findHitNode(containerBounds, x, y, dx, dy) {
+	    _findHitNode: function (containerBounds, x, y, dx, dy) {
 	        var _this3 = this;
 
 	        while (y >= containerBounds.top && y <= containerBounds.bottom) {
@@ -49643,9 +49551,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var points = [[x - dx, y], [x, y], [x + dx, y]];
 
 	            var elements = points.map(function (point) {
-	                var _document;
-
-	                return (_document = document).elementFromPoint.apply(_document, _toConsumableArray(point));
+	                return document.elementFromPoint.apply(document, point);
 	            })
 	            // We exclude the root container itself and any nodes marked
 	            // as non-leaf which are fractions, parens, and roots.  The
@@ -49658,7 +49564,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // included, neither mq-numerator nor mq-denominator nodes are
 	            // and neither are subscripts or superscripts.
 	            .filter(function (element) {
-	                return element && _this3._root.contains(element) && !element.classList.contains("mq-root-block") && !element.classList.contains("mq-non-leaf");
+	                return element && _this3._root.contains(element) && !element.classList.contains('mq-root-block') && !element.classList.contains('mq-non-leaf');
 	            });
 
 	            var hitNode = null;
@@ -49674,88 +49580,68 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var counts = {};
 	            var elementsById = {};
 
-	            var _iteratorNormalCompletion = true;
-	            var _didIteratorError = false;
-	            var _iteratorError = undefined;
+	            for (var _iterator = elements, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+	                var _ref;
 
-	            try {
-	                for (var _iterator = elements[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	                    var element = _step.value;
-
-	                    var id = element.getAttribute("mathquill-command-id");
-	                    if (id != null) {
-	                        leafElements.push(element);
-
-	                        counts[id] = (counts[id] || 0) + 1;
-	                        elementsById[id] = element;
-	                    } else {
-	                        nonLeafElements.push(element);
-	                    }
+	                if (_isArray) {
+	                    if (_i >= _iterator.length) break;
+	                    _ref = _iterator[_i++];
+	                } else {
+	                    _i = _iterator.next();
+	                    if (_i.done) break;
+	                    _ref = _i.value;
 	                }
 
-	                // When determining which DOMNode to place the cursor beside, we
-	                // prefer leaf nodes.  Hitting a leaf node is a good sign that the
-	                // cursor is really close to some piece of math that has been
-	                // rendered because leaf nodes contain text.  Non-leaf nodes may
-	                // contain a lot of whitespace so the cursor may be further away
-	                // from actual text within the expression.
-	                //
-	                // Since we're doing three hit tests per loop it's possible that
-	                // we hit multiple leaf nodes at the same time.  In this case we
-	                // we prefer the DOMNode with the most hits.
-	                // TODO(kevinb) consider preferring nodes hit by [x, y].
-	            } catch (err) {
-	                _didIteratorError = true;
-	                _iteratorError = err;
-	            } finally {
-	                try {
-	                    if (!_iteratorNormalCompletion && _iterator.return) {
-	                        _iterator.return();
-	                    }
-	                } finally {
-	                    if (_didIteratorError) {
-	                        throw _iteratorError;
-	                    }
+	                var element = _ref;
+
+	                var id = element.getAttribute('mathquill-command-id');
+	                if (id != null) {
+	                    leafElements.push(element);
+
+	                    counts[id] = (counts[id] || 0) + 1;
+	                    elementsById[id] = element;
+	                } else {
+	                    nonLeafElements.push(element);
 	                }
 	            }
 
-	            var _iteratorNormalCompletion2 = true;
-	            var _didIteratorError2 = false;
-	            var _iteratorError2 = undefined;
+	            // When determining which DOMNode to place the cursor beside, we
+	            // prefer leaf nodes.  Hitting a leaf node is a good sign that the
+	            // cursor is really close to some piece of math that has been
+	            // rendered because leaf nodes contain text.  Non-leaf nodes may
+	            // contain a lot of whitespace so the cursor may be further away
+	            // from actual text within the expression.
+	            //
+	            // Since we're doing three hit tests per loop it's possible that
+	            // we hit multiple leaf nodes at the same time.  In this case we
+	            // we prefer the DOMNode with the most hits.
+	            // TODO(kevinb) consider preferring nodes hit by [x, y].
+	            for (var _iterator2 = Object.entries(counts), _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
+	                var _ref2;
 
-	            try {
-	                for (var _iterator2 = Object.entries(counts)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	                    var _step2$value = _slicedToArray(_step2.value, 2);
-
-	                    var _id = _step2$value[0];
-	                    var count = _step2$value[1];
-
-	                    if (count > max) {
-	                        max = count;
-	                        hitNode = elementsById[_id];
-	                    }
+	                if (_isArray2) {
+	                    if (_i2 >= _iterator2.length) break;
+	                    _ref2 = _iterator2[_i2++];
+	                } else {
+	                    _i2 = _iterator2.next();
+	                    if (_i2.done) break;
+	                    _ref2 = _i2.value;
 	                }
 
-	                // It's possible that two non-leaf nodes are right beside each
-	                // other.  We don't bother counting the number of hits for each,
-	                // b/c this seems like an unlikely situation.  Also, ignoring the
-	                // hit count in the situation should not have serious effects on
-	                // the overall accuracy of the algorithm.
-	            } catch (err) {
-	                _didIteratorError2 = true;
-	                _iteratorError2 = err;
-	            } finally {
-	                try {
-	                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
-	                        _iterator2.return();
-	                    }
-	                } finally {
-	                    if (_didIteratorError2) {
-	                        throw _iteratorError2;
-	                    }
+	                var id = _ref2[0];
+	                var count = _ref2[1];
+
+	                if (count > max) {
+	                    max = count;
+	                    hitNode = elementsById[id];
 	                }
 	            }
 
+	            // It's possible that two non-leaf nodes are right beside each
+	            // other.  We don't bother counting the number of hits for each,
+	            // b/c this seems like an unlikely situation.  Also, ignoring the
+	            // hit count in the situation should not have serious effects on
+	            // the overall accuracy of the algorithm.
 	            if (hitNode == null && nonLeafElements.length > 0) {
 	                hitNode = nonLeafElements[0];
 	            }
@@ -49776,7 +49662,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @param {number} x - the x coordinate in the viewport
 	     * @param {number} y - the y coordinate in the viewport
 	     */
-	    _insertCursorAtClosestNode: function _insertCursorAtClosestNode(x, y) {
+	    _insertCursorAtClosestNode: function (x, y) {
 	        var cursor = this.mathField.getCursor();
 
 	        // Pre-emptively check if the input has any child nodes; if not, the
@@ -49792,8 +49678,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            y = this._containerBounds.top + 10;
 	        }
 
-	        var dx = void 0;
-	        var dy = void 0;
+	        var dx = undefined;
+	        var dy = undefined;
 
 	        // Vertical spacing between hit tests
 	        // dy is negative because we're moving upwards.
@@ -49834,7 +49720,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            cursor.insAtLeftEnd(this.mathField.mathField.__controller.root);
 	        }
 	    },
-	    handleTouchStart: function handleTouchStart(e) {
+
+	    handleTouchStart: function (e) {
 	        e.preventDefault();
 
 	        // Hide the cursor handle on touch start, if the handle itself isn't
@@ -49850,14 +49737,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        this.focus();
 	    },
-	    handleTouchMove: function handleTouchMove(e) {
+
+	    handleTouchMove: function (e) {
 	        // Update the handle-less cursor's location on move.
 	        var touch = e.changedTouches[0];
 	        this._insertCursorAtClosestNode(touch.clientX, touch.clientY);
 	    },
-	    handleTouchEnd: function handleTouchEnd(e) {
+
+	    handleTouchEnd: function (e) {
 	        // And on touch-end, reveal the cursor, unless the input is empty.
-	        if (this.mathField.getContent() !== "") {
+	        if (this.mathField.getContent() !== '') {
 	            this._updateCursorHandle();
 	        }
 	    },
@@ -49868,7 +49757,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     *
 	     * @param {TouchEvent} e - the raw touch event from the browser
 	     */
-	    onCursorHandleTouchStart: function onCursorHandleTouchStart(e) {
+	    onCursorHandleTouchStart: function (e) {
 	        // NOTE(charlie): The cursor handle is a child of this view, so whenever
 	        // it receives a touch event, that event would also typically be bubbled
 	        // up to our own handlers. However, we want the cursor to handle its own
@@ -49890,7 +49779,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     *
 	     * @param {TouchEvent} e - the raw touch event from the browser
 	     */
-	    onCursorHandleTouchMove: function onCursorHandleTouchMove(e) {
+	    onCursorHandleTouchMove: function (e) {
 	        e.stopPropagation();
 
 	        var x = e.changedTouches[0].clientX;
@@ -49910,9 +49799,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                // detection doesn't work when scrolled, since we're not
 	                // offsetting those values.
 	                x: x - this._containerBounds.left,
-	                y: y - 2 * cursorHandleRadiusPx * cursorHandleDistanceMultiplier - this._containerBounds.top
-	            }
-	        });
+	                y: y - 2 * cursorHandleRadiusPx * cursorHandleDistanceMultiplier - this._containerBounds.top } });
 
 	        // Use a y-coordinate that's just above where the user is actually
 	        // touching because they're dragging the handle which is a little
@@ -49928,7 +49815,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     *
 	     * @param {TouchEvent} e - the raw touch event from the browser
 	     */
-	    onCursorHandleTouchEnd: function onCursorHandleTouchEnd(e) {
+	    onCursorHandleTouchEnd: function (e) {
 	        e.stopPropagation();
 
 	        this._updateCursorHandle(true);
@@ -49939,12 +49826,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	     *
 	     * @param {TouchEvent} e - the raw touch event from the browser
 	     */
-	    onCursorHandleTouchCancel: function onCursorHandleTouchCancel(e) {
+	    onCursorHandleTouchCancel: function (e) {
 	        e.stopPropagation();
 
 	        this._updateCursorHandle(true);
 	    },
-	    render: function render() {
+
+	    render: function () {
 	        var _this4 = this;
 
 	        var _state = this.state;
@@ -49952,26 +49840,38 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var handle = _state.handle;
 	        var selectionRect = _state.selectionRect;
 
-	        return React.createElement(View, {
-	            style: styles.input,
-	            onTouchStart: this.handleTouchStart,
-	            onTouchMove: this.handleTouchMove,
-	            onTouchEnd: this.handleTouchEnd,
-	            role: "textbox",
-	            ariaLabel: i18n._("Math input box")
-	        }, React.createElement("div", { className: "keypad-input" }, React.createElement("div", {
-	            ref: function ref(node) {
-	                _this4._mathContainer = ReactDOM.findDOMNode(node);
+	        return React.createElement(
+	            View,
+	            {
+	                style: styles.input,
+	                onTouchStart: this.handleTouchStart,
+	                onTouchMove: this.handleTouchMove,
+	                onTouchEnd: this.handleTouchEnd,
+	                role: 'textbox',
+	                ariaLabel: i18n._('Math input box')
 	            },
-	            className: css(styles.innerContainer)
-	        }, focused && selectionRect.visible && React.createElement(SelectionRect, selectionRect))), focused && handle.visible && React.createElement(CursorHandle, _extends({}, handle, {
-	            onTouchStart: this.onCursorHandleTouchStart,
-	            onTouchMove: this.onCursorHandleTouchMove,
-	            onTouchEnd: this.onCursorHandleTouchEnd,
-	            onTouchCancel: this.onCursorHandleTouchCancel
-	        })));
-	    }
-	});
+	            React.createElement(
+	                'div',
+	                { className: 'keypad-input' },
+	                React.createElement(
+	                    'div',
+	                    {
+	                        ref: function (node) {
+	                            _this4._mathContainer = ReactDOM.findDOMNode(node);
+	                        },
+	                        className: css(styles.innerContainer)
+	                    },
+	                    focused && selectionRect.visible && React.createElement(SelectionRect, selectionRect)
+	                )
+	            ),
+	            focused && handle.visible && React.createElement(CursorHandle, _extends({}, handle, {
+	                onTouchStart: this.onCursorHandleTouchStart,
+	                onTouchMove: this.onCursorHandleTouchMove,
+	                onTouchEnd: this.onCursorHandleTouchEnd,
+	                onTouchCancel: this.onCursorHandleTouchCancel
+	            }))
+	        );
+	    } });
 
 	var fontSizePt = 18;
 	var minSizePx = 34;
@@ -49980,26 +49880,25 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var styles = StyleSheet.create({
 	    input: {
-	        position: "relative",
-	        display: "inline-block",
-	        verticalAlign: "middle"
-	    },
+	        position: 'relative',
+	        display: 'inline-block',
+	        verticalAlign: 'middle' },
 
 	    innerContainer: {
-	        backgroundColor: "white",
-	        display: "flex",
+	        backgroundColor: 'white',
+	        display: 'flex',
 	        minWidth: minSizePx,
 	        minHeight: minSizePx,
-	        position: "relative",
-	        overflow: "hidden",
+	        position: 'relative',
+	        overflow: 'hidden',
 	        borderWidth: borderWidthPx,
-	        borderStyle: "solid",
+	        borderStyle: 'solid',
 	        borderColor: mediumGrey,
-	        borderRadius: 4
-	    }
-	});
+	        borderRadius: 4 } });
 
 	module.exports = MathInput;
+	/* NOTE(charlie): This is used purely to namespace the styles in
+	   overrides.css. */
 
 /***/ },
 /* 203 */
@@ -55833,7 +55732,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var _ = __webpack_require__(16);
-	var InteractiveUtil = __webpack_require__(150);
+	var InteractiveUtil = __webpack_require__(149);
 	var WrappedDefaults = __webpack_require__(236);
 	var kpoint = __webpack_require__(189).point;
 	var kvector = __webpack_require__(189).vector;
@@ -56770,8 +56669,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
 	var React = __webpack_require__(15);
 
 	var _require = __webpack_require__(251);
@@ -56784,7 +56681,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var BasicExpressionKeypad = __webpack_require__(240);
 	var AdvancedExpressionKeypad = __webpack_require__(241);
 
-	var _require2 = __webpack_require__(230);
+	var _require2 = __webpack_require__(231);
 
 	var getButtonHeightPx = _require2.getButtonHeightPx;
 
@@ -56810,25 +56707,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	        onDismiss: React.PropTypes.func,
 	        // A callback that should be triggered with the root React element on
 	        // mount.
-	        onElementMounted: React.PropTypes.func
-	    },
+	        onElementMounted: React.PropTypes.func },
 
-	    componentDidMount: function componentDidMount() {
+	    componentDidMount: function () {
 	        // Relay the initial button height to the system.
 	        setButtonHeightPx(getButtonHeightPx());
 
 	        // And update it on resize.
 	        window.addEventListener('resize', this._onResize);
 	    },
-	    componentDidUpdate: function componentDidUpdate(prevProps) {
+
+	    componentDidUpdate: function (prevProps) {
 	        if (prevProps.active && !this.props.active) {
 	            this.props.onDismiss && this.props.onDismiss();
 	        }
 	    },
-	    componentWillUnmount: function componentWillUnmount() {
+
+	    componentWillUnmount: function () {
 	        window.removeEventListener('resize', this._onResize);
 	    },
-	    _onResize: function _onResize() {
+
+	    _onResize: function () {
 	        var _this = this;
 
 	        // Whenever the page resizes, we need to force an update, as the button
@@ -56847,7 +56746,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }, 66);
 	        }
 	    },
-	    render: function render() {
+
+	    render: function () {
 	        // Extract props that some keypads will need.
 	        var _props = this.props;
 	        var extraKeys = _props.extraKeys;
@@ -56861,7 +56761,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // However, the keyboards differ pretty heavily right now and it's not
 	        // clear what that format would look like exactly. Plus, there aren't
 	        // very many of them. So to keep us moving, we'll just hardcode.
-
 	        switch (keypadType) {
 	            case KeypadTypes.NUMBER:
 	                return React.createElement(NumberKeypad, { ref: onElementMounted });
@@ -56885,10 +56784,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            default:
 	                return React.createElement(DefaultKeypad, { ref: onElementMounted });
 	        }
-	    }
-	});
+	    } });
 
-	var mapStateToProps = function mapStateToProps(state) {
+	var mapStateToProps = function (state) {
 	    return state.keypad;
 	};
 
@@ -56898,17 +56796,22 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/**
+	 * Constants that define the various contexts in which a cursor can exist. In
+	 * the future, we may, for example, have a context for being in a numerator, a
+	 * context for being in a denominator, a context for being in an exponent, and
+	 * so forth.
+	 */
 
-	var _extends = Object.assign || function (target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];for (var key in source) {
-	            if (Object.prototype.hasOwnProperty.call(source, key)) {
-	                target[key] = source[key];
-	            }
-	        }
-	    }return target;
-	};
+	module.exports = {
+	  TOP_LEVEL: 'TOP_LEVEL',
+	  NESTED: 'NESTED' };
+
+/***/ },
+/* 227 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	/**
 	 * Renders the green tear-shaped handle under the cursor.
@@ -56916,7 +56819,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var _require = __webpack_require__(230);
+	var _require = __webpack_require__(231);
 
 	var cursorHandleRadiusPx = _require.cursorHandleRadiusPx;
 	var brightGreen = _require.brightGreen;
@@ -56941,18 +56844,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	        onTouchStart: React.PropTypes.func.isRequired,
 	        visible: React.PropTypes.bool.isRequired,
 	        x: React.PropTypes.number.isRequired,
-	        y: React.PropTypes.number.isRequired
-	    },
+	        y: React.PropTypes.number.isRequired },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            animateIntoPosition: false,
 	            visible: false,
 	            x: 0,
-	            y: 0
-	        };
+	            y: 0 };
 	    },
-	    render: function render() {
+
+	    render: function () {
 	        var _props = this.props;
 	        var x = _props.x;
 	        var y = _props.y;
@@ -56960,8 +56862,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        var animationStyle = animateIntoPosition ? {
 	            transitionDuration: '100ms',
-	            transitionProperty: 'transform'
-	        } : {};
+	            transitionProperty: 'transform' } : {};
 
 	        var outerStyle = _extends({
 	            position: 'absolute',
@@ -56970,38 +56871,41 @@ return /******/ (function(modules) { // webpackBootstrap
 	            top: 0,
 	            transform: 'translate(' + x + 'px, ' + y + 'px)',
 	            width: touchTargetWidthPx,
-	            height: touchTargetHeightPx
-	        }, animationStyle);
+	            height: touchTargetHeightPx }, animationStyle);
 
 	        var innerStyle = {
-	            marginLeft: touchTargetRadiusPx - cursorRadiusPx
-	        };
+	            marginLeft: touchTargetRadiusPx - cursorRadiusPx };
 
-	        return React.createElement('span', {
-	            style: outerStyle,
-	            onTouchStart: this.props.onTouchStart,
-	            onTouchMove: this.props.onTouchMove,
-	            onTouchEnd: this.props.onTouchEnd,
-	            onTouchCancel: this.props.onTouchCancel
-	        }, React.createElement('svg', {
-	            width: cursorWidthPx,
-	            height: cursorHeightPx,
-	            viewBox: '-' + cursorRadiusPx + ' 0 ' + cursorWidthPx + ' ' + cursorHeightPx,
-	            style: innerStyle
-	        }, React.createElement('path', {
-	            d: 'M 0 0\n                        L -' + 0.707 * cursorRadiusPx + ' ' + 0.707 * cursorRadiusPx + '\n                        A ' + cursorRadiusPx + ' ' + cursorRadiusPx + ', 0, 1, 0,\n                          ' + 0.707 * cursorRadiusPx + ' ' + 0.707 * cursorRadiusPx + '\n                        Z',
-	            fill: brightGreen
-	        })));
-	    }
-	});
+	        return React.createElement(
+	            'span',
+	            {
+	                style: outerStyle,
+	                onTouchStart: this.props.onTouchStart,
+	                onTouchMove: this.props.onTouchMove,
+	                onTouchEnd: this.props.onTouchEnd,
+	                onTouchCancel: this.props.onTouchCancel
+	            },
+	            React.createElement(
+	                'svg',
+	                {
+	                    width: cursorWidthPx,
+	                    height: cursorHeightPx,
+	                    viewBox: '-' + cursorRadiusPx + ' 0 ' + cursorWidthPx + ' ' + cursorHeightPx,
+	                    style: innerStyle
+	                },
+	                React.createElement('path', {
+	                    d: 'M 0 0\n                        L -' + 0.707 * cursorRadiusPx + ' ' + 0.707 * cursorRadiusPx + '\n                        A ' + cursorRadiusPx + ' ' + cursorRadiusPx + ', 0, 1, 0,\n                          ' + 0.707 * cursorRadiusPx + ' ' + 0.707 * cursorRadiusPx + '\n                        Z',
+	                    fill: brightGreen
+	                })
+	            )
+	        );
+	    } });
 
 	module.exports = CursorHandle;
 
 /***/ },
-/* 227 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * Render the selection rectangle as an underlay below the selected nodes
@@ -57014,11 +56918,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(233);
+	var _require2 = __webpack_require__(234);
 
 	var View = _require2.View;
 
-	var zIndexes = __webpack_require__(242);
+	var zIndexes = __webpack_require__(244);
 
 	var SelectionRect = React.createClass({
 	    displayName: 'SelectionRect',
@@ -57027,67 +56931,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	        height: React.PropTypes.number.isRequired,
 	        width: React.PropTypes.number.isRequired,
 	        x: React.PropTypes.number.isRequired,
-	        y: React.PropTypes.number.isRequired
-	    },
+	        y: React.PropTypes.number.isRequired },
 
-	    render: function render() {
+	    render: function () {
 	        var dynamicStyles = StyleSheet.create({
 	            highlight: {
 	                left: this.props.x,
 	                top: this.props.y,
 	                width: this.props.width,
-	                height: this.props.height
-	            }
-	        });
+	                height: this.props.height } });
 
 	        var styles = [staticStyles.highlight, dynamicStyles.highlight];
 
 	        return React.createElement(View, { style: styles });
-	    }
-	});
+	    } });
 
 	var staticStyles = StyleSheet.create({
 	    highlight: {
 	        position: 'absolute',
 	        display: 'inline-block',
 	        backgroundColor: '#78c008',
-	        zIndex: zIndexes.selectionRect
-	    }
-	});
+	        zIndex: zIndexes.selectionRect } });
 
 	module.exports = SelectionRect;
 
 /***/ },
-/* 228 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _createClass = (function () {
-	    function defineProperties(target, props) {
-	        for (var i = 0; i < props.length; i++) {
-	            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	        }
-	    }return function (Constructor, protoProps, staticProps) {
-	        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	    };
-	})();
 
 	var _KeyActions, _NormalCommands;
 
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) {
-	        throw new TypeError("Cannot call a class as a function");
-	    }
-	}
-
-	function _defineProperty(obj, key, value) {
-	    if (key in obj) {
-	        Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
-	    } else {
-	        obj[key] = value;
-	    }return obj;
-	}
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	/**
 	 * This file contains a wrapper around MathQuill so that we can provide a
@@ -57099,644 +56973,609 @@ return /******/ (function(modules) { // webpackBootstrap
 	// TODO(kevinb) allow test code to use const MathQuill = require('mathquill');
 	var MathQuill = window.MathQuill;
 
-	var Keys = __webpack_require__(243);
-	var CursorContexts = __webpack_require__(231);
+	var Keys = __webpack_require__(242);
+	var CursorContexts = __webpack_require__(226);
 
 	var _require = __webpack_require__(190);
 
 	var FractionBehaviorTypes = _require.FractionBehaviorTypes;
 
-	var _require2 = __webpack_require__(244);
+	var _require2 = __webpack_require__(243);
 
 	var fractionBehavior = _require2.fractionBehavior;
 
-	var WRITE = "write";
-	var CMD = "cmd";
-	var KEYSTROKE = "keystroke";
+	var WRITE = 'write';
+	var CMD = 'cmd';
+	var KEYSTROKE = 'keystroke';
 	var MQ_END = 0;
 
 	// A mapping from keys that can be pressed on a keypad to the way in which
 	// MathQuill should modify its input in response to that key-press. Any keys
 	// that do not provide explicit actions (like the numeral keys) will merely
 	// write their contents to MathQuill.
-	var KeyActions = (_KeyActions = {}, _defineProperty(_KeyActions, Keys.PLUS, { str: "+", fn: WRITE }), _defineProperty(_KeyActions, Keys.MINUS, { str: "-", fn: WRITE }), _defineProperty(_KeyActions, Keys.TIMES, { str: "\\times", fn: WRITE }), _defineProperty(_KeyActions, Keys.DIVIDE, { str: "\\div", fn: WRITE }), _defineProperty(_KeyActions, Keys.DECIMAL, { str: ".", fn: WRITE }), _defineProperty(_KeyActions, Keys.EQUAL, { str: "=", fn: WRITE }), _defineProperty(_KeyActions, Keys.NEQ, { str: "\\neq", fn: WRITE }), _defineProperty(_KeyActions, Keys.CDOT, { str: "\\cdot", fn: WRITE }), _defineProperty(_KeyActions, Keys.PERCENT, { str: "%", fn: WRITE }), _defineProperty(_KeyActions, Keys.FRAC, fractionBehavior === FractionBehaviorTypes.INCLUSIVE ? { str: "/", fn: CMD } : { str: "\\frac", fn: CMD }), _defineProperty(_KeyActions, Keys.EXP, { str: "^", fn: CMD }), _defineProperty(_KeyActions, Keys.EXP_2, { str: "^2", fn: WRITE }), _defineProperty(_KeyActions, Keys.EXP_3, { str: "^3", fn: WRITE }), _defineProperty(_KeyActions, Keys.SQRT, { str: "sqrt", fn: CMD }), _defineProperty(_KeyActions, Keys.PI, { str: "pi", fn: CMD }), _defineProperty(_KeyActions, Keys.THETA, { str: "theta", fn: CMD }), _defineProperty(_KeyActions, Keys.RADICAL, { str: "nthroot", fn: CMD }), _defineProperty(_KeyActions, Keys.LEFT, { str: "Left", fn: KEYSTROKE }), _defineProperty(_KeyActions, Keys.RIGHT, { str: "Right", fn: KEYSTROKE }), _defineProperty(_KeyActions, Keys.JUMP_OUT, { str: "Right", fn: KEYSTROKE }), _defineProperty(_KeyActions, Keys.LT, { str: "<", fn: WRITE }), _defineProperty(_KeyActions, Keys.LEQ, { str: "\\leq", fn: WRITE }), _defineProperty(_KeyActions, Keys.GT, { str: ">", fn: WRITE }), _defineProperty(_KeyActions, Keys.GEQ, { str: "\\geq", fn: WRITE }), _KeyActions);
+	var KeyActions = (_KeyActions = {}, _KeyActions[Keys.PLUS] = { str: '+', fn: WRITE }, _KeyActions[Keys.MINUS] = { str: '-', fn: WRITE }, _KeyActions[Keys.TIMES] = { str: '\\times', fn: WRITE }, _KeyActions[Keys.DIVIDE] = { str: '\\div', fn: WRITE }, _KeyActions[Keys.DECIMAL] = { str: '.', fn: WRITE }, _KeyActions[Keys.EQUAL] = { str: '=', fn: WRITE }, _KeyActions[Keys.NEQ] = { str: '\\neq', fn: WRITE }, _KeyActions[Keys.CDOT] = { str: '\\cdot', fn: WRITE }, _KeyActions[Keys.PERCENT] = { str: '%', fn: WRITE }, _KeyActions[Keys.FRAC] = fractionBehavior === FractionBehaviorTypes.INCLUSIVE ? { str: '/', fn: CMD } : { str: '\\frac', fn: CMD }, _KeyActions[Keys.EXP] = { str: '^', fn: CMD }, _KeyActions[Keys.EXP_2] = { str: '^2', fn: WRITE }, _KeyActions[Keys.EXP_3] = { str: '^3', fn: WRITE }, _KeyActions[Keys.SQRT] = { str: 'sqrt', fn: CMD }, _KeyActions[Keys.PI] = { str: 'pi', fn: CMD }, _KeyActions[Keys.THETA] = { str: 'theta', fn: CMD }, _KeyActions[Keys.RADICAL] = { str: 'nthroot', fn: CMD }, _KeyActions[Keys.LEFT] = { str: 'Left', fn: KEYSTROKE }, _KeyActions[Keys.RIGHT] = { str: 'Right', fn: KEYSTROKE }, _KeyActions[Keys.JUMP_OUT] = { str: 'Right', fn: KEYSTROKE }, _KeyActions[Keys.LT] = { str: '<', fn: WRITE }, _KeyActions[Keys.LEQ] = { str: '\\leq', fn: WRITE }, _KeyActions[Keys.GT] = { str: '>', fn: WRITE }, _KeyActions[Keys.GEQ] = { str: '\\geq', fn: WRITE }, _KeyActions);
 
-	var NormalCommands = (_NormalCommands = {}, _defineProperty(_NormalCommands, Keys.LOG, "log"), _defineProperty(_NormalCommands, Keys.LN, "ln"), _defineProperty(_NormalCommands, Keys.SIN, "sin"), _defineProperty(_NormalCommands, Keys.COS, "cos"), _defineProperty(_NormalCommands, Keys.TAN, "tan"), _NormalCommands);
+	var NormalCommands = (_NormalCommands = {}, _NormalCommands[Keys.LOG] = 'log', _NormalCommands[Keys.LN] = 'ln', _NormalCommands[Keys.SIN] = 'sin', _NormalCommands[Keys.COS] = 'cos', _NormalCommands[Keys.TAN] = 'tan', _NormalCommands);
 
 	var MathWrapper = (function () {
-	    function MathWrapper(element) {
-	        var callbacks = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	    function MathWrapper(element, _ref) {
+	        var _ref2 = _ref;
+	        var callbacks = _ref2 === undefined ? {} : _ref2;
 
 	        _classCallCheck(this, MathWrapper);
 
 	        var options = {
 	            // use a span instead of a textarea so that we don't bring up the
 	            // native keyboard on mobile when selecting the input
-	            substituteTextarea: function substituteTextarea() {
-	                return document.createElement("span");
-	            }
-	        };
+	            substituteTextarea: function () {
+	                return document.createElement('span');
+	            } };
 
 	        this.MQ = MathQuill.getInterface(2);
 	        this.mathField = this.MQ.MathField(element, options);
 	        this.callbacks = callbacks;
 	    }
 
-	    _createClass(MathWrapper, [{
-	        key: "_writeNormalFunction",
-	        value: function _writeNormalFunction(name) {
-	            this.mathField.write("\\" + name + "\\left(\\right)");
-	            this.mathField.keystroke("Left");
-	        }
+	    MathWrapper.prototype._writeNormalFunction = function _writeNormalFunction(name) {
+	        this.mathField.write('\\' + name + '\\left(\\right)');
+	        this.mathField.keystroke('Left');
+	    };
 
-	        /**
-	         * Handle a key press and return the resulting cursor state.
-	         *
-	         * @param {Key} key - an enum representing the key that was pressed
-	         * @returns {object} a cursor object, consisting of a cursor context
-	         */
+	    /**
+	     * Handle a key press and return the resulting cursor state.
+	     *
+	     * @param {Key} key - an enum representing the key that was pressed
+	     * @returns {object} a cursor object, consisting of a cursor context
+	     */
 
-	    }, {
-	        key: "pressKey",
-	        value: function pressKey(key) {
-	            var cursor = this.mathField.__controller.cursor;
+	    MathWrapper.prototype.pressKey = function pressKey(key) {
+	        var cursor = this.mathField.__controller.cursor;
 
-	            if (key in KeyActions) {
-	                var _KeyActions$key = KeyActions[key];
-	                var str = _KeyActions$key.str;
-	                var fn = _KeyActions$key.fn;
+	        if (key in KeyActions) {
+	            var _KeyActions$key = KeyActions[key];
+	            var str = _KeyActions$key.str;
+	            var fn = _KeyActions$key.fn;
 
-	                if (str && fn) {
-	                    this.mathField[fn](str).focus();
-	                }
-	            } else if (key === Keys.PARENS) {
-	                this.mathField.write("\\left(\\right)");
-	                this.mathField.keystroke("Left");
-	            } else if (Object.keys(NormalCommands).includes(key)) {
-	                this._writeNormalFunction(NormalCommands[key]);
-	            } else if (key === Keys.LOG_N) {
-	                this.mathField.write("log_{ }\\left(\\right)");
-	                this.mathField.keystroke("Left"); // into parentheses
-	                this.mathField.keystroke("Left"); // out of parentheses
-	                this.mathField.keystroke("Left"); // into index
-	            } else if (key === Keys.CUBE_ROOT) {
-	                this.mathField.write("\\sqrt[3]{}");
-	                this.mathField.keystroke("Left"); // under the root
-	            } else if (key === Keys.TOGGLE_SIGN) {
-	                this._handleToggleSign(cursor);
-	            } else if (key === Keys.BACKSPACE) {
-	                this._handleBackspace(cursor);
-	            } else if (/^[A-Z]$/.test(key)) {
-	                this.mathField[WRITE](key.toLowerCase()).focus();
-	            } else if (/^NUM_\d/.test(key)) {
-	                this.mathField[WRITE](key[4]).focus();
+	            if (str && fn) {
+	                this.mathField[fn](str).focus();
 	            }
-
-	            if (!cursor.selection) {
-	                // don't show the cursor for selections
-	                cursor.show();
-	            }
-
-	            if (this.callbacks.onSelectionChanged) {
-	                this.callbacks.onSelectionChanged(cursor.selection);
-	            }
-
-	            // NOTE(charlie): It's insufficient to do this as an `edited` handler
-	            // on the MathField, as that handler isn't triggered on navigation
-	            // events.
-	            return {
-	                context: this._contextForCursor(cursor)
-	            };
+	        } else if (key === Keys.PARENS) {
+	            this.mathField.write('\\left(\\right)');
+	            this.mathField.keystroke('Left');
+	        } else if (Object.keys(NormalCommands).includes(key)) {
+	            this._writeNormalFunction(NormalCommands[key]);
+	        } else if (key === Keys.LOG_N) {
+	            this.mathField.write('log_{ }\\left(\\right)');
+	            this.mathField.keystroke('Left'); // into parentheses
+	            this.mathField.keystroke('Left'); // out of parentheses
+	            this.mathField.keystroke('Left'); // into index
+	        } else if (key === Keys.CUBE_ROOT) {
+	            this.mathField.write('\\sqrt[3]{}');
+	            this.mathField.keystroke('Left'); // under the root
+	        } else if (key === Keys.TOGGLE_SIGN) {
+	            this._handleToggleSign(cursor);
+	        } else if (key === Keys.BACKSPACE) {
+	            this._handleBackspace(cursor);
+	        } else if (/^[A-Z]$/.test(key)) {
+	            this.mathField[WRITE](key.toLowerCase()).focus();
+	        } else if (/^NUM_\d/.test(key)) {
+	            this.mathField[WRITE](key[4]).focus();
 	        }
 
-	        /**
-	         * Place the cursor beside the node located at the given coordinates.
-	         *
-	         * @param {number} x - the x coordinate in the viewport
-	         * @param {number} y - the y coordinate in the viewport
-	         * @param {Node} hitNode - the node next to which the cursor should be
-	         *                         placed; if provided, the coordinates will be used
-	         *                         to determine on which side of the node the cursor
-	         *                         should be placed
-	         */
-
-	    }, {
-	        key: "setCursorPosition",
-	        value: function setCursorPosition(x, y, hitNode) {
-	            var el = hitNode || document.elementFromPoint(x, y);
-
-	            if (el) {
-	                var cursor = this.getCursor();
-
-	                if (el.hasAttribute("mq-root-block")) {
-	                    // If we're in the empty area place the cursor at the right
-	                    // end of the expression.
-	                    cursor.insAtRightEnd(this.mathField.__controller.root);
-	                } else {
-	                    // Otherwise place beside the element at x, y.
-	                    var controller = this.mathField.__controller;
-
-	                    var pageX = x - document.body.scrollLeft;
-	                    var pageY = y - document.body.scrollTop;
-	                    controller.seek($(el), pageX, pageY).cursor.startSelection();
-
-	                    // Unless that would leave us mid-command, in which case, we
-	                    // need to adjust and place the cursor inside the parens
-	                    // following the command.
-	                    var command = this._maybeFindCommand(cursor[this.MQ.L]);
-	                    if (command && command.endNode) {
-	                        // NOTE(charlie): endNode should definitely be \left(.
-	                        cursor.insLeftOf(command.endNode);
-	                        this.mathField.keystroke("Right");
-	                    }
-	                }
-
-	                if (this.callbacks.onCursorMove) {
-	                    this.callbacks.onCursorMove({
-	                        context: this._contextForCursor(cursor)
-	                    });
-	                }
-	            }
-	        }
-	    }, {
-	        key: "getCursor",
-	        value: function getCursor() {
-	            return this.mathField.__controller.cursor;
-	        }
-	    }, {
-	        key: "getSelection",
-	        value: function getSelection() {
-	            return this.getCursor().selection;
-	        }
-	    }, {
-	        key: "getContent",
-	        value: function getContent() {
-	            return this.mathField.latex();
-	        }
-	    }, {
-	        key: "setContent",
-	        value: function setContent(latex) {
-	            this.mathField.latex(latex);
+	        if (!cursor.selection) {
+	            // don't show the cursor for selections
+	            cursor.show();
 	        }
 
-	        // Notes about MathQuill
-	        //
-	        // MathQuill's stores its layout as nested linked lists.  Each node in the
-	        // list has this.MQ.L '-1' and this.MQ.R '1' properties that define links to
-	        // the left and right nodes respectively.  They also have
-	        //
-	        // ctrlSeq: contains the latex code snippet that defines that node.
-	        // jQ: jQuery object for the DOM node(s) for this MathQuill node.
-	        // ends: pointers to the nodes at the ends of the container.
-	        // parent: parent node.
-	        // blocks: an array containing one or more nodes that make up the node.
-	        // sub?: subscript node if there is one as is the case in log_n
-	        //
-	        // All of the code below is super fragile.  Please be especially careful
-	        // when upgrading MathQuill.
+	        if (this.callbacks.onSelectionChanged) {
+	            this.callbacks.onSelectionChanged(cursor.selection);
+	        }
 
-	        /**
-	         * Selects and deletes part of the expression based on the cursor location.
-	         * See inline comments for precise behavior of different cases.
-	         *
-	         * @param {cursor} cursor
-	         * @private
-	         */
+	        // NOTE(charlie): It's insufficient to do this as an `edited` handler
+	        // on the MathField, as that handler isn't triggered on navigation
+	        // events.
+	        return {
+	            context: this._contextForCursor(cursor) };
+	    };
 
-	    }, {
-	        key: "_handleBackspace",
-	        value: function _handleBackspace(cursor) {
-	            if (!cursor.selection) {
-	                var parent = cursor.parent;
-	                var grandparent = parent.parent;
-	                var leftNode = cursor[this.MQ.L];
+	    /**
+	     * Place the cursor beside the node located at the given coordinates.
+	     *
+	     * @param {number} x - the x coordinate in the viewport
+	     * @param {number} y - the y coordinate in the viewport
+	     * @param {Node} hitNode - the node next to which the cursor should be
+	     *                         placed; if provided, the coordinates will be used
+	     *                         to determine on which side of the node the cursor
+	     *                         should be placed
+	     */
 
-	                if (this._isFraction(leftNode)) {
-	                    this._selectNode(leftNode, cursor);
-	                } else if (this._isSquareRoot(leftNode)) {
-	                    this._selectNode(leftNode, cursor);
-	                } else if (this._isNthRoot(leftNode)) {
-	                    this._selectNode(leftNode, cursor);
-	                } else if (this._isNthRootIndex(parent)) {
-	                    this._handleBackspaceInRootIndex(cursor);
-	                } else if (leftNode.ctrlSeq === "\\left(") {
-	                    this._handleBackspaceOutsideParens(cursor);
-	                } else if (grandparent.ctrlSeq === "\\left(") {
-	                    this._handleBackspaceInsideParens(cursor);
-	                } else if (this._isInsideLogIndex(cursor)) {
-	                    this._handleBackspaceInLogIndex(cursor);
-	                } else if (leftNode.ctrlSeq === "\\ge " || leftNode.ctrlSeq === "\\le ") {
-	                    this._handleBackspaceAfterLigaturedSymbol(cursor);
-	                } else {
-	                    this.mathField.keystroke("Backspace");
-	                }
+	    MathWrapper.prototype.setCursorPosition = function setCursorPosition(x, y, hitNode) {
+	        var el = hitNode || document.elementFromPoint(x, y);
+
+	        if (el) {
+	            var cursor = this.getCursor();
+
+	            if (el.hasAttribute('mq-root-block')) {
+	                // If we're in the empty area place the cursor at the right
+	                // end of the expression.
+	                cursor.insAtRightEnd(this.mathField.__controller.root);
 	            } else {
-	                this.mathField.keystroke("Backspace");
+	                // Otherwise place beside the element at x, y.
+	                var controller = this.mathField.__controller;
+
+	                var pageX = x - document.body.scrollLeft;
+	                var pageY = y - document.body.scrollTop;
+	                controller.seek($(el), pageX, pageY).cursor.startSelection();
+
+	                // Unless that would leave us mid-command, in which case, we
+	                // need to adjust and place the cursor inside the parens
+	                // following the command.
+	                var command = this._maybeFindCommand(cursor[this.MQ.L]);
+	                if (command && command.endNode) {
+	                    // NOTE(charlie): endNode should definitely be \left(.
+	                    cursor.insLeftOf(command.endNode);
+	                    this.mathField.keystroke('Right');
+	                }
+	            }
+
+	            if (this.callbacks.onCursorMove) {
+	                this.callbacks.onCursorMove({
+	                    context: this._contextForCursor(cursor) });
 	            }
 	        }
+	    };
 
-	        /**
-	         * Return the start node, end node, and full name of the command of which
-	         * the initial node is a part, or `null` if the node is not part of a
-	         * command.
-	         *
-	         * @param {node} initialNode - the node to included as part of the command
-	         * @returns {null|object} - `null` or an object containing the start node
-	         *                          (`startNode`), end node (`endNode`), and full
-	         *                          name (`name`) of the command
-	         * @private
-	         */
+	    MathWrapper.prototype.getCursor = function getCursor() {
+	        return this.mathField.__controller.cursor;
+	    };
 
-	    }, {
-	        key: "_maybeFindCommand",
-	        value: function _maybeFindCommand(initialNode) {
-	            if (!initialNode) {
-	                return null;
+	    MathWrapper.prototype.getSelection = function getSelection() {
+	        return this.getCursor().selection;
+	    };
+
+	    MathWrapper.prototype.getContent = function getContent() {
+	        return this.mathField.latex();
+	    };
+
+	    MathWrapper.prototype.setContent = function setContent(latex) {
+	        this.mathField.latex(latex);
+	    };
+
+	    // Notes about MathQuill
+	    //
+	    // MathQuill's stores its layout as nested linked lists.  Each node in the
+	    // list has this.MQ.L '-1' and this.MQ.R '1' properties that define links to
+	    // the left and right nodes respectively.  They also have
+	    //
+	    // ctrlSeq: contains the latex code snippet that defines that node.
+	    // jQ: jQuery object for the DOM node(s) for this MathQuill node.
+	    // ends: pointers to the nodes at the ends of the container.
+	    // parent: parent node.
+	    // blocks: an array containing one or more nodes that make up the node.
+	    // sub?: subscript node if there is one as is the case in log_n
+	    //
+	    // All of the code below is super fragile.  Please be especially careful
+	    // when upgrading MathQuill.
+
+	    /**
+	     * Selects and deletes part of the expression based on the cursor location.
+	     * See inline comments for precise behavior of different cases.
+	     *
+	     * @param {cursor} cursor
+	     * @private
+	     */
+
+	    MathWrapper.prototype._handleBackspace = function _handleBackspace(cursor) {
+	        if (!cursor.selection) {
+	            var _parent = cursor.parent;
+	            var grandparent = _parent.parent;
+	            var leftNode = cursor[this.MQ.L];
+
+	            if (this._isFraction(leftNode)) {
+	                this._selectNode(leftNode, cursor);
+	            } else if (this._isSquareRoot(leftNode)) {
+	                this._selectNode(leftNode, cursor);
+	            } else if (this._isNthRoot(leftNode)) {
+	                this._selectNode(leftNode, cursor);
+	            } else if (this._isNthRootIndex(_parent)) {
+	                this._handleBackspaceInRootIndex(cursor);
+	            } else if (leftNode.ctrlSeq === '\\left(') {
+	                this._handleBackspaceOutsideParens(cursor);
+	            } else if (grandparent.ctrlSeq === '\\left(') {
+	                this._handleBackspaceInsideParens(cursor);
+	            } else if (this._isInsideLogIndex(cursor)) {
+	                this._handleBackspaceInLogIndex(cursor);
+	            } else if (leftNode.ctrlSeq === '\\ge ' || leftNode.ctrlSeq === '\\le ') {
+	                this._handleBackspaceAfterLigaturedSymbol(cursor);
+	            } else {
+	                this.mathField.keystroke('Backspace');
 	            }
+	        } else {
+	            this.mathField.keystroke('Backspace');
+	        }
+	    };
 
-	            // MathQuill stores commands as separate characters so that
-	            // users can delete commands one character at a time.  Iterate over
-	            // the nodes from right to left until we hit a '\\' signifies the
-	            // start of a command and return that node.  If we encounter any
-	            // character that doesn't belong in a command, return null.
-	            var commandDelimiter = "\\";
+	    /**
+	     * Return the start node, end node, and full name of the command of which
+	     * the initial node is a part, or `null` if the node is not part of a
+	     * command.
+	     *
+	     * @param {node} initialNode - the node to included as part of the command
+	     * @returns {null|object} - `null` or an object containing the start node
+	     *                          (`startNode`), end node (`endNode`), and full
+	     *                          name (`name`) of the command
+	     * @private
+	     */
 
-	            // We match a single character at a time.  The '\\' is optional because
-	            // only the first node in the sequence contains a '\\', e.g.
-	            // ['\\l', 'o', 'g ', '\\left(', ...]
-	            var commandCharRegex = /[\\]?[a-z]/;
+	    MathWrapper.prototype._maybeFindCommand = function _maybeFindCommand(initialNode) {
+	        if (!initialNode) {
+	            return null;
+	        }
 
-	            // Note: We don't treat left-parens as a command in the same sense as
-	            // cosine and log.
-	            var ignoredCommands = ["\\left("];
+	        // MathQuill stores commands as separate characters so that
+	        // users can delete commands one character at a time.  Iterate over
+	        // the nodes from right to left until we hit a '\\' signifies the
+	        // start of a command and return that node.  If we encounter any
+	        // character that doesn't belong in a command, return null.
+	        var commandDelimiter = '\\';
 
-	            var name = "";
-	            var startNode = void 0;
-	            var endNode = void 0;
+	        // We match a single character at a time.  The '\\' is optional because
+	        // only the first node in the sequence contains a '\\', e.g.
+	        // ['\\l', 'o', 'g ', '\\left(', ...]
+	        var commandCharRegex = /[\\]?[a-z]/;
 
-	            // Collect the portion of the command from the current node, leftwards
-	            // until the start of the command.
-	            var node = initialNode;
-	            while (node !== 0) {
-	                if (commandCharRegex.test(node.ctrlSeq)) {
-	                    name = node.ctrlSeq.trim() + name;
+	        // Note: We don't treat left-parens as a command in the same sense as
+	        // cosine and log.
+	        var ignoredCommands = ['\\left('];
 
-	                    if (node.ctrlSeq.startsWith(commandDelimiter)) {
-	                        startNode = node;
-	                        break;
-	                    }
-	                } else {
+	        var name = '';
+	        var startNode = undefined;
+	        var endNode = undefined;
+
+	        // Collect the portion of the command from the current node, leftwards
+	        // until the start of the command.
+	        var node = initialNode;
+	        while (node !== 0) {
+	            if (commandCharRegex.test(node.ctrlSeq)) {
+	                name = node.ctrlSeq.trim() + name;
+
+	                if (node.ctrlSeq.startsWith(commandDelimiter)) {
+	                    startNode = node;
 	                    break;
 	                }
-
-	                node = node[this.MQ.L];
+	            } else {
+	                break;
 	            }
 
-	            // If we hit the start of a command, then grab the rest of it by
-	            // iterating rightwards to compute the full name of the command, along
-	            // with its terminal node.
-	            if (startNode) {
-	                // Next, iterate from the start to the right.
-	                node = initialNode[this.MQ.R];
-	                while (node !== 0) {
-	                    if (commandCharRegex.test(node.ctrlSeq) && !node.ctrlSeq.startsWith(commandDelimiter)) {
-	                        name = name + node.ctrlSeq.trim();
-	                    } else {
-	                        endNode = node;
-	                    }
+	            node = node[this.MQ.L];
+	        }
 
-	                    node = node[this.MQ.R];
-	                }
-	                if (ignoredCommands.includes(name)) {
-	                    return null;
+	        // If we hit the start of a command, then grab the rest of it by
+	        // iterating rightwards to compute the full name of the command, along
+	        // with its terminal node.
+	        if (startNode) {
+	            // Next, iterate from the start to the right.
+	            node = initialNode[this.MQ.R];
+	            while (node !== 0) {
+	                if (commandCharRegex.test(node.ctrlSeq) && !node.ctrlSeq.startsWith(commandDelimiter)) {
+	                    name = name + node.ctrlSeq.trim();
 	                } else {
-	                    return { name: name, startNode: startNode, endNode: endNode };
+	                    endNode = node;
 	                }
-	            } else {
+
+	                node = node[this.MQ.R];
+	            }
+	            if (ignoredCommands.includes(name)) {
 	                return null;
-	            }
-	        }
-
-	        /**
-	         * Return the start node, end node, and full name of the command to the left
-	         * of `\\left(`, or `null` if there is no command.
-	         *
-	         * @param {node} leftParenNode - node where .ctrlSeq == `\\left(`
-	         * @returns {null|object} - `null` or an object containing the start node
-	         *                          (`startNode`), end node (`endNode`), and full
-	         *                          name (`name`) of the command
-	         * @private
-	         */
-
-	    }, {
-	        key: "_maybeFindCommandBeforeParens",
-	        value: function _maybeFindCommandBeforeParens(leftParenNode) {
-	            return this._maybeFindCommand(leftParenNode[this.MQ.L]);
-	        }
-	    }, {
-	        key: "_selectNode",
-	        value: function _selectNode(node, cursor) {
-	            cursor.insLeftOf(node);
-	            cursor.startSelection();
-	            cursor.insRightOf(node);
-	            cursor.select();
-	            cursor.endSelection();
-	        }
-	    }, {
-	        key: "_isFraction",
-	        value: function _isFraction(node) {
-	            return node.jQ && node.jQ.hasClass("mq-fraction");
-	        }
-	    }, {
-	        key: "_isSquareRoot",
-	        value: function _isSquareRoot(node) {
-	            return node.blocks && node.blocks[0].jQ && node.blocks[0].jQ.hasClass("mq-sqrt-stem");
-	        }
-	    }, {
-	        key: "_isNthRoot",
-	        value: function _isNthRoot(node) {
-	            return node.blocks && node.blocks[0].jQ && node.blocks[0].jQ.hasClass("mq-nthroot");
-	        }
-	    }, {
-	        key: "_isNthRootIndex",
-	        value: function _isNthRootIndex(node) {
-	            return node.jQ && node.jQ.hasClass("mq-nthroot");
-	        }
-	    }, {
-	        key: "_isInsideLogIndex",
-	        value: function _isInsideLogIndex(cursor) {
-	            var grandparent = cursor.parent.parent;
-
-	            if (grandparent && grandparent.jQ.hasClass("mq-supsub")) {
-	                var command = this._maybeFindCommandBeforeParens(grandparent);
-
-	                if (command && command.name === "\\log") {
-	                    return true;
-	                }
-	            }
-
-	            return false;
-	        }
-	    }, {
-	        key: "_isInsideEmptyNode",
-	        value: function _isInsideEmptyNode(cursor) {
-	            return cursor[this.MQ.L] === MQ_END && cursor[this.MQ.R] === MQ_END;
-	        }
-	    }, {
-	        key: "_handleBackspaceInRootIndex",
-	        value: function _handleBackspaceInRootIndex(cursor) {
-	            if (this._isInsideEmptyNode(cursor)) {
-	                // When deleting the index in a nthroot, we change from the nthroot
-	                // to a sqrt, e.g. \sqrt[|]{35x-5} => |\sqrt{35x-5}.  If there's no
-	                // content under the root, then we delete the whole thing.
-
-	                var grandparent = cursor.parent.parent;
-	                var latex = grandparent.latex();
-	                var reinsertionPoint = grandparent[this.MQ.L];
-
-	                this._selectNode(grandparent, cursor);
-
-	                var rootIsEmpty = grandparent.blocks[1].jQ.text() === "";
-
-	                if (rootIsEmpty) {
-	                    // If there is not content under the root then simply delete
-	                    // the whole thing.
-	                    this.mathField.keystroke("Backspace");
-	                } else {
-	                    // Replace the nthroot with a sqrt if there was content under
-	                    // the root.
-
-	                    // Start by deleting the selection.
-	                    this.mathField.keystroke("Backspace");
-
-	                    // Replace the nth-root with a sqrt.
-	                    this.mathField.write(latex.replace(/^\\sqrt\[\]/, "\\sqrt"));
-
-	                    // Adjust the cursor to be to the left the sqrt.
-	                    if (reinsertionPoint === MQ_END) {
-	                        this.mathField.moveToDirEnd(this.MQ.L);
-	                    } else {
-	                        cursor.insRightOf(reinsertionPoint);
-	                    }
-	                }
 	            } else {
-	                if (cursor[this.MQ.L] !== MQ_END) {
-	                    // If the cursor is not at the leftmost position inside the
-	                    // root's index, delete a character.
-	                    this.mathField.keystroke("Backspace");
-	                } else {}
+	                return { name: name, startNode: startNode, endNode: endNode };
 	            }
+	        } else {
+	            return null;
 	        }
-	    }, {
-	        key: "_handleBackspaceInLogIndex",
-	        value: function _handleBackspaceInLogIndex(cursor) {
-	            if (this._isInsideEmptyNode(cursor)) {
-	                var grandparent = cursor.parent.parent;
-	                var command = this._maybeFindCommandBeforeParens(grandparent);
+	    };
 
-	                cursor.insLeftOf(command.startNode);
-	                cursor.startSelection();
+	    /**
+	     * Return the start node, end node, and full name of the command to the left
+	     * of `\\left(`, or `null` if there is no command.
+	     *
+	     * @param {node} leftParenNode - node where .ctrlSeq == `\\left(`
+	     * @returns {null|object} - `null` or an object containing the start node
+	     *                          (`startNode`), end node (`endNode`), and full
+	     *                          name (`name`) of the command
+	     * @private
+	     */
 
-	                if (grandparent[this.MQ.R] !== MQ_END) {
-	                    cursor.insRightOf(grandparent[this.MQ.R]);
-	                } else {
-	                    cursor.insRightOf(grandparent);
-	                }
+	    MathWrapper.prototype._maybeFindCommandBeforeParens = function _maybeFindCommandBeforeParens(leftParenNode) {
+	        return this._maybeFindCommand(leftParenNode[this.MQ.L]);
+	    };
 
-	                cursor.select();
-	                cursor.endSelection();
+	    MathWrapper.prototype._selectNode = function _selectNode(node, cursor) {
+	        cursor.insLeftOf(node);
+	        cursor.startSelection();
+	        cursor.insRightOf(node);
+	        cursor.select();
+	        cursor.endSelection();
+	    };
 
-	                var isLogBodyEmpty = grandparent[this.MQ.R].contentjQ.text() === "";
+	    MathWrapper.prototype._isFraction = function _isFraction(node) {
+	        return node.jQ && node.jQ.hasClass('mq-fraction');
+	    };
 
-	                if (isLogBodyEmpty) {
-	                    // If there's no content inside the log's parens then delete the
-	                    // whole thing.
-	                    this.mathField.keystroke("Backspace");
-	                }
-	            } else {
-	                this.mathField.keystroke("Backspace");
-	            }
-	        }
-	    }, {
-	        key: "_handleBackspaceOutsideParens",
-	        value: function _handleBackspaceOutsideParens(cursor) {
-	            // In this case the node with '\\left(' for its ctrlSeq
-	            // is the parent of the expression contained within the
-	            // parentheses.
-	            //
-	            // Handle selecting an expression before deleting:
-	            // (x+1)| => |(x+1)|
-	            // \log(x+1)| => |\log(x+1)|
+	    MathWrapper.prototype._isSquareRoot = function _isSquareRoot(node) {
+	        return node.blocks && node.blocks[0].jQ && node.blocks[0].jQ.hasClass('mq-sqrt-stem');
+	    };
 
-	            var leftNode = cursor[this.MQ.L];
-	            var rightNode = cursor[this.MQ.R];
-	            var command = this._maybeFindCommandBeforeParens(leftNode);
+	    MathWrapper.prototype._isNthRoot = function _isNthRoot(node) {
+	        return node.blocks && node.blocks[0].jQ && node.blocks[0].jQ.hasClass('mq-nthroot');
+	    };
 
-	            if (command && command.startNode) {
-	                // There's a command before the parens so we select it as well as
-	                // the parens.
-	                cursor.insLeftOf(command.startNode);
-	                cursor.startSelection();
-	                if (rightNode === MQ_END) {
-	                    cursor.insAtRightEnd(cursor.parent);
-	                } else {
-	                    cursor.insLeftOf(rightNode);
-	                }
-	                cursor.select();
-	                cursor.endSelection();
-	            } else {
-	                cursor.startSelection();
-	                cursor.insLeftOf(leftNode); // left of \\left(
-	                cursor.select();
-	                cursor.endSelection();
-	            }
-	        }
-	    }, {
-	        key: "_handleBackspaceInsideParens",
-	        value: function _handleBackspaceInsideParens(cursor) {
-	            // Handle situations when the cursor is inside parens or a
-	            // command that uses parens, e.g. \log() or \tan()
-	            //
-	            // MathQuill represents log(x+1) in roughly the following way
-	            // [l, o, g, \\left[parent:[x, +, 1]]]
-	            //
-	            // If the cursor is inside the parentheses it's next to one of:
-	            // x, +, or 1.  This makes sub_sub_expr its parent and sub_expr
-	            // it's parent.
-	            //
-	            // Interestingly parent doesn't have any nodes to the left or
-	            // right of it (even though the corresponding DOM node has
-	            // ( and ) characters on either side.
-	            //
-	            // The grandparent's ctrlSeq is `\\left(`. The `\\right)` isn't
-	            // stored anywhere.  NOTE(kevinb): I believe this is because
-	            // MathQuill knows what the close paren should be and does the
-	            // right thing at render time.
-	            //
-	            // This conditional branch handles the following cases:
-	            // - \log(x+1|) => \log(x+|)
-	            // - \log(|x+1) => |\log(x+1)|
-	            // - \log(|) => |
+	    MathWrapper.prototype._isNthRootIndex = function _isNthRootIndex(node) {
+	        return node.jQ && node.jQ.hasClass('mq-nthroot');
+	    };
 
-	            if (cursor[this.MQ.L] !== MQ_END) {
-	                // This command contains math and there's some math to
-	                // the left of the cursor that we should delete normally
-	                // before doing anything special.
-	                this.mathField.keystroke("Backspace");
-	                return;
-	            }
+	    MathWrapper.prototype._isInsideLogIndex = function _isInsideLogIndex(cursor) {
+	        var grandparent = cursor.parent.parent;
 
-	            var grandparent = cursor.parent.parent;
-
-	            // If the cursors is inside the parens at the start but the command
-	            // has a subscript as is the case in log_n then move the cursor into
-	            // the subscript, e.g. \log_{5}(|x+1) => \log_{5|}(x+1)
-
-	            if (grandparent[this.MQ.L].sub) {
-	                // if there is a subscript
-	                if (grandparent[this.MQ.L].sub.jQ.text()) {
-	                    // and it contains text
-	                    // move the cursor to the right end of the subscript
-	                    cursor.insAtRightEnd(grandparent[this.MQ.L].sub);
-	                    return;
-	                }
-	            }
-
-	            // Determine if the parens are empty before we modify the
-	            // cursor's position.
-	            var isEmpty = this._isInsideEmptyNode(cursor);
-
-	            // Insert the cursor to the left of the command if there is one
-	            // or before the '\\left(` if there isn't
+	        if (grandparent && grandparent.jQ.hasClass('mq-supsub')) {
 	            var command = this._maybeFindCommandBeforeParens(grandparent);
 
-	            cursor.insLeftOf(command && command.startNode || grandparent);
+	            if (command && command.name === '\\log') {
+	                return true;
+	            }
+	        }
+
+	        return false;
+	    };
+
+	    MathWrapper.prototype._isInsideEmptyNode = function _isInsideEmptyNode(cursor) {
+	        return cursor[this.MQ.L] === MQ_END && cursor[this.MQ.R] === MQ_END;
+	    };
+
+	    MathWrapper.prototype._handleBackspaceInRootIndex = function _handleBackspaceInRootIndex(cursor) {
+	        if (this._isInsideEmptyNode(cursor)) {
+	            // When deleting the index in a nthroot, we change from the nthroot
+	            // to a sqrt, e.g. \sqrt[|]{35x-5} => |\sqrt{35x-5}.  If there's no
+	            // content under the root, then we delete the whole thing.
+
+	            var grandparent = cursor.parent.parent;
+	            var latex = grandparent.latex();
+	            var reinsertionPoint = grandparent[this.MQ.L];
+
+	            this._selectNode(grandparent, cursor);
+
+	            var rootIsEmpty = grandparent.blocks[1].jQ.text() === '';
+
+	            if (rootIsEmpty) {
+	                // If there is not content under the root then simply delete
+	                // the whole thing.
+	                this.mathField.keystroke('Backspace');
+	            } else {
+	                // Replace the nthroot with a sqrt if there was content under
+	                // the root.
+
+	                // Start by deleting the selection.
+	                this.mathField.keystroke('Backspace');
+
+	                // Replace the nth-root with a sqrt.
+	                this.mathField.write(latex.replace(/^\\sqrt\[\]/, '\\sqrt'));
+
+	                // Adjust the cursor to be to the left the sqrt.
+	                if (reinsertionPoint === MQ_END) {
+	                    this.mathField.moveToDirEnd(this.MQ.L);
+	                } else {
+	                    cursor.insRightOf(reinsertionPoint);
+	                }
+	            }
+	        } else {
+	            if (cursor[this.MQ.L] !== MQ_END) {
+	                // If the cursor is not at the leftmost position inside the
+	                // root's index, delete a character.
+	                this.mathField.keystroke('Backspace');
+	            } else {}
+	        }
+	    };
+
+	    MathWrapper.prototype._handleBackspaceInLogIndex = function _handleBackspaceInLogIndex(cursor) {
+	        if (this._isInsideEmptyNode(cursor)) {
+	            var grandparent = cursor.parent.parent;
+	            var command = this._maybeFindCommandBeforeParens(grandparent);
+
+	            cursor.insLeftOf(command.startNode);
 	            cursor.startSelection();
-	            cursor.insRightOf(grandparent);
+
+	            if (grandparent[this.MQ.R] !== MQ_END) {
+	                cursor.insRightOf(grandparent[this.MQ.R]);
+	            } else {
+	                cursor.insRightOf(grandparent);
+	            }
+
 	            cursor.select();
 	            cursor.endSelection();
 
-	            // Delete the selection, but only if the parens were empty to
-	            // begin with.
-	            if (isEmpty) {
-	                this.mathField.keystroke("Backspace");
+	            var isLogBodyEmpty = grandparent[this.MQ.R].contentjQ.text() === '';
+
+	            if (isLogBodyEmpty) {
+	                // If there's no content inside the log's parens then delete the
+	                // whole thing.
+	                this.mathField.keystroke('Backspace');
 	            }
+	        } else {
+	            this.mathField.keystroke('Backspace');
 	        }
+	    };
 
-	        /**
-	         * Handle the 'toggle sign' operation.
-	         *
-	         * This implementation makes non-trivial assumptions about the behavior of
-	         * our keypads. Namely, it assumes that the 'toggle sign' operation can
-	         * only be performed on keypads that will never have selection states, and
-	         * will never have nested expressions.
-	         */
+	    MathWrapper.prototype._handleBackspaceOutsideParens = function _handleBackspaceOutsideParens(cursor) {
+	        // In this case the node with '\\left(' for its ctrlSeq
+	        // is the parent of the expression contained within the
+	        // parentheses.
+	        //
+	        // Handle selecting an expression before deleting:
+	        // (x+1)| => |(x+1)|
+	        // \log(x+1)| => |\log(x+1)|
 
-	    }, {
-	        key: "_handleToggleSign",
-	        value: function _handleToggleSign(cursor) {
-	            // Pre-compute a few values before mutating the cursor.
-	            var leftNode = cursor[this.MQ.L];
-	            var parent = cursor.parent;
-	            var isAtTopLevel = this._isAtTopLevel(cursor);
+	        var leftNode = cursor[this.MQ.L];
+	        var rightNode = cursor[this.MQ.R];
+	        var command = this._maybeFindCommandBeforeParens(leftNode);
 
-	            // Store the selection, if it exists.
-	            var leftEnd = cursor.selection && cursor.selection.ends[this.MQ.L];
-	            var rightEnd = cursor.selection && cursor.selection.ends[this.MQ.R];
-
-	            var latex = this.getContent();
-	            var minusSign = "-";
-	            if (latex.charAt(0) === minusSign) {
-	                // If the input is leading with a minus sign, remove it.
-	                this.mathField.moveToDirEnd(this.MQ.L);
-	                this.mathField.keystroke("Right");
-	                this.mathField.keystroke("Backspace");
+	        if (command && command.startNode) {
+	            // There's a command before the parens so we select it as well as
+	            // the parens.
+	            cursor.insLeftOf(command.startNode);
+	            cursor.startSelection();
+	            if (rightNode === MQ_END) {
+	                cursor.insAtRightEnd(cursor.parent);
 	            } else {
-	                // Otherwise, write it at the start of the expression.
-	                this.mathField.moveToDirEnd(this.MQ.L);
-	                this.mathField.write(minusSign);
+	                cursor.insLeftOf(rightNode);
 	            }
+	            cursor.select();
+	            cursor.endSelection();
+	        } else {
+	            cursor.startSelection();
+	            cursor.insLeftOf(leftNode); // left of \\left(
+	            cursor.select();
+	            cursor.endSelection();
+	        }
+	    };
 
-	            // If you had something selected, restore it.
-	            if (leftEnd && rightEnd) {
-	                cursor.insLeftOf(leftEnd);
-	                cursor.startSelection();
-	                cursor.insRightOf(rightEnd);
-	                cursor.select();
-	                cursor.endSelection();
-	            }if (leftNode === MQ_END && !isAtTopLevel) {
-	                // Otherwise, if we started in an empty, non-top-level node (like an
-	                // empty numerator), then we need to re-insert into the end of that
-	                // node.
-	                cursor.insAtLeftEnd(parent);
-	            } else if (leftNode !== MQ_END && leftNode.latex() !== minusSign) {
-	                // Finally, if our cursor wasn't at the start of the expression and
-	                // wasn't at the minus sign (in such cases, it would naturally be in
-	                // the right place after insertion), re-insert it.
-	                cursor.insRightOf(leftNode);
+	    MathWrapper.prototype._handleBackspaceInsideParens = function _handleBackspaceInsideParens(cursor) {
+	        // Handle situations when the cursor is inside parens or a
+	        // command that uses parens, e.g. \log() or \tan()
+	        //
+	        // MathQuill represents log(x+1) in roughly the following way
+	        // [l, o, g, \\left[parent:[x, +, 1]]]
+	        //
+	        // If the cursor is inside the parentheses it's next to one of:
+	        // x, +, or 1.  This makes sub_sub_expr its parent and sub_expr
+	        // it's parent.
+	        //
+	        // Interestingly parent doesn't have any nodes to the left or
+	        // right of it (even though the corresponding DOM node has
+	        // ( and ) characters on either side.
+	        //
+	        // The grandparent's ctrlSeq is `\\left(`. The `\\right)` isn't
+	        // stored anywhere.  NOTE(kevinb): I believe this is because
+	        // MathQuill knows what the close paren should be and does the
+	        // right thing at render time.
+	        //
+	        // This conditional branch handles the following cases:
+	        // - \log(x+1|) => \log(x+|)
+	        // - \log(|x+1) => |\log(x+1)|
+	        // - \log(|) => |
+
+	        if (cursor[this.MQ.L] !== MQ_END) {
+	            // This command contains math and there's some math to
+	            // the left of the cursor that we should delete normally
+	            // before doing anything special.
+	            this.mathField.keystroke('Backspace');
+	            return;
+	        }
+
+	        var grandparent = cursor.parent.parent;
+
+	        // If the cursors is inside the parens at the start but the command
+	        // has a subscript as is the case in log_n then move the cursor into
+	        // the subscript, e.g. \log_{5}(|x+1) => \log_{5|}(x+1)
+
+	        if (grandparent[this.MQ.L].sub) {
+	            // if there is a subscript
+	            if (grandparent[this.MQ.L].sub.jQ.text()) {
+	                // and it contains text
+	                // move the cursor to the right end of the subscript
+	                cursor.insAtRightEnd(grandparent[this.MQ.L].sub);
+	                return;
 	            }
 	        }
-	    }, {
-	        key: "_handleBackspaceAfterLigaturedSymbol",
-	        value: function _handleBackspaceAfterLigaturedSymbol(cursor) {
-	            this.mathField.keystroke("Backspace");
-	            this.mathField.keystroke("Backspace");
+
+	        // Determine if the parens are empty before we modify the
+	        // cursor's position.
+	        var isEmpty = this._isInsideEmptyNode(cursor);
+
+	        // Insert the cursor to the left of the command if there is one
+	        // or before the '\\left(` if there isn't
+	        var command = this._maybeFindCommandBeforeParens(grandparent);
+
+	        cursor.insLeftOf(command && command.startNode || grandparent);
+	        cursor.startSelection();
+	        cursor.insRightOf(grandparent);
+	        cursor.select();
+	        cursor.endSelection();
+
+	        // Delete the selection, but only if the parens were empty to
+	        // begin with.
+	        if (isEmpty) {
+	            this.mathField.keystroke('Backspace');
 	        }
-	    }, {
-	        key: "_contextForCursor",
-	        value: function _contextForCursor(cursor) {
-	            if (this._isAtTopLevel(cursor)) {
-	                return CursorContexts.TOP_LEVEL;
-	            } else {
-	                return CursorContexts.NESTED;
-	            }
+	    };
+
+	    /**
+	     * Handle the 'toggle sign' operation.
+	     *
+	     * This implementation makes non-trivial assumptions about the behavior of
+	     * our keypads. Namely, it assumes that the 'toggle sign' operation can
+	     * only be performed on keypads that will never have selection states, and
+	     * will never have nested expressions.
+	     */
+
+	    MathWrapper.prototype._handleToggleSign = function _handleToggleSign(cursor) {
+	        // Pre-compute a few values before mutating the cursor.
+	        var leftNode = cursor[this.MQ.L];
+	        var parent = cursor.parent;
+	        var isAtTopLevel = this._isAtTopLevel(cursor);
+
+	        // Store the selection, if it exists.
+	        var leftEnd = cursor.selection && cursor.selection.ends[this.MQ.L];
+	        var rightEnd = cursor.selection && cursor.selection.ends[this.MQ.R];
+
+	        var latex = this.getContent();
+	        var minusSign = '-';
+	        if (latex.charAt(0) === minusSign) {
+	            // If the input is leading with a minus sign, remove it.
+	            this.mathField.moveToDirEnd(this.MQ.L);
+	            this.mathField.keystroke('Right');
+	            this.mathField.keystroke('Backspace');
+	        } else {
+	            // Otherwise, write it at the start of the expression.
+	            this.mathField.moveToDirEnd(this.MQ.L);
+	            this.mathField.write(minusSign);
 	        }
-	    }, {
-	        key: "_isAtTopLevel",
-	        value: function _isAtTopLevel(cursor) {
-	            return !cursor.parent.parent;
+
+	        // If you had something selected, restore it.
+	        if (leftEnd && rightEnd) {
+	            cursor.insLeftOf(leftEnd);
+	            cursor.startSelection();
+	            cursor.insRightOf(rightEnd);
+	            cursor.select();
+	            cursor.endSelection();
+	        }if (leftNode === MQ_END && !isAtTopLevel) {
+	            // Otherwise, if we started in an empty, non-top-level node (like an
+	            // empty numerator), then we need to re-insert into the end of that
+	            // node.
+	            cursor.insAtLeftEnd(parent);
+	        } else if (leftNode !== MQ_END && leftNode.latex() !== minusSign) {
+	            // Finally, if our cursor wasn't at the start of the expression and
+	            // wasn't at the minus sign (in such cases, it would naturally be in
+	            // the right place after insertion), re-insert it.
+	            cursor.insRightOf(leftNode);
 	        }
-	    }]);
+	    };
+
+	    MathWrapper.prototype._handleBackspaceAfterLigaturedSymbol = function _handleBackspaceAfterLigaturedSymbol(cursor) {
+	        this.mathField.keystroke('Backspace');
+	        this.mathField.keystroke('Backspace');
+	    };
+
+	    MathWrapper.prototype._contextForCursor = function _contextForCursor(cursor) {
+	        if (this._isAtTopLevel(cursor)) {
+	            return CursorContexts.TOP_LEVEL;
+	        } else {
+	            return CursorContexts.NESTED;
+	        }
+	    };
+
+	    MathWrapper.prototype._isAtTopLevel = function _isAtTopLevel(cursor) {
+	        return !cursor.parent.parent;
+	    };
 
 	    return MathWrapper;
 	})();
@@ -57748,10 +57587,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	// index of the radical.
 
 /***/ },
-/* 229 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
 
 	/**
 	 * A single function used to scroll a DOM node into view, optionally taking into
@@ -57764,7 +57601,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * level in the component tree--perhaps even into webapp, beyond Perseus.
 	 */
 
-	var scrollIntoView = function scrollIntoView(containerNode, keypadNode) {
+	var scrollIntoView = function (containerNode, keypadNode) {
 	    var containerBounds = containerNode.getBoundingClientRect();
 	    var containerBottomPx = containerBounds.bottom;
 	    var containerTopPx = containerBounds.top;
@@ -57803,10 +57640,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = scrollIntoView;
 
 /***/ },
-/* 230 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * Common parameters used to style components.
@@ -57826,22 +57661,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	    buttonBorderWidthPx: 1,
 	    defaultButtonHeightPx: defaultButtonHeightPx,
 	    // Compute the button height on request, as it's dependent on window size.
-	    getButtonHeightPx: function getButtonHeightPx() {
+	    getButtonHeightPx: function () {
 	        var numColumns = 5;
 	        var numRows = 4;
 
 	        if (typeof window === 'undefined') {
 	            return defaultButtonHeightPx;
 	        } else {
-	            var _window$document$docu = window.document.documentElement;
-	            var clientWidth = _window$document$docu.clientWidth;
-	            var clientHeight = _window$document$docu.clientHeight;
+	            var _window$document$documentElement = window.document.documentElement;
+	            var clientWidth = _window$document$documentElement.clientWidth;
+	            var clientHeight = _window$document$documentElement.clientHeight;
 
 	            // Compute the button height as 1/5 of the screen width. If that
 	            // would cause the keyboard to cover the screen, then default to
 	            // 44px. This should mostly be for testing on desktop, though it
 	            // will also be the case in landscape.
-
 	            var buttonHeightPx = clientWidth / numColumns;
 	            if (clientHeight < buttonHeightPx * numRows) {
 	                buttonHeightPx = defaultButtonHeightPx;
@@ -57864,56 +57698,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    numeralGrey: '#FFF',
 	    commandGrey: '#FAFAFA',
 	    controlGrey: '#F6F7F7',
-	    disabledGrey: '#F0F1F2'
-	};
-
-/***/ },
-/* 231 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * Constants that define the various contexts in which a cursor can exist. In
-	 * the future, we may, for example, have a context for being in a numerator, a
-	 * context for being in a denominator, a context for being in an exponent, and
-	 * so forth.
-	 */
-
-	module.exports = {
-	  TOP_LEVEL: 'TOP_LEVEL',
-	  NESTED: 'NESTED'
-	};
+	    disabledGrey: '#F0F1F2' };
 
 /***/ },
 /* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	var _extends = Object.assign || function (target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];for (var key in source) {
-	            if (Object.prototype.hasOwnProperty.call(source, key)) {
-	                target[key] = source[key];
-	            }
-	        }
-	    }return target;
-	};
-
-	function _toConsumableArray(arr) {
-	    if (Array.isArray(arr)) {
-	        for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-	            arr2[i] = arr[i];
-	        }return arr2;
-	    } else {
-	        return Array.from(arr);
-	    }
-	}
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var Redux = __webpack_require__(262);
 
-	var _require = __webpack_require__(230);
+	var _require = __webpack_require__(231);
 
 	var defaultButtonHeightPx = _require.defaultButtonHeightPx;
 
@@ -57921,31 +57716,28 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var KeyTypes = _require2.KeyTypes;
 
-	var Keys = __webpack_require__(243);
-	var KeyConfigs = __webpack_require__(234);
+	var Keys = __webpack_require__(242);
+	var KeyConfigs = __webpack_require__(233);
 	var Keypads = __webpack_require__(245);
-	var CursorContexts = __webpack_require__(231);
+	var CursorContexts = __webpack_require__(226);
 	var GestureManager = __webpack_require__(246);
 	var VelocityTracker = __webpack_require__(247);
 
-	var Settings = __webpack_require__(244);
+	var Settings = __webpack_require__(243);
 
 	var initialInputState = {
 	    keyHandler: null,
 	    cursor: {
-	        context: CursorContexts.TOP_LEVEL
-	    }
-	};
+	        context: CursorContexts.TOP_LEVEL } };
 
-	var inputReducer = function inputReducer() {
-	    var state = arguments.length <= 0 || arguments[0] === undefined ? initialInputState : arguments[0];
-	    var action = arguments[1];
+	var inputReducer = function (_ref, action) {
+	    var _ref2 = _ref;
+	    var state = _ref2 === undefined ? initialInputState : _ref2;
 
 	    switch (action.type) {
 	        case 'SetKeyHandler':
 	            return _extends({}, state, {
-	                keyHandler: action.keyHandler
-	            });
+	                keyHandler: action.keyHandler });
 
 	        case 'PressKey':
 	            var keyConfig = KeyConfigs[action.key];
@@ -57954,8 +57746,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                // where we don't actually control the state but we still want
 	                // to communicate with the other object
 	                return _extends({}, state, {
-	                    cursor: state.keyHandler(keyConfig.id)
-	                });
+	                    cursor: state.keyHandler(keyConfig.id) });
 	            }
 
 	            // TODO(kevinb) get state from MathQuill and store it?
@@ -57963,8 +57754,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        case 'SetCursor':
 	            return _extends({}, state, {
-	                cursor: action.cursor
-	            });
+	                cursor: action.cursor });
 
 	        default:
 	            return state;
@@ -57976,23 +57766,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	var initialKeypadState = {
 	    extraKeys: Keypads[defaultKeypadType].extraKeys,
 	    keypadType: defaultKeypadType,
-	    active: false
-	};
+	    active: false };
 
-	var keypadReducer = function keypadReducer() {
-	    var state = arguments.length <= 0 || arguments[0] === undefined ? initialKeypadState : arguments[0];
-	    var action = arguments[1];
+	var keypadReducer = function (_ref3, action) {
+	    var _ref32 = _ref3;
+	    var state = _ref32 === undefined ? initialKeypadState : _ref32;
 
 	    switch (action.type) {
 	        case 'DismissKeypad':
 	            return _extends({}, state, {
-	                active: false
-	            });
+	                active: false });
 
 	        case 'ActivateKeypad':
 	            return _extends({}, state, {
-	                active: true
-	            });
+	                active: true });
 
 	        case 'ConfigureKeypad':
 	            return _extends({}, state, action.configuration);
@@ -58023,12 +57810,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    dx: 0,
 	    numPages: Keypads[defaultKeypadType].numPages,
 	    pageWidthPx: 0,
-	    velocityTracker: new VelocityTracker()
-	};
+	    velocityTracker: new VelocityTracker() };
 
-	var pagerReducer = function pagerReducer() {
-	    var state = arguments.length <= 0 || arguments[0] === undefined ? initialPagerState : arguments[0];
-	    var action = arguments[1];
+	var pagerReducer = function (_ref4, action) {
+	    var _ref42 = _ref4;
+	    var state = _ref42 === undefined ? initialPagerState : _ref42;
 
 	    switch (action.type) {
 	        case 'ConfigureKeypad':
@@ -58039,13 +57825,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	                numPages: numPages,
 	                animateToPosition: false,
 	                currentPage: 0,
-	                dx: 0
-	            });
+	                dx: 0 });
 
 	        case 'SetPageWidthPx':
 	            return _extends({}, state, {
-	                pageWidthPx: action.pageWidthPx
-	            });
+	                pageWidthPx: action.pageWidthPx });
 
 	        case 'PressKey':
 	            var keyConfig = KeyConfigs[action.key];
@@ -58066,43 +57850,38 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return _extends({}, state, {
 	                animateToPosition: true,
 	                currentPage: 0,
-	                dx: 0
-	            });
+	                dx: 0 });
 
 	        case 'PageKeypadRight':
 	            var nextPage = Math.min(state.currentPage + 1, state.numPages - 1);
 	            return _extends({}, state, {
 	                animateToPosition: true,
 	                currentPage: nextPage,
-	                dx: 0
-	            });
+	                dx: 0 });
 
 	        case 'PageKeypadLeft':
 	            var prevPage = Math.max(state.currentPage - 1, 0);
 	            return _extends({}, state, {
 	                animateToPosition: true,
 	                currentPage: prevPage,
-	                dx: 0
-	            });
+	                dx: 0 });
 
 	        case 'SetKeypadCurrentPage':
 	            var boundedPage = Math.min(Math.max(action.page, 0), state.numPages - 1);
 	            return _extends({}, state, {
 	                currentPage: boundedPage,
-	                dx: 0
-	            });
+	                dx: 0 });
 
 	        case 'OnSwipeChange':
 	            state.velocityTracker.push(action.dx);
 
 	            return _extends({}, state, {
 	                animateToPosition: false,
-	                dx: action.dx
-	            });
+	                dx: action.dx });
 
 	        case 'OnSwipeEnd':
-	            var pageWidthPx = state.pageWidthPx;
-	            var velocityTracker = state.velocityTracker;
+	            var pageWidthPx = state.pageWidthPx,
+	                velocityTracker = state.velocityTracker;
 	            var dx = action.dx;
 
 	            var velocity = velocityTracker.getVelocity();
@@ -58124,54 +57903,46 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            return _extends({}, state, {
 	                animateToPosition: true,
-	                dx: 0
-	            });
+	                dx: 0 });
 
 	        default:
 	            return state;
 	    }
 	};
 
-	var createGestureManager = function createGestureManager(swipeEnabled) {
+	var createGestureManager = function (swipeEnabled) {
 	    return new GestureManager({
-	        swipeEnabled: swipeEnabled
-	    }, {
-	        onSwipeChange: function onSwipeChange(dx) {
+	        swipeEnabled: swipeEnabled }, {
+	        onSwipeChange: function (dx) {
 	            store.dispatch({
 	                type: 'OnSwipeChange',
-	                dx: dx
-	            });
+	                dx: dx });
 	        },
-	        onSwipeEnd: function onSwipeEnd(dx) {
+	        onSwipeEnd: function (dx) {
 	            store.dispatch({
 	                type: 'OnSwipeEnd',
-	                dx: dx
-	            });
+	                dx: dx });
 	        },
-	        onActiveNodesChanged: function onActiveNodesChanged(activeNodes) {
+	        onActiveNodesChanged: function (activeNodes) {
 	            store.dispatch({
 	                type: 'SetActiveNodes',
-	                activeNodes: activeNodes
-	            });
+	                activeNodes: activeNodes });
 	        },
-	        onClick: function onClick(key, layoutProps) {
+	        onClick: function (key, layoutProps) {
 	            store.dispatch(_extends({
 	                type: 'PressKey',
-	                key: key
-	            }, layoutProps));
-	        }
-	    });
+	                key: key }, layoutProps));
+	        } });
 	};
 
 	var initialGestureState = {
 	    popover: null,
 	    focus: null,
-	    gestureManager: createGestureManager(Keypads[defaultKeypadType].numPages > 1)
-	};
+	    gestureManager: createGestureManager(Keypads[defaultKeypadType].numPages > 1) };
 
-	var gestureReducer = function gestureReducer() {
-	    var state = arguments.length <= 0 || arguments[0] === undefined ? initialGestureState : arguments[0];
-	    var action = arguments[1];
+	var gestureReducer = function (_ref5, action) {
+	    var _ref52 = _ref5;
+	    var state = _ref52 === undefined ? initialGestureState : _ref52;
 
 	    switch (action.type) {
 	        case 'SetActiveNodes':
@@ -58185,8 +57956,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return {
 	                popover: null,
 	                focus: null,
-	                gestureManager: createGestureManager(swipeEnabled)
-	            };
+	                gestureManager: createGestureManager(swipeEnabled) };
 
 	        default:
 	            return state;
@@ -58198,12 +57968,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _lastAnimationId = 0;
 
 	var initialEchoState = {
-	    echoes: []
-	};
+	    echoes: [] };
 
-	var echoReducer = function echoReducer() {
-	    var state = arguments.length <= 0 || arguments[0] === undefined ? initialEchoState : arguments[0];
-	    var action = arguments[1];
+	var echoReducer = function (_ref6, action) {
+	    var _ref62 = _ref6;
+	    var state = _ref62 === undefined ? initialEchoState : _ref62;
 
 	    switch (action.type) {
 	        case 'PressKey':
@@ -58213,13 +57982,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (keyConfig.type === KeyTypes.MATH || keyConfig.type === KeyTypes.NUMERAL) {
 	                // Add in the echo animation.
 	                return _extends({}, state, {
-	                    echoes: [].concat(_toConsumableArray(state.echoes), [{
+	                    echoes: [].concat(state.echoes, [{
 	                        animationId: '' + _lastAnimationId++,
 	                        borders: action.borders,
 	                        id: keyConfig.id,
-	                        initialBounds: action.initialBounds
-	                    }])
-	                });
+	                        initialBounds: action.initialBounds }]) });
 	            }
 	            return state;
 
@@ -58228,8 +57995,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                return echo.animationId !== action.animationId;
 	            });
 	            return _extends({}, state, {
-	                echoes: remainingEchoes
-	            });
+	                echoes: remainingEchoes });
 
 	        default:
 	            return state;
@@ -58237,18 +58003,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	var initialButtonsState = {
-	    buttonHeightPx: defaultButtonHeightPx
-	};
+	    buttonHeightPx: defaultButtonHeightPx };
 
-	var buttonsReducer = function buttonsReducer() {
-	    var state = arguments.length <= 0 || arguments[0] === undefined ? initialButtonsState : arguments[0];
-	    var action = arguments[1];
+	var buttonsReducer = function (_ref7, action) {
+	    var _ref72 = _ref7;
+	    var state = _ref72 === undefined ? initialButtonsState : _ref72;
 
 	    switch (action.type) {
 	        case 'SetButtonHeightPx':
 	            return _extends({}, state, {
-	                buttonHeightPx: action.buttonHeightPx
-	            });
+	                buttonHeightPx: action.buttonHeightPx });
 
 	        default:
 	            return state;
@@ -58261,8 +58025,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    pager: pagerReducer,
 	    gestures: gestureReducer,
 	    echoes: echoReducer,
-	    buttons: buttonsReducer
-	});
+	    buttons: buttonsReducer });
 
 	var store = Redux.createStore(reducer);
 
@@ -58272,7 +58035,259 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _KeyConfigs;
+
+	/**
+	 * This file contains configuration settings for the buttons in the keypad.
+	 */
+
+	/* globals i18n */
+
+	var Keys = __webpack_require__(242);
+
+	var _require = __webpack_require__(190);
+
+	var KeyTypes = _require.KeyTypes;
+
+	var KeyConfigs = (_KeyConfigs = {}, _KeyConfigs[Keys.PLUS] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a plus sign.
+	    ariaLabel: i18n._('Plus') }, _KeyConfigs[Keys.MINUS] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a minus sign.
+	    ariaLabel: i18n._('Minus') }, _KeyConfigs[Keys.TOGGLE_SIGN] = {
+	    type: KeyTypes.MATH,
+	    // TODO(charlie): Change this to 'Toggle negative' and add an
+	    // aria-pressed={true} based on the current state of the input. Right
+	    // now, that's tricky to do as the rendering of the keypad button is
+	    // ignorant of the contents of the input.
+	    // I18N: A label for a button that will change the input from positive
+	    // to negative or the other way around.
+	    ariaLabel: i18n._('Toggle positive/negative') }, _KeyConfigs[Keys.TIMES] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a multiplication sign (represented with an 'x').
+	    ariaLabel: i18n._('Multiply') }, _KeyConfigs[Keys.DIVIDE] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a division sign.
+	    ariaLabel: i18n._('Divide') }, _KeyConfigs[Keys.DECIMAL] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a percent symbol.
+	    ariaLabel: i18n._('Decimal') }, _KeyConfigs[Keys.PERCENT] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a percent sign.
+	    ariaLabel: i18n._('Percent') }, _KeyConfigs[Keys.CDOT] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a multiplication sign (represented as a dot).
+	    ariaLabel: i18n._('Multiply') }, _KeyConfigs[Keys.EQUAL] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Equals sign') }, _KeyConfigs[Keys.NEQ] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Not-equals sign') }, _KeyConfigs[Keys.GT] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a 'greater than' sign (represented as '>').
+	    ariaLabel: i18n._('Greater than sign') }, _KeyConfigs[Keys.LT] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a 'less than' sign (represented as '<').
+	    ariaLabel: i18n._('Less than sign') }, _KeyConfigs[Keys.GEQ] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Greater than or equal to sign') }, _KeyConfigs[Keys.LEQ] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Less than or equal to sign') }, _KeyConfigs[Keys.FRAC] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a 'fraction' symbol.
+	    ariaLabel: i18n._('Fraction') }, _KeyConfigs[Keys.EXP] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a button that will allow the user to input a custom
+	    // exponent.
+	    ariaLabel: i18n._('Custom exponent') }, _KeyConfigs[Keys.EXP_2] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a button that will square (take to the second
+	    // power) some math.
+	    ariaLabel: i18n._('Square') }, _KeyConfigs[Keys.EXP_3] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a button that will cube (take to the third power)
+	    // some math.
+	    ariaLabel: i18n._('Cube') }, _KeyConfigs[Keys.SQRT] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Square root') }, _KeyConfigs[Keys.CUBE_ROOT] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Cube root') }, _KeyConfigs[Keys.RADICAL] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Radical with custom root') }, _KeyConfigs[Keys.PARENS] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Parentheses') }, _KeyConfigs[Keys.LN] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Natural logarithm') }, _KeyConfigs[Keys.LOG] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Logarithm with base 10') }, _KeyConfigs[Keys.LOG_N] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Logarithm with custom base') }, _KeyConfigs[Keys.SIN] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Sine') }, _KeyConfigs[Keys.COS] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Cosine') }, _KeyConfigs[Keys.TAN] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Tangent') }, _KeyConfigs[Keys.PI] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Pi'),
+	    unicodeSymbol: {
+	        character: 'π',
+	        italicized: true } }, _KeyConfigs[Keys.THETA] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Theta'),
+	    unicodeSymbol: {
+	        character: 'θ',
+	        italicized: true } }, _KeyConfigs[Keys.NOOP] = {
+	    type: KeyTypes.EMPTY }, _KeyConfigs[Keys.LEFT] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._('Left arrow') }, _KeyConfigs[Keys.RIGHT] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._('Right arrow') }, _KeyConfigs[Keys.JUMP_OUT] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._('Navigate right') }, _KeyConfigs[Keys.BACKSPACE] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    // I18N: A label for a button that will delete some input.
+	    ariaLabel: i18n._('Delete') }, _KeyConfigs[Keys.DISMISS] = {
+	    type: KeyTypes.KEYPAD_NAVIGATION,
+	    // I18N: A label for a button that will dismiss/hide a keypad.
+	    ariaLabel: i18n._('Dismiss') }, _KeyConfigs[Keys.MORE] = {
+	    type: KeyTypes.KEYPAD_NAVIGATION,
+	    ariaLabel: i18n._('Go to advanced button set') }, _KeyConfigs[Keys.NUMBERS] = {
+	    type: KeyTypes.KEYPAD_NAVIGATION,
+	    ariaLabel: i18n._('Go to basic button set') }, _KeyConfigs);
+
+	// Add in the multi-function buttons, which inherit some fields from the simple
+	// buttons.
+	// TODO(charlie): Make the multi-function button's long-press interaction
+	// accessible. Right now, it isn't possible to trigger any of the hidden buttons
+	// with a VoiceOver cursor--all you can do is trigger the default action.
+	KeyConfigs[Keys.FRAC_MULTI] = {
+	    type: KeyTypes.MATH,
+	    childKeyIds: [Keys.FRAC, Keys.DIVIDE],
+	    ariaLabel: KeyConfigs[Keys.FRAC].ariaLabel };
+	KeyConfigs[Keys.PARENS_MULTI] = {
+	    type: KeyTypes.MATH,
+	    childKeyIds: [Keys.PARENS, Keys.CDOT, Keys.TIMES],
+	    ariaLabel: KeyConfigs[Keys.PARENS].ariaLabel };
+
+	// NOTE(charlie): The multi-functional keys below use the icons of their
+	// 'default' keys by pointing to them in iconography/index.js. If the defaults
+	// change for any of these keys, the reference in iconography/index.js should
+	// change as well.
+	KeyConfigs[Keys.EQUAL_MULTI] = {
+	    type: KeyTypes.MATH,
+	    childKeyIds: [Keys.EQUAL, Keys.NEQ],
+	    ariaLabel: KeyConfigs[Keys.EQUAL].ariaLabel };
+	KeyConfigs[Keys.GREATER_MULTI] = {
+	    type: KeyTypes.MATH,
+	    childKeyIds: [Keys.GT, Keys.GEQ],
+	    ariaLabel: KeyConfigs[Keys.GT].ariaLabel };
+	KeyConfigs[Keys.LESS_MULTI] = {
+	    type: KeyTypes.MATH,
+	    childKeyIds: [Keys.LT, Keys.LEQ],
+	    ariaLabel: KeyConfigs[Keys.LT].ariaLabel };
+	KeyConfigs[Keys.EXP_MULTI] = {
+	    type: KeyTypes.MATH,
+	    childKeyIds: [Keys.EXP_2, Keys.EXP_3, Keys.EXP],
+	    ariaLabel: KeyConfigs[Keys.EXP_2].ariaLabel };
+	KeyConfigs[Keys.RADICAL_MULTI] = {
+	    type: KeyTypes.MATH,
+	    childKeyIds: [Keys.SQRT, Keys.CUBE_ROOT, Keys.RADICAL],
+	    ariaLabel: KeyConfigs[Keys.SQRT].ariaLabel };
+	KeyConfigs[Keys.LOG_MULTI] = {
+	    type: KeyTypes.MATH,
+	    childKeyIds: [Keys.LOG, Keys.LN, Keys.LOG_N],
+	    ariaLabel: KeyConfigs[Keys.LOG].ariaLabel };
+
+	KeyConfigs[Keys.MANY] = {
+	    type: KeyTypes.MANY };
+
+	// Add in every numeral.
+	var NUMBERS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+	for (var _iterator = NUMBERS, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+	    var _ref;
+
+	    if (_isArray) {
+	        if (_i >= _iterator.length) break;
+	        _ref = _iterator[_i++];
+	    } else {
+	        _i = _iterator.next();
+	        if (_i.done) break;
+	        _ref = _i.value;
+	    }
+
+	    var num = _ref;
+
+	    // TODO(charlie): Consider removing the SVG icons that we have for the
+	    // numeral keys. They can be rendered just as easily with text (though that
+	    // would mean that we'd be using text beyond the variable key).
+	    var textRepresentation = '' + num;
+	    KeyConfigs['NUM_' + num] = {
+	        type: KeyTypes.NUMERAL,
+	        ariaLabel: textRepresentation,
+	        unicodeSymbol: {
+	            character: textRepresentation,
+	            italicized: false } };
+	}
+
+	// Add in every variable.
+	var LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+	for (var _iterator2 = LETTERS, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
+	    var _ref2;
+
+	    if (_isArray2) {
+	        if (_i2 >= _iterator2.length) break;
+	        _ref2 = _iterator2[_i2++];
+	    } else {
+	        _i2 = _iterator2.next();
+	        if (_i2.done) break;
+	        _ref2 = _i2.value;
+	    }
+
+	    var letter = _ref2;
+
+	    var textRepresentation = letter.toLowerCase();
+	    KeyConfigs[letter] = {
+	        type: KeyTypes.MATH,
+	        ariaLabel: textRepresentation,
+	        unicodeSymbol: {
+	            character: textRepresentation,
+	            italicized: true } };
+	}
+
+	for (var _iterator3 = Object.keys(KeyConfigs), _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : _iterator3[Symbol.iterator]();;) {
+	    var _ref3;
+
+	    if (_isArray3) {
+	        if (_i3 >= _iterator3.length) break;
+	        _ref3 = _iterator3[_i3++];
+	    } else {
+	        _i3 = _iterator3.next();
+	        if (_i3.done) break;
+	        _ref3 = _i3.value;
+	    }
+
+	    var key = _ref3;
+
+	    KeyConfigs[key] = _extends({}, KeyConfigs[key], {
+	        id: key });
+	}
+
+	module.exports = KeyConfigs;
+
+	// Basic math keys.
+
+	// Input navigation keys.
+
+	// Keypad navigation keys.
+
+	// childKeyIds will be configured by the client.
+
+/***/ },
+/* 234 */
+/***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * This file exports components View and Text which wrap <div> and <span>.
@@ -58286,352 +58301,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = {
 	  Image: __webpack_require__(248),
 	  Text: __webpack_require__(249),
-	  View: __webpack_require__(250)
-	};
-
-/***/ },
-/* 234 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];for (var key in source) {
-	            if (Object.prototype.hasOwnProperty.call(source, key)) {
-	                target[key] = source[key];
-	            }
-	        }
-	    }return target;
-	};
-
-	var _KeyConfigs;
-
-	function _defineProperty(obj, key, value) {
-	    if (key in obj) {
-	        Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
-	    } else {
-	        obj[key] = value;
-	    }return obj;
-	}
-
-	/**
-	 * This file contains configuration settings for the buttons in the keypad.
-	 */
-
-	/* globals i18n */
-
-	var Keys = __webpack_require__(243);
-
-	var _require = __webpack_require__(190);
-
-	var KeyTypes = _require.KeyTypes;
-
-	var KeyConfigs = (_KeyConfigs = {}, _defineProperty(_KeyConfigs, Keys.PLUS, {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a plus sign.
-	    ariaLabel: i18n._('Plus')
-	}), _defineProperty(_KeyConfigs, Keys.MINUS, {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a minus sign.
-	    ariaLabel: i18n._('Minus')
-	}), _defineProperty(_KeyConfigs, Keys.TOGGLE_SIGN, {
-	    type: KeyTypes.MATH,
-	    // TODO(charlie): Change this to 'Toggle negative' and add an
-	    // aria-pressed={true} based on the current state of the input. Right
-	    // now, that's tricky to do as the rendering of the keypad button is
-	    // ignorant of the contents of the input.
-	    // I18N: A label for a button that will change the input from positive
-	    // to negative or the other way around.
-	    ariaLabel: i18n._('Toggle positive/negative')
-	}), _defineProperty(_KeyConfigs, Keys.TIMES, {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a multiplication sign (represented with an 'x').
-	    ariaLabel: i18n._('Multiply')
-	}), _defineProperty(_KeyConfigs, Keys.DIVIDE, {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a division sign.
-	    ariaLabel: i18n._('Divide')
-	}), _defineProperty(_KeyConfigs, Keys.DECIMAL, {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a percent symbol.
-	    ariaLabel: i18n._('Decimal')
-	}), _defineProperty(_KeyConfigs, Keys.PERCENT, {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a percent sign.
-	    ariaLabel: i18n._('Percent')
-	}), _defineProperty(_KeyConfigs, Keys.CDOT, {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a multiplication sign (represented as a dot).
-	    ariaLabel: i18n._('Multiply')
-	}), _defineProperty(_KeyConfigs, Keys.EQUAL, {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Equals sign')
-	}), _defineProperty(_KeyConfigs, Keys.NEQ, {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Not-equals sign')
-	}), _defineProperty(_KeyConfigs, Keys.GT, {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a 'greater than' sign (represented as '>').
-	    ariaLabel: i18n._('Greater than sign')
-	}), _defineProperty(_KeyConfigs, Keys.LT, {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a 'less than' sign (represented as '<').
-	    ariaLabel: i18n._('Less than sign')
-	}), _defineProperty(_KeyConfigs, Keys.GEQ, {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Greater than or equal to sign')
-	}), _defineProperty(_KeyConfigs, Keys.LEQ, {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Less than or equal to sign')
-	}), _defineProperty(_KeyConfigs, Keys.FRAC, {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a 'fraction' symbol.
-	    ariaLabel: i18n._('Fraction')
-	}), _defineProperty(_KeyConfigs, Keys.EXP, {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a button that will allow the user to input a custom
-	    // exponent.
-	    ariaLabel: i18n._('Custom exponent')
-	}), _defineProperty(_KeyConfigs, Keys.EXP_2, {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a button that will square (take to the second
-	    // power) some math.
-	    ariaLabel: i18n._('Square')
-	}), _defineProperty(_KeyConfigs, Keys.EXP_3, {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a button that will cube (take to the third power)
-	    // some math.
-	    ariaLabel: i18n._('Cube')
-	}), _defineProperty(_KeyConfigs, Keys.SQRT, {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Square root')
-	}), _defineProperty(_KeyConfigs, Keys.CUBE_ROOT, {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Cube root')
-	}), _defineProperty(_KeyConfigs, Keys.RADICAL, {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Radical with custom root')
-	}), _defineProperty(_KeyConfigs, Keys.PARENS, {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Parentheses')
-	}), _defineProperty(_KeyConfigs, Keys.LN, {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Natural logarithm')
-	}), _defineProperty(_KeyConfigs, Keys.LOG, {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Logarithm with base 10')
-	}), _defineProperty(_KeyConfigs, Keys.LOG_N, {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Logarithm with custom base')
-	}), _defineProperty(_KeyConfigs, Keys.SIN, {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Sine')
-	}), _defineProperty(_KeyConfigs, Keys.COS, {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Cosine')
-	}), _defineProperty(_KeyConfigs, Keys.TAN, {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Tangent')
-	}), _defineProperty(_KeyConfigs, Keys.PI, {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Pi'),
-	    unicodeSymbol: {
-	        character: 'π',
-	        italicized: true
-	    }
-	}), _defineProperty(_KeyConfigs, Keys.THETA, {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Theta'),
-	    unicodeSymbol: {
-	        character: 'θ',
-	        italicized: true
-	    }
-	}), _defineProperty(_KeyConfigs, Keys.NOOP, {
-	    type: KeyTypes.EMPTY
-	}), _defineProperty(_KeyConfigs, Keys.LEFT, {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._('Left arrow')
-	}), _defineProperty(_KeyConfigs, Keys.RIGHT, {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._('Right arrow')
-	}), _defineProperty(_KeyConfigs, Keys.JUMP_OUT, {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._('Navigate right')
-	}), _defineProperty(_KeyConfigs, Keys.BACKSPACE, {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    // I18N: A label for a button that will delete some input.
-	    ariaLabel: i18n._('Delete')
-	}), _defineProperty(_KeyConfigs, Keys.DISMISS, {
-	    type: KeyTypes.KEYPAD_NAVIGATION,
-	    // I18N: A label for a button that will dismiss/hide a keypad.
-	    ariaLabel: i18n._('Dismiss')
-	}), _defineProperty(_KeyConfigs, Keys.MORE, {
-	    type: KeyTypes.KEYPAD_NAVIGATION,
-	    ariaLabel: i18n._('Go to advanced button set')
-	}), _defineProperty(_KeyConfigs, Keys.NUMBERS, {
-	    type: KeyTypes.KEYPAD_NAVIGATION,
-	    ariaLabel: i18n._('Go to basic button set')
-	}), _KeyConfigs);
-
-	// Add in the multi-function buttons, which inherit some fields from the simple
-	// buttons.
-	// TODO(charlie): Make the multi-function button's long-press interaction
-	// accessible. Right now, it isn't possible to trigger any of the hidden buttons
-	// with a VoiceOver cursor--all you can do is trigger the default action.
-	KeyConfigs[Keys.FRAC_MULTI] = {
-	    type: KeyTypes.MATH,
-	    childKeyIds: [Keys.FRAC, Keys.DIVIDE],
-	    ariaLabel: KeyConfigs[Keys.FRAC].ariaLabel
-	};
-	KeyConfigs[Keys.PARENS_MULTI] = {
-	    type: KeyTypes.MATH,
-	    childKeyIds: [Keys.PARENS, Keys.CDOT, Keys.TIMES],
-	    ariaLabel: KeyConfigs[Keys.PARENS].ariaLabel
-	};
-
-	// NOTE(charlie): The multi-functional keys below use the icons of their
-	// 'default' keys by pointing to them in iconography/index.js. If the defaults
-	// change for any of these keys, the reference in iconography/index.js should
-	// change as well.
-	KeyConfigs[Keys.EQUAL_MULTI] = {
-	    type: KeyTypes.MATH,
-	    childKeyIds: [Keys.EQUAL, Keys.NEQ],
-	    ariaLabel: KeyConfigs[Keys.EQUAL].ariaLabel
-	};
-	KeyConfigs[Keys.GREATER_MULTI] = {
-	    type: KeyTypes.MATH,
-	    childKeyIds: [Keys.GT, Keys.GEQ],
-	    ariaLabel: KeyConfigs[Keys.GT].ariaLabel
-	};
-	KeyConfigs[Keys.LESS_MULTI] = {
-	    type: KeyTypes.MATH,
-	    childKeyIds: [Keys.LT, Keys.LEQ],
-	    ariaLabel: KeyConfigs[Keys.LT].ariaLabel
-	};
-	KeyConfigs[Keys.EXP_MULTI] = {
-	    type: KeyTypes.MATH,
-	    childKeyIds: [Keys.EXP_2, Keys.EXP_3, Keys.EXP],
-	    ariaLabel: KeyConfigs[Keys.EXP_2].ariaLabel
-	};
-	KeyConfigs[Keys.RADICAL_MULTI] = {
-	    type: KeyTypes.MATH,
-	    childKeyIds: [Keys.SQRT, Keys.CUBE_ROOT, Keys.RADICAL],
-	    ariaLabel: KeyConfigs[Keys.SQRT].ariaLabel
-	};
-	KeyConfigs[Keys.LOG_MULTI] = {
-	    type: KeyTypes.MATH,
-	    childKeyIds: [Keys.LOG, Keys.LN, Keys.LOG_N],
-	    ariaLabel: KeyConfigs[Keys.LOG].ariaLabel
-	};
-
-	KeyConfigs[Keys.MANY] = {
-	    type: KeyTypes.MANY
-	};
-
-	// Add in every numeral.
-	// childKeyIds will be configured by the client.
-	var NUMBERS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-	var _iteratorNormalCompletion = true;
-	var _didIteratorError = false;
-	var _iteratorError = undefined;
-
-	try {
-	    for (var _iterator = NUMBERS[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	        var num = _step.value;
-
-	        // TODO(charlie): Consider removing the SVG icons that we have for the
-	        // numeral keys. They can be rendered just as easily with text (though that
-	        // would mean that we'd be using text beyond the variable key).
-	        var textRepresentation = '' + num;
-	        KeyConfigs['NUM_' + num] = {
-	            type: KeyTypes.NUMERAL,
-	            ariaLabel: textRepresentation,
-	            unicodeSymbol: {
-	                character: textRepresentation,
-	                italicized: false
-	            }
-	        };
-	    }
-
-	    // Add in every variable.
-	} catch (err) {
-	    _didIteratorError = true;
-	    _iteratorError = err;
-	} finally {
-	    try {
-	        if (!_iteratorNormalCompletion && _iterator.return) {
-	            _iterator.return();
-	        }
-	    } finally {
-	        if (_didIteratorError) {
-	            throw _iteratorError;
-	        }
-	    }
-	}
-
-	var LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-	var _iteratorNormalCompletion2 = true;
-	var _didIteratorError2 = false;
-	var _iteratorError2 = undefined;
-
-	try {
-	    for (var _iterator2 = LETTERS[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	        var letter = _step2.value;
-
-	        var _textRepresentation = letter.toLowerCase();
-	        KeyConfigs[letter] = {
-	            type: KeyTypes.MATH,
-	            ariaLabel: _textRepresentation,
-	            unicodeSymbol: {
-	                character: _textRepresentation,
-	                italicized: true
-	            }
-	        };
-	    }
-	} catch (err) {
-	    _didIteratorError2 = true;
-	    _iteratorError2 = err;
-	} finally {
-	    try {
-	        if (!_iteratorNormalCompletion2 && _iterator2.return) {
-	            _iterator2.return();
-	        }
-	    } finally {
-	        if (_didIteratorError2) {
-	            throw _iteratorError2;
-	        }
-	    }
-	}
-
-	var _iteratorNormalCompletion3 = true;
-	var _didIteratorError3 = false;
-	var _iteratorError3 = undefined;
-
-	try {
-	    for (var _iterator3 = Object.keys(KeyConfigs)[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-	        var key = _step3.value;
-
-	        KeyConfigs[key] = _extends({}, KeyConfigs[key], {
-	            id: key
-	        });
-	    }
-	} catch (err) {
-	    _didIteratorError3 = true;
-	    _iteratorError3 = err;
-	} finally {
-	    try {
-	        if (!_iteratorNormalCompletion3 && _iterator3.return) {
-	            _iterator3.return();
-	        }
-	    } finally {
-	        if (_didIteratorError3) {
-	            throw _iteratorError3;
-	        }
-	    }
-	}
-
-	module.exports = KeyConfigs;
+	  View: __webpack_require__(250) };
 
 /***/ },
 /* 235 */
@@ -58685,7 +58355,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var _ = __webpack_require__(16);
-	var InteractiveUtil = __webpack_require__(150);
+	var InteractiveUtil = __webpack_require__(149);
 	var objective_ = __webpack_require__(134);
 	var kvector = __webpack_require__(189).vector;
 
@@ -58754,15 +58424,13 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
 	/**
 	 * A keypad that includes most of the available symbols, for testing.
 	 */
 
 	var React = __webpack_require__(15);
 
-	var _require = __webpack_require__(233);
+	var _require = __webpack_require__(234);
 
 	var View = _require.View;
 
@@ -58774,14 +58442,77 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var row = _require2.row;
 
-	var KeyConfigs = __webpack_require__(234);
+	var KeyConfigs = __webpack_require__(233);
 
 	var DefaultKeypad = React.createClass({
 	    displayName: 'DefaultKeypad',
-	    render: function render() {
-	        return React.createElement(Keypad, null, React.createElement(View, { style: row }, React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.SIN }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.COS }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.TAN }), React.createElement(EmptyKeypadButton, null), React.createElement(EmptyKeypadButton, null), React.createElement(EmptyKeypadButton, null)), React.createElement(View, { style: row }, React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.RADICAL }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.LOG }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.LOG_N }), React.createElement(EmptyKeypadButton, null), React.createElement(EmptyKeypadButton, null), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.PARENS })), React.createElement(View, { style: row }, React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.NUM_7 }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.NUM_8 }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.NUM_9 }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.PLUS }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.EXP }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.LEFT })), React.createElement(View, { style: row }, React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.NUM_4 }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.NUM_5 }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.NUM_6 }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.MINUS }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.SQRT }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.RIGHT })), React.createElement(View, { style: row }, React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.NUM_1 }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.NUM_2 }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.NUM_3 }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.TIMES }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.CDOT }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.EQUAL })), React.createElement(View, { style: row }, React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.x }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.NUM_0 }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.DECIMAL }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.DIVIDE }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.FRAC }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.BACKSPACE })));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            Keypad,
+	            null,
+	            React.createElement(
+	                View,
+	                { style: row },
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.SIN }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.COS }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.TAN }),
+	                React.createElement(EmptyKeypadButton, null),
+	                React.createElement(EmptyKeypadButton, null),
+	                React.createElement(EmptyKeypadButton, null)
+	            ),
+	            React.createElement(
+	                View,
+	                { style: row },
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.RADICAL }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.LOG }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.LOG_N }),
+	                React.createElement(EmptyKeypadButton, null),
+	                React.createElement(EmptyKeypadButton, null),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.PARENS })
+	            ),
+	            React.createElement(
+	                View,
+	                { style: row },
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.NUM_7 }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.NUM_8 }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.NUM_9 }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.PLUS }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.EXP }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.LEFT })
+	            ),
+	            React.createElement(
+	                View,
+	                { style: row },
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.NUM_4 }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.NUM_5 }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.NUM_6 }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.MINUS }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.SQRT }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.RIGHT })
+	            ),
+	            React.createElement(
+	                View,
+	                { style: row },
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.NUM_1 }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.NUM_2 }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.NUM_3 }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.TIMES }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.CDOT }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.EQUAL })
+	            ),
+	            React.createElement(
+	                View,
+	                { style: row },
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.x }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.NUM_0 }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.DECIMAL }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.DIVIDE }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.FRAC }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.BACKSPACE })
+	            )
+	        );
+	    } });
 
 	module.exports = DefaultKeypad;
 
@@ -58789,15 +58520,13 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
 	/**
 	 * A keypad that includes the basic digits. No frills.
 	 */
 
 	var React = __webpack_require__(15);
 
-	var _require = __webpack_require__(233);
+	var _require = __webpack_require__(234);
 
 	var View = _require.View;
 
@@ -58812,58 +58541,87 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var BorderStyles = _require3.BorderStyles;
 
-	var KeyConfigs = __webpack_require__(234);
+	var KeyConfigs = __webpack_require__(233);
 
 	var NumberKeypad = React.createClass({
 	    displayName: 'NumberKeypad',
-	    render: function render() {
-	        return React.createElement(Keypad, null, React.createElement(View, { style: row }, React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_7,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_8,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_9,
-	            borders: BorderStyles.NONE
-	        })), React.createElement(View, { style: row }, React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_4,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_5,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_6,
-	            borders: BorderStyles.NONE
-	        })), React.createElement(View, { style: row }, React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_1,
-	            borders: BorderStyles.BOTTOM
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_2,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_3,
-	            borders: BorderStyles.BOTTOM
-	        })), React.createElement(View, { style: row }, React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.BACKSPACE,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_0,
-	            borders: BorderStyles.LEFT
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.DISMISS,
-	            borders: BorderStyles.LEFT
-	        })));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            Keypad,
+	            null,
+	            React.createElement(
+	                View,
+	                { style: row },
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_7,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_8,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_9,
+	                    borders: BorderStyles.NONE
+	                })
+	            ),
+	            React.createElement(
+	                View,
+	                { style: row },
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_4,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_5,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_6,
+	                    borders: BorderStyles.NONE
+	                })
+	            ),
+	            React.createElement(
+	                View,
+	                { style: row },
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_1,
+	                    borders: BorderStyles.BOTTOM
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_2,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_3,
+	                    borders: BorderStyles.BOTTOM
+	                })
+	            ),
+	            React.createElement(
+	                View,
+	                { style: row },
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.BACKSPACE,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_0,
+	                    borders: BorderStyles.LEFT
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.DISMISS,
+	                    borders: BorderStyles.LEFT
+	                })
+	            )
+	        );
+	    } });
 
 	module.exports = NumberKeypad;
 
 /***/ },
 /* 239 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * A keypad that includes the digits, as well as the symbols required to deal
@@ -58872,7 +58630,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var _require = __webpack_require__(233);
+	var _require = __webpack_require__(234);
 
 	var View = _require.View;
 
@@ -58887,64 +58645,97 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var BorderStyles = _require3.BorderStyles;
 
-	var KeyConfigs = __webpack_require__(234);
+	var KeyConfigs = __webpack_require__(233);
 
 	var FractionKeypad = React.createClass({
 	    displayName: 'FractionKeypad',
-	    render: function render() {
-	        return React.createElement(Keypad, null, React.createElement(View, { style: row }, React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_7,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_8,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_9,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.FRAC })), React.createElement(View, { style: row }, React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_4,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_5,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_6,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.PERCENT })), React.createElement(View, { style: row }, React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_1,
-	            borders: BorderStyles.BOTTOM
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_2,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_3,
-	            borders: BorderStyles.BOTTOM
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.BACKSPACE,
-	            borders: BorderStyles.LEFT
-	        })), React.createElement(View, { style: row }, React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.TOGGLE_SIGN,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_0,
-	            borders: BorderStyles.LEFT
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.DECIMAL,
-	            borders: BorderStyles.LEFT
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.DISMISS,
-	            borders: BorderStyles.LEFT
-	        })));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            Keypad,
+	            null,
+	            React.createElement(
+	                View,
+	                { style: row },
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_7,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_8,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_9,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.FRAC })
+	            ),
+	            React.createElement(
+	                View,
+	                { style: row },
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_4,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_5,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_6,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.PERCENT })
+	            ),
+	            React.createElement(
+	                View,
+	                { style: row },
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_1,
+	                    borders: BorderStyles.BOTTOM
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_2,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_3,
+	                    borders: BorderStyles.BOTTOM
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.BACKSPACE,
+	                    borders: BorderStyles.LEFT
+	                })
+	            ),
+	            React.createElement(
+	                View,
+	                { style: row },
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.TOGGLE_SIGN,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_0,
+	                    borders: BorderStyles.LEFT
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.DECIMAL,
+	                    borders: BorderStyles.LEFT
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.DISMISS,
+	                    borders: BorderStyles.LEFT
+	                })
+	            )
+	        );
+	    } });
 
 	module.exports = FractionKeypad;
 
 /***/ },
 /* 240 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * A keypad that includes a subset of the expression symbols.
@@ -58960,7 +58751,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require2.StyleSheet;
 
-	var _require3 = __webpack_require__(233);
+	var _require3 = __webpack_require__(234);
 
 	var View = _require3.View;
 
@@ -58981,7 +58772,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var SwitchTypes = _require5.SwitchTypes;
 	var JumpOutTypes = _require5.JumpOutTypes;
 
-	var _require6 = __webpack_require__(230);
+	var _require6 = __webpack_require__(231);
 
 	var numeralGrey = _require6.numeralGrey;
 	var commandGrey = _require6.commandGrey;
@@ -58991,10 +58782,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var cursorContextPropType = _require7.cursorContextPropType;
 	var keyIdPropType = _require7.keyIdPropType;
 
-	var KeyConfigs = __webpack_require__(234);
-	var CursorContexts = __webpack_require__(231);
+	var KeyConfigs = __webpack_require__(233);
+	var CursorContexts = __webpack_require__(226);
 
-	var _require8 = __webpack_require__(244);
+	var _require8 = __webpack_require__(243);
 
 	var keypadSwitch = _require8.keypadSwitch;
 	var jumpOutType = _require8.jumpOutType;
@@ -59007,16 +58798,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        cursorContext: cursorContextPropType.isRequired,
 	        dynamicJumpOut: React.PropTypes.bool,
 	        extraKeys: React.PropTypes.arrayOf(keyIdPropType),
-	        showToggle: React.PropTypes.bool
-	    },
+	        showToggle: React.PropTypes.bool },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            dynamicJumpOut: jumpOutType === JumpOutTypes.DYNAMIC,
-	            showToggle: keypadSwitch === SwitchTypes.TOGGLE
-	        };
+	            showToggle: keypadSwitch === SwitchTypes.TOGGLE };
 	    },
-	    render: function render() {
+
+	    render: function () {
 	        var _props = this.props;
 	        var currentPage = _props.currentPage;
 	        var cursorContext = _props.cursorContext;
@@ -59025,52 +58815,106 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var showToggle = _props.showToggle;
 
 	        var firstPageStyle = [row, styles.fullPage, styles.firstPage];
-	        var firstPage = React.createElement(View, { style: firstPageStyle }, React.createElement(View, { style: [column, oneColumn] }, React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_7,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_4,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_1,
-	            borders: BorderStyles.BOTTOM
-	        }), React.createElement(ManyKeypadButton, {
-	            keys: extraKeys,
-	            borders: BorderStyles.NONE
-	        })), React.createElement(View, { style: [column, oneColumn] }, React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_8,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_5,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_2,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_0,
-	            borders: BorderStyles.LEFT
-	        })), React.createElement(View, { style: [column, oneColumn] }, React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_9,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_6,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_3,
-	            borders: BorderStyles.BOTTOM
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.DECIMAL,
-	            borders: BorderStyles.LEFT
-	        })), React.createElement(View, { style: [column, oneColumn] }, React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.FRAC_MULTI }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.PARENS_MULTI }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.MINUS }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.PLUS,
-	            borders: BorderStyles.LEFT
-	        })));
+	        var firstPage = React.createElement(
+	            View,
+	            { style: firstPageStyle },
+	            React.createElement(
+	                View,
+	                { style: [column, oneColumn] },
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_7,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_4,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_1,
+	                    borders: BorderStyles.BOTTOM
+	                }),
+	                React.createElement(ManyKeypadButton, {
+	                    keys: extraKeys,
+	                    borders: BorderStyles.NONE
+	                })
+	            ),
+	            React.createElement(
+	                View,
+	                { style: [column, oneColumn] },
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_8,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_5,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_2,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_0,
+	                    borders: BorderStyles.LEFT
+	                })
+	            ),
+	            React.createElement(
+	                View,
+	                { style: [column, oneColumn] },
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_9,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_6,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_3,
+	                    borders: BorderStyles.BOTTOM
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.DECIMAL,
+	                    borders: BorderStyles.LEFT
+	                })
+	            ),
+	            React.createElement(
+	                View,
+	                { style: [column, oneColumn] },
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.FRAC_MULTI }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.PARENS_MULTI }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.MINUS }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.PLUS,
+	                    borders: BorderStyles.LEFT
+	                })
+	            )
+	        );
 
-	        var secondPage = React.createElement(View, { style: [row, styles.fullPage] }, React.createElement(View, { style: [column, oneColumn] }, React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.EQUAL_MULTI }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.LESS_MULTI }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.GREATER_MULTI }), React.createElement(EmptyKeypadButton, { borders: BorderStyles.LEFT })), React.createElement(View, { style: [column, oneColumn] }, React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.EXP_MULTI }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.RADICAL_MULTI }), React.createElement(EmptyKeypadButton, null), React.createElement(EmptyKeypadButton, { borders: BorderStyles.LEFT })));
+	        var secondPage = React.createElement(
+	            View,
+	            { style: [row, styles.fullPage] },
+	            React.createElement(
+	                View,
+	                { style: [column, oneColumn] },
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.EQUAL_MULTI }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.LESS_MULTI }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.GREATER_MULTI }),
+	                React.createElement(EmptyKeypadButton, { borders: BorderStyles.LEFT })
+	            ),
+	            React.createElement(
+	                View,
+	                { style: [column, oneColumn] },
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.EXP_MULTI }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.RADICAL_MULTI }),
+	                React.createElement(EmptyKeypadButton, null),
+	                React.createElement(EmptyKeypadButton, { borders: BorderStyles.LEFT })
+	            )
+	        );
 
 	        // TODO(charlie): Simplify after user-testing.
-	        var topNavigationKey = void 0;
-	        var goRightNavigationKey = void 0;
+	        var topNavigationKey = undefined;
+	        var goRightNavigationKey = undefined;
 	        if (showToggle) {
 	            topNavigationKey = currentPage === 0 ? KeyConfigs.MORE : KeyConfigs.NUMBERS;
 	            goRightNavigationKey = KeyConfigs.JUMP_OUT;
@@ -59079,28 +58923,35 @@ return /******/ (function(modules) { // webpackBootstrap
 	            goRightNavigationKey = KeyConfigs.RIGHT;
 	        }
 
-	        var dismissOrJumpOutKey = void 0;
+	        var dismissOrJumpOutKey = undefined;
 	        if (dynamicJumpOut && cursorContext === CursorContexts.NESTED) {
 	            dismissOrJumpOutKey = KeyConfigs.JUMP_OUT;
 	        } else {
 	            dismissOrJumpOutKey = KeyConfigs.DISMISS;
 	        }
 
-	        var sidebar = React.createElement(View, { style: [column, oneColumn, styles.sidebar] }, React.createElement(TouchableKeypadButton, {
-	            keyConfig: topNavigationKey,
-	            borders: BorderStyles.LEFT
-	        }), dynamicJumpOut ? React.createElement(EmptyKeypadButton, {
-	            borders: BorderStyles.LEFT
-	        }) : React.createElement(TouchableKeypadButton, {
-	            keyConfig: goRightNavigationKey,
-	            borders: BorderStyles.LEFT
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.BACKSPACE,
-	            borders: BorderStyles.LEFT
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: dismissOrJumpOutKey,
-	            borders: BorderStyles.LEFT
-	        }));
+	        var sidebar = React.createElement(
+	            View,
+	            { style: [column, oneColumn, styles.sidebar] },
+	            React.createElement(TouchableKeypadButton, {
+	                keyConfig: topNavigationKey,
+	                borders: BorderStyles.LEFT
+	            }),
+	            dynamicJumpOut ? React.createElement(EmptyKeypadButton, {
+	                borders: BorderStyles.LEFT
+	            }) : React.createElement(TouchableKeypadButton, {
+	                keyConfig: goRightNavigationKey,
+	                borders: BorderStyles.LEFT
+	            }),
+	            React.createElement(TouchableKeypadButton, {
+	                keyConfig: KeyConfigs.BACKSPACE,
+	                borders: BorderStyles.LEFT
+	            }),
+	            React.createElement(TouchableKeypadButton, {
+	                keyConfig: dismissOrJumpOutKey,
+	                borders: BorderStyles.LEFT
+	            })
+	        );
 
 	        return React.createElement(TwoPageKeypad, {
 	            currentPage: currentPage,
@@ -59108,28 +58959,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	            secondPage: secondPage,
 	            sidebar: sidebar
 	        });
-	    }
-	});
+	    } });
 
 	var styles = StyleSheet.create({
 	    fullPage: {
-	        flexBasis: '100%'
-	    },
+	        flexBasis: '100%' },
 
 	    firstPage: {
-	        backgroundColor: numeralGrey
-	    },
+	        backgroundColor: numeralGrey },
 
 	    sidebar: {
-	        backgroundColor: commandGrey
-	    }
-	});
+	        backgroundColor: commandGrey } });
 
-	var mapStateToProps = function mapStateToProps(state) {
+	var mapStateToProps = function (state) {
 	    return {
 	        currentPage: state.pager.currentPage,
-	        cursorContext: state.input.cursor.context
-	    };
+	        cursorContext: state.input.cursor.context };
 	};
 
 	module.exports = connect(mapStateToProps)(BasicExpressionKeypad);
@@ -59137,8 +58982,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ },
 /* 241 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * A keypad that includes all of the advanced expression symbols.
@@ -59154,7 +58997,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require2.StyleSheet;
 
-	var _require3 = __webpack_require__(233);
+	var _require3 = __webpack_require__(234);
 
 	var View = _require3.View;
 
@@ -59175,7 +59018,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var SwitchTypes = _require5.SwitchTypes;
 	var JumpOutTypes = _require5.JumpOutTypes;
 
-	var _require6 = __webpack_require__(230);
+	var _require6 = __webpack_require__(231);
 
 	var numeralGrey = _require6.numeralGrey;
 	var commandGrey = _require6.commandGrey;
@@ -59185,10 +59028,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var cursorContextPropType = _require7.cursorContextPropType;
 	var keyIdPropType = _require7.keyIdPropType;
 
-	var KeyConfigs = __webpack_require__(234);
-	var CursorContexts = __webpack_require__(231);
+	var KeyConfigs = __webpack_require__(233);
+	var CursorContexts = __webpack_require__(226);
 
-	var _require8 = __webpack_require__(244);
+	var _require8 = __webpack_require__(243);
 
 	var keypadSwitch = _require8.keypadSwitch;
 	var jumpOutType = _require8.jumpOutType;
@@ -59201,16 +59044,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        cursorContext: cursorContextPropType.isRequired,
 	        dynamicJumpOut: React.PropTypes.bool,
 	        extraKeys: React.PropTypes.arrayOf(keyIdPropType),
-	        showToggle: React.PropTypes.bool
-	    },
+	        showToggle: React.PropTypes.bool },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            dynamicJumpOut: jumpOutType === JumpOutTypes.DYNAMIC,
-	            showToggle: keypadSwitch === SwitchTypes.TOGGLE
-	        };
+	            showToggle: keypadSwitch === SwitchTypes.TOGGLE };
 	    },
-	    render: function render() {
+
+	    render: function () {
 	        var _props = this.props;
 	        var currentPage = _props.currentPage;
 	        var cursorContext = _props.cursorContext;
@@ -59219,52 +59061,114 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var showToggle = _props.showToggle;
 
 	        var firstPageStyle = [row, styles.fullPage, styles.firstPage];
-	        var firstPage = React.createElement(View, { style: firstPageStyle }, React.createElement(View, { style: [column, oneColumn] }, React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_7,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_4,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_1,
-	            borders: BorderStyles.BOTTOM
-	        }), React.createElement(ManyKeypadButton, {
-	            keys: extraKeys,
-	            borders: BorderStyles.NONE
-	        })), React.createElement(View, { style: [column, oneColumn] }, React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_8,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_5,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_2,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_0,
-	            borders: BorderStyles.LEFT
-	        })), React.createElement(View, { style: [column, oneColumn] }, React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_9,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_6,
-	            borders: BorderStyles.NONE
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.NUM_3,
-	            borders: BorderStyles.BOTTOM
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.DECIMAL,
-	            borders: BorderStyles.LEFT
-	        })), React.createElement(View, { style: [column, oneColumn] }, React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.FRAC_MULTI }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.PARENS_MULTI }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.MINUS }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.PLUS,
-	            borders: BorderStyles.LEFT
-	        })));
+	        var firstPage = React.createElement(
+	            View,
+	            { style: firstPageStyle },
+	            React.createElement(
+	                View,
+	                { style: [column, oneColumn] },
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_7,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_4,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_1,
+	                    borders: BorderStyles.BOTTOM
+	                }),
+	                React.createElement(ManyKeypadButton, {
+	                    keys: extraKeys,
+	                    borders: BorderStyles.NONE
+	                })
+	            ),
+	            React.createElement(
+	                View,
+	                { style: [column, oneColumn] },
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_8,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_5,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_2,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_0,
+	                    borders: BorderStyles.LEFT
+	                })
+	            ),
+	            React.createElement(
+	                View,
+	                { style: [column, oneColumn] },
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_9,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_6,
+	                    borders: BorderStyles.NONE
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.NUM_3,
+	                    borders: BorderStyles.BOTTOM
+	                }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.DECIMAL,
+	                    borders: BorderStyles.LEFT
+	                })
+	            ),
+	            React.createElement(
+	                View,
+	                { style: [column, oneColumn] },
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.FRAC_MULTI }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.PARENS_MULTI }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.MINUS }),
+	                React.createElement(TouchableKeypadButton, {
+	                    keyConfig: KeyConfigs.PLUS,
+	                    borders: BorderStyles.LEFT
+	                })
+	            )
+	        );
 
-	        var secondPage = React.createElement(View, { style: [row, styles.fullPage] }, React.createElement(View, { style: [column, oneColumn] }, React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.EQUAL_MULTI }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.LESS_MULTI }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.GREATER_MULTI }), React.createElement(EmptyKeypadButton, { borders: BorderStyles.LEFT })), React.createElement(View, { style: [column, oneColumn] }, React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.EXP_MULTI }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.RADICAL_MULTI }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.LOG_MULTI }), React.createElement(EmptyKeypadButton, { borders: BorderStyles.LEFT })), React.createElement(View, { style: [column, oneColumn] }, React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.SIN }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.COS }), React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.TAN }), React.createElement(EmptyKeypadButton, { borders: BorderStyles.LEFT })));
+	        var secondPage = React.createElement(
+	            View,
+	            { style: [row, styles.fullPage] },
+	            React.createElement(
+	                View,
+	                { style: [column, oneColumn] },
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.EQUAL_MULTI }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.LESS_MULTI }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.GREATER_MULTI }),
+	                React.createElement(EmptyKeypadButton, { borders: BorderStyles.LEFT })
+	            ),
+	            React.createElement(
+	                View,
+	                { style: [column, oneColumn] },
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.EXP_MULTI }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.RADICAL_MULTI }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.LOG_MULTI }),
+	                React.createElement(EmptyKeypadButton, { borders: BorderStyles.LEFT })
+	            ),
+	            React.createElement(
+	                View,
+	                { style: [column, oneColumn] },
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.SIN }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.COS }),
+	                React.createElement(TouchableKeypadButton, { keyConfig: KeyConfigs.TAN }),
+	                React.createElement(EmptyKeypadButton, { borders: BorderStyles.LEFT })
+	            )
+	        );
 
 	        // TODO(charlie): Simplify after user-testing.
-	        var topNavigationKey = void 0;
-	        var goRightNavigationKey = void 0;
+	        var topNavigationKey = undefined;
+	        var goRightNavigationKey = undefined;
 	        if (showToggle) {
 	            topNavigationKey = currentPage === 0 ? KeyConfigs.MORE : KeyConfigs.NUMBERS;
 	            goRightNavigationKey = KeyConfigs.JUMP_OUT;
@@ -59273,28 +59177,35 @@ return /******/ (function(modules) { // webpackBootstrap
 	            goRightNavigationKey = KeyConfigs.RIGHT;
 	        }
 
-	        var dismissOrJumpOutKey = void 0;
+	        var dismissOrJumpOutKey = undefined;
 	        if (dynamicJumpOut && cursorContext === CursorContexts.NESTED) {
 	            dismissOrJumpOutKey = KeyConfigs.JUMP_OUT;
 	        } else {
 	            dismissOrJumpOutKey = KeyConfigs.DISMISS;
 	        }
 
-	        var sidebar = React.createElement(View, { style: [column, oneColumn, styles.sidebar] }, React.createElement(TouchableKeypadButton, {
-	            keyConfig: topNavigationKey,
-	            borders: BorderStyles.LEFT
-	        }), dynamicJumpOut ? React.createElement(EmptyKeypadButton, {
-	            borders: BorderStyles.LEFT
-	        }) : React.createElement(TouchableKeypadButton, {
-	            keyConfig: goRightNavigationKey,
-	            borders: BorderStyles.LEFT
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: KeyConfigs.BACKSPACE,
-	            borders: BorderStyles.LEFT
-	        }), React.createElement(TouchableKeypadButton, {
-	            keyConfig: dismissOrJumpOutKey,
-	            borders: BorderStyles.LEFT
-	        }));
+	        var sidebar = React.createElement(
+	            View,
+	            { style: [column, oneColumn, styles.sidebar] },
+	            React.createElement(TouchableKeypadButton, {
+	                keyConfig: topNavigationKey,
+	                borders: BorderStyles.LEFT
+	            }),
+	            dynamicJumpOut ? React.createElement(EmptyKeypadButton, {
+	                borders: BorderStyles.LEFT
+	            }) : React.createElement(TouchableKeypadButton, {
+	                keyConfig: goRightNavigationKey,
+	                borders: BorderStyles.LEFT
+	            }),
+	            React.createElement(TouchableKeypadButton, {
+	                keyConfig: KeyConfigs.BACKSPACE,
+	                borders: BorderStyles.LEFT
+	            }),
+	            React.createElement(TouchableKeypadButton, {
+	                keyConfig: dismissOrJumpOutKey,
+	                borders: BorderStyles.LEFT
+	            })
+	        );
 
 	        return React.createElement(TwoPageKeypad, {
 	            currentPage: currentPage,
@@ -59302,28 +59213,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	            secondPage: secondPage,
 	            sidebar: sidebar
 	        });
-	    }
-	});
+	    } });
 
 	var styles = StyleSheet.create({
 	    fullPage: {
-	        flexBasis: '100%'
-	    },
+	        flexBasis: '100%' },
 
 	    firstPage: {
-	        backgroundColor: numeralGrey
-	    },
+	        backgroundColor: numeralGrey },
 
 	    sidebar: {
-	        backgroundColor: commandGrey
-	    }
-	});
+	        backgroundColor: commandGrey } });
 
-	var mapStateToProps = function mapStateToProps(state) {
+	var mapStateToProps = function (state) {
 	    return {
 	        currentPage: state.pager.currentPage,
-	        cursorContext: state.input.cursor.context
-	    };
+	        cursorContext: state.input.cursor.context };
 	};
 
 	module.exports = connect(mapStateToProps)(AdvancedExpressionKeypad);
@@ -59331,26 +59236,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ },
 /* 242 */
 /***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * This file contains all of the z-index values used throughout the math-input
-	 * component and its children.  The goal of the different z-indexes is to have
-	 * a container that clips the selection rectangle while allowing the cursor
-	 * handle to extend below the bounds of the outer container.
-	 */
-
-	module.exports = {
-	  selectionRect: -1,
-	  keypad: 1060
-	};
-
-/***/ },
-/* 243 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * This file contains constants for keypad buttons that aren't single
@@ -59415,42 +59300,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    // A custom key that captures an arbitrary number of symbols but has no
 	    // 'default' symbol or action.
-	    MANY: 'MANY'
-	};
+	    MANY: 'MANY' };
 
 	module.exports = Keys;
 
 /***/ },
-/* 244 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _slicedToArray = (function () {
-	    function sliceIterator(arr, i) {
-	        var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
-	            for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-	                _arr.push(_s.value);if (i && _arr.length === i) break;
-	            }
-	        } catch (err) {
-	            _d = true;_e = err;
-	        } finally {
-	            try {
-	                if (!_n && _i["return"]) _i["return"]();
-	            } finally {
-	                if (_d) throw _e;
-	            }
-	        }return _arr;
-	    }return function (arr, i) {
-	        if (Array.isArray(arr)) {
-	            return arr;
-	        } else if (Symbol.iterator in Object(arr)) {
-	            return sliceIterator(arr, i);
-	        } else {
-	            throw new TypeError("Invalid attempt to destructure non-iterable instance");
-	        }
-	    };
-	})();
 
 	var queryString = __webpack_require__(265);
 
@@ -59477,7 +59333,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// test 5
 	// jump_out: static, dynamic
 
-	var search = typeof location === "undefined" ? "" : location.search;
+	var search = typeof location === 'undefined' ? '' : location.search;
 	var parsed = queryString.parse(search);
 
 	var containsConfigurationOptions = Object.keys(parsed).length > 0;
@@ -59488,9 +59344,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    fractionBehavior: FractionBehaviorTypes.INCLUSIVE,
 	    jumpOutType: JumpOutTypes.STATIC,
 	    echoAnimation: EchoAnimationTypes.SLIDE_AND_FADE,
-	    iconStyle: "fancy",
-	    debugSwitcher: containsConfigurationOptions ? DebugSwitcherTypes.DISABLED : DebugSwitcherTypes.ENABLED
-	};
+	    iconStyle: 'fancy',
+	    debugSwitcher: containsConfigurationOptions ? DebugSwitcherTypes.DISABLED : DebugSwitcherTypes.ENABLED };
 
 	var settings = {
 	    keypadSwitch: parsed.keypad_switch || defaults.keypadSwitch,
@@ -59499,82 +59354,71 @@ return /******/ (function(modules) { // webpackBootstrap
 	    fractionBehavior: parsed.fraction_behavior || defaults.fractionBehavior,
 	    echoAnimation: parsed.echo_animation || defaults.echoAnimation,
 	    iconStyle: parsed.icon_style || defaults.iconStyle,
-	    debugSwitcher: parsed.debug_switcher || defaults.debugSwitcher
-	};
+	    debugSwitcher: parsed.debug_switcher || defaults.debugSwitcher };
 
 	// Map any values to caps.
-	var _iteratorNormalCompletion = true;
-	var _didIteratorError = false;
-	var _iteratorError = undefined;
+	for (var _iterator = Object.entries(settings), _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+	    var _ref;
 
-	try {
-	    for (var _iterator = Object.entries(settings)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	        var _step$value = _slicedToArray(_step.value, 2);
-
-	        var key = _step$value[0];
-	        var value = _step$value[1];
-
-	        settings[key] = value.toUpperCase();
+	    if (_isArray) {
+	        if (_i >= _iterator.length) break;
+	        _ref = _iterator[_i++];
+	    } else {
+	        _i = _iterator.next();
+	        if (_i.done) break;
+	        _ref = _i.value;
 	    }
-	} catch (err) {
-	    _didIteratorError = true;
-	    _iteratorError = err;
-	} finally {
-	    try {
-	        if (!_iteratorNormalCompletion && _iterator.return) {
-	            _iterator.return();
-	        }
-	    } finally {
-	        if (_didIteratorError) {
-	            throw _iteratorError;
-	        }
-	    }
+
+	    var key = _ref[0];
+	    var value = _ref[1];
+
+	    settings[key] = value.toUpperCase();
 	}
 
 	module.exports = settings;
 
 /***/ },
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * This file contains all of the z-index values used throughout the math-input
+	 * component and its children.  The goal of the different z-indexes is to have
+	 * a container that clips the selection rectangle while allowing the cursor
+	 * handle to extend below the bounds of the outer container.
+	 */
+
+	module.exports = {
+	  selectionRect: -1,
+	  keypad: 1060 };
+
+/***/ },
 /* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
 	var _Keypads;
-
-	function _defineProperty(obj, key, value) {
-	    if (key in obj) {
-	        Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
-	    } else {
-	        obj[key] = value;
-	    }return obj;
-	}
 
 	/**
 	 * Data used to define the various keypads available.
 	 */
 
-	var Keys = __webpack_require__(243);
+	var Keys = __webpack_require__(242);
 
 	var _require = __webpack_require__(190);
 
 	var KeypadTypes = _require.KeypadTypes;
 
-	var Keypads = (_Keypads = {}, _defineProperty(_Keypads, KeypadTypes.NUMBER, {
+	var Keypads = (_Keypads = {}, _Keypads[KeypadTypes.NUMBER] = {
 	    numPages: 1,
-	    extraKeys: []
-	}), _defineProperty(_Keypads, KeypadTypes.FRACTION, {
+	    extraKeys: [] }, _Keypads[KeypadTypes.FRACTION] = {
 	    numPages: 1,
-	    extraKeys: []
-	}), _defineProperty(_Keypads, KeypadTypes.DEFAULT, {
+	    extraKeys: [] }, _Keypads[KeypadTypes.DEFAULT] = {
 	    numPages: 1,
-	    extraKeys: []
-	}), _defineProperty(_Keypads, KeypadTypes.ADVANCED_EXPRESSION, {
+	    extraKeys: [] }, _Keypads[KeypadTypes.ADVANCED_EXPRESSION] = {
 	    numPages: 2,
-	    extraKeys: ['X', 'Y', Keys.PI, Keys.THETA]
-	}), _defineProperty(_Keypads, KeypadTypes.BASIC_EXPRESSION, {
+	    extraKeys: ['X', 'Y', Keys.PI, Keys.THETA] }, _Keypads[KeypadTypes.BASIC_EXPRESSION] = {
 	    numPages: 2,
-	    extraKeys: []
-	}), _Keypads);
+	    extraKeys: [] }, _Keypads);
 
 	module.exports = Keypads;
 
@@ -59582,65 +59426,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	var _slicedToArray = (function () {
-	    function sliceIterator(arr, i) {
-	        var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
-	            for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-	                _arr.push(_s.value);if (i && _arr.length === i) break;
-	            }
-	        } catch (err) {
-	            _d = true;_e = err;
-	        } finally {
-	            try {
-	                if (!_n && _i["return"]) _i["return"]();
-	            } finally {
-	                if (_d) throw _e;
-	            }
-	        }return _arr;
-	    }return function (arr, i) {
-	        if (Array.isArray(arr)) {
-	            return arr;
-	        } else if (Symbol.iterator in Object(arr)) {
-	            return sliceIterator(arr, i);
-	        } else {
-	            throw new TypeError("Invalid attempt to destructure non-iterable instance");
-	        }
-	    };
-	})();
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
-	var _extends = Object.assign || function (target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];for (var key in source) {
-	            if (Object.prototype.hasOwnProperty.call(source, key)) {
-	                target[key] = source[key];
-	            }
-	        }
-	    }return target;
-	};
-
-	var _createClass = (function () {
-	    function defineProperties(target, props) {
-	        for (var i = 0; i < props.length; i++) {
-	            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	        }
-	    }return function (Constructor, protoProps, staticProps) {
-	        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	    };
-	})();
-
-	function _objectWithoutProperties(obj, keys) {
-	    var target = {};for (var i in obj) {
-	        if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
-	    }return target;
-	}
-
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) {
-	        throw new TypeError("Cannot call a class as a function");
-	    }
-	}
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	/**
 	 * A high-level manager for our gesture system. In particular, this class
@@ -59652,7 +59442,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var PopoverStateMachine = __webpack_require__(260);
 	var GestureStateMachine = __webpack_require__(261);
 
-	var coordsForEvent = function coordsForEvent(evt) {
+	var coordsForEvent = function (evt) {
 	    return [evt.changedTouches[0].clientX, evt.changedTouches[0].clientY];
 	};
 
@@ -59668,17 +59458,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        this.nodeManager = new NodeManager();
 	        this.popoverStateMachine = new PopoverStateMachine({
-	            onActiveNodesChanged: function onActiveNodesChanged(activeNodes) {
+	            onActiveNodesChanged: function (activeNodes) {
 	                var popover = activeNodes.popover;
 
-	                var rest = _objectWithoutProperties(activeNodes, ["popover"]);
+	                var rest = _objectWithoutProperties(activeNodes, ['popover']);
 
 	                handlers.onActiveNodesChanged(_extends({
 	                    popover: popover && {
 	                        bounds: _this.nodeManager.layoutPropsForId(popover.parentId).initialBounds,
-	                        childKeyIds: popover.childIds
-	                    }
-	                }, rest));
+	                        childKeyIds: popover.childIds } }, rest));
 	            },
 	            /**
 	             * `onClick` takes two arguments:
@@ -59694,26 +59482,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	             * we need to mimic the effects of clicking on its 'primary' child
 	             * key, but animate the click on the popover button.
 	             */
-	            onClick: function onClick(keyId, domNodeId) {
+	            onClick: function (keyId, domNodeId) {
 	                handlers.onClick(keyId, _this.nodeManager.layoutPropsForId(domNodeId));
-	            }
-	        });
+	            } });
 	        this.gestureStateMachine = new GestureStateMachine({
-	            onFocus: function onFocus(id) {
+	            onFocus: function (id) {
 	                _this.popoverStateMachine.onFocus(id);
 	            },
-	            onLongPress: function onLongPress(id) {
+	            onLongPress: function (id) {
 	                _this.popoverStateMachine.onLongPress(id);
 	            },
-	            onTouchEnd: function onTouchEnd(id) {
+	            onTouchEnd: function (id) {
 	                _this.popoverStateMachine.onTouchEnd(id);
 	            },
-	            onBlur: function onBlur() {
+	            onBlur: function () {
 	                _this.popoverStateMachine.onBlur();
 	            },
 	            onSwipeChange: handlers.onSwipeChange,
-	            onSwipeEnd: handlers.onSwipeEnd
-	        });
+	            onSwipeEnd: handlers.onSwipeEnd });
 	    }
 
 	    /**
@@ -59725,120 +59511,101 @@ return /******/ (function(modules) { // webpackBootstrap
 	     *                      occurred
 	     */
 
-	    _createClass(GestureManager, [{
-	        key: "onTouchStart",
-	        value: function onTouchStart(evt, id) {
-	            var _coordsForEvent = coordsForEvent(evt);
+	    GestureManager.prototype.onTouchStart = function onTouchStart(evt, id) {
+	        var _coordsForEvent = coordsForEvent(evt);
 
-	            var _coordsForEvent2 = _slicedToArray(_coordsForEvent, 1);
+	        var x = _coordsForEvent[0];
 
-	            var x = _coordsForEvent2[0];
+	        this.gestureStateMachine.onTouchStart(function () {
+	            return id;
+	        }, x);
 
-	            this.gestureStateMachine.onTouchStart(function () {
-	                return id;
-	            }, x);
+	        // If an event started in a view that we're managing, we'll handle it
+	        // all the way through.
+	        evt.preventDefault();
+	    };
 
-	            // If an event started in a view that we're managing, we'll handle it
-	            // all the way through.
-	            evt.preventDefault();
-	        }
+	    /**
+	     * Handle a touch-move event that originated in a node registered with the
+	     * gesture system.
+	     *
+	     * @param {TouchEvent} evt - the raw touch event from the browser
+	     */
 
-	        /**
-	         * Handle a touch-move event that originated in a node registered with the
-	         * gesture system.
-	         *
-	         * @param {TouchEvent} evt - the raw touch event from the browser
-	         */
+	    GestureManager.prototype.onTouchMove = function onTouchMove(evt) {
+	        var _this2 = this;
 
-	    }, {
-	        key: "onTouchMove",
-	        value: function onTouchMove(evt) {
-	            var _this2 = this;
+	        var swipeLocked = this.popoverStateMachine.isPopoverVisible();
+	        var swipeEnabled = this.swipeEnabled && !swipeLocked;
 
-	            var swipeLocked = this.popoverStateMachine.isPopoverVisible();
-	            var swipeEnabled = this.swipeEnabled && !swipeLocked;
+	        var _coordsForEvent2 = coordsForEvent(evt);
 
-	            var _coordsForEvent3 = coordsForEvent(evt);
+	        var x = _coordsForEvent2[0];
+	        var y = _coordsForEvent2[1];
 
-	            var _coordsForEvent4 = _slicedToArray(_coordsForEvent3, 2);
+	        this.gestureStateMachine.onTouchMove(function () {
+	            return _this2.nodeManager.idForCoords(x, y);
+	        }, x, swipeEnabled);
+	    };
 
-	            var x = _coordsForEvent4[0];
-	            var y = _coordsForEvent4[1];
+	    /**
+	     * Handle a touch-end event that originated in a node registered with the
+	     * gesture system.
+	     *
+	     * @param {TouchEvent} evt - the raw touch event from the browser
+	     */
 
-	            this.gestureStateMachine.onTouchMove(function () {
-	                return _this2.nodeManager.idForCoords(x, y);
-	            }, x, swipeEnabled);
-	        }
+	    GestureManager.prototype.onTouchEnd = function onTouchEnd(evt) {
+	        var _this3 = this;
 
-	        /**
-	         * Handle a touch-end event that originated in a node registered with the
-	         * gesture system.
-	         *
-	         * @param {TouchEvent} evt - the raw touch event from the browser
-	         */
+	        var _coordsForEvent3 = coordsForEvent(evt);
 
-	    }, {
-	        key: "onTouchEnd",
-	        value: function onTouchEnd(evt) {
-	            var _this3 = this;
+	        var x = _coordsForEvent3[0];
+	        var y = _coordsForEvent3[1];
 
-	            var _coordsForEvent5 = coordsForEvent(evt);
+	        this.gestureStateMachine.onTouchEnd(function () {
+	            return _this3.nodeManager.idForCoords(x, y);
+	        }, x);
+	    };
 
-	            var _coordsForEvent6 = _slicedToArray(_coordsForEvent5, 2);
+	    /**
+	     * Handle a touch-cancel event that originated in a node registered with the
+	     * gesture system.
+	     *
+	     * @param {TouchEvent} evt - the raw touch event from the browser
+	     */
 
-	            var x = _coordsForEvent6[0];
-	            var y = _coordsForEvent6[1];
+	    GestureManager.prototype.onTouchCancel = function onTouchCancel(evt) {
+	        this.gestureStateMachine.onTouchCancel();
+	    };
 
-	            this.gestureStateMachine.onTouchEnd(function () {
-	                return _this3.nodeManager.idForCoords(x, y);
-	            }, x);
-	        }
+	    /**
+	     * Register a DOM node with a given identifier.
+	     *
+	     * @param {string} id - the identifier of the given node
+	     * @param {node} domNode - the DOM node linked to the identifier
+	     * @param {string[]} childIds - the identifiers of any DOM nodes that
+	     *                              should be considered children of this node,
+	     *                              in that they should take priority when
+	     *                              intercepting touch events
+	     * @param {object} borders - an opaque object describing the node's borders
+	     */
 
-	        /**
-	         * Handle a touch-cancel event that originated in a node registered with the
-	         * gesture system.
-	         *
-	         * @param {TouchEvent} evt - the raw touch event from the browser
-	         */
+	    GestureManager.prototype.registerDOMNode = function registerDOMNode(id, domNode, childIds, borders) {
+	        this.nodeManager.registerDOMNode(id, domNode, childIds, borders);
+	        this.popoverStateMachine.registerPopover(id, childIds);
+	    };
 
-	    }, {
-	        key: "onTouchCancel",
-	        value: function onTouchCancel(evt) {
-	            this.gestureStateMachine.onTouchCancel();
-	        }
+	    /**
+	     * Unregister the DOM node with the given identifier.
+	     *
+	     * @param {string} id - the identifier of the node to unregister
+	     */
 
-	        /**
-	         * Register a DOM node with a given identifier.
-	         *
-	         * @param {string} id - the identifier of the given node
-	         * @param {node} domNode - the DOM node linked to the identifier
-	         * @param {string[]} childIds - the identifiers of any DOM nodes that
-	         *                              should be considered children of this node,
-	         *                              in that they should take priority when
-	         *                              intercepting touch events
-	         * @param {object} borders - an opaque object describing the node's borders
-	         */
-
-	    }, {
-	        key: "registerDOMNode",
-	        value: function registerDOMNode(id, domNode, childIds, borders) {
-	            this.nodeManager.registerDOMNode(id, domNode, childIds, borders);
-	            this.popoverStateMachine.registerPopover(id, childIds);
-	        }
-
-	        /**
-	         * Unregister the DOM node with the given identifier.
-	         *
-	         * @param {string} id - the identifier of the node to unregister
-	         */
-
-	    }, {
-	        key: "unregisterDOMNode",
-	        value: function unregisterDOMNode(id) {
-	            this.nodeManager.unregisterDOMNode(id);
-	            this.popoverStateMachine.unregisterPopover(id);
-	        }
-	    }]);
+	    GestureManager.prototype.unregisterDOMNode = function unregisterDOMNode(id) {
+	        this.nodeManager.unregisterDOMNode(id);
+	        this.popoverStateMachine.unregisterPopover(id);
+	    };
 
 	    return GestureManager;
 	})();
@@ -59849,33 +59616,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	var _extends = Object.assign || function (target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];for (var key in source) {
-	            if (Object.prototype.hasOwnProperty.call(source, key)) {
-	                target[key] = source[key];
-	            }
-	        }
-	    }return target;
-	};
-
-	var _createClass = (function () {
-	    function defineProperties(target, props) {
-	        for (var i = 0; i < props.length; i++) {
-	            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	        }
-	    }return function (Constructor, protoProps, staticProps) {
-	        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	    };
-	})();
-
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) {
-	        throw new TypeError("Cannot call a class as a function");
-	    }
-	}
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	/**
 	 * A system for tracking gesture velocity in a single dimension.
@@ -59891,8 +59634,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _classCallCheck(this, VelocityTracker);
 
 	        this.options = _extends({
-	            velocityTimeout: 100
-	        }, options);
+	            velocityTimeout: 100 }, options);
 	        this._events = [];
 	    }
 
@@ -59905,62 +59647,54 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @param {number} x - the cumulative displacement of the event
 	     */
 
-	    _createClass(VelocityTracker, [{
-	        key: "push",
-	        value: function push(x) {
-	            this._events.push({
-	                x: x,
-	                t: now()
-	            });
+	    VelocityTracker.prototype.push = function push(x) {
+	        this._events.push({
+	            x: x,
+	            t: now() });
+	    };
+
+	    /**
+	     * Compute the velocity with respect to the events that have been tracked
+	     * by the system. Velocity is computed by smoothing linearly over recent
+	     * displacement values.
+	     *
+	     * Note that, for performance reasons, a call to `getVelocity` will clear
+	     * out the event buffer. As such, repeated calls will not return the same
+	     * value (in particular, a second call in quick succession will return 0).
+	     *
+	     * @returns {number} the velocity associated with the tracker
+	     */
+
+	    VelocityTracker.prototype.getVelocity = function getVelocity() {
+	        var events = this._getEvents();
+
+	        if (events.length < 2) {
+	            return 0;
+	        } else {
+	            var current = events[events.length - 1];
+	            var first = events[0];
+	            var dt = current.t - first.t;
+	            return (current.x - first.x) / dt;
 	        }
+	    };
 
-	        /**
-	         * Compute the velocity with respect to the events that have been tracked
-	         * by the system. Velocity is computed by smoothing linearly over recent
-	         * displacement values.
-	         *
-	         * Note that, for performance reasons, a call to `getVelocity` will clear
-	         * out the event buffer. As such, repeated calls will not return the same
-	         * value (in particular, a second call in quick succession will return 0).
-	         *
-	         * @returns {number} the velocity associated with the tracker
-	         */
+	    /**
+	     * Filter the tracked events to exclude any events that occurred too far in
+	     * the past, and reset the event buffer.
+	     *
+	     * @returns {number[]} an array of displacements corresponding to events
+	     *                     that occurred in the past `velocityTimeout`
+	     *                     milliseconds
+	     */
 
-	    }, {
-	        key: "getVelocity",
-	        value: function getVelocity() {
-	            var events = this._getEvents();
-
-	            if (events.length < 2) {
-	                return 0;
-	            } else {
-	                var current = events[events.length - 1];
-	                var first = events[0];
-	                var dt = current.t - first.t;
-	                return (current.x - first.x) / dt;
-	            }
-	        }
-
-	        /**
-	         * Filter the tracked events to exclude any events that occurred too far in
-	         * the past, and reset the event buffer.
-	         *
-	         * @returns {number[]} an array of displacements corresponding to events
-	         *                     that occurred in the past `velocityTimeout`
-	         *                     milliseconds
-	         */
-
-	    }, {
-	        key: "_getEvents",
-	        value: function _getEvents() {
-	            var threshold = now() - this.options.velocityTimeout;
-	            var recentEvents = this._events.filter(function (event) {
-	                return event.t > threshold;
-	            });
-	            this._events = [];
-	            return recentEvents;
-	        }
-	    }]);
+	    VelocityTracker.prototype._getEvents = function _getEvents() {
+	        var threshold = now() - this.options.velocityTimeout;
+	        var recentEvents = this._events.filter(function (event) {
+	            return event.t > threshold;
+	        });
+	        this._events = [];
+	        return recentEvents;
+	    };
 
 	    return VelocityTracker;
 	})();
@@ -59970,24 +59704,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ },
 /* 248 */
 /***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-	    return typeof obj;
-	} : function (obj) {
-	    return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
-	};
-
-	function _toConsumableArray(arr) {
-	    if (Array.isArray(arr)) {
-	        for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-	            arr2[i] = arr[i];
-	        }return arr2;
-	    } else {
-	        return Array.from(arr);
-	    }
-	}
 
 	/**
 	 * A copy of react-native-web's <Image/> component, but with some minor
@@ -60006,31 +59722,29 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var View = __webpack_require__(250);
 
-	var STATUS_ERRORED = "ERRORED";
-	var STATUS_LOADED = "LOADED";
-	var STATUS_LOADING = "LOADING";
-	var STATUS_PENDING = "PENDING";
-	var STATUS_IDLE = "IDLE";
+	var STATUS_ERRORED = 'ERRORED';
+	var STATUS_LOADED = 'LOADED';
+	var STATUS_LOADING = 'LOADING';
+	var STATUS_PENDING = 'PENDING';
+	var STATUS_IDLE = 'IDLE';
 
 	// https://github.com/necolas/react-native-web/blob/master/src/components/Image/resolveAssetSource.js
-	var resolveAssetSource = function resolveAssetSource(source) {
-	    return ((typeof source === "undefined" ? "undefined" : _typeof(source)) === "object" ? source.uri : source) || null;
+	var resolveAssetSource = function (source) {
+	    return (typeof source === 'object' ? source.uri : source) || null;
 	};
 
 	// https://github.com/necolas/react-native-web/blob/master/src/components/Image/ImageResizeMode.js
 	var ImageResizeMode = {
-	    contain: "contain",
-	    cover: "cover",
-	    none: "none",
-	    stretch: "stretch"
-	};
+	    contain: 'contain',
+	    cover: 'cover',
+	    none: 'none',
+	    stretch: 'stretch' };
 
 	var ImageSourcePropType = React.PropTypes.oneOfType([React.PropTypes.shape({
-	    uri: React.PropTypes.string.isRequired
-	}), React.PropTypes.string]);
+	    uri: React.PropTypes.string.isRequired }), React.PropTypes.string]);
 
 	var Image = React.createClass({
-	    displayName: "Image",
+	    displayName: 'Image',
 
 	    propTypes: {
 	        children: React.PropTypes.any,
@@ -60039,39 +59753,41 @@ return /******/ (function(modules) { // webpackBootstrap
 	        onLoad: React.PropTypes.func,
 	        onLoadEnd: React.PropTypes.func,
 	        onLoadStart: React.PropTypes.func,
-	        resizeMode: React.PropTypes.oneOf(["contain", "cover", "none", "stretch"]),
+	        resizeMode: React.PropTypes.oneOf(['contain', 'cover', 'none', 'stretch']),
 	        source: ImageSourcePropType,
-	        style: React.PropTypes.any
-	    },
+	        style: React.PropTypes.any },
 
-	    getInitialState: function getInitialState() {
+	    getInitialState: function () {
 	        var uri = resolveAssetSource(this.props.source);
 	        return {
-	            status: uri ? STATUS_PENDING : STATUS_IDLE
-	        };
+	            status: uri ? STATUS_PENDING : STATUS_IDLE };
 	    },
-	    componentDidMount: function componentDidMount() {
+
+	    componentDidMount: function () {
 	        if (this.state.status === STATUS_PENDING) {
 	            this._createImageLoader();
 	        }
 	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+
+	    componentWillReceiveProps: function (nextProps) {
 	        var nextUri = resolveAssetSource(nextProps.source);
 	        if (resolveAssetSource(this.props.source) !== nextUri) {
 	            this.setState({
-	                status: nextUri ? STATUS_PENDING : STATUS_IDLE
-	            });
+	                status: nextUri ? STATUS_PENDING : STATUS_IDLE });
 	        }
 	    },
-	    componentDidUpdate: function componentDidUpdate() {
+
+	    componentDidUpdate: function () {
 	        if (this.state.status === STATUS_PENDING && !this.image) {
 	            this._createImageLoader();
 	        }
 	    },
-	    componentWillUnmount: function componentWillUnmount() {
+
+	    componentWillUnmount: function () {
 	        this._destroyImageLoader();
 	    },
-	    _createImageLoader: function _createImageLoader() {
+
+	    _createImageLoader: function () {
 	        var uri = resolveAssetSource(this.props.source);
 
 	        this._destroyImageLoader();
@@ -60081,14 +59797,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.image.src = uri;
 	        this._onLoadStart();
 	    },
-	    _destroyImageLoader: function _destroyImageLoader() {
+
+	    _destroyImageLoader: function () {
 	        if (this.image) {
 	            this.image.onerror = null;
 	            this.image.onload = null;
 	            this.image = null;
 	        }
 	    },
-	    _onError: function _onError(e) {
+
+	    _onError: function (e) {
 	        var onError = this.props.onError;
 
 	        var event = { nativeEvent: e };
@@ -60100,7 +59818,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            onError(event);
 	        }
 	    },
-	    _onLoad: function _onLoad(e) {
+
+	    _onLoad: function (e) {
 	        var onLoad = this.props.onLoad;
 
 	        var event = { nativeEvent: e };
@@ -60112,14 +59831,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	        this._onLoadEnd();
 	    },
-	    _onLoadEnd: function _onLoadEnd() {
+
+	    _onLoadEnd: function () {
 	        var onLoadEnd = this.props.onLoadEnd;
 
 	        if (onLoadEnd) {
 	            onLoadEnd();
 	        }
 	    },
-	    _onLoadStart: function _onLoadStart() {
+
+	    _onLoadStart: function () {
 	        var onLoadStart = this.props.onLoadStart;
 
 	        this.setState({ status: STATUS_LOADING });
@@ -60127,7 +59848,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            onLoadStart();
 	        }
 	    },
-	    render: function render() {
+
+	    render: function () {
 	        var _props = this.props;
 	        var children = _props.children;
 	        var defaultSource = _props.defaultSource;
@@ -60136,83 +59858,64 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        var isLoaded = this.state.status === STATUS_LOADED;
 	        var displayImage = resolveAssetSource(!isLoaded ? defaultSource : source);
-	        var backgroundImage = displayImage ? "url(\"" + displayImage + "\")" : null;
+	        var backgroundImage = displayImage ? 'url("' + displayImage + '")' : null;
 	        var resizeMode = this.props.resizeMode || ImageResizeMode.cover;
 
 	        var extraStyles = StyleSheet.create({
 	            showBackgroundImage: {
-	                backgroundImage: backgroundImage
-	            }
-	        });
+	                backgroundImage: backgroundImage } });
 
-	        return React.createElement(View, {
-	            accessibilityRole: "img",
-	            style: [styles.initial, extraStyles.showBackgroundImage].concat(_toConsumableArray(Array.isArray(style) ? style : [style]), [resizeModeStyles[resizeMode]])
-	        }, React.createElement("img", { src: displayImage, className: css(styles.img) }), children ? React.createElement(View, {
-	            children: children,
-	            pointerEvents: "box-none",
-	            style: styles.children
-	        }) : null);
-	    }
-	});
+	        return React.createElement(
+	            View,
+	            {
+	                accessibilityRole: 'img',
+	                style: [styles.initial, extraStyles.showBackgroundImage].concat(Array.isArray(style) ? style : [style], [resizeModeStyles[resizeMode]])
+	            },
+	            React.createElement('img', { src: displayImage, className: css(styles.img) }),
+	            children ? React.createElement(View, {
+	                children: children,
+	                pointerEvents: 'box-none',
+	                style: styles.children
+	            }) : null
+	        );
+	    } });
 
 	// https://github.com/necolas/react-native-web/blob/master/src/components/Image/index.js
 	var styles = StyleSheet.create({
 	    initial: {
-	        alignSelf: "flex-start",
-	        backgroundColor: "transparent",
-	        backgroundPosition: "center",
-	        backgroundRepeat: "no-repeat",
-	        backgroundSize: "cover"
-	    },
+	        alignSelf: 'flex-start',
+	        backgroundColor: 'transparent',
+	        backgroundPosition: 'center',
+	        backgroundRepeat: 'no-repeat',
+	        backgroundSize: 'cover' },
 	    img: {
 	        borderWidth: 0,
-	        height: "auto",
-	        maxHeight: "100%",
-	        maxWidth: "100%",
-	        opacity: 0
-	    },
+	        height: 'auto',
+	        maxHeight: '100%',
+	        maxWidth: '100%',
+	        opacity: 0 },
 	    children: {
 	        bottom: 0,
 	        left: 0,
-	        position: "absolute",
+	        position: 'absolute',
 	        right: 0,
-	        top: 0
-	    }
-	});
+	        top: 0 } });
 
 	var resizeModeStyles = StyleSheet.create({
 	    contain: {
-	        backgroundSize: "contain"
-	    },
+	        backgroundSize: 'contain' },
 	    cover: {
-	        backgroundSize: "cover"
-	    },
+	        backgroundSize: 'cover' },
 	    none: {
-	        backgroundSize: "auto"
-	    },
+	        backgroundSize: 'auto' },
 	    stretch: {
-	        backgroundSize: "100% 100%"
-	    }
-	});
+	        backgroundSize: '100% 100%' } });
 
 	module.exports = Image;
 
 /***/ },
 /* 249 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	function _toConsumableArray(arr) {
-	    if (Array.isArray(arr)) {
-	        for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-	            arr2[i] = arr[i];
-	        }return arr2;
-	    } else {
-	        return Array.from(arr);
-	    }
-	}
 
 	var React = __webpack_require__(15);
 
@@ -60227,19 +59930,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	    propTypes: {
 	        children: React.PropTypes.oneOfType([React.PropTypes.arrayOf(React.PropTypes.node), React.PropTypes.node]),
 	        numberOfLines: React.PropTypes.number,
-	        style: React.PropTypes.any
-	    },
+	        style: React.PropTypes.any },
 
-	    render: function render() {
+	    render: function () {
 	        var _props = this.props;
 	        var numberOfLines = _props.numberOfLines;
 	        var style = _props.style;
 
-	        var className = css.apply(undefined, [styles.initial].concat(_toConsumableArray(Array.isArray(style) ? style : [style]), [numberOfLines === 1 && styles.singleLineStyle]));
+	        var className = css.apply(undefined, [styles.initial].concat(Array.isArray(style) ? style : [style], [numberOfLines === 1 && styles.singleLineStyle]));
 
-	        return React.createElement('span', { className: className }, this.props.children);
-	    }
-	});
+	        return React.createElement(
+	            'span',
+	            { className: className },
+	            this.props.children
+	        );
+	    } });
 
 	// https://github.com/necolas/react-native-web/blob/master/src/components/Text/index.js
 	var styles = StyleSheet.create({
@@ -60250,33 +59955,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	        margin: 0,
 	        padding: 0,
 	        textDecorationLine: 'none',
-	        wordWrap: 'break-word'
-	    },
+	        wordWrap: 'break-word' },
 	    singleLineStyle: {
 	        maxWidth: '100%',
 	        overflow: 'hidden',
 	        textOverflow: 'ellipsis',
-	        whiteSpace: 'nowrap'
-	    }
-	});
+	        whiteSpace: 'nowrap' } });
 
 	module.exports = Text;
 
 /***/ },
 /* 250 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	function _toConsumableArray(arr) {
-	    if (Array.isArray(arr)) {
-	        for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-	            arr2[i] = arr[i];
-	        }return arr2;
-	    } else {
-	        return Array.from(arr);
-	    }
-	}
 
 	var React = __webpack_require__(15);
 
@@ -60303,25 +59993,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	        onTouchMove: React.PropTypes.func,
 	        onTouchStart: React.PropTypes.func,
 	        role: React.PropTypes.string,
-	        style: React.PropTypes.any
-	    },
+	        style: React.PropTypes.any },
 
-	    render: function render() {
-	        var className = Array.isArray(this.props.style) ? css.apply(undefined, [styles.initial].concat(_toConsumableArray(this.props.style))) : css(styles.initial, this.props.style);
+	    render: function () {
+	        var className = Array.isArray(this.props.style) ? css.apply(undefined, [styles.initial].concat(this.props.style)) : css(styles.initial, this.props.style);
 
-	        return React.createElement('div', {
-	            className: className,
-	            style: this.props.dynamicStyle,
-	            onClick: this.props.onClick,
-	            onTouchCancel: this.props.onTouchCancel,
-	            onTouchEnd: this.props.onTouchEnd,
-	            onTouchMove: this.props.onTouchMove,
-	            onTouchStart: this.props.onTouchStart,
-	            'aria-label': this.props.ariaLabel,
-	            role: this.props.role
-	        }, this.props.children);
-	    }
-	});
+	        return React.createElement(
+	            'div',
+	            {
+	                className: className,
+	                style: this.props.dynamicStyle,
+	                onClick: this.props.onClick,
+	                onTouchCancel: this.props.onTouchCancel,
+	                onTouchEnd: this.props.onTouchEnd,
+	                onTouchMove: this.props.onTouchMove,
+	                onTouchStart: this.props.onTouchStart,
+	                'aria-label': this.props.ariaLabel,
+	                role: this.props.role
+	            },
+	            this.props.children
+	        );
+	    } });
 
 	// https://github.com/necolas/react-native-web/blob/master/src/components/View/index.js
 	var styles = StyleSheet.create({
@@ -60347,9 +60039,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // fix flexbox bugs
 	        maxWidth: '100%',
 	        minHeight: 0,
-	        minWidth: 0
-	    }
-	});
+	        minWidth: 0 } });
 
 	module.exports = View;
 
@@ -60445,33 +60135,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	var _extends = Object.assign || function (target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];for (var key in source) {
-	            if (Object.prototype.hasOwnProperty.call(source, key)) {
-	                target[key] = source[key];
-	            }
-	        }
-	    }return target;
-	};
-
-	function _toConsumableArray(arr) {
-	    if (Array.isArray(arr)) {
-	        for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-	            arr2[i] = arr[i];
-	        }return arr2;
-	    } else {
-	        return Array.from(arr);
-	    }
-	}
-
-	function _objectWithoutProperties(obj, keys) {
-	    var target = {};for (var i in obj) {
-	        if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
-	    }return target;
-	}
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 	/**
 	 * A keypad component that acts as a container for rows or columns of buttons,
@@ -60489,15 +60155,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require2.StyleSheet;
 
-	var _require3 = __webpack_require__(233);
+	var _require3 = __webpack_require__(234);
 
 	var View = _require3.View;
 
 	var EchoManager = __webpack_require__(266);
 	var PopoverManager = __webpack_require__(267);
-	var zIndexes = __webpack_require__(242);
+	var zIndexes = __webpack_require__(244);
 
-	var _require4 = __webpack_require__(230);
+	var _require4 = __webpack_require__(231);
 
 	var numeralGrey = _require4.numeralGrey;
 
@@ -60518,10 +60184,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        children: React.PropTypes.oneOfType([React.PropTypes.arrayOf(React.PropTypes.node), React.PropTypes.node]),
 	        echoes: React.PropTypes.arrayOf(echoPropType).isRequired,
 	        popover: popoverPropType,
-	        style: React.PropTypes.any
-	    },
+	        style: React.PropTypes.any },
 
-	    componentWillMount: function componentWillMount() {
+	    componentWillMount: function () {
 	        // NOTE(charlie): We assume that there are no echoes in the initial
 	        // render, since we can't measure the container beforehand and thus any
 	        // echoes would be improperly offset.
@@ -60529,10 +60194,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            top: 0,
 	            right: 0,
 	            bottom: 0,
-	            left: 0
-	        };
+	            left: 0 };
 	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(newProps) {
+
+	    componentWillReceiveProps: function (newProps) {
 	        // We cheat a bit and only re-measure the container if we're about to
 	        // kick off a new animation, be it an echo or a popover reveal.
 	        var shouldComputeContainer = false;
@@ -60542,31 +60207,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var newIds = newProps.echoes.map(function (echo) {
 	            return echo.animationId;
 	        });
-	        var _iteratorNormalCompletion = true;
-	        var _didIteratorError = false;
-	        var _iteratorError = undefined;
+	        for (var _iterator = newIds, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+	            var _ref;
 
-	        try {
-	            for (var _iterator = newIds[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	                var newAnimationId = _step.value;
-
-	                if (!existingIds.includes(newAnimationId)) {
-	                    shouldComputeContainer = true;
-	                    break;
-	                }
+	            if (_isArray) {
+	                if (_i >= _iterator.length) break;
+	                _ref = _iterator[_i++];
+	            } else {
+	                _i = _iterator.next();
+	                if (_i.done) break;
+	                _ref = _i.value;
 	            }
-	        } catch (err) {
-	            _didIteratorError = true;
-	            _iteratorError = err;
-	        } finally {
-	            try {
-	                if (!_iteratorNormalCompletion && _iterator.return) {
-	                    _iterator.return();
-	                }
-	            } finally {
-	                if (_didIteratorError) {
-	                    throw _iteratorError;
-	                }
+
+	            var newAnimationId = _ref;
+
+	            if (!existingIds.includes(newAnimationId)) {
+	                shouldComputeContainer = true;
+	                break;
 	            }
 	        }
 
@@ -60577,7 +60234,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this._container = domNode.getBoundingClientRect();
 	        }
 	    },
-	    render: function render() {
+
+	    render: function () {
 	        var _this = this;
 
 	        var _props = this.props;
@@ -60588,7 +60246,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        // Translate the echo boxes, as they'll be positioned absolutely to
 	        // this relative container.
-
 	        var relativeEchoes = echoes.map(function (echo) {
 	            var initialBounds = echo.initialBounds;
 
@@ -60601,9 +60258,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    bottom: initialBounds.bottom - _this._container.top - keypadBorderWidthPx,
 	                    left: initialBounds.left - _this._container.left,
 	                    width: initialBounds.width,
-	                    height: initialBounds.height
-	                }
-	            });
+	                    height: initialBounds.height } });
 	        });
 
 	        // Translate the popover bounds from page-absolute to keypad-relative.
@@ -60613,48 +60268,45 @@ return /******/ (function(modules) { // webpackBootstrap
 	            bounds: {
 	                bottom: this._container.height - (popover.bounds.bottom - this._container.top) - keypadBorderWidthPx,
 	                left: popover.bounds.left - this._container.left,
-	                width: popover.bounds.width
-	            }
-	        });
+	                width: popover.bounds.width } });
 
-	        var keypadStyle = [styles.keypad].concat(_toConsumableArray(Array.isArray(style) ? style : [style]));
+	        var keypadStyle = [styles.keypad].concat(Array.isArray(style) ? style : [style]);
 
 	        // NOTE(charlie): We render the transforms as pure inline styles to
 	        // avoid an Aphrodite bug in mobile Safari.
 	        //   See: https://github.com/Khan/aphrodite/issues/68.
 	        var dynamicStyle = this.props.active ? inlineStyles.active : inlineStyles.hidden;
 
-	        return React.createElement(View, { style: keypadStyle, dynamicStyle: dynamicStyle }, children, React.createElement(EchoManager, { echoes: relativeEchoes }), React.createElement(PopoverManager, { popover: relativePopover }));
-	    }
-	});
+	        return React.createElement(
+	            View,
+	            { style: keypadStyle, dynamicStyle: dynamicStyle },
+	            children,
+	            React.createElement(EchoManager, { echoes: relativeEchoes }),
+	            React.createElement(PopoverManager, { popover: relativePopover })
+	        );
+	    } });
 
 	var styles = StyleSheet.create({
 	    keypad: {
 	        position: 'fixed',
 	        bottom: 0,
 	        width: '100%',
-	        borderTop: keypadBorderWidthPx + 'px solid rgba(0, 0, 0, 0.2)',
+	        borderTop: '' + keypadBorderWidthPx + 'px solid rgba(0, 0, 0, 0.2)',
 	        backgroundColor: numeralGrey,
 	        zIndex: zIndexes.keypad,
-	        transition: '300ms ease-out'
-	    }
-	});
+	        transition: '300ms ease-out' } });
 
 	var inlineStyles = {
 	    hidden: {
-	        transform: 'translate3d(0, 100%, 0)'
-	    },
+	        transform: 'translate3d(0, 100%, 0)' },
 
 	    active: {
-	        transform: 'translate3d(0, 0, 0)'
-	    }
-	};
+	        transform: 'translate3d(0, 0, 0)' } };
 
-	var mapStateToProps = function mapStateToProps(state) {
+	var mapStateToProps = function (state) {
 	    return _extends({}, state.echoes, {
 	        active: state.keypad.active,
-	        popover: state.gestures.popover
-	    });
+	        popover: state.gestures.popover });
 	};
 
 	module.exports = connect(mapStateToProps)(Keypad);
@@ -60663,23 +60315,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	var _extends = Object.assign || function (target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];for (var key in source) {
-	            if (Object.prototype.hasOwnProperty.call(source, key)) {
-	                target[key] = source[key];
-	            }
-	        }
-	    }return target;
-	};
-
-	function _objectWithoutProperties(obj, keys) {
-	    var target = {};for (var i in obj) {
-	        if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
-	    }return target;
-	}
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 	/**
 	 * A keypad button containing no symbols and triggering no actions on click.
@@ -60692,17 +60330,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	var connect = _require.connect;
 
 	var GestureManager = __webpack_require__(246);
-	var KeyConfigs = __webpack_require__(234);
+	var KeyConfigs = __webpack_require__(233);
 	var KeypadButton = __webpack_require__(268);
 
 	var EmptyKeypadButton = React.createClass({
 	    displayName: 'EmptyKeypadButton',
 
 	    propTypes: {
-	        gestureManager: React.PropTypes.instanceOf(GestureManager)
-	    },
+	        gestureManager: React.PropTypes.instanceOf(GestureManager) },
 
-	    render: function render() {
+	    render: function () {
 	        var _props = this.props;
 	        var gestureManager = _props.gestureManager;
 
@@ -60713,30 +60350,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // manager to know about touch events that start on empty buttons, but
 	        // we don't need it to know about their DOM nodes, as it doesn't need
 	        // to focus them or trigger presses.
-
 	        return React.createElement(KeypadButton, _extends({
-	            onTouchStart: function onTouchStart(evt) {
+	            onTouchStart: function (evt) {
 	                return gestureManager.onTouchStart(evt);
 	            },
-	            onTouchEnd: function onTouchEnd(evt) {
+	            onTouchEnd: function (evt) {
 	                return gestureManager.onTouchEnd(evt);
 	            },
-	            onTouchMove: function onTouchMove(evt) {
+	            onTouchMove: function (evt) {
 	                return gestureManager.onTouchMove(evt);
 	            },
-	            onTouchCancel: function onTouchCancel(evt) {
+	            onTouchCancel: function (evt) {
 	                return gestureManager.onTouchCancel(evt);
 	            }
 	        }, KeyConfigs.NOOP, rest));
-	    }
-	});
+	    } });
 
-	var mapStateToProps = function mapStateToProps(state) {
+	var mapStateToProps = function (state) {
 	    var gestures = state.gestures;
 
 	    return {
-	        gestureManager: gestures.gestureManager
-	    };
+	        gestureManager: gestures.gestureManager };
 	};
 
 	module.exports = connect(mapStateToProps)(EmptyKeypadButton);
@@ -60745,23 +60379,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	var _extends = Object.assign || function (target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];for (var key in source) {
-	            if (Object.prototype.hasOwnProperty.call(source, key)) {
-	                target[key] = source[key];
-	            }
-	        }
-	    }return target;
-	};
-
-	function _objectWithoutProperties(obj, keys) {
-	    var target = {};for (var i in obj) {
-	        if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
-	    }return target;
-	}
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 	/**
 	 * A touchable wrapper around the base KeypadButton component. This button is
@@ -60777,7 +60397,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var connect = _require.connect;
 
 	var KeypadButton = __webpack_require__(268);
-	var KeyConfigs = __webpack_require__(234);
+	var KeyConfigs = __webpack_require__(233);
 	var GestureManager = __webpack_require__(246);
 
 	var _require2 = __webpack_require__(201);
@@ -60798,23 +60418,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	        focused: React.PropTypes.bool,
 	        gestureManager: React.PropTypes.instanceOf(GestureManager),
 	        id: keyIdPropType.isRequired,
-	        type: React.PropTypes.oneOf(Object.keys(KeyTypes)).isRequired
-	    },
+	        type: React.PropTypes.oneOf(Object.keys(KeyTypes)).isRequired },
 
-	    shouldComponentUpdate: function shouldComponentUpdate(newProps) {
+	    shouldComponentUpdate: function (newProps) {
 	        // We take advantage of a few different properties of our key
 	        // configuration system. Namely, we know that the other props flow
 	        // directly from the ID, and thus don't need to be checked.
 	        return newProps.id !== this.props.id || newProps.gestureManager !== this.props.gestureManager || newProps.focused !== this.props.focused || newProps.type !== this.props.type;
 	    },
-	    componentWillUnmount: function componentWillUnmount() {
+
+	    componentWillUnmount: function () {
 	        var _props = this.props;
 	        var gestureManager = _props.gestureManager;
 	        var id = _props.id;
 
 	        gestureManager.unregisterDOMNode(id);
 	    },
-	    render: function render() {
+
+	    render: function () {
 	        var _props2 = this.props;
 	        var borders = _props2.borders;
 	        var childKeyIds = _props2.childKeyIds;
@@ -60824,27 +60445,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var rest = _objectWithoutProperties(_props2, ['borders', 'childKeyIds', 'gestureManager', 'id']);
 
 	        return React.createElement(KeypadButton, _extends({
-	            ref: function ref(node) {
+	            ref: function (node) {
 	                return gestureManager.registerDOMNode(id, ReactDOM.findDOMNode(node), childKeyIds, borders);
 	            },
-	            onTouchStart: function onTouchStart(evt) {
+	            onTouchStart: function (evt) {
 	                return gestureManager.onTouchStart(evt, id);
 	            },
-	            onTouchEnd: function onTouchEnd(evt) {
+	            onTouchEnd: function (evt) {
 	                return gestureManager.onTouchEnd(evt);
 	            },
-	            onTouchMove: function onTouchMove(evt) {
+	            onTouchMove: function (evt) {
 	                return gestureManager.onTouchMove(evt);
 	            },
-	            onTouchCancel: function onTouchCancel(evt) {
+	            onTouchCancel: function (evt) {
 	                return gestureManager.onTouchCancel(evt);
 	            },
 	            borders: borders
 	        }, rest));
-	    }
-	});
+	    } });
 
-	var mapStateToProps = function mapStateToProps(state, ownProps) {
+	var mapStateToProps = function (state, ownProps) {
 	    var gestures = state.gestures;
 	    var keyConfig = ownProps.keyConfig;
 
@@ -60869,8 +60489,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        focused: gestures.focus === id,
 	        name: id,
 	        type: type,
-	        unicodeSymbol: unicodeSymbol
-	    });
+	        unicodeSymbol: unicodeSymbol });
 	};
 
 	module.exports = connect(mapStateToProps)(TouchableKeypadButton);
@@ -60878,8 +60497,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ },
 /* 256 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * Common styles shared across components.
@@ -60891,28 +60508,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = StyleSheet.create({
 	    row: {
-	        flexDirection: 'row'
-	    },
+	        flexDirection: 'row' },
 	    column: {
-	        flexDirection: 'column'
-	    },
+	        flexDirection: 'column' },
 	    oneColumn: {
-	        flexGrow: 1
-	    },
+	        flexGrow: 1 },
 	    fullWidth: {
-	        width: '100%'
-	    },
+	        width: '100%' },
 	    centered: {
 	        justifyContent: 'center',
-	        alignItems: 'center'
-	    }
-	});
+	        alignItems: 'center' } });
 
 /***/ },
 /* 257 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * A keypad with two pages of keys.
@@ -60929,7 +60538,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var TabBarIndicator = __webpack_require__(270);
 	var PagerIndicator = __webpack_require__(271);
 
-	var _require2 = __webpack_require__(233);
+	var _require2 = __webpack_require__(234);
 
 	var View = _require2.View;
 
@@ -60938,7 +60547,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var column = _require3.column;
 	var row = _require3.row;
 
-	var _require4 = __webpack_require__(230);
+	var _require4 = __webpack_require__(231);
 
 	var buttonBorderColor = _require4.buttonBorderColor;
 	var buttonBorderStyle = _require4.buttonBorderStyle;
@@ -60953,7 +60562,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var SwitchTypes = _require6.SwitchTypes;
 
-	var _require7 = __webpack_require__(244);
+	var _require7 = __webpack_require__(243);
 
 	var keypadSwitch = _require7.keypadSwitch;
 
@@ -60966,16 +60575,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        secondPage: React.PropTypes.node.isRequired,
 	        showPagerIndicator: React.PropTypes.bool,
 	        showTabBarIndicator: React.PropTypes.bool,
-	        sidebar: React.PropTypes.node.isRequired
-	    },
+	        sidebar: React.PropTypes.node.isRequired },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            showPagerIndicator: keypadSwitch === SwitchTypes.PAGE_CONTROL,
-	            showTabBarIndicator: keypadSwitch === SwitchTypes.TAB_BAR
-	        };
+	            showTabBarIndicator: keypadSwitch === SwitchTypes.TAB_BAR };
 	    },
-	    render: function render() {
+
+	    render: function () {
 	        var _props = this.props;
 	        var currentPage = _props.currentPage;
 	        var firstPage = _props.firstPage;
@@ -60986,13 +60594,36 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        var keypadContentsStyle = [row, (showPagerIndicator || showTabBarIndicator) && styles.borderTop];
 
-	        return React.createElement(Keypad, { style: [column, styles.keypad] }, showTabBarIndicator && React.createElement(TabBarIndicator, {
-	            currentPage: currentPage,
-	            onSelectTab: setKeypadCurrentPage,
-	            pageTitles: ['Basic', 'Advanced']
-	        }), showPagerIndicator && React.createElement(PagerIndicator, { numPages: 2, currentPage: currentPage }), React.createElement(View, { style: keypadContentsStyle }, React.createElement(View, { style: styles.mainContent }, React.createElement(ViewPager, null, firstPage, secondPage)), React.createElement(View, { style: styles.sidebarContent }, sidebar)));
-	    }
-	});
+	        return React.createElement(
+	            Keypad,
+	            { style: [column, styles.keypad] },
+	            showTabBarIndicator && React.createElement(TabBarIndicator, {
+	                currentPage: currentPage,
+	                onSelectTab: setKeypadCurrentPage,
+	                pageTitles: ['Basic', 'Advanced']
+	            }),
+	            showPagerIndicator && React.createElement(PagerIndicator, { numPages: 2, currentPage: currentPage }),
+	            React.createElement(
+	                View,
+	                { style: keypadContentsStyle },
+	                React.createElement(
+	                    View,
+	                    { style: styles.mainContent },
+	                    React.createElement(
+	                        ViewPager,
+	                        null,
+	                        firstPage,
+	                        secondPage
+	                    )
+	                ),
+	                React.createElement(
+	                    View,
+	                    { style: styles.sidebarContent },
+	                    sidebar
+	                )
+	            )
+	        );
+	    } });
 
 	// NOTE(charlie): All of the pages of all of our multi-page keypads are based
 	// on a 4x5 layout, regardless of the number of columns that they actually
@@ -61004,27 +60635,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	    keypad: {
 	        // Set the background to light grey, so that when the user drags the
 	        // keypad pages past the edges, there's a grey backdrop.
-	        backgroundColor: lightGrey
-	    },
+	        backgroundColor: lightGrey },
 
 	    mainContent: {
 	        // The main content (i.e., the non-sidebar keys) should take up all but
 	        // one of the columns (with the last column being reserved for the
 	        // sidebar).
-	        flexBasis: 100 * (numColumns - 1) / numColumns + '%'
-	    },
+	        flexBasis: '' + 100 * (numColumns - 1) / numColumns + '%' },
 
 	    sidebarContent: {
-	        flexBasis: 100 / numColumns + '%'
-	    },
+	        flexBasis: '' + 100 / numColumns + '%' },
 
 	    borderBottom: {
-	        borderBottom: buttonBorderWidthPx + 'px ' + buttonBorderStyle + ' ' + ('' + buttonBorderColor)
-	    },
+	        borderBottom: '' + buttonBorderWidthPx + 'px ' + buttonBorderStyle + ' ' + ('' + buttonBorderColor) },
 	    borderTop: {
-	        borderTop: buttonBorderWidthPx + 'px ' + buttonBorderStyle + ' ' + ('' + buttonBorderColor)
-	    }
-	});
+	        borderTop: '' + buttonBorderWidthPx + 'px ' + buttonBorderStyle + ' ' + ('' + buttonBorderColor) } });
 
 	module.exports = TwoPageKeypad;
 
@@ -61032,23 +60657,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	var _extends = Object.assign || function (target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];for (var key in source) {
-	            if (Object.prototype.hasOwnProperty.call(source, key)) {
-	                target[key] = source[key];
-	            }
-	        }
-	    }return target;
-	};
-
-	function _objectWithoutProperties(obj, keys) {
-	    var target = {};for (var i in obj) {
-	        if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
-	    }return target;
-	}
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 	/**
 	 * A keypad button that displays an arbitrary number of symbols, with no
@@ -61060,8 +60671,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EmptyKeypadButton = __webpack_require__(254);
 	var TouchableKeypadButton = __webpack_require__(255);
 
-	var Keys = __webpack_require__(243);
-	var KeyConfigs = __webpack_require__(234);
+	var Keys = __webpack_require__(242);
+	var KeyConfigs = __webpack_require__(233);
 
 	var _require = __webpack_require__(190);
 
@@ -61075,10 +60686,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    displayName: 'ManyKeypadButton',
 
 	    propTypes: {
-	        keys: React.PropTypes.arrayOf(keyIdPropType).isRequired
-	    },
+	        keys: React.PropTypes.arrayOf(keyIdPropType).isRequired },
 
-	    render: function render() {
+	    render: function () {
 	        var _props = this.props;
 	        var keys = _props.keys;
 
@@ -61087,22 +60697,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // If we have no extra symbols, render an empty button. If we have just
 	        // one, render a standard button. Otherwise, capture them all in a
 	        // single button.
-
 	        if (keys.length === 0) {
 	            return React.createElement(EmptyKeypadButton, rest);
 	        } else if (keys.length === 1) {
 	            var keyConfig = KeyConfigs[keys[0]];
 	            return React.createElement(TouchableKeypadButton, _extends({ keyConfig: keyConfig }, rest));
 	        } else {
-	            var _keyConfig = {
+	            var keyConfig = {
 	                id: Keys.MANY,
 	                type: KeyTypes.MANY,
-	                childKeyIds: keys
-	            };
-	            return React.createElement(TouchableKeypadButton, _extends({ keyConfig: _keyConfig }, rest));
+	                childKeyIds: keys };
+	            return React.createElement(TouchableKeypadButton, _extends({ keyConfig: keyConfig }, rest));
 	        }
-	    }
-	});
+	    } });
 
 	module.exports = ManyKeypadButton;
 
@@ -61110,33 +60717,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-
-	var _createClass = (function () {
-	    function defineProperties(target, props) {
-	        for (var i = 0; i < props.length; i++) {
-	            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	        }
-	    }return function (Constructor, protoProps, staticProps) {
-	        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	    };
-	})();
-
-	function _toConsumableArray(arr) {
-	    if (Array.isArray(arr)) {
-	        for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-	            arr2[i] = arr[i];
-	        }return arr2;
-	    } else {
-	        return Array.from(arr);
-	    }
-	}
-
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) {
-	        throw new TypeError("Cannot call a class as a function");
-	    }
-	}
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	/**
 	 * A manager for our node-to-ID system. In particular, this class is
@@ -61173,125 +60754,99 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @param {object} borders - an opaque object describing the node's borders
 	     */
 
-	    _createClass(NodeManager, [{
-	        key: "registerDOMNode",
-	        value: function registerDOMNode(id, domNode, childIds, borders) {
-	            this._nodesById[id] = domNode;
-	            this._bordersById[id] = borders;
+	    NodeManager.prototype.registerDOMNode = function registerDOMNode(id, domNode, childIds, borders) {
+	        this._nodesById[id] = domNode;
+	        this._bordersById[id] = borders;
 
-	            // Make sure that any children appear first.
-	            // TODO(charlie): This is a very simplistic system that wouldn't
-	            // properly handle multiple levels of nesting.
-	            var allIds = [].concat(_toConsumableArray(childIds || []), [id], _toConsumableArray(this._orderedIds));
+	        // Make sure that any children appear first.
+	        // TODO(charlie): This is a very simplistic system that wouldn't
+	        // properly handle multiple levels of nesting.
+	        var allIds = [].concat(childIds || [], [id], this._orderedIds);
 
-	            // De-dupe the list of IDs.
-	            var orderedIds = [];
-	            var seenIds = {};
-	            var _iteratorNormalCompletion = true;
-	            var _didIteratorError = false;
-	            var _iteratorError = undefined;
+	        // De-dupe the list of IDs.
+	        var orderedIds = [];
+	        var seenIds = {};
+	        for (var _iterator = allIds, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+	            var _ref;
 
-	            try {
-	                for (var _iterator = allIds[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	                    var _id = _step.value;
-
-	                    if (!seenIds[_id]) {
-	                        orderedIds.push(_id);
-	                        seenIds[_id] = true;
-	                    }
-	                }
-	            } catch (err) {
-	                _didIteratorError = true;
-	                _iteratorError = err;
-	            } finally {
-	                try {
-	                    if (!_iteratorNormalCompletion && _iterator.return) {
-	                        _iterator.return();
-	                    }
-	                } finally {
-	                    if (_didIteratorError) {
-	                        throw _iteratorError;
-	                    }
-	                }
+	            if (_isArray) {
+	                if (_i >= _iterator.length) break;
+	                _ref = _iterator[_i++];
+	            } else {
+	                _i = _iterator.next();
+	                if (_i.done) break;
+	                _ref = _i.value;
 	            }
 
-	            this._orderedIds = orderedIds;
-	        }
+	            var _id = _ref;
 
-	        /**
-	         * Unregister the DOM node with the given identifier.
-	         *
-	         * @param {string} id - the identifier of the node to unregister
-	         */
-
-	    }, {
-	        key: "unregisterDOMNode",
-	        value: function unregisterDOMNode(id) {
-	            delete this._nodesById[id];
-	        }
-
-	        /**
-	         * Return the identifier of the topmost node located at the given
-	         * coordinates.
-	         *
-	         * @param {number} x - the x coordinate at which to search for a node
-	         * @param {number} y - the y coordinate at which to search for a node
-	         * @returns {null|string} - null or the identifier of the topmost node at
-	         *                          the given coordinates
-	         */
-
-	    }, {
-	        key: "idForCoords",
-	        value: function idForCoords(x, y) {
-	            var endNode = document.elementFromPoint(x, y);
-	            var _iteratorNormalCompletion2 = true;
-	            var _didIteratorError2 = false;
-	            var _iteratorError2 = undefined;
-
-	            try {
-	                for (var _iterator2 = this._orderedIds[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	                    var id = _step2.value;
-
-	                    var domNode = this._nodesById[id];
-	                    if (domNode && domNode.contains(endNode)) {
-	                        return id;
-	                    }
-	                }
-	            } catch (err) {
-	                _didIteratorError2 = true;
-	                _iteratorError2 = err;
-	            } finally {
-	                try {
-	                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
-	                        _iterator2.return();
-	                    }
-	                } finally {
-	                    if (_didIteratorError2) {
-	                        throw _iteratorError2;
-	                    }
-	                }
+	            if (!seenIds[_id]) {
+	                orderedIds.push(_id);
+	                seenIds[_id] = true;
 	            }
 	        }
 
-	        /**
-	         * Return the necessary layout information, including the bounds and border
-	         * values, for the node with the given identifier.
-	         *
-	         * @param {string} id - the identifier of the node for which to return the
-	         *                      layout information
-	         * @returns {object} - the bounding client rect for the given node, along
-	         *                     with its borders
-	         */
+	        this._orderedIds = orderedIds;
+	    };
 
-	    }, {
-	        key: "layoutPropsForId",
-	        value: function layoutPropsForId(id) {
-	            return {
-	                initialBounds: this._nodesById[id].getBoundingClientRect(),
-	                borders: this._bordersById[id]
-	            };
+	    /**
+	     * Unregister the DOM node with the given identifier.
+	     *
+	     * @param {string} id - the identifier of the node to unregister
+	     */
+
+	    NodeManager.prototype.unregisterDOMNode = function unregisterDOMNode(id) {
+	        delete this._nodesById[id];
+	    };
+
+	    /**
+	     * Return the identifier of the topmost node located at the given
+	     * coordinates.
+	     *
+	     * @param {number} x - the x coordinate at which to search for a node
+	     * @param {number} y - the y coordinate at which to search for a node
+	     * @returns {null|string} - null or the identifier of the topmost node at
+	     *                          the given coordinates
+	     */
+
+	    NodeManager.prototype.idForCoords = function idForCoords(x, y) {
+	        var endNode = document.elementFromPoint(x, y);
+	        for (var _iterator2 = this._orderedIds, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
+	            var _ref2;
+
+	            if (_isArray2) {
+	                if (_i2 >= _iterator2.length) break;
+	                _ref2 = _iterator2[_i2++];
+	            } else {
+	                _i2 = _iterator2.next();
+	                if (_i2.done) break;
+	                _ref2 = _i2.value;
+	            }
+
+	            var id = _ref2;
+
+	            var domNode = this._nodesById[id];
+	            if (domNode && domNode.contains(endNode)) {
+	                return id;
+	            }
 	        }
-	    }]);
+	    };
+
+	    /**
+	     * Return the necessary layout information, including the bounds and border
+	     * values, for the node with the given identifier.
+	     *
+	     * @param {string} id - the identifier of the node for which to return the
+	     *                      layout information
+	     * @returns {object} - the bounding client rect for the given node, along
+	     *                     with its borders
+	     */
+
+	    NodeManager.prototype.layoutPropsForId = function layoutPropsForId(id) {
+	        return {
+	            initialBounds: this._nodesById[id].getBoundingClientRect(),
+	            borders: this._bordersById[id] };
+	    };
 
 	    return NodeManager;
 	})();
@@ -61302,23 +60857,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-
-	var _createClass = (function () {
-	    function defineProperties(target, props) {
-	        for (var i = 0; i < props.length; i++) {
-	            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	        }
-	    }return function (Constructor, protoProps, staticProps) {
-	        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	    };
-	})();
-
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) {
-	        throw new TypeError("Cannot call a class as a function");
-	    }
-	}
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	/**
 	 * A state machine for the popover state. In particular, this class manages the
@@ -61345,157 +60884,132 @@ return /******/ (function(modules) { // webpackBootstrap
 	     *                              the popover container
 	     */
 
-	    _createClass(PopoverStateMachine, [{
-	        key: "registerPopover",
-	        value: function registerPopover(id, childIds) {
-	            this.popovers[id] = childIds;
-	        }
+	    PopoverStateMachine.prototype.registerPopover = function registerPopover(id, childIds) {
+	        this.popovers[id] = childIds;
+	    };
 
-	        /**
-	         * Unregister a popover container.
-	         *
-	         * @param {string} id - the identifier of the popover container to
-	         *                      unregister
-	         */
+	    /**
+	     * Unregister a popover container.
+	     *
+	     * @param {string} id - the identifier of the popover container to
+	     *                      unregister
+	     */
 
-	    }, {
-	        key: "unregisterPopover",
-	        value: function unregisterPopover(id) {
-	            delete this.popovers[id];
-	        }
+	    PopoverStateMachine.prototype.unregisterPopover = function unregisterPopover(id) {
+	        delete this.popovers[id];
+	    };
 
-	        /**
-	         * @returns {boolean} - whether a popover is active and visible
-	         */
+	    /**
+	     * @returns {boolean} - whether a popover is active and visible
+	     */
 
-	    }, {
-	        key: "isPopoverVisible",
-	        value: function isPopoverVisible() {
-	            return this.activePopover != null;
-	        }
+	    PopoverStateMachine.prototype.isPopoverVisible = function isPopoverVisible() {
+	        return this.activePopover != null;
+	    };
 
-	        /**
-	         * Blur the active nodes.
-	         */
+	    /**
+	     * Blur the active nodes.
+	     */
 
-	    }, {
-	        key: "onBlur",
-	        value: function onBlur() {
-	            this.activePopover = null;
-	            this.handlers.onActiveNodesChanged({
-	                popover: null,
-	                focus: null
-	            });
-	        }
+	    PopoverStateMachine.prototype.onBlur = function onBlur() {
+	        this.activePopover = null;
+	        this.handlers.onActiveNodesChanged({
+	            popover: null,
+	            focus: null });
+	    };
 
-	        /**
-	         * Handle a focus event on the node with the given identifier.
-	         *
-	         * @param {string} id - the identifier of the node that was focused
-	         */
+	    /**
+	     * Handle a focus event on the node with the given identifier.
+	     *
+	     * @param {string} id - the identifier of the node that was focused
+	     */
 
-	    }, {
-	        key: "onFocus",
-	        value: function onFocus(id) {
-	            if (this.activePopover) {
-	                // If we have a popover that is currently active, we focus this
-	                // node if it's in the popover, and remove any highlight otherwise.
-	                if (this._isNodeInsidePopover(this.activePopover, id)) {
-	                    this.handlers.onActiveNodesChanged({
-	                        popover: {
-	                            parentId: this.activePopover,
-	                            childIds: this.popovers[this.activePopover]
-	                        },
-	                        focus: id
-	                    });
-	                } else {
-	                    this.handlers.onActiveNodesChanged({
-	                        popover: {
-	                            parentId: this.activePopover,
-	                            childIds: this.popovers[this.activePopover]
-	                        },
-	                        focus: null
-	                    });
-	                }
-	            } else {
-	                this.activePopover = null;
-	                this.handlers.onActiveNodesChanged({
-	                    popover: null,
-	                    focus: id
-	                });
-	            }
-	        }
-
-	        /**
-	         * Handle a long press event on the node with the given identifier.
-	         *
-	         * @param {string} id - the identifier of the node that was long-pressed
-	         */
-
-	    }, {
-	        key: "onLongPress",
-	        value: function onLongPress(id) {
-	            // We only care about long presses if they occur on a popover, and we
-	            // don't already have a popover active.
-	            if (!this.activePopover && this.popovers[id]) {
-	                // NOTE(charlie): There's an assumption here that focusing the
-	                // first child is the correct behavior for a newly focused popover.
-	                // This relies on the fact that the children are rendered
-	                // bottom-up. If that rendering changes, this logic will need to
-	                // change as well.
-	                this.activePopover = id;
+	    PopoverStateMachine.prototype.onFocus = function onFocus(id) {
+	        if (this.activePopover) {
+	            // If we have a popover that is currently active, we focus this
+	            // node if it's in the popover, and remove any highlight otherwise.
+	            if (this._isNodeInsidePopover(this.activePopover, id)) {
 	                this.handlers.onActiveNodesChanged({
 	                    popover: {
 	                        parentId: this.activePopover,
-	                        childIds: this.popovers[this.activePopover]
-	                    },
-	                    focus: this._defaultNodeForPopover(this.activePopover)
-	                });
+	                        childIds: this.popovers[this.activePopover] },
+	                    focus: id });
+	            } else {
+	                this.handlers.onActiveNodesChanged({
+	                    popover: {
+	                        parentId: this.activePopover,
+	                        childIds: this.popovers[this.activePopover] },
+	                    focus: null });
 	            }
+	        } else {
+	            this.activePopover = null;
+	            this.handlers.onActiveNodesChanged({
+	                popover: null,
+	                focus: id });
 	        }
+	    };
 
-	        /**
-	         * Handle a touch-end event on the node with the given identifier.
-	         *
-	         * @param {string} id - the identifier of the node over which the touch
-	         *                      ended
-	         */
+	    /**
+	     * Handle a long press event on the node with the given identifier.
+	     *
+	     * @param {string} id - the identifier of the node that was long-pressed
+	     */
 
-	    }, {
-	        key: "onTouchEnd",
-	        value: function onTouchEnd(id) {
-	            if (this.activePopover) {
-	                // If we have a popover that is currently active, we trigger a
-	                // click on this node if and only if it's in the popover.
-	                if (this._isNodeInsidePopover(this.activePopover, id)) {
-	                    this.handlers.onClick(id, id);
-	                }
-	            } else if (this.popovers[id]) {
-	                // Otherwise, if the node is itself a popover revealer, trigger the
-	                // clicking of its default node, but pass back the popover node ID
-	                // for layout purposes.
-	                var keyId = this._defaultNodeForPopover(id);
-	                var domNodeId = id;
-	                this.handlers.onClick(keyId, domNodeId);
-	            } else if (id != null) {
-	                // Finally, if we have no active popover, and we touched up over a
-	                // valid key, trigger a click.
+	    PopoverStateMachine.prototype.onLongPress = function onLongPress(id) {
+	        // We only care about long presses if they occur on a popover, and we
+	        // don't already have a popover active.
+	        if (!this.activePopover && this.popovers[id]) {
+	            // NOTE(charlie): There's an assumption here that focusing the
+	            // first child is the correct behavior for a newly focused popover.
+	            // This relies on the fact that the children are rendered
+	            // bottom-up. If that rendering changes, this logic will need to
+	            // change as well.
+	            this.activePopover = id;
+	            this.handlers.onActiveNodesChanged({
+	                popover: {
+	                    parentId: this.activePopover,
+	                    childIds: this.popovers[this.activePopover] },
+	                focus: this._defaultNodeForPopover(this.activePopover) });
+	        }
+	    };
+
+	    /**
+	     * Handle a touch-end event on the node with the given identifier.
+	     *
+	     * @param {string} id - the identifier of the node over which the touch
+	     *                      ended
+	     */
+
+	    PopoverStateMachine.prototype.onTouchEnd = function onTouchEnd(id) {
+	        if (this.activePopover) {
+	            // If we have a popover that is currently active, we trigger a
+	            // click on this node if and only if it's in the popover.
+	            if (this._isNodeInsidePopover(this.activePopover, id)) {
 	                this.handlers.onClick(id, id);
 	            }
+	        } else if (this.popovers[id]) {
+	            // Otherwise, if the node is itself a popover revealer, trigger the
+	            // clicking of its default node, but pass back the popover node ID
+	            // for layout purposes.
+	            var keyId = this._defaultNodeForPopover(id);
+	            var domNodeId = id;
+	            this.handlers.onClick(keyId, domNodeId);
+	        } else if (id != null) {
+	            // Finally, if we have no active popover, and we touched up over a
+	            // valid key, trigger a click.
+	            this.handlers.onClick(id, id);
+	        }
 
-	            this.onBlur();
-	        }
-	    }, {
-	        key: "_isNodeInsidePopover",
-	        value: function _isNodeInsidePopover(popover, id) {
-	            return this.popovers[popover].includes(id);
-	        }
-	    }, {
-	        key: "_defaultNodeForPopover",
-	        value: function _defaultNodeForPopover(popover) {
-	            return this.popovers[popover][0];
-	        }
-	    }]);
+	        this.onBlur();
+	    };
+
+	    PopoverStateMachine.prototype._isNodeInsidePopover = function _isNodeInsidePopover(popover, id) {
+	        return this.popovers[popover].includes(id);
+	    };
+
+	    PopoverStateMachine.prototype._defaultNodeForPopover = function _defaultNodeForPopover(popover) {
+	        return this.popovers[popover][0];
+	    };
 
 	    return PopoverStateMachine;
 	})();
@@ -61506,23 +61020,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-
-	var _createClass = (function () {
-	    function defineProperties(target, props) {
-	        for (var i = 0; i < props.length; i++) {
-	            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	        }
-	    }return function (Constructor, protoProps, staticProps) {
-	        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	    };
-	})();
-
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) {
-	        throw new TypeError("Cannot call a class as a function");
-	    }
-	}
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	/**
 	 * The state machine that backs our gesture system. In particular, this state
@@ -61545,188 +61043,173 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.startX = null;
 	    }
 
-	    _createClass(GestureStateMachine, [{
-	        key: "_maybeCancelLongPress",
-	        value: function _maybeCancelLongPress() {
+	    GestureStateMachine.prototype._maybeCancelLongPress = function _maybeCancelLongPress() {
+	        if (this._longPressTimeoutId) {
+	            clearTimeout(this._longPressTimeoutId);
+	            this._longPressTimeoutId = null;
+	        }
+	    };
+
+	    /**
+	     * Handle a focus event on the node with the given identifier, which may be
+	     * `null` to indicate that the user has dragged their finger off of any
+	     * registered nodes, but is still in the middle of a gesture.
+	     *
+	     * @param {string|null} id - the identifier of the newly focused node, or
+	     *                           `null` if no node is focused
+	     */
+
+	    GestureStateMachine.prototype._onFocus = function _onFocus(id) {
+	        var _this = this;
+
+	        // If we're in the middle of a long-press, cancel it.
+	        this._maybeCancelLongPress();
+
+	        // Set the focused node ID and handle the focus event.
+	        // Note: we can call `onFocus` with `null` IDs. The semantics of an
+	        // `onFocus` with a `null` ID differs from that of `onBlur`. The former
+	        // indicates that a gesture that can focus future nodes is still in
+	        // progress, but that no node is currently focused. The latter
+	        // indicates that the gesture has ended and nothing will be focused.
+	        this._focusedNodeId = id;
+	        this.handlers.onFocus(this._focusedNodeId);
+
+	        if (id) {
+	            (function () {
+	                var self = _this;
+	                _this._longPressTimeoutId = setTimeout(function () {
+	                    self.handlers.onLongPress(id);
+	                    self._longPressTimeoutId = null;
+	                }, longPressWaitTimeMs);
+	            })();
+	        }
+	    };
+
+	    /**
+	     * Handle a blur event, indicating the end of a gesture's focusable
+	     * lifetime. After a blur, nothing will be focused until a new gesture
+	     * begins, although the system may continue to generate swipe events.
+	     */
+
+	    GestureStateMachine.prototype._onBlur = function _onBlur() {
+	        // If we're in the middle of a long-press, cancel it.
+	        this._maybeCancelLongPress();
+
+	        this._focusedNodeId = null;
+	        this.handlers.onBlur();
+	    };
+
+	    /**
+	     * A function that returns the identifier of the node over which the touch
+	     * event occurred. This is provided as a piece of lazy computation, as
+	     * computing the DOM node for a given point is expensive, and the state
+	     * machine won't always need that information. For example, if the user is
+	     * swiping, then `onTouchMove` needs to be performant and doesn't care about
+	     * the node over which the touch occurred.
+	     *
+	     * @typedef idComputation
+	     * @returns {DOMNode} - the identifier of the node over which the touch
+	     *                      occurred
+	     */
+
+	    /**
+	     * Handle a touch-start event on the node with the given identifer.
+	     *
+	     * @param {idComputation} getId - a function that returns identifier of the
+	     *                                node over which the start event occurred
+	     */
+
+	    GestureStateMachine.prototype.onTouchStart = function onTouchStart(getId, pageX) {
+	        this.startX = pageX;
+
+	        this._onFocus(getId());
+	    };
+
+	    /**
+	     * Handle a touch-move event on the node with the given identifer.
+	     *
+	     * @param {idComputation} getId - a function that returns identifier of the
+	     *                                node over which the move event occurred
+	     * @param {number} pageX - the x coordinate of the touch
+	     * @param {boolean} swipeEnabled - whether the system should allow for
+	     *                                 transitions into a swiping state
+	     */
+
+	    GestureStateMachine.prototype.onTouchMove = function onTouchMove(getId, pageX, swipeEnabled) {
+	        var dx = pageX - this.startX;
+	        var shouldBeginSwiping = !this.swiping && swipeEnabled && Math.abs(dx) > swipeThresholdPx;
+
+	        if (this.swiping) {
+	            this.handlers.onSwipeChange(dx);
+	        } else if (shouldBeginSwiping) {
+	            this._onBlur();
+
+	            // Trigger the swipe.
+	            this.swiping = true;
+	            this.handlers.onSwipeChange(dx);
+	        } else {
+	            var id = getId();
+	            if (id !== this._focusedNodeId) {
+	                this._onFocus(id);
+	            }
+	        }
+	    };
+
+	    /**
+	     * Handle a touch-end event on the node with the given identifer.
+	     *
+	     * @param {idComputation} getId - a function that returns identifier of the
+	     *                                node over which the end event occurred
+	     * @param {number} pageX - the x coordinate of the touch
+	     */
+
+	    GestureStateMachine.prototype.onTouchEnd = function onTouchEnd(getId, pageX) {
+	        if (this.swiping) {
+	            this.handlers.onSwipeEnd(pageX - this.startX);
+	        } else {
+	            // Trigger a touch-end. There's no need to notify clients of a blur
+	            // as clients are responsible for handling any cleanup in their
+	            // touch-end handlers.
+	            // NOTE(charlie): To avoid unnecessary lookups, we can just use the
+	            // focused node ID that we've been tracking internally, unless the
+	            // node received a long press, in which case, it may not be the
+	            // focused node even though we never moved off of it.
+	            var id = undefined;
 	            if (this._longPressTimeoutId) {
-	                clearTimeout(this._longPressTimeoutId);
-	                this._longPressTimeoutId = null;
+	                id = this._focusedNodeId;
+	            } else {
+	                id = getId();
 	            }
-	        }
+	            this.handlers.onTouchEnd(id);
 
-	        /**
-	         * Handle a focus event on the node with the given identifier, which may be
-	         * `null` to indicate that the user has dragged their finger off of any
-	         * registered nodes, but is still in the middle of a gesture.
-	         *
-	         * @param {string|null} id - the identifier of the newly focused node, or
-	         *                           `null` if no node is focused
-	         */
-
-	    }, {
-	        key: "_onFocus",
-	        value: function _onFocus(id) {
-	            var _this = this;
-
-	            // If we're in the middle of a long-press, cancel it.
+	            // Clean-up any lingering long-press events.
 	            this._maybeCancelLongPress();
-
-	            // Set the focused node ID and handle the focus event.
-	            // Note: we can call `onFocus` with `null` IDs. The semantics of an
-	            // `onFocus` with a `null` ID differs from that of `onBlur`. The former
-	            // indicates that a gesture that can focus future nodes is still in
-	            // progress, but that no node is currently focused. The latter
-	            // indicates that the gesture has ended and nothing will be focused.
-	            this._focusedNodeId = id;
-	            this.handlers.onFocus(this._focusedNodeId);
-
-	            if (id) {
-	                (function () {
-	                    var self = _this;
-	                    _this._longPressTimeoutId = setTimeout(function () {
-	                        self.handlers.onLongPress(id);
-	                        self._longPressTimeoutId = null;
-	                    }, longPressWaitTimeMs);
-	                })();
-	            }
-	        }
-
-	        /**
-	         * Handle a blur event, indicating the end of a gesture's focusable
-	         * lifetime. After a blur, nothing will be focused until a new gesture
-	         * begins, although the system may continue to generate swipe events.
-	         */
-
-	    }, {
-	        key: "_onBlur",
-	        value: function _onBlur() {
-	            // If we're in the middle of a long-press, cancel it.
-	            this._maybeCancelLongPress();
-
 	            this._focusedNodeId = null;
-	            this.handlers.onBlur();
 	        }
 
-	        /**
-	         * A function that returns the identifier of the node over which the touch
-	         * event occurred. This is provided as a piece of lazy computation, as
-	         * computing the DOM node for a given point is expensive, and the state
-	         * machine won't always need that information. For example, if the user is
-	         * swiping, then `onTouchMove` needs to be performant and doesn't care about
-	         * the node over which the touch occurred.
-	         *
-	         * @typedef idComputation
-	         * @returns {DOMNode} - the identifier of the node over which the touch
-	         *                      occurred
-	         */
+	        this.swiping = false;
+	        this.startX = null;
+	    };
 
-	        /**
-	         * Handle a touch-start event on the node with the given identifer.
-	         *
-	         * @param {idComputation} getId - a function that returns identifier of the
-	         *                                node over which the start event occurred
-	         */
+	    /**
+	     * Handle a touch-cancel event.
+	     */
 
-	    }, {
-	        key: "onTouchStart",
-	        value: function onTouchStart(getId, pageX) {
-	            this.startX = pageX;
-
-	            this._onFocus(getId());
+	    GestureStateMachine.prototype.onTouchCancel = function onTouchCancel() {
+	        // If a touch is cancelled and we're swiping, end the swipe with no
+	        // displacement.
+	        if (this.swiping) {
+	            this.handlers.onSwipeEnd(0);
+	        } else {
+	            // Otherwise, trigger a full blur. We don't want to trigger a
+	            // touch-up, since the cancellation means that the user probably
+	            // didn't release over a key intentionally.
+	            this._onBlur();
 	        }
 
-	        /**
-	         * Handle a touch-move event on the node with the given identifer.
-	         *
-	         * @param {idComputation} getId - a function that returns identifier of the
-	         *                                node over which the move event occurred
-	         * @param {number} pageX - the x coordinate of the touch
-	         * @param {boolean} swipeEnabled - whether the system should allow for
-	         *                                 transitions into a swiping state
-	         */
-
-	    }, {
-	        key: "onTouchMove",
-	        value: function onTouchMove(getId, pageX, swipeEnabled) {
-	            var dx = pageX - this.startX;
-	            var shouldBeginSwiping = !this.swiping && swipeEnabled && Math.abs(dx) > swipeThresholdPx;
-
-	            if (this.swiping) {
-	                this.handlers.onSwipeChange(dx);
-	            } else if (shouldBeginSwiping) {
-	                this._onBlur();
-
-	                // Trigger the swipe.
-	                this.swiping = true;
-	                this.handlers.onSwipeChange(dx);
-	            } else {
-	                var id = getId();
-	                if (id !== this._focusedNodeId) {
-	                    this._onFocus(id);
-	                }
-	            }
-	        }
-
-	        /**
-	         * Handle a touch-end event on the node with the given identifer.
-	         *
-	         * @param {idComputation} getId - a function that returns identifier of the
-	         *                                node over which the end event occurred
-	         * @param {number} pageX - the x coordinate of the touch
-	         */
-
-	    }, {
-	        key: "onTouchEnd",
-	        value: function onTouchEnd(getId, pageX) {
-	            if (this.swiping) {
-	                this.handlers.onSwipeEnd(pageX - this.startX);
-	            } else {
-	                // Trigger a touch-end. There's no need to notify clients of a blur
-	                // as clients are responsible for handling any cleanup in their
-	                // touch-end handlers.
-	                // NOTE(charlie): To avoid unnecessary lookups, we can just use the
-	                // focused node ID that we've been tracking internally, unless the
-	                // node received a long press, in which case, it may not be the
-	                // focused node even though we never moved off of it.
-	                var id = void 0;
-	                if (this._longPressTimeoutId) {
-	                    id = this._focusedNodeId;
-	                } else {
-	                    id = getId();
-	                }
-	                this.handlers.onTouchEnd(id);
-
-	                // Clean-up any lingering long-press events.
-	                this._maybeCancelLongPress();
-	                this._focusedNodeId = null;
-	            }
-
-	            this.swiping = false;
-	            this.startX = null;
-	        }
-
-	        /**
-	         * Handle a touch-cancel event.
-	         */
-
-	    }, {
-	        key: "onTouchCancel",
-	        value: function onTouchCancel() {
-	            // If a touch is cancelled and we're swiping, end the swipe with no
-	            // displacement.
-	            if (this.swiping) {
-	                this.handlers.onSwipeEnd(0);
-	            } else {
-	                // Otherwise, trigger a full blur. We don't want to trigger a
-	                // touch-up, since the cancellation means that the user probably
-	                // didn't release over a key intentionally.
-	                this._onBlur();
-	            }
-
-	            this.swiping = false;
-	            this.startX = null;
-	        }
-	    }]);
+	        this.swiping = false;
+	        this.startX = null;
+	    };
 
 	    return GestureStateMachine;
 	})();
@@ -62402,17 +61885,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	var _extends = Object.assign || function (target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];for (var key in source) {
-	            if (Object.prototype.hasOwnProperty.call(source, key)) {
-	                target[key] = source[key];
-	            }
-	        }
-	    }return target;
-	};
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	/**
 	 * A component that renders and animates the selection state effect effect.
@@ -62426,7 +61899,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var removeEcho = _require.removeEcho;
 
 	var KeypadButton = __webpack_require__(268);
-	var KeyConfigs = __webpack_require__(234);
+	var KeyConfigs = __webpack_require__(233);
 
 	var _require2 = __webpack_require__(190);
 
@@ -62440,7 +61913,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var boundingBoxPropType = _require3.boundingBoxPropType;
 	var keyIdPropType = _require3.keyIdPropType;
 
-	var Settings = __webpack_require__(244);
+	var Settings = __webpack_require__(243);
 
 	var Echo = React.createClass({
 	    displayName: 'Echo',
@@ -62450,10 +61923,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        animationId: React.PropTypes.string.isRequired,
 	        borders: bordersPropType,
 	        id: keyIdPropType.isRequired,
-	        initialBounds: boundingBoxPropType.isRequired
-	    },
+	        initialBounds: boundingBoxPropType.isRequired },
 
-	    componentDidMount: function componentDidMount() {
+	    componentDidMount: function () {
 	        // NOTE(charlie): This is somewhat unfortunate, as the component is
 	        // encoding information about its own animation, of which it should be
 	        // ignorant. However, there doesn't seem to be a cleaner way to make
@@ -62467,7 +61939,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return removeEcho(animationId);
 	        }, animationDurationMs);
 	    },
-	    render: function render() {
+
+	    render: function () {
 	        var _props2 = this.props;
 	        var borders = _props2.borders;
 	        var id = _props2.id;
@@ -62476,41 +61949,42 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        var containerStyle = _extends({
 	            position: 'absolute',
-	            pointerEvents: 'none'
-	        }, initialBounds);
+	            pointerEvents: 'none' }, initialBounds);
 
 	        // NOTE(charlie): In some browsers, Aphrodite doesn't seem to flush its
 	        // styles quickly enough, so there's a flickering effect on the first
 	        // animation. Thus, it's much safer to do the styles purely inline.
 	        // <View> makes this difficult because some of its defaults, which are
 	        // applied via StyleSheet, will override our inlines.
-	        return React.createElement('div', { style: containerStyle }, React.createElement(KeypadButton, {
-	            name: id,
-	            unicodeSymbol: unicodeSymbol,
-	            type: KeyTypes.ECHO,
-	            borders: borders
-	        }));
-	    }
-	});
+	        return React.createElement(
+	            'div',
+	            { style: containerStyle },
+	            React.createElement(KeypadButton, {
+	                name: id,
+	                unicodeSymbol: unicodeSymbol,
+	                type: KeyTypes.ECHO,
+	                borders: borders
+	            })
+	        );
+	    } });
 
 	var EchoManager = React.createClass({
 	    displayName: 'EchoManager',
 
 	    propTypes: {
 	        animationType: React.PropTypes.oneOf(Object.keys(EchoAnimationTypes)),
-	        echoes: React.PropTypes.arrayOf(echoPropType)
+	        echoes: React.PropTypes.arrayOf(echoPropType) },
+
+	    getDefaultProps: function () {
+	        return {
+	            animationType: Settings.echoAnimation };
 	    },
 
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            animationType: Settings.echoAnimation
-	        };
-	    },
-	    _animationConfigForType: function _animationConfigForType(animationType) {
+	    _animationConfigForType: function (animationType) {
 	        // NOTE(charlie): These must be kept in sync with the transition
 	        // durations and classnames specified in echo.css.
-	        var animationDurationMs = void 0;
-	        var animationTransitionName = void 0;
+	        var animationDurationMs = undefined;
+	        var animationTransitionName = undefined;
 
 	        switch (animationType) {
 	            case EchoAnimationTypes.SLIDE_AND_FADE:
@@ -62529,39 +62003,41 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        return {
 	            animationDurationMs: animationDurationMs,
-	            animationTransitionName: animationTransitionName
-	        };
+	            animationTransitionName: animationTransitionName };
 	    },
-	    render: function render() {
+
+	    render: function () {
 	        var _props3 = this.props;
 	        var animationType = _props3.animationType;
 	        var echoes = _props3.echoes;
 
-	        var _animationConfigForTy = this._animationConfigForType(animationType);
+	        var _animationConfigForType = this._animationConfigForType(animationType);
 
-	        var animationDurationMs = _animationConfigForTy.animationDurationMs;
-	        var animationTransitionName = _animationConfigForTy.animationTransitionName;
+	        var animationDurationMs = _animationConfigForType.animationDurationMs;
+	        var animationTransitionName = _animationConfigForType.animationTransitionName;
 
 	        // TODO(charlie): Manage this animation with Aphrodite styles. Right
 	        // now, there's a bug in the autoprefixer that breaks CSS transitions on
 	        // mobile Safari. See: https://github.com/Khan/aphrodite/issues/68. As
 	        // such, we have to do this with a stylesheet.
+	        return React.createElement(
+	            ReactCSSTransitionGroup,
+	            {
+	                transitionName: animationTransitionName,
+	                transitionEnter: true,
+	                transitionLeave: false,
+	                transitionEnterTimeout: animationDurationMs
+	            },
+	            echoes.map(function (echo) {
+	                var animationId = echo.animationId;
 
-	        return React.createElement(ReactCSSTransitionGroup, {
-	            transitionName: animationTransitionName,
-	            transitionEnter: true,
-	            transitionLeave: false,
-	            transitionEnterTimeout: animationDurationMs
-	        }, echoes.map(function (echo) {
-	            var animationId = echo.animationId;
-
-	            return React.createElement(Echo, _extends({
-	                key: animationId,
-	                animationDurationMs: animationDurationMs
-	            }, echo));
-	        }));
-	    }
-	});
+	                return React.createElement(Echo, _extends({
+	                    key: animationId,
+	                    animationDurationMs: animationDurationMs
+	                }, echo));
+	            })
+	        );
+	    } });
 
 	module.exports = EchoManager;
 
@@ -62569,17 +62045,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	var _extends = Object.assign || function (target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];for (var key in source) {
-	            if (Object.prototype.hasOwnProperty.call(source, key)) {
-	                target[key] = source[key];
-	            }
-	        }
-	    }return target;
-	};
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	/**
 	 * A component that renders and animates the popovers that appear over the
@@ -62589,7 +62055,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var ReactCSSTransitionGroup = __webpack_require__(283);
 
-	var KeyConfigs = __webpack_require__(234);
+	var KeyConfigs = __webpack_require__(233);
 	var MultiSymbolPopover = __webpack_require__(284);
 
 	var _require = __webpack_require__(201);
@@ -62600,7 +62066,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// NOTE(charlie): These must be kept in sync with the transition durations and
 	// classnames specified in popover.css.
-
 	var animationTransitionName = 'popover';
 	var animationDurationMs = 200;
 
@@ -62611,47 +62076,50 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        bounds: boundingBoxPropType.isRequired,
-	        childKeys: React.PropTypes.arrayOf(keyConfigPropType).isRequired
-	    },
+	        childKeys: React.PropTypes.arrayOf(keyConfigPropType).isRequired },
 
-	    render: function render() {
+	    render: function () {
 	        var _props = this.props;
 	        var bounds = _props.bounds;
 	        var childKeys = _props.childKeys;
 
 	        var containerStyle = _extends({
-	            position: 'absolute'
-	        }, bounds);
+	            position: 'absolute' }, bounds);
 
-	        return React.createElement('div', { style: containerStyle }, React.createElement(MultiSymbolPopover, { keys: childKeys }));
-	    }
-	});
+	        return React.createElement(
+	            'div',
+	            { style: containerStyle },
+	            React.createElement(MultiSymbolPopover, { keys: childKeys })
+	        );
+	    } });
 
 	var PopoverManager = React.createClass({
 	    displayName: 'PopoverManager',
 
 	    propTypes: {
-	        popover: popoverPropType
-	    },
+	        popover: popoverPropType },
 
-	    render: function render() {
+	    render: function () {
 	        var popover = this.props.popover;
 
-	        return React.createElement(ReactCSSTransitionGroup, {
-	            transitionName: animationTransitionName,
-	            transitionEnter: true,
-	            transitionLeave: true,
-	            transitionEnterTimeout: animationDurationMs,
-	            transitionLeaveTimeout: animationDurationMs
-	        }, popover && React.createElement(PopoverContainer, {
-	            key: popover.childKeyIds[0],
-	            bounds: popover.bounds,
-	            childKeys: popover.childKeyIds.map(function (id) {
-	                return KeyConfigs[id];
+	        return React.createElement(
+	            ReactCSSTransitionGroup,
+	            {
+	                transitionName: animationTransitionName,
+	                transitionEnter: true,
+	                transitionLeave: true,
+	                transitionEnterTimeout: animationDurationMs,
+	                transitionLeaveTimeout: animationDurationMs
+	            },
+	            popover && React.createElement(PopoverContainer, {
+	                key: popover.childKeyIds[0],
+	                bounds: popover.bounds,
+	                childKeys: popover.childKeyIds.map(function (id) {
+	                    return KeyConfigs[id];
+	                })
 	            })
-	        }));
-	    }
-	});
+	        );
+	    } });
 
 	module.exports = PopoverManager;
 
@@ -62659,27 +62127,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	var _extends = Object.assign || function (target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];for (var key in source) {
-	            if (Object.prototype.hasOwnProperty.call(source, key)) {
-	                target[key] = source[key];
-	            }
-	        }
-	    }return target;
-	};
-
-	function _toConsumableArray(arr) {
-	    if (Array.isArray(arr)) {
-	        for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-	            arr2[i] = arr[i];
-	        }return arr2;
-	    } else {
-	        return Array.from(arr);
-	    }
-	}
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	/**
 	 * A component that renders a keypad button.
@@ -62695,7 +62143,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require2.StyleSheet;
 
-	var _require3 = __webpack_require__(233);
+	var _require3 = __webpack_require__(234);
 
 	var View = _require3.View;
 
@@ -62709,7 +62157,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var BorderDirections = _require4.BorderDirections;
 	var BorderStyles = _require4.BorderStyles;
 
-	var _require5 = __webpack_require__(230);
+	var _require5 = __webpack_require__(231);
 
 	var brightGreen = _require5.brightGreen;
 	var buttonBorderColor = _require5.buttonBorderColor;
@@ -62750,20 +62198,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	        type: React.PropTypes.oneOf(Object.keys(KeyTypes)).isRequired,
 	        // The unicode symbol that can be used to depict the icon for the
 	        // button, as a fall-back in case there is no SVG icon available.
-	        unicodeSymbol: unicodeSymbolPropType
-	    },
+	        unicodeSymbol: unicodeSymbolPropType },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            borders: BorderStyles.ALL,
 	            childKeys: [],
-	            focused: false
-	        };
+	            focused: false };
 	    },
-	    componentWillMount: function componentWillMount() {
+
+	    componentWillMount: function () {
 	        this.heightStyles = stylesForButtonHeightPx(this.props.buttonHeightPx);
 	    },
-	    componentWillUpdate: function componentWillUpdate(newProps, newState) {
+
+	    componentWillUpdate: function (newProps, newState) {
 	        // Only recompute the Aphrodite StyleSheet when the button height has
 	        // changed. Though it is safe to recompute the StyleSheet (since
 	        // they're content-addressable), it saves us a bunch of hashing and
@@ -62772,8 +62220,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.heightStyles = stylesForButtonHeightPx(newProps.buttonHeightPx);
 	        }
 	    },
-	    _getFocusStyle: function _getFocusStyle(type) {
-	        var focusBackgroundStyle = void 0;
+
+	    _getFocusStyle: function (type) {
+	        var focusBackgroundStyle = undefined;
 	        if (type === KeyTypes.INPUT_NAVIGATION || type === KeyTypes.KEYPAD_NAVIGATION) {
 	            focusBackgroundStyle = styles.light;
 	        } else {
@@ -62782,9 +62231,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        return [styles.focusBox, focusBackgroundStyle];
 	    },
-	    _getButtonStyle: function _getButtonStyle(type, borders, style) {
+
+	    _getButtonStyle: function (type, borders, style) {
 	        // Select the appropriate style for the button.
-	        var backgroundStyle = void 0;
+	        var backgroundStyle = undefined;
 	        switch (type) {
 	            case KeyTypes.EMPTY:
 	                backgroundStyle = styles.disabled;
@@ -62817,9 +62267,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            borderStyle.push(styles.bottomBorder);
 	        }
 
-	        return [styles.buttonBase, backgroundStyle].concat(borderStyle, [type === KeyTypes.ECHO && styles.echo, this.heightStyles.fullHeight], _toConsumableArray(Array.isArray(style) ? style : [style]));
+	        return [styles.buttonBase, backgroundStyle].concat(borderStyle, [type === KeyTypes.ECHO && styles.echo, this.heightStyles.fullHeight], Array.isArray(style) ? style : [style]);
 	    },
-	    render: function render() {
+
+	    render: function () {
 	        var _props = this.props;
 	        var ariaLabel = _props.ariaLabel;
 	        var borders = _props.borders;
@@ -62836,14 +62287,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        // We render in the focus state if the key is focused, or if it's an
 	        // echo.
-
 	        var renderFocused = focused || type === KeyTypes.ECHO;
 	        var buttonStyle = this._getButtonStyle(type, borders, style);
 	        var focusStyle = this._getFocusStyle(type);
 
 	        var eventHandlers = {
-	            onTouchCancel: onTouchCancel, onTouchEnd: onTouchEnd, onTouchMove: onTouchMove, onTouchStart: onTouchStart
-	        };
+	            onTouchCancel: onTouchCancel, onTouchEnd: onTouchEnd, onTouchMove: onTouchMove, onTouchStart: onTouchStart };
 
 	        var maybeCornerDecal = childKeys && childKeys.length > 0 && React.createElement(CornerDecal, null);
 
@@ -62854,31 +62303,46 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // the TODO in key-configs.js for more.
 	            var manyButtonA11yMarkup = {
 	                role: 'button',
-	                ariaLabel: childKeys[0].ariaLabel
-	            };
+	                ariaLabel: childKeys[0].ariaLabel };
 	            var unicodeSymbols = childKeys.map(function (keyConfig) {
 	                return keyConfig.unicodeSymbol;
 	            });
-	            return React.createElement(View, _extends({
-	                style: buttonStyle
-	            }, eventHandlers, manyButtonA11yMarkup), React.createElement(View, { style: renderFocused && focusStyle }, React.createElement(MultiSymbolGrid, {
-	                unicodeSymbols: unicodeSymbols,
-	                focused: renderFocused
-	            })), maybeCornerDecal);
+	            return React.createElement(
+	                View,
+	                _extends({
+	                    style: buttonStyle
+	                }, eventHandlers, manyButtonA11yMarkup),
+	                React.createElement(
+	                    View,
+	                    { style: renderFocused && focusStyle },
+	                    React.createElement(MultiSymbolGrid, {
+	                        unicodeSymbols: unicodeSymbols,
+	                        focused: renderFocused
+	                    })
+	                ),
+	                maybeCornerDecal
+	            );
 	        } else {
 	            var a11yMarkup = {
 	                role: 'button',
-	                ariaLabel: ariaLabel
-	            };
+	                ariaLabel: ariaLabel };
 
-	            return React.createElement(View, _extends({ style: buttonStyle }, eventHandlers, a11yMarkup), React.createElement(View, { style: renderFocused && focusStyle }, React.createElement(Icon, {
-	                name: name,
-	                unicodeSymbol: unicodeSymbol,
-	                focused: renderFocused
-	            })), maybeCornerDecal);
+	            return React.createElement(
+	                View,
+	                _extends({ style: buttonStyle }, eventHandlers, a11yMarkup),
+	                React.createElement(
+	                    View,
+	                    { style: renderFocused && focusStyle },
+	                    React.createElement(Icon, {
+	                        name: name,
+	                        unicodeSymbol: unicodeSymbol,
+	                        focused: renderFocused
+	                    })
+	                ),
+	                maybeCornerDecal
+	            );
 	        }
-	    }
-	});
+	    } });
 
 	var focusInsetPx = 4;
 
@@ -62895,83 +62359,62 @@ return /******/ (function(modules) { // webpackBootstrap
 	        borderColor: buttonBorderColor,
 	        borderStyle: buttonBorderStyle,
 	        // The focus state is inset slightly from the edge of the button.
-	        padding: focusInsetPx
-	    },
+	        padding: focusInsetPx },
 
 	    // Overrides for the echo state, where we want to render the borders for
 	    // layout purposes, but we don't want them to be visible.
 	    echo: {
-	        borderColor: 'transparent'
-	    },
+	        borderColor: 'transparent' },
 
 	    // Background colors and other base styles that may vary between key types.
 	    numeral: {
-	        backgroundColor: numeralGrey
-	    },
+	        backgroundColor: numeralGrey },
 	    command: {
-	        backgroundColor: commandGrey
-	    },
+	        backgroundColor: commandGrey },
 	    control: {
-	        backgroundColor: controlGrey
-	    },
+	        backgroundColor: controlGrey },
 	    disabled: {
 	        backgroundColor: disabledGrey,
-	        cursor: 'default'
-	    },
+	        cursor: 'default' },
 
 	    focusBox: {
 	        width: '100%',
 	        height: '100%',
 	        borderRadius: 1,
 	        justifyContent: 'center',
-	        alignItems: 'center'
-	    },
+	        alignItems: 'center' },
 	    bright: {
-	        backgroundColor: brightGreen
-	    },
+	        backgroundColor: brightGreen },
 	    light: {
-	        backgroundColor: 'rgba(33, 36, 44, 0.1)'
-	    },
+	        backgroundColor: 'rgba(33, 36, 44, 0.1)' },
 
 	    // Styles used to render the appropriate borders. Buttons are only allowed
 	    // to render left and bottom borders, to simplify layout.
 	    leftBorder: {
-	        borderLeftWidth: buttonBorderWidthPx
-	    },
+	        borderLeftWidth: buttonBorderWidthPx },
 	    bottomBorder: {
-	        borderBottomWidth: buttonBorderWidthPx
-	    }
-	});
+	        borderBottomWidth: buttonBorderWidthPx } });
 
-	var stylesForButtonHeightPx = function stylesForButtonHeightPx(buttonHeightPx) {
+	var stylesForButtonHeightPx = function (buttonHeightPx) {
 	    return StyleSheet.create({
 	        fullHeight: {
-	            height: buttonHeightPx
-	        }
-	    });
+	            height: buttonHeightPx } });
 	};
 
-	var mapStateToProps = function mapStateToProps(state) {
+	var mapStateToProps = function (state) {
 	    return state.buttons;
 	};
 
 	module.exports = connect(mapStateToProps)(KeypadButton);
 
+	// React Native allows you to set the 'style' props on user defined
+	// components, https://facebook.github.io/react-native/docs/style.html
+
 /***/ },
 /* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	var _extends = Object.assign || function (target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];for (var key in source) {
-	            if (Object.prototype.hasOwnProperty.call(source, key)) {
-	                target[key] = source[key];
-	            }
-	        }
-	    }return target;
-	};
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	/**
 	 * A view pager that allows for pagination in the horizontal direction.
@@ -62991,7 +62434,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require2.StyleSheet;
 
-	var _require3 = __webpack_require__(233);
+	var _require3 = __webpack_require__(234);
 
 	var View = _require3.View;
 
@@ -63014,21 +62457,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // Whether the page should animate to its next specified position.
 	        animateToPosition: React.PropTypes.bool,
 	        children: childrenPropType,
-	        translateX: React.PropTypes.number.isRequired
+	        translateX: React.PropTypes.number.isRequired },
+
+	    getInitialState: function () {
+	        return {
+	            animationDurationMs: 0 };
 	    },
 
-	    getInitialState: function getInitialState() {
-	        return {
-	            animationDurationMs: 0
-	        };
-	    },
-	    componentDidMount: function componentDidMount() {
+	    componentDidMount: function () {
 	        window.addEventListener('resize', this._onResize);
 
 	        this._pagerContainer = ReactDOM.findDOMNode(this);
 	        this._shouldMeasureContainer = true;
 	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(newProps) {
+
+	    componentWillReceiveProps: function (newProps) {
 	        // NOTE(charlie): We can't measure the container immediately in
 	        // componentDidMount, as the layout pass hasn't occurred yet.
 	        if (this._shouldMeasureContainer) {
@@ -63038,7 +62481,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        // Compute the appropriate animation length, if the pager should
 	        // animate to its next position.
-	        var animationDurationMs = void 0;
+	        var animationDurationMs = undefined;
 	        if (newProps.animateToPosition) {
 	            var finalTranslateX = newProps.translateX;
 	            var prevTranslateX = this.props.translateX;
@@ -63050,13 +62493,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	            animationDurationMs = 0;
 	        }
 	        this.setState({
-	            animationDurationMs: animationDurationMs
-	        });
+	            animationDurationMs: animationDurationMs });
 	    },
-	    componentWillUnmount: function componentWillUnmount() {
+
+	    componentWillUnmount: function () {
 	        window.removeEventListener('resize', this._onResize);
 	    },
-	    _onResize: function _onResize() {
+
+	    _onResize: function () {
 	        var _this = this;
 
 	        // Whenever the page resizes, we need to force an update to recompute
@@ -63073,7 +62517,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }, 66);
 	        }
 	    },
-	    render: function render() {
+
+	    render: function () {
 	        var _props = this.props;
 	        var translateX = _props.translateX;
 	        var children = _props.children;
@@ -63082,18 +62527,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var pagerStyle = [row, styles.twoPagePager];
 
 	        var transform = {
-	            transform: 'translate3d(' + translateX + 'px, 0, 0)'
-	        };
+	            transform: 'translate3d(' + translateX + 'px, 0, 0)' };
 	        var animate = animationDurationMs ? {
 	            transitionProperty: 'transform',
-	            transitionDuration: animationDurationMs + 'ms',
-	            transitionTimingFunction: 'ease-out'
-	        } : {};
+	            transitionDuration: '' + animationDurationMs + 'ms',
+	            transitionTimingFunction: 'ease-out' } : {};
 	        var dynamicStyle = _extends({}, transform, animate);
 
-	        return React.createElement(View, null, React.createElement(View, { style: pagerStyle, dynamicStyle: dynamicStyle }, children));
-	    }
-	});
+	        return React.createElement(
+	            View,
+	            null,
+	            React.createElement(
+	                View,
+	                { style: pagerStyle, dynamicStyle: dynamicStyle },
+	                children
+	            )
+	        );
+	    } });
 
 	var styles = StyleSheet.create({
 	    twoPagePager: {
@@ -63101,11 +62551,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // Note: By default, <View> sets a `maxWidth` of 100% to fix some
 	        // Flexbox bugs. We have to override to acheive our desired width of
 	        // 200%.
-	        maxWidth: '200%'
-	    }
-	});
+	        maxWidth: '200%' } });
 
-	var mapStateToProps = function mapStateToProps(state) {
+	var mapStateToProps = function (state) {
 	    var _state$pager = state.pager;
 	    var animateToPosition = _state$pager.animateToPosition;
 	    var currentPage = _state$pager.currentPage;
@@ -63114,8 +62562,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    return {
 	        animateToPosition: animateToPosition,
-	        translateX: -currentPage * pageWidthPx + dx
-	    };
+	        translateX: -currentPage * pageWidthPx + dx };
 	};
 
 	module.exports = connect(mapStateToProps)(ViewPager);
@@ -63123,8 +62570,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ },
 /* 270 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * A component that renders a tab bar with titles for each tab and an underline
@@ -63137,12 +62582,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(233);
+	var _require2 = __webpack_require__(234);
 
 	var Text = _require2.Text;
 	var View = _require2.View;
 
-	var _require3 = __webpack_require__(230);
+	var _require3 = __webpack_require__(231);
 
 	var brightGreen = _require3.brightGreen;
 	var darkGrey = _require3.darkGrey;
@@ -63153,21 +62598,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	    propTypes: {
 	        active: React.PropTypes.bool,
 	        onClick: React.PropTypes.func,
-	        title: React.PropTypes.string.isRequired
+	        title: React.PropTypes.string.isRequired },
+
+	    getInitialState: function () {
+	        return {
+	            focused: false };
 	    },
 
-	    getInitialState: function getInitialState() {
-	        return {
-	            focused: false
-	        };
-	    },
-	    _onTouchStart: function _onTouchStart() {
+	    _onTouchStart: function () {
 	        this.setState({ focused: true });
 	    },
-	    _onTouchEnd: function _onTouchEnd() {
+
+	    _onTouchEnd: function () {
 	        this.setState({ focused: false });
 	    },
-	    render: function render() {
+
+	    render: function () {
 	        var _this = this;
 
 	        var _props = this.props;
@@ -63176,8 +62622,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var title = _props.title;
 	        var focused = this.state.focused;
 
-	        var underlineColorStyle = void 0;
-	        var textColorStyle = void 0;
+	        var underlineColorStyle = undefined;
+	        var textColorStyle = undefined;
 	        if (active && focused) {
 	            underlineColorStyle = styles.activeFocused;
 	            textColorStyle = styles.activeFocusedText;
@@ -63198,18 +62644,26 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        // TODO(charlie): Use `onTouchEnd` rather than `onClick` to avoid
 	        // delay. This requires verifying that the touch ended in the view.
-	        return React.createElement(View, {
-	            style: styles.tab,
-	            onClick: onClick,
-	            onTouchStart: function onTouchStart() {
-	                return _this._onTouchStart();
+	        return React.createElement(
+	            View,
+	            {
+	                style: styles.tab,
+	                onClick: onClick,
+	                onTouchStart: function () {
+	                    return _this._onTouchStart();
+	                },
+	                onTouchEnd: function () {
+	                    return _this._onTouchEnd();
+	                }
 	            },
-	            onTouchEnd: function onTouchEnd() {
-	                return _this._onTouchEnd();
-	            }
-	        }, React.createElement(Text, { style: titleStyle }, title), active && React.createElement(View, { style: underlineStyle }));
-	    }
-	});
+	            React.createElement(
+	                Text,
+	                { style: titleStyle },
+	                title
+	            ),
+	            active && React.createElement(View, { style: underlineStyle })
+	        );
+	    } });
 
 	var TabBarIndicator = React.createClass({
 	    displayName: 'TabBarIndicator',
@@ -63217,10 +62671,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    propTypes: {
 	        currentPage: React.PropTypes.number.isRequired,
 	        onSelectTab: React.PropTypes.func,
-	        pageTitles: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
-	    },
+	        pageTitles: React.PropTypes.arrayOf(React.PropTypes.string).isRequired },
 
-	    render: function render() {
+	    render: function () {
 	        var _props2 = this.props;
 	        var currentPage = _props2.currentPage;
 	        var onSelectTab = _props2.onSelectTab;
@@ -63230,16 +62683,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return React.createElement(Tab, {
 	                key: i,
 	                active: i === currentPage,
-	                onClick: function onClick() {
+	                onClick: function () {
 	                    return onSelectTab(i);
 	                },
 	                title: title
 	            });
 	        });
 
-	        return React.createElement(View, { style: styles.tabBar }, tabTitles);
-	    }
-	});
+	        return React.createElement(
+	            View,
+	            { style: styles.tabBar },
+	            tabTitles
+	        );
+	    } });
 
 	// The width beyond which the tab bar underline extends past the edges of the
 	// title for that tab.
@@ -63256,8 +62712,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        flexDirection: 'row',
 	        justifyContent: 'center',
 	        alignItems: 'center',
-	        height: 32
-	    },
+	        height: 32 },
 
 	    tab: {
 	        height: '100%',
@@ -63265,19 +62720,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	        alignItems: 'center',
 	        justifyContent: 'center',
 	        paddingLeft: tabUnderlineExtraWidthPx,
-	        paddingRight: tabUnderlineExtraWidthPx
-	    },
+	        paddingRight: tabUnderlineExtraWidthPx },
 
 	    tabTitleText: {
 	        fontSize: 14,
 	        fontFamily: 'Proxima Nova Semibold',
 	        userSelect: 'none',
-	        color: inactiveColor
-	    },
+	        color: inactiveColor },
 
 	    activeTabTitleText: {
-	        color: activeColor
-	    },
+	        color: activeColor },
 
 	    tabUnderline: {
 	        position: 'absolute',
@@ -63285,42 +62737,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	        bottom: 0,
 	        width: '100%',
 	        borderRadius: 2,
-	        height: 2
-	    },
+	        height: 2 },
 
 	    active: {
-	        backgroundColor: activeColor
-	    },
+	        backgroundColor: activeColor },
 	    activeText: {
-	        color: activeColor
-	    },
+	        color: activeColor },
 	    inactive: {
-	        backgroundColor: inactiveColor
-	    },
+	        backgroundColor: inactiveColor },
 	    inactiveText: {
-	        color: inactiveColor
-	    },
+	        color: inactiveColor },
 	    activeFocused: {
-	        backgroundColor: activeFocusedColor
-	    },
+	        backgroundColor: activeFocusedColor },
 	    activeFocusedText: {
-	        color: activeFocusedColor
-	    },
+	        color: activeFocusedColor },
 	    inactiveFocused: {
-	        backgroundColor: inactiveFocusedColor
-	    },
+	        backgroundColor: inactiveFocusedColor },
 	    inactiveFocusedText: {
-	        color: inactiveFocusedColor
-	    }
-	});
+	        color: inactiveFocusedColor } });
 
 	module.exports = TabBarIndicator;
 
 /***/ },
 /* 271 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * A component that renders a view pager indicator, with a circular icon for
@@ -63333,11 +62773,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(233);
+	var _require2 = __webpack_require__(234);
 
 	var View = _require2.View;
 
-	var _require3 = __webpack_require__(230);
+	var _require3 = __webpack_require__(231);
 
 	var darkGrey = _require3.darkGrey;
 	var lightGrey = _require3.lightGrey;
@@ -63347,40 +62787,41 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        active: React.PropTypes.bool,
-	        radiusPx: React.PropTypes.number
-	    },
+	        radiusPx: React.PropTypes.number },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            active: false,
-	            radiusPx: 4
-	        };
+	            radiusPx: 4 };
 	    },
-	    render: function render() {
+
+	    render: function () {
 	        var _props = this.props;
 	        var active = _props.active;
 	        var radiusPx = _props.radiusPx;
 
 	        var fillColor = active ? darkGrey : lightGrey;
 
-	        return React.createElement('svg', { width: 2 * radiusPx, height: 2 * radiusPx }, React.createElement('circle', {
-	            cx: radiusPx,
-	            cy: radiusPx,
-	            r: radiusPx,
-	            fill: fillColor
-	        }));
-	    }
-	});
+	        return React.createElement(
+	            'svg',
+	            { width: 2 * radiusPx, height: 2 * radiusPx },
+	            React.createElement('circle', {
+	                cx: radiusPx,
+	                cy: radiusPx,
+	                r: radiusPx,
+	                fill: fillColor
+	            })
+	        );
+	    } });
 
 	var PagerIndicator = React.createClass({
 	    displayName: 'PagerIndicator',
 
 	    propTypes: {
 	        currentPage: React.PropTypes.number.isRequired,
-	        numPages: React.PropTypes.number.isRequired
-	    },
+	        numPages: React.PropTypes.number.isRequired },
 
-	    render: function render() {
+	    render: function () {
 	        var _props2 = this.props;
 	        var currentPage = _props2.currentPage;
 	        var numPages = _props2.numPages;
@@ -63405,13 +62846,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	            iconStrip: {
 	                flexDirection: 'row',
 	                justifyContent: 'space-between',
-	                width: totalIconWidthPx + totalSpacingWidthPx
-	            }
-	        });
+	                width: totalIconWidthPx + totalSpacingWidthPx } });
 
-	        return React.createElement(View, { style: styles.indicatorStrip }, React.createElement(View, { style: dynamicStyles.iconStrip }, indicators));
-	    }
-	});
+	        return React.createElement(
+	            View,
+	            { style: styles.indicatorStrip },
+	            React.createElement(
+	                View,
+	                { style: dynamicStyles.iconStrip },
+	                indicators
+	            )
+	        );
+	    } });
 
 	var styles = StyleSheet.create({
 	    indicatorStrip: {
@@ -63419,9 +62865,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        flexDirection: 'row',
 	        justifyContent: 'center',
 	        alignItems: 'center',
-	        height: 16
-	    }
-	});
+	        height: 16 } });
 
 	module.exports = PagerIndicator;
 
@@ -64172,17 +63616,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	var _extends = Object.assign || function (target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];for (var key in source) {
-	            if (Object.prototype.hasOwnProperty.call(source, key)) {
-	                target[key] = source[key];
-	            }
-	        }
-	    }return target;
-	};
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	/**
 	 * A popover that renders a set of keys floating above the page.
@@ -64194,7 +63628,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(233);
+	var _require2 = __webpack_require__(234);
 
 	var View = _require2.View;
 
@@ -64211,33 +63645,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	    displayName: 'MultiSymbolPopover',
 
 	    propTypes: {
-	        keys: React.PropTypes.arrayOf(keyConfigPropType)
-	    },
+	        keys: React.PropTypes.arrayOf(keyConfigPropType) },
 
-	    render: function render() {
+	    render: function () {
 	        var keys = this.props.keys;
 
 	        // TODO(charlie): We have to require this lazily because of a cyclic
 	        // dependence in our components.
-
 	        var TouchableKeypadButton = __webpack_require__(255);
-	        return React.createElement(View, { style: styles.container }, keys.map(function (key) {
-	            // NOTE(charlie): Right now, buttons that appear in the
-	            // popover are styled identically to the numeral buttons, i.e.,
-	            // in a very simple way (white background, no borders). If the
-	            // numeral buttons change in style, we'll have to change this
-	            // logic to mimic a different button type.
-	            var keyConfig = _extends({}, key, {
-	                type: KeyTypes.NUMERAL
-	            });
-	            return React.createElement(TouchableKeypadButton, {
-	                key: keyConfig.id,
-	                keyConfig: keyConfig,
-	                borders: BorderStyles.NONE
-	            });
-	        }));
-	    }
-	});
+	        return React.createElement(
+	            View,
+	            { style: styles.container },
+	            keys.map(function (key) {
+	                var keyConfig = _extends({}, key, {
+	                    type: KeyTypes.NUMERAL });
+	                return React.createElement(TouchableKeypadButton, {
+	                    key: keyConfig.id,
+	                    keyConfig: keyConfig,
+	                    borders: BorderStyles.NONE
+	                });
+	            })
+	        );
+	    } });
 
 	var styles = StyleSheet.create({
 	    container: {
@@ -64246,22 +63675,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	        width: '100%',
 	        borderRadius: 2,
 	        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
-	        zIndex: 1
-	    },
+	        zIndex: 1 },
 
 	    popoverButton: {
 	        backgroundColor: '#FFF',
-	        borderWidth: 0
-	    }
-	});
+	        borderWidth: 0 } });
 
 	module.exports = MultiSymbolPopover;
+
+	// NOTE(charlie): Right now, buttons that appear in the
+	// popover are styled identically to the numeral buttons, i.e.,
+	// in a very simple way (white background, no borders). If the
+	// numeral buttons change in style, we'll have to change this
+	// logic to mimic a different button type.
 
 /***/ },
 /* 285 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * A component that renders an icon for a symbol with the given name.
@@ -64283,18 +63713,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	    propTypes: {
 	        focused: React.PropTypes.bool,
 	        name: React.PropTypes.string.isRequired,
-	        unicodeSymbol: unicodeSymbolPropType
-	    },
+	        unicodeSymbol: unicodeSymbolPropType },
 
 	    // TODO(kevinb) remove this when we upgrade to React 15
-	    componentDidMount: function componentDidMount() {
+	    componentDidMount: function () {
 	        var node = ReactDOM.findDOMNode(this);
 	        if (node instanceof SVGElement) {
 	            var firstGroup = node.querySelector('g');
 	            firstGroup.setAttributeNS(null, 'fill-rule', 'evenodd');
 	        }
 	    },
-	    render: function render() {
+
+	    render: function () {
 	        var _props = this.props;
 	        var focused = _props.focused;
 	        var name = _props.name;
@@ -64302,7 +63732,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        // Select the appropriate icon, if it's available. Otherwise, render a
 	        // text-based icon using the fallback unicode symbol.
-
 	        if (Iconography[name]) {
 	            // TODO(charlie): Some of the generated SVGs contain redundant
 	            // information. We should spend some time optimizing them to
@@ -64318,16 +63747,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        } else {
 	            throw new Error('No icon or symbol provided for key with name:', name);
 	        }
-	    }
-	});
+	    } });
 
 	module.exports = Icon;
 
 /***/ },
 /* 286 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * A grid of symbols, rendered as text and positioned based on the number of
@@ -64340,7 +63766,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(233);
+	var _require2 = __webpack_require__(234);
 
 	var View = _require2.View;
 
@@ -64354,7 +63780,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var centered = _require3.centered;
 	var fullWidth = _require3.fullWidth;
 
-	var _require4 = __webpack_require__(230);
+	var _require4 = __webpack_require__(231);
 
 	var iconGrey = _require4.iconGrey;
 	var secondaryIconOpacity = _require4.secondaryIconOpacity;
@@ -64370,10 +63796,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        focused: React.PropTypes.bool,
-	        unicodeSymbols: React.PropTypes.arrayOf(unicodeSymbolPropType).isRequired
-	    },
+	        unicodeSymbols: React.PropTypes.arrayOf(unicodeSymbolPropType).isRequired },
 
-	    render: function render() {
+	    render: function () {
 	        var _props = this.props;
 	        var focused = _props.focused;
 	        var unicodeSymbols = _props.unicodeSymbols;
@@ -64385,73 +63810,107 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var secondaryIconStyle = [styles.iconFont, styles.secondaryIcon, focused && styles.focused];
 
 	            if (unicodeSymbols.length === 2) {
-	                return React.createElement(View, { style: [row, styles.iconSize] }, React.createElement(View, { style: [column, centered, fullWidth] }, React.createElement(UnicodeSymbol, {
-	                    style: primaryIconStyle,
-	                    unicodeSymbol: unicodeSymbols[0]
-	                })), React.createElement(View, { style: [column, centered, fullWidth] }, React.createElement(UnicodeSymbol, {
-	                    style: secondaryIconStyle,
-	                    unicodeSymbol: unicodeSymbols[1]
-	                })));
+	                return React.createElement(
+	                    View,
+	                    { style: [row, styles.iconSize] },
+	                    React.createElement(
+	                        View,
+	                        { style: [column, centered, fullWidth] },
+	                        React.createElement(UnicodeSymbol, {
+	                            style: primaryIconStyle,
+	                            unicodeSymbol: unicodeSymbols[0]
+	                        })
+	                    ),
+	                    React.createElement(
+	                        View,
+	                        { style: [column, centered, fullWidth] },
+	                        React.createElement(UnicodeSymbol, {
+	                            style: secondaryIconStyle,
+	                            unicodeSymbol: unicodeSymbols[1]
+	                        })
+	                    )
+	                );
 	            } else if (unicodeSymbols.length >= 3) {
-	                return React.createElement(View, { style: [column, styles.iconSize, styles.fourQuadrantGrid]
-	                }, React.createElement(View, { style: row }, React.createElement(View, { style: [centered, fullWidth] }, React.createElement(UnicodeSymbol, {
-	                    style: primaryIconStyle,
-	                    unicodeSymbol: unicodeSymbols[0]
-	                })), React.createElement(View, { style: [centered, fullWidth] }, React.createElement(UnicodeSymbol, {
-	                    style: secondaryIconStyle,
-	                    unicodeSymbol: unicodeSymbols[1]
-	                }))), React.createElement(View, { style: row }, React.createElement(View, { style: [centered, fullWidth] }, React.createElement(UnicodeSymbol, {
-	                    style: secondaryIconStyle,
-	                    unicodeSymbol: unicodeSymbols[2]
-	                })), React.createElement(View, { style: [centered, fullWidth] }, React.createElement(UnicodeSymbol, {
-	                    style: secondaryIconStyle,
-	                    unicodeSymbol: unicodeSymbols[3]
-	                }))));
+	                return React.createElement(
+	                    View,
+	                    { style: [column, styles.iconSize, styles.fourQuadrantGrid]
+	                    },
+	                    React.createElement(
+	                        View,
+	                        { style: row },
+	                        React.createElement(
+	                            View,
+	                            { style: [centered, fullWidth] },
+	                            React.createElement(UnicodeSymbol, {
+	                                style: primaryIconStyle,
+	                                unicodeSymbol: unicodeSymbols[0]
+	                            })
+	                        ),
+	                        React.createElement(
+	                            View,
+	                            { style: [centered, fullWidth] },
+	                            React.createElement(UnicodeSymbol, {
+	                                style: secondaryIconStyle,
+	                                unicodeSymbol: unicodeSymbols[1]
+	                            })
+	                        )
+	                    ),
+	                    React.createElement(
+	                        View,
+	                        { style: row },
+	                        React.createElement(
+	                            View,
+	                            { style: [centered, fullWidth] },
+	                            React.createElement(UnicodeSymbol, {
+	                                style: secondaryIconStyle,
+	                                unicodeSymbol: unicodeSymbols[2]
+	                            })
+	                        ),
+	                        React.createElement(
+	                            View,
+	                            { style: [centered, fullWidth] },
+	                            React.createElement(UnicodeSymbol, {
+	                                style: secondaryIconStyle,
+	                                unicodeSymbol: unicodeSymbols[3]
+	                            })
+	                        )
+	                    )
+	                );
 	            }
 	        }
 
 	        throw new Error('Invalid number of symbols:', unicodeSymbols.length);
-	    }
-	});
+	    } });
 
 	var fourQuadrantGridVerticalPaddingPx = 4;
 
 	var styles = StyleSheet.create({
 	    iconSize: {
 	        height: iconSizeHeightPx,
-	        width: iconSizeWidthPx
-	    },
+	        width: iconSizeWidthPx },
 	    fourQuadrantGrid: {
 	        paddingTop: fourQuadrantGridVerticalPaddingPx,
-	        paddingBottom: fourQuadrantGridVerticalPaddingPx
-	    },
+	        paddingBottom: fourQuadrantGridVerticalPaddingPx },
 
 	    iconFont: {
 	        fontFamily: 'Proxima Nova Semibold',
-	        fontSize: 18
-	    },
+	        fontSize: 18 },
 	    // TODO(charlie): Make the SVG icons import these defaults from
 	    // common-style.
 	    primaryIcon: {
-	        color: iconGrey
-	    },
+	        color: iconGrey },
 	    secondaryIcon: {
 	        color: iconGrey,
-	        opacity: secondaryIconOpacity
-	    },
+	        opacity: secondaryIconOpacity },
 
 	    focused: {
-	        color: '#FFF'
-	    }
-	});
+	        color: '#FFF' } });
 
 	module.exports = MultiSymbolGrid;
 
 /***/ },
 /* 287 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * A small triangular decal to sit in the corner of a parent component.
@@ -64463,22 +63922,30 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(233);
+	var _require2 = __webpack_require__(234);
 
 	var View = _require2.View;
 
-	var _require3 = __webpack_require__(230);
+	var _require3 = __webpack_require__(231);
 
 	var mediumGrey = _require3.mediumGrey;
 
-	var CornerDecal = function CornerDecal() {
-	    var points = '0,0 ' + triangleSizePx + ',0 ' + (triangleSizePx + ',' + triangleSizePx + ' 0,0');
+	var CornerDecal = function () {
+	    var points = '0,0 ' + triangleSizePx + ',0 ' + ('' + triangleSizePx + ',' + triangleSizePx + ' 0,0');
 	    var fill = triangleColor;
 
 	    // TODO(charlie): Separate out the contents of the corner decal from its
 	    // positioning. Not necessary now, but it will be if external users need
 	    // more fine-grained control over the styling of the keypad.
-	    return React.createElement(View, { style: styles.triangle }, React.createElement('svg', null, React.createElement('polygon', { points: points, fill: fill })));
+	    return React.createElement(
+	        View,
+	        { style: styles.triangle },
+	        React.createElement(
+	            'svg',
+	            null,
+	            React.createElement('polygon', { points: points, fill: fill })
+	        )
+	    );
 	};
 
 	var triangleSizePx = 8;
@@ -64490,9 +63957,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        top: 0,
 	        right: 0,
 	        width: triangleSizePx,
-	        height: triangleSizePx
-	    }
-	});
+	        height: triangleSizePx } });
 
 	module.exports = CornerDecal;
 
@@ -64683,8 +64148,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
 	/**
 	 * An icon, rendered with a single character of text.
 	 */
@@ -64695,7 +64158,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(233);
+	var _require2 = __webpack_require__(234);
 
 	var View = _require2.View;
 
@@ -64706,7 +64169,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var row = _require3.row;
 	var centered = _require3.centered;
 
-	var _require4 = __webpack_require__(230);
+	var _require4 = __webpack_require__(231);
 
 	var iconGrey = _require4.iconGrey;
 	var iconSizeHeightPx = _require4.iconSizeHeightPx;
@@ -64719,59 +64182,42 @@ return /******/ (function(modules) { // webpackBootstrap
 	        focused: React.PropTypes.bool,
 	        unicodeSymbol: React.PropTypes.shape({
 	            character: React.PropTypes.string.isRequired,
-	            italicized: React.PropTypes.boolean
-	        }).isRequired
-	    },
+	            italicized: React.PropTypes.boolean }).isRequired },
 
-	    render: function render() {
+	    render: function () {
 	        var _props = this.props;
 	        var focused = _props.focused;
 	        var unicodeSymbol = _props.unicodeSymbol;
 
 	        var containerStyle = [row, centered, styles.iconSize];
 	        var iconStyle = [styles.iconFont, styles.iconColor, unicodeSymbol.italicized && styles.italicized, focused && styles.focused];
-	        return React.createElement(View, { style: containerStyle }, React.createElement(UnicodeSymbol, { style: iconStyle, unicodeSymbol: unicodeSymbol }));
-	    }
-	});
+	        return React.createElement(
+	            View,
+	            { style: containerStyle },
+	            React.createElement(UnicodeSymbol, { style: iconStyle, unicodeSymbol: unicodeSymbol })
+	        );
+	    } });
 
 	var styles = StyleSheet.create({
 	    iconSize: {
 	        height: iconSizeHeightPx,
-	        width: iconSizeWidthPx
-	    },
+	        width: iconSizeWidthPx },
 
 	    iconFont: {
 	        fontFamily: 'Proxima Nova',
-	        fontSize: 25
-	    },
+	        fontSize: 25 },
 	    italicized: {
-	        fontStyle: 'italic'
-	    },
+	        fontStyle: 'italic' },
 	    iconColor: {
-	        color: iconGrey
-	    },
+	        color: iconGrey },
 	    focused: {
-	        color: '#FFF'
-	    }
-	});
+	        color: '#FFF' } });
 
 	module.exports = UnicodeIcon;
 
 /***/ },
 /* 293 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	function _toConsumableArray(arr) {
-	    if (Array.isArray(arr)) {
-	        for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-	            arr2[i] = arr[i];
-	        }return arr2;
-	    } else {
-	        return Array.from(arr);
-	    }
-	}
 
 	/**
 	 * A simple component that renders a single unicode character, which can
@@ -64784,7 +64230,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(233);
+	var _require2 = __webpack_require__(234);
 
 	var Text = _require2.Text;
 
@@ -64797,35 +64243,33 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        style: React.PropTypes.any,
-	        unicodeSymbol: unicodeSymbolPropType.isRequired
-	    },
+	        unicodeSymbol: unicodeSymbolPropType.isRequired },
 
-	    render: function render() {
+	    render: function () {
 	        var _props = this.props;
 	        var style = _props.style;
 	        var unicodeSymbol = _props.unicodeSymbol;
 	        var character = unicodeSymbol.character;
 	        var italicized = unicodeSymbol.italicized;
 
-	        var symbolStyle = [].concat(_toConsumableArray(Array.isArray(style) ? style : [style]), [italicized && styles.italicized]);
+	        var symbolStyle = [].concat(Array.isArray(style) ? style : [style], [italicized && styles.italicized]);
 
-	        return React.createElement(Text, { style: symbolStyle }, character);
-	    }
-	});
+	        return React.createElement(
+	            Text,
+	            { style: symbolStyle },
+	            character
+	        );
+	    } });
 
 	var styles = StyleSheet.create({
 	    italicized: {
-	        fontStyle: 'italic'
-	    }
-	});
+	        fontStyle: 'italic' } });
 
 	module.exports = UnicodeSymbol;
 
 /***/ },
 /* 294 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * A directory of autogenerated icon components.
@@ -64876,8 +64320,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    LESS_MULTI: __webpack_require__(312),
 	    EXP_MULTI: __webpack_require__(328),
 	    RADICAL_MULTI: __webpack_require__(304),
-	    LOG_MULTI: __webpack_require__(301)
-	};
+	    LOG_MULTI: __webpack_require__(301) };
 
 /***/ },
 /* 295 */
@@ -65045,8 +64488,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
 	/**
 	 * An autogenerated component that renders the COS iconograpy in SVG.
 	 *
@@ -65059,27 +64500,45 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1476.000000, -902.000000)' }, React.createElement('g', { id: 'math_keypad_icon_cos', transform: 'translate(1476.000000, 902.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('g', { id: 'icon', strokeWidth: '1', transform: 'translate(13.000000, 12.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }), React.createElement('path', { d: 'M5.182,17.168 C6.568,17.168 7.408,16.566 7.856,15.936 L6.694,14.858 C6.372,15.306 5.882,15.586 5.266,15.586 C4.188,15.586 3.432,14.788 3.432,13.612 C3.432,12.436 4.188,11.652 5.266,11.652 C5.882,11.652 6.372,11.904 6.694,12.38 L7.856,11.288 C7.408,10.672 6.568,10.07 5.182,10.07 C3.096,10.07 1.598,11.54 1.598,13.612 C1.598,15.698 3.096,17.168 5.182,17.168 L5.182,17.168 Z M12.154,17.168 C14.394,17.168 15.738,15.544 15.738,13.612 C15.738,11.694 14.394,10.07 12.154,10.07 C9.928,10.07 8.584,11.694 8.584,13.612 C8.584,15.544 9.928,17.168 12.154,17.168 L12.154,17.168 Z M12.154,15.586 C11.048,15.586 10.432,14.676 10.432,13.612 C10.432,12.562 11.048,11.652 12.154,11.652 C13.26,11.652 13.89,12.562 13.89,13.612 C13.89,14.676 13.26,15.586 12.154,15.586 L12.154,15.586 Z M19.49,17.168 C21.366,17.168 22.416,16.23 22.416,14.998 C22.416,12.268 18.412,13.108 18.412,12.1 C18.412,11.722 18.832,11.428 19.476,11.428 C20.302,11.428 21.072,11.778 21.478,12.212 L22.192,10.994 C21.52,10.462 20.61,10.07 19.462,10.07 C17.684,10.07 16.69,11.064 16.69,12.198 C16.69,14.858 20.708,13.948 20.708,15.068 C20.708,15.488 20.344,15.796 19.574,15.796 C18.734,15.796 17.726,15.334 17.236,14.872 L16.466,16.118 C17.18,16.776 18.314,17.168 19.49,17.168 L19.49,17.168 Z', id: 'cos', fill: this.props.primaryColor }))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1476.000000, -902.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_cos', transform: 'translate(1476.000000, 902.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon', strokeWidth: '1', transform: 'translate(13.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('path', { d: 'M5.182,17.168 C6.568,17.168 7.408,16.566 7.856,15.936 L6.694,14.858 C6.372,15.306 5.882,15.586 5.266,15.586 C4.188,15.586 3.432,14.788 3.432,13.612 C3.432,12.436 4.188,11.652 5.266,11.652 C5.882,11.652 6.372,11.904 6.694,12.38 L7.856,11.288 C7.408,10.672 6.568,10.07 5.182,10.07 C3.096,10.07 1.598,11.54 1.598,13.612 C1.598,15.698 3.096,17.168 5.182,17.168 L5.182,17.168 Z M12.154,17.168 C14.394,17.168 15.738,15.544 15.738,13.612 C15.738,11.694 14.394,10.07 12.154,10.07 C9.928,10.07 8.584,11.694 8.584,13.612 C8.584,15.544 9.928,17.168 12.154,17.168 L12.154,17.168 Z M12.154,15.586 C11.048,15.586 10.432,14.676 10.432,13.612 C10.432,12.562 11.048,11.652 12.154,11.652 C13.26,11.652 13.89,12.562 13.89,13.612 C13.89,14.676 13.26,15.586 12.154,15.586 L12.154,15.586 Z M19.49,17.168 C21.366,17.168 22.416,16.23 22.416,14.998 C22.416,12.268 18.412,13.108 18.412,12.1 C18.412,11.722 18.832,11.428 19.476,11.428 C20.302,11.428 21.072,11.778 21.478,12.212 L22.192,10.994 C21.52,10.462 20.61,10.07 19.462,10.07 C17.684,10.07 16.69,11.064 16.69,12.198 C16.69,14.858 20.708,13.948 20.708,15.068 C20.708,15.488 20.344,15.796 19.574,15.796 C18.734,15.796 17.726,15.334 17.236,14.872 L16.466,16.118 C17.18,16.776 18.314,17.168 19.49,17.168 L19.49,17.168 Z', id: 'cos', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Cos;
 
 /***/ },
 /* 301 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the LOG iconograpy in SVG.
@@ -65093,27 +64552,44 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1340.000000, -834.000000)' }, React.createElement('g', { id: 'math_keypad_icon_log_10', transform: 'translate(1340.000000, 834.000000)' }, React.createElement('g', { id: 'icon' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('path', { d: 'M16.776,29 L16.776,19.662 L14.998,19.662 L14.998,29 L16.776,29 Z M21.676,29.168 C23.916,29.168 25.26,27.544 25.26,25.612 C25.26,23.694 23.916,22.07 21.676,22.07 C19.45,22.07 18.106,23.694 18.106,25.612 C18.106,27.544 19.45,29.168 21.676,29.168 L21.676,29.168 Z M21.676,27.586 C20.57,27.586 19.954,26.676 19.954,25.612 C19.954,24.562 20.57,23.652 21.676,23.652 C22.782,23.652 23.412,24.562 23.412,25.612 C23.412,26.676 22.782,27.586 21.676,27.586 L21.676,27.586 Z M29.348,31.744 C31.014,31.744 33.002,31.114 33.002,28.538 L33.002,22.238 L31.21,22.238 L31.21,23.106 C30.664,22.42 29.936,22.07 29.124,22.07 C27.416,22.07 26.142,23.302 26.142,25.514 C26.142,27.768 27.43,28.958 29.124,28.958 C29.95,28.958 30.678,28.566 31.21,27.894 L31.21,28.58 C31.21,29.91 30.202,30.288 29.348,30.288 C28.494,30.288 27.78,30.05 27.234,29.448 L26.436,30.736 C27.29,31.478 28.186,31.744 29.348,31.744 L29.348,31.744 Z M29.684,27.376 C28.676,27.376 27.976,26.676 27.976,25.514 C27.976,24.352 28.676,23.652 29.684,23.652 C30.272,23.652 30.916,23.974 31.21,24.422 L31.21,26.606 C30.916,27.04 30.272,27.376 29.684,27.376 L29.684,27.376 Z', id: 'log', fill: this.props.primaryColor }))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1340.000000, -834.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_log_10', transform: 'translate(1340.000000, 834.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M16.776,29 L16.776,19.662 L14.998,19.662 L14.998,29 L16.776,29 Z M21.676,29.168 C23.916,29.168 25.26,27.544 25.26,25.612 C25.26,23.694 23.916,22.07 21.676,22.07 C19.45,22.07 18.106,23.694 18.106,25.612 C18.106,27.544 19.45,29.168 21.676,29.168 L21.676,29.168 Z M21.676,27.586 C20.57,27.586 19.954,26.676 19.954,25.612 C19.954,24.562 20.57,23.652 21.676,23.652 C22.782,23.652 23.412,24.562 23.412,25.612 C23.412,26.676 22.782,27.586 21.676,27.586 L21.676,27.586 Z M29.348,31.744 C31.014,31.744 33.002,31.114 33.002,28.538 L33.002,22.238 L31.21,22.238 L31.21,23.106 C30.664,22.42 29.936,22.07 29.124,22.07 C27.416,22.07 26.142,23.302 26.142,25.514 C26.142,27.768 27.43,28.958 29.124,28.958 C29.95,28.958 30.678,28.566 31.21,27.894 L31.21,28.58 C31.21,29.91 30.202,30.288 29.348,30.288 C28.494,30.288 27.78,30.05 27.234,29.448 L26.436,30.736 C27.29,31.478 28.186,31.744 29.348,31.744 L29.348,31.744 Z M29.684,27.376 C28.676,27.376 27.976,26.676 27.976,25.514 C27.976,24.352 28.676,23.652 29.684,23.652 C30.272,23.652 30.916,23.974 31.21,24.422 L31.21,26.606 C30.916,27.04 30.272,27.376 29.684,27.376 L29.684,27.376 Z', id: 'log', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Log;
 
 /***/ },
 /* 302 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the EQUAL iconograpy in SVG.
@@ -65127,27 +64603,54 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1000.000000, -834.000000)' }, React.createElement('g', { id: 'math_keypad_icon_equals', transform: 'translate(1000.000000, 834.000000)' }, React.createElement('g', { id: 'icon' }, React.createElement('g', { id: 'math_keypad_icon_equals' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('g', { id: 'icon', transform: 'translate(12.000000, 12.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }), React.createElement('path', { d: 'M4,9 L21,9', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }), React.createElement('path', { d: 'M4,15 L21,15', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }))))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1000.000000, -834.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_equals', transform: 'translate(1000.000000, 834.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement(
+	                                'g',
+	                                { id: 'math_keypad_icon_equals' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                                React.createElement(
+	                                    'g',
+	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
+	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                    React.createElement('path', { d: 'M4,9 L21,9', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                    React.createElement('path', { d: 'M4,15 L21,15', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Equal;
 
 /***/ },
 /* 303 */
 /***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
 
 	/**
 	 * An autogenerated component that renders the BACKSPACE iconograpy in SVG.
@@ -65156,8 +64659,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(15);
 
-	var Backspace = function Backspace() {
-	    return React.createElement("svg", { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" }, React.createElement("g", { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" }, React.createElement("g", { id: "[Assets]-Math-Input", transform: "translate(-1136.000000, -200.000000)" }, React.createElement("g", { id: "math_keypad_icon_delete", transform: "translate(1136.000000, 200.000000)" }, React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", fillRule: "evenodd", x: "0", y: "0", width: "48", height: "48" }), React.createElement("path", { d: "M13,24 L13,24 L19,30 L33,30 L33,18 L19,18 L13,24 Z M11.5857864,22.5857864 L11.5857864,22.5857864 L17.5857864,16.5857864 C17.9608592,16.2107137 18.469567,16 19,16 L33,16 C34.1045695,16 35,16.8954305 35,18 L35,30 C35,31.1045695 34.1045695,32 33,32 L19,32 C18.469567,32 17.9608592,31.7892863 17.5857864,31.4142136 L11.5857864,25.4142136 C10.8047379,24.633165 10.8047379,23.366835 11.5857864,22.5857864 L11.5857864,22.5857864 Z", id: "outline", fill: "#888D93", fillRule: "evenodd" }), React.createElement("path", { d: "M23,21 L29,27", id: "slash", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }), React.createElement("path", { d: "M23,21 L29,27", id: "slash", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", transform: "translate(26.000000, 24.000000) scale(-1, 1) translate(-26.000000, -24.000000) " })))));
+	var Backspace = function () {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1136.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_delete", transform: "translate(1136.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", fillRule: "evenodd", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement("path", { d: "M13,24 L13,24 L19,30 L33,30 L33,18 L19,18 L13,24 Z M11.5857864,22.5857864 L11.5857864,22.5857864 L17.5857864,16.5857864 C17.9608592,16.2107137 18.469567,16 19,16 L33,16 C34.1045695,16 35,16.8954305 35,18 L35,30 C35,31.1045695 34.1045695,32 33,32 L19,32 C18.469567,32 17.9608592,31.7892863 17.5857864,31.4142136 L11.5857864,25.4142136 C10.8047379,24.633165 10.8047379,23.366835 11.5857864,22.5857864 L11.5857864,22.5857864 Z", id: "outline", fill: "#888D93", fillRule: "evenodd" }),
+	                    React.createElement("path", { d: "M23,21 L29,27", id: "slash", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
+	                    React.createElement("path", { d: "M23,21 L29,27", id: "slash", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", transform: "translate(26.000000, 24.000000) scale(-1, 1) translate(-26.000000, -24.000000) " })
+	                )
+	            )
+	        )
+	    );
 	};
 
 	module.exports = Backspace;
@@ -65165,8 +64687,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ },
 /* 304 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the SQRT iconograpy in SVG.
@@ -65180,27 +64700,44 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -834.000000)' }, React.createElement('g', { id: 'math_keypad_icon_radical_2', transform: 'translate(1272.000000, 834.000000)' }, React.createElement('g', { id: 'icon' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('polyline', { id: 'root', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '14 29 18 35 27 21 34 21' }))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -834.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_radical_2', transform: 'translate(1272.000000, 834.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('polyline', { id: 'root', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '14 29 18 35 27 21 34 21' })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Sqrt;
 
 /***/ },
 /* 305 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the EXP iconograpy in SVG.
@@ -65214,27 +64751,45 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -698.000000)' }, React.createElement('g', { id: 'math_keypad_icon_exponent', transform: 'translate(1204.000000, 698.000000)' }, React.createElement('g', { id: 'icon' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('path', { d: 'M28,16.9970301 C28,16.4463856 28.4530363,16 28.9970301,16 L35.0029699,16 C35.5536144,16 36,16.4530363 36,16.9970301 L36,23.0029699 C36,23.5536144 35.5469637,24 35.0029699,24 L28.9970301,24 C28.4463856,24 28,23.5469637 28,23.0029699 L28,16.9970301 Z M30,18 L34,18 L34,22 L30,22 L30,18 Z', id: 'block', fill: this.props.primaryColor }), React.createElement('path', { d: 'M14,21.0008717 C14,20.4481055 14.455761,20 15.0024733,20 L24.9975267,20 C25.5511774,20 26,20.4446309 26,21.0008717 L26,34.9991283 C26,35.5518945 25.544239,36 24.9975267,36 L15.0024733,36 C14.4488226,36 14,35.5553691 14,34.9991283 L14,21.0008717 Z M16,22 L24,22 L24,34 L16,34 L16,22 Z', id: 'block', fill: this.props.primaryColor }))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -698.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_exponent', transform: 'translate(1204.000000, 698.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M28,16.9970301 C28,16.4463856 28.4530363,16 28.9970301,16 L35.0029699,16 C35.5536144,16 36,16.4530363 36,16.9970301 L36,23.0029699 C36,23.5536144 35.5469637,24 35.0029699,24 L28.9970301,24 C28.4463856,24 28,23.5469637 28,23.0029699 L28,16.9970301 Z M30,18 L34,18 L34,22 L30,22 L30,18 Z', id: 'block', fill: this.props.primaryColor }),
+	                            React.createElement('path', { d: 'M14,21.0008717 C14,20.4481055 14.455761,20 15.0024733,20 L24.9975267,20 C25.5511774,20 26,20.4446309 26,21.0008717 L26,34.9991283 C26,35.5518945 25.544239,36 24.9975267,36 L15.0024733,36 C14.4488226,36 14,35.5553691 14,34.9991283 L14,21.0008717 Z M16,22 L24,22 L24,34 L16,34 L16,22 Z', id: 'block', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Exp;
 
 /***/ },
 /* 306 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the NEQ iconograpy in SVG.
@@ -65248,27 +64803,55 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1000.000000, -766.000000)' }, React.createElement('g', { id: 'math_keypad_icon_equals_not', transform: 'translate(1000.000000, 766.000000)' }, React.createElement('g', { id: 'icon' }, React.createElement('g', { id: 'math_keypad_icon_equals' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('g', { id: 'icon', transform: 'translate(12.000000, 12.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }), React.createElement('path', { d: 'M7,21 L17,3', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }), React.createElement('path', { d: 'M4,9 L21,9', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }), React.createElement('path', { d: 'M4,15 L21,15', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }))))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1000.000000, -766.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_equals_not', transform: 'translate(1000.000000, 766.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement(
+	                                'g',
+	                                { id: 'math_keypad_icon_equals' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                                React.createElement(
+	                                    'g',
+	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
+	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                    React.createElement('path', { d: 'M7,21 L17,3', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                    React.createElement('path', { d: 'M4,9 L21,9', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                    React.createElement('path', { d: 'M4,15 L21,15', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Neq;
 
 /***/ },
 /* 307 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the GEQ iconograpy in SVG.
@@ -65282,27 +64865,54 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -766.000000)' }, React.createElement('g', { id: 'math_keypad_icon_greater_than_not', transform: 'translate(1136.000000, 766.000000)' }, React.createElement('g', { id: 'icon' }, React.createElement('g', { id: 'math_keypad_icon_greater_than' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('g', { id: 'icon', transform: 'translate(12.000000, 12.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }), React.createElement('path', { d: 'M4,21 L20,21', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }), React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '4 18 20 12 4 6' }))))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -766.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_greater_than_not', transform: 'translate(1136.000000, 766.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement(
+	                                'g',
+	                                { id: 'math_keypad_icon_greater_than' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                                React.createElement(
+	                                    'g',
+	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
+	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                    React.createElement('path', { d: 'M4,21 L20,21', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '4 18 20 12 4 6' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Geq;
 
 /***/ },
 /* 308 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the LN iconograpy in SVG.
@@ -65316,27 +64926,44 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1340.000000, -766.000000)' }, React.createElement('g', { id: 'math_keypad_icon_log_e', transform: 'translate(1340.000000, 766.000000)' }, React.createElement('g', { id: 'icon' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('path', { d: 'M20.836,29 L20.836,19.662 L19.058,19.662 L19.058,29 L20.836,29 Z M28.942,29 L28.942,24.226 C28.942,22.91 28.228,22.07 26.744,22.07 C25.638,22.07 24.812,22.602 24.378,23.12 L24.378,22.238 L22.6,22.238 L22.6,29 L24.378,29 L24.378,24.45 C24.672,24.044 25.218,23.652 25.918,23.652 C26.674,23.652 27.164,23.974 27.164,24.912 L27.164,29 L28.942,29 Z', id: 'ln', fill: this.props.primaryColor }))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1340.000000, -766.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_log_e', transform: 'translate(1340.000000, 766.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M20.836,29 L20.836,19.662 L19.058,19.662 L19.058,29 L20.836,29 Z M28.942,29 L28.942,24.226 C28.942,22.91 28.228,22.07 26.744,22.07 C25.638,22.07 24.812,22.602 24.378,23.12 L24.378,22.238 L22.6,22.238 L22.6,29 L24.378,29 L24.378,24.45 C24.672,24.044 25.218,23.652 25.918,23.652 C26.674,23.652 27.164,23.974 27.164,24.912 L27.164,29 L28.942,29 Z', id: 'ln', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Ln;
 
 /***/ },
 /* 309 */
 /***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
 
 	/**
 	 * An autogenerated component that renders the JUMP_OUT iconograpy in SVG.
@@ -65345,8 +64972,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(15);
 
-	var JumpOut = function JumpOut() {
-	    return React.createElement("svg", { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" }, React.createElement("g", { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" }, React.createElement("g", { id: "[Assets]-Math-Input", transform: "translate(-1408.000000, -200.000000)" }, React.createElement("g", { id: "math_keypad_icon_jump_out", transform: "translate(1408.000000, 200.000000)" }, React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }), React.createElement("g", { id: "icon", strokeWidth: "1", transform: "translate(12.000000, 12.000000)" }, React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "24", height: "24" }), React.createElement("path", { d: "M2,4.99508929 L2,4.99508929 L2,19.0049107 C2,19.0007808 1.99921607,19 2.00276013,19 L10.9972399,19 C11.0020427,19 11,19.002037 11,19.0049107 L11,4.99508929 C11,4.99921924 11.0007839,5 10.9972399,5 L2.00276013,5 C1.99795733,5 2,4.99796296 2,4.99508929 L2,4.99508929 Z M0,4.99508929 C0,3.8932319 0.893542647,3 2.00276013,3 L10.9972399,3 C12.1033337,3 13,3.8926228 13,4.99508929 L13,19.0049107 C13,20.1067681 12.1064574,21 10.9972399,21 L2.00276013,21 C0.896666251,21 0,20.1073772 0,19.0049107 L0,4.99508929 L0,4.99508929 Z", id: "box", fill: "#888D93" }), React.createElement("path", { d: "M18,12 L9,12", id: "tail", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }), React.createElement("polyline", { id: "head", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "16 9 19 12 16 15" }), React.createElement("path", { d: "M23,4 L23,20", id: "caret", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }), React.createElement("path", { d: "M5,8 L5,16", id: "caret", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }))))));
+	var JumpOut = function () {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1408.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_jump_out", transform: "translate(1408.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement(
+	                        "g",
+	                        { id: "icon", strokeWidth: "1", transform: "translate(12.000000, 12.000000)" },
+	                        React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "24", height: "24" }),
+	                        React.createElement("path", { d: "M2,4.99508929 L2,4.99508929 L2,19.0049107 C2,19.0007808 1.99921607,19 2.00276013,19 L10.9972399,19 C11.0020427,19 11,19.002037 11,19.0049107 L11,4.99508929 C11,4.99921924 11.0007839,5 10.9972399,5 L2.00276013,5 C1.99795733,5 2,4.99796296 2,4.99508929 L2,4.99508929 Z M0,4.99508929 C0,3.8932319 0.893542647,3 2.00276013,3 L10.9972399,3 C12.1033337,3 13,3.8926228 13,4.99508929 L13,19.0049107 C13,20.1067681 12.1064574,21 10.9972399,21 L2.00276013,21 C0.896666251,21 0,20.1073772 0,19.0049107 L0,4.99508929 L0,4.99508929 Z", id: "box", fill: "#888D93" }),
+	                        React.createElement("path", { d: "M18,12 L9,12", id: "tail", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
+	                        React.createElement("polyline", { id: "head", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "16 9 19 12 16 15" }),
+	                        React.createElement("path", { d: "M23,4 L23,20", id: "caret", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
+	                        React.createElement("path", { d: "M5,8 L5,16", id: "caret", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" })
+	                    )
+	                )
+	            )
+	        )
+	    );
 	};
 
 	module.exports = JumpOut;
@@ -65355,8 +65008,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-
 	/**
 	 * An autogenerated component that renders the DISMISS iconograpy in SVG.
 	 *
@@ -65364,8 +65015,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(15);
 
-	var Dismiss = function Dismiss() {
-	    return React.createElement("svg", { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" }, React.createElement("g", { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" }, React.createElement("g", { id: "[Assets]-Math-Input", transform: "translate(-1204.000000, -200.000000)" }, React.createElement("g", { id: "math_keypad_icon_dismiss", transform: "translate(1204.000000, 200.000000)" }, React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", fillRule: "evenodd", x: "0", y: "0", width: "48", height: "48" }), React.createElement("polyline", { id: "chevron", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "20 32 24 36 28 32" }), React.createElement("g", { id: "keyboard", strokeWidth: "1", fillRule: "evenodd", transform: "translate(14.000000, 12.000000)", fill: "#78C008" }, React.createElement("path", { d: "M0,1.00684547 C0,0.450780073 0.455305576,0 0.99180311,0 L19.0081969,0 C19.5559546,0 20,0.449948758 20,1.00684547 L20,12.9931545 C20,13.5492199 19.5446944,14 19.0081969,14 L0.99180311,14 C0.444045377,14 0,13.5500512 0,12.9931545 L0,1.00684547 Z M6,0 L7,0 L7,14 L6,14 L6,0 Z M13,0 L14,0 L14,14 L13,14 L13,0 Z M0,9 L6,9 L6,10 L0,10 L0,9 Z M0,4 L6,4 L6,5 L0,5 L0,4 Z M7,9 L13,9 L13,10 L7,10 L7,9 Z M7,4 L13,4 L13,5 L7,5 L7,4 Z M14,9 L20,9 L20,10 L14,10 L14,9 Z M14,4 L20,4 L20,5 L14,5 L14,4 Z", id: "keypad" }))))));
+	var Dismiss = function () {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1204.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_dismiss", transform: "translate(1204.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", fillRule: "evenodd", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement("polyline", { id: "chevron", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "20 32 24 36 28 32" }),
+	                    React.createElement(
+	                        "g",
+	                        { id: "keyboard", strokeWidth: "1", fillRule: "evenodd", transform: "translate(14.000000, 12.000000)", fill: "#78C008" },
+	                        React.createElement("path", { d: "M0,1.00684547 C0,0.450780073 0.455305576,0 0.99180311,0 L19.0081969,0 C19.5559546,0 20,0.449948758 20,1.00684547 L20,12.9931545 C20,13.5492199 19.5446944,14 19.0081969,14 L0.99180311,14 C0.444045377,14 0,13.5500512 0,12.9931545 L0,1.00684547 Z M6,0 L7,0 L7,14 L6,14 L6,0 Z M13,0 L14,0 L14,14 L13,14 L13,0 Z M0,9 L6,9 L6,10 L0,10 L0,9 Z M0,4 L6,4 L6,5 L0,5 L0,4 Z M7,9 L13,9 L13,10 L7,10 L7,9 Z M7,4 L13,4 L13,5 L7,5 L7,4 Z M14,9 L20,9 L20,10 L14,10 L14,9 Z M14,4 L20,4 L20,5 L14,5 L14,4 Z", id: "keypad" })
+	                    )
+	                )
+	            )
+	        )
+	    );
 	};
 
 	module.exports = Dismiss;
@@ -65373,8 +65046,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ },
 /* 311 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the SIN iconograpy in SVG.
@@ -65388,27 +65059,45 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1408.000000, -902.000000)' }, React.createElement('g', { id: 'math_keypad_icon_sin', transform: 'translate(1408.000000, 902.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('g', { id: 'icon', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }), React.createElement('path', { d: 'M6.655,17.168 C8.531,17.168 9.581,16.23 9.581,14.998 C9.581,12.268 5.577,13.108 5.577,12.1 C5.577,11.722 5.997,11.428 6.641,11.428 C7.467,11.428 8.237,11.778 8.643,12.212 L9.357,10.994 C8.685,10.462 7.775,10.07 6.627,10.07 C4.849,10.07 3.855,11.064 3.855,12.198 C3.855,14.858 7.873,13.948 7.873,15.068 C7.873,15.488 7.509,15.796 6.739,15.796 C5.899,15.796 4.891,15.334 4.401,14.872 L3.631,16.118 C4.345,16.776 5.479,17.168 6.655,17.168 L6.655,17.168 Z M11.779,9.51 C12.367,9.51 12.843,9.034 12.843,8.446 C12.843,7.858 12.367,7.396 11.779,7.396 C11.205,7.396 10.715,7.858 10.715,8.446 C10.715,9.034 11.205,9.51 11.779,9.51 L11.779,9.51 Z M12.675,17 L12.675,10.238 L10.897,10.238 L10.897,17 L12.675,17 Z M20.781,17 L20.781,12.226 C20.781,10.91 20.067,10.07 18.583,10.07 C17.477,10.07 16.651,10.602 16.217,11.12 L16.217,10.238 L14.439,10.238 L14.439,17 L16.217,17 L16.217,12.45 C16.511,12.044 17.057,11.652 17.757,11.652 C18.513,11.652 19.003,11.974 19.003,12.912 L19.003,17 L20.781,17 Z', id: 'sin', fill: this.props.primaryColor }))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1408.000000, -902.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_sin', transform: 'translate(1408.000000, 902.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('path', { d: 'M6.655,17.168 C8.531,17.168 9.581,16.23 9.581,14.998 C9.581,12.268 5.577,13.108 5.577,12.1 C5.577,11.722 5.997,11.428 6.641,11.428 C7.467,11.428 8.237,11.778 8.643,12.212 L9.357,10.994 C8.685,10.462 7.775,10.07 6.627,10.07 C4.849,10.07 3.855,11.064 3.855,12.198 C3.855,14.858 7.873,13.948 7.873,15.068 C7.873,15.488 7.509,15.796 6.739,15.796 C5.899,15.796 4.891,15.334 4.401,14.872 L3.631,16.118 C4.345,16.776 5.479,17.168 6.655,17.168 L6.655,17.168 Z M11.779,9.51 C12.367,9.51 12.843,9.034 12.843,8.446 C12.843,7.858 12.367,7.396 11.779,7.396 C11.205,7.396 10.715,7.858 10.715,8.446 C10.715,9.034 11.205,9.51 11.779,9.51 L11.779,9.51 Z M12.675,17 L12.675,10.238 L10.897,10.238 L10.897,17 L12.675,17 Z M20.781,17 L20.781,12.226 C20.781,10.91 20.067,10.07 18.583,10.07 C17.477,10.07 16.651,10.602 16.217,11.12 L16.217,10.238 L14.439,10.238 L14.439,17 L16.217,17 L16.217,12.45 C16.511,12.044 17.057,11.652 17.757,11.652 C18.513,11.652 19.003,11.974 19.003,12.912 L19.003,17 L20.781,17 Z', id: 'sin', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Sin;
 
 /***/ },
 /* 312 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the LT iconograpy in SVG.
@@ -65422,27 +65111,53 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1068.000000, -834.000000)' }, React.createElement('g', { id: 'math_keypad_icon_less_than', transform: 'translate(1068.000000, 834.000000)' }, React.createElement('g', { id: 'icon' }, React.createElement('g', { id: 'math_keypad_icon_less_than' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('g', { id: 'icon', transform: 'translate(12.000000, 12.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }), React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '20 18 4 12 20 6' }))))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1068.000000, -834.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_less_than', transform: 'translate(1068.000000, 834.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement(
+	                                'g',
+	                                { id: 'math_keypad_icon_less_than' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                                React.createElement(
+	                                    'g',
+	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
+	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '20 18 4 12 20 6' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Lt;
 
 /***/ },
 /* 313 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the FRAC_MULTI iconograpy in SVG.
@@ -65456,27 +65171,59 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -600.000000)' }, React.createElement('g', { id: 'math_keypad_icon_division_multi', transform: 'translate(1204.000000, 600.000000)' }, React.createElement('g', null, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('g', { id: 'fraction', transform: 'translate(6.000000, 12.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }), React.createElement('path', { d: 'M8,16.9970301 C8,16.4463856 8.45303631,16 8.99703014,16 L15.0029699,16 C15.5536144,16 16,16.4530363 16,16.9970301 L16,23.0029699 C16,23.5536144 15.5469637,24 15.0029699,24 L8.99703014,24 C8.4463856,24 8,23.5469637 8,23.0029699 L8,16.9970301 Z M10,18 L14,18 L14,22 L10,22 L10,18 Z', id: 'block', fill: this.props.primaryColor }), React.createElement('rect', { id: 'bar', fill: this.props.primaryColor, x: '2', y: '11', width: '20', height: '2', rx: '1' }), React.createElement('path', { d: 'M8,0.997030139 C8,0.446385598 8.45303631,0 8.99703014,0 L15.0029699,0 C15.5536144,0 16,0.453036308 16,0.997030139 L16,7.00296986 C16,7.5536144 15.5469637,8 15.0029699,8 L8.99703014,8 C8.4463856,8 8,7.54696369 8,7.00296986 L8,0.997030139 Z M10,2 L14,2 L14,6 L10,6 L10,2 Z', id: 'block', fill: this.props.primaryColor })), React.createElement('g', { id: 'division', opacity: '0.3', transform: 'translate(34.000000, 12.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '8', height: '8' }), React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, cx: '4', cy: '7', r: '1' }), React.createElement('path', { d: 'M1,4 L7,4', id: 'bar', stroke: this.props.primaryColor, strokeWidth: '1.5', strokeLinecap: 'round', strokeLinejoin: 'round' }), React.createElement('path', { d: 'M4,2 C4.55228475,2 5,1.55228475 5,1 C5,0.44771525 4.55228475,0 4,0 C3.44771525,0 3,0.44771525 3,1 C3,1.55228475 3.44771525,2 4,2 Z', id: 'dot', fill: this.props.primaryColor })))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -600.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_division_multi', transform: 'translate(1204.000000, 600.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            null,
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'fraction', transform: 'translate(6.000000, 12.000000)' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                React.createElement('path', { d: 'M8,16.9970301 C8,16.4463856 8.45303631,16 8.99703014,16 L15.0029699,16 C15.5536144,16 16,16.4530363 16,16.9970301 L16,23.0029699 C16,23.5536144 15.5469637,24 15.0029699,24 L8.99703014,24 C8.4463856,24 8,23.5469637 8,23.0029699 L8,16.9970301 Z M10,18 L14,18 L14,22 L10,22 L10,18 Z', id: 'block', fill: this.props.primaryColor }),
+	                                React.createElement('rect', { id: 'bar', fill: this.props.primaryColor, x: '2', y: '11', width: '20', height: '2', rx: '1' }),
+	                                React.createElement('path', { d: 'M8,0.997030139 C8,0.446385598 8.45303631,0 8.99703014,0 L15.0029699,0 C15.5536144,0 16,0.453036308 16,0.997030139 L16,7.00296986 C16,7.5536144 15.5469637,8 15.0029699,8 L8.99703014,8 C8.4463856,8 8,7.54696369 8,7.00296986 L8,0.997030139 Z M10,2 L14,2 L14,6 L10,6 L10,2 Z', id: 'block', fill: this.props.primaryColor })
+	                            ),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'division', opacity: '0.3', transform: 'translate(34.000000, 12.000000)' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '8', height: '8' }),
+	                                React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, cx: '4', cy: '7', r: '1' }),
+	                                React.createElement('path', { d: 'M1,4 L7,4', id: 'bar', stroke: this.props.primaryColor, strokeWidth: '1.5', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                React.createElement('path', { d: 'M4,2 C4.55228475,2 5,1.55228475 5,1 C5,0.44771525 4.55228475,0 4,0 C3.44771525,0 3,0.44771525 3,1 C3,1.55228475 3.44771525,2 4,2 Z', id: 'dot', fill: this.props.primaryColor })
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = FracMulti;
 
 /***/ },
 /* 314 */
 /***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
 
 	/**
 	 * An autogenerated component that renders the NUMBERS iconograpy in SVG.
@@ -65485,8 +65232,52 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(15);
 
-	var Numbers = function Numbers() {
-	    return React.createElement("svg", { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" }, React.createElement("g", { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" }, React.createElement("g", { id: "[Assets]-Math-Input", transform: "translate(-1068.000000, -200.000000)" }, React.createElement("g", { id: "math_keypad_icon_on_page_symbols", transform: "translate(1068.000000, 200.000000)" }, React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }), React.createElement("g", { id: "arithmetic", strokeWidth: "1", transform: "translate(13.000000, 13.000000)" }, React.createElement("g", { id: "divide", transform: "translate(14.000000, 13.000000)" }, React.createElement("path", { d: "M0,5 L8,5", id: "line", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }), React.createElement("circle", { id: "Oval-30", fill: "#888D93", cx: "4", cy: "1.5", r: "1.5" }), React.createElement("circle", { id: "Oval-30", fill: "#888D93", cx: "4", cy: "8.5", r: "1.5" })), React.createElement("g", { id: "multiply", transform: "translate(1.000000, 15.000000)", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, React.createElement("path", { d: "M0,6 L6,0", id: "line" }), React.createElement("path", { d: "M0,0 L6,6", id: "line" })), React.createElement("g", { id: "subtract", transform: "translate(14.000000, 3.000000)", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, React.createElement("path", { d: "M0,1 L8,1", id: "line" })), React.createElement("g", { id: "add", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, React.createElement("path", { d: "M4,8 L4,0", id: "line" }), React.createElement("path", { d: "M0,4 L8,4", id: "line" })))))));
+	var Numbers = function () {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1068.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_on_page_symbols", transform: "translate(1068.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement(
+	                        "g",
+	                        { id: "arithmetic", strokeWidth: "1", transform: "translate(13.000000, 13.000000)" },
+	                        React.createElement(
+	                            "g",
+	                            { id: "divide", transform: "translate(14.000000, 13.000000)" },
+	                            React.createElement("path", { d: "M0,5 L8,5", id: "line", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
+	                            React.createElement("circle", { id: "Oval-30", fill: "#888D93", cx: "4", cy: "1.5", r: "1.5" }),
+	                            React.createElement("circle", { id: "Oval-30", fill: "#888D93", cx: "4", cy: "8.5", r: "1.5" })
+	                        ),
+	                        React.createElement(
+	                            "g",
+	                            { id: "multiply", transform: "translate(1.000000, 15.000000)", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
+	                            React.createElement("path", { d: "M0,6 L6,0", id: "line" }),
+	                            React.createElement("path", { d: "M0,0 L6,6", id: "line" })
+	                        ),
+	                        React.createElement(
+	                            "g",
+	                            { id: "subtract", transform: "translate(14.000000, 3.000000)", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
+	                            React.createElement("path", { d: "M0,1 L8,1", id: "line" })
+	                        ),
+	                        React.createElement(
+	                            "g",
+	                            { id: "add", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
+	                            React.createElement("path", { d: "M4,8 L4,0", id: "line" }),
+	                            React.createElement("path", { d: "M0,4 L8,4", id: "line" })
+	                        )
+	                    )
+	                )
+	            )
+	        )
+	    );
 	};
 
 	module.exports = Numbers;
@@ -65494,8 +65285,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ },
 /* 315 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the CUBE_ROOT iconograpy in SVG.
@@ -65509,27 +65298,45 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -766.000000)' }, React.createElement('g', { id: 'math_keypad_icon_radical_3', transform: 'translate(1272.000000, 766.000000)' }, React.createElement('g', { id: 'icon' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('path', { d: 'M17.91,23.12 C19.57,23.12 20.67,22.31 20.67,21.14 C20.67,20.18 19.81,19.63 19.1,19.56 C19.89,19.43 20.56,18.84 20.56,18.06 C20.56,16.96 19.61,16.23 17.91,16.23 C16.68,16.23 15.8,16.68 15.24,17.31 L16.07,18.39 C16.54,17.97 17.12,17.75 17.73,17.75 C18.37,17.75 18.85,17.94 18.85,18.36 C18.85,18.71 18.46,18.88 17.77,18.88 C17.52,18.88 17,18.88 16.87,18.87 L16.87,20.4 C16.97,20.39 17.48,20.39 17.77,20.39 C18.68,20.39 18.96,20.57 18.96,20.95 C18.96,21.32 18.58,21.6 17.84,21.6 C17.26,21.6 16.5,21.37 16.02,20.9 L15.15,22.07 C15.67,22.67 16.63,23.12 17.91,23.12 L17.91,23.12 Z', id: '3', fill: this.props.primaryColor }), React.createElement('polyline', { id: 'root', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '14 29 18 35 27 21 34 21' }))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -766.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_radical_3', transform: 'translate(1272.000000, 766.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M17.91,23.12 C19.57,23.12 20.67,22.31 20.67,21.14 C20.67,20.18 19.81,19.63 19.1,19.56 C19.89,19.43 20.56,18.84 20.56,18.06 C20.56,16.96 19.61,16.23 17.91,16.23 C16.68,16.23 15.8,16.68 15.24,17.31 L16.07,18.39 C16.54,17.97 17.12,17.75 17.73,17.75 C18.37,17.75 18.85,17.94 18.85,18.36 C18.85,18.71 18.46,18.88 17.77,18.88 C17.52,18.88 17,18.88 16.87,18.87 L16.87,20.4 C16.97,20.39 17.48,20.39 17.77,20.39 C18.68,20.39 18.96,20.57 18.96,20.95 C18.96,21.32 18.58,21.6 17.84,21.6 C17.26,21.6 16.5,21.37 16.02,20.9 L15.15,22.07 C15.67,22.67 16.63,23.12 17.91,23.12 L17.91,23.12 Z', id: '3', fill: this.props.primaryColor }),
+	                            React.createElement('polyline', { id: 'root', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '14 29 18 35 27 21 34 21' })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = CubeRoot;
 
 /***/ },
 /* 316 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the PLUS iconograpy in SVG.
@@ -65543,27 +65350,41 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1000.000000, -600.000000)' }, React.createElement('g', { id: 'math_keypad_icon_addition', transform: 'translate(1000.000000, 600.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', fillRule: 'evenodd', x: '0', y: '0', width: '48', height: '48' }), React.createElement('path', { d: 'M19,24 L29,24', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }), React.createElement('path', { d: 'M24,29 L24,19', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1000.000000, -600.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_addition', transform: 'translate(1000.000000, 600.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', fillRule: 'evenodd', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement('path', { d: 'M19,24 L29,24', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                        React.createElement('path', { d: 'M24,29 L24,19', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Plus;
 
 /***/ },
 /* 317 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the TAN iconograpy in SVG.
@@ -65577,27 +65398,45 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1544.000000, -902.000000)' }, React.createElement('g', { id: 'math_keypad_icon_tangent', transform: 'translate(1544.000000, 902.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('g', { id: 'icon', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }), React.createElement('path', { d: 'M4.93,17.168 C5.672,17.168 6.148,16.972 6.414,16.734 L6.036,15.39 C5.938,15.488 5.686,15.586 5.42,15.586 C5.028,15.586 4.804,15.264 4.804,14.844 L4.804,11.792 L6.176,11.792 L6.176,10.238 L4.804,10.238 L4.804,8.39 L3.012,8.39 L3.012,10.238 L1.892,10.238 L1.892,11.792 L3.012,11.792 L3.012,15.32 C3.012,16.524 3.684,17.168 4.93,17.168 L4.93,17.168 Z M13.232,17 L13.232,12.632 C13.232,10.686 11.818,10.07 10.278,10.07 C9.214,10.07 8.15,10.406 7.324,11.134 L7.996,12.324 C8.57,11.792 9.242,11.526 9.97,11.526 C10.866,11.526 11.454,11.974 11.454,12.66 L11.454,13.57 C11.006,13.038 10.208,12.744 9.312,12.744 C8.234,12.744 6.96,13.346 6.96,14.928 C6.96,16.44 8.234,17.168 9.312,17.168 C10.194,17.168 10.992,16.846 11.454,16.3 L11.454,17 L13.232,17 Z M10.026,15.964 C9.326,15.964 8.752,15.6 8.752,14.97 C8.752,14.312 9.326,13.948 10.026,13.948 C10.6,13.948 11.16,14.144 11.454,14.536 L11.454,15.376 C11.16,15.768 10.6,15.964 10.026,15.964 L10.026,15.964 Z M21.338,17 L21.338,12.226 C21.338,10.91 20.624,10.07 19.14,10.07 C18.034,10.07 17.208,10.602 16.774,11.12 L16.774,10.238 L14.996,10.238 L14.996,17 L16.774,17 L16.774,12.45 C17.068,12.044 17.614,11.652 18.314,11.652 C19.07,11.652 19.56,11.974 19.56,12.912 L19.56,17 L21.338,17 Z', id: 'tan', fill: this.props.primaryColor }))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1544.000000, -902.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_tangent', transform: 'translate(1544.000000, 902.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('path', { d: 'M4.93,17.168 C5.672,17.168 6.148,16.972 6.414,16.734 L6.036,15.39 C5.938,15.488 5.686,15.586 5.42,15.586 C5.028,15.586 4.804,15.264 4.804,14.844 L4.804,11.792 L6.176,11.792 L6.176,10.238 L4.804,10.238 L4.804,8.39 L3.012,8.39 L3.012,10.238 L1.892,10.238 L1.892,11.792 L3.012,11.792 L3.012,15.32 C3.012,16.524 3.684,17.168 4.93,17.168 L4.93,17.168 Z M13.232,17 L13.232,12.632 C13.232,10.686 11.818,10.07 10.278,10.07 C9.214,10.07 8.15,10.406 7.324,11.134 L7.996,12.324 C8.57,11.792 9.242,11.526 9.97,11.526 C10.866,11.526 11.454,11.974 11.454,12.66 L11.454,13.57 C11.006,13.038 10.208,12.744 9.312,12.744 C8.234,12.744 6.96,13.346 6.96,14.928 C6.96,16.44 8.234,17.168 9.312,17.168 C10.194,17.168 10.992,16.846 11.454,16.3 L11.454,17 L13.232,17 Z M10.026,15.964 C9.326,15.964 8.752,15.6 8.752,14.97 C8.752,14.312 9.326,13.948 10.026,13.948 C10.6,13.948 11.16,14.144 11.454,14.536 L11.454,15.376 C11.16,15.768 10.6,15.964 10.026,15.964 L10.026,15.964 Z M21.338,17 L21.338,12.226 C21.338,10.91 20.624,10.07 19.14,10.07 C18.034,10.07 17.208,10.602 16.774,11.12 L16.774,10.238 L14.996,10.238 L14.996,17 L16.774,17 L16.774,12.45 C17.068,12.044 17.614,11.652 18.314,11.652 C19.07,11.652 19.56,11.974 19.56,12.912 L19.56,17 L21.338,17 Z', id: 'tan', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Tan;
 
 /***/ },
 /* 318 */
 /***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
 
 	/**
 	 * An autogenerated component that renders the LEFT iconograpy in SVG.
@@ -65606,8 +65445,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(15);
 
-	var Left = function Left() {
-	    return React.createElement("svg", { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" }, React.createElement("g", { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" }, React.createElement("g", { id: "[Assets]-Math-Input", transform: "translate(-1272.000000, -200.000000)" }, React.createElement("g", { id: "math_keypad_icon_move_backward", transform: "translate(1272.000000, 200.000000)" }, React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }), React.createElement("g", { id: "arrow", strokeWidth: "1", transform: "translate(12.000000, 12.000000)" }, React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "24", height: "24" }), React.createElement("polyline", { id: "head", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "10 6 4 12 10 18" }), React.createElement("path", { d: "M4,12 L20,12", id: "tail", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }))))));
+	var Left = function () {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1272.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_move_backward", transform: "translate(1272.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement(
+	                        "g",
+	                        { id: "arrow", strokeWidth: "1", transform: "translate(12.000000, 12.000000)" },
+	                        React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "24", height: "24" }),
+	                        React.createElement("polyline", { id: "head", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "10 6 4 12 10 18" }),
+	                        React.createElement("path", { d: "M4,12 L20,12", id: "tail", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" })
+	                    )
+	                )
+	            )
+	        )
+	    );
 	};
 
 	module.exports = Left;
@@ -65615,8 +65477,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ },
 /* 319 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the PARENS iconograpy in SVG.
@@ -65630,27 +65490,46 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -532.000000)' }, React.createElement('g', { id: 'math_keypad_icon_parentheses', transform: 'translate(1136.000000, 532.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('g', { id: 'parentheses', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }), React.createElement('path', { d: 'M7,2 C2.99999998,8 3.00000002,16 7,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }), React.createElement('path', { d: 'M20,2 C16,8 16,16 20,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(18.500000, 12.000000) scale(-1, 1) translate(-18.500000, -12.000000) ' }))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -532.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_parentheses', transform: 'translate(1136.000000, 532.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'parentheses', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('path', { d: 'M7,2 C2.99999998,8 3.00000002,16 7,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                            React.createElement('path', { d: 'M20,2 C16,8 16,16 20,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(18.500000, 12.000000) scale(-1, 1) translate(-18.500000, -12.000000) ' })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Parens;
 
 /***/ },
 /* 320 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the GT iconograpy in SVG.
@@ -65664,27 +65543,53 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -834.000000)' }, React.createElement('g', { id: 'math_keypad_icon_greater_than', transform: 'translate(1136.000000, 834.000000)' }, React.createElement('g', { id: 'icon' }, React.createElement('g', { id: 'math_keypad_icon_greater_than' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('g', { id: 'icon', transform: 'translate(12.000000, 12.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }), React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '4 18 20 12 4 6' }))))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -834.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_greater_than', transform: 'translate(1136.000000, 834.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement(
+	                                'g',
+	                                { id: 'math_keypad_icon_greater_than' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                                React.createElement(
+	                                    'g',
+	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
+	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '4 18 20 12 4 6' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Gt;
 
 /***/ },
 /* 321 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the FRAC iconograpy in SVG.
@@ -65698,27 +65603,47 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -532.000000)' }, React.createElement('g', { id: 'math_keypad_icon_fraction', transform: 'translate(1204.000000, 532.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('g', { id: 'fraction', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }), React.createElement('path', { d: 'M8,16.9970301 C8,16.4463856 8.45303631,16 8.99703014,16 L15.0029699,16 C15.5536144,16 16,16.4530363 16,16.9970301 L16,23.0029699 C16,23.5536144 15.5469637,24 15.0029699,24 L8.99703014,24 C8.4463856,24 8,23.5469637 8,23.0029699 L8,16.9970301 Z M10,18 L14,18 L14,22 L10,22 L10,18 Z', id: 'block', fill: this.props.primaryColor }), React.createElement('rect', { id: 'bar', fill: this.props.primaryColor, x: '2', y: '11', width: '20', height: '2', rx: '1' }), React.createElement('path', { d: 'M8,0.997030139 C8,0.446385598 8.45303631,0 8.99703014,0 L15.0029699,0 C15.5536144,0 16,0.453036308 16,0.997030139 L16,7.00296986 C16,7.5536144 15.5469637,8 15.0029699,8 L8.99703014,8 C8.4463856,8 8,7.54696369 8,7.00296986 L8,0.997030139 Z M10,2 L14,2 L14,6 L10,6 L10,2 Z', id: 'block', fill: this.props.primaryColor }))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -532.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_fraction', transform: 'translate(1204.000000, 532.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'fraction', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('path', { d: 'M8,16.9970301 C8,16.4463856 8.45303631,16 8.99703014,16 L15.0029699,16 C15.5536144,16 16,16.4530363 16,16.9970301 L16,23.0029699 C16,23.5536144 15.5469637,24 15.0029699,24 L8.99703014,24 C8.4463856,24 8,23.5469637 8,23.0029699 L8,16.9970301 Z M10,18 L14,18 L14,22 L10,22 L10,18 Z', id: 'block', fill: this.props.primaryColor }),
+	                            React.createElement('rect', { id: 'bar', fill: this.props.primaryColor, x: '2', y: '11', width: '20', height: '2', rx: '1' }),
+	                            React.createElement('path', { d: 'M8,0.997030139 C8,0.446385598 8.45303631,0 8.99703014,0 L15.0029699,0 C15.5536144,0 16,0.453036308 16,0.997030139 L16,7.00296986 C16,7.5536144 15.5469637,8 15.0029699,8 L8.99703014,8 C8.4463856,8 8,7.54696369 8,7.00296986 L8,0.997030139 Z M10,2 L14,2 L14,6 L10,6 L10,2 Z', id: 'block', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Frac;
 
 /***/ },
 /* 322 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the DIVIDE iconograpy in SVG.
@@ -65732,27 +65657,42 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -464.000000)' }, React.createElement('g', { id: 'math_keypad_icon_division', transform: 'translate(1204.000000, 464.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', fillRule: 'evenodd', x: '0', y: '0', width: '48', height: '48' }), React.createElement('path', { d: 'M19,24 L29,24', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }), React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, fillRule: 'evenodd', cx: '24', cy: '19.5', r: '1.5' }), React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, fillRule: 'evenodd', cx: '24', cy: '28.5', r: '1.5' })))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -464.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_division', transform: 'translate(1204.000000, 464.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', fillRule: 'evenodd', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement('path', { d: 'M19,24 L29,24', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                        React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, fillRule: 'evenodd', cx: '24', cy: '19.5', r: '1.5' }),
+	                        React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, fillRule: 'evenodd', cx: '24', cy: '28.5', r: '1.5' })
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Divide;
 
 /***/ },
 /* 323 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the DECIMAL iconograpy in SVG.
@@ -65766,27 +65706,40 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1680.000000, -298.000000)' }, React.createElement('g', { id: 'math_keypad_icon_radix_character', transform: 'translate(1680.000000, 298.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, cx: '24', cy: '30', r: '2' })))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1680.000000, -298.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_radix_character', transform: 'translate(1680.000000, 298.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, cx: '24', cy: '30', r: '2' })
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Decimal;
 
 /***/ },
 /* 324 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the PERCENT iconograpy in SVG.
@@ -65800,27 +65753,47 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -600.000000)' }, React.createElement('g', { id: 'math_keypad_icon_percent', transform: 'translate(1272.000000, 600.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('g', { id: 'percent', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }), React.createElement('path', { d: 'M16,4 L8,20', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }), React.createElement('circle', { id: 'circle', stroke: this.props.primaryColor, strokeWidth: '2', cx: '7', cy: '7', r: '3' }), React.createElement('circle', { id: 'circle', stroke: this.props.primaryColor, strokeWidth: '2', cx: '17', cy: '17', r: '3' }))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -600.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_percent', transform: 'translate(1272.000000, 600.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'percent', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('path', { d: 'M16,4 L8,20', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                            React.createElement('circle', { id: 'circle', stroke: this.props.primaryColor, strokeWidth: '2', cx: '7', cy: '7', r: '3' }),
+	                            React.createElement('circle', { id: 'circle', stroke: this.props.primaryColor, strokeWidth: '2', cx: '17', cy: '17', r: '3' })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Percent;
 
 /***/ },
 /* 325 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the TIMES iconograpy in SVG.
@@ -65834,27 +65807,50 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -396.000000)' }, React.createElement('g', { id: 'math_keypad_icon_multiplication_cross', transform: 'translate(1136.000000, 396.000000)' }, React.createElement('g', { id: 'math_keypad_icon_multiply_cross' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('g', { id: 'cross', transform: 'translate(12.000000, 12.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }), React.createElement('path', { d: 'M8,8 L16,16', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }), React.createElement('path', { d: 'M8,8 L16,16', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(12.000000, 12.000000) scale(-1, 1) translate(-12.000000, -12.000000) ' })))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -396.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_multiplication_cross', transform: 'translate(1136.000000, 396.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'math_keypad_icon_multiply_cross' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'cross', transform: 'translate(12.000000, 12.000000)' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                React.createElement('path', { d: 'M8,8 L16,16', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                React.createElement('path', { d: 'M8,8 L16,16', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(12.000000, 12.000000) scale(-1, 1) translate(-12.000000, -12.000000) ' })
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Times;
 
 /***/ },
 /* 326 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the TOGGLE_SIGN iconograpy in SVG.
@@ -65868,27 +65864,56 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1748.000000, -298.000000)' }, React.createElement('g', { id: 'math_keypad_icon_negate', transform: 'translate(1748.000000, 298.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('g', { id: 'icon', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }), React.createElement('g', { id: 'subtract', transform: 'translate(15.000000, 15.000000)', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }, React.createElement('path', { d: 'M0,1 L8,1', id: 'line' })), React.createElement('path', { d: 'M16,4 L8,20', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }), React.createElement('g', { id: 'add', transform: 'translate(1.000000, 4.000000)', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }, React.createElement('path', { d: 'M0,4 L8,4', id: 'line' }), React.createElement('path', { d: 'M4,0 L4,8', id: 'line' })))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1748.000000, -298.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_negate', transform: 'translate(1748.000000, 298.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'subtract', transform: 'translate(15.000000, 15.000000)', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' },
+	                                React.createElement('path', { d: 'M0,1 L8,1', id: 'line' })
+	                            ),
+	                            React.createElement('path', { d: 'M16,4 L8,20', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'add', transform: 'translate(1.000000, 4.000000)', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' },
+	                                React.createElement('path', { d: 'M0,4 L8,4', id: 'line' }),
+	                                React.createElement('path', { d: 'M4,0 L4,8', id: 'line' })
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = ToggleSign;
 
 /***/ },
 /* 327 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the EXP_3 iconograpy in SVG.
@@ -65902,27 +65927,45 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -766.000000)' }, React.createElement('g', { id: 'math_keypad_icon_exponent_3', transform: 'translate(1204.000000, 766.000000)' }, React.createElement('g', { id: 'icon' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('path', { d: 'M14,21.0008717 C14,20.4481055 14.455761,20 15.0024733,20 L24.9975267,20 C25.5511774,20 26,20.4446309 26,21.0008717 L26,34.9991283 C26,35.5518945 25.544239,36 24.9975267,36 L15.0024733,36 C14.4488226,36 14,35.5553691 14,34.9991283 L14,21.0008717 Z M16,22 L24,22 L24,34 L16,34 L16,22 Z', id: 'block', fill: this.props.primaryColor }), React.createElement('path', { d: 'M30.92,23.12 C32.58,23.12 33.68,22.31 33.68,21.14 C33.68,20.18 32.82,19.63 32.11,19.56 C32.9,19.43 33.57,18.84 33.57,18.06 C33.57,16.96 32.62,16.23 30.92,16.23 C29.69,16.23 28.81,16.68 28.25,17.31 L29.08,18.39 C29.55,17.97 30.13,17.75 30.74,17.75 C31.38,17.75 31.86,17.94 31.86,18.36 C31.86,18.71 31.47,18.88 30.78,18.88 C30.53,18.88 30.01,18.88 29.88,18.87 L29.88,20.4 C29.98,20.39 30.49,20.39 30.78,20.39 C31.69,20.39 31.97,20.57 31.97,20.95 C31.97,21.32 31.59,21.6 30.85,21.6 C30.27,21.6 29.51,21.37 29.03,20.9 L28.16,22.07 C28.68,22.67 29.64,23.12 30.92,23.12 L30.92,23.12 Z', id: '3', fill: this.props.primaryColor }))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -766.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_exponent_3', transform: 'translate(1204.000000, 766.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M14,21.0008717 C14,20.4481055 14.455761,20 15.0024733,20 L24.9975267,20 C25.5511774,20 26,20.4446309 26,21.0008717 L26,34.9991283 C26,35.5518945 25.544239,36 24.9975267,36 L15.0024733,36 C14.4488226,36 14,35.5553691 14,34.9991283 L14,21.0008717 Z M16,22 L24,22 L24,34 L16,34 L16,22 Z', id: 'block', fill: this.props.primaryColor }),
+	                            React.createElement('path', { d: 'M30.92,23.12 C32.58,23.12 33.68,22.31 33.68,21.14 C33.68,20.18 32.82,19.63 32.11,19.56 C32.9,19.43 33.57,18.84 33.57,18.06 C33.57,16.96 32.62,16.23 30.92,16.23 C29.69,16.23 28.81,16.68 28.25,17.31 L29.08,18.39 C29.55,17.97 30.13,17.75 30.74,17.75 C31.38,17.75 31.86,17.94 31.86,18.36 C31.86,18.71 31.47,18.88 30.78,18.88 C30.53,18.88 30.01,18.88 29.88,18.87 L29.88,20.4 C29.98,20.39 30.49,20.39 30.78,20.39 C31.69,20.39 31.97,20.57 31.97,20.95 C31.97,21.32 31.59,21.6 30.85,21.6 C30.27,21.6 29.51,21.37 29.03,20.9 L28.16,22.07 C28.68,22.67 29.64,23.12 30.92,23.12 L30.92,23.12 Z', id: '3', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Exp3;
 
 /***/ },
 /* 328 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the EXP_2 iconograpy in SVG.
@@ -65936,27 +65979,45 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -834.000000)' }, React.createElement('g', { id: 'math_keypad_icon_exponent_2', transform: 'translate(1204.000000, 834.000000)' }, React.createElement('g', { id: 'icon' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('path', { d: 'M14,21.0008717 C14,20.4481055 14.455761,20 15.0024733,20 L24.9975267,20 C25.5511774,20 26,20.4446309 26,21.0008717 L26,34.9991283 C26,35.5518945 25.544239,36 24.9975267,36 L15.0024733,36 C14.4488226,36 14,35.5553691 14,34.9991283 L14,21.0008717 Z M16,22 L24,22 L24,34 L16,34 L16,22 Z', id: 'block', fill: this.props.primaryColor }), React.createElement('path', { d: 'M33.67,23 L33.67,21.5 L31.23,21.5 C32.89,20.34 33.62,19.47 33.62,18.45 C33.62,17.11 32.49,16.23 30.92,16.23 C29.99,16.23 28.93,16.56 28.22,17.34 L29.17,18.48 C29.65,18.03 30.21,17.75 30.95,17.75 C31.44,17.75 31.87,17.99 31.87,18.45 C31.87,19.11 31.33,19.57 28.44,21.66 L28.44,23 L33.67,23 Z', id: '2', fill: this.props.primaryColor }))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -834.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_exponent_2', transform: 'translate(1204.000000, 834.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M14,21.0008717 C14,20.4481055 14.455761,20 15.0024733,20 L24.9975267,20 C25.5511774,20 26,20.4446309 26,21.0008717 L26,34.9991283 C26,35.5518945 25.544239,36 24.9975267,36 L15.0024733,36 C14.4488226,36 14,35.5553691 14,34.9991283 L14,21.0008717 Z M16,22 L24,22 L24,34 L16,34 L16,22 Z', id: 'block', fill: this.props.primaryColor }),
+	                            React.createElement('path', { d: 'M33.67,23 L33.67,21.5 L31.23,21.5 C32.89,20.34 33.62,19.47 33.62,18.45 C33.62,17.11 32.49,16.23 30.92,16.23 C29.99,16.23 28.93,16.56 28.22,17.34 L29.17,18.48 C29.65,18.03 30.21,17.75 30.95,17.75 C31.44,17.75 31.87,17.99 31.87,18.45 C31.87,19.11 31.33,19.57 28.44,21.66 L28.44,23 L33.67,23 Z', id: '2', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Exp2;
 
 /***/ },
 /* 329 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the PARENS_MULTI iconograpy in SVG.
@@ -65970,27 +66031,63 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -600.000000)' }, React.createElement('g', { id: 'math_keypad_icon_multiplication_multi', transform: 'translate(1136.000000, 600.000000)' }, React.createElement('g', null, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('g', { id: 'parentheses', transform: 'translate(6.000000, 12.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }), React.createElement('path', { d: 'M7,2 C2.99999998,8 3.00000002,16 7,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }), React.createElement('path', { d: 'M20,2 C16,8 16,16 20,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(18.500000, 12.000000) scale(-1, 1) translate(-18.500000, -12.000000) ' })), React.createElement('g', { id: 'dot', opacity: '0.3', transform: 'translate(34.000000, 12.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '8', height: '8' }), React.createElement('circle', { fill: this.props.primaryColor, cx: '4', cy: '4', r: '2' })), React.createElement('g', { id: 'cross', opacity: '0.3', transform: 'translate(34.000000, 28.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '8', height: '8' }), React.createElement('path', { d: 'M1,1 L7,7', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }), React.createElement('path', { d: 'M1,1 L7,7', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(4.000000, 4.000000) scale(-1, 1) translate(-4.000000, -4.000000) ' })))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -600.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_multiplication_multi', transform: 'translate(1136.000000, 600.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            null,
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'parentheses', transform: 'translate(6.000000, 12.000000)' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                React.createElement('path', { d: 'M7,2 C2.99999998,8 3.00000002,16 7,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                React.createElement('path', { d: 'M20,2 C16,8 16,16 20,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(18.500000, 12.000000) scale(-1, 1) translate(-18.500000, -12.000000) ' })
+	                            ),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'dot', opacity: '0.3', transform: 'translate(34.000000, 12.000000)' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '8', height: '8' }),
+	                                React.createElement('circle', { fill: this.props.primaryColor, cx: '4', cy: '4', r: '2' })
+	                            ),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'cross', opacity: '0.3', transform: 'translate(34.000000, 28.000000)' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '8', height: '8' }),
+	                                React.createElement('path', { d: 'M1,1 L7,7', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                React.createElement('path', { d: 'M1,1 L7,7', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(4.000000, 4.000000) scale(-1, 1) translate(-4.000000, -4.000000) ' })
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = ParensMulti;
 
 /***/ },
 /* 330 */
 /***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
 
 	/**
 	 * An autogenerated component that renders the RIGHT iconograpy in SVG.
@@ -65999,8 +66096,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(15);
 
-	var Right = function Right() {
-	    return React.createElement("svg", { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" }, React.createElement("g", { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" }, React.createElement("g", { id: "[Assets]-Math-Input", transform: "translate(-1340.000000, -200.000000)" }, React.createElement("g", { id: "math_keypad_icon_move_forward", transform: "translate(1340.000000, 200.000000)" }, React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }), React.createElement("g", { id: "arrow", strokeWidth: "1", transform: "translate(12.000000, 12.000000)" }, React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "24", height: "24" }), React.createElement("polyline", { id: "head", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "14 6 20 12 14 18" }), React.createElement("path", { d: "M4,12 L20,12", id: "tail", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }))))));
+	var Right = function () {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1340.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_move_forward", transform: "translate(1340.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement(
+	                        "g",
+	                        { id: "arrow", strokeWidth: "1", transform: "translate(12.000000, 12.000000)" },
+	                        React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "24", height: "24" }),
+	                        React.createElement("polyline", { id: "head", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "14 6 20 12 14 18" }),
+	                        React.createElement("path", { d: "M4,12 L20,12", id: "tail", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" })
+	                    )
+	                )
+	            )
+	        )
+	    );
 	};
 
 	module.exports = Right;
@@ -66008,8 +66128,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ },
 /* 331 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the CDOT iconograpy in SVG.
@@ -66023,27 +66141,45 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -464.000000)' }, React.createElement('g', { id: 'math_keypad_icon_multiplication_dot', transform: 'translate(1136.000000, 464.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('g', { id: 'cross', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }), React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, cx: '12', cy: '12', r: '3' }))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -464.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_multiplication_dot', transform: 'translate(1136.000000, 464.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'cross', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, cx: '12', cy: '12', r: '3' })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Cdot;
 
 /***/ },
 /* 332 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the LOG_N iconograpy in SVG.
@@ -66057,27 +66193,45 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1340.000000, -698.000000)' }, React.createElement('g', { id: 'math_keypad_icon_log', transform: 'translate(1340.000000, 698.000000)' }, React.createElement('g', { id: 'icon' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('path', { d: 'M30,28.9970301 C30,28.4463856 30.4530363,28 30.9970301,28 L37.0029699,28 C37.5536144,28 38,28.4530363 38,28.9970301 L38,35.0029699 C38,35.5536144 37.5469637,36 37.0029699,36 L30.9970301,36 C30.4463856,36 30,35.5469637 30,35.0029699 L30,28.9970301 Z M32,30 L36,30 L36,34 L32,34 L32,30 Z', id: 'block', fill: this.props.primaryColor }), React.createElement('path', { d: 'M12.776,29 L12.776,19.662 L10.998,19.662 L10.998,29 L12.776,29 Z M17.676,29.168 C19.916,29.168 21.26,27.544 21.26,25.612 C21.26,23.694 19.916,22.07 17.676,22.07 C15.45,22.07 14.106,23.694 14.106,25.612 C14.106,27.544 15.45,29.168 17.676,29.168 L17.676,29.168 Z M17.676,27.586 C16.57,27.586 15.954,26.676 15.954,25.612 C15.954,24.562 16.57,23.652 17.676,23.652 C18.782,23.652 19.412,24.562 19.412,25.612 C19.412,26.676 18.782,27.586 17.676,27.586 L17.676,27.586 Z M25.348,31.744 C27.014,31.744 29.002,31.114 29.002,28.538 L29.002,22.238 L27.21,22.238 L27.21,23.106 C26.664,22.42 25.936,22.07 25.124,22.07 C23.416,22.07 22.142,23.302 22.142,25.514 C22.142,27.768 23.43,28.958 25.124,28.958 C25.95,28.958 26.678,28.566 27.21,27.894 L27.21,28.58 C27.21,29.91 26.202,30.288 25.348,30.288 C24.494,30.288 23.78,30.05 23.234,29.448 L22.436,30.736 C23.29,31.478 24.186,31.744 25.348,31.744 L25.348,31.744 Z M25.684,27.376 C24.676,27.376 23.976,26.676 23.976,25.514 C23.976,24.352 24.676,23.652 25.684,23.652 C26.272,23.652 26.916,23.974 27.21,24.422 L27.21,26.606 C26.916,27.04 26.272,27.376 25.684,27.376 L25.684,27.376 Z', id: 'log', fill: this.props.primaryColor }))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1340.000000, -698.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_log', transform: 'translate(1340.000000, 698.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M30,28.9970301 C30,28.4463856 30.4530363,28 30.9970301,28 L37.0029699,28 C37.5536144,28 38,28.4530363 38,28.9970301 L38,35.0029699 C38,35.5536144 37.5469637,36 37.0029699,36 L30.9970301,36 C30.4463856,36 30,35.5469637 30,35.0029699 L30,28.9970301 Z M32,30 L36,30 L36,34 L32,34 L32,30 Z', id: 'block', fill: this.props.primaryColor }),
+	                            React.createElement('path', { d: 'M12.776,29 L12.776,19.662 L10.998,19.662 L10.998,29 L12.776,29 Z M17.676,29.168 C19.916,29.168 21.26,27.544 21.26,25.612 C21.26,23.694 19.916,22.07 17.676,22.07 C15.45,22.07 14.106,23.694 14.106,25.612 C14.106,27.544 15.45,29.168 17.676,29.168 L17.676,29.168 Z M17.676,27.586 C16.57,27.586 15.954,26.676 15.954,25.612 C15.954,24.562 16.57,23.652 17.676,23.652 C18.782,23.652 19.412,24.562 19.412,25.612 C19.412,26.676 18.782,27.586 17.676,27.586 L17.676,27.586 Z M25.348,31.744 C27.014,31.744 29.002,31.114 29.002,28.538 L29.002,22.238 L27.21,22.238 L27.21,23.106 C26.664,22.42 25.936,22.07 25.124,22.07 C23.416,22.07 22.142,23.302 22.142,25.514 C22.142,27.768 23.43,28.958 25.124,28.958 C25.95,28.958 26.678,28.566 27.21,27.894 L27.21,28.58 C27.21,29.91 26.202,30.288 25.348,30.288 C24.494,30.288 23.78,30.05 23.234,29.448 L22.436,30.736 C23.29,31.478 24.186,31.744 25.348,31.744 L25.348,31.744 Z M25.684,27.376 C24.676,27.376 23.976,26.676 23.976,25.514 C23.976,24.352 24.676,23.652 25.684,23.652 C26.272,23.652 26.916,23.974 27.21,24.422 L27.21,26.606 C26.916,27.04 26.272,27.376 25.684,27.376 L25.684,27.376 Z', id: 'log', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = LogN;
 
 /***/ },
 /* 333 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the LEQ iconograpy in SVG.
@@ -66091,27 +66245,54 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1068.000000, -766.000000)' }, React.createElement('g', { id: 'math_keypad_icon_less_than_not', transform: 'translate(1068.000000, 766.000000)' }, React.createElement('g', { id: 'icon' }, React.createElement('g', { id: 'math_keypad_icon_less_than' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('g', { id: 'icon', transform: 'translate(12.000000, 12.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }), React.createElement('path', { d: 'M4,21 L20,21', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }), React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '20 18 4 12 20 6' }))))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1068.000000, -766.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_less_than_not', transform: 'translate(1068.000000, 766.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement(
+	                                'g',
+	                                { id: 'math_keypad_icon_less_than' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                                React.createElement(
+	                                    'g',
+	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
+	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                    React.createElement('path', { d: 'M4,21 L20,21', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '20 18 4 12 20 6' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Leq;
 
 /***/ },
 /* 334 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the MINUS iconograpy in SVG.
@@ -66125,27 +66306,40 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1068.000000, -600.000000)' }, React.createElement('g', { id: 'math_keypad_icon_subtraction', transform: 'translate(1068.000000, 600.000000)' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', fillRule: 'evenodd', x: '0', y: '0', width: '48', height: '48' }), React.createElement('path', { d: 'M19,24 L29,24', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1068.000000, -600.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_subtraction', transform: 'translate(1068.000000, 600.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', fillRule: 'evenodd', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement('path', { d: 'M19,24 L29,24', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Minus;
 
 /***/ },
 /* 335 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	/**
 	 * An autogenerated component that renders the RADICAL iconograpy in SVG.
@@ -66159,27 +66353,45 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    propTypes: {
 	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
+	        secondaryColor: React.PropTypes.string },
 
-	    getDefaultProps: function getDefaultProps() {
+	    getDefaultProps: function () {
 	        return {
 	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
+	            secondaryColor: '#BABEC2' };
 	    },
-	    render: function render() {
-	        return React.createElement('svg', { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' }, React.createElement('g', { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' }, React.createElement('g', { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -698.000000)' }, React.createElement('g', { id: 'math_keypad_icon_radical', transform: 'translate(1272.000000, 698.000000)' }, React.createElement('g', { id: 'icon' }, React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }), React.createElement('path', { d: 'M13,16.9970301 C13,16.4463856 13.4530363,16 13.9970301,16 L20.0029699,16 C20.5536144,16 21,16.4530363 21,16.9970301 L21,23.0029699 C21,23.5536144 20.5469637,24 20.0029699,24 L13.9970301,24 C13.4463856,24 13,23.5469637 13,23.0029699 L13,16.9970301 Z M15,18 L19,18 L19,22 L15,22 L15,18 Z', id: 'block', fill: this.props.primaryColor }), React.createElement('polyline', { id: 'root', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '14 29 18 35 27 21 34 21' }))))));
-	    }
-	});
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -698.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_radical', transform: 'translate(1272.000000, 698.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M13,16.9970301 C13,16.4463856 13.4530363,16 13.9970301,16 L20.0029699,16 C20.5536144,16 21,16.4530363 21,16.9970301 L21,23.0029699 C21,23.5536144 20.5469637,24 20.0029699,24 L13.9970301,24 C13.4463856,24 13,23.5469637 13,23.0029699 L13,16.9970301 Z M15,18 L19,18 L19,22 L15,22 L15,18 Z', id: 'block', fill: this.props.primaryColor }),
+	                            React.createElement('polyline', { id: 'root', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '14 29 18 35 27 21 34 21' })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
 	module.exports = Radical;
 
 /***/ },
 /* 336 */
 /***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
 
 	/**
 	 * An autogenerated component that renders the MORE iconograpy in SVG.
@@ -66188,8 +66400,45 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(15);
 
-	var More = function More() {
-	    return React.createElement("svg", { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" }, React.createElement("g", { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" }, React.createElement("g", { id: "[Assets]-Math-Input", transform: "translate(-1000.000000, -200.000000)" }, React.createElement("g", { id: "math_keypad_icon_on_page_numbers", transform: "translate(1000.000000, 200.000000)" }, React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }), React.createElement("g", { id: "symbols", strokeWidth: "1", transform: "translate(13.000000, 15.000000)", stroke: "#888D93", strokeLinecap: "round", strokeLinejoin: "round" }, React.createElement("polyline", { id: "radical", strokeWidth: "2", points: "14 15 16 19 20 11 22 11" }), React.createElement("g", { id: "equals", transform: "translate(14.000000, 0.000000)", strokeWidth: "2" }, React.createElement("path", { d: "M0,1 L8,1", id: "line" }), React.createElement("path", { d: "M0,5 L8,5", id: "line" })), React.createElement("g", { id: "greater-than", strokeWidth: "2" }, React.createElement("polyline", { id: "line", points: "0 0 8 3 0 6" })), React.createElement("g", { id: "less-than", transform: "translate(4.000000, 15.000000) scale(-1, 1) translate(-4.000000, -15.000000) translate(0.000000, 12.000000)", strokeWidth: "2" }, React.createElement("polyline", { id: "line", points: "0 0 8 3 0 6" })))))));
+	var More = function () {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1000.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_on_page_numbers", transform: "translate(1000.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement(
+	                        "g",
+	                        { id: "symbols", strokeWidth: "1", transform: "translate(13.000000, 15.000000)", stroke: "#888D93", strokeLinecap: "round", strokeLinejoin: "round" },
+	                        React.createElement("polyline", { id: "radical", strokeWidth: "2", points: "14 15 16 19 20 11 22 11" }),
+	                        React.createElement(
+	                            "g",
+	                            { id: "equals", transform: "translate(14.000000, 0.000000)", strokeWidth: "2" },
+	                            React.createElement("path", { d: "M0,1 L8,1", id: "line" }),
+	                            React.createElement("path", { d: "M0,5 L8,5", id: "line" })
+	                        ),
+	                        React.createElement(
+	                            "g",
+	                            { id: "greater-than", strokeWidth: "2" },
+	                            React.createElement("polyline", { id: "line", points: "0 0 8 3 0 6" })
+	                        ),
+	                        React.createElement(
+	                            "g",
+	                            { id: "less-than", transform: "translate(4.000000, 15.000000) scale(-1, 1) translate(-4.000000, -15.000000) translate(0.000000, 12.000000)", strokeWidth: "2" },
+	                            React.createElement("polyline", { id: "line", points: "0 0 8 3 0 6" })
+	                        )
+	                    )
+	                )
+	            )
+	        )
+	    );
 	};
 
 	module.exports = More;
