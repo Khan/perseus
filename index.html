@@ -14,11 +14,16 @@
 
 <link rel="stylesheet/less" type="text/css" href="stylesheets/exercise-content-package/perseus.less" />
 <link rel="stylesheet/less" type="text/css" href="stylesheets/perseus-admin-package/editor.less" />
-
 <style>
     body {
         min-width: 0 !important;
         /* overrides body { min-width: 1000px; } in khan-site.css */
+    }
+
+    @media (max-width: 767px) {
+        .perseus-block-math {
+            font-size: 18px;
+        }
     }
 </style>
 

@@ -25,8 +25,9 @@ var Util = require("./util.js");
 var EnabledFeatures = require("./enabled-features.jsx");
 var ApiOptions = require("./perseus-api.jsx").Options;
 var ApiClassNames = require("./perseus-api.jsx").ClassNames;
+var { waitForKatexFonts, waitForMathjaxFonts } = require("./wait-for-fonts.js");
 
-var {mapObject, mapObjectFromArray} = require("./interactive2/objective_.js");
+var { mapObject, mapObjectFromArray } = require("./interactive2/objective_.js");
 
 var specialChars = {
     // escaped: original
@@ -213,6 +214,8 @@ var Renderer = React.createClass({
         this._currentFocus = null;
 
         var apiOptions = this.getApiOptions(this.props);
+        this._rootNode = ReactDOM.findDOMNode(this);
+        this._isMounted = true;
 
         if (apiOptions.customKeypad) {
             // We create the keypad when the item is rendered.  The keypad is
@@ -313,6 +316,8 @@ var Renderer = React.createClass({
         if (this.translationIndex != null) {
             window.PerseusTranslationComponents[this.translationIndex] = null;
         }
+
+        this._isMounted = false;
     },
 
     _getInitialWidgetState: function(props) {
@@ -784,6 +789,27 @@ var Renderer = React.createClass({
         }
     },
 
+    // On mobile we want users to be able to see the entire math expression
+    // so we scale it to fit within the bounds of the device.
+    // TODO(kevinb) render to SVG so that we can get this for free
+    scaleMath: function(node) {
+        if (!this._isMounted) {
+            return;
+        } else {
+            const bounds = node.getBoundingClientRect();
+            const rootBounds = this._rootNode.getBoundingClientRect();
+
+            if (bounds.width > rootBounds.width) {
+                const factor = rootBounds.width / bounds.width;
+
+                // transforms aren't applied to non-block elements
+                node.style.display = 'block';
+                node.style.transform = `scale(${factor}, ${factor})`;
+                node.style.transformOrigin = '0 50%';
+            }
+        }
+    },
+
     // output individual AST nodes [not arrays]
     outputNode: function(node, nestedOutput, state) {
         var apiOptions = this.getApiOptions(this.props);
@@ -818,12 +844,30 @@ var Renderer = React.createClass({
         } else if (node.type === "blockMath") {
             // We render math here instead of in perseus-markdown.jsx
             // because we need to pass it our onRender callback.
+
+            const onRender = (node) => {
+                this.props.onRender && this.props.onRender(node);
+
+                if (apiOptions.xomManatee) {
+                    const katex = node.querySelector('.katex');
+                    const mathjax = node.querySelector('.MathJax');
+
+                    if (katex) {
+                        waitForKatexFonts().then(() => this.scaleMath(node));
+                    } else if (mathjax) {
+                        waitForMathjaxFonts().then(() => this.scaleMath(node));
+                    } else {
+                        throw new Error(`there's no math`);
+                    }
+                }
+            };
+
             return <div
                 key={state.key}
                 className="perseus-block-math"
             >
                 <div className="perseus-block-math-inner">
-                    <TeX onRender={this.props.onRender}>
+                    <TeX onRender={onRender}>
                         {node.content}
                     </TeX>
                 </div>
