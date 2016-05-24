@@ -279,6 +279,7 @@ const ItemRenderer = React.createClass({
             apiOptions={apiOptions}
             questionCompleted={this.state.questionCompleted}
             savedState={this.props.savedState}
+            ref={elem => this.questionRenderer = elem}
             {...this.props.item.question}
         />;
 
@@ -287,6 +288,7 @@ const ItemRenderer = React.createClass({
             hintsVisible={this.state.hintsVisible}
             enabledFeatures={enabledFeatures}
             apiOptions={apiOptions}
+            ref={elem => this.hintsRenderer = elem}
         />;
 
         return <div>
