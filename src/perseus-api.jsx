@@ -85,12 +85,18 @@ module.exports = {
             // from the math-input repo instead of the existing perseus math
             // input components.
             customKeypad: React.PropTypes.bool,
+
+            // Indicates whether or not to enable changes for the x-on-mobile,
+            // 'manatee' milestone.  Changes are outlined in
+            // https://docs.google.com/document/d/1aE3aaZD-vR2HJ-HVK7hH9Jzo2euCH-kKTQihSmzrEfI/edit
+            xomManatee: React.PropTypes.bool,
         }).isRequired,
 
         defaults: {
             isArticle: false,
             fancyDropdowns: false,
             responsiveStyling: false,
+            xomManatee: false,
             mobileStyling: false,
             satStyling: false,
             onInputError: function() { },

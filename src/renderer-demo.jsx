@@ -69,6 +69,7 @@ const RendererDemo = React.createClass({
                     this.refs.itemRenderer.showHint();
                 },
                 __customKeypad: true,
+                __xomManatee: true,
             }}
         />;
 
