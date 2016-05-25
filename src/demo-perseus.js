@@ -64,6 +64,7 @@ const ReactDOM = window.ReactDOM = React.__internalReactDOM;
 
 const EditorDemo = require('./editor-demo.jsx');
 const RendererDemo = require('./renderer-demo.jsx');
+const ArticleDemo = require('./article-demo.jsx');
 
 
 const defaultQuestion = {
@@ -90,6 +91,7 @@ const problemNum = Math.floor(Math.random() * 100);
 const path = window.location.search.substring(1);
 const routes = { // The value is spread across a React.createElement call
     'renderer': [RendererDemo, {question, problemNum}],
+    'article': [ArticleDemo, {content: question}],
     '': [EditorDemo, {question, problemNum}],
 };
 
