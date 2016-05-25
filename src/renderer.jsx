@@ -26,6 +26,8 @@ var EnabledFeatures = require("./enabled-features.jsx");
 var ApiOptions = require("./perseus-api.jsx").Options;
 var ApiClassNames = require("./perseus-api.jsx").ClassNames;
 var { waitForKatexFonts, waitForMathjaxFonts } = require("./wait-for-fonts.js");
+var Zoomable = require("./components/zoomable.jsx");
+var Deferred = require("./deferred.js");
 
 var { mapObject, mapObjectFromArray } = require("./interactive2/objective_.js");
 
@@ -789,27 +791,6 @@ var Renderer = React.createClass({
         }
     },
 
-    // On mobile we want users to be able to see the entire math expression
-    // so we scale it to fit within the bounds of the device.
-    // TODO(kevinb) render to SVG so that we can get this for free
-    scaleMath: function(node) {
-        if (!this._isMounted) {
-            return;
-        } else {
-            const bounds = node.getBoundingClientRect();
-            const rootBounds = this._rootNode.getBoundingClientRect();
-
-            if (bounds.width > rootBounds.width) {
-                const factor = rootBounds.width / bounds.width;
-
-                // transforms aren't applied to non-block elements
-                node.style.display = 'block';
-                node.style.transform = `scale(${factor}, ${factor})`;
-                node.style.transformOrigin = '0 50%';
-            }
-        }
-    },
-
     // output individual AST nodes [not arrays]
     outputNode: function(node, nestedOutput, state) {
         var apiOptions = this.getApiOptions(this.props);
@@ -844,6 +825,7 @@ var Renderer = React.createClass({
         } else if (node.type === "blockMath") {
             // We render math here instead of in perseus-markdown.jsx
             // because we need to pass it our onRender callback.
+            const deferred = new Deferred();
 
             const onRender = (node) => {
                 this.props.onRender && this.props.onRender(node);
@@ -853,23 +835,53 @@ var Renderer = React.createClass({
                     const mathjax = node.querySelector('.MathJax');
 
                     if (katex) {
-                        waitForKatexFonts().then(() => this.scaleMath(node));
+                        waitForKatexFonts().then(() => deferred.resolve());
                     } else if (mathjax) {
-                        waitForMathjaxFonts().then(() => this.scaleMath(node));
+                        waitForMathjaxFonts().then(() => deferred.resolve());
                     } else {
                         throw new Error(`there's no math`);
                     }
                 }
             };
 
+            // The style for the body of articles and exercises on mobile is to
+            // have a 16px margin.  When a user taps to zoom math we'd like the
+            // math to extend all the way to the edge of the page.  To achieve
+            // this affect we nest the Zoomable component in two nested divs.
+            // The outer div has a negative margin to counteract the margin on
+            // main perseus container.  The inner div adds the margin back as
+            // padding so that when the math is scaled out it's inset from the
+            // edge of the page.  When the TeX component is full size it will
+            // extend to the edge of the page if it's larger than the page.
+            //
+            // TODO(kevinb) automatically determine the margin size
+            const margin = 16;
+
+            const outerStyle = {
+                marginLeft: -margin,
+                marginRight: -margin,
+            };
+
+            const innerStyle = {
+                paddingLeft: margin,
+                paddingRight: margin,
+                overflowX: 'scroll',
+            };
+
             return <div
                 key={state.key}
                 className="perseus-block-math"
+                style={outerStyle}
             >
-                <div className="perseus-block-math-inner">
-                    <TeX onRender={onRender}>
-                        {node.content}
-                    </TeX>
+                <div
+                    className="perseus-block-math-inner"
+                    style={innerStyle}
+                >
+                    <Zoomable readyToMeasureDeferred={deferred}>
+                        <TeX onRender={onRender}>
+                            {node.content}
+                        </TeX>
+                    </Zoomable>
                 </div>
             </div>;
 

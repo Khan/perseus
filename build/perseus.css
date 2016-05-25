@@ -1,6 +1,6 @@
 /* Perseus CSS
- * commit 69d7cc6a7ef2ccd3fc4bcd11cc4d339f80bcfb2e
- * branch master
+ * commit b9995d8fce6ba27f8c0e3c7c2bc5027c6035292d
+ * branch tappable_tex
  * @generated */
 .perseus-sr-only {
   border: 0;
@@ -1873,6 +1873,11 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
 @media (max-width: 767px) {
   .perseus-renderer-responsive {
     margin: 0 16px;
+  }
+}
+@media (max-width: 767px) {
+  .perseus-xom-manatee .perseus-block-math {
+    font-size: 18px;
   }
 }
 /* math-input CSS */

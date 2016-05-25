@@ -1,6 +1,6 @@
 // Perseus Version File
-// commit 69d7cc6a7ef2ccd3fc4bcd11cc4d339f80bcfb2e
-// branch master
+// commit b9995d8fce6ba27f8c0e3c7c2bc5027c6035292d
+// branch tappable_tex
 // @generated
 /* eslint-disable comma-dangle */
 
