@@ -237,6 +237,39 @@
 
     // TODO(charlie): Implement new styles for math.
 
+    // Phone styles
+    @media (max-width: @pure-sm-max) {
+        .max-width(none);
+
+        .title(24px, 1.2, 0);
+        .heading(24px, 1.2, 1);
+        .sub-heading(22px, 1.1, 0);
+
+        .body-text(18px, 1.4);
+        .explanation-link(14px, 1.3);
+        .image-caption(14px, 1.3);
+
+        .code(18px, 1.6, -1);
+        .blockquote(4px, 18px);
+    }
+
+    // Tablet styles
+    @media (min-width: @pure-md-min) and (max-width: @tablet-width-max) {
+        .max-width(512px);
+
+        .title(30px, 1.1, 0);
+        .heading(30px, 1.1, 2);
+        .sub-heading(28px, 1.1, 1);
+
+        .body-text(20px, 1.5);
+        .explanation-link(17px, 1.4);
+        .image-caption(17px, 1.4);
+
+        .code(23px, 1.3, 0);
+        .blockquote(4px, 20px);
+    }
+
+    // Desktop styles
     @media (min-width: @desktop-width-min) {
         .max-width(688px);
 
@@ -250,14 +283,6 @@
 
         .code(23px, 1.3, 0);
         .blockquote(5px, 20px);
-    }
-
-    @media (max-width: @pure-sm-max) {
-        // TODO(charlie): Implement phone styles.
-    }
-
-    @media (min-width: @pure-md-min) and (max-width: @tablet-width-max) {
-        // TODO(charlie): Implement tablet styles.
     }
 
     // TODO(charlie): These are the existing Bibliotron article styles, less
