@@ -42,7 +42,13 @@
 // TODO(oliver): These are the new article styles. When we transition over
 // to the new styles we should remove the `.bibliotron-article` and delete
 // the above style rules.
-.bibliotron-article.framework-perseus.perseus-article {
+// TODO(charlie): We're now applying the article typography styles to our
+// exercise content as well. We should remove the `.perseus-article` check and
+// merge these into `perseus.less`. However, we don't want to show them for
+// non-Bibliotron articles, so for now, we'll leave them here and enable them
+// explicitly for: (1) Bibliotron articles, and (2) all exercises.
+.bibliotron-article.framework-perseus.perseus-article,
+.framework-perseus:not(.perseus-article) {
     @baseUnit: 16px;
 
     // TODO(charlie): Pure defines XL as 1280px. However, Bibliotron and our new
