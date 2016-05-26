@@ -96,7 +96,7 @@ const RendererDemo = React.createClass({
         const scratchpadEnabled = Khan.scratchpad.enabled;
 
         if (xomManatee) {
-            return <div className="perseus-xom-manatee">
+            return <div className="framework-perseus perseus-xom-manatee">
                 {rendererComponent}
                 <div id="problem-area">
                     <div id="workarea" style={{marginLeft:0}}/>
