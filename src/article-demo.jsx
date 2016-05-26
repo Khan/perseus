@@ -40,6 +40,8 @@ const ArticleDemo = React.createClass({
     },
 
     getEditorProps() {
+        const xomManatee = !!localStorage.xomManatee;
+
         return {
             json: this.props.content,
             enabledFeatures: enabledFeatures,
@@ -56,6 +58,7 @@ const ArticleDemo = React.createClass({
                     console.log("Interaction with", trackData.type,
                            trackData);
                 },
+                xomManatee,
             },
 
             useNewStyles: true,

@@ -11,6 +11,7 @@ const React = require('react');
 const { StyleSheet, css } = require('aphrodite');
 const ReactDOM = require('react-dom');
 
+const ApiClassNames = require("./perseus-api.jsx").ClassNames;
 const ItemRenderer = require('./item-renderer.jsx');
 const SimpleButton = require('./simple-button.jsx');
 
@@ -51,7 +52,7 @@ const RendererDemo = React.createClass({
     },
 
     render: function() {
-        const xomManatee = localStorage.xomManatee;
+        const xomManatee = !!localStorage.xomManatee;
 
         const options = {
             responsiveStyling: true,
@@ -96,7 +97,8 @@ const RendererDemo = React.createClass({
         const scratchpadEnabled = Khan.scratchpad.enabled;
 
         if (xomManatee) {
-            return <div className="framework-perseus perseus-xom-manatee">
+            const className = "framework-perseus " + ApiClassNames.XOM_MANATEE;
+            return <div className={className}>
                 {rendererComponent}
                 <div id="problem-area">
                     <div id="workarea" style={{marginLeft:0}}/>

@@ -42,13 +42,187 @@
 // TODO(oliver): These are the new article styles. When we transition over
 // to the new styles we should remove the `.bibliotron-article` and delete
 // the above style rules.
+// NOTE(charlie): See below for the new, XOM Manatee beta typography styles,
+// which are applied to articles and exercises.
+.bibliotron-article.framework-perseus.perseus-article:not(.perseus-xom-manatee) {
+    @textColor: #21242c;
+    .body-text() {
+        color: @textColor;
+        font-size: 20px;
+        line-height: 30px;
+    }
+
+    @paragraphSpacing: 32px;
+    .perseus-widget-container {
+        .legacy-typography;
+
+        &.widget-float-left,
+        &.widget-float-right {
+            max-width: 50%;
+            padding-top: @paragraphSpacing;
+            width: 100%;
+            .perseus-image-caption .paragraph .paragraph {
+                margin-bottom: 0;
+            }
+        }
+
+        &.widget-float-left {
+            float: left;
+            padding-right: @paragraphSpacing;
+        }
+
+        &.widget-float-right {
+            float: right;
+            padding-left: @paragraphSpacing;
+        }
+    }
+
+    .perseus-renderer > .paragraph {
+        .body-text;
+        margin: 0 auto;
+        max-width: 688px;
+    }
+    .perseus-renderer > .paragraph .paragraph {
+        // These are actual paragraphs
+        .body-text;
+        margin-bottom: @paragraphSpacing;
+        margin-top: 0;
+    }
+    .perseus-renderer > .paragraph ul:not(.perseus-widget-radio) {
+        .body-text;
+    }
+    table {
+        .body-text;
+    }
+
+    h2 {
+        font-family: inherit;
+        font-size: 23px;
+        font-weight: 700;
+        line-height: 27px;
+        margin-bottom: 16px;
+        margin-top: 48px;
+    }
+
+    h3 {
+        font-family: inherit;
+        font-size: 23px;
+        font-weight: 400;
+        line-height: 27px;
+        margin-bottom: 16px;
+        margin-top: 32px;
+    }
+
+    h4, h5, h6 {
+        font-family: inherit;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 25px;
+        margin-bottom: 16px;
+        margin-top: 32px;
+    }
+
+    blockquote {
+        padding: 0 32px;
+    }
+
+    .MathJax .math {
+        color: inherit;
+    }
+
+    .perseus-image-widget {
+        text-align: center;
+    }
+    .perseus-image-caption .paragraph .paragraph {
+        color: #999;
+        font-size: 14px;
+        line-height: 19px;
+        margin: 16px auto 42px;
+        max-width: 455px;
+        text-align: left;
+    }
+
+    .paragraph.perseus-paragraph-full-width {
+        margin-bottom: @paragraphSpacing;
+        margin-left: 0;
+        margin-right: 0;
+        max-width: none;
+
+        > .paragraph {
+            margin: 0;
+            max-width: none;
+        }
+    }
+
+    .perseus-widget-explanation-link {
+        display: inline-block;
+        font-size: 16px;
+    }
+
+    // Some images use an image widget, but some are just inlined in the
+    // paragraph. Inlined images need legacy typography, too.
+    .unresponsive-svg-image, .svg-image {
+        .legacy-typography;
+    }
+    .perseus-block-math {
+        margin-bottom: @paragraphSpacing;
+        position: relative;
+
+        &:before {
+            background: linear-gradient(to right,
+                rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+            bottom: 0;
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 30px;
+        }
+    }
+    .perseus-block-math-inner {
+        overflow-x: auto;
+        padding-bottom: 8px;
+        padding-right: 20px;
+        padding-top: 8px;
+    }
+
+    // If the article starts with a heading, remove its unnecessary top margin.
+    > .clearfix:first-child {
+        > .perseus-renderer:first-child > .paragraph:first-child {
+            h1, h2, h3, h4, h5, h6 {
+                &:first-child {
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+
+    .perseus-renderer > .paragraph .perseus-formats-tooltip {
+        padding: 8px 12px;
+
+        .paragraph {
+            margin-bottom: 0;
+
+            // We don't _expect_ a radio in a tooltip.
+            // We just need the specificity in order to override body text.
+            ul:not(.perseus-widget-radio) {
+                font-size: 15px;
+                line-height: 1.5;
+                margin: 0;
+            }
+        }
+    }
+}
+
 // TODO(charlie): We're now applying the article typography styles to our
 // exercise content as well. We should remove the `.perseus-article` check and
 // merge these into `perseus.less`. However, we don't want to show them for
 // non-Bibliotron articles, so for now, we'll leave them here and enable them
 // explicitly for: (1) Bibliotron articles, and (2) all exercises.
-.bibliotron-article.framework-perseus.perseus-article,
-.framework-perseus:not(.perseus-article) {
+// TODO(charlie): When the XOM Manatee beta has concluded, we can remove the
+// namespacing and delete the above styles in full (assuming we ship the beta).
+.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee,
+.framework-perseus:not(.perseus-article).perseus-xom-manatee {
     @baseUnit: 16px;
 
     // TODO(charlie): Pure defines XL as 1280px. However, Bibliotron and our new

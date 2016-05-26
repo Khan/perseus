@@ -6,7 +6,8 @@ var React = require('react');
 var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
-var ApiOptions = require("./perseus-api.jsx").Options;
+const ApiOptions = require("./perseus-api.jsx").Options;
+const ApiClassNames = require("./perseus-api.jsx").ClassNames;
 var CombinedHintsEditor = require("./hint-editor.jsx");
 var EnabledFeatures = require("./enabled-features.jsx");
 var FixPassageRefs = require("./util/fix-passage-refs.jsx");
@@ -179,8 +180,12 @@ var EditorPage = React.createClass({
     },
 
     render: function() {
+        let className = "framework-perseus";
+        if (this.props.apiOptions.xomManatee) {
+            className += " " + ApiClassNames.XOM_MANATEE;
+        }
 
-        return <div id="perseus" className="framework-perseus">
+        return <div id="perseus" className={className}>
             <div style={{marginBottom: 10}}>
                 {this.props.developerMode &&
                     <span>

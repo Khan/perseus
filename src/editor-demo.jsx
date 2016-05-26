@@ -85,6 +85,8 @@ const EditorDemo = React.createClass({
     },
 
     getEditorProps() {
+        const xomManatee = !!localStorage.xomManatee;
+
         return {
             ...this.props.question,
             problemNum: this.props.problemNum,
@@ -111,6 +113,7 @@ const EditorDemo = React.createClass({
                 // staticRender: true,
                 // readOnly: true,
                 customKeypad: location.search.indexOf('customKeypad') !== -1,
+                xomManatee,
             },
             componentClass: EditorPage,
         };

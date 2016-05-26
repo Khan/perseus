@@ -138,5 +138,6 @@ module.exports = {
         CORRECT: "perseus-correct",
         INCORRECT: "perseus-incorrect",
         UNANSWERED: "perseus-unanswered",
+        XOM_MANATEE: "perseus-xom-manatee",
     },
 };

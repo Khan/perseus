@@ -8,6 +8,7 @@
 const React = require("react");
 
 const ApiOptions = require("./perseus-api.jsx").Options;
+const ApiClassNames = require("./perseus-api.jsx").ClassNames;
 const Renderer = require("./renderer.jsx");
 
 const rendererProps = React.PropTypes.shape({
@@ -18,7 +19,9 @@ const rendererProps = React.PropTypes.shape({
 
 const ArticleRenderer = React.createClass({
     propTypes: {
-        apiOptions: React.PropTypes.shape({}),
+        apiOptions: React.PropTypes.shape({
+            xomManatee: React.PropTypes.bool,
+        }),
         enabledFeatures: React.PropTypes.shape({}),
         json: React.PropTypes.oneOfType([
             rendererProps,
@@ -55,6 +58,11 @@ const ArticleRenderer = React.createClass({
         let className = "framework-perseus perseus-article";
         if (this.props.useNewStyles) {
             className += " bibliotron-article";
+        }
+        if (this.props.apiOptions.xomManatee) {
+            // NOTE(charlie): For exercises, this is applied outside of Perseus
+            // (in webapp).
+            className += " " + ApiClassNames.XOM_MANATEE;
         }
 
         // TODO(alex): Add mobile api functions and pass them down here
