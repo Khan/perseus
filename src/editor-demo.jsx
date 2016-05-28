@@ -110,7 +110,7 @@ const EditorDemo = React.createClass({
                 },
                 // staticRender: true,
                 // readOnly: true,
-                customKeypad: location.search.includes('customKeypad'),
+                customKeypad: location.search.indexOf('customKeypad') !== -1,
             },
             componentClass: EditorPage,
         };
