@@ -117,8 +117,15 @@
         padding: 0 2.5em;
     }
 
+    .zoomable {
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        -webkit-touch-callout: none;
+    }
+
     table {
         .legacy-typography;
+
+        min-width: 480px;
 
         th, td {
             padding: 5px 10px;
@@ -137,6 +144,7 @@
             border-bottom: 2px solid #ccc;
             font-weight: bold;
             padding-bottom: 2px;
+            white-space: nowrap;
         }
 
         tr:nth-child(odd) {

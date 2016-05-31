@@ -160,7 +160,6 @@ InteractionTracker.prototype._track = function(extraData) {
  */
 InteractionTracker.prototype._noop = function() {};
 
-
 var Renderer = React.createClass({
     propTypes: {
         alwaysUpdate: React.PropTypes.bool,
@@ -856,33 +855,44 @@ var Renderer = React.createClass({
             //
             // TODO(kevinb) automatically determine the margin size
             const margin = 16;
-
             const outerStyle = {
                 marginLeft: -margin,
                 marginRight: -margin,
             };
-
             const innerStyle = {
                 paddingLeft: margin,
                 paddingRight: margin,
-                overflowX: 'scroll',
             };
+
+            const content = <TeX onRender={onRender}>
+                {node.content}
+            </TeX>;
+
+            let wrappedContent;
+            if (apiOptions.xomManatee) {
+                wrappedContent = <div
+                    className="perseus-block-math-inner"
+                    style={{...innerStyle, overflowX: 'auto'}}
+                >
+                    <Zoomable readyToMeasureDeferred={deferred}>
+                        {content}
+                    </Zoomable>
+                </div>;
+            } else {
+                wrappedContent = <div
+                    className="perseus-block-math-inner"
+                    style={innerStyle}
+                >
+                    {content}
+                </div>;
+            }
 
             return <div
                 key={state.key}
                 className="perseus-block-math"
                 style={outerStyle}
             >
-                <div
-                    className="perseus-block-math-inner"
-                    style={innerStyle}
-                >
-                    <Zoomable readyToMeasureDeferred={deferred}>
-                        <TeX onRender={onRender}>
-                            {node.content}
-                        </TeX>
-                    </Zoomable>
-                </div>
+                {wrappedContent}
             </div>;
 
         } else if (node.type === "math") {
@@ -956,10 +966,39 @@ var Renderer = React.createClass({
 
         } else if (node.type === "table") {
             state.inTable = true;
-            var output = PerseusMarkdown.ruleOutput(node, nestedOutput, state);
+            const output = PerseusMarkdown.ruleOutput(
+                    node, nestedOutput, state);
             state.inTable = false;
-            return output;
 
+            const margin = 16;
+            const outerStyle = {
+                marginLeft: -margin,
+                marginRight: -margin,
+            };
+            const innerStyle = {
+                paddingLeft: 0,
+                paddingRight: 0,
+            };
+
+            let wrappedOutput;
+            if (apiOptions.xomManatee) {
+                wrappedOutput =
+                    <div style={{...innerStyle, overflowX: 'auto'}}>
+                        <Zoomable animateHeight={true}>
+                            {output}
+                        </Zoomable>
+                    </div>;
+            } else {
+                wrappedOutput = <div style={innerStyle}>
+                    {output}
+                </div>;
+            }
+
+            // TODO(benkomalo): how should we deal with tappable items inside
+            // of tables?
+            return <div style={outerStyle}>
+                {wrappedOutput}
+            </div>;
         } else {
             // If it's a "normal" or "simple" markdown node, just
             // output it using its output rule.
