@@ -1,6 +1,6 @@
 /* Perseus CSS
- * commit 91f1afe54d636931b84f56ba8890927f5a4a9e67
- * branch master
+ * commit 4ef4bbeb203844656122bf67f095a4938b2bf3fe
+ * branch HEAD
  * @generated */
 .perseus-sr-only {
   border: 0;
@@ -160,7 +160,9 @@
   width: 30px;
 }
 .bibliotron-article.framework-perseus.perseus-article:not(.perseus-xom-manatee) .perseus-block-math-inner {
+  overflow-x: auto;
   padding-bottom: 8px;
+  padding-right: 20px;
   padding-top: 8px;
 }
 .bibliotron-article.framework-perseus.perseus-article:not(.perseus-xom-manatee) > .clearfix:first-child > .perseus-renderer:first-child > .paragraph:first-child h1:first-child,
@@ -184,13 +186,14 @@
 }
 .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph,
 .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 0;
-  margin-bottom: 32px;
+  margin: 0 auto;
 }
-.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph .paragraph,
-.framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph .paragraph {
+.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph:not(:first-child),
+.framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph:not(:first-child) {
+  margin-top: 32px;
+}
+.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph > .paragraph,
+.framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph > .paragraph {
   margin: 0;
 }
 .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio, .fancy-select-options),
@@ -243,7 +246,7 @@
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee h1,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee h1 {
     font-weight: 700;
-    padding-top: 0;
+    padding-top: 0px;
     font-family: inherit;
     font-size: 24px;
     line-height: 1.2;
@@ -252,7 +255,7 @@
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee h2,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee h2 {
     font-weight: 700;
-    padding-top: 1;
+    padding-top: 16px;
     font-family: inherit;
     font-size: 24px;
     line-height: 1.2;
@@ -261,7 +264,7 @@
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee h3,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee h3 {
     font-weight: 700;
-    padding-top: 0;
+    padding-top: 0px;
     font-family: inherit;
     font-size: 22px;
     line-height: 1.1;
@@ -359,7 +362,7 @@
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee h1,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee h1 {
     font-weight: 700;
-    padding-top: 0;
+    padding-top: 0px;
     font-family: inherit;
     font-size: 30px;
     line-height: 1.1;
@@ -368,7 +371,7 @@
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee h2,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee h2 {
     font-weight: 700;
-    padding-top: 2;
+    padding-top: 32px;
     font-family: inherit;
     font-size: 30px;
     line-height: 1.1;
@@ -377,7 +380,7 @@
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee h3,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee h3 {
     font-weight: 700;
-    padding-top: 1;
+    padding-top: 16px;
     font-family: inherit;
     font-size: 28px;
     line-height: 1.1;
@@ -475,7 +478,7 @@
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee h1,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee h1 {
     font-weight: 700;
-    padding-top: 0;
+    padding-top: 0px;
     font-family: inherit;
     font-size: 35px;
     line-height: 1.1;
@@ -484,7 +487,7 @@
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee h2,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee h2 {
     font-weight: 700;
-    padding-top: 2;
+    padding-top: 32px;
     font-family: inherit;
     font-size: 35px;
     line-height: 1.1;
@@ -493,7 +496,7 @@
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee h3,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee h3 {
     font-weight: 700;
-    padding-top: 1;
+    padding-top: 16px;
     font-family: inherit;
     font-size: 30px;
     line-height: 1.1;
@@ -620,9 +623,13 @@
 .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-image-widget {
   text-align: center;
 }
+.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-block-math,
+.framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-block-math {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
 .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .paragraph.perseus-paragraph-full-width,
 .framework-perseus:not(.perseus-article).perseus-xom-manatee .paragraph.perseus-paragraph-full-width {
-  margin-bottom: 32px;
   margin-left: 0;
   margin-right: 0;
   max-width: none;
@@ -638,28 +645,6 @@
 .framework-perseus:not(.perseus-article).perseus-xom-manatee .svg-image {
   font-size: 14px;
   line-height: 19.6px;
-}
-.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-block-math,
-.framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-block-math {
-  margin-bottom: 32px;
-  position: relative;
-}
-.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-block-math:before,
-.framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-block-math:before {
-  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
-  bottom: 0;
-  content: "";
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 30px;
-}
-.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-block-math-inner,
-.framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-block-math-inner {
-  overflow-x: auto;
-  padding-bottom: 8px;
-  padding-right: 20px;
-  padding-top: 8px;
 }
 .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph .perseus-formats-tooltip,
 .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph .perseus-formats-tooltip {
@@ -962,6 +947,9 @@ img.zoom-img {
 .categorizer-container .category {
   text-align: center;
 }
+.categorizer-container table {
+  min-width: 0;
+}
 .categorizer-container th.category {
   vertical-align: bottom;
 }
@@ -984,6 +972,7 @@ img.zoom-img {
   font-size: 30px;
   width: 30px;
   padding-right: 3px;
+  bottom: 9px;
   content: "\f1db";
 }
 .categorizer-container td.category label span:hover {
@@ -1430,10 +1419,10 @@ body.mobile .perseus-matrix .math-output {
   position: relative;
   min-width: 480px;
 }
-.orderer .draggable-box {
-  padding: 13px;
-  min-height: 69px;
+.orderer.layout-horizontal .draggable-box {
+  margin-left: 0;
   margin-top: 30px;
+  padding: 13px;
 }
 .orderer .card {
   padding: 0 10px;
@@ -1441,20 +1430,15 @@ body.mobile .perseus-matrix .math-output {
   position: relative;
   user-select: none;
   width: auto;
-}
-.orderer .card img {
-  vertical-align: middle;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .orderer.height-normal.layout-horizontal .card {
-  line-height: 65px;
   height: 65px;
 }
 .orderer.height-normal.layout-vertical .card {
   padding: 5px;
-}
-.orderer.height-large .card {
-  line-height: 160px;
-  height: 160px;
 }
 .orderer.height-auto .card {
   padding: 0;
@@ -1463,26 +1447,30 @@ body.mobile .perseus-matrix .math-output {
   min-height: 65px;
   min-width: 22px;
 }
-.orderer .card-wrap {
-  position: relative;
-  z-index: 3;
-  margin-right: 4px;
-  width: auto;
-  float: left;
-}
-.orderer .bank {
+.orderer.layout-horizontal .bank {
+  padding: 0;
   margin: 0px 13px;
-}
-.orderer .bank .card-wrap {
-  margin-right: 10px;
-  margin-bottom: 8px;
 }
 .orderer div.paragraph {
   margin: 0;
 }
+.orderer .card-wrap {
+  position: relative;
+  z-index: 3;
+  width: auto;
+}
+.orderer.layout-horizontal .card-wrap {
+  float: left;
+}
+.orderer.layout-horizontal .card-wrap:not(:first-child) {
+  margin-left: 8px;
+}
 .orderer.layout-vertical .card-wrap {
   float: none;
   text-align: center;
+}
+.orderer.layout-vertical .card-wrap:not(:first-child) {
+  margin-top: 8px;
 }
 .orderer.layout-vertical .bank,
 .orderer.layout-vertical .draggable-box {
@@ -1495,19 +1483,11 @@ body.mobile .perseus-matrix .math-output {
   padding: 10px 0 0 0;
   margin: 0;
 }
-.orderer.layout-vertical .bank .card-wrap {
-  margin-right: 20px;
-}
 .orderer.layout-vertical .draggable-box {
+  margin-left: 20px;
   margin-top: 0;
-  min-height: 170px;
   padding: 10px;
-}
-.orderer.layout-vertical .draggable-box .card-wrap:first-child {
-  margin: 0;
-}
-.orderer.layout-vertical .draggable-box .card-wrap {
-  margin: 8px 0 0 0;
+  min-height: 170px;
 }
 .orderer.layout-vertical .draggable-box .drag-hint {
   box-sizing: border-box;

@@ -384,6 +384,16 @@ var TransformOps = {
             return "number";
         },
         setInputValue: function(path, value, cb) {
+            // `value` comes in as a string on mobile, but we need a number
+            // We let through the empty string so that "Clear" works -- in
+            // that case, the transformer widget will just act as if there is
+            // no input, which is what we want.
+            if (value.length) {
+              value = parseFloat(value);
+              if (isNaN(value)) {
+                return;
+              }
+            }
             this.refs.transform.setInputValue(path, value, cb);
         },
         getInputPaths: function() {
