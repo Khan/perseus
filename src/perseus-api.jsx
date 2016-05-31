@@ -69,6 +69,16 @@ module.exports = {
             imagePlaceholder: React.PropTypes.node,
             widgetPlaceholder: React.PropTypes.node,
 
+            // Base React elements that can be used in place of the standard DOM
+            // DOM elements. For example, when provided, <Link /> will be used
+            // in place of <a />. This allows clients to provide pre-styled
+            // components or components with custom behavior.
+            baseElements: React.PropTypes.shape({
+                // The <Link /> component provided here must adhere to the same
+                // interface as React's base <a /> component.
+                Link: React.PropTypes.func,
+            }),
+
             // Function that takes dimensions and returns a React component
             // to display while an image is loading
             imagePreloader: React.PropTypes.func,
@@ -106,6 +116,9 @@ module.exports = {
             showAlignmentOptions: false,
             readOnly: false,
             groupAnnotator: function() { return null; },
+            baseElements: {
+                Link: React.DOM.a,
+            },
         },
     },
     ClassNames: {

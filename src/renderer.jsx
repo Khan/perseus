@@ -1413,7 +1413,9 @@ var Renderer = React.createClass({
             // go for it.)
             isJipt: this.translationIndex != null,
         });
-        var markdownContents = this.outputMarkdown(parsedMarkdown, {});
+        var markdownContents = this.outputMarkdown(parsedMarkdown, {
+            baseElements: this.props.apiOptions.baseElements,
+        });
 
         var className = this._isTwoColumn ?
         ApiClassNames.RENDERER + " " + ApiClassNames.TWO_COLUMN_RENDERER :

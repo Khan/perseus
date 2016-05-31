@@ -1,6 +1,11 @@
 // Perseus Version File
+<<<<<<< 74a21d369ba42c25ef66da58a5cc2feee49f9ff3
 // commit 07b58c01a5a462dbce7247653577362669890f2d
 // branch crm-capital-vars
+=======
+// commit 09a97ea4d4a8e9518838e26e41645823817f7cdb
+// branch crm-components
+>>>>>>> Extend Perseus API to support custom base elements
 // @generated
 /* eslint-disable comma-dangle */
 

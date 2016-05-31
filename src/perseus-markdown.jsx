@@ -303,22 +303,35 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
     // zero-rating-friendly if necessary. No changes will be made for
     // non-zero-rated requests, but zero-rated requests will be re-pointed at
     // either the zero-rated version of khanacademy.org or the external link
-    // warning interstitial.
+    // warning interstitial. We also replace the default <a /> tag with a custom
+    // element, if necessary.
     link: _.extend({}, SimpleMarkdown.defaultRules.link, {
         react: function(node, output, state) {
             const link = SimpleMarkdown.defaultRules.link.react(node, output,
                                                                 state);
-            if (typeof KA === "undefined" || !KA.isZeroRated) {
-                return link;
-            }
 
             let href = link.props.href;
-            if (href.match(/https?:\/\/[^\/]*khanacademy.org/)) {
-                href = href.replace('khanacademy.org', 'zero.khanacademy.org');
-            } else {
-                href = '/zero/external-link?url=' + encodeURIComponent(href);
+
+            // TODO(charlie): Move this logic out of Perseus and into webapp via
+            // the <Link /> component that is now injected as a dependency.
+            if (typeof KA !== "undefined" && KA.isZeroRated) {
+                if (href.match(/https?:\/\/[^\/]*khanacademy.org/)) {
+                    href = href.replace(
+                        'khanacademy.org', 'zero.khanacademy.org'
+                    );
+                } else {
+                    href = '/zero/external-link?url=' +
+                        encodeURIComponent(href);
+                }
             }
-            return React.cloneElement(link, {...link.props, href});
+
+            const newProps = { ...link.props, href };
+
+            if (state.baseElements && state.baseElements.Link) {
+                return state.baseElements.Link(newProps);
+            } else {
+                return React.cloneElement(link, newProps);
+            }
         },
     }),
     codeBlock: _.extend({}, SimpleMarkdown.defaultRules.codeBlock, {
@@ -466,4 +479,3 @@ module.exports = {
     ),
     sanitizeUrl: SimpleMarkdown.sanitizeUrl,
 };
-
