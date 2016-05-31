@@ -726,27 +726,22 @@ const keypadConfigurationForProps = (props) => {
                 uniqueExtraVariables[variable] = true;
             }
             for (const constant of expr.getConsts()) {
-                uniqueExtraConstants[constant] = true;
+                // The keypad expects constants to be capitalized (e.g., it
+                // requires `PI` instead of `pi`).
+                uniqueExtraConstants[constant.toUpperCase()] = true;
             }
         }
     }
 
-    // Convert from a set of variables (like 'x') and constants (like 'pi') to
-    // a properly ordered list of keys (upper-case, sorted lexographically), to
-    // be consumed by the keypad.
-    const convertToKeys = (tokens) => {
-        const symbols = tokens.map(token => token.toUpperCase());
-        symbols.sort();
-        return symbols;
-    };
-
     // TODO(charlie): Alert the keypad as to which of these symbols should be
     // treated as functions.
-    const extraKeys = [
-        ...convertToKeys(Object.keys(uniqueExtraVariables)),
-        ...convertToKeys(Object.keys(uniqueExtraConstants)),
-    ];
+    const extraVariables = Object.keys(uniqueExtraVariables);
+    extraVariables.sort();
 
+    const extraConstants = Object.keys(uniqueExtraConstants);
+    extraConstants.sort();
+
+    const extraKeys = [...extraVariables, ...extraConstants];
     if (!extraKeys.length) {
         // If there are no extra symbols available, we include Pi anyway, so
         // that the "extra symbols" button doesn't appear empty.
