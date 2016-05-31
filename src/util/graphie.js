@@ -450,13 +450,11 @@ GraphUtils.createGraphie = function(el) {
                 ...scalePoint(center).concat(scaleVector(radii)));
         },
 
-        fixedEllipse: function(center, radii, maxScale) {
+        fixedEllipse: function(center, radii, maxScale, padding) {
             // Scale point and radius
             const scaledPoint = scalePoint(center);
             const scaledRadii = scaleVector(radii);
 
-            // Padding protects against clipping at the edges
-            const padding = 2;
             const width = 2 * scaledRadii[0] * maxScale + padding;
             const height = 2 * scaledRadii[1] * maxScale + padding;
 

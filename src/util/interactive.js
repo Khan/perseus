@@ -895,6 +895,8 @@ _.extend(GraphUtils.Graphie.prototype, {
                 ];
                 const options = {
                     maxScale: highlightScale,
+                    // Add in 2px of padding to avoid clipping at the edges.
+                    padding: 2,
                 };
                 movablePoint.visibleShape = new WrappedEllipse(graph,
                     movablePoint.coord, radii, options);
@@ -998,9 +1000,10 @@ _.extend(GraphUtils.Graphie.prototype, {
         if (movablePoint.visible && !movablePoint.constraints.fixed) {
             // the invisible shape in front of the point that gets mouse events
             if (!movablePoint.mouseTarget) {
-                const radii = graph.unscaleVector(15);
+                const radii = graph.unscaleVector(24);
                 const options = {
                     mouselayer: true,
+                    padding: 0,
                 };
                 movablePoint.mouseTarget = new WrappedEllipse(graph,
                     movablePoint.coord, radii, options);

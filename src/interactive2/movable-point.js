@@ -184,9 +184,10 @@ _.extend(MovablePoint.prototype, {
             // the invisible shape in front of the point that gets mouse events
             if (!state.mouseTarget) {
                 var center = self.state.coord;
-                var radii = graphie.unscaleVector(15);
+                var radii = graphie.unscaleVector(24);
                 var options = {
-                    mouselayer: true
+                    mouselayer: true,
+                    padding: 0,
                 };
                 state.mouseTarget = new WrappedEllipse(graphie, center, radii,
                     options);

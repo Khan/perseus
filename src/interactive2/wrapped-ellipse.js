@@ -13,8 +13,10 @@ var DEFAULT_OPTIONS = {
 var WrappedEllipse = function(graphie, center, radii, options) {
     options = _.extend({}, DEFAULT_OPTIONS, options);
 
-    // Add `wrapper`, `visibleShape`, and remaining properties
-    _.extend(this, graphie.fixedEllipse(center, radii, options.maxScale), {
+    // Add `wrapper`, `visibleShape`, and remaining properties.
+    const fixedEllipse = graphie.fixedEllipse(
+        center, radii, options.maxScale, options.padding);
+    _.extend(this, fixedEllipse, {
         graphie: graphie,
         initialPoint: center
     });

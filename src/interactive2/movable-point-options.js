@@ -38,10 +38,13 @@ var draw = {
             ];
             var options = {
                 maxScale: Math.max(
-                    this.highlightStyle().scale, this.normalStyle().scale)
+                    this.highlightStyle().scale, this.normalStyle().scale),
+                // Add in 2px of padding to avoid clipping at the edges.
+                padding: 2,
             };
             this.state.visibleShape = new WrappedEllipse(graphie, this.coord(),
                 radii, options);
+
             this.state.visibleShape.attr(_.omit(this.normalStyle(), "scale"));
             this.state.visibleShape.toFront();
 
