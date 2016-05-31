@@ -1,6 +1,6 @@
 /* Perseus CSS
- * commit f6fea0fdfc25a94712ed27219d753050a9c5ad1f
- * branch master
+ * commit b54fd8425db7573ce3295413a69c5a524acd5c91
+ * branch HEAD
  * @generated */
 .perseus-sr-only {
   border: 0;
@@ -591,17 +591,6 @@ body.mobile .perseus-widget-dropdown .fancy-option:active:before {
 }
 .perseus-widget-explanation {
   display: inline;
-}
-.perseus-widget-explanation .perseus-widget-explanation-link {
-  font-size: 12px;
-  font-style: italic;
-  z-index: 3;
-}
-.perseus-widget-explanation .perseus-widget-explanation-link:before {
-  content: "[";
-}
-.perseus-widget-explanation .perseus-widget-explanation-link:after {
-  content: "]";
 }
 .perseus-widget-explanation .perseus-widget-explanation-content {
   margin-left: -23px;

@@ -6,6 +6,7 @@ var React = require("react");
 var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
+const { zIndexInteractiveComponent } = require("../styles/constants.js");
 var Changeable = require("../mixins/changeable.jsx");
 var PerseusApi = require("../perseus-api.jsx");
 var Renderer = require("../renderer.jsx");
@@ -83,17 +84,28 @@ var Explanation = React.createClass({
     },
 
     render: function() {
+        const { Link } = this.props.apiOptions.baseElements;
+
+        const linkStyle = {
+            // TODO(charlie): Size the text responsively.
+            fontSize: 16,
+            fontStyle: "italic",
+            zIndex: zIndexInteractiveComponent,
+        };
+
         return <div className="perseus-widget-explanation">
-            <a className="perseus-widget-explanation-link"
+            <Link
+                style={linkStyle}
                 /* Disable the link when read-only, so it doesn't look
                  * clickable */
                 href={this.props.apiOptions.readOnly ?
                       null : "javascript:void(0)"}
                 onClick={this.props.apiOptions.readOnly ? null : this._onClick}>
 
-                {this.state.expanded ?
-                    this.props.hidePrompt : this.props.showPrompt}
-            </a>
+                {"[" + (this.state.expanded ?
+                        this.props.hidePrompt :
+                        this.props.showPrompt) + "]"}
+            </Link>
             <div className="perseus-widget-explanation-content" style={{
                     height: this.state.expanded ? this.state.contentHeight : 0,
                     overflow: this.state.expanded ? "visible" : "hidden"

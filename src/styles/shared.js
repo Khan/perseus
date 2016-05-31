@@ -1,10 +1,8 @@
 const { StyleSheet } = require("aphrodite");
-
-const zIndexScratchPad = 1;
-const zIndexAboveScratchpad = zIndexScratchPad + 1;
-const zIndexInteractiveComponent = zIndexAboveScratchpad + 1;
-//const zIndexCurrentlyDragging = zIndexInteractiveComponent + 1;
-//const zIndexCalculator = zIndexCurrentlyDragging + 1;
+const {
+    zIndexAboveScratchpad,
+    zIndexInteractiveComponent,
+} = require("./constants.js");
 
 module.exports = StyleSheet.create({
     perseusInteractive: {
