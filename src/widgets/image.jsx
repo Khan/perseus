@@ -140,7 +140,10 @@ var ImageWidget = React.createClass({
 
         if (this.props.caption) {
             caption = <div className="perseus-image-caption">
-                <Renderer content={this.props.caption} />
+                <Renderer
+                    content={this.props.caption}
+                    apiOptions={this.props.apiOptions}
+                />
             </div>;
         }
 
