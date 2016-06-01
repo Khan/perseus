@@ -361,7 +361,7 @@
         margin: 0;
     }
 
-    .perseus-renderer > .paragraph ul:not(.perseus-widget-radio) {
+    .perseus-renderer > .paragraph ul:not(.perseus-widget-radio, .fancy-select-options) {
         margin: 0;
         padding: 0;
 
@@ -401,14 +401,14 @@
     // differently. In particular, ordered lists already apply left padding
     // as they use `list-style-type: outside` (the default).
     .perseus-renderer > .paragraph ol {
-        ol, ul:not(.perseus-widget-radio) {
+        ol, ul:not(.perseus-widget-radio, .fancy-select-options) {
             padding-top: 1.5 * @baseUnit;
         }
     }
 
-    .perseus-renderer > .paragraph ul:not(.perseus-widget-radio) {
+    .perseus-renderer > .paragraph ul:not(.perseus-widget-radio, .fancy-select-options) {
         > li {
-            ol, ul:not(.perseus-widget-radio) {
+            ol, ul:not(.perseus-widget-radio, .fancy-select-options) {
                 padding-top: 1.5 * @baseUnit;
                 margin-left: 2 * @baseUnit;
             }

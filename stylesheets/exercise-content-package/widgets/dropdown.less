@@ -58,7 +58,9 @@
     }
 
     .fancy-select-options {
-        color: @fancyDropdownColor;
+        // Avoid overriding the dropdown option's blue text color with the new
+        // body text color.
+        color: @fancyDropdownColor !important;
         position: absolute;
         min-width: 100%;
     }

@@ -467,7 +467,7 @@ var Simulator = React.createClass({
             </InfoTip>
         </div>;
 
-        var numTrialsDisplay = <div style={{float: "right"}}>
+        var numTrialsDisplay = <div style={{textAlign: "right"}}>
             <b>{this.props.numTrials}</b>
             <InfoTip>
                 <p>This is the number of trials used in the simulation. For
