@@ -237,7 +237,16 @@ var NumericInput = React.createClass({
 
     shouldShowExamples: function() {
         var noFormsAccepted = this.props.answerForms.length === 0;
-        var allFormsAccepted = this.props.answerForms.length >=
+        // To check if all answer forms are accepted, we must first
+        // find the *names* of all accepted forms, and see if they are
+        // all present, ignoring duplicates
+        var answerFormNames = [];
+        this.props.answerForms.forEach((form) => {
+            if (form && answerFormNames.indexOf(form.name) === -1) {
+                answerFormNames.push(form.name);
+            }
+        });
+        var allFormsAccepted = answerFormNames.length >=
                 _.size(formExamples);
         return this.props.enabledFeatures.toolTipFormats &&
                 !noFormsAccepted && !allFormsAccepted;
