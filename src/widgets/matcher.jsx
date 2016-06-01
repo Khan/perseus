@@ -8,11 +8,13 @@ var _ = require("underscore");
 var Renderer       = require("../renderer.jsx");
 var Sortable       = require("../components/sortable.jsx");
 
+const ApiOptions = require("../perseus-api.jsx").Options;
 var shuffle = require("../util.js").shuffle;
 var seededRNG = require("../util.js").seededRNG;
 
 var Matcher = React.createClass({
     propTypes: {
+        apiOptions: ApiOptions.propTypes,
         labels: React.PropTypes.array,
         left: React.PropTypes.array,
         onChange: React.PropTypes.func,
@@ -60,8 +62,11 @@ var Matcher = React.createClass({
         var constraints = {height: _.max([this.state.leftHeight,
             this.state.rightHeight])};
 
+        const cellMarginPx = this.props.apiOptions.xomManatee ? 8 : 5;
+        const widgetMarginPx = this.props.apiOptions.xomManatee ? 16 : 0;
+
         return <div className="perseus-widget-matcher ui-helper-clearfix">
-            <div className="column">
+            <div className="column" style={{ marginLeft: widgetMarginPx }}>
                 {showLabels && <div className="column-label">
                     <Renderer content={this.props.labels[0] || "..."} />
                 </div>}
@@ -73,10 +78,11 @@ var Matcher = React.createClass({
                     constraints={constraints}
                     onMeasure={this.onMeasureLeft}
                     onChange={this.changeAndTrack}
+                    margin={cellMarginPx}
                     ref="left"
                 />
             </div>
-            <div className="column">
+            <div className="column" style={{ marginRight: widgetMarginPx }}>
                 {showLabels && <div className="column-label">
                     <Renderer content={this.props.labels[1] || "..."} />
                 </div>}
@@ -87,6 +93,7 @@ var Matcher = React.createClass({
                     constraints={constraints}
                     onMeasure={this.onMeasureRight}
                     onChange={this.changeAndTrack}
+                    margin={cellMarginPx}
                     ref="right"
                 />
             </div>
