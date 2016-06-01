@@ -1,8 +1,11 @@
 .perseus-widget-explanation {
     display: inline;
 
-    // NOTE(charlie): Link styling is applied via inline styles in
-    // explanation.jsx.
+    .perseus-widget-explanation-link {
+        font-size: 12px;
+        font-style: italic;
+        z-index: @zIndexInteractiveComponent;
+    }
 
     @marginLeft: -23px;
     @borderLeft: 5px;

@@ -6,7 +6,6 @@ var React = require("react");
 var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
-const { zIndexInteractiveComponent } = require("../styles/constants.js");
 var Changeable = require("../mixins/changeable.jsx");
 var PerseusApi = require("../perseus-api.jsx");
 var Renderer = require("../renderer.jsx");
@@ -86,16 +85,9 @@ var Explanation = React.createClass({
     render: function() {
         const { Link } = this.props.apiOptions.baseElements;
 
-        const linkStyle = {
-            // TODO(charlie): Size the text responsively.
-            fontSize: 16,
-            fontStyle: "italic",
-            zIndex: zIndexInteractiveComponent,
-        };
-
         return <div className="perseus-widget-explanation">
             <Link
-                style={linkStyle}
+                className="perseus-widget-explanation-link"
                 /* Disable the link when read-only, so it doesn't look
                  * clickable */
                 href={this.props.apiOptions.readOnly ?
