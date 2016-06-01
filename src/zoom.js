@@ -126,13 +126,14 @@ ZoomService.prototype.handleZoomClick = function(e, zoomToFullSize) {
         return window.open(e.target.src, '_blank');
     }
 
-    if (target.width >= (window.innerWidth - Zoom.OFFSET)) {
+    if (target.width >=
+            window.innerWidth - Zoom.getOffset(this._zoomToFullSize)) {
         return;
     }
 
     this._activeZoomClose(true);
 
-    this._activeZoom = new Zoom(target);
+    this._activeZoom = new Zoom(target, this._zoomToFullSize);
     this._activeZoom.zoomImage();
 
     if (!this._zoomToFullSize) {
@@ -211,19 +212,28 @@ ZoomService.prototype._touchMove = function(e) {
 /**
  * The zoom object
  */
-function Zoom(img) {
+function Zoom(img, zoomToFullSize) {
     this._fullHeight =
         this._fullWidth =
         this._overlay = null;
 
     this._targetImage = img;
+    this._zoomToFullSize = zoomToFullSize;
 
     this._$body = $(document.body);
 }
 
-Zoom.OFFSET = 80;
+Zoom._OFFSET = 80;
 Zoom._MAX_WIDTH = 2560;
 Zoom._MAX_HEIGHT = 4096;
+
+Zoom.getOffset = function(zoomToFullSize) {
+    return zoomToFullSize ? 0 : Zoom._OFFSET;
+};
+
+Zoom.prototype.getOffset = function() {
+    return Zoom.getOffset(this._zoomToFullSize);
+};
 
 Zoom.prototype.zoomImage = function() {
     var img = document.createElement('img');
@@ -272,8 +282,8 @@ Zoom.prototype._calculateZoom = function() {
 
     var maxScaleFactor = originalFullImageWidth / this._targetImage.width;
 
-    var viewportHeight = (window.innerHeight - Zoom.OFFSET);
-    var viewportWidth = (window.innerWidth - Zoom.OFFSET);
+    var viewportHeight = (window.innerHeight - this.getOffset());
+    var viewportWidth = (window.innerWidth - this.getOffset());
 
     var imageAspectRatio = originalFullImageWidth / originalFullImageHeight;
     var viewportAspectRatio = viewportWidth / viewportHeight;
