@@ -11,26 +11,40 @@ var NumberInput = require("../components/number-input.jsx");
 var Renderer = require("../renderer.jsx");
 var TextInput = require("../components/text-input.jsx");
 var MathOutput = require("../components/math-output.jsx");
+const { KeypadInput } = require("../../math-input").components;
 
 var ApiOptions = require("../perseus-api.jsx").Options;
 const KhanAnswerTypes = require("../util/answer-types.js");
+const { keypadElementPropType } = require("../../math-input").propTypes;
+const { KeypadTypes } = require("../../math-input").consts;
 
 var assert = require("../interactive2/interactive-util.js").assert;
 var stringArrayOfSize = require("../util.js").stringArrayOfSize;
 
 
-// We store two sets of dimensions for the brackets, because mobile formatting
-// is different. These dimensions come from `matrix.less`.
-var MOBILE_DIMENSIONS = {
+// We store three sets of dimensions for the brackets, for our three types of
+// inputs, which vary in formatting: (1) the "static" inputs rendered for the
+// mobile apps (that are being deprecated), (2) the normal inputs rendered on
+// desktop, and (3) the keypad-based inputs newly rendered for the mobile apps
+// and mobile web. The first two sets of dimensions come from `matrix.less`;
+// the keypad-based input's dimensions are provided to the component itself,
+// below.
+var STATIC_INPUT_DIMENSIONS = {
     INPUT_MARGIN: 4,
     INPUT_HEIGHT: 38,
-    INPUT_WIDTH: 82
+    INPUT_WIDTH: 82,
 };
 
 var NORMAL_DIMENSIONS = {
     INPUT_MARGIN: 3,
     INPUT_HEIGHT: 30,
-    INPUT_WIDTH: 40
+    INPUT_WIDTH: 40,
+};
+
+const KEYPAD_INPUT_DIMENSIONS = {
+    INPUT_MARGIN: 4,
+    INPUT_HEIGHT: 34,
+    INPUT_WIDTH: 34,
 };
 
 /* Input handling: Maps a (row, column) pair to a unique ref used by React,
@@ -96,9 +110,11 @@ var Matrix = React.createClass({
                 ])
             )
         ),
+        apiOptions: ApiOptions.propTypes,
         cursorPosition: React.PropTypes.arrayOf(
             React.PropTypes.number
         ),
+        keypadElement: keypadElementPropType,
         matrixBoardSize: React.PropTypes.arrayOf(
             React.PropTypes.number
         ).isRequired,
@@ -133,9 +149,15 @@ var Matrix = React.createClass({
         // Set the input sizes through JS so we can control the size of the
         // brackets. (If we set them in CSS we won't know values until the
         // inputs are rendered.)
-        var dimensions = this.props.apiOptions.staticRender ?
-                MOBILE_DIMENSIONS : NORMAL_DIMENSIONS;
-        var { INPUT_MARGIN, INPUT_HEIGHT, INPUT_WIDTH } = dimensions;
+        let dimensions;
+        if (this.props.apiOptions.customKeypad) {
+            dimensions = KEYPAD_INPUT_DIMENSIONS;
+        } else if (this.props.apiOptions.staticRender) {
+            dimensions = STATIC_INPUT_DIMENSIONS;
+        } else {
+            dimensions = NORMAL_DIMENSIONS;
+        }
+        const { INPUT_MARGIN, INPUT_HEIGHT, INPUT_WIDTH } = dimensions;
 
         var matrixSize = getMatrixSize(this.props.answers);
         var maxRows = this.props.matrixBoardSize[0];
@@ -231,8 +253,44 @@ var Matrix = React.createClass({
                                 }
                             };
 
-                            var MatrixInput;
-                            if (this.props.apiOptions.staticRender) {
+                            let MatrixInput;
+                            if (this.props.apiOptions.customKeypad) {
+                                const style = {
+                                    margin: INPUT_MARGIN,
+                                    width: INPUT_WIDTH,
+                                    height: INPUT_HEIGHT,
+                                    // Ensure that any borders are included in
+                                    // the provided width.
+                                    boxSizing: 'border-box',
+                                    backgroundColor: outside ? '#f3f3f3' :
+                                                               '#fff'
+                                };
+
+                                // Intercept the `onFocus` prop, as we need to
+                                // configure the keypad before continuing with
+                                // the default focus logic for Matrix inputs.
+                                // Intercept the `value` prop as the Matrix
+                                // often uses `null` values, but the
+                                // `KeypadInput` does not support them.
+                                const { onFocus, value, ...rest } = inputProps;
+
+                                MatrixInput = <KeypadInput
+                                    {...rest}
+                                    style={style}
+                                    keypadElement={this.props.keypadElement}
+                                    value={value || ""}
+                                    scrollable={true}
+                                    onFocus={() => {
+                                        this.props.keypadElement.configure({
+                                            keypadType: KeypadTypes.FRACTION
+                                        }, () => {
+                                            if (this.isMounted()) {
+                                                onFocus();
+                                            }
+                                        });
+                                    }}
+                                />;
+                            } else if (this.props.apiOptions.staticRender) {
                                 MatrixInput = <MathOutput {...inputProps} />;
                             } else if (this.props.numericInput) {
                                 MatrixInput = <NumberInput {...inputProps} />;

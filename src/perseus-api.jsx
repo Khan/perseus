@@ -94,6 +94,10 @@ module.exports = {
             // component.  In this situation we use the MathInput component
             // from the math-input repo instead of the existing perseus math
             // input components.
+            // TODO(charlie): Make this mutually exclusive with `staticRender`.
+            // Internally, we defer to `customKeypad` over `staticRender`, but
+            // they should really be represented as an enum or some other data
+            // structure that forbids them both being enabled at once.
             customKeypad: React.PropTypes.bool,
 
             // Indicates whether or not to enable changes for the x-on-mobile,

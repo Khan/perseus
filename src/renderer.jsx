@@ -1102,18 +1102,21 @@ var Renderer = React.createClass({
                     prevFocus
                 );
             }
-        }
 
-        if (this.props.apiOptions.customKeypad) {
-            const didFocusInput = path && this.getInputPaths().some(inputPath =>
-                inputPath.length === path.length &&
-                    inputPath.every((item, index) => path[index] === item)
-            );
+            if (this.props.apiOptions.customKeypad) {
+                const didFocusInput = path &&
+                    this.getInputPaths().some(inputPath => {
+                        return inputPath.length === path.length &&
+                            inputPath.every((item, index) => {
+                                return path[index] === item;
+                            });
+                    });
 
-            if (didFocusInput) {
-                this.state.keypadElement.activate();
-            } else {
-                this.state.keypadElement.dismiss();
+                if (didFocusInput) {
+                    this.state.keypadElement.activate();
+                } else {
+                    this.state.keypadElement.dismiss();
+                }
             }
         }
     },
