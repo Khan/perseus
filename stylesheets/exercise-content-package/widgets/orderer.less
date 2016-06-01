@@ -19,24 +19,17 @@
         user-select: none;
         width: auto;
 
-        img {
-            vertical-align: middle;
-        }
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     &.height-normal.layout-horizontal .card {
-        line-height: 65px;
         height: 65px;
     }
 
     &.height-normal.layout-vertical .card {
         padding: 5px;
-    }
-
-    &.height-large .card {
-        // TODO(alex): remove after checking that no items use this option
-        line-height: 160px;
-        height: 160px;
     }
 
     &.height-auto .card {
