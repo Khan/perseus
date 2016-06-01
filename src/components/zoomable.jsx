@@ -93,6 +93,12 @@ const Zoomable = React.createClass({
                 ? 'transform height'
                 : 'transform';
 
+        const transitionStyle = animate ? {
+            transitionProperty: property,
+            transitionDuration: '0.3s',
+            transitionTimingFunction: 'ease-out',
+        } : {};
+
         const style = {
             display: 'block',
             width: '100%',
@@ -101,9 +107,7 @@ const Zoomable = React.createClass({
                 ? 'scale(1, 1)'
                 : `scale(${scale}, ${scale})`,
             transformOrigin: '0 0',
-            transitionProperty: animate ? property : '',
-            transitionDuration: animate ? '0.3s' : '',
-            transitionTimingFunction: animate ? 'ease-out' : '',
+            ...transitionStyle,
         };
 
 

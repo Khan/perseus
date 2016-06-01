@@ -112,7 +112,7 @@ const EditorDemo = React.createClass({
                 },
                 // staticRender: true,
                 // readOnly: true,
-                customKeypad: location.search.indexOf('customKeypad') !== -1,
+                customKeypad: xomManatee,
                 xomManatee,
             },
             componentClass: EditorPage,

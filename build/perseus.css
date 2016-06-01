@@ -1,6 +1,6 @@
 /* Perseus CSS
- * commit 5bf9dee26ebad3e26d0bf8be40011e947aaf9da1
- * branch master
+ * commit add875f7ff1f91f0ac76717789345b485d26189d
+ * branch more-zoomable-fixes
  * @generated */
 .perseus-sr-only {
   border: 0;
@@ -160,9 +160,7 @@
   width: 30px;
 }
 .bibliotron-article.framework-perseus.perseus-article:not(.perseus-xom-manatee) .perseus-block-math-inner {
-  overflow-x: auto;
   padding-bottom: 8px;
-  padding-right: 20px;
   padding-top: 8px;
 }
 .bibliotron-article.framework-perseus.perseus-article:not(.perseus-xom-manatee) > .clearfix:first-child > .perseus-renderer:first-child > .paragraph:first-child h1:first-child,
