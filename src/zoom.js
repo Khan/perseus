@@ -91,7 +91,7 @@ $(function() {
 function ZoomService() {
 }
 
-ZoomService.prototype._initialize = function () {
+ZoomService.prototype._initialize = function(zoomToFullSize) {
     // Check to see if the service is already initialized
     if (this._$document) {
         return;
@@ -106,10 +106,12 @@ ZoomService.prototype._initialize = function () {
     this._$body = $(document.body);
 
     this._boundClick = $.proxy(this._clickHandler, this);
+
+    this._zoomToFullSize = zoomToFullSize;
 };
 
-ZoomService.prototype.handleZoomClick = function(e) {
-    this._initialize();
+ZoomService.prototype.handleZoomClick = function(e, zoomToFullSize) {
+    this._initialize(zoomToFullSize);
     var target = e.target;
 
     if (!target || target.tagName !== 'IMG') {
@@ -133,11 +135,13 @@ ZoomService.prototype.handleZoomClick = function(e) {
     this._activeZoom = new Zoom(target);
     this._activeZoom.zoomImage();
 
-    // todo(fat): probably worth throttling this
-    this._$window.on('scroll.zoom', $.proxy(this._scrollHandler, this));
+    if (!this._zoomToFullSize) {
+        // todo(fat): probably worth throttling this
+        this._$window.on('scroll.zoom', $.proxy(this._scrollHandler, this));
 
-    this._$document.on('keyup.zoom', $.proxy(this._keyHandler, this));
-    this._$document.on('touchstart.zoom', $.proxy(this._touchStart, this));
+        this._$document.on('keyup.zoom', $.proxy(this._keyHandler, this));
+        this._$document.on('touchstart.zoom', $.proxy(this._touchStart, this));
+    }
 
     // we use a capturing phase here to prevent unintended js events
     // sadly no useCapture in jquery api (http://bugs.jquery.com/ticket/14953)

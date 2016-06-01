@@ -216,6 +216,11 @@ var SvgImage = React.createClass({
         title: React.PropTypes.string,
         trackInteraction: React.PropTypes.func,
         width: React.PropTypes.number,
+
+        // Whether clicking this image will allow it to be fully zoomed in to
+        // its original size on click, and allow the user to scroll in that
+        // state.
+        zoomToFullSize: React.PropTypes.bool,
     },
 
     statics: {
@@ -237,6 +242,7 @@ var SvgImage = React.createClass({
             responsive: true,
             src: "",
             scale: 1,
+            zoomToFullSize: false,
         };
     },
 
@@ -456,7 +462,7 @@ var SvgImage = React.createClass({
         // nothing in that case as well. Figuring this out correctly
         // likely required accounting for the image alignment and margins.
         if ($image.width() < this.props.width) {
-            Zoom.ZoomService.handleZoomClick(e);
+            Zoom.ZoomService.handleZoomClick(e, this.props.zoomToFullSize);
         }
         this.props.trackInteraction && this.props.trackInteraction();
     },

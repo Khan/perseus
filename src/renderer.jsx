@@ -966,6 +966,7 @@ var Renderer = React.createClass({
                 title={node.title}
                 responsive={responsive}
                 onUpdate={this.props.onRender}
+                zoomToFullSize={apiOptions.xomManatee}
                 {...extraAttrs}
             />;
 
