@@ -237,9 +237,9 @@
         color: @color;
     }
 
-    .header(@fontSize; @lineHeight; @color; @paddingTop) {
+    .header(@fontSize; @lineHeight; @color; @paddingTopMultiplier) {
         font-weight: 700;
-        padding-top: @paddingTop;
+        padding-top: @baseUnit * @paddingTopMultiplier;
 
         .text(@fontSize, @lineHeight, @color);
     }
@@ -250,21 +250,21 @@
         }
     }
 
-    .title(@fontSize; @lineHeight; @paddingTop) {
+    .title(@fontSize; @lineHeight; @paddingTopMultiplier) {
         h1 {
-            .header(@fontSize, @lineHeight, @gray17, @paddingTop);
+            .header(@fontSize, @lineHeight, @gray17, @paddingTopMultiplier);
         }
     }
 
-    .heading(@fontSize; @lineHeight; @paddingTop) {
+    .heading(@fontSize; @lineHeight; @paddingTopMultiplier) {
         h2 {
-            .header(@fontSize, @lineHeight, @gray25, @paddingTop);
+            .header(@fontSize, @lineHeight, @gray25, @paddingTopMultiplier);
         }
     }
 
-    .sub-heading(@fontSize, @lineHeight, @paddingTop) {
+    .sub-heading(@fontSize, @lineHeight, @paddingTopMultiplier) {
         h3 {
-            .header(@fontSize, @lineHeight, @gray41, @paddingTop);
+            .header(@fontSize, @lineHeight, @gray41, @paddingTopMultiplier);
         }
     }
 
