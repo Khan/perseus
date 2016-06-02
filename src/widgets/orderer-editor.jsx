@@ -48,7 +48,9 @@ const OrdererEditor = React.createClass({
                <TextListEditor
                    options={_.pluck(this.props.correctOptions, "content")}
                    onChange={this.onOptionsChange.bind(this, "correctOptions")}
-                   layout={this.props.layout} />
+                   layout={this.props.layout}
+
+                   ordered="ordered" />
 
                <div>
                    {' '}Other cards:{' '}
@@ -59,7 +61,9 @@ const OrdererEditor = React.createClass({
                <TextListEditor
                    options={_.pluck(this.props.otherOptions, "content")}
                    onChange={this.onOptionsChange.bind(this, "otherOptions")}
-                   layout={this.props.layout} />
+                   layout={this.props.layout}
+                   
+                   ordered="other" />
 
                <div>
                    <label>
