@@ -924,13 +924,21 @@ _.extend(GraphUtils.Graphie.prototype, {
 
         movablePoint.drawLabel();
 
-        movablePoint.grab = function() {
+        movablePoint.grab = function(offset) {
+            // The offset for the gesture. When provided, the movable point will
+            // track the mouse's position, plus this offset. This is typically
+            // used to lock the distance between a user's finger and the movable
+            // point, when dragging.
+            offset = offset || [0, 0];
+
             $(document).bind("vmousemove.point vmouseup.point", function(event) {
                 event.preventDefault();
                 movablePoint.dragging = true;
                 dragging = true;
 
-                let coord = graph.getMouseCoord(event);
+                // Adjust the target coordinate by accounting for the gesture's
+                // offset.
+                let coord = kvector.add(graph.getMouseCoord(event), offset);
 
                 coord = applySnapAndConstraints(coord);
                 let coordX = coord[0];
@@ -1034,7 +1042,20 @@ _.extend(GraphUtils.Graphie.prototype, {
                 } else if (event.type === "vmousedown" && (event.which === 1 || event.which === 0)) {
                     event.preventDefault();
 
-                    movablePoint.grab();
+                    // The offset between the cursor or finger and the initial
+                    // coordinates of the point. This is tracked so as to avoid
+                    // locking the moving point to the user's finger on touch
+                    // devices, which would obscure it, no matter how large we
+                    // made the touch target. Instead, we respect the offset at
+                    // which the point was grabbed for the entirety of the
+                    // gesture.
+                    const startCoord = movablePoint.coord;
+                    const startMouseCoord = graph.getMouseCoord(event);
+                    const touchOffset = kvector.subtract(
+                        startCoord, startMouseCoord
+                    );
+
+                    movablePoint.grab(touchOffset);
                 }
             });
         }

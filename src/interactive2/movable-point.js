@@ -63,6 +63,7 @@ var assert = InteractiveUtil.assert;
 var normalizeOptions = InteractiveUtil.normalizeOptions;
 
 var kpoint = require("kmath").point;
+var kvector = require("kmath").vector;
 const KhanColors = require("../util/colors.js");
 
 // State parameters that should be converted into an array of
@@ -87,7 +88,8 @@ var DEFAULT_STATE = {
     added: false,
     hasMoved: false,
     visibleShape: null,
-    mouseTarget: null
+    mouseTarget: null,
+    touchOffset: null,
 };
 
 var MovablePoint = function(graphie, movable, options) {
@@ -197,7 +199,7 @@ _.extend(MovablePoint.prototype, {
 
         // The starting coord of any move, sent to onMoveEnd as the previous
         // value
-        var startCoord = state.coord;
+        let startCoord = state.coord;
 
         // The Movable representing this movablePoint's representation
         // This handles mouse events for us, which we propagate in
@@ -207,19 +209,38 @@ _.extend(MovablePoint.prototype, {
             modify: null,
             draw: self.draw.bind(self),
             remove: null,
-            onMoveStart: function() {
+            onMoveStart: (startMouseCoord) => {
                 state.hasMoved = false;
                 startCoord = state.coord;
+
+                // Save the offset between the cursor and the initial coordinate
+                // of the point. This is tracked so as to avoid locking the
+                // moving point to the user's finger on touch devices, which
+                // would obscure it, no matter how large we made the touch
+                // target. Instead, we respect the offset at which the point was
+                // grabbed for the entirety of the gesture.
+                if (state.touchOffset == null) {
+                    state.touchOffset = kvector.subtract(
+                        startCoord, startMouseCoord
+                    );
+                }
+
                 self._fireEvent(state.onMoveStart, startCoord, startCoord);
                 self.draw();
             },
-            onMove: self.moveTo.bind(self),
-            onMoveEnd: function() {
+            onMove: (mouseCoord, prevMouseCoord) => {
+                const transformedCoord = kvector.add(
+                    mouseCoord, state.touchOffset
+                );
+                self.moveTo(transformedCoord);
+            },
+            onMoveEnd: () => {
                 if (self.isHovering() && !state.hasMoved) {
                     self._fireEvent(state.onClick, state.coord, startCoord);
                 }
                 self._fireEvent(state.onMoveEnd, state.coord, startCoord);
                 state.hasMoved = false;
+                state.touchOffset = null;
                 self.draw();
             }
         }));
@@ -338,6 +359,10 @@ _.extend(MovablePoint.prototype, {
     },
 
     grab: function(coord) {
+        // Provide an explicit touchOffset override, so that we track the user's
+        // finger when a point has been grabbed.
+        this.state.touchOffset = [0, 0];
+
         this.movable.grab(coord);
         this.moveTo(coord);
     }
