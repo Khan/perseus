@@ -34,6 +34,8 @@ const ArticleRenderer = React.createClass({
 
     getDefaultProps: function() {
         return {
+            apiOptions: {
+            },
             useNewStyles: false,
         };
     },
@@ -59,7 +61,7 @@ const ArticleRenderer = React.createClass({
         if (this.props.useNewStyles) {
             className += " bibliotron-article";
         }
-        if (this.props.apiOptions.xomManatee) {
+        if (apiOptions.xomManatee) {
             // NOTE(charlie): For exercises, this is applied outside of Perseus
             // (in webapp).
             className += " " + ApiClassNames.XOM_MANATEE;
