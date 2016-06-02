@@ -93,20 +93,32 @@ const Zoomable = React.createClass({
                 ? 'transform height'
                 : 'transform';
 
+        // Since we're not using aphrodite, we have to prefix ourselves.
         const transitionStyle = animate ? {
             transitionProperty: property,
+            WebkitTransitionProperty: property,
+            msTransitionProperty: property,
             transitionDuration: '0.3s',
+            WebkitTransitionDuration: '0.3s',
+            msTransitionDuration: '0.3s',
             transitionTimingFunction: 'ease-out',
+            WebkitTransitionTimingfunction: 'ease-out',
+            msTransitionTmingFunction: 'ease-out',
         } : {};
 
+        const transform =  zoomed
+                ? 'scale(1, 1)'
+                : `scale(${scale}, ${scale})`;
         const style = {
             display: 'block',
             width: '100%',
             height: zoomed ? expandedHeight : compactHeight,
-            transform: zoomed
-                ? 'scale(1, 1)'
-                : `scale(${scale}, ${scale})`,
+            transform: transform,
+            WebkitTransform: transform,
+            msTransform: transform,
             transformOrigin: '0 0',
+            WebkitTransformOrigin: '0 0',
+            msTransformOrigin: '0 0',
             ...transitionStyle,
         };
 
