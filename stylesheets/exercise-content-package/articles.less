@@ -350,14 +350,21 @@
     }
 
     // Shared styles
+
+    // NOTE(charlie): The basic outline of rendered Perseus content consists of
+    // a .perseus-renderer, followed by a series of .paragraph elements. Each
+    // .paragraph in turn contains a single .paragraph element that itself
+    // contains either raw text or a widget. We apply paragraph break styling to
+    // those first .paragraph children.
     .perseus-renderer > .paragraph {
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 0;
-        margin-bottom: 2 * @baseUnit;
+        margin: 0 auto;
     }
 
-    .perseus-renderer > .paragraph .paragraph {
+    .perseus-renderer > .paragraph:not(:first-child) {
+        margin-top: 2 * @baseUnit;
+    }
+
+    .perseus-renderer > .paragraph > .paragraph {
         margin: 0;
     }
 
@@ -501,8 +508,12 @@
         text-align: center;
     }
 
+    .perseus-block-math {
+        padding-top: @baseUnit;
+        padding-bottom: @baseUnit;
+    }
+
     .paragraph.perseus-paragraph-full-width {
-        margin-bottom: @paragraphSpacing;
         margin-left: 0;
         margin-right: 0;
         max-width: none;
@@ -517,25 +528,6 @@
     // paragraph. Inlined images need legacy typography, too.
     .unresponsive-svg-image, .svg-image {
         .legacy-typography;
-    }
-    .perseus-block-math {
-        margin-bottom: @paragraphSpacing;
-        position: relative;
-
-        &:before {
-            background: linear-gradient(to right,
-                rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
-            bottom: 0;
-            content: "";
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 30px;
-        }
-    }
-    .perseus-block-math-inner {
-        padding-bottom: 8px;
-        padding-top: 8px;
     }
 
     .perseus-renderer > .paragraph .perseus-formats-tooltip {
