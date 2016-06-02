@@ -9,7 +9,7 @@
     .draggable-box {
         padding: 13px;
         min-height: 69px;
-        margin-top: 30px;
+        margin-top: 20px;
     }
 
     .card {
@@ -26,7 +26,13 @@
 
     &.height-normal.layout-horizontal .card {
         line-height: 65px;
-        height: 65px;
+        max-height: 65px;
+        /*height: 65px;*/
+        padding: 20px 8px;
+    }
+
+    &.height-normal.layout-horizontal .card.placeholder {
+        max-height: 65px;
     }
 
     &.height-normal.layout-vertical .card {
@@ -56,7 +62,7 @@
     }
 
     .bank {
-        margin: 0px 13px;
+        margin: 20px 13px;
 
         .card-wrap {
             margin-right: 10px;
