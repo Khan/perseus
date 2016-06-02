@@ -246,8 +246,6 @@ Zoom.prototype.zoomImage = function() {
         this._fullWidth = Number(img.width);
 
         // Set up our image to mirror the current image on the document.
-        img.height = this._targetImage.height;
-        img.width = this._targetImage.width;
         var imageOffset = this._imageOffset = $(this._targetImage).offset();
 
         // Position the image using viewport-fixed coordinates so that it is
@@ -256,12 +254,14 @@ Zoom.prototype.zoomImage = function() {
         // Said another way ... get the coordinates of the image relative to
         // the viewport, and use those to position our new image (which is
         // absolutely positioned within a full-bleed fixed-position container).
-        var left = imageOffset.left - $(window).scrollLeft();
-        var top = imageOffset.top - $(window).scrollTop();
+        var left = this._left = imageOffset.left - $(window).scrollLeft();
+        var top = this._top = imageOffset.top - $(window).scrollTop();
 
         $zoomedImage.css({
             left: left,
             top: top,
+            width: this._targetImage.width,
+            height: this._targetImage.height,
         });
 
         this._zoomOriginal();
@@ -294,23 +294,30 @@ Zoom.prototype._calculateZoom = function() {
 
     var maxScaleFactor = originalFullImageWidth / this._targetImage.width;
 
-    var viewportHeight = (window.innerHeight - this.getOffset());
-    var viewportWidth = (window.innerWidth - this.getOffset());
-
-    var imageAspectRatio = originalFullImageWidth / originalFullImageHeight;
-    var viewportAspectRatio = viewportWidth / viewportHeight;
-
-    if (originalFullImageWidth < viewportWidth && originalFullImageHeight <
-        viewportHeight) {
+    if (this._zoomToFullSize) {
+        // Zoom to full size of the original image.
         this._imgScaleFactor = maxScaleFactor;
 
-    } else if (imageAspectRatio < viewportAspectRatio) {
-        this._imgScaleFactor = (viewportHeight / originalFullImageHeight) *
-            maxScaleFactor;
-
     } else {
-        this._imgScaleFactor = (viewportWidth / originalFullImageWidth) *
-            maxScaleFactor;
+        // Zoom to fit the viewport.
+        var viewportHeight = (window.innerHeight - this.getOffset());
+        var viewportWidth = (window.innerWidth - this.getOffset());
+
+        var imageAspectRatio = originalFullImageWidth / originalFullImageHeight;
+        var viewportAspectRatio = viewportWidth / viewportHeight;
+
+        if (originalFullImageWidth < viewportWidth && originalFullImageHeight <
+            viewportHeight) {
+            this._imgScaleFactor = maxScaleFactor;
+
+        } else if (imageAspectRatio < viewportAspectRatio) {
+            this._imgScaleFactor = (viewportHeight / originalFullImageHeight) *
+                maxScaleFactor;
+
+        } else {
+            this._imgScaleFactor = (viewportWidth / originalFullImageWidth) *
+                maxScaleFactor;
+        }
     }
 };
 
@@ -326,11 +333,71 @@ Zoom.prototype._triggerAnimation = function() {
     this._translateY = (viewportY - imageCenterY) / scaleFactor;
     this._translateX = (viewportX - imageCenterX) / scaleFactor;
 
-    this.$zoomedImage.css('transform', 'scale(' + this._imgScaleFactor +
-        ') translate(' + this._translateX + 'px, ' + this._translateY +
-        'px) translateZ(0)');
+    // NOTE: This is re-used below.
+    this._zoomedInTransformString = `
+        scale(${scaleFactor})
+        translate3d(${this._translateX}px, ${this._translateY}px, 0)
+    `;
+
+    this.$zoomedImage
+        .css({
+            transform: this._zoomedInTransformString,
+        })
+        .addClass('zoom-transition')
+        .one($.support.transition.end, $.proxy(this._onZoomInFinish, this))
+        .emulateTransitionEnd(300);
 
     this._$body.addClass('zoom-overlay-open');
+};
+
+Zoom.prototype._onZoomInFinish = function() {
+    // Remove the transform on the image, but make it look exactly the same as
+    // the image with the transform -- full-size and centered in the viewport
+    // -- using margins + left/top + scroll
+    //
+    // We need to remove the transform for scrolling to work -- the browser
+    // would still calculate the element position/sizing by its pre-transform
+    // dimensions.
+
+    const height = this._targetImage.height * this._imgScaleFactor;
+    const width = this._targetImage.width * this._imgScaleFactor;
+    let left = 0;
+    let top = 0;
+    let marginLeft = 0;
+    let marginTop = 0;
+    let scrollLeft = 0;
+    let scrollTop = 0;
+
+    // Horizontally center the image within the viewport, either by positioning
+    // with CSS or scrolling the viewport.
+    if (width < window.innerWidth) {
+        left = "50%";
+        marginLeft = -width / 2;
+    } else {
+        scrollLeft = (width - window.innerWidth) / 2;
+    }
+
+    // ... and similarly, vertically center the image within the viewport.
+    if (height < window.innerHeight) {
+        top = "50%";
+        marginTop = -height / 2;
+    } else {
+        scrollTop = (height - window.innerHeight) / 2;
+    }
+
+    this.$zoomedImage
+        .css({
+            height: height,
+            left: left,
+            marginLeft: marginLeft,
+            marginTop: marginTop,
+            top: top,
+            transform: '',
+            width: width,
+        })
+        .removeClass('zoom-transition');
+
+    $(this._overlay).scrollLeft(scrollLeft).scrollTop(scrollTop);
 };
 
 Zoom.prototype.close = function() {
@@ -338,12 +405,40 @@ Zoom.prototype.close = function() {
         .removeClass('zoom-overlay-open')
         .addClass('zoom-overlay-transitioning');
 
-    this.$zoomedImage.css('transform', '');
-
+    // Upon closing the image, zoom it back out. Do this by first re-applying the
+    // zoomed-in transform and resetting the CSS top/left + margins to what it
+    // was right after zooming in -- basically undoing what we did in
+    // _onZoomInFinish.
+    // TODO(david): Adjust this translation of the transform to take into
+    //     account the current scroll position of the image (if the user
+    //     scrolled the image after it was zoomed).
     this.$zoomedImage
-        .one($.support.transition.end, $.proxy(this.dispose, this))
-        .emulateTransitionEnd(300);
+        .css({
+            height: this._targetImage.height,
+            left: this._left,
+            marginLeft: 0,
+            marginTop: 0,
+            top: this._top,
+            transform: this._zoomedInTransformString,
+            width: this._targetImage.width,
+        })
+        .removeClass('zoom-transition');
 
+    $(this._overlay).scrollLeft(0).scrollTop(0);
+
+    // ... now that the image and its container have been set up to be in the
+    // same state as right at the end of the zoom-in animation, reset the
+    // transform to scale(1) to achieve the zoom-out-into-image-on-document
+    // animation.
+    setTimeout(() => {
+        this.$zoomedImage
+            .css({
+                transform: 'scale(1)',
+            })
+            .addClass('zoom-transition')
+           .one($.support.transition.end, $.proxy(this.dispose, this))
+           .emulateTransitionEnd(300);
+    }, 10);
 };
 
 Zoom.prototype.dispose = function() {
