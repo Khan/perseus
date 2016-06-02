@@ -7,6 +7,7 @@ var _ = require("underscore");
 
 var Sortable = require("../components/sortable.jsx");
 
+const ApiOptions = require("../perseus-api.jsx").Options;
 var shuffle = require("../util.js").shuffle;
 
 var HORIZONTAL = "horizontal",
@@ -14,6 +15,7 @@ var HORIZONTAL = "horizontal",
 
 var Sorter = React.createClass({
     propTypes: {
+        apiOptions: ApiOptions.propTypes,
         correct: React.PropTypes.array,
         layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
         onChange: React.PropTypes.func,
@@ -39,10 +41,13 @@ var Sorter = React.createClass({
             /* ensurePermuted */ true
         );
 
+        const marginPx = this.props.apiOptions.xomManatee ? 8 : 5;
+
         return <div className="perseus-widget-sorter ui-helper-clearfix">
             <Sortable
                 options={options}
                 layout={this.props.layout}
+                margin={marginPx}
                 padding={this.props.padding}
                 onChange={this.handleChange}
                 ref="sortable"
