@@ -51,6 +51,13 @@ var TextListEditor = React.createClass({
             "layout-" + this.props.layout
         ].join(" ");
 
+        var orderedInputClass;
+        if (this.props.ordered === "ordered") {
+            orderedInputClass = "ordered";
+        } else if (this.props.ordered === "other") {
+            orderedInputClass = "unordered";
+        }
+        // 
         var inputs = _.map(this.state.items, function(item, i) {
             return <li key={i}>
                 <input
@@ -59,7 +66,9 @@ var TextListEditor = React.createClass({
                     value={item}
                     onChange={this.onChange.bind(this, i)}
                     onKeyDown={this.onKeyDown.bind(this, i)}
-                    style={{width: getTextWidth(item)}} />
+                    style={{width: getTextWidth(item)}}
+
+                    className={orderedInputClass} />
             </li>;
         }, this);
 
