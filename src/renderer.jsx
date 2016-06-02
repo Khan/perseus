@@ -843,57 +843,59 @@ var Renderer = React.createClass({
                 }
             };
 
-            // The style for the body of articles and exercises on mobile is to
-            // have a 16px margin.  When a user taps to zoom math we'd like the
-            // math to extend all the way to the edge of the page.  To achieve
-            // this affect we nest the Zoomable component in two nested divs.
-            // The outer div has a negative margin to counteract the margin on
-            // main perseus container.  The inner div adds the margin back as
-            // padding so that when the math is scaled out it's inset from the
-            // edge of the page.  When the TeX component is full size it will
-            // extend to the edge of the page if it's larger than the page.
-            //
-            // TODO(kevinb) automatically determine the margin size
-            const margin = 16;
-            const outerStyle = {
-                marginLeft: -margin,
-                marginRight: -margin,
-            };
-            const innerStyle = {
-                paddingLeft: margin,
-                paddingRight: margin,
-            };
-
             const content = <TeX onRender={onRender}>
                 {node.content}
             </TeX>;
 
-            let wrappedContent;
             if (apiOptions.xomManatee) {
-                wrappedContent = <div
-                    className="perseus-block-math-inner"
-                    style={{...innerStyle, overflowX: 'auto'}}
+                // The style for the body of articles and exercises on mobile is
+                // to have a 16px margin.  When a user taps to zoom math we'd
+                // like the math to extend all the way to the edge of the page/
+                // To achieve this affect we nest the Zoomable component in two
+                // nested divs. The outer div has a negative margin to
+                // counteract the margin on main perseus container.  The inner
+                // div adds the margin back as padding so that when the math is
+                // scaled out it's inset from the edge of the page.  When the
+                // TeX component is full size it will extend to the edge of the
+                // page if it's larger than the page.
+                //
+                // TODO(kevinb) automatically determine the margin size
+                const margin = 16;
+                const outerStyle = {
+                    marginLeft: -margin,
+                    marginRight: -margin,
+                };
+                const innerStyle = {
+                    paddingLeft: margin,
+                    paddingRight: margin,
+                };
+
+                return <div
+                    key={state.key}
+                    className="perseus-block-math"
+                    style={outerStyle}
                 >
-                    <Zoomable readyToMeasureDeferred={deferred}>
-                        {content}
-                    </Zoomable>
+                    <div
+                        className="perseus-block-math-inner"
+                        style={{...innerStyle, overflowX: 'auto'}}
+                    >
+                        <Zoomable readyToMeasureDeferred={deferred}>
+                            {content}
+                        </Zoomable>
+                    </div>
                 </div>;
             } else {
-                wrappedContent = <div
-                    className="perseus-block-math-inner"
-                    style={innerStyle}
+                return <div
+                    key={state.key}
+                    className="perseus-block-math"
                 >
-                    {content}
+                    <div
+                        className="perseus-block-math-inner"
+                    >
+                        {content}
+                    </div>
                 </div>;
             }
-
-            return <div
-                key={state.key}
-                className="perseus-block-math"
-                style={outerStyle}
-            >
-                {wrappedContent}
-            </div>;
 
         } else if (node.type === "math") {
             // We render math here instead of in perseus-markdown.jsx
