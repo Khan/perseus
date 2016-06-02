@@ -6,10 +6,10 @@
 	// of it's container (maybe?)
 	min-width: @questionWidth;
 
-    .draggable-box {
-        padding: 13px;
-        min-height: 69px;
+    &.layout-horizontal .draggable-box {
+        margin-left: 0;
         margin-top: 30px;
+        padding: 13px;
     }
 
     .card {
@@ -41,29 +41,35 @@
         min-width: 22px;
     }
 
-    .card-wrap {
-        .perseus-interactive;
-        margin-right: 4px;
-        width: auto;
-        float: left;
-    }
-
-    .bank {
+    &.layout-horizontal .bank {
+        padding: 0;
         margin: 0px 13px;
-
-        .card-wrap {
-            margin-right: 10px;
-            margin-bottom: 8px;
-        }
     }
 
     div.paragraph {
         margin: 0;
     }
 
+    .card-wrap {
+        .perseus-interactive;
+        width: auto;
+    }
+
+    &.layout-horizontal .card-wrap {
+        float: left;
+
+        &:not(:first-child) {
+            margin-left: 8px;
+        }
+    }
+
     &.layout-vertical .card-wrap {
         float: none;
         text-align: center;
+
+        &:not(:first-child) {
+            margin-top: 8px;
+        }
     }
 
     &.layout-vertical .bank,  &.layout-vertical .draggable-box {
@@ -76,24 +82,13 @@
     &.layout-vertical .bank {
         padding: 10px 0 0 0;
         margin: 0;
-
-        .card-wrap {
-            margin-right: 20px;
-        }
     }
 
     &.layout-vertical .draggable-box {
+        margin-left: 20px;
         margin-top: 0;
-        min-height: 170px;
         padding: 10px;
-
-        .card-wrap:first-child {
-            margin: 0;
-        }
-
-        .card-wrap {
-            margin: 8px 0 0 0;
-        }
+        min-height: 170px;
 
         .drag-hint {
             box-sizing: border-box;
