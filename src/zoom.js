@@ -245,13 +245,25 @@ Zoom.prototype.zoomImage = function() {
         this._fullHeight = Number(img.height);
         this._fullWidth = Number(img.width);
 
-        // Set up our image to mirror the current image
+        // Set up our image to mirror the current image on the document.
         img.height = this._targetImage.height;
         img.width = this._targetImage.width;
         var imageOffset = this._imageOffset = $(this._targetImage).offset();
-        $zoomedImage.css("position", "absolute")
-            .css("top", imageOffset.top + "px")
-            .css("left", imageOffset.left + "px");
+
+        // Position the image using viewport-fixed coordinates so that it is
+        // exactly over the image on the document.
+        //
+        // Said another way ... get the coordinates of the image relative to
+        // the viewport, and use those to position our new image (which is
+        // absolutely positioned within a full-bleed fixed-position container).
+        var left = imageOffset.left - $(window).scrollLeft();
+        var top = imageOffset.top - $(window).scrollTop();
+
+        $zoomedImage.css({
+            left: left,
+            top: top,
+        });
+
         this._zoomOriginal();
     }.bind(this);
 
@@ -270,7 +282,7 @@ Zoom.prototype._zoomOriginal = function() {
     this._overlay.className = 'zoom-overlay';
 
     document.body.appendChild(this._overlay);
-    document.body.appendChild(this.$zoomedImage[0]);
+    this._overlay.appendChild(this.$zoomedImage[0]);
 
     this._calculateZoom();
     this._triggerAnimation();
@@ -303,10 +315,8 @@ Zoom.prototype._calculateZoom = function() {
 };
 
 Zoom.prototype._triggerAnimation = function() {
-    var scrollTop = $(window).scrollTop();
-
-    var viewportY = scrollTop + (window.innerHeight / 2);
-    var viewportX = (window.innerWidth / 2);
+    var viewportY = $(window).scrollTop() + (window.innerHeight / 2);
+    var viewportX = $(window).scrollLeft() + (window.innerWidth / 2);
 
     var scaleFactor = this._imgScaleFactor;
 
