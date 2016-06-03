@@ -1,5 +1,5 @@
 /* Perseus CSS
- * commit d99996e14b7336e6e619c3261b0157d008acf721
+ * commit 5caeac4b3d6d581ca2cd1b64c84c4bbeb22a4be1
  * branch master
  * @generated */
 .perseus-sr-only {
@@ -810,7 +810,6 @@ img.zoom-img {
   border-bottom: 2px solid #ccc;
   font-weight: bold;
   padding-bottom: 2px;
-  white-space: nowrap;
 }
 .framework-perseus table tr:nth-child(odd) td {
   background-color: #ededed;
