@@ -99,15 +99,17 @@ const RendererDemo = React.createClass({
         if (xomManatee) {
             const className = "framework-perseus " + ApiClassNames.XOM_MANATEE;
             return <div className={className}>
-                {rendererComponent}
-                <div id="problem-area">
-                    <div id="workarea" style={{marginLeft:0}}/>
-                    <div id="hintsarea"/>
+                <div className={css(styles.problemAndAnswer)}>
+                    {rendererComponent}
+                    <div id="problem-area">
+                        <div id="workarea" style={{marginLeft:0}}/>
+                        <div id="hintsarea"/>
+                    </div>
                 </div>
             </div>;
         } else {
             return (
-                <div className="renderer-demo">
+                <div className="renderer-demo framework-perseus">
                     <div className={css(styles.problemAndAnswer)}>
                         <div id="problem-area">
                             <div id="workarea"/>

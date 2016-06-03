@@ -122,54 +122,6 @@
         -webkit-touch-callout: none;
     }
 
-    table {
-        .legacy-typography;
-
-        min-width: 480px;
-
-        th, td {
-            padding: 5px 10px;
-            text-align: left;
-
-            &[align=center] {
-                text-align: center;
-            }
-
-            &[align=right] {
-                text-align: right;
-            }
-        }
-
-        th {
-            border-bottom: 2px solid #ccc;
-            font-weight: bold;
-            padding-bottom: 2px;
-        }
-
-        tr:nth-child(odd) {
-            // Doesn't work in IE8 :(
-            td {
-                background-color: #ededed;
-            }
-        }
-    }
-
-    .perseus-titled-table {
-        display: inline-block;
-
-        // Center the table in a titled table
-        table {
-            margin-left: auto;
-            margin-right: auto;
-        }
-    }
-
-    // Center the title in a titled table
-    .perseus-table-title {
-        text-align: center;
-        font-size: larger;
-    }
-
     sup {
         font-size: smaller;
         vertical-align: super;
@@ -303,18 +255,141 @@
     }
 }
 
-.framework-perseus table.non-markdown {
-    tr:nth-child(odd) {
-        td {
-            background-color: transparent;
+/* Legacy table styles. Remove when XOM is rolled out (see below for
+   updated XOM styles). */
+.framework-perseus:not(.perseus-xom-manatee) {
+    table {
+        .legacy-typography;
+
+        min-width: 480px;
+
+        th, td {
+            padding: 5px 10px;
+            text-align: left;
+
+            &[align=center] {
+                text-align: center;
+            }
+
+            &[align=right] {
+                text-align: right;
+            }
+        }
+
+        th {
+            border-bottom: 2px solid #ccc;
+            font-weight: bold;
+            padding-bottom: 2px;
+        }
+
+        tr:nth-child(odd) {
+            // Doesn't work in IE8 :(
+            td {
+                background-color: #ededed;
+            }
         }
     }
 
-    th, td {
-        border-width: 0;
+    .perseus-titled-table {
+        display: inline-block;
+
+        // Center the table in a titled table
+        table {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    // Center the title in a titled table
+    .perseus-table-title {
+        text-align: center;
+        font-size: larger;
+    }
+
+    table.non-markdown {
+        tr:nth-child(odd) {
+            td {
+                background-color: transparent;
+            }
+        }
+
+        th, td {
+            border-width: 0;
+        }
     }
 }
 
+/* New XOM styles for tables. */
+.framework-perseus.perseus-xom-manatee {
+    /* There are three kinds of tables:
+       1) normal "tables" - emitted by markdown (src/perseus-markdown.jsx)
+       2) "titled tables" - emitted by markdown as well (these are just
+          tables with a title, and encased in one more element)
+       3) "table widget" - where a user is expected to enter answers in a
+          table form (src/widgets/table.jsx).
+      Moreover, there the Categorizer widget uses <table> tags, so these
+      stylings will apply there as well.  */
+    // TODO(benkomalo): be more explicit by adding className values to all
+    // widgets and stop relying on tag names when using CSS. or use aphrodite
+    // evurrwhere
+    table {
+        border-collapse: collapse;
+        margin: 0 auto;
+
+        tbody > tr {
+            border: 1px solid #e5e5e5;
+        }
+
+        th,
+        td {
+            padding: 16px;
+            text-align: left;
+
+            &[align=center] {
+                text-align: center;
+            }
+
+            &[align=right] {
+                text-align: right;
+            }
+        }
+
+        td {
+            background: #fff;
+        }
+
+        th {
+            font-weight: bold;
+        }
+    }
+
+    @media (max-width: @pure-sm-max) {
+        table {
+            // Make tables "full-bleed" on phones.
+            width: 100%;
+            min-width: 480px;
+
+            tbody > tr {
+                border-left: 0;
+                border-right: 0;
+            }
+        }
+    }
+
+    .perseus-titled-table {
+        // No customizations for titled tables for now.
+    }
+
+    // Center the title in a titled table
+    .perseus-table-title {
+        text-align: center;
+        font-size: larger;
+    }
+
+    table.non-markdown {
+        // No customizations for table widgets for now.
+    }
+}
 
 /* Widget CSS */
 
