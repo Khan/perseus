@@ -1,6 +1,6 @@
 /* Perseus CSS
- * commit 5caeac4b3d6d581ca2cd1b64c84c4bbeb22a4be1
- * branch master
+ * commit e07322181eeeb831d7533d4fc3749b3e9d1410e6
+ * branch tooltip-fix
  * @generated */
 .perseus-sr-only {
   border: 0;
@@ -788,43 +788,6 @@ img.zoom-img {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-touch-callout: none;
 }
-.framework-perseus table {
-  font-size: 14px;
-  line-height: 19.6px;
-  min-width: 480px;
-}
-.framework-perseus table th,
-.framework-perseus table td {
-  padding: 5px 10px;
-  text-align: left;
-}
-.framework-perseus table th[align=center],
-.framework-perseus table td[align=center] {
-  text-align: center;
-}
-.framework-perseus table th[align=right],
-.framework-perseus table td[align=right] {
-  text-align: right;
-}
-.framework-perseus table th {
-  border-bottom: 2px solid #ccc;
-  font-weight: bold;
-  padding-bottom: 2px;
-}
-.framework-perseus table tr:nth-child(odd) td {
-  background-color: #ededed;
-}
-.framework-perseus .perseus-titled-table {
-  display: inline-block;
-}
-.framework-perseus .perseus-titled-table table {
-  margin-left: auto;
-  margin-right: auto;
-}
-.framework-perseus .perseus-table-title {
-  text-align: center;
-  font-size: larger;
-}
 .framework-perseus sup {
   font-size: smaller;
   vertical-align: super;
@@ -926,12 +889,105 @@ img.zoom-img {
   width: 100%;
   height: 100%;
 }
-.framework-perseus table.non-markdown tr:nth-child(odd) td {
+/* Legacy table styles. Remove when XOM is rolled out (see below for
+   updated XOM styles). */
+.framework-perseus:not(.perseus-xom-manatee) table {
+  font-size: 14px;
+  line-height: 19.6px;
+  min-width: 480px;
+}
+.framework-perseus:not(.perseus-xom-manatee) table th,
+.framework-perseus:not(.perseus-xom-manatee) table td {
+  padding: 5px 10px;
+  text-align: left;
+}
+.framework-perseus:not(.perseus-xom-manatee) table th[align=center],
+.framework-perseus:not(.perseus-xom-manatee) table td[align=center] {
+  text-align: center;
+}
+.framework-perseus:not(.perseus-xom-manatee) table th[align=right],
+.framework-perseus:not(.perseus-xom-manatee) table td[align=right] {
+  text-align: right;
+}
+.framework-perseus:not(.perseus-xom-manatee) table th {
+  border-bottom: 2px solid #ccc;
+  font-weight: bold;
+  padding-bottom: 2px;
+}
+.framework-perseus:not(.perseus-xom-manatee) table tr:nth-child(odd) td {
+  background-color: #ededed;
+}
+.framework-perseus:not(.perseus-xom-manatee) .perseus-titled-table {
+  display: inline-block;
+}
+.framework-perseus:not(.perseus-xom-manatee) .perseus-titled-table table {
+  margin-left: auto;
+  margin-right: auto;
+}
+.framework-perseus:not(.perseus-xom-manatee) .perseus-table-title {
+  text-align: center;
+  font-size: larger;
+}
+.framework-perseus:not(.perseus-xom-manatee) table.non-markdown tr:nth-child(odd) td {
   background-color: transparent;
 }
-.framework-perseus table.non-markdown th,
-.framework-perseus table.non-markdown td {
+.framework-perseus:not(.perseus-xom-manatee) table.non-markdown th,
+.framework-perseus:not(.perseus-xom-manatee) table.non-markdown td {
   border-width: 0;
+}
+/* New XOM styles for tables. */
+.framework-perseus.perseus-xom-manatee {
+  /* There are three kinds of tables:
+       1) normal "tables" - emitted by markdown (src/perseus-markdown.jsx)
+       2) "titled tables" - emitted by markdown as well (these are just
+          tables with a title, and encased in one more element)
+       3) "table widget" - where a user is expected to enter answers in a
+          table form (src/widgets/table.jsx).
+      Moreover, there the Categorizer widget uses <table> tags, so these
+      stylings will apply there as well.  */
+}
+.framework-perseus.perseus-xom-manatee table {
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+.framework-perseus.perseus-xom-manatee table tbody > tr {
+  border: 1px solid #e5e5e5;
+}
+.framework-perseus.perseus-xom-manatee table th,
+.framework-perseus.perseus-xom-manatee table td {
+  padding: 16px;
+  text-align: left;
+}
+.framework-perseus.perseus-xom-manatee table th[align=center],
+.framework-perseus.perseus-xom-manatee table td[align=center] {
+  text-align: center;
+}
+.framework-perseus.perseus-xom-manatee table th[align=right],
+.framework-perseus.perseus-xom-manatee table td[align=right] {
+  text-align: right;
+}
+.framework-perseus.perseus-xom-manatee table td {
+  background: #fff;
+}
+.framework-perseus.perseus-xom-manatee table th {
+  font-weight: bold;
+}
+@media (max-width: 767px) {
+  .framework-perseus.perseus-xom-manatee table {
+    width: 100%;
+    min-width: 480px;
+  }
+  .framework-perseus.perseus-xom-manatee table tbody > tr {
+    border-left: 0;
+    border-right: 0;
+  }
+}
+.framework-perseus.perseus-xom-manatee .perseus-titled-table {
+  display: inline-block;
+}
+.framework-perseus.perseus-xom-manatee .perseus-table-title {
+  text-align: center;
+  font-size: larger;
 }
 /* Widget CSS */
 .perseus-graph-padding {

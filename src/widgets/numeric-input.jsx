@@ -240,12 +240,9 @@ var NumericInput = React.createClass({
         // To check if all answer forms are accepted, we must first
         // find the *names* of all accepted forms, and see if they are
         // all present, ignoring duplicates
-        var answerFormNames = [];
-        this.props.answerForms.forEach((form) => {
-            if (form && answerFormNames.indexOf(form.name) === -1) {
-                answerFormNames.push(form.name);
-            }
-        });
+        var answerFormNames = _.uniq(this.props.answerForms.map(
+            (form) => form.name
+        ));
         var allFormsAccepted = answerFormNames.length >=
                 _.size(formExamples);
         return this.props.enabledFeatures.toolTipFormats &&
@@ -266,6 +263,9 @@ var NumericInput = React.createClass({
         var examples = _.map(forms, (form) => {
             return formExamples[form.name](form);
         });
+        // Ensure no duplicate tooltip text from simplified and unsimplified
+        // versions of the same format
+        examples = _.uniq(examples);
 
         return [i18n._("**Your answer should be** ")].concat(examples);
     }
@@ -351,6 +351,12 @@ _.extend(NumericInput, {
     }
 });
 
+// TODO(thomas): Currently we receive a list of lists of acceptable answer types
+// and union them down into a single set. It's worth considering whether it
+// wouldn't make more sense to have a single set of acceptable answer types for
+// a given *problem* rather than for each possible [correct/wrong] *answer*.
+// When should two answers to a problem take different answer types?
+// See D27790 for more discussion.
 var unionAnswerForms = function(answerFormsList) {
     // Takes a list of lists of answer forms, and returns a list of the forms
     // in each of these lists in the same order that they're listed in the
