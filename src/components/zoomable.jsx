@@ -56,14 +56,21 @@ const Zoomable = React.createClass({
     // natural width changes? Can check out
     // https://github.com/Khan/math-input/blob/master/src/components/math-keypad.js#L43
     scaleChildToFit() {
+        const parentBounds = this._node.getBoundingClientRect();
         const childBounds =
             this._node.firstElementChild.getBoundingClientRect();
-        const childHeight = childBounds.height;
-        const parentBounds = this._node.getBoundingClientRect();
 
-        if (childBounds.width > parentBounds.width) {
-            const scale = parentBounds.width / childBounds.width;
-            const compactHeight = scale * childHeight;
+        // HACK(benkomalo): when measuring the child bounds, math content
+        // actually peeks out vertically above/below the child element in many
+        // cases. The parent height is actually a more accurate representation
+        // of what the child's intrinsic height is, so we use that as the
+        // vertical measure.
+        const childWidth = childBounds.width;
+        const childHeight = parentBounds.height;
+
+        if (childWidth > parentBounds.width) {
+            const scale = parentBounds.width / childWidth;
+            const compactHeight = Math.ceil(scale * childHeight);
             const expandedHeight = childHeight;
 
             this.setState({
