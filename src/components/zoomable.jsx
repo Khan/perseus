@@ -11,6 +11,17 @@ const Zoomable = React.createClass({
     propTypes: {
         animateHeight: React.PropTypes.bool,
         children: React.PropTypes.element.isRequired,
+
+        /**
+         * Optional function that allows customizations in zooming.
+         *
+         * Defaults to just using the bounding client rect of the first DOM
+         * element of this component.
+         *
+         * @return {Object} bounds object with `width` and `height` properties
+         */
+        computeChildBounds: React.PropTypes.func,
+
         // If this prop is specified, we wait until the deferred is resolved
         // before measuring the child element.  This is necessary in cases
         // where the child size depends on whether or not resources, such as
@@ -28,6 +39,9 @@ const Zoomable = React.createClass({
         return {
             animateHeight: false,
             readyToMeasureDeferred: deferred,
+            computeChildBounds: (parentNode, parentBounds) => {
+                return parentNode.firstElementChild.getBoundingClientRect();
+            },
         };
     },
 
@@ -57,16 +71,10 @@ const Zoomable = React.createClass({
     // https://github.com/Khan/math-input/blob/master/src/components/math-keypad.js#L43
     scaleChildToFit() {
         const parentBounds = this._node.getBoundingClientRect();
-        const childBounds =
-            this._node.firstElementChild.getBoundingClientRect();
-
-        // HACK(benkomalo): when measuring the child bounds, math content
-        // actually peeks out vertically above/below the child element in many
-        // cases. The parent height is actually a more accurate representation
-        // of what the child's intrinsic height is, so we use that as the
-        // vertical measure.
+        const childBounds = this.props.computeChildBounds(
+                this._node, parentBounds);
         const childWidth = childBounds.width;
-        const childHeight = parentBounds.height;
+        const childHeight = childBounds.height;
 
         if (childWidth > parentBounds.width) {
             const scale = parentBounds.width / childWidth;

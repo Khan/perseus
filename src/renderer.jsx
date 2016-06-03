@@ -870,6 +870,21 @@ var Renderer = React.createClass({
                     paddingRight: margin,
                 };
 
+                const computeMathBounds = (parentNode, parentBounds) => {
+                    const rawKatexBounds =
+                        parentNode.firstElementChild.getBoundingClientRect();
+                    // HACK(benkomalo): when measuring math content, note that
+                    // it actually peeks out vertically above/below the
+                    // container in some cases. The parent height is actually
+                    // a more accurate representation of what the child's
+                    // math's height is, so we use that as the vertical
+                    // measure.
+                    return {
+                        width: rawKatexBounds.width,
+                        height: parentBounds.height,
+                    };
+                };
+
                 return <div
                     key={state.key}
                     className="perseus-block-math"
@@ -879,7 +894,10 @@ var Renderer = React.createClass({
                         className="perseus-block-math-inner"
                         style={{...innerStyle, overflowX: 'auto'}}
                     >
-                        <Zoomable readyToMeasureDeferred={deferred}>
+                        <Zoomable
+                            readyToMeasureDeferred={deferred}
+                            computeChildBounds={computeMathBounds}
+                        >
                             {content}
                         </Zoomable>
                     </div>
@@ -966,7 +984,7 @@ var Renderer = React.createClass({
             }
             return node.content;
 
-        } else if (node.type === "table") {
+        } else if (node.type === "table" || node.type === "titledTable") {
             state.inTable = true;
             const output = PerseusMarkdown.ruleOutput(
                     node, nestedOutput, state);
@@ -986,7 +1004,22 @@ var Renderer = React.createClass({
             if (apiOptions.xomManatee) {
                 wrappedOutput =
                     <div style={{...innerStyle, overflowX: 'auto'}}>
-                        <Zoomable animateHeight={true}>
+                        <Zoomable
+                            animateHeight={true}
+                            computeChildBounds={(parentNode, parentBounds) => {
+                                const tableBounds = parentNode
+                                    .querySelector('table')
+                                    .getBoundingClientRect();
+                                const childBounds = parentNode
+                                    .firstElementChild
+                                    .getBoundingClientRect();
+                                return {
+                                    width: Math.max(
+                                        childBounds.width, tableBounds.width),
+                                    height: childBounds.height,
+                                };
+                            }}
+                        >
                             {output}
                         </Zoomable>
                     </div>;

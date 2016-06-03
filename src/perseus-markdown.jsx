@@ -217,11 +217,13 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
                     state
                 ) :  // :( (middle of the ternary expression)
                 "//invalid table//";
+            // Note: if the DOM structure changes, edit the Zoomable wrapper
+            // in src/renderer.jsx.
             return <div className="perseus-titled-table" key={state.key}>
                 <div className="perseus-table-title">
                     {output(node.title, state)}
                 </div>
-                <div>{tableOutput}</div>
+                {tableOutput}
             </div>;
         },
     },
