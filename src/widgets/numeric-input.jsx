@@ -16,11 +16,7 @@ var ApiOptions      = require("../perseus-api.jsx").Options;
 var EnabledFeatures = require("../enabled-features.jsx");
 const KhanAnswerTypes = require("../util/answer-types.js");
 const KhanMath = require("../util/math.js");
-const { configureKeypad } = require("../../math-input").actions;
-const {
-    keypadConfigurationPropType,
-    keypadElementPropType,
-} = require("../../math-input").propTypes;
+const { keypadElementPropType } = require("../../math-input").propTypes;
 const { KeypadTypes } = require("../../math-input").consts;
 
 var answerFormButtons = [
@@ -61,7 +57,6 @@ var NumericInput = React.createClass({
                 "optional"
             ]).isRequired,
         })),
-        keypadConfiguration: keypadConfigurationPropType,
         keypadElement: keypadElementPropType,
         labelText: React.PropTypes.string,
         reviewModeRubric: React.PropTypes.object,
@@ -90,11 +85,14 @@ var NumericInput = React.createClass({
                 keypadElement={this.props.keypadElement}
                 onChange={this.handleChange}
                 onFocus={() => {
-                    configureKeypad(this.props.keypadConfiguration, () => {
-                        if (this.isMounted()) {
-                            this._handleFocus();
+                    this.props.keypadElement.configure({
+                        keypadType: KeypadTypes.FRACTION
+                    }, () => {
+                            if (this.isMounted()) {
+                                this._handleFocus();
+                            }
                         }
-                    });
+                    );
                 }}
                 onBlur={this._handleBlur}
             />;
@@ -406,12 +404,8 @@ var propsTransform = function(editorProps) {
             )
         }
     );
-    return {
-        ...rendererProps,
-        keypadConfiguration: {
-            keypadType: KeypadTypes.FRACTION,
-        },
-    };
+
+    return rendererProps;
 };
 
 module.exports = {

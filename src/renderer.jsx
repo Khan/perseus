@@ -19,7 +19,6 @@ var WidgetContainer = require("./widget-container.jsx");
 var Widgets = require("./widgets.js");
 var getHintsIndex = require("./get-hints-index.jsx");
 const { Keypad } = require("../math-input").components;
-const { activateKeypad, dismissKeypad } = require("../math-input").actions;
 
 var Util = require("./util.js");
 var EnabledFeatures = require("./enabled-features.jsx");
@@ -1112,9 +1111,9 @@ var Renderer = React.createClass({
             );
 
             if (didFocusInput) {
-                activateKeypad();
+                this.state.keypadElement.activate();
             } else {
-                dismissKeypad();
+                this.state.keypadElement.dismiss();
             }
         }
     },

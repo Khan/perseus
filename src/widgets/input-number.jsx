@@ -11,11 +11,7 @@ var ParseTex          = require("../tex-wrangler.js").parseTex;
 var PossibleAnswers = require("../components/possible-answers.jsx");
 const KhanAnswerTypes = require("../util/answer-types.js");
 const { KeypadInput } = require("../../math-input").components;
-const { configureKeypad } = require("../../math-input").actions;
-const {
-    keypadConfigurationPropType,
-    keypadElementPropType,
-} = require("../../math-input").propTypes;
+const { keypadElementPropType } = require("../../math-input").propTypes;
 const { KeypadTypes } = require("../../math-input").consts;
 
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
@@ -92,7 +88,6 @@ var InputNumber = React.createClass({
         answerType: React.PropTypes.oneOf(Object.keys(answerTypes)),
         currentValue: React.PropTypes.string,
         enabledFeatures: EnabledFeatures.propTypes,
-        keypadConfiguration: keypadConfigurationPropType,
         keypadElement: keypadElementPropType,
         reviewModeRubric: React.PropTypes.object,
         widgetId: React.PropTypes.string.isRequired,
@@ -123,11 +118,14 @@ var InputNumber = React.createClass({
                 keypadElement={this.props.keypadElement}
                 onChange={this.handleChange}
                 onFocus={() => {
-                    configureKeypad(this.props.keypadConfiguration, () => {
+                    this.props.keypadElement.configure({
+                        keypadType: KeypadTypes.FRACTION
+                    }, () => {
                         if (this.isMounted()) {
-                            this._handleFocus();
-                        }
-                    });
+                                this._handleFocus();
+                            }
+                    }
+                    );
                 }}
                 onBlur={this._handleBlur}
             />;
@@ -312,9 +310,6 @@ var propTransform = (editorProps) => {
         simplify,
         size,
         answerType,
-        keypadConfiguration: {
-            keypadType: KeypadTypes.FRACTION,
-        },
     };
 };
 

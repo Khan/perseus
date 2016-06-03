@@ -49,7 +49,7 @@ const ArticleDemo = React.createClass({
                 setTimeout(callback, 1000, "http://fake.image.url");
             },
             apiOptions: {
-                customKeypad: location.search.indexOf('customKeypad') !== -1,
+                customKeypad: xomManatee,
                 fancyDropdowns: true,
                 onFocusChange: function(newPath, oldPath) {
                     console.log("onFocusChange", newPath, oldPath);

@@ -21,7 +21,6 @@ var MathInput = require("../components/math-input.jsx");
 var TeX = require("react-components/tex.jsx");// OldExpression only
 var TexButtons = require("../components/tex-buttons.jsx");
 const { KeypadInput } = require("../../math-input").components;
-const { configureKeypad } = require("../../math-input").actions;
 const {
     keypadConfigurationPropType,
     keypadElementPropType,
@@ -135,11 +134,13 @@ var Expression = React.createClass({
                 keypadElement={this.props.keypadElement}
                 onChange={this.changeAndTrack}
                 onFocus={() => {
-                    configureKeypad(this.props.keypadConfiguration, () => {
-                        if (this.isMounted()) {
-                            this._handleFocus();
+                    this.props.keypadElement.configure(
+                        this.props.keypadConfiguration, () => {
+                            if (this.isMounted()) {
+                                this._handleFocus();
+                            }
                         }
-                    });
+                    );
                 }}
                 onBlur={this._handleBlur}
             />;
