@@ -218,9 +218,11 @@ _.extend(MovablePoint.prototype, {
                 // moving point to the user's finger on touch devices, which
                 // would obscure it, no matter how large we made the touch
                 // target. Instead, we respect the offset at which the point was
-                // grabbed for the entirety of the gesture.
+                // grabbed for the entirety of the gesture, if it's a
+                // touch-based interaction.
                 if (state.touchOffset == null) {
-                    state.touchOffset = kvector.subtract(
+                    const isMouse = !('ontouchstart' in window);
+                    state.touchOffset = isMouse ? [0, 0] : kvector.subtract(
                         startCoord, startMouseCoord
                     );
                 }

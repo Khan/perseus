@@ -1048,10 +1048,11 @@ _.extend(GraphUtils.Graphie.prototype, {
                     // devices, which would obscure it, no matter how large we
                     // made the touch target. Instead, we respect the offset at
                     // which the point was grabbed for the entirety of the
-                    // gesture.
+                    // gesture, if it's a touch-based interaction.
                     const startCoord = movablePoint.coord;
                     const startMouseCoord = graph.getMouseCoord(event);
-                    const touchOffset = kvector.subtract(
+                    const isMouse = !('ontouchstart' in window);
+                    const touchOffset = isMouse ? [0, 0] : kvector.subtract(
                         startCoord, startMouseCoord
                     );
 
