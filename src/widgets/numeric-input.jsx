@@ -7,6 +7,7 @@ var React = require('react');
 var _ = require("underscore");
 
 var InputWithExamples = require("../components/input-with-examples.jsx");
+const SimpleKeypadInput = require("../components/simple-keypad-input.jsx");
 var ParseTex = require("../tex-wrangler.js").parseTex;
 var PossibleAnswers = require("../components/possible-answers.jsx");
 const { KeypadInput } = require("../../math-input").components;
@@ -17,7 +18,6 @@ var EnabledFeatures = require("../enabled-features.jsx");
 const KhanAnswerTypes = require("../util/answer-types.js");
 const KhanMath = require("../util/math.js");
 const { keypadElementPropType } = require("../../math-input").propTypes;
-const { KeypadTypes } = require("../../math-input").consts;
 
 var answerFormButtons = [
     {title: "Integers", value: "integer", content: "6"},
@@ -79,21 +79,12 @@ var NumericInput = React.createClass({
     render: function() {
         if (this.props.apiOptions.customKeypad) {
             // TODO(charlie): Support "Review Mode".
-            return <KeypadInput
+            return <SimpleKeypadInput
                 ref="input"
                 value={this.props.currentValue}
                 keypadElement={this.props.keypadElement}
                 onChange={this.handleChange}
-                onFocus={() => {
-                    this.props.keypadElement.configure({
-                        keypadType: KeypadTypes.FRACTION
-                    }, () => {
-                            if (this.isMounted()) {
-                                this._handleFocus();
-                            }
-                        }
-                    );
-                }}
+                onFocus={this._handleFocus}
                 onBlur={this._handleBlur}
             />;
         } else {

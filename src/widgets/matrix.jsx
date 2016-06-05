@@ -11,12 +11,11 @@ var NumberInput = require("../components/number-input.jsx");
 var Renderer = require("../renderer.jsx");
 var TextInput = require("../components/text-input.jsx");
 var MathOutput = require("../components/math-output.jsx");
-const { KeypadInput } = require("../../math-input").components;
+const SimpleKeypadInput = require("../components/simple-keypad-input.jsx");
 
 var ApiOptions = require("../perseus-api.jsx").Options;
 const KhanAnswerTypes = require("../util/answer-types.js");
 const { keypadElementPropType } = require("../../math-input").propTypes;
-const { KeypadTypes } = require("../../math-input").consts;
 
 var assert = require("../interactive2/interactive-util.js").assert;
 var stringArrayOfSize = require("../util.js").stringArrayOfSize;
@@ -266,29 +265,11 @@ var Matrix = React.createClass({
                                                                '#fff'
                                 };
 
-                                // Intercept the `onFocus` prop, as we need to
-                                // configure the keypad before continuing with
-                                // the default focus logic for Matrix inputs.
-                                // Intercept the `value` prop as the Matrix
-                                // often uses `null` values, but the
-                                // `KeypadInput` does not support them.
-                                const { onFocus, value, ...rest } = inputProps;
-
-                                MatrixInput = <KeypadInput
-                                    {...rest}
+                                MatrixInput = <SimpleKeypadInput
+                                    {...inputProps}
                                     style={style}
-                                    keypadElement={this.props.keypadElement}
-                                    value={value || ""}
                                     scrollable={true}
-                                    onFocus={() => {
-                                        this.props.keypadElement.configure({
-                                            keypadType: KeypadTypes.FRACTION
-                                        }, () => {
-                                            if (this.isMounted()) {
-                                                onFocus();
-                                            }
-                                        });
-                                    }}
+                                    keypadElement={this.props.keypadElement}
                                 />;
                             } else if (this.props.apiOptions.staticRender) {
                                 MatrixInput = <MathOutput {...inputProps} />;

@@ -10,8 +10,10 @@ var Graph         = require("../components/graph.jsx");
 var NumberInput   = require("../components/number-input.jsx");
 var MathOutput    = require("../components/math-output.jsx");
 var TeX           = require("react-components/tex.jsx");
+const SimpleKeypadInput = require("../components/simple-keypad-input.jsx");
 
 var ApiOptions = require("../perseus-api.jsx").Options;
+const { keypadElementPropType } = require("../../math-input").propTypes;
 
 var ROTATE_SNAP_DEGREES = 15;
 var DEGREE_SIGN = "\u00B0";
@@ -24,6 +26,7 @@ var deepEq = require("../util.js").deepEq;
 var getGridStep = require("../util.js").getGridStep;
 var captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
+
 
 var knumber = require("kmath").number;
 var kvector = require("kmath").vector;
@@ -211,6 +214,16 @@ function orderInsensitiveCoordsEqual(coords1, coords2) {
     }));
 }
 
+const inputComponentForApiOptions = (apiOptions) => {
+    if (apiOptions.customKeypad) {
+        return SimpleKeypadInput;
+    } else if (apiOptions.staticRender) {
+        return MathOutput;
+    } else {
+        return NumberInput;
+    }
+};
+
 
 
 /* Perform operations on raw transform objects */
@@ -336,6 +349,7 @@ var TransformOps = {
                     onChange={this.handleChange}
                     onFocus={this.props.onFocus}
                     onBlur={this.props.onBlur}
+                    keypadElement={this.props.keypadElement}
                     apiOptions={this.props.apiOptions}
                     {...this.props.transform}
                     />;
@@ -455,9 +469,9 @@ var Transformations = {
                 }
             },
             render: function() {
-                var InputComponent = (this.props.apiOptions.staticRender) ?
-                        MathOutput :
-                        NumberInput;
+                const InputComponent = inputComponentForApiOptions(
+                    this.props.apiOptions);
+
                 var vector = [
                     <TeX>\langle</TeX>,
                     <InputComponent
@@ -472,7 +486,8 @@ var Transformations = {
                             });
                         }}
                         onFocus={_.partial(this.props.onFocus, "x")}
-                        onBlur={_.partial(this.props.onBlur, "x")} />,
+                        onBlur={_.partial(this.props.onBlur, "x")}
+                        keypadElement={this.props.keypadElement} />,
                     <TeX>{", {}"}</TeX>,
                     <InputComponent
                         ref="y"
@@ -486,7 +501,8 @@ var Transformations = {
                             });
                         }}
                         onFocus={_.partial(this.props.onFocus, "y")}
-                        onBlur={_.partial(this.props.onBlur, "y")} />,
+                        onBlur={_.partial(this.props.onBlur, "y")}
+                        keypadElement={this.props.keypadElement} />,
                     <TeX>\rangle</TeX>
                 ];
                 return <div>
@@ -575,9 +591,9 @@ var Transformations = {
                 }
             },
             render: function() {
-                var InputComponent = (this.props.apiOptions.staticRender) ?
-                        MathOutput :
-                        NumberInput;
+                const InputComponent = inputComponentForApiOptions(
+                    this.props.apiOptions);
+
                 var point = [
                     <TeX>(</TeX>,
                     <InputComponent
@@ -592,7 +608,8 @@ var Transformations = {
                             });
                         }}
                         onFocus={_.partial(this.props.onFocus, "centerX")}
-                        onBlur={_.partial(this.props.onBlur, "centerX")} />,
+                        onBlur={_.partial(this.props.onBlur, "centerX")}
+                        keypadElement={this.props.keypadElement} />,
                     <TeX>{", {}"}</TeX>,
                     <InputComponent
                         ref="centerY"
@@ -606,7 +623,8 @@ var Transformations = {
                             });
                         }}
                         onFocus={_.partial(this.props.onFocus, "centerY")}
-                        onBlur={_.partial(this.props.onBlur, "centerY")} />,
+                        onBlur={_.partial(this.props.onBlur, "centerY")}
+                        keypadElement={this.props.keypadElement} />,
                     <TeX>)</TeX>
                 ];
                 var degrees = [
@@ -621,7 +639,8 @@ var Transformations = {
                             });
                         }}
                         onFocus={_.partial(this.props.onFocus, "angleDeg")}
-                        onBlur={_.partial(this.props.onBlur, "angleDeg")} />,
+                        onBlur={_.partial(this.props.onBlur, "angleDeg")}
+                        keypadElement={this.props.keypadElement} />,
                     DEGREE_SIGN
                 ];
                 // I18N: %(point)s must come before %(degrees)s in this phrase
@@ -714,9 +733,9 @@ var Transformations = {
                 }
             },
             render: function() {
-                var InputComponent = (this.props.apiOptions.staticRender) ?
-                        MathOutput :
-                        NumberInput;
+                const InputComponent = inputComponentForApiOptions(
+                    this.props.apiOptions);
+
                 var point1 = [<TeX>(</TeX>,
                     <InputComponent
                         ref="x1"
@@ -728,7 +747,8 @@ var Transformations = {
                         )}
                         onBlur={_.partial(
                             this.props.onBlur, "x1"
-                        )}/>,
+                        )}
+                        keypadElement={this.props.keypadElement} />,
                     <TeX>{", {}"}</TeX>,
                     <InputComponent
                         ref="y1"
@@ -736,7 +756,8 @@ var Transformations = {
                         useArrowKeys={true}
                         onChange={this.changePoint.bind(this, 0, 1)}
                         onFocus={_.partial(this.props.onFocus, "y1")}
-                        onBlur={_.partial(this.props.onBlur, "y1")}/>,
+                        onBlur={_.partial(this.props.onBlur, "y1")}
+                        keypadElement={this.props.keypadElement} />,
                     <TeX>)</TeX>
                 ];
                 var point2 = [<TeX>(</TeX>,
@@ -746,7 +767,8 @@ var Transformations = {
                         useArrowKeys={true}
                         onChange={this.changePoint.bind(this, 1, 0)}
                         onFocus={_.partial(this.props.onFocus, "x2")}
-                        onBlur={_.partial(this.props.onBlur, "x2")} />,
+                        onBlur={_.partial(this.props.onBlur, "x2")}
+                        keypadElement={this.props.keypadElement} />,
                     <TeX>{", {}"}</TeX>,
                     <InputComponent
                         ref="y2"
@@ -754,7 +776,8 @@ var Transformations = {
                         useArrowKeys={true}
                         onChange={this.changePoint.bind(this, 1, 1)}
                         onFocus={_.partial(this.props.onFocus, "y2")}
-                        onBlur={_.partial(this.props.onBlur, "y2")} />,
+                        onBlur={_.partial(this.props.onBlur, "y2")}
+                        keypadElement={this.props.keypadElement} />,
                     <TeX>)</TeX>
                 ];
                 return <div>
@@ -858,9 +881,9 @@ var Transformations = {
                 }
             },
             render: function() {
-                var InputComponent = (this.props.apiOptions.staticRender) ?
-                        MathOutput :
-                        NumberInput;
+                const InputComponent = inputComponentForApiOptions(
+                    this.props.apiOptions);
+
                 var point = [<TeX>(</TeX>,
                     <InputComponent
                         ref="x"
@@ -874,7 +897,8 @@ var Transformations = {
                             });
                         }}
                         onFocus={_.partial(this.props.onFocus, "x")}
-                        onBlur={_.partial(this.props.onBlur, "x")} />,
+                        onBlur={_.partial(this.props.onBlur, "x")}
+                        keypadElement={this.props.keypadElement} />,
                     <TeX>{", {}"}</TeX>,
                     <InputComponent
                         ref="y"
@@ -888,7 +912,8 @@ var Transformations = {
                             });
                         }}
                         onFocus={_.partial(this.props.onFocus, "y")}
-                        onBlur={_.partial(this.props.onBlur, "y")} />,
+                        onBlur={_.partial(this.props.onBlur, "y")}
+                        keypadElement={this.props.keypadElement} />,
                     <TeX>)</TeX>
                 ];
                 var scale = <InputComponent
@@ -902,7 +927,8 @@ var Transformations = {
                             });
                         }}
                     onFocus={_.partial(this.props.onFocus, "scale")}
-                    onBlur={_.partial(this.props.onBlur, "scale")} />;
+                    onBlur={_.partial(this.props.onBlur, "scale")}
+                    keypadElement={this.props.keypadElement} />;
                 return <div>
                     {$_({point, scale},
                         "Dilation about %(point)s by %(scale)s")}
@@ -1381,6 +1407,7 @@ var TransformationList = React.createClass({
                             onChange={this.handleChange}
                             onFocus={_.partial(this.props.onFocus, "" + i)}
                             onBlur={_.partial(this.props.onBlur, "" + i)}
+                            keypadElement={this.props.keypadElement}
                             apiOptions={this.props.apiOptions} />;
             },
             this
@@ -1525,6 +1552,8 @@ var AddTransformBar = React.createClass({
 
 var Transformer = React.createClass({
     propTypes: {
+        apiOptions: ApiOptions.propTypes,
+        keypadElement: keypadElementPropType,
         trackInteraction: React.PropTypes.func.isRequired,
     },
 
@@ -1597,6 +1626,7 @@ var Transformer = React.createClass({
                 onChange={this.setTransformationProps}
                 onFocus={this._handleFocus}
                 onBlur={this._handleBlur}
+                keypadElement={this.props.keypadElement}
                 apiOptions={this.props.apiOptions} />
 
             {!interactiveToolsMode && toolsBar}
