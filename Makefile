@@ -1,4 +1,4 @@
-.PHONY: help build fastbuild serve server server-offline install clean lint test shorttest nodetest shortnodetest editortest shorteditortest jest
+.PHONY: help build watch fastbuild serve server server-offline install clean lint test shorttest nodetest shortnodetest editortest shorteditortest jest
 PORT=9000
 SUPPRESSINSTALL=FALSE
 
@@ -12,14 +12,18 @@ PERSEUS_VERSION_FILE=build/perseus-item-version.js
 help:
 	@echo "make server PORT=9000         # runs the perseus server"
 	@echo "make server-offline PORT=9000 # runs the perseus server"
-	@echo "make fastbuild                # runs tests and compiles into $(PERSEUS_BUILD_JS), $(PERSEUS_BUILD_CSS), $(PERSEUS_NODE_BUILD_JS), and $(PERSEUS_EDITOR_BUILD_JS)"
-	@echo "make build                    # like build, but doesn't run tests"
+	@echo "make build                    # runs tests and compiles into $(PERSEUS_BUILD_JS), $(PERSEUS_BUILD_CSS), $(PERSEUS_NODE_BUILD_JS), and $(PERSEUS_EDITOR_BUILD_JS)"
+	@echo "make watch                    # builds $(PERSEUS_BUILD_JS) and $(PERSEUS_EDITOR_BUILD_JS) and watches files for changes"
 	@echo "make clean                    # delete all compilation artifacts"
 	@echo "make test                     # run all tests"
 	@echo "# NOTE: you can append SUPPRESSINSTALL=TRUE to avoid running npm install. Useful if you temporarily have no internet."
 
 build: clean install lint shorttest fastbuild shortnodetest shorteditortest
-fastbuild: $(PERSEUS_BUILD_JS) $(PERSEUS_NODE_BUILD_JS) $(PERSEUS_EDITOR_BUILD_JS) $(PERSEUS_BUILD_CSS) $(PERSEUS_VERSION_FILE)
+watch: install
+	./watch.sh
+
+fastbuild:
+	echo "Use `make watch` instead!"
 
 $(PERSEUS_BUILD_JS): install
 	mkdir -p build
