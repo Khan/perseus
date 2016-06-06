@@ -117,7 +117,7 @@ var TextDiff = React.createClass({
         });
 
         return <div>
-            <div className="ui-helper-clearfix">
+            <div className="perseus-clearfix">
                 {_.map([BEFORE, AFTER], (side, index) => {
                     return <div className={"diff-row " + side} key={index}>
                         {!this.state.collapsed &&

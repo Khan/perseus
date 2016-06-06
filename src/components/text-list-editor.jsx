@@ -47,7 +47,7 @@ var TextListEditor = React.createClass({
     render: function() {
         var className = [
             "perseus-text-list-editor",
-            "ui-helper-clearfix",
+            "perseus-clearfix",
             "layout-" + this.props.layout
         ].join(" ");
 

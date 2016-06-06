@@ -188,7 +188,7 @@ var WidgetDiff = React.createClass({
         var diff = performDiff(this.props.before,
                                this.props.after);
         return <div>
-            <div className="ui-helper-clearfix">
+            <div className="perseus-clearfix">
                 <DiffEntry entry={diff} />
             </div>
         </div>;

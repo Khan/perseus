@@ -43,7 +43,7 @@ var Sorter = React.createClass({
 
         const marginPx = this.props.apiOptions.xomManatee ? 8 : 5;
 
-        return <div className="perseus-widget-sorter ui-helper-clearfix">
+        return <div className="perseus-widget-sorter perseus-clearfix">
             <Sortable
                 options={options}
                 layout={this.props.layout}

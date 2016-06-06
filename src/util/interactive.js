@@ -89,7 +89,7 @@ const InteractiveUtils = {
             const container = list.wrap("<div>").parent();
             const placeholder = $("<li>");
             placeholder.addClass("placeholder");
-            container.addClass("sortable ui-helper-clearfix");
+            container.addClass("sortable perseus-clearfix");
 
             list.find("li").each(function(tileNum, tile) {
                 $(tile).bind("vmousedown", function(event) {

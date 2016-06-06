@@ -65,7 +65,7 @@ var Matcher = React.createClass({
         const cellMarginPx = this.props.apiOptions.xomManatee ? 8 : 5;
         const widgetMarginPx = this.props.apiOptions.xomManatee ? 16 : 0;
 
-        return <div className="perseus-widget-matcher ui-helper-clearfix">
+        return <div className="perseus-widget-matcher perseus-clearfix">
             <div className="column" style={{ marginLeft: widgetMarginPx }}>
                 {showLabels && <div className="column-label">
                     <Renderer content={this.props.labels[0] || "..."} />

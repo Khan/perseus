@@ -291,13 +291,13 @@ var Orderer = React.createClass({
         sortableCards.push(dragging, animating);
 
         // If there are no cards in the list, then add a "hint" card
-        var sortable = <div className="ui-helper-clearfix draggable-box">
+        var sortable = <div className="perseus-clearfix draggable-box">
             {!anySortableCards && <DragHintCard />}
             <div ref="dragList">{sortableCards}</div>
         </div>;
 
         // This is the bank of stacks of cards
-        var bank = <div ref="bank" className="bank ui-helper-clearfix">
+        var bank = <div ref="bank" className="bank perseus-clearfix">
             {_.map(this.props.options, (opt, i) => {
                 return <Card
                     ref={"bank" + i}
@@ -317,7 +317,7 @@ var Orderer = React.createClass({
                         "height-" + this.props.height + " " +
                         "layout-" + this.props.layout + " " +
                         "above-scratchpad blank-background " +
-                        "ui-helper-clearfix " + ApiClassNames.INTERACTIVE}
+                        "perseus-clearfix " + ApiClassNames.INTERACTIVE}
                     ref="orderer">
                    {bank}
                    {sortable}

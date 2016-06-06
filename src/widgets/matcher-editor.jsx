@@ -38,7 +38,7 @@ var MatcherEditor = React.createClass({
                     student will see them.</p>
                 </InfoTip>
             </div>
-            <div className="ui-helper-clearfix">
+            <div className="perseus-clearfix">
                 <TextListEditor
                     options={this.props.left}
                     onChange={(options, cb) => {
