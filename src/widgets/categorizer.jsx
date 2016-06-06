@@ -2,20 +2,25 @@
 /* eslint-disable comma-dangle, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
-var classNames = require("classnames");
-var Changeable = require("../mixins/changeable.jsx");
-var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
-var _ = require("underscore");
+const { StyleSheet, css } = require("aphrodite");
+const React = require('react');
+const classNames = require("classnames");
+const Changeable = require("../mixins/changeable.jsx");
+const WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
+const _ = require("underscore");
 
-var ApiClassNames = require("../perseus-api.jsx").ClassNames;
-var Renderer = require("../renderer.jsx");
-var Util = require("../util.js");
+const ApiClassNames = require("../perseus-api.jsx").ClassNames;
+const ApiOptions = require("../perseus-api.jsx").Options;
+const Renderer = require("../renderer.jsx");
+const Util = require("../util.js");
+const mediaQueries = require("../styles/media-queries.js");
 
-var Categorizer = React.createClass({
+const Categorizer = React.createClass({
     mixins: [WidgetJsonifyDeprecated, Changeable],
 
     propTypes: {
+        apiOptions: ApiOptions.propTypes,
+
         // List of categories (across the top)
         categories: React.PropTypes.arrayOf(React.PropTypes.string),
         // List of items that are being categorized (along the left side)
@@ -41,23 +46,17 @@ var Categorizer = React.createClass({
     },
 
     render: function() {
-        var self = this;
+        const self = this;
 
-        var indexedItems = _.map(this.props.items, (item, n) => [item, n]);
+        let indexedItems = this.props.items.map((item, n) => [item, n]);
         if (this.props.randomizeItems) {
             indexedItems = Util.shuffle(indexedItems, this.props.problemNum);
         }
 
-        var className = classNames({
-            "categorizer-container": true,
-            "clearfix": true,
-            "static-mode": this.props.static,
-        });
-
-        return <div className={className}><table>
+        const table = <table className="categorizer-table">
             <thead><tr>
                 <th>&nbsp;</th>
-                {_.map(this.props.categories, (category, i) => {
+                {this.props.categories.map((category, i) => {
                     // Array index is the correct key here, as that's how
                     // category grading actually works -- no way to add or
                     // remove categories or items in the middle. (If we later
@@ -67,7 +66,7 @@ var Categorizer = React.createClass({
                     </th>;
                 })}
             </tr></thead>
-            <tbody>{_.map(indexedItems, (indexedItem) => {
+            <tbody>{indexedItems.map((indexedItem) => {
                 var item = indexedItem[0];
                 var itemNum = indexedItem[1];
                 var uniqueId = self.state.uniqueId + "_" + itemNum;
@@ -103,7 +102,20 @@ var Categorizer = React.createClass({
                     })}
                 </tr>;
             })}</tbody>
-        </table></div>;
+        </table>;
+
+        // TODO(benkomalo): kill CSS-based styling and move everything to
+        // aphrodite.
+        const extraClassNames = classNames({
+            "categorizer-container": true,
+            "static-mode": this.props.static,
+        });
+        const inlineStyles = this.props.apiOptions.xomManatee
+            ? [styles.fullBleedContainer] : [];
+
+        return <div className={extraClassNames + ' ' + css(...inlineStyles)}>
+            {table}
+        </div>;
     },
 
     onChange: function(itemNum, catNum) {
@@ -144,6 +156,18 @@ _.extend(Categorizer, {
             message: null
         };
     }
+});
+
+// TODO(benkomalo): inject page-margin into Perseus instead of hardcoding.
+const pageMargin = 16;
+const styles = StyleSheet.create({
+    fullBleedContainer: {
+        [mediaQueries.mdOrSmaller]: {
+            marginLeft: -pageMargin,
+            marginRight: -pageMargin,
+            overflowX: 'auto',
+        },
+    },
 });
 
 module.exports = {

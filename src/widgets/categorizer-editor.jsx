@@ -2,20 +2,22 @@
 /* eslint-disable brace-style, comma-dangle, indent, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
-var Changeable = require("../mixins/changeable.jsx");
-var _ = require("underscore");
+const React = require('react');
+const Changeable = require("../mixins/changeable.jsx");
+const _ = require("underscore");
 
-var EditorJsonify = require("../mixins/editor-jsonify.jsx");
-var PropCheckBox = require("../components/prop-check-box.jsx");
-var TextListEditor = require("../components/text-list-editor.jsx");
+const ApiOptions = require("../perseus-api.jsx").Options;
+const EditorJsonify = require("../mixins/editor-jsonify.jsx");
+const PropCheckBox = require("../components/prop-check-box.jsx");
+const TextListEditor = require("../components/text-list-editor.jsx");
 
-var Categorizer = require("./categorizer.jsx").widget;
+const Categorizer = require("./categorizer.jsx").widget;
 
-var CategorizerEditor = React.createClass({
+const CategorizerEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     propTypes: {
+        apiOptions: ApiOptions.propTypes,
         items: React.PropTypes.arrayOf(React.PropTypes.string),
         categories: React.PropTypes.arrayOf(React.PropTypes.string),
         values: React.PropTypes.arrayOf(React.PropTypes.number),
@@ -64,6 +66,7 @@ var CategorizerEditor = React.createClass({
                 layout="vertical" />
 
             <Categorizer
+                apiOptions={this.props.apiOptions}
                 items={this.props.items}
                 categories={this.props.categories}
                 values={this.props.values}
