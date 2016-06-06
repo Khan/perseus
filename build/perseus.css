@@ -1,5 +1,5 @@
 /* Perseus CSS
- * commit 0f4551c8e1d49d55b71084dc2e2c4059b31004af
+ * commit 3af7799494d305659174389e65a2b920b5989d0e
  * branch master
  * @generated */
 .perseus-sr-only {
@@ -745,12 +745,14 @@ img.zoom-img {
 #answercontent input[type=number].perseus-input-size-normal,
 .framework-perseus input[type=text].perseus-input-size-normal,
 .framework-perseus input[type=number].perseus-input-size-normal {
+  border: 1px solid #ccc;
   width: 80px;
 }
 #answercontent input[type=text].perseus-input-size-small,
 #answercontent input[type=number].perseus-input-size-small,
 .framework-perseus input[type=text].perseus-input-size-small,
 .framework-perseus input[type=number].perseus-input-size-small {
+  border: 1px solid #ccc;
   width: 40px;
 }
 .framework-perseus #problemarea input,
