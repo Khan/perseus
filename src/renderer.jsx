@@ -875,6 +875,14 @@ var Renderer = React.createClass({
                 const innerStyle = {
                     paddingLeft: margin,
                     paddingRight: margin,
+
+                    // HACK(benkomalo): we only want horizontal scrolling, but
+                    // overflowX: 'auto' causes a vertical scrolling scrollbar
+                    // as well, despite the parent and child elements having
+                    // the exact same height. Force it to not scroll by
+                    // applying overflowY: 'hidden'
+                    overflowX: 'auto',
+                    overflowY: 'hidden',
                 };
 
                 const computeMathBounds = (parentNode, parentBounds) => {
@@ -899,7 +907,7 @@ var Renderer = React.createClass({
                 >
                     <div
                         className="perseus-block-math-inner"
-                        style={{...innerStyle, overflowX: 'auto'}}
+                        style={innerStyle}
                     >
                         <Zoomable
                             readyToMeasureDeferred={deferred}
