@@ -368,21 +368,16 @@
         margin: 0;
     }
 
-    .perseus-renderer > .paragraph ul:not(.perseus-widget-radio, .fancy-select-options) {
-        margin: 0;
+    .perseus-renderer > .paragraph ul:not(.perseus-widget-radio):not(.fancy-select-options) {
+        margin: 0 0 0 1em;
         padding: 0;
 
         > li {
-            list-style-type: none;
+            // NOTE(charlie): This relies on the bullet at 1em being exactly
+            // 22px wide (making for 32px, or 2 * @baseUnit of padding in
+            // total). This could lead to inconsistencies across browsers.
+            padding-left: 10px;
             margin-bottom: 1.5 * @baseUnit;
-
-            &:before {
-                // NOTE(charlie): This relies on the bullet itself being
-                // ~8 pixels wide, since the padding should really be
-                // 1.5 * @baseUnit. The standard CSS bullets are too wide.
-                content: "•";
-                padding-right: 1.5 * @baseUnit;
-            }
 
             // NOTE(charlie): Avoid any paragraphs inside the lists being
             // laid out on their own lines.
@@ -403,22 +398,10 @@
     }
 
     // Support for nested lists
-    // NOTE(charlie): We need to handle nesting of ordered and unordered
-    // lists slightly differently, as the base elements are laid out
-    // differently. In particular, ordered lists already apply left padding
-    // as they use `list-style-type: outside` (the default).
-    .perseus-renderer > .paragraph ol {
-        ol, ul:not(.perseus-widget-radio, .fancy-select-options) {
+    .perseus-renderer > .paragraph ol,
+    .perseus-renderer > .paragraph ul:not(.perseus-widget-radio):not(.fancy-select-options) {
+        ol, ul:not(.perseus-widget-radio):not(.fancy-select-options) {
             padding-top: 1.5 * @baseUnit;
-        }
-    }
-
-    .perseus-renderer > .paragraph ul:not(.perseus-widget-radio, .fancy-select-options) {
-        > li {
-            ol, ul:not(.perseus-widget-radio, .fancy-select-options) {
-                padding-top: 1.5 * @baseUnit;
-                margin-left: 2 * @baseUnit;
-            }
         }
     }
 
