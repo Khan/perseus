@@ -310,7 +310,12 @@ var Renderer = React.createClass({
     componentWillUnmount: function() {
         if (this._keypadContainer) {
             ReactDOM.unmountComponentAtNode(this._keypadContainer);
-            this._keypadContainer.remove();
+            if (this._keypadContainer.parentNode) {
+                // Note ChildNode.remove() isn't available in older Android
+                // webviews.
+                this._keypadContainer.parentNode.removeChild(
+                        this._keypadContainer);
+            }
             this._keypadContainer = null;
         }
 
