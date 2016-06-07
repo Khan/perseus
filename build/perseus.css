@@ -1,5 +1,5 @@
 /* Perseus CSS
- * commit 3af7799494d305659174389e65a2b920b5989d0e
+ * commit 209995494fcf8653c1afe7fba57d5be20bec5941
  * branch master
  * @generated */
 .perseus-sr-only {
@@ -196,23 +196,18 @@
 .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph > .paragraph {
   margin: 0;
 }
-.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio, .fancy-select-options),
-.framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio, .fancy-select-options) {
-  margin: 0;
+.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio):not(.fancy-select-options),
+.framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio):not(.fancy-select-options) {
+  margin: 0 0 0 1em;
   padding: 0;
 }
-.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio, .fancy-select-options) > li,
-.framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio, .fancy-select-options) > li {
-  list-style-type: none;
+.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio):not(.fancy-select-options) > li,
+.framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio):not(.fancy-select-options) > li {
+  padding-left: 10px;
   margin-bottom: 24px;
 }
-.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio, .fancy-select-options) > li:before,
-.framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio, .fancy-select-options) > li:before {
-  content: "•";
-  padding-right: 24px;
-}
-.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio, .fancy-select-options) > li > .paragraph:first-child,
-.framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio, .fancy-select-options) > li > .paragraph:first-child {
+.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio):not(.fancy-select-options) > li > .paragraph:first-child,
+.framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio):not(.fancy-select-options) > li > .paragraph:first-child {
   display: inline-block;
 }
 .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph ol,
@@ -227,16 +222,13 @@
 }
 .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph ol ol,
 .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph ol ol,
-.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph ol ul:not(.perseus-widget-radio, .fancy-select-options),
-.framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph ol ul:not(.perseus-widget-radio, .fancy-select-options) {
+.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio):not(.fancy-select-options) ol,
+.framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio):not(.fancy-select-options) ol,
+.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph ol ul:not(.perseus-widget-radio):not(.fancy-select-options),
+.framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph ol ul:not(.perseus-widget-radio):not(.fancy-select-options),
+.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio):not(.fancy-select-options) ul:not(.perseus-widget-radio):not(.fancy-select-options),
+.framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio):not(.fancy-select-options) ul:not(.perseus-widget-radio):not(.fancy-select-options) {
   padding-top: 24px;
-}
-.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio, .fancy-select-options) > li ol,
-.framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio, .fancy-select-options) > li ol,
-.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio, .fancy-select-options) > li ul:not(.perseus-widget-radio, .fancy-select-options),
-.framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio, .fancy-select-options) > li ul:not(.perseus-widget-radio, .fancy-select-options) {
-  padding-top: 24px;
-  margin-left: 32px;
 }
 @media (max-width: 767px) {
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph,
