@@ -836,9 +836,13 @@ var Renderer = React.createClass({
                         const mathjax = node.querySelector(".MathJax");
 
                         if (katex) {
-                            waitForKatexFonts().then(() => deferred.resolve());
+                            waitForKatexFonts().then(() => {
+                                deferred.resolve();
+                            });
                         } else if (mathjax) {
-                            waitForMathjaxFonts().then(() => deferred.resolve());
+                            waitForMathjaxFonts().then(() => {
+                                deferred.resolve();
+                            });
                         } else {
                             throw new Error("No math present in Renderer");
                         }
