@@ -62,10 +62,6 @@ const Zoomable = React.createClass({
         });
     },
 
-    componentWillUnmount() {
-        this.props.readyToMeasureDeferred.reject();
-    },
-
     // TODO(benkomalo): call this on viewport width changes or when our own
     // natural width changes? Can check out
     // https://github.com/Khan/math-input/blob/master/src/components/math-keypad.js#L43
