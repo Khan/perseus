@@ -85,13 +85,44 @@ $(function() {
     };
 });
 
+function disablePageZoomOutOnMobile() {
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+
+    // Disable zoom out on mobile devices by setting a minimum scale of 1 on
+    // the viewport meta tag.
+    const VIEWPORT_META_CONTENT =
+        'width=device-width, initial-scale=1, minimum-scale=1';
+
+    const viewport = document.querySelector("meta[name=viewport]");
+    if (viewport) {
+        viewport.setAttribute('content', VIEWPORT_META_CONTENT);
+    } else {
+        $('head').append(
+            `<meta name="viewport" content="${VIEWPORT_META_CONTENT}">`);
+    }
+
+    // Hacky way to get the page to take the changes
+    // From http://stackoverflow.com/a/36894653
+    document.body.style.opacity = 0.9999;
+
+    // ... and undo the temporary change.
+    setTimeout(() => {
+        document.body.style.opacity = 1;
+
+        // ... which involves restoring the scroll position, which may have
+        // changed.
+        window.scrollTo(scrollX, scrollY);
+    }, 0);
+}
+
 /**
  * The zoom service
  */
 function ZoomService() {
 }
 
-ZoomService.prototype._initialize = function(zoomToFullSize) {
+ZoomService.prototype._initialize = function(zoomToFullSizeOnMobile) {
     // Check to see if the service is already initialized
     if (this._$document) {
         return;
@@ -107,11 +138,11 @@ ZoomService.prototype._initialize = function(zoomToFullSize) {
 
     this._boundClick = $.proxy(this._clickHandler, this);
 
-    this._zoomToFullSize = zoomToFullSize;
+    this._zoomToFullSizeOnMobile = zoomToFullSizeOnMobile;
 };
 
-ZoomService.prototype.handleZoomClick = function(e, zoomToFullSize) {
-    this._initialize(zoomToFullSize);
+ZoomService.prototype.handleZoomClick = function(e, zoomToFullSizeOnMobile) {
+    this._initialize(zoomToFullSizeOnMobile);
     var target = e.target;
 
     if (!target || target.tagName !== 'IMG') {
@@ -126,17 +157,33 @@ ZoomService.prototype.handleZoomClick = function(e, zoomToFullSize) {
         return window.open(e.target.src, '_blank');
     }
 
-    if (target.width >=
-            window.innerWidth - Zoom.getOffset(this._zoomToFullSize)) {
+    if (target.width >= window.innerWidth -
+            Zoom.getOffset(this._zoomToFullSizeOnMobile)) {
         return;
     }
 
     this._activeZoomClose(true);
 
-    this._activeZoom = new Zoom(target, this._zoomToFullSize);
-    this._activeZoom.zoomImage();
+    // Disable page zoom out, because the container that the image is placed in
+    // becomes bigger than the viewport if the page can be zoomed out. We
+    // explored other fixes like fixing the overlay and page size to be the
+    // viewport, but thought that might be even worse of a hack.
+    // See for more info:
+    // http://dbushell.com/2013/09/10/css-fixed-positioning-and-mobile-zoom/
+    if (zoomToFullSizeOnMobile) {
+        disablePageZoomOutOnMobile();
+    }
 
-    if (!this._zoomToFullSize) {
+    // We do this after a slight delay because disabling page zoom out on
+    // mobile may change the viewport meta tag, which may change the scroll
+    // position for a bit, and we may need to wait for that scroll position to
+    // be reset to what it was before proceeding with the zoom animation.
+    setTimeout(() => {
+        this._activeZoom = new Zoom(target, this._zoomToFullSizeOnMobile);
+        this._activeZoom.zoomImage();
+    }, 5);
+
+    if (!this._zoomToFullSizeOnMobile) {
         // todo(fat): probably worth throttling this
         this._$window.on('scroll.zoom', $.proxy(this._scrollHandler, this));
 
@@ -212,13 +259,13 @@ ZoomService.prototype._touchMove = function(e) {
 /**
  * The zoom object
  */
-function Zoom(img, zoomToFullSize) {
+function Zoom(img, zoomToFullSizeOnMobile) {
     this._fullHeight =
         this._fullWidth =
         this._overlay = null;
 
     this._targetImage = img;
-    this._zoomToFullSize = zoomToFullSize;
+    this._zoomToFullSizeOnMobile = zoomToFullSizeOnMobile;
 
     this._$body = $(document.body);
 }
@@ -227,12 +274,12 @@ Zoom._OFFSET = 80;
 Zoom._MAX_WIDTH = 2560;
 Zoom._MAX_HEIGHT = 4096;
 
-Zoom.getOffset = function(zoomToFullSize) {
-    return zoomToFullSize ? 0 : Zoom._OFFSET;
+Zoom.getOffset = function(zoomToFullSizeOnMobile) {
+    return zoomToFullSizeOnMobile ? 0 : Zoom._OFFSET;
 };
 
 Zoom.prototype.getOffset = function() {
-    return Zoom.getOffset(this._zoomToFullSize);
+    return Zoom.getOffset(this._zoomToFullSizeOnMobile);
 };
 
 Zoom.prototype.zoomImage = function() {
@@ -294,7 +341,7 @@ Zoom.prototype._calculateZoom = function() {
 
     var maxScaleFactor = originalFullImageWidth / this._targetImage.width;
 
-    if (this._zoomToFullSize) {
+    if (this._zoomToFullSizeOnMobile) {
         // Zoom to full size of the original image.
         this._imgScaleFactor = maxScaleFactor;
 

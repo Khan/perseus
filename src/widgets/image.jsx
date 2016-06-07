@@ -126,7 +126,7 @@ var ImageWidget = React.createClass({
                             labels: this.props.labels,
                         }}
                         trackInteraction={this.props.trackInteraction}
-                        zoomToFullSize={this.props.apiOptions &&
+                        zoomToFullSizeOnMobile={this.props.apiOptions &&
                             this.props.apiOptions.xomManatee}
             />;
         }
