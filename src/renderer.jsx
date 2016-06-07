@@ -830,15 +830,18 @@ var Renderer = React.createClass({
                 this.props.onRender && this.props.onRender(node);
 
                 if (apiOptions.xomManatee) {
-                    const katex = node.querySelector('.katex');
-                    const mathjax = node.querySelector('.MathJax');
+                    // `onRender` only returns a node on the initial render.
+                    if (node) {
+                        const katex = node.querySelector(".katex");
+                        const mathjax = node.querySelector(".MathJax");
 
-                    if (katex) {
-                        waitForKatexFonts().then(() => deferred.resolve());
-                    } else if (mathjax) {
-                        waitForMathjaxFonts().then(() => deferred.resolve());
-                    } else {
-                        throw new Error(`there's no math`);
+                        if (katex) {
+                            waitForKatexFonts().then(() => deferred.resolve());
+                        } else if (mathjax) {
+                            waitForMathjaxFonts().then(() => deferred.resolve());
+                        } else {
+                            throw new Error("No math present in Renderer");
+                        }
                     }
                 }
             };
