@@ -60,6 +60,12 @@ const Zoomable = React.createClass({
                 this.scaleChildToFit();
             }
         });
+
+        this._node.addEventListener("touchstart", (e) => {
+            if (!this.state.zoomed) {
+                e.stopPropagation();
+            }
+        }, true);
     },
 
     // TODO(benkomalo): call this on viewport width changes or when our own
