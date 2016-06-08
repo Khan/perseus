@@ -351,6 +351,11 @@
 
     // Shared styles
 
+    // Wipe out any margins set by legacy styles (e.g., in `perseus.less`).
+    div.paragraph {
+        margin: 0;
+    }
+
     // NOTE(charlie): The basic outline of rendered Perseus content consists of
     // a .perseus-renderer, followed by a series of .paragraph elements. Each
     // .paragraph in turn contains a single .paragraph element that itself
@@ -378,12 +383,6 @@
             // total). This could lead to inconsistencies across browsers.
             padding-left: 10px;
             margin-bottom: 1.5 * @baseUnit;
-
-            // NOTE(charlie): Avoid any paragraphs inside the lists being
-            // laid out on their own lines.
-            > .paragraph:first-child {
-                display: inline-block;
-            }
         }
     }
 
