@@ -60,12 +60,14 @@ const Zoomable = React.createClass({
                 this.scaleChildToFit();
             }
         });
+    },
 
-        this._node.addEventListener("touchstart", (e) => {
-            if (!this.state.zoomed) {
-                e.stopPropagation();
-            }
-        }, true);
+    handleTouchStart(e) {
+        if (!this.state.zoomed) {
+            // We only allow touch starts (which trigger interactive elements)
+            // to be propagated to children if we are already zoomed
+            e.stopPropagation();
+        }
     },
 
     // TODO(benkomalo): call this on viewport width changes or when our own
@@ -142,6 +144,7 @@ const Zoomable = React.createClass({
 
         return <span
             onClick={this.handleClick}
+            onTouchStartCapture={this.handleTouchStart}
             style={style}
         >
             {this.props.children}
