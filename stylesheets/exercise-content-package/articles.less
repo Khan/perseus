@@ -322,6 +322,15 @@
             line-height: @smallTextLineHeight;
             color: @gray68;
         }
+
+        // If the first element in the caption is the title (which will be
+        // bold), darken that. Yes, this is hacky, and would ideally be done in
+        // JS or inline styles.
+        .perseus-image-caption.has-title .paragraph .paragraph {
+            strong:first-child {
+                color: @gray25;
+            }
+        }
     }
 
     .math(@blockMathTextSize; @blockMathLineHeight;

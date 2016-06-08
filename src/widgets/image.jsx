@@ -7,6 +7,7 @@
     react/jsx-closing-bracket-location
 */
 
+var classNames = require("classnames");
 var React = require("react");
 var _ = require("underscore");
 
@@ -73,20 +74,10 @@ var ImageWidget = React.createClass({
     },
 
     render: function() {
-        var title;
         var image;
         var alt;
-        var caption;
+        var titleAndCaption;
         var {apiOptions} = this.props;
-
-        if (this.props.title) {
-            title = <div className="perseus-image-title">
-                <Renderer
-                    content={this.props.title}
-                    apiOptions={this.props.apiOptions}
-                />
-            </div>;
-        }
 
         var backgroundImage = this.props.backgroundImage;
 
@@ -140,20 +131,39 @@ var ImageWidget = React.createClass({
             </span>;
         }
 
-        if (this.props.caption) {
-            caption = <div className="perseus-image-caption">
+        if (this.props.title || this.props.caption) {
+            let title = this.props.title;
+
+            // Bold the title, and make it the first sentence of the caption.
+            if (title) {
+                // We add a period to separate the title from the caption (if
+                // it exists), unless the title already ends with a punctuation
+                // symbol (whitespace ignored). Copied from webapp's
+                // tutorial-shared-package/components/content-description.jsx
+                if (this.props.caption && !/[.?!"']\s*$/.test(title)) {
+                    title += ".";
+                }
+
+                title = `**${title}** `;
+            }
+
+            const className = classNames({
+                "perseus-image-caption": true,
+                "has-title": !!title,
+            });
+
+            titleAndCaption = <div className={className}>
                 <Renderer
-                    content={this.props.caption}
+                    content={title + this.props.caption}
                     apiOptions={this.props.apiOptions}
                 />
             </div>;
         }
 
         return <div className="perseus-image-widget">
-            {title}
             {image}
             {alt}
-            {caption}
+            {titleAndCaption}
         </div>;
     },
 
