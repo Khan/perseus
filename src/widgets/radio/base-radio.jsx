@@ -312,18 +312,26 @@ const BaseRadio = React.createClass({
                         _.extend(elementProps, {showContent: choice.correct});
                     }
 
-                    const className = classNames(
-                        css(
+                    const aphroditeClassName = (checked) => {
+                        return css(
                             styles.item,
                             !this.props.onePerLine && styles.inlineItem,
                             responsive && styles.responsiveItem,
                             mobile && styles.mobileRadioOption,
-                            mobile &&
-                                choice.checked && styles.mobileRadioSelected,
+                            mobile && checked && styles.mobileRadioSelected,
                             sat && styles.satRadioOption,
-                            sat && choice.checked && styles.satRadioSelected,
+                            sat && checked && styles.satRadioSelected,
                             sat && rubric && styles.satReviewRadioOption
-                        ),
+                        );
+                    };
+
+                    // HACK(abdulrahman): Preloads the selection-state
+                    // css because of a bug that causes iOS to lag
+                    // when selecting the button for the first time.
+                    aphroditeClassName(true);
+
+                    const className = classNames(
+                        aphroditeClassName(choice.checked),
                         // TODO(aria): Make test case for these API classNames
                         ApiClassNames.RADIO.OPTION,
                         !this.props.onePerLine && "inline",
