@@ -1,14 +1,14 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable comma-dangle, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var classNames = require("classnames");
-var React = require('react');
+const classNames = require("classnames");
+const React = require('react');
 
-var EnabledFeatures = require("./enabled-features.jsx");
-var Widgets = require("./widgets.js");
+const EnabledFeatures = require("./enabled-features.jsx");
+const Widgets = require("./widgets.js");
 
-var WidgetContainer = React.createClass({
+const WidgetContainer = React.createClass({
     propTypes: {
         shouldHighlight: React.PropTypes.bool.isRequired,
         type: React.PropTypes.string,
@@ -21,20 +21,20 @@ var WidgetContainer = React.createClass({
     },
 
     render: function() {
-        var className = classNames({
+        let className = classNames({
             "perseus-widget-container": true,
             "widget-highlight": this.props.shouldHighlight,
             "widget-nohighlight": !this.props.shouldHighlight,
         });
 
-        var type = this.props.type;
-        var WidgetType = Widgets.getWidget(type, this.props.enabledFeatures);
+        const type = this.props.type;
+        const WidgetType = Widgets.getWidget(type, this.props.enabledFeatures);
         if (WidgetType == null) {
             // Just give up on invalid widget types
             return <div className={className} />;
         }
 
-        var alignment = this.state.widgetProps.alignment;
+        let alignment = this.state.widgetProps.alignment;
         if (alignment === "default") {
             alignment = Widgets.getDefaultAlignment(type,
                             this.props.enabledFeatures);
@@ -42,17 +42,17 @@ var WidgetContainer = React.createClass({
 
         className += " widget-" + alignment;
 
-        var apiOptions = this.state.widgetProps.apiOptions;
+        const apiOptions = this.state.widgetProps.apiOptions;
 
         // Hack to prevent interaction with static widgets: we overlay a big
         // div on top of the widget and overflow: hidden the container.
         // Ideally widgets themselves should know how to prevent interaction.
-        var isStatic = this.state.widgetProps.static || apiOptions.readOnly;
-        var staticContainerStyles = {
+        const isStatic = this.state.widgetProps.static || apiOptions.readOnly;
+        const staticContainerStyles = {
             position: 'relative',
             overflow: 'visible',
         };
-        var staticOverlayStyles = {
+        const staticOverlayStyles = {
             width: '100%',
             height: '100%',
             position: 'absolute',

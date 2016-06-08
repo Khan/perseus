@@ -419,12 +419,12 @@ var Renderer = React.createClass({
     },
 
     getWidgetProps: function(id) {
-        var widgetProps = this.state.widgetProps[id] || {};
+        const widgetProps = this.state.widgetProps[id] || {};
 
         // The widget needs access to its "rubric" at all times when in review
         // mode (which is really just part of its widget info).
-        var reviewModeRubric = null;
-        var widgetInfo = this.state.widgetInfo[id];
+        let reviewModeRubric = null;
+        const widgetInfo = this.state.widgetInfo[id];
         if (this.props.reviewMode && widgetInfo) {
             reviewModeRubric = widgetInfo.options;
         }
@@ -433,7 +433,7 @@ var Renderer = React.createClass({
             this._interactionTrackers = {};
         }
 
-        var interactionTracker = this._interactionTrackers[id];
+        let interactionTracker = this._interactionTrackers[id];
         if (!interactionTracker) {
             interactionTracker = this._interactionTrackers[id] =
                 new InteractionTracker(this.props.apiOptions.trackInteraction,
@@ -441,7 +441,8 @@ var Renderer = React.createClass({
                 Widgets.getTracking(widgetInfo && widgetInfo.type));
         }
 
-        return _.extend({}, widgetProps, {
+        return {
+            ...widgetProps,
             ref: id,
             widgetId: id,
             alignment: widgetInfo && widgetInfo.alignment,
@@ -459,7 +460,7 @@ var Renderer = React.createClass({
                 this._setWidgetProps(id, newProps, cb);
             },
             trackInteraction: interactionTracker.track,
-        });
+        };
     },
 
     /**

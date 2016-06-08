@@ -32,15 +32,15 @@ const GrapherEditor = React.createClass({
     },
 
     render: function() {
-        var graph;
-        var equationString;
-        var graph = _.extend(this.props.graph, {
-            box: [DEFAULT_EDITOR_BOX_SIZE, DEFAULT_EDITOR_BOX_SIZE]
-        });
-
+        let equationString;
+        let graph;
         if (this.props.graph.valid === true) {
             var graphProps = {
-                graph: this.props.graph,
+                graph: {
+                    // Override the box size in the editor.
+                    ...this.props.graph,
+                    box: [DEFAULT_EDITOR_BOX_SIZE, DEFAULT_EDITOR_BOX_SIZE],
+                },
                 plot: this.props.correct,
                 availableTypes: this.props.availableTypes,
                 onChange: (newProps, cb) => {
@@ -60,8 +60,8 @@ const GrapherEditor = React.createClass({
             equationString = GrapherUtil.getEquationString(graphProps);
         } else {
             graph = <div className="perseus-error">
-                        {this.props.graph.valid}
-                    </div>;
+                {this.props.graph.valid}
+            </div>;
         }
 
         return <div>

@@ -70,7 +70,7 @@ module.exports = {
     // @zIndexCalculator: @zIndexCurrentlyDragging + 1;
     zIndexCalculator: "5",
     // @phoneMargin: 16px;
-    phoneMargin: "16px",
+    phoneMargin: 16,
 
     negativePhoneMargin: -16,
 

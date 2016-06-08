@@ -2,16 +2,16 @@
 /* eslint-disable brace-style, comma-dangle, no-var, one-var, space-unary-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var _ = require("underscore");
+const _ = require("underscore");
 
-var Util = require("../../util.js");
-var Graphie = require("../../components/graphie.jsx");
-var Plot = Graphie.Plot;
-var kpoint = require("kmath").point;
+const Util = require("../../util.js");
+const Graphie = require("../../components/graphie.jsx");
+const Plot = Graphie.Plot;
+const kpoint = require("kmath").point;
 
-var DEFAULT_BOX_SIZE = 400;
-var DEFAULT_EDITOR_BOX_SIZE = 340;
-var DEFAULT_BACKGROUND_IMAGE = {
+const DEFAULT_BOX_SIZE = 400;
+const DEFAULT_EDITOR_BOX_SIZE = 340;
+const DEFAULT_BACKGROUND_IMAGE = {
     url: null
 };
 
