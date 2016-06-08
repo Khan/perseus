@@ -1,5 +1,5 @@
 /* Perseus CSS
- * commit 209995494fcf8653c1afe7fba57d5be20bec5941
+ * commit 4264358d30d9cebaa2ee541da4288eb77927687a
  * branch master
  * @generated */
 .perseus-sr-only {
@@ -11,6 +11,17 @@
   padding: 0;
   position: absolute;
   width: 1px;
+}
+.perseus-clearfix {
+  *zoom: 1;
+}
+.perseus-clearfix:before,
+.perseus-clearfix:after {
+  content: "";
+  display: table;
+}
+.perseus-clearfix:after {
+  clear: both;
 }
 .framework-perseus.perseus-article:not(.bibliotron-article) .perseus-widget-container.widget-float-left {
   float: left;
@@ -699,6 +710,9 @@ img.zoom-img {
 }
 #perseus {
   position: relative;
+}
+.framework-perseus.perseus-xom-manatee {
+  margin-top: 16px;
 }
 .no-select {
   -moz-user-select: -moz-none;
