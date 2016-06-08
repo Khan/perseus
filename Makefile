@@ -141,6 +141,12 @@ ifneq ("$(SUPPRESSINSTALL)","TRUE")
 # files, but it does not know how to interpret the "presets" option which was
 # introduced in babel 6.  When it see "presets" it fails.
 	rm -f math-input/.babelrc
+
+# Cleans up node modules in math-input that are added through npm install in the
+# submodule, but shouldn't be used because Perseus's copy should be used instead.
+	rm -rf math-input/node_modules/react
+	rm -rf math-input/node_modules/react-dom
+	rm -rf math-input/node_modules/react-addons
 endif
 
 clean:
