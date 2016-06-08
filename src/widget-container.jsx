@@ -2,11 +2,16 @@
 /* eslint-disable comma-dangle, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-const classNames = require("classnames");
+const classNames = require('classnames');
 const React = require('react');
+const ReactDOM = require('react-dom');
 
-const EnabledFeatures = require("./enabled-features.jsx");
-const Widgets = require("./widgets.js");
+const EnabledFeatures = require('./enabled-features.jsx');
+const Widgets = require('./widgets.js');
+const {
+    containerSizeClass,
+    getClassFromWidth,
+} = require('./util/sizing-utils.js');
 
 const WidgetContainer = React.createClass({
     propTypes: {
@@ -17,7 +22,29 @@ const WidgetContainer = React.createClass({
     },
 
     getInitialState: function() {
-        return {widgetProps: this.props.initialProps};
+        return {
+            // TODO(benkomalo): before we're mounted, we don't know how big
+            // we're going to be, so just default to MEDIUM for now. :/ In the
+            // future we can sniff with user-agents or something to get a
+            // better approximation, to avoid flickers
+            sizeClass: containerSizeClass.MEDIUM,
+            widgetProps: this.props.initialProps,
+        };
+    },
+
+    componentDidMount() {
+        const containerWidth = ReactDOM.findDOMNode(this).offsetWidth;
+
+        // NOTE(benkomalo): in the common case, this won't change anything.
+        // Unfortunately, it will cause a flash and re-layout on mobile, but
+        // until we have better SSR or a more drastic way change to our APIs
+        // that hints at the available size, we do have to measure DOM
+        // unfortunately.
+        /* eslint-disable react/no-did-mount-set-state */
+        this.setState({
+            sizeClass: getClassFromWidth(containerWidth),
+        });
+        /* eslint-enable react/no-did-mount-set-state */
     },
 
     render: function() {
@@ -70,6 +97,7 @@ const WidgetContainer = React.createClass({
                 style={isStatic ? staticContainerStyles : {}}>
             <WidgetType
                 {...this.state.widgetProps}
+                containerSizeClass={this.state.sizeClass}
                 ref="widget"
             />
             {isStatic && <div style={staticOverlayStyles} />}

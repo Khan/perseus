@@ -8,9 +8,9 @@ const Util = require("../../util.js");
 const Graphie = require("../../components/graphie.jsx");
 const Plot = Graphie.Plot;
 const kpoint = require("kmath").point;
+const { interactiveSizes } = require("../../styles/constants.js");
+const { containerSizeClass } = require("../../util/sizing-utils.js");
 
-const DEFAULT_BOX_SIZE = 400;
-const DEFAULT_EDITOR_BOX_SIZE = 340;
 const DEFAULT_BACKGROUND_IMAGE = {
     url: null
 };
@@ -586,7 +586,8 @@ var GrapherUtil = {
         // widget before even reading the question; you can't lose, but you
         // might get a free win.
         var model = functionForType(type);
-        var snapStep = this.getGridAndSnapSteps(graph).snapStep;
+        var gridStep = 1;
+        var snapStep = Util.snapStepFromGridStep(gridStep);
         return {
             type,
             asymptote: this.maybePointsFromNormalized(model.defaultAsymptote,
@@ -598,22 +599,24 @@ var GrapherUtil = {
     /* Given a list of available types, choose which to use. */
     chooseType: _.first,
 
-    getGridAndSnapSteps: function(options) {
-        var gridStep = options.gridStep ||
-            Util.getGridStep(options.range, options.step, DEFAULT_BOX_SIZE);
-        var snapStep = options.snapStep ||
-            Util.snapStepFromGridStep(gridStep);
-        return {
-            gridStep: gridStep,
-            snapStep: snapStep
-        };
-    }
+    getBoxFromSizeClass: (sizeClass) => {
+        if (sizeClass === containerSizeClass.SMALL) {
+            return [
+                interactiveSizes.defaultBoxSizeSmall,
+                interactiveSizes.defaultBoxSizeSmall,
+            ];
+        } else {
+            return [
+                interactiveSizes.defaultBoxSize,
+                interactiveSizes.defaultBoxSize,
+            ];
+        }
+    },
 };
 
 var DEFAULT_GRAPHER_PROPS = {};
 
 DEFAULT_GRAPHER_PROPS.graph = {
-    box: [DEFAULT_BOX_SIZE, DEFAULT_BOX_SIZE],
     labels: ["x", "y"],
     range: [[-10, 10], [-10, 10]],
     step: [1, 1],
@@ -644,7 +647,5 @@ module.exports = {
     typeToButton,
     functionForType,
     DEFAULT_GRAPHER_PROPS,
-    DEFAULT_EDITOR_BOX_SIZE,
-    DEFAULT_BOX_SIZE,
     DEFAULT_BACKGROUND_IMAGE,
 };

@@ -19,6 +19,8 @@ var knumber = require("kmath").number;
 var kvector = require("kmath").vector;
 var kpoint = require("kmath").point;
 const KhanColors = require("../util/colors.js");
+const { containerSizeClassPropType } = require("../util/sizing-utils.js");
+const { interactiveSizes } = require("../styles/constants.js");
 
 /* Mixins. */
 var Changeable   = require("../mixins/changeable.jsx");
@@ -28,7 +30,6 @@ const {
     typeToButton,
     functionForType,
     DEFAULT_GRAPHER_PROPS,
-    DEFAULT_BOX_SIZE,
 } = require("./grapher/util.jsx");
 
 function isFlipped(newCoord, oldCoord, line) {
@@ -141,7 +142,7 @@ var FunctionGrapher = React.createClass({
         var imageDescription = this.props.graph.backgroundImage;
         var image = null;
         if (imageDescription.url) {
-            var scale = box[0] / DEFAULT_BOX_SIZE;
+            var scale = box[0] / interactiveSizes.defaultBoxSize;
             image = <SvgImage src={imageDescription.url}
                               width={imageDescription.width}
                               height={imageDescription.height}
@@ -234,6 +235,7 @@ var FunctionGrapher = React.createClass({
 /* Widget and editor. */
 var Grapher = React.createClass({
     propTypes: {
+        containerSizeClass: containerSizeClassPropType.isRequired,
         trackInteraction: React.PropTypes.func.isRequired,
     },
 
@@ -255,15 +257,15 @@ var Grapher = React.createClass({
                 onChange={this.handleActiveTypeChange} />
         </div>;
 
-        var box = this.props.graph.box;
+        const box = GrapherUtil.getBoxFromSizeClass(
+                this.props.containerSizeClass);
 
         // Calculate additional graph properties so that the same values are
         // passed in to both FunctionGrapher and Graphie.
-        var options = _.extend({}, this.props.graph,
-            GrapherUtil.getGridAndSnapSteps(this.props.graph));
-        _.extend(options, {
-            gridConfig: this._getGridConfig(options)
-        });
+        const options = {
+            ...this.props.graph,
+            gridConfig: this._getGridConfig({...this.props.graph, box: box})
+        };
 
         // The `graph` prop will eventually be passed to the <Graphie>
         // component. In fact, if model is `null`, this is functionalliy
@@ -365,10 +367,10 @@ var Grapher = React.createClass({
 });
 
 var propTransform = (editorProps) => {
-    var widgetProps = _.pick(editorProps, "availableTypes");
-    widgetProps.graph = _.extend(editorProps.graph, {
-        box: [DEFAULT_BOX_SIZE, DEFAULT_BOX_SIZE]
-    });
+    var widgetProps = {
+        availableTypes: editorProps.availableTypes,
+        graph: editorProps.graph
+    };
 
     // If there's only one type, the graph type is deterministic
     if (widgetProps.availableTypes.length === 1) {
