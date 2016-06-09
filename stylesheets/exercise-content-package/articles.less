@@ -265,7 +265,11 @@
     }
 
     .sub-heading(@fontSize, @lineHeight, @paddingTopMultiplier) {
-        h3 {
+        // NOTE(charlie): Though we discourage the use of H4 and beyond, as of
+        // 06/08/2016, there are 188 articles and exercises that use H4 (and
+        // just 8 that use H5 or H6). As such, we provide style support for H4,
+        // since it's still quite common--but we just replicate the H3 style.
+        h3, h4 {
             .header(@fontSize, @lineHeight, @gray41, @paddingTopMultiplier);
         }
     }
