@@ -18,6 +18,8 @@ var Changeable    = require("../mixins/changeable.jsx");
 
 var SvgImage     = require("../components/svg-image.jsx");
 
+const { baseUnitPx } = require("../styles/constants.js");
+
 var defaultBoxSize = 400;
 var defaultRange = [0, 10];
 var defaultBackgroundImage = {
@@ -81,13 +83,15 @@ var ImageWidget = React.createClass({
     render: function() {
         var image;
         var alt;
+        var imageWidth;
+        var imageHeight;
         var {apiOptions} = this.props;
 
         var backgroundImage = this.props.backgroundImage;
 
         if (backgroundImage.url) {
-            let imageHeight = backgroundImage.height;
-            let imageWidth = backgroundImage.width;
+            imageHeight = backgroundImage.height;
+            imageWidth = backgroundImage.width;
 
             if (apiOptions.xomManatee && this._viewportHeight) {
                 // Constrain image height to be at most 2/3 viewport height,
@@ -175,11 +179,29 @@ var ImageWidget = React.createClass({
                     "has-title": !!title,
                 });
 
+                // Caption is left-aligned within a container that's centered
+                // below the image, with these width constraints:
+                // 1. Minimum width = 288px
+                // 2. Maximum width = min(400px, content width, image width)
+                // The following CSS should do the trick, since CSS precedence
+                // is minWidth > maxWidth > width.
+                // TODO(david): If caption is only 1 line long, center-align
+                //     the text.
+                const maxWidth = imageWidth ? Math.min(400, imageWidth) : 400;
                 titleAndCaption = <div className={className}>
-                    <Renderer
-                        content={title + this.props.caption}
-                        apiOptions={apiOptions}
-                    />
+                    <div style={{
+                        display: "inline-block",
+                        marginTop: baseUnitPx,
+                        minWidth: 288,
+                        maxWidth: maxWidth,
+                        width: "100%",
+                    }}
+                    >
+                        <Renderer
+                            content={title + this.props.caption}
+                            apiOptions={apiOptions}
+                        />
+                    </div>
                 </div>;
             }
 
@@ -188,6 +210,7 @@ var ImageWidget = React.createClass({
                 {alt}
                 {titleAndCaption}
             </div>;
+
         } else {
             var title;
             var caption;
