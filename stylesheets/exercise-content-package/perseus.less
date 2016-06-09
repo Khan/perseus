@@ -568,6 +568,9 @@
         display: table;
         clear: both;
     }
+    // NOTE(charlie): In XOM, these margins get overridden with the paragraph
+    // defaults. Instead, we apply similar margins through inline styles in
+    // `hints-renderer.jsx`.
     div.paragraph {
         margin-top: 0px;
         margin-bottom: 16px;

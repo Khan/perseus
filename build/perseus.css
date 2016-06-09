@@ -1,5 +1,5 @@
 /* Perseus CSS
- * commit 2b5a1b02660ed4ad0f3d48d438ed0a0c48fe25cf
+ * commit 3ec4b9ec28640839a41931450ea1c7f825ac58a3
  * branch master
  * @generated */
 .perseus-sr-only {
@@ -195,6 +195,10 @@
   line-height: 1.5;
   margin: 0;
 }
+.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee div.paragraph,
+.framework-perseus:not(.perseus-article).perseus-xom-manatee div.paragraph {
+  margin: 0;
+}
 .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph,
 .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph {
   margin: 0 auto;
@@ -207,6 +211,10 @@
 .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph > .paragraph {
   margin: 0;
 }
+.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .clearfix > .perseus-renderer,
+.framework-perseus:not(.perseus-article).perseus-xom-manatee .clearfix > .perseus-renderer {
+  margin-bottom: 32px;
+}
 .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio):not(.fancy-select-options),
 .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio):not(.fancy-select-options) {
   margin: 0 0 0 1em;
@@ -216,10 +224,6 @@
 .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio):not(.fancy-select-options) > li {
   padding-left: 10px;
   margin-bottom: 24px;
-}
-.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio):not(.fancy-select-options) > li > .paragraph:first-child,
-.framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio):not(.fancy-select-options) > li > .paragraph:first-child {
-  display: inline-block;
 }
 .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph ol,
 .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph ol {
@@ -265,7 +269,9 @@
     color: #3b3e40;
   }
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee h3,
-  .framework-perseus:not(.perseus-article).perseus-xom-manatee h3 {
+  .framework-perseus:not(.perseus-article).perseus-xom-manatee h3,
+  .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee h4,
+  .framework-perseus:not(.perseus-article).perseus-xom-manatee h4 {
     font-weight: 700;
     padding-top: 0px;
     font-family: inherit;
@@ -381,7 +387,9 @@
     color: #3b3e40;
   }
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee h3,
-  .framework-perseus:not(.perseus-article).perseus-xom-manatee h3 {
+  .framework-perseus:not(.perseus-article).perseus-xom-manatee h3,
+  .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee h4,
+  .framework-perseus:not(.perseus-article).perseus-xom-manatee h4 {
     font-weight: 700;
     padding-top: 16px;
     font-family: inherit;
@@ -497,7 +505,9 @@
     color: #3b3e40;
   }
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee h3,
-  .framework-perseus:not(.perseus-article).perseus-xom-manatee h3 {
+  .framework-perseus:not(.perseus-article).perseus-xom-manatee h3,
+  .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee h4,
+  .framework-perseus:not(.perseus-article).perseus-xom-manatee h4 {
     font-weight: 700;
     padding-top: 16px;
     font-family: inherit;
@@ -2477,6 +2487,10 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
 .echo-slide-and-fade-enter.echo-slide-and-fade-enter-active {
     opacity: 0 !important;
     transform: translate3d(0, -33%, 0) !important;
+    -webkit-transform: translate3d(0, -33%, 0) !important;
+    -moz-transform: translate3d(0, -33%, 0) !important;
+    -ms-transform: translate3d(0, -33%, 0) !important;
+
     /**
      * TODO(charlie): These times are intentionally different, which means that
      * the animation really "ends" after 400ms cubic-bezier(1, 0, 0.9, 1) (since

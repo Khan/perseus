@@ -1,17 +1,22 @@
 const React = require('react');
 const ReactDOM = require("react-dom");
+const { StyleSheet, css } = require("aphrodite");
+const classnames = require('classnames');
 const _ = require("underscore");
 const i18n = window.i18n;
 
 const HintRenderer = require("./hint-renderer.jsx");
 const SvgImage = require("./components/svg-image.jsx");
 const EnabledFeatures = require("./enabled-features.jsx");
+const ApiOptions = require("./perseus-api.jsx").Options;
+
+const { baseUnitPx } = require("./styles/constants.js");
 
 const HintsRenderer = React.createClass({
     propTypes: {
-        apiOptions: React.PropTypes.any,
+        apiOptions: ApiOptions.propTypes,
         className: React.PropTypes.string,
-        enabledFeatures: React.PropTypes.any,
+        enabledFeatures: EnabledFeatures.propTypes,
         hints: React.PropTypes.arrayOf(React.PropTypes.any),
         hintsVisible: React.PropTypes.number,
     },
@@ -112,6 +117,8 @@ const HintsRenderer = React.createClass({
                 const lastRendered = i === hintsVisible - 1;
 
                 const renderer = <HintRenderer
+                    className={this.props.apiOptions.xomManatee &&
+                        css(styles.hintSpacing)}
                     lastHint={lastHint}
                     lastRendered={lastRendered}
                     hint={hint}
@@ -136,7 +143,12 @@ const HintsRenderer = React.createClass({
             hintsVisible < this.props.hints.length
         );
 
-        return <div className={this.props.className}>
+        const classNames = classnames(
+            this.props.className,
+            this.props.apiOptions.xomManatee && css(styles.rendererMargins)
+        );
+
+        return <div className={classNames}>
             {hints}
             {showGetAnotherHint &&
                 <button
@@ -155,6 +167,16 @@ const HintsRenderer = React.createClass({
                     } ({hintsVisible}/{this.props.hints.length})
                 </button>}
         </div>;
+    },
+});
+
+const styles = StyleSheet.create({
+    rendererMargins: {
+        marginTop: baseUnitPx,
+    },
+
+    hintSpacing: {
+        paddingBottom: 2 * baseUnitPx,
     },
 });
 
