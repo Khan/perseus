@@ -10,7 +10,6 @@ var InputWithExamples = require("../components/input-with-examples.jsx");
 const SimpleKeypadInput = require("../components/simple-keypad-input.jsx");
 var ParseTex = require("../tex-wrangler.js").parseTex;
 var PossibleAnswers = require("../components/possible-answers.jsx");
-const { KeypadInput } = require("../../math-input").components;
 
 var ApiClassNames   = require("../perseus-api.jsx").ClassNames;
 var ApiOptions      = require("../perseus-api.jsx").Options;
