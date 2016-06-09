@@ -76,7 +76,6 @@ var ImageWidget = React.createClass({
     render: function() {
         var image;
         var alt;
-        var titleAndCaption;
         var {apiOptions} = this.props;
 
         var backgroundImage = this.props.backgroundImage;
@@ -109,16 +108,14 @@ var ImageWidget = React.createClass({
                         }
                         width={backgroundImage.width}
                         height={backgroundImage.height}
-                        preloader={apiOptions ?
-                            apiOptions.imagePreloader : null}
+                        preloader={apiOptions.imagePreloader}
                         extraGraphie={{
                             box: this.props.box,
                             range: this.props.range,
                             labels: this.props.labels,
                         }}
                         trackInteraction={this.props.trackInteraction}
-                        zoomToFullSizeOnMobile={this.props.apiOptions &&
-                            this.props.apiOptions.xomManatee}
+                        zoomToFullSizeOnMobile={apiOptions.xomManatee}
             />;
         }
 
@@ -126,45 +123,81 @@ var ImageWidget = React.createClass({
             alt = <span className="perseus-sr-only">
                 <Renderer
                     content={this.props.alt}
-                    apiOptions={this.props.apiOptions}
+                    apiOptions={apiOptions}
                 />
             </span>;
         }
 
-        if (this.props.title || this.props.caption) {
-            let title = this.props.title;
+        // As of the XOM Manatee beta, we combine an image's title and caption.
+        if (apiOptions.xomManatee) {
+            var titleAndCaption;
 
-            // Bold the title, and make it the first sentence of the caption.
-            if (title) {
-                // We add a period to separate the title from the caption (if
-                // it exists), unless the title already ends with a punctuation
-                // symbol (whitespace ignored). Copied from webapp's
-                // tutorial-shared-package/components/content-description.jsx
-                if (this.props.caption && !/[.?!"']\s*$/.test(title)) {
-                    title += ".";
+            if (this.props.title || this.props.caption) {
+                let title = this.props.title;
+
+                // Bold the title, and make it the first sentence of the
+                // caption.
+                if (title) {
+                    // We add a period to separate the title from the caption
+                    // (if it exists), unless the title already ends with a
+                    // punctuation symbol (whitespace ignored). Copied from
+                    // webapp: https://github.com/Khan/webapp/blob/6e930637edb65696d0749ea0f7558214aee32b4e/javascript/tutorial-shared-package/components/content-description.jsx#L80
+                    // TODO(charlie): Internationalize this check, and the
+                    // delimiter that is being inserted.
+                    if (this.props.caption && !/[.?!"']\s*$/.test(title)) {
+                        title += ".";
+                    }
+
+                    title = `**${title}** `;
                 }
 
-                title = `**${title}** `;
+                const className = classNames({
+                    "perseus-image-caption": true,
+                    "has-title": !!title,
+                });
+
+                titleAndCaption = <div className={className}>
+                    <Renderer
+                        content={title + this.props.caption}
+                        apiOptions={apiOptions}
+                    />
+                </div>;
             }
 
-            const className = classNames({
-                "perseus-image-caption": true,
-                "has-title": !!title,
-            });
+            return <div className="perseus-image-widget">
+                {image}
+                {alt}
+                {titleAndCaption}
+            </div>;
+        } else {
+            var title;
+            var caption;
 
-            titleAndCaption = <div className={className}>
-                <Renderer
-                    content={title + this.props.caption}
-                    apiOptions={this.props.apiOptions}
-                />
+            if (this.props.title) {
+                title = <div className="perseus-image-title">
+                    <Renderer
+                        content={this.props.title}
+                        apiOptions={apiOptions}
+                    />
+                </div>;
+            }
+
+            if (this.props.caption) {
+                caption = <div className="perseus-image-caption">
+                    <Renderer
+                        content={this.props.caption}
+                        apiOptions={apiOptions}
+                    />
+                </div>;
+            }
+
+            return <div className="perseus-image-widget">
+                {title}
+                {image}
+                {alt}
+                {caption}
             </div>;
         }
-
-        return <div className="perseus-image-widget">
-            {image}
-            {alt}
-            {titleAndCaption}
-        </div>;
     },
 
     getUserInput: function() {
