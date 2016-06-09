@@ -439,11 +439,16 @@ describe("perseus markdown", () => {
                 "col2",
                 '<div class="perseus-two-columns">' +
                 '<div class="perseus-column">' +
+                '<div class="perseus-column-content">' +
                 '<div class="paragraph">col1</div>' +
                 '</div>' +
+                '</div>' +
                 '<div class="perseus-column">' +
+                '<div class="sat-header-grafting-area"></div>' +
+                '<div class="perseus-column-content">' +
                 '<div class="paragraph">col2</div>' +
                 '<div class="sat-grafting-area"></div>' +
+                '</div>' +
                 '</div>' +
                 '</div>'
             );

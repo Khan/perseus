@@ -144,17 +144,29 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
         react: (node, output, state) => {
             return <div className="perseus-two-columns" key={state.key}>
                 <div className="perseus-column">
-                    {output(node.col1, state)}
+                    <div className="perseus-column-content">
+                        {output(node.col1, state)}
+                    </div>
                 </div>
                 <div className="perseus-column">
-                    {output(node.col2, state)}
-                    {/* HACK(#sat) This is a cheap way to allow hints to be
-                      * displayed in two-column items in the SAT mission. The
-                      * hint renderer will be rendered into this div. Do not
-                      * write code outside of the SAT mission that relies on
-                      * this because this will be cleaned up with other SAT
+                    {/* HACK(#sat) This is a cheap way to allow a custom header
+                      * to be displayed in two-column items in the SAT mission.
+                      * The header will be rendered into this div. Do not write
+                      * code outside of the SAT mission that relies on this
+                      * because this will be cleaned up with other SAT
                       * technical debt. */}
-                    <div className="sat-grafting-area"/>
+                    <div className="sat-header-grafting-area"/>
+
+                    <div className="perseus-column-content">
+                        {output(node.col2, state)}
+                        {/* HACK(#sat) This is a cheap way to allow hints to be
+                          * displayed in two-column items in the SAT mission.
+                          * The hint renderer will be rendered into this div.
+                          * Do not write code outside of the SAT mission that
+                          * relies on this because this will be cleaned up with
+                          * other SAT technical debt. */}
+                        <div className="sat-grafting-area"/>
+                    </div>
                 </div>
             </div>;
         },

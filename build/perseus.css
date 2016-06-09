@@ -1,6 +1,6 @@
 /* Perseus CSS
- * commit f528f48da5d76b49c510da18678a6f14c06f8c1c
- * branch master
+ * commit c13240f6ffee656b8684b5386a089fa8847c1908
+ * branch HEAD
  * @generated */
 .perseus-sr-only {
   border: 0;
@@ -2363,22 +2363,20 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
 }
 #sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column {
   display: inline-block;
-  overflow-y: auto;
   vertical-align: top;
-}
-#sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column > .paragraph {
-  margin-top: 0;
 }
 #sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(1) {
   background: #eee;
   border-right: 1px solid #ddd;
   height: 502px;
   max-height: 502px;
-  padding-left: 46px;
-  padding-top: 48px;
-  padding-bottom: 22px;
   width: 512px;
   box-sizing: border-box;
+}
+#sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(1) .perseus-column-content {
+  padding-top: 48px;
+  padding-bottom: 22px;
+  padding-left: 46px;
 }
 #sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(1) .perseus-widget-passage-container .perseus-widget-passage-instructions div.paragraph {
   margin-top: 0;
@@ -2399,12 +2397,21 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
 #sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(2) {
   height: 550px;
   max-height: 550px;
+  width: 448px;
+}
+#sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(2) .perseus-column-content {
   padding-left: 32px;
   padding-right: 32px;
-  width: 448px;
 }
 #sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(2) .perseus-group {
   margin-bottom: 20px;
+}
+#sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column-content {
+  height: 100%;
+  overflow-y: auto;
+}
+#sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column-content > .paragraph {
+  margin-top: 0;
 }
 #sat-mission .content-area > div.perseus-renderer-two-columns .question-annotation {
   margin-top: 48px;
@@ -2460,9 +2467,8 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
 #sat-mission #sat-route-section .content-area > .perseus-renderer-two-columns {
   margin-top: 0;
 }
-#sat-mission #sat-route-task .content-area > .perseus-renderer-two-columns .perseus-column:nth-child(2) > *:first-child,
-#sat-mission #sat-route-section .content-area > .perseus-renderer-two-columns .perseus-column:nth-child(2) > *:first-child {
-  display: block;
+#sat-mission #sat-route-task .content-area > .perseus-renderer-two-columns .perseus-column:nth-child(2) > .perseus-column-content > :first-child,
+#sat-mission #sat-route-section .content-area > .perseus-renderer-two-columns .perseus-column:nth-child(2) > .perseus-column-content > :first-child {
   margin-top: 48px;
 }
 .perseus-error {
