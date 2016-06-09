@@ -2,29 +2,24 @@
 /* eslint-disable no-var, prefer-spread */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const React = require('react');
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var ApiOptions = require("./perseus-api.jsx").Options;
-var EnabledFeatures = require("./enabled-features.jsx");
-var HintsRenderer = require("./hints-renderer.jsx");
-var Renderer = require("./renderer.jsx");
-var Util = require("./util.js");
-var getHintsPlacement = require("./get-hints-placement.jsx");
+const ApiOptions = require("./perseus-api.jsx").Options;
+const EnabledFeatures = require("./enabled-features.jsx");
+const HintsRenderer = require("./hints-renderer.jsx");
+const Renderer = require("./renderer.jsx");
+const Util = require("./util.js");
+const getHintsPlacement = require("./get-hints-placement.jsx");
 
-var {mapObject} = require("./interactive2/objective_.js");
+const {mapObject} = require("./interactive2/objective_.js");
 
-var RP = React.PropTypes;
+const RP = React.PropTypes;
 
-var ItemRenderer = React.createClass({
+const ItemRenderer = React.createClass({
     propTypes: {
-        apiOptions: RP.shape({
-            getAnotherHint: RP.func,
-            answerableCallback: RP.func,
-            interactionCallback: RP.func,
-            onFocusChange: RP.func,
-        }),
+        apiOptions: ApiOptions.propTypes,
         // Whether this component should control hiding/showing peripheral
         // item-related components (for list, see item.answerArea below).
         // TODO(alex): Generalize this to an 'expectsToBeInTemplate' prop
@@ -207,17 +202,17 @@ var ItemRenderer = React.createClass({
         }
     },
 
-    _handleFocusChange: function(newFocus, oldFocus) {
+    _handleFocusChange: function(newFocus, oldFocus, keypadDOMNode) {
         if (newFocus != null) {
-            this._setCurrentFocus(newFocus);
+            this._setCurrentFocus(newFocus, keypadDOMNode);
         } else {
-            this._onRendererBlur(oldFocus);
+            this._onRendererBlur(oldFocus, keypadDOMNode);
         }
     },
 
-    // Sets the current focus path and element and
-    // send an onChangeFocus event back to our parent.
-    _setCurrentFocus: function(newFocus) {
+    // Sets the current focus path and element and send an onChangeFocus event
+    // back to our parent.
+    _setCurrentFocus: function(newFocus, keypadDOMNode) {
         // By the time this happens, newFocus cannot be a prefix of
         // prevFocused, since we must have either been called from
         // an onFocusChange within a renderer, which is only called when
@@ -226,11 +221,13 @@ var ItemRenderer = React.createClass({
         var prevFocus = this._currentFocus;
         this._currentFocus = newFocus;
         if (this.props.apiOptions.onFocusChange != null) {
-            this.props.apiOptions.onFocusChange(this._currentFocus, prevFocus);
+            this.props.apiOptions.onFocusChange(
+                this._currentFocus, prevFocus, keypadDOMNode
+            );
         }
     },
 
-    _onRendererBlur: function(blurPath) {
+    _onRendererBlur: function(blurPath, keypadDOMNode) {
         var blurringFocusPath = this._currentFocus;
 
         // Failsafe: abort if ID is different, because focus probably happened
@@ -246,7 +243,7 @@ var ItemRenderer = React.createClass({
         // this callback is executed
         _.defer(() => {
             if (_.isEqual(this._currentFocus, blurringFocusPath)) {
-                this._setCurrentFocus(null);
+                this._setCurrentFocus(null, keypadDOMNode);
             }
         });
     },

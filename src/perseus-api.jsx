@@ -14,14 +14,13 @@
  * Callbacks passed to Renderer/ItemRenderer:
  *  * onInputError:
  *    Called when there is an error grading a widget
- *  * onFocusChange: (newFocus, oldFocus)
- *    Called when the user focus changes. Each parameter is an object
- *    containing two fields, `path` and `element`.
- *    `path` is an array uniquely identifying the input to perseus
- *    `element` is a DOM element representing the area covered by
- *    the input (but is not necessarily an `<input>` element).
- *    When focus changes to or from nothing being selected, `path`
- *    will be null.
+ *  * onFocusChange: (newFocusPath, oldFocusPath, keypadDOMNode)
+ *    Called when the user focus changes. The first two parameters are `path`
+ *    arrays uniquely identifying the respect inputs. The third parameter,
+ *    `keypadDOMNode`, is the DOM node of the custom keypad, or `null` if the
+ *    keypad is disabled, which can be used by clients to accommodate for the
+ *    appearance of the keypad on the screen.
+ *    When focus changes to or from nothing being selected, `path` will be null.
  *  * interactionCallback: Called when the user interacts with a widget.
  *  * answerableCallback: Called with the current `answerability` of the
  *    problem, e.g. whether all required fields have input.

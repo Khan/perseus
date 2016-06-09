@@ -1099,7 +1099,8 @@ var Renderer = React.createClass({
             if (this.props.apiOptions.onFocusChange != null) {
                 this.props.apiOptions.onFocusChange(
                     this._currentFocus,
-                    prevFocus
+                    prevFocus,
+                    ReactDOM.findDOMNode(this.state.keypadElement)
                 );
             }
 
