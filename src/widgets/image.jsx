@@ -73,6 +73,11 @@ var ImageWidget = React.createClass({
         };
     },
 
+    componentDidMount: function() {
+        // Cache this instead of computing on each render.
+        this._viewportHeight = window.innerHeight;
+    },
+
     render: function() {
         var image;
         var alt;
@@ -81,6 +86,20 @@ var ImageWidget = React.createClass({
         var backgroundImage = this.props.backgroundImage;
 
         if (backgroundImage.url) {
+            let imageHeight = backgroundImage.height;
+            let imageWidth = backgroundImage.width;
+
+            if (apiOptions.xomManatee && this._viewportHeight) {
+                // Constrain image height to be at most 2/3 viewport height,
+                // maintaining aspect ratio.
+                const maxImageHeight = 2 / 3 * this._viewportHeight;
+                if (imageHeight >= maxImageHeight) {
+                    const aspectRatio = imageWidth / imageHeight;
+                    imageHeight = maxImageHeight;
+                    imageWidth = maxImageHeight * aspectRatio;
+                }
+            }
+
             image = <SvgImage
                         src={backgroundImage.url}
                         alt={
@@ -106,8 +125,8 @@ var ImageWidget = React.createClass({
                                while editing. */
                             this.props.alt ? "" : undefined
                         }
-                        width={backgroundImage.width}
-                        height={backgroundImage.height}
+                        width={imageWidth}
+                        height={imageHeight}
                         preloader={apiOptions.imagePreloader}
                         extraGraphie={{
                             box: this.props.box,
