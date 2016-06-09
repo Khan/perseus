@@ -146,7 +146,7 @@ ifneq ("$(SUPPRESSINSTALL)","TRUE")
 # submodule, but shouldn't be used because Perseus's copy should be used instead.
 	rm -rf math-input/node_modules/react
 	rm -rf math-input/node_modules/react-dom
-	rm -rf math-input/node_modules/react-addons
+	rm -rf math-input/node_modules/react-addons-*
 endif
 
 clean:
