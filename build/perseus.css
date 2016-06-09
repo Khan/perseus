@@ -1,5 +1,5 @@
 /* Perseus CSS
- * commit 3ec4b9ec28640839a41931450ea1c7f825ac58a3
+ * commit 47aa7e74c8facbb4ba703f21335735079a5a1f70
  * branch master
  * @generated */
 .perseus-sr-only {
@@ -343,6 +343,16 @@
     line-height: 1.3;
     color: #888d93;
   }
+  .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .katex,
+  .framework-perseus:not(.perseus-article).perseus-xom-manatee .katex {
+    font-size: 21px;
+    line-height: 1.2;
+  }
+  .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-block-math .katex,
+  .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-block-math .katex {
+    font-size: 21px;
+    line-height: 1.5;
+  }
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee code,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee code {
     font-family: Courier;
@@ -461,6 +471,16 @@
     line-height: 1.4;
     color: #888d93;
   }
+  .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .katex,
+  .framework-perseus:not(.perseus-article).perseus-xom-manatee .katex {
+    font-size: 23px;
+    line-height: 1.3;
+  }
+  .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-block-math .katex,
+  .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-block-math .katex {
+    font-size: 30px;
+    line-height: 1.3;
+  }
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee code,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee code {
     font-family: Courier;
@@ -578,6 +598,16 @@
     font-size: 20px;
     line-height: 1.1;
     color: #888d93;
+  }
+  .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .katex,
+  .framework-perseus:not(.perseus-article).perseus-xom-manatee .katex {
+    font-size: 25px;
+    line-height: 1.2;
+  }
+  .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-block-math .katex,
+  .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-block-math .katex {
+    font-size: 30px;
+    line-height: 1.3;
   }
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee code,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee code {
