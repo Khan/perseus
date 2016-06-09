@@ -501,16 +501,24 @@ const Choice = React.createClass({
             this.props.disabled && this.props.apiOptions.responsiveStyling;
 
         const {reviewMode, correct, checked, isLastChoice} = this.props;
+        // HACK: while most of the styling for rendering SAT items is handled
+        // via aphrodite, we also need to assign normal CSS classnames here to
+        // special-case the coloring of MathJax formulas (see .MathJax .math in
+        // stylesheets/task-package/tasks.less)
+        const satCorrectChoice = sat && reviewMode && correct;
+        const satIncorrectChecked =  sat && reviewMode && !correct && checked;
         const descriptionClassName = classNames("description",
+            satCorrectChoice && "sat-correct",
+            satIncorrectChecked && "sat-incorrect",
             css(sat && this.state.isInputFocused
                     && styles.satDescriptionInputFocused,
                 sat && this.state.isInputActive
                     && styles.satDescriptionInputActive,
                 sat && styles.satDescription,
-                sat && reviewMode && correct && styles.satDescriptionCorrect,
-                sat && reviewMode && correct && checked
+                satCorrectChoice && styles.satDescriptionCorrect,
+                satCorrectChoice && checked
                     && styles.satDescriptionCorrectChecked,
-                sat && reviewMode && !correct && checked
+                satIncorrectChecked
                     && styles.satDescriptionIncorrectChecked,
                 sat && isLastChoice && styles.satDescriptionLastChoice));
 
