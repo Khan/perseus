@@ -19,7 +19,13 @@ const RP = React.PropTypes;
 
 const ItemRenderer = React.createClass({
     propTypes: {
-        apiOptions: ApiOptions.propTypes,
+        // defaults are set in `this.update()` so as to adhere to
+        // `ApiOptions.PropTypes`, though the API options that are passed in
+        // can be in any degree of completeness
+        apiOptions: RP.shape({
+            interactionCallback: RP.func,
+            onFocusChange: RP.func,
+        }),
         // Whether this component should control hiding/showing peripheral
         // item-related components (for list, see item.answerArea below).
         // TODO(alex): Generalize this to an 'expectsToBeInTemplate' prop
@@ -52,9 +58,9 @@ const ItemRenderer = React.createClass({
 
     getDefaultProps: function() {
         return {
-            apiOptions: {},  // a deep default is done in `this.update()`
+            apiOptions: {},  // defaults are set in `this.update()`
             controlPeripherals: true,
-            enabledFeatures: {},  // a deep default is done in `this.update()`
+            enabledFeatures: {},  // defaults are set in `this.update()`
             hintsAreaSelector: "#hintsarea",
             initialHintsVisible: 0,
             workAreaSelector: "#workarea",
@@ -114,20 +120,16 @@ const ItemRenderer = React.createClass({
     },
 
     update: function() {
-        var enabledFeatures = _.extend(
-            {},
-            EnabledFeatures.defaults,
-            this.props.enabledFeatures
-        );
+        const enabledFeatures = {
+            ...EnabledFeatures.defaults,
+            ...this.props.enabledFeatures,
+        };
 
-        var apiOptions = _.extend(
-            {},
-            ApiOptions.defaults,
-            this.props.apiOptions,
-            {
-                onFocusChange: this._handleFocusChange,
-            }
-        );
+        const apiOptions = {
+            ...ApiOptions.defaults,
+            ...this.props.apiOptions,
+            onFocusChange: this._handleFocusChange,
+        };
 
         const hintsArea = <HintsRenderer
             key="hints"

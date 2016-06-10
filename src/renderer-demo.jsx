@@ -54,7 +54,7 @@ const RendererDemo = React.createClass({
     render: function() {
         const xomManatee = !!localStorage.xomManatee;
 
-        const options = {
+        const apiOptions = {
             responsiveStyling: true,
             getAnotherHint: () => {
                 this.refs.itemRenderer.showHint();
@@ -75,7 +75,7 @@ const RendererDemo = React.createClass({
                 newHintStyles: true,
                 useMathQuill: true,
             }}
-            apiOptions={options}
+            apiOptions={apiOptions}
         />;
 
         const answer = this.state.answer;
