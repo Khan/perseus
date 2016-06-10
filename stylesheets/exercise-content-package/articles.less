@@ -345,6 +345,16 @@
             font-size: @blockMathTextSize;
             line-height: @blockMathLineHeight;
         }
+
+        // HACK(charlie): I am ashamed. This seems to be the only way to revert
+        // KaTeX rendered as Graphie labels to the KaTeX defaults, taken from:
+        // https://github.com/Khan/KaTeX/blob/965b8a6164ee54212bf382108f256c6920eb7a70/static/katex.less#L18.
+        // It's dangerous to resize labels, since they're deliberately
+        // positioned relative to their background images.
+        .graphie-label .katex {
+            font-size: 1.21em;
+            line-height: 1.2;
+        }
     }
 
     .code(@codeTextSize; @codeTextLineHeight;
