@@ -11,7 +11,10 @@
 const React = require('react');
 
 const { KeypadInput } = require("../../math-input").components;
-const { KeypadTypes } = require("../../math-input").consts;
+const {
+    FractionBehaviorTypes,
+    KeypadTypes,
+} = require("../../math-input").consts;
 const { keypadElementPropType } = require("../../math-input").propTypes;
 
 const SimpleKeypadInput = React.createClass({
@@ -42,6 +45,7 @@ const SimpleKeypadInput = React.createClass({
 
         return <KeypadInput
             ref="input"
+            fractionBehavior={FractionBehaviorTypes.EXCLUSIVE}
             keypadElement={keypadElement}
             onFocus={() => {
                 if (keypadElement) {

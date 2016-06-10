@@ -25,7 +25,10 @@ const {
     keypadConfigurationPropType,
     keypadElementPropType,
 } = require("../../math-input").propTypes;
-const { KeypadTypes } = require("../../math-input").consts;
+const {
+    FractionBehaviorTypes,
+    KeypadTypes,
+} = require("../../math-input").consts;
 
 var EnabledFeatures = require("../enabled-features.jsx");
 
@@ -131,6 +134,7 @@ var Expression = React.createClass({
             return <KeypadInput
                 ref="input"
                 value={this.props.value}
+                fractionBehavior={FractionBehaviorTypes.INCLUSIVE}
                 keypadElement={this.props.keypadElement}
                 onChange={this.changeAndTrack}
                 onFocus={() => {
