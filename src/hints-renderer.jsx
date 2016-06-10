@@ -116,8 +116,13 @@ const HintsRenderer = React.createClass({
                     !(/\*\*/).test(hint.content);
                 const lastRendered = i === hintsVisible - 1;
 
+                // NOTE(charlie): In XOM, the hint paragraphs won't have bottom
+                // padding, so we add it ourselves, unless we're using the new
+                // hint styles (which should be always), in which case the
+                // hints are already properly spaced.
                 const renderer = <HintRenderer
                     className={this.props.apiOptions.xomManatee &&
+                        !this.props.enabledFeatures.newHintStyles &&
                         css(styles.hintSpacing)}
                     lastHint={lastHint}
                     lastRendered={lastRendered}
