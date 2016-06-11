@@ -121,9 +121,9 @@ const HintsRenderer = React.createClass({
                 // hint styles (which should be always), in which case the
                 // hints are already properly spaced.
                 const renderer = <HintRenderer
-                    className={this.props.apiOptions.xomManatee &&
-                        !this.props.enabledFeatures.newHintStyles &&
-                        css(styles.hintSpacing)}
+                    className={(this.props.apiOptions.xomManatee &&
+                        !this.props.enabledFeatures.newHintStyles) ?
+                        css(styles.hintSpacing) : ""}
                     lastHint={lastHint}
                     lastRendered={lastRendered}
                     hint={hint}
