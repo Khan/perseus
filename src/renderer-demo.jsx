@@ -71,7 +71,6 @@ const RendererDemo = React.createClass({
             enabledFeatures={{
                 highlight: true,
                 toolTipFormats: true,
-                dynamicHintsArea: true,
                 newHintStyles: true,
                 useMathQuill: true,
             }}

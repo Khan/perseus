@@ -8,14 +8,12 @@ module.exports = {
     propTypes: React.PropTypes.shape({
         toolTipFormats: React.PropTypes.bool.isRequired,
         useMathQuill: React.PropTypes.bool.isRequired,
-        // TODO(jared): once web phone exercises experiment is done, remove
-        // these two flags
-        dynamicHintsArea: React.PropTypes.bool,
+        // TODO(charlie): Once the XOM Manatee Beta has completed, clean up this
+        // flag.
         newHintStyles: React.PropTypes.bool,
     }).isRequired,
 
     defaults: {
-        dynamicHintsArea: false,
         newHintStyles: false,
         // TODO(jack): Remove this two options
         toolTipFormats: true,
