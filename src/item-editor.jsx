@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -12,11 +12,11 @@ var ITEM_DATA_VERSION = require("./version.json").itemDataVersion;
 
 var ItemEditor = React.createClass({
     propTypes: {
-        imageUploader: React.PropTypes.func,
-        wasAnswered: React.PropTypes.bool,
-        gradeMessage: React.PropTypes.string,
         apiOptions: ApiOptions.propTypes,
+        gradeMessage: React.PropTypes.string,
+        imageUploader: React.PropTypes.func,
         previewWidth: React.PropTypes.number.isRequired,
+        wasAnswered: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -24,7 +24,6 @@ var ItemEditor = React.createClass({
             onChange: () => {},
             question: {},
             answerArea: {},
-            apiOptions: ApiOptions.defaults,
         };
     },
 
@@ -48,6 +47,7 @@ var ItemEditor = React.createClass({
                         className="perseus-question-editor"
                         imageUploader={this.props.imageUploader}
                         onChange={this.handleEditorChange}
+                        enabledFeatures={this.props.enabledFeatures}
                         apiOptions={this.props.apiOptions}
                         showWordCount={true}
                         {...this.props.question}

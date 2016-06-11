@@ -53,6 +53,19 @@ const HintRenderer = React.createClass({
             className
         );
 
+        // TODO(charlie): Allowing `staticRender` here would require that we
+        // extend `HintsRenderer` and `HintRenderer` to implement the full
+        // "input' API, so that clients could access the static inputs. Allowing
+        // `customKeypad` would require that we extend `ItemRenderer` to support
+        // nested inputs in the `HintsRenderer`. For now, we disable these
+        // options. Instead, clients will get standard <input/> elements, which
+        // aren't nice to use on mobile, but are at least usable.
+        const rendererApiOptions = {
+            ...apiOptions,
+            customKeypad: false,
+            staticRender: false,
+        };
+
         return <div className={classNames} tabIndex="-1">
             {!newHintStyles && <span className="perseus-sr-only">
                 {i18n._("Hint #%(pos)s", {pos: pos + 1})}
@@ -70,6 +83,8 @@ const HintRenderer = React.createClass({
                 widgets={hint.widgets}
                 content={hint.content || ""}
                 images={hint.images}
+                enabledFeatures={enabledFeatures}
+                apiOptions={rendererApiOptions}
             />
         </div>;
     },
