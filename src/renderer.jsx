@@ -44,6 +44,9 @@ var specialChars = {
 var rEscapedChars = /\\a|\\b|\\t|\\n|\\v|\\f|\\r|\\\\/g;
 var rContainsNonWhitespace = /\S/;
 
+const noopOnRender = () => {};
+
+
 if (typeof KA !== "undefined" && KA.language === "en-pt") {
     // When using crowdin's jipt (Just in place translation), we need to keep a
     // registry of crowdinId's to component so that we can update the
@@ -189,7 +192,7 @@ var Renderer = React.createClass({
             // if there are multiple images or TeX pieces within `content`.
             // It is a good idea to debounce any functions passed here.
             questionCompleted: false,
-            onRender: function() {},
+            onRender: noopOnRender,
             onInteractWithWidget: function() {},
             interWidgets: () => null,
             alwaysUpdate: false,
@@ -1057,16 +1060,22 @@ var Renderer = React.createClass({
     },
 
     handleRender: function(prevProps) {
-        var onRender = this.props.onRender;
-        var oldOnRender = prevProps.onRender;
-        var $images = $(ReactDOM.findDOMNode(this)).find("img");
+        const onRender = this.props.onRender;
+        const oldOnRender = prevProps.onRender;
 
-        // Fire callback on image load...
-        // TODO (jack): make this call happen exactly once through promises!
-        if (oldOnRender) {
-            $images.off("load", oldOnRender);
+        // In the common case of no callback specified, avoid this work.
+        if (onRender !== noopOnRender || oldOnRender !== noopOnRender) {
+            const $images = $(ReactDOM.findDOMNode(this)).find("img");
+
+            // Fire callback on image load...
+            if (oldOnRender !== noopOnRender) {
+                $images.off("load", oldOnRender);
+            }
+
+            if (onRender !== noopOnRender) {
+                $images.on("load", onRender);
+            }
         }
-        $images.on("load", onRender);
 
         // ...as well as right now (non-image, non-TeX or image from cache)
         onRender();
