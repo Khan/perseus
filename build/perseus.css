@@ -1,6 +1,6 @@
 /* Perseus CSS
- * commit c13240f6ffee656b8684b5386a089fa8847c1908
- * branch HEAD
+ * commit 34375d90ed6a2b4aebbc92fd29f63469f6b23de0
+ * branch master
  * @generated */
 .perseus-sr-only {
   border: 0;
@@ -2364,13 +2364,13 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
 #sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column {
   display: inline-block;
   vertical-align: top;
+  width: 512px;
 }
 #sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(1) {
   background: #eee;
   border-right: 1px solid #ddd;
   height: 502px;
   max-height: 502px;
-  width: 512px;
   box-sizing: border-box;
 }
 #sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(1) .perseus-column-content {
@@ -2397,7 +2397,6 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
 #sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(2) {
   height: 550px;
   max-height: 550px;
-  width: 448px;
 }
 #sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(2) .perseus-column-content {
   padding-left: 32px;

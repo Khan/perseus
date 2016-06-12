@@ -912,13 +912,13 @@
             .perseus-column {
                 display: inline-block;
                 vertical-align: top;
+                width: 512px;
 
                 &:nth-child(1) {
                     background: #eee;
                     border-right: 1px solid #ddd;
                     height: @satSectionHeight - @satTopSpacingForTwoColumnLayout;
                     max-height: @satSectionHeight - @satTopSpacingForTwoColumnLayout;
-                    width: 512px;
                     box-sizing: border-box;
 
                     .perseus-column-content {
@@ -956,15 +956,8 @@
                 &:nth-child(2) {
                     height: @satSectionHeight;
                     max-height: @satSectionHeight;
-                    width: 448px;
 
                     .perseus-column-content {
-                        // TODO(marcia): These are only slightly magical. The
-                        // left column is 512px floated left. The right column
-                        // is 448px floated right, with 32px of right padding.
-                        // This leaves 32px in between, since the entire
-                        // container is 1024px. TODO to keep some of these #s
-                        // in vars and use arithmetic!
                         padding-left: 32px;
                         padding-right: 32px;
                     }
