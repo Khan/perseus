@@ -8,10 +8,10 @@ var _ = require("underscore");
 
 var Util = require("../util.js");
 const GraphUtils = require("../util/graph-utils.js");
+const { interactiveSizes } = require("../styles/constants.js");
 
 var SvgImage = require("../components/svg-image.jsx");
 
-var defaultBoxSize = 400;
 var defaultBackgroundImage = {
     url: null
 };
@@ -68,7 +68,6 @@ var Graph = React.createClass({
 
     getDefaultProps: function() {
         return {
-            box: [defaultBoxSize, defaultBoxSize],
             labels: ["x", "y"],
             range: [[-10, 10], [-10, 10]],
             step: [1, 1],
@@ -91,7 +90,7 @@ var Graph = React.createClass({
         var image;
         var imageData = this.props.backgroundImage;
         if (imageData.url) {
-            var scale = this.props.box[0] / defaultBoxSize;
+            var scale = this.props.box[0] / interactiveSizes.defaultBoxSize;
             image = <SvgImage src={imageData.url}
                               width={imageData.width}
                               height={imageData.height}

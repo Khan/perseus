@@ -8,8 +8,6 @@ const Util = require("../../util.js");
 const Graphie = require("../../components/graphie.jsx");
 const Plot = Graphie.Plot;
 const kpoint = require("kmath").point;
-const { interactiveSizes } = require("../../styles/constants.js");
-const { containerSizeClass } = require("../../util/sizing-utils.js");
 
 const DEFAULT_BACKGROUND_IMAGE = {
     url: null
@@ -599,19 +597,6 @@ var GrapherUtil = {
     /* Given a list of available types, choose which to use. */
     chooseType: _.first,
 
-    getBoxFromSizeClass: (sizeClass) => {
-        if (sizeClass === containerSizeClass.SMALL) {
-            return [
-                interactiveSizes.defaultBoxSizeSmall,
-                interactiveSizes.defaultBoxSizeSmall,
-            ];
-        } else {
-            return [
-                interactiveSizes.defaultBoxSize,
-                interactiveSizes.defaultBoxSize,
-            ];
-        }
-    },
 };
 
 var DEFAULT_GRAPHER_PROPS = {};

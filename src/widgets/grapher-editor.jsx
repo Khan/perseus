@@ -18,7 +18,10 @@ const {
     typeToButton,
     DEFAULT_GRAPHER_PROPS,
 } = require("./grapher/util.jsx");
-const { containerSizeClass } = require("../util/sizing-utils.js");
+const {
+    containerSizeClass,
+    getInteractiveBoxFromSizeClass,
+} = require("../util/sizing-utils.js");
 
 const GrapherEditor = React.createClass({
     mixins: [Changeable],
@@ -75,7 +78,7 @@ const GrapherEditor = React.createClass({
 
             <GraphSettings
                 editableSettings={["graph", "snap", "image"]}
-                box={GrapherUtil.getBoxFromSizeClass(sizeClass)}
+                box={getInteractiveBoxFromSizeClass(sizeClass)}
                 range={this.props.graph.range}
                 labels={this.props.graph.labels}
                 step={this.props.graph.step}

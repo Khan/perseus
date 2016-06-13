@@ -15,14 +15,14 @@ var knumber = require("kmath").number;
 var kpoint = require("kmath").point;
 const KhanColors = require("../util/colors.js");
 const GraphUtils = require("../util/graph-utils.js");
+const { interactiveSizes } = require("../styles/constants.js");
+const { getInteractiveBoxFromSizeClass } = require("../util/sizing-utils.js");
 
 var DeprecationMixin = Util.DeprecationMixin;
 
 
 var TRASH_ICON_URI = 'https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png';
 
-var defaultBoxSize = 400;
-var defaultEditorBoxSize = 340;
 var defaultBackgroundImage = {
     url: null
 };
@@ -306,7 +306,6 @@ var InteractiveGraph = React.createClass({
         return {
             labels: ["x", "y"],
             range: [[-10, 10], [-10, 10]],
-            box: [defaultBoxSize, defaultBoxSize],
             step: [1, 1],
             backgroundImage: defaultBackgroundImage,
             markings: "graph",
@@ -575,7 +574,8 @@ var InteractiveGraph = React.createClass({
             }
         }
 
-        var box = this.props.box;
+        const box = getInteractiveBoxFromSizeClass(
+                this.props.containerSizeClass);
 
         var instructions;
         if (this.isClickToAddPoints() && this.state.shouldShowInstructions) {
@@ -595,7 +595,7 @@ var InteractiveGraph = React.createClass({
         var gridStep = this.props.gridStep || Util.getGridStep(
                 this.props.range,
                 this.props.step,
-                defaultBoxSize
+                box[0]
         );
         var snapStep = this.props.snapStep || Util.snapStepFromGridStep(
             gridStep
@@ -610,7 +610,7 @@ var InteractiveGraph = React.createClass({
             <Graph
                 instructions={instructions}
                 ref="graph"
-                box={this.props.box}
+                box={box}
                 labels={this.props.labels}
                 range={this.props.range}
                 step={this.props.step}
@@ -732,6 +732,10 @@ var InteractiveGraph = React.createClass({
                 shouldShowInstructions:
                         this._getShouldShowInstructions(nextProps)
             });
+        }
+
+        if (this.props.containerSizeClass !== nextProps.containerSizeClass) {
+            this.shouldResetGraphie = true;
         }
     },
 

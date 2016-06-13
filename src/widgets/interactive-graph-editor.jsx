@@ -13,9 +13,12 @@ const GraphSettings = require("../components/graph-settings.jsx");
 const InfoTip       = require("../components/info-tip.jsx");
 
 const InteractiveGraph = require("./interactive-graph.jsx").widget;
+const { interactiveSizes } = require("../styles/constants.js");
+const {
+    containerSizeClass,
+    getInteractiveBoxFromSizeClass,
+} = require("../util/sizing-utils.js");
 
-const defaultBoxSize = 400;
-const defaultEditorBoxSize = 340;
 const defaultBackgroundImage = {
     url: null
 };
@@ -31,7 +34,6 @@ const InteractiveGraphEditor = React.createClass({
 
     getDefaultProps: function() {
         return {
-            box: [defaultEditorBoxSize, defaultEditorBoxSize],
             labels: ["x", "y"],
             range: [[-10, 10], [-10, 10]],
             step: [1, 1],
@@ -60,12 +62,13 @@ const InteractiveGraphEditor = React.createClass({
         var gridStep = this.props.gridStep || Util.getGridStep(
                 this.props.range,
                 this.props.step,
-                defaultBoxSize
+                interactiveSizes.defaultBoxSize
         );
         var snapStep = this.props.snapStep || Util.snapStepFromGridStep(
             gridStep
         );
 
+        const sizeClass = containerSizeClass.SMALL;
         if (this.props.valid === true) {
             // TODO(aria): send these down all at once
             var graphProps = {
@@ -96,7 +99,10 @@ const InteractiveGraphEditor = React.createClass({
                     this.props.onChange({correct: correct});
                 }
             };
-            graph = <InteractiveGraph {...graphProps} />;
+            graph = <InteractiveGraph
+                {...graphProps}
+                containerSizeClass={sizeClass}
+            />;
             equationString = InteractiveGraph.getEquationString(graphProps);
         } else {
             graph = <div className="perseus-error">{this.props.valid}</div>;
@@ -113,7 +119,7 @@ const InteractiveGraphEditor = React.createClass({
 
 
             <GraphSettings
-                box={this.props.box}
+                box={getInteractiveBoxFromSizeClass(sizeClass)}
                 range={this.props.range}
                 labels={this.props.labels}
                 step={this.props.step}

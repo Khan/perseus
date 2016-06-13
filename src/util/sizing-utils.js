@@ -1,3 +1,5 @@
+const { interactiveSizes } = require('../styles/constants.js');
+
 // Note: these size cutoffs represent content-width cutoffs as
 // specified in http://zpl.io/1mVmvU
 // TODO(benkomalo): these values aren't used in JS outside of this file, but
@@ -31,6 +33,20 @@ module.exports = {
             return containerSizeClass.MEDIUM;
         } else {
             return containerSizeClass.LARGE;
+        }
+    },
+
+    getInteractiveBoxFromSizeClass: (sizeClass) => {
+        if (sizeClass === containerSizeClass.SMALL) {
+            return [
+                interactiveSizes.defaultBoxSizeSmall,
+                interactiveSizes.defaultBoxSizeSmall,
+            ];
+        } else {
+            return [
+                interactiveSizes.defaultBoxSize,
+                interactiveSizes.defaultBoxSize,
+            ];
         }
     },
 };

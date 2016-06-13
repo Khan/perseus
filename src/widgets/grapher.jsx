@@ -21,6 +21,7 @@ var kpoint = require("kmath").point;
 const KhanColors = require("../util/colors.js");
 const { containerSizeClassPropType } = require("../util/sizing-utils.js");
 const { interactiveSizes } = require("../styles/constants.js");
+const { getInteractiveBoxFromSizeClass } = require("../util/sizing-utils.js");
 
 /* Mixins. */
 var Changeable   = require("../mixins/changeable.jsx");
@@ -257,7 +258,7 @@ var Grapher = React.createClass({
                 onChange={this.handleActiveTypeChange} />
         </div>;
 
-        const box = GrapherUtil.getBoxFromSizeClass(
+        const box = getInteractiveBoxFromSizeClass(
                 this.props.containerSizeClass);
 
         // Calculate additional graph properties so that the same values are
