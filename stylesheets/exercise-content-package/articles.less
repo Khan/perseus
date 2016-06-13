@@ -246,9 +246,12 @@
         .text(@fontSize, @lineHeight, @color);
     }
 
-    .max-width(@maxWidth) {
+    // Sets the *content-width* of the paragraph to be a maximum value.
+    // NOTE(benkomalo): the margin is typically added outside of Perseus itself
+    // and is not accounted for in this value.
+    .max-paragraph-width(@maxWidth) {
         .perseus-renderer > .paragraph {
-            max-width: 688px;
+            max-width: @maxWidth;
         }
     }
 
@@ -448,7 +451,7 @@
 
     // Phone styles
     @media (max-width: @pure-sm-max) {
-        .max-width(none);
+        .max-paragraph-width(none);
 
         .title(24px, 1.2, 0);
         .heading(24px, 1.2, 1);
@@ -465,7 +468,7 @@
 
     // Tablet styles
     @media (min-width: @pure-md-min) and (max-width: @tablet-width-max) {
-        .max-width(512px);
+        .max-paragraph-width(512px);
 
         .title(30px, 1.1, 0);
         .heading(30px, 1.1, 2);
@@ -482,7 +485,7 @@
 
     // Desktop styles
     @media (min-width: @desktop-width-min) {
-        .max-width(688px);
+        .max-paragraph-width(688px);
 
         .title(35px, 1.1, 0);
         .heading(35px, 1.1, 2);
