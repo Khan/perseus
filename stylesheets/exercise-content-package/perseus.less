@@ -128,7 +128,10 @@
         -webkit-touch-callout: none;
     }
 
-    sup {
+    // We do not apply this styling to MathQuill elements because the
+    // styles interfere with calculation of the size of the container
+    // surrounding the math.
+    sup:not(.mq-non-leaf) {
         font-size: smaller;
         vertical-align: super;
 
