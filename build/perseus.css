@@ -1,5 +1,5 @@
 /* Perseus CSS
- * commit 34375d90ed6a2b4aebbc92fd29f63469f6b23de0
+ * commit 863d8603ad88d46917fa6ce56011102975bc92d9
  * branch master
  * @generated */
 .perseus-sr-only {
@@ -248,7 +248,7 @@
 @media (max-width: 767px) {
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph {
-    max-width: 688px;
+    max-width: none;
   }
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee h1,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee h1 {
@@ -338,10 +338,10 @@
   }
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-image-caption .paragraph .paragraph,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-image-caption .paragraph .paragraph {
-    text-align: left;
+    color: #888d93;
     font-size: 14px;
     line-height: 1.3;
-    color: #888d93;
+    text-align: left;
   }
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-image-caption.has-title .paragraph .paragraph strong:first-child,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-image-caption.has-title .paragraph .paragraph strong:first-child {
@@ -385,7 +385,7 @@
 @media (min-width: 768px) and (max-width: 1199px) {
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph {
-    max-width: 688px;
+    max-width: 512px;
   }
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee h1,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee h1 {
@@ -475,10 +475,10 @@
   }
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-image-caption .paragraph .paragraph,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-image-caption .paragraph .paragraph {
-    text-align: left;
+    color: #888d93;
     font-size: 17px;
     line-height: 1.4;
-    color: #888d93;
+    text-align: left;
   }
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-image-caption.has-title .paragraph .paragraph strong:first-child,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-image-caption.has-title .paragraph .paragraph strong:first-child {
@@ -612,10 +612,10 @@
   }
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-image-caption .paragraph .paragraph,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-image-caption .paragraph .paragraph {
-    text-align: left;
-    font-size: 20px;
-    line-height: 1.1;
     color: #888d93;
+    font-size: 20px;
+    line-height: 1.4;
+    text-align: left;
   }
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-image-caption.has-title .paragraph .paragraph strong:first-child,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-image-caption.has-title .paragraph .paragraph strong:first-child {
@@ -865,7 +865,7 @@ img.zoom-img {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-touch-callout: none;
 }
-.framework-perseus sup {
+.framework-perseus sup:not(.mq-non-leaf) {
   font-size: smaller;
   vertical-align: super;
   line-height: 0;
