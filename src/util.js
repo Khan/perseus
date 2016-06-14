@@ -2,10 +2,10 @@
 /* eslint-disable comma-dangle, indent, max-len, no-trailing-spaces, no-var, one-var, prefer-spread */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var _ = require("underscore");
+const _ = require("underscore");
 const KhanAnswerTypes = require("./util/answer-types.js");
 
-var nestedMap = function(children, func, context) {
+const nestedMap = function(children, func, context) {
     if (_.isArray(children)) {
         return _.map(children, function(child) {
             return nestedMap(child, func);
@@ -15,7 +15,21 @@ var nestedMap = function(children, func, context) {
     }
 };
 
-var Util = {
+const Util = {
+    /**
+     * Used to compare equality of two input paths, which are represented as
+     * arrays of strings.
+     */
+    inputPathsEqual(a, b) {
+        if (a == null) {
+            return b == null;
+        }
+
+        return a.length === b.length && a.every((item, index) => {
+            return b[index] === item;
+        });
+    },
+
     nestedMap: nestedMap,
 
     rWidgetParts: /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]$/,
@@ -436,7 +450,7 @@ var Util = {
         return urlParams;
     },
 
-    /** 
+    /**
      * Query string adder
      * Works for URLs without #.
      * Original from:
