@@ -8,18 +8,20 @@ const i18n = window.i18n;
 const HintRenderer = require("./hint-renderer.jsx");
 const SvgImage = require("./components/svg-image.jsx");
 const EnabledFeatures = require("./enabled-features.jsx");
-const ApiOptions = require("./perseus-api.jsx").Options;
+const ApiOptionsProps = require("./mixins/api-options-props.js");
 
 const { baseUnitPx } = require("./styles/constants.js");
 
 const HintsRenderer = React.createClass({
     propTypes: {
-        apiOptions: ApiOptions.propTypes,
+        // Also accepts apiOptions, via the ApiOptionsProps mixin.
         className: React.PropTypes.string,
         enabledFeatures: EnabledFeatures.propTypes,
         hints: React.PropTypes.arrayOf(React.PropTypes.any),
         hintsVisible: React.PropTypes.number,
     },
+
+    mixins: [ ApiOptionsProps ],
 
     getDefaultProps: function() {
         return {
@@ -106,7 +108,7 @@ const HintsRenderer = React.createClass({
     },
 
     render: function() {
-
+        const apiOptions = this.getApiOptions();
         const hintsVisible = this._hintsVisible();
         const hints = [];
         this.props.hints
@@ -121,7 +123,7 @@ const HintsRenderer = React.createClass({
                 // hint styles (which should be always), in which case the
                 // hints are already properly spaced.
                 const renderer = <HintRenderer
-                    className={(this.props.apiOptions.xomManatee &&
+                    className={(apiOptions.xomManatee &&
                         !this.props.enabledFeatures.newHintStyles) ?
                         css(styles.hintSpacing) : ""}
                     lastHint={lastHint}
@@ -132,7 +134,7 @@ const HintsRenderer = React.createClass({
                     ref={"hintRenderer" + i}
                     key={"hintRenderer" + i}
                     enabledFeatures={this.props.enabledFeatures}
-                    apiOptions={this.props.apiOptions}
+                    apiOptions={apiOptions}
                 />;
 
                 if (hint.replace && hints.length > 0) {
@@ -143,14 +145,14 @@ const HintsRenderer = React.createClass({
             });
 
         const showGetAnotherHint = (
-            this.props.apiOptions.getAnotherHint &&
+            apiOptions.getAnotherHint &&
             hintsVisible > 0 &&
             hintsVisible < this.props.hints.length
         );
 
         const classNames = classnames(
             this.props.className,
-            this.props.apiOptions.xomManatee && css(styles.rendererMargins)
+            apiOptions.xomManatee && css(styles.rendererMargins)
         );
 
         return <div className={classNames}>
@@ -162,7 +164,7 @@ const HintsRenderer = React.createClass({
                     onClick={evt => {
                         evt.preventDefault();
                         evt.stopPropagation();
-                        this.props.apiOptions.getAnotherHint();
+                        apiOptions.getAnotherHint();
                     }}
                 >
                     <span className="perseus-show-another-hint-plus">

@@ -21,7 +21,7 @@ const { Keypad } = require("../math-input").components;
 
 var Util = require("./util.js");
 var EnabledFeatures = require("./enabled-features.jsx");
-var ApiOptions = require("./perseus-api.jsx").Options;
+var ApiOptionsProps = require("./mixins/api-options-props.js");
 var ApiClassNames = require("./perseus-api.jsx").ClassNames;
 var { waitForKatexFonts, waitForMathjaxFonts } = require("./wait-for-fonts.js");
 var Zoomable = require("./components/zoomable.jsx");
@@ -163,8 +163,8 @@ InteractionTracker.prototype._noop = function() {};
 
 var Renderer = React.createClass({
     propTypes: {
+        // Also accepts apiOptions, via the ApiOptionsProps mixin.
         alwaysUpdate: React.PropTypes.bool,
-        apiOptions: React.PropTypes.any,
         enabledFeatures: EnabledFeatures.propTypes,
         highlightedWidgets: React.PropTypes.arrayOf(React.PropTypes.any),
         ignoreMissingWidgets: React.PropTypes.bool,
@@ -177,6 +177,8 @@ var Renderer = React.createClass({
         reviewMode: React.PropTypes.bool,
     },
 
+    mixins: [ ApiOptionsProps ],
+
     getDefaultProps: function() {
         return {
             content: "",
@@ -187,7 +189,6 @@ var Renderer = React.createClass({
             ignoreMissingWidgets: true,
             highlightedWidgets: [],
             enabledFeatures: EnabledFeatures.defaults,
-            apiOptions: {},  // we'll do a deep defaults in render()
             // onRender may be called multiple times per render, for example
             // if there are multiple images or TeX pieces within `content`.
             // It is a good idea to debounce any functions passed here.
@@ -211,7 +212,7 @@ var Renderer = React.createClass({
         this.handleRender({});
         this._currentFocus = null;
 
-        var apiOptions = this.getApiOptions(this.props);
+        var apiOptions = this.getApiOptions();
         this._rootNode = ReactDOM.findDOMNode(this);
         this._isMounted = true;
 
@@ -407,15 +408,8 @@ var Renderer = React.createClass({
         }
     },
 
-    getApiOptions: function(props) {
-        return _.extend(
-            {},
-            ApiOptions.defaults,
-            props.apiOptions
-        );
-    },
-
     getWidgetProps: function(id) {
+        const apiOptions = this.getApiOptions();
         const widgetProps = this.state.widgetProps[id] || {};
 
         // The widget needs access to its "rubric" at all times when in review
@@ -433,7 +427,7 @@ var Renderer = React.createClass({
         let interactionTracker = this._interactionTrackers[id];
         if (!interactionTracker) {
             interactionTracker = this._interactionTrackers[id] =
-                new InteractionTracker(this.props.apiOptions.trackInteraction,
+                new InteractionTracker(apiOptions.trackInteraction,
                     widgetInfo && widgetInfo.type, id,
                 Widgets.getTracking(widgetInfo && widgetInfo.type));
         }
@@ -446,7 +440,7 @@ var Renderer = React.createClass({
             static: widgetInfo && widgetInfo.static,
             problemNum: this.props.problemNum,
             enabledFeatures: this.props.enabledFeatures,
-            apiOptions: this.getApiOptions(this.props),
+            apiOptions: apiOptions,
             keypadElement: this.state.keypadElement,
             questionCompleted: this.props.questionCompleted,
             onFocus: _.partial(this._onWidgetFocus, id),
@@ -794,7 +788,7 @@ var Renderer = React.createClass({
 
     // output individual AST nodes [not arrays]
     outputNode: function(node, nestedOutput, state) {
-        var apiOptions = this.getApiOptions(this.props);
+        var apiOptions = this.getApiOptions();
 
         if (node.type === "widget") {
             var widgetPlaceholder = apiOptions.widgetPlaceholder;
@@ -1085,6 +1079,8 @@ var Renderer = React.createClass({
     // If the new focus path is not a prefix of the old focus path,
     // we send an onChangeFocus event back to our parent.
     _setCurrentFocus: function(path) {
+        const apiOptions = this.getApiOptions();
+
         // We don't do this when the new path is a prefix because
         // that prefix is already focused (we're just in a more specific
         // area of it). This makes it safe to call _setCurrentFocus
@@ -1100,15 +1096,15 @@ var Renderer = React.createClass({
             }
 
             this._currentFocus = path;
-            if (this.props.apiOptions.onFocusChange != null) {
-                this.props.apiOptions.onFocusChange(
+            if (apiOptions.onFocusChange != null) {
+                apiOptions.onFocusChange(
                     this._currentFocus,
                     prevFocus,
                     ReactDOM.findDOMNode(this.state.keypadElement)
                 );
             }
 
-            if (this.props.apiOptions.customKeypad) {
+            if (apiOptions.customKeypad) {
                 const didFocusInput = path &&
                     this.getInputPaths().some(inputPath => {
                         return inputPath.length === path.length &&
@@ -1377,7 +1373,7 @@ var Renderer = React.createClass({
      */
     scoreWidgets: function() {
         var widgetProps = this.state.widgetInfo;
-        var onInputError = this.props.apiOptions.onInputError ||
+        var onInputError = this.getApiOptions().onInputError ||
                 function() { };
 
         var gradedWidgetIds = _.filter(this.widgetIds, (id) => {
@@ -1447,6 +1443,8 @@ var Renderer = React.createClass({
     },
 
     render: function() {
+        const apiOptions = this.getApiOptions();
+
         if (this.reuseMarkdown) {
             return this.lastRenderedMarkdown;
         }
@@ -1483,7 +1481,7 @@ var Renderer = React.createClass({
             // this if block, search this file for where we render a
             // QuestionParagraph, and see the `isJipt:` parameter sent to
             // PerseusMarkdown.parse()
-            if (!this.props.apiOptions.isArticle) {
+            if (!apiOptions.isArticle) {
                 // We now need to output this tag, as jipt looks for it to be
                 // able to replace it with a translation that it runs an ajax
                 // call to get.  We add a data attribute with the index to the
@@ -1516,13 +1514,13 @@ var Renderer = React.createClass({
             isJipt: this.translationIndex != null,
         });
         var markdownContents = this.outputMarkdown(parsedMarkdown, {
-            baseElements: this.props.apiOptions.baseElements,
+            baseElements: apiOptions.baseElements,
         });
 
         var className = this._isTwoColumn ?
         ApiClassNames.RENDERER + " " + ApiClassNames.TWO_COLUMN_RENDERER :
             ApiClassNames.RENDERER;
-        if (this.props.apiOptions.responsiveStyling) {
+        if (apiOptions.responsiveStyling) {
             className += " " + ApiClassNames.RESPONSIVE_RENDERER;
         }
 
