@@ -18,7 +18,7 @@ var Changeable    = require("../mixins/changeable.jsx");
 
 var SvgImage     = require("../components/svg-image.jsx");
 
-const { baseUnitPx } = require("../styles/constants.js");
+const { baseUnitPx, negativePhoneMargin } = require("../styles/constants.js");
 
 var defaultBoxSize = 400;
 var defaultRange = [0, 10];
@@ -27,6 +27,12 @@ var defaultBackgroundImage = {
     width: 0,
     height: 0,
 };
+
+function isImageProbablyPhotograph(imageUrl) {
+    // TODO(david): Do an inventory to refine this heuristic. For example, what
+    //     % of .png images are illustrations?
+    return /\.(jpg|jpeg)$/i.test(imageUrl);
+}
 
 var ImageWidget = React.createClass({
     propTypes: {
@@ -78,6 +84,7 @@ var ImageWidget = React.createClass({
     componentDidMount: function() {
         // Cache this instead of computing on each render.
         this._viewportHeight = window.innerHeight;
+        this._viewportWidth = window.innerWidth;
     },
 
     render: function() {
@@ -205,8 +212,21 @@ var ImageWidget = React.createClass({
                 </div>;
             }
 
+            // Full-bleed photographs that can fill up the device width.
+            let imageContainerStyle = null;
+            if (backgroundImage.url &&
+                    isImageProbablyPhotograph(backgroundImage.url) &&
+                    this._viewportWidth && imageWidth >= this._viewportWidth) {
+                imageContainerStyle = {
+                    marginLeft: negativePhoneMargin,
+                    marginRight: negativePhoneMargin,
+                };
+            }
+
             return <div className="perseus-image-widget">
-                {image}
+                <div style={imageContainerStyle}>
+                    {image}
+                </div>
                 {alt}
                 {titleAndCaption}
             </div>;
