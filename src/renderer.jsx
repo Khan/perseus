@@ -882,17 +882,20 @@ var Renderer = React.createClass({
                 };
 
                 const computeMathBounds = (parentNode, parentBounds) => {
-                    const rawKatexBounds =
-                        parentNode.firstElementChild.getBoundingClientRect();
+                    const textElement =
+                            parentNode.querySelector('.katex-html') ||
+                            parentNode.querySelector('.MathJax');
+                    const textBounds = textElement.getBoundingClientRect();
+
                     // HACK(benkomalo): when measuring math content, note that
-                    // it actually peeks out vertically above/below the
-                    // container in some cases. The parent height is actually
-                    // a more accurate representation of what the child's
-                    // math's height is, so we use that as the vertical
-                    // measure.
+                    // sometimes it actually peeks outside of the
+                    // container in some cases. Just be conservative and use
+                    // the maximum value of the text and the parent. :(
                     return {
-                        width: rawKatexBounds.width,
-                        height: parentBounds.height,
+                        width: Math.max(
+                                parentBounds.width, textBounds.width),
+                        height: Math.max(
+                                parentBounds.height, textBounds.height),
                     };
                 };
 

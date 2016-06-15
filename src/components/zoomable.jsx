@@ -47,7 +47,7 @@ const Zoomable = React.createClass({
 
     getInitialState() {
         return {
-            animate: false,
+            visible: false,
             marginBottomPx: 0,
             zoomed: true,
         };
@@ -92,28 +92,37 @@ const Zoomable = React.createClass({
                 compactHeight: compactHeight,
                 expandedHeight: expandedHeight,
             });
+
+            setTimeout(() => {
+                // Only show it after the next paint, to allow for CSS
+                // transitions to fade it in.
+                if (this.isMounted()) {
+                    this.setState({
+                        visible: true,
+                    });
+                }
+            }, 0);
         }
     },
 
     handleClick() {
         this.setState({
-            animate: true,
             zoomed: !this.state.zoomed,
         });
     },
 
     render() {
         const {
-            scale, animate, compactHeight, expandedHeight, zoomed,
+            visible, scale, compactHeight, expandedHeight, zoomed,
         } = this.state;
         const { animateHeight } = this.props;
 
         const property = animateHeight
-                ? 'transform height'
-                : 'transform';
+                ? 'opacity transform height'
+                : 'opacity transform';
 
         // Since we're not using aphrodite, we have to prefix ourselves.
-        const transitionStyle = animate ? {
+        const transitionStyle = visible ? {
             transitionProperty: property,
             WebkitTransitionProperty: property,
             msTransitionProperty: property,
@@ -125,9 +134,12 @@ const Zoomable = React.createClass({
             msTransitionTmingFunction: 'ease-out',
         } : {};
 
+        // Do a fancy little slide as we fade the contents in the first time.
+        const translateOffset = visible ? '' : ' translate(0, 8px)';
         const transform =  zoomed
-                ? 'scale(1, 1)'
-                : `scale(${scale}, ${scale})`;
+                ? `scale(1, 1) ${translateOffset}`
+                : `scale(${scale}, ${scale}) ${translateOffset}`;
+
         const style = {
             display: 'block',
             width: '100%',
@@ -138,6 +150,7 @@ const Zoomable = React.createClass({
             transformOrigin: '0 0',
             WebkitTransformOrigin: '0 0',
             msTransformOrigin: '0 0',
+            opacity: visible ? 1 : 0,
             ...transitionStyle,
         };
 
