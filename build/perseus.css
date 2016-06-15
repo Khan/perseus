@@ -1,6 +1,6 @@
 /* Perseus CSS
- * commit 77b0d0034ddcbc61a307a72bbce3378e21a4d8b4
- * branch HEAD
+ * commit b3344c1ab1e4856fa11907f1ad4a57c68e734cc0
+ * branch master
  * @generated */
 .perseus-sr-only {
   border: 0;
@@ -351,6 +351,7 @@
   .framework-perseus:not(.perseus-article).perseus-xom-manatee .katex {
     font-size: 21px;
     line-height: 1.2;
+    color: #21242c;
   }
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-block-math .katex,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-block-math .katex {
@@ -488,6 +489,7 @@
   .framework-perseus:not(.perseus-article).perseus-xom-manatee .katex {
     font-size: 23px;
     line-height: 1.3;
+    color: #21242c;
   }
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-block-math .katex,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-block-math .katex {
@@ -625,6 +627,7 @@
   .framework-perseus:not(.perseus-article).perseus-xom-manatee .katex {
     font-size: 25px;
     line-height: 1.2;
+    color: #21242c;
   }
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-block-math .katex,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-block-math .katex {
