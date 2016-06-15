@@ -86,10 +86,23 @@ var ImageWidget = React.createClass({
         };
     },
 
+    getInitialState: function() {
+        return {
+            viewportHeight: null,
+            viewportWidth: null,
+        };
+    },
+
     componentDidMount: function() {
-        // Cache this instead of computing on each render.
-        this._viewportHeight = window.innerHeight;
-        this._viewportWidth = window.innerWidth;
+        // Cache viewport sizes instead of computing on each render. However,
+        // this means we need to setState() in componentDidMount() because we
+        // want to trigger a re-render.
+        /* eslint-disable react/no-did-mount-set-state */
+        this.setState({
+            viewportHeight: window.innerHeight,
+            viewportWidth: window.innerWidth,
+        });
+        /* eslint-enable */
     },
 
     render: function() {
@@ -105,10 +118,10 @@ var ImageWidget = React.createClass({
             imageHeight = backgroundImage.height;
             imageWidth = backgroundImage.width;
 
-            if (apiOptions.xomManatee && this._viewportHeight) {
+            if (apiOptions.xomManatee && this.state.viewportHeight) {
                 // Constrain image height to be at most 2/3 viewport height,
                 // maintaining aspect ratio.
-                const maxImageHeight = 2 / 3 * this._viewportHeight;
+                const maxImageHeight = 2 / 3 * this.state.viewportHeight;
                 if (imageHeight >= maxImageHeight) {
                     const aspectRatio = imageWidth / imageHeight;
                     imageHeight = maxImageHeight;
@@ -225,7 +238,8 @@ var ImageWidget = React.createClass({
             let imageContainerStyle = null;
             if (backgroundImage.url &&
                     isImageProbablyPhotograph(backgroundImage.url) &&
-                    this._viewportWidth && imageWidth >= this._viewportWidth) {
+                    this.state.viewportWidth &&
+                    imageWidth >= this.state.viewportWidth) {
                 imageContainerStyle = {
                     marginLeft: negativePhoneMargin,
                     marginRight: negativePhoneMargin,
