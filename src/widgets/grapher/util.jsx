@@ -597,6 +597,16 @@ var GrapherUtil = {
     /* Given a list of available types, choose which to use. */
     chooseType: _.first,
 
+    getGridAndSnapSteps: function(options, boxSize) {
+        var gridStep = options.gridStep ||
+                       Util.getGridStep(options.range, options.step, boxSize);
+        var snapStep = options.snapStep ||
+                       Util.snapStepFromGridStep(gridStep);
+        return {
+            gridStep: gridStep,
+            snapStep: snapStep
+        };
+    },
 };
 
 var DEFAULT_GRAPHER_PROPS = {};

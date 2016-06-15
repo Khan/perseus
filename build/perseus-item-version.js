@@ -1,6 +1,6 @@
 // Perseus Version File
-// commit c9c299273641a43036f1b29a12144f4832193f09
-// branch HEAD
+// commit 094135faeda9305a9096c291f64aae875bee293f
+// branch fix-grapher-editor
 // @generated
 /* eslint-disable comma-dangle */
 

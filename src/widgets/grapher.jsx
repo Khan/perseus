@@ -265,7 +265,12 @@ var Grapher = React.createClass({
         // passed in to both FunctionGrapher and Graphie.
         const options = {
             ...this.props.graph,
-            gridConfig: this._getGridConfig({...this.props.graph, box: box})
+            ...GrapherUtil.getGridAndSnapSteps(this.props.graph, box[0]),
+            gridConfig: this._getGridConfig({
+                ...this.props.graph,
+                box: box,
+                ...GrapherUtil.getGridAndSnapSteps(this.props.graph, box[0]),
+            }),
         };
 
         // The `graph` prop will eventually be passed to the <Graphie>
