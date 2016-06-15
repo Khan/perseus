@@ -27,6 +27,9 @@ var defaultBackgroundImage = {
     width: 0,
     height: 0,
 };
+const supportedAlignments = ["block", "float-left", "float-right",
+    "full-width"];
+const DEFAULT_ALIGNMENT = "block";
 
 function isImageProbablyPhotograph(imageUrl) {
     // TODO(david): Do an inventory to refine this heuristic. For example, what
@@ -36,6 +39,7 @@ function isImageProbablyPhotograph(imageUrl) {
 
 var ImageWidget = React.createClass({
     propTypes: {
+        alignment: React.PropTypes.oneOf(supportedAlignments),
         alt: React.PropTypes.string,
         apiOptions: ApiOptions.propTypes,
         // TODO(alex): Rename to something else, e.g. "image", perhaps flatten
@@ -71,6 +75,7 @@ var ImageWidget = React.createClass({
 
     getDefaultProps: function() {
         return {
+            alignment: DEFAULT_ALIGNMENT,
             title: "",
             range: [defaultRange, defaultRange],
             box: [defaultBoxSize, defaultBoxSize],
@@ -188,18 +193,22 @@ var ImageWidget = React.createClass({
 
                 // Caption is left-aligned within a container that's centered
                 // below the image, with these width constraints:
-                // 1. Minimum width = 288px
+                // 1. Minimum width = 288px if image is full width, else 0
                 // 2. Maximum width = min(400px, content width, image width)
                 // The following CSS should do the trick, since CSS precedence
                 // is minWidth > maxWidth > width.
                 // TODO(david): If caption is only 1 line long, center-align
                 //     the text.
+                const alignment = this.props.alignment;
+                const isImageFullWidth = (
+                    alignment === "block" || alignment === "full-width");
+                const minWidth = isImageFullWidth ? 288 : 0;
                 const maxWidth = imageWidth ? Math.min(400, imageWidth) : 400;
                 titleAndCaption = <div className={className}>
                     <div style={{
                         display: "inline-block",
                         marginTop: baseUnitPx,
-                        minWidth: 288,
+                        minWidth: minWidth,
                         maxWidth: maxWidth,
                         width: "100%",
                     }}
@@ -292,7 +301,8 @@ module.exports = {
         var bgImage = props.backgroundImage;
         return !(bgImage && bgImage.url && !props.alt);
     },
-    supportedAlignments: ["block", "float-left", "float-right", "full-width"],
+    defaultAlignment: DEFAULT_ALIGNMENT,
+    supportedAlignments: supportedAlignments,
     displayName: "Image",
     widget: ImageWidget,
 };
