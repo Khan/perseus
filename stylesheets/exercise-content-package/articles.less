@@ -450,6 +450,13 @@
         }
     }
 
+    // Disable the Safari tap highlight for block math, which is now tappable
+    // via the tap-to-zoom functionality.
+    .perseus-block-math {
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        -webkit-touch-callout: none;
+    }
+
     // TODO(benkomalo): these max-width values are referenced in
     // src/util/sizing-utils.js - if they're changed, change them there.
 
