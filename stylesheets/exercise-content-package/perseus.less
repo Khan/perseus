@@ -749,6 +749,13 @@
         margin: 0;
     }
 
+    .mq-binary-operator {
+        // MathQuill uses Symbola to render binary operators.  Unfortunately,
+        // Firefox 47 on Windows doesn't render the +/- signs correctly when
+        // using Symbola so we override it and use KaTeX_Main instead.
+        font-family: KaTeX_Main !important;
+    }
+
     sup {
         // This is set to 0 across Perseus normally, but we need to override it
         // here so nth-roots are rendered correctly.

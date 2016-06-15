@@ -1,6 +1,6 @@
 /* Perseus CSS
- * commit ab371023e1cd11b7462ea95cd2526b1b29764312
- * branch master
+ * commit dcbbc085768d05f8f491c66da48beca3b9523686
+ * branch HEAD
  * @generated */
 .perseus-sr-only {
   border: 0;
@@ -2257,6 +2257,9 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
 }
 .perseus-math-input.mq-editable-field.mq-math-mode .mq-paren + span {
   margin: 0;
+}
+.perseus-math-input.mq-editable-field.mq-math-mode .mq-binary-operator {
+  font-family: KaTeX_Main !important;
 }
 .perseus-math-input.mq-editable-field.mq-math-mode sup {
   line-height: normal;
