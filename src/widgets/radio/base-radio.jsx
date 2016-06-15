@@ -102,6 +102,7 @@ const BaseRadio = React.createClass({
             radio: {
                 // Avoid centering
                 width: "100%",
+                backgroundColor: "#ffffff",
             },
 
             responsiveRadio: {
