@@ -57,9 +57,34 @@ const Zoomable = React.createClass({
         this._node = ReactDOM.findDOMNode(this);
         this.props.readyToMeasureDeferred.then(() => {
             if (this.isMounted()) {
-                this.scaleChildToFit();
+                this.scaleChildToFit(false);
             }
         });
+
+        if (window.MutationObserver) {
+            this._observer = new MutationObserver((mutations) => {
+                if (this.isMounted()) {
+                    for (const mutation of mutations) {
+                        if (mutation.target !== this._node) {
+                            // Only act on mutations of children
+                            this.scaleChildToFit(this.state &&
+                                                 this.state.zoomed);
+                            break;
+                        }
+                    }
+                }
+            });
+
+            this._observer.observe(this._node, {
+                childList: true, subtree: true, attributes: true,
+            });
+        }
+    },
+
+    componentWillUnmount() {
+        if (this._observer) {
+            this._observer.disconnect();
+        }
     },
 
     handleTouchStart(e) {
@@ -73,12 +98,22 @@ const Zoomable = React.createClass({
     // TODO(benkomalo): call this on viewport width changes or when our own
     // natural width changes? Can check out
     // https://github.com/Khan/math-input/blob/master/src/components/math-keypad.js#L43
-    scaleChildToFit() {
+    scaleChildToFit(zoomed) {
+        // Uncomment line below to see recalculations in console
+        // console.log("[Zoomable] recalculating child scaling");
+
         const parentBounds = this._node.getBoundingClientRect();
         const childBounds = this.props.computeChildBounds(
                 this._node, parentBounds);
+
+        if (!this._originalWidth) {
+            this._originalWidth = childBounds.width;
+        }
+
         const childWidth = childBounds.width;
-        const childHeight = childBounds.height;
+        // calculate what the height would be if it was not already scaled
+        const childHeight =
+            childBounds.height * (this._originalWidth / childWidth);
 
         if (childWidth > parentBounds.width) {
             const scale = parentBounds.width / childWidth;
@@ -87,7 +122,7 @@ const Zoomable = React.createClass({
 
             this.setState({
                 scale: scale,
-                zoomed: false,
+                zoomed: zoomed,
 
                 compactHeight: compactHeight,
                 expandedHeight: expandedHeight,
