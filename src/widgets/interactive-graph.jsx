@@ -16,7 +16,10 @@ var kpoint = require("kmath").point;
 const KhanColors = require("../util/colors.js");
 const GraphUtils = require("../util/graph-utils.js");
 const { interactiveSizes } = require("../styles/constants.js");
-const { getInteractiveBoxFromSizeClass } = require("../util/sizing-utils.js");
+const {
+    containerSizeClassPropType,
+    getInteractiveBoxFromSizeClass,
+} = require("../util/sizing-utils.js");
 
 var DeprecationMixin = Util.DeprecationMixin;
 
@@ -293,6 +296,7 @@ var deprecatedProps = {
 
 var InteractiveGraph = React.createClass({
     propTypes: {
+        containerSizeClass: containerSizeClassPropType.isRequired,
         trackInteraction: React.PropTypes.func.isRequired,
     },
 

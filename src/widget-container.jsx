@@ -33,18 +33,22 @@ const WidgetContainer = React.createClass({
     },
 
     componentDidMount() {
-        const containerWidth = ReactDOM.findDOMNode(this).offsetWidth;
+        // Only relay size class changes in XOM Manatee right now as we're
+        // still rolling out improvements on mobile and this is WIP.
+        if (this.state.widgetProps.apiOptions.xomManatee) {
+            const containerWidth = ReactDOM.findDOMNode(this).offsetWidth;
 
-        // NOTE(benkomalo): in the common case, this won't change anything.
-        // Unfortunately, it will cause a flash and re-layout on mobile, but
-        // until we have better SSR or a more drastic way change to our APIs
-        // that hints at the available size, we do have to measure DOM
-        // unfortunately.
-        /* eslint-disable react/no-did-mount-set-state */
-        this.setState({
-            sizeClass: getClassFromWidth(containerWidth),
-        });
-        /* eslint-enable react/no-did-mount-set-state */
+            // NOTE(benkomalo): in the common case, this won't change anything.
+            // Unfortunately, it will cause a flash and re-layout on mobile,
+            // but until we have better SSR or a more drastic way change to our
+            // APIs that hints at the available size, we do have to measure DOM
+            // unfortunately.
+            /* eslint-disable react/no-did-mount-set-state */
+            this.setState({
+                sizeClass: getClassFromWidth(containerWidth),
+            });
+            /* eslint-enable react/no-did-mount-set-state */
+        }
     },
 
     render: function() {
@@ -117,7 +121,8 @@ const WidgetContainer = React.createClass({
         return (
             this.props.shouldHighlight !== nextProps.shouldHighlight ||
             this.props.type !== nextProps.type ||
-            this.state.widgetProps !== nextState.widgetProps
+            this.state.widgetProps !== nextState.widgetProps ||
+            this.state.sizeClass !== nextState.sizeClass
         );
     },
 
