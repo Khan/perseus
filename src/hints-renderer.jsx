@@ -10,7 +10,7 @@ const SvgImage = require("./components/svg-image.jsx");
 const EnabledFeatures = require("./enabled-features.jsx");
 const ApiOptionsProps = require("./mixins/api-options-props.js");
 
-const { baseUnitPx } = require("./styles/constants.js");
+const { baseUnitPx, kaGreen } = require("./styles/constants.js");
 
 const HintsRenderer = React.createClass({
     propTypes: {
@@ -160,18 +160,20 @@ const HintsRenderer = React.createClass({
             {showGetAnotherHint &&
                 <button
                     rel="button"
-                    className="perseus-show-another-hint"
+                    className={css(styles.linkButton)}
                     onClick={evt => {
                         evt.preventDefault();
                         evt.stopPropagation();
                         apiOptions.getAnotherHint();
                     }}
                 >
-                    <span className="perseus-show-another-hint-plus">
+                    <span className={css(styles.plusText)}>
                       +
                     </span>
-                    {i18n._("Get another hint")
-                    } ({hintsVisible}/{this.props.hints.length})
+                    <span className={css(styles.getAnotherHintText)}>
+                        {i18n._("Get another hint")
+                        } ({hintsVisible}/{this.props.hints.length})
+                    </span>
                 </button>}
         </div>;
     },
@@ -184,6 +186,27 @@ const styles = StyleSheet.create({
 
     hintSpacing: {
         paddingBottom: 2 * baseUnitPx,
+    },
+
+    linkButton: {
+        cursor: 'pointer',
+        border: 'none',
+        backgroundColor: 'transparent',
+        fontSize: '100%',
+        fontFamily: 'inherit',
+        fontWeight: 'bold',
+        color: kaGreen,
+        padding: 0,
+    },
+
+    plusText: {
+        fontSize: 20,
+        position: 'absolute',
+        top: -3,
+        left: 0,
+    },
+    getAnotherHintText: {
+        marginLeft: 16,
     },
 });
 
