@@ -102,6 +102,10 @@ const Zoomable = React.createClass({
                     });
                 }
             }, 0);
+        } else {
+            this.setState({
+                visible: true,
+            });
         }
     },
 

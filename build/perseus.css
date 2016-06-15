@@ -1,5 +1,5 @@
 /* Perseus CSS
- * commit dcbbc085768d05f8f491c66da48beca3b9523686
+ * commit c9c299273641a43036f1b29a12144f4832193f09
  * branch HEAD
  * @generated */
 .perseus-sr-only {
@@ -244,6 +244,11 @@
 .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio):not(.fancy-select-options) ul:not(.perseus-widget-radio):not(.fancy-select-options),
 .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio):not(.fancy-select-options) ul:not(.perseus-widget-radio):not(.fancy-select-options) {
   padding-top: 24px;
+}
+.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-block-math,
+.framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-block-math {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-touch-callout: none;
 }
 @media (max-width: 767px) {
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph,

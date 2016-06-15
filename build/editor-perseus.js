@@ -1,5 +1,5 @@
 /*! Perseus with editors | http://github.com/Khan/perseus */
-// commit dcbbc085768d05f8f491c66da48beca3b9523686
+// commit c9c299273641a43036f1b29a12144f4832193f09
 // branch HEAD
 // @generated
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -11,7 +11,7 @@
 		exports["Perseus"] = factory(require("react"), require("underscore"), require("react-dom"), require("react-addons-create-fragment"), require("jquery"), require("aphrodite"), require("classnames"), require("react-addons-pure-render-mixin"), require("react-addons-css-transition-group"));
 	else
 		root["Perseus"] = factory(root["react"], root["underscore"], root["react-dom"], root["react-addons-create-fragment"], root["jquery"], root["aphrodite"], root["classnames"], root["react-addons-pure-render-mixin"], root["react-addons-css-transition-group"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_15__, __WEBPACK_EXTERNAL_MODULE_16__, __WEBPACK_EXTERNAL_MODULE_17__, __WEBPACK_EXTERNAL_MODULE_18__, __WEBPACK_EXTERNAL_MODULE_19__, __WEBPACK_EXTERNAL_MODULE_43__, __WEBPACK_EXTERNAL_MODULE_44__, __WEBPACK_EXTERNAL_MODULE_146__, __WEBPACK_EXTERNAL_MODULE_288__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_15__, __WEBPACK_EXTERNAL_MODULE_16__, __WEBPACK_EXTERNAL_MODULE_17__, __WEBPACK_EXTERNAL_MODULE_18__, __WEBPACK_EXTERNAL_MODULE_19__, __WEBPACK_EXTERNAL_MODULE_43__, __WEBPACK_EXTERNAL_MODULE_44__, __WEBPACK_EXTERNAL_MODULE_146__, __WEBPACK_EXTERNAL_MODULE_290__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -81,7 +81,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var version = __webpack_require__(60);
+	var version = __webpack_require__(62);
 
 	__webpack_require__(20);
 
@@ -104,7 +104,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	__webpack_require__(20);
-	var Version = __webpack_require__(60);
+	var Version = __webpack_require__(62);
 	var Widgets = __webpack_require__(27);
 
 	var ItemVersion = _.clone(Widgets.getVersionVector());
@@ -500,7 +500,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var _ = __webpack_require__(16);
-	var KhanAnswerTypes = __webpack_require__(39);
+	var KhanAnswerTypes = __webpack_require__(37);
 
 	var nestedMap = function (children, func, context) {
 	    if (_.isArray(children)) {
@@ -1734,11 +1734,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var DragTarget = __webpack_require__(45);
 	var EnabledFeatures = __webpack_require__(32);
 	var PerseusMarkdown = __webpack_require__(31);
-	var PropCheckBox = __webpack_require__(34);
+	var PropCheckBox = __webpack_require__(36);
 	var Util = __webpack_require__(6);
 	var Widgets = __webpack_require__(27);
 
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(41);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(42);
 
 	// like [[snowman input-number 1]]
 	var widgetPlaceholder = "[[☃ {id}]]";
@@ -2746,11 +2746,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var ApiOptionsProps = __webpack_require__(42);
-	var CombinedHintsEditor = __webpack_require__(35);
+	var ApiOptionsProps = __webpack_require__(41);
+	var CombinedHintsEditor = __webpack_require__(34);
 	var EnabledFeatures = __webpack_require__(32);
-	var FixPassageRefs = __webpack_require__(40);
-	var ItemEditor = __webpack_require__(36);
+	var FixPassageRefs = __webpack_require__(38);
+	var ItemEditor = __webpack_require__(35);
 	var ItemRenderer = __webpack_require__(23);
 	var JsonEditor = __webpack_require__(33);
 	var ViewportResizer = __webpack_require__(14);
@@ -2985,8 +2985,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	// diffs from widget-differ.
 	var React = __webpack_require__(15);
 
-	var TextDiff = __webpack_require__(37);
-	var WidgetDiff = __webpack_require__(38);
+	var TextDiff = __webpack_require__(39);
+	var WidgetDiff = __webpack_require__(40);
 
 	// Deeply look up a property in an object,
 	// -> getPath(obj, ["a", "b", "c"]) === obj["a"]["b"]["c"]
@@ -4098,7 +4098,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var HintRenderer = __webpack_require__(47);
 	var SvgImage = __webpack_require__(29);
 	var EnabledFeatures = __webpack_require__(32);
-	var ApiOptionsProps = __webpack_require__(42);
+	var ApiOptionsProps = __webpack_require__(41);
 
 	var _require2 = __webpack_require__(138);
 
@@ -4296,28 +4296,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 	var classNames = __webpack_require__(44);
 
-	var JiptParagraphs = __webpack_require__(48);
+	var JiptParagraphs = __webpack_require__(49);
 	var PerseusMarkdown = __webpack_require__(31);
-	var QuestionParagraph = __webpack_require__(49);
+	var QuestionParagraph = __webpack_require__(50);
 	var SvgImage = __webpack_require__(29);
-	var TeX = __webpack_require__(50);
-	var WidgetContainer = __webpack_require__(51);
+	var TeX = __webpack_require__(51);
+	var WidgetContainer = __webpack_require__(52);
 	var Widgets = __webpack_require__(27);
 
 	var Keypad = __webpack_require__(150).components.Keypad;
 
 	var Util = __webpack_require__(6);
 	var EnabledFeatures = __webpack_require__(32);
-	var ApiOptionsProps = __webpack_require__(42);
+	var ApiOptionsProps = __webpack_require__(41);
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 
-	var _require = __webpack_require__(52);
+	var _require = __webpack_require__(53);
 
 	var waitForKatexFonts = _require.waitForKatexFonts;
 	var waitForMathjaxFonts = _require.waitForMathjaxFonts;
 
-	var Zoomable = __webpack_require__(53);
-	var Deferred = __webpack_require__(54);
+	var Zoomable = __webpack_require__(54);
+	var Deferred = __webpack_require__(55);
 
 	var _require2 = __webpack_require__(137);
 
@@ -6154,7 +6154,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(15);
 
-	var TextListEditor = __webpack_require__(55);
+	var TextListEditor = __webpack_require__(48);
 	var EMPTY_ARRAY = [];
 
 	var StubTagEditor = React.createClass({
@@ -6924,7 +6924,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var SimpleMarkdown = __webpack_require__(155);
-	var TeX = __webpack_require__(50);
+	var TeX = __webpack_require__(51);
 	var Util = __webpack_require__(6);
 
 	/**
@@ -7528,77 +7528,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(15);
-	var _ = __webpack_require__(16);
-
-	/* A checkbox that syncs its value to props using the
-	 * renderer's onChange method, and gets the prop name
-	 * dynamically from its props list
-	 */
-	var PropCheckBox = React.createClass({
-	    displayName: "PropCheckBox",
-
-	    propTypes: {
-	        labelAlignment: React.PropTypes.oneOf(["left", "right"])
-	    },
-
-	    DEFAULT_PROPS: {
-	        label: null,
-	        onChange: null,
-	        labelAlignment: "left"
-	    },
-
-	    getDefaultProps: function () {
-	        return this.DEFAULT_PROPS;
-	    },
-
-	    propName: function () {
-	        var propName = _.find(_.keys(this.props), function (localPropName) {
-	            return !_.has(this.DEFAULT_PROPS, localPropName);
-	        }, this);
-
-	        if (!propName) {
-	            throw new Error("Attempted to create a PropCheckBox with no " + "prop!");
-	        }
-
-	        return propName;
-	    },
-
-	    _labelAlignLeft: function () {
-	        return this.props.labelAlignment === "left";
-	    },
-
-	    render: function () {
-	        var propName = this.propName();
-	        return React.createElement(
-	            "label",
-	            null,
-	            this._labelAlignLeft() && this.props.label,
-	            React.createElement("input", { type: "checkbox",
-	                checked: this.props[propName],
-	                onChange: this.toggle }),
-	            !this._labelAlignLeft() && this.props.label
-	        );
-	    },
-
-	    toggle: function () {
-	        var propName = this.propName();
-	        var changes = {};
-	        changes[propName] = !this.props[propName];
-	        this.props.onChange(changes);
-	    }
-	});
-
-	module.exports = PropCheckBox;
-
-/***/ },
-/* 35 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
@@ -7611,7 +7540,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Editor = __webpack_require__(11);
 	var HintRenderer = __webpack_require__(47);
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(60);
 
 	var ApiOptions = __webpack_require__(5).Options;
 	var EnabledFeatures = __webpack_require__(32);
@@ -7908,7 +7837,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = CombinedHintsEditor;
 
 /***/ },
-/* 36 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -7922,8 +7851,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(5).Options;
 	var Editor = __webpack_require__(11);
-	var ItemExtrasEditor = __webpack_require__(62);
-	var ITEM_DATA_VERSION = __webpack_require__(60).itemDataVersion;
+	var ItemExtrasEditor = __webpack_require__(61);
+	var ITEM_DATA_VERSION = __webpack_require__(62).itemDataVersion;
 
 	var ItemEditor = React.createClass({
 	    displayName: "ItemEditor",
@@ -8051,7 +7980,189 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ItemEditor;
 
 /***/ },
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(15);
+	var _ = __webpack_require__(16);
+
+	/* A checkbox that syncs its value to props using the
+	 * renderer's onChange method, and gets the prop name
+	 * dynamically from its props list
+	 */
+	var PropCheckBox = React.createClass({
+	    displayName: "PropCheckBox",
+
+	    propTypes: {
+	        labelAlignment: React.PropTypes.oneOf(["left", "right"])
+	    },
+
+	    DEFAULT_PROPS: {
+	        label: null,
+	        onChange: null,
+	        labelAlignment: "left"
+	    },
+
+	    getDefaultProps: function () {
+	        return this.DEFAULT_PROPS;
+	    },
+
+	    propName: function () {
+	        var propName = _.find(_.keys(this.props), function (localPropName) {
+	            return !_.has(this.DEFAULT_PROPS, localPropName);
+	        }, this);
+
+	        if (!propName) {
+	            throw new Error("Attempted to create a PropCheckBox with no " + "prop!");
+	        }
+
+	        return propName;
+	    },
+
+	    _labelAlignLeft: function () {
+	        return this.props.labelAlignment === "left";
+	    },
+
+	    render: function () {
+	        var propName = this.propName();
+	        return React.createElement(
+	            "label",
+	            null,
+	            this._labelAlignLeft() && this.props.label,
+	            React.createElement("input", { type: "checkbox",
+	                checked: this.props[propName],
+	                onChange: this.toggle }),
+	            !this._labelAlignLeft() && this.props.label
+	        );
+	    },
+
+	    toggle: function () {
+	        var propName = this.propName();
+	        var changes = {};
+	        changes[propName] = !this.props[propName];
+	        this.props.onChange(changes);
+	    }
+	});
+
+	module.exports = PropCheckBox;
+
+/***/ },
 /* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var $=__webpack_require__(19);var _=__webpack_require__(16);var retrieveMathFormula=__webpack_require__(139).retrieveMathFormula;var localeToFixed=__webpack_require__(140);var KhanMath=__webpack_require__(141);var MAXERROR_EPSILON=Math.pow(2, -42);var extractRawCode=function(elem){var $elem=$(elem).clone(true);var code=$elem.find("code");if(code.length){$.each(code, function(i, elem){$(elem).replaceWith("<code><script type=\"math/tex\">" + retrieveMathFormula(elem) + "</script></code>");});}return $elem.html();};function getTextSquish(elem){return $(elem).text().replace(/\s+/g, "");}function checkIfAnswerEmpty(guess){return $.trim(guess) === "" || guess instanceof Array && $.trim(guess.join("").replace(/,/g, "")) === "";}function addExamplesToInput($input, examples){if($input.data("qtip")){$input.qtip("destroy", true);}var $examples=$("<ul class=\"examples\" style=\"display: none\"></ul>");_.each(examples, function(example){$examples.append("<li>" + example + "</li>");});$input.qtip({content:{text:$examples.remove(), prerender:true}, style:{classes:"qtip-light leaf-tooltip"}, position:{my:"top left", at:"bottom left"}, show:{delay:0, effect:{length:0}, event:"focus"}, hide:{delay:0, event:"blur"}, events:{render:function(){$examples.children().runModules();}}});}function numberAnswerType(forms){return {setupFunctional:function(solutionarea, solutionText, solutionData){return KhanAnswerTypes.number.setupFunctional(solutionarea, solutionText, $.extend({}, solutionData, {forms:forms}));}, createValidatorFunctional:function(correct, options){return KhanAnswerTypes.number.createValidatorFunctional(correct, $.extend({}, options, {forms:forms}));}};}var KhanAnswerTypes={letters:{setupFunctional:function(solutionarea, solutionText, solutionData){return KhanAnswerTypes.text.setupFunctional(solutionarea, solutionText, solutionData, "letters");}, createValidatorFunctional:function(correct, options){return KhanAnswerTypes.text.createValidatorFunctional(correct, options);}}, lowers:{setupFunctional:function(solutionarea, solutionText, solutionData){return KhanAnswerTypes.text.setupFunctional(solutionarea, solutionText, solutionData, "lowers");}, createValidatorFunctional:function(correct, options){return KhanAnswerTypes.text.createValidatorFunctional(correct, options);}}, caps:{setupFunctional:function(solutionarea, solutionText, solutionData){return KhanAnswerTypes.text.setupFunctional(solutionarea, solutionText, solutionData, "caps");}, createValidatorFunctional:function(correct, options){return KhanAnswerTypes.text.createValidatorFunctional(correct, options);}}, text:{setupFunctional:function(solutionarea, solutionText, solutionData, solutionGrammar){solutionGrammar = solutionGrammar || "text";var input=undefined;if(window.Modernizr && Modernizr.touchevents){input = $("<input data-solution-grammar=\"" + solutionGrammar + "\" type=\"text\" autocapitalize=\"off\">");}else {input = $("<input data-solution-grammar=\"" + solutionGrammar + "\" type=\"text\">");}$(solutionarea).append(input);return {validator:KhanAnswerTypes.text.createValidatorFunctional(solutionText, solutionData), answer:function(){return input.val();}, solution:$.trim(solutionText), showGuess:function(guess){input.val(guess === undefined?"":guess);}};}, createValidatorFunctional:function(correct, options){options = _.extend({correctCase:"required"}, options);correct = $.trim(correct);return function(guess){var fallback=options.fallback != null?"" + options.fallback:"";guess = $.trim(guess) || fallback;var score={empty:false, correct:false, message:null, guess:guess};if(guess.toLowerCase() === correct.toLowerCase()){if(correct === guess || options.correctCase === "optional"){score.correct = true;}else {if(guess === guess.toLowerCase()){score.message = i18n._("Your answer is almost correct, but " + "must be in capital letters.");}else if(guess === guess.toUpperCase()){score.message = i18n._("Your answer is almost correct, but " + "must not be in capital letters.");}else {score.message = i18n._("Your answer is almost correct, but " + "must be in the correct case.");}}}return score;};}}, predicate:{defaultForms:"integer, proper, improper, mixed, decimal", setupFunctional:function(solutionarea, solutionText, solutionData){var options=$.extend({simplify:"required", ratio:false, forms:KhanAnswerTypes.predicate.defaultForms}, solutionData);var acceptableForms=options.forms.split(/\s*,\s*/);if(options.inexact === undefined){options.maxError = 0;}options.maxError = +options.maxError + MAXERROR_EPSILON;var $input=$("<input type=\"text\" autocapitalize=\"off\">");$(solutionarea).append($input);var exampleForms={integer:i18n._("an integer, like <code>6</code>"), proper:(function(){if(options.simplify === "optional"){return i18n._("a <em>proper</em> fraction, like " + "<code>1/2</code> or <code>6/10</code>");}else {return i18n._("a <em>simplified proper</em> " + "fraction, like <code>3/5</code>");}})(), improper:(function(){if(options.simplify === "optional"){return i18n._("an <em>improper</em> fraction, like " + "<code>10/7</code> or <code>14/8</code>");}else {return i18n._("a <em>simplified improper</em> " + "fraction, like <code>7/4</code>");}})(), pi:i18n._("a multiple of pi, like <code>12\\ \\text{pi}" + "</code> or <code>2/3\\ \\text{pi}</code>"), log:i18n._("an expression, like <code>\\log(100)</code>"), percent:i18n._("a percent, like <code>%(NUM)s\\%</code>", {NUM:localeToFixed(12.34, 2)}), mixed:i18n._("a mixed number, like <code>1\\ 3/4</code>"), decimal:(function(){if(options.inexact === undefined){return i18n._("an <em>exact</em> decimal, like " + "<code>%(NUM)s</code>", {NUM:localeToFixed(0.75, 2)});}else {return i18n._("a decimal, like <code>%(NUM)s</code>", {NUM:localeToFixed(0.75, 2)});}})()};var examples=[];$.each(acceptableForms, function(i, form){if(exampleForms[form] != null){examples.push(exampleForms[form]);}});if(options.forms !== KhanAnswerTypes.predicate.defaultForms){addExamplesToInput($input, examples);}return {validator:KhanAnswerTypes.predicate.createValidatorFunctional(solutionText, solutionData), answer:function(){return $input.val();}, solution:$.trim(solutionText), showGuess:function(guess){$input.val(guess === undefined?"":guess);}};}, createValidatorFunctional:function(predicate, options){options = _.extend({simplify:"required", ratio:false, forms:KhanAnswerTypes.predicate.defaultForms}, options);var acceptableForms=undefined;if(!_.isArray(options.forms)){acceptableForms = options.forms.split(/\s*,\s*/);}else {acceptableForms = options.forms;}if(options.inexact === undefined){options.maxError = 0;}options.maxError = +options.maxError + MAXERROR_EPSILON;if(_.contains(acceptableForms, "percent")){acceptableForms = _.without(acceptableForms, "percent");acceptableForms.push("percent");}predicate = _.isFunction(predicate)?predicate:KhanUtil.tmpl.getVAR(predicate);var fractionTransformer=function(text){text = text.replace(/\u2212/, "-").replace(/([+-])\s+/g, "$1").replace(/(^\s*)|(\s*$)/gi, "");var match=text.match(/^([+-]?\d+)\s*\/\s*([+-]?\d+)$/);var parsedInt=parseInt(text, 10);if(match){var num=parseFloat(match[1]);var denom=parseFloat(match[2]);var simplified=denom > 0 && (options.ratio || match[2] !== "1") && KhanMath.getGCD(num, denom) === 1;return [{value:num / denom, exact:simplified}];}else if(!isNaN(parsedInt) && "" + parsedInt === text){return [{value:parsedInt, exact:true}];}return [];};var forms={integer:function(text){var decimal=forms.decimal(text);var rounded=forms.decimal(text, 1);if(decimal[0].value != null && decimal[0].value === rounded[0].value || decimal[1].value != null && decimal[1].value === rounded[1].value){return decimal;}return [];}, proper:function(text){return $.map(fractionTransformer(text), function(o){if(Math.abs(o.value) < 1){return [o];}else {return [];}});}, improper:function(text){return $.map(fractionTransformer(text), function(o){if(Math.abs(o.value) >= 1){return [o];}else {return [];}});}, pi:function(text){var match=undefined;var possibilities=[];text = text.replace(/\u2212/, "-");if(match = text.match(/^([+-]?)\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)){possibilities = [{value:parseFloat(match[1] + "1"), exact:true}];}else if(match = text.match(/^([+-]?\s*\d+\s*(?:\/\s*[+-]?\s*\d+)?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)){possibilities = fractionTransformer(match[1]);}else if(match = text.match(/^([+-]?)\s*(\d+)\s*([+-]?\d+)\s*\/\s*([+-]?\d+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)){var sign=parseFloat(match[1] + "1");var integ=parseFloat(match[2]);var num=parseFloat(match[3]);var denom=parseFloat(match[4]);var simplified=num < denom && KhanMath.getGCD(num, denom) === 1;possibilities = [{value:sign * (integ + num / denom), exact:simplified}];}else if(match = text.match(/^([+-]?\s*\d+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\s*\d+))?$/i)){possibilities = fractionTransformer(match[1] + "/" + match[3]);}else if(match = text.match(/^([+-]?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\d+))?$/i)){possibilities = fractionTransformer(match[1] + "1/" + match[3]);}else if(text === "0"){possibilities = [{value:0, exact:true}];}else if(match = text.match(/^(.+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)){possibilities = forms.decimal(match[1]);}else {possibilities = _.reduce(KhanAnswerTypes.predicate.defaultForms.split(/\s*,\s*/), function(memo, form){return memo.concat(forms[form](text));}, []);var approximatesPi=false;var number=parseFloat(text);if(!isNaN(number) && number !== parseInt(text)){var piMult=Math.PI / 12;var roundedNumber=piMult * Math.round(number / piMult);if(Math.abs(number - roundedNumber) < 0.01){approximatesPi = true;}}else if(text.match(/\/\s*7/)){approximatesPi = true;}if(approximatesPi){_.each(possibilities, function(possibility){possibility.piApprox = true;});}return possibilities;}var multiplier=Math.PI;if(text.match(/\\?tau|t|\u03c4/)){multiplier = Math.PI * 2;}if(text.match(/pau/)){multiplier = Math.PI * 1.5;}$.each(possibilities, function(ix, possibility){possibility.value *= multiplier;});return possibilities;}, coefficient:function(text){var possibilities=[];text = text.replace(/\u2212/, "-");if(text === ""){possibilities = [{value:1, exact:true}];}else if(text === "-"){possibilities = [{value:-1, exact:true}];}return possibilities;}, log:function(text){var match=undefined;var possibilities=[];text = text.replace(/\u2212/, "-");text = text.replace(/[ \(\)]/g, "");if(match = text.match(/^log\s*(\S+)\s*$/i)){possibilities = forms.decimal(match[1]);}else if(text === "0"){possibilities = [{value:0, exact:true}];}return possibilities;}, percent:function(text){text = $.trim(text);var hasPercentSign=false;if(text.indexOf("%") === text.length - 1){text = $.trim(text.substring(0, text.length - 1));hasPercentSign = true;}var transformed=forms.decimal(text);$.each(transformed, function(ix, t){t.exact = hasPercentSign;t.value = t.value / 100;});return transformed;}, mixed:function(text){var match=text.replace(/\u2212/, "-").replace(/([+-])\s+/g, "$1").match(/^([+-]?)(\d+)\s+(\d+)\s*\/\s*(\d+)$/);if(match){var sign=parseFloat(match[1] + "1");var integ=parseFloat(match[2]);var num=parseFloat(match[3]);var denom=parseFloat(match[4]);var simplified=num < denom && KhanMath.getGCD(num, denom) === 1;return [{value:sign * (integ + num / denom), exact:simplified}];}return [];}, decimal:function(text, precision){if(precision == null){precision = 10000000000;}var normal=function(text){text = $.trim(text);var match=text.replace(/\u2212/, "-").replace(/([+-])\s+/g, "$1").match(/^([+-]?(?:\d{1,3}(?:[, ]?\d{3})*\.?|\d{0,3}(?:[, ]?\d{3})*\.(?:\d{3}[, ]?)*\d{1,3}))$/);var badLeadingZero=text.match(/^0[0,]*,/);if(match && !badLeadingZero){var x=parseFloat(match[1].replace(/[, ]/g, ""));if(options.inexact === undefined){x = Math.round(x * precision) / precision;}return x;}};var commas=function(text){text = text.replace(/([\.,])/g, function(_, c){return c === "."?",":".";});return normal(text);};return [{value:normal(text), exact:true}, {value:commas(text), exact:true}];}};return function(guess){var fallback=options.fallback != null?"" + options.fallback:"";guess = $.trim(guess) || fallback;var score={empty:guess === "", correct:false, message:null, guess:guess};$.each(acceptableForms, function(i, form){var transformed=forms[form](guess);for(var j=0, l=transformed.length; j < l; j++) {var val=transformed[j].value;var exact=transformed[j].exact;var piApprox=transformed[j].piApprox;if(predicate(val, options.maxError)){if(exact || options.simplify === "optional"){score.correct = true;score.message = options.message || null;score.empty = false;}else if(form === "percent"){score.empty = true;score.message = i18n._("Your answer is almost correct, " + "but it is missing a " + "<code>\\%</code> at the end.");}else {if(options.simplify !== "enforced"){score.empty = true;}score.message = i18n._("Your answer is almost correct, " + "but it needs to be simplified.");}return false;}else if(piApprox && predicate(val, Math.abs(val * 0.001))){score.empty = true;score.message = i18n._("Your answer is close, but you may " + "have approximated pi. Enter your " + "answer as a multiple of pi, like " + "<code>12\\ \\text{pi}</code> or " + "<code>2/3\\ \\text{pi}</code>");}}});if(score.correct === false){var _ret=(function(){var interpretedGuess=false;_.each(forms, function(form){var anyAreNaN=_.any(form(guess), function(t){return t.value != null && !_.isNaN(t.value);});if(anyAreNaN){interpretedGuess = true;}});if(!interpretedGuess){score.empty = true;score.message = i18n._("We could not understand your " + "answer. Please check your answer for extra " + "text or symbols.");return {v:score};}})();if(typeof _ret === "object")return _ret.v;}return score;};}}, number:{convertToPredicate:function(correct, options){var correctFloat=parseFloat($.trim(correct));return [function(guess, maxError){return Math.abs(guess - correctFloat) < maxError;}, $.extend({}, options, {type:"predicate"})];}, setupFunctional:function(solutionarea, solutionText, solutionData){var args=KhanAnswerTypes.number.convertToPredicate(solutionText, solutionData);return KhanAnswerTypes.predicate.setupFunctional(solutionarea, args[0], args[1]);}, createValidatorFunctional:function(correct, options){var _KhanAnswerTypes$predicate;return (_KhanAnswerTypes$predicate = KhanAnswerTypes.predicate).createValidatorFunctional.apply(_KhanAnswerTypes$predicate, KhanAnswerTypes.number.convertToPredicate(correct, options));}}, decimal:numberAnswerType("decimal"), rational:numberAnswerType("integer, proper, improper, mixed"), improper:numberAnswerType("integer, proper, improper"), mixed:numberAnswerType("integer, proper, mixed"), regex:{setupFunctional:function(solutionarea, solutionText, solutionData){var input=undefined;if(window.Modernizr && Modernizr.touchevents){input = $("<input type=\"text\" autocapitalize=\"off\">");}else {input = $("<input type=\"text\">");}$(solutionarea).append(input);return {validator:KhanAnswerTypes.regex.createValidatorFunctional(solutionText, solutionData), answer:function(){return input.val();}, solution:$.trim(solutionText), showGuess:function(guess){input.val(guess === undefined?"":guess);}};}, createValidatorFunctional:function(regex, options){var flags="";if(options.caseInsensitive != null){flags += "i";}regex = new RegExp($.trim(regex), flags);return function(guess){var fallback=options.fallback != null?"" + options.fallback:"";guess = $.trim(guess) || fallback;return {empty:false, correct:guess.match(regex) != null, message:null, guess:guess};};}}, radical:{setupFunctional:function(solutionarea, solutionText, solutionData){var options=$.extend({simplify:"required"}, solutionData);var inte=$("<input type=\"text\" autocapitalize=\"off\">");var rad=$("<input type=\"text\" autocapitalize=\"off\">");var examples=options.simplify === "required"?[i18n._("a simplified radical, like <code>\\sqrt{2}</code> " + "or <code>3\\sqrt{5}</code>")]:[i18n._("a radical, like <code>\\sqrt{8}</code> or " + "<code>2\\sqrt{2}</code>")];addExamplesToInput(inte, examples);addExamplesToInput(rad, examples);$("<div class='radical'>").append($("<span>").append(inte)).append("<span class=\"surd\">&radic;</span>").append($("<span>").append(rad).addClass("overline")).appendTo(solutionarea);var ansSquared=parseFloat(solutionText);var ans=KhanMath.splitRadical(ansSquared);return {validator:KhanAnswerTypes.radical.createValidatorFunctional(solutionText, solutionData), answer:function(){return [$.trim(inte.val()), $.trim(rad.val())];}, solution:ans, showGuess:function(guess){inte.val(guess?guess[0]:"");rad.val(guess?guess[1]:"");}};}, createValidatorFunctional:function(ansSquared, options){options = $.extend({simplify:"required"}, options);ansSquared = parseFloat(ansSquared);var ans=KhanMath.splitRadical(ansSquared);return function(guess){if(guess[0].length === 0 && guess[1].length === 0){return {empty:true, correct:false, message:null, guess:guess};}guess[0] = guess[0].length > 0?guess[0]:"1";guess[1] = guess[1].length > 0?guess[1]:"1";var inteGuess=parseFloat(guess[0]);var radGuess=parseFloat(guess[1]);var correct=Math.abs(inteGuess) * inteGuess * radGuess === ansSquared;var simplified=inteGuess === ans[0] && radGuess === ans[1];var score={empty:false, correct:false, message:null, guess:guess};if(correct){if(simplified || options.simplify === "optional"){score.correct = true;}else {score.message = i18n._("Your answer is almost correct, but it needs to " + "be simplified.");}}return score;};}}, cuberoot:{setupFunctional:function(solutionarea, solutionText, solutionData){var options=$.extend({simplify:"required"}, solutionData);var inte=$("<input type=\"text\" autocapitalize=\"off\">");var rad=$("<input type=\"text\" autocapitalize=\"off\">");var examples=options.simplify === "required"?[i18n._("a simplified radical, like <code>\\sqrt[3]{2}</code>" + " or <code>3\\sqrt[3]{5}</code>")]:[i18n._("a radical, like <code>\\sqrt[3]{8}</code> or " + "<code>2\\sqrt[3]{2}</code>")];addExamplesToInput(inte, examples);addExamplesToInput(rad, examples);$("<div class='radical'>").append($("<span>").append(inte)).append("<span class=\"surd\" style=\"vertical-align: 6px;\">" + "<code>\\sqrt[3]{}</code></span>").append($("<span>").append(rad).addClass("overline")).appendTo(solutionarea).tex();var ansCubed=parseFloat(solutionText);var ans=KhanMath.splitCube(ansCubed);return {validator:KhanAnswerTypes.cuberoot.createValidatorFunctional(solutionText, solutionData), answer:function(){return [inte.val(), rad.val()];}, solution:ans, showGuess:function(guess){inte.val(guess?guess[0]:"");rad.val(guess?guess[1]:"");}};}, createValidatorFunctional:function(ansCubed, options){options = $.extend({simplify:"required"}, options);ansCubed = parseFloat(ansCubed);var ans=KhanMath.splitCube(ansCubed);return function(guess){if(guess[0].length === 0 && guess[1].length === 0){return {empty:true, correct:false, message:null, guess:guess};}guess[0] = guess[0].length > 0?guess[0]:"1";guess[1] = guess[1].length > 0?guess[1]:"1";var inteGuess=parseFloat(guess[0]);var radGuess=parseFloat(guess[1]);var correct=Math.abs(inteGuess) * inteGuess * inteGuess * radGuess === ansCubed;var simplified=inteGuess === ans[0] && radGuess === ans[1];var score={empty:false, correct:false, message:null, guess:guess};if(correct){if(simplified || options.simplify === "optional"){score.correct = true;}else {score.message = i18n._("Your answer is almost correct, but it needs to " + "be simplified.");}}return score;};}}, multiple:{setup:function(solutionarea, solution){$(solutionarea).append($(solution).clone(true).texCleanup().contents().runModules());var answerDataArray=[];$(solutionarea).find(".sol").each(function(idx){var type=$(this).data("type");type = type != null?type:"number";var sol=$(solution).find(".sol").eq(idx);var solarea=$(this).empty();var answerData=KhanAnswerTypes[type].setup(solarea, sol);answerDataArray.push(answerData);});return {validator:KhanAnswerTypes.multiple.createValidator(solution), answer:function(){var answer=[];$.each(answerDataArray, function(i, answerData){answer.push(answerData.answer());});return answer;}, solution:(function(){$.map(answerDataArray, function(answerData){return answerData.solution;});})(), showGuess:function(guess){$.each(answerDataArray, function(i, answerData){if(guess !== undefined){answerData.showGuess(guess[i]);}else {answerData.showGuess();}});}, showCustomGuess:function(guess){$.each(answerDataArray, function(i, answerData){if(!_.isFunction(answerData.showCustomGuess)){return;}if(guess !== undefined){answerData.showCustomGuess(guess[i]);}else {answerData.showCustomGuess();}});}};}, createValidator:function(solution){var validators=[];$(solution).find(".sol").each(function(){var sol=$(this);var type=sol.data("type");type = type != null?type:"number";var validator=KhanAnswerTypes[type].createValidator(sol);validators.push(validator);});return function(guess){var score={empty:true, correct:true, message:null, guess:guess};var blockGradingMessage=null;if(checkIfAnswerEmpty(guess)){score.empty = true;score.correct = false;return score;}$.each(guess, function(i, g){var pass=validators[i](g);if(pass.message && pass.empty){blockGradingMessage = pass.message;}else {score.empty = score.empty && pass.empty;score.correct = score.correct && pass.correct;score.message = score.message || pass.message;}});if(score.correct && blockGradingMessage != null){return {empty:true, correct:false, message:blockGradingMessage, guess:guess};}else {score.empty = false;return score;}};}}, set:{setup:function(solutionarea, solution){$(solutionarea).append($(solution).find(".input-format").clone(true).texCleanup().contents().runModules());var inputArray=[];var showGuessArray=[];$(solutionarea).find(".entry").each(function(){var input=$(this);var type=$(this).data("type");type = type != null?type:"number";var sol=input.clone(true);var solarea=input.empty();var validator=KhanAnswerTypes[type].setup(solarea, sol);inputArray.push(validator.answer);showGuessArray.push(validator.showGuess);});var solutionArray=[];$(solution).find(".set-sol").clone(true).each(function(){var type=$(this).data("type");type = type != null?type:"number";var solarea=$("<div>");var validator=KhanAnswerTypes[type].setup(solarea, $(this));solutionArray.push(validator.solution);});return {validator:KhanAnswerTypes.set.createValidator(solution), answer:function(){var answer=[];$.each(inputArray, function(i, getAns){answer.push(getAns());});return answer;}, solution:solution, showGuess:function(guess){$.each(showGuessArray, function(i, showGuess){if(guess === undefined){showGuess();}else {showGuess(guess[i]);}});}};}, createValidator:function(solution){var validatorArray=[];$(solution).find(".set-sol").clone(true).each(function(){var type=$(this).data("type");type = type != null?type:"number";var validator=KhanAnswerTypes[type].createValidator($(this));validatorArray.push(validator);});return function(guess){var score={empty:validatorArray.length === 0?false:true, correct:true, message:null, guess:guess};var blockGradingMessage=null;var unusedValidators=validatorArray.slice(0);$.each(guess, function(i, g){var correct=false;$.each(unusedValidators, function(i, validator){var pass=validator(g);if(pass.empty && pass.message){unusedValidators.splice(i, 1);blockGradingMessage = pass.message;correct = true;return false;}if(pass.correct){correct = pass.correct;unusedValidators.splice(i, 1);return false;}if(!pass.correct && pass.message){correct = pass.message;}});if(!checkIfAnswerEmpty(g) && !checkIfAnswerEmpty(correct)){score.empty = false;}if(!correct && $.trim([g].join("")) !== ""){score.correct = false;return false;}if(typeof correct === "string"){score.message = correct;score.correct = false;}});if(validatorArray.length > guess.length){if(unusedValidators.length > validatorArray.length - guess.length){score.correct = false;}}else if(unusedValidators.length > 0){score.correct = false;}if(score.correct && blockGradingMessage != null){return {empty:true, correct:false, message:blockGradingMessage, guess:guess};}else {return score;}};}}, radio:{setup:function(solutionarea, solution){var $list=$("<ul></ul>");$(solutionarea).append($list);var $choices=$(solution).siblings(".choices");var $choicesClone=$choices.clone(true).texCleanup();var $solutionClone=$(solution).clone(true).texCleanup();var solutionText=$solutionClone.text();var isCategory=!!$choices.data("category");var possibleChoices=undefined;if(isCategory){(function(){var correctText=getTextSquish($solutionClone);possibleChoices = _.map($choicesClone.children().get(), function(elem){if(getTextSquish(elem) === correctText){return $solutionClone[0];}else {return elem;}});})();}else {possibleChoices = $solutionClone.get().concat(KhanMath.shuffle($choicesClone.children().get()));}var numChoices=+$choices.data("show") || possibleChoices.length;var showNone=!!$choices.data("none");var shownChoices=_.uniq(possibleChoices, false, function(elem){return getTextSquish(elem);});var addNoneChoice=showNone && shownChoices.length === numChoices - 1;if(shownChoices.length < numChoices && !addNoneChoice){return false;}else if(shownChoices.length > numChoices){shownChoices = shownChoices.slice(0, numChoices);}if(!isCategory){shownChoices = KhanMath.shuffle(shownChoices);}var correctIndex=undefined;_.each(shownChoices, function(choice, i){if(choice === $solutionClone[0]){correctIndex = i;}});var noneIsCorrect=showNone && correctIndex === numChoices - 1;if(showNone){var $none=$("<span>").html(i18n._("None of the above"));$none.data("noneOfTheAbove", true);if(noneIsCorrect){$list.data("realAnswer", $("<span>").addClass("value").append($solutionClone.clone(true).contents()));}var noneIndex=shownChoices.length - 1;if(addNoneChoice){noneIndex = shownChoices.length;}shownChoices.splice(noneIndex, 1, $("<span>").append($none));}var wrappedChoices=_.map(shownChoices, function(choice, i){return $("<li><label></label></li>").find("label").append([$("<input type=\"radio\" name=\"solution\">").val(i), $("<span class=\"value\"></span>").append($(choice).contents())]).end();});$list.append(wrappedChoices).runModules();return {validator:KhanAnswerTypes.radio.createValidator({solution:solution, index:correctIndex, noneIsCorrect:noneIsCorrect}), answer:function(){var $choice=$list.find("input:checked");if($choice.length === 0){return null;}var $choiceVal=$choice.siblings(".value");var $choiceNoneChild=$choiceVal.children().eq(0);return {isNone:$choiceNoneChild.data("noneOfTheAbove"), value:extractRawCode($choiceVal), index:+$choice.val()};}, solution:solutionText, showGuess:function(guess){if(guess == null){$(solutionarea).find("input:checked").attr("checked", false);}else {$list.children().filter(function(){return guess.index === $(this).find("input").val();}).find("input").attr("checked", true);}}};}, createValidator:function(solution){var correct=extractRawCode(solution.solution || solution);function showReal(){var $list=$("#solutionarea").find("ul");var $choice=$list.children().filter(function(){return $(this).find("span.value > span").data("noneOfTheAbove");}).find("input");$choice.next().fadeOut("fast", function(){var $real=$list.data("realAnswer");$(this).replaceWith($real);$real.tex().fadeIn("fast");});}return function(guess){var score={empty:false, correct:false, message:null, guess:guess};if(guess == null){score.empty = true;return score;}if(guess.index){if(guess.isNone && solution.noneIsCorrect){showReal();score.correct = true;}else {score.correct = guess.index === solution.index;}}else {if(guess.isNone && $("#solutionarea").find("ul").data("real-answer") != null){showReal();score.correct = true;}else if($.trim(guess.value).replace(/\r\n?|\n/g, "") === $.trim(correct.replace(/\r\n?|\n/g, ""))){score.correct = true;}else {score.correct = false;}}return score;};}}, list:{setupFunctional:function(solutionarea, solutionText, solutionData){var input=$("<select></select>");$(solutionarea).append(input);var choices=$.tmpl.getVAR(solutionData.choices);$.each(choices, function(index, value){input.append("<option value=\"" + value + "\">" + value + "</option>");});return {validator:KhanAnswerTypes.list.createValidatorFunctional(solutionText, solutionData), answer:function(){return input.val();}, solution:$.trim(solutionText), showGuess:function(guess){input.val(guess === undefined?"":guess);}};}, createValidatorFunctional:function(correct, options){correct = $.trim(correct);return function(guess){guess = $.trim(guess);return {empty:false, correct:correct === guess, message:null, guess:guess};};}}, custom:{setup:function(solutionarea, solution){solution.find(".instruction").appendTo(solutionarea).runModules();var guessCode=solution.find(".guess").text();var showCustomGuessCode=solution.find(".show-guess").text();var showGuessCode=solution.find(".show-guess-solutionarea").text();return {validator:KhanAnswerTypes.custom.createValidator(solution), answer:function(){return KhanUtil.tmpl.getVAR(guessCode, KhanUtil.currentGraph);}, solution:$.trim($(solution).text()), showCustomGuess:function(guess){var code="(function() { " + "var guess = " + JSON.stringify(guess) + ";" + showCustomGuessCode + "})()";KhanUtil.tmpl.getVAR(code, KhanUtil.currentGraph);}, showGuess:function(guess){var code="(function() { " + "var guess = " + JSON.stringify(guess) + ";" + showGuessCode + "})()";KhanUtil.tmpl.getVAR(code, KhanUtil.currentGraph);}};}, createValidator:function(solution){var validatorCode=$(solution).find(".validator-function").text();var validator=function(guess){var code="(function() { " + "var guess = " + JSON.stringify(guess) + ";" + validatorCode + "})()";return KhanUtil.tmpl.getVAR(code, KhanUtil.currentGraph);};return function(guess){var pass=validator(guess);if(typeof pass === "object"){return pass;}else {return {empty:pass === "", correct:pass === true, message:typeof pass === "string"?pass:null, guess:guess};}};}}, primeFactorization:{setupFunctional:function(solutionarea, solutionText, solutionData){var $input=undefined;if(window.Modernizr && Modernizr.touchevents){$input = $("<input type=\"text\" autocapitalize=\"off\">");}else {$input = $("<input type=\"text\">");}$input.addClass("prime-factorization");$(solutionarea).append($input);var examples=[i18n._("a product of prime factors, like <code>2 \\times 3" + "</code>"), i18n._("a single prime number, like <code>5</code>")];addExamplesToInput($input, examples);return {validator:KhanAnswerTypes.primeFactorization.createValidatorFunctional(solutionText, solutionData), answer:function(){return $input.val();}, solution:$.trim(solutionText), showGuess:function(guess){$input.val(guess === undefined?"":guess);}};}, createValidatorFunctional:function(correct, options){correct = $.trim(correct);return function(guess){guess = guess.split(" ").join("").toLowerCase();guess = guess.replace(/{|}/g, "");guess = guess.split(/x|\*|\u00d7|\\times|\\cdot/);var terms=[];for(var i=0; i < guess.length; i++) {var t=guess[i].split("^");if(t.length > 1){for(var j=0; j < t[1]; j++) {terms.push(t[0]);}}else {terms.push(guess[i]);}}guess = KhanMath.sortNumbers(terms).join("x");return {empty:guess === "", correct:guess === correct, message:null, guess:guess};};}}, checkbox:{setupFunctional:function(solutionarea, solutionText, solutionData){var input=$("<input type=\"checkbox\">");$(solutionarea).append(input);return {validator:KhanAnswerTypes.checkbox.createValidatorFunctional(solutionText, solutionData), answer:function(){return input.is(":checked") || "";}, solution:$.trim(solutionText), showGuess:function(guess){input.attr("checked", guess === undefined?false:guess);}};}, createValidatorFunctional:function(correct, options){correct = $.trim(correct) === "true";return function(guess){var score={empty:false, correct:false, message:null, guess:guess};if(!!correct === !!guess){score.correct = true;}else if(!guess){score.empty = true;}else {score.correct = false;}return score;};}}, expression:{setup:function(solutionarea, solution){var options=this._parseOptions($(solution).data());var $tex=$("<span class=\"tex\"/>");var $input=$("<input type=\"text\">");var $error=$("<div class=\"error-div\" style=\"display: none;\"/>");$(solutionarea).append($("<span class=\"expression\"/>").append($("<span class=\"output\"/>").append($tex), $("<span class=\"input\"/>").append($input, $error.append($("<i class=\"icon-exclamation-sign error-icon\"/>")))));var errorTimeout=null;var lastParsedTex="";var update=function(){clearTimeout(errorTimeout);var result=KAS.parse($input.val(), options);if(result.parsed){hideError();$tex.css({opacity:1});var tex=result.expr.asTex(options);if(tex !== lastParsedTex){$tex.empty().append($("<code>").text(tex)).tex();lastParsedTex = tex;}}else {errorTimeout = setTimeout(showError, 2000);$tex.css({opacity:0.5});}};var showError=function(){if(!$error.is(":visible")){$error.show();$input.addClass("error");}};var hideError=function(){if($error.is(":visible")){$error.hide();$input.removeClass("error");}};$input.on("input propertychange", update);$input.on("keydown", function(event){var input=$input[0];var start=input.selectionStart;var end=input.selectionEnd;var supported=start !== undefined;if(supported && event.which === 8){var val=input.value;if(start === end && val.slice(start - 1, start + 1) === "()"){event.preventDefault();input.value = val.slice(0, start - 1) + val.slice(start + 1);input.selectionStart = start - 1;input.selectionEnd = end - 1;update();}}});$input.on("keypress", function(event){var input=$input[0];var start=input.selectionStart;var end=input.selectionEnd;var supported=start !== undefined;if(supported && event.which === 40){(function(){var val=input.value;event.preventDefault();if(start === end){var insertMatched=_.any([" ", ")", ""], function(c){return val.charAt(start) === c;});input.value = val.slice(0, start) + (insertMatched?"()":"(") + val.slice(end);}else {input.value = val.slice(0, start) + "(" + val.slice(start, end) + ")" + val.slice(end);}input.selectionStart = start + 1;input.selectionEnd = end + 1;update();})();}else if(supported && event.which === 41){var val=input.value;if(start === end && val.charAt(start) === ")"){event.preventDefault();input.selectionStart = start + 1;input.selectionEnd = end + 1;update();}}});var explicitMul=i18n._("For <code>2\\cdot2</code>, enter " + "<strong>2*2</strong>");if(options.times){explicitMul = explicitMul.replace(/\\cdot/g, "\\times");}var examples=[explicitMul, i18n._("For <code>3y</code>, enter <strong>3y</strong> or " + "<strong>3*y</strong>"), i18n._("For <code>\\dfrac{1}{x}</code>, enter <strong>1/x" + "</strong>"), i18n._("For <code>x^{y}</code>, enter <strong>x^y</strong>"), i18n._("For <code>\\sqrt{x}</code>, enter <strong>sqrt(x)" + "</strong>"), i18n._("For <code>\\pi</code>, enter <strong>pi</strong>"), i18n._("For <code>\\sin \\theta</code>, enter <strong>" + "sin(theta)</strong>"), i18n._("For <code>\\le</code> or <code>\\ge</code>, enter " + "<strong><=</strong> or <strong>>=</strong>"), i18n._("For <code>\\neq</code>, enter <strong>=/=</strong>")];addExamplesToInput($input, examples);return {validator:KhanAnswerTypes.expression.createValidator(solution), answer:function(){return $input.val();}, solution:solution, showGuess:function(guess){$input.val(guess === undefined?"":guess);}};}, parseSolution:function(solutionString, options){var solution=KAS.parse(solutionString, options);if(!solution.parsed){throw new Error("The provided solution (" + solutionString + ") didn't parse.");}else if(options.simplified && !solution.expr.isSimplified()){throw new Error("The provided solution (" + solutionString + ") isn't fully expanded and simplified.");}else {solution = solution.expr;}return solution;}, _parseOptions:function(solutionData){var form=solutionData.form !== undefined?solutionData.form:solutionData.sameForm;var notFalseOrNil=function(x){return x != null && x !== false;};var options={form:notFalseOrNil(form), simplify:notFalseOrNil(solutionData.simplify), times:notFalseOrNil(solutionData.times)};if(_.isString(solutionData.functions)){options.functions = _.compact(solutionData.functions.split(/[ ,]+/));}else if(_.isArray(solutionData.functions)){options.functions = _.compact(solutionData.functions);}return options;}, createValidator:function(solution){var $solution=$(solution);var validatorArray=[];var createValidatorFunctional=this.createValidatorFunctional;var parseOptions=this._parseOptions;$(solution).find(".set-sol").each(function(){var options=parseOptions($(this).data());validatorArray.push(createValidatorFunctional($(this).text(), options));});if(validatorArray.length === 0){var options=parseOptions($solution.data());validatorArray.push(createValidatorFunctional($solution.text(), options));}return function(guess){var score={empty:false, correct:false, message:null, guess:guess};$.each(validatorArray, function(i, validator){var result=validator(guess);if(result.correct){score.correct = true;score.message = null;return false;}if(result.message){score.message = result.message;}if(result.empty){score.empty = true;}});return score;};}, createValidatorFunctional:function(solution, options){return function(guess){var score={empty:false, correct:false, message:null, guess:guess};if(!guess){score.empty = true;return score;}var answer=KAS.parse(guess, options);if(!answer.parsed){score.empty = true;return score;}if(typeof solution === "string"){solution = KhanAnswerTypes.expression.parseSolution(solution, options);}var result=KAS.compare(answer.expr, solution, options);if(result.equal){score.correct = true;}else if(result.message){score.message = result.message;}else {var answerX=KAS.parse(guess.replace(/[xX]/g, "*"), options);if(answerX.parsed){var resultX=KAS.compare(answerX.expr, solution, options);if(resultX.equal){score.empty = true;score.message = "I'm a computer. I only " + "understand multiplication if you use an " + "asterisk (*) as the multiplication sign.";}else if(resultX.message){score.message = resultX.message + " Also, " + "I'm a computer. I only " + "understand multiplication if you use an " + "asterisk (*) as the multiplication sign.";}}}return score;};}}};module.exports = KhanAnswerTypes;
+
+/***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var _ = __webpack_require__(16);
+
+	var Traversal = __webpack_require__(30);
+
+	var findPassageRefR = new RegExp(
+	// [[ passage-ref 1]]
+	// capture 1: widget markdown
+	// capture 2: widgetId
+	"(\\[\\[☃ (passage-ref [0-9]+)\\]\\])" +
+	// spaces between the ref and the summary
+	"\\s" +
+	// opening paren + quote
+	"\\([\"“]" +
+	// summary of passage reference text
+	// capture 3: summaryText
+	"([\\s\\S]*)" +
+	// closing quote + paren
+	"[\"”]\\)", "g");
+
+	var fixWholeOptions = function (options) {
+	    // This parsing is technically illegal and should be done via
+	    // PerseusMarkdown, but because of the snowperson it's safe
+	    // in practice.
+	    // We should probably just get rid of this code once all the
+	    // passage-refs have been converted.
+
+	    var newWidgets = _.clone(options.widgets || {});
+	    var newContent = (options.content || "").replace(findPassageRefR, function (passageRefText, widgetMarkdown, widgetId, summaryText) {
+	        newWidgets[widgetId] = _.extend({}, newWidgets[widgetId], {
+	            options: _.extend({}, newWidgets[widgetId].options, {
+	                summaryText: summaryText }) });
+
+	        return widgetMarkdown;
+	    });
+
+	    return _.extend({}, options, {
+	        content: newContent,
+	        widgets: newWidgets });
+	};
+
+	var findRadioRefsR = new RegExp(
+	// passage-ref notation
+	"\\{\\{(passage-ref \\d+ \\d+)}}" +
+	// a space
+	"\\s+" +
+	// ("
+	"\\([\"\\u201C]" +
+	// <capture the content>
+	"([^\"]*)" +
+	// ")
+	"[\"\\u201D]\\)",
+	// find all passage-refs
+	"g");
+	var replaceRadioRefs = function (fullText, reference, summaryText) {
+	    if (/\n\n/.test(summaryText)) {
+	        return fullText;
+	    }
+	    return "{{" + reference + " \"" + summaryText + "\"}}";
+	};
+
+	var fixRadioWidget = function (widgetInfo) {
+	    if (widgetInfo.type !== "radio" || !widgetInfo.options || !widgetInfo.options.choices) {
+	        return widgetInfo;
+	    }
+
+	    var newChoices = _.map(widgetInfo.options.choices, function (choice) {
+	        if (!choice.content) {
+	            return choice;
+	        }
+
+	        var newChoice = choice.content.replace(findRadioRefsR, replaceRadioRefs);
+	        return _.extend({}, choice, {
+	            content: newChoice
+	        });
+	    });
+
+	    return _.extend({}, widgetInfo, {
+	        options: _.extend({}, widgetInfo.options, {
+	            choices: newChoices }) });
+	};
+
+	var fixRendererPassageRefs = function (options) {
+	    return Traversal.traverseRendererDeep(options, null, fixRadioWidget, fixWholeOptions);
+	};
+
+	var FixPassageRefs = function (itemData) {
+	    var newQuestion = fixRendererPassageRefs(itemData.question);
+	    var newHints = _.map(itemData.hints, function (hint) {
+	        return fixRendererPassageRefs(hint);
+	    });
+	    return _.extend({}, itemData, {
+	        question: newQuestion,
+	        hints: newHints });
+	};
+
+	module.exports = FixPassageRefs;
+
+/***/ },
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -8062,8 +8173,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 
 	var diff = __webpack_require__(145);
-	var splitDiff = __webpack_require__(139);
-	var stringArrayDiff = __webpack_require__(140);
+	var splitDiff = __webpack_require__(142);
+	var stringArrayDiff = __webpack_require__(143);
 
 	var BEFORE = "before";
 	var AFTER = "after";
@@ -8256,7 +8367,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = TextDiff;
 
 /***/ },
-/* 38 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -8266,7 +8377,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var classNames = __webpack_require__(44);
 	var React = __webpack_require__(15);
 
-	var performDiff = __webpack_require__(141);
+	var performDiff = __webpack_require__(144);
 
 	var indentationFromDepth = function (depth) {
 	    return (depth - 1) * 20;
@@ -8489,134 +8600,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WidgetDiff;
 
 /***/ },
-/* 39 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var $=__webpack_require__(19);var _=__webpack_require__(16);var retrieveMathFormula=__webpack_require__(142).retrieveMathFormula;var localeToFixed=__webpack_require__(143);var KhanMath=__webpack_require__(144);var MAXERROR_EPSILON=Math.pow(2, -42);var extractRawCode=function(elem){var $elem=$(elem).clone(true);var code=$elem.find("code");if(code.length){$.each(code, function(i, elem){$(elem).replaceWith("<code><script type=\"math/tex\">" + retrieveMathFormula(elem) + "</script></code>");});}return $elem.html();};function getTextSquish(elem){return $(elem).text().replace(/\s+/g, "");}function checkIfAnswerEmpty(guess){return $.trim(guess) === "" || guess instanceof Array && $.trim(guess.join("").replace(/,/g, "")) === "";}function addExamplesToInput($input, examples){if($input.data("qtip")){$input.qtip("destroy", true);}var $examples=$("<ul class=\"examples\" style=\"display: none\"></ul>");_.each(examples, function(example){$examples.append("<li>" + example + "</li>");});$input.qtip({content:{text:$examples.remove(), prerender:true}, style:{classes:"qtip-light leaf-tooltip"}, position:{my:"top left", at:"bottom left"}, show:{delay:0, effect:{length:0}, event:"focus"}, hide:{delay:0, event:"blur"}, events:{render:function(){$examples.children().runModules();}}});}function numberAnswerType(forms){return {setupFunctional:function(solutionarea, solutionText, solutionData){return KhanAnswerTypes.number.setupFunctional(solutionarea, solutionText, $.extend({}, solutionData, {forms:forms}));}, createValidatorFunctional:function(correct, options){return KhanAnswerTypes.number.createValidatorFunctional(correct, $.extend({}, options, {forms:forms}));}};}var KhanAnswerTypes={letters:{setupFunctional:function(solutionarea, solutionText, solutionData){return KhanAnswerTypes.text.setupFunctional(solutionarea, solutionText, solutionData, "letters");}, createValidatorFunctional:function(correct, options){return KhanAnswerTypes.text.createValidatorFunctional(correct, options);}}, lowers:{setupFunctional:function(solutionarea, solutionText, solutionData){return KhanAnswerTypes.text.setupFunctional(solutionarea, solutionText, solutionData, "lowers");}, createValidatorFunctional:function(correct, options){return KhanAnswerTypes.text.createValidatorFunctional(correct, options);}}, caps:{setupFunctional:function(solutionarea, solutionText, solutionData){return KhanAnswerTypes.text.setupFunctional(solutionarea, solutionText, solutionData, "caps");}, createValidatorFunctional:function(correct, options){return KhanAnswerTypes.text.createValidatorFunctional(correct, options);}}, text:{setupFunctional:function(solutionarea, solutionText, solutionData, solutionGrammar){solutionGrammar = solutionGrammar || "text";var input=undefined;if(window.Modernizr && Modernizr.touchevents){input = $("<input data-solution-grammar=\"" + solutionGrammar + "\" type=\"text\" autocapitalize=\"off\">");}else {input = $("<input data-solution-grammar=\"" + solutionGrammar + "\" type=\"text\">");}$(solutionarea).append(input);return {validator:KhanAnswerTypes.text.createValidatorFunctional(solutionText, solutionData), answer:function(){return input.val();}, solution:$.trim(solutionText), showGuess:function(guess){input.val(guess === undefined?"":guess);}};}, createValidatorFunctional:function(correct, options){options = _.extend({correctCase:"required"}, options);correct = $.trim(correct);return function(guess){var fallback=options.fallback != null?"" + options.fallback:"";guess = $.trim(guess) || fallback;var score={empty:false, correct:false, message:null, guess:guess};if(guess.toLowerCase() === correct.toLowerCase()){if(correct === guess || options.correctCase === "optional"){score.correct = true;}else {if(guess === guess.toLowerCase()){score.message = i18n._("Your answer is almost correct, but " + "must be in capital letters.");}else if(guess === guess.toUpperCase()){score.message = i18n._("Your answer is almost correct, but " + "must not be in capital letters.");}else {score.message = i18n._("Your answer is almost correct, but " + "must be in the correct case.");}}}return score;};}}, predicate:{defaultForms:"integer, proper, improper, mixed, decimal", setupFunctional:function(solutionarea, solutionText, solutionData){var options=$.extend({simplify:"required", ratio:false, forms:KhanAnswerTypes.predicate.defaultForms}, solutionData);var acceptableForms=options.forms.split(/\s*,\s*/);if(options.inexact === undefined){options.maxError = 0;}options.maxError = +options.maxError + MAXERROR_EPSILON;var $input=$("<input type=\"text\" autocapitalize=\"off\">");$(solutionarea).append($input);var exampleForms={integer:i18n._("an integer, like <code>6</code>"), proper:(function(){if(options.simplify === "optional"){return i18n._("a <em>proper</em> fraction, like " + "<code>1/2</code> or <code>6/10</code>");}else {return i18n._("a <em>simplified proper</em> " + "fraction, like <code>3/5</code>");}})(), improper:(function(){if(options.simplify === "optional"){return i18n._("an <em>improper</em> fraction, like " + "<code>10/7</code> or <code>14/8</code>");}else {return i18n._("a <em>simplified improper</em> " + "fraction, like <code>7/4</code>");}})(), pi:i18n._("a multiple of pi, like <code>12\\ \\text{pi}" + "</code> or <code>2/3\\ \\text{pi}</code>"), log:i18n._("an expression, like <code>\\log(100)</code>"), percent:i18n._("a percent, like <code>%(NUM)s\\%</code>", {NUM:localeToFixed(12.34, 2)}), mixed:i18n._("a mixed number, like <code>1\\ 3/4</code>"), decimal:(function(){if(options.inexact === undefined){return i18n._("an <em>exact</em> decimal, like " + "<code>%(NUM)s</code>", {NUM:localeToFixed(0.75, 2)});}else {return i18n._("a decimal, like <code>%(NUM)s</code>", {NUM:localeToFixed(0.75, 2)});}})()};var examples=[];$.each(acceptableForms, function(i, form){if(exampleForms[form] != null){examples.push(exampleForms[form]);}});if(options.forms !== KhanAnswerTypes.predicate.defaultForms){addExamplesToInput($input, examples);}return {validator:KhanAnswerTypes.predicate.createValidatorFunctional(solutionText, solutionData), answer:function(){return $input.val();}, solution:$.trim(solutionText), showGuess:function(guess){$input.val(guess === undefined?"":guess);}};}, createValidatorFunctional:function(predicate, options){options = _.extend({simplify:"required", ratio:false, forms:KhanAnswerTypes.predicate.defaultForms}, options);var acceptableForms=undefined;if(!_.isArray(options.forms)){acceptableForms = options.forms.split(/\s*,\s*/);}else {acceptableForms = options.forms;}if(options.inexact === undefined){options.maxError = 0;}options.maxError = +options.maxError + MAXERROR_EPSILON;if(_.contains(acceptableForms, "percent")){acceptableForms = _.without(acceptableForms, "percent");acceptableForms.push("percent");}predicate = _.isFunction(predicate)?predicate:KhanUtil.tmpl.getVAR(predicate);var fractionTransformer=function(text){text = text.replace(/\u2212/, "-").replace(/([+-])\s+/g, "$1").replace(/(^\s*)|(\s*$)/gi, "");var match=text.match(/^([+-]?\d+)\s*\/\s*([+-]?\d+)$/);var parsedInt=parseInt(text, 10);if(match){var num=parseFloat(match[1]);var denom=parseFloat(match[2]);var simplified=denom > 0 && (options.ratio || match[2] !== "1") && KhanMath.getGCD(num, denom) === 1;return [{value:num / denom, exact:simplified}];}else if(!isNaN(parsedInt) && "" + parsedInt === text){return [{value:parsedInt, exact:true}];}return [];};var forms={integer:function(text){var decimal=forms.decimal(text);var rounded=forms.decimal(text, 1);if(decimal[0].value != null && decimal[0].value === rounded[0].value || decimal[1].value != null && decimal[1].value === rounded[1].value){return decimal;}return [];}, proper:function(text){return $.map(fractionTransformer(text), function(o){if(Math.abs(o.value) < 1){return [o];}else {return [];}});}, improper:function(text){return $.map(fractionTransformer(text), function(o){if(Math.abs(o.value) >= 1){return [o];}else {return [];}});}, pi:function(text){var match=undefined;var possibilities=[];text = text.replace(/\u2212/, "-");if(match = text.match(/^([+-]?)\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)){possibilities = [{value:parseFloat(match[1] + "1"), exact:true}];}else if(match = text.match(/^([+-]?\s*\d+\s*(?:\/\s*[+-]?\s*\d+)?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)){possibilities = fractionTransformer(match[1]);}else if(match = text.match(/^([+-]?)\s*(\d+)\s*([+-]?\d+)\s*\/\s*([+-]?\d+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)){var sign=parseFloat(match[1] + "1");var integ=parseFloat(match[2]);var num=parseFloat(match[3]);var denom=parseFloat(match[4]);var simplified=num < denom && KhanMath.getGCD(num, denom) === 1;possibilities = [{value:sign * (integ + num / denom), exact:simplified}];}else if(match = text.match(/^([+-]?\s*\d+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\s*\d+))?$/i)){possibilities = fractionTransformer(match[1] + "/" + match[3]);}else if(match = text.match(/^([+-]?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\d+))?$/i)){possibilities = fractionTransformer(match[1] + "1/" + match[3]);}else if(text === "0"){possibilities = [{value:0, exact:true}];}else if(match = text.match(/^(.+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)){possibilities = forms.decimal(match[1]);}else {possibilities = _.reduce(KhanAnswerTypes.predicate.defaultForms.split(/\s*,\s*/), function(memo, form){return memo.concat(forms[form](text));}, []);var approximatesPi=false;var number=parseFloat(text);if(!isNaN(number) && number !== parseInt(text)){var piMult=Math.PI / 12;var roundedNumber=piMult * Math.round(number / piMult);if(Math.abs(number - roundedNumber) < 0.01){approximatesPi = true;}}else if(text.match(/\/\s*7/)){approximatesPi = true;}if(approximatesPi){_.each(possibilities, function(possibility){possibility.piApprox = true;});}return possibilities;}var multiplier=Math.PI;if(text.match(/\\?tau|t|\u03c4/)){multiplier = Math.PI * 2;}if(text.match(/pau/)){multiplier = Math.PI * 1.5;}$.each(possibilities, function(ix, possibility){possibility.value *= multiplier;});return possibilities;}, coefficient:function(text){var possibilities=[];text = text.replace(/\u2212/, "-");if(text === ""){possibilities = [{value:1, exact:true}];}else if(text === "-"){possibilities = [{value:-1, exact:true}];}return possibilities;}, log:function(text){var match=undefined;var possibilities=[];text = text.replace(/\u2212/, "-");text = text.replace(/[ \(\)]/g, "");if(match = text.match(/^log\s*(\S+)\s*$/i)){possibilities = forms.decimal(match[1]);}else if(text === "0"){possibilities = [{value:0, exact:true}];}return possibilities;}, percent:function(text){text = $.trim(text);var hasPercentSign=false;if(text.indexOf("%") === text.length - 1){text = $.trim(text.substring(0, text.length - 1));hasPercentSign = true;}var transformed=forms.decimal(text);$.each(transformed, function(ix, t){t.exact = hasPercentSign;t.value = t.value / 100;});return transformed;}, mixed:function(text){var match=text.replace(/\u2212/, "-").replace(/([+-])\s+/g, "$1").match(/^([+-]?)(\d+)\s+(\d+)\s*\/\s*(\d+)$/);if(match){var sign=parseFloat(match[1] + "1");var integ=parseFloat(match[2]);var num=parseFloat(match[3]);var denom=parseFloat(match[4]);var simplified=num < denom && KhanMath.getGCD(num, denom) === 1;return [{value:sign * (integ + num / denom), exact:simplified}];}return [];}, decimal:function(text, precision){if(precision == null){precision = 10000000000;}var normal=function(text){text = $.trim(text);var match=text.replace(/\u2212/, "-").replace(/([+-])\s+/g, "$1").match(/^([+-]?(?:\d{1,3}(?:[, ]?\d{3})*\.?|\d{0,3}(?:[, ]?\d{3})*\.(?:\d{3}[, ]?)*\d{1,3}))$/);var badLeadingZero=text.match(/^0[0,]*,/);if(match && !badLeadingZero){var x=parseFloat(match[1].replace(/[, ]/g, ""));if(options.inexact === undefined){x = Math.round(x * precision) / precision;}return x;}};var commas=function(text){text = text.replace(/([\.,])/g, function(_, c){return c === "."?",":".";});return normal(text);};return [{value:normal(text), exact:true}, {value:commas(text), exact:true}];}};return function(guess){var fallback=options.fallback != null?"" + options.fallback:"";guess = $.trim(guess) || fallback;var score={empty:guess === "", correct:false, message:null, guess:guess};$.each(acceptableForms, function(i, form){var transformed=forms[form](guess);for(var j=0, l=transformed.length; j < l; j++) {var val=transformed[j].value;var exact=transformed[j].exact;var piApprox=transformed[j].piApprox;if(predicate(val, options.maxError)){if(exact || options.simplify === "optional"){score.correct = true;score.message = options.message || null;score.empty = false;}else if(form === "percent"){score.empty = true;score.message = i18n._("Your answer is almost correct, " + "but it is missing a " + "<code>\\%</code> at the end.");}else {if(options.simplify !== "enforced"){score.empty = true;}score.message = i18n._("Your answer is almost correct, " + "but it needs to be simplified.");}return false;}else if(piApprox && predicate(val, Math.abs(val * 0.001))){score.empty = true;score.message = i18n._("Your answer is close, but you may " + "have approximated pi. Enter your " + "answer as a multiple of pi, like " + "<code>12\\ \\text{pi}</code> or " + "<code>2/3\\ \\text{pi}</code>");}}});if(score.correct === false){var _ret=(function(){var interpretedGuess=false;_.each(forms, function(form){var anyAreNaN=_.any(form(guess), function(t){return t.value != null && !_.isNaN(t.value);});if(anyAreNaN){interpretedGuess = true;}});if(!interpretedGuess){score.empty = true;score.message = i18n._("We could not understand your " + "answer. Please check your answer for extra " + "text or symbols.");return {v:score};}})();if(typeof _ret === "object")return _ret.v;}return score;};}}, number:{convertToPredicate:function(correct, options){var correctFloat=parseFloat($.trim(correct));return [function(guess, maxError){return Math.abs(guess - correctFloat) < maxError;}, $.extend({}, options, {type:"predicate"})];}, setupFunctional:function(solutionarea, solutionText, solutionData){var args=KhanAnswerTypes.number.convertToPredicate(solutionText, solutionData);return KhanAnswerTypes.predicate.setupFunctional(solutionarea, args[0], args[1]);}, createValidatorFunctional:function(correct, options){var _KhanAnswerTypes$predicate;return (_KhanAnswerTypes$predicate = KhanAnswerTypes.predicate).createValidatorFunctional.apply(_KhanAnswerTypes$predicate, KhanAnswerTypes.number.convertToPredicate(correct, options));}}, decimal:numberAnswerType("decimal"), rational:numberAnswerType("integer, proper, improper, mixed"), improper:numberAnswerType("integer, proper, improper"), mixed:numberAnswerType("integer, proper, mixed"), regex:{setupFunctional:function(solutionarea, solutionText, solutionData){var input=undefined;if(window.Modernizr && Modernizr.touchevents){input = $("<input type=\"text\" autocapitalize=\"off\">");}else {input = $("<input type=\"text\">");}$(solutionarea).append(input);return {validator:KhanAnswerTypes.regex.createValidatorFunctional(solutionText, solutionData), answer:function(){return input.val();}, solution:$.trim(solutionText), showGuess:function(guess){input.val(guess === undefined?"":guess);}};}, createValidatorFunctional:function(regex, options){var flags="";if(options.caseInsensitive != null){flags += "i";}regex = new RegExp($.trim(regex), flags);return function(guess){var fallback=options.fallback != null?"" + options.fallback:"";guess = $.trim(guess) || fallback;return {empty:false, correct:guess.match(regex) != null, message:null, guess:guess};};}}, radical:{setupFunctional:function(solutionarea, solutionText, solutionData){var options=$.extend({simplify:"required"}, solutionData);var inte=$("<input type=\"text\" autocapitalize=\"off\">");var rad=$("<input type=\"text\" autocapitalize=\"off\">");var examples=options.simplify === "required"?[i18n._("a simplified radical, like <code>\\sqrt{2}</code> " + "or <code>3\\sqrt{5}</code>")]:[i18n._("a radical, like <code>\\sqrt{8}</code> or " + "<code>2\\sqrt{2}</code>")];addExamplesToInput(inte, examples);addExamplesToInput(rad, examples);$("<div class='radical'>").append($("<span>").append(inte)).append("<span class=\"surd\">&radic;</span>").append($("<span>").append(rad).addClass("overline")).appendTo(solutionarea);var ansSquared=parseFloat(solutionText);var ans=KhanMath.splitRadical(ansSquared);return {validator:KhanAnswerTypes.radical.createValidatorFunctional(solutionText, solutionData), answer:function(){return [$.trim(inte.val()), $.trim(rad.val())];}, solution:ans, showGuess:function(guess){inte.val(guess?guess[0]:"");rad.val(guess?guess[1]:"");}};}, createValidatorFunctional:function(ansSquared, options){options = $.extend({simplify:"required"}, options);ansSquared = parseFloat(ansSquared);var ans=KhanMath.splitRadical(ansSquared);return function(guess){if(guess[0].length === 0 && guess[1].length === 0){return {empty:true, correct:false, message:null, guess:guess};}guess[0] = guess[0].length > 0?guess[0]:"1";guess[1] = guess[1].length > 0?guess[1]:"1";var inteGuess=parseFloat(guess[0]);var radGuess=parseFloat(guess[1]);var correct=Math.abs(inteGuess) * inteGuess * radGuess === ansSquared;var simplified=inteGuess === ans[0] && radGuess === ans[1];var score={empty:false, correct:false, message:null, guess:guess};if(correct){if(simplified || options.simplify === "optional"){score.correct = true;}else {score.message = i18n._("Your answer is almost correct, but it needs to " + "be simplified.");}}return score;};}}, cuberoot:{setupFunctional:function(solutionarea, solutionText, solutionData){var options=$.extend({simplify:"required"}, solutionData);var inte=$("<input type=\"text\" autocapitalize=\"off\">");var rad=$("<input type=\"text\" autocapitalize=\"off\">");var examples=options.simplify === "required"?[i18n._("a simplified radical, like <code>\\sqrt[3]{2}</code>" + " or <code>3\\sqrt[3]{5}</code>")]:[i18n._("a radical, like <code>\\sqrt[3]{8}</code> or " + "<code>2\\sqrt[3]{2}</code>")];addExamplesToInput(inte, examples);addExamplesToInput(rad, examples);$("<div class='radical'>").append($("<span>").append(inte)).append("<span class=\"surd\" style=\"vertical-align: 6px;\">" + "<code>\\sqrt[3]{}</code></span>").append($("<span>").append(rad).addClass("overline")).appendTo(solutionarea).tex();var ansCubed=parseFloat(solutionText);var ans=KhanMath.splitCube(ansCubed);return {validator:KhanAnswerTypes.cuberoot.createValidatorFunctional(solutionText, solutionData), answer:function(){return [inte.val(), rad.val()];}, solution:ans, showGuess:function(guess){inte.val(guess?guess[0]:"");rad.val(guess?guess[1]:"");}};}, createValidatorFunctional:function(ansCubed, options){options = $.extend({simplify:"required"}, options);ansCubed = parseFloat(ansCubed);var ans=KhanMath.splitCube(ansCubed);return function(guess){if(guess[0].length === 0 && guess[1].length === 0){return {empty:true, correct:false, message:null, guess:guess};}guess[0] = guess[0].length > 0?guess[0]:"1";guess[1] = guess[1].length > 0?guess[1]:"1";var inteGuess=parseFloat(guess[0]);var radGuess=parseFloat(guess[1]);var correct=Math.abs(inteGuess) * inteGuess * inteGuess * radGuess === ansCubed;var simplified=inteGuess === ans[0] && radGuess === ans[1];var score={empty:false, correct:false, message:null, guess:guess};if(correct){if(simplified || options.simplify === "optional"){score.correct = true;}else {score.message = i18n._("Your answer is almost correct, but it needs to " + "be simplified.");}}return score;};}}, multiple:{setup:function(solutionarea, solution){$(solutionarea).append($(solution).clone(true).texCleanup().contents().runModules());var answerDataArray=[];$(solutionarea).find(".sol").each(function(idx){var type=$(this).data("type");type = type != null?type:"number";var sol=$(solution).find(".sol").eq(idx);var solarea=$(this).empty();var answerData=KhanAnswerTypes[type].setup(solarea, sol);answerDataArray.push(answerData);});return {validator:KhanAnswerTypes.multiple.createValidator(solution), answer:function(){var answer=[];$.each(answerDataArray, function(i, answerData){answer.push(answerData.answer());});return answer;}, solution:(function(){$.map(answerDataArray, function(answerData){return answerData.solution;});})(), showGuess:function(guess){$.each(answerDataArray, function(i, answerData){if(guess !== undefined){answerData.showGuess(guess[i]);}else {answerData.showGuess();}});}, showCustomGuess:function(guess){$.each(answerDataArray, function(i, answerData){if(!_.isFunction(answerData.showCustomGuess)){return;}if(guess !== undefined){answerData.showCustomGuess(guess[i]);}else {answerData.showCustomGuess();}});}};}, createValidator:function(solution){var validators=[];$(solution).find(".sol").each(function(){var sol=$(this);var type=sol.data("type");type = type != null?type:"number";var validator=KhanAnswerTypes[type].createValidator(sol);validators.push(validator);});return function(guess){var score={empty:true, correct:true, message:null, guess:guess};var blockGradingMessage=null;if(checkIfAnswerEmpty(guess)){score.empty = true;score.correct = false;return score;}$.each(guess, function(i, g){var pass=validators[i](g);if(pass.message && pass.empty){blockGradingMessage = pass.message;}else {score.empty = score.empty && pass.empty;score.correct = score.correct && pass.correct;score.message = score.message || pass.message;}});if(score.correct && blockGradingMessage != null){return {empty:true, correct:false, message:blockGradingMessage, guess:guess};}else {score.empty = false;return score;}};}}, set:{setup:function(solutionarea, solution){$(solutionarea).append($(solution).find(".input-format").clone(true).texCleanup().contents().runModules());var inputArray=[];var showGuessArray=[];$(solutionarea).find(".entry").each(function(){var input=$(this);var type=$(this).data("type");type = type != null?type:"number";var sol=input.clone(true);var solarea=input.empty();var validator=KhanAnswerTypes[type].setup(solarea, sol);inputArray.push(validator.answer);showGuessArray.push(validator.showGuess);});var solutionArray=[];$(solution).find(".set-sol").clone(true).each(function(){var type=$(this).data("type");type = type != null?type:"number";var solarea=$("<div>");var validator=KhanAnswerTypes[type].setup(solarea, $(this));solutionArray.push(validator.solution);});return {validator:KhanAnswerTypes.set.createValidator(solution), answer:function(){var answer=[];$.each(inputArray, function(i, getAns){answer.push(getAns());});return answer;}, solution:solution, showGuess:function(guess){$.each(showGuessArray, function(i, showGuess){if(guess === undefined){showGuess();}else {showGuess(guess[i]);}});}};}, createValidator:function(solution){var validatorArray=[];$(solution).find(".set-sol").clone(true).each(function(){var type=$(this).data("type");type = type != null?type:"number";var validator=KhanAnswerTypes[type].createValidator($(this));validatorArray.push(validator);});return function(guess){var score={empty:validatorArray.length === 0?false:true, correct:true, message:null, guess:guess};var blockGradingMessage=null;var unusedValidators=validatorArray.slice(0);$.each(guess, function(i, g){var correct=false;$.each(unusedValidators, function(i, validator){var pass=validator(g);if(pass.empty && pass.message){unusedValidators.splice(i, 1);blockGradingMessage = pass.message;correct = true;return false;}if(pass.correct){correct = pass.correct;unusedValidators.splice(i, 1);return false;}if(!pass.correct && pass.message){correct = pass.message;}});if(!checkIfAnswerEmpty(g) && !checkIfAnswerEmpty(correct)){score.empty = false;}if(!correct && $.trim([g].join("")) !== ""){score.correct = false;return false;}if(typeof correct === "string"){score.message = correct;score.correct = false;}});if(validatorArray.length > guess.length){if(unusedValidators.length > validatorArray.length - guess.length){score.correct = false;}}else if(unusedValidators.length > 0){score.correct = false;}if(score.correct && blockGradingMessage != null){return {empty:true, correct:false, message:blockGradingMessage, guess:guess};}else {return score;}};}}, radio:{setup:function(solutionarea, solution){var $list=$("<ul></ul>");$(solutionarea).append($list);var $choices=$(solution).siblings(".choices");var $choicesClone=$choices.clone(true).texCleanup();var $solutionClone=$(solution).clone(true).texCleanup();var solutionText=$solutionClone.text();var isCategory=!!$choices.data("category");var possibleChoices=undefined;if(isCategory){(function(){var correctText=getTextSquish($solutionClone);possibleChoices = _.map($choicesClone.children().get(), function(elem){if(getTextSquish(elem) === correctText){return $solutionClone[0];}else {return elem;}});})();}else {possibleChoices = $solutionClone.get().concat(KhanMath.shuffle($choicesClone.children().get()));}var numChoices=+$choices.data("show") || possibleChoices.length;var showNone=!!$choices.data("none");var shownChoices=_.uniq(possibleChoices, false, function(elem){return getTextSquish(elem);});var addNoneChoice=showNone && shownChoices.length === numChoices - 1;if(shownChoices.length < numChoices && !addNoneChoice){return false;}else if(shownChoices.length > numChoices){shownChoices = shownChoices.slice(0, numChoices);}if(!isCategory){shownChoices = KhanMath.shuffle(shownChoices);}var correctIndex=undefined;_.each(shownChoices, function(choice, i){if(choice === $solutionClone[0]){correctIndex = i;}});var noneIsCorrect=showNone && correctIndex === numChoices - 1;if(showNone){var $none=$("<span>").html(i18n._("None of the above"));$none.data("noneOfTheAbove", true);if(noneIsCorrect){$list.data("realAnswer", $("<span>").addClass("value").append($solutionClone.clone(true).contents()));}var noneIndex=shownChoices.length - 1;if(addNoneChoice){noneIndex = shownChoices.length;}shownChoices.splice(noneIndex, 1, $("<span>").append($none));}var wrappedChoices=_.map(shownChoices, function(choice, i){return $("<li><label></label></li>").find("label").append([$("<input type=\"radio\" name=\"solution\">").val(i), $("<span class=\"value\"></span>").append($(choice).contents())]).end();});$list.append(wrappedChoices).runModules();return {validator:KhanAnswerTypes.radio.createValidator({solution:solution, index:correctIndex, noneIsCorrect:noneIsCorrect}), answer:function(){var $choice=$list.find("input:checked");if($choice.length === 0){return null;}var $choiceVal=$choice.siblings(".value");var $choiceNoneChild=$choiceVal.children().eq(0);return {isNone:$choiceNoneChild.data("noneOfTheAbove"), value:extractRawCode($choiceVal), index:+$choice.val()};}, solution:solutionText, showGuess:function(guess){if(guess == null){$(solutionarea).find("input:checked").attr("checked", false);}else {$list.children().filter(function(){return guess.index === $(this).find("input").val();}).find("input").attr("checked", true);}}};}, createValidator:function(solution){var correct=extractRawCode(solution.solution || solution);function showReal(){var $list=$("#solutionarea").find("ul");var $choice=$list.children().filter(function(){return $(this).find("span.value > span").data("noneOfTheAbove");}).find("input");$choice.next().fadeOut("fast", function(){var $real=$list.data("realAnswer");$(this).replaceWith($real);$real.tex().fadeIn("fast");});}return function(guess){var score={empty:false, correct:false, message:null, guess:guess};if(guess == null){score.empty = true;return score;}if(guess.index){if(guess.isNone && solution.noneIsCorrect){showReal();score.correct = true;}else {score.correct = guess.index === solution.index;}}else {if(guess.isNone && $("#solutionarea").find("ul").data("real-answer") != null){showReal();score.correct = true;}else if($.trim(guess.value).replace(/\r\n?|\n/g, "") === $.trim(correct.replace(/\r\n?|\n/g, ""))){score.correct = true;}else {score.correct = false;}}return score;};}}, list:{setupFunctional:function(solutionarea, solutionText, solutionData){var input=$("<select></select>");$(solutionarea).append(input);var choices=$.tmpl.getVAR(solutionData.choices);$.each(choices, function(index, value){input.append("<option value=\"" + value + "\">" + value + "</option>");});return {validator:KhanAnswerTypes.list.createValidatorFunctional(solutionText, solutionData), answer:function(){return input.val();}, solution:$.trim(solutionText), showGuess:function(guess){input.val(guess === undefined?"":guess);}};}, createValidatorFunctional:function(correct, options){correct = $.trim(correct);return function(guess){guess = $.trim(guess);return {empty:false, correct:correct === guess, message:null, guess:guess};};}}, custom:{setup:function(solutionarea, solution){solution.find(".instruction").appendTo(solutionarea).runModules();var guessCode=solution.find(".guess").text();var showCustomGuessCode=solution.find(".show-guess").text();var showGuessCode=solution.find(".show-guess-solutionarea").text();return {validator:KhanAnswerTypes.custom.createValidator(solution), answer:function(){return KhanUtil.tmpl.getVAR(guessCode, KhanUtil.currentGraph);}, solution:$.trim($(solution).text()), showCustomGuess:function(guess){var code="(function() { " + "var guess = " + JSON.stringify(guess) + ";" + showCustomGuessCode + "})()";KhanUtil.tmpl.getVAR(code, KhanUtil.currentGraph);}, showGuess:function(guess){var code="(function() { " + "var guess = " + JSON.stringify(guess) + ";" + showGuessCode + "})()";KhanUtil.tmpl.getVAR(code, KhanUtil.currentGraph);}};}, createValidator:function(solution){var validatorCode=$(solution).find(".validator-function").text();var validator=function(guess){var code="(function() { " + "var guess = " + JSON.stringify(guess) + ";" + validatorCode + "})()";return KhanUtil.tmpl.getVAR(code, KhanUtil.currentGraph);};return function(guess){var pass=validator(guess);if(typeof pass === "object"){return pass;}else {return {empty:pass === "", correct:pass === true, message:typeof pass === "string"?pass:null, guess:guess};}};}}, primeFactorization:{setupFunctional:function(solutionarea, solutionText, solutionData){var $input=undefined;if(window.Modernizr && Modernizr.touchevents){$input = $("<input type=\"text\" autocapitalize=\"off\">");}else {$input = $("<input type=\"text\">");}$input.addClass("prime-factorization");$(solutionarea).append($input);var examples=[i18n._("a product of prime factors, like <code>2 \\times 3" + "</code>"), i18n._("a single prime number, like <code>5</code>")];addExamplesToInput($input, examples);return {validator:KhanAnswerTypes.primeFactorization.createValidatorFunctional(solutionText, solutionData), answer:function(){return $input.val();}, solution:$.trim(solutionText), showGuess:function(guess){$input.val(guess === undefined?"":guess);}};}, createValidatorFunctional:function(correct, options){correct = $.trim(correct);return function(guess){guess = guess.split(" ").join("").toLowerCase();guess = guess.replace(/{|}/g, "");guess = guess.split(/x|\*|\u00d7|\\times|\\cdot/);var terms=[];for(var i=0; i < guess.length; i++) {var t=guess[i].split("^");if(t.length > 1){for(var j=0; j < t[1]; j++) {terms.push(t[0]);}}else {terms.push(guess[i]);}}guess = KhanMath.sortNumbers(terms).join("x");return {empty:guess === "", correct:guess === correct, message:null, guess:guess};};}}, checkbox:{setupFunctional:function(solutionarea, solutionText, solutionData){var input=$("<input type=\"checkbox\">");$(solutionarea).append(input);return {validator:KhanAnswerTypes.checkbox.createValidatorFunctional(solutionText, solutionData), answer:function(){return input.is(":checked") || "";}, solution:$.trim(solutionText), showGuess:function(guess){input.attr("checked", guess === undefined?false:guess);}};}, createValidatorFunctional:function(correct, options){correct = $.trim(correct) === "true";return function(guess){var score={empty:false, correct:false, message:null, guess:guess};if(!!correct === !!guess){score.correct = true;}else if(!guess){score.empty = true;}else {score.correct = false;}return score;};}}, expression:{setup:function(solutionarea, solution){var options=this._parseOptions($(solution).data());var $tex=$("<span class=\"tex\"/>");var $input=$("<input type=\"text\">");var $error=$("<div class=\"error-div\" style=\"display: none;\"/>");$(solutionarea).append($("<span class=\"expression\"/>").append($("<span class=\"output\"/>").append($tex), $("<span class=\"input\"/>").append($input, $error.append($("<i class=\"icon-exclamation-sign error-icon\"/>")))));var errorTimeout=null;var lastParsedTex="";var update=function(){clearTimeout(errorTimeout);var result=KAS.parse($input.val(), options);if(result.parsed){hideError();$tex.css({opacity:1});var tex=result.expr.asTex(options);if(tex !== lastParsedTex){$tex.empty().append($("<code>").text(tex)).tex();lastParsedTex = tex;}}else {errorTimeout = setTimeout(showError, 2000);$tex.css({opacity:0.5});}};var showError=function(){if(!$error.is(":visible")){$error.show();$input.addClass("error");}};var hideError=function(){if($error.is(":visible")){$error.hide();$input.removeClass("error");}};$input.on("input propertychange", update);$input.on("keydown", function(event){var input=$input[0];var start=input.selectionStart;var end=input.selectionEnd;var supported=start !== undefined;if(supported && event.which === 8){var val=input.value;if(start === end && val.slice(start - 1, start + 1) === "()"){event.preventDefault();input.value = val.slice(0, start - 1) + val.slice(start + 1);input.selectionStart = start - 1;input.selectionEnd = end - 1;update();}}});$input.on("keypress", function(event){var input=$input[0];var start=input.selectionStart;var end=input.selectionEnd;var supported=start !== undefined;if(supported && event.which === 40){(function(){var val=input.value;event.preventDefault();if(start === end){var insertMatched=_.any([" ", ")", ""], function(c){return val.charAt(start) === c;});input.value = val.slice(0, start) + (insertMatched?"()":"(") + val.slice(end);}else {input.value = val.slice(0, start) + "(" + val.slice(start, end) + ")" + val.slice(end);}input.selectionStart = start + 1;input.selectionEnd = end + 1;update();})();}else if(supported && event.which === 41){var val=input.value;if(start === end && val.charAt(start) === ")"){event.preventDefault();input.selectionStart = start + 1;input.selectionEnd = end + 1;update();}}});var explicitMul=i18n._("For <code>2\\cdot2</code>, enter " + "<strong>2*2</strong>");if(options.times){explicitMul = explicitMul.replace(/\\cdot/g, "\\times");}var examples=[explicitMul, i18n._("For <code>3y</code>, enter <strong>3y</strong> or " + "<strong>3*y</strong>"), i18n._("For <code>\\dfrac{1}{x}</code>, enter <strong>1/x" + "</strong>"), i18n._("For <code>x^{y}</code>, enter <strong>x^y</strong>"), i18n._("For <code>\\sqrt{x}</code>, enter <strong>sqrt(x)" + "</strong>"), i18n._("For <code>\\pi</code>, enter <strong>pi</strong>"), i18n._("For <code>\\sin \\theta</code>, enter <strong>" + "sin(theta)</strong>"), i18n._("For <code>\\le</code> or <code>\\ge</code>, enter " + "<strong><=</strong> or <strong>>=</strong>"), i18n._("For <code>\\neq</code>, enter <strong>=/=</strong>")];addExamplesToInput($input, examples);return {validator:KhanAnswerTypes.expression.createValidator(solution), answer:function(){return $input.val();}, solution:solution, showGuess:function(guess){$input.val(guess === undefined?"":guess);}};}, parseSolution:function(solutionString, options){var solution=KAS.parse(solutionString, options);if(!solution.parsed){throw new Error("The provided solution (" + solutionString + ") didn't parse.");}else if(options.simplified && !solution.expr.isSimplified()){throw new Error("The provided solution (" + solutionString + ") isn't fully expanded and simplified.");}else {solution = solution.expr;}return solution;}, _parseOptions:function(solutionData){var form=solutionData.form !== undefined?solutionData.form:solutionData.sameForm;var notFalseOrNil=function(x){return x != null && x !== false;};var options={form:notFalseOrNil(form), simplify:notFalseOrNil(solutionData.simplify), times:notFalseOrNil(solutionData.times)};if(_.isString(solutionData.functions)){options.functions = _.compact(solutionData.functions.split(/[ ,]+/));}else if(_.isArray(solutionData.functions)){options.functions = _.compact(solutionData.functions);}return options;}, createValidator:function(solution){var $solution=$(solution);var validatorArray=[];var createValidatorFunctional=this.createValidatorFunctional;var parseOptions=this._parseOptions;$(solution).find(".set-sol").each(function(){var options=parseOptions($(this).data());validatorArray.push(createValidatorFunctional($(this).text(), options));});if(validatorArray.length === 0){var options=parseOptions($solution.data());validatorArray.push(createValidatorFunctional($solution.text(), options));}return function(guess){var score={empty:false, correct:false, message:null, guess:guess};$.each(validatorArray, function(i, validator){var result=validator(guess);if(result.correct){score.correct = true;score.message = null;return false;}if(result.message){score.message = result.message;}if(result.empty){score.empty = true;}});return score;};}, createValidatorFunctional:function(solution, options){return function(guess){var score={empty:false, correct:false, message:null, guess:guess};if(!guess){score.empty = true;return score;}var answer=KAS.parse(guess, options);if(!answer.parsed){score.empty = true;return score;}if(typeof solution === "string"){solution = KhanAnswerTypes.expression.parseSolution(solution, options);}var result=KAS.compare(answer.expr, solution, options);if(result.equal){score.correct = true;}else if(result.message){score.message = result.message;}else {var answerX=KAS.parse(guess.replace(/[xX]/g, "*"), options);if(answerX.parsed){var resultX=KAS.compare(answerX.expr, solution, options);if(resultX.equal){score.empty = true;score.message = "I'm a computer. I only " + "understand multiplication if you use an " + "asterisk (*) as the multiplication sign.";}else if(resultX.message){score.message = resultX.message + " Also, " + "I'm a computer. I only " + "understand multiplication if you use an " + "asterisk (*) as the multiplication sign.";}}}return score;};}}};module.exports = KhanAnswerTypes;
-
-/***/ },
-/* 40 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var _ = __webpack_require__(16);
-
-	var Traversal = __webpack_require__(30);
-
-	var findPassageRefR = new RegExp(
-	// [[ passage-ref 1]]
-	// capture 1: widget markdown
-	// capture 2: widgetId
-	"(\\[\\[☃ (passage-ref [0-9]+)\\]\\])" +
-	// spaces between the ref and the summary
-	"\\s" +
-	// opening paren + quote
-	"\\([\"“]" +
-	// summary of passage reference text
-	// capture 3: summaryText
-	"([\\s\\S]*)" +
-	// closing quote + paren
-	"[\"”]\\)", "g");
-
-	var fixWholeOptions = function (options) {
-	    // This parsing is technically illegal and should be done via
-	    // PerseusMarkdown, but because of the snowperson it's safe
-	    // in practice.
-	    // We should probably just get rid of this code once all the
-	    // passage-refs have been converted.
-
-	    var newWidgets = _.clone(options.widgets || {});
-	    var newContent = (options.content || "").replace(findPassageRefR, function (passageRefText, widgetMarkdown, widgetId, summaryText) {
-	        newWidgets[widgetId] = _.extend({}, newWidgets[widgetId], {
-	            options: _.extend({}, newWidgets[widgetId].options, {
-	                summaryText: summaryText }) });
-
-	        return widgetMarkdown;
-	    });
-
-	    return _.extend({}, options, {
-	        content: newContent,
-	        widgets: newWidgets });
-	};
-
-	var findRadioRefsR = new RegExp(
-	// passage-ref notation
-	"\\{\\{(passage-ref \\d+ \\d+)}}" +
-	// a space
-	"\\s+" +
-	// ("
-	"\\([\"\\u201C]" +
-	// <capture the content>
-	"([^\"]*)" +
-	// ")
-	"[\"\\u201D]\\)",
-	// find all passage-refs
-	"g");
-	var replaceRadioRefs = function (fullText, reference, summaryText) {
-	    if (/\n\n/.test(summaryText)) {
-	        return fullText;
-	    }
-	    return "{{" + reference + " \"" + summaryText + "\"}}";
-	};
-
-	var fixRadioWidget = function (widgetInfo) {
-	    if (widgetInfo.type !== "radio" || !widgetInfo.options || !widgetInfo.options.choices) {
-	        return widgetInfo;
-	    }
-
-	    var newChoices = _.map(widgetInfo.options.choices, function (choice) {
-	        if (!choice.content) {
-	            return choice;
-	        }
-
-	        var newChoice = choice.content.replace(findRadioRefsR, replaceRadioRefs);
-	        return _.extend({}, choice, {
-	            content: newChoice
-	        });
-	    });
-
-	    return _.extend({}, widgetInfo, {
-	        options: _.extend({}, widgetInfo.options, {
-	            choices: newChoices }) });
-	};
-
-	var fixRendererPassageRefs = function (options) {
-	    return Traversal.traverseRendererDeep(options, null, fixRadioWidget, fixWholeOptions);
-	};
-
-	var FixPassageRefs = function (itemData) {
-	    var newQuestion = fixRendererPassageRefs(itemData.question);
-	    var newHints = _.map(itemData.hints, function (hint) {
-	        return fixRendererPassageRefs(hint);
-	    });
-	    return _.extend({}, itemData, {
-	        question: newQuestion,
-	        hints: newHints });
-	};
-
-	module.exports = FixPassageRefs;
-
-/***/ },
 /* 41 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = [
-	// standard props "added" by react
-	// (technically the renderer still adds them)
-	"key", "ref",
-	// added by src/renderer.jsx
-	"widgetId", "onChange", "problemNum", "enabledFeatures", "apiOptions", "questionCompleted", "interWidgets",
-	// added by src/editor.jsx, for widgets removing themselves
-	// this is soooo not the right place for this, but alas.
-	"onRemove",
-	// also added by src/editor.jsx
-	"id"];
-
-/***/ },
-/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -8643,6 +8627,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } };
 
 	module.exports = ApiOptionsProps;
+
+/***/ },
+/* 42 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = [
+	// standard props "added" by react
+	// (technically the renderer still adds them)
+	"key", "ref",
+	// added by src/renderer.jsx
+	"widgetId", "onChange", "problemNum", "enabledFeatures", "apiOptions", "questionCompleted", "interWidgets",
+	// added by src/editor.jsx, for widgets removing themselves
+	// this is soooo not the right place for this, but alas.
+	"onRemove",
+	// also added by src/editor.jsx
+	"id"];
 
 /***/ },
 /* 43 */
@@ -8954,6 +8954,145 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, max-len, no-redeclare, no-trailing-spaces, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(15);
+	var ReactDOM = __webpack_require__(17);
+	var _ = __webpack_require__(16);
+
+	var textWidthCache = {};
+	function getTextWidth(text) {
+	    if (!textWidthCache[text]) {
+	        // Hacky way to guess the width of an input box
+	        var $test = $("<span>").text(text).appendTo("body");
+	        textWidthCache[text] = $test.width() + 5;
+	        $test.remove();
+	    }
+	    return textWidthCache[text];
+	}
+
+	var TextListEditor = React.createClass({
+	    displayName: "TextListEditor",
+
+	    propTypes: {
+	        options: React.PropTypes.array,
+	        layout: React.PropTypes.string,
+	        onChange: React.PropTypes.func.isRequired
+	    },
+
+	    getDefaultProps: function () {
+	        return {
+	            options: [],
+	            layout: "horizontal"
+	        };
+	    },
+
+	    getInitialState: function () {
+	        return {
+	            items: this.props.options.concat("")
+	        };
+	    },
+
+	    componentWillReceiveProps: function (nextProps) {
+	        this.setState({
+	            items: nextProps.options.concat("")
+	        });
+	    },
+
+	    render: function () {
+	        var className = ["perseus-text-list-editor", "perseus-clearfix", "layout-" + this.props.layout].join(" ");
+
+	        var inputs = _.map(this.state.items, function (item, i) {
+	            return React.createElement(
+	                "li",
+	                { key: i },
+	                React.createElement("input", {
+	                    ref: "input_" + i,
+	                    type: "text",
+	                    value: item,
+	                    onChange: this.onChange.bind(this, i),
+	                    onKeyDown: this.onKeyDown.bind(this, i),
+	                    style: { width: getTextWidth(item) } })
+	            );
+	        }, this);
+
+	        return React.createElement(
+	            "ul",
+	            { className: className },
+	            inputs
+	        );
+	    },
+
+	    onChange: function (index, event) {
+	        var items = _.clone(this.state.items);
+	        items[index] = event.target.value;
+
+	        if (index === items.length - 1) {
+	            items = items.concat("");
+	        }
+
+	        this.setState({ items: items });
+	        this.props.onChange(_.compact(items));
+	    },
+
+	    onKeyDown: function (index, event) {
+	        var which = event.nativeEvent.keyCode;
+
+	        // Backspace deletes an empty input...
+	        if (which === 8 /* backspace */ && this.state.items[index] === "") {
+	            event.preventDefault();
+
+	            var items = _.clone(this.state.items);
+	            var focusIndex = index === 0 ? 0 : index - 1;
+
+	            if (index === items.length - 1 && (index === 0 || items[focusIndex] !== "")) {
+	                // ...except for the last one, iff it is the only empty
+	                // input at the end.
+	                ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+	            } else {
+	                items.splice(index, 1);
+	                this.setState({ items: items }, function () {
+	                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+	                });
+	            }
+
+	            // Deleting the last character in the second-to-last input removes it
+	        } else if (which === 8 /* backspace */ && this.state.items[index].length === 1 && index === this.state.items.length - 2) {
+	            event.preventDefault();
+
+	            var items = _.clone(this.state.items);
+	            items.splice(index, 1);
+	            this.setState({ items: items });
+	            this.props.onChange(_.compact(items));
+
+	            // Enter adds an option below the current one...
+	        } else if (which === 13 /* enter */) {
+	            event.preventDefault();
+
+	            var items = _.clone(this.state.items);
+	            var focusIndex = index + 1;
+
+	            if (index === items.length - 2) {
+	                // ...unless the empty input is just below.
+	                ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+	            } else {
+	                items.splice(focusIndex, 0, "");
+	                this.setState({ items: items }, function () {
+	                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+	                });
+	            }
+	        }
+	    }
+	});
+
+	module.exports = TextListEditor;
+
+/***/ },
+/* 49 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/**
 	 * Paragraph parsing/splitting for article jipt i18n
 	 */
@@ -8989,7 +9128,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    joinFromArray: joinFromArray };
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -9019,7 +9158,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = QuestionParagraph;
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9242,7 +9381,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// Nothing
 
 /***/ },
-/* 51 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -9376,7 +9515,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WidgetContainer;
 
 /***/ },
-/* 52 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -9475,7 +9614,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    waitForMathjaxFonts: waitForMathjaxFonts };
 
 /***/ },
-/* 53 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -9487,7 +9626,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var ReactDOM = __webpack_require__(17);
 
-	var Deferred = __webpack_require__(54);
+	var Deferred = __webpack_require__(55);
 
 	var Zoomable = React.createClass({
 	    displayName: "Zoomable",
@@ -9583,6 +9722,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        visible: true });
 	                }
 	            }, 0);
+	        } else {
+	            this.setState({
+	                visible: true });
 	        }
 	    },
 
@@ -9644,7 +9786,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Zoomable;
 
 /***/ },
-/* 54 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -9673,145 +9815,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	})();
 
 	module.exports = Deferred;
-
-/***/ },
-/* 55 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-redeclare, no-trailing-spaces, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(15);
-	var ReactDOM = __webpack_require__(17);
-	var _ = __webpack_require__(16);
-
-	var textWidthCache = {};
-	function getTextWidth(text) {
-	    if (!textWidthCache[text]) {
-	        // Hacky way to guess the width of an input box
-	        var $test = $("<span>").text(text).appendTo("body");
-	        textWidthCache[text] = $test.width() + 5;
-	        $test.remove();
-	    }
-	    return textWidthCache[text];
-	}
-
-	var TextListEditor = React.createClass({
-	    displayName: "TextListEditor",
-
-	    propTypes: {
-	        options: React.PropTypes.array,
-	        layout: React.PropTypes.string,
-	        onChange: React.PropTypes.func.isRequired
-	    },
-
-	    getDefaultProps: function () {
-	        return {
-	            options: [],
-	            layout: "horizontal"
-	        };
-	    },
-
-	    getInitialState: function () {
-	        return {
-	            items: this.props.options.concat("")
-	        };
-	    },
-
-	    componentWillReceiveProps: function (nextProps) {
-	        this.setState({
-	            items: nextProps.options.concat("")
-	        });
-	    },
-
-	    render: function () {
-	        var className = ["perseus-text-list-editor", "perseus-clearfix", "layout-" + this.props.layout].join(" ");
-
-	        var inputs = _.map(this.state.items, function (item, i) {
-	            return React.createElement(
-	                "li",
-	                { key: i },
-	                React.createElement("input", {
-	                    ref: "input_" + i,
-	                    type: "text",
-	                    value: item,
-	                    onChange: this.onChange.bind(this, i),
-	                    onKeyDown: this.onKeyDown.bind(this, i),
-	                    style: { width: getTextWidth(item) } })
-	            );
-	        }, this);
-
-	        return React.createElement(
-	            "ul",
-	            { className: className },
-	            inputs
-	        );
-	    },
-
-	    onChange: function (index, event) {
-	        var items = _.clone(this.state.items);
-	        items[index] = event.target.value;
-
-	        if (index === items.length - 1) {
-	            items = items.concat("");
-	        }
-
-	        this.setState({ items: items });
-	        this.props.onChange(_.compact(items));
-	    },
-
-	    onKeyDown: function (index, event) {
-	        var which = event.nativeEvent.keyCode;
-
-	        // Backspace deletes an empty input...
-	        if (which === 8 /* backspace */ && this.state.items[index] === "") {
-	            event.preventDefault();
-
-	            var items = _.clone(this.state.items);
-	            var focusIndex = index === 0 ? 0 : index - 1;
-
-	            if (index === items.length - 1 && (index === 0 || items[focusIndex] !== "")) {
-	                // ...except for the last one, iff it is the only empty
-	                // input at the end.
-	                ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
-	            } else {
-	                items.splice(index, 1);
-	                this.setState({ items: items }, function () {
-	                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
-	                });
-	            }
-
-	            // Deleting the last character in the second-to-last input removes it
-	        } else if (which === 8 /* backspace */ && this.state.items[index].length === 1 && index === this.state.items.length - 2) {
-	            event.preventDefault();
-
-	            var items = _.clone(this.state.items);
-	            items.splice(index, 1);
-	            this.setState({ items: items });
-	            this.props.onChange(_.compact(items));
-
-	            // Enter adds an option below the current one...
-	        } else if (which === 13 /* enter */) {
-	            event.preventDefault();
-
-	            var items = _.clone(this.state.items);
-	            var focusIndex = index + 1;
-
-	            if (index === items.length - 2) {
-	                // ...unless the empty input is just below.
-	                ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
-	            } else {
-	                items.splice(focusIndex, 0, "");
-	                this.setState({ items: items }, function () {
-	                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
-	                });
-	            }
-	        }
-	    }
-	});
-
-	module.exports = TextListEditor;
 
 /***/ },
 /* 56 */
@@ -10806,21 +10809,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = {
-		"apiVersion": {
-			"major": 7,
-			"minor": 1
-		},
-		"itemDataVersion": {
-			"major": 0,
-			"minor": 1
-		}
-	};
-
-/***/ },
-/* 61 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/**
 	 * A wrapper around react-components/info-tip.jsx that can be rendered on the
 	 * server without causing a checksum mismatch on the client.
@@ -10857,7 +10845,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InfoTip;
 
 /***/ },
-/* 62 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -10866,7 +10854,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(60);
 
 	var ItemExtrasEditor = React.createClass({
 	    displayName: "ItemExtrasEditor",
@@ -11016,6 +11004,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } });
 
 	module.exports = ItemExtrasEditor;
+
+/***/ },
+/* 62 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = {
+		"apiVersion": {
+			"major": 7,
+			"minor": 1
+		},
+		"itemDataVersion": {
+			"major": 0,
+			"minor": 1
+		}
+	};
 
 /***/ },
 /* 63 */
@@ -11245,8 +11248,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(5).Options;
 	var EditorJsonify = __webpack_require__(160);
-	var PropCheckBox = __webpack_require__(34);
-	var TextListEditor = __webpack_require__(55);
+	var PropCheckBox = __webpack_require__(36);
+	var TextListEditor = __webpack_require__(48);
 
 	var Categorizer = __webpack_require__(63).widget;
 
@@ -11523,8 +11526,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EditorJsonify = __webpack_require__(160);
 
 	var BlurInput = __webpack_require__(161);
-	var InfoTip = __webpack_require__(61);
-	var PropCheckBox = __webpack_require__(34);
+	var InfoTip = __webpack_require__(60);
+	var PropCheckBox = __webpack_require__(36);
 
 	var DEFAULT_WIDTH = 400;
 	var DEFAULT_HEIGHT = 400;
@@ -11901,7 +11904,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(60);
 	var EditorJsonify = __webpack_require__(160);
 
 	var DropdownEditor = React.createClass({
@@ -12328,13 +12331,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(157);
 	var ApiOptions = __webpack_require__(5).Options;
 	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var KhanAnswerTypes = __webpack_require__(39);
+	var KhanAnswerTypes = __webpack_require__(37);
 
 	var EnabledFeatures = __webpack_require__(32);
 
 	var InputWithExamples = __webpack_require__(165);
 	var MathInput = __webpack_require__(166);
-	var TeX = __webpack_require__(50); // OldExpression only
+	var TeX = __webpack_require__(51); // OldExpression only
 	var TexButtons = __webpack_require__(167);
 
 	var KeypadInput = __webpack_require__(150).components.KeypadInput;
@@ -13195,10 +13198,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(157);
 
-	var InfoTip = __webpack_require__(61);
-	var PropCheckBox = __webpack_require__(34);
+	var InfoTip = __webpack_require__(60);
+	var PropCheckBox = __webpack_require__(36);
 	var SortableArea = __webpack_require__(168);
-	var TeX = __webpack_require__(50); // OldExpression only
+	var TeX = __webpack_require__(51); // OldExpression only
 	var TexButtons = __webpack_require__(167);
 
 	var Expression = __webpack_require__(71).Expression;
@@ -14132,7 +14135,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(157);
 
 	var GraphSettings = __webpack_require__(171);
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(60);
 	var MultiButtonGroup = __webpack_require__(172);
 
 	var Grapher = __webpack_require__(73).widget;
@@ -14971,7 +14974,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EditorJsonify = __webpack_require__(160);
 
 	var BlurInput = __webpack_require__(161);
-	var PropCheckBox = __webpack_require__(34);
+	var PropCheckBox = __webpack_require__(36);
 
 	/**
 	 * This is used for editing a name/value pair.
@@ -15461,7 +15464,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var BlurInput = __webpack_require__(161);
 	var Editor = __webpack_require__(11);
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(60);
 	var RangeInput = __webpack_require__(173);
 
 	var defaultBoxSize = 400;
@@ -15890,7 +15893,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var SimpleKeypadInput = __webpack_require__(174);
 	var ParseTex = __webpack_require__(175).parseTex;
 	var PossibleAnswers = __webpack_require__(176);
-	var KhanAnswerTypes = __webpack_require__(39);
+	var KhanAnswerTypes = __webpack_require__(37);
 
 	var keypadElementPropType = __webpack_require__(150).propTypes.keypadElementPropType;
 
@@ -16199,7 +16202,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Util = __webpack_require__(6);
 
 	var BlurInput = __webpack_require__(161);
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(60);
 
 	var answerTypes = {
 	    number: {
@@ -16920,7 +16923,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var GraphSettings = __webpack_require__(171);
 	var MathInput = __webpack_require__(166);
 	var NumberInput = __webpack_require__(177);
-	var TeX = __webpack_require__(50);
+	var TeX = __webpack_require__(51);
 	var TextInput = __webpack_require__(163);
 
 	var KhanColors = __webpack_require__(170);
@@ -18255,7 +18258,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var Graph = __webpack_require__(178);
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(60);
 	var Interactive2 = __webpack_require__(169);
 	var NumberInput = __webpack_require__(177);
 	var Util = __webpack_require__(6);
@@ -20511,7 +20514,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var DeprecationMixin = Util.DeprecationMixin;
 
 	var GraphSettings = __webpack_require__(171);
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(60);
 
 	var InteractiveGraph = __webpack_require__(87).widget;
 
@@ -21182,8 +21185,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EditorJsonify = __webpack_require__(160);
 
 	var NumberInput = __webpack_require__(177);
-	var PropCheckBox = __webpack_require__(34);
-	var InfoTip = __webpack_require__(61);
+	var PropCheckBox = __webpack_require__(36);
+	var InfoTip = __webpack_require__(60);
 
 	var MAX_SIZE = 8;
 
@@ -21460,7 +21463,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var SimpleKeypadInput = __webpack_require__(174);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var KhanAnswerTypes = __webpack_require__(39);
+	var KhanAnswerTypes = __webpack_require__(37);
 
 	var keypadElementPropType = __webpack_require__(150).propTypes.keypadElementPropType;
 
@@ -22282,9 +22285,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var InfoTip = __webpack_require__(61);
-	var PropCheckBox = __webpack_require__(34);
-	var TextListEditor = __webpack_require__(55);
+	var InfoTip = __webpack_require__(60);
+	var PropCheckBox = __webpack_require__(36);
+	var TextListEditor = __webpack_require__(48);
 
 	var MatcherEditor = React.createClass({
 	    displayName: "MatcherEditor",
@@ -22619,9 +22622,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(157);
 	var EditorJsonify = __webpack_require__(160);
 
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(60);
 	var NumberInput = __webpack_require__(177);
-	var PropCheckBox = __webpack_require__(34);
+	var PropCheckBox = __webpack_require__(36);
 	var RangeInput = __webpack_require__(173);
 
 	var defaultImage = {
@@ -23148,7 +23151,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Line = Graphie.Line;
 
 	var knumber = __webpack_require__(195).number;
-	var KhanMath = __webpack_require__(144);
+	var KhanMath = __webpack_require__(141);
 	var KhanColors = __webpack_require__(170);
 
 	var bound = function (x, gt, lt) {
@@ -23752,9 +23755,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EditorJsonify = __webpack_require__(160);
 
 	var ButtonGroup = __webpack_require__(46);
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(60);
 	var NumberInput = __webpack_require__(177);
-	var PropCheckBox = __webpack_require__(34);
+	var PropCheckBox = __webpack_require__(36);
 	var RangeInput = __webpack_require__(173);
 
 	var knumber = __webpack_require__(195).number;
@@ -24279,8 +24282,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 	var ApiOptions = __webpack_require__(5).Options;
 	var EnabledFeatures = __webpack_require__(32);
-	var KhanAnswerTypes = __webpack_require__(39);
-	var KhanMath = __webpack_require__(144);
+	var KhanAnswerTypes = __webpack_require__(37);
+	var KhanMath = __webpack_require__(141);
 
 	var keypadElementPropType = __webpack_require__(150).propTypes.keypadElementPropType;
 
@@ -24669,10 +24672,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ButtonGroup = __webpack_require__(46);
 	var Editor = __webpack_require__(11);
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(60);
 	var MultiButtonGroup = __webpack_require__(172);
 	var NumberInput = __webpack_require__(177);
-	var PropCheckBox = __webpack_require__(34);
+	var PropCheckBox = __webpack_require__(36);
 	var TextInput = __webpack_require__(163);
 
 	var firstNumericalParse = __webpack_require__(6).firstNumericalParse;
@@ -25731,8 +25734,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var InfoTip = __webpack_require__(61);
-	var TextListEditor = __webpack_require__(55);
+	var InfoTip = __webpack_require__(60);
+	var TextListEditor = __webpack_require__(48);
 
 	var NORMAL = "normal",
 	    AUTO = "auto",
@@ -26268,8 +26271,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EditorJsonify = __webpack_require__(160);
 
 	var Editor = __webpack_require__(11);
-	var InfoTip = __webpack_require__(61);
-	var PropCheckBox = __webpack_require__(34);
+	var InfoTip = __webpack_require__(60);
+	var PropCheckBox = __webpack_require__(36);
 
 	var PassageEditor = React.createClass({
 	    displayName: "PassageEditor",
@@ -26533,7 +26536,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(157);
 	var EditorJsonify = __webpack_require__(160);
 
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(60);
 	var NumberInput = __webpack_require__(177);
 	var TextInput = __webpack_require__(163);
 
@@ -26743,7 +26746,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 
 	var deepEq = __webpack_require__(6).deepEq;
-	var KhanMath = __webpack_require__(144);
+	var KhanMath = __webpack_require__(141);
 	var KhanColors = __webpack_require__(170);
 	var GraphUtils = __webpack_require__(154);
 
@@ -27333,11 +27336,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var BlurInput = __webpack_require__(161);
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(60);
 	var NumberInput = __webpack_require__(177);
 	var RangeInput = __webpack_require__(173);
 	var SvgImage = __webpack_require__(29);
-	var TextListEditor = __webpack_require__(55);
+	var TextListEditor = __webpack_require__(48);
 
 	var Plotter = __webpack_require__(111).widget;
 
@@ -28556,7 +28559,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	/* globals $_, i18n */
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(60);
 	var React = __webpack_require__(15);
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
@@ -28581,7 +28584,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Util = __webpack_require__(6);
 	var knumber = __webpack_require__(195).number;
 	var KhanColors = __webpack_require__(170);
-	var KhanMath = __webpack_require__(144);
+	var KhanMath = __webpack_require__(141);
 
 	var defaultBoxSize = 400;
 	var maxSampleSize = 1000;
@@ -29321,7 +29324,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(157);
 	var EditorJsonify = __webpack_require__(160);
 
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(60);
 	var NumberInput = __webpack_require__(177);
 
 	var maxTrials = 5000;
@@ -29562,9 +29565,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var InfoTip = __webpack_require__(61);
-	var PropCheckBox = __webpack_require__(34);
-	var TextListEditor = __webpack_require__(55);
+	var InfoTip = __webpack_require__(60);
+	var PropCheckBox = __webpack_require__(36);
+	var TextListEditor = __webpack_require__(48);
 
 	var HORIZONTAL = "horizontal";
 	var VERTICAL = "vertical";
@@ -29697,7 +29700,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Util = __webpack_require__(6);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var KhanAnswerTypes = __webpack_require__(39);
+	var KhanAnswerTypes = __webpack_require__(37);
 
 	var assert = __webpack_require__(153).assert;
 
@@ -30026,7 +30029,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Util = __webpack_require__(6);
 
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(60);
 	var NumberInput = __webpack_require__(177);
 	var Editor = __webpack_require__(11);
 
@@ -30205,7 +30208,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Graph = __webpack_require__(178);
 	var NumberInput = __webpack_require__(177);
 	var MathOutput = __webpack_require__(179);
-	var TeX = __webpack_require__(50);
+	var TeX = __webpack_require__(51);
 	var SimpleKeypadInput = __webpack_require__(174);
 
 	var ApiOptions = __webpack_require__(5).Options;
@@ -30228,7 +30231,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var kpoint = __webpack_require__(195).point;
 	var kray = __webpack_require__(195).ray;
 	var kline = __webpack_require__(195).line;
-	var KhanMath = __webpack_require__(144);
+	var KhanMath = __webpack_require__(141);
 	var KhanColors = __webpack_require__(170);
 
 	var assert = __webpack_require__(153).assert;
@@ -32620,8 +32623,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Graph = __webpack_require__(178);
 	var GraphSettings = __webpack_require__(171);
-	var InfoTip = __webpack_require__(61);
-	var PropCheckBox = __webpack_require__(34);
+	var InfoTip = __webpack_require__(60);
+	var PropCheckBox = __webpack_require__(36);
 
 	var Transformer = __webpack_require__(124).widget;
 
@@ -34285,7 +34288,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(157);
 	var EditorJsonify = __webpack_require__(160);
 
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(60);
 	var BlurInput = __webpack_require__(161);
 
 	var KA_VIDEO_URL = /khanacademy\.org\/.*\/v\/(.*)$/;
@@ -34973,9 +34976,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(157);
 	var Editor = __webpack_require__(11);
-	var PropCheckBox = __webpack_require__(34);
+	var PropCheckBox = __webpack_require__(36);
 
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(60);
 	var BaseRadio = __webpack_require__(183);
 
 	var ChoiceEditor = React.createClass({
@@ -35456,214 +35459,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable no-undef, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	// Split a word-wise diff generated by jsdiff into multiple lines, for the
-	// purpose of breaking up the diffs into lines, so that modified lines can be
-	// faintly highlighted
-
-	var splitDiff = function (diffEntries) {
-	    var lines = [];
-	    var currentLine = [];
-	    _.each(diffEntries, function (entry) {
-	        var values = entry.value.split("\n");
-	        _.each(values, function (value, i) {
-	            var isNewline = i > 0;
-	            if (isNewline) {
-	                lines.push(currentLine);
-	                currentLine = [];
-	            }
-	            var newEntry = _.extend({}, entry, { value: value });
-	            currentLine.push(newEntry);
-	        });
-	    });
-
-	    if (currentLine.length) {
-	        lines.push(currentLine);
-	    }
-	    return lines;
-	};
-
-	module.exports = splitDiff;
-
-/***/ },
-/* 140 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var jsdiff = __webpack_require__(145);
-	var _ = __webpack_require__(16);
-
-	var statusFor = function (chunk) {
-	    if (chunk.added) {
-	        return "added";
-	    } else if (chunk.removed) {
-	        return "removed";
-	    } else {
-	        return "unchanged";
-	    }
-	};
-
-	// Turn a chunk (which contains an array of values and a status)
-	// into an array of values, each with the same status
-	var splitUpChunk = function (chunk) {
-	    return _.map(chunk.value, function (value) {
-	        return {
-	            value: value,
-	            status: statusFor(chunk)
-	        };
-	    });
-	};
-
-	// Apply `fn` to every element in `lst` and then concatenate all the results
-	// http://clojuredocs.org/clojure_core/clojure.core/mapcat
-	var mapcat = function (lst, fn) {
-	    return _.flatten(_.map(lst, fn), true /* only flatten one level */);
-	};
-
-	// > ArrayDiff.diff([1,2,3], [2,3,4]);
-	// = [{ "value": [1],
-	//      "removed": true },
-	//    { "value": [2, 3] },
-	//    { "value": [4],
-	//      "added": true }]
-	var ArrayDiff = new jsdiff.Diff();
-	ArrayDiff.tokenize = function (array) {
-	    return _.map(array, function (elem) {
-	        return [elem];
-	    });
-	};
-	// The default is `+` for string concatenation, which doesn't work for array
-	// concatenation.
-	ArrayDiff.join = function (a, b) {
-	    return a.concat(b);
-	};
-	// By default jsDiff uses ===
-	ArrayDiff.equals = _.isEqual;
-
-	// Take the output of jsdiff's function (which concatenates adjacent entries)
-	// and make it just one entry per chunk
-	// > flattenChunks([{ "value": [1],
-	//                    "removed": true },
-	//                  { "value": [2, 3] },
-	//                  { "value": [4],
-	//                    "added": true }])
-	// = [{ "value":1, "status":"removed"},
-	//    { "value":2, "status":"unchanged"},
-	//    { "value":3, "status":"unchanged"},
-	//    { "value":4, "status":"added"}]
-	var flattenChunks = function (chunks) {
-	    return mapcat(chunks, splitUpChunk);
-	};
-
-	// Take two arrays and create a diff for them. The result is two arrays of
-	// objects, one for the things that should be included in a 'before', and one
-	// for 'after'
-	var stringArrayDiff = function (a, b) {
-	    var diffResult = ArrayDiff.diff(a, b);
-	    var flattened = flattenChunks(diffResult);
-
-	    return {
-	        before: _.filter(flattened, function (entry) {
-	            return entry.status !== "added";
-	        }),
-	        after: _.filter(flattened, function (entry) {
-	            return entry.status !== "removed";
-	        })
-	    };
-	};
-
-	module.exports = stringArrayDiff;
-
-/***/ },
-/* 141 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-undef, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var UNCHANGED = "unchanged";
-	var CHANGED = "changed";
-	var ADDED = "added";
-	var REMOVED = "removed";
-
-	// For values which do not have further values nested within them (strings,
-	// numbers, and booleans)
-	var valueEntry = function (before, after, key) {
-	    var status;
-	    if (before === after) {
-	        status = UNCHANGED;
-	    } else if (before === undefined) {
-	        status = ADDED;
-	    } else if (after === undefined) {
-	        status = REMOVED;
-	    } else {
-	        status = CHANGED;
-	    }
-
-	    return {
-	        after: JSON.stringify(after),
-	        before: JSON.stringify(before),
-	        children: [],
-	        key: key,
-	        status: status
-	    };
-	};
-
-	// For values which require a more granular diff (objects and arrays)
-	var objectEntry = function (before, after, key) {
-	    var beforeKeys = _.isObject(before) ? _(before).keys() : [];
-	    var afterKeys = _.isObject(after) ? _(after).keys() : [];
-	    var keys = _.union(beforeKeys, afterKeys);
-
-	    var children = _.map(keys, function (key) {
-	        return performDiff((before || {})[key], (after || {})[key], key);
-	    });
-
-	    var status;
-	    if (before === undefined) {
-	        status = ADDED;
-	    } else if (after === undefined) {
-	        status = REMOVED;
-	    } else {
-	        var changed = _.any(children, function (child) {
-	            return child.status !== UNCHANGED;
-	        });
-	        status = changed ? CHANGED : UNCHANGED;
-	    }
-
-	    return {
-	        after: "",
-	        before: "",
-	        children: children,
-	        key: key,
-	        status: status
-	    };
-	};
-
-	var performDiff = function (before, after, /* optional */key) {
-	    if (typeof before === "object" || typeof after === "object") {
-	        return objectEntry(before, after, key);
-	    } else {
-	        return valueEntry(before, after, key);
-	    }
-	};
-
-	module.exports = performDiff;
-
-/***/ },
-/* 142 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/* globals katex:false, MathJax:false, Exercises:false */
 
-	var cleanMath = __webpack_require__(144).cleanMath;
+	var cleanMath = __webpack_require__(141).cleanMath;
 
 	function findChildOrAdd(elem, className) {
 	    var $child = $(elem).find("." + className);
@@ -35855,7 +35653,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } };
 
 /***/ },
-/* 143 */
+/* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* globals icu:false */
@@ -35872,7 +35670,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 144 */
+/* 141 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* global i18n:false */
@@ -36532,6 +36330,211 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } };
 
 	module.exports = KhanMath;
+
+/***/ },
+/* 142 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable no-undef, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	// Split a word-wise diff generated by jsdiff into multiple lines, for the
+	// purpose of breaking up the diffs into lines, so that modified lines can be
+	// faintly highlighted
+
+	var splitDiff = function (diffEntries) {
+	    var lines = [];
+	    var currentLine = [];
+	    _.each(diffEntries, function (entry) {
+	        var values = entry.value.split("\n");
+	        _.each(values, function (value, i) {
+	            var isNewline = i > 0;
+	            if (isNewline) {
+	                lines.push(currentLine);
+	                currentLine = [];
+	            }
+	            var newEntry = _.extend({}, entry, { value: value });
+	            currentLine.push(newEntry);
+	        });
+	    });
+
+	    if (currentLine.length) {
+	        lines.push(currentLine);
+	    }
+	    return lines;
+	};
+
+	module.exports = splitDiff;
+
+/***/ },
+/* 143 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var jsdiff = __webpack_require__(145);
+	var _ = __webpack_require__(16);
+
+	var statusFor = function (chunk) {
+	    if (chunk.added) {
+	        return "added";
+	    } else if (chunk.removed) {
+	        return "removed";
+	    } else {
+	        return "unchanged";
+	    }
+	};
+
+	// Turn a chunk (which contains an array of values and a status)
+	// into an array of values, each with the same status
+	var splitUpChunk = function (chunk) {
+	    return _.map(chunk.value, function (value) {
+	        return {
+	            value: value,
+	            status: statusFor(chunk)
+	        };
+	    });
+	};
+
+	// Apply `fn` to every element in `lst` and then concatenate all the results
+	// http://clojuredocs.org/clojure_core/clojure.core/mapcat
+	var mapcat = function (lst, fn) {
+	    return _.flatten(_.map(lst, fn), true /* only flatten one level */);
+	};
+
+	// > ArrayDiff.diff([1,2,3], [2,3,4]);
+	// = [{ "value": [1],
+	//      "removed": true },
+	//    { "value": [2, 3] },
+	//    { "value": [4],
+	//      "added": true }]
+	var ArrayDiff = new jsdiff.Diff();
+	ArrayDiff.tokenize = function (array) {
+	    return _.map(array, function (elem) {
+	        return [elem];
+	    });
+	};
+	// The default is `+` for string concatenation, which doesn't work for array
+	// concatenation.
+	ArrayDiff.join = function (a, b) {
+	    return a.concat(b);
+	};
+	// By default jsDiff uses ===
+	ArrayDiff.equals = _.isEqual;
+
+	// Take the output of jsdiff's function (which concatenates adjacent entries)
+	// and make it just one entry per chunk
+	// > flattenChunks([{ "value": [1],
+	//                    "removed": true },
+	//                  { "value": [2, 3] },
+	//                  { "value": [4],
+	//                    "added": true }])
+	// = [{ "value":1, "status":"removed"},
+	//    { "value":2, "status":"unchanged"},
+	//    { "value":3, "status":"unchanged"},
+	//    { "value":4, "status":"added"}]
+	var flattenChunks = function (chunks) {
+	    return mapcat(chunks, splitUpChunk);
+	};
+
+	// Take two arrays and create a diff for them. The result is two arrays of
+	// objects, one for the things that should be included in a 'before', and one
+	// for 'after'
+	var stringArrayDiff = function (a, b) {
+	    var diffResult = ArrayDiff.diff(a, b);
+	    var flattened = flattenChunks(diffResult);
+
+	    return {
+	        before: _.filter(flattened, function (entry) {
+	            return entry.status !== "added";
+	        }),
+	        after: _.filter(flattened, function (entry) {
+	            return entry.status !== "removed";
+	        })
+	    };
+	};
+
+	module.exports = stringArrayDiff;
+
+/***/ },
+/* 144 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-undef, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var UNCHANGED = "unchanged";
+	var CHANGED = "changed";
+	var ADDED = "added";
+	var REMOVED = "removed";
+
+	// For values which do not have further values nested within them (strings,
+	// numbers, and booleans)
+	var valueEntry = function (before, after, key) {
+	    var status;
+	    if (before === after) {
+	        status = UNCHANGED;
+	    } else if (before === undefined) {
+	        status = ADDED;
+	    } else if (after === undefined) {
+	        status = REMOVED;
+	    } else {
+	        status = CHANGED;
+	    }
+
+	    return {
+	        after: JSON.stringify(after),
+	        before: JSON.stringify(before),
+	        children: [],
+	        key: key,
+	        status: status
+	    };
+	};
+
+	// For values which require a more granular diff (objects and arrays)
+	var objectEntry = function (before, after, key) {
+	    var beforeKeys = _.isObject(before) ? _(before).keys() : [];
+	    var afterKeys = _.isObject(after) ? _(after).keys() : [];
+	    var keys = _.union(beforeKeys, afterKeys);
+
+	    var children = _.map(keys, function (key) {
+	        return performDiff((before || {})[key], (after || {})[key], key);
+	    });
+
+	    var status;
+	    if (before === undefined) {
+	        status = ADDED;
+	    } else if (after === undefined) {
+	        status = REMOVED;
+	    } else {
+	        var changed = _.any(children, function (child) {
+	            return child.status !== UNCHANGED;
+	        });
+	        status = changed ? CHANGED : UNCHANGED;
+	    }
+
+	    return {
+	        after: "",
+	        before: "",
+	        children: children,
+	        key: key,
+	        status: status
+	    };
+	};
+
+	var performDiff = function (before, after, /* optional */key) {
+	    if (typeof before === "object" || typeof after === "object") {
+	        return objectEntry(before, after, key);
+	    } else {
+	        return valueEntry(before, after, key);
+	    }
+	};
+
+	module.exports = performDiff;
 
 /***/ },
 /* 145 */
@@ -39599,7 +39602,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(41);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(42);
 
 	var USAGE = "Usage:\n" + "  this.change({propName: 5}, callback);\n" + "  this.change(\"propName\", 5, callback);\n" + "  this.change(\"propName\")";
 
@@ -39685,7 +39688,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * just returns all the widget's props rather than picking out those which were
 	 * input by the user.
 	 */
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(41);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(42);
 
 	var WidgetJsonifyDeprecated = {
 	    getUserInput: function () {
@@ -39750,7 +39753,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(16);
 
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(41);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(42);
 
 	var EditorJsonify = {
 	    serialize: function () {
@@ -41028,7 +41031,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var TeX = __webpack_require__(50);
+	var TeX = __webpack_require__(51);
 
 	var prettyBig = { fontSize: "150%" };
 	var slightlyBig = { fontSize: "120%" };
@@ -41622,12 +41625,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(157);
 
 	var ButtonGroup = __webpack_require__(46);
-	var InfoTip = __webpack_require__(61);
-	var PropCheckBox = __webpack_require__(34);
+	var InfoTip = __webpack_require__(60);
+	var PropCheckBox = __webpack_require__(36);
 	var RangeInput = __webpack_require__(173);
-	var TeX = __webpack_require__(50);
+	var TeX = __webpack_require__(51);
 	var Util = __webpack_require__(6);
-	var KhanMath = __webpack_require__(144);
+	var KhanMath = __webpack_require__(141);
 
 	var _require = __webpack_require__(138);
 
@@ -42686,7 +42689,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var firstNumericalParse = __webpack_require__(6).firstNumericalParse;
 	var captureScratchpadTouchStart = __webpack_require__(6).captureScratchpadTouchStart;
 	var knumber = __webpack_require__(195).number;
-	var KhanMath = __webpack_require__(144);
+	var KhanMath = __webpack_require__(141);
 
 	var toNumericString = KhanMath.toNumericString;
 	var getNumericFormat = KhanMath.getNumericFormat;
@@ -43234,7 +43237,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 	var ReactDOM = __webpack_require__(17);
-	var TeX = __webpack_require__(50);
+	var TeX = __webpack_require__(51);
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 	var Tooltip = __webpack_require__(164);
 	var ModifyTex = __webpack_require__(175).modifyTex;
@@ -44662,7 +44665,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            radio: {
 	                // Avoid centering
-	                width: "100%" },
+	                width: "100%",
+	                backgroundColor: "#ffffff" },
 
 	            responsiveRadio: (_responsiveRadio = {}, _responsiveRadio[mediaQueries.smOrSmaller] = {
 	                borderBottom: "1px solid " + radioBorder,
@@ -45648,7 +45652,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var TeX = __webpack_require__(50);
+	var TeX = __webpack_require__(51);
 
 	var ButtonGroup = __webpack_require__(46);
 	var Changeable = __webpack_require__(157);
@@ -47454,8 +47458,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	__webpack_require__(220);
 
-	var KhanMath = __webpack_require__(144);
-	var processMath = __webpack_require__(142).processMath;
+	var KhanMath = __webpack_require__(141);
+	var processMath = __webpack_require__(139).processMath;
 
 	/* Convert cartesian coordinates [x, y] to polar coordinates [r,
 	 * theta], with theta in degrees, or in radians if angleInRadians is
@@ -48687,7 +48691,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _=__webpack_require__(16);__webpack_require__(226);var GraphUtils=__webpack_require__(199);var kvector=__webpack_require__(195).vector;var kpoint=__webpack_require__(195).point;var kline=__webpack_require__(195).line;var WrappedEllipse=__webpack_require__(222);var WrappedLine=__webpack_require__(224);var WrappedPath=__webpack_require__(227);var KhanMath=__webpack_require__(144);var KhanColors=__webpack_require__(170);var _require=__webpack_require__(153);var getCanUse3dTransform=_require.getCanUse3dTransform;function sum(array){return _.reduce(array, function(memo, arg){return memo + arg;}, 0);}function clockwise(points){var segments=_.zip(points, points.slice(1).concat(points.slice(0, 1)));var areas=_.map(segments, function(segment){var p1=segment[0];var p2=segment[1];return (p2[0] - p1[0]) * (p2[1] + p1[1]);});return sum(areas) > 0;}function addPoints(){var points=_.toArray(arguments);var zipped=_.zip.apply(_, points);return _.map(zipped, sum);}function reverseVector(vector){return _.map(vector, function(coord){return coord * -1;});}function scaledDistanceFromAngle(angle){var a=3.51470560176242 * 20;var b=0.5687298702748785 * 20;var c=-0.037587715462826674;return (a - b) * Math.exp(c * angle) + b;}function scaledPolarRad(radius, radians){return [radius * Math.cos(radians), radius * Math.sin(radians) * -1];}function scaledPolarDeg(radius, degrees){var radians=degrees * Math.PI / 180;return scaledPolarRad(radius, radians);}var dragging=false;var InteractiveUtils={FILL_OPACITY:0.3, createSorter:function(){var sorter={};var list=undefined;sorter.hasAttempted = false;sorter.init = function(element){list = $("[id=" + element + "]").last();var container=list.wrap("<div>").parent();var placeholder=$("<li>");placeholder.addClass("placeholder");container.addClass("sortable perseus-clearfix");list.find("li").each(function(tileNum, tile){$(tile).bind("vmousedown", function(event){var _this=this;if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();$(tile).addClass("dragging");var tileIndex=$(_this).index();placeholder.insertAfter(tile);placeholder.width($(tile).width());$(_this).css("z-index", 100);var offset=$(_this).offset();var click={left:event.pageX - offset.left - 3, top:event.pageY - offset.top - 3};$(tile).css({position:"absolute"});$(tile).offset({left:offset.left, top:offset.top});$(document).bind("vmousemove.tile vmouseup.tile", function(event){event.preventDefault();if(event.type === "vmousemove"){(function(){sorter.hasAttempted = true;$(tile).offset({left:event.pageX - click.left, top:event.pageY - click.top});var leftEdge=list.offset().left;var midWidth=$(tile).offset().left - leftEdge;var index=0;var sumWidth=0;list.find("li").each(function(){if(this === placeholder[0] || this === tile){return;}if(midWidth > sumWidth + $(this).outerWidth(true) / 2){index += 1;}sumWidth += $(this).outerWidth(true);});if(index !== tileIndex){tileIndex = index;if(index === 0){placeholder.prependTo(list);$(tile).prependTo(list);}else {placeholder.detach();$(tile).detach();var preceeding=list.find("li")[index - 1];placeholder.insertAfter(preceeding);$(tile).insertAfter(preceeding);}}})();}else if(event.type === "vmouseup"){(function(){$(document).unbind(".tile");var position=$(tile).offset();$(position).animate(placeholder.offset(), {duration:150, step:function(now, fx){position[fx.prop] = now;$(tile).offset(position);}, complete:function(){$(tile).css("z-index", 0);placeholder.detach();$(tile).css({position:"static"});$(tile).removeClass("dragging");}});})();}});})();}});});};sorter.getContent = function(){var content=[];list.find("li").each(function(tileNum, tile){content.push($.trim($(tile).find(".sort-key").text()));});return content;};sorter.setContent = function(content){var tiles=[];$.each(content, function(n, sortKey){var tile=list.find("li .sort-key").filter(function(){return $(this).text() === sortKey;}).closest("li").get(0);$(tile).detach();tiles.push(tile);});list.append(tiles);};return sorter;}, bogusShape:{animate:function(){}, attr:function(){}, remove:function(){}}};_.extend(GraphUtils.Graphie.prototype, {initAutoscaledGraph:function(range, options){var graph=this;options = $.extend({xpixels:500, ypixels:500, xdivisions:20, ydivisions:20, labels:true, unityLabels:true, range:range === undefined?[[-10, 10], [-10, 10]]:range}, options);options.scale = [options.xpixels / (options.range[0][1] - options.range[0][0]), options.ypixels / (options.range[1][1] - options.range[1][0])];options.gridStep = [(options.range[0][1] - options.range[0][0]) / options.xdivisions, (options.range[1][1] - options.range[1][0]) / options.ydivisions];graph.xpixels = options.xpixels;graph.ypixels = options.ypixels;graph.range = options.range;graph.scale = options.scale;graph.graphInit(options);}, addMouseLayer:function(options){var graph=this;options = _.extend({allowScratchpad:false}, options);var mouselayerZIndex=2;graph.mouselayer = Raphael(graph.raphael.canvas.parentNode, graph.xpixels, graph.ypixels);$(graph.mouselayer.canvas).css("z-index", mouselayerZIndex);if(options.onClick || options.onMouseDown || options.onMouseMove || options.onMouseOver || options.onMouseOut){(function(){var canvasClickTarget=graph.mouselayer.rect(0, 0, graph.xpixels, graph.ypixels).attr({fill:"#000", opacity:0});var isClickingCanvas=false;$(graph.mouselayer.canvas).on("vmousedown", function(e){if(e.target === canvasClickTarget[0]){if(options.onMouseDown){options.onMouseDown(graph.getMouseCoord(e));}isClickingCanvas = true;if(options.onMouseMove){$(document).bind("vmousemove.mouseLayer", function(e){if(isClickingCanvas){e.preventDefault();options.onMouseMove(graph.getMouseCoord(e));}});}$(document).bind("vmouseup.mouseLayer", function(e){$(document).unbind(".mouseLayer");if(isClickingCanvas && options.onClick){options.onClick(graph.getMouseCoord(e));}isClickingCanvas = false;});}});if(options.onMouseOver){$(graph.mouselayer.canvas).on("vmouseover", function(e){options.onMouseOver(graph.getMouseCoord(e));});}if(options.onMouseOut){$(graph.mouselayer.canvas).on("vmouseout", function(e){options.onMouseOut(graph.getMouseCoord(e));});}})();}if(!options.allowScratchpad){Khan.scratchpad.disable();}graph._mouselayerWrapper = document.createElement("div");$(graph._mouselayerWrapper).css({position:"absolute", left:0, top:0, zIndex:mouselayerZIndex});graph._visiblelayerWrapper = document.createElement("div");$(graph._visiblelayerWrapper).css({position:"absolute", left:0, top:0});var el=graph.raphael.canvas.parentNode;el.appendChild(graph._visiblelayerWrapper);el.appendChild(graph._mouselayerWrapper);graph.addToMouseLayerWrapper = function(el){this._mouselayerWrapper.appendChild(el);};graph.addToVisibleLayerWrapper = function(el){this._visiblelayerWrapper.appendChild(el);};}, getMousePx:function(event){var graphie=this;var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;return [mouseX, mouseY];}, getMouseCoord:function(event){return this.unscalePoint(this.getMousePx(event));}, drawArcs:function(point1, vertex, point3, numArcs){var startAngle=GraphUtils.findAngle(point1, vertex);var endAngle=GraphUtils.findAngle(point3, vertex);if(((endAngle - startAngle) % 360 + 360) % 360 > 180){var temp=startAngle;startAngle = endAngle;endAngle = temp;}var radius=0.3;if(((endAngle - startAngle) % 360 + 360) % 360 < 75){radius = -0.6 / 90 * (((endAngle - startAngle) % 360 + 360) % 360) + 0.8;}var arcset=[];for(var arc=0; arc < numArcs; ++arc) {arcset.push(this.arc(vertex, radius + 0.15 * arc, startAngle, endAngle));}return arcset;}, labelAngle:function(options){var graphie=this;_.defaults(options, {point1:[0, 0], vertex:[0, 0], point3:[0, 0], label:null, numArcs:1, showRightAngleMarker:true, pushOut:0, clockwise:false, style:{}});var text=options.text === undefined?"":options.text;var vertex=options.vertex;var sVertex=graphie.scalePoint(vertex);var p1=undefined;var p3=undefined;if(options.clockwise){p1 = options.point1;p3 = options.point3;}else {p1 = options.point3;p3 = options.point1;}var startAngle=GraphUtils.findAngle(p1, vertex);var endAngle=GraphUtils.findAngle(p3, vertex);var angle=(endAngle + 360 - startAngle) % 360;var halfAngle=(startAngle + angle / 2) % 360;var sPadding=5 * options.pushOut;var sRadius=sPadding + scaledDistanceFromAngle(angle);var temp=[];if(Math.abs(angle - 90) < 1e-9 && options.showRightAngleMarker){(function(){var v1=addPoints(sVertex, scaledPolarDeg(sRadius, startAngle));var v2=addPoints(sVertex, scaledPolarDeg(sRadius, endAngle));sRadius *= Math.SQRT2;var v3=addPoints(sVertex, scaledPolarDeg(sRadius, halfAngle));_.each([v1, v2], function(v){temp.push(graphie.scaledPath([v, v3], options.style));});})();}else {_.times(options.numArcs, function(i){temp.push(graphie.arc(vertex, graphie.unscaleVector(sRadius), startAngle, endAngle, options.style));sRadius += 3;});}if(text){var match=text.match(/\$deg(\d)?/);if(match){var precision=match[1] || 1;text = text.replace(match[0], KhanMath.toFixedApprox(angle, precision) + "^{\\circ}");}var sOffset=scaledPolarDeg(sRadius + 15, halfAngle);var sPosition=addPoints(sVertex, sOffset);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(text, true);}else {graphie.label(position, text, "center", options.style);}}return temp;}, labelSide:function(options){var graphie=this;_.defaults(options, {point1:[0, 0], point2:[0, 0], label:null, text:"", numTicks:0, numArrows:0, clockwise:false, style:{}});var p1=undefined;var p2=undefined;if(options.clockwise){p1 = options.point1;p2 = options.point2;}else {p1 = options.point2;p2 = options.point1;}var midpoint=[(p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2];var sMidpoint=graphie.scalePoint(midpoint);var parallelAngle=Math.atan2(p2[1] - p1[1], p2[0] - p1[0]);var perpendicularAngle=parallelAngle + Math.PI / 2;var temp=[];var sCumulativeOffset=0;if(options.numTicks){(function(){var n=options.numTicks;var sSpacing=5;var sHeight=5;var style=_.extend({}, options.style, {strokeWidth:2});_.times(n, function(i){var sOffset=sSpacing * (i - (n - 1) / 2);var sOffsetVector=scaledPolarRad(sOffset, parallelAngle);var sHeightVector=scaledPolarRad(sHeight, perpendicularAngle);var sPath=[addPoints(sMidpoint, sOffsetVector, sHeightVector), addPoints(sMidpoint, sOffsetVector, reverseVector(sHeightVector))];temp.push(graphie.scaledPath(sPath, style));});sCumulativeOffset += sSpacing * (n - 1) + 15;})();}if(options.numArrows){(function(){var n=options.numArrows;var start=[p1, p2].sort(function(a, b){if(a[1] === b[1]){return a[0] - b[0];}else {return a[1] - b[1];}})[0];var sStart=graphie.scalePoint(start);var style=_.extend({}, options.style, {arrows:"->", strokeWidth:2});var sSpacing=5;_.times(n, function(i){var sOffset=sCumulativeOffset + sSpacing * i;var sOffsetVector=scaledPolarRad(sOffset, parallelAngle);if(start !== p1){sOffsetVector = reverseVector(sOffsetVector);}var sEnd=addPoints(sMidpoint, sOffsetVector);temp.push(graphie.scaledPath([sStart, sEnd], style));});})();}var text=options.text;if(text){var match=text.match(/\$len(\d)?/);if(match){var distance=GraphUtils.getDistance(p1, p2);var precision=match[1] || 1;text = text.replace(match[0], KhanMath.toFixedApprox(distance, precision));}var sOffset=20;var sOffsetVector=scaledPolarRad(sOffset, perpendicularAngle);var sPosition=addPoints(sMidpoint, sOffsetVector);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(text, true);}else {graphie.label(position, text, "center", options.style);}}return temp;}, labelVertex:function(options){var graphie=this;_.defaults(options, {point1:null, vertex:[0, 0], point3:null, label:null, text:"", clockwise:false, style:{}});if(!options.text){return;}var vertex=options.vertex;var sVertex=graphie.scalePoint(vertex);var p1=undefined;var p3=undefined;if(options.clockwise){p1 = options.point1;p3 = options.point3;}else {p1 = options.point3;p3 = options.point1;}var angle=135;var halfAngle=undefined;if(p1 && p3){var startAngle=GraphUtils.findAngle(p1, vertex);var endAngle=GraphUtils.findAngle(p3, vertex);angle = (endAngle + 360 - startAngle) % 360;halfAngle = (startAngle + angle / 2 + 180) % 360;}else if(p1){var parallelAngle=GraphUtils.findAngle(vertex, p1);halfAngle = parallelAngle + 90;}else if(p3){var parallelAngle=GraphUtils.findAngle(p3, vertex);halfAngle = parallelAngle + 90;}else {halfAngle = 135;}var sRadius=10 + scaledDistanceFromAngle(360 - angle);var sOffsetVector=scaledPolarDeg(sRadius, halfAngle);var sPosition=addPoints(sVertex, sOffsetVector);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(options.text, true);}else {graphie.label(position, options.text, "center", options.style);}}, addMovablePoint:function(options){var movablePoint=$.extend(true, {graph:this, coord:[0, 0], snapX:0, snapY:0, pointSize:4, highlight:false, dragging:false, visible:true, bounded:true, constraints:{fixed:false, constrainX:false, constrainY:false, fixedAngle:{}, fixedDistance:{}}, lineStarts:[], lineEnds:[], polygonVertices:[], normalStyle:{}, highlightStyle:{fill:KhanColors.INTERACTING, stroke:KhanColors.INTERACTING}, labelStyle:{color:KhanColors.INTERACTIVE}, vertexLabel:"", mouseTarget:null}, options);var normalColor=movablePoint.constraints.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;movablePoint.normalStyle = _.extend({}, {"fill":normalColor, "stroke":normalColor}, options.normalStyle);if(options.coordX !== undefined){movablePoint.coord[0] = options.coordX;}if(options.coordY !== undefined){movablePoint.coord[1] = options.coordY;}var graph=movablePoint.graph;var applySnapAndConstraints=function(coord){if(movablePoint.visible && movablePoint.bounded && !movablePoint.constraints.fixed){coord = graph.constrainToBounds(coord, 10);}var coordX=coord[0];var coordY=coord[1];if(movablePoint.snapX !== 0){coordX = Math.round(coordX / movablePoint.snapX) * movablePoint.snapX;}if(movablePoint.snapY !== 0){coordY = Math.round(coordY / movablePoint.snapY) * movablePoint.snapY;}if(movablePoint.constraints.fixedDistance.snapPoints){var mouse=graph.scalePoint(coord);var mouseX=mouse[0];var mouseY=mouse[1];var snapRadians=2 * Math.PI / movablePoint.constraints.fixedDistance.snapPoints;var radius=movablePoint.constraints.fixedDistance.dist;var centerCoord=movablePoint.constraints.fixedDistance.point;var centerX=(centerCoord[0] - graph.range[0][0]) * graph.scale[0];var centerY=(-centerCoord[1] + graph.range[1][1]) * graph.scale[1];var mouseXrel=mouseX - centerX;var mouseYrel=-mouseY + centerY;var radians=Math.atan(mouseYrel / mouseXrel);var outsideArcTanRange=mouseXrel < 0;if(outsideArcTanRange){radians += Math.PI;}radians = Math.round(radians / snapRadians) * snapRadians;mouseXrel = radius * Math.cos(radians);mouseYrel = radius * Math.sin(radians);mouseX = mouseXrel + centerX;mouseY = -mouseYrel + centerY;coordX = KhanMath.roundTo(5, mouseX / graph.scale[0] + graph.range[0][0]);coordY = KhanMath.roundTo(5, graph.range[1][1] - mouseY / graph.scale[1]);}var result=movablePoint.applyConstraint([coordX, coordY]);return result;};movablePoint.applyConstraint = function(coord, extraConstraints, override){var newCoord=coord.slice();var constraints={};if(override){$.extend(constraints, {fixed:false, constrainX:false, constrainY:false, fixedAngle:{}, fixedDistance:{}}, extraConstraints);}else {$.extend(constraints, this.constraints, extraConstraints);}if(constraints.constrainX){newCoord = [this.coord[0], coord[1]];}else if(constraints.constrainY){newCoord = [coord[0], this.coord[1]];}else if(typeof constraints.fixedAngle.angle === "number" && typeof constraints.fixedDistance.dist === "number"){var vertex=constraints.fixedAngle.vertex.coord || constraints.fixedAngle.vertex;var ref=constraints.fixedAngle.ref.coord || constraints.fixedAngle.ref;var distPoint=constraints.fixedDistance.point.coord || constraints.fixedDistance.point;var constrainedAngle=(constraints.fixedAngle.angle + GraphUtils.findAngle(ref, vertex)) * Math.PI / 180;var _length=constraints.fixedDistance.dist;newCoord[0] = _length * Math.cos(constrainedAngle) + distPoint[0];newCoord[1] = _length * Math.sin(constrainedAngle) + distPoint[1];}else if(typeof constraints.fixedAngle.angle === "number"){var vertex=constraints.fixedAngle.vertex.coord || constraints.fixedAngle.vertex;var ref=constraints.fixedAngle.ref.coord || constraints.fixedAngle.ref;var constrainedAngle=(constraints.fixedAngle.angle + GraphUtils.findAngle(ref, vertex)) * Math.PI / 180;var angle=GraphUtils.findAngle(coord, vertex) * Math.PI / 180;var distance=GraphUtils.getDistance(coord, vertex);var _length2=distance * Math.cos(constrainedAngle - angle);_length2 = _length2 < 1?1:_length2;newCoord[0] = _length2 * Math.cos(constrainedAngle) + vertex[0];newCoord[1] = _length2 * Math.sin(constrainedAngle) + vertex[1];}else if(typeof constraints.fixedDistance.dist === "number"){var distPoint=constraints.fixedDistance.point.coord || constraints.fixedDistance.point;var angle=GraphUtils.findAngle(coord, distPoint);var _length3=constraints.fixedDistance.dist;angle = angle * Math.PI / 180;newCoord[0] = _length3 * Math.cos(angle) + distPoint[0];newCoord[1] = _length3 * Math.sin(angle) + distPoint[1];}else if(constraints.fixed){newCoord = movablePoint.coord;}return newCoord;};movablePoint.coord = applySnapAndConstraints(movablePoint.coord);var highlightScale=2;if(movablePoint.visible){graph.style(movablePoint.normalStyle, function(){var radii=[movablePoint.pointSize / graph.scale[0], movablePoint.pointSize / graph.scale[1]];var options={maxScale:highlightScale, padding:2};movablePoint.visibleShape = new WrappedEllipse(graph, movablePoint.coord, radii, options);movablePoint.visibleShape.attr(_.omit(movablePoint.normalStyle, "scale"));movablePoint.visibleShape.toFront();});}movablePoint.normalStyle.scale = 1;movablePoint.highlightStyle.scale = highlightScale;if(movablePoint.vertexLabel){movablePoint.labeledVertex = this.label([0, 0], "", "center", movablePoint.labelStyle);}movablePoint.drawLabel = function(){if(movablePoint.vertexLabel){movablePoint.graph.labelVertex({vertex:movablePoint.coord, label:movablePoint.labeledVertex, text:movablePoint.vertexLabel, style:movablePoint.labelStyle});}};movablePoint.drawLabel();movablePoint.grab = function(offset){offset = offset || [0, 0];$(document).bind("vmousemove.point vmouseup.point", function(event){event.preventDefault();movablePoint.dragging = true;dragging = true;var coord=kvector.add(graph.getMouseCoord(event), offset);coord = applySnapAndConstraints(coord);var coordX=coord[0];var coordY=coord[1];var mouseX=undefined;var mouseY=undefined;if(event.type === "vmousemove"){var doMove=true;if(_.isFunction(movablePoint.onMove)){var result=movablePoint.onMove(coordX, coordY);if(result === false){doMove = false;}if(_.isArray(result)){coordX = result[0];coordY = result[1];}}mouseX = (coordX - graph.range[0][0]) * graph.scale[0];mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];if(doMove){var point=graph.unscalePoint([mouseX, mouseY]);movablePoint.visibleShape.moveTo(point);movablePoint.mouseTarget.moveTo(point);movablePoint.coord = [coordX, coordY];movablePoint.updateLineEnds();$(movablePoint).trigger("move");}movablePoint.drawLabel();}else if(event.type === "vmouseup"){$(document).unbind(".point");movablePoint.dragging = false;dragging = false;if(_.isFunction(movablePoint.onMoveEnd)){var result=movablePoint.onMoveEnd(coordX, coordY);if(_.isArray(result)){coordX = result[0];coordY = result[1];mouseX = (coordX - graph.range[0][0]) * graph.scale[0];mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];var point=graph.unscalePoint([mouseX, mouseY]);movablePoint.visibleShape.moveTo(point);movablePoint.mouseTarget.moveTo(point);movablePoint.coord = [coordX, coordY];}}if(!movablePoint.highlight){movablePoint.visibleShape.animate(movablePoint.normalStyle, 50);if(movablePoint.onUnhighlight){movablePoint.onUnhighlight();}}}});};if(movablePoint.visible && !movablePoint.constraints.fixed){if(!movablePoint.mouseTarget){var radii=graph.unscaleVector(24);var _options={mouselayer:true, padding:0};movablePoint.mouseTarget = new WrappedEllipse(graph, movablePoint.coord, radii, _options);movablePoint.mouseTarget.attr({fill:"#000", opacity:0});}var $mouseTarget=$(movablePoint.mouseTarget.getMouseTarget());$mouseTarget.css("cursor", "move");$mouseTarget.bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){movablePoint.highlight = true;if(!dragging){movablePoint.visibleShape.animate(movablePoint.highlightStyle, 50);if(movablePoint.onHighlight){movablePoint.onHighlight();}}}else if(event.type === "vmouseout"){movablePoint.highlight = false;if(!movablePoint.dragging && !dragging){movablePoint.visibleShape.animate(movablePoint.normalStyle, 50);if(movablePoint.onUnhighlight){movablePoint.onUnhighlight();}}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){event.preventDefault();var startCoord=movablePoint.coord;var startMouseCoord=graph.getMouseCoord(event);var isMouse=!("ontouchstart" in window);var touchOffset=isMouse?[0, 0]:kvector.subtract(startCoord, startMouseCoord);movablePoint.grab(touchOffset);}});}movablePoint.moveTo = function(coordX, coordY, updateLines){var distance=GraphUtils.getDistance(this.graph.scalePoint([coordX, coordY]), this.graph.scalePoint(this.coord));var time=distance * 5;var cb=updateLines && function(coord){movablePoint.coord = coord;movablePoint.updateLineEnds();};this.visibleShape.animateTo([coordX, coordY], time, cb);this.mouseTarget.animateTo([coordX, coordY], time, cb);this.coord = [coordX, coordY];if(_.isFunction(this.onMove)){this.onMove(coordX, coordY);}};movablePoint.updateLineEnds = function(){$(this.lineStarts).each(function(){this.coordA = movablePoint.coord;this.transform();});$(this.lineEnds).each(function(){this.coordZ = movablePoint.coord;this.transform();});$(this.polygonVertices).each(function(){this.transform();});};movablePoint.setCoord = function(coord){if(this.visible){this.visibleShape.moveTo(coord);if(this.mouseTarget != null){this.mouseTarget.moveTo(coord);}}this.coord = coord.slice();};movablePoint.setCoordConstrained = function(coord){this.setCoord(applySnapAndConstraints(coord));};movablePoint.toBack = function(){if(this.visible){if(this.mouseTarget != null){this.mouseTarget.toBack();}this.visibleShape.toBack();}};movablePoint.toFront = function(){if(this.visible){if(this.mouseTarget != null){this.mouseTarget.toFront();}this.visibleShape.toFront();}};movablePoint.remove = function(){if(this.visibleShape){this.visibleShape.remove();}if(this.mouseTarget){this.mouseTarget.remove();}if(this.labeledVertex){this.labeledVertex.remove();}};return movablePoint;}, addInteractiveFn:function(fn, options){var graph=this;options = $.extend({graph:graph, snap:0, range:[graph.range[0][0], graph.range[0][1]]}, options);var interactiveFn={highlight:false};graph.style({stroke:KhanColors.BLUE}, function(){interactiveFn.visibleShape = graph.plot(fn, options.range, options.swapAxes);});graph.style({fill:KhanColors.BLUE, stroke:KhanColors.BLUE}, function(){interactiveFn.cursorPoint = graph.ellipse([0, fn(0)], [4 / graph.scale[0], 4 / graph.scale[1]]);});interactiveFn.cursorPoint.attr("opacity", 0);var mouseAreaWidth=30;var points=[];var step=(options.range[1] - options.range[0]) / 100;var addScaledPoint=function(x, y){if(options.swapAxes){points.push([(y - graph.range[0][0]) * graph.scale[0], (graph.range[1][1] - x) * graph.scale[1]]);}else {points.push([(x - graph.range[0][0]) * graph.scale[0], (graph.range[1][1] - y) * graph.scale[1]]);}};for(var x=options.range[0]; x <= options.range[1]; x += step) {var ddx=(fn(x - 0.001) - fn(x + 0.001)) / 0.002;var x1=x;var y1=fn(x) + mouseAreaWidth / (2 * graph.scale[1]);if(ddx !== 0){var normalslope=-1 / (ddx * (graph.scale[1] / graph.scale[0])) / (graph.scale[1] / graph.scale[0]);if(ddx < 0){x1 = x - Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}else if(ddx > 0){x1 = x + Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}}addScaledPoint(x1, y1);}for(var x=options.range[1]; x >= options.range[0]; x -= step) {var ddx=(fn(x - 0.001) - fn(x + 0.001)) / 0.002;var x1=x;var y1=fn(x) - mouseAreaWidth / (2 * graph.scale[1]);if(ddx !== 0){var normalslope=-1 / (ddx * (graph.scale[1] / graph.scale[0])) / (graph.scale[1] / graph.scale[0]);if(ddx < 0){x1 = x + Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}else if(ddx > 0){x1 = x - Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}}addScaledPoint(x1, y1);}interactiveFn.mouseTarget = graph.mouselayer.path(GraphUtils.unscaledSvgPath(points));interactiveFn.mouseTarget.attr({fill:"#000", "opacity":0});$(interactiveFn.mouseTarget[0]).bind("vmouseover vmouseout vmousemove", function(event){event.preventDefault();var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graph.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graph.ypixels - 10, mouseY));if(options.snap){mouseX = Math.round(mouseX / (graph.scale[0] * options.snap)) * (graph.scale[0] * options.snap);}var coordX=mouseX / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - mouseY / graph.scale[1];var findDistance=function(coordX, coordY){var closestX=0;var minDist=Math.sqrt(coordX * coordX + coordY * coordY);for(var x=options.range[0]; x < options.range[1]; x += (options.range[1] - options.range[0]) / graph.xpixels) {if(Math.sqrt((x - coordX) * (x - coordX) + (fn(x) - coordY) * (fn(x) - coordY)) < minDist){closestX = x;minDist = Math.sqrt((x - coordX) * (x - coordX) + (fn(x) - coordY) * (fn(x) - coordY));}}return closestX;};if(options.swapAxes){var closestX=findDistance(coordY, coordX);coordX = fn(closestX);coordY = closestX;}else {var closestX=findDistance(coordX, coordY);coordX = closestX;coordY = fn(closestX);}interactiveFn.cursorPoint.attr("cx", (graph.range[0][1] + coordX) * graph.scale[0]);interactiveFn.cursorPoint.attr("cy", (graph.range[1][1] - coordY) * graph.scale[1]);if(_.isFunction(interactiveFn.onMove)){interactiveFn.onMove(coordX, coordY);}if(event.type === "vmouseover"){interactiveFn.cursorPoint.animate({opacity:1}, 50);interactiveFn.highlight = true;}else if(event.type === "vmouseout"){interactiveFn.highlight = false;interactiveFn.cursorPoint.animate({opacity:0}, 50);if(_.isFunction(interactiveFn.onLeave)){interactiveFn.onLeave(coordX, coordY);}}});interactiveFn.mouseTarget.toBack();return interactiveFn;}, addMovableLineSegment:function(options){var lineSegment=$.extend({graph:this, coordA:[0, 0], coordZ:[1, 1], snapX:0, snapY:0, fixed:false, ticks:0, normalStyle:{}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":6}, labelStyle:{"stroke":KhanColors.INTERACTIVE, "color":KhanColors.INTERACTIVE}, highlight:false, dragging:false, tick:[], extendLine:false, extendRay:false, constraints:{fixed:false, constrainX:false, constrainY:false}, sideLabel:"", vertexLabels:[], numArrows:0, numTicks:0, movePointsWithLine:false}, options);var normalColor=lineSegment.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;lineSegment.normalStyle = _.extend({}, {"stroke-width":2, "stroke":normalColor}, options.normalStyle);lineSegment.arrowStyle = _.extend({}, lineSegment.normalStyle, {"color":lineSegment.normalStyle.stroke});if(options.pointA !== undefined){lineSegment.coordA = options.pointA.coord;lineSegment.pointA.lineStarts.push(lineSegment);}else if(options.coordA !== undefined){lineSegment.coordA = options.coordA.slice();}if(options.pointZ !== undefined){lineSegment.coordZ = options.pointZ.coord;lineSegment.pointZ.lineEnds.push(lineSegment);}else if(options.coordA !== undefined){lineSegment.coordA = lineSegment.coordA.slice();}var graph=lineSegment.graph;graph.style(lineSegment.normalStyle);for(var i=0; i < lineSegment.ticks; ++i) {lineSegment.tick[i] = InteractiveUtils.bogusShape;}var path=GraphUtils.unscaledSvgPath([[0, 0], [1, 0]]);for(var i=0; i < lineSegment.ticks; ++i) {var tickoffset=0.5 - (lineSegment.ticks - 1 + i * 2) / graph.scale[0];path += GraphUtils.unscaledSvgPath([[tickoffset, -7], [tickoffset, 7]]);}options = {thickness:Math.max(lineSegment.normalStyle["stroke-width"], lineSegment.highlightStyle["stroke-width"])};lineSegment.visibleLine = new WrappedLine(graph, [0, 0], [1, 0], options);lineSegment.visibleLine.attr(lineSegment.normalStyle);if(!lineSegment.fixed){var _options2={thickness:30, mouselayer:true};lineSegment.mouseTarget = new WrappedLine(graph, [0, 0], [1, 0], _options2);lineSegment.mouseTarget.attr({fill:"#000", "opacity":0});}lineSegment.transform = function(syncToPoints){if(syncToPoints){if(typeof this.pointA === "object"){this.coordA = this.pointA.coord;}if(typeof this.pointZ === "object"){this.coordZ = this.pointZ.coord;}}var getScaledAngle=function(line){var scaledA=line.graph.scalePoint(line.coordA);var scaledZ=line.graph.scalePoint(line.coordZ);return kvector.polarDegFromCart(kvector.subtract(scaledZ, scaledA))[1];};var getClipPoint=function(graph, coord, angle){graph = lineSegment.graph;var xExtent=graph.range[0][1] - graph.range[0][0];var yExtent=graph.range[1][1] - graph.range[1][0];var distance=xExtent + yExtent;var angleVec=graph.unscaleVector(kvector.cartFromPolarDeg([1, angle]));var distVec=kvector.scale(kvector.normalize(angleVec), distance);var farCoord=kvector.add(coord, distVec);var scaledAngle=kvector.polarDegFromCart(angleVec)[1];var clipPoint=graph.constrainToBoundsOnAngle(farCoord, 4, scaledAngle * Math.PI / 180);return clipPoint;};var angle=getScaledAngle(this);var start=this.coordA;var end=this.coordZ;if(this.extendLine){start = getClipPoint(graph, start, 360 - angle);end = getClipPoint(graph, end, (540 - angle) % 360);}else if(this.extendRay){end = getClipPoint(graph, start, 360 - angle);}var elements=[this.visibleLine];if(!this.fixed){elements.push(this.mouseTarget);}_.each(elements, function(element){element.moveTo(start, end);});var createArrow=function(graph, style){var center=[0.75, 0];var points=[[-3, 4], [-2.75, 2.5], [0, 0.25], center, [0, -0.25], [-2.75, -2.5], [-3, -4]];var scale=1.4;points = _.map(points, function(point){var pv=kvector.subtract(point, center);var pvScaled=kvector.scale(pv, scale);return kvector.add(center, pvScaled);});var createCubicPath=function(points){var path="M" + points[0][0] + " " + points[0][1];for(var i=1; i < points.length; i += 3) {path += "C" + points[i][0] + " " + points[i][1] + " " + points[i + 1][0] + " " + points[i + 1][1] + " " + points[i + 2][0] + " " + points[i + 2][1];}return path;};var unscaledPoints=_.map(points, graph.unscalePoint);var options={center:graph.unscalePoint(center), createPath:createCubicPath};var arrowHead=new WrappedPath(graph, unscaledPoints, options);arrowHead.attr(_.extend({"stroke-linejoin":"round", "stroke-linecap":"round", "stroke-dasharray":""}, style));arrowHead.toCoordAtAngle = function(coord, angle){var clipPoint=graph.scalePoint(getClipPoint(graph, coord, angle));var do3dTransform=getCanUse3dTransform();arrowHead.transform("translateX(" + (clipPoint[0] + scale * center[0]) + "px) " + "translateY(" + (clipPoint[1] + scale * center[1]) + "px) " + (do3dTransform?"translateZ(0) ":"") + "rotate(" + (360 - KhanMath.bound(angle)) + "deg)");};return arrowHead;};if(this._arrows == null){this._arrows = [];if(this.extendLine){this._arrows.push(createArrow(graph, this.normalStyle));this._arrows.push(createArrow(graph, this.normalStyle));}else if(this.extendRay){this._arrows.push(createArrow(graph, this.normalStyle));}}var coordForArrow=[this.coordA, this.coordZ];var angleForArrow=[360 - angle, (540 - angle) % 360];_.each(this._arrows, function(arrow, i){arrow.toCoordAtAngle(coordForArrow[i], angleForArrow[i]);});_.invoke(this.temp, "remove");this.temp = [];var isClockwise=this.coordA[0] < this.coordZ[0] || this.coordA[0] === this.coordZ[0] && this.coordA[1] > this.coordZ[1];if(this.sideLabel){this.temp.push(this.graph.labelSide({point1:this.coordA, point2:this.coordZ, label:this.labeledSide, text:this.sideLabel, numArrows:this.numArrows, numTicks:this.numTicks, clockwise:isClockwise, style:this.labelStyle}));}if(this.vertexLabels.length){this.graph.labelVertex({vertex:this.coordA, point3:this.coordZ, label:this.labeledVertices[0], text:this.vertexLabels[0], clockwise:isClockwise, style:this.labelStyle});this.graph.labelVertex({point1:this.coordA, vertex:this.coordZ, label:this.labeledVertices[1], text:this.vertexLabels[1], clockwise:isClockwise, style:this.labelStyle});}this.temp = _.flatten(this.temp);};lineSegment.toBack = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.toBack();}lineSegment.visibleLine.toBack();};lineSegment.toFront = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.toFront();}lineSegment.visibleLine.toFront();};lineSegment.remove = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.remove();}lineSegment.visibleLine.remove();if(lineSegment.labeledSide){lineSegment.labeledSide.remove();}if(lineSegment.labeledVertices){_.invoke(lineSegment.labeledVertices, "remove");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "remove");}if(lineSegment.temp.length){_.invoke(lineSegment.temp, "remove");}};lineSegment.hide = function(){lineSegment.visibleLine.hide();if(lineSegment.temp.length){_.invoke(lineSegment.temp, "hide");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "hide");}};lineSegment.show = function(){lineSegment.visibleLine.show();if(lineSegment.temp.length){_.invoke(lineSegment.temp, "show");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "show");}};if(lineSegment.sideLabel){lineSegment.labeledSide = this.label([0, 0], "", "center", lineSegment.labelStyle);}if(lineSegment.vertexLabels.length){lineSegment.labeledVertices = _.map(lineSegment.vertexLabels, function(label){return this.label([0, 0], "", "center", lineSegment.labelStyle);}, this);}if(!lineSegment.fixed && !lineSegment.constraints.fixed){var $mouseTarget=$(lineSegment.mouseTarget.getMouseTarget());$mouseTarget.css("cursor", "move");$mouseTarget.bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){if(!dragging){lineSegment.highlight = true;lineSegment.visibleLine.animate(lineSegment.highlightStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.highlightStyle.stroke, "stroke":lineSegment.highlightStyle.stroke});lineSegment.transform();}}else if(event.type === "vmouseout"){lineSegment.highlight = false;if(!lineSegment.dragging){lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.normalStyle.stroke, "stroke":lineSegment.normalStyle.stroke});lineSegment.transform();}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();var coordX=(event.pageX - $(graph.raphael.canvas.parentNode).offset().left) / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - (event.pageY - $(graph.raphael.canvas.parentNode).offset().top) / graph.scale[1];if(lineSegment.snapX > 0){coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;}if(lineSegment.snapY > 0){coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;}var mouseOffsetA=[lineSegment.coordA[0] - coordX, lineSegment.coordA[1] - coordY];var mouseOffsetZ=[lineSegment.coordZ[0] - coordX, lineSegment.coordZ[1] - coordY];var offsetLeft=-Math.min(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);var offsetRight=Math.max(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);var offsetTop=Math.max(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);var offsetBottom=-Math.min(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);$(document).bind("vmousemove.lineSegment vmouseup.lineSegment", function(event){event.preventDefault();lineSegment.dragging = true;dragging = true;var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(offsetLeft + 10, Math.min(graph.xpixels - 10 - offsetRight, mouseX));mouseY = Math.max(offsetTop + 10, Math.min(graph.ypixels - 10 - offsetBottom, mouseY));var coordX=mouseX / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - mouseY / graph.scale[1];if(lineSegment.snapX > 0){coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;}if(lineSegment.snapY > 0){coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;}if(event.type === "vmousemove"){if(lineSegment.constraints.constrainX){coordX = lineSegment.coordA[0] - mouseOffsetA[0];}if(lineSegment.constraints.constrainY){coordY = lineSegment.coordA[1] - mouseOffsetA[1];}var dX=coordX + mouseOffsetA[0] - lineSegment.coordA[0];var dY=coordY + mouseOffsetA[1] - lineSegment.coordA[1];lineSegment.coordA = [coordX + mouseOffsetA[0], coordY + mouseOffsetA[1]];lineSegment.coordZ = [coordX + mouseOffsetZ[0], coordY + mouseOffsetZ[1]];lineSegment.transform();if(lineSegment.movePointsWithLine){if(typeof lineSegment.pointA === "object"){lineSegment.pointA.setCoord([lineSegment.pointA.coord[0] + dX, lineSegment.pointA.coord[1] + dY]);}if(typeof lineSegment.pointZ === "object"){lineSegment.pointZ.setCoord([lineSegment.pointZ.coord[0] + dX, lineSegment.pointZ.coord[1] + dY]);}}if(_.isFunction(lineSegment.onMove)){lineSegment.onMove(dX, dY);}}else if(event.type === "vmouseup"){$(document).unbind(".lineSegment");lineSegment.dragging = false;dragging = false;if(!lineSegment.highlight){lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.normalStyle.stroke, "stroke":lineSegment.normalStyle.stroke});lineSegment.transform();}if(_.isFunction(lineSegment.onMoveEnd)){lineSegment.onMoveEnd();}}$(lineSegment).trigger("move");});})();}});}if(lineSegment.pointA !== undefined){lineSegment.pointA.toFront();}if(lineSegment.pointZ !== undefined){lineSegment.pointZ.toFront();}lineSegment.transform();return lineSegment;}, addMovablePolygon:function(options){var graphie=this;var polygon=$.extend({snapX:0, snapY:0, fixed:false, constrainToGraph:true, normalStyle:{}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":2, "fill":KhanColors.INTERACTING, "fill-opacity":0.05}, pointHighlightStyle:{"fill":KhanColors.INTERACTING, "stroke":KhanColors.INTERACTING}, labelStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, angleLabels:[], showRightAngleMarkers:[], sideLabels:[], vertexLabels:[], numArcs:[], numArrows:[], numTicks:[], updateOnPointMove:true, closed:true}, _.omit(options, "points"));var normalColor=polygon.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;polygon.normalStyle = _.extend({"stroke-width":2, "fill-opacity":0, "fill":normalColor, "stroke":normalColor}, options.normalStyle);polygon.points = options.points;var isPoint=function(coordOrPoint){return !_.isArray(coordOrPoint);};polygon.update = function(){var n=polygon.points.length;polygon.coords = _.map(polygon.points, function(coordOrPoint, i){if(isPoint(coordOrPoint)){return coordOrPoint.coord;}else {return coordOrPoint;}});polygon.left = _.min(_.pluck(polygon.coords, 0));polygon.right = _.max(_.pluck(polygon.coords, 0));polygon.top = _.max(_.pluck(polygon.coords, 1));polygon.bottom = _.min(_.pluck(polygon.coords, 1));var scaledCoords=_.map(polygon.coords, function(coord){return graphie.scalePoint(coord);});if(polygon.closed){scaledCoords.push(true);}else {scaledCoords = scaledCoords.concat(_.clone(scaledCoords).reverse());}polygon.path = GraphUtils.unscaledSvgPath(scaledCoords);_.invoke(polygon.temp, "remove");polygon.temp = [];var isClockwise=clockwise(polygon.coords);if(polygon.angleLabels.length || polygon.showRightAngleMarkers.length){_.each(polygon.labeledAngles, function(label, i){polygon.temp.push(graphie.labelAngle({point1:polygon.coords[(i - 1 + n) % n], vertex:polygon.coords[i], point3:polygon.coords[(i + 1) % n], label:label, text:polygon.angleLabels[i], showRightAngleMarker:polygon.showRightAngleMarkers[i], numArcs:polygon.numArcs[i], clockwise:isClockwise, style:polygon.labelStyle}));});}if(polygon.sideLabels.length){_.each(polygon.labeledSides, function(label, i){polygon.temp.push(graphie.labelSide({point1:polygon.coords[i], point2:polygon.coords[(i + 1) % n], label:label, text:polygon.sideLabels[i], numArrows:polygon.numArrows[i], numTicks:polygon.numTicks[i], clockwise:isClockwise, style:polygon.labelStyle}));});}if(polygon.vertexLabels.length){_.each(polygon.labeledVertices, function(label, i){graphie.labelVertex({point1:polygon.coords[(i - 1 + n) % n], vertex:polygon.coords[i], point3:polygon.coords[(i + 1) % n], label:label, text:polygon.vertexLabels[i], clockwise:isClockwise, style:polygon.labelStyle});});}polygon.temp = _.flatten(polygon.temp);};polygon.transform = function(){polygon.update();polygon.visibleShape.attr({path:polygon.path});if(!polygon.fixed){polygon.mouseTarget.attr({path:polygon.path});}};polygon.remove = function(){polygon.visibleShape.remove();if(!polygon.fixed){polygon.mouseTarget.remove();}if(polygon.labeledAngles){_.invoke(polygon.labeledAngles, "remove");}if(polygon.labeledSides){_.invoke(polygon.labeledSides, "remove");}if(polygon.labeledVertices){_.invoke(polygon.labeledVertices, "remove");}if(polygon.temp.length){_.invoke(polygon.temp, "remove");}};polygon.toBack = function(){if(!polygon.fixed){polygon.mouseTarget.toBack();}polygon.visibleShape.toBack();};polygon.toFront = function(){if(!polygon.fixed){polygon.mouseTarget.toFront();}polygon.visibleShape.toFront();};if(polygon.updateOnPointMove){_.each(_.filter(polygon.points, isPoint), function(coordOrPoint){coordOrPoint.polygonVertices.push(polygon);});}polygon.coords = new Array(polygon.points.length);if(polygon.angleLabels.length){var numLabels=Math.max(polygon.angleLabels.length, polygon.showRightAngleMarkers.length);polygon.labeledAngles = _.times(numLabels, function(){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}if(polygon.sideLabels.length){polygon.labeledSides = _.map(polygon.sideLabels, function(label){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}if(polygon.vertexLabels.length){polygon.labeledVertices = _.map(polygon.vertexLabels, function(label){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}polygon.update();polygon.visibleShape = graphie.raphael.path(polygon.path);polygon.visibleShape.attr(polygon.normalStyle);if(!polygon.fixed){polygon.mouseTarget = graphie.mouselayer.path(polygon.path);polygon.mouseTarget.attr({fill:"#000", opacity:0, cursor:"move"});$(polygon.mouseTarget[0]).bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){if(!dragging || polygon.dragging){polygon.highlight = true;polygon.visibleShape.animate(polygon.highlightStyle, 50);_.each(_.filter(polygon.points, isPoint), function(point){point.visibleShape.animate(polygon.pointHighlightStyle, 50);});}}else if(event.type === "vmouseout"){polygon.highlight = false;if(!polygon.dragging){polygon.visibleShape.animate(polygon.normalStyle, 50);var points=_.filter(polygon.points, isPoint);if(!_.any(_.pluck(points, "dragging"))){_.each(points, function(point){point.visibleShape.animate(point.normalStyle, 50);});}}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();_.each(_.filter(polygon.points, isPoint), function(point){point.dragging = true;});var startX=(event.pageX - $(graphie.raphael.canvas.parentNode).offset().left) / graphie.scale[0] + graphie.range[0][0];var startY=graphie.range[1][1] - (event.pageY - $(graphie.raphael.canvas.parentNode).offset().top) / graphie.scale[1];if(polygon.snapX > 0){startX = Math.round(startX / polygon.snapX) * polygon.snapX;}if(polygon.snapY > 0){startY = Math.round(startY / polygon.snapY) * polygon.snapY;}var lastX=startX;var lastY=startY;var polygonCoords=polygon.coords.slice();var offsetLeft=(startX - polygon.left) * graphie.scale[0];var offsetRight=(polygon.right - startX) * graphie.scale[0];var offsetTop=(polygon.top - startY) * graphie.scale[1];var offsetBottom=(startY - polygon.bottom) * graphie.scale[1];$(document).bind("vmousemove.polygon vmouseup.polygon", function(event){event.preventDefault();polygon.dragging = true;dragging = true;var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;if(polygon.constrainToGraph){mouseX = Math.max(offsetLeft + 10, Math.min(graphie.xpixels - 10 - offsetRight, mouseX));mouseY = Math.max(offsetTop + 10, Math.min(graphie.ypixels - 10 - offsetBottom, mouseY));}var currentX=mouseX / graphie.scale[0] + graphie.range[0][0];var currentY=graphie.range[1][1] - mouseY / graphie.scale[1];if(polygon.snapX > 0){currentX = Math.round(currentX / polygon.snapX) * polygon.snapX;}if(polygon.snapY > 0){currentY = Math.round(currentY / polygon.snapY) * polygon.snapY;}if(event.type === "vmousemove"){(function(){var dX=currentX - startX;var dY=currentY - startY;var doMove=true;if(_.isFunction(polygon.onMove)){var onMoveResult=polygon.onMove(dX, dY);if(onMoveResult === false){doMove = false;}else if(_.isArray(onMoveResult)){dX = onMoveResult[0];dY = onMoveResult[1];currentX = startX + dX;currentY = startY + dY;}}var increment=function(i){return [polygonCoords[i][0] + dX, polygonCoords[i][1] + dY];};if(doMove){_.each(polygon.points, function(coordOrPoint, i){if(isPoint(coordOrPoint)){coordOrPoint.setCoord(increment(i));}else {polygon.points[i] = increment(i);}});polygon.transform();$(polygon).trigger("move");lastX = currentX;lastY = currentY;}})();}else if(event.type === "vmouseup"){$(document).unbind(".polygon");var points=_.filter(polygon.points, isPoint);_.each(points, function(point){point.dragging = false;});polygon.dragging = false;dragging = false;if(!polygon.highlight){polygon.visibleShape.animate(polygon.normalStyle, 50);_.each(points, function(point){point.visibleShape.animate(point.normalStyle, 50);});}if(_.isFunction(polygon.onMoveEnd)){polygon.onMoveEnd(lastX - startX, lastY - startY);}}});})();}});}_.invoke(_.filter(polygon.points, isPoint), "toFront");return polygon;}, constrainToBounds:function(point, padding){var lower=this.unscalePoint([padding, this.ypixels - padding]);var upper=this.unscalePoint([this.xpixels - padding, padding]);var coordX=Math.max(lower[0], Math.min(upper[0], point[0]));var coordY=Math.max(lower[1], Math.min(upper[1], point[1]));return [coordX, coordY];}, constrainToBoundsOnAngle:function(point, padding, angle){var lower=this.unscalePoint([padding, this.ypixels - padding]);var upper=this.unscalePoint([this.xpixels - padding, padding]);var result=point.slice();if(result[0] < lower[0]){result = [lower[0], result[1] + (lower[0] - result[0]) * Math.tan(angle)];}else if(result[0] > upper[0]){result = [upper[0], result[1] - (result[0] - upper[0]) * Math.tan(angle)];}if(result[1] < lower[1]){result = [result[0] + (lower[1] - result[1]) / Math.tan(angle), lower[1]];}else if(result[1] > upper[1]){result = [result[0] - (result[1] - upper[1]) / Math.tan(angle), upper[1]];}return result;}, addMovableAngle:function(options){return new MovableAngle(this, options);}, addArrowWidget:function(options){var arrowWidget=$.extend({graph:this, direction:"up", coord:[0, 0], onClick:function(){}}, options);var graph=arrowWidget.graph;if(arrowWidget.direction === "up"){arrowWidget.visibleShape = graph.path([[arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0] - 4 / graph.scale[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0] + 4 / graph.scale[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]]], {stroke:"", fill:KhanColors.INTERACTIVE});}else if(arrowWidget.direction === "down"){arrowWidget.visibleShape = graph.path([[arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0] - 4 / graph.scale[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0] + 4 / graph.scale[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]]], {stroke:"", fill:KhanColors.INTERACTIVE});}_.defer(function(){arrowWidget.visibleShape.attr({stroke:"", fill:KhanColors.INTERACTIVE});});arrowWidget.mouseTarget = graph.mouselayer.circle(graph.scalePoint(arrowWidget.coord)[0], graph.scalePoint(arrowWidget.coord)[1], 15);arrowWidget.mouseTarget.attr({fill:"#000", "opacity":0});$(arrowWidget.mouseTarget[0]).css("cursor", "pointer");$(arrowWidget.mouseTarget[0]).bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){arrowWidget.visibleShape.animate({scale:2, fill:KhanColors.INTERACTING}, 20);}else if(event.type === "vmouseout"){arrowWidget.visibleShape.animate({scale:1, fill:KhanColors.INTERACTING}, 20);}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){if(!arrowWidget.hidden){arrowWidget.onClick();}return false;}});arrowWidget.hide = function(){arrowWidget.visibleShape.hide();arrowWidget.hidden = true;$(arrowWidget.mouseTarget[0]).css("cursor", "default");};arrowWidget.show = function(){arrowWidget.visibleShape.show();arrowWidget.hidden = false;$(arrowWidget.mouseTarget[0]).css("cursor", "pointer");};return arrowWidget;}, addRectGraph:function(options){var rect=$.extend(true, {x:0, y:0, width:1, height:1, normalStyle:{points:{stroke:KhanColors.INTERACTIVE, fill:KhanColors.INTERACTIVE, opacity:1}, edges:{stroke:KhanColors.INTERACTIVE, opacity:1, "stroke-width":1}, area:{fill:KhanColors.INTERACTIVE, "fill-opacity":0.1, "stroke-width":0}}, hoverStyle:{points:{color:KhanColors.INTERACTING, opacity:1, width:2}, edges:{stroke:KhanColors.INTERACTING, opacity:1, "stroke-width":1}, area:{fill:KhanColors.INTERACTING, "fill-opacity":0.2, "stroke-width":0}}, fixed:{edges:[false, false, false, false], points:[false, false, false, false]}, constraints:{constrainX:false, constrainY:false, xmin:null, xmax:null, ymin:null, ymax:null}, snapX:0, snapY:0, onMove:function(){}}, options);rect = $.extend({initialized:function(){return rect.points && rect.points.length;}, x2:function(){return this.x + this.width;}, y2:function(){return this.y + this.height;}, getX:function(){if(rect.initialized()){return rect.points[0].coord[0];}return rect.x;}, getY:function(){if(rect.initialized()){return rect.points[0].coord[1];}return rect.y;}, getX2:function(){return rect.getX() + rect.getWidth();}, getY2:function(){return rect.getY() + rect.getHeight();}, getXLims:function(){var x=rect.getX();return [x, x + rect.getWidth()];}, getYLims:function(){var y=rect.getY();return [y, y + rect.getHeight()];}, getWidth:function(){if(rect.initialized()){var x0=rect.points[1].coord[0];var x1=rect.points[2].coord[0];return x1 - x0;}return rect.width;}, getHeight:function(){if(rect.initialized()){var y0=rect.points[0].coord[1];var y1=rect.points[1].coord[1];return y1 - y0;}return rect.height;}, getCoord:function(){return [rect.getX(), rect.getY()];}, getRaphaelParamsArr:function(){var width=rect.getWidth();var height=rect.getHeight();var x=rect.getX();var y=rect.getY();var point=graphie.scalePoint([x, y + height]);var dims=graphie.scaleVector([width, height]);return point.concat(dims);}, getRaphaelParams:function(){var arr=rect.getRaphaelParamsArr();return {x:arr[0], y:arr[1], width:arr[2], height:arr[3]};}}, rect);var graphie=this;rect.fillArea = graphie.rect().attr(rect.normalStyle.area);rect.mouseTarget = graphie.mouselayer.rect().attr({fill:"#000", opacity:0, "fill-opacity":0});rect.render = function(){rect.fillArea.attr(rect.getRaphaelParams());rect.mouseTarget.attr(rect.getRaphaelParams());};rect.render();rect.points = [];var coords=[[rect.x, rect.y], [rect.x, rect.y2()], [rect.x2(), rect.y2()], [rect.x2(), rect.y]];var sames=[[1, 3], [0, 2], [3, 1], [2, 0]];var moveLimits=[[1, 1], [1, 0], [0, 0], [0, 1]];function adjustNeighboringPoints(x, y, sameX, sameY){rect.points[sameX].setCoord([x, rect.points[sameX].coord[1]]);rect.points[sameY].setCoord([rect.points[sameY].coord[0], y]);rect.points[sameX].updateLineEnds();rect.points[sameY].updateLineEnds();}function coordInBounds(limit, newVal, checkIsGreater){return checkIsGreater?newVal < limit:newVal > limit;}function moveIsInBounds(index, newX, newY){var xlims=rect.getXLims();var ylims=rect.getYLims();var i=moveLimits[index];var xInBounds=coordInBounds(xlims[i[0]], newX, i[0] === 1);var yInBounds=coordInBounds(ylims[i[1]], newY, i[1] === 1);return xInBounds && yInBounds;}_.times(4, function(i){var sameX=sames[i][0];var sameY=sames[i][1];var coord=coords[i];var point=graphie.addMovablePoint({graph:graphie, coord:coord, normalStyle:rect.normalStyle.points, hoverStyle:rect.hoverStyle.points, snapX:rect.snapX, snapY:rect.snapY, visible:!rect.fixed.points[i], constraints:{fixed:rect.fixed.points[i]}, onMove:function(x, y){if(!moveIsInBounds(i, x, y)){return false;}adjustNeighboringPoints(x, y, sameX, sameY);rect.render();}});rect.points.push(point);});rect.edges = [];rect.moveEdge = function(dx, dy, edgeIndex){var a=rect.edges[edgeIndex].pointA;var z=rect.edges[edgeIndex].pointZ;a.setCoord([a.coord[0] + dx, a.coord[1] + dy]);z.setCoord([z.coord[0] + dx, z.coord[1] + dy]);a.updateLineEnds();z.updateLineEnds();};_.times(4, function(i){var pointA=rect.points[i];var pointZ=rect.points[(i + 1) % 4];var constrainX=i % 2;var constrainY=(i + 1) % 2;var edge=graphie.addMovableLineSegment({graph:graphie, pointA:pointA, pointZ:pointZ, normalStyle:rect.normalStyle.edges, hoverStyle:rect.hoverStyle.edges, snapX:rect.snapX, snapY:rect.snapY, fixed:rect.fixed.edges[i], constraints:{constrainX:constrainX, constrainY:constrainY}, onMove:function(dx, dy){rect.moveEdge(dx, dy, i);rect.render();}});rect.edges.push(edge);});var elems=[rect.fillArea, rect.mouseTarget];rect.elems = elems.concat(rect.edges).concat(rect.points);function constrainTranslation(dx, dy){var xC=rect.constraints.constrainX;var xLT=rect.getX() + dx < rect.constraints.xmin;var xGT=rect.getX2() + dx > rect.constraints.xmax;var yC=rect.constraints.constrainY;var yLT=rect.getY() + dy < rect.constraints.ymin;var yGT=rect.getY2() + dy > rect.constraints.ymax;dx = xC || xLT || xGT?0:dx;dy = yC || yLT || yGT?0:dy;return [dx, dy];}rect.translate = function(dx, dy){if(rect.constraints.constrainX && rect.constraints.constrainY){return;}var d=constrainTranslation(dx, dy);dx = d[0];dy = d[1];_.each(rect.points, function(point, i){var x=point.coord[0] + dx;var y=point.coord[1] + dy;point.setCoord([x, y]);point.updateLineEnds();});rect.render();rect.onMove(dx, dy);};rect.moveTo = function(x, y){var dx=x - rect.getX();var dy=y - rect.getY();rect.translate(dx, dy);};rect.snap = function(){var dx=undefined;var dy=undefined;_.each(rect.points, function(point, i){var x0=point.coord[0];var y0=point.coord[1];var x1=x0;var y1=y0;if(rect.snapX){x1 = KhanMath.roundToNearest(rect.snapX, x0);}if(rect.snapY){y1 = KhanMath.roundToNearest(rect.snapY, y0);}if(!dx || !dy){dx = x1 - x0;dy = y1 - y0;}point.setCoord([x1, y1]);point.updateLineEnds();});rect.render();rect.onMove(dx, dy);};rect.toFront = function(){_.each(rect.elems, function(elem){elem.toFront();});};rect.hide = function(speed){if(rect.hidden){return;}speed = speed || 100;rect.fillArea.animate({"fill-opacity":0}, speed);$(rect.mouseTarget[0]).css("display", "none");rect.hidden = true;};rect.show = function(speed){if(!rect.hidden){return;}speed = speed || 100;rect.fillArea.animate(rect.normalStyle.area, speed);$(rect.mouseTarget[0]).css("display", "block");rect.hidden = false;};rect.enableHoverStyle = function(){rect.highlight = true;if(!dragging){rect.fillArea.animate(rect.hoverStyle.area, 100);}};rect.enableNormalStyle = function(){rect.highlight = false;if(!rect.dragging){rect.fillArea.animate(rect.normalStyle.area, 100);}};var bindTranslation=function(){$(rect.mouseTarget[0]).css("cursor", "move");$(rect.mouseTarget[0]).on("vmouseover vmouseout vmousedown", function(event){if(event.type === "vmouseover"){rect.enableHoverStyle();}else if(event.type === "vmouseout"){rect.enableNormalStyle();}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){event.preventDefault();rect.toFront();rect.prevCoord = graphie.getMouseCoord(event);rect.enableHoverStyle();$(document).on("vmousemove vmouseup", function(event){event.preventDefault();rect.dragging = true;dragging = true;if(event.type === "vmousemove"){var currCoord=graphie.getMouseCoord(event);if(rect.prevCoord && rect.prevCoord.length === 2){var diff=GraphUtils.coordDiff(rect.prevCoord, currCoord);rect.translate(diff[0], diff[1]);}rect.prevCoord = currCoord;}else if(event.type === "vmouseup"){$(document).off("vmousemove vmouseup");rect.dragging = false;dragging = false;var currCoord=graphie.getMouseCoord(event);if(currCoord[0] < rect.getX() || currCoord[0] > rect.getX2() || currCoord[1] < rect.getY() || currCoord[1] > rect.getY2()){rect.enableNormalStyle();}rect.snap();}});}});};bindTranslation();return rect;}, addCircleGraph:function(options){var graphie=this;var circle=$.extend({center:[0, 0], radius:2, snapX:0.5, snapY:0.5, snapRadius:0.5, minRadius:1, centerConstraints:{}, centerNormalStyle:{}, centerHighlightStyle:{stroke:KhanColors.INTERACTING, fill:KhanColors.INTERACTING}, circleNormalStyle:{stroke:KhanColors.INTERACTIVE, "fill-opacity":0}, circleHighlightStyle:{stroke:KhanColors.INTERACTING, fill:KhanColors.INTERACTING, "fill-opacity":0.05}}, options);var normalColor=circle.centerConstraints.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;var centerNormalStyle=options?options.centerNormalStyle:null;circle.centerNormalStyle = _.extend({}, {"fill":normalColor, "stroke":normalColor}, centerNormalStyle);circle.centerPoint = graphie.addMovablePoint({graph:graphie, coord:circle.center, normalStyle:circle.centerNormalStyle, snapX:circle.snapX, snapY:circle.snapY, constraints:circle.centerConstraints});circle.circ = graphie.circle(circle.center, circle.radius, circle.circleNormalStyle);circle.perim = graphie.mouselayer.circle(graphie.scalePoint(circle.center)[0], graphie.scalePoint(circle.center)[1], graphie.scaleVector(circle.radius)[0]).attr({"stroke-width":20, "opacity":0.002});if(!circle.centerConstraints.fixed){$(circle.centerPoint.mouseTarget.getMouseTarget()).on("vmouseover vmouseout", function(event){if(circle.centerPoint.highlight || circle.centerPoint.dragging){circle.circ.animate(circle.circleHighlightStyle, 50);}else {circle.circ.animate(circle.circleNormalStyle, 50);}});}circle.toFront = function(){circle.circ.toFront();circle.perim.toFront();circle.centerPoint.visibleShape.toFront();if(!circle.centerConstraints.fixed){circle.centerPoint.mouseTarget.toFront();}};circle.centerPoint.onMove = function(x, y){circle.toFront();circle.circ.attr({cx:graphie.scalePoint(x)[0], cy:graphie.scalePoint(y)[1]});circle.perim.attr({cx:graphie.scalePoint(x)[0], cy:graphie.scalePoint(y)[1]});if(circle.onMove){circle.onMove(x, y);}};$(circle.centerPoint).on("move", function(){circle.center = this.coord;$(circle).trigger("move");});circle.setCenter = function(x, y){circle.centerPoint.setCoord([x, y]);circle.centerPoint.onMove(x, y);circle.center = [x, y];};circle.setRadius = function(r){circle.radius = r;circle.perim.attr({r:graphie.scaleVector(r)[0]});circle.circ.attr({rx:graphie.scaleVector(r)[0], ry:graphie.scaleVector(r)[1]});};circle.remove = function(){circle.centerPoint.remove();circle.circ.remove();circle.perim.remove();};$(circle.perim[0]).css("cursor", "move");$(circle.perim[0]).on("vmouseover vmouseout vmousedown", function(event){if(event.type === "vmouseover"){circle.highlight = true;if(!dragging){circle.circ.animate(circle.circleHighlightStyle, 50);circle.centerPoint.visibleShape.animate(circle.centerHighlightStyle, 50);}}else if(event.type === "vmouseout"){circle.highlight = false;if(!circle.dragging && !circle.centerPoint.dragging){circle.circ.animate(circle.circleNormalStyle, 50);circle.centerPoint.visibleShape.animate(circle.centerNormalStyle, 50);}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();circle.toFront();var startRadius=circle.radius;$(document).on("vmousemove vmouseup", function(event){event.preventDefault();circle.dragging = true;dragging = true;if(event.type === "vmousemove"){var coord=graphie.constrainToBounds(graphie.getMouseCoord(event), 10);var radius=GraphUtils.getDistance(circle.centerPoint.coord, coord);radius = Math.max(circle.minRadius, Math.round(radius / circle.snapRadius) * circle.snapRadius);var oldRadius=circle.radius;var doResize=true;if(circle.onResize){var onResizeResult=circle.onResize(radius, oldRadius);if(_.isNumber(onResizeResult)){radius = onResizeResult;}else if(onResizeResult === false){doResize = false;}}if(doResize){circle.setRadius(radius);$(circle).trigger("move");}}else if(event.type === "vmouseup"){$(document).off("vmousemove vmouseup");circle.dragging = false;dragging = false;if(circle.onResizeEnd){circle.onResizeEnd(circle.radius, startRadius);}}});})();}});return circle;}, interactiveEllipse:function(options){var graphie=this;var ellipse=$.extend({center:[0, 0], radius:2, xRadius:2, yRadius:2, ellipseNormalStyle:{stroke:KhanColors.BLUE, "fill-opacity":0}, ellipseBoundaryHideStyle:{"fill-opacity":0, "stroke-width":0}, ellipseBoundaryShowStyle:{"fill-opacity":1, fill:KhanColors.BLUE}, onMove:function(coordX, coordY){}, onLeave:function(coordX, coordY){}}, options);ellipse.circ = graphie.ellipse(ellipse.center, [ellipse.xRadius, ellipse.yRadius], ellipse.ellipseNormalStyle);ellipse.perim = graphie.mouselayer.ellipse(graphie.scalePoint(ellipse.center)[0], graphie.scalePoint(ellipse.center)[1], graphie.scaleVector(ellipse.xRadius)[0], graphie.scaleVector(ellipse.yRadius)[0]).attr({"stroke-width":30, "opacity":0.002});ellipse.boundaryPoint = graphie.circle(ellipse.center, 0.4, ellipse.ellipseBoundaryHideStyle);ellipse.remove = function(){ellipse.circ.remove();ellipse.perim.remove();};ellipse.showPoint = function(event){var coord=graphie.constrainToBounds(graphie.getMouseCoord(event), 10);var dx=ellipse.yRadius * (ellipse.center[0] - coord[0]);var dy=ellipse.xRadius * (ellipse.center[1] - coord[1]);var angle=Math.atan2(dy, dx);coord[0] = ellipse.center[0] - ellipse.xRadius * Math.cos(angle);coord[1] = ellipse.center[1] - ellipse.yRadius * Math.sin(angle);var scaledPoint=graphie.scalePoint(coord);ellipse.boundaryPoint.attr({cx:scaledPoint[0]});ellipse.boundaryPoint.attr({cy:scaledPoint[1]});ellipse.boundaryPoint.animate(ellipse.ellipseBoundaryShowStyle, 50);ellipse.onMove(coord[0], coord[1]);};$(ellipse.perim[0]).on("vmouseover vmouseout vmousemove", function(event){if(event.type === "vmouseover"){ellipse.showPoint(event);}else if(event.type === "vmouseout"){ellipse.boundaryPoint.animate(ellipse.ellipseBoundaryHideStyle, 50);ellipse.onLeave();}else if(event.type === "vmousemove"){ellipse.showPoint(event);}});return ellipse;}, addRotateHandle:(function(){var drawRotateHandle=function(graphie, center, radius, halfWidth, lengthAngle, angle, interacting){var getRotateHandlePoint=function(offset, distanceFromArrowMidline){var distFromRotationCenter=radius + distanceFromArrowMidline;var vec=kvector.cartFromPolarDeg([distFromRotationCenter, angle + offset]);var absolute=kvector.add(center, vec);var pixels=graphie.scalePoint(absolute);return pixels[0] + "," + pixels[1];};var innerR=graphie.scaleVector(radius - halfWidth);var outerR=graphie.scaleVector(radius + halfWidth);return graphie.raphael.path(" M" + getRotateHandlePoint(lengthAngle, -halfWidth) + " L" + getRotateHandlePoint(lengthAngle, -3 * halfWidth) + " L" + getRotateHandlePoint(2 * lengthAngle, 0) + " L" + getRotateHandlePoint(lengthAngle, 3 * halfWidth) + " L" + getRotateHandlePoint(lengthAngle, halfWidth) + " A" + outerR[0] + "," + outerR[1] + ",0,0,1," + getRotateHandlePoint(-lengthAngle, halfWidth) + " L" + getRotateHandlePoint(-lengthAngle, 3 * halfWidth) + " L" + getRotateHandlePoint(-2 * lengthAngle, 0) + " L" + getRotateHandlePoint(-lengthAngle, -3 * halfWidth) + " L" + getRotateHandlePoint(-lengthAngle, -halfWidth) + " A" + innerR[0] + "," + innerR[1] + ",0,0,0," + getRotateHandlePoint(lengthAngle, -halfWidth) + " Z").attr({stroke:null, fill:interacting?KhanColors.INTERACTING:KhanColors.INTERACTIVE});};return function(options){var graph=this;var rotatePoint=options.center;var radius=options.radius;var lengthAngle=options.lengthAngle || 30;var hideArrow=options.hideArrow || false;var mouseTarget=options.mouseTarget;var id=_.uniqueId("rotateHandle");if(_.isArray(rotatePoint)){rotatePoint = {coord:rotatePoint};}var rotateHandle=graph.addMovablePoint({coord:kpoint.addVector(rotatePoint.coord, kvector.cartFromPolarDeg(radius, options.angleDeg || 0)), constraints:{fixedDistance:{dist:radius, point:rotatePoint}}, mouseTarget:mouseTarget});rotatePoint.toFront();var rotatePointPrevCoord=rotatePoint.coord;var rotateHandlePrevCoord=rotateHandle.coord;var rotateHandleStartCoord=rotateHandlePrevCoord;var isRotating=false;var isHovering=false;var drawnRotateHandle=undefined;var redrawRotateHandle=function(handleCoord){if(hideArrow){return;}var handleVec=kvector.subtract(handleCoord, rotatePoint.coord);var handlePolar=kvector.polarDegFromCart(handleVec);var angle=handlePolar[1];if(drawnRotateHandle){drawnRotateHandle.remove();}drawnRotateHandle = drawRotateHandle(graph, rotatePoint.coord, options.radius, isRotating || isHovering?options.hoverWidth / 2:options.width / 2, lengthAngle, angle, isRotating || isHovering);};$(rotatePoint).on("move." + id, function(){var delta=kvector.subtract(rotatePoint.coord, rotatePointPrevCoord);rotateHandle.setCoord(kvector.add(rotateHandle.coord, delta));redrawRotateHandle(rotateHandle.coord);rotatePointPrevCoord = rotatePoint.coord;rotateHandle.constraints.fixedDistance.point = rotatePoint;rotateHandlePrevCoord = rotateHandle.coord;});rotateHandle.onMove = function(x, y){if(!isRotating){rotateHandleStartCoord = rotateHandlePrevCoord;isRotating = true;}var coord=[x, y];if(options.onMove){var oldPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandlePrevCoord, rotatePoint.coord));var newPolar=kvector.polarDegFromCart(kvector.subtract(coord, rotatePoint.coord));var oldAngle=oldPolar[1];var newAngle=newPolar[1];var result=options.onMove(newAngle, oldAngle);if(result != null && result !== true){if(result === false){result = oldAngle;}coord = kvector.add(rotatePoint.coord, kvector.cartFromPolarDeg([oldPolar[0], result]));}}redrawRotateHandle(coord);rotateHandlePrevCoord = coord;return coord;};rotateHandle.onMoveEnd = function(){isRotating = false;redrawRotateHandle(rotateHandle.coord);if(options.onMoveEnd){var oldPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandleStartCoord, rotatePoint.coord));var newPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandle.coord, rotatePoint.coord));options.onMoveEnd(newPolar[1], oldPolar[1]);}};rotateHandle.visibleShape.remove();if(!mouseTarget){rotateHandle.mouseTarget.attr({scale:2});}var $mouseTarget=$(rotateHandle.mouseTarget.getMouseTarget());$mouseTarget.bind("vmouseover", function(e){isHovering = true;redrawRotateHandle(rotateHandle.coord);});$mouseTarget.bind("vmouseout", function(e){isHovering = false;redrawRotateHandle(rotateHandle.coord);});redrawRotateHandle(rotateHandle.coord);var oldRemove=rotateHandle.remove;rotateHandle.remove = function(){oldRemove.call(rotateHandle);if(drawnRotateHandle){drawnRotateHandle.remove();}$(rotatePoint).off("move." + id);};rotateHandle.update = function(){redrawRotateHandle(rotateHandle.coord);};return rotateHandle;};})(), addReflectButton:(function(){var drawButton=function(graphie, buttonCoord, lineCoords, size, distanceFromCenter, leftStyle, rightStyle){if(kpoint.equal(lineCoords[0], lineCoords[1])){lineCoords = [lineCoords[0], kpoint.addVector(lineCoords[0], [1, 1])];}var lineDirection=kvector.normalize(kvector.subtract(lineCoords[1], lineCoords[0]));var lineVec=kvector.scale(lineDirection, size / 2);var centerVec=kvector.scale(lineDirection, distanceFromCenter);var leftCenterVec=kvector.rotateDeg(centerVec, 90);var rightCenterVec=kvector.rotateDeg(centerVec, -90);var negLineVec=kvector.negate(lineVec);var leftVec=kvector.rotateDeg(lineVec, 90);var rightVec=kvector.rotateDeg(lineVec, -90);var leftCenter=kpoint.addVectors(buttonCoord, leftCenterVec);var rightCenter=kpoint.addVectors(buttonCoord, rightCenterVec);var leftCoord1=kpoint.addVectors(buttonCoord, leftCenterVec, lineVec, leftVec);var leftCoord2=kpoint.addVectors(buttonCoord, leftCenterVec, negLineVec, leftVec);var rightCoord1=kpoint.addVectors(buttonCoord, rightCenterVec, lineVec, rightVec);var rightCoord2=kpoint.addVectors(buttonCoord, rightCenterVec, negLineVec, rightVec);var leftButton=graphie.path([leftCenter, leftCoord1, leftCoord2, true], leftStyle);var rightButton=graphie.path([rightCenter, rightCoord1, rightCoord2, true], rightStyle);return {remove:function(){leftButton.remove();rightButton.remove();}};};return function(options){var graphie=this;var line=options.line;var button=graphie.addMovablePoint({constraints:options.constraints, coord:kline.midpoint([line.pointA.coord, line.pointZ.coord]), snapX:graphie.snap[0], snapY:graphie.snap[1], onMove:function(x, y){return false;}, onMoveEnd:function(x, y){if(options.onMoveEnd){options.onMoveEnd.call(this, x, y);}}});var isHovering=false;var isFlipped=false;var currentlyDrawnButton=undefined;var isHighlight=function(){return isHovering;};var styles=_.map([0, 1], function(isHighlight){var baseStyle=isHighlight?options.highlightStyle:options.normalStyle;return _.map([0, 1], function(opacity){return _.defaults({"fill-opacity":opacity}, baseStyle);});});var getStyle=function(isRight){if(isFlipped){isRight = !isRight;}return styles[+isHighlight()][+isRight];};var redraw=function(coord, lineCoords){if(currentlyDrawnButton){currentlyDrawnButton.remove();}currentlyDrawnButton = drawButton(graphie, coord, lineCoords, isHighlight()?options.size * 1.5:options.size, isHighlight()?options.size * 0.125:0.25, getStyle(0), getStyle(1));};var update=function(coordA, coordZ){coordA = coordA || line.pointA.coord;coordZ = coordZ || line.pointZ.coord;var buttonCoord=kline.midpoint([coordA, coordZ]);button.setCoord(buttonCoord);redraw(buttonCoord, [coordA, coordZ]);};$(line).on("move", _.bind(update, button, null, null));var $mouseTarget=$(button.mouseTarget.getMouseTarget());$mouseTarget.on("vclick", function(){var result=options.onClick();if(result !== false){isFlipped = !isFlipped;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);}});line.pointA.toFront();line.pointZ.toFront();button.visibleShape.remove();var pointScale=graphie.scaleVector(options.size)[0] / 20;button.mouseTarget.attr({scale:1.5 * pointScale});$mouseTarget.css("cursor", "pointer");$mouseTarget.bind("vmouseover", function(e){isHovering = true;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);});$mouseTarget.bind("vmouseout", function(e){isHovering = false;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);});var oldButtonRemove=button.remove;button.remove = function(){currentlyDrawnButton.remove();oldButtonRemove.call(button);};button.update = update;button.isFlipped = function(){return isFlipped;};update();return button;};})(), protractor:function(center){return new Protractor(this, center);}, ruler:function(options){return new Ruler(this, options || {});}, addPoints:addPoints});function Protractor(graph, center){this.set = graph.raphael.set();this.cx = center[0];this.cy = center[1];var pro=this;var r=graph.unscaleVector(180.5)[0];var imgPos=graph.scalePoint([this.cx - r, this.cy + r - graph.unscaleVector(10.5)[1]]);this.set.push(graph.mouselayer.image("https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png", imgPos[0], imgPos[1], 360, 180));var arrowHelper=function(angle, pixelsFromEdge){var scaledRadius=graph.scaleVector(r);scaledRadius[0] -= 16;scaledRadius[1] -= 16;var scaledCenter=graph.scalePoint(center);var x=Math.sin((angle + 90) * Math.PI / 180) * (scaledRadius[0] + pixelsFromEdge) + scaledCenter[0];var y=Math.cos((angle + 90) * Math.PI / 180) * (scaledRadius[1] + pixelsFromEdge) + scaledCenter[1];return x + "," + y;};var arrow=graph.raphael.path(" M" + arrowHelper(180, 6) + " L" + arrowHelper(180, 2) + " L" + arrowHelper(183, 10) + " L" + arrowHelper(180, 18) + " L" + arrowHelper(180, 14) + " A" + (graph.scaleVector(r)[0] + 10) + "," + (graph.scaleVector(r)[1] + 10) + ",0,0,1," + arrowHelper(170, 14) + " L" + arrowHelper(170, 18) + " L" + arrowHelper(167, 10) + " L" + arrowHelper(170, 2) + " L" + arrowHelper(170, 6) + " A" + (graph.scaleVector(r)[0] + 10) + "," + (graph.scaleVector(r)[1] + 10) + ",0,0,0," + arrowHelper(180, 6) + " Z").attr({"stroke":null, "fill":KhanColors.INTERACTIVE});this.set.push(arrow);this.centerPoint = graph.addMovablePoint({coord:center, visible:false});this.rotateHandle = graph.addMovablePoint({coord:[Math.sin(275 * Math.PI / 180) * (r + 0.5) + this.cx, Math.cos(275 * Math.PI / 180) * (r + 0.5) + this.cy], onMove:function(x, y){var angle=Math.atan2(pro.centerPoint.coord[1] - y, pro.centerPoint.coord[0] - x) * 180 / Math.PI;pro.rotate(-angle - 5, true);}});this.rotateHandle.constraints.fixedDistance.dist = r + 0.5;this.rotateHandle.constraints.fixedDistance.point = this.centerPoint;this.rotateHandle.visibleShape.remove();this.rotateHandle.mouseTarget.attr({scale:2});var isDragging=false;var isHovering=false;var isHighlight=function(){return isHovering || isDragging;};var self=this;var $mouseTarget=$(self.rotateHandle.mouseTarget.getMouseTarget());$mouseTarget.bind("vmousedown", function(event){isDragging = true;arrow.animate({scale:1.5, fill:KhanColors.INTERACTING}, 50);$(document).bind("vmouseup.rotateHandle", function(event){isDragging = false;if(!isHighlight()){arrow.animate({scale:1, fill:KhanColors.INTERACTIVE}, 50);}$(document).unbind("vmouseup.rotateHandle");});});$mouseTarget.bind("vmouseover", function(event){isHovering = true;arrow.animate({scale:1.5, fill:KhanColors.INTERACTING}, 50);});$mouseTarget.bind("vmouseout", function(event){isHovering = false;if(!isHighlight()){arrow.animate({scale:1, fill:KhanColors.INTERACTIVE}, 50);}});var setNodes=$.map(this.set, function(el){return el.node;});this.makeTranslatable = function makeTranslatable(){$(setNodes).css("cursor", "move");$(setNodes).bind("vmousedown", function(event){event.preventDefault();var startx=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var starty=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;$(document).bind("vmousemove.protractor", function(event){var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graph.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graph.ypixels - 10, mouseY));var dx=mouseX - startx;var dy=mouseY - starty;$.each(pro.set.items, function(){this.translate(dx, dy);});pro.centerPoint.setCoord([pro.centerPoint.coord[0] + dx / graph.scale[0], pro.centerPoint.coord[1] - dy / graph.scale[1]]);pro.rotateHandle.setCoord([pro.rotateHandle.coord[0] + dx / graph.scale[0], pro.rotateHandle.coord[1] - dy / graph.scale[1]]);startx = mouseX;starty = mouseY;});$(document).one("vmouseup", function(event){$(document).unbind("vmousemove.protractor");});});};this.rotation = 0;this.rotate = function(offset, absolute){var center=graph.scalePoint(this.centerPoint.coord);if(absolute){this.rotation = 0;}this.set.rotate(this.rotation + offset, center[0], center[1]);this.rotation = this.rotation + offset;return this;};this.moveTo = function moveTo(x, y){var start=graph.scalePoint(pro.centerPoint.coord);var end=graph.scalePoint([x, y]);var time=GraphUtils.getDistance(start, end) * 2;$({x:start[0], y:start[1]}).animate({x:end[0], y:end[1]}, {duration:time, step:function(now, fx){var dx=0;var dy=0;if(fx.prop === "x"){dx = now - graph.scalePoint(pro.centerPoint.coord)[0];}else if(fx.prop === "y"){dy = now - graph.scalePoint(pro.centerPoint.coord)[1];}$.each(pro.set.items, function(){this.translate(dx, dy);});pro.centerPoint.setCoord([pro.centerPoint.coord[0] + dx / graph.scale[0], pro.centerPoint.coord[1] - dy / graph.scale[1]]);pro.rotateHandle.setCoord([pro.rotateHandle.coord[0] + dx / graph.scale[0], pro.rotateHandle.coord[1] - dy / graph.scale[1]]);}});};this.rotateTo = function rotateTo(angle){if(Math.abs(this.rotation - angle) > 180){this.rotation += 360;}var time=Math.abs(this.rotation - angle) * 5;$({0:this.rotation}).animate({0:angle}, {duration:time, step:function(now, fx){pro.rotate(now, true);pro.rotateHandle.setCoord([Math.sin((now + 275) * Math.PI / 180) * (r + 0.5) + pro.centerPoint.coord[0], Math.cos((now + 275) * Math.PI / 180) * (r + 0.5) + pro.centerPoint.coord[1]]);}});};this.remove = function(){this.set.remove();};this.makeTranslatable();return this;}function Ruler(graphie, options){_.defaults(options, {center:[0, 0], pixelsPerUnit:40, ticksPerUnit:10, units:10, label:"", style:{fill:null, stroke:KhanColors.GRAY}});var light=_.extend({}, options.style, {strokeWidth:1});var bold=_.extend({}, options.style, {strokeWidth:2});var width=options.units * options.pixelsPerUnit;var height=50;var leftBottom=graphie.unscalePoint(kvector.subtract(graphie.scalePoint(options.center), kvector.scale([width, -height], 0.5)));var graphieUnitsPerUnit=options.pixelsPerUnit / graphie.scale[0];var graphieUnitsHeight=height / graphie.scale[0];var rightTop=kvector.add(leftBottom, [options.units * graphieUnitsPerUnit, graphieUnitsHeight]);var tickHeight=1;var tickHeightMap=undefined;if(options.ticksPerUnit === 10){tickHeightMap = {10:tickHeight, 5:tickHeight * 0.55, 1:tickHeight * 0.35};}else {var sizes=[1, 0.6, 0.45, 0.3];tickHeightMap = {};for(var i=options.ticksPerUnit; i >= 1; i /= 2) {tickHeightMap[i] = tickHeight * (sizes.shift() || 0.2);}}var tickFrequencies=_.keys(tickHeightMap).sort(function(a, b){return b - a;});function getTickHeight(i){for(var k=0; k < tickFrequencies.length; k++) {var key=tickFrequencies[k];if(i % key === 0){return tickHeightMap[key];}}}var left=leftBottom[0];var bottom=leftBottom[1];var right=rightTop[0];var top=rightTop[1];var numTicks=options.units * options.ticksPerUnit + 1;var set=graphie.raphael.set();var px=1 / graphie.scale[0];set.push(graphie.line([left - px, bottom], [right + px, bottom], bold));set.push(graphie.line([left - px, top], [right + px, top], bold));_.times(numTicks, function(i){var n=i / options.ticksPerUnit;var x=left + n * graphieUnitsPerUnit;var height=getTickHeight(i) * graphieUnitsHeight;var style=i === 0 || i === numTicks - 1?bold:light;set.push(graphie.line([x, bottom], [x, bottom + height], style));if(n % 1 === 0){var coord=graphie.scalePoint([x, top]);var text=undefined;var offset=undefined;if(n === 0){text = options.label;offset = ({mm:13, cm:11, m:8, km:11, in:8, ft:8, yd:10, mi:10})[text] || 3 * text.toString().length;}else {text = n;offset = -3 * (n.toString().length + 1);}var label=graphie.raphael.text(coord[0] + offset, coord[1] + 10, text);label.attr({"font-family":"KaTeX_Main", "font-size":"12px", "color":"#444"});set.push(label);}});var mouseTarget=graphie.mouselayer.path(GraphUtils.svgPath([leftBottom, [left, top], rightTop, [right, bottom], true]));mouseTarget.attr({fill:"#000", opacity:0, stroke:"#000", "stroke-width":2});set.push(mouseTarget);var setNodes=$.map(set, function(el){return el.node;});$(setNodes).css("cursor", "move");$(setNodes).bind("vmousedown", function(event){event.preventDefault();var startx=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var starty=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;$(document).bind("vmousemove.ruler", function(event){var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graphie.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graphie.ypixels - 10, mouseY));var dx=mouseX - startx;var dy=mouseY - starty;set.translate(dx, dy);leftBottomHandle.setCoord([leftBottomHandle.coord[0] + dx / graphie.scale[0], leftBottomHandle.coord[1] - dy / graphie.scale[1]]);rightBottomHandle.setCoord([rightBottomHandle.coord[0] + dx / graphie.scale[0], rightBottomHandle.coord[1] - dy / graphie.scale[1]]);startx = mouseX;starty = mouseY;});$(document).one("vmouseup", function(event){$(document).unbind("vmousemove.ruler");});});var leftBottomHandle=graphie.addMovablePoint({coord:leftBottom, normalStyle:{fill:KhanColors.INTERACTIVE, "fill-opacity":0, stroke:KhanColors.INTERACTIVE}, highlightStyle:{fill:KhanColors.INTERACTING, "fill-opacity":0.1, stroke:KhanColors.INTERACTING}, pointSize:6, onMove:function(x, y){var dy=rightBottomHandle.coord[1] - y;var dx=rightBottomHandle.coord[0] - x;var angle=Math.atan2(dy, dx) * 180 / Math.PI;var center=kvector.scale(kvector.add([x, y], rightBottomHandle.coord), 0.5);var scaledCenter=graphie.scalePoint(center);var oldCenter=kvector.scale(kvector.add(leftBottomHandle.coord, rightBottomHandle.coord), 0.5);var scaledOldCenter=graphie.scalePoint(oldCenter);var diff=kvector.subtract(scaledCenter, scaledOldCenter);set.rotate(-angle, scaledOldCenter[0], scaledOldCenter[1]);set.translate(diff[0], diff[1]);}});var rightBottomHandle=graphie.addMovablePoint({coord:[right, bottom], normalStyle:{fill:KhanColors.INTERACTIVE, "fill-opacity":0, stroke:KhanColors.INTERACTIVE}, highlightStyle:{fill:KhanColors.INTERACTING, "fill-opacity":0.1, stroke:KhanColors.INTERACTING}, pointSize:6, onMove:function(x, y){var dy=y - leftBottomHandle.coord[1];var dx=x - leftBottomHandle.coord[0];var angle=Math.atan2(dy, dx) * 180 / Math.PI;var center=kvector.scale(kvector.add([x, y], leftBottomHandle.coord), 0.5);var scaledCenter=graphie.scalePoint(center);var oldCenter=kvector.scale(kvector.add(leftBottomHandle.coord, rightBottomHandle.coord), 0.5);var scaledOldCenter=graphie.scalePoint(oldCenter);var diff=kvector.subtract(scaledCenter, scaledOldCenter);set.rotate(-angle, scaledOldCenter[0], scaledOldCenter[1]);set.translate(diff[0], diff[1]);}});leftBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];leftBottomHandle.constraints.fixedDistance.point = rightBottomHandle;rightBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];rightBottomHandle.constraints.fixedDistance.point = leftBottomHandle;this.remove = function(){set.remove();leftBottomHandle.remove();rightBottomHandle.remove();};return this;}function MovableAngle(graphie, options){this.graphie = graphie;_.extend(this, options);_.defaults(this, {normalStyle:{"stroke":KhanColors.INTERACTIVE, "stroke-width":2, "fill":KhanColors.INTERACTIVE}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":2, "fill":KhanColors.INTERACTING}, labelStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, angleStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, allowReflex:true});if(!this.points || this.points.length !== 3){throw new Error("MovableAngle requires 3 points");}this.points = _.map(options.points, function(point){if(_.isArray(point)){return graphie.addMovablePoint({coord:point, visible:false, constraints:{fixed:true}, normalStyle:this.normalStyle});}else {return point;}}, this);this.coords = _.pluck(this.points, "coord");if(this.reflex == null){if(this.allowReflex){this.reflex = this._getClockwiseAngle(this.coords) > 180;}else {this.reflex = false;}}this.rays = _.map([0, 2], function(i){return graphie.addMovableLineSegment({pointA:this.points[1], pointZ:this.points[i], fixed:true, extendRay:true});}, this);this.temp = [];this.labeledAngle = graphie.label([0, 0], "", "center", this.labelStyle);if(!this.fixed){this.addMoveHandlers();this.addHighlightHandlers();}this.update();}_.extend(MovableAngle.prototype, {points:[], snapDegrees:0, snapOffsetDeg:0, angleLabel:"", numArcs:1, pushOut:0, fixed:false, addMoveHandlers:function(){var graphie=this.graphie;function tooClose(point1, point2){var safeDistance=30;var distance=GraphUtils.getDistance(graphie.scalePoint(point1), graphie.scalePoint(point2));return distance < safeDistance;}var points=this.points;points[1].onMove = function(x, y){var oldVertex=points[1].coord;var newVertex=[x, y];var delta=addPoints(newVertex, reverseVector(oldVertex));var valid=true;var newPoints={};_.each([0, 2], function(i){var oldPoint=points[i].coord;var newPoint=addPoints(oldPoint, delta);var angle=GraphUtils.findAngle(newVertex, newPoint);angle *= Math.PI / 180;newPoint = graphie.constrainToBoundsOnAngle(newPoint, 10, angle);newPoints[i] = newPoint;if(tooClose(newVertex, newPoint)){valid = false;}});if(valid){_.each(newPoints, function(newPoint, i){points[i].setCoord(newPoint);});}return valid;};var snap=this.snapDegrees;var snapOffset=this.snapOffsetDeg;_.each([0, 2], function(i){points[i].onMove = function(x, y){var newPoint=[x, y];var vertex=points[1].coord;if(tooClose(vertex, newPoint)){return false;}else if(snap){var angle=GraphUtils.findAngle(newPoint, vertex);angle = Math.round((angle - snapOffset) / snap) * snap + snapOffset;var distance=GraphUtils.getDistance(newPoint, vertex);return addPoints(vertex, graphie.polar(distance, angle));}else {return true;}};});$(points).on("move", (function(){this.update();$(this).trigger("move");}).bind(this));}, addHighlightHandlers:function(){var vertex=this.points[1];vertex.onHighlight = (function(){_.each(this.points, function(point){point.visibleShape.animate(this.highlightStyle, 50);}, this);_.each(this.rays, function(ray){ray.visibleLine.animate(this.highlightStyle, 50);ray.arrowStyle = _.extend({}, ray.arrowStyle, {"color":this.highlightStyle.stroke, "stroke":this.highlightStyle.stroke});}, this);this.angleStyle = _.extend({}, this.angleStyle, {"color":this.highlightStyle.stroke, "stroke":this.highlightStyle.stroke});this.update();}).bind(this);vertex.onUnhighlight = (function(){_.each(this.points, function(point){point.visibleShape.animate(this.normalStyle, 50);}, this);_.each(this.rays, function(ray){ray.visibleLine.animate(ray.normalStyle, 50);ray.arrowStyle = _.extend({}, ray.arrowStyle, {"color":ray.normalStyle.stroke, "stroke":ray.normalStyle.stroke});}, this);this.angleStyle = _.extend({}, this.angleStyle, {"color":KhanColors.DYNAMIC, "stroke":KhanColors.DYNAMIC});this.update();}).bind(this);}, _getClockwiseAngle:function(coords){var clockwiseAngle=(GraphUtils.findAngle(coords[2], coords[0], coords[1]) + 360) % 360;return clockwiseAngle;}, isReflex:function(){return this.reflex;}, isClockwise:function(){var clockwiseReflexive=this._getClockwiseAngle(this.coords) > 180;return clockwiseReflexive === this.reflex;}, getClockwiseCoords:function(){if(this.isClockwise()){return _.clone(this.coords);}else {return _.clone(this.coords).reverse();}}, update:function(shouldChangeReflexivity){var prevCoords=this.coords;this.coords = _.pluck(this.points, "coord");_.invoke(this.points, "updateLineEnds");var prevAngle=this._getClockwiseAngle(prevCoords);var angle=this._getClockwiseAngle(this.coords);var prevClockwiseReflexive=prevAngle > 180;var clockwiseReflexive=angle > 180;if(this.allowReflex){if(shouldChangeReflexivity == null){shouldChangeReflexivity = prevClockwiseReflexive !== clockwiseReflexive && Math.abs(angle - prevAngle) < 180;}if(shouldChangeReflexivity){this.reflex = !this.reflex;}}_.invoke(this.temp, "remove");this.temp = this.graphie.labelAngle({point1:this.coords[0], vertex:this.coords[1], point3:this.coords[2], label:this.labeledAngle, text:this.angleLabel, numArcs:this.numArcs, pushOut:this.pushOut, clockwise:this.reflex === clockwiseReflexive, style:this.angleStyle});}, remove:function(){_.invoke(this.rays, "remove");_.invoke(this.temp, "remove");this.labeledAngle.remove();}});module.exports = InteractiveUtils;
+	var _=__webpack_require__(16);__webpack_require__(223);var GraphUtils=__webpack_require__(199);var kvector=__webpack_require__(195).vector;var kpoint=__webpack_require__(195).point;var kline=__webpack_require__(195).line;var WrappedEllipse=__webpack_require__(222);var WrappedLine=__webpack_require__(224);var WrappedPath=__webpack_require__(225);var KhanMath=__webpack_require__(141);var KhanColors=__webpack_require__(170);var _require=__webpack_require__(153);var getCanUse3dTransform=_require.getCanUse3dTransform;function sum(array){return _.reduce(array, function(memo, arg){return memo + arg;}, 0);}function clockwise(points){var segments=_.zip(points, points.slice(1).concat(points.slice(0, 1)));var areas=_.map(segments, function(segment){var p1=segment[0];var p2=segment[1];return (p2[0] - p1[0]) * (p2[1] + p1[1]);});return sum(areas) > 0;}function addPoints(){var points=_.toArray(arguments);var zipped=_.zip.apply(_, points);return _.map(zipped, sum);}function reverseVector(vector){return _.map(vector, function(coord){return coord * -1;});}function scaledDistanceFromAngle(angle){var a=3.51470560176242 * 20;var b=0.5687298702748785 * 20;var c=-0.037587715462826674;return (a - b) * Math.exp(c * angle) + b;}function scaledPolarRad(radius, radians){return [radius * Math.cos(radians), radius * Math.sin(radians) * -1];}function scaledPolarDeg(radius, degrees){var radians=degrees * Math.PI / 180;return scaledPolarRad(radius, radians);}var dragging=false;var InteractiveUtils={FILL_OPACITY:0.3, createSorter:function(){var sorter={};var list=undefined;sorter.hasAttempted = false;sorter.init = function(element){list = $("[id=" + element + "]").last();var container=list.wrap("<div>").parent();var placeholder=$("<li>");placeholder.addClass("placeholder");container.addClass("sortable perseus-clearfix");list.find("li").each(function(tileNum, tile){$(tile).bind("vmousedown", function(event){var _this=this;if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();$(tile).addClass("dragging");var tileIndex=$(_this).index();placeholder.insertAfter(tile);placeholder.width($(tile).width());$(_this).css("z-index", 100);var offset=$(_this).offset();var click={left:event.pageX - offset.left - 3, top:event.pageY - offset.top - 3};$(tile).css({position:"absolute"});$(tile).offset({left:offset.left, top:offset.top});$(document).bind("vmousemove.tile vmouseup.tile", function(event){event.preventDefault();if(event.type === "vmousemove"){(function(){sorter.hasAttempted = true;$(tile).offset({left:event.pageX - click.left, top:event.pageY - click.top});var leftEdge=list.offset().left;var midWidth=$(tile).offset().left - leftEdge;var index=0;var sumWidth=0;list.find("li").each(function(){if(this === placeholder[0] || this === tile){return;}if(midWidth > sumWidth + $(this).outerWidth(true) / 2){index += 1;}sumWidth += $(this).outerWidth(true);});if(index !== tileIndex){tileIndex = index;if(index === 0){placeholder.prependTo(list);$(tile).prependTo(list);}else {placeholder.detach();$(tile).detach();var preceeding=list.find("li")[index - 1];placeholder.insertAfter(preceeding);$(tile).insertAfter(preceeding);}}})();}else if(event.type === "vmouseup"){(function(){$(document).unbind(".tile");var position=$(tile).offset();$(position).animate(placeholder.offset(), {duration:150, step:function(now, fx){position[fx.prop] = now;$(tile).offset(position);}, complete:function(){$(tile).css("z-index", 0);placeholder.detach();$(tile).css({position:"static"});$(tile).removeClass("dragging");}});})();}});})();}});});};sorter.getContent = function(){var content=[];list.find("li").each(function(tileNum, tile){content.push($.trim($(tile).find(".sort-key").text()));});return content;};sorter.setContent = function(content){var tiles=[];$.each(content, function(n, sortKey){var tile=list.find("li .sort-key").filter(function(){return $(this).text() === sortKey;}).closest("li").get(0);$(tile).detach();tiles.push(tile);});list.append(tiles);};return sorter;}, bogusShape:{animate:function(){}, attr:function(){}, remove:function(){}}};_.extend(GraphUtils.Graphie.prototype, {initAutoscaledGraph:function(range, options){var graph=this;options = $.extend({xpixels:500, ypixels:500, xdivisions:20, ydivisions:20, labels:true, unityLabels:true, range:range === undefined?[[-10, 10], [-10, 10]]:range}, options);options.scale = [options.xpixels / (options.range[0][1] - options.range[0][0]), options.ypixels / (options.range[1][1] - options.range[1][0])];options.gridStep = [(options.range[0][1] - options.range[0][0]) / options.xdivisions, (options.range[1][1] - options.range[1][0]) / options.ydivisions];graph.xpixels = options.xpixels;graph.ypixels = options.ypixels;graph.range = options.range;graph.scale = options.scale;graph.graphInit(options);}, addMouseLayer:function(options){var graph=this;options = _.extend({allowScratchpad:false}, options);var mouselayerZIndex=2;graph.mouselayer = Raphael(graph.raphael.canvas.parentNode, graph.xpixels, graph.ypixels);$(graph.mouselayer.canvas).css("z-index", mouselayerZIndex);if(options.onClick || options.onMouseDown || options.onMouseMove || options.onMouseOver || options.onMouseOut){(function(){var canvasClickTarget=graph.mouselayer.rect(0, 0, graph.xpixels, graph.ypixels).attr({fill:"#000", opacity:0});var isClickingCanvas=false;$(graph.mouselayer.canvas).on("vmousedown", function(e){if(e.target === canvasClickTarget[0]){if(options.onMouseDown){options.onMouseDown(graph.getMouseCoord(e));}isClickingCanvas = true;if(options.onMouseMove){$(document).bind("vmousemove.mouseLayer", function(e){if(isClickingCanvas){e.preventDefault();options.onMouseMove(graph.getMouseCoord(e));}});}$(document).bind("vmouseup.mouseLayer", function(e){$(document).unbind(".mouseLayer");if(isClickingCanvas && options.onClick){options.onClick(graph.getMouseCoord(e));}isClickingCanvas = false;});}});if(options.onMouseOver){$(graph.mouselayer.canvas).on("vmouseover", function(e){options.onMouseOver(graph.getMouseCoord(e));});}if(options.onMouseOut){$(graph.mouselayer.canvas).on("vmouseout", function(e){options.onMouseOut(graph.getMouseCoord(e));});}})();}if(!options.allowScratchpad){Khan.scratchpad.disable();}graph._mouselayerWrapper = document.createElement("div");$(graph._mouselayerWrapper).css({position:"absolute", left:0, top:0, zIndex:mouselayerZIndex});graph._visiblelayerWrapper = document.createElement("div");$(graph._visiblelayerWrapper).css({position:"absolute", left:0, top:0});var el=graph.raphael.canvas.parentNode;el.appendChild(graph._visiblelayerWrapper);el.appendChild(graph._mouselayerWrapper);graph.addToMouseLayerWrapper = function(el){this._mouselayerWrapper.appendChild(el);};graph.addToVisibleLayerWrapper = function(el){this._visiblelayerWrapper.appendChild(el);};}, getMousePx:function(event){var graphie=this;var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;return [mouseX, mouseY];}, getMouseCoord:function(event){return this.unscalePoint(this.getMousePx(event));}, drawArcs:function(point1, vertex, point3, numArcs){var startAngle=GraphUtils.findAngle(point1, vertex);var endAngle=GraphUtils.findAngle(point3, vertex);if(((endAngle - startAngle) % 360 + 360) % 360 > 180){var temp=startAngle;startAngle = endAngle;endAngle = temp;}var radius=0.3;if(((endAngle - startAngle) % 360 + 360) % 360 < 75){radius = -0.6 / 90 * (((endAngle - startAngle) % 360 + 360) % 360) + 0.8;}var arcset=[];for(var arc=0; arc < numArcs; ++arc) {arcset.push(this.arc(vertex, radius + 0.15 * arc, startAngle, endAngle));}return arcset;}, labelAngle:function(options){var graphie=this;_.defaults(options, {point1:[0, 0], vertex:[0, 0], point3:[0, 0], label:null, numArcs:1, showRightAngleMarker:true, pushOut:0, clockwise:false, style:{}});var text=options.text === undefined?"":options.text;var vertex=options.vertex;var sVertex=graphie.scalePoint(vertex);var p1=undefined;var p3=undefined;if(options.clockwise){p1 = options.point1;p3 = options.point3;}else {p1 = options.point3;p3 = options.point1;}var startAngle=GraphUtils.findAngle(p1, vertex);var endAngle=GraphUtils.findAngle(p3, vertex);var angle=(endAngle + 360 - startAngle) % 360;var halfAngle=(startAngle + angle / 2) % 360;var sPadding=5 * options.pushOut;var sRadius=sPadding + scaledDistanceFromAngle(angle);var temp=[];if(Math.abs(angle - 90) < 1e-9 && options.showRightAngleMarker){(function(){var v1=addPoints(sVertex, scaledPolarDeg(sRadius, startAngle));var v2=addPoints(sVertex, scaledPolarDeg(sRadius, endAngle));sRadius *= Math.SQRT2;var v3=addPoints(sVertex, scaledPolarDeg(sRadius, halfAngle));_.each([v1, v2], function(v){temp.push(graphie.scaledPath([v, v3], options.style));});})();}else {_.times(options.numArcs, function(i){temp.push(graphie.arc(vertex, graphie.unscaleVector(sRadius), startAngle, endAngle, options.style));sRadius += 3;});}if(text){var match=text.match(/\$deg(\d)?/);if(match){var precision=match[1] || 1;text = text.replace(match[0], KhanMath.toFixedApprox(angle, precision) + "^{\\circ}");}var sOffset=scaledPolarDeg(sRadius + 15, halfAngle);var sPosition=addPoints(sVertex, sOffset);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(text, true);}else {graphie.label(position, text, "center", options.style);}}return temp;}, labelSide:function(options){var graphie=this;_.defaults(options, {point1:[0, 0], point2:[0, 0], label:null, text:"", numTicks:0, numArrows:0, clockwise:false, style:{}});var p1=undefined;var p2=undefined;if(options.clockwise){p1 = options.point1;p2 = options.point2;}else {p1 = options.point2;p2 = options.point1;}var midpoint=[(p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2];var sMidpoint=graphie.scalePoint(midpoint);var parallelAngle=Math.atan2(p2[1] - p1[1], p2[0] - p1[0]);var perpendicularAngle=parallelAngle + Math.PI / 2;var temp=[];var sCumulativeOffset=0;if(options.numTicks){(function(){var n=options.numTicks;var sSpacing=5;var sHeight=5;var style=_.extend({}, options.style, {strokeWidth:2});_.times(n, function(i){var sOffset=sSpacing * (i - (n - 1) / 2);var sOffsetVector=scaledPolarRad(sOffset, parallelAngle);var sHeightVector=scaledPolarRad(sHeight, perpendicularAngle);var sPath=[addPoints(sMidpoint, sOffsetVector, sHeightVector), addPoints(sMidpoint, sOffsetVector, reverseVector(sHeightVector))];temp.push(graphie.scaledPath(sPath, style));});sCumulativeOffset += sSpacing * (n - 1) + 15;})();}if(options.numArrows){(function(){var n=options.numArrows;var start=[p1, p2].sort(function(a, b){if(a[1] === b[1]){return a[0] - b[0];}else {return a[1] - b[1];}})[0];var sStart=graphie.scalePoint(start);var style=_.extend({}, options.style, {arrows:"->", strokeWidth:2});var sSpacing=5;_.times(n, function(i){var sOffset=sCumulativeOffset + sSpacing * i;var sOffsetVector=scaledPolarRad(sOffset, parallelAngle);if(start !== p1){sOffsetVector = reverseVector(sOffsetVector);}var sEnd=addPoints(sMidpoint, sOffsetVector);temp.push(graphie.scaledPath([sStart, sEnd], style));});})();}var text=options.text;if(text){var match=text.match(/\$len(\d)?/);if(match){var distance=GraphUtils.getDistance(p1, p2);var precision=match[1] || 1;text = text.replace(match[0], KhanMath.toFixedApprox(distance, precision));}var sOffset=20;var sOffsetVector=scaledPolarRad(sOffset, perpendicularAngle);var sPosition=addPoints(sMidpoint, sOffsetVector);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(text, true);}else {graphie.label(position, text, "center", options.style);}}return temp;}, labelVertex:function(options){var graphie=this;_.defaults(options, {point1:null, vertex:[0, 0], point3:null, label:null, text:"", clockwise:false, style:{}});if(!options.text){return;}var vertex=options.vertex;var sVertex=graphie.scalePoint(vertex);var p1=undefined;var p3=undefined;if(options.clockwise){p1 = options.point1;p3 = options.point3;}else {p1 = options.point3;p3 = options.point1;}var angle=135;var halfAngle=undefined;if(p1 && p3){var startAngle=GraphUtils.findAngle(p1, vertex);var endAngle=GraphUtils.findAngle(p3, vertex);angle = (endAngle + 360 - startAngle) % 360;halfAngle = (startAngle + angle / 2 + 180) % 360;}else if(p1){var parallelAngle=GraphUtils.findAngle(vertex, p1);halfAngle = parallelAngle + 90;}else if(p3){var parallelAngle=GraphUtils.findAngle(p3, vertex);halfAngle = parallelAngle + 90;}else {halfAngle = 135;}var sRadius=10 + scaledDistanceFromAngle(360 - angle);var sOffsetVector=scaledPolarDeg(sRadius, halfAngle);var sPosition=addPoints(sVertex, sOffsetVector);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(options.text, true);}else {graphie.label(position, options.text, "center", options.style);}}, addMovablePoint:function(options){var movablePoint=$.extend(true, {graph:this, coord:[0, 0], snapX:0, snapY:0, pointSize:4, highlight:false, dragging:false, visible:true, bounded:true, constraints:{fixed:false, constrainX:false, constrainY:false, fixedAngle:{}, fixedDistance:{}}, lineStarts:[], lineEnds:[], polygonVertices:[], normalStyle:{}, highlightStyle:{fill:KhanColors.INTERACTING, stroke:KhanColors.INTERACTING}, labelStyle:{color:KhanColors.INTERACTIVE}, vertexLabel:"", mouseTarget:null}, options);var normalColor=movablePoint.constraints.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;movablePoint.normalStyle = _.extend({}, {"fill":normalColor, "stroke":normalColor}, options.normalStyle);if(options.coordX !== undefined){movablePoint.coord[0] = options.coordX;}if(options.coordY !== undefined){movablePoint.coord[1] = options.coordY;}var graph=movablePoint.graph;var applySnapAndConstraints=function(coord){if(movablePoint.visible && movablePoint.bounded && !movablePoint.constraints.fixed){coord = graph.constrainToBounds(coord, 10);}var coordX=coord[0];var coordY=coord[1];if(movablePoint.snapX !== 0){coordX = Math.round(coordX / movablePoint.snapX) * movablePoint.snapX;}if(movablePoint.snapY !== 0){coordY = Math.round(coordY / movablePoint.snapY) * movablePoint.snapY;}if(movablePoint.constraints.fixedDistance.snapPoints){var mouse=graph.scalePoint(coord);var mouseX=mouse[0];var mouseY=mouse[1];var snapRadians=2 * Math.PI / movablePoint.constraints.fixedDistance.snapPoints;var radius=movablePoint.constraints.fixedDistance.dist;var centerCoord=movablePoint.constraints.fixedDistance.point;var centerX=(centerCoord[0] - graph.range[0][0]) * graph.scale[0];var centerY=(-centerCoord[1] + graph.range[1][1]) * graph.scale[1];var mouseXrel=mouseX - centerX;var mouseYrel=-mouseY + centerY;var radians=Math.atan(mouseYrel / mouseXrel);var outsideArcTanRange=mouseXrel < 0;if(outsideArcTanRange){radians += Math.PI;}radians = Math.round(radians / snapRadians) * snapRadians;mouseXrel = radius * Math.cos(radians);mouseYrel = radius * Math.sin(radians);mouseX = mouseXrel + centerX;mouseY = -mouseYrel + centerY;coordX = KhanMath.roundTo(5, mouseX / graph.scale[0] + graph.range[0][0]);coordY = KhanMath.roundTo(5, graph.range[1][1] - mouseY / graph.scale[1]);}var result=movablePoint.applyConstraint([coordX, coordY]);return result;};movablePoint.applyConstraint = function(coord, extraConstraints, override){var newCoord=coord.slice();var constraints={};if(override){$.extend(constraints, {fixed:false, constrainX:false, constrainY:false, fixedAngle:{}, fixedDistance:{}}, extraConstraints);}else {$.extend(constraints, this.constraints, extraConstraints);}if(constraints.constrainX){newCoord = [this.coord[0], coord[1]];}else if(constraints.constrainY){newCoord = [coord[0], this.coord[1]];}else if(typeof constraints.fixedAngle.angle === "number" && typeof constraints.fixedDistance.dist === "number"){var vertex=constraints.fixedAngle.vertex.coord || constraints.fixedAngle.vertex;var ref=constraints.fixedAngle.ref.coord || constraints.fixedAngle.ref;var distPoint=constraints.fixedDistance.point.coord || constraints.fixedDistance.point;var constrainedAngle=(constraints.fixedAngle.angle + GraphUtils.findAngle(ref, vertex)) * Math.PI / 180;var _length=constraints.fixedDistance.dist;newCoord[0] = _length * Math.cos(constrainedAngle) + distPoint[0];newCoord[1] = _length * Math.sin(constrainedAngle) + distPoint[1];}else if(typeof constraints.fixedAngle.angle === "number"){var vertex=constraints.fixedAngle.vertex.coord || constraints.fixedAngle.vertex;var ref=constraints.fixedAngle.ref.coord || constraints.fixedAngle.ref;var constrainedAngle=(constraints.fixedAngle.angle + GraphUtils.findAngle(ref, vertex)) * Math.PI / 180;var angle=GraphUtils.findAngle(coord, vertex) * Math.PI / 180;var distance=GraphUtils.getDistance(coord, vertex);var _length2=distance * Math.cos(constrainedAngle - angle);_length2 = _length2 < 1?1:_length2;newCoord[0] = _length2 * Math.cos(constrainedAngle) + vertex[0];newCoord[1] = _length2 * Math.sin(constrainedAngle) + vertex[1];}else if(typeof constraints.fixedDistance.dist === "number"){var distPoint=constraints.fixedDistance.point.coord || constraints.fixedDistance.point;var angle=GraphUtils.findAngle(coord, distPoint);var _length3=constraints.fixedDistance.dist;angle = angle * Math.PI / 180;newCoord[0] = _length3 * Math.cos(angle) + distPoint[0];newCoord[1] = _length3 * Math.sin(angle) + distPoint[1];}else if(constraints.fixed){newCoord = movablePoint.coord;}return newCoord;};movablePoint.coord = applySnapAndConstraints(movablePoint.coord);var highlightScale=2;if(movablePoint.visible){graph.style(movablePoint.normalStyle, function(){var radii=[movablePoint.pointSize / graph.scale[0], movablePoint.pointSize / graph.scale[1]];var options={maxScale:highlightScale, padding:2};movablePoint.visibleShape = new WrappedEllipse(graph, movablePoint.coord, radii, options);movablePoint.visibleShape.attr(_.omit(movablePoint.normalStyle, "scale"));movablePoint.visibleShape.toFront();});}movablePoint.normalStyle.scale = 1;movablePoint.highlightStyle.scale = highlightScale;if(movablePoint.vertexLabel){movablePoint.labeledVertex = this.label([0, 0], "", "center", movablePoint.labelStyle);}movablePoint.drawLabel = function(){if(movablePoint.vertexLabel){movablePoint.graph.labelVertex({vertex:movablePoint.coord, label:movablePoint.labeledVertex, text:movablePoint.vertexLabel, style:movablePoint.labelStyle});}};movablePoint.drawLabel();movablePoint.grab = function(offset){offset = offset || [0, 0];$(document).bind("vmousemove.point vmouseup.point", function(event){event.preventDefault();movablePoint.dragging = true;dragging = true;var coord=kvector.add(graph.getMouseCoord(event), offset);coord = applySnapAndConstraints(coord);var coordX=coord[0];var coordY=coord[1];var mouseX=undefined;var mouseY=undefined;if(event.type === "vmousemove"){var doMove=true;if(_.isFunction(movablePoint.onMove)){var result=movablePoint.onMove(coordX, coordY);if(result === false){doMove = false;}if(_.isArray(result)){coordX = result[0];coordY = result[1];}}mouseX = (coordX - graph.range[0][0]) * graph.scale[0];mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];if(doMove){var point=graph.unscalePoint([mouseX, mouseY]);movablePoint.visibleShape.moveTo(point);movablePoint.mouseTarget.moveTo(point);movablePoint.coord = [coordX, coordY];movablePoint.updateLineEnds();$(movablePoint).trigger("move");}movablePoint.drawLabel();}else if(event.type === "vmouseup"){$(document).unbind(".point");movablePoint.dragging = false;dragging = false;if(_.isFunction(movablePoint.onMoveEnd)){var result=movablePoint.onMoveEnd(coordX, coordY);if(_.isArray(result)){coordX = result[0];coordY = result[1];mouseX = (coordX - graph.range[0][0]) * graph.scale[0];mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];var point=graph.unscalePoint([mouseX, mouseY]);movablePoint.visibleShape.moveTo(point);movablePoint.mouseTarget.moveTo(point);movablePoint.coord = [coordX, coordY];}}if(!movablePoint.highlight){movablePoint.visibleShape.animate(movablePoint.normalStyle, 50);if(movablePoint.onUnhighlight){movablePoint.onUnhighlight();}}}});};if(movablePoint.visible && !movablePoint.constraints.fixed){if(!movablePoint.mouseTarget){var radii=graph.unscaleVector(24);var _options={mouselayer:true, padding:0};movablePoint.mouseTarget = new WrappedEllipse(graph, movablePoint.coord, radii, _options);movablePoint.mouseTarget.attr({fill:"#000", opacity:0});}var $mouseTarget=$(movablePoint.mouseTarget.getMouseTarget());$mouseTarget.css("cursor", "move");$mouseTarget.bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){movablePoint.highlight = true;if(!dragging){movablePoint.visibleShape.animate(movablePoint.highlightStyle, 50);if(movablePoint.onHighlight){movablePoint.onHighlight();}}}else if(event.type === "vmouseout"){movablePoint.highlight = false;if(!movablePoint.dragging && !dragging){movablePoint.visibleShape.animate(movablePoint.normalStyle, 50);if(movablePoint.onUnhighlight){movablePoint.onUnhighlight();}}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){event.preventDefault();var startCoord=movablePoint.coord;var startMouseCoord=graph.getMouseCoord(event);var isMouse=!("ontouchstart" in window);var touchOffset=isMouse?[0, 0]:kvector.subtract(startCoord, startMouseCoord);movablePoint.grab(touchOffset);}});}movablePoint.moveTo = function(coordX, coordY, updateLines){var distance=GraphUtils.getDistance(this.graph.scalePoint([coordX, coordY]), this.graph.scalePoint(this.coord));var time=distance * 5;var cb=updateLines && function(coord){movablePoint.coord = coord;movablePoint.updateLineEnds();};this.visibleShape.animateTo([coordX, coordY], time, cb);this.mouseTarget.animateTo([coordX, coordY], time, cb);this.coord = [coordX, coordY];if(_.isFunction(this.onMove)){this.onMove(coordX, coordY);}};movablePoint.updateLineEnds = function(){$(this.lineStarts).each(function(){this.coordA = movablePoint.coord;this.transform();});$(this.lineEnds).each(function(){this.coordZ = movablePoint.coord;this.transform();});$(this.polygonVertices).each(function(){this.transform();});};movablePoint.setCoord = function(coord){if(this.visible){this.visibleShape.moveTo(coord);if(this.mouseTarget != null){this.mouseTarget.moveTo(coord);}}this.coord = coord.slice();};movablePoint.setCoordConstrained = function(coord){this.setCoord(applySnapAndConstraints(coord));};movablePoint.toBack = function(){if(this.visible){if(this.mouseTarget != null){this.mouseTarget.toBack();}this.visibleShape.toBack();}};movablePoint.toFront = function(){if(this.visible){if(this.mouseTarget != null){this.mouseTarget.toFront();}this.visibleShape.toFront();}};movablePoint.remove = function(){if(this.visibleShape){this.visibleShape.remove();}if(this.mouseTarget){this.mouseTarget.remove();}if(this.labeledVertex){this.labeledVertex.remove();}};return movablePoint;}, addInteractiveFn:function(fn, options){var graph=this;options = $.extend({graph:graph, snap:0, range:[graph.range[0][0], graph.range[0][1]]}, options);var interactiveFn={highlight:false};graph.style({stroke:KhanColors.BLUE}, function(){interactiveFn.visibleShape = graph.plot(fn, options.range, options.swapAxes);});graph.style({fill:KhanColors.BLUE, stroke:KhanColors.BLUE}, function(){interactiveFn.cursorPoint = graph.ellipse([0, fn(0)], [4 / graph.scale[0], 4 / graph.scale[1]]);});interactiveFn.cursorPoint.attr("opacity", 0);var mouseAreaWidth=30;var points=[];var step=(options.range[1] - options.range[0]) / 100;var addScaledPoint=function(x, y){if(options.swapAxes){points.push([(y - graph.range[0][0]) * graph.scale[0], (graph.range[1][1] - x) * graph.scale[1]]);}else {points.push([(x - graph.range[0][0]) * graph.scale[0], (graph.range[1][1] - y) * graph.scale[1]]);}};for(var x=options.range[0]; x <= options.range[1]; x += step) {var ddx=(fn(x - 0.001) - fn(x + 0.001)) / 0.002;var x1=x;var y1=fn(x) + mouseAreaWidth / (2 * graph.scale[1]);if(ddx !== 0){var normalslope=-1 / (ddx * (graph.scale[1] / graph.scale[0])) / (graph.scale[1] / graph.scale[0]);if(ddx < 0){x1 = x - Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}else if(ddx > 0){x1 = x + Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}}addScaledPoint(x1, y1);}for(var x=options.range[1]; x >= options.range[0]; x -= step) {var ddx=(fn(x - 0.001) - fn(x + 0.001)) / 0.002;var x1=x;var y1=fn(x) - mouseAreaWidth / (2 * graph.scale[1]);if(ddx !== 0){var normalslope=-1 / (ddx * (graph.scale[1] / graph.scale[0])) / (graph.scale[1] / graph.scale[0]);if(ddx < 0){x1 = x + Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}else if(ddx > 0){x1 = x - Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}}addScaledPoint(x1, y1);}interactiveFn.mouseTarget = graph.mouselayer.path(GraphUtils.unscaledSvgPath(points));interactiveFn.mouseTarget.attr({fill:"#000", "opacity":0});$(interactiveFn.mouseTarget[0]).bind("vmouseover vmouseout vmousemove", function(event){event.preventDefault();var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graph.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graph.ypixels - 10, mouseY));if(options.snap){mouseX = Math.round(mouseX / (graph.scale[0] * options.snap)) * (graph.scale[0] * options.snap);}var coordX=mouseX / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - mouseY / graph.scale[1];var findDistance=function(coordX, coordY){var closestX=0;var minDist=Math.sqrt(coordX * coordX + coordY * coordY);for(var x=options.range[0]; x < options.range[1]; x += (options.range[1] - options.range[0]) / graph.xpixels) {if(Math.sqrt((x - coordX) * (x - coordX) + (fn(x) - coordY) * (fn(x) - coordY)) < minDist){closestX = x;minDist = Math.sqrt((x - coordX) * (x - coordX) + (fn(x) - coordY) * (fn(x) - coordY));}}return closestX;};if(options.swapAxes){var closestX=findDistance(coordY, coordX);coordX = fn(closestX);coordY = closestX;}else {var closestX=findDistance(coordX, coordY);coordX = closestX;coordY = fn(closestX);}interactiveFn.cursorPoint.attr("cx", (graph.range[0][1] + coordX) * graph.scale[0]);interactiveFn.cursorPoint.attr("cy", (graph.range[1][1] - coordY) * graph.scale[1]);if(_.isFunction(interactiveFn.onMove)){interactiveFn.onMove(coordX, coordY);}if(event.type === "vmouseover"){interactiveFn.cursorPoint.animate({opacity:1}, 50);interactiveFn.highlight = true;}else if(event.type === "vmouseout"){interactiveFn.highlight = false;interactiveFn.cursorPoint.animate({opacity:0}, 50);if(_.isFunction(interactiveFn.onLeave)){interactiveFn.onLeave(coordX, coordY);}}});interactiveFn.mouseTarget.toBack();return interactiveFn;}, addMovableLineSegment:function(options){var lineSegment=$.extend({graph:this, coordA:[0, 0], coordZ:[1, 1], snapX:0, snapY:0, fixed:false, ticks:0, normalStyle:{}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":6}, labelStyle:{"stroke":KhanColors.INTERACTIVE, "color":KhanColors.INTERACTIVE}, highlight:false, dragging:false, tick:[], extendLine:false, extendRay:false, constraints:{fixed:false, constrainX:false, constrainY:false}, sideLabel:"", vertexLabels:[], numArrows:0, numTicks:0, movePointsWithLine:false}, options);var normalColor=lineSegment.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;lineSegment.normalStyle = _.extend({}, {"stroke-width":2, "stroke":normalColor}, options.normalStyle);lineSegment.arrowStyle = _.extend({}, lineSegment.normalStyle, {"color":lineSegment.normalStyle.stroke});if(options.pointA !== undefined){lineSegment.coordA = options.pointA.coord;lineSegment.pointA.lineStarts.push(lineSegment);}else if(options.coordA !== undefined){lineSegment.coordA = options.coordA.slice();}if(options.pointZ !== undefined){lineSegment.coordZ = options.pointZ.coord;lineSegment.pointZ.lineEnds.push(lineSegment);}else if(options.coordA !== undefined){lineSegment.coordA = lineSegment.coordA.slice();}var graph=lineSegment.graph;graph.style(lineSegment.normalStyle);for(var i=0; i < lineSegment.ticks; ++i) {lineSegment.tick[i] = InteractiveUtils.bogusShape;}var path=GraphUtils.unscaledSvgPath([[0, 0], [1, 0]]);for(var i=0; i < lineSegment.ticks; ++i) {var tickoffset=0.5 - (lineSegment.ticks - 1 + i * 2) / graph.scale[0];path += GraphUtils.unscaledSvgPath([[tickoffset, -7], [tickoffset, 7]]);}options = {thickness:Math.max(lineSegment.normalStyle["stroke-width"], lineSegment.highlightStyle["stroke-width"])};lineSegment.visibleLine = new WrappedLine(graph, [0, 0], [1, 0], options);lineSegment.visibleLine.attr(lineSegment.normalStyle);if(!lineSegment.fixed){var _options2={thickness:30, mouselayer:true};lineSegment.mouseTarget = new WrappedLine(graph, [0, 0], [1, 0], _options2);lineSegment.mouseTarget.attr({fill:"#000", "opacity":0});}lineSegment.transform = function(syncToPoints){if(syncToPoints){if(typeof this.pointA === "object"){this.coordA = this.pointA.coord;}if(typeof this.pointZ === "object"){this.coordZ = this.pointZ.coord;}}var getScaledAngle=function(line){var scaledA=line.graph.scalePoint(line.coordA);var scaledZ=line.graph.scalePoint(line.coordZ);return kvector.polarDegFromCart(kvector.subtract(scaledZ, scaledA))[1];};var getClipPoint=function(graph, coord, angle){graph = lineSegment.graph;var xExtent=graph.range[0][1] - graph.range[0][0];var yExtent=graph.range[1][1] - graph.range[1][0];var distance=xExtent + yExtent;var angleVec=graph.unscaleVector(kvector.cartFromPolarDeg([1, angle]));var distVec=kvector.scale(kvector.normalize(angleVec), distance);var farCoord=kvector.add(coord, distVec);var scaledAngle=kvector.polarDegFromCart(angleVec)[1];var clipPoint=graph.constrainToBoundsOnAngle(farCoord, 4, scaledAngle * Math.PI / 180);return clipPoint;};var angle=getScaledAngle(this);var start=this.coordA;var end=this.coordZ;if(this.extendLine){start = getClipPoint(graph, start, 360 - angle);end = getClipPoint(graph, end, (540 - angle) % 360);}else if(this.extendRay){end = getClipPoint(graph, start, 360 - angle);}var elements=[this.visibleLine];if(!this.fixed){elements.push(this.mouseTarget);}_.each(elements, function(element){element.moveTo(start, end);});var createArrow=function(graph, style){var center=[0.75, 0];var points=[[-3, 4], [-2.75, 2.5], [0, 0.25], center, [0, -0.25], [-2.75, -2.5], [-3, -4]];var scale=1.4;points = _.map(points, function(point){var pv=kvector.subtract(point, center);var pvScaled=kvector.scale(pv, scale);return kvector.add(center, pvScaled);});var createCubicPath=function(points){var path="M" + points[0][0] + " " + points[0][1];for(var i=1; i < points.length; i += 3) {path += "C" + points[i][0] + " " + points[i][1] + " " + points[i + 1][0] + " " + points[i + 1][1] + " " + points[i + 2][0] + " " + points[i + 2][1];}return path;};var unscaledPoints=_.map(points, graph.unscalePoint);var options={center:graph.unscalePoint(center), createPath:createCubicPath};var arrowHead=new WrappedPath(graph, unscaledPoints, options);arrowHead.attr(_.extend({"stroke-linejoin":"round", "stroke-linecap":"round", "stroke-dasharray":""}, style));arrowHead.toCoordAtAngle = function(coord, angle){var clipPoint=graph.scalePoint(getClipPoint(graph, coord, angle));var do3dTransform=getCanUse3dTransform();arrowHead.transform("translateX(" + (clipPoint[0] + scale * center[0]) + "px) " + "translateY(" + (clipPoint[1] + scale * center[1]) + "px) " + (do3dTransform?"translateZ(0) ":"") + "rotate(" + (360 - KhanMath.bound(angle)) + "deg)");};return arrowHead;};if(this._arrows == null){this._arrows = [];if(this.extendLine){this._arrows.push(createArrow(graph, this.normalStyle));this._arrows.push(createArrow(graph, this.normalStyle));}else if(this.extendRay){this._arrows.push(createArrow(graph, this.normalStyle));}}var coordForArrow=[this.coordA, this.coordZ];var angleForArrow=[360 - angle, (540 - angle) % 360];_.each(this._arrows, function(arrow, i){arrow.toCoordAtAngle(coordForArrow[i], angleForArrow[i]);});_.invoke(this.temp, "remove");this.temp = [];var isClockwise=this.coordA[0] < this.coordZ[0] || this.coordA[0] === this.coordZ[0] && this.coordA[1] > this.coordZ[1];if(this.sideLabel){this.temp.push(this.graph.labelSide({point1:this.coordA, point2:this.coordZ, label:this.labeledSide, text:this.sideLabel, numArrows:this.numArrows, numTicks:this.numTicks, clockwise:isClockwise, style:this.labelStyle}));}if(this.vertexLabels.length){this.graph.labelVertex({vertex:this.coordA, point3:this.coordZ, label:this.labeledVertices[0], text:this.vertexLabels[0], clockwise:isClockwise, style:this.labelStyle});this.graph.labelVertex({point1:this.coordA, vertex:this.coordZ, label:this.labeledVertices[1], text:this.vertexLabels[1], clockwise:isClockwise, style:this.labelStyle});}this.temp = _.flatten(this.temp);};lineSegment.toBack = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.toBack();}lineSegment.visibleLine.toBack();};lineSegment.toFront = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.toFront();}lineSegment.visibleLine.toFront();};lineSegment.remove = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.remove();}lineSegment.visibleLine.remove();if(lineSegment.labeledSide){lineSegment.labeledSide.remove();}if(lineSegment.labeledVertices){_.invoke(lineSegment.labeledVertices, "remove");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "remove");}if(lineSegment.temp.length){_.invoke(lineSegment.temp, "remove");}};lineSegment.hide = function(){lineSegment.visibleLine.hide();if(lineSegment.temp.length){_.invoke(lineSegment.temp, "hide");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "hide");}};lineSegment.show = function(){lineSegment.visibleLine.show();if(lineSegment.temp.length){_.invoke(lineSegment.temp, "show");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "show");}};if(lineSegment.sideLabel){lineSegment.labeledSide = this.label([0, 0], "", "center", lineSegment.labelStyle);}if(lineSegment.vertexLabels.length){lineSegment.labeledVertices = _.map(lineSegment.vertexLabels, function(label){return this.label([0, 0], "", "center", lineSegment.labelStyle);}, this);}if(!lineSegment.fixed && !lineSegment.constraints.fixed){var $mouseTarget=$(lineSegment.mouseTarget.getMouseTarget());$mouseTarget.css("cursor", "move");$mouseTarget.bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){if(!dragging){lineSegment.highlight = true;lineSegment.visibleLine.animate(lineSegment.highlightStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.highlightStyle.stroke, "stroke":lineSegment.highlightStyle.stroke});lineSegment.transform();}}else if(event.type === "vmouseout"){lineSegment.highlight = false;if(!lineSegment.dragging){lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.normalStyle.stroke, "stroke":lineSegment.normalStyle.stroke});lineSegment.transform();}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();var coordX=(event.pageX - $(graph.raphael.canvas.parentNode).offset().left) / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - (event.pageY - $(graph.raphael.canvas.parentNode).offset().top) / graph.scale[1];if(lineSegment.snapX > 0){coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;}if(lineSegment.snapY > 0){coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;}var mouseOffsetA=[lineSegment.coordA[0] - coordX, lineSegment.coordA[1] - coordY];var mouseOffsetZ=[lineSegment.coordZ[0] - coordX, lineSegment.coordZ[1] - coordY];var offsetLeft=-Math.min(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);var offsetRight=Math.max(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);var offsetTop=Math.max(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);var offsetBottom=-Math.min(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);$(document).bind("vmousemove.lineSegment vmouseup.lineSegment", function(event){event.preventDefault();lineSegment.dragging = true;dragging = true;var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(offsetLeft + 10, Math.min(graph.xpixels - 10 - offsetRight, mouseX));mouseY = Math.max(offsetTop + 10, Math.min(graph.ypixels - 10 - offsetBottom, mouseY));var coordX=mouseX / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - mouseY / graph.scale[1];if(lineSegment.snapX > 0){coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;}if(lineSegment.snapY > 0){coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;}if(event.type === "vmousemove"){if(lineSegment.constraints.constrainX){coordX = lineSegment.coordA[0] - mouseOffsetA[0];}if(lineSegment.constraints.constrainY){coordY = lineSegment.coordA[1] - mouseOffsetA[1];}var dX=coordX + mouseOffsetA[0] - lineSegment.coordA[0];var dY=coordY + mouseOffsetA[1] - lineSegment.coordA[1];lineSegment.coordA = [coordX + mouseOffsetA[0], coordY + mouseOffsetA[1]];lineSegment.coordZ = [coordX + mouseOffsetZ[0], coordY + mouseOffsetZ[1]];lineSegment.transform();if(lineSegment.movePointsWithLine){if(typeof lineSegment.pointA === "object"){lineSegment.pointA.setCoord([lineSegment.pointA.coord[0] + dX, lineSegment.pointA.coord[1] + dY]);}if(typeof lineSegment.pointZ === "object"){lineSegment.pointZ.setCoord([lineSegment.pointZ.coord[0] + dX, lineSegment.pointZ.coord[1] + dY]);}}if(_.isFunction(lineSegment.onMove)){lineSegment.onMove(dX, dY);}}else if(event.type === "vmouseup"){$(document).unbind(".lineSegment");lineSegment.dragging = false;dragging = false;if(!lineSegment.highlight){lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.normalStyle.stroke, "stroke":lineSegment.normalStyle.stroke});lineSegment.transform();}if(_.isFunction(lineSegment.onMoveEnd)){lineSegment.onMoveEnd();}}$(lineSegment).trigger("move");});})();}});}if(lineSegment.pointA !== undefined){lineSegment.pointA.toFront();}if(lineSegment.pointZ !== undefined){lineSegment.pointZ.toFront();}lineSegment.transform();return lineSegment;}, addMovablePolygon:function(options){var graphie=this;var polygon=$.extend({snapX:0, snapY:0, fixed:false, constrainToGraph:true, normalStyle:{}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":2, "fill":KhanColors.INTERACTING, "fill-opacity":0.05}, pointHighlightStyle:{"fill":KhanColors.INTERACTING, "stroke":KhanColors.INTERACTING}, labelStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, angleLabels:[], showRightAngleMarkers:[], sideLabels:[], vertexLabels:[], numArcs:[], numArrows:[], numTicks:[], updateOnPointMove:true, closed:true}, _.omit(options, "points"));var normalColor=polygon.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;polygon.normalStyle = _.extend({"stroke-width":2, "fill-opacity":0, "fill":normalColor, "stroke":normalColor}, options.normalStyle);polygon.points = options.points;var isPoint=function(coordOrPoint){return !_.isArray(coordOrPoint);};polygon.update = function(){var n=polygon.points.length;polygon.coords = _.map(polygon.points, function(coordOrPoint, i){if(isPoint(coordOrPoint)){return coordOrPoint.coord;}else {return coordOrPoint;}});polygon.left = _.min(_.pluck(polygon.coords, 0));polygon.right = _.max(_.pluck(polygon.coords, 0));polygon.top = _.max(_.pluck(polygon.coords, 1));polygon.bottom = _.min(_.pluck(polygon.coords, 1));var scaledCoords=_.map(polygon.coords, function(coord){return graphie.scalePoint(coord);});if(polygon.closed){scaledCoords.push(true);}else {scaledCoords = scaledCoords.concat(_.clone(scaledCoords).reverse());}polygon.path = GraphUtils.unscaledSvgPath(scaledCoords);_.invoke(polygon.temp, "remove");polygon.temp = [];var isClockwise=clockwise(polygon.coords);if(polygon.angleLabels.length || polygon.showRightAngleMarkers.length){_.each(polygon.labeledAngles, function(label, i){polygon.temp.push(graphie.labelAngle({point1:polygon.coords[(i - 1 + n) % n], vertex:polygon.coords[i], point3:polygon.coords[(i + 1) % n], label:label, text:polygon.angleLabels[i], showRightAngleMarker:polygon.showRightAngleMarkers[i], numArcs:polygon.numArcs[i], clockwise:isClockwise, style:polygon.labelStyle}));});}if(polygon.sideLabels.length){_.each(polygon.labeledSides, function(label, i){polygon.temp.push(graphie.labelSide({point1:polygon.coords[i], point2:polygon.coords[(i + 1) % n], label:label, text:polygon.sideLabels[i], numArrows:polygon.numArrows[i], numTicks:polygon.numTicks[i], clockwise:isClockwise, style:polygon.labelStyle}));});}if(polygon.vertexLabels.length){_.each(polygon.labeledVertices, function(label, i){graphie.labelVertex({point1:polygon.coords[(i - 1 + n) % n], vertex:polygon.coords[i], point3:polygon.coords[(i + 1) % n], label:label, text:polygon.vertexLabels[i], clockwise:isClockwise, style:polygon.labelStyle});});}polygon.temp = _.flatten(polygon.temp);};polygon.transform = function(){polygon.update();polygon.visibleShape.attr({path:polygon.path});if(!polygon.fixed){polygon.mouseTarget.attr({path:polygon.path});}};polygon.remove = function(){polygon.visibleShape.remove();if(!polygon.fixed){polygon.mouseTarget.remove();}if(polygon.labeledAngles){_.invoke(polygon.labeledAngles, "remove");}if(polygon.labeledSides){_.invoke(polygon.labeledSides, "remove");}if(polygon.labeledVertices){_.invoke(polygon.labeledVertices, "remove");}if(polygon.temp.length){_.invoke(polygon.temp, "remove");}};polygon.toBack = function(){if(!polygon.fixed){polygon.mouseTarget.toBack();}polygon.visibleShape.toBack();};polygon.toFront = function(){if(!polygon.fixed){polygon.mouseTarget.toFront();}polygon.visibleShape.toFront();};if(polygon.updateOnPointMove){_.each(_.filter(polygon.points, isPoint), function(coordOrPoint){coordOrPoint.polygonVertices.push(polygon);});}polygon.coords = new Array(polygon.points.length);if(polygon.angleLabels.length){var numLabels=Math.max(polygon.angleLabels.length, polygon.showRightAngleMarkers.length);polygon.labeledAngles = _.times(numLabels, function(){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}if(polygon.sideLabels.length){polygon.labeledSides = _.map(polygon.sideLabels, function(label){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}if(polygon.vertexLabels.length){polygon.labeledVertices = _.map(polygon.vertexLabels, function(label){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}polygon.update();polygon.visibleShape = graphie.raphael.path(polygon.path);polygon.visibleShape.attr(polygon.normalStyle);if(!polygon.fixed){polygon.mouseTarget = graphie.mouselayer.path(polygon.path);polygon.mouseTarget.attr({fill:"#000", opacity:0, cursor:"move"});$(polygon.mouseTarget[0]).bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){if(!dragging || polygon.dragging){polygon.highlight = true;polygon.visibleShape.animate(polygon.highlightStyle, 50);_.each(_.filter(polygon.points, isPoint), function(point){point.visibleShape.animate(polygon.pointHighlightStyle, 50);});}}else if(event.type === "vmouseout"){polygon.highlight = false;if(!polygon.dragging){polygon.visibleShape.animate(polygon.normalStyle, 50);var points=_.filter(polygon.points, isPoint);if(!_.any(_.pluck(points, "dragging"))){_.each(points, function(point){point.visibleShape.animate(point.normalStyle, 50);});}}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();_.each(_.filter(polygon.points, isPoint), function(point){point.dragging = true;});var startX=(event.pageX - $(graphie.raphael.canvas.parentNode).offset().left) / graphie.scale[0] + graphie.range[0][0];var startY=graphie.range[1][1] - (event.pageY - $(graphie.raphael.canvas.parentNode).offset().top) / graphie.scale[1];if(polygon.snapX > 0){startX = Math.round(startX / polygon.snapX) * polygon.snapX;}if(polygon.snapY > 0){startY = Math.round(startY / polygon.snapY) * polygon.snapY;}var lastX=startX;var lastY=startY;var polygonCoords=polygon.coords.slice();var offsetLeft=(startX - polygon.left) * graphie.scale[0];var offsetRight=(polygon.right - startX) * graphie.scale[0];var offsetTop=(polygon.top - startY) * graphie.scale[1];var offsetBottom=(startY - polygon.bottom) * graphie.scale[1];$(document).bind("vmousemove.polygon vmouseup.polygon", function(event){event.preventDefault();polygon.dragging = true;dragging = true;var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;if(polygon.constrainToGraph){mouseX = Math.max(offsetLeft + 10, Math.min(graphie.xpixels - 10 - offsetRight, mouseX));mouseY = Math.max(offsetTop + 10, Math.min(graphie.ypixels - 10 - offsetBottom, mouseY));}var currentX=mouseX / graphie.scale[0] + graphie.range[0][0];var currentY=graphie.range[1][1] - mouseY / graphie.scale[1];if(polygon.snapX > 0){currentX = Math.round(currentX / polygon.snapX) * polygon.snapX;}if(polygon.snapY > 0){currentY = Math.round(currentY / polygon.snapY) * polygon.snapY;}if(event.type === "vmousemove"){(function(){var dX=currentX - startX;var dY=currentY - startY;var doMove=true;if(_.isFunction(polygon.onMove)){var onMoveResult=polygon.onMove(dX, dY);if(onMoveResult === false){doMove = false;}else if(_.isArray(onMoveResult)){dX = onMoveResult[0];dY = onMoveResult[1];currentX = startX + dX;currentY = startY + dY;}}var increment=function(i){return [polygonCoords[i][0] + dX, polygonCoords[i][1] + dY];};if(doMove){_.each(polygon.points, function(coordOrPoint, i){if(isPoint(coordOrPoint)){coordOrPoint.setCoord(increment(i));}else {polygon.points[i] = increment(i);}});polygon.transform();$(polygon).trigger("move");lastX = currentX;lastY = currentY;}})();}else if(event.type === "vmouseup"){$(document).unbind(".polygon");var points=_.filter(polygon.points, isPoint);_.each(points, function(point){point.dragging = false;});polygon.dragging = false;dragging = false;if(!polygon.highlight){polygon.visibleShape.animate(polygon.normalStyle, 50);_.each(points, function(point){point.visibleShape.animate(point.normalStyle, 50);});}if(_.isFunction(polygon.onMoveEnd)){polygon.onMoveEnd(lastX - startX, lastY - startY);}}});})();}});}_.invoke(_.filter(polygon.points, isPoint), "toFront");return polygon;}, constrainToBounds:function(point, padding){var lower=this.unscalePoint([padding, this.ypixels - padding]);var upper=this.unscalePoint([this.xpixels - padding, padding]);var coordX=Math.max(lower[0], Math.min(upper[0], point[0]));var coordY=Math.max(lower[1], Math.min(upper[1], point[1]));return [coordX, coordY];}, constrainToBoundsOnAngle:function(point, padding, angle){var lower=this.unscalePoint([padding, this.ypixels - padding]);var upper=this.unscalePoint([this.xpixels - padding, padding]);var result=point.slice();if(result[0] < lower[0]){result = [lower[0], result[1] + (lower[0] - result[0]) * Math.tan(angle)];}else if(result[0] > upper[0]){result = [upper[0], result[1] - (result[0] - upper[0]) * Math.tan(angle)];}if(result[1] < lower[1]){result = [result[0] + (lower[1] - result[1]) / Math.tan(angle), lower[1]];}else if(result[1] > upper[1]){result = [result[0] - (result[1] - upper[1]) / Math.tan(angle), upper[1]];}return result;}, addMovableAngle:function(options){return new MovableAngle(this, options);}, addArrowWidget:function(options){var arrowWidget=$.extend({graph:this, direction:"up", coord:[0, 0], onClick:function(){}}, options);var graph=arrowWidget.graph;if(arrowWidget.direction === "up"){arrowWidget.visibleShape = graph.path([[arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0] - 4 / graph.scale[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0] + 4 / graph.scale[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]]], {stroke:"", fill:KhanColors.INTERACTIVE});}else if(arrowWidget.direction === "down"){arrowWidget.visibleShape = graph.path([[arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0] - 4 / graph.scale[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0] + 4 / graph.scale[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]]], {stroke:"", fill:KhanColors.INTERACTIVE});}_.defer(function(){arrowWidget.visibleShape.attr({stroke:"", fill:KhanColors.INTERACTIVE});});arrowWidget.mouseTarget = graph.mouselayer.circle(graph.scalePoint(arrowWidget.coord)[0], graph.scalePoint(arrowWidget.coord)[1], 15);arrowWidget.mouseTarget.attr({fill:"#000", "opacity":0});$(arrowWidget.mouseTarget[0]).css("cursor", "pointer");$(arrowWidget.mouseTarget[0]).bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){arrowWidget.visibleShape.animate({scale:2, fill:KhanColors.INTERACTING}, 20);}else if(event.type === "vmouseout"){arrowWidget.visibleShape.animate({scale:1, fill:KhanColors.INTERACTING}, 20);}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){if(!arrowWidget.hidden){arrowWidget.onClick();}return false;}});arrowWidget.hide = function(){arrowWidget.visibleShape.hide();arrowWidget.hidden = true;$(arrowWidget.mouseTarget[0]).css("cursor", "default");};arrowWidget.show = function(){arrowWidget.visibleShape.show();arrowWidget.hidden = false;$(arrowWidget.mouseTarget[0]).css("cursor", "pointer");};return arrowWidget;}, addRectGraph:function(options){var rect=$.extend(true, {x:0, y:0, width:1, height:1, normalStyle:{points:{stroke:KhanColors.INTERACTIVE, fill:KhanColors.INTERACTIVE, opacity:1}, edges:{stroke:KhanColors.INTERACTIVE, opacity:1, "stroke-width":1}, area:{fill:KhanColors.INTERACTIVE, "fill-opacity":0.1, "stroke-width":0}}, hoverStyle:{points:{color:KhanColors.INTERACTING, opacity:1, width:2}, edges:{stroke:KhanColors.INTERACTING, opacity:1, "stroke-width":1}, area:{fill:KhanColors.INTERACTING, "fill-opacity":0.2, "stroke-width":0}}, fixed:{edges:[false, false, false, false], points:[false, false, false, false]}, constraints:{constrainX:false, constrainY:false, xmin:null, xmax:null, ymin:null, ymax:null}, snapX:0, snapY:0, onMove:function(){}}, options);rect = $.extend({initialized:function(){return rect.points && rect.points.length;}, x2:function(){return this.x + this.width;}, y2:function(){return this.y + this.height;}, getX:function(){if(rect.initialized()){return rect.points[0].coord[0];}return rect.x;}, getY:function(){if(rect.initialized()){return rect.points[0].coord[1];}return rect.y;}, getX2:function(){return rect.getX() + rect.getWidth();}, getY2:function(){return rect.getY() + rect.getHeight();}, getXLims:function(){var x=rect.getX();return [x, x + rect.getWidth()];}, getYLims:function(){var y=rect.getY();return [y, y + rect.getHeight()];}, getWidth:function(){if(rect.initialized()){var x0=rect.points[1].coord[0];var x1=rect.points[2].coord[0];return x1 - x0;}return rect.width;}, getHeight:function(){if(rect.initialized()){var y0=rect.points[0].coord[1];var y1=rect.points[1].coord[1];return y1 - y0;}return rect.height;}, getCoord:function(){return [rect.getX(), rect.getY()];}, getRaphaelParamsArr:function(){var width=rect.getWidth();var height=rect.getHeight();var x=rect.getX();var y=rect.getY();var point=graphie.scalePoint([x, y + height]);var dims=graphie.scaleVector([width, height]);return point.concat(dims);}, getRaphaelParams:function(){var arr=rect.getRaphaelParamsArr();return {x:arr[0], y:arr[1], width:arr[2], height:arr[3]};}}, rect);var graphie=this;rect.fillArea = graphie.rect().attr(rect.normalStyle.area);rect.mouseTarget = graphie.mouselayer.rect().attr({fill:"#000", opacity:0, "fill-opacity":0});rect.render = function(){rect.fillArea.attr(rect.getRaphaelParams());rect.mouseTarget.attr(rect.getRaphaelParams());};rect.render();rect.points = [];var coords=[[rect.x, rect.y], [rect.x, rect.y2()], [rect.x2(), rect.y2()], [rect.x2(), rect.y]];var sames=[[1, 3], [0, 2], [3, 1], [2, 0]];var moveLimits=[[1, 1], [1, 0], [0, 0], [0, 1]];function adjustNeighboringPoints(x, y, sameX, sameY){rect.points[sameX].setCoord([x, rect.points[sameX].coord[1]]);rect.points[sameY].setCoord([rect.points[sameY].coord[0], y]);rect.points[sameX].updateLineEnds();rect.points[sameY].updateLineEnds();}function coordInBounds(limit, newVal, checkIsGreater){return checkIsGreater?newVal < limit:newVal > limit;}function moveIsInBounds(index, newX, newY){var xlims=rect.getXLims();var ylims=rect.getYLims();var i=moveLimits[index];var xInBounds=coordInBounds(xlims[i[0]], newX, i[0] === 1);var yInBounds=coordInBounds(ylims[i[1]], newY, i[1] === 1);return xInBounds && yInBounds;}_.times(4, function(i){var sameX=sames[i][0];var sameY=sames[i][1];var coord=coords[i];var point=graphie.addMovablePoint({graph:graphie, coord:coord, normalStyle:rect.normalStyle.points, hoverStyle:rect.hoverStyle.points, snapX:rect.snapX, snapY:rect.snapY, visible:!rect.fixed.points[i], constraints:{fixed:rect.fixed.points[i]}, onMove:function(x, y){if(!moveIsInBounds(i, x, y)){return false;}adjustNeighboringPoints(x, y, sameX, sameY);rect.render();}});rect.points.push(point);});rect.edges = [];rect.moveEdge = function(dx, dy, edgeIndex){var a=rect.edges[edgeIndex].pointA;var z=rect.edges[edgeIndex].pointZ;a.setCoord([a.coord[0] + dx, a.coord[1] + dy]);z.setCoord([z.coord[0] + dx, z.coord[1] + dy]);a.updateLineEnds();z.updateLineEnds();};_.times(4, function(i){var pointA=rect.points[i];var pointZ=rect.points[(i + 1) % 4];var constrainX=i % 2;var constrainY=(i + 1) % 2;var edge=graphie.addMovableLineSegment({graph:graphie, pointA:pointA, pointZ:pointZ, normalStyle:rect.normalStyle.edges, hoverStyle:rect.hoverStyle.edges, snapX:rect.snapX, snapY:rect.snapY, fixed:rect.fixed.edges[i], constraints:{constrainX:constrainX, constrainY:constrainY}, onMove:function(dx, dy){rect.moveEdge(dx, dy, i);rect.render();}});rect.edges.push(edge);});var elems=[rect.fillArea, rect.mouseTarget];rect.elems = elems.concat(rect.edges).concat(rect.points);function constrainTranslation(dx, dy){var xC=rect.constraints.constrainX;var xLT=rect.getX() + dx < rect.constraints.xmin;var xGT=rect.getX2() + dx > rect.constraints.xmax;var yC=rect.constraints.constrainY;var yLT=rect.getY() + dy < rect.constraints.ymin;var yGT=rect.getY2() + dy > rect.constraints.ymax;dx = xC || xLT || xGT?0:dx;dy = yC || yLT || yGT?0:dy;return [dx, dy];}rect.translate = function(dx, dy){if(rect.constraints.constrainX && rect.constraints.constrainY){return;}var d=constrainTranslation(dx, dy);dx = d[0];dy = d[1];_.each(rect.points, function(point, i){var x=point.coord[0] + dx;var y=point.coord[1] + dy;point.setCoord([x, y]);point.updateLineEnds();});rect.render();rect.onMove(dx, dy);};rect.moveTo = function(x, y){var dx=x - rect.getX();var dy=y - rect.getY();rect.translate(dx, dy);};rect.snap = function(){var dx=undefined;var dy=undefined;_.each(rect.points, function(point, i){var x0=point.coord[0];var y0=point.coord[1];var x1=x0;var y1=y0;if(rect.snapX){x1 = KhanMath.roundToNearest(rect.snapX, x0);}if(rect.snapY){y1 = KhanMath.roundToNearest(rect.snapY, y0);}if(!dx || !dy){dx = x1 - x0;dy = y1 - y0;}point.setCoord([x1, y1]);point.updateLineEnds();});rect.render();rect.onMove(dx, dy);};rect.toFront = function(){_.each(rect.elems, function(elem){elem.toFront();});};rect.hide = function(speed){if(rect.hidden){return;}speed = speed || 100;rect.fillArea.animate({"fill-opacity":0}, speed);$(rect.mouseTarget[0]).css("display", "none");rect.hidden = true;};rect.show = function(speed){if(!rect.hidden){return;}speed = speed || 100;rect.fillArea.animate(rect.normalStyle.area, speed);$(rect.mouseTarget[0]).css("display", "block");rect.hidden = false;};rect.enableHoverStyle = function(){rect.highlight = true;if(!dragging){rect.fillArea.animate(rect.hoverStyle.area, 100);}};rect.enableNormalStyle = function(){rect.highlight = false;if(!rect.dragging){rect.fillArea.animate(rect.normalStyle.area, 100);}};var bindTranslation=function(){$(rect.mouseTarget[0]).css("cursor", "move");$(rect.mouseTarget[0]).on("vmouseover vmouseout vmousedown", function(event){if(event.type === "vmouseover"){rect.enableHoverStyle();}else if(event.type === "vmouseout"){rect.enableNormalStyle();}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){event.preventDefault();rect.toFront();rect.prevCoord = graphie.getMouseCoord(event);rect.enableHoverStyle();$(document).on("vmousemove vmouseup", function(event){event.preventDefault();rect.dragging = true;dragging = true;if(event.type === "vmousemove"){var currCoord=graphie.getMouseCoord(event);if(rect.prevCoord && rect.prevCoord.length === 2){var diff=GraphUtils.coordDiff(rect.prevCoord, currCoord);rect.translate(diff[0], diff[1]);}rect.prevCoord = currCoord;}else if(event.type === "vmouseup"){$(document).off("vmousemove vmouseup");rect.dragging = false;dragging = false;var currCoord=graphie.getMouseCoord(event);if(currCoord[0] < rect.getX() || currCoord[0] > rect.getX2() || currCoord[1] < rect.getY() || currCoord[1] > rect.getY2()){rect.enableNormalStyle();}rect.snap();}});}});};bindTranslation();return rect;}, addCircleGraph:function(options){var graphie=this;var circle=$.extend({center:[0, 0], radius:2, snapX:0.5, snapY:0.5, snapRadius:0.5, minRadius:1, centerConstraints:{}, centerNormalStyle:{}, centerHighlightStyle:{stroke:KhanColors.INTERACTING, fill:KhanColors.INTERACTING}, circleNormalStyle:{stroke:KhanColors.INTERACTIVE, "fill-opacity":0}, circleHighlightStyle:{stroke:KhanColors.INTERACTING, fill:KhanColors.INTERACTING, "fill-opacity":0.05}}, options);var normalColor=circle.centerConstraints.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;var centerNormalStyle=options?options.centerNormalStyle:null;circle.centerNormalStyle = _.extend({}, {"fill":normalColor, "stroke":normalColor}, centerNormalStyle);circle.centerPoint = graphie.addMovablePoint({graph:graphie, coord:circle.center, normalStyle:circle.centerNormalStyle, snapX:circle.snapX, snapY:circle.snapY, constraints:circle.centerConstraints});circle.circ = graphie.circle(circle.center, circle.radius, circle.circleNormalStyle);circle.perim = graphie.mouselayer.circle(graphie.scalePoint(circle.center)[0], graphie.scalePoint(circle.center)[1], graphie.scaleVector(circle.radius)[0]).attr({"stroke-width":20, "opacity":0.002});if(!circle.centerConstraints.fixed){$(circle.centerPoint.mouseTarget.getMouseTarget()).on("vmouseover vmouseout", function(event){if(circle.centerPoint.highlight || circle.centerPoint.dragging){circle.circ.animate(circle.circleHighlightStyle, 50);}else {circle.circ.animate(circle.circleNormalStyle, 50);}});}circle.toFront = function(){circle.circ.toFront();circle.perim.toFront();circle.centerPoint.visibleShape.toFront();if(!circle.centerConstraints.fixed){circle.centerPoint.mouseTarget.toFront();}};circle.centerPoint.onMove = function(x, y){circle.toFront();circle.circ.attr({cx:graphie.scalePoint(x)[0], cy:graphie.scalePoint(y)[1]});circle.perim.attr({cx:graphie.scalePoint(x)[0], cy:graphie.scalePoint(y)[1]});if(circle.onMove){circle.onMove(x, y);}};$(circle.centerPoint).on("move", function(){circle.center = this.coord;$(circle).trigger("move");});circle.setCenter = function(x, y){circle.centerPoint.setCoord([x, y]);circle.centerPoint.onMove(x, y);circle.center = [x, y];};circle.setRadius = function(r){circle.radius = r;circle.perim.attr({r:graphie.scaleVector(r)[0]});circle.circ.attr({rx:graphie.scaleVector(r)[0], ry:graphie.scaleVector(r)[1]});};circle.remove = function(){circle.centerPoint.remove();circle.circ.remove();circle.perim.remove();};$(circle.perim[0]).css("cursor", "move");$(circle.perim[0]).on("vmouseover vmouseout vmousedown", function(event){if(event.type === "vmouseover"){circle.highlight = true;if(!dragging){circle.circ.animate(circle.circleHighlightStyle, 50);circle.centerPoint.visibleShape.animate(circle.centerHighlightStyle, 50);}}else if(event.type === "vmouseout"){circle.highlight = false;if(!circle.dragging && !circle.centerPoint.dragging){circle.circ.animate(circle.circleNormalStyle, 50);circle.centerPoint.visibleShape.animate(circle.centerNormalStyle, 50);}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();circle.toFront();var startRadius=circle.radius;$(document).on("vmousemove vmouseup", function(event){event.preventDefault();circle.dragging = true;dragging = true;if(event.type === "vmousemove"){var coord=graphie.constrainToBounds(graphie.getMouseCoord(event), 10);var radius=GraphUtils.getDistance(circle.centerPoint.coord, coord);radius = Math.max(circle.minRadius, Math.round(radius / circle.snapRadius) * circle.snapRadius);var oldRadius=circle.radius;var doResize=true;if(circle.onResize){var onResizeResult=circle.onResize(radius, oldRadius);if(_.isNumber(onResizeResult)){radius = onResizeResult;}else if(onResizeResult === false){doResize = false;}}if(doResize){circle.setRadius(radius);$(circle).trigger("move");}}else if(event.type === "vmouseup"){$(document).off("vmousemove vmouseup");circle.dragging = false;dragging = false;if(circle.onResizeEnd){circle.onResizeEnd(circle.radius, startRadius);}}});})();}});return circle;}, interactiveEllipse:function(options){var graphie=this;var ellipse=$.extend({center:[0, 0], radius:2, xRadius:2, yRadius:2, ellipseNormalStyle:{stroke:KhanColors.BLUE, "fill-opacity":0}, ellipseBoundaryHideStyle:{"fill-opacity":0, "stroke-width":0}, ellipseBoundaryShowStyle:{"fill-opacity":1, fill:KhanColors.BLUE}, onMove:function(coordX, coordY){}, onLeave:function(coordX, coordY){}}, options);ellipse.circ = graphie.ellipse(ellipse.center, [ellipse.xRadius, ellipse.yRadius], ellipse.ellipseNormalStyle);ellipse.perim = graphie.mouselayer.ellipse(graphie.scalePoint(ellipse.center)[0], graphie.scalePoint(ellipse.center)[1], graphie.scaleVector(ellipse.xRadius)[0], graphie.scaleVector(ellipse.yRadius)[0]).attr({"stroke-width":30, "opacity":0.002});ellipse.boundaryPoint = graphie.circle(ellipse.center, 0.4, ellipse.ellipseBoundaryHideStyle);ellipse.remove = function(){ellipse.circ.remove();ellipse.perim.remove();};ellipse.showPoint = function(event){var coord=graphie.constrainToBounds(graphie.getMouseCoord(event), 10);var dx=ellipse.yRadius * (ellipse.center[0] - coord[0]);var dy=ellipse.xRadius * (ellipse.center[1] - coord[1]);var angle=Math.atan2(dy, dx);coord[0] = ellipse.center[0] - ellipse.xRadius * Math.cos(angle);coord[1] = ellipse.center[1] - ellipse.yRadius * Math.sin(angle);var scaledPoint=graphie.scalePoint(coord);ellipse.boundaryPoint.attr({cx:scaledPoint[0]});ellipse.boundaryPoint.attr({cy:scaledPoint[1]});ellipse.boundaryPoint.animate(ellipse.ellipseBoundaryShowStyle, 50);ellipse.onMove(coord[0], coord[1]);};$(ellipse.perim[0]).on("vmouseover vmouseout vmousemove", function(event){if(event.type === "vmouseover"){ellipse.showPoint(event);}else if(event.type === "vmouseout"){ellipse.boundaryPoint.animate(ellipse.ellipseBoundaryHideStyle, 50);ellipse.onLeave();}else if(event.type === "vmousemove"){ellipse.showPoint(event);}});return ellipse;}, addRotateHandle:(function(){var drawRotateHandle=function(graphie, center, radius, halfWidth, lengthAngle, angle, interacting){var getRotateHandlePoint=function(offset, distanceFromArrowMidline){var distFromRotationCenter=radius + distanceFromArrowMidline;var vec=kvector.cartFromPolarDeg([distFromRotationCenter, angle + offset]);var absolute=kvector.add(center, vec);var pixels=graphie.scalePoint(absolute);return pixels[0] + "," + pixels[1];};var innerR=graphie.scaleVector(radius - halfWidth);var outerR=graphie.scaleVector(radius + halfWidth);return graphie.raphael.path(" M" + getRotateHandlePoint(lengthAngle, -halfWidth) + " L" + getRotateHandlePoint(lengthAngle, -3 * halfWidth) + " L" + getRotateHandlePoint(2 * lengthAngle, 0) + " L" + getRotateHandlePoint(lengthAngle, 3 * halfWidth) + " L" + getRotateHandlePoint(lengthAngle, halfWidth) + " A" + outerR[0] + "," + outerR[1] + ",0,0,1," + getRotateHandlePoint(-lengthAngle, halfWidth) + " L" + getRotateHandlePoint(-lengthAngle, 3 * halfWidth) + " L" + getRotateHandlePoint(-2 * lengthAngle, 0) + " L" + getRotateHandlePoint(-lengthAngle, -3 * halfWidth) + " L" + getRotateHandlePoint(-lengthAngle, -halfWidth) + " A" + innerR[0] + "," + innerR[1] + ",0,0,0," + getRotateHandlePoint(lengthAngle, -halfWidth) + " Z").attr({stroke:null, fill:interacting?KhanColors.INTERACTING:KhanColors.INTERACTIVE});};return function(options){var graph=this;var rotatePoint=options.center;var radius=options.radius;var lengthAngle=options.lengthAngle || 30;var hideArrow=options.hideArrow || false;var mouseTarget=options.mouseTarget;var id=_.uniqueId("rotateHandle");if(_.isArray(rotatePoint)){rotatePoint = {coord:rotatePoint};}var rotateHandle=graph.addMovablePoint({coord:kpoint.addVector(rotatePoint.coord, kvector.cartFromPolarDeg(radius, options.angleDeg || 0)), constraints:{fixedDistance:{dist:radius, point:rotatePoint}}, mouseTarget:mouseTarget});rotatePoint.toFront();var rotatePointPrevCoord=rotatePoint.coord;var rotateHandlePrevCoord=rotateHandle.coord;var rotateHandleStartCoord=rotateHandlePrevCoord;var isRotating=false;var isHovering=false;var drawnRotateHandle=undefined;var redrawRotateHandle=function(handleCoord){if(hideArrow){return;}var handleVec=kvector.subtract(handleCoord, rotatePoint.coord);var handlePolar=kvector.polarDegFromCart(handleVec);var angle=handlePolar[1];if(drawnRotateHandle){drawnRotateHandle.remove();}drawnRotateHandle = drawRotateHandle(graph, rotatePoint.coord, options.radius, isRotating || isHovering?options.hoverWidth / 2:options.width / 2, lengthAngle, angle, isRotating || isHovering);};$(rotatePoint).on("move." + id, function(){var delta=kvector.subtract(rotatePoint.coord, rotatePointPrevCoord);rotateHandle.setCoord(kvector.add(rotateHandle.coord, delta));redrawRotateHandle(rotateHandle.coord);rotatePointPrevCoord = rotatePoint.coord;rotateHandle.constraints.fixedDistance.point = rotatePoint;rotateHandlePrevCoord = rotateHandle.coord;});rotateHandle.onMove = function(x, y){if(!isRotating){rotateHandleStartCoord = rotateHandlePrevCoord;isRotating = true;}var coord=[x, y];if(options.onMove){var oldPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandlePrevCoord, rotatePoint.coord));var newPolar=kvector.polarDegFromCart(kvector.subtract(coord, rotatePoint.coord));var oldAngle=oldPolar[1];var newAngle=newPolar[1];var result=options.onMove(newAngle, oldAngle);if(result != null && result !== true){if(result === false){result = oldAngle;}coord = kvector.add(rotatePoint.coord, kvector.cartFromPolarDeg([oldPolar[0], result]));}}redrawRotateHandle(coord);rotateHandlePrevCoord = coord;return coord;};rotateHandle.onMoveEnd = function(){isRotating = false;redrawRotateHandle(rotateHandle.coord);if(options.onMoveEnd){var oldPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandleStartCoord, rotatePoint.coord));var newPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandle.coord, rotatePoint.coord));options.onMoveEnd(newPolar[1], oldPolar[1]);}};rotateHandle.visibleShape.remove();if(!mouseTarget){rotateHandle.mouseTarget.attr({scale:2});}var $mouseTarget=$(rotateHandle.mouseTarget.getMouseTarget());$mouseTarget.bind("vmouseover", function(e){isHovering = true;redrawRotateHandle(rotateHandle.coord);});$mouseTarget.bind("vmouseout", function(e){isHovering = false;redrawRotateHandle(rotateHandle.coord);});redrawRotateHandle(rotateHandle.coord);var oldRemove=rotateHandle.remove;rotateHandle.remove = function(){oldRemove.call(rotateHandle);if(drawnRotateHandle){drawnRotateHandle.remove();}$(rotatePoint).off("move." + id);};rotateHandle.update = function(){redrawRotateHandle(rotateHandle.coord);};return rotateHandle;};})(), addReflectButton:(function(){var drawButton=function(graphie, buttonCoord, lineCoords, size, distanceFromCenter, leftStyle, rightStyle){if(kpoint.equal(lineCoords[0], lineCoords[1])){lineCoords = [lineCoords[0], kpoint.addVector(lineCoords[0], [1, 1])];}var lineDirection=kvector.normalize(kvector.subtract(lineCoords[1], lineCoords[0]));var lineVec=kvector.scale(lineDirection, size / 2);var centerVec=kvector.scale(lineDirection, distanceFromCenter);var leftCenterVec=kvector.rotateDeg(centerVec, 90);var rightCenterVec=kvector.rotateDeg(centerVec, -90);var negLineVec=kvector.negate(lineVec);var leftVec=kvector.rotateDeg(lineVec, 90);var rightVec=kvector.rotateDeg(lineVec, -90);var leftCenter=kpoint.addVectors(buttonCoord, leftCenterVec);var rightCenter=kpoint.addVectors(buttonCoord, rightCenterVec);var leftCoord1=kpoint.addVectors(buttonCoord, leftCenterVec, lineVec, leftVec);var leftCoord2=kpoint.addVectors(buttonCoord, leftCenterVec, negLineVec, leftVec);var rightCoord1=kpoint.addVectors(buttonCoord, rightCenterVec, lineVec, rightVec);var rightCoord2=kpoint.addVectors(buttonCoord, rightCenterVec, negLineVec, rightVec);var leftButton=graphie.path([leftCenter, leftCoord1, leftCoord2, true], leftStyle);var rightButton=graphie.path([rightCenter, rightCoord1, rightCoord2, true], rightStyle);return {remove:function(){leftButton.remove();rightButton.remove();}};};return function(options){var graphie=this;var line=options.line;var button=graphie.addMovablePoint({constraints:options.constraints, coord:kline.midpoint([line.pointA.coord, line.pointZ.coord]), snapX:graphie.snap[0], snapY:graphie.snap[1], onMove:function(x, y){return false;}, onMoveEnd:function(x, y){if(options.onMoveEnd){options.onMoveEnd.call(this, x, y);}}});var isHovering=false;var isFlipped=false;var currentlyDrawnButton=undefined;var isHighlight=function(){return isHovering;};var styles=_.map([0, 1], function(isHighlight){var baseStyle=isHighlight?options.highlightStyle:options.normalStyle;return _.map([0, 1], function(opacity){return _.defaults({"fill-opacity":opacity}, baseStyle);});});var getStyle=function(isRight){if(isFlipped){isRight = !isRight;}return styles[+isHighlight()][+isRight];};var redraw=function(coord, lineCoords){if(currentlyDrawnButton){currentlyDrawnButton.remove();}currentlyDrawnButton = drawButton(graphie, coord, lineCoords, isHighlight()?options.size * 1.5:options.size, isHighlight()?options.size * 0.125:0.25, getStyle(0), getStyle(1));};var update=function(coordA, coordZ){coordA = coordA || line.pointA.coord;coordZ = coordZ || line.pointZ.coord;var buttonCoord=kline.midpoint([coordA, coordZ]);button.setCoord(buttonCoord);redraw(buttonCoord, [coordA, coordZ]);};$(line).on("move", _.bind(update, button, null, null));var $mouseTarget=$(button.mouseTarget.getMouseTarget());$mouseTarget.on("vclick", function(){var result=options.onClick();if(result !== false){isFlipped = !isFlipped;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);}});line.pointA.toFront();line.pointZ.toFront();button.visibleShape.remove();var pointScale=graphie.scaleVector(options.size)[0] / 20;button.mouseTarget.attr({scale:1.5 * pointScale});$mouseTarget.css("cursor", "pointer");$mouseTarget.bind("vmouseover", function(e){isHovering = true;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);});$mouseTarget.bind("vmouseout", function(e){isHovering = false;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);});var oldButtonRemove=button.remove;button.remove = function(){currentlyDrawnButton.remove();oldButtonRemove.call(button);};button.update = update;button.isFlipped = function(){return isFlipped;};update();return button;};})(), protractor:function(center){return new Protractor(this, center);}, ruler:function(options){return new Ruler(this, options || {});}, addPoints:addPoints});function Protractor(graph, center){this.set = graph.raphael.set();this.cx = center[0];this.cy = center[1];var pro=this;var r=graph.unscaleVector(180.5)[0];var imgPos=graph.scalePoint([this.cx - r, this.cy + r - graph.unscaleVector(10.5)[1]]);this.set.push(graph.mouselayer.image("https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png", imgPos[0], imgPos[1], 360, 180));var arrowHelper=function(angle, pixelsFromEdge){var scaledRadius=graph.scaleVector(r);scaledRadius[0] -= 16;scaledRadius[1] -= 16;var scaledCenter=graph.scalePoint(center);var x=Math.sin((angle + 90) * Math.PI / 180) * (scaledRadius[0] + pixelsFromEdge) + scaledCenter[0];var y=Math.cos((angle + 90) * Math.PI / 180) * (scaledRadius[1] + pixelsFromEdge) + scaledCenter[1];return x + "," + y;};var arrow=graph.raphael.path(" M" + arrowHelper(180, 6) + " L" + arrowHelper(180, 2) + " L" + arrowHelper(183, 10) + " L" + arrowHelper(180, 18) + " L" + arrowHelper(180, 14) + " A" + (graph.scaleVector(r)[0] + 10) + "," + (graph.scaleVector(r)[1] + 10) + ",0,0,1," + arrowHelper(170, 14) + " L" + arrowHelper(170, 18) + " L" + arrowHelper(167, 10) + " L" + arrowHelper(170, 2) + " L" + arrowHelper(170, 6) + " A" + (graph.scaleVector(r)[0] + 10) + "," + (graph.scaleVector(r)[1] + 10) + ",0,0,0," + arrowHelper(180, 6) + " Z").attr({"stroke":null, "fill":KhanColors.INTERACTIVE});this.set.push(arrow);this.centerPoint = graph.addMovablePoint({coord:center, visible:false});this.rotateHandle = graph.addMovablePoint({coord:[Math.sin(275 * Math.PI / 180) * (r + 0.5) + this.cx, Math.cos(275 * Math.PI / 180) * (r + 0.5) + this.cy], onMove:function(x, y){var angle=Math.atan2(pro.centerPoint.coord[1] - y, pro.centerPoint.coord[0] - x) * 180 / Math.PI;pro.rotate(-angle - 5, true);}});this.rotateHandle.constraints.fixedDistance.dist = r + 0.5;this.rotateHandle.constraints.fixedDistance.point = this.centerPoint;this.rotateHandle.visibleShape.remove();this.rotateHandle.mouseTarget.attr({scale:2});var isDragging=false;var isHovering=false;var isHighlight=function(){return isHovering || isDragging;};var self=this;var $mouseTarget=$(self.rotateHandle.mouseTarget.getMouseTarget());$mouseTarget.bind("vmousedown", function(event){isDragging = true;arrow.animate({scale:1.5, fill:KhanColors.INTERACTING}, 50);$(document).bind("vmouseup.rotateHandle", function(event){isDragging = false;if(!isHighlight()){arrow.animate({scale:1, fill:KhanColors.INTERACTIVE}, 50);}$(document).unbind("vmouseup.rotateHandle");});});$mouseTarget.bind("vmouseover", function(event){isHovering = true;arrow.animate({scale:1.5, fill:KhanColors.INTERACTING}, 50);});$mouseTarget.bind("vmouseout", function(event){isHovering = false;if(!isHighlight()){arrow.animate({scale:1, fill:KhanColors.INTERACTIVE}, 50);}});var setNodes=$.map(this.set, function(el){return el.node;});this.makeTranslatable = function makeTranslatable(){$(setNodes).css("cursor", "move");$(setNodes).bind("vmousedown", function(event){event.preventDefault();var startx=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var starty=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;$(document).bind("vmousemove.protractor", function(event){var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graph.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graph.ypixels - 10, mouseY));var dx=mouseX - startx;var dy=mouseY - starty;$.each(pro.set.items, function(){this.translate(dx, dy);});pro.centerPoint.setCoord([pro.centerPoint.coord[0] + dx / graph.scale[0], pro.centerPoint.coord[1] - dy / graph.scale[1]]);pro.rotateHandle.setCoord([pro.rotateHandle.coord[0] + dx / graph.scale[0], pro.rotateHandle.coord[1] - dy / graph.scale[1]]);startx = mouseX;starty = mouseY;});$(document).one("vmouseup", function(event){$(document).unbind("vmousemove.protractor");});});};this.rotation = 0;this.rotate = function(offset, absolute){var center=graph.scalePoint(this.centerPoint.coord);if(absolute){this.rotation = 0;}this.set.rotate(this.rotation + offset, center[0], center[1]);this.rotation = this.rotation + offset;return this;};this.moveTo = function moveTo(x, y){var start=graph.scalePoint(pro.centerPoint.coord);var end=graph.scalePoint([x, y]);var time=GraphUtils.getDistance(start, end) * 2;$({x:start[0], y:start[1]}).animate({x:end[0], y:end[1]}, {duration:time, step:function(now, fx){var dx=0;var dy=0;if(fx.prop === "x"){dx = now - graph.scalePoint(pro.centerPoint.coord)[0];}else if(fx.prop === "y"){dy = now - graph.scalePoint(pro.centerPoint.coord)[1];}$.each(pro.set.items, function(){this.translate(dx, dy);});pro.centerPoint.setCoord([pro.centerPoint.coord[0] + dx / graph.scale[0], pro.centerPoint.coord[1] - dy / graph.scale[1]]);pro.rotateHandle.setCoord([pro.rotateHandle.coord[0] + dx / graph.scale[0], pro.rotateHandle.coord[1] - dy / graph.scale[1]]);}});};this.rotateTo = function rotateTo(angle){if(Math.abs(this.rotation - angle) > 180){this.rotation += 360;}var time=Math.abs(this.rotation - angle) * 5;$({0:this.rotation}).animate({0:angle}, {duration:time, step:function(now, fx){pro.rotate(now, true);pro.rotateHandle.setCoord([Math.sin((now + 275) * Math.PI / 180) * (r + 0.5) + pro.centerPoint.coord[0], Math.cos((now + 275) * Math.PI / 180) * (r + 0.5) + pro.centerPoint.coord[1]]);}});};this.remove = function(){this.set.remove();};this.makeTranslatable();return this;}function Ruler(graphie, options){_.defaults(options, {center:[0, 0], pixelsPerUnit:40, ticksPerUnit:10, units:10, label:"", style:{fill:null, stroke:KhanColors.GRAY}});var light=_.extend({}, options.style, {strokeWidth:1});var bold=_.extend({}, options.style, {strokeWidth:2});var width=options.units * options.pixelsPerUnit;var height=50;var leftBottom=graphie.unscalePoint(kvector.subtract(graphie.scalePoint(options.center), kvector.scale([width, -height], 0.5)));var graphieUnitsPerUnit=options.pixelsPerUnit / graphie.scale[0];var graphieUnitsHeight=height / graphie.scale[0];var rightTop=kvector.add(leftBottom, [options.units * graphieUnitsPerUnit, graphieUnitsHeight]);var tickHeight=1;var tickHeightMap=undefined;if(options.ticksPerUnit === 10){tickHeightMap = {10:tickHeight, 5:tickHeight * 0.55, 1:tickHeight * 0.35};}else {var sizes=[1, 0.6, 0.45, 0.3];tickHeightMap = {};for(var i=options.ticksPerUnit; i >= 1; i /= 2) {tickHeightMap[i] = tickHeight * (sizes.shift() || 0.2);}}var tickFrequencies=_.keys(tickHeightMap).sort(function(a, b){return b - a;});function getTickHeight(i){for(var k=0; k < tickFrequencies.length; k++) {var key=tickFrequencies[k];if(i % key === 0){return tickHeightMap[key];}}}var left=leftBottom[0];var bottom=leftBottom[1];var right=rightTop[0];var top=rightTop[1];var numTicks=options.units * options.ticksPerUnit + 1;var set=graphie.raphael.set();var px=1 / graphie.scale[0];set.push(graphie.line([left - px, bottom], [right + px, bottom], bold));set.push(graphie.line([left - px, top], [right + px, top], bold));_.times(numTicks, function(i){var n=i / options.ticksPerUnit;var x=left + n * graphieUnitsPerUnit;var height=getTickHeight(i) * graphieUnitsHeight;var style=i === 0 || i === numTicks - 1?bold:light;set.push(graphie.line([x, bottom], [x, bottom + height], style));if(n % 1 === 0){var coord=graphie.scalePoint([x, top]);var text=undefined;var offset=undefined;if(n === 0){text = options.label;offset = ({mm:13, cm:11, m:8, km:11, in:8, ft:8, yd:10, mi:10})[text] || 3 * text.toString().length;}else {text = n;offset = -3 * (n.toString().length + 1);}var label=graphie.raphael.text(coord[0] + offset, coord[1] + 10, text);label.attr({"font-family":"KaTeX_Main", "font-size":"12px", "color":"#444"});set.push(label);}});var mouseTarget=graphie.mouselayer.path(GraphUtils.svgPath([leftBottom, [left, top], rightTop, [right, bottom], true]));mouseTarget.attr({fill:"#000", opacity:0, stroke:"#000", "stroke-width":2});set.push(mouseTarget);var setNodes=$.map(set, function(el){return el.node;});$(setNodes).css("cursor", "move");$(setNodes).bind("vmousedown", function(event){event.preventDefault();var startx=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var starty=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;$(document).bind("vmousemove.ruler", function(event){var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graphie.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graphie.ypixels - 10, mouseY));var dx=mouseX - startx;var dy=mouseY - starty;set.translate(dx, dy);leftBottomHandle.setCoord([leftBottomHandle.coord[0] + dx / graphie.scale[0], leftBottomHandle.coord[1] - dy / graphie.scale[1]]);rightBottomHandle.setCoord([rightBottomHandle.coord[0] + dx / graphie.scale[0], rightBottomHandle.coord[1] - dy / graphie.scale[1]]);startx = mouseX;starty = mouseY;});$(document).one("vmouseup", function(event){$(document).unbind("vmousemove.ruler");});});var leftBottomHandle=graphie.addMovablePoint({coord:leftBottom, normalStyle:{fill:KhanColors.INTERACTIVE, "fill-opacity":0, stroke:KhanColors.INTERACTIVE}, highlightStyle:{fill:KhanColors.INTERACTING, "fill-opacity":0.1, stroke:KhanColors.INTERACTING}, pointSize:6, onMove:function(x, y){var dy=rightBottomHandle.coord[1] - y;var dx=rightBottomHandle.coord[0] - x;var angle=Math.atan2(dy, dx) * 180 / Math.PI;var center=kvector.scale(kvector.add([x, y], rightBottomHandle.coord), 0.5);var scaledCenter=graphie.scalePoint(center);var oldCenter=kvector.scale(kvector.add(leftBottomHandle.coord, rightBottomHandle.coord), 0.5);var scaledOldCenter=graphie.scalePoint(oldCenter);var diff=kvector.subtract(scaledCenter, scaledOldCenter);set.rotate(-angle, scaledOldCenter[0], scaledOldCenter[1]);set.translate(diff[0], diff[1]);}});var rightBottomHandle=graphie.addMovablePoint({coord:[right, bottom], normalStyle:{fill:KhanColors.INTERACTIVE, "fill-opacity":0, stroke:KhanColors.INTERACTIVE}, highlightStyle:{fill:KhanColors.INTERACTING, "fill-opacity":0.1, stroke:KhanColors.INTERACTING}, pointSize:6, onMove:function(x, y){var dy=y - leftBottomHandle.coord[1];var dx=x - leftBottomHandle.coord[0];var angle=Math.atan2(dy, dx) * 180 / Math.PI;var center=kvector.scale(kvector.add([x, y], leftBottomHandle.coord), 0.5);var scaledCenter=graphie.scalePoint(center);var oldCenter=kvector.scale(kvector.add(leftBottomHandle.coord, rightBottomHandle.coord), 0.5);var scaledOldCenter=graphie.scalePoint(oldCenter);var diff=kvector.subtract(scaledCenter, scaledOldCenter);set.rotate(-angle, scaledOldCenter[0], scaledOldCenter[1]);set.translate(diff[0], diff[1]);}});leftBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];leftBottomHandle.constraints.fixedDistance.point = rightBottomHandle;rightBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];rightBottomHandle.constraints.fixedDistance.point = leftBottomHandle;this.remove = function(){set.remove();leftBottomHandle.remove();rightBottomHandle.remove();};return this;}function MovableAngle(graphie, options){this.graphie = graphie;_.extend(this, options);_.defaults(this, {normalStyle:{"stroke":KhanColors.INTERACTIVE, "stroke-width":2, "fill":KhanColors.INTERACTIVE}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":2, "fill":KhanColors.INTERACTING}, labelStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, angleStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, allowReflex:true});if(!this.points || this.points.length !== 3){throw new Error("MovableAngle requires 3 points");}this.points = _.map(options.points, function(point){if(_.isArray(point)){return graphie.addMovablePoint({coord:point, visible:false, constraints:{fixed:true}, normalStyle:this.normalStyle});}else {return point;}}, this);this.coords = _.pluck(this.points, "coord");if(this.reflex == null){if(this.allowReflex){this.reflex = this._getClockwiseAngle(this.coords) > 180;}else {this.reflex = false;}}this.rays = _.map([0, 2], function(i){return graphie.addMovableLineSegment({pointA:this.points[1], pointZ:this.points[i], fixed:true, extendRay:true});}, this);this.temp = [];this.labeledAngle = graphie.label([0, 0], "", "center", this.labelStyle);if(!this.fixed){this.addMoveHandlers();this.addHighlightHandlers();}this.update();}_.extend(MovableAngle.prototype, {points:[], snapDegrees:0, snapOffsetDeg:0, angleLabel:"", numArcs:1, pushOut:0, fixed:false, addMoveHandlers:function(){var graphie=this.graphie;function tooClose(point1, point2){var safeDistance=30;var distance=GraphUtils.getDistance(graphie.scalePoint(point1), graphie.scalePoint(point2));return distance < safeDistance;}var points=this.points;points[1].onMove = function(x, y){var oldVertex=points[1].coord;var newVertex=[x, y];var delta=addPoints(newVertex, reverseVector(oldVertex));var valid=true;var newPoints={};_.each([0, 2], function(i){var oldPoint=points[i].coord;var newPoint=addPoints(oldPoint, delta);var angle=GraphUtils.findAngle(newVertex, newPoint);angle *= Math.PI / 180;newPoint = graphie.constrainToBoundsOnAngle(newPoint, 10, angle);newPoints[i] = newPoint;if(tooClose(newVertex, newPoint)){valid = false;}});if(valid){_.each(newPoints, function(newPoint, i){points[i].setCoord(newPoint);});}return valid;};var snap=this.snapDegrees;var snapOffset=this.snapOffsetDeg;_.each([0, 2], function(i){points[i].onMove = function(x, y){var newPoint=[x, y];var vertex=points[1].coord;if(tooClose(vertex, newPoint)){return false;}else if(snap){var angle=GraphUtils.findAngle(newPoint, vertex);angle = Math.round((angle - snapOffset) / snap) * snap + snapOffset;var distance=GraphUtils.getDistance(newPoint, vertex);return addPoints(vertex, graphie.polar(distance, angle));}else {return true;}};});$(points).on("move", (function(){this.update();$(this).trigger("move");}).bind(this));}, addHighlightHandlers:function(){var vertex=this.points[1];vertex.onHighlight = (function(){_.each(this.points, function(point){point.visibleShape.animate(this.highlightStyle, 50);}, this);_.each(this.rays, function(ray){ray.visibleLine.animate(this.highlightStyle, 50);ray.arrowStyle = _.extend({}, ray.arrowStyle, {"color":this.highlightStyle.stroke, "stroke":this.highlightStyle.stroke});}, this);this.angleStyle = _.extend({}, this.angleStyle, {"color":this.highlightStyle.stroke, "stroke":this.highlightStyle.stroke});this.update();}).bind(this);vertex.onUnhighlight = (function(){_.each(this.points, function(point){point.visibleShape.animate(this.normalStyle, 50);}, this);_.each(this.rays, function(ray){ray.visibleLine.animate(ray.normalStyle, 50);ray.arrowStyle = _.extend({}, ray.arrowStyle, {"color":ray.normalStyle.stroke, "stroke":ray.normalStyle.stroke});}, this);this.angleStyle = _.extend({}, this.angleStyle, {"color":KhanColors.DYNAMIC, "stroke":KhanColors.DYNAMIC});this.update();}).bind(this);}, _getClockwiseAngle:function(coords){var clockwiseAngle=(GraphUtils.findAngle(coords[2], coords[0], coords[1]) + 360) % 360;return clockwiseAngle;}, isReflex:function(){return this.reflex;}, isClockwise:function(){var clockwiseReflexive=this._getClockwiseAngle(this.coords) > 180;return clockwiseReflexive === this.reflex;}, getClockwiseCoords:function(){if(this.isClockwise()){return _.clone(this.coords);}else {return _.clone(this.coords).reverse();}}, update:function(shouldChangeReflexivity){var prevCoords=this.coords;this.coords = _.pluck(this.points, "coord");_.invoke(this.points, "updateLineEnds");var prevAngle=this._getClockwiseAngle(prevCoords);var angle=this._getClockwiseAngle(this.coords);var prevClockwiseReflexive=prevAngle > 180;var clockwiseReflexive=angle > 180;if(this.allowReflex){if(shouldChangeReflexivity == null){shouldChangeReflexivity = prevClockwiseReflexive !== clockwiseReflexive && Math.abs(angle - prevAngle) < 180;}if(shouldChangeReflexivity){this.reflex = !this.reflex;}}_.invoke(this.temp, "remove");this.temp = this.graphie.labelAngle({point1:this.coords[0], vertex:this.coords[1], point3:this.coords[2], label:this.labeledAngle, text:this.angleLabel, numArcs:this.numArcs, pushOut:this.pushOut, clockwise:this.reflex === clockwiseReflexive, style:this.angleStyle});}, remove:function(){_.invoke(this.rays, "remove");_.invoke(this.temp, "remove");this.labeledAngle.remove();}});module.exports = InteractiveUtils;
 
 /***/ },
 /* 201 */
@@ -49316,7 +49320,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(16);
 
-	var MovableLineOptions = __webpack_require__(223);
+	var MovableLineOptions = __webpack_require__(226);
 	var WrappedLine = __webpack_require__(224);
 	var InteractiveUtil = __webpack_require__(153);
 	var objective_ = __webpack_require__(137);
@@ -49576,7 +49580,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var kvector = __webpack_require__(195).vector;
 	var _ = __webpack_require__(16);
 
-	var MovablePolygonOptions = __webpack_require__(225);
+	var MovablePolygonOptions = __webpack_require__(227);
 	var InteractiveUtil = __webpack_require__(153);
 	var objective_ = __webpack_require__(137);
 	var assert = InteractiveUtil.assert;
@@ -49937,7 +49941,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var styleConstants = __webpack_require__(138);
 	var mediaQueries = __webpack_require__(159);
 
-	var ToggleableRadioButton = __webpack_require__(229);
+	var ToggleableRadioButton = __webpack_require__(228);
 
 	var circleSize = 20;
 	var radioBorder = styleConstants.grayLighter;
@@ -50418,7 +50422,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Provider = _require.Provider;
 
-	var KeypadContainer = __webpack_require__(228);
+	var KeypadContainer = __webpack_require__(229);
 
 	var _require2 = __webpack_require__(237);
 
@@ -56611,673 +56615,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, indent, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	/**
-	 * A library of options to pass to add/draw/remove/constraints
-	 */
-	var _ = __webpack_require__(16);
-	var WrappedLine = __webpack_require__(224);
-	var WrappedPath = __webpack_require__(227);
-	var kvector = __webpack_require__(195).vector;
-	var kpoint = __webpack_require__(195).point;
-	var KhanMath = __webpack_require__(144);
-
-	/**
-	 * Helper functions
-	 */
-	var getScaledAngle = function (line) {
-	    var scaledA = line.graphie.scalePoint(line.coord(0));
-	    var scaledZ = line.graphie.scalePoint(line.coord(1));
-	    return kvector.polarDegFromCart(kvector.subtract(scaledZ, scaledA))[1];
-	};
-
-	// Given `coord` and `angle`, find the point where a line extended
-	// from `coord` in the direction of `angle` would be clipped by the
-	// edge of the graphie canvas. Then draw an arrowhead at that point
-	// pointing in the direction of `angle`.
-	var getClipPoint = function (graph, coord, angle) {
-	    // Actually put the arrowheads 4px from the edge so they have
-	    // a bit of room
-	    var xExtent = graph.range[0][1] - graph.range[0][0];
-	    var yExtent = graph.range[1][1] - graph.range[1][0];
-
-	    // shoot a point off into the distance ...
-	    var distance = xExtent + yExtent;
-	    // we need to scale the point according to the scale of the axes
-	    var angleVec = graph.unscaleVector(kvector.cartFromPolarDeg([1, angle]));
-	    var distVec = kvector.scale(kvector.normalize(angleVec), distance);
-	    var farCoord = kvector.add(coord, distVec);
-	    var scaledAngle = kvector.polarDegFromCart(angleVec)[1];
-	    // ... and then bring it back
-	    var clipPoint = graph.constrainToBoundsOnAngle(farCoord, 4, scaledAngle * Math.PI / 180);
-	    return clipPoint;
-	};
-
-	// Given `coord` and `angle`, find the point where a line extended
-	// from `coord` in the direction of `angle` would be clipped by the
-	// edge of the graphie canvas. Then draw an arrowhead at that point
-	// pointing in the direction of `angle`.
-	var createArrow = function (graph, style) {
-	    // Points that define the arrowhead
-	    var center = [0.75, 0];
-	    var points = [[-3, 4], [-2.75, 2.5], [0, 0.25], center, [0, -0.25], [-2.75, -2.5], [-3, -4]];
-
-	    // Scale points by 1.4 around (0.75, 0)
-	    var scale = 1.4;
-	    points = _.map(points, function (point) {
-	        var pv = kvector.subtract(point, center);
-	        var pvScaled = kvector.scale(pv, scale);
-	        return kvector.add(center, pvScaled);
-	    });
-
-	    // We can't just pass in a path to `graph.fixedPath` as we need to modify
-	    // the points in some way, so instead we provide a function for creating
-	    // the path once the points have been transformed
-	    var createCubicPath = function (points) {
-	        var path = "M" + points[0][0] + " " + points[0][1];
-	        for (var i = 1; i < points.length; i += 3) {
-	            path += "C" + points[i][0] + " " + points[i][1] + " " + points[i + 1][0] + " " + points[i + 1][1] + " " + points[i + 2][0] + " " + points[i + 2][1];
-	        }
-	        return path;
-	    };
-
-	    // Create arrowhead
-	    var unscaledPoints = _.map(points, graph.unscalePoint);
-	    var options = {
-	        center: graph.unscalePoint(center),
-	        createPath: createCubicPath
-	    };
-	    var arrowHead = new WrappedPath(graph, unscaledPoints, options);
-	    arrowHead.attr(_.extend({
-	        "stroke-linejoin": "round",
-	        "stroke-linecap": "round",
-	        "stroke-dasharray": ""
-	    }, style));
-
-	    // Add custom function for transforming arrowheads that accounts for
-	    // center, scaling, etc.
-	    arrowHead.toCoordAtAngle = function (coord, angle) {
-	        var clipPoint = graph.scalePoint(getClipPoint(graph, coord, angle));
-	        arrowHead.transform("translateX(" + (clipPoint[0] + scale * center[0]) + "px) " + "translateY(" + (clipPoint[1] + scale * center[1]) + "px) " + "translateZ(0) " + "rotate(" + (360 - KhanMath.bound(angle)) + "deg)");
-	    };
-
-	    return arrowHead;
-	};
-
-	/**
-	 * MovableLine option functions
-	 */
-	var add = {
-	    // We do this in add as well as in standard so that we can call
-	    // pointsToFront after the first draw (which adds `this.visibleShape`)
-	    draw: function () {
-	        this.draw();
-	    },
-
-	    pointsToFront: function (state) {
-	        _.invoke(state.points, "toFront");
-	    }
-	};
-
-	add.standard = [add.draw, add.pointsToFront];
-
-	var modify = {
-	    draw: function () {
-	        this.draw();
-	    }
-	};
-
-	modify.standard = [modify.draw];
-
-	var draw = {
-	    basic: function (state) {
-	        var graphie = this.graphie;
-	        var start = this.coord(0);
-	        var end = this.coord(1);
-
-	        if (!this.state.visibleShape) {
-	            var options = {
-	                thickness: 10
-	            };
-	            this.state.visibleShape = new WrappedLine(graphie, start, end, options);
-	            this.state.visibleShape.attr(this.normalStyle());
-	            this.state.visibleShape.toFront();
-
-	            if (this.mouseTarget()) {
-	                this.mouseTarget().toFront();
-	            }
-	        }
-
-	        // Compute angle
-	        var angle = getScaledAngle(this);
-
-	        // Extend start, end if necessary (i.e., if not a line segment)
-	        if (state.extendLine) {
-	            start = getClipPoint(graphie, start, 360 - angle);
-	            end = getClipPoint(graphie, end, (540 - angle) % 360);
-	        } else if (state.extendRay) {
-	            end = getClipPoint(graphie, end, 360 - angle);
-	        }
-
-	        // Move elements
-	        var elements = [this.state.visibleShape];
-
-	        if (this.mouseTarget()) {
-	            elements.push(this.mouseTarget());
-	        }
-	        _.each(elements, function (element) {
-	            element.moveTo(start, end);
-	        });
-	    },
-
-	    arrows: function (state) {
-	        // Create arrows, if not yet created
-	        if (this._arrows == null) {
-	            this._arrows = [];
-	            if (state.extendLine) {
-	                this._arrows.push(createArrow(this.graphie, this.normalStyle()));
-	                this._arrows.push(createArrow(this.graphie, this.normalStyle()));
-	            } else if (state.extendRay) {
-	                this._arrows.push(createArrow(this.graphie, this.normalStyle()));
-	            }
-	        }
-
-	        // Transform arrows
-	        var angle = getScaledAngle(this);
-	        var angleForArrow = [360 - angle, (540 - angle) % 360];
-	        _.each(this._arrows, function (arrow, i) {
-	            arrow.toCoordAtAngle(this.coord(i), angleForArrow[i]);
-	        }, this);
-	    },
-
-	    highlight: function (state, prevState) {
-	        // TODO(jack): Figure out a way to highlight the points attached to
-	        // the line. Maybe this means an additional isHovering: []
-	        // function to state of movable/movablepoint to define [additional?]
-	        // times it should be highlighted
-	        if (state.isHovering && !prevState.isHovering) {
-	            state.visibleShape.animate(state.highlightStyle, 50);
-	        } else if (!state.isHovering && prevState.isHovering) {
-	            state.visibleShape.animate(state.normalStyle, 50);
-	        }
-	    }
-	};
-
-	draw.standard = [draw.basic, draw.arrows, draw.highlight];
-
-	var remove = {
-	    basic: function () {
-	        if (this.state.visibleShape) {
-	            this.state.visibleShape.remove();
-	        }
-	    },
-
-	    arrows: function () {
-	        if (this._arrows != null) {
-	            _.invoke(this._arrows, "remove");
-	        }
-	        this._arrows = null;
-	    }
-	};
-
-	remove.standard = [remove.basic, remove.arrows];
-
-	var constraints = {
-	    fixed: function () {
-	        return function () {
-	            return false;
-	        };
-	    },
-
-	    snap: function (snap) {
-	        return function (coord, prevCoord) {
-	            if (snap === null) {
-	                return true;
-	            }
-	            var delta = kvector.subtract(coord, prevCoord);
-	            snap = snap || this.graphie.snap;
-	            delta = kpoint.roundTo(delta, snap);
-	            return kvector.add(prevCoord, delta);
-	        };
-	    },
-
-	    bound: function (range, snap, paddingPx) {
-	        if (paddingPx === undefined) {
-	            if (range === undefined) {
-	                paddingPx = 10;
-	            } else {
-	                paddingPx = 0;
-	            }
-	        }
-	        return function (coord, prevCoord) {
-	            var graphie = this.graphie;
-	            var delta = kvector.subtract(coord, prevCoord);
-	            var range = range || graphie.range;
-	            // A null snap means no snap; an undefined snap means
-	            // default to graphie's
-	            if (snap === undefined) {
-	                snap = graphie.snap;
-	            }
-
-	            // Calculate the bounds for both points
-	            var absoluteLower = graphie.unscalePoint([paddingPx, graphie.ypixels - paddingPx]);
-	            var absoluteUpper = graphie.unscalePoint([graphie.xpixels - paddingPx, paddingPx]);
-	            if (snap) {
-	                absoluteLower = kpoint.ceilTo(absoluteLower, snap);
-	                absoluteUpper = kpoint.floorTo(absoluteUpper, snap);
-	            }
-
-	            // Calculate the bounds for the delta.
-	            var deltaBounds = _.map(this.coords(), function (coord, i) {
-	                var max = kvector.subtract(absoluteUpper, coord);
-	                var min = kvector.subtract(absoluteLower, coord);
-	                return [min, max];
-	            });
-
-	            // bound the delta by the calculated bounds
-	            var boundedDelta = _.reduce(deltaBounds, function (delta, bound) {
-	                var lower = bound[0];
-	                var upper = bound[1];
-	                var deltaX = Math.max(lower[0], Math.min(upper[0], delta[0]));
-	                var deltaY = Math.max(lower[1], Math.min(upper[1], delta[1]));
-	                return [deltaX, deltaY];
-	            }, delta);
-
-	            return kvector.add(prevCoord, boundedDelta);
-	        };
-	    }
-	};
-
-	constraints.standard = null;
-
-	var onMove = {
-	    updatePoints: function (coord, prevCoord) {
-	        var actualDelta = kvector.subtract(coord, prevCoord);
-	        _.each(this.state.points, function (point) {
-	            point.setCoord(kvector.add(point.coord(), actualDelta));
-	        });
-	    }
-	};
-
-	onMove.standard = null;
-
-	module.exports = {
-	    add: add,
-	    modify: modify,
-	    draw: draw,
-	    remove: remove,
-
-	    onMoveStart: { standard: null },
-	    constraints: constraints,
-	    onMove: onMove,
-	    onMoveEnd: { standard: null } };
-
-/***/ },
-/* 224 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var _ = __webpack_require__(16);
-	var InteractiveUtil = __webpack_require__(153);
-	var WrappedDefaults = __webpack_require__(242);
-	var kpoint = __webpack_require__(195).point;
-	var kvector = __webpack_require__(195).vector;
-	var KhanMath = __webpack_require__(144);
-
-	var DEFAULT_OPTIONS = {
-	    thickness: 2,
-	    mouselayer: false
-	};
-
-	var WrappedLine = function (graphie, start, end, options) {
-	    options = _.extend({}, DEFAULT_OPTIONS, options);
-
-	    // Always make the line as large as possible and horizontal; this
-	    // simplifies a lot of the transforms, e.g., we can rotate by exactly the
-	    // angle of the argument points in `moveTo`.
-	    var initialStart = [graphie.range[0][0], 0];
-	    var initialEnd = [graphie.range[0][1], 0];
-
-	    // Add `wrapper` and `visibleShape`
-	    _.extend(this, graphie.fixedLine(initialStart, initialEnd, options.thickness));
-
-	    // Save properties for computing transformations
-	    _.extend(this, {
-	        graphie: graphie,
-	        initialPoint: graphie.scalePoint(initialStart),
-	        initialLength: kpoint.distanceToPoint(graphie.scalePoint(initialStart), graphie.scalePoint(initialEnd))
-	    });
-
-	    // Add to appropriate graphie layer
-	    if (options.mouselayer) {
-	        this.graphie.addToMouseLayerWrapper(this.wrapper);
-	    } else {
-	        this.graphie.addToVisibleLayerWrapper(this.wrapper);
-	    }
-
-	    // Move to argument points
-	    this.moveTo(start, end);
-	};
-
-	_.extend(WrappedLine.prototype, WrappedDefaults, {
-	    getMouseTarget: function () {
-	        return this.wrapper;
-	    },
-
-	    moveTo: function (start, end) {
-	        var scaledStart = this.graphie.scalePoint(start);
-	        var scaledEnd = this.graphie.scalePoint(end);
-
-	        // Compute transformation parameters
-	        var polarDiff = kvector.polarDegFromCart(kvector.subtract(scaledEnd, scaledStart));
-	        var lineLength = polarDiff[0];
-	        var angle = KhanMath.bound(polarDiff[1]);
-	        var delta = kvector.subtract(scaledStart, this.initialPoint);
-	        var scale = KhanMath.bound(lineLength / this.initialLength);
-
-	        // Construct and apply transformation string
-	        var do3dTransform = InteractiveUtil.getCanUse3dTransform();
-	        var transformation = "translateX(" + delta[0] + "px) " + "translateY(" + delta[1] + "px) " + (do3dTransform ? " translateZ(0)" : "") + "rotate(" + angle + "deg) " + "scaleX(" + scale + ") scaleY(1)";
-	        this.transform(transformation);
-	    }
-	});
-
-	module.exports = WrappedLine;
-
-/***/ },
-/* 225 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, indent, no-undef, no-var, one-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	/**
-	 * A library of options to pass to add/draw/remove/constraints
-	 */
-
-	var kpoint = __webpack_require__(195).point;
-	var kvector = __webpack_require__(195).vector;
-
-	function sum(array) {
-	    return _.reduce(array, function (memo, arg) {
-	        return memo + arg;
-	    }, 0);
-	}
-
-	function clockwise(points) {
-	    var segments = _.zip(points, points.slice(1).concat(points.slice(0, 1)));
-	    var areas = _.map(segments, function (segment) {
-	        var p1 = segment[0],
-	            p2 = segment[1];
-	        return (p2[0] - p1[0]) * (p2[1] + p1[1]);
-	    });
-	    return sum(areas) > 0;
-	}
-
-	var add = {
-	    constrain: function () {
-	        this.constrain();
-	    },
-
-	    pointsToFront: function (state) {
-	        _.invoke(state.points, "toFront");
-	    }
-	};
-
-	add.standard = [add.constrain, add.pointsToFront];
-
-	var modify = {
-	    draw: function () {
-	        this.draw();
-	    }
-	};
-
-	modify.standard = [modify.draw];
-
-	var draw = {
-	    basic: function (state, prevState) {
-	        var graphie = this.graphie;
-	        var path = this.path(state);
-
-	        if (!this.state.visibleShape) {
-	            this.state.visibleShape = graphie.raphael.path(path);
-	            this.state.visibleShape.attr(this.normalStyle());
-	        }
-	        if (state.normalStyle !== prevState.normalStyle && !_.isEqual(state.normalStyle, prevState.normalStyle)) {
-	            this.state.visibleShape.attr(this.normalStyle());
-	        }
-	        this.state.visibleShape.attr({ path: path });
-	        if (this.mouseTarget()) {
-	            this.mouseTarget().attr({ path: path });
-	        }
-	    },
-
-	    /* Labels are handled primarily by label objects, but sometimes require
-	     * extra movables, e.g., for the arcs drawn at labeled angles. These extra
-	     * movables are stored in the label cache. */
-	    labels: function (state, prevState) {
-	        var graphie = this.graphie;
-	        var self = this;
-
-	        var coords = _.invoke(state.points, "coord");
-	        var isClockwise = clockwise(coords);
-	        var n = coords.length;
-
-	        // graphie.labelAngle and similar methods attempt to re-use the label
-	        // provided, which will have been stored on state._labeledAngles.
-	        // If they cannot re-use the label, they make a new one, which will
-	        // get stored on state._labelCache. These will all be cleared out when
-	        // we remove the polygon.
-	        // (This logic is borrowed from graphie:addMovablePolygon.)
-	        if (self.state._labelCache != null) {
-	            _.invoke(self.state._labelCache, "remove");
-	        }
-	        self.state._labelCache = [];
-
-	        // Update angle labels
-	        if (state.angleLabels.length || state.showRightAngleMarkers.length) {
-	            // Generate labels
-	            if (self.state._labeledAngles == null) {
-	                self.state._labeledAngles = _.times(Math.max(state.angleLabels.length, state.showRightAngleMarkers.length), function () {
-	                    return graphie.label([0, 0], "", "center", state.labelStyle);
-	                });
-	            }
-
-	            _.each(self.state._labeledAngles, function (label, i) {
-	                self.state._labelCache.push(graphie.labelAngle({
-	                    point1: coords[(i - 1 + n) % n],
-	                    vertex: coords[i],
-	                    point3: coords[(i + 1) % n],
-	                    label: label,
-	                    text: state.angleLabels[i],
-	                    showRightAngleMarker: state.showRightAngleMarkers[i],
-	                    numArcs: state.numArcs[i],
-	                    clockwise: isClockwise,
-	                    style: state.labelStyle
-	                }));
-	            });
-	        }
-
-	        // Update side labels
-	        if (state.sideLabels.length) {
-	            // Generate labels
-	            if (self.state._labeledSides == null) {
-	                self.state._labeledSides = _.map(state.sideLabels, function (label) {
-	                    return graphie.label([0, 0], "", "center", state.labelStyle);
-	                });
-	            }
-
-	            _.each(self.state._labeledSides, function (label, i) {
-	                self.state._labelCache.push(graphie.labelSide({
-	                    point1: coords[i],
-	                    point2: coords[(i + 1) % n],
-	                    label: label,
-	                    text: state.sideLabels[i],
-	                    numArrows: state.numArrows[i],
-	                    numTicks: state.numTicks[i],
-	                    clockwise: isClockwise,
-	                    style: state.labelStyle
-	                }));
-	            });
-	        }
-
-	        // Update vertex labels
-	        if (state.vertexLabels.length) {
-	            // Generate labels
-	            if (self.state._labeledVertices == null) {
-	                self.state._labeledVertices = _.map(state.vertexLabels, function (label) {
-	                    return graphie.label([0, 0], "", "center", state.labelStyle);
-	                });
-	            }
-
-	            _.each(self.state._labeledVertices, function (label, i) {
-	                self.state._labelCache.push(graphie.labelVertex({
-	                    point1: coords[(i - 1 + n) % n],
-	                    vertex: coords[i],
-	                    point3: coords[(i + 1) % n],
-	                    label: label,
-	                    text: state.vertexLabels[i],
-	                    clockwise: isClockwise,
-	                    style: state.labelStyle
-	                }));
-	            });
-	        }
-
-	        // graphie.labelVertex and its peer methods return an array of movables
-	        self.state._labelCache = _.flatten(self.state._labelCache);
-	    },
-
-	    highlight: function (state, prevState) {
-	        if (state.isHovering && !prevState.isHovering) {
-	            state.visibleShape.animate(this.highlightStyle(), 50);
-	        } else if (!state.isHovering && prevState.isHovering) {
-	            state.visibleShape.animate(this.normalStyle(), 50);
-	        }
-	    }
-	};
-
-	draw.standard = [draw.basic, draw.labels, draw.highlight];
-
-	var remove = {
-	    basic: function () {
-	        if (this.state.visibleShape) {
-	            this.state.visibleShape.remove();
-	        }
-	    },
-	    labels: function () {
-	        var labels = [this.state._labeledSides, this.state._labeledVertices, this.state._labeledAngles, this.state._labelCache];
-
-	        _.each(labels, function (labelType) {
-	            if (labelType != null && labelType.length) {
-	                _.invoke(labelType, "remove");
-	            }
-	        });
-	    }
-	};
-
-	remove.standard = [remove.basic, remove.labels];
-
-	var constraints = {
-	    fixed: function () {
-	        return function () {
-	            return false;
-	        };
-	    },
-
-	    snap: function (snap) {
-	        return function (coord) {
-	            if (snap === null) {
-	                return true;
-	            }
-	            snap = snap || this.graphie.snap;
-	            return kpoint.roundTo(coord, snap);
-	        };
-	    },
-
-	    bound: function (range, snap, paddingPx) {
-	        if (paddingPx === undefined) {
-	            if (range === undefined) {
-	                paddingPx = 10;
-	            } else {
-	                paddingPx = 0;
-	            }
-	        }
-	        return function (coord, prevCoord) {
-	            var graphie = this.graphie;
-	            var delta = kvector.subtract(coord, prevCoord);
-	            var range = range || graphie.range;
-	            // A null snap means no snap; an undefined snap means
-	            // default to graphie's
-	            if (snap === undefined) {
-	                snap = graphie.snap;
-	            }
-
-	            // Calculate the bounds for both points
-	            var absoluteLower = graphie.unscalePoint([paddingPx, graphie.ypixels - paddingPx]);
-	            var absoluteUpper = graphie.unscalePoint([graphie.xpixels - paddingPx, paddingPx]);
-	            if (snap) {
-	                absoluteLower = kpoint.ceilTo(absoluteLower, snap);
-	                absoluteUpper = kpoint.floorTo(absoluteUpper, snap);
-	            }
-
-	            // Calculate the bounds for the delta.
-	            var deltaBounds = _.map(this.coords(), function (coord, i) {
-	                var max = kvector.subtract(absoluteUpper, coord);
-	                var min = kvector.subtract(absoluteLower, coord);
-	                return [min, max];
-	            });
-
-	            // bound the delta by the calculated bounds
-	            var boundedDelta = _.reduce(deltaBounds, function (delta, bound) {
-	                var lower = bound[0];
-	                var upper = bound[1];
-	                var deltaX = Math.max(lower[0], Math.min(upper[0], delta[0]));
-	                var deltaY = Math.max(lower[1], Math.min(upper[1], delta[1]));
-	                return [deltaX, deltaY];
-	            }, delta);
-
-	            return kvector.add(prevCoord, boundedDelta);
-	        };
-	    }
-	};
-
-	constraints.standard = null;
-
-	var onMove = {
-	    updatePoints: function (coord, prevCoord) {
-	        var actualDelta = kvector.subtract(coord, prevCoord);
-	        _.each(this.state.points, function (point) {
-	            point.setCoord(kvector.add(point.coord(), actualDelta));
-	        });
-	    }
-	};
-
-	onMove.standard = null;
-
-	module.exports = {
-	    add: add,
-	    modify: modify,
-	    draw: draw,
-	    remove: remove,
-
-	    onMoveStart: { standard: null },
-	    constraints: constraints,
-	    onMove: onMove,
-	    onMoveEnd: { standard: null },
-	    onClick: { standard: null }
-	};
-
-/***/ },
-/* 226 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/*
 	* jQuery Mobile Framework : "mouse" plugin
 	* Copyright (c) jQuery Project
@@ -57787,7 +57124,82 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 227 */
+/* 224 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var _ = __webpack_require__(16);
+	var InteractiveUtil = __webpack_require__(153);
+	var WrappedDefaults = __webpack_require__(242);
+	var kpoint = __webpack_require__(195).point;
+	var kvector = __webpack_require__(195).vector;
+	var KhanMath = __webpack_require__(141);
+
+	var DEFAULT_OPTIONS = {
+	    thickness: 2,
+	    mouselayer: false
+	};
+
+	var WrappedLine = function (graphie, start, end, options) {
+	    options = _.extend({}, DEFAULT_OPTIONS, options);
+
+	    // Always make the line as large as possible and horizontal; this
+	    // simplifies a lot of the transforms, e.g., we can rotate by exactly the
+	    // angle of the argument points in `moveTo`.
+	    var initialStart = [graphie.range[0][0], 0];
+	    var initialEnd = [graphie.range[0][1], 0];
+
+	    // Add `wrapper` and `visibleShape`
+	    _.extend(this, graphie.fixedLine(initialStart, initialEnd, options.thickness));
+
+	    // Save properties for computing transformations
+	    _.extend(this, {
+	        graphie: graphie,
+	        initialPoint: graphie.scalePoint(initialStart),
+	        initialLength: kpoint.distanceToPoint(graphie.scalePoint(initialStart), graphie.scalePoint(initialEnd))
+	    });
+
+	    // Add to appropriate graphie layer
+	    if (options.mouselayer) {
+	        this.graphie.addToMouseLayerWrapper(this.wrapper);
+	    } else {
+	        this.graphie.addToVisibleLayerWrapper(this.wrapper);
+	    }
+
+	    // Move to argument points
+	    this.moveTo(start, end);
+	};
+
+	_.extend(WrappedLine.prototype, WrappedDefaults, {
+	    getMouseTarget: function () {
+	        return this.wrapper;
+	    },
+
+	    moveTo: function (start, end) {
+	        var scaledStart = this.graphie.scalePoint(start);
+	        var scaledEnd = this.graphie.scalePoint(end);
+
+	        // Compute transformation parameters
+	        var polarDiff = kvector.polarDegFromCart(kvector.subtract(scaledEnd, scaledStart));
+	        var lineLength = polarDiff[0];
+	        var angle = KhanMath.bound(polarDiff[1]);
+	        var delta = kvector.subtract(scaledStart, this.initialPoint);
+	        var scale = KhanMath.bound(lineLength / this.initialLength);
+
+	        // Construct and apply transformation string
+	        var do3dTransform = InteractiveUtil.getCanUse3dTransform();
+	        var transformation = "translateX(" + delta[0] + "px) " + "translateY(" + delta[1] + "px) " + (do3dTransform ? " translateZ(0)" : "") + "rotate(" + angle + "deg) " + "scaleX(" + scale + ") scaleY(1)";
+	        this.transform(transformation);
+	    }
+	});
+
+	module.exports = WrappedLine;
+
+/***/ },
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -57828,7 +57240,692 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WrappedPath;
 
 /***/ },
+/* 226 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, indent, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/**
+	 * A library of options to pass to add/draw/remove/constraints
+	 */
+	var _ = __webpack_require__(16);
+	var WrappedLine = __webpack_require__(224);
+	var WrappedPath = __webpack_require__(225);
+	var kvector = __webpack_require__(195).vector;
+	var kpoint = __webpack_require__(195).point;
+	var KhanMath = __webpack_require__(141);
+
+	/**
+	 * Helper functions
+	 */
+	var getScaledAngle = function (line) {
+	    var scaledA = line.graphie.scalePoint(line.coord(0));
+	    var scaledZ = line.graphie.scalePoint(line.coord(1));
+	    return kvector.polarDegFromCart(kvector.subtract(scaledZ, scaledA))[1];
+	};
+
+	// Given `coord` and `angle`, find the point where a line extended
+	// from `coord` in the direction of `angle` would be clipped by the
+	// edge of the graphie canvas. Then draw an arrowhead at that point
+	// pointing in the direction of `angle`.
+	var getClipPoint = function (graph, coord, angle) {
+	    // Actually put the arrowheads 4px from the edge so they have
+	    // a bit of room
+	    var xExtent = graph.range[0][1] - graph.range[0][0];
+	    var yExtent = graph.range[1][1] - graph.range[1][0];
+
+	    // shoot a point off into the distance ...
+	    var distance = xExtent + yExtent;
+	    // we need to scale the point according to the scale of the axes
+	    var angleVec = graph.unscaleVector(kvector.cartFromPolarDeg([1, angle]));
+	    var distVec = kvector.scale(kvector.normalize(angleVec), distance);
+	    var farCoord = kvector.add(coord, distVec);
+	    var scaledAngle = kvector.polarDegFromCart(angleVec)[1];
+	    // ... and then bring it back
+	    var clipPoint = graph.constrainToBoundsOnAngle(farCoord, 4, scaledAngle * Math.PI / 180);
+	    return clipPoint;
+	};
+
+	// Given `coord` and `angle`, find the point where a line extended
+	// from `coord` in the direction of `angle` would be clipped by the
+	// edge of the graphie canvas. Then draw an arrowhead at that point
+	// pointing in the direction of `angle`.
+	var createArrow = function (graph, style) {
+	    // Points that define the arrowhead
+	    var center = [0.75, 0];
+	    var points = [[-3, 4], [-2.75, 2.5], [0, 0.25], center, [0, -0.25], [-2.75, -2.5], [-3, -4]];
+
+	    // Scale points by 1.4 around (0.75, 0)
+	    var scale = 1.4;
+	    points = _.map(points, function (point) {
+	        var pv = kvector.subtract(point, center);
+	        var pvScaled = kvector.scale(pv, scale);
+	        return kvector.add(center, pvScaled);
+	    });
+
+	    // We can't just pass in a path to `graph.fixedPath` as we need to modify
+	    // the points in some way, so instead we provide a function for creating
+	    // the path once the points have been transformed
+	    var createCubicPath = function (points) {
+	        var path = "M" + points[0][0] + " " + points[0][1];
+	        for (var i = 1; i < points.length; i += 3) {
+	            path += "C" + points[i][0] + " " + points[i][1] + " " + points[i + 1][0] + " " + points[i + 1][1] + " " + points[i + 2][0] + " " + points[i + 2][1];
+	        }
+	        return path;
+	    };
+
+	    // Create arrowhead
+	    var unscaledPoints = _.map(points, graph.unscalePoint);
+	    var options = {
+	        center: graph.unscalePoint(center),
+	        createPath: createCubicPath
+	    };
+	    var arrowHead = new WrappedPath(graph, unscaledPoints, options);
+	    arrowHead.attr(_.extend({
+	        "stroke-linejoin": "round",
+	        "stroke-linecap": "round",
+	        "stroke-dasharray": ""
+	    }, style));
+
+	    // Add custom function for transforming arrowheads that accounts for
+	    // center, scaling, etc.
+	    arrowHead.toCoordAtAngle = function (coord, angle) {
+	        var clipPoint = graph.scalePoint(getClipPoint(graph, coord, angle));
+	        arrowHead.transform("translateX(" + (clipPoint[0] + scale * center[0]) + "px) " + "translateY(" + (clipPoint[1] + scale * center[1]) + "px) " + "translateZ(0) " + "rotate(" + (360 - KhanMath.bound(angle)) + "deg)");
+	    };
+
+	    return arrowHead;
+	};
+
+	/**
+	 * MovableLine option functions
+	 */
+	var add = {
+	    // We do this in add as well as in standard so that we can call
+	    // pointsToFront after the first draw (which adds `this.visibleShape`)
+	    draw: function () {
+	        this.draw();
+	    },
+
+	    pointsToFront: function (state) {
+	        _.invoke(state.points, "toFront");
+	    }
+	};
+
+	add.standard = [add.draw, add.pointsToFront];
+
+	var modify = {
+	    draw: function () {
+	        this.draw();
+	    }
+	};
+
+	modify.standard = [modify.draw];
+
+	var draw = {
+	    basic: function (state) {
+	        var graphie = this.graphie;
+	        var start = this.coord(0);
+	        var end = this.coord(1);
+
+	        if (!this.state.visibleShape) {
+	            var options = {
+	                thickness: 10
+	            };
+	            this.state.visibleShape = new WrappedLine(graphie, start, end, options);
+	            this.state.visibleShape.attr(this.normalStyle());
+	            this.state.visibleShape.toFront();
+
+	            if (this.mouseTarget()) {
+	                this.mouseTarget().toFront();
+	            }
+	        }
+
+	        // Compute angle
+	        var angle = getScaledAngle(this);
+
+	        // Extend start, end if necessary (i.e., if not a line segment)
+	        if (state.extendLine) {
+	            start = getClipPoint(graphie, start, 360 - angle);
+	            end = getClipPoint(graphie, end, (540 - angle) % 360);
+	        } else if (state.extendRay) {
+	            end = getClipPoint(graphie, end, 360 - angle);
+	        }
+
+	        // Move elements
+	        var elements = [this.state.visibleShape];
+
+	        if (this.mouseTarget()) {
+	            elements.push(this.mouseTarget());
+	        }
+	        _.each(elements, function (element) {
+	            element.moveTo(start, end);
+	        });
+	    },
+
+	    arrows: function (state) {
+	        // Create arrows, if not yet created
+	        if (this._arrows == null) {
+	            this._arrows = [];
+	            if (state.extendLine) {
+	                this._arrows.push(createArrow(this.graphie, this.normalStyle()));
+	                this._arrows.push(createArrow(this.graphie, this.normalStyle()));
+	            } else if (state.extendRay) {
+	                this._arrows.push(createArrow(this.graphie, this.normalStyle()));
+	            }
+	        }
+
+	        // Transform arrows
+	        var angle = getScaledAngle(this);
+	        var angleForArrow = [360 - angle, (540 - angle) % 360];
+	        _.each(this._arrows, function (arrow, i) {
+	            arrow.toCoordAtAngle(this.coord(i), angleForArrow[i]);
+	        }, this);
+	    },
+
+	    highlight: function (state, prevState) {
+	        // TODO(jack): Figure out a way to highlight the points attached to
+	        // the line. Maybe this means an additional isHovering: []
+	        // function to state of movable/movablepoint to define [additional?]
+	        // times it should be highlighted
+	        if (state.isHovering && !prevState.isHovering) {
+	            state.visibleShape.animate(state.highlightStyle, 50);
+	        } else if (!state.isHovering && prevState.isHovering) {
+	            state.visibleShape.animate(state.normalStyle, 50);
+	        }
+	    }
+	};
+
+	draw.standard = [draw.basic, draw.arrows, draw.highlight];
+
+	var remove = {
+	    basic: function () {
+	        if (this.state.visibleShape) {
+	            this.state.visibleShape.remove();
+	        }
+	    },
+
+	    arrows: function () {
+	        if (this._arrows != null) {
+	            _.invoke(this._arrows, "remove");
+	        }
+	        this._arrows = null;
+	    }
+	};
+
+	remove.standard = [remove.basic, remove.arrows];
+
+	var constraints = {
+	    fixed: function () {
+	        return function () {
+	            return false;
+	        };
+	    },
+
+	    snap: function (snap) {
+	        return function (coord, prevCoord) {
+	            if (snap === null) {
+	                return true;
+	            }
+	            var delta = kvector.subtract(coord, prevCoord);
+	            snap = snap || this.graphie.snap;
+	            delta = kpoint.roundTo(delta, snap);
+	            return kvector.add(prevCoord, delta);
+	        };
+	    },
+
+	    bound: function (range, snap, paddingPx) {
+	        if (paddingPx === undefined) {
+	            if (range === undefined) {
+	                paddingPx = 10;
+	            } else {
+	                paddingPx = 0;
+	            }
+	        }
+	        return function (coord, prevCoord) {
+	            var graphie = this.graphie;
+	            var delta = kvector.subtract(coord, prevCoord);
+	            var range = range || graphie.range;
+	            // A null snap means no snap; an undefined snap means
+	            // default to graphie's
+	            if (snap === undefined) {
+	                snap = graphie.snap;
+	            }
+
+	            // Calculate the bounds for both points
+	            var absoluteLower = graphie.unscalePoint([paddingPx, graphie.ypixels - paddingPx]);
+	            var absoluteUpper = graphie.unscalePoint([graphie.xpixels - paddingPx, paddingPx]);
+	            if (snap) {
+	                absoluteLower = kpoint.ceilTo(absoluteLower, snap);
+	                absoluteUpper = kpoint.floorTo(absoluteUpper, snap);
+	            }
+
+	            // Calculate the bounds for the delta.
+	            var deltaBounds = _.map(this.coords(), function (coord, i) {
+	                var max = kvector.subtract(absoluteUpper, coord);
+	                var min = kvector.subtract(absoluteLower, coord);
+	                return [min, max];
+	            });
+
+	            // bound the delta by the calculated bounds
+	            var boundedDelta = _.reduce(deltaBounds, function (delta, bound) {
+	                var lower = bound[0];
+	                var upper = bound[1];
+	                var deltaX = Math.max(lower[0], Math.min(upper[0], delta[0]));
+	                var deltaY = Math.max(lower[1], Math.min(upper[1], delta[1]));
+	                return [deltaX, deltaY];
+	            }, delta);
+
+	            return kvector.add(prevCoord, boundedDelta);
+	        };
+	    }
+	};
+
+	constraints.standard = null;
+
+	var onMove = {
+	    updatePoints: function (coord, prevCoord) {
+	        var actualDelta = kvector.subtract(coord, prevCoord);
+	        _.each(this.state.points, function (point) {
+	            point.setCoord(kvector.add(point.coord(), actualDelta));
+	        });
+	    }
+	};
+
+	onMove.standard = null;
+
+	module.exports = {
+	    add: add,
+	    modify: modify,
+	    draw: draw,
+	    remove: remove,
+
+	    onMoveStart: { standard: null },
+	    constraints: constraints,
+	    onMove: onMove,
+	    onMoveEnd: { standard: null } };
+
+/***/ },
+/* 227 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, indent, no-undef, no-var, one-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/**
+	 * A library of options to pass to add/draw/remove/constraints
+	 */
+
+	var kpoint = __webpack_require__(195).point;
+	var kvector = __webpack_require__(195).vector;
+
+	function sum(array) {
+	    return _.reduce(array, function (memo, arg) {
+	        return memo + arg;
+	    }, 0);
+	}
+
+	function clockwise(points) {
+	    var segments = _.zip(points, points.slice(1).concat(points.slice(0, 1)));
+	    var areas = _.map(segments, function (segment) {
+	        var p1 = segment[0],
+	            p2 = segment[1];
+	        return (p2[0] - p1[0]) * (p2[1] + p1[1]);
+	    });
+	    return sum(areas) > 0;
+	}
+
+	var add = {
+	    constrain: function () {
+	        this.constrain();
+	    },
+
+	    pointsToFront: function (state) {
+	        _.invoke(state.points, "toFront");
+	    }
+	};
+
+	add.standard = [add.constrain, add.pointsToFront];
+
+	var modify = {
+	    draw: function () {
+	        this.draw();
+	    }
+	};
+
+	modify.standard = [modify.draw];
+
+	var draw = {
+	    basic: function (state, prevState) {
+	        var graphie = this.graphie;
+	        var path = this.path(state);
+
+	        if (!this.state.visibleShape) {
+	            this.state.visibleShape = graphie.raphael.path(path);
+	            this.state.visibleShape.attr(this.normalStyle());
+	        }
+	        if (state.normalStyle !== prevState.normalStyle && !_.isEqual(state.normalStyle, prevState.normalStyle)) {
+	            this.state.visibleShape.attr(this.normalStyle());
+	        }
+	        this.state.visibleShape.attr({ path: path });
+	        if (this.mouseTarget()) {
+	            this.mouseTarget().attr({ path: path });
+	        }
+	    },
+
+	    /* Labels are handled primarily by label objects, but sometimes require
+	     * extra movables, e.g., for the arcs drawn at labeled angles. These extra
+	     * movables are stored in the label cache. */
+	    labels: function (state, prevState) {
+	        var graphie = this.graphie;
+	        var self = this;
+
+	        var coords = _.invoke(state.points, "coord");
+	        var isClockwise = clockwise(coords);
+	        var n = coords.length;
+
+	        // graphie.labelAngle and similar methods attempt to re-use the label
+	        // provided, which will have been stored on state._labeledAngles.
+	        // If they cannot re-use the label, they make a new one, which will
+	        // get stored on state._labelCache. These will all be cleared out when
+	        // we remove the polygon.
+	        // (This logic is borrowed from graphie:addMovablePolygon.)
+	        if (self.state._labelCache != null) {
+	            _.invoke(self.state._labelCache, "remove");
+	        }
+	        self.state._labelCache = [];
+
+	        // Update angle labels
+	        if (state.angleLabels.length || state.showRightAngleMarkers.length) {
+	            // Generate labels
+	            if (self.state._labeledAngles == null) {
+	                self.state._labeledAngles = _.times(Math.max(state.angleLabels.length, state.showRightAngleMarkers.length), function () {
+	                    return graphie.label([0, 0], "", "center", state.labelStyle);
+	                });
+	            }
+
+	            _.each(self.state._labeledAngles, function (label, i) {
+	                self.state._labelCache.push(graphie.labelAngle({
+	                    point1: coords[(i - 1 + n) % n],
+	                    vertex: coords[i],
+	                    point3: coords[(i + 1) % n],
+	                    label: label,
+	                    text: state.angleLabels[i],
+	                    showRightAngleMarker: state.showRightAngleMarkers[i],
+	                    numArcs: state.numArcs[i],
+	                    clockwise: isClockwise,
+	                    style: state.labelStyle
+	                }));
+	            });
+	        }
+
+	        // Update side labels
+	        if (state.sideLabels.length) {
+	            // Generate labels
+	            if (self.state._labeledSides == null) {
+	                self.state._labeledSides = _.map(state.sideLabels, function (label) {
+	                    return graphie.label([0, 0], "", "center", state.labelStyle);
+	                });
+	            }
+
+	            _.each(self.state._labeledSides, function (label, i) {
+	                self.state._labelCache.push(graphie.labelSide({
+	                    point1: coords[i],
+	                    point2: coords[(i + 1) % n],
+	                    label: label,
+	                    text: state.sideLabels[i],
+	                    numArrows: state.numArrows[i],
+	                    numTicks: state.numTicks[i],
+	                    clockwise: isClockwise,
+	                    style: state.labelStyle
+	                }));
+	            });
+	        }
+
+	        // Update vertex labels
+	        if (state.vertexLabels.length) {
+	            // Generate labels
+	            if (self.state._labeledVertices == null) {
+	                self.state._labeledVertices = _.map(state.vertexLabels, function (label) {
+	                    return graphie.label([0, 0], "", "center", state.labelStyle);
+	                });
+	            }
+
+	            _.each(self.state._labeledVertices, function (label, i) {
+	                self.state._labelCache.push(graphie.labelVertex({
+	                    point1: coords[(i - 1 + n) % n],
+	                    vertex: coords[i],
+	                    point3: coords[(i + 1) % n],
+	                    label: label,
+	                    text: state.vertexLabels[i],
+	                    clockwise: isClockwise,
+	                    style: state.labelStyle
+	                }));
+	            });
+	        }
+
+	        // graphie.labelVertex and its peer methods return an array of movables
+	        self.state._labelCache = _.flatten(self.state._labelCache);
+	    },
+
+	    highlight: function (state, prevState) {
+	        if (state.isHovering && !prevState.isHovering) {
+	            state.visibleShape.animate(this.highlightStyle(), 50);
+	        } else if (!state.isHovering && prevState.isHovering) {
+	            state.visibleShape.animate(this.normalStyle(), 50);
+	        }
+	    }
+	};
+
+	draw.standard = [draw.basic, draw.labels, draw.highlight];
+
+	var remove = {
+	    basic: function () {
+	        if (this.state.visibleShape) {
+	            this.state.visibleShape.remove();
+	        }
+	    },
+	    labels: function () {
+	        var labels = [this.state._labeledSides, this.state._labeledVertices, this.state._labeledAngles, this.state._labelCache];
+
+	        _.each(labels, function (labelType) {
+	            if (labelType != null && labelType.length) {
+	                _.invoke(labelType, "remove");
+	            }
+	        });
+	    }
+	};
+
+	remove.standard = [remove.basic, remove.labels];
+
+	var constraints = {
+	    fixed: function () {
+	        return function () {
+	            return false;
+	        };
+	    },
+
+	    snap: function (snap) {
+	        return function (coord) {
+	            if (snap === null) {
+	                return true;
+	            }
+	            snap = snap || this.graphie.snap;
+	            return kpoint.roundTo(coord, snap);
+	        };
+	    },
+
+	    bound: function (range, snap, paddingPx) {
+	        if (paddingPx === undefined) {
+	            if (range === undefined) {
+	                paddingPx = 10;
+	            } else {
+	                paddingPx = 0;
+	            }
+	        }
+	        return function (coord, prevCoord) {
+	            var graphie = this.graphie;
+	            var delta = kvector.subtract(coord, prevCoord);
+	            var range = range || graphie.range;
+	            // A null snap means no snap; an undefined snap means
+	            // default to graphie's
+	            if (snap === undefined) {
+	                snap = graphie.snap;
+	            }
+
+	            // Calculate the bounds for both points
+	            var absoluteLower = graphie.unscalePoint([paddingPx, graphie.ypixels - paddingPx]);
+	            var absoluteUpper = graphie.unscalePoint([graphie.xpixels - paddingPx, paddingPx]);
+	            if (snap) {
+	                absoluteLower = kpoint.ceilTo(absoluteLower, snap);
+	                absoluteUpper = kpoint.floorTo(absoluteUpper, snap);
+	            }
+
+	            // Calculate the bounds for the delta.
+	            var deltaBounds = _.map(this.coords(), function (coord, i) {
+	                var max = kvector.subtract(absoluteUpper, coord);
+	                var min = kvector.subtract(absoluteLower, coord);
+	                return [min, max];
+	            });
+
+	            // bound the delta by the calculated bounds
+	            var boundedDelta = _.reduce(deltaBounds, function (delta, bound) {
+	                var lower = bound[0];
+	                var upper = bound[1];
+	                var deltaX = Math.max(lower[0], Math.min(upper[0], delta[0]));
+	                var deltaY = Math.max(lower[1], Math.min(upper[1], delta[1]));
+	                return [deltaX, deltaY];
+	            }, delta);
+
+	            return kvector.add(prevCoord, boundedDelta);
+	        };
+	    }
+	};
+
+	constraints.standard = null;
+
+	var onMove = {
+	    updatePoints: function (coord, prevCoord) {
+	        var actualDelta = kvector.subtract(coord, prevCoord);
+	        _.each(this.state.points, function (point) {
+	            point.setCoord(kvector.add(point.coord(), actualDelta));
+	        });
+	    }
+	};
+
+	onMove.standard = null;
+
+	module.exports = {
+	    add: add,
+	    modify: modify,
+	    draw: draw,
+	    remove: remove,
+
+	    onMoveStart: { standard: null },
+	    constraints: constraints,
+	    onMove: onMove,
+	    onMoveEnd: { standard: null },
+	    onClick: { standard: null }
+	};
+
+/***/ },
 /* 228 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(15);
+	var _ = __webpack_require__(16);
+
+	/**
+	 * A radio button that can be unchecked by clicking it again.
+	 *
+	 * This component behaves much like a checkbox in that when you click it again
+	 * (or hit space bar or select it in some other way), it will become unchecked.
+	 * (Hopefully) it behaves exactly like a radio button in every other way though
+	 * (arrow keys can still be used to select it within a group for example).
+	 *
+	 * Here's a summary of which of our event handlers fire for each way to select
+	 * or deselect the button:
+	 *
+	 * - Clicking a button: handleClick, handleChange
+	 * - Pressing spacebar with button focussed: handleKeyDown, handleKeyUp (we
+	 *   suppress the default behavior of some browsers to synthesize a click event
+	 *   here).
+	 * - When radio button A is selected, pressing down arrow to select B:
+	 *   handleKeyDown (A), handleClick (B), handleChange (B), handleKeyUp (B)
+	 * - Clicking with mac screenreader: handleClick, handleChange
+	 */
+	var ToggleableRadioButton = React.createClass({
+	    displayName: "ToggleableRadioButton",
+
+	    propTypes: {
+	        // Whether the radio button should be checked or unchecked (this is a
+	        // controlled component).
+	        checked: React.PropTypes.bool.isRequired,
+
+	        // A function that will be called whenever the radio button is checked
+	        // or unchecked. It's possible for this to be called twice for a single
+	        // checking or unchecking.
+	        onChecked: React.PropTypes.func.isRequired },
+
+	    handleClick: function (event) {
+	        this.props.onChecked(!this.props.checked);
+
+	        // NOTE(johnsullivan): Preventing default would make sense to do here
+	        //     because we're fully controlling the state of the check box and
+	        //     don't really want it to be (un)checked accidently. React
+	        //     requires that we *don't* call preventDefault from the onClick or
+	        //     onChecked handlers of a controlled component though.
+	    },
+
+	    handleKeyUp: function (event) {
+	        // Make hitting the spacebar with the element selected equivalent to
+	        // clicking it. Some browsers do this as part of the radio button's
+	        // default behavior, but since some browsers don't we normalize the
+	        // behavior here.
+	        if (event.key === " ") {
+	            this.props.onChecked(!this.props.checked);
+	            event.preventDefault();
+	        }
+	    },
+
+	    handleChange: function (event) {
+	        // If the checkbox is going from unchecked to checked, we'll handle it
+	        // here.
+	        // NOTE(johnsullivan): The onClick/onKeyUp handler most likely *also*
+	        //     handled this, but we're being defensive against browsers/devices
+	        //     that might not call those handlers like we'd expect. It's
+	        //     unclear to me whether this is strictly necessary.
+	        if (!this.props.checked && event.target.checked) {
+	            this.props.onChecked(true);
+	        }
+	    },
+
+	    handleKeyDown: function (event) {
+	        // This is necessary in order to prevent IE9 from creating a duplicate
+	        // click event on the radio button when the space bar is hit.
+	        if (event.key === " ") {
+	            event.preventDefault();
+	        }
+	    },
+
+	    render: function () {
+	        var inputProps = _.extend({}, this.props, {
+	            type: "radio",
+	            onChange: this.handleChange,
+	            onClick: this.handleClick,
+	            onKeyDown: this.handleKeyDown,
+	            onKeyUp: this.handleKeyUp });
+
+	        return React.createElement("input", inputProps);
+	    } });
+
+	module.exports = ToggleableRadioButton;
+
+/***/ },
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(15);
@@ -58004,99 +58101,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	module.exports = connect(mapStateToProps, mapDispatchToProps)(KeypadContainer);
-
-/***/ },
-/* 229 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(15);
-	var _ = __webpack_require__(16);
-
-	/**
-	 * A radio button that can be unchecked by clicking it again.
-	 *
-	 * This component behaves much like a checkbox in that when you click it again
-	 * (or hit space bar or select it in some other way), it will become unchecked.
-	 * (Hopefully) it behaves exactly like a radio button in every other way though
-	 * (arrow keys can still be used to select it within a group for example).
-	 *
-	 * Here's a summary of which of our event handlers fire for each way to select
-	 * or deselect the button:
-	 *
-	 * - Clicking a button: handleClick, handleChange
-	 * - Pressing spacebar with button focussed: handleKeyDown, handleKeyUp (we
-	 *   suppress the default behavior of some browsers to synthesize a click event
-	 *   here).
-	 * - When radio button A is selected, pressing down arrow to select B:
-	 *   handleKeyDown (A), handleClick (B), handleChange (B), handleKeyUp (B)
-	 * - Clicking with mac screenreader: handleClick, handleChange
-	 */
-	var ToggleableRadioButton = React.createClass({
-	    displayName: "ToggleableRadioButton",
-
-	    propTypes: {
-	        // Whether the radio button should be checked or unchecked (this is a
-	        // controlled component).
-	        checked: React.PropTypes.bool.isRequired,
-
-	        // A function that will be called whenever the radio button is checked
-	        // or unchecked. It's possible for this to be called twice for a single
-	        // checking or unchecking.
-	        onChecked: React.PropTypes.func.isRequired },
-
-	    handleClick: function (event) {
-	        this.props.onChecked(!this.props.checked);
-
-	        // NOTE(johnsullivan): Preventing default would make sense to do here
-	        //     because we're fully controlling the state of the check box and
-	        //     don't really want it to be (un)checked accidently. React
-	        //     requires that we *don't* call preventDefault from the onClick or
-	        //     onChecked handlers of a controlled component though.
-	    },
-
-	    handleKeyUp: function (event) {
-	        // Make hitting the spacebar with the element selected equivalent to
-	        // clicking it. Some browsers do this as part of the radio button's
-	        // default behavior, but since some browsers don't we normalize the
-	        // behavior here.
-	        if (event.key === " ") {
-	            this.props.onChecked(!this.props.checked);
-	            event.preventDefault();
-	        }
-	    },
-
-	    handleChange: function (event) {
-	        // If the checkbox is going from unchecked to checked, we'll handle it
-	        // here.
-	        // NOTE(johnsullivan): The onClick/onKeyUp handler most likely *also*
-	        //     handled this, but we're being defensive against browsers/devices
-	        //     that might not call those handlers like we'd expect. It's
-	        //     unclear to me whether this is strictly necessary.
-	        if (!this.props.checked && event.target.checked) {
-	            this.props.onChecked(true);
-	        }
-	    },
-
-	    handleKeyDown: function (event) {
-	        // This is necessary in order to prevent IE9 from creating a duplicate
-	        // click event on the radio button when the space bar is hit.
-	        if (event.key === " ") {
-	            event.preventDefault();
-	        }
-	    },
-
-	    render: function () {
-	        var inputProps = _.extend({}, this.props, {
-	            type: "radio",
-	            onChange: this.handleChange,
-	            onClick: this.handleClick,
-	            onKeyDown: this.handleKeyDown,
-	            onKeyUp: this.handleKeyUp });
-
-	        return React.createElement("input", inputProps);
-	    } });
-
-	module.exports = ToggleableRadioButton;
 
 /***/ },
 /* 230 */
@@ -59981,10 +59985,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var View = _require.View;
 
 	var Keypad = __webpack_require__(259);
-	var EmptyKeypadButton = __webpack_require__(262);
-	var TouchableKeypadButton = __webpack_require__(260);
+	var EmptyKeypadButton = __webpack_require__(260);
+	var TouchableKeypadButton = __webpack_require__(261);
 
-	var _require2 = __webpack_require__(261);
+	var _require2 = __webpack_require__(262);
 
 	var row = _require2.row;
 
@@ -60077,9 +60081,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var View = _require.View;
 
 	var Keypad = __webpack_require__(259);
-	var TouchableKeypadButton = __webpack_require__(260);
+	var TouchableKeypadButton = __webpack_require__(261);
 
-	var _require2 = __webpack_require__(261);
+	var _require2 = __webpack_require__(262);
 
 	var row = _require2.row;
 
@@ -60181,9 +60185,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var View = _require.View;
 
 	var Keypad = __webpack_require__(259);
-	var TouchableKeypadButton = __webpack_require__(260);
+	var TouchableKeypadButton = __webpack_require__(261);
 
-	var _require2 = __webpack_require__(261);
+	var _require2 = __webpack_require__(262);
 
 	var row = _require2.row;
 
@@ -60306,11 +60310,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var View = _require4.View;
 
 	var TwoPageKeypad = __webpack_require__(263);
-	var EmptyKeypadButton = __webpack_require__(262);
+	var EmptyKeypadButton = __webpack_require__(260);
 	var ManyKeypadButton = __webpack_require__(264);
-	var TouchableKeypadButton = __webpack_require__(260);
+	var TouchableKeypadButton = __webpack_require__(261);
 
-	var _require5 = __webpack_require__(261);
+	var _require5 = __webpack_require__(262);
 
 	var row = _require5.row;
 	var column = _require5.column;
@@ -60568,11 +60572,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var View = _require4.View;
 
 	var TwoPageKeypad = __webpack_require__(263);
-	var EmptyKeypadButton = __webpack_require__(262);
+	var EmptyKeypadButton = __webpack_require__(260);
 	var ManyKeypadButton = __webpack_require__(264);
-	var TouchableKeypadButton = __webpack_require__(260);
+	var TouchableKeypadButton = __webpack_require__(261);
 
-	var _require5 = __webpack_require__(261);
+	var _require5 = __webpack_require__(262);
 
 	var row = _require5.row;
 	var column = _require5.column;
@@ -61172,7 +61176,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * occurred in the last 100 milliseconds.
 	 */
 
-	var now = __webpack_require__(282);
+	var now = __webpack_require__(277);
 
 	var VelocityTracker = (function () {
 	    function VelocityTracker(options) {
@@ -61682,8 +61686,8 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var strictUriEncode = __webpack_require__(289);
-	var objectAssign = __webpack_require__(290);
+	var strictUriEncode = __webpack_require__(288);
+	var objectAssign = __webpack_require__(289);
 
 	function encode(value, opts) {
 		if (opts.encode) {
@@ -61753,7 +61757,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 
 			if (val === null) {
-				return encode(key, opts);
+				return key;
 			}
 
 			if (Array.isArray(val)) {
@@ -61812,8 +61816,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var View = _require4.View;
 
-	var EchoManager = __webpack_require__(271);
-	var PopoverManager = __webpack_require__(272);
+	var EchoManager = __webpack_require__(272);
+	var PopoverManager = __webpack_require__(273);
 
 	var _require5 = __webpack_require__(235);
 
@@ -61999,6 +62003,70 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 	/**
+	 * A keypad button containing no symbols and triggering no actions on click.
+	 */
+
+	var React = __webpack_require__(15);
+
+	var _require = __webpack_require__(256);
+
+	var connect = _require.connect;
+
+	var GestureManager = __webpack_require__(251);
+	var KeyConfigs = __webpack_require__(239);
+	var KeypadButton = __webpack_require__(271);
+
+	var EmptyKeypadButton = React.createClass({
+	    displayName: 'EmptyKeypadButton',
+
+	    propTypes: {
+	        gestureManager: React.PropTypes.instanceOf(GestureManager) },
+
+	    render: function () {
+	        var _props = this.props;
+	        var gestureManager = _props.gestureManager;
+
+	        var rest = _objectWithoutProperties(_props, ['gestureManager']);
+
+	        // Register touch events on the button, but don't register its DOM node
+	        // or compute focus state or anything like that. We want the gesture
+	        // manager to know about touch events that start on empty buttons, but
+	        // we don't need it to know about their DOM nodes, as it doesn't need
+	        // to focus them or trigger presses.
+	        return React.createElement(KeypadButton, _extends({
+	            onTouchStart: function (evt) {
+	                return gestureManager.onTouchStart(evt);
+	            },
+	            onTouchEnd: function (evt) {
+	                return gestureManager.onTouchEnd(evt);
+	            },
+	            onTouchMove: function (evt) {
+	                return gestureManager.onTouchMove(evt);
+	            },
+	            onTouchCancel: function (evt) {
+	                return gestureManager.onTouchCancel(evt);
+	            }
+	        }, KeyConfigs.NOOP, rest));
+	    } });
+
+	var mapStateToProps = function (state) {
+	    var gestures = state.gestures;
+
+	    return {
+	        gestureManager: gestures.gestureManager };
+	};
+
+	module.exports = connect(mapStateToProps)(EmptyKeypadButton);
+
+/***/ },
+/* 261 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+	/**
 	 * A touchable wrapper around the base KeypadButton component. This button is
 	 * responsible for keeping our button ID system (which will be used to handle
 	 * touch events globally) opaque to the KeypadButton.
@@ -62011,7 +62079,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var connect = _require.connect;
 
-	var KeypadButton = __webpack_require__(273);
+	var KeypadButton = __webpack_require__(271);
 	var KeyConfigs = __webpack_require__(239);
 	var GestureManager = __webpack_require__(251);
 
@@ -62113,7 +62181,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = connect(mapStateToProps)(TouchableKeypadButton);
 
 /***/ },
-/* 261 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -62140,70 +62208,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        textAlign: 'center' } });
 
 /***/ },
-/* 262 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-	/**
-	 * A keypad button containing no symbols and triggering no actions on click.
-	 */
-
-	var React = __webpack_require__(15);
-
-	var _require = __webpack_require__(256);
-
-	var connect = _require.connect;
-
-	var GestureManager = __webpack_require__(251);
-	var KeyConfigs = __webpack_require__(239);
-	var KeypadButton = __webpack_require__(273);
-
-	var EmptyKeypadButton = React.createClass({
-	    displayName: 'EmptyKeypadButton',
-
-	    propTypes: {
-	        gestureManager: React.PropTypes.instanceOf(GestureManager) },
-
-	    render: function () {
-	        var _props = this.props;
-	        var gestureManager = _props.gestureManager;
-
-	        var rest = _objectWithoutProperties(_props, ['gestureManager']);
-
-	        // Register touch events on the button, but don't register its DOM node
-	        // or compute focus state or anything like that. We want the gesture
-	        // manager to know about touch events that start on empty buttons, but
-	        // we don't need it to know about their DOM nodes, as it doesn't need
-	        // to focus them or trigger presses.
-	        return React.createElement(KeypadButton, _extends({
-	            onTouchStart: function (evt) {
-	                return gestureManager.onTouchStart(evt);
-	            },
-	            onTouchEnd: function (evt) {
-	                return gestureManager.onTouchEnd(evt);
-	            },
-	            onTouchMove: function (evt) {
-	                return gestureManager.onTouchMove(evt);
-	            },
-	            onTouchCancel: function (evt) {
-	                return gestureManager.onTouchCancel(evt);
-	            }
-	        }, KeyConfigs.NOOP, rest));
-	    } });
-
-	var mapStateToProps = function (state) {
-	    var gestures = state.gestures;
-
-	    return {
-	        gestureManager: gestures.gestureManager };
-	};
-
-	module.exports = connect(mapStateToProps)(EmptyKeypadButton);
-
-/***/ },
 /* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -62226,7 +62230,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var View = _require2.View;
 
-	var _require3 = __webpack_require__(261);
+	var _require3 = __webpack_require__(262);
 
 	var column = _require3.column;
 	var row = _require3.row;
@@ -62350,8 +62354,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var EmptyKeypadButton = __webpack_require__(262);
-	var TouchableKeypadButton = __webpack_require__(260);
+	var EmptyKeypadButton = __webpack_require__(260);
+	var TouchableKeypadButton = __webpack_require__(261);
 
 	var Keys = __webpack_require__(249);
 	var KeyConfigs = __webpack_require__(239);
@@ -62982,23 +62986,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.__esModule = true;
 	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
 
-	var _createStore = __webpack_require__(277);
+	var _createStore = __webpack_require__(278);
 
 	var _createStore2 = _interopRequireDefault(_createStore);
 
-	var _combineReducers = __webpack_require__(278);
+	var _combineReducers = __webpack_require__(279);
 
 	var _combineReducers2 = _interopRequireDefault(_combineReducers);
 
-	var _bindActionCreators = __webpack_require__(279);
+	var _bindActionCreators = __webpack_require__(280);
 
 	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
 
-	var _applyMiddleware = __webpack_require__(280);
+	var _applyMiddleware = __webpack_require__(281);
 
 	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
 
-	var _compose = __webpack_require__(281);
+	var _compose = __webpack_require__(282);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
@@ -63041,7 +63045,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _warning = __webpack_require__(287);
+	var _warning = __webpack_require__(285);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -63148,15 +63152,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _shallowEqual = __webpack_require__(285);
+	var _shallowEqual = __webpack_require__(286);
 
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
-	var _wrapActionCreators = __webpack_require__(286);
+	var _wrapActionCreators = __webpack_require__(287);
 
 	var _wrapActionCreators2 = _interopRequireDefault(_wrapActionCreators);
 
-	var _warning = __webpack_require__(287);
+	var _warning = __webpack_require__(285);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -63550,248 +63554,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	/**
-	 * A component that renders and animates the selection state effect effect.
-	 */
-
-	var React = __webpack_require__(15);
-	var ReactCSSTransitionGroup = __webpack_require__(288);
-	var KeypadButton = __webpack_require__(273);
-	var KeyConfigs = __webpack_require__(239);
-
-	var _require = __webpack_require__(196);
-
-	var KeyTypes = _require.KeyTypes;
-	var EchoAnimationTypes = _require.EchoAnimationTypes;
-
-	var _require2 = __webpack_require__(208);
-
-	var echoPropType = _require2.echoPropType;
-	var bordersPropType = _require2.bordersPropType;
-	var boundingBoxPropType = _require2.boundingBoxPropType;
-	var keyIdPropType = _require2.keyIdPropType;
-
-	var Settings = __webpack_require__(236);
-
-	var Echo = React.createClass({
-	    displayName: 'Echo',
-
-	    propTypes: {
-	        animationDurationMs: React.PropTypes.number.isRequired,
-	        borders: bordersPropType,
-	        id: keyIdPropType.isRequired,
-	        initialBounds: boundingBoxPropType.isRequired,
-	        onAnimationFinish: React.PropTypes.func.isRequired },
-
-	    componentDidMount: function () {
-	        // NOTE(charlie): This is somewhat unfortunate, as the component is
-	        // encoding information about its own animation, of which it should be
-	        // ignorant. However, there doesn't seem to be a cleaner way to make
-	        // this happen, and at least here, all the animation context is
-	        // colocated in this file.
-	        var _props = this.props;
-	        var animationDurationMs = _props.animationDurationMs;
-	        var onAnimationFinish = _props.onAnimationFinish;
-
-	        setTimeout(function () {
-	            return onAnimationFinish();
-	        }, animationDurationMs);
-	    },
-
-	    render: function () {
-	        var _props2 = this.props;
-	        var borders = _props2.borders;
-	        var id = _props2.id;
-	        var initialBounds = _props2.initialBounds;
-	        var unicodeSymbol = KeyConfigs[id].unicodeSymbol;
-
-	        var containerStyle = _extends({
-	            position: 'absolute',
-	            pointerEvents: 'none' }, initialBounds);
-
-	        // NOTE(charlie): In some browsers, Aphrodite doesn't seem to flush its
-	        // styles quickly enough, so there's a flickering effect on the first
-	        // animation. Thus, it's much safer to do the styles purely inline.
-	        // <View> makes this difficult because some of its defaults, which are
-	        // applied via StyleSheet, will override our inlines.
-	        return React.createElement(
-	            'div',
-	            { style: containerStyle },
-	            React.createElement(KeypadButton, {
-	                name: id,
-	                unicodeSymbol: unicodeSymbol,
-	                type: KeyTypes.ECHO,
-	                borders: borders
-	            })
-	        );
-	    } });
-
-	var EchoManager = React.createClass({
-	    displayName: 'EchoManager',
-
-	    propTypes: {
-	        animationType: React.PropTypes.oneOf(Object.keys(EchoAnimationTypes)),
-	        echoes: React.PropTypes.arrayOf(echoPropType),
-	        onAnimationFinish: React.PropTypes.func.isRequired },
-
-	    getDefaultProps: function () {
-	        return {
-	            animationType: Settings.echoAnimation };
-	    },
-
-	    _animationConfigForType: function (animationType) {
-	        // NOTE(charlie): These must be kept in sync with the transition
-	        // durations and classnames specified in echo.css.
-	        var animationDurationMs = undefined;
-	        var animationTransitionName = undefined;
-
-	        switch (animationType) {
-	            case EchoAnimationTypes.SLIDE_AND_FADE:
-	                animationDurationMs = 400;
-	                animationTransitionName = 'echo-slide-and-fade';
-	                break;
-
-	            case EchoAnimationTypes.FADE_ONLY:
-	                animationDurationMs = 300;
-	                animationTransitionName = 'echo-fade-only';
-	                break;
-
-	            default:
-	                throw new Error('Invalid echo animation type:', animationType);
-	        }
-
-	        return {
-	            animationDurationMs: animationDurationMs,
-	            animationTransitionName: animationTransitionName };
-	    },
-
-	    render: function () {
-	        var _props3 = this.props;
-	        var animationType = _props3.animationType;
-	        var echoes = _props3.echoes;
-	        var onAnimationFinish = _props3.onAnimationFinish;
-
-	        var _animationConfigForType = this._animationConfigForType(animationType);
-
-	        var animationDurationMs = _animationConfigForType.animationDurationMs;
-	        var animationTransitionName = _animationConfigForType.animationTransitionName;
-
-	        // TODO(charlie): Manage this animation with Aphrodite styles. Right
-	        // now, there's a bug in the autoprefixer that breaks CSS transitions on
-	        // mobile Safari. See: https://github.com/Khan/aphrodite/issues/68. As
-	        // such, we have to do this with a stylesheet.
-	        return React.createElement(
-	            ReactCSSTransitionGroup,
-	            {
-	                transitionName: animationTransitionName,
-	                transitionEnter: true,
-	                transitionLeave: false,
-	                transitionEnterTimeout: animationDurationMs
-	            },
-	            echoes.map(function (echo) {
-	                var animationId = echo.animationId;
-
-	                return React.createElement(Echo, _extends({
-	                    key: animationId,
-	                    animationDurationMs: animationDurationMs,
-	                    onAnimationFinish: function () {
-	                        return onAnimationFinish(animationId);
-	                    }
-	                }, echo));
-	            })
-	        );
-	    } });
-
-	module.exports = EchoManager;
-
-/***/ },
-/* 272 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	/**
-	 * A component that renders and animates the popovers that appear over the
-	 * multi-functional keys.
-	 */
-
-	var React = __webpack_require__(15);
-	var ReactCSSTransitionGroup = __webpack_require__(288);
-
-	var KeyConfigs = __webpack_require__(239);
-	var MultiSymbolPopover = __webpack_require__(291);
-
-	var _require = __webpack_require__(208);
-
-	var boundingBoxPropType = _require.boundingBoxPropType;
-	var keyConfigPropType = _require.keyConfigPropType;
-	var popoverPropType = _require.popoverPropType;
-
-	// NOTE(charlie): These must be kept in sync with the transition durations and
-	// classnames specified in popover.css.
-	var animationTransitionName = 'popover';
-	var animationDurationMs = 200;
-
-	// A container component used to position a popover absolutely at a specific
-	// position.
-	var PopoverContainer = React.createClass({
-	    displayName: 'PopoverContainer',
-
-	    propTypes: {
-	        bounds: boundingBoxPropType.isRequired,
-	        childKeys: React.PropTypes.arrayOf(keyConfigPropType).isRequired },
-
-	    render: function () {
-	        var _props = this.props;
-	        var bounds = _props.bounds;
-	        var childKeys = _props.childKeys;
-
-	        var containerStyle = _extends({
-	            position: 'absolute' }, bounds);
-
-	        return React.createElement(
-	            'div',
-	            { style: containerStyle },
-	            React.createElement(MultiSymbolPopover, { keys: childKeys })
-	        );
-	    } });
-
-	var PopoverManager = React.createClass({
-	    displayName: 'PopoverManager',
-
-	    propTypes: {
-	        popover: popoverPropType },
-
-	    render: function () {
-	        var popover = this.props.popover;
-
-	        return React.createElement(
-	            ReactCSSTransitionGroup,
-	            {
-	                transitionName: animationTransitionName,
-	                transitionEnter: true,
-	                transitionLeave: true,
-	                transitionEnterTimeout: animationDurationMs,
-	                transitionLeaveTimeout: animationDurationMs
-	            },
-	            popover && React.createElement(PopoverContainer, {
-	                key: popover.childKeyIds[0],
-	                bounds: popover.bounds,
-	                childKeys: popover.childKeyIds.map(function (id) {
-	                    return KeyConfigs[id];
-	                })
-	            })
-	        );
-	    } });
-
-	module.exports = PopoverManager;
-
-/***/ },
-/* 273 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	/**
 	 * A component that renders a keypad button.
 	 */
 
@@ -63810,9 +63572,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var View = _require3.View;
 
-	var Icon = __webpack_require__(292);
-	var MultiSymbolGrid = __webpack_require__(293);
-	var CornerDecal = __webpack_require__(294);
+	var Icon = __webpack_require__(291);
+	var MultiSymbolGrid = __webpack_require__(292);
+	var CornerDecal = __webpack_require__(293);
 
 	var _require4 = __webpack_require__(196);
 
@@ -64138,6 +63900,248 @@ return /******/ (function(modules) { // webpackBootstrap
 	//   See: https://facebook.github.io/react-native/docs/style.html
 
 /***/ },
+/* 272 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/**
+	 * A component that renders and animates the selection state effect effect.
+	 */
+
+	var React = __webpack_require__(15);
+	var ReactCSSTransitionGroup = __webpack_require__(290);
+	var KeypadButton = __webpack_require__(271);
+	var KeyConfigs = __webpack_require__(239);
+
+	var _require = __webpack_require__(196);
+
+	var KeyTypes = _require.KeyTypes;
+	var EchoAnimationTypes = _require.EchoAnimationTypes;
+
+	var _require2 = __webpack_require__(208);
+
+	var echoPropType = _require2.echoPropType;
+	var bordersPropType = _require2.bordersPropType;
+	var boundingBoxPropType = _require2.boundingBoxPropType;
+	var keyIdPropType = _require2.keyIdPropType;
+
+	var Settings = __webpack_require__(236);
+
+	var Echo = React.createClass({
+	    displayName: 'Echo',
+
+	    propTypes: {
+	        animationDurationMs: React.PropTypes.number.isRequired,
+	        borders: bordersPropType,
+	        id: keyIdPropType.isRequired,
+	        initialBounds: boundingBoxPropType.isRequired,
+	        onAnimationFinish: React.PropTypes.func.isRequired },
+
+	    componentDidMount: function () {
+	        // NOTE(charlie): This is somewhat unfortunate, as the component is
+	        // encoding information about its own animation, of which it should be
+	        // ignorant. However, there doesn't seem to be a cleaner way to make
+	        // this happen, and at least here, all the animation context is
+	        // colocated in this file.
+	        var _props = this.props;
+	        var animationDurationMs = _props.animationDurationMs;
+	        var onAnimationFinish = _props.onAnimationFinish;
+
+	        setTimeout(function () {
+	            return onAnimationFinish();
+	        }, animationDurationMs);
+	    },
+
+	    render: function () {
+	        var _props2 = this.props;
+	        var borders = _props2.borders;
+	        var id = _props2.id;
+	        var initialBounds = _props2.initialBounds;
+	        var unicodeSymbol = KeyConfigs[id].unicodeSymbol;
+
+	        var containerStyle = _extends({
+	            position: 'absolute',
+	            pointerEvents: 'none' }, initialBounds);
+
+	        // NOTE(charlie): In some browsers, Aphrodite doesn't seem to flush its
+	        // styles quickly enough, so there's a flickering effect on the first
+	        // animation. Thus, it's much safer to do the styles purely inline.
+	        // <View> makes this difficult because some of its defaults, which are
+	        // applied via StyleSheet, will override our inlines.
+	        return React.createElement(
+	            'div',
+	            { style: containerStyle },
+	            React.createElement(KeypadButton, {
+	                name: id,
+	                unicodeSymbol: unicodeSymbol,
+	                type: KeyTypes.ECHO,
+	                borders: borders
+	            })
+	        );
+	    } });
+
+	var EchoManager = React.createClass({
+	    displayName: 'EchoManager',
+
+	    propTypes: {
+	        animationType: React.PropTypes.oneOf(Object.keys(EchoAnimationTypes)),
+	        echoes: React.PropTypes.arrayOf(echoPropType),
+	        onAnimationFinish: React.PropTypes.func.isRequired },
+
+	    getDefaultProps: function () {
+	        return {
+	            animationType: Settings.echoAnimation };
+	    },
+
+	    _animationConfigForType: function (animationType) {
+	        // NOTE(charlie): These must be kept in sync with the transition
+	        // durations and classnames specified in echo.css.
+	        var animationDurationMs = undefined;
+	        var animationTransitionName = undefined;
+
+	        switch (animationType) {
+	            case EchoAnimationTypes.SLIDE_AND_FADE:
+	                animationDurationMs = 400;
+	                animationTransitionName = 'echo-slide-and-fade';
+	                break;
+
+	            case EchoAnimationTypes.FADE_ONLY:
+	                animationDurationMs = 300;
+	                animationTransitionName = 'echo-fade-only';
+	                break;
+
+	            default:
+	                throw new Error('Invalid echo animation type:', animationType);
+	        }
+
+	        return {
+	            animationDurationMs: animationDurationMs,
+	            animationTransitionName: animationTransitionName };
+	    },
+
+	    render: function () {
+	        var _props3 = this.props;
+	        var animationType = _props3.animationType;
+	        var echoes = _props3.echoes;
+	        var onAnimationFinish = _props3.onAnimationFinish;
+
+	        var _animationConfigForType = this._animationConfigForType(animationType);
+
+	        var animationDurationMs = _animationConfigForType.animationDurationMs;
+	        var animationTransitionName = _animationConfigForType.animationTransitionName;
+
+	        // TODO(charlie): Manage this animation with Aphrodite styles. Right
+	        // now, there's a bug in the autoprefixer that breaks CSS transitions on
+	        // mobile Safari. See: https://github.com/Khan/aphrodite/issues/68. As
+	        // such, we have to do this with a stylesheet.
+	        return React.createElement(
+	            ReactCSSTransitionGroup,
+	            {
+	                transitionName: animationTransitionName,
+	                transitionEnter: true,
+	                transitionLeave: false,
+	                transitionEnterTimeout: animationDurationMs
+	            },
+	            echoes.map(function (echo) {
+	                var animationId = echo.animationId;
+
+	                return React.createElement(Echo, _extends({
+	                    key: animationId,
+	                    animationDurationMs: animationDurationMs,
+	                    onAnimationFinish: function () {
+	                        return onAnimationFinish(animationId);
+	                    }
+	                }, echo));
+	            })
+	        );
+	    } });
+
+	module.exports = EchoManager;
+
+/***/ },
+/* 273 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/**
+	 * A component that renders and animates the popovers that appear over the
+	 * multi-functional keys.
+	 */
+
+	var React = __webpack_require__(15);
+	var ReactCSSTransitionGroup = __webpack_require__(290);
+
+	var KeyConfigs = __webpack_require__(239);
+	var MultiSymbolPopover = __webpack_require__(294);
+
+	var _require = __webpack_require__(208);
+
+	var boundingBoxPropType = _require.boundingBoxPropType;
+	var keyConfigPropType = _require.keyConfigPropType;
+	var popoverPropType = _require.popoverPropType;
+
+	// NOTE(charlie): These must be kept in sync with the transition durations and
+	// classnames specified in popover.css.
+	var animationTransitionName = 'popover';
+	var animationDurationMs = 200;
+
+	// A container component used to position a popover absolutely at a specific
+	// position.
+	var PopoverContainer = React.createClass({
+	    displayName: 'PopoverContainer',
+
+	    propTypes: {
+	        bounds: boundingBoxPropType.isRequired,
+	        childKeys: React.PropTypes.arrayOf(keyConfigPropType).isRequired },
+
+	    render: function () {
+	        var _props = this.props;
+	        var bounds = _props.bounds;
+	        var childKeys = _props.childKeys;
+
+	        var containerStyle = _extends({
+	            position: 'absolute' }, bounds);
+
+	        return React.createElement(
+	            'div',
+	            { style: containerStyle },
+	            React.createElement(MultiSymbolPopover, { keys: childKeys })
+	        );
+	    } });
+
+	var PopoverManager = React.createClass({
+	    displayName: 'PopoverManager',
+
+	    propTypes: {
+	        popover: popoverPropType },
+
+	    render: function () {
+	        var popover = this.props.popover;
+
+	        return React.createElement(
+	            ReactCSSTransitionGroup,
+	            {
+	                transitionName: animationTransitionName,
+	                transitionEnter: true,
+	                transitionLeave: true,
+	                transitionEnterTimeout: animationDurationMs,
+	                transitionLeaveTimeout: animationDurationMs
+	            },
+	            popover && React.createElement(PopoverContainer, {
+	                key: popover.childKeyIds[0],
+	                bounds: popover.bounds,
+	                childKeys: popover.childKeyIds.map(function (id) {
+	                    return KeyConfigs[id];
+	                })
+	            })
+	        );
+	    } });
+
+	module.exports = PopoverManager;
+
+/***/ },
 /* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -64165,7 +64169,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var View = _require3.View;
 
-	var _require4 = __webpack_require__(261);
+	var _require4 = __webpack_require__(262);
 
 	var row = _require4.row;
 
@@ -64630,13 +64634,50 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function(process) {// Generated by CoffeeScript 1.7.1
+	(function () {
+	  var getNanoSeconds, hrtime, loadTime;
+
+	  if (typeof performance !== "undefined" && performance !== null && performance.now) {
+	    module.exports = function () {
+	      return performance.now();
+	    };
+	  } else if (typeof process !== "undefined" && process !== null && process.hrtime) {
+	    module.exports = function () {
+	      return (getNanoSeconds() - loadTime) / 1000000;
+	    };
+	    hrtime = process.hrtime;
+	    getNanoSeconds = function () {
+	      var hr;
+	      hr = hrtime();
+	      return hr[0] * 1000000000 + hr[1];
+	    };
+	    loadTime = getNanoSeconds();
+	  } else if (Date.now) {
+	    module.exports = function () {
+	      return Date.now() - loadTime;
+	    };
+	    loadTime = Date.now();
+	  } else {
+	    module.exports = function () {
+	      return new Date().getTime() - loadTime;
+	    };
+	    loadTime = new Date().getTime();
+	  }
+	}).call(this);
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(257)))
+
+/***/ },
+/* 278 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	exports.__esModule = true;
 	exports.ActionTypes = undefined;
 	exports['default'] = createStore;
 
-	var _isPlainObject = __webpack_require__(302);
+	var _isPlainObject = __webpack_require__(296);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
@@ -64896,7 +64937,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 278 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64904,9 +64945,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.__esModule = true;
 	exports['default'] = combineReducers;
 
-	var _createStore = __webpack_require__(277);
+	var _createStore = __webpack_require__(278);
 
-	var _isPlainObject = __webpack_require__(302);
+	var _isPlainObject = __webpack_require__(296);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
@@ -65030,7 +65071,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 279 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65086,7 +65127,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 280 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65105,7 +65146,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports['default'] = applyMiddleware;
 
-	var _compose = __webpack_require__(281);
+	var _compose = __webpack_require__(282);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
@@ -65159,7 +65200,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 281 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -65202,43 +65243,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (typeof _ret === "object") return _ret.v;
 	  }
 	}
-
-/***/ },
-/* 282 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {// Generated by CoffeeScript 1.7.1
-	(function () {
-	  var getNanoSeconds, hrtime, loadTime;
-
-	  if (typeof performance !== "undefined" && performance !== null && performance.now) {
-	    module.exports = function () {
-	      return performance.now();
-	    };
-	  } else if (typeof process !== "undefined" && process !== null && process.hrtime) {
-	    module.exports = function () {
-	      return (getNanoSeconds() - loadTime) / 1000000;
-	    };
-	    hrtime = process.hrtime;
-	    getNanoSeconds = function () {
-	      var hr;
-	      hr = hrtime();
-	      return hr[0] * 1000000000 + hr[1];
-	    };
-	    loadTime = getNanoSeconds();
-	  } else if (Date.now) {
-	    module.exports = function () {
-	      return Date.now() - loadTime;
-	    };
-	    loadTime = Date.now();
-	  } else {
-	    module.exports = function () {
-	      return new Date().getTime() - loadTime;
-	    };
-	    loadTime = new Date().getTime();
-	  }
-	}).call(this);
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(257)))
 
 /***/ },
 /* 283 */
@@ -65290,6 +65294,35 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	exports.__esModule = true;
+	exports['default'] = warning;
+	/**
+	 * Prints a warning in the console if it exists.
+	 *
+	 * @param {String} message The warning message.
+	 * @returns {void}
+	 */
+	function warning(message) {
+	  /* eslint-disable no-console */
+	  if (typeof console !== 'undefined' && typeof console.error === 'function') {
+	    console.error(message);
+	  }
+	  /* eslint-enable no-console */
+	  try {
+	    // This error was thrown as a convenience so that you can use this stack
+	    // to find the callsite that caused this warning to fire.
+	    throw new Error(message);
+	    /* eslint-disable no-empty */
+	  } catch (e) {}
+	  /* eslint-enable no-empty */
+	}
+
+/***/ },
+/* 286 */
+/***/ function(module, exports, __webpack_require__) {
+
 	"use strict";
 
 	exports.__esModule = true;
@@ -65318,7 +65351,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 286 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65335,42 +65368,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 287 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports['default'] = warning;
-	/**
-	 * Prints a warning in the console if it exists.
-	 *
-	 * @param {String} message The warning message.
-	 * @returns {void}
-	 */
-	function warning(message) {
-	  /* eslint-disable no-console */
-	  if (typeof console !== 'undefined' && typeof console.error === 'function') {
-	    console.error(message);
-	  }
-	  /* eslint-enable no-console */
-	  try {
-	    // This error was thrown as a convenience so that you can use this stack
-	    // to find the callsite that caused this warning to fire.
-	    throw new Error(message);
-	    /* eslint-disable no-empty */
-	  } catch (e) {}
-	  /* eslint-enable no-empty */
-	}
-
-/***/ },
 /* 288 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_288__;
-
-/***/ },
-/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65381,7 +65379,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 290 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65468,84 +65466,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 291 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	/**
-	 * A popover that renders a set of keys floating above the page.
-	 */
-
-	var React = __webpack_require__(15);
-
-	var _require = __webpack_require__(43);
-
-	var StyleSheet = _require.StyleSheet;
-
-	var _require2 = __webpack_require__(240);
-
-	var View = _require2.View;
-
-	var _require3 = __webpack_require__(208);
-
-	var keyConfigPropType = _require3.keyConfigPropType;
-
-	var _require4 = __webpack_require__(196);
-
-	var KeyTypes = _require4.KeyTypes;
-	var BorderStyles = _require4.BorderStyles;
-
-	var MultiSymbolPopover = React.createClass({
-	    displayName: 'MultiSymbolPopover',
-
-	    propTypes: {
-	        keys: React.PropTypes.arrayOf(keyConfigPropType) },
-
-	    render: function () {
-	        var keys = this.props.keys;
-
-	        // TODO(charlie): We have to require this lazily because of a cyclic
-	        // dependence in our components.
-	        var TouchableKeypadButton = __webpack_require__(260);
-	        return React.createElement(
-	            View,
-	            { style: styles.container },
-	            keys.map(function (key) {
-	                var keyConfig = _extends({}, key, {
-	                    type: KeyTypes.NUMERAL });
-	                return React.createElement(TouchableKeypadButton, {
-	                    key: keyConfig.id,
-	                    keyConfig: keyConfig,
-	                    borders: BorderStyles.NONE
-	                });
-	            })
-	        );
-	    } });
-
-	var styles = StyleSheet.create({
-	    container: {
-	        flexDirection: 'column-reverse',
-	        position: 'relative',
-	        width: '100%',
-	        borderRadius: 2,
-	        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
-	        zIndex: 1 },
-
-	    popoverButton: {
-	        backgroundColor: '#FFF',
-	        borderWidth: 0 } });
-
-	module.exports = MultiSymbolPopover;
-
-	// NOTE(charlie): Right now, buttons that appear in the
-	// popover are styled identically to the numeral buttons, i.e.,
-	// in a very simple way (white background, no borders). If the
-	// numeral buttons change in style, we'll have to change this
-	// logic to mimic a different button type.
+	module.exports = __WEBPACK_EXTERNAL_MODULE_290__;
 
 /***/ },
-/* 292 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -65607,7 +65534,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Icon;
 
 /***/ },
-/* 293 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -65628,7 +65555,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var UnicodeIcon = __webpack_require__(298);
 	var UnicodeSymbol = __webpack_require__(299);
 
-	var _require3 = __webpack_require__(261);
+	var _require3 = __webpack_require__(262);
 
 	var row = _require3.row;
 	var column = _require3.column;
@@ -65783,7 +65710,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MultiSymbolGrid;
 
 /***/ },
-/* 294 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -65836,6 +65763,83 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = CornerDecal;
 
 /***/ },
+/* 294 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/**
+	 * A popover that renders a set of keys floating above the page.
+	 */
+
+	var React = __webpack_require__(15);
+
+	var _require = __webpack_require__(43);
+
+	var StyleSheet = _require.StyleSheet;
+
+	var _require2 = __webpack_require__(240);
+
+	var View = _require2.View;
+
+	var _require3 = __webpack_require__(208);
+
+	var keyConfigPropType = _require3.keyConfigPropType;
+
+	var _require4 = __webpack_require__(196);
+
+	var KeyTypes = _require4.KeyTypes;
+	var BorderStyles = _require4.BorderStyles;
+
+	var MultiSymbolPopover = React.createClass({
+	    displayName: 'MultiSymbolPopover',
+
+	    propTypes: {
+	        keys: React.PropTypes.arrayOf(keyConfigPropType) },
+
+	    render: function () {
+	        var keys = this.props.keys;
+
+	        // TODO(charlie): We have to require this lazily because of a cyclic
+	        // dependence in our components.
+	        var TouchableKeypadButton = __webpack_require__(261);
+	        return React.createElement(
+	            View,
+	            { style: styles.container },
+	            keys.map(function (key) {
+	                var keyConfig = _extends({}, key, {
+	                    type: KeyTypes.NUMERAL });
+	                return React.createElement(TouchableKeypadButton, {
+	                    key: keyConfig.id,
+	                    keyConfig: keyConfig,
+	                    borders: BorderStyles.NONE
+	                });
+	            })
+	        );
+	    } });
+
+	var styles = StyleSheet.create({
+	    container: {
+	        flexDirection: 'column-reverse',
+	        position: 'relative',
+	        width: '100%',
+	        borderRadius: 2,
+	        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
+	        zIndex: 1 },
+
+	    popoverButton: {
+	        backgroundColor: '#FFF',
+	        borderWidth: 0 } });
+
+	module.exports = MultiSymbolPopover;
+
+	// NOTE(charlie): Right now, buttons that appear in the
+	// popover are styled identically to the numeral buttons, i.e.,
+	// in a very simple way (white background, no borders). If the
+	// numeral buttons change in style, we'll have to change this
+	// logic to mimic a different button type.
+
+/***/ },
 /* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -65865,12 +65869,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    arity: true
 	};
 
-	module.exports = function hoistNonReactStatics(targetComponent, sourceComponent, customStatics) {
+	module.exports = function hoistNonReactStatics(targetComponent, sourceComponent) {
 	    if (typeof sourceComponent !== 'string') {
 	        // don't hoist over string (html) components
 	        var keys = Object.getOwnPropertyNames(sourceComponent);
 	        for (var i = 0; i < keys.length; ++i) {
-	            if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]] && (!customStatics || !customStatics[keys[i]])) {
+	            if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]]) {
 	                try {
 	                    targetComponent[keys[i]] = sourceComponent[keys[i]];
 	                } catch (error) {}
@@ -65885,9 +65889,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getPrototype = __webpack_require__(303),
-	    isHostObject = __webpack_require__(304),
-	    isObjectLike = __webpack_require__(305);
+	var getPrototype = __webpack_require__(302),
+	    isHostObject = __webpack_require__(303),
+	    isObjectLike = __webpack_require__(304);
 
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -66027,7 +66031,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var UnicodeSymbol = __webpack_require__(299);
 
-	var _require3 = __webpack_require__(261);
+	var _require3 = __webpack_require__(262);
 
 	var row = _require3.row;
 	var centered = _require3.centered;
@@ -66097,7 +66101,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Text = _require2.Text;
 
-	var _require3 = __webpack_require__(261);
+	var _require3 = __webpack_require__(262);
 
 	var fullWidth = _require3.fullWidth;
 	var centeredText = _require3.centeredText;
@@ -66197,84 +66201,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */(function(global) {/* global window */
 	'use strict';
 
-	module.exports = __webpack_require__(343)(global || window || this);
+	module.exports = __webpack_require__(305)(global || window || this);
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
 /* 302 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var getPrototype = __webpack_require__(344),
-	    isHostObject = __webpack_require__(345),
-	    isObjectLike = __webpack_require__(346);
-
-	/** `Object#toString` result references. */
-	var objectTag = '[object Object]';
-
-	/** Used for built-in method references. */
-	var objectProto = Object.prototype;
-
-	/** Used to resolve the decompiled source of functions. */
-	var funcToString = Function.prototype.toString;
-
-	/** Used to check objects for own properties. */
-	var hasOwnProperty = objectProto.hasOwnProperty;
-
-	/** Used to infer the `Object` constructor. */
-	var objectCtorString = funcToString.call(Object);
-
-	/**
-	 * Used to resolve the
-	 * [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
-	 * of values.
-	 */
-	var objectToString = objectProto.toString;
-
-	/**
-	 * Checks if `value` is a plain object, that is, an object created by the
-	 * `Object` constructor or one with a `[[Prototype]]` of `null`.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.8.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a plain object,
-	 *  else `false`.
-	 * @example
-	 *
-	 * function Foo() {
-	 *   this.a = 1;
-	 * }
-	 *
-	 * _.isPlainObject(new Foo);
-	 * // => false
-	 *
-	 * _.isPlainObject([1, 2, 3]);
-	 * // => false
-	 *
-	 * _.isPlainObject({ 'x': 0, 'y': 0 });
-	 * // => true
-	 *
-	 * _.isPlainObject(Object.create(null));
-	 * // => true
-	 */
-	function isPlainObject(value) {
-	  if (!isObjectLike(value) || objectToString.call(value) != objectTag || isHostObject(value)) {
-	    return false;
-	  }
-	  var proto = getPrototype(value);
-	  if (proto === null) {
-	    return true;
-	  }
-	  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
-	  return typeof Ctor == 'function' && Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString;
-	}
-
-	module.exports = isPlainObject;
-
-/***/ },
-/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* Built-in method references for those with the same name as other `lodash` methods. */
@@ -66294,7 +66225,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getPrototype;
 
 /***/ },
-/* 304 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -66319,7 +66250,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isHostObject;
 
 /***/ },
-/* 305 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -66351,6 +66282,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	module.exports = isObjectLike;
+
+/***/ },
+/* 305 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = function symbolObservablePonyfill(root) {
+		var result;
+		var Symbol = root.Symbol;
+
+		if (typeof Symbol === 'function') {
+			if (Symbol.observable) {
+				result = Symbol.observable;
+			} else {
+				result = Symbol('observable');
+				Symbol.observable = result;
+			}
+		} else {
+			result = '@@observable';
+		}
+
+		return result;
+	};
 
 /***/ },
 /* 306 */
@@ -68310,109 +68265,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	module.exports = More;
-
-/***/ },
-/* 343 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	module.exports = function symbolObservablePonyfill(root) {
-		var result;
-		var Symbol = root.Symbol;
-
-		if (typeof Symbol === 'function') {
-			if (Symbol.observable) {
-				result = Symbol.observable;
-			} else {
-				result = Symbol('observable');
-				Symbol.observable = result;
-			}
-		} else {
-			result = '@@observable';
-		}
-
-		return result;
-	};
-
-/***/ },
-/* 344 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* Built-in method references for those with the same name as other `lodash` methods. */
-	var nativeGetPrototype = Object.getPrototypeOf;
-
-	/**
-	 * Gets the `[[Prototype]]` of `value`.
-	 *
-	 * @private
-	 * @param {*} value The value to query.
-	 * @returns {null|Object} Returns the `[[Prototype]]`.
-	 */
-	function getPrototype(value) {
-	  return nativeGetPrototype(Object(value));
-	}
-
-	module.exports = getPrototype;
-
-/***/ },
-/* 345 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Checks if `value` is a host object in IE < 9.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
-	 */
-	function isHostObject(value) {
-	  // Many host objects are `Object` objects that can coerce to strings
-	  // despite having improperly defined `toString` methods.
-	  var result = false;
-	  if (value != null && typeof value.toString != 'function') {
-	    try {
-	      result = !!(value + '');
-	    } catch (e) {}
-	  }
-	  return result;
-	}
-
-	module.exports = isHostObject;
-
-/***/ },
-/* 346 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Checks if `value` is object-like. A value is object-like if it's not `null`
-	 * and has a `typeof` result of "object".
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 4.0.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
-	 * @example
-	 *
-	 * _.isObjectLike({});
-	 * // => true
-	 *
-	 * _.isObjectLike([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObjectLike(_.noop);
-	 * // => false
-	 *
-	 * _.isObjectLike(null);
-	 * // => false
-	 */
-	function isObjectLike(value) {
-	  return !!value && typeof value == 'object';
-	}
-
-	module.exports = isObjectLike;
 
 /***/ }
 /******/ ])
