@@ -43,6 +43,7 @@ const GroupEditor = React.createClass({
                 content={this.props.content}
                 widgets={this.props.widgets}
                 apiOptions={this.props.apiOptions}
+                enabledFeatures={this.props.enabledFeatures}
                 images={this.props.images}
                 widgetEnabled={true}
                 immutableWidgets={false}
