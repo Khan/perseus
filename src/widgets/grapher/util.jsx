@@ -584,7 +584,7 @@ var GrapherUtil = {
         // widget before even reading the question; you can't lose, but you
         // might get a free win.
         var model = functionForType(type);
-        var gridStep = 1;
+        var gridStep = [1, 1];
         var snapStep = Util.snapStepFromGridStep(gridStep);
         return {
             type,

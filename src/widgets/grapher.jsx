@@ -223,8 +223,10 @@ var FunctionGrapher = React.createClass({
                     return true;
             }]} normalStyle={dashed}
                 highlightStyle={dashed}>
-                {_.map(asymptote, (coord) =>
-                    <MovablePoint coord={coord}
+                {_.map(asymptote, (coord, i) =>
+                    <MovablePoint
+                        key={`asymptoteCoord-${i}`}
+                        coord={coord}
                         static={true}
                         draw={null}
                         extendLine={true} />
