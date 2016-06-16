@@ -18,7 +18,7 @@ var Changeable    = require("../mixins/changeable.jsx");
 
 var SvgImage     = require("../components/svg-image.jsx");
 
-const { baseUnitPx, negativePhoneMargin } = require("../styles/constants.js");
+const { baseUnitPx } = require("../styles/constants.js");
 
 var defaultBoxSize = 400;
 var defaultRange = [0, 10];
@@ -30,13 +30,6 @@ var defaultBackgroundImage = {
 const supportedAlignments = ["block", "float-left", "float-right",
     "full-width"];
 const DEFAULT_ALIGNMENT = "block";
-const MIN_VIEWPORT_HEIGHT = 480;
-
-function isImageProbablyPhotograph(imageUrl) {
-    // TODO(david): Do an inventory to refine this heuristic. For example, what
-    //     % of .png images are illustrations?
-    return /\.(jpg|jpeg)$/i.test(imageUrl);
-}
 
 var ImageWidget = React.createClass({
     propTypes: {
@@ -87,64 +80,14 @@ var ImageWidget = React.createClass({
         };
     },
 
-    getInitialState: function() {
-        return {
-            viewportHeight: null,
-            viewportWidth: null,
-        };
-    },
-
-    componentDidMount: function() {
-        // Cache viewport sizes instead of computing on each render.
-        // We setState() in componentDidMount(), even though it's a React
-        // anti-pattern, because we do actually want to trigger a re-render
-        // after the initial render (because initial render may be
-        // server-side).
-        if (window.innerHeight < MIN_VIEWPORT_HEIGHT) {
-            // There is a weird issue when this gets rendered in an Android
-            // webview where window.innerHeight might be initially very small,
-            // like 46, but seems to be good after ~400ms.
-            setTimeout(this._cacheViewportSize, 800);
-        } else {
-            this._cacheViewportSize();
-        }
-    },
-
-    _cacheViewportSize: function() {
-        if (this.isMounted()) {
-            this.setState({
-                viewportHeight: Math.max(MIN_VIEWPORT_HEIGHT,
-                                         window.innerHeight),
-                viewportWidth: window.innerWidth,
-            });
-        }
-    },
-
     render: function() {
         var image;
         var alt;
-        var imageWidth;
-        var imageHeight;
         var {apiOptions} = this.props;
 
         var backgroundImage = this.props.backgroundImage;
 
         if (backgroundImage.url) {
-            imageHeight = backgroundImage.height;
-            imageWidth = backgroundImage.width;
-
-            // TODO(david): Move this logic to fixed-to-responsive.jsx?
-            if (apiOptions.xomManatee && this.state.viewportHeight) {
-                // Constrain image height to be at most 2/3 viewport height,
-                // maintaining aspect ratio.
-                const maxImageHeight = 2 / 3 * this.state.viewportHeight;
-                if (imageHeight >= maxImageHeight) {
-                    const aspectRatio = imageWidth / imageHeight;
-                    imageHeight = maxImageHeight;
-                    imageWidth = maxImageHeight * aspectRatio;
-                }
-            }
-
             image = <SvgImage
                         src={backgroundImage.url}
                         alt={
@@ -170,8 +113,8 @@ var ImageWidget = React.createClass({
                                while editing. */
                             this.props.alt ? "" : undefined
                         }
-                        width={imageWidth}
-                        height={imageHeight}
+                        width={backgroundImage.width}
+                        height={backgroundImage.height}
                         preloader={apiOptions.imagePreloader}
                         extraGraphie={{
                             box: this.props.box,
@@ -180,6 +123,8 @@ var ImageWidget = React.createClass({
                         }}
                         trackInteraction={this.props.trackInteraction}
                         zoomToFullSizeOnMobile={apiOptions.xomManatee}
+                        constrainHeight={apiOptions.xomManatee}
+                        allowFullBleed={apiOptions.xomManatee}
             />;
         }
 
@@ -232,7 +177,7 @@ var ImageWidget = React.createClass({
                 const isImageFullWidth = (
                     alignment === "block" || alignment === "full-width");
                 const minWidth = isImageFullWidth ? 288 : 0;
-                const maxWidth = imageWidth ? Math.min(400, imageWidth) : 400;
+                const maxWidth = Math.min(400, backgroundImage.width);
                 titleAndCaption = <div className={className}>
                     <div style={{
                         display: "inline-block",
@@ -250,22 +195,8 @@ var ImageWidget = React.createClass({
                 </div>;
             }
 
-            // Full-bleed photographs that can fill up the device width.
-            let imageContainerStyle = null;
-            if (backgroundImage.url &&
-                    isImageProbablyPhotograph(backgroundImage.url) &&
-                    this.state.viewportWidth &&
-                    imageWidth >= this.state.viewportWidth) {
-                imageContainerStyle = {
-                    marginLeft: negativePhoneMargin,
-                    marginRight: negativePhoneMargin,
-                };
-            }
-
             return <div className="perseus-image-widget">
-                <div style={imageContainerStyle}>
-                    {image}
-                </div>
+                {image}
                 {alt}
                 {titleAndCaption}
             </div>;
