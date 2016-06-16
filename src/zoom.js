@@ -157,8 +157,8 @@ ZoomService.prototype.handleZoomClick = function(e, zoomToFullSizeOnMobile) {
         return window.open(e.target.src, '_blank');
     }
 
-    if (target.width >= window.innerWidth -
-            Zoom.getOffset(this._zoomToFullSizeOnMobile)) {
+    if (!zoomToFullSizeOnMobile && target.width >= window.innerWidth -
+            Zoom.getOffset(zoomToFullSizeOnMobile)) {
         return;
     }
 
@@ -179,11 +179,11 @@ ZoomService.prototype.handleZoomClick = function(e, zoomToFullSizeOnMobile) {
     // position for a bit, and we may need to wait for that scroll position to
     // be reset to what it was before proceeding with the zoom animation.
     setTimeout(() => {
-        this._activeZoom = new Zoom(target, this._zoomToFullSizeOnMobile);
+        this._activeZoom = new Zoom(target, zoomToFullSizeOnMobile);
         this._activeZoom.zoomImage();
     }, 5);
 
-    if (!this._zoomToFullSizeOnMobile) {
+    if (!zoomToFullSizeOnMobile) {
         // todo(fat): probably worth throttling this
         this._$window.on('scroll.zoom', $.proxy(this._scrollHandler, this));
 
