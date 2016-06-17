@@ -87,10 +87,23 @@ const BaseRadio = React.createClass({
 
     statics: {
         styles: StyleSheet.create({
+            // NOTE(charlie): The values used in this responsive instructions
+            // sizing should be kept in sync with the caption text sizing in
+            // articles.less.
             instructions: {
                 display: "block",
-                fontStyle: "italic",
+                color: styleConstants.gray17,
+                fontStyle: "normal",
                 fontWeight: "bold",
+                [mediaQueries.lgOrLarger]: {
+                    fontSize: 20,
+                },
+                [mediaQueries.mdOrSmaller]: {
+                    fontSize: 17,
+                },
+                [mediaQueries.smOrSmaller]: {
+                    fontSize: 14,
+                },
             },
 
             mobileInstructions: {

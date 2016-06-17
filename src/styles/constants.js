@@ -23,6 +23,8 @@ module.exports = {
     grayLighter: "#DDDDDD",
     // @learnstormBlue:        #4898fc;
     learnstormBlue: "#4898FC",
+    // @gray17: #21242C;
+    gray17: "#21242C",
     // @gray76: #babec2;
     gray76: "#BABEC2",
     // @pure-sm-min: 568px;
