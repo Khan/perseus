@@ -618,22 +618,6 @@
     }
 }
 
-// TODO(jared): change these styles once design has finalized
-.perseus-show-another-hint {
-    background-color: transparent;
-    font-size: 100%;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    color: @kaGreen;
-    font-weight: bold;
-}
-
-.perseus-show-another-hint-plus {
-    font-size: 20px;
-    margin-right: 7px;
-}
-
 @default3: #00457c;
 @science3: #9e034e;
 @math3: #007d96;
@@ -747,6 +731,13 @@
     // because it messes up baseline alignment, e.g. h(x)
     .mq-paren + span {
         margin: 0;
+    }
+
+    .mq-binary-operator {
+        // MathQuill uses Symbola to render binary operators.  Unfortunately,
+        // Firefox 47 on Windows doesn't render the +/- signs correctly when
+        // using Symbola so we override it and use KaTeX_Main instead.
+        font-family: KaTeX_Main !important;
     }
 
     sup {

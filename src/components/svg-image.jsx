@@ -71,6 +71,12 @@ function isLabeledSVG(url) {
     return svgLabelsRegex.test(url);
 }
 
+function isImageProbablyPhotograph(imageUrl) {
+    // TODO(david): Do an inventory to refine this heuristic. For example, what
+    //     % of .png images are illustrations?
+    return /\.(jpg|jpeg)$/i.test(imageUrl);
+}
+
 // For each svg+labels, there are two urls we need to download from. This gets
 // the base url without the suffix, and `getSvgUrl` and `getDataUrl` apply
 // appropriate suffixes to get the image and other data
@@ -186,7 +192,9 @@ function defaultPreloader() {
 
 var SvgImage = React.createClass({
     propTypes: {
+        allowFullBleed: React.PropTypes.bool,
         alt: React.PropTypes.string,
+        constrainHeight: React.PropTypes.bool,
 
         extraGraphie: React.PropTypes.shape({
             box: React.PropTypes.array.isRequired,
@@ -240,6 +248,7 @@ var SvgImage = React.createClass({
 
     getDefaultProps: function() {
         return {
+            constrainHeight: false,
             onUpdate: () => {},
             responsive: true,
             src: "",
@@ -471,6 +480,8 @@ var SvgImage = React.createClass({
     },
 
     render: function() {
+        const imageSrc = this.props.src;
+
         // Props to send to all images
         var imageProps = {
             alt: this.props.alt,
@@ -525,7 +536,7 @@ var SvgImage = React.createClass({
             null;
 
         // Just use a normal image if a normal image is provided
-        if (!isLabeledSVG(this.props.src)) {
+        if (!isLabeledSVG(imageSrc)) {
             if (responsive) {
                 var wrapperClasses = classNames({
                     zoomable: width > ZOOMABLE_THRESHOLD,
@@ -539,9 +550,12 @@ var SvgImage = React.createClass({
                         className={wrapperClasses}
                         width={width}
                         height={height}
+                        constrainHeight={this.props.constrainHeight}
+                        allowFullBleed={this.props.allowFullBleed &&
+                            isImageProbablyPhotograph(imageSrc)}
                     >
                         <ImageLoader
-                            src={this.props.src}
+                            src={imageSrc}
                             imgProps={imageProps}
                             preloader={preloader}
                             onUpdate={this.props.onUpdate}
@@ -553,7 +567,7 @@ var SvgImage = React.createClass({
                 imageProps.style = dimensions;
                 return (
                     <ImageLoader
-                        src={this.props.src}
+                        src={imageSrc}
                         preloader={preloader}
                         imgProps={imageProps}
                         onUpdate={this.props.onUpdate}
@@ -562,7 +576,7 @@ var SvgImage = React.createClass({
             }
         }
 
-        var imageUrl = getSvgUrl(this.props.src);
+        var imageUrl = getSvgUrl(imageSrc);
 
         var graphie;
         // Since we only want to do the graphie setup once, we only render the
@@ -600,6 +614,7 @@ var SvgImage = React.createClass({
                     className="svg-image"
                     width={width}
                     height={height}
+                    constrainHeight={this.props.constrainHeight}
                 >
                     <ImageLoader
                         src={imageUrl}

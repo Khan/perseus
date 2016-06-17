@@ -77,4 +77,9 @@ module.exports = {
     // The 'base unit' -- our new typography and layout styles are defined in
     // terms of multiples of the 'base unit'.
     baseUnitPx: 16,
+
+    interactiveSizes: {
+        defaultBoxSize: 400,
+        defaultBoxSizeSmall: 288,
+    },
 };

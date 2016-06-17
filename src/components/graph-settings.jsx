@@ -15,8 +15,8 @@ const RangeInput = require("../components/range-input.jsx");
 const TeX = require("react-components/tex.jsx");
 const Util = require("../util.js");
 const KhanMath = require("../util/math.js");
+const { interactiveSizes } = require("../styles/constants.js");
 
-const defaultBoxSize = 340;
 const defaultBackgroundImage = {
     url: null,
     width: 0,
@@ -67,7 +67,10 @@ const GraphSettings = React.createClass({
     getDefaultProps: function() {
         return {
             editableSettings: ["graph", "snap", "image", "measure"],
-            box: [defaultBoxSize, defaultBoxSize],
+            box: [
+                interactiveSizes.defaultBoxSizeSmall,
+                interactiveSizes.defaultBoxSizeSmall,
+            ],
             labels: ["x", "y"],
             range: [[-10, 10], [-10, 10]],
             step: [1, 1],

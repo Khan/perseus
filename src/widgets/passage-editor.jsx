@@ -34,6 +34,8 @@ const PassageEditor = React.createClass({
     render: function() {
         var passageEditor = <Editor
             ref="passage-editor"
+            apiOptions={this.props.apiOptions}
+            enabledFeatures={this.props.enabledFeatures}
             content={this.props.passageText}
             widgetEnabled={false}
             placeholder="Type passage here..."
@@ -44,6 +46,8 @@ const PassageEditor = React.createClass({
         />;
         var footnotesEditor = <Editor
             ref="passage-footnotes-editor"
+            apiOptions={this.props.apiOptions}
+            enabledFeatures={this.props.enabledFeatures}
             content={this.props.footnotes}
             widgetEnabled={false}
             placeholder="Type footnotes here..."

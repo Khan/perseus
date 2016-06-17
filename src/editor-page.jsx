@@ -6,8 +6,8 @@ var React = require('react');
 var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
-const ApiOptions = require("./perseus-api.jsx").Options;
 const ApiClassNames = require("./perseus-api.jsx").ClassNames;
+const ApiOptionsProps = require("./mixins/api-options-props.js");
 var CombinedHintsEditor = require("./hint-editor.jsx");
 var EnabledFeatures = require("./enabled-features.jsx");
 var FixPassageRefs = require("./util/fix-passage-refs.jsx");
@@ -19,11 +19,6 @@ var ViewportResizer = require("./components/viewport-resizer.jsx");
 var EditorPage = React.createClass({
     propTypes: {
         answerArea: React.PropTypes.any, // related to the question
-
-        // We don't specify a more specific type here because it's valid
-        // for a client of Perseus to specify a subset of the API options,
-        // in which case we default the rest in `this._apiOptions()`
-        apiOptions: React.PropTypes.object,
 
         developerMode: React.PropTypes.bool,
         enabledFeatures: EnabledFeatures.propTypes,
@@ -53,9 +48,10 @@ var EditorPage = React.createClass({
         question: React.PropTypes.any,
     },
 
+    mixins: [ ApiOptionsProps ],
+
     getDefaultProps: function() {
         return {
-            apiOptions: {}, // deep defaults on updateRenderer
             developerMode: false,
             enabledFeatures: {
                 toolTipFormats: true,
@@ -121,7 +117,7 @@ var EditorPage = React.createClass({
             enabledFeatures: {
                 toolTipFormats: true,
             },
-            apiOptions: this._apiOptions(),
+            apiOptions: this.getApiOptions(),
             initialHintsVisible: 0,  /* none; to be displayed below */
         }).extend(
             _(this.props).pick("workAreaSelector",
@@ -135,14 +131,6 @@ var EditorPage = React.createClass({
             <ItemRenderer {...rendererConfig} />,
             this.rendererMountNode,
             cb);
-    },
-
-    _apiOptions: function() {
-        return _.extend(
-            {},
-            ApiOptions.defaults,
-            this.props.apiOptions
-        );
     },
 
     handleChange: function(toChange, cb, silent) {
@@ -181,7 +169,7 @@ var EditorPage = React.createClass({
 
     render: function() {
         let className = "framework-perseus";
-        if (this.props.apiOptions.xomManatee) {
+        if (this.getApiOptions().xomManatee) {
             className += " " + ApiClassNames.XOM_MANATEE;
         }
 
@@ -234,7 +222,8 @@ var EditorPage = React.createClass({
                     wasAnswered={this.state.wasAnswered}
                     gradeMessage={this.state.gradeMessage}
                     onCheckAnswer={this.handleCheckAnswer}
-                    apiOptions={this._apiOptions()}
+                    enabledFeatures={this.props.enabledFeatures}
+                    apiOptions={this.getApiOptions()}
                     previewWidth={this.state.previewWidth}
                 />
             }
@@ -247,6 +236,7 @@ var EditorPage = React.createClass({
                     onChange={this.handleChange}
                     previewWidth={this.state.previewWidth}
                     enabledFeatures={this.props.enabledFeatures}
+                    apiOptions={this.getApiOptions()}
                 />
             }
         </div>;

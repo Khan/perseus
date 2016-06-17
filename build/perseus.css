@@ -1,5 +1,5 @@
 /* Perseus CSS
- * commit 69831780445d359f948ce7006bcb312425ce3d4c
+ * commit c47d5328430d3c753305bd9f9e475ad7c83644f0
  * branch master
  * @generated */
 .perseus-sr-only {
@@ -245,6 +245,11 @@
 .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph ul:not(.perseus-widget-radio):not(.fancy-select-options) ul:not(.perseus-widget-radio):not(.fancy-select-options) {
   padding-top: 24px;
 }
+.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-block-math,
+.framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-block-math {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-touch-callout: none;
+}
 @media (max-width: 767px) {
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-renderer > .paragraph,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-renderer > .paragraph {
@@ -351,6 +356,7 @@
   .framework-perseus:not(.perseus-article).perseus-xom-manatee .katex {
     font-size: 21px;
     line-height: 1.2;
+    color: #21242c;
   }
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-block-math .katex,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-block-math .katex {
@@ -488,6 +494,7 @@
   .framework-perseus:not(.perseus-article).perseus-xom-manatee .katex {
     font-size: 23px;
     line-height: 1.3;
+    color: #21242c;
   }
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-block-math .katex,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-block-math .katex {
@@ -625,6 +632,7 @@
   .framework-perseus:not(.perseus-article).perseus-xom-manatee .katex {
     font-size: 25px;
     line-height: 1.2;
+    color: #21242c;
   }
   .bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee .perseus-block-math .katex,
   .framework-perseus:not(.perseus-article).perseus-xom-manatee .perseus-block-math .katex {
@@ -2167,19 +2175,6 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
     margin-bottom: 0;
   }
 }
-.perseus-show-another-hint {
-  background-color: transparent;
-  font-size: 100%;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  color: #71b307;
-  font-weight: bold;
-}
-.perseus-show-another-hint-plus {
-  font-size: 20px;
-  margin-right: 7px;
-}
 .perseus-hint-label {
   color: #00457c;
   display: none;
@@ -2254,6 +2249,9 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
 }
 .perseus-math-input.mq-editable-field.mq-math-mode .mq-paren + span {
   margin: 0;
+}
+.perseus-math-input.mq-editable-field.mq-math-mode .mq-binary-operator {
+  font-family: KaTeX_Main !important;
 }
 .perseus-math-input.mq-editable-field.mq-math-mode sup {
   line-height: normal;

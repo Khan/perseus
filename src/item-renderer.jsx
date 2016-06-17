@@ -10,6 +10,7 @@ const ApiOptions = require("./perseus-api.jsx").Options;
 const EnabledFeatures = require("./enabled-features.jsx");
 const HintsRenderer = require("./hints-renderer.jsx");
 const Renderer = require("./renderer.jsx");
+const ProvideKeypad = require("./mixins/provide-keypad.jsx");
 const Util = require("./util.js");
 
 const {mapObject} = require("./interactive2/objective_.js");
@@ -54,6 +55,8 @@ const ItemRenderer = React.createClass({
         savedState: RP.any,
         workAreaSelector: RP.string,
     },
+
+    mixins: [ ProvideKeypad ],
 
     getDefaultProps: function() {
         return {
@@ -136,6 +139,7 @@ const ItemRenderer = React.createClass({
         // TODO(alpert): Figure out how to clean this up somehow
         this.questionRenderer = ReactDOM.render(
                 <Renderer
+                    keypadElement={this.keypadElement()}
                     problemNum={this.props.problemNum}
                     onInteractWithWidget={this.handleInteractWithWidget}
                     highlightedWidgets={this.state.questionHighlightedWidgets}
@@ -190,17 +194,19 @@ const ItemRenderer = React.createClass({
         }
     },
 
-    _handleFocusChange: function(newFocus, oldFocus, keypadDOMNode) {
+    _handleFocusChange: function(newFocus, oldFocus) {
         if (newFocus != null) {
-            this._setCurrentFocus(newFocus, keypadDOMNode);
+            this._setCurrentFocus(newFocus);
         } else {
-            this._onRendererBlur(oldFocus, keypadDOMNode);
+            this._onRendererBlur(oldFocus);
         }
     },
 
     // Sets the current focus path and element and send an onChangeFocus event
     // back to our parent.
-    _setCurrentFocus: function(newFocus, keypadDOMNode) {
+    _setCurrentFocus: function(newFocus) {
+        const keypadElement = this.keypadElement();
+
         // By the time this happens, newFocus cannot be a prefix of
         // prevFocused, since we must have either been called from
         // an onFocusChange within a renderer, which is only called when
@@ -210,28 +216,43 @@ const ItemRenderer = React.createClass({
         this._currentFocus = newFocus;
         if (this.props.apiOptions.onFocusChange != null) {
             this.props.apiOptions.onFocusChange(
-                this._currentFocus, prevFocus, keypadDOMNode
+                this._currentFocus,
+                prevFocus,
+                keypadElement && ReactDOM.findDOMNode(keypadElement)
             );
+        }
+
+        if (keypadElement) {
+            const inputPaths = this.getInputPaths();
+            const didFocusInput = this._currentFocus &&
+                inputPaths.some(inputPath => {
+                    return Util.inputPathsEqual(inputPath, this._currentFocus);
+                });
+
+            if (didFocusInput) {
+                keypadElement.activate();
+            } else {
+                keypadElement.dismiss();
+            }
         }
     },
 
-    _onRendererBlur: function(blurPath, keypadDOMNode) {
+    _onRendererBlur: function(blurPath) {
         var blurringFocusPath = this._currentFocus;
 
         // Failsafe: abort if ID is different, because focus probably happened
-        // before blur
-        if (!_.isEqual(blurPath, blurringFocusPath)) {
+        // before blur.
+        if (!Util.inputPathsEqual(blurPath, blurringFocusPath)) {
             return;
         }
 
         // Wait until after any new focus events fire this tick before
-        // declaring that nothing is focused.
-        // If a different widget was focused, we'll see an onBlur event
-        // now, but then an onFocus event on a different element before
-        // this callback is executed
-        _.defer(() => {
-            if (_.isEqual(this._currentFocus, blurringFocusPath)) {
-                this._setCurrentFocus(null, keypadDOMNode);
+        // declaring that nothing is focused, since if there were a focus change
+        // across Renderers (e.g., from the HintsRenderer to the
+        // QuestionRenderer), we could receive the blur before the focus.
+        setTimeout(() => {
+            if (Util.inputPathsEqual(this._currentFocus, blurringFocusPath)) {
+                this._setCurrentFocus(null);
             }
         });
     },
@@ -250,8 +271,11 @@ const ItemRenderer = React.createClass({
     },
 
     _handleAPICall: function(functionName, path) {
-        // Get arguments to pass to function, including `path`
+        // Get arguments to pass to function, including `path`.
         var functionArgs = _.rest(arguments);
+
+        // TODO(charlie): Extend this API to support inputs in the
+        // HintsRenderer as well.
         var caller = this.questionRenderer;
 
         return caller[functionName].apply(caller, functionArgs);
@@ -296,6 +320,12 @@ const ItemRenderer = React.createClass({
 
     focus: function() {
         return this.questionRenderer.focus();
+    },
+
+    blur: function() {
+        if (this._currentFocus) {
+            this.blurPath(this._currentFocus);
+        }
     },
 
     showHint: function() {

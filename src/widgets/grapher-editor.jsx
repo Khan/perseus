@@ -17,8 +17,11 @@ const {
     allTypes,
     typeToButton,
     DEFAULT_GRAPHER_PROPS,
-    DEFAULT_EDITOR_BOX_SIZE,
 } = require("./grapher/util.jsx");
+const {
+    containerSizeClass,
+    getInteractiveBoxFromSizeClass,
+} = require("../util/sizing-utils.js");
 
 const GrapherEditor = React.createClass({
     mixins: [Changeable],
@@ -32,15 +35,12 @@ const GrapherEditor = React.createClass({
     },
 
     render: function() {
+        const sizeClass = containerSizeClass.SMALL;
         let equationString;
         let graph;
         if (this.props.graph.valid === true) {
             var graphProps = {
-                graph: {
-                    // Override the box size in the editor.
-                    ...this.props.graph,
-                    box: [DEFAULT_EDITOR_BOX_SIZE, DEFAULT_EDITOR_BOX_SIZE],
-                },
+                graph: this.props.graph,
                 plot: this.props.correct,
                 availableTypes: this.props.availableTypes,
                 onChange: (newProps, cb) => {
@@ -56,7 +56,10 @@ const GrapherEditor = React.createClass({
                 trackInteraction: function() {},
             };
 
-            graph = <Grapher {...graphProps} />;
+            graph = <Grapher
+                {...graphProps}
+                containerSizeClass={sizeClass}
+            />;
             equationString = GrapherUtil.getEquationString(graphProps);
         } else {
             graph = <div className="perseus-error">
@@ -75,7 +78,7 @@ const GrapherEditor = React.createClass({
 
             <GraphSettings
                 editableSettings={["graph", "snap", "image"]}
-                box={this.props.graph.box}
+                box={getInteractiveBoxFromSizeClass(sizeClass)}
                 range={this.props.graph.range}
                 labels={this.props.graph.labels}
                 step={this.props.graph.step}

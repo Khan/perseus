@@ -102,6 +102,7 @@ const BaseRadio = React.createClass({
             radio: {
                 // Avoid centering
                 width: "100%",
+                backgroundColor: "#ffffff",
             },
 
             responsiveRadio: {
@@ -180,6 +181,9 @@ const BaseRadio = React.createClass({
             inlineItem: {
                 display: "inline-block",
                 paddingLeft: 20,
+                verticalAlign: "top",
+                // See http://stackoverflow.com/q/8120466 for explanation of
+                // why vertical align property is needed
             },
 
             responsiveItem: {

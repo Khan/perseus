@@ -102,6 +102,8 @@ var Table = React.createClass({
                             return <th key={i}>
                                 <this.props.Editor
                                     ref={"columnHeader" + i}
+                                    apiOptions={this.props.apiOptions}
+                                    enabledFeatures={this.props.enabledFeatures}
                                     content={header}
                                     widgetEnabled={false}
                                     onChange={

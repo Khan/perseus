@@ -20,18 +20,60 @@
 var classNames = require("classnames");
 var React = require("react");
 
+const { negativePhoneMargin } = require("../styles/constants.js");
+
+const MIN_VIEWPORT_HEIGHT = 480;
+
 var FixedToResponsive = React.createClass({
 
     propTypes: {
         width: React.PropTypes.number.isRequired,
         height: React.PropTypes.number.isRequired,
         className: React.PropTypes.string,
+        constrainHeight: React.PropTypes.bool,
+        allowFullBleed: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
         return {
             className: "",
+            constrainHeight: false,
+            allowFullBleed: false,
         };
+    },
+
+    getInitialState: function() {
+        return {
+            viewportHeight: null,
+            viewportWidth: null,
+        };
+    },
+
+    componentDidMount: function() {
+        // Cache viewport sizes instead of computing on each render.
+        // We setState() in componentDidMount(), even though it's a React
+        // anti-pattern, because we do actually want to trigger a re-render
+        // after the initial render (because initial render may be
+        // server-side).
+        // TODO(david): Don't do this for each image. Do this once per page.
+        if (window.innerHeight < MIN_VIEWPORT_HEIGHT) {
+            // There is a weird issue when this gets rendered in an Android
+            // webview where window.innerHeight might be initially very small,
+            // like 46, but seems to be good after ~400ms.
+            setTimeout(this._cacheViewportSize, 800);
+        } else {
+            this._cacheViewportSize();
+        }
+    },
+
+    _cacheViewportSize: function() {
+        if (this.isMounted()) {
+            this.setState({
+                viewportHeight: Math.max(MIN_VIEWPORT_HEIGHT,
+                                         window.innerHeight),
+                viewportWidth: window.innerWidth,
+            });
+        }
     },
 
     render: function() {
@@ -50,10 +92,33 @@ var FixedToResponsive = React.createClass({
             paddingBottom: (1 / aspectRatio).toFixed(4) * 100 + '%'
         }} />;
 
+        let { width, height } = this.props;
+
+        // Constrain height to be at most 2/3 viewport height, maintaining
+        // aspect ratio.
+        if (this.props.constrainHeight && this.state.viewportHeight) {
+            const maxHeight = 2 / 3 * this.state.viewportHeight;
+            if (this.props.height >= maxHeight) {
+                height = maxHeight;
+                width = maxHeight * aspectRatio;
+            }
+        }
+
+        // TODO(david): Use Aphrodite. However, that maybe a bit challenging
+        //     because we're passing in a this.prop.className.
+        let fullBleedContainerStyle = null;
+        if (this.props.allowFullBleed && this.state.viewportWidth &&
+                width >= this.state.viewportWidth) {
+            fullBleedContainerStyle = {
+                marginLeft: negativePhoneMargin,
+                marginRight: negativePhoneMargin,
+            };
+        }
+
         // Prevent child components from growing (aka "the Peter Pan effect")
         var style = {
-            maxWidth: this.props.width,
-            maxHeight: this.props.height,
+            maxWidth: width,
+            maxHeight: height,
         };
 
         var className = classNames(
@@ -61,9 +126,11 @@ var FixedToResponsive = React.createClass({
             this.props.className
         );
 
-        return <div className={className} style={style}>
-            {spacer}
-            {this.props.children}
+        return <div style={fullBleedContainerStyle}>
+            <div className={className} style={style}>
+                {spacer}
+                {this.props.children}
+            </div>
         </div>;
     }
 });

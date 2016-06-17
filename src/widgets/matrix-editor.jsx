@@ -93,6 +93,8 @@ var MatrixEditor = React.createClass({
                 {" "}Matrix prefix:{" "}
                 <Editor
                     ref={"prefix"}
+                    apiOptions={this.props.apiOptions}
+                    enabledFeatures={this.props.enabledFeatures}
                     content={this.props.prefix}
                     widgetEnabled={false}
                     onChange={(newProps) => {
@@ -103,6 +105,8 @@ var MatrixEditor = React.createClass({
                 {" "}Matrix suffix:{" "}
                 <Editor
                     ref={"suffix"}
+                    apiOptions={this.props.apiOptions}
+                    enabledFeatures={this.props.enabledFeatures}
                     content={this.props.suffix}
                     widgetEnabled={false}
                     onChange={(newProps) => {

@@ -17,7 +17,6 @@ var SvgImage = require("./components/svg-image.jsx");
 var TeX = require("react-components/tex.jsx");
 var WidgetContainer = require("./widget-container.jsx");
 var Widgets = require("./widgets.js");
-const { Keypad } = require("../math-input").components;
 
 var Util = require("./util.js");
 var EnabledFeatures = require("./enabled-features.jsx");
@@ -26,6 +25,8 @@ var ApiClassNames = require("./perseus-api.jsx").ClassNames;
 var { waitForKatexFonts, waitForMathjaxFonts } = require("./wait-for-fonts.js");
 var Zoomable = require("./components/zoomable.jsx");
 var Deferred = require("./deferred.js");
+
+const { keypadElementPropType } = require("../math-input").propTypes;
 
 var { mapObject, mapObjectFromArray } = require("./interactive2/objective_.js");
 
@@ -170,6 +171,7 @@ var Renderer = React.createClass({
         ignoreMissingWidgets: React.PropTypes.bool,
         images: React.PropTypes.any,
         interWidgets: React.PropTypes.func,
+        keypadElement: keypadElementPropType,
         onInteractWithWidget: React.PropTypes.func,
         onRender: React.PropTypes.func,
         problemNum: React.PropTypes.number,
@@ -202,43 +204,15 @@ var Renderer = React.createClass({
     },
 
     getInitialState: function() {
-        return _.extend({
-            jiptContent: null,
-            keypadElement: null,
-        }, this._getInitialWidgetState());
+        return _.extend({ jiptContent: null }, this._getInitialWidgetState());
     },
 
     componentDidMount: function() {
         this.handleRender({});
         this._currentFocus = null;
 
-        var apiOptions = this.getApiOptions();
         this._rootNode = ReactDOM.findDOMNode(this);
         this._isMounted = true;
-
-        if (apiOptions.customKeypad) {
-            // We create the keypad when the item is rendered.  The keypad is
-            // initially off-screen.  When a user taps on an input
-            // the keypad will animate into view from the bottom of the page.
-            // The reason why we're adding it to the body is that there may be
-            // other elements on the page outside of the perseus renderer and
-            // we want to be sure that the keypad will appear from the bottom
-            // of the page and appear above other content.
-            this._keypadContainer = document.createElement('div');
-            document.body.appendChild(this._keypadContainer);
-
-            ReactDOM.render(
-                <Keypad
-                    onElementMounted={(element) => {
-                        this.setState({
-                            keypadElement: element,
-                        });
-                    }}
-                    onDismiss={() => this.blur()}
-                />,
-                this._keypadContainer
-            );
-        }
     },
 
     componentWillReceiveProps: function(nextProps) {
@@ -305,17 +279,6 @@ var Renderer = React.createClass({
     },
 
     componentWillUnmount: function() {
-        if (this._keypadContainer) {
-            ReactDOM.unmountComponentAtNode(this._keypadContainer);
-            if (this._keypadContainer.parentNode) {
-                // Note ChildNode.remove() isn't available in older Android
-                // webviews.
-                this._keypadContainer.parentNode.removeChild(
-                        this._keypadContainer);
-            }
-            this._keypadContainer = null;
-        }
-
         if (this.translationIndex != null) {
             window.PerseusTranslationComponents[this.translationIndex] = null;
         }
@@ -440,8 +403,8 @@ var Renderer = React.createClass({
             static: widgetInfo && widgetInfo.static,
             problemNum: this.props.problemNum,
             enabledFeatures: this.props.enabledFeatures,
-            apiOptions: apiOptions,
-            keypadElement: this.state.keypadElement,
+            apiOptions: this.getApiOptions(this.props),
+            keypadElement: this.props.keypadElement,
             questionCompleted: this.props.questionCompleted,
             onFocus: _.partial(this._onWidgetFocus, id),
             onBlur: _.partial(this._onWidgetBlur, id),
@@ -882,17 +845,20 @@ var Renderer = React.createClass({
                 };
 
                 const computeMathBounds = (parentNode, parentBounds) => {
-                    const rawKatexBounds =
-                        parentNode.firstElementChild.getBoundingClientRect();
+                    const textElement =
+                            parentNode.querySelector('.katex-html') ||
+                            parentNode.querySelector('.MathJax');
+                    const textBounds = textElement.getBoundingClientRect();
+
                     // HACK(benkomalo): when measuring math content, note that
-                    // it actually peeks out vertically above/below the
-                    // container in some cases. The parent height is actually
-                    // a more accurate representation of what the child's
-                    // math's height is, so we use that as the vertical
-                    // measure.
+                    // sometimes it actually peeks outside of the
+                    // container in some cases. Just be conservative and use
+                    // the maximum value of the text and the parent. :(
                     return {
-                        width: rawKatexBounds.width,
-                        height: parentBounds.height,
+                        width: Math.max(
+                                parentBounds.width, textBounds.width),
+                        height: Math.max(
+                                parentBounds.height, textBounds.height),
                     };
                 };
 
@@ -1099,25 +1065,8 @@ var Renderer = React.createClass({
             if (apiOptions.onFocusChange != null) {
                 apiOptions.onFocusChange(
                     this._currentFocus,
-                    prevFocus,
-                    ReactDOM.findDOMNode(this.state.keypadElement)
+                    prevFocus
                 );
-            }
-
-            if (apiOptions.customKeypad) {
-                const didFocusInput = path &&
-                    this.getInputPaths().some(inputPath => {
-                        return inputPath.length === path.length &&
-                            inputPath.every((item, index) => {
-                                return path[index] === item;
-                            });
-                    });
-
-                if (didFocusInput) {
-                    this.state.keypadElement.activate();
-                } else {
-                    this.state.keypadElement.dismiss();
-                }
             }
         }
     },

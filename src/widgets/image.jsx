@@ -27,9 +27,13 @@ var defaultBackgroundImage = {
     width: 0,
     height: 0,
 };
+const supportedAlignments = ["block", "float-left", "float-right",
+    "full-width"];
+const DEFAULT_ALIGNMENT = "block";
 
 var ImageWidget = React.createClass({
     propTypes: {
+        alignment: React.PropTypes.oneOf(supportedAlignments),
         alt: React.PropTypes.string,
         apiOptions: ApiOptions.propTypes,
         // TODO(alex): Rename to something else, e.g. "image", perhaps flatten
@@ -65,6 +69,7 @@ var ImageWidget = React.createClass({
 
     getDefaultProps: function() {
         return {
+            alignment: DEFAULT_ALIGNMENT,
             title: "",
             range: [defaultRange, defaultRange],
             box: [defaultBoxSize, defaultBoxSize],
@@ -75,35 +80,14 @@ var ImageWidget = React.createClass({
         };
     },
 
-    componentDidMount: function() {
-        // Cache this instead of computing on each render.
-        this._viewportHeight = window.innerHeight;
-    },
-
     render: function() {
         var image;
         var alt;
-        var imageWidth;
-        var imageHeight;
         var {apiOptions} = this.props;
 
         var backgroundImage = this.props.backgroundImage;
 
         if (backgroundImage.url) {
-            imageHeight = backgroundImage.height;
-            imageWidth = backgroundImage.width;
-
-            if (apiOptions.xomManatee && this._viewportHeight) {
-                // Constrain image height to be at most 2/3 viewport height,
-                // maintaining aspect ratio.
-                const maxImageHeight = 2 / 3 * this._viewportHeight;
-                if (imageHeight >= maxImageHeight) {
-                    const aspectRatio = imageWidth / imageHeight;
-                    imageHeight = maxImageHeight;
-                    imageWidth = maxImageHeight * aspectRatio;
-                }
-            }
-
             image = <SvgImage
                         src={backgroundImage.url}
                         alt={
@@ -129,8 +113,8 @@ var ImageWidget = React.createClass({
                                while editing. */
                             this.props.alt ? "" : undefined
                         }
-                        width={imageWidth}
-                        height={imageHeight}
+                        width={backgroundImage.width}
+                        height={backgroundImage.height}
                         preloader={apiOptions.imagePreloader}
                         extraGraphie={{
                             box: this.props.box,
@@ -139,6 +123,8 @@ var ImageWidget = React.createClass({
                         }}
                         trackInteraction={this.props.trackInteraction}
                         zoomToFullSizeOnMobile={apiOptions.xomManatee}
+                        constrainHeight={apiOptions.xomManatee}
+                        allowFullBleed={apiOptions.xomManatee}
             />;
         }
 
@@ -181,18 +167,22 @@ var ImageWidget = React.createClass({
 
                 // Caption is left-aligned within a container that's centered
                 // below the image, with these width constraints:
-                // 1. Minimum width = 288px
+                // 1. Minimum width = 288px if image is full width, else 0
                 // 2. Maximum width = min(400px, content width, image width)
                 // The following CSS should do the trick, since CSS precedence
                 // is minWidth > maxWidth > width.
                 // TODO(david): If caption is only 1 line long, center-align
                 //     the text.
-                const maxWidth = imageWidth ? Math.min(400, imageWidth) : 400;
+                const alignment = this.props.alignment;
+                const isImageFullWidth = (
+                    alignment === "block" || alignment === "full-width");
+                const minWidth = isImageFullWidth ? 288 : 0;
+                const maxWidth = Math.min(400, backgroundImage.width);
                 titleAndCaption = <div className={className}>
                     <div style={{
                         display: "inline-block",
                         marginTop: baseUnitPx,
-                        minWidth: 288,
+                        minWidth: minWidth,
                         maxWidth: maxWidth,
                         width: "100%",
                     }}
@@ -272,7 +262,8 @@ module.exports = {
         var bgImage = props.backgroundImage;
         return !(bgImage && bgImage.url && !props.alt);
     },
-    supportedAlignments: ["block", "float-left", "float-right", "full-width"],
+    defaultAlignment: DEFAULT_ALIGNMENT,
+    supportedAlignments: supportedAlignments,
     displayName: "Image",
     widget: ImageWidget,
 };

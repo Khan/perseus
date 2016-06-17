@@ -92,6 +92,8 @@ const ImageEditor = React.createClass({
                         </InfoTip>
                     </div>
                     <Editor
+                        apiOptions={this.props.apiOptions}
+                        enabledFeatures={this.props.enabledFeatures}
                         content={this.props.alt}
                         onChange={(props) => {
                             if (props.content != null) {
@@ -106,6 +108,8 @@ const ImageEditor = React.createClass({
                 <label>
                     <div>Caption:</div>
                     <Editor
+                        apiOptions={this.props.apiOptions}
+                        enabledFeatures={this.props.enabledFeatures}
                         content={this.props.caption}
                         onChange={(props) => {
                             if (props.content != null) {
@@ -159,6 +163,8 @@ const ImageEditor = React.createClass({
                         <InfoTip>Appears above the image.</InfoTip>
                     </div>
                     <Editor
+                        apiOptions={this.props.apiOptions}
+                        enabledFeatures={this.props.enabledFeatures}
                         content={this.props.title}
                         onChange={(props) => {
                             if (props.content != null) {
