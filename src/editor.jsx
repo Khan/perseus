@@ -766,6 +766,10 @@ var Editor = React.createClass({
                        "7 & \\text{if $x=1$} \\\\\n" +
                        "f(x-1)+5 & \\text{if $x > 1$}\n" +
                        "\\end{cases}$";
+        } else if (templateType === "allWidgets") {
+            template = Widgets.getAllWidgetTypes()
+                              .map(type => `[[${Util.snowman} ${type} 1]]`)
+                              .join("\n\n");
         } else {
             throw new Error("Invalid template type: " + templateType);
         }
@@ -900,6 +904,8 @@ var Editor = React.createClass({
                 <option value="titledTable">Titled table</option>
                 <option value="alignment">Aligned equations</option>
                 <option value="piecewise">Piecewise function</option>
+                <option disabled>--</option>
+                <option value="allWidgets">All widgets (for testing)</option>
             </select>;
 
             if (!this.props.immutableWidgets) {
