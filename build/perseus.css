@@ -1,6 +1,6 @@
 /* Perseus CSS
- * commit 77b0d0034ddcbc61a307a72bbce3378e21a4d8b4
- * branch HEAD
+ * commit 69831780445d359f948ce7006bcb312425ce3d4c
+ * branch master
  * @generated */
 .perseus-sr-only {
   border: 0;
@@ -2362,7 +2362,8 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
   margin: 0;
 }
 #sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column {
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: column;
   vertical-align: top;
   width: 512px;
 }
@@ -2406,7 +2407,7 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
   margin-bottom: 20px;
 }
 #sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column-content {
-  height: 100%;
+  flex: 0 1 auto;
   overflow-y: auto;
 }
 #sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column-content > .paragraph {

@@ -913,7 +913,8 @@
             }
 
             .perseus-column {
-                display: inline-block;
+                display: inline-flex;
+                flex-direction: column;
                 vertical-align: top;
                 width: 512px;
 
@@ -972,7 +973,7 @@
             }
 
             .perseus-column-content {
-                height: 100%;
+                flex: 0 1 auto;
                 overflow-y: auto;
 
                 & > .paragraph {
