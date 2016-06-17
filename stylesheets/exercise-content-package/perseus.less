@@ -1072,6 +1072,11 @@
 @media (max-width: @pure-sm-max) {
     .perseus-renderer-responsive {
         margin: 0 @phoneMargin;
+
+        // Horizontal margins should only be applied to top-level Renderers.
+        .perseus-renderer-responsive {
+            margin: 0;
+        }
     }
 }
 
