@@ -1,5 +1,5 @@
 /*! Perseus with editors | http://github.com/Khan/perseus */
-// commit c47d5328430d3c753305bd9f9e475ad7c83644f0
+// commit c58a6b46cc79766f2b6f8e9d9447dcac1fcfef17
 // branch master
 // @generated
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -81,19 +81,19 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var version = __webpack_require__(63);
+	var version = __webpack_require__(61);
 
 	__webpack_require__(20);
 
 	module.exports = {
 	    apiVersion: version.apiVersion,
 	    itemDataVersion: version.itemDataVersion,
-	    init: __webpack_require__(21),
-	    ArticleRenderer: __webpack_require__(22),
-	    ItemRenderer: __webpack_require__(23),
-	    ServerItemRenderer: __webpack_require__(24),
-	    HintsRenderer: __webpack_require__(25),
-	    Renderer: __webpack_require__(26) };
+	    init: __webpack_require__(22),
+	    ArticleRenderer: __webpack_require__(23),
+	    ItemRenderer: __webpack_require__(24),
+	    ServerItemRenderer: __webpack_require__(25),
+	    HintsRenderer: __webpack_require__(26),
+	    Renderer: __webpack_require__(27) };
 
 /***/ },
 /* 2 */
@@ -104,8 +104,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	__webpack_require__(20);
-	var Version = __webpack_require__(63);
-	var Widgets = __webpack_require__(27);
+	var Version = __webpack_require__(61);
+	var Widgets = __webpack_require__(21);
 
 	var ItemVersion = _.clone(Widgets.getVersionVector());
 	ItemVersion["::renderer::"] = Version.itemDataVersion;
@@ -1158,7 +1158,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var Traversal = __webpack_require__(30);
-	var Widgets = __webpack_require__(27);
+	var Widgets = __webpack_require__(21);
 
 	var isUpgradedWidgetInfoRenderableBy = function (widgetInfo, widgetRendererVersion) {
 	    if (widgetRendererVersion == null) {
@@ -1229,7 +1229,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var Traversal = __webpack_require__(30);
-	var Widgets = __webpack_require__(27);
+	var Widgets = __webpack_require__(21);
 
 	module.exports = {
 	    // Returns a list of widgets that cause a given perseus item to require
@@ -1407,7 +1407,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var ArticleRenderer = __webpack_require__(22);
+	var ArticleRenderer = __webpack_require__(23);
 	var Editor = __webpack_require__(11);
 	var EnabledFeatures = __webpack_require__(32);
 	var JsonEditor = __webpack_require__(33);
@@ -1748,11 +1748,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var DragTarget = __webpack_require__(45);
 	var EnabledFeatures = __webpack_require__(32);
 	var PerseusMarkdown = __webpack_require__(31);
-	var PropCheckBox = __webpack_require__(36);
+	var PropCheckBox = __webpack_require__(34);
 	var Util = __webpack_require__(6);
-	var Widgets = __webpack_require__(27);
+	var Widgets = __webpack_require__(21);
 
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(42);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(41);
 
 	// like [[snowman input-number 1]]
 	var widgetPlaceholder = "[[☃ {id}]]";
@@ -2760,12 +2760,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var ApiOptionsProps = __webpack_require__(41);
-	var CombinedHintsEditor = __webpack_require__(34);
+	var ApiOptionsProps = __webpack_require__(42);
+	var CombinedHintsEditor = __webpack_require__(35);
 	var EnabledFeatures = __webpack_require__(32);
 	var FixPassageRefs = __webpack_require__(40);
-	var ItemEditor = __webpack_require__(35);
-	var ItemRenderer = __webpack_require__(23);
+	var ItemEditor = __webpack_require__(36);
+	var ItemRenderer = __webpack_require__(24);
 	var JsonEditor = __webpack_require__(33);
 	var ViewportResizer = __webpack_require__(14);
 
@@ -3278,7 +3278,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(16);
 
-	var Widgets = __webpack_require__(27);
+	var Widgets = __webpack_require__(21);
 
 	// As new widgets get added here, please also make sure they get added in
 	// webapp perseus/traversal.py so they can be properly translated.
@@ -3293,6 +3293,332 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable no-console, no-var, space-before-function-paren */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var _ = __webpack_require__(16);
+
+	var DEFAULT_ALIGNMENT = "block";
+	var DEFAULT_SUPPORTED_ALIGNMENTS = ["default"];
+	var DEFAULT_STATIC = false;
+	var DEFAULT_TRACKING = "";
+
+	var widgets = {};
+	var editors = {};
+
+	var Widgets = {
+	    // Widgets must be registered to avoid circular dependencies with the
+	    // core Editor and Renderer components.
+	    register: function (name, widget, editor) {
+	        widgets[name] = widget;
+	        editors[name] = editor;
+	    },
+
+	    getWidget: function (name, enabledFeatures) {
+	        // TODO(alex): Consider referring to these as renderers to avoid
+	        // overloading "widget"
+	        if (!_.has(widgets, name)) {
+	            return null;
+	        }
+
+	        // Allow widgets to specify a widget directly or via a function
+	        if (widgets[name].getWidget) {
+	            return widgets[name].getWidget(enabledFeatures);
+	        } else {
+	            return widgets[name].widget;
+	        }
+	    },
+
+	    getEditor: function (name) {
+	        return _.has(editors, name) ? editors[name] : null;
+	    },
+
+	    getTransform: function (name) {
+	        return _.has(widgets, name) ? widgets[name].transform || _.identity : null;
+	    },
+
+	    getVersion: function (name) {
+	        var widgetInfo = widgets[name];
+	        if (widgetInfo) {
+	            return widgets[name].version || { major: 0, minor: 0 };
+	        } else {
+	            return null;
+	        }
+	    },
+
+	    getVersionVector: function () {
+	        var version = {};
+	        _.each(_.keys(widgets), function (name) {
+	            version[name] = Widgets.getVersion(name);
+	        });
+	        return version;
+	    },
+
+	    getPublicWidgets: function () {
+	        // TODO(alex): Update underscore.js so that _.pick can take a function.
+	        return _.pick(widgets, _.reject(_.keys(widgets), function (name) {
+	            return widgets[name].hidden;
+	        }));
+	    },
+
+	    isAccessible: function (widgetInfo) {
+	        var accessible = widgets[widgetInfo.type].accessible;
+	        if (typeof accessible === "function") {
+	            return accessible(widgetInfo.options);
+	        } else {
+	            return !!accessible;
+	        }
+	    },
+
+	    getAllWidgetTypes: function () {
+	        return _.keys(widgets);
+	    },
+
+	    upgradeWidgetInfoToLatestVersion: function (oldWidgetInfo) {
+	        var type = oldWidgetInfo.type;
+	        if (!_.isString(type)) {
+	            throw new Error("widget type must be a string, but was: " + type);
+	        }
+	        var widgetExports = widgets[type];
+
+	        if (widgetExports == null) {
+	            // If we have a widget that isn't registered, we can't upgrade it
+	            // TODO(aria): Figure out what the best thing to do here would be
+	            return oldWidgetInfo;
+	        }
+
+	        // Unversioned widgets (pre-July 2014) are all implicitly 0.0
+	        var initialVersion = oldWidgetInfo.version || { major: 0, minor: 0 };
+	        var latestVersion = widgetExports.version || { major: 0, minor: 0 };
+
+	        // If the widget version is later than what we understand (major
+	        // version is higher than latest, or major versions are equal and minor
+	        // version is higher than latest), don't perform any upgrades.
+	        if (initialVersion.major > latestVersion.major || initialVersion.major === latestVersion.major && initialVersion.minor > latestVersion.minor) {
+	            return oldWidgetInfo;
+	        }
+
+	        // We do a clone here so that it's safe to mutate the input parameter
+	        // in propUpgrades functions (which I will probably accidentally do at
+	        // some point, and we would like to not break when that happens).
+	        var newEditorProps = _.clone(oldWidgetInfo.options) || {};
+
+	        var upgradePropsMap = widgetExports.propUpgrades || {};
+
+	        // Empty props usually mean a newly created widget by the editor,
+	        // and are always considerered up-to-date.
+	        // Mostly, we'd rather not run upgrade functions on props that are
+	        // not complete.
+	        if (_.keys(newEditorProps).length !== 0) {
+
+	            // We loop through all the versions after the current version of
+	            // the loaded widget, up to and including the latest version of the
+	            // loaded widget, and run the upgrade function to bring our loaded
+	            // widget's props up to that version.
+	            // There is a little subtlety here in that we call
+	            // upgradePropsMap[1] to upgrade *to* version 1,
+	            // (not from version 1).
+	            for (var nextVersion = initialVersion.major + 1; nextVersion <= latestVersion.major; nextVersion++) {
+
+	                if (upgradePropsMap[nextVersion]) {
+	                    newEditorProps = upgradePropsMap[nextVersion](newEditorProps);
+	                } else if (typeof console !== "undefined" && console.warn) {
+	                    // This is a warning because it is unlikely to be hit in
+	                    // local testing, and a warning is slightly less scary in
+	                    // prod than a `throw new Error`
+	                    console.warn("No upgrade found for widget `" + type + "` from " + "major version `" + (nextVersion - 1) + "` to " + "major version `" + nextVersion + "` found. This " + "is necessary to render this `" + type + "` correctly.");
+	                    // But try to keep going anyways (yolo!)
+	                    // (Throwing an error here would just break the page
+	                    // silently anyways, so that doesn't seem much better
+	                    // than a halfhearted attempt to continue, however
+	                    // shallow...)
+	                }
+	            }
+	        }
+
+	        // Minor version upgrades (eg. new optional props) don't have
+	        // transform functions. Instead, we fill in the new props with their
+	        // defaults.
+	        var defaultProps = editors[type].defaultProps;
+	        newEditorProps = _.extend({}, defaultProps, newEditorProps);
+
+	        var alignment = oldWidgetInfo.alignment;
+
+	        // Widgets that support multiple alignments will "lock in" the
+	        // alignment to the alignment that would be listed first in the
+	        // select box. If the widget only supports one alignment, the
+	        // alignment value will likely just end up as "default".
+	        if (alignment == null || alignment === "default") {
+	            alignment = Widgets.getSupportedAlignments(type)[0];
+	        }
+
+	        var widgetStatic = oldWidgetInfo.static;
+
+	        if (widgetStatic == null) {
+	            widgetStatic = DEFAULT_STATIC;
+	        }
+
+	        return _.extend({}, oldWidgetInfo, { // maintain other info, like type
+	            // After upgrading we guarantee that the version is up-to-date
+	            version: latestVersion,
+	            // Default graded to true (so null/undefined becomes true):
+	            graded: oldWidgetInfo.graded != null ? oldWidgetInfo.graded : true,
+	            alignment: alignment,
+	            static: widgetStatic,
+	            options: newEditorProps });
+	    },
+
+	    getRendererPropsForWidgetInfo: function (widgetInfo, problemNum) {
+	        var type = widgetInfo.type;
+	        var widgetExports = widgets[type];
+	        if (widgetExports == null) {
+	            // The widget is not a registered widget
+	            // It shouldn't matter what we return here, but for consistency
+	            // we return the untransformed options, as if the widget did
+	            // not have a transform defined.
+	            return widgetInfo.options;
+	        }
+	        var transform;
+	        if (widgetInfo.static) {
+	            // There aren't a lot of real places where we'll have to default to
+	            // _.identity, but it's theoretically possile if someone changes
+	            // the JSON manually / we have to back out static support for a
+	            // widget.
+	            transform = this.getStaticTransform(type) || _.identity;
+	        } else {
+	            transform = widgetExports.transform || _.identity;
+	        }
+	        // widgetInfo.options are the widgetEditor's props:
+	        return transform(widgetInfo.options, problemNum);
+	    },
+
+	    traverseChildWidgets: function (widgetInfo, traverseRenderer) {
+
+	        if (!traverseRenderer) {
+	            throw new Error("traverseRenderer must be provided, but was not");
+	        }
+
+	        if (!widgetInfo || !widgetInfo.type || !widgets[widgetInfo.type]) {
+	            return widgetInfo;
+	        }
+
+	        var widgetExports = widgets[widgetInfo.type];
+	        var props = widgetInfo.options;
+
+	        if (widgetExports.traverseChildWidgets && props) {
+	            var newProps = widgetExports.traverseChildWidgets(props, traverseRenderer);
+	            return _.extend({}, widgetInfo, { options: newProps });
+	        } else {
+	            return widgetInfo;
+	        }
+	    },
+
+	    /**
+	     * Handling for the optional alignments for widgets
+	     * See widget-container.jsx for details on how alignments are implemented.
+	     */
+
+	    /**
+	     * Returns the list of supported alignments for the given (string) widget
+	     * type. This is used primarily at editing time to display the choices
+	     * for the user.
+	     *
+	     * Supported alignments are given as an array of strings in the exports of
+	     * a widget's module.
+	     */
+	    getSupportedAlignments: function (type) {
+	        var widgetInfo = widgets[type];
+	        return widgetInfo && widgetInfo.supportedAlignments || DEFAULT_SUPPORTED_ALIGNMENTS;
+	    },
+
+	    /**
+	     * For the given (string) widget type and enabledFeatures, determine the
+	     * default alignment for the widget. This is used at rendering time to
+	     * go from "default" alignment to the actual alignment displayed on the
+	     * screen.
+	     *
+	     * The default alignment is given either as a string (called
+	     * `defaultAlignment`) or a function (called `getDefaultAlignment`) on
+	     * the exports of a widget's module.
+	     */
+	    getDefaultAlignment: function (type, enabledFeatures) {
+	        var widgetInfo = widgets[type];
+	        var alignment;
+	        if (!widgetInfo) {
+	            return DEFAULT_ALIGNMENT;
+	        }
+
+	        if (widgetInfo.getDefaultAlignment) {
+	            alignment = widgetInfo.getDefaultAlignment(enabledFeatures);
+	        } else {
+	            alignment = widgetInfo.defaultAlignment;
+	        }
+	        return alignment || DEFAULT_ALIGNMENT;
+	    },
+
+	    validAlignments: ["block", "inline-block", "inline", "float-left", "float-right", "full-width"],
+
+	    /**
+	     * Used at startup to fail fast if an alignment given by a widget is
+	     * invalid.
+	     */
+	    // TODO(alex): Change this to run as a testcase (vs. being run at runtime)
+	    validateAlignments: function () {
+	        _.each(widgets, function (widgetInfo) {
+	            if (widgetInfo.defaultAlignment && !_.contains(Widgets.validAlignments, widgetInfo.defaultAlignment)) {
+	                throw new Error("Widget '" + widgetInfo.displayName + "' has an invalid defaultAlignment value: " + widgetInfo.defaultAlignment);
+	            }
+
+	            if (widgetInfo.supportedAlignments) {
+	                var unknownAlignments = _.difference(widgetInfo.supportedAlignments, Widgets.validAlignments);
+
+	                if (unknownAlignments.length) {
+	                    throw new Error("Widget '" + widgetInfo.displayName + "' has an invalid value for supportedAlignments: " + unknownAlignments.join(" "));
+	                }
+	            }
+	        });
+	    },
+
+	    /**
+	     * Handling for static mode for widgets that support it.
+	     */
+
+	    /**
+	     * Returns true iff the widget supports static mode.
+	     * A widget implicitly supports static mode if it exports a
+	     * staticTransform function.
+	     */
+	    supportsStaticMode: function (type) {
+	        var widgetInfo = widgets[type];
+	        return widgetInfo && widgetInfo.staticTransform != null;
+	    },
+
+	    /**
+	     * Return the staticTransform function used to convert the editorProps to
+	     * the rendered widget state.
+	     */
+	    getStaticTransform: function (type) {
+	        var widgetInfo = widgets[type];
+	        return widgetInfo && widgetInfo.staticTransform;
+	    },
+
+	    /**
+	     * Returns the tracking option for the widget. The default is "",
+	     * which means simply to track interactions once. The other available
+	     * option is "all" which means to track all interactions.
+	     */
+	    getTracking: function (type) {
+	        var widgetInfo = widgets[type];
+	        return widgetInfo && widgetInfo.tracking || DEFAULT_TRACKING;
+	    } };
+
+	module.exports = Widgets;
+
+/***/ },
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -3333,7 +3659,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = init;
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3351,7 +3677,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Util = __webpack_require__(6);
 	var ApiOptions = __webpack_require__(5).Options;
 	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var Renderer = __webpack_require__(26);
+	var Renderer = __webpack_require__(27);
 	var ProvideKeypad = __webpack_require__(47);
 
 	var rendererProps = React.PropTypes.shape({
@@ -3524,7 +3850,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// named inputs across Renderers.
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -3539,8 +3865,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(5).Options;
 	var EnabledFeatures = __webpack_require__(32);
-	var HintsRenderer = __webpack_require__(25);
-	var Renderer = __webpack_require__(26);
+	var HintsRenderer = __webpack_require__(26);
+	var Renderer = __webpack_require__(27);
 	var ProvideKeypad = __webpack_require__(47);
 	var Util = __webpack_require__(6);
 
@@ -3927,7 +4253,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ItemRenderer;
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -3945,8 +4271,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(5).Options;
 	var EnabledFeatures = __webpack_require__(32);
-	var HintsRenderer = __webpack_require__(25);
-	var Renderer = __webpack_require__(26);
+	var HintsRenderer = __webpack_require__(26);
+	var Renderer = __webpack_require__(27);
 	var Util = __webpack_require__(6);
 
 	var _require = __webpack_require__(138);
@@ -4225,7 +4551,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ItemRenderer;
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(15);
@@ -4243,7 +4569,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var HintRenderer = __webpack_require__(48);
 	var SvgImage = __webpack_require__(29);
 	var EnabledFeatures = __webpack_require__(32);
-	var ApiOptionsProps = __webpack_require__(41);
+	var ApiOptionsProps = __webpack_require__(42);
 
 	var _require2 = __webpack_require__(139);
 
@@ -4447,7 +4773,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = HintsRenderer;
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -4470,11 +4796,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var SvgImage = __webpack_require__(29);
 	var TeX = __webpack_require__(51);
 	var WidgetContainer = __webpack_require__(52);
-	var Widgets = __webpack_require__(27);
+	var Widgets = __webpack_require__(21);
 
 	var Util = __webpack_require__(6);
 	var EnabledFeatures = __webpack_require__(32);
-	var ApiOptionsProps = __webpack_require__(41);
+	var ApiOptionsProps = __webpack_require__(42);
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 
 	var _require = __webpack_require__(53);
@@ -5924,332 +6250,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	   wrap (I don't know why this works, but it does) */
 
 /***/ },
-/* 27 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable no-console, no-var, space-before-function-paren */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var _ = __webpack_require__(16);
-
-	var DEFAULT_ALIGNMENT = "block";
-	var DEFAULT_SUPPORTED_ALIGNMENTS = ["default"];
-	var DEFAULT_STATIC = false;
-	var DEFAULT_TRACKING = "";
-
-	var widgets = {};
-	var editors = {};
-
-	var Widgets = {
-	    // Widgets must be registered to avoid circular dependencies with the
-	    // core Editor and Renderer components.
-	    register: function (name, widget, editor) {
-	        widgets[name] = widget;
-	        editors[name] = editor;
-	    },
-
-	    getWidget: function (name, enabledFeatures) {
-	        // TODO(alex): Consider referring to these as renderers to avoid
-	        // overloading "widget"
-	        if (!_.has(widgets, name)) {
-	            return null;
-	        }
-
-	        // Allow widgets to specify a widget directly or via a function
-	        if (widgets[name].getWidget) {
-	            return widgets[name].getWidget(enabledFeatures);
-	        } else {
-	            return widgets[name].widget;
-	        }
-	    },
-
-	    getEditor: function (name) {
-	        return _.has(editors, name) ? editors[name] : null;
-	    },
-
-	    getTransform: function (name) {
-	        return _.has(widgets, name) ? widgets[name].transform || _.identity : null;
-	    },
-
-	    getVersion: function (name) {
-	        var widgetInfo = widgets[name];
-	        if (widgetInfo) {
-	            return widgets[name].version || { major: 0, minor: 0 };
-	        } else {
-	            return null;
-	        }
-	    },
-
-	    getVersionVector: function () {
-	        var version = {};
-	        _.each(_.keys(widgets), function (name) {
-	            version[name] = Widgets.getVersion(name);
-	        });
-	        return version;
-	    },
-
-	    getPublicWidgets: function () {
-	        // TODO(alex): Update underscore.js so that _.pick can take a function.
-	        return _.pick(widgets, _.reject(_.keys(widgets), function (name) {
-	            return widgets[name].hidden;
-	        }));
-	    },
-
-	    isAccessible: function (widgetInfo) {
-	        var accessible = widgets[widgetInfo.type].accessible;
-	        if (typeof accessible === "function") {
-	            return accessible(widgetInfo.options);
-	        } else {
-	            return !!accessible;
-	        }
-	    },
-
-	    getAllWidgetTypes: function () {
-	        return _.keys(widgets);
-	    },
-
-	    upgradeWidgetInfoToLatestVersion: function (oldWidgetInfo) {
-	        var type = oldWidgetInfo.type;
-	        if (!_.isString(type)) {
-	            throw new Error("widget type must be a string, but was: " + type);
-	        }
-	        var widgetExports = widgets[type];
-
-	        if (widgetExports == null) {
-	            // If we have a widget that isn't registered, we can't upgrade it
-	            // TODO(aria): Figure out what the best thing to do here would be
-	            return oldWidgetInfo;
-	        }
-
-	        // Unversioned widgets (pre-July 2014) are all implicitly 0.0
-	        var initialVersion = oldWidgetInfo.version || { major: 0, minor: 0 };
-	        var latestVersion = widgetExports.version || { major: 0, minor: 0 };
-
-	        // If the widget version is later than what we understand (major
-	        // version is higher than latest, or major versions are equal and minor
-	        // version is higher than latest), don't perform any upgrades.
-	        if (initialVersion.major > latestVersion.major || initialVersion.major === latestVersion.major && initialVersion.minor > latestVersion.minor) {
-	            return oldWidgetInfo;
-	        }
-
-	        // We do a clone here so that it's safe to mutate the input parameter
-	        // in propUpgrades functions (which I will probably accidentally do at
-	        // some point, and we would like to not break when that happens).
-	        var newEditorProps = _.clone(oldWidgetInfo.options) || {};
-
-	        var upgradePropsMap = widgetExports.propUpgrades || {};
-
-	        // Empty props usually mean a newly created widget by the editor,
-	        // and are always considerered up-to-date.
-	        // Mostly, we'd rather not run upgrade functions on props that are
-	        // not complete.
-	        if (_.keys(newEditorProps).length !== 0) {
-
-	            // We loop through all the versions after the current version of
-	            // the loaded widget, up to and including the latest version of the
-	            // loaded widget, and run the upgrade function to bring our loaded
-	            // widget's props up to that version.
-	            // There is a little subtlety here in that we call
-	            // upgradePropsMap[1] to upgrade *to* version 1,
-	            // (not from version 1).
-	            for (var nextVersion = initialVersion.major + 1; nextVersion <= latestVersion.major; nextVersion++) {
-
-	                if (upgradePropsMap[nextVersion]) {
-	                    newEditorProps = upgradePropsMap[nextVersion](newEditorProps);
-	                } else if (typeof console !== "undefined" && console.warn) {
-	                    // This is a warning because it is unlikely to be hit in
-	                    // local testing, and a warning is slightly less scary in
-	                    // prod than a `throw new Error`
-	                    console.warn("No upgrade found for widget `" + type + "` from " + "major version `" + (nextVersion - 1) + "` to " + "major version `" + nextVersion + "` found. This " + "is necessary to render this `" + type + "` correctly.");
-	                    // But try to keep going anyways (yolo!)
-	                    // (Throwing an error here would just break the page
-	                    // silently anyways, so that doesn't seem much better
-	                    // than a halfhearted attempt to continue, however
-	                    // shallow...)
-	                }
-	            }
-	        }
-
-	        // Minor version upgrades (eg. new optional props) don't have
-	        // transform functions. Instead, we fill in the new props with their
-	        // defaults.
-	        var defaultProps = editors[type].defaultProps;
-	        newEditorProps = _.extend({}, defaultProps, newEditorProps);
-
-	        var alignment = oldWidgetInfo.alignment;
-
-	        // Widgets that support multiple alignments will "lock in" the
-	        // alignment to the alignment that would be listed first in the
-	        // select box. If the widget only supports one alignment, the
-	        // alignment value will likely just end up as "default".
-	        if (alignment == null || alignment === "default") {
-	            alignment = Widgets.getSupportedAlignments(type)[0];
-	        }
-
-	        var widgetStatic = oldWidgetInfo.static;
-
-	        if (widgetStatic == null) {
-	            widgetStatic = DEFAULT_STATIC;
-	        }
-
-	        return _.extend({}, oldWidgetInfo, { // maintain other info, like type
-	            // After upgrading we guarantee that the version is up-to-date
-	            version: latestVersion,
-	            // Default graded to true (so null/undefined becomes true):
-	            graded: oldWidgetInfo.graded != null ? oldWidgetInfo.graded : true,
-	            alignment: alignment,
-	            static: widgetStatic,
-	            options: newEditorProps });
-	    },
-
-	    getRendererPropsForWidgetInfo: function (widgetInfo, problemNum) {
-	        var type = widgetInfo.type;
-	        var widgetExports = widgets[type];
-	        if (widgetExports == null) {
-	            // The widget is not a registered widget
-	            // It shouldn't matter what we return here, but for consistency
-	            // we return the untransformed options, as if the widget did
-	            // not have a transform defined.
-	            return widgetInfo.options;
-	        }
-	        var transform;
-	        if (widgetInfo.static) {
-	            // There aren't a lot of real places where we'll have to default to
-	            // _.identity, but it's theoretically possile if someone changes
-	            // the JSON manually / we have to back out static support for a
-	            // widget.
-	            transform = this.getStaticTransform(type) || _.identity;
-	        } else {
-	            transform = widgetExports.transform || _.identity;
-	        }
-	        // widgetInfo.options are the widgetEditor's props:
-	        return transform(widgetInfo.options, problemNum);
-	    },
-
-	    traverseChildWidgets: function (widgetInfo, traverseRenderer) {
-
-	        if (!traverseRenderer) {
-	            throw new Error("traverseRenderer must be provided, but was not");
-	        }
-
-	        if (!widgetInfo || !widgetInfo.type || !widgets[widgetInfo.type]) {
-	            return widgetInfo;
-	        }
-
-	        var widgetExports = widgets[widgetInfo.type];
-	        var props = widgetInfo.options;
-
-	        if (widgetExports.traverseChildWidgets && props) {
-	            var newProps = widgetExports.traverseChildWidgets(props, traverseRenderer);
-	            return _.extend({}, widgetInfo, { options: newProps });
-	        } else {
-	            return widgetInfo;
-	        }
-	    },
-
-	    /**
-	     * Handling for the optional alignments for widgets
-	     * See widget-container.jsx for details on how alignments are implemented.
-	     */
-
-	    /**
-	     * Returns the list of supported alignments for the given (string) widget
-	     * type. This is used primarily at editing time to display the choices
-	     * for the user.
-	     *
-	     * Supported alignments are given as an array of strings in the exports of
-	     * a widget's module.
-	     */
-	    getSupportedAlignments: function (type) {
-	        var widgetInfo = widgets[type];
-	        return widgetInfo && widgetInfo.supportedAlignments || DEFAULT_SUPPORTED_ALIGNMENTS;
-	    },
-
-	    /**
-	     * For the given (string) widget type and enabledFeatures, determine the
-	     * default alignment for the widget. This is used at rendering time to
-	     * go from "default" alignment to the actual alignment displayed on the
-	     * screen.
-	     *
-	     * The default alignment is given either as a string (called
-	     * `defaultAlignment`) or a function (called `getDefaultAlignment`) on
-	     * the exports of a widget's module.
-	     */
-	    getDefaultAlignment: function (type, enabledFeatures) {
-	        var widgetInfo = widgets[type];
-	        var alignment;
-	        if (!widgetInfo) {
-	            return DEFAULT_ALIGNMENT;
-	        }
-
-	        if (widgetInfo.getDefaultAlignment) {
-	            alignment = widgetInfo.getDefaultAlignment(enabledFeatures);
-	        } else {
-	            alignment = widgetInfo.defaultAlignment;
-	        }
-	        return alignment || DEFAULT_ALIGNMENT;
-	    },
-
-	    validAlignments: ["block", "inline-block", "inline", "float-left", "float-right", "full-width"],
-
-	    /**
-	     * Used at startup to fail fast if an alignment given by a widget is
-	     * invalid.
-	     */
-	    // TODO(alex): Change this to run as a testcase (vs. being run at runtime)
-	    validateAlignments: function () {
-	        _.each(widgets, function (widgetInfo) {
-	            if (widgetInfo.defaultAlignment && !_.contains(Widgets.validAlignments, widgetInfo.defaultAlignment)) {
-	                throw new Error("Widget '" + widgetInfo.displayName + "' has an invalid defaultAlignment value: " + widgetInfo.defaultAlignment);
-	            }
-
-	            if (widgetInfo.supportedAlignments) {
-	                var unknownAlignments = _.difference(widgetInfo.supportedAlignments, Widgets.validAlignments);
-
-	                if (unknownAlignments.length) {
-	                    throw new Error("Widget '" + widgetInfo.displayName + "' has an invalid value for supportedAlignments: " + unknownAlignments.join(" "));
-	                }
-	            }
-	        });
-	    },
-
-	    /**
-	     * Handling for static mode for widgets that support it.
-	     */
-
-	    /**
-	     * Returns true iff the widget supports static mode.
-	     * A widget implicitly supports static mode if it exports a
-	     * staticTransform function.
-	     */
-	    supportsStaticMode: function (type) {
-	        var widgetInfo = widgets[type];
-	        return widgetInfo && widgetInfo.staticTransform != null;
-	    },
-
-	    /**
-	     * Return the staticTransform function used to convert the editorProps to
-	     * the rendered widget state.
-	     */
-	    getStaticTransform: function (type) {
-	        var widgetInfo = widgets[type];
-	        return widgetInfo && widgetInfo.staticTransform;
-	    },
-
-	    /**
-	     * Returns the tracking option for the widget. The default is "",
-	     * which means simply to track interactions once. The other available
-	     * option is "all" which means to track all interactions.
-	     */
-	    getTracking: function (type) {
-	        var widgetInfo = widgets[type];
-	        return widgetInfo && widgetInfo.tracking || DEFAULT_TRACKING;
-	    } };
-
-	module.exports = Widgets;
-
-/***/ },
 /* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -6950,7 +6950,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// TODO(aria): Pull this out of interactive2 / replace with new _.mapObject
 	var objective_ = __webpack_require__(138);
 
-	var Widgets = __webpack_require__(27);
+	var Widgets = __webpack_require__(21);
 
 	var noop = function () {};
 
@@ -7660,6 +7660,77 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(15);
+	var _ = __webpack_require__(16);
+
+	/* A checkbox that syncs its value to props using the
+	 * renderer's onChange method, and gets the prop name
+	 * dynamically from its props list
+	 */
+	var PropCheckBox = React.createClass({
+	    displayName: "PropCheckBox",
+
+	    propTypes: {
+	        labelAlignment: React.PropTypes.oneOf(["left", "right"])
+	    },
+
+	    DEFAULT_PROPS: {
+	        label: null,
+	        onChange: null,
+	        labelAlignment: "left"
+	    },
+
+	    getDefaultProps: function () {
+	        return this.DEFAULT_PROPS;
+	    },
+
+	    propName: function () {
+	        var propName = _.find(_.keys(this.props), function (localPropName) {
+	            return !_.has(this.DEFAULT_PROPS, localPropName);
+	        }, this);
+
+	        if (!propName) {
+	            throw new Error("Attempted to create a PropCheckBox with no " + "prop!");
+	        }
+
+	        return propName;
+	    },
+
+	    _labelAlignLeft: function () {
+	        return this.props.labelAlignment === "left";
+	    },
+
+	    render: function () {
+	        var propName = this.propName();
+	        return React.createElement(
+	            "label",
+	            null,
+	            this._labelAlignLeft() && this.props.label,
+	            React.createElement("input", { type: "checkbox",
+	                checked: this.props[propName],
+	                onChange: this.toggle }),
+	            !this._labelAlignLeft() && this.props.label
+	        );
+	    },
+
+	    toggle: function () {
+	        var propName = this.propName();
+	        var changes = {};
+	        changes[propName] = !this.props[propName];
+	        this.props.onChange(changes);
+	    }
+	});
+
+	module.exports = PropCheckBox;
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
@@ -7672,7 +7743,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Editor = __webpack_require__(11);
 	var HintRenderer = __webpack_require__(48);
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(62);
 
 	var ApiOptions = __webpack_require__(5).Options;
 	var EnabledFeatures = __webpack_require__(32);
@@ -7969,7 +8040,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = CombinedHintsEditor;
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -7983,8 +8054,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(5).Options;
 	var Editor = __webpack_require__(11);
-	var ItemExtrasEditor = __webpack_require__(62);
-	var ITEM_DATA_VERSION = __webpack_require__(63).itemDataVersion;
+	var ItemExtrasEditor = __webpack_require__(63);
+	var ITEM_DATA_VERSION = __webpack_require__(61).itemDataVersion;
 
 	var ItemEditor = React.createClass({
 	    displayName: "ItemEditor",
@@ -8110,77 +8181,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } });
 
 	module.exports = ItemEditor;
-
-/***/ },
-/* 36 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(15);
-	var _ = __webpack_require__(16);
-
-	/* A checkbox that syncs its value to props using the
-	 * renderer's onChange method, and gets the prop name
-	 * dynamically from its props list
-	 */
-	var PropCheckBox = React.createClass({
-	    displayName: "PropCheckBox",
-
-	    propTypes: {
-	        labelAlignment: React.PropTypes.oneOf(["left", "right"])
-	    },
-
-	    DEFAULT_PROPS: {
-	        label: null,
-	        onChange: null,
-	        labelAlignment: "left"
-	    },
-
-	    getDefaultProps: function () {
-	        return this.DEFAULT_PROPS;
-	    },
-
-	    propName: function () {
-	        var propName = _.find(_.keys(this.props), function (localPropName) {
-	            return !_.has(this.DEFAULT_PROPS, localPropName);
-	        }, this);
-
-	        if (!propName) {
-	            throw new Error("Attempted to create a PropCheckBox with no " + "prop!");
-	        }
-
-	        return propName;
-	    },
-
-	    _labelAlignLeft: function () {
-	        return this.props.labelAlignment === "left";
-	    },
-
-	    render: function () {
-	        var propName = this.propName();
-	        return React.createElement(
-	            "label",
-	            null,
-	            this._labelAlignLeft() && this.props.label,
-	            React.createElement("input", { type: "checkbox",
-	                checked: this.props[propName],
-	                onChange: this.toggle }),
-	            !this._labelAlignLeft() && this.props.label
-	        );
-	    },
-
-	    toggle: function () {
-	        var propName = this.propName();
-	        var changes = {};
-	        changes[propName] = !this.props[propName];
-	        this.props.onChange(changes);
-	    }
-	});
-
-	module.exports = PropCheckBox;
 
 /***/ },
 /* 37 */
@@ -8735,6 +8735,22 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = [
+	// standard props "added" by react
+	// (technically the renderer still adds them)
+	"key", "ref",
+	// added by src/renderer.jsx
+	"widgetId", "onChange", "problemNum", "enabledFeatures", "apiOptions", "questionCompleted", "interWidgets",
+	// added by src/editor.jsx, for widgets removing themselves
+	// this is soooo not the right place for this, but alas.
+	"onRemove",
+	// also added by src/editor.jsx
+	"id"];
+
+/***/ },
+/* 42 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	/**
@@ -8759,22 +8775,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } };
 
 	module.exports = ApiOptionsProps;
-
-/***/ },
-/* 42 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = [
-	// standard props "added" by react
-	// (technically the renderer still adds them)
-	"key", "ref",
-	// added by src/renderer.jsx
-	"widgetId", "onChange", "problemNum", "enabledFeatures", "apiOptions", "questionCompleted", "interWidgets",
-	// added by src/editor.jsx, for widgets removing themselves
-	// this is soooo not the right place for this, but alas.
-	"onRemove",
-	// also added by src/editor.jsx
-	"id"];
 
 /***/ },
 /* 43 */
@@ -9068,7 +9068,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var classnames = __webpack_require__(44);
 	var i18n = window.i18n;
 
-	var Renderer = __webpack_require__(26);
+	var Renderer = __webpack_require__(27);
 
 	var EnabledFeatures = __webpack_require__(32);
 	var ApiOptions = __webpack_require__(5).Options;
@@ -9459,7 +9459,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 
 	var EnabledFeatures = __webpack_require__(32);
-	var Widgets = __webpack_require__(27);
+	var Widgets = __webpack_require__(21);
 
 	var _require = __webpack_require__(150);
 
@@ -11080,6 +11080,21 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = {
+		"apiVersion": {
+			"major": 7,
+			"minor": 1
+		},
+		"itemDataVersion": {
+			"major": 0,
+			"minor": 1
+		}
+	};
+
+/***/ },
+/* 62 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/**
 	 * A wrapper around react-components/info-tip.jsx that can be rendered on the
 	 * server without causing a checksum mismatch on the client.
@@ -11116,7 +11131,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InfoTip;
 
 /***/ },
-/* 62 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -11125,7 +11140,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(62);
 
 	var ItemExtrasEditor = React.createClass({
 	    displayName: "ItemExtrasEditor",
@@ -11277,21 +11292,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ItemExtrasEditor;
 
 /***/ },
-/* 63 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = {
-		"apiVersion": {
-			"major": 7,
-			"minor": 1
-		},
-		"itemDataVersion": {
-			"major": 0,
-			"minor": 1
-		}
-	};
-
-/***/ },
 /* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -11314,7 +11314,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 	var ApiOptions = __webpack_require__(5).Options;
-	var Renderer = __webpack_require__(26);
+	var Renderer = __webpack_require__(27);
 	var Util = __webpack_require__(6);
 	var mediaQueries = __webpack_require__(160);
 
@@ -11519,7 +11519,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(5).Options;
 	var EditorJsonify = __webpack_require__(161);
-	var PropCheckBox = __webpack_require__(36);
+	var PropCheckBox = __webpack_require__(34);
 	var TextListEditor = __webpack_require__(56);
 
 	var Categorizer = __webpack_require__(64).widget;
@@ -11797,8 +11797,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EditorJsonify = __webpack_require__(161);
 
 	var BlurInput = __webpack_require__(162);
-	var InfoTip = __webpack_require__(61);
-	var PropCheckBox = __webpack_require__(36);
+	var InfoTip = __webpack_require__(62);
+	var PropCheckBox = __webpack_require__(34);
 
 	var DEFAULT_WIDTH = 400;
 	var DEFAULT_HEIGHT = 400;
@@ -12175,7 +12175,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(62);
 	var EditorJsonify = __webpack_require__(161);
 
 	var DropdownEditor = React.createClass({
@@ -12357,7 +12357,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(158);
 	var PerseusApi = __webpack_require__(5);
-	var Renderer = __webpack_require__(26);
+	var Renderer = __webpack_require__(27);
 
 	var defaultExplanationProps = {
 	    showPrompt: "Explain",
@@ -13473,8 +13473,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(158);
 
-	var InfoTip = __webpack_require__(61);
-	var PropCheckBox = __webpack_require__(36);
+	var InfoTip = __webpack_require__(62);
+	var PropCheckBox = __webpack_require__(34);
 	var SortableArea = __webpack_require__(169);
 	var TeX = __webpack_require__(51); // OldExpression only
 	var TexButtons = __webpack_require__(168);
@@ -14412,7 +14412,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(158);
 
 	var GraphSettings = __webpack_require__(172);
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(62);
 	var MultiButtonGroup = __webpack_require__(173);
 
 	var Grapher = __webpack_require__(74).widget;
@@ -14572,7 +14572,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(5).Options;
 	var Changeable = __webpack_require__(158);
-	var Renderer = __webpack_require__(26);
+	var Renderer = __webpack_require__(27);
 
 	// A Graded Group is more or less a Group widget that displays a check
 	// answer button below the rendered content. When clicked, the widget grades
@@ -14823,7 +14823,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(5).Options;
 	var Changeable = __webpack_require__(158);
-	var Renderer = __webpack_require__(26);
+	var Renderer = __webpack_require__(27);
 
 	var Group = React.createClass({
 	    displayName: "Group",
@@ -15253,7 +15253,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EditorJsonify = __webpack_require__(161);
 
 	var BlurInput = __webpack_require__(162);
-	var PropCheckBox = __webpack_require__(36);
+	var PropCheckBox = __webpack_require__(34);
 
 	/**
 	 * This is used for editing a name/value pair.
@@ -15432,7 +15432,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var Renderer = __webpack_require__(26);
+	var Renderer = __webpack_require__(27);
 
 	var Changeable = __webpack_require__(158);
 
@@ -15704,7 +15704,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var BlurInput = __webpack_require__(162);
 	var Editor = __webpack_require__(11);
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(62);
 	var RangeInput = __webpack_require__(174);
 
 	var defaultBoxSize = 400;
@@ -16448,7 +16448,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Util = __webpack_require__(6);
 
 	var BlurInput = __webpack_require__(162);
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(62);
 
 	var answerTypes = {
 	    number: {
@@ -18504,7 +18504,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var Graph = __webpack_require__(179);
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(62);
 	var Interactive2 = __webpack_require__(170);
 	var NumberInput = __webpack_require__(178);
 	var Util = __webpack_require__(6);
@@ -20760,7 +20760,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var DeprecationMixin = Util.DeprecationMixin;
 
 	var GraphSettings = __webpack_require__(172);
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(62);
 
 	var InteractiveGraph = __webpack_require__(88).widget;
 
@@ -21431,8 +21431,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EditorJsonify = __webpack_require__(161);
 
 	var NumberInput = __webpack_require__(178);
-	var PropCheckBox = __webpack_require__(36);
-	var InfoTip = __webpack_require__(61);
+	var PropCheckBox = __webpack_require__(34);
+	var InfoTip = __webpack_require__(62);
 
 	var MAX_SIZE = 8;
 
@@ -21703,7 +21703,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var NumberInput = __webpack_require__(178);
-	var Renderer = __webpack_require__(26);
+	var Renderer = __webpack_require__(27);
 	var TextInput = __webpack_require__(164);
 	var MathOutput = __webpack_require__(180);
 	var SimpleKeypadInput = __webpack_require__(175);
@@ -22374,7 +22374,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Renderer = __webpack_require__(26);
+	var Renderer = __webpack_require__(27);
 	var Sortable = __webpack_require__(181);
 
 	var ApiOptions = __webpack_require__(5).Options;
@@ -22535,8 +22535,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var InfoTip = __webpack_require__(61);
-	var PropCheckBox = __webpack_require__(36);
+	var InfoTip = __webpack_require__(62);
+	var PropCheckBox = __webpack_require__(34);
 	var TextListEditor = __webpack_require__(56);
 
 	var MatcherEditor = React.createClass({
@@ -22872,9 +22872,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(158);
 	var EditorJsonify = __webpack_require__(161);
 
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(62);
 	var NumberInput = __webpack_require__(178);
-	var PropCheckBox = __webpack_require__(36);
+	var PropCheckBox = __webpack_require__(34);
 	var RangeInput = __webpack_require__(174);
 
 	var defaultImage = {
@@ -24005,9 +24005,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EditorJsonify = __webpack_require__(161);
 
 	var ButtonGroup = __webpack_require__(46);
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(62);
 	var NumberInput = __webpack_require__(178);
-	var PropCheckBox = __webpack_require__(36);
+	var PropCheckBox = __webpack_require__(34);
 	var RangeInput = __webpack_require__(174);
 
 	var knumber = __webpack_require__(196).number;
@@ -24922,10 +24922,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ButtonGroup = __webpack_require__(46);
 	var Editor = __webpack_require__(11);
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(62);
 	var MultiButtonGroup = __webpack_require__(173);
 	var NumberInput = __webpack_require__(178);
-	var PropCheckBox = __webpack_require__(36);
+	var PropCheckBox = __webpack_require__(34);
 	var TextInput = __webpack_require__(164);
 
 	var firstNumericalParse = __webpack_require__(6).firstNumericalParse;
@@ -25436,7 +25436,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var Renderer = __webpack_require__(26);
+	var Renderer = __webpack_require__(27);
 	var Util = __webpack_require__(6);
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
@@ -25986,7 +25986,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(62);
 	var TextListEditor = __webpack_require__(56);
 
 	var NORMAL = "normal",
@@ -26191,7 +26191,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(158);
 
-	var Renderer = __webpack_require__(26);
+	var Renderer = __webpack_require__(27);
 	var PassageMarkdown = __webpack_require__(194);
 
 	var Passage = React.createClass({
@@ -26523,8 +26523,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EditorJsonify = __webpack_require__(161);
 
 	var Editor = __webpack_require__(11);
-	var InfoTip = __webpack_require__(61);
-	var PropCheckBox = __webpack_require__(36);
+	var InfoTip = __webpack_require__(62);
+	var PropCheckBox = __webpack_require__(34);
 
 	var PassageEditor = React.createClass({
 	    displayName: "PassageEditor",
@@ -26792,7 +26792,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(158);
 	var EditorJsonify = __webpack_require__(161);
 
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(62);
 	var NumberInput = __webpack_require__(178);
 	var TextInput = __webpack_require__(164);
 
@@ -26886,7 +26886,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(158);
 	var WidgetJsonifyDeprecated = __webpack_require__(159);
-	var Renderer = __webpack_require__(26);
+	var Renderer = __webpack_require__(27);
 
 	var PassageRefTarget = React.createClass({
 	    displayName: "PassageRefTarget",
@@ -27592,7 +27592,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var BlurInput = __webpack_require__(162);
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(62);
 	var NumberInput = __webpack_require__(178);
 	var RangeInput = __webpack_require__(174);
 	var SvgImage = __webpack_require__(29);
@@ -28518,7 +28518,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(5).Options;
 	var Changeable = __webpack_require__(158);
-	var Renderer = __webpack_require__(26);
+	var Renderer = __webpack_require__(27);
 	var Util = __webpack_require__(6);
 
 	var Sequence = React.createClass({
@@ -28817,7 +28817,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	/* globals $_, i18n */
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(62);
 	var React = __webpack_require__(15);
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
@@ -29582,7 +29582,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(158);
 	var EditorJsonify = __webpack_require__(161);
 
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(62);
 	var NumberInput = __webpack_require__(178);
 
 	var maxTrials = 5000;
@@ -29823,8 +29823,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var InfoTip = __webpack_require__(61);
-	var PropCheckBox = __webpack_require__(36);
+	var InfoTip = __webpack_require__(62);
+	var PropCheckBox = __webpack_require__(34);
 	var TextListEditor = __webpack_require__(56);
 
 	var HORIZONTAL = "horizontal";
@@ -29954,7 +29954,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var MathOutput = __webpack_require__(180);
-	var Renderer = __webpack_require__(26);
+	var Renderer = __webpack_require__(27);
 	var Util = __webpack_require__(6);
 
 	var ApiOptions = __webpack_require__(5).Options;
@@ -30289,7 +30289,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Util = __webpack_require__(6);
 
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(62);
 	var NumberInput = __webpack_require__(178);
 	var Editor = __webpack_require__(11);
 
@@ -32883,8 +32883,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Graph = __webpack_require__(179);
 	var GraphSettings = __webpack_require__(172);
-	var InfoTip = __webpack_require__(61);
-	var PropCheckBox = __webpack_require__(36);
+	var InfoTip = __webpack_require__(62);
+	var PropCheckBox = __webpack_require__(34);
 
 	var Transformer = __webpack_require__(125).widget;
 
@@ -34548,7 +34548,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(158);
 	var EditorJsonify = __webpack_require__(161);
 
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(62);
 	var BlurInput = __webpack_require__(162);
 
 	var KA_VIDEO_URL = /khanacademy\.org\/.*\/v\/(.*)$/;
@@ -35236,9 +35236,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(158);
 	var Editor = __webpack_require__(11);
-	var PropCheckBox = __webpack_require__(36);
+	var PropCheckBox = __webpack_require__(34);
 
-	var InfoTip = __webpack_require__(61);
+	var InfoTip = __webpack_require__(62);
 	var BaseRadio = __webpack_require__(184);
 
 	var ChoiceEditor = React.createClass({
@@ -39868,7 +39868,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(42);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(41);
 
 	var USAGE = "Usage:\n" + "  this.change({propName: 5}, callback);\n" + "  this.change(\"propName\", 5, callback);\n" + "  this.change(\"propName\")";
 
@@ -39954,7 +39954,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * just returns all the widget's props rather than picking out those which were
 	 * input by the user.
 	 */
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(42);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(41);
 
 	var WidgetJsonifyDeprecated = {
 	    getUserInput: function () {
@@ -40019,7 +40019,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(16);
 
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(42);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(41);
 
 	var EditorJsonify = {
 	    serialize: function () {
@@ -40805,7 +40805,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 	var MathInput = __webpack_require__(167);
-	var Renderer = __webpack_require__(26);
+	var Renderer = __webpack_require__(27);
 	var TextInput = __webpack_require__(164);
 	var MathOutput = __webpack_require__(180);
 
@@ -41891,8 +41891,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(158);
 
 	var ButtonGroup = __webpack_require__(46);
-	var InfoTip = __webpack_require__(61);
-	var PropCheckBox = __webpack_require__(36);
+	var InfoTip = __webpack_require__(62);
+	var PropCheckBox = __webpack_require__(34);
 	var RangeInput = __webpack_require__(174);
 	var TeX = __webpack_require__(51);
 	var Util = __webpack_require__(6);
@@ -43640,7 +43640,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var Util = __webpack_require__(6);
-	var Renderer = __webpack_require__(26);
+	var Renderer = __webpack_require__(27);
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 
@@ -44144,7 +44144,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Renderer = __webpack_require__(26);
+	var Renderer = __webpack_require__(27);
 	var PassageRef = __webpack_require__(108);
 	var Util = __webpack_require__(6);
 
@@ -44850,7 +44850,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var Renderer = __webpack_require__(26);
+	var Renderer = __webpack_require__(27);
 	var sharedStyles = __webpack_require__(206);
 	var styleConstants = __webpack_require__(139);
 	var mediaQueries = __webpack_require__(160);
@@ -48970,7 +48970,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _=__webpack_require__(16);__webpack_require__(222);var GraphUtils=__webpack_require__(200);var kvector=__webpack_require__(196).vector;var kpoint=__webpack_require__(196).point;var kline=__webpack_require__(196).line;var WrappedEllipse=__webpack_require__(223);var WrappedLine=__webpack_require__(224);var WrappedPath=__webpack_require__(225);var KhanMath=__webpack_require__(145);var KhanColors=__webpack_require__(171);var _require=__webpack_require__(154);var getCanUse3dTransform=_require.getCanUse3dTransform;function sum(array){return _.reduce(array, function(memo, arg){return memo + arg;}, 0);}function clockwise(points){var segments=_.zip(points, points.slice(1).concat(points.slice(0, 1)));var areas=_.map(segments, function(segment){var p1=segment[0];var p2=segment[1];return (p2[0] - p1[0]) * (p2[1] + p1[1]);});return sum(areas) > 0;}function addPoints(){var points=_.toArray(arguments);var zipped=_.zip.apply(_, points);return _.map(zipped, sum);}function reverseVector(vector){return _.map(vector, function(coord){return coord * -1;});}function scaledDistanceFromAngle(angle){var a=3.51470560176242 * 20;var b=0.5687298702748785 * 20;var c=-0.037587715462826674;return (a - b) * Math.exp(c * angle) + b;}function scaledPolarRad(radius, radians){return [radius * Math.cos(radians), radius * Math.sin(radians) * -1];}function scaledPolarDeg(radius, degrees){var radians=degrees * Math.PI / 180;return scaledPolarRad(radius, radians);}var dragging=false;var InteractiveUtils={FILL_OPACITY:0.3, createSorter:function(){var sorter={};var list=undefined;sorter.hasAttempted = false;sorter.init = function(element){list = $("[id=" + element + "]").last();var container=list.wrap("<div>").parent();var placeholder=$("<li>");placeholder.addClass("placeholder");container.addClass("sortable perseus-clearfix");list.find("li").each(function(tileNum, tile){$(tile).bind("vmousedown", function(event){var _this=this;if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();$(tile).addClass("dragging");var tileIndex=$(_this).index();placeholder.insertAfter(tile);placeholder.width($(tile).width());$(_this).css("z-index", 100);var offset=$(_this).offset();var click={left:event.pageX - offset.left - 3, top:event.pageY - offset.top - 3};$(tile).css({position:"absolute"});$(tile).offset({left:offset.left, top:offset.top});$(document).bind("vmousemove.tile vmouseup.tile", function(event){event.preventDefault();if(event.type === "vmousemove"){(function(){sorter.hasAttempted = true;$(tile).offset({left:event.pageX - click.left, top:event.pageY - click.top});var leftEdge=list.offset().left;var midWidth=$(tile).offset().left - leftEdge;var index=0;var sumWidth=0;list.find("li").each(function(){if(this === placeholder[0] || this === tile){return;}if(midWidth > sumWidth + $(this).outerWidth(true) / 2){index += 1;}sumWidth += $(this).outerWidth(true);});if(index !== tileIndex){tileIndex = index;if(index === 0){placeholder.prependTo(list);$(tile).prependTo(list);}else {placeholder.detach();$(tile).detach();var preceeding=list.find("li")[index - 1];placeholder.insertAfter(preceeding);$(tile).insertAfter(preceeding);}}})();}else if(event.type === "vmouseup"){(function(){$(document).unbind(".tile");var position=$(tile).offset();$(position).animate(placeholder.offset(), {duration:150, step:function(now, fx){position[fx.prop] = now;$(tile).offset(position);}, complete:function(){$(tile).css("z-index", 0);placeholder.detach();$(tile).css({position:"static"});$(tile).removeClass("dragging");}});})();}});})();}});});};sorter.getContent = function(){var content=[];list.find("li").each(function(tileNum, tile){content.push($.trim($(tile).find(".sort-key").text()));});return content;};sorter.setContent = function(content){var tiles=[];$.each(content, function(n, sortKey){var tile=list.find("li .sort-key").filter(function(){return $(this).text() === sortKey;}).closest("li").get(0);$(tile).detach();tiles.push(tile);});list.append(tiles);};return sorter;}, bogusShape:{animate:function(){}, attr:function(){}, remove:function(){}}};_.extend(GraphUtils.Graphie.prototype, {initAutoscaledGraph:function(range, options){var graph=this;options = $.extend({xpixels:500, ypixels:500, xdivisions:20, ydivisions:20, labels:true, unityLabels:true, range:range === undefined?[[-10, 10], [-10, 10]]:range}, options);options.scale = [options.xpixels / (options.range[0][1] - options.range[0][0]), options.ypixels / (options.range[1][1] - options.range[1][0])];options.gridStep = [(options.range[0][1] - options.range[0][0]) / options.xdivisions, (options.range[1][1] - options.range[1][0]) / options.ydivisions];graph.xpixels = options.xpixels;graph.ypixels = options.ypixels;graph.range = options.range;graph.scale = options.scale;graph.graphInit(options);}, addMouseLayer:function(options){var graph=this;options = _.extend({allowScratchpad:false}, options);var mouselayerZIndex=2;graph.mouselayer = Raphael(graph.raphael.canvas.parentNode, graph.xpixels, graph.ypixels);$(graph.mouselayer.canvas).css("z-index", mouselayerZIndex);if(options.onClick || options.onMouseDown || options.onMouseMove || options.onMouseOver || options.onMouseOut){(function(){var canvasClickTarget=graph.mouselayer.rect(0, 0, graph.xpixels, graph.ypixels).attr({fill:"#000", opacity:0});var isClickingCanvas=false;$(graph.mouselayer.canvas).on("vmousedown", function(e){if(e.target === canvasClickTarget[0]){if(options.onMouseDown){options.onMouseDown(graph.getMouseCoord(e));}isClickingCanvas = true;if(options.onMouseMove){$(document).bind("vmousemove.mouseLayer", function(e){if(isClickingCanvas){e.preventDefault();options.onMouseMove(graph.getMouseCoord(e));}});}$(document).bind("vmouseup.mouseLayer", function(e){$(document).unbind(".mouseLayer");if(isClickingCanvas && options.onClick){options.onClick(graph.getMouseCoord(e));}isClickingCanvas = false;});}});if(options.onMouseOver){$(graph.mouselayer.canvas).on("vmouseover", function(e){options.onMouseOver(graph.getMouseCoord(e));});}if(options.onMouseOut){$(graph.mouselayer.canvas).on("vmouseout", function(e){options.onMouseOut(graph.getMouseCoord(e));});}})();}if(!options.allowScratchpad){Khan.scratchpad.disable();}graph._mouselayerWrapper = document.createElement("div");$(graph._mouselayerWrapper).css({position:"absolute", left:0, top:0, zIndex:mouselayerZIndex});graph._visiblelayerWrapper = document.createElement("div");$(graph._visiblelayerWrapper).css({position:"absolute", left:0, top:0});var el=graph.raphael.canvas.parentNode;el.appendChild(graph._visiblelayerWrapper);el.appendChild(graph._mouselayerWrapper);graph.addToMouseLayerWrapper = function(el){this._mouselayerWrapper.appendChild(el);};graph.addToVisibleLayerWrapper = function(el){this._visiblelayerWrapper.appendChild(el);};}, getMousePx:function(event){var graphie=this;var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;return [mouseX, mouseY];}, getMouseCoord:function(event){return this.unscalePoint(this.getMousePx(event));}, drawArcs:function(point1, vertex, point3, numArcs){var startAngle=GraphUtils.findAngle(point1, vertex);var endAngle=GraphUtils.findAngle(point3, vertex);if(((endAngle - startAngle) % 360 + 360) % 360 > 180){var temp=startAngle;startAngle = endAngle;endAngle = temp;}var radius=0.3;if(((endAngle - startAngle) % 360 + 360) % 360 < 75){radius = -0.6 / 90 * (((endAngle - startAngle) % 360 + 360) % 360) + 0.8;}var arcset=[];for(var arc=0; arc < numArcs; ++arc) {arcset.push(this.arc(vertex, radius + 0.15 * arc, startAngle, endAngle));}return arcset;}, labelAngle:function(options){var graphie=this;_.defaults(options, {point1:[0, 0], vertex:[0, 0], point3:[0, 0], label:null, numArcs:1, showRightAngleMarker:true, pushOut:0, clockwise:false, style:{}});var text=options.text === undefined?"":options.text;var vertex=options.vertex;var sVertex=graphie.scalePoint(vertex);var p1=undefined;var p3=undefined;if(options.clockwise){p1 = options.point1;p3 = options.point3;}else {p1 = options.point3;p3 = options.point1;}var startAngle=GraphUtils.findAngle(p1, vertex);var endAngle=GraphUtils.findAngle(p3, vertex);var angle=(endAngle + 360 - startAngle) % 360;var halfAngle=(startAngle + angle / 2) % 360;var sPadding=5 * options.pushOut;var sRadius=sPadding + scaledDistanceFromAngle(angle);var temp=[];if(Math.abs(angle - 90) < 1e-9 && options.showRightAngleMarker){(function(){var v1=addPoints(sVertex, scaledPolarDeg(sRadius, startAngle));var v2=addPoints(sVertex, scaledPolarDeg(sRadius, endAngle));sRadius *= Math.SQRT2;var v3=addPoints(sVertex, scaledPolarDeg(sRadius, halfAngle));_.each([v1, v2], function(v){temp.push(graphie.scaledPath([v, v3], options.style));});})();}else {_.times(options.numArcs, function(i){temp.push(graphie.arc(vertex, graphie.unscaleVector(sRadius), startAngle, endAngle, options.style));sRadius += 3;});}if(text){var match=text.match(/\$deg(\d)?/);if(match){var precision=match[1] || 1;text = text.replace(match[0], KhanMath.toFixedApprox(angle, precision) + "^{\\circ}");}var sOffset=scaledPolarDeg(sRadius + 15, halfAngle);var sPosition=addPoints(sVertex, sOffset);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(text, true);}else {graphie.label(position, text, "center", options.style);}}return temp;}, labelSide:function(options){var graphie=this;_.defaults(options, {point1:[0, 0], point2:[0, 0], label:null, text:"", numTicks:0, numArrows:0, clockwise:false, style:{}});var p1=undefined;var p2=undefined;if(options.clockwise){p1 = options.point1;p2 = options.point2;}else {p1 = options.point2;p2 = options.point1;}var midpoint=[(p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2];var sMidpoint=graphie.scalePoint(midpoint);var parallelAngle=Math.atan2(p2[1] - p1[1], p2[0] - p1[0]);var perpendicularAngle=parallelAngle + Math.PI / 2;var temp=[];var sCumulativeOffset=0;if(options.numTicks){(function(){var n=options.numTicks;var sSpacing=5;var sHeight=5;var style=_.extend({}, options.style, {strokeWidth:2});_.times(n, function(i){var sOffset=sSpacing * (i - (n - 1) / 2);var sOffsetVector=scaledPolarRad(sOffset, parallelAngle);var sHeightVector=scaledPolarRad(sHeight, perpendicularAngle);var sPath=[addPoints(sMidpoint, sOffsetVector, sHeightVector), addPoints(sMidpoint, sOffsetVector, reverseVector(sHeightVector))];temp.push(graphie.scaledPath(sPath, style));});sCumulativeOffset += sSpacing * (n - 1) + 15;})();}if(options.numArrows){(function(){var n=options.numArrows;var start=[p1, p2].sort(function(a, b){if(a[1] === b[1]){return a[0] - b[0];}else {return a[1] - b[1];}})[0];var sStart=graphie.scalePoint(start);var style=_.extend({}, options.style, {arrows:"->", strokeWidth:2});var sSpacing=5;_.times(n, function(i){var sOffset=sCumulativeOffset + sSpacing * i;var sOffsetVector=scaledPolarRad(sOffset, parallelAngle);if(start !== p1){sOffsetVector = reverseVector(sOffsetVector);}var sEnd=addPoints(sMidpoint, sOffsetVector);temp.push(graphie.scaledPath([sStart, sEnd], style));});})();}var text=options.text;if(text){var match=text.match(/\$len(\d)?/);if(match){var distance=GraphUtils.getDistance(p1, p2);var precision=match[1] || 1;text = text.replace(match[0], KhanMath.toFixedApprox(distance, precision));}var sOffset=20;var sOffsetVector=scaledPolarRad(sOffset, perpendicularAngle);var sPosition=addPoints(sMidpoint, sOffsetVector);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(text, true);}else {graphie.label(position, text, "center", options.style);}}return temp;}, labelVertex:function(options){var graphie=this;_.defaults(options, {point1:null, vertex:[0, 0], point3:null, label:null, text:"", clockwise:false, style:{}});if(!options.text){return;}var vertex=options.vertex;var sVertex=graphie.scalePoint(vertex);var p1=undefined;var p3=undefined;if(options.clockwise){p1 = options.point1;p3 = options.point3;}else {p1 = options.point3;p3 = options.point1;}var angle=135;var halfAngle=undefined;if(p1 && p3){var startAngle=GraphUtils.findAngle(p1, vertex);var endAngle=GraphUtils.findAngle(p3, vertex);angle = (endAngle + 360 - startAngle) % 360;halfAngle = (startAngle + angle / 2 + 180) % 360;}else if(p1){var parallelAngle=GraphUtils.findAngle(vertex, p1);halfAngle = parallelAngle + 90;}else if(p3){var parallelAngle=GraphUtils.findAngle(p3, vertex);halfAngle = parallelAngle + 90;}else {halfAngle = 135;}var sRadius=10 + scaledDistanceFromAngle(360 - angle);var sOffsetVector=scaledPolarDeg(sRadius, halfAngle);var sPosition=addPoints(sVertex, sOffsetVector);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(options.text, true);}else {graphie.label(position, options.text, "center", options.style);}}, addMovablePoint:function(options){var movablePoint=$.extend(true, {graph:this, coord:[0, 0], snapX:0, snapY:0, pointSize:4, highlight:false, dragging:false, visible:true, bounded:true, constraints:{fixed:false, constrainX:false, constrainY:false, fixedAngle:{}, fixedDistance:{}}, lineStarts:[], lineEnds:[], polygonVertices:[], normalStyle:{}, highlightStyle:{fill:KhanColors.INTERACTING, stroke:KhanColors.INTERACTING}, labelStyle:{color:KhanColors.INTERACTIVE}, vertexLabel:"", mouseTarget:null}, options);var normalColor=movablePoint.constraints.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;movablePoint.normalStyle = _.extend({}, {"fill":normalColor, "stroke":normalColor}, options.normalStyle);if(options.coordX !== undefined){movablePoint.coord[0] = options.coordX;}if(options.coordY !== undefined){movablePoint.coord[1] = options.coordY;}var graph=movablePoint.graph;var applySnapAndConstraints=function(coord){if(movablePoint.visible && movablePoint.bounded && !movablePoint.constraints.fixed){coord = graph.constrainToBounds(coord, 10);}var coordX=coord[0];var coordY=coord[1];if(movablePoint.snapX !== 0){coordX = Math.round(coordX / movablePoint.snapX) * movablePoint.snapX;}if(movablePoint.snapY !== 0){coordY = Math.round(coordY / movablePoint.snapY) * movablePoint.snapY;}if(movablePoint.constraints.fixedDistance.snapPoints){var mouse=graph.scalePoint(coord);var mouseX=mouse[0];var mouseY=mouse[1];var snapRadians=2 * Math.PI / movablePoint.constraints.fixedDistance.snapPoints;var radius=movablePoint.constraints.fixedDistance.dist;var centerCoord=movablePoint.constraints.fixedDistance.point;var centerX=(centerCoord[0] - graph.range[0][0]) * graph.scale[0];var centerY=(-centerCoord[1] + graph.range[1][1]) * graph.scale[1];var mouseXrel=mouseX - centerX;var mouseYrel=-mouseY + centerY;var radians=Math.atan(mouseYrel / mouseXrel);var outsideArcTanRange=mouseXrel < 0;if(outsideArcTanRange){radians += Math.PI;}radians = Math.round(radians / snapRadians) * snapRadians;mouseXrel = radius * Math.cos(radians);mouseYrel = radius * Math.sin(radians);mouseX = mouseXrel + centerX;mouseY = -mouseYrel + centerY;coordX = KhanMath.roundTo(5, mouseX / graph.scale[0] + graph.range[0][0]);coordY = KhanMath.roundTo(5, graph.range[1][1] - mouseY / graph.scale[1]);}var result=movablePoint.applyConstraint([coordX, coordY]);return result;};movablePoint.applyConstraint = function(coord, extraConstraints, override){var newCoord=coord.slice();var constraints={};if(override){$.extend(constraints, {fixed:false, constrainX:false, constrainY:false, fixedAngle:{}, fixedDistance:{}}, extraConstraints);}else {$.extend(constraints, this.constraints, extraConstraints);}if(constraints.constrainX){newCoord = [this.coord[0], coord[1]];}else if(constraints.constrainY){newCoord = [coord[0], this.coord[1]];}else if(typeof constraints.fixedAngle.angle === "number" && typeof constraints.fixedDistance.dist === "number"){var vertex=constraints.fixedAngle.vertex.coord || constraints.fixedAngle.vertex;var ref=constraints.fixedAngle.ref.coord || constraints.fixedAngle.ref;var distPoint=constraints.fixedDistance.point.coord || constraints.fixedDistance.point;var constrainedAngle=(constraints.fixedAngle.angle + GraphUtils.findAngle(ref, vertex)) * Math.PI / 180;var _length=constraints.fixedDistance.dist;newCoord[0] = _length * Math.cos(constrainedAngle) + distPoint[0];newCoord[1] = _length * Math.sin(constrainedAngle) + distPoint[1];}else if(typeof constraints.fixedAngle.angle === "number"){var vertex=constraints.fixedAngle.vertex.coord || constraints.fixedAngle.vertex;var ref=constraints.fixedAngle.ref.coord || constraints.fixedAngle.ref;var constrainedAngle=(constraints.fixedAngle.angle + GraphUtils.findAngle(ref, vertex)) * Math.PI / 180;var angle=GraphUtils.findAngle(coord, vertex) * Math.PI / 180;var distance=GraphUtils.getDistance(coord, vertex);var _length2=distance * Math.cos(constrainedAngle - angle);_length2 = _length2 < 1?1:_length2;newCoord[0] = _length2 * Math.cos(constrainedAngle) + vertex[0];newCoord[1] = _length2 * Math.sin(constrainedAngle) + vertex[1];}else if(typeof constraints.fixedDistance.dist === "number"){var distPoint=constraints.fixedDistance.point.coord || constraints.fixedDistance.point;var angle=GraphUtils.findAngle(coord, distPoint);var _length3=constraints.fixedDistance.dist;angle = angle * Math.PI / 180;newCoord[0] = _length3 * Math.cos(angle) + distPoint[0];newCoord[1] = _length3 * Math.sin(angle) + distPoint[1];}else if(constraints.fixed){newCoord = movablePoint.coord;}return newCoord;};movablePoint.coord = applySnapAndConstraints(movablePoint.coord);var highlightScale=2;if(movablePoint.visible){graph.style(movablePoint.normalStyle, function(){var radii=[movablePoint.pointSize / graph.scale[0], movablePoint.pointSize / graph.scale[1]];var options={maxScale:highlightScale, padding:2};movablePoint.visibleShape = new WrappedEllipse(graph, movablePoint.coord, radii, options);movablePoint.visibleShape.attr(_.omit(movablePoint.normalStyle, "scale"));movablePoint.visibleShape.toFront();});}movablePoint.normalStyle.scale = 1;movablePoint.highlightStyle.scale = highlightScale;if(movablePoint.vertexLabel){movablePoint.labeledVertex = this.label([0, 0], "", "center", movablePoint.labelStyle);}movablePoint.drawLabel = function(){if(movablePoint.vertexLabel){movablePoint.graph.labelVertex({vertex:movablePoint.coord, label:movablePoint.labeledVertex, text:movablePoint.vertexLabel, style:movablePoint.labelStyle});}};movablePoint.drawLabel();movablePoint.grab = function(offset){offset = offset || [0, 0];$(document).bind("vmousemove.point vmouseup.point", function(event){event.preventDefault();movablePoint.dragging = true;dragging = true;var coord=kvector.add(graph.getMouseCoord(event), offset);coord = applySnapAndConstraints(coord);var coordX=coord[0];var coordY=coord[1];var mouseX=undefined;var mouseY=undefined;if(event.type === "vmousemove"){var doMove=true;if(_.isFunction(movablePoint.onMove)){var result=movablePoint.onMove(coordX, coordY);if(result === false){doMove = false;}if(_.isArray(result)){coordX = result[0];coordY = result[1];}}mouseX = (coordX - graph.range[0][0]) * graph.scale[0];mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];if(doMove){var point=graph.unscalePoint([mouseX, mouseY]);movablePoint.visibleShape.moveTo(point);movablePoint.mouseTarget.moveTo(point);movablePoint.coord = [coordX, coordY];movablePoint.updateLineEnds();$(movablePoint).trigger("move");}movablePoint.drawLabel();}else if(event.type === "vmouseup"){$(document).unbind(".point");movablePoint.dragging = false;dragging = false;if(_.isFunction(movablePoint.onMoveEnd)){var result=movablePoint.onMoveEnd(coordX, coordY);if(_.isArray(result)){coordX = result[0];coordY = result[1];mouseX = (coordX - graph.range[0][0]) * graph.scale[0];mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];var point=graph.unscalePoint([mouseX, mouseY]);movablePoint.visibleShape.moveTo(point);movablePoint.mouseTarget.moveTo(point);movablePoint.coord = [coordX, coordY];}}if(!movablePoint.highlight){movablePoint.visibleShape.animate(movablePoint.normalStyle, 50);if(movablePoint.onUnhighlight){movablePoint.onUnhighlight();}}}});};if(movablePoint.visible && !movablePoint.constraints.fixed){if(!movablePoint.mouseTarget){var radii=graph.unscaleVector(24);var _options={mouselayer:true, padding:0};movablePoint.mouseTarget = new WrappedEllipse(graph, movablePoint.coord, radii, _options);movablePoint.mouseTarget.attr({fill:"#000", opacity:0});}var $mouseTarget=$(movablePoint.mouseTarget.getMouseTarget());$mouseTarget.css("cursor", "move");$mouseTarget.bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){movablePoint.highlight = true;if(!dragging){movablePoint.visibleShape.animate(movablePoint.highlightStyle, 50);if(movablePoint.onHighlight){movablePoint.onHighlight();}}}else if(event.type === "vmouseout"){movablePoint.highlight = false;if(!movablePoint.dragging && !dragging){movablePoint.visibleShape.animate(movablePoint.normalStyle, 50);if(movablePoint.onUnhighlight){movablePoint.onUnhighlight();}}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){event.preventDefault();var startCoord=movablePoint.coord;var startMouseCoord=graph.getMouseCoord(event);var isMouse=!("ontouchstart" in window);var touchOffset=isMouse?[0, 0]:kvector.subtract(startCoord, startMouseCoord);movablePoint.grab(touchOffset);}});}movablePoint.moveTo = function(coordX, coordY, updateLines){var distance=GraphUtils.getDistance(this.graph.scalePoint([coordX, coordY]), this.graph.scalePoint(this.coord));var time=distance * 5;var cb=updateLines && function(coord){movablePoint.coord = coord;movablePoint.updateLineEnds();};this.visibleShape.animateTo([coordX, coordY], time, cb);this.mouseTarget.animateTo([coordX, coordY], time, cb);this.coord = [coordX, coordY];if(_.isFunction(this.onMove)){this.onMove(coordX, coordY);}};movablePoint.updateLineEnds = function(){$(this.lineStarts).each(function(){this.coordA = movablePoint.coord;this.transform();});$(this.lineEnds).each(function(){this.coordZ = movablePoint.coord;this.transform();});$(this.polygonVertices).each(function(){this.transform();});};movablePoint.setCoord = function(coord){if(this.visible){this.visibleShape.moveTo(coord);if(this.mouseTarget != null){this.mouseTarget.moveTo(coord);}}this.coord = coord.slice();};movablePoint.setCoordConstrained = function(coord){this.setCoord(applySnapAndConstraints(coord));};movablePoint.toBack = function(){if(this.visible){if(this.mouseTarget != null){this.mouseTarget.toBack();}this.visibleShape.toBack();}};movablePoint.toFront = function(){if(this.visible){if(this.mouseTarget != null){this.mouseTarget.toFront();}this.visibleShape.toFront();}};movablePoint.remove = function(){if(this.visibleShape){this.visibleShape.remove();}if(this.mouseTarget){this.mouseTarget.remove();}if(this.labeledVertex){this.labeledVertex.remove();}};return movablePoint;}, addInteractiveFn:function(fn, options){var graph=this;options = $.extend({graph:graph, snap:0, range:[graph.range[0][0], graph.range[0][1]]}, options);var interactiveFn={highlight:false};graph.style({stroke:KhanColors.BLUE}, function(){interactiveFn.visibleShape = graph.plot(fn, options.range, options.swapAxes);});graph.style({fill:KhanColors.BLUE, stroke:KhanColors.BLUE}, function(){interactiveFn.cursorPoint = graph.ellipse([0, fn(0)], [4 / graph.scale[0], 4 / graph.scale[1]]);});interactiveFn.cursorPoint.attr("opacity", 0);var mouseAreaWidth=30;var points=[];var step=(options.range[1] - options.range[0]) / 100;var addScaledPoint=function(x, y){if(options.swapAxes){points.push([(y - graph.range[0][0]) * graph.scale[0], (graph.range[1][1] - x) * graph.scale[1]]);}else {points.push([(x - graph.range[0][0]) * graph.scale[0], (graph.range[1][1] - y) * graph.scale[1]]);}};for(var x=options.range[0]; x <= options.range[1]; x += step) {var ddx=(fn(x - 0.001) - fn(x + 0.001)) / 0.002;var x1=x;var y1=fn(x) + mouseAreaWidth / (2 * graph.scale[1]);if(ddx !== 0){var normalslope=-1 / (ddx * (graph.scale[1] / graph.scale[0])) / (graph.scale[1] / graph.scale[0]);if(ddx < 0){x1 = x - Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}else if(ddx > 0){x1 = x + Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}}addScaledPoint(x1, y1);}for(var x=options.range[1]; x >= options.range[0]; x -= step) {var ddx=(fn(x - 0.001) - fn(x + 0.001)) / 0.002;var x1=x;var y1=fn(x) - mouseAreaWidth / (2 * graph.scale[1]);if(ddx !== 0){var normalslope=-1 / (ddx * (graph.scale[1] / graph.scale[0])) / (graph.scale[1] / graph.scale[0]);if(ddx < 0){x1 = x + Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}else if(ddx > 0){x1 = x - Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}}addScaledPoint(x1, y1);}interactiveFn.mouseTarget = graph.mouselayer.path(GraphUtils.unscaledSvgPath(points));interactiveFn.mouseTarget.attr({fill:"#000", "opacity":0});$(interactiveFn.mouseTarget[0]).bind("vmouseover vmouseout vmousemove", function(event){event.preventDefault();var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graph.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graph.ypixels - 10, mouseY));if(options.snap){mouseX = Math.round(mouseX / (graph.scale[0] * options.snap)) * (graph.scale[0] * options.snap);}var coordX=mouseX / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - mouseY / graph.scale[1];var findDistance=function(coordX, coordY){var closestX=0;var minDist=Math.sqrt(coordX * coordX + coordY * coordY);for(var x=options.range[0]; x < options.range[1]; x += (options.range[1] - options.range[0]) / graph.xpixels) {if(Math.sqrt((x - coordX) * (x - coordX) + (fn(x) - coordY) * (fn(x) - coordY)) < minDist){closestX = x;minDist = Math.sqrt((x - coordX) * (x - coordX) + (fn(x) - coordY) * (fn(x) - coordY));}}return closestX;};if(options.swapAxes){var closestX=findDistance(coordY, coordX);coordX = fn(closestX);coordY = closestX;}else {var closestX=findDistance(coordX, coordY);coordX = closestX;coordY = fn(closestX);}interactiveFn.cursorPoint.attr("cx", (graph.range[0][1] + coordX) * graph.scale[0]);interactiveFn.cursorPoint.attr("cy", (graph.range[1][1] - coordY) * graph.scale[1]);if(_.isFunction(interactiveFn.onMove)){interactiveFn.onMove(coordX, coordY);}if(event.type === "vmouseover"){interactiveFn.cursorPoint.animate({opacity:1}, 50);interactiveFn.highlight = true;}else if(event.type === "vmouseout"){interactiveFn.highlight = false;interactiveFn.cursorPoint.animate({opacity:0}, 50);if(_.isFunction(interactiveFn.onLeave)){interactiveFn.onLeave(coordX, coordY);}}});interactiveFn.mouseTarget.toBack();return interactiveFn;}, addMovableLineSegment:function(options){var lineSegment=$.extend({graph:this, coordA:[0, 0], coordZ:[1, 1], snapX:0, snapY:0, fixed:false, ticks:0, normalStyle:{}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":6}, labelStyle:{"stroke":KhanColors.INTERACTIVE, "color":KhanColors.INTERACTIVE}, highlight:false, dragging:false, tick:[], extendLine:false, extendRay:false, constraints:{fixed:false, constrainX:false, constrainY:false}, sideLabel:"", vertexLabels:[], numArrows:0, numTicks:0, movePointsWithLine:false}, options);var normalColor=lineSegment.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;lineSegment.normalStyle = _.extend({}, {"stroke-width":2, "stroke":normalColor}, options.normalStyle);lineSegment.arrowStyle = _.extend({}, lineSegment.normalStyle, {"color":lineSegment.normalStyle.stroke});if(options.pointA !== undefined){lineSegment.coordA = options.pointA.coord;lineSegment.pointA.lineStarts.push(lineSegment);}else if(options.coordA !== undefined){lineSegment.coordA = options.coordA.slice();}if(options.pointZ !== undefined){lineSegment.coordZ = options.pointZ.coord;lineSegment.pointZ.lineEnds.push(lineSegment);}else if(options.coordA !== undefined){lineSegment.coordA = lineSegment.coordA.slice();}var graph=lineSegment.graph;graph.style(lineSegment.normalStyle);for(var i=0; i < lineSegment.ticks; ++i) {lineSegment.tick[i] = InteractiveUtils.bogusShape;}var path=GraphUtils.unscaledSvgPath([[0, 0], [1, 0]]);for(var i=0; i < lineSegment.ticks; ++i) {var tickoffset=0.5 - (lineSegment.ticks - 1 + i * 2) / graph.scale[0];path += GraphUtils.unscaledSvgPath([[tickoffset, -7], [tickoffset, 7]]);}options = {thickness:Math.max(lineSegment.normalStyle["stroke-width"], lineSegment.highlightStyle["stroke-width"])};lineSegment.visibleLine = new WrappedLine(graph, [0, 0], [1, 0], options);lineSegment.visibleLine.attr(lineSegment.normalStyle);if(!lineSegment.fixed){var _options2={thickness:30, mouselayer:true};lineSegment.mouseTarget = new WrappedLine(graph, [0, 0], [1, 0], _options2);lineSegment.mouseTarget.attr({fill:"#000", "opacity":0});}lineSegment.transform = function(syncToPoints){if(syncToPoints){if(typeof this.pointA === "object"){this.coordA = this.pointA.coord;}if(typeof this.pointZ === "object"){this.coordZ = this.pointZ.coord;}}var getScaledAngle=function(line){var scaledA=line.graph.scalePoint(line.coordA);var scaledZ=line.graph.scalePoint(line.coordZ);return kvector.polarDegFromCart(kvector.subtract(scaledZ, scaledA))[1];};var getClipPoint=function(graph, coord, angle){graph = lineSegment.graph;var xExtent=graph.range[0][1] - graph.range[0][0];var yExtent=graph.range[1][1] - graph.range[1][0];var distance=xExtent + yExtent;var angleVec=graph.unscaleVector(kvector.cartFromPolarDeg([1, angle]));var distVec=kvector.scale(kvector.normalize(angleVec), distance);var farCoord=kvector.add(coord, distVec);var scaledAngle=kvector.polarDegFromCart(angleVec)[1];var clipPoint=graph.constrainToBoundsOnAngle(farCoord, 4, scaledAngle * Math.PI / 180);return clipPoint;};var angle=getScaledAngle(this);var start=this.coordA;var end=this.coordZ;if(this.extendLine){start = getClipPoint(graph, start, 360 - angle);end = getClipPoint(graph, end, (540 - angle) % 360);}else if(this.extendRay){end = getClipPoint(graph, start, 360 - angle);}var elements=[this.visibleLine];if(!this.fixed){elements.push(this.mouseTarget);}_.each(elements, function(element){element.moveTo(start, end);});var createArrow=function(graph, style){var center=[0.75, 0];var points=[[-3, 4], [-2.75, 2.5], [0, 0.25], center, [0, -0.25], [-2.75, -2.5], [-3, -4]];var scale=1.4;points = _.map(points, function(point){var pv=kvector.subtract(point, center);var pvScaled=kvector.scale(pv, scale);return kvector.add(center, pvScaled);});var createCubicPath=function(points){var path="M" + points[0][0] + " " + points[0][1];for(var i=1; i < points.length; i += 3) {path += "C" + points[i][0] + " " + points[i][1] + " " + points[i + 1][0] + " " + points[i + 1][1] + " " + points[i + 2][0] + " " + points[i + 2][1];}return path;};var unscaledPoints=_.map(points, graph.unscalePoint);var options={center:graph.unscalePoint(center), createPath:createCubicPath};var arrowHead=new WrappedPath(graph, unscaledPoints, options);arrowHead.attr(_.extend({"stroke-linejoin":"round", "stroke-linecap":"round", "stroke-dasharray":""}, style));arrowHead.toCoordAtAngle = function(coord, angle){var clipPoint=graph.scalePoint(getClipPoint(graph, coord, angle));var do3dTransform=getCanUse3dTransform();arrowHead.transform("translateX(" + (clipPoint[0] + scale * center[0]) + "px) " + "translateY(" + (clipPoint[1] + scale * center[1]) + "px) " + (do3dTransform?"translateZ(0) ":"") + "rotate(" + (360 - KhanMath.bound(angle)) + "deg)");};return arrowHead;};if(this._arrows == null){this._arrows = [];if(this.extendLine){this._arrows.push(createArrow(graph, this.normalStyle));this._arrows.push(createArrow(graph, this.normalStyle));}else if(this.extendRay){this._arrows.push(createArrow(graph, this.normalStyle));}}var coordForArrow=[this.coordA, this.coordZ];var angleForArrow=[360 - angle, (540 - angle) % 360];_.each(this._arrows, function(arrow, i){arrow.toCoordAtAngle(coordForArrow[i], angleForArrow[i]);});_.invoke(this.temp, "remove");this.temp = [];var isClockwise=this.coordA[0] < this.coordZ[0] || this.coordA[0] === this.coordZ[0] && this.coordA[1] > this.coordZ[1];if(this.sideLabel){this.temp.push(this.graph.labelSide({point1:this.coordA, point2:this.coordZ, label:this.labeledSide, text:this.sideLabel, numArrows:this.numArrows, numTicks:this.numTicks, clockwise:isClockwise, style:this.labelStyle}));}if(this.vertexLabels.length){this.graph.labelVertex({vertex:this.coordA, point3:this.coordZ, label:this.labeledVertices[0], text:this.vertexLabels[0], clockwise:isClockwise, style:this.labelStyle});this.graph.labelVertex({point1:this.coordA, vertex:this.coordZ, label:this.labeledVertices[1], text:this.vertexLabels[1], clockwise:isClockwise, style:this.labelStyle});}this.temp = _.flatten(this.temp);};lineSegment.toBack = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.toBack();}lineSegment.visibleLine.toBack();};lineSegment.toFront = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.toFront();}lineSegment.visibleLine.toFront();};lineSegment.remove = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.remove();}lineSegment.visibleLine.remove();if(lineSegment.labeledSide){lineSegment.labeledSide.remove();}if(lineSegment.labeledVertices){_.invoke(lineSegment.labeledVertices, "remove");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "remove");}if(lineSegment.temp.length){_.invoke(lineSegment.temp, "remove");}};lineSegment.hide = function(){lineSegment.visibleLine.hide();if(lineSegment.temp.length){_.invoke(lineSegment.temp, "hide");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "hide");}};lineSegment.show = function(){lineSegment.visibleLine.show();if(lineSegment.temp.length){_.invoke(lineSegment.temp, "show");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "show");}};if(lineSegment.sideLabel){lineSegment.labeledSide = this.label([0, 0], "", "center", lineSegment.labelStyle);}if(lineSegment.vertexLabels.length){lineSegment.labeledVertices = _.map(lineSegment.vertexLabels, function(label){return this.label([0, 0], "", "center", lineSegment.labelStyle);}, this);}if(!lineSegment.fixed && !lineSegment.constraints.fixed){var $mouseTarget=$(lineSegment.mouseTarget.getMouseTarget());$mouseTarget.css("cursor", "move");$mouseTarget.bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){if(!dragging){lineSegment.highlight = true;lineSegment.visibleLine.animate(lineSegment.highlightStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.highlightStyle.stroke, "stroke":lineSegment.highlightStyle.stroke});lineSegment.transform();}}else if(event.type === "vmouseout"){lineSegment.highlight = false;if(!lineSegment.dragging){lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.normalStyle.stroke, "stroke":lineSegment.normalStyle.stroke});lineSegment.transform();}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();var coordX=(event.pageX - $(graph.raphael.canvas.parentNode).offset().left) / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - (event.pageY - $(graph.raphael.canvas.parentNode).offset().top) / graph.scale[1];if(lineSegment.snapX > 0){coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;}if(lineSegment.snapY > 0){coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;}var mouseOffsetA=[lineSegment.coordA[0] - coordX, lineSegment.coordA[1] - coordY];var mouseOffsetZ=[lineSegment.coordZ[0] - coordX, lineSegment.coordZ[1] - coordY];var offsetLeft=-Math.min(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);var offsetRight=Math.max(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);var offsetTop=Math.max(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);var offsetBottom=-Math.min(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);$(document).bind("vmousemove.lineSegment vmouseup.lineSegment", function(event){event.preventDefault();lineSegment.dragging = true;dragging = true;var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(offsetLeft + 10, Math.min(graph.xpixels - 10 - offsetRight, mouseX));mouseY = Math.max(offsetTop + 10, Math.min(graph.ypixels - 10 - offsetBottom, mouseY));var coordX=mouseX / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - mouseY / graph.scale[1];if(lineSegment.snapX > 0){coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;}if(lineSegment.snapY > 0){coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;}if(event.type === "vmousemove"){if(lineSegment.constraints.constrainX){coordX = lineSegment.coordA[0] - mouseOffsetA[0];}if(lineSegment.constraints.constrainY){coordY = lineSegment.coordA[1] - mouseOffsetA[1];}var dX=coordX + mouseOffsetA[0] - lineSegment.coordA[0];var dY=coordY + mouseOffsetA[1] - lineSegment.coordA[1];lineSegment.coordA = [coordX + mouseOffsetA[0], coordY + mouseOffsetA[1]];lineSegment.coordZ = [coordX + mouseOffsetZ[0], coordY + mouseOffsetZ[1]];lineSegment.transform();if(lineSegment.movePointsWithLine){if(typeof lineSegment.pointA === "object"){lineSegment.pointA.setCoord([lineSegment.pointA.coord[0] + dX, lineSegment.pointA.coord[1] + dY]);}if(typeof lineSegment.pointZ === "object"){lineSegment.pointZ.setCoord([lineSegment.pointZ.coord[0] + dX, lineSegment.pointZ.coord[1] + dY]);}}if(_.isFunction(lineSegment.onMove)){lineSegment.onMove(dX, dY);}}else if(event.type === "vmouseup"){$(document).unbind(".lineSegment");lineSegment.dragging = false;dragging = false;if(!lineSegment.highlight){lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.normalStyle.stroke, "stroke":lineSegment.normalStyle.stroke});lineSegment.transform();}if(_.isFunction(lineSegment.onMoveEnd)){lineSegment.onMoveEnd();}}$(lineSegment).trigger("move");});})();}});}if(lineSegment.pointA !== undefined){lineSegment.pointA.toFront();}if(lineSegment.pointZ !== undefined){lineSegment.pointZ.toFront();}lineSegment.transform();return lineSegment;}, addMovablePolygon:function(options){var graphie=this;var polygon=$.extend({snapX:0, snapY:0, fixed:false, constrainToGraph:true, normalStyle:{}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":2, "fill":KhanColors.INTERACTING, "fill-opacity":0.05}, pointHighlightStyle:{"fill":KhanColors.INTERACTING, "stroke":KhanColors.INTERACTING}, labelStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, angleLabels:[], showRightAngleMarkers:[], sideLabels:[], vertexLabels:[], numArcs:[], numArrows:[], numTicks:[], updateOnPointMove:true, closed:true}, _.omit(options, "points"));var normalColor=polygon.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;polygon.normalStyle = _.extend({"stroke-width":2, "fill-opacity":0, "fill":normalColor, "stroke":normalColor}, options.normalStyle);polygon.points = options.points;var isPoint=function(coordOrPoint){return !_.isArray(coordOrPoint);};polygon.update = function(){var n=polygon.points.length;polygon.coords = _.map(polygon.points, function(coordOrPoint, i){if(isPoint(coordOrPoint)){return coordOrPoint.coord;}else {return coordOrPoint;}});polygon.left = _.min(_.pluck(polygon.coords, 0));polygon.right = _.max(_.pluck(polygon.coords, 0));polygon.top = _.max(_.pluck(polygon.coords, 1));polygon.bottom = _.min(_.pluck(polygon.coords, 1));var scaledCoords=_.map(polygon.coords, function(coord){return graphie.scalePoint(coord);});if(polygon.closed){scaledCoords.push(true);}else {scaledCoords = scaledCoords.concat(_.clone(scaledCoords).reverse());}polygon.path = GraphUtils.unscaledSvgPath(scaledCoords);_.invoke(polygon.temp, "remove");polygon.temp = [];var isClockwise=clockwise(polygon.coords);if(polygon.angleLabels.length || polygon.showRightAngleMarkers.length){_.each(polygon.labeledAngles, function(label, i){polygon.temp.push(graphie.labelAngle({point1:polygon.coords[(i - 1 + n) % n], vertex:polygon.coords[i], point3:polygon.coords[(i + 1) % n], label:label, text:polygon.angleLabels[i], showRightAngleMarker:polygon.showRightAngleMarkers[i], numArcs:polygon.numArcs[i], clockwise:isClockwise, style:polygon.labelStyle}));});}if(polygon.sideLabels.length){_.each(polygon.labeledSides, function(label, i){polygon.temp.push(graphie.labelSide({point1:polygon.coords[i], point2:polygon.coords[(i + 1) % n], label:label, text:polygon.sideLabels[i], numArrows:polygon.numArrows[i], numTicks:polygon.numTicks[i], clockwise:isClockwise, style:polygon.labelStyle}));});}if(polygon.vertexLabels.length){_.each(polygon.labeledVertices, function(label, i){graphie.labelVertex({point1:polygon.coords[(i - 1 + n) % n], vertex:polygon.coords[i], point3:polygon.coords[(i + 1) % n], label:label, text:polygon.vertexLabels[i], clockwise:isClockwise, style:polygon.labelStyle});});}polygon.temp = _.flatten(polygon.temp);};polygon.transform = function(){polygon.update();polygon.visibleShape.attr({path:polygon.path});if(!polygon.fixed){polygon.mouseTarget.attr({path:polygon.path});}};polygon.remove = function(){polygon.visibleShape.remove();if(!polygon.fixed){polygon.mouseTarget.remove();}if(polygon.labeledAngles){_.invoke(polygon.labeledAngles, "remove");}if(polygon.labeledSides){_.invoke(polygon.labeledSides, "remove");}if(polygon.labeledVertices){_.invoke(polygon.labeledVertices, "remove");}if(polygon.temp.length){_.invoke(polygon.temp, "remove");}};polygon.toBack = function(){if(!polygon.fixed){polygon.mouseTarget.toBack();}polygon.visibleShape.toBack();};polygon.toFront = function(){if(!polygon.fixed){polygon.mouseTarget.toFront();}polygon.visibleShape.toFront();};if(polygon.updateOnPointMove){_.each(_.filter(polygon.points, isPoint), function(coordOrPoint){coordOrPoint.polygonVertices.push(polygon);});}polygon.coords = new Array(polygon.points.length);if(polygon.angleLabels.length){var numLabels=Math.max(polygon.angleLabels.length, polygon.showRightAngleMarkers.length);polygon.labeledAngles = _.times(numLabels, function(){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}if(polygon.sideLabels.length){polygon.labeledSides = _.map(polygon.sideLabels, function(label){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}if(polygon.vertexLabels.length){polygon.labeledVertices = _.map(polygon.vertexLabels, function(label){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}polygon.update();polygon.visibleShape = graphie.raphael.path(polygon.path);polygon.visibleShape.attr(polygon.normalStyle);if(!polygon.fixed){polygon.mouseTarget = graphie.mouselayer.path(polygon.path);polygon.mouseTarget.attr({fill:"#000", opacity:0, cursor:"move"});$(polygon.mouseTarget[0]).bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){if(!dragging || polygon.dragging){polygon.highlight = true;polygon.visibleShape.animate(polygon.highlightStyle, 50);_.each(_.filter(polygon.points, isPoint), function(point){point.visibleShape.animate(polygon.pointHighlightStyle, 50);});}}else if(event.type === "vmouseout"){polygon.highlight = false;if(!polygon.dragging){polygon.visibleShape.animate(polygon.normalStyle, 50);var points=_.filter(polygon.points, isPoint);if(!_.any(_.pluck(points, "dragging"))){_.each(points, function(point){point.visibleShape.animate(point.normalStyle, 50);});}}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();_.each(_.filter(polygon.points, isPoint), function(point){point.dragging = true;});var startX=(event.pageX - $(graphie.raphael.canvas.parentNode).offset().left) / graphie.scale[0] + graphie.range[0][0];var startY=graphie.range[1][1] - (event.pageY - $(graphie.raphael.canvas.parentNode).offset().top) / graphie.scale[1];if(polygon.snapX > 0){startX = Math.round(startX / polygon.snapX) * polygon.snapX;}if(polygon.snapY > 0){startY = Math.round(startY / polygon.snapY) * polygon.snapY;}var lastX=startX;var lastY=startY;var polygonCoords=polygon.coords.slice();var offsetLeft=(startX - polygon.left) * graphie.scale[0];var offsetRight=(polygon.right - startX) * graphie.scale[0];var offsetTop=(polygon.top - startY) * graphie.scale[1];var offsetBottom=(startY - polygon.bottom) * graphie.scale[1];$(document).bind("vmousemove.polygon vmouseup.polygon", function(event){event.preventDefault();polygon.dragging = true;dragging = true;var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;if(polygon.constrainToGraph){mouseX = Math.max(offsetLeft + 10, Math.min(graphie.xpixels - 10 - offsetRight, mouseX));mouseY = Math.max(offsetTop + 10, Math.min(graphie.ypixels - 10 - offsetBottom, mouseY));}var currentX=mouseX / graphie.scale[0] + graphie.range[0][0];var currentY=graphie.range[1][1] - mouseY / graphie.scale[1];if(polygon.snapX > 0){currentX = Math.round(currentX / polygon.snapX) * polygon.snapX;}if(polygon.snapY > 0){currentY = Math.round(currentY / polygon.snapY) * polygon.snapY;}if(event.type === "vmousemove"){(function(){var dX=currentX - startX;var dY=currentY - startY;var doMove=true;if(_.isFunction(polygon.onMove)){var onMoveResult=polygon.onMove(dX, dY);if(onMoveResult === false){doMove = false;}else if(_.isArray(onMoveResult)){dX = onMoveResult[0];dY = onMoveResult[1];currentX = startX + dX;currentY = startY + dY;}}var increment=function(i){return [polygonCoords[i][0] + dX, polygonCoords[i][1] + dY];};if(doMove){_.each(polygon.points, function(coordOrPoint, i){if(isPoint(coordOrPoint)){coordOrPoint.setCoord(increment(i));}else {polygon.points[i] = increment(i);}});polygon.transform();$(polygon).trigger("move");lastX = currentX;lastY = currentY;}})();}else if(event.type === "vmouseup"){$(document).unbind(".polygon");var points=_.filter(polygon.points, isPoint);_.each(points, function(point){point.dragging = false;});polygon.dragging = false;dragging = false;if(!polygon.highlight){polygon.visibleShape.animate(polygon.normalStyle, 50);_.each(points, function(point){point.visibleShape.animate(point.normalStyle, 50);});}if(_.isFunction(polygon.onMoveEnd)){polygon.onMoveEnd(lastX - startX, lastY - startY);}}});})();}});}_.invoke(_.filter(polygon.points, isPoint), "toFront");return polygon;}, constrainToBounds:function(point, padding){var lower=this.unscalePoint([padding, this.ypixels - padding]);var upper=this.unscalePoint([this.xpixels - padding, padding]);var coordX=Math.max(lower[0], Math.min(upper[0], point[0]));var coordY=Math.max(lower[1], Math.min(upper[1], point[1]));return [coordX, coordY];}, constrainToBoundsOnAngle:function(point, padding, angle){var lower=this.unscalePoint([padding, this.ypixels - padding]);var upper=this.unscalePoint([this.xpixels - padding, padding]);var result=point.slice();if(result[0] < lower[0]){result = [lower[0], result[1] + (lower[0] - result[0]) * Math.tan(angle)];}else if(result[0] > upper[0]){result = [upper[0], result[1] - (result[0] - upper[0]) * Math.tan(angle)];}if(result[1] < lower[1]){result = [result[0] + (lower[1] - result[1]) / Math.tan(angle), lower[1]];}else if(result[1] > upper[1]){result = [result[0] - (result[1] - upper[1]) / Math.tan(angle), upper[1]];}return result;}, addMovableAngle:function(options){return new MovableAngle(this, options);}, addArrowWidget:function(options){var arrowWidget=$.extend({graph:this, direction:"up", coord:[0, 0], onClick:function(){}}, options);var graph=arrowWidget.graph;if(arrowWidget.direction === "up"){arrowWidget.visibleShape = graph.path([[arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0] - 4 / graph.scale[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0] + 4 / graph.scale[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]]], {stroke:"", fill:KhanColors.INTERACTIVE});}else if(arrowWidget.direction === "down"){arrowWidget.visibleShape = graph.path([[arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0] - 4 / graph.scale[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0] + 4 / graph.scale[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]]], {stroke:"", fill:KhanColors.INTERACTIVE});}_.defer(function(){arrowWidget.visibleShape.attr({stroke:"", fill:KhanColors.INTERACTIVE});});arrowWidget.mouseTarget = graph.mouselayer.circle(graph.scalePoint(arrowWidget.coord)[0], graph.scalePoint(arrowWidget.coord)[1], 15);arrowWidget.mouseTarget.attr({fill:"#000", "opacity":0});$(arrowWidget.mouseTarget[0]).css("cursor", "pointer");$(arrowWidget.mouseTarget[0]).bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){arrowWidget.visibleShape.animate({scale:2, fill:KhanColors.INTERACTING}, 20);}else if(event.type === "vmouseout"){arrowWidget.visibleShape.animate({scale:1, fill:KhanColors.INTERACTING}, 20);}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){if(!arrowWidget.hidden){arrowWidget.onClick();}return false;}});arrowWidget.hide = function(){arrowWidget.visibleShape.hide();arrowWidget.hidden = true;$(arrowWidget.mouseTarget[0]).css("cursor", "default");};arrowWidget.show = function(){arrowWidget.visibleShape.show();arrowWidget.hidden = false;$(arrowWidget.mouseTarget[0]).css("cursor", "pointer");};return arrowWidget;}, addRectGraph:function(options){var rect=$.extend(true, {x:0, y:0, width:1, height:1, normalStyle:{points:{stroke:KhanColors.INTERACTIVE, fill:KhanColors.INTERACTIVE, opacity:1}, edges:{stroke:KhanColors.INTERACTIVE, opacity:1, "stroke-width":1}, area:{fill:KhanColors.INTERACTIVE, "fill-opacity":0.1, "stroke-width":0}}, hoverStyle:{points:{color:KhanColors.INTERACTING, opacity:1, width:2}, edges:{stroke:KhanColors.INTERACTING, opacity:1, "stroke-width":1}, area:{fill:KhanColors.INTERACTING, "fill-opacity":0.2, "stroke-width":0}}, fixed:{edges:[false, false, false, false], points:[false, false, false, false]}, constraints:{constrainX:false, constrainY:false, xmin:null, xmax:null, ymin:null, ymax:null}, snapX:0, snapY:0, onMove:function(){}}, options);rect = $.extend({initialized:function(){return rect.points && rect.points.length;}, x2:function(){return this.x + this.width;}, y2:function(){return this.y + this.height;}, getX:function(){if(rect.initialized()){return rect.points[0].coord[0];}return rect.x;}, getY:function(){if(rect.initialized()){return rect.points[0].coord[1];}return rect.y;}, getX2:function(){return rect.getX() + rect.getWidth();}, getY2:function(){return rect.getY() + rect.getHeight();}, getXLims:function(){var x=rect.getX();return [x, x + rect.getWidth()];}, getYLims:function(){var y=rect.getY();return [y, y + rect.getHeight()];}, getWidth:function(){if(rect.initialized()){var x0=rect.points[1].coord[0];var x1=rect.points[2].coord[0];return x1 - x0;}return rect.width;}, getHeight:function(){if(rect.initialized()){var y0=rect.points[0].coord[1];var y1=rect.points[1].coord[1];return y1 - y0;}return rect.height;}, getCoord:function(){return [rect.getX(), rect.getY()];}, getRaphaelParamsArr:function(){var width=rect.getWidth();var height=rect.getHeight();var x=rect.getX();var y=rect.getY();var point=graphie.scalePoint([x, y + height]);var dims=graphie.scaleVector([width, height]);return point.concat(dims);}, getRaphaelParams:function(){var arr=rect.getRaphaelParamsArr();return {x:arr[0], y:arr[1], width:arr[2], height:arr[3]};}}, rect);var graphie=this;rect.fillArea = graphie.rect().attr(rect.normalStyle.area);rect.mouseTarget = graphie.mouselayer.rect().attr({fill:"#000", opacity:0, "fill-opacity":0});rect.render = function(){rect.fillArea.attr(rect.getRaphaelParams());rect.mouseTarget.attr(rect.getRaphaelParams());};rect.render();rect.points = [];var coords=[[rect.x, rect.y], [rect.x, rect.y2()], [rect.x2(), rect.y2()], [rect.x2(), rect.y]];var sames=[[1, 3], [0, 2], [3, 1], [2, 0]];var moveLimits=[[1, 1], [1, 0], [0, 0], [0, 1]];function adjustNeighboringPoints(x, y, sameX, sameY){rect.points[sameX].setCoord([x, rect.points[sameX].coord[1]]);rect.points[sameY].setCoord([rect.points[sameY].coord[0], y]);rect.points[sameX].updateLineEnds();rect.points[sameY].updateLineEnds();}function coordInBounds(limit, newVal, checkIsGreater){return checkIsGreater?newVal < limit:newVal > limit;}function moveIsInBounds(index, newX, newY){var xlims=rect.getXLims();var ylims=rect.getYLims();var i=moveLimits[index];var xInBounds=coordInBounds(xlims[i[0]], newX, i[0] === 1);var yInBounds=coordInBounds(ylims[i[1]], newY, i[1] === 1);return xInBounds && yInBounds;}_.times(4, function(i){var sameX=sames[i][0];var sameY=sames[i][1];var coord=coords[i];var point=graphie.addMovablePoint({graph:graphie, coord:coord, normalStyle:rect.normalStyle.points, hoverStyle:rect.hoverStyle.points, snapX:rect.snapX, snapY:rect.snapY, visible:!rect.fixed.points[i], constraints:{fixed:rect.fixed.points[i]}, onMove:function(x, y){if(!moveIsInBounds(i, x, y)){return false;}adjustNeighboringPoints(x, y, sameX, sameY);rect.render();}});rect.points.push(point);});rect.edges = [];rect.moveEdge = function(dx, dy, edgeIndex){var a=rect.edges[edgeIndex].pointA;var z=rect.edges[edgeIndex].pointZ;a.setCoord([a.coord[0] + dx, a.coord[1] + dy]);z.setCoord([z.coord[0] + dx, z.coord[1] + dy]);a.updateLineEnds();z.updateLineEnds();};_.times(4, function(i){var pointA=rect.points[i];var pointZ=rect.points[(i + 1) % 4];var constrainX=i % 2;var constrainY=(i + 1) % 2;var edge=graphie.addMovableLineSegment({graph:graphie, pointA:pointA, pointZ:pointZ, normalStyle:rect.normalStyle.edges, hoverStyle:rect.hoverStyle.edges, snapX:rect.snapX, snapY:rect.snapY, fixed:rect.fixed.edges[i], constraints:{constrainX:constrainX, constrainY:constrainY}, onMove:function(dx, dy){rect.moveEdge(dx, dy, i);rect.render();}});rect.edges.push(edge);});var elems=[rect.fillArea, rect.mouseTarget];rect.elems = elems.concat(rect.edges).concat(rect.points);function constrainTranslation(dx, dy){var xC=rect.constraints.constrainX;var xLT=rect.getX() + dx < rect.constraints.xmin;var xGT=rect.getX2() + dx > rect.constraints.xmax;var yC=rect.constraints.constrainY;var yLT=rect.getY() + dy < rect.constraints.ymin;var yGT=rect.getY2() + dy > rect.constraints.ymax;dx = xC || xLT || xGT?0:dx;dy = yC || yLT || yGT?0:dy;return [dx, dy];}rect.translate = function(dx, dy){if(rect.constraints.constrainX && rect.constraints.constrainY){return;}var d=constrainTranslation(dx, dy);dx = d[0];dy = d[1];_.each(rect.points, function(point, i){var x=point.coord[0] + dx;var y=point.coord[1] + dy;point.setCoord([x, y]);point.updateLineEnds();});rect.render();rect.onMove(dx, dy);};rect.moveTo = function(x, y){var dx=x - rect.getX();var dy=y - rect.getY();rect.translate(dx, dy);};rect.snap = function(){var dx=undefined;var dy=undefined;_.each(rect.points, function(point, i){var x0=point.coord[0];var y0=point.coord[1];var x1=x0;var y1=y0;if(rect.snapX){x1 = KhanMath.roundToNearest(rect.snapX, x0);}if(rect.snapY){y1 = KhanMath.roundToNearest(rect.snapY, y0);}if(!dx || !dy){dx = x1 - x0;dy = y1 - y0;}point.setCoord([x1, y1]);point.updateLineEnds();});rect.render();rect.onMove(dx, dy);};rect.toFront = function(){_.each(rect.elems, function(elem){elem.toFront();});};rect.hide = function(speed){if(rect.hidden){return;}speed = speed || 100;rect.fillArea.animate({"fill-opacity":0}, speed);$(rect.mouseTarget[0]).css("display", "none");rect.hidden = true;};rect.show = function(speed){if(!rect.hidden){return;}speed = speed || 100;rect.fillArea.animate(rect.normalStyle.area, speed);$(rect.mouseTarget[0]).css("display", "block");rect.hidden = false;};rect.enableHoverStyle = function(){rect.highlight = true;if(!dragging){rect.fillArea.animate(rect.hoverStyle.area, 100);}};rect.enableNormalStyle = function(){rect.highlight = false;if(!rect.dragging){rect.fillArea.animate(rect.normalStyle.area, 100);}};var bindTranslation=function(){$(rect.mouseTarget[0]).css("cursor", "move");$(rect.mouseTarget[0]).on("vmouseover vmouseout vmousedown", function(event){if(event.type === "vmouseover"){rect.enableHoverStyle();}else if(event.type === "vmouseout"){rect.enableNormalStyle();}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){event.preventDefault();rect.toFront();rect.prevCoord = graphie.getMouseCoord(event);rect.enableHoverStyle();$(document).on("vmousemove vmouseup", function(event){event.preventDefault();rect.dragging = true;dragging = true;if(event.type === "vmousemove"){var currCoord=graphie.getMouseCoord(event);if(rect.prevCoord && rect.prevCoord.length === 2){var diff=GraphUtils.coordDiff(rect.prevCoord, currCoord);rect.translate(diff[0], diff[1]);}rect.prevCoord = currCoord;}else if(event.type === "vmouseup"){$(document).off("vmousemove vmouseup");rect.dragging = false;dragging = false;var currCoord=graphie.getMouseCoord(event);if(currCoord[0] < rect.getX() || currCoord[0] > rect.getX2() || currCoord[1] < rect.getY() || currCoord[1] > rect.getY2()){rect.enableNormalStyle();}rect.snap();}});}});};bindTranslation();return rect;}, addCircleGraph:function(options){var graphie=this;var circle=$.extend({center:[0, 0], radius:2, snapX:0.5, snapY:0.5, snapRadius:0.5, minRadius:1, centerConstraints:{}, centerNormalStyle:{}, centerHighlightStyle:{stroke:KhanColors.INTERACTING, fill:KhanColors.INTERACTING}, circleNormalStyle:{stroke:KhanColors.INTERACTIVE, "fill-opacity":0}, circleHighlightStyle:{stroke:KhanColors.INTERACTING, fill:KhanColors.INTERACTING, "fill-opacity":0.05}}, options);var normalColor=circle.centerConstraints.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;var centerNormalStyle=options?options.centerNormalStyle:null;circle.centerNormalStyle = _.extend({}, {"fill":normalColor, "stroke":normalColor}, centerNormalStyle);circle.centerPoint = graphie.addMovablePoint({graph:graphie, coord:circle.center, normalStyle:circle.centerNormalStyle, snapX:circle.snapX, snapY:circle.snapY, constraints:circle.centerConstraints});circle.circ = graphie.circle(circle.center, circle.radius, circle.circleNormalStyle);circle.perim = graphie.mouselayer.circle(graphie.scalePoint(circle.center)[0], graphie.scalePoint(circle.center)[1], graphie.scaleVector(circle.radius)[0]).attr({"stroke-width":20, "opacity":0.002});if(!circle.centerConstraints.fixed){$(circle.centerPoint.mouseTarget.getMouseTarget()).on("vmouseover vmouseout", function(event){if(circle.centerPoint.highlight || circle.centerPoint.dragging){circle.circ.animate(circle.circleHighlightStyle, 50);}else {circle.circ.animate(circle.circleNormalStyle, 50);}});}circle.toFront = function(){circle.circ.toFront();circle.perim.toFront();circle.centerPoint.visibleShape.toFront();if(!circle.centerConstraints.fixed){circle.centerPoint.mouseTarget.toFront();}};circle.centerPoint.onMove = function(x, y){circle.toFront();circle.circ.attr({cx:graphie.scalePoint(x)[0], cy:graphie.scalePoint(y)[1]});circle.perim.attr({cx:graphie.scalePoint(x)[0], cy:graphie.scalePoint(y)[1]});if(circle.onMove){circle.onMove(x, y);}};$(circle.centerPoint).on("move", function(){circle.center = this.coord;$(circle).trigger("move");});circle.setCenter = function(x, y){circle.centerPoint.setCoord([x, y]);circle.centerPoint.onMove(x, y);circle.center = [x, y];};circle.setRadius = function(r){circle.radius = r;circle.perim.attr({r:graphie.scaleVector(r)[0]});circle.circ.attr({rx:graphie.scaleVector(r)[0], ry:graphie.scaleVector(r)[1]});};circle.remove = function(){circle.centerPoint.remove();circle.circ.remove();circle.perim.remove();};$(circle.perim[0]).css("cursor", "move");$(circle.perim[0]).on("vmouseover vmouseout vmousedown", function(event){if(event.type === "vmouseover"){circle.highlight = true;if(!dragging){circle.circ.animate(circle.circleHighlightStyle, 50);circle.centerPoint.visibleShape.animate(circle.centerHighlightStyle, 50);}}else if(event.type === "vmouseout"){circle.highlight = false;if(!circle.dragging && !circle.centerPoint.dragging){circle.circ.animate(circle.circleNormalStyle, 50);circle.centerPoint.visibleShape.animate(circle.centerNormalStyle, 50);}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();circle.toFront();var startRadius=circle.radius;$(document).on("vmousemove vmouseup", function(event){event.preventDefault();circle.dragging = true;dragging = true;if(event.type === "vmousemove"){var coord=graphie.constrainToBounds(graphie.getMouseCoord(event), 10);var radius=GraphUtils.getDistance(circle.centerPoint.coord, coord);radius = Math.max(circle.minRadius, Math.round(radius / circle.snapRadius) * circle.snapRadius);var oldRadius=circle.radius;var doResize=true;if(circle.onResize){var onResizeResult=circle.onResize(radius, oldRadius);if(_.isNumber(onResizeResult)){radius = onResizeResult;}else if(onResizeResult === false){doResize = false;}}if(doResize){circle.setRadius(radius);$(circle).trigger("move");}}else if(event.type === "vmouseup"){$(document).off("vmousemove vmouseup");circle.dragging = false;dragging = false;if(circle.onResizeEnd){circle.onResizeEnd(circle.radius, startRadius);}}});})();}});return circle;}, interactiveEllipse:function(options){var graphie=this;var ellipse=$.extend({center:[0, 0], radius:2, xRadius:2, yRadius:2, ellipseNormalStyle:{stroke:KhanColors.BLUE, "fill-opacity":0}, ellipseBoundaryHideStyle:{"fill-opacity":0, "stroke-width":0}, ellipseBoundaryShowStyle:{"fill-opacity":1, fill:KhanColors.BLUE}, onMove:function(coordX, coordY){}, onLeave:function(coordX, coordY){}}, options);ellipse.circ = graphie.ellipse(ellipse.center, [ellipse.xRadius, ellipse.yRadius], ellipse.ellipseNormalStyle);ellipse.perim = graphie.mouselayer.ellipse(graphie.scalePoint(ellipse.center)[0], graphie.scalePoint(ellipse.center)[1], graphie.scaleVector(ellipse.xRadius)[0], graphie.scaleVector(ellipse.yRadius)[0]).attr({"stroke-width":30, "opacity":0.002});ellipse.boundaryPoint = graphie.circle(ellipse.center, 0.4, ellipse.ellipseBoundaryHideStyle);ellipse.remove = function(){ellipse.circ.remove();ellipse.perim.remove();};ellipse.showPoint = function(event){var coord=graphie.constrainToBounds(graphie.getMouseCoord(event), 10);var dx=ellipse.yRadius * (ellipse.center[0] - coord[0]);var dy=ellipse.xRadius * (ellipse.center[1] - coord[1]);var angle=Math.atan2(dy, dx);coord[0] = ellipse.center[0] - ellipse.xRadius * Math.cos(angle);coord[1] = ellipse.center[1] - ellipse.yRadius * Math.sin(angle);var scaledPoint=graphie.scalePoint(coord);ellipse.boundaryPoint.attr({cx:scaledPoint[0]});ellipse.boundaryPoint.attr({cy:scaledPoint[1]});ellipse.boundaryPoint.animate(ellipse.ellipseBoundaryShowStyle, 50);ellipse.onMove(coord[0], coord[1]);};$(ellipse.perim[0]).on("vmouseover vmouseout vmousemove", function(event){if(event.type === "vmouseover"){ellipse.showPoint(event);}else if(event.type === "vmouseout"){ellipse.boundaryPoint.animate(ellipse.ellipseBoundaryHideStyle, 50);ellipse.onLeave();}else if(event.type === "vmousemove"){ellipse.showPoint(event);}});return ellipse;}, addRotateHandle:(function(){var drawRotateHandle=function(graphie, center, radius, halfWidth, lengthAngle, angle, interacting){var getRotateHandlePoint=function(offset, distanceFromArrowMidline){var distFromRotationCenter=radius + distanceFromArrowMidline;var vec=kvector.cartFromPolarDeg([distFromRotationCenter, angle + offset]);var absolute=kvector.add(center, vec);var pixels=graphie.scalePoint(absolute);return pixels[0] + "," + pixels[1];};var innerR=graphie.scaleVector(radius - halfWidth);var outerR=graphie.scaleVector(radius + halfWidth);return graphie.raphael.path(" M" + getRotateHandlePoint(lengthAngle, -halfWidth) + " L" + getRotateHandlePoint(lengthAngle, -3 * halfWidth) + " L" + getRotateHandlePoint(2 * lengthAngle, 0) + " L" + getRotateHandlePoint(lengthAngle, 3 * halfWidth) + " L" + getRotateHandlePoint(lengthAngle, halfWidth) + " A" + outerR[0] + "," + outerR[1] + ",0,0,1," + getRotateHandlePoint(-lengthAngle, halfWidth) + " L" + getRotateHandlePoint(-lengthAngle, 3 * halfWidth) + " L" + getRotateHandlePoint(-2 * lengthAngle, 0) + " L" + getRotateHandlePoint(-lengthAngle, -3 * halfWidth) + " L" + getRotateHandlePoint(-lengthAngle, -halfWidth) + " A" + innerR[0] + "," + innerR[1] + ",0,0,0," + getRotateHandlePoint(lengthAngle, -halfWidth) + " Z").attr({stroke:null, fill:interacting?KhanColors.INTERACTING:KhanColors.INTERACTIVE});};return function(options){var graph=this;var rotatePoint=options.center;var radius=options.radius;var lengthAngle=options.lengthAngle || 30;var hideArrow=options.hideArrow || false;var mouseTarget=options.mouseTarget;var id=_.uniqueId("rotateHandle");if(_.isArray(rotatePoint)){rotatePoint = {coord:rotatePoint};}var rotateHandle=graph.addMovablePoint({coord:kpoint.addVector(rotatePoint.coord, kvector.cartFromPolarDeg(radius, options.angleDeg || 0)), constraints:{fixedDistance:{dist:radius, point:rotatePoint}}, mouseTarget:mouseTarget});rotatePoint.toFront();var rotatePointPrevCoord=rotatePoint.coord;var rotateHandlePrevCoord=rotateHandle.coord;var rotateHandleStartCoord=rotateHandlePrevCoord;var isRotating=false;var isHovering=false;var drawnRotateHandle=undefined;var redrawRotateHandle=function(handleCoord){if(hideArrow){return;}var handleVec=kvector.subtract(handleCoord, rotatePoint.coord);var handlePolar=kvector.polarDegFromCart(handleVec);var angle=handlePolar[1];if(drawnRotateHandle){drawnRotateHandle.remove();}drawnRotateHandle = drawRotateHandle(graph, rotatePoint.coord, options.radius, isRotating || isHovering?options.hoverWidth / 2:options.width / 2, lengthAngle, angle, isRotating || isHovering);};$(rotatePoint).on("move." + id, function(){var delta=kvector.subtract(rotatePoint.coord, rotatePointPrevCoord);rotateHandle.setCoord(kvector.add(rotateHandle.coord, delta));redrawRotateHandle(rotateHandle.coord);rotatePointPrevCoord = rotatePoint.coord;rotateHandle.constraints.fixedDistance.point = rotatePoint;rotateHandlePrevCoord = rotateHandle.coord;});rotateHandle.onMove = function(x, y){if(!isRotating){rotateHandleStartCoord = rotateHandlePrevCoord;isRotating = true;}var coord=[x, y];if(options.onMove){var oldPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandlePrevCoord, rotatePoint.coord));var newPolar=kvector.polarDegFromCart(kvector.subtract(coord, rotatePoint.coord));var oldAngle=oldPolar[1];var newAngle=newPolar[1];var result=options.onMove(newAngle, oldAngle);if(result != null && result !== true){if(result === false){result = oldAngle;}coord = kvector.add(rotatePoint.coord, kvector.cartFromPolarDeg([oldPolar[0], result]));}}redrawRotateHandle(coord);rotateHandlePrevCoord = coord;return coord;};rotateHandle.onMoveEnd = function(){isRotating = false;redrawRotateHandle(rotateHandle.coord);if(options.onMoveEnd){var oldPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandleStartCoord, rotatePoint.coord));var newPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandle.coord, rotatePoint.coord));options.onMoveEnd(newPolar[1], oldPolar[1]);}};rotateHandle.visibleShape.remove();if(!mouseTarget){rotateHandle.mouseTarget.attr({scale:2});}var $mouseTarget=$(rotateHandle.mouseTarget.getMouseTarget());$mouseTarget.bind("vmouseover", function(e){isHovering = true;redrawRotateHandle(rotateHandle.coord);});$mouseTarget.bind("vmouseout", function(e){isHovering = false;redrawRotateHandle(rotateHandle.coord);});redrawRotateHandle(rotateHandle.coord);var oldRemove=rotateHandle.remove;rotateHandle.remove = function(){oldRemove.call(rotateHandle);if(drawnRotateHandle){drawnRotateHandle.remove();}$(rotatePoint).off("move." + id);};rotateHandle.update = function(){redrawRotateHandle(rotateHandle.coord);};return rotateHandle;};})(), addReflectButton:(function(){var drawButton=function(graphie, buttonCoord, lineCoords, size, distanceFromCenter, leftStyle, rightStyle){if(kpoint.equal(lineCoords[0], lineCoords[1])){lineCoords = [lineCoords[0], kpoint.addVector(lineCoords[0], [1, 1])];}var lineDirection=kvector.normalize(kvector.subtract(lineCoords[1], lineCoords[0]));var lineVec=kvector.scale(lineDirection, size / 2);var centerVec=kvector.scale(lineDirection, distanceFromCenter);var leftCenterVec=kvector.rotateDeg(centerVec, 90);var rightCenterVec=kvector.rotateDeg(centerVec, -90);var negLineVec=kvector.negate(lineVec);var leftVec=kvector.rotateDeg(lineVec, 90);var rightVec=kvector.rotateDeg(lineVec, -90);var leftCenter=kpoint.addVectors(buttonCoord, leftCenterVec);var rightCenter=kpoint.addVectors(buttonCoord, rightCenterVec);var leftCoord1=kpoint.addVectors(buttonCoord, leftCenterVec, lineVec, leftVec);var leftCoord2=kpoint.addVectors(buttonCoord, leftCenterVec, negLineVec, leftVec);var rightCoord1=kpoint.addVectors(buttonCoord, rightCenterVec, lineVec, rightVec);var rightCoord2=kpoint.addVectors(buttonCoord, rightCenterVec, negLineVec, rightVec);var leftButton=graphie.path([leftCenter, leftCoord1, leftCoord2, true], leftStyle);var rightButton=graphie.path([rightCenter, rightCoord1, rightCoord2, true], rightStyle);return {remove:function(){leftButton.remove();rightButton.remove();}};};return function(options){var graphie=this;var line=options.line;var button=graphie.addMovablePoint({constraints:options.constraints, coord:kline.midpoint([line.pointA.coord, line.pointZ.coord]), snapX:graphie.snap[0], snapY:graphie.snap[1], onMove:function(x, y){return false;}, onMoveEnd:function(x, y){if(options.onMoveEnd){options.onMoveEnd.call(this, x, y);}}});var isHovering=false;var isFlipped=false;var currentlyDrawnButton=undefined;var isHighlight=function(){return isHovering;};var styles=_.map([0, 1], function(isHighlight){var baseStyle=isHighlight?options.highlightStyle:options.normalStyle;return _.map([0, 1], function(opacity){return _.defaults({"fill-opacity":opacity}, baseStyle);});});var getStyle=function(isRight){if(isFlipped){isRight = !isRight;}return styles[+isHighlight()][+isRight];};var redraw=function(coord, lineCoords){if(currentlyDrawnButton){currentlyDrawnButton.remove();}currentlyDrawnButton = drawButton(graphie, coord, lineCoords, isHighlight()?options.size * 1.5:options.size, isHighlight()?options.size * 0.125:0.25, getStyle(0), getStyle(1));};var update=function(coordA, coordZ){coordA = coordA || line.pointA.coord;coordZ = coordZ || line.pointZ.coord;var buttonCoord=kline.midpoint([coordA, coordZ]);button.setCoord(buttonCoord);redraw(buttonCoord, [coordA, coordZ]);};$(line).on("move", _.bind(update, button, null, null));var $mouseTarget=$(button.mouseTarget.getMouseTarget());$mouseTarget.on("vclick", function(){var result=options.onClick();if(result !== false){isFlipped = !isFlipped;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);}});line.pointA.toFront();line.pointZ.toFront();button.visibleShape.remove();var pointScale=graphie.scaleVector(options.size)[0] / 20;button.mouseTarget.attr({scale:1.5 * pointScale});$mouseTarget.css("cursor", "pointer");$mouseTarget.bind("vmouseover", function(e){isHovering = true;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);});$mouseTarget.bind("vmouseout", function(e){isHovering = false;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);});var oldButtonRemove=button.remove;button.remove = function(){currentlyDrawnButton.remove();oldButtonRemove.call(button);};button.update = update;button.isFlipped = function(){return isFlipped;};update();return button;};})(), protractor:function(center){return new Protractor(this, center);}, ruler:function(options){return new Ruler(this, options || {});}, addPoints:addPoints});function Protractor(graph, center){this.set = graph.raphael.set();this.cx = center[0];this.cy = center[1];var pro=this;var r=graph.unscaleVector(180.5)[0];var imgPos=graph.scalePoint([this.cx - r, this.cy + r - graph.unscaleVector(10.5)[1]]);this.set.push(graph.mouselayer.image("https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png", imgPos[0], imgPos[1], 360, 180));var arrowHelper=function(angle, pixelsFromEdge){var scaledRadius=graph.scaleVector(r);scaledRadius[0] -= 16;scaledRadius[1] -= 16;var scaledCenter=graph.scalePoint(center);var x=Math.sin((angle + 90) * Math.PI / 180) * (scaledRadius[0] + pixelsFromEdge) + scaledCenter[0];var y=Math.cos((angle + 90) * Math.PI / 180) * (scaledRadius[1] + pixelsFromEdge) + scaledCenter[1];return x + "," + y;};var arrow=graph.raphael.path(" M" + arrowHelper(180, 6) + " L" + arrowHelper(180, 2) + " L" + arrowHelper(183, 10) + " L" + arrowHelper(180, 18) + " L" + arrowHelper(180, 14) + " A" + (graph.scaleVector(r)[0] + 10) + "," + (graph.scaleVector(r)[1] + 10) + ",0,0,1," + arrowHelper(170, 14) + " L" + arrowHelper(170, 18) + " L" + arrowHelper(167, 10) + " L" + arrowHelper(170, 2) + " L" + arrowHelper(170, 6) + " A" + (graph.scaleVector(r)[0] + 10) + "," + (graph.scaleVector(r)[1] + 10) + ",0,0,0," + arrowHelper(180, 6) + " Z").attr({"stroke":null, "fill":KhanColors.INTERACTIVE});this.set.push(arrow);this.centerPoint = graph.addMovablePoint({coord:center, visible:false});this.rotateHandle = graph.addMovablePoint({coord:[Math.sin(275 * Math.PI / 180) * (r + 0.5) + this.cx, Math.cos(275 * Math.PI / 180) * (r + 0.5) + this.cy], onMove:function(x, y){var angle=Math.atan2(pro.centerPoint.coord[1] - y, pro.centerPoint.coord[0] - x) * 180 / Math.PI;pro.rotate(-angle - 5, true);}});this.rotateHandle.constraints.fixedDistance.dist = r + 0.5;this.rotateHandle.constraints.fixedDistance.point = this.centerPoint;this.rotateHandle.visibleShape.remove();this.rotateHandle.mouseTarget.attr({scale:2});var isDragging=false;var isHovering=false;var isHighlight=function(){return isHovering || isDragging;};var self=this;var $mouseTarget=$(self.rotateHandle.mouseTarget.getMouseTarget());$mouseTarget.bind("vmousedown", function(event){isDragging = true;arrow.animate({scale:1.5, fill:KhanColors.INTERACTING}, 50);$(document).bind("vmouseup.rotateHandle", function(event){isDragging = false;if(!isHighlight()){arrow.animate({scale:1, fill:KhanColors.INTERACTIVE}, 50);}$(document).unbind("vmouseup.rotateHandle");});});$mouseTarget.bind("vmouseover", function(event){isHovering = true;arrow.animate({scale:1.5, fill:KhanColors.INTERACTING}, 50);});$mouseTarget.bind("vmouseout", function(event){isHovering = false;if(!isHighlight()){arrow.animate({scale:1, fill:KhanColors.INTERACTIVE}, 50);}});var setNodes=$.map(this.set, function(el){return el.node;});this.makeTranslatable = function makeTranslatable(){$(setNodes).css("cursor", "move");$(setNodes).bind("vmousedown", function(event){event.preventDefault();var startx=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var starty=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;$(document).bind("vmousemove.protractor", function(event){var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graph.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graph.ypixels - 10, mouseY));var dx=mouseX - startx;var dy=mouseY - starty;$.each(pro.set.items, function(){this.translate(dx, dy);});pro.centerPoint.setCoord([pro.centerPoint.coord[0] + dx / graph.scale[0], pro.centerPoint.coord[1] - dy / graph.scale[1]]);pro.rotateHandle.setCoord([pro.rotateHandle.coord[0] + dx / graph.scale[0], pro.rotateHandle.coord[1] - dy / graph.scale[1]]);startx = mouseX;starty = mouseY;});$(document).one("vmouseup", function(event){$(document).unbind("vmousemove.protractor");});});};this.rotation = 0;this.rotate = function(offset, absolute){var center=graph.scalePoint(this.centerPoint.coord);if(absolute){this.rotation = 0;}this.set.rotate(this.rotation + offset, center[0], center[1]);this.rotation = this.rotation + offset;return this;};this.moveTo = function moveTo(x, y){var start=graph.scalePoint(pro.centerPoint.coord);var end=graph.scalePoint([x, y]);var time=GraphUtils.getDistance(start, end) * 2;$({x:start[0], y:start[1]}).animate({x:end[0], y:end[1]}, {duration:time, step:function(now, fx){var dx=0;var dy=0;if(fx.prop === "x"){dx = now - graph.scalePoint(pro.centerPoint.coord)[0];}else if(fx.prop === "y"){dy = now - graph.scalePoint(pro.centerPoint.coord)[1];}$.each(pro.set.items, function(){this.translate(dx, dy);});pro.centerPoint.setCoord([pro.centerPoint.coord[0] + dx / graph.scale[0], pro.centerPoint.coord[1] - dy / graph.scale[1]]);pro.rotateHandle.setCoord([pro.rotateHandle.coord[0] + dx / graph.scale[0], pro.rotateHandle.coord[1] - dy / graph.scale[1]]);}});};this.rotateTo = function rotateTo(angle){if(Math.abs(this.rotation - angle) > 180){this.rotation += 360;}var time=Math.abs(this.rotation - angle) * 5;$({0:this.rotation}).animate({0:angle}, {duration:time, step:function(now, fx){pro.rotate(now, true);pro.rotateHandle.setCoord([Math.sin((now + 275) * Math.PI / 180) * (r + 0.5) + pro.centerPoint.coord[0], Math.cos((now + 275) * Math.PI / 180) * (r + 0.5) + pro.centerPoint.coord[1]]);}});};this.remove = function(){this.set.remove();};this.makeTranslatable();return this;}function Ruler(graphie, options){_.defaults(options, {center:[0, 0], pixelsPerUnit:40, ticksPerUnit:10, units:10, label:"", style:{fill:null, stroke:KhanColors.GRAY}});var light=_.extend({}, options.style, {strokeWidth:1});var bold=_.extend({}, options.style, {strokeWidth:2});var width=options.units * options.pixelsPerUnit;var height=50;var leftBottom=graphie.unscalePoint(kvector.subtract(graphie.scalePoint(options.center), kvector.scale([width, -height], 0.5)));var graphieUnitsPerUnit=options.pixelsPerUnit / graphie.scale[0];var graphieUnitsHeight=height / graphie.scale[0];var rightTop=kvector.add(leftBottom, [options.units * graphieUnitsPerUnit, graphieUnitsHeight]);var tickHeight=1;var tickHeightMap=undefined;if(options.ticksPerUnit === 10){tickHeightMap = {10:tickHeight, 5:tickHeight * 0.55, 1:tickHeight * 0.35};}else {var sizes=[1, 0.6, 0.45, 0.3];tickHeightMap = {};for(var i=options.ticksPerUnit; i >= 1; i /= 2) {tickHeightMap[i] = tickHeight * (sizes.shift() || 0.2);}}var tickFrequencies=_.keys(tickHeightMap).sort(function(a, b){return b - a;});function getTickHeight(i){for(var k=0; k < tickFrequencies.length; k++) {var key=tickFrequencies[k];if(i % key === 0){return tickHeightMap[key];}}}var left=leftBottom[0];var bottom=leftBottom[1];var right=rightTop[0];var top=rightTop[1];var numTicks=options.units * options.ticksPerUnit + 1;var set=graphie.raphael.set();var px=1 / graphie.scale[0];set.push(graphie.line([left - px, bottom], [right + px, bottom], bold));set.push(graphie.line([left - px, top], [right + px, top], bold));_.times(numTicks, function(i){var n=i / options.ticksPerUnit;var x=left + n * graphieUnitsPerUnit;var height=getTickHeight(i) * graphieUnitsHeight;var style=i === 0 || i === numTicks - 1?bold:light;set.push(graphie.line([x, bottom], [x, bottom + height], style));if(n % 1 === 0){var coord=graphie.scalePoint([x, top]);var text=undefined;var offset=undefined;if(n === 0){text = options.label;offset = ({mm:13, cm:11, m:8, km:11, in:8, ft:8, yd:10, mi:10})[text] || 3 * text.toString().length;}else {text = n;offset = -3 * (n.toString().length + 1);}var label=graphie.raphael.text(coord[0] + offset, coord[1] + 10, text);label.attr({"font-family":"KaTeX_Main", "font-size":"12px", "color":"#444"});set.push(label);}});var mouseTarget=graphie.mouselayer.path(GraphUtils.svgPath([leftBottom, [left, top], rightTop, [right, bottom], true]));mouseTarget.attr({fill:"#000", opacity:0, stroke:"#000", "stroke-width":2});set.push(mouseTarget);var setNodes=$.map(set, function(el){return el.node;});$(setNodes).css("cursor", "move");$(setNodes).bind("vmousedown", function(event){event.preventDefault();var startx=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var starty=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;$(document).bind("vmousemove.ruler", function(event){var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graphie.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graphie.ypixels - 10, mouseY));var dx=mouseX - startx;var dy=mouseY - starty;set.translate(dx, dy);leftBottomHandle.setCoord([leftBottomHandle.coord[0] + dx / graphie.scale[0], leftBottomHandle.coord[1] - dy / graphie.scale[1]]);rightBottomHandle.setCoord([rightBottomHandle.coord[0] + dx / graphie.scale[0], rightBottomHandle.coord[1] - dy / graphie.scale[1]]);startx = mouseX;starty = mouseY;});$(document).one("vmouseup", function(event){$(document).unbind("vmousemove.ruler");});});var leftBottomHandle=graphie.addMovablePoint({coord:leftBottom, normalStyle:{fill:KhanColors.INTERACTIVE, "fill-opacity":0, stroke:KhanColors.INTERACTIVE}, highlightStyle:{fill:KhanColors.INTERACTING, "fill-opacity":0.1, stroke:KhanColors.INTERACTING}, pointSize:6, onMove:function(x, y){var dy=rightBottomHandle.coord[1] - y;var dx=rightBottomHandle.coord[0] - x;var angle=Math.atan2(dy, dx) * 180 / Math.PI;var center=kvector.scale(kvector.add([x, y], rightBottomHandle.coord), 0.5);var scaledCenter=graphie.scalePoint(center);var oldCenter=kvector.scale(kvector.add(leftBottomHandle.coord, rightBottomHandle.coord), 0.5);var scaledOldCenter=graphie.scalePoint(oldCenter);var diff=kvector.subtract(scaledCenter, scaledOldCenter);set.rotate(-angle, scaledOldCenter[0], scaledOldCenter[1]);set.translate(diff[0], diff[1]);}});var rightBottomHandle=graphie.addMovablePoint({coord:[right, bottom], normalStyle:{fill:KhanColors.INTERACTIVE, "fill-opacity":0, stroke:KhanColors.INTERACTIVE}, highlightStyle:{fill:KhanColors.INTERACTING, "fill-opacity":0.1, stroke:KhanColors.INTERACTING}, pointSize:6, onMove:function(x, y){var dy=y - leftBottomHandle.coord[1];var dx=x - leftBottomHandle.coord[0];var angle=Math.atan2(dy, dx) * 180 / Math.PI;var center=kvector.scale(kvector.add([x, y], leftBottomHandle.coord), 0.5);var scaledCenter=graphie.scalePoint(center);var oldCenter=kvector.scale(kvector.add(leftBottomHandle.coord, rightBottomHandle.coord), 0.5);var scaledOldCenter=graphie.scalePoint(oldCenter);var diff=kvector.subtract(scaledCenter, scaledOldCenter);set.rotate(-angle, scaledOldCenter[0], scaledOldCenter[1]);set.translate(diff[0], diff[1]);}});leftBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];leftBottomHandle.constraints.fixedDistance.point = rightBottomHandle;rightBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];rightBottomHandle.constraints.fixedDistance.point = leftBottomHandle;this.remove = function(){set.remove();leftBottomHandle.remove();rightBottomHandle.remove();};return this;}function MovableAngle(graphie, options){this.graphie = graphie;_.extend(this, options);_.defaults(this, {normalStyle:{"stroke":KhanColors.INTERACTIVE, "stroke-width":2, "fill":KhanColors.INTERACTIVE}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":2, "fill":KhanColors.INTERACTING}, labelStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, angleStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, allowReflex:true});if(!this.points || this.points.length !== 3){throw new Error("MovableAngle requires 3 points");}this.points = _.map(options.points, function(point){if(_.isArray(point)){return graphie.addMovablePoint({coord:point, visible:false, constraints:{fixed:true}, normalStyle:this.normalStyle});}else {return point;}}, this);this.coords = _.pluck(this.points, "coord");if(this.reflex == null){if(this.allowReflex){this.reflex = this._getClockwiseAngle(this.coords) > 180;}else {this.reflex = false;}}this.rays = _.map([0, 2], function(i){return graphie.addMovableLineSegment({pointA:this.points[1], pointZ:this.points[i], fixed:true, extendRay:true});}, this);this.temp = [];this.labeledAngle = graphie.label([0, 0], "", "center", this.labelStyle);if(!this.fixed){this.addMoveHandlers();this.addHighlightHandlers();}this.update();}_.extend(MovableAngle.prototype, {points:[], snapDegrees:0, snapOffsetDeg:0, angleLabel:"", numArcs:1, pushOut:0, fixed:false, addMoveHandlers:function(){var graphie=this.graphie;function tooClose(point1, point2){var safeDistance=30;var distance=GraphUtils.getDistance(graphie.scalePoint(point1), graphie.scalePoint(point2));return distance < safeDistance;}var points=this.points;points[1].onMove = function(x, y){var oldVertex=points[1].coord;var newVertex=[x, y];var delta=addPoints(newVertex, reverseVector(oldVertex));var valid=true;var newPoints={};_.each([0, 2], function(i){var oldPoint=points[i].coord;var newPoint=addPoints(oldPoint, delta);var angle=GraphUtils.findAngle(newVertex, newPoint);angle *= Math.PI / 180;newPoint = graphie.constrainToBoundsOnAngle(newPoint, 10, angle);newPoints[i] = newPoint;if(tooClose(newVertex, newPoint)){valid = false;}});if(valid){_.each(newPoints, function(newPoint, i){points[i].setCoord(newPoint);});}return valid;};var snap=this.snapDegrees;var snapOffset=this.snapOffsetDeg;_.each([0, 2], function(i){points[i].onMove = function(x, y){var newPoint=[x, y];var vertex=points[1].coord;if(tooClose(vertex, newPoint)){return false;}else if(snap){var angle=GraphUtils.findAngle(newPoint, vertex);angle = Math.round((angle - snapOffset) / snap) * snap + snapOffset;var distance=GraphUtils.getDistance(newPoint, vertex);return addPoints(vertex, graphie.polar(distance, angle));}else {return true;}};});$(points).on("move", (function(){this.update();$(this).trigger("move");}).bind(this));}, addHighlightHandlers:function(){var vertex=this.points[1];vertex.onHighlight = (function(){_.each(this.points, function(point){point.visibleShape.animate(this.highlightStyle, 50);}, this);_.each(this.rays, function(ray){ray.visibleLine.animate(this.highlightStyle, 50);ray.arrowStyle = _.extend({}, ray.arrowStyle, {"color":this.highlightStyle.stroke, "stroke":this.highlightStyle.stroke});}, this);this.angleStyle = _.extend({}, this.angleStyle, {"color":this.highlightStyle.stroke, "stroke":this.highlightStyle.stroke});this.update();}).bind(this);vertex.onUnhighlight = (function(){_.each(this.points, function(point){point.visibleShape.animate(this.normalStyle, 50);}, this);_.each(this.rays, function(ray){ray.visibleLine.animate(ray.normalStyle, 50);ray.arrowStyle = _.extend({}, ray.arrowStyle, {"color":ray.normalStyle.stroke, "stroke":ray.normalStyle.stroke});}, this);this.angleStyle = _.extend({}, this.angleStyle, {"color":KhanColors.DYNAMIC, "stroke":KhanColors.DYNAMIC});this.update();}).bind(this);}, _getClockwiseAngle:function(coords){var clockwiseAngle=(GraphUtils.findAngle(coords[2], coords[0], coords[1]) + 360) % 360;return clockwiseAngle;}, isReflex:function(){return this.reflex;}, isClockwise:function(){var clockwiseReflexive=this._getClockwiseAngle(this.coords) > 180;return clockwiseReflexive === this.reflex;}, getClockwiseCoords:function(){if(this.isClockwise()){return _.clone(this.coords);}else {return _.clone(this.coords).reverse();}}, update:function(shouldChangeReflexivity){var prevCoords=this.coords;this.coords = _.pluck(this.points, "coord");_.invoke(this.points, "updateLineEnds");var prevAngle=this._getClockwiseAngle(prevCoords);var angle=this._getClockwiseAngle(this.coords);var prevClockwiseReflexive=prevAngle > 180;var clockwiseReflexive=angle > 180;if(this.allowReflex){if(shouldChangeReflexivity == null){shouldChangeReflexivity = prevClockwiseReflexive !== clockwiseReflexive && Math.abs(angle - prevAngle) < 180;}if(shouldChangeReflexivity){this.reflex = !this.reflex;}}_.invoke(this.temp, "remove");this.temp = this.graphie.labelAngle({point1:this.coords[0], vertex:this.coords[1], point3:this.coords[2], label:this.labeledAngle, text:this.angleLabel, numArcs:this.numArcs, pushOut:this.pushOut, clockwise:this.reflex === clockwiseReflexive, style:this.angleStyle});}, remove:function(){_.invoke(this.rays, "remove");_.invoke(this.temp, "remove");this.labeledAngle.remove();}});module.exports = InteractiveUtils;
+	var _=__webpack_require__(16);__webpack_require__(224);var GraphUtils=__webpack_require__(200);var kvector=__webpack_require__(196).vector;var kpoint=__webpack_require__(196).point;var kline=__webpack_require__(196).line;var WrappedEllipse=__webpack_require__(223);var WrappedLine=__webpack_require__(225);var WrappedPath=__webpack_require__(226);var KhanMath=__webpack_require__(145);var KhanColors=__webpack_require__(171);var _require=__webpack_require__(154);var getCanUse3dTransform=_require.getCanUse3dTransform;function sum(array){return _.reduce(array, function(memo, arg){return memo + arg;}, 0);}function clockwise(points){var segments=_.zip(points, points.slice(1).concat(points.slice(0, 1)));var areas=_.map(segments, function(segment){var p1=segment[0];var p2=segment[1];return (p2[0] - p1[0]) * (p2[1] + p1[1]);});return sum(areas) > 0;}function addPoints(){var points=_.toArray(arguments);var zipped=_.zip.apply(_, points);return _.map(zipped, sum);}function reverseVector(vector){return _.map(vector, function(coord){return coord * -1;});}function scaledDistanceFromAngle(angle){var a=3.51470560176242 * 20;var b=0.5687298702748785 * 20;var c=-0.037587715462826674;return (a - b) * Math.exp(c * angle) + b;}function scaledPolarRad(radius, radians){return [radius * Math.cos(radians), radius * Math.sin(radians) * -1];}function scaledPolarDeg(radius, degrees){var radians=degrees * Math.PI / 180;return scaledPolarRad(radius, radians);}var dragging=false;var InteractiveUtils={FILL_OPACITY:0.3, createSorter:function(){var sorter={};var list=undefined;sorter.hasAttempted = false;sorter.init = function(element){list = $("[id=" + element + "]").last();var container=list.wrap("<div>").parent();var placeholder=$("<li>");placeholder.addClass("placeholder");container.addClass("sortable perseus-clearfix");list.find("li").each(function(tileNum, tile){$(tile).bind("vmousedown", function(event){var _this=this;if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();$(tile).addClass("dragging");var tileIndex=$(_this).index();placeholder.insertAfter(tile);placeholder.width($(tile).width());$(_this).css("z-index", 100);var offset=$(_this).offset();var click={left:event.pageX - offset.left - 3, top:event.pageY - offset.top - 3};$(tile).css({position:"absolute"});$(tile).offset({left:offset.left, top:offset.top});$(document).bind("vmousemove.tile vmouseup.tile", function(event){event.preventDefault();if(event.type === "vmousemove"){(function(){sorter.hasAttempted = true;$(tile).offset({left:event.pageX - click.left, top:event.pageY - click.top});var leftEdge=list.offset().left;var midWidth=$(tile).offset().left - leftEdge;var index=0;var sumWidth=0;list.find("li").each(function(){if(this === placeholder[0] || this === tile){return;}if(midWidth > sumWidth + $(this).outerWidth(true) / 2){index += 1;}sumWidth += $(this).outerWidth(true);});if(index !== tileIndex){tileIndex = index;if(index === 0){placeholder.prependTo(list);$(tile).prependTo(list);}else {placeholder.detach();$(tile).detach();var preceeding=list.find("li")[index - 1];placeholder.insertAfter(preceeding);$(tile).insertAfter(preceeding);}}})();}else if(event.type === "vmouseup"){(function(){$(document).unbind(".tile");var position=$(tile).offset();$(position).animate(placeholder.offset(), {duration:150, step:function(now, fx){position[fx.prop] = now;$(tile).offset(position);}, complete:function(){$(tile).css("z-index", 0);placeholder.detach();$(tile).css({position:"static"});$(tile).removeClass("dragging");}});})();}});})();}});});};sorter.getContent = function(){var content=[];list.find("li").each(function(tileNum, tile){content.push($.trim($(tile).find(".sort-key").text()));});return content;};sorter.setContent = function(content){var tiles=[];$.each(content, function(n, sortKey){var tile=list.find("li .sort-key").filter(function(){return $(this).text() === sortKey;}).closest("li").get(0);$(tile).detach();tiles.push(tile);});list.append(tiles);};return sorter;}, bogusShape:{animate:function(){}, attr:function(){}, remove:function(){}}};_.extend(GraphUtils.Graphie.prototype, {initAutoscaledGraph:function(range, options){var graph=this;options = $.extend({xpixels:500, ypixels:500, xdivisions:20, ydivisions:20, labels:true, unityLabels:true, range:range === undefined?[[-10, 10], [-10, 10]]:range}, options);options.scale = [options.xpixels / (options.range[0][1] - options.range[0][0]), options.ypixels / (options.range[1][1] - options.range[1][0])];options.gridStep = [(options.range[0][1] - options.range[0][0]) / options.xdivisions, (options.range[1][1] - options.range[1][0]) / options.ydivisions];graph.xpixels = options.xpixels;graph.ypixels = options.ypixels;graph.range = options.range;graph.scale = options.scale;graph.graphInit(options);}, addMouseLayer:function(options){var graph=this;options = _.extend({allowScratchpad:false}, options);var mouselayerZIndex=2;graph.mouselayer = Raphael(graph.raphael.canvas.parentNode, graph.xpixels, graph.ypixels);$(graph.mouselayer.canvas).css("z-index", mouselayerZIndex);if(options.onClick || options.onMouseDown || options.onMouseMove || options.onMouseOver || options.onMouseOut){(function(){var canvasClickTarget=graph.mouselayer.rect(0, 0, graph.xpixels, graph.ypixels).attr({fill:"#000", opacity:0});var isClickingCanvas=false;$(graph.mouselayer.canvas).on("vmousedown", function(e){if(e.target === canvasClickTarget[0]){if(options.onMouseDown){options.onMouseDown(graph.getMouseCoord(e));}isClickingCanvas = true;if(options.onMouseMove){$(document).bind("vmousemove.mouseLayer", function(e){if(isClickingCanvas){e.preventDefault();options.onMouseMove(graph.getMouseCoord(e));}});}$(document).bind("vmouseup.mouseLayer", function(e){$(document).unbind(".mouseLayer");if(isClickingCanvas && options.onClick){options.onClick(graph.getMouseCoord(e));}isClickingCanvas = false;});}});if(options.onMouseOver){$(graph.mouselayer.canvas).on("vmouseover", function(e){options.onMouseOver(graph.getMouseCoord(e));});}if(options.onMouseOut){$(graph.mouselayer.canvas).on("vmouseout", function(e){options.onMouseOut(graph.getMouseCoord(e));});}})();}if(!options.allowScratchpad){Khan.scratchpad.disable();}graph._mouselayerWrapper = document.createElement("div");$(graph._mouselayerWrapper).css({position:"absolute", left:0, top:0, zIndex:mouselayerZIndex});graph._visiblelayerWrapper = document.createElement("div");$(graph._visiblelayerWrapper).css({position:"absolute", left:0, top:0});var el=graph.raphael.canvas.parentNode;el.appendChild(graph._visiblelayerWrapper);el.appendChild(graph._mouselayerWrapper);graph.addToMouseLayerWrapper = function(el){this._mouselayerWrapper.appendChild(el);};graph.addToVisibleLayerWrapper = function(el){this._visiblelayerWrapper.appendChild(el);};}, getMousePx:function(event){var graphie=this;var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;return [mouseX, mouseY];}, getMouseCoord:function(event){return this.unscalePoint(this.getMousePx(event));}, drawArcs:function(point1, vertex, point3, numArcs){var startAngle=GraphUtils.findAngle(point1, vertex);var endAngle=GraphUtils.findAngle(point3, vertex);if(((endAngle - startAngle) % 360 + 360) % 360 > 180){var temp=startAngle;startAngle = endAngle;endAngle = temp;}var radius=0.3;if(((endAngle - startAngle) % 360 + 360) % 360 < 75){radius = -0.6 / 90 * (((endAngle - startAngle) % 360 + 360) % 360) + 0.8;}var arcset=[];for(var arc=0; arc < numArcs; ++arc) {arcset.push(this.arc(vertex, radius + 0.15 * arc, startAngle, endAngle));}return arcset;}, labelAngle:function(options){var graphie=this;_.defaults(options, {point1:[0, 0], vertex:[0, 0], point3:[0, 0], label:null, numArcs:1, showRightAngleMarker:true, pushOut:0, clockwise:false, style:{}});var text=options.text === undefined?"":options.text;var vertex=options.vertex;var sVertex=graphie.scalePoint(vertex);var p1=undefined;var p3=undefined;if(options.clockwise){p1 = options.point1;p3 = options.point3;}else {p1 = options.point3;p3 = options.point1;}var startAngle=GraphUtils.findAngle(p1, vertex);var endAngle=GraphUtils.findAngle(p3, vertex);var angle=(endAngle + 360 - startAngle) % 360;var halfAngle=(startAngle + angle / 2) % 360;var sPadding=5 * options.pushOut;var sRadius=sPadding + scaledDistanceFromAngle(angle);var temp=[];if(Math.abs(angle - 90) < 1e-9 && options.showRightAngleMarker){(function(){var v1=addPoints(sVertex, scaledPolarDeg(sRadius, startAngle));var v2=addPoints(sVertex, scaledPolarDeg(sRadius, endAngle));sRadius *= Math.SQRT2;var v3=addPoints(sVertex, scaledPolarDeg(sRadius, halfAngle));_.each([v1, v2], function(v){temp.push(graphie.scaledPath([v, v3], options.style));});})();}else {_.times(options.numArcs, function(i){temp.push(graphie.arc(vertex, graphie.unscaleVector(sRadius), startAngle, endAngle, options.style));sRadius += 3;});}if(text){var match=text.match(/\$deg(\d)?/);if(match){var precision=match[1] || 1;text = text.replace(match[0], KhanMath.toFixedApprox(angle, precision) + "^{\\circ}");}var sOffset=scaledPolarDeg(sRadius + 15, halfAngle);var sPosition=addPoints(sVertex, sOffset);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(text, true);}else {graphie.label(position, text, "center", options.style);}}return temp;}, labelSide:function(options){var graphie=this;_.defaults(options, {point1:[0, 0], point2:[0, 0], label:null, text:"", numTicks:0, numArrows:0, clockwise:false, style:{}});var p1=undefined;var p2=undefined;if(options.clockwise){p1 = options.point1;p2 = options.point2;}else {p1 = options.point2;p2 = options.point1;}var midpoint=[(p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2];var sMidpoint=graphie.scalePoint(midpoint);var parallelAngle=Math.atan2(p2[1] - p1[1], p2[0] - p1[0]);var perpendicularAngle=parallelAngle + Math.PI / 2;var temp=[];var sCumulativeOffset=0;if(options.numTicks){(function(){var n=options.numTicks;var sSpacing=5;var sHeight=5;var style=_.extend({}, options.style, {strokeWidth:2});_.times(n, function(i){var sOffset=sSpacing * (i - (n - 1) / 2);var sOffsetVector=scaledPolarRad(sOffset, parallelAngle);var sHeightVector=scaledPolarRad(sHeight, perpendicularAngle);var sPath=[addPoints(sMidpoint, sOffsetVector, sHeightVector), addPoints(sMidpoint, sOffsetVector, reverseVector(sHeightVector))];temp.push(graphie.scaledPath(sPath, style));});sCumulativeOffset += sSpacing * (n - 1) + 15;})();}if(options.numArrows){(function(){var n=options.numArrows;var start=[p1, p2].sort(function(a, b){if(a[1] === b[1]){return a[0] - b[0];}else {return a[1] - b[1];}})[0];var sStart=graphie.scalePoint(start);var style=_.extend({}, options.style, {arrows:"->", strokeWidth:2});var sSpacing=5;_.times(n, function(i){var sOffset=sCumulativeOffset + sSpacing * i;var sOffsetVector=scaledPolarRad(sOffset, parallelAngle);if(start !== p1){sOffsetVector = reverseVector(sOffsetVector);}var sEnd=addPoints(sMidpoint, sOffsetVector);temp.push(graphie.scaledPath([sStart, sEnd], style));});})();}var text=options.text;if(text){var match=text.match(/\$len(\d)?/);if(match){var distance=GraphUtils.getDistance(p1, p2);var precision=match[1] || 1;text = text.replace(match[0], KhanMath.toFixedApprox(distance, precision));}var sOffset=20;var sOffsetVector=scaledPolarRad(sOffset, perpendicularAngle);var sPosition=addPoints(sMidpoint, sOffsetVector);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(text, true);}else {graphie.label(position, text, "center", options.style);}}return temp;}, labelVertex:function(options){var graphie=this;_.defaults(options, {point1:null, vertex:[0, 0], point3:null, label:null, text:"", clockwise:false, style:{}});if(!options.text){return;}var vertex=options.vertex;var sVertex=graphie.scalePoint(vertex);var p1=undefined;var p3=undefined;if(options.clockwise){p1 = options.point1;p3 = options.point3;}else {p1 = options.point3;p3 = options.point1;}var angle=135;var halfAngle=undefined;if(p1 && p3){var startAngle=GraphUtils.findAngle(p1, vertex);var endAngle=GraphUtils.findAngle(p3, vertex);angle = (endAngle + 360 - startAngle) % 360;halfAngle = (startAngle + angle / 2 + 180) % 360;}else if(p1){var parallelAngle=GraphUtils.findAngle(vertex, p1);halfAngle = parallelAngle + 90;}else if(p3){var parallelAngle=GraphUtils.findAngle(p3, vertex);halfAngle = parallelAngle + 90;}else {halfAngle = 135;}var sRadius=10 + scaledDistanceFromAngle(360 - angle);var sOffsetVector=scaledPolarDeg(sRadius, halfAngle);var sPosition=addPoints(sVertex, sOffsetVector);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(options.text, true);}else {graphie.label(position, options.text, "center", options.style);}}, addMovablePoint:function(options){var movablePoint=$.extend(true, {graph:this, coord:[0, 0], snapX:0, snapY:0, pointSize:4, highlight:false, dragging:false, visible:true, bounded:true, constraints:{fixed:false, constrainX:false, constrainY:false, fixedAngle:{}, fixedDistance:{}}, lineStarts:[], lineEnds:[], polygonVertices:[], normalStyle:{}, highlightStyle:{fill:KhanColors.INTERACTING, stroke:KhanColors.INTERACTING}, labelStyle:{color:KhanColors.INTERACTIVE}, vertexLabel:"", mouseTarget:null}, options);var normalColor=movablePoint.constraints.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;movablePoint.normalStyle = _.extend({}, {"fill":normalColor, "stroke":normalColor}, options.normalStyle);if(options.coordX !== undefined){movablePoint.coord[0] = options.coordX;}if(options.coordY !== undefined){movablePoint.coord[1] = options.coordY;}var graph=movablePoint.graph;var applySnapAndConstraints=function(coord){if(movablePoint.visible && movablePoint.bounded && !movablePoint.constraints.fixed){coord = graph.constrainToBounds(coord, 10);}var coordX=coord[0];var coordY=coord[1];if(movablePoint.snapX !== 0){coordX = Math.round(coordX / movablePoint.snapX) * movablePoint.snapX;}if(movablePoint.snapY !== 0){coordY = Math.round(coordY / movablePoint.snapY) * movablePoint.snapY;}if(movablePoint.constraints.fixedDistance.snapPoints){var mouse=graph.scalePoint(coord);var mouseX=mouse[0];var mouseY=mouse[1];var snapRadians=2 * Math.PI / movablePoint.constraints.fixedDistance.snapPoints;var radius=movablePoint.constraints.fixedDistance.dist;var centerCoord=movablePoint.constraints.fixedDistance.point;var centerX=(centerCoord[0] - graph.range[0][0]) * graph.scale[0];var centerY=(-centerCoord[1] + graph.range[1][1]) * graph.scale[1];var mouseXrel=mouseX - centerX;var mouseYrel=-mouseY + centerY;var radians=Math.atan(mouseYrel / mouseXrel);var outsideArcTanRange=mouseXrel < 0;if(outsideArcTanRange){radians += Math.PI;}radians = Math.round(radians / snapRadians) * snapRadians;mouseXrel = radius * Math.cos(radians);mouseYrel = radius * Math.sin(radians);mouseX = mouseXrel + centerX;mouseY = -mouseYrel + centerY;coordX = KhanMath.roundTo(5, mouseX / graph.scale[0] + graph.range[0][0]);coordY = KhanMath.roundTo(5, graph.range[1][1] - mouseY / graph.scale[1]);}var result=movablePoint.applyConstraint([coordX, coordY]);return result;};movablePoint.applyConstraint = function(coord, extraConstraints, override){var newCoord=coord.slice();var constraints={};if(override){$.extend(constraints, {fixed:false, constrainX:false, constrainY:false, fixedAngle:{}, fixedDistance:{}}, extraConstraints);}else {$.extend(constraints, this.constraints, extraConstraints);}if(constraints.constrainX){newCoord = [this.coord[0], coord[1]];}else if(constraints.constrainY){newCoord = [coord[0], this.coord[1]];}else if(typeof constraints.fixedAngle.angle === "number" && typeof constraints.fixedDistance.dist === "number"){var vertex=constraints.fixedAngle.vertex.coord || constraints.fixedAngle.vertex;var ref=constraints.fixedAngle.ref.coord || constraints.fixedAngle.ref;var distPoint=constraints.fixedDistance.point.coord || constraints.fixedDistance.point;var constrainedAngle=(constraints.fixedAngle.angle + GraphUtils.findAngle(ref, vertex)) * Math.PI / 180;var _length=constraints.fixedDistance.dist;newCoord[0] = _length * Math.cos(constrainedAngle) + distPoint[0];newCoord[1] = _length * Math.sin(constrainedAngle) + distPoint[1];}else if(typeof constraints.fixedAngle.angle === "number"){var vertex=constraints.fixedAngle.vertex.coord || constraints.fixedAngle.vertex;var ref=constraints.fixedAngle.ref.coord || constraints.fixedAngle.ref;var constrainedAngle=(constraints.fixedAngle.angle + GraphUtils.findAngle(ref, vertex)) * Math.PI / 180;var angle=GraphUtils.findAngle(coord, vertex) * Math.PI / 180;var distance=GraphUtils.getDistance(coord, vertex);var _length2=distance * Math.cos(constrainedAngle - angle);_length2 = _length2 < 1?1:_length2;newCoord[0] = _length2 * Math.cos(constrainedAngle) + vertex[0];newCoord[1] = _length2 * Math.sin(constrainedAngle) + vertex[1];}else if(typeof constraints.fixedDistance.dist === "number"){var distPoint=constraints.fixedDistance.point.coord || constraints.fixedDistance.point;var angle=GraphUtils.findAngle(coord, distPoint);var _length3=constraints.fixedDistance.dist;angle = angle * Math.PI / 180;newCoord[0] = _length3 * Math.cos(angle) + distPoint[0];newCoord[1] = _length3 * Math.sin(angle) + distPoint[1];}else if(constraints.fixed){newCoord = movablePoint.coord;}return newCoord;};movablePoint.coord = applySnapAndConstraints(movablePoint.coord);var highlightScale=2;if(movablePoint.visible){graph.style(movablePoint.normalStyle, function(){var radii=[movablePoint.pointSize / graph.scale[0], movablePoint.pointSize / graph.scale[1]];var options={maxScale:highlightScale, padding:2};movablePoint.visibleShape = new WrappedEllipse(graph, movablePoint.coord, radii, options);movablePoint.visibleShape.attr(_.omit(movablePoint.normalStyle, "scale"));movablePoint.visibleShape.toFront();});}movablePoint.normalStyle.scale = 1;movablePoint.highlightStyle.scale = highlightScale;if(movablePoint.vertexLabel){movablePoint.labeledVertex = this.label([0, 0], "", "center", movablePoint.labelStyle);}movablePoint.drawLabel = function(){if(movablePoint.vertexLabel){movablePoint.graph.labelVertex({vertex:movablePoint.coord, label:movablePoint.labeledVertex, text:movablePoint.vertexLabel, style:movablePoint.labelStyle});}};movablePoint.drawLabel();movablePoint.grab = function(offset){offset = offset || [0, 0];$(document).bind("vmousemove.point vmouseup.point", function(event){event.preventDefault();movablePoint.dragging = true;dragging = true;var coord=kvector.add(graph.getMouseCoord(event), offset);coord = applySnapAndConstraints(coord);var coordX=coord[0];var coordY=coord[1];var mouseX=undefined;var mouseY=undefined;if(event.type === "vmousemove"){var doMove=true;if(_.isFunction(movablePoint.onMove)){var result=movablePoint.onMove(coordX, coordY);if(result === false){doMove = false;}if(_.isArray(result)){coordX = result[0];coordY = result[1];}}mouseX = (coordX - graph.range[0][0]) * graph.scale[0];mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];if(doMove){var point=graph.unscalePoint([mouseX, mouseY]);movablePoint.visibleShape.moveTo(point);movablePoint.mouseTarget.moveTo(point);movablePoint.coord = [coordX, coordY];movablePoint.updateLineEnds();$(movablePoint).trigger("move");}movablePoint.drawLabel();}else if(event.type === "vmouseup"){$(document).unbind(".point");movablePoint.dragging = false;dragging = false;if(_.isFunction(movablePoint.onMoveEnd)){var result=movablePoint.onMoveEnd(coordX, coordY);if(_.isArray(result)){coordX = result[0];coordY = result[1];mouseX = (coordX - graph.range[0][0]) * graph.scale[0];mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];var point=graph.unscalePoint([mouseX, mouseY]);movablePoint.visibleShape.moveTo(point);movablePoint.mouseTarget.moveTo(point);movablePoint.coord = [coordX, coordY];}}if(!movablePoint.highlight){movablePoint.visibleShape.animate(movablePoint.normalStyle, 50);if(movablePoint.onUnhighlight){movablePoint.onUnhighlight();}}}});};if(movablePoint.visible && !movablePoint.constraints.fixed){if(!movablePoint.mouseTarget){var radii=graph.unscaleVector(24);var _options={mouselayer:true, padding:0};movablePoint.mouseTarget = new WrappedEllipse(graph, movablePoint.coord, radii, _options);movablePoint.mouseTarget.attr({fill:"#000", opacity:0});}var $mouseTarget=$(movablePoint.mouseTarget.getMouseTarget());$mouseTarget.css("cursor", "move");$mouseTarget.bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){movablePoint.highlight = true;if(!dragging){movablePoint.visibleShape.animate(movablePoint.highlightStyle, 50);if(movablePoint.onHighlight){movablePoint.onHighlight();}}}else if(event.type === "vmouseout"){movablePoint.highlight = false;if(!movablePoint.dragging && !dragging){movablePoint.visibleShape.animate(movablePoint.normalStyle, 50);if(movablePoint.onUnhighlight){movablePoint.onUnhighlight();}}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){event.preventDefault();var startCoord=movablePoint.coord;var startMouseCoord=graph.getMouseCoord(event);var isMouse=!("ontouchstart" in window);var touchOffset=isMouse?[0, 0]:kvector.subtract(startCoord, startMouseCoord);movablePoint.grab(touchOffset);}});}movablePoint.moveTo = function(coordX, coordY, updateLines){var distance=GraphUtils.getDistance(this.graph.scalePoint([coordX, coordY]), this.graph.scalePoint(this.coord));var time=distance * 5;var cb=updateLines && function(coord){movablePoint.coord = coord;movablePoint.updateLineEnds();};this.visibleShape.animateTo([coordX, coordY], time, cb);this.mouseTarget.animateTo([coordX, coordY], time, cb);this.coord = [coordX, coordY];if(_.isFunction(this.onMove)){this.onMove(coordX, coordY);}};movablePoint.updateLineEnds = function(){$(this.lineStarts).each(function(){this.coordA = movablePoint.coord;this.transform();});$(this.lineEnds).each(function(){this.coordZ = movablePoint.coord;this.transform();});$(this.polygonVertices).each(function(){this.transform();});};movablePoint.setCoord = function(coord){if(this.visible){this.visibleShape.moveTo(coord);if(this.mouseTarget != null){this.mouseTarget.moveTo(coord);}}this.coord = coord.slice();};movablePoint.setCoordConstrained = function(coord){this.setCoord(applySnapAndConstraints(coord));};movablePoint.toBack = function(){if(this.visible){if(this.mouseTarget != null){this.mouseTarget.toBack();}this.visibleShape.toBack();}};movablePoint.toFront = function(){if(this.visible){if(this.mouseTarget != null){this.mouseTarget.toFront();}this.visibleShape.toFront();}};movablePoint.remove = function(){if(this.visibleShape){this.visibleShape.remove();}if(this.mouseTarget){this.mouseTarget.remove();}if(this.labeledVertex){this.labeledVertex.remove();}};return movablePoint;}, addInteractiveFn:function(fn, options){var graph=this;options = $.extend({graph:graph, snap:0, range:[graph.range[0][0], graph.range[0][1]]}, options);var interactiveFn={highlight:false};graph.style({stroke:KhanColors.BLUE}, function(){interactiveFn.visibleShape = graph.plot(fn, options.range, options.swapAxes);});graph.style({fill:KhanColors.BLUE, stroke:KhanColors.BLUE}, function(){interactiveFn.cursorPoint = graph.ellipse([0, fn(0)], [4 / graph.scale[0], 4 / graph.scale[1]]);});interactiveFn.cursorPoint.attr("opacity", 0);var mouseAreaWidth=30;var points=[];var step=(options.range[1] - options.range[0]) / 100;var addScaledPoint=function(x, y){if(options.swapAxes){points.push([(y - graph.range[0][0]) * graph.scale[0], (graph.range[1][1] - x) * graph.scale[1]]);}else {points.push([(x - graph.range[0][0]) * graph.scale[0], (graph.range[1][1] - y) * graph.scale[1]]);}};for(var x=options.range[0]; x <= options.range[1]; x += step) {var ddx=(fn(x - 0.001) - fn(x + 0.001)) / 0.002;var x1=x;var y1=fn(x) + mouseAreaWidth / (2 * graph.scale[1]);if(ddx !== 0){var normalslope=-1 / (ddx * (graph.scale[1] / graph.scale[0])) / (graph.scale[1] / graph.scale[0]);if(ddx < 0){x1 = x - Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}else if(ddx > 0){x1 = x + Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}}addScaledPoint(x1, y1);}for(var x=options.range[1]; x >= options.range[0]; x -= step) {var ddx=(fn(x - 0.001) - fn(x + 0.001)) / 0.002;var x1=x;var y1=fn(x) - mouseAreaWidth / (2 * graph.scale[1]);if(ddx !== 0){var normalslope=-1 / (ddx * (graph.scale[1] / graph.scale[0])) / (graph.scale[1] / graph.scale[0]);if(ddx < 0){x1 = x + Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}else if(ddx > 0){x1 = x - Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}}addScaledPoint(x1, y1);}interactiveFn.mouseTarget = graph.mouselayer.path(GraphUtils.unscaledSvgPath(points));interactiveFn.mouseTarget.attr({fill:"#000", "opacity":0});$(interactiveFn.mouseTarget[0]).bind("vmouseover vmouseout vmousemove", function(event){event.preventDefault();var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graph.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graph.ypixels - 10, mouseY));if(options.snap){mouseX = Math.round(mouseX / (graph.scale[0] * options.snap)) * (graph.scale[0] * options.snap);}var coordX=mouseX / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - mouseY / graph.scale[1];var findDistance=function(coordX, coordY){var closestX=0;var minDist=Math.sqrt(coordX * coordX + coordY * coordY);for(var x=options.range[0]; x < options.range[1]; x += (options.range[1] - options.range[0]) / graph.xpixels) {if(Math.sqrt((x - coordX) * (x - coordX) + (fn(x) - coordY) * (fn(x) - coordY)) < minDist){closestX = x;minDist = Math.sqrt((x - coordX) * (x - coordX) + (fn(x) - coordY) * (fn(x) - coordY));}}return closestX;};if(options.swapAxes){var closestX=findDistance(coordY, coordX);coordX = fn(closestX);coordY = closestX;}else {var closestX=findDistance(coordX, coordY);coordX = closestX;coordY = fn(closestX);}interactiveFn.cursorPoint.attr("cx", (graph.range[0][1] + coordX) * graph.scale[0]);interactiveFn.cursorPoint.attr("cy", (graph.range[1][1] - coordY) * graph.scale[1]);if(_.isFunction(interactiveFn.onMove)){interactiveFn.onMove(coordX, coordY);}if(event.type === "vmouseover"){interactiveFn.cursorPoint.animate({opacity:1}, 50);interactiveFn.highlight = true;}else if(event.type === "vmouseout"){interactiveFn.highlight = false;interactiveFn.cursorPoint.animate({opacity:0}, 50);if(_.isFunction(interactiveFn.onLeave)){interactiveFn.onLeave(coordX, coordY);}}});interactiveFn.mouseTarget.toBack();return interactiveFn;}, addMovableLineSegment:function(options){var lineSegment=$.extend({graph:this, coordA:[0, 0], coordZ:[1, 1], snapX:0, snapY:0, fixed:false, ticks:0, normalStyle:{}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":6}, labelStyle:{"stroke":KhanColors.INTERACTIVE, "color":KhanColors.INTERACTIVE}, highlight:false, dragging:false, tick:[], extendLine:false, extendRay:false, constraints:{fixed:false, constrainX:false, constrainY:false}, sideLabel:"", vertexLabels:[], numArrows:0, numTicks:0, movePointsWithLine:false}, options);var normalColor=lineSegment.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;lineSegment.normalStyle = _.extend({}, {"stroke-width":2, "stroke":normalColor}, options.normalStyle);lineSegment.arrowStyle = _.extend({}, lineSegment.normalStyle, {"color":lineSegment.normalStyle.stroke});if(options.pointA !== undefined){lineSegment.coordA = options.pointA.coord;lineSegment.pointA.lineStarts.push(lineSegment);}else if(options.coordA !== undefined){lineSegment.coordA = options.coordA.slice();}if(options.pointZ !== undefined){lineSegment.coordZ = options.pointZ.coord;lineSegment.pointZ.lineEnds.push(lineSegment);}else if(options.coordA !== undefined){lineSegment.coordA = lineSegment.coordA.slice();}var graph=lineSegment.graph;graph.style(lineSegment.normalStyle);for(var i=0; i < lineSegment.ticks; ++i) {lineSegment.tick[i] = InteractiveUtils.bogusShape;}var path=GraphUtils.unscaledSvgPath([[0, 0], [1, 0]]);for(var i=0; i < lineSegment.ticks; ++i) {var tickoffset=0.5 - (lineSegment.ticks - 1 + i * 2) / graph.scale[0];path += GraphUtils.unscaledSvgPath([[tickoffset, -7], [tickoffset, 7]]);}options = {thickness:Math.max(lineSegment.normalStyle["stroke-width"], lineSegment.highlightStyle["stroke-width"])};lineSegment.visibleLine = new WrappedLine(graph, [0, 0], [1, 0], options);lineSegment.visibleLine.attr(lineSegment.normalStyle);if(!lineSegment.fixed){var _options2={thickness:30, mouselayer:true};lineSegment.mouseTarget = new WrappedLine(graph, [0, 0], [1, 0], _options2);lineSegment.mouseTarget.attr({fill:"#000", "opacity":0});}lineSegment.transform = function(syncToPoints){if(syncToPoints){if(typeof this.pointA === "object"){this.coordA = this.pointA.coord;}if(typeof this.pointZ === "object"){this.coordZ = this.pointZ.coord;}}var getScaledAngle=function(line){var scaledA=line.graph.scalePoint(line.coordA);var scaledZ=line.graph.scalePoint(line.coordZ);return kvector.polarDegFromCart(kvector.subtract(scaledZ, scaledA))[1];};var getClipPoint=function(graph, coord, angle){graph = lineSegment.graph;var xExtent=graph.range[0][1] - graph.range[0][0];var yExtent=graph.range[1][1] - graph.range[1][0];var distance=xExtent + yExtent;var angleVec=graph.unscaleVector(kvector.cartFromPolarDeg([1, angle]));var distVec=kvector.scale(kvector.normalize(angleVec), distance);var farCoord=kvector.add(coord, distVec);var scaledAngle=kvector.polarDegFromCart(angleVec)[1];var clipPoint=graph.constrainToBoundsOnAngle(farCoord, 4, scaledAngle * Math.PI / 180);return clipPoint;};var angle=getScaledAngle(this);var start=this.coordA;var end=this.coordZ;if(this.extendLine){start = getClipPoint(graph, start, 360 - angle);end = getClipPoint(graph, end, (540 - angle) % 360);}else if(this.extendRay){end = getClipPoint(graph, start, 360 - angle);}var elements=[this.visibleLine];if(!this.fixed){elements.push(this.mouseTarget);}_.each(elements, function(element){element.moveTo(start, end);});var createArrow=function(graph, style){var center=[0.75, 0];var points=[[-3, 4], [-2.75, 2.5], [0, 0.25], center, [0, -0.25], [-2.75, -2.5], [-3, -4]];var scale=1.4;points = _.map(points, function(point){var pv=kvector.subtract(point, center);var pvScaled=kvector.scale(pv, scale);return kvector.add(center, pvScaled);});var createCubicPath=function(points){var path="M" + points[0][0] + " " + points[0][1];for(var i=1; i < points.length; i += 3) {path += "C" + points[i][0] + " " + points[i][1] + " " + points[i + 1][0] + " " + points[i + 1][1] + " " + points[i + 2][0] + " " + points[i + 2][1];}return path;};var unscaledPoints=_.map(points, graph.unscalePoint);var options={center:graph.unscalePoint(center), createPath:createCubicPath};var arrowHead=new WrappedPath(graph, unscaledPoints, options);arrowHead.attr(_.extend({"stroke-linejoin":"round", "stroke-linecap":"round", "stroke-dasharray":""}, style));arrowHead.toCoordAtAngle = function(coord, angle){var clipPoint=graph.scalePoint(getClipPoint(graph, coord, angle));var do3dTransform=getCanUse3dTransform();arrowHead.transform("translateX(" + (clipPoint[0] + scale * center[0]) + "px) " + "translateY(" + (clipPoint[1] + scale * center[1]) + "px) " + (do3dTransform?"translateZ(0) ":"") + "rotate(" + (360 - KhanMath.bound(angle)) + "deg)");};return arrowHead;};if(this._arrows == null){this._arrows = [];if(this.extendLine){this._arrows.push(createArrow(graph, this.normalStyle));this._arrows.push(createArrow(graph, this.normalStyle));}else if(this.extendRay){this._arrows.push(createArrow(graph, this.normalStyle));}}var coordForArrow=[this.coordA, this.coordZ];var angleForArrow=[360 - angle, (540 - angle) % 360];_.each(this._arrows, function(arrow, i){arrow.toCoordAtAngle(coordForArrow[i], angleForArrow[i]);});_.invoke(this.temp, "remove");this.temp = [];var isClockwise=this.coordA[0] < this.coordZ[0] || this.coordA[0] === this.coordZ[0] && this.coordA[1] > this.coordZ[1];if(this.sideLabel){this.temp.push(this.graph.labelSide({point1:this.coordA, point2:this.coordZ, label:this.labeledSide, text:this.sideLabel, numArrows:this.numArrows, numTicks:this.numTicks, clockwise:isClockwise, style:this.labelStyle}));}if(this.vertexLabels.length){this.graph.labelVertex({vertex:this.coordA, point3:this.coordZ, label:this.labeledVertices[0], text:this.vertexLabels[0], clockwise:isClockwise, style:this.labelStyle});this.graph.labelVertex({point1:this.coordA, vertex:this.coordZ, label:this.labeledVertices[1], text:this.vertexLabels[1], clockwise:isClockwise, style:this.labelStyle});}this.temp = _.flatten(this.temp);};lineSegment.toBack = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.toBack();}lineSegment.visibleLine.toBack();};lineSegment.toFront = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.toFront();}lineSegment.visibleLine.toFront();};lineSegment.remove = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.remove();}lineSegment.visibleLine.remove();if(lineSegment.labeledSide){lineSegment.labeledSide.remove();}if(lineSegment.labeledVertices){_.invoke(lineSegment.labeledVertices, "remove");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "remove");}if(lineSegment.temp.length){_.invoke(lineSegment.temp, "remove");}};lineSegment.hide = function(){lineSegment.visibleLine.hide();if(lineSegment.temp.length){_.invoke(lineSegment.temp, "hide");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "hide");}};lineSegment.show = function(){lineSegment.visibleLine.show();if(lineSegment.temp.length){_.invoke(lineSegment.temp, "show");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "show");}};if(lineSegment.sideLabel){lineSegment.labeledSide = this.label([0, 0], "", "center", lineSegment.labelStyle);}if(lineSegment.vertexLabels.length){lineSegment.labeledVertices = _.map(lineSegment.vertexLabels, function(label){return this.label([0, 0], "", "center", lineSegment.labelStyle);}, this);}if(!lineSegment.fixed && !lineSegment.constraints.fixed){var $mouseTarget=$(lineSegment.mouseTarget.getMouseTarget());$mouseTarget.css("cursor", "move");$mouseTarget.bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){if(!dragging){lineSegment.highlight = true;lineSegment.visibleLine.animate(lineSegment.highlightStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.highlightStyle.stroke, "stroke":lineSegment.highlightStyle.stroke});lineSegment.transform();}}else if(event.type === "vmouseout"){lineSegment.highlight = false;if(!lineSegment.dragging){lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.normalStyle.stroke, "stroke":lineSegment.normalStyle.stroke});lineSegment.transform();}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();var coordX=(event.pageX - $(graph.raphael.canvas.parentNode).offset().left) / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - (event.pageY - $(graph.raphael.canvas.parentNode).offset().top) / graph.scale[1];if(lineSegment.snapX > 0){coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;}if(lineSegment.snapY > 0){coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;}var mouseOffsetA=[lineSegment.coordA[0] - coordX, lineSegment.coordA[1] - coordY];var mouseOffsetZ=[lineSegment.coordZ[0] - coordX, lineSegment.coordZ[1] - coordY];var offsetLeft=-Math.min(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);var offsetRight=Math.max(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);var offsetTop=Math.max(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);var offsetBottom=-Math.min(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);$(document).bind("vmousemove.lineSegment vmouseup.lineSegment", function(event){event.preventDefault();lineSegment.dragging = true;dragging = true;var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(offsetLeft + 10, Math.min(graph.xpixels - 10 - offsetRight, mouseX));mouseY = Math.max(offsetTop + 10, Math.min(graph.ypixels - 10 - offsetBottom, mouseY));var coordX=mouseX / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - mouseY / graph.scale[1];if(lineSegment.snapX > 0){coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;}if(lineSegment.snapY > 0){coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;}if(event.type === "vmousemove"){if(lineSegment.constraints.constrainX){coordX = lineSegment.coordA[0] - mouseOffsetA[0];}if(lineSegment.constraints.constrainY){coordY = lineSegment.coordA[1] - mouseOffsetA[1];}var dX=coordX + mouseOffsetA[0] - lineSegment.coordA[0];var dY=coordY + mouseOffsetA[1] - lineSegment.coordA[1];lineSegment.coordA = [coordX + mouseOffsetA[0], coordY + mouseOffsetA[1]];lineSegment.coordZ = [coordX + mouseOffsetZ[0], coordY + mouseOffsetZ[1]];lineSegment.transform();if(lineSegment.movePointsWithLine){if(typeof lineSegment.pointA === "object"){lineSegment.pointA.setCoord([lineSegment.pointA.coord[0] + dX, lineSegment.pointA.coord[1] + dY]);}if(typeof lineSegment.pointZ === "object"){lineSegment.pointZ.setCoord([lineSegment.pointZ.coord[0] + dX, lineSegment.pointZ.coord[1] + dY]);}}if(_.isFunction(lineSegment.onMove)){lineSegment.onMove(dX, dY);}}else if(event.type === "vmouseup"){$(document).unbind(".lineSegment");lineSegment.dragging = false;dragging = false;if(!lineSegment.highlight){lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.normalStyle.stroke, "stroke":lineSegment.normalStyle.stroke});lineSegment.transform();}if(_.isFunction(lineSegment.onMoveEnd)){lineSegment.onMoveEnd();}}$(lineSegment).trigger("move");});})();}});}if(lineSegment.pointA !== undefined){lineSegment.pointA.toFront();}if(lineSegment.pointZ !== undefined){lineSegment.pointZ.toFront();}lineSegment.transform();return lineSegment;}, addMovablePolygon:function(options){var graphie=this;var polygon=$.extend({snapX:0, snapY:0, fixed:false, constrainToGraph:true, normalStyle:{}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":2, "fill":KhanColors.INTERACTING, "fill-opacity":0.05}, pointHighlightStyle:{"fill":KhanColors.INTERACTING, "stroke":KhanColors.INTERACTING}, labelStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, angleLabels:[], showRightAngleMarkers:[], sideLabels:[], vertexLabels:[], numArcs:[], numArrows:[], numTicks:[], updateOnPointMove:true, closed:true}, _.omit(options, "points"));var normalColor=polygon.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;polygon.normalStyle = _.extend({"stroke-width":2, "fill-opacity":0, "fill":normalColor, "stroke":normalColor}, options.normalStyle);polygon.points = options.points;var isPoint=function(coordOrPoint){return !_.isArray(coordOrPoint);};polygon.update = function(){var n=polygon.points.length;polygon.coords = _.map(polygon.points, function(coordOrPoint, i){if(isPoint(coordOrPoint)){return coordOrPoint.coord;}else {return coordOrPoint;}});polygon.left = _.min(_.pluck(polygon.coords, 0));polygon.right = _.max(_.pluck(polygon.coords, 0));polygon.top = _.max(_.pluck(polygon.coords, 1));polygon.bottom = _.min(_.pluck(polygon.coords, 1));var scaledCoords=_.map(polygon.coords, function(coord){return graphie.scalePoint(coord);});if(polygon.closed){scaledCoords.push(true);}else {scaledCoords = scaledCoords.concat(_.clone(scaledCoords).reverse());}polygon.path = GraphUtils.unscaledSvgPath(scaledCoords);_.invoke(polygon.temp, "remove");polygon.temp = [];var isClockwise=clockwise(polygon.coords);if(polygon.angleLabels.length || polygon.showRightAngleMarkers.length){_.each(polygon.labeledAngles, function(label, i){polygon.temp.push(graphie.labelAngle({point1:polygon.coords[(i - 1 + n) % n], vertex:polygon.coords[i], point3:polygon.coords[(i + 1) % n], label:label, text:polygon.angleLabels[i], showRightAngleMarker:polygon.showRightAngleMarkers[i], numArcs:polygon.numArcs[i], clockwise:isClockwise, style:polygon.labelStyle}));});}if(polygon.sideLabels.length){_.each(polygon.labeledSides, function(label, i){polygon.temp.push(graphie.labelSide({point1:polygon.coords[i], point2:polygon.coords[(i + 1) % n], label:label, text:polygon.sideLabels[i], numArrows:polygon.numArrows[i], numTicks:polygon.numTicks[i], clockwise:isClockwise, style:polygon.labelStyle}));});}if(polygon.vertexLabels.length){_.each(polygon.labeledVertices, function(label, i){graphie.labelVertex({point1:polygon.coords[(i - 1 + n) % n], vertex:polygon.coords[i], point3:polygon.coords[(i + 1) % n], label:label, text:polygon.vertexLabels[i], clockwise:isClockwise, style:polygon.labelStyle});});}polygon.temp = _.flatten(polygon.temp);};polygon.transform = function(){polygon.update();polygon.visibleShape.attr({path:polygon.path});if(!polygon.fixed){polygon.mouseTarget.attr({path:polygon.path});}};polygon.remove = function(){polygon.visibleShape.remove();if(!polygon.fixed){polygon.mouseTarget.remove();}if(polygon.labeledAngles){_.invoke(polygon.labeledAngles, "remove");}if(polygon.labeledSides){_.invoke(polygon.labeledSides, "remove");}if(polygon.labeledVertices){_.invoke(polygon.labeledVertices, "remove");}if(polygon.temp.length){_.invoke(polygon.temp, "remove");}};polygon.toBack = function(){if(!polygon.fixed){polygon.mouseTarget.toBack();}polygon.visibleShape.toBack();};polygon.toFront = function(){if(!polygon.fixed){polygon.mouseTarget.toFront();}polygon.visibleShape.toFront();};if(polygon.updateOnPointMove){_.each(_.filter(polygon.points, isPoint), function(coordOrPoint){coordOrPoint.polygonVertices.push(polygon);});}polygon.coords = new Array(polygon.points.length);if(polygon.angleLabels.length){var numLabels=Math.max(polygon.angleLabels.length, polygon.showRightAngleMarkers.length);polygon.labeledAngles = _.times(numLabels, function(){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}if(polygon.sideLabels.length){polygon.labeledSides = _.map(polygon.sideLabels, function(label){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}if(polygon.vertexLabels.length){polygon.labeledVertices = _.map(polygon.vertexLabels, function(label){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}polygon.update();polygon.visibleShape = graphie.raphael.path(polygon.path);polygon.visibleShape.attr(polygon.normalStyle);if(!polygon.fixed){polygon.mouseTarget = graphie.mouselayer.path(polygon.path);polygon.mouseTarget.attr({fill:"#000", opacity:0, cursor:"move"});$(polygon.mouseTarget[0]).bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){if(!dragging || polygon.dragging){polygon.highlight = true;polygon.visibleShape.animate(polygon.highlightStyle, 50);_.each(_.filter(polygon.points, isPoint), function(point){point.visibleShape.animate(polygon.pointHighlightStyle, 50);});}}else if(event.type === "vmouseout"){polygon.highlight = false;if(!polygon.dragging){polygon.visibleShape.animate(polygon.normalStyle, 50);var points=_.filter(polygon.points, isPoint);if(!_.any(_.pluck(points, "dragging"))){_.each(points, function(point){point.visibleShape.animate(point.normalStyle, 50);});}}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();_.each(_.filter(polygon.points, isPoint), function(point){point.dragging = true;});var startX=(event.pageX - $(graphie.raphael.canvas.parentNode).offset().left) / graphie.scale[0] + graphie.range[0][0];var startY=graphie.range[1][1] - (event.pageY - $(graphie.raphael.canvas.parentNode).offset().top) / graphie.scale[1];if(polygon.snapX > 0){startX = Math.round(startX / polygon.snapX) * polygon.snapX;}if(polygon.snapY > 0){startY = Math.round(startY / polygon.snapY) * polygon.snapY;}var lastX=startX;var lastY=startY;var polygonCoords=polygon.coords.slice();var offsetLeft=(startX - polygon.left) * graphie.scale[0];var offsetRight=(polygon.right - startX) * graphie.scale[0];var offsetTop=(polygon.top - startY) * graphie.scale[1];var offsetBottom=(startY - polygon.bottom) * graphie.scale[1];$(document).bind("vmousemove.polygon vmouseup.polygon", function(event){event.preventDefault();polygon.dragging = true;dragging = true;var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;if(polygon.constrainToGraph){mouseX = Math.max(offsetLeft + 10, Math.min(graphie.xpixels - 10 - offsetRight, mouseX));mouseY = Math.max(offsetTop + 10, Math.min(graphie.ypixels - 10 - offsetBottom, mouseY));}var currentX=mouseX / graphie.scale[0] + graphie.range[0][0];var currentY=graphie.range[1][1] - mouseY / graphie.scale[1];if(polygon.snapX > 0){currentX = Math.round(currentX / polygon.snapX) * polygon.snapX;}if(polygon.snapY > 0){currentY = Math.round(currentY / polygon.snapY) * polygon.snapY;}if(event.type === "vmousemove"){(function(){var dX=currentX - startX;var dY=currentY - startY;var doMove=true;if(_.isFunction(polygon.onMove)){var onMoveResult=polygon.onMove(dX, dY);if(onMoveResult === false){doMove = false;}else if(_.isArray(onMoveResult)){dX = onMoveResult[0];dY = onMoveResult[1];currentX = startX + dX;currentY = startY + dY;}}var increment=function(i){return [polygonCoords[i][0] + dX, polygonCoords[i][1] + dY];};if(doMove){_.each(polygon.points, function(coordOrPoint, i){if(isPoint(coordOrPoint)){coordOrPoint.setCoord(increment(i));}else {polygon.points[i] = increment(i);}});polygon.transform();$(polygon).trigger("move");lastX = currentX;lastY = currentY;}})();}else if(event.type === "vmouseup"){$(document).unbind(".polygon");var points=_.filter(polygon.points, isPoint);_.each(points, function(point){point.dragging = false;});polygon.dragging = false;dragging = false;if(!polygon.highlight){polygon.visibleShape.animate(polygon.normalStyle, 50);_.each(points, function(point){point.visibleShape.animate(point.normalStyle, 50);});}if(_.isFunction(polygon.onMoveEnd)){polygon.onMoveEnd(lastX - startX, lastY - startY);}}});})();}});}_.invoke(_.filter(polygon.points, isPoint), "toFront");return polygon;}, constrainToBounds:function(point, padding){var lower=this.unscalePoint([padding, this.ypixels - padding]);var upper=this.unscalePoint([this.xpixels - padding, padding]);var coordX=Math.max(lower[0], Math.min(upper[0], point[0]));var coordY=Math.max(lower[1], Math.min(upper[1], point[1]));return [coordX, coordY];}, constrainToBoundsOnAngle:function(point, padding, angle){var lower=this.unscalePoint([padding, this.ypixels - padding]);var upper=this.unscalePoint([this.xpixels - padding, padding]);var result=point.slice();if(result[0] < lower[0]){result = [lower[0], result[1] + (lower[0] - result[0]) * Math.tan(angle)];}else if(result[0] > upper[0]){result = [upper[0], result[1] - (result[0] - upper[0]) * Math.tan(angle)];}if(result[1] < lower[1]){result = [result[0] + (lower[1] - result[1]) / Math.tan(angle), lower[1]];}else if(result[1] > upper[1]){result = [result[0] - (result[1] - upper[1]) / Math.tan(angle), upper[1]];}return result;}, addMovableAngle:function(options){return new MovableAngle(this, options);}, addArrowWidget:function(options){var arrowWidget=$.extend({graph:this, direction:"up", coord:[0, 0], onClick:function(){}}, options);var graph=arrowWidget.graph;if(arrowWidget.direction === "up"){arrowWidget.visibleShape = graph.path([[arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0] - 4 / graph.scale[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0] + 4 / graph.scale[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]]], {stroke:"", fill:KhanColors.INTERACTIVE});}else if(arrowWidget.direction === "down"){arrowWidget.visibleShape = graph.path([[arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0] - 4 / graph.scale[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0] + 4 / graph.scale[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]]], {stroke:"", fill:KhanColors.INTERACTIVE});}_.defer(function(){arrowWidget.visibleShape.attr({stroke:"", fill:KhanColors.INTERACTIVE});});arrowWidget.mouseTarget = graph.mouselayer.circle(graph.scalePoint(arrowWidget.coord)[0], graph.scalePoint(arrowWidget.coord)[1], 15);arrowWidget.mouseTarget.attr({fill:"#000", "opacity":0});$(arrowWidget.mouseTarget[0]).css("cursor", "pointer");$(arrowWidget.mouseTarget[0]).bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){arrowWidget.visibleShape.animate({scale:2, fill:KhanColors.INTERACTING}, 20);}else if(event.type === "vmouseout"){arrowWidget.visibleShape.animate({scale:1, fill:KhanColors.INTERACTING}, 20);}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){if(!arrowWidget.hidden){arrowWidget.onClick();}return false;}});arrowWidget.hide = function(){arrowWidget.visibleShape.hide();arrowWidget.hidden = true;$(arrowWidget.mouseTarget[0]).css("cursor", "default");};arrowWidget.show = function(){arrowWidget.visibleShape.show();arrowWidget.hidden = false;$(arrowWidget.mouseTarget[0]).css("cursor", "pointer");};return arrowWidget;}, addRectGraph:function(options){var rect=$.extend(true, {x:0, y:0, width:1, height:1, normalStyle:{points:{stroke:KhanColors.INTERACTIVE, fill:KhanColors.INTERACTIVE, opacity:1}, edges:{stroke:KhanColors.INTERACTIVE, opacity:1, "stroke-width":1}, area:{fill:KhanColors.INTERACTIVE, "fill-opacity":0.1, "stroke-width":0}}, hoverStyle:{points:{color:KhanColors.INTERACTING, opacity:1, width:2}, edges:{stroke:KhanColors.INTERACTING, opacity:1, "stroke-width":1}, area:{fill:KhanColors.INTERACTING, "fill-opacity":0.2, "stroke-width":0}}, fixed:{edges:[false, false, false, false], points:[false, false, false, false]}, constraints:{constrainX:false, constrainY:false, xmin:null, xmax:null, ymin:null, ymax:null}, snapX:0, snapY:0, onMove:function(){}}, options);rect = $.extend({initialized:function(){return rect.points && rect.points.length;}, x2:function(){return this.x + this.width;}, y2:function(){return this.y + this.height;}, getX:function(){if(rect.initialized()){return rect.points[0].coord[0];}return rect.x;}, getY:function(){if(rect.initialized()){return rect.points[0].coord[1];}return rect.y;}, getX2:function(){return rect.getX() + rect.getWidth();}, getY2:function(){return rect.getY() + rect.getHeight();}, getXLims:function(){var x=rect.getX();return [x, x + rect.getWidth()];}, getYLims:function(){var y=rect.getY();return [y, y + rect.getHeight()];}, getWidth:function(){if(rect.initialized()){var x0=rect.points[1].coord[0];var x1=rect.points[2].coord[0];return x1 - x0;}return rect.width;}, getHeight:function(){if(rect.initialized()){var y0=rect.points[0].coord[1];var y1=rect.points[1].coord[1];return y1 - y0;}return rect.height;}, getCoord:function(){return [rect.getX(), rect.getY()];}, getRaphaelParamsArr:function(){var width=rect.getWidth();var height=rect.getHeight();var x=rect.getX();var y=rect.getY();var point=graphie.scalePoint([x, y + height]);var dims=graphie.scaleVector([width, height]);return point.concat(dims);}, getRaphaelParams:function(){var arr=rect.getRaphaelParamsArr();return {x:arr[0], y:arr[1], width:arr[2], height:arr[3]};}}, rect);var graphie=this;rect.fillArea = graphie.rect().attr(rect.normalStyle.area);rect.mouseTarget = graphie.mouselayer.rect().attr({fill:"#000", opacity:0, "fill-opacity":0});rect.render = function(){rect.fillArea.attr(rect.getRaphaelParams());rect.mouseTarget.attr(rect.getRaphaelParams());};rect.render();rect.points = [];var coords=[[rect.x, rect.y], [rect.x, rect.y2()], [rect.x2(), rect.y2()], [rect.x2(), rect.y]];var sames=[[1, 3], [0, 2], [3, 1], [2, 0]];var moveLimits=[[1, 1], [1, 0], [0, 0], [0, 1]];function adjustNeighboringPoints(x, y, sameX, sameY){rect.points[sameX].setCoord([x, rect.points[sameX].coord[1]]);rect.points[sameY].setCoord([rect.points[sameY].coord[0], y]);rect.points[sameX].updateLineEnds();rect.points[sameY].updateLineEnds();}function coordInBounds(limit, newVal, checkIsGreater){return checkIsGreater?newVal < limit:newVal > limit;}function moveIsInBounds(index, newX, newY){var xlims=rect.getXLims();var ylims=rect.getYLims();var i=moveLimits[index];var xInBounds=coordInBounds(xlims[i[0]], newX, i[0] === 1);var yInBounds=coordInBounds(ylims[i[1]], newY, i[1] === 1);return xInBounds && yInBounds;}_.times(4, function(i){var sameX=sames[i][0];var sameY=sames[i][1];var coord=coords[i];var point=graphie.addMovablePoint({graph:graphie, coord:coord, normalStyle:rect.normalStyle.points, hoverStyle:rect.hoverStyle.points, snapX:rect.snapX, snapY:rect.snapY, visible:!rect.fixed.points[i], constraints:{fixed:rect.fixed.points[i]}, onMove:function(x, y){if(!moveIsInBounds(i, x, y)){return false;}adjustNeighboringPoints(x, y, sameX, sameY);rect.render();}});rect.points.push(point);});rect.edges = [];rect.moveEdge = function(dx, dy, edgeIndex){var a=rect.edges[edgeIndex].pointA;var z=rect.edges[edgeIndex].pointZ;a.setCoord([a.coord[0] + dx, a.coord[1] + dy]);z.setCoord([z.coord[0] + dx, z.coord[1] + dy]);a.updateLineEnds();z.updateLineEnds();};_.times(4, function(i){var pointA=rect.points[i];var pointZ=rect.points[(i + 1) % 4];var constrainX=i % 2;var constrainY=(i + 1) % 2;var edge=graphie.addMovableLineSegment({graph:graphie, pointA:pointA, pointZ:pointZ, normalStyle:rect.normalStyle.edges, hoverStyle:rect.hoverStyle.edges, snapX:rect.snapX, snapY:rect.snapY, fixed:rect.fixed.edges[i], constraints:{constrainX:constrainX, constrainY:constrainY}, onMove:function(dx, dy){rect.moveEdge(dx, dy, i);rect.render();}});rect.edges.push(edge);});var elems=[rect.fillArea, rect.mouseTarget];rect.elems = elems.concat(rect.edges).concat(rect.points);function constrainTranslation(dx, dy){var xC=rect.constraints.constrainX;var xLT=rect.getX() + dx < rect.constraints.xmin;var xGT=rect.getX2() + dx > rect.constraints.xmax;var yC=rect.constraints.constrainY;var yLT=rect.getY() + dy < rect.constraints.ymin;var yGT=rect.getY2() + dy > rect.constraints.ymax;dx = xC || xLT || xGT?0:dx;dy = yC || yLT || yGT?0:dy;return [dx, dy];}rect.translate = function(dx, dy){if(rect.constraints.constrainX && rect.constraints.constrainY){return;}var d=constrainTranslation(dx, dy);dx = d[0];dy = d[1];_.each(rect.points, function(point, i){var x=point.coord[0] + dx;var y=point.coord[1] + dy;point.setCoord([x, y]);point.updateLineEnds();});rect.render();rect.onMove(dx, dy);};rect.moveTo = function(x, y){var dx=x - rect.getX();var dy=y - rect.getY();rect.translate(dx, dy);};rect.snap = function(){var dx=undefined;var dy=undefined;_.each(rect.points, function(point, i){var x0=point.coord[0];var y0=point.coord[1];var x1=x0;var y1=y0;if(rect.snapX){x1 = KhanMath.roundToNearest(rect.snapX, x0);}if(rect.snapY){y1 = KhanMath.roundToNearest(rect.snapY, y0);}if(!dx || !dy){dx = x1 - x0;dy = y1 - y0;}point.setCoord([x1, y1]);point.updateLineEnds();});rect.render();rect.onMove(dx, dy);};rect.toFront = function(){_.each(rect.elems, function(elem){elem.toFront();});};rect.hide = function(speed){if(rect.hidden){return;}speed = speed || 100;rect.fillArea.animate({"fill-opacity":0}, speed);$(rect.mouseTarget[0]).css("display", "none");rect.hidden = true;};rect.show = function(speed){if(!rect.hidden){return;}speed = speed || 100;rect.fillArea.animate(rect.normalStyle.area, speed);$(rect.mouseTarget[0]).css("display", "block");rect.hidden = false;};rect.enableHoverStyle = function(){rect.highlight = true;if(!dragging){rect.fillArea.animate(rect.hoverStyle.area, 100);}};rect.enableNormalStyle = function(){rect.highlight = false;if(!rect.dragging){rect.fillArea.animate(rect.normalStyle.area, 100);}};var bindTranslation=function(){$(rect.mouseTarget[0]).css("cursor", "move");$(rect.mouseTarget[0]).on("vmouseover vmouseout vmousedown", function(event){if(event.type === "vmouseover"){rect.enableHoverStyle();}else if(event.type === "vmouseout"){rect.enableNormalStyle();}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){event.preventDefault();rect.toFront();rect.prevCoord = graphie.getMouseCoord(event);rect.enableHoverStyle();$(document).on("vmousemove vmouseup", function(event){event.preventDefault();rect.dragging = true;dragging = true;if(event.type === "vmousemove"){var currCoord=graphie.getMouseCoord(event);if(rect.prevCoord && rect.prevCoord.length === 2){var diff=GraphUtils.coordDiff(rect.prevCoord, currCoord);rect.translate(diff[0], diff[1]);}rect.prevCoord = currCoord;}else if(event.type === "vmouseup"){$(document).off("vmousemove vmouseup");rect.dragging = false;dragging = false;var currCoord=graphie.getMouseCoord(event);if(currCoord[0] < rect.getX() || currCoord[0] > rect.getX2() || currCoord[1] < rect.getY() || currCoord[1] > rect.getY2()){rect.enableNormalStyle();}rect.snap();}});}});};bindTranslation();return rect;}, addCircleGraph:function(options){var graphie=this;var circle=$.extend({center:[0, 0], radius:2, snapX:0.5, snapY:0.5, snapRadius:0.5, minRadius:1, centerConstraints:{}, centerNormalStyle:{}, centerHighlightStyle:{stroke:KhanColors.INTERACTING, fill:KhanColors.INTERACTING}, circleNormalStyle:{stroke:KhanColors.INTERACTIVE, "fill-opacity":0}, circleHighlightStyle:{stroke:KhanColors.INTERACTING, fill:KhanColors.INTERACTING, "fill-opacity":0.05}}, options);var normalColor=circle.centerConstraints.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;var centerNormalStyle=options?options.centerNormalStyle:null;circle.centerNormalStyle = _.extend({}, {"fill":normalColor, "stroke":normalColor}, centerNormalStyle);circle.centerPoint = graphie.addMovablePoint({graph:graphie, coord:circle.center, normalStyle:circle.centerNormalStyle, snapX:circle.snapX, snapY:circle.snapY, constraints:circle.centerConstraints});circle.circ = graphie.circle(circle.center, circle.radius, circle.circleNormalStyle);circle.perim = graphie.mouselayer.circle(graphie.scalePoint(circle.center)[0], graphie.scalePoint(circle.center)[1], graphie.scaleVector(circle.radius)[0]).attr({"stroke-width":20, "opacity":0.002});if(!circle.centerConstraints.fixed){$(circle.centerPoint.mouseTarget.getMouseTarget()).on("vmouseover vmouseout", function(event){if(circle.centerPoint.highlight || circle.centerPoint.dragging){circle.circ.animate(circle.circleHighlightStyle, 50);}else {circle.circ.animate(circle.circleNormalStyle, 50);}});}circle.toFront = function(){circle.circ.toFront();circle.perim.toFront();circle.centerPoint.visibleShape.toFront();if(!circle.centerConstraints.fixed){circle.centerPoint.mouseTarget.toFront();}};circle.centerPoint.onMove = function(x, y){circle.toFront();circle.circ.attr({cx:graphie.scalePoint(x)[0], cy:graphie.scalePoint(y)[1]});circle.perim.attr({cx:graphie.scalePoint(x)[0], cy:graphie.scalePoint(y)[1]});if(circle.onMove){circle.onMove(x, y);}};$(circle.centerPoint).on("move", function(){circle.center = this.coord;$(circle).trigger("move");});circle.setCenter = function(x, y){circle.centerPoint.setCoord([x, y]);circle.centerPoint.onMove(x, y);circle.center = [x, y];};circle.setRadius = function(r){circle.radius = r;circle.perim.attr({r:graphie.scaleVector(r)[0]});circle.circ.attr({rx:graphie.scaleVector(r)[0], ry:graphie.scaleVector(r)[1]});};circle.remove = function(){circle.centerPoint.remove();circle.circ.remove();circle.perim.remove();};$(circle.perim[0]).css("cursor", "move");$(circle.perim[0]).on("vmouseover vmouseout vmousedown", function(event){if(event.type === "vmouseover"){circle.highlight = true;if(!dragging){circle.circ.animate(circle.circleHighlightStyle, 50);circle.centerPoint.visibleShape.animate(circle.centerHighlightStyle, 50);}}else if(event.type === "vmouseout"){circle.highlight = false;if(!circle.dragging && !circle.centerPoint.dragging){circle.circ.animate(circle.circleNormalStyle, 50);circle.centerPoint.visibleShape.animate(circle.centerNormalStyle, 50);}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();circle.toFront();var startRadius=circle.radius;$(document).on("vmousemove vmouseup", function(event){event.preventDefault();circle.dragging = true;dragging = true;if(event.type === "vmousemove"){var coord=graphie.constrainToBounds(graphie.getMouseCoord(event), 10);var radius=GraphUtils.getDistance(circle.centerPoint.coord, coord);radius = Math.max(circle.minRadius, Math.round(radius / circle.snapRadius) * circle.snapRadius);var oldRadius=circle.radius;var doResize=true;if(circle.onResize){var onResizeResult=circle.onResize(radius, oldRadius);if(_.isNumber(onResizeResult)){radius = onResizeResult;}else if(onResizeResult === false){doResize = false;}}if(doResize){circle.setRadius(radius);$(circle).trigger("move");}}else if(event.type === "vmouseup"){$(document).off("vmousemove vmouseup");circle.dragging = false;dragging = false;if(circle.onResizeEnd){circle.onResizeEnd(circle.radius, startRadius);}}});})();}});return circle;}, interactiveEllipse:function(options){var graphie=this;var ellipse=$.extend({center:[0, 0], radius:2, xRadius:2, yRadius:2, ellipseNormalStyle:{stroke:KhanColors.BLUE, "fill-opacity":0}, ellipseBoundaryHideStyle:{"fill-opacity":0, "stroke-width":0}, ellipseBoundaryShowStyle:{"fill-opacity":1, fill:KhanColors.BLUE}, onMove:function(coordX, coordY){}, onLeave:function(coordX, coordY){}}, options);ellipse.circ = graphie.ellipse(ellipse.center, [ellipse.xRadius, ellipse.yRadius], ellipse.ellipseNormalStyle);ellipse.perim = graphie.mouselayer.ellipse(graphie.scalePoint(ellipse.center)[0], graphie.scalePoint(ellipse.center)[1], graphie.scaleVector(ellipse.xRadius)[0], graphie.scaleVector(ellipse.yRadius)[0]).attr({"stroke-width":30, "opacity":0.002});ellipse.boundaryPoint = graphie.circle(ellipse.center, 0.4, ellipse.ellipseBoundaryHideStyle);ellipse.remove = function(){ellipse.circ.remove();ellipse.perim.remove();};ellipse.showPoint = function(event){var coord=graphie.constrainToBounds(graphie.getMouseCoord(event), 10);var dx=ellipse.yRadius * (ellipse.center[0] - coord[0]);var dy=ellipse.xRadius * (ellipse.center[1] - coord[1]);var angle=Math.atan2(dy, dx);coord[0] = ellipse.center[0] - ellipse.xRadius * Math.cos(angle);coord[1] = ellipse.center[1] - ellipse.yRadius * Math.sin(angle);var scaledPoint=graphie.scalePoint(coord);ellipse.boundaryPoint.attr({cx:scaledPoint[0]});ellipse.boundaryPoint.attr({cy:scaledPoint[1]});ellipse.boundaryPoint.animate(ellipse.ellipseBoundaryShowStyle, 50);ellipse.onMove(coord[0], coord[1]);};$(ellipse.perim[0]).on("vmouseover vmouseout vmousemove", function(event){if(event.type === "vmouseover"){ellipse.showPoint(event);}else if(event.type === "vmouseout"){ellipse.boundaryPoint.animate(ellipse.ellipseBoundaryHideStyle, 50);ellipse.onLeave();}else if(event.type === "vmousemove"){ellipse.showPoint(event);}});return ellipse;}, addRotateHandle:(function(){var drawRotateHandle=function(graphie, center, radius, halfWidth, lengthAngle, angle, interacting){var getRotateHandlePoint=function(offset, distanceFromArrowMidline){var distFromRotationCenter=radius + distanceFromArrowMidline;var vec=kvector.cartFromPolarDeg([distFromRotationCenter, angle + offset]);var absolute=kvector.add(center, vec);var pixels=graphie.scalePoint(absolute);return pixels[0] + "," + pixels[1];};var innerR=graphie.scaleVector(radius - halfWidth);var outerR=graphie.scaleVector(radius + halfWidth);return graphie.raphael.path(" M" + getRotateHandlePoint(lengthAngle, -halfWidth) + " L" + getRotateHandlePoint(lengthAngle, -3 * halfWidth) + " L" + getRotateHandlePoint(2 * lengthAngle, 0) + " L" + getRotateHandlePoint(lengthAngle, 3 * halfWidth) + " L" + getRotateHandlePoint(lengthAngle, halfWidth) + " A" + outerR[0] + "," + outerR[1] + ",0,0,1," + getRotateHandlePoint(-lengthAngle, halfWidth) + " L" + getRotateHandlePoint(-lengthAngle, 3 * halfWidth) + " L" + getRotateHandlePoint(-2 * lengthAngle, 0) + " L" + getRotateHandlePoint(-lengthAngle, -3 * halfWidth) + " L" + getRotateHandlePoint(-lengthAngle, -halfWidth) + " A" + innerR[0] + "," + innerR[1] + ",0,0,0," + getRotateHandlePoint(lengthAngle, -halfWidth) + " Z").attr({stroke:null, fill:interacting?KhanColors.INTERACTING:KhanColors.INTERACTIVE});};return function(options){var graph=this;var rotatePoint=options.center;var radius=options.radius;var lengthAngle=options.lengthAngle || 30;var hideArrow=options.hideArrow || false;var mouseTarget=options.mouseTarget;var id=_.uniqueId("rotateHandle");if(_.isArray(rotatePoint)){rotatePoint = {coord:rotatePoint};}var rotateHandle=graph.addMovablePoint({coord:kpoint.addVector(rotatePoint.coord, kvector.cartFromPolarDeg(radius, options.angleDeg || 0)), constraints:{fixedDistance:{dist:radius, point:rotatePoint}}, mouseTarget:mouseTarget});rotatePoint.toFront();var rotatePointPrevCoord=rotatePoint.coord;var rotateHandlePrevCoord=rotateHandle.coord;var rotateHandleStartCoord=rotateHandlePrevCoord;var isRotating=false;var isHovering=false;var drawnRotateHandle=undefined;var redrawRotateHandle=function(handleCoord){if(hideArrow){return;}var handleVec=kvector.subtract(handleCoord, rotatePoint.coord);var handlePolar=kvector.polarDegFromCart(handleVec);var angle=handlePolar[1];if(drawnRotateHandle){drawnRotateHandle.remove();}drawnRotateHandle = drawRotateHandle(graph, rotatePoint.coord, options.radius, isRotating || isHovering?options.hoverWidth / 2:options.width / 2, lengthAngle, angle, isRotating || isHovering);};$(rotatePoint).on("move." + id, function(){var delta=kvector.subtract(rotatePoint.coord, rotatePointPrevCoord);rotateHandle.setCoord(kvector.add(rotateHandle.coord, delta));redrawRotateHandle(rotateHandle.coord);rotatePointPrevCoord = rotatePoint.coord;rotateHandle.constraints.fixedDistance.point = rotatePoint;rotateHandlePrevCoord = rotateHandle.coord;});rotateHandle.onMove = function(x, y){if(!isRotating){rotateHandleStartCoord = rotateHandlePrevCoord;isRotating = true;}var coord=[x, y];if(options.onMove){var oldPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandlePrevCoord, rotatePoint.coord));var newPolar=kvector.polarDegFromCart(kvector.subtract(coord, rotatePoint.coord));var oldAngle=oldPolar[1];var newAngle=newPolar[1];var result=options.onMove(newAngle, oldAngle);if(result != null && result !== true){if(result === false){result = oldAngle;}coord = kvector.add(rotatePoint.coord, kvector.cartFromPolarDeg([oldPolar[0], result]));}}redrawRotateHandle(coord);rotateHandlePrevCoord = coord;return coord;};rotateHandle.onMoveEnd = function(){isRotating = false;redrawRotateHandle(rotateHandle.coord);if(options.onMoveEnd){var oldPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandleStartCoord, rotatePoint.coord));var newPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandle.coord, rotatePoint.coord));options.onMoveEnd(newPolar[1], oldPolar[1]);}};rotateHandle.visibleShape.remove();if(!mouseTarget){rotateHandle.mouseTarget.attr({scale:2});}var $mouseTarget=$(rotateHandle.mouseTarget.getMouseTarget());$mouseTarget.bind("vmouseover", function(e){isHovering = true;redrawRotateHandle(rotateHandle.coord);});$mouseTarget.bind("vmouseout", function(e){isHovering = false;redrawRotateHandle(rotateHandle.coord);});redrawRotateHandle(rotateHandle.coord);var oldRemove=rotateHandle.remove;rotateHandle.remove = function(){oldRemove.call(rotateHandle);if(drawnRotateHandle){drawnRotateHandle.remove();}$(rotatePoint).off("move." + id);};rotateHandle.update = function(){redrawRotateHandle(rotateHandle.coord);};return rotateHandle;};})(), addReflectButton:(function(){var drawButton=function(graphie, buttonCoord, lineCoords, size, distanceFromCenter, leftStyle, rightStyle){if(kpoint.equal(lineCoords[0], lineCoords[1])){lineCoords = [lineCoords[0], kpoint.addVector(lineCoords[0], [1, 1])];}var lineDirection=kvector.normalize(kvector.subtract(lineCoords[1], lineCoords[0]));var lineVec=kvector.scale(lineDirection, size / 2);var centerVec=kvector.scale(lineDirection, distanceFromCenter);var leftCenterVec=kvector.rotateDeg(centerVec, 90);var rightCenterVec=kvector.rotateDeg(centerVec, -90);var negLineVec=kvector.negate(lineVec);var leftVec=kvector.rotateDeg(lineVec, 90);var rightVec=kvector.rotateDeg(lineVec, -90);var leftCenter=kpoint.addVectors(buttonCoord, leftCenterVec);var rightCenter=kpoint.addVectors(buttonCoord, rightCenterVec);var leftCoord1=kpoint.addVectors(buttonCoord, leftCenterVec, lineVec, leftVec);var leftCoord2=kpoint.addVectors(buttonCoord, leftCenterVec, negLineVec, leftVec);var rightCoord1=kpoint.addVectors(buttonCoord, rightCenterVec, lineVec, rightVec);var rightCoord2=kpoint.addVectors(buttonCoord, rightCenterVec, negLineVec, rightVec);var leftButton=graphie.path([leftCenter, leftCoord1, leftCoord2, true], leftStyle);var rightButton=graphie.path([rightCenter, rightCoord1, rightCoord2, true], rightStyle);return {remove:function(){leftButton.remove();rightButton.remove();}};};return function(options){var graphie=this;var line=options.line;var button=graphie.addMovablePoint({constraints:options.constraints, coord:kline.midpoint([line.pointA.coord, line.pointZ.coord]), snapX:graphie.snap[0], snapY:graphie.snap[1], onMove:function(x, y){return false;}, onMoveEnd:function(x, y){if(options.onMoveEnd){options.onMoveEnd.call(this, x, y);}}});var isHovering=false;var isFlipped=false;var currentlyDrawnButton=undefined;var isHighlight=function(){return isHovering;};var styles=_.map([0, 1], function(isHighlight){var baseStyle=isHighlight?options.highlightStyle:options.normalStyle;return _.map([0, 1], function(opacity){return _.defaults({"fill-opacity":opacity}, baseStyle);});});var getStyle=function(isRight){if(isFlipped){isRight = !isRight;}return styles[+isHighlight()][+isRight];};var redraw=function(coord, lineCoords){if(currentlyDrawnButton){currentlyDrawnButton.remove();}currentlyDrawnButton = drawButton(graphie, coord, lineCoords, isHighlight()?options.size * 1.5:options.size, isHighlight()?options.size * 0.125:0.25, getStyle(0), getStyle(1));};var update=function(coordA, coordZ){coordA = coordA || line.pointA.coord;coordZ = coordZ || line.pointZ.coord;var buttonCoord=kline.midpoint([coordA, coordZ]);button.setCoord(buttonCoord);redraw(buttonCoord, [coordA, coordZ]);};$(line).on("move", _.bind(update, button, null, null));var $mouseTarget=$(button.mouseTarget.getMouseTarget());$mouseTarget.on("vclick", function(){var result=options.onClick();if(result !== false){isFlipped = !isFlipped;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);}});line.pointA.toFront();line.pointZ.toFront();button.visibleShape.remove();var pointScale=graphie.scaleVector(options.size)[0] / 20;button.mouseTarget.attr({scale:1.5 * pointScale});$mouseTarget.css("cursor", "pointer");$mouseTarget.bind("vmouseover", function(e){isHovering = true;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);});$mouseTarget.bind("vmouseout", function(e){isHovering = false;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);});var oldButtonRemove=button.remove;button.remove = function(){currentlyDrawnButton.remove();oldButtonRemove.call(button);};button.update = update;button.isFlipped = function(){return isFlipped;};update();return button;};})(), protractor:function(center){return new Protractor(this, center);}, ruler:function(options){return new Ruler(this, options || {});}, addPoints:addPoints});function Protractor(graph, center){this.set = graph.raphael.set();this.cx = center[0];this.cy = center[1];var pro=this;var r=graph.unscaleVector(180.5)[0];var imgPos=graph.scalePoint([this.cx - r, this.cy + r - graph.unscaleVector(10.5)[1]]);this.set.push(graph.mouselayer.image("https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png", imgPos[0], imgPos[1], 360, 180));var arrowHelper=function(angle, pixelsFromEdge){var scaledRadius=graph.scaleVector(r);scaledRadius[0] -= 16;scaledRadius[1] -= 16;var scaledCenter=graph.scalePoint(center);var x=Math.sin((angle + 90) * Math.PI / 180) * (scaledRadius[0] + pixelsFromEdge) + scaledCenter[0];var y=Math.cos((angle + 90) * Math.PI / 180) * (scaledRadius[1] + pixelsFromEdge) + scaledCenter[1];return x + "," + y;};var arrow=graph.raphael.path(" M" + arrowHelper(180, 6) + " L" + arrowHelper(180, 2) + " L" + arrowHelper(183, 10) + " L" + arrowHelper(180, 18) + " L" + arrowHelper(180, 14) + " A" + (graph.scaleVector(r)[0] + 10) + "," + (graph.scaleVector(r)[1] + 10) + ",0,0,1," + arrowHelper(170, 14) + " L" + arrowHelper(170, 18) + " L" + arrowHelper(167, 10) + " L" + arrowHelper(170, 2) + " L" + arrowHelper(170, 6) + " A" + (graph.scaleVector(r)[0] + 10) + "," + (graph.scaleVector(r)[1] + 10) + ",0,0,0," + arrowHelper(180, 6) + " Z").attr({"stroke":null, "fill":KhanColors.INTERACTIVE});this.set.push(arrow);this.centerPoint = graph.addMovablePoint({coord:center, visible:false});this.rotateHandle = graph.addMovablePoint({coord:[Math.sin(275 * Math.PI / 180) * (r + 0.5) + this.cx, Math.cos(275 * Math.PI / 180) * (r + 0.5) + this.cy], onMove:function(x, y){var angle=Math.atan2(pro.centerPoint.coord[1] - y, pro.centerPoint.coord[0] - x) * 180 / Math.PI;pro.rotate(-angle - 5, true);}});this.rotateHandle.constraints.fixedDistance.dist = r + 0.5;this.rotateHandle.constraints.fixedDistance.point = this.centerPoint;this.rotateHandle.visibleShape.remove();this.rotateHandle.mouseTarget.attr({scale:2});var isDragging=false;var isHovering=false;var isHighlight=function(){return isHovering || isDragging;};var self=this;var $mouseTarget=$(self.rotateHandle.mouseTarget.getMouseTarget());$mouseTarget.bind("vmousedown", function(event){isDragging = true;arrow.animate({scale:1.5, fill:KhanColors.INTERACTING}, 50);$(document).bind("vmouseup.rotateHandle", function(event){isDragging = false;if(!isHighlight()){arrow.animate({scale:1, fill:KhanColors.INTERACTIVE}, 50);}$(document).unbind("vmouseup.rotateHandle");});});$mouseTarget.bind("vmouseover", function(event){isHovering = true;arrow.animate({scale:1.5, fill:KhanColors.INTERACTING}, 50);});$mouseTarget.bind("vmouseout", function(event){isHovering = false;if(!isHighlight()){arrow.animate({scale:1, fill:KhanColors.INTERACTIVE}, 50);}});var setNodes=$.map(this.set, function(el){return el.node;});this.makeTranslatable = function makeTranslatable(){$(setNodes).css("cursor", "move");$(setNodes).bind("vmousedown", function(event){event.preventDefault();var startx=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var starty=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;$(document).bind("vmousemove.protractor", function(event){var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graph.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graph.ypixels - 10, mouseY));var dx=mouseX - startx;var dy=mouseY - starty;$.each(pro.set.items, function(){this.translate(dx, dy);});pro.centerPoint.setCoord([pro.centerPoint.coord[0] + dx / graph.scale[0], pro.centerPoint.coord[1] - dy / graph.scale[1]]);pro.rotateHandle.setCoord([pro.rotateHandle.coord[0] + dx / graph.scale[0], pro.rotateHandle.coord[1] - dy / graph.scale[1]]);startx = mouseX;starty = mouseY;});$(document).one("vmouseup", function(event){$(document).unbind("vmousemove.protractor");});});};this.rotation = 0;this.rotate = function(offset, absolute){var center=graph.scalePoint(this.centerPoint.coord);if(absolute){this.rotation = 0;}this.set.rotate(this.rotation + offset, center[0], center[1]);this.rotation = this.rotation + offset;return this;};this.moveTo = function moveTo(x, y){var start=graph.scalePoint(pro.centerPoint.coord);var end=graph.scalePoint([x, y]);var time=GraphUtils.getDistance(start, end) * 2;$({x:start[0], y:start[1]}).animate({x:end[0], y:end[1]}, {duration:time, step:function(now, fx){var dx=0;var dy=0;if(fx.prop === "x"){dx = now - graph.scalePoint(pro.centerPoint.coord)[0];}else if(fx.prop === "y"){dy = now - graph.scalePoint(pro.centerPoint.coord)[1];}$.each(pro.set.items, function(){this.translate(dx, dy);});pro.centerPoint.setCoord([pro.centerPoint.coord[0] + dx / graph.scale[0], pro.centerPoint.coord[1] - dy / graph.scale[1]]);pro.rotateHandle.setCoord([pro.rotateHandle.coord[0] + dx / graph.scale[0], pro.rotateHandle.coord[1] - dy / graph.scale[1]]);}});};this.rotateTo = function rotateTo(angle){if(Math.abs(this.rotation - angle) > 180){this.rotation += 360;}var time=Math.abs(this.rotation - angle) * 5;$({0:this.rotation}).animate({0:angle}, {duration:time, step:function(now, fx){pro.rotate(now, true);pro.rotateHandle.setCoord([Math.sin((now + 275) * Math.PI / 180) * (r + 0.5) + pro.centerPoint.coord[0], Math.cos((now + 275) * Math.PI / 180) * (r + 0.5) + pro.centerPoint.coord[1]]);}});};this.remove = function(){this.set.remove();};this.makeTranslatable();return this;}function Ruler(graphie, options){_.defaults(options, {center:[0, 0], pixelsPerUnit:40, ticksPerUnit:10, units:10, label:"", style:{fill:null, stroke:KhanColors.GRAY}});var light=_.extend({}, options.style, {strokeWidth:1});var bold=_.extend({}, options.style, {strokeWidth:2});var width=options.units * options.pixelsPerUnit;var height=50;var leftBottom=graphie.unscalePoint(kvector.subtract(graphie.scalePoint(options.center), kvector.scale([width, -height], 0.5)));var graphieUnitsPerUnit=options.pixelsPerUnit / graphie.scale[0];var graphieUnitsHeight=height / graphie.scale[0];var rightTop=kvector.add(leftBottom, [options.units * graphieUnitsPerUnit, graphieUnitsHeight]);var tickHeight=1;var tickHeightMap=undefined;if(options.ticksPerUnit === 10){tickHeightMap = {10:tickHeight, 5:tickHeight * 0.55, 1:tickHeight * 0.35};}else {var sizes=[1, 0.6, 0.45, 0.3];tickHeightMap = {};for(var i=options.ticksPerUnit; i >= 1; i /= 2) {tickHeightMap[i] = tickHeight * (sizes.shift() || 0.2);}}var tickFrequencies=_.keys(tickHeightMap).sort(function(a, b){return b - a;});function getTickHeight(i){for(var k=0; k < tickFrequencies.length; k++) {var key=tickFrequencies[k];if(i % key === 0){return tickHeightMap[key];}}}var left=leftBottom[0];var bottom=leftBottom[1];var right=rightTop[0];var top=rightTop[1];var numTicks=options.units * options.ticksPerUnit + 1;var set=graphie.raphael.set();var px=1 / graphie.scale[0];set.push(graphie.line([left - px, bottom], [right + px, bottom], bold));set.push(graphie.line([left - px, top], [right + px, top], bold));_.times(numTicks, function(i){var n=i / options.ticksPerUnit;var x=left + n * graphieUnitsPerUnit;var height=getTickHeight(i) * graphieUnitsHeight;var style=i === 0 || i === numTicks - 1?bold:light;set.push(graphie.line([x, bottom], [x, bottom + height], style));if(n % 1 === 0){var coord=graphie.scalePoint([x, top]);var text=undefined;var offset=undefined;if(n === 0){text = options.label;offset = ({mm:13, cm:11, m:8, km:11, in:8, ft:8, yd:10, mi:10})[text] || 3 * text.toString().length;}else {text = n;offset = -3 * (n.toString().length + 1);}var label=graphie.raphael.text(coord[0] + offset, coord[1] + 10, text);label.attr({"font-family":"KaTeX_Main", "font-size":"12px", "color":"#444"});set.push(label);}});var mouseTarget=graphie.mouselayer.path(GraphUtils.svgPath([leftBottom, [left, top], rightTop, [right, bottom], true]));mouseTarget.attr({fill:"#000", opacity:0, stroke:"#000", "stroke-width":2});set.push(mouseTarget);var setNodes=$.map(set, function(el){return el.node;});$(setNodes).css("cursor", "move");$(setNodes).bind("vmousedown", function(event){event.preventDefault();var startx=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var starty=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;$(document).bind("vmousemove.ruler", function(event){var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graphie.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graphie.ypixels - 10, mouseY));var dx=mouseX - startx;var dy=mouseY - starty;set.translate(dx, dy);leftBottomHandle.setCoord([leftBottomHandle.coord[0] + dx / graphie.scale[0], leftBottomHandle.coord[1] - dy / graphie.scale[1]]);rightBottomHandle.setCoord([rightBottomHandle.coord[0] + dx / graphie.scale[0], rightBottomHandle.coord[1] - dy / graphie.scale[1]]);startx = mouseX;starty = mouseY;});$(document).one("vmouseup", function(event){$(document).unbind("vmousemove.ruler");});});var leftBottomHandle=graphie.addMovablePoint({coord:leftBottom, normalStyle:{fill:KhanColors.INTERACTIVE, "fill-opacity":0, stroke:KhanColors.INTERACTIVE}, highlightStyle:{fill:KhanColors.INTERACTING, "fill-opacity":0.1, stroke:KhanColors.INTERACTING}, pointSize:6, onMove:function(x, y){var dy=rightBottomHandle.coord[1] - y;var dx=rightBottomHandle.coord[0] - x;var angle=Math.atan2(dy, dx) * 180 / Math.PI;var center=kvector.scale(kvector.add([x, y], rightBottomHandle.coord), 0.5);var scaledCenter=graphie.scalePoint(center);var oldCenter=kvector.scale(kvector.add(leftBottomHandle.coord, rightBottomHandle.coord), 0.5);var scaledOldCenter=graphie.scalePoint(oldCenter);var diff=kvector.subtract(scaledCenter, scaledOldCenter);set.rotate(-angle, scaledOldCenter[0], scaledOldCenter[1]);set.translate(diff[0], diff[1]);}});var rightBottomHandle=graphie.addMovablePoint({coord:[right, bottom], normalStyle:{fill:KhanColors.INTERACTIVE, "fill-opacity":0, stroke:KhanColors.INTERACTIVE}, highlightStyle:{fill:KhanColors.INTERACTING, "fill-opacity":0.1, stroke:KhanColors.INTERACTING}, pointSize:6, onMove:function(x, y){var dy=y - leftBottomHandle.coord[1];var dx=x - leftBottomHandle.coord[0];var angle=Math.atan2(dy, dx) * 180 / Math.PI;var center=kvector.scale(kvector.add([x, y], leftBottomHandle.coord), 0.5);var scaledCenter=graphie.scalePoint(center);var oldCenter=kvector.scale(kvector.add(leftBottomHandle.coord, rightBottomHandle.coord), 0.5);var scaledOldCenter=graphie.scalePoint(oldCenter);var diff=kvector.subtract(scaledCenter, scaledOldCenter);set.rotate(-angle, scaledOldCenter[0], scaledOldCenter[1]);set.translate(diff[0], diff[1]);}});leftBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];leftBottomHandle.constraints.fixedDistance.point = rightBottomHandle;rightBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];rightBottomHandle.constraints.fixedDistance.point = leftBottomHandle;this.remove = function(){set.remove();leftBottomHandle.remove();rightBottomHandle.remove();};return this;}function MovableAngle(graphie, options){this.graphie = graphie;_.extend(this, options);_.defaults(this, {normalStyle:{"stroke":KhanColors.INTERACTIVE, "stroke-width":2, "fill":KhanColors.INTERACTIVE}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":2, "fill":KhanColors.INTERACTING}, labelStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, angleStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, allowReflex:true});if(!this.points || this.points.length !== 3){throw new Error("MovableAngle requires 3 points");}this.points = _.map(options.points, function(point){if(_.isArray(point)){return graphie.addMovablePoint({coord:point, visible:false, constraints:{fixed:true}, normalStyle:this.normalStyle});}else {return point;}}, this);this.coords = _.pluck(this.points, "coord");if(this.reflex == null){if(this.allowReflex){this.reflex = this._getClockwiseAngle(this.coords) > 180;}else {this.reflex = false;}}this.rays = _.map([0, 2], function(i){return graphie.addMovableLineSegment({pointA:this.points[1], pointZ:this.points[i], fixed:true, extendRay:true});}, this);this.temp = [];this.labeledAngle = graphie.label([0, 0], "", "center", this.labelStyle);if(!this.fixed){this.addMoveHandlers();this.addHighlightHandlers();}this.update();}_.extend(MovableAngle.prototype, {points:[], snapDegrees:0, snapOffsetDeg:0, angleLabel:"", numArcs:1, pushOut:0, fixed:false, addMoveHandlers:function(){var graphie=this.graphie;function tooClose(point1, point2){var safeDistance=30;var distance=GraphUtils.getDistance(graphie.scalePoint(point1), graphie.scalePoint(point2));return distance < safeDistance;}var points=this.points;points[1].onMove = function(x, y){var oldVertex=points[1].coord;var newVertex=[x, y];var delta=addPoints(newVertex, reverseVector(oldVertex));var valid=true;var newPoints={};_.each([0, 2], function(i){var oldPoint=points[i].coord;var newPoint=addPoints(oldPoint, delta);var angle=GraphUtils.findAngle(newVertex, newPoint);angle *= Math.PI / 180;newPoint = graphie.constrainToBoundsOnAngle(newPoint, 10, angle);newPoints[i] = newPoint;if(tooClose(newVertex, newPoint)){valid = false;}});if(valid){_.each(newPoints, function(newPoint, i){points[i].setCoord(newPoint);});}return valid;};var snap=this.snapDegrees;var snapOffset=this.snapOffsetDeg;_.each([0, 2], function(i){points[i].onMove = function(x, y){var newPoint=[x, y];var vertex=points[1].coord;if(tooClose(vertex, newPoint)){return false;}else if(snap){var angle=GraphUtils.findAngle(newPoint, vertex);angle = Math.round((angle - snapOffset) / snap) * snap + snapOffset;var distance=GraphUtils.getDistance(newPoint, vertex);return addPoints(vertex, graphie.polar(distance, angle));}else {return true;}};});$(points).on("move", (function(){this.update();$(this).trigger("move");}).bind(this));}, addHighlightHandlers:function(){var vertex=this.points[1];vertex.onHighlight = (function(){_.each(this.points, function(point){point.visibleShape.animate(this.highlightStyle, 50);}, this);_.each(this.rays, function(ray){ray.visibleLine.animate(this.highlightStyle, 50);ray.arrowStyle = _.extend({}, ray.arrowStyle, {"color":this.highlightStyle.stroke, "stroke":this.highlightStyle.stroke});}, this);this.angleStyle = _.extend({}, this.angleStyle, {"color":this.highlightStyle.stroke, "stroke":this.highlightStyle.stroke});this.update();}).bind(this);vertex.onUnhighlight = (function(){_.each(this.points, function(point){point.visibleShape.animate(this.normalStyle, 50);}, this);_.each(this.rays, function(ray){ray.visibleLine.animate(ray.normalStyle, 50);ray.arrowStyle = _.extend({}, ray.arrowStyle, {"color":ray.normalStyle.stroke, "stroke":ray.normalStyle.stroke});}, this);this.angleStyle = _.extend({}, this.angleStyle, {"color":KhanColors.DYNAMIC, "stroke":KhanColors.DYNAMIC});this.update();}).bind(this);}, _getClockwiseAngle:function(coords){var clockwiseAngle=(GraphUtils.findAngle(coords[2], coords[0], coords[1]) + 360) % 360;return clockwiseAngle;}, isReflex:function(){return this.reflex;}, isClockwise:function(){var clockwiseReflexive=this._getClockwiseAngle(this.coords) > 180;return clockwiseReflexive === this.reflex;}, getClockwiseCoords:function(){if(this.isClockwise()){return _.clone(this.coords);}else {return _.clone(this.coords).reverse();}}, update:function(shouldChangeReflexivity){var prevCoords=this.coords;this.coords = _.pluck(this.points, "coord");_.invoke(this.points, "updateLineEnds");var prevAngle=this._getClockwiseAngle(prevCoords);var angle=this._getClockwiseAngle(this.coords);var prevClockwiseReflexive=prevAngle > 180;var clockwiseReflexive=angle > 180;if(this.allowReflex){if(shouldChangeReflexivity == null){shouldChangeReflexivity = prevClockwiseReflexive !== clockwiseReflexive && Math.abs(angle - prevAngle) < 180;}if(shouldChangeReflexivity){this.reflex = !this.reflex;}}_.invoke(this.temp, "remove");this.temp = this.graphie.labelAngle({point1:this.coords[0], vertex:this.coords[1], point3:this.coords[2], label:this.labeledAngle, text:this.angleLabel, numArcs:this.numArcs, pushOut:this.pushOut, clockwise:this.reflex === clockwiseReflexive, style:this.angleStyle});}, remove:function(){_.invoke(this.rays, "remove");_.invoke(this.temp, "remove");this.labeledAngle.remove();}});module.exports = InteractiveUtils;
 
 /***/ },
 /* 202 */
@@ -49285,7 +49285,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(16);
 
-	var MovablePointOptions = __webpack_require__(226);
+	var MovablePointOptions = __webpack_require__(222);
 	var WrappedEllipse = __webpack_require__(223);
 	var InteractiveUtil = __webpack_require__(154);
 	var objective_ = __webpack_require__(138);
@@ -49600,7 +49600,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var MovableLineOptions = __webpack_require__(227);
-	var WrappedLine = __webpack_require__(224);
+	var WrappedLine = __webpack_require__(225);
 	var InteractiveUtil = __webpack_require__(154);
 	var objective_ = __webpack_require__(138);
 	var assert = InteractiveUtil.assert;
@@ -50701,9 +50701,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Provider = _require.Provider;
 
-	var MathKeypad = __webpack_require__(231);
+	var KeypadContainer = __webpack_require__(230);
 
-	var _require2 = __webpack_require__(239);
+	var _require2 = __webpack_require__(238);
 
 	var activateKeypad = _require2.activateKeypad;
 	var dismissKeypad = _require2.dismissKeypad;
@@ -50711,7 +50711,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var setCursor = _require2.setCursor;
 	var setKeyHandler = _require2.setKeyHandler;
 
-	var createStore = __webpack_require__(240);
+	var createStore = __webpack_require__(239);
 
 	var ProvidedKeypad = React.createClass({
 	    displayName: 'ProvidedKeypad',
@@ -50765,7 +50765,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return React.createElement(
 	            Provider,
 	            { store: this.store },
-	            React.createElement(MathKeypad, _extends({
+	            React.createElement(KeypadContainer, _extends({
 	                onElementMounted: function (element) {
 	                    var elementWithDispatchMethods = _extends({}, element, {
 	                        activate: _this.activate,
@@ -50794,8 +50794,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var KeyConfigs = __webpack_require__(238);
-	var CursorContexts = __webpack_require__(230);
+	var KeyConfigs = __webpack_require__(241);
+	var CursorContexts = __webpack_require__(237);
 
 	var _require = __webpack_require__(198);
 
@@ -50881,22 +50881,22 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(241);
+	var _require2 = __webpack_require__(240);
 
 	var View = _require2.View;
 
-	var CursorHandle = __webpack_require__(232);
-	var SelectionRect = __webpack_require__(233);
-	var MathWrapper = __webpack_require__(234);
-	var scrollIntoView = __webpack_require__(235);
+	var CursorHandle = __webpack_require__(231);
+	var SelectionRect = __webpack_require__(232);
+	var MathWrapper = __webpack_require__(233);
+	var scrollIntoView = __webpack_require__(234);
 
-	var _require3 = __webpack_require__(236);
+	var _require3 = __webpack_require__(235);
 
 	var cursorHandleRadiusPx = _require3.cursorHandleRadiusPx;
 	var cursorHandleDistanceMultiplier = _require3.cursorHandleDistanceMultiplier;
 	var mediumGrey = _require3.mediumGrey;
 
-	var _require4 = __webpack_require__(237);
+	var _require4 = __webpack_require__(236);
 
 	var fractionBehavior = _require4.fractionBehavior;
 
@@ -50928,6 +50928,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        bottom: -Infinity,
 	        left: Infinity });
 	};
+
+	var constrainingFrictionFactor = 0.8;
 
 	var MathInput = React.createClass({
 	    displayName: 'MathInput',
@@ -51099,7 +51101,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var cursor = this._container.querySelector('.mq-cursor');
 	        var cursorBounds = cursor.getBoundingClientRect();
 
-	        var cursorWidth = 2;
+	        var cursorWidth = cursorBounds.width;
 	        var gapBelowCursor = 2;
 
 	        this.setState({
@@ -51218,7 +51220,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // included, neither mq-numerator nor mq-denominator nodes are
 	            // and neither are subscripts or superscripts.
 	            .filter(function (element) {
-	                return element && _this3._root.contains(element) && !element.classList.contains('mq-root-block') && !element.classList.contains('mq-non-leaf');
+	                return element && _this3._root.contains(element) && (!element.classList.contains('mq-root-block') && !element.classList.contains('mq-non-leaf') || element.classList.contains('mq-empty') || element.classList.contains('mq-hasCursor'));
 	            });
 
 	            var hitNode = null;
@@ -51388,7 +51390,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (this.mathField.getContent() !== '') {
 	            this._containerBounds = this._container.getBoundingClientRect();
 
-	            // Set the handle-less cursor's location.
+	            // Make the cursor visible and set the handle-less cursor's
+	            // location.
+	            this.mathField.getCursor().show();
 	            var touch = e.changedTouches[0];
 	            this._insertCursorAtClosestNode(touch.clientX, touch.clientY);
 	        }
@@ -51437,6 +51441,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this._containerBounds = this._container.getBoundingClientRect();
 	    },
 
+	    _constrainToBound: function (value, min, max, friction) {
+	        if (value < min) {
+	            return min + (value - min) * friction;
+	        } else if (value > max) {
+	            return max + (value - max) * friction;
+	        } else {
+	            return value;
+	        }
+	    },
+
 	    /**
 	     * When the user moves the cursor handle update the position of the cursor
 	     * and the handle.
@@ -51448,6 +51462,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        var x = e.changedTouches[0].clientX;
 	        var y = e.changedTouches[0].clientY;
+
+	        var relativeX = x - this._containerBounds.left;
+	        var relativeY = y - 2 * cursorHandleRadiusPx * cursorHandleDistanceMultiplier - this._containerBounds.top;
 
 	        // We subtract the containerBounds left/top to correct for the
 	        // MathInput's position on the page. On top of that, we subtract an
@@ -51462,8 +51479,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                // scroll offsets. This likely also means that the cursor
 	                // detection doesn't work when scrolled, since we're not
 	                // offsetting those values.
-	                x: x - this._containerBounds.left,
-	                y: y - 2 * cursorHandleRadiusPx * cursorHandleDistanceMultiplier - this._containerBounds.top } });
+	                x: this._constrainToBound(relativeX, 0, this._containerBounds.width, constrainingFrictionFactor),
+	                y: this._constrainToBound(relativeY, 0, this._containerBounds.height, constrainingFrictionFactor) } });
 
 	        // Use a y-coordinate that's just above where the user is actually
 	        // touching because they're dragging the handle which is a little
@@ -56696,6 +56713,187 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/**
+	 * A library of options to pass to add/draw/remove/constraints
+	 */
+	var _ = __webpack_require__(16);
+
+	var WrappedEllipse = __webpack_require__(223);
+	var kpoint = __webpack_require__(196).point;
+
+	var add = {
+	    constrain: function () {
+	        this.constrain();
+	    }
+	};
+
+	add.standard = [add.constrain];
+
+	var modify = {
+	    draw: function () {
+	        this.draw();
+	    }
+	};
+
+	modify.standard = [modify.draw];
+
+	var draw = {
+	    basic: function (state, prevState) {
+	        var graphie = this.graphie;
+	        if (!this.state.visibleShape) {
+	            var radii = [this.pointSize() / graphie.scale[0], this.pointSize() / graphie.scale[1]];
+	            var options = {
+	                maxScale: Math.max(this.highlightStyle().scale, this.normalStyle().scale),
+	                // Add in 2px of padding to avoid clipping at the edges.
+	                padding: 2 };
+	            this.state.visibleShape = new WrappedEllipse(graphie, this.coord(), radii, options);
+
+	            this.state.visibleShape.attr(_.omit(this.normalStyle(), "scale"));
+	            this.state.visibleShape.toFront();
+
+	            // Keep mouseTarget in front of visible shape
+	            if (this.mouseTarget()) {
+	                this.mouseTarget().toFront();
+	            }
+	        }
+	        if (state.normalStyle !== prevState.normalStyle && !_.isEqual(state.normalStyle, prevState.normalStyle)) {
+	            this.state.visibleShape.attr(this.normalStyle());
+	        }
+
+	        this.state.visibleShape.moveTo(this.coord());
+	        if (this.mouseTarget()) {
+	            this.mouseTarget().moveTo(this.coord());
+	        }
+	    },
+
+	    highlight: function (state, prevState) {
+	        if (state.isHovering && !prevState.isHovering) {
+	            state.visibleShape.animate(this.highlightStyle(), 50);
+	        } else if (!state.isHovering && prevState.isHovering) {
+	            state.visibleShape.animate(this.normalStyle(), 50);
+	        }
+	    }
+	};
+
+	draw.standard = [draw.basic, draw.highlight];
+
+	var remove = {
+	    basic: function () {
+	        if (this.state.visibleShape) {
+	            this.state.visibleShape.remove();
+	            this.state.visibleShape = null;
+	        }
+	    }
+	};
+
+	remove.standard = remove.basic;
+
+	var constraints = {
+	    fixed: function () {
+	        return function () {
+	            return false;
+	        };
+	    },
+
+	    snap: function (snap) {
+	        return function (coord) {
+	            if (snap === null) {
+	                return true;
+	            }
+	            snap = snap || this.graphie.snap;
+	            return kpoint.roundTo(coord, snap);
+	        };
+	    },
+
+	    bound: function (range, snap, paddingPx) {
+	        if (paddingPx === undefined) {
+	            if (range === undefined) {
+	                paddingPx = 10;
+	            } else {
+	                paddingPx = 0;
+	            }
+	        }
+	        return function (coord) {
+	            var graphie = this.graphie;
+	            range = range || graphie.range;
+	            if (snap === undefined) {
+	                snap = graphie.snap;
+	            }
+
+	            var lower = graphie.unscalePoint([paddingPx, graphie.ypixels - paddingPx]);
+	            var upper = graphie.unscalePoint([graphie.xpixels - paddingPx, paddingPx]);
+	            if (snap) {
+	                lower = kpoint.ceilTo(lower, snap);
+	                upper = kpoint.floorTo(upper, snap);
+	            }
+	            var coordX = Math.max(lower[0], Math.min(upper[0], coord[0]));
+	            var coordY = Math.max(lower[1], Math.min(upper[1], coord[1]));
+	            return [coordX, coordY];
+	        };
+	    }
+	};
+
+	constraints.standard = null;
+
+	module.exports = {
+	    add: add,
+	    modify: modify,
+	    draw: draw,
+	    remove: remove,
+
+	    onMoveStart: { standard: null },
+	    constraints: constraints,
+	    onMove: { standard: null },
+	    onMoveEnd: { standard: null },
+	    onClick: { standard: null }
+	};
+
+/***/ },
+/* 223 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var _ = __webpack_require__(16);
+	var WrappedDefaults = __webpack_require__(243);
+
+	var DEFAULT_OPTIONS = {
+	    maxScale: 1,
+	    mouselayer: false
+	};
+
+	var WrappedEllipse = function (graphie, center, radii, options) {
+	    options = _.extend({}, DEFAULT_OPTIONS, options);
+
+	    // Add `wrapper`, `visibleShape`, and remaining properties.
+	    var fixedEllipse = graphie.fixedEllipse(center, radii, options.maxScale, options.padding);
+	    _.extend(this, fixedEllipse, {
+	        graphie: graphie,
+	        initialPoint: center
+	    });
+
+	    // Add to appropriate graphie layer
+	    if (options.mouselayer) {
+	        this.graphie.addToMouseLayerWrapper(this.wrapper);
+	    } else {
+	        this.graphie.addToVisibleLayerWrapper(this.wrapper);
+	    }
+	};
+
+	_.extend(WrappedEllipse.prototype, WrappedDefaults);
+
+	module.exports = WrappedEllipse;
+
+/***/ },
+/* 224 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/*
 	* jQuery Mobile Framework : "mouse" plugin
 	* Copyright (c) jQuery Project
@@ -57205,45 +57403,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 223 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var _ = __webpack_require__(16);
-	var WrappedDefaults = __webpack_require__(243);
-
-	var DEFAULT_OPTIONS = {
-	    maxScale: 1,
-	    mouselayer: false
-	};
-
-	var WrappedEllipse = function (graphie, center, radii, options) {
-	    options = _.extend({}, DEFAULT_OPTIONS, options);
-
-	    // Add `wrapper`, `visibleShape`, and remaining properties.
-	    var fixedEllipse = graphie.fixedEllipse(center, radii, options.maxScale, options.padding);
-	    _.extend(this, fixedEllipse, {
-	        graphie: graphie,
-	        initialPoint: center
-	    });
-
-	    // Add to appropriate graphie layer
-	    if (options.mouselayer) {
-	        this.graphie.addToMouseLayerWrapper(this.wrapper);
-	    } else {
-	        this.graphie.addToVisibleLayerWrapper(this.wrapper);
-	    }
-	};
-
-	_.extend(WrappedEllipse.prototype, WrappedDefaults);
-
-	module.exports = WrappedEllipse;
-
-/***/ },
-/* 224 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -57318,7 +57478,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WrappedLine;
 
 /***/ },
-/* 225 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -57359,149 +57519,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WrappedPath;
 
 /***/ },
-/* 226 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	/**
-	 * A library of options to pass to add/draw/remove/constraints
-	 */
-	var _ = __webpack_require__(16);
-
-	var WrappedEllipse = __webpack_require__(223);
-	var kpoint = __webpack_require__(196).point;
-
-	var add = {
-	    constrain: function () {
-	        this.constrain();
-	    }
-	};
-
-	add.standard = [add.constrain];
-
-	var modify = {
-	    draw: function () {
-	        this.draw();
-	    }
-	};
-
-	modify.standard = [modify.draw];
-
-	var draw = {
-	    basic: function (state, prevState) {
-	        var graphie = this.graphie;
-	        if (!this.state.visibleShape) {
-	            var radii = [this.pointSize() / graphie.scale[0], this.pointSize() / graphie.scale[1]];
-	            var options = {
-	                maxScale: Math.max(this.highlightStyle().scale, this.normalStyle().scale),
-	                // Add in 2px of padding to avoid clipping at the edges.
-	                padding: 2 };
-	            this.state.visibleShape = new WrappedEllipse(graphie, this.coord(), radii, options);
-
-	            this.state.visibleShape.attr(_.omit(this.normalStyle(), "scale"));
-	            this.state.visibleShape.toFront();
-
-	            // Keep mouseTarget in front of visible shape
-	            if (this.mouseTarget()) {
-	                this.mouseTarget().toFront();
-	            }
-	        }
-	        if (state.normalStyle !== prevState.normalStyle && !_.isEqual(state.normalStyle, prevState.normalStyle)) {
-	            this.state.visibleShape.attr(this.normalStyle());
-	        }
-
-	        this.state.visibleShape.moveTo(this.coord());
-	        if (this.mouseTarget()) {
-	            this.mouseTarget().moveTo(this.coord());
-	        }
-	    },
-
-	    highlight: function (state, prevState) {
-	        if (state.isHovering && !prevState.isHovering) {
-	            state.visibleShape.animate(this.highlightStyle(), 50);
-	        } else if (!state.isHovering && prevState.isHovering) {
-	            state.visibleShape.animate(this.normalStyle(), 50);
-	        }
-	    }
-	};
-
-	draw.standard = [draw.basic, draw.highlight];
-
-	var remove = {
-	    basic: function () {
-	        if (this.state.visibleShape) {
-	            this.state.visibleShape.remove();
-	            this.state.visibleShape = null;
-	        }
-	    }
-	};
-
-	remove.standard = remove.basic;
-
-	var constraints = {
-	    fixed: function () {
-	        return function () {
-	            return false;
-	        };
-	    },
-
-	    snap: function (snap) {
-	        return function (coord) {
-	            if (snap === null) {
-	                return true;
-	            }
-	            snap = snap || this.graphie.snap;
-	            return kpoint.roundTo(coord, snap);
-	        };
-	    },
-
-	    bound: function (range, snap, paddingPx) {
-	        if (paddingPx === undefined) {
-	            if (range === undefined) {
-	                paddingPx = 10;
-	            } else {
-	                paddingPx = 0;
-	            }
-	        }
-	        return function (coord) {
-	            var graphie = this.graphie;
-	            range = range || graphie.range;
-	            if (snap === undefined) {
-	                snap = graphie.snap;
-	            }
-
-	            var lower = graphie.unscalePoint([paddingPx, graphie.ypixels - paddingPx]);
-	            var upper = graphie.unscalePoint([graphie.xpixels - paddingPx, paddingPx]);
-	            if (snap) {
-	                lower = kpoint.ceilTo(lower, snap);
-	                upper = kpoint.floorTo(upper, snap);
-	            }
-	            var coordX = Math.max(lower[0], Math.min(upper[0], coord[0]));
-	            var coordY = Math.max(lower[1], Math.min(upper[1], coord[1]));
-	            return [coordX, coordY];
-	        };
-	    }
-	};
-
-	constraints.standard = null;
-
-	module.exports = {
-	    add: add,
-	    modify: modify,
-	    draw: draw,
-	    remove: remove,
-
-	    onMoveStart: { standard: null },
-	    constraints: constraints,
-	    onMove: { standard: null },
-	    onMoveEnd: { standard: null },
-	    onClick: { standard: null }
-	};
-
-/***/ },
 /* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -57513,8 +57530,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * A library of options to pass to add/draw/remove/constraints
 	 */
 	var _ = __webpack_require__(16);
-	var WrappedLine = __webpack_require__(224);
-	var WrappedPath = __webpack_require__(225);
+	var WrappedLine = __webpack_require__(225);
+	var WrappedPath = __webpack_require__(226);
 	var kvector = __webpack_require__(196).vector;
 	var kpoint = __webpack_require__(196).point;
 	var KhanMath = __webpack_require__(145);
@@ -58190,65 +58207,45 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * Constants that define the various contexts in which a cursor can exist. In
-	 * the future, we may, for example, have a context for being in a numerator, a
-	 * context for being in a denominator, a context for being in an exponent, and
-	 * so forth.
-	 */
-
-	module.exports = {
-	    // The cursor is located in a nested expression. For example, it may be in
-	    // a numerator or denominator, or within a set of parentheses.
-	    NESTED: 'NESTED',
-	    // The cursor is located in a top-level expression; that is, anything that
-	    // is not nested.
-	    TOP_LEVEL: 'TOP_LEVEL',
-	    // The cursor is located at the left end of the input. Note that this
-	    // implies that the cursor is at the top-level.
-	    LEFT_END: 'LEFT_END',
-	    // The cursor is located at the right end of the input. Note that this
-	    // implies that the cursor is at the top-level.
-	    RIGHT_END: 'RIGHT_END',
-	    // The cursor is located in an empty input. Note that this
-	    // implies that the cursor is at the top-level, and at the right and left
-	    // ends.
-	    EMPTY: 'EMPTY' };
-
-/***/ },
-/* 231 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var React = __webpack_require__(15);
 
 	var _require = __webpack_require__(257);
 
 	var connect = _require.connect;
 
+	var _require2 = __webpack_require__(43);
+
+	var StyleSheet = _require2.StyleSheet;
+
+	var _require3 = __webpack_require__(240);
+
+	var View = _require3.View;
+
 	var DefaultKeypad = __webpack_require__(244);
 	var NumberKeypad = __webpack_require__(245);
 	var FractionKeypad = __webpack_require__(246);
 	var BasicExpressionKeypad = __webpack_require__(247);
 	var AdvancedExpressionKeypad = __webpack_require__(248);
+	var zIndexes = __webpack_require__(249);
 
-	var _require2 = __webpack_require__(236);
+	var _require4 = __webpack_require__(235);
 
-	var getButtonHeightPx = _require2.getButtonHeightPx;
+	var getButtonHeightPx = _require4.getButtonHeightPx;
 
-	var _require3 = __webpack_require__(239);
+	var _require5 = __webpack_require__(238);
 
-	var setButtonHeightPx = _require3.setButtonHeightPx;
+	var setButtonHeightPx = _require5.setButtonHeightPx;
 
-	var _require4 = __webpack_require__(209);
+	var _require6 = __webpack_require__(209);
 
-	var keyIdPropType = _require4.keyIdPropType;
+	var keyIdPropType = _require6.keyIdPropType;
 
-	var _require5 = __webpack_require__(198);
+	var _require7 = __webpack_require__(198);
 
-	var KeypadTypes = _require5.KeypadTypes;
+	var KeypadTypes = _require7.KeypadTypes;
 
-	var MathKeypad = React.createClass({
-	    displayName: 'MathKeypad',
+	var KeypadContainer = React.createClass({
+	    displayName: 'KeypadContainer',
 
 	    propTypes: {
 	        active: React.PropTypes.bool,
@@ -58298,7 +58295,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    },
 
-	    render: function () {
+	    renderKeypad: function () {
 	        // Extract props that some keypads will need.
 	        var _props = this.props;
 	        var extraKeys = _props.extraKeys;
@@ -58335,7 +58332,41 @@ return /******/ (function(modules) { // webpackBootstrap
 	            default:
 	                return React.createElement(DefaultKeypad, { ref: onElementMounted });
 	        }
+	    },
+
+	    render: function () {
+	        // NOTE(charlie): We render the transforms as pure inline styles to
+	        // avoid an Aphrodite bug in mobile Safari.
+	        //   See: https://github.com/Khan/aphrodite/issues/68.
+	        var dynamicStyle = this.props.active ? inlineStyles.active : inlineStyles.hidden;
+	        return React.createElement(
+	            View,
+	            { style: styles.keypadContainer, dynamicStyle: dynamicStyle },
+	            this.renderKeypad()
+	        );
 	    } });
+
+	var keypadAnimationDurationMs = 300;
+
+	var styles = StyleSheet.create({
+	    keypadContainer: {
+	        bottom: 0,
+	        position: 'fixed',
+	        transition: '' + keypadAnimationDurationMs + 'ms ease-out',
+	        transitionProperty: 'transform',
+	        zIndex: zIndexes.keypad } });
+
+	// Note: these don't go through an autoprefixer/aphrodite.
+	var inlineStyles = {
+	    hidden: {
+	        msTransform: 'translate3d(0, 100%, 0)',
+	        WebkitTransform: 'translate3d(0, 100%, 0)',
+	        transform: 'translate3d(0, 100%, 0)' },
+
+	    active: {
+	        msTransform: 'translate3d(0, 0, 0)',
+	        WebkitTransform: 'translate3d(0, 0, 0)',
+	        transform: 'translate3d(0, 0, 0)' } };
 
 	var mapStateToProps = function (state) {
 	    return state.keypad;
@@ -58348,10 +58379,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        } };
 	};
 
-	module.exports = connect(mapStateToProps, mapDispatchToProps)(MathKeypad);
+	module.exports = connect(mapStateToProps, mapDispatchToProps)(KeypadContainer);
 
 /***/ },
-/* 232 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -58362,7 +58393,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var _require = __webpack_require__(236);
+	var _require = __webpack_require__(235);
 
 	var cursorHandleRadiusPx = _require.cursorHandleRadiusPx;
 	var brightGreen = _require.brightGreen;
@@ -58454,7 +58485,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = CursorHandle;
 
 /***/ },
-/* 233 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -58468,11 +58499,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(241);
+	var _require2 = __webpack_require__(240);
 
 	var View = _require2.View;
 
-	var zIndexes = __webpack_require__(250);
+	var zIndexes = __webpack_require__(249);
 
 	var SelectionRect = React.createClass({
 	    displayName: 'SelectionRect',
@@ -58506,7 +58537,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = SelectionRect;
 
 /***/ },
-/* 234 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _KeyActions, _NormalCommands;
@@ -58523,8 +58554,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	// TODO(kevinb) allow test code to use const MathQuill = require('mathquill');
 	var MathQuill = window.MathQuill;
 
-	var Keys = __webpack_require__(249);
-	var CursorContexts = __webpack_require__(230);
+	var Keys = __webpack_require__(250);
+	var CursorContexts = __webpack_require__(237);
 
 	var _require = __webpack_require__(198);
 
@@ -58532,27 +58563,28 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var WRITE = 'write';
 	var CMD = 'cmd';
-	var KEYSTROKE = 'keystroke';
 	var MQ_END = 0;
 
 	// A mapping from keys that can be pressed on a keypad to the way in which
 	// MathQuill should modify its input in response to that key-press. Any keys
 	// that do not provide explicit actions (like the numeral keys) will merely
 	// write their contents to MathQuill.
-	var KeyActions = (_KeyActions = {}, _KeyActions[Keys.PLUS] = { str: '+', fn: WRITE }, _KeyActions[Keys.MINUS] = { str: '-', fn: WRITE }, _KeyActions[Keys.TIMES] = { str: '\\times', fn: WRITE }, _KeyActions[Keys.DIVIDE] = { str: '\\div', fn: WRITE }, _KeyActions[Keys.DECIMAL] = { str: '.', fn: WRITE }, _KeyActions[Keys.EQUAL] = { str: '=', fn: WRITE }, _KeyActions[Keys.NEQ] = { str: '\\neq', fn: WRITE }, _KeyActions[Keys.CDOT] = { str: '\\cdot', fn: WRITE }, _KeyActions[Keys.PERCENT] = { str: '%', fn: WRITE }, _KeyActions[Keys.EXP] = { str: '^', fn: CMD }, _KeyActions[Keys.EXP_2] = { str: '^2', fn: WRITE }, _KeyActions[Keys.EXP_3] = { str: '^3', fn: WRITE }, _KeyActions[Keys.SQRT] = { str: 'sqrt', fn: CMD }, _KeyActions[Keys.PI] = { str: 'pi', fn: CMD }, _KeyActions[Keys.THETA] = { str: 'theta', fn: CMD }, _KeyActions[Keys.RADICAL] = { str: 'nthroot', fn: CMD }, _KeyActions[Keys.LEFT] = { str: 'Left', fn: KEYSTROKE }, _KeyActions[Keys.RIGHT] = { str: 'Right', fn: KEYSTROKE }, _KeyActions[Keys.JUMP_OUT] = { str: 'Right', fn: KEYSTROKE }, _KeyActions[Keys.LT] = { str: '<', fn: WRITE }, _KeyActions[Keys.LEQ] = { str: '\\leq', fn: WRITE }, _KeyActions[Keys.GT] = { str: '>', fn: WRITE }, _KeyActions[Keys.GEQ] = { str: '\\geq', fn: WRITE }, _KeyActions);
+	var KeyActions = (_KeyActions = {}, _KeyActions[Keys.PLUS] = { str: '+', fn: WRITE }, _KeyActions[Keys.MINUS] = { str: '-', fn: WRITE }, _KeyActions[Keys.TIMES] = { str: '\\times', fn: WRITE }, _KeyActions[Keys.DIVIDE] = { str: '\\div', fn: WRITE }, _KeyActions[Keys.DECIMAL] = { str: '.', fn: WRITE }, _KeyActions[Keys.EQUAL] = { str: '=', fn: WRITE }, _KeyActions[Keys.NEQ] = { str: '\\neq', fn: WRITE }, _KeyActions[Keys.CDOT] = { str: '\\cdot', fn: WRITE }, _KeyActions[Keys.PERCENT] = { str: '%', fn: WRITE }, _KeyActions[Keys.EXP] = { str: '^', fn: CMD }, _KeyActions[Keys.EXP_2] = { str: '^2', fn: WRITE }, _KeyActions[Keys.EXP_3] = { str: '^3', fn: WRITE }, _KeyActions[Keys.SQRT] = { str: 'sqrt', fn: CMD }, _KeyActions[Keys.PI] = { str: 'pi', fn: CMD }, _KeyActions[Keys.THETA] = { str: 'theta', fn: CMD }, _KeyActions[Keys.RADICAL] = { str: 'nthroot', fn: CMD }, _KeyActions[Keys.LT] = { str: '<', fn: WRITE }, _KeyActions[Keys.LEQ] = { str: '\\leq', fn: WRITE }, _KeyActions[Keys.GT] = { str: '>', fn: WRITE }, _KeyActions[Keys.GEQ] = { str: '\\geq', fn: WRITE }, _KeyActions);
 
 	var NormalCommands = (_NormalCommands = {}, _NormalCommands[Keys.LOG] = 'log', _NormalCommands[Keys.LN] = 'ln', _NormalCommands[Keys.SIN] = 'sin', _NormalCommands[Keys.COS] = 'cos', _NormalCommands[Keys.TAN] = 'tan', _NormalCommands);
 
 	var MathWrapper = (function () {
-	    function MathWrapper(element, options, _ref) {
+	    function MathWrapper(element, _ref, _ref3) {
 	        var _ref2 = _ref;
-	        var callbacks = _ref2 === undefined ? {} : _ref2;
+	        var options = _ref2 === undefined ? {} : _ref2;
+	        var _ref32 = _ref3;
+	        var callbacks = _ref32 === undefined ? {} : _ref32;
 
 	        _classCallCheck(this, MathWrapper);
 
 	        var fractionBehavior = options.fractionBehavior;
 
-	        this.fractionBehavior = fractionBehavior;
+	        this.fractionBehavior = fractionBehavior || FractionBehaviorTypes.INCLUSIVE;
 
 	        this.MQ = MathQuill.getInterface(2);
 	        this.mathField = this.MQ.MathField(element, {
@@ -58629,6 +58661,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this._handleToggleSign(cursor);
 	        } else if (key === Keys.BACKSPACE) {
 	            this._handleBackspace(cursor);
+	        } else if (key === Keys.LEFT) {
+	            this._handleLeftArrow(cursor);
+	        } else if (key === Keys.RIGHT || key === Keys.JUMP_OUT) {
+	            this._handleRightArrow(cursor);
 	        } else if (/^[a-zA-Z]$/.test(key)) {
 	            this.mathField[WRITE](key);
 	        } else if (/^NUM_\d/.test(key)) {
@@ -58768,6 +58804,48 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    };
 
+	    MathWrapper.prototype._handleLeftArrow = function _handleLeftArrow(cursor) {
+	        // If we're inside a function, and just after the left parentheses, we
+	        // need to skip the entire function name, rather than move the cursor
+	        // inside of it. For example, when hitting left from within the
+	        // parentheses in `cos()`, we want to place the cursor to the left of
+	        // the entire expression, rather than between the `s` and the left
+	        // parenthesis.
+	        // From the cursor's perspective, this requires that our left node is
+	        // the MQ_END node, that our grandparent is the left parenthesis, and
+	        // the nodes to the left of our grandparent comprise a valid function
+	        // name.
+	        if (cursor[this.MQ.L] === MQ_END) {
+	            var _parent2 = cursor.parent;
+	            var grandparent = _parent2.parent;
+	            if (grandparent.ctrlSeq === '\\left(') {
+	                var command = this._maybeFindCommandBeforeParens(grandparent);
+	                if (command) {
+	                    cursor.insLeftOf(command.startNode);
+	                    return;
+	                }
+	            }
+	        }
+
+	        // Otherwise, we default to the standard MathQull left behavior.
+	        this.mathField.keystroke('Left');
+	    };
+
+	    MathWrapper.prototype._handleRightArrow = function _handleRightArrow(cursor) {
+	        var command = this._maybeFindCommand(cursor[this.MQ.R]);
+	        if (command) {
+	            // Similarly, if a function is to our right, then we need to place
+	            // the cursor at the start of its parenthetical content, which is
+	            // done by putting it to the left of ites parentheses and then
+	            // moving right once.
+	            cursor.insLeftOf(command.endNode);
+	            this.mathField.keystroke('Right');
+	        } else {
+	            // Otherwise, we default to the standard MathQull right behavior.
+	            this.mathField.keystroke('Right');
+	        }
+	    };
+
 	    /**
 	     * Return the start node, end node, and full name of the command of which
 	     * the initial node is a part, or `null` if the node is not part of a
@@ -58786,21 +58864,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        // MathQuill stores commands as separate characters so that
-	        // users can delete commands one character at a time.  Iterate over
-	        // the nodes from right to left until we hit a '\\' signifies the
-	        // start of a command and return that node.  If we encounter any
-	        // character that doesn't belong in a command, return null.
-	        var commandDelimiter = '\\';
+	        // users can delete commands one character at a time.  We iterate over
+	        // the nodes from right to left until we hit a sequence starting with a
+	        // '\\', which signifies the start of a command; then we iterate from
+	        // left to right until we hit a '\\left(', which signifies the end of a
+	        // command.  If we encounter any character that doesn't belong in a
+	        // command, we return null.  We match a single character at a time.
+	        // Ex) ['\\l', 'o', 'g ', '\\left(', ...]
+	        var commandCharRegex = /^[a-z]$/;
+	        var commandStartRegex = /^\\[a-z]$/;
+	        var commandEndSeq = '\\left(';
 
-	        // We match a single character at a time.  The '\\' is optional because
-	        // only the first node in the sequence contains a '\\', e.g.
-	        // ['\\l', 'o', 'g ', '\\left(', ...]
-	        var commandCharRegex = /[\\]?[a-z]/;
-
-	        // Note: We don't treat left-parens as a command in the same sense as
-	        // cosine and log. Similarly, Pi and Theta are not treated as "commands"
-	        // since they aren't functions.
-	        var ignoredCommands = ['\\left(', '\\pi', '\\theta'];
+	        // Note: We whitelist the set of valid commands, since relying solely on
+	        // a command being prefixed with a backslash leads to undesired
+	        // behavior. For example, Greek symbols, left parentheses, and square
+	        // roots all get treated as commands.
+	        var validCommands = ['\\log', '\\ln', '\\cos', '\\sin', '\\tan'];
 
 	        var name = '';
 	        var startNode = undefined;
@@ -58810,13 +58889,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // until the start of the command.
 	        var node = initialNode;
 	        while (node !== 0) {
-	            if (commandCharRegex.test(node.ctrlSeq)) {
-	                name = node.ctrlSeq.trim() + name;
-
-	                if (node.ctrlSeq.startsWith(commandDelimiter)) {
-	                    startNode = node;
-	                    break;
-	                }
+	            var ctrlSeq = node.ctrlSeq.trim();
+	            if (commandCharRegex.test(ctrlSeq)) {
+	                name = ctrlSeq + name;
+	            } else if (commandStartRegex.test(ctrlSeq)) {
+	                name = ctrlSeq + name;
+	                startNode = node;
+	                break;
 	            } else {
 	                break;
 	            }
@@ -58831,18 +58910,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // Next, iterate from the start to the right.
 	            node = initialNode[this.MQ.R];
 	            while (node !== 0) {
-	                if (commandCharRegex.test(node.ctrlSeq) && !node.ctrlSeq.startsWith(commandDelimiter)) {
-	                    name = name + node.ctrlSeq.trim();
-	                } else {
+	                var ctrlSeq = node.ctrlSeq.trim();
+	                if (commandCharRegex.test(ctrlSeq)) {
+	                    // If we have a single character, add it to the command
+	                    // name.
+	                    name = name + ctrlSeq;
+	                } else if (ctrlSeq === commandEndSeq) {
+	                    // If we hit the command end delimiter (the left
+	                    // parentheses surrounding its arguments), stop.
 	                    endNode = node;
+	                    break;
 	                }
 
 	                node = node[this.MQ.R];
 	            }
-	            if (ignoredCommands.includes(name)) {
-	                return null;
-	            } else {
+	            if (validCommands.includes(name)) {
 	                return { name: name, startNode: startNode, endNode: endNode };
+	            } else {
+	                return null;
 	            }
 	        } else {
 	            return null;
@@ -59169,7 +59254,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// index of the radical.
 
 /***/ },
-/* 235 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59224,7 +59309,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = scrollIntoView;
 
 /***/ },
-/* 236 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59285,7 +59370,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    emptyGrey: '#F0F1F2' };
 
 /***/ },
-/* 237 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var queryString = __webpack_require__(259);
@@ -59362,267 +59447,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = settings;
 
 /***/ },
-/* 238 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _KeyConfigs;
-
 	/**
-	 * This file contains configuration settings for the buttons in the keypad.
+	 * Constants that define the various contexts in which a cursor can exist. In
+	 * the future, we may, for example, have a context for being in a numerator, a
+	 * context for being in a denominator, a context for being in an exponent, and
+	 * so forth.
 	 */
 
-	/* globals i18n */
-
-	var Keys = __webpack_require__(249);
-
-	var _require = __webpack_require__(198);
-
-	var KeyTypes = _require.KeyTypes;
-
-	var KeyConfigs = (_KeyConfigs = {}, _KeyConfigs[Keys.PLUS] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a plus sign.
-	    ariaLabel: i18n._('Plus') }, _KeyConfigs[Keys.MINUS] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a minus sign.
-	    ariaLabel: i18n._('Minus') }, _KeyConfigs[Keys.TOGGLE_SIGN] = {
-	    type: KeyTypes.MATH,
-	    // TODO(charlie): Change this to 'Toggle negative' and add an
-	    // aria-pressed={true} based on the current state of the input. Right
-	    // now, that's tricky to do as the rendering of the keypad button is
-	    // ignorant of the contents of the input.
-	    // I18N: A label for a button that will change the input from positive
-	    // to negative or the other way around.
-	    ariaLabel: i18n._('Toggle positive/negative') }, _KeyConfigs[Keys.TIMES] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a multiplication sign (represented with an 'x').
-	    ariaLabel: i18n._('Multiply') }, _KeyConfigs[Keys.DIVIDE] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a division sign.
-	    ariaLabel: i18n._('Divide') }, _KeyConfigs[Keys.DECIMAL] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a percent symbol.
-	    ariaLabel: i18n._('Decimal') }, _KeyConfigs[Keys.PERCENT] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a percent sign.
-	    ariaLabel: i18n._('Percent') }, _KeyConfigs[Keys.CDOT] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a multiplication sign (represented as a dot).
-	    ariaLabel: i18n._('Multiply') }, _KeyConfigs[Keys.EQUAL] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Equals sign') }, _KeyConfigs[Keys.NEQ] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Not-equals sign') }, _KeyConfigs[Keys.GT] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a 'greater than' sign (represented as '>').
-	    ariaLabel: i18n._('Greater than sign') }, _KeyConfigs[Keys.LT] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a 'less than' sign (represented as '<').
-	    ariaLabel: i18n._('Less than sign') }, _KeyConfigs[Keys.GEQ] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Greater than or equal to sign') }, _KeyConfigs[Keys.LEQ] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Less than or equal to sign') }, _KeyConfigs[Keys.FRAC] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a 'fraction' symbol.
-	    ariaLabel: i18n._('Fraction') }, _KeyConfigs[Keys.EXP] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a button that will allow the user to input a custom
-	    // exponent.
-	    ariaLabel: i18n._('Custom exponent') }, _KeyConfigs[Keys.EXP_2] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a button that will square (take to the second
-	    // power) some math.
-	    ariaLabel: i18n._('Square') }, _KeyConfigs[Keys.EXP_3] = {
-	    type: KeyTypes.MATH,
-	    // I18N: A label for a button that will cube (take to the third power)
-	    // some math.
-	    ariaLabel: i18n._('Cube') }, _KeyConfigs[Keys.SQRT] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Square root') }, _KeyConfigs[Keys.CUBE_ROOT] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Cube root') }, _KeyConfigs[Keys.RADICAL] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Radical with custom root') }, _KeyConfigs[Keys.PARENS] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Parentheses') }, _KeyConfigs[Keys.LN] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Natural logarithm') }, _KeyConfigs[Keys.LOG] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Logarithm with base 10') }, _KeyConfigs[Keys.LOG_N] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Logarithm with custom base') }, _KeyConfigs[Keys.SIN] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Sine') }, _KeyConfigs[Keys.COS] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Cosine') }, _KeyConfigs[Keys.TAN] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Tangent') }, _KeyConfigs[Keys.PI] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Pi'),
-	    unicodeSymbol: {
-	        character: 'π',
-	        italicized: true } }, _KeyConfigs[Keys.THETA] = {
-	    type: KeyTypes.MATH,
-	    ariaLabel: i18n._('Theta'),
-	    unicodeSymbol: {
-	        character: 'θ',
-	        italicized: true } }, _KeyConfigs[Keys.NOOP] = {
-	    type: KeyTypes.EMPTY }, _KeyConfigs[Keys.LEFT] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._('Left arrow') }, _KeyConfigs[Keys.RIGHT] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._('Right arrow') }, _KeyConfigs[Keys.JUMP_OUT] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    ariaLabel: i18n._('Navigate right') }, _KeyConfigs[Keys.BACKSPACE] = {
-	    type: KeyTypes.INPUT_NAVIGATION,
-	    // I18N: A label for a button that will delete some input.
-	    ariaLabel: i18n._('Delete') }, _KeyConfigs[Keys.DISMISS] = {
-	    type: KeyTypes.KEYPAD_NAVIGATION,
-	    // I18N: A label for a button that will dismiss/hide a keypad.
-	    ariaLabel: i18n._('Dismiss') }, _KeyConfigs[Keys.MORE] = {
-	    type: KeyTypes.KEYPAD_NAVIGATION,
-	    ariaLabel: i18n._('Go to advanced button set') }, _KeyConfigs[Keys.NUMBERS] = {
-	    type: KeyTypes.KEYPAD_NAVIGATION,
-	    ariaLabel: i18n._('Go to basic button set') }, _KeyConfigs);
-
-	// Add in the multi-function buttons, which inherit some fields from the simple
-	// buttons.
-	// TODO(charlie): Make the multi-function button's long-press interaction
-	// accessible. Right now, it isn't possible to trigger any of the hidden buttons
-	// with a VoiceOver cursor--all you can do is trigger the default action.
-	KeyConfigs[Keys.FRAC_MULTI] = {
-	    type: KeyTypes.MATH,
-	    childKeyIds: [Keys.FRAC, Keys.DIVIDE],
-	    ariaLabel: KeyConfigs[Keys.FRAC].ariaLabel };
-	KeyConfigs[Keys.PARENS_MULTI] = {
-	    type: KeyTypes.MATH,
-	    childKeyIds: [Keys.PARENS, Keys.CDOT, Keys.TIMES],
-	    ariaLabel: KeyConfigs[Keys.PARENS].ariaLabel };
-
-	// NOTE(charlie): The multi-functional keys below use the icons of their
-	// 'default' keys by pointing to them in iconography/index.js. If the defaults
-	// change for any of these keys, the reference in iconography/index.js should
-	// change as well.
-	KeyConfigs[Keys.EQUAL_MULTI] = {
-	    type: KeyTypes.MATH,
-	    childKeyIds: [Keys.EQUAL, Keys.NEQ],
-	    ariaLabel: KeyConfigs[Keys.EQUAL].ariaLabel };
-	KeyConfigs[Keys.GREATER_MULTI] = {
-	    type: KeyTypes.MATH,
-	    childKeyIds: [Keys.GT, Keys.GEQ],
-	    ariaLabel: KeyConfigs[Keys.GT].ariaLabel };
-	KeyConfigs[Keys.LESS_MULTI] = {
-	    type: KeyTypes.MATH,
-	    childKeyIds: [Keys.LT, Keys.LEQ],
-	    ariaLabel: KeyConfigs[Keys.LT].ariaLabel };
-	KeyConfigs[Keys.EXP_MULTI] = {
-	    type: KeyTypes.MATH,
-	    childKeyIds: [Keys.EXP_2, Keys.EXP_3, Keys.EXP],
-	    ariaLabel: KeyConfigs[Keys.EXP_2].ariaLabel };
-	KeyConfigs[Keys.RADICAL_MULTI] = {
-	    type: KeyTypes.MATH,
-	    childKeyIds: [Keys.SQRT, Keys.CUBE_ROOT, Keys.RADICAL],
-	    ariaLabel: KeyConfigs[Keys.SQRT].ariaLabel };
-	KeyConfigs[Keys.LOG_MULTI] = {
-	    type: KeyTypes.MATH,
-	    childKeyIds: [Keys.LOG, Keys.LN, Keys.LOG_N],
-	    ariaLabel: KeyConfigs[Keys.LOG].ariaLabel };
-
-	KeyConfigs[Keys.MANY] = {
-	    type: KeyTypes.MANY };
-
-	// Add in every numeral.
-	var NUMBERS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-	for (var _iterator = NUMBERS, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
-	    var _ref;
-
-	    if (_isArray) {
-	        if (_i >= _iterator.length) break;
-	        _ref = _iterator[_i++];
-	    } else {
-	        _i = _iterator.next();
-	        if (_i.done) break;
-	        _ref = _i.value;
-	    }
-
-	    var num = _ref;
-
-	    // TODO(charlie): Consider removing the SVG icons that we have for the
-	    // numeral keys. They can be rendered just as easily with text (though that
-	    // would mean that we'd be using text beyond the variable key).
-	    var textRepresentation = '' + num;
-	    KeyConfigs['NUM_' + num] = {
-	        type: KeyTypes.NUMERAL,
-	        ariaLabel: textRepresentation,
-	        unicodeSymbol: {
-	            character: textRepresentation,
-	            italicized: false } };
-	}
-
-	// Add in every variable.
-	var LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-	for (var _iterator2 = LETTERS, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
-	    var _ref2;
-
-	    if (_isArray2) {
-	        if (_i2 >= _iterator2.length) break;
-	        _ref2 = _iterator2[_i2++];
-	    } else {
-	        _i2 = _iterator2.next();
-	        if (_i2.done) break;
-	        _ref2 = _i2.value;
-	    }
-
-	    var letter = _ref2;
-
-	    var lowerCaseVariable = letter.toLowerCase();
-	    var upperCaseVariable = letter.toUpperCase();
-
-	    var _arr = [lowerCaseVariable, upperCaseVariable];
-	    for (var _i3 = 0; _i3 < _arr.length; _i3++) {
-	        var textRepresentation = _arr[_i3];
-	        KeyConfigs[textRepresentation] = {
-	            type: KeyTypes.MATH,
-	            ariaLabel: textRepresentation,
-	            unicodeSymbol: {
-	                character: textRepresentation,
-	                italicized: true } };
-	    }
-	}
-
-	for (var _iterator3 = Object.keys(KeyConfigs), _isArray3 = Array.isArray(_iterator3), _i4 = 0, _iterator3 = _isArray3 ? _iterator3 : _iterator3[Symbol.iterator]();;) {
-	    var _ref3;
-
-	    if (_isArray3) {
-	        if (_i4 >= _iterator3.length) break;
-	        _ref3 = _iterator3[_i4++];
-	    } else {
-	        _i4 = _iterator3.next();
-	        if (_i4.done) break;
-	        _ref3 = _i4.value;
-	    }
-
-	    var key = _ref3;
-
-	    KeyConfigs[key] = _extends({}, KeyConfigs[key], {
-	        id: key });
-	}
-
-	module.exports = KeyConfigs;
-
-	// Basic math keys.
-
-	// Input navigation keys.
-
-	// Keypad navigation keys.
-
-	// childKeyIds will be configured by the client.
+	module.exports = {
+	    // The cursor is located in a nested expression. For example, it may be in
+	    // a numerator or denominator, or within a set of parentheses.
+	    NESTED: 'NESTED',
+	    // The cursor is located in a top-level expression; that is, anything that
+	    // is not nested.
+	    TOP_LEVEL: 'TOP_LEVEL',
+	    // The cursor is located at the left end of the input. Note that this
+	    // implies that the cursor is at the top-level.
+	    LEFT_END: 'LEFT_END',
+	    // The cursor is located at the right end of the input. Note that this
+	    // implies that the cursor is at the top-level.
+	    RIGHT_END: 'RIGHT_END',
+	    // The cursor is located in an empty input. Note that this
+	    // implies that the cursor is at the top-level, and at the right and left
+	    // ends.
+	    EMPTY: 'EMPTY' };
 
 /***/ },
-/* 239 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
@@ -59688,14 +59542,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } };
 
 /***/ },
-/* 240 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var Redux = __webpack_require__(269);
 
-	var _require = __webpack_require__(236);
+	var _require = __webpack_require__(235);
 
 	var defaultButtonHeightPx = _require.defaultButtonHeightPx;
 
@@ -59703,14 +59557,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var KeyTypes = _require2.KeyTypes;
 
-	var Keys = __webpack_require__(249);
-	var KeyConfigs = __webpack_require__(238);
+	var Keys = __webpack_require__(250);
+	var KeyConfigs = __webpack_require__(241);
 	var Keypads = __webpack_require__(251);
-	var CursorContexts = __webpack_require__(230);
+	var CursorContexts = __webpack_require__(237);
 	var GestureManager = __webpack_require__(252);
 	var VelocityTracker = __webpack_require__(253);
 
-	var Settings = __webpack_require__(237);
+	var Settings = __webpack_require__(236);
 
 	var createStore = function () {
 	    var initialInputState = {
@@ -59770,7 +59624,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    active: true });
 
 	            case 'ConfigureKeypad':
-	                return _extends({}, state, action.configuration);
+	                return _extends({}, state, {
+	                    // Default `extraKeys` to the empty array.
+	                    extraKeys: [] }, action.configuration);
 
 	            case 'PressKey':
 	                var keyConfig = KeyConfigs[action.key];
@@ -60044,7 +59900,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = createStore;
 
 /***/ },
-/* 241 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -60060,6 +59916,266 @@ return /******/ (function(modules) { // webpackBootstrap
 	  Image: __webpack_require__(254),
 	  Text: __webpack_require__(255),
 	  View: __webpack_require__(256) };
+
+/***/ },
+/* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _KeyConfigs;
+
+	/**
+	 * This file contains configuration settings for the buttons in the keypad.
+	 */
+
+	/* globals i18n */
+
+	var Keys = __webpack_require__(250);
+
+	var _require = __webpack_require__(198);
+
+	var KeyTypes = _require.KeyTypes;
+
+	var KeyConfigs = (_KeyConfigs = {}, _KeyConfigs[Keys.PLUS] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a plus sign.
+	    ariaLabel: i18n._('Plus') }, _KeyConfigs[Keys.MINUS] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a minus sign.
+	    ariaLabel: i18n._('Minus') }, _KeyConfigs[Keys.TOGGLE_SIGN] = {
+	    type: KeyTypes.MATH,
+	    // TODO(charlie): Change this to 'Toggle negative' and add an
+	    // aria-pressed={true} based on the current state of the input. Right
+	    // now, that's tricky to do as the rendering of the keypad button is
+	    // ignorant of the contents of the input.
+	    // I18N: A label for a button that will change the input from positive
+	    // to negative or the other way around.
+	    ariaLabel: i18n._('Toggle positive/negative') }, _KeyConfigs[Keys.TIMES] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a multiplication sign (represented with an 'x').
+	    ariaLabel: i18n._('Multiply') }, _KeyConfigs[Keys.DIVIDE] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a division sign.
+	    ariaLabel: i18n._('Divide') }, _KeyConfigs[Keys.DECIMAL] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a percent symbol.
+	    ariaLabel: i18n._('Decimal') }, _KeyConfigs[Keys.PERCENT] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a percent sign.
+	    ariaLabel: i18n._('Percent') }, _KeyConfigs[Keys.CDOT] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a multiplication sign (represented as a dot).
+	    ariaLabel: i18n._('Multiply') }, _KeyConfigs[Keys.EQUAL] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Equals sign') }, _KeyConfigs[Keys.NEQ] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Not-equals sign') }, _KeyConfigs[Keys.GT] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a 'greater than' sign (represented as '>').
+	    ariaLabel: i18n._('Greater than sign') }, _KeyConfigs[Keys.LT] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a 'less than' sign (represented as '<').
+	    ariaLabel: i18n._('Less than sign') }, _KeyConfigs[Keys.GEQ] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Greater than or equal to sign') }, _KeyConfigs[Keys.LEQ] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Less than or equal to sign') }, _KeyConfigs[Keys.FRAC] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a 'fraction' symbol.
+	    ariaLabel: i18n._('Fraction') }, _KeyConfigs[Keys.EXP] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a button that will allow the user to input a custom
+	    // exponent.
+	    ariaLabel: i18n._('Custom exponent') }, _KeyConfigs[Keys.EXP_2] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a button that will square (take to the second
+	    // power) some math.
+	    ariaLabel: i18n._('Square') }, _KeyConfigs[Keys.EXP_3] = {
+	    type: KeyTypes.MATH,
+	    // I18N: A label for a button that will cube (take to the third power)
+	    // some math.
+	    ariaLabel: i18n._('Cube') }, _KeyConfigs[Keys.SQRT] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Square root') }, _KeyConfigs[Keys.CUBE_ROOT] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Cube root') }, _KeyConfigs[Keys.RADICAL] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Radical with custom root') }, _KeyConfigs[Keys.PARENS] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Parentheses') }, _KeyConfigs[Keys.LN] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Natural logarithm') }, _KeyConfigs[Keys.LOG] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Logarithm with base 10') }, _KeyConfigs[Keys.LOG_N] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Logarithm with custom base') }, _KeyConfigs[Keys.SIN] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Sine') }, _KeyConfigs[Keys.COS] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Cosine') }, _KeyConfigs[Keys.TAN] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Tangent') }, _KeyConfigs[Keys.PI] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Pi'),
+	    unicodeSymbol: {
+	        character: 'π',
+	        italicized: true } }, _KeyConfigs[Keys.THETA] = {
+	    type: KeyTypes.MATH,
+	    ariaLabel: i18n._('Theta'),
+	    unicodeSymbol: {
+	        character: 'θ',
+	        italicized: true } }, _KeyConfigs[Keys.NOOP] = {
+	    type: KeyTypes.EMPTY }, _KeyConfigs[Keys.LEFT] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._('Left arrow') }, _KeyConfigs[Keys.RIGHT] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._('Right arrow') }, _KeyConfigs[Keys.JUMP_OUT] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    ariaLabel: i18n._('Navigate right') }, _KeyConfigs[Keys.BACKSPACE] = {
+	    type: KeyTypes.INPUT_NAVIGATION,
+	    // I18N: A label for a button that will delete some input.
+	    ariaLabel: i18n._('Delete') }, _KeyConfigs[Keys.DISMISS] = {
+	    type: KeyTypes.KEYPAD_NAVIGATION,
+	    // I18N: A label for a button that will dismiss/hide a keypad.
+	    ariaLabel: i18n._('Dismiss') }, _KeyConfigs[Keys.MORE] = {
+	    type: KeyTypes.KEYPAD_NAVIGATION,
+	    ariaLabel: i18n._('Go to advanced button set') }, _KeyConfigs[Keys.NUMBERS] = {
+	    type: KeyTypes.KEYPAD_NAVIGATION,
+	    ariaLabel: i18n._('Go to basic button set') }, _KeyConfigs);
+
+	// Add in the multi-function buttons, which inherit some fields from the simple
+	// buttons.
+	// TODO(charlie): Make the multi-function button's long-press interaction
+	// accessible. Right now, it isn't possible to trigger any of the hidden buttons
+	// with a VoiceOver cursor--all you can do is trigger the default action.
+	KeyConfigs[Keys.FRAC_MULTI] = {
+	    type: KeyTypes.MATH,
+	    childKeyIds: [Keys.FRAC, Keys.DIVIDE],
+	    ariaLabel: KeyConfigs[Keys.FRAC].ariaLabel };
+	KeyConfigs[Keys.PARENS_MULTI] = {
+	    type: KeyTypes.MATH,
+	    childKeyIds: [Keys.PARENS, Keys.CDOT, Keys.TIMES],
+	    ariaLabel: KeyConfigs[Keys.PARENS].ariaLabel };
+
+	// NOTE(charlie): The multi-functional keys below use the icons of their
+	// 'default' keys by pointing to them in iconography/index.js. If the defaults
+	// change for any of these keys, the reference in iconography/index.js should
+	// change as well.
+	KeyConfigs[Keys.EQUAL_MULTI] = {
+	    type: KeyTypes.MATH,
+	    childKeyIds: [Keys.EQUAL, Keys.NEQ],
+	    ariaLabel: KeyConfigs[Keys.EQUAL].ariaLabel };
+	KeyConfigs[Keys.GREATER_MULTI] = {
+	    type: KeyTypes.MATH,
+	    childKeyIds: [Keys.GT, Keys.GEQ],
+	    ariaLabel: KeyConfigs[Keys.GT].ariaLabel };
+	KeyConfigs[Keys.LESS_MULTI] = {
+	    type: KeyTypes.MATH,
+	    childKeyIds: [Keys.LT, Keys.LEQ],
+	    ariaLabel: KeyConfigs[Keys.LT].ariaLabel };
+	KeyConfigs[Keys.EXP_MULTI] = {
+	    type: KeyTypes.MATH,
+	    childKeyIds: [Keys.EXP_2, Keys.EXP_3, Keys.EXP],
+	    ariaLabel: KeyConfigs[Keys.EXP_2].ariaLabel };
+	KeyConfigs[Keys.RADICAL_MULTI] = {
+	    type: KeyTypes.MATH,
+	    childKeyIds: [Keys.SQRT, Keys.CUBE_ROOT, Keys.RADICAL],
+	    ariaLabel: KeyConfigs[Keys.SQRT].ariaLabel };
+	KeyConfigs[Keys.LOG_MULTI] = {
+	    type: KeyTypes.MATH,
+	    childKeyIds: [Keys.LOG, Keys.LN, Keys.LOG_N],
+	    ariaLabel: KeyConfigs[Keys.LOG].ariaLabel };
+
+	KeyConfigs[Keys.MANY] = {
+	    type: KeyTypes.MANY };
+
+	// Add in every numeral.
+	var NUMBERS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+	for (var _iterator = NUMBERS, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+	    var _ref;
+
+	    if (_isArray) {
+	        if (_i >= _iterator.length) break;
+	        _ref = _iterator[_i++];
+	    } else {
+	        _i = _iterator.next();
+	        if (_i.done) break;
+	        _ref = _i.value;
+	    }
+
+	    var num = _ref;
+
+	    // TODO(charlie): Consider removing the SVG icons that we have for the
+	    // numeral keys. They can be rendered just as easily with text (though that
+	    // would mean that we'd be using text beyond the variable key).
+	    var textRepresentation = '' + num;
+	    KeyConfigs['NUM_' + num] = {
+	        type: KeyTypes.NUMERAL,
+	        ariaLabel: textRepresentation,
+	        unicodeSymbol: {
+	            character: textRepresentation,
+	            italicized: false } };
+	}
+
+	// Add in every variable.
+	var LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+	for (var _iterator2 = LETTERS, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
+	    var _ref2;
+
+	    if (_isArray2) {
+	        if (_i2 >= _iterator2.length) break;
+	        _ref2 = _iterator2[_i2++];
+	    } else {
+	        _i2 = _iterator2.next();
+	        if (_i2.done) break;
+	        _ref2 = _i2.value;
+	    }
+
+	    var letter = _ref2;
+
+	    var lowerCaseVariable = letter.toLowerCase();
+	    var upperCaseVariable = letter.toUpperCase();
+
+	    var _arr = [lowerCaseVariable, upperCaseVariable];
+	    for (var _i3 = 0; _i3 < _arr.length; _i3++) {
+	        var textRepresentation = _arr[_i3];
+	        KeyConfigs[textRepresentation] = {
+	            type: KeyTypes.MATH,
+	            ariaLabel: textRepresentation,
+	            unicodeSymbol: {
+	                character: textRepresentation,
+	                italicized: true } };
+	    }
+	}
+
+	for (var _iterator3 = Object.keys(KeyConfigs), _isArray3 = Array.isArray(_iterator3), _i4 = 0, _iterator3 = _isArray3 ? _iterator3 : _iterator3[Symbol.iterator]();;) {
+	    var _ref3;
+
+	    if (_isArray3) {
+	        if (_i4 >= _iterator3.length) break;
+	        _ref3 = _iterator3[_i4++];
+	    } else {
+	        _i4 = _iterator3.next();
+	        if (_i4.done) break;
+	        _ref3 = _i4.value;
+	    }
+
+	    var key = _ref3;
+
+	    KeyConfigs[key] = _extends({}, KeyConfigs[key], {
+	        id: key });
+	}
+
+	module.exports = KeyConfigs;
+
+	// Basic math keys.
+
+	// Input navigation keys.
+
+	// Keypad navigation keys.
+
+	// childKeyIds will be configured by the client.
 
 /***/ },
 /* 242 */
@@ -60188,7 +60304,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var _require = __webpack_require__(241);
+	var _require = __webpack_require__(240);
 
 	var View = _require.View;
 
@@ -60200,7 +60316,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var row = _require2.row;
 
-	var KeyConfigs = __webpack_require__(238);
+	var KeyConfigs = __webpack_require__(241);
 
 	var DefaultKeypad = React.createClass({
 	    displayName: 'DefaultKeypad',
@@ -60284,7 +60400,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var _require = __webpack_require__(241);
+	var _require = __webpack_require__(240);
 
 	var View = _require.View;
 
@@ -60299,7 +60415,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var BorderStyles = _require3.BorderStyles;
 
-	var KeyConfigs = __webpack_require__(238);
+	var KeyConfigs = __webpack_require__(241);
 
 	var NumberKeypad = React.createClass({
 	    displayName: 'NumberKeypad',
@@ -60388,7 +60504,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var _require = __webpack_require__(241);
+	var _require = __webpack_require__(240);
 
 	var View = _require.View;
 
@@ -60403,7 +60519,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var BorderStyles = _require3.BorderStyles;
 
-	var KeyConfigs = __webpack_require__(238);
+	var KeyConfigs = __webpack_require__(241);
 
 	var FractionKeypad = React.createClass({
 	    displayName: 'FractionKeypad',
@@ -60470,7 +60586,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                View,
 	                { style: row },
 	                React.createElement(TouchableKeypadButton, {
-	                    keyConfig: KeyConfigs.TOGGLE_SIGN,
+	                    keyConfig: KeyConfigs.MINUS,
 	                    borders: BorderStyles.NONE
 	                }),
 	                React.createElement(TouchableKeypadButton, {
@@ -60509,11 +60625,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require2.StyleSheet;
 
-	var _require3 = __webpack_require__(239);
+	var _require3 = __webpack_require__(238);
 
 	var setKeypadCurrentPage = _require3.setKeypadCurrentPage;
 
-	var _require4 = __webpack_require__(241);
+	var _require4 = __webpack_require__(240);
 
 	var View = _require4.View;
 
@@ -60534,7 +60650,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var SwitchTypes = _require6.SwitchTypes;
 	var JumpOutTypes = _require6.JumpOutTypes;
 
-	var _require7 = __webpack_require__(236);
+	var _require7 = __webpack_require__(235);
 
 	var numeralGrey = _require7.numeralGrey;
 	var commandGrey = _require7.commandGrey;
@@ -60544,10 +60660,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var cursorContextPropType = _require8.cursorContextPropType;
 	var keyIdPropType = _require8.keyIdPropType;
 
-	var KeyConfigs = __webpack_require__(238);
-	var CursorContexts = __webpack_require__(230);
+	var KeyConfigs = __webpack_require__(241);
+	var CursorContexts = __webpack_require__(237);
 
-	var _require9 = __webpack_require__(237);
+	var _require9 = __webpack_require__(236);
 
 	var keypadSwitch = _require9.keypadSwitch;
 	var jumpOutType = _require9.jumpOutType;
@@ -60771,11 +60887,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require2.StyleSheet;
 
-	var _require3 = __webpack_require__(239);
+	var _require3 = __webpack_require__(238);
 
 	var setKeypadCurrentPage = _require3.setKeypadCurrentPage;
 
-	var _require4 = __webpack_require__(241);
+	var _require4 = __webpack_require__(240);
 
 	var View = _require4.View;
 
@@ -60796,7 +60912,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var SwitchTypes = _require6.SwitchTypes;
 	var JumpOutTypes = _require6.JumpOutTypes;
 
-	var _require7 = __webpack_require__(236);
+	var _require7 = __webpack_require__(235);
 
 	var numeralGrey = _require7.numeralGrey;
 	var commandGrey = _require7.commandGrey;
@@ -60806,10 +60922,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var cursorContextPropType = _require8.cursorContextPropType;
 	var keyIdPropType = _require8.keyIdPropType;
 
-	var KeyConfigs = __webpack_require__(238);
-	var CursorContexts = __webpack_require__(230);
+	var KeyConfigs = __webpack_require__(241);
+	var CursorContexts = __webpack_require__(237);
 
-	var _require9 = __webpack_require__(237);
+	var _require9 = __webpack_require__(236);
 
 	var keypadSwitch = _require9.keypadSwitch;
 	var jumpOutType = _require9.jumpOutType;
@@ -61028,6 +61144,21 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
+	 * This file contains all of the z-index values used throughout the math-input
+	 * component and its children.  The goal of the different z-indexes is to have
+	 * a container that clips the selection rectangle while allowing the cursor
+	 * handle to extend below the bounds of the outer container.
+	 */
+
+	module.exports = {
+	  selectionRect: -1,
+	  keypad: 1060 };
+
+/***/ },
+/* 250 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
 	 * This file contains constants for keypad buttons that aren't single
 	 * alphanumeric characters.
 	 */
@@ -61095,21 +61226,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Keys;
 
 /***/ },
-/* 250 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * This file contains all of the z-index values used throughout the math-input
-	 * component and its children.  The goal of the different z-indexes is to have
-	 * a container that clips the selection rectangle while allowing the cursor
-	 * handle to extend below the bounds of the outer container.
-	 */
-
-	module.exports = {
-	  selectionRect: -1,
-	  keypad: 1060 };
-
-/***/ },
 /* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -61119,7 +61235,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Data used to define the various keypads available.
 	 */
 
-	var Keys = __webpack_require__(249);
+	var Keys = __webpack_require__(250);
 
 	var _require = __webpack_require__(198);
 
@@ -62016,19 +62132,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require2.StyleSheet;
 
-	var _require3 = __webpack_require__(239);
+	var _require3 = __webpack_require__(238);
 
 	var removeEcho = _require3.removeEcho;
 
-	var _require4 = __webpack_require__(241);
+	var _require4 = __webpack_require__(240);
 
 	var View = _require4.View;
 
 	var EchoManager = __webpack_require__(272);
 	var PopoverManager = __webpack_require__(273);
-	var zIndexes = __webpack_require__(250);
 
-	var _require5 = __webpack_require__(236);
+	var _require5 = __webpack_require__(235);
 
 	var numeralGrey = _require5.numeralGrey;
 
@@ -62038,7 +62153,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	var popoverPropType = _require6.popoverPropType;
 
 	var keypadBorderWidthPx = 1;
-	var keypadAnimationDurationMs = 300;
 
 	var Keypad = React.createClass({
 	    displayName: 'Keypad',
@@ -62068,22 +62182,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 
 	    componentWillReceiveProps: function (newProps) {
-	        var _this = this;
-
-	        if (!this._container && !this.props.active && newProps.active) {
-	            // On first appearance, compute the bounds of the container, but be
-	            // sure to wait until the view has finished animating into place,
-	            // taking care not to creep into the end of the animation, lest we
-	            // introduce jank.
-	            setTimeout(function () {
-	                if (_this.isMounted()) {
-	                    _this._computeContainer();
-	                }
-	            }, 2 * keypadAnimationDurationMs);
-	        }
-
-	        // If the user was interacts with the keypad before the timer went off,
-	        // be sure to compute the container.
 	        if (!this._container && (newProps.popover || newProps.echoes.length)) {
 	            this._computeContainer();
 	        }
@@ -62099,29 +62197,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 
 	    _updateSizeAndPosition: function () {
-	        var _this2 = this;
+	        var _this = this;
 
 	        // We don't use viewport units because of compatibility reasons.
 	        this.setState({
 	            viewportWidth: window.innerWidth }, function () {
-	            if (_this2.props.active) {
-	                // Recalculate the container after the keypad animates to the
-	                // new position and size.
-	                setTimeout(function () {
-	                    if (_this2.isMounted()) {
-	                        _this2._computeContainer();
-	                    }
-	                }, 2 * keypadAnimationDurationMs);
-	            }
-
-	            // Mark the container for recalculation next time the keypad
-	            // is opened.
-	            _this2._container = null;
+	            // Mark the container for recalculation next time the keypad is
+	            // opened.
+	            // TODO(charlie): Since we're not recalculating the container
+	            // immediately, if you were to resize the page while a popover were
+	            // active, you'd likely get unexpected behavior. This seems very
+	            // difficult to do and, as such, incredibly unlikely, but we may
+	            // want to reconsider the caching here.
+	            _this._container = null;
 	        });
 	    },
 
 	    _onResize: function () {
-	        var _this3 = this;
+	        var _this2 = this;
 
 	        // Whenever the page resizes, we need to recompute the container's
 	        // bounding box. This is the only time that the bounding box can change.
@@ -62130,17 +62223,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	        //    https://developer.mozilla.org/en-US/docs/Web/Events/resize
 	        if (this._resizeTimeout == null) {
 	            this._resizeTimeout = setTimeout(function () {
-	                _this3._resizeTimeout = null;
+	                _this2._resizeTimeout = null;
 
-	                if (_this3.isMounted()) {
-	                    _this3._updateSizeAndPosition();
+	                if (_this2.isMounted()) {
+	                    _this2._updateSizeAndPosition();
 	                }
 	            }, 66);
 	        }
 	    },
 
 	    render: function () {
-	        var _this4 = this;
+	        var _this3 = this;
 
 	        var _props = this.props;
 	        var children = _props.children;
@@ -62159,10 +62252,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            return _extends({}, rest, {
 	                initialBounds: {
-	                    top: initialBounds.top - _this4._container.top - keypadBorderWidthPx,
-	                    right: initialBounds.right - _this4._container.left,
-	                    bottom: initialBounds.bottom - _this4._container.top - keypadBorderWidthPx,
-	                    left: initialBounds.left - _this4._container.left,
+	                    top: initialBounds.top - _this3._container.top - keypadBorderWidthPx,
+	                    right: initialBounds.right - _this3._container.left,
+	                    bottom: initialBounds.bottom - _this3._container.top - keypadBorderWidthPx,
+	                    left: initialBounds.left - _this3._container.left,
 	                    width: initialBounds.width,
 	                    height: initialBounds.height } });
 	        });
@@ -62178,15 +62271,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        var keypadStyle = [styles.keypad].concat(Array.isArray(style) ? style : [style]);
 
-	        // NOTE(charlie): We render the transforms as pure inline styles to
-	        // avoid an Aphrodite bug in mobile Safari.
-	        //   See: https://github.com/Khan/aphrodite/issues/68.
-	        var dynamicStyle = _extends({}, this.props.active ? inlineStyles.active : inlineStyles.hidden, {
+	        var dynamicStyle = {
 	            width: viewportWidth,
 	            // TODO(charlie): This is being overridden by the `View` elements
 	            // own `maxWidth: 100%`, which is injected with Aphrodite and so has
 	            // an `!important` annotation.
-	            maxWidth: viewportWidth });
+	            maxWidth: viewportWidth };
 
 	        return React.createElement(
 	            View,
@@ -62202,8 +62292,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var styles = StyleSheet.create({
 	    keypad: {
-	        bottom: 0,
-	        position: 'fixed',
 	        // TODO(charlie): We'd like to use `overflowX: 'hidden'` to avoid making
 	        // the second page of keys visible during page resizes. However, adding
 	        // `overflowX: 'hidden'` makes the keypad cutoff its content vertically,
@@ -62213,22 +62301,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // page of keys appear above the sidebar on focus in mobile Safari.
 	        // overflowX: 'hidden',
 	        borderTop: '' + keypadBorderWidthPx + 'px solid rgba(0, 0, 0, 0.2)',
-	        backgroundColor: numeralGrey,
-	        zIndex: zIndexes.keypad,
-	        transition: '' + keypadAnimationDurationMs + 'ms ease-out',
-	        transitionProperty: 'transform' } });
-
-	// Note: these don't go through an autoprefixer/aphrodite.
-	var inlineStyles = {
-	    hidden: {
-	        msTransform: 'translate3d(0, 100%, 0)',
-	        WebkitTransform: 'translate3d(0, 100%, 0)',
-	        transform: 'translate3d(0, 100%, 0)' },
-
-	    active: {
-	        msTransform: 'translate3d(0, 0, 0)',
-	        WebkitTransform: 'translate3d(0, 0, 0)',
-	        transform: 'translate3d(0, 0, 0)' } };
+	        backgroundColor: numeralGrey } });
 
 	var mapStateToProps = function (state) {
 	    return _extends({}, state.echoes, {
@@ -62264,7 +62337,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var connect = _require.connect;
 
 	var GestureManager = __webpack_require__(252);
-	var KeyConfigs = __webpack_require__(238);
+	var KeyConfigs = __webpack_require__(241);
 	var KeypadButton = __webpack_require__(274);
 
 	var EmptyKeypadButton = React.createClass({
@@ -62331,7 +62404,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var connect = _require.connect;
 
 	var KeypadButton = __webpack_require__(274);
-	var KeyConfigs = __webpack_require__(238);
+	var KeyConfigs = __webpack_require__(241);
 	var GestureManager = __webpack_require__(252);
 
 	var _require2 = __webpack_require__(209);
@@ -62454,7 +62527,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        width: '100%' },
 	    centered: {
 	        justifyContent: 'center',
-	        alignItems: 'center' } });
+	        alignItems: 'center' },
+	    centeredText: {
+	        textAlign: 'center' } });
 
 /***/ },
 /* 264 */
@@ -62475,7 +62550,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var TabBarIndicator = __webpack_require__(276);
 	var PagerIndicator = __webpack_require__(277);
 
-	var _require2 = __webpack_require__(241);
+	var _require2 = __webpack_require__(240);
 
 	var View = _require2.View;
 
@@ -62484,7 +62559,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var column = _require3.column;
 	var row = _require3.row;
 
-	var _require4 = __webpack_require__(236);
+	var _require4 = __webpack_require__(235);
 
 	var buttonBorderColor = _require4.buttonBorderColor;
 	var buttonBorderStyle = _require4.buttonBorderStyle;
@@ -62495,7 +62570,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var SwitchTypes = _require5.SwitchTypes;
 
-	var _require6 = __webpack_require__(237);
+	var _require6 = __webpack_require__(236);
 
 	var keypadSwitch = _require6.keypadSwitch;
 
@@ -62606,8 +62681,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EmptyKeypadButton = __webpack_require__(261);
 	var TouchableKeypadButton = __webpack_require__(262);
 
-	var Keys = __webpack_require__(249);
-	var KeyConfigs = __webpack_require__(238);
+	var Keys = __webpack_require__(250);
+	var KeyConfigs = __webpack_require__(241);
 
 	var _require = __webpack_require__(198);
 
@@ -63000,7 +63075,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var longPressWaitTimeMs = 100;
 	var swipeThresholdPx = 20;
 
-	var _require = __webpack_require__(237);
+	var _require = __webpack_require__(236);
 
 	var holdInterval = _require.holdInterval;
 
@@ -63809,7 +63884,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var ReactCSSTransitionGroup = __webpack_require__(291);
 	var KeypadButton = __webpack_require__(274);
-	var KeyConfigs = __webpack_require__(238);
+	var KeyConfigs = __webpack_require__(241);
 
 	var _require = __webpack_require__(198);
 
@@ -63823,7 +63898,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var boundingBoxPropType = _require2.boundingBoxPropType;
 	var keyIdPropType = _require2.keyIdPropType;
 
-	var Settings = __webpack_require__(237);
+	var Settings = __webpack_require__(236);
 
 	var Echo = React.createClass({
 	    displayName: 'Echo',
@@ -63970,8 +64045,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var ReactCSSTransitionGroup = __webpack_require__(291);
 
-	var KeyConfigs = __webpack_require__(238);
-	var MultiSymbolPopover = __webpack_require__(292);
+	var KeyConfigs = __webpack_require__(241);
+	var MultiSymbolPopover = __webpack_require__(295);
 
 	var _require = __webpack_require__(209);
 
@@ -64059,13 +64134,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	var StyleSheet = _require2.StyleSheet;
 	var css = _require2.css;
 
-	var _require3 = __webpack_require__(241);
+	var _require3 = __webpack_require__(240);
 
 	var View = _require3.View;
 
-	var Icon = __webpack_require__(293);
-	var MultiSymbolGrid = __webpack_require__(294);
-	var CornerDecal = __webpack_require__(295);
+	var Icon = __webpack_require__(292);
+	var MultiSymbolGrid = __webpack_require__(293);
+	var CornerDecal = __webpack_require__(294);
 
 	var _require4 = __webpack_require__(198);
 
@@ -64073,7 +64148,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var BorderDirections = _require4.BorderDirections;
 	var BorderStyles = _require4.BorderStyles;
 
-	var _require5 = __webpack_require__(236);
+	var _require5 = __webpack_require__(235);
 
 	var brightGreen = _require5.brightGreen;
 	var buttonBorderColor = _require5.buttonBorderColor;
@@ -64414,7 +64489,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require2.StyleSheet;
 
-	var _require3 = __webpack_require__(241);
+	var _require3 = __webpack_require__(240);
 
 	var View = _require3.View;
 
@@ -64422,7 +64497,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var row = _require4.row;
 
-	var _require5 = __webpack_require__(239);
+	var _require5 = __webpack_require__(238);
 
 	var setPageWidthPx = _require5.setPageWidthPx;
 
@@ -64592,12 +64667,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(241);
+	var _require2 = __webpack_require__(240);
 
 	var Text = _require2.Text;
 	var View = _require2.View;
 
-	var _require3 = __webpack_require__(236);
+	var _require3 = __webpack_require__(235);
 
 	var brightGreen = _require3.brightGreen;
 	var darkGrey = _require3.darkGrey;
@@ -64783,11 +64858,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(241);
+	var _require2 = __webpack_require__(240);
 
 	var View = _require2.View;
 
-	var _require3 = __webpack_require__(236);
+	var _require3 = __webpack_require__(235);
 
 	var darkGrey = _require3.darkGrey;
 	var lightGrey = _require3.lightGrey;
@@ -65724,83 +65799,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	/**
-	 * A popover that renders a set of keys floating above the page.
-	 */
-
-	var React = __webpack_require__(15);
-
-	var _require = __webpack_require__(43);
-
-	var StyleSheet = _require.StyleSheet;
-
-	var _require2 = __webpack_require__(241);
-
-	var View = _require2.View;
-
-	var _require3 = __webpack_require__(209);
-
-	var keyConfigPropType = _require3.keyConfigPropType;
-
-	var _require4 = __webpack_require__(198);
-
-	var KeyTypes = _require4.KeyTypes;
-	var BorderStyles = _require4.BorderStyles;
-
-	var MultiSymbolPopover = React.createClass({
-	    displayName: 'MultiSymbolPopover',
-
-	    propTypes: {
-	        keys: React.PropTypes.arrayOf(keyConfigPropType) },
-
-	    render: function () {
-	        var keys = this.props.keys;
-
-	        // TODO(charlie): We have to require this lazily because of a cyclic
-	        // dependence in our components.
-	        var TouchableKeypadButton = __webpack_require__(262);
-	        return React.createElement(
-	            View,
-	            { style: styles.container },
-	            keys.map(function (key) {
-	                var keyConfig = _extends({}, key, {
-	                    type: KeyTypes.NUMERAL });
-	                return React.createElement(TouchableKeypadButton, {
-	                    key: keyConfig.id,
-	                    keyConfig: keyConfig,
-	                    borders: BorderStyles.NONE
-	                });
-	            })
-	        );
-	    } });
-
-	var styles = StyleSheet.create({
-	    container: {
-	        flexDirection: 'column-reverse',
-	        position: 'relative',
-	        width: '100%',
-	        borderRadius: 2,
-	        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
-	        zIndex: 1 },
-
-	    popoverButton: {
-	        backgroundColor: '#FFF',
-	        borderWidth: 0 } });
-
-	module.exports = MultiSymbolPopover;
-
-	// NOTE(charlie): Right now, buttons that appear in the
-	// popover are styled identically to the numeral buttons, i.e.,
-	// in a very simple way (white background, no borders). If the
-	// numeral buttons change in style, we'll have to change this
-	// logic to mimic a different button type.
-
-/***/ },
-/* 293 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/**
 	 * A component that renders an icon for a symbol with the given name.
 	 */
@@ -65860,7 +65858,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Icon;
 
 /***/ },
-/* 294 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -65874,7 +65872,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(241);
+	var _require2 = __webpack_require__(240);
 
 	var View = _require2.View;
 
@@ -65888,7 +65886,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var centered = _require3.centered;
 	var fullWidth = _require3.fullWidth;
 
-	var _require4 = __webpack_require__(236);
+	var _require4 = __webpack_require__(235);
 
 	var iconGrey = _require4.iconGrey;
 	var secondaryIconOpacity = _require4.secondaryIconOpacity;
@@ -65923,7 +65921,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    { style: [row, styles.iconSize] },
 	                    React.createElement(
 	                        View,
-	                        { style: [column, centered, fullWidth] },
+	                        { style: [column, centered, fullWidth, styles.middleLeft]
+	                        },
 	                        React.createElement(UnicodeSymbol, {
 	                            style: primaryIconStyle,
 	                            unicodeSymbol: unicodeSymbols[0]
@@ -65931,7 +65930,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    ),
 	                    React.createElement(
 	                        View,
-	                        { style: [column, centered, fullWidth] },
+	                        { style: [column, centered, fullWidth, styles.middleRight]
+	                        },
 	                        React.createElement(UnicodeSymbol, {
 	                            style: secondaryIconStyle,
 	                            unicodeSymbol: unicodeSymbols[1]
@@ -65941,14 +65941,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	            } else if (unicodeSymbols.length >= 3) {
 	                return React.createElement(
 	                    View,
-	                    { style: [column, styles.iconSize, styles.fourQuadrantGrid]
-	                    },
+	                    { style: [column, styles.iconSize] },
 	                    React.createElement(
 	                        View,
 	                        { style: row },
 	                        React.createElement(
 	                            View,
-	                            { style: [centered, fullWidth] },
+	                            { style: [centered, fullWidth, styles.topLeft] },
 	                            React.createElement(UnicodeSymbol, {
 	                                style: primaryIconStyle,
 	                                unicodeSymbol: unicodeSymbols[0]
@@ -65956,7 +65955,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        ),
 	                        React.createElement(
 	                            View,
-	                            { style: [centered, fullWidth] },
+	                            { style: [centered, fullWidth, styles.topRight] },
 	                            React.createElement(UnicodeSymbol, {
 	                                style: secondaryIconStyle,
 	                                unicodeSymbol: unicodeSymbols[1]
@@ -65968,7 +65967,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        { style: row },
 	                        React.createElement(
 	                            View,
-	                            { style: [centered, fullWidth] },
+	                            { style: [centered, fullWidth, styles.bottomLeft] },
 	                            React.createElement(UnicodeSymbol, {
 	                                style: secondaryIconStyle,
 	                                unicodeSymbol: unicodeSymbols[2]
@@ -65976,7 +65975,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        ),
 	                        React.createElement(
 	                            View,
-	                            { style: [centered, fullWidth] },
+	                            { style: [centered, fullWidth, styles.bottomRight] },
 	                            unicodeSymbols[3] && React.createElement(UnicodeSymbol, {
 	                                style: secondaryIconStyle,
 	                                unicodeSymbol: unicodeSymbols[3]
@@ -65990,15 +65989,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	        throw new Error('Invalid number of symbols:', unicodeSymbols.length);
 	    } });
 
-	var fourQuadrantGridVerticalPaddingPx = 4;
+	var verticalInsetPx = 2;
+	var horizontalInsetPx = 4;
 
 	var styles = StyleSheet.create({
 	    iconSize: {
 	        height: iconSizeHeightPx,
 	        width: iconSizeWidthPx },
-	    fourQuadrantGrid: {
-	        paddingTop: fourQuadrantGridVerticalPaddingPx,
-	        paddingBottom: fourQuadrantGridVerticalPaddingPx },
+
+	    // For the three- and four-icon layouts.
+	    bottomLeft: {
+	        marginBottom: verticalInsetPx,
+	        marginLeft: horizontalInsetPx },
+	    topLeft: {
+	        marginTop: verticalInsetPx,
+	        marginLeft: horizontalInsetPx },
+	    topRight: {
+	        marginTop: verticalInsetPx,
+	        marginRight: horizontalInsetPx },
+	    bottomRight: {
+	        marginBottom: verticalInsetPx,
+	        marginRight: horizontalInsetPx },
+
+	    // For the two-icon layout.
+	    middleLeft: {
+	        marginLeft: horizontalInsetPx },
+	    middleRight: {
+	        marginRight: horizontalInsetPx },
 
 	    iconFont: {
 	        fontFamily: 'Proxima Nova Semibold',
@@ -66017,7 +66034,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MultiSymbolGrid;
 
 /***/ },
-/* 295 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -66030,11 +66047,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(241);
+	var _require2 = __webpack_require__(240);
 
 	var View = _require2.View;
 
-	var _require3 = __webpack_require__(236);
+	var _require3 = __webpack_require__(235);
 
 	var mediumGrey = _require3.mediumGrey;
 
@@ -66068,6 +66085,83 @@ return /******/ (function(modules) { // webpackBootstrap
 	        height: triangleSizePx } });
 
 	module.exports = CornerDecal;
+
+/***/ },
+/* 295 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/**
+	 * A popover that renders a set of keys floating above the page.
+	 */
+
+	var React = __webpack_require__(15);
+
+	var _require = __webpack_require__(43);
+
+	var StyleSheet = _require.StyleSheet;
+
+	var _require2 = __webpack_require__(240);
+
+	var View = _require2.View;
+
+	var _require3 = __webpack_require__(209);
+
+	var keyConfigPropType = _require3.keyConfigPropType;
+
+	var _require4 = __webpack_require__(198);
+
+	var KeyTypes = _require4.KeyTypes;
+	var BorderStyles = _require4.BorderStyles;
+
+	var MultiSymbolPopover = React.createClass({
+	    displayName: 'MultiSymbolPopover',
+
+	    propTypes: {
+	        keys: React.PropTypes.arrayOf(keyConfigPropType) },
+
+	    render: function () {
+	        var keys = this.props.keys;
+
+	        // TODO(charlie): We have to require this lazily because of a cyclic
+	        // dependence in our components.
+	        var TouchableKeypadButton = __webpack_require__(262);
+	        return React.createElement(
+	            View,
+	            { style: styles.container },
+	            keys.map(function (key) {
+	                var keyConfig = _extends({}, key, {
+	                    type: KeyTypes.NUMERAL });
+	                return React.createElement(TouchableKeypadButton, {
+	                    key: keyConfig.id,
+	                    keyConfig: keyConfig,
+	                    borders: BorderStyles.NONE
+	                });
+	            })
+	        );
+	    } });
+
+	var styles = StyleSheet.create({
+	    container: {
+	        flexDirection: 'column-reverse',
+	        position: 'relative',
+	        width: '100%',
+	        borderRadius: 2,
+	        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
+	        zIndex: 1 },
+
+	    popoverButton: {
+	        backgroundColor: '#FFF',
+	        borderWidth: 0 } });
+
+	module.exports = MultiSymbolPopover;
+
+	// NOTE(charlie): Right now, buttons that appear in the
+	// popover are styled identically to the numeral buttons, i.e.,
+	// in a very simple way (white background, no borders). If the
+	// numeral buttons change in style, we'll have to change this
+	// logic to mimic a different button type.
 
 /***/ },
 /* 296 */
@@ -66255,7 +66349,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(241);
+	var _require2 = __webpack_require__(240);
 
 	var View = _require2.View;
 
@@ -66266,7 +66360,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var row = _require3.row;
 	var centered = _require3.centered;
 
-	var _require4 = __webpack_require__(236);
+	var _require4 = __webpack_require__(235);
 
 	var iconGrey = _require4.iconGrey;
 	var iconSizeHeightPx = _require4.iconSizeHeightPx;
@@ -66327,13 +66421,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require.StyleSheet;
 
-	var _require2 = __webpack_require__(241);
+	var _require2 = __webpack_require__(240);
 
 	var Text = _require2.Text;
 
-	var _require3 = __webpack_require__(209);
+	var _require3 = __webpack_require__(263);
 
-	var unicodeSymbolPropType = _require3.unicodeSymbolPropType;
+	var fullWidth = _require3.fullWidth;
+	var centeredText = _require3.centeredText;
+
+	var _require4 = __webpack_require__(209);
+
+	var unicodeSymbolPropType = _require4.unicodeSymbolPropType;
 
 	var UnicodeSymbol = React.createClass({
 	    displayName: 'UnicodeSymbol',
@@ -66349,7 +66448,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var character = unicodeSymbol.character;
 	        var italicized = unicodeSymbol.italicized;
 
-	        var symbolStyle = [].concat(Array.isArray(style) ? style : [style], [italicized && styles.italicized]);
+	        var symbolStyle = [italicized && styles.italicized, centeredText, fullWidth].concat(Array.isArray(style) ? style : [style]);
 
 	        return React.createElement(
 	            Text,

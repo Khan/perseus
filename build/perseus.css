@@ -1,5 +1,5 @@
 /* Perseus CSS
- * commit c47d5328430d3c753305bd9f9e475ad7c83644f0
+ * commit c58a6b46cc79766f2b6f8e9d9447dcac1fcfef17
  * branch master
  * @generated */
 .perseus-sr-only {
@@ -2584,8 +2584,46 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
 
 .keypad-input .mq-editable-field .mq-cursor {
     border-left: 2px solid #78c008 !important;
+    border-radius: 1px;
+
     margin-left: -1px !important;
     margin-right: -1px !important;
+    margin-bottom: 2px;
+}
+
+.keypad-input .mq-editable-field .mq-non-leaf .mq-cursor:only-child {
+    visibility: visible !important; /* disable default blink behavior */
+    border: 2px solid #78c008 !important; /* bright-green color */
+    padding: 0 4px 0 4px;
+}
+
+.keypad-input .mq-empty {
+  background: transparent !important;
+}
+
+/* also adds empty block styling to elements with .mq-hasCursor but without a cursor element (this happens where the cursor is when the math input loses focus) */
+.keypad-input .mq-empty:not(.mq-root-block):after, .keypad-input .mq-hasCursor:empty:not(.mq-root-block):after {
+  visibility: visible !important;
+
+  /* hides the 'c' content added by MathQuill to measure the width */
+  color: transparent;
+
+  display: inline-block;
+  border: 2px solid #ccc;
+  border-radius: 1px;
+  padding: 0 4px 0 4px;
+  margin-left: -1px;
+  margin-right: -1px;
+  margin-bottom: 2px;
+}
+
+.keypad-input .mq-selection .mq-empty:not(.mq-root-block):after {
+  border-color: #ffffff;
+}
+
+.keypad-input .mq-hasCursor:empty:not(.mq-root-block):after {
+  /* place a c inside for sizing the cursor (for the case explained above); normally, MathQuill already does this for .mq-cursor */
+  content: 'c';
 }
 
 .keypad-input .mq-math-mode .mq-selection,

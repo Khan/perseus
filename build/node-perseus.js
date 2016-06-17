@@ -1,5 +1,5 @@
 /*! Nodeified Perseus | http://github.com/Khan/perseus */
-// commit c47d5328430d3c753305bd9f9e475ad7c83644f0
+// commit c58a6b46cc79766f2b6f8e9d9447dcac1fcfef17
 // branch master
 // @generated
 module.exports =
@@ -194,7 +194,7 @@ module.exports =
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var version = __webpack_require__(54);
+	var version = __webpack_require__(55);
 
 	__webpack_require__(23);
 
@@ -217,7 +217,7 @@ module.exports =
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	__webpack_require__(23);
-	var Version = __webpack_require__(54);
+	var Version = __webpack_require__(55);
 	var Widgets = __webpack_require__(30);
 
 	var ItemVersion = _.clone(Widgets.getVersionVector());
@@ -35542,7 +35542,7 @@ module.exports =
 	// file names, and jQuery is normally delivered in a lowercase file name.
 	// Do this after creating the global so that if an AMD module wants to call
 	// noConflict to hide this version of jQuery, it will work.
-	if ( "function" === "function" && __webpack_require__(55) && __webpack_require__(55).jQuery ) {
+	if ( "function" === "function" && __webpack_require__(54) && __webpack_require__(54).jQuery ) {
 		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () { return jQuery; }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	}
 
@@ -38922,9 +38922,9 @@ module.exports =
 	var classNames = __webpack_require__(156);
 	var React = __webpack_require__(46);
 
-	var diff = __webpack_require__(141);
-	var splitDiff = __webpack_require__(142);
-	var stringArrayDiff = __webpack_require__(143);
+	var diff = __webpack_require__(142);
+	var splitDiff = __webpack_require__(143);
+	var stringArrayDiff = __webpack_require__(144);
 
 	var BEFORE = "before";
 	var AFTER = "after";
@@ -39127,7 +39127,7 @@ module.exports =
 	var classNames = __webpack_require__(156);
 	var React = __webpack_require__(46);
 
-	var performDiff = __webpack_require__(144);
+	var performDiff = __webpack_require__(141);
 
 	var indentationFromDepth = function (depth) {
 	    return (depth - 1) * 20;
@@ -41311,7 +41311,7 @@ module.exports =
 	var ApiOptions = __webpack_require__(10).Options;
 	var Editor = __webpack_require__(17);
 	var ItemExtrasEditor = __webpack_require__(154);
-	var ITEM_DATA_VERSION = __webpack_require__(54).itemDataVersion;
+	var ITEM_DATA_VERSION = __webpack_require__(55).itemDataVersion;
 
 	var ItemEditor = React.createClass({
 	    displayName: "ItemEditor",
@@ -41736,6 +41736,14 @@ module.exports =
 /* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, {}))
+
+/***/ },
+/* 55 */
+/***/ function(module, exports, __webpack_require__) {
+
 	module.exports = {
 		"apiVersion": {
 			"major": 7,
@@ -41746,14 +41754,6 @@ module.exports =
 			"minor": 1
 		}
 	};
-
-/***/ },
-/* 55 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ },
 /* 56 */
@@ -41773,14 +41773,14 @@ module.exports =
 	var React = __webpack_require__(46);
 	var classNames = __webpack_require__(156);
 	var Changeable = __webpack_require__(158);
-	var WidgetJsonifyDeprecated = __webpack_require__(159);
+	var WidgetJsonifyDeprecated = __webpack_require__(160);
 	var _ = __webpack_require__(47);
 
 	var ApiClassNames = __webpack_require__(10).ClassNames;
 	var ApiOptions = __webpack_require__(10).Options;
 	var Renderer = __webpack_require__(29);
 	var Util = __webpack_require__(11);
-	var mediaQueries = __webpack_require__(160);
+	var mediaQueries = __webpack_require__(161);
 
 	var Categorizer = React.createClass({
 	    displayName: "Categorizer",
@@ -41982,7 +41982,7 @@ module.exports =
 	var _ = __webpack_require__(47);
 
 	var ApiOptions = __webpack_require__(10).Options;
-	var EditorJsonify = __webpack_require__(161);
+	var EditorJsonify = __webpack_require__(159);
 	var PropCheckBox = __webpack_require__(40);
 	var TextListEditor = __webpack_require__(145);
 
@@ -42258,7 +42258,7 @@ module.exports =
 	var _ = __webpack_require__(47);
 
 	var Changeable = __webpack_require__(158);
-	var EditorJsonify = __webpack_require__(161);
+	var EditorJsonify = __webpack_require__(159);
 
 	var BlurInput = __webpack_require__(162);
 	var InfoTip = __webpack_require__(153);
@@ -42640,7 +42640,7 @@ module.exports =
 	var _ = __webpack_require__(47);
 
 	var InfoTip = __webpack_require__(153);
-	var EditorJsonify = __webpack_require__(161);
+	var EditorJsonify = __webpack_require__(159);
 
 	var DropdownEditor = React.createClass({
 	    displayName: "DropdownEditor",
@@ -42963,7 +42963,7 @@ module.exports =
 	var _ = __webpack_require__(47);
 
 	var Changeable = __webpack_require__(158);
-	var EditorJsonify = __webpack_require__(161);
+	var EditorJsonify = __webpack_require__(159);
 
 	var Editor = __webpack_require__(17);
 	var TextInput = __webpack_require__(164);
@@ -43939,7 +43939,7 @@ module.exports =
 
 	var InfoTip = __webpack_require__(153);
 	var PropCheckBox = __webpack_require__(40);
-	var SortableArea = __webpack_require__(174);
+	var SortableArea = __webpack_require__(170);
 	var TeX = __webpack_require__(136); // OldExpression only
 	var TexButtons = __webpack_require__(168);
 
@@ -44463,7 +44463,7 @@ module.exports =
 	var React = __webpack_require__(46);
 	var _ = __webpack_require__(47);
 
-	var Interactive2 = __webpack_require__(170);
+	var Interactive2 = __webpack_require__(171);
 	var SvgImage = __webpack_require__(35);
 	var Util = __webpack_require__(11);
 	var ButtonGroup = __webpack_require__(48);
@@ -44476,9 +44476,9 @@ module.exports =
 	var knumber = __webpack_require__(206).number;
 	var kvector = __webpack_require__(206).vector;
 	var kpoint = __webpack_require__(206).point;
-	var KhanColors = __webpack_require__(171);
+	var KhanColors = __webpack_require__(172);
 
-	var _require = __webpack_require__(172);
+	var _require = __webpack_require__(173);
 
 	var containerSizeClassPropType = _require.containerSizeClassPropType;
 
@@ -44486,14 +44486,14 @@ module.exports =
 
 	var interactiveSizes = _require2.interactiveSizes;
 
-	var _require3 = __webpack_require__(172);
+	var _require3 = __webpack_require__(173);
 
 	var getInteractiveBoxFromSizeClass = _require3.getInteractiveBoxFromSizeClass;
 
 	/* Mixins. */
 	var Changeable = __webpack_require__(158);
 
-	var _require4 = __webpack_require__(173);
+	var _require4 = __webpack_require__(174);
 
 	var GrapherUtil = _require4.GrapherUtil;
 	var typeToButton = _require4.typeToButton;
@@ -44881,14 +44881,14 @@ module.exports =
 
 	var Grapher = __webpack_require__(66).widget;
 
-	var _require = __webpack_require__(173);
+	var _require = __webpack_require__(174);
 
 	var GrapherUtil = _require.GrapherUtil;
 	var allTypes = _require.allTypes;
 	var typeToButton = _require.typeToButton;
 	var DEFAULT_GRAPHER_PROPS = _require.DEFAULT_GRAPHER_PROPS;
 
-	var _require2 = __webpack_require__(172);
+	var _require2 = __webpack_require__(173);
 
 	var containerSizeClass = _require2.containerSizeClass;
 	var getInteractiveBoxFromSizeClass = _require2.getInteractiveBoxFromSizeClass;
@@ -45553,7 +45553,7 @@ module.exports =
 	var _ = __webpack_require__(47);
 
 	var Changeable = __webpack_require__(158);
-	var WidgetJsonifyDeprecated = __webpack_require__(159);
+	var WidgetJsonifyDeprecated = __webpack_require__(160);
 	var updateQueryString = __webpack_require__(11).updateQueryString;
 
 	/* This renders the iframe and handles validation via window.postMessage */
@@ -45714,7 +45714,7 @@ module.exports =
 	var _ = __webpack_require__(47);
 
 	var Changeable = __webpack_require__(158);
-	var EditorJsonify = __webpack_require__(161);
+	var EditorJsonify = __webpack_require__(159);
 
 	var BlurInput = __webpack_require__(162);
 	var PropCheckBox = __webpack_require__(40);
@@ -46164,7 +46164,7 @@ module.exports =
 	var Util = __webpack_require__(11);
 
 	var Changeable = __webpack_require__(158);
-	var EditorJsonify = __webpack_require__(161);
+	var EditorJsonify = __webpack_require__(159);
 
 	var BlurInput = __webpack_require__(162);
 	var Editor = __webpack_require__(17);
@@ -47623,7 +47623,7 @@ module.exports =
 	var _ = __webpack_require__(47);
 
 	var Changeable = __webpack_require__(158);
-	var EditorJsonify = __webpack_require__(161);
+	var EditorJsonify = __webpack_require__(159);
 
 	var ArrowPicker = __webpack_require__(181);
 	var ColorPicker = __webpack_require__(182);
@@ -47636,7 +47636,7 @@ module.exports =
 	var TeX = __webpack_require__(136);
 	var TextInput = __webpack_require__(164);
 
-	var KhanColors = __webpack_require__(171);
+	var KhanColors = __webpack_require__(172);
 
 	var defaultInteractionProps = {
 	    graph: {
@@ -48969,20 +48969,20 @@ module.exports =
 
 	var Graph = __webpack_require__(187);
 	var InfoTip = __webpack_require__(153);
-	var Interactive2 = __webpack_require__(170);
+	var Interactive2 = __webpack_require__(171);
 	var NumberInput = __webpack_require__(186);
 	var Util = __webpack_require__(11);
 
 	var knumber = __webpack_require__(206).number;
 	var kpoint = __webpack_require__(206).point;
-	var KhanColors = __webpack_require__(171);
+	var KhanColors = __webpack_require__(172);
 	var GraphUtils = __webpack_require__(188);
 
 	var _require = __webpack_require__(133);
 
 	var interactiveSizes = _require.interactiveSizes;
 
-	var _require2 = __webpack_require__(172);
+	var _require2 = __webpack_require__(173);
 
 	var containerSizeClassPropType = _require2.containerSizeClassPropType;
 	var getInteractiveBoxFromSizeClass = _require2.getInteractiveBoxFromSizeClass;
@@ -51232,7 +51232,7 @@ module.exports =
 
 	var interactiveSizes = _require.interactiveSizes;
 
-	var _require2 = __webpack_require__(172);
+	var _require2 = __webpack_require__(173);
 
 	var containerSizeClass = _require2.containerSizeClass;
 	var getInteractiveBoxFromSizeClass = _require2.getInteractiveBoxFromSizeClass;
@@ -51555,7 +51555,7 @@ module.exports =
 
 	var React = __webpack_require__(46);
 	var Changeable = __webpack_require__(158);
-	var WidgetJsonifyDeprecated = __webpack_require__(159);
+	var WidgetJsonifyDeprecated = __webpack_require__(160);
 
 	var MAX_SIZE = 8;
 
@@ -51892,7 +51892,7 @@ module.exports =
 	var _ = __webpack_require__(47);
 
 	var Changeable = __webpack_require__(158);
-	var EditorJsonify = __webpack_require__(161);
+	var EditorJsonify = __webpack_require__(159);
 
 	var NumberInput = __webpack_require__(186);
 	var PropCheckBox = __webpack_require__(40);
@@ -52685,7 +52685,7 @@ module.exports =
 	var _ = __webpack_require__(47);
 
 	var Changeable = __webpack_require__(158);
-	var EditorJsonify = __webpack_require__(161);
+	var EditorJsonify = __webpack_require__(159);
 
 	var Editor = __webpack_require__(17);
 	var RangeInput = __webpack_require__(177);
@@ -53334,7 +53334,7 @@ module.exports =
 	var _ = __webpack_require__(47);
 
 	var Changeable = __webpack_require__(158);
-	var EditorJsonify = __webpack_require__(161);
+	var EditorJsonify = __webpack_require__(159);
 
 	var InfoTip = __webpack_require__(153);
 	var NumberInput = __webpack_require__(186);
@@ -53781,7 +53781,7 @@ module.exports =
 
 	var React = __webpack_require__(46);
 
-	var EditorJsonify = __webpack_require__(161);
+	var EditorJsonify = __webpack_require__(159);
 	var Changeable = __webpack_require__(158);
 	var NumberInput = __webpack_require__(186);
 	var TextInput = __webpack_require__(164);
@@ -53866,7 +53866,7 @@ module.exports =
 
 	var knumber = __webpack_require__(206).number;
 	var KhanMath = __webpack_require__(152);
-	var KhanColors = __webpack_require__(171);
+	var KhanColors = __webpack_require__(172);
 
 	var bound = function (x, gt, lt) {
 	    return Math.min(Math.max(x, gt), lt);
@@ -54466,7 +54466,7 @@ module.exports =
 	var React = __webpack_require__(46);
 	var _ = __webpack_require__(47);
 
-	var EditorJsonify = __webpack_require__(161);
+	var EditorJsonify = __webpack_require__(159);
 
 	var ButtonGroup = __webpack_require__(48);
 	var InfoTip = __webpack_require__(153);
@@ -55382,7 +55382,7 @@ module.exports =
 	var _ = __webpack_require__(47);
 
 	var Changeable = __webpack_require__(158);
-	var EditorJsonify = __webpack_require__(161);
+	var EditorJsonify = __webpack_require__(159);
 
 	var ButtonGroup = __webpack_require__(48);
 	var Editor = __webpack_require__(17);
@@ -56984,7 +56984,7 @@ module.exports =
 	var _ = __webpack_require__(47);
 
 	var Changeable = __webpack_require__(158);
-	var EditorJsonify = __webpack_require__(161);
+	var EditorJsonify = __webpack_require__(159);
 
 	var Editor = __webpack_require__(17);
 	var InfoTip = __webpack_require__(153);
@@ -57113,7 +57113,7 @@ module.exports =
 
 	var Changeable = __webpack_require__(158);
 	var PerseusMarkdown = __webpack_require__(37);
-	var WidgetJsonifyDeprecated = __webpack_require__(159);
+	var WidgetJsonifyDeprecated = __webpack_require__(160);
 
 	var EN_DASH = "–";
 
@@ -57254,7 +57254,7 @@ module.exports =
 	var React = __webpack_require__(46);
 
 	var Changeable = __webpack_require__(158);
-	var EditorJsonify = __webpack_require__(161);
+	var EditorJsonify = __webpack_require__(159);
 
 	var InfoTip = __webpack_require__(153);
 	var NumberInput = __webpack_require__(186);
@@ -57349,7 +57349,7 @@ module.exports =
 	var _ = __webpack_require__(47);
 
 	var Changeable = __webpack_require__(158);
-	var WidgetJsonifyDeprecated = __webpack_require__(159);
+	var WidgetJsonifyDeprecated = __webpack_require__(160);
 	var Renderer = __webpack_require__(29);
 
 	var PassageRefTarget = React.createClass({
@@ -57416,7 +57416,7 @@ module.exports =
 	var _ = __webpack_require__(47);
 
 	var Changeable = __webpack_require__(158);
-	var EditorJsonify = __webpack_require__(161);
+	var EditorJsonify = __webpack_require__(159);
 
 	var PassageRefTargetEditor = React.createClass({
 	    displayName: "PassageRefTargetEditor",
@@ -57467,7 +57467,7 @@ module.exports =
 
 	var deepEq = __webpack_require__(11).deepEq;
 	var KhanMath = __webpack_require__(152);
-	var KhanColors = __webpack_require__(171);
+	var KhanColors = __webpack_require__(172);
 	var GraphUtils = __webpack_require__(188);
 
 	var BAR = "bar",
@@ -59163,7 +59163,7 @@ module.exports =
 	var React = __webpack_require__(46);
 
 	var Changeable = __webpack_require__(158);
-	var EditorJsonify = __webpack_require__(161);
+	var EditorJsonify = __webpack_require__(159);
 
 	var NumberInput = __webpack_require__(186);
 	var TextInput = __webpack_require__(164);
@@ -59637,7 +59637,7 @@ module.exports =
 	var seededRNG = __webpack_require__(11).seededRNG;
 	var Util = __webpack_require__(11);
 	var knumber = __webpack_require__(206).number;
-	var KhanColors = __webpack_require__(171);
+	var KhanColors = __webpack_require__(172);
 	var KhanMath = __webpack_require__(152);
 
 	var defaultBoxSize = 400;
@@ -60376,7 +60376,7 @@ module.exports =
 	var _ = __webpack_require__(47);
 
 	var Changeable = __webpack_require__(158);
-	var EditorJsonify = __webpack_require__(161);
+	var EditorJsonify = __webpack_require__(159);
 
 	var InfoTip = __webpack_require__(153);
 	var NumberInput = __webpack_require__(186);
@@ -61288,7 +61288,7 @@ module.exports =
 	var kray = __webpack_require__(206).ray;
 	var kline = __webpack_require__(206).line;
 	var KhanMath = __webpack_require__(152);
-	var KhanColors = __webpack_require__(171);
+	var KhanColors = __webpack_require__(172);
 
 	var assert = __webpack_require__(190).assert;
 
@@ -63691,7 +63691,7 @@ module.exports =
 	var kpoint = __webpack_require__(206).point;
 	var kray = __webpack_require__(206).ray;
 	var kvector = __webpack_require__(206).vector;
-	var KhanColors = __webpack_require__(171);
+	var KhanColors = __webpack_require__(172);
 
 	function arraySum(array) {
 	    return _.reduce(array, function (memo, arg) {
@@ -64956,7 +64956,7 @@ module.exports =
 	var _ = __webpack_require__(47);
 
 	var Changeable = __webpack_require__(158);
-	var EditorJsonify = __webpack_require__(161);
+	var EditorJsonify = __webpack_require__(159);
 
 	var NumberInput = __webpack_require__(186);
 
@@ -65342,7 +65342,7 @@ module.exports =
 	var _ = __webpack_require__(47);
 
 	var Changeable = __webpack_require__(158);
-	var EditorJsonify = __webpack_require__(161);
+	var EditorJsonify = __webpack_require__(159);
 
 	var InfoTip = __webpack_require__(153);
 	var BlurInput = __webpack_require__(162);
@@ -65427,7 +65427,7 @@ module.exports =
 
 	var Util = __webpack_require__(11);
 	var Changeable = __webpack_require__(158);
-	var WidgetJsonifyDeprecated = __webpack_require__(159);
+	var WidgetJsonifyDeprecated = __webpack_require__(160);
 
 	var Graphie = __webpack_require__(147);
 	var MovablePoint = Graphie.MovablePoint;
@@ -65569,7 +65569,7 @@ module.exports =
 	var React = __webpack_require__(46);
 
 	var Changeable = __webpack_require__(158);
-	var EditorJsonify = __webpack_require__(161);
+	var EditorJsonify = __webpack_require__(159);
 
 	var ExampleGraphieWidget = __webpack_require__(124).widget;
 
@@ -65784,7 +65784,7 @@ module.exports =
 	var React = __webpack_require__(46);
 
 	var Changeable = __webpack_require__(158);
-	var EditorJsonify = __webpack_require__(161);
+	var EditorJsonify = __webpack_require__(159);
 
 	/**
 	 * This is the widget's editor. This is what shows up on the left side
@@ -65951,7 +65951,7 @@ module.exports =
 	var React = __webpack_require__(46);
 
 	var Changeable = __webpack_require__(158);
-	var EditorJsonify = __webpack_require__(161);
+	var EditorJsonify = __webpack_require__(159);
 
 	var TextArea = React.createClass({
 	    displayName: "TextArea",
@@ -66669,7 +66669,7 @@ module.exports =
 	var EnabledFeatures = __webpack_require__(38);
 	var Widgets = __webpack_require__(30);
 
-	var _require = __webpack_require__(172);
+	var _require = __webpack_require__(173);
 
 	var containerSizeClass = _require.containerSizeClass;
 	var getClassFromWidth = _require.getClassFromWidth;
@@ -67092,6 +67092,83 @@ module.exports =
 /* 141 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-undef, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var UNCHANGED = "unchanged";
+	var CHANGED = "changed";
+	var ADDED = "added";
+	var REMOVED = "removed";
+
+	// For values which do not have further values nested within them (strings,
+	// numbers, and booleans)
+	var valueEntry = function (before, after, key) {
+	    var status;
+	    if (before === after) {
+	        status = UNCHANGED;
+	    } else if (before === undefined) {
+	        status = ADDED;
+	    } else if (after === undefined) {
+	        status = REMOVED;
+	    } else {
+	        status = CHANGED;
+	    }
+
+	    return {
+	        after: JSON.stringify(after),
+	        before: JSON.stringify(before),
+	        children: [],
+	        key: key,
+	        status: status
+	    };
+	};
+
+	// For values which require a more granular diff (objects and arrays)
+	var objectEntry = function (before, after, key) {
+	    var beforeKeys = _.isObject(before) ? _(before).keys() : [];
+	    var afterKeys = _.isObject(after) ? _(after).keys() : [];
+	    var keys = _.union(beforeKeys, afterKeys);
+
+	    var children = _.map(keys, function (key) {
+	        return performDiff((before || {})[key], (after || {})[key], key);
+	    });
+
+	    var status;
+	    if (before === undefined) {
+	        status = ADDED;
+	    } else if (after === undefined) {
+	        status = REMOVED;
+	    } else {
+	        var changed = _.any(children, function (child) {
+	            return child.status !== UNCHANGED;
+	        });
+	        status = changed ? CHANGED : UNCHANGED;
+	    }
+
+	    return {
+	        after: "",
+	        before: "",
+	        children: children,
+	        key: key,
+	        status: status
+	    };
+	};
+
+	var performDiff = function (before, after, /* optional */key) {
+	    if (typeof before === "object" || typeof after === "object") {
+	        return objectEntry(before, after, key);
+	    } else {
+	        return valueEntry(before, after, key);
+	    }
+	};
+
+	module.exports = performDiff;
+
+/***/ },
+/* 142 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/*
 	Software License Agreement (BSD License)
 
@@ -67496,7 +67573,7 @@ module.exports =
 
 
 /***/ },
-/* 142 */
+/* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -67532,14 +67609,14 @@ module.exports =
 	module.exports = splitDiff;
 
 /***/ },
-/* 143 */
+/* 144 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-var */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var jsdiff = __webpack_require__(141);
+	var jsdiff = __webpack_require__(142);
 	var _ = __webpack_require__(47);
 
 	var statusFor = function (chunk) {
@@ -67622,83 +67699,6 @@ module.exports =
 	};
 
 	module.exports = stringArrayDiff;
-
-/***/ },
-/* 144 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-undef, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var UNCHANGED = "unchanged";
-	var CHANGED = "changed";
-	var ADDED = "added";
-	var REMOVED = "removed";
-
-	// For values which do not have further values nested within them (strings,
-	// numbers, and booleans)
-	var valueEntry = function (before, after, key) {
-	    var status;
-	    if (before === after) {
-	        status = UNCHANGED;
-	    } else if (before === undefined) {
-	        status = ADDED;
-	    } else if (after === undefined) {
-	        status = REMOVED;
-	    } else {
-	        status = CHANGED;
-	    }
-
-	    return {
-	        after: JSON.stringify(after),
-	        before: JSON.stringify(before),
-	        children: [],
-	        key: key,
-	        status: status
-	    };
-	};
-
-	// For values which require a more granular diff (objects and arrays)
-	var objectEntry = function (before, after, key) {
-	    var beforeKeys = _.isObject(before) ? _(before).keys() : [];
-	    var afterKeys = _.isObject(after) ? _(after).keys() : [];
-	    var keys = _.union(beforeKeys, afterKeys);
-
-	    var children = _.map(keys, function (key) {
-	        return performDiff((before || {})[key], (after || {})[key], key);
-	    });
-
-	    var status;
-	    if (before === undefined) {
-	        status = ADDED;
-	    } else if (after === undefined) {
-	        status = REMOVED;
-	    } else {
-	        var changed = _.any(children, function (child) {
-	            return child.status !== UNCHANGED;
-	        });
-	        status = changed ? CHANGED : UNCHANGED;
-	    }
-
-	    return {
-	        after: "",
-	        before: "",
-	        children: children,
-	        key: key,
-	        status: status
-	    };
-	};
-
-	var performDiff = function (before, after, /* optional */key) {
-	    if (typeof before === "object" || typeof after === "object") {
-	        return objectEntry(before, after, key);
-	    } else {
-	        return valueEntry(before, after, key);
-	    }
-	};
-
-	module.exports = performDiff;
 
 /***/ },
 /* 145 */
@@ -70176,6 +70176,27 @@ module.exports =
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var _ = __webpack_require__(47);
+
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(41);
+
+	var EditorJsonify = {
+	    serialize: function () {
+	        // Omit props that get passed to all widgets
+	        return _.omit(this.props, WIDGET_PROP_BLACKLIST);
+	    }
+	};
+
+	module.exports = EditorJsonify;
+
+/***/ },
+/* 160 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-undef, no-var */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
@@ -70195,7 +70216,7 @@ module.exports =
 	module.exports = WidgetJsonifyDeprecated;
 
 /***/ },
-/* 160 */
+/* 161 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -70237,27 +70258,6 @@ module.exports =
 	    smOrLarger: "@media screen and (min-width: " + pureSmMin + ")",
 	    mdOrLarger: "@media screen and (min-width: " + pureMdMin + ")",
 	    lgOrLarger: "@media screen and (min-width: " + pureLgMin + ")" };
-
-/***/ },
-/* 161 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var _ = __webpack_require__(47);
-
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(41);
-
-	var EditorJsonify = {
-	    serialize: function () {
-	        // Omit props that get passed to all widgets
-	        return _.omit(this.props, WIDGET_PROP_BLACKLIST);
-	    }
-	};
-
-	module.exports = EditorJsonify;
 
 /***/ },
 /* 162 */
@@ -71947,6 +71947,178 @@ module.exports =
 /* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(46);
+	var ReactDOM = __webpack_require__(50);
+	var _ = __webpack_require__(47);
+
+	var PT = React.PropTypes;
+
+	// Takes an array of components to sort
+	var SortableArea = React.createClass({
+	    displayName: 'SortableArea',
+
+	    propTypes: {
+	        components: PT.arrayOf(PT.node).isRequired,
+	        onReorder: PT.func.isRequired,
+	        verify: PT.func
+	    },
+	    render: function () {
+	        var _this = this;
+
+	        var sortables = _(this.state.components).map(function (component, index) {
+	            return React.createElement(SortableItem, {
+	                index: index,
+	                component: component,
+	                area: _this,
+	                key: component.key,
+	                draggable: component.props.draggable,
+	                dragging: index === _this.state.dragging });
+	        });
+	        return React.createElement(
+	            'ol',
+	            { className: this.props.className, style: this.props.style },
+	            sortables
+	        );
+	    },
+	    getDefaultProps: function () {
+	        return { verify: function () {
+	                return true;
+	            } };
+	    },
+	    getInitialState: function () {
+	        return {
+	            // index of the component being dragged
+	            dragging: null,
+	            components: this.props.components
+	        };
+	    },
+	    componentWillReceiveProps: function (nextProps) {
+	        this.setState({ components: nextProps.components });
+	    },
+	    // Alternatively send each handler to each component individually,
+	    // partially applied
+	    onDragStart: function (startIndex) {
+	        this.setState({ dragging: startIndex });
+	    },
+	    onDrop: function () {
+	        // tell the parent component
+	        this.setState({ dragging: null });
+	        this.props.onReorder(this.state.components);
+	    },
+	    onDragEnter: function (enterIndex) {
+	        // When a label is first dragged it triggers a dragEnter with itself,
+	        // which we don't care about.
+	        if (this.state.dragging === enterIndex) {
+	            return;
+	        }
+
+	        var newComponents = this.state.components.slice();
+
+	        // splice the tab out of its old position
+	        var removed = newComponents.splice(this.state.dragging, 1);
+	        // ... and into its new position
+	        newComponents.splice(enterIndex, 0, removed[0]);
+
+	        var verified = this.props.verify(newComponents);
+	        if (verified) {
+	            this.setState({
+	                dragging: enterIndex,
+	                components: newComponents
+	            });
+	        }
+	        return verified;
+	    },
+
+	    // Firefox refuses to drag an element unless you set data on it. Hackily
+	    // add data each time an item is dragged.
+	    componentDidMount: function () {
+	        this._setDragEvents();
+	    },
+	    componentDidUpdate: function () {
+	        this._setDragEvents();
+	    },
+	    _listenEvent: function (e) {
+	        e.dataTransfer.setData('hackhackhack', 'because browsers!');
+	    },
+	    _cancelEvent: function (e) {
+	        // prevent the browser from redirecting to 'because browsers!'
+	        e.preventDefault();
+	    },
+	    _setDragEvents: function () {
+	        var _this2 = this;
+
+	        this._dragItems = this._dragItems || [];
+	        var items = ReactDOM.findDOMNode(this).querySelectorAll('[draggable=true]');
+	        var oldItems = _(this._dragItems).difference(items);
+	        var newItems = _(items).difference(this._dragItems);
+
+	        _(newItems).each(function (dragItem) {
+	            dragItem.addEventListener('dragstart', _this2._listenEvent);
+	            dragItem.addEventListener('drop', _this2._cancelEvent);
+	        });
+
+	        _(oldItems).each(function (dragItem) {
+	            dragItem.removeEventListener('dragstart', _this2._listenEvent);
+	            dragItem.removeEventListener('drop', _this2._cancelEvent);
+	        });
+	    }
+	});
+
+	// An individual sortable item
+	var SortableItem = React.createClass({
+	    displayName: 'SortableItem',
+
+	    propTypes: {},
+	    render: function () {
+	        var dragState = 'sortable-disabled';
+	        if (this.props.dragging) {
+	            dragState = 'sortable-dragging';
+	        } else if (this.props.draggable) {
+	            dragState = 'sortable-enabled';
+	        }
+
+	        return React.createElement(
+	            'li',
+	            { draggable: this.props.draggable,
+	                className: dragState,
+	                onDragStart: this.handleDragStart,
+	                onDrop: this.handleDrop,
+	                onDragEnter: this.handleDragEnter,
+	                onDragOver: this.handleDragOver },
+	            this.props.component
+	        );
+	    },
+	    handleDragStart: function (e) {
+	        e.nativeEvent.dataTransfer.effectAllowed = 'move';
+	        this.props.area.onDragStart(this.props.index);
+	    },
+	    handleDrop: function () {
+	        this.props.area.onDrop(this.props.index);
+	    },
+	    handleDragEnter: function (e) {
+	        var verified = this.props.area.onDragEnter(this.props.index);
+	        // Ideally this would change the cursor based on whether this is a
+	        // valid place to drop.
+	        e.nativeEvent.dataTransfer.effectAllowed = verified ? 'move' : 'none';
+	    },
+	    handleDragOver: function (e) {
+	        // allow a drop by preventing default handling
+	        e.preventDefault();
+	    }
+	});
+
+	module.exports = SortableArea;
+
+	// item: what is this?
+
+/***/ },
+/* 171 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-var */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -71977,7 +72149,7 @@ module.exports =
 	module.exports = Interactive2;
 
 /***/ },
-/* 171 */
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -72076,7 +72248,7 @@ module.exports =
 	// TODO(eater): Get rid of this altogether.
 
 /***/ },
-/* 172 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _require = __webpack_require__(133);
@@ -72126,7 +72298,7 @@ module.exports =
 	    } };
 
 /***/ },
-/* 173 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -72799,178 +72971,6 @@ module.exports =
 	    functionForType: functionForType,
 	    DEFAULT_GRAPHER_PROPS: DEFAULT_GRAPHER_PROPS,
 	    DEFAULT_BACKGROUND_IMAGE: DEFAULT_BACKGROUND_IMAGE };
-
-/***/ },
-/* 174 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(46);
-	var ReactDOM = __webpack_require__(50);
-	var _ = __webpack_require__(47);
-
-	var PT = React.PropTypes;
-
-	// Takes an array of components to sort
-	var SortableArea = React.createClass({
-	    displayName: 'SortableArea',
-
-	    propTypes: {
-	        components: PT.arrayOf(PT.node).isRequired,
-	        onReorder: PT.func.isRequired,
-	        verify: PT.func
-	    },
-	    render: function () {
-	        var _this = this;
-
-	        var sortables = _(this.state.components).map(function (component, index) {
-	            return React.createElement(SortableItem, {
-	                index: index,
-	                component: component,
-	                area: _this,
-	                key: component.key,
-	                draggable: component.props.draggable,
-	                dragging: index === _this.state.dragging });
-	        });
-	        return React.createElement(
-	            'ol',
-	            { className: this.props.className, style: this.props.style },
-	            sortables
-	        );
-	    },
-	    getDefaultProps: function () {
-	        return { verify: function () {
-	                return true;
-	            } };
-	    },
-	    getInitialState: function () {
-	        return {
-	            // index of the component being dragged
-	            dragging: null,
-	            components: this.props.components
-	        };
-	    },
-	    componentWillReceiveProps: function (nextProps) {
-	        this.setState({ components: nextProps.components });
-	    },
-	    // Alternatively send each handler to each component individually,
-	    // partially applied
-	    onDragStart: function (startIndex) {
-	        this.setState({ dragging: startIndex });
-	    },
-	    onDrop: function () {
-	        // tell the parent component
-	        this.setState({ dragging: null });
-	        this.props.onReorder(this.state.components);
-	    },
-	    onDragEnter: function (enterIndex) {
-	        // When a label is first dragged it triggers a dragEnter with itself,
-	        // which we don't care about.
-	        if (this.state.dragging === enterIndex) {
-	            return;
-	        }
-
-	        var newComponents = this.state.components.slice();
-
-	        // splice the tab out of its old position
-	        var removed = newComponents.splice(this.state.dragging, 1);
-	        // ... and into its new position
-	        newComponents.splice(enterIndex, 0, removed[0]);
-
-	        var verified = this.props.verify(newComponents);
-	        if (verified) {
-	            this.setState({
-	                dragging: enterIndex,
-	                components: newComponents
-	            });
-	        }
-	        return verified;
-	    },
-
-	    // Firefox refuses to drag an element unless you set data on it. Hackily
-	    // add data each time an item is dragged.
-	    componentDidMount: function () {
-	        this._setDragEvents();
-	    },
-	    componentDidUpdate: function () {
-	        this._setDragEvents();
-	    },
-	    _listenEvent: function (e) {
-	        e.dataTransfer.setData('hackhackhack', 'because browsers!');
-	    },
-	    _cancelEvent: function (e) {
-	        // prevent the browser from redirecting to 'because browsers!'
-	        e.preventDefault();
-	    },
-	    _setDragEvents: function () {
-	        var _this2 = this;
-
-	        this._dragItems = this._dragItems || [];
-	        var items = ReactDOM.findDOMNode(this).querySelectorAll('[draggable=true]');
-	        var oldItems = _(this._dragItems).difference(items);
-	        var newItems = _(items).difference(this._dragItems);
-
-	        _(newItems).each(function (dragItem) {
-	            dragItem.addEventListener('dragstart', _this2._listenEvent);
-	            dragItem.addEventListener('drop', _this2._cancelEvent);
-	        });
-
-	        _(oldItems).each(function (dragItem) {
-	            dragItem.removeEventListener('dragstart', _this2._listenEvent);
-	            dragItem.removeEventListener('drop', _this2._cancelEvent);
-	        });
-	    }
-	});
-
-	// An individual sortable item
-	var SortableItem = React.createClass({
-	    displayName: 'SortableItem',
-
-	    propTypes: {},
-	    render: function () {
-	        var dragState = 'sortable-disabled';
-	        if (this.props.dragging) {
-	            dragState = 'sortable-dragging';
-	        } else if (this.props.draggable) {
-	            dragState = 'sortable-enabled';
-	        }
-
-	        return React.createElement(
-	            'li',
-	            { draggable: this.props.draggable,
-	                className: dragState,
-	                onDragStart: this.handleDragStart,
-	                onDrop: this.handleDrop,
-	                onDragEnter: this.handleDragEnter,
-	                onDragOver: this.handleDragOver },
-	            this.props.component
-	        );
-	    },
-	    handleDragStart: function (e) {
-	        e.nativeEvent.dataTransfer.effectAllowed = 'move';
-	        this.props.area.onDragStart(this.props.index);
-	    },
-	    handleDrop: function () {
-	        this.props.area.onDrop(this.props.index);
-	    },
-	    handleDragEnter: function (e) {
-	        var verified = this.props.area.onDragEnter(this.props.index);
-	        // Ideally this would change the cursor based on whether this is a
-	        // valid place to drop.
-	        e.nativeEvent.dataTransfer.effectAllowed = verified ? 'move' : 'none';
-	    },
-	    handleDragOver: function (e) {
-	        // allow a drop by preventing default handling
-	        e.preventDefault();
-	    }
-	});
-
-	module.exports = SortableArea;
-
-	// item: what is this?
 
 /***/ },
 /* 175 */
@@ -74093,7 +74093,7 @@ module.exports =
 	var ButtonGroup = __webpack_require__(48);
 	var React = __webpack_require__(46);
 
-	var KhanColors = __webpack_require__(171);
+	var KhanColors = __webpack_require__(172);
 
 	var ColorPicker = React.createClass({
 	    displayName: "ColorPicker",
@@ -77166,7 +77166,7 @@ module.exports =
 	var Renderer = __webpack_require__(29);
 	var sharedStyles = __webpack_require__(222);
 	var styleConstants = __webpack_require__(133);
-	var mediaQueries = __webpack_require__(160);
+	var mediaQueries = __webpack_require__(161);
 
 	var captureScratchpadTouchStart = __webpack_require__(11).captureScratchpadTouchStart;
 
@@ -78639,10 +78639,10 @@ module.exports =
 
 	var _ = __webpack_require__(47);
 	var GraphieClasses = __webpack_require__(201);
-	var Interactive2 = __webpack_require__(170);
+	var Interactive2 = __webpack_require__(171);
 	var InteractiveUtil = __webpack_require__(190);
 
-	var KhanColors = __webpack_require__(171);
+	var KhanColors = __webpack_require__(172);
 
 	var assert = InteractiveUtil.assert;
 
@@ -80407,7 +80407,7 @@ module.exports =
 
 	var Provider = _require.Provider;
 
-	var MathKeypad = __webpack_require__(232);
+	var KeypadContainer = __webpack_require__(232);
 
 	var _require2 = __webpack_require__(252);
 
@@ -80471,7 +80471,7 @@ module.exports =
 	        return React.createElement(
 	            Provider,
 	            { store: this.store },
-	            React.createElement(MathKeypad, _extends({
+	            React.createElement(KeypadContainer, _extends({
 	                onElementMounted: function (element) {
 	                    var elementWithDispatchMethods = _extends({}, element, {
 	                        activate: _this.activate,
@@ -80552,6 +80552,8 @@ module.exports =
 	        bottom: -Infinity,
 	        left: Infinity });
 	};
+
+	var constrainingFrictionFactor = 0.8;
 
 	var MathInput = React.createClass({
 	    displayName: 'MathInput',
@@ -80723,7 +80725,7 @@ module.exports =
 	        var cursor = this._container.querySelector('.mq-cursor');
 	        var cursorBounds = cursor.getBoundingClientRect();
 
-	        var cursorWidth = 2;
+	        var cursorWidth = cursorBounds.width;
 	        var gapBelowCursor = 2;
 
 	        this.setState({
@@ -80842,7 +80844,7 @@ module.exports =
 	            // included, neither mq-numerator nor mq-denominator nodes are
 	            // and neither are subscripts or superscripts.
 	            .filter(function (element) {
-	                return element && _this3._root.contains(element) && !element.classList.contains('mq-root-block') && !element.classList.contains('mq-non-leaf');
+	                return element && _this3._root.contains(element) && (!element.classList.contains('mq-root-block') && !element.classList.contains('mq-non-leaf') || element.classList.contains('mq-empty') || element.classList.contains('mq-hasCursor'));
 	            });
 
 	            var hitNode = null;
@@ -81012,7 +81014,9 @@ module.exports =
 	        if (this.mathField.getContent() !== '') {
 	            this._containerBounds = this._container.getBoundingClientRect();
 
-	            // Set the handle-less cursor's location.
+	            // Make the cursor visible and set the handle-less cursor's
+	            // location.
+	            this.mathField.getCursor().show();
 	            var touch = e.changedTouches[0];
 	            this._insertCursorAtClosestNode(touch.clientX, touch.clientY);
 	        }
@@ -81061,6 +81065,16 @@ module.exports =
 	        this._containerBounds = this._container.getBoundingClientRect();
 	    },
 
+	    _constrainToBound: function (value, min, max, friction) {
+	        if (value < min) {
+	            return min + (value - min) * friction;
+	        } else if (value > max) {
+	            return max + (value - max) * friction;
+	        } else {
+	            return value;
+	        }
+	    },
+
 	    /**
 	     * When the user moves the cursor handle update the position of the cursor
 	     * and the handle.
@@ -81072,6 +81086,9 @@ module.exports =
 
 	        var x = e.changedTouches[0].clientX;
 	        var y = e.changedTouches[0].clientY;
+
+	        var relativeX = x - this._containerBounds.left;
+	        var relativeY = y - 2 * cursorHandleRadiusPx * cursorHandleDistanceMultiplier - this._containerBounds.top;
 
 	        // We subtract the containerBounds left/top to correct for the
 	        // MathInput's position on the page. On top of that, we subtract an
@@ -81086,8 +81103,8 @@ module.exports =
 	                // scroll offsets. This likely also means that the cursor
 	                // detection doesn't work when scrolled, since we're not
 	                // offsetting those values.
-	                x: x - this._containerBounds.left,
-	                y: y - 2 * cursorHandleRadiusPx * cursorHandleDistanceMultiplier - this._containerBounds.top } });
+	                x: this._constrainToBound(relativeX, 0, this._containerBounds.width, constrainingFrictionFactor),
+	                y: this._constrainToBound(relativeY, 0, this._containerBounds.height, constrainingFrictionFactor) } });
 
 	        // Use a y-coordinate that's just above where the user is actually
 	        // touching because they're dragging the handle which is a little
@@ -81812,7 +81829,7 @@ module.exports =
 
 	var kpoint = __webpack_require__(206).point;
 	var kvector = __webpack_require__(206).vector;
-	var KhanColors = __webpack_require__(171);
+	var KhanColors = __webpack_require__(172);
 
 	// State parameters that should be converted into an array of
 	// functions
@@ -82125,7 +82142,7 @@ module.exports =
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
 	var kvector = __webpack_require__(206).vector;
-	var KhanColors = __webpack_require__(171);
+	var KhanColors = __webpack_require__(172);
 
 	var FUNCTION_ARRAY_OPTIONS = ["add", "draw", "remove", "onMoveStart", "constraints", "onMove", "onMoveEnd"];
 
@@ -82382,7 +82399,7 @@ module.exports =
 	var objective_ = __webpack_require__(131);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
-	var KhanColors = __webpack_require__(171);
+	var KhanColors = __webpack_require__(172);
 	var GraphUtils = __webpack_require__(188);
 
 	// State parameters that should be converted into an array of
@@ -83926,7 +83943,7 @@ module.exports =
 /* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _=__webpack_require__(47);__webpack_require__(249);var GraphUtils=__webpack_require__(219);var kvector=__webpack_require__(206).vector;var kpoint=__webpack_require__(206).point;var kline=__webpack_require__(206).line;var WrappedEllipse=__webpack_require__(242);var WrappedLine=__webpack_require__(244);var WrappedPath=__webpack_require__(250);var KhanMath=__webpack_require__(152);var KhanColors=__webpack_require__(171);var _require=__webpack_require__(190);var getCanUse3dTransform=_require.getCanUse3dTransform;function sum(array){return _.reduce(array, function(memo, arg){return memo + arg;}, 0);}function clockwise(points){var segments=_.zip(points, points.slice(1).concat(points.slice(0, 1)));var areas=_.map(segments, function(segment){var p1=segment[0];var p2=segment[1];return (p2[0] - p1[0]) * (p2[1] + p1[1]);});return sum(areas) > 0;}function addPoints(){var points=_.toArray(arguments);var zipped=_.zip.apply(_, points);return _.map(zipped, sum);}function reverseVector(vector){return _.map(vector, function(coord){return coord * -1;});}function scaledDistanceFromAngle(angle){var a=3.51470560176242 * 20;var b=0.5687298702748785 * 20;var c=-0.037587715462826674;return (a - b) * Math.exp(c * angle) + b;}function scaledPolarRad(radius, radians){return [radius * Math.cos(radians), radius * Math.sin(radians) * -1];}function scaledPolarDeg(radius, degrees){var radians=degrees * Math.PI / 180;return scaledPolarRad(radius, radians);}var dragging=false;var InteractiveUtils={FILL_OPACITY:0.3, createSorter:function(){var sorter={};var list=undefined;sorter.hasAttempted = false;sorter.init = function(element){list = $("[id=" + element + "]").last();var container=list.wrap("<div>").parent();var placeholder=$("<li>");placeholder.addClass("placeholder");container.addClass("sortable perseus-clearfix");list.find("li").each(function(tileNum, tile){$(tile).bind("vmousedown", function(event){var _this=this;if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();$(tile).addClass("dragging");var tileIndex=$(_this).index();placeholder.insertAfter(tile);placeholder.width($(tile).width());$(_this).css("z-index", 100);var offset=$(_this).offset();var click={left:event.pageX - offset.left - 3, top:event.pageY - offset.top - 3};$(tile).css({position:"absolute"});$(tile).offset({left:offset.left, top:offset.top});$(document).bind("vmousemove.tile vmouseup.tile", function(event){event.preventDefault();if(event.type === "vmousemove"){(function(){sorter.hasAttempted = true;$(tile).offset({left:event.pageX - click.left, top:event.pageY - click.top});var leftEdge=list.offset().left;var midWidth=$(tile).offset().left - leftEdge;var index=0;var sumWidth=0;list.find("li").each(function(){if(this === placeholder[0] || this === tile){return;}if(midWidth > sumWidth + $(this).outerWidth(true) / 2){index += 1;}sumWidth += $(this).outerWidth(true);});if(index !== tileIndex){tileIndex = index;if(index === 0){placeholder.prependTo(list);$(tile).prependTo(list);}else {placeholder.detach();$(tile).detach();var preceeding=list.find("li")[index - 1];placeholder.insertAfter(preceeding);$(tile).insertAfter(preceeding);}}})();}else if(event.type === "vmouseup"){(function(){$(document).unbind(".tile");var position=$(tile).offset();$(position).animate(placeholder.offset(), {duration:150, step:function(now, fx){position[fx.prop] = now;$(tile).offset(position);}, complete:function(){$(tile).css("z-index", 0);placeholder.detach();$(tile).css({position:"static"});$(tile).removeClass("dragging");}});})();}});})();}});});};sorter.getContent = function(){var content=[];list.find("li").each(function(tileNum, tile){content.push($.trim($(tile).find(".sort-key").text()));});return content;};sorter.setContent = function(content){var tiles=[];$.each(content, function(n, sortKey){var tile=list.find("li .sort-key").filter(function(){return $(this).text() === sortKey;}).closest("li").get(0);$(tile).detach();tiles.push(tile);});list.append(tiles);};return sorter;}, bogusShape:{animate:function(){}, attr:function(){}, remove:function(){}}};_.extend(GraphUtils.Graphie.prototype, {initAutoscaledGraph:function(range, options){var graph=this;options = $.extend({xpixels:500, ypixels:500, xdivisions:20, ydivisions:20, labels:true, unityLabels:true, range:range === undefined?[[-10, 10], [-10, 10]]:range}, options);options.scale = [options.xpixels / (options.range[0][1] - options.range[0][0]), options.ypixels / (options.range[1][1] - options.range[1][0])];options.gridStep = [(options.range[0][1] - options.range[0][0]) / options.xdivisions, (options.range[1][1] - options.range[1][0]) / options.ydivisions];graph.xpixels = options.xpixels;graph.ypixels = options.ypixels;graph.range = options.range;graph.scale = options.scale;graph.graphInit(options);}, addMouseLayer:function(options){var graph=this;options = _.extend({allowScratchpad:false}, options);var mouselayerZIndex=2;graph.mouselayer = Raphael(graph.raphael.canvas.parentNode, graph.xpixels, graph.ypixels);$(graph.mouselayer.canvas).css("z-index", mouselayerZIndex);if(options.onClick || options.onMouseDown || options.onMouseMove || options.onMouseOver || options.onMouseOut){(function(){var canvasClickTarget=graph.mouselayer.rect(0, 0, graph.xpixels, graph.ypixels).attr({fill:"#000", opacity:0});var isClickingCanvas=false;$(graph.mouselayer.canvas).on("vmousedown", function(e){if(e.target === canvasClickTarget[0]){if(options.onMouseDown){options.onMouseDown(graph.getMouseCoord(e));}isClickingCanvas = true;if(options.onMouseMove){$(document).bind("vmousemove.mouseLayer", function(e){if(isClickingCanvas){e.preventDefault();options.onMouseMove(graph.getMouseCoord(e));}});}$(document).bind("vmouseup.mouseLayer", function(e){$(document).unbind(".mouseLayer");if(isClickingCanvas && options.onClick){options.onClick(graph.getMouseCoord(e));}isClickingCanvas = false;});}});if(options.onMouseOver){$(graph.mouselayer.canvas).on("vmouseover", function(e){options.onMouseOver(graph.getMouseCoord(e));});}if(options.onMouseOut){$(graph.mouselayer.canvas).on("vmouseout", function(e){options.onMouseOut(graph.getMouseCoord(e));});}})();}if(!options.allowScratchpad){Khan.scratchpad.disable();}graph._mouselayerWrapper = document.createElement("div");$(graph._mouselayerWrapper).css({position:"absolute", left:0, top:0, zIndex:mouselayerZIndex});graph._visiblelayerWrapper = document.createElement("div");$(graph._visiblelayerWrapper).css({position:"absolute", left:0, top:0});var el=graph.raphael.canvas.parentNode;el.appendChild(graph._visiblelayerWrapper);el.appendChild(graph._mouselayerWrapper);graph.addToMouseLayerWrapper = function(el){this._mouselayerWrapper.appendChild(el);};graph.addToVisibleLayerWrapper = function(el){this._visiblelayerWrapper.appendChild(el);};}, getMousePx:function(event){var graphie=this;var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;return [mouseX, mouseY];}, getMouseCoord:function(event){return this.unscalePoint(this.getMousePx(event));}, drawArcs:function(point1, vertex, point3, numArcs){var startAngle=GraphUtils.findAngle(point1, vertex);var endAngle=GraphUtils.findAngle(point3, vertex);if(((endAngle - startAngle) % 360 + 360) % 360 > 180){var temp=startAngle;startAngle = endAngle;endAngle = temp;}var radius=0.3;if(((endAngle - startAngle) % 360 + 360) % 360 < 75){radius = -0.6 / 90 * (((endAngle - startAngle) % 360 + 360) % 360) + 0.8;}var arcset=[];for(var arc=0; arc < numArcs; ++arc) {arcset.push(this.arc(vertex, radius + 0.15 * arc, startAngle, endAngle));}return arcset;}, labelAngle:function(options){var graphie=this;_.defaults(options, {point1:[0, 0], vertex:[0, 0], point3:[0, 0], label:null, numArcs:1, showRightAngleMarker:true, pushOut:0, clockwise:false, style:{}});var text=options.text === undefined?"":options.text;var vertex=options.vertex;var sVertex=graphie.scalePoint(vertex);var p1=undefined;var p3=undefined;if(options.clockwise){p1 = options.point1;p3 = options.point3;}else {p1 = options.point3;p3 = options.point1;}var startAngle=GraphUtils.findAngle(p1, vertex);var endAngle=GraphUtils.findAngle(p3, vertex);var angle=(endAngle + 360 - startAngle) % 360;var halfAngle=(startAngle + angle / 2) % 360;var sPadding=5 * options.pushOut;var sRadius=sPadding + scaledDistanceFromAngle(angle);var temp=[];if(Math.abs(angle - 90) < 1e-9 && options.showRightAngleMarker){(function(){var v1=addPoints(sVertex, scaledPolarDeg(sRadius, startAngle));var v2=addPoints(sVertex, scaledPolarDeg(sRadius, endAngle));sRadius *= Math.SQRT2;var v3=addPoints(sVertex, scaledPolarDeg(sRadius, halfAngle));_.each([v1, v2], function(v){temp.push(graphie.scaledPath([v, v3], options.style));});})();}else {_.times(options.numArcs, function(i){temp.push(graphie.arc(vertex, graphie.unscaleVector(sRadius), startAngle, endAngle, options.style));sRadius += 3;});}if(text){var match=text.match(/\$deg(\d)?/);if(match){var precision=match[1] || 1;text = text.replace(match[0], KhanMath.toFixedApprox(angle, precision) + "^{\\circ}");}var sOffset=scaledPolarDeg(sRadius + 15, halfAngle);var sPosition=addPoints(sVertex, sOffset);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(text, true);}else {graphie.label(position, text, "center", options.style);}}return temp;}, labelSide:function(options){var graphie=this;_.defaults(options, {point1:[0, 0], point2:[0, 0], label:null, text:"", numTicks:0, numArrows:0, clockwise:false, style:{}});var p1=undefined;var p2=undefined;if(options.clockwise){p1 = options.point1;p2 = options.point2;}else {p1 = options.point2;p2 = options.point1;}var midpoint=[(p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2];var sMidpoint=graphie.scalePoint(midpoint);var parallelAngle=Math.atan2(p2[1] - p1[1], p2[0] - p1[0]);var perpendicularAngle=parallelAngle + Math.PI / 2;var temp=[];var sCumulativeOffset=0;if(options.numTicks){(function(){var n=options.numTicks;var sSpacing=5;var sHeight=5;var style=_.extend({}, options.style, {strokeWidth:2});_.times(n, function(i){var sOffset=sSpacing * (i - (n - 1) / 2);var sOffsetVector=scaledPolarRad(sOffset, parallelAngle);var sHeightVector=scaledPolarRad(sHeight, perpendicularAngle);var sPath=[addPoints(sMidpoint, sOffsetVector, sHeightVector), addPoints(sMidpoint, sOffsetVector, reverseVector(sHeightVector))];temp.push(graphie.scaledPath(sPath, style));});sCumulativeOffset += sSpacing * (n - 1) + 15;})();}if(options.numArrows){(function(){var n=options.numArrows;var start=[p1, p2].sort(function(a, b){if(a[1] === b[1]){return a[0] - b[0];}else {return a[1] - b[1];}})[0];var sStart=graphie.scalePoint(start);var style=_.extend({}, options.style, {arrows:"->", strokeWidth:2});var sSpacing=5;_.times(n, function(i){var sOffset=sCumulativeOffset + sSpacing * i;var sOffsetVector=scaledPolarRad(sOffset, parallelAngle);if(start !== p1){sOffsetVector = reverseVector(sOffsetVector);}var sEnd=addPoints(sMidpoint, sOffsetVector);temp.push(graphie.scaledPath([sStart, sEnd], style));});})();}var text=options.text;if(text){var match=text.match(/\$len(\d)?/);if(match){var distance=GraphUtils.getDistance(p1, p2);var precision=match[1] || 1;text = text.replace(match[0], KhanMath.toFixedApprox(distance, precision));}var sOffset=20;var sOffsetVector=scaledPolarRad(sOffset, perpendicularAngle);var sPosition=addPoints(sMidpoint, sOffsetVector);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(text, true);}else {graphie.label(position, text, "center", options.style);}}return temp;}, labelVertex:function(options){var graphie=this;_.defaults(options, {point1:null, vertex:[0, 0], point3:null, label:null, text:"", clockwise:false, style:{}});if(!options.text){return;}var vertex=options.vertex;var sVertex=graphie.scalePoint(vertex);var p1=undefined;var p3=undefined;if(options.clockwise){p1 = options.point1;p3 = options.point3;}else {p1 = options.point3;p3 = options.point1;}var angle=135;var halfAngle=undefined;if(p1 && p3){var startAngle=GraphUtils.findAngle(p1, vertex);var endAngle=GraphUtils.findAngle(p3, vertex);angle = (endAngle + 360 - startAngle) % 360;halfAngle = (startAngle + angle / 2 + 180) % 360;}else if(p1){var parallelAngle=GraphUtils.findAngle(vertex, p1);halfAngle = parallelAngle + 90;}else if(p3){var parallelAngle=GraphUtils.findAngle(p3, vertex);halfAngle = parallelAngle + 90;}else {halfAngle = 135;}var sRadius=10 + scaledDistanceFromAngle(360 - angle);var sOffsetVector=scaledPolarDeg(sRadius, halfAngle);var sPosition=addPoints(sVertex, sOffsetVector);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(options.text, true);}else {graphie.label(position, options.text, "center", options.style);}}, addMovablePoint:function(options){var movablePoint=$.extend(true, {graph:this, coord:[0, 0], snapX:0, snapY:0, pointSize:4, highlight:false, dragging:false, visible:true, bounded:true, constraints:{fixed:false, constrainX:false, constrainY:false, fixedAngle:{}, fixedDistance:{}}, lineStarts:[], lineEnds:[], polygonVertices:[], normalStyle:{}, highlightStyle:{fill:KhanColors.INTERACTING, stroke:KhanColors.INTERACTING}, labelStyle:{color:KhanColors.INTERACTIVE}, vertexLabel:"", mouseTarget:null}, options);var normalColor=movablePoint.constraints.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;movablePoint.normalStyle = _.extend({}, {"fill":normalColor, "stroke":normalColor}, options.normalStyle);if(options.coordX !== undefined){movablePoint.coord[0] = options.coordX;}if(options.coordY !== undefined){movablePoint.coord[1] = options.coordY;}var graph=movablePoint.graph;var applySnapAndConstraints=function(coord){if(movablePoint.visible && movablePoint.bounded && !movablePoint.constraints.fixed){coord = graph.constrainToBounds(coord, 10);}var coordX=coord[0];var coordY=coord[1];if(movablePoint.snapX !== 0){coordX = Math.round(coordX / movablePoint.snapX) * movablePoint.snapX;}if(movablePoint.snapY !== 0){coordY = Math.round(coordY / movablePoint.snapY) * movablePoint.snapY;}if(movablePoint.constraints.fixedDistance.snapPoints){var mouse=graph.scalePoint(coord);var mouseX=mouse[0];var mouseY=mouse[1];var snapRadians=2 * Math.PI / movablePoint.constraints.fixedDistance.snapPoints;var radius=movablePoint.constraints.fixedDistance.dist;var centerCoord=movablePoint.constraints.fixedDistance.point;var centerX=(centerCoord[0] - graph.range[0][0]) * graph.scale[0];var centerY=(-centerCoord[1] + graph.range[1][1]) * graph.scale[1];var mouseXrel=mouseX - centerX;var mouseYrel=-mouseY + centerY;var radians=Math.atan(mouseYrel / mouseXrel);var outsideArcTanRange=mouseXrel < 0;if(outsideArcTanRange){radians += Math.PI;}radians = Math.round(radians / snapRadians) * snapRadians;mouseXrel = radius * Math.cos(radians);mouseYrel = radius * Math.sin(radians);mouseX = mouseXrel + centerX;mouseY = -mouseYrel + centerY;coordX = KhanMath.roundTo(5, mouseX / graph.scale[0] + graph.range[0][0]);coordY = KhanMath.roundTo(5, graph.range[1][1] - mouseY / graph.scale[1]);}var result=movablePoint.applyConstraint([coordX, coordY]);return result;};movablePoint.applyConstraint = function(coord, extraConstraints, override){var newCoord=coord.slice();var constraints={};if(override){$.extend(constraints, {fixed:false, constrainX:false, constrainY:false, fixedAngle:{}, fixedDistance:{}}, extraConstraints);}else {$.extend(constraints, this.constraints, extraConstraints);}if(constraints.constrainX){newCoord = [this.coord[0], coord[1]];}else if(constraints.constrainY){newCoord = [coord[0], this.coord[1]];}else if(typeof constraints.fixedAngle.angle === "number" && typeof constraints.fixedDistance.dist === "number"){var vertex=constraints.fixedAngle.vertex.coord || constraints.fixedAngle.vertex;var ref=constraints.fixedAngle.ref.coord || constraints.fixedAngle.ref;var distPoint=constraints.fixedDistance.point.coord || constraints.fixedDistance.point;var constrainedAngle=(constraints.fixedAngle.angle + GraphUtils.findAngle(ref, vertex)) * Math.PI / 180;var _length=constraints.fixedDistance.dist;newCoord[0] = _length * Math.cos(constrainedAngle) + distPoint[0];newCoord[1] = _length * Math.sin(constrainedAngle) + distPoint[1];}else if(typeof constraints.fixedAngle.angle === "number"){var vertex=constraints.fixedAngle.vertex.coord || constraints.fixedAngle.vertex;var ref=constraints.fixedAngle.ref.coord || constraints.fixedAngle.ref;var constrainedAngle=(constraints.fixedAngle.angle + GraphUtils.findAngle(ref, vertex)) * Math.PI / 180;var angle=GraphUtils.findAngle(coord, vertex) * Math.PI / 180;var distance=GraphUtils.getDistance(coord, vertex);var _length2=distance * Math.cos(constrainedAngle - angle);_length2 = _length2 < 1?1:_length2;newCoord[0] = _length2 * Math.cos(constrainedAngle) + vertex[0];newCoord[1] = _length2 * Math.sin(constrainedAngle) + vertex[1];}else if(typeof constraints.fixedDistance.dist === "number"){var distPoint=constraints.fixedDistance.point.coord || constraints.fixedDistance.point;var angle=GraphUtils.findAngle(coord, distPoint);var _length3=constraints.fixedDistance.dist;angle = angle * Math.PI / 180;newCoord[0] = _length3 * Math.cos(angle) + distPoint[0];newCoord[1] = _length3 * Math.sin(angle) + distPoint[1];}else if(constraints.fixed){newCoord = movablePoint.coord;}return newCoord;};movablePoint.coord = applySnapAndConstraints(movablePoint.coord);var highlightScale=2;if(movablePoint.visible){graph.style(movablePoint.normalStyle, function(){var radii=[movablePoint.pointSize / graph.scale[0], movablePoint.pointSize / graph.scale[1]];var options={maxScale:highlightScale, padding:2};movablePoint.visibleShape = new WrappedEllipse(graph, movablePoint.coord, radii, options);movablePoint.visibleShape.attr(_.omit(movablePoint.normalStyle, "scale"));movablePoint.visibleShape.toFront();});}movablePoint.normalStyle.scale = 1;movablePoint.highlightStyle.scale = highlightScale;if(movablePoint.vertexLabel){movablePoint.labeledVertex = this.label([0, 0], "", "center", movablePoint.labelStyle);}movablePoint.drawLabel = function(){if(movablePoint.vertexLabel){movablePoint.graph.labelVertex({vertex:movablePoint.coord, label:movablePoint.labeledVertex, text:movablePoint.vertexLabel, style:movablePoint.labelStyle});}};movablePoint.drawLabel();movablePoint.grab = function(offset){offset = offset || [0, 0];$(document).bind("vmousemove.point vmouseup.point", function(event){event.preventDefault();movablePoint.dragging = true;dragging = true;var coord=kvector.add(graph.getMouseCoord(event), offset);coord = applySnapAndConstraints(coord);var coordX=coord[0];var coordY=coord[1];var mouseX=undefined;var mouseY=undefined;if(event.type === "vmousemove"){var doMove=true;if(_.isFunction(movablePoint.onMove)){var result=movablePoint.onMove(coordX, coordY);if(result === false){doMove = false;}if(_.isArray(result)){coordX = result[0];coordY = result[1];}}mouseX = (coordX - graph.range[0][0]) * graph.scale[0];mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];if(doMove){var point=graph.unscalePoint([mouseX, mouseY]);movablePoint.visibleShape.moveTo(point);movablePoint.mouseTarget.moveTo(point);movablePoint.coord = [coordX, coordY];movablePoint.updateLineEnds();$(movablePoint).trigger("move");}movablePoint.drawLabel();}else if(event.type === "vmouseup"){$(document).unbind(".point");movablePoint.dragging = false;dragging = false;if(_.isFunction(movablePoint.onMoveEnd)){var result=movablePoint.onMoveEnd(coordX, coordY);if(_.isArray(result)){coordX = result[0];coordY = result[1];mouseX = (coordX - graph.range[0][0]) * graph.scale[0];mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];var point=graph.unscalePoint([mouseX, mouseY]);movablePoint.visibleShape.moveTo(point);movablePoint.mouseTarget.moveTo(point);movablePoint.coord = [coordX, coordY];}}if(!movablePoint.highlight){movablePoint.visibleShape.animate(movablePoint.normalStyle, 50);if(movablePoint.onUnhighlight){movablePoint.onUnhighlight();}}}});};if(movablePoint.visible && !movablePoint.constraints.fixed){if(!movablePoint.mouseTarget){var radii=graph.unscaleVector(24);var _options={mouselayer:true, padding:0};movablePoint.mouseTarget = new WrappedEllipse(graph, movablePoint.coord, radii, _options);movablePoint.mouseTarget.attr({fill:"#000", opacity:0});}var $mouseTarget=$(movablePoint.mouseTarget.getMouseTarget());$mouseTarget.css("cursor", "move");$mouseTarget.bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){movablePoint.highlight = true;if(!dragging){movablePoint.visibleShape.animate(movablePoint.highlightStyle, 50);if(movablePoint.onHighlight){movablePoint.onHighlight();}}}else if(event.type === "vmouseout"){movablePoint.highlight = false;if(!movablePoint.dragging && !dragging){movablePoint.visibleShape.animate(movablePoint.normalStyle, 50);if(movablePoint.onUnhighlight){movablePoint.onUnhighlight();}}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){event.preventDefault();var startCoord=movablePoint.coord;var startMouseCoord=graph.getMouseCoord(event);var isMouse=!("ontouchstart" in window);var touchOffset=isMouse?[0, 0]:kvector.subtract(startCoord, startMouseCoord);movablePoint.grab(touchOffset);}});}movablePoint.moveTo = function(coordX, coordY, updateLines){var distance=GraphUtils.getDistance(this.graph.scalePoint([coordX, coordY]), this.graph.scalePoint(this.coord));var time=distance * 5;var cb=updateLines && function(coord){movablePoint.coord = coord;movablePoint.updateLineEnds();};this.visibleShape.animateTo([coordX, coordY], time, cb);this.mouseTarget.animateTo([coordX, coordY], time, cb);this.coord = [coordX, coordY];if(_.isFunction(this.onMove)){this.onMove(coordX, coordY);}};movablePoint.updateLineEnds = function(){$(this.lineStarts).each(function(){this.coordA = movablePoint.coord;this.transform();});$(this.lineEnds).each(function(){this.coordZ = movablePoint.coord;this.transform();});$(this.polygonVertices).each(function(){this.transform();});};movablePoint.setCoord = function(coord){if(this.visible){this.visibleShape.moveTo(coord);if(this.mouseTarget != null){this.mouseTarget.moveTo(coord);}}this.coord = coord.slice();};movablePoint.setCoordConstrained = function(coord){this.setCoord(applySnapAndConstraints(coord));};movablePoint.toBack = function(){if(this.visible){if(this.mouseTarget != null){this.mouseTarget.toBack();}this.visibleShape.toBack();}};movablePoint.toFront = function(){if(this.visible){if(this.mouseTarget != null){this.mouseTarget.toFront();}this.visibleShape.toFront();}};movablePoint.remove = function(){if(this.visibleShape){this.visibleShape.remove();}if(this.mouseTarget){this.mouseTarget.remove();}if(this.labeledVertex){this.labeledVertex.remove();}};return movablePoint;}, addInteractiveFn:function(fn, options){var graph=this;options = $.extend({graph:graph, snap:0, range:[graph.range[0][0], graph.range[0][1]]}, options);var interactiveFn={highlight:false};graph.style({stroke:KhanColors.BLUE}, function(){interactiveFn.visibleShape = graph.plot(fn, options.range, options.swapAxes);});graph.style({fill:KhanColors.BLUE, stroke:KhanColors.BLUE}, function(){interactiveFn.cursorPoint = graph.ellipse([0, fn(0)], [4 / graph.scale[0], 4 / graph.scale[1]]);});interactiveFn.cursorPoint.attr("opacity", 0);var mouseAreaWidth=30;var points=[];var step=(options.range[1] - options.range[0]) / 100;var addScaledPoint=function(x, y){if(options.swapAxes){points.push([(y - graph.range[0][0]) * graph.scale[0], (graph.range[1][1] - x) * graph.scale[1]]);}else {points.push([(x - graph.range[0][0]) * graph.scale[0], (graph.range[1][1] - y) * graph.scale[1]]);}};for(var x=options.range[0]; x <= options.range[1]; x += step) {var ddx=(fn(x - 0.001) - fn(x + 0.001)) / 0.002;var x1=x;var y1=fn(x) + mouseAreaWidth / (2 * graph.scale[1]);if(ddx !== 0){var normalslope=-1 / (ddx * (graph.scale[1] / graph.scale[0])) / (graph.scale[1] / graph.scale[0]);if(ddx < 0){x1 = x - Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}else if(ddx > 0){x1 = x + Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}}addScaledPoint(x1, y1);}for(var x=options.range[1]; x >= options.range[0]; x -= step) {var ddx=(fn(x - 0.001) - fn(x + 0.001)) / 0.002;var x1=x;var y1=fn(x) - mouseAreaWidth / (2 * graph.scale[1]);if(ddx !== 0){var normalslope=-1 / (ddx * (graph.scale[1] / graph.scale[0])) / (graph.scale[1] / graph.scale[0]);if(ddx < 0){x1 = x + Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}else if(ddx > 0){x1 = x - Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}}addScaledPoint(x1, y1);}interactiveFn.mouseTarget = graph.mouselayer.path(GraphUtils.unscaledSvgPath(points));interactiveFn.mouseTarget.attr({fill:"#000", "opacity":0});$(interactiveFn.mouseTarget[0]).bind("vmouseover vmouseout vmousemove", function(event){event.preventDefault();var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graph.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graph.ypixels - 10, mouseY));if(options.snap){mouseX = Math.round(mouseX / (graph.scale[0] * options.snap)) * (graph.scale[0] * options.snap);}var coordX=mouseX / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - mouseY / graph.scale[1];var findDistance=function(coordX, coordY){var closestX=0;var minDist=Math.sqrt(coordX * coordX + coordY * coordY);for(var x=options.range[0]; x < options.range[1]; x += (options.range[1] - options.range[0]) / graph.xpixels) {if(Math.sqrt((x - coordX) * (x - coordX) + (fn(x) - coordY) * (fn(x) - coordY)) < minDist){closestX = x;minDist = Math.sqrt((x - coordX) * (x - coordX) + (fn(x) - coordY) * (fn(x) - coordY));}}return closestX;};if(options.swapAxes){var closestX=findDistance(coordY, coordX);coordX = fn(closestX);coordY = closestX;}else {var closestX=findDistance(coordX, coordY);coordX = closestX;coordY = fn(closestX);}interactiveFn.cursorPoint.attr("cx", (graph.range[0][1] + coordX) * graph.scale[0]);interactiveFn.cursorPoint.attr("cy", (graph.range[1][1] - coordY) * graph.scale[1]);if(_.isFunction(interactiveFn.onMove)){interactiveFn.onMove(coordX, coordY);}if(event.type === "vmouseover"){interactiveFn.cursorPoint.animate({opacity:1}, 50);interactiveFn.highlight = true;}else if(event.type === "vmouseout"){interactiveFn.highlight = false;interactiveFn.cursorPoint.animate({opacity:0}, 50);if(_.isFunction(interactiveFn.onLeave)){interactiveFn.onLeave(coordX, coordY);}}});interactiveFn.mouseTarget.toBack();return interactiveFn;}, addMovableLineSegment:function(options){var lineSegment=$.extend({graph:this, coordA:[0, 0], coordZ:[1, 1], snapX:0, snapY:0, fixed:false, ticks:0, normalStyle:{}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":6}, labelStyle:{"stroke":KhanColors.INTERACTIVE, "color":KhanColors.INTERACTIVE}, highlight:false, dragging:false, tick:[], extendLine:false, extendRay:false, constraints:{fixed:false, constrainX:false, constrainY:false}, sideLabel:"", vertexLabels:[], numArrows:0, numTicks:0, movePointsWithLine:false}, options);var normalColor=lineSegment.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;lineSegment.normalStyle = _.extend({}, {"stroke-width":2, "stroke":normalColor}, options.normalStyle);lineSegment.arrowStyle = _.extend({}, lineSegment.normalStyle, {"color":lineSegment.normalStyle.stroke});if(options.pointA !== undefined){lineSegment.coordA = options.pointA.coord;lineSegment.pointA.lineStarts.push(lineSegment);}else if(options.coordA !== undefined){lineSegment.coordA = options.coordA.slice();}if(options.pointZ !== undefined){lineSegment.coordZ = options.pointZ.coord;lineSegment.pointZ.lineEnds.push(lineSegment);}else if(options.coordA !== undefined){lineSegment.coordA = lineSegment.coordA.slice();}var graph=lineSegment.graph;graph.style(lineSegment.normalStyle);for(var i=0; i < lineSegment.ticks; ++i) {lineSegment.tick[i] = InteractiveUtils.bogusShape;}var path=GraphUtils.unscaledSvgPath([[0, 0], [1, 0]]);for(var i=0; i < lineSegment.ticks; ++i) {var tickoffset=0.5 - (lineSegment.ticks - 1 + i * 2) / graph.scale[0];path += GraphUtils.unscaledSvgPath([[tickoffset, -7], [tickoffset, 7]]);}options = {thickness:Math.max(lineSegment.normalStyle["stroke-width"], lineSegment.highlightStyle["stroke-width"])};lineSegment.visibleLine = new WrappedLine(graph, [0, 0], [1, 0], options);lineSegment.visibleLine.attr(lineSegment.normalStyle);if(!lineSegment.fixed){var _options2={thickness:30, mouselayer:true};lineSegment.mouseTarget = new WrappedLine(graph, [0, 0], [1, 0], _options2);lineSegment.mouseTarget.attr({fill:"#000", "opacity":0});}lineSegment.transform = function(syncToPoints){if(syncToPoints){if(typeof this.pointA === "object"){this.coordA = this.pointA.coord;}if(typeof this.pointZ === "object"){this.coordZ = this.pointZ.coord;}}var getScaledAngle=function(line){var scaledA=line.graph.scalePoint(line.coordA);var scaledZ=line.graph.scalePoint(line.coordZ);return kvector.polarDegFromCart(kvector.subtract(scaledZ, scaledA))[1];};var getClipPoint=function(graph, coord, angle){graph = lineSegment.graph;var xExtent=graph.range[0][1] - graph.range[0][0];var yExtent=graph.range[1][1] - graph.range[1][0];var distance=xExtent + yExtent;var angleVec=graph.unscaleVector(kvector.cartFromPolarDeg([1, angle]));var distVec=kvector.scale(kvector.normalize(angleVec), distance);var farCoord=kvector.add(coord, distVec);var scaledAngle=kvector.polarDegFromCart(angleVec)[1];var clipPoint=graph.constrainToBoundsOnAngle(farCoord, 4, scaledAngle * Math.PI / 180);return clipPoint;};var angle=getScaledAngle(this);var start=this.coordA;var end=this.coordZ;if(this.extendLine){start = getClipPoint(graph, start, 360 - angle);end = getClipPoint(graph, end, (540 - angle) % 360);}else if(this.extendRay){end = getClipPoint(graph, start, 360 - angle);}var elements=[this.visibleLine];if(!this.fixed){elements.push(this.mouseTarget);}_.each(elements, function(element){element.moveTo(start, end);});var createArrow=function(graph, style){var center=[0.75, 0];var points=[[-3, 4], [-2.75, 2.5], [0, 0.25], center, [0, -0.25], [-2.75, -2.5], [-3, -4]];var scale=1.4;points = _.map(points, function(point){var pv=kvector.subtract(point, center);var pvScaled=kvector.scale(pv, scale);return kvector.add(center, pvScaled);});var createCubicPath=function(points){var path="M" + points[0][0] + " " + points[0][1];for(var i=1; i < points.length; i += 3) {path += "C" + points[i][0] + " " + points[i][1] + " " + points[i + 1][0] + " " + points[i + 1][1] + " " + points[i + 2][0] + " " + points[i + 2][1];}return path;};var unscaledPoints=_.map(points, graph.unscalePoint);var options={center:graph.unscalePoint(center), createPath:createCubicPath};var arrowHead=new WrappedPath(graph, unscaledPoints, options);arrowHead.attr(_.extend({"stroke-linejoin":"round", "stroke-linecap":"round", "stroke-dasharray":""}, style));arrowHead.toCoordAtAngle = function(coord, angle){var clipPoint=graph.scalePoint(getClipPoint(graph, coord, angle));var do3dTransform=getCanUse3dTransform();arrowHead.transform("translateX(" + (clipPoint[0] + scale * center[0]) + "px) " + "translateY(" + (clipPoint[1] + scale * center[1]) + "px) " + (do3dTransform?"translateZ(0) ":"") + "rotate(" + (360 - KhanMath.bound(angle)) + "deg)");};return arrowHead;};if(this._arrows == null){this._arrows = [];if(this.extendLine){this._arrows.push(createArrow(graph, this.normalStyle));this._arrows.push(createArrow(graph, this.normalStyle));}else if(this.extendRay){this._arrows.push(createArrow(graph, this.normalStyle));}}var coordForArrow=[this.coordA, this.coordZ];var angleForArrow=[360 - angle, (540 - angle) % 360];_.each(this._arrows, function(arrow, i){arrow.toCoordAtAngle(coordForArrow[i], angleForArrow[i]);});_.invoke(this.temp, "remove");this.temp = [];var isClockwise=this.coordA[0] < this.coordZ[0] || this.coordA[0] === this.coordZ[0] && this.coordA[1] > this.coordZ[1];if(this.sideLabel){this.temp.push(this.graph.labelSide({point1:this.coordA, point2:this.coordZ, label:this.labeledSide, text:this.sideLabel, numArrows:this.numArrows, numTicks:this.numTicks, clockwise:isClockwise, style:this.labelStyle}));}if(this.vertexLabels.length){this.graph.labelVertex({vertex:this.coordA, point3:this.coordZ, label:this.labeledVertices[0], text:this.vertexLabels[0], clockwise:isClockwise, style:this.labelStyle});this.graph.labelVertex({point1:this.coordA, vertex:this.coordZ, label:this.labeledVertices[1], text:this.vertexLabels[1], clockwise:isClockwise, style:this.labelStyle});}this.temp = _.flatten(this.temp);};lineSegment.toBack = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.toBack();}lineSegment.visibleLine.toBack();};lineSegment.toFront = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.toFront();}lineSegment.visibleLine.toFront();};lineSegment.remove = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.remove();}lineSegment.visibleLine.remove();if(lineSegment.labeledSide){lineSegment.labeledSide.remove();}if(lineSegment.labeledVertices){_.invoke(lineSegment.labeledVertices, "remove");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "remove");}if(lineSegment.temp.length){_.invoke(lineSegment.temp, "remove");}};lineSegment.hide = function(){lineSegment.visibleLine.hide();if(lineSegment.temp.length){_.invoke(lineSegment.temp, "hide");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "hide");}};lineSegment.show = function(){lineSegment.visibleLine.show();if(lineSegment.temp.length){_.invoke(lineSegment.temp, "show");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "show");}};if(lineSegment.sideLabel){lineSegment.labeledSide = this.label([0, 0], "", "center", lineSegment.labelStyle);}if(lineSegment.vertexLabels.length){lineSegment.labeledVertices = _.map(lineSegment.vertexLabels, function(label){return this.label([0, 0], "", "center", lineSegment.labelStyle);}, this);}if(!lineSegment.fixed && !lineSegment.constraints.fixed){var $mouseTarget=$(lineSegment.mouseTarget.getMouseTarget());$mouseTarget.css("cursor", "move");$mouseTarget.bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){if(!dragging){lineSegment.highlight = true;lineSegment.visibleLine.animate(lineSegment.highlightStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.highlightStyle.stroke, "stroke":lineSegment.highlightStyle.stroke});lineSegment.transform();}}else if(event.type === "vmouseout"){lineSegment.highlight = false;if(!lineSegment.dragging){lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.normalStyle.stroke, "stroke":lineSegment.normalStyle.stroke});lineSegment.transform();}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();var coordX=(event.pageX - $(graph.raphael.canvas.parentNode).offset().left) / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - (event.pageY - $(graph.raphael.canvas.parentNode).offset().top) / graph.scale[1];if(lineSegment.snapX > 0){coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;}if(lineSegment.snapY > 0){coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;}var mouseOffsetA=[lineSegment.coordA[0] - coordX, lineSegment.coordA[1] - coordY];var mouseOffsetZ=[lineSegment.coordZ[0] - coordX, lineSegment.coordZ[1] - coordY];var offsetLeft=-Math.min(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);var offsetRight=Math.max(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);var offsetTop=Math.max(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);var offsetBottom=-Math.min(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);$(document).bind("vmousemove.lineSegment vmouseup.lineSegment", function(event){event.preventDefault();lineSegment.dragging = true;dragging = true;var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(offsetLeft + 10, Math.min(graph.xpixels - 10 - offsetRight, mouseX));mouseY = Math.max(offsetTop + 10, Math.min(graph.ypixels - 10 - offsetBottom, mouseY));var coordX=mouseX / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - mouseY / graph.scale[1];if(lineSegment.snapX > 0){coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;}if(lineSegment.snapY > 0){coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;}if(event.type === "vmousemove"){if(lineSegment.constraints.constrainX){coordX = lineSegment.coordA[0] - mouseOffsetA[0];}if(lineSegment.constraints.constrainY){coordY = lineSegment.coordA[1] - mouseOffsetA[1];}var dX=coordX + mouseOffsetA[0] - lineSegment.coordA[0];var dY=coordY + mouseOffsetA[1] - lineSegment.coordA[1];lineSegment.coordA = [coordX + mouseOffsetA[0], coordY + mouseOffsetA[1]];lineSegment.coordZ = [coordX + mouseOffsetZ[0], coordY + mouseOffsetZ[1]];lineSegment.transform();if(lineSegment.movePointsWithLine){if(typeof lineSegment.pointA === "object"){lineSegment.pointA.setCoord([lineSegment.pointA.coord[0] + dX, lineSegment.pointA.coord[1] + dY]);}if(typeof lineSegment.pointZ === "object"){lineSegment.pointZ.setCoord([lineSegment.pointZ.coord[0] + dX, lineSegment.pointZ.coord[1] + dY]);}}if(_.isFunction(lineSegment.onMove)){lineSegment.onMove(dX, dY);}}else if(event.type === "vmouseup"){$(document).unbind(".lineSegment");lineSegment.dragging = false;dragging = false;if(!lineSegment.highlight){lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.normalStyle.stroke, "stroke":lineSegment.normalStyle.stroke});lineSegment.transform();}if(_.isFunction(lineSegment.onMoveEnd)){lineSegment.onMoveEnd();}}$(lineSegment).trigger("move");});})();}});}if(lineSegment.pointA !== undefined){lineSegment.pointA.toFront();}if(lineSegment.pointZ !== undefined){lineSegment.pointZ.toFront();}lineSegment.transform();return lineSegment;}, addMovablePolygon:function(options){var graphie=this;var polygon=$.extend({snapX:0, snapY:0, fixed:false, constrainToGraph:true, normalStyle:{}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":2, "fill":KhanColors.INTERACTING, "fill-opacity":0.05}, pointHighlightStyle:{"fill":KhanColors.INTERACTING, "stroke":KhanColors.INTERACTING}, labelStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, angleLabels:[], showRightAngleMarkers:[], sideLabels:[], vertexLabels:[], numArcs:[], numArrows:[], numTicks:[], updateOnPointMove:true, closed:true}, _.omit(options, "points"));var normalColor=polygon.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;polygon.normalStyle = _.extend({"stroke-width":2, "fill-opacity":0, "fill":normalColor, "stroke":normalColor}, options.normalStyle);polygon.points = options.points;var isPoint=function(coordOrPoint){return !_.isArray(coordOrPoint);};polygon.update = function(){var n=polygon.points.length;polygon.coords = _.map(polygon.points, function(coordOrPoint, i){if(isPoint(coordOrPoint)){return coordOrPoint.coord;}else {return coordOrPoint;}});polygon.left = _.min(_.pluck(polygon.coords, 0));polygon.right = _.max(_.pluck(polygon.coords, 0));polygon.top = _.max(_.pluck(polygon.coords, 1));polygon.bottom = _.min(_.pluck(polygon.coords, 1));var scaledCoords=_.map(polygon.coords, function(coord){return graphie.scalePoint(coord);});if(polygon.closed){scaledCoords.push(true);}else {scaledCoords = scaledCoords.concat(_.clone(scaledCoords).reverse());}polygon.path = GraphUtils.unscaledSvgPath(scaledCoords);_.invoke(polygon.temp, "remove");polygon.temp = [];var isClockwise=clockwise(polygon.coords);if(polygon.angleLabels.length || polygon.showRightAngleMarkers.length){_.each(polygon.labeledAngles, function(label, i){polygon.temp.push(graphie.labelAngle({point1:polygon.coords[(i - 1 + n) % n], vertex:polygon.coords[i], point3:polygon.coords[(i + 1) % n], label:label, text:polygon.angleLabels[i], showRightAngleMarker:polygon.showRightAngleMarkers[i], numArcs:polygon.numArcs[i], clockwise:isClockwise, style:polygon.labelStyle}));});}if(polygon.sideLabels.length){_.each(polygon.labeledSides, function(label, i){polygon.temp.push(graphie.labelSide({point1:polygon.coords[i], point2:polygon.coords[(i + 1) % n], label:label, text:polygon.sideLabels[i], numArrows:polygon.numArrows[i], numTicks:polygon.numTicks[i], clockwise:isClockwise, style:polygon.labelStyle}));});}if(polygon.vertexLabels.length){_.each(polygon.labeledVertices, function(label, i){graphie.labelVertex({point1:polygon.coords[(i - 1 + n) % n], vertex:polygon.coords[i], point3:polygon.coords[(i + 1) % n], label:label, text:polygon.vertexLabels[i], clockwise:isClockwise, style:polygon.labelStyle});});}polygon.temp = _.flatten(polygon.temp);};polygon.transform = function(){polygon.update();polygon.visibleShape.attr({path:polygon.path});if(!polygon.fixed){polygon.mouseTarget.attr({path:polygon.path});}};polygon.remove = function(){polygon.visibleShape.remove();if(!polygon.fixed){polygon.mouseTarget.remove();}if(polygon.labeledAngles){_.invoke(polygon.labeledAngles, "remove");}if(polygon.labeledSides){_.invoke(polygon.labeledSides, "remove");}if(polygon.labeledVertices){_.invoke(polygon.labeledVertices, "remove");}if(polygon.temp.length){_.invoke(polygon.temp, "remove");}};polygon.toBack = function(){if(!polygon.fixed){polygon.mouseTarget.toBack();}polygon.visibleShape.toBack();};polygon.toFront = function(){if(!polygon.fixed){polygon.mouseTarget.toFront();}polygon.visibleShape.toFront();};if(polygon.updateOnPointMove){_.each(_.filter(polygon.points, isPoint), function(coordOrPoint){coordOrPoint.polygonVertices.push(polygon);});}polygon.coords = new Array(polygon.points.length);if(polygon.angleLabels.length){var numLabels=Math.max(polygon.angleLabels.length, polygon.showRightAngleMarkers.length);polygon.labeledAngles = _.times(numLabels, function(){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}if(polygon.sideLabels.length){polygon.labeledSides = _.map(polygon.sideLabels, function(label){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}if(polygon.vertexLabels.length){polygon.labeledVertices = _.map(polygon.vertexLabels, function(label){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}polygon.update();polygon.visibleShape = graphie.raphael.path(polygon.path);polygon.visibleShape.attr(polygon.normalStyle);if(!polygon.fixed){polygon.mouseTarget = graphie.mouselayer.path(polygon.path);polygon.mouseTarget.attr({fill:"#000", opacity:0, cursor:"move"});$(polygon.mouseTarget[0]).bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){if(!dragging || polygon.dragging){polygon.highlight = true;polygon.visibleShape.animate(polygon.highlightStyle, 50);_.each(_.filter(polygon.points, isPoint), function(point){point.visibleShape.animate(polygon.pointHighlightStyle, 50);});}}else if(event.type === "vmouseout"){polygon.highlight = false;if(!polygon.dragging){polygon.visibleShape.animate(polygon.normalStyle, 50);var points=_.filter(polygon.points, isPoint);if(!_.any(_.pluck(points, "dragging"))){_.each(points, function(point){point.visibleShape.animate(point.normalStyle, 50);});}}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();_.each(_.filter(polygon.points, isPoint), function(point){point.dragging = true;});var startX=(event.pageX - $(graphie.raphael.canvas.parentNode).offset().left) / graphie.scale[0] + graphie.range[0][0];var startY=graphie.range[1][1] - (event.pageY - $(graphie.raphael.canvas.parentNode).offset().top) / graphie.scale[1];if(polygon.snapX > 0){startX = Math.round(startX / polygon.snapX) * polygon.snapX;}if(polygon.snapY > 0){startY = Math.round(startY / polygon.snapY) * polygon.snapY;}var lastX=startX;var lastY=startY;var polygonCoords=polygon.coords.slice();var offsetLeft=(startX - polygon.left) * graphie.scale[0];var offsetRight=(polygon.right - startX) * graphie.scale[0];var offsetTop=(polygon.top - startY) * graphie.scale[1];var offsetBottom=(startY - polygon.bottom) * graphie.scale[1];$(document).bind("vmousemove.polygon vmouseup.polygon", function(event){event.preventDefault();polygon.dragging = true;dragging = true;var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;if(polygon.constrainToGraph){mouseX = Math.max(offsetLeft + 10, Math.min(graphie.xpixels - 10 - offsetRight, mouseX));mouseY = Math.max(offsetTop + 10, Math.min(graphie.ypixels - 10 - offsetBottom, mouseY));}var currentX=mouseX / graphie.scale[0] + graphie.range[0][0];var currentY=graphie.range[1][1] - mouseY / graphie.scale[1];if(polygon.snapX > 0){currentX = Math.round(currentX / polygon.snapX) * polygon.snapX;}if(polygon.snapY > 0){currentY = Math.round(currentY / polygon.snapY) * polygon.snapY;}if(event.type === "vmousemove"){(function(){var dX=currentX - startX;var dY=currentY - startY;var doMove=true;if(_.isFunction(polygon.onMove)){var onMoveResult=polygon.onMove(dX, dY);if(onMoveResult === false){doMove = false;}else if(_.isArray(onMoveResult)){dX = onMoveResult[0];dY = onMoveResult[1];currentX = startX + dX;currentY = startY + dY;}}var increment=function(i){return [polygonCoords[i][0] + dX, polygonCoords[i][1] + dY];};if(doMove){_.each(polygon.points, function(coordOrPoint, i){if(isPoint(coordOrPoint)){coordOrPoint.setCoord(increment(i));}else {polygon.points[i] = increment(i);}});polygon.transform();$(polygon).trigger("move");lastX = currentX;lastY = currentY;}})();}else if(event.type === "vmouseup"){$(document).unbind(".polygon");var points=_.filter(polygon.points, isPoint);_.each(points, function(point){point.dragging = false;});polygon.dragging = false;dragging = false;if(!polygon.highlight){polygon.visibleShape.animate(polygon.normalStyle, 50);_.each(points, function(point){point.visibleShape.animate(point.normalStyle, 50);});}if(_.isFunction(polygon.onMoveEnd)){polygon.onMoveEnd(lastX - startX, lastY - startY);}}});})();}});}_.invoke(_.filter(polygon.points, isPoint), "toFront");return polygon;}, constrainToBounds:function(point, padding){var lower=this.unscalePoint([padding, this.ypixels - padding]);var upper=this.unscalePoint([this.xpixels - padding, padding]);var coordX=Math.max(lower[0], Math.min(upper[0], point[0]));var coordY=Math.max(lower[1], Math.min(upper[1], point[1]));return [coordX, coordY];}, constrainToBoundsOnAngle:function(point, padding, angle){var lower=this.unscalePoint([padding, this.ypixels - padding]);var upper=this.unscalePoint([this.xpixels - padding, padding]);var result=point.slice();if(result[0] < lower[0]){result = [lower[0], result[1] + (lower[0] - result[0]) * Math.tan(angle)];}else if(result[0] > upper[0]){result = [upper[0], result[1] - (result[0] - upper[0]) * Math.tan(angle)];}if(result[1] < lower[1]){result = [result[0] + (lower[1] - result[1]) / Math.tan(angle), lower[1]];}else if(result[1] > upper[1]){result = [result[0] - (result[1] - upper[1]) / Math.tan(angle), upper[1]];}return result;}, addMovableAngle:function(options){return new MovableAngle(this, options);}, addArrowWidget:function(options){var arrowWidget=$.extend({graph:this, direction:"up", coord:[0, 0], onClick:function(){}}, options);var graph=arrowWidget.graph;if(arrowWidget.direction === "up"){arrowWidget.visibleShape = graph.path([[arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0] - 4 / graph.scale[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0] + 4 / graph.scale[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]]], {stroke:"", fill:KhanColors.INTERACTIVE});}else if(arrowWidget.direction === "down"){arrowWidget.visibleShape = graph.path([[arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0] - 4 / graph.scale[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0] + 4 / graph.scale[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]]], {stroke:"", fill:KhanColors.INTERACTIVE});}_.defer(function(){arrowWidget.visibleShape.attr({stroke:"", fill:KhanColors.INTERACTIVE});});arrowWidget.mouseTarget = graph.mouselayer.circle(graph.scalePoint(arrowWidget.coord)[0], graph.scalePoint(arrowWidget.coord)[1], 15);arrowWidget.mouseTarget.attr({fill:"#000", "opacity":0});$(arrowWidget.mouseTarget[0]).css("cursor", "pointer");$(arrowWidget.mouseTarget[0]).bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){arrowWidget.visibleShape.animate({scale:2, fill:KhanColors.INTERACTING}, 20);}else if(event.type === "vmouseout"){arrowWidget.visibleShape.animate({scale:1, fill:KhanColors.INTERACTING}, 20);}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){if(!arrowWidget.hidden){arrowWidget.onClick();}return false;}});arrowWidget.hide = function(){arrowWidget.visibleShape.hide();arrowWidget.hidden = true;$(arrowWidget.mouseTarget[0]).css("cursor", "default");};arrowWidget.show = function(){arrowWidget.visibleShape.show();arrowWidget.hidden = false;$(arrowWidget.mouseTarget[0]).css("cursor", "pointer");};return arrowWidget;}, addRectGraph:function(options){var rect=$.extend(true, {x:0, y:0, width:1, height:1, normalStyle:{points:{stroke:KhanColors.INTERACTIVE, fill:KhanColors.INTERACTIVE, opacity:1}, edges:{stroke:KhanColors.INTERACTIVE, opacity:1, "stroke-width":1}, area:{fill:KhanColors.INTERACTIVE, "fill-opacity":0.1, "stroke-width":0}}, hoverStyle:{points:{color:KhanColors.INTERACTING, opacity:1, width:2}, edges:{stroke:KhanColors.INTERACTING, opacity:1, "stroke-width":1}, area:{fill:KhanColors.INTERACTING, "fill-opacity":0.2, "stroke-width":0}}, fixed:{edges:[false, false, false, false], points:[false, false, false, false]}, constraints:{constrainX:false, constrainY:false, xmin:null, xmax:null, ymin:null, ymax:null}, snapX:0, snapY:0, onMove:function(){}}, options);rect = $.extend({initialized:function(){return rect.points && rect.points.length;}, x2:function(){return this.x + this.width;}, y2:function(){return this.y + this.height;}, getX:function(){if(rect.initialized()){return rect.points[0].coord[0];}return rect.x;}, getY:function(){if(rect.initialized()){return rect.points[0].coord[1];}return rect.y;}, getX2:function(){return rect.getX() + rect.getWidth();}, getY2:function(){return rect.getY() + rect.getHeight();}, getXLims:function(){var x=rect.getX();return [x, x + rect.getWidth()];}, getYLims:function(){var y=rect.getY();return [y, y + rect.getHeight()];}, getWidth:function(){if(rect.initialized()){var x0=rect.points[1].coord[0];var x1=rect.points[2].coord[0];return x1 - x0;}return rect.width;}, getHeight:function(){if(rect.initialized()){var y0=rect.points[0].coord[1];var y1=rect.points[1].coord[1];return y1 - y0;}return rect.height;}, getCoord:function(){return [rect.getX(), rect.getY()];}, getRaphaelParamsArr:function(){var width=rect.getWidth();var height=rect.getHeight();var x=rect.getX();var y=rect.getY();var point=graphie.scalePoint([x, y + height]);var dims=graphie.scaleVector([width, height]);return point.concat(dims);}, getRaphaelParams:function(){var arr=rect.getRaphaelParamsArr();return {x:arr[0], y:arr[1], width:arr[2], height:arr[3]};}}, rect);var graphie=this;rect.fillArea = graphie.rect().attr(rect.normalStyle.area);rect.mouseTarget = graphie.mouselayer.rect().attr({fill:"#000", opacity:0, "fill-opacity":0});rect.render = function(){rect.fillArea.attr(rect.getRaphaelParams());rect.mouseTarget.attr(rect.getRaphaelParams());};rect.render();rect.points = [];var coords=[[rect.x, rect.y], [rect.x, rect.y2()], [rect.x2(), rect.y2()], [rect.x2(), rect.y]];var sames=[[1, 3], [0, 2], [3, 1], [2, 0]];var moveLimits=[[1, 1], [1, 0], [0, 0], [0, 1]];function adjustNeighboringPoints(x, y, sameX, sameY){rect.points[sameX].setCoord([x, rect.points[sameX].coord[1]]);rect.points[sameY].setCoord([rect.points[sameY].coord[0], y]);rect.points[sameX].updateLineEnds();rect.points[sameY].updateLineEnds();}function coordInBounds(limit, newVal, checkIsGreater){return checkIsGreater?newVal < limit:newVal > limit;}function moveIsInBounds(index, newX, newY){var xlims=rect.getXLims();var ylims=rect.getYLims();var i=moveLimits[index];var xInBounds=coordInBounds(xlims[i[0]], newX, i[0] === 1);var yInBounds=coordInBounds(ylims[i[1]], newY, i[1] === 1);return xInBounds && yInBounds;}_.times(4, function(i){var sameX=sames[i][0];var sameY=sames[i][1];var coord=coords[i];var point=graphie.addMovablePoint({graph:graphie, coord:coord, normalStyle:rect.normalStyle.points, hoverStyle:rect.hoverStyle.points, snapX:rect.snapX, snapY:rect.snapY, visible:!rect.fixed.points[i], constraints:{fixed:rect.fixed.points[i]}, onMove:function(x, y){if(!moveIsInBounds(i, x, y)){return false;}adjustNeighboringPoints(x, y, sameX, sameY);rect.render();}});rect.points.push(point);});rect.edges = [];rect.moveEdge = function(dx, dy, edgeIndex){var a=rect.edges[edgeIndex].pointA;var z=rect.edges[edgeIndex].pointZ;a.setCoord([a.coord[0] + dx, a.coord[1] + dy]);z.setCoord([z.coord[0] + dx, z.coord[1] + dy]);a.updateLineEnds();z.updateLineEnds();};_.times(4, function(i){var pointA=rect.points[i];var pointZ=rect.points[(i + 1) % 4];var constrainX=i % 2;var constrainY=(i + 1) % 2;var edge=graphie.addMovableLineSegment({graph:graphie, pointA:pointA, pointZ:pointZ, normalStyle:rect.normalStyle.edges, hoverStyle:rect.hoverStyle.edges, snapX:rect.snapX, snapY:rect.snapY, fixed:rect.fixed.edges[i], constraints:{constrainX:constrainX, constrainY:constrainY}, onMove:function(dx, dy){rect.moveEdge(dx, dy, i);rect.render();}});rect.edges.push(edge);});var elems=[rect.fillArea, rect.mouseTarget];rect.elems = elems.concat(rect.edges).concat(rect.points);function constrainTranslation(dx, dy){var xC=rect.constraints.constrainX;var xLT=rect.getX() + dx < rect.constraints.xmin;var xGT=rect.getX2() + dx > rect.constraints.xmax;var yC=rect.constraints.constrainY;var yLT=rect.getY() + dy < rect.constraints.ymin;var yGT=rect.getY2() + dy > rect.constraints.ymax;dx = xC || xLT || xGT?0:dx;dy = yC || yLT || yGT?0:dy;return [dx, dy];}rect.translate = function(dx, dy){if(rect.constraints.constrainX && rect.constraints.constrainY){return;}var d=constrainTranslation(dx, dy);dx = d[0];dy = d[1];_.each(rect.points, function(point, i){var x=point.coord[0] + dx;var y=point.coord[1] + dy;point.setCoord([x, y]);point.updateLineEnds();});rect.render();rect.onMove(dx, dy);};rect.moveTo = function(x, y){var dx=x - rect.getX();var dy=y - rect.getY();rect.translate(dx, dy);};rect.snap = function(){var dx=undefined;var dy=undefined;_.each(rect.points, function(point, i){var x0=point.coord[0];var y0=point.coord[1];var x1=x0;var y1=y0;if(rect.snapX){x1 = KhanMath.roundToNearest(rect.snapX, x0);}if(rect.snapY){y1 = KhanMath.roundToNearest(rect.snapY, y0);}if(!dx || !dy){dx = x1 - x0;dy = y1 - y0;}point.setCoord([x1, y1]);point.updateLineEnds();});rect.render();rect.onMove(dx, dy);};rect.toFront = function(){_.each(rect.elems, function(elem){elem.toFront();});};rect.hide = function(speed){if(rect.hidden){return;}speed = speed || 100;rect.fillArea.animate({"fill-opacity":0}, speed);$(rect.mouseTarget[0]).css("display", "none");rect.hidden = true;};rect.show = function(speed){if(!rect.hidden){return;}speed = speed || 100;rect.fillArea.animate(rect.normalStyle.area, speed);$(rect.mouseTarget[0]).css("display", "block");rect.hidden = false;};rect.enableHoverStyle = function(){rect.highlight = true;if(!dragging){rect.fillArea.animate(rect.hoverStyle.area, 100);}};rect.enableNormalStyle = function(){rect.highlight = false;if(!rect.dragging){rect.fillArea.animate(rect.normalStyle.area, 100);}};var bindTranslation=function(){$(rect.mouseTarget[0]).css("cursor", "move");$(rect.mouseTarget[0]).on("vmouseover vmouseout vmousedown", function(event){if(event.type === "vmouseover"){rect.enableHoverStyle();}else if(event.type === "vmouseout"){rect.enableNormalStyle();}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){event.preventDefault();rect.toFront();rect.prevCoord = graphie.getMouseCoord(event);rect.enableHoverStyle();$(document).on("vmousemove vmouseup", function(event){event.preventDefault();rect.dragging = true;dragging = true;if(event.type === "vmousemove"){var currCoord=graphie.getMouseCoord(event);if(rect.prevCoord && rect.prevCoord.length === 2){var diff=GraphUtils.coordDiff(rect.prevCoord, currCoord);rect.translate(diff[0], diff[1]);}rect.prevCoord = currCoord;}else if(event.type === "vmouseup"){$(document).off("vmousemove vmouseup");rect.dragging = false;dragging = false;var currCoord=graphie.getMouseCoord(event);if(currCoord[0] < rect.getX() || currCoord[0] > rect.getX2() || currCoord[1] < rect.getY() || currCoord[1] > rect.getY2()){rect.enableNormalStyle();}rect.snap();}});}});};bindTranslation();return rect;}, addCircleGraph:function(options){var graphie=this;var circle=$.extend({center:[0, 0], radius:2, snapX:0.5, snapY:0.5, snapRadius:0.5, minRadius:1, centerConstraints:{}, centerNormalStyle:{}, centerHighlightStyle:{stroke:KhanColors.INTERACTING, fill:KhanColors.INTERACTING}, circleNormalStyle:{stroke:KhanColors.INTERACTIVE, "fill-opacity":0}, circleHighlightStyle:{stroke:KhanColors.INTERACTING, fill:KhanColors.INTERACTING, "fill-opacity":0.05}}, options);var normalColor=circle.centerConstraints.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;var centerNormalStyle=options?options.centerNormalStyle:null;circle.centerNormalStyle = _.extend({}, {"fill":normalColor, "stroke":normalColor}, centerNormalStyle);circle.centerPoint = graphie.addMovablePoint({graph:graphie, coord:circle.center, normalStyle:circle.centerNormalStyle, snapX:circle.snapX, snapY:circle.snapY, constraints:circle.centerConstraints});circle.circ = graphie.circle(circle.center, circle.radius, circle.circleNormalStyle);circle.perim = graphie.mouselayer.circle(graphie.scalePoint(circle.center)[0], graphie.scalePoint(circle.center)[1], graphie.scaleVector(circle.radius)[0]).attr({"stroke-width":20, "opacity":0.002});if(!circle.centerConstraints.fixed){$(circle.centerPoint.mouseTarget.getMouseTarget()).on("vmouseover vmouseout", function(event){if(circle.centerPoint.highlight || circle.centerPoint.dragging){circle.circ.animate(circle.circleHighlightStyle, 50);}else {circle.circ.animate(circle.circleNormalStyle, 50);}});}circle.toFront = function(){circle.circ.toFront();circle.perim.toFront();circle.centerPoint.visibleShape.toFront();if(!circle.centerConstraints.fixed){circle.centerPoint.mouseTarget.toFront();}};circle.centerPoint.onMove = function(x, y){circle.toFront();circle.circ.attr({cx:graphie.scalePoint(x)[0], cy:graphie.scalePoint(y)[1]});circle.perim.attr({cx:graphie.scalePoint(x)[0], cy:graphie.scalePoint(y)[1]});if(circle.onMove){circle.onMove(x, y);}};$(circle.centerPoint).on("move", function(){circle.center = this.coord;$(circle).trigger("move");});circle.setCenter = function(x, y){circle.centerPoint.setCoord([x, y]);circle.centerPoint.onMove(x, y);circle.center = [x, y];};circle.setRadius = function(r){circle.radius = r;circle.perim.attr({r:graphie.scaleVector(r)[0]});circle.circ.attr({rx:graphie.scaleVector(r)[0], ry:graphie.scaleVector(r)[1]});};circle.remove = function(){circle.centerPoint.remove();circle.circ.remove();circle.perim.remove();};$(circle.perim[0]).css("cursor", "move");$(circle.perim[0]).on("vmouseover vmouseout vmousedown", function(event){if(event.type === "vmouseover"){circle.highlight = true;if(!dragging){circle.circ.animate(circle.circleHighlightStyle, 50);circle.centerPoint.visibleShape.animate(circle.centerHighlightStyle, 50);}}else if(event.type === "vmouseout"){circle.highlight = false;if(!circle.dragging && !circle.centerPoint.dragging){circle.circ.animate(circle.circleNormalStyle, 50);circle.centerPoint.visibleShape.animate(circle.centerNormalStyle, 50);}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();circle.toFront();var startRadius=circle.radius;$(document).on("vmousemove vmouseup", function(event){event.preventDefault();circle.dragging = true;dragging = true;if(event.type === "vmousemove"){var coord=graphie.constrainToBounds(graphie.getMouseCoord(event), 10);var radius=GraphUtils.getDistance(circle.centerPoint.coord, coord);radius = Math.max(circle.minRadius, Math.round(radius / circle.snapRadius) * circle.snapRadius);var oldRadius=circle.radius;var doResize=true;if(circle.onResize){var onResizeResult=circle.onResize(radius, oldRadius);if(_.isNumber(onResizeResult)){radius = onResizeResult;}else if(onResizeResult === false){doResize = false;}}if(doResize){circle.setRadius(radius);$(circle).trigger("move");}}else if(event.type === "vmouseup"){$(document).off("vmousemove vmouseup");circle.dragging = false;dragging = false;if(circle.onResizeEnd){circle.onResizeEnd(circle.radius, startRadius);}}});})();}});return circle;}, interactiveEllipse:function(options){var graphie=this;var ellipse=$.extend({center:[0, 0], radius:2, xRadius:2, yRadius:2, ellipseNormalStyle:{stroke:KhanColors.BLUE, "fill-opacity":0}, ellipseBoundaryHideStyle:{"fill-opacity":0, "stroke-width":0}, ellipseBoundaryShowStyle:{"fill-opacity":1, fill:KhanColors.BLUE}, onMove:function(coordX, coordY){}, onLeave:function(coordX, coordY){}}, options);ellipse.circ = graphie.ellipse(ellipse.center, [ellipse.xRadius, ellipse.yRadius], ellipse.ellipseNormalStyle);ellipse.perim = graphie.mouselayer.ellipse(graphie.scalePoint(ellipse.center)[0], graphie.scalePoint(ellipse.center)[1], graphie.scaleVector(ellipse.xRadius)[0], graphie.scaleVector(ellipse.yRadius)[0]).attr({"stroke-width":30, "opacity":0.002});ellipse.boundaryPoint = graphie.circle(ellipse.center, 0.4, ellipse.ellipseBoundaryHideStyle);ellipse.remove = function(){ellipse.circ.remove();ellipse.perim.remove();};ellipse.showPoint = function(event){var coord=graphie.constrainToBounds(graphie.getMouseCoord(event), 10);var dx=ellipse.yRadius * (ellipse.center[0] - coord[0]);var dy=ellipse.xRadius * (ellipse.center[1] - coord[1]);var angle=Math.atan2(dy, dx);coord[0] = ellipse.center[0] - ellipse.xRadius * Math.cos(angle);coord[1] = ellipse.center[1] - ellipse.yRadius * Math.sin(angle);var scaledPoint=graphie.scalePoint(coord);ellipse.boundaryPoint.attr({cx:scaledPoint[0]});ellipse.boundaryPoint.attr({cy:scaledPoint[1]});ellipse.boundaryPoint.animate(ellipse.ellipseBoundaryShowStyle, 50);ellipse.onMove(coord[0], coord[1]);};$(ellipse.perim[0]).on("vmouseover vmouseout vmousemove", function(event){if(event.type === "vmouseover"){ellipse.showPoint(event);}else if(event.type === "vmouseout"){ellipse.boundaryPoint.animate(ellipse.ellipseBoundaryHideStyle, 50);ellipse.onLeave();}else if(event.type === "vmousemove"){ellipse.showPoint(event);}});return ellipse;}, addRotateHandle:(function(){var drawRotateHandle=function(graphie, center, radius, halfWidth, lengthAngle, angle, interacting){var getRotateHandlePoint=function(offset, distanceFromArrowMidline){var distFromRotationCenter=radius + distanceFromArrowMidline;var vec=kvector.cartFromPolarDeg([distFromRotationCenter, angle + offset]);var absolute=kvector.add(center, vec);var pixels=graphie.scalePoint(absolute);return pixels[0] + "," + pixels[1];};var innerR=graphie.scaleVector(radius - halfWidth);var outerR=graphie.scaleVector(radius + halfWidth);return graphie.raphael.path(" M" + getRotateHandlePoint(lengthAngle, -halfWidth) + " L" + getRotateHandlePoint(lengthAngle, -3 * halfWidth) + " L" + getRotateHandlePoint(2 * lengthAngle, 0) + " L" + getRotateHandlePoint(lengthAngle, 3 * halfWidth) + " L" + getRotateHandlePoint(lengthAngle, halfWidth) + " A" + outerR[0] + "," + outerR[1] + ",0,0,1," + getRotateHandlePoint(-lengthAngle, halfWidth) + " L" + getRotateHandlePoint(-lengthAngle, 3 * halfWidth) + " L" + getRotateHandlePoint(-2 * lengthAngle, 0) + " L" + getRotateHandlePoint(-lengthAngle, -3 * halfWidth) + " L" + getRotateHandlePoint(-lengthAngle, -halfWidth) + " A" + innerR[0] + "," + innerR[1] + ",0,0,0," + getRotateHandlePoint(lengthAngle, -halfWidth) + " Z").attr({stroke:null, fill:interacting?KhanColors.INTERACTING:KhanColors.INTERACTIVE});};return function(options){var graph=this;var rotatePoint=options.center;var radius=options.radius;var lengthAngle=options.lengthAngle || 30;var hideArrow=options.hideArrow || false;var mouseTarget=options.mouseTarget;var id=_.uniqueId("rotateHandle");if(_.isArray(rotatePoint)){rotatePoint = {coord:rotatePoint};}var rotateHandle=graph.addMovablePoint({coord:kpoint.addVector(rotatePoint.coord, kvector.cartFromPolarDeg(radius, options.angleDeg || 0)), constraints:{fixedDistance:{dist:radius, point:rotatePoint}}, mouseTarget:mouseTarget});rotatePoint.toFront();var rotatePointPrevCoord=rotatePoint.coord;var rotateHandlePrevCoord=rotateHandle.coord;var rotateHandleStartCoord=rotateHandlePrevCoord;var isRotating=false;var isHovering=false;var drawnRotateHandle=undefined;var redrawRotateHandle=function(handleCoord){if(hideArrow){return;}var handleVec=kvector.subtract(handleCoord, rotatePoint.coord);var handlePolar=kvector.polarDegFromCart(handleVec);var angle=handlePolar[1];if(drawnRotateHandle){drawnRotateHandle.remove();}drawnRotateHandle = drawRotateHandle(graph, rotatePoint.coord, options.radius, isRotating || isHovering?options.hoverWidth / 2:options.width / 2, lengthAngle, angle, isRotating || isHovering);};$(rotatePoint).on("move." + id, function(){var delta=kvector.subtract(rotatePoint.coord, rotatePointPrevCoord);rotateHandle.setCoord(kvector.add(rotateHandle.coord, delta));redrawRotateHandle(rotateHandle.coord);rotatePointPrevCoord = rotatePoint.coord;rotateHandle.constraints.fixedDistance.point = rotatePoint;rotateHandlePrevCoord = rotateHandle.coord;});rotateHandle.onMove = function(x, y){if(!isRotating){rotateHandleStartCoord = rotateHandlePrevCoord;isRotating = true;}var coord=[x, y];if(options.onMove){var oldPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandlePrevCoord, rotatePoint.coord));var newPolar=kvector.polarDegFromCart(kvector.subtract(coord, rotatePoint.coord));var oldAngle=oldPolar[1];var newAngle=newPolar[1];var result=options.onMove(newAngle, oldAngle);if(result != null && result !== true){if(result === false){result = oldAngle;}coord = kvector.add(rotatePoint.coord, kvector.cartFromPolarDeg([oldPolar[0], result]));}}redrawRotateHandle(coord);rotateHandlePrevCoord = coord;return coord;};rotateHandle.onMoveEnd = function(){isRotating = false;redrawRotateHandle(rotateHandle.coord);if(options.onMoveEnd){var oldPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandleStartCoord, rotatePoint.coord));var newPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandle.coord, rotatePoint.coord));options.onMoveEnd(newPolar[1], oldPolar[1]);}};rotateHandle.visibleShape.remove();if(!mouseTarget){rotateHandle.mouseTarget.attr({scale:2});}var $mouseTarget=$(rotateHandle.mouseTarget.getMouseTarget());$mouseTarget.bind("vmouseover", function(e){isHovering = true;redrawRotateHandle(rotateHandle.coord);});$mouseTarget.bind("vmouseout", function(e){isHovering = false;redrawRotateHandle(rotateHandle.coord);});redrawRotateHandle(rotateHandle.coord);var oldRemove=rotateHandle.remove;rotateHandle.remove = function(){oldRemove.call(rotateHandle);if(drawnRotateHandle){drawnRotateHandle.remove();}$(rotatePoint).off("move." + id);};rotateHandle.update = function(){redrawRotateHandle(rotateHandle.coord);};return rotateHandle;};})(), addReflectButton:(function(){var drawButton=function(graphie, buttonCoord, lineCoords, size, distanceFromCenter, leftStyle, rightStyle){if(kpoint.equal(lineCoords[0], lineCoords[1])){lineCoords = [lineCoords[0], kpoint.addVector(lineCoords[0], [1, 1])];}var lineDirection=kvector.normalize(kvector.subtract(lineCoords[1], lineCoords[0]));var lineVec=kvector.scale(lineDirection, size / 2);var centerVec=kvector.scale(lineDirection, distanceFromCenter);var leftCenterVec=kvector.rotateDeg(centerVec, 90);var rightCenterVec=kvector.rotateDeg(centerVec, -90);var negLineVec=kvector.negate(lineVec);var leftVec=kvector.rotateDeg(lineVec, 90);var rightVec=kvector.rotateDeg(lineVec, -90);var leftCenter=kpoint.addVectors(buttonCoord, leftCenterVec);var rightCenter=kpoint.addVectors(buttonCoord, rightCenterVec);var leftCoord1=kpoint.addVectors(buttonCoord, leftCenterVec, lineVec, leftVec);var leftCoord2=kpoint.addVectors(buttonCoord, leftCenterVec, negLineVec, leftVec);var rightCoord1=kpoint.addVectors(buttonCoord, rightCenterVec, lineVec, rightVec);var rightCoord2=kpoint.addVectors(buttonCoord, rightCenterVec, negLineVec, rightVec);var leftButton=graphie.path([leftCenter, leftCoord1, leftCoord2, true], leftStyle);var rightButton=graphie.path([rightCenter, rightCoord1, rightCoord2, true], rightStyle);return {remove:function(){leftButton.remove();rightButton.remove();}};};return function(options){var graphie=this;var line=options.line;var button=graphie.addMovablePoint({constraints:options.constraints, coord:kline.midpoint([line.pointA.coord, line.pointZ.coord]), snapX:graphie.snap[0], snapY:graphie.snap[1], onMove:function(x, y){return false;}, onMoveEnd:function(x, y){if(options.onMoveEnd){options.onMoveEnd.call(this, x, y);}}});var isHovering=false;var isFlipped=false;var currentlyDrawnButton=undefined;var isHighlight=function(){return isHovering;};var styles=_.map([0, 1], function(isHighlight){var baseStyle=isHighlight?options.highlightStyle:options.normalStyle;return _.map([0, 1], function(opacity){return _.defaults({"fill-opacity":opacity}, baseStyle);});});var getStyle=function(isRight){if(isFlipped){isRight = !isRight;}return styles[+isHighlight()][+isRight];};var redraw=function(coord, lineCoords){if(currentlyDrawnButton){currentlyDrawnButton.remove();}currentlyDrawnButton = drawButton(graphie, coord, lineCoords, isHighlight()?options.size * 1.5:options.size, isHighlight()?options.size * 0.125:0.25, getStyle(0), getStyle(1));};var update=function(coordA, coordZ){coordA = coordA || line.pointA.coord;coordZ = coordZ || line.pointZ.coord;var buttonCoord=kline.midpoint([coordA, coordZ]);button.setCoord(buttonCoord);redraw(buttonCoord, [coordA, coordZ]);};$(line).on("move", _.bind(update, button, null, null));var $mouseTarget=$(button.mouseTarget.getMouseTarget());$mouseTarget.on("vclick", function(){var result=options.onClick();if(result !== false){isFlipped = !isFlipped;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);}});line.pointA.toFront();line.pointZ.toFront();button.visibleShape.remove();var pointScale=graphie.scaleVector(options.size)[0] / 20;button.mouseTarget.attr({scale:1.5 * pointScale});$mouseTarget.css("cursor", "pointer");$mouseTarget.bind("vmouseover", function(e){isHovering = true;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);});$mouseTarget.bind("vmouseout", function(e){isHovering = false;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);});var oldButtonRemove=button.remove;button.remove = function(){currentlyDrawnButton.remove();oldButtonRemove.call(button);};button.update = update;button.isFlipped = function(){return isFlipped;};update();return button;};})(), protractor:function(center){return new Protractor(this, center);}, ruler:function(options){return new Ruler(this, options || {});}, addPoints:addPoints});function Protractor(graph, center){this.set = graph.raphael.set();this.cx = center[0];this.cy = center[1];var pro=this;var r=graph.unscaleVector(180.5)[0];var imgPos=graph.scalePoint([this.cx - r, this.cy + r - graph.unscaleVector(10.5)[1]]);this.set.push(graph.mouselayer.image("https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png", imgPos[0], imgPos[1], 360, 180));var arrowHelper=function(angle, pixelsFromEdge){var scaledRadius=graph.scaleVector(r);scaledRadius[0] -= 16;scaledRadius[1] -= 16;var scaledCenter=graph.scalePoint(center);var x=Math.sin((angle + 90) * Math.PI / 180) * (scaledRadius[0] + pixelsFromEdge) + scaledCenter[0];var y=Math.cos((angle + 90) * Math.PI / 180) * (scaledRadius[1] + pixelsFromEdge) + scaledCenter[1];return x + "," + y;};var arrow=graph.raphael.path(" M" + arrowHelper(180, 6) + " L" + arrowHelper(180, 2) + " L" + arrowHelper(183, 10) + " L" + arrowHelper(180, 18) + " L" + arrowHelper(180, 14) + " A" + (graph.scaleVector(r)[0] + 10) + "," + (graph.scaleVector(r)[1] + 10) + ",0,0,1," + arrowHelper(170, 14) + " L" + arrowHelper(170, 18) + " L" + arrowHelper(167, 10) + " L" + arrowHelper(170, 2) + " L" + arrowHelper(170, 6) + " A" + (graph.scaleVector(r)[0] + 10) + "," + (graph.scaleVector(r)[1] + 10) + ",0,0,0," + arrowHelper(180, 6) + " Z").attr({"stroke":null, "fill":KhanColors.INTERACTIVE});this.set.push(arrow);this.centerPoint = graph.addMovablePoint({coord:center, visible:false});this.rotateHandle = graph.addMovablePoint({coord:[Math.sin(275 * Math.PI / 180) * (r + 0.5) + this.cx, Math.cos(275 * Math.PI / 180) * (r + 0.5) + this.cy], onMove:function(x, y){var angle=Math.atan2(pro.centerPoint.coord[1] - y, pro.centerPoint.coord[0] - x) * 180 / Math.PI;pro.rotate(-angle - 5, true);}});this.rotateHandle.constraints.fixedDistance.dist = r + 0.5;this.rotateHandle.constraints.fixedDistance.point = this.centerPoint;this.rotateHandle.visibleShape.remove();this.rotateHandle.mouseTarget.attr({scale:2});var isDragging=false;var isHovering=false;var isHighlight=function(){return isHovering || isDragging;};var self=this;var $mouseTarget=$(self.rotateHandle.mouseTarget.getMouseTarget());$mouseTarget.bind("vmousedown", function(event){isDragging = true;arrow.animate({scale:1.5, fill:KhanColors.INTERACTING}, 50);$(document).bind("vmouseup.rotateHandle", function(event){isDragging = false;if(!isHighlight()){arrow.animate({scale:1, fill:KhanColors.INTERACTIVE}, 50);}$(document).unbind("vmouseup.rotateHandle");});});$mouseTarget.bind("vmouseover", function(event){isHovering = true;arrow.animate({scale:1.5, fill:KhanColors.INTERACTING}, 50);});$mouseTarget.bind("vmouseout", function(event){isHovering = false;if(!isHighlight()){arrow.animate({scale:1, fill:KhanColors.INTERACTIVE}, 50);}});var setNodes=$.map(this.set, function(el){return el.node;});this.makeTranslatable = function makeTranslatable(){$(setNodes).css("cursor", "move");$(setNodes).bind("vmousedown", function(event){event.preventDefault();var startx=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var starty=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;$(document).bind("vmousemove.protractor", function(event){var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graph.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graph.ypixels - 10, mouseY));var dx=mouseX - startx;var dy=mouseY - starty;$.each(pro.set.items, function(){this.translate(dx, dy);});pro.centerPoint.setCoord([pro.centerPoint.coord[0] + dx / graph.scale[0], pro.centerPoint.coord[1] - dy / graph.scale[1]]);pro.rotateHandle.setCoord([pro.rotateHandle.coord[0] + dx / graph.scale[0], pro.rotateHandle.coord[1] - dy / graph.scale[1]]);startx = mouseX;starty = mouseY;});$(document).one("vmouseup", function(event){$(document).unbind("vmousemove.protractor");});});};this.rotation = 0;this.rotate = function(offset, absolute){var center=graph.scalePoint(this.centerPoint.coord);if(absolute){this.rotation = 0;}this.set.rotate(this.rotation + offset, center[0], center[1]);this.rotation = this.rotation + offset;return this;};this.moveTo = function moveTo(x, y){var start=graph.scalePoint(pro.centerPoint.coord);var end=graph.scalePoint([x, y]);var time=GraphUtils.getDistance(start, end) * 2;$({x:start[0], y:start[1]}).animate({x:end[0], y:end[1]}, {duration:time, step:function(now, fx){var dx=0;var dy=0;if(fx.prop === "x"){dx = now - graph.scalePoint(pro.centerPoint.coord)[0];}else if(fx.prop === "y"){dy = now - graph.scalePoint(pro.centerPoint.coord)[1];}$.each(pro.set.items, function(){this.translate(dx, dy);});pro.centerPoint.setCoord([pro.centerPoint.coord[0] + dx / graph.scale[0], pro.centerPoint.coord[1] - dy / graph.scale[1]]);pro.rotateHandle.setCoord([pro.rotateHandle.coord[0] + dx / graph.scale[0], pro.rotateHandle.coord[1] - dy / graph.scale[1]]);}});};this.rotateTo = function rotateTo(angle){if(Math.abs(this.rotation - angle) > 180){this.rotation += 360;}var time=Math.abs(this.rotation - angle) * 5;$({0:this.rotation}).animate({0:angle}, {duration:time, step:function(now, fx){pro.rotate(now, true);pro.rotateHandle.setCoord([Math.sin((now + 275) * Math.PI / 180) * (r + 0.5) + pro.centerPoint.coord[0], Math.cos((now + 275) * Math.PI / 180) * (r + 0.5) + pro.centerPoint.coord[1]]);}});};this.remove = function(){this.set.remove();};this.makeTranslatable();return this;}function Ruler(graphie, options){_.defaults(options, {center:[0, 0], pixelsPerUnit:40, ticksPerUnit:10, units:10, label:"", style:{fill:null, stroke:KhanColors.GRAY}});var light=_.extend({}, options.style, {strokeWidth:1});var bold=_.extend({}, options.style, {strokeWidth:2});var width=options.units * options.pixelsPerUnit;var height=50;var leftBottom=graphie.unscalePoint(kvector.subtract(graphie.scalePoint(options.center), kvector.scale([width, -height], 0.5)));var graphieUnitsPerUnit=options.pixelsPerUnit / graphie.scale[0];var graphieUnitsHeight=height / graphie.scale[0];var rightTop=kvector.add(leftBottom, [options.units * graphieUnitsPerUnit, graphieUnitsHeight]);var tickHeight=1;var tickHeightMap=undefined;if(options.ticksPerUnit === 10){tickHeightMap = {10:tickHeight, 5:tickHeight * 0.55, 1:tickHeight * 0.35};}else {var sizes=[1, 0.6, 0.45, 0.3];tickHeightMap = {};for(var i=options.ticksPerUnit; i >= 1; i /= 2) {tickHeightMap[i] = tickHeight * (sizes.shift() || 0.2);}}var tickFrequencies=_.keys(tickHeightMap).sort(function(a, b){return b - a;});function getTickHeight(i){for(var k=0; k < tickFrequencies.length; k++) {var key=tickFrequencies[k];if(i % key === 0){return tickHeightMap[key];}}}var left=leftBottom[0];var bottom=leftBottom[1];var right=rightTop[0];var top=rightTop[1];var numTicks=options.units * options.ticksPerUnit + 1;var set=graphie.raphael.set();var px=1 / graphie.scale[0];set.push(graphie.line([left - px, bottom], [right + px, bottom], bold));set.push(graphie.line([left - px, top], [right + px, top], bold));_.times(numTicks, function(i){var n=i / options.ticksPerUnit;var x=left + n * graphieUnitsPerUnit;var height=getTickHeight(i) * graphieUnitsHeight;var style=i === 0 || i === numTicks - 1?bold:light;set.push(graphie.line([x, bottom], [x, bottom + height], style));if(n % 1 === 0){var coord=graphie.scalePoint([x, top]);var text=undefined;var offset=undefined;if(n === 0){text = options.label;offset = ({mm:13, cm:11, m:8, km:11, in:8, ft:8, yd:10, mi:10})[text] || 3 * text.toString().length;}else {text = n;offset = -3 * (n.toString().length + 1);}var label=graphie.raphael.text(coord[0] + offset, coord[1] + 10, text);label.attr({"font-family":"KaTeX_Main", "font-size":"12px", "color":"#444"});set.push(label);}});var mouseTarget=graphie.mouselayer.path(GraphUtils.svgPath([leftBottom, [left, top], rightTop, [right, bottom], true]));mouseTarget.attr({fill:"#000", opacity:0, stroke:"#000", "stroke-width":2});set.push(mouseTarget);var setNodes=$.map(set, function(el){return el.node;});$(setNodes).css("cursor", "move");$(setNodes).bind("vmousedown", function(event){event.preventDefault();var startx=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var starty=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;$(document).bind("vmousemove.ruler", function(event){var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graphie.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graphie.ypixels - 10, mouseY));var dx=mouseX - startx;var dy=mouseY - starty;set.translate(dx, dy);leftBottomHandle.setCoord([leftBottomHandle.coord[0] + dx / graphie.scale[0], leftBottomHandle.coord[1] - dy / graphie.scale[1]]);rightBottomHandle.setCoord([rightBottomHandle.coord[0] + dx / graphie.scale[0], rightBottomHandle.coord[1] - dy / graphie.scale[1]]);startx = mouseX;starty = mouseY;});$(document).one("vmouseup", function(event){$(document).unbind("vmousemove.ruler");});});var leftBottomHandle=graphie.addMovablePoint({coord:leftBottom, normalStyle:{fill:KhanColors.INTERACTIVE, "fill-opacity":0, stroke:KhanColors.INTERACTIVE}, highlightStyle:{fill:KhanColors.INTERACTING, "fill-opacity":0.1, stroke:KhanColors.INTERACTING}, pointSize:6, onMove:function(x, y){var dy=rightBottomHandle.coord[1] - y;var dx=rightBottomHandle.coord[0] - x;var angle=Math.atan2(dy, dx) * 180 / Math.PI;var center=kvector.scale(kvector.add([x, y], rightBottomHandle.coord), 0.5);var scaledCenter=graphie.scalePoint(center);var oldCenter=kvector.scale(kvector.add(leftBottomHandle.coord, rightBottomHandle.coord), 0.5);var scaledOldCenter=graphie.scalePoint(oldCenter);var diff=kvector.subtract(scaledCenter, scaledOldCenter);set.rotate(-angle, scaledOldCenter[0], scaledOldCenter[1]);set.translate(diff[0], diff[1]);}});var rightBottomHandle=graphie.addMovablePoint({coord:[right, bottom], normalStyle:{fill:KhanColors.INTERACTIVE, "fill-opacity":0, stroke:KhanColors.INTERACTIVE}, highlightStyle:{fill:KhanColors.INTERACTING, "fill-opacity":0.1, stroke:KhanColors.INTERACTING}, pointSize:6, onMove:function(x, y){var dy=y - leftBottomHandle.coord[1];var dx=x - leftBottomHandle.coord[0];var angle=Math.atan2(dy, dx) * 180 / Math.PI;var center=kvector.scale(kvector.add([x, y], leftBottomHandle.coord), 0.5);var scaledCenter=graphie.scalePoint(center);var oldCenter=kvector.scale(kvector.add(leftBottomHandle.coord, rightBottomHandle.coord), 0.5);var scaledOldCenter=graphie.scalePoint(oldCenter);var diff=kvector.subtract(scaledCenter, scaledOldCenter);set.rotate(-angle, scaledOldCenter[0], scaledOldCenter[1]);set.translate(diff[0], diff[1]);}});leftBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];leftBottomHandle.constraints.fixedDistance.point = rightBottomHandle;rightBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];rightBottomHandle.constraints.fixedDistance.point = leftBottomHandle;this.remove = function(){set.remove();leftBottomHandle.remove();rightBottomHandle.remove();};return this;}function MovableAngle(graphie, options){this.graphie = graphie;_.extend(this, options);_.defaults(this, {normalStyle:{"stroke":KhanColors.INTERACTIVE, "stroke-width":2, "fill":KhanColors.INTERACTIVE}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":2, "fill":KhanColors.INTERACTING}, labelStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, angleStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, allowReflex:true});if(!this.points || this.points.length !== 3){throw new Error("MovableAngle requires 3 points");}this.points = _.map(options.points, function(point){if(_.isArray(point)){return graphie.addMovablePoint({coord:point, visible:false, constraints:{fixed:true}, normalStyle:this.normalStyle});}else {return point;}}, this);this.coords = _.pluck(this.points, "coord");if(this.reflex == null){if(this.allowReflex){this.reflex = this._getClockwiseAngle(this.coords) > 180;}else {this.reflex = false;}}this.rays = _.map([0, 2], function(i){return graphie.addMovableLineSegment({pointA:this.points[1], pointZ:this.points[i], fixed:true, extendRay:true});}, this);this.temp = [];this.labeledAngle = graphie.label([0, 0], "", "center", this.labelStyle);if(!this.fixed){this.addMoveHandlers();this.addHighlightHandlers();}this.update();}_.extend(MovableAngle.prototype, {points:[], snapDegrees:0, snapOffsetDeg:0, angleLabel:"", numArcs:1, pushOut:0, fixed:false, addMoveHandlers:function(){var graphie=this.graphie;function tooClose(point1, point2){var safeDistance=30;var distance=GraphUtils.getDistance(graphie.scalePoint(point1), graphie.scalePoint(point2));return distance < safeDistance;}var points=this.points;points[1].onMove = function(x, y){var oldVertex=points[1].coord;var newVertex=[x, y];var delta=addPoints(newVertex, reverseVector(oldVertex));var valid=true;var newPoints={};_.each([0, 2], function(i){var oldPoint=points[i].coord;var newPoint=addPoints(oldPoint, delta);var angle=GraphUtils.findAngle(newVertex, newPoint);angle *= Math.PI / 180;newPoint = graphie.constrainToBoundsOnAngle(newPoint, 10, angle);newPoints[i] = newPoint;if(tooClose(newVertex, newPoint)){valid = false;}});if(valid){_.each(newPoints, function(newPoint, i){points[i].setCoord(newPoint);});}return valid;};var snap=this.snapDegrees;var snapOffset=this.snapOffsetDeg;_.each([0, 2], function(i){points[i].onMove = function(x, y){var newPoint=[x, y];var vertex=points[1].coord;if(tooClose(vertex, newPoint)){return false;}else if(snap){var angle=GraphUtils.findAngle(newPoint, vertex);angle = Math.round((angle - snapOffset) / snap) * snap + snapOffset;var distance=GraphUtils.getDistance(newPoint, vertex);return addPoints(vertex, graphie.polar(distance, angle));}else {return true;}};});$(points).on("move", (function(){this.update();$(this).trigger("move");}).bind(this));}, addHighlightHandlers:function(){var vertex=this.points[1];vertex.onHighlight = (function(){_.each(this.points, function(point){point.visibleShape.animate(this.highlightStyle, 50);}, this);_.each(this.rays, function(ray){ray.visibleLine.animate(this.highlightStyle, 50);ray.arrowStyle = _.extend({}, ray.arrowStyle, {"color":this.highlightStyle.stroke, "stroke":this.highlightStyle.stroke});}, this);this.angleStyle = _.extend({}, this.angleStyle, {"color":this.highlightStyle.stroke, "stroke":this.highlightStyle.stroke});this.update();}).bind(this);vertex.onUnhighlight = (function(){_.each(this.points, function(point){point.visibleShape.animate(this.normalStyle, 50);}, this);_.each(this.rays, function(ray){ray.visibleLine.animate(ray.normalStyle, 50);ray.arrowStyle = _.extend({}, ray.arrowStyle, {"color":ray.normalStyle.stroke, "stroke":ray.normalStyle.stroke});}, this);this.angleStyle = _.extend({}, this.angleStyle, {"color":KhanColors.DYNAMIC, "stroke":KhanColors.DYNAMIC});this.update();}).bind(this);}, _getClockwiseAngle:function(coords){var clockwiseAngle=(GraphUtils.findAngle(coords[2], coords[0], coords[1]) + 360) % 360;return clockwiseAngle;}, isReflex:function(){return this.reflex;}, isClockwise:function(){var clockwiseReflexive=this._getClockwiseAngle(this.coords) > 180;return clockwiseReflexive === this.reflex;}, getClockwiseCoords:function(){if(this.isClockwise()){return _.clone(this.coords);}else {return _.clone(this.coords).reverse();}}, update:function(shouldChangeReflexivity){var prevCoords=this.coords;this.coords = _.pluck(this.points, "coord");_.invoke(this.points, "updateLineEnds");var prevAngle=this._getClockwiseAngle(prevCoords);var angle=this._getClockwiseAngle(this.coords);var prevClockwiseReflexive=prevAngle > 180;var clockwiseReflexive=angle > 180;if(this.allowReflex){if(shouldChangeReflexivity == null){shouldChangeReflexivity = prevClockwiseReflexive !== clockwiseReflexive && Math.abs(angle - prevAngle) < 180;}if(shouldChangeReflexivity){this.reflex = !this.reflex;}}_.invoke(this.temp, "remove");this.temp = this.graphie.labelAngle({point1:this.coords[0], vertex:this.coords[1], point3:this.coords[2], label:this.labeledAngle, text:this.angleLabel, numArcs:this.numArcs, pushOut:this.pushOut, clockwise:this.reflex === clockwiseReflexive, style:this.angleStyle});}, remove:function(){_.invoke(this.rays, "remove");_.invoke(this.temp, "remove");this.labeledAngle.remove();}});module.exports = InteractiveUtils;
+	var _=__webpack_require__(47);__webpack_require__(248);var GraphUtils=__webpack_require__(219);var kvector=__webpack_require__(206).vector;var kpoint=__webpack_require__(206).point;var kline=__webpack_require__(206).line;var WrappedEllipse=__webpack_require__(242);var WrappedLine=__webpack_require__(244);var WrappedPath=__webpack_require__(249);var KhanMath=__webpack_require__(152);var KhanColors=__webpack_require__(172);var _require=__webpack_require__(190);var getCanUse3dTransform=_require.getCanUse3dTransform;function sum(array){return _.reduce(array, function(memo, arg){return memo + arg;}, 0);}function clockwise(points){var segments=_.zip(points, points.slice(1).concat(points.slice(0, 1)));var areas=_.map(segments, function(segment){var p1=segment[0];var p2=segment[1];return (p2[0] - p1[0]) * (p2[1] + p1[1]);});return sum(areas) > 0;}function addPoints(){var points=_.toArray(arguments);var zipped=_.zip.apply(_, points);return _.map(zipped, sum);}function reverseVector(vector){return _.map(vector, function(coord){return coord * -1;});}function scaledDistanceFromAngle(angle){var a=3.51470560176242 * 20;var b=0.5687298702748785 * 20;var c=-0.037587715462826674;return (a - b) * Math.exp(c * angle) + b;}function scaledPolarRad(radius, radians){return [radius * Math.cos(radians), radius * Math.sin(radians) * -1];}function scaledPolarDeg(radius, degrees){var radians=degrees * Math.PI / 180;return scaledPolarRad(radius, radians);}var dragging=false;var InteractiveUtils={FILL_OPACITY:0.3, createSorter:function(){var sorter={};var list=undefined;sorter.hasAttempted = false;sorter.init = function(element){list = $("[id=" + element + "]").last();var container=list.wrap("<div>").parent();var placeholder=$("<li>");placeholder.addClass("placeholder");container.addClass("sortable perseus-clearfix");list.find("li").each(function(tileNum, tile){$(tile).bind("vmousedown", function(event){var _this=this;if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();$(tile).addClass("dragging");var tileIndex=$(_this).index();placeholder.insertAfter(tile);placeholder.width($(tile).width());$(_this).css("z-index", 100);var offset=$(_this).offset();var click={left:event.pageX - offset.left - 3, top:event.pageY - offset.top - 3};$(tile).css({position:"absolute"});$(tile).offset({left:offset.left, top:offset.top});$(document).bind("vmousemove.tile vmouseup.tile", function(event){event.preventDefault();if(event.type === "vmousemove"){(function(){sorter.hasAttempted = true;$(tile).offset({left:event.pageX - click.left, top:event.pageY - click.top});var leftEdge=list.offset().left;var midWidth=$(tile).offset().left - leftEdge;var index=0;var sumWidth=0;list.find("li").each(function(){if(this === placeholder[0] || this === tile){return;}if(midWidth > sumWidth + $(this).outerWidth(true) / 2){index += 1;}sumWidth += $(this).outerWidth(true);});if(index !== tileIndex){tileIndex = index;if(index === 0){placeholder.prependTo(list);$(tile).prependTo(list);}else {placeholder.detach();$(tile).detach();var preceeding=list.find("li")[index - 1];placeholder.insertAfter(preceeding);$(tile).insertAfter(preceeding);}}})();}else if(event.type === "vmouseup"){(function(){$(document).unbind(".tile");var position=$(tile).offset();$(position).animate(placeholder.offset(), {duration:150, step:function(now, fx){position[fx.prop] = now;$(tile).offset(position);}, complete:function(){$(tile).css("z-index", 0);placeholder.detach();$(tile).css({position:"static"});$(tile).removeClass("dragging");}});})();}});})();}});});};sorter.getContent = function(){var content=[];list.find("li").each(function(tileNum, tile){content.push($.trim($(tile).find(".sort-key").text()));});return content;};sorter.setContent = function(content){var tiles=[];$.each(content, function(n, sortKey){var tile=list.find("li .sort-key").filter(function(){return $(this).text() === sortKey;}).closest("li").get(0);$(tile).detach();tiles.push(tile);});list.append(tiles);};return sorter;}, bogusShape:{animate:function(){}, attr:function(){}, remove:function(){}}};_.extend(GraphUtils.Graphie.prototype, {initAutoscaledGraph:function(range, options){var graph=this;options = $.extend({xpixels:500, ypixels:500, xdivisions:20, ydivisions:20, labels:true, unityLabels:true, range:range === undefined?[[-10, 10], [-10, 10]]:range}, options);options.scale = [options.xpixels / (options.range[0][1] - options.range[0][0]), options.ypixels / (options.range[1][1] - options.range[1][0])];options.gridStep = [(options.range[0][1] - options.range[0][0]) / options.xdivisions, (options.range[1][1] - options.range[1][0]) / options.ydivisions];graph.xpixels = options.xpixels;graph.ypixels = options.ypixels;graph.range = options.range;graph.scale = options.scale;graph.graphInit(options);}, addMouseLayer:function(options){var graph=this;options = _.extend({allowScratchpad:false}, options);var mouselayerZIndex=2;graph.mouselayer = Raphael(graph.raphael.canvas.parentNode, graph.xpixels, graph.ypixels);$(graph.mouselayer.canvas).css("z-index", mouselayerZIndex);if(options.onClick || options.onMouseDown || options.onMouseMove || options.onMouseOver || options.onMouseOut){(function(){var canvasClickTarget=graph.mouselayer.rect(0, 0, graph.xpixels, graph.ypixels).attr({fill:"#000", opacity:0});var isClickingCanvas=false;$(graph.mouselayer.canvas).on("vmousedown", function(e){if(e.target === canvasClickTarget[0]){if(options.onMouseDown){options.onMouseDown(graph.getMouseCoord(e));}isClickingCanvas = true;if(options.onMouseMove){$(document).bind("vmousemove.mouseLayer", function(e){if(isClickingCanvas){e.preventDefault();options.onMouseMove(graph.getMouseCoord(e));}});}$(document).bind("vmouseup.mouseLayer", function(e){$(document).unbind(".mouseLayer");if(isClickingCanvas && options.onClick){options.onClick(graph.getMouseCoord(e));}isClickingCanvas = false;});}});if(options.onMouseOver){$(graph.mouselayer.canvas).on("vmouseover", function(e){options.onMouseOver(graph.getMouseCoord(e));});}if(options.onMouseOut){$(graph.mouselayer.canvas).on("vmouseout", function(e){options.onMouseOut(graph.getMouseCoord(e));});}})();}if(!options.allowScratchpad){Khan.scratchpad.disable();}graph._mouselayerWrapper = document.createElement("div");$(graph._mouselayerWrapper).css({position:"absolute", left:0, top:0, zIndex:mouselayerZIndex});graph._visiblelayerWrapper = document.createElement("div");$(graph._visiblelayerWrapper).css({position:"absolute", left:0, top:0});var el=graph.raphael.canvas.parentNode;el.appendChild(graph._visiblelayerWrapper);el.appendChild(graph._mouselayerWrapper);graph.addToMouseLayerWrapper = function(el){this._mouselayerWrapper.appendChild(el);};graph.addToVisibleLayerWrapper = function(el){this._visiblelayerWrapper.appendChild(el);};}, getMousePx:function(event){var graphie=this;var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;return [mouseX, mouseY];}, getMouseCoord:function(event){return this.unscalePoint(this.getMousePx(event));}, drawArcs:function(point1, vertex, point3, numArcs){var startAngle=GraphUtils.findAngle(point1, vertex);var endAngle=GraphUtils.findAngle(point3, vertex);if(((endAngle - startAngle) % 360 + 360) % 360 > 180){var temp=startAngle;startAngle = endAngle;endAngle = temp;}var radius=0.3;if(((endAngle - startAngle) % 360 + 360) % 360 < 75){radius = -0.6 / 90 * (((endAngle - startAngle) % 360 + 360) % 360) + 0.8;}var arcset=[];for(var arc=0; arc < numArcs; ++arc) {arcset.push(this.arc(vertex, radius + 0.15 * arc, startAngle, endAngle));}return arcset;}, labelAngle:function(options){var graphie=this;_.defaults(options, {point1:[0, 0], vertex:[0, 0], point3:[0, 0], label:null, numArcs:1, showRightAngleMarker:true, pushOut:0, clockwise:false, style:{}});var text=options.text === undefined?"":options.text;var vertex=options.vertex;var sVertex=graphie.scalePoint(vertex);var p1=undefined;var p3=undefined;if(options.clockwise){p1 = options.point1;p3 = options.point3;}else {p1 = options.point3;p3 = options.point1;}var startAngle=GraphUtils.findAngle(p1, vertex);var endAngle=GraphUtils.findAngle(p3, vertex);var angle=(endAngle + 360 - startAngle) % 360;var halfAngle=(startAngle + angle / 2) % 360;var sPadding=5 * options.pushOut;var sRadius=sPadding + scaledDistanceFromAngle(angle);var temp=[];if(Math.abs(angle - 90) < 1e-9 && options.showRightAngleMarker){(function(){var v1=addPoints(sVertex, scaledPolarDeg(sRadius, startAngle));var v2=addPoints(sVertex, scaledPolarDeg(sRadius, endAngle));sRadius *= Math.SQRT2;var v3=addPoints(sVertex, scaledPolarDeg(sRadius, halfAngle));_.each([v1, v2], function(v){temp.push(graphie.scaledPath([v, v3], options.style));});})();}else {_.times(options.numArcs, function(i){temp.push(graphie.arc(vertex, graphie.unscaleVector(sRadius), startAngle, endAngle, options.style));sRadius += 3;});}if(text){var match=text.match(/\$deg(\d)?/);if(match){var precision=match[1] || 1;text = text.replace(match[0], KhanMath.toFixedApprox(angle, precision) + "^{\\circ}");}var sOffset=scaledPolarDeg(sRadius + 15, halfAngle);var sPosition=addPoints(sVertex, sOffset);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(text, true);}else {graphie.label(position, text, "center", options.style);}}return temp;}, labelSide:function(options){var graphie=this;_.defaults(options, {point1:[0, 0], point2:[0, 0], label:null, text:"", numTicks:0, numArrows:0, clockwise:false, style:{}});var p1=undefined;var p2=undefined;if(options.clockwise){p1 = options.point1;p2 = options.point2;}else {p1 = options.point2;p2 = options.point1;}var midpoint=[(p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2];var sMidpoint=graphie.scalePoint(midpoint);var parallelAngle=Math.atan2(p2[1] - p1[1], p2[0] - p1[0]);var perpendicularAngle=parallelAngle + Math.PI / 2;var temp=[];var sCumulativeOffset=0;if(options.numTicks){(function(){var n=options.numTicks;var sSpacing=5;var sHeight=5;var style=_.extend({}, options.style, {strokeWidth:2});_.times(n, function(i){var sOffset=sSpacing * (i - (n - 1) / 2);var sOffsetVector=scaledPolarRad(sOffset, parallelAngle);var sHeightVector=scaledPolarRad(sHeight, perpendicularAngle);var sPath=[addPoints(sMidpoint, sOffsetVector, sHeightVector), addPoints(sMidpoint, sOffsetVector, reverseVector(sHeightVector))];temp.push(graphie.scaledPath(sPath, style));});sCumulativeOffset += sSpacing * (n - 1) + 15;})();}if(options.numArrows){(function(){var n=options.numArrows;var start=[p1, p2].sort(function(a, b){if(a[1] === b[1]){return a[0] - b[0];}else {return a[1] - b[1];}})[0];var sStart=graphie.scalePoint(start);var style=_.extend({}, options.style, {arrows:"->", strokeWidth:2});var sSpacing=5;_.times(n, function(i){var sOffset=sCumulativeOffset + sSpacing * i;var sOffsetVector=scaledPolarRad(sOffset, parallelAngle);if(start !== p1){sOffsetVector = reverseVector(sOffsetVector);}var sEnd=addPoints(sMidpoint, sOffsetVector);temp.push(graphie.scaledPath([sStart, sEnd], style));});})();}var text=options.text;if(text){var match=text.match(/\$len(\d)?/);if(match){var distance=GraphUtils.getDistance(p1, p2);var precision=match[1] || 1;text = text.replace(match[0], KhanMath.toFixedApprox(distance, precision));}var sOffset=20;var sOffsetVector=scaledPolarRad(sOffset, perpendicularAngle);var sPosition=addPoints(sMidpoint, sOffsetVector);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(text, true);}else {graphie.label(position, text, "center", options.style);}}return temp;}, labelVertex:function(options){var graphie=this;_.defaults(options, {point1:null, vertex:[0, 0], point3:null, label:null, text:"", clockwise:false, style:{}});if(!options.text){return;}var vertex=options.vertex;var sVertex=graphie.scalePoint(vertex);var p1=undefined;var p3=undefined;if(options.clockwise){p1 = options.point1;p3 = options.point3;}else {p1 = options.point3;p3 = options.point1;}var angle=135;var halfAngle=undefined;if(p1 && p3){var startAngle=GraphUtils.findAngle(p1, vertex);var endAngle=GraphUtils.findAngle(p3, vertex);angle = (endAngle + 360 - startAngle) % 360;halfAngle = (startAngle + angle / 2 + 180) % 360;}else if(p1){var parallelAngle=GraphUtils.findAngle(vertex, p1);halfAngle = parallelAngle + 90;}else if(p3){var parallelAngle=GraphUtils.findAngle(p3, vertex);halfAngle = parallelAngle + 90;}else {halfAngle = 135;}var sRadius=10 + scaledDistanceFromAngle(360 - angle);var sOffsetVector=scaledPolarDeg(sRadius, halfAngle);var sPosition=addPoints(sVertex, sOffsetVector);var position=graphie.unscalePoint(sPosition);if(options.label){options.label.setPosition(position);options.label.processMath(options.text, true);}else {graphie.label(position, options.text, "center", options.style);}}, addMovablePoint:function(options){var movablePoint=$.extend(true, {graph:this, coord:[0, 0], snapX:0, snapY:0, pointSize:4, highlight:false, dragging:false, visible:true, bounded:true, constraints:{fixed:false, constrainX:false, constrainY:false, fixedAngle:{}, fixedDistance:{}}, lineStarts:[], lineEnds:[], polygonVertices:[], normalStyle:{}, highlightStyle:{fill:KhanColors.INTERACTING, stroke:KhanColors.INTERACTING}, labelStyle:{color:KhanColors.INTERACTIVE}, vertexLabel:"", mouseTarget:null}, options);var normalColor=movablePoint.constraints.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;movablePoint.normalStyle = _.extend({}, {"fill":normalColor, "stroke":normalColor}, options.normalStyle);if(options.coordX !== undefined){movablePoint.coord[0] = options.coordX;}if(options.coordY !== undefined){movablePoint.coord[1] = options.coordY;}var graph=movablePoint.graph;var applySnapAndConstraints=function(coord){if(movablePoint.visible && movablePoint.bounded && !movablePoint.constraints.fixed){coord = graph.constrainToBounds(coord, 10);}var coordX=coord[0];var coordY=coord[1];if(movablePoint.snapX !== 0){coordX = Math.round(coordX / movablePoint.snapX) * movablePoint.snapX;}if(movablePoint.snapY !== 0){coordY = Math.round(coordY / movablePoint.snapY) * movablePoint.snapY;}if(movablePoint.constraints.fixedDistance.snapPoints){var mouse=graph.scalePoint(coord);var mouseX=mouse[0];var mouseY=mouse[1];var snapRadians=2 * Math.PI / movablePoint.constraints.fixedDistance.snapPoints;var radius=movablePoint.constraints.fixedDistance.dist;var centerCoord=movablePoint.constraints.fixedDistance.point;var centerX=(centerCoord[0] - graph.range[0][0]) * graph.scale[0];var centerY=(-centerCoord[1] + graph.range[1][1]) * graph.scale[1];var mouseXrel=mouseX - centerX;var mouseYrel=-mouseY + centerY;var radians=Math.atan(mouseYrel / mouseXrel);var outsideArcTanRange=mouseXrel < 0;if(outsideArcTanRange){radians += Math.PI;}radians = Math.round(radians / snapRadians) * snapRadians;mouseXrel = radius * Math.cos(radians);mouseYrel = radius * Math.sin(radians);mouseX = mouseXrel + centerX;mouseY = -mouseYrel + centerY;coordX = KhanMath.roundTo(5, mouseX / graph.scale[0] + graph.range[0][0]);coordY = KhanMath.roundTo(5, graph.range[1][1] - mouseY / graph.scale[1]);}var result=movablePoint.applyConstraint([coordX, coordY]);return result;};movablePoint.applyConstraint = function(coord, extraConstraints, override){var newCoord=coord.slice();var constraints={};if(override){$.extend(constraints, {fixed:false, constrainX:false, constrainY:false, fixedAngle:{}, fixedDistance:{}}, extraConstraints);}else {$.extend(constraints, this.constraints, extraConstraints);}if(constraints.constrainX){newCoord = [this.coord[0], coord[1]];}else if(constraints.constrainY){newCoord = [coord[0], this.coord[1]];}else if(typeof constraints.fixedAngle.angle === "number" && typeof constraints.fixedDistance.dist === "number"){var vertex=constraints.fixedAngle.vertex.coord || constraints.fixedAngle.vertex;var ref=constraints.fixedAngle.ref.coord || constraints.fixedAngle.ref;var distPoint=constraints.fixedDistance.point.coord || constraints.fixedDistance.point;var constrainedAngle=(constraints.fixedAngle.angle + GraphUtils.findAngle(ref, vertex)) * Math.PI / 180;var _length=constraints.fixedDistance.dist;newCoord[0] = _length * Math.cos(constrainedAngle) + distPoint[0];newCoord[1] = _length * Math.sin(constrainedAngle) + distPoint[1];}else if(typeof constraints.fixedAngle.angle === "number"){var vertex=constraints.fixedAngle.vertex.coord || constraints.fixedAngle.vertex;var ref=constraints.fixedAngle.ref.coord || constraints.fixedAngle.ref;var constrainedAngle=(constraints.fixedAngle.angle + GraphUtils.findAngle(ref, vertex)) * Math.PI / 180;var angle=GraphUtils.findAngle(coord, vertex) * Math.PI / 180;var distance=GraphUtils.getDistance(coord, vertex);var _length2=distance * Math.cos(constrainedAngle - angle);_length2 = _length2 < 1?1:_length2;newCoord[0] = _length2 * Math.cos(constrainedAngle) + vertex[0];newCoord[1] = _length2 * Math.sin(constrainedAngle) + vertex[1];}else if(typeof constraints.fixedDistance.dist === "number"){var distPoint=constraints.fixedDistance.point.coord || constraints.fixedDistance.point;var angle=GraphUtils.findAngle(coord, distPoint);var _length3=constraints.fixedDistance.dist;angle = angle * Math.PI / 180;newCoord[0] = _length3 * Math.cos(angle) + distPoint[0];newCoord[1] = _length3 * Math.sin(angle) + distPoint[1];}else if(constraints.fixed){newCoord = movablePoint.coord;}return newCoord;};movablePoint.coord = applySnapAndConstraints(movablePoint.coord);var highlightScale=2;if(movablePoint.visible){graph.style(movablePoint.normalStyle, function(){var radii=[movablePoint.pointSize / graph.scale[0], movablePoint.pointSize / graph.scale[1]];var options={maxScale:highlightScale, padding:2};movablePoint.visibleShape = new WrappedEllipse(graph, movablePoint.coord, radii, options);movablePoint.visibleShape.attr(_.omit(movablePoint.normalStyle, "scale"));movablePoint.visibleShape.toFront();});}movablePoint.normalStyle.scale = 1;movablePoint.highlightStyle.scale = highlightScale;if(movablePoint.vertexLabel){movablePoint.labeledVertex = this.label([0, 0], "", "center", movablePoint.labelStyle);}movablePoint.drawLabel = function(){if(movablePoint.vertexLabel){movablePoint.graph.labelVertex({vertex:movablePoint.coord, label:movablePoint.labeledVertex, text:movablePoint.vertexLabel, style:movablePoint.labelStyle});}};movablePoint.drawLabel();movablePoint.grab = function(offset){offset = offset || [0, 0];$(document).bind("vmousemove.point vmouseup.point", function(event){event.preventDefault();movablePoint.dragging = true;dragging = true;var coord=kvector.add(graph.getMouseCoord(event), offset);coord = applySnapAndConstraints(coord);var coordX=coord[0];var coordY=coord[1];var mouseX=undefined;var mouseY=undefined;if(event.type === "vmousemove"){var doMove=true;if(_.isFunction(movablePoint.onMove)){var result=movablePoint.onMove(coordX, coordY);if(result === false){doMove = false;}if(_.isArray(result)){coordX = result[0];coordY = result[1];}}mouseX = (coordX - graph.range[0][0]) * graph.scale[0];mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];if(doMove){var point=graph.unscalePoint([mouseX, mouseY]);movablePoint.visibleShape.moveTo(point);movablePoint.mouseTarget.moveTo(point);movablePoint.coord = [coordX, coordY];movablePoint.updateLineEnds();$(movablePoint).trigger("move");}movablePoint.drawLabel();}else if(event.type === "vmouseup"){$(document).unbind(".point");movablePoint.dragging = false;dragging = false;if(_.isFunction(movablePoint.onMoveEnd)){var result=movablePoint.onMoveEnd(coordX, coordY);if(_.isArray(result)){coordX = result[0];coordY = result[1];mouseX = (coordX - graph.range[0][0]) * graph.scale[0];mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];var point=graph.unscalePoint([mouseX, mouseY]);movablePoint.visibleShape.moveTo(point);movablePoint.mouseTarget.moveTo(point);movablePoint.coord = [coordX, coordY];}}if(!movablePoint.highlight){movablePoint.visibleShape.animate(movablePoint.normalStyle, 50);if(movablePoint.onUnhighlight){movablePoint.onUnhighlight();}}}});};if(movablePoint.visible && !movablePoint.constraints.fixed){if(!movablePoint.mouseTarget){var radii=graph.unscaleVector(24);var _options={mouselayer:true, padding:0};movablePoint.mouseTarget = new WrappedEllipse(graph, movablePoint.coord, radii, _options);movablePoint.mouseTarget.attr({fill:"#000", opacity:0});}var $mouseTarget=$(movablePoint.mouseTarget.getMouseTarget());$mouseTarget.css("cursor", "move");$mouseTarget.bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){movablePoint.highlight = true;if(!dragging){movablePoint.visibleShape.animate(movablePoint.highlightStyle, 50);if(movablePoint.onHighlight){movablePoint.onHighlight();}}}else if(event.type === "vmouseout"){movablePoint.highlight = false;if(!movablePoint.dragging && !dragging){movablePoint.visibleShape.animate(movablePoint.normalStyle, 50);if(movablePoint.onUnhighlight){movablePoint.onUnhighlight();}}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){event.preventDefault();var startCoord=movablePoint.coord;var startMouseCoord=graph.getMouseCoord(event);var isMouse=!("ontouchstart" in window);var touchOffset=isMouse?[0, 0]:kvector.subtract(startCoord, startMouseCoord);movablePoint.grab(touchOffset);}});}movablePoint.moveTo = function(coordX, coordY, updateLines){var distance=GraphUtils.getDistance(this.graph.scalePoint([coordX, coordY]), this.graph.scalePoint(this.coord));var time=distance * 5;var cb=updateLines && function(coord){movablePoint.coord = coord;movablePoint.updateLineEnds();};this.visibleShape.animateTo([coordX, coordY], time, cb);this.mouseTarget.animateTo([coordX, coordY], time, cb);this.coord = [coordX, coordY];if(_.isFunction(this.onMove)){this.onMove(coordX, coordY);}};movablePoint.updateLineEnds = function(){$(this.lineStarts).each(function(){this.coordA = movablePoint.coord;this.transform();});$(this.lineEnds).each(function(){this.coordZ = movablePoint.coord;this.transform();});$(this.polygonVertices).each(function(){this.transform();});};movablePoint.setCoord = function(coord){if(this.visible){this.visibleShape.moveTo(coord);if(this.mouseTarget != null){this.mouseTarget.moveTo(coord);}}this.coord = coord.slice();};movablePoint.setCoordConstrained = function(coord){this.setCoord(applySnapAndConstraints(coord));};movablePoint.toBack = function(){if(this.visible){if(this.mouseTarget != null){this.mouseTarget.toBack();}this.visibleShape.toBack();}};movablePoint.toFront = function(){if(this.visible){if(this.mouseTarget != null){this.mouseTarget.toFront();}this.visibleShape.toFront();}};movablePoint.remove = function(){if(this.visibleShape){this.visibleShape.remove();}if(this.mouseTarget){this.mouseTarget.remove();}if(this.labeledVertex){this.labeledVertex.remove();}};return movablePoint;}, addInteractiveFn:function(fn, options){var graph=this;options = $.extend({graph:graph, snap:0, range:[graph.range[0][0], graph.range[0][1]]}, options);var interactiveFn={highlight:false};graph.style({stroke:KhanColors.BLUE}, function(){interactiveFn.visibleShape = graph.plot(fn, options.range, options.swapAxes);});graph.style({fill:KhanColors.BLUE, stroke:KhanColors.BLUE}, function(){interactiveFn.cursorPoint = graph.ellipse([0, fn(0)], [4 / graph.scale[0], 4 / graph.scale[1]]);});interactiveFn.cursorPoint.attr("opacity", 0);var mouseAreaWidth=30;var points=[];var step=(options.range[1] - options.range[0]) / 100;var addScaledPoint=function(x, y){if(options.swapAxes){points.push([(y - graph.range[0][0]) * graph.scale[0], (graph.range[1][1] - x) * graph.scale[1]]);}else {points.push([(x - graph.range[0][0]) * graph.scale[0], (graph.range[1][1] - y) * graph.scale[1]]);}};for(var x=options.range[0]; x <= options.range[1]; x += step) {var ddx=(fn(x - 0.001) - fn(x + 0.001)) / 0.002;var x1=x;var y1=fn(x) + mouseAreaWidth / (2 * graph.scale[1]);if(ddx !== 0){var normalslope=-1 / (ddx * (graph.scale[1] / graph.scale[0])) / (graph.scale[1] / graph.scale[0]);if(ddx < 0){x1 = x - Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}else if(ddx > 0){x1 = x + Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}}addScaledPoint(x1, y1);}for(var x=options.range[1]; x >= options.range[0]; x -= step) {var ddx=(fn(x - 0.001) - fn(x + 0.001)) / 0.002;var x1=x;var y1=fn(x) - mouseAreaWidth / (2 * graph.scale[1]);if(ddx !== 0){var normalslope=-1 / (ddx * (graph.scale[1] / graph.scale[0])) / (graph.scale[1] / graph.scale[0]);if(ddx < 0){x1 = x + Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}else if(ddx > 0){x1 = x - Math.cos(-Math.atan(normalslope * (graph.scale[1] / graph.scale[0]))) * mouseAreaWidth / (2 * graph.scale[0]);y1 = normalslope * (x - x1) + fn(x);}}addScaledPoint(x1, y1);}interactiveFn.mouseTarget = graph.mouselayer.path(GraphUtils.unscaledSvgPath(points));interactiveFn.mouseTarget.attr({fill:"#000", "opacity":0});$(interactiveFn.mouseTarget[0]).bind("vmouseover vmouseout vmousemove", function(event){event.preventDefault();var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graph.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graph.ypixels - 10, mouseY));if(options.snap){mouseX = Math.round(mouseX / (graph.scale[0] * options.snap)) * (graph.scale[0] * options.snap);}var coordX=mouseX / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - mouseY / graph.scale[1];var findDistance=function(coordX, coordY){var closestX=0;var minDist=Math.sqrt(coordX * coordX + coordY * coordY);for(var x=options.range[0]; x < options.range[1]; x += (options.range[1] - options.range[0]) / graph.xpixels) {if(Math.sqrt((x - coordX) * (x - coordX) + (fn(x) - coordY) * (fn(x) - coordY)) < minDist){closestX = x;minDist = Math.sqrt((x - coordX) * (x - coordX) + (fn(x) - coordY) * (fn(x) - coordY));}}return closestX;};if(options.swapAxes){var closestX=findDistance(coordY, coordX);coordX = fn(closestX);coordY = closestX;}else {var closestX=findDistance(coordX, coordY);coordX = closestX;coordY = fn(closestX);}interactiveFn.cursorPoint.attr("cx", (graph.range[0][1] + coordX) * graph.scale[0]);interactiveFn.cursorPoint.attr("cy", (graph.range[1][1] - coordY) * graph.scale[1]);if(_.isFunction(interactiveFn.onMove)){interactiveFn.onMove(coordX, coordY);}if(event.type === "vmouseover"){interactiveFn.cursorPoint.animate({opacity:1}, 50);interactiveFn.highlight = true;}else if(event.type === "vmouseout"){interactiveFn.highlight = false;interactiveFn.cursorPoint.animate({opacity:0}, 50);if(_.isFunction(interactiveFn.onLeave)){interactiveFn.onLeave(coordX, coordY);}}});interactiveFn.mouseTarget.toBack();return interactiveFn;}, addMovableLineSegment:function(options){var lineSegment=$.extend({graph:this, coordA:[0, 0], coordZ:[1, 1], snapX:0, snapY:0, fixed:false, ticks:0, normalStyle:{}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":6}, labelStyle:{"stroke":KhanColors.INTERACTIVE, "color":KhanColors.INTERACTIVE}, highlight:false, dragging:false, tick:[], extendLine:false, extendRay:false, constraints:{fixed:false, constrainX:false, constrainY:false}, sideLabel:"", vertexLabels:[], numArrows:0, numTicks:0, movePointsWithLine:false}, options);var normalColor=lineSegment.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;lineSegment.normalStyle = _.extend({}, {"stroke-width":2, "stroke":normalColor}, options.normalStyle);lineSegment.arrowStyle = _.extend({}, lineSegment.normalStyle, {"color":lineSegment.normalStyle.stroke});if(options.pointA !== undefined){lineSegment.coordA = options.pointA.coord;lineSegment.pointA.lineStarts.push(lineSegment);}else if(options.coordA !== undefined){lineSegment.coordA = options.coordA.slice();}if(options.pointZ !== undefined){lineSegment.coordZ = options.pointZ.coord;lineSegment.pointZ.lineEnds.push(lineSegment);}else if(options.coordA !== undefined){lineSegment.coordA = lineSegment.coordA.slice();}var graph=lineSegment.graph;graph.style(lineSegment.normalStyle);for(var i=0; i < lineSegment.ticks; ++i) {lineSegment.tick[i] = InteractiveUtils.bogusShape;}var path=GraphUtils.unscaledSvgPath([[0, 0], [1, 0]]);for(var i=0; i < lineSegment.ticks; ++i) {var tickoffset=0.5 - (lineSegment.ticks - 1 + i * 2) / graph.scale[0];path += GraphUtils.unscaledSvgPath([[tickoffset, -7], [tickoffset, 7]]);}options = {thickness:Math.max(lineSegment.normalStyle["stroke-width"], lineSegment.highlightStyle["stroke-width"])};lineSegment.visibleLine = new WrappedLine(graph, [0, 0], [1, 0], options);lineSegment.visibleLine.attr(lineSegment.normalStyle);if(!lineSegment.fixed){var _options2={thickness:30, mouselayer:true};lineSegment.mouseTarget = new WrappedLine(graph, [0, 0], [1, 0], _options2);lineSegment.mouseTarget.attr({fill:"#000", "opacity":0});}lineSegment.transform = function(syncToPoints){if(syncToPoints){if(typeof this.pointA === "object"){this.coordA = this.pointA.coord;}if(typeof this.pointZ === "object"){this.coordZ = this.pointZ.coord;}}var getScaledAngle=function(line){var scaledA=line.graph.scalePoint(line.coordA);var scaledZ=line.graph.scalePoint(line.coordZ);return kvector.polarDegFromCart(kvector.subtract(scaledZ, scaledA))[1];};var getClipPoint=function(graph, coord, angle){graph = lineSegment.graph;var xExtent=graph.range[0][1] - graph.range[0][0];var yExtent=graph.range[1][1] - graph.range[1][0];var distance=xExtent + yExtent;var angleVec=graph.unscaleVector(kvector.cartFromPolarDeg([1, angle]));var distVec=kvector.scale(kvector.normalize(angleVec), distance);var farCoord=kvector.add(coord, distVec);var scaledAngle=kvector.polarDegFromCart(angleVec)[1];var clipPoint=graph.constrainToBoundsOnAngle(farCoord, 4, scaledAngle * Math.PI / 180);return clipPoint;};var angle=getScaledAngle(this);var start=this.coordA;var end=this.coordZ;if(this.extendLine){start = getClipPoint(graph, start, 360 - angle);end = getClipPoint(graph, end, (540 - angle) % 360);}else if(this.extendRay){end = getClipPoint(graph, start, 360 - angle);}var elements=[this.visibleLine];if(!this.fixed){elements.push(this.mouseTarget);}_.each(elements, function(element){element.moveTo(start, end);});var createArrow=function(graph, style){var center=[0.75, 0];var points=[[-3, 4], [-2.75, 2.5], [0, 0.25], center, [0, -0.25], [-2.75, -2.5], [-3, -4]];var scale=1.4;points = _.map(points, function(point){var pv=kvector.subtract(point, center);var pvScaled=kvector.scale(pv, scale);return kvector.add(center, pvScaled);});var createCubicPath=function(points){var path="M" + points[0][0] + " " + points[0][1];for(var i=1; i < points.length; i += 3) {path += "C" + points[i][0] + " " + points[i][1] + " " + points[i + 1][0] + " " + points[i + 1][1] + " " + points[i + 2][0] + " " + points[i + 2][1];}return path;};var unscaledPoints=_.map(points, graph.unscalePoint);var options={center:graph.unscalePoint(center), createPath:createCubicPath};var arrowHead=new WrappedPath(graph, unscaledPoints, options);arrowHead.attr(_.extend({"stroke-linejoin":"round", "stroke-linecap":"round", "stroke-dasharray":""}, style));arrowHead.toCoordAtAngle = function(coord, angle){var clipPoint=graph.scalePoint(getClipPoint(graph, coord, angle));var do3dTransform=getCanUse3dTransform();arrowHead.transform("translateX(" + (clipPoint[0] + scale * center[0]) + "px) " + "translateY(" + (clipPoint[1] + scale * center[1]) + "px) " + (do3dTransform?"translateZ(0) ":"") + "rotate(" + (360 - KhanMath.bound(angle)) + "deg)");};return arrowHead;};if(this._arrows == null){this._arrows = [];if(this.extendLine){this._arrows.push(createArrow(graph, this.normalStyle));this._arrows.push(createArrow(graph, this.normalStyle));}else if(this.extendRay){this._arrows.push(createArrow(graph, this.normalStyle));}}var coordForArrow=[this.coordA, this.coordZ];var angleForArrow=[360 - angle, (540 - angle) % 360];_.each(this._arrows, function(arrow, i){arrow.toCoordAtAngle(coordForArrow[i], angleForArrow[i]);});_.invoke(this.temp, "remove");this.temp = [];var isClockwise=this.coordA[0] < this.coordZ[0] || this.coordA[0] === this.coordZ[0] && this.coordA[1] > this.coordZ[1];if(this.sideLabel){this.temp.push(this.graph.labelSide({point1:this.coordA, point2:this.coordZ, label:this.labeledSide, text:this.sideLabel, numArrows:this.numArrows, numTicks:this.numTicks, clockwise:isClockwise, style:this.labelStyle}));}if(this.vertexLabels.length){this.graph.labelVertex({vertex:this.coordA, point3:this.coordZ, label:this.labeledVertices[0], text:this.vertexLabels[0], clockwise:isClockwise, style:this.labelStyle});this.graph.labelVertex({point1:this.coordA, vertex:this.coordZ, label:this.labeledVertices[1], text:this.vertexLabels[1], clockwise:isClockwise, style:this.labelStyle});}this.temp = _.flatten(this.temp);};lineSegment.toBack = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.toBack();}lineSegment.visibleLine.toBack();};lineSegment.toFront = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.toFront();}lineSegment.visibleLine.toFront();};lineSegment.remove = function(){if(!lineSegment.fixed){lineSegment.mouseTarget.remove();}lineSegment.visibleLine.remove();if(lineSegment.labeledSide){lineSegment.labeledSide.remove();}if(lineSegment.labeledVertices){_.invoke(lineSegment.labeledVertices, "remove");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "remove");}if(lineSegment.temp.length){_.invoke(lineSegment.temp, "remove");}};lineSegment.hide = function(){lineSegment.visibleLine.hide();if(lineSegment.temp.length){_.invoke(lineSegment.temp, "hide");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "hide");}};lineSegment.show = function(){lineSegment.visibleLine.show();if(lineSegment.temp.length){_.invoke(lineSegment.temp, "show");}if(lineSegment._arrows){_.invoke(lineSegment._arrows, "show");}};if(lineSegment.sideLabel){lineSegment.labeledSide = this.label([0, 0], "", "center", lineSegment.labelStyle);}if(lineSegment.vertexLabels.length){lineSegment.labeledVertices = _.map(lineSegment.vertexLabels, function(label){return this.label([0, 0], "", "center", lineSegment.labelStyle);}, this);}if(!lineSegment.fixed && !lineSegment.constraints.fixed){var $mouseTarget=$(lineSegment.mouseTarget.getMouseTarget());$mouseTarget.css("cursor", "move");$mouseTarget.bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){if(!dragging){lineSegment.highlight = true;lineSegment.visibleLine.animate(lineSegment.highlightStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.highlightStyle.stroke, "stroke":lineSegment.highlightStyle.stroke});lineSegment.transform();}}else if(event.type === "vmouseout"){lineSegment.highlight = false;if(!lineSegment.dragging){lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.normalStyle.stroke, "stroke":lineSegment.normalStyle.stroke});lineSegment.transform();}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();var coordX=(event.pageX - $(graph.raphael.canvas.parentNode).offset().left) / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - (event.pageY - $(graph.raphael.canvas.parentNode).offset().top) / graph.scale[1];if(lineSegment.snapX > 0){coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;}if(lineSegment.snapY > 0){coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;}var mouseOffsetA=[lineSegment.coordA[0] - coordX, lineSegment.coordA[1] - coordY];var mouseOffsetZ=[lineSegment.coordZ[0] - coordX, lineSegment.coordZ[1] - coordY];var offsetLeft=-Math.min(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);var offsetRight=Math.max(graph.scaleVector(mouseOffsetA)[0], graph.scaleVector(mouseOffsetZ)[0]);var offsetTop=Math.max(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);var offsetBottom=-Math.min(graph.scaleVector(mouseOffsetA)[1], graph.scaleVector(mouseOffsetZ)[1]);$(document).bind("vmousemove.lineSegment vmouseup.lineSegment", function(event){event.preventDefault();lineSegment.dragging = true;dragging = true;var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(offsetLeft + 10, Math.min(graph.xpixels - 10 - offsetRight, mouseX));mouseY = Math.max(offsetTop + 10, Math.min(graph.ypixels - 10 - offsetBottom, mouseY));var coordX=mouseX / graph.scale[0] + graph.range[0][0];var coordY=graph.range[1][1] - mouseY / graph.scale[1];if(lineSegment.snapX > 0){coordX = Math.round(coordX / lineSegment.snapX) * lineSegment.snapX;}if(lineSegment.snapY > 0){coordY = Math.round(coordY / lineSegment.snapY) * lineSegment.snapY;}if(event.type === "vmousemove"){if(lineSegment.constraints.constrainX){coordX = lineSegment.coordA[0] - mouseOffsetA[0];}if(lineSegment.constraints.constrainY){coordY = lineSegment.coordA[1] - mouseOffsetA[1];}var dX=coordX + mouseOffsetA[0] - lineSegment.coordA[0];var dY=coordY + mouseOffsetA[1] - lineSegment.coordA[1];lineSegment.coordA = [coordX + mouseOffsetA[0], coordY + mouseOffsetA[1]];lineSegment.coordZ = [coordX + mouseOffsetZ[0], coordY + mouseOffsetZ[1]];lineSegment.transform();if(lineSegment.movePointsWithLine){if(typeof lineSegment.pointA === "object"){lineSegment.pointA.setCoord([lineSegment.pointA.coord[0] + dX, lineSegment.pointA.coord[1] + dY]);}if(typeof lineSegment.pointZ === "object"){lineSegment.pointZ.setCoord([lineSegment.pointZ.coord[0] + dX, lineSegment.pointZ.coord[1] + dY]);}}if(_.isFunction(lineSegment.onMove)){lineSegment.onMove(dX, dY);}}else if(event.type === "vmouseup"){$(document).unbind(".lineSegment");lineSegment.dragging = false;dragging = false;if(!lineSegment.highlight){lineSegment.visibleLine.animate(lineSegment.normalStyle, 50);lineSegment.arrowStyle = _.extend({}, lineSegment.arrowStyle, {"color":lineSegment.normalStyle.stroke, "stroke":lineSegment.normalStyle.stroke});lineSegment.transform();}if(_.isFunction(lineSegment.onMoveEnd)){lineSegment.onMoveEnd();}}$(lineSegment).trigger("move");});})();}});}if(lineSegment.pointA !== undefined){lineSegment.pointA.toFront();}if(lineSegment.pointZ !== undefined){lineSegment.pointZ.toFront();}lineSegment.transform();return lineSegment;}, addMovablePolygon:function(options){var graphie=this;var polygon=$.extend({snapX:0, snapY:0, fixed:false, constrainToGraph:true, normalStyle:{}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":2, "fill":KhanColors.INTERACTING, "fill-opacity":0.05}, pointHighlightStyle:{"fill":KhanColors.INTERACTING, "stroke":KhanColors.INTERACTING}, labelStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, angleLabels:[], showRightAngleMarkers:[], sideLabels:[], vertexLabels:[], numArcs:[], numArrows:[], numTicks:[], updateOnPointMove:true, closed:true}, _.omit(options, "points"));var normalColor=polygon.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;polygon.normalStyle = _.extend({"stroke-width":2, "fill-opacity":0, "fill":normalColor, "stroke":normalColor}, options.normalStyle);polygon.points = options.points;var isPoint=function(coordOrPoint){return !_.isArray(coordOrPoint);};polygon.update = function(){var n=polygon.points.length;polygon.coords = _.map(polygon.points, function(coordOrPoint, i){if(isPoint(coordOrPoint)){return coordOrPoint.coord;}else {return coordOrPoint;}});polygon.left = _.min(_.pluck(polygon.coords, 0));polygon.right = _.max(_.pluck(polygon.coords, 0));polygon.top = _.max(_.pluck(polygon.coords, 1));polygon.bottom = _.min(_.pluck(polygon.coords, 1));var scaledCoords=_.map(polygon.coords, function(coord){return graphie.scalePoint(coord);});if(polygon.closed){scaledCoords.push(true);}else {scaledCoords = scaledCoords.concat(_.clone(scaledCoords).reverse());}polygon.path = GraphUtils.unscaledSvgPath(scaledCoords);_.invoke(polygon.temp, "remove");polygon.temp = [];var isClockwise=clockwise(polygon.coords);if(polygon.angleLabels.length || polygon.showRightAngleMarkers.length){_.each(polygon.labeledAngles, function(label, i){polygon.temp.push(graphie.labelAngle({point1:polygon.coords[(i - 1 + n) % n], vertex:polygon.coords[i], point3:polygon.coords[(i + 1) % n], label:label, text:polygon.angleLabels[i], showRightAngleMarker:polygon.showRightAngleMarkers[i], numArcs:polygon.numArcs[i], clockwise:isClockwise, style:polygon.labelStyle}));});}if(polygon.sideLabels.length){_.each(polygon.labeledSides, function(label, i){polygon.temp.push(graphie.labelSide({point1:polygon.coords[i], point2:polygon.coords[(i + 1) % n], label:label, text:polygon.sideLabels[i], numArrows:polygon.numArrows[i], numTicks:polygon.numTicks[i], clockwise:isClockwise, style:polygon.labelStyle}));});}if(polygon.vertexLabels.length){_.each(polygon.labeledVertices, function(label, i){graphie.labelVertex({point1:polygon.coords[(i - 1 + n) % n], vertex:polygon.coords[i], point3:polygon.coords[(i + 1) % n], label:label, text:polygon.vertexLabels[i], clockwise:isClockwise, style:polygon.labelStyle});});}polygon.temp = _.flatten(polygon.temp);};polygon.transform = function(){polygon.update();polygon.visibleShape.attr({path:polygon.path});if(!polygon.fixed){polygon.mouseTarget.attr({path:polygon.path});}};polygon.remove = function(){polygon.visibleShape.remove();if(!polygon.fixed){polygon.mouseTarget.remove();}if(polygon.labeledAngles){_.invoke(polygon.labeledAngles, "remove");}if(polygon.labeledSides){_.invoke(polygon.labeledSides, "remove");}if(polygon.labeledVertices){_.invoke(polygon.labeledVertices, "remove");}if(polygon.temp.length){_.invoke(polygon.temp, "remove");}};polygon.toBack = function(){if(!polygon.fixed){polygon.mouseTarget.toBack();}polygon.visibleShape.toBack();};polygon.toFront = function(){if(!polygon.fixed){polygon.mouseTarget.toFront();}polygon.visibleShape.toFront();};if(polygon.updateOnPointMove){_.each(_.filter(polygon.points, isPoint), function(coordOrPoint){coordOrPoint.polygonVertices.push(polygon);});}polygon.coords = new Array(polygon.points.length);if(polygon.angleLabels.length){var numLabels=Math.max(polygon.angleLabels.length, polygon.showRightAngleMarkers.length);polygon.labeledAngles = _.times(numLabels, function(){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}if(polygon.sideLabels.length){polygon.labeledSides = _.map(polygon.sideLabels, function(label){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}if(polygon.vertexLabels.length){polygon.labeledVertices = _.map(polygon.vertexLabels, function(label){return this.label([0, 0], "", "center", polygon.labelStyle);}, this);}polygon.update();polygon.visibleShape = graphie.raphael.path(polygon.path);polygon.visibleShape.attr(polygon.normalStyle);if(!polygon.fixed){polygon.mouseTarget = graphie.mouselayer.path(polygon.path);polygon.mouseTarget.attr({fill:"#000", opacity:0, cursor:"move"});$(polygon.mouseTarget[0]).bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){if(!dragging || polygon.dragging){polygon.highlight = true;polygon.visibleShape.animate(polygon.highlightStyle, 50);_.each(_.filter(polygon.points, isPoint), function(point){point.visibleShape.animate(polygon.pointHighlightStyle, 50);});}}else if(event.type === "vmouseout"){polygon.highlight = false;if(!polygon.dragging){polygon.visibleShape.animate(polygon.normalStyle, 50);var points=_.filter(polygon.points, isPoint);if(!_.any(_.pluck(points, "dragging"))){_.each(points, function(point){point.visibleShape.animate(point.normalStyle, 50);});}}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();_.each(_.filter(polygon.points, isPoint), function(point){point.dragging = true;});var startX=(event.pageX - $(graphie.raphael.canvas.parentNode).offset().left) / graphie.scale[0] + graphie.range[0][0];var startY=graphie.range[1][1] - (event.pageY - $(graphie.raphael.canvas.parentNode).offset().top) / graphie.scale[1];if(polygon.snapX > 0){startX = Math.round(startX / polygon.snapX) * polygon.snapX;}if(polygon.snapY > 0){startY = Math.round(startY / polygon.snapY) * polygon.snapY;}var lastX=startX;var lastY=startY;var polygonCoords=polygon.coords.slice();var offsetLeft=(startX - polygon.left) * graphie.scale[0];var offsetRight=(polygon.right - startX) * graphie.scale[0];var offsetTop=(polygon.top - startY) * graphie.scale[1];var offsetBottom=(startY - polygon.bottom) * graphie.scale[1];$(document).bind("vmousemove.polygon vmouseup.polygon", function(event){event.preventDefault();polygon.dragging = true;dragging = true;var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;if(polygon.constrainToGraph){mouseX = Math.max(offsetLeft + 10, Math.min(graphie.xpixels - 10 - offsetRight, mouseX));mouseY = Math.max(offsetTop + 10, Math.min(graphie.ypixels - 10 - offsetBottom, mouseY));}var currentX=mouseX / graphie.scale[0] + graphie.range[0][0];var currentY=graphie.range[1][1] - mouseY / graphie.scale[1];if(polygon.snapX > 0){currentX = Math.round(currentX / polygon.snapX) * polygon.snapX;}if(polygon.snapY > 0){currentY = Math.round(currentY / polygon.snapY) * polygon.snapY;}if(event.type === "vmousemove"){(function(){var dX=currentX - startX;var dY=currentY - startY;var doMove=true;if(_.isFunction(polygon.onMove)){var onMoveResult=polygon.onMove(dX, dY);if(onMoveResult === false){doMove = false;}else if(_.isArray(onMoveResult)){dX = onMoveResult[0];dY = onMoveResult[1];currentX = startX + dX;currentY = startY + dY;}}var increment=function(i){return [polygonCoords[i][0] + dX, polygonCoords[i][1] + dY];};if(doMove){_.each(polygon.points, function(coordOrPoint, i){if(isPoint(coordOrPoint)){coordOrPoint.setCoord(increment(i));}else {polygon.points[i] = increment(i);}});polygon.transform();$(polygon).trigger("move");lastX = currentX;lastY = currentY;}})();}else if(event.type === "vmouseup"){$(document).unbind(".polygon");var points=_.filter(polygon.points, isPoint);_.each(points, function(point){point.dragging = false;});polygon.dragging = false;dragging = false;if(!polygon.highlight){polygon.visibleShape.animate(polygon.normalStyle, 50);_.each(points, function(point){point.visibleShape.animate(point.normalStyle, 50);});}if(_.isFunction(polygon.onMoveEnd)){polygon.onMoveEnd(lastX - startX, lastY - startY);}}});})();}});}_.invoke(_.filter(polygon.points, isPoint), "toFront");return polygon;}, constrainToBounds:function(point, padding){var lower=this.unscalePoint([padding, this.ypixels - padding]);var upper=this.unscalePoint([this.xpixels - padding, padding]);var coordX=Math.max(lower[0], Math.min(upper[0], point[0]));var coordY=Math.max(lower[1], Math.min(upper[1], point[1]));return [coordX, coordY];}, constrainToBoundsOnAngle:function(point, padding, angle){var lower=this.unscalePoint([padding, this.ypixels - padding]);var upper=this.unscalePoint([this.xpixels - padding, padding]);var result=point.slice();if(result[0] < lower[0]){result = [lower[0], result[1] + (lower[0] - result[0]) * Math.tan(angle)];}else if(result[0] > upper[0]){result = [upper[0], result[1] - (result[0] - upper[0]) * Math.tan(angle)];}if(result[1] < lower[1]){result = [result[0] + (lower[1] - result[1]) / Math.tan(angle), lower[1]];}else if(result[1] > upper[1]){result = [result[0] - (result[1] - upper[1]) / Math.tan(angle), upper[1]];}return result;}, addMovableAngle:function(options){return new MovableAngle(this, options);}, addArrowWidget:function(options){var arrowWidget=$.extend({graph:this, direction:"up", coord:[0, 0], onClick:function(){}}, options);var graph=arrowWidget.graph;if(arrowWidget.direction === "up"){arrowWidget.visibleShape = graph.path([[arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0] - 4 / graph.scale[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0] + 4 / graph.scale[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]]], {stroke:"", fill:KhanColors.INTERACTIVE});}else if(arrowWidget.direction === "down"){arrowWidget.visibleShape = graph.path([[arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0] - 4 / graph.scale[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] - 4 / graph.scale[1]], [arrowWidget.coord[0] + 4 / graph.scale[0], arrowWidget.coord[1] + 4 / graph.scale[1]], [arrowWidget.coord[0], arrowWidget.coord[1] + 4 / graph.scale[1]]], {stroke:"", fill:KhanColors.INTERACTIVE});}_.defer(function(){arrowWidget.visibleShape.attr({stroke:"", fill:KhanColors.INTERACTIVE});});arrowWidget.mouseTarget = graph.mouselayer.circle(graph.scalePoint(arrowWidget.coord)[0], graph.scalePoint(arrowWidget.coord)[1], 15);arrowWidget.mouseTarget.attr({fill:"#000", "opacity":0});$(arrowWidget.mouseTarget[0]).css("cursor", "pointer");$(arrowWidget.mouseTarget[0]).bind("vmousedown vmouseover vmouseout", function(event){if(event.type === "vmouseover"){arrowWidget.visibleShape.animate({scale:2, fill:KhanColors.INTERACTING}, 20);}else if(event.type === "vmouseout"){arrowWidget.visibleShape.animate({scale:1, fill:KhanColors.INTERACTING}, 20);}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){if(!arrowWidget.hidden){arrowWidget.onClick();}return false;}});arrowWidget.hide = function(){arrowWidget.visibleShape.hide();arrowWidget.hidden = true;$(arrowWidget.mouseTarget[0]).css("cursor", "default");};arrowWidget.show = function(){arrowWidget.visibleShape.show();arrowWidget.hidden = false;$(arrowWidget.mouseTarget[0]).css("cursor", "pointer");};return arrowWidget;}, addRectGraph:function(options){var rect=$.extend(true, {x:0, y:0, width:1, height:1, normalStyle:{points:{stroke:KhanColors.INTERACTIVE, fill:KhanColors.INTERACTIVE, opacity:1}, edges:{stroke:KhanColors.INTERACTIVE, opacity:1, "stroke-width":1}, area:{fill:KhanColors.INTERACTIVE, "fill-opacity":0.1, "stroke-width":0}}, hoverStyle:{points:{color:KhanColors.INTERACTING, opacity:1, width:2}, edges:{stroke:KhanColors.INTERACTING, opacity:1, "stroke-width":1}, area:{fill:KhanColors.INTERACTING, "fill-opacity":0.2, "stroke-width":0}}, fixed:{edges:[false, false, false, false], points:[false, false, false, false]}, constraints:{constrainX:false, constrainY:false, xmin:null, xmax:null, ymin:null, ymax:null}, snapX:0, snapY:0, onMove:function(){}}, options);rect = $.extend({initialized:function(){return rect.points && rect.points.length;}, x2:function(){return this.x + this.width;}, y2:function(){return this.y + this.height;}, getX:function(){if(rect.initialized()){return rect.points[0].coord[0];}return rect.x;}, getY:function(){if(rect.initialized()){return rect.points[0].coord[1];}return rect.y;}, getX2:function(){return rect.getX() + rect.getWidth();}, getY2:function(){return rect.getY() + rect.getHeight();}, getXLims:function(){var x=rect.getX();return [x, x + rect.getWidth()];}, getYLims:function(){var y=rect.getY();return [y, y + rect.getHeight()];}, getWidth:function(){if(rect.initialized()){var x0=rect.points[1].coord[0];var x1=rect.points[2].coord[0];return x1 - x0;}return rect.width;}, getHeight:function(){if(rect.initialized()){var y0=rect.points[0].coord[1];var y1=rect.points[1].coord[1];return y1 - y0;}return rect.height;}, getCoord:function(){return [rect.getX(), rect.getY()];}, getRaphaelParamsArr:function(){var width=rect.getWidth();var height=rect.getHeight();var x=rect.getX();var y=rect.getY();var point=graphie.scalePoint([x, y + height]);var dims=graphie.scaleVector([width, height]);return point.concat(dims);}, getRaphaelParams:function(){var arr=rect.getRaphaelParamsArr();return {x:arr[0], y:arr[1], width:arr[2], height:arr[3]};}}, rect);var graphie=this;rect.fillArea = graphie.rect().attr(rect.normalStyle.area);rect.mouseTarget = graphie.mouselayer.rect().attr({fill:"#000", opacity:0, "fill-opacity":0});rect.render = function(){rect.fillArea.attr(rect.getRaphaelParams());rect.mouseTarget.attr(rect.getRaphaelParams());};rect.render();rect.points = [];var coords=[[rect.x, rect.y], [rect.x, rect.y2()], [rect.x2(), rect.y2()], [rect.x2(), rect.y]];var sames=[[1, 3], [0, 2], [3, 1], [2, 0]];var moveLimits=[[1, 1], [1, 0], [0, 0], [0, 1]];function adjustNeighboringPoints(x, y, sameX, sameY){rect.points[sameX].setCoord([x, rect.points[sameX].coord[1]]);rect.points[sameY].setCoord([rect.points[sameY].coord[0], y]);rect.points[sameX].updateLineEnds();rect.points[sameY].updateLineEnds();}function coordInBounds(limit, newVal, checkIsGreater){return checkIsGreater?newVal < limit:newVal > limit;}function moveIsInBounds(index, newX, newY){var xlims=rect.getXLims();var ylims=rect.getYLims();var i=moveLimits[index];var xInBounds=coordInBounds(xlims[i[0]], newX, i[0] === 1);var yInBounds=coordInBounds(ylims[i[1]], newY, i[1] === 1);return xInBounds && yInBounds;}_.times(4, function(i){var sameX=sames[i][0];var sameY=sames[i][1];var coord=coords[i];var point=graphie.addMovablePoint({graph:graphie, coord:coord, normalStyle:rect.normalStyle.points, hoverStyle:rect.hoverStyle.points, snapX:rect.snapX, snapY:rect.snapY, visible:!rect.fixed.points[i], constraints:{fixed:rect.fixed.points[i]}, onMove:function(x, y){if(!moveIsInBounds(i, x, y)){return false;}adjustNeighboringPoints(x, y, sameX, sameY);rect.render();}});rect.points.push(point);});rect.edges = [];rect.moveEdge = function(dx, dy, edgeIndex){var a=rect.edges[edgeIndex].pointA;var z=rect.edges[edgeIndex].pointZ;a.setCoord([a.coord[0] + dx, a.coord[1] + dy]);z.setCoord([z.coord[0] + dx, z.coord[1] + dy]);a.updateLineEnds();z.updateLineEnds();};_.times(4, function(i){var pointA=rect.points[i];var pointZ=rect.points[(i + 1) % 4];var constrainX=i % 2;var constrainY=(i + 1) % 2;var edge=graphie.addMovableLineSegment({graph:graphie, pointA:pointA, pointZ:pointZ, normalStyle:rect.normalStyle.edges, hoverStyle:rect.hoverStyle.edges, snapX:rect.snapX, snapY:rect.snapY, fixed:rect.fixed.edges[i], constraints:{constrainX:constrainX, constrainY:constrainY}, onMove:function(dx, dy){rect.moveEdge(dx, dy, i);rect.render();}});rect.edges.push(edge);});var elems=[rect.fillArea, rect.mouseTarget];rect.elems = elems.concat(rect.edges).concat(rect.points);function constrainTranslation(dx, dy){var xC=rect.constraints.constrainX;var xLT=rect.getX() + dx < rect.constraints.xmin;var xGT=rect.getX2() + dx > rect.constraints.xmax;var yC=rect.constraints.constrainY;var yLT=rect.getY() + dy < rect.constraints.ymin;var yGT=rect.getY2() + dy > rect.constraints.ymax;dx = xC || xLT || xGT?0:dx;dy = yC || yLT || yGT?0:dy;return [dx, dy];}rect.translate = function(dx, dy){if(rect.constraints.constrainX && rect.constraints.constrainY){return;}var d=constrainTranslation(dx, dy);dx = d[0];dy = d[1];_.each(rect.points, function(point, i){var x=point.coord[0] + dx;var y=point.coord[1] + dy;point.setCoord([x, y]);point.updateLineEnds();});rect.render();rect.onMove(dx, dy);};rect.moveTo = function(x, y){var dx=x - rect.getX();var dy=y - rect.getY();rect.translate(dx, dy);};rect.snap = function(){var dx=undefined;var dy=undefined;_.each(rect.points, function(point, i){var x0=point.coord[0];var y0=point.coord[1];var x1=x0;var y1=y0;if(rect.snapX){x1 = KhanMath.roundToNearest(rect.snapX, x0);}if(rect.snapY){y1 = KhanMath.roundToNearest(rect.snapY, y0);}if(!dx || !dy){dx = x1 - x0;dy = y1 - y0;}point.setCoord([x1, y1]);point.updateLineEnds();});rect.render();rect.onMove(dx, dy);};rect.toFront = function(){_.each(rect.elems, function(elem){elem.toFront();});};rect.hide = function(speed){if(rect.hidden){return;}speed = speed || 100;rect.fillArea.animate({"fill-opacity":0}, speed);$(rect.mouseTarget[0]).css("display", "none");rect.hidden = true;};rect.show = function(speed){if(!rect.hidden){return;}speed = speed || 100;rect.fillArea.animate(rect.normalStyle.area, speed);$(rect.mouseTarget[0]).css("display", "block");rect.hidden = false;};rect.enableHoverStyle = function(){rect.highlight = true;if(!dragging){rect.fillArea.animate(rect.hoverStyle.area, 100);}};rect.enableNormalStyle = function(){rect.highlight = false;if(!rect.dragging){rect.fillArea.animate(rect.normalStyle.area, 100);}};var bindTranslation=function(){$(rect.mouseTarget[0]).css("cursor", "move");$(rect.mouseTarget[0]).on("vmouseover vmouseout vmousedown", function(event){if(event.type === "vmouseover"){rect.enableHoverStyle();}else if(event.type === "vmouseout"){rect.enableNormalStyle();}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){event.preventDefault();rect.toFront();rect.prevCoord = graphie.getMouseCoord(event);rect.enableHoverStyle();$(document).on("vmousemove vmouseup", function(event){event.preventDefault();rect.dragging = true;dragging = true;if(event.type === "vmousemove"){var currCoord=graphie.getMouseCoord(event);if(rect.prevCoord && rect.prevCoord.length === 2){var diff=GraphUtils.coordDiff(rect.prevCoord, currCoord);rect.translate(diff[0], diff[1]);}rect.prevCoord = currCoord;}else if(event.type === "vmouseup"){$(document).off("vmousemove vmouseup");rect.dragging = false;dragging = false;var currCoord=graphie.getMouseCoord(event);if(currCoord[0] < rect.getX() || currCoord[0] > rect.getX2() || currCoord[1] < rect.getY() || currCoord[1] > rect.getY2()){rect.enableNormalStyle();}rect.snap();}});}});};bindTranslation();return rect;}, addCircleGraph:function(options){var graphie=this;var circle=$.extend({center:[0, 0], radius:2, snapX:0.5, snapY:0.5, snapRadius:0.5, minRadius:1, centerConstraints:{}, centerNormalStyle:{}, centerHighlightStyle:{stroke:KhanColors.INTERACTING, fill:KhanColors.INTERACTING}, circleNormalStyle:{stroke:KhanColors.INTERACTIVE, "fill-opacity":0}, circleHighlightStyle:{stroke:KhanColors.INTERACTING, fill:KhanColors.INTERACTING, "fill-opacity":0.05}}, options);var normalColor=circle.centerConstraints.fixed?KhanColors.DYNAMIC:KhanColors.INTERACTIVE;var centerNormalStyle=options?options.centerNormalStyle:null;circle.centerNormalStyle = _.extend({}, {"fill":normalColor, "stroke":normalColor}, centerNormalStyle);circle.centerPoint = graphie.addMovablePoint({graph:graphie, coord:circle.center, normalStyle:circle.centerNormalStyle, snapX:circle.snapX, snapY:circle.snapY, constraints:circle.centerConstraints});circle.circ = graphie.circle(circle.center, circle.radius, circle.circleNormalStyle);circle.perim = graphie.mouselayer.circle(graphie.scalePoint(circle.center)[0], graphie.scalePoint(circle.center)[1], graphie.scaleVector(circle.radius)[0]).attr({"stroke-width":20, "opacity":0.002});if(!circle.centerConstraints.fixed){$(circle.centerPoint.mouseTarget.getMouseTarget()).on("vmouseover vmouseout", function(event){if(circle.centerPoint.highlight || circle.centerPoint.dragging){circle.circ.animate(circle.circleHighlightStyle, 50);}else {circle.circ.animate(circle.circleNormalStyle, 50);}});}circle.toFront = function(){circle.circ.toFront();circle.perim.toFront();circle.centerPoint.visibleShape.toFront();if(!circle.centerConstraints.fixed){circle.centerPoint.mouseTarget.toFront();}};circle.centerPoint.onMove = function(x, y){circle.toFront();circle.circ.attr({cx:graphie.scalePoint(x)[0], cy:graphie.scalePoint(y)[1]});circle.perim.attr({cx:graphie.scalePoint(x)[0], cy:graphie.scalePoint(y)[1]});if(circle.onMove){circle.onMove(x, y);}};$(circle.centerPoint).on("move", function(){circle.center = this.coord;$(circle).trigger("move");});circle.setCenter = function(x, y){circle.centerPoint.setCoord([x, y]);circle.centerPoint.onMove(x, y);circle.center = [x, y];};circle.setRadius = function(r){circle.radius = r;circle.perim.attr({r:graphie.scaleVector(r)[0]});circle.circ.attr({rx:graphie.scaleVector(r)[0], ry:graphie.scaleVector(r)[1]});};circle.remove = function(){circle.centerPoint.remove();circle.circ.remove();circle.perim.remove();};$(circle.perim[0]).css("cursor", "move");$(circle.perim[0]).on("vmouseover vmouseout vmousedown", function(event){if(event.type === "vmouseover"){circle.highlight = true;if(!dragging){circle.circ.animate(circle.circleHighlightStyle, 50);circle.centerPoint.visibleShape.animate(circle.centerHighlightStyle, 50);}}else if(event.type === "vmouseout"){circle.highlight = false;if(!circle.dragging && !circle.centerPoint.dragging){circle.circ.animate(circle.circleNormalStyle, 50);circle.centerPoint.visibleShape.animate(circle.centerNormalStyle, 50);}}else if(event.type === "vmousedown" && (event.which === 1 || event.which === 0)){(function(){event.preventDefault();circle.toFront();var startRadius=circle.radius;$(document).on("vmousemove vmouseup", function(event){event.preventDefault();circle.dragging = true;dragging = true;if(event.type === "vmousemove"){var coord=graphie.constrainToBounds(graphie.getMouseCoord(event), 10);var radius=GraphUtils.getDistance(circle.centerPoint.coord, coord);radius = Math.max(circle.minRadius, Math.round(radius / circle.snapRadius) * circle.snapRadius);var oldRadius=circle.radius;var doResize=true;if(circle.onResize){var onResizeResult=circle.onResize(radius, oldRadius);if(_.isNumber(onResizeResult)){radius = onResizeResult;}else if(onResizeResult === false){doResize = false;}}if(doResize){circle.setRadius(radius);$(circle).trigger("move");}}else if(event.type === "vmouseup"){$(document).off("vmousemove vmouseup");circle.dragging = false;dragging = false;if(circle.onResizeEnd){circle.onResizeEnd(circle.radius, startRadius);}}});})();}});return circle;}, interactiveEllipse:function(options){var graphie=this;var ellipse=$.extend({center:[0, 0], radius:2, xRadius:2, yRadius:2, ellipseNormalStyle:{stroke:KhanColors.BLUE, "fill-opacity":0}, ellipseBoundaryHideStyle:{"fill-opacity":0, "stroke-width":0}, ellipseBoundaryShowStyle:{"fill-opacity":1, fill:KhanColors.BLUE}, onMove:function(coordX, coordY){}, onLeave:function(coordX, coordY){}}, options);ellipse.circ = graphie.ellipse(ellipse.center, [ellipse.xRadius, ellipse.yRadius], ellipse.ellipseNormalStyle);ellipse.perim = graphie.mouselayer.ellipse(graphie.scalePoint(ellipse.center)[0], graphie.scalePoint(ellipse.center)[1], graphie.scaleVector(ellipse.xRadius)[0], graphie.scaleVector(ellipse.yRadius)[0]).attr({"stroke-width":30, "opacity":0.002});ellipse.boundaryPoint = graphie.circle(ellipse.center, 0.4, ellipse.ellipseBoundaryHideStyle);ellipse.remove = function(){ellipse.circ.remove();ellipse.perim.remove();};ellipse.showPoint = function(event){var coord=graphie.constrainToBounds(graphie.getMouseCoord(event), 10);var dx=ellipse.yRadius * (ellipse.center[0] - coord[0]);var dy=ellipse.xRadius * (ellipse.center[1] - coord[1]);var angle=Math.atan2(dy, dx);coord[0] = ellipse.center[0] - ellipse.xRadius * Math.cos(angle);coord[1] = ellipse.center[1] - ellipse.yRadius * Math.sin(angle);var scaledPoint=graphie.scalePoint(coord);ellipse.boundaryPoint.attr({cx:scaledPoint[0]});ellipse.boundaryPoint.attr({cy:scaledPoint[1]});ellipse.boundaryPoint.animate(ellipse.ellipseBoundaryShowStyle, 50);ellipse.onMove(coord[0], coord[1]);};$(ellipse.perim[0]).on("vmouseover vmouseout vmousemove", function(event){if(event.type === "vmouseover"){ellipse.showPoint(event);}else if(event.type === "vmouseout"){ellipse.boundaryPoint.animate(ellipse.ellipseBoundaryHideStyle, 50);ellipse.onLeave();}else if(event.type === "vmousemove"){ellipse.showPoint(event);}});return ellipse;}, addRotateHandle:(function(){var drawRotateHandle=function(graphie, center, radius, halfWidth, lengthAngle, angle, interacting){var getRotateHandlePoint=function(offset, distanceFromArrowMidline){var distFromRotationCenter=radius + distanceFromArrowMidline;var vec=kvector.cartFromPolarDeg([distFromRotationCenter, angle + offset]);var absolute=kvector.add(center, vec);var pixels=graphie.scalePoint(absolute);return pixels[0] + "," + pixels[1];};var innerR=graphie.scaleVector(radius - halfWidth);var outerR=graphie.scaleVector(radius + halfWidth);return graphie.raphael.path(" M" + getRotateHandlePoint(lengthAngle, -halfWidth) + " L" + getRotateHandlePoint(lengthAngle, -3 * halfWidth) + " L" + getRotateHandlePoint(2 * lengthAngle, 0) + " L" + getRotateHandlePoint(lengthAngle, 3 * halfWidth) + " L" + getRotateHandlePoint(lengthAngle, halfWidth) + " A" + outerR[0] + "," + outerR[1] + ",0,0,1," + getRotateHandlePoint(-lengthAngle, halfWidth) + " L" + getRotateHandlePoint(-lengthAngle, 3 * halfWidth) + " L" + getRotateHandlePoint(-2 * lengthAngle, 0) + " L" + getRotateHandlePoint(-lengthAngle, -3 * halfWidth) + " L" + getRotateHandlePoint(-lengthAngle, -halfWidth) + " A" + innerR[0] + "," + innerR[1] + ",0,0,0," + getRotateHandlePoint(lengthAngle, -halfWidth) + " Z").attr({stroke:null, fill:interacting?KhanColors.INTERACTING:KhanColors.INTERACTIVE});};return function(options){var graph=this;var rotatePoint=options.center;var radius=options.radius;var lengthAngle=options.lengthAngle || 30;var hideArrow=options.hideArrow || false;var mouseTarget=options.mouseTarget;var id=_.uniqueId("rotateHandle");if(_.isArray(rotatePoint)){rotatePoint = {coord:rotatePoint};}var rotateHandle=graph.addMovablePoint({coord:kpoint.addVector(rotatePoint.coord, kvector.cartFromPolarDeg(radius, options.angleDeg || 0)), constraints:{fixedDistance:{dist:radius, point:rotatePoint}}, mouseTarget:mouseTarget});rotatePoint.toFront();var rotatePointPrevCoord=rotatePoint.coord;var rotateHandlePrevCoord=rotateHandle.coord;var rotateHandleStartCoord=rotateHandlePrevCoord;var isRotating=false;var isHovering=false;var drawnRotateHandle=undefined;var redrawRotateHandle=function(handleCoord){if(hideArrow){return;}var handleVec=kvector.subtract(handleCoord, rotatePoint.coord);var handlePolar=kvector.polarDegFromCart(handleVec);var angle=handlePolar[1];if(drawnRotateHandle){drawnRotateHandle.remove();}drawnRotateHandle = drawRotateHandle(graph, rotatePoint.coord, options.radius, isRotating || isHovering?options.hoverWidth / 2:options.width / 2, lengthAngle, angle, isRotating || isHovering);};$(rotatePoint).on("move." + id, function(){var delta=kvector.subtract(rotatePoint.coord, rotatePointPrevCoord);rotateHandle.setCoord(kvector.add(rotateHandle.coord, delta));redrawRotateHandle(rotateHandle.coord);rotatePointPrevCoord = rotatePoint.coord;rotateHandle.constraints.fixedDistance.point = rotatePoint;rotateHandlePrevCoord = rotateHandle.coord;});rotateHandle.onMove = function(x, y){if(!isRotating){rotateHandleStartCoord = rotateHandlePrevCoord;isRotating = true;}var coord=[x, y];if(options.onMove){var oldPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandlePrevCoord, rotatePoint.coord));var newPolar=kvector.polarDegFromCart(kvector.subtract(coord, rotatePoint.coord));var oldAngle=oldPolar[1];var newAngle=newPolar[1];var result=options.onMove(newAngle, oldAngle);if(result != null && result !== true){if(result === false){result = oldAngle;}coord = kvector.add(rotatePoint.coord, kvector.cartFromPolarDeg([oldPolar[0], result]));}}redrawRotateHandle(coord);rotateHandlePrevCoord = coord;return coord;};rotateHandle.onMoveEnd = function(){isRotating = false;redrawRotateHandle(rotateHandle.coord);if(options.onMoveEnd){var oldPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandleStartCoord, rotatePoint.coord));var newPolar=kvector.polarDegFromCart(kvector.subtract(rotateHandle.coord, rotatePoint.coord));options.onMoveEnd(newPolar[1], oldPolar[1]);}};rotateHandle.visibleShape.remove();if(!mouseTarget){rotateHandle.mouseTarget.attr({scale:2});}var $mouseTarget=$(rotateHandle.mouseTarget.getMouseTarget());$mouseTarget.bind("vmouseover", function(e){isHovering = true;redrawRotateHandle(rotateHandle.coord);});$mouseTarget.bind("vmouseout", function(e){isHovering = false;redrawRotateHandle(rotateHandle.coord);});redrawRotateHandle(rotateHandle.coord);var oldRemove=rotateHandle.remove;rotateHandle.remove = function(){oldRemove.call(rotateHandle);if(drawnRotateHandle){drawnRotateHandle.remove();}$(rotatePoint).off("move." + id);};rotateHandle.update = function(){redrawRotateHandle(rotateHandle.coord);};return rotateHandle;};})(), addReflectButton:(function(){var drawButton=function(graphie, buttonCoord, lineCoords, size, distanceFromCenter, leftStyle, rightStyle){if(kpoint.equal(lineCoords[0], lineCoords[1])){lineCoords = [lineCoords[0], kpoint.addVector(lineCoords[0], [1, 1])];}var lineDirection=kvector.normalize(kvector.subtract(lineCoords[1], lineCoords[0]));var lineVec=kvector.scale(lineDirection, size / 2);var centerVec=kvector.scale(lineDirection, distanceFromCenter);var leftCenterVec=kvector.rotateDeg(centerVec, 90);var rightCenterVec=kvector.rotateDeg(centerVec, -90);var negLineVec=kvector.negate(lineVec);var leftVec=kvector.rotateDeg(lineVec, 90);var rightVec=kvector.rotateDeg(lineVec, -90);var leftCenter=kpoint.addVectors(buttonCoord, leftCenterVec);var rightCenter=kpoint.addVectors(buttonCoord, rightCenterVec);var leftCoord1=kpoint.addVectors(buttonCoord, leftCenterVec, lineVec, leftVec);var leftCoord2=kpoint.addVectors(buttonCoord, leftCenterVec, negLineVec, leftVec);var rightCoord1=kpoint.addVectors(buttonCoord, rightCenterVec, lineVec, rightVec);var rightCoord2=kpoint.addVectors(buttonCoord, rightCenterVec, negLineVec, rightVec);var leftButton=graphie.path([leftCenter, leftCoord1, leftCoord2, true], leftStyle);var rightButton=graphie.path([rightCenter, rightCoord1, rightCoord2, true], rightStyle);return {remove:function(){leftButton.remove();rightButton.remove();}};};return function(options){var graphie=this;var line=options.line;var button=graphie.addMovablePoint({constraints:options.constraints, coord:kline.midpoint([line.pointA.coord, line.pointZ.coord]), snapX:graphie.snap[0], snapY:graphie.snap[1], onMove:function(x, y){return false;}, onMoveEnd:function(x, y){if(options.onMoveEnd){options.onMoveEnd.call(this, x, y);}}});var isHovering=false;var isFlipped=false;var currentlyDrawnButton=undefined;var isHighlight=function(){return isHovering;};var styles=_.map([0, 1], function(isHighlight){var baseStyle=isHighlight?options.highlightStyle:options.normalStyle;return _.map([0, 1], function(opacity){return _.defaults({"fill-opacity":opacity}, baseStyle);});});var getStyle=function(isRight){if(isFlipped){isRight = !isRight;}return styles[+isHighlight()][+isRight];};var redraw=function(coord, lineCoords){if(currentlyDrawnButton){currentlyDrawnButton.remove();}currentlyDrawnButton = drawButton(graphie, coord, lineCoords, isHighlight()?options.size * 1.5:options.size, isHighlight()?options.size * 0.125:0.25, getStyle(0), getStyle(1));};var update=function(coordA, coordZ){coordA = coordA || line.pointA.coord;coordZ = coordZ || line.pointZ.coord;var buttonCoord=kline.midpoint([coordA, coordZ]);button.setCoord(buttonCoord);redraw(buttonCoord, [coordA, coordZ]);};$(line).on("move", _.bind(update, button, null, null));var $mouseTarget=$(button.mouseTarget.getMouseTarget());$mouseTarget.on("vclick", function(){var result=options.onClick();if(result !== false){isFlipped = !isFlipped;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);}});line.pointA.toFront();line.pointZ.toFront();button.visibleShape.remove();var pointScale=graphie.scaleVector(options.size)[0] / 20;button.mouseTarget.attr({scale:1.5 * pointScale});$mouseTarget.css("cursor", "pointer");$mouseTarget.bind("vmouseover", function(e){isHovering = true;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);});$mouseTarget.bind("vmouseout", function(e){isHovering = false;redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);});var oldButtonRemove=button.remove;button.remove = function(){currentlyDrawnButton.remove();oldButtonRemove.call(button);};button.update = update;button.isFlipped = function(){return isFlipped;};update();return button;};})(), protractor:function(center){return new Protractor(this, center);}, ruler:function(options){return new Ruler(this, options || {});}, addPoints:addPoints});function Protractor(graph, center){this.set = graph.raphael.set();this.cx = center[0];this.cy = center[1];var pro=this;var r=graph.unscaleVector(180.5)[0];var imgPos=graph.scalePoint([this.cx - r, this.cy + r - graph.unscaleVector(10.5)[1]]);this.set.push(graph.mouselayer.image("https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png", imgPos[0], imgPos[1], 360, 180));var arrowHelper=function(angle, pixelsFromEdge){var scaledRadius=graph.scaleVector(r);scaledRadius[0] -= 16;scaledRadius[1] -= 16;var scaledCenter=graph.scalePoint(center);var x=Math.sin((angle + 90) * Math.PI / 180) * (scaledRadius[0] + pixelsFromEdge) + scaledCenter[0];var y=Math.cos((angle + 90) * Math.PI / 180) * (scaledRadius[1] + pixelsFromEdge) + scaledCenter[1];return x + "," + y;};var arrow=graph.raphael.path(" M" + arrowHelper(180, 6) + " L" + arrowHelper(180, 2) + " L" + arrowHelper(183, 10) + " L" + arrowHelper(180, 18) + " L" + arrowHelper(180, 14) + " A" + (graph.scaleVector(r)[0] + 10) + "," + (graph.scaleVector(r)[1] + 10) + ",0,0,1," + arrowHelper(170, 14) + " L" + arrowHelper(170, 18) + " L" + arrowHelper(167, 10) + " L" + arrowHelper(170, 2) + " L" + arrowHelper(170, 6) + " A" + (graph.scaleVector(r)[0] + 10) + "," + (graph.scaleVector(r)[1] + 10) + ",0,0,0," + arrowHelper(180, 6) + " Z").attr({"stroke":null, "fill":KhanColors.INTERACTIVE});this.set.push(arrow);this.centerPoint = graph.addMovablePoint({coord:center, visible:false});this.rotateHandle = graph.addMovablePoint({coord:[Math.sin(275 * Math.PI / 180) * (r + 0.5) + this.cx, Math.cos(275 * Math.PI / 180) * (r + 0.5) + this.cy], onMove:function(x, y){var angle=Math.atan2(pro.centerPoint.coord[1] - y, pro.centerPoint.coord[0] - x) * 180 / Math.PI;pro.rotate(-angle - 5, true);}});this.rotateHandle.constraints.fixedDistance.dist = r + 0.5;this.rotateHandle.constraints.fixedDistance.point = this.centerPoint;this.rotateHandle.visibleShape.remove();this.rotateHandle.mouseTarget.attr({scale:2});var isDragging=false;var isHovering=false;var isHighlight=function(){return isHovering || isDragging;};var self=this;var $mouseTarget=$(self.rotateHandle.mouseTarget.getMouseTarget());$mouseTarget.bind("vmousedown", function(event){isDragging = true;arrow.animate({scale:1.5, fill:KhanColors.INTERACTING}, 50);$(document).bind("vmouseup.rotateHandle", function(event){isDragging = false;if(!isHighlight()){arrow.animate({scale:1, fill:KhanColors.INTERACTIVE}, 50);}$(document).unbind("vmouseup.rotateHandle");});});$mouseTarget.bind("vmouseover", function(event){isHovering = true;arrow.animate({scale:1.5, fill:KhanColors.INTERACTING}, 50);});$mouseTarget.bind("vmouseout", function(event){isHovering = false;if(!isHighlight()){arrow.animate({scale:1, fill:KhanColors.INTERACTIVE}, 50);}});var setNodes=$.map(this.set, function(el){return el.node;});this.makeTranslatable = function makeTranslatable(){$(setNodes).css("cursor", "move");$(setNodes).bind("vmousedown", function(event){event.preventDefault();var startx=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var starty=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;$(document).bind("vmousemove.protractor", function(event){var mouseX=event.pageX - $(graph.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graph.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graph.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graph.ypixels - 10, mouseY));var dx=mouseX - startx;var dy=mouseY - starty;$.each(pro.set.items, function(){this.translate(dx, dy);});pro.centerPoint.setCoord([pro.centerPoint.coord[0] + dx / graph.scale[0], pro.centerPoint.coord[1] - dy / graph.scale[1]]);pro.rotateHandle.setCoord([pro.rotateHandle.coord[0] + dx / graph.scale[0], pro.rotateHandle.coord[1] - dy / graph.scale[1]]);startx = mouseX;starty = mouseY;});$(document).one("vmouseup", function(event){$(document).unbind("vmousemove.protractor");});});};this.rotation = 0;this.rotate = function(offset, absolute){var center=graph.scalePoint(this.centerPoint.coord);if(absolute){this.rotation = 0;}this.set.rotate(this.rotation + offset, center[0], center[1]);this.rotation = this.rotation + offset;return this;};this.moveTo = function moveTo(x, y){var start=graph.scalePoint(pro.centerPoint.coord);var end=graph.scalePoint([x, y]);var time=GraphUtils.getDistance(start, end) * 2;$({x:start[0], y:start[1]}).animate({x:end[0], y:end[1]}, {duration:time, step:function(now, fx){var dx=0;var dy=0;if(fx.prop === "x"){dx = now - graph.scalePoint(pro.centerPoint.coord)[0];}else if(fx.prop === "y"){dy = now - graph.scalePoint(pro.centerPoint.coord)[1];}$.each(pro.set.items, function(){this.translate(dx, dy);});pro.centerPoint.setCoord([pro.centerPoint.coord[0] + dx / graph.scale[0], pro.centerPoint.coord[1] - dy / graph.scale[1]]);pro.rotateHandle.setCoord([pro.rotateHandle.coord[0] + dx / graph.scale[0], pro.rotateHandle.coord[1] - dy / graph.scale[1]]);}});};this.rotateTo = function rotateTo(angle){if(Math.abs(this.rotation - angle) > 180){this.rotation += 360;}var time=Math.abs(this.rotation - angle) * 5;$({0:this.rotation}).animate({0:angle}, {duration:time, step:function(now, fx){pro.rotate(now, true);pro.rotateHandle.setCoord([Math.sin((now + 275) * Math.PI / 180) * (r + 0.5) + pro.centerPoint.coord[0], Math.cos((now + 275) * Math.PI / 180) * (r + 0.5) + pro.centerPoint.coord[1]]);}});};this.remove = function(){this.set.remove();};this.makeTranslatable();return this;}function Ruler(graphie, options){_.defaults(options, {center:[0, 0], pixelsPerUnit:40, ticksPerUnit:10, units:10, label:"", style:{fill:null, stroke:KhanColors.GRAY}});var light=_.extend({}, options.style, {strokeWidth:1});var bold=_.extend({}, options.style, {strokeWidth:2});var width=options.units * options.pixelsPerUnit;var height=50;var leftBottom=graphie.unscalePoint(kvector.subtract(graphie.scalePoint(options.center), kvector.scale([width, -height], 0.5)));var graphieUnitsPerUnit=options.pixelsPerUnit / graphie.scale[0];var graphieUnitsHeight=height / graphie.scale[0];var rightTop=kvector.add(leftBottom, [options.units * graphieUnitsPerUnit, graphieUnitsHeight]);var tickHeight=1;var tickHeightMap=undefined;if(options.ticksPerUnit === 10){tickHeightMap = {10:tickHeight, 5:tickHeight * 0.55, 1:tickHeight * 0.35};}else {var sizes=[1, 0.6, 0.45, 0.3];tickHeightMap = {};for(var i=options.ticksPerUnit; i >= 1; i /= 2) {tickHeightMap[i] = tickHeight * (sizes.shift() || 0.2);}}var tickFrequencies=_.keys(tickHeightMap).sort(function(a, b){return b - a;});function getTickHeight(i){for(var k=0; k < tickFrequencies.length; k++) {var key=tickFrequencies[k];if(i % key === 0){return tickHeightMap[key];}}}var left=leftBottom[0];var bottom=leftBottom[1];var right=rightTop[0];var top=rightTop[1];var numTicks=options.units * options.ticksPerUnit + 1;var set=graphie.raphael.set();var px=1 / graphie.scale[0];set.push(graphie.line([left - px, bottom], [right + px, bottom], bold));set.push(graphie.line([left - px, top], [right + px, top], bold));_.times(numTicks, function(i){var n=i / options.ticksPerUnit;var x=left + n * graphieUnitsPerUnit;var height=getTickHeight(i) * graphieUnitsHeight;var style=i === 0 || i === numTicks - 1?bold:light;set.push(graphie.line([x, bottom], [x, bottom + height], style));if(n % 1 === 0){var coord=graphie.scalePoint([x, top]);var text=undefined;var offset=undefined;if(n === 0){text = options.label;offset = ({mm:13, cm:11, m:8, km:11, in:8, ft:8, yd:10, mi:10})[text] || 3 * text.toString().length;}else {text = n;offset = -3 * (n.toString().length + 1);}var label=graphie.raphael.text(coord[0] + offset, coord[1] + 10, text);label.attr({"font-family":"KaTeX_Main", "font-size":"12px", "color":"#444"});set.push(label);}});var mouseTarget=graphie.mouselayer.path(GraphUtils.svgPath([leftBottom, [left, top], rightTop, [right, bottom], true]));mouseTarget.attr({fill:"#000", opacity:0, stroke:"#000", "stroke-width":2});set.push(mouseTarget);var setNodes=$.map(set, function(el){return el.node;});$(setNodes).css("cursor", "move");$(setNodes).bind("vmousedown", function(event){event.preventDefault();var startx=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var starty=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;$(document).bind("vmousemove.ruler", function(event){var mouseX=event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;var mouseY=event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;mouseX = Math.max(10, Math.min(graphie.xpixels - 10, mouseX));mouseY = Math.max(10, Math.min(graphie.ypixels - 10, mouseY));var dx=mouseX - startx;var dy=mouseY - starty;set.translate(dx, dy);leftBottomHandle.setCoord([leftBottomHandle.coord[0] + dx / graphie.scale[0], leftBottomHandle.coord[1] - dy / graphie.scale[1]]);rightBottomHandle.setCoord([rightBottomHandle.coord[0] + dx / graphie.scale[0], rightBottomHandle.coord[1] - dy / graphie.scale[1]]);startx = mouseX;starty = mouseY;});$(document).one("vmouseup", function(event){$(document).unbind("vmousemove.ruler");});});var leftBottomHandle=graphie.addMovablePoint({coord:leftBottom, normalStyle:{fill:KhanColors.INTERACTIVE, "fill-opacity":0, stroke:KhanColors.INTERACTIVE}, highlightStyle:{fill:KhanColors.INTERACTING, "fill-opacity":0.1, stroke:KhanColors.INTERACTING}, pointSize:6, onMove:function(x, y){var dy=rightBottomHandle.coord[1] - y;var dx=rightBottomHandle.coord[0] - x;var angle=Math.atan2(dy, dx) * 180 / Math.PI;var center=kvector.scale(kvector.add([x, y], rightBottomHandle.coord), 0.5);var scaledCenter=graphie.scalePoint(center);var oldCenter=kvector.scale(kvector.add(leftBottomHandle.coord, rightBottomHandle.coord), 0.5);var scaledOldCenter=graphie.scalePoint(oldCenter);var diff=kvector.subtract(scaledCenter, scaledOldCenter);set.rotate(-angle, scaledOldCenter[0], scaledOldCenter[1]);set.translate(diff[0], diff[1]);}});var rightBottomHandle=graphie.addMovablePoint({coord:[right, bottom], normalStyle:{fill:KhanColors.INTERACTIVE, "fill-opacity":0, stroke:KhanColors.INTERACTIVE}, highlightStyle:{fill:KhanColors.INTERACTING, "fill-opacity":0.1, stroke:KhanColors.INTERACTING}, pointSize:6, onMove:function(x, y){var dy=y - leftBottomHandle.coord[1];var dx=x - leftBottomHandle.coord[0];var angle=Math.atan2(dy, dx) * 180 / Math.PI;var center=kvector.scale(kvector.add([x, y], leftBottomHandle.coord), 0.5);var scaledCenter=graphie.scalePoint(center);var oldCenter=kvector.scale(kvector.add(leftBottomHandle.coord, rightBottomHandle.coord), 0.5);var scaledOldCenter=graphie.scalePoint(oldCenter);var diff=kvector.subtract(scaledCenter, scaledOldCenter);set.rotate(-angle, scaledOldCenter[0], scaledOldCenter[1]);set.translate(diff[0], diff[1]);}});leftBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];leftBottomHandle.constraints.fixedDistance.point = rightBottomHandle;rightBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];rightBottomHandle.constraints.fixedDistance.point = leftBottomHandle;this.remove = function(){set.remove();leftBottomHandle.remove();rightBottomHandle.remove();};return this;}function MovableAngle(graphie, options){this.graphie = graphie;_.extend(this, options);_.defaults(this, {normalStyle:{"stroke":KhanColors.INTERACTIVE, "stroke-width":2, "fill":KhanColors.INTERACTIVE}, highlightStyle:{"stroke":KhanColors.INTERACTING, "stroke-width":2, "fill":KhanColors.INTERACTING}, labelStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, angleStyle:{"stroke":KhanColors.DYNAMIC, "stroke-width":1, "color":KhanColors.DYNAMIC}, allowReflex:true});if(!this.points || this.points.length !== 3){throw new Error("MovableAngle requires 3 points");}this.points = _.map(options.points, function(point){if(_.isArray(point)){return graphie.addMovablePoint({coord:point, visible:false, constraints:{fixed:true}, normalStyle:this.normalStyle});}else {return point;}}, this);this.coords = _.pluck(this.points, "coord");if(this.reflex == null){if(this.allowReflex){this.reflex = this._getClockwiseAngle(this.coords) > 180;}else {this.reflex = false;}}this.rays = _.map([0, 2], function(i){return graphie.addMovableLineSegment({pointA:this.points[1], pointZ:this.points[i], fixed:true, extendRay:true});}, this);this.temp = [];this.labeledAngle = graphie.label([0, 0], "", "center", this.labelStyle);if(!this.fixed){this.addMoveHandlers();this.addHighlightHandlers();}this.update();}_.extend(MovableAngle.prototype, {points:[], snapDegrees:0, snapOffsetDeg:0, angleLabel:"", numArcs:1, pushOut:0, fixed:false, addMoveHandlers:function(){var graphie=this.graphie;function tooClose(point1, point2){var safeDistance=30;var distance=GraphUtils.getDistance(graphie.scalePoint(point1), graphie.scalePoint(point2));return distance < safeDistance;}var points=this.points;points[1].onMove = function(x, y){var oldVertex=points[1].coord;var newVertex=[x, y];var delta=addPoints(newVertex, reverseVector(oldVertex));var valid=true;var newPoints={};_.each([0, 2], function(i){var oldPoint=points[i].coord;var newPoint=addPoints(oldPoint, delta);var angle=GraphUtils.findAngle(newVertex, newPoint);angle *= Math.PI / 180;newPoint = graphie.constrainToBoundsOnAngle(newPoint, 10, angle);newPoints[i] = newPoint;if(tooClose(newVertex, newPoint)){valid = false;}});if(valid){_.each(newPoints, function(newPoint, i){points[i].setCoord(newPoint);});}return valid;};var snap=this.snapDegrees;var snapOffset=this.snapOffsetDeg;_.each([0, 2], function(i){points[i].onMove = function(x, y){var newPoint=[x, y];var vertex=points[1].coord;if(tooClose(vertex, newPoint)){return false;}else if(snap){var angle=GraphUtils.findAngle(newPoint, vertex);angle = Math.round((angle - snapOffset) / snap) * snap + snapOffset;var distance=GraphUtils.getDistance(newPoint, vertex);return addPoints(vertex, graphie.polar(distance, angle));}else {return true;}};});$(points).on("move", (function(){this.update();$(this).trigger("move");}).bind(this));}, addHighlightHandlers:function(){var vertex=this.points[1];vertex.onHighlight = (function(){_.each(this.points, function(point){point.visibleShape.animate(this.highlightStyle, 50);}, this);_.each(this.rays, function(ray){ray.visibleLine.animate(this.highlightStyle, 50);ray.arrowStyle = _.extend({}, ray.arrowStyle, {"color":this.highlightStyle.stroke, "stroke":this.highlightStyle.stroke});}, this);this.angleStyle = _.extend({}, this.angleStyle, {"color":this.highlightStyle.stroke, "stroke":this.highlightStyle.stroke});this.update();}).bind(this);vertex.onUnhighlight = (function(){_.each(this.points, function(point){point.visibleShape.animate(this.normalStyle, 50);}, this);_.each(this.rays, function(ray){ray.visibleLine.animate(ray.normalStyle, 50);ray.arrowStyle = _.extend({}, ray.arrowStyle, {"color":ray.normalStyle.stroke, "stroke":ray.normalStyle.stroke});}, this);this.angleStyle = _.extend({}, this.angleStyle, {"color":KhanColors.DYNAMIC, "stroke":KhanColors.DYNAMIC});this.update();}).bind(this);}, _getClockwiseAngle:function(coords){var clockwiseAngle=(GraphUtils.findAngle(coords[2], coords[0], coords[1]) + 360) % 360;return clockwiseAngle;}, isReflex:function(){return this.reflex;}, isClockwise:function(){var clockwiseReflexive=this._getClockwiseAngle(this.coords) > 180;return clockwiseReflexive === this.reflex;}, getClockwiseCoords:function(){if(this.isClockwise()){return _.clone(this.coords);}else {return _.clone(this.coords).reverse();}}, update:function(shouldChangeReflexivity){var prevCoords=this.coords;this.coords = _.pluck(this.points, "coord");_.invoke(this.points, "updateLineEnds");var prevAngle=this._getClockwiseAngle(prevCoords);var angle=this._getClockwiseAngle(this.coords);var prevClockwiseReflexive=prevAngle > 180;var clockwiseReflexive=angle > 180;if(this.allowReflex){if(shouldChangeReflexivity == null){shouldChangeReflexivity = prevClockwiseReflexive !== clockwiseReflexive && Math.abs(angle - prevAngle) < 180;}if(shouldChangeReflexivity){this.reflex = !this.reflex;}}_.invoke(this.temp, "remove");this.temp = this.graphie.labelAngle({point1:this.coords[0], vertex:this.coords[1], point3:this.coords[2], label:this.labeledAngle, text:this.angleLabel, numArcs:this.numArcs, pushOut:this.pushOut, clockwise:this.reflex === clockwiseReflexive, style:this.angleStyle});}, remove:function(){_.invoke(this.rays, "remove");_.invoke(this.temp, "remove");this.labeledAngle.remove();}});module.exports = InteractiveUtils;
 
 /***/ },
 /* 221 */
@@ -84119,9 +84136,9 @@ module.exports =
 
 	var sharedStyles = __webpack_require__(222);
 	var styleConstants = __webpack_require__(133);
-	var mediaQueries = __webpack_require__(160);
+	var mediaQueries = __webpack_require__(161);
 
-	var ToggleableRadioButton = __webpack_require__(248);
+	var ToggleableRadioButton = __webpack_require__(250);
 
 	var circleSize = 20;
 	var radioBorder = styleConstants.grayLighter;
@@ -84629,6 +84646,15 @@ module.exports =
 	};
 
 	exports.mapObj = mapObj;
+	// Flattens an array one level
+	// [[A], [B, C, [D]]] -> [A, B, C, [D]]
+	var flatten = function flatten(list) {
+	    return list.reduce(function (memo, x) {
+	        return memo.concat(x);
+	    }, []);
+	};
+
+	exports.flatten = flatten;
 	var UPPERCASE_RE = /([A-Z])/g;
 	var MS_RE = /^ms-/;
 
@@ -84806,16 +84832,14 @@ module.exports =
 	};
 
 	exports.hashObject = hashObject;
-	var IMPORTANT_RE = /^([^:]+:.*?)( !important)?$/;
+	var IMPORTANT_RE = /^([^:]+:.*?)( !important)?;$/;
 
-	// Given a style string like "a: b; c: d;", adds !important to each of the
-	// properties to generate "a: b !important; c: d !important;".
+	// Given a single style rule string like "a: b;", adds !important to generate
+	// "a: b !important;".
 	var importantify = function importantify(string) {
-	    return string.split(";").map(function (str) {
-	        return str.replace(IMPORTANT_RE, function (_, base, important) {
-	            return base + " !important";
-	        });
-	    }).join(";");
+	    return string.replace(IMPORTANT_RE, function (_, base, important) {
+	        return base + " !important;";
+	    });
 	};
 	exports.importantify = importantify;
 
@@ -85588,30 +85612,39 @@ module.exports =
 
 	var connect = _require.connect;
 
+	var _require2 = __webpack_require__(266);
+
+	var StyleSheet = _require2.StyleSheet;
+
+	var _require3 = __webpack_require__(254);
+
+	var View = _require3.View;
+
 	var DefaultKeypad = __webpack_require__(255);
 	var NumberKeypad = __webpack_require__(256);
 	var FractionKeypad = __webpack_require__(257);
 	var BasicExpressionKeypad = __webpack_require__(258);
 	var AdvancedExpressionKeypad = __webpack_require__(259);
+	var zIndexes = __webpack_require__(260);
 
-	var _require2 = __webpack_require__(237);
+	var _require4 = __webpack_require__(237);
 
-	var getButtonHeightPx = _require2.getButtonHeightPx;
+	var getButtonHeightPx = _require4.getButtonHeightPx;
 
-	var _require3 = __webpack_require__(252);
+	var _require5 = __webpack_require__(252);
 
-	var setButtonHeightPx = _require3.setButtonHeightPx;
+	var setButtonHeightPx = _require5.setButtonHeightPx;
 
-	var _require4 = __webpack_require__(210);
+	var _require6 = __webpack_require__(210);
 
-	var keyIdPropType = _require4.keyIdPropType;
+	var keyIdPropType = _require6.keyIdPropType;
 
-	var _require5 = __webpack_require__(209);
+	var _require7 = __webpack_require__(209);
 
-	var KeypadTypes = _require5.KeypadTypes;
+	var KeypadTypes = _require7.KeypadTypes;
 
-	var MathKeypad = React.createClass({
-	    displayName: 'MathKeypad',
+	var KeypadContainer = React.createClass({
+	    displayName: 'KeypadContainer',
 
 	    propTypes: {
 	        active: React.PropTypes.bool,
@@ -85661,7 +85694,7 @@ module.exports =
 	        }
 	    },
 
-	    render: function () {
+	    renderKeypad: function () {
 	        // Extract props that some keypads will need.
 	        var _props = this.props;
 	        var extraKeys = _props.extraKeys;
@@ -85698,7 +85731,41 @@ module.exports =
 	            default:
 	                return React.createElement(DefaultKeypad, { ref: onElementMounted });
 	        }
+	    },
+
+	    render: function () {
+	        // NOTE(charlie): We render the transforms as pure inline styles to
+	        // avoid an Aphrodite bug in mobile Safari.
+	        //   See: https://github.com/Khan/aphrodite/issues/68.
+	        var dynamicStyle = this.props.active ? inlineStyles.active : inlineStyles.hidden;
+	        return React.createElement(
+	            View,
+	            { style: styles.keypadContainer, dynamicStyle: dynamicStyle },
+	            this.renderKeypad()
+	        );
 	    } });
+
+	var keypadAnimationDurationMs = 300;
+
+	var styles = StyleSheet.create({
+	    keypadContainer: {
+	        bottom: 0,
+	        position: 'fixed',
+	        transition: '' + keypadAnimationDurationMs + 'ms ease-out',
+	        transitionProperty: 'transform',
+	        zIndex: zIndexes.keypad } });
+
+	// Note: these don't go through an autoprefixer/aphrodite.
+	var inlineStyles = {
+	    hidden: {
+	        msTransform: 'translate3d(0, 100%, 0)',
+	        WebkitTransform: 'translate3d(0, 100%, 0)',
+	        transform: 'translate3d(0, 100%, 0)' },
+
+	    active: {
+	        msTransform: 'translate3d(0, 0, 0)',
+	        WebkitTransform: 'translate3d(0, 0, 0)',
+	        transform: 'translate3d(0, 0, 0)' } };
 
 	var mapStateToProps = function (state) {
 	    return state.keypad;
@@ -85711,7 +85778,7 @@ module.exports =
 	        } };
 	};
 
-	module.exports = connect(mapStateToProps, mapDispatchToProps)(MathKeypad);
+	module.exports = connect(mapStateToProps, mapDispatchToProps)(KeypadContainer);
 
 /***/ },
 /* 233 */
@@ -85895,27 +85962,28 @@ module.exports =
 
 	var WRITE = 'write';
 	var CMD = 'cmd';
-	var KEYSTROKE = 'keystroke';
 	var MQ_END = 0;
 
 	// A mapping from keys that can be pressed on a keypad to the way in which
 	// MathQuill should modify its input in response to that key-press. Any keys
 	// that do not provide explicit actions (like the numeral keys) will merely
 	// write their contents to MathQuill.
-	var KeyActions = (_KeyActions = {}, _KeyActions[Keys.PLUS] = { str: '+', fn: WRITE }, _KeyActions[Keys.MINUS] = { str: '-', fn: WRITE }, _KeyActions[Keys.TIMES] = { str: '\\times', fn: WRITE }, _KeyActions[Keys.DIVIDE] = { str: '\\div', fn: WRITE }, _KeyActions[Keys.DECIMAL] = { str: '.', fn: WRITE }, _KeyActions[Keys.EQUAL] = { str: '=', fn: WRITE }, _KeyActions[Keys.NEQ] = { str: '\\neq', fn: WRITE }, _KeyActions[Keys.CDOT] = { str: '\\cdot', fn: WRITE }, _KeyActions[Keys.PERCENT] = { str: '%', fn: WRITE }, _KeyActions[Keys.EXP] = { str: '^', fn: CMD }, _KeyActions[Keys.EXP_2] = { str: '^2', fn: WRITE }, _KeyActions[Keys.EXP_3] = { str: '^3', fn: WRITE }, _KeyActions[Keys.SQRT] = { str: 'sqrt', fn: CMD }, _KeyActions[Keys.PI] = { str: 'pi', fn: CMD }, _KeyActions[Keys.THETA] = { str: 'theta', fn: CMD }, _KeyActions[Keys.RADICAL] = { str: 'nthroot', fn: CMD }, _KeyActions[Keys.LEFT] = { str: 'Left', fn: KEYSTROKE }, _KeyActions[Keys.RIGHT] = { str: 'Right', fn: KEYSTROKE }, _KeyActions[Keys.JUMP_OUT] = { str: 'Right', fn: KEYSTROKE }, _KeyActions[Keys.LT] = { str: '<', fn: WRITE }, _KeyActions[Keys.LEQ] = { str: '\\leq', fn: WRITE }, _KeyActions[Keys.GT] = { str: '>', fn: WRITE }, _KeyActions[Keys.GEQ] = { str: '\\geq', fn: WRITE }, _KeyActions);
+	var KeyActions = (_KeyActions = {}, _KeyActions[Keys.PLUS] = { str: '+', fn: WRITE }, _KeyActions[Keys.MINUS] = { str: '-', fn: WRITE }, _KeyActions[Keys.TIMES] = { str: '\\times', fn: WRITE }, _KeyActions[Keys.DIVIDE] = { str: '\\div', fn: WRITE }, _KeyActions[Keys.DECIMAL] = { str: '.', fn: WRITE }, _KeyActions[Keys.EQUAL] = { str: '=', fn: WRITE }, _KeyActions[Keys.NEQ] = { str: '\\neq', fn: WRITE }, _KeyActions[Keys.CDOT] = { str: '\\cdot', fn: WRITE }, _KeyActions[Keys.PERCENT] = { str: '%', fn: WRITE }, _KeyActions[Keys.EXP] = { str: '^', fn: CMD }, _KeyActions[Keys.EXP_2] = { str: '^2', fn: WRITE }, _KeyActions[Keys.EXP_3] = { str: '^3', fn: WRITE }, _KeyActions[Keys.SQRT] = { str: 'sqrt', fn: CMD }, _KeyActions[Keys.PI] = { str: 'pi', fn: CMD }, _KeyActions[Keys.THETA] = { str: 'theta', fn: CMD }, _KeyActions[Keys.RADICAL] = { str: 'nthroot', fn: CMD }, _KeyActions[Keys.LT] = { str: '<', fn: WRITE }, _KeyActions[Keys.LEQ] = { str: '\\leq', fn: WRITE }, _KeyActions[Keys.GT] = { str: '>', fn: WRITE }, _KeyActions[Keys.GEQ] = { str: '\\geq', fn: WRITE }, _KeyActions);
 
 	var NormalCommands = (_NormalCommands = {}, _NormalCommands[Keys.LOG] = 'log', _NormalCommands[Keys.LN] = 'ln', _NormalCommands[Keys.SIN] = 'sin', _NormalCommands[Keys.COS] = 'cos', _NormalCommands[Keys.TAN] = 'tan', _NormalCommands);
 
 	var MathWrapper = (function () {
-	    function MathWrapper(element, options, _ref) {
+	    function MathWrapper(element, _ref, _ref3) {
 	        var _ref2 = _ref;
-	        var callbacks = _ref2 === undefined ? {} : _ref2;
+	        var options = _ref2 === undefined ? {} : _ref2;
+	        var _ref32 = _ref3;
+	        var callbacks = _ref32 === undefined ? {} : _ref32;
 
 	        _classCallCheck(this, MathWrapper);
 
 	        var fractionBehavior = options.fractionBehavior;
 
-	        this.fractionBehavior = fractionBehavior;
+	        this.fractionBehavior = fractionBehavior || FractionBehaviorTypes.INCLUSIVE;
 
 	        this.MQ = MathQuill.getInterface(2);
 	        this.mathField = this.MQ.MathField(element, {
@@ -85992,6 +86060,10 @@ module.exports =
 	            this._handleToggleSign(cursor);
 	        } else if (key === Keys.BACKSPACE) {
 	            this._handleBackspace(cursor);
+	        } else if (key === Keys.LEFT) {
+	            this._handleLeftArrow(cursor);
+	        } else if (key === Keys.RIGHT || key === Keys.JUMP_OUT) {
+	            this._handleRightArrow(cursor);
 	        } else if (/^[a-zA-Z]$/.test(key)) {
 	            this.mathField[WRITE](key);
 	        } else if (/^NUM_\d/.test(key)) {
@@ -86131,6 +86203,48 @@ module.exports =
 	        }
 	    };
 
+	    MathWrapper.prototype._handleLeftArrow = function _handleLeftArrow(cursor) {
+	        // If we're inside a function, and just after the left parentheses, we
+	        // need to skip the entire function name, rather than move the cursor
+	        // inside of it. For example, when hitting left from within the
+	        // parentheses in `cos()`, we want to place the cursor to the left of
+	        // the entire expression, rather than between the `s` and the left
+	        // parenthesis.
+	        // From the cursor's perspective, this requires that our left node is
+	        // the MQ_END node, that our grandparent is the left parenthesis, and
+	        // the nodes to the left of our grandparent comprise a valid function
+	        // name.
+	        if (cursor[this.MQ.L] === MQ_END) {
+	            var _parent2 = cursor.parent;
+	            var grandparent = _parent2.parent;
+	            if (grandparent.ctrlSeq === '\\left(') {
+	                var command = this._maybeFindCommandBeforeParens(grandparent);
+	                if (command) {
+	                    cursor.insLeftOf(command.startNode);
+	                    return;
+	                }
+	            }
+	        }
+
+	        // Otherwise, we default to the standard MathQull left behavior.
+	        this.mathField.keystroke('Left');
+	    };
+
+	    MathWrapper.prototype._handleRightArrow = function _handleRightArrow(cursor) {
+	        var command = this._maybeFindCommand(cursor[this.MQ.R]);
+	        if (command) {
+	            // Similarly, if a function is to our right, then we need to place
+	            // the cursor at the start of its parenthetical content, which is
+	            // done by putting it to the left of ites parentheses and then
+	            // moving right once.
+	            cursor.insLeftOf(command.endNode);
+	            this.mathField.keystroke('Right');
+	        } else {
+	            // Otherwise, we default to the standard MathQull right behavior.
+	            this.mathField.keystroke('Right');
+	        }
+	    };
+
 	    /**
 	     * Return the start node, end node, and full name of the command of which
 	     * the initial node is a part, or `null` if the node is not part of a
@@ -86149,21 +86263,22 @@ module.exports =
 	        }
 
 	        // MathQuill stores commands as separate characters so that
-	        // users can delete commands one character at a time.  Iterate over
-	        // the nodes from right to left until we hit a '\\' signifies the
-	        // start of a command and return that node.  If we encounter any
-	        // character that doesn't belong in a command, return null.
-	        var commandDelimiter = '\\';
+	        // users can delete commands one character at a time.  We iterate over
+	        // the nodes from right to left until we hit a sequence starting with a
+	        // '\\', which signifies the start of a command; then we iterate from
+	        // left to right until we hit a '\\left(', which signifies the end of a
+	        // command.  If we encounter any character that doesn't belong in a
+	        // command, we return null.  We match a single character at a time.
+	        // Ex) ['\\l', 'o', 'g ', '\\left(', ...]
+	        var commandCharRegex = /^[a-z]$/;
+	        var commandStartRegex = /^\\[a-z]$/;
+	        var commandEndSeq = '\\left(';
 
-	        // We match a single character at a time.  The '\\' is optional because
-	        // only the first node in the sequence contains a '\\', e.g.
-	        // ['\\l', 'o', 'g ', '\\left(', ...]
-	        var commandCharRegex = /[\\]?[a-z]/;
-
-	        // Note: We don't treat left-parens as a command in the same sense as
-	        // cosine and log. Similarly, Pi and Theta are not treated as "commands"
-	        // since they aren't functions.
-	        var ignoredCommands = ['\\left(', '\\pi', '\\theta'];
+	        // Note: We whitelist the set of valid commands, since relying solely on
+	        // a command being prefixed with a backslash leads to undesired
+	        // behavior. For example, Greek symbols, left parentheses, and square
+	        // roots all get treated as commands.
+	        var validCommands = ['\\log', '\\ln', '\\cos', '\\sin', '\\tan'];
 
 	        var name = '';
 	        var startNode = undefined;
@@ -86173,13 +86288,13 @@ module.exports =
 	        // until the start of the command.
 	        var node = initialNode;
 	        while (node !== 0) {
-	            if (commandCharRegex.test(node.ctrlSeq)) {
-	                name = node.ctrlSeq.trim() + name;
-
-	                if (node.ctrlSeq.startsWith(commandDelimiter)) {
-	                    startNode = node;
-	                    break;
-	                }
+	            var ctrlSeq = node.ctrlSeq.trim();
+	            if (commandCharRegex.test(ctrlSeq)) {
+	                name = ctrlSeq + name;
+	            } else if (commandStartRegex.test(ctrlSeq)) {
+	                name = ctrlSeq + name;
+	                startNode = node;
+	                break;
 	            } else {
 	                break;
 	            }
@@ -86194,18 +86309,24 @@ module.exports =
 	            // Next, iterate from the start to the right.
 	            node = initialNode[this.MQ.R];
 	            while (node !== 0) {
-	                if (commandCharRegex.test(node.ctrlSeq) && !node.ctrlSeq.startsWith(commandDelimiter)) {
-	                    name = name + node.ctrlSeq.trim();
-	                } else {
+	                var ctrlSeq = node.ctrlSeq.trim();
+	                if (commandCharRegex.test(ctrlSeq)) {
+	                    // If we have a single character, add it to the command
+	                    // name.
+	                    name = name + ctrlSeq;
+	                } else if (ctrlSeq === commandEndSeq) {
+	                    // If we hit the command end delimiter (the left
+	                    // parentheses surrounding its arguments), stop.
 	                    endNode = node;
+	                    break;
 	                }
 
 	                node = node[this.MQ.R];
 	            }
-	            if (ignoredCommands.includes(name)) {
-	                return null;
-	            } else {
+	            if (validCommands.includes(name)) {
 	                return { name: name, startNode: startNode, endNode: endNode };
+	            } else {
+	                return null;
 	            }
 	        } else {
 	            return null;
@@ -87207,7 +87328,7 @@ module.exports =
 	 */
 	var _ = __webpack_require__(47);
 	var WrappedLine = __webpack_require__(244);
-	var WrappedPath = __webpack_require__(250);
+	var WrappedPath = __webpack_require__(249);
 	var kvector = __webpack_require__(206).vector;
 	var kpoint = __webpack_require__(206).point;
 	var KhanMath = __webpack_require__(152);
@@ -92302,99 +92423,6 @@ module.exports =
 /* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(46);
-	var _ = __webpack_require__(47);
-
-	/**
-	 * A radio button that can be unchecked by clicking it again.
-	 *
-	 * This component behaves much like a checkbox in that when you click it again
-	 * (or hit space bar or select it in some other way), it will become unchecked.
-	 * (Hopefully) it behaves exactly like a radio button in every other way though
-	 * (arrow keys can still be used to select it within a group for example).
-	 *
-	 * Here's a summary of which of our event handlers fire for each way to select
-	 * or deselect the button:
-	 *
-	 * - Clicking a button: handleClick, handleChange
-	 * - Pressing spacebar with button focussed: handleKeyDown, handleKeyUp (we
-	 *   suppress the default behavior of some browsers to synthesize a click event
-	 *   here).
-	 * - When radio button A is selected, pressing down arrow to select B:
-	 *   handleKeyDown (A), handleClick (B), handleChange (B), handleKeyUp (B)
-	 * - Clicking with mac screenreader: handleClick, handleChange
-	 */
-	var ToggleableRadioButton = React.createClass({
-	    displayName: "ToggleableRadioButton",
-
-	    propTypes: {
-	        // Whether the radio button should be checked or unchecked (this is a
-	        // controlled component).
-	        checked: React.PropTypes.bool.isRequired,
-
-	        // A function that will be called whenever the radio button is checked
-	        // or unchecked. It's possible for this to be called twice for a single
-	        // checking or unchecking.
-	        onChecked: React.PropTypes.func.isRequired },
-
-	    handleClick: function (event) {
-	        this.props.onChecked(!this.props.checked);
-
-	        // NOTE(johnsullivan): Preventing default would make sense to do here
-	        //     because we're fully controlling the state of the check box and
-	        //     don't really want it to be (un)checked accidently. React
-	        //     requires that we *don't* call preventDefault from the onClick or
-	        //     onChecked handlers of a controlled component though.
-	    },
-
-	    handleKeyUp: function (event) {
-	        // Make hitting the spacebar with the element selected equivalent to
-	        // clicking it. Some browsers do this as part of the radio button's
-	        // default behavior, but since some browsers don't we normalize the
-	        // behavior here.
-	        if (event.key === " ") {
-	            this.props.onChecked(!this.props.checked);
-	            event.preventDefault();
-	        }
-	    },
-
-	    handleChange: function (event) {
-	        // If the checkbox is going from unchecked to checked, we'll handle it
-	        // here.
-	        // NOTE(johnsullivan): The onClick/onKeyUp handler most likely *also*
-	        //     handled this, but we're being defensive against browsers/devices
-	        //     that might not call those handlers like we'd expect. It's
-	        //     unclear to me whether this is strictly necessary.
-	        if (!this.props.checked && event.target.checked) {
-	            this.props.onChecked(true);
-	        }
-	    },
-
-	    handleKeyDown: function (event) {
-	        // This is necessary in order to prevent IE9 from creating a duplicate
-	        // click event on the radio button when the space bar is hit.
-	        if (event.key === " ") {
-	            event.preventDefault();
-	        }
-	    },
-
-	    render: function () {
-	        var inputProps = _.extend({}, this.props, {
-	            type: "radio",
-	            onChange: this.handleChange,
-	            onClick: this.handleClick,
-	            onKeyDown: this.handleKeyDown,
-	            onKeyUp: this.handleKeyUp });
-
-	        return React.createElement("input", inputProps);
-	    } });
-
-	module.exports = ToggleableRadioButton;
-
-/***/ },
-/* 249 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/*
 	* jQuery Mobile Framework : "mouse" plugin
 	* Copyright (c) jQuery Project
@@ -92904,7 +92932,7 @@ module.exports =
 
 
 /***/ },
-/* 250 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -92943,6 +92971,99 @@ module.exports =
 	_.extend(WrappedPath.prototype, WrappedDefaults);
 
 	module.exports = WrappedPath;
+
+/***/ },
+/* 250 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(46);
+	var _ = __webpack_require__(47);
+
+	/**
+	 * A radio button that can be unchecked by clicking it again.
+	 *
+	 * This component behaves much like a checkbox in that when you click it again
+	 * (or hit space bar or select it in some other way), it will become unchecked.
+	 * (Hopefully) it behaves exactly like a radio button in every other way though
+	 * (arrow keys can still be used to select it within a group for example).
+	 *
+	 * Here's a summary of which of our event handlers fire for each way to select
+	 * or deselect the button:
+	 *
+	 * - Clicking a button: handleClick, handleChange
+	 * - Pressing spacebar with button focussed: handleKeyDown, handleKeyUp (we
+	 *   suppress the default behavior of some browsers to synthesize a click event
+	 *   here).
+	 * - When radio button A is selected, pressing down arrow to select B:
+	 *   handleKeyDown (A), handleClick (B), handleChange (B), handleKeyUp (B)
+	 * - Clicking with mac screenreader: handleClick, handleChange
+	 */
+	var ToggleableRadioButton = React.createClass({
+	    displayName: "ToggleableRadioButton",
+
+	    propTypes: {
+	        // Whether the radio button should be checked or unchecked (this is a
+	        // controlled component).
+	        checked: React.PropTypes.bool.isRequired,
+
+	        // A function that will be called whenever the radio button is checked
+	        // or unchecked. It's possible for this to be called twice for a single
+	        // checking or unchecking.
+	        onChecked: React.PropTypes.func.isRequired },
+
+	    handleClick: function (event) {
+	        this.props.onChecked(!this.props.checked);
+
+	        // NOTE(johnsullivan): Preventing default would make sense to do here
+	        //     because we're fully controlling the state of the check box and
+	        //     don't really want it to be (un)checked accidently. React
+	        //     requires that we *don't* call preventDefault from the onClick or
+	        //     onChecked handlers of a controlled component though.
+	    },
+
+	    handleKeyUp: function (event) {
+	        // Make hitting the spacebar with the element selected equivalent to
+	        // clicking it. Some browsers do this as part of the radio button's
+	        // default behavior, but since some browsers don't we normalize the
+	        // behavior here.
+	        if (event.key === " ") {
+	            this.props.onChecked(!this.props.checked);
+	            event.preventDefault();
+	        }
+	    },
+
+	    handleChange: function (event) {
+	        // If the checkbox is going from unchecked to checked, we'll handle it
+	        // here.
+	        // NOTE(johnsullivan): The onClick/onKeyUp handler most likely *also*
+	        //     handled this, but we're being defensive against browsers/devices
+	        //     that might not call those handlers like we'd expect. It's
+	        //     unclear to me whether this is strictly necessary.
+	        if (!this.props.checked && event.target.checked) {
+	            this.props.onChecked(true);
+	        }
+	    },
+
+	    handleKeyDown: function (event) {
+	        // This is necessary in order to prevent IE9 from creating a duplicate
+	        // click event on the radio button when the space bar is hit.
+	        if (event.key === " ") {
+	            event.preventDefault();
+	        }
+	    },
+
+	    render: function () {
+	        var inputProps = _.extend({}, this.props, {
+	            type: "radio",
+	            onChange: this.handleChange,
+	            onClick: this.handleClick,
+	            onKeyDown: this.handleKeyDown,
+	            onKeyUp: this.handleKeyUp });
+
+	        return React.createElement("input", inputProps);
+	    } });
+
+	module.exports = ToggleableRadioButton;
 
 /***/ },
 /* 251 */
@@ -93011,11 +93132,48 @@ module.exports =
 
 	    var prefixedDeclarations = (0, _inlineStylePrefixAll2['default'])(handledDeclarations);
 
-	    var rules = (0, _util.objectToPairs)(prefixedDeclarations).map(function (_ref) {
+	    var prefixedRules = (0, _util.flatten)((0, _util.objectToPairs)(prefixedDeclarations).map(function (_ref) {
 	        var _ref2 = _slicedToArray(_ref, 2);
 
 	        var key = _ref2[0];
 	        var value = _ref2[1];
+
+	        if (Array.isArray(value)) {
+	            var _ret = (function () {
+	                // inline-style-prefix-all returns an array when there should be
+	                // multiple rules, we will flatten to single rules
+
+	                var prefixedValues = [];
+	                var unprefixedValues = [];
+
+	                value.forEach(function (v) {
+	                    if (v.indexOf('-') === 0) {
+	                        prefixedValues.push(v);
+	                    } else {
+	                        unprefixedValues.push(v);
+	                    }
+	                });
+
+	                prefixedValues.sort();
+	                unprefixedValues.sort();
+
+	                return {
+	                    v: prefixedValues.concat(unprefixedValues).map(function (v) {
+	                        return [key, v];
+	                    })
+	                };
+	            })();
+
+	            if (typeof _ret === 'object') return _ret.v;
+	        }
+	        return [[key, value]];
+	    }));
+
+	    var rules = prefixedRules.map(function (_ref3) {
+	        var _ref32 = _slicedToArray(_ref3, 2);
+
+	        var key = _ref32[0];
+	        var value = _ref32[1];
 
 	        var stringValue = (0, _util.stringifyValue)(key, value);
 	        var ret = (0, _util.kebabifyStyleName)(key) + ':' + stringValue + ';';
@@ -93179,7 +93337,9 @@ module.exports =
 	                    active: true });
 
 	            case 'ConfigureKeypad':
-	                return _extends({}, state, action.configuration);
+	                return _extends({}, state, {
+	                    // Default `extraKeys` to the empty array.
+	                    extraKeys: [] }, action.configuration);
 
 	            case 'PressKey':
 	                var keyConfig = KeyConfigs[action.key];
@@ -93762,7 +93922,7 @@ module.exports =
 	                View,
 	                { style: row },
 	                React.createElement(TouchableKeypadButton, {
-	                    keyConfig: KeyConfigs.TOGGLE_SIGN,
+	                    keyConfig: KeyConfigs.MINUS,
 	                    borders: BorderStyles.NONE
 	                }),
 	                React.createElement(TouchableKeypadButton, {
@@ -95424,8 +95584,8 @@ module.exports =
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var strictUriEncode = __webpack_require__(322);
-	var objectAssign = __webpack_require__(323);
+	var strictUriEncode = __webpack_require__(323);
+	var objectAssign = __webpack_require__(322);
 
 	function encode(value, opts) {
 		if (opts.encode) {
@@ -95556,7 +95716,6 @@ module.exports =
 
 	var EchoManager = __webpack_require__(292);
 	var PopoverManager = __webpack_require__(293);
-	var zIndexes = __webpack_require__(260);
 
 	var _require5 = __webpack_require__(237);
 
@@ -95568,7 +95727,6 @@ module.exports =
 	var popoverPropType = _require6.popoverPropType;
 
 	var keypadBorderWidthPx = 1;
-	var keypadAnimationDurationMs = 300;
 
 	var Keypad = React.createClass({
 	    displayName: 'Keypad',
@@ -95598,22 +95756,6 @@ module.exports =
 	    },
 
 	    componentWillReceiveProps: function (newProps) {
-	        var _this = this;
-
-	        if (!this._container && !this.props.active && newProps.active) {
-	            // On first appearance, compute the bounds of the container, but be
-	            // sure to wait until the view has finished animating into place,
-	            // taking care not to creep into the end of the animation, lest we
-	            // introduce jank.
-	            setTimeout(function () {
-	                if (_this.isMounted()) {
-	                    _this._computeContainer();
-	                }
-	            }, 2 * keypadAnimationDurationMs);
-	        }
-
-	        // If the user was interacts with the keypad before the timer went off,
-	        // be sure to compute the container.
 	        if (!this._container && (newProps.popover || newProps.echoes.length)) {
 	            this._computeContainer();
 	        }
@@ -95629,29 +95771,24 @@ module.exports =
 	    },
 
 	    _updateSizeAndPosition: function () {
-	        var _this2 = this;
+	        var _this = this;
 
 	        // We don't use viewport units because of compatibility reasons.
 	        this.setState({
 	            viewportWidth: window.innerWidth }, function () {
-	            if (_this2.props.active) {
-	                // Recalculate the container after the keypad animates to the
-	                // new position and size.
-	                setTimeout(function () {
-	                    if (_this2.isMounted()) {
-	                        _this2._computeContainer();
-	                    }
-	                }, 2 * keypadAnimationDurationMs);
-	            }
-
-	            // Mark the container for recalculation next time the keypad
-	            // is opened.
-	            _this2._container = null;
+	            // Mark the container for recalculation next time the keypad is
+	            // opened.
+	            // TODO(charlie): Since we're not recalculating the container
+	            // immediately, if you were to resize the page while a popover were
+	            // active, you'd likely get unexpected behavior. This seems very
+	            // difficult to do and, as such, incredibly unlikely, but we may
+	            // want to reconsider the caching here.
+	            _this._container = null;
 	        });
 	    },
 
 	    _onResize: function () {
-	        var _this3 = this;
+	        var _this2 = this;
 
 	        // Whenever the page resizes, we need to recompute the container's
 	        // bounding box. This is the only time that the bounding box can change.
@@ -95660,17 +95797,17 @@ module.exports =
 	        //    https://developer.mozilla.org/en-US/docs/Web/Events/resize
 	        if (this._resizeTimeout == null) {
 	            this._resizeTimeout = setTimeout(function () {
-	                _this3._resizeTimeout = null;
+	                _this2._resizeTimeout = null;
 
-	                if (_this3.isMounted()) {
-	                    _this3._updateSizeAndPosition();
+	                if (_this2.isMounted()) {
+	                    _this2._updateSizeAndPosition();
 	                }
 	            }, 66);
 	        }
 	    },
 
 	    render: function () {
-	        var _this4 = this;
+	        var _this3 = this;
 
 	        var _props = this.props;
 	        var children = _props.children;
@@ -95689,10 +95826,10 @@ module.exports =
 
 	            return _extends({}, rest, {
 	                initialBounds: {
-	                    top: initialBounds.top - _this4._container.top - keypadBorderWidthPx,
-	                    right: initialBounds.right - _this4._container.left,
-	                    bottom: initialBounds.bottom - _this4._container.top - keypadBorderWidthPx,
-	                    left: initialBounds.left - _this4._container.left,
+	                    top: initialBounds.top - _this3._container.top - keypadBorderWidthPx,
+	                    right: initialBounds.right - _this3._container.left,
+	                    bottom: initialBounds.bottom - _this3._container.top - keypadBorderWidthPx,
+	                    left: initialBounds.left - _this3._container.left,
 	                    width: initialBounds.width,
 	                    height: initialBounds.height } });
 	        });
@@ -95708,15 +95845,12 @@ module.exports =
 
 	        var keypadStyle = [styles.keypad].concat(Array.isArray(style) ? style : [style]);
 
-	        // NOTE(charlie): We render the transforms as pure inline styles to
-	        // avoid an Aphrodite bug in mobile Safari.
-	        //   See: https://github.com/Khan/aphrodite/issues/68.
-	        var dynamicStyle = _extends({}, this.props.active ? inlineStyles.active : inlineStyles.hidden, {
+	        var dynamicStyle = {
 	            width: viewportWidth,
 	            // TODO(charlie): This is being overridden by the `View` elements
 	            // own `maxWidth: 100%`, which is injected with Aphrodite and so has
 	            // an `!important` annotation.
-	            maxWidth: viewportWidth });
+	            maxWidth: viewportWidth };
 
 	        return React.createElement(
 	            View,
@@ -95732,8 +95866,6 @@ module.exports =
 
 	var styles = StyleSheet.create({
 	    keypad: {
-	        bottom: 0,
-	        position: 'fixed',
 	        // TODO(charlie): We'd like to use `overflowX: 'hidden'` to avoid making
 	        // the second page of keys visible during page resizes. However, adding
 	        // `overflowX: 'hidden'` makes the keypad cutoff its content vertically,
@@ -95743,22 +95875,7 @@ module.exports =
 	        // page of keys appear above the sidebar on focus in mobile Safari.
 	        // overflowX: 'hidden',
 	        borderTop: '' + keypadBorderWidthPx + 'px solid rgba(0, 0, 0, 0.2)',
-	        backgroundColor: numeralGrey,
-	        zIndex: zIndexes.keypad,
-	        transition: '' + keypadAnimationDurationMs + 'ms ease-out',
-	        transitionProperty: 'transform' } });
-
-	// Note: these don't go through an autoprefixer/aphrodite.
-	var inlineStyles = {
-	    hidden: {
-	        msTransform: 'translate3d(0, 100%, 0)',
-	        WebkitTransform: 'translate3d(0, 100%, 0)',
-	        transform: 'translate3d(0, 100%, 0)' },
-
-	    active: {
-	        msTransform: 'translate3d(0, 0, 0)',
-	        WebkitTransform: 'translate3d(0, 0, 0)',
-	        transform: 'translate3d(0, 0, 0)' } };
+	        backgroundColor: numeralGrey } });
 
 	var mapStateToProps = function (state) {
 	    return _extends({}, state.echoes, {
@@ -95984,7 +96101,9 @@ module.exports =
 	        width: '100%' },
 	    centered: {
 	        justifyContent: 'center',
-	        alignItems: 'center' } });
+	        alignItems: 'center' },
+	    centeredText: {
+	        textAlign: 'center' } });
 
 /***/ },
 /* 278 */
@@ -96361,7 +96480,7 @@ module.exports =
 	function prefixAll(styles) {
 	  return Object.keys(styles).reduce(function (prefixedStyles, property) {
 	    var value = styles[property];
-	    if (value instanceof Object) {
+	    if (value instanceof Object && !Array.isArray(value)) {
 	      // recurse through nested style objects
 	      prefixedStyles[property] = prefixAll(value);
 	    } else {
@@ -99100,8 +99219,14 @@ module.exports =
 
 	var _utilsJoinPrefixedRules2 = _interopRequireDefault(_utilsJoinPrefixedRules);
 
+	var _utilsIsPrefixedValue = __webpack_require__(330);
+
+	var _utilsIsPrefixedValue2 = _interopRequireDefault(_utilsIsPrefixedValue);
+
 	function calc(property, value) {
 	  if (typeof value === 'string' && value.indexOf('calc(') > -1) {
+	    if ((0, _utilsIsPrefixedValue2['default'])(value)) return;
+
 	    return (0, _utilsJoinPrefixedRules2['default'])(property, value, function (prefix, value) {
 	      return value.replace(/calc\(/g, prefix + 'calc(');
 	    });
@@ -99155,19 +99280,16 @@ module.exports =
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utilsCamelToDashCase = __webpack_require__(330);
+	var _utilsCamelToDashCase = __webpack_require__(331);
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
-	var values = {
-	  'flex': true,
-	  'inline-flex': true
-	};
+	var values = { flex: true, 'inline-flex': true };
 
 	function flex(property, value) {
 	  if (property === 'display' && values[value]) {
 	    return {
-	      display: ['-webkit-box', '-moz-box', '-ms-' + value + 'box', '-webkit-' + value, value].join(';' + (0, _utilsCamelToDashCase2['default'])(property) + ':')
+	      display: ['-webkit-box', '-moz-box', '-ms-' + value + 'box', '-webkit-' + value, value]
 	    };
 	  }
 	}
@@ -99233,10 +99355,16 @@ module.exports =
 
 	var _utilsJoinPrefixedRules2 = _interopRequireDefault(_utilsJoinPrefixedRules);
 
+	var _utilsIsPrefixedValue = __webpack_require__(330);
+
+	var _utilsIsPrefixedValue2 = _interopRequireDefault(_utilsIsPrefixedValue);
+
 	var values = /linear-gradient|radial-gradient|repeating-linear-gradient|repeating-radial-gradient/;
 
 	function gradient(property, value) {
 	  if (typeof value === 'string' && value.match(values) !== null) {
+	    if ((0, _utilsIsPrefixedValue2['default'])(value)) return;
+
 	    return (0, _utilsJoinPrefixedRules2['default'])(property, value);
 	  }
 	}
@@ -99258,7 +99386,7 @@ module.exports =
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-	var _utilsCamelToDashCase = __webpack_require__(330);
+	var _utilsCamelToDashCase = __webpack_require__(331);
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
@@ -99266,62 +99394,68 @@ module.exports =
 
 	var _utilsCapitalizeString2 = _interopRequireDefault(_utilsCapitalizeString);
 
-	var _utilsUnprefixProperty = __webpack_require__(331);
+	var _utilsIsPrefixedValue = __webpack_require__(330);
 
-	var _utilsUnprefixProperty2 = _interopRequireDefault(_utilsUnprefixProperty);
+	var _utilsIsPrefixedValue2 = _interopRequireDefault(_utilsIsPrefixedValue);
 
 	var _prefixProps = __webpack_require__(298);
 
 	var _prefixProps2 = _interopRequireDefault(_prefixProps);
 
-	var properties = { transition: true, transitionProperty: true };
+	var properties = {
+	  transition: true,
+	  transitionProperty: true,
+	  WebkitTransition: true,
+	  WebkitTransitionProperty: true
+	};
 
 	function transition(property, value) {
 	  // also check for already prefixed transitions
-	  var unprefixedProperty = (0, _utilsUnprefixProperty2['default'])(property);
-	  if (typeof value === 'string' && properties[unprefixedProperty]) {
+	  if (typeof value === 'string' && properties[property]) {
 	    var _ref2;
 
-	    var _ret = (function () {
-	      // only split multi values, not cubic beziers
-	      var multipleValues = value.split(/,(?![^()]*(?:\([^()]*\))?\))/g);
+	    var outputValue = prefixValue(value);
+	    var webkitOutput = outputValue.split(',').filter(function (value) {
+	      return value.match(/-moz-|-ms-/) === null;
+	    }).join(',');
 
-	      // iterate each single value and check for transitioned properties
-	      // that need to be prefixed as well
-	      multipleValues.forEach(function (val, index) {
-	        multipleValues[index] = Object.keys(_prefixProps2['default']).reduce(function (out, prefix) {
-	          var dashCasePrefix = '-' + prefix.toLowerCase() + '-';
+	    // if the property is already prefixed
+	    if (property.indexOf('Webkit') > -1) {
+	      return _defineProperty({}, property, webkitOutput);
+	    }
 
-	          Object.keys(_prefixProps2['default'][prefix]).forEach(function (prop) {
-	            var dashCaseProperty = (0, _utilsCamelToDashCase2['default'])(prop);
-	            if (val.indexOf(dashCaseProperty) > -1) {
-	              // join all prefixes and create a new value
-	              out = val.replace(dashCaseProperty, dashCasePrefix + dashCaseProperty) + ',' + out;
-	            }
-	          });
-	          return out;
-	        }, val);
-	      });
-
-	      var outputValue = multipleValues.join(',');
-
-	      if (unprefixedProperty !== property) {
-	        return {
-	          v: _defineProperty({}, property, outputValue)
-	        };
-	      }
-
-	      return {
-	        v: (_ref2 = {}, _defineProperty(_ref2, 'Webkit' + (0, _utilsCapitalizeString2['default'])(property), outputValue.split(',').filter(function (value) {
-	          return value.match(/-moz-|-ms-/) === null;
-	        }).join(',')), _defineProperty(_ref2, property, outputValue), _ref2)
-	      };
-	    })();
-
-	    if (typeof _ret === 'object') return _ret.v;
+	    return _ref2 = {}, _defineProperty(_ref2, 'Webkit' + (0, _utilsCapitalizeString2['default'])(property), webkitOutput), _defineProperty(_ref2, property, outputValue), _ref2;
 	  }
 	}
 
+	function prefixValue(value) {
+	  if ((0, _utilsIsPrefixedValue2['default'])(value)) {
+	    return value;
+	  }
+
+	  // only split multi values, not cubic beziers
+	  var multipleValues = value.split(/,(?![^()]*(?:\([^()]*\))?\))/g);
+
+	  // iterate each single value and check for transitioned properties
+	  // that need to be prefixed as well
+	  multipleValues.forEach(function (val, index) {
+	    multipleValues[index] = Object.keys(_prefixProps2['default']).reduce(function (out, prefix) {
+	      var dashCasePrefix = '-' + prefix.toLowerCase() + '-';
+
+	      Object.keys(_prefixProps2['default'][prefix]).forEach(function (prop) {
+	        var dashCaseProperty = (0, _utilsCamelToDashCase2['default'])(prop);
+
+	        if (val.indexOf(dashCaseProperty) > -1) {
+	          // join all prefixes and create a new value
+	          out = val.replace(dashCaseProperty, dashCasePrefix + dashCaseProperty) + ',' + out;
+	        }
+	      });
+	      return out;
+	    }, val);
+	  });
+
+	  return multipleValues.join(',');
+	}
 	module.exports = exports['default'];
 
 /***/ },
@@ -99377,7 +99511,7 @@ module.exports =
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-	var _utilsCamelToDashCase = __webpack_require__(330);
+	var _utilsCamelToDashCase = __webpack_require__(331);
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
@@ -99543,7 +99677,7 @@ module.exports =
 	    return obj && obj.__esModule ? obj : { 'default': obj };
 	}
 
-	var _inlineStylePrefixer = __webpack_require__(341);
+	var _inlineStylePrefixer = __webpack_require__(342);
 
 	var _inlineStylePrefixer2 = _interopRequireDefault(_inlineStylePrefixer);
 
@@ -100336,17 +100470,6 @@ module.exports =
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	module.exports = function (str) {
-		return encodeURIComponent(str).replace(/[!'()*]/g, function (c) {
-			return '%' + c.charCodeAt(0).toString(16).toUpperCase();
-		});
-	};
-
-/***/ },
-/* 323 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 	/* eslint-disable no-unused-vars */
 	var hasOwnProperty = Object.prototype.hasOwnProperty;
 	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
@@ -100427,6 +100550,17 @@ module.exports =
 		}
 
 		return to;
+	};
+
+/***/ },
+/* 323 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	module.exports = function (str) {
+		return encodeURIComponent(str).replace(/[!'()*]/g, function (c) {
+			return '%' + c.charCodeAt(0).toString(16).toUpperCase();
+		});
 	};
 
 /***/ },
@@ -100678,7 +100812,8 @@ module.exports =
 	                    { style: [row, styles.iconSize] },
 	                    React.createElement(
 	                        View,
-	                        { style: [column, centered, fullWidth] },
+	                        { style: [column, centered, fullWidth, styles.middleLeft]
+	                        },
 	                        React.createElement(UnicodeSymbol, {
 	                            style: primaryIconStyle,
 	                            unicodeSymbol: unicodeSymbols[0]
@@ -100686,7 +100821,8 @@ module.exports =
 	                    ),
 	                    React.createElement(
 	                        View,
-	                        { style: [column, centered, fullWidth] },
+	                        { style: [column, centered, fullWidth, styles.middleRight]
+	                        },
 	                        React.createElement(UnicodeSymbol, {
 	                            style: secondaryIconStyle,
 	                            unicodeSymbol: unicodeSymbols[1]
@@ -100696,14 +100832,13 @@ module.exports =
 	            } else if (unicodeSymbols.length >= 3) {
 	                return React.createElement(
 	                    View,
-	                    { style: [column, styles.iconSize, styles.fourQuadrantGrid]
-	                    },
+	                    { style: [column, styles.iconSize] },
 	                    React.createElement(
 	                        View,
 	                        { style: row },
 	                        React.createElement(
 	                            View,
-	                            { style: [centered, fullWidth] },
+	                            { style: [centered, fullWidth, styles.topLeft] },
 	                            React.createElement(UnicodeSymbol, {
 	                                style: primaryIconStyle,
 	                                unicodeSymbol: unicodeSymbols[0]
@@ -100711,7 +100846,7 @@ module.exports =
 	                        ),
 	                        React.createElement(
 	                            View,
-	                            { style: [centered, fullWidth] },
+	                            { style: [centered, fullWidth, styles.topRight] },
 	                            React.createElement(UnicodeSymbol, {
 	                                style: secondaryIconStyle,
 	                                unicodeSymbol: unicodeSymbols[1]
@@ -100723,7 +100858,7 @@ module.exports =
 	                        { style: row },
 	                        React.createElement(
 	                            View,
-	                            { style: [centered, fullWidth] },
+	                            { style: [centered, fullWidth, styles.bottomLeft] },
 	                            React.createElement(UnicodeSymbol, {
 	                                style: secondaryIconStyle,
 	                                unicodeSymbol: unicodeSymbols[2]
@@ -100731,7 +100866,7 @@ module.exports =
 	                        ),
 	                        React.createElement(
 	                            View,
-	                            { style: [centered, fullWidth] },
+	                            { style: [centered, fullWidth, styles.bottomRight] },
 	                            unicodeSymbols[3] && React.createElement(UnicodeSymbol, {
 	                                style: secondaryIconStyle,
 	                                unicodeSymbol: unicodeSymbols[3]
@@ -100745,15 +100880,33 @@ module.exports =
 	        throw new Error('Invalid number of symbols:', unicodeSymbols.length);
 	    } });
 
-	var fourQuadrantGridVerticalPaddingPx = 4;
+	var verticalInsetPx = 2;
+	var horizontalInsetPx = 4;
 
 	var styles = StyleSheet.create({
 	    iconSize: {
 	        height: iconSizeHeightPx,
 	        width: iconSizeWidthPx },
-	    fourQuadrantGrid: {
-	        paddingTop: fourQuadrantGridVerticalPaddingPx,
-	        paddingBottom: fourQuadrantGridVerticalPaddingPx },
+
+	    // For the three- and four-icon layouts.
+	    bottomLeft: {
+	        marginBottom: verticalInsetPx,
+	        marginLeft: horizontalInsetPx },
+	    topLeft: {
+	        marginTop: verticalInsetPx,
+	        marginLeft: horizontalInsetPx },
+	    topRight: {
+	        marginTop: verticalInsetPx,
+	        marginRight: horizontalInsetPx },
+	    bottomRight: {
+	        marginBottom: verticalInsetPx,
+	        marginRight: horizontalInsetPx },
+
+	    // For the two-icon layout.
+	    middleLeft: {
+	        marginLeft: horizontalInsetPx },
+	    middleRight: {
+	        marginRight: horizontalInsetPx },
 
 	    iconFont: {
 	        fontFamily: 'Proxima Nova Semibold',
@@ -100838,7 +100991,7 @@ module.exports =
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-	var _camelToDashCase = __webpack_require__(330);
+	var _camelToDashCase = __webpack_require__(331);
 
 	var _camelToDashCase2 = _interopRequireDefault(_camelToDashCase);
 
@@ -100851,7 +101004,7 @@ module.exports =
 	  return (function () {
 	    return _defineProperty({}, property, ['-webkit-', '-moz-', ''].map(function (prefix) {
 	      return replacer(prefix, value);
-	    }).join(';' + (0, _camelToDashCase2['default'])(property) + ':'));
+	    }));
 	  })();
 	};
 
@@ -100859,6 +101012,24 @@ module.exports =
 
 /***/ },
 /* 330 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	exports['default'] = function (value) {
+	  if (Array.isArray(value)) value = value.join(',');
+
+	  return value.match(/-webkit-|-moz-|-ms-/) !== null;
+	};
+
+	module.exports = exports['default'];
+
+/***/ },
+/* 331 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -100875,23 +101046,6 @@ module.exports =
 	  return str.replace(/([a-z]|^)([A-Z])/g, function (match, p1, p2) {
 	    return p1 + '-' + p2.toLowerCase();
 	  }).replace('ms-', '-ms-');
-	};
-
-	module.exports = exports['default'];
-
-/***/ },
-/* 331 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	exports['default'] = function (property) {
-	  var unprefixed = property.replace(/^(ms|Webkit|Moz|O)/, '');
-	  return unprefixed.charAt(0).toLowerCase() + unprefixed.slice(1);
 	};
 
 	module.exports = exports['default'];
@@ -100957,7 +101111,7 @@ module.exports =
 
 	"use strict";
 
-	var rawAsap = __webpack_require__(342);
+	var rawAsap = __webpack_require__(341);
 	var freeTasks = [];
 
 	/**
@@ -101198,9 +101352,14 @@ module.exports =
 
 	var Text = _require2.Text;
 
-	var _require3 = __webpack_require__(210);
+	var _require3 = __webpack_require__(277);
 
-	var unicodeSymbolPropType = _require3.unicodeSymbolPropType;
+	var fullWidth = _require3.fullWidth;
+	var centeredText = _require3.centeredText;
+
+	var _require4 = __webpack_require__(210);
+
+	var unicodeSymbolPropType = _require4.unicodeSymbolPropType;
 
 	var UnicodeSymbol = React.createClass({
 	    displayName: 'UnicodeSymbol',
@@ -101216,7 +101375,7 @@ module.exports =
 	        var character = unicodeSymbol.character;
 	        var italicized = unicodeSymbol.italicized;
 
-	        var symbolStyle = [].concat(Array.isArray(style) ? style : [style], [italicized && styles.italicized]);
+	        var symbolStyle = [italicized && styles.italicized, centeredText, fullWidth].concat(Array.isArray(style) ? style : [style]);
 
 	        return React.createElement(
 	            Text,
@@ -101242,115 +101401,6 @@ module.exports =
 
 /***/ },
 /* 341 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _createClass = (function () {
-	  function defineProperties(target, props) {
-	    for (var i = 0; i < props.length; i++) {
-	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ('value' in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	    }
-	  }return function (Constructor, protoProps, staticProps) {
-	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	  };
-	})();
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { 'default': obj };
-	}
-
-	function _classCallCheck(instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError('Cannot call a class as a function');
-	  }
-	}
-
-	var _utilsGetBrowserInformation = __webpack_require__(382);
-
-	var _utilsGetBrowserInformation2 = _interopRequireDefault(_utilsGetBrowserInformation);
-
-	var _utilsCapitalizeString = __webpack_require__(383);
-
-	var _utilsCapitalizeString2 = _interopRequireDefault(_utilsCapitalizeString);
-
-	var _utilsAssign = __webpack_require__(384);
-
-	var _utilsAssign2 = _interopRequireDefault(_utilsAssign);
-
-	var _caniuseData = __webpack_require__(385);
-
-	var _caniuseData2 = _interopRequireDefault(_caniuseData);
-
-	var _Plugins = __webpack_require__(386);
-
-	var _Plugins2 = _interopRequireDefault(_Plugins);
-
-	var prefixes = _caniuseData2['default'];
-	var browserInfo = (0, _utilsGetBrowserInformation2['default'])();
-
-	var Prefixer = (function () {
-	  function Prefixer() {
-	    _classCallCheck(this, Prefixer);
-	  }
-
-	  _createClass(Prefixer, null, [{
-	    key: 'prefixAll',
-
-	    /**
-	     * Returns a prefixed version of the style object using all vendor prefixes
-	     * @param {Object} styles - Style object that gets prefixed properties added
-	     * @returns {Object} - Style object with prefixed properties and values
-	     */
-	    value: function prefixAll(styles) {
-	      styles = (0, _utilsAssign2['default'])({}, styles);
-
-	      Object.keys(styles).forEach(function (property) {
-	        var value = styles[property];
-	        if (value instanceof Object) {
-	          // recurse through nested style objects
-	          styles[property] = Prefixer.prefixAll(value);
-	        } else {
-	          var browsers = Object.keys(browserInfo.prefixes);
-	          browsers.forEach(function (browser) {
-	            var style = browserInfo.prefixes[browser];
-	            // add prefixes if needed
-	            if (prefixes[property] != null) {
-	              styles[style.inline + (0, _utilsCapitalizeString2['default'])(property)] = value;
-	            }
-	          });
-
-	          // resolve plugins for each browser
-	          _Plugins2['default'].forEach(function (plugin) {
-	            var resolvedStyles = plugin({
-	              property: property,
-	              value: value,
-	              styles: styles,
-	              prefix: {},
-	              keepUnprefixed: true,
-	              requiresPrefix: prefixes
-	            });
-	            (0, _utilsAssign2['default'])(styles, resolvedStyles);
-	          });
-	        }
-	      });
-
-	      return styles;
-	    }
-	  }]);
-
-	  return Prefixer;
-	})();
-
-	exports['default'] = Prefixer;
-	module.exports = exports['default'];
-
-/***/ },
-/* 342 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -101456,6 +101506,115 @@ module.exports =
 	}
 
 /***/ },
+/* 342 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ('value' in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	})();
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { 'default': obj };
+	}
+
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError('Cannot call a class as a function');
+	  }
+	}
+
+	var _utilsGetBrowserInformation = __webpack_require__(345);
+
+	var _utilsGetBrowserInformation2 = _interopRequireDefault(_utilsGetBrowserInformation);
+
+	var _utilsCapitalizeString = __webpack_require__(346);
+
+	var _utilsCapitalizeString2 = _interopRequireDefault(_utilsCapitalizeString);
+
+	var _utilsAssign = __webpack_require__(347);
+
+	var _utilsAssign2 = _interopRequireDefault(_utilsAssign);
+
+	var _caniuseData = __webpack_require__(348);
+
+	var _caniuseData2 = _interopRequireDefault(_caniuseData);
+
+	var _Plugins = __webpack_require__(349);
+
+	var _Plugins2 = _interopRequireDefault(_Plugins);
+
+	var prefixes = _caniuseData2['default'];
+	var browserInfo = (0, _utilsGetBrowserInformation2['default'])();
+
+	var Prefixer = (function () {
+	  function Prefixer() {
+	    _classCallCheck(this, Prefixer);
+	  }
+
+	  _createClass(Prefixer, null, [{
+	    key: 'prefixAll',
+
+	    /**
+	     * Returns a prefixed version of the style object using all vendor prefixes
+	     * @param {Object} styles - Style object that gets prefixed properties added
+	     * @returns {Object} - Style object with prefixed properties and values
+	     */
+	    value: function prefixAll(styles) {
+	      styles = (0, _utilsAssign2['default'])({}, styles);
+
+	      Object.keys(styles).forEach(function (property) {
+	        var value = styles[property];
+	        if (value instanceof Object) {
+	          // recurse through nested style objects
+	          styles[property] = Prefixer.prefixAll(value);
+	        } else {
+	          var browsers = Object.keys(browserInfo.prefixes);
+	          browsers.forEach(function (browser) {
+	            var style = browserInfo.prefixes[browser];
+	            // add prefixes if needed
+	            if (prefixes[property] != null) {
+	              styles[style.inline + (0, _utilsCapitalizeString2['default'])(property)] = value;
+	            }
+	          });
+
+	          // resolve plugins for each browser
+	          _Plugins2['default'].forEach(function (plugin) {
+	            var resolvedStyles = plugin({
+	              property: property,
+	              value: value,
+	              styles: styles,
+	              prefix: {},
+	              keepUnprefixed: true,
+	              requiresPrefix: prefixes
+	            });
+	            (0, _utilsAssign2['default'])(styles, resolvedStyles);
+	          });
+	        }
+	      });
+
+	      return styles;
+	    }
+	  }]);
+
+	  return Prefixer;
+	})();
+
+	exports['default'] = Prefixer;
+	module.exports = exports['default'];
+
+/***/ },
 /* 343 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -101464,51 +101623,51 @@ module.exports =
 	 */
 
 	module.exports = {
-	    COS: __webpack_require__(345),
-	    LOG: __webpack_require__(346),
-	    EQUAL: __webpack_require__(347),
-	    BACKSPACE: __webpack_require__(348),
-	    SQRT: __webpack_require__(349),
-	    EXP: __webpack_require__(350),
-	    NEQ: __webpack_require__(351),
-	    GEQ: __webpack_require__(352),
-	    LN: __webpack_require__(353),
-	    JUMP_OUT: __webpack_require__(354),
-	    DISMISS: __webpack_require__(355),
-	    SIN: __webpack_require__(356),
-	    LT: __webpack_require__(357),
-	    FRAC_MULTI: __webpack_require__(358),
-	    NUMBERS: __webpack_require__(359),
-	    CUBE_ROOT: __webpack_require__(360),
-	    PLUS: __webpack_require__(361),
-	    TAN: __webpack_require__(362),
-	    LEFT: __webpack_require__(363),
-	    PARENS: __webpack_require__(364),
-	    GT: __webpack_require__(365),
-	    FRAC: __webpack_require__(366),
-	    DIVIDE: __webpack_require__(367),
-	    DECIMAL: __webpack_require__(368),
-	    PERCENT: __webpack_require__(369),
-	    TIMES: __webpack_require__(370),
-	    TOGGLE_SIGN: __webpack_require__(371),
-	    EXP_3: __webpack_require__(372),
-	    EXP_2: __webpack_require__(373),
-	    PARENS_MULTI: __webpack_require__(374),
-	    RIGHT: __webpack_require__(375),
-	    CDOT: __webpack_require__(376),
-	    LOG_N: __webpack_require__(377),
-	    LEQ: __webpack_require__(378),
-	    MINUS: __webpack_require__(379),
-	    RADICAL: __webpack_require__(380),
-	    MORE: __webpack_require__(381),
+	    COS: __webpack_require__(350),
+	    LOG: __webpack_require__(351),
+	    EQUAL: __webpack_require__(352),
+	    BACKSPACE: __webpack_require__(353),
+	    SQRT: __webpack_require__(354),
+	    EXP: __webpack_require__(355),
+	    NEQ: __webpack_require__(356),
+	    GEQ: __webpack_require__(357),
+	    LN: __webpack_require__(358),
+	    JUMP_OUT: __webpack_require__(359),
+	    DISMISS: __webpack_require__(360),
+	    SIN: __webpack_require__(361),
+	    LT: __webpack_require__(362),
+	    FRAC_MULTI: __webpack_require__(363),
+	    NUMBERS: __webpack_require__(364),
+	    CUBE_ROOT: __webpack_require__(365),
+	    PLUS: __webpack_require__(366),
+	    TAN: __webpack_require__(367),
+	    LEFT: __webpack_require__(368),
+	    PARENS: __webpack_require__(369),
+	    GT: __webpack_require__(370),
+	    FRAC: __webpack_require__(371),
+	    DIVIDE: __webpack_require__(372),
+	    DECIMAL: __webpack_require__(373),
+	    PERCENT: __webpack_require__(374),
+	    TIMES: __webpack_require__(375),
+	    TOGGLE_SIGN: __webpack_require__(376),
+	    EXP_3: __webpack_require__(377),
+	    EXP_2: __webpack_require__(378),
+	    PARENS_MULTI: __webpack_require__(379),
+	    RIGHT: __webpack_require__(380),
+	    CDOT: __webpack_require__(381),
+	    LOG_N: __webpack_require__(382),
+	    LEQ: __webpack_require__(383),
+	    MINUS: __webpack_require__(384),
+	    RADICAL: __webpack_require__(385),
+	    MORE: __webpack_require__(386),
 
 	    // These multi-functional keys use the symbols of their 'default' keys.
-	    EQUAL_MULTI: __webpack_require__(347),
-	    GREATER_MULTI: __webpack_require__(365),
-	    LESS_MULTI: __webpack_require__(357),
-	    EXP_MULTI: __webpack_require__(373),
-	    RADICAL_MULTI: __webpack_require__(349),
-	    LOG_MULTI: __webpack_require__(346) };
+	    EQUAL_MULTI: __webpack_require__(352),
+	    GREATER_MULTI: __webpack_require__(370),
+	    LESS_MULTI: __webpack_require__(362),
+	    EXP_MULTI: __webpack_require__(378),
+	    RADICAL_MULTI: __webpack_require__(354),
+	    LOG_MULTI: __webpack_require__(351) };
 
 /***/ },
 /* 344 */
@@ -101536,1965 +101695,6 @@ module.exports =
 
 /***/ },
 /* 345 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the COS iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Cos = React.createClass({
-	    displayName: 'Cos',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1476.000000, -902.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_cos', transform: 'translate(1476.000000, 902.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon', strokeWidth: '1', transform: 'translate(13.000000, 12.000000)' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                            React.createElement('path', { d: 'M5.182,17.168 C6.568,17.168 7.408,16.566 7.856,15.936 L6.694,14.858 C6.372,15.306 5.882,15.586 5.266,15.586 C4.188,15.586 3.432,14.788 3.432,13.612 C3.432,12.436 4.188,11.652 5.266,11.652 C5.882,11.652 6.372,11.904 6.694,12.38 L7.856,11.288 C7.408,10.672 6.568,10.07 5.182,10.07 C3.096,10.07 1.598,11.54 1.598,13.612 C1.598,15.698 3.096,17.168 5.182,17.168 L5.182,17.168 Z M12.154,17.168 C14.394,17.168 15.738,15.544 15.738,13.612 C15.738,11.694 14.394,10.07 12.154,10.07 C9.928,10.07 8.584,11.694 8.584,13.612 C8.584,15.544 9.928,17.168 12.154,17.168 L12.154,17.168 Z M12.154,15.586 C11.048,15.586 10.432,14.676 10.432,13.612 C10.432,12.562 11.048,11.652 12.154,11.652 C13.26,11.652 13.89,12.562 13.89,13.612 C13.89,14.676 13.26,15.586 12.154,15.586 L12.154,15.586 Z M19.49,17.168 C21.366,17.168 22.416,16.23 22.416,14.998 C22.416,12.268 18.412,13.108 18.412,12.1 C18.412,11.722 18.832,11.428 19.476,11.428 C20.302,11.428 21.072,11.778 21.478,12.212 L22.192,10.994 C21.52,10.462 20.61,10.07 19.462,10.07 C17.684,10.07 16.69,11.064 16.69,12.198 C16.69,14.858 20.708,13.948 20.708,15.068 C20.708,15.488 20.344,15.796 19.574,15.796 C18.734,15.796 17.726,15.334 17.236,14.872 L16.466,16.118 C17.18,16.776 18.314,17.168 19.49,17.168 L19.49,17.168 Z', id: 'cos', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Cos;
-
-/***/ },
-/* 346 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the LOG iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Log = React.createClass({
-	    displayName: 'Log',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1340.000000, -834.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_log_10', transform: 'translate(1340.000000, 834.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('path', { d: 'M16.776,29 L16.776,19.662 L14.998,19.662 L14.998,29 L16.776,29 Z M21.676,29.168 C23.916,29.168 25.26,27.544 25.26,25.612 C25.26,23.694 23.916,22.07 21.676,22.07 C19.45,22.07 18.106,23.694 18.106,25.612 C18.106,27.544 19.45,29.168 21.676,29.168 L21.676,29.168 Z M21.676,27.586 C20.57,27.586 19.954,26.676 19.954,25.612 C19.954,24.562 20.57,23.652 21.676,23.652 C22.782,23.652 23.412,24.562 23.412,25.612 C23.412,26.676 22.782,27.586 21.676,27.586 L21.676,27.586 Z M29.348,31.744 C31.014,31.744 33.002,31.114 33.002,28.538 L33.002,22.238 L31.21,22.238 L31.21,23.106 C30.664,22.42 29.936,22.07 29.124,22.07 C27.416,22.07 26.142,23.302 26.142,25.514 C26.142,27.768 27.43,28.958 29.124,28.958 C29.95,28.958 30.678,28.566 31.21,27.894 L31.21,28.58 C31.21,29.91 30.202,30.288 29.348,30.288 C28.494,30.288 27.78,30.05 27.234,29.448 L26.436,30.736 C27.29,31.478 28.186,31.744 29.348,31.744 L29.348,31.744 Z M29.684,27.376 C28.676,27.376 27.976,26.676 27.976,25.514 C27.976,24.352 28.676,23.652 29.684,23.652 C30.272,23.652 30.916,23.974 31.21,24.422 L31.21,26.606 C30.916,27.04 30.272,27.376 29.684,27.376 L29.684,27.376 Z', id: 'log', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Log;
-
-/***/ },
-/* 347 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the EQUAL iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Equal = React.createClass({
-	    displayName: 'Equal',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1000.000000, -834.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_equals', transform: 'translate(1000.000000, 834.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement(
-	                                'g',
-	                                { id: 'math_keypad_icon_equals' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                                React.createElement(
-	                                    'g',
-	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
-	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                    React.createElement('path', { d: 'M4,9 L21,9', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                    React.createElement('path', { d: 'M4,15 L21,15', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Equal;
-
-/***/ },
-/* 348 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the BACKSPACE iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Backspace = function () {
-	    return React.createElement(
-	        "svg",
-	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
-	        React.createElement(
-	            "g",
-	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
-	            React.createElement(
-	                "g",
-	                { id: "[Assets]-Math-Input", transform: "translate(-1136.000000, -200.000000)" },
-	                React.createElement(
-	                    "g",
-	                    { id: "math_keypad_icon_delete", transform: "translate(1136.000000, 200.000000)" },
-	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", fillRule: "evenodd", x: "0", y: "0", width: "48", height: "48" }),
-	                    React.createElement("path", { d: "M13,24 L13,24 L19,30 L33,30 L33,18 L19,18 L13,24 Z M11.5857864,22.5857864 L11.5857864,22.5857864 L17.5857864,16.5857864 C17.9608592,16.2107137 18.469567,16 19,16 L33,16 C34.1045695,16 35,16.8954305 35,18 L35,30 C35,31.1045695 34.1045695,32 33,32 L19,32 C18.469567,32 17.9608592,31.7892863 17.5857864,31.4142136 L11.5857864,25.4142136 C10.8047379,24.633165 10.8047379,23.366835 11.5857864,22.5857864 L11.5857864,22.5857864 Z", id: "outline", fill: "#888D93", fillRule: "evenodd" }),
-	                    React.createElement("path", { d: "M23,21 L29,27", id: "slash", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
-	                    React.createElement("path", { d: "M23,21 L29,27", id: "slash", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", transform: "translate(26.000000, 24.000000) scale(-1, 1) translate(-26.000000, -24.000000) " })
-	                )
-	            )
-	        )
-	    );
-	};
-
-	module.exports = Backspace;
-
-/***/ },
-/* 349 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the SQRT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Sqrt = React.createClass({
-	    displayName: 'Sqrt',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -834.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_radical_2', transform: 'translate(1272.000000, 834.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('polyline', { id: 'root', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '14 29 18 35 27 21 34 21' })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Sqrt;
-
-/***/ },
-/* 350 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the EXP iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Exp = React.createClass({
-	    displayName: 'Exp',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -698.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_exponent', transform: 'translate(1204.000000, 698.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('path', { d: 'M28,16.9970301 C28,16.4463856 28.4530363,16 28.9970301,16 L35.0029699,16 C35.5536144,16 36,16.4530363 36,16.9970301 L36,23.0029699 C36,23.5536144 35.5469637,24 35.0029699,24 L28.9970301,24 C28.4463856,24 28,23.5469637 28,23.0029699 L28,16.9970301 Z M30,18 L34,18 L34,22 L30,22 L30,18 Z', id: 'block', fill: this.props.primaryColor }),
-	                            React.createElement('path', { d: 'M14,21.0008717 C14,20.4481055 14.455761,20 15.0024733,20 L24.9975267,20 C25.5511774,20 26,20.4446309 26,21.0008717 L26,34.9991283 C26,35.5518945 25.544239,36 24.9975267,36 L15.0024733,36 C14.4488226,36 14,35.5553691 14,34.9991283 L14,21.0008717 Z M16,22 L24,22 L24,34 L16,34 L16,22 Z', id: 'block', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Exp;
-
-/***/ },
-/* 351 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the NEQ iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Neq = React.createClass({
-	    displayName: 'Neq',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1000.000000, -766.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_equals_not', transform: 'translate(1000.000000, 766.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement(
-	                                'g',
-	                                { id: 'math_keypad_icon_equals' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                                React.createElement(
-	                                    'g',
-	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
-	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                    React.createElement('path', { d: 'M7,21 L17,3', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                    React.createElement('path', { d: 'M4,9 L21,9', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                    React.createElement('path', { d: 'M4,15 L21,15', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Neq;
-
-/***/ },
-/* 352 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the GEQ iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Geq = React.createClass({
-	    displayName: 'Geq',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -766.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_greater_than_not', transform: 'translate(1136.000000, 766.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement(
-	                                'g',
-	                                { id: 'math_keypad_icon_greater_than' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                                React.createElement(
-	                                    'g',
-	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
-	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                    React.createElement('path', { d: 'M4,21 L20,21', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '4 18 20 12 4 6' })
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Geq;
-
-/***/ },
-/* 353 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the LN iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Ln = React.createClass({
-	    displayName: 'Ln',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1340.000000, -766.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_log_e', transform: 'translate(1340.000000, 766.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('path', { d: 'M20.836,29 L20.836,19.662 L19.058,19.662 L19.058,29 L20.836,29 Z M28.942,29 L28.942,24.226 C28.942,22.91 28.228,22.07 26.744,22.07 C25.638,22.07 24.812,22.602 24.378,23.12 L24.378,22.238 L22.6,22.238 L22.6,29 L24.378,29 L24.378,24.45 C24.672,24.044 25.218,23.652 25.918,23.652 C26.674,23.652 27.164,23.974 27.164,24.912 L27.164,29 L28.942,29 Z', id: 'ln', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Ln;
-
-/***/ },
-/* 354 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the JUMP_OUT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var JumpOut = function () {
-	    return React.createElement(
-	        "svg",
-	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
-	        React.createElement(
-	            "g",
-	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
-	            React.createElement(
-	                "g",
-	                { id: "[Assets]-Math-Input", transform: "translate(-1408.000000, -200.000000)" },
-	                React.createElement(
-	                    "g",
-	                    { id: "math_keypad_icon_jump_out", transform: "translate(1408.000000, 200.000000)" },
-	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
-	                    React.createElement(
-	                        "g",
-	                        { id: "icon", strokeWidth: "1", transform: "translate(12.000000, 12.000000)" },
-	                        React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "24", height: "24" }),
-	                        React.createElement("path", { d: "M2,4.99508929 L2,4.99508929 L2,19.0049107 C2,19.0007808 1.99921607,19 2.00276013,19 L10.9972399,19 C11.0020427,19 11,19.002037 11,19.0049107 L11,4.99508929 C11,4.99921924 11.0007839,5 10.9972399,5 L2.00276013,5 C1.99795733,5 2,4.99796296 2,4.99508929 L2,4.99508929 Z M0,4.99508929 C0,3.8932319 0.893542647,3 2.00276013,3 L10.9972399,3 C12.1033337,3 13,3.8926228 13,4.99508929 L13,19.0049107 C13,20.1067681 12.1064574,21 10.9972399,21 L2.00276013,21 C0.896666251,21 0,20.1073772 0,19.0049107 L0,4.99508929 L0,4.99508929 Z", id: "box", fill: "#888D93" }),
-	                        React.createElement("path", { d: "M18,12 L9,12", id: "tail", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
-	                        React.createElement("polyline", { id: "head", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "16 9 19 12 16 15" }),
-	                        React.createElement("path", { d: "M23,4 L23,20", id: "caret", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
-	                        React.createElement("path", { d: "M5,8 L5,16", id: "caret", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" })
-	                    )
-	                )
-	            )
-	        )
-	    );
-	};
-
-	module.exports = JumpOut;
-
-/***/ },
-/* 355 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the DISMISS iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Dismiss = function () {
-	    return React.createElement(
-	        "svg",
-	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
-	        React.createElement(
-	            "g",
-	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
-	            React.createElement(
-	                "g",
-	                { id: "[Assets]-Math-Input", transform: "translate(-1204.000000, -200.000000)" },
-	                React.createElement(
-	                    "g",
-	                    { id: "math_keypad_icon_dismiss", transform: "translate(1204.000000, 200.000000)" },
-	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", fillRule: "evenodd", x: "0", y: "0", width: "48", height: "48" }),
-	                    React.createElement("polyline", { id: "chevron", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "20 32 24 36 28 32" }),
-	                    React.createElement(
-	                        "g",
-	                        { id: "keyboard", strokeWidth: "1", fillRule: "evenodd", transform: "translate(14.000000, 12.000000)", fill: "#78C008" },
-	                        React.createElement("path", { d: "M0,1.00684547 C0,0.450780073 0.455305576,0 0.99180311,0 L19.0081969,0 C19.5559546,0 20,0.449948758 20,1.00684547 L20,12.9931545 C20,13.5492199 19.5446944,14 19.0081969,14 L0.99180311,14 C0.444045377,14 0,13.5500512 0,12.9931545 L0,1.00684547 Z M6,0 L7,0 L7,14 L6,14 L6,0 Z M13,0 L14,0 L14,14 L13,14 L13,0 Z M0,9 L6,9 L6,10 L0,10 L0,9 Z M0,4 L6,4 L6,5 L0,5 L0,4 Z M7,9 L13,9 L13,10 L7,10 L7,9 Z M7,4 L13,4 L13,5 L7,5 L7,4 Z M14,9 L20,9 L20,10 L14,10 L14,9 Z M14,4 L20,4 L20,5 L14,5 L14,4 Z", id: "keypad" })
-	                    )
-	                )
-	            )
-	        )
-	    );
-	};
-
-	module.exports = Dismiss;
-
-/***/ },
-/* 356 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the SIN iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Sin = React.createClass({
-	    displayName: 'Sin',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1408.000000, -902.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_sin', transform: 'translate(1408.000000, 902.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                            React.createElement('path', { d: 'M6.655,17.168 C8.531,17.168 9.581,16.23 9.581,14.998 C9.581,12.268 5.577,13.108 5.577,12.1 C5.577,11.722 5.997,11.428 6.641,11.428 C7.467,11.428 8.237,11.778 8.643,12.212 L9.357,10.994 C8.685,10.462 7.775,10.07 6.627,10.07 C4.849,10.07 3.855,11.064 3.855,12.198 C3.855,14.858 7.873,13.948 7.873,15.068 C7.873,15.488 7.509,15.796 6.739,15.796 C5.899,15.796 4.891,15.334 4.401,14.872 L3.631,16.118 C4.345,16.776 5.479,17.168 6.655,17.168 L6.655,17.168 Z M11.779,9.51 C12.367,9.51 12.843,9.034 12.843,8.446 C12.843,7.858 12.367,7.396 11.779,7.396 C11.205,7.396 10.715,7.858 10.715,8.446 C10.715,9.034 11.205,9.51 11.779,9.51 L11.779,9.51 Z M12.675,17 L12.675,10.238 L10.897,10.238 L10.897,17 L12.675,17 Z M20.781,17 L20.781,12.226 C20.781,10.91 20.067,10.07 18.583,10.07 C17.477,10.07 16.651,10.602 16.217,11.12 L16.217,10.238 L14.439,10.238 L14.439,17 L16.217,17 L16.217,12.45 C16.511,12.044 17.057,11.652 17.757,11.652 C18.513,11.652 19.003,11.974 19.003,12.912 L19.003,17 L20.781,17 Z', id: 'sin', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Sin;
-
-/***/ },
-/* 357 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the LT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Lt = React.createClass({
-	    displayName: 'Lt',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1068.000000, -834.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_less_than', transform: 'translate(1068.000000, 834.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement(
-	                                'g',
-	                                { id: 'math_keypad_icon_less_than' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                                React.createElement(
-	                                    'g',
-	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
-	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '20 18 4 12 20 6' })
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Lt;
-
-/***/ },
-/* 358 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the FRAC_MULTI iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var FracMulti = React.createClass({
-	    displayName: 'FracMulti',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -600.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_division_multi', transform: 'translate(1204.000000, 600.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            null,
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement(
-	                                'g',
-	                                { id: 'fraction', transform: 'translate(6.000000, 12.000000)' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                React.createElement('path', { d: 'M8,16.9970301 C8,16.4463856 8.45303631,16 8.99703014,16 L15.0029699,16 C15.5536144,16 16,16.4530363 16,16.9970301 L16,23.0029699 C16,23.5536144 15.5469637,24 15.0029699,24 L8.99703014,24 C8.4463856,24 8,23.5469637 8,23.0029699 L8,16.9970301 Z M10,18 L14,18 L14,22 L10,22 L10,18 Z', id: 'block', fill: this.props.primaryColor }),
-	                                React.createElement('rect', { id: 'bar', fill: this.props.primaryColor, x: '2', y: '11', width: '20', height: '2', rx: '1' }),
-	                                React.createElement('path', { d: 'M8,0.997030139 C8,0.446385598 8.45303631,0 8.99703014,0 L15.0029699,0 C15.5536144,0 16,0.453036308 16,0.997030139 L16,7.00296986 C16,7.5536144 15.5469637,8 15.0029699,8 L8.99703014,8 C8.4463856,8 8,7.54696369 8,7.00296986 L8,0.997030139 Z M10,2 L14,2 L14,6 L10,6 L10,2 Z', id: 'block', fill: this.props.primaryColor })
-	                            ),
-	                            React.createElement(
-	                                'g',
-	                                { id: 'division', opacity: '0.3', transform: 'translate(34.000000, 12.000000)' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '8', height: '8' }),
-	                                React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, cx: '4', cy: '7', r: '1' }),
-	                                React.createElement('path', { d: 'M1,4 L7,4', id: 'bar', stroke: this.props.primaryColor, strokeWidth: '1.5', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                React.createElement('path', { d: 'M4,2 C4.55228475,2 5,1.55228475 5,1 C5,0.44771525 4.55228475,0 4,0 C3.44771525,0 3,0.44771525 3,1 C3,1.55228475 3.44771525,2 4,2 Z', id: 'dot', fill: this.props.primaryColor })
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = FracMulti;
-
-/***/ },
-/* 359 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the NUMBERS iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Numbers = function () {
-	    return React.createElement(
-	        "svg",
-	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
-	        React.createElement(
-	            "g",
-	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
-	            React.createElement(
-	                "g",
-	                { id: "[Assets]-Math-Input", transform: "translate(-1068.000000, -200.000000)" },
-	                React.createElement(
-	                    "g",
-	                    { id: "math_keypad_icon_on_page_symbols", transform: "translate(1068.000000, 200.000000)" },
-	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
-	                    React.createElement(
-	                        "g",
-	                        { id: "arithmetic", strokeWidth: "1", transform: "translate(13.000000, 13.000000)" },
-	                        React.createElement(
-	                            "g",
-	                            { id: "divide", transform: "translate(14.000000, 13.000000)" },
-	                            React.createElement("path", { d: "M0,5 L8,5", id: "line", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
-	                            React.createElement("circle", { id: "Oval-30", fill: "#888D93", cx: "4", cy: "1.5", r: "1.5" }),
-	                            React.createElement("circle", { id: "Oval-30", fill: "#888D93", cx: "4", cy: "8.5", r: "1.5" })
-	                        ),
-	                        React.createElement(
-	                            "g",
-	                            { id: "multiply", transform: "translate(1.000000, 15.000000)", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
-	                            React.createElement("path", { d: "M0,6 L6,0", id: "line" }),
-	                            React.createElement("path", { d: "M0,0 L6,6", id: "line" })
-	                        ),
-	                        React.createElement(
-	                            "g",
-	                            { id: "subtract", transform: "translate(14.000000, 3.000000)", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
-	                            React.createElement("path", { d: "M0,1 L8,1", id: "line" })
-	                        ),
-	                        React.createElement(
-	                            "g",
-	                            { id: "add", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
-	                            React.createElement("path", { d: "M4,8 L4,0", id: "line" }),
-	                            React.createElement("path", { d: "M0,4 L8,4", id: "line" })
-	                        )
-	                    )
-	                )
-	            )
-	        )
-	    );
-	};
-
-	module.exports = Numbers;
-
-/***/ },
-/* 360 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the CUBE_ROOT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var CubeRoot = React.createClass({
-	    displayName: 'CubeRoot',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -766.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_radical_3', transform: 'translate(1272.000000, 766.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('path', { d: 'M17.91,23.12 C19.57,23.12 20.67,22.31 20.67,21.14 C20.67,20.18 19.81,19.63 19.1,19.56 C19.89,19.43 20.56,18.84 20.56,18.06 C20.56,16.96 19.61,16.23 17.91,16.23 C16.68,16.23 15.8,16.68 15.24,17.31 L16.07,18.39 C16.54,17.97 17.12,17.75 17.73,17.75 C18.37,17.75 18.85,17.94 18.85,18.36 C18.85,18.71 18.46,18.88 17.77,18.88 C17.52,18.88 17,18.88 16.87,18.87 L16.87,20.4 C16.97,20.39 17.48,20.39 17.77,20.39 C18.68,20.39 18.96,20.57 18.96,20.95 C18.96,21.32 18.58,21.6 17.84,21.6 C17.26,21.6 16.5,21.37 16.02,20.9 L15.15,22.07 C15.67,22.67 16.63,23.12 17.91,23.12 L17.91,23.12 Z', id: '3', fill: this.props.primaryColor }),
-	                            React.createElement('polyline', { id: 'root', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '14 29 18 35 27 21 34 21' })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = CubeRoot;
-
-/***/ },
-/* 361 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the PLUS iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Plus = React.createClass({
-	    displayName: 'Plus',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1000.000000, -600.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_addition', transform: 'translate(1000.000000, 600.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', fillRule: 'evenodd', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement('path', { d: 'M19,24 L29,24', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                        React.createElement('path', { d: 'M24,29 L24,19', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Plus;
-
-/***/ },
-/* 362 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the TAN iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Tan = React.createClass({
-	    displayName: 'Tan',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1544.000000, -902.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_tangent', transform: 'translate(1544.000000, 902.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                            React.createElement('path', { d: 'M4.93,17.168 C5.672,17.168 6.148,16.972 6.414,16.734 L6.036,15.39 C5.938,15.488 5.686,15.586 5.42,15.586 C5.028,15.586 4.804,15.264 4.804,14.844 L4.804,11.792 L6.176,11.792 L6.176,10.238 L4.804,10.238 L4.804,8.39 L3.012,8.39 L3.012,10.238 L1.892,10.238 L1.892,11.792 L3.012,11.792 L3.012,15.32 C3.012,16.524 3.684,17.168 4.93,17.168 L4.93,17.168 Z M13.232,17 L13.232,12.632 C13.232,10.686 11.818,10.07 10.278,10.07 C9.214,10.07 8.15,10.406 7.324,11.134 L7.996,12.324 C8.57,11.792 9.242,11.526 9.97,11.526 C10.866,11.526 11.454,11.974 11.454,12.66 L11.454,13.57 C11.006,13.038 10.208,12.744 9.312,12.744 C8.234,12.744 6.96,13.346 6.96,14.928 C6.96,16.44 8.234,17.168 9.312,17.168 C10.194,17.168 10.992,16.846 11.454,16.3 L11.454,17 L13.232,17 Z M10.026,15.964 C9.326,15.964 8.752,15.6 8.752,14.97 C8.752,14.312 9.326,13.948 10.026,13.948 C10.6,13.948 11.16,14.144 11.454,14.536 L11.454,15.376 C11.16,15.768 10.6,15.964 10.026,15.964 L10.026,15.964 Z M21.338,17 L21.338,12.226 C21.338,10.91 20.624,10.07 19.14,10.07 C18.034,10.07 17.208,10.602 16.774,11.12 L16.774,10.238 L14.996,10.238 L14.996,17 L16.774,17 L16.774,12.45 C17.068,12.044 17.614,11.652 18.314,11.652 C19.07,11.652 19.56,11.974 19.56,12.912 L19.56,17 L21.338,17 Z', id: 'tan', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Tan;
-
-/***/ },
-/* 363 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the LEFT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Left = function () {
-	    return React.createElement(
-	        "svg",
-	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
-	        React.createElement(
-	            "g",
-	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
-	            React.createElement(
-	                "g",
-	                { id: "[Assets]-Math-Input", transform: "translate(-1272.000000, -200.000000)" },
-	                React.createElement(
-	                    "g",
-	                    { id: "math_keypad_icon_move_backward", transform: "translate(1272.000000, 200.000000)" },
-	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
-	                    React.createElement(
-	                        "g",
-	                        { id: "arrow", strokeWidth: "1", transform: "translate(12.000000, 12.000000)" },
-	                        React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "24", height: "24" }),
-	                        React.createElement("polyline", { id: "head", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "10 6 4 12 10 18" }),
-	                        React.createElement("path", { d: "M4,12 L20,12", id: "tail", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" })
-	                    )
-	                )
-	            )
-	        )
-	    );
-	};
-
-	module.exports = Left;
-
-/***/ },
-/* 364 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the PARENS iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Parens = React.createClass({
-	    displayName: 'Parens',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -532.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_parentheses', transform: 'translate(1136.000000, 532.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement(
-	                            'g',
-	                            { id: 'parentheses', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                            React.createElement('path', { d: 'M7,2 C2.99999998,8 3.00000002,16 7,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                            React.createElement('path', { d: 'M20,2 C16,8 16,16 20,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(18.500000, 12.000000) scale(-1, 1) translate(-18.500000, -12.000000) ' })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Parens;
-
-/***/ },
-/* 365 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the GT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Gt = React.createClass({
-	    displayName: 'Gt',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -834.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_greater_than', transform: 'translate(1136.000000, 834.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement(
-	                                'g',
-	                                { id: 'math_keypad_icon_greater_than' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                                React.createElement(
-	                                    'g',
-	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
-	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '4 18 20 12 4 6' })
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Gt;
-
-/***/ },
-/* 366 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the FRAC iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Frac = React.createClass({
-	    displayName: 'Frac',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -532.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_fraction', transform: 'translate(1204.000000, 532.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement(
-	                            'g',
-	                            { id: 'fraction', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                            React.createElement('path', { d: 'M8,16.9970301 C8,16.4463856 8.45303631,16 8.99703014,16 L15.0029699,16 C15.5536144,16 16,16.4530363 16,16.9970301 L16,23.0029699 C16,23.5536144 15.5469637,24 15.0029699,24 L8.99703014,24 C8.4463856,24 8,23.5469637 8,23.0029699 L8,16.9970301 Z M10,18 L14,18 L14,22 L10,22 L10,18 Z', id: 'block', fill: this.props.primaryColor }),
-	                            React.createElement('rect', { id: 'bar', fill: this.props.primaryColor, x: '2', y: '11', width: '20', height: '2', rx: '1' }),
-	                            React.createElement('path', { d: 'M8,0.997030139 C8,0.446385598 8.45303631,0 8.99703014,0 L15.0029699,0 C15.5536144,0 16,0.453036308 16,0.997030139 L16,7.00296986 C16,7.5536144 15.5469637,8 15.0029699,8 L8.99703014,8 C8.4463856,8 8,7.54696369 8,7.00296986 L8,0.997030139 Z M10,2 L14,2 L14,6 L10,6 L10,2 Z', id: 'block', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Frac;
-
-/***/ },
-/* 367 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the DIVIDE iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Divide = React.createClass({
-	    displayName: 'Divide',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -464.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_division', transform: 'translate(1204.000000, 464.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', fillRule: 'evenodd', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement('path', { d: 'M19,24 L29,24', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                        React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, fillRule: 'evenodd', cx: '24', cy: '19.5', r: '1.5' }),
-	                        React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, fillRule: 'evenodd', cx: '24', cy: '28.5', r: '1.5' })
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Divide;
-
-/***/ },
-/* 368 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the DECIMAL iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Decimal = React.createClass({
-	    displayName: 'Decimal',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1680.000000, -298.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_radix_character', transform: 'translate(1680.000000, 298.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, cx: '24', cy: '30', r: '2' })
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Decimal;
-
-/***/ },
-/* 369 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the PERCENT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Percent = React.createClass({
-	    displayName: 'Percent',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -600.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_percent', transform: 'translate(1272.000000, 600.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement(
-	                            'g',
-	                            { id: 'percent', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                            React.createElement('path', { d: 'M16,4 L8,20', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                            React.createElement('circle', { id: 'circle', stroke: this.props.primaryColor, strokeWidth: '2', cx: '7', cy: '7', r: '3' }),
-	                            React.createElement('circle', { id: 'circle', stroke: this.props.primaryColor, strokeWidth: '2', cx: '17', cy: '17', r: '3' })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Percent;
-
-/***/ },
-/* 370 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the TIMES iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Times = React.createClass({
-	    displayName: 'Times',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -396.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_multiplication_cross', transform: 'translate(1136.000000, 396.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'math_keypad_icon_multiply_cross' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement(
-	                                'g',
-	                                { id: 'cross', transform: 'translate(12.000000, 12.000000)' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                React.createElement('path', { d: 'M8,8 L16,16', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                React.createElement('path', { d: 'M8,8 L16,16', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(12.000000, 12.000000) scale(-1, 1) translate(-12.000000, -12.000000) ' })
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Times;
-
-/***/ },
-/* 371 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the TOGGLE_SIGN iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var ToggleSign = React.createClass({
-	    displayName: 'ToggleSign',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1748.000000, -298.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_negate', transform: 'translate(1748.000000, 298.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                            React.createElement(
-	                                'g',
-	                                { id: 'subtract', transform: 'translate(15.000000, 15.000000)', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' },
-	                                React.createElement('path', { d: 'M0,1 L8,1', id: 'line' })
-	                            ),
-	                            React.createElement('path', { d: 'M16,4 L8,20', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                            React.createElement(
-	                                'g',
-	                                { id: 'add', transform: 'translate(1.000000, 4.000000)', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' },
-	                                React.createElement('path', { d: 'M0,4 L8,4', id: 'line' }),
-	                                React.createElement('path', { d: 'M4,0 L4,8', id: 'line' })
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = ToggleSign;
-
-/***/ },
-/* 372 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the EXP_3 iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Exp3 = React.createClass({
-	    displayName: 'Exp3',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -766.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_exponent_3', transform: 'translate(1204.000000, 766.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('path', { d: 'M14,21.0008717 C14,20.4481055 14.455761,20 15.0024733,20 L24.9975267,20 C25.5511774,20 26,20.4446309 26,21.0008717 L26,34.9991283 C26,35.5518945 25.544239,36 24.9975267,36 L15.0024733,36 C14.4488226,36 14,35.5553691 14,34.9991283 L14,21.0008717 Z M16,22 L24,22 L24,34 L16,34 L16,22 Z', id: 'block', fill: this.props.primaryColor }),
-	                            React.createElement('path', { d: 'M30.92,23.12 C32.58,23.12 33.68,22.31 33.68,21.14 C33.68,20.18 32.82,19.63 32.11,19.56 C32.9,19.43 33.57,18.84 33.57,18.06 C33.57,16.96 32.62,16.23 30.92,16.23 C29.69,16.23 28.81,16.68 28.25,17.31 L29.08,18.39 C29.55,17.97 30.13,17.75 30.74,17.75 C31.38,17.75 31.86,17.94 31.86,18.36 C31.86,18.71 31.47,18.88 30.78,18.88 C30.53,18.88 30.01,18.88 29.88,18.87 L29.88,20.4 C29.98,20.39 30.49,20.39 30.78,20.39 C31.69,20.39 31.97,20.57 31.97,20.95 C31.97,21.32 31.59,21.6 30.85,21.6 C30.27,21.6 29.51,21.37 29.03,20.9 L28.16,22.07 C28.68,22.67 29.64,23.12 30.92,23.12 L30.92,23.12 Z', id: '3', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Exp3;
-
-/***/ },
-/* 373 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the EXP_2 iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Exp2 = React.createClass({
-	    displayName: 'Exp2',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -834.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_exponent_2', transform: 'translate(1204.000000, 834.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('path', { d: 'M14,21.0008717 C14,20.4481055 14.455761,20 15.0024733,20 L24.9975267,20 C25.5511774,20 26,20.4446309 26,21.0008717 L26,34.9991283 C26,35.5518945 25.544239,36 24.9975267,36 L15.0024733,36 C14.4488226,36 14,35.5553691 14,34.9991283 L14,21.0008717 Z M16,22 L24,22 L24,34 L16,34 L16,22 Z', id: 'block', fill: this.props.primaryColor }),
-	                            React.createElement('path', { d: 'M33.67,23 L33.67,21.5 L31.23,21.5 C32.89,20.34 33.62,19.47 33.62,18.45 C33.62,17.11 32.49,16.23 30.92,16.23 C29.99,16.23 28.93,16.56 28.22,17.34 L29.17,18.48 C29.65,18.03 30.21,17.75 30.95,17.75 C31.44,17.75 31.87,17.99 31.87,18.45 C31.87,19.11 31.33,19.57 28.44,21.66 L28.44,23 L33.67,23 Z', id: '2', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Exp2;
-
-/***/ },
-/* 374 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the PARENS_MULTI iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var ParensMulti = React.createClass({
-	    displayName: 'ParensMulti',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -600.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_multiplication_multi', transform: 'translate(1136.000000, 600.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            null,
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement(
-	                                'g',
-	                                { id: 'parentheses', transform: 'translate(6.000000, 12.000000)' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                React.createElement('path', { d: 'M7,2 C2.99999998,8 3.00000002,16 7,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                React.createElement('path', { d: 'M20,2 C16,8 16,16 20,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(18.500000, 12.000000) scale(-1, 1) translate(-18.500000, -12.000000) ' })
-	                            ),
-	                            React.createElement(
-	                                'g',
-	                                { id: 'dot', opacity: '0.3', transform: 'translate(34.000000, 12.000000)' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '8', height: '8' }),
-	                                React.createElement('circle', { fill: this.props.primaryColor, cx: '4', cy: '4', r: '2' })
-	                            ),
-	                            React.createElement(
-	                                'g',
-	                                { id: 'cross', opacity: '0.3', transform: 'translate(34.000000, 28.000000)' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '8', height: '8' }),
-	                                React.createElement('path', { d: 'M1,1 L7,7', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                React.createElement('path', { d: 'M1,1 L7,7', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(4.000000, 4.000000) scale(-1, 1) translate(-4.000000, -4.000000) ' })
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = ParensMulti;
-
-/***/ },
-/* 375 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the RIGHT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Right = function () {
-	    return React.createElement(
-	        "svg",
-	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
-	        React.createElement(
-	            "g",
-	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
-	            React.createElement(
-	                "g",
-	                { id: "[Assets]-Math-Input", transform: "translate(-1340.000000, -200.000000)" },
-	                React.createElement(
-	                    "g",
-	                    { id: "math_keypad_icon_move_forward", transform: "translate(1340.000000, 200.000000)" },
-	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
-	                    React.createElement(
-	                        "g",
-	                        { id: "arrow", strokeWidth: "1", transform: "translate(12.000000, 12.000000)" },
-	                        React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "24", height: "24" }),
-	                        React.createElement("polyline", { id: "head", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "14 6 20 12 14 18" }),
-	                        React.createElement("path", { d: "M4,12 L20,12", id: "tail", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" })
-	                    )
-	                )
-	            )
-	        )
-	    );
-	};
-
-	module.exports = Right;
-
-/***/ },
-/* 376 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the CDOT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Cdot = React.createClass({
-	    displayName: 'Cdot',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -464.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_multiplication_dot', transform: 'translate(1136.000000, 464.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement(
-	                            'g',
-	                            { id: 'cross', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                            React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, cx: '12', cy: '12', r: '3' })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Cdot;
-
-/***/ },
-/* 377 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the LOG_N iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var LogN = React.createClass({
-	    displayName: 'LogN',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1340.000000, -698.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_log', transform: 'translate(1340.000000, 698.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('path', { d: 'M30,28.9970301 C30,28.4463856 30.4530363,28 30.9970301,28 L37.0029699,28 C37.5536144,28 38,28.4530363 38,28.9970301 L38,35.0029699 C38,35.5536144 37.5469637,36 37.0029699,36 L30.9970301,36 C30.4463856,36 30,35.5469637 30,35.0029699 L30,28.9970301 Z M32,30 L36,30 L36,34 L32,34 L32,30 Z', id: 'block', fill: this.props.primaryColor }),
-	                            React.createElement('path', { d: 'M12.776,29 L12.776,19.662 L10.998,19.662 L10.998,29 L12.776,29 Z M17.676,29.168 C19.916,29.168 21.26,27.544 21.26,25.612 C21.26,23.694 19.916,22.07 17.676,22.07 C15.45,22.07 14.106,23.694 14.106,25.612 C14.106,27.544 15.45,29.168 17.676,29.168 L17.676,29.168 Z M17.676,27.586 C16.57,27.586 15.954,26.676 15.954,25.612 C15.954,24.562 16.57,23.652 17.676,23.652 C18.782,23.652 19.412,24.562 19.412,25.612 C19.412,26.676 18.782,27.586 17.676,27.586 L17.676,27.586 Z M25.348,31.744 C27.014,31.744 29.002,31.114 29.002,28.538 L29.002,22.238 L27.21,22.238 L27.21,23.106 C26.664,22.42 25.936,22.07 25.124,22.07 C23.416,22.07 22.142,23.302 22.142,25.514 C22.142,27.768 23.43,28.958 25.124,28.958 C25.95,28.958 26.678,28.566 27.21,27.894 L27.21,28.58 C27.21,29.91 26.202,30.288 25.348,30.288 C24.494,30.288 23.78,30.05 23.234,29.448 L22.436,30.736 C23.29,31.478 24.186,31.744 25.348,31.744 L25.348,31.744 Z M25.684,27.376 C24.676,27.376 23.976,26.676 23.976,25.514 C23.976,24.352 24.676,23.652 25.684,23.652 C26.272,23.652 26.916,23.974 27.21,24.422 L27.21,26.606 C26.916,27.04 26.272,27.376 25.684,27.376 L25.684,27.376 Z', id: 'log', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = LogN;
-
-/***/ },
-/* 378 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the LEQ iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Leq = React.createClass({
-	    displayName: 'Leq',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1068.000000, -766.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_less_than_not', transform: 'translate(1068.000000, 766.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement(
-	                                'g',
-	                                { id: 'math_keypad_icon_less_than' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                                React.createElement(
-	                                    'g',
-	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
-	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                    React.createElement('path', { d: 'M4,21 L20,21', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '20 18 4 12 20 6' })
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Leq;
-
-/***/ },
-/* 379 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the MINUS iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Minus = React.createClass({
-	    displayName: 'Minus',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1068.000000, -600.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_subtraction', transform: 'translate(1068.000000, 600.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', fillRule: 'evenodd', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement('path', { d: 'M19,24 L29,24', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Minus;
-
-/***/ },
-/* 380 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the RADICAL iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var Radical = React.createClass({
-	    displayName: 'Radical',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string },
-
-	    getDefaultProps: function () {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2' };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -698.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_radical', transform: 'translate(1272.000000, 698.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('path', { d: 'M13,16.9970301 C13,16.4463856 13.4530363,16 13.9970301,16 L20.0029699,16 C20.5536144,16 21,16.4530363 21,16.9970301 L21,23.0029699 C21,23.5536144 20.5469637,24 20.0029699,24 L13.9970301,24 C13.4463856,24 13,23.5469637 13,23.0029699 L13,16.9970301 Z M15,18 L19,18 L19,22 L15,22 L15,18 Z', id: 'block', fill: this.props.primaryColor }),
-	                            React.createElement('polyline', { id: 'root', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '14 29 18 35 27 21 34 21' })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = Radical;
-
-/***/ },
-/* 381 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * An autogenerated component that renders the MORE iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(46);
-
-	var More = function () {
-	    return React.createElement(
-	        "svg",
-	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
-	        React.createElement(
-	            "g",
-	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
-	            React.createElement(
-	                "g",
-	                { id: "[Assets]-Math-Input", transform: "translate(-1000.000000, -200.000000)" },
-	                React.createElement(
-	                    "g",
-	                    { id: "math_keypad_icon_on_page_numbers", transform: "translate(1000.000000, 200.000000)" },
-	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
-	                    React.createElement(
-	                        "g",
-	                        { id: "symbols", strokeWidth: "1", transform: "translate(13.000000, 15.000000)", stroke: "#888D93", strokeLinecap: "round", strokeLinejoin: "round" },
-	                        React.createElement("polyline", { id: "radical", strokeWidth: "2", points: "14 15 16 19 20 11 22 11" }),
-	                        React.createElement(
-	                            "g",
-	                            { id: "equals", transform: "translate(14.000000, 0.000000)", strokeWidth: "2" },
-	                            React.createElement("path", { d: "M0,1 L8,1", id: "line" }),
-	                            React.createElement("path", { d: "M0,5 L8,5", id: "line" })
-	                        ),
-	                        React.createElement(
-	                            "g",
-	                            { id: "greater-than", strokeWidth: "2" },
-	                            React.createElement("polyline", { id: "line", points: "0 0 8 3 0 6" })
-	                        ),
-	                        React.createElement(
-	                            "g",
-	                            { id: "less-than", transform: "translate(4.000000, 15.000000) scale(-1, 1) translate(-4.000000, -15.000000) translate(0.000000, 12.000000)", strokeWidth: "2" },
-	                            React.createElement("polyline", { id: "line", points: "0 0 8 3 0 6" })
-	                        )
-	                    )
-	                )
-	            )
-	        )
-	    );
-	};
-
-	module.exports = More;
-
-/***/ },
-/* 382 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -103590,7 +101790,7 @@ module.exports =
 	module.exports = exports['default'];
 
 /***/ },
-/* 383 */
+/* 346 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// helper to capitalize strings
@@ -103607,7 +101807,7 @@ module.exports =
 	module.exports = exports["default"];
 
 /***/ },
-/* 384 */
+/* 347 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// leight polyfill for Object.assign
@@ -103629,13 +101829,13 @@ module.exports =
 	module.exports = exports["default"];
 
 /***/ },
-/* 385 */
+/* 348 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = { "transform": 0, "transformOrigin": 0, "transformOriginX": 0, "transformOriginY": 0, "backfaceVisibility": 0, "perspective": 0, "perspectiveOrigin": 0, "transformStyle": 0, "transformOriginZ": 0, "animation": 0, "animationDelay": 0, "animationDirection": 0, "animationFillMode": 0, "animationDuration": 0, "animationIterationCount": 0, "animationName": 0, "animationPlayState": 0, "animationTimingFunction": 0, "appearance": 0, "userSelect": 0, "fontKerning": 0, "textEmphasisPosition": 0, "textEmphasis": 0, "textEmphasisStyle": 0, "textEmphasisColor": 0, "boxDecorationBreak": 0, "clipPath": 0, "maskImage": 0, "maskMode": 0, "maskRepeat": 0, "maskPosition": 0, "maskClip": 0, "maskOrigin": 0, "maskSize": 0, "maskComposite": 0, "mask": 0, "maskBorderSource": 0, "maskBorderMode": 0, "maskBorderSlice": 0, "maskBorderWidth": 0, "maskBorderOutset": 0, "maskBorderRepeat": 0, "maskBorder": 0, "maskType": 0, "textDecorationStyle": 0, "textDecorationSkip": 0, "textDecorationLine": 0, "textDecorationColor": 0, "filter": 0, "fontFeatureSettings": 0, "breakAfter": 0, "breakBefore": 0, "breakInside": 0, "columnCount": 0, "columnFill": 0, "columnGap": 0, "columnRule": 0, "columnRuleColor": 0, "columnRuleStyle": 0, "columnRuleWidth": 0, "columns": 0, "columnSpan": 0, "columnWidth": 0, "flex": 0, "flexBasis": 0, "flexDirection": 0, "flexGrow": 0, "flexFlow": 0, "flexShrink": 0, "flexWrap": 0, "alignContent": 0, "alignItems": 0, "alignSelf": 0, "justifyContent": 0, "order": 0, "transition": 0, "transitionDelay": 0, "transitionDuration": 0, "transitionProperty": 0, "transitionTimingFunction": 0, "backdropFilter": 0, "scrollSnapType": 0, "scrollSnapPointsX": 0, "scrollSnapPointsY": 0, "scrollSnapDestination": 0, "scrollSnapCoordinate": 0, "shapeImageThreshold": 0, "shapeImageMargin": 0, "shapeImageOutside": 0, "hyphens": 0, "flowInto": 0, "flowFrom": 0, "regionFragment": 0, "boxSizing": 0, "textAlignLast": 0, "tabSize": 0, "grid": 0, "gridColumnStart": 0, "gridRow": 0, "gridTemplateColumns": 0, "gridRowStart": 0, "gridRowEnd": 0, "gridTemplateRows": 0, "gridAutoRows": 0, "wrapThrough": 0, "wrapFlow": 0, "gridColumnGap": 0, "touchAction": 0, "gridRowGap": 0, "gridAutoFlow": 0, "gridColumn": 0, "gridGap": 0, "gridTemplateAreas": 0, "gridTemplate": 0, "gridArea": 0, "wrapMargin": 0, "gridAutoColumns": 0, "gridColumnEnd": 0, "textSizeAdjust": 0, "borderImage": 0, "borderImageOutset": 0, "borderImageRepeat": 0, "borderImageSlice": 0, "borderImageSource": 0, "borderImageWidth": 0, "objectFit": 0, "objectPosition": 0 };
 
 /***/ },
-/* 386 */
+/* 349 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -103686,6 +101886,1965 @@ module.exports =
 	// this must be run AFTER the flexbox specs
 	_pluginsFlex2['default']];
 	module.exports = exports['default'];
+
+/***/ },
+/* 350 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the COS iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Cos = React.createClass({
+	    displayName: 'Cos',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1476.000000, -902.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_cos', transform: 'translate(1476.000000, 902.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon', strokeWidth: '1', transform: 'translate(13.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('path', { d: 'M5.182,17.168 C6.568,17.168 7.408,16.566 7.856,15.936 L6.694,14.858 C6.372,15.306 5.882,15.586 5.266,15.586 C4.188,15.586 3.432,14.788 3.432,13.612 C3.432,12.436 4.188,11.652 5.266,11.652 C5.882,11.652 6.372,11.904 6.694,12.38 L7.856,11.288 C7.408,10.672 6.568,10.07 5.182,10.07 C3.096,10.07 1.598,11.54 1.598,13.612 C1.598,15.698 3.096,17.168 5.182,17.168 L5.182,17.168 Z M12.154,17.168 C14.394,17.168 15.738,15.544 15.738,13.612 C15.738,11.694 14.394,10.07 12.154,10.07 C9.928,10.07 8.584,11.694 8.584,13.612 C8.584,15.544 9.928,17.168 12.154,17.168 L12.154,17.168 Z M12.154,15.586 C11.048,15.586 10.432,14.676 10.432,13.612 C10.432,12.562 11.048,11.652 12.154,11.652 C13.26,11.652 13.89,12.562 13.89,13.612 C13.89,14.676 13.26,15.586 12.154,15.586 L12.154,15.586 Z M19.49,17.168 C21.366,17.168 22.416,16.23 22.416,14.998 C22.416,12.268 18.412,13.108 18.412,12.1 C18.412,11.722 18.832,11.428 19.476,11.428 C20.302,11.428 21.072,11.778 21.478,12.212 L22.192,10.994 C21.52,10.462 20.61,10.07 19.462,10.07 C17.684,10.07 16.69,11.064 16.69,12.198 C16.69,14.858 20.708,13.948 20.708,15.068 C20.708,15.488 20.344,15.796 19.574,15.796 C18.734,15.796 17.726,15.334 17.236,14.872 L16.466,16.118 C17.18,16.776 18.314,17.168 19.49,17.168 L19.49,17.168 Z', id: 'cos', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Cos;
+
+/***/ },
+/* 351 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the LOG iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Log = React.createClass({
+	    displayName: 'Log',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1340.000000, -834.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_log_10', transform: 'translate(1340.000000, 834.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M16.776,29 L16.776,19.662 L14.998,19.662 L14.998,29 L16.776,29 Z M21.676,29.168 C23.916,29.168 25.26,27.544 25.26,25.612 C25.26,23.694 23.916,22.07 21.676,22.07 C19.45,22.07 18.106,23.694 18.106,25.612 C18.106,27.544 19.45,29.168 21.676,29.168 L21.676,29.168 Z M21.676,27.586 C20.57,27.586 19.954,26.676 19.954,25.612 C19.954,24.562 20.57,23.652 21.676,23.652 C22.782,23.652 23.412,24.562 23.412,25.612 C23.412,26.676 22.782,27.586 21.676,27.586 L21.676,27.586 Z M29.348,31.744 C31.014,31.744 33.002,31.114 33.002,28.538 L33.002,22.238 L31.21,22.238 L31.21,23.106 C30.664,22.42 29.936,22.07 29.124,22.07 C27.416,22.07 26.142,23.302 26.142,25.514 C26.142,27.768 27.43,28.958 29.124,28.958 C29.95,28.958 30.678,28.566 31.21,27.894 L31.21,28.58 C31.21,29.91 30.202,30.288 29.348,30.288 C28.494,30.288 27.78,30.05 27.234,29.448 L26.436,30.736 C27.29,31.478 28.186,31.744 29.348,31.744 L29.348,31.744 Z M29.684,27.376 C28.676,27.376 27.976,26.676 27.976,25.514 C27.976,24.352 28.676,23.652 29.684,23.652 C30.272,23.652 30.916,23.974 31.21,24.422 L31.21,26.606 C30.916,27.04 30.272,27.376 29.684,27.376 L29.684,27.376 Z', id: 'log', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Log;
+
+/***/ },
+/* 352 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the EQUAL iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Equal = React.createClass({
+	    displayName: 'Equal',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1000.000000, -834.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_equals', transform: 'translate(1000.000000, 834.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement(
+	                                'g',
+	                                { id: 'math_keypad_icon_equals' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                                React.createElement(
+	                                    'g',
+	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
+	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                    React.createElement('path', { d: 'M4,9 L21,9', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                    React.createElement('path', { d: 'M4,15 L21,15', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Equal;
+
+/***/ },
+/* 353 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the BACKSPACE iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Backspace = function () {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1136.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_delete", transform: "translate(1136.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", fillRule: "evenodd", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement("path", { d: "M13,24 L13,24 L19,30 L33,30 L33,18 L19,18 L13,24 Z M11.5857864,22.5857864 L11.5857864,22.5857864 L17.5857864,16.5857864 C17.9608592,16.2107137 18.469567,16 19,16 L33,16 C34.1045695,16 35,16.8954305 35,18 L35,30 C35,31.1045695 34.1045695,32 33,32 L19,32 C18.469567,32 17.9608592,31.7892863 17.5857864,31.4142136 L11.5857864,25.4142136 C10.8047379,24.633165 10.8047379,23.366835 11.5857864,22.5857864 L11.5857864,22.5857864 Z", id: "outline", fill: "#888D93", fillRule: "evenodd" }),
+	                    React.createElement("path", { d: "M23,21 L29,27", id: "slash", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
+	                    React.createElement("path", { d: "M23,21 L29,27", id: "slash", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", transform: "translate(26.000000, 24.000000) scale(-1, 1) translate(-26.000000, -24.000000) " })
+	                )
+	            )
+	        )
+	    );
+	};
+
+	module.exports = Backspace;
+
+/***/ },
+/* 354 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the SQRT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Sqrt = React.createClass({
+	    displayName: 'Sqrt',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -834.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_radical_2', transform: 'translate(1272.000000, 834.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('polyline', { id: 'root', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '14 29 18 35 27 21 34 21' })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Sqrt;
+
+/***/ },
+/* 355 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the EXP iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Exp = React.createClass({
+	    displayName: 'Exp',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -698.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_exponent', transform: 'translate(1204.000000, 698.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M28,16.9970301 C28,16.4463856 28.4530363,16 28.9970301,16 L35.0029699,16 C35.5536144,16 36,16.4530363 36,16.9970301 L36,23.0029699 C36,23.5536144 35.5469637,24 35.0029699,24 L28.9970301,24 C28.4463856,24 28,23.5469637 28,23.0029699 L28,16.9970301 Z M30,18 L34,18 L34,22 L30,22 L30,18 Z', id: 'block', fill: this.props.primaryColor }),
+	                            React.createElement('path', { d: 'M14,21.0008717 C14,20.4481055 14.455761,20 15.0024733,20 L24.9975267,20 C25.5511774,20 26,20.4446309 26,21.0008717 L26,34.9991283 C26,35.5518945 25.544239,36 24.9975267,36 L15.0024733,36 C14.4488226,36 14,35.5553691 14,34.9991283 L14,21.0008717 Z M16,22 L24,22 L24,34 L16,34 L16,22 Z', id: 'block', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Exp;
+
+/***/ },
+/* 356 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the NEQ iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Neq = React.createClass({
+	    displayName: 'Neq',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1000.000000, -766.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_equals_not', transform: 'translate(1000.000000, 766.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement(
+	                                'g',
+	                                { id: 'math_keypad_icon_equals' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                                React.createElement(
+	                                    'g',
+	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
+	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                    React.createElement('path', { d: 'M7,21 L17,3', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                    React.createElement('path', { d: 'M4,9 L21,9', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                    React.createElement('path', { d: 'M4,15 L21,15', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Neq;
+
+/***/ },
+/* 357 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the GEQ iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Geq = React.createClass({
+	    displayName: 'Geq',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -766.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_greater_than_not', transform: 'translate(1136.000000, 766.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement(
+	                                'g',
+	                                { id: 'math_keypad_icon_greater_than' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                                React.createElement(
+	                                    'g',
+	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
+	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                    React.createElement('path', { d: 'M4,21 L20,21', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '4 18 20 12 4 6' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Geq;
+
+/***/ },
+/* 358 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the LN iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Ln = React.createClass({
+	    displayName: 'Ln',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1340.000000, -766.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_log_e', transform: 'translate(1340.000000, 766.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M20.836,29 L20.836,19.662 L19.058,19.662 L19.058,29 L20.836,29 Z M28.942,29 L28.942,24.226 C28.942,22.91 28.228,22.07 26.744,22.07 C25.638,22.07 24.812,22.602 24.378,23.12 L24.378,22.238 L22.6,22.238 L22.6,29 L24.378,29 L24.378,24.45 C24.672,24.044 25.218,23.652 25.918,23.652 C26.674,23.652 27.164,23.974 27.164,24.912 L27.164,29 L28.942,29 Z', id: 'ln', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Ln;
+
+/***/ },
+/* 359 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the JUMP_OUT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var JumpOut = function () {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1408.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_jump_out", transform: "translate(1408.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement(
+	                        "g",
+	                        { id: "icon", strokeWidth: "1", transform: "translate(12.000000, 12.000000)" },
+	                        React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "24", height: "24" }),
+	                        React.createElement("path", { d: "M2,4.99508929 L2,4.99508929 L2,19.0049107 C2,19.0007808 1.99921607,19 2.00276013,19 L10.9972399,19 C11.0020427,19 11,19.002037 11,19.0049107 L11,4.99508929 C11,4.99921924 11.0007839,5 10.9972399,5 L2.00276013,5 C1.99795733,5 2,4.99796296 2,4.99508929 L2,4.99508929 Z M0,4.99508929 C0,3.8932319 0.893542647,3 2.00276013,3 L10.9972399,3 C12.1033337,3 13,3.8926228 13,4.99508929 L13,19.0049107 C13,20.1067681 12.1064574,21 10.9972399,21 L2.00276013,21 C0.896666251,21 0,20.1073772 0,19.0049107 L0,4.99508929 L0,4.99508929 Z", id: "box", fill: "#888D93" }),
+	                        React.createElement("path", { d: "M18,12 L9,12", id: "tail", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
+	                        React.createElement("polyline", { id: "head", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "16 9 19 12 16 15" }),
+	                        React.createElement("path", { d: "M23,4 L23,20", id: "caret", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
+	                        React.createElement("path", { d: "M5,8 L5,16", id: "caret", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" })
+	                    )
+	                )
+	            )
+	        )
+	    );
+	};
+
+	module.exports = JumpOut;
+
+/***/ },
+/* 360 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the DISMISS iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Dismiss = function () {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1204.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_dismiss", transform: "translate(1204.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", fillRule: "evenodd", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement("polyline", { id: "chevron", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "20 32 24 36 28 32" }),
+	                    React.createElement(
+	                        "g",
+	                        { id: "keyboard", strokeWidth: "1", fillRule: "evenodd", transform: "translate(14.000000, 12.000000)", fill: "#78C008" },
+	                        React.createElement("path", { d: "M0,1.00684547 C0,0.450780073 0.455305576,0 0.99180311,0 L19.0081969,0 C19.5559546,0 20,0.449948758 20,1.00684547 L20,12.9931545 C20,13.5492199 19.5446944,14 19.0081969,14 L0.99180311,14 C0.444045377,14 0,13.5500512 0,12.9931545 L0,1.00684547 Z M6,0 L7,0 L7,14 L6,14 L6,0 Z M13,0 L14,0 L14,14 L13,14 L13,0 Z M0,9 L6,9 L6,10 L0,10 L0,9 Z M0,4 L6,4 L6,5 L0,5 L0,4 Z M7,9 L13,9 L13,10 L7,10 L7,9 Z M7,4 L13,4 L13,5 L7,5 L7,4 Z M14,9 L20,9 L20,10 L14,10 L14,9 Z M14,4 L20,4 L20,5 L14,5 L14,4 Z", id: "keypad" })
+	                    )
+	                )
+	            )
+	        )
+	    );
+	};
+
+	module.exports = Dismiss;
+
+/***/ },
+/* 361 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the SIN iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Sin = React.createClass({
+	    displayName: 'Sin',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1408.000000, -902.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_sin', transform: 'translate(1408.000000, 902.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('path', { d: 'M6.655,17.168 C8.531,17.168 9.581,16.23 9.581,14.998 C9.581,12.268 5.577,13.108 5.577,12.1 C5.577,11.722 5.997,11.428 6.641,11.428 C7.467,11.428 8.237,11.778 8.643,12.212 L9.357,10.994 C8.685,10.462 7.775,10.07 6.627,10.07 C4.849,10.07 3.855,11.064 3.855,12.198 C3.855,14.858 7.873,13.948 7.873,15.068 C7.873,15.488 7.509,15.796 6.739,15.796 C5.899,15.796 4.891,15.334 4.401,14.872 L3.631,16.118 C4.345,16.776 5.479,17.168 6.655,17.168 L6.655,17.168 Z M11.779,9.51 C12.367,9.51 12.843,9.034 12.843,8.446 C12.843,7.858 12.367,7.396 11.779,7.396 C11.205,7.396 10.715,7.858 10.715,8.446 C10.715,9.034 11.205,9.51 11.779,9.51 L11.779,9.51 Z M12.675,17 L12.675,10.238 L10.897,10.238 L10.897,17 L12.675,17 Z M20.781,17 L20.781,12.226 C20.781,10.91 20.067,10.07 18.583,10.07 C17.477,10.07 16.651,10.602 16.217,11.12 L16.217,10.238 L14.439,10.238 L14.439,17 L16.217,17 L16.217,12.45 C16.511,12.044 17.057,11.652 17.757,11.652 C18.513,11.652 19.003,11.974 19.003,12.912 L19.003,17 L20.781,17 Z', id: 'sin', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Sin;
+
+/***/ },
+/* 362 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the LT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Lt = React.createClass({
+	    displayName: 'Lt',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1068.000000, -834.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_less_than', transform: 'translate(1068.000000, 834.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement(
+	                                'g',
+	                                { id: 'math_keypad_icon_less_than' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                                React.createElement(
+	                                    'g',
+	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
+	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '20 18 4 12 20 6' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Lt;
+
+/***/ },
+/* 363 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the FRAC_MULTI iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var FracMulti = React.createClass({
+	    displayName: 'FracMulti',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -600.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_division_multi', transform: 'translate(1204.000000, 600.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            null,
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'fraction', transform: 'translate(6.000000, 12.000000)' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                React.createElement('path', { d: 'M8,16.9970301 C8,16.4463856 8.45303631,16 8.99703014,16 L15.0029699,16 C15.5536144,16 16,16.4530363 16,16.9970301 L16,23.0029699 C16,23.5536144 15.5469637,24 15.0029699,24 L8.99703014,24 C8.4463856,24 8,23.5469637 8,23.0029699 L8,16.9970301 Z M10,18 L14,18 L14,22 L10,22 L10,18 Z', id: 'block', fill: this.props.primaryColor }),
+	                                React.createElement('rect', { id: 'bar', fill: this.props.primaryColor, x: '2', y: '11', width: '20', height: '2', rx: '1' }),
+	                                React.createElement('path', { d: 'M8,0.997030139 C8,0.446385598 8.45303631,0 8.99703014,0 L15.0029699,0 C15.5536144,0 16,0.453036308 16,0.997030139 L16,7.00296986 C16,7.5536144 15.5469637,8 15.0029699,8 L8.99703014,8 C8.4463856,8 8,7.54696369 8,7.00296986 L8,0.997030139 Z M10,2 L14,2 L14,6 L10,6 L10,2 Z', id: 'block', fill: this.props.primaryColor })
+	                            ),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'division', opacity: '0.3', transform: 'translate(34.000000, 12.000000)' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '8', height: '8' }),
+	                                React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, cx: '4', cy: '7', r: '1' }),
+	                                React.createElement('path', { d: 'M1,4 L7,4', id: 'bar', stroke: this.props.primaryColor, strokeWidth: '1.5', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                React.createElement('path', { d: 'M4,2 C4.55228475,2 5,1.55228475 5,1 C5,0.44771525 4.55228475,0 4,0 C3.44771525,0 3,0.44771525 3,1 C3,1.55228475 3.44771525,2 4,2 Z', id: 'dot', fill: this.props.primaryColor })
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = FracMulti;
+
+/***/ },
+/* 364 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the NUMBERS iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Numbers = function () {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1068.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_on_page_symbols", transform: "translate(1068.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement(
+	                        "g",
+	                        { id: "arithmetic", strokeWidth: "1", transform: "translate(13.000000, 13.000000)" },
+	                        React.createElement(
+	                            "g",
+	                            { id: "divide", transform: "translate(14.000000, 13.000000)" },
+	                            React.createElement("path", { d: "M0,5 L8,5", id: "line", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
+	                            React.createElement("circle", { id: "Oval-30", fill: "#888D93", cx: "4", cy: "1.5", r: "1.5" }),
+	                            React.createElement("circle", { id: "Oval-30", fill: "#888D93", cx: "4", cy: "8.5", r: "1.5" })
+	                        ),
+	                        React.createElement(
+	                            "g",
+	                            { id: "multiply", transform: "translate(1.000000, 15.000000)", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
+	                            React.createElement("path", { d: "M0,6 L6,0", id: "line" }),
+	                            React.createElement("path", { d: "M0,0 L6,6", id: "line" })
+	                        ),
+	                        React.createElement(
+	                            "g",
+	                            { id: "subtract", transform: "translate(14.000000, 3.000000)", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
+	                            React.createElement("path", { d: "M0,1 L8,1", id: "line" })
+	                        ),
+	                        React.createElement(
+	                            "g",
+	                            { id: "add", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
+	                            React.createElement("path", { d: "M4,8 L4,0", id: "line" }),
+	                            React.createElement("path", { d: "M0,4 L8,4", id: "line" })
+	                        )
+	                    )
+	                )
+	            )
+	        )
+	    );
+	};
+
+	module.exports = Numbers;
+
+/***/ },
+/* 365 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the CUBE_ROOT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var CubeRoot = React.createClass({
+	    displayName: 'CubeRoot',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -766.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_radical_3', transform: 'translate(1272.000000, 766.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M17.91,23.12 C19.57,23.12 20.67,22.31 20.67,21.14 C20.67,20.18 19.81,19.63 19.1,19.56 C19.89,19.43 20.56,18.84 20.56,18.06 C20.56,16.96 19.61,16.23 17.91,16.23 C16.68,16.23 15.8,16.68 15.24,17.31 L16.07,18.39 C16.54,17.97 17.12,17.75 17.73,17.75 C18.37,17.75 18.85,17.94 18.85,18.36 C18.85,18.71 18.46,18.88 17.77,18.88 C17.52,18.88 17,18.88 16.87,18.87 L16.87,20.4 C16.97,20.39 17.48,20.39 17.77,20.39 C18.68,20.39 18.96,20.57 18.96,20.95 C18.96,21.32 18.58,21.6 17.84,21.6 C17.26,21.6 16.5,21.37 16.02,20.9 L15.15,22.07 C15.67,22.67 16.63,23.12 17.91,23.12 L17.91,23.12 Z', id: '3', fill: this.props.primaryColor }),
+	                            React.createElement('polyline', { id: 'root', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '14 29 18 35 27 21 34 21' })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = CubeRoot;
+
+/***/ },
+/* 366 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the PLUS iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Plus = React.createClass({
+	    displayName: 'Plus',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1000.000000, -600.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_addition', transform: 'translate(1000.000000, 600.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', fillRule: 'evenodd', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement('path', { d: 'M19,24 L29,24', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                        React.createElement('path', { d: 'M24,29 L24,19', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Plus;
+
+/***/ },
+/* 367 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the TAN iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Tan = React.createClass({
+	    displayName: 'Tan',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1544.000000, -902.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_tangent', transform: 'translate(1544.000000, 902.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('path', { d: 'M4.93,17.168 C5.672,17.168 6.148,16.972 6.414,16.734 L6.036,15.39 C5.938,15.488 5.686,15.586 5.42,15.586 C5.028,15.586 4.804,15.264 4.804,14.844 L4.804,11.792 L6.176,11.792 L6.176,10.238 L4.804,10.238 L4.804,8.39 L3.012,8.39 L3.012,10.238 L1.892,10.238 L1.892,11.792 L3.012,11.792 L3.012,15.32 C3.012,16.524 3.684,17.168 4.93,17.168 L4.93,17.168 Z M13.232,17 L13.232,12.632 C13.232,10.686 11.818,10.07 10.278,10.07 C9.214,10.07 8.15,10.406 7.324,11.134 L7.996,12.324 C8.57,11.792 9.242,11.526 9.97,11.526 C10.866,11.526 11.454,11.974 11.454,12.66 L11.454,13.57 C11.006,13.038 10.208,12.744 9.312,12.744 C8.234,12.744 6.96,13.346 6.96,14.928 C6.96,16.44 8.234,17.168 9.312,17.168 C10.194,17.168 10.992,16.846 11.454,16.3 L11.454,17 L13.232,17 Z M10.026,15.964 C9.326,15.964 8.752,15.6 8.752,14.97 C8.752,14.312 9.326,13.948 10.026,13.948 C10.6,13.948 11.16,14.144 11.454,14.536 L11.454,15.376 C11.16,15.768 10.6,15.964 10.026,15.964 L10.026,15.964 Z M21.338,17 L21.338,12.226 C21.338,10.91 20.624,10.07 19.14,10.07 C18.034,10.07 17.208,10.602 16.774,11.12 L16.774,10.238 L14.996,10.238 L14.996,17 L16.774,17 L16.774,12.45 C17.068,12.044 17.614,11.652 18.314,11.652 C19.07,11.652 19.56,11.974 19.56,12.912 L19.56,17 L21.338,17 Z', id: 'tan', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Tan;
+
+/***/ },
+/* 368 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the LEFT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Left = function () {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1272.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_move_backward", transform: "translate(1272.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement(
+	                        "g",
+	                        { id: "arrow", strokeWidth: "1", transform: "translate(12.000000, 12.000000)" },
+	                        React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "24", height: "24" }),
+	                        React.createElement("polyline", { id: "head", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "10 6 4 12 10 18" }),
+	                        React.createElement("path", { d: "M4,12 L20,12", id: "tail", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" })
+	                    )
+	                )
+	            )
+	        )
+	    );
+	};
+
+	module.exports = Left;
+
+/***/ },
+/* 369 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the PARENS iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Parens = React.createClass({
+	    displayName: 'Parens',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -532.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_parentheses', transform: 'translate(1136.000000, 532.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'parentheses', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('path', { d: 'M7,2 C2.99999998,8 3.00000002,16 7,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                            React.createElement('path', { d: 'M20,2 C16,8 16,16 20,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(18.500000, 12.000000) scale(-1, 1) translate(-18.500000, -12.000000) ' })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Parens;
+
+/***/ },
+/* 370 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the GT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Gt = React.createClass({
+	    displayName: 'Gt',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -834.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_greater_than', transform: 'translate(1136.000000, 834.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement(
+	                                'g',
+	                                { id: 'math_keypad_icon_greater_than' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                                React.createElement(
+	                                    'g',
+	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
+	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '4 18 20 12 4 6' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Gt;
+
+/***/ },
+/* 371 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the FRAC iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Frac = React.createClass({
+	    displayName: 'Frac',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -532.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_fraction', transform: 'translate(1204.000000, 532.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'fraction', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('path', { d: 'M8,16.9970301 C8,16.4463856 8.45303631,16 8.99703014,16 L15.0029699,16 C15.5536144,16 16,16.4530363 16,16.9970301 L16,23.0029699 C16,23.5536144 15.5469637,24 15.0029699,24 L8.99703014,24 C8.4463856,24 8,23.5469637 8,23.0029699 L8,16.9970301 Z M10,18 L14,18 L14,22 L10,22 L10,18 Z', id: 'block', fill: this.props.primaryColor }),
+	                            React.createElement('rect', { id: 'bar', fill: this.props.primaryColor, x: '2', y: '11', width: '20', height: '2', rx: '1' }),
+	                            React.createElement('path', { d: 'M8,0.997030139 C8,0.446385598 8.45303631,0 8.99703014,0 L15.0029699,0 C15.5536144,0 16,0.453036308 16,0.997030139 L16,7.00296986 C16,7.5536144 15.5469637,8 15.0029699,8 L8.99703014,8 C8.4463856,8 8,7.54696369 8,7.00296986 L8,0.997030139 Z M10,2 L14,2 L14,6 L10,6 L10,2 Z', id: 'block', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Frac;
+
+/***/ },
+/* 372 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the DIVIDE iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Divide = React.createClass({
+	    displayName: 'Divide',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -464.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_division', transform: 'translate(1204.000000, 464.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', fillRule: 'evenodd', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement('path', { d: 'M19,24 L29,24', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                        React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, fillRule: 'evenodd', cx: '24', cy: '19.5', r: '1.5' }),
+	                        React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, fillRule: 'evenodd', cx: '24', cy: '28.5', r: '1.5' })
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Divide;
+
+/***/ },
+/* 373 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the DECIMAL iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Decimal = React.createClass({
+	    displayName: 'Decimal',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1680.000000, -298.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_radix_character', transform: 'translate(1680.000000, 298.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, cx: '24', cy: '30', r: '2' })
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Decimal;
+
+/***/ },
+/* 374 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the PERCENT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Percent = React.createClass({
+	    displayName: 'Percent',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -600.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_percent', transform: 'translate(1272.000000, 600.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'percent', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('path', { d: 'M16,4 L8,20', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                            React.createElement('circle', { id: 'circle', stroke: this.props.primaryColor, strokeWidth: '2', cx: '7', cy: '7', r: '3' }),
+	                            React.createElement('circle', { id: 'circle', stroke: this.props.primaryColor, strokeWidth: '2', cx: '17', cy: '17', r: '3' })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Percent;
+
+/***/ },
+/* 375 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the TIMES iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Times = React.createClass({
+	    displayName: 'Times',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -396.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_multiplication_cross', transform: 'translate(1136.000000, 396.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'math_keypad_icon_multiply_cross' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'cross', transform: 'translate(12.000000, 12.000000)' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                React.createElement('path', { d: 'M8,8 L16,16', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                React.createElement('path', { d: 'M8,8 L16,16', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(12.000000, 12.000000) scale(-1, 1) translate(-12.000000, -12.000000) ' })
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Times;
+
+/***/ },
+/* 376 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the TOGGLE_SIGN iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var ToggleSign = React.createClass({
+	    displayName: 'ToggleSign',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1748.000000, -298.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_negate', transform: 'translate(1748.000000, 298.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'subtract', transform: 'translate(15.000000, 15.000000)', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' },
+	                                React.createElement('path', { d: 'M0,1 L8,1', id: 'line' })
+	                            ),
+	                            React.createElement('path', { d: 'M16,4 L8,20', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'add', transform: 'translate(1.000000, 4.000000)', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' },
+	                                React.createElement('path', { d: 'M0,4 L8,4', id: 'line' }),
+	                                React.createElement('path', { d: 'M4,0 L4,8', id: 'line' })
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = ToggleSign;
+
+/***/ },
+/* 377 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the EXP_3 iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Exp3 = React.createClass({
+	    displayName: 'Exp3',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -766.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_exponent_3', transform: 'translate(1204.000000, 766.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M14,21.0008717 C14,20.4481055 14.455761,20 15.0024733,20 L24.9975267,20 C25.5511774,20 26,20.4446309 26,21.0008717 L26,34.9991283 C26,35.5518945 25.544239,36 24.9975267,36 L15.0024733,36 C14.4488226,36 14,35.5553691 14,34.9991283 L14,21.0008717 Z M16,22 L24,22 L24,34 L16,34 L16,22 Z', id: 'block', fill: this.props.primaryColor }),
+	                            React.createElement('path', { d: 'M30.92,23.12 C32.58,23.12 33.68,22.31 33.68,21.14 C33.68,20.18 32.82,19.63 32.11,19.56 C32.9,19.43 33.57,18.84 33.57,18.06 C33.57,16.96 32.62,16.23 30.92,16.23 C29.69,16.23 28.81,16.68 28.25,17.31 L29.08,18.39 C29.55,17.97 30.13,17.75 30.74,17.75 C31.38,17.75 31.86,17.94 31.86,18.36 C31.86,18.71 31.47,18.88 30.78,18.88 C30.53,18.88 30.01,18.88 29.88,18.87 L29.88,20.4 C29.98,20.39 30.49,20.39 30.78,20.39 C31.69,20.39 31.97,20.57 31.97,20.95 C31.97,21.32 31.59,21.6 30.85,21.6 C30.27,21.6 29.51,21.37 29.03,20.9 L28.16,22.07 C28.68,22.67 29.64,23.12 30.92,23.12 L30.92,23.12 Z', id: '3', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Exp3;
+
+/***/ },
+/* 378 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the EXP_2 iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Exp2 = React.createClass({
+	    displayName: 'Exp2',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -834.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_exponent_2', transform: 'translate(1204.000000, 834.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M14,21.0008717 C14,20.4481055 14.455761,20 15.0024733,20 L24.9975267,20 C25.5511774,20 26,20.4446309 26,21.0008717 L26,34.9991283 C26,35.5518945 25.544239,36 24.9975267,36 L15.0024733,36 C14.4488226,36 14,35.5553691 14,34.9991283 L14,21.0008717 Z M16,22 L24,22 L24,34 L16,34 L16,22 Z', id: 'block', fill: this.props.primaryColor }),
+	                            React.createElement('path', { d: 'M33.67,23 L33.67,21.5 L31.23,21.5 C32.89,20.34 33.62,19.47 33.62,18.45 C33.62,17.11 32.49,16.23 30.92,16.23 C29.99,16.23 28.93,16.56 28.22,17.34 L29.17,18.48 C29.65,18.03 30.21,17.75 30.95,17.75 C31.44,17.75 31.87,17.99 31.87,18.45 C31.87,19.11 31.33,19.57 28.44,21.66 L28.44,23 L33.67,23 Z', id: '2', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Exp2;
+
+/***/ },
+/* 379 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the PARENS_MULTI iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var ParensMulti = React.createClass({
+	    displayName: 'ParensMulti',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -600.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_multiplication_multi', transform: 'translate(1136.000000, 600.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            null,
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'parentheses', transform: 'translate(6.000000, 12.000000)' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                React.createElement('path', { d: 'M7,2 C2.99999998,8 3.00000002,16 7,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                React.createElement('path', { d: 'M20,2 C16,8 16,16 20,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(18.500000, 12.000000) scale(-1, 1) translate(-18.500000, -12.000000) ' })
+	                            ),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'dot', opacity: '0.3', transform: 'translate(34.000000, 12.000000)' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '8', height: '8' }),
+	                                React.createElement('circle', { fill: this.props.primaryColor, cx: '4', cy: '4', r: '2' })
+	                            ),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'cross', opacity: '0.3', transform: 'translate(34.000000, 28.000000)' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '8', height: '8' }),
+	                                React.createElement('path', { d: 'M1,1 L7,7', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                React.createElement('path', { d: 'M1,1 L7,7', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(4.000000, 4.000000) scale(-1, 1) translate(-4.000000, -4.000000) ' })
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = ParensMulti;
+
+/***/ },
+/* 380 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the RIGHT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Right = function () {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1340.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_move_forward", transform: "translate(1340.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement(
+	                        "g",
+	                        { id: "arrow", strokeWidth: "1", transform: "translate(12.000000, 12.000000)" },
+	                        React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "24", height: "24" }),
+	                        React.createElement("polyline", { id: "head", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "14 6 20 12 14 18" }),
+	                        React.createElement("path", { d: "M4,12 L20,12", id: "tail", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" })
+	                    )
+	                )
+	            )
+	        )
+	    );
+	};
+
+	module.exports = Right;
+
+/***/ },
+/* 381 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the CDOT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Cdot = React.createClass({
+	    displayName: 'Cdot',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -464.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_multiplication_dot', transform: 'translate(1136.000000, 464.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'cross', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, cx: '12', cy: '12', r: '3' })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Cdot;
+
+/***/ },
+/* 382 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the LOG_N iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var LogN = React.createClass({
+	    displayName: 'LogN',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1340.000000, -698.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_log', transform: 'translate(1340.000000, 698.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M30,28.9970301 C30,28.4463856 30.4530363,28 30.9970301,28 L37.0029699,28 C37.5536144,28 38,28.4530363 38,28.9970301 L38,35.0029699 C38,35.5536144 37.5469637,36 37.0029699,36 L30.9970301,36 C30.4463856,36 30,35.5469637 30,35.0029699 L30,28.9970301 Z M32,30 L36,30 L36,34 L32,34 L32,30 Z', id: 'block', fill: this.props.primaryColor }),
+	                            React.createElement('path', { d: 'M12.776,29 L12.776,19.662 L10.998,19.662 L10.998,29 L12.776,29 Z M17.676,29.168 C19.916,29.168 21.26,27.544 21.26,25.612 C21.26,23.694 19.916,22.07 17.676,22.07 C15.45,22.07 14.106,23.694 14.106,25.612 C14.106,27.544 15.45,29.168 17.676,29.168 L17.676,29.168 Z M17.676,27.586 C16.57,27.586 15.954,26.676 15.954,25.612 C15.954,24.562 16.57,23.652 17.676,23.652 C18.782,23.652 19.412,24.562 19.412,25.612 C19.412,26.676 18.782,27.586 17.676,27.586 L17.676,27.586 Z M25.348,31.744 C27.014,31.744 29.002,31.114 29.002,28.538 L29.002,22.238 L27.21,22.238 L27.21,23.106 C26.664,22.42 25.936,22.07 25.124,22.07 C23.416,22.07 22.142,23.302 22.142,25.514 C22.142,27.768 23.43,28.958 25.124,28.958 C25.95,28.958 26.678,28.566 27.21,27.894 L27.21,28.58 C27.21,29.91 26.202,30.288 25.348,30.288 C24.494,30.288 23.78,30.05 23.234,29.448 L22.436,30.736 C23.29,31.478 24.186,31.744 25.348,31.744 L25.348,31.744 Z M25.684,27.376 C24.676,27.376 23.976,26.676 23.976,25.514 C23.976,24.352 24.676,23.652 25.684,23.652 C26.272,23.652 26.916,23.974 27.21,24.422 L27.21,26.606 C26.916,27.04 26.272,27.376 25.684,27.376 L25.684,27.376 Z', id: 'log', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = LogN;
+
+/***/ },
+/* 383 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the LEQ iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Leq = React.createClass({
+	    displayName: 'Leq',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1068.000000, -766.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_less_than_not', transform: 'translate(1068.000000, 766.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement(
+	                                'g',
+	                                { id: 'math_keypad_icon_less_than' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                                React.createElement(
+	                                    'g',
+	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
+	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                    React.createElement('path', { d: 'M4,21 L20,21', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '20 18 4 12 20 6' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Leq;
+
+/***/ },
+/* 384 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the MINUS iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Minus = React.createClass({
+	    displayName: 'Minus',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1068.000000, -600.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_subtraction', transform: 'translate(1068.000000, 600.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', fillRule: 'evenodd', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement('path', { d: 'M19,24 L29,24', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Minus;
+
+/***/ },
+/* 385 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the RADICAL iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var Radical = React.createClass({
+	    displayName: 'Radical',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string },
+
+	    getDefaultProps: function () {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2' };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -698.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_radical', transform: 'translate(1272.000000, 698.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M13,16.9970301 C13,16.4463856 13.4530363,16 13.9970301,16 L20.0029699,16 C20.5536144,16 21,16.4530363 21,16.9970301 L21,23.0029699 C21,23.5536144 20.5469637,24 20.0029699,24 L13.9970301,24 C13.4463856,24 13,23.5469637 13,23.0029699 L13,16.9970301 Z M15,18 L19,18 L19,22 L15,22 L15,18 Z', id: 'block', fill: this.props.primaryColor }),
+	                            React.createElement('polyline', { id: 'root', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '14 29 18 35 27 21 34 21' })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = Radical;
+
+/***/ },
+/* 386 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * An autogenerated component that renders the MORE iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(46);
+
+	var More = function () {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1000.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_on_page_numbers", transform: "translate(1000.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement(
+	                        "g",
+	                        { id: "symbols", strokeWidth: "1", transform: "translate(13.000000, 15.000000)", stroke: "#888D93", strokeLinecap: "round", strokeLinejoin: "round" },
+	                        React.createElement("polyline", { id: "radical", strokeWidth: "2", points: "14 15 16 19 20 11 22 11" }),
+	                        React.createElement(
+	                            "g",
+	                            { id: "equals", transform: "translate(14.000000, 0.000000)", strokeWidth: "2" },
+	                            React.createElement("path", { d: "M0,1 L8,1", id: "line" }),
+	                            React.createElement("path", { d: "M0,5 L8,5", id: "line" })
+	                        ),
+	                        React.createElement(
+	                            "g",
+	                            { id: "greater-than", strokeWidth: "2" },
+	                            React.createElement("polyline", { id: "line", points: "0 0 8 3 0 6" })
+	                        ),
+	                        React.createElement(
+	                            "g",
+	                            { id: "less-than", transform: "translate(4.000000, 15.000000) scale(-1, 1) translate(-4.000000, -15.000000) translate(0.000000, 12.000000)", strokeWidth: "2" },
+	                            React.createElement("polyline", { id: "line", points: "0 0 8 3 0 6" })
+	                        )
+	                    )
+	                )
+	            )
+	        )
+	    );
+	};
+
+	module.exports = More;
 
 /***/ },
 /* 387 */
@@ -103933,7 +104092,7 @@ module.exports =
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
-	var _utilsCapitalizeString = __webpack_require__(383);
+	var _utilsCapitalizeString = __webpack_require__(346);
 
 	var _utilsCapitalizeString2 = _interopRequireDefault(_utilsCapitalizeString);
 
