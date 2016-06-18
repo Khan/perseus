@@ -190,6 +190,7 @@ const Zoomable = React.createClass({
             WebkitTransformOrigin: '0 0',
             msTransformOrigin: '0 0',
             opacity: visible ? 1 : 0,
+            WebkitTapHighlightColor: 'transparent',
             ...transitionStyle,
         };
 
