@@ -45,7 +45,7 @@ const SimpleKeypadInput = React.createClass({
 
         return <KeypadInput
             ref="input"
-            fractionBehavior={FractionBehaviorTypes.EXCLUSIVE}
+            fractionBehavior={FractionBehaviorTypes.INCLUSIVE}
             keypadElement={keypadElement}
             onFocus={() => {
                 if (keypadElement) {
