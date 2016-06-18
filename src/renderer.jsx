@@ -792,7 +792,19 @@ var Renderer = React.createClass({
                     // `onRender` only returns a node on the initial render.
                     if (node) {
                         const katex = node.querySelector(".katex");
-                        const mathjax = node.querySelector(".MathJax");
+
+                        // Though MathJax's visible elements should have been
+                        // inserted into the DOM by now (and, thus, we should be
+                        // able to query for .MathJax instead), we're not seeing
+                        // that guarantee play out in practice. So, instead, we
+                        // look for the script that is inserted on initial
+                        // render.
+                        // TODO(charlie): This works, but feels very brittle.
+                        // Figure out how we can call `onRender` only after the
+                        // elements have been inserted into the DOM.
+                        const mathjax = node.querySelector(
+                            'script[type="math/tex"]'
+                        );
 
                         if (katex) {
                             waitForKatexFonts().then(() => {
