@@ -58,27 +58,26 @@ const Zoomable = React.createClass({
         this.props.readyToMeasureDeferred.then(() => {
             if (this.isMounted()) {
                 this.scaleChildToFit(false);
+
+                if (window.MutationObserver) {
+                    this._observer = new MutationObserver((mutations) => {
+                        if (this.isMounted()) {
+                            for (const mutation of mutations) {
+                                if (mutation.target !== this._node) {
+                                    // Only act on mutations of children
+                                    this.scaleChildToFit(this.state.zoomed);
+                                    break;
+                                }
+                            }
+                        }
+                    });
+
+                    this._observer.observe(this._node, {
+                        childList: true, subtree: true, attributes: true,
+                    });
+                }
             }
         });
-
-        if (window.MutationObserver) {
-            this._observer = new MutationObserver((mutations) => {
-                if (this.isMounted()) {
-                    for (const mutation of mutations) {
-                        if (mutation.target !== this._node) {
-                            // Only act on mutations of children
-                            this.scaleChildToFit(this.state &&
-                                                 this.state.zoomed);
-                            break;
-                        }
-                    }
-                }
-            });
-
-            this._observer.observe(this._node, {
-                childList: true, subtree: true, attributes: true,
-            });
-        }
     },
 
     componentWillUnmount() {
@@ -95,13 +94,9 @@ const Zoomable = React.createClass({
         }
     },
 
-    // TODO(benkomalo): call this on viewport width changes or when our own
-    // natural width changes? Can check out
+    // TODO(benkomalo): call this on viewport width changes?
     // https://github.com/Khan/math-input/blob/master/src/components/math-keypad.js#L43
     scaleChildToFit(zoomed) {
-        // Uncomment line below to see recalculations in console
-        // console.log("[Zoomable] recalculating child scaling");
-
         const parentBounds = this._node.getBoundingClientRect();
         const childBounds = this.props.computeChildBounds(
                 this._node, parentBounds);
@@ -128,6 +123,8 @@ const Zoomable = React.createClass({
                 expandedHeight: expandedHeight,
             });
 
+            // TODO(charlie): Do this as a callback to `setState`. Something is
+            // going wrong with that approach in initial testing.
             setTimeout(() => {
                 // Only show it after the next paint, to allow for CSS
                 // transitions to fade it in.
@@ -136,7 +133,7 @@ const Zoomable = React.createClass({
                         visible: true,
                     });
                 }
-            }, 0);
+            });
         } else {
             this.setState({
                 visible: true,
