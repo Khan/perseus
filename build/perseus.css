@@ -1,5 +1,5 @@
 /* Perseus CSS
- * commit c58a6b46cc79766f2b6f8e9d9447dcac1fcfef17
+ * commit 2e7460fe867404170f2b4d6920977d2b3eca44ca
  * branch master
  * @generated */
 .perseus-sr-only {
@@ -130,7 +130,9 @@
 .bibliotron-article.framework-perseus.perseus-article:not(.perseus-xom-manatee) .perseus-image-widget {
   text-align: center;
 }
-.bibliotron-article.framework-perseus.perseus-article:not(.perseus-xom-manatee) .perseus-image-caption .paragraph .paragraph {
+.bibliotron-article.framework-perseus.perseus-article:not(.perseus-xom-manatee) .perseus-image-caption .perseus-renderer .paragraph .paragraph,
+.bibliotron-article.framework-perseus.perseus-article:not(.perseus-xom-manatee) .perseus-image-caption .perseus-renderer .paragraph ol,
+.bibliotron-article.framework-perseus.perseus-article:not(.perseus-xom-manatee) .perseus-image-caption .perseus-renderer .paragraph ul {
   color: #999;
   font-size: 14px;
   line-height: 19px;
