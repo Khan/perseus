@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * This is a simple number-entry widget
  * It is not as powerful as number-input, but has a simpler, more
@@ -11,16 +7,14 @@
  * TODO(jack): Add more comments
  */
 
-var React = require('react');
-var Changeable = require("../mixins/changeable.jsx");
-var _ = require("underscore");
+const React = require('react');
+const Changeable = require("../mixins/changeable.jsx");
+const _ = require("underscore");
 
-var TextInput = React.createClass({
-    render: function() {
-        return <input
-            ref="input"
-            value={this.props.value || ""}
-            onChange={this.changeValue} />;
+const TextInput = React.createClass({
+    propTypes: {
+        onChange: React.PropTypes.func,
+        value: React.PropTypes.string,
     },
 
     focus: function() {
@@ -32,7 +26,15 @@ var TextInput = React.createClass({
         // Translating from the js event e to the value
         // of the textbox to send to onChange
         this.props.onChange(e.target.value);
-    }
+    },
+
+    render: function() {
+        return <input
+            ref="input"
+            value={this.props.value || ""}
+            onChange={this.changeValue}
+        />;
+    },
 });
 
 /**
@@ -40,15 +42,9 @@ var TextInput = React.createClass({
  * in the demo, and is what is visible to users, and where
  * users enter their answers.
  */
-var ExampleWidget = React.createClass({
+const ExampleWidget = React.createClass({
     propTypes: {
-        value: React.PropTypes.string
-    },
-
-    getDefaultProps: function() {
-        return {
-            value: ""
-        };
+        value: React.PropTypes.string,
     },
 
     /**
@@ -56,11 +52,10 @@ var ExampleWidget = React.createClass({
      */
     mixins: [Changeable],
 
-    render: function() {
-        return <TextInput
-            ref="input"
-            value={this.props.value}
-            onChange={this.change("value")} />;
+    getDefaultProps: function() {
+        return {
+            value: "",
+        };
     },
 
     getUserInput: function() {
@@ -91,7 +86,15 @@ var ExampleWidget = React.createClass({
      */
     simpleValidate: function(rubric) {
         return ExampleWidget.validate(this.getUserInput(), rubric);
-    }
+    },
+
+    render: function() {
+        return <TextInput
+            ref="input"
+            value={this.props.value}
+            onChange={this.change("value")}
+        />;
+    },
 });
 
 
@@ -110,24 +113,24 @@ _.extend(ExampleWidget, {
             return {
                 type: "invalid",
                 message: "It looks like you haven't answered all of the " +
-                    "question yet."
+                    "question yet.",
             };
         } else if (value === rubric.correct) {
             return {
                 type: "points",
                 earned: 1,
                 total: 1,
-                message: null
+                message: null,
             };
         } else {
             return {
                 type: "points",
                 earned: 0,
                 total: 1,
-                message: null
+                message: null,
             };
         }
-    }
+    },
 });
 
 /**
