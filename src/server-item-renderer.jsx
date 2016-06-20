@@ -23,7 +23,7 @@ const ItemRenderer = React.createClass({
     propTypes: {
         apiOptions: RP.any,
         enabledFeatures: RP.any,
-        initialHintsVisible: RP.number,
+        hintsVisible: RP.number,
         item: RP.shape({
             answerArea: RP.shape({
                 calculator: RP.bool,
@@ -43,13 +43,11 @@ const ItemRenderer = React.createClass({
         return {
             apiOptions: {},  // a deep default is done in `this.update()`
             enabledFeatures: {},  // a deep default is done in `render()`
-            initialHintsVisible: 0,
         };
     },
 
     getInitialState: function() {
         return {
-            hintsVisible: this.props.initialHintsVisible,
             questionCompleted: false,
             questionHighlightedWidgets: [],
         };
@@ -168,14 +166,6 @@ const ItemRenderer = React.createClass({
         return this.questionRenderer.focus();
     },
 
-    showHint: function() {
-        if (this.state.hintsVisible < this.getNumHints()) {
-            this.setState({
-                hintsVisible: this.state.hintsVisible + 1,
-            });
-        }
-    },
-
     getNumHints: function() {
         return this.props.item.hints.length;
     },
@@ -285,7 +275,7 @@ const ItemRenderer = React.createClass({
 
         const hintsRenderer = <HintsRenderer
             hints={this.props.item.hints}
-            hintsVisible={this.state.hintsVisible}
+            hintsVisible={this.props.hintsVisible}
             enabledFeatures={enabledFeatures}
             apiOptions={apiOptions}
             ref={elem => this.hintsRenderer = elem}
