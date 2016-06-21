@@ -1,5 +1,5 @@
 /* Perseus CSS
- * commit 521106f339b1138fcf96ee739617976e5eeb62af
+ * commit 6116d1b47cac17427032f4d9bfb17fed75a6d751
  * branch master
  * @generated */
 .perseus-sr-only {
@@ -1092,40 +1092,9 @@ img.zoom-img {
 .categorizer-container table {
   min-width: 0;
 }
-.categorizer-container th.category {
-  vertical-align: bottom;
-}
 .categorizer-container label {
   position: relative;
   z-index: 2;
-}
-.categorizer-container td.category {
-  padding: 0;
-  color: #ccc;
-  vertical-align: bottom;
-}
-.categorizer-container td.category input[type="radio"] {
-  display: none;
-}
-.categorizer-container td.category input[type="radio"] + span:before {
-  display: inline-block;
-  position: relative;
-  font-family: 'FontAwesome';
-  font-size: 30px;
-  width: 30px;
-  padding-right: 3px;
-  bottom: 9px;
-  content: "\f1db";
-}
-.categorizer-container td.category label span:hover {
-  color: #999;
-}
-.categorizer-container td.category input[type="radio"]:checked + span:before {
-  content: "\f111";
-  color: #333;
-}
-.static-mode.categorizer-container td.category input[type="radio"]:checked + span:before {
-  color: #888;
 }
 body.mobile .categorizer-container td.category input[type="radio"]:checked + span:before {
   color: #1c758a;
@@ -1354,7 +1323,7 @@ body.mobile .perseus-widget-dropdown .fancy-option:active:before {
   position: relative;
 }
 .perseus-widget-grapher > .graphie-container > img,
-.perseus-widget-grapher > .graphie-container > .svg-image {
+.perseus-widget-grapher > .graphie-container .svg-image {
   position: absolute;
 }
 .framework-perseus .perseus-graded-group {
@@ -2481,6 +2450,9 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
 @media (max-width: 767px) {
   .perseus-renderer-responsive {
     margin: 0 16px;
+  }
+  .perseus-renderer-responsive .perseus-renderer-responsive {
+    margin: 0;
   }
 }
 @media (max-width: 767px) {
