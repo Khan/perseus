@@ -10,12 +10,15 @@ var Changeable = require("../../mixins/changeable.jsx");
 var Editor = require("../../editor.jsx");
 var PropCheckBox = require("../../components/prop-check-box.jsx");
 
+const ApiOptions = require("../../perseus-api.jsx").Options;
 var InfoTip = require("../../components/info-tip.jsx");
 var BaseRadio = require("./base-radio.jsx");
 
 
 var ChoiceEditor = React.createClass({
     propTypes: {
+        apiOptions: ApiOptions.propTypes,
+
         choice: React.PropTypes.object,
         showDelete: React.PropTypes.bool,
         onClueChange: React.PropTypes.func,
@@ -77,6 +80,7 @@ var RadioEditor = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
+        apiOptions: ApiOptions.propTypes,
         choices: React.PropTypes.arrayOf(React.PropTypes.shape({
             content: React.PropTypes.string,
             clue: React.PropTypes.string,

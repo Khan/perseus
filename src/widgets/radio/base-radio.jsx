@@ -64,7 +64,7 @@ const ChoicesType = React.PropTypes.arrayOf(React.PropTypes.shape({
     isNoneOfTheAbove: React.PropTypes.bool,
 }));
 
-const radioBorder = styleConstants.grayLighter;
+const radioBorderColor = styleConstants.radioBorderColor;
 
 const BaseRadio = React.createClass({
     propTypes: {
@@ -120,8 +120,8 @@ const BaseRadio = React.createClass({
 
             responsiveRadio: {
                 [mediaQueries.smOrSmaller]: {
-                    borderBottom: `1px solid ${radioBorder}`,
-                    borderTop: `1px solid ${radioBorder}`,
+                    borderBottom: `1px solid ${radioBorderColor}`,
+                    borderTop: `1px solid ${radioBorderColor}`,
                     marginLeft: styleConstants.negativePhoneMargin,
                     marginRight: styleConstants.negativePhoneMargin,
                     width: "auto",
@@ -209,7 +209,7 @@ const BaseRadio = React.createClass({
                     },
 
                     ":not(:last-child)": {
-                        borderBottom: `1px solid ${radioBorder}`,
+                        borderBottom: `1px solid ${radioBorderColor}`,
                     },
                 },
             },

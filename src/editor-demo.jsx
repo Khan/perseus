@@ -97,6 +97,7 @@ const EditorDemo = React.createClass({
             },
             apiOptions: {
                 fancyDropdowns: true,
+                responsiveStyling: true,
                 // onInputError: function() {
                 //     let args = Array.from(arguments);
                 //     console.log.apply(console, ["onInputError:"].concat(args));

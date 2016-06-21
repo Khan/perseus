@@ -13,9 +13,7 @@ const mediaQueries = require("../../styles/media-queries.js");
 const ToggleableRadioButton = require("./toggleable-radio-button.jsx");
 
 
-const circleSize = 20;
-const radioBorder = styleConstants.grayLighter;
-const checkedColor = styleConstants.kaGreen;
+const checkedColor = styleConstants.checkedColor;
 
 
 const focusedStyleMixin = {
@@ -134,28 +132,6 @@ const Choice = React.createClass({
                 float: "none",
             },
 
-            responsiveInput: {
-                [mediaQueries.smOrSmaller]: {
-                    WebkitAppearance: "none",
-                    appearance: "none",
-
-                    backgroundColor: "#fff",
-                    border: "2px solid #fff",
-                    boxShadow: `0 0px 0px 1px ${radioBorder}`,
-                    outline: "none",
-
-                    boxSizing: "border-box",
-                    flexShrink: 0,
-                    marginBottom: 0,
-                    marginLeft: 15,
-                    marginRight: 15,
-                    marginTop: 0,
-
-                    height: circleSize,
-                    width: circleSize,
-                },
-            },
-
             // TODO(david): Avoid using min-width -- we've been trying to use
             // max-width
             mobileInput: {
@@ -172,22 +148,6 @@ const Choice = React.createClass({
 
             satReviewInput: {
                 pointerEvents: "none",
-            },
-
-            responsiveRadioInput: {
-                [mediaQueries.smOrSmaller]: {
-                    borderRadius: "50%",
-
-                    ":checked": {
-                        backgroundColor: checkedColor,
-                        border: "2px solid #fff",
-                        borderRadius: "50%",
-                        boxShadow: `0 0px 0px 2px ${checkedColor}`,
-
-                        height: circleSize,
-                        width: circleSize,
-                    },
-                },
             },
 
             mobileRadioInput: {
@@ -244,8 +204,8 @@ const Choice = React.createClass({
                         fontFamily: "monospace",
                         fontSize: 17,
 
-                        height: circleSize,
-                        width: circleSize,
+                        height: styleConstants.circleSize,
+                        width: styleConstants.circleSize,
                     },
                 },
             },
@@ -458,9 +418,9 @@ const Choice = React.createClass({
             className: css(
                 sharedStyles.perseusInteractive,
                 styles.input,
-                responsive && styles.responsiveInput,
+                responsive && sharedStyles.responsiveInput,
                 responsive && this.props.type === "radio" &&
-                    styles.responsiveRadioInput,
+                    sharedStyles.responsiveRadioInput,
                 responsive && this.props.type === "checkbox" &&
                     styles.responsiveCheckboxInput,
                 mobile && styles.mobileInput,

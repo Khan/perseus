@@ -14,6 +14,7 @@ const ApiOptions = require("../perseus-api.jsx").Options;
 const Renderer = require("../renderer.jsx");
 const Util = require("../util.js");
 const mediaQueries = require("../styles/media-queries.js");
+const sharedStyles = require("../styles/shared.js");
 
 const Categorizer = React.createClass({
     mixins: [WidgetJsonifyDeprecated, Changeable],
@@ -48,6 +49,8 @@ const Categorizer = React.createClass({
     render: function() {
         const self = this;
 
+        const responsive = this.props.apiOptions.responsiveStyling &&
+            this.props.apiOptions.xomManatee;
         let indexedItems = this.props.items.map((item, n) => [item, n]);
         if (this.props.randomizeItems) {
             indexedItems = Util.shuffle(indexedItems, this.props.problemNum);
@@ -61,7 +64,7 @@ const Categorizer = React.createClass({
                     // category grading actually works -- no way to add or
                     // remove categories or items in the middle. (If we later
                     // add that, this should be fixed.)
-                    return <th className="category" key={i}>
+                    return <th className={css(styles.header)} key={i}>
                         <Renderer content={category}/>
                     </th>;
                 })}
@@ -73,7 +76,14 @@ const Categorizer = React.createClass({
                 return <tr key={itemNum}>
                     <td><Renderer content={item}/></td>
                     {_.range(self.props.categories.length).map(catNum => {
-                        return <td className="category" key={catNum}>
+                        const selected = self.props.values[itemNum] === catNum;
+                        return <td
+                            className={"category " + css(
+                                styles.cell,
+                                responsive && styles.responsiveCell
+                            )}
+                            key={catNum}
+                        >
                             {/* a pseudo-label: toggle the value of the
                                 checkbox when this div or the checkbox is
                                 clicked */}
@@ -86,17 +96,30 @@ const Categorizer = React.createClass({
                                 <input
                                     type="radio"
                                     name={uniqueId}
-                                    checked={
-                                        self.props.values[itemNum] === catNum
-                                    }
+                                    className={css(
+                                        responsive &&
+                                            sharedStyles.responsiveInput,
+                                        responsive &&
+                                            sharedStyles.responsiveRadioInput,
+                                        styles.radioInput
+                                    )}
+                                    checked={selected}
                                     onChange={this.onChange.bind(
                                         this,
                                         itemNum,
                                         catNum
                                     )}
                                     onClick={(e) => e.stopPropagation()}
-                                    />
-                                <span></span>
+                                  />
+                                <span
+                                    className={css(
+                                        responsive && styles.responsiveSpan,
+                                        styles.radioSpan,
+                                        selected && styles.checkedRadioSpan,
+                                        this.props.static && selected
+                                            && styles.staticCheckedRadioSpan
+                                    )}
+                                />
                             </div>
                         </td>;
                     })}
@@ -166,6 +189,67 @@ const styles = StyleSheet.create({
             marginLeft: -pageMargin,
             marginRight: -pageMargin,
             overflowX: 'auto',
+        },
+    },
+
+    header: {
+        textAlign: 'center',
+        verticalAlign: 'bottom',
+    },
+
+    cell: {
+        textAlign: 'center',
+        padding: 0,
+        color: '#ccc',
+        verticalAlign: 'middle',
+    },
+
+    // Legacy styling
+    // TODO(jared): remove when XOM is done
+
+    radioInput: {
+        display: 'none',
+    },
+
+    radioSpan: {
+        ':before': {
+            display: 'inline-block',
+            position: 'relative',
+            fontFamily: 'FontAwesome',
+            fontSize: 30,
+            width: 30,
+            paddingRight: 3,
+            top: 3,
+            content: '"\\f1db"',  // fa-circle-thin
+        },
+
+        ':hover': {
+            color: '#999',
+        },
+    },
+
+    checkedRadioSpan: {
+        ':before': {
+            content: '"\\f111"',
+            color: '#333',
+        },
+    },
+
+    // .static-mode is applied by the Categorizer when the rendered
+    // widget is static; in this case we gray out the choices to show
+    // the user that the widget can't be interacted with.
+    staticCheckedRadioSpan: {
+        ':before': {
+            content: '"\f111"',
+            color: '#888',
+        },
+    },
+
+    // New (XOM) Styling
+
+    responsiveSpan: {
+        [mediaQueries.smOrSmaller]: {
+            display: 'none',
         },
     },
 });

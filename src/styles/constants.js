@@ -84,4 +84,9 @@ module.exports = {
         defaultBoxSize: 400,
         defaultBoxSizeSmall: 288,
     },
+
+    circleSize: 20,
 };
+
+module.exports.radioBorderColor = module.exports.grayLighter;
+module.exports.checkedColor = module.exports.kaGreen;
