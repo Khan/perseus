@@ -23,8 +23,6 @@
 @widgetBorder:          @widgetBorderWidth solid @widgetBorderColor;
 @widgetBorderRadius:    3px;
 
-@previewBorder:         1px solid @gray;
-
 // Dimensions
 @leftCellWidth:         360px;
 @cellPadding:           30px;
@@ -304,7 +302,6 @@
 
         #workarea {
             margin: 0; // override ke
-            outline: 1px solid #ccc;
         }
     }
 
@@ -333,14 +330,6 @@
 
 .perseus-editor-row {
     display: table-row;
-
-    &:first-child .perseus-editor-right-cell {
-        border-top: @previewBorder;
-    }
-
-    &:last-child .perseus-editor-right-cell {
-        border-bottom: @previewBorder;
-    }
 }
 
 .perseus-editor-left-cell {
@@ -354,10 +343,9 @@
 
 .perseus-editor-right-cell {
     .border-box-sizing();
-    border-left: @previewBorder;
-    border-right: @previewBorder;
     display: table-cell;
     padding: @cellPadding;
+    padding-top: 5px;
     vertical-align: top;
 }
 
@@ -402,13 +390,6 @@
     .perseus-editor-row:first-child .perseus-editor-right-cell {
         border-top: 0;
     }
-
-    // Right side of the last hint row is empty ("add hint" button is on the
-    // left) so make sure the second to last hint row has a bottom border to
-    // close the outline.
-    .perseus-editor-row:nth-last-child(2) .perseus-editor-right-cell {
-        border-bottom: @previewBorder;
-    }
 }
 
 // Only apply borders to hints if they immediately follow a hint-editor
@@ -416,7 +397,6 @@
     div.paragraph {
         margin: 0px 0px 22px 0px;
     }
-    outline: 1px solid #ccc;
 
     // Force the hint width to take up the width of its containing viewport.
     width: 100%;
@@ -1311,4 +1291,8 @@
 
 .pair-editor input {
     width: 120px;
+}
+
+.marvel-device.iphone6.silver:after {
+  z-index: 1;
 }

@@ -12,6 +12,7 @@ var _ = require("underscore");
 var Editor = require("./editor.jsx");
 var HintRenderer = require("./hint-renderer.jsx");
 var InfoTip = require("./components/info-tip.jsx");
+var DeviceFramer = require("./components/device-framer.jsx");
 
 const ApiOptions = require("./perseus-api.jsx").Options;
 const EnabledFeatures = require("./enabled-features.jsx");
@@ -106,15 +107,14 @@ var HintEditor = React.createClass({
 var CombinedHintEditor = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
+        deviceType: React.PropTypes.string.isRequired,
         enabledFeatures: EnabledFeatures.propTypes,
         imageUploader: React.PropTypes.func,
-        previewWidth: React.PropTypes.number.isRequired,
     },
 
     render: function() {
         var shouldBold = this.props.isLast &&
                          !(/\*\*/).test(this.props.hint.content);
-        var previewWidth = this.props.previewWidth;
 
         return <div className={"perseus-combined-hint-editor " +
                     "perseus-editor-row"}>
@@ -130,20 +130,20 @@ var CombinedHintEditor = React.createClass({
                 onChange={this.props.onChange}
                 onRemove={this.props.onRemove}
                 onMove={this.props.onMove}
-                previewWidth={this.props.previewWidth}
                 enabledFeatures={this.props.enabledFeatures}
                 apiOptions={this.props.apiOptions} />
 
             <div
                 className="perseus-editor-right-cell"
-                style={{width: previewWidth, maxWidth: previewWidth}}
             >
-                <HintRenderer
-                    hint={this.props.hint}
-                    bold={shouldBold}
-                    pos={this.props.pos}
-                    enabledFeatures={this.props.enabledFeatures}
-                    apiOptions={this.props.apiOptions} />
+                <DeviceFramer deviceType={this.props.deviceType}>
+                    <HintRenderer
+                        hint={this.props.hint}
+                        bold={shouldBold}
+                        pos={this.props.pos}
+                        enabledFeatures={this.props.enabledFeatures}
+                        apiOptions={this.props.apiOptions} />
+                </DeviceFramer>
             </div>
         </div>;
     },
@@ -172,9 +172,9 @@ var CombinedHintEditor = React.createClass({
 var CombinedHintsEditor = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
+        deviceType: React.PropTypes.string.isRequired,
         enabledFeatures: EnabledFeatures.propTypes,
         imageUploader: React.PropTypes.func,
-        previewWidth: React.PropTypes.number.isRequired,
     },
 
     getDefaultProps: function() {
@@ -198,7 +198,7 @@ var CombinedHintsEditor = React.createClass({
                         onChange={this.handleHintChange.bind(this, i)}
                         onRemove={this.handleHintRemove.bind(this, i)}
                         onMove={this.handleHintMove.bind(this, i)}
-                        previewWidth={this.props.previewWidth}
+                        deviceType={this.props.deviceType}
                         enabledFeatures={this.props.enabledFeatures}
                         apiOptions={this.props.apiOptions} />;
         }, this);

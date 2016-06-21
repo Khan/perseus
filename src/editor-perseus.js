@@ -8,6 +8,7 @@ module.exports = {
     ClassNames:             require("./perseus-api.jsx").ClassNames,
     Util:                   require("./util.js"),
     ViewportResizer:        require("./components/viewport-resizer.jsx"),
+    DeviceFramer:           require("./components/device-framer.jsx"),
     renderability:          require("./renderability.jsx"),
     accessibility:          require("./a11y.js"),
     i18n:                   require("./i18n.jsx"),

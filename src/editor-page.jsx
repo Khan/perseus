@@ -44,6 +44,9 @@ var EditorPage = React.createClass({
         // A function which is called with the new JSON blob of content
         onChange: React.PropTypes.func,
 
+        onPreviewDeviceChange: React.PropTypes.func,
+        previewDevice: React.PropTypes.string,
+
         // Initial value of the question being edited
         question: React.PropTypes.any,
     },
@@ -74,7 +77,6 @@ var EditorPage = React.createClass({
             ),
             gradeMessage: "",
             wasAnswered: false,
-            previewWidth: ViewportResizer.DEFAULT_WIDTH,
         };
     },
 
@@ -139,10 +141,6 @@ var EditorPage = React.createClass({
         this.props.onChange(newProps, cb, silent);
     },
 
-    handleViewportSizeChanged: function(width, height) {
-        this.setState({previewWidth: width});
-    },
-
     changeJSON: function(newJson) {
         this.setState({
             json: newJson,
@@ -195,8 +193,9 @@ var EditorPage = React.createClass({
 
                 {!this.props.jsonMode &&
                     <ViewportResizer
+                        deviceType={this.props.previewDevice}
                         onViewportSizeChanged={
-                            this.handleViewportSizeChanged}
+                            this.props.onPreviewDeviceChange}
                     />
                 }
             </div>
@@ -223,8 +222,8 @@ var EditorPage = React.createClass({
                     gradeMessage={this.state.gradeMessage}
                     onCheckAnswer={this.handleCheckAnswer}
                     enabledFeatures={this.props.enabledFeatures}
+                    deviceType={this.props.previewDevice}
                     apiOptions={this.getApiOptions()}
-                    previewWidth={this.state.previewWidth}
                 />
             }
 
@@ -234,7 +233,7 @@ var EditorPage = React.createClass({
                     hints={this.props.hints}
                     imageUploader={this.props.imageUploader}
                     onChange={this.handleChange}
-                    previewWidth={this.state.previewWidth}
+                    deviceType={this.props.previewDevice}
                     enabledFeatures={this.props.enabledFeatures}
                     apiOptions={this.getApiOptions()}
                 />

@@ -13,6 +13,7 @@ const ArticleRenderer = require("./article-renderer.jsx");
 const Editor = require("./editor.jsx");
 const EnabledFeatures = require("./enabled-features.jsx");
 const JsonEditor = require("./json-editor.jsx");
+const DeviceFramer = require("./components/device-framer.jsx");
 
 const rendererProps = React.PropTypes.shape({
     content: React.PropTypes.string,
@@ -58,7 +59,7 @@ const ArticleEditor = React.createClass({
         ]),
         mode: React.PropTypes.oneOf(["diff", "edit", "json", "preview"]),
         onChange: React.PropTypes.func.isRequired,
-        screen: React.PropTypes.oneOf(["desktop", "mobile"]),
+        screen: React.PropTypes.oneOf(["desktop", "phone"]),
         sectionImageUploadGenerator: React.PropTypes.func,
         useNewStyles: React.PropTypes.bool,
     },
@@ -173,11 +174,9 @@ const ArticleEditor = React.createClass({
                             />
                         </div>
 
-                        <div
-                            className={"editor-preview " +
-                                (screen === "desktop" ? "full-width" : "")}
-                        >
-                            <div className={screen + "-preview"}>
+
+                        <div className={"editor-preview"}>
+                            <DeviceFramer deviceType={screen}>
                                 <ArticleRenderer
                                     apiOptions={apiOptions}
                                     enabledFeatures={enabledFeatures}
@@ -185,7 +184,7 @@ const ArticleEditor = React.createClass({
                                     ref={"renderer" + i}
                                     useNewStyles={useNewStyles}
                                 />
-                            </div>
+                            </DeviceFramer>
                         </div>
                     </div>,
                 ];
@@ -214,14 +213,14 @@ const ArticleEditor = React.createClass({
 
     _renderPreviewMode: function() {
         return <div className="standalone-preview">
-            <div className={this.props.screen + "-preview"}>
+            <DeviceFramer deviceType={this.props.screen}>
                 <ArticleRenderer
                     apiOptions={this.props.apiOptions}
                     enabledFeatures={this.props.enabledFeatures}
                     json={this.props.json}
                     useNewStyles={this.props.useNewStyles}
                 />
-            </div>
+            </DeviceFramer>
         </div>;
     },
 

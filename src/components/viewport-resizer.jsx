@@ -11,41 +11,19 @@ var React = require("react");
 
 var ButtonGroup = require("react-components/button-group.jsx");
 
-var DEFAULT_VIEWPORT = 'desktop';
-
-// These values for screen sizes come from dominant screen sizes by device type
-// according to screensiz.es and our own Google Analytics reporting (Nov 2015).
-var SCREEN_SIZES = {
-    phone: {
-        width: 320,
-        height: 480,
-    },
-    tablet: {
-        width: 768,
-        height: 1024,
-    },
-    desktop: {
-        width: 1280,
-        height: 768,
-    },
-};
+const {devices} = require("./constants.js");
 
 var ViewportResizer = React.createClass({
     propTypes: {
+        // The current device type that is selected.
+        deviceType: React.PropTypes.string.isRequired,
         // A callback that is passed (width, height) as the dimensions of the
         // viewport to resize to.
         onViewportSizeChanged: React.PropTypes.func.isRequired,
     },
 
-    getInitialState: function() {
-        return {value: DEFAULT_VIEWPORT};
-    },
-
     handleChange: function(value) {
-        this.setState({value});
-
-        var {width, height} = SCREEN_SIZES[value];
-        this.props.onViewportSizeChanged(width, height);
+        this.props.onViewportSizeChanged(value);
     },
 
     render: function() {
@@ -58,24 +36,25 @@ var ViewportResizer = React.createClass({
         var desktopButtonContents = <span>
             <i className="icon-desktop" />{" "}Desktop
         </span>;
+        var noframeButtonContents = <span>
+            No Frame
+        </span>;
 
         // TODO(david): Allow input of custom viewport sizes.
         return <span className="viewport-resizer">
             Viewport:{" "}
-            <ButtonGroup value={this.state.value}
+            <ButtonGroup value={this.props.deviceType}
                 allowEmpty={false}
                 buttons={[
-                    {value: 'phone', content: phoneButtonContents},
-                    {value: 'tablet', content: tabletButtonContents},
-                    {value: 'desktop', content: desktopButtonContents},
+                    {value: devices.PHONE, content: phoneButtonContents},
+                    {value: devices.TABLET, content: tabletButtonContents},
+                    {value: devices.DESKTOP, content: desktopButtonContents},
+                    {value: devices.NOFRAME, content: noframeButtonContents},
                 ]}
                 onChange={this.handleChange}
             />
         </span>;
     },
 });
-
-ViewportResizer.DEFAULT_WIDTH = SCREEN_SIZES[DEFAULT_VIEWPORT].width;
-ViewportResizer.DEFAULT_HEIGHT = SCREEN_SIZES[DEFAULT_VIEWPORT].height;
 
 module.exports = ViewportResizer;

@@ -31,6 +31,12 @@ const EditorDemo = React.createClass({
         };
     },
 
+    getInitialState: function() {
+        return {
+            deviceType: "noframe",
+        };
+    },
+
     componentDidMount: function() {
         // Hacks to make debugging nicer
         window.editorPage = this.refs.editor.refs.editor;
@@ -117,6 +123,10 @@ const EditorDemo = React.createClass({
                 xomManatee,
             },
             componentClass: EditorPage,
+            onPreviewDeviceChange: (device) => {
+                this.setState({ deviceType: device });
+            },
+            previewDevice: this.state.deviceType,
         };
     },
 

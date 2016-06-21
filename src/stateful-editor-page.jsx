@@ -47,7 +47,8 @@ var StatefulEditorPage = React.createClass({
             "enabledFeatures",
             "imageUploader",
             "developerMode",
-            "problemNum"
+            "problemNum",
+            "previewDevice"
         ));
     },
 

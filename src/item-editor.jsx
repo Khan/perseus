@@ -8,14 +8,15 @@ var _ = require("underscore");
 var ApiOptions = require("./perseus-api.jsx").Options;
 var Editor = require("./editor.jsx");
 var ItemExtrasEditor = require("./item-extras-editor.jsx");
+var DeviceFramer = require("./components/device-framer.jsx");
 var ITEM_DATA_VERSION = require("./version.json").itemDataVersion;
 
 var ItemEditor = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
+        deviceType: React.PropTypes.string,
         gradeMessage: React.PropTypes.string,
         imageUploader: React.PropTypes.func,
-        previewWidth: React.PropTypes.number.isRequired,
         wasAnswered: React.PropTypes.bool,
     },
 
@@ -35,8 +36,6 @@ var ItemEditor = React.createClass({
     },
 
     render: function() {
-        var previewWidth = this.props.previewWidth;
-
         return <div className="perseus-editor-table">
             <div className="perseus-editor-row perseus-question-container">
                 <div className="perseus-editor-left-cell">
@@ -56,10 +55,11 @@ var ItemEditor = React.createClass({
 
                 <div
                     className="perseus-editor-right-cell"
-                    style={{width: previewWidth, maxWidth: previewWidth}}
                 >
                     <div id="problemarea">
-                        <div id="workarea" className="workarea" />
+                        <DeviceFramer deviceType={this.props.deviceType}>
+                            <div id="workarea" className="workarea"></div>
+                        </DeviceFramer>
                         <div
                             id="hintsarea"
                             className="hintsarea"
@@ -81,7 +81,6 @@ var ItemEditor = React.createClass({
 
                 <div
                     className="perseus-editor-right-cell"
-                    style={{width: previewWidth, maxWidth: previewWidth}}
                 >
                     <div id="answer_area" />
                 </div>
