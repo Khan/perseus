@@ -297,7 +297,9 @@ _.extend(GraphUtils.Graphie.prototype, {
                 });
             }
         }
-        if (!options.allowScratchpad) {
+        // NOTE(charlie): The mobile environment doesn't include `scratchpad`
+        // on `Khan`.
+        if (!options.allowScratchpad && Khan.scratchpad) {
             Khan.scratchpad.disable();
         }
 
