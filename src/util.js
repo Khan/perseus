@@ -21,8 +21,8 @@ const Util = {
      * arrays of strings.
      */
     inputPathsEqual(a, b) {
-        if (a == null) {
-            return b == null;
+        if (a == null || b == null) {
+            return (a == null) === (b == null);
         }
 
         return a.length === b.length && a.every((item, index) => {
