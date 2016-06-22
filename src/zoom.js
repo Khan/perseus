@@ -325,6 +325,10 @@ Zoom.prototype._zoomOriginal = function() {
         .attr('data-action', 'zoom-out');
     $(this._targetImage).css("visibility", "hidden");
 
+    this._backdrop = document.createElement('div');
+    this._backdrop.className = 'zoom-backdrop';
+    document.body.appendChild(this._backdrop);
+
     this._overlay = document.createElement('div');
     this._overlay.className = 'zoom-overlay';
 
@@ -494,6 +498,7 @@ Zoom.prototype.dispose = function() {
         this.$zoomedImage = null;
 
         this._overlay.parentNode.removeChild(this._overlay);
+        this._backdrop.parentNode.removeChild(this._backdrop);
 
         this._$body.removeClass('zoom-overlay-transitioning');
     }

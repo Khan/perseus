@@ -600,6 +600,9 @@
    https://github.com/fat/zoom.js/blob/fd4f3e43153da7596da0bade198e99f98b47791e/
 */
 
+@zoomOverlayZIndex: 9000;
+@zoomAnimationDurationMs: 300ms;
+
 .zoomable {
     cursor: pointer;
     cursor: -webkit-zoom-in;
@@ -608,7 +611,7 @@
 
 .zoom-img {
     position: absolute;
-    z-index: 9001;
+    z-index: @zoomOverlayZIndex + 1;
 }
 
 img.zoom-img {
@@ -618,25 +621,19 @@ img.zoom-img {
 }
 
 .zoom-transition {
-    transition: transform 300ms ease;
+    -webkit-transition: transform @zoomAnimationDurationMs ease;
+    -ms-transition:     transform @zoomAnimationDurationMs ease;
+    transition:         transform @zoomAnimationDurationMs ease;
 }
 
 .zoom-overlay {
-    z-index: 9000;
-    background: rgba(255, 255, 255, 0);
+    z-index: @zoomOverlayZIndex;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     overflow: scroll;
-    -webkit-transition: background 300ms;
-    -o-transition:      background 300ms;
-    transition:         background 300ms;
-}
-
-.zoom-overlay-open .zoom-overlay {
-    background: rgba(255, 255, 255, 1);
 }
 
 .zoom-overlay-open,
@@ -649,4 +646,23 @@ img.zoom-img {
     height: 100%;
     max-height: 100%;
     overflow: hidden;
+}
+
+// Render an opaque backdrop upon zoom.
+.zoom-backdrop {
+    z-index: @zoomOverlayZIndex - 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgb(32, 36, 44);
+    opacity: 0;
+    -webkit-transition: opacity @zoomAnimationDurationMs;
+    -ms-transition:     opacity @zoomAnimationDurationMs;
+    transition:         opacity @zoomAnimationDurationMs;
+}
+
+.zoom-overlay-open .zoom-backdrop {
+    opacity: 0.25;
 }
