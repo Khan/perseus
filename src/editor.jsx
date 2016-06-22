@@ -112,7 +112,7 @@ var WidgetEditor = React.createClass({
 
     getInitialState: function() {
         return {
-            showWidget: true,
+            showWidget: false,
         };
     },
 
