@@ -22,7 +22,6 @@ var Util = require("./util.js");
 var EnabledFeatures = require("./enabled-features.jsx");
 var ApiOptionsProps = require("./mixins/api-options-props.js");
 var ApiClassNames = require("./perseus-api.jsx").ClassNames;
-var { waitForKatexFonts, waitForMathjaxFonts } = require("./wait-for-fonts.js");
 var Zoomable = require("./components/zoomable.jsx");
 var Deferred = require("./deferred.js");
 
@@ -807,13 +806,9 @@ var Renderer = React.createClass({
                         );
 
                         if (katex) {
-                            waitForKatexFonts().then(() => {
-                                deferred.resolve();
-                            });
+                            deferred.resolve();
                         } else if (mathjax) {
-                            waitForMathjaxFonts().then(() => {
-                                deferred.resolve();
-                            });
+                            deferred.resolve();
                         } else {
                             throw new Error("No math present in Renderer");
                         }
