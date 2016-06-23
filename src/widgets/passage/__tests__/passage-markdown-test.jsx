@@ -10,7 +10,7 @@ var PassageMarkdown = require("../passage-markdown.jsx");
 var parse = PassageMarkdown.parse;
 var rules = PassageMarkdown._rulesForTesting;
 
-validateParse = (parsed, expected) => {
+const validateParse = (parsed, expected) => {
     if (!_.isEqual(parsed, expected)) {
         var parsedStr = JSON.stringify(parsed, null, 4);
         var expectedStr = JSON.stringify(expected, null, 4);

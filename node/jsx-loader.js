@@ -2,12 +2,15 @@
 
 const loaderUtils = require("loader-utils");
 const babel = require("babel-core");
-var options = require("./babel-options.js"); // @Nolint(can't use let)
 const _ = require("../lib/underscore.js");
 const UglifyJS = require("uglify-js");
+const path = require("path");
+const fs = require("fs");
 
 const includeEditor = process.env.INCLUDE_EDITORS === "true";
-options = JSON.parse(JSON.stringify(options));  // copy before modifying
+const babelrc = JSON.parse(fs.readFileSync(
+    path.join(__dirname, "..", ".babelrc")
+));
 
 module.exports = function(source) {
     this.cacheable && this.cacheable();
@@ -16,11 +19,15 @@ module.exports = function(source) {
     const current = loaderUtils.getCurrentRequest(this);
 
     const query = loaderUtils.parseQuery(this.query);
-
-    options = _.extend({}, options, { sourceMaps: query.sourceMap });
-
+    // For some reason, Babel doesn't use .babelrc here; maybe because we're
+    // in a subfolder.
+    const options = _.extend({}, babelrc, {
+        sourceMaps: query.sourceMap,
+    });
     const transform = babel.transform(source, options);
 
+    // NOTE(charlie): If we remove these additional transforms, we can use the
+    // standard babel-loader.
     if (includeEditor) {
         // TODO(emily): Do this with a real AST transform.
         transform.code = transform.code.replace(/__EDITOR__/g, "true");

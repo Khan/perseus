@@ -251,22 +251,22 @@ $.tmpl = {
         }
 
         function doEval() {
-            /* eslint-disable no-with */
+            /* eslint-disable no-new-func */
             // Use the methods from JavaScript's built-in Math methods
-            with (Math) {
-                // And the methods provided by the library
-                with (KhanUtil) {
-                    // And the passed-in context
-                    with (ctx) {
-                        // And all the computed variables
-                        with (VARS) {
-                            return eval("(function() { return (" +
-                                code + "); })()");
+            const fn = Function(
+                'Math', 'KhanUtil', 'ctx', 'VARS',
+                `with (Math) {
+                    with (KhanUtil) {
+                        with (ctx) {
+                            with (VARS) {
+                                return (${code});
+                            }
                         }
                     }
-                }
-            }
-            /* eslint-enable no-with */
+                }`);
+
+            return fn(Math, KhanUtil, ctx, VARS);
+            /* eslint-enable no-new-func */
         }
 
         if (Khan.query.debug != null) {

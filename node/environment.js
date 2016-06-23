@@ -1,12 +1,14 @@
-/* eslint-disable no-var */
 require("../lib/babel-polyfills.min.js");
-var _ = require("../lib/underscore.js");
+const _ = require("../lib/underscore.js");
 
-var path = require("path");
-var src = path.normalize(path.join(__dirname, "..", "src"));
+const fs = require("fs");
+const path = require("path");
+const src = path.normalize(path.join(__dirname, "..", "src"));
+const babelrc = JSON.parse(fs.readFileSync(
+    path.join(__dirname, "..", ".babelrc")
+));
 
-var options = require("./babel-options.js");
-options = _.extend({}, options, {
+const options = _.extend({}, babelrc, {
     // Generate a regexp that matches files we want to babelify. For now, this
     // is things in src/, react-components, and math-input
     only: new RegExp(src + "|react-components|math-input"),
@@ -14,10 +16,10 @@ options = _.extend({}, options, {
 });
 require("babel-core/register")(options);
 
-var jsdom = require("jsdom");
+const jsdom = require("jsdom");
 global.jsdom = jsdom;
 
-var common = require("./common.js");
+const common = require("./common.js");
 
 global.Khan = window.Khan = {};
 global.KhanUtil = window.KhanUtil = Khan.KhanUtil = {};
@@ -40,7 +42,7 @@ window.KAS = global.KAS; // don't ask--check out the KAS source.
 
 // Hacky assertion functions for jest compatibility
 // TODO(aria): Change tests to not use these, or choose jest vs mocha
-var assert = require("assert");
+const assert = require("assert");
 global.expect = function(thing) {
     return {
         toEqual: function(other) {
