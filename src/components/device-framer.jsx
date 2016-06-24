@@ -108,4 +108,3 @@ var DeviceFramer = React.createClass({
 });
 
 module.exports = DeviceFramer;
-module.exports = DeviceFramer;
