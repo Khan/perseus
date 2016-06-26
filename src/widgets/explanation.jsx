@@ -51,10 +51,10 @@ var Explanation = React.createClass({
     // know what to animate the height to/from when showing/hiding the
     // explanation.
     _updateHeight: function() {
-        contentElement = ReactDOM.findDOMNode(this.refs.content);
+        const contentElement = ReactDOM.findDOMNode(this.refs.content);
 
         // Add up the heights of all the the child nodes
-        var contentHeight = Array.prototype.reduce.call(
+        let contentHeight = Array.prototype.reduce.call(
             contentElement.childNodes,
             function(memo, el) {
                 return memo + (el.offsetHeight || 0);
@@ -62,7 +62,7 @@ var Explanation = React.createClass({
             0);
 
         // Add the height of the renderer's top and bottom margins
-        var $renderer = $(contentElement).children(".perseus-renderer").eq(0);
+        const $renderer = $(contentElement).children(".perseus-renderer").eq(0);
         contentHeight += $renderer.outerHeight(true) - $renderer.outerHeight();
 
         // Only update state if the height is different, otherwise we'll end
