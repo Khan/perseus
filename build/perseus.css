@@ -1,6 +1,6 @@
 /* Perseus CSS
- * commit b24add2bbe5aa8d7b102f42fa1cf03dfa2a7721b
- * branch arcpatch-D27358
+ * commit a8449992df91fc696a1325db5d56f663e178b9bc
+ * branch master
  * @generated */
 .perseus-sr-only {
   border: 0;
@@ -758,23 +758,18 @@ img.zoom-img {
   cursor: -moz-zoom-out;
 }
 .zoom-transition {
+  -webkit-transition: transform 300ms ease;
+  -ms-transition: transform 300ms ease;
   transition: transform 300ms ease;
 }
 .zoom-overlay {
   z-index: 9000;
-  background: rgba(255, 255, 255, 0);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   overflow: scroll;
-  -webkit-transition: background 300ms;
-  -o-transition: background 300ms;
-  transition: background 300ms;
-}
-.zoom-overlay-open .zoom-overlay {
-  background: #ffffff;
 }
 .zoom-overlay-open,
 .zoom-overlay-transitioning {
@@ -784,6 +779,22 @@ img.zoom-img {
   height: 100%;
   max-height: 100%;
   overflow: hidden;
+}
+.zoom-backdrop {
+  z-index: 8999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #20242c;
+  opacity: 0;
+  -webkit-transition: opacity 300ms;
+  -ms-transition: opacity 300ms;
+  transition: opacity 300ms;
+}
+.zoom-overlay-open .zoom-backdrop {
+  opacity: 0.25;
 }
 #perseus {
   position: relative;
