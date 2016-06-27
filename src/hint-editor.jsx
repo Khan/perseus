@@ -10,12 +10,12 @@ var React = require('react');
 var _ = require("underscore");
 
 var Editor = require("./editor.jsx");
-var HintRenderer = require("./hint-renderer.jsx");
 var InfoTip = require("./components/info-tip.jsx");
 var DeviceFramer = require("./components/device-framer.jsx");
 
 const ApiOptions = require("./perseus-api.jsx").Options;
 const EnabledFeatures = require("./enabled-features.jsx");
+const IframeContentRenderer = require("./iframe-content-renderer.jsx");
 
 /* Renders a hint editor box
  *
@@ -109,13 +109,37 @@ var CombinedHintEditor = React.createClass({
         apiOptions: ApiOptions.propTypes,
         deviceType: React.PropTypes.string.isRequired,
         enabledFeatures: EnabledFeatures.propTypes,
+        frameSource: React.PropTypes.string.isRequired,
         imageUploader: React.PropTypes.func,
     },
 
-    render: function() {
-        var shouldBold = this.props.isLast &&
+    updatePreview: function() {
+        const shouldBold = this.props.isLast &&
                          !(/\*\*/).test(this.props.hint.content);
 
+        this.refs.frame.sendNewData({
+            isQuestion: false,
+            data: {
+                hint: this.props.hint,
+                bold: shouldBold,
+                pos: this.props.pos,
+                enabledFeatures: this.props.enabledFeatures,
+                apiOptions: this.props.apiOptions,
+            },
+        });
+    },
+
+    componentDidMount: function() {
+        this.updatePreview();
+    },
+
+    componentDidUpdate: function() {
+        this.updatePreview();
+    },
+
+    render: function() {
+        const isMobile = this.props.deviceType === "phone" ||
+            this.props.deviceType === "tablet";
         return <div className={"perseus-combined-hint-editor " +
                     "perseus-editor-row"}>
             <HintEditor
@@ -137,12 +161,12 @@ var CombinedHintEditor = React.createClass({
                 className="perseus-editor-right-cell"
             >
                 <DeviceFramer deviceType={this.props.deviceType}>
-                    <HintRenderer
-                        hint={this.props.hint}
-                        bold={shouldBold}
-                        pos={this.props.pos}
-                        enabledFeatures={this.props.enabledFeatures}
-                        apiOptions={this.props.apiOptions} />
+                    <IframeContentRenderer
+                        ref="frame"
+                        content={this.props.frameSource}
+                        datasetKey="mobile"
+                        datasetValue={isMobile}
+                    />
                 </DeviceFramer>
             </div>
         </div>;
@@ -174,6 +198,7 @@ var CombinedHintsEditor = React.createClass({
         apiOptions: ApiOptions.propTypes,
         deviceType: React.PropTypes.string.isRequired,
         enabledFeatures: EnabledFeatures.propTypes,
+        frameSource: React.PropTypes.string.isRequired,
         imageUploader: React.PropTypes.func,
     },
 
@@ -200,7 +225,8 @@ var CombinedHintsEditor = React.createClass({
                         onMove={this.handleHintMove.bind(this, i)}
                         deviceType={this.props.deviceType}
                         enabledFeatures={this.props.enabledFeatures}
-                        apiOptions={this.props.apiOptions} />;
+                        apiOptions={this.props.apiOptions}
+                        frameSource={this.props.frameSource} />;
         }, this);
 
         return <div className="perseus-hints-editor perseus-editor-table">

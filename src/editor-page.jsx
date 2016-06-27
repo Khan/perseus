@@ -3,7 +3,6 @@
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
-var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 const ApiClassNames = require("./perseus-api.jsx").ClassNames;
@@ -12,7 +11,6 @@ var CombinedHintsEditor = require("./hint-editor.jsx");
 var EnabledFeatures = require("./enabled-features.jsx");
 var FixPassageRefs = require("./util/fix-passage-refs.jsx");
 var ItemEditor = require("./item-editor.jsx");
-var ItemRenderer = require("./item-renderer.jsx");
 var JsonEditor = require("./json-editor.jsx");
 var ViewportResizer = require("./components/viewport-resizer.jsx");
 
@@ -22,6 +20,9 @@ var EditorPage = React.createClass({
 
         developerMode: React.PropTypes.bool,
         enabledFeatures: EnabledFeatures.propTypes,
+
+        // Source HTML for the iframe to render
+        frameSource: React.PropTypes.string.isRequired,
 
         hints: React.PropTypes.any, // related to the question
 
@@ -107,32 +108,41 @@ var EditorPage = React.createClass({
         this.updateRenderer();
     },
 
-    updateRenderer: function(cb) {
+    updateRenderer: function() {
         // Some widgets (namely the image widget) like to call onChange before
         // anything has actually been mounted, which causes problems here. We
         // just ensure don't update until we've mounted
-        if (this.rendererMountNode == null || this.props.jsonMode) {
+        const hasEditor = !this.props.developerMode || !this.props.jsonMode;
+        if (!this.isMounted() || !hasEditor) {
             return;
         }
-        var rendererConfig = _({
-            item: this.serialize(),
-            enabledFeatures: {
-                toolTipFormats: true,
-            },
-            apiOptions: this.getApiOptions(),
-            initialHintsVisible: 0,  /* none; to be displayed below */
-        }).extend(
-            _(this.props).pick("workAreaSelector",
-                               "solutionAreaSelector",
-                               "hintsAreaSelector",
-                               "problemNum",
-                               "enabledFeatures")
-        );
 
-        this.renderer = ReactDOM.render(
-            <ItemRenderer {...rendererConfig} />,
-            this.rendererMountNode,
-            cb);
+        const touch = this.props.previewDevice === 'phone' ||
+            this.props.previewDevice === 'tablet';
+        const deviceBasedApiOptions = Object.assign(
+            this.getApiOptions(), {
+                customKeypad: touch,
+                xomManatee: touch,
+            });
+
+        this.refs.itemEditor.triggerPreviewUpdate({
+            isQuestion: true,
+            data: _({
+                item: this.serialize(),
+                enabledFeatures: {
+                    toolTipFormats: true,
+                },
+                apiOptions: deviceBasedApiOptions,
+                initialHintsVisible: 0,
+                device: this.props.previewDevice,
+            }).extend(
+                _(this.props).pick("workAreaSelector",
+                                   "solutionAreaSelector",
+                                   "hintsAreaSelector",
+                                   "problemNum",
+                                   "enabledFeatures")
+            ),
+        });
     },
 
     handleChange: function(toChange, cb, silent) {
@@ -167,7 +177,16 @@ var EditorPage = React.createClass({
 
     render: function() {
         let className = "framework-perseus";
-        if (this.getApiOptions().xomManatee) {
+
+        const touch = this.props.previewDevice === 'phone' ||
+            this.props.previewDevice === 'tablet';
+        const deviceBasedApiOptions = Object.assign(
+            this.getApiOptions(), {
+                customKeypad: touch,
+                xomManatee: touch,
+            });
+
+        if (deviceBasedApiOptions.xomManatee) {
             className += " " + ApiClassNames.XOM_MANATEE;
         }
 
@@ -223,7 +242,8 @@ var EditorPage = React.createClass({
                     onCheckAnswer={this.handleCheckAnswer}
                     enabledFeatures={this.props.enabledFeatures}
                     deviceType={this.props.previewDevice}
-                    apiOptions={this.getApiOptions()}
+                    apiOptions={deviceBasedApiOptions}
+                    frameSource={this.props.frameSource}
                 />
             }
 
@@ -235,7 +255,8 @@ var EditorPage = React.createClass({
                     onChange={this.handleChange}
                     deviceType={this.props.previewDevice}
                     enabledFeatures={this.props.enabledFeatures}
-                    apiOptions={this.getApiOptions()}
+                    apiOptions={deviceBasedApiOptions}
+                    frameSource={this.props.frameSource}
                 />
             }
         </div>;

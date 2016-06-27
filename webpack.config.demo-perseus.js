@@ -1,9 +1,12 @@
 module.exports = {
-    entry: "./src/demo-perseus.js",
+    entry: {
+        "demo-perseus": "./src/demo-perseus.js",
+        "frame-perseus": "./src/perseus-frame.js",
+    },
     output: {
         path: "./build",
         publicPath: "/build/",
-        filename: "demo-perseus.js",
+        filename: "[name].js",
     },
     devServer: {
         historyApiFallback: "/build/",
