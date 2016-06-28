@@ -36,7 +36,7 @@ module.exports = StyleSheet.create({
     },
 
     responsiveInput: {
-        [mediaQueries.smOrSmaller]: {
+        [mediaQueries.lgOrSmaller]: {
             display: "inline-block",
             WebkitAppearance: "none",
             appearance: "none",
@@ -59,7 +59,7 @@ module.exports = StyleSheet.create({
     },
 
     responsiveRadioInput: {
-        [mediaQueries.smOrSmaller]: {
+        [mediaQueries.lgOrSmaller]: {
             borderRadius: "50%",
 
             ":checked": {

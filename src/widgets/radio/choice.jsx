@@ -182,7 +182,7 @@ const Choice = React.createClass({
             },
 
             responsiveCheckboxInput: {
-                [mediaQueries.smOrSmaller]: {
+                [mediaQueries.lgOrSmaller]: {
                     border: "none",
                     borderRadius: 4,
 
@@ -211,7 +211,7 @@ const Choice = React.createClass({
             },
 
             mobileCheckboxInput: {
-                [mediaQueries.mdOrLarger]: {
+                [mediaQueries.xl]: {
                     position: "absolute",
                     outline: "none",
                     height: 25,
@@ -230,7 +230,7 @@ const Choice = React.createClass({
             },
 
             mobileCheckboxOptionContent: {
-                [mediaQueries.mdOrLarger]: {
+                [mediaQueries.xl]: {
                     position: "absolute",
                     marginRight: 26,
                     display: "block",
@@ -311,7 +311,7 @@ const Choice = React.createClass({
             },
 
             responsiveLabel: {
-                [mediaQueries.smOrSmaller]: {
+                [mediaQueries.lgOrSmaller]: {
                     WebkitTapHighlightColor: "transparent",
                     alignItems: "center",
                     display: "flex",
