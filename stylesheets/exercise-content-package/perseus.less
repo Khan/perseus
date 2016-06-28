@@ -812,7 +812,6 @@
     background-color: #fcc;
 }
 
-@satTopSpacingForOneColumnLayout: 80px;
 @satTopSpacingForTwoColumnLayout: 48px;
 
 // #sat-mission (below) matches when we're inside the SAT MVP product,
@@ -972,31 +971,7 @@
                 }
             }
 
-            // TODO(mdr): When SAT_REVIEW_MODE flips for all users, remove.
-            .question-annotation {
-                margin-top: @satTopSpacingForTwoColumnLayout;
-            }
         }
-    }
-
-    // TODO(mdr): When SAT_REVIEW_MODE flips for all users, remove.
-    .question-annotation {
-        // TODO(kitt): generalize for passages
-        color: #999;
-        font-size: 100%;
-        font-family: inherit;
-        margin: @satTopSpacingForOneColumnLayout auto 24px auto;
-
-        // (In the 2 column layout, the annotation's column is always a smaller
-        // of 448px. So this combination of max-width and auto left/right
-        // margin only applies for our one column layout.
-        max-width: @satContentWidth;
-        text-transform: uppercase;
-    }
-
-    // TODO(mdr): When SAT_REVIEW_MODE flips for all users, remove.
-    .paragraph:not(:first-child) .question-annotation {
-        margin-top: 48px;
     }
 
     input[type=text],
@@ -1033,14 +1008,6 @@
             &:focus {
                 box-shadow: 0 0 10px fade(@satIncorrectBorderColor, 80%);
             }
-        }
-    }
-
-    #sat-route-task {
-        // Only want the direct child of content-area because there are many
-        // perseus-renderer divs.
-        .content-area > .perseus-renderer {
-            margin-top: @satTopSpacingForOneColumnLayout;
         }
     }
 

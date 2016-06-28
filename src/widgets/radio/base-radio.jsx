@@ -139,7 +139,6 @@ const BaseRadio = React.createClass({
             satRadio: {
                 background: "none",
                 marginLeft: 0,
-                marginTop: 24,
                 userSelect: "none",
             },
 
