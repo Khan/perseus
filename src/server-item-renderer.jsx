@@ -63,6 +63,14 @@ const ItemRenderer = React.createClass({
         });
     },
 
+    componentDidUpdate: function() {
+        if (this.props.apiOptions.answerableCallback) {
+            const isAnswerable =
+            this.questionRenderer.emptyWidgets().length === 0;
+            this.props.apiOptions.answerableCallback(isAnswerable);
+        }
+    },
+
     _handleFocusChange: function(newFocus, oldFocus) {
         if (newFocus != null) {
             this._setCurrentFocus(newFocus);
@@ -160,6 +168,10 @@ const ItemRenderer = React.createClass({
             questionCompleted: false,
             questionHighlightedWidgets: withRemoved,
         });
+
+        if (this.props.apiOptions.interactionCallback) {
+            this.props.apiOptions.interactionCallback();
+        }
     },
 
     focus: function() {
