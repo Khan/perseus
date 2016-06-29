@@ -177,17 +177,13 @@ const ArticleEditor = React.createClass({
 
                         <div className={"editor-preview"}>
                             <DeviceFramer deviceType={screen}>
-                                <div
-                                    style={{overflow: "scroll", height: "100%"}}
-                                >
-                                    <ArticleRenderer
-                                        apiOptions={apiOptions}
-                                        enabledFeatures={enabledFeatures}
-                                        json={section}
-                                        ref={"renderer" + i}
-                                        useNewStyles={useNewStyles}
-                                    />
-                                </div>
+                                <ArticleRenderer
+                                    apiOptions={apiOptions}
+                                    enabledFeatures={enabledFeatures}
+                                    json={section}
+                                    ref={"renderer" + i}
+                                    useNewStyles={useNewStyles}
+                                />
                             </DeviceFramer>
                         </div>
                     </div>,

@@ -10,13 +10,11 @@ var Editor = require("./editor.jsx");
 var ItemExtrasEditor = require("./item-extras-editor.jsx");
 var DeviceFramer = require("./components/device-framer.jsx");
 var ITEM_DATA_VERSION = require("./version.json").itemDataVersion;
-const IframeContentRenderer = require("./iframe-content-renderer.jsx");
 
 var ItemEditor = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         deviceType: React.PropTypes.string,
-        frameSource: React.PropTypes.string.isRequired,
         gradeMessage: React.PropTypes.string,
         imageUploader: React.PropTypes.func,
         wasAnswered: React.PropTypes.bool,
@@ -38,8 +36,6 @@ var ItemEditor = React.createClass({
     },
 
     render: function() {
-        const isMobile = this.props.deviceType === "phone" ||
-            this.props.deviceType === "tablet";
         return <div className="perseus-editor-table">
             <div className="perseus-editor-row perseus-question-container">
                 <div className="perseus-editor-left-cell">
@@ -62,12 +58,7 @@ var ItemEditor = React.createClass({
                 >
                     <div id="problemarea">
                         <DeviceFramer deviceType={this.props.deviceType}>
-                            <IframeContentRenderer
-                                ref="frame"
-                                content={this.props.frameSource}
-                                datasetKey="mobile"
-                                datasetValue={isMobile}
-                            />
+                            <div id="workarea" className="workarea"></div>
                         </DeviceFramer>
                         <div
                             id="hintsarea"
@@ -95,10 +86,6 @@ var ItemEditor = React.createClass({
                 </div>
             </div>
         </div>;
-    },
-
-    triggerPreviewUpdate: function(newData) {
-        this.refs.frame.sendNewData(newData);
     },
 
     handleEditorChange: function(newProps, cb, silent) {

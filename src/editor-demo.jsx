@@ -127,47 +127,6 @@ const EditorDemo = React.createClass({
                 this.setState({ deviceType: device });
             },
             previewDevice: this.state.deviceType,
-            frameSource: `<!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="utf-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
-
-                    <link rel="stylesheet" type="text/css" href="stylesheets/local-only/khan-site.css" />
-                    <link rel="stylesheet" type="text/css" href="stylesheets/local-only/khan-exercise.css" />
-                    <link rel="stylesheet" type="text/css" href="lib/katex/katex.css" />
-                    <link rel="stylesheet" type="text/css" href="lib/font-awesome.min.css">
-                    <link rel="stylesheet" type="text/css" href="lib/mathquill/mathquill.css" />
-                    <link rel="stylesheet" type="text/css" href="stylesheets/perseus-admin-package/devices.min.css" />
-
-                    <link rel="stylesheet/less" type="text/css" href="stylesheets/exercise-content-package/perseus.less" />
-                    <link rel="stylesheet/less" type="text/css" href="stylesheets/perseus-admin-package/editor.less" />
-                    <style>
-                        body {
-                            min-width: 0 !important;
-                            /* overrides body { min-width: 1000px; } in khan-site.css */
-                        }
-                    </style>
-
-                    <script>less = {env: 'development', logLevel: 1};</script>
-                    <script src="lib/less.js"></script>
-                </head>
-                <body>
-                    <div id="content-container" style="height: 100%">
-                    </div>
-                    <script src="lib/babel-polyfills.min.js"></script>
-                    <script src="lib/jquery.js"></script>
-                    <script src="lib/underscore.js"></script>
-                    <script src="lib/react-with-addons.js"></script>
-                    <script src="lib/mathjax/2.1/MathJax.js?config=KAthJax-f3c5d145ec6d4e408f74f28e1aad49db&amp;delayStartupUntil=configured"></script>
-                    <script src="lib/katex/katex.js"></script>
-                    <script src="lib/mathquill/mathquill-basic.js"></script>
-                    <script src="lib/kas.js"></script>
-                    <script src="lib/i18n.js"></script>
-                    <script src="lib/jquery.qtip.js"></script>
-                    <script src="build/frame-perseus.js"></script>
-                </body>
-            </html>`,
         };
     },
 

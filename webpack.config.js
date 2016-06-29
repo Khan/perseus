@@ -63,24 +63,11 @@ const externals = function(context, request, callback) {
     }
 };
 
-function getEntryPoints() {
-    if (includeEditor) {
-        return {
-            "editor-perseus": "./src/editor-perseus.js",
-            "frame-perseus": "./src/perseus-frame.js",
-        };
-    } else {
-        return {
-            "perseus": "./src/perseus.js",
-        };
-    }
-}
-
 module.exports = {
-    entry: getEntryPoints(),
+    entry: "./src/" + (includeEditor ? "editor-" : "") + "perseus.js",
     output: {
         path: "./build",
-        filename: "[name].js",
+        filename: (includeEditor ? "editor-" : "") + "perseus.js",
         library: "Perseus",
         libraryTarget: "umd",
     },

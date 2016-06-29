@@ -5,9 +5,22 @@
  * to demonstrate and develop the Perseus application
  */
 
-require('./perseus-env.js');
-
 let DemoComponent = null;
+window.icu = {
+    getDecimalFormatSymbols: function() {
+        return {
+            decimal_separator: ".",
+            grouping_separator: ",",
+            minus: "-",
+        };
+    },
+};
+window.KhanUtil = {
+    debugLog: function() {},
+    localeToFixed: function(num, precision) {
+        return num.toFixed(precision);
+    },
+};
 window.Khan = {
     Util: KhanUtil,
     error: function() {},
@@ -28,6 +41,21 @@ window.Khan = {
             this._updateComponent();
         },
         enabled: true,
+    },
+};
+window.Exercises = {
+    localMode: true,
+
+    useKatex: true,
+    khanExercisesUrlBase: "../",
+
+    getCurrentFramework: function() {
+        return "khan-exercises";
+    },
+    PerseusBridge: {
+        cleanupProblem: function() {
+            return false;
+        },
     },
 };
 
