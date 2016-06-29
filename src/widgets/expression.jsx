@@ -315,7 +315,7 @@ var ExpressionEditor = React.createClass({
                     form={this.props.form}
                     onChange={this.props.onChange}
                     labelAlignment="right"
-                    label="答案一定要與格式相符" />
+                    label="答案一定要與格式相符。" />
                 <InfoTip>
                     <p>學生必須輸入相同的算式。
                     但容許交換律與負號，例如：1+3，可接受3+1或1-(-3)，但不能接受4或2+2。</p>
