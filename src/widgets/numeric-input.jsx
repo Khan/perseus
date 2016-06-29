@@ -309,7 +309,7 @@ _.extend(NumericInput, {
 
             // Look through all other answers and if one matches either
             // precisely or approximately return the answer's message
-            match = _.find(otherAnswers, (answer) => {
+            const match = _.find(otherAnswers, (answer) => {
                  var validate = createValidator(answer);
                  return validate(currentValue).correct;
              });

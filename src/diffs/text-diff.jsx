@@ -87,8 +87,8 @@ var TextDiff = React.createClass({
 
         var lines = splitDiff(diffed);
 
-        beforeImages = imagesInString(this.props.before);
-        afterImages = imagesInString(this.props.after);
+        const beforeImages = imagesInString(this.props.before);
+        const afterImages = imagesInString(this.props.after);
 
         var images = stringArrayDiff(beforeImages, afterImages);
 
