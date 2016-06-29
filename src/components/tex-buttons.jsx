@@ -76,7 +76,7 @@ var buttons = [
         // TODO(joel) - how does desmos do this?
         // ["\\sqrt[3]{x}", "\\sqrt[3]{x}"],
         () => [
-            <TeX style={slightlyBig}>□^a</TeX>,
+            <TeX style={slightlyBig}>a^□</TeX>,
             input => {
                 var contents = input.latex();
                 input.keystroke("Up");
