@@ -40,7 +40,8 @@ var basicbuttons = [
                 }
             
         ],
-        () => [<TeX style={slightlyBig}>{"\\div"}</TeX>, "\\div"]
+        () => [<TeX style={slightlyBig}>{"\\div"}</TeX>, "\\div"],
+        () => [<TeX style={slightlyBig} key="eq">{"="}</TeX>, "="],
     ]
 
 ];
