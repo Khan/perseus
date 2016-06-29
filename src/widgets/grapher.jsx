@@ -154,7 +154,8 @@ var FunctionGrapher = React.createClass({
                     className={"perseus-widget " + "perseus-widget-grapher"}
                     style={{
                         width: box[0],
-                        height: this.props.flexibleType ? "auto" : box[1]
+                        height: this.props.flexibleType ? "auto" : box[1],
+                        boxSizing: "initial"
                     }}>
                 <div
                     className="graphie-container above-scratchpad"
