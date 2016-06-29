@@ -1,5 +1,5 @@
 /* Perseus CSS
- * commit a61f6aad4215984e457b546b0bdd59fdae38ffbb
+ * commit 0a0f51c2672f33cc53381fa04bbd8cdf38de18e3
  * branch master
  * @generated */
 .perseus-sr-only {
@@ -2557,7 +2557,6 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
 
     margin-left: -1px !important;
     margin-right: -1px !important;
-    margin-bottom: 2px;
 }
 
 .keypad-input .mq-editable-field .mq-non-leaf .mq-cursor:only-child {
@@ -2583,7 +2582,6 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
   padding: 0 4px 0 4px;
   margin-left: -1px;
   margin-right: -1px;
-  margin-bottom: 2px;
 }
 
 .keypad-input .mq-selection .mq-empty:not(.mq-root-block):after {
@@ -2595,12 +2593,24 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
   content: 'c';
 }
 
-.keypad-input .mq-math-mode .mq-selection,
-.keypad-input .mq-editable-field .mq-selection,
 .keypad-input .mq-math-mode .mq-selection .mq-non-leaf,
-.keypad-input .mq-editable-field .mq-selection .mq-non-leaf,
+.keypad-input .mq-editable-field .mq-selection .mq-non-leaf
+{
+    background: #78c008 !important;
+    color: white !important;
+    border-color: white !important;
+}
+
 .keypad-input .mq-math-mode .mq-selection .mq-scaled,
-.keypad-input .mq-editable-field .mq-selection .mq-scaled {
+.keypad-input .mq-editable-field .mq-selection .mq-scaled
+{
+    background: transparent !important;
+    color: white !important;
+    border-color: transparent !important;
+}
+
+.keypad-input .mq-selection {
+    display: inline-block !important;
     background: #78c008 !important;
     color: white !important;
     border-color: white !important;
