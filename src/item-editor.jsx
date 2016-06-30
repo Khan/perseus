@@ -67,6 +67,7 @@ var ItemEditor = React.createClass({
                                 content={this.props.frameSource}
                                 datasetKey="mobile"
                                 datasetValue={isMobile}
+                                seamless={this.props.deviceType === "noframe"}
                             />
                         </DeviceFramer>
                         <div

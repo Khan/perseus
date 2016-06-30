@@ -153,7 +153,7 @@ const EditorDemo = React.createClass({
                     <script src="lib/less.js"></script>
                 </head>
                 <body>
-                    <div id="content-container" style="height: 100%">
+                    <div id="content-container">
                     </div>
                     <script src="lib/babel-polyfills.min.js"></script>
                     <script src="lib/jquery.js"></script>

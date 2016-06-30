@@ -48,7 +48,7 @@ var DeviceFramer = React.createClass({
                     key="screen"
                     style={{border: "1px solid black", width: 540}}
                 >
-                    <div style={{height: 400}}>
+                    <div>
                         {this.props.children}
                     </div>
                 </div>

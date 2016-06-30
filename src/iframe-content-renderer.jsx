@@ -18,19 +18,33 @@ const React = require('react');
 
 let nextIframeID = 0;
 const requestIframeData = {};
+const updateIframeHeight = {};
 window.iframeDataStore = {};
 
 // This is only called once per iframe, after Perseus is loaded and the frame
 // is ready to render content.
 window.addEventListener("message", (event) => {
-    requestIframeData[event.data]();
+    if (typeof event.data === "string") {
+        requestIframeData[event.data]();
+    } else if (event.data.id) {
+        updateIframeHeight[event.data.id](event.data.height);
+    }
 });
 
 const IframeContentRenderer = React.createClass({
     propTypes: {
+        // The HTML content to render to the iframe
         content: React.PropTypes.string.isRequired,
+
+        // The data-* suffix for passing information to the iframe's JS
         datasetKey: React.PropTypes.any,
+
+        // The value of the data-* attribute
         datasetValue: React.PropTypes.any,
+
+        // Whether to make the iframe's height match its content's height,
+        // used to prevent scrolling inside the iframe.
+        seamless: React.PropTypes.bool,
     },
 
     componentDidMount: function() {
@@ -41,19 +55,38 @@ const IframeContentRenderer = React.createClass({
         requestIframeData[this.iframeID] = () => {
             this.sendNewData(this._lastData);
         };
+
+        updateIframeHeight[this.iframeID] = (height) => {
+            this._lastHeight = height;
+            if (this.isMounted() && this.props.seamless) {
+                this.refs.container.style.height = height + "px";
+            }
+        };
     },
 
     shouldComponentUpdate: function(nextProps) {
         return nextProps.content !== this.props.content
-            || nextProps.datasetValue !== this.props.datasetValue;
+            || nextProps.datasetValue !== this.props.datasetValue
+            || nextProps.seamless !== this.props.seamless;
     },
 
-    componentDidUpdate: function() {
-        this._prepareFrame();
+    componentDidUpdate: function(prevProps) {
+        if (!this.props.seamless) {
+            this.refs.container.style.height = "100%";
+        } else {
+            this.refs.container.style.height = this._lastData + "px";
+        }
+
+        if (prevProps.content !== this.props.content ||
+            prevProps.datasetValue !== this.props.datasetValue) {
+            // Not just a change in seamless
+            this._prepareFrame();
+        }
     },
 
-    coomponentWillUnmount: function() {
+    componentWillUnmount: function() {
         requestIframeData[this.iframeID] = null;
+        updateIframeHeight[this.iframeID] = null;
     },
 
     _prepareFrame: function() {
@@ -65,6 +98,9 @@ const IframeContentRenderer = React.createClass({
         this._frame.style.width = "100%";
         this._frame.style.height = "100%";
         if (this.props.datasetKey) {
+            // If the user has specified a data-* attribute to place on the
+            // iframe, we set it here. Right now, this is used to
+            // communicate if the iframe should be enabling touch emulation.
             this._frame.dataset[this.props.datasetKey] =
                 this.props.datasetValue;
         }
@@ -91,7 +127,7 @@ const IframeContentRenderer = React.createClass({
     render: function() {
         return <div
             ref="container"
-            style={{width: "100%", height: "100%"}}
+            style={{width: "100%"}}
         ></div>;
     },
 });
