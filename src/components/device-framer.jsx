@@ -35,6 +35,7 @@ var DeviceFramer = React.createClass({
             devices.TABLET,
             devices.DESKTOP,
             devices.NOFRAME,
+            devices.NOFRAME_WIDE,
         ]).isRequired,
     },
 
@@ -47,6 +48,17 @@ var DeviceFramer = React.createClass({
                 <div
                     key="screen"
                     style={{border: "1px solid black", width: 540}}
+                >
+                    <div>
+                        {this.props.children}
+                    </div>
+                </div>
+            </div>;
+        } else if (deviceType === devices.NOFRAME_WIDE) {
+            return <div>
+                <div
+                    key="screen"
+                    style={{border: "1px solid black", width: 800}}
                 >
                     <div>
                         {this.props.children}

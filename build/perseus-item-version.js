@@ -1,6 +1,6 @@
 // Perseus Version File
-// commit 649987753f6436174eecfd35e3592edd818efeea
-// branch article-preview-overflow
+// commit 3caf0713fe3c37070bdca26c41ed44e6e2900877
+// branch wide-noframe
 // @generated
 /* eslint-disable comma-dangle */
 

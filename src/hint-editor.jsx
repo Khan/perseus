@@ -166,7 +166,10 @@ var CombinedHintEditor = React.createClass({
                         content={this.props.frameSource}
                         datasetKey="mobile"
                         datasetValue={isMobile}
-                        seamless={this.props.deviceType === "noframe"}
+                        seamless={
+                            this.props.deviceType === "noframe" ||
+                            this.props.deviceType === "noframe-wide"
+                        }
                     />
                 </DeviceFramer>
             </div>
