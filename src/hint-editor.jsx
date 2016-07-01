@@ -118,7 +118,7 @@ var CombinedHintEditor = React.createClass({
                          !(/\*\*/).test(this.props.hint.content);
 
         this.refs.frame.sendNewData({
-            isQuestion: false,
+            type: "hint",
             data: {
                 hint: this.props.hint,
                 bold: shouldBold,

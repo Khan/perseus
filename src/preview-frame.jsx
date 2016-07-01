@@ -11,6 +11,7 @@ const React = require('react');
 
 const ItemRenderer = require('./item-renderer.jsx');
 const HintRenderer = require('./hint-renderer.jsx');
+const ArticleRenderer = require('./article-renderer.jsx');
 const TouchEmulator = require('../lib/touch-emulator.js');
 
 const PreviewFrame = React.createClass({
@@ -78,7 +79,7 @@ const PreviewFrame = React.createClass({
 
             const perseusClass = "framework-perseus " +
                 (this.props.isMobile ? "perseus-xom-manatee" : "");
-            if (this.state.isQuestion) {
+            if (this.state.type === "question") {
                 return <div
                     className={perseusClass}
                     style={this.props.isMobile ? {} : {margin: 30}}
@@ -88,7 +89,7 @@ const PreviewFrame = React.createClass({
                     <div id="workarea" style={{marginLeft: 0}}></div>
                     <div id="hintsarea"></div>
                 </div>;
-            } else {
+            } else if (this.state.type === "hint") {
                 return <div
                     className={perseusClass}
                     style={this.props.isMobile ? {} : {margin: 30}}
@@ -98,6 +99,29 @@ const PreviewFrame = React.createClass({
                         {...updatedData}
                     />
                 </div>;
+            } else if (this.state.type === "article") {
+                return <div
+                    className={perseusClass}
+                    style={this.props.isMobile ? {} : {margin: 30}}
+                >
+                    <ArticleRenderer
+                        {...updatedData}
+                    />
+                </div>;
+            } else if (this.state.type === "article-all") {
+                return <div
+                    className={perseusClass}
+                    style={this.props.isMobile ? {} : {margin: 30}}
+                >
+                    {updatedData.map((data, i) => {
+                        return <ArticleRenderer
+                            key={i}
+                            {...data}
+                        />;
+                    })}
+                </div>;
+            } else {
+                return <div></div>;
             }
         } else {
             return <div></div>;

@@ -126,7 +126,7 @@ var EditorPage = React.createClass({
             });
 
         this.refs.itemEditor.triggerPreviewUpdate({
-            isQuestion: true,
+            type: "question",
             data: _({
                 item: this.serialize(),
                 enabledFeatures: {
