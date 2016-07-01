@@ -88,7 +88,6 @@ const ArticleEditor = React.createClass({
         const {
             enabledFeatures,
             imageUploader,
-            screen,
             sectionImageUploadGenerator,
             useNewStyles,
         } = this.props;
@@ -176,19 +175,15 @@ const ArticleEditor = React.createClass({
 
 
                         <div className={"editor-preview"}>
-                            <DeviceFramer deviceType={screen}>
-                                <div
-                                    style={{overflow: "scroll", height: "100%"}}
-                                >
-                                    <ArticleRenderer
-                                        apiOptions={apiOptions}
-                                        enabledFeatures={enabledFeatures}
-                                        json={section}
-                                        ref={"renderer" + i}
-                                        useNewStyles={useNewStyles}
-                                    />
-                                </div>
-                            </DeviceFramer>
+                            {this._renderInDevice(
+                                <ArticleRenderer
+                                    apiOptions={apiOptions}
+                                    enabledFeatures={enabledFeatures}
+                                    json={section}
+                                    ref={"renderer" + i}
+                                    useNewStyles={useNewStyles}
+                                />
+                            )}
                         </div>
                     </div>,
                 ];
@@ -215,16 +210,24 @@ const ArticleEditor = React.createClass({
         </div>;
     },
 
+    _renderInDevice: function(content) {
+        return <DeviceFramer deviceType={this.props.screen}>
+            <div style={{overflow: "scroll", height: "100%"}}>
+                {content}
+            </div>
+        </DeviceFramer>;
+    },
+
     _renderPreviewMode: function() {
         return <div className="standalone-preview">
-            <DeviceFramer deviceType={this.props.screen}>
+            {this._renderInDevice(
                 <ArticleRenderer
                     apiOptions={this.props.apiOptions}
                     enabledFeatures={this.props.enabledFeatures}
                     json={this.props.json}
                     useNewStyles={this.props.useNewStyles}
                 />
-            </DeviceFramer>
+            )};
         </div>;
     },
 

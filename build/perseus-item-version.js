@@ -1,6 +1,6 @@
 // Perseus Version File
-// commit 789265d00512c41f94035cc23b317bbd643ac72f
-// branch master
+// commit 649987753f6436174eecfd35e3592edd818efeea
+// branch article-preview-overflow
 // @generated
 /* eslint-disable comma-dangle */
 
