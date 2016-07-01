@@ -14,44 +14,41 @@ var symbStyle = { fontSize: "130%" };
 // Also, it's useful for things which might look different depending on the
 // props.
 
-var basicbuttons = [
+var basic = [
 
-    [
-        () => [<span style={slightlyBig}>+</span>, "+"],
-        () => [<span style={prettyBig}>-</span>, "-"],
+    () => [<span style={slightlyBig}>+</span>, "+"],
+    () => [<span style={prettyBig}>-</span>, "-"],
 
-        // TODO(joel) - display as \cdot when appropriate
-        props => {
-            if (props.convertDotToTimes) {
-                return [<TeX style={prettyBig}>\times</TeX>, "\\times"];
-            } else {
-                return [<TeX style={prettyBig}>\cdot</TeX>, "\\cdot"];
+    // TODO(joel) - display as \cdot when appropriate
+    props => {
+        if (props.convertDotToTimes) {
+            return [<TeX style={prettyBig}>\times</TeX>, "\\times"];
+        } else {
+            return [<TeX style={prettyBig}>\cdot</TeX>, "\\cdot"];
+        }
+    },
+    () => [
+        <TeX style={prettyBig}>{"\\frac{□}{□}"}</TeX>,
+
+        // If there's something in the input that can become part of a
+        // fraction, typing "/" puts it in the numerator. If not, typing
+        // "/" does nothing. In that case, enter a \frac.
+        input => {
+            var contents = input.latex();
+            input.cmd("\\frac");
             }
-        },
-        () => [
-            <TeX style={prettyBig}>{"\\frac{□}{□}"}</TeX>,
-
-            // If there's something in the input that can become part of a
-            // fraction, typing "/" puts it in the numerator. If not, typing
-            // "/" does nothing. In that case, enter a \frac.
-            input => {
-                var contents = input.latex();
-                input.cmd("\\frac");
-                }
-            
-        ],
-        () => [<TeX style={slightlyBig}>{"\\div"}</TeX>, "\\div"],
-        () => [<TeX style={slightlyBig} key="eq">{"="}</TeX>, "="],
-    ]
+        
+    ],
+    () => [<TeX style={slightlyBig}>{"\\div"}</TeX>, "\\div"],
+    () => [<TeX style={slightlyBig} key="eq">{"="}</TeX>, "="],
 
 ];
 
-var buttons = [
+var buttonSets = {
 
-    // basics
-    basicbuttons[0],
+    basic,
 
-    // relations
+    relations:
     [
         // [<TeX>{"="}</TeX>, "\\eq"],
         () => [<TeX>\neq</TeX>, "\\neq"],
@@ -61,8 +58,7 @@ var buttons = [
         () => [<TeX>\gt</TeX>, "\\gt"],
     ],
 
-    // trig
-    [
+    trig:[
         () => [<TeX>\sin</TeX>, "\\sin"],
         () => [<TeX>\cos</TeX>, "\\cos"],
         () => [<TeX>\tan</TeX>, "\\tan"],
@@ -70,8 +66,7 @@ var buttons = [
         () => [<TeX style={symbStyle}>\phi</TeX>, "\\phi"]
     ],
 
-    // prealgebra
-    [
+    prealgebra:[
         () => [<TeX>{"\\sqrt{x}"}</TeX>, "\\sqrt"],
         // TODO(joel) - how does desmos do this?
         // ["\\sqrt[3]{x}", "\\sqrt[3]{x}"],
@@ -88,15 +83,25 @@ var buttons = [
         () => [<TeX style={slightlyBig}>\pi</TeX>, "\\pi"]
     ]
 
-];
+};
+
+var buttonSetsType = React.PropTypes.arrayOf(
+        React.PropTypes.oneOf(_(buttonSets).keys())
+    );
 
 var TexButtons = React.createClass({
     propTypes: {
         onInsert: React.PropTypes.func.isRequired,
-        easybuttons: React.PropTypes.bool
+        easybuttons: React.PropTypes.bool,
+        trigbuttons: React.PropTypes.bool,
+        sets: buttonSetsType.isRequired,
     },
+
     render: function() {
-        var buttonSet = this.props.easybuttons? basicbuttons: buttons;
+        var sortedButtonSets = _.sortBy(this.props.sets,
+            (setName) => _.keys(buttonSets).indexOf(setName));
+
+        var buttonSet = _(sortedButtonSets).map(setName => buttonSets[setName]);
 
         var buttonRows = _(buttonSet).map(row => row.map(symbGen => {
             // create a (component, thing we should send to mathquill) pair
@@ -110,12 +115,19 @@ var TexButtons = React.createClass({
         }));
 
         var buttonPopup = _(buttonRows).map((row, i) => {
-            return <div className="clearfix tex-button-row">{row}</div>;
+            return <div className="clearfix tex-button-row"
+                    key={this.props.sets[i]}>
+                {row}
+            </div>;
         });
 
         return <div className={this.props.className}>
             {buttonPopup}
         </div>;
+    },
+    statics: {
+        buttonSets,
+        buttonSetsType
     }
 });
 
