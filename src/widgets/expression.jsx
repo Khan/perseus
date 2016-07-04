@@ -33,6 +33,7 @@ var Expression = React.createClass({
         enabledFeatures: EnabledFeatures.propTypes,
         apiOptions: ApiOptions.propTypes,
         buttonSets: TexButtons.buttonSetsType,
+        easybuttons: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -44,11 +45,20 @@ var Expression = React.createClass({
             onBlur: function() { },
             enabledFeatures: EnabledFeatures.defaults,
             apiOptions: ApiOptions.defaults,
-            buttonSets: ["basic"],
         };
     },
 
     getInitialState: function() {
+        if (!this.props.buttonSets)
+        {
+            if(!this.props.easybuttons) {
+                this.props.buttonSets = ["basic", "relations", "trig", "prealgebra"];
+            }
+            else {
+                this.props.buttonSets = ["basic"];
+            }
+        }
+
         return {
             showErrorTooltip: false,
             showErrorText: false
@@ -246,6 +256,7 @@ var ExpressionEditor = React.createClass({
         times: React.PropTypes.bool,
         functions: React.PropTypes.arrayOf(React.PropTypes.string),
         buttonSets: TexButtons.buttonSetsType,
+        easybuttons: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -255,11 +266,21 @@ var ExpressionEditor = React.createClass({
             simplify: false,
             times: true,
             functions: ["f", "g", "h"],
-            buttonSets: ["basic"],
+            easybuttons: true
         };
     },
 
     getInitialState: function() {
+        if (!this.props.buttonSets)
+        {
+            if(!this.props.easybuttons) {
+                this.props.buttonSets = ["basic", "relations", "trig", "prealgebra"];
+            }
+            else {
+                this.props.buttonSets = ["basic"];
+            }
+        }
+
         var value = this.props.value;
 
         return {
@@ -445,7 +466,7 @@ module.exports = {
     },
     editor: ExpressionEditor,
     transform: (editorProps) => {
-        return _.pick(editorProps, "times", "functions", "buttonSets");
+        return _.pick(editorProps, "times", "functions", "buttonSets", "easybuttons");
     },
     hidden: false
 };

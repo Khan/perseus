@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 5cf3e2473f77a306b73f9d880050e3faa7f9c8b1
+// commit 311755991f0930c375852d7da5b5e517c1447d2a
 // branch upgrade_expression
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
@@ -13628,6 +13628,7 @@ var Expression = React.createClass({displayName: 'Expression',
         enabledFeatures: EnabledFeatures.propTypes,
         apiOptions: ApiOptions.propTypes,
         buttonSets: TexButtons.buttonSetsType,
+        easybuttons: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -13639,11 +13640,20 @@ var Expression = React.createClass({displayName: 'Expression',
             onBlur: function() { },
             enabledFeatures: EnabledFeatures.defaults,
             apiOptions: ApiOptions.defaults,
-            buttonSets: ["basic"],
         };
     },
 
     getInitialState: function() {
+        if (!this.props.buttonSets)
+        {
+            if(!this.props.easybuttons) {
+                this.props.buttonSets = ["basic", "relations", "trig", "prealgebra"];
+            }
+            else {
+                this.props.buttonSets = ["basic"];
+            }
+        }
+
         return {
             showErrorTooltip: false,
             showErrorText: false
@@ -13841,6 +13851,7 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
         times: React.PropTypes.bool,
         functions: React.PropTypes.arrayOf(React.PropTypes.string),
         buttonSets: TexButtons.buttonSetsType,
+        easybuttons: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -13850,11 +13861,21 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
             simplify: false,
             times: true,
             functions: ["f", "g", "h"],
-            buttonSets: ["basic"],
+            easybuttons: true
         };
     },
 
     getInitialState: function() {
+        if (!this.props.buttonSets)
+        {
+            if(!this.props.easybuttons) {
+                this.props.buttonSets = ["basic", "relations", "trig", "prealgebra"];
+            }
+            else {
+                this.props.buttonSets = ["basic"];
+            }
+        }
+
         var value = this.props.value;
 
         return {
@@ -14040,7 +14061,7 @@ module.exports = {
     },
     editor: ExpressionEditor,
     transform: function(editorProps)  {
-        return _.pick(editorProps, "times", "functions", "buttonSets");
+        return _.pick(editorProps, "times", "functions", "buttonSets", "easybuttons");
     },
     hidden: false
 };
