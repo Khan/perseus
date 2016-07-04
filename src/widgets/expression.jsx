@@ -32,6 +32,7 @@ var Expression = React.createClass({
         buttonsVisible: React.PropTypes.oneOf(['always', 'never', 'focused']),
         enabledFeatures: EnabledFeatures.propTypes,
         apiOptions: ApiOptions.propTypes,
+        buttonSets: TexButtons.buttonSetsType,
     },
 
     getDefaultProps: function() {
@@ -43,6 +44,7 @@ var Expression = React.createClass({
             onBlur: function() { },
             enabledFeatures: EnabledFeatures.defaults,
             apiOptions: ApiOptions.defaults,
+            buttonSets: ["basic"],
         };
     },
 
@@ -120,6 +122,7 @@ var Expression = React.createClass({
                     onChange={this.change("value")}
                     convertDotToTimes={this.props.times}
                     buttonsVisible={this.props.buttonsVisible || "focused"}
+                    buttonSets={this.props.buttonSets}
                     onFocus={this._handleFocus}
                     onBlur={this._handleBlur} />
                 {this.state.showErrorTooltip && errorTooltip}
@@ -442,7 +445,7 @@ module.exports = {
     },
     editor: ExpressionEditor,
     transform: (editorProps) => {
-        return _.pick(editorProps, "times", "functions");
+        return _.pick(editorProps, "times", "functions", "buttonSets");
     },
     hidden: false
 };

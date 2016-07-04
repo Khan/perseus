@@ -92,8 +92,6 @@ var buttonSetsType = React.PropTypes.arrayOf(
 var TexButtons = React.createClass({
     propTypes: {
         onInsert: React.PropTypes.func.isRequired,
-        easybuttons: React.PropTypes.bool,
-        trigbuttons: React.PropTypes.bool,
         sets: buttonSetsType.isRequired,
     },
 

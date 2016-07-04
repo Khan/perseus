@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 38eb99651f27376f72e20e36a2335e048793903c
+// commit 5cf3e2473f77a306b73f9d880050e3faa7f9c8b1
 // branch upgrade_expression
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
@@ -5780,7 +5780,7 @@ var MathInput = React.createClass({displayName: 'MathInput',
         buttonsVisible: PT.oneOf(['always', 'never', 'focused']),
         onFocus: PT.func,
         onBlur: PT.func,
-        easybuttons: PT.bool
+        buttonSets: TexButtons.buttonSetsType.isRequired,
     },
 
     render: function() {
@@ -5799,7 +5799,7 @@ var MathInput = React.createClass({displayName: 'MathInput',
                 {className:"math-input-buttons absolute",
                 convertDotToTimes:this.props.convertDotToTimes,
                 onInsert:this.insert, 
-                easybuttons:this.props.easybuttons} );
+                sets:this.props.buttonSets} );
         }
 
         return React.DOM.div( {style:{display: "inline-block"}}, 
@@ -6983,8 +6983,6 @@ var buttonSetsType = React.PropTypes.arrayOf(
 var TexButtons = React.createClass({displayName: 'TexButtons',
     propTypes: {
         onInsert: React.PropTypes.func.isRequired,
-        easybuttons: React.PropTypes.bool,
-        trigbuttons: React.PropTypes.bool,
         sets: buttonSetsType.isRequired,
     },
 
@@ -13629,6 +13627,7 @@ var Expression = React.createClass({displayName: 'Expression',
         buttonsVisible: React.PropTypes.oneOf(['always', 'never', 'focused']),
         enabledFeatures: EnabledFeatures.propTypes,
         apiOptions: ApiOptions.propTypes,
+        buttonSets: TexButtons.buttonSetsType,
     },
 
     getDefaultProps: function() {
@@ -13640,6 +13639,7 @@ var Expression = React.createClass({displayName: 'Expression',
             onBlur: function() { },
             enabledFeatures: EnabledFeatures.defaults,
             apiOptions: ApiOptions.defaults,
+            buttonSets: ["basic"],
         };
     },
 
@@ -13717,6 +13717,7 @@ var Expression = React.createClass({displayName: 'Expression',
                     onChange:this.change("value"),
                     convertDotToTimes:this.props.times,
                     buttonsVisible:this.props.buttonsVisible || "focused",
+                    buttonSets:this.props.buttonSets,
                     onFocus:this._handleFocus,
                     onBlur:this._handleBlur} ),
                 this.state.showErrorTooltip && errorTooltip
@@ -14039,7 +14040,7 @@ module.exports = {
     },
     editor: ExpressionEditor,
     transform: function(editorProps)  {
-        return _.pick(editorProps, "times", "functions");
+        return _.pick(editorProps, "times", "functions", "buttonSets");
     },
     hidden: false
 };
