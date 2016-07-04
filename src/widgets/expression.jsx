@@ -326,6 +326,7 @@ var ExpressionEditor = React.createClass({
             var className = isFirst ?
                 "button-set-label-float" :
                 "button-set-label";
+
             var chineseName = "";
             switch (name){
                 case "basic":

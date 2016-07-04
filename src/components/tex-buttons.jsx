@@ -68,8 +68,6 @@ var buttonSets = {
 
     prealgebra:[
         () => [<TeX>{"\\sqrt{x}"}</TeX>, "\\sqrt"],
-        // TODO(joel) - how does desmos do this?
-        // ["\\sqrt[3]{x}", "\\sqrt[3]{x}"],
         () => [
             <TeX style={slightlyBig}>a^□</TeX>,
             input => {
@@ -85,6 +83,7 @@ var buttonSets = {
 
 };
 
+//declare buttonSetsType type from buttonSets
 var buttonSetsType = React.PropTypes.arrayOf(
         React.PropTypes.oneOf(_(buttonSets).keys())
     );
@@ -96,9 +95,11 @@ var TexButtons = React.createClass({
     },
 
     render: function() {
+        // sort sets by buttonSets
         var sortedButtonSets = _.sortBy(this.props.sets,
             (setName) => _.keys(buttonSets).indexOf(setName));
 
+        // combine array by sortedButtonSets 
         var buttonSet = _(sortedButtonSets).map(setName => buttonSets[setName]);
 
         var buttonRows = _(buttonSet).map(row => row.map(symbGen => {
