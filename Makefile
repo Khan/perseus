@@ -8,6 +8,7 @@ PERSEUS_DEMO_BUILD_JS=build/demo-perseus.js
 PERSEUS_NODE_BUILD_JS=build/node-perseus.js
 PERSEUS_EDITOR_BUILD_JS=build/editor-perseus.js
 PERSEUS_VERSION_FILE=build/perseus-item-version.js
+MIN_PERSEUS_BUILD=build/perseus.min.js
 
 help:
 	@echo "make server PORT=9000         # runs the perseus server"
@@ -25,14 +26,27 @@ watch: install
 fastbuild:
 	echo "Use `make watch` instead!"
 
+define minify
+./node_modules/.bin/uglifyjs $1 --mangle -r '$,$_,i18n' --beautify beautify=0,semicolons=0 -o $2
+endef
+
+define add_git_meta
+echo "// commit `git rev-parse HEAD`" >> $1
+echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $1
+echo "// @gene""rated" >> $1
+endef
+
+minify: $(MIN_PERSEUS_BUILD)
+
+$(MIN_PERSEUS_BUILD): $(PERSEUS_BUILD_JS)
+	$(call minify,$(PERSEUS_BUILD_JS),$@)
+
 $(PERSEUS_BUILD_JS): install
 	mkdir -p build
 	NODE_ENV=production ./node_modules/.bin/webpack
 	mv $@ $@.tmp
 	echo '/*! Perseus | http://github.com/Khan/perseus */' > $@
-	echo "// commit `git rev-parse HEAD`" >> $@
-	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $@
-	echo "// @gene""rated" >> $@
+	$(call add_git_meta,$@)
 	cat $@.tmp >> $@
 	rm $@.tmp
 
@@ -41,9 +55,7 @@ $(PERSEUS_NODE_BUILD_JS): install
 	NODE_ENV=production INCLUDE_EDITORS=true ./node_modules/.bin/webpack --config webpack.config.node-perseus.js
 	mv $@ $@.tmp
 	echo '/*! Nodeified Perseus | http://github.com/Khan/perseus */' > $@
-	echo "// commit `git rev-parse HEAD`" >> $@
-	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $@
-	echo "// @gene""rated" >> $@
+	$(call add_git_meta,$@)
 	cat $@.tmp >> $@
 	rm $@.tmp
 
@@ -53,8 +65,7 @@ $(PERSEUS_DEMO_BUILD_JS): install
 	NODE_ENV=production INCLUDE_EDITORS=true ./node_modules/.bin/webpack --config webpack.config.demo-perseus.js
 	mv $@ $@.tmp
 	echo '/*! Demo perseus | http://github.com/Khan/perseus */' > $@
-	echo "// commit `git rev-parse HEAD`" >> $@
-	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $@
+	$(call add_git_meta,$@)
 	cat $@.tmp >> $@
 	rm $@.tmp
 
@@ -63,26 +74,21 @@ $(PERSEUS_EDITOR_BUILD_JS): install
 	NODE_ENV=production INCLUDE_EDITORS=true ./node_modules/.bin/webpack
 	mv $@ $@.tmp
 	echo '/*! Perseus with editors | http://github.com/Khan/perseus */' > $@
-	echo "// commit `git rev-parse HEAD`" >> $@
-	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $@
-	echo "// @gene""rated" >> $@
+	$(call add_git_meta,$@)
 	cat $@.tmp >> $@
 	rm $@.tmp
 
 $(PERSEUS_BUILD_CSS): install
 	mkdir -p build
 	echo '/* Perseus CSS' > $@
-	echo " * commit `git rev-parse HEAD`" >> $@
-	echo " * branch `git rev-parse --abbrev-ref HEAD`" >> $@
-	echo " * @gene""rated */" >> $@
+	$(call add_git_meta,$@)
+	echo '*/'
 	./node_modules/.bin/lessc stylesheets/exercise-content-package/perseus.less >> $@
 
 $(PERSEUS_VERSION_FILE): install
 	mkdir -p build
 	echo '// Perseus Version File' > $@
-	echo "// commit `git rev-parse HEAD`" >> $@
-	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $@
-	echo "// @gene""rated" >> $@
+	$(call add_git_meta,$@)
 	node node/create-item-version-file.js >> $@
 
 serve: server

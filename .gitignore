@@ -5,4 +5,5 @@ node_modules/*
 !node_modules/react-addons-create-fragment/
 !node_modules/underscore/
 
+build/perseus.min.js
 perseus.sublime-workspace
