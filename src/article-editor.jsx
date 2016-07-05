@@ -253,6 +253,10 @@ const ArticleEditor = React.createClass({
                 content={this.props.frameSource}
                 datasetKey="mobile"
                 datasetValue={isMobile}
+                seamless={
+                    this.props.screen === "noframe" ||
+                    this.props.screen === "noframe-wide"
+                }
             />
         </DeviceFramer>;
     },
