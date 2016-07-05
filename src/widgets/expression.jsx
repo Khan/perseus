@@ -49,16 +49,6 @@ var Expression = React.createClass({
     },
 
     getInitialState: function() {
-        if (!this.props.buttonSets)
-        {
-            if(!this.props.easybuttons) {
-                this.props.buttonSets = ["basic", "relations", "trig", "prealgebra"];
-            }
-            else {
-                this.props.buttonSets = ["basic"];
-            }
-        }
-
         return {
             showErrorTooltip: false,
             showErrorText: false
@@ -76,6 +66,18 @@ var Expression = React.createClass({
     },
 
     render: function() {
+        // for old questions without buttonSets, make buttonSets by easybuttons
+        if (!this.props.buttonSets)
+        {
+            if(!this.props.easybuttons) {
+                this.props.buttonSets = ["basic", "relations", "trig", "prealgebra"];
+            }
+            else {
+                this.props.buttonSets = ["basic"];
+            }
+            this.props.onChange;
+        }
+
         if (this.props.apiOptions.staticRender) {
             var style = {
                 borderRadius: "5px",
@@ -271,15 +273,6 @@ var ExpressionEditor = React.createClass({
     },
 
     getInitialState: function() {
-        if (!this.props.buttonSets)
-        {
-            if(!this.props.easybuttons) {
-                this.props.buttonSets = ["basic", "relations", "trig", "prealgebra"];
-            }
-            else {
-                this.props.buttonSets = ["basic"];
-            }
-        }
 
         var value = this.props.value;
 
@@ -291,6 +284,18 @@ var ExpressionEditor = React.createClass({
     },
 
     render: function() {
+        // for editing old questions, make buttonSets by easybuttons
+        if (!this.props.buttonSets)
+        {
+            if(!this.props.easybuttons) {
+                this.props.buttonSets = ["basic", "relations", "trig", "prealgebra"];
+            }
+            else {
+                this.props.buttonSets = ["basic"];
+            }
+            this.props.onChange;
+        }
+
         var simplifyWarning = null;
         var shouldTryToParse = this.props.simplify && this.props.value !== "";
         if (shouldTryToParse) {

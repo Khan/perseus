@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 311755991f0930c375852d7da5b5e517c1447d2a
+// commit 575371b5b4ee201ea4a800d1145bbfe1b8fb1edc
 // branch upgrade_expression
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
@@ -6959,8 +6959,6 @@ var buttonSets = {
 
     prealgebra:[
         function()  {return [TeX(null, "\\sqrt{x}"), "\\sqrt"];},
-        // TODO(joel) - how does desmos do this?
-        // ["\\sqrt[3]{x}", "\\sqrt[3]{x}"],
         function()  {return [
             TeX( {style:slightlyBig}, "a^□"),
             function(input)  {
@@ -6976,6 +6974,7 @@ var buttonSets = {
 
 };
 
+//declare buttonSetsType type from buttonSets
 var buttonSetsType = React.PropTypes.arrayOf(
         React.PropTypes.oneOf(_(buttonSets).keys())
     );
@@ -6987,9 +6986,11 @@ var TexButtons = React.createClass({displayName: 'TexButtons',
     },
 
     render: function() {
+        // sort sets by buttonSets
         var sortedButtonSets = _.sortBy(this.props.sets,
             function(setName)  {return _.keys(buttonSets).indexOf(setName);});
 
+        // combine array by sortedButtonSets 
         var buttonSet = _(sortedButtonSets).map(function(setName)  {return buttonSets[setName];});
 
         var buttonRows = _(buttonSet).map(function(row)  {return row.map(function(symbGen)  {
@@ -13644,16 +13645,6 @@ var Expression = React.createClass({displayName: 'Expression',
     },
 
     getInitialState: function() {
-        if (!this.props.buttonSets)
-        {
-            if(!this.props.easybuttons) {
-                this.props.buttonSets = ["basic", "relations", "trig", "prealgebra"];
-            }
-            else {
-                this.props.buttonSets = ["basic"];
-            }
-        }
-
         return {
             showErrorTooltip: false,
             showErrorText: false
@@ -13671,6 +13662,18 @@ var Expression = React.createClass({displayName: 'Expression',
     },
 
     render: function() {
+        // for old questions without buttonSets, make buttonSets by easybuttons
+        if (!this.props.buttonSets)
+        {
+            if(!this.props.easybuttons) {
+                this.props.buttonSets = ["basic", "relations", "trig", "prealgebra"];
+            }
+            else {
+                this.props.buttonSets = ["basic"];
+            }
+            this.props.onChange;
+        }
+
         if (this.props.apiOptions.staticRender) {
             var style = {
                 borderRadius: "5px",
@@ -13866,15 +13869,6 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
     },
 
     getInitialState: function() {
-        if (!this.props.buttonSets)
-        {
-            if(!this.props.easybuttons) {
-                this.props.buttonSets = ["basic", "relations", "trig", "prealgebra"];
-            }
-            else {
-                this.props.buttonSets = ["basic"];
-            }
-        }
 
         var value = this.props.value;
 
@@ -13886,6 +13880,18 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
     },
 
     render: function() {
+        // for editing old questions, make buttonSets by easybuttons
+        if (!this.props.buttonSets)
+        {
+            if(!this.props.easybuttons) {
+                this.props.buttonSets = ["basic", "relations", "trig", "prealgebra"];
+            }
+            else {
+                this.props.buttonSets = ["basic"];
+            }
+            this.props.onChange;
+        }
+
         var simplifyWarning = null;
         var shouldTryToParse = this.props.simplify && this.props.value !== "";
         if (shouldTryToParse) {
@@ -13921,6 +13927,7 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
             var className = isFirst ?
                 "button-set-label-float" :
                 "button-set-label";
+
             var chineseName = "";
             switch (name){
                 case "basic":
