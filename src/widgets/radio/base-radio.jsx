@@ -76,7 +76,6 @@ const BaseRadio = React.createClass({
         apiOptions: React.PropTypes.shape({
             readOnly: React.PropTypes.bool,
             responsiveStyling: React.PropTypes.bool,
-            mobileStyling: React.PropTypes.bool,
             satStyling: React.PropTypes.bool,
             xomManatee: React.PropTypes.bool,
         }),
@@ -115,12 +114,6 @@ const BaseRadio = React.createClass({
                 },
             },
 
-            mobileInstructions: {
-                [mediaQueries.mdOrLarger]: {
-                    marginBottom: 20,
-                },
-            },
-
             radio: {
                 // Avoid centering
                 width: "100%",
@@ -145,41 +138,10 @@ const BaseRadio = React.createClass({
                 },
             },
 
-            mobileRadio: {
-                [mediaQueries.mdOrLarger]: {
-                    background: "none",
-                    color: styleConstants.gray,
-                    marginLeft: 0,
-                },
-            },
-
             satRadio: {
                 background: "none",
                 marginLeft: 0,
                 userSelect: "none",
-            },
-
-            mobileRadioOption: {
-                [mediaQueries.mdOrLarger]: {
-                    background: "white",
-                    position: "relative",
-                    border: `2px solid ${styleConstants.gray}`,
-                    borderRadius: 28,
-                    boxSizing: "border-box",
-                    cursor: "pointer",
-                    display: "block",
-                    font: `700 14pt/30px
-                        "Avenir", "Helvetica", "Arial", sans-serif`,
-                    marginLeft: 20,
-                    marginBottom: 10,
-                    overflow: "hidden",
-                    padding: "8px 10px",
-                    ":active": {
-                        backgroundColor: styleConstants.blue,
-                        borderColor: styleConstants.blue,
-                        color: "white",
-                    },
-                },
             },
 
             satRadioOption: {
@@ -189,17 +151,6 @@ const BaseRadio = React.createClass({
 
             satReviewRadioOption: {
                 pointerEvents: "none",
-            },
-
-            mobileRadioSelected: {
-                [mediaQueries.mdOrLarger]: {
-                    borderColor: styleConstants.blue,
-                    color: styleConstants.blue,
-                    fontWeight: "bold",
-                    ":active": {
-                        color: "white",
-                    },
-                },
             },
 
             item: {
@@ -316,7 +267,6 @@ const BaseRadio = React.createClass({
         const styles = BaseRadio.styles;
 
         const responsive = this.props.apiOptions.responsiveStyling;
-        const mobile = this.props.apiOptions.mobileStyling;
         const sat = this.props.apiOptions.satStyling;
         const xomManatee = this.props.apiOptions.xomManatee;
 
@@ -328,7 +278,6 @@ const BaseRadio = React.createClass({
                 styles.radio,
                 responsive && (xomManatee ? styles.responsiveRadioXomManatee :
                                styles.responsiveRadio),
-                mobile && styles.mobileRadio,
                 sat && styles.satRadio
             ),
             "above-scratchpad",
@@ -338,8 +287,8 @@ const BaseRadio = React.createClass({
             }
         );
 
-        const instructionsClassName = "instructions " + css(styles.instructions,
-            mobile && styles.mobileInstructions);
+        const instructionsClassName =
+            `instructions ${css(styles.instructions)}`;
         const instructions = this.getInstructionsText();
         const shouldShowInstructions = this.props.apiOptions.xomManatee ||
                 this.props.multipleSelect;
@@ -399,8 +348,6 @@ const BaseRadio = React.createClass({
                                            styles.responsiveItem),
                             responsive && checked && xomManatee &&
                                 styles.responsiveSelected,
-                            mobile && styles.mobileRadioOption,
-                            mobile && checked && styles.mobileRadioSelected,
                             sat && styles.satRadioOption,
                             sat && checked && styles.satRadioSelected,
                             sat && rubric && styles.satReviewRadioOption

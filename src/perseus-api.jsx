@@ -50,12 +50,6 @@ module.exports = {
             // Remove by 2016/07/01
             responsiveStyling: React.PropTypes.bool.isRequired,
 
-            // TODO(benkomalo): this is legacy mobile styling used in the old
-            // iPad app. This should be removed when XOM launches (it should
-            // always be false)
-            // Remove by 2016/07/01
-            mobileStyling: React.PropTypes.bool.isRequired,
-
             satStyling: React.PropTypes.bool.isRequired,
             onInputError: React.PropTypes.func.isRequired,
             onFocusChange: React.PropTypes.func.isRequired,
