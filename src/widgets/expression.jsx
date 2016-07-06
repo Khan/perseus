@@ -442,7 +442,12 @@ var ExpressionEditor = React.createClass({
 
         // Filter to preserve order - using .union and .difference would always
         // move the last added button set to the end.
+        // Because filter by buttonSetNames, the order can be keep
         var buttonSets = _(buttonSetNames).filter(set => {
+            // if set in original buttonSets & set is changingName => false
+            // if set in original buttonSets & set is not changingName => true
+            // if set not in original buttonSets & set is changingName => true
+            // if set not in original buttonSets & set is not changingName => false
             return _(this.props.buttonSets).contains(set) !==
                    (set === changingName);
         });
