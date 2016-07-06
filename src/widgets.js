@@ -20,6 +20,14 @@ var Widgets = {
         editors[name] = editor;
     },
 
+    registerMany: function(widgets) {
+        widgets.forEach((widget, editor) => {
+            widget && this.register(widget.name, widget, editor);
+        });
+
+        this.validateAlignments();
+    },
+
     getWidget: function(name, enabledFeatures) {
         // TODO(alex): Consider referring to these as renderers to avoid
         // overloading "widget"

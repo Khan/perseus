@@ -2,7 +2,9 @@
 /* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-require("../all-widgets.js");
+const allWidgets = require("../all-widgets.js");
+const Widgets = require("../widgets.js");
+Widgets.registerMany(allWidgets);
 
 var assert = require("assert");
 var i18n = require("../i18n.jsx");

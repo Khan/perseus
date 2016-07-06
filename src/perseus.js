@@ -1,6 +1,8 @@
 const version = require("./version.json");
 
-require("./all-widgets.js");
+const allWidgets = require("./all-widgets.js");
+const Widgets = require("./widgets.js");
+Widgets.registerMany(allWidgets);
 
 module.exports = {
     apiVersion:             version.apiVersion,
