@@ -27,6 +27,7 @@ module.exports = {
     gray17: "#21242C",
     // @gray76: #babec2;
     gray76: "#BABEC2",
+    gray95: "#ECEDEF",
     // @pure-sm-min: 568px;
     pureSmMin: "568px",
     // @pure-md-min: 768px;

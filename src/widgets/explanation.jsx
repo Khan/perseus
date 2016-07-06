@@ -12,6 +12,7 @@ const Changeable = require("../mixins/changeable.jsx");
 const PerseusApi = require("../perseus-api.jsx");
 const Renderer = require("../renderer.jsx");
 const mediaQueries = require("../styles/media-queries.js");
+const styleConstants = require("../styles/constants.js");
 
 var defaultExplanationProps = {
     showPrompt: "Explain",
@@ -92,25 +93,43 @@ var Explanation = React.createClass({
     },
 
     render: function() {
+        const xomManateeEnabled = this.props.apiOptions.xomManatee;
         const { Link } = this.props.apiOptions.baseElements;
 
-        const linkAnchor = '[' +
-            (this.state.expanded ?
-                this.props.hidePrompt : this.props.showPrompt) +
-            ']';
+        let linkAnchor = this.state.expanded ?
+                this.props.hidePrompt : this.props.showPrompt;
+        if (!xomManateeEnabled) {
+            linkAnchor = `[${linkAnchor}]`;
+        }
 
         return <div className={css(styles.container)}>
-            <Link
-                className={css(styles.explanationLink)}
-                href={this.props.apiOptions.readOnly ?
-                      null : "javascript:void(0)"}
-                onClick={this.props.apiOptions.readOnly ? null : this._onClick}
-            >
-                {linkAnchor}
-            </Link>
+            <div className={css(styles.explanationLinkContainer)}>
+                <Link
+                    className={css(styles.explanationLink)}
+                    href={this.props.apiOptions.readOnly ?
+                          null : "javascript:void(0)"}
+                    onClick={this.props.apiOptions.readOnly ?
+                        null : this._onClick}
+                >
+                    {linkAnchor}
+                </Link>
+                {xomManateeEnabled &&
+                    this.state.expanded &&
+                    <svg className={css(styles.disclosureArrow)}>
+                        <polygon
+                            style={{fill: backgroundColor}}
+                            points={`0,${arrowHeight} ` +
+                                `${arrowWidth},${arrowHeight} ` +
+                                `${arrowWidth / 2},0`}
+                        />
+                    </svg>}
+            </div>
             <div className={css(
                     styles.content,
-                    this.state.expanded && styles.contentExpanded
+                    xomManateeEnabled && styles.contentXom,
+                    this.state.expanded && (
+                        xomManateeEnabled ?
+                            styles.contentExpandedXom : styles.contentExpanded)
                 )}
                 style={{
                     height: this.state.expanded ? this.state.contentHeight : 0,
@@ -140,13 +159,21 @@ var Explanation = React.createClass({
 const leftBorderSpacing = 23;
 const verticalContentSpacing = 22;
 
+const arrowWidth = 30;
+const arrowHeight = 14;
+const backgroundColor = styleConstants.gray95;
+
 const styles = StyleSheet.create({
     container: {
         display: 'inline',
+        position: 'relative',
+    },
+
+    explanationLinkContainer: {
+        display: 'inline-block',
     },
 
     explanationLink: {
-        display: 'inline-block',
         fontStyle: 'italic',
         color: '#007d96',
 
@@ -170,7 +197,7 @@ const styles = StyleSheet.create({
 
     content: {
         position: 'relative',
-        transition: 'height 0.1s',
+        transition: 'all 0.1s',
     },
 
     contentExpanded: {
@@ -179,6 +206,39 @@ const styles = StyleSheet.create({
         paddingLeft: leftBorderSpacing,
         marginBottom: verticalContentSpacing,
         marginTop: verticalContentSpacing,
+    },
+
+    contentXom: {
+        background: backgroundColor,
+
+        // TODO(benkomalo): this is to "full bleed" the background.
+        // The actual content padding differs depending on the host
+        // container, so this needs to be fixed eventually.
+        marginLeft: styleConstants.negativePhoneMargin,
+        marginRight: styleConstants.negativePhoneMargin,
+        paddingLeft: styleConstants.phoneMargin,
+        paddingRight: styleConstants.phoneMargin,
+    },
+
+    contentExpandedXom: {
+        marginTop: arrowHeight,
+        marginBottom: arrowHeight,
+        paddingTop: 10,
+        paddingBottom: 10,
+    },
+
+    disclosureArrow: {
+        // HACK - positioning at "bottom: 0", doesn't actually position it to
+        // the real bottom, because the container is `inline-block`, and it
+        // seems to position it to the baseline? We put in a generous
+        // fudge factor to position it down to be flush with the content box
+        // below it.
+        bottom: -(arrowHeight + 5),
+        height: arrowHeight,
+        left: '50%',
+        marginLeft: -(arrowWidth / 2),
+        position: 'absolute',
+        width: arrowWidth,
     },
 });
 
