@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 575371b5b4ee201ea4a800d1145bbfe1b8fb1edc
+// commit da2b86ee570056bb8fb4390c62fb2bf309aaf9ef
 // branch upgrade_expression
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
@@ -6986,12 +6986,12 @@ var TexButtons = React.createClass({displayName: 'TexButtons',
     },
 
     render: function() {
-        // sort sets by buttonSets
-        var sortedButtonSets = _.sortBy(this.props.sets,
-            function(setName)  {return _.keys(buttonSets).indexOf(setName);});
+        // sort this.props.sets component by key_index of buttonSets 
+        // var sortedButtonSets = _.sortBy(this.props.sets,
+        //     (setName) => _.keys(buttonSets).indexOf(setName));
 
-        // combine array by sortedButtonSets 
-        var buttonSet = _(sortedButtonSets).map(function(setName)  {return buttonSets[setName];});
+        // make buttonSet(checked) by this.props.sets from buttonSets(template) 
+        var buttonSet = _(this.props.sets).map(function(setName)  {return buttonSets[setName];});
 
         var buttonRows = _(buttonSet).map(function(row)  {return row.map(function(symbGen)  {
             // create a (component, thing we should send to mathquill) pair
@@ -13854,7 +13854,7 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
         times: React.PropTypes.bool,
         functions: React.PropTypes.arrayOf(React.PropTypes.string),
         buttonSets: TexButtons.buttonSetsType,
-        easybuttons: React.PropTypes.bool,
+        easybuttons: React.PropTypes.bool
     },
 
     getDefaultProps: function() {
@@ -13869,7 +13869,6 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
     },
 
     getInitialState: function() {
-
         var value = this.props.value;
 
         return {

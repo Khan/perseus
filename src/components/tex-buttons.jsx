@@ -95,12 +95,12 @@ var TexButtons = React.createClass({
     },
 
     render: function() {
-        // sort sets by buttonSets
-        var sortedButtonSets = _.sortBy(this.props.sets,
-            (setName) => _.keys(buttonSets).indexOf(setName));
+        // sort this.props.sets component by key_index of buttonSets 
+        // var sortedButtonSets = _.sortBy(this.props.sets,
+        //     (setName) => _.keys(buttonSets).indexOf(setName));
 
-        // combine array by sortedButtonSets 
-        var buttonSet = _(sortedButtonSets).map(setName => buttonSets[setName]);
+        // make buttonSet(checked) by this.props.sets from buttonSets(template) 
+        var buttonSet = _(this.props.sets).map(setName => buttonSets[setName]);
 
         var buttonRows = _(buttonSet).map(row => row.map(symbGen => {
             // create a (component, thing we should send to mathquill) pair

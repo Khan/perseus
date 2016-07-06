@@ -258,7 +258,7 @@ var ExpressionEditor = React.createClass({
         times: React.PropTypes.bool,
         functions: React.PropTypes.arrayOf(React.PropTypes.string),
         buttonSets: TexButtons.buttonSetsType,
-        easybuttons: React.PropTypes.bool,
+        easybuttons: React.PropTypes.bool
     },
 
     getDefaultProps: function() {
@@ -273,7 +273,6 @@ var ExpressionEditor = React.createClass({
     },
 
     getInitialState: function() {
-
         var value = this.props.value;
 
         return {
