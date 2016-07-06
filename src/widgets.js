@@ -21,7 +21,7 @@ var Widgets = {
     },
 
     registerMany: function(widgets) {
-        widgets.forEach((widget, editor) => {
+        widgets.forEach(([widget, editor]) => {
             widget && this.register(widget.name, widget, editor);
         });
 
