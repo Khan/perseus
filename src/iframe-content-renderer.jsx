@@ -90,6 +90,7 @@ const IframeContentRenderer = React.createClass({
     },
 
     _prepareFrame: function() {
+        // Don't initialize the iframe until the page has loaded
         if (this._frame) {
             this.refs.container.removeChild(this._frame);
         }
@@ -97,6 +98,7 @@ const IframeContentRenderer = React.createClass({
         this._frame = document.createElement("iframe");
         this._frame.style.width = "100%";
         this._frame.style.height = "100%";
+
         if (this.props.datasetKey) {
             // If the user has specified a data-* attribute to place on the
             // iframe, we set it here. Right now, this is used to
@@ -105,11 +107,27 @@ const IframeContentRenderer = React.createClass({
                 this.props.datasetValue;
         }
         this._frame.dataset.id = this.iframeID;
-        this.refs.container.appendChild(this._frame);
 
-        this._frame.contentWindow.document.open();
-        this._frame.contentWindow.document.write(this.props.content);
-        this._frame.contentWindow.document.close();
+        // To make sure the value of location.href inside the iframe is the
+        // same as the location of the parent, we wait for the iframe to
+        // load before writing contents. Without the wait, the location
+        // inside the iframe becomes "about:blank", which causes problems
+        // with loading $LAB.
+        this._frame.onload = () => {
+            this._frame.onload = null;
+
+            // To prevent an issue with the contents of the iframe not being
+            // loaded properly, where the javascript inside the iframe is
+            // not executed, we push the content window write to the end
+            // of the event queue.
+            setTimeout(() => {
+                this._frame.contentWindow.document.open();
+                this._frame.contentWindow.document.write(this.props.content);
+                this._frame.contentWindow.document.close();
+            });
+        };
+
+        this.refs.container.appendChild(this._frame);
     },
 
     sendNewData: function(data) {
