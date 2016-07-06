@@ -74,7 +74,7 @@ const IframeContentRenderer = React.createClass({
         if (!this.props.seamless) {
             this.refs.container.style.height = "100%";
         } else {
-            this.refs.container.style.height = this._lastData + "px";
+            this.refs.container.style.height = this._lastHeight + "px";
         }
 
         if (prevProps.content !== this.props.content ||
