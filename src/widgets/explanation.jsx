@@ -2,13 +2,16 @@
 /* eslint-disable comma-dangle, indent, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require("react");
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const { StyleSheet, css } = require("aphrodite");
+const React = require("react");
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
+const $ = require("jQuery");
 
-var Changeable = require("../mixins/changeable.jsx");
-var PerseusApi = require("../perseus-api.jsx");
-var Renderer = require("../renderer.jsx");
+const Changeable = require("../mixins/changeable.jsx");
+const PerseusApi = require("../perseus-api.jsx");
+const Renderer = require("../renderer.jsx");
+const mediaQueries = require("../styles/media-queries.js");
 
 var defaultExplanationProps = {
     showPrompt: "Explain",
@@ -91,23 +94,30 @@ var Explanation = React.createClass({
     render: function() {
         const { Link } = this.props.apiOptions.baseElements;
 
-        return <div className="perseus-widget-explanation">
+        const linkAnchor = '[' +
+            (this.state.expanded ?
+                this.props.hidePrompt : this.props.showPrompt) +
+            ']';
+
+        return <div className={css(styles.container)}>
             <Link
-                className="perseus-widget-explanation-link"
-                /* Disable the link when read-only, so it doesn't look
-                 * clickable */
+                className={css(styles.explanationLink)}
                 href={this.props.apiOptions.readOnly ?
                       null : "javascript:void(0)"}
-                onClick={this.props.apiOptions.readOnly ? null : this._onClick}>
-
-                {"[" + (this.state.expanded ?
-                        this.props.hidePrompt :
-                        this.props.showPrompt) + "]"}
+                onClick={this.props.apiOptions.readOnly ? null : this._onClick}
+            >
+                {linkAnchor}
             </Link>
-            <div className="perseus-widget-explanation-content" style={{
+            <div className={css(
+                    styles.content,
+                    this.state.expanded && styles.contentExpanded
+                )}
+                style={{
                     height: this.state.expanded ? this.state.contentHeight : 0,
                     overflow: this.state.expanded ? "visible" : "hidden"
-                }} ref="content">
+                }}
+                ref="content"
+            >
                 <Renderer
                     apiOptions={this.props.apiOptions}
                     content={this.props.explanation}
@@ -124,6 +134,52 @@ var Explanation = React.createClass({
     simpleValidate: function(rubric) {
         return Explanation.validate(this.getUserInput(), rubric);
     }
+});
+
+
+const leftBorderSpacing = 23;
+const verticalContentSpacing = 22;
+
+const styles = StyleSheet.create({
+    container: {
+        display: 'inline',
+    },
+
+    explanationLink: {
+        display: 'inline-block',
+        fontStyle: 'italic',
+        color: '#007d96',
+
+        // TODO(benkomalo): these should be pulled in from common typography
+        // shared files so we have a single place where the type hierarchy is
+        // defined; one off font sizes for individual components should be
+        // avoided.
+        [mediaQueries.xl]: {
+            fontSize: 20,
+            lineHeight: 1.1,
+        },
+        [mediaQueries.lgOrSmaller]: {
+            fontSize: 17,
+            lineHeight: 1.4,
+        },
+        [mediaQueries.smOrSmaller]: {
+            fontSize: 14,
+            lineHeight: 1.3,
+        },
+    },
+
+    content: {
+        position: 'relative',
+        transition: 'height 0.1s',
+    },
+
+    contentExpanded: {
+        borderLeft: '5px solid #ccc',
+        marginLeft: -leftBorderSpacing,
+        paddingLeft: leftBorderSpacing,
+        marginBottom: verticalContentSpacing,
+        marginTop: verticalContentSpacing,
+    },
 });
 
 _.extend(Explanation, {
