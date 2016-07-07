@@ -1,11 +1,12 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-undef, no-var */
+/* eslint-disable comma-dangle, indent, no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
  * Create a Mocked Movable
  */
 
+const _ = require("underscore");
 var Movable = require("../movable.js");
 
 var createMock = function() {

@@ -1,6 +1,9 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-undef, no-var */
+/* globals jest */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+const _ = require("underscore");
 
 // Returns a promise that will resolve shortly after the end of this
 // browser tick (roughly a `setTimeout(0)`)

@@ -1,9 +1,10 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, max-len, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable comma-dangle, max-len, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React         = require("react");
 var ReactDOM = require("react-dom");
+const _ = require("underscore");
 var TeX           = require("react-components/tex.jsx");
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var Tooltip       = require("react-components/tooltip.jsx");

@@ -1,11 +1,12 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable indent, no-trailing-spaces, no-undef, no-var */
+/* globals beforeEach, expect */
+/* eslint-disable indent, no-trailing-spaces, no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 
 describe("split diff", function() {
     var splitDiff;
-    
+
     beforeEach(function() {
         splitDiff = require("../split-diff.jsx");
     });

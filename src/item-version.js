@@ -1,4 +1,3 @@
-
 const allWidgets = require('./all-widgets.js');
 const Widgets = require('./widgets.js');
 const Version = require('./version.json');

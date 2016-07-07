@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-undef, no-unused-vars, no-var */
+/* eslint-disable comma-dangle, no-unused-vars, no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -8,6 +8,7 @@
 
 var assert = require("assert");
 var React = require('react');
+const _ = require("underscore");
 var InputNumber = require("../input-number.jsx");
 
 var TestUtils = React.addons.TestUtils;
