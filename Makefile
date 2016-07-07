@@ -82,7 +82,7 @@ $(PERSEUS_BUILD_CSS): install
 	mkdir -p build
 	echo '/* Perseus CSS' > $@
 	$(call add_git_meta,$@)
-	echo '*/'
+	echo '*/' >> $@
 	./node_modules/.bin/lessc stylesheets/exercise-content-package/perseus.less >> $@
 
 $(PERSEUS_VERSION_FILE): install
