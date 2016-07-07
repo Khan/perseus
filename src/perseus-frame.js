@@ -36,7 +36,7 @@ Perseus.init({skipMathJax: false}).then(function() {
     const isMobile =
         window.frameElement.getAttribute("data-mobile") === "true";
     ReactDOM.render(
-        <div style={{overflow: "scroll", height: "100%"}} id="measured">
+        <div style={{overflow: "hidden"}} id="measured">
             <PreviewFrame isMobile={isMobile} />
         </div>,
         document.getElementById("content-container")

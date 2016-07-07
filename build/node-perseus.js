@@ -1,5 +1,5 @@
 /*! Nodeified Perseus | http://github.com/Khan/perseus */
-// commit 44faa2f29a6aa3ebf0915fd746aa5c0f3e57007b
+// commit 6ef8ef53ce07c4447884aeba5034631d5143da8d
 // branch master
 // @generated
 module.exports =
@@ -1742,7 +1742,7 @@ module.exports =
 	var _ = __webpack_require__(50);
 
 	var traversal = __webpack_require__(34);
-	var PerseusMarkdown = __webpack_require__(38);
+	var PerseusMarkdown = __webpack_require__(35);
 
 	// Takes a renderer content and parses the markdown for images
 	function findImagesInContent(content, images) {
@@ -1884,10 +1884,10 @@ module.exports =
 
 	var ApiOptions = __webpack_require__(8).Options;
 	var Editor = __webpack_require__(16);
-	var EnabledFeatures = __webpack_require__(35);
-	var JsonEditor = __webpack_require__(36);
+	var EnabledFeatures = __webpack_require__(36);
+	var JsonEditor = __webpack_require__(37);
 	var DeviceFramer = __webpack_require__(11);
-	var IframeContentRenderer = __webpack_require__(37);
+	var IframeContentRenderer = __webpack_require__(38);
 
 	var rendererProps = React.PropTypes.shape({
 	    content: React.PropTypes.string,
@@ -2269,13 +2269,13 @@ module.exports =
 
 	var ApiOptions = __webpack_require__(8).Options;
 	var DragTarget = __webpack_require__(52);
-	var EnabledFeatures = __webpack_require__(35);
-	var PerseusMarkdown = __webpack_require__(38);
-	var PropCheckBox = __webpack_require__(39);
+	var EnabledFeatures = __webpack_require__(36);
+	var PerseusMarkdown = __webpack_require__(35);
+	var PropCheckBox = __webpack_require__(43);
 	var Util = __webpack_require__(9);
 	var Widgets = __webpack_require__(21);
 
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(40);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(44);
 
 	// like [[snowman input-number 1]]
 	var widgetPlaceholder = "[[☃ {id}]]";
@@ -3316,12 +3316,12 @@ module.exports =
 	var _ = __webpack_require__(50);
 
 	var ApiClassNames = __webpack_require__(8).ClassNames;
-	var ApiOptionsProps = __webpack_require__(41);
-	var CombinedHintsEditor = __webpack_require__(42);
-	var EnabledFeatures = __webpack_require__(35);
-	var FixPassageRefs = __webpack_require__(43);
-	var ItemEditor = __webpack_require__(44);
-	var JsonEditor = __webpack_require__(36);
+	var ApiOptionsProps = __webpack_require__(45);
+	var CombinedHintsEditor = __webpack_require__(46);
+	var EnabledFeatures = __webpack_require__(36);
+	var FixPassageRefs = __webpack_require__(47);
+	var ItemEditor = __webpack_require__(48);
+	var JsonEditor = __webpack_require__(37);
 	var ViewportResizer = __webpack_require__(10);
 
 	var EditorPage = React.createClass({
@@ -3622,11 +3622,11 @@ module.exports =
 	    };
 	}
 
-	const _ = __webpack_require__(45);
+	const _ = __webpack_require__(39);
 	global._ = window._ = _;
 
 	// Add window.btoa polyfill
-	const btoa = __webpack_require__(81);
+	const btoa = __webpack_require__(74);
 	global.btoa = window.btoa = btoa;
 
 	// Create a function to copy globals from `window` to `global`
@@ -3649,14 +3649,14 @@ module.exports =
 	    // but some other deps (including requirejs) require it to be
 	    // undefined to detect that we are running in Node.
 	    // We therefore define it only while loading React.
-	    __webpack_require__(46);
+	    __webpack_require__(40);
 	    return window.React;
 	});
-	__webpack_require__(47);
+	__webpack_require__(41);
 	updateGlobals();
 
 	// First-party global dependencies
-	__webpack_require__(48);
+	__webpack_require__(42);
 	updateGlobals();
 
 	global.__EDITOR__ = true;
@@ -4270,7 +4270,7 @@ module.exports =
 	var _ = __webpack_require__(50);
 
 	var ApiOptions = __webpack_require__(8).Options;
-	var EnabledFeatures = __webpack_require__(35);
+	var EnabledFeatures = __webpack_require__(36);
 	var HintsRenderer = __webpack_require__(26);
 	var Renderer = __webpack_require__(27);
 	var ProvideKeypad = __webpack_require__(58);
@@ -4692,7 +4692,7 @@ module.exports =
 	var _ = __webpack_require__(50);
 
 	var ApiOptions = __webpack_require__(8).Options;
-	var EnabledFeatures = __webpack_require__(35);
+	var EnabledFeatures = __webpack_require__(36);
 	var HintsRenderer = __webpack_require__(26);
 	var Renderer = __webpack_require__(27);
 	var Util = __webpack_require__(9);
@@ -5013,8 +5013,8 @@ module.exports =
 
 	var HintRenderer = __webpack_require__(60);
 	var SvgImage = __webpack_require__(33);
-	var EnabledFeatures = __webpack_require__(35);
-	var ApiOptionsProps = __webpack_require__(41);
+	var EnabledFeatures = __webpack_require__(36);
+	var ApiOptionsProps = __webpack_require__(45);
 
 	var _require2 = __webpack_require__(61);
 
@@ -5250,7 +5250,7 @@ module.exports =
 	var classNames = __webpack_require__(86);
 
 	var JiptParagraphs = __webpack_require__(62);
-	var PerseusMarkdown = __webpack_require__(38);
+	var PerseusMarkdown = __webpack_require__(35);
 	var QuestionParagraph = __webpack_require__(63);
 	var SvgImage = __webpack_require__(33);
 	var TeX = __webpack_require__(64);
@@ -5258,8 +5258,8 @@ module.exports =
 	var Widgets = __webpack_require__(21);
 
 	var Util = __webpack_require__(9);
-	var EnabledFeatures = __webpack_require__(35);
-	var ApiOptionsProps = __webpack_require__(41);
+	var EnabledFeatures = __webpack_require__(36);
+	var ApiOptionsProps = __webpack_require__(45);
 	var ApiClassNames = __webpack_require__(8).ClassNames;
 	var Zoomable = __webpack_require__(66);
 	var Deferred = __webpack_require__(67);
@@ -6740,9 +6740,9 @@ module.exports =
 	var classNames = __webpack_require__(86);
 	var React = __webpack_require__(49);
 
-	var diff = __webpack_require__(69);
-	var splitDiff = __webpack_require__(70);
-	var stringArrayDiff = __webpack_require__(71);
+	var diff = __webpack_require__(70);
+	var splitDiff = __webpack_require__(71);
+	var stringArrayDiff = __webpack_require__(72);
 
 	var BEFORE = "before";
 	var AFTER = "after";
@@ -6947,7 +6947,7 @@ module.exports =
 	var classNames = __webpack_require__(86);
 	var React = __webpack_require__(49);
 
-	var performDiff = __webpack_require__(72);
+	var performDiff = __webpack_require__(73);
 
 	var indentationFromDepth = function indentationFromDepth(depth) {
 	    return (depth - 1) * 20;
@@ -7194,7 +7194,7 @@ module.exports =
 	 */
 	var React = __webpack_require__(49);
 
-	var TextListEditor = __webpack_require__(73);
+	var TextListEditor = __webpack_require__(69);
 	var EMPTY_ARRAY = [];
 
 	var StubTagEditor = React.createClass({
@@ -7252,7 +7252,7 @@ module.exports =
 /* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";var _typeof=typeof Symbol==="function"&&typeof Symbol.iterator==="symbol"?function(obj){return typeof obj;}:function(obj){return obj&&typeof Symbol==="function"&&obj.constructor===Symbol?"symbol":typeof obj;};/* global i18n:false, Modernizr:false */var $=__webpack_require__(55);var _=__webpack_require__(50);var retrieveMathFormula=__webpack_require__(78).retrieveMathFormula;var localeToFixed=__webpack_require__(79);var KhanMath=__webpack_require__(80);var MAXERROR_EPSILON=Math.pow(2,-42);// Function used to get the text of the choices, which is then used
+	"use strict";var _typeof=typeof Symbol==="function"&&typeof Symbol.iterator==="symbol"?function(obj){return typeof obj;}:function(obj){return obj&&typeof Symbol==="function"&&obj.constructor===Symbol?"symbol":typeof obj;};/* global i18n:false, Modernizr:false */var $=__webpack_require__(55);var _=__webpack_require__(50);var retrieveMathFormula=__webpack_require__(79).retrieveMathFormula;var localeToFixed=__webpack_require__(80);var KhanMath=__webpack_require__(81);var MAXERROR_EPSILON=Math.pow(2,-42);// Function used to get the text of the choices, which is then used
 	// to check against the correct answer
 	var extractRawCode=function extractRawCode(elem){var $elem=$(elem).clone(true);var code=$elem.find("code");if(code.length){// If there are <code> tags in the element, remove them and replace
 	// them with their original formulas
@@ -7876,11 +7876,11 @@ module.exports =
 	var React = __webpack_require__(49);
 	var _ = __webpack_require__(50);
 
-	var FixedToResponsive = __webpack_require__(74);
-	var Graphie = __webpack_require__(75);
-	var ImageLoader = __webpack_require__(76);
+	var FixedToResponsive = __webpack_require__(75);
+	var Graphie = __webpack_require__(76);
+	var ImageLoader = __webpack_require__(77);
 	var Util = __webpack_require__(9);
-	var Zoom = __webpack_require__(77);
+	var Zoom = __webpack_require__(78);
 
 	// Minimum image width to make an image appear as zoomable.
 	var ZOOMABLE_THRESHOLD = 700;
@@ -8623,311 +8623,6 @@ module.exports =
 /* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(49);
-
-	module.exports = {
-	    propTypes: React.PropTypes.shape({
-	        toolTipFormats: React.PropTypes.bool.isRequired,
-	        useMathQuill: React.PropTypes.bool.isRequired,
-	        // TODO(charlie): Once the XOM Manatee Beta has completed, clean up this
-	        // flag.
-	        newHintStyles: React.PropTypes.bool
-	    }).isRequired,
-
-	    defaults: {
-	        newHintStyles: false,
-	        // TODO(jack): Remove this two options
-	        toolTipFormats: true,
-	        useMathQuill: false
-	    }
-	};
-
-/***/ },
-/* 36 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-undef, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp, space-infix-ops */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(49);
-
-	var JsonEditor = React.createClass({
-	    displayName: "JsonEditor",
-
-
-	    getInitialState: function getInitialState() {
-	        return {
-	            currentValue: JSON.stringify(this.props.value, null, 4),
-	            valid: true
-	        };
-	    },
-
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var shouldReplaceContent = !this.state.valid || !_.isEqual(nextProps.value, JSON.parse(this.state.currentValue));
-
-	        if (shouldReplaceContent) {
-	            this.setState(this.getInitialState());
-	        }
-	    },
-
-	    render: function render() {
-	        var classes = "perseus-json-editor " + (this.state.valid ? "valid" : "invalid");
-
-	        return React.createElement("textarea", {
-	            className: classes,
-	            value: this.state.currentValue,
-	            onChange: this.handleChange,
-	            onKeyDown: this.handleKeyDown,
-	            onBlur: this.handleBlur });
-	    },
-
-	    handleKeyDown: function handleKeyDown(e) {
-	        // This handler allows the tab character to be entered by pressing
-	        // tab, instead of jumping to the next (non-existant) field
-	        if (e.key === "Tab") {
-	            var cursorPos = e.target.selectionStart;
-	            var v = e.target.value;
-	            var textBefore = v.substring(0, cursorPos);
-	            var textAfter = v.substring(cursorPos, v.length);
-	            e.target.value = textBefore + "    " + textAfter;
-	            e.target.selectionStart = textBefore.length + 4;
-	            e.target.selectionEnd = textBefore.length + 4;
-
-	            e.preventDefault();
-	            this.handleChange(e);
-	        }
-	    },
-
-	    handleChange: function handleChange(e) {
-	        var nextString = e.target.value;
-	        try {
-	            var json = JSON.parse(nextString);
-	            // Some extra handling to allow copy-pasting from /api/vi
-	            if (_.isString(json)) {
-	                json = JSON.parse(json);
-	            }
-	            // This callback unfortunately causes multiple renders,
-	            // but seems to be necessary to avoid componentWillReceiveProps
-	            // being called before setState has gone through
-	            this.setState({
-	                currentValue: nextString,
-	                valid: true
-	            }, function () {
-	                this.props.onChange(json);
-	            });
-	        } catch (ex) {
-	            this.setState({
-	                currentValue: nextString,
-	                valid: false
-	            });
-	        }
-	    },
-
-	    // You can type whatever you want as you're typing, but if it's not valid
-	    // when you blur, it will revert to the last valid value.
-	    handleBlur: function handleBlur(e) {
-	        var nextString = e.target.value;
-	        try {
-	            var json = JSON.parse(nextString);
-	            // Some extra handling to allow copy-pasting from /api/vi
-	            if (_.isString(json)) {
-	                json = JSON.parse(json);
-	            }
-	            // This callback unfortunately causes multiple renders,
-	            // but seems to be necessary to avoid componentWillReceiveProps
-	            // being called before setState has gone through
-	            this.setState({
-	                currentValue: JSON.stringify(json, null, 4),
-	                valid: true
-	            }, function () {
-	                this.props.onChange(json);
-	            });
-	        } catch (ex) {
-	            this.setState({
-	                currentValue: JSON.stringify(this.props.value, null, 4),
-	                valid: true
-	            });
-	        }
-	    }
-	});
-
-	module.exports = JsonEditor;
-
-/***/ },
-/* 37 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* eslint-disable no-console */
-
-	/**
-	 * Displays the given content in an iframe, isolating it from the parent page
-	 *
-	 * To simulate the environment of content rendered by itself, content previews
-	 * are rendered inside iframes, where components such as the math keypad work
-	 * because the body of the document is not the body of the editor. To make this
-	 * work, this component renders an iframe and can communicate objects to it
-	 * through postMessage. The recipient then needs to listen for these messages
-	 * and pull out the appropriate object stored in the parent's iframeDataStore
-	 * to get the data to render. When the iframe is loaded, it's javascript calls
-	 * its requestIframeData function in the parent, which triggers the parent to
-	 * send the current data.
-	 */
-
-	var React = __webpack_require__(49);
-
-	var nextIframeID = 0;
-	var requestIframeData = {};
-	var updateIframeHeight = {};
-	window.iframeDataStore = {};
-
-	// This is only called once per iframe, after Perseus is loaded and the frame
-	// is ready to render content.
-	window.addEventListener("message", function (event) {
-	    if (typeof event.data === "string") {
-	        requestIframeData[event.data]();
-	    } else if (event.data.id) {
-	        updateIframeHeight[event.data.id](event.data.height);
-	    }
-	});
-
-	var IframeContentRenderer = React.createClass({
-	    displayName: "IframeContentRenderer",
-
-	    propTypes: {
-	        // The HTML content to render to the iframe
-	        content: React.PropTypes.string.isRequired,
-
-	        // The data-* suffix for passing information to the iframe's JS
-	        datasetKey: React.PropTypes.any,
-
-	        // The value of the data-* attribute
-	        datasetValue: React.PropTypes.any,
-
-	        // Whether to make the iframe's height match its content's height,
-	        // used to prevent scrolling inside the iframe.
-	        seamless: React.PropTypes.bool
-	    },
-
-	    componentDidMount: function componentDidMount() {
-	        var _this = this;
-
-	        this.iframeID = nextIframeID;
-	        nextIframeID++;
-
-	        this._prepareFrame();
-	        requestIframeData[this.iframeID] = function () {
-	            _this.sendNewData(_this._lastData);
-	        };
-
-	        updateIframeHeight[this.iframeID] = function (height) {
-	            _this._lastHeight = height;
-	            if (_this.isMounted() && _this.props.seamless) {
-	                _this.refs.container.style.height = height + "px";
-	            }
-	        };
-	    },
-
-	    shouldComponentUpdate: function shouldComponentUpdate(nextProps) {
-	        return nextProps.content !== this.props.content || nextProps.datasetValue !== this.props.datasetValue || nextProps.seamless !== this.props.seamless;
-	    },
-
-	    componentDidUpdate: function componentDidUpdate(prevProps) {
-	        if (!this.props.seamless) {
-	            this.refs.container.style.height = "100%";
-	        } else {
-	            this.refs.container.style.height = this._lastData + "px";
-	        }
-
-	        if (prevProps.content !== this.props.content || prevProps.datasetValue !== this.props.datasetValue) {
-	            // Not just a change in seamless
-	            this._prepareFrame();
-	        }
-	    },
-
-	    componentWillUnmount: function componentWillUnmount() {
-	        requestIframeData[this.iframeID] = null;
-	        updateIframeHeight[this.iframeID] = null;
-	    },
-
-	    _prepareFrame: function _prepareFrame() {
-	        var _this2 = this;
-
-	        // Don't initialize the iframe until the page has loaded
-	        if (this._frame) {
-	            this.refs.container.removeChild(this._frame);
-	        }
-
-	        this._frame = document.createElement("iframe");
-	        this._frame.style.width = "100%";
-	        this._frame.style.height = "100%";
-
-	        if (this.props.datasetKey) {
-	            // If the user has specified a data-* attribute to place on the
-	            // iframe, we set it here. Right now, this is used to
-	            // communicate if the iframe should be enabling touch emulation.
-	            this._frame.dataset[this.props.datasetKey] = this.props.datasetValue;
-	        }
-	        this._frame.dataset.id = this.iframeID;
-
-	        // To make sure the value of location.href inside the iframe is the
-	        // same as the location of the parent, we wait for the iframe to
-	        // load before writing contents. Without the wait, the location
-	        // inside the iframe becomes "about:blank", which causes problems
-	        // with loading $LAB.
-	        this._frame.onload = function () {
-	            _this2._frame.onload = null;
-
-	            // To prevent an issue with the contents of the iframe not being
-	            // loaded properly, where the javascript inside the iframe is
-	            // not executed, we push the content window write to the end
-	            // of the event queue.
-	            setTimeout(function () {
-	                _this2._frame.contentWindow.document.open();
-	                _this2._frame.contentWindow.document.write(_this2.props.content);
-	                _this2._frame.contentWindow.document.close();
-	            });
-	        };
-
-	        this.refs.container.appendChild(this._frame);
-	    },
-
-	    sendNewData: function sendNewData(data) {
-	        if (this.isMounted() && data) {
-	            this._lastData = data;
-
-	            // We can't use JSON.stringify/parse for this because the apiOptions
-	            // includes the functions GroupMetadataEditor, groupAnnotator,
-	            // onFocusChange, and onInputError.
-	            window.iframeDataStore[this.iframeID] = data;
-	            this._frame.contentWindow.postMessage(this.iframeID, "*");
-	        }
-	    },
-
-	    render: function render() {
-	        return React.createElement("div", {
-	            ref: "container",
-	            style: { width: "100%" }
-	        });
-	    }
-	});
-
-	module.exports = IframeContentRenderer;
-
-/***/ },
-/* 38 */
-/***/ function(module, exports, __webpack_require__) {
-
 	"use strict";
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -8939,7 +8634,7 @@ module.exports =
 	/* globals KA */
 	var _ = __webpack_require__(50);
 
-	var SimpleMarkdown = __webpack_require__(170);
+	var SimpleMarkdown = __webpack_require__(169);
 	var TeX = __webpack_require__(64);
 	var Util = __webpack_require__(9);
 
@@ -9410,770 +9105,312 @@ module.exports =
 	};
 
 /***/ },
-/* 39 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(49);
-	var _ = __webpack_require__(50);
-
-	/* A checkbox that syncs its value to props using the
-	 * renderer's onChange method, and gets the prop name
-	 * dynamically from its props list
-	 */
-	var PropCheckBox = React.createClass({
-	    displayName: "PropCheckBox",
-
-	    propTypes: {
-	        labelAlignment: React.PropTypes.oneOf(["left", "right"])
-	    },
-
-	    DEFAULT_PROPS: {
-	        label: null,
-	        onChange: null,
-	        labelAlignment: "left"
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return this.DEFAULT_PROPS;
-	    },
-
-	    propName: function propName() {
-	        var propName = _.find(_.keys(this.props), function (localPropName) {
-	            return !_.has(this.DEFAULT_PROPS, localPropName);
-	        }, this);
-
-	        if (!propName) {
-	            throw new Error("Attempted to create a PropCheckBox with no " + "prop!");
-	        }
-
-	        return propName;
-	    },
-
-	    _labelAlignLeft: function _labelAlignLeft() {
-	        return this.props.labelAlignment === "left";
-	    },
-
-	    render: function render() {
-	        var propName = this.propName();
-	        return React.createElement(
-	            "label",
-	            null,
-	            this._labelAlignLeft() && this.props.label,
-	            React.createElement("input", { type: "checkbox",
-	                checked: this.props[propName],
-	                onChange: this.toggle }),
-	            !this._labelAlignLeft() && this.props.label
-	        );
-	    },
-
-	    toggle: function toggle() {
-	        var propName = this.propName();
-	        var changes = {};
-	        changes[propName] = !this.props[propName];
-	        this.props.onChange(changes);
-	    }
-	});
-
-	module.exports = PropCheckBox;
-
-/***/ },
-/* 40 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * These are things that widgets should exclude when serializing themselves.
-	 *
-	 * The use of this list needs to die. Basically, there are codepaths that
-	 * blindly serialize the "props" of a widget so that it can pass around its
-	 * info. Unfortunately, props aren't guaranteed to be serializable, and
-	 * automatically serializing schemaless list of attributes causes issues (e.g.
-	 * circular JSON structures sometimes).
-	 *
-	 * This blacklists things that we know don't need to be serialized.
-	 */
-	module.exports = [
-	// standard props "added" by react
-	// (technically the renderer still adds them)
-	"key", "ref",
-	// added by src/renderer.jsx
-	"containerSizeClass", "widgetId", "onChange", "problemNum", "enabledFeatures", "apiOptions", "questionCompleted", "interWidgets",
-	// added by src/editor.jsx, for widgets removing themselves
-	// this is soooo not the right place for this, but alas.
-	"onRemove",
-	// also added by src/editor.jsx
-	"id",
-	// Callbacks and items for interaction handling
-	"onBlur", "onFocus", "trackInteraction", "keypadElement"];
-
-/***/ },
-/* 41 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	/**
-	 * A mixin that accepts the `apiOptions` prop, and populates any missing values
-	 * with defaults.
-	 */
-	var React = __webpack_require__(49);
-
-	var ApiOptions = __webpack_require__(8).Options;
-
-	var ApiOptionsProps = {
-	    propTypes: {
-	        // TODO(mdr): Should this actually be objectOf(any)?
-	        apiOptions: React.PropTypes.any
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return { apiOptions: {} };
-	    },
-	    getApiOptions: function getApiOptions() {
-	        return _extends({}, ApiOptions.defaults, this.props.apiOptions);
-	    }
-	};
-
-	module.exports = ApiOptionsProps;
-
-/***/ },
-/* 42 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	/* Collection of classes for rendering the hint editor area,
-	 * hint editor boxes, and hint previews
-	 */
-
-	var React = __webpack_require__(49);
-	var _ = __webpack_require__(50);
-
-	var Editor = __webpack_require__(16);
-	var InfoTip = __webpack_require__(82);
-	var DeviceFramer = __webpack_require__(11);
-
-	var ApiOptions = __webpack_require__(8).Options;
-	var EnabledFeatures = __webpack_require__(35);
-	var IframeContentRenderer = __webpack_require__(37);
-
-	/* Renders a hint editor box
-	 *
-	 * This includes:
-	 *  ~ A "Hint" title
-	 *  ~ the textarea for the hint
-	 *  ~ the "remove this hint" box
-	 *  ~ the move hint up/down arrows
-	 */
-	var HintEditor = React.createClass({
-	    displayName: "HintEditor",
-
-	    propTypes: {
-	        apiOptions: ApiOptions.propTypes,
-	        enabledFeatures: EnabledFeatures.propTypes,
-	        imageUploader: React.PropTypes.func
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            content: "",
-	            replace: false
-	        };
-	    },
-
-	    handleChange: function handleChange(e) {
-	        this.props.onChange({ replace: e.target.checked });
-	    },
-
-	    render: function render() {
-	        return React.createElement(
-	            "div",
-	            { className: "perseus-hint-editor perseus-editor-left-cell" },
-	            React.createElement(
-	                "div",
-	                { className: "pod-title" },
-	                "Hint"
-	            ),
-	            React.createElement(Editor, { ref: "editor",
-	                enabledFeatures: this.props.enabledFeatures,
-	                apiOptions: this.props.apiOptions,
-	                widgets: this.props.widgets,
-	                content: this.props.content,
-	                images: this.props.images,
-	                replace: this.props.replace,
-	                placeholder: "Type your hint here...",
-	                imageUploader: this.props.imageUploader,
-	                onChange: this.props.onChange }),
-	            React.createElement(
-	                "div",
-	                { className: "hint-controls-container clearfix" },
-	                React.createElement(
-	                    "span",
-	                    { className: "reorder-hints" },
-	                    React.createElement(
-	                        "button",
-	                        { type: "button",
-	                            className: this.props.isLast ? "hidden" : "",
-	                            onClick: _.partial(this.props.onMove, 1) },
-	                        React.createElement("span", { className: "icon-circle-arrow-down" })
-	                    ),
-	                    ' ',
-	                    React.createElement(
-	                        "button",
-	                        { type: "button",
-	                            className: this.props.isFirst ? "hidden" : "",
-	                            onClick: _.partial(this.props.onMove, -1) },
-	                        React.createElement("span", { className: "icon-circle-arrow-up" })
-	                    ),
-	                    ' ',
-	                    this.props.isLast && React.createElement(
-	                        InfoTip,
-	                        null,
-	                        React.createElement(
-	                            "p",
-	                            null,
-	                            "The last hint is automatically bolded."
-	                        )
-	                    )
-	                ),
-	                React.createElement("input", { type: "checkbox",
-	                    checked: this.props.replace,
-	                    onChange: this.handleChange
-	                }),
-	                "Replace previous hint",
-	                React.createElement(
-	                    "button",
-	                    { type: "button",
-	                        className: "remove-hint simple-button orange",
-	                        onClick: this.props.onRemove },
-	                    React.createElement("span", { className: "icon-trash" }),
-	                    " Remove this hint",
-	                    ' '
-	                )
-	            )
-	        );
-	    },
-
-	    focus: function focus() {
-	        this.refs.editor.focus();
-	    },
-
-	    getSaveWarnings: function getSaveWarnings() {
-	        return this.refs.editor.getSaveWarnings();
-	    },
-
-	    serialize: function serialize(options) {
-	        return this.refs.editor.serialize(options);
-	    }
-	});
-
-	/* A single hint-row containing a hint editor and preview */
-	var CombinedHintEditor = React.createClass({
-	    displayName: "CombinedHintEditor",
-
-	    propTypes: {
-	        apiOptions: ApiOptions.propTypes,
-	        deviceType: React.PropTypes.string.isRequired,
-	        enabledFeatures: EnabledFeatures.propTypes,
-	        frameSource: React.PropTypes.string.isRequired,
-	        imageUploader: React.PropTypes.func
-	    },
-
-	    updatePreview: function updatePreview() {
-	        var shouldBold = this.props.isLast && !/\*\*/.test(this.props.hint.content);
-
-	        this.refs.frame.sendNewData({
-	            type: "hint",
-	            data: {
-	                hint: this.props.hint,
-	                bold: shouldBold,
-	                pos: this.props.pos,
-	                enabledFeatures: this.props.enabledFeatures,
-	                apiOptions: this.props.apiOptions
-	            }
-	        });
-	    },
-
-	    componentDidMount: function componentDidMount() {
-	        this.updatePreview();
-	    },
-
-	    componentDidUpdate: function componentDidUpdate() {
-	        this.updatePreview();
-	    },
-
-	    render: function render() {
-	        var isMobile = this.props.deviceType === "phone" || this.props.deviceType === "tablet";
-	        return React.createElement(
-	            "div",
-	            { className: "perseus-combined-hint-editor " + "perseus-editor-row" },
-	            React.createElement(HintEditor, {
-	                ref: "editor",
-	                isFirst: this.props.isFirst,
-	                isLast: this.props.isLast,
-	                widgets: this.props.hint.widgets,
-	                content: this.props.hint.content,
-	                images: this.props.hint.images,
-	                replace: this.props.hint.replace,
-	                imageUploader: this.props.imageUploader,
-	                onChange: this.props.onChange,
-	                onRemove: this.props.onRemove,
-	                onMove: this.props.onMove,
-	                enabledFeatures: this.props.enabledFeatures,
-	                apiOptions: this.props.apiOptions }),
-	            React.createElement(
-	                "div",
-	                {
-	                    className: "perseus-editor-right-cell"
-	                },
-	                React.createElement(
-	                    DeviceFramer,
-	                    { deviceType: this.props.deviceType },
-	                    React.createElement(IframeContentRenderer, {
-	                        ref: "frame",
-	                        content: this.props.frameSource,
-	                        datasetKey: "mobile",
-	                        datasetValue: isMobile,
-	                        seamless: this.props.deviceType === "noframe" || this.props.deviceType === "noframe-wide"
-	                    })
-	                )
-	            )
-	        );
-	    },
-
-	    getSaveWarnings: function getSaveWarnings() {
-	        return this.refs.editor.getSaveWarnings();
-	    },
-
-	    serialize: function serialize(options) {
-	        return this.refs.editor.serialize(options);
-	    },
-
-	    focus: function focus() {
-	        this.refs.editor.focus();
-	    }
-	});
-
-	/* The entire hints editing/preview area
-	 *
-	 * Includes:
-	 *  ~ All the hint edit boxes, move and remove buttons
-	 *  ~ All the hint previews
-	 *  ~ The "add a hint" button
-	 */
-	var CombinedHintsEditor = React.createClass({
-	    displayName: "CombinedHintsEditor",
-
-	    propTypes: {
-	        apiOptions: ApiOptions.propTypes,
-	        deviceType: React.PropTypes.string.isRequired,
-	        enabledFeatures: EnabledFeatures.propTypes,
-	        frameSource: React.PropTypes.string.isRequired,
-	        imageUploader: React.PropTypes.func
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            onChange: function onChange() {},
-	            hints: []
-	        };
-	    },
-
-	    render: function render() {
-	        var hints = this.props.hints;
-	        var hintElems = _.map(hints, function (hint, i) {
-	            return React.createElement(CombinedHintEditor, {
-	                ref: "hintEditor" + i,
-	                key: "hintEditor" + i,
-	                isFirst: i === 0,
-	                isLast: i + 1 === hints.length,
-	                hint: hint,
-	                pos: i,
-	                imageUploader: this.props.imageUploader,
-	                onChange: this.handleHintChange.bind(this, i),
-	                onRemove: this.handleHintRemove.bind(this, i),
-	                onMove: this.handleHintMove.bind(this, i),
-	                deviceType: this.props.deviceType,
-	                enabledFeatures: this.props.enabledFeatures,
-	                apiOptions: this.props.apiOptions,
-	                frameSource: this.props.frameSource });
-	        }, this);
-
-	        return React.createElement(
-	            "div",
-	            { className: "perseus-hints-editor perseus-editor-table" },
-	            hintElems,
-	            React.createElement(
-	                "div",
-	                { className: "perseus-editor-row" },
-	                React.createElement(
-	                    "div",
-	                    { className: "add-hint-container perseus-editor-left-cell" },
-	                    React.createElement(
-	                        "button",
-	                        { type: "button",
-	                            className: "add-hint simple-button orange",
-	                            onClick: this.addHint },
-	                        React.createElement("span", { className: "icon-plus" }),
-	                        ' ',
-	                        "Add a hint"
-	                    )
-	                )
-	            )
-	        );
-	    },
-
-	    handleHintChange: function handleHintChange(i, newProps, cb, silent) {
-	        // TODO(joel) - lens
-	        var hints = _(this.props.hints).clone();
-	        hints[i] = _.extend({}, this.serializeHint(i, { keepDeletedWidgets: true }), newProps);
-
-	        this.props.onChange({ hints: hints }, cb, silent);
-	    },
-
-	    handleHintRemove: function handleHintRemove(i) {
-	        var hints = _(this.props.hints).clone();
-	        hints.splice(i, 1);
-	        this.props.onChange({ hints: hints });
-	    },
-
-	    handleHintMove: function handleHintMove(i, dir) {
-	        var _this = this;
-
-	        var hints = _(this.props.hints).clone();
-	        var hint = hints.splice(i, 1)[0];
-	        hints.splice(i + dir, 0, hint);
-	        this.props.onChange({ hints: hints }, function () {
-	            _this.refs["hintEditor" + (i + dir)].focus();
-	        });
-	    },
-
-	    addHint: function addHint() {
-	        var _this2 = this;
-
-	        var hints = _(this.props.hints).clone().concat([{ content: "" }]);
-	        this.props.onChange({ hints: hints }, function () {
-	            var i = hints.length - 1;
-	            _this2.refs["hintEditor" + i].focus();
-	        });
-	    },
-
-	    getSaveWarnings: function getSaveWarnings() {
-	        var _this3 = this;
-
-	        return _.chain(this.props.hints).map(function (hint, i) {
-	            return _.map(_this3.refs["hintEditor" + i].getSaveWarnings(), function (issue) {
-	                return "Hint " + (i + 1) + ": " + issue;
-	            });
-	        }).flatten(true).value();
-	    },
-
-	    serialize: function serialize(options) {
-	        var _this4 = this;
-
-	        return this.props.hints.map(function (hint, i) {
-	            return _this4.serializeHint(i, options);
-	        });
-	    },
-
-	    serializeHint: function serializeHint(index, options) {
-	        return this.refs["hintEditor" + index].serialize(options);
-	    }
-	});
-
-	module.exports = CombinedHintsEditor;
-
-/***/ },
-/* 43 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
+	'use strict';
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-var */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var _ = __webpack_require__(50);
+	var React = __webpack_require__(49);
 
-	var Traversal = __webpack_require__(34);
+	module.exports = {
+	    propTypes: React.PropTypes.shape({
+	        toolTipFormats: React.PropTypes.bool.isRequired,
+	        useMathQuill: React.PropTypes.bool.isRequired,
+	        // TODO(charlie): Once the XOM Manatee Beta has completed, clean up this
+	        // flag.
+	        newHintStyles: React.PropTypes.bool
+	    }).isRequired,
 
-	var findPassageRefR = new RegExp(
-	// [[ passage-ref 1]]
-	// capture 1: widget markdown
-	// capture 2: widgetId
-	"(\\[\\[☃ (passage-ref [0-9]+)\\]\\])" +
-	// spaces between the ref and the summary
-	'\\s' +
-	// opening paren + quote
-	"\\([\"“]" +
-	// summary of passage reference text
-	// capture 3: summaryText
-	'([\\s\\S]*)' +
-	// closing quote + paren
-	"[\"”]\\)", "g");
-
-	var fixWholeOptions = function fixWholeOptions(options) {
-	    // This parsing is technically illegal and should be done via
-	    // PerseusMarkdown, but because of the snowperson it's safe
-	    // in practice.
-	    // We should probably just get rid of this code once all the
-	    // passage-refs have been converted.
-
-	    var newWidgets = _.clone(options.widgets || {});
-	    var newContent = (options.content || "").replace(findPassageRefR, function (passageRefText, widgetMarkdown, widgetId, summaryText) {
-	        newWidgets[widgetId] = _.extend({}, newWidgets[widgetId], {
-	            options: _.extend({}, newWidgets[widgetId].options, {
-	                summaryText: summaryText
-	            })
-	        });
-
-	        return widgetMarkdown;
-	    });
-
-	    return _.extend({}, options, {
-	        content: newContent,
-	        widgets: newWidgets
-	    });
-	};
-
-	var findRadioRefsR = new RegExp(
-	// passage-ref notation
-	"\\{\\{(passage-ref \\d+ \\d+)}}" +
-	// a space
-	"\\s+" +
-	// ("
-	"\\([\"\\u201C]" +
-	// <capture the content>
-	"([^\"]*)" +
-	// ")
-	"[\"\\u201D]\\)",
-	// find all passage-refs
-	"g");
-	var replaceRadioRefs = function replaceRadioRefs(fullText, reference, summaryText) {
-	    if (/\n\n/.test(summaryText)) {
-	        return fullText;
+	    defaults: {
+	        newHintStyles: false,
+	        // TODO(jack): Remove this two options
+	        toolTipFormats: true,
+	        useMathQuill: false
 	    }
-	    return "{{" + reference + " \"" + summaryText + "\"}}";
 	};
-
-	var fixRadioWidget = function fixRadioWidget(widgetInfo) {
-	    if (widgetInfo.type !== "radio" || !widgetInfo.options || !widgetInfo.options.choices) {
-	        return widgetInfo;
-	    }
-
-	    var newChoices = _.map(widgetInfo.options.choices, function (choice) {
-	        if (!choice.content) {
-	            return choice;
-	        }
-
-	        var newChoice = choice.content.replace(findRadioRefsR, replaceRadioRefs);
-	        return _.extend({}, choice, {
-	            content: newChoice
-	        });
-	    });
-
-	    return _.extend({}, widgetInfo, {
-	        options: _.extend({}, widgetInfo.options, {
-	            choices: newChoices
-	        })
-	    });
-	};
-
-	var fixRendererPassageRefs = function fixRendererPassageRefs(options) {
-	    return Traversal.traverseRendererDeep(options, null, fixRadioWidget, fixWholeOptions);
-	};
-
-	var FixPassageRefs = function FixPassageRefs(itemData) {
-	    var newQuestion = fixRendererPassageRefs(itemData.question);
-	    var newHints = _.map(itemData.hints, function (hint) {
-	        return fixRendererPassageRefs(hint);
-	    });
-	    return _.extend({}, itemData, {
-	        question: newQuestion,
-	        hints: newHints
-	    });
-	};
-
-	module.exports = FixPassageRefs;
 
 /***/ },
-/* 44 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable no-var, react/prop-types, react/sort-comp */
+	/* eslint-disable comma-dangle, no-undef, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp, space-infix-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(49);
-	var _ = __webpack_require__(50);
 
-	var ApiOptions = __webpack_require__(8).Options;
-	var Editor = __webpack_require__(16);
-	var ItemExtrasEditor = __webpack_require__(83);
-	var DeviceFramer = __webpack_require__(11);
-	var ITEM_DATA_VERSION = __webpack_require__(68).itemDataVersion;
-	var IframeContentRenderer = __webpack_require__(37);
+	var JsonEditor = React.createClass({
+	    displayName: "JsonEditor",
 
-	var ItemEditor = React.createClass({
-	    displayName: "ItemEditor",
 
-	    propTypes: {
-	        apiOptions: ApiOptions.propTypes,
-	        deviceType: React.PropTypes.string,
-	        frameSource: React.PropTypes.string.isRequired,
-	        gradeMessage: React.PropTypes.string,
-	        imageUploader: React.PropTypes.func,
-	        wasAnswered: React.PropTypes.bool
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
+	    getInitialState: function getInitialState() {
 	        return {
-	            onChange: function onChange() {},
-	            question: {},
-	            answerArea: {}
+	            currentValue: JSON.stringify(this.props.value, null, 4),
+	            valid: true
 	        };
 	    },
 
-	    // Notify the parent that the question or answer area has been updated.
-	    updateProps: function updateProps(newProps, cb, silent) {
-	        var props = _(this.props).pick("question", "answerArea");
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var shouldReplaceContent = !this.state.valid || !_.isEqual(nextProps.value, JSON.parse(this.state.currentValue));
 
-	        this.props.onChange(_(props).extend(newProps), cb, silent);
+	        if (shouldReplaceContent) {
+	            this.setState(this.getInitialState());
+	        }
 	    },
 
 	    render: function render() {
-	        var isMobile = this.props.deviceType === "phone" || this.props.deviceType === "tablet";
-	        return React.createElement(
-	            "div",
-	            { className: "perseus-editor-table" },
-	            React.createElement(
-	                "div",
-	                { className: "perseus-editor-row perseus-question-container" },
-	                React.createElement(
-	                    "div",
-	                    { className: "perseus-editor-left-cell" },
-	                    React.createElement(
-	                        "div",
-	                        { className: "pod-title" },
-	                        "Question"
-	                    ),
-	                    React.createElement(Editor, _extends({
-	                        ref: "questionEditor",
-	                        placeholder: "Type your question here...",
-	                        className: "perseus-question-editor",
-	                        imageUploader: this.props.imageUploader,
-	                        onChange: this.handleEditorChange,
-	                        enabledFeatures: this.props.enabledFeatures,
-	                        apiOptions: this.props.apiOptions,
-	                        showWordCount: true
-	                    }, this.props.question))
-	                ),
-	                React.createElement(
-	                    "div",
-	                    {
-	                        className: "perseus-editor-right-cell"
-	                    },
-	                    React.createElement(
-	                        "div",
-	                        { id: "problemarea" },
-	                        React.createElement(
-	                            DeviceFramer,
-	                            { deviceType: this.props.deviceType },
-	                            React.createElement(IframeContentRenderer, {
-	                                ref: "frame",
-	                                content: this.props.frameSource,
-	                                datasetKey: "mobile",
-	                                datasetValue: isMobile,
-	                                seamless: this.props.deviceType === "noframe" || this.props.deviceType === "noframe-wide"
-	                            })
-	                        ),
-	                        React.createElement("div", {
-	                            id: "hintsarea",
-	                            className: "hintsarea",
-	                            style: { display: "none" }
-	                        })
-	                    )
-	                )
-	            ),
-	            React.createElement(
-	                "div",
-	                { className: "perseus-editor-row perseus-answer-container" },
-	                React.createElement(
-	                    "div",
-	                    { className: "perseus-editor-left-cell" },
-	                    React.createElement(
-	                        "div",
-	                        { className: "pod-title" },
-	                        "Question extras"
-	                    ),
-	                    React.createElement(ItemExtrasEditor, _extends({
-	                        ref: "itemExtrasEditor",
-	                        onChange: this.handleItemExtrasChange
-	                    }, this.props.answerArea))
-	                ),
-	                React.createElement(
-	                    "div",
-	                    {
-	                        className: "perseus-editor-right-cell"
-	                    },
-	                    React.createElement("div", { id: "answer_area" })
-	                )
-	            )
-	        );
+	        var classes = "perseus-json-editor " + (this.state.valid ? "valid" : "invalid");
+
+	        return React.createElement("textarea", {
+	            className: classes,
+	            value: this.state.currentValue,
+	            onChange: this.handleChange,
+	            onKeyDown: this.handleKeyDown,
+	            onBlur: this.handleBlur });
 	    },
 
-	    triggerPreviewUpdate: function triggerPreviewUpdate(newData) {
-	        this.refs.frame.sendNewData(newData);
+	    handleKeyDown: function handleKeyDown(e) {
+	        // This handler allows the tab character to be entered by pressing
+	        // tab, instead of jumping to the next (non-existant) field
+	        if (e.key === "Tab") {
+	            var cursorPos = e.target.selectionStart;
+	            var v = e.target.value;
+	            var textBefore = v.substring(0, cursorPos);
+	            var textAfter = v.substring(cursorPos, v.length);
+	            e.target.value = textBefore + "    " + textAfter;
+	            e.target.selectionStart = textBefore.length + 4;
+	            e.target.selectionEnd = textBefore.length + 4;
+
+	            e.preventDefault();
+	            this.handleChange(e);
+	        }
 	    },
 
-	    handleEditorChange: function handleEditorChange(newProps, cb, silent) {
-	        var question = _.extend({}, this.props.question, newProps);
-	        this.updateProps({ question: question }, cb, silent);
+	    handleChange: function handleChange(e) {
+	        var nextString = e.target.value;
+	        try {
+	            var json = JSON.parse(nextString);
+	            // Some extra handling to allow copy-pasting from /api/vi
+	            if (_.isString(json)) {
+	                json = JSON.parse(json);
+	            }
+	            // This callback unfortunately causes multiple renders,
+	            // but seems to be necessary to avoid componentWillReceiveProps
+	            // being called before setState has gone through
+	            this.setState({
+	                currentValue: nextString,
+	                valid: true
+	            }, function () {
+	                this.props.onChange(json);
+	            });
+	        } catch (ex) {
+	            this.setState({
+	                currentValue: nextString,
+	                valid: false
+	            });
+	        }
 	    },
 
-	    handleItemExtrasChange: function handleItemExtrasChange(newProps, cb, silent) {
-	        var answerArea = _.extend({}, this.props.answerArea, newProps);
-	        this.updateProps({ answerArea: answerArea }, cb, silent);
-	    },
-
-	    getSaveWarnings: function getSaveWarnings() {
-	        return this.refs.questionEditor.getSaveWarnings();
-	    },
-
-	    serialize: function serialize(options) {
-	        return {
-	            question: this.refs.questionEditor.serialize(options),
-	            answerArea: this.refs.itemExtrasEditor.serialize(options),
-	            itemDataVersion: ITEM_DATA_VERSION
-	        };
-	    },
-
-	    focus: function focus() {
-	        this.questionEditor.focus();
+	    // You can type whatever you want as you're typing, but if it's not valid
+	    // when you blur, it will revert to the last valid value.
+	    handleBlur: function handleBlur(e) {
+	        var nextString = e.target.value;
+	        try {
+	            var json = JSON.parse(nextString);
+	            // Some extra handling to allow copy-pasting from /api/vi
+	            if (_.isString(json)) {
+	                json = JSON.parse(json);
+	            }
+	            // This callback unfortunately causes multiple renders,
+	            // but seems to be necessary to avoid componentWillReceiveProps
+	            // being called before setState has gone through
+	            this.setState({
+	                currentValue: JSON.stringify(json, null, 4),
+	                valid: true
+	            }, function () {
+	                this.props.onChange(json);
+	            });
+	        } catch (ex) {
+	            this.setState({
+	                currentValue: JSON.stringify(this.props.value, null, 4),
+	                valid: true
+	            });
+	        }
 	    }
 	});
 
-	module.exports = ItemEditor;
+	module.exports = JsonEditor;
 
 /***/ },
-/* 45 */
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* eslint-disable no-console */
+
+	/**
+	 * Displays the given content in an iframe, isolating it from the parent page
+	 *
+	 * To simulate the environment of content rendered by itself, content previews
+	 * are rendered inside iframes, where components such as the math keypad work
+	 * because the body of the document is not the body of the editor. To make this
+	 * work, this component renders an iframe and can communicate objects to it
+	 * through postMessage. The recipient then needs to listen for these messages
+	 * and pull out the appropriate object stored in the parent's iframeDataStore
+	 * to get the data to render. When the iframe is loaded, it's javascript calls
+	 * its requestIframeData function in the parent, which triggers the parent to
+	 * send the current data.
+	 */
+
+	var React = __webpack_require__(49);
+
+	var nextIframeID = 0;
+	var requestIframeData = {};
+	var updateIframeHeight = {};
+	window.iframeDataStore = {};
+
+	// This is only called once per iframe, after Perseus is loaded and the frame
+	// is ready to render content.
+	window.addEventListener("message", function (event) {
+	    if (typeof event.data === "string") {
+	        requestIframeData[event.data]();
+	    } else if (event.data.id) {
+	        updateIframeHeight[event.data.id](event.data.height);
+	    }
+	});
+
+	var IframeContentRenderer = React.createClass({
+	    displayName: "IframeContentRenderer",
+
+	    propTypes: {
+	        // The HTML content to render to the iframe
+	        content: React.PropTypes.string.isRequired,
+
+	        // The data-* suffix for passing information to the iframe's JS
+	        datasetKey: React.PropTypes.any,
+
+	        // The value of the data-* attribute
+	        datasetValue: React.PropTypes.any,
+
+	        // Whether to make the iframe's height match its content's height,
+	        // used to prevent scrolling inside the iframe.
+	        seamless: React.PropTypes.bool
+	    },
+
+	    componentDidMount: function componentDidMount() {
+	        var _this = this;
+
+	        this.iframeID = nextIframeID;
+	        nextIframeID++;
+
+	        this._prepareFrame();
+	        requestIframeData[this.iframeID] = function () {
+	            _this.sendNewData(_this._lastData);
+	        };
+
+	        updateIframeHeight[this.iframeID] = function (height) {
+	            _this._lastHeight = height;
+	            if (_this.isMounted() && _this.props.seamless) {
+	                _this.refs.container.style.height = height + "px";
+	            }
+	        };
+	    },
+
+	    shouldComponentUpdate: function shouldComponentUpdate(nextProps) {
+	        return nextProps.content !== this.props.content || nextProps.datasetValue !== this.props.datasetValue || nextProps.seamless !== this.props.seamless;
+	    },
+
+	    componentDidUpdate: function componentDidUpdate(prevProps) {
+	        if (!this.props.seamless) {
+	            this.refs.container.style.height = "100%";
+	        } else {
+	            this.refs.container.style.height = this._lastHeight + "px";
+	        }
+
+	        if (prevProps.content !== this.props.content || prevProps.datasetValue !== this.props.datasetValue) {
+	            // Not just a change in seamless
+	            this._prepareFrame();
+	        }
+	    },
+
+	    componentWillUnmount: function componentWillUnmount() {
+	        requestIframeData[this.iframeID] = null;
+	        updateIframeHeight[this.iframeID] = null;
+	    },
+
+	    _prepareFrame: function _prepareFrame() {
+	        var _this2 = this;
+
+	        // Don't initialize the iframe until the page has loaded
+	        if (this._frame) {
+	            this.refs.container.removeChild(this._frame);
+	        }
+
+	        this._frame = document.createElement("iframe");
+	        this._frame.style.width = "100%";
+	        this._frame.style.height = "100%";
+
+	        if (this.props.datasetKey) {
+	            // If the user has specified a data-* attribute to place on the
+	            // iframe, we set it here. Right now, this is used to
+	            // communicate if the iframe should be enabling touch emulation.
+	            this._frame.dataset[this.props.datasetKey] = this.props.datasetValue;
+	        }
+	        this._frame.dataset.id = this.iframeID;
+
+	        // To make sure the value of location.href inside the iframe is the
+	        // same as the location of the parent, we wait for the iframe to
+	        // load before writing contents. Without the wait, the location
+	        // inside the iframe becomes "about:blank", which causes problems
+	        // with loading $LAB.
+	        this._frame.onload = function () {
+	            _this2._frame.onload = null;
+
+	            // To prevent an issue with the contents of the iframe not being
+	            // loaded properly, where the javascript inside the iframe is
+	            // not executed, we push the content window write to the end
+	            // of the event queue.
+	            setTimeout(function () {
+	                _this2._frame.contentWindow.document.open();
+	                _this2._frame.contentWindow.document.write(_this2.props.content);
+	                _this2._frame.contentWindow.document.close();
+	            });
+	        };
+
+	        this.refs.container.appendChild(this._frame);
+	    },
+
+	    sendNewData: function sendNewData(data) {
+	        if (this.isMounted() && data) {
+	            this._lastData = data;
+
+	            // We can't use JSON.stringify/parse for this because the apiOptions
+	            // includes the functions GroupMetadataEditor, groupAnnotator,
+	            // onFocusChange, and onInputError.
+	            window.iframeDataStore[this.iframeID] = data;
+	            this._frame.contentWindow.postMessage(this.iframeID, "*");
+	        }
+	    },
+
+	    render: function render() {
+	        return React.createElement("div", {
+	            ref: "container",
+	            style: { width: "100%" }
+	        });
+	    }
+	});
+
+	module.exports = IframeContentRenderer;
+
+/***/ },
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Underscore.js 1.4.4
@@ -11406,7 +10643,7 @@ module.exports =
 
 
 /***/ },
-/* 46 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*! @generated */
@@ -32812,7 +32049,7 @@ module.exports =
 	/******/ ])
 
 /***/ },
-/* 47 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -42365,7 +41602,7 @@ module.exports =
 	// file names, and jQuery is normally delivered in a lowercase file name.
 	// Do this after creating the global so that if an AMD module wants to call
 	// noConflict to hide this version of jQuery, it will work.
-	if ( "function" === "function" && __webpack_require__(84) && __webpack_require__(84).jQuery ) {
+	if ( "function" === "function" && __webpack_require__(82) && __webpack_require__(82).jQuery ) {
 		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () { return jQuery; }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	}
 
@@ -42373,7 +41610,7 @@ module.exports =
 
 
 /***/ },
-/* 48 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	(function() {
@@ -42750,6 +41987,769 @@ module.exports =
 
 	})();
 
+
+/***/ },
+/* 43 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(49);
+	var _ = __webpack_require__(50);
+
+	/* A checkbox that syncs its value to props using the
+	 * renderer's onChange method, and gets the prop name
+	 * dynamically from its props list
+	 */
+	var PropCheckBox = React.createClass({
+	    displayName: "PropCheckBox",
+
+	    propTypes: {
+	        labelAlignment: React.PropTypes.oneOf(["left", "right"])
+	    },
+
+	    DEFAULT_PROPS: {
+	        label: null,
+	        onChange: null,
+	        labelAlignment: "left"
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return this.DEFAULT_PROPS;
+	    },
+
+	    propName: function propName() {
+	        var propName = _.find(_.keys(this.props), function (localPropName) {
+	            return !_.has(this.DEFAULT_PROPS, localPropName);
+	        }, this);
+
+	        if (!propName) {
+	            throw new Error("Attempted to create a PropCheckBox with no " + "prop!");
+	        }
+
+	        return propName;
+	    },
+
+	    _labelAlignLeft: function _labelAlignLeft() {
+	        return this.props.labelAlignment === "left";
+	    },
+
+	    render: function render() {
+	        var propName = this.propName();
+	        return React.createElement(
+	            "label",
+	            null,
+	            this._labelAlignLeft() && this.props.label,
+	            React.createElement("input", { type: "checkbox",
+	                checked: this.props[propName],
+	                onChange: this.toggle }),
+	            !this._labelAlignLeft() && this.props.label
+	        );
+	    },
+
+	    toggle: function toggle() {
+	        var propName = this.propName();
+	        var changes = {};
+	        changes[propName] = !this.props[propName];
+	        this.props.onChange(changes);
+	    }
+	});
+
+	module.exports = PropCheckBox;
+
+/***/ },
+/* 44 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * These are things that widgets should exclude when serializing themselves.
+	 *
+	 * The use of this list needs to die. Basically, there are codepaths that
+	 * blindly serialize the "props" of a widget so that it can pass around its
+	 * info. Unfortunately, props aren't guaranteed to be serializable, and
+	 * automatically serializing schemaless list of attributes causes issues (e.g.
+	 * circular JSON structures sometimes).
+	 *
+	 * This blacklists things that we know don't need to be serialized.
+	 */
+	module.exports = [
+	// standard props "added" by react
+	// (technically the renderer still adds them)
+	"key", "ref",
+	// added by src/renderer.jsx
+	"containerSizeClass", "widgetId", "onChange", "problemNum", "enabledFeatures", "apiOptions", "questionCompleted", "interWidgets",
+	// added by src/editor.jsx, for widgets removing themselves
+	// this is soooo not the right place for this, but alas.
+	"onRemove",
+	// also added by src/editor.jsx
+	"id",
+	// Callbacks and items for interaction handling
+	"onBlur", "onFocus", "trackInteraction", "keypadElement"];
+
+/***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/**
+	 * A mixin that accepts the `apiOptions` prop, and populates any missing values
+	 * with defaults.
+	 */
+	var React = __webpack_require__(49);
+
+	var ApiOptions = __webpack_require__(8).Options;
+
+	var ApiOptionsProps = {
+	    propTypes: {
+	        // TODO(mdr): Should this actually be objectOf(any)?
+	        apiOptions: React.PropTypes.any
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return { apiOptions: {} };
+	    },
+	    getApiOptions: function getApiOptions() {
+	        return _extends({}, ApiOptions.defaults, this.props.apiOptions);
+	    }
+	};
+
+	module.exports = ApiOptionsProps;
+
+/***/ },
+/* 46 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/* Collection of classes for rendering the hint editor area,
+	 * hint editor boxes, and hint previews
+	 */
+
+	var React = __webpack_require__(49);
+	var _ = __webpack_require__(50);
+
+	var Editor = __webpack_require__(16);
+	var InfoTip = __webpack_require__(83);
+	var DeviceFramer = __webpack_require__(11);
+
+	var ApiOptions = __webpack_require__(8).Options;
+	var EnabledFeatures = __webpack_require__(36);
+	var IframeContentRenderer = __webpack_require__(38);
+
+	/* Renders a hint editor box
+	 *
+	 * This includes:
+	 *  ~ A "Hint" title
+	 *  ~ the textarea for the hint
+	 *  ~ the "remove this hint" box
+	 *  ~ the move hint up/down arrows
+	 */
+	var HintEditor = React.createClass({
+	    displayName: "HintEditor",
+
+	    propTypes: {
+	        apiOptions: ApiOptions.propTypes,
+	        enabledFeatures: EnabledFeatures.propTypes,
+	        imageUploader: React.PropTypes.func
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            content: "",
+	            replace: false
+	        };
+	    },
+
+	    handleChange: function handleChange(e) {
+	        this.props.onChange({ replace: e.target.checked });
+	    },
+
+	    render: function render() {
+	        return React.createElement(
+	            "div",
+	            { className: "perseus-hint-editor perseus-editor-left-cell" },
+	            React.createElement(
+	                "div",
+	                { className: "pod-title" },
+	                "Hint"
+	            ),
+	            React.createElement(Editor, { ref: "editor",
+	                enabledFeatures: this.props.enabledFeatures,
+	                apiOptions: this.props.apiOptions,
+	                widgets: this.props.widgets,
+	                content: this.props.content,
+	                images: this.props.images,
+	                replace: this.props.replace,
+	                placeholder: "Type your hint here...",
+	                imageUploader: this.props.imageUploader,
+	                onChange: this.props.onChange }),
+	            React.createElement(
+	                "div",
+	                { className: "hint-controls-container clearfix" },
+	                React.createElement(
+	                    "span",
+	                    { className: "reorder-hints" },
+	                    React.createElement(
+	                        "button",
+	                        { type: "button",
+	                            className: this.props.isLast ? "hidden" : "",
+	                            onClick: _.partial(this.props.onMove, 1) },
+	                        React.createElement("span", { className: "icon-circle-arrow-down" })
+	                    ),
+	                    ' ',
+	                    React.createElement(
+	                        "button",
+	                        { type: "button",
+	                            className: this.props.isFirst ? "hidden" : "",
+	                            onClick: _.partial(this.props.onMove, -1) },
+	                        React.createElement("span", { className: "icon-circle-arrow-up" })
+	                    ),
+	                    ' ',
+	                    this.props.isLast && React.createElement(
+	                        InfoTip,
+	                        null,
+	                        React.createElement(
+	                            "p",
+	                            null,
+	                            "The last hint is automatically bolded."
+	                        )
+	                    )
+	                ),
+	                React.createElement("input", { type: "checkbox",
+	                    checked: this.props.replace,
+	                    onChange: this.handleChange
+	                }),
+	                "Replace previous hint",
+	                React.createElement(
+	                    "button",
+	                    { type: "button",
+	                        className: "remove-hint simple-button orange",
+	                        onClick: this.props.onRemove },
+	                    React.createElement("span", { className: "icon-trash" }),
+	                    " Remove this hint",
+	                    ' '
+	                )
+	            )
+	        );
+	    },
+
+	    focus: function focus() {
+	        this.refs.editor.focus();
+	    },
+
+	    getSaveWarnings: function getSaveWarnings() {
+	        return this.refs.editor.getSaveWarnings();
+	    },
+
+	    serialize: function serialize(options) {
+	        return this.refs.editor.serialize(options);
+	    }
+	});
+
+	/* A single hint-row containing a hint editor and preview */
+	var CombinedHintEditor = React.createClass({
+	    displayName: "CombinedHintEditor",
+
+	    propTypes: {
+	        apiOptions: ApiOptions.propTypes,
+	        deviceType: React.PropTypes.string.isRequired,
+	        enabledFeatures: EnabledFeatures.propTypes,
+	        frameSource: React.PropTypes.string.isRequired,
+	        imageUploader: React.PropTypes.func
+	    },
+
+	    updatePreview: function updatePreview() {
+	        var shouldBold = this.props.isLast && !/\*\*/.test(this.props.hint.content);
+
+	        this.refs.frame.sendNewData({
+	            type: "hint",
+	            data: {
+	                hint: this.props.hint,
+	                bold: shouldBold,
+	                pos: this.props.pos,
+	                enabledFeatures: this.props.enabledFeatures,
+	                apiOptions: this.props.apiOptions
+	            }
+	        });
+	    },
+
+	    componentDidMount: function componentDidMount() {
+	        this.updatePreview();
+	    },
+
+	    componentDidUpdate: function componentDidUpdate() {
+	        this.updatePreview();
+	    },
+
+	    render: function render() {
+	        var isMobile = this.props.deviceType === "phone" || this.props.deviceType === "tablet";
+	        return React.createElement(
+	            "div",
+	            { className: "perseus-combined-hint-editor " + "perseus-editor-row" },
+	            React.createElement(HintEditor, {
+	                ref: "editor",
+	                isFirst: this.props.isFirst,
+	                isLast: this.props.isLast,
+	                widgets: this.props.hint.widgets,
+	                content: this.props.hint.content,
+	                images: this.props.hint.images,
+	                replace: this.props.hint.replace,
+	                imageUploader: this.props.imageUploader,
+	                onChange: this.props.onChange,
+	                onRemove: this.props.onRemove,
+	                onMove: this.props.onMove,
+	                enabledFeatures: this.props.enabledFeatures,
+	                apiOptions: this.props.apiOptions }),
+	            React.createElement(
+	                "div",
+	                {
+	                    className: "perseus-editor-right-cell"
+	                },
+	                React.createElement(
+	                    DeviceFramer,
+	                    { deviceType: this.props.deviceType },
+	                    React.createElement(IframeContentRenderer, {
+	                        ref: "frame",
+	                        content: this.props.frameSource,
+	                        datasetKey: "mobile",
+	                        datasetValue: isMobile,
+	                        seamless: this.props.deviceType === "noframe" || this.props.deviceType === "noframe-wide"
+	                    })
+	                )
+	            )
+	        );
+	    },
+
+	    getSaveWarnings: function getSaveWarnings() {
+	        return this.refs.editor.getSaveWarnings();
+	    },
+
+	    serialize: function serialize(options) {
+	        return this.refs.editor.serialize(options);
+	    },
+
+	    focus: function focus() {
+	        this.refs.editor.focus();
+	    }
+	});
+
+	/* The entire hints editing/preview area
+	 *
+	 * Includes:
+	 *  ~ All the hint edit boxes, move and remove buttons
+	 *  ~ All the hint previews
+	 *  ~ The "add a hint" button
+	 */
+	var CombinedHintsEditor = React.createClass({
+	    displayName: "CombinedHintsEditor",
+
+	    propTypes: {
+	        apiOptions: ApiOptions.propTypes,
+	        deviceType: React.PropTypes.string.isRequired,
+	        enabledFeatures: EnabledFeatures.propTypes,
+	        frameSource: React.PropTypes.string.isRequired,
+	        imageUploader: React.PropTypes.func
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            onChange: function onChange() {},
+	            hints: []
+	        };
+	    },
+
+	    render: function render() {
+	        var hints = this.props.hints;
+	        var hintElems = _.map(hints, function (hint, i) {
+	            return React.createElement(CombinedHintEditor, {
+	                ref: "hintEditor" + i,
+	                key: "hintEditor" + i,
+	                isFirst: i === 0,
+	                isLast: i + 1 === hints.length,
+	                hint: hint,
+	                pos: i,
+	                imageUploader: this.props.imageUploader,
+	                onChange: this.handleHintChange.bind(this, i),
+	                onRemove: this.handleHintRemove.bind(this, i),
+	                onMove: this.handleHintMove.bind(this, i),
+	                deviceType: this.props.deviceType,
+	                enabledFeatures: this.props.enabledFeatures,
+	                apiOptions: this.props.apiOptions,
+	                frameSource: this.props.frameSource });
+	        }, this);
+
+	        return React.createElement(
+	            "div",
+	            { className: "perseus-hints-editor perseus-editor-table" },
+	            hintElems,
+	            React.createElement(
+	                "div",
+	                { className: "perseus-editor-row" },
+	                React.createElement(
+	                    "div",
+	                    { className: "add-hint-container perseus-editor-left-cell" },
+	                    React.createElement(
+	                        "button",
+	                        { type: "button",
+	                            className: "add-hint simple-button orange",
+	                            onClick: this.addHint },
+	                        React.createElement("span", { className: "icon-plus" }),
+	                        ' ',
+	                        "Add a hint"
+	                    )
+	                )
+	            )
+	        );
+	    },
+
+	    handleHintChange: function handleHintChange(i, newProps, cb, silent) {
+	        // TODO(joel) - lens
+	        var hints = _(this.props.hints).clone();
+	        hints[i] = _.extend({}, this.serializeHint(i, { keepDeletedWidgets: true }), newProps);
+
+	        this.props.onChange({ hints: hints }, cb, silent);
+	    },
+
+	    handleHintRemove: function handleHintRemove(i) {
+	        var hints = _(this.props.hints).clone();
+	        hints.splice(i, 1);
+	        this.props.onChange({ hints: hints });
+	    },
+
+	    handleHintMove: function handleHintMove(i, dir) {
+	        var _this = this;
+
+	        var hints = _(this.props.hints).clone();
+	        var hint = hints.splice(i, 1)[0];
+	        hints.splice(i + dir, 0, hint);
+	        this.props.onChange({ hints: hints }, function () {
+	            _this.refs["hintEditor" + (i + dir)].focus();
+	        });
+	    },
+
+	    addHint: function addHint() {
+	        var _this2 = this;
+
+	        var hints = _(this.props.hints).clone().concat([{ content: "" }]);
+	        this.props.onChange({ hints: hints }, function () {
+	            var i = hints.length - 1;
+	            _this2.refs["hintEditor" + i].focus();
+	        });
+	    },
+
+	    getSaveWarnings: function getSaveWarnings() {
+	        var _this3 = this;
+
+	        return _.chain(this.props.hints).map(function (hint, i) {
+	            return _.map(_this3.refs["hintEditor" + i].getSaveWarnings(), function (issue) {
+	                return "Hint " + (i + 1) + ": " + issue;
+	            });
+	        }).flatten(true).value();
+	    },
+
+	    serialize: function serialize(options) {
+	        var _this4 = this;
+
+	        return this.props.hints.map(function (hint, i) {
+	            return _this4.serializeHint(i, options);
+	        });
+	    },
+
+	    serializeHint: function serializeHint(index, options) {
+	        return this.refs["hintEditor" + index].serialize(options);
+	    }
+	});
+
+	module.exports = CombinedHintsEditor;
+
+/***/ },
+/* 47 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var _ = __webpack_require__(50);
+
+	var Traversal = __webpack_require__(34);
+
+	var findPassageRefR = new RegExp(
+	// [[ passage-ref 1]]
+	// capture 1: widget markdown
+	// capture 2: widgetId
+	"(\\[\\[☃ (passage-ref [0-9]+)\\]\\])" +
+	// spaces between the ref and the summary
+	'\\s' +
+	// opening paren + quote
+	"\\([\"“]" +
+	// summary of passage reference text
+	// capture 3: summaryText
+	'([\\s\\S]*)' +
+	// closing quote + paren
+	"[\"”]\\)", "g");
+
+	var fixWholeOptions = function fixWholeOptions(options) {
+	    // This parsing is technically illegal and should be done via
+	    // PerseusMarkdown, but because of the snowperson it's safe
+	    // in practice.
+	    // We should probably just get rid of this code once all the
+	    // passage-refs have been converted.
+
+	    var newWidgets = _.clone(options.widgets || {});
+	    var newContent = (options.content || "").replace(findPassageRefR, function (passageRefText, widgetMarkdown, widgetId, summaryText) {
+	        newWidgets[widgetId] = _.extend({}, newWidgets[widgetId], {
+	            options: _.extend({}, newWidgets[widgetId].options, {
+	                summaryText: summaryText
+	            })
+	        });
+
+	        return widgetMarkdown;
+	    });
+
+	    return _.extend({}, options, {
+	        content: newContent,
+	        widgets: newWidgets
+	    });
+	};
+
+	var findRadioRefsR = new RegExp(
+	// passage-ref notation
+	"\\{\\{(passage-ref \\d+ \\d+)}}" +
+	// a space
+	"\\s+" +
+	// ("
+	"\\([\"\\u201C]" +
+	// <capture the content>
+	"([^\"]*)" +
+	// ")
+	"[\"\\u201D]\\)",
+	// find all passage-refs
+	"g");
+	var replaceRadioRefs = function replaceRadioRefs(fullText, reference, summaryText) {
+	    if (/\n\n/.test(summaryText)) {
+	        return fullText;
+	    }
+	    return "{{" + reference + " \"" + summaryText + "\"}}";
+	};
+
+	var fixRadioWidget = function fixRadioWidget(widgetInfo) {
+	    if (widgetInfo.type !== "radio" || !widgetInfo.options || !widgetInfo.options.choices) {
+	        return widgetInfo;
+	    }
+
+	    var newChoices = _.map(widgetInfo.options.choices, function (choice) {
+	        if (!choice.content) {
+	            return choice;
+	        }
+
+	        var newChoice = choice.content.replace(findRadioRefsR, replaceRadioRefs);
+	        return _.extend({}, choice, {
+	            content: newChoice
+	        });
+	    });
+
+	    return _.extend({}, widgetInfo, {
+	        options: _.extend({}, widgetInfo.options, {
+	            choices: newChoices
+	        })
+	    });
+	};
+
+	var fixRendererPassageRefs = function fixRendererPassageRefs(options) {
+	    return Traversal.traverseRendererDeep(options, null, fixRadioWidget, fixWholeOptions);
+	};
+
+	var FixPassageRefs = function FixPassageRefs(itemData) {
+	    var newQuestion = fixRendererPassageRefs(itemData.question);
+	    var newHints = _.map(itemData.hints, function (hint) {
+	        return fixRendererPassageRefs(hint);
+	    });
+	    return _.extend({}, itemData, {
+	        question: newQuestion,
+	        hints: newHints
+	    });
+	};
+
+	module.exports = FixPassageRefs;
+
+/***/ },
+/* 48 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable no-var, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(49);
+	var _ = __webpack_require__(50);
+
+	var ApiOptions = __webpack_require__(8).Options;
+	var Editor = __webpack_require__(16);
+	var ItemExtrasEditor = __webpack_require__(84);
+	var DeviceFramer = __webpack_require__(11);
+	var ITEM_DATA_VERSION = __webpack_require__(68).itemDataVersion;
+	var IframeContentRenderer = __webpack_require__(38);
+
+	var ItemEditor = React.createClass({
+	    displayName: "ItemEditor",
+
+	    propTypes: {
+	        apiOptions: ApiOptions.propTypes,
+	        deviceType: React.PropTypes.string,
+	        frameSource: React.PropTypes.string.isRequired,
+	        gradeMessage: React.PropTypes.string,
+	        imageUploader: React.PropTypes.func,
+	        wasAnswered: React.PropTypes.bool
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            onChange: function onChange() {},
+	            question: {},
+	            answerArea: {}
+	        };
+	    },
+
+	    // Notify the parent that the question or answer area has been updated.
+	    updateProps: function updateProps(newProps, cb, silent) {
+	        var props = _(this.props).pick("question", "answerArea");
+
+	        this.props.onChange(_(props).extend(newProps), cb, silent);
+	    },
+
+	    render: function render() {
+	        var isMobile = this.props.deviceType === "phone" || this.props.deviceType === "tablet";
+	        return React.createElement(
+	            "div",
+	            { className: "perseus-editor-table" },
+	            React.createElement(
+	                "div",
+	                { className: "perseus-editor-row perseus-question-container" },
+	                React.createElement(
+	                    "div",
+	                    { className: "perseus-editor-left-cell" },
+	                    React.createElement(
+	                        "div",
+	                        { className: "pod-title" },
+	                        "Question"
+	                    ),
+	                    React.createElement(Editor, _extends({
+	                        ref: "questionEditor",
+	                        placeholder: "Type your question here...",
+	                        className: "perseus-question-editor",
+	                        imageUploader: this.props.imageUploader,
+	                        onChange: this.handleEditorChange,
+	                        enabledFeatures: this.props.enabledFeatures,
+	                        apiOptions: this.props.apiOptions,
+	                        showWordCount: true
+	                    }, this.props.question))
+	                ),
+	                React.createElement(
+	                    "div",
+	                    {
+	                        className: "perseus-editor-right-cell"
+	                    },
+	                    React.createElement(
+	                        "div",
+	                        { id: "problemarea" },
+	                        React.createElement(
+	                            DeviceFramer,
+	                            { deviceType: this.props.deviceType },
+	                            React.createElement(IframeContentRenderer, {
+	                                ref: "frame",
+	                                content: this.props.frameSource,
+	                                datasetKey: "mobile",
+	                                datasetValue: isMobile,
+	                                seamless: this.props.deviceType === "noframe" || this.props.deviceType === "noframe-wide"
+	                            })
+	                        ),
+	                        React.createElement("div", {
+	                            id: "hintsarea",
+	                            className: "hintsarea",
+	                            style: { display: "none" }
+	                        })
+	                    )
+	                )
+	            ),
+	            React.createElement(
+	                "div",
+	                { className: "perseus-editor-row perseus-answer-container" },
+	                React.createElement(
+	                    "div",
+	                    { className: "perseus-editor-left-cell" },
+	                    React.createElement(
+	                        "div",
+	                        { className: "pod-title" },
+	                        "Question extras"
+	                    ),
+	                    React.createElement(ItemExtrasEditor, _extends({
+	                        ref: "itemExtrasEditor",
+	                        onChange: this.handleItemExtrasChange
+	                    }, this.props.answerArea))
+	                ),
+	                React.createElement(
+	                    "div",
+	                    {
+	                        className: "perseus-editor-right-cell"
+	                    },
+	                    React.createElement("div", { id: "answer_area" })
+	                )
+	            )
+	        );
+	    },
+
+	    triggerPreviewUpdate: function triggerPreviewUpdate(newData) {
+	        this.refs.frame.sendNewData(newData);
+	    },
+
+	    handleEditorChange: function handleEditorChange(newProps, cb, silent) {
+	        var question = _.extend({}, this.props.question, newProps);
+	        this.updateProps({ question: question }, cb, silent);
+	    },
+
+	    handleItemExtrasChange: function handleItemExtrasChange(newProps, cb, silent) {
+	        var answerArea = _.extend({}, this.props.answerArea, newProps);
+	        this.updateProps({ answerArea: answerArea }, cb, silent);
+	    },
+
+	    getSaveWarnings: function getSaveWarnings() {
+	        return this.refs.questionEditor.getSaveWarnings();
+	    },
+
+	    serialize: function serialize(options) {
+	        return {
+	            question: this.refs.questionEditor.serialize(options),
+	            answerArea: this.refs.itemExtrasEditor.serialize(options),
+	            itemDataVersion: ITEM_DATA_VERSION
+	        };
+	    },
+
+	    focus: function focus() {
+	        this.questionEditor.focus();
+	    }
+	});
+
+	module.exports = ItemEditor;
 
 /***/ },
 /* 49 */
@@ -43233,7 +43233,7 @@ module.exports =
 
 	var Renderer = __webpack_require__(27);
 
-	var EnabledFeatures = __webpack_require__(35);
+	var EnabledFeatures = __webpack_require__(36);
 	var ApiOptions = __webpack_require__(8).Options;
 
 	/* Renders just a hint preview */
@@ -43428,7 +43428,7 @@ module.exports =
 	 * Paragraph parsing/splitting for article jipt i18n
 	 */
 
-	var SimpleMarkdown = __webpack_require__(170);
+	var SimpleMarkdown = __webpack_require__(169);
 
 	var arrayRules = {
 	    paragraph: {
@@ -43504,7 +43504,7 @@ module.exports =
 	/* global katex, MathJax */
 	// TODO(joel) - require MathJax / katex so they don't have to be global
 
-	var PureRenderMixin = __webpack_require__(169);
+	var PureRenderMixin = __webpack_require__(170);
 	var React = __webpack_require__(49);
 	var ReactDOM = __webpack_require__(53);
 
@@ -43760,7 +43760,7 @@ module.exports =
 	var React = __webpack_require__(49);
 	var ReactDOM = __webpack_require__(53);
 
-	var EnabledFeatures = __webpack_require__(35);
+	var EnabledFeatures = __webpack_require__(36);
 	var Widgets = __webpack_require__(21);
 
 	var _require = __webpack_require__(164);
@@ -44170,6 +44170,147 @@ module.exports =
 /* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, max-len, no-redeclare, no-trailing-spaces, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(49);
+	var ReactDOM = __webpack_require__(53);
+	var _ = __webpack_require__(50);
+
+	var textWidthCache = {};
+	function getTextWidth(text) {
+	    if (!textWidthCache[text]) {
+	        // Hacky way to guess the width of an input box
+	        var $test = $("<span>").text(text).appendTo("body");
+	        textWidthCache[text] = $test.width() + 5;
+	        $test.remove();
+	    }
+	    return textWidthCache[text];
+	}
+
+	var TextListEditor = React.createClass({
+	    displayName: "TextListEditor",
+
+	    propTypes: {
+	        options: React.PropTypes.array,
+	        layout: React.PropTypes.string,
+	        onChange: React.PropTypes.func.isRequired
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            options: [],
+	            layout: "horizontal"
+	        };
+	    },
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            items: this.props.options.concat("")
+	        };
+	    },
+
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        this.setState({
+	            items: nextProps.options.concat("")
+	        });
+	    },
+
+	    render: function render() {
+	        var className = ["perseus-text-list-editor", "perseus-clearfix", "layout-" + this.props.layout].join(" ");
+
+	        var inputs = _.map(this.state.items, function (item, i) {
+	            return React.createElement(
+	                "li",
+	                { key: i },
+	                React.createElement("input", {
+	                    ref: "input_" + i,
+	                    type: "text",
+	                    value: item,
+	                    onChange: this.onChange.bind(this, i),
+	                    onKeyDown: this.onKeyDown.bind(this, i),
+	                    style: { width: getTextWidth(item) } })
+	            );
+	        }, this);
+
+	        return React.createElement(
+	            "ul",
+	            { className: className },
+	            inputs
+	        );
+	    },
+
+	    onChange: function onChange(index, event) {
+	        var items = _.clone(this.state.items);
+	        items[index] = event.target.value;
+
+	        if (index === items.length - 1) {
+	            items = items.concat("");
+	        }
+
+	        this.setState({ items: items });
+	        this.props.onChange(_.compact(items));
+	    },
+
+	    onKeyDown: function onKeyDown(index, event) {
+	        var which = event.nativeEvent.keyCode;
+
+	        // Backspace deletes an empty input...
+	        if (which === 8 /* backspace */ && this.state.items[index] === "") {
+	            event.preventDefault();
+
+	            var items = _.clone(this.state.items);
+	            var focusIndex = index === 0 ? 0 : index - 1;
+
+	            if (index === items.length - 1 && (index === 0 || items[focusIndex] !== "")) {
+	                // ...except for the last one, iff it is the only empty
+	                // input at the end.
+	                ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+	            } else {
+	                items.splice(index, 1);
+	                this.setState({ items: items }, function () {
+	                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+	                });
+	            }
+
+	            // Deleting the last character in the second-to-last input removes it
+	        } else if (which === 8 /* backspace */ && this.state.items[index].length === 1 && index === this.state.items.length - 2) {
+	            event.preventDefault();
+
+	            var items = _.clone(this.state.items);
+	            items.splice(index, 1);
+	            this.setState({ items: items });
+	            this.props.onChange(_.compact(items));
+
+	            // Enter adds an option below the current one...
+	        } else if (which === 13 /* enter */) {
+	                event.preventDefault();
+
+	                var items = _.clone(this.state.items);
+	                var focusIndex = index + 1;
+
+	                if (index === items.length - 2) {
+	                    // ...unless the empty input is just below.
+	                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+	                } else {
+	                    items.splice(focusIndex, 0, "");
+	                    this.setState({ items: items }, function () {
+	                        ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+	                    });
+	                }
+	            }
+	    }
+	});
+
+	module.exports = TextListEditor;
+
+/***/ },
+/* 70 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/*
 	Software License Agreement (BSD License)
 
@@ -44574,7 +44715,7 @@ module.exports =
 
 
 /***/ },
-/* 70 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -44612,7 +44753,7 @@ module.exports =
 	module.exports = splitDiff;
 
 /***/ },
-/* 71 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -44621,7 +44762,7 @@ module.exports =
 	/* eslint-disable comma-dangle, no-var */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var jsdiff = __webpack_require__(69);
+	var jsdiff = __webpack_require__(70);
 	var _ = __webpack_require__(50);
 
 	var statusFor = function statusFor(chunk) {
@@ -44706,7 +44847,7 @@ module.exports =
 	module.exports = stringArrayDiff;
 
 /***/ },
-/* 72 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -44787,148 +44928,31 @@ module.exports =
 	module.exports = performDiff;
 
 /***/ },
-/* 73 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	(function () {
+	  "use strict";
 
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-redeclare, no-trailing-spaces, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	  function btoa(str) {
+	    var buffer
+	      ;
 
-	var React = __webpack_require__(49);
-	var ReactDOM = __webpack_require__(53);
-	var _ = __webpack_require__(50);
-
-	var textWidthCache = {};
-	function getTextWidth(text) {
-	    if (!textWidthCache[text]) {
-	        // Hacky way to guess the width of an input box
-	        var $test = $("<span>").text(text).appendTo("body");
-	        textWidthCache[text] = $test.width() + 5;
-	        $test.remove();
+	    if (str instanceof Buffer) {
+	      buffer = str;
+	    } else {
+	      buffer = new Buffer(str.toString(), 'binary');
 	    }
-	    return textWidthCache[text];
-	}
 
-	var TextListEditor = React.createClass({
-	    displayName: "TextListEditor",
+	    return buffer.toString('base64');
+	  }
 
-	    propTypes: {
-	        options: React.PropTypes.array,
-	        layout: React.PropTypes.string,
-	        onChange: React.PropTypes.func.isRequired
-	    },
+	  module.exports = btoa;
+	}());
 
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            options: [],
-	            layout: "horizontal"
-	        };
-	    },
-
-	    getInitialState: function getInitialState() {
-	        return {
-	            items: this.props.options.concat("")
-	        };
-	    },
-
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        this.setState({
-	            items: nextProps.options.concat("")
-	        });
-	    },
-
-	    render: function render() {
-	        var className = ["perseus-text-list-editor", "perseus-clearfix", "layout-" + this.props.layout].join(" ");
-
-	        var inputs = _.map(this.state.items, function (item, i) {
-	            return React.createElement(
-	                "li",
-	                { key: i },
-	                React.createElement("input", {
-	                    ref: "input_" + i,
-	                    type: "text",
-	                    value: item,
-	                    onChange: this.onChange.bind(this, i),
-	                    onKeyDown: this.onKeyDown.bind(this, i),
-	                    style: { width: getTextWidth(item) } })
-	            );
-	        }, this);
-
-	        return React.createElement(
-	            "ul",
-	            { className: className },
-	            inputs
-	        );
-	    },
-
-	    onChange: function onChange(index, event) {
-	        var items = _.clone(this.state.items);
-	        items[index] = event.target.value;
-
-	        if (index === items.length - 1) {
-	            items = items.concat("");
-	        }
-
-	        this.setState({ items: items });
-	        this.props.onChange(_.compact(items));
-	    },
-
-	    onKeyDown: function onKeyDown(index, event) {
-	        var which = event.nativeEvent.keyCode;
-
-	        // Backspace deletes an empty input...
-	        if (which === 8 /* backspace */ && this.state.items[index] === "") {
-	            event.preventDefault();
-
-	            var items = _.clone(this.state.items);
-	            var focusIndex = index === 0 ? 0 : index - 1;
-
-	            if (index === items.length - 1 && (index === 0 || items[focusIndex] !== "")) {
-	                // ...except for the last one, iff it is the only empty
-	                // input at the end.
-	                ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
-	            } else {
-	                items.splice(index, 1);
-	                this.setState({ items: items }, function () {
-	                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
-	                });
-	            }
-
-	            // Deleting the last character in the second-to-last input removes it
-	        } else if (which === 8 /* backspace */ && this.state.items[index].length === 1 && index === this.state.items.length - 2) {
-	            event.preventDefault();
-
-	            var items = _.clone(this.state.items);
-	            items.splice(index, 1);
-	            this.setState({ items: items });
-	            this.props.onChange(_.compact(items));
-
-	            // Enter adds an option below the current one...
-	        } else if (which === 13 /* enter */) {
-	                event.preventDefault();
-
-	                var items = _.clone(this.state.items);
-	                var focusIndex = index + 1;
-
-	                if (index === items.length - 2) {
-	                    // ...unless the empty input is just below.
-	                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
-	                } else {
-	                    items.splice(focusIndex, 0, "");
-	                    this.setState({ items: items }, function () {
-	                        ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
-	                    });
-	                }
-	            }
-	    }
-	});
-
-	module.exports = TextListEditor;
 
 /***/ },
-/* 74 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -45080,7 +45104,7 @@ module.exports =
 	module.exports = FixedToResponsive;
 
 /***/ },
-/* 75 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -45395,7 +45419,7 @@ module.exports =
 	module.exports = Graphie;
 
 /***/ },
-/* 76 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45544,7 +45568,7 @@ module.exports =
 	module.exports = ImageLoader;
 
 /***/ },
-/* 77 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -46025,14 +46049,14 @@ module.exports =
 	exports.ZoomService = new ZoomService();
 
 /***/ },
-/* 78 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	/* globals katex:false, MathJax:false, Exercises:false */
 
-	var cleanMath = __webpack_require__(80).cleanMath;
+	var cleanMath = __webpack_require__(81).cleanMath;
 
 	function findChildOrAdd(elem, className) {
 	    var $child = $(elem).find("." + className);
@@ -46225,7 +46249,7 @@ module.exports =
 	};
 
 /***/ },
-/* 79 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -46244,7 +46268,7 @@ module.exports =
 	};
 
 /***/ },
-/* 80 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -46911,31 +46935,15 @@ module.exports =
 	module.exports = KhanMath;
 
 /***/ },
-/* 81 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
-	(function () {
-	  "use strict";
-
-	  function btoa(str) {
-	    var buffer
-	      ;
-
-	    if (str instanceof Buffer) {
-	      buffer = str;
-	    } else {
-	      buffer = new Buffer(str.toString(), 'binary');
-	    }
-
-	    return buffer.toString('base64');
-	  }
-
-	  module.exports = btoa;
-	}());
-
+	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ },
-/* 82 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -46978,7 +46986,7 @@ module.exports =
 	module.exports = InfoTip;
 
 /***/ },
-/* 83 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -46989,7 +46997,7 @@ module.exports =
 
 	var React = __webpack_require__(49);
 
-	var InfoTip = __webpack_require__(82);
+	var InfoTip = __webpack_require__(83);
 
 	var ItemExtrasEditor = React.createClass({
 	    displayName: "ItemExtrasEditor",
@@ -47143,14 +47151,6 @@ module.exports =
 	});
 
 	module.exports = ItemExtrasEditor;
-
-/***/ },
-/* 84 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ },
 /* 85 */
@@ -47395,10 +47395,10 @@ module.exports =
 
 	var Changeable = __webpack_require__(177);
 	var Editor = __webpack_require__(16);
-	var PropCheckBox = __webpack_require__(39);
+	var PropCheckBox = __webpack_require__(43);
 
 	var ApiOptions = __webpack_require__(8).Options;
-	var InfoTip = __webpack_require__(82);
+	var InfoTip = __webpack_require__(83);
 	var BaseRadio = __webpack_require__(178);
 
 	var ChoiceEditor = React.createClass({
@@ -47735,17 +47735,17 @@ module.exports =
 	var React = __webpack_require__(49);
 	var _ = __webpack_require__(50);
 
-	var InputWithExamples = __webpack_require__(180);
-	var SimpleKeypadInput = __webpack_require__(181);
-	var ParseTex = __webpack_require__(182).parseTex;
-	var PossibleAnswers = __webpack_require__(183);
+	var InputWithExamples = __webpack_require__(179);
+	var SimpleKeypadInput = __webpack_require__(180);
+	var ParseTex = __webpack_require__(181).parseTex;
+	var PossibleAnswers = __webpack_require__(182);
 	var KhanAnswerTypes = __webpack_require__(32);
 
 	var keypadElementPropType = __webpack_require__(87).propTypes.keypadElementPropType;
 
 	var ApiClassNames = __webpack_require__(8).ClassNames;
 	var ApiOptions = __webpack_require__(8).Options;
-	var EnabledFeatures = __webpack_require__(35);
+	var EnabledFeatures = __webpack_require__(36);
 
 	var answerTypes = {
 	    number: {
@@ -48052,8 +48052,8 @@ module.exports =
 
 	var Util = __webpack_require__(9);
 
-	var BlurInput = __webpack_require__(179);
-	var InfoTip = __webpack_require__(82);
+	var BlurInput = __webpack_require__(183);
+	var InfoTip = __webpack_require__(83);
 
 	var answerTypes = {
 	    number: {
@@ -48314,16 +48314,16 @@ module.exports =
 	var React = __webpack_require__(49);
 	var _ = __webpack_require__(50);
 
-	var InputWithExamples = __webpack_require__(180);
-	var SimpleKeypadInput = __webpack_require__(181);
-	var ParseTex = __webpack_require__(182).parseTex;
-	var PossibleAnswers = __webpack_require__(183);
+	var InputWithExamples = __webpack_require__(179);
+	var SimpleKeypadInput = __webpack_require__(180);
+	var ParseTex = __webpack_require__(181).parseTex;
+	var PossibleAnswers = __webpack_require__(182);
 
 	var ApiClassNames = __webpack_require__(8).ClassNames;
 	var ApiOptions = __webpack_require__(8).Options;
-	var EnabledFeatures = __webpack_require__(35);
+	var EnabledFeatures = __webpack_require__(36);
 	var KhanAnswerTypes = __webpack_require__(32);
-	var KhanMath = __webpack_require__(80);
+	var KhanMath = __webpack_require__(81);
 
 	var keypadElementPropType = __webpack_require__(87).propTypes.keypadElementPropType;
 
@@ -48717,10 +48717,10 @@ module.exports =
 
 	var ButtonGroup = __webpack_require__(51);
 	var Editor = __webpack_require__(16);
-	var InfoTip = __webpack_require__(82);
+	var InfoTip = __webpack_require__(83);
 	var MultiButtonGroup = __webpack_require__(185);
 	var NumberInput = __webpack_require__(186);
-	var PropCheckBox = __webpack_require__(39);
+	var PropCheckBox = __webpack_require__(43);
 	var TextInput = __webpack_require__(187);
 
 	var firstNumericalParse = __webpack_require__(9).firstNumericalParse;
@@ -49233,7 +49233,7 @@ module.exports =
 	var classNames = __webpack_require__(86);
 	var React = __webpack_require__(49);
 	var ReactDOM = __webpack_require__(53);
-	var Tooltip = __webpack_require__(194);
+	var Tooltip = __webpack_require__(188);
 	var _ = __webpack_require__(50);
 
 	var ApiOptions = __webpack_require__(8).Options;
@@ -49242,12 +49242,12 @@ module.exports =
 	var ApiClassNames = __webpack_require__(8).ClassNames;
 	var KhanAnswerTypes = __webpack_require__(32);
 
-	var EnabledFeatures = __webpack_require__(35);
+	var EnabledFeatures = __webpack_require__(36);
 
-	var InputWithExamples = __webpack_require__(180);
-	var MathInput = __webpack_require__(195);
+	var InputWithExamples = __webpack_require__(179);
+	var MathInput = __webpack_require__(189);
 	var TeX = __webpack_require__(64); // OldExpression only
-	var TexButtons = __webpack_require__(193);
+	var TexButtons = __webpack_require__(190);
 
 	var KeypadInput = __webpack_require__(87).components.KeypadInput;
 
@@ -49262,7 +49262,7 @@ module.exports =
 	var KeypadTypes = _require$consts.KeypadTypes;
 
 
-	var EnabledFeatures = __webpack_require__(35);
+	var EnabledFeatures = __webpack_require__(36);
 
 	var lens = __webpack_require__(191);
 
@@ -50114,11 +50114,11 @@ module.exports =
 
 	var Changeable = __webpack_require__(177);
 
-	var InfoTip = __webpack_require__(82);
-	var PropCheckBox = __webpack_require__(39);
+	var InfoTip = __webpack_require__(83);
+	var PropCheckBox = __webpack_require__(43);
 	var SortableArea = __webpack_require__(192);
 	var TeX = __webpack_require__(64); // OldExpression only
-	var TexButtons = __webpack_require__(193);
+	var TexButtons = __webpack_require__(190);
 
 	var Expression = __webpack_require__(94).Expression;
 
@@ -50650,15 +50650,15 @@ module.exports =
 	var React = __webpack_require__(49);
 	var classNames = __webpack_require__(86);
 	var Changeable = __webpack_require__(177);
-	var WidgetJsonifyDeprecated = __webpack_require__(188);
+	var WidgetJsonifyDeprecated = __webpack_require__(193);
 	var _ = __webpack_require__(50);
 
 	var ApiClassNames = __webpack_require__(8).ClassNames;
 	var ApiOptions = __webpack_require__(8).Options;
 	var Renderer = __webpack_require__(27);
 	var Util = __webpack_require__(9);
-	var mediaQueries = __webpack_require__(189);
-	var sharedStyles = __webpack_require__(190);
+	var mediaQueries = __webpack_require__(194);
+	var sharedStyles = __webpack_require__(195);
 
 	var Categorizer = React.createClass({
 	    displayName: "Categorizer",
@@ -50930,8 +50930,8 @@ module.exports =
 
 	var ApiOptions = __webpack_require__(8).Options;
 	var EditorJsonify = __webpack_require__(184);
-	var PropCheckBox = __webpack_require__(39);
-	var TextListEditor = __webpack_require__(73);
+	var PropCheckBox = __webpack_require__(43);
+	var TextListEditor = __webpack_require__(69);
 
 	var Categorizer = __webpack_require__(96).widget;
 
@@ -51216,9 +51216,9 @@ module.exports =
 	var Changeable = __webpack_require__(177);
 	var EditorJsonify = __webpack_require__(184);
 
-	var BlurInput = __webpack_require__(179);
-	var InfoTip = __webpack_require__(82);
-	var PropCheckBox = __webpack_require__(39);
+	var BlurInput = __webpack_require__(183);
+	var InfoTip = __webpack_require__(83);
+	var PropCheckBox = __webpack_require__(43);
 
 	var DEFAULT_WIDTH = 400;
 	var DEFAULT_HEIGHT = 400;
@@ -51605,7 +51605,7 @@ module.exports =
 	var ReactDOM = __webpack_require__(53);
 	var _ = __webpack_require__(50);
 
-	var InfoTip = __webpack_require__(82);
+	var InfoTip = __webpack_require__(83);
 	var EditorJsonify = __webpack_require__(184);
 
 	var DropdownEditor = React.createClass({
@@ -52048,20 +52048,20 @@ module.exports =
 	var React = __webpack_require__(49);
 	var _ = __webpack_require__(50);
 
-	var Interactive2 = __webpack_require__(199);
+	var Interactive2 = __webpack_require__(197);
 	var SvgImage = __webpack_require__(33);
 	var Util = __webpack_require__(9);
 	var ButtonGroup = __webpack_require__(51);
 
 	/* Graphie and relevant components. */
-	var Graphie = __webpack_require__(75);
+	var Graphie = __webpack_require__(76);
 	var MovablePoint = Graphie.MovablePoint;
 	var MovableLine = Graphie.MovableLine;
 
 	var knumber = __webpack_require__(217).number;
 	var kvector = __webpack_require__(217).vector;
 	var kpoint = __webpack_require__(217).point;
-	var KhanColors = __webpack_require__(200);
+	var KhanColors = __webpack_require__(198);
 
 	var _require = __webpack_require__(164);
 
@@ -52079,7 +52079,7 @@ module.exports =
 
 	var Changeable = __webpack_require__(177);
 
-	var _require4 = __webpack_require__(198);
+	var _require4 = __webpack_require__(199);
 
 	var GrapherUtil = _require4.GrapherUtil;
 	var typeToButton = _require4.typeToButton;
@@ -52471,13 +52471,13 @@ module.exports =
 
 	var Changeable = __webpack_require__(177);
 
-	var GraphSettings = __webpack_require__(197);
-	var InfoTip = __webpack_require__(82);
+	var GraphSettings = __webpack_require__(200);
+	var InfoTip = __webpack_require__(83);
 	var MultiButtonGroup = __webpack_require__(185);
 
 	var Grapher = __webpack_require__(104).widget;
 
-	var _require = __webpack_require__(198);
+	var _require = __webpack_require__(199);
 
 	var GrapherUtil = _require.GrapherUtil;
 	var allTypes = _require.allTypes;
@@ -53177,7 +53177,7 @@ module.exports =
 	var _ = __webpack_require__(50);
 
 	var Changeable = __webpack_require__(177);
-	var WidgetJsonifyDeprecated = __webpack_require__(188);
+	var WidgetJsonifyDeprecated = __webpack_require__(193);
 	var updateQueryString = __webpack_require__(9).updateQueryString;
 
 	/* This renders the iframe and handles validation via window.postMessage */
@@ -53346,8 +53346,8 @@ module.exports =
 	var Changeable = __webpack_require__(177);
 	var EditorJsonify = __webpack_require__(184);
 
-	var BlurInput = __webpack_require__(179);
-	var PropCheckBox = __webpack_require__(39);
+	var BlurInput = __webpack_require__(183);
+	var PropCheckBox = __webpack_require__(43);
 
 	/**
 	 * This is used for editing a name/value pair.
@@ -53818,9 +53818,9 @@ module.exports =
 	var Changeable = __webpack_require__(177);
 	var EditorJsonify = __webpack_require__(184);
 
-	var BlurInput = __webpack_require__(179);
+	var BlurInput = __webpack_require__(183);
 	var Editor = __webpack_require__(16);
-	var InfoTip = __webpack_require__(82);
+	var InfoTip = __webpack_require__(83);
 	var RangeInput = __webpack_require__(201);
 
 	var defaultBoxSize = 400;
@@ -54265,7 +54265,7 @@ module.exports =
 
 	var Changeable = __webpack_require__(177);
 
-	var Graphie = __webpack_require__(75);
+	var Graphie = __webpack_require__(76);
 
 	var Label = Graphie.Label;
 	var Line = Graphie.Line;
@@ -54731,13 +54731,13 @@ module.exports =
 	var ConstraintEditor = __webpack_require__(204);
 	var DashPicker = __webpack_require__(205);
 	var ElementContainer = __webpack_require__(206);
-	var GraphSettings = __webpack_require__(197);
-	var MathInput = __webpack_require__(195);
+	var GraphSettings = __webpack_require__(200);
+	var MathInput = __webpack_require__(189);
 	var NumberInput = __webpack_require__(186);
 	var TeX = __webpack_require__(64);
 	var TextInput = __webpack_require__(187);
 
-	var KhanColors = __webpack_require__(200);
+	var KhanColors = __webpack_require__(198);
 
 	var defaultInteractionProps = {
 	    graph: {
@@ -56106,14 +56106,14 @@ module.exports =
 	var _ = __webpack_require__(50);
 
 	var Graph = __webpack_require__(207);
-	var InfoTip = __webpack_require__(82);
-	var Interactive2 = __webpack_require__(199);
+	var InfoTip = __webpack_require__(83);
+	var Interactive2 = __webpack_require__(197);
 	var NumberInput = __webpack_require__(186);
 	var Util = __webpack_require__(9);
 
 	var knumber = __webpack_require__(217).number;
 	var kpoint = __webpack_require__(217).point;
-	var KhanColors = __webpack_require__(200);
+	var KhanColors = __webpack_require__(198);
 	var GraphUtils = __webpack_require__(168);
 
 	var _require = __webpack_require__(61);
@@ -58365,8 +58365,8 @@ module.exports =
 
 	var DeprecationMixin = Util.DeprecationMixin;
 
-	var GraphSettings = __webpack_require__(197);
-	var InfoTip = __webpack_require__(82);
+	var GraphSettings = __webpack_require__(200);
+	var InfoTip = __webpack_require__(83);
 
 	var InteractiveGraph = __webpack_require__(116).widget;
 
@@ -58700,7 +58700,7 @@ module.exports =
 
 	var React = __webpack_require__(49);
 	var Changeable = __webpack_require__(177);
-	var WidgetJsonifyDeprecated = __webpack_require__(188);
+	var WidgetJsonifyDeprecated = __webpack_require__(193);
 
 	var MAX_SIZE = 8;
 
@@ -59044,8 +59044,8 @@ module.exports =
 	var EditorJsonify = __webpack_require__(184);
 
 	var NumberInput = __webpack_require__(186);
-	var PropCheckBox = __webpack_require__(39);
-	var InfoTip = __webpack_require__(82);
+	var PropCheckBox = __webpack_require__(43);
+	var InfoTip = __webpack_require__(83);
 
 	var MAX_SIZE = 8;
 
@@ -59322,8 +59322,8 @@ module.exports =
 	var NumberInput = __webpack_require__(186);
 	var Renderer = __webpack_require__(27);
 	var TextInput = __webpack_require__(187);
-	var MathOutput = __webpack_require__(208);
-	var SimpleKeypadInput = __webpack_require__(181);
+	var MathOutput = __webpack_require__(209);
+	var SimpleKeypadInput = __webpack_require__(180);
 
 	var ApiOptions = __webpack_require__(8).Options;
 	var KhanAnswerTypes = __webpack_require__(32);
@@ -60001,7 +60001,7 @@ module.exports =
 	var _ = __webpack_require__(50);
 
 	var Renderer = __webpack_require__(27);
-	var Sortable = __webpack_require__(209);
+	var Sortable = __webpack_require__(208);
 
 	var ApiOptions = __webpack_require__(8).Options;
 	var shuffle = __webpack_require__(9).shuffle;
@@ -60165,9 +60165,9 @@ module.exports =
 	var React = __webpack_require__(49);
 	var _ = __webpack_require__(50);
 
-	var InfoTip = __webpack_require__(82);
-	var PropCheckBox = __webpack_require__(39);
-	var TextListEditor = __webpack_require__(73);
+	var InfoTip = __webpack_require__(83);
+	var PropCheckBox = __webpack_require__(43);
+	var TextListEditor = __webpack_require__(69);
 
 	var MatcherEditor = React.createClass({
 	    displayName: "MatcherEditor",
@@ -60506,9 +60506,9 @@ module.exports =
 	var Changeable = __webpack_require__(177);
 	var EditorJsonify = __webpack_require__(184);
 
-	var InfoTip = __webpack_require__(82);
+	var InfoTip = __webpack_require__(83);
 	var NumberInput = __webpack_require__(186);
-	var PropCheckBox = __webpack_require__(39);
+	var PropCheckBox = __webpack_require__(43);
 	var RangeInput = __webpack_require__(201);
 
 	var defaultImage = {
@@ -61039,17 +61039,17 @@ module.exports =
 	var Changeable = __webpack_require__(177);
 
 	var NumberInput = __webpack_require__(186);
-	var MathOutput = __webpack_require__(208);
+	var MathOutput = __webpack_require__(209);
 
 	var ApiOptions = __webpack_require__(8).Options;
 
-	var Graphie = __webpack_require__(75);
+	var Graphie = __webpack_require__(76);
 	var MovablePoint = Graphie.MovablePoint;
 	var Line = Graphie.Line;
 
 	var knumber = __webpack_require__(217).number;
-	var KhanMath = __webpack_require__(80);
-	var KhanColors = __webpack_require__(200);
+	var KhanMath = __webpack_require__(81);
+	var KhanColors = __webpack_require__(198);
 
 	var bound = function bound(x, gt, lt) {
 	    return Math.min(Math.max(x, gt), lt);
@@ -61676,9 +61676,9 @@ module.exports =
 	var EditorJsonify = __webpack_require__(184);
 
 	var ButtonGroup = __webpack_require__(51);
-	var InfoTip = __webpack_require__(82);
+	var InfoTip = __webpack_require__(83);
 	var NumberInput = __webpack_require__(186);
-	var PropCheckBox = __webpack_require__(39);
+	var PropCheckBox = __webpack_require__(43);
 	var RangeInput = __webpack_require__(201);
 
 	var knumber = __webpack_require__(217).number;
@@ -62758,8 +62758,8 @@ module.exports =
 	var React = __webpack_require__(49);
 	var _ = __webpack_require__(50);
 
-	var InfoTip = __webpack_require__(82);
-	var TextListEditor = __webpack_require__(73);
+	var InfoTip = __webpack_require__(83);
+	var TextListEditor = __webpack_require__(69);
 
 	var NORMAL = "normal",
 	    AUTO = "auto",
@@ -63304,8 +63304,8 @@ module.exports =
 	var EditorJsonify = __webpack_require__(184);
 
 	var Editor = __webpack_require__(16);
-	var InfoTip = __webpack_require__(82);
-	var PropCheckBox = __webpack_require__(39);
+	var InfoTip = __webpack_require__(83);
+	var PropCheckBox = __webpack_require__(43);
 
 	var PassageEditor = React.createClass({
 	    displayName: "PassageEditor",
@@ -63432,8 +63432,8 @@ module.exports =
 	var _ = __webpack_require__(50);
 
 	var Changeable = __webpack_require__(177);
-	var PerseusMarkdown = __webpack_require__(38);
-	var WidgetJsonifyDeprecated = __webpack_require__(188);
+	var PerseusMarkdown = __webpack_require__(35);
+	var WidgetJsonifyDeprecated = __webpack_require__(193);
 
 	var EN_DASH = "–";
 
@@ -63581,7 +63581,7 @@ module.exports =
 	var Changeable = __webpack_require__(177);
 	var EditorJsonify = __webpack_require__(184);
 
-	var InfoTip = __webpack_require__(82);
+	var InfoTip = __webpack_require__(83);
 	var NumberInput = __webpack_require__(186);
 	var TextInput = __webpack_require__(187);
 
@@ -63678,7 +63678,7 @@ module.exports =
 	var _ = __webpack_require__(50);
 
 	var Changeable = __webpack_require__(177);
-	var WidgetJsonifyDeprecated = __webpack_require__(188);
+	var WidgetJsonifyDeprecated = __webpack_require__(193);
 	var Renderer = __webpack_require__(27);
 
 	var PassageRefTarget = React.createClass({
@@ -63799,8 +63799,8 @@ module.exports =
 	var ApiClassNames = __webpack_require__(8).ClassNames;
 
 	var deepEq = __webpack_require__(9).deepEq;
-	var KhanMath = __webpack_require__(80);
-	var KhanColors = __webpack_require__(200);
+	var KhanMath = __webpack_require__(81);
+	var KhanColors = __webpack_require__(198);
 	var GraphUtils = __webpack_require__(168);
 
 	var BAR = "bar",
@@ -64393,12 +64393,12 @@ module.exports =
 	var ReactDOM = __webpack_require__(53);
 	var _ = __webpack_require__(50);
 
-	var BlurInput = __webpack_require__(179);
-	var InfoTip = __webpack_require__(82);
+	var BlurInput = __webpack_require__(183);
+	var InfoTip = __webpack_require__(83);
 	var NumberInput = __webpack_require__(186);
 	var RangeInput = __webpack_require__(201);
 	var SvgImage = __webpack_require__(33);
-	var TextListEditor = __webpack_require__(73);
+	var TextListEditor = __webpack_require__(69);
 
 	var Plotter = __webpack_require__(138).widget;
 
@@ -65548,7 +65548,7 @@ module.exports =
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	/* globals $_, i18n */
-	var InfoTip = __webpack_require__(82);
+	var InfoTip = __webpack_require__(83);
 	var React = __webpack_require__(49);
 	var ReactDOM = __webpack_require__(53);
 	var _ = __webpack_require__(50);
@@ -65558,7 +65558,7 @@ module.exports =
 	var ApiOptions = __webpack_require__(8).Options;
 	var assert = __webpack_require__(167).assert;
 
-	var Graphie = __webpack_require__(75);
+	var Graphie = __webpack_require__(76);
 	var Path = Graphie.Path;
 	var Arc = Graphie.Arc;
 	var Circle = Graphie.Circle;
@@ -65568,12 +65568,12 @@ module.exports =
 	var MovableLine = Graphie.MovableLine;
 
 	var NumberInput = __webpack_require__(186);
-	var MathOutput = __webpack_require__(208);
+	var MathOutput = __webpack_require__(209);
 	var seededRNG = __webpack_require__(9).seededRNG;
 	var Util = __webpack_require__(9);
 	var knumber = __webpack_require__(217).number;
-	var KhanColors = __webpack_require__(200);
-	var KhanMath = __webpack_require__(80);
+	var KhanColors = __webpack_require__(198);
+	var KhanMath = __webpack_require__(81);
 
 	var defaultBoxSize = 400;
 	var maxSampleSize = 1000;
@@ -66317,7 +66317,7 @@ module.exports =
 	var Changeable = __webpack_require__(177);
 	var EditorJsonify = __webpack_require__(184);
 
-	var InfoTip = __webpack_require__(82);
+	var InfoTip = __webpack_require__(83);
 	var NumberInput = __webpack_require__(186);
 
 	var maxTrials = 5000;
@@ -66467,7 +66467,7 @@ module.exports =
 	var React = __webpack_require__(49);
 	var _ = __webpack_require__(50);
 
-	var Sortable = __webpack_require__(209);
+	var Sortable = __webpack_require__(208);
 
 	var ApiOptions = __webpack_require__(8).Options;
 	var shuffle = __webpack_require__(9).shuffle;
@@ -66564,9 +66564,9 @@ module.exports =
 	var React = __webpack_require__(49);
 	var _ = __webpack_require__(50);
 
-	var InfoTip = __webpack_require__(82);
-	var PropCheckBox = __webpack_require__(39);
-	var TextListEditor = __webpack_require__(73);
+	var InfoTip = __webpack_require__(83);
+	var PropCheckBox = __webpack_require__(43);
+	var TextListEditor = __webpack_require__(69);
 
 	var HORIZONTAL = "horizontal";
 	var VERTICAL = "vertical";
@@ -66696,7 +66696,7 @@ module.exports =
 	var ReactDOM = __webpack_require__(53);
 	var _ = __webpack_require__(50);
 
-	var MathOutput = __webpack_require__(208);
+	var MathOutput = __webpack_require__(209);
 	var Renderer = __webpack_require__(27);
 	var Util = __webpack_require__(9);
 
@@ -67036,7 +67036,7 @@ module.exports =
 
 	var Util = __webpack_require__(9);
 
-	var InfoTip = __webpack_require__(82);
+	var InfoTip = __webpack_require__(83);
 	var NumberInput = __webpack_require__(186);
 	var Editor = __webpack_require__(16);
 
@@ -67217,9 +67217,9 @@ module.exports =
 
 	var Graph = __webpack_require__(207);
 	var NumberInput = __webpack_require__(186);
-	var MathOutput = __webpack_require__(208);
+	var MathOutput = __webpack_require__(209);
 	var TeX = __webpack_require__(64);
-	var SimpleKeypadInput = __webpack_require__(181);
+	var SimpleKeypadInput = __webpack_require__(180);
 
 	var ApiOptions = __webpack_require__(8).Options;
 
@@ -67241,8 +67241,8 @@ module.exports =
 	var kpoint = __webpack_require__(217).point;
 	var kray = __webpack_require__(217).ray;
 	var kline = __webpack_require__(217).line;
-	var KhanMath = __webpack_require__(80);
-	var KhanColors = __webpack_require__(200);
+	var KhanMath = __webpack_require__(81);
+	var KhanColors = __webpack_require__(198);
 
 	var assert = __webpack_require__(167).assert;
 
@@ -69644,9 +69644,9 @@ module.exports =
 	var ApiOptions = __webpack_require__(8).Options;
 
 	var Graph = __webpack_require__(207);
-	var GraphSettings = __webpack_require__(197);
-	var InfoTip = __webpack_require__(82);
-	var PropCheckBox = __webpack_require__(39);
+	var GraphSettings = __webpack_require__(200);
+	var InfoTip = __webpack_require__(83);
+	var PropCheckBox = __webpack_require__(43);
 
 	var Transformer = __webpack_require__(150).widget;
 
@@ -69657,7 +69657,7 @@ module.exports =
 	var kpoint = __webpack_require__(217).point;
 	var kray = __webpack_require__(217).ray;
 	var kvector = __webpack_require__(217).vector;
-	var KhanColors = __webpack_require__(200);
+	var KhanColors = __webpack_require__(198);
 
 	function arraySum(array) {
 	    return _.reduce(array, function (memo, arg) {
@@ -70656,7 +70656,7 @@ module.exports =
 	var ApiClassNames = __webpack_require__(8).ClassNames;
 	var ApiOptions = __webpack_require__(8).Options;
 	var Changeable = __webpack_require__(177);
-	var MathOutput = __webpack_require__(208);
+	var MathOutput = __webpack_require__(209);
 
 	var _require = __webpack_require__(214);
 
@@ -71234,7 +71234,7 @@ module.exports =
 	var _ = __webpack_require__(50);
 
 	var Changeable = __webpack_require__(177);
-	var FixedToResponsive = __webpack_require__(74);
+	var FixedToResponsive = __webpack_require__(75);
 
 	// Current default is 720p, based on the typical videos we upload currently
 	var DEFAULT_WIDTH = 1280;
@@ -71343,8 +71343,8 @@ module.exports =
 	var Changeable = __webpack_require__(177);
 	var EditorJsonify = __webpack_require__(184);
 
-	var InfoTip = __webpack_require__(82);
-	var BlurInput = __webpack_require__(179);
+	var InfoTip = __webpack_require__(83);
+	var BlurInput = __webpack_require__(183);
 
 	var KA_VIDEO_URL = /khanacademy\.org\/.*\/v\/(.*)$/;
 
@@ -71432,9 +71432,9 @@ module.exports =
 
 	var Util = __webpack_require__(9);
 	var Changeable = __webpack_require__(177);
-	var WidgetJsonifyDeprecated = __webpack_require__(188);
+	var WidgetJsonifyDeprecated = __webpack_require__(193);
 
-	var Graphie = __webpack_require__(75);
+	var Graphie = __webpack_require__(76);
 	var MovablePoint = Graphie.MovablePoint;
 
 	var knumber = __webpack_require__(217).number;
@@ -71859,7 +71859,7 @@ module.exports =
 
 	var Changeable = __webpack_require__(177);
 
-	var PerseusMarkdown = __webpack_require__(38);
+	var PerseusMarkdown = __webpack_require__(35);
 	var mdParse = PerseusMarkdown.parse;
 	var mdOutput = PerseusMarkdown.basicOutput;
 
@@ -72812,10 +72812,10 @@ module.exports =
 
 	var _ = __webpack_require__(50);
 	var GraphieClasses = __webpack_require__(165);
-	var Interactive2 = __webpack_require__(199);
+	var Interactive2 = __webpack_require__(197);
 	var InteractiveUtil = __webpack_require__(167);
 
-	var KhanColors = __webpack_require__(200);
+	var KhanColors = __webpack_require__(198);
 
 	var assert = InteractiveUtil.assert;
 
@@ -73061,7 +73061,7 @@ module.exports =
 	 */
 
 	var _ = __webpack_require__(50);
-	var MovableHelperMethods = __webpack_require__(220);
+	var MovableHelperMethods = __webpack_require__(218);
 
 	/**
 	 * Compute the correct vendor-prefixed `transform`.
@@ -73199,22 +73199,13 @@ module.exports =
 	 * To use the utilities exported from interactive.js, require that file
 	 * itself.
 	 */
-	var GraphUtils = __webpack_require__(218);
-	__webpack_require__(219); // For side effects
+	var GraphUtils = __webpack_require__(219);
+	__webpack_require__(220); // For side effects
 
 	module.exports = GraphUtils;
 
 /***/ },
 /* 169 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* NOTE: This mimics what we do in webapp and links to our custom version of
-	React -- this was not added with npm */
-	module.exports = __webpack_require__(49).__internalAddons.PureRenderMixin;
-
-
-/***/ },
-/* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* @flow */
@@ -74595,6 +74586,15 @@ module.exports =
 
 
 /***/ },
+/* 170 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* NOTE: This mimics what we do in webapp and links to our custom version of
+	React -- this was not added with npm */
+	module.exports = __webpack_require__(49).__internalAddons.PureRenderMixin;
+
+
+/***/ },
 /* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -75953,7 +75953,7 @@ module.exports =
 	var React = __webpack_require__(49);
 	var _ = __webpack_require__(50);
 
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(40);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(44);
 
 	var USAGE = "Usage:\n" + "  this.change({propName: 5}, callback);\n" + "  this.change(\"propName\", 5, callback);\n" + "  this.change(\"propName\")";
 
@@ -76049,9 +76049,9 @@ module.exports =
 
 	var ApiClassNames = __webpack_require__(8).ClassNames;
 	var Renderer = __webpack_require__(27);
-	var sharedStyles = __webpack_require__(190);
+	var sharedStyles = __webpack_require__(195);
 	var styleConstants = __webpack_require__(61);
-	var mediaQueries = __webpack_require__(189);
+	var mediaQueries = __webpack_require__(194);
 
 	var captureScratchpadTouchStart = __webpack_require__(9).captureScratchpadTouchStart;
 
@@ -76383,75 +76383,19 @@ module.exports =
 
 	"use strict";
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(49);
-
-	/* You know when you want to propagate input to a parent...
-	 * but then that parent does something with the input...
-	 * then changing the props of the input...
-	 * on every keystroke...
-	 * so if some input is invalid or incomplete...
-	 * the input gets reset or otherwise effed...
-	 *
-	 * This is the solution.
-	 *
-	 * Enough melodrama. Its an input that only sends changes
-	 * to its parent on blur.
-	 */
-	var BlurInput = React.createClass({
-	    displayName: "BlurInput",
-
-	    propTypes: {
-	        value: React.PropTypes.string.isRequired,
-	        onChange: React.PropTypes.func.isRequired
-	    },
-	    getInitialState: function getInitialState() {
-	        return { value: this.props.value };
-	    },
-	    render: function render() {
-	        return React.createElement("input", _extends({}, this.props, {
-	            type: "text",
-	            value: this.state.value,
-	            onChange: this.handleChange,
-	            onBlur: this.handleBlur }));
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        this.setState({ value: nextProps.value });
-	    },
-	    handleChange: function handleChange(e) {
-	        this.setState({ value: e.target.value });
-	    },
-	    handleBlur: function handleBlur(e) {
-	        this.props.onChange(e.target.value);
-	    }
-	});
-
-	module.exports = BlurInput;
-
-/***/ },
-/* 180 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(49);
-	var Tooltip = __webpack_require__(194);
+	var Tooltip = __webpack_require__(188);
 	var _ = __webpack_require__(50);
 
 	var ApiClassNames = __webpack_require__(8).ClassNames;
-	var MathInput = __webpack_require__(195);
+	var MathInput = __webpack_require__(189);
 	var Renderer = __webpack_require__(27);
 	var TextInput = __webpack_require__(187);
-	var MathOutput = __webpack_require__(208);
+	var MathOutput = __webpack_require__(209);
 
 	var captureScratchpadTouchStart = __webpack_require__(9).captureScratchpadTouchStart;
 
@@ -76658,7 +76602,7 @@ module.exports =
 	module.exports = InputWithExamples;
 
 /***/ },
-/* 181 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -76748,7 +76692,7 @@ module.exports =
 	module.exports = SimpleKeypadInput;
 
 /***/ },
-/* 182 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -76912,7 +76856,7 @@ module.exports =
 	};
 
 /***/ },
-/* 183 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -76965,6 +76909,62 @@ module.exports =
 	module.exports = PossibleAnswers;
 
 /***/ },
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(49);
+
+	/* You know when you want to propagate input to a parent...
+	 * but then that parent does something with the input...
+	 * then changing the props of the input...
+	 * on every keystroke...
+	 * so if some input is invalid or incomplete...
+	 * the input gets reset or otherwise effed...
+	 *
+	 * This is the solution.
+	 *
+	 * Enough melodrama. Its an input that only sends changes
+	 * to its parent on blur.
+	 */
+	var BlurInput = React.createClass({
+	    displayName: "BlurInput",
+
+	    propTypes: {
+	        value: React.PropTypes.string.isRequired,
+	        onChange: React.PropTypes.func.isRequired
+	    },
+	    getInitialState: function getInitialState() {
+	        return { value: this.props.value };
+	    },
+	    render: function render() {
+	        return React.createElement("input", _extends({}, this.props, {
+	            type: "text",
+	            value: this.state.value,
+	            onChange: this.handleChange,
+	            onBlur: this.handleBlur }));
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        this.setState({ value: nextProps.value });
+	    },
+	    handleChange: function handleChange(e) {
+	        this.setState({ value: e.target.value });
+	    },
+	    handleBlur: function handleBlur(e) {
+	        this.props.onChange(e.target.value);
+	    }
+	});
+
+	module.exports = BlurInput;
+
+/***/ },
 /* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -76976,7 +76976,7 @@ module.exports =
 
 	var _ = __webpack_require__(50);
 
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(40);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(44);
 
 	var EditorJsonify = {
 	    serialize: function serialize() {
@@ -77112,7 +77112,7 @@ module.exports =
 	var firstNumericalParse = __webpack_require__(9).firstNumericalParse;
 	var captureScratchpadTouchStart = __webpack_require__(9).captureScratchpadTouchStart;
 	var knumber = __webpack_require__(217).number;
-	var KhanMath = __webpack_require__(80);
+	var KhanMath = __webpack_require__(81);
 
 	var toNumericString = KhanMath.toNumericString;
 	var getNumericFormat = KhanMath.getNumericFormat;
@@ -77397,770 +77397,6 @@ module.exports =
 
 /***/ },
 /* 188 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-undef, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	/* Free implementation of getUserInput. This should be used sparingly, since it
-	 * just returns all the widget's props rather than picking out those which were
-	 * input by the user.
-	 */
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(40);
-
-	var WidgetJsonifyDeprecated = {
-	    getUserInput: function getUserInput() {
-	        // Omit props that get passed to all widgets
-	        return _.omit(this.props, WIDGET_PROP_BLACKLIST);
-	    }
-	};
-
-	module.exports = WidgetJsonifyDeprecated;
-
-/***/ },
-/* 189 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * A default set of media queries to use for different screen sizes. Based on
-	 * the breakpoints from purecss.
-	 *
-	 * Use like:
-	 *   StyleSheet.create({
-	 *       blah: {
-	 *           [mediaQueries.xs]: {
-	 *
-	 *           },
-	 *       },
-	 *   });
-	 */
-
-	var _require = __webpack_require__(61);
-
-	var pureXsMax = _require.pureXsMax;
-	var pureSmMin = _require.pureSmMin;
-	var pureSmMax = _require.pureSmMax;
-	var pureMdMin = _require.pureMdMin;
-	var pureMdMax = _require.pureMdMax;
-	var pureLgMin = _require.pureLgMin;
-	var pureLgMax = _require.pureLgMax;
-	var pureXlMin = _require.pureXlMin;
-
-
-	module.exports = {
-	    xs: "@media screen and (max-width: " + pureXsMax + ")",
-	    sm: "@media screen and (min-width: " + pureSmMin + ") and " + ("(max-width: " + pureSmMax + ")"),
-	    md: "@media screen and (min-width: " + pureMdMin + ") and " + ("(max-width: " + pureMdMax + ")"),
-	    lg: "@media screen and (min-width: " + pureLgMin + ") and " + ("(max-width: " + pureLgMax + ")"),
-	    xl: "@media screen and (min-width: " + pureXlMin + "))",
-
-	    smOrSmaller: "@media screen and (max-width: " + pureSmMax + ")",
-	    mdOrSmaller: "@media screen and (max-width: " + pureMdMax + ")",
-	    lgOrSmaller: "@media screen and (max-width: " + pureLgMax + ")",
-
-	    smOrLarger: "@media screen and (min-width: " + pureSmMin + ")",
-	    mdOrLarger: "@media screen and (min-width: " + pureMdMin + ")",
-	    lgOrLarger: "@media screen and (min-width: " + pureLgMin + ")"
-	};
-
-/***/ },
-/* 190 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _responsiveInput, _responsiveRadioInput;
-
-	var _require = __webpack_require__(162);
-
-	var StyleSheet = _require.StyleSheet;
-
-	var mediaQueries = __webpack_require__(189);
-
-	var _require2 = __webpack_require__(61);
-
-	var zIndexAboveScratchpad = _require2.zIndexAboveScratchpad;
-	var zIndexInteractiveComponent = _require2.zIndexInteractiveComponent;
-	var radioBorderColor = _require2.radioBorderColor;
-	var checkedColor = _require2.checkedColor;
-	var circleSize = _require2.circleSize;
-
-
-	module.exports = StyleSheet.create({
-	    perseusInteractive: {
-	        zIndex: zIndexInteractiveComponent,
-	        position: "relative"
-	    },
-
-	    aboveScratchpad: {
-	        position: "relative",
-	        zIndex: zIndexAboveScratchpad
-	    },
-
-	    blankBackground: {
-	        // TODO(emily): Use KhanUtil._BACKGROUND?
-	        backgroundColor: "#FDFDFD"
-	    },
-
-	    perseusSrOnly: {
-	        border: 0,
-	        clip: "rect(0,0,0,0)",
-	        height: 1,
-	        margin: -1,
-	        overflow: "hidden",
-	        padding: 0,
-	        position: "absolute",
-	        width: 1
-	    },
-
-	    responsiveInput: (_responsiveInput = {}, _responsiveInput[mediaQueries.lgOrSmaller] = {
-	        display: "inline-block",
-	        WebkitAppearance: "none",
-	        appearance: "none",
-
-	        backgroundColor: "#fff",
-	        border: "2px solid #fff",
-	        boxShadow: "0 0px 0px 1px " + radioBorderColor,
-	        outline: "none",
-
-	        boxSizing: "border-box",
-	        flexShrink: 0,
-	        marginBottom: 0,
-	        marginLeft: 15,
-	        marginRight: 15,
-	        marginTop: 0,
-
-	        height: circleSize,
-	        width: circleSize
-	    }, _responsiveInput),
-
-	    responsiveRadioInput: (_responsiveRadioInput = {}, _responsiveRadioInput[mediaQueries.lgOrSmaller] = {
-	        borderRadius: "50%",
-
-	        ":checked": {
-	            backgroundColor: checkedColor,
-	            border: "2px solid #fff",
-	            borderRadius: "50%",
-	            boxShadow: "0 0px 0px 2px " + checkedColor,
-
-	            height: circleSize,
-	            width: circleSize
-	        }
-	    }, _responsiveRadioInput)
-	});
-
-/***/ },
-/* 191 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO batch *all* mutations
-	 * idea: freeze / thaw implementations for all types
-	 * lens constructor thaws, freeze delegates to type's freeze
-	 */
-
-	var util = __webpack_require__(230);
-	    var clone = util.clone;
-	    var isObject = util.isObject;
-	    var merge = util.merge;
-
-	var arr = __webpack_require__(231);
-	var obj = __webpack_require__(232);
-	var str = __webpack_require__(233);
-
-	// equivalents, without requiring it
-	// find the implementation to use for a given object
-	var dispatch = function(x) {
-	    if (Array.isArray(x)) {
-	        return arr;
-	    } else if (isObject(x)) {
-	        return obj;
-	    } else if (typeof x === "string") {
-	        return str;
-	    }
-	};
-
-	// This is underscore with a different name
-	var lens = function(obj) {
-	    if (obj instanceof lens) {
-	        return obj;
-	    }
-
-	    if (!(this instanceof lens)) {
-	        return new lens(obj);
-	    }
-
-	    var ops = dispatch(obj);
-	    this._wrapped = ops.thaw ? ops.thaw(obj) : obj;
-	};
-
-	lens.prototype.freeze = function() {
-	    var obj = this._wrapped;
-	    var ops = dispatch(obj);
-
-	    return ops.freeze ? ops.freeze(obj) : obj;
-	};
-
-	lens.prototype.zoom = function(lensArr) {
-	    if (this._zoomStack === undefined) {
-	        this._zoomStack = [];
-	    }
-
-	    this._zoomStack.push({
-	        zoom: lensArr,
-	        wrapped: this._wrapped
-	    });
-	    this._wrapped = lens(this._wrapped).get(lensArr);
-
-	    return this;
-	};
-
-	lens.prototype.deZoom = function() {
-	    var frame = this._zoomStack.pop();
-	    this._wrapped = lens(frame.wrapped)
-	        .set(frame.zoom, this._wrapped)
-	        .freeze();
-
-	    return this;
-	};
-
-	lens.prototype.get = function(lensArr) {
-	    var obj = this._wrapped;
-
-	    for (var i = 0; i < lensArr.length; i++) {
-	        obj = dispatch(obj).get(obj, lensArr[i]);
-	    }
-
-	    return obj;
-	};
-
-	lens.prototype.mod = function(lensArr, f) {
-	    var obj = this._wrapped;
-	    var newObj = clone(obj);
-	    var ops = dispatch(obj);
-
-	    if (lensArr.length === 0) {
-	        this._wrapped = f(this._wrapped);
-	    } else if (lensArr.length === 1) {
-	        this._wrapped = ops.mod(newObj, lensArr[0], f);
-	    } else {
-	        var monocle = lensArr[0];
-	        var shortLens = lensArr.slice(1);
-
-	        // newObj = ops.mod(obj[monocle], shortLens, f);
-
-	        newObj[monocle] = lens(obj[monocle])
-	            .mod(shortLens, f)
-	            .freeze();
-	        this._wrapped = newObj;
-	    }
-
-	    return this;
-	};
-
-	// TODO - move to individual files
-	lens.prototype.merge = function(lensArr, props) {
-	    this._wrapped = lens(this._wrapped).mod(lensArr, function(oldProps) {
-	        return merge(oldProps, props);
-	    }).freeze();
-
-	    return this;
-	};
-
-	// Lens must have length >= 1 or there would be nothing to return
-	lens.prototype.del = function(lensArr) {
-	    var obj = this._wrapped;
-	    var ops = dispatch(obj);
-
-	    if (lensArr.length === 1) {
-	        this._wrapped = ops.del(obj, lensArr[0]);
-	    } else {
-	        var monocle = lensArr[0];
-	        var shortLens = lensArr.slice(1);
-	        var subObj = ops.get(obj, monocle);
-
-	        this._wrapped = ops.set(obj, monocle, ops.del(subObj, shortLens));
-	    }
-
-	    return this;
-	};
-
-	lens.prototype.set = function(lensArr, set) {
-	    return this.mod(lensArr, function() { return set; });
-	};
-
-	module.exports = lens;
-
-
-/***/ },
-/* 192 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(49);
-	var ReactDOM = __webpack_require__(53);
-	var _ = __webpack_require__(50);
-
-	var PT = React.PropTypes;
-
-	// Takes an array of components to sort
-	var SortableArea = React.createClass({
-	    displayName: 'SortableArea',
-
-	    propTypes: {
-	        components: PT.arrayOf(PT.node).isRequired,
-	        onReorder: PT.func.isRequired,
-	        verify: PT.func
-	    },
-	    render: function render() {
-	        var _this = this;
-
-	        var sortables = _(this.state.components).map(function (component, index) {
-	            return React.createElement(SortableItem, {
-	                index: index,
-	                component: component,
-	                area: _this,
-	                key: component.key,
-	                draggable: component.props.draggable,
-	                dragging: index === _this.state.dragging });
-	        });
-	        return React.createElement(
-	            'ol',
-	            { className: this.props.className, style: this.props.style },
-	            sortables
-	        );
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return { verify: function verify() {
-	                return true;
-	            } };
-	    },
-	    getInitialState: function getInitialState() {
-	        return {
-	            // index of the component being dragged
-	            dragging: null,
-	            components: this.props.components
-	        };
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        this.setState({ components: nextProps.components });
-	    },
-	    // Alternatively send each handler to each component individually,
-	    // partially applied
-	    onDragStart: function onDragStart(startIndex) {
-	        this.setState({ dragging: startIndex });
-	    },
-	    onDrop: function onDrop() {
-	        // tell the parent component
-	        this.setState({ dragging: null });
-	        this.props.onReorder(this.state.components);
-	    },
-	    onDragEnter: function onDragEnter(enterIndex) {
-	        // When a label is first dragged it triggers a dragEnter with itself,
-	        // which we don't care about.
-	        if (this.state.dragging === enterIndex) {
-	            return;
-	        }
-
-	        var newComponents = this.state.components.slice();
-
-	        // splice the tab out of its old position
-	        var removed = newComponents.splice(this.state.dragging, 1);
-	        // ... and into its new position
-	        newComponents.splice(enterIndex, 0, removed[0]);
-
-	        var verified = this.props.verify(newComponents);
-	        if (verified) {
-	            this.setState({
-	                dragging: enterIndex,
-	                components: newComponents
-	            });
-	        }
-	        return verified;
-	    },
-
-	    // Firefox refuses to drag an element unless you set data on it. Hackily
-	    // add data each time an item is dragged.
-	    componentDidMount: function componentDidMount() {
-	        this._setDragEvents();
-	    },
-	    componentDidUpdate: function componentDidUpdate() {
-	        this._setDragEvents();
-	    },
-	    _listenEvent: function _listenEvent(e) {
-	        e.dataTransfer.setData('hackhackhack', 'because browsers!');
-	    },
-	    _cancelEvent: function _cancelEvent(e) {
-	        // prevent the browser from redirecting to 'because browsers!'
-	        e.preventDefault();
-	    },
-	    _setDragEvents: function _setDragEvents() {
-	        var _this2 = this;
-
-	        this._dragItems = this._dragItems || [];
-	        var items = ReactDOM.findDOMNode(this).querySelectorAll('[draggable=true]');
-	        var oldItems = _(this._dragItems).difference(items);
-	        var newItems = _(items).difference(this._dragItems);
-
-	        _(newItems).each(function (dragItem) {
-	            dragItem.addEventListener('dragstart', _this2._listenEvent);
-	            dragItem.addEventListener('drop', _this2._cancelEvent);
-	        });
-
-	        _(oldItems).each(function (dragItem) {
-	            dragItem.removeEventListener('dragstart', _this2._listenEvent);
-	            dragItem.removeEventListener('drop', _this2._cancelEvent);
-	        });
-	    }
-	});
-
-	// An individual sortable item
-	var SortableItem = React.createClass({
-	    displayName: 'SortableItem',
-
-	    propTypes: {
-	        // item: what is this?
-	    },
-	    render: function render() {
-	        var dragState = "sortable-disabled";
-	        if (this.props.dragging) {
-	            dragState = "sortable-dragging";
-	        } else if (this.props.draggable) {
-	            dragState = "sortable-enabled";
-	        }
-
-	        return React.createElement(
-	            'li',
-	            { draggable: this.props.draggable,
-	                className: dragState,
-	                onDragStart: this.handleDragStart,
-	                onDrop: this.handleDrop,
-	                onDragEnter: this.handleDragEnter,
-	                onDragOver: this.handleDragOver },
-	            this.props.component
-	        );
-	    },
-	    handleDragStart: function handleDragStart(e) {
-	        e.nativeEvent.dataTransfer.effectAllowed = "move";
-	        this.props.area.onDragStart(this.props.index);
-	    },
-	    handleDrop: function handleDrop() {
-	        this.props.area.onDrop(this.props.index);
-	    },
-	    handleDragEnter: function handleDragEnter(e) {
-	        var verified = this.props.area.onDragEnter(this.props.index);
-	        // Ideally this would change the cursor based on whether this is a
-	        // valid place to drop.
-	        e.nativeEvent.dataTransfer.effectAllowed = verified ? "move" : "none";
-	    },
-	    handleDragOver: function handleDragOver(e) {
-	        // allow a drop by preventing default handling
-	        e.preventDefault();
-	    }
-	});
-
-	module.exports = SortableArea;
-
-/***/ },
-/* 193 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(49);
-	var _ = __webpack_require__(50);
-
-	var TeX = __webpack_require__(64);
-
-	var prettyBig = { fontSize: "150%" };
-	var slightlyBig = { fontSize: "120%" };
-	var symbStyle = { fontSize: "130%" };
-
-	// These are functions because we want to generate a new component for each use
-	// on the page rather than reusing an instance (which will cause an error).
-	// Also, it's useful for things which might look different depending on the
-	// props.
-
-	var basic = [function () {
-	    return [React.createElement(
-	        "span",
-	        { key: "plus", style: slightlyBig },
-	        "+"
-	    ), "+"];
-	}, function () {
-	    return [React.createElement(
-	        "span",
-	        { key: "minus", style: prettyBig },
-	        "-"
-	    ), "-"];
-	},
-
-	// TODO(joel) - display as \cdot when appropriate
-	function (props) {
-	    if (props.convertDotToTimes) {
-	        return [React.createElement(
-	            TeX,
-	            { key: "times", style: prettyBig },
-	            "\\times"
-	        ), "\\times"];
-	    } else {
-	        return [React.createElement(
-	            TeX,
-	            { key: "times", style: prettyBig },
-	            "\\cdot"
-	        ), "\\cdot"];
-	    }
-	}, function () {
-	    return [React.createElement(
-	        TeX,
-	        { key: "frac", style: prettyBig },
-	        "\\frac{□}{□}"
-	    ),
-
-	    // If there's something in the input that can become part of a
-	    // fraction, typing "/" puts it in the numerator. If not, typing
-	    // "/" does nothing. In that case, enter a \frac.
-	    function (input) {
-	        var contents = input.latex();
-	        input.typedText("/");
-	        if (input.latex() === contents) {
-	            input.cmd("\\frac");
-	        }
-	    }];
-	}];
-
-	var buttonSets = {
-	    basic: basic,
-
-	    "basic+div": basic.concat([function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "div" },
-	            "\\div"
-	        ), "\\div"];
-	    }]),
-
-	    trig: [function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "sin" },
-	            "\\sin"
-	        ), "\\sin"];
-	    }, function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "cos" },
-	            "\\cos"
-	        ), "\\cos"];
-	    }, function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "tan" },
-	            "\\tan"
-	        ), "\\tan"];
-	    }, function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "theta", style: symbStyle },
-	            "\\theta"
-	        ), "\\theta"];
-	    }, function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "pi", style: symbStyle },
-	            "\\phi"
-	        ), "\\phi"];
-	    }],
-
-	    prealgebra: [function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "sqrt" },
-	            "\\sqrt{x}"
-	        ), "\\sqrt"];
-	    },
-	    // TODO(joel) - how does desmos do this?
-	    function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "nthroot" },
-	            "\\sqrt[3]{x}"
-	        ), function (input) {
-	            input.typedText("nthroot3");
-	            input.keystroke("Right");
-	        }];
-	    }, function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "pow", style: slightlyBig },
-	            "□^a"
-	        ), function (input) {
-	            var contents = input.latex();
-	            input.typedText("^");
-
-	            // If the input hasn't changed (for example, if we're
-	            // attempting to add an exponent on an empty input or an empty
-	            // denominator), insert our own "a^b"
-	            if (input.latex() === contents) {
-	                input.typedText("a^b");
-	            }
-	        }];
-	    }, function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "pi", style: slightlyBig },
-	            "\\pi"
-	        ), "\\pi"];
-	    }],
-
-	    logarithms: [function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "log" },
-	            "\\log"
-	        ), "\\log"];
-	    }, function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "ln" },
-	            "\\ln"
-	        ), "\\ln"];
-	    }, function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "log_b" },
-	            "\\log_b"
-	        ), function (input) {
-	            input.typedText("log_");
-	            input.keystroke("Right");
-	            input.typedText("(");
-	            input.keystroke("Left");
-	            input.keystroke("Left");
-	        }];
-	    }],
-
-	    "basic relations": [function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "eq" },
-	            "="
-	        ), "="];
-	    }, function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "lt" },
-	            "\\lt"
-	        ), "\\lt"];
-	    }, function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "gt" },
-	            "\\gt"
-	        ), "\\gt"];
-	    }],
-
-	    "advanced relations": [function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "neq" },
-	            "\\neq"
-	        ), "\\neq"];
-	    }, function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "leq" },
-	            "\\leq"
-	        ), "\\leq"];
-	    }, function () {
-	        return [React.createElement(
-	            TeX,
-	            { key: "geq" },
-	            "\\geq"
-	        ), "\\geq"];
-	    }]
-	};
-
-	var buttonSetsType = React.PropTypes.arrayOf(React.PropTypes.oneOf(_(buttonSets).keys()));
-
-	var TexButtons = React.createClass({
-	    displayName: "TexButtons",
-
-	    propTypes: {
-	        sets: buttonSetsType.isRequired,
-	        onInsert: React.PropTypes.func.isRequired
-	    },
-
-	    render: function render() {
-	        var _this = this;
-
-	        // Always show buttonSets in the same order. Note: Technically it's ok
-	        // for _.keys() to return the keys in an arbitrary order, but in
-	        // practice, they will be ordered as listed above.
-	        var sortedButtonSets = _.sortBy(this.props.sets, function (setName) {
-	            return _.keys(buttonSets).indexOf(setName);
-	        });
-
-	        var buttons = _(sortedButtonSets).map(function (setName) {
-	            return buttonSets[setName];
-	        });
-
-	        var buttonRows = _(buttons).map(function (row) {
-	            return row.map(function (symbGen) {
-	                // create a (component, thing we should send to mathquill) pair
-	                var symbol = symbGen(_this.props);
-	                return React.createElement(
-	                    "button",
-	                    { onClick: function onClick() {
-	                            return _this.props.onInsert(symbol[1]);
-	                        },
-	                        className: "tex-button",
-	                        key: symbol[0].key,
-	                        tabIndex: -1,
-	                        type: "button" },
-	                    symbol[0]
-	                );
-	            });
-	        });
-
-	        var buttonPopup = _(buttonRows).map(function (row, i) {
-	            return React.createElement(
-	                "div",
-	                { className: "clearfix tex-button-row",
-	                    key: _this.props.sets[i] },
-	                row
-	            );
-	        });
-
-	        return React.createElement(
-	            "div",
-	            { className: this.props.className },
-	            buttonPopup
-	        );
-	    },
-
-	    statics: {
-	        buttonSets: buttonSets,
-	        buttonSetsType: buttonSetsType
-	    }
-	});
-
-	module.exports = TexButtons;
-
-/***/ },
-/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -78526,7 +77762,7 @@ module.exports =
 	module.exports = Tooltip;
 
 /***/ },
-/* 195 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -78540,7 +77776,7 @@ module.exports =
 	var ReactDOM = __webpack_require__(53);
 	var _ = __webpack_require__(50);
 
-	var TexButtons = __webpack_require__(193);
+	var TexButtons = __webpack_require__(190);
 
 	// TODO(alex): Package MathQuill
 	var MathQuill = window.MathQuill;
@@ -78806,6 +78042,770 @@ module.exports =
 	});
 
 	module.exports = MathInput;
+
+/***/ },
+/* 190 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(49);
+	var _ = __webpack_require__(50);
+
+	var TeX = __webpack_require__(64);
+
+	var prettyBig = { fontSize: "150%" };
+	var slightlyBig = { fontSize: "120%" };
+	var symbStyle = { fontSize: "130%" };
+
+	// These are functions because we want to generate a new component for each use
+	// on the page rather than reusing an instance (which will cause an error).
+	// Also, it's useful for things which might look different depending on the
+	// props.
+
+	var basic = [function () {
+	    return [React.createElement(
+	        "span",
+	        { key: "plus", style: slightlyBig },
+	        "+"
+	    ), "+"];
+	}, function () {
+	    return [React.createElement(
+	        "span",
+	        { key: "minus", style: prettyBig },
+	        "-"
+	    ), "-"];
+	},
+
+	// TODO(joel) - display as \cdot when appropriate
+	function (props) {
+	    if (props.convertDotToTimes) {
+	        return [React.createElement(
+	            TeX,
+	            { key: "times", style: prettyBig },
+	            "\\times"
+	        ), "\\times"];
+	    } else {
+	        return [React.createElement(
+	            TeX,
+	            { key: "times", style: prettyBig },
+	            "\\cdot"
+	        ), "\\cdot"];
+	    }
+	}, function () {
+	    return [React.createElement(
+	        TeX,
+	        { key: "frac", style: prettyBig },
+	        "\\frac{□}{□}"
+	    ),
+
+	    // If there's something in the input that can become part of a
+	    // fraction, typing "/" puts it in the numerator. If not, typing
+	    // "/" does nothing. In that case, enter a \frac.
+	    function (input) {
+	        var contents = input.latex();
+	        input.typedText("/");
+	        if (input.latex() === contents) {
+	            input.cmd("\\frac");
+	        }
+	    }];
+	}];
+
+	var buttonSets = {
+	    basic: basic,
+
+	    "basic+div": basic.concat([function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "div" },
+	            "\\div"
+	        ), "\\div"];
+	    }]),
+
+	    trig: [function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "sin" },
+	            "\\sin"
+	        ), "\\sin"];
+	    }, function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "cos" },
+	            "\\cos"
+	        ), "\\cos"];
+	    }, function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "tan" },
+	            "\\tan"
+	        ), "\\tan"];
+	    }, function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "theta", style: symbStyle },
+	            "\\theta"
+	        ), "\\theta"];
+	    }, function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "pi", style: symbStyle },
+	            "\\phi"
+	        ), "\\phi"];
+	    }],
+
+	    prealgebra: [function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "sqrt" },
+	            "\\sqrt{x}"
+	        ), "\\sqrt"];
+	    },
+	    // TODO(joel) - how does desmos do this?
+	    function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "nthroot" },
+	            "\\sqrt[3]{x}"
+	        ), function (input) {
+	            input.typedText("nthroot3");
+	            input.keystroke("Right");
+	        }];
+	    }, function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "pow", style: slightlyBig },
+	            "□^a"
+	        ), function (input) {
+	            var contents = input.latex();
+	            input.typedText("^");
+
+	            // If the input hasn't changed (for example, if we're
+	            // attempting to add an exponent on an empty input or an empty
+	            // denominator), insert our own "a^b"
+	            if (input.latex() === contents) {
+	                input.typedText("a^b");
+	            }
+	        }];
+	    }, function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "pi", style: slightlyBig },
+	            "\\pi"
+	        ), "\\pi"];
+	    }],
+
+	    logarithms: [function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "log" },
+	            "\\log"
+	        ), "\\log"];
+	    }, function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "ln" },
+	            "\\ln"
+	        ), "\\ln"];
+	    }, function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "log_b" },
+	            "\\log_b"
+	        ), function (input) {
+	            input.typedText("log_");
+	            input.keystroke("Right");
+	            input.typedText("(");
+	            input.keystroke("Left");
+	            input.keystroke("Left");
+	        }];
+	    }],
+
+	    "basic relations": [function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "eq" },
+	            "="
+	        ), "="];
+	    }, function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "lt" },
+	            "\\lt"
+	        ), "\\lt"];
+	    }, function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "gt" },
+	            "\\gt"
+	        ), "\\gt"];
+	    }],
+
+	    "advanced relations": [function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "neq" },
+	            "\\neq"
+	        ), "\\neq"];
+	    }, function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "leq" },
+	            "\\leq"
+	        ), "\\leq"];
+	    }, function () {
+	        return [React.createElement(
+	            TeX,
+	            { key: "geq" },
+	            "\\geq"
+	        ), "\\geq"];
+	    }]
+	};
+
+	var buttonSetsType = React.PropTypes.arrayOf(React.PropTypes.oneOf(_(buttonSets).keys()));
+
+	var TexButtons = React.createClass({
+	    displayName: "TexButtons",
+
+	    propTypes: {
+	        sets: buttonSetsType.isRequired,
+	        onInsert: React.PropTypes.func.isRequired
+	    },
+
+	    render: function render() {
+	        var _this = this;
+
+	        // Always show buttonSets in the same order. Note: Technically it's ok
+	        // for _.keys() to return the keys in an arbitrary order, but in
+	        // practice, they will be ordered as listed above.
+	        var sortedButtonSets = _.sortBy(this.props.sets, function (setName) {
+	            return _.keys(buttonSets).indexOf(setName);
+	        });
+
+	        var buttons = _(sortedButtonSets).map(function (setName) {
+	            return buttonSets[setName];
+	        });
+
+	        var buttonRows = _(buttons).map(function (row) {
+	            return row.map(function (symbGen) {
+	                // create a (component, thing we should send to mathquill) pair
+	                var symbol = symbGen(_this.props);
+	                return React.createElement(
+	                    "button",
+	                    { onClick: function onClick() {
+	                            return _this.props.onInsert(symbol[1]);
+	                        },
+	                        className: "tex-button",
+	                        key: symbol[0].key,
+	                        tabIndex: -1,
+	                        type: "button" },
+	                    symbol[0]
+	                );
+	            });
+	        });
+
+	        var buttonPopup = _(buttonRows).map(function (row, i) {
+	            return React.createElement(
+	                "div",
+	                { className: "clearfix tex-button-row",
+	                    key: _this.props.sets[i] },
+	                row
+	            );
+	        });
+
+	        return React.createElement(
+	            "div",
+	            { className: this.props.className },
+	            buttonPopup
+	        );
+	    },
+
+	    statics: {
+	        buttonSets: buttonSets,
+	        buttonSetsType: buttonSetsType
+	    }
+	});
+
+	module.exports = TexButtons;
+
+/***/ },
+/* 191 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO batch *all* mutations
+	 * idea: freeze / thaw implementations for all types
+	 * lens constructor thaws, freeze delegates to type's freeze
+	 */
+
+	var util = __webpack_require__(230);
+	    var clone = util.clone;
+	    var isObject = util.isObject;
+	    var merge = util.merge;
+
+	var arr = __webpack_require__(231);
+	var obj = __webpack_require__(232);
+	var str = __webpack_require__(233);
+
+	// equivalents, without requiring it
+	// find the implementation to use for a given object
+	var dispatch = function(x) {
+	    if (Array.isArray(x)) {
+	        return arr;
+	    } else if (isObject(x)) {
+	        return obj;
+	    } else if (typeof x === "string") {
+	        return str;
+	    }
+	};
+
+	// This is underscore with a different name
+	var lens = function(obj) {
+	    if (obj instanceof lens) {
+	        return obj;
+	    }
+
+	    if (!(this instanceof lens)) {
+	        return new lens(obj);
+	    }
+
+	    var ops = dispatch(obj);
+	    this._wrapped = ops.thaw ? ops.thaw(obj) : obj;
+	};
+
+	lens.prototype.freeze = function() {
+	    var obj = this._wrapped;
+	    var ops = dispatch(obj);
+
+	    return ops.freeze ? ops.freeze(obj) : obj;
+	};
+
+	lens.prototype.zoom = function(lensArr) {
+	    if (this._zoomStack === undefined) {
+	        this._zoomStack = [];
+	    }
+
+	    this._zoomStack.push({
+	        zoom: lensArr,
+	        wrapped: this._wrapped
+	    });
+	    this._wrapped = lens(this._wrapped).get(lensArr);
+
+	    return this;
+	};
+
+	lens.prototype.deZoom = function() {
+	    var frame = this._zoomStack.pop();
+	    this._wrapped = lens(frame.wrapped)
+	        .set(frame.zoom, this._wrapped)
+	        .freeze();
+
+	    return this;
+	};
+
+	lens.prototype.get = function(lensArr) {
+	    var obj = this._wrapped;
+
+	    for (var i = 0; i < lensArr.length; i++) {
+	        obj = dispatch(obj).get(obj, lensArr[i]);
+	    }
+
+	    return obj;
+	};
+
+	lens.prototype.mod = function(lensArr, f) {
+	    var obj = this._wrapped;
+	    var newObj = clone(obj);
+	    var ops = dispatch(obj);
+
+	    if (lensArr.length === 0) {
+	        this._wrapped = f(this._wrapped);
+	    } else if (lensArr.length === 1) {
+	        this._wrapped = ops.mod(newObj, lensArr[0], f);
+	    } else {
+	        var monocle = lensArr[0];
+	        var shortLens = lensArr.slice(1);
+
+	        // newObj = ops.mod(obj[monocle], shortLens, f);
+
+	        newObj[monocle] = lens(obj[monocle])
+	            .mod(shortLens, f)
+	            .freeze();
+	        this._wrapped = newObj;
+	    }
+
+	    return this;
+	};
+
+	// TODO - move to individual files
+	lens.prototype.merge = function(lensArr, props) {
+	    this._wrapped = lens(this._wrapped).mod(lensArr, function(oldProps) {
+	        return merge(oldProps, props);
+	    }).freeze();
+
+	    return this;
+	};
+
+	// Lens must have length >= 1 or there would be nothing to return
+	lens.prototype.del = function(lensArr) {
+	    var obj = this._wrapped;
+	    var ops = dispatch(obj);
+
+	    if (lensArr.length === 1) {
+	        this._wrapped = ops.del(obj, lensArr[0]);
+	    } else {
+	        var monocle = lensArr[0];
+	        var shortLens = lensArr.slice(1);
+	        var subObj = ops.get(obj, monocle);
+
+	        this._wrapped = ops.set(obj, monocle, ops.del(subObj, shortLens));
+	    }
+
+	    return this;
+	};
+
+	lens.prototype.set = function(lensArr, set) {
+	    return this.mod(lensArr, function() { return set; });
+	};
+
+	module.exports = lens;
+
+
+/***/ },
+/* 192 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(49);
+	var ReactDOM = __webpack_require__(53);
+	var _ = __webpack_require__(50);
+
+	var PT = React.PropTypes;
+
+	// Takes an array of components to sort
+	var SortableArea = React.createClass({
+	    displayName: 'SortableArea',
+
+	    propTypes: {
+	        components: PT.arrayOf(PT.node).isRequired,
+	        onReorder: PT.func.isRequired,
+	        verify: PT.func
+	    },
+	    render: function render() {
+	        var _this = this;
+
+	        var sortables = _(this.state.components).map(function (component, index) {
+	            return React.createElement(SortableItem, {
+	                index: index,
+	                component: component,
+	                area: _this,
+	                key: component.key,
+	                draggable: component.props.draggable,
+	                dragging: index === _this.state.dragging });
+	        });
+	        return React.createElement(
+	            'ol',
+	            { className: this.props.className, style: this.props.style },
+	            sortables
+	        );
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return { verify: function verify() {
+	                return true;
+	            } };
+	    },
+	    getInitialState: function getInitialState() {
+	        return {
+	            // index of the component being dragged
+	            dragging: null,
+	            components: this.props.components
+	        };
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        this.setState({ components: nextProps.components });
+	    },
+	    // Alternatively send each handler to each component individually,
+	    // partially applied
+	    onDragStart: function onDragStart(startIndex) {
+	        this.setState({ dragging: startIndex });
+	    },
+	    onDrop: function onDrop() {
+	        // tell the parent component
+	        this.setState({ dragging: null });
+	        this.props.onReorder(this.state.components);
+	    },
+	    onDragEnter: function onDragEnter(enterIndex) {
+	        // When a label is first dragged it triggers a dragEnter with itself,
+	        // which we don't care about.
+	        if (this.state.dragging === enterIndex) {
+	            return;
+	        }
+
+	        var newComponents = this.state.components.slice();
+
+	        // splice the tab out of its old position
+	        var removed = newComponents.splice(this.state.dragging, 1);
+	        // ... and into its new position
+	        newComponents.splice(enterIndex, 0, removed[0]);
+
+	        var verified = this.props.verify(newComponents);
+	        if (verified) {
+	            this.setState({
+	                dragging: enterIndex,
+	                components: newComponents
+	            });
+	        }
+	        return verified;
+	    },
+
+	    // Firefox refuses to drag an element unless you set data on it. Hackily
+	    // add data each time an item is dragged.
+	    componentDidMount: function componentDidMount() {
+	        this._setDragEvents();
+	    },
+	    componentDidUpdate: function componentDidUpdate() {
+	        this._setDragEvents();
+	    },
+	    _listenEvent: function _listenEvent(e) {
+	        e.dataTransfer.setData('hackhackhack', 'because browsers!');
+	    },
+	    _cancelEvent: function _cancelEvent(e) {
+	        // prevent the browser from redirecting to 'because browsers!'
+	        e.preventDefault();
+	    },
+	    _setDragEvents: function _setDragEvents() {
+	        var _this2 = this;
+
+	        this._dragItems = this._dragItems || [];
+	        var items = ReactDOM.findDOMNode(this).querySelectorAll('[draggable=true]');
+	        var oldItems = _(this._dragItems).difference(items);
+	        var newItems = _(items).difference(this._dragItems);
+
+	        _(newItems).each(function (dragItem) {
+	            dragItem.addEventListener('dragstart', _this2._listenEvent);
+	            dragItem.addEventListener('drop', _this2._cancelEvent);
+	        });
+
+	        _(oldItems).each(function (dragItem) {
+	            dragItem.removeEventListener('dragstart', _this2._listenEvent);
+	            dragItem.removeEventListener('drop', _this2._cancelEvent);
+	        });
+	    }
+	});
+
+	// An individual sortable item
+	var SortableItem = React.createClass({
+	    displayName: 'SortableItem',
+
+	    propTypes: {
+	        // item: what is this?
+	    },
+	    render: function render() {
+	        var dragState = "sortable-disabled";
+	        if (this.props.dragging) {
+	            dragState = "sortable-dragging";
+	        } else if (this.props.draggable) {
+	            dragState = "sortable-enabled";
+	        }
+
+	        return React.createElement(
+	            'li',
+	            { draggable: this.props.draggable,
+	                className: dragState,
+	                onDragStart: this.handleDragStart,
+	                onDrop: this.handleDrop,
+	                onDragEnter: this.handleDragEnter,
+	                onDragOver: this.handleDragOver },
+	            this.props.component
+	        );
+	    },
+	    handleDragStart: function handleDragStart(e) {
+	        e.nativeEvent.dataTransfer.effectAllowed = "move";
+	        this.props.area.onDragStart(this.props.index);
+	    },
+	    handleDrop: function handleDrop() {
+	        this.props.area.onDrop(this.props.index);
+	    },
+	    handleDragEnter: function handleDragEnter(e) {
+	        var verified = this.props.area.onDragEnter(this.props.index);
+	        // Ideally this would change the cursor based on whether this is a
+	        // valid place to drop.
+	        e.nativeEvent.dataTransfer.effectAllowed = verified ? "move" : "none";
+	    },
+	    handleDragOver: function handleDragOver(e) {
+	        // allow a drop by preventing default handling
+	        e.preventDefault();
+	    }
+	});
+
+	module.exports = SortableArea;
+
+/***/ },
+/* 193 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-undef, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/* Free implementation of getUserInput. This should be used sparingly, since it
+	 * just returns all the widget's props rather than picking out those which were
+	 * input by the user.
+	 */
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(44);
+
+	var WidgetJsonifyDeprecated = {
+	    getUserInput: function getUserInput() {
+	        // Omit props that get passed to all widgets
+	        return _.omit(this.props, WIDGET_PROP_BLACKLIST);
+	    }
+	};
+
+	module.exports = WidgetJsonifyDeprecated;
+
+/***/ },
+/* 194 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * A default set of media queries to use for different screen sizes. Based on
+	 * the breakpoints from purecss.
+	 *
+	 * Use like:
+	 *   StyleSheet.create({
+	 *       blah: {
+	 *           [mediaQueries.xs]: {
+	 *
+	 *           },
+	 *       },
+	 *   });
+	 */
+
+	var _require = __webpack_require__(61);
+
+	var pureXsMax = _require.pureXsMax;
+	var pureSmMin = _require.pureSmMin;
+	var pureSmMax = _require.pureSmMax;
+	var pureMdMin = _require.pureMdMin;
+	var pureMdMax = _require.pureMdMax;
+	var pureLgMin = _require.pureLgMin;
+	var pureLgMax = _require.pureLgMax;
+	var pureXlMin = _require.pureXlMin;
+
+
+	module.exports = {
+	    xs: "@media screen and (max-width: " + pureXsMax + ")",
+	    sm: "@media screen and (min-width: " + pureSmMin + ") and " + ("(max-width: " + pureSmMax + ")"),
+	    md: "@media screen and (min-width: " + pureMdMin + ") and " + ("(max-width: " + pureMdMax + ")"),
+	    lg: "@media screen and (min-width: " + pureLgMin + ") and " + ("(max-width: " + pureLgMax + ")"),
+	    xl: "@media screen and (min-width: " + pureXlMin + "))",
+
+	    smOrSmaller: "@media screen and (max-width: " + pureSmMax + ")",
+	    mdOrSmaller: "@media screen and (max-width: " + pureMdMax + ")",
+	    lgOrSmaller: "@media screen and (max-width: " + pureLgMax + ")",
+
+	    smOrLarger: "@media screen and (min-width: " + pureSmMin + ")",
+	    mdOrLarger: "@media screen and (min-width: " + pureMdMin + ")",
+	    lgOrLarger: "@media screen and (min-width: " + pureLgMin + ")"
+	};
+
+/***/ },
+/* 195 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _responsiveInput, _responsiveRadioInput;
+
+	var _require = __webpack_require__(162);
+
+	var StyleSheet = _require.StyleSheet;
+
+	var mediaQueries = __webpack_require__(194);
+
+	var _require2 = __webpack_require__(61);
+
+	var zIndexAboveScratchpad = _require2.zIndexAboveScratchpad;
+	var zIndexInteractiveComponent = _require2.zIndexInteractiveComponent;
+	var radioBorderColor = _require2.radioBorderColor;
+	var checkedColor = _require2.checkedColor;
+	var circleSize = _require2.circleSize;
+
+
+	module.exports = StyleSheet.create({
+	    perseusInteractive: {
+	        zIndex: zIndexInteractiveComponent,
+	        position: "relative"
+	    },
+
+	    aboveScratchpad: {
+	        position: "relative",
+	        zIndex: zIndexAboveScratchpad
+	    },
+
+	    blankBackground: {
+	        // TODO(emily): Use KhanUtil._BACKGROUND?
+	        backgroundColor: "#FDFDFD"
+	    },
+
+	    perseusSrOnly: {
+	        border: 0,
+	        clip: "rect(0,0,0,0)",
+	        height: 1,
+	        margin: -1,
+	        overflow: "hidden",
+	        padding: 0,
+	        position: "absolute",
+	        width: 1
+	    },
+
+	    responsiveInput: (_responsiveInput = {}, _responsiveInput[mediaQueries.lgOrSmaller] = {
+	        display: "inline-block",
+	        WebkitAppearance: "none",
+	        appearance: "none",
+
+	        backgroundColor: "#fff",
+	        border: "2px solid #fff",
+	        boxShadow: "0 0px 0px 1px " + radioBorderColor,
+	        outline: "none",
+
+	        boxSizing: "border-box",
+	        flexShrink: 0,
+	        marginBottom: 0,
+	        marginLeft: 15,
+	        marginRight: 15,
+	        marginTop: 0,
+
+	        height: circleSize,
+	        width: circleSize
+	    }, _responsiveInput),
+
+	    responsiveRadioInput: (_responsiveRadioInput = {}, _responsiveRadioInput[mediaQueries.lgOrSmaller] = {
+	        borderRadius: "50%",
+
+	        ":checked": {
+	            backgroundColor: checkedColor,
+	            border: "2px solid #fff",
+	            borderRadius: "50%",
+	            boxShadow: "0 0px 0px 2px " + checkedColor,
+
+	            height: circleSize,
+	            width: circleSize
+	        }
+	    }, _responsiveRadioInput)
+	});
 
 /***/ },
 /* 196 */
@@ -79084,592 +79084,136 @@ module.exports =
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp, space-unary-ops */
+	/* eslint-disable comma-dangle, no-var */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var React = __webpack_require__(49);
-	var ReactDOM = __webpack_require__(53);
-	var _ = __webpack_require__(50);
+	var Movable = __webpack_require__(234);
+	var MovablePoint = __webpack_require__(235);
+	var MovableLine = __webpack_require__(236);
+	var MovablePolygon = __webpack_require__(237);
 
-	var Changeable = __webpack_require__(177);
-
-	var ButtonGroup = __webpack_require__(51);
-	var InfoTip = __webpack_require__(82);
-	var PropCheckBox = __webpack_require__(39);
-	var RangeInput = __webpack_require__(201);
-	var TeX = __webpack_require__(64);
-	var Util = __webpack_require__(9);
-	var KhanMath = __webpack_require__(80);
-
-	var _require = __webpack_require__(61);
-
-	var interactiveSizes = _require.interactiveSizes;
-
-
-	var defaultBackgroundImage = {
-	    url: null,
-	    width: 0,
-	    height: 0
+	var Interactive2 = {
+	    MovablePoint: MovablePoint,
+	    addMovablePoint: function addMovablePoint(graphie, options) {
+	        var movable = new Movable(graphie, {});
+	        return new MovablePoint(graphie, movable, options);
+	    },
+	    MovableLine: MovableLine,
+	    addMovableLine: function addMovableLine(graphie, options) {
+	        var movable = new Movable(graphie, {});
+	        return new MovableLine(graphie, movable, options);
+	    },
+	    MovablePolygon: MovablePolygon,
+	    addMovablePolygon: function addMovablePolygon(graphie, options) {
+	        var movable = new Movable(graphie, {});
+	        return new MovablePolygon(graphie, movable, options);
+	    }
 	};
 
-	function numSteps(range, step) {
-	    return Math.floor((range[1] - range[0]) / step);
-	}
-
-	var GraphSettings = React.createClass({
-	    displayName: "GraphSettings",
-
-	    mixins: [Changeable],
-
-	    propTypes: {
-	        editableSettings: React.PropTypes.arrayOf(React.PropTypes.oneOf(["canvas", "graph", "snap", "image", "measure"])),
-	        box: React.PropTypes.arrayOf(React.PropTypes.number),
-	        labels: React.PropTypes.arrayOf(React.PropTypes.string),
-	        range: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
-	        step: React.PropTypes.arrayOf(React.PropTypes.number),
-	        gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
-	        snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
-	        valid: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.string]),
-	        backgroundImage: React.PropTypes.object,
-	        markings: React.PropTypes.oneOf(["graph", "grid", "none"]),
-	        showProtractor: React.PropTypes.bool,
-	        showRuler: React.PropTypes.bool,
-	        rulerLabel: React.PropTypes.string,
-	        rulerTicks: React.PropTypes.number
-	    },
-
-	    getInitialState: function getInitialState() {
-	        return {
-	            labelsTextbox: this.props.labels,
-	            gridStepTextbox: this.props.gridStep,
-	            snapStepTextbox: this.props.snapStep,
-	            stepTextbox: this.props.step,
-	            rangeTextbox: this.props.range,
-	            backgroundImage: _.clone(this.props.backgroundImage)
-	        };
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            editableSettings: ["graph", "snap", "image", "measure"],
-	            box: [interactiveSizes.defaultBoxSizeSmall, interactiveSizes.defaultBoxSizeSmall],
-	            labels: ["x", "y"],
-	            range: [[-10, 10], [-10, 10]],
-	            step: [1, 1],
-	            gridStep: [1, 1],
-	            snapStep: [1, 1],
-	            valid: true,
-	            backgroundImage: defaultBackgroundImage,
-	            markings: "graph",
-	            showProtractor: false,
-	            showRuler: false,
-	            rulerLabel: "",
-	            rulerTicks: 10
-	        };
-	    },
-
-	    render: function render() {
-	        var _this = this;
-
-	        var scale = [KhanMath.roundTo(2, Util.scaleFromExtent(this.props.range[0], this.props.box[0])), KhanMath.roundTo(2, Util.scaleFromExtent(this.props.range[1], this.props.box[1]))];
-
-	        return React.createElement(
-	            "div",
-	            null,
-	            _.contains(this.props.editableSettings, "canvas") && React.createElement(
-	                "div",
-	                { className: "graph-settings" },
-	                React.createElement(
-	                    "div",
-	                    { className: "perseus-widget-row" },
-	                    "Canvas size (x,y pixels)",
-	                    React.createElement(RangeInput, {
-	                        value: this.props.box,
-	                        onChange: function onChange(box) {
-	                            _this.change({ box: box });
-	                        } })
-	                ),
-	                React.createElement(
-	                    "div",
-	                    { className: "perseus-widget-row" },
-	                    "Scale (px per div): ",
-	                    React.createElement(
-	                        TeX,
-	                        null,
-	                        "(" + scale[0] + ", " + scale[1] + ")"
-	                    )
-	                )
-	            ),
-	            _.contains(this.props.editableSettings, "graph") && React.createElement(
-	                "div",
-	                { className: "graph-settings" },
-	                React.createElement(
-	                    "div",
-	                    { className: "perseus-widget-row" },
-	                    React.createElement(
-	                        "div",
-	                        { className: "perseus-widget-left-col" },
-	                        " x Label",
-	                        React.createElement("input", { type: "text",
-	                            className: "graph-settings-axis-label",
-	                            ref: "labels-0",
-	                            onChange: function onChange(e) {
-	                                return _this.changeLabel(0, e);
-	                            },
-	                            value: this.state.labelsTextbox[0] })
-	                    ),
-	                    React.createElement(
-	                        "div",
-	                        { className: "perseus-widget-right-col" },
-	                        "y Label",
-	                        React.createElement("input", { type: "text",
-	                            className: "graph-settings-axis-label",
-	                            ref: "labels-1",
-	                            onChange: function onChange(e) {
-	                                return _this.changeLabel(1, e);
-	                            },
-	                            value: this.state.labelsTextbox[1] })
-	                    )
-	                ),
-	                React.createElement(
-	                    "div",
-	                    { className: "perseus-widget-row" },
-	                    React.createElement(
-	                        "div",
-	                        { className: "perseus-widget-left-col" },
-	                        "x Range",
-	                        React.createElement(RangeInput, {
-	                            value: this.state.rangeTextbox[0],
-	                            onChange: function onChange(vals) {
-	                                return _this.changeRange(0, vals);
-	                            } })
-	                    ),
-	                    React.createElement(
-	                        "div",
-	                        { className: "perseus-widget-right-col" },
-	                        "y Range",
-	                        React.createElement(RangeInput, {
-	                            value: this.state.rangeTextbox[1],
-	                            onChange: function onChange(vals) {
-	                                return _this.changeRange(1, vals);
-	                            } })
-	                    )
-	                ),
-	                React.createElement(
-	                    "div",
-	                    { className: "perseus-widget-row" },
-	                    React.createElement(
-	                        "div",
-	                        { className: "perseus-widget-left-col" },
-	                        "Tick Step",
-	                        React.createElement(RangeInput, { value: this.state.stepTextbox,
-	                            onChange: this.changeStep })
-	                    ),
-	                    React.createElement(
-	                        "div",
-	                        { className: "perseus-widget-right-col" },
-	                        "Grid Step",
-	                        React.createElement(RangeInput, { value: this.state.gridStepTextbox,
-	                            onChange: this.changeGridStep })
-	                    )
-	                ),
-	                _.contains(this.props.editableSettings, "snap") && React.createElement(
-	                    "div",
-	                    { className: "perseus-widget-row" },
-	                    React.createElement(
-	                        "div",
-	                        { className: "perseus-widget-left-col" },
-	                        "Snap Step",
-	                        React.createElement(RangeInput, { value: this.state.snapStepTextbox,
-	                            onChange: this.changeSnapStep })
-	                    )
-	                ),
-	                React.createElement(
-	                    "div",
-	                    { className: "perseus-widget-row" },
-	                    React.createElement(
-	                        "label",
-	                        null,
-	                        "Markings:",
-	                        ' ',
-	                        " "
-	                    ),
-	                    React.createElement(ButtonGroup, { value: this.props.markings,
-	                        allowEmpty: false,
-	                        buttons: [{ value: "graph", content: "Graph" }, { value: "grid", content: "Grid" }, { value: "none", content: "None" }],
-	                        onChange: this.change("markings") })
-	                )
-	            ),
-	            _.contains(this.props.editableSettings, "image") && React.createElement(
-	                "div",
-	                { className: "image-settings" },
-	                React.createElement(
-	                    "div",
-	                    null,
-	                    "Background image:"
-	                ),
-	                React.createElement(
-	                    "div",
-	                    null,
-	                    "Url:",
-	                    ' ',
-	                    React.createElement("input", { type: "text",
-	                        className: "graph-settings-background-url",
-	                        ref: "bg-url",
-	                        defaultValue: this.state.backgroundImage.url,
-	                        onKeyPress: this.changeBackgroundUrl,
-	                        onBlur: this.changeBackgroundUrl }),
-	                    React.createElement(
-	                        InfoTip,
-	                        null,
-	                        React.createElement(
-	                            "p",
-	                            null,
-	                            "Create an image in graphie, or use the \"Add image\" function to create a background."
-	                        )
-	                    )
-	                )
-	            ),
-	            _.contains(this.props.editableSettings, "measure") && React.createElement(
-	                "div",
-	                { className: "misc-settings" },
-	                React.createElement(
-	                    "div",
-	                    { className: "perseus-widget-row" },
-	                    React.createElement(
-	                        "div",
-	                        { className: "perseus-widget-left-col" },
-	                        React.createElement(PropCheckBox, { label: "Show ruler",
-	                            showRuler: this.props.showRuler,
-	                            onChange: this.change })
-	                    ),
-	                    React.createElement(
-	                        "div",
-	                        { className: "perseus-widget-right-col" },
-	                        React.createElement(PropCheckBox, { label: "Show protractor",
-	                            showProtractor: this.props.showProtractor,
-	                            onChange: this.change })
-	                    )
-	                ),
-	                this.props.showRuler && React.createElement(
-	                    "div",
-	                    null,
-	                    React.createElement(
-	                        "div",
-	                        null,
-	                        React.createElement(
-	                            "label",
-	                            null,
-	                            ' ',
-	                            "Ruler label:",
-	                            ' ',
-	                            React.createElement(
-	                                "select",
-	                                {
-	                                    onChange: this.changeRulerLabel,
-	                                    value: this.props.rulerLabel },
-	                                React.createElement(
-	                                    "option",
-	                                    { value: "" },
-	                                    "None"
-	                                ),
-	                                React.createElement(
-	                                    "optgroup",
-	                                    { label: "Metric" },
-	                                    this.renderLabelChoices([["milimeters", "mm"], ["centimeters", "cm"], ["meters", "m"], ["kilometers", "km"]])
-	                                ),
-	                                React.createElement(
-	                                    "optgroup",
-	                                    { label: "Imperial" },
-	                                    this.renderLabelChoices([["inches", "in"], ["feet", "ft"], ["yards", "yd"], ["miles", "mi"]])
-	                                )
-	                            )
-	                        )
-	                    ),
-	                    React.createElement(
-	                        "div",
-	                        null,
-	                        React.createElement(
-	                            "label",
-	                            null,
-	                            ' ',
-	                            "Ruler ticks:",
-	                            ' ',
-	                            React.createElement(
-	                                "select",
-	                                {
-	                                    onChange: this.changeRulerTicks,
-	                                    value: this.props.rulerTicks },
-	                                _.map([1, 2, 4, 8, 10, 16], function (n) {
-	                                    return React.createElement(
-	                                        "option",
-	                                        { value: n },
-	                                        n
-	                                    );
-	                                })
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    },
-
-	    renderLabelChoices: function renderLabelChoices(choices) {
-	        return _.map(choices, function (nameAndValue) {
-	            return React.createElement(
-	                "option",
-	                { value: nameAndValue[1] },
-	                nameAndValue[0]
-	            );
-	        });
-	    },
-
-	    componentDidMount: function componentDidMount() {
-	        this.changeGraph = _.debounce(this.changeGraph, 300);
-	    },
-
-	    validRange: function validRange(range) {
-	        var numbers = _.every(range, function (num) {
-	            return _.isFinite(num);
-	        });
-	        if (!numbers) {
-	            return "Range must be a valid number";
-	        }
-	        if (range[0] >= range[1]) {
-	            return "Range must have a higher number on the right";
-	        }
-	        return true;
-	    },
-
-	    validateStepValue: function validateStepValue(settings) {
-	        var step = settings.step;
-	        var range = settings.range;
-	        var name = settings.name;
-	        var minTicks = settings.minTicks;
-	        var maxTicks = settings.maxTicks;
-
-
-	        if (!_.isFinite(step)) {
-	            return name + " must be a valid number";
-	        }
-	        var nSteps = numSteps(range, step);
-	        if (nSteps < minTicks) {
-	            return name + " is too large, there must be at least " + minTicks + " ticks.";
-	        }
-	        if (nSteps > maxTicks) {
-	            return name + " is too small, there can be at most " + maxTicks + " ticks.";
-	        }
-	        return true;
-	    },
-
-	    validSnapStep: function validSnapStep(step, range) {
-	        return this.validateStepValue({
-	            step: step,
-	            range: range,
-	            name: "Snap step",
-	            minTicks: 5,
-	            maxTicks: 60
-	        });
-	    },
-
-	    validGridStep: function validGridStep(step, range) {
-	        return this.validateStepValue({
-	            step: step,
-	            range: range,
-	            name: "Grid step",
-	            minTicks: 3,
-	            maxTicks: 60
-	        });
-	    },
-
-	    validStep: function validStep(step, range) {
-	        return this.validateStepValue({
-	            step: step,
-	            range: range,
-	            name: "Step",
-	            minTicks: 3,
-	            maxTicks: 20
-	        });
-	    },
-
-	    validBackgroundImageSize: function validBackgroundImageSize(image) {
-	        // Ignore empty images
-	        if (!image.url) {
-	            return true;
-	        }
-
-	        var validSize = image.width <= 450 && image.height <= 450;
-
-	        if (!validSize) {
-	            return "Image must be smaller than 450px x 450px.";
-	        }
-	        return true;
-	    },
-
-	    validateGraphSettings: function validateGraphSettings(range, step, gridStep, snapStep, image) {
-	        var self = this;
-	        var msg = void 0;
-	        var goodRange = _.every(range, function (range) {
-	            msg = self.validRange(range);
-	            return msg === true;
-	        });
-	        if (!goodRange) {
-	            return msg;
-	        }
-	        var goodStep = _.every(step, function (step, i) {
-	            msg = self.validStep(step, range[i]);
-	            return msg === true;
-	        });
-	        if (!goodStep) {
-	            return msg;
-	        }
-	        var goodGridStep = _.every(gridStep, function (gridStep, i) {
-	            msg = self.validGridStep(gridStep, range[i]);
-	            return msg === true;
-	        });
-	        if (!goodGridStep) {
-	            return msg;
-	        }
-	        var goodSnapStep = _.every(snapStep, function (snapStep, i) {
-	            msg = self.validSnapStep(snapStep, range[i]);
-	            return msg === true;
-	        });
-	        if (!goodSnapStep) {
-	            return msg;
-	        }
-	        var goodImageSize = this.validBackgroundImageSize(image);
-	        if (goodImageSize !== true) {
-	            msg = goodImageSize;
-	            return msg;
-	        }
-	        return true;
-	    },
-
-	    changeLabel: function changeLabel(i, e) {
-	        var val = e.target.value;
-	        var labels = this.state.labelsTextbox.slice();
-	        labels[i] = val;
-	        this.setState({ labelsTextbox: labels }, this.changeGraph);
-	    },
-
-	    changeRange: function changeRange(i, values) {
-	        var ranges = this.state.rangeTextbox.slice();
-	        ranges[i] = values;
-	        var step = this.state.stepTextbox.slice();
-	        var gridStep = this.state.gridStepTextbox.slice();
-	        var snapStep = this.state.snapStepTextbox.slice();
-	        var scale = Util.scaleFromExtent(ranges[i], this.props.box[i]);
-	        if (this.validRange(ranges[i]) === true) {
-	            step[i] = Util.tickStepFromExtent(ranges[i], this.props.box[i]);
-	            gridStep[i] = Util.gridStepFromTickStep(step[i], scale);
-	            snapStep[i] = gridStep[i] / 2;
-	        }
-	        this.setState({
-	            stepTextbox: step,
-	            gridStepTextbox: gridStep,
-	            snapStepTextbox: snapStep,
-	            rangeTextbox: ranges
-	        }, this.changeGraph);
-	    },
-
-	    changeStep: function changeStep(step) {
-	        this.setState({ stepTextbox: step }, this.changeGraph);
-	    },
-
-	    changeSnapStep: function changeSnapStep(snapStep) {
-	        this.setState({ snapStepTextbox: snapStep }, this.changeGraph);
-	    },
-
-	    changeGridStep: function changeGridStep(gridStep) {
-	        this.setState({
-	            gridStepTextbox: gridStep,
-	            snapStepTextbox: _.map(gridStep, function (step) {
-	                return step / 2;
-	            })
-	        }, this.changeGraph);
-	    },
-
-	    changeGraph: function changeGraph() {
-	        var labels = this.state.labelsTextbox;
-	        var range = _.map(this.state.rangeTextbox, function (range) {
-	            return _.map(range, Number);
-	        });
-	        var step = _.map(this.state.stepTextbox, Number);
-	        var gridStep = this.state.gridStepTextbox;
-	        var snapStep = this.state.snapStepTextbox;
-	        var image = this.state.backgroundImage;
-
-	        // validationResult is either:
-	        //   true -> the settings are valid
-	        //   a string -> the settings are invalid, and the explanation
-	        //               is contained in the string
-	        // TODO(aria): Refactor this to not be confusing
-	        var validationResult = this.validateGraphSettings(range, step, gridStep, snapStep, image);
-
-	        if (validationResult === true) {
-	            // either true or a string
-	            this.change({
-	                valid: true,
-	                labels: labels,
-	                range: range,
-	                step: step,
-	                gridStep: gridStep,
-	                snapStep: snapStep,
-	                backgroundImage: image
-	            });
-	        } else {
-	            this.change({
-	                valid: validationResult // a string message, not false
-	            });
-	        }
-	    },
-
-	    changeBackgroundUrl: function changeBackgroundUrl(e) {
-	        var _this2 = this;
-
-	        // Only continue on blur or "enter"
-	        if (e.type === "keypress" && e.key !== "Enter") {
-	            return;
-	        }
-
-	        var setUrl = function setUrl(url, width, height) {
-	            var image = _.clone(_this2.props.backgroundImage);
-	            image.url = url;
-	            image.width = width;
-	            image.height = height;
-	            _this2.setState({
-	                backgroundImage: image
-	            }, _this2.changeGraph);
-	        };
-
-	        var url = ReactDOM.findDOMNode(this.refs["bg-url"]).value;
-	        if (url) {
-	            Util.getImageSize(url, function (width, height) {
-	                if (_this2.isMounted()) {
-	                    setUrl(url, width, height);
-	                }
-	            });
-	        } else {
-	            setUrl(null, 0, 0);
-	        }
-	    },
-
-	    // TODO(aria): Make either a wrapper for standard events to work
-	    // with this.change, or make these use some TextInput/NumberInput box
-	    changeRulerLabel: function changeRulerLabel(e) {
-	        this.change({ rulerLabel: e.target.value });
-	    },
-
-	    changeRulerTicks: function changeRulerTicks(e) {
-	        this.change({ rulerTicks: +e.target.value });
-	    }
-	});
-
-	module.exports = GraphSettings;
+	module.exports = Interactive2;
 
 /***/ },
 /* 198 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * Color constants we use throughout Perseus (originally on KhanUtil).
+	 *
+	 * Note that if the color palette changes substantially, it may also need to be
+	 * updated in khan-exercises and cherry-picked into graphie-to-png's
+	 * khan-exercises submodule, as graphie-to-png still relies on the palette
+	 * provided on KhanUtil.
+	 */
+	var KhanColors = {
+	    BLUE: "#6495ED",
+	    ORANGE: "#FFA500",
+	    PINK: "#FF00AF",
+	    GREEN: "#28AE7B",
+	    PURPLE: "#9D38BD",
+	    RED: "#DF0030",
+	    GRAY: "gray",
+	    BLACK: "black",
+	    LIGHT_BLUE: "#9AB8ED",
+	    LIGHT_ORANGE: "#EDD19B",
+	    LIGHT_PINK: "#ED9BD3",
+	    LIGHT_GREEN: "#9BEDCE",
+	    LIGHT_PURPLE: "#DA9BED",
+	    LIGHT_RED: "#ED9AAC",
+	    LIGHT_GRAY: "#ED9B9B",
+	    LIGHT_BLACK: "#ED9B9B",
+	    GRAY10: "#D6D6D6",
+	    GRAY20: "#CDCDCD",
+	    GRAY30: "#B3B3B3",
+	    GRAY40: "#9A9A9A",
+	    GRAY50: "#808080",
+	    GRAY60: "#666666",
+	    GRAY70: "#4D4D4D",
+	    GRAY80: "#333333",
+	    GRAY90: "#1A1A1A",
+	    BLUE_A: "#CCFAFF",
+	    BLUE_B: "#80F6FF",
+	    BLUE_C: "#63D9EA",
+	    BLUE_D: "#11ACCD",
+	    BLUE_E: "#0C7F99",
+	    TEAL_A: "#94FFF5",
+	    TEAL_B: "#26EDD5",
+	    TEAL_C: "#01D1C1",
+	    TEAL_D: "#01A995",
+	    TEAL_E: "#208170",
+	    GREEN_A: "#B6FFB0",
+	    GREEN_B: "#8AF281",
+	    GREEN_C: "#74CF70",
+	    GREEN_D: "#1FAB54",
+	    GREEN_E: "#0D923F",
+	    GOLD_A: "#FFD0A9",
+	    GOLD_B: "#FFBB71",
+	    GOLD_C: "#FF9C39",
+	    GOLD_D: "#E07D10",
+	    GOLD_E: "#A75A05",
+	    RED_A: "#FCA9A9",
+	    RED_B: "#FF8482",
+	    RED_C: "#F9685D",
+	    RED_D: "#E84D39",
+	    RED_E: "#BC2612",
+	    MAROON_A: "#FFBDE0",
+	    MAROON_B: "#FF92C6",
+	    MAROON_C: "#ED5FA6",
+	    MAROON_D: "#CA337C",
+	    MAROON_E: "#9E034E",
+	    PURPLE_A: "#DDD7FF",
+	    PURPLE_B: "#C6B9FC",
+	    PURPLE_C: "#AA87FF",
+	    PURPLE_D: "#7854AB",
+	    PURPLE_E: "#543B78",
+	    MINT_A: "#F5F9E8",
+	    MINT_B: "#EDF2DF",
+	    MINT_C: "#E0E5CC",
+	    GRAY_A: "#F6F7F7",
+	    GRAY_B: "#F0F1F2",
+	    GRAY_C: "#E3E5E6",
+	    GRAY_D: "#D6D8DA",
+	    GRAY_E: "#BABEC2",
+	    GRAY_F: "#888D93",
+	    GRAY_G: "#626569",
+	    GRAY_H: "#3B3E40",
+	    GRAY_I: "#21242C",
+	    KA_BLUE: "#314453",
+	    KA_GREEN: "#71B307",
+	    // Don't actually use _BACKGROUND! Make things transparent instead. The
+	    // background color used in exercises is subject to change at the whim
+	    // of any redesigns.
+	    _BACKGROUND: "#FDFDFD" };
+
+	KhanColors.INTERACTING = KhanColors.KA_GREEN;
+	KhanColors.INTERACTIVE = KhanColors.KA_GREEN;
+	KhanColors.DYNAMIC = KhanColors.BLUE;
+
+	module.exports = KhanColors;
+
+/***/ },
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -79681,7 +79225,7 @@ module.exports =
 	var _ = __webpack_require__(50);
 
 	var Util = __webpack_require__(9);
-	var Graphie = __webpack_require__(75);
+	var Graphie = __webpack_require__(76);
 	var Plot = Graphie.Plot;
 	var kpoint = __webpack_require__(217).point;
 
@@ -80348,139 +79892,595 @@ module.exports =
 	};
 
 /***/ },
-/* 199 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var Movable = __webpack_require__(234);
-	var MovablePoint = __webpack_require__(235);
-	var MovableLine = __webpack_require__(236);
-	var MovablePolygon = __webpack_require__(237);
-
-	var Interactive2 = {
-	    MovablePoint: MovablePoint,
-	    addMovablePoint: function addMovablePoint(graphie, options) {
-	        var movable = new Movable(graphie, {});
-	        return new MovablePoint(graphie, movable, options);
-	    },
-	    MovableLine: MovableLine,
-	    addMovableLine: function addMovableLine(graphie, options) {
-	        var movable = new Movable(graphie, {});
-	        return new MovableLine(graphie, movable, options);
-	    },
-	    MovablePolygon: MovablePolygon,
-	    addMovablePolygon: function addMovablePolygon(graphie, options) {
-	        var movable = new Movable(graphie, {});
-	        return new MovablePolygon(graphie, movable, options);
-	    }
-	};
-
-	module.exports = Interactive2;
-
-/***/ },
 /* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	/**
-	 * Color constants we use throughout Perseus (originally on KhanUtil).
-	 *
-	 * Note that if the color palette changes substantially, it may also need to be
-	 * updated in khan-exercises and cherry-picked into graphie-to-png's
-	 * khan-exercises submodule, as graphie-to-png still relies on the palette
-	 * provided on KhanUtil.
-	 */
-	var KhanColors = {
-	    BLUE: "#6495ED",
-	    ORANGE: "#FFA500",
-	    PINK: "#FF00AF",
-	    GREEN: "#28AE7B",
-	    PURPLE: "#9D38BD",
-	    RED: "#DF0030",
-	    GRAY: "gray",
-	    BLACK: "black",
-	    LIGHT_BLUE: "#9AB8ED",
-	    LIGHT_ORANGE: "#EDD19B",
-	    LIGHT_PINK: "#ED9BD3",
-	    LIGHT_GREEN: "#9BEDCE",
-	    LIGHT_PURPLE: "#DA9BED",
-	    LIGHT_RED: "#ED9AAC",
-	    LIGHT_GRAY: "#ED9B9B",
-	    LIGHT_BLACK: "#ED9B9B",
-	    GRAY10: "#D6D6D6",
-	    GRAY20: "#CDCDCD",
-	    GRAY30: "#B3B3B3",
-	    GRAY40: "#9A9A9A",
-	    GRAY50: "#808080",
-	    GRAY60: "#666666",
-	    GRAY70: "#4D4D4D",
-	    GRAY80: "#333333",
-	    GRAY90: "#1A1A1A",
-	    BLUE_A: "#CCFAFF",
-	    BLUE_B: "#80F6FF",
-	    BLUE_C: "#63D9EA",
-	    BLUE_D: "#11ACCD",
-	    BLUE_E: "#0C7F99",
-	    TEAL_A: "#94FFF5",
-	    TEAL_B: "#26EDD5",
-	    TEAL_C: "#01D1C1",
-	    TEAL_D: "#01A995",
-	    TEAL_E: "#208170",
-	    GREEN_A: "#B6FFB0",
-	    GREEN_B: "#8AF281",
-	    GREEN_C: "#74CF70",
-	    GREEN_D: "#1FAB54",
-	    GREEN_E: "#0D923F",
-	    GOLD_A: "#FFD0A9",
-	    GOLD_B: "#FFBB71",
-	    GOLD_C: "#FF9C39",
-	    GOLD_D: "#E07D10",
-	    GOLD_E: "#A75A05",
-	    RED_A: "#FCA9A9",
-	    RED_B: "#FF8482",
-	    RED_C: "#F9685D",
-	    RED_D: "#E84D39",
-	    RED_E: "#BC2612",
-	    MAROON_A: "#FFBDE0",
-	    MAROON_B: "#FF92C6",
-	    MAROON_C: "#ED5FA6",
-	    MAROON_D: "#CA337C",
-	    MAROON_E: "#9E034E",
-	    PURPLE_A: "#DDD7FF",
-	    PURPLE_B: "#C6B9FC",
-	    PURPLE_C: "#AA87FF",
-	    PURPLE_D: "#7854AB",
-	    PURPLE_E: "#543B78",
-	    MINT_A: "#F5F9E8",
-	    MINT_B: "#EDF2DF",
-	    MINT_C: "#E0E5CC",
-	    GRAY_A: "#F6F7F7",
-	    GRAY_B: "#F0F1F2",
-	    GRAY_C: "#E3E5E6",
-	    GRAY_D: "#D6D8DA",
-	    GRAY_E: "#BABEC2",
-	    GRAY_F: "#888D93",
-	    GRAY_G: "#626569",
-	    GRAY_H: "#3B3E40",
-	    GRAY_I: "#21242C",
-	    KA_BLUE: "#314453",
-	    KA_GREEN: "#71B307",
-	    // Don't actually use _BACKGROUND! Make things transparent instead. The
-	    // background color used in exercises is subject to change at the whim
-	    // of any redesigns.
-	    _BACKGROUND: "#FDFDFD" };
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp, space-unary-ops */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	KhanColors.INTERACTING = KhanColors.KA_GREEN;
-	KhanColors.INTERACTIVE = KhanColors.KA_GREEN;
-	KhanColors.DYNAMIC = KhanColors.BLUE;
+	var React = __webpack_require__(49);
+	var ReactDOM = __webpack_require__(53);
+	var _ = __webpack_require__(50);
 
-	module.exports = KhanColors;
+	var Changeable = __webpack_require__(177);
+
+	var ButtonGroup = __webpack_require__(51);
+	var InfoTip = __webpack_require__(83);
+	var PropCheckBox = __webpack_require__(43);
+	var RangeInput = __webpack_require__(201);
+	var TeX = __webpack_require__(64);
+	var Util = __webpack_require__(9);
+	var KhanMath = __webpack_require__(81);
+
+	var _require = __webpack_require__(61);
+
+	var interactiveSizes = _require.interactiveSizes;
+
+
+	var defaultBackgroundImage = {
+	    url: null,
+	    width: 0,
+	    height: 0
+	};
+
+	function numSteps(range, step) {
+	    return Math.floor((range[1] - range[0]) / step);
+	}
+
+	var GraphSettings = React.createClass({
+	    displayName: "GraphSettings",
+
+	    mixins: [Changeable],
+
+	    propTypes: {
+	        editableSettings: React.PropTypes.arrayOf(React.PropTypes.oneOf(["canvas", "graph", "snap", "image", "measure"])),
+	        box: React.PropTypes.arrayOf(React.PropTypes.number),
+	        labels: React.PropTypes.arrayOf(React.PropTypes.string),
+	        range: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
+	        step: React.PropTypes.arrayOf(React.PropTypes.number),
+	        gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
+	        snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
+	        valid: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.string]),
+	        backgroundImage: React.PropTypes.object,
+	        markings: React.PropTypes.oneOf(["graph", "grid", "none"]),
+	        showProtractor: React.PropTypes.bool,
+	        showRuler: React.PropTypes.bool,
+	        rulerLabel: React.PropTypes.string,
+	        rulerTicks: React.PropTypes.number
+	    },
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            labelsTextbox: this.props.labels,
+	            gridStepTextbox: this.props.gridStep,
+	            snapStepTextbox: this.props.snapStep,
+	            stepTextbox: this.props.step,
+	            rangeTextbox: this.props.range,
+	            backgroundImage: _.clone(this.props.backgroundImage)
+	        };
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            editableSettings: ["graph", "snap", "image", "measure"],
+	            box: [interactiveSizes.defaultBoxSizeSmall, interactiveSizes.defaultBoxSizeSmall],
+	            labels: ["x", "y"],
+	            range: [[-10, 10], [-10, 10]],
+	            step: [1, 1],
+	            gridStep: [1, 1],
+	            snapStep: [1, 1],
+	            valid: true,
+	            backgroundImage: defaultBackgroundImage,
+	            markings: "graph",
+	            showProtractor: false,
+	            showRuler: false,
+	            rulerLabel: "",
+	            rulerTicks: 10
+	        };
+	    },
+
+	    render: function render() {
+	        var _this = this;
+
+	        var scale = [KhanMath.roundTo(2, Util.scaleFromExtent(this.props.range[0], this.props.box[0])), KhanMath.roundTo(2, Util.scaleFromExtent(this.props.range[1], this.props.box[1]))];
+
+	        return React.createElement(
+	            "div",
+	            null,
+	            _.contains(this.props.editableSettings, "canvas") && React.createElement(
+	                "div",
+	                { className: "graph-settings" },
+	                React.createElement(
+	                    "div",
+	                    { className: "perseus-widget-row" },
+	                    "Canvas size (x,y pixels)",
+	                    React.createElement(RangeInput, {
+	                        value: this.props.box,
+	                        onChange: function onChange(box) {
+	                            _this.change({ box: box });
+	                        } })
+	                ),
+	                React.createElement(
+	                    "div",
+	                    { className: "perseus-widget-row" },
+	                    "Scale (px per div): ",
+	                    React.createElement(
+	                        TeX,
+	                        null,
+	                        "(" + scale[0] + ", " + scale[1] + ")"
+	                    )
+	                )
+	            ),
+	            _.contains(this.props.editableSettings, "graph") && React.createElement(
+	                "div",
+	                { className: "graph-settings" },
+	                React.createElement(
+	                    "div",
+	                    { className: "perseus-widget-row" },
+	                    React.createElement(
+	                        "div",
+	                        { className: "perseus-widget-left-col" },
+	                        " x Label",
+	                        React.createElement("input", { type: "text",
+	                            className: "graph-settings-axis-label",
+	                            ref: "labels-0",
+	                            onChange: function onChange(e) {
+	                                return _this.changeLabel(0, e);
+	                            },
+	                            value: this.state.labelsTextbox[0] })
+	                    ),
+	                    React.createElement(
+	                        "div",
+	                        { className: "perseus-widget-right-col" },
+	                        "y Label",
+	                        React.createElement("input", { type: "text",
+	                            className: "graph-settings-axis-label",
+	                            ref: "labels-1",
+	                            onChange: function onChange(e) {
+	                                return _this.changeLabel(1, e);
+	                            },
+	                            value: this.state.labelsTextbox[1] })
+	                    )
+	                ),
+	                React.createElement(
+	                    "div",
+	                    { className: "perseus-widget-row" },
+	                    React.createElement(
+	                        "div",
+	                        { className: "perseus-widget-left-col" },
+	                        "x Range",
+	                        React.createElement(RangeInput, {
+	                            value: this.state.rangeTextbox[0],
+	                            onChange: function onChange(vals) {
+	                                return _this.changeRange(0, vals);
+	                            } })
+	                    ),
+	                    React.createElement(
+	                        "div",
+	                        { className: "perseus-widget-right-col" },
+	                        "y Range",
+	                        React.createElement(RangeInput, {
+	                            value: this.state.rangeTextbox[1],
+	                            onChange: function onChange(vals) {
+	                                return _this.changeRange(1, vals);
+	                            } })
+	                    )
+	                ),
+	                React.createElement(
+	                    "div",
+	                    { className: "perseus-widget-row" },
+	                    React.createElement(
+	                        "div",
+	                        { className: "perseus-widget-left-col" },
+	                        "Tick Step",
+	                        React.createElement(RangeInput, { value: this.state.stepTextbox,
+	                            onChange: this.changeStep })
+	                    ),
+	                    React.createElement(
+	                        "div",
+	                        { className: "perseus-widget-right-col" },
+	                        "Grid Step",
+	                        React.createElement(RangeInput, { value: this.state.gridStepTextbox,
+	                            onChange: this.changeGridStep })
+	                    )
+	                ),
+	                _.contains(this.props.editableSettings, "snap") && React.createElement(
+	                    "div",
+	                    { className: "perseus-widget-row" },
+	                    React.createElement(
+	                        "div",
+	                        { className: "perseus-widget-left-col" },
+	                        "Snap Step",
+	                        React.createElement(RangeInput, { value: this.state.snapStepTextbox,
+	                            onChange: this.changeSnapStep })
+	                    )
+	                ),
+	                React.createElement(
+	                    "div",
+	                    { className: "perseus-widget-row" },
+	                    React.createElement(
+	                        "label",
+	                        null,
+	                        "Markings:",
+	                        ' ',
+	                        " "
+	                    ),
+	                    React.createElement(ButtonGroup, { value: this.props.markings,
+	                        allowEmpty: false,
+	                        buttons: [{ value: "graph", content: "Graph" }, { value: "grid", content: "Grid" }, { value: "none", content: "None" }],
+	                        onChange: this.change("markings") })
+	                )
+	            ),
+	            _.contains(this.props.editableSettings, "image") && React.createElement(
+	                "div",
+	                { className: "image-settings" },
+	                React.createElement(
+	                    "div",
+	                    null,
+	                    "Background image:"
+	                ),
+	                React.createElement(
+	                    "div",
+	                    null,
+	                    "Url:",
+	                    ' ',
+	                    React.createElement("input", { type: "text",
+	                        className: "graph-settings-background-url",
+	                        ref: "bg-url",
+	                        defaultValue: this.state.backgroundImage.url,
+	                        onKeyPress: this.changeBackgroundUrl,
+	                        onBlur: this.changeBackgroundUrl }),
+	                    React.createElement(
+	                        InfoTip,
+	                        null,
+	                        React.createElement(
+	                            "p",
+	                            null,
+	                            "Create an image in graphie, or use the \"Add image\" function to create a background."
+	                        )
+	                    )
+	                )
+	            ),
+	            _.contains(this.props.editableSettings, "measure") && React.createElement(
+	                "div",
+	                { className: "misc-settings" },
+	                React.createElement(
+	                    "div",
+	                    { className: "perseus-widget-row" },
+	                    React.createElement(
+	                        "div",
+	                        { className: "perseus-widget-left-col" },
+	                        React.createElement(PropCheckBox, { label: "Show ruler",
+	                            showRuler: this.props.showRuler,
+	                            onChange: this.change })
+	                    ),
+	                    React.createElement(
+	                        "div",
+	                        { className: "perseus-widget-right-col" },
+	                        React.createElement(PropCheckBox, { label: "Show protractor",
+	                            showProtractor: this.props.showProtractor,
+	                            onChange: this.change })
+	                    )
+	                ),
+	                this.props.showRuler && React.createElement(
+	                    "div",
+	                    null,
+	                    React.createElement(
+	                        "div",
+	                        null,
+	                        React.createElement(
+	                            "label",
+	                            null,
+	                            ' ',
+	                            "Ruler label:",
+	                            ' ',
+	                            React.createElement(
+	                                "select",
+	                                {
+	                                    onChange: this.changeRulerLabel,
+	                                    value: this.props.rulerLabel },
+	                                React.createElement(
+	                                    "option",
+	                                    { value: "" },
+	                                    "None"
+	                                ),
+	                                React.createElement(
+	                                    "optgroup",
+	                                    { label: "Metric" },
+	                                    this.renderLabelChoices([["milimeters", "mm"], ["centimeters", "cm"], ["meters", "m"], ["kilometers", "km"]])
+	                                ),
+	                                React.createElement(
+	                                    "optgroup",
+	                                    { label: "Imperial" },
+	                                    this.renderLabelChoices([["inches", "in"], ["feet", "ft"], ["yards", "yd"], ["miles", "mi"]])
+	                                )
+	                            )
+	                        )
+	                    ),
+	                    React.createElement(
+	                        "div",
+	                        null,
+	                        React.createElement(
+	                            "label",
+	                            null,
+	                            ' ',
+	                            "Ruler ticks:",
+	                            ' ',
+	                            React.createElement(
+	                                "select",
+	                                {
+	                                    onChange: this.changeRulerTicks,
+	                                    value: this.props.rulerTicks },
+	                                _.map([1, 2, 4, 8, 10, 16], function (n) {
+	                                    return React.createElement(
+	                                        "option",
+	                                        { value: n },
+	                                        n
+	                                    );
+	                                })
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    },
+
+	    renderLabelChoices: function renderLabelChoices(choices) {
+	        return _.map(choices, function (nameAndValue) {
+	            return React.createElement(
+	                "option",
+	                { value: nameAndValue[1] },
+	                nameAndValue[0]
+	            );
+	        });
+	    },
+
+	    componentDidMount: function componentDidMount() {
+	        this.changeGraph = _.debounce(this.changeGraph, 300);
+	    },
+
+	    validRange: function validRange(range) {
+	        var numbers = _.every(range, function (num) {
+	            return _.isFinite(num);
+	        });
+	        if (!numbers) {
+	            return "Range must be a valid number";
+	        }
+	        if (range[0] >= range[1]) {
+	            return "Range must have a higher number on the right";
+	        }
+	        return true;
+	    },
+
+	    validateStepValue: function validateStepValue(settings) {
+	        var step = settings.step;
+	        var range = settings.range;
+	        var name = settings.name;
+	        var minTicks = settings.minTicks;
+	        var maxTicks = settings.maxTicks;
+
+
+	        if (!_.isFinite(step)) {
+	            return name + " must be a valid number";
+	        }
+	        var nSteps = numSteps(range, step);
+	        if (nSteps < minTicks) {
+	            return name + " is too large, there must be at least " + minTicks + " ticks.";
+	        }
+	        if (nSteps > maxTicks) {
+	            return name + " is too small, there can be at most " + maxTicks + " ticks.";
+	        }
+	        return true;
+	    },
+
+	    validSnapStep: function validSnapStep(step, range) {
+	        return this.validateStepValue({
+	            step: step,
+	            range: range,
+	            name: "Snap step",
+	            minTicks: 5,
+	            maxTicks: 60
+	        });
+	    },
+
+	    validGridStep: function validGridStep(step, range) {
+	        return this.validateStepValue({
+	            step: step,
+	            range: range,
+	            name: "Grid step",
+	            minTicks: 3,
+	            maxTicks: 60
+	        });
+	    },
+
+	    validStep: function validStep(step, range) {
+	        return this.validateStepValue({
+	            step: step,
+	            range: range,
+	            name: "Step",
+	            minTicks: 3,
+	            maxTicks: 20
+	        });
+	    },
+
+	    validBackgroundImageSize: function validBackgroundImageSize(image) {
+	        // Ignore empty images
+	        if (!image.url) {
+	            return true;
+	        }
+
+	        var validSize = image.width <= 450 && image.height <= 450;
+
+	        if (!validSize) {
+	            return "Image must be smaller than 450px x 450px.";
+	        }
+	        return true;
+	    },
+
+	    validateGraphSettings: function validateGraphSettings(range, step, gridStep, snapStep, image) {
+	        var self = this;
+	        var msg = void 0;
+	        var goodRange = _.every(range, function (range) {
+	            msg = self.validRange(range);
+	            return msg === true;
+	        });
+	        if (!goodRange) {
+	            return msg;
+	        }
+	        var goodStep = _.every(step, function (step, i) {
+	            msg = self.validStep(step, range[i]);
+	            return msg === true;
+	        });
+	        if (!goodStep) {
+	            return msg;
+	        }
+	        var goodGridStep = _.every(gridStep, function (gridStep, i) {
+	            msg = self.validGridStep(gridStep, range[i]);
+	            return msg === true;
+	        });
+	        if (!goodGridStep) {
+	            return msg;
+	        }
+	        var goodSnapStep = _.every(snapStep, function (snapStep, i) {
+	            msg = self.validSnapStep(snapStep, range[i]);
+	            return msg === true;
+	        });
+	        if (!goodSnapStep) {
+	            return msg;
+	        }
+	        var goodImageSize = this.validBackgroundImageSize(image);
+	        if (goodImageSize !== true) {
+	            msg = goodImageSize;
+	            return msg;
+	        }
+	        return true;
+	    },
+
+	    changeLabel: function changeLabel(i, e) {
+	        var val = e.target.value;
+	        var labels = this.state.labelsTextbox.slice();
+	        labels[i] = val;
+	        this.setState({ labelsTextbox: labels }, this.changeGraph);
+	    },
+
+	    changeRange: function changeRange(i, values) {
+	        var ranges = this.state.rangeTextbox.slice();
+	        ranges[i] = values;
+	        var step = this.state.stepTextbox.slice();
+	        var gridStep = this.state.gridStepTextbox.slice();
+	        var snapStep = this.state.snapStepTextbox.slice();
+	        var scale = Util.scaleFromExtent(ranges[i], this.props.box[i]);
+	        if (this.validRange(ranges[i]) === true) {
+	            step[i] = Util.tickStepFromExtent(ranges[i], this.props.box[i]);
+	            gridStep[i] = Util.gridStepFromTickStep(step[i], scale);
+	            snapStep[i] = gridStep[i] / 2;
+	        }
+	        this.setState({
+	            stepTextbox: step,
+	            gridStepTextbox: gridStep,
+	            snapStepTextbox: snapStep,
+	            rangeTextbox: ranges
+	        }, this.changeGraph);
+	    },
+
+	    changeStep: function changeStep(step) {
+	        this.setState({ stepTextbox: step }, this.changeGraph);
+	    },
+
+	    changeSnapStep: function changeSnapStep(snapStep) {
+	        this.setState({ snapStepTextbox: snapStep }, this.changeGraph);
+	    },
+
+	    changeGridStep: function changeGridStep(gridStep) {
+	        this.setState({
+	            gridStepTextbox: gridStep,
+	            snapStepTextbox: _.map(gridStep, function (step) {
+	                return step / 2;
+	            })
+	        }, this.changeGraph);
+	    },
+
+	    changeGraph: function changeGraph() {
+	        var labels = this.state.labelsTextbox;
+	        var range = _.map(this.state.rangeTextbox, function (range) {
+	            return _.map(range, Number);
+	        });
+	        var step = _.map(this.state.stepTextbox, Number);
+	        var gridStep = this.state.gridStepTextbox;
+	        var snapStep = this.state.snapStepTextbox;
+	        var image = this.state.backgroundImage;
+
+	        // validationResult is either:
+	        //   true -> the settings are valid
+	        //   a string -> the settings are invalid, and the explanation
+	        //               is contained in the string
+	        // TODO(aria): Refactor this to not be confusing
+	        var validationResult = this.validateGraphSettings(range, step, gridStep, snapStep, image);
+
+	        if (validationResult === true) {
+	            // either true or a string
+	            this.change({
+	                valid: true,
+	                labels: labels,
+	                range: range,
+	                step: step,
+	                gridStep: gridStep,
+	                snapStep: snapStep,
+	                backgroundImage: image
+	            });
+	        } else {
+	            this.change({
+	                valid: validationResult // a string message, not false
+	            });
+	        }
+	    },
+
+	    changeBackgroundUrl: function changeBackgroundUrl(e) {
+	        var _this2 = this;
+
+	        // Only continue on blur or "enter"
+	        if (e.type === "keypress" && e.key !== "Enter") {
+	            return;
+	        }
+
+	        var setUrl = function setUrl(url, width, height) {
+	            var image = _.clone(_this2.props.backgroundImage);
+	            image.url = url;
+	            image.width = width;
+	            image.height = height;
+	            _this2.setState({
+	                backgroundImage: image
+	            }, _this2.changeGraph);
+	        };
+
+	        var url = ReactDOM.findDOMNode(this.refs["bg-url"]).value;
+	        if (url) {
+	            Util.getImageSize(url, function (width, height) {
+	                if (_this2.isMounted()) {
+	                    setUrl(url, width, height);
+	                }
+	            });
+	        } else {
+	            setUrl(null, 0, 0);
+	        }
+	    },
+
+	    // TODO(aria): Make either a wrapper for standard events to work
+	    // with this.change, or make these use some TextInput/NumberInput box
+	    changeRulerLabel: function changeRulerLabel(e) {
+	        this.change({ rulerLabel: e.target.value });
+	    },
+
+	    changeRulerTicks: function changeRulerTicks(e) {
+	        this.change({ rulerTicks: +e.target.value });
+	    }
+	});
+
+	module.exports = GraphSettings;
 
 /***/ },
 /* 201 */
@@ -80615,7 +80615,7 @@ module.exports =
 	var ButtonGroup = __webpack_require__(51);
 	var React = __webpack_require__(49);
 
-	var KhanColors = __webpack_require__(200);
+	var KhanColors = __webpack_require__(198);
 
 	var ColorPicker = React.createClass({
 	    displayName: "ColorPicker",
@@ -80675,7 +80675,7 @@ module.exports =
 
 	var ButtonGroup = __webpack_require__(51);
 	var Changeable = __webpack_require__(177);
-	var MathInput = __webpack_require__(195);
+	var MathInput = __webpack_require__(189);
 	var NumberInput = __webpack_require__(186);
 
 	var ConstraintEditor = React.createClass({
@@ -81337,142 +81337,6 @@ module.exports =
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(49);
-	var ReactDOM = __webpack_require__(53);
-	var TeX = __webpack_require__(64);
-	var ApiClassNames = __webpack_require__(8).ClassNames;
-	var Tooltip = __webpack_require__(194);
-	var ModifyTex = __webpack_require__(182).modifyTex;
-
-	var MathOutput = React.createClass({
-	    displayName: "MathOutput",
-
-	    propTypes: {
-	        value: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-	        className: React.PropTypes.string,
-	        labelText: React.PropTypes.string,
-	        onFocus: React.PropTypes.func,
-	        onBlur: React.PropTypes.func
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            value: "",
-	            onFocus: function onFocus() {},
-	            onBlur: function onBlur() {}
-	        };
-	    },
-
-	    getInitialState: function getInitialState() {
-	        return {
-	            focused: false,
-	            selectorNamespace: _.uniqueId("math-output")
-	        };
-	    },
-
-	    _getInputClassName: function _getInputClassName() {
-	        var className = "math-output " + ApiClassNames.INPUT + " " + ApiClassNames.INTERACTIVE;
-	        if (this.state.focused) {
-	            className += " " + ApiClassNames.FOCUSED;
-	        }
-	        if (this.props.className) {
-	            className += " " + this.props.className;
-	        }
-	        return className;
-	    },
-
-	    _getDisplayValue: function _getDisplayValue(value) {
-	        // Cast from (potentially a) number to string
-	        var displayText;
-	        if (value != null) {
-	            displayText = "" + value;
-	        } else {
-	            displayText = "";
-	        }
-	        return ModifyTex(displayText);
-	    },
-
-	    render: function render() {
-	        var divStyle = {
-	            textAlign: "center"
-	        };
-
-	        return React.createElement(
-	            "span",
-	            { ref: "input",
-	                className: this._getInputClassName(),
-	                "aria-label": this.props.labelText,
-	                onMouseDown: this.focus,
-	                onTouchStart: this.focus },
-	            React.createElement(
-	                "div",
-	                { style: divStyle },
-	                React.createElement(
-	                    TeX,
-	                    null,
-	                    this._getDisplayValue(this.props.value)
-	                )
-	            )
-	        );
-	    },
-
-	    getValue: function getValue() {
-	        return this.props.value;
-	    },
-
-	    focus: function focus() {
-	        if (!this.state.focused) {
-	            this.props.onFocus();
-	            this._bindBlurHandler();
-	            this.setState({
-	                focused: true
-	            });
-	        }
-	    },
-
-	    blur: function blur() {
-	        if (this.state.focused) {
-	            this.props.onBlur();
-	            this._unbindBlurHandler();
-	            this.setState({
-	                focused: false
-	            });
-	        }
-	    },
-
-	    _bindBlurHandler: function _bindBlurHandler() {
-	        var _this = this;
-
-	        $(document).bind("vclick." + this.state.selectorNamespace, function (e) {
-	            // Detect whether the target has our React DOM node as a parent
-	            var $closestWidget = $(e.target).closest(ReactDOM.findDOMNode(_this));
-	            if (!$closestWidget.length) {
-	                _this.blur();
-	            }
-	        });
-	    },
-
-	    _unbindBlurHandler: function _unbindBlurHandler() {
-	        $(document).unbind("." + this.state.selectorNamespace);
-	    },
-
-	    componentWillUnmount: function componentWillUnmount() {
-	        this._unbindBlurHandler();
-	    }
-	});
-
-	module.exports = MathOutput;
-
-/***/ },
-/* 209 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, indent, max-len, no-irregular-whitespace, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
@@ -81976,6 +81840,142 @@ module.exports =
 	});
 
 	module.exports = Sortable;
+
+/***/ },
+/* 209 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, max-len, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(49);
+	var ReactDOM = __webpack_require__(53);
+	var TeX = __webpack_require__(64);
+	var ApiClassNames = __webpack_require__(8).ClassNames;
+	var Tooltip = __webpack_require__(188);
+	var ModifyTex = __webpack_require__(181).modifyTex;
+
+	var MathOutput = React.createClass({
+	    displayName: "MathOutput",
+
+	    propTypes: {
+	        value: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+	        className: React.PropTypes.string,
+	        labelText: React.PropTypes.string,
+	        onFocus: React.PropTypes.func,
+	        onBlur: React.PropTypes.func
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            value: "",
+	            onFocus: function onFocus() {},
+	            onBlur: function onBlur() {}
+	        };
+	    },
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            focused: false,
+	            selectorNamespace: _.uniqueId("math-output")
+	        };
+	    },
+
+	    _getInputClassName: function _getInputClassName() {
+	        var className = "math-output " + ApiClassNames.INPUT + " " + ApiClassNames.INTERACTIVE;
+	        if (this.state.focused) {
+	            className += " " + ApiClassNames.FOCUSED;
+	        }
+	        if (this.props.className) {
+	            className += " " + this.props.className;
+	        }
+	        return className;
+	    },
+
+	    _getDisplayValue: function _getDisplayValue(value) {
+	        // Cast from (potentially a) number to string
+	        var displayText;
+	        if (value != null) {
+	            displayText = "" + value;
+	        } else {
+	            displayText = "";
+	        }
+	        return ModifyTex(displayText);
+	    },
+
+	    render: function render() {
+	        var divStyle = {
+	            textAlign: "center"
+	        };
+
+	        return React.createElement(
+	            "span",
+	            { ref: "input",
+	                className: this._getInputClassName(),
+	                "aria-label": this.props.labelText,
+	                onMouseDown: this.focus,
+	                onTouchStart: this.focus },
+	            React.createElement(
+	                "div",
+	                { style: divStyle },
+	                React.createElement(
+	                    TeX,
+	                    null,
+	                    this._getDisplayValue(this.props.value)
+	                )
+	            )
+	        );
+	    },
+
+	    getValue: function getValue() {
+	        return this.props.value;
+	    },
+
+	    focus: function focus() {
+	        if (!this.state.focused) {
+	            this.props.onFocus();
+	            this._bindBlurHandler();
+	            this.setState({
+	                focused: true
+	            });
+	        }
+	    },
+
+	    blur: function blur() {
+	        if (this.state.focused) {
+	            this.props.onBlur();
+	            this._unbindBlurHandler();
+	            this.setState({
+	                focused: false
+	            });
+	        }
+	    },
+
+	    _bindBlurHandler: function _bindBlurHandler() {
+	        var _this = this;
+
+	        $(document).bind("vclick." + this.state.selectorNamespace, function (e) {
+	            // Detect whether the target has our React DOM node as a parent
+	            var $closestWidget = $(e.target).closest(ReactDOM.findDOMNode(_this));
+	            if (!$closestWidget.length) {
+	                _this.blur();
+	            }
+	        });
+	    },
+
+	    _unbindBlurHandler: function _unbindBlurHandler() {
+	        $(document).unbind("." + this.state.selectorNamespace);
+	    },
+
+	    componentWillUnmount: function componentWillUnmount() {
+	        this._unbindBlurHandler();
+	    }
+	});
+
+	module.exports = MathOutput;
 
 /***/ },
 /* 210 */
@@ -82774,7 +82774,7 @@ module.exports =
 
 	/* globals $_ */
 	var React = __webpack_require__(49);
-	var SimpleMarkdown = __webpack_require__(170);
+	var SimpleMarkdown = __webpack_require__(169);
 	var _ = __webpack_require__(50);
 
 	var START_REF_PREFIX = "start-ref-";
@@ -84044,6 +84044,138 @@ module.exports =
 
 	"use strict";
 
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/**
+	 * MovableThing convenience methods
+	 *
+	 * Usually added to a Movable* class through
+	 * InteractiveUtils.addMovableHelperMethodsTo(), but these implementations
+	 * are simply for convenience.
+	 */
+
+	var _ = __webpack_require__(50);
+	var kpoint = __webpack_require__(217).point;
+
+	/* Local helper methods. */
+
+	function getKey(eventName, id) {
+	    return eventName + ":" + id;
+	}
+
+	function getEventName(key) {
+	    return key.split(":")[0];
+	}
+
+	var MovableHelperMethods = {
+	    /**
+	     * Fire an onSomething type event to all functions in listeners
+	     */
+	    _fireEvent: function _fireEvent(listeners, currentValue, previousValue) {
+	        _.invoke(listeners, "call", this, currentValue, previousValue);
+	    },
+
+	    /**
+	     * Combine the array of constraints functions
+	     * Returns either an [x, y] coordinate or false
+	     */
+	    _applyConstraints: function _applyConstraints(current, previous) {
+	        return _.reduce(this.state.constraints, function (memo, constraint) {
+	            // A move that has been cancelled won't be propagated to later
+	            // constraints calls
+	            if (memo === false) {
+	                return false;
+	            }
+
+	            var result = constraint.call(this, memo, previous);
+	            if (result === false) {
+	                // Returning false cancels the move
+	                return false;
+	            } else if (kpoint.is(result, 2)) {
+	                // Returning a coord from constraints overrides the move
+	                return result;
+	            } else if (result === true || result == null) {
+	                // Returning true or undefined allow the move to occur
+	                return memo;
+	            } else {
+	                // Anything else is an error
+	                throw new Error("Constraint returned invalid result: " + result);
+	            }
+	        }, current, this);
+	    },
+
+	    /**
+	     * Call all draw functions, and update our prevState for the next
+	     * draw function
+	     */
+	    draw: function draw() {
+	        var currState = this.cloneState();
+	        MovableHelperMethods._fireEvent.call(this, this.state.draw, currState, this.prevState);
+	        this.prevState = currState;
+	    },
+
+	    /**
+	     * Add a listener to any event: startMove, constraints, onMove, onMoveEnd,
+	     * etc. If a listener is already bound to the given eventName and id, then
+	     * it is overwritten by func.
+	     *
+	     * eventName: the string name of the event to listen to. one of:
+	     *   "onMoveStart", "onMove", "onMoveEnd", "draw", "remove"
+	     *
+	     * id: a string id that can be used to remove this event at a later time
+	     *   note: adding multiple listeners with the same id is undefined behavior
+	     *
+	     * func: the function to call when the event happens, which is called
+	     *   with the event's standard parameters [usually (coord, prevCoord) or
+	     *   (state, prevState)]
+	     */
+	    listen: function listen(eventName, id, func) {
+	        this._listenerMap = this._listenerMap || {};
+
+	        // If there's an existing handler, replace it by using its index in
+	        // `this.state[eventName]`; otherwise, add this handler to the end
+	        var key = getKey(eventName, id);
+	        var index = this._listenerMap[key] = this._listenerMap[key] || this.state[eventName].length;
+	        this.state[eventName][index] = func;
+	    },
+
+	    /**
+	     * Remove a previously added listener, by the id specified in the
+	     * corresponding listen() call
+	     *
+	     * If the given id has not been registered already, this is a no-op
+	     */
+	    unlisten: function unlisten(eventName, id) {
+	        this._listenerMap = this._listenerMap || {};
+
+	        var key = getKey(eventName, id);
+	        var index = this._listenerMap[key];
+	        if (index !== undefined) {
+	            // Remove handler from list of event handlers and listenerMap
+	            this.state[eventName].splice(index, 1);
+	            delete this._listenerMap[key];
+
+	            // Re-index existing events: if they occur after `index`, decrement
+	            var keys = _.keys(this._listenerMap);
+	            _.each(keys, function (key) {
+	                if (getEventName(key) === eventName && this._listenerMap[key] > index) {
+	                    this._listenerMap[key]--;
+	                }
+	            }, this);
+	        }
+	    }
+	};
+
+	module.exports = MovableHelperMethods;
+
+/***/ },
+/* 219 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
@@ -84060,8 +84192,8 @@ module.exports =
 
 	__webpack_require__(248);
 
-	var KhanMath = __webpack_require__(80);
-	var processMath = __webpack_require__(78).processMath;
+	var KhanMath = __webpack_require__(81);
+	var processMath = __webpack_require__(79).processMath;
 
 	/* Convert cartesian coordinates [x, y] to polar coordinates [r,
 	 * theta], with theta in degrees, or in radians if angleInRadians is
@@ -85316,7 +85448,7 @@ module.exports =
 	module.exports = GraphUtils;
 
 /***/ },
-/* 219 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";var _typeof=typeof Symbol==="function"&&typeof Symbol.iterator==="symbol"?function(obj){return typeof obj;}:function(obj){return obj&&typeof Symbol==="function"&&obj.constructor===Symbol?"symbol":typeof obj;};/**
@@ -85326,7 +85458,7 @@ module.exports =
 	 * `Graphie` prototype for dealing with interactive graphie elements.
 	 */// TODO(emily): This file breaks our line length limits like nobody's business.
 	// Figure out how to fix that.
-	/* eslint-disable max-len */var _=__webpack_require__(50);__webpack_require__(249);/* global Raphael:false */var GraphUtils=__webpack_require__(218);var kvector=__webpack_require__(217).vector;var kpoint=__webpack_require__(217).point;var kline=__webpack_require__(217).line;var WrappedEllipse=__webpack_require__(250);var WrappedLine=__webpack_require__(251);var WrappedPath=__webpack_require__(252);var KhanMath=__webpack_require__(80);var KhanColors=__webpack_require__(200);var _require=__webpack_require__(167);var getCanUse3dTransform=_require.getCanUse3dTransform;function sum(array){return _.reduce(array,function(memo,arg){return memo+arg;},0);}function clockwise(points){var segments=_.zip(points,points.slice(1).concat(points.slice(0,1)));var areas=_.map(segments,function(segment){var p1=segment[0];var p2=segment[1];return(p2[0]-p1[0])*(p2[1]+p1[1]);});return sum(areas)>0;}/* vector-add multiple [x, y] coords/vectors */function addPoints(){var points=_.toArray(arguments);var zipped=_.zip.apply(_,points);return _.map(zipped,sum);}function reverseVector(vector){return _.map(vector,function(coord){return coord*-1;});}function scaledDistanceFromAngle(angle){var a=3.51470560176242*20;var b=0.5687298702748785*20;var c=-0.037587715462826674;return(a-b)*Math.exp(c*angle)+b;}function scaledPolarRad(radius,radians){return[radius*Math.cos(radians),radius*Math.sin(radians)*-1];}function scaledPolarDeg(radius,degrees){var radians=degrees*Math.PI/180;return scaledPolarRad(radius,radians);}// Global dragging state
+	/* eslint-disable max-len */var _=__webpack_require__(50);__webpack_require__(249);/* global Raphael:false */var GraphUtils=__webpack_require__(219);var kvector=__webpack_require__(217).vector;var kpoint=__webpack_require__(217).point;var kline=__webpack_require__(217).line;var WrappedEllipse=__webpack_require__(250);var WrappedLine=__webpack_require__(251);var WrappedPath=__webpack_require__(252);var KhanMath=__webpack_require__(81);var KhanColors=__webpack_require__(198);var _require=__webpack_require__(167);var getCanUse3dTransform=_require.getCanUse3dTransform;function sum(array){return _.reduce(array,function(memo,arg){return memo+arg;},0);}function clockwise(points){var segments=_.zip(points,points.slice(1).concat(points.slice(0,1)));var areas=_.map(segments,function(segment){var p1=segment[0];var p2=segment[1];return(p2[0]-p1[0])*(p2[1]+p1[1]);});return sum(areas)>0;}/* vector-add multiple [x, y] coords/vectors */function addPoints(){var points=_.toArray(arguments);var zipped=_.zip.apply(_,points);return _.map(zipped,sum);}function reverseVector(vector){return _.map(vector,function(coord){return coord*-1;});}function scaledDistanceFromAngle(angle){var a=3.51470560176242*20;var b=0.5687298702748785*20;var c=-0.037587715462826674;return(a-b)*Math.exp(c*angle)+b;}function scaledPolarRad(radius,radians){return[radius*Math.cos(radians),radius*Math.sin(radians)*-1];}function scaledPolarDeg(radius,degrees){var radians=degrees*Math.PI/180;return scaledPolarRad(radius,radians);}// Global dragging state
 	var dragging=false;var InteractiveUtils={// Fill opacity for inequality shading
 	FILL_OPACITY:0.3,createSorter:function createSorter(){var sorter={};var list=void 0;sorter.hasAttempted=false;sorter.init=function(element){list=$("[id="+element+"]").last();var container=list.wrap("<div>").parent();var placeholder=$("<li>");placeholder.addClass("placeholder");container.addClass("sortable perseus-clearfix");list.find("li").each(function(tileNum,tile){$(tile).bind("vmousedown",function(event){var _this=this;if(event.type==="vmousedown"&&(event.which===1||event.which===0)){(function(){event.preventDefault();$(tile).addClass("dragging");var tileIndex=$(_this).index();placeholder.insertAfter(tile);placeholder.width($(tile).width());$(_this).css("z-index",100);var offset=$(_this).offset();var click={left:event.pageX-offset.left-3,top:event.pageY-offset.top-3};$(tile).css({position:"absolute"});$(tile).offset({left:offset.left,top:offset.top});$(document).bind("vmousemove.tile vmouseup.tile",function(event){event.preventDefault();if(event.type==="vmousemove"){(function(){sorter.hasAttempted=true;$(tile).offset({left:event.pageX-click.left,top:event.pageY-click.top});var leftEdge=list.offset().left;var midWidth=$(tile).offset().left-leftEdge;var index=0;var sumWidth=0;list.find("li").each(function(){if(this===placeholder[0]||this===tile){return;}if(midWidth>sumWidth+$(this).outerWidth(true)/2){index+=1;}sumWidth+=$(this).outerWidth(true);});if(index!==tileIndex){tileIndex=index;if(index===0){placeholder.prependTo(list);$(tile).prependTo(list);}else{placeholder.detach();$(tile).detach();var preceeding=list.find("li")[index-1];placeholder.insertAfter(preceeding);$(tile).insertAfter(preceeding);}}})();}else if(event.type==="vmouseup"){(function(){$(document).unbind(".tile");var position=$(tile).offset();$(position).animate(placeholder.offset(),{duration:150,step:function step(now,fx){position[fx.prop]=now;$(tile).offset(position);},complete:function complete(){$(tile).css("z-index",0);placeholder.detach();$(tile).css({position:"static"});$(tile).removeClass("dragging");}});})();}});})();}});});};sorter.getContent=function(){var content=[];list.find("li").each(function(tileNum,tile){content.push($.trim($(tile).find(".sort-key").text()));});return content;};sorter.setContent=function(content){var tiles=[];$.each(content,function(n,sortKey){var tile=list.find("li .sort-key").filter(function(){// sort-key must match exactly
 	return $(this).text()===sortKey;}).closest("li").get(0);$(tile).detach();// remove matched tile so you can have duplicates
@@ -85697,138 +85829,6 @@ module.exports =
 	_.invoke(this.points,"updateLineEnds");var prevAngle=this._getClockwiseAngle(prevCoords);var angle=this._getClockwiseAngle(this.coords);var prevClockwiseReflexive=prevAngle>180;var clockwiseReflexive=angle>180;if(this.allowReflex){if(shouldChangeReflexivity==null){shouldChangeReflexivity=prevClockwiseReflexive!==clockwiseReflexive&&Math.abs(angle-prevAngle)<180;}if(shouldChangeReflexivity){this.reflex=!this.reflex;}}_.invoke(this.temp,"remove");this.temp=this.graphie.labelAngle({point1:this.coords[0],vertex:this.coords[1],point3:this.coords[2],label:this.labeledAngle,text:this.angleLabel,numArcs:this.numArcs,pushOut:this.pushOut,clockwise:this.reflex===clockwiseReflexive,style:this.angleStyle});},remove:function remove(){_.invoke(this.rays,"remove");_.invoke(this.temp,"remove");this.labeledAngle.remove();}});module.exports=InteractiveUtils;
 
 /***/ },
-/* 220 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	/**
-	 * MovableThing convenience methods
-	 *
-	 * Usually added to a Movable* class through
-	 * InteractiveUtils.addMovableHelperMethodsTo(), but these implementations
-	 * are simply for convenience.
-	 */
-
-	var _ = __webpack_require__(50);
-	var kpoint = __webpack_require__(217).point;
-
-	/* Local helper methods. */
-
-	function getKey(eventName, id) {
-	    return eventName + ":" + id;
-	}
-
-	function getEventName(key) {
-	    return key.split(":")[0];
-	}
-
-	var MovableHelperMethods = {
-	    /**
-	     * Fire an onSomething type event to all functions in listeners
-	     */
-	    _fireEvent: function _fireEvent(listeners, currentValue, previousValue) {
-	        _.invoke(listeners, "call", this, currentValue, previousValue);
-	    },
-
-	    /**
-	     * Combine the array of constraints functions
-	     * Returns either an [x, y] coordinate or false
-	     */
-	    _applyConstraints: function _applyConstraints(current, previous) {
-	        return _.reduce(this.state.constraints, function (memo, constraint) {
-	            // A move that has been cancelled won't be propagated to later
-	            // constraints calls
-	            if (memo === false) {
-	                return false;
-	            }
-
-	            var result = constraint.call(this, memo, previous);
-	            if (result === false) {
-	                // Returning false cancels the move
-	                return false;
-	            } else if (kpoint.is(result, 2)) {
-	                // Returning a coord from constraints overrides the move
-	                return result;
-	            } else if (result === true || result == null) {
-	                // Returning true or undefined allow the move to occur
-	                return memo;
-	            } else {
-	                // Anything else is an error
-	                throw new Error("Constraint returned invalid result: " + result);
-	            }
-	        }, current, this);
-	    },
-
-	    /**
-	     * Call all draw functions, and update our prevState for the next
-	     * draw function
-	     */
-	    draw: function draw() {
-	        var currState = this.cloneState();
-	        MovableHelperMethods._fireEvent.call(this, this.state.draw, currState, this.prevState);
-	        this.prevState = currState;
-	    },
-
-	    /**
-	     * Add a listener to any event: startMove, constraints, onMove, onMoveEnd,
-	     * etc. If a listener is already bound to the given eventName and id, then
-	     * it is overwritten by func.
-	     *
-	     * eventName: the string name of the event to listen to. one of:
-	     *   "onMoveStart", "onMove", "onMoveEnd", "draw", "remove"
-	     *
-	     * id: a string id that can be used to remove this event at a later time
-	     *   note: adding multiple listeners with the same id is undefined behavior
-	     *
-	     * func: the function to call when the event happens, which is called
-	     *   with the event's standard parameters [usually (coord, prevCoord) or
-	     *   (state, prevState)]
-	     */
-	    listen: function listen(eventName, id, func) {
-	        this._listenerMap = this._listenerMap || {};
-
-	        // If there's an existing handler, replace it by using its index in
-	        // `this.state[eventName]`; otherwise, add this handler to the end
-	        var key = getKey(eventName, id);
-	        var index = this._listenerMap[key] = this._listenerMap[key] || this.state[eventName].length;
-	        this.state[eventName][index] = func;
-	    },
-
-	    /**
-	     * Remove a previously added listener, by the id specified in the
-	     * corresponding listen() call
-	     *
-	     * If the given id has not been registered already, this is a no-op
-	     */
-	    unlisten: function unlisten(eventName, id) {
-	        this._listenerMap = this._listenerMap || {};
-
-	        var key = getKey(eventName, id);
-	        var index = this._listenerMap[key];
-	        if (index !== undefined) {
-	            // Remove handler from list of event handlers and listenerMap
-	            this.state[eventName].splice(index, 1);
-	            delete this._listenerMap[key];
-
-	            // Re-index existing events: if they occur after `index`, decrement
-	            var keys = _.keys(this._listenerMap);
-	            _.each(keys, function (key) {
-	                if (getEventName(key) === eventName && this._listenerMap[key] > index) {
-	                    this._listenerMap[key]--;
-	                }
-	            }, this);
-	        }
-	    }
-	};
-
-	module.exports = MovableHelperMethods;
-
-/***/ },
 /* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -85848,12 +85848,12 @@ module.exports =
 
 	var View = _require3.View;
 
-	var DefaultKeypad = __webpack_require__(254);
-	var NumberKeypad = __webpack_require__(255);
-	var FractionKeypad = __webpack_require__(256);
-	var BasicExpressionKeypad = __webpack_require__(257);
-	var AdvancedExpressionKeypad = __webpack_require__(258);
-	var zIndexes = __webpack_require__(259);
+	var DefaultKeypad = __webpack_require__(253);
+	var NumberKeypad = __webpack_require__(254);
+	var FractionKeypad = __webpack_require__(255);
+	var BasicExpressionKeypad = __webpack_require__(256);
+	var AdvancedExpressionKeypad = __webpack_require__(257);
+	var zIndexes = __webpack_require__(258);
 
 	var _require4 = __webpack_require__(227);
 
@@ -86071,7 +86071,7 @@ module.exports =
 
 	/* globals i18n */
 
-	var Keys = __webpack_require__(253);
+	var Keys = __webpack_require__(259);
 
 	var _require = __webpack_require__(174);
 
@@ -86528,7 +86528,7 @@ module.exports =
 	// TODO(kevinb) allow test code to use const MathQuill = require('mathquill');
 	var MathQuill = window.MathQuill;
 
-	var Keys = __webpack_require__(253);
+	var Keys = __webpack_require__(259);
 	var CursorContexts = __webpack_require__(223);
 
 	var _require = __webpack_require__(174);
@@ -87517,9 +87517,9 @@ module.exports =
 
 	var ClassNames = _require2.ClassNames;
 
-	var sharedStyles = __webpack_require__(190);
+	var sharedStyles = __webpack_require__(195);
 	var styleConstants = __webpack_require__(61);
-	var mediaQueries = __webpack_require__(189);
+	var mediaQueries = __webpack_require__(194);
 
 	var ToggleableRadioButton = __webpack_require__(260);
 
@@ -88463,7 +88463,7 @@ module.exports =
 	 */
 	var _ = __webpack_require__(50);
 
-	var MovablePointOptions = __webpack_require__(263);
+	var MovablePointOptions = __webpack_require__(262);
 	var WrappedEllipse = __webpack_require__(250);
 	var InteractiveUtil = __webpack_require__(167);
 	var objective_ = __webpack_require__(59);
@@ -88472,7 +88472,7 @@ module.exports =
 
 	var kpoint = __webpack_require__(217).point;
 	var kvector = __webpack_require__(217).vector;
-	var KhanColors = __webpack_require__(200);
+	var KhanColors = __webpack_require__(198);
 
 	// State parameters that should be converted into an array of
 	// functions
@@ -88782,7 +88782,7 @@ module.exports =
 	 */
 	var _ = __webpack_require__(50);
 
-	var MovableLineOptions = __webpack_require__(262);
+	var MovableLineOptions = __webpack_require__(261);
 	var WrappedLine = __webpack_require__(251);
 	var InteractiveUtil = __webpack_require__(167);
 	var objective_ = __webpack_require__(59);
@@ -88790,7 +88790,7 @@ module.exports =
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
 	var kvector = __webpack_require__(217).vector;
-	var KhanColors = __webpack_require__(200);
+	var KhanColors = __webpack_require__(198);
 
 	var FUNCTION_ARRAY_OPTIONS = ["add", "draw", "remove", "onMoveStart", "constraints", "onMove", "onMoveEnd"];
 
@@ -89047,12 +89047,12 @@ module.exports =
 	var kvector = __webpack_require__(217).vector;
 	var _ = __webpack_require__(50);
 
-	var MovablePolygonOptions = __webpack_require__(261);
+	var MovablePolygonOptions = __webpack_require__(263);
 	var InteractiveUtil = __webpack_require__(167);
 	var objective_ = __webpack_require__(59);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
-	var KhanColors = __webpack_require__(200);
+	var KhanColors = __webpack_require__(198);
 	var GraphUtils = __webpack_require__(168);
 
 	// State parameters that should be converted into an array of
@@ -89440,7 +89440,7 @@ module.exports =
 
 	var KeyTypes = _require2.KeyTypes;
 
-	var Keys = __webpack_require__(253);
+	var Keys = __webpack_require__(259);
 	var KeyConfigs = __webpack_require__(222);
 	var Keypads = __webpack_require__(266);
 	var CursorContexts = __webpack_require__(223);
@@ -94265,7 +94265,7 @@ module.exports =
 	var $ = __webpack_require__(55);
 	var _ = __webpack_require__(50);
 
-	var crc32 = __webpack_require__(272);
+	var crc32 = __webpack_require__(273);
 
 	var localMode = void 0;
 
@@ -95457,7 +95457,7 @@ module.exports =
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var _ = __webpack_require__(50);
-	var WrappedDefaults = __webpack_require__(273);
+	var WrappedDefaults = __webpack_require__(272);
 
 	var DEFAULT_OPTIONS = {
 	    maxScale: 1,
@@ -95498,10 +95498,10 @@ module.exports =
 
 	var _ = __webpack_require__(50);
 	var InteractiveUtil = __webpack_require__(167);
-	var WrappedDefaults = __webpack_require__(273);
+	var WrappedDefaults = __webpack_require__(272);
 	var kpoint = __webpack_require__(217).point;
 	var kvector = __webpack_require__(217).vector;
-	var KhanMath = __webpack_require__(80);
+	var KhanMath = __webpack_require__(81);
 
 	var DEFAULT_OPTIONS = {
 	    thickness: 2,
@@ -95574,7 +95574,7 @@ module.exports =
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var _ = __webpack_require__(50);
-	var WrappedDefaults = __webpack_require__(273);
+	var WrappedDefaults = __webpack_require__(272);
 
 	var DEFAULT_OPTIONS = {
 	    center: null, // gets ignored in `graphie.fixedPath` if `null`
@@ -95613,80 +95613,6 @@ module.exports =
 	'use strict';
 
 	/**
-	 * This file contains constants for keypad buttons that aren't single
-	 * alphanumeric characters.
-	 */
-
-	// TODO(charlie): There's duplication between this file and key-configs.js.
-	// We should clean it up by removing this file and requiring clients to use the
-	// `id` field on the key configurations.
-	var Keys = {
-	    PLUS: 'PLUS',
-	    MINUS: 'MINUS',
-	    TOGGLE_SIGN: 'TOGGLE_SIGN',
-	    TIMES: 'TIMES',
-	    DIVIDE: 'DIVIDE',
-	    DECIMAL: 'DECIMAL',
-	    PERCENT: 'PERCENT',
-	    CDOT: 'CDOT',
-	    EQUAL: 'EQUAL',
-	    NEQ: 'NEQ',
-	    GT: 'GT',
-	    LT: 'LT',
-	    GEQ: 'GEQ',
-	    LEQ: 'LEQ',
-	    FRAC: 'FRAC',
-	    EXP: 'EXP',
-	    EXP_2: 'EXP_2',
-	    EXP_3: 'EXP_3',
-	    SQRT: 'SQRT',
-	    CUBE_ROOT: 'CUBE_ROOT',
-	    RADICAL: 'RADICAL',
-	    PARENS: 'PARENS',
-	    LN: 'LN',
-	    LOG: 'LOG',
-	    LOG_N: 'LOG_N',
-	    SIN: 'SIN',
-	    COS: 'COS',
-	    TAN: 'TAN',
-
-	    // TODO(charlie): Add in additional Greek letters.
-	    PI: 'PI',
-	    THETA: 'THETA',
-
-	    FRAC_MULTI: 'FRAC_MULTI',
-	    PARENS_MULTI: 'PARENS_MULTI',
-	    EQUAL_MULTI: 'EQUAL_MULTI',
-	    LESS_MULTI: 'LESS_MULTI',
-	    GREATER_MULTI: 'GREATER_MULTI',
-	    EXP_MULTI: 'EXP_MULTI',
-	    RADICAL_MULTI: 'RADICAL_MULTI',
-	    LOG_MULTI: 'LOG_MULTI',
-
-	    LEFT: 'LEFT',
-	    RIGHT: 'RIGHT',
-	    JUMP_OUT: 'JUMP_OUT',
-	    BACKSPACE: 'BACKSPACE',
-	    DISMISS: 'DISMISS',
-	    MORE: 'MORE',
-	    NUMBERS: 'NUMBERS',
-
-	    NOOP: 'NOOP',
-
-	    // A custom key that captures an arbitrary number of symbols but has no
-	    // 'default' symbol or action.
-	    MANY: 'MANY'
-	};
-
-	module.exports = Keys;
-
-/***/ },
-/* 254 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
 	 * A keypad that includes most of the available symbols, for testing.
 	 */
 
@@ -95697,10 +95623,10 @@ module.exports =
 	var View = _require.View;
 
 	var Keypad = __webpack_require__(276);
-	var EmptyKeypadButton = __webpack_require__(277);
-	var TouchableKeypadButton = __webpack_require__(278);
+	var EmptyKeypadButton = __webpack_require__(279);
+	var TouchableKeypadButton = __webpack_require__(277);
 
-	var _require2 = __webpack_require__(279);
+	var _require2 = __webpack_require__(278);
 
 	var row = _require2.row;
 
@@ -95780,7 +95706,7 @@ module.exports =
 	module.exports = DefaultKeypad;
 
 /***/ },
-/* 255 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -95796,9 +95722,9 @@ module.exports =
 	var View = _require.View;
 
 	var Keypad = __webpack_require__(276);
-	var TouchableKeypadButton = __webpack_require__(278);
+	var TouchableKeypadButton = __webpack_require__(277);
 
-	var _require2 = __webpack_require__(279);
+	var _require2 = __webpack_require__(278);
 
 	var row = _require2.row;
 
@@ -95886,7 +95812,7 @@ module.exports =
 	module.exports = NumberKeypad;
 
 /***/ },
-/* 256 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -95903,9 +95829,9 @@ module.exports =
 	var View = _require.View;
 
 	var Keypad = __webpack_require__(276);
-	var TouchableKeypadButton = __webpack_require__(278);
+	var TouchableKeypadButton = __webpack_require__(277);
 
-	var _require2 = __webpack_require__(279);
+	var _require2 = __webpack_require__(278);
 
 	var row = _require2.row;
 
@@ -96003,7 +95929,7 @@ module.exports =
 	module.exports = FractionKeypad;
 
 /***/ },
-/* 257 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -96031,11 +95957,11 @@ module.exports =
 	var View = _require4.View;
 
 	var TwoPageKeypad = __webpack_require__(280);
-	var EmptyKeypadButton = __webpack_require__(277);
+	var EmptyKeypadButton = __webpack_require__(279);
 	var ManyKeypadButton = __webpack_require__(281);
-	var TouchableKeypadButton = __webpack_require__(278);
+	var TouchableKeypadButton = __webpack_require__(277);
 
-	var _require5 = __webpack_require__(279);
+	var _require5 = __webpack_require__(278);
 
 	var row = _require5.row;
 	var column = _require5.column;
@@ -96277,7 +96203,7 @@ module.exports =
 	module.exports = connect(mapStateToProps, mapDispatchToProps)(BasicExpressionKeypad);
 
 /***/ },
-/* 258 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -96305,11 +96231,11 @@ module.exports =
 	var View = _require4.View;
 
 	var TwoPageKeypad = __webpack_require__(280);
-	var EmptyKeypadButton = __webpack_require__(277);
+	var EmptyKeypadButton = __webpack_require__(279);
 	var ManyKeypadButton = __webpack_require__(281);
-	var TouchableKeypadButton = __webpack_require__(278);
+	var TouchableKeypadButton = __webpack_require__(277);
 
-	var _require5 = __webpack_require__(279);
+	var _require5 = __webpack_require__(278);
 
 	var row = _require5.row;
 	var column = _require5.column;
@@ -96559,7 +96485,7 @@ module.exports =
 	module.exports = connect(mapStateToProps, mapDispatchToProps)(AdvancedExpressionKeypad);
 
 /***/ },
-/* 259 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -96574,6 +96500,80 @@ module.exports =
 	  echo: 2,
 	  keypad: 1060
 	};
+
+/***/ },
+/* 259 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * This file contains constants for keypad buttons that aren't single
+	 * alphanumeric characters.
+	 */
+
+	// TODO(charlie): There's duplication between this file and key-configs.js.
+	// We should clean it up by removing this file and requiring clients to use the
+	// `id` field on the key configurations.
+	var Keys = {
+	    PLUS: 'PLUS',
+	    MINUS: 'MINUS',
+	    TOGGLE_SIGN: 'TOGGLE_SIGN',
+	    TIMES: 'TIMES',
+	    DIVIDE: 'DIVIDE',
+	    DECIMAL: 'DECIMAL',
+	    PERCENT: 'PERCENT',
+	    CDOT: 'CDOT',
+	    EQUAL: 'EQUAL',
+	    NEQ: 'NEQ',
+	    GT: 'GT',
+	    LT: 'LT',
+	    GEQ: 'GEQ',
+	    LEQ: 'LEQ',
+	    FRAC: 'FRAC',
+	    EXP: 'EXP',
+	    EXP_2: 'EXP_2',
+	    EXP_3: 'EXP_3',
+	    SQRT: 'SQRT',
+	    CUBE_ROOT: 'CUBE_ROOT',
+	    RADICAL: 'RADICAL',
+	    PARENS: 'PARENS',
+	    LN: 'LN',
+	    LOG: 'LOG',
+	    LOG_N: 'LOG_N',
+	    SIN: 'SIN',
+	    COS: 'COS',
+	    TAN: 'TAN',
+
+	    // TODO(charlie): Add in additional Greek letters.
+	    PI: 'PI',
+	    THETA: 'THETA',
+
+	    FRAC_MULTI: 'FRAC_MULTI',
+	    PARENS_MULTI: 'PARENS_MULTI',
+	    EQUAL_MULTI: 'EQUAL_MULTI',
+	    LESS_MULTI: 'LESS_MULTI',
+	    GREATER_MULTI: 'GREATER_MULTI',
+	    EXP_MULTI: 'EXP_MULTI',
+	    RADICAL_MULTI: 'RADICAL_MULTI',
+	    LOG_MULTI: 'LOG_MULTI',
+
+	    LEFT: 'LEFT',
+	    RIGHT: 'RIGHT',
+	    JUMP_OUT: 'JUMP_OUT',
+	    BACKSPACE: 'BACKSPACE',
+	    DISMISS: 'DISMISS',
+	    MORE: 'MORE',
+	    NUMBERS: 'NUMBERS',
+
+	    NOOP: 'NOOP',
+
+	    // A custom key that captures an arbitrary number of symbols but has no
+	    // 'default' symbol or action.
+	    MANY: 'MANY'
+	};
+
+	module.exports = Keys;
 
 /***/ },
 /* 260 */
@@ -96680,292 +96680,6 @@ module.exports =
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, indent, no-undef, no-var, one-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	/**
-	 * A library of options to pass to add/draw/remove/constraints
-	 */
-
-	var kpoint = __webpack_require__(217).point;
-	var kvector = __webpack_require__(217).vector;
-
-	function sum(array) {
-	    return _.reduce(array, function (memo, arg) {
-	        return memo + arg;
-	    }, 0);
-	}
-
-	function clockwise(points) {
-	    var segments = _.zip(points, points.slice(1).concat(points.slice(0, 1)));
-	    var areas = _.map(segments, function (segment) {
-	        var p1 = segment[0],
-	            p2 = segment[1];
-	        return (p2[0] - p1[0]) * (p2[1] + p1[1]);
-	    });
-	    return sum(areas) > 0;
-	}
-
-	var add = {
-	    constrain: function constrain() {
-	        this.constrain();
-	    },
-
-	    pointsToFront: function pointsToFront(state) {
-	        _.invoke(state.points, "toFront");
-	    }
-	};
-
-	add.standard = [add.constrain, add.pointsToFront];
-
-	var modify = {
-	    draw: function draw() {
-	        this.draw();
-	    }
-	};
-
-	modify.standard = [modify.draw];
-
-	var draw = {
-	    basic: function basic(state, prevState) {
-	        var graphie = this.graphie;
-	        var path = this.path(state);
-
-	        if (!this.state.visibleShape) {
-	            this.state.visibleShape = graphie.raphael.path(path);
-	            this.state.visibleShape.attr(this.normalStyle());
-	        }
-	        if (state.normalStyle !== prevState.normalStyle && !_.isEqual(state.normalStyle, prevState.normalStyle)) {
-	            this.state.visibleShape.attr(this.normalStyle());
-	        }
-	        this.state.visibleShape.attr({ path: path });
-	        if (this.mouseTarget()) {
-	            this.mouseTarget().attr({ path: path });
-	        }
-	    },
-
-	    /* Labels are handled primarily by label objects, but sometimes require
-	     * extra movables, e.g., for the arcs drawn at labeled angles. These extra
-	     * movables are stored in the label cache. */
-	    labels: function labels(state, prevState) {
-	        var graphie = this.graphie;
-	        var self = this;
-
-	        var coords = _.invoke(state.points, "coord");
-	        var isClockwise = clockwise(coords);
-	        var n = coords.length;
-
-	        // graphie.labelAngle and similar methods attempt to re-use the label
-	        // provided, which will have been stored on state._labeledAngles.
-	        // If they cannot re-use the label, they make a new one, which will
-	        // get stored on state._labelCache. These will all be cleared out when
-	        // we remove the polygon.
-	        // (This logic is borrowed from graphie:addMovablePolygon.)
-	        if (self.state._labelCache != null) {
-	            _.invoke(self.state._labelCache, "remove");
-	        }
-	        self.state._labelCache = [];
-
-	        // Update angle labels
-	        if (state.angleLabels.length || state.showRightAngleMarkers.length) {
-	            // Generate labels
-	            if (self.state._labeledAngles == null) {
-	                self.state._labeledAngles = _.times(Math.max(state.angleLabels.length, state.showRightAngleMarkers.length), function () {
-	                    return graphie.label([0, 0], "", "center", state.labelStyle);
-	                });
-	            }
-
-	            _.each(self.state._labeledAngles, function (label, i) {
-	                self.state._labelCache.push(graphie.labelAngle({
-	                    point1: coords[(i - 1 + n) % n],
-	                    vertex: coords[i],
-	                    point3: coords[(i + 1) % n],
-	                    label: label,
-	                    text: state.angleLabels[i],
-	                    showRightAngleMarker: state.showRightAngleMarkers[i],
-	                    numArcs: state.numArcs[i],
-	                    clockwise: isClockwise,
-	                    style: state.labelStyle
-	                }));
-	            });
-	        }
-
-	        // Update side labels
-	        if (state.sideLabels.length) {
-	            // Generate labels
-	            if (self.state._labeledSides == null) {
-	                self.state._labeledSides = _.map(state.sideLabels, function (label) {
-	                    return graphie.label([0, 0], "", "center", state.labelStyle);
-	                });
-	            }
-
-	            _.each(self.state._labeledSides, function (label, i) {
-	                self.state._labelCache.push(graphie.labelSide({
-	                    point1: coords[i],
-	                    point2: coords[(i + 1) % n],
-	                    label: label,
-	                    text: state.sideLabels[i],
-	                    numArrows: state.numArrows[i],
-	                    numTicks: state.numTicks[i],
-	                    clockwise: isClockwise,
-	                    style: state.labelStyle
-	                }));
-	            });
-	        }
-
-	        // Update vertex labels
-	        if (state.vertexLabels.length) {
-	            // Generate labels
-	            if (self.state._labeledVertices == null) {
-	                self.state._labeledVertices = _.map(state.vertexLabels, function (label) {
-	                    return graphie.label([0, 0], "", "center", state.labelStyle);
-	                });
-	            }
-
-	            _.each(self.state._labeledVertices, function (label, i) {
-	                self.state._labelCache.push(graphie.labelVertex({
-	                    point1: coords[(i - 1 + n) % n],
-	                    vertex: coords[i],
-	                    point3: coords[(i + 1) % n],
-	                    label: label,
-	                    text: state.vertexLabels[i],
-	                    clockwise: isClockwise,
-	                    style: state.labelStyle
-	                }));
-	            });
-	        }
-
-	        // graphie.labelVertex and its peer methods return an array of movables
-	        self.state._labelCache = _.flatten(self.state._labelCache);
-	    },
-
-	    highlight: function highlight(state, prevState) {
-	        if (state.isHovering && !prevState.isHovering) {
-	            state.visibleShape.animate(this.highlightStyle(), 50);
-	        } else if (!state.isHovering && prevState.isHovering) {
-	            state.visibleShape.animate(this.normalStyle(), 50);
-	        }
-	    }
-	};
-
-	draw.standard = [draw.basic, draw.labels, draw.highlight];
-
-	var remove = {
-	    basic: function basic() {
-	        if (this.state.visibleShape) {
-	            this.state.visibleShape.remove();
-	        }
-	    },
-	    labels: function labels() {
-	        var labels = [this.state._labeledSides, this.state._labeledVertices, this.state._labeledAngles, this.state._labelCache];
-
-	        _.each(labels, function (labelType) {
-	            if (labelType != null && labelType.length) {
-	                _.invoke(labelType, "remove");
-	            }
-	        });
-	    }
-	};
-
-	remove.standard = [remove.basic, remove.labels];
-
-	var constraints = {
-	    fixed: function fixed() {
-	        return function () {
-	            return false;
-	        };
-	    },
-
-	    snap: function snap(_snap) {
-	        return function (coord) {
-	            if (_snap === null) {
-	                return true;
-	            }
-	            _snap = _snap || this.graphie.snap;
-	            return kpoint.roundTo(coord, _snap);
-	        };
-	    },
-
-	    bound: function bound(range, snap, paddingPx) {
-	        if (paddingPx === undefined) {
-	            if (range === undefined) {
-	                paddingPx = 10;
-	            } else {
-	                paddingPx = 0;
-	            }
-	        }
-	        return function (coord, prevCoord) {
-	            var graphie = this.graphie;
-	            var delta = kvector.subtract(coord, prevCoord);
-	            var range = range || graphie.range;
-	            // A null snap means no snap; an undefined snap means
-	            // default to graphie's
-	            if (snap === undefined) {
-	                snap = graphie.snap;
-	            }
-
-	            // Calculate the bounds for both points
-	            var absoluteLower = graphie.unscalePoint([paddingPx, graphie.ypixels - paddingPx]);
-	            var absoluteUpper = graphie.unscalePoint([graphie.xpixels - paddingPx, paddingPx]);
-	            if (snap) {
-	                absoluteLower = kpoint.ceilTo(absoluteLower, snap);
-	                absoluteUpper = kpoint.floorTo(absoluteUpper, snap);
-	            }
-
-	            // Calculate the bounds for the delta.
-	            var deltaBounds = _.map(this.coords(), function (coord, i) {
-	                var max = kvector.subtract(absoluteUpper, coord);
-	                var min = kvector.subtract(absoluteLower, coord);
-	                return [min, max];
-	            });
-
-	            // bound the delta by the calculated bounds
-	            var boundedDelta = _.reduce(deltaBounds, function (delta, bound) {
-	                var lower = bound[0];
-	                var upper = bound[1];
-	                var deltaX = Math.max(lower[0], Math.min(upper[0], delta[0]));
-	                var deltaY = Math.max(lower[1], Math.min(upper[1], delta[1]));
-	                return [deltaX, deltaY];
-	            }, delta);
-
-	            return kvector.add(prevCoord, boundedDelta);
-	        };
-	    }
-	};
-
-	constraints.standard = null;
-
-	var onMove = {
-	    updatePoints: function updatePoints(coord, prevCoord) {
-	        var actualDelta = kvector.subtract(coord, prevCoord);
-	        _.each(this.state.points, function (point) {
-	            point.setCoord(kvector.add(point.coord(), actualDelta));
-	        });
-	    }
-	};
-
-	onMove.standard = null;
-
-	module.exports = {
-	    add: add,
-	    modify: modify,
-	    draw: draw,
-	    remove: remove,
-
-	    onMoveStart: { standard: null },
-	    constraints: constraints,
-	    onMove: onMove,
-	    onMoveEnd: { standard: null },
-	    onClick: { standard: null }
-	};
-
-/***/ },
-/* 262 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, indent, no-var */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
@@ -96977,7 +96691,7 @@ module.exports =
 	var WrappedPath = __webpack_require__(252);
 	var kvector = __webpack_require__(217).vector;
 	var kpoint = __webpack_require__(217).point;
-	var KhanMath = __webpack_require__(80);
+	var KhanMath = __webpack_require__(81);
 
 	/**
 	 * Helper functions
@@ -97271,7 +96985,7 @@ module.exports =
 	};
 
 /***/ },
-/* 263 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -97417,6 +97131,292 @@ module.exports =
 	};
 
 /***/ },
+/* 263 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, indent, no-undef, no-var, one-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/**
+	 * A library of options to pass to add/draw/remove/constraints
+	 */
+
+	var kpoint = __webpack_require__(217).point;
+	var kvector = __webpack_require__(217).vector;
+
+	function sum(array) {
+	    return _.reduce(array, function (memo, arg) {
+	        return memo + arg;
+	    }, 0);
+	}
+
+	function clockwise(points) {
+	    var segments = _.zip(points, points.slice(1).concat(points.slice(0, 1)));
+	    var areas = _.map(segments, function (segment) {
+	        var p1 = segment[0],
+	            p2 = segment[1];
+	        return (p2[0] - p1[0]) * (p2[1] + p1[1]);
+	    });
+	    return sum(areas) > 0;
+	}
+
+	var add = {
+	    constrain: function constrain() {
+	        this.constrain();
+	    },
+
+	    pointsToFront: function pointsToFront(state) {
+	        _.invoke(state.points, "toFront");
+	    }
+	};
+
+	add.standard = [add.constrain, add.pointsToFront];
+
+	var modify = {
+	    draw: function draw() {
+	        this.draw();
+	    }
+	};
+
+	modify.standard = [modify.draw];
+
+	var draw = {
+	    basic: function basic(state, prevState) {
+	        var graphie = this.graphie;
+	        var path = this.path(state);
+
+	        if (!this.state.visibleShape) {
+	            this.state.visibleShape = graphie.raphael.path(path);
+	            this.state.visibleShape.attr(this.normalStyle());
+	        }
+	        if (state.normalStyle !== prevState.normalStyle && !_.isEqual(state.normalStyle, prevState.normalStyle)) {
+	            this.state.visibleShape.attr(this.normalStyle());
+	        }
+	        this.state.visibleShape.attr({ path: path });
+	        if (this.mouseTarget()) {
+	            this.mouseTarget().attr({ path: path });
+	        }
+	    },
+
+	    /* Labels are handled primarily by label objects, but sometimes require
+	     * extra movables, e.g., for the arcs drawn at labeled angles. These extra
+	     * movables are stored in the label cache. */
+	    labels: function labels(state, prevState) {
+	        var graphie = this.graphie;
+	        var self = this;
+
+	        var coords = _.invoke(state.points, "coord");
+	        var isClockwise = clockwise(coords);
+	        var n = coords.length;
+
+	        // graphie.labelAngle and similar methods attempt to re-use the label
+	        // provided, which will have been stored on state._labeledAngles.
+	        // If they cannot re-use the label, they make a new one, which will
+	        // get stored on state._labelCache. These will all be cleared out when
+	        // we remove the polygon.
+	        // (This logic is borrowed from graphie:addMovablePolygon.)
+	        if (self.state._labelCache != null) {
+	            _.invoke(self.state._labelCache, "remove");
+	        }
+	        self.state._labelCache = [];
+
+	        // Update angle labels
+	        if (state.angleLabels.length || state.showRightAngleMarkers.length) {
+	            // Generate labels
+	            if (self.state._labeledAngles == null) {
+	                self.state._labeledAngles = _.times(Math.max(state.angleLabels.length, state.showRightAngleMarkers.length), function () {
+	                    return graphie.label([0, 0], "", "center", state.labelStyle);
+	                });
+	            }
+
+	            _.each(self.state._labeledAngles, function (label, i) {
+	                self.state._labelCache.push(graphie.labelAngle({
+	                    point1: coords[(i - 1 + n) % n],
+	                    vertex: coords[i],
+	                    point3: coords[(i + 1) % n],
+	                    label: label,
+	                    text: state.angleLabels[i],
+	                    showRightAngleMarker: state.showRightAngleMarkers[i],
+	                    numArcs: state.numArcs[i],
+	                    clockwise: isClockwise,
+	                    style: state.labelStyle
+	                }));
+	            });
+	        }
+
+	        // Update side labels
+	        if (state.sideLabels.length) {
+	            // Generate labels
+	            if (self.state._labeledSides == null) {
+	                self.state._labeledSides = _.map(state.sideLabels, function (label) {
+	                    return graphie.label([0, 0], "", "center", state.labelStyle);
+	                });
+	            }
+
+	            _.each(self.state._labeledSides, function (label, i) {
+	                self.state._labelCache.push(graphie.labelSide({
+	                    point1: coords[i],
+	                    point2: coords[(i + 1) % n],
+	                    label: label,
+	                    text: state.sideLabels[i],
+	                    numArrows: state.numArrows[i],
+	                    numTicks: state.numTicks[i],
+	                    clockwise: isClockwise,
+	                    style: state.labelStyle
+	                }));
+	            });
+	        }
+
+	        // Update vertex labels
+	        if (state.vertexLabels.length) {
+	            // Generate labels
+	            if (self.state._labeledVertices == null) {
+	                self.state._labeledVertices = _.map(state.vertexLabels, function (label) {
+	                    return graphie.label([0, 0], "", "center", state.labelStyle);
+	                });
+	            }
+
+	            _.each(self.state._labeledVertices, function (label, i) {
+	                self.state._labelCache.push(graphie.labelVertex({
+	                    point1: coords[(i - 1 + n) % n],
+	                    vertex: coords[i],
+	                    point3: coords[(i + 1) % n],
+	                    label: label,
+	                    text: state.vertexLabels[i],
+	                    clockwise: isClockwise,
+	                    style: state.labelStyle
+	                }));
+	            });
+	        }
+
+	        // graphie.labelVertex and its peer methods return an array of movables
+	        self.state._labelCache = _.flatten(self.state._labelCache);
+	    },
+
+	    highlight: function highlight(state, prevState) {
+	        if (state.isHovering && !prevState.isHovering) {
+	            state.visibleShape.animate(this.highlightStyle(), 50);
+	        } else if (!state.isHovering && prevState.isHovering) {
+	            state.visibleShape.animate(this.normalStyle(), 50);
+	        }
+	    }
+	};
+
+	draw.standard = [draw.basic, draw.labels, draw.highlight];
+
+	var remove = {
+	    basic: function basic() {
+	        if (this.state.visibleShape) {
+	            this.state.visibleShape.remove();
+	        }
+	    },
+	    labels: function labels() {
+	        var labels = [this.state._labeledSides, this.state._labeledVertices, this.state._labeledAngles, this.state._labelCache];
+
+	        _.each(labels, function (labelType) {
+	            if (labelType != null && labelType.length) {
+	                _.invoke(labelType, "remove");
+	            }
+	        });
+	    }
+	};
+
+	remove.standard = [remove.basic, remove.labels];
+
+	var constraints = {
+	    fixed: function fixed() {
+	        return function () {
+	            return false;
+	        };
+	    },
+
+	    snap: function snap(_snap) {
+	        return function (coord) {
+	            if (_snap === null) {
+	                return true;
+	            }
+	            _snap = _snap || this.graphie.snap;
+	            return kpoint.roundTo(coord, _snap);
+	        };
+	    },
+
+	    bound: function bound(range, snap, paddingPx) {
+	        if (paddingPx === undefined) {
+	            if (range === undefined) {
+	                paddingPx = 10;
+	            } else {
+	                paddingPx = 0;
+	            }
+	        }
+	        return function (coord, prevCoord) {
+	            var graphie = this.graphie;
+	            var delta = kvector.subtract(coord, prevCoord);
+	            var range = range || graphie.range;
+	            // A null snap means no snap; an undefined snap means
+	            // default to graphie's
+	            if (snap === undefined) {
+	                snap = graphie.snap;
+	            }
+
+	            // Calculate the bounds for both points
+	            var absoluteLower = graphie.unscalePoint([paddingPx, graphie.ypixels - paddingPx]);
+	            var absoluteUpper = graphie.unscalePoint([graphie.xpixels - paddingPx, paddingPx]);
+	            if (snap) {
+	                absoluteLower = kpoint.ceilTo(absoluteLower, snap);
+	                absoluteUpper = kpoint.floorTo(absoluteUpper, snap);
+	            }
+
+	            // Calculate the bounds for the delta.
+	            var deltaBounds = _.map(this.coords(), function (coord, i) {
+	                var max = kvector.subtract(absoluteUpper, coord);
+	                var min = kvector.subtract(absoluteLower, coord);
+	                return [min, max];
+	            });
+
+	            // bound the delta by the calculated bounds
+	            var boundedDelta = _.reduce(deltaBounds, function (delta, bound) {
+	                var lower = bound[0];
+	                var upper = bound[1];
+	                var deltaX = Math.max(lower[0], Math.min(upper[0], delta[0]));
+	                var deltaY = Math.max(lower[1], Math.min(upper[1], delta[1]));
+	                return [deltaX, deltaY];
+	            }, delta);
+
+	            return kvector.add(prevCoord, boundedDelta);
+	        };
+	    }
+	};
+
+	constraints.standard = null;
+
+	var onMove = {
+	    updatePoints: function updatePoints(coord, prevCoord) {
+	        var actualDelta = kvector.subtract(coord, prevCoord);
+	        _.each(this.state.points, function (point) {
+	            point.setCoord(kvector.add(point.coord(), actualDelta));
+	        });
+	    }
+	};
+
+	onMove.standard = null;
+
+	module.exports = {
+	    add: add,
+	    modify: modify,
+	    draw: draw,
+	    remove: remove,
+
+	    onMoveStart: { standard: null },
+	    constraints: constraints,
+	    onMove: onMove,
+	    onMoveEnd: { standard: null },
+	    onClick: { standard: null }
+	};
+
+/***/ },
 /* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -97452,9 +97452,9 @@ module.exports =
 	    };
 	}();
 
-	var _util = __webpack_require__(285);
+	var _util = __webpack_require__(283);
 
-	var _inject = __webpack_require__(286);
+	var _inject = __webpack_require__(284);
 
 	var StyleSheet = {
 	    create: function create(sheetDefinition) {
@@ -97539,11 +97539,11 @@ module.exports =
 	exports.__esModule = true;
 	exports.connect = exports.Provider = undefined;
 
-	var _Provider = __webpack_require__(283);
+	var _Provider = __webpack_require__(285);
 
 	var _Provider2 = _interopRequireDefault(_Provider);
 
-	var _connect = __webpack_require__(284);
+	var _connect = __webpack_require__(286);
 
 	var _connect2 = _interopRequireDefault(_connect);
 
@@ -97566,7 +97566,7 @@ module.exports =
 	 * Data used to define the various keypads available.
 	 */
 
-	var Keys = __webpack_require__(253);
+	var Keys = __webpack_require__(259);
 
 	var _require = __webpack_require__(174);
 
@@ -97867,7 +97867,7 @@ module.exports =
 	 * occurred in the last 100 milliseconds.
 	 */
 
-	var now = __webpack_require__(304);
+	var now = __webpack_require__(310);
 
 	var VelocityTracker = function () {
 	    function VelocityTracker(options) {
@@ -98323,47 +98323,6 @@ module.exports =
 
 	"use strict";
 
-	/*
-	===============================================================================
-	Crc32 is a JavaScript function for computing the CRC32 of a string
-	...............................................................................
-
-	Version: 1.2 - 2006/11 - http://noteslog.com/category/javascript/
-
-	-------------------------------------------------------------------------------
-	Copyright (c) 2006 Andrea Ercolino
-	http://www.opensource.org/licenses/mit-license.php
-	===============================================================================
-	*/
-
-	// CRC32 Lookup Table
-	var table = "00000000 77073096 EE0E612C 990951BA 076DC419 706AF48F E963A535 " + "9E6495A3 0EDB8832 79DCB8A4 E0D5E91E 97D2D988 09B64C2B 7EB17CBD " + "E7B82D07 90BF1D91 1DB71064 6AB020F2 F3B97148 84BE41DE 1ADAD47D " + "6DDDE4EB F4D4B551 83D385C7 136C9856 646BA8C0 FD62F97A 8A65C9EC " + "14015C4F 63066CD9 FA0F3D63 8D080DF5 3B6E20C8 4C69105E D56041E4 " + "A2677172 3C03E4D1 4B04D447 D20D85FD A50AB56B 35B5A8FA 42B2986C " + "DBBBC9D6 ACBCF940 32D86CE3 45DF5C75 DCD60DCF ABD13D59 26D930AC " + "51DE003A C8D75180 BFD06116 21B4F4B5 56B3C423 CFBA9599 B8BDA50F " + "2802B89E 5F058808 C60CD9B2 B10BE924 2F6F7C87 58684C11 C1611DAB " + "B6662D3D 76DC4190 01DB7106 98D220BC EFD5102A 71B18589 06B6B51F " + "9FBFE4A5 E8B8D433 7807C9A2 0F00F934 9609A88E E10E9818 7F6A0DBB " + "086D3D2D 91646C97 E6635C01 6B6B51F4 1C6C6162 856530D8 F262004E " + "6C0695ED 1B01A57B 8208F4C1 F50FC457 65B0D9C6 12B7E950 8BBEB8EA " + "FCB9887C 62DD1DDF 15DA2D49 8CD37CF3 FBD44C65 4DB26158 3AB551CE " + "A3BC0074 D4BB30E2 4ADFA541 3DD895D7 A4D1C46D D3D6F4FB 4369E96A " + "346ED9FC AD678846 DA60B8D0 44042D73 33031DE5 AA0A4C5F DD0D7CC9 " + "5005713C 270241AA BE0B1010 C90C2086 5768B525 206F85B3 B966D409 " + "CE61E49F 5EDEF90E 29D9C998 B0D09822 C7D7A8B4 59B33D17 2EB40D81 " + "B7BD5C3B C0BA6CAD EDB88320 9ABFB3B6 03B6E20C 74B1D29A EAD54739 " + "9DD277AF 04DB2615 73DC1683 E3630B12 94643B84 0D6D6A3E 7A6A5AA8 " + "E40ECF0B 9309FF9D 0A00AE27 7D079EB1 F00F9344 8708A3D2 1E01F268 " + "6906C2FE F762575D 806567CB 196C3671 6E6B06E7 FED41B76 89D32BE0 " + "10DA7A5A 67DD4ACC F9B9DF6F 8EBEEFF9 17B7BE43 60B08ED5 D6D6A3E8 " + "A1D1937E 38D8C2C4 4FDFF252 D1BB67F1 A6BC5767 3FB506DD 48B2364B " + "D80D2BDA AF0A1B4C 36034AF6 41047A60 DF60EFC3 A867DF55 316E8EEF " + "4669BE79 CB61B38C BC66831A 256FD2A0 5268E236 CC0C7795 BB0B4703 " + "220216B9 5505262F C5BA3BBE B2BD0B28 2BB45A92 5CB36A04 C2D7FFA7 " + "B5D0CF31 2CD99E8B 5BDEAE1D 9B64C2B0 EC63F226 756AA39C 026D930A " + "9C0906A9 EB0E363F 72076785 05005713 95BF4A82 E2B87A14 7BB12BAE " + "0CB61B38 92D28E9B E5D5BE0D 7CDCEFB7 0BDBDF21 86D3D2D4 F1D4E242 " + "68DDB3F8 1FDA836E 81BE16CD F6B9265B 6FB077E1 18B74777 88085AE6 " + "FF0F6A70 66063BCA 11010B5C 8F659EFF F862AE69 616BFFD3 166CCF45 " + "A00AE278 D70DD2EE 4E048354 3903B3C2 A7672661 D06016F7 4969474D " + "3E6E77DB AED16A4A D9D65ADC 40DF0B66 37D83BF0 A9BCAE53 DEBB9EC5 " + "47B2CF7F 30B5FFE9 BDBDF21C CABAC28A 53B39330 24B4A3A6 BAD03605 " + "CDD70693 54DE5729 23D967BF B3667A2E C4614AB8 5D681B02 2A6F2B94 " + "B40BBE37 C30C8EA1 5A05DF1B 2D02EF8D";
-
-	/* Number */
-	var crc32 = function crc32(str, crc) {
-	    if (crc == null) {
-	        crc = 0;
-	    }
-	    var n = 0; //a number between 0 and 255
-	    var x = 0; //a hex number
-
-	    crc = crc ^ -1;
-	    for (var i = 0, iTop = str.length; i < iTop; i++) {
-	        n = (crc ^ str.charCodeAt(i)) & 0xFF;
-	        x = "0x" + table.substr(n * 9, 8);
-	        crc = crc >>> 8 ^ x;
-	    }
-	    return Math.abs(crc ^ -1);
-	};
-
-	module.exports = crc32;
-
-/***/ },
-/* 273 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-var, prefer-spread, space-before-function-paren */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -98437,6 +98396,47 @@ module.exports =
 	}));
 
 	module.exports = WrappedDefaults;
+
+/***/ },
+/* 273 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/*
+	===============================================================================
+	Crc32 is a JavaScript function for computing the CRC32 of a string
+	...............................................................................
+
+	Version: 1.2 - 2006/11 - http://noteslog.com/category/javascript/
+
+	-------------------------------------------------------------------------------
+	Copyright (c) 2006 Andrea Ercolino
+	http://www.opensource.org/licenses/mit-license.php
+	===============================================================================
+	*/
+
+	// CRC32 Lookup Table
+	var table = "00000000 77073096 EE0E612C 990951BA 076DC419 706AF48F E963A535 " + "9E6495A3 0EDB8832 79DCB8A4 E0D5E91E 97D2D988 09B64C2B 7EB17CBD " + "E7B82D07 90BF1D91 1DB71064 6AB020F2 F3B97148 84BE41DE 1ADAD47D " + "6DDDE4EB F4D4B551 83D385C7 136C9856 646BA8C0 FD62F97A 8A65C9EC " + "14015C4F 63066CD9 FA0F3D63 8D080DF5 3B6E20C8 4C69105E D56041E4 " + "A2677172 3C03E4D1 4B04D447 D20D85FD A50AB56B 35B5A8FA 42B2986C " + "DBBBC9D6 ACBCF940 32D86CE3 45DF5C75 DCD60DCF ABD13D59 26D930AC " + "51DE003A C8D75180 BFD06116 21B4F4B5 56B3C423 CFBA9599 B8BDA50F " + "2802B89E 5F058808 C60CD9B2 B10BE924 2F6F7C87 58684C11 C1611DAB " + "B6662D3D 76DC4190 01DB7106 98D220BC EFD5102A 71B18589 06B6B51F " + "9FBFE4A5 E8B8D433 7807C9A2 0F00F934 9609A88E E10E9818 7F6A0DBB " + "086D3D2D 91646C97 E6635C01 6B6B51F4 1C6C6162 856530D8 F262004E " + "6C0695ED 1B01A57B 8208F4C1 F50FC457 65B0D9C6 12B7E950 8BBEB8EA " + "FCB9887C 62DD1DDF 15DA2D49 8CD37CF3 FBD44C65 4DB26158 3AB551CE " + "A3BC0074 D4BB30E2 4ADFA541 3DD895D7 A4D1C46D D3D6F4FB 4369E96A " + "346ED9FC AD678846 DA60B8D0 44042D73 33031DE5 AA0A4C5F DD0D7CC9 " + "5005713C 270241AA BE0B1010 C90C2086 5768B525 206F85B3 B966D409 " + "CE61E49F 5EDEF90E 29D9C998 B0D09822 C7D7A8B4 59B33D17 2EB40D81 " + "B7BD5C3B C0BA6CAD EDB88320 9ABFB3B6 03B6E20C 74B1D29A EAD54739 " + "9DD277AF 04DB2615 73DC1683 E3630B12 94643B84 0D6D6A3E 7A6A5AA8 " + "E40ECF0B 9309FF9D 0A00AE27 7D079EB1 F00F9344 8708A3D2 1E01F268 " + "6906C2FE F762575D 806567CB 196C3671 6E6B06E7 FED41B76 89D32BE0 " + "10DA7A5A 67DD4ACC F9B9DF6F 8EBEEFF9 17B7BE43 60B08ED5 D6D6A3E8 " + "A1D1937E 38D8C2C4 4FDFF252 D1BB67F1 A6BC5767 3FB506DD 48B2364B " + "D80D2BDA AF0A1B4C 36034AF6 41047A60 DF60EFC3 A867DF55 316E8EEF " + "4669BE79 CB61B38C BC66831A 256FD2A0 5268E236 CC0C7795 BB0B4703 " + "220216B9 5505262F C5BA3BBE B2BD0B28 2BB45A92 5CB36A04 C2D7FFA7 " + "B5D0CF31 2CD99E8B 5BDEAE1D 9B64C2B0 EC63F226 756AA39C 026D930A " + "9C0906A9 EB0E363F 72076785 05005713 95BF4A82 E2B87A14 7BB12BAE " + "0CB61B38 92D28E9B E5D5BE0D 7CDCEFB7 0BDBDF21 86D3D2D4 F1D4E242 " + "68DDB3F8 1FDA836E 81BE16CD F6B9265B 6FB077E1 18B74777 88085AE6 " + "FF0F6A70 66063BCA 11010B5C 8F659EFF F862AE69 616BFFD3 166CCF45 " + "A00AE278 D70DD2EE 4E048354 3903B3C2 A7672661 D06016F7 4969474D " + "3E6E77DB AED16A4A D9D65ADC 40DF0B66 37D83BF0 A9BCAE53 DEBB9EC5 " + "47B2CF7F 30B5FFE9 BDBDF21C CABAC28A 53B39330 24B4A3A6 BAD03605 " + "CDD70693 54DE5729 23D967BF B3667A2E C4614AB8 5D681B02 2A6F2B94 " + "B40BBE37 C30C8EA1 5A05DF1B 2D02EF8D";
+
+	/* Number */
+	var crc32 = function crc32(str, crc) {
+	    if (crc == null) {
+	        crc = 0;
+	    }
+	    var n = 0; //a number between 0 and 255
+	    var x = 0; //a hex number
+
+	    crc = crc ^ -1;
+	    for (var i = 0, iTop = str.length; i < iTop; i++) {
+	        n = (crc ^ str.charCodeAt(i)) & 0xFF;
+	        x = "0x" + table.substr(n * 9, 8);
+	        crc = crc >>> 8 ^ x;
+	    }
+	    return Math.abs(crc ^ -1);
+	};
+
+	module.exports = crc32;
 
 /***/ },
 /* 274 */
@@ -98515,8 +98515,8 @@ module.exports =
 
 	'use strict';
 
-	var strictUriEncode = __webpack_require__(325);
-	var objectAssign = __webpack_require__(326);
+	var strictUriEncode = __webpack_require__(326);
+	var objectAssign = __webpack_require__(325);
 
 	function encode(value, opts) {
 		if (opts.encode) {
@@ -98647,8 +98647,8 @@ module.exports =
 
 	var View = _require4.View;
 
-	var EchoManager = __webpack_require__(293);
-	var PopoverManager = __webpack_require__(294);
+	var EchoManager = __webpack_require__(294);
+	var PopoverManager = __webpack_require__(295);
 
 	var _require5 = __webpack_require__(227);
 
@@ -98816,78 +98816,6 @@ module.exports =
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 	/**
-	 * A keypad button containing no symbols and triggering no actions on click.
-	 */
-
-	var React = __webpack_require__(49);
-
-	var _require = __webpack_require__(265);
-
-	var connect = _require.connect;
-
-
-	var GestureManager = __webpack_require__(267);
-	var KeyConfigs = __webpack_require__(222);
-	var KeypadButton = __webpack_require__(295);
-
-	var EmptyKeypadButton = React.createClass({
-	    displayName: 'EmptyKeypadButton',
-
-	    propTypes: {
-	        gestureManager: React.PropTypes.instanceOf(GestureManager)
-	    },
-
-	    render: function render() {
-	        var _props = this.props;
-	        var gestureManager = _props.gestureManager;
-
-	        var rest = _objectWithoutProperties(_props, ['gestureManager']);
-
-	        // Register touch events on the button, but don't register its DOM node
-	        // or compute focus state or anything like that. We want the gesture
-	        // manager to know about touch events that start on empty buttons, but
-	        // we don't need it to know about their DOM nodes, as it doesn't need
-	        // to focus them or trigger presses.
-
-
-	        return React.createElement(KeypadButton, _extends({
-	            onTouchStart: function onTouchStart(evt) {
-	                return gestureManager.onTouchStart(evt);
-	            },
-	            onTouchEnd: function onTouchEnd(evt) {
-	                return gestureManager.onTouchEnd(evt);
-	            },
-	            onTouchMove: function onTouchMove(evt) {
-	                return gestureManager.onTouchMove(evt);
-	            },
-	            onTouchCancel: function onTouchCancel(evt) {
-	                return gestureManager.onTouchCancel(evt);
-	            }
-	        }, KeyConfigs.NOOP, rest));
-	    }
-	});
-
-	var mapStateToProps = function mapStateToProps(state) {
-	    var gestures = state.gestures;
-
-	    return {
-	        gestureManager: gestures.gestureManager
-	    };
-	};
-
-	module.exports = connect(mapStateToProps)(EmptyKeypadButton);
-
-/***/ },
-/* 278 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-	/**
 	 * A touchable wrapper around the base KeypadButton component. This button is
 	 * responsible for keeping our button ID system (which will be used to handle
 	 * touch events globally) opaque to the KeypadButton.
@@ -98901,7 +98829,7 @@ module.exports =
 	var connect = _require.connect;
 
 
-	var KeypadButton = __webpack_require__(295);
+	var KeypadButton = __webpack_require__(293);
 	var KeyConfigs = __webpack_require__(222);
 	var GestureManager = __webpack_require__(267);
 
@@ -99006,7 +98934,7 @@ module.exports =
 	module.exports = connect(mapStateToProps)(TouchableKeypadButton);
 
 /***/ },
-/* 279 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -99043,6 +98971,78 @@ module.exports =
 	});
 
 /***/ },
+/* 279 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+	/**
+	 * A keypad button containing no symbols and triggering no actions on click.
+	 */
+
+	var React = __webpack_require__(49);
+
+	var _require = __webpack_require__(265);
+
+	var connect = _require.connect;
+
+
+	var GestureManager = __webpack_require__(267);
+	var KeyConfigs = __webpack_require__(222);
+	var KeypadButton = __webpack_require__(293);
+
+	var EmptyKeypadButton = React.createClass({
+	    displayName: 'EmptyKeypadButton',
+
+	    propTypes: {
+	        gestureManager: React.PropTypes.instanceOf(GestureManager)
+	    },
+
+	    render: function render() {
+	        var _props = this.props;
+	        var gestureManager = _props.gestureManager;
+
+	        var rest = _objectWithoutProperties(_props, ['gestureManager']);
+
+	        // Register touch events on the button, but don't register its DOM node
+	        // or compute focus state or anything like that. We want the gesture
+	        // manager to know about touch events that start on empty buttons, but
+	        // we don't need it to know about their DOM nodes, as it doesn't need
+	        // to focus them or trigger presses.
+
+
+	        return React.createElement(KeypadButton, _extends({
+	            onTouchStart: function onTouchStart(evt) {
+	                return gestureManager.onTouchStart(evt);
+	            },
+	            onTouchEnd: function onTouchEnd(evt) {
+	                return gestureManager.onTouchEnd(evt);
+	            },
+	            onTouchMove: function onTouchMove(evt) {
+	                return gestureManager.onTouchMove(evt);
+	            },
+	            onTouchCancel: function onTouchCancel(evt) {
+	                return gestureManager.onTouchCancel(evt);
+	            }
+	        }, KeyConfigs.NOOP, rest));
+	    }
+	});
+
+	var mapStateToProps = function mapStateToProps(state) {
+	    var gestures = state.gestures;
+
+	    return {
+	        gestureManager: gestures.gestureManager
+	    };
+	};
+
+	module.exports = connect(mapStateToProps)(EmptyKeypadButton);
+
+/***/ },
 /* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -99068,7 +99068,7 @@ module.exports =
 
 	var View = _require2.View;
 
-	var _require3 = __webpack_require__(279);
+	var _require3 = __webpack_require__(278);
 
 	var column = _require3.column;
 	var row = _require3.row;
@@ -99204,10 +99204,10 @@ module.exports =
 
 	var React = __webpack_require__(49);
 
-	var EmptyKeypadButton = __webpack_require__(277);
-	var TouchableKeypadButton = __webpack_require__(278);
+	var EmptyKeypadButton = __webpack_require__(279);
+	var TouchableKeypadButton = __webpack_require__(277);
 
-	var Keys = __webpack_require__(253);
+	var Keys = __webpack_require__(259);
 	var KeyConfigs = __webpack_require__(222);
 
 	var _require = __webpack_require__(174);
@@ -101078,10 +101078,425 @@ module.exports =
 	// AMD (#7102#comment:10, https://github.com/jquery/jquery/pull/557)
 	// and CommonJS for browser emulators (#13566)
 	if(!noGlobal){window.jQuery=window.$=jQuery;}return jQuery;});
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(303)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(311)(module)))
 
 /***/ },
 /* 283 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// {K1: V1, K2: V2, ...} -> [[K1, V1], [K2, V2]]
+	'use strict';
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _slicedToArray = function () {
+	    function sliceIterator(arr, i) {
+	        var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
+	            for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+	                _arr.push(_s.value);if (i && _arr.length === i) break;
+	            }
+	        } catch (err) {
+	            _d = true;_e = err;
+	        } finally {
+	            try {
+	                if (!_n && _i['return']) _i['return']();
+	            } finally {
+	                if (_d) throw _e;
+	            }
+	        }return _arr;
+	    }return function (arr, i) {
+	        if (Array.isArray(arr)) {
+	            return arr;
+	        } else if (Symbol.iterator in Object(arr)) {
+	            return sliceIterator(arr, i);
+	        } else {
+	            throw new TypeError('Invalid attempt to destructure non-iterable instance');
+	        }
+	    };
+	}();
+
+	var _extends = Object.assign || function (target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];for (var key in source) {
+	            if (Object.prototype.hasOwnProperty.call(source, key)) {
+	                target[key] = source[key];
+	            }
+	        }
+	    }return target;
+	};
+
+	var objectToPairs = function objectToPairs(obj) {
+	    return Object.keys(obj).map(function (key) {
+	        return [key, obj[key]];
+	    });
+	};
+
+	exports.objectToPairs = objectToPairs;
+	// [[K1, V1], [K2, V2]] -> {K1: V1, K2: V2, ...}
+	var pairsToObject = function pairsToObject(pairs) {
+	    var result = {};
+	    pairs.forEach(function (_ref) {
+	        var _ref2 = _slicedToArray(_ref, 2);
+
+	        var key = _ref2[0];
+	        var val = _ref2[1];
+
+	        result[key] = val;
+	    });
+	    return result;
+	};
+
+	var mapObj = function mapObj(obj, fn) {
+	    return pairsToObject(objectToPairs(obj).map(fn));
+	};
+
+	exports.mapObj = mapObj;
+	var UPPERCASE_RE = /([A-Z])/g;
+	var MS_RE = /^ms-/;
+
+	var kebabify = function kebabify(string) {
+	    return string.replace(UPPERCASE_RE, '-$1').toLowerCase();
+	};
+	var kebabifyStyleName = function kebabifyStyleName(string) {
+	    return kebabify(string).replace(MS_RE, '-ms-');
+	};
+
+	exports.kebabifyStyleName = kebabifyStyleName;
+	var recursiveMerge = function recursiveMerge(a, b) {
+	    // TODO(jlfwong): Handle malformed input where a and b are not the same
+	    // type.
+
+	    if ((typeof a === 'undefined' ? 'undefined' : _typeof(a)) !== 'object') {
+	        return b;
+	    }
+
+	    var ret = _extends({}, a);
+
+	    Object.keys(b).forEach(function (key) {
+	        if (ret.hasOwnProperty(key)) {
+	            ret[key] = recursiveMerge(a[key], b[key]);
+	        } else {
+	            ret[key] = b[key];
+	        }
+	    });
+
+	    return ret;
+	};
+
+	exports.recursiveMerge = recursiveMerge;
+	/**
+	 * CSS properties which accept numbers but are not in units of "px".
+	 * Taken from React's CSSProperty.js
+	 */
+	var isUnitlessNumber = {
+	    animationIterationCount: true,
+	    boxFlex: true,
+	    boxFlexGroup: true,
+	    boxOrdinalGroup: true,
+	    columnCount: true,
+	    flex: true,
+	    flexGrow: true,
+	    flexPositive: true,
+	    flexShrink: true,
+	    flexNegative: true,
+	    flexOrder: true,
+	    gridRow: true,
+	    gridColumn: true,
+	    fontWeight: true,
+	    lineClamp: true,
+	    lineHeight: true,
+	    opacity: true,
+	    order: true,
+	    orphans: true,
+	    tabSize: true,
+	    widows: true,
+	    zIndex: true,
+	    zoom: true,
+
+	    // SVG-related properties
+	    fillOpacity: true,
+	    stopOpacity: true,
+	    strokeDashoffset: true,
+	    strokeOpacity: true,
+	    strokeWidth: true
+	};
+
+	/**
+	 * Taken from React's CSSProperty.js
+	 *
+	 * @param {string} prefix vendor-specific prefix, eg: Webkit
+	 * @param {string} key style name, eg: transitionDuration
+	 * @return {string} style name prefixed with `prefix`, properly camelCased, eg:
+	 * WebkitTransitionDuration
+	 */
+	function prefixKey(prefix, key) {
+	    return prefix + key.charAt(0).toUpperCase() + key.substring(1);
+	}
+
+	/**
+	 * Support style names that may come passed in prefixed by adding permutations
+	 * of vendor prefixes.
+	 * Taken from React's CSSProperty.js
+	 */
+	var prefixes = ['Webkit', 'ms', 'Moz', 'O'];
+
+	// Using Object.keys here, or else the vanilla for-in loop makes IE8 go into an
+	// infinite loop, because it iterates over the newly added props too.
+	// Taken from React's CSSProperty.js
+	Object.keys(isUnitlessNumber).forEach(function (prop) {
+	    prefixes.forEach(function (prefix) {
+	        isUnitlessNumber[prefixKey(prefix, prop)] = isUnitlessNumber[prop];
+	    });
+	});
+
+	var stringifyValue = function stringifyValue(key, prop) {
+	    if (typeof prop === "number") {
+	        if (isUnitlessNumber[key]) {
+	            return "" + prop;
+	        } else {
+	            return prop + "px";
+	        }
+	    } else {
+	        return prop;
+	    }
+	};
+
+	exports.stringifyValue = stringifyValue;
+	/**
+	 * JS Implementation of MurmurHash2
+	 *
+	 * @author <a href="mailto:gary.court@gmail.com">Gary Court</a>
+	 * @see http://github.com/garycourt/murmurhash-js
+	 * @author <a href="mailto:aappleby@gmail.com">Austin Appleby</a>
+	 * @see http://sites.google.com/site/murmurhash/
+	 *
+	 * @param {string} str ASCII only
+	 * @return {string} Base 36 encoded hash result
+	 */
+	function murmurhash2_32_gc(str) {
+	    var l = str.length;
+	    var h = l;
+	    var i = 0;
+	    var k = undefined;
+
+	    while (l >= 4) {
+	        k = str.charCodeAt(i) & 0xff | (str.charCodeAt(++i) & 0xff) << 8 | (str.charCodeAt(++i) & 0xff) << 16 | (str.charCodeAt(++i) & 0xff) << 24;
+
+	        k = (k & 0xffff) * 0x5bd1e995 + (((k >>> 16) * 0x5bd1e995 & 0xffff) << 16);
+	        k ^= k >>> 24;
+	        k = (k & 0xffff) * 0x5bd1e995 + (((k >>> 16) * 0x5bd1e995 & 0xffff) << 16);
+
+	        h = (h & 0xffff) * 0x5bd1e995 + (((h >>> 16) * 0x5bd1e995 & 0xffff) << 16) ^ k;
+
+	        l -= 4;
+	        ++i;
+	    }
+
+	    switch (l) {
+	        case 3:
+	            h ^= (str.charCodeAt(i + 2) & 0xff) << 16;
+	        case 2:
+	            h ^= (str.charCodeAt(i + 1) & 0xff) << 8;
+	        case 1:
+	            h ^= str.charCodeAt(i) & 0xff;
+	            h = (h & 0xffff) * 0x5bd1e995 + (((h >>> 16) * 0x5bd1e995 & 0xffff) << 16);
+	    }
+
+	    h ^= h >>> 13;
+	    h = (h & 0xffff) * 0x5bd1e995 + (((h >>> 16) * 0x5bd1e995 & 0xffff) << 16);
+	    h ^= h >>> 15;
+
+	    return (h >>> 0).toString(36);
+	}
+
+	// Hash a javascript object using JSON.stringify. This is very fast, about 3
+	// microseconds on my computer for a sample object:
+	// http://jsperf.com/test-hashfnv32a-hash/5
+	//
+	// Note that this uses JSON.stringify to stringify the objects so in order for
+	// this to produce consistent hashes browsers need to have a consistent
+	// ordering of objects. Ben Alpert says that Facebook depends on this, so we
+	// can probably depend on this too.
+	var hashObject = function hashObject(object) {
+	    return murmurhash2_32_gc(JSON.stringify(object));
+	};
+
+	exports.hashObject = hashObject;
+	var importantRegexp = /^([^:]+:.*?)( !important)?$/;
+
+	// Given a style string like "a: b; c: d;", adds !important to each of the
+	// properties to generate "a: b !important; c: d !important;".
+	var importantify = function importantify(string) {
+	    return string.split(";").map(function (str) {
+	        return str.replace(importantRegexp, function (_, base, important) {
+	            return base + " !important";
+	        });
+	    }).join(";");
+	};
+	exports.importantify = importantify;
+
+/***/ },
+/* 284 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { 'default': obj };
+	}
+
+	var _asap = __webpack_require__(333);
+
+	var _asap2 = _interopRequireDefault(_asap);
+
+	var _generate = __webpack_require__(299);
+
+	// The current <style> tag we are inserting into, or null if we haven't
+	// inserted anything yet. We could find this each time using
+	// `document.querySelector("style[data-aphrodite"])`, but holding onto it is
+	// faster.
+	var styleTag = null;
+
+	// Inject a string of styles into a <style> tag in the head of the document. This
+	// will automatically create a style tag and then continue to use it for
+	// multiple injections. It will also use a style tag with the `data-aphrodite`
+	// tag on it if that exists in the DOM. This could be used for e.g. reusing the
+	// same style tag that server-side rendering inserts.
+	var injectStyleTag = function injectStyleTag(cssContents) {
+	    if (styleTag == null) {
+	        // Try to find a style tag with the `data-aphrodite` attribute first.
+	        styleTag = document.querySelector("style[data-aphrodite]");
+
+	        // If that doesn't work, generate a new style tag.
+	        if (styleTag == null) {
+	            // Taken from
+	            // http://stackoverflow.com/questions/524696/how-to-create-a-style-tag-with-javascript
+	            var head = document.head || document.getElementsByTagName('head')[0];
+	            styleTag = document.createElement('style');
+
+	            styleTag.type = 'text/css';
+	            styleTag.setAttribute("data-aphrodite", "");
+	            head.appendChild(styleTag);
+	        }
+	    }
+
+	    if (styleTag.styleSheet) {
+	        styleTag.styleSheet.cssText += cssContents;
+	    } else {
+	        styleTag.appendChild(document.createTextNode(cssContents));
+	    }
+	};
+
+	// Custom handlers for stringifying CSS values that have side effects
+	// (such as fontFamily, which can cause @font-face rules to be injected)
+	var stringHandlers = {
+	    // With fontFamily we look for objects that are passed in and interpret
+	    // them as @font-face rules that we need to inject. The value of fontFamily
+	    // can either be a string (as normal), an object (a single font face), or
+	    // an array of objects and strings.
+	    fontFamily: function fontFamily(val) {
+	        if (Array.isArray(val)) {
+	            return val.map(fontFamily).join(",");
+	        } else if ((typeof val === 'undefined' ? 'undefined' : _typeof(val)) === "object") {
+	            injectStyleOnce(val.fontFamily, "@font-face", [val], false);
+	            return '"' + val.fontFamily + '"';
+	        } else {
+	            return val;
+	        }
+	    }
+	};
+
+	// This is a map from Aphrodite's generated class names to `true` (acting as a
+	// set of class names)
+	var alreadyInjected = {};
+
+	// This is the buffer of styles which have not yet been flushed.
+	var injectionBuffer = "";
+
+	// A flag to tell if we are already buffering styles. This could happen either
+	// because we scheduled a flush call already, so newly added styles will
+	// already be flushed, or because we are statically buffering on the server.
+	var isBuffering = false;
+
+	var injectStyleOnce = function injectStyleOnce(key, selector, definitions, useImportant) {
+	    if (!alreadyInjected[key]) {
+	        var generated = (0, _generate.generateCSS)(selector, definitions, stringHandlers, useImportant);
+
+	        if (!isBuffering) {
+	            // We should never be automatically buffering on the server (or any
+	            // place without a document), so guard against that.
+	            if (typeof document === "undefined") {
+	                throw new Error("Cannot automatically buffer without a document");
+	            }
+
+	            // If we're not already buffering, schedule a call to flush the
+	            // current styles.
+	            isBuffering = true;
+	            (0, _asap2['default'])(flushToStyleTag);
+	        }
+
+	        injectionBuffer += generated;
+	        alreadyInjected[key] = true;
+	    }
+	};
+
+	exports.injectStyleOnce = injectStyleOnce;
+	var reset = function reset() {
+	    injectionBuffer = "";
+	    alreadyInjected = {};
+	    isBuffering = false;
+	    styleTag = null;
+	};
+
+	exports.reset = reset;
+	var startBuffering = function startBuffering() {
+	    if (isBuffering) {
+	        throw new Error("Cannot buffer while already buffering");
+	    }
+	    isBuffering = true;
+	};
+
+	exports.startBuffering = startBuffering;
+	var flushToString = function flushToString() {
+	    isBuffering = false;
+	    var ret = injectionBuffer;
+	    injectionBuffer = "";
+	    return ret;
+	};
+
+	exports.flushToString = flushToString;
+	var flushToStyleTag = function flushToStyleTag() {
+	    var cssContent = flushToString();
+	    if (cssContent.length > 0) {
+	        injectStyleTag(cssContent);
+	    }
+	};
+
+	exports.flushToStyleTag = flushToStyleTag;
+	var getRenderedClassNames = function getRenderedClassNames() {
+	    return Object.keys(alreadyInjected);
+	};
+
+	exports.getRenderedClassNames = getRenderedClassNames;
+	var addRenderedClassNames = function addRenderedClassNames(classNames) {
+	    classNames.forEach(function (className) {
+	        alreadyInjected[className] = true;
+	    });
+	};
+	exports.addRenderedClassNames = addRenderedClassNames;
+
+/***/ },
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -101093,11 +101508,11 @@ module.exports =
 
 	var _react = __webpack_require__(49);
 
-	var _storeShape = __webpack_require__(299);
+	var _storeShape = __webpack_require__(300);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _warning = __webpack_require__(300);
+	var _warning = __webpack_require__(303);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -101180,7 +101595,7 @@ module.exports =
 	};
 
 /***/ },
-/* 284 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -101202,7 +101617,7 @@ module.exports =
 
 	var _react = __webpack_require__(49);
 
-	var _storeShape = __webpack_require__(299);
+	var _storeShape = __webpack_require__(300);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
@@ -101214,7 +101629,7 @@ module.exports =
 
 	var _wrapActionCreators2 = _interopRequireDefault(_wrapActionCreators);
 
-	var _warning = __webpack_require__(300);
+	var _warning = __webpack_require__(303);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -101222,11 +101637,11 @@ module.exports =
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _hoistNonReactStatics = __webpack_require__(332);
+	var _hoistNonReactStatics = __webpack_require__(331);
 
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
-	var _invariant = __webpack_require__(336);
+	var _invariant = __webpack_require__(334);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -101602,421 +102017,6 @@ module.exports =
 	}
 
 /***/ },
-/* 285 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// {K1: V1, K2: V2, ...} -> [[K1, V1], [K2, V2]]
-	'use strict';
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _slicedToArray = function () {
-	    function sliceIterator(arr, i) {
-	        var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
-	            for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-	                _arr.push(_s.value);if (i && _arr.length === i) break;
-	            }
-	        } catch (err) {
-	            _d = true;_e = err;
-	        } finally {
-	            try {
-	                if (!_n && _i['return']) _i['return']();
-	            } finally {
-	                if (_d) throw _e;
-	            }
-	        }return _arr;
-	    }return function (arr, i) {
-	        if (Array.isArray(arr)) {
-	            return arr;
-	        } else if (Symbol.iterator in Object(arr)) {
-	            return sliceIterator(arr, i);
-	        } else {
-	            throw new TypeError('Invalid attempt to destructure non-iterable instance');
-	        }
-	    };
-	}();
-
-	var _extends = Object.assign || function (target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];for (var key in source) {
-	            if (Object.prototype.hasOwnProperty.call(source, key)) {
-	                target[key] = source[key];
-	            }
-	        }
-	    }return target;
-	};
-
-	var objectToPairs = function objectToPairs(obj) {
-	    return Object.keys(obj).map(function (key) {
-	        return [key, obj[key]];
-	    });
-	};
-
-	exports.objectToPairs = objectToPairs;
-	// [[K1, V1], [K2, V2]] -> {K1: V1, K2: V2, ...}
-	var pairsToObject = function pairsToObject(pairs) {
-	    var result = {};
-	    pairs.forEach(function (_ref) {
-	        var _ref2 = _slicedToArray(_ref, 2);
-
-	        var key = _ref2[0];
-	        var val = _ref2[1];
-
-	        result[key] = val;
-	    });
-	    return result;
-	};
-
-	var mapObj = function mapObj(obj, fn) {
-	    return pairsToObject(objectToPairs(obj).map(fn));
-	};
-
-	exports.mapObj = mapObj;
-	var UPPERCASE_RE = /([A-Z])/g;
-	var MS_RE = /^ms-/;
-
-	var kebabify = function kebabify(string) {
-	    return string.replace(UPPERCASE_RE, '-$1').toLowerCase();
-	};
-	var kebabifyStyleName = function kebabifyStyleName(string) {
-	    return kebabify(string).replace(MS_RE, '-ms-');
-	};
-
-	exports.kebabifyStyleName = kebabifyStyleName;
-	var recursiveMerge = function recursiveMerge(a, b) {
-	    // TODO(jlfwong): Handle malformed input where a and b are not the same
-	    // type.
-
-	    if ((typeof a === 'undefined' ? 'undefined' : _typeof(a)) !== 'object') {
-	        return b;
-	    }
-
-	    var ret = _extends({}, a);
-
-	    Object.keys(b).forEach(function (key) {
-	        if (ret.hasOwnProperty(key)) {
-	            ret[key] = recursiveMerge(a[key], b[key]);
-	        } else {
-	            ret[key] = b[key];
-	        }
-	    });
-
-	    return ret;
-	};
-
-	exports.recursiveMerge = recursiveMerge;
-	/**
-	 * CSS properties which accept numbers but are not in units of "px".
-	 * Taken from React's CSSProperty.js
-	 */
-	var isUnitlessNumber = {
-	    animationIterationCount: true,
-	    boxFlex: true,
-	    boxFlexGroup: true,
-	    boxOrdinalGroup: true,
-	    columnCount: true,
-	    flex: true,
-	    flexGrow: true,
-	    flexPositive: true,
-	    flexShrink: true,
-	    flexNegative: true,
-	    flexOrder: true,
-	    gridRow: true,
-	    gridColumn: true,
-	    fontWeight: true,
-	    lineClamp: true,
-	    lineHeight: true,
-	    opacity: true,
-	    order: true,
-	    orphans: true,
-	    tabSize: true,
-	    widows: true,
-	    zIndex: true,
-	    zoom: true,
-
-	    // SVG-related properties
-	    fillOpacity: true,
-	    stopOpacity: true,
-	    strokeDashoffset: true,
-	    strokeOpacity: true,
-	    strokeWidth: true
-	};
-
-	/**
-	 * Taken from React's CSSProperty.js
-	 *
-	 * @param {string} prefix vendor-specific prefix, eg: Webkit
-	 * @param {string} key style name, eg: transitionDuration
-	 * @return {string} style name prefixed with `prefix`, properly camelCased, eg:
-	 * WebkitTransitionDuration
-	 */
-	function prefixKey(prefix, key) {
-	    return prefix + key.charAt(0).toUpperCase() + key.substring(1);
-	}
-
-	/**
-	 * Support style names that may come passed in prefixed by adding permutations
-	 * of vendor prefixes.
-	 * Taken from React's CSSProperty.js
-	 */
-	var prefixes = ['Webkit', 'ms', 'Moz', 'O'];
-
-	// Using Object.keys here, or else the vanilla for-in loop makes IE8 go into an
-	// infinite loop, because it iterates over the newly added props too.
-	// Taken from React's CSSProperty.js
-	Object.keys(isUnitlessNumber).forEach(function (prop) {
-	    prefixes.forEach(function (prefix) {
-	        isUnitlessNumber[prefixKey(prefix, prop)] = isUnitlessNumber[prop];
-	    });
-	});
-
-	var stringifyValue = function stringifyValue(key, prop) {
-	    if (typeof prop === "number") {
-	        if (isUnitlessNumber[key]) {
-	            return "" + prop;
-	        } else {
-	            return prop + "px";
-	        }
-	    } else {
-	        return prop;
-	    }
-	};
-
-	exports.stringifyValue = stringifyValue;
-	/**
-	 * JS Implementation of MurmurHash2
-	 *
-	 * @author <a href="mailto:gary.court@gmail.com">Gary Court</a>
-	 * @see http://github.com/garycourt/murmurhash-js
-	 * @author <a href="mailto:aappleby@gmail.com">Austin Appleby</a>
-	 * @see http://sites.google.com/site/murmurhash/
-	 *
-	 * @param {string} str ASCII only
-	 * @return {string} Base 36 encoded hash result
-	 */
-	function murmurhash2_32_gc(str) {
-	    var l = str.length;
-	    var h = l;
-	    var i = 0;
-	    var k = undefined;
-
-	    while (l >= 4) {
-	        k = str.charCodeAt(i) & 0xff | (str.charCodeAt(++i) & 0xff) << 8 | (str.charCodeAt(++i) & 0xff) << 16 | (str.charCodeAt(++i) & 0xff) << 24;
-
-	        k = (k & 0xffff) * 0x5bd1e995 + (((k >>> 16) * 0x5bd1e995 & 0xffff) << 16);
-	        k ^= k >>> 24;
-	        k = (k & 0xffff) * 0x5bd1e995 + (((k >>> 16) * 0x5bd1e995 & 0xffff) << 16);
-
-	        h = (h & 0xffff) * 0x5bd1e995 + (((h >>> 16) * 0x5bd1e995 & 0xffff) << 16) ^ k;
-
-	        l -= 4;
-	        ++i;
-	    }
-
-	    switch (l) {
-	        case 3:
-	            h ^= (str.charCodeAt(i + 2) & 0xff) << 16;
-	        case 2:
-	            h ^= (str.charCodeAt(i + 1) & 0xff) << 8;
-	        case 1:
-	            h ^= str.charCodeAt(i) & 0xff;
-	            h = (h & 0xffff) * 0x5bd1e995 + (((h >>> 16) * 0x5bd1e995 & 0xffff) << 16);
-	    }
-
-	    h ^= h >>> 13;
-	    h = (h & 0xffff) * 0x5bd1e995 + (((h >>> 16) * 0x5bd1e995 & 0xffff) << 16);
-	    h ^= h >>> 15;
-
-	    return (h >>> 0).toString(36);
-	}
-
-	// Hash a javascript object using JSON.stringify. This is very fast, about 3
-	// microseconds on my computer for a sample object:
-	// http://jsperf.com/test-hashfnv32a-hash/5
-	//
-	// Note that this uses JSON.stringify to stringify the objects so in order for
-	// this to produce consistent hashes browsers need to have a consistent
-	// ordering of objects. Ben Alpert says that Facebook depends on this, so we
-	// can probably depend on this too.
-	var hashObject = function hashObject(object) {
-	    return murmurhash2_32_gc(JSON.stringify(object));
-	};
-
-	exports.hashObject = hashObject;
-	var importantRegexp = /^([^:]+:.*?)( !important)?$/;
-
-	// Given a style string like "a: b; c: d;", adds !important to each of the
-	// properties to generate "a: b !important; c: d !important;".
-	var importantify = function importantify(string) {
-	    return string.split(";").map(function (str) {
-	        return str.replace(importantRegexp, function (_, base, important) {
-	            return base + " !important";
-	        });
-	    }).join(";");
-	};
-	exports.importantify = importantify;
-
-/***/ },
-/* 286 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	function _interopRequireDefault(obj) {
-	    return obj && obj.__esModule ? obj : { 'default': obj };
-	}
-
-	var _asap = __webpack_require__(337);
-
-	var _asap2 = _interopRequireDefault(_asap);
-
-	var _generate = __webpack_require__(311);
-
-	// The current <style> tag we are inserting into, or null if we haven't
-	// inserted anything yet. We could find this each time using
-	// `document.querySelector("style[data-aphrodite"])`, but holding onto it is
-	// faster.
-	var styleTag = null;
-
-	// Inject a string of styles into a <style> tag in the head of the document. This
-	// will automatically create a style tag and then continue to use it for
-	// multiple injections. It will also use a style tag with the `data-aphrodite`
-	// tag on it if that exists in the DOM. This could be used for e.g. reusing the
-	// same style tag that server-side rendering inserts.
-	var injectStyleTag = function injectStyleTag(cssContents) {
-	    if (styleTag == null) {
-	        // Try to find a style tag with the `data-aphrodite` attribute first.
-	        styleTag = document.querySelector("style[data-aphrodite]");
-
-	        // If that doesn't work, generate a new style tag.
-	        if (styleTag == null) {
-	            // Taken from
-	            // http://stackoverflow.com/questions/524696/how-to-create-a-style-tag-with-javascript
-	            var head = document.head || document.getElementsByTagName('head')[0];
-	            styleTag = document.createElement('style');
-
-	            styleTag.type = 'text/css';
-	            styleTag.setAttribute("data-aphrodite", "");
-	            head.appendChild(styleTag);
-	        }
-	    }
-
-	    if (styleTag.styleSheet) {
-	        styleTag.styleSheet.cssText += cssContents;
-	    } else {
-	        styleTag.appendChild(document.createTextNode(cssContents));
-	    }
-	};
-
-	// Custom handlers for stringifying CSS values that have side effects
-	// (such as fontFamily, which can cause @font-face rules to be injected)
-	var stringHandlers = {
-	    // With fontFamily we look for objects that are passed in and interpret
-	    // them as @font-face rules that we need to inject. The value of fontFamily
-	    // can either be a string (as normal), an object (a single font face), or
-	    // an array of objects and strings.
-	    fontFamily: function fontFamily(val) {
-	        if (Array.isArray(val)) {
-	            return val.map(fontFamily).join(",");
-	        } else if ((typeof val === 'undefined' ? 'undefined' : _typeof(val)) === "object") {
-	            injectStyleOnce(val.fontFamily, "@font-face", [val], false);
-	            return '"' + val.fontFamily + '"';
-	        } else {
-	            return val;
-	        }
-	    }
-	};
-
-	// This is a map from Aphrodite's generated class names to `true` (acting as a
-	// set of class names)
-	var alreadyInjected = {};
-
-	// This is the buffer of styles which have not yet been flushed.
-	var injectionBuffer = "";
-
-	// A flag to tell if we are already buffering styles. This could happen either
-	// because we scheduled a flush call already, so newly added styles will
-	// already be flushed, or because we are statically buffering on the server.
-	var isBuffering = false;
-
-	var injectStyleOnce = function injectStyleOnce(key, selector, definitions, useImportant) {
-	    if (!alreadyInjected[key]) {
-	        var generated = (0, _generate.generateCSS)(selector, definitions, stringHandlers, useImportant);
-
-	        if (!isBuffering) {
-	            // We should never be automatically buffering on the server (or any
-	            // place without a document), so guard against that.
-	            if (typeof document === "undefined") {
-	                throw new Error("Cannot automatically buffer without a document");
-	            }
-
-	            // If we're not already buffering, schedule a call to flush the
-	            // current styles.
-	            isBuffering = true;
-	            (0, _asap2['default'])(flushToStyleTag);
-	        }
-
-	        injectionBuffer += generated;
-	        alreadyInjected[key] = true;
-	    }
-	};
-
-	exports.injectStyleOnce = injectStyleOnce;
-	var reset = function reset() {
-	    injectionBuffer = "";
-	    alreadyInjected = {};
-	    isBuffering = false;
-	    styleTag = null;
-	};
-
-	exports.reset = reset;
-	var startBuffering = function startBuffering() {
-	    if (isBuffering) {
-	        throw new Error("Cannot buffer while already buffering");
-	    }
-	    isBuffering = true;
-	};
-
-	exports.startBuffering = startBuffering;
-	var flushToString = function flushToString() {
-	    isBuffering = false;
-	    var ret = injectionBuffer;
-	    injectionBuffer = "";
-	    return ret;
-	};
-
-	exports.flushToString = flushToString;
-	var flushToStyleTag = function flushToStyleTag() {
-	    var cssContent = flushToString();
-	    if (cssContent.length > 0) {
-	        injectStyleTag(cssContent);
-	    }
-	};
-
-	exports.flushToStyleTag = flushToStyleTag;
-	var getRenderedClassNames = function getRenderedClassNames() {
-	    return Object.keys(alreadyInjected);
-	};
-
-	exports.getRenderedClassNames = getRenderedClassNames;
-	var addRenderedClassNames = function addRenderedClassNames(classNames) {
-	    classNames.forEach(function (className) {
-	        alreadyInjected[className] = true;
-	    });
-	};
-	exports.addRenderedClassNames = addRenderedClassNames;
-
-/***/ },
 /* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -102025,27 +102025,27 @@ module.exports =
 	exports.__esModule = true;
 	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
 
-	var _createStore = __webpack_require__(305);
+	var _createStore = __webpack_require__(304);
 
 	var _createStore2 = _interopRequireDefault(_createStore);
 
-	var _combineReducers = __webpack_require__(306);
+	var _combineReducers = __webpack_require__(305);
 
 	var _combineReducers2 = _interopRequireDefault(_combineReducers);
 
-	var _bindActionCreators = __webpack_require__(307);
+	var _bindActionCreators = __webpack_require__(306);
 
 	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
 
-	var _applyMiddleware = __webpack_require__(308);
+	var _applyMiddleware = __webpack_require__(307);
 
 	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
 
-	var _compose = __webpack_require__(309);
+	var _compose = __webpack_require__(308);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
-	var _warning = __webpack_require__(310);
+	var _warning = __webpack_require__(309);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -102959,268 +102959,6 @@ module.exports =
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	/**
-	 * A component that renders and animates the selection state effect effect.
-	 */
-
-	var React = __webpack_require__(49);
-	var ReactCSSTransitionGroup = __webpack_require__(331);
-	var KeypadButton = __webpack_require__(295);
-	var KeyConfigs = __webpack_require__(222);
-
-	var _require = __webpack_require__(174);
-
-	var KeyTypes = _require.KeyTypes;
-	var EchoAnimationTypes = _require.EchoAnimationTypes;
-
-	var _require2 = __webpack_require__(175);
-
-	var echoPropType = _require2.echoPropType;
-	var bordersPropType = _require2.bordersPropType;
-	var boundingBoxPropType = _require2.boundingBoxPropType;
-	var keyIdPropType = _require2.keyIdPropType;
-
-	var zIndexes = __webpack_require__(259);
-	var Settings = __webpack_require__(228);
-
-	var Echo = React.createClass({
-	    displayName: 'Echo',
-
-	    propTypes: {
-	        animationDurationMs: React.PropTypes.number.isRequired,
-	        borders: bordersPropType,
-	        id: keyIdPropType.isRequired,
-	        initialBounds: boundingBoxPropType.isRequired,
-	        onAnimationFinish: React.PropTypes.func.isRequired
-	    },
-
-	    componentDidMount: function componentDidMount() {
-	        // NOTE(charlie): This is somewhat unfortunate, as the component is
-	        // encoding information about its own animation, of which it should be
-	        // ignorant. However, there doesn't seem to be a cleaner way to make
-	        // this happen, and at least here, all the animation context is
-	        // colocated in this file.
-	        var _props = this.props;
-	        var animationDurationMs = _props.animationDurationMs;
-	        var onAnimationFinish = _props.onAnimationFinish;
-
-	        setTimeout(function () {
-	            return onAnimationFinish();
-	        }, animationDurationMs);
-	    },
-	    render: function render() {
-	        var _props2 = this.props;
-	        var borders = _props2.borders;
-	        var id = _props2.id;
-	        var initialBounds = _props2.initialBounds;
-	        var unicodeSymbol = KeyConfigs[id].unicodeSymbol;
-
-
-	        var containerStyle = _extends({
-	            zIndex: zIndexes.echo,
-	            position: 'absolute',
-	            pointerEvents: 'none'
-	        }, initialBounds);
-
-	        // NOTE(charlie): In some browsers, Aphrodite doesn't seem to flush its
-	        // styles quickly enough, so there's a flickering effect on the first
-	        // animation. Thus, it's much safer to do the styles purely inline.
-	        // <View> makes this difficult because some of its defaults, which are
-	        // applied via StyleSheet, will override our inlines.
-	        return React.createElement(
-	            'div',
-	            { style: containerStyle },
-	            React.createElement(KeypadButton, {
-	                name: id,
-	                unicodeSymbol: unicodeSymbol,
-	                type: KeyTypes.ECHO,
-	                borders: borders
-	            })
-	        );
-	    }
-	});
-
-	var EchoManager = React.createClass({
-	    displayName: 'EchoManager',
-
-	    propTypes: {
-	        animationType: React.PropTypes.oneOf(Object.keys(EchoAnimationTypes)),
-	        echoes: React.PropTypes.arrayOf(echoPropType),
-	        onAnimationFinish: React.PropTypes.func.isRequired
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            animationType: Settings.echoAnimation
-	        };
-	    },
-	    _animationConfigForType: function _animationConfigForType(animationType) {
-	        // NOTE(charlie): These must be kept in sync with the transition
-	        // durations and classnames specified in echo.css.
-	        var animationDurationMs = void 0;
-	        var animationTransitionName = void 0;
-
-	        switch (animationType) {
-	            case EchoAnimationTypes.SLIDE_AND_FADE:
-	                animationDurationMs = 400;
-	                animationTransitionName = 'echo-slide-and-fade';
-	                break;
-
-	            case EchoAnimationTypes.FADE_ONLY:
-	                animationDurationMs = 300;
-	                animationTransitionName = 'echo-fade-only';
-	                break;
-
-	            default:
-	                throw new Error("Invalid echo animation type:", animationType);
-	        }
-
-	        return {
-	            animationDurationMs: animationDurationMs,
-	            animationTransitionName: animationTransitionName
-	        };
-	    },
-	    render: function render() {
-	        var _props3 = this.props;
-	        var animationType = _props3.animationType;
-	        var echoes = _props3.echoes;
-	        var _onAnimationFinish = _props3.onAnimationFinish;
-
-	        var _animationConfigForTy = this._animationConfigForType(animationType);
-
-	        var animationDurationMs = _animationConfigForTy.animationDurationMs;
-	        var animationTransitionName = _animationConfigForTy.animationTransitionName;
-
-	        // TODO(charlie): Manage this animation with Aphrodite styles. Right
-	        // now, there's a bug in the autoprefixer that breaks CSS transitions on
-	        // mobile Safari. See: https://github.com/Khan/aphrodite/issues/68. As
-	        // such, we have to do this with a stylesheet.
-
-	        return React.createElement(
-	            ReactCSSTransitionGroup,
-	            {
-	                transitionName: animationTransitionName,
-	                transitionEnter: true,
-	                transitionLeave: false,
-	                transitionEnterTimeout: animationDurationMs
-	            },
-	            echoes.map(function (echo) {
-	                var animationId = echo.animationId;
-
-	                return React.createElement(Echo, _extends({
-	                    key: animationId,
-	                    animationDurationMs: animationDurationMs,
-	                    onAnimationFinish: function onAnimationFinish() {
-	                        return _onAnimationFinish(animationId);
-	                    }
-	                }, echo));
-	            })
-	        );
-	    }
-	});
-
-	module.exports = EchoManager;
-
-/***/ },
-/* 294 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	/**
-	 * A component that renders and animates the popovers that appear over the
-	 * multi-functional keys.
-	 */
-
-	var React = __webpack_require__(49);
-	var ReactCSSTransitionGroup = __webpack_require__(331);
-
-	var KeyConfigs = __webpack_require__(222);
-	var MultiSymbolPopover = __webpack_require__(330);
-
-	var _require = __webpack_require__(175);
-
-	var boundingBoxPropType = _require.boundingBoxPropType;
-	var keyConfigPropType = _require.keyConfigPropType;
-	var popoverPropType = _require.popoverPropType;
-
-	// NOTE(charlie): These must be kept in sync with the transition durations and
-	// classnames specified in popover.css.
-
-	var animationTransitionName = 'popover';
-	var animationDurationMs = 200;
-
-	// A container component used to position a popover absolutely at a specific
-	// position.
-	var PopoverContainer = React.createClass({
-	    displayName: 'PopoverContainer',
-
-	    propTypes: {
-	        bounds: boundingBoxPropType.isRequired,
-	        childKeys: React.PropTypes.arrayOf(keyConfigPropType).isRequired
-	    },
-
-	    render: function render() {
-	        var _props = this.props;
-	        var bounds = _props.bounds;
-	        var childKeys = _props.childKeys;
-
-
-	        var containerStyle = _extends({
-	            position: 'absolute'
-	        }, bounds);
-
-	        return React.createElement(
-	            'div',
-	            { style: containerStyle },
-	            React.createElement(MultiSymbolPopover, { keys: childKeys })
-	        );
-	    }
-	});
-
-	var PopoverManager = React.createClass({
-	    displayName: 'PopoverManager',
-
-	    propTypes: {
-	        popover: popoverPropType
-	    },
-
-	    render: function render() {
-	        var popover = this.props.popover;
-
-
-	        return React.createElement(
-	            ReactCSSTransitionGroup,
-	            {
-	                transitionName: animationTransitionName,
-	                transitionEnter: true,
-	                transitionLeave: true,
-	                transitionEnterTimeout: animationDurationMs,
-	                transitionLeaveTimeout: animationDurationMs
-	            },
-	            popover && React.createElement(PopoverContainer, {
-	                key: popover.childKeyIds[0],
-	                bounds: popover.bounds,
-	                childKeys: popover.childKeyIds.map(function (id) {
-	                    return KeyConfigs[id];
-	                })
-	            })
-	        );
-	    }
-	});
-
-	module.exports = PopoverManager;
-
-/***/ },
-/* 295 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	/**
 	 * A component that renders a keypad button.
 	 */
 
@@ -103579,6 +103317,268 @@ module.exports =
 	module.exports = connect(mapStateToProps)(KeypadButton);
 
 /***/ },
+/* 294 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/**
+	 * A component that renders and animates the selection state effect effect.
+	 */
+
+	var React = __webpack_require__(49);
+	var ReactCSSTransitionGroup = __webpack_require__(332);
+	var KeypadButton = __webpack_require__(293);
+	var KeyConfigs = __webpack_require__(222);
+
+	var _require = __webpack_require__(174);
+
+	var KeyTypes = _require.KeyTypes;
+	var EchoAnimationTypes = _require.EchoAnimationTypes;
+
+	var _require2 = __webpack_require__(175);
+
+	var echoPropType = _require2.echoPropType;
+	var bordersPropType = _require2.bordersPropType;
+	var boundingBoxPropType = _require2.boundingBoxPropType;
+	var keyIdPropType = _require2.keyIdPropType;
+
+	var zIndexes = __webpack_require__(258);
+	var Settings = __webpack_require__(228);
+
+	var Echo = React.createClass({
+	    displayName: 'Echo',
+
+	    propTypes: {
+	        animationDurationMs: React.PropTypes.number.isRequired,
+	        borders: bordersPropType,
+	        id: keyIdPropType.isRequired,
+	        initialBounds: boundingBoxPropType.isRequired,
+	        onAnimationFinish: React.PropTypes.func.isRequired
+	    },
+
+	    componentDidMount: function componentDidMount() {
+	        // NOTE(charlie): This is somewhat unfortunate, as the component is
+	        // encoding information about its own animation, of which it should be
+	        // ignorant. However, there doesn't seem to be a cleaner way to make
+	        // this happen, and at least here, all the animation context is
+	        // colocated in this file.
+	        var _props = this.props;
+	        var animationDurationMs = _props.animationDurationMs;
+	        var onAnimationFinish = _props.onAnimationFinish;
+
+	        setTimeout(function () {
+	            return onAnimationFinish();
+	        }, animationDurationMs);
+	    },
+	    render: function render() {
+	        var _props2 = this.props;
+	        var borders = _props2.borders;
+	        var id = _props2.id;
+	        var initialBounds = _props2.initialBounds;
+	        var unicodeSymbol = KeyConfigs[id].unicodeSymbol;
+
+
+	        var containerStyle = _extends({
+	            zIndex: zIndexes.echo,
+	            position: 'absolute',
+	            pointerEvents: 'none'
+	        }, initialBounds);
+
+	        // NOTE(charlie): In some browsers, Aphrodite doesn't seem to flush its
+	        // styles quickly enough, so there's a flickering effect on the first
+	        // animation. Thus, it's much safer to do the styles purely inline.
+	        // <View> makes this difficult because some of its defaults, which are
+	        // applied via StyleSheet, will override our inlines.
+	        return React.createElement(
+	            'div',
+	            { style: containerStyle },
+	            React.createElement(KeypadButton, {
+	                name: id,
+	                unicodeSymbol: unicodeSymbol,
+	                type: KeyTypes.ECHO,
+	                borders: borders
+	            })
+	        );
+	    }
+	});
+
+	var EchoManager = React.createClass({
+	    displayName: 'EchoManager',
+
+	    propTypes: {
+	        animationType: React.PropTypes.oneOf(Object.keys(EchoAnimationTypes)),
+	        echoes: React.PropTypes.arrayOf(echoPropType),
+	        onAnimationFinish: React.PropTypes.func.isRequired
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            animationType: Settings.echoAnimation
+	        };
+	    },
+	    _animationConfigForType: function _animationConfigForType(animationType) {
+	        // NOTE(charlie): These must be kept in sync with the transition
+	        // durations and classnames specified in echo.css.
+	        var animationDurationMs = void 0;
+	        var animationTransitionName = void 0;
+
+	        switch (animationType) {
+	            case EchoAnimationTypes.SLIDE_AND_FADE:
+	                animationDurationMs = 400;
+	                animationTransitionName = 'echo-slide-and-fade';
+	                break;
+
+	            case EchoAnimationTypes.FADE_ONLY:
+	                animationDurationMs = 300;
+	                animationTransitionName = 'echo-fade-only';
+	                break;
+
+	            default:
+	                throw new Error("Invalid echo animation type:", animationType);
+	        }
+
+	        return {
+	            animationDurationMs: animationDurationMs,
+	            animationTransitionName: animationTransitionName
+	        };
+	    },
+	    render: function render() {
+	        var _props3 = this.props;
+	        var animationType = _props3.animationType;
+	        var echoes = _props3.echoes;
+	        var _onAnimationFinish = _props3.onAnimationFinish;
+
+	        var _animationConfigForTy = this._animationConfigForType(animationType);
+
+	        var animationDurationMs = _animationConfigForTy.animationDurationMs;
+	        var animationTransitionName = _animationConfigForTy.animationTransitionName;
+
+	        // TODO(charlie): Manage this animation with Aphrodite styles. Right
+	        // now, there's a bug in the autoprefixer that breaks CSS transitions on
+	        // mobile Safari. See: https://github.com/Khan/aphrodite/issues/68. As
+	        // such, we have to do this with a stylesheet.
+
+	        return React.createElement(
+	            ReactCSSTransitionGroup,
+	            {
+	                transitionName: animationTransitionName,
+	                transitionEnter: true,
+	                transitionLeave: false,
+	                transitionEnterTimeout: animationDurationMs
+	            },
+	            echoes.map(function (echo) {
+	                var animationId = echo.animationId;
+
+	                return React.createElement(Echo, _extends({
+	                    key: animationId,
+	                    animationDurationMs: animationDurationMs,
+	                    onAnimationFinish: function onAnimationFinish() {
+	                        return _onAnimationFinish(animationId);
+	                    }
+	                }, echo));
+	            })
+	        );
+	    }
+	});
+
+	module.exports = EchoManager;
+
+/***/ },
+/* 295 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/**
+	 * A component that renders and animates the popovers that appear over the
+	 * multi-functional keys.
+	 */
+
+	var React = __webpack_require__(49);
+	var ReactCSSTransitionGroup = __webpack_require__(332);
+
+	var KeyConfigs = __webpack_require__(222);
+	var MultiSymbolPopover = __webpack_require__(330);
+
+	var _require = __webpack_require__(175);
+
+	var boundingBoxPropType = _require.boundingBoxPropType;
+	var keyConfigPropType = _require.keyConfigPropType;
+	var popoverPropType = _require.popoverPropType;
+
+	// NOTE(charlie): These must be kept in sync with the transition durations and
+	// classnames specified in popover.css.
+
+	var animationTransitionName = 'popover';
+	var animationDurationMs = 200;
+
+	// A container component used to position a popover absolutely at a specific
+	// position.
+	var PopoverContainer = React.createClass({
+	    displayName: 'PopoverContainer',
+
+	    propTypes: {
+	        bounds: boundingBoxPropType.isRequired,
+	        childKeys: React.PropTypes.arrayOf(keyConfigPropType).isRequired
+	    },
+
+	    render: function render() {
+	        var _props = this.props;
+	        var bounds = _props.bounds;
+	        var childKeys = _props.childKeys;
+
+
+	        var containerStyle = _extends({
+	            position: 'absolute'
+	        }, bounds);
+
+	        return React.createElement(
+	            'div',
+	            { style: containerStyle },
+	            React.createElement(MultiSymbolPopover, { keys: childKeys })
+	        );
+	    }
+	});
+
+	var PopoverManager = React.createClass({
+	    displayName: 'PopoverManager',
+
+	    propTypes: {
+	        popover: popoverPropType
+	    },
+
+	    render: function render() {
+	        var popover = this.props.popover;
+
+
+	        return React.createElement(
+	            ReactCSSTransitionGroup,
+	            {
+	                transitionName: animationTransitionName,
+	                transitionEnter: true,
+	                transitionLeave: true,
+	                transitionEnterTimeout: animationDurationMs,
+	                transitionLeaveTimeout: animationDurationMs
+	            },
+	            popover && React.createElement(PopoverContainer, {
+	                key: popover.childKeyIds[0],
+	                bounds: popover.bounds,
+	                childKeys: popover.childKeyIds.map(function (id) {
+	                    return KeyConfigs[id];
+	                })
+	            })
+	        );
+	    }
+	});
+
+	module.exports = PopoverManager;
+
+/***/ },
 /* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -103608,7 +103608,7 @@ module.exports =
 
 	var View = _require3.View;
 
-	var _require4 = __webpack_require__(279);
+	var _require4 = __webpack_require__(278);
 
 	var row = _require4.row;
 
@@ -104115,6 +104115,118 @@ module.exports =
 
 	'use strict';
 
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _slicedToArray = function () {
+	    function sliceIterator(arr, i) {
+	        var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
+	            for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+	                _arr.push(_s.value);if (i && _arr.length === i) break;
+	            }
+	        } catch (err) {
+	            _d = true;_e = err;
+	        } finally {
+	            try {
+	                if (!_n && _i['return']) _i['return']();
+	            } finally {
+	                if (_d) throw _e;
+	            }
+	        }return _arr;
+	    }return function (arr, i) {
+	        if (Array.isArray(arr)) {
+	            return arr;
+	        } else if (Symbol.iterator in Object(arr)) {
+	            return sliceIterator(arr, i);
+	        } else {
+	            throw new TypeError('Invalid attempt to destructure non-iterable instance');
+	        }
+	    };
+	}();
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { 'default': obj };
+	}
+
+	var _inlineStylePrefixer = __webpack_require__(344);
+
+	var _inlineStylePrefixer2 = _interopRequireDefault(_inlineStylePrefixer);
+
+	var _util = __webpack_require__(283);
+
+	var generateCSS = function generateCSS(selector, styleTypes, stringHandlers, useImportant) {
+	    var merged = styleTypes.reduce(_util.recursiveMerge);
+
+	    var declarations = {};
+	    var mediaQueries = {};
+	    var pseudoStyles = {};
+
+	    Object.keys(merged).forEach(function (key) {
+	        if (key[0] === ':') {
+	            pseudoStyles[key] = merged[key];
+	        } else if (key[0] === '@') {
+	            mediaQueries[key] = merged[key];
+	        } else {
+	            declarations[key] = merged[key];
+	        }
+	    });
+
+	    return generateCSSRuleset(selector, declarations, stringHandlers, useImportant) + Object.keys(pseudoStyles).map(function (pseudoSelector) {
+	        return generateCSSRuleset(selector + pseudoSelector, pseudoStyles[pseudoSelector], stringHandlers, useImportant);
+	    }).join("") + Object.keys(mediaQueries).map(function (mediaQuery) {
+	        var ruleset = generateCSS(selector, [mediaQueries[mediaQuery]], stringHandlers, useImportant);
+	        return mediaQuery + '{' + ruleset + '}';
+	    }).join("");
+	};
+
+	exports.generateCSS = generateCSS;
+	var runStringHandlers = function runStringHandlers(declarations, stringHandlers) {
+	    var result = {};
+
+	    Object.keys(declarations).forEach(function (key) {
+	        // If a handler exists for this particular key, let it interpret
+	        // that value first before continuing
+	        if (stringHandlers && stringHandlers.hasOwnProperty(key)) {
+	            result[key] = stringHandlers[key](declarations[key]);
+	        } else {
+	            result[key] = declarations[key];
+	        }
+	    });
+
+	    return result;
+	};
+
+	var generateCSSRuleset = function generateCSSRuleset(selector, declarations, stringHandlers, useImportant) {
+	    var handledDeclarations = runStringHandlers(declarations, stringHandlers);
+
+	    var prefixedDeclarations = _inlineStylePrefixer2['default'].prefixAll(handledDeclarations);
+
+	    var rules = (0, _util.objectToPairs)(prefixedDeclarations).map(function (_ref) {
+	        var _ref2 = _slicedToArray(_ref, 2);
+
+	        var key = _ref2[0];
+	        var value = _ref2[1];
+
+	        var stringValue = (0, _util.stringifyValue)(key, value);
+	        var ret = (0, _util.kebabifyStyleName)(key) + ':' + stringValue + ';';
+	        return useImportant === false ? ret : (0, _util.importantify)(ret);
+	    }).join("");
+
+	    if (rules) {
+	        return selector + '{' + rules + '}';
+	    } else {
+	        return "";
+	    }
+	};
+	exports.generateCSSRuleset = generateCSSRuleset;
+
+/***/ },
+/* 300 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
 	exports.__esModule = true;
 
 	var _react = __webpack_require__(49);
@@ -104124,35 +104236,6 @@ module.exports =
 	  dispatch: _react.PropTypes.func.isRequired,
 	  getState: _react.PropTypes.func.isRequired
 	});
-
-/***/ },
-/* 300 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports["default"] = warning;
-	/**
-	 * Prints a warning in the console if it exists.
-	 *
-	 * @param {String} message The warning message.
-	 * @returns {void}
-	 */
-	function warning(message) {
-	  /* eslint-disable no-console */
-	  if (typeof console !== 'undefined' && typeof console.error === 'function') {
-	    console.error(message);
-	  }
-	  /* eslint-enable no-console */
-	  try {
-	    // This error was thrown as a convenience so that you can use this stack
-	    // to find the callsite that caused this warning to fire.
-	    throw new Error(message);
-	    /* eslint-disable no-empty */
-	  } catch (e) {}
-	  /* eslint-enable no-empty */
-	}
 
 /***/ },
 /* 301 */
@@ -104206,58 +104289,33 @@ module.exports =
 /* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = function(module) {
-		if(!module.webpackPolyfill) {
-			module.deprecate = function() {};
-			module.paths = [];
-			// module.parent = undefined by default
-			module.children = [];
-			module.webpackPolyfill = 1;
-		}
-		return module;
-	}
+	'use strict';
 
+	exports.__esModule = true;
+	exports["default"] = warning;
+	/**
+	 * Prints a warning in the console if it exists.
+	 *
+	 * @param {String} message The warning message.
+	 * @returns {void}
+	 */
+	function warning(message) {
+	  /* eslint-disable no-console */
+	  if (typeof console !== 'undefined' && typeof console.error === 'function') {
+	    console.error(message);
+	  }
+	  /* eslint-enable no-console */
+	  try {
+	    // This error was thrown as a convenience so that you can use this stack
+	    // to find the callsite that caused this warning to fire.
+	    throw new Error(message);
+	    /* eslint-disable no-empty */
+	  } catch (e) {}
+	  /* eslint-enable no-empty */
+	}
 
 /***/ },
 /* 304 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	// Generated by CoffeeScript 1.7.1
-	(function () {
-	  var getNanoSeconds, hrtime, loadTime;
-
-	  if (typeof performance !== "undefined" && performance !== null && performance.now) {
-	    module.exports = function () {
-	      return performance.now();
-	    };
-	  } else if (typeof process !== "undefined" && process !== null && process.hrtime) {
-	    module.exports = function () {
-	      return (getNanoSeconds() - loadTime) / 1e6;
-	    };
-	    hrtime = process.hrtime;
-	    getNanoSeconds = function getNanoSeconds() {
-	      var hr;
-	      hr = hrtime();
-	      return hr[0] * 1e9 + hr[1];
-	    };
-	    loadTime = getNanoSeconds();
-	  } else if (Date.now) {
-	    module.exports = function () {
-	      return Date.now() - loadTime;
-	    };
-	    loadTime = Date.now();
-	  } else {
-	    module.exports = function () {
-	      return new Date().getTime() - loadTime;
-	    };
-	    loadTime = new Date().getTime();
-	  }
-	}).call(undefined);
-
-/***/ },
-/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -104272,7 +104330,7 @@ module.exports =
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _symbolObservable = __webpack_require__(346);
+	var _symbolObservable = __webpack_require__(345);
 
 	var _symbolObservable2 = _interopRequireDefault(_symbolObservable);
 
@@ -104528,7 +104586,7 @@ module.exports =
 	}
 
 /***/ },
-/* 306 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -104536,13 +104594,13 @@ module.exports =
 	exports.__esModule = true;
 	exports["default"] = combineReducers;
 
-	var _createStore = __webpack_require__(305);
+	var _createStore = __webpack_require__(304);
 
 	var _isPlainObject = __webpack_require__(341);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _warning = __webpack_require__(310);
+	var _warning = __webpack_require__(309);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -104662,7 +104720,7 @@ module.exports =
 	}
 
 /***/ },
-/* 307 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -104720,7 +104778,7 @@ module.exports =
 	}
 
 /***/ },
-/* 308 */
+/* 307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -104739,7 +104797,7 @@ module.exports =
 
 	exports["default"] = applyMiddleware;
 
-	var _compose = __webpack_require__(309);
+	var _compose = __webpack_require__(308);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
@@ -104793,7 +104851,7 @@ module.exports =
 	}
 
 /***/ },
-/* 309 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -104840,7 +104898,7 @@ module.exports =
 	}
 
 /***/ },
-/* 310 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -104870,116 +104928,58 @@ module.exports =
 	}
 
 /***/ },
+/* 310 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	// Generated by CoffeeScript 1.7.1
+	(function () {
+	  var getNanoSeconds, hrtime, loadTime;
+
+	  if (typeof performance !== "undefined" && performance !== null && performance.now) {
+	    module.exports = function () {
+	      return performance.now();
+	    };
+	  } else if (typeof process !== "undefined" && process !== null && process.hrtime) {
+	    module.exports = function () {
+	      return (getNanoSeconds() - loadTime) / 1e6;
+	    };
+	    hrtime = process.hrtime;
+	    getNanoSeconds = function getNanoSeconds() {
+	      var hr;
+	      hr = hrtime();
+	      return hr[0] * 1e9 + hr[1];
+	    };
+	    loadTime = getNanoSeconds();
+	  } else if (Date.now) {
+	    module.exports = function () {
+	      return Date.now() - loadTime;
+	    };
+	    loadTime = Date.now();
+	  } else {
+	    module.exports = function () {
+	      return new Date().getTime() - loadTime;
+	    };
+	    loadTime = new Date().getTime();
+	  }
+	}).call(undefined);
+
+/***/ },
 /* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _slicedToArray = function () {
-	    function sliceIterator(arr, i) {
-	        var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
-	            for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-	                _arr.push(_s.value);if (i && _arr.length === i) break;
-	            }
-	        } catch (err) {
-	            _d = true;_e = err;
-	        } finally {
-	            try {
-	                if (!_n && _i['return']) _i['return']();
-	            } finally {
-	                if (_d) throw _e;
-	            }
-	        }return _arr;
-	    }return function (arr, i) {
-	        if (Array.isArray(arr)) {
-	            return arr;
-	        } else if (Symbol.iterator in Object(arr)) {
-	            return sliceIterator(arr, i);
-	        } else {
-	            throw new TypeError('Invalid attempt to destructure non-iterable instance');
-	        }
-	    };
-	}();
-
-	function _interopRequireDefault(obj) {
-	    return obj && obj.__esModule ? obj : { 'default': obj };
+	module.exports = function(module) {
+		if(!module.webpackPolyfill) {
+			module.deprecate = function() {};
+			module.paths = [];
+			// module.parent = undefined by default
+			module.children = [];
+			module.webpackPolyfill = 1;
+		}
+		return module;
 	}
 
-	var _inlineStylePrefixer = __webpack_require__(345);
-
-	var _inlineStylePrefixer2 = _interopRequireDefault(_inlineStylePrefixer);
-
-	var _util = __webpack_require__(285);
-
-	var generateCSS = function generateCSS(selector, styleTypes, stringHandlers, useImportant) {
-	    var merged = styleTypes.reduce(_util.recursiveMerge);
-
-	    var declarations = {};
-	    var mediaQueries = {};
-	    var pseudoStyles = {};
-
-	    Object.keys(merged).forEach(function (key) {
-	        if (key[0] === ':') {
-	            pseudoStyles[key] = merged[key];
-	        } else if (key[0] === '@') {
-	            mediaQueries[key] = merged[key];
-	        } else {
-	            declarations[key] = merged[key];
-	        }
-	    });
-
-	    return generateCSSRuleset(selector, declarations, stringHandlers, useImportant) + Object.keys(pseudoStyles).map(function (pseudoSelector) {
-	        return generateCSSRuleset(selector + pseudoSelector, pseudoStyles[pseudoSelector], stringHandlers, useImportant);
-	    }).join("") + Object.keys(mediaQueries).map(function (mediaQuery) {
-	        var ruleset = generateCSS(selector, [mediaQueries[mediaQuery]], stringHandlers, useImportant);
-	        return mediaQuery + '{' + ruleset + '}';
-	    }).join("");
-	};
-
-	exports.generateCSS = generateCSS;
-	var runStringHandlers = function runStringHandlers(declarations, stringHandlers) {
-	    var result = {};
-
-	    Object.keys(declarations).forEach(function (key) {
-	        // If a handler exists for this particular key, let it interpret
-	        // that value first before continuing
-	        if (stringHandlers && stringHandlers.hasOwnProperty(key)) {
-	            result[key] = stringHandlers[key](declarations[key]);
-	        } else {
-	            result[key] = declarations[key];
-	        }
-	    });
-
-	    return result;
-	};
-
-	var generateCSSRuleset = function generateCSSRuleset(selector, declarations, stringHandlers, useImportant) {
-	    var handledDeclarations = runStringHandlers(declarations, stringHandlers);
-
-	    var prefixedDeclarations = _inlineStylePrefixer2['default'].prefixAll(handledDeclarations);
-
-	    var rules = (0, _util.objectToPairs)(prefixedDeclarations).map(function (_ref) {
-	        var _ref2 = _slicedToArray(_ref, 2);
-
-	        var key = _ref2[0];
-	        var value = _ref2[1];
-
-	        var stringValue = (0, _util.stringifyValue)(key, value);
-	        var ret = (0, _util.kebabifyStyleName)(key) + ':' + stringValue + ';';
-	        return useImportant === false ? ret : (0, _util.importantify)(ret);
-	    }).join("");
-
-	    if (rules) {
-	        return selector + '{' + rules + '}';
-	    } else {
-	        return "";
-	    }
-	};
-	exports.generateCSSRuleset = generateCSSRuleset;
 
 /***/ },
 /* 312 */
@@ -105050,11 +105050,11 @@ module.exports =
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utilsJoinPrefixedRules = __webpack_require__(333);
+	var _utilsJoinPrefixedRules = __webpack_require__(335);
 
 	var _utilsJoinPrefixedRules2 = _interopRequireDefault(_utilsJoinPrefixedRules);
 
-	var _utilsIsPrefixedValue = __webpack_require__(334);
+	var _utilsIsPrefixedValue = __webpack_require__(336);
 
 	var _utilsIsPrefixedValue2 = _interopRequireDefault(_utilsIsPrefixedValue);
 
@@ -105083,7 +105083,7 @@ module.exports =
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utilsJoinPrefixedRules = __webpack_require__(333);
+	var _utilsJoinPrefixedRules = __webpack_require__(335);
 
 	var _utilsJoinPrefixedRules2 = _interopRequireDefault(_utilsJoinPrefixedRules);
 
@@ -105115,7 +105115,7 @@ module.exports =
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utilsCamelToDashCase = __webpack_require__(335);
+	var _utilsCamelToDashCase = __webpack_require__(337);
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
@@ -105144,7 +105144,7 @@ module.exports =
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utilsJoinPrefixedRules = __webpack_require__(333);
+	var _utilsJoinPrefixedRules = __webpack_require__(335);
 
 	var _utilsJoinPrefixedRules2 = _interopRequireDefault(_utilsJoinPrefixedRules);
 
@@ -105186,11 +105186,11 @@ module.exports =
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utilsJoinPrefixedRules = __webpack_require__(333);
+	var _utilsJoinPrefixedRules = __webpack_require__(335);
 
 	var _utilsJoinPrefixedRules2 = _interopRequireDefault(_utilsJoinPrefixedRules);
 
-	var _utilsIsPrefixedValue = __webpack_require__(334);
+	var _utilsIsPrefixedValue = __webpack_require__(336);
 
 	var _utilsIsPrefixedValue2 = _interopRequireDefault(_utilsIsPrefixedValue);
 
@@ -105221,7 +105221,7 @@ module.exports =
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-	var _utilsCamelToDashCase = __webpack_require__(335);
+	var _utilsCamelToDashCase = __webpack_require__(337);
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
@@ -105229,7 +105229,7 @@ module.exports =
 
 	var _utilsCapitalizeString2 = _interopRequireDefault(_utilsCapitalizeString);
 
-	var _utilsIsPrefixedValue = __webpack_require__(334);
+	var _utilsIsPrefixedValue = __webpack_require__(336);
 
 	var _utilsIsPrefixedValue2 = _interopRequireDefault(_utilsIsPrefixedValue);
 
@@ -105346,7 +105346,7 @@ module.exports =
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-	var _utilsCamelToDashCase = __webpack_require__(335);
+	var _utilsCamelToDashCase = __webpack_require__(337);
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
@@ -105386,8 +105386,8 @@ module.exports =
 	'use strict';
 
 	var getPrototype = __webpack_require__(338),
-	    isHostObject = __webpack_require__(340),
-	    isObjectLike = __webpack_require__(339);
+	    isHostObject = __webpack_require__(339),
+	    isObjectLike = __webpack_require__(340);
 
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -105456,18 +105456,6 @@ module.exports =
 
 /***/ },
 /* 325 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	module.exports = function (str) {
-		return encodeURIComponent(str).replace(/[!'()*]/g, function (c) {
-			return '%' + c.charCodeAt(0).toString(16).toUpperCase();
-		});
-	};
-
-/***/ },
-/* 326 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -105555,6 +105543,18 @@ module.exports =
 	};
 
 /***/ },
+/* 326 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = function (str) {
+		return encodeURIComponent(str).replace(/[!'()*]/g, function (c) {
+			return '%' + c.charCodeAt(0).toString(16).toUpperCase();
+		});
+	};
+
+/***/ },
 /* 327 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -105567,7 +105567,7 @@ module.exports =
 	var React = __webpack_require__(49);
 	var ReactDOM = __webpack_require__(53);
 
-	var Iconography = __webpack_require__(344);
+	var Iconography = __webpack_require__(346);
 	var UnicodeIcon = __webpack_require__(342);
 
 	var _require = __webpack_require__(175);
@@ -105645,7 +105645,7 @@ module.exports =
 	var UnicodeIcon = __webpack_require__(342);
 	var UnicodeSymbol = __webpack_require__(343);
 
-	var _require3 = __webpack_require__(279);
+	var _require3 = __webpack_require__(278);
 
 	var row = _require3.row;
 	var column = _require3.column;
@@ -105904,7 +105904,7 @@ module.exports =
 	var KeyTypes = _require4.KeyTypes;
 	var BorderStyles = _require4.BorderStyles;
 
-	var zIndexes = __webpack_require__(259);
+	var zIndexes = __webpack_require__(258);
 
 	var MultiSymbolPopover = React.createClass({
 	    displayName: 'MultiSymbolPopover',
@@ -105919,7 +105919,7 @@ module.exports =
 	        // TODO(charlie): We have to require this lazily because of a cyclic
 	        // dependence in our components.
 
-	        var TouchableKeypadButton = __webpack_require__(278);
+	        var TouchableKeypadButton = __webpack_require__(277);
 	        return React.createElement(
 	            View,
 	            { style: styles.container },
@@ -105962,15 +105962,6 @@ module.exports =
 
 /***/ },
 /* 331 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* NOTE: This mimics what we do in webapp and links to our custom version of
-	React -- this was not added with npm */
-	module.exports = __webpack_require__(49).__internalAddons.CSSTransitionGroup;
-
-
-/***/ },
-/* 332 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -106016,135 +106007,16 @@ module.exports =
 	};
 
 /***/ },
+/* 332 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* NOTE: This mimics what we do in webapp and links to our custom version of
+	React -- this was not added with npm */
+	module.exports = __webpack_require__(49).__internalAddons.CSSTransitionGroup;
+
+
+/***/ },
 /* 333 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-	var _camelToDashCase = __webpack_require__(335);
-
-	var _camelToDashCase2 = _interopRequireDefault(_camelToDashCase);
-
-	// returns a style object with a single concated prefixed value string
-
-	exports['default'] = function (property, value) {
-	  var replacer = arguments.length <= 2 || arguments[2] === undefined ? function (prefix, value) {
-	    return prefix + value;
-	  } : arguments[2];
-	  return (function () {
-	    return _defineProperty({}, property, ['-webkit-', '-moz-', ''].map(function (prefix) {
-	      return replacer(prefix, value);
-	    }));
-	  })();
-	};
-
-	module.exports = exports['default'];
-
-/***/ },
-/* 334 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	exports['default'] = function (value) {
-	  if (Array.isArray(value)) value = value.join(',');
-
-	  return value.match(/-webkit-|-moz-|-ms-/) !== null;
-	};
-
-	module.exports = exports['default'];
-
-/***/ },
-/* 335 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Converts a camel-case string to a dash-case string
-	 * @param {string} str - str that gets converted to dash-case
-	 */
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	exports['default'] = function (str) {
-	  return str.replace(/([a-z]|^)([A-Z])/g, function (match, p1, p2) {
-	    return p1 + '-' + p2.toLowerCase();
-	  }).replace('ms-', '-ms-');
-	};
-
-	module.exports = exports['default'];
-
-/***/ },
-/* 336 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 */
-
-	'use strict';
-
-	/**
-	 * Use invariant() to assert state which your program assumes to be true.
-	 *
-	 * Provide sprintf-style format (only %s is supported) and arguments
-	 * to provide information about what broke and what you were
-	 * expecting.
-	 *
-	 * The invariant message will be stripped in production, but the invariant
-	 * will remain to ensure logic does not differ in production.
-	 */
-
-	var NODE_ENV = ("production");
-
-	var invariant = function invariant(condition, format, a, b, c, d, e, f) {
-	  if (NODE_ENV !== 'production') {
-	    if (format === undefined) {
-	      throw new Error('invariant requires an error message argument');
-	    }
-	  }
-
-	  if (!condition) {
-	    var error;
-	    if (format === undefined) {
-	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
-	    } else {
-	      var args = [a, b, c, d, e, f];
-	      var argIndex = 0;
-	      error = new Error(format.replace(/%s/g, function () {
-	        return args[argIndex++];
-	      }));
-	      error.name = 'Invariant Violation';
-	    }
-
-	    error.framesToPop = 1; // we don't care about invariant's own frame
-	    throw error;
-	  }
-	};
-
-	module.exports = invariant;
-
-/***/ },
-/* 337 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -106213,6 +106085,134 @@ module.exports =
 	};
 
 /***/ },
+/* 334 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 */
+
+	'use strict';
+
+	/**
+	 * Use invariant() to assert state which your program assumes to be true.
+	 *
+	 * Provide sprintf-style format (only %s is supported) and arguments
+	 * to provide information about what broke and what you were
+	 * expecting.
+	 *
+	 * The invariant message will be stripped in production, but the invariant
+	 * will remain to ensure logic does not differ in production.
+	 */
+
+	var NODE_ENV = ("production");
+
+	var invariant = function invariant(condition, format, a, b, c, d, e, f) {
+	  if (NODE_ENV !== 'production') {
+	    if (format === undefined) {
+	      throw new Error('invariant requires an error message argument');
+	    }
+	  }
+
+	  if (!condition) {
+	    var error;
+	    if (format === undefined) {
+	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+	    } else {
+	      var args = [a, b, c, d, e, f];
+	      var argIndex = 0;
+	      error = new Error(format.replace(/%s/g, function () {
+	        return args[argIndex++];
+	      }));
+	      error.name = 'Invariant Violation';
+	    }
+
+	    error.framesToPop = 1; // we don't care about invariant's own frame
+	    throw error;
+	  }
+	};
+
+	module.exports = invariant;
+
+/***/ },
+/* 335 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	var _camelToDashCase = __webpack_require__(337);
+
+	var _camelToDashCase2 = _interopRequireDefault(_camelToDashCase);
+
+	// returns a style object with a single concated prefixed value string
+
+	exports['default'] = function (property, value) {
+	  var replacer = arguments.length <= 2 || arguments[2] === undefined ? function (prefix, value) {
+	    return prefix + value;
+	  } : arguments[2];
+	  return (function () {
+	    return _defineProperty({}, property, ['-webkit-', '-moz-', ''].map(function (prefix) {
+	      return replacer(prefix, value);
+	    }));
+	  })();
+	};
+
+	module.exports = exports['default'];
+
+/***/ },
+/* 336 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	exports['default'] = function (value) {
+	  if (Array.isArray(value)) value = value.join(',');
+
+	  return value.match(/-webkit-|-moz-|-ms-/) !== null;
+	};
+
+	module.exports = exports['default'];
+
+/***/ },
+/* 337 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Converts a camel-case string to a dash-case string
+	 * @param {string} str - str that gets converted to dash-case
+	 */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	exports['default'] = function (str) {
+	  return str.replace(/([a-z]|^)([A-Z])/g, function (match, p1, p2) {
+	    return p1 + '-' + p2.toLowerCase();
+	  }).replace('ms-', '-ms-');
+	};
+
+	module.exports = exports['default'];
+
+/***/ },
 /* 338 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -106236,6 +106236,33 @@ module.exports =
 
 /***/ },
 /* 339 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * Checks if `value` is a host object in IE < 9.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
+	 */
+	function isHostObject(value) {
+	  // Many host objects are `Object` objects that can coerce to strings
+	  // despite having improperly defined `toString` methods.
+	  var result = false;
+	  if (value != null && typeof value.toString != 'function') {
+	    try {
+	      result = !!(value + '');
+	    } catch (e) {}
+	  }
+	  return result;
+	}
+
+	module.exports = isHostObject;
+
+/***/ },
+/* 340 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -106271,33 +106298,6 @@ module.exports =
 	}
 
 	module.exports = isObjectLike;
-
-/***/ },
-/* 340 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * Checks if `value` is a host object in IE < 9.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
-	 */
-	function isHostObject(value) {
-	  // Many host objects are `Object` objects that can coerce to strings
-	  // despite having improperly defined `toString` methods.
-	  var result = false;
-	  if (value != null && typeof value.toString != 'function') {
-	    try {
-	      result = !!(value + '');
-	    } catch (e) {}
-	  }
-	  return result;
-	}
-
-	module.exports = isHostObject;
 
 /***/ },
 /* 341 */
@@ -106396,7 +106396,7 @@ module.exports =
 
 	var UnicodeSymbol = __webpack_require__(343);
 
-	var _require3 = __webpack_require__(279);
+	var _require3 = __webpack_require__(278);
 
 	var row = _require3.row;
 	var centered = _require3.centered;
@@ -106479,7 +106479,7 @@ module.exports =
 
 	var Text = _require2.Text;
 
-	var _require3 = __webpack_require__(279);
+	var _require3 = __webpack_require__(278);
 
 	var fullWidth = _require3.fullWidth;
 	var centeredText = _require3.centeredText;
@@ -106529,64 +106529,6 @@ module.exports =
 
 	'use strict';
 
-	/**
-	 * A directory of autogenerated icon components.
-	 */
-
-	module.exports = {
-	    COS: __webpack_require__(351),
-	    LOG: __webpack_require__(352),
-	    EQUAL: __webpack_require__(353),
-	    BACKSPACE: __webpack_require__(354),
-	    SQRT: __webpack_require__(355),
-	    EXP: __webpack_require__(356),
-	    NEQ: __webpack_require__(357),
-	    GEQ: __webpack_require__(358),
-	    LN: __webpack_require__(359),
-	    JUMP_OUT: __webpack_require__(360),
-	    DISMISS: __webpack_require__(361),
-	    SIN: __webpack_require__(362),
-	    LT: __webpack_require__(363),
-	    FRAC_MULTI: __webpack_require__(364),
-	    NUMBERS: __webpack_require__(365),
-	    CUBE_ROOT: __webpack_require__(366),
-	    PLUS: __webpack_require__(367),
-	    TAN: __webpack_require__(368),
-	    LEFT: __webpack_require__(369),
-	    PARENS: __webpack_require__(370),
-	    GT: __webpack_require__(371),
-	    FRAC: __webpack_require__(372),
-	    DIVIDE: __webpack_require__(373),
-	    DECIMAL: __webpack_require__(374),
-	    PERCENT: __webpack_require__(375),
-	    TIMES: __webpack_require__(376),
-	    TOGGLE_SIGN: __webpack_require__(377),
-	    EXP_3: __webpack_require__(378),
-	    EXP_2: __webpack_require__(379),
-	    PARENS_MULTI: __webpack_require__(380),
-	    RIGHT: __webpack_require__(381),
-	    CDOT: __webpack_require__(382),
-	    LOG_N: __webpack_require__(383),
-	    LEQ: __webpack_require__(384),
-	    MINUS: __webpack_require__(385),
-	    RADICAL: __webpack_require__(386),
-	    MORE: __webpack_require__(387),
-
-	    // These multi-functional keys use the symbols of their 'default' keys.
-	    EQUAL_MULTI: __webpack_require__(353),
-	    GREATER_MULTI: __webpack_require__(371),
-	    LESS_MULTI: __webpack_require__(363),
-	    EXP_MULTI: __webpack_require__(379),
-	    RADICAL_MULTI: __webpack_require__(355),
-	    LOG_MULTI: __webpack_require__(352)
-	};
-
-/***/ },
-/* 345 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
@@ -106611,23 +106553,23 @@ module.exports =
 	  }
 	}
 
-	var _utilsGetBrowserInformation = __webpack_require__(388);
+	var _utilsGetBrowserInformation = __webpack_require__(351);
 
 	var _utilsGetBrowserInformation2 = _interopRequireDefault(_utilsGetBrowserInformation);
 
-	var _utilsCapitalizeString = __webpack_require__(389);
+	var _utilsCapitalizeString = __webpack_require__(352);
 
 	var _utilsCapitalizeString2 = _interopRequireDefault(_utilsCapitalizeString);
 
-	var _utilsAssign = __webpack_require__(390);
+	var _utilsAssign = __webpack_require__(353);
 
 	var _utilsAssign2 = _interopRequireDefault(_utilsAssign);
 
-	var _caniuseData = __webpack_require__(391);
+	var _caniuseData = __webpack_require__(354);
 
 	var _caniuseData2 = _interopRequireDefault(_caniuseData);
 
-	var _Plugins = __webpack_require__(392);
+	var _Plugins = __webpack_require__(355);
 
 	var _Plugins2 = _interopRequireDefault(_Plugins);
 
@@ -106691,13 +106633,71 @@ module.exports =
 	module.exports = exports['default'];
 
 /***/ },
-/* 346 */
+/* 345 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* global window */
 	'use strict';
 
-	module.exports = __webpack_require__(393)(global || window || undefined);
+	module.exports = __webpack_require__(356)(global || window || undefined);
+
+/***/ },
+/* 346 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * A directory of autogenerated icon components.
+	 */
+
+	module.exports = {
+	    COS: __webpack_require__(357),
+	    LOG: __webpack_require__(358),
+	    EQUAL: __webpack_require__(359),
+	    BACKSPACE: __webpack_require__(360),
+	    SQRT: __webpack_require__(361),
+	    EXP: __webpack_require__(362),
+	    NEQ: __webpack_require__(363),
+	    GEQ: __webpack_require__(364),
+	    LN: __webpack_require__(365),
+	    JUMP_OUT: __webpack_require__(366),
+	    DISMISS: __webpack_require__(367),
+	    SIN: __webpack_require__(368),
+	    LT: __webpack_require__(369),
+	    FRAC_MULTI: __webpack_require__(370),
+	    NUMBERS: __webpack_require__(371),
+	    CUBE_ROOT: __webpack_require__(372),
+	    PLUS: __webpack_require__(373),
+	    TAN: __webpack_require__(374),
+	    LEFT: __webpack_require__(375),
+	    PARENS: __webpack_require__(376),
+	    GT: __webpack_require__(377),
+	    FRAC: __webpack_require__(378),
+	    DIVIDE: __webpack_require__(379),
+	    DECIMAL: __webpack_require__(380),
+	    PERCENT: __webpack_require__(381),
+	    TIMES: __webpack_require__(382),
+	    TOGGLE_SIGN: __webpack_require__(383),
+	    EXP_3: __webpack_require__(384),
+	    EXP_2: __webpack_require__(385),
+	    PARENS_MULTI: __webpack_require__(386),
+	    RIGHT: __webpack_require__(387),
+	    CDOT: __webpack_require__(388),
+	    LOG_N: __webpack_require__(389),
+	    LEQ: __webpack_require__(390),
+	    MINUS: __webpack_require__(391),
+	    RADICAL: __webpack_require__(392),
+	    MORE: __webpack_require__(393),
+
+	    // These multi-functional keys use the symbols of their 'default' keys.
+	    EQUAL_MULTI: __webpack_require__(359),
+	    GREATER_MULTI: __webpack_require__(377),
+	    LESS_MULTI: __webpack_require__(369),
+	    EXP_MULTI: __webpack_require__(385),
+	    RADICAL_MULTI: __webpack_require__(361),
+	    LOG_MULTI: __webpack_require__(358)
+	};
 
 /***/ },
 /* 347 */
@@ -106898,2099 +106898,6 @@ module.exports =
 
 	'use strict';
 
-	/**
-	 * An autogenerated component that renders the COS iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Cos = React.createClass({
-	    displayName: 'Cos',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1476.000000, -902.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_cos', transform: 'translate(1476.000000, 902.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon', strokeWidth: '1', transform: 'translate(13.000000, 12.000000)' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                            React.createElement('path', { d: 'M5.182,17.168 C6.568,17.168 7.408,16.566 7.856,15.936 L6.694,14.858 C6.372,15.306 5.882,15.586 5.266,15.586 C4.188,15.586 3.432,14.788 3.432,13.612 C3.432,12.436 4.188,11.652 5.266,11.652 C5.882,11.652 6.372,11.904 6.694,12.38 L7.856,11.288 C7.408,10.672 6.568,10.07 5.182,10.07 C3.096,10.07 1.598,11.54 1.598,13.612 C1.598,15.698 3.096,17.168 5.182,17.168 L5.182,17.168 Z M12.154,17.168 C14.394,17.168 15.738,15.544 15.738,13.612 C15.738,11.694 14.394,10.07 12.154,10.07 C9.928,10.07 8.584,11.694 8.584,13.612 C8.584,15.544 9.928,17.168 12.154,17.168 L12.154,17.168 Z M12.154,15.586 C11.048,15.586 10.432,14.676 10.432,13.612 C10.432,12.562 11.048,11.652 12.154,11.652 C13.26,11.652 13.89,12.562 13.89,13.612 C13.89,14.676 13.26,15.586 12.154,15.586 L12.154,15.586 Z M19.49,17.168 C21.366,17.168 22.416,16.23 22.416,14.998 C22.416,12.268 18.412,13.108 18.412,12.1 C18.412,11.722 18.832,11.428 19.476,11.428 C20.302,11.428 21.072,11.778 21.478,12.212 L22.192,10.994 C21.52,10.462 20.61,10.07 19.462,10.07 C17.684,10.07 16.69,11.064 16.69,12.198 C16.69,14.858 20.708,13.948 20.708,15.068 C20.708,15.488 20.344,15.796 19.574,15.796 C18.734,15.796 17.726,15.334 17.236,14.872 L16.466,16.118 C17.18,16.776 18.314,17.168 19.49,17.168 L19.49,17.168 Z', id: 'cos', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Cos;
-
-/***/ },
-/* 352 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the LOG iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Log = React.createClass({
-	    displayName: 'Log',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1340.000000, -834.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_log_10', transform: 'translate(1340.000000, 834.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('path', { d: 'M16.776,29 L16.776,19.662 L14.998,19.662 L14.998,29 L16.776,29 Z M21.676,29.168 C23.916,29.168 25.26,27.544 25.26,25.612 C25.26,23.694 23.916,22.07 21.676,22.07 C19.45,22.07 18.106,23.694 18.106,25.612 C18.106,27.544 19.45,29.168 21.676,29.168 L21.676,29.168 Z M21.676,27.586 C20.57,27.586 19.954,26.676 19.954,25.612 C19.954,24.562 20.57,23.652 21.676,23.652 C22.782,23.652 23.412,24.562 23.412,25.612 C23.412,26.676 22.782,27.586 21.676,27.586 L21.676,27.586 Z M29.348,31.744 C31.014,31.744 33.002,31.114 33.002,28.538 L33.002,22.238 L31.21,22.238 L31.21,23.106 C30.664,22.42 29.936,22.07 29.124,22.07 C27.416,22.07 26.142,23.302 26.142,25.514 C26.142,27.768 27.43,28.958 29.124,28.958 C29.95,28.958 30.678,28.566 31.21,27.894 L31.21,28.58 C31.21,29.91 30.202,30.288 29.348,30.288 C28.494,30.288 27.78,30.05 27.234,29.448 L26.436,30.736 C27.29,31.478 28.186,31.744 29.348,31.744 L29.348,31.744 Z M29.684,27.376 C28.676,27.376 27.976,26.676 27.976,25.514 C27.976,24.352 28.676,23.652 29.684,23.652 C30.272,23.652 30.916,23.974 31.21,24.422 L31.21,26.606 C30.916,27.04 30.272,27.376 29.684,27.376 L29.684,27.376 Z', id: 'log', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Log;
-
-/***/ },
-/* 353 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the EQUAL iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Equal = React.createClass({
-	    displayName: 'Equal',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1000.000000, -834.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_equals', transform: 'translate(1000.000000, 834.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement(
-	                                'g',
-	                                { id: 'math_keypad_icon_equals' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                                React.createElement(
-	                                    'g',
-	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
-	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                    React.createElement('path', { d: 'M4,9 L21,9', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                    React.createElement('path', { d: 'M4,15 L21,15', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Equal;
-
-/***/ },
-/* 354 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * An autogenerated component that renders the BACKSPACE iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Backspace = function Backspace() {
-	    return React.createElement(
-	        "svg",
-	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
-	        React.createElement(
-	            "g",
-	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
-	            React.createElement(
-	                "g",
-	                { id: "[Assets]-Math-Input", transform: "translate(-1136.000000, -200.000000)" },
-	                React.createElement(
-	                    "g",
-	                    { id: "math_keypad_icon_delete", transform: "translate(1136.000000, 200.000000)" },
-	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", fillRule: "evenodd", x: "0", y: "0", width: "48", height: "48" }),
-	                    React.createElement("path", { d: "M13,24 L13,24 L19,30 L33,30 L33,18 L19,18 L13,24 Z M11.5857864,22.5857864 L11.5857864,22.5857864 L17.5857864,16.5857864 C17.9608592,16.2107137 18.469567,16 19,16 L33,16 C34.1045695,16 35,16.8954305 35,18 L35,30 C35,31.1045695 34.1045695,32 33,32 L19,32 C18.469567,32 17.9608592,31.7892863 17.5857864,31.4142136 L11.5857864,25.4142136 C10.8047379,24.633165 10.8047379,23.366835 11.5857864,22.5857864 L11.5857864,22.5857864 Z", id: "outline", fill: "#888D93", fillRule: "evenodd" }),
-	                    React.createElement("path", { d: "M23,21 L29,27", id: "slash", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
-	                    React.createElement("path", { d: "M23,21 L29,27", id: "slash", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", transform: "translate(26.000000, 24.000000) scale(-1, 1) translate(-26.000000, -24.000000) " })
-	                )
-	            )
-	        )
-	    );
-	};
-
-	module.exports = Backspace;
-
-/***/ },
-/* 355 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the SQRT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Sqrt = React.createClass({
-	    displayName: 'Sqrt',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -834.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_radical_2', transform: 'translate(1272.000000, 834.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('polyline', { id: 'root', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '14 29 18 35 27 21 34 21' })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Sqrt;
-
-/***/ },
-/* 356 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the EXP iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Exp = React.createClass({
-	    displayName: 'Exp',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -698.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_exponent', transform: 'translate(1204.000000, 698.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('path', { d: 'M28,16.9970301 C28,16.4463856 28.4530363,16 28.9970301,16 L35.0029699,16 C35.5536144,16 36,16.4530363 36,16.9970301 L36,23.0029699 C36,23.5536144 35.5469637,24 35.0029699,24 L28.9970301,24 C28.4463856,24 28,23.5469637 28,23.0029699 L28,16.9970301 Z M30,18 L34,18 L34,22 L30,22 L30,18 Z', id: 'block', fill: this.props.primaryColor }),
-	                            React.createElement('path', { d: 'M14,21.0008717 C14,20.4481055 14.455761,20 15.0024733,20 L24.9975267,20 C25.5511774,20 26,20.4446309 26,21.0008717 L26,34.9991283 C26,35.5518945 25.544239,36 24.9975267,36 L15.0024733,36 C14.4488226,36 14,35.5553691 14,34.9991283 L14,21.0008717 Z M16,22 L24,22 L24,34 L16,34 L16,22 Z', id: 'block', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Exp;
-
-/***/ },
-/* 357 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the NEQ iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Neq = React.createClass({
-	    displayName: 'Neq',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1000.000000, -766.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_equals_not', transform: 'translate(1000.000000, 766.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement(
-	                                'g',
-	                                { id: 'math_keypad_icon_equals' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                                React.createElement(
-	                                    'g',
-	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
-	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                    React.createElement('path', { d: 'M7,21 L17,3', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                    React.createElement('path', { d: 'M4,9 L21,9', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                    React.createElement('path', { d: 'M4,15 L21,15', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Neq;
-
-/***/ },
-/* 358 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the GEQ iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Geq = React.createClass({
-	    displayName: 'Geq',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -766.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_greater_than_not', transform: 'translate(1136.000000, 766.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement(
-	                                'g',
-	                                { id: 'math_keypad_icon_greater_than' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                                React.createElement(
-	                                    'g',
-	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
-	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                    React.createElement('path', { d: 'M4,21 L20,21', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '4 18 20 12 4 6' })
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Geq;
-
-/***/ },
-/* 359 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the LN iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Ln = React.createClass({
-	    displayName: 'Ln',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1340.000000, -766.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_log_e', transform: 'translate(1340.000000, 766.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('path', { d: 'M20.836,29 L20.836,19.662 L19.058,19.662 L19.058,29 L20.836,29 Z M28.942,29 L28.942,24.226 C28.942,22.91 28.228,22.07 26.744,22.07 C25.638,22.07 24.812,22.602 24.378,23.12 L24.378,22.238 L22.6,22.238 L22.6,29 L24.378,29 L24.378,24.45 C24.672,24.044 25.218,23.652 25.918,23.652 C26.674,23.652 27.164,23.974 27.164,24.912 L27.164,29 L28.942,29 Z', id: 'ln', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Ln;
-
-/***/ },
-/* 360 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * An autogenerated component that renders the JUMP_OUT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var JumpOut = function JumpOut() {
-	    return React.createElement(
-	        "svg",
-	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
-	        React.createElement(
-	            "g",
-	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
-	            React.createElement(
-	                "g",
-	                { id: "[Assets]-Math-Input", transform: "translate(-1408.000000, -200.000000)" },
-	                React.createElement(
-	                    "g",
-	                    { id: "math_keypad_icon_jump_out", transform: "translate(1408.000000, 200.000000)" },
-	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
-	                    React.createElement(
-	                        "g",
-	                        { id: "icon", strokeWidth: "1", transform: "translate(12.000000, 12.000000)" },
-	                        React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "24", height: "24" }),
-	                        React.createElement("path", { d: "M2,4.99508929 L2,4.99508929 L2,19.0049107 C2,19.0007808 1.99921607,19 2.00276013,19 L10.9972399,19 C11.0020427,19 11,19.002037 11,19.0049107 L11,4.99508929 C11,4.99921924 11.0007839,5 10.9972399,5 L2.00276013,5 C1.99795733,5 2,4.99796296 2,4.99508929 L2,4.99508929 Z M0,4.99508929 C0,3.8932319 0.893542647,3 2.00276013,3 L10.9972399,3 C12.1033337,3 13,3.8926228 13,4.99508929 L13,19.0049107 C13,20.1067681 12.1064574,21 10.9972399,21 L2.00276013,21 C0.896666251,21 0,20.1073772 0,19.0049107 L0,4.99508929 L0,4.99508929 Z", id: "box", fill: "#888D93" }),
-	                        React.createElement("path", { d: "M18,12 L9,12", id: "tail", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
-	                        React.createElement("polyline", { id: "head", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "16 9 19 12 16 15" }),
-	                        React.createElement("path", { d: "M23,4 L23,20", id: "caret", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
-	                        React.createElement("path", { d: "M5,8 L5,16", id: "caret", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" })
-	                    )
-	                )
-	            )
-	        )
-	    );
-	};
-
-	module.exports = JumpOut;
-
-/***/ },
-/* 361 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * An autogenerated component that renders the DISMISS iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Dismiss = function Dismiss() {
-	    return React.createElement(
-	        "svg",
-	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
-	        React.createElement(
-	            "g",
-	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
-	            React.createElement(
-	                "g",
-	                { id: "[Assets]-Math-Input", transform: "translate(-1204.000000, -200.000000)" },
-	                React.createElement(
-	                    "g",
-	                    { id: "math_keypad_icon_dismiss", transform: "translate(1204.000000, 200.000000)" },
-	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", fillRule: "evenodd", x: "0", y: "0", width: "48", height: "48" }),
-	                    React.createElement("polyline", { id: "chevron", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "20 32 24 36 28 32" }),
-	                    React.createElement(
-	                        "g",
-	                        { id: "keyboard", strokeWidth: "1", fillRule: "evenodd", transform: "translate(14.000000, 12.000000)", fill: "#78C008" },
-	                        React.createElement("path", { d: "M0,1.00684547 C0,0.450780073 0.455305576,0 0.99180311,0 L19.0081969,0 C19.5559546,0 20,0.449948758 20,1.00684547 L20,12.9931545 C20,13.5492199 19.5446944,14 19.0081969,14 L0.99180311,14 C0.444045377,14 0,13.5500512 0,12.9931545 L0,1.00684547 Z M6,0 L7,0 L7,14 L6,14 L6,0 Z M13,0 L14,0 L14,14 L13,14 L13,0 Z M0,9 L6,9 L6,10 L0,10 L0,9 Z M0,4 L6,4 L6,5 L0,5 L0,4 Z M7,9 L13,9 L13,10 L7,10 L7,9 Z M7,4 L13,4 L13,5 L7,5 L7,4 Z M14,9 L20,9 L20,10 L14,10 L14,9 Z M14,4 L20,4 L20,5 L14,5 L14,4 Z", id: "keypad" })
-	                    )
-	                )
-	            )
-	        )
-	    );
-	};
-
-	module.exports = Dismiss;
-
-/***/ },
-/* 362 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the SIN iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Sin = React.createClass({
-	    displayName: 'Sin',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1408.000000, -902.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_sin', transform: 'translate(1408.000000, 902.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                            React.createElement('path', { d: 'M6.655,17.168 C8.531,17.168 9.581,16.23 9.581,14.998 C9.581,12.268 5.577,13.108 5.577,12.1 C5.577,11.722 5.997,11.428 6.641,11.428 C7.467,11.428 8.237,11.778 8.643,12.212 L9.357,10.994 C8.685,10.462 7.775,10.07 6.627,10.07 C4.849,10.07 3.855,11.064 3.855,12.198 C3.855,14.858 7.873,13.948 7.873,15.068 C7.873,15.488 7.509,15.796 6.739,15.796 C5.899,15.796 4.891,15.334 4.401,14.872 L3.631,16.118 C4.345,16.776 5.479,17.168 6.655,17.168 L6.655,17.168 Z M11.779,9.51 C12.367,9.51 12.843,9.034 12.843,8.446 C12.843,7.858 12.367,7.396 11.779,7.396 C11.205,7.396 10.715,7.858 10.715,8.446 C10.715,9.034 11.205,9.51 11.779,9.51 L11.779,9.51 Z M12.675,17 L12.675,10.238 L10.897,10.238 L10.897,17 L12.675,17 Z M20.781,17 L20.781,12.226 C20.781,10.91 20.067,10.07 18.583,10.07 C17.477,10.07 16.651,10.602 16.217,11.12 L16.217,10.238 L14.439,10.238 L14.439,17 L16.217,17 L16.217,12.45 C16.511,12.044 17.057,11.652 17.757,11.652 C18.513,11.652 19.003,11.974 19.003,12.912 L19.003,17 L20.781,17 Z', id: 'sin', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Sin;
-
-/***/ },
-/* 363 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the LT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Lt = React.createClass({
-	    displayName: 'Lt',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1068.000000, -834.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_less_than', transform: 'translate(1068.000000, 834.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement(
-	                                'g',
-	                                { id: 'math_keypad_icon_less_than' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                                React.createElement(
-	                                    'g',
-	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
-	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '20 18 4 12 20 6' })
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Lt;
-
-/***/ },
-/* 364 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the FRAC_MULTI iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var FracMulti = React.createClass({
-	    displayName: 'FracMulti',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -600.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_division_multi', transform: 'translate(1204.000000, 600.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            null,
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement(
-	                                'g',
-	                                { id: 'fraction', transform: 'translate(6.000000, 12.000000)' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                React.createElement('path', { d: 'M8,16.9970301 C8,16.4463856 8.45303631,16 8.99703014,16 L15.0029699,16 C15.5536144,16 16,16.4530363 16,16.9970301 L16,23.0029699 C16,23.5536144 15.5469637,24 15.0029699,24 L8.99703014,24 C8.4463856,24 8,23.5469637 8,23.0029699 L8,16.9970301 Z M10,18 L14,18 L14,22 L10,22 L10,18 Z', id: 'block', fill: this.props.primaryColor }),
-	                                React.createElement('rect', { id: 'bar', fill: this.props.primaryColor, x: '2', y: '11', width: '20', height: '2', rx: '1' }),
-	                                React.createElement('path', { d: 'M8,0.997030139 C8,0.446385598 8.45303631,0 8.99703014,0 L15.0029699,0 C15.5536144,0 16,0.453036308 16,0.997030139 L16,7.00296986 C16,7.5536144 15.5469637,8 15.0029699,8 L8.99703014,8 C8.4463856,8 8,7.54696369 8,7.00296986 L8,0.997030139 Z M10,2 L14,2 L14,6 L10,6 L10,2 Z', id: 'block', fill: this.props.primaryColor })
-	                            ),
-	                            React.createElement(
-	                                'g',
-	                                { id: 'division', opacity: '0.3', transform: 'translate(34.000000, 12.000000)' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '8', height: '8' }),
-	                                React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, cx: '4', cy: '7', r: '1' }),
-	                                React.createElement('path', { d: 'M1,4 L7,4', id: 'bar', stroke: this.props.primaryColor, strokeWidth: '1.5', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                React.createElement('path', { d: 'M4,2 C4.55228475,2 5,1.55228475 5,1 C5,0.44771525 4.55228475,0 4,0 C3.44771525,0 3,0.44771525 3,1 C3,1.55228475 3.44771525,2 4,2 Z', id: 'dot', fill: this.props.primaryColor })
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = FracMulti;
-
-/***/ },
-/* 365 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * An autogenerated component that renders the NUMBERS iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Numbers = function Numbers() {
-	    return React.createElement(
-	        "svg",
-	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
-	        React.createElement(
-	            "g",
-	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
-	            React.createElement(
-	                "g",
-	                { id: "[Assets]-Math-Input", transform: "translate(-1068.000000, -200.000000)" },
-	                React.createElement(
-	                    "g",
-	                    { id: "math_keypad_icon_on_page_symbols", transform: "translate(1068.000000, 200.000000)" },
-	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
-	                    React.createElement(
-	                        "g",
-	                        { id: "arithmetic", strokeWidth: "1", transform: "translate(13.000000, 13.000000)" },
-	                        React.createElement(
-	                            "g",
-	                            { id: "divide", transform: "translate(14.000000, 13.000000)" },
-	                            React.createElement("path", { d: "M0,5 L8,5", id: "line", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
-	                            React.createElement("circle", { id: "Oval-30", fill: "#888D93", cx: "4", cy: "1.5", r: "1.5" }),
-	                            React.createElement("circle", { id: "Oval-30", fill: "#888D93", cx: "4", cy: "8.5", r: "1.5" })
-	                        ),
-	                        React.createElement(
-	                            "g",
-	                            { id: "multiply", transform: "translate(1.000000, 15.000000)", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
-	                            React.createElement("path", { d: "M0,6 L6,0", id: "line" }),
-	                            React.createElement("path", { d: "M0,0 L6,6", id: "line" })
-	                        ),
-	                        React.createElement(
-	                            "g",
-	                            { id: "subtract", transform: "translate(14.000000, 3.000000)", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
-	                            React.createElement("path", { d: "M0,1 L8,1", id: "line" })
-	                        ),
-	                        React.createElement(
-	                            "g",
-	                            { id: "add", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
-	                            React.createElement("path", { d: "M4,8 L4,0", id: "line" }),
-	                            React.createElement("path", { d: "M0,4 L8,4", id: "line" })
-	                        )
-	                    )
-	                )
-	            )
-	        )
-	    );
-	};
-
-	module.exports = Numbers;
-
-/***/ },
-/* 366 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the CUBE_ROOT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var CubeRoot = React.createClass({
-	    displayName: 'CubeRoot',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -766.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_radical_3', transform: 'translate(1272.000000, 766.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('path', { d: 'M17.91,23.12 C19.57,23.12 20.67,22.31 20.67,21.14 C20.67,20.18 19.81,19.63 19.1,19.56 C19.89,19.43 20.56,18.84 20.56,18.06 C20.56,16.96 19.61,16.23 17.91,16.23 C16.68,16.23 15.8,16.68 15.24,17.31 L16.07,18.39 C16.54,17.97 17.12,17.75 17.73,17.75 C18.37,17.75 18.85,17.94 18.85,18.36 C18.85,18.71 18.46,18.88 17.77,18.88 C17.52,18.88 17,18.88 16.87,18.87 L16.87,20.4 C16.97,20.39 17.48,20.39 17.77,20.39 C18.68,20.39 18.96,20.57 18.96,20.95 C18.96,21.32 18.58,21.6 17.84,21.6 C17.26,21.6 16.5,21.37 16.02,20.9 L15.15,22.07 C15.67,22.67 16.63,23.12 17.91,23.12 L17.91,23.12 Z', id: '3', fill: this.props.primaryColor }),
-	                            React.createElement('polyline', { id: 'root', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '14 29 18 35 27 21 34 21' })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = CubeRoot;
-
-/***/ },
-/* 367 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the PLUS iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Plus = React.createClass({
-	    displayName: 'Plus',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1000.000000, -600.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_addition', transform: 'translate(1000.000000, 600.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', fillRule: 'evenodd', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement('path', { d: 'M19,24 L29,24', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                        React.createElement('path', { d: 'M24,29 L24,19', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Plus;
-
-/***/ },
-/* 368 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the TAN iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Tan = React.createClass({
-	    displayName: 'Tan',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1544.000000, -902.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_tangent', transform: 'translate(1544.000000, 902.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                            React.createElement('path', { d: 'M4.93,17.168 C5.672,17.168 6.148,16.972 6.414,16.734 L6.036,15.39 C5.938,15.488 5.686,15.586 5.42,15.586 C5.028,15.586 4.804,15.264 4.804,14.844 L4.804,11.792 L6.176,11.792 L6.176,10.238 L4.804,10.238 L4.804,8.39 L3.012,8.39 L3.012,10.238 L1.892,10.238 L1.892,11.792 L3.012,11.792 L3.012,15.32 C3.012,16.524 3.684,17.168 4.93,17.168 L4.93,17.168 Z M13.232,17 L13.232,12.632 C13.232,10.686 11.818,10.07 10.278,10.07 C9.214,10.07 8.15,10.406 7.324,11.134 L7.996,12.324 C8.57,11.792 9.242,11.526 9.97,11.526 C10.866,11.526 11.454,11.974 11.454,12.66 L11.454,13.57 C11.006,13.038 10.208,12.744 9.312,12.744 C8.234,12.744 6.96,13.346 6.96,14.928 C6.96,16.44 8.234,17.168 9.312,17.168 C10.194,17.168 10.992,16.846 11.454,16.3 L11.454,17 L13.232,17 Z M10.026,15.964 C9.326,15.964 8.752,15.6 8.752,14.97 C8.752,14.312 9.326,13.948 10.026,13.948 C10.6,13.948 11.16,14.144 11.454,14.536 L11.454,15.376 C11.16,15.768 10.6,15.964 10.026,15.964 L10.026,15.964 Z M21.338,17 L21.338,12.226 C21.338,10.91 20.624,10.07 19.14,10.07 C18.034,10.07 17.208,10.602 16.774,11.12 L16.774,10.238 L14.996,10.238 L14.996,17 L16.774,17 L16.774,12.45 C17.068,12.044 17.614,11.652 18.314,11.652 C19.07,11.652 19.56,11.974 19.56,12.912 L19.56,17 L21.338,17 Z', id: 'tan', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Tan;
-
-/***/ },
-/* 369 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * An autogenerated component that renders the LEFT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Left = function Left() {
-	    return React.createElement(
-	        "svg",
-	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
-	        React.createElement(
-	            "g",
-	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
-	            React.createElement(
-	                "g",
-	                { id: "[Assets]-Math-Input", transform: "translate(-1272.000000, -200.000000)" },
-	                React.createElement(
-	                    "g",
-	                    { id: "math_keypad_icon_move_backward", transform: "translate(1272.000000, 200.000000)" },
-	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
-	                    React.createElement(
-	                        "g",
-	                        { id: "arrow", strokeWidth: "1", transform: "translate(12.000000, 12.000000)" },
-	                        React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "24", height: "24" }),
-	                        React.createElement("polyline", { id: "head", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "10 6 4 12 10 18" }),
-	                        React.createElement("path", { d: "M4,12 L20,12", id: "tail", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" })
-	                    )
-	                )
-	            )
-	        )
-	    );
-	};
-
-	module.exports = Left;
-
-/***/ },
-/* 370 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the PARENS iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Parens = React.createClass({
-	    displayName: 'Parens',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -532.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_parentheses', transform: 'translate(1136.000000, 532.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement(
-	                            'g',
-	                            { id: 'parentheses', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                            React.createElement('path', { d: 'M7,2 C2.99999998,8 3.00000002,16 7,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                            React.createElement('path', { d: 'M20,2 C16,8 16,16 20,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(18.500000, 12.000000) scale(-1, 1) translate(-18.500000, -12.000000) ' })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Parens;
-
-/***/ },
-/* 371 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the GT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Gt = React.createClass({
-	    displayName: 'Gt',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -834.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_greater_than', transform: 'translate(1136.000000, 834.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement(
-	                                'g',
-	                                { id: 'math_keypad_icon_greater_than' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                                React.createElement(
-	                                    'g',
-	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
-	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '4 18 20 12 4 6' })
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Gt;
-
-/***/ },
-/* 372 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the FRAC iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Frac = React.createClass({
-	    displayName: 'Frac',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -532.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_fraction', transform: 'translate(1204.000000, 532.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement(
-	                            'g',
-	                            { id: 'fraction', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                            React.createElement('path', { d: 'M8,16.9970301 C8,16.4463856 8.45303631,16 8.99703014,16 L15.0029699,16 C15.5536144,16 16,16.4530363 16,16.9970301 L16,23.0029699 C16,23.5536144 15.5469637,24 15.0029699,24 L8.99703014,24 C8.4463856,24 8,23.5469637 8,23.0029699 L8,16.9970301 Z M10,18 L14,18 L14,22 L10,22 L10,18 Z', id: 'block', fill: this.props.primaryColor }),
-	                            React.createElement('rect', { id: 'bar', fill: this.props.primaryColor, x: '2', y: '11', width: '20', height: '2', rx: '1' }),
-	                            React.createElement('path', { d: 'M8,0.997030139 C8,0.446385598 8.45303631,0 8.99703014,0 L15.0029699,0 C15.5536144,0 16,0.453036308 16,0.997030139 L16,7.00296986 C16,7.5536144 15.5469637,8 15.0029699,8 L8.99703014,8 C8.4463856,8 8,7.54696369 8,7.00296986 L8,0.997030139 Z M10,2 L14,2 L14,6 L10,6 L10,2 Z', id: 'block', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Frac;
-
-/***/ },
-/* 373 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the DIVIDE iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Divide = React.createClass({
-	    displayName: 'Divide',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -464.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_division', transform: 'translate(1204.000000, 464.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', fillRule: 'evenodd', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement('path', { d: 'M19,24 L29,24', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                        React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, fillRule: 'evenodd', cx: '24', cy: '19.5', r: '1.5' }),
-	                        React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, fillRule: 'evenodd', cx: '24', cy: '28.5', r: '1.5' })
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Divide;
-
-/***/ },
-/* 374 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the DECIMAL iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Decimal = React.createClass({
-	    displayName: 'Decimal',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1680.000000, -298.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_radix_character', transform: 'translate(1680.000000, 298.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, cx: '24', cy: '30', r: '2' })
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Decimal;
-
-/***/ },
-/* 375 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the PERCENT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Percent = React.createClass({
-	    displayName: 'Percent',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -600.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_percent', transform: 'translate(1272.000000, 600.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement(
-	                            'g',
-	                            { id: 'percent', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                            React.createElement('path', { d: 'M16,4 L8,20', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                            React.createElement('circle', { id: 'circle', stroke: this.props.primaryColor, strokeWidth: '2', cx: '7', cy: '7', r: '3' }),
-	                            React.createElement('circle', { id: 'circle', stroke: this.props.primaryColor, strokeWidth: '2', cx: '17', cy: '17', r: '3' })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Percent;
-
-/***/ },
-/* 376 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the TIMES iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Times = React.createClass({
-	    displayName: 'Times',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -396.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_multiplication_cross', transform: 'translate(1136.000000, 396.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'math_keypad_icon_multiply_cross' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement(
-	                                'g',
-	                                { id: 'cross', transform: 'translate(12.000000, 12.000000)' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                React.createElement('path', { d: 'M8,8 L16,16', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                React.createElement('path', { d: 'M8,8 L16,16', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(12.000000, 12.000000) scale(-1, 1) translate(-12.000000, -12.000000) ' })
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Times;
-
-/***/ },
-/* 377 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the TOGGLE_SIGN iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var ToggleSign = React.createClass({
-	    displayName: 'ToggleSign',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1748.000000, -298.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_negate', transform: 'translate(1748.000000, 298.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                            React.createElement(
-	                                'g',
-	                                { id: 'subtract', transform: 'translate(15.000000, 15.000000)', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' },
-	                                React.createElement('path', { d: 'M0,1 L8,1', id: 'line' })
-	                            ),
-	                            React.createElement('path', { d: 'M16,4 L8,20', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                            React.createElement(
-	                                'g',
-	                                { id: 'add', transform: 'translate(1.000000, 4.000000)', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' },
-	                                React.createElement('path', { d: 'M0,4 L8,4', id: 'line' }),
-	                                React.createElement('path', { d: 'M4,0 L4,8', id: 'line' })
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = ToggleSign;
-
-/***/ },
-/* 378 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the EXP_3 iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Exp3 = React.createClass({
-	    displayName: 'Exp3',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -766.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_exponent_3', transform: 'translate(1204.000000, 766.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('path', { d: 'M14,21.0008717 C14,20.4481055 14.455761,20 15.0024733,20 L24.9975267,20 C25.5511774,20 26,20.4446309 26,21.0008717 L26,34.9991283 C26,35.5518945 25.544239,36 24.9975267,36 L15.0024733,36 C14.4488226,36 14,35.5553691 14,34.9991283 L14,21.0008717 Z M16,22 L24,22 L24,34 L16,34 L16,22 Z', id: 'block', fill: this.props.primaryColor }),
-	                            React.createElement('path', { d: 'M30.92,23.12 C32.58,23.12 33.68,22.31 33.68,21.14 C33.68,20.18 32.82,19.63 32.11,19.56 C32.9,19.43 33.57,18.84 33.57,18.06 C33.57,16.96 32.62,16.23 30.92,16.23 C29.69,16.23 28.81,16.68 28.25,17.31 L29.08,18.39 C29.55,17.97 30.13,17.75 30.74,17.75 C31.38,17.75 31.86,17.94 31.86,18.36 C31.86,18.71 31.47,18.88 30.78,18.88 C30.53,18.88 30.01,18.88 29.88,18.87 L29.88,20.4 C29.98,20.39 30.49,20.39 30.78,20.39 C31.69,20.39 31.97,20.57 31.97,20.95 C31.97,21.32 31.59,21.6 30.85,21.6 C30.27,21.6 29.51,21.37 29.03,20.9 L28.16,22.07 C28.68,22.67 29.64,23.12 30.92,23.12 L30.92,23.12 Z', id: '3', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Exp3;
-
-/***/ },
-/* 379 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the EXP_2 iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Exp2 = React.createClass({
-	    displayName: 'Exp2',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -834.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_exponent_2', transform: 'translate(1204.000000, 834.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('path', { d: 'M14,21.0008717 C14,20.4481055 14.455761,20 15.0024733,20 L24.9975267,20 C25.5511774,20 26,20.4446309 26,21.0008717 L26,34.9991283 C26,35.5518945 25.544239,36 24.9975267,36 L15.0024733,36 C14.4488226,36 14,35.5553691 14,34.9991283 L14,21.0008717 Z M16,22 L24,22 L24,34 L16,34 L16,22 Z', id: 'block', fill: this.props.primaryColor }),
-	                            React.createElement('path', { d: 'M33.67,23 L33.67,21.5 L31.23,21.5 C32.89,20.34 33.62,19.47 33.62,18.45 C33.62,17.11 32.49,16.23 30.92,16.23 C29.99,16.23 28.93,16.56 28.22,17.34 L29.17,18.48 C29.65,18.03 30.21,17.75 30.95,17.75 C31.44,17.75 31.87,17.99 31.87,18.45 C31.87,19.11 31.33,19.57 28.44,21.66 L28.44,23 L33.67,23 Z', id: '2', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Exp2;
-
-/***/ },
-/* 380 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the PARENS_MULTI iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var ParensMulti = React.createClass({
-	    displayName: 'ParensMulti',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -600.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_multiplication_multi', transform: 'translate(1136.000000, 600.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            null,
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement(
-	                                'g',
-	                                { id: 'parentheses', transform: 'translate(6.000000, 12.000000)' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                React.createElement('path', { d: 'M7,2 C2.99999998,8 3.00000002,16 7,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                React.createElement('path', { d: 'M20,2 C16,8 16,16 20,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(18.500000, 12.000000) scale(-1, 1) translate(-18.500000, -12.000000) ' })
-	                            ),
-	                            React.createElement(
-	                                'g',
-	                                { id: 'dot', opacity: '0.3', transform: 'translate(34.000000, 12.000000)' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '8', height: '8' }),
-	                                React.createElement('circle', { fill: this.props.primaryColor, cx: '4', cy: '4', r: '2' })
-	                            ),
-	                            React.createElement(
-	                                'g',
-	                                { id: 'cross', opacity: '0.3', transform: 'translate(34.000000, 28.000000)' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '8', height: '8' }),
-	                                React.createElement('path', { d: 'M1,1 L7,7', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                React.createElement('path', { d: 'M1,1 L7,7', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(4.000000, 4.000000) scale(-1, 1) translate(-4.000000, -4.000000) ' })
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = ParensMulti;
-
-/***/ },
-/* 381 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * An autogenerated component that renders the RIGHT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Right = function Right() {
-	    return React.createElement(
-	        "svg",
-	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
-	        React.createElement(
-	            "g",
-	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
-	            React.createElement(
-	                "g",
-	                { id: "[Assets]-Math-Input", transform: "translate(-1340.000000, -200.000000)" },
-	                React.createElement(
-	                    "g",
-	                    { id: "math_keypad_icon_move_forward", transform: "translate(1340.000000, 200.000000)" },
-	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
-	                    React.createElement(
-	                        "g",
-	                        { id: "arrow", strokeWidth: "1", transform: "translate(12.000000, 12.000000)" },
-	                        React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "24", height: "24" }),
-	                        React.createElement("polyline", { id: "head", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "14 6 20 12 14 18" }),
-	                        React.createElement("path", { d: "M4,12 L20,12", id: "tail", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" })
-	                    )
-	                )
-	            )
-	        )
-	    );
-	};
-
-	module.exports = Right;
-
-/***/ },
-/* 382 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the CDOT iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Cdot = React.createClass({
-	    displayName: 'Cdot',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -464.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_multiplication_dot', transform: 'translate(1136.000000, 464.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement(
-	                            'g',
-	                            { id: 'cross', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                            React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, cx: '12', cy: '12', r: '3' })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Cdot;
-
-/***/ },
-/* 383 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the LOG_N iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var LogN = React.createClass({
-	    displayName: 'LogN',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1340.000000, -698.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_log', transform: 'translate(1340.000000, 698.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('path', { d: 'M30,28.9970301 C30,28.4463856 30.4530363,28 30.9970301,28 L37.0029699,28 C37.5536144,28 38,28.4530363 38,28.9970301 L38,35.0029699 C38,35.5536144 37.5469637,36 37.0029699,36 L30.9970301,36 C30.4463856,36 30,35.5469637 30,35.0029699 L30,28.9970301 Z M32,30 L36,30 L36,34 L32,34 L32,30 Z', id: 'block', fill: this.props.primaryColor }),
-	                            React.createElement('path', { d: 'M12.776,29 L12.776,19.662 L10.998,19.662 L10.998,29 L12.776,29 Z M17.676,29.168 C19.916,29.168 21.26,27.544 21.26,25.612 C21.26,23.694 19.916,22.07 17.676,22.07 C15.45,22.07 14.106,23.694 14.106,25.612 C14.106,27.544 15.45,29.168 17.676,29.168 L17.676,29.168 Z M17.676,27.586 C16.57,27.586 15.954,26.676 15.954,25.612 C15.954,24.562 16.57,23.652 17.676,23.652 C18.782,23.652 19.412,24.562 19.412,25.612 C19.412,26.676 18.782,27.586 17.676,27.586 L17.676,27.586 Z M25.348,31.744 C27.014,31.744 29.002,31.114 29.002,28.538 L29.002,22.238 L27.21,22.238 L27.21,23.106 C26.664,22.42 25.936,22.07 25.124,22.07 C23.416,22.07 22.142,23.302 22.142,25.514 C22.142,27.768 23.43,28.958 25.124,28.958 C25.95,28.958 26.678,28.566 27.21,27.894 L27.21,28.58 C27.21,29.91 26.202,30.288 25.348,30.288 C24.494,30.288 23.78,30.05 23.234,29.448 L22.436,30.736 C23.29,31.478 24.186,31.744 25.348,31.744 L25.348,31.744 Z M25.684,27.376 C24.676,27.376 23.976,26.676 23.976,25.514 C23.976,24.352 24.676,23.652 25.684,23.652 C26.272,23.652 26.916,23.974 27.21,24.422 L27.21,26.606 C26.916,27.04 26.272,27.376 25.684,27.376 L25.684,27.376 Z', id: 'log', fill: this.props.primaryColor })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = LogN;
-
-/***/ },
-/* 384 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the LEQ iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Leq = React.createClass({
-	    displayName: 'Leq',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1068.000000, -766.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_less_than_not', transform: 'translate(1068.000000, 766.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement(
-	                                'g',
-	                                { id: 'math_keypad_icon_less_than' },
-	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                                React.createElement(
-	                                    'g',
-	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
-	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
-	                                    React.createElement('path', { d: 'M4,21 L20,21', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
-	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '20 18 4 12 20 6' })
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Leq;
-
-/***/ },
-/* 385 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the MINUS iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Minus = React.createClass({
-	    displayName: 'Minus',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1068.000000, -600.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_subtraction', transform: 'translate(1068.000000, 600.000000)' },
-	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', fillRule: 'evenodd', x: '0', y: '0', width: '48', height: '48' }),
-	                        React.createElement('path', { d: 'M19,24 L29,24', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Minus;
-
-/***/ },
-/* 386 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * An autogenerated component that renders the RADICAL iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var Radical = React.createClass({
-	    displayName: 'Radical',
-
-	    propTypes: {
-	        primaryColor: React.PropTypes.string,
-	        secondaryColor: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            primaryColor: '#3B3E40',
-	            secondaryColor: '#BABEC2'
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'svg',
-	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
-	            React.createElement(
-	                'g',
-	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
-	                React.createElement(
-	                    'g',
-	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -698.000000)' },
-	                    React.createElement(
-	                        'g',
-	                        { id: 'math_keypad_icon_radical', transform: 'translate(1272.000000, 698.000000)' },
-	                        React.createElement(
-	                            'g',
-	                            { id: 'icon' },
-	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
-	                            React.createElement('path', { d: 'M13,16.9970301 C13,16.4463856 13.4530363,16 13.9970301,16 L20.0029699,16 C20.5536144,16 21,16.4530363 21,16.9970301 L21,23.0029699 C21,23.5536144 20.5469637,24 20.0029699,24 L13.9970301,24 C13.4463856,24 13,23.5469637 13,23.0029699 L13,16.9970301 Z M15,18 L19,18 L19,22 L15,22 L15,18 Z', id: 'block', fill: this.props.primaryColor }),
-	                            React.createElement('polyline', { id: 'root', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '14 29 18 35 27 21 34 21' })
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-	module.exports = Radical;
-
-/***/ },
-/* 387 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * An autogenerated component that renders the MORE iconograpy in SVG.
-	 *
-	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
-	 */
-	var React = __webpack_require__(49);
-
-	var More = function More() {
-	    return React.createElement(
-	        "svg",
-	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
-	        React.createElement(
-	            "g",
-	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
-	            React.createElement(
-	                "g",
-	                { id: "[Assets]-Math-Input", transform: "translate(-1000.000000, -200.000000)" },
-	                React.createElement(
-	                    "g",
-	                    { id: "math_keypad_icon_on_page_numbers", transform: "translate(1000.000000, 200.000000)" },
-	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
-	                    React.createElement(
-	                        "g",
-	                        { id: "symbols", strokeWidth: "1", transform: "translate(13.000000, 15.000000)", stroke: "#888D93", strokeLinecap: "round", strokeLinejoin: "round" },
-	                        React.createElement("polyline", { id: "radical", strokeWidth: "2", points: "14 15 16 19 20 11 22 11" }),
-	                        React.createElement(
-	                            "g",
-	                            { id: "equals", transform: "translate(14.000000, 0.000000)", strokeWidth: "2" },
-	                            React.createElement("path", { d: "M0,1 L8,1", id: "line" }),
-	                            React.createElement("path", { d: "M0,5 L8,5", id: "line" })
-	                        ),
-	                        React.createElement(
-	                            "g",
-	                            { id: "greater-than", strokeWidth: "2" },
-	                            React.createElement("polyline", { id: "line", points: "0 0 8 3 0 6" })
-	                        ),
-	                        React.createElement(
-	                            "g",
-	                            { id: "less-than", transform: "translate(4.000000, 15.000000) scale(-1, 1) translate(-4.000000, -15.000000) translate(0.000000, 12.000000)", strokeWidth: "2" },
-	                            React.createElement("polyline", { id: "line", points: "0 0 8 3 0 6" })
-	                        )
-	                    )
-	                )
-	            )
-	        )
-	    );
-	};
-
-	module.exports = More;
-
-/***/ },
-/* 388 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
@@ -109082,7 +106989,7 @@ module.exports =
 	module.exports = exports['default'];
 
 /***/ },
-/* 389 */
+/* 352 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// helper to capitalize strings
@@ -109099,7 +107006,7 @@ module.exports =
 	module.exports = exports["default"];
 
 /***/ },
-/* 390 */
+/* 353 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// leight polyfill for Object.assign
@@ -109121,7 +107028,7 @@ module.exports =
 	module.exports = exports["default"];
 
 /***/ },
-/* 391 */
+/* 354 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -109129,7 +107036,7 @@ module.exports =
 	module.exports = { "transform": 0, "transformOrigin": 0, "transformOriginX": 0, "transformOriginY": 0, "backfaceVisibility": 0, "perspective": 0, "perspectiveOrigin": 0, "transformStyle": 0, "transformOriginZ": 0, "animation": 0, "animationDelay": 0, "animationDirection": 0, "animationFillMode": 0, "animationDuration": 0, "animationIterationCount": 0, "animationName": 0, "animationPlayState": 0, "animationTimingFunction": 0, "appearance": 0, "userSelect": 0, "fontKerning": 0, "textEmphasisPosition": 0, "textEmphasis": 0, "textEmphasisStyle": 0, "textEmphasisColor": 0, "boxDecorationBreak": 0, "clipPath": 0, "maskImage": 0, "maskMode": 0, "maskRepeat": 0, "maskPosition": 0, "maskClip": 0, "maskOrigin": 0, "maskSize": 0, "maskComposite": 0, "mask": 0, "maskBorderSource": 0, "maskBorderMode": 0, "maskBorderSlice": 0, "maskBorderWidth": 0, "maskBorderOutset": 0, "maskBorderRepeat": 0, "maskBorder": 0, "maskType": 0, "textDecorationStyle": 0, "textDecorationSkip": 0, "textDecorationLine": 0, "textDecorationColor": 0, "filter": 0, "fontFeatureSettings": 0, "breakAfter": 0, "breakBefore": 0, "breakInside": 0, "columnCount": 0, "columnFill": 0, "columnGap": 0, "columnRule": 0, "columnRuleColor": 0, "columnRuleStyle": 0, "columnRuleWidth": 0, "columns": 0, "columnSpan": 0, "columnWidth": 0, "flex": 0, "flexBasis": 0, "flexDirection": 0, "flexGrow": 0, "flexFlow": 0, "flexShrink": 0, "flexWrap": 0, "alignContent": 0, "alignItems": 0, "alignSelf": 0, "justifyContent": 0, "order": 0, "transition": 0, "transitionDelay": 0, "transitionDuration": 0, "transitionProperty": 0, "transitionTimingFunction": 0, "backdropFilter": 0, "scrollSnapType": 0, "scrollSnapPointsX": 0, "scrollSnapPointsY": 0, "scrollSnapDestination": 0, "scrollSnapCoordinate": 0, "shapeImageThreshold": 0, "shapeImageMargin": 0, "shapeImageOutside": 0, "hyphens": 0, "flowInto": 0, "flowFrom": 0, "regionFragment": 0, "boxSizing": 0, "textAlignLast": 0, "tabSize": 0, "grid": 0, "gridColumnStart": 0, "gridRow": 0, "gridTemplateColumns": 0, "gridRowStart": 0, "gridRowEnd": 0, "gridTemplateRows": 0, "gridAutoRows": 0, "wrapThrough": 0, "wrapFlow": 0, "gridColumnGap": 0, "touchAction": 0, "gridRowGap": 0, "gridAutoFlow": 0, "gridColumn": 0, "gridGap": 0, "gridTemplateAreas": 0, "gridTemplate": 0, "gridArea": 0, "wrapMargin": 0, "gridAutoColumns": 0, "gridColumnEnd": 0, "textSizeAdjust": 0, "borderImage": 0, "borderImageOutset": 0, "borderImageRepeat": 0, "borderImageSlice": 0, "borderImageSource": 0, "borderImageWidth": 0, "objectFit": 0, "objectPosition": 0 };
 
 /***/ },
-/* 392 */
+/* 355 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -109182,7 +107089,7 @@ module.exports =
 	module.exports = exports['default'];
 
 /***/ },
-/* 393 */
+/* 356 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -109204,6 +107111,2099 @@ module.exports =
 
 		return result;
 	};
+
+/***/ },
+/* 357 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the COS iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Cos = React.createClass({
+	    displayName: 'Cos',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1476.000000, -902.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_cos', transform: 'translate(1476.000000, 902.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon', strokeWidth: '1', transform: 'translate(13.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('path', { d: 'M5.182,17.168 C6.568,17.168 7.408,16.566 7.856,15.936 L6.694,14.858 C6.372,15.306 5.882,15.586 5.266,15.586 C4.188,15.586 3.432,14.788 3.432,13.612 C3.432,12.436 4.188,11.652 5.266,11.652 C5.882,11.652 6.372,11.904 6.694,12.38 L7.856,11.288 C7.408,10.672 6.568,10.07 5.182,10.07 C3.096,10.07 1.598,11.54 1.598,13.612 C1.598,15.698 3.096,17.168 5.182,17.168 L5.182,17.168 Z M12.154,17.168 C14.394,17.168 15.738,15.544 15.738,13.612 C15.738,11.694 14.394,10.07 12.154,10.07 C9.928,10.07 8.584,11.694 8.584,13.612 C8.584,15.544 9.928,17.168 12.154,17.168 L12.154,17.168 Z M12.154,15.586 C11.048,15.586 10.432,14.676 10.432,13.612 C10.432,12.562 11.048,11.652 12.154,11.652 C13.26,11.652 13.89,12.562 13.89,13.612 C13.89,14.676 13.26,15.586 12.154,15.586 L12.154,15.586 Z M19.49,17.168 C21.366,17.168 22.416,16.23 22.416,14.998 C22.416,12.268 18.412,13.108 18.412,12.1 C18.412,11.722 18.832,11.428 19.476,11.428 C20.302,11.428 21.072,11.778 21.478,12.212 L22.192,10.994 C21.52,10.462 20.61,10.07 19.462,10.07 C17.684,10.07 16.69,11.064 16.69,12.198 C16.69,14.858 20.708,13.948 20.708,15.068 C20.708,15.488 20.344,15.796 19.574,15.796 C18.734,15.796 17.726,15.334 17.236,14.872 L16.466,16.118 C17.18,16.776 18.314,17.168 19.49,17.168 L19.49,17.168 Z', id: 'cos', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Cos;
+
+/***/ },
+/* 358 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the LOG iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Log = React.createClass({
+	    displayName: 'Log',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1340.000000, -834.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_log_10', transform: 'translate(1340.000000, 834.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M16.776,29 L16.776,19.662 L14.998,19.662 L14.998,29 L16.776,29 Z M21.676,29.168 C23.916,29.168 25.26,27.544 25.26,25.612 C25.26,23.694 23.916,22.07 21.676,22.07 C19.45,22.07 18.106,23.694 18.106,25.612 C18.106,27.544 19.45,29.168 21.676,29.168 L21.676,29.168 Z M21.676,27.586 C20.57,27.586 19.954,26.676 19.954,25.612 C19.954,24.562 20.57,23.652 21.676,23.652 C22.782,23.652 23.412,24.562 23.412,25.612 C23.412,26.676 22.782,27.586 21.676,27.586 L21.676,27.586 Z M29.348,31.744 C31.014,31.744 33.002,31.114 33.002,28.538 L33.002,22.238 L31.21,22.238 L31.21,23.106 C30.664,22.42 29.936,22.07 29.124,22.07 C27.416,22.07 26.142,23.302 26.142,25.514 C26.142,27.768 27.43,28.958 29.124,28.958 C29.95,28.958 30.678,28.566 31.21,27.894 L31.21,28.58 C31.21,29.91 30.202,30.288 29.348,30.288 C28.494,30.288 27.78,30.05 27.234,29.448 L26.436,30.736 C27.29,31.478 28.186,31.744 29.348,31.744 L29.348,31.744 Z M29.684,27.376 C28.676,27.376 27.976,26.676 27.976,25.514 C27.976,24.352 28.676,23.652 29.684,23.652 C30.272,23.652 30.916,23.974 31.21,24.422 L31.21,26.606 C30.916,27.04 30.272,27.376 29.684,27.376 L29.684,27.376 Z', id: 'log', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Log;
+
+/***/ },
+/* 359 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the EQUAL iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Equal = React.createClass({
+	    displayName: 'Equal',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1000.000000, -834.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_equals', transform: 'translate(1000.000000, 834.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement(
+	                                'g',
+	                                { id: 'math_keypad_icon_equals' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                                React.createElement(
+	                                    'g',
+	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
+	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                    React.createElement('path', { d: 'M4,9 L21,9', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                    React.createElement('path', { d: 'M4,15 L21,15', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Equal;
+
+/***/ },
+/* 360 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * An autogenerated component that renders the BACKSPACE iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Backspace = function Backspace() {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1136.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_delete", transform: "translate(1136.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", fillRule: "evenodd", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement("path", { d: "M13,24 L13,24 L19,30 L33,30 L33,18 L19,18 L13,24 Z M11.5857864,22.5857864 L11.5857864,22.5857864 L17.5857864,16.5857864 C17.9608592,16.2107137 18.469567,16 19,16 L33,16 C34.1045695,16 35,16.8954305 35,18 L35,30 C35,31.1045695 34.1045695,32 33,32 L19,32 C18.469567,32 17.9608592,31.7892863 17.5857864,31.4142136 L11.5857864,25.4142136 C10.8047379,24.633165 10.8047379,23.366835 11.5857864,22.5857864 L11.5857864,22.5857864 Z", id: "outline", fill: "#888D93", fillRule: "evenodd" }),
+	                    React.createElement("path", { d: "M23,21 L29,27", id: "slash", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
+	                    React.createElement("path", { d: "M23,21 L29,27", id: "slash", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", transform: "translate(26.000000, 24.000000) scale(-1, 1) translate(-26.000000, -24.000000) " })
+	                )
+	            )
+	        )
+	    );
+	};
+
+	module.exports = Backspace;
+
+/***/ },
+/* 361 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the SQRT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Sqrt = React.createClass({
+	    displayName: 'Sqrt',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -834.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_radical_2', transform: 'translate(1272.000000, 834.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('polyline', { id: 'root', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '14 29 18 35 27 21 34 21' })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Sqrt;
+
+/***/ },
+/* 362 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the EXP iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Exp = React.createClass({
+	    displayName: 'Exp',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -698.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_exponent', transform: 'translate(1204.000000, 698.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M28,16.9970301 C28,16.4463856 28.4530363,16 28.9970301,16 L35.0029699,16 C35.5536144,16 36,16.4530363 36,16.9970301 L36,23.0029699 C36,23.5536144 35.5469637,24 35.0029699,24 L28.9970301,24 C28.4463856,24 28,23.5469637 28,23.0029699 L28,16.9970301 Z M30,18 L34,18 L34,22 L30,22 L30,18 Z', id: 'block', fill: this.props.primaryColor }),
+	                            React.createElement('path', { d: 'M14,21.0008717 C14,20.4481055 14.455761,20 15.0024733,20 L24.9975267,20 C25.5511774,20 26,20.4446309 26,21.0008717 L26,34.9991283 C26,35.5518945 25.544239,36 24.9975267,36 L15.0024733,36 C14.4488226,36 14,35.5553691 14,34.9991283 L14,21.0008717 Z M16,22 L24,22 L24,34 L16,34 L16,22 Z', id: 'block', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Exp;
+
+/***/ },
+/* 363 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the NEQ iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Neq = React.createClass({
+	    displayName: 'Neq',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1000.000000, -766.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_equals_not', transform: 'translate(1000.000000, 766.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement(
+	                                'g',
+	                                { id: 'math_keypad_icon_equals' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                                React.createElement(
+	                                    'g',
+	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
+	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                    React.createElement('path', { d: 'M7,21 L17,3', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                    React.createElement('path', { d: 'M4,9 L21,9', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                    React.createElement('path', { d: 'M4,15 L21,15', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Neq;
+
+/***/ },
+/* 364 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the GEQ iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Geq = React.createClass({
+	    displayName: 'Geq',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -766.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_greater_than_not', transform: 'translate(1136.000000, 766.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement(
+	                                'g',
+	                                { id: 'math_keypad_icon_greater_than' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                                React.createElement(
+	                                    'g',
+	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
+	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                    React.createElement('path', { d: 'M4,21 L20,21', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '4 18 20 12 4 6' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Geq;
+
+/***/ },
+/* 365 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the LN iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Ln = React.createClass({
+	    displayName: 'Ln',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1340.000000, -766.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_log_e', transform: 'translate(1340.000000, 766.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M20.836,29 L20.836,19.662 L19.058,19.662 L19.058,29 L20.836,29 Z M28.942,29 L28.942,24.226 C28.942,22.91 28.228,22.07 26.744,22.07 C25.638,22.07 24.812,22.602 24.378,23.12 L24.378,22.238 L22.6,22.238 L22.6,29 L24.378,29 L24.378,24.45 C24.672,24.044 25.218,23.652 25.918,23.652 C26.674,23.652 27.164,23.974 27.164,24.912 L27.164,29 L28.942,29 Z', id: 'ln', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Ln;
+
+/***/ },
+/* 366 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * An autogenerated component that renders the JUMP_OUT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var JumpOut = function JumpOut() {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1408.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_jump_out", transform: "translate(1408.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement(
+	                        "g",
+	                        { id: "icon", strokeWidth: "1", transform: "translate(12.000000, 12.000000)" },
+	                        React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "24", height: "24" }),
+	                        React.createElement("path", { d: "M2,4.99508929 L2,4.99508929 L2,19.0049107 C2,19.0007808 1.99921607,19 2.00276013,19 L10.9972399,19 C11.0020427,19 11,19.002037 11,19.0049107 L11,4.99508929 C11,4.99921924 11.0007839,5 10.9972399,5 L2.00276013,5 C1.99795733,5 2,4.99796296 2,4.99508929 L2,4.99508929 Z M0,4.99508929 C0,3.8932319 0.893542647,3 2.00276013,3 L10.9972399,3 C12.1033337,3 13,3.8926228 13,4.99508929 L13,19.0049107 C13,20.1067681 12.1064574,21 10.9972399,21 L2.00276013,21 C0.896666251,21 0,20.1073772 0,19.0049107 L0,4.99508929 L0,4.99508929 Z", id: "box", fill: "#888D93" }),
+	                        React.createElement("path", { d: "M18,12 L9,12", id: "tail", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
+	                        React.createElement("polyline", { id: "head", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "16 9 19 12 16 15" }),
+	                        React.createElement("path", { d: "M23,4 L23,20", id: "caret", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
+	                        React.createElement("path", { d: "M5,8 L5,16", id: "caret", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" })
+	                    )
+	                )
+	            )
+	        )
+	    );
+	};
+
+	module.exports = JumpOut;
+
+/***/ },
+/* 367 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * An autogenerated component that renders the DISMISS iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Dismiss = function Dismiss() {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1204.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_dismiss", transform: "translate(1204.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", fillRule: "evenodd", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement("polyline", { id: "chevron", stroke: "#78C008", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "20 32 24 36 28 32" }),
+	                    React.createElement(
+	                        "g",
+	                        { id: "keyboard", strokeWidth: "1", fillRule: "evenodd", transform: "translate(14.000000, 12.000000)", fill: "#78C008" },
+	                        React.createElement("path", { d: "M0,1.00684547 C0,0.450780073 0.455305576,0 0.99180311,0 L19.0081969,0 C19.5559546,0 20,0.449948758 20,1.00684547 L20,12.9931545 C20,13.5492199 19.5446944,14 19.0081969,14 L0.99180311,14 C0.444045377,14 0,13.5500512 0,12.9931545 L0,1.00684547 Z M6,0 L7,0 L7,14 L6,14 L6,0 Z M13,0 L14,0 L14,14 L13,14 L13,0 Z M0,9 L6,9 L6,10 L0,10 L0,9 Z M0,4 L6,4 L6,5 L0,5 L0,4 Z M7,9 L13,9 L13,10 L7,10 L7,9 Z M7,4 L13,4 L13,5 L7,5 L7,4 Z M14,9 L20,9 L20,10 L14,10 L14,9 Z M14,4 L20,4 L20,5 L14,5 L14,4 Z", id: "keypad" })
+	                    )
+	                )
+	            )
+	        )
+	    );
+	};
+
+	module.exports = Dismiss;
+
+/***/ },
+/* 368 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the SIN iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Sin = React.createClass({
+	    displayName: 'Sin',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1408.000000, -902.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_sin', transform: 'translate(1408.000000, 902.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('path', { d: 'M6.655,17.168 C8.531,17.168 9.581,16.23 9.581,14.998 C9.581,12.268 5.577,13.108 5.577,12.1 C5.577,11.722 5.997,11.428 6.641,11.428 C7.467,11.428 8.237,11.778 8.643,12.212 L9.357,10.994 C8.685,10.462 7.775,10.07 6.627,10.07 C4.849,10.07 3.855,11.064 3.855,12.198 C3.855,14.858 7.873,13.948 7.873,15.068 C7.873,15.488 7.509,15.796 6.739,15.796 C5.899,15.796 4.891,15.334 4.401,14.872 L3.631,16.118 C4.345,16.776 5.479,17.168 6.655,17.168 L6.655,17.168 Z M11.779,9.51 C12.367,9.51 12.843,9.034 12.843,8.446 C12.843,7.858 12.367,7.396 11.779,7.396 C11.205,7.396 10.715,7.858 10.715,8.446 C10.715,9.034 11.205,9.51 11.779,9.51 L11.779,9.51 Z M12.675,17 L12.675,10.238 L10.897,10.238 L10.897,17 L12.675,17 Z M20.781,17 L20.781,12.226 C20.781,10.91 20.067,10.07 18.583,10.07 C17.477,10.07 16.651,10.602 16.217,11.12 L16.217,10.238 L14.439,10.238 L14.439,17 L16.217,17 L16.217,12.45 C16.511,12.044 17.057,11.652 17.757,11.652 C18.513,11.652 19.003,11.974 19.003,12.912 L19.003,17 L20.781,17 Z', id: 'sin', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Sin;
+
+/***/ },
+/* 369 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the LT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Lt = React.createClass({
+	    displayName: 'Lt',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1068.000000, -834.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_less_than', transform: 'translate(1068.000000, 834.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement(
+	                                'g',
+	                                { id: 'math_keypad_icon_less_than' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                                React.createElement(
+	                                    'g',
+	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
+	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '20 18 4 12 20 6' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Lt;
+
+/***/ },
+/* 370 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the FRAC_MULTI iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var FracMulti = React.createClass({
+	    displayName: 'FracMulti',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -600.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_division_multi', transform: 'translate(1204.000000, 600.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            null,
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'fraction', transform: 'translate(6.000000, 12.000000)' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                React.createElement('path', { d: 'M8,16.9970301 C8,16.4463856 8.45303631,16 8.99703014,16 L15.0029699,16 C15.5536144,16 16,16.4530363 16,16.9970301 L16,23.0029699 C16,23.5536144 15.5469637,24 15.0029699,24 L8.99703014,24 C8.4463856,24 8,23.5469637 8,23.0029699 L8,16.9970301 Z M10,18 L14,18 L14,22 L10,22 L10,18 Z', id: 'block', fill: this.props.primaryColor }),
+	                                React.createElement('rect', { id: 'bar', fill: this.props.primaryColor, x: '2', y: '11', width: '20', height: '2', rx: '1' }),
+	                                React.createElement('path', { d: 'M8,0.997030139 C8,0.446385598 8.45303631,0 8.99703014,0 L15.0029699,0 C15.5536144,0 16,0.453036308 16,0.997030139 L16,7.00296986 C16,7.5536144 15.5469637,8 15.0029699,8 L8.99703014,8 C8.4463856,8 8,7.54696369 8,7.00296986 L8,0.997030139 Z M10,2 L14,2 L14,6 L10,6 L10,2 Z', id: 'block', fill: this.props.primaryColor })
+	                            ),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'division', opacity: '0.3', transform: 'translate(34.000000, 12.000000)' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '8', height: '8' }),
+	                                React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, cx: '4', cy: '7', r: '1' }),
+	                                React.createElement('path', { d: 'M1,4 L7,4', id: 'bar', stroke: this.props.primaryColor, strokeWidth: '1.5', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                React.createElement('path', { d: 'M4,2 C4.55228475,2 5,1.55228475 5,1 C5,0.44771525 4.55228475,0 4,0 C3.44771525,0 3,0.44771525 3,1 C3,1.55228475 3.44771525,2 4,2 Z', id: 'dot', fill: this.props.primaryColor })
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = FracMulti;
+
+/***/ },
+/* 371 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * An autogenerated component that renders the NUMBERS iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Numbers = function Numbers() {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1068.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_on_page_symbols", transform: "translate(1068.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement(
+	                        "g",
+	                        { id: "arithmetic", strokeWidth: "1", transform: "translate(13.000000, 13.000000)" },
+	                        React.createElement(
+	                            "g",
+	                            { id: "divide", transform: "translate(14.000000, 13.000000)" },
+	                            React.createElement("path", { d: "M0,5 L8,5", id: "line", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }),
+	                            React.createElement("circle", { id: "Oval-30", fill: "#888D93", cx: "4", cy: "1.5", r: "1.5" }),
+	                            React.createElement("circle", { id: "Oval-30", fill: "#888D93", cx: "4", cy: "8.5", r: "1.5" })
+	                        ),
+	                        React.createElement(
+	                            "g",
+	                            { id: "multiply", transform: "translate(1.000000, 15.000000)", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
+	                            React.createElement("path", { d: "M0,6 L6,0", id: "line" }),
+	                            React.createElement("path", { d: "M0,0 L6,6", id: "line" })
+	                        ),
+	                        React.createElement(
+	                            "g",
+	                            { id: "subtract", transform: "translate(14.000000, 3.000000)", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
+	                            React.createElement("path", { d: "M0,1 L8,1", id: "line" })
+	                        ),
+	                        React.createElement(
+	                            "g",
+	                            { id: "add", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
+	                            React.createElement("path", { d: "M4,8 L4,0", id: "line" }),
+	                            React.createElement("path", { d: "M0,4 L8,4", id: "line" })
+	                        )
+	                    )
+	                )
+	            )
+	        )
+	    );
+	};
+
+	module.exports = Numbers;
+
+/***/ },
+/* 372 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the CUBE_ROOT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var CubeRoot = React.createClass({
+	    displayName: 'CubeRoot',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -766.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_radical_3', transform: 'translate(1272.000000, 766.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M17.91,23.12 C19.57,23.12 20.67,22.31 20.67,21.14 C20.67,20.18 19.81,19.63 19.1,19.56 C19.89,19.43 20.56,18.84 20.56,18.06 C20.56,16.96 19.61,16.23 17.91,16.23 C16.68,16.23 15.8,16.68 15.24,17.31 L16.07,18.39 C16.54,17.97 17.12,17.75 17.73,17.75 C18.37,17.75 18.85,17.94 18.85,18.36 C18.85,18.71 18.46,18.88 17.77,18.88 C17.52,18.88 17,18.88 16.87,18.87 L16.87,20.4 C16.97,20.39 17.48,20.39 17.77,20.39 C18.68,20.39 18.96,20.57 18.96,20.95 C18.96,21.32 18.58,21.6 17.84,21.6 C17.26,21.6 16.5,21.37 16.02,20.9 L15.15,22.07 C15.67,22.67 16.63,23.12 17.91,23.12 L17.91,23.12 Z', id: '3', fill: this.props.primaryColor }),
+	                            React.createElement('polyline', { id: 'root', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '14 29 18 35 27 21 34 21' })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = CubeRoot;
+
+/***/ },
+/* 373 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the PLUS iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Plus = React.createClass({
+	    displayName: 'Plus',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1000.000000, -600.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_addition', transform: 'translate(1000.000000, 600.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', fillRule: 'evenodd', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement('path', { d: 'M19,24 L29,24', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                        React.createElement('path', { d: 'M24,29 L24,19', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Plus;
+
+/***/ },
+/* 374 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the TAN iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Tan = React.createClass({
+	    displayName: 'Tan',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1544.000000, -902.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_tangent', transform: 'translate(1544.000000, 902.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('path', { d: 'M4.93,17.168 C5.672,17.168 6.148,16.972 6.414,16.734 L6.036,15.39 C5.938,15.488 5.686,15.586 5.42,15.586 C5.028,15.586 4.804,15.264 4.804,14.844 L4.804,11.792 L6.176,11.792 L6.176,10.238 L4.804,10.238 L4.804,8.39 L3.012,8.39 L3.012,10.238 L1.892,10.238 L1.892,11.792 L3.012,11.792 L3.012,15.32 C3.012,16.524 3.684,17.168 4.93,17.168 L4.93,17.168 Z M13.232,17 L13.232,12.632 C13.232,10.686 11.818,10.07 10.278,10.07 C9.214,10.07 8.15,10.406 7.324,11.134 L7.996,12.324 C8.57,11.792 9.242,11.526 9.97,11.526 C10.866,11.526 11.454,11.974 11.454,12.66 L11.454,13.57 C11.006,13.038 10.208,12.744 9.312,12.744 C8.234,12.744 6.96,13.346 6.96,14.928 C6.96,16.44 8.234,17.168 9.312,17.168 C10.194,17.168 10.992,16.846 11.454,16.3 L11.454,17 L13.232,17 Z M10.026,15.964 C9.326,15.964 8.752,15.6 8.752,14.97 C8.752,14.312 9.326,13.948 10.026,13.948 C10.6,13.948 11.16,14.144 11.454,14.536 L11.454,15.376 C11.16,15.768 10.6,15.964 10.026,15.964 L10.026,15.964 Z M21.338,17 L21.338,12.226 C21.338,10.91 20.624,10.07 19.14,10.07 C18.034,10.07 17.208,10.602 16.774,11.12 L16.774,10.238 L14.996,10.238 L14.996,17 L16.774,17 L16.774,12.45 C17.068,12.044 17.614,11.652 18.314,11.652 C19.07,11.652 19.56,11.974 19.56,12.912 L19.56,17 L21.338,17 Z', id: 'tan', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Tan;
+
+/***/ },
+/* 375 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * An autogenerated component that renders the LEFT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Left = function Left() {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1272.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_move_backward", transform: "translate(1272.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement(
+	                        "g",
+	                        { id: "arrow", strokeWidth: "1", transform: "translate(12.000000, 12.000000)" },
+	                        React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "24", height: "24" }),
+	                        React.createElement("polyline", { id: "head", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "10 6 4 12 10 18" }),
+	                        React.createElement("path", { d: "M4,12 L20,12", id: "tail", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" })
+	                    )
+	                )
+	            )
+	        )
+	    );
+	};
+
+	module.exports = Left;
+
+/***/ },
+/* 376 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the PARENS iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Parens = React.createClass({
+	    displayName: 'Parens',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -532.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_parentheses', transform: 'translate(1136.000000, 532.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'parentheses', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('path', { d: 'M7,2 C2.99999998,8 3.00000002,16 7,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                            React.createElement('path', { d: 'M20,2 C16,8 16,16 20,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(18.500000, 12.000000) scale(-1, 1) translate(-18.500000, -12.000000) ' })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Parens;
+
+/***/ },
+/* 377 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the GT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Gt = React.createClass({
+	    displayName: 'Gt',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -834.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_greater_than', transform: 'translate(1136.000000, 834.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement(
+	                                'g',
+	                                { id: 'math_keypad_icon_greater_than' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                                React.createElement(
+	                                    'g',
+	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
+	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '4 18 20 12 4 6' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Gt;
+
+/***/ },
+/* 378 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the FRAC iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Frac = React.createClass({
+	    displayName: 'Frac',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -532.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_fraction', transform: 'translate(1204.000000, 532.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'fraction', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('path', { d: 'M8,16.9970301 C8,16.4463856 8.45303631,16 8.99703014,16 L15.0029699,16 C15.5536144,16 16,16.4530363 16,16.9970301 L16,23.0029699 C16,23.5536144 15.5469637,24 15.0029699,24 L8.99703014,24 C8.4463856,24 8,23.5469637 8,23.0029699 L8,16.9970301 Z M10,18 L14,18 L14,22 L10,22 L10,18 Z', id: 'block', fill: this.props.primaryColor }),
+	                            React.createElement('rect', { id: 'bar', fill: this.props.primaryColor, x: '2', y: '11', width: '20', height: '2', rx: '1' }),
+	                            React.createElement('path', { d: 'M8,0.997030139 C8,0.446385598 8.45303631,0 8.99703014,0 L15.0029699,0 C15.5536144,0 16,0.453036308 16,0.997030139 L16,7.00296986 C16,7.5536144 15.5469637,8 15.0029699,8 L8.99703014,8 C8.4463856,8 8,7.54696369 8,7.00296986 L8,0.997030139 Z M10,2 L14,2 L14,6 L10,6 L10,2 Z', id: 'block', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Frac;
+
+/***/ },
+/* 379 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the DIVIDE iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Divide = React.createClass({
+	    displayName: 'Divide',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -464.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_division', transform: 'translate(1204.000000, 464.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', fillRule: 'evenodd', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement('path', { d: 'M19,24 L29,24', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                        React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, fillRule: 'evenodd', cx: '24', cy: '19.5', r: '1.5' }),
+	                        React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, fillRule: 'evenodd', cx: '24', cy: '28.5', r: '1.5' })
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Divide;
+
+/***/ },
+/* 380 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the DECIMAL iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Decimal = React.createClass({
+	    displayName: 'Decimal',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1680.000000, -298.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_radix_character', transform: 'translate(1680.000000, 298.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, cx: '24', cy: '30', r: '2' })
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Decimal;
+
+/***/ },
+/* 381 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the PERCENT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Percent = React.createClass({
+	    displayName: 'Percent',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -600.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_percent', transform: 'translate(1272.000000, 600.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'percent', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('path', { d: 'M16,4 L8,20', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                            React.createElement('circle', { id: 'circle', stroke: this.props.primaryColor, strokeWidth: '2', cx: '7', cy: '7', r: '3' }),
+	                            React.createElement('circle', { id: 'circle', stroke: this.props.primaryColor, strokeWidth: '2', cx: '17', cy: '17', r: '3' })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Percent;
+
+/***/ },
+/* 382 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the TIMES iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Times = React.createClass({
+	    displayName: 'Times',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -396.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_multiplication_cross', transform: 'translate(1136.000000, 396.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'math_keypad_icon_multiply_cross' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'cross', transform: 'translate(12.000000, 12.000000)' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                React.createElement('path', { d: 'M8,8 L16,16', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                React.createElement('path', { d: 'M8,8 L16,16', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(12.000000, 12.000000) scale(-1, 1) translate(-12.000000, -12.000000) ' })
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Times;
+
+/***/ },
+/* 383 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the TOGGLE_SIGN iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var ToggleSign = React.createClass({
+	    displayName: 'ToggleSign',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1748.000000, -298.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_negate', transform: 'translate(1748.000000, 298.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'subtract', transform: 'translate(15.000000, 15.000000)', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' },
+	                                React.createElement('path', { d: 'M0,1 L8,1', id: 'line' })
+	                            ),
+	                            React.createElement('path', { d: 'M16,4 L8,20', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'add', transform: 'translate(1.000000, 4.000000)', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' },
+	                                React.createElement('path', { d: 'M0,4 L8,4', id: 'line' }),
+	                                React.createElement('path', { d: 'M4,0 L4,8', id: 'line' })
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = ToggleSign;
+
+/***/ },
+/* 384 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the EXP_3 iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Exp3 = React.createClass({
+	    displayName: 'Exp3',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -766.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_exponent_3', transform: 'translate(1204.000000, 766.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M14,21.0008717 C14,20.4481055 14.455761,20 15.0024733,20 L24.9975267,20 C25.5511774,20 26,20.4446309 26,21.0008717 L26,34.9991283 C26,35.5518945 25.544239,36 24.9975267,36 L15.0024733,36 C14.4488226,36 14,35.5553691 14,34.9991283 L14,21.0008717 Z M16,22 L24,22 L24,34 L16,34 L16,22 Z', id: 'block', fill: this.props.primaryColor }),
+	                            React.createElement('path', { d: 'M30.92,23.12 C32.58,23.12 33.68,22.31 33.68,21.14 C33.68,20.18 32.82,19.63 32.11,19.56 C32.9,19.43 33.57,18.84 33.57,18.06 C33.57,16.96 32.62,16.23 30.92,16.23 C29.69,16.23 28.81,16.68 28.25,17.31 L29.08,18.39 C29.55,17.97 30.13,17.75 30.74,17.75 C31.38,17.75 31.86,17.94 31.86,18.36 C31.86,18.71 31.47,18.88 30.78,18.88 C30.53,18.88 30.01,18.88 29.88,18.87 L29.88,20.4 C29.98,20.39 30.49,20.39 30.78,20.39 C31.69,20.39 31.97,20.57 31.97,20.95 C31.97,21.32 31.59,21.6 30.85,21.6 C30.27,21.6 29.51,21.37 29.03,20.9 L28.16,22.07 C28.68,22.67 29.64,23.12 30.92,23.12 L30.92,23.12 Z', id: '3', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Exp3;
+
+/***/ },
+/* 385 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the EXP_2 iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Exp2 = React.createClass({
+	    displayName: 'Exp2',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1204.000000, -834.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_exponent_2', transform: 'translate(1204.000000, 834.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M14,21.0008717 C14,20.4481055 14.455761,20 15.0024733,20 L24.9975267,20 C25.5511774,20 26,20.4446309 26,21.0008717 L26,34.9991283 C26,35.5518945 25.544239,36 24.9975267,36 L15.0024733,36 C14.4488226,36 14,35.5553691 14,34.9991283 L14,21.0008717 Z M16,22 L24,22 L24,34 L16,34 L16,22 Z', id: 'block', fill: this.props.primaryColor }),
+	                            React.createElement('path', { d: 'M33.67,23 L33.67,21.5 L31.23,21.5 C32.89,20.34 33.62,19.47 33.62,18.45 C33.62,17.11 32.49,16.23 30.92,16.23 C29.99,16.23 28.93,16.56 28.22,17.34 L29.17,18.48 C29.65,18.03 30.21,17.75 30.95,17.75 C31.44,17.75 31.87,17.99 31.87,18.45 C31.87,19.11 31.33,19.57 28.44,21.66 L28.44,23 L33.67,23 Z', id: '2', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Exp2;
+
+/***/ },
+/* 386 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the PARENS_MULTI iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var ParensMulti = React.createClass({
+	    displayName: 'ParensMulti',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -600.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_multiplication_multi', transform: 'translate(1136.000000, 600.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            null,
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'parentheses', transform: 'translate(6.000000, 12.000000)' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                React.createElement('path', { d: 'M7,2 C2.99999998,8 3.00000002,16 7,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                React.createElement('path', { d: 'M20,2 C16,8 16,16 20,22', id: 'arc', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(18.500000, 12.000000) scale(-1, 1) translate(-18.500000, -12.000000) ' })
+	                            ),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'dot', opacity: '0.3', transform: 'translate(34.000000, 12.000000)' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '8', height: '8' }),
+	                                React.createElement('circle', { fill: this.props.primaryColor, cx: '4', cy: '4', r: '2' })
+	                            ),
+	                            React.createElement(
+	                                'g',
+	                                { id: 'cross', opacity: '0.3', transform: 'translate(34.000000, 28.000000)' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '8', height: '8' }),
+	                                React.createElement('path', { d: 'M1,1 L7,7', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                React.createElement('path', { d: 'M1,1 L7,7', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', transform: 'translate(4.000000, 4.000000) scale(-1, 1) translate(-4.000000, -4.000000) ' })
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = ParensMulti;
+
+/***/ },
+/* 387 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * An autogenerated component that renders the RIGHT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Right = function Right() {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1340.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_move_forward", transform: "translate(1340.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement(
+	                        "g",
+	                        { id: "arrow", strokeWidth: "1", transform: "translate(12.000000, 12.000000)" },
+	                        React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "24", height: "24" }),
+	                        React.createElement("polyline", { id: "head", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", points: "14 6 20 12 14 18" }),
+	                        React.createElement("path", { d: "M4,12 L20,12", id: "tail", stroke: "#888D93", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" })
+	                    )
+	                )
+	            )
+	        )
+	    );
+	};
+
+	module.exports = Right;
+
+/***/ },
+/* 388 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the CDOT iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Cdot = React.createClass({
+	    displayName: 'Cdot',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1136.000000, -464.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_multiplication_dot', transform: 'translate(1136.000000, 464.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement(
+	                            'g',
+	                            { id: 'cross', strokeWidth: '1', transform: 'translate(12.000000, 12.000000)' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                            React.createElement('circle', { id: 'dot', fill: this.props.primaryColor, cx: '12', cy: '12', r: '3' })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Cdot;
+
+/***/ },
+/* 389 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the LOG_N iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var LogN = React.createClass({
+	    displayName: 'LogN',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1340.000000, -698.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_log', transform: 'translate(1340.000000, 698.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M30,28.9970301 C30,28.4463856 30.4530363,28 30.9970301,28 L37.0029699,28 C37.5536144,28 38,28.4530363 38,28.9970301 L38,35.0029699 C38,35.5536144 37.5469637,36 37.0029699,36 L30.9970301,36 C30.4463856,36 30,35.5469637 30,35.0029699 L30,28.9970301 Z M32,30 L36,30 L36,34 L32,34 L32,30 Z', id: 'block', fill: this.props.primaryColor }),
+	                            React.createElement('path', { d: 'M12.776,29 L12.776,19.662 L10.998,19.662 L10.998,29 L12.776,29 Z M17.676,29.168 C19.916,29.168 21.26,27.544 21.26,25.612 C21.26,23.694 19.916,22.07 17.676,22.07 C15.45,22.07 14.106,23.694 14.106,25.612 C14.106,27.544 15.45,29.168 17.676,29.168 L17.676,29.168 Z M17.676,27.586 C16.57,27.586 15.954,26.676 15.954,25.612 C15.954,24.562 16.57,23.652 17.676,23.652 C18.782,23.652 19.412,24.562 19.412,25.612 C19.412,26.676 18.782,27.586 17.676,27.586 L17.676,27.586 Z M25.348,31.744 C27.014,31.744 29.002,31.114 29.002,28.538 L29.002,22.238 L27.21,22.238 L27.21,23.106 C26.664,22.42 25.936,22.07 25.124,22.07 C23.416,22.07 22.142,23.302 22.142,25.514 C22.142,27.768 23.43,28.958 25.124,28.958 C25.95,28.958 26.678,28.566 27.21,27.894 L27.21,28.58 C27.21,29.91 26.202,30.288 25.348,30.288 C24.494,30.288 23.78,30.05 23.234,29.448 L22.436,30.736 C23.29,31.478 24.186,31.744 25.348,31.744 L25.348,31.744 Z M25.684,27.376 C24.676,27.376 23.976,26.676 23.976,25.514 C23.976,24.352 24.676,23.652 25.684,23.652 C26.272,23.652 26.916,23.974 27.21,24.422 L27.21,26.606 C26.916,27.04 26.272,27.376 25.684,27.376 L25.684,27.376 Z', id: 'log', fill: this.props.primaryColor })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = LogN;
+
+/***/ },
+/* 390 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the LEQ iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Leq = React.createClass({
+	    displayName: 'Leq',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1068.000000, -766.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_less_than_not', transform: 'translate(1068.000000, 766.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement(
+	                                'g',
+	                                { id: 'math_keypad_icon_less_than' },
+	                                React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                                React.createElement(
+	                                    'g',
+	                                    { id: 'icon', transform: 'translate(12.000000, 12.000000)' },
+	                                    React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '24', height: '24' }),
+	                                    React.createElement('path', { d: 'M4,21 L20,21', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' }),
+	                                    React.createElement('polyline', { id: 'bracket', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '20 18 4 12 20 6' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Leq;
+
+/***/ },
+/* 391 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the MINUS iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Minus = React.createClass({
+	    displayName: 'Minus',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1068.000000, -600.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_subtraction', transform: 'translate(1068.000000, 600.000000)' },
+	                        React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', fillRule: 'evenodd', x: '0', y: '0', width: '48', height: '48' }),
+	                        React.createElement('path', { d: 'M19,24 L29,24', id: 'line', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round' })
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Minus;
+
+/***/ },
+/* 392 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * An autogenerated component that renders the RADICAL iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var Radical = React.createClass({
+	    displayName: 'Radical',
+
+	    propTypes: {
+	        primaryColor: React.PropTypes.string,
+	        secondaryColor: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            primaryColor: '#3B3E40',
+	            secondaryColor: '#BABEC2'
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'svg',
+	            { width: '48px', height: '48px', viewBox: '0 0 48 48', version: '1.1' },
+	            React.createElement(
+	                'g',
+	                { id: 'Math-Input', stroke: 'none', strokeWidth: '1', fill: 'none', fillRule: 'evenodd' },
+	                React.createElement(
+	                    'g',
+	                    { id: '[Assets]-Math-Input', transform: 'translate(-1272.000000, -698.000000)' },
+	                    React.createElement(
+	                        'g',
+	                        { id: 'math_keypad_icon_radical', transform: 'translate(1272.000000, 698.000000)' },
+	                        React.createElement(
+	                            'g',
+	                            { id: 'icon' },
+	                            React.createElement('rect', { id: 'bounds', fillOpacity: '0', fill: '#FF0088', x: '0', y: '0', width: '48', height: '48' }),
+	                            React.createElement('path', { d: 'M13,16.9970301 C13,16.4463856 13.4530363,16 13.9970301,16 L20.0029699,16 C20.5536144,16 21,16.4530363 21,16.9970301 L21,23.0029699 C21,23.5536144 20.5469637,24 20.0029699,24 L13.9970301,24 C13.4463856,24 13,23.5469637 13,23.0029699 L13,16.9970301 Z M15,18 L19,18 L19,22 L15,22 L15,18 Z', id: 'block', fill: this.props.primaryColor }),
+	                            React.createElement('polyline', { id: 'root', stroke: this.props.primaryColor, strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', points: '14 29 18 35 27 21 34 21' })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Radical;
+
+/***/ },
+/* 393 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * An autogenerated component that renders the MORE iconograpy in SVG.
+	 *
+	 * Generated with: https://gist.github.com/crm416/3c7abc88e520eaed72347af240b32590.
+	 */
+	var React = __webpack_require__(49);
+
+	var More = function More() {
+	    return React.createElement(
+	        "svg",
+	        { width: "48px", height: "48px", viewBox: "0 0 48 48", version: "1.1" },
+	        React.createElement(
+	            "g",
+	            { id: "Math-Input", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+	            React.createElement(
+	                "g",
+	                { id: "[Assets]-Math-Input", transform: "translate(-1000.000000, -200.000000)" },
+	                React.createElement(
+	                    "g",
+	                    { id: "math_keypad_icon_on_page_numbers", transform: "translate(1000.000000, 200.000000)" },
+	                    React.createElement("rect", { id: "bounds", fillOpacity: "0", fill: "#FF0088", x: "0", y: "0", width: "48", height: "48" }),
+	                    React.createElement(
+	                        "g",
+	                        { id: "symbols", strokeWidth: "1", transform: "translate(13.000000, 15.000000)", stroke: "#888D93", strokeLinecap: "round", strokeLinejoin: "round" },
+	                        React.createElement("polyline", { id: "radical", strokeWidth: "2", points: "14 15 16 19 20 11 22 11" }),
+	                        React.createElement(
+	                            "g",
+	                            { id: "equals", transform: "translate(14.000000, 0.000000)", strokeWidth: "2" },
+	                            React.createElement("path", { d: "M0,1 L8,1", id: "line" }),
+	                            React.createElement("path", { d: "M0,5 L8,5", id: "line" })
+	                        ),
+	                        React.createElement(
+	                            "g",
+	                            { id: "greater-than", strokeWidth: "2" },
+	                            React.createElement("polyline", { id: "line", points: "0 0 8 3 0 6" })
+	                        ),
+	                        React.createElement(
+	                            "g",
+	                            { id: "less-than", transform: "translate(4.000000, 15.000000) scale(-1, 1) translate(-4.000000, -15.000000) translate(0.000000, 12.000000)", strokeWidth: "2" },
+	                            React.createElement("polyline", { id: "line", points: "0 0 8 3 0 6" })
+	                        )
+	                    )
+	                )
+	            )
+	        )
+	    );
+	};
+
+	module.exports = More;
 
 /***/ },
 /* 394 */
@@ -109453,7 +109453,7 @@ module.exports =
 
 	var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
-	var _utilsCapitalizeString = __webpack_require__(389);
+	var _utilsCapitalizeString = __webpack_require__(352);
 
 	var _utilsCapitalizeString2 = _interopRequireDefault(_utilsCapitalizeString);
 
