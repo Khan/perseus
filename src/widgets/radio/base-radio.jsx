@@ -119,12 +119,14 @@ const BaseRadio = React.createClass({
             },
 
             responsiveRadio: {
-                [mediaQueries.smOrSmaller]: {
+                [mediaQueries.lgOrSmaller]: {
                     borderBottom: `1px solid ${radioBorderColor}`,
                     borderTop: `1px solid ${radioBorderColor}`,
+                    width: "auto",
+                },
+                [mediaQueries.smOrSmaller]: {
                     marginLeft: styleConstants.negativePhoneMargin,
                     marginRight: styleConstants.negativePhoneMargin,
-                    width: "auto",
                 },
             },
 
@@ -199,7 +201,7 @@ const BaseRadio = React.createClass({
             },
 
             responsiveItem: {
-                [mediaQueries.smOrSmaller]: {
+                [mediaQueries.lgOrSmaller]: {
                     marginLeft: 0,
                     padding: 0,
 

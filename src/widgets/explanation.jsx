@@ -79,7 +79,13 @@ var Explanation = React.createClass({
     },
 
     componentDidUpdate: function(prevProps, prevState) {
-        this._updateHeight();
+        if (prevProps !== this.props) {
+            // Internal state only changes on height changes itself (which
+            // we wouldn't want to call _updateHeight() on), or on toggling
+            // expansion (which also doesn't affect the content height), so
+            // we only care about prop changes.
+            this._updateHeight();
+        }
     },
 
     render: function() {
