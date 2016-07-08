@@ -12,6 +12,8 @@ var React = require("react");
 var ButtonGroup = require("react-components/button-group.jsx");
 
 const {devices} = require("./constants.js");
+const {iconDesktop, iconMobilePhone, iconTablet} = require("../icon-paths.js");
+const InlineIcon = require("./inline-icon.jsx");
 
 var ViewportResizer = React.createClass({
     propTypes: {
@@ -28,13 +30,13 @@ var ViewportResizer = React.createClass({
 
     render: function() {
         var phoneButtonContents = <span>
-            <i className="icon-mobile-phone" />{" "}Phone
+            <InlineIcon {...iconMobilePhone} />{" "}Phone
         </span>;
         var tabletButtonContents = <span>
-            <i className="icon-tablet" />{" "}Tablet
+            <InlineIcon {...iconTablet} />{" "}Tablet
         </span>;
         var desktopButtonContents = <span>
-            <i className="icon-desktop" />{" "}Desktop
+            <InlineIcon {...iconDesktop} />{" "}Desktop
         </span>;
 
         // TODO(david): Allow input of custom viewport sizes.

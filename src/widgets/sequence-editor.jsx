@@ -7,6 +7,9 @@ const _ = require("underscore");
 
 const ApiOptions = require("../perseus-api.jsx").Options;
 const Editor = require("../editor.jsx");
+const {iconCircleArrowDown, iconCircleArrowUp, iconPlus, iconTrash} =
+    require("../icon-paths.js");
+const InlineIcon = require("../components/inline-icon.jsx");
 
 var StepControlButton = React.createClass({
     render: function() {
@@ -22,7 +25,7 @@ var StepControlButton = React.createClass({
                     e.preventDefault();
                     this.props.onClick();
                 }}>
-            <span className={this.props.icon} />
+            <InlineIcon {...this.props.icon} />
         </a>;
     }
 });
@@ -59,20 +62,20 @@ const SequenceEditor = React.createClass({
                     }}>
                         {(i + 1 < this.props.json.length) &&
                             <StepControlButton
-                                icon="icon-circle-arrow-down"
+                                icon={iconCircleArrowDown}
                                 onClick={() => {
                                     this._handleMoveStepLater(i);
                                 }} />
                         }
                         {(i > 0) &&
                             <StepControlButton
-                                icon="icon-circle-arrow-up"
+                                icon={iconCircleArrowUp}
                                 onClick={() => {
                                     this._handleMoveStepEarlier(i);
                                 }} />
                         }
                         <StepControlButton
-                            icon="icon-trash"
+                            icon={iconTrash}
                             onClick={() => {
                                 var msg = "Are you sure you " +
                                     "want to remove step " +
@@ -82,7 +85,7 @@ const SequenceEditor = React.createClass({
                                 }
                             }} />
                         <StepControlButton
-                            icon="icon-plus"
+                            icon={iconPlus}
                             onClick={() => {
                                 this._handleAddStepAfter(i);
                             }} />

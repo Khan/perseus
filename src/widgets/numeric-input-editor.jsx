@@ -10,7 +10,9 @@ const EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
 const ButtonGroup = require("react-components/button-group.jsx");
 const Editor = require("../editor.jsx");
+const {iconGear, iconTrash} = require("../icon-paths.js");
 const InfoTip = require("../components/info-tip.jsx");
+const InlineIcon = require("../components/inline-icon.jsx");
 const MultiButtonGroup = require("react-components/multi-button-group.jsx");
 const NumberInput = require("../components/number-input.jsx");
 const PropCheckBox = require("../components/prop-check-box.jsx");
@@ -261,15 +263,17 @@ const NumericInputEditor = React.createClass({
                         className="answer-trash"
                         onClick={() => this.onTrashAnswer(i)}
                         onKeyDown={(e) =>
-                            this.onSpace(e, this.onTrashAnswer, i)}>
-                      <span className="icon-trash" />
+                            this.onSpace(e, this.onTrashAnswer, i)}
+                    >
+                        <InlineIcon {...iconTrash} />
                     </a>
                     <a href="javascript:void(0)"
                         className="options-toggle"
                         onClick={() => this.onToggleOptions(i)}
                         onKeyDown={(e) =>
-                            this.onSpace(e, this.onToggleOptions, i)}>
-                      <i className="icon-gear" />
+                            this.onSpace(e, this.onToggleOptions, i)}
+                    >
+                        <InlineIcon {...iconGear} />
                     </a>
                 </div>
                 <div className="input-answer-editor-message">{editor}</div>

@@ -7,6 +7,9 @@
  */
 var React = require("react");
 
+var {iconChevronDown, iconChevronUp} = require("../icon-paths.js");
+var InlineIcon = require("./inline-icon.jsx");
+
 var MoreOptions = React.createClass({
     getDefaultProps: function() {
         return {
@@ -25,8 +28,8 @@ var MoreOptions = React.createClass({
             {this.state.show && this.props.children}
             <div className="more-options-title" onClick={this.toggle}>
                 {this.state.show ?
-                    <span><i className="icon-chevron-up"   /> Less</span> :
-                    <span><i className="icon-chevron-down" /> More</span>
+                    <span><InlineIcon {...iconChevronUp} /> Less</span> :
+                    <span><InlineIcon {...iconChevronDown} /> More</span>
                 } Options...
             </div>
         </div>;

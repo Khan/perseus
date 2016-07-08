@@ -15,6 +15,9 @@ const _ = require("underscore");
 const ApiOptions = require("./perseus-api.jsx").Options;
 const Editor = require("./editor.jsx");
 const EnabledFeatures = require("./enabled-features.jsx");
+const {iconCircleArrowDown, iconCircleArrowUp, iconPlus, iconTrash} =
+    require("./icon-paths.js");
+const InlineIcon = require("./components/inline-icon.jsx");
 const JsonEditor = require("./json-editor.jsx");
 const DeviceFramer = require("./components/device-framer.jsx");
 const IframeContentRenderer = require("./iframe-content-renderer.jsx");
@@ -27,7 +30,7 @@ const rendererProps = React.PropTypes.shape({
 
 const SectionControlButton = React.createClass({
     propTypes: {
-        icon: React.PropTypes.string.isRequired,
+        icon: React.PropTypes.shape(InlineIcon.propTypes).isRequired,
         onClick: React.PropTypes.func.isRequired,
         title: React.PropTypes.string.isRequired,
     },
@@ -47,7 +50,7 @@ const SectionControlButton = React.createClass({
             }}
             title={title}
         >
-            <span className={icon} />
+            <InlineIcon {...icon} />
         </a>;
     },
 });
@@ -161,7 +164,7 @@ const ArticleEditor = React.createClass({
                                 >
                                     {sectionImageUploadGenerator(i)}
                                     <SectionControlButton
-                                        icon="icon-plus"
+                                        icon={iconPlus}
                                         onClick={() => {
                                             this._handleAddSectionAfter(i);
                                         }}
@@ -171,7 +174,7 @@ const ArticleEditor = React.createClass({
                                     />
                                     {(i + 1 < sections.length) &&
                                     <SectionControlButton
-                                        icon="icon-circle-arrow-down"
+                                        icon={iconCircleArrowDown}
                                         onClick={() => {
                                             this._handleMoveSectionLater(i);
                                         }}
@@ -180,7 +183,7 @@ const ArticleEditor = React.createClass({
                                     }
                                     {(i > 0) &&
                                     <SectionControlButton
-                                        icon="icon-circle-arrow-up"
+                                        icon={iconCircleArrowUp}
                                         onClick={() => {
                                             this._handleMoveSectionEarlier(i);
                                         }}
@@ -188,7 +191,7 @@ const ArticleEditor = React.createClass({
                                     />
                                     }
                                     <SectionControlButton
-                                        icon="icon-trash"
+                                        icon={iconTrash}
                                         onClick={() => {
                                             const msg = "Are you sure you " +
                                                 "want to delete section " +
@@ -239,7 +242,7 @@ const ArticleEditor = React.createClass({
                         );
                     }}
                 >
-                    <span className="icon-plus" /> Add a section
+                    <InlineIcon {...iconPlus} /> Add a section
                 </a>
             </div>
         </div>;

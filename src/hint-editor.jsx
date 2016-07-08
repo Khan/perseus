@@ -15,6 +15,9 @@ var DeviceFramer = require("./components/device-framer.jsx");
 
 const ApiOptions = require("./perseus-api.jsx").Options;
 const EnabledFeatures = require("./enabled-features.jsx");
+const {iconCircleArrowDown, iconCircleArrowUp, iconPlus, iconTrash} =
+    require("./icon-paths.js");
+const InlineIcon = require("./components/inline-icon.jsx");
 const IframeContentRenderer = require("./iframe-content-renderer.jsx");
 
 /* Renders a hint editor box
@@ -61,13 +64,13 @@ var HintEditor = React.createClass({
                     <button type="button"
                             className={this.props.isLast ? "hidden" : ""}
                             onClick={_.partial(this.props.onMove, 1)}>
-                        <span className="icon-circle-arrow-down" />
+                        <InlineIcon {...iconCircleArrowDown} />
                     </button>
                     {' '}
                     <button type="button"
                             className={this.props.isFirst ? "hidden" : ""}
                             onClick={_.partial(this.props.onMove, -1)}>
-                        <span className="icon-circle-arrow-up" />
+                        <InlineIcon {...iconCircleArrowUp} />
                     </button>
                     {' '}
                     {this.props.isLast &&
@@ -83,7 +86,8 @@ var HintEditor = React.createClass({
                 <button type="button"
                         className="remove-hint simple-button orange"
                         onClick={this.props.onRemove}>
-                    <span className="icon-trash" /> Remove this hint{' '}
+                    <InlineIcon {...iconTrash} />
+                    Remove this hint{' '}
                 </button>
             </div>
         </div>;
@@ -240,7 +244,7 @@ var CombinedHintsEditor = React.createClass({
                 <button type="button"
                         className="add-hint simple-button orange"
                         onClick={this.addHint}>
-                    <span className="icon-plus" />
+                    <InlineIcon {...iconPlus} />
                     {' '}Add a hint
                 </button>
                 </div>

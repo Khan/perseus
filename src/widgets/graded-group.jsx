@@ -9,6 +9,8 @@ var _ = require("underscore");
 
 var ApiOptions = require("../perseus-api.jsx").Options;
 var Changeable   = require("../mixins/changeable.jsx");
+var {iconOk, iconRemove} = require("../icon-paths.js");
+var InlineIcon = require("../components/inline-icon.jsx");
 var Renderer = require("../renderer.jsx");
 
 // A Graded Group is more or less a Group widget that displays a check
@@ -77,9 +79,9 @@ var GradedGroup = React.createClass({
         var icon = null;
         // Colors are 10% darker than the colors in graded-group.less
         if (this.state.status === GRADING_STATUSES.correct) {
-            icon = <div className="icon-ok" style={{color: "#526f03"}} />;
+            icon = <InlineIcon {...iconOk} style={{color: "#526f03"}} />;
         } else if (this.state.status === GRADING_STATUSES.incorrect) {
-            icon = <div className="icon-remove" style={{color: "#ff5454"}} />;
+            icon = <InlineIcon {...iconRemove} style={{color: "#ff5454"}} />;
         }
 
         var classes = classNames({

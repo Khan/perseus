@@ -6,7 +6,9 @@ var React = require('react');
 var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
+var {iconPlus, iconTrash} = require("../icon-paths.js");
 var InfoTip = require("../components/info-tip.jsx");
+var InlineIcon = require("../components/inline-icon.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
 var DropdownEditor = React.createClass({
@@ -76,7 +78,9 @@ var DropdownEditor = React.createClass({
                                 value={choice.content} />
                             <a href="#" className="simple-button orange"
                                     onClick={this.removeChoice.bind(this, i)}>
-                                <span className="icon-trash remove-choice" />
+                                <span className="remove-choice">
+                                    <InlineIcon {...iconTrash} />
+                                </span>
                             </a>
                         </div>
                     </li>;
@@ -86,7 +90,7 @@ var DropdownEditor = React.createClass({
             <div className="add-choice-container">
                 <a href="#" className="simple-button orange"
                         onClick={this.addChoice}>
-                    <span className="icon-plus" />
+                    <InlineIcon {...iconPlus} />
                     {' '}Add a choice{' '}
                 </a>
             </div>

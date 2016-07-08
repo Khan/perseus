@@ -6,13 +6,14 @@
 var React = require('react');
 var _ = require("underscore");
 
+var ApiOptions = require("../../perseus-api.jsx").Options;
+var BaseRadio = require("./base-radio.jsx");
 var Changeable = require("../../mixins/changeable.jsx");
 var Editor = require("../../editor.jsx");
-var PropCheckBox = require("../../components/prop-check-box.jsx");
-
-const ApiOptions = require("../../perseus-api.jsx").Options;
+var {iconPlus, iconTrash} = require("../../icon-paths.js");
 var InfoTip = require("../../components/info-tip.jsx");
-var BaseRadio = require("./base-radio.jsx");
+var InlineIcon   = require("../../components/inline-icon.jsx");
+var PropCheckBox = require("../../components/prop-check-box.jsx");
 
 
 var ChoiceEditor = React.createClass({
@@ -56,11 +57,13 @@ var ChoiceEditor = React.createClass({
             placeholder={i18n._(`Why is this choice ${checkedClass}?`)}
             onChange={this.props.onClueChange} />;
 
-        var deleteLink = <a href="#"
-                className="simple-button orange delete-choice"
-                title="Remove this choice"
-                onClick={this.props.onDelete}>
-            <span className="icon-trash" />
+        var deleteLink = <a
+            className="simple-button orange delete-choice"
+            href="#"
+            onClick={this.props.onDelete}
+            title="Remove this choice"
+        >
+            <InlineIcon {...iconTrash} />
         </a>;
 
         return <div className="choice-clue-editors">
@@ -181,16 +184,22 @@ var RadioEditor = React.createClass({
                 onCheckedChange={this.onCheckedChange} />
 
             <div className="add-choice-container">
-                <a href="#" className="simple-button orange"
-                        onClick={this.addChoice.bind(this, false)}>
-                    <span className="icon-plus" />
+                <a
+                    className="simple-button orange"
+                    href="#"
+                    onClick={this.addChoice.bind(this, false)}
+                >
+                    <InlineIcon {...iconPlus} />
                     {' '}Add a choice{' '}
                 </a>
 
                 {!this.props.hasNoneOfTheAbove &&
-                    <a href="#" className="simple-button"
-                            onClick={this.addChoice.bind(this, true)}>
-                        <span className="icon-plus" />
+                    <a
+                        className="simple-button"
+                        href="#"
+                        onClick={this.addChoice.bind(this, true)}
+                    >
+                        <InlineIcon {...iconPlus} />
                         {' '}None of the above{' '}
                     </a>}
             </div>

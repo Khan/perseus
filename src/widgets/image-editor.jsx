@@ -5,7 +5,8 @@
 const React = require("react");
 const _ = require("underscore");
 
-const Util = require("../util.js");
+const {iconTrash} = require("../icon-paths.js");
+const Util        = require("../util.js");
 
 const Changeable    = require("../mixins/changeable.jsx");
 const EditorJsonify = require("../mixins/editor-jsonify.jsx");
@@ -13,6 +14,7 @@ const EditorJsonify = require("../mixins/editor-jsonify.jsx");
 const BlurInput    = require("react-components/blur-input.jsx");
 const Editor       = require("../editor.jsx");
 const InfoTip      = require("../components/info-tip.jsx");
+const InlineIcon   = require("../components/inline-icon.jsx");
 const RangeInput   = require("../components/range-input.jsx");
 
 const defaultBoxSize = 400;
@@ -261,7 +263,7 @@ const ImageEditor = React.createClass({
                     title="Remove this label"
                     onClick={this.removeLabel.bind(this, i)}
                 >
-                    <span className="icon-trash" />
+                    <InlineIcon {...iconTrash} />
                 </a>
             </td>
         </tr>;

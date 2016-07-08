@@ -4,6 +4,15 @@
 
 var React = require("react");
 
+var {
+    iconChevronDown,
+    iconChevronRight,
+    iconCircleArrowDown,
+    iconCircleArrowUp,
+    iconTrash,
+} = require("../../icon-paths.js");
+var InlineIcon   = require("../../components/inline-icon.jsx");
+
 var ElementContainer = React.createClass({
     propTypes: {
         initiallVisible: React.PropTypes.bool,
@@ -32,8 +41,10 @@ var ElementContainer = React.createClass({
             <a href="#" className={"perseus-interaction-element-title " +
                 (this.state.show ? "open" : "closed")}
                 onClick={this.toggle}>
-                <i className={"icon-chevron-" +
-                    (this.state.show ? "down" : "right")} />
+                {this.state.show
+                    ? <InlineIcon {...iconChevronDown} />
+                    : <InlineIcon {...iconChevronRight} />
+                }
                 {this.props.title}
             </a>
             <div className={"perseus-interaction-element-content " +
@@ -45,15 +56,15 @@ var ElementContainer = React.createClass({
                     <div className={"edit-controls"}>
                         {(this.props.onUp != null) && <button
                             onClick={this.props.onUp}>
-                                <i className={"icon-circle-arrow-up"} />
+                                <InlineIcon {...iconCircleArrowUp} />
                             </button>}
                         {(this.props.onDown != null) && <button
                             onClick={this.props.onDown}>
-                                <i className={"icon-circle-arrow-down"} />
+                                <InlineIcon {...iconCircleArrowDown} />
                             </button>}
                         {(this.props.onDelete != null) && <button
                             onClick={this.props.onDelete}>
-                                <i className={"icon-trash"} />
+                                <InlineIcon {...iconTrash} />
                             </button>}
                     </div>
                 }

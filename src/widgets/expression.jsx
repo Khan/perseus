@@ -17,6 +17,7 @@ const KhanAnswerTypes = require("../util/answer-types.js");
 
 var EnabledFeatures = require("../enabled-features.jsx");
 
+const InlineIcon = require("../components/inline-icon.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
 var MathInput = require("../components/math-input.jsx");
 var TeX = require("react-components/tex.jsx");// OldExpression only
@@ -32,6 +33,7 @@ const {
 } = require("../../math-input").consts;
 
 var EnabledFeatures = require("../enabled-features.jsx");
+const {iconExclamationSign} = require("../icon-paths.js");
 
 var lens = require("../../hubble/index.js");
 
@@ -176,8 +178,8 @@ var Expression = React.createClass({
                         arrowSize={10}
                         borderColor="#fcc335"
                         show={this.state.showErrorText} >
-                    <i
-                        className="icon-exclamation-sign error-icon"
+                    <span
+                        className="error-icon"
                         onMouseEnter={() => {
                             this.setState({showErrorText: true});
                         }}
@@ -189,7 +191,10 @@ var Expression = React.createClass({
                             this.setState({
                                 showErrorText: !this.state.showErrorText
                             });
-                        }} />
+                        }}
+                    >
+                        <InlineIcon {...iconExclamationSign} />
+                    </span>
                     <div className="error-text">
                         {ERROR_MESSAGE}
                     </div>

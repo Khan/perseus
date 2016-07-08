@@ -11,6 +11,9 @@ var _ = require("underscore");
 var ApiOptions = require("./perseus-api.jsx").Options;
 var DragTarget = require("react-components/drag-target.jsx");
 var EnabledFeatures = require("./enabled-features.jsx");
+var {iconChevronDown, iconChevronRight, iconTrash} =
+    require("./icon-paths.js");
+var InlineIcon = require("./components/inline-icon.jsx");
 var PerseusMarkdown = require("./perseus-markdown.jsx");
 var PropCheckBox = require("./components/prop-check-box.jsx");
 var Util = require("./util.js");
@@ -189,12 +192,16 @@ var WidgetEditor = React.createClass({
                 className={"perseus-widget-editor-title " +
                     (this.state.showWidget ? "open" : "closed")}
             >
-                <a href="#" onClick={this._toggleWidget}>
+                <a
+                    className="perseus-widget-editor-title-id"
+                    href="#"
+                    onClick={this._toggleWidget}
+                >
                     {this.props.id}
-                    <i
-                        className={"icon-chevron-" +
-                            (this.state.showWidget ? "down" : "right")}
-                    />
+                    {this.state.showWidget
+                        ? <InlineIcon {...iconChevronDown} />
+                        : <InlineIcon {...iconChevronRight} />
+                    }
                 </a>
 
                 {supportsStaticMode &&
@@ -228,7 +235,7 @@ var WidgetEditor = React.createClass({
                         this.props.onRemove();
                     }}
                 >
-                    <span className="icon-trash" />
+                    <InlineIcon {...iconTrash} />
                 </a>
             </div>
             <div

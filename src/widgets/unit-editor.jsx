@@ -13,9 +13,11 @@ const _ = require("underscore");
 const Changeable = require("../mixins/changeable.jsx");
 const EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
+const InlineIcon = require("../components/inline-icon.jsx");
 const NumberInput = require("../components/number-input.jsx");
 
-var { displaySigFigs } = require("../sigfigs.jsx");
+const {iconOk, iconRemove} = require("../icon-paths.js");
+const {displaySigFigs} = require("../sigfigs.jsx");
 
 const ALL = "all";
 const SOME = "some";
@@ -41,11 +43,15 @@ var UnitExample = React.createClass({
         var icon;
         if (this.state.valid) {
             icon = <span>
-                <i className="icon-ok unit-example-okay" />
+                <span className="unit-example-okay">
+                    <InlineIcon {...iconOk} />
+                </span>
                 {this.state.solvedExample}
             </span>;
         } else {
-            icon = <i className="icon-remove unit-example-not-okay" />;
+            icon = <span className="unit-example-not-okay">
+                <InlineIcon {...iconRemove} />
+            </span>;
         }
 
         return <div>
@@ -153,9 +159,13 @@ const UnitInputEditor = React.createClass({
                        onKeyPress={this._handleBlur}
                        onChange={this.onChange} />
                 {" "}
-                {this.parsed ?
-                    <i className="icon-ok unit-example-okay" /> :
-                    <i className="icon-remove unit-example-not-okay" />
+                {this.parsed
+                    ? <span className="unit-example-okay">
+                        <InlineIcon {...iconOk} />
+                    </span>
+                    : <span className="unit-example-not-okay">
+                        <InlineIcon {...iconRemove} />
+                    </span>
                 }
             </div>
 

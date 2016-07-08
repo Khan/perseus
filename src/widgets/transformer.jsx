@@ -8,6 +8,7 @@ var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var Graph         = require("../components/graph.jsx");
+const InlineIcon  = require("../components/inline-icon.jsx");
 var NumberInput   = require("../components/number-input.jsx");
 var MathOutput    = require("../components/math-output.jsx");
 var TeX           = require("react-components/tex.jsx");
@@ -23,6 +24,7 @@ var ROTATE_HANDLE_DIST = 1.5;
 var REFLECT_ROTATE_HANDLE_DIST = 2;
 var REFLECT_BUTTON_SIZE = 1;
 
+const {iconPlus, iconUndo} = require("../icon-paths.js");
 var deepEq = require("../util.js").deepEq;
 var getGridStep = require("../util.js").getGridStep;
 var captureScratchpadTouchStart =
@@ -1488,7 +1490,7 @@ var ToolsBar = React.createClass({
                     disabled={this.props.apiOptions.readOnly}
                     onClick={this.props.onUndoClick}
                     onTouchStart={captureScratchpadTouchStart}>
-                <span className="icon-undo" />
+                <InlineIcon {...iconUndo} />
                 {" "}
                 Undo
             </button>
@@ -1521,7 +1523,7 @@ var AddTransformBar = React.createClass({
                         toggled={false}
                         disabled={this.props.apiOptions.readOnly}
                         onClick={this.changeSelected.bind(this, type)}>
-                    <span className="icon-plus" />
+                    <InlineIcon {...iconPlus} />
                     {" "}
                     {tool.nounName}
                 </ToolButton>;
@@ -1536,7 +1538,7 @@ var AddTransformBar = React.createClass({
                     onClick={this.props.onUndoClick}
                     disabled={this.props.apiOptions.readOnly}
                     onTouchStart={captureScratchpadTouchStart}>
-                <span className="icon-undo" />
+                <InlineIcon {...iconUndo} />
                 {" "}
                 Undo
             </button>

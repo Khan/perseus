@@ -7,6 +7,8 @@ var _ = require("underscore");
 
 var ApiOptions = require("../perseus-api.jsx").Options;
 var Changeable   = require("../mixins/changeable.jsx");
+const {iconOk} = require("../icon-paths.js");
+const InlineIcon = require("../components/inline-icon.jsx");
 var Renderer = require("../renderer.jsx");
 var Util = require("../util.js");
 
@@ -44,7 +46,7 @@ var Sequence = React.createClass({
     },
 
     render: function() {
-        var icon = <div className="icon-ok" style={{color: "green"}} />;
+        var icon = <InlineIcon {...iconOk} style={{color: "green"}} />;
 
         var content = _.chain(this.props.json)
                 .first(this.state.visible)
