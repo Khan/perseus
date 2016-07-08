@@ -17,7 +17,7 @@ var MathInput = React.createClass({
         buttonsVisible: PT.oneOf(['always', 'never', 'focused']),
         onFocus: PT.func,
         onBlur: PT.func,
-        buttonSets: TexButtons.buttonSetsType.isRequired,
+        easybuttons: PT.bool
     },
 
     render: function() {
@@ -36,7 +36,7 @@ var MathInput = React.createClass({
                 className="math-input-buttons absolute"
                 convertDotToTimes={this.props.convertDotToTimes}
                 onInsert={this.insert} 
-                sets={this.props.buttonSets} />;
+                easybuttons={this.props.easybuttons} />;
         }
 
         return <div style={{display: "inline-block"}}>

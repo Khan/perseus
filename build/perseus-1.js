@@ -1,6 +1,6 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit df5ef5ed6e0a284e64802c45504aafca03d5ae55
-// branch upgrade_expression
+// commit 9af119e07ab4e2d14374ad03459662377fb99948
+// branch iframe_fullscreen
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
 Software License Agreement (BSD License)
@@ -5780,7 +5780,7 @@ var MathInput = React.createClass({displayName: 'MathInput',
         buttonsVisible: PT.oneOf(['always', 'never', 'focused']),
         onFocus: PT.func,
         onBlur: PT.func,
-        buttonSets: TexButtons.buttonSetsType.isRequired,
+        easybuttons: PT.bool
     },
 
     render: function() {
@@ -5799,7 +5799,7 @@ var MathInput = React.createClass({displayName: 'MathInput',
                 {className:"math-input-buttons absolute",
                 convertDotToTimes:this.props.convertDotToTimes,
                 onInsert:this.insert, 
-                sets:this.props.buttonSets} );
+                easybuttons:this.props.easybuttons} );
         }
 
         return React.DOM.div( {style:{display: "inline-block"}}, 
@@ -6905,41 +6905,43 @@ var symbStyle = { fontSize: "130%" };
 // Also, it's useful for things which might look different depending on the
 // props.
 
-var basic = [
+var basicbuttons = [
 
-    function()  {return [React.DOM.span( {style:slightlyBig}, "+"), "+"];},
-    function()  {return [React.DOM.span( {style:prettyBig}, "-"), "-"];},
+    [
+        function()  {return [React.DOM.span( {style:slightlyBig}, "+"), "+"];},
+        function()  {return [React.DOM.span( {style:prettyBig}, "-"), "-"];},
 
-    // TODO(joel) - display as \cdot when appropriate
-    function(props)  {
-        if (props.convertDotToTimes) {
-            return [TeX( {style:prettyBig}, "\\times"), "\\times"];
-        } else {
-            return [TeX( {style:prettyBig}, "\\cdot"), "\\cdot"];
-        }
-    },
-    function()  {return [
-        TeX( {style:prettyBig}, "\\frac{□}{□}"),
-
-        // If there's something in the input that can become part of a
-        // fraction, typing "/" puts it in the numerator. If not, typing
-        // "/" does nothing. In that case, enter a \frac.
-        function(input)  {
-            var contents = input.latex();
-            input.cmd("\\frac");
+        // TODO(joel) - display as \cdot when appropriate
+        function(props)  {
+            if (props.convertDotToTimes) {
+                return [TeX( {style:prettyBig}, "\\times"), "\\times"];
+            } else {
+                return [TeX( {style:prettyBig}, "\\cdot"), "\\cdot"];
             }
-        
-    ];},
-    function()  {return [TeX( {style:slightlyBig}, "\\div"), "\\div"];},
-    function()  {return [TeX( {style:slightlyBig, key:"eq"}, "="), "="];},
+        },
+        function()  {return [
+            TeX( {style:prettyBig}, "\\frac{□}{□}"),
+
+            // If there's something in the input that can become part of a
+            // fraction, typing "/" puts it in the numerator. If not, typing
+            // "/" does nothing. In that case, enter a \frac.
+            function(input)  {
+                var contents = input.latex();
+                input.cmd("\\frac");
+                }
+            
+        ];},
+        function()  {return [TeX( {style:slightlyBig}, "\\div"), "\\div"];}
+    ]
 
 ];
 
-var buttonSets = {
+var buttons = [
 
-    basic:basic,
+    // basics
+    basicbuttons[0],
 
-    relations:
+    // relations
     [
         // [<TeX>{"="}</TeX>, "\\eq"],
         function()  {return [TeX(null, "\\neq"), "\\neq"];},
@@ -6949,7 +6951,8 @@ var buttonSets = {
         function()  {return [TeX(null, "\\gt"), "\\gt"];},
     ],
 
-    trig:[
+    // trig
+    [
         function()  {return [TeX(null, "\\sin"), "\\sin"];},
         function()  {return [TeX(null, "\\cos"), "\\cos"];},
         function()  {return [TeX(null, "\\tan"), "\\tan"];},
@@ -6957,10 +6960,13 @@ var buttonSets = {
         function()  {return [TeX( {style:symbStyle}, "\\phi"), "\\phi"];}
     ],
 
-    prealgebra:[
+    // prealgebra
+    [
         function()  {return [TeX(null, "\\sqrt{x}"), "\\sqrt"];},
+        // TODO(joel) - how does desmos do this?
+        // ["\\sqrt[3]{x}", "\\sqrt[3]{x}"],
         function()  {return [
-            TeX( {style:slightlyBig}, "a^□"),
+            TeX( {style:slightlyBig}, "□^a"),
             function(input)  {
                 var contents = input.latex();
                 input.keystroke("Up");
@@ -6972,26 +6978,15 @@ var buttonSets = {
         function()  {return [TeX( {style:slightlyBig}, "\\pi"), "\\pi"];}
     ]
 
-};
-
-//declare buttonSetsType type from buttonSets
-var buttonSetsType = React.PropTypes.arrayOf(
-        React.PropTypes.oneOf(_(buttonSets).keys())
-    );
+];
 
 var TexButtons = React.createClass({displayName: 'TexButtons',
     propTypes: {
         onInsert: React.PropTypes.func.isRequired,
-        sets: buttonSetsType.isRequired,
+        easybuttons: React.PropTypes.bool
     },
-
     render: function() {
-        // sort this.props.sets component by key_index of buttonSets 
-        // var sortedButtonSets = _.sortBy(this.props.sets,
-        //     (setName) => _.keys(buttonSets).indexOf(setName));
-
-        // make buttonSet(checked) by this.props.sets from buttonSets(template) 
-        var buttonSet = _(this.props.sets).map(function(setName)  {return buttonSets[setName];});
+        var buttonSet = this.props.easybuttons? basicbuttons: buttons;
 
         var buttonRows = _(buttonSet).map(function(row)  {return row.map(function(symbGen)  {
             // create a (component, thing we should send to mathquill) pair
@@ -7005,19 +7000,12 @@ var TexButtons = React.createClass({displayName: 'TexButtons',
         }.bind(this));}.bind(this));
 
         var buttonPopup = _(buttonRows).map(function(row, i)  {
-            return React.DOM.div( {className:"clearfix tex-button-row",
-                    key:this.props.sets[i]}, 
-                row
-            );
-        }.bind(this));
+            return React.DOM.div( {className:"clearfix tex-button-row"}, row);
+        });
 
         return React.DOM.div( {className:this.props.className}, 
             buttonPopup
         );
-    },
-    statics: {
-        buttonSets:buttonSets,
-        buttonSetsType:buttonSetsType
     }
 });
 
@@ -13628,19 +13616,20 @@ var Expression = React.createClass({displayName: 'Expression',
         buttonsVisible: React.PropTypes.oneOf(['always', 'never', 'focused']),
         enabledFeatures: EnabledFeatures.propTypes,
         apiOptions: ApiOptions.propTypes,
-        buttonSets: TexButtons.buttonSetsType,
-        easybuttons: React.PropTypes.bool,
+        easybuttons: React.PropTypes.bool
     },
 
     getDefaultProps: function() {
         return {
             value: "",
             times: false,
+            easybuttons: false,
             functions: [],
             onFocus: function() { },
             onBlur: function() { },
             enabledFeatures: EnabledFeatures.defaults,
             apiOptions: ApiOptions.defaults,
+            easybuttons: false
         };
     },
 
@@ -13662,18 +13651,6 @@ var Expression = React.createClass({displayName: 'Expression',
     },
 
     render: function() {
-        // for old questions without buttonSets, make buttonSets by easybuttons
-        if (!this.props.buttonSets)
-        {
-            if(!this.props.easybuttons) {
-                this.props.buttonSets = ["basic", "relations", "trig", "prealgebra"];
-            }
-            else {
-                this.props.buttonSets = ["basic"];
-            }
-            this.props.onChange;
-        }
-
         if (this.props.apiOptions.staticRender) {
             var style = {
                 borderRadius: "5px",
@@ -13730,9 +13707,9 @@ var Expression = React.createClass({displayName: 'Expression',
                     onChange:this.change("value"),
                     convertDotToTimes:this.props.times,
                     buttonsVisible:this.props.buttonsVisible || "focused",
-                    buttonSets:this.props.buttonSets,
                     onFocus:this._handleFocus,
-                    onBlur:this._handleBlur} ),
+                    onBlur:this._handleBlur, 
+                    easybuttons:this.props.easybuttons} ),
                 this.state.showErrorTooltip && errorTooltip
             );
         }
@@ -13853,7 +13830,6 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
         simplify: React.PropTypes.bool,
         times: React.PropTypes.bool,
         functions: React.PropTypes.arrayOf(React.PropTypes.string),
-        buttonSets: TexButtons.buttonSetsType,
         easybuttons: React.PropTypes.bool
     },
 
@@ -13879,18 +13855,6 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
     },
 
     render: function() {
-        // for editing old questions, make buttonSets by easybuttons
-        if (!this.props.buttonSets)
-        {
-            if(!this.props.easybuttons) {
-                this.props.buttonSets = ["basic", "relations", "trig", "prealgebra"];
-            }
-            else {
-                this.props.buttonSets = ["basic"];
-            }
-            this.props.onChange;
-        }
-
         var simplifyWarning = null;
         var shouldTryToParse = this.props.simplify && this.props.value !== "";
         if (shouldTryToParse) {
@@ -13912,49 +13876,10 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
             functions: this.props.functions,
             onChange: function(newProps)  {return this.change(newProps);}.bind(this),
             buttonsVisible: "never",
-            buttonSets: this.props.buttonSets,
+            easybuttons: this.props.easybuttons
         };
 
         var expression = this.state.isTex ? Expression : OldExpression;
-
-        // checkboxes to choose which sets of input buttons are shown
-        var buttonSetChoices = _(TexButtons.buttonSets).map(function(set, name)  {
-            // The first one gets special cased to always be checked, disabled,
-            // and float left.
-            var isFirst = name === "basic";
-            var checked = _.contains(this.props.buttonSets, name) || isFirst;
-            var className = isFirst ?
-                "button-set-label-float" :
-                "button-set-label";
-
-            var chineseName = "";
-            switch (name){
-                case "basic":
-                    chineseName = "基本運算";
-                    break;
-                case "relations":
-                    chineseName = "不等式";
-                    break;
-                case "trig":
-                    chineseName = "三角函數";
-                    break;
-                case "prealgebra":
-                    chineseName = "初階代數";
-                    break;
-                default:
-                    chineseName = "其他";
-            };
-
-            return React.DOM.div(null,  
-             React.DOM.label( {className:className, key:name}, 
-                React.DOM.input( {type:"checkbox",
-                       checked:checked,
-                       disabled:isFirst,
-                       onChange:function()  {return this.handleButtonSet(name);}.bind(this)} ),
-                chineseName
-            )
-            );
-        }.bind(this));
 
         // TODO(joel) - move buttons outside of the label so they don't weirdly
         // focus
@@ -13967,14 +13892,14 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
                 {className:"math-input-buttons",
                 convertDotToTimes:this.props.times,
                 onInsert:this.handleTexInsert,
-                sets:this.props.buttonSets} ),
+                easybuttons:this.props.easybuttons} ),
 
             React.DOM.div(null, 
                 PropCheckBox(
                     {form:this.props.form,
                     onChange:this.props.onChange,
                     labelAlignment:"right",
-                    label:"答案一定要與格式相符。"} ),
+                    label:"答案一定要與格式相符"} ),
                 InfoTip(null, 
                     React.DOM.p(null, "學生必須輸入相同的算式。"+' '+
                     "但容許交換律與負號，例如：1+3，可接受3+1或1-(-3)，但不能接受4或2+2。")
@@ -14009,8 +13934,14 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
             ),
 
             React.DOM.div(null, 
-                React.DOM.div(null, "運算符號選擇:"),
-                buttonSetChoices
+                PropCheckBox(
+                    {easybuttons:this.props.easybuttons,
+                    onChange:this.props.onChange,
+                    labelAlignment:"right",
+                    label:"小學生專用簡化版選項。"} ),
+                InfoTip(null, 
+                    React.DOM.p(null, "只顯示加減乘除、分數按鈕。")
+                )
             ),
 
             React.DOM.div(null, 
@@ -14030,25 +13961,6 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
 
     handleTexInsert: function(str) {
         this.refs.expression.insert(str);
-    },
-
-    // called when the selected buttonset changes
-    handleButtonSet: function(changingName) {
-        var buttonSetNames = _(TexButtons.buttonSets).keys();
-
-        // Filter to preserve order - using .union and .difference would always
-        // move the last added button set to the end.
-        // Because filter by buttonSetNames, the order can be keep
-        var buttonSets = _(buttonSetNames).filter(function(set)  {
-            // if set in original buttonSets & set is changingName => false
-            // if set in original buttonSets & set is not changingName => true
-            // if set not in original buttonSets & set is changingName => true
-            // if set not in original buttonSets & set is not changingName => false
-            return _(this.props.buttonSets).contains(set) !==
-                   (set === changingName);
-        }.bind(this));
-
-        this.props.onChange({ buttonSets:buttonSets });
     },
 
     handleFunctions: function(e) {
@@ -14072,7 +13984,7 @@ module.exports = {
     },
     editor: ExpressionEditor,
     transform: function(editorProps)  {
-        return _.pick(editorProps, "times", "functions", "buttonSets", "easybuttons");
+        return _.pick(editorProps, "times", "functions", "easybuttons");
     },
     hidden: false
 };

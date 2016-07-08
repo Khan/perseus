@@ -32,19 +32,20 @@ var Expression = React.createClass({
         buttonsVisible: React.PropTypes.oneOf(['always', 'never', 'focused']),
         enabledFeatures: EnabledFeatures.propTypes,
         apiOptions: ApiOptions.propTypes,
-        buttonSets: TexButtons.buttonSetsType,
-        easybuttons: React.PropTypes.bool,
+        easybuttons: React.PropTypes.bool
     },
 
     getDefaultProps: function() {
         return {
             value: "",
             times: false,
+            easybuttons: false,
             functions: [],
             onFocus: function() { },
             onBlur: function() { },
             enabledFeatures: EnabledFeatures.defaults,
             apiOptions: ApiOptions.defaults,
+            easybuttons: false
         };
     },
 
@@ -66,18 +67,6 @@ var Expression = React.createClass({
     },
 
     render: function() {
-        // for old questions without buttonSets, make buttonSets by easybuttons
-        if (!this.props.buttonSets)
-        {
-            if(!this.props.easybuttons) {
-                this.props.buttonSets = ["basic", "relations", "trig", "prealgebra"];
-            }
-            else {
-                this.props.buttonSets = ["basic"];
-            }
-            this.props.onChange;
-        }
-
         if (this.props.apiOptions.staticRender) {
             var style = {
                 borderRadius: "5px",
@@ -134,9 +123,9 @@ var Expression = React.createClass({
                     onChange={this.change("value")}
                     convertDotToTimes={this.props.times}
                     buttonsVisible={this.props.buttonsVisible || "focused"}
-                    buttonSets={this.props.buttonSets}
                     onFocus={this._handleFocus}
-                    onBlur={this._handleBlur} />
+                    onBlur={this._handleBlur} 
+                    easybuttons={this.props.easybuttons} />
                 {this.state.showErrorTooltip && errorTooltip}
             </span>;
         }
@@ -257,7 +246,6 @@ var ExpressionEditor = React.createClass({
         simplify: React.PropTypes.bool,
         times: React.PropTypes.bool,
         functions: React.PropTypes.arrayOf(React.PropTypes.string),
-        buttonSets: TexButtons.buttonSetsType,
         easybuttons: React.PropTypes.bool
     },
 
@@ -283,18 +271,6 @@ var ExpressionEditor = React.createClass({
     },
 
     render: function() {
-        // for editing old questions, make buttonSets by easybuttons
-        if (!this.props.buttonSets)
-        {
-            if(!this.props.easybuttons) {
-                this.props.buttonSets = ["basic", "relations", "trig", "prealgebra"];
-            }
-            else {
-                this.props.buttonSets = ["basic"];
-            }
-            this.props.onChange;
-        }
-
         var simplifyWarning = null;
         var shouldTryToParse = this.props.simplify && this.props.value !== "";
         if (shouldTryToParse) {
@@ -316,49 +292,10 @@ var ExpressionEditor = React.createClass({
             functions: this.props.functions,
             onChange: (newProps) => this.change(newProps),
             buttonsVisible: "never",
-            buttonSets: this.props.buttonSets,
+            easybuttons: this.props.easybuttons
         };
 
         var expression = this.state.isTex ? Expression : OldExpression;
-
-        // checkboxes to choose which sets of input buttons are shown
-        var buttonSetChoices = _(TexButtons.buttonSets).map((set, name) => {
-            // The first one gets special cased to always be checked, disabled,
-            // and float left.
-            var isFirst = name === "basic";
-            var checked = _.contains(this.props.buttonSets, name) || isFirst;
-            var className = isFirst ?
-                "button-set-label-float" :
-                "button-set-label";
-
-            var chineseName = "";
-            switch (name){
-                case "basic":
-                    chineseName = "基本運算";
-                    break;
-                case "relations":
-                    chineseName = "不等式";
-                    break;
-                case "trig":
-                    chineseName = "三角函數";
-                    break;
-                case "prealgebra":
-                    chineseName = "初階代數";
-                    break;
-                default:
-                    chineseName = "其他";
-            };
-
-            return <div> 
-             <label className={className} key={name}>
-                <input type="checkbox"
-                       checked={checked}
-                       disabled={isFirst}
-                       onChange={() => this.handleButtonSet(name)} />
-                {chineseName}
-            </label>
-            </div>;
-        });
 
         // TODO(joel) - move buttons outside of the label so they don't weirdly
         // focus
@@ -371,14 +308,14 @@ var ExpressionEditor = React.createClass({
                 className="math-input-buttons"
                 convertDotToTimes={this.props.times}
                 onInsert={this.handleTexInsert}
-                sets={this.props.buttonSets} />}
+                easybuttons={this.props.easybuttons} />}
 
             <div>
                 <PropCheckBox
                     form={this.props.form}
                     onChange={this.props.onChange}
                     labelAlignment="right"
-                    label="答案一定要與格式相符。" />
+                    label="答案一定要與格式相符" />
                 <InfoTip>
                     <p>學生必須輸入相同的算式。
                     但容許交換律與負號，例如：1+3，可接受3+1或1-(-3)，但不能接受4或2+2。</p>
@@ -413,8 +350,14 @@ var ExpressionEditor = React.createClass({
             </div>
 
             <div>
-                <div>運算符號選擇:</div>
-                {buttonSetChoices}
+                <PropCheckBox
+                    easybuttons={this.props.easybuttons}
+                    onChange={this.props.onChange}
+                    labelAlignment="right"
+                    label="小學生專用簡化版選項。" />
+                <InfoTip>
+                    <p>只顯示加減乘除、分數按鈕。</p>
+                </InfoTip>
             </div>
 
             <div>
@@ -434,25 +377,6 @@ var ExpressionEditor = React.createClass({
 
     handleTexInsert: function(str) {
         this.refs.expression.insert(str);
-    },
-
-    // called when the selected buttonset changes
-    handleButtonSet: function(changingName) {
-        var buttonSetNames = _(TexButtons.buttonSets).keys();
-
-        // Filter to preserve order - using .union and .difference would always
-        // move the last added button set to the end.
-        // Because filter by buttonSetNames, the order can be keep
-        var buttonSets = _(buttonSetNames).filter(set => {
-            // if set in original buttonSets & set is changingName => false
-            // if set in original buttonSets & set is not changingName => true
-            // if set not in original buttonSets & set is changingName => true
-            // if set not in original buttonSets & set is not changingName => false
-            return _(this.props.buttonSets).contains(set) !==
-                   (set === changingName);
-        });
-
-        this.props.onChange({ buttonSets });
     },
 
     handleFunctions: function(e) {
@@ -476,7 +400,7 @@ module.exports = {
     },
     editor: ExpressionEditor,
     transform: (editorProps) => {
-        return _.pick(editorProps, "times", "functions", "buttonSets", "easybuttons");
+        return _.pick(editorProps, "times", "functions", "easybuttons");
     },
     hidden: false
 };
