@@ -15,5 +15,6 @@ module.exports = {
     ArticleEditor:          require("./article-editor.jsx"),
     Editor:                 require("./editor.jsx"),
     EditorPage:             require("./editor-page.jsx"),
+    IframeContentRenderer:  require("./iframe-content-renderer.jsx"),
     ...Perseus,
 };
