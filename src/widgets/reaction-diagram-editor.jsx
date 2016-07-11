@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var */
+/* eslint-disable brace-style, no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");

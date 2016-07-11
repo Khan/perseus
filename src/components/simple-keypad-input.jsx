@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable object-curly-spacing */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 /**
  * A version of the `math-input` subrepo's KeypadInput component that adheres to
  * the same API as Perseus's  MathOuput and NumberInput, allowing it to be

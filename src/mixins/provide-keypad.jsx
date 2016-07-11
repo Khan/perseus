@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable object-curly-spacing */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 /**
  * A mixin that renders a custom software keypad in additional to the base
  * component. The base component will receive blur events when the keypad is

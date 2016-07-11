@@ -1,7 +1,7 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* globals i18n */
-/* eslint-disable brace-style, comma-dangle, indent, no-var, react/forbid-prop-types, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable brace-style, comma-dangle, indent, no-undef, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 
 var classNames = require("classnames");
 var React = require('react');

@@ -1,7 +1,7 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* globals expect */
-/* eslint-disable comma-dangle, indent, no-var */
+/* eslint-disable comma-dangle, indent, no-undef, no-var, object-curly-spacing */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 
 
 var stringArrayDiff = require("../string-array-diff.jsx");

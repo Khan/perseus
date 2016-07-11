@@ -1,7 +1,7 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* globals beforeEach, expect */
-/* eslint-disable indent, no-trailing-spaces, no-var */
+/* eslint-disable indent, no-undef, no-var, object-curly-spacing */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 
 
 describe("split diff", function() {

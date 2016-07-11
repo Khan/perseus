@@ -1,7 +1,7 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* globals jest */
-/* eslint-disable no-var */
+/* eslint-disable no-undef, no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 
 const _ = require("underscore");
 

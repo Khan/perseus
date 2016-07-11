@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable object-curly-spacing */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 const { interactiveSizes } = require('../styles/constants.js');
 
 // Note: these size cutoffs represent content-width cutoffs as

@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable object-curly-spacing */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 /**
  * A mixin that accepts the `apiOptions` prop, and populates any missing values
  * with defaults.

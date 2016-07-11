@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable array-bracket-spacing, object-curly-spacing */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 const React = require('react');
 const ReactDOM = require("react-dom");
 const { StyleSheet, css } = require("aphrodite");

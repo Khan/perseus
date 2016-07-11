@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-sort-prop-types */
+/* eslint-disable brace-style, no-var, react/jsx-sort-prop-types */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* globals i18n, $_ */

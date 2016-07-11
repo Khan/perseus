@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-redeclare, no-var */
+/* eslint-disable no-redeclare, no-var, object-curly-spacing */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var assert = require("assert");

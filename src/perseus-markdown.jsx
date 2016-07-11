@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props */
+/* eslint-disable no-var, object-curly-spacing */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* globals KA */

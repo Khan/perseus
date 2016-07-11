@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable object-curly-spacing */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 /* global i18n */
 
 const { StyleSheet, css } = require("aphrodite");
