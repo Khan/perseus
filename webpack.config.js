@@ -56,7 +56,7 @@ const externals = function(context, request, callback) {
             // In dev, pull react*, underscore, and jquery out of globals based
             // on the paths in `externalVals`, and make sure that we don't try
             // to require them using `requirejs`.
-            callback(null, { "this": externalVals[request] }, "this");
+            callback(null, {"this": externalVals[request]}, "this");
         }
     } else {
         callback();
