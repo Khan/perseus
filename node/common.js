@@ -4,7 +4,7 @@
 // Helper function for loading react; see comment when we load react
 const withNavigator = function(lambda) {
     const oldNavigator = global.navigator;
-    global.navigator = { userAgent: "Node" };
+    global.navigator = {userAgent: "Node"};
     const result = lambda();
     global.navigator = oldNavigator;
     return result;

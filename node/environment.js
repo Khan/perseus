@@ -54,4 +54,4 @@ global.expect = function(thing) {
     };
 };
 
-global.navigator = { userAgent: "Node" };
+global.navigator = {userAgent: "Node"};

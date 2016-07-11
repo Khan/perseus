@@ -51,11 +51,11 @@ describe("Node renderability", function() {
     const sampleV1MeasurerItem = {"question": {"content": "[[☃ measurer 1]]", "images": {}, "widgets": {"measurer 1": {"type": "measurer", "graded": true, "options": {"box": [480, 480], "image": {}, "showProtractor": true, "showRuler": false, "rulerLabel": "", "rulerTicks": 10, "rulerPixels": 40, "rulerLength": 10}, "version": {"major": 1, "minor": 0}}}}, "answerArea": {"calculator": false}, "itemDataVersion": {"major": 0, "minor": 1}, "hints": []}; // @Nolint
 
     const inputOnlyPerseusVersion = {
-        '::renderer::': { major: 100, minor: 0 },
-        'group': { major: 100, minor: 0 },
-        'sequence': { major: 100, minor: 0 },
-        'input-number': { major: 100, minor: 0 },
-        'numeric-input': { major: 100, minor: 0 },
+        '::renderer::': {major: 100, minor: 0},
+        'group': {major: 100, minor: 0},
+        'sequence': {major: 100, minor: 0},
+        'input-number': {major: 100, minor: 0},
+        'numeric-input': {major: 100, minor: 0},
     };
 
     it("should detect renderability", function() {

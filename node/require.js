@@ -13,6 +13,6 @@ var common = require("./common.js");
 global.Khan = common.window.Khan = {};
 global.KhanUtil = common.window.KhanUtil = Khan.KhanUtil = {};
 
-global.navigator = { userAgent: "Node" };
+global.navigator = {userAgent: "Node"};
 
 common.updateGlobals();
