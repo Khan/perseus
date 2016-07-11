@@ -145,7 +145,7 @@ const IframeContentRenderer = React.createClass({
     render: function() {
         return <div
             ref="container"
-            style={{width: "100%"}}
+            style={{width: "100%", height: "100%"}}
         ></div>;
     },
 });
