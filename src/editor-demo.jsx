@@ -37,7 +37,7 @@ const EditorDemo = React.createClass({
 
     getInitialState: function() {
         return {
-            deviceType: "noframe",
+            deviceType: "desktop",
         };
     },
 

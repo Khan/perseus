@@ -36,9 +36,6 @@ var ViewportResizer = React.createClass({
         var desktopButtonContents = <span>
             <i className="icon-desktop" />{" "}Desktop
         </span>;
-        var noframeButtonContents = <span>
-            No Frame
-        </span>;
 
         // TODO(david): Allow input of custom viewport sizes.
         return <span className="viewport-resizer">
@@ -49,7 +46,6 @@ var ViewportResizer = React.createClass({
                     {value: devices.PHONE, content: phoneButtonContents},
                     {value: devices.TABLET, content: tabletButtonContents},
                     {value: devices.DESKTOP, content: desktopButtonContents},
-                    {value: devices.NOFRAME, content: noframeButtonContents},
                 ]}
                 onChange={this.handleChange}
             />

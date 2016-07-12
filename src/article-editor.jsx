@@ -65,8 +65,6 @@ const ArticleEditor = React.createClass({
         mode: React.PropTypes.oneOf(["diff", "edit", "json", "preview"]),
         onChange: React.PropTypes.func.isRequired,
         screen: React.PropTypes.oneOf([
-            "noframe",
-            "noframe-wide",
             "phone",
             "tablet",
             "desktop",
@@ -220,7 +218,7 @@ const ArticleEditor = React.createClass({
 
 
                         <div className={"editor-preview"}>
-                            {this._renderIframePreview(i)}
+                            {this._renderIframePreview(i, true)}
                         </div>
                     </div>,
                 ];
@@ -247,27 +245,27 @@ const ArticleEditor = React.createClass({
         </div>;
     },
 
-    _renderIframePreview: function(i) {
+    _renderIframePreview: function(i, nochrome) {
         const isMobile = this.props.screen === "phone" ||
             this.props.screen === "tablet";
 
-        return <DeviceFramer deviceType={this.props.screen}>
+        return <DeviceFramer
+            deviceType={this.props.screen}
+            nochrome={nochrome}
+        >
             <IframeContentRenderer
                 ref={"frame-" + i}
                 content={this.props.frameSource}
                 datasetKey="mobile"
                 datasetValue={isMobile}
-                seamless={
-                    this.props.screen === "noframe" ||
-                    this.props.screen === "noframe-wide"
-                }
+                seamless={nochrome}
             />
         </DeviceFramer>;
     },
 
     _renderPreviewMode: function() {
         return <div className="standalone-preview">
-            {this._renderIframePreview("all")}
+            {this._renderIframePreview("all", false)}
         </div>;
     },
 

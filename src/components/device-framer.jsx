@@ -34,41 +34,12 @@ var DeviceFramer = React.createClass({
             devices.PHONE,
             devices.TABLET,
             devices.DESKTOP,
-            // TODO(shadaj): remove after webapp uses nochrome prop
-            devices.NOFRAME,
-            devices.NOFRAME_WIDE,
         ]).isRequired,
         nochrome: React.PropTypes.bool,
     },
 
     render: function() {
         const deviceType = this.props.deviceType;
-
-        // TODO(shadaj): remove after switching webapp to use nochrome prop
-        // The key is added to prevent rerenders of the contents of the screen
-        if (deviceType === devices.NOFRAME) {
-            return <div>
-                <div
-                    key="screen"
-                    style={{border: "1px solid black", width: 540}}
-                >
-                    <div>
-                        {this.props.children}
-                    </div>
-                </div>
-            </div>;
-        } else if (deviceType === devices.NOFRAME_WIDE) {
-            return <div>
-                <div
-                    key="screen"
-                    style={{border: "1px solid black", width: 800}}
-                >
-                    <div>
-                        {this.props.children}
-                    </div>
-                </div>
-            </div>;
-        }
 
         if (this.props.nochrome) {
             return <div>
