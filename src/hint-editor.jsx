@@ -160,16 +160,16 @@ var CombinedHintEditor = React.createClass({
             <div
                 className="perseus-editor-right-cell"
             >
-                <DeviceFramer deviceType={this.props.deviceType}>
+                <DeviceFramer
+                    deviceType={this.props.deviceType}
+                    nochrome={true}
+                >
                     <IframeContentRenderer
                         ref="frame"
                         content={this.props.frameSource}
                         datasetKey="mobile"
                         datasetValue={isMobile}
-                        seamless={
-                            this.props.deviceType === "noframe" ||
-                            this.props.deviceType === "noframe-wide"
-                        }
+                        seamless={true}
                     />
                 </DeviceFramer>
             </div>
