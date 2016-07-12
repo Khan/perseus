@@ -2242,12 +2242,6 @@ ul.ui-autocomplete .ui-menu-item .autocomplete-empty {
     background-position: 0 -25px;
 }
 
-.lte8 #thumbnails td.video-thumb div.thumb {
-    /* IE doesn't support background-size, so we'll just reposition the larger background */
-    background-position-y: -80px;
-    background-position-x: -100px;
-}
-
 #thumbnails td.selected div.thumb {
     border: 2px solid #89B908;
 }
@@ -2805,10 +2799,6 @@ span.youTube:hover, .youTubeJump:hover {
     background: white;
 }
 
-.lte8 #about-us {
-    position: static;
-}
-
 /* End about the site */
 
 /* Report a problem styles */
@@ -3137,12 +3127,6 @@ a.control:hover { color: #DD6900; }
     min-width: 150px;
     z-index: 4;
 }
-.lte7 .css-menu.noscript > ul > li:hover > ul,
-.lte7 .css-menu.noscript > ul > li > a:hover > ul,
-.lte7 .css-menu > ul > li.css-menu-js-hover > ul {
-    top: 3.5ex;  /* For IE7: line-height + padding-top + padding-bottom */
-    width: 30ex; /* For IE7: approx maximum chars in a menu item */
-}
 .css-menu > ul > li > ul {
     overflow: hidden;
     border: solid 1px #ddd;
@@ -3209,9 +3193,6 @@ a.control:hover { color: #DD6900; }
     padding: 0;
     height:auto;      /* the drop-down height will be determiend by line count */
     width: 100%;
-}
-.lte7 .css-menu > ul > li > ul > li  {
-    width: 30ex; /* For IE7: ~ maximum chars in a menu item */
 }
 
 .css-menu > ul > li > ul > li > ul {
@@ -5428,29 +5409,6 @@ button.dropdown-toggle {
 .action-gradient.active {
   background-color: #d5d5d5 \9;
 }
-/* Modifications for IE8 and under */
-.lte8 .simple-button {
-  border-width: 1px;
-}
-.lte8 .simple-button:active,
-.lte8 .simple-button.toggled {
-  background-color: #d5d5d5;
-}
-.lte8 .simple-button.blue:active,
-.lte8 .simple-button.blue.toggled {
-  background-color: #10161d;
-}
-.lte8 .simple-button.green:active,
-.lte8 .simple-button.green.toggled {
-  background-color: #496400;
-}
-.lte8 .simple-button.orange:active,
-.lte8 .simple-button.orange.toggled {
-  background-color: #8d3a03;
-}
-.lte7 .simple-button {
-  position: static;
-}
 input.simple-button {
   /* Inputs (specificically buttons) don't obey padding in some cases */
   line-height: 15px;
@@ -6971,9 +6929,6 @@ a .icon-flip-vertical:before {
 .large-search-form .typeahead-search .twitter-typeahead {
   width: 100%;
 }
-.lte8 .typeahead-search input[type=text] {
-  line-height: 40px;
-}
 .progress-started,
 .progress-complete {
   display: none;
@@ -8398,9 +8353,6 @@ legend + .control-group {
 .modal h4 {
   font-family: 'Proxima Nova', 'Helvetica', 'Corbel', sans-serif;
   color: #555555;
-}
-.modal .lte7 {
-  border: 1px solid #999;
 }
 .modal-backdrop,
 .modal-backdrop.fade.in {
@@ -10082,9 +10034,6 @@ legend + .control-group {
 #tab-content-user-profile .user-info-container .widget-privacy-indicator,
 #tab-content-user-profile .user-info-container .widget-privacy-icon {
   color: #7c93a5;
-}
-#tab-content-user-profile .lte8 .user-info-container .user-info {
-  background: #384a62;
 }
 #tab-content-user-profile .user-info-container .avatar-pic-container {
   display: inline-block;
