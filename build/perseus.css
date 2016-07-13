@@ -1,6 +1,6 @@
 /* Perseus CSS
-// commit 63707778706d647bfa944ed974ddbb1475d222be
-// branch master
+// commit 9ace061943dcf19ede4ef2d41bc53f817f892923
+// branch HEAD
 // @generated
 */
 .perseus-sr-only {
@@ -2295,17 +2295,18 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
 #sat-mission .content-area > div.perseus-renderer-two-columns > .paragraph {
   margin: 0;
 }
+#sat-mission .content-area > div.perseus-renderer-two-columns .perseus-two-columns {
+  display: flex;
+  justify-content: center;
+}
 #sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
-  vertical-align: top;
   width: 512px;
 }
 #sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(1) {
   background: #eee;
   border-right: 1px solid #ddd;
-  height: 502px;
-  max-height: 502px;
   box-sizing: border-box;
 }
 #sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(1) .perseus-column-content {
@@ -2328,10 +2329,6 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
 }
 #sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(1) blockquote > .paragraph:nth-child(1) {
   margin-top: 0;
-}
-#sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(2) {
-  height: 550px;
-  max-height: 550px;
 }
 #sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(2) .perseus-column-content {
   padding-left: 32px;
