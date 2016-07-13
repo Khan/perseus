@@ -1,6 +1,7 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* eslint-disable brace-style, no-console, no-var, object-curly-spacing, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
+/* globals katex */
 
 var React = require('react');
 var ReactDOM = require("react-dom");
@@ -14,6 +15,7 @@ var EnabledFeatures = require("./enabled-features.jsx");
 var {iconChevronDown, iconChevronRight, iconTrash} =
     require("./icon-paths.js");
 var InlineIcon = require("./components/inline-icon.jsx");
+var KatexErrorView = require("./katex-error-view.jsx");
 var PerseusMarkdown = require("./perseus-markdown.jsx");
 var PropCheckBox = require("./components/prop-check-box.jsx");
 var Util = require("./util.js");
@@ -335,6 +337,12 @@ var Editor = React.createClass({
             widgetEnabled: true,
             immutableWidgets: false,
             showWordCount: false,
+        };
+    },
+
+    getInitialState: function() {
+        return {
+            showKatexErrors: false,
         };
     },
 
@@ -836,6 +844,7 @@ var Editor = React.createClass({
         var templatesDropDown;
         var widgetsAndTemplates;
         var wordCountDisplay;
+        var katexErrorList = [];
 
         if (this.props.showWordCount) {
             var numChars = PerseusMarkdown.characterCount(this.props.content);
@@ -858,6 +867,22 @@ var Editor = React.createClass({
                 if (i % 2 === 0) {
                     // Normal text
                     underlayPieces.push(pieces[i]);
+
+                    const ast = PerseusMarkdown.parse(pieces[i]);
+
+                    PerseusMarkdown.traverseContent(ast, (node) => {
+                        if (node.type === 'math' || node.type === 'blockMath') {
+                            try {
+                                katex.renderToString(node.content);
+                            } catch (e) {
+                                katexErrorList.push({
+                                    math: node.content,
+                                    message: e.message,
+                                });
+                            }
+                        }
+                    });
+
                 } else {
                     // Widget reference
                     var match = Util.rWidgetParts.exec(pieces[i]);
@@ -971,6 +996,8 @@ var Editor = React.createClass({
             className={"perseus-single-editor " + (this.props.className || "")}
         >
             {textareaWrapper}
+            {katexErrorList.length > 0 &&
+                <KatexErrorView errorList={katexErrorList}/>}
             {wordCountDisplay}
             {widgetsAndTemplates}
         </div>;
