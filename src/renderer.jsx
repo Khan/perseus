@@ -816,8 +816,14 @@ var Renderer = React.createClass({
                 }
             };
 
+            // Replace uses of \begin{align}...\end{align} which KaTeX doesn't
+            // support (yet) with \begin{aligned}...\end{aligned} which renders
+            // the same is supported by KaTeX.  It does the same for align*.
+            // TODO(kevinb) update content to use aligned instead of align.
+            const tex = node.content.replace(/\{align[*]?\}/g, '{aligned}');
+
             const content = <TeX onRender={onRender}>
-                {node.content}
+                {tex}
             </TeX>;
 
             if (apiOptions.xomManatee) {
@@ -900,6 +906,12 @@ var Renderer = React.createClass({
             }
 
         } else if (node.type === "math") {
+            // Replace uses of \begin{align}...\end{align} which KaTeX doesn't
+            // support (yet) with \begin{aligned}...\end{aligned} which renders
+            // the same is supported by KaTeX.  It does the same for align*.
+            // TODO(kevinb) update content to use aligned instead of align.
+            const tex = node.content.replace(/\{align[*]?\}/g, '{aligned}');
+
             // We render math here instead of in perseus-markdown.jsx
             // because we need to pass it our onRender callback.
             return <span
@@ -914,7 +926,7 @@ var Renderer = React.createClass({
                     wrap (I don't know why this works, but it does) */}
                 <span />
                 <TeX onRender={this.props.onRender}>
-                    {node.content}
+                    {tex}
                 </TeX>
                 <span />
             </span>;
