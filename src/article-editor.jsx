@@ -255,6 +255,7 @@ const ArticleEditor = React.createClass({
         >
             <IframeContentRenderer
                 ref={"frame-" + i}
+                key={this.props.screen}
                 content={this.props.frameSource}
                 datasetKey="mobile"
                 datasetValue={isMobile}

@@ -67,6 +67,7 @@ var ItemEditor = React.createClass({
                         >
                             <IframeContentRenderer
                                 ref="frame"
+                                key={this.props.deviceType}
                                 content={this.props.frameSource}
                                 datasetKey="mobile"
                                 datasetValue={isMobile}
