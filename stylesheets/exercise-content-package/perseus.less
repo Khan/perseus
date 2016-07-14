@@ -816,6 +816,7 @@
 // #sat-mission (below) matches when we're inside the SAT MVP product,
 // basically internal-only and in flux.
 #sat-mission {
+    @satSectionHeight: 550px;
     @satContentWidth: 592px;
 
     .content-area > div {
@@ -900,19 +901,17 @@
                 margin: 0;
             }
 
-            .perseus-two-columns {
-                display: flex;
-                justify-content: center;
-            }
-
             .perseus-column {
-                display: flex;
+                display: inline-flex;
                 flex-direction: column;
+                vertical-align: top;
                 width: 512px;
 
                 &:nth-child(1) {
                     background: #eee;
                     border-right: 1px solid #ddd;
+                    height: @satSectionHeight - @satTopSpacingForTwoColumnLayout;
+                    max-height: @satSectionHeight - @satTopSpacingForTwoColumnLayout;
                     box-sizing: border-box;
 
                     .perseus-column-content {
@@ -948,6 +947,9 @@
                 }
 
                 &:nth-child(2) {
+                    height: @satSectionHeight;
+                    max-height: @satSectionHeight;
+
                     .perseus-column-content {
                         padding-left: 32px;
                         padding-right: 32px;
