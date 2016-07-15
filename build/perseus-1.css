@@ -1155,14 +1155,14 @@ body.mobile .perseus-widget-radio input[type=checkbox]:checked:before {
   box-sizing: border-box;
   margin-top: 5px;
   padding: 2px;
-  width: 240px;
+  width: 280px;
 }
 .math-input-buttons.absolute {
   left: -2px;
   position: absolute;
   top: -3px;
   z-index: 5;
-  width: 300px;
+  width: 360px;
 }
 .tex-button {
   display: block;
