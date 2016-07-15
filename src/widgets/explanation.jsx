@@ -6,7 +6,6 @@ const { StyleSheet, css } = require("aphrodite");
 const React = require("react");
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
-const $ = require("jQuery");
 
 const Changeable = require("../mixins/changeable.jsx");
 const PerseusApi = require("../perseus-api.jsx");
@@ -65,9 +64,8 @@ var Explanation = React.createClass({
             },
             0);
 
-        // Add the height of the renderer's top and bottom margins
-        const $renderer = $(contentElement).children(".perseus-renderer").eq(0);
-        contentHeight += $renderer.outerHeight(true) - $renderer.outerHeight();
+        // Add in padding since we're using border-box sizing.
+        contentHeight += 2 * verticalContentPadding;
 
         // Only update state if the height is different, otherwise we'll end
         // up calling componentDidUpdate in an infinite loop!
@@ -127,9 +125,7 @@ var Explanation = React.createClass({
             <div className={css(
                     styles.content,
                     xomManateeEnabled && styles.contentXom,
-                    this.state.expanded && (
-                        xomManateeEnabled ?
-                            styles.contentExpandedXom : styles.contentExpanded)
+                    this.state.expanded && styles.contentExpanded
                 )}
                 style={{
                     height: this.state.expanded ? this.state.contentHeight : 0,
@@ -157,7 +153,7 @@ var Explanation = React.createClass({
 
 
 const leftBorderSpacing = 23;
-const verticalContentSpacing = 22;
+const verticalContentPadding = 10;
 
 const arrowWidth = 30;
 const arrowHeight = 14;
@@ -204,8 +200,14 @@ const styles = StyleSheet.create({
         borderLeft: '5px solid #ccc',
         marginLeft: -leftBorderSpacing,
         paddingLeft: leftBorderSpacing,
-        marginBottom: verticalContentSpacing,
-        marginTop: verticalContentSpacing,
+
+        paddingTop: verticalContentPadding,
+        paddingBottom: verticalContentPadding,
+
+        // Note: we still use arrow height as the vertical margin, even in
+        // non-XOM when there is no arrow, but it's good enough.
+        marginBottom: arrowHeight,
+        marginTop: arrowHeight,
     },
 
     contentXom: {
@@ -218,13 +220,6 @@ const styles = StyleSheet.create({
         marginRight: styleConstants.negativePhoneMargin,
         paddingLeft: styleConstants.phoneMargin,
         paddingRight: styleConstants.phoneMargin,
-    },
-
-    contentExpandedXom: {
-        marginTop: arrowHeight,
-        marginBottom: arrowHeight,
-        paddingTop: 10,
-        paddingBottom: 10,
     },
 
     disclosureArrow: {
