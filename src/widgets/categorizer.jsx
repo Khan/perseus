@@ -12,6 +12,8 @@ const _ = require("underscore");
 
 const ApiClassNames = require("../perseus-api.jsx").ClassNames;
 const ApiOptions = require("../perseus-api.jsx").Options;
+const {iconCircle, iconCircleThin} = require("../icon-paths.js");
+const InlineIcon = require("../components/inline-icon.jsx");
 const Renderer = require("../renderer.jsx");
 const Util = require("../util.js");
 const mediaQueries = require("../styles/media-queries.js");
@@ -120,7 +122,12 @@ const Categorizer = React.createClass({
                                         this.props.static && selected
                                             && styles.staticCheckedRadioSpan
                                     )}
-                                />
+                                >
+                                    {selected
+                                        ? <InlineIcon {...iconCircle} />
+                                        : <InlineIcon {...iconCircleThin} />
+                                    }
+                                </span>
                             </div>
                         </td>;
                     })}
@@ -205,7 +212,7 @@ const styles = StyleSheet.create({
         verticalAlign: 'middle',
     },
 
-    // Legacy styling
+    // Legacy styling?
     // TODO(jared): remove when XOM is done
 
     radioInput: {
@@ -213,16 +220,8 @@ const styles = StyleSheet.create({
     },
 
     radioSpan: {
-        ':before': {
-            display: 'inline-block',
-            position: 'relative',
-            fontFamily: 'FontAwesome',
-            fontSize: 30,
-            width: 30,
-            paddingRight: 3,
-            top: 3,
-            content: '"\\f1db"',  // fa-circle-thin
-        },
+        fontSize: 30,
+        paddingRight: 3,
 
         ':hover': {
             color: '#999',
@@ -230,20 +229,14 @@ const styles = StyleSheet.create({
     },
 
     checkedRadioSpan: {
-        ':before': {
-            content: '"\\f111"',
-            color: '#333',
-        },
+        color: '#333',
     },
 
     // .static-mode is applied by the Categorizer when the rendered
     // widget is static; in this case we gray out the choices to show
     // the user that the widget can't be interacted with.
     staticCheckedRadioSpan: {
-        ':before': {
-            content: '"\f111"',
-            color: '#888',
-        },
+        color: '#888',
     },
 
     // New (XOM) Styling
