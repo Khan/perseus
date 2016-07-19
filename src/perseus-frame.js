@@ -32,7 +32,7 @@ const ReactDOM = window.ReactDOM = React.__internalReactDOM;
 
 const PreviewFrame = require('./preview-frame.jsx');
 
-Perseus.init({skipMathJax: false}).then(function() {
+Perseus.init({skipMathJax: false, loadExtraWidgets: true}).then(function() {
     const isMobile =
         window.frameElement.getAttribute("data-mobile") === "true";
     ReactDOM.render(

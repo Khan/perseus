@@ -67,7 +67,7 @@ const routes = { // The value is spread across a React.createElement call
     '': [EditorDemo, {question, problemNum}],
 };
 
-Perseus.init({skipMathJax: false}).then(function() {
+Perseus.init({skipMathJax: false, loadExtraWidgets: true}).then(function() {
     DemoComponent = ReactDOM.render(
         React.createElement(...(routes[path] || routes[''])),
         document.getElementById("perseus-container")

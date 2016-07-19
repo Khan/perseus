@@ -1,19 +1,25 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var _ = require("underscore");
+const init = function(options) {
+    // Pass skipMathJax: true if MathJax is already loaded and configured.
+    const skipMathJax = options.skipMathJax;
 
-var init = function(options) {
-    _.defaults(options, {
-        // Pass skipMathJax: true if MathJax is already loaded and configured.
-        skipMathJax: false
-    });
+    const widgetsDeferred = $.Deferred();
 
-    var deferred = $.Deferred();
+    if (options.loadExtraWidgets) {
+        const Widgets = require("./widgets.js");
+        require.ensure([], require => {
+            const extraWidgets = require("./extra-widgets.js");
+            Widgets.registerMany(extraWidgets);
+            widgetsDeferred.resolve();
+        }, "extra-widgets");
+    } else {
+        widgetsDeferred.resolve();
+    }
 
-    if (options.skipMathJax) {
-        deferred.resolve();
+    const mathJaxDeferred = $.Deferred();
+
+    if (skipMathJax) {
+        mathJaxDeferred.resolve();
     } else {
         MathJax.Hub.Config({
             messageStyle: "none",
@@ -22,15 +28,15 @@ var init = function(options) {
                 availableFonts: ["TeX"],
                 imageFont: null,
                 scale: 100,
-                showMathMenu: false
-            }
+                showMathMenu: false,
+            },
         });
 
         MathJax.Hub.Configured();
-        MathJax.Hub.Queue(deferred.resolve);
+        MathJax.Hub.Queue(mathJaxDeferred.resolve);
     }
 
-    return deferred;
+    return widgetsDeferred.then(() => mathJaxDeferred);
 };
 
 module.exports = init;

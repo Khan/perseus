@@ -2,6 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 
 const includeEditor = process.env.INCLUDE_EDITORS === "true";
+const slim = !process.env.NOT_SLIM && !includeEditor;
 const prod = process.env.NODE_ENV === "production";
 
 const externalVals = {
@@ -70,26 +71,45 @@ function getEntryPoints() {
             "frame-perseus": "./src/perseus-frame.js",
         };
     } else {
+        const name = slim ? "perseus-slim" : "perseus";
         return {
-            "perseus": "./src/perseus.js",
+            [name]: "./src/perseus.js",
         };
     }
+}
+
+const plugins = [
+    new webpack.DefinePlugin({
+        'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`,
+    }),
+];
+
+if (!slim) {
+    // This plugin prevents the creation of extra files, so all chunks are
+    // just in one file (same as before perseus slimming).
+    plugins.push(new webpack.optimize.LimitChunkCountPlugin({
+        maxChunks: 1,
+    }));
 }
 
 module.exports = {
     entry: getEntryPoints(),
     output: {
         path: "./build",
+        // NOTE(jared): If you pass `loadExtraWidgets: true` to Perseus.init &
+        // you haven't preloaded the `perseus-extras.js` file, webpack will
+        // try to load it, but it doesn't have a hope of knowing where to get
+        // it from. So it will try to load it at this very unusual path that
+        // will hopefully give developers a hint at what's going on.
+        publicPath: "if you see this then you failed to preload " +
+            "the extra-widgets chunk from perseus. webpack is trying " +
+            "to load it for you",
         filename: "[name].js",
         library: "Perseus",
         libraryTarget: "umd",
     },
     externals: externals,
-    plugins: [
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`,
-        }),
-    ],
+    plugins: plugins,
     module: {
         loaders: [
             {

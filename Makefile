@@ -3,6 +3,8 @@ PORT=9000
 SUPPRESSINSTALL=FALSE
 
 PERSEUS_BUILD_JS=build/perseus.js
+PERSEUS_SLIM_JS=build/perseus-slim.js
+PERSEUS_EXTRAS_JS=build/perseus-extras.js
 PERSEUS_BUILD_CSS=build/perseus.css
 PERSEUS_DEMO_BUILD_JS=build/demo-perseus.js
 PERSEUS_NODE_BUILD_JS=build/node-perseus.js
@@ -19,7 +21,7 @@ help:
 	@echo "make test                     # run all tests"
 	@echo "# NOTE: you can append SUPPRESSINSTALL=TRUE to avoid running npm install. Useful if you temporarily have no internet."
 
-build: clean install lint shorttest $(PERSEUS_BUILD_JS) $(PERSEUS_NODE_BUILD_JS) $(PERSEUS_EDITOR_BUILD_JS) $(PERSEUS_BUILD_CSS) $(PERSEUS_VERSION_FILE) shortnodetest shorteditortest
+build: clean install lint shorttest $(PERSEUS_SLIM_JS) $(PERSEUS_BUILD_JS) $(PERSEUS_NODE_BUILD_JS) $(PERSEUS_EDITOR_BUILD_JS) $(PERSEUS_BUILD_CSS) $(PERSEUS_VERSION_FILE) shortnodetest shorteditortest
 watch: install
 	./watch.sh
 
@@ -41,7 +43,17 @@ minify: $(MIN_PERSEUS_BUILD)
 $(MIN_PERSEUS_BUILD): $(PERSEUS_BUILD_JS)
 	$(call minify,$(PERSEUS_BUILD_JS),$@)
 
+# TODO(jared): remove this once all clients can handle the slim version
 $(PERSEUS_BUILD_JS): install
+	mkdir -p build
+	NOT_SLIM=1 NODE_ENV=production ./node_modules/.bin/webpack
+	mv $@ $@.tmp
+	echo '/*! Perseus | http://github.com/Khan/perseus */' > $@
+	$(call add_git_meta,$@)
+	cat $@.tmp >> $@
+	rm $@.tmp
+
+$(PERSEUS_SLIM_JS): install
 	mkdir -p build
 	NODE_ENV=production ./node_modules/.bin/webpack
 	mv $@ $@.tmp
@@ -49,6 +61,7 @@ $(PERSEUS_BUILD_JS): install
 	$(call add_git_meta,$@)
 	cat $@.tmp >> $@
 	rm $@.tmp
+	mv build/1.extra-widgets.js build/perseus-extras.js
 
 $(PERSEUS_NODE_BUILD_JS): install
 	mkdir -p build
