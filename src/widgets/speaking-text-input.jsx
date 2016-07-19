@@ -13,13 +13,11 @@ var TextInput = React.createClass({
     },
 
     pasteValue: function(e) {
-        console.log("paste");
         e.preventDefault();
         return false;
     },
 
     keypressValue: function(e) {
-        console.log("keypress");
         e.preventDefault();
         return false;
     },
@@ -30,12 +28,12 @@ var TextInput = React.createClass({
     },
 
     changeValue: function(e) {
-    //     // Translating from the js event e to the value
-    //     // of the textbox to send to onChange
+        // Chrome Speech API
         if(e.target.value){
             console.log(e.target.value);
             this.props.setValue(e.target.value);
         }
+        // iOS Siri Input
         else{
             console.log(this.refs.input.value);
             this.props.setValue(this.refs.input.value);
@@ -47,21 +45,38 @@ var TextInput = React.createClass({
     }
 });
 
+var StatusSpan = React.createClass({
+    render : function() {
+        return (
+            <span>{this.props.text}</span>
+        )
+    }
+});
+
 var SpeakingBtn = React.createClass({
     render: function() {
         return (
-            <button ref="btn_speaking" onClick={this.startRecognize}>辨識</button>
+            <div>
+                {this.state.recognition ?
+                    <button ref="btn_speaking"
+                        onClick={this.startRecognize}
+                        className="simple-button orange">辨識
+                        </button>
+                    : false}
+
+                <StatusSpan text={this.state.status}></StatusSpan>
+            </div>
         );
     },
     getInitialState: function() {
         return {
             recognition: null,
-            recognizing: false
+            recognizing: false,
+            status: "",
         }
     },
 
     startRecognize: function() {
-        console.log(this.state.recognizing);
         if(this.state.recognizing==false){
             this.state.recognition.start();
         }
@@ -70,20 +85,21 @@ var SpeakingBtn = React.createClass({
     componentDidMount: function() {
         var self = this;
         var os = self.getMobileOperatingSystem();
-        console.log(self.hasSpeechRecognition());
-
         if(self.hasSpeechRecognition()){
             var recognition = new webkitSpeechRecognition();
             recognition.lang = 'en-US';
             recognition.continuous = false;
             recognition.interimResults = true;
             self.setState({recognizing: false});
+            self.setState({status: "請按開始"});
             recognition.onstart = function() {
                 self.setState({recognizing: true});
+                self.setState({status: "辨識中"});
                 console.log('recognition start');
             };
             recognition.onend = function() {
                 self.setState({recognizing: false});
+                self.setState({status: "辨識完成"});
                 console.log('recognition end');
             };
             recognition.onresult = function(event) {
@@ -97,6 +113,17 @@ var SpeakingBtn = React.createClass({
                 }
             }
             self.setState({recognition: recognition});
+        }
+        else{
+            if(os=='iOS'){
+                self.setState({status: "請用 Siri 語音輸入"});
+            }
+            else if (os=='Android') {
+                self.setState({status: "請用 Google 語音輸入"});
+            }
+            else{
+                self.setState({status: "請用 Chrome 瀏覽器"});
+            }
         }
     },
 
