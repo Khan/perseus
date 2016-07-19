@@ -2,7 +2,7 @@
  * Displays a collapsable list of KaTeX rendering errors.
  */
 const React = require('react');
-const { css, StyleSheet } = require('aphrodite');
+const {css, StyleSheet} = require('aphrodite');
 
 const KatexErrorView = React.createClass({
     propTypes: {

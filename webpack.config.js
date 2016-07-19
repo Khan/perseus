@@ -2,7 +2,8 @@ const path = require("path");
 const webpack = require("webpack");
 
 const includeEditor = process.env.INCLUDE_EDITORS === "true";
-const slim = !process.env.NOT_SLIM && !includeEditor;
+const forFrame = process.env.PERSEUS_FRAME === "true";
+const slim = !process.env.NOT_SLIM && !includeEditor && !forFrame;
 const prod = process.env.NODE_ENV === "production";
 
 const externalVals = {
@@ -66,10 +67,9 @@ const externals = function(context, request, callback) {
 
 function getEntryPoints() {
     if (includeEditor) {
-        return {
-            "editor-perseus": "./src/editor-perseus.js",
-            "frame-perseus": "./src/perseus-frame.js",
-        };
+        return {"editor-perseus": "./src/editor-perseus.js"};
+    } else if (forFrame) {
+        return {"frame-perseus": "./src/perseus-frame.js"};
     } else {
         const name = slim ? "perseus-slim" : "perseus";
         return {

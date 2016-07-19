@@ -9,19 +9,20 @@ PERSEUS_BUILD_CSS=build/perseus.css
 PERSEUS_DEMO_BUILD_JS=build/demo-perseus.js
 PERSEUS_NODE_BUILD_JS=build/node-perseus.js
 PERSEUS_EDITOR_BUILD_JS=build/editor-perseus.js
+PERSEUS_FRAME_BUILD_JS=build/frame-perseus.js
 PERSEUS_VERSION_FILE=build/perseus-item-version.js
 MIN_PERSEUS_BUILD=build/perseus.min.js
 
 help:
 	@echo "make server PORT=9000         # runs the perseus server"
 	@echo "make server-offline PORT=9000 # runs the perseus server"
-	@echo "make build                    # runs tests and compiles into $(PERSEUS_BUILD_JS), $(PERSEUS_BUILD_CSS), $(PERSEUS_NODE_BUILD_JS), and $(PERSEUS_EDITOR_BUILD_JS)"
+	@echo "make build                    # runs tests and compiles into $(PERSEUS_BUILD_JS), $(PERSEUS_BUILD_CSS), $(PERSEUS_NODE_BUILD_JS), $(PERSEUS_EDITOR_BUILD_JS), and $(PERSEUS_FRAME_BUILD_JS)"
 	@echo "make watch                    # builds $(PERSEUS_BUILD_JS) and $(PERSEUS_EDITOR_BUILD_JS) and watches files for changes"
 	@echo "make clean                    # delete all compilation artifacts"
 	@echo "make test                     # run all tests"
 	@echo "# NOTE: you can append SUPPRESSINSTALL=TRUE to avoid running npm install. Useful if you temporarily have no internet."
 
-build: clean install lint shorttest $(PERSEUS_SLIM_JS) $(PERSEUS_BUILD_JS) $(PERSEUS_NODE_BUILD_JS) $(PERSEUS_EDITOR_BUILD_JS) $(PERSEUS_BUILD_CSS) $(PERSEUS_VERSION_FILE) shortnodetest shorteditortest
+build: clean install lint shorttest $(PERSEUS_SLIM_JS) $(PERSEUS_BUILD_JS) $(PERSEUS_NODE_BUILD_JS) $(PERSEUS_EDITOR_BUILD_JS) $(PERSEUS_FRAME_BUILD_JS) $(PERSEUS_BUILD_CSS) $(PERSEUS_VERSION_FILE) shortnodetest shorteditortest
 watch: install
 	./watch.sh
 
@@ -87,6 +88,15 @@ $(PERSEUS_EDITOR_BUILD_JS): install
 	NODE_ENV=production INCLUDE_EDITORS=true ./node_modules/.bin/webpack
 	mv $@ $@.tmp
 	echo '/*! Perseus with editors | http://github.com/Khan/perseus */' > $@
+	$(call add_git_meta,$@)
+	cat $@.tmp >> $@
+	rm $@.tmp
+
+$(PERSEUS_FRAME_BUILD_JS): install
+	mkdir -p build
+	NODE_ENV=production PERSEUS_FRAME=true ./node_modules/.bin/webpack
+	mv $@ $@.tmp
+	echo '/*! Perseus with editors for frame | http://github.com/Khan/perseus */' > $@
 	$(call add_git_meta,$@)
 	cat $@.tmp >> $@
 	rm $@.tmp
