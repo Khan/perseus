@@ -7,40 +7,53 @@
 
 require('./perseus-env.js');
 
-window.Khan = {
-    Util: KhanUtil,
-    error: function() {},
-    query: {debug: ""},
-    imageBase: "/images/",
-    scratchpad: {
-        _updateComponent: function() {
+// We only apply the stub implementation of window.Khan when it is not detected.
+// When the stub implementation is not used, mathJaxLoaded is defined on
+// window.Khan so we wait for mathJaxLoaded to complete before initializing
+// Perseus
+if (!window.Khan) {
+    window.Khan = {
+        Util: KhanUtil,
+        error: function() {},
+        query: {debug: ""},
+        imageBase: "/images/",
+        scratchpad: {
+            _updateComponent: function() {},
+            enable: function() {
+                Khan.scratchpad.enabled = true;
+                this._updateComponent();
+            },
+            disable: function() {
+                Khan.scratchpad.enabled = false;
+                this._updateComponent();
+            },
+            enabled: true,
         },
-        enable: function() {
-            Khan.scratchpad.enabled = true;
-            this._updateComponent();
-        },
-        disable: function() {
-            Khan.scratchpad.enabled = false;
-            this._updateComponent();
-        },
-        enabled: true,
-    },
-};
+    };
+}
 
 const Perseus = window.Perseus = require('./perseus.js');
 const ReactDOM = window.ReactDOM = React.__internalReactDOM;
 
 const PreviewFrame = require('./preview-frame.jsx');
 
-Perseus.init({skipMathJax: false, loadExtraWidgets: true}).then(function() {
-    const isMobile =
-        window.frameElement.getAttribute("data-mobile") === "true";
-    ReactDOM.render(
-        <div style={{overflow: "hidden"}} id="measured">
-            <PreviewFrame isMobile={isMobile} />
-        </div>,
-        document.getElementById("content-container")
-    );
-}).then(function() {}, function(err) {
-    console.error(err); // @Nolint
-});
+const afterMathJaxLoad = () => {
+    Perseus.init({skipMathJax: false, loadExtraWidgets: true}).then(function() {
+        const isMobile =
+            window.frameElement.getAttribute("data-mobile") === "true";
+        ReactDOM.render(
+            <div style={{overflow: "hidden"}} id="measured">
+                <PreviewFrame isMobile={isMobile}/>
+            </div>,
+            document.getElementById("content-container")
+        );
+    }).then(function() {}, function(err) {
+        console.error(err); // @Nolint
+    });
+};
+
+if (window.Khan.mathJaxLoaded) {
+    window.Khan.mathJaxLoaded.then(afterMathJaxLoad);
+} else {
+    afterMathJaxLoad();
+}
