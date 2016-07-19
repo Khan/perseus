@@ -77,6 +77,7 @@ const BaseRadio = React.createClass({
             responsiveStyling: React.PropTypes.bool,
             mobileStyling: React.PropTypes.bool,
             satStyling: React.PropTypes.bool,
+            xomManatee: React.PropTypes.bool,
         }),
         choices: ChoicesType,
         deselectEnabled: React.PropTypes.bool,
@@ -99,6 +100,7 @@ const BaseRadio = React.createClass({
                 color: styleConstants.gray17,
                 fontStyle: "normal",
                 fontWeight: "bold",
+                margin: "8px 0",
                 [mediaQueries.lgOrLarger]: {
                     fontSize: 20,
                 },
@@ -254,6 +256,18 @@ const BaseRadio = React.createClass({
         return true;
     },
 
+    getInstructionsText: function() {
+        if (this.props.apiOptions.xomManatee) {
+            return this.props.multipleSelect ?
+                i18n._("Choose all answers that apply.") :
+                i18n._("Choose 1 answer.");
+        } else {
+            return this.props.multipleSelect ?
+                i18n._("Select all that apply.") :
+                i18n._("Please choose from one of the following options.");
+        }
+    },
+
     render: function() {
         // TODO(aria): Stop this from mutating the id every time someone
         // clicks on a radio :(
@@ -286,17 +300,19 @@ const BaseRadio = React.createClass({
 
         const instructionsClassName = "instructions " + css(styles.instructions,
             mobile && styles.mobileInstructions);
+        const instructions = this.getInstructionsText();
+        const shouldShowInstructions = this.props.apiOptions.xomManatee ||
+                this.props.multipleSelect;
 
         return <fieldset className="perseus-widget-radio-fieldset">
-            <legend className="perseus-sr-only">{this.props.multipleSelect ?
-                i18n._("Select all that apply.") :
-                i18n._("Please choose from one of the following options.")
-            }</legend>
+            <legend className="perseus-sr-only">
+                {instructions}
+            </legend>
+            {shouldShowInstructions &&
+                <div className={instructionsClassName}>
+                    {instructions}
+                </div>}
             <ul className={className}>
-                {this.props.multipleSelect &&
-                    <div className={instructionsClassName}>
-                        {i18n._("Select all that apply.")}
-                    </div>}
                 {this.props.choices.map(function(choice, i) {
                     // True if we're in review mode and a clue (aka rationale)
                     // is available. These are only used for SAT questions,
