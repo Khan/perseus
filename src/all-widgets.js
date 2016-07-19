@@ -21,7 +21,8 @@ _.each([
     require("./widgets/sorter.jsx"),
     require("./widgets/table.jsx"),
     require("./widgets/transformer.jsx"),
-    require("./widgets/image.jsx")
+    require("./widgets/image.jsx"),
+    require("./widgets/speaking-text-input.jsx")
 ], function(widget) {
     Widgets.register(widget.name, _.omit(widget, "name"));
 });
