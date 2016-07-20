@@ -85,21 +85,21 @@ $(function() {
     };
 });
 
-function disablePageZoomOutOnMobile() {
+/**
+ * Changes the viewport meta tag to the given contentString. Invokes callback
+ * after viewport meta tag changes have taken effect.
+ *
+ * TODO(david): Return a promise instead of invoking a callback.
+ */
+function changeViewportTag(contentString, callback) {
     const scrollX = window.scrollX;
     const scrollY = window.scrollY;
 
-    // Disable zoom out on mobile devices by setting a minimum scale of 1 on
-    // the viewport meta tag.
-    const VIEWPORT_META_CONTENT =
-        'width=device-width, initial-scale=1, minimum-scale=1';
-
     const viewport = document.querySelector("meta[name=viewport]");
     if (viewport) {
-        viewport.setAttribute('content', VIEWPORT_META_CONTENT);
+        viewport.setAttribute('content', contentString);
     } else {
-        $('head').append(
-            `<meta name="viewport" content="${VIEWPORT_META_CONTENT}">`);
+        $('head').append(`<meta name="viewport" content="${contentString}">`);
     }
 
     // Hacky way to get the page to take the changes
@@ -113,6 +113,10 @@ function disablePageZoomOutOnMobile() {
         // ... which involves restoring the scroll position, which may have
         // changed.
         window.scrollTo(scrollX, scrollY);
+
+        // Invoke callback on the next tick to wait for scroll position to have
+        // finished resetting.
+        callback && setTimeout(callback, 0);
     }, 0);
 }
 
@@ -122,7 +126,7 @@ function disablePageZoomOutOnMobile() {
 function ZoomService() {
 }
 
-ZoomService.prototype._initialize = function(zoomToFullSizeOnMobile) {
+ZoomService.prototype._initialize = function(enableMobilePinch) {
     // Check to see if the service is already initialized
     if (this._$document) {
         return;
@@ -138,11 +142,11 @@ ZoomService.prototype._initialize = function(zoomToFullSizeOnMobile) {
 
     this._boundClick = $.proxy(this._clickHandler, this);
 
-    this._zoomToFullSizeOnMobile = zoomToFullSizeOnMobile;
+    this._enableMobilePinch = enableMobilePinch;
 };
 
-ZoomService.prototype.handleZoomClick = function(e, zoomToFullSizeOnMobile) {
-    this._initialize(zoomToFullSizeOnMobile);
+ZoomService.prototype.handleZoomClick = function(e, enableMobilePinch) {
+    this._initialize(enableMobilePinch);
     var target = e.target;
 
     if (!target || target.tagName !== 'IMG') {
@@ -157,33 +161,30 @@ ZoomService.prototype.handleZoomClick = function(e, zoomToFullSizeOnMobile) {
         return window.open(e.target.src, '_blank');
     }
 
-    if (!zoomToFullSizeOnMobile && target.width >= window.innerWidth -
-            Zoom.getOffset(zoomToFullSizeOnMobile)) {
+    if (!enableMobilePinch &&
+            target.width >= window.innerWidth - Zoom.getOffset()) {
         return;
     }
 
     this._activeZoomClose(true);
 
-    // Disable page zoom out, because the container that the image is placed in
-    // becomes bigger than the viewport if the page can be zoomed out. We
-    // explored other fixes like fixing the overlay and page size to be the
-    // viewport, but thought that might be even worse of a hack.
+    // Enable page zooming in (i.e. make sure there's no maximum-scale). Also,
+    // disable page zoom out on mobile devices, because the container that the
+    // image is placed in becomes bigger than the viewport if the page can be
+    // zoomed out. We explored other fixes like fixing the overlay and page
+    // size to be the viewport, but thought that might be even worse of a hack.
     // See for more info:
     // http://dbushell.com/2013/09/10/css-fixed-positioning-and-mobile-zoom/
-    if (zoomToFullSizeOnMobile) {
-        disablePageZoomOutOnMobile();
+    if (enableMobilePinch) {
+        // Disable zoom out by setting minimum scale of 1 on the viewport tag.
+        changeViewportTag(
+            'width=device-width, initial-scale=1, minimum-scale=1',
+            () => this._zoom(target));
+    } else {
+        this._zoom(target);
     }
 
-    // We do this after a slight delay because disabling page zoom out on
-    // mobile may change the viewport meta tag, which may change the scroll
-    // position for a bit, and we may need to wait for that scroll position to
-    // be reset to what it was before proceeding with the zoom animation.
-    setTimeout(() => {
-        this._activeZoom = new Zoom(target, zoomToFullSizeOnMobile);
-        this._activeZoom.zoomImage();
-    }, 5);
-
-    if (!zoomToFullSizeOnMobile) {
+    if (!enableMobilePinch) {
         // todo(fat): probably worth throttling this
         this._$window.on('scroll.zoom', $.proxy(this._scrollHandler, this));
 
@@ -198,6 +199,11 @@ ZoomService.prototype.handleZoomClick = function(e, zoomToFullSizeOnMobile) {
     e.stopPropagation();
 };
 
+ZoomService.prototype._zoom = function(target) {
+    this._activeZoom = new Zoom(target, this._enableMobilePinch);
+    this._activeZoom.zoomImage();
+};
+
 ZoomService.prototype._activeZoomClose = function(forceDispose) {
     if (!this._activeZoom) {
         return;
@@ -205,10 +211,21 @@ ZoomService.prototype._activeZoomClose = function(forceDispose) {
 
     if (forceDispose) {
         this._activeZoom.dispose();
+        this._disposeActiveZoom();
     } else {
-        this._activeZoom.close();
+        // Reset any underlying page zoom in case the user had pinched to zoom.
+        changeViewportTag(
+            `width=device-width, initial-scale=1, minimum-scale=1,
+            maximum-scale=1`,
+            () => {
+                this._activeZoom.close();
+                this._disposeActiveZoom();
+            }
+        );
     }
+};
 
+ZoomService.prototype._disposeActiveZoom = function() {
     this._$window.off('.zoom');
     this._$document.off('.zoom');
 
@@ -259,27 +276,28 @@ ZoomService.prototype._touchMove = function(e) {
 /**
  * The zoom object
  */
-function Zoom(img, zoomToFullSizeOnMobile) {
+function Zoom(img, enableMobilePinch) {
     this._fullHeight =
         this._fullWidth =
         this._overlay = null;
 
     this._targetImage = img;
-    this._zoomToFullSizeOnMobile = zoomToFullSizeOnMobile;
+    this._enableMobilePinch = enableMobilePinch;
 
     this._$body = $(document.body);
 }
 
+/** Margin around the image when in the "zoomed"/lightbox state. */
 Zoom._OFFSET = 80;
 Zoom._MAX_WIDTH = 2560;
 Zoom._MAX_HEIGHT = 4096;
 
-Zoom.getOffset = function(zoomToFullSizeOnMobile) {
-    return zoomToFullSizeOnMobile ? 0 : Zoom._OFFSET;
+Zoom.getOffset = function(zoomToFitOnMobile) {
+    return zoomToFitOnMobile ? 0 : Zoom._OFFSET;
 };
 
 Zoom.prototype.getOffset = function() {
-    return Zoom.getOffset(this._zoomToFullSizeOnMobile);
+    return Zoom.getOffset(this._enableMobilePinch);
 };
 
 Zoom.prototype.zoomImage = function() {
@@ -340,35 +358,29 @@ Zoom.prototype._zoomOriginal = function() {
 };
 
 Zoom.prototype._calculateZoom = function() {
-    var originalFullImageWidth = this._fullWidth;
-    var originalFullImageHeight = this._fullHeight;
+    const originalFullImageWidth = this._fullWidth;
+    const originalFullImageHeight = this._fullHeight;
+    const viewportHeight = (window.innerHeight - this.getOffset());
+    const viewportWidth = (window.innerWidth - this.getOffset());
 
-    var maxScaleFactor = originalFullImageWidth / this._targetImage.width;
+    const maxScaleFactor = originalFullImageWidth / this._targetImage.width;
 
-    if (this._zoomToFullSizeOnMobile) {
-        // Zoom to full size of the original image.
+    // Zoom to fit the viewport.
+    const imageAspectRatio =
+        originalFullImageWidth / originalFullImageHeight;
+    const viewportAspectRatio = viewportWidth / viewportHeight;
+
+    if (originalFullImageWidth < viewportWidth &&
+            originalFullImageHeight < viewportHeight) {
         this._imgScaleFactor = maxScaleFactor;
 
+    } else if (imageAspectRatio < viewportAspectRatio) {
+        this._imgScaleFactor = (viewportHeight / originalFullImageHeight) *
+            maxScaleFactor;
+
     } else {
-        // Zoom to fit the viewport.
-        var viewportHeight = (window.innerHeight - this.getOffset());
-        var viewportWidth = (window.innerWidth - this.getOffset());
-
-        var imageAspectRatio = originalFullImageWidth / originalFullImageHeight;
-        var viewportAspectRatio = viewportWidth / viewportHeight;
-
-        if (originalFullImageWidth < viewportWidth && originalFullImageHeight <
-            viewportHeight) {
-            this._imgScaleFactor = maxScaleFactor;
-
-        } else if (imageAspectRatio < viewportAspectRatio) {
-            this._imgScaleFactor = (viewportHeight / originalFullImageHeight) *
-                maxScaleFactor;
-
-        } else {
-            this._imgScaleFactor = (viewportWidth / originalFullImageWidth) *
-                maxScaleFactor;
-        }
+        this._imgScaleFactor = (viewportWidth / originalFullImageWidth) *
+            maxScaleFactor;
     }
 };
 
