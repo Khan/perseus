@@ -104,17 +104,6 @@ var FixedToResponsive = React.createClass({
             }
         }
 
-        // TODO(david): Use Aphrodite. However, that maybe a bit challenging
-        //     because we're passing in a this.prop.className.
-        let fullBleedContainerStyle = null;
-        if (this.props.allowFullBleed && this.state.viewportWidth &&
-                width >= this.state.viewportWidth) {
-            fullBleedContainerStyle = {
-                marginLeft: negativePhoneMargin,
-                marginRight: negativePhoneMargin,
-            };
-        }
-
         // Prevent child components from growing (aka "the Peter Pan effect")
         var style = {
             maxWidth: width,
@@ -126,12 +115,26 @@ var FixedToResponsive = React.createClass({
             this.props.className
         );
 
-        return <div style={fullBleedContainerStyle}>
-            <div className={className} style={style}>
-                {spacer}
-                {this.props.children}
-            </div>
+        const container = <div className={className} style={style}>
+            {spacer}
+            {this.props.children}
         </div>;
+
+        const shouldFullBleed = this.props.allowFullBleed &&
+            this.state.viewportWidth && width >= this.state.viewportWidth;
+
+        if (shouldFullBleed) {
+            return <div
+                style={{
+                    marginLeft: negativePhoneMargin,
+                    marginRight: negativePhoneMargin,
+                }}
+            >
+                {container}
+            </div>;
+        } else {
+            return container;
+        }
     }
 });
 
