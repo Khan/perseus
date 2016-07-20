@@ -15,7 +15,7 @@ var widgetsInEditor = ['image', 'categorizer', 'dropdown', 'expression',
                       'lights-puzzle', 'measurer', 'number-line',
                       'iframe', 'numeric-input', 'plotter',
                       'radio', 'sorter', 'table', 'transformer', 'matcher',
-                      'speaking-text-input'];
+                      'speaking-text-input', 'speaking-voice'];
 
 var WidgetSelect = React.createClass({
     handleChange: function(e) {
