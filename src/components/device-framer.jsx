@@ -16,14 +16,14 @@ var SCREEN_SIZES = {
         framedWidth: 375,
     },
     tablet: {
-        width: 768,
+        width: 512,
         height: 946,
-        framedWidth: 768,
+        framedWidth: 512,
     },
     desktop: {
-        width: 960,
+        width: 688,
         height: 600,
-        framedWidth: 960,
+        framedWidth: 688,
     },
 };
 
