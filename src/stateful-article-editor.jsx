@@ -88,11 +88,19 @@ const StatefulArticleEditor = React.createClass({
                 <span style={styles.controls}>
                     Screen:{" "}
                     <span
-                        onClick={() => this.setState({screen: "mobile"})}
-                        style={screen === "mobile" ?
+                        onClick={() => this.setState({screen: "phone"})}
+                        style={screen === "phone" ?
                             styles.controlSelected : styles.control}
                     >
-                        MOBILE
+                        PHONE
+                    </span>
+                    {" | "}
+                    <span
+                        onClick={() => this.setState({screen: "tablet"})}
+                        style={screen === "tablet" ?
+                            styles.controlSelected : styles.control}
+                    >
+                        TABLET
                     </span>
                     {" | "}
                     <span
