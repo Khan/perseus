@@ -49,6 +49,7 @@ const GraphSettings = React.createClass({
         markings: React.PropTypes.oneOf(["graph", "grid", "none"]),
         showProtractor: React.PropTypes.bool,
         showRuler: React.PropTypes.bool,
+        showTooltips: React.PropTypes.bool,
         rulerLabel: React.PropTypes.string,
         rulerTicks: React.PropTypes.number
     },
@@ -81,6 +82,7 @@ const GraphSettings = React.createClass({
             markings: "graph",
             showProtractor: false,
             showRuler: false,
+            showTooltips: false,
             rulerLabel: "",
             rulerTicks: 10
         };
@@ -170,6 +172,11 @@ const GraphSettings = React.createClass({
                             {value: "grid", content: "Grid"},
                             {value: "none", content: "None"}]}
                         onChange={this.change("markings")} />
+                </div>
+                <div className="perseus-widget-left-col">
+                    <PropCheckBox label="Show tooltips"
+                                  showTooltips={this.props.showTooltips}
+                                  onChange={this.change} />
                 </div>
             </div>}
 

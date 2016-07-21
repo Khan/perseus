@@ -12,4 +12,41 @@
             left: 0;
         }
     }
+
+    .tooltip.visible {
+        z-index: 2;
+    }
+
+    .tooltip.visible:before {
+        border: solid;
+        border-color: white transparent;
+        border-width: 10px 10px 0 10px;
+        bottom: 30px;
+        content: "";
+        left: 50%;
+        transform: translateX(-50%);
+        position: absolute;
+        z-index: 2;
+    }
+
+    .tooltip .tooltip-content {
+        display: none;
+    }
+
+    .tooltip.visible .tooltip-content {
+        display: inline-block;
+        background: white;
+        border-radius: 5px;
+        bottom: 40px;
+
+        .katex {
+            color: @kaGreen !important;
+        }
+
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 5px;
+        position: absolute;
+        white-space: nowrap;
+    }
 }

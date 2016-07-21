@@ -42,6 +42,7 @@ const InteractiveGraphEditor = React.createClass({
             markings: "graph",
             showProtractor: false,
             showRuler: false,
+            showTooltips: false,
             rulerLabel: "",
             rulerTicks: 10,
             correct: {
@@ -102,6 +103,7 @@ const InteractiveGraphEditor = React.createClass({
             graph = <InteractiveGraph
                 {...graphProps}
                 containerSizeClass={sizeClass}
+                apiOptions={{xomManatee: false}}
             />;
             equationString = InteractiveGraph.getEquationString(graphProps);
         } else {
@@ -130,6 +132,7 @@ const InteractiveGraphEditor = React.createClass({
                 markings={this.props.markings}
                 showProtractor={this.props.showProtractor}
                 showRuler={this.props.showRuler}
+                showTooltips={this.props.showTooltips}
                 rulerLabel={this.props.rulerLabel}
                 rulerTicks={this.props.rulerTicks}
                 onChange={this.props.onChange} />
@@ -212,8 +215,8 @@ const InteractiveGraphEditor = React.createClass({
 
     serialize: function() {
         var json = _.pick(this.props, "step", "backgroundImage", "markings",
-            "labels", "showProtractor", "showRuler", "rulerLabel",
-            "rulerTicks", "range", "gridStep", "snapStep");
+            "labels", "showProtractor", "showRuler", "showTooltips",
+            "rulerLabel", "rulerTicks", "range", "gridStep", "snapStep");
 
         var graph = this.refs.graph;
         if (graph) {

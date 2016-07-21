@@ -39,8 +39,9 @@ var draw = {
             var options = {
                 maxScale: Math.max(
                     this.highlightStyle().scale, this.normalStyle().scale),
-                // Add in 2px of padding to avoid clipping at the edges.
-                padding: 2,
+                // Add in 10px of padding to avoid clipping at the edges.
+                padding: 10,
+                shadow: state.shadow,
             };
             this.state.visibleShape = new WrappedEllipse(graphie, this.coord(),
                 radii, options);
@@ -117,27 +118,42 @@ var constraints = {
                 paddingPx = 0;
             }
         }
-        return function(coord) {
+        return function(coord, prev, options) {
             var graphie = this.graphie;
             range = range || graphie.range;
+
             if (snap === undefined) {
                 snap = graphie.snap;
             }
 
-            var lower = graphie.unscalePoint([
+            let lower = graphie.unscalePoint([
                 paddingPx,
                 graphie.ypixels - paddingPx
             ]);
-            var upper = graphie.unscalePoint([
+
+            let upper = graphie.unscalePoint([
                 graphie.xpixels - paddingPx,
                 paddingPx
             ]);
+
             if (snap) {
                 lower = kpoint.ceilTo(lower, snap);
                 upper = kpoint.floorTo(upper, snap);
             }
-            var coordX = Math.max(lower[0], Math.min(upper[0], coord[0]));
-            var coordY = Math.max(lower[1], Math.min(upper[1], coord[1]));
+
+            if (!!options && !!options.onOutOfBounds) {
+                if (coord[0] > upper[0] || coord[0] < lower[0] ||
+                    coord[1] > upper[1] || coord[1] < lower[1]) {
+                    options.onSkipRemaining();
+                    options.onOutOfBounds();
+                }
+
+                return coord;
+            }
+
+            const coordX = Math.max(lower[0], Math.min(upper[0], coord[0]));
+            const coordY = Math.max(lower[1], Math.min(upper[1], coord[1]));
+
             return [coordX, coordY];
         };
     }

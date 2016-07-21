@@ -7,7 +7,8 @@ var WrappedDefaults = require("./wrapped-defaults.js");
 
 var DEFAULT_OPTIONS = {
     maxScale: 1,
-    mouselayer: false
+    mouselayer: false,
+    shadow: false,
 };
 
 var WrappedEllipse = function(graphie, center, radii, options) {
@@ -26,6 +27,13 @@ var WrappedEllipse = function(graphie, center, radii, options) {
         this.graphie.addToMouseLayerWrapper(this.wrapper);
     } else {
         this.graphie.addToVisibleLayerWrapper(this.wrapper);
+    }
+
+    if (options.shadow) {
+        const filter = "drop-shadow(0px 0px 12px #000000)";
+        const svgElem = this.wrapper.children[0];
+        svgElem.style.webkitFilter = filter;
+        svgElem.style.filter = filter;
     }
 };
 

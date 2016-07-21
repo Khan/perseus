@@ -3,7 +3,7 @@
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var Movable = require("./interactive2/movable.js");
-var MovablePoint = require("./interactive2/movable-point.js");
+var MovablePoint = require("./interactive2/movable-point.jsx");
 var MovableLine = require("./interactive2/movable-line.js");
 var MovablePolygon = require("./interactive2/movable-polygon.js");
 

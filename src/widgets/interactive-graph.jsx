@@ -21,6 +21,7 @@ const {
     containerSizeClassPropType,
     getInteractiveBoxFromSizeClass,
 } = require("../util/sizing-utils.js");
+const WrappedLine = require("../interactive2/wrapped-line.js");
 
 var DeprecationMixin = Util.DeprecationMixin;
 
@@ -314,6 +315,7 @@ var InteractiveGraph = React.createClass({
             step: [1, 1],
             backgroundImage: defaultBackgroundImage,
             markings: "graph",
+            showTooltips: false,
             showProtractor: false,
             showRuler: false,
             rulerLabel: "",
@@ -606,6 +608,7 @@ var InteractiveGraph = React.createClass({
             gridStep
         );
 
+        const xomManatee = this.props.apiOptions.xomManatee;
         return <div className={"perseus-widget " +
                     "perseus-widget-interactive-graph"}
                     style={{
@@ -618,9 +621,9 @@ var InteractiveGraph = React.createClass({
                 box={box}
                 labels={this.props.labels}
                 range={this.props.range}
-                step={this.props.step}
+                step={xomManatee ? [2, 2] : this.props.step}
                 gridStep={gridStep}
-                snapStep={snapStep}
+                snapStep={xomManatee ? [1, 1] : snapStep}
                 markings={this.props.markings}
                 backgroundImage={this.props.backgroundImage}
                 showProtractor={this.props.showProtractor}
@@ -694,6 +697,8 @@ var InteractiveGraph = React.createClass({
 
     resetGraphie: function() {
         this.shouldResetGraphie = false;
+        this.parabola = null;
+        this.sinusoid = null;
         this.refs.graph.reset();
     },
 
@@ -703,8 +708,61 @@ var InteractiveGraph = React.createClass({
             this.setTrashCanVisibility(0.5);
         }
 
+        if (this.props.apiOptions.xomManatee) {
+            this.horizHairline =
+                new WrappedLine(this.graphie, [0, 0], [0, 0], {
+                    normalStyle: {
+                        "stroke-width": "2px"
+                    }
+                });
+            this.horizHairline.attr({
+                stroke: KhanColors.INTERACTIVE,
+            });
+            this.horizHairline.hide();
+
+            this.vertHairline =
+                new WrappedLine(this.graphie, [0, 0], [0, 0], {
+                    normalStyle: {
+                        "stroke-width": "2px"
+                    }
+                });
+            this.vertHairline.attr({
+                stroke: KhanColors.INTERACTIVE,
+            });
+            this.vertHairline.hide();
+        }
+
         var type = this.props.graph.type;
         this["add" + capitalize(type) + "Controls"]();
+    },
+
+    showHairlines: function(point) {
+        if (this.props.apiOptions.xomManatee &&
+            this.props.markings !== "none") {
+            // Hairlines are already initialized when the graph is loaded, so
+            // here we just move them to the updated location and make them
+            // visible.
+            this.horizHairline.moveTo(
+                [this.props.range[0][0], point[1]],
+                [this.props.range[0][1], point[1]]
+            );
+
+            this.horizHairline.show();
+
+            this.vertHairline.moveTo(
+                [point[0], this.props.range[1][0]],
+                [point[0], this.props.range[1][1]]
+            );
+
+            this.vertHairline.show();
+        }
+    },
+
+    hideHairlines: function() {
+        if (this.props.apiOptions.xomManatee) {
+            this.horizHairline.hide();
+            this.vertHairline.hide();
+        }
     },
 
     setTrashCanVisibility: function(opacity) {
@@ -715,7 +773,9 @@ var InteractiveGraph = React.createClass({
                 this.trashCan.remove();
                 this.trashCan = null;
             }
-        } else {
+        } else if (!this.props.apiOptions.xomManatee) {
+            // Only if trash tooltips are not being used, we initialize the old
+            // trash can area.
             if (!this.trashCan) {
                 this.trashCan = graphie.raphael.image(TRASH_ICON_URI,
                     graphie.xpixels - 40,
@@ -752,6 +812,40 @@ var InteractiveGraph = React.createClass({
                 props.graph.numSides === UNLIMITED);
     },
 
+    _createPoint: function(extraProps) {
+        const xomManatee = this.props.apiOptions.xomManatee;
+
+        const commonStyle = xomManatee ? {
+            stroke: "#ffffff",
+            "stroke-width": "4px",
+            fill: KhanColors.INTERACTIVE,
+        }: {
+            stroke: KhanColors.INTERACTIVE,
+            fill: KhanColors.INTERACTIVE,
+        };
+
+        const normalStyle = Object.assign(commonStyle, extraProps.normalStyle);
+
+        const highlightStyle = Object.assign(xomManatee ? {
+            ...commonStyle,
+            scale: 1,
+        } : {}, extraProps.highlightStyle);
+
+        const props = Object.assign({
+            normalStyle: normalStyle,
+            highlightStyle: highlightStyle,
+            shadow: xomManatee,
+            tooltip: xomManatee && this.props.showTooltips,
+            showHairlines: this.showHairlines,
+            hideHairlines: this.hideHairlines,
+        }, xomManatee ? {pointSize: 11} : {});
+
+        return Interactive2.addMovablePoint(
+            this.graphie,
+            Object.assign(extraProps, props)
+        );
+    },
+
     addLine: function(type) {
         var self = this;
         var graphie = self.graphie;
@@ -761,7 +855,7 @@ var InteractiveGraph = React.createClass({
         );
 
         var points = self.points = _.map(coords, (coord) => {
-            return Interactive2.addMovablePoint(graphie, {
+            return this._createPoint({
                 coord: coord,
                 constraints: [
                     Interactive2.MovablePoint.constraints.bound(),
@@ -772,10 +866,6 @@ var InteractiveGraph = React.createClass({
                         coords: _.invoke(points, "coord")
                     });
                     self.onChange({graph: graph});
-                },
-                normalStyle: {
-                    stroke: KhanColors.INTERACTIVE,
-                    fill: KhanColors.INTERACTIVE
                 }
             });
         });
@@ -836,7 +926,7 @@ var InteractiveGraph = React.createClass({
             this.updateQuadratic();
         };
 
-        pointA = this.pointA = Interactive2.addMovablePoint(graphie, {
+        pointA = this.pointA = this._createPoint({
             coord: coords[0],
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -849,7 +939,7 @@ var InteractiveGraph = React.createClass({
             onMove: onMoveHandler
         });
 
-        pointB = this.pointB = Interactive2.addMovablePoint(graphie, {
+        pointB = this.pointB = this._createPoint({
             coord: coords[1],
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -862,7 +952,7 @@ var InteractiveGraph = React.createClass({
             onMove: onMoveHandler
         });
 
-        pointC = this.pointC = Interactive2.addMovablePoint(graphie, {
+        pointC = this.pointC = this._createPoint({
             coord: coords[2],
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -926,7 +1016,7 @@ var InteractiveGraph = React.createClass({
             this.updateSinusoid();
         };
 
-        pointA = this.pointA = Interactive2.addMovablePoint(graphie, {
+        pointA = this.pointA = this._createPoint({
             coord: coords[0],
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -938,7 +1028,7 @@ var InteractiveGraph = React.createClass({
             onMove: onMoveHandler
         });
 
-        pointB = this.pointB = Interactive2.addMovablePoint(graphie, {
+        pointB = this.pointB = this._createPoint({
             coord: coords[1],
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -1017,7 +1107,7 @@ var InteractiveGraph = React.createClass({
         var points = this.points = _.map(coords,
                 (segmentCoords, segmentIndex) => {
             var segmentPoints = _.map(segmentCoords, (coord, i) => {
-                return Interactive2.addMovablePoint(graphie, {
+                return this._createPoint({
                     coord: coord,
                     constraints: [
                         Interactive2.MovablePoint.constraints.bound(),
@@ -1044,7 +1134,9 @@ var InteractiveGraph = React.createClass({
                         this.onChange({graph: graph});
                     },
                     normalStyle: {
-                        stroke: segmentColors[segmentIndex],
+                        fill: segmentColors[segmentIndex]
+                    },
+                    highlightStyle: {
                         fill: segmentColors[segmentIndex]
                     }
                 });
@@ -1071,6 +1163,10 @@ var InteractiveGraph = React.createClass({
     },
 
     isCoordInTrash: function(coord) {
+        if (this.props.apiOptions.xomManatee) {
+            return false;
+        }
+
         var graphie = this.graphie;
         var screenPoint = graphie.scalePoint(coord);
         return screenPoint[0] >= graphie.xpixels - 40 &&
@@ -1080,7 +1176,22 @@ var InteractiveGraph = React.createClass({
     createPointForPointsType: function(coord, i) {
         var self = this;
         var graphie = self.graphie;
-        var point = Interactive2.addMovablePoint(graphie, {
+
+        const remove = () => {
+            self.points = _.filter(self.points, function(pt) {
+                return pt !== point;
+            });
+            // update the correct answer box
+            self.updateCoordsFromPoints();
+
+            // remove this movablePoint from graphie.
+            // we wait to do this until we're not inside of
+            // said point's onMoveEnd method so its state is
+            // consistent throughout this method call
+            setTimeout(point.remove.bind(point), 0);
+        };
+
+        var point = this._createPoint({
             coord: coord,
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -1104,18 +1215,7 @@ var InteractiveGraph = React.createClass({
             onMoveEnd: function(coord) {
                 if (self.isClickToAddPoints()) {
                     if (self.isCoordInTrash(coord)) {
-                        // remove this point from points
-                        self.points = _.filter(self.points, function(pt) {
-                            return pt !== point;
-                        });
-                        // update the correct answer box
-                        self.updateCoordsFromPoints();
-
-                        // remove this movablePoint from graphie.
-                        // we wait to do this until we're not inside of
-                        // said point's onMoveEnd method so its state is
-                        // consistent throughout this method call
-                        setTimeout(point.remove.bind(point), 0);
+                        remove();
                     }
                     // In case we mouseup'd off the graphie and that
                     // stopped the move (in which case, we might not
@@ -1123,10 +1223,7 @@ var InteractiveGraph = React.createClass({
                     self.setTrashCanVisibility(0.5);
                 }
             },
-            normalStyle: {
-                stroke: KhanColors.INTERACTIVE,
-                fill: KhanColors.INTERACTIVE
-            }
+            ...(this.props.apiOptions.xomManatee ? {onRemove: remove} : {}),
         });
 
         return point;
@@ -1160,25 +1257,29 @@ var InteractiveGraph = React.createClass({
             return (i + j + this.points.length) % this.points.length;
         };
 
+        const remove = () => {
+            // remove this point from points
+            var index = this.removePoint(point);
+            if (this.polygon.closed()) {
+                this.points = rotate(this.points, index);
+                this.polygon.update({closed: false});
+            }
+            this.updatePolygon();
+            // the polygon is now unclosed, so we need to
+            // remove any points props
+            this.clearCoords();
+
+            // remove this movablePoint from graphie.
+            // wait to do this until we're not inside of
+            // said point's onMoveEnd method so state is
+            // consistent throughout the method call
+            setTimeout(point.remove.bind(point), 0);
+        };
+
         var onMoveEndHandler = (coord) => {
             if (this.isClickToAddPoints()) {
                 if (this.isCoordInTrash(coord)) {
-                    // remove this point from points
-                    var index = this.removePoint(point);
-                    if (this.polygon.closed()) {
-                        this.points = rotate(this.points, index);
-                        this.polygon.update({closed: false});
-                    }
-                    this.updatePolygon();
-                    // the polygon is now unclosed, so we need to
-                    // remove any points props
-                    this.clearCoords();
-
-                    // remove this movablePoint from graphie.
-                    // wait to do this until we're not inside of
-                    // said point's onMoveEnd method so state is
-                    // consistent throughout the method call
-                    setTimeout(point.remove.bind(point), 0);
+                    remove();
                 } else if (this.points.length > 1 && ((
                             point === this.points[0] &&
                             kpoint.equal(
@@ -1406,7 +1507,7 @@ var InteractiveGraph = React.createClass({
             }
         };
 
-        var point = Interactive2.addMovablePoint(graphie, {
+        var point = this._createPoint({
             coord: coord,
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -1425,10 +1526,8 @@ var InteractiveGraph = React.createClass({
                 }
             },
             onMoveEnd: onMoveEndHandler,
-            normalStyle: {
-                stroke: KhanColors.INTERACTIVE,
-                fill: KhanColors.INTERACTIVE
-            }
+            ...(this.props.apiOptions.xomManatee &&
+                this.isClickToAddPoints() ? {onRemove: remove} : {}),
         });
         point.state.isInitialMove = true;
 
@@ -1489,6 +1588,8 @@ var InteractiveGraph = React.createClass({
             this.props
         );
 
+        const createPoint = this._createPoint;
+
         this.points = [];
         this.lines = _.map(coords, function(segment, i) {
             var updateCoordProps = function() {
@@ -1499,12 +1600,8 @@ var InteractiveGraph = React.createClass({
             };
 
             var points = _.map(segment, function(coord, i) {
-                return Interactive2.addMovablePoint(graphie, {
+                return createPoint({
                     coord: coord,
-                    normalStyle: {
-                        stroke: KhanColors.INTERACTIVE,
-                        fill: KhanColors.INTERACTIVE
-                    },
                     constraints: [
                         Interactive2.MovablePoint.constraints.bound(),
                         Interactive2.MovablePoint.constraints.snap(),

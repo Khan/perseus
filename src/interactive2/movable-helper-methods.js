@@ -35,15 +35,27 @@ var MovableHelperMethods = {
      * Combine the array of constraints functions
      * Returns either an [x, y] coordinate or false
      */
-    _applyConstraints: function(current, previous) {
-        return _.reduce(this.state.constraints, function(memo, constraint) {
+    _applyConstraints: function(current, previous, extraOptions) {
+        let skipRemaining = false;
+
+        return _.reduce(this.state.constraints, (memo, constraint) => {
             // A move that has been cancelled won't be propagated to later
             // constraints calls
             if (memo === false) {
                 return false;
             }
 
-            var result = constraint.call(this, memo, previous);
+            if (skipRemaining) {
+                return memo;
+            }
+
+            var result = constraint.call(this, memo, previous, {
+                onSkipRemaining: () => {
+                    skipRemaining = true;
+                },
+                ...extraOptions
+            });
+
             if (result === false) {
                 // Returning false cancels the move
                 return false;
@@ -55,7 +67,6 @@ var MovableHelperMethods = {
             } else if (result === true || result == null) {
                 // Returning true or undefined allow the move to occur
                 return memo;
-
             } else {
                 // Anything else is an error
                 throw new Error("Constraint returned invalid result: " +

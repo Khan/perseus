@@ -65,6 +65,12 @@ var normalizeOptions = InteractiveUtil.normalizeOptions;
 var kpoint = require("kmath").point;
 var kvector = require("kmath").vector;
 const KhanColors = require("../util/colors.js");
+const processMath = require("../util/tex.js").processMath;
+const {iconTrash} = require("../icon-paths.js");
+
+const React = require("react");
+const ReactDOM = require("react-dom");
+const InlineIcon = require("../components/inline-icon.jsx");
 
 // State parameters that should be converted into an array of
 // functions
@@ -82,15 +88,20 @@ var DEFAULT_PROPS = {
     static: false,
     cursor: "move",
     normalStyle: null,    // turned into an object in this.modify
-    highlightStyle: null  // likewise
+    highlightStyle: null, // likewise
+    shadow: false,
+    tooltip: false,
 };
 var DEFAULT_STATE = {
     added: false,
     hasMoved: false,
     visibleShape: null,
+    outOfBounds: false,
     mouseTarget: null,
     touchOffset: null,
 };
+
+const tooltipResetFunctions = [];
 
 var MovablePoint = function(graphie, movable, options) {
     _.extend(this, {
@@ -148,6 +159,53 @@ _.extend(MovablePoint.prototype, {
     },
 
     /**
+     * Displays a tooltip above the point, replacing any previous contents. If
+     * there is no tooltip initialized, adds the tooltip.
+     *
+     * If the type of contents is string, the contents will be rendered with
+     * KaTeX. Otherwise, the content will be assumed to be a DOM node and will
+     * be appended inside the tooltip.
+     */
+    _showTooltip: function(contents) {
+        if (!this._tooltip) {
+            this._tooltip = document.createElement("div");
+            this._tooltip.className = "tooltip-content";
+            this.state.visibleShape.wrapper.className = "tooltip";
+            this.state.visibleShape.wrapper.appendChild(this._tooltip);
+
+            // Only one tooltip should be displayed at a time, so store a list
+            // of all the tooltips initialized.
+            tooltipResetFunctions.push(() => {
+                if (this.state.added) {
+                    this._hideTooltip();
+                }
+            });
+        }
+
+        if (this._tooltip.firstChild) {
+            this._tooltip.removeChild(this._tooltip.firstChild);
+        }
+
+        this.state.visibleShape.wrapper.className = "tooltip visible";
+        this._tooltip.appendChild(document.createElement("span"));
+
+        if (typeof contents === "string") {
+            processMath(this._tooltip.firstChild, contents, false);
+        } else if (typeof contents === "function") {
+            contents(this._tooltip.firstChild);
+        } else {
+            this._tooltip.firstChild.appendChild(contents);
+        }
+    },
+
+    _hideTooltip: function() {
+        if (this._tooltip) {
+            // Without the visible class, tooltips have display: none set
+            this.state.visibleShape.wrapper.className = "tooltip";
+        }
+    },
+
+    /**
      * Adjusts constructor parameters without changing previous settings
      * for any option not specified
      *
@@ -197,6 +255,23 @@ _.extend(MovablePoint.prototype, {
             }
         }
 
+        const showTrashTooltip = () => {
+            this._showTooltip((container) => {
+                ReactDOM.render(
+                    <span style={{fontSize: "2em"}}>
+                                <InlineIcon {...iconTrash} style={{
+                                    position: "static",
+                                    color: KhanColors.INTERACTIVE,
+                                    marginLeft: 9,
+                                    marginRight: 9
+                                }}
+                                />
+                            </span>,
+                    container
+                );
+            });
+        };
+
         // The starting coord of any move, sent to onMoveEnd as the previous
         // value
         let startCoord = state.coord;
@@ -227,6 +302,22 @@ _.extend(MovablePoint.prototype, {
                     );
                 }
 
+                if (state.shadow) {
+                    const filter = "drop-shadow(0px 0px 20px #000000)";
+                    const svgElem = state.visibleShape.wrapper.children[0];
+                    svgElem.style.webkitFilter = filter;
+                    svgElem.style.filter = filter;
+                }
+
+                if (state.showHairlines) {
+                    state.showHairlines(state.coord);
+                }
+
+                tooltipResetFunctions.forEach(f => f());
+                if (state.tooltip) {
+                    this._showTooltip(`(${state.coord[0]}, ${state.coord[1]})`);
+                }
+
                 self._fireEvent(state.onMoveStart, startCoord, startCoord);
                 self.draw();
             },
@@ -234,12 +325,68 @@ _.extend(MovablePoint.prototype, {
                 const transformedCoord = kvector.add(
                     mouseCoord, state.touchOffset
                 );
+
                 self.moveTo(transformedCoord);
+
+                if (state.showHairlines) {
+                    if (!this.state.outOfBounds) {
+                        state.showHairlines(state.coord);
+                    } else {
+                        state.hideHairlines();
+                    }
+                }
+
+                if (state.tooltip) {
+                    if (!this.state.outOfBounds) {
+                        this._showTooltip(`(${state.coord[0]}, ${state.coord[1]})`);
+                    } else {
+                        showTrashTooltip();
+                    }
+                }
             },
             onMoveEnd: () => {
                 if (self.isHovering() && !state.hasMoved) {
                     self._fireEvent(state.onClick, state.coord, startCoord);
                 }
+
+                if (state.shadow) {
+                    const filter = "drop-shadow(0px 0px 12px #000000)";
+                    const svgElem = state.visibleShape.wrapper.children[0];
+                    svgElem.style.webkitFilter = filter;
+                    svgElem.style.filter = filter;
+                }
+
+                if (state.hideHairlines) {
+                    state.hideHairlines();
+                }
+
+                if (state.hasMoved) {
+                    this._hideTooltip();
+                } else if (state.onRemove) {
+                    // If we haven't moved and we should be displaying trash
+                    // tooltips.
+                    showTrashTooltip();
+
+                    this._tooltip.firstChild.addEventListener("touchstart",
+                        (e) => {
+                            // Prevent creation of a new point when the event is
+                            // propagated up the DOM.
+                            e.stopPropagation();
+                        }, true);
+
+                    this._tooltip.firstChild.addEventListener("touchend",
+                        (e) => {
+                            // Remove the point and prevent creation of a
+                            // new point.
+                            state.onRemove();
+                            e.stopPropagation();
+                        }, true);
+                }
+
+                if (state.outOfBounds) {
+                    state.onRemove();
+                }
+
                 self._fireEvent(state.onMoveEnd, state.coord, startCoord);
                 state.hasMoved = false;
                 state.touchOffset = null;
@@ -304,7 +451,15 @@ _.extend(MovablePoint.prototype, {
         // By returning array [x, y], the move can be overridden
 
         var state = this.state;
-        var result = this._applyConstraints(coord, state.coord);
+
+        this.state.outOfBounds = false;
+        var result = this._applyConstraints(coord, state.coord,
+            state.onRemove ? {
+                onOutOfBounds: () => {
+                    this.state.outOfBounds = true;
+                }
+            } : {});
+
         if (result === false) {
             return;
         } else if (kpoint.is(result)) {

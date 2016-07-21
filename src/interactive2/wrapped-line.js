@@ -27,6 +27,8 @@ var WrappedLine = function(graphie, start, end, options) {
     _.extend(this,
         graphie.fixedLine(initialStart, initialEnd, options.thickness));
 
+    this.visibleShape.attr(options.normalStyle);
+
     // Save properties for computing transformations
     _.extend(this, {
         graphie: graphie,

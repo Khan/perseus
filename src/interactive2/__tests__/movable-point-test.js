@@ -8,14 +8,16 @@ const _ = require("underscore");
 
 // Interactive2 requires
 var _createMockMovable = require("./movable-mock.js");
-var MovablePoint = require("../movable-point.js");
+var MovablePoint = require("../movable-point.jsx");
 
 // Create a testable MovablePoint with a mocked out Movable
 var createPoint = function(options) {
     var movable = _createMockMovable();
     var point = new MovablePoint(null, movable, _.extend(options, {
         static: true,
-        draw: null
+        draw: null,
+        showHairlines: () => {},
+        hideHairlines: () => {},
     }));
     return {
         movable: movable,
