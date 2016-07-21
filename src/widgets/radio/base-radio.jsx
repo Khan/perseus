@@ -78,6 +78,11 @@ const BaseRadio = React.createClass({
             responsiveStyling: React.PropTypes.bool,
             satStyling: React.PropTypes.bool,
             xomManatee: React.PropTypes.bool,
+
+            // TODO(benkomalo): DEPRECATED - this was used by the old iPad app
+            // but is being phased out in favour of
+            // responsiveStyling/xomManatee. Remove by 2016/10/01
+            mobileStyling: React.PropTypes.bool,
         }),
         choices: ChoicesType,
         deselectEnabled: React.PropTypes.bool,
@@ -240,8 +245,15 @@ const BaseRadio = React.createClass({
         return true;
     },
 
+    useNewXomStyling: function() {
+        // TODO(benkomalo): temp hack - force XOM styling if the deprecated
+        // mobileStyling flag is passed in (old iPad versions)
+        return this.props.apiOptions.xomManatee ||
+            this.props.apiOptions.mobileStyling;
+    },
+
     getInstructionsText: function() {
-        if (this.props.apiOptions.xomManatee) {
+        if (this.useNewXomStyling()) {
             return this.props.multipleSelect ?
                 i18n._("Choose all answers that apply.") :
                 i18n._("Choose 1 answer.");
@@ -268,7 +280,8 @@ const BaseRadio = React.createClass({
 
         const responsive = this.props.apiOptions.responsiveStyling;
         const sat = this.props.apiOptions.satStyling;
-        const xomManatee = this.props.apiOptions.xomManatee;
+
+        const xomManatee = this.useNewXomStyling();
 
         const className = classNames(
             "perseus-widget-radio",
@@ -290,8 +303,7 @@ const BaseRadio = React.createClass({
         const instructionsClassName =
             `instructions ${css(styles.instructions)}`;
         const instructions = this.getInstructionsText();
-        const shouldShowInstructions = this.props.apiOptions.xomManatee ||
-                this.props.multipleSelect;
+        const shouldShowInstructions = xomManatee || this.props.multipleSelect;
 
         const fieldset = <fieldset className="perseus-widget-radio-fieldset">
             <legend className="perseus-sr-only">
