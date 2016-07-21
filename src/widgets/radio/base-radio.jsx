@@ -299,6 +299,11 @@ const BaseRadio = React.createClass({
         }
     },
 
+    showOnePerLine: function() {
+        // We want to force one-per-line layout with the new XOM spec.
+        return this.props.apiOptions.xomManatee || this.props.onePerLine;
+    },
+
     render: function() {
         // TODO(aria): Stop this from mutating the id every time someone
         // clicks on a radio :(
@@ -386,7 +391,7 @@ const BaseRadio = React.createClass({
                     const aphroditeClassName = (checked, xomManatee) => {
                         return css(
                             styles.item,
-                            !this.props.onePerLine && styles.inlineItem,
+                            !this.showOnePerLine() && styles.inlineItem,
                             responsive && (xomManatee ?
                                            styles.responsiveItemXomManatee :
                                            styles.responsiveItem),
@@ -409,7 +414,7 @@ const BaseRadio = React.createClass({
                         aphroditeClassName(choice.checked, xomManatee),
                         // TODO(aria): Make test case for these API classNames
                         ApiClassNames.RADIO.OPTION,
-                        !this.props.onePerLine && "inline",
+                        !this.showOnePerLine() && "inline",
                         choice.checked && ApiClassNames.RADIO.SELECTED,
                         (rubric && rubric.choices[i].correct &&
                             ApiClassNames.CORRECT

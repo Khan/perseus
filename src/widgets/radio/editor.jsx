@@ -11,7 +11,6 @@ var BaseRadio = require("./base-radio.jsx");
 var Changeable = require("../../mixins/changeable.jsx");
 var Editor = require("../../editor.jsx");
 var {iconPlus, iconTrash} = require("../../icon-paths.js");
-var InfoTip = require("../../components/info-tip.jsx");
 var InlineIcon   = require("../../components/inline-icon.jsx");
 var PropCheckBox = require("../../components/prop-check-box.jsx");
 
@@ -93,7 +92,6 @@ var RadioEditor = React.createClass({
         randomize: React.PropTypes.bool,
         hasNoneOfTheAbove: React.PropTypes.bool,
         multipleSelect: React.PropTypes.bool,
-        onePerLine: React.PropTypes.bool,
         deselectEnabled: React.PropTypes.bool,
         static: React.PropTypes.bool,
     },
@@ -105,7 +103,6 @@ var RadioEditor = React.createClass({
             randomize: false,
             hasNoneOfTheAbove: false,
             multipleSelect: false,
-            onePerLine: true,
             deselectEnabled: false,
         };
     },
@@ -115,35 +112,19 @@ var RadioEditor = React.createClass({
             <div className="perseus-widget-row">
 
                 <div className="perseus-widget-left-col">
-                    <div>
-                        <PropCheckBox label="One answer per line"
-                                      labelAlignment="right"
-                                      onePerLine={this.props.onePerLine}
-                                      onChange={this.props.onChange} />
-                        <InfoTip>
-                            <p>
-                                Use one answer per line unless your question
-                                has images that might cause the answers to go
-                                off the page.
-                            </p>
-                        </InfoTip>
-                    </div>
-                </div>
-
-                <div className="perseus-widget-right-col">
                     <PropCheckBox label="Multiple selections"
                                   labelAlignment="right"
                                   multipleSelect={this.props.multipleSelect}
                                   onChange={this.onMultipleSelectChange} />
                 </div>
-                <div className="perseus-widget-left-col">
+                <div className="perseus-widget-right-col">
                     <PropCheckBox label="Randomize order"
                                   labelAlignment="right"
                                   randomize={this.props.randomize}
                                   onChange={this.props.onChange} />
                 </div>
                 {!this.props.static &&
-                    <div className="perseus-widget-right-col">
+                    <div className="perseus-widget-left-col">
                         <PropCheckBox
                             label="Radio deselect enabled"
                             labelAlignment="right"
