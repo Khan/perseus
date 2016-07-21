@@ -27,8 +27,14 @@ var defaultBackgroundImage = {
     width: 0,
     height: 0,
 };
+
+// NOTE(david): 2016-07-20: This widget supports the 4 alignments specified
+//     below, but we want to phase out the floating alignments in the next few
+//     weeks. So, we remove the float options from the editor interface.
 const supportedAlignments = ["block", "float-left", "float-right",
     "full-width"];
+const editorAlignments = ["block", "full-width"];
+
 const DEFAULT_ALIGNMENT = "block";
 
 var ImageWidget = React.createClass({
@@ -263,7 +269,7 @@ module.exports = {
         return !(bgImage && bgImage.url && !props.alt);
     },
     defaultAlignment: DEFAULT_ALIGNMENT,
-    supportedAlignments: supportedAlignments,
+    supportedAlignments: editorAlignments,
     displayName: "Image",
     widget: ImageWidget,
 };

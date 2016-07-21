@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console, max-len */
 
 /**
  * Demonstrates the rendered result of a Perseus article
