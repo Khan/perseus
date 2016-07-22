@@ -16,6 +16,7 @@ var SpeakingVoice = React.createClass({
     //
     componentDidMount: function() {
         this.responsiveVoice = new ResponsiveVoice;
+        this.responsiveVoice.init();
     },
 
     speak: function() {
