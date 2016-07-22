@@ -190,7 +190,9 @@ var Plotter = React.createClass({
             scale: c.scale
         });
         graphie.addMouseLayer({
-            allowScratchpad: true
+            allowScratchpad: true,
+            setDrawingAreaAvailable:
+                this.props.apiOptions.setDrawingAreaAvailable,
         });
 
         if (!isTiledPlot) {

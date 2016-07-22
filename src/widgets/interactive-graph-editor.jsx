@@ -103,7 +103,10 @@ const InteractiveGraphEditor = React.createClass({
             graph = <InteractiveGraph
                 {...graphProps}
                 containerSizeClass={sizeClass}
-                apiOptions={{xomManatee: false}}
+                apiOptions={{
+                    ...this.props.apiOptions,
+                    xomManatee: false,
+                }}
             />;
             equationString = InteractiveGraph.getEquationString(graphProps);
         } else {

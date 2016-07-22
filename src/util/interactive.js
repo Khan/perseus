@@ -248,6 +248,7 @@ _.extend(GraphUtils.Graphie.prototype, {
         const graph = this;
         options = _.extend({
             allowScratchpad: false,
+            setDrawingAreaAvailable: function() {},
         }, options);
 
         const mouselayerZIndex = 2;
@@ -301,10 +302,8 @@ _.extend(GraphUtils.Graphie.prototype, {
                 });
             }
         }
-        // NOTE(charlie): The mobile environment doesn't include `scratchpad`
-        // on `Khan`.
-        if (!options.allowScratchpad && Khan.scratchpad) {
-            Khan.scratchpad.disable();
+        if (!options.allowScratchpad) {
+            options.setDrawingAreaAvailable(false);
         }
 
         // Add mouse and visible wrapper layers for DOM-node-wrapped movables

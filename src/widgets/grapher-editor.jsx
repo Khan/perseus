@@ -58,6 +58,7 @@ const GrapherEditor = React.createClass({
 
             graph = <Grapher
                 {...graphProps}
+                apiOptions={this.props.apiOptions}
                 containerSizeClass={sizeClass}
             />;
             equationString = GrapherUtil.getEquationString(graphProps);

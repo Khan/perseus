@@ -63,7 +63,8 @@ var Graph = React.createClass({
         rulerTicks: React.PropTypes.number,
         onGraphieUpdated: React.PropTypes.func,
         instructions: React.PropTypes.string,
-        onClick: React.PropTypes.func
+        onClick: React.PropTypes.func,
+        setDrawingAreaAvailable: React.PropTypes.func,
     },
 
     getDefaultProps: function() {
@@ -272,7 +273,8 @@ var Graph = React.createClass({
             onMouseOut: onMouseOut,
             onMouseUp: this.props.onMouseUp,
             onMouseMove: this.props.onMouseMove,
-            allowScratchpad: true
+            allowScratchpad: true,
+            setDrawingAreaAvailable: this.props.setDrawingAreaAvailable,
         });
 
         this._updateProtractor();

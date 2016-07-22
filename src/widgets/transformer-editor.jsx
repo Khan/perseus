@@ -703,7 +703,8 @@ var TransformationsShapeEditor = React.createClass({
                 gridStep={this.props.graph.gridStep}
                 markings={this.props.graph.markings}
                 backgroundImage={this.props.graph.backgroundImage}
-                onGraphieUpdated={this.setupGraphie} />
+                onGraphieUpdated={this.setupGraphie}
+            />
             <select
                     key="type-select"
                     value={this.getTypeString(this.props.shape.type)}
@@ -852,7 +853,10 @@ var TransformerEditor = React.createClass({
                 ref="shapeEditor"
                 graph={graph}
                 shape={this.props.starting.shape}
-                onChange={this.changeStarting} />
+                onChange={this.changeStarting}
+                setDrawingAreaAvailable={
+                    this.props.apiOptions.setDrawingAreaAvailable}
+            />
             <div>Solution transformations:</div>
             <Transformer
                 ref="explorer"

@@ -109,6 +109,11 @@ module.exports = {
             // 'manatee' milestone.  Changes are outlined in
             // https://docs.google.com/document/d/1aE3aaZD-vR2HJ-HVK7hH9Jzo2euCH-kKTQihSmzrEfI/edit
             xomManatee: React.PropTypes.bool,
+
+            // A function, called with a bool indicating whether use of the
+            // drawing area (scratchpad) should be allowed/disallowed.
+            // Previously handled by `Khan.scratchpad.enable/disable`
+            setDrawingAreaAvailable: React.PropTypes.func,
         }).isRequired,
 
         defaults: {
@@ -130,6 +135,7 @@ module.exports = {
                     return <a {...props} />;
                 },
             },
+            setDrawingAreaAvailable: function() { },
         },
     },
     ClassNames: {

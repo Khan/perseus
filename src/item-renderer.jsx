@@ -25,6 +25,7 @@ const ItemRenderer = React.createClass({
         apiOptions: RP.shape({
             interactionCallback: RP.func,
             onFocusChange: RP.func,
+            setDrawingAreaAvailable: RP.func,
         }),
         // Whether this component should control hiding/showing peripheral
         // item-related components (for list, see item.answerArea below).
@@ -78,8 +79,9 @@ const ItemRenderer = React.createClass({
     },
 
     componentDidMount: function() {
-        if (this.props.controlPeripherals && Khan.scratchpad) {
-            Khan.scratchpad.enable();
+        if (this.props.controlPeripherals &&
+                this.props.apiOptions.setDrawingAreaAvailable) {
+            this.props.apiOptions.setDrawingAreaAvailable(true);
         }
         this._currentFocus = null;
         this.update();

@@ -17,18 +17,6 @@ if (!window.Khan) {
         error: function() {},
         query: {debug: ""},
         imageBase: "/images/",
-        scratchpad: {
-            _updateComponent: function() {},
-            enable: function() {
-                Khan.scratchpad.enabled = true;
-                this._updateComponent();
-            },
-            disable: function() {
-                Khan.scratchpad.enabled = false;
-                this._updateComponent();
-            },
-            enabled: true,
-        },
     };
 }
 

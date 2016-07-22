@@ -6,6 +6,7 @@ var React        = require('react');
 var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
+var ApiOptions = require("../perseus-api.jsx").Options;
 const GraphUtils = require("../util/graph-utils.js");
 
 var defaultImage = {
@@ -16,6 +17,7 @@ var defaultImage = {
 
 var Measurer = React.createClass({
     propTypes: {
+        apiOptions: ApiOptions.propTypes,
         box: React.PropTypes.arrayOf(React.PropTypes.number),
         image: React.PropTypes.shape({
             url: React.PropTypes.string,
@@ -106,7 +108,9 @@ var Measurer = React.createClass({
             scale: scale
         });
         graphie.addMouseLayer({
-            allowScratchpad: true
+            allowScratchpad: true,
+            setDrawingAreaAvailable:
+                this.props.apiOptions.setDrawingAreaAvailable,
         });
 
         if (this.protractor) {

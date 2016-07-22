@@ -34,6 +34,7 @@ var Graphie = React.createClass({
             React.PropTypes.arrayOf(React.PropTypes.number)
         ),
         responsive: React.PropTypes.bool,
+        setDrawingAreaAvailable: React.PropTypes.func,
         setup: React.PropTypes.func.isRequired,
     },
 
@@ -138,6 +139,7 @@ var Graphie = React.createClass({
                 onMouseDown: this.props.onMouseDown,
                 onMouseUp: this.props.onMouseUp,
                 onMouseMove: this.props.onMouseMove,
+                setDrawingAreaAvailable: this.props.setDrawingAreaAvailable,
             });
         }
 

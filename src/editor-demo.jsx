@@ -38,6 +38,7 @@ const EditorDemo = React.createClass({
     getInitialState: function() {
         return {
             deviceType: "desktop",
+            scratchpadEnabled: true,
         };
     },
 
@@ -125,6 +126,11 @@ const EditorDemo = React.createClass({
                 // readOnly: true,
                 customKeypad: xomManatee,
                 xomManatee,
+                setDrawingAreaAvailable: (enabled) => {
+                    this.setState({
+                        scratchpadEnabled: enabled,
+                    });
+                },
             },
             componentClass: EditorPage,
             onPreviewDeviceChange: (device) => {
@@ -203,7 +209,7 @@ const EditorDemo = React.createClass({
                     <button onClick={this.saveWarnings}>save warnings</button>{' '}
                     <span>Seed:{this.props.problemNum} </span>{' '}
                     <span>Features:{featuresDisplay}</span>{' '}
-                    <span>Scratchpad:{Khan.scratchpad.enabled ? 'enabled' : 'disabled'}</span>
+                    <span>Scratchpad:{this.state.scratchpadEnabled ? 'enabled' : 'disabled'}</span>
                 </div>
                 <StatefulEditorPage key={this.props.question} ref="editor" {...editorProps}/>
             </div>

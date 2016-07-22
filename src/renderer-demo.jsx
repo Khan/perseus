@@ -36,6 +36,7 @@ const RendererDemo = React.createClass({
         return {
             // Matches ItemRenderer.showInput
             answer: { empty: true, correct: null },
+            scratchpadEnabled: true,
         };
     },
 
@@ -65,6 +66,11 @@ const RendererDemo = React.createClass({
             },
             xomManatee,
             customKeypad: xomManatee,
+            setDrawingAreaAvailable: (enabled) => {
+                this.setState({
+                    scratchpadEnabled: enabled,
+                });
+            },
         };
 
         const rendererComponent = <ItemRenderer
@@ -97,7 +103,7 @@ const RendererDemo = React.createClass({
             />
         </div>;
 
-        const scratchpadEnabled = Khan.scratchpad.enabled;
+        const scratchpadEnabled = this.state.scratchpadEnabled;
 
         if (xomManatee) {
             const className = "framework-perseus " + ApiClassNames.XOM_MANATEE;

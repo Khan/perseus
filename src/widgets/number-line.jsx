@@ -322,6 +322,8 @@ var NumberLine = React.createClass({
                 this.refs.graphie.movables.numberLinePoint.grab(coord);
             }}
             setup={this._setupGraphie}
+            setDrawingAreaAvailable={
+                this.props.apiOptions.setDrawingAreaAvailable}
         >
             <TickMarks
                 {..._.pick(props, [

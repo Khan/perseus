@@ -164,7 +164,10 @@ var FunctionGrapher = React.createClass({
                         height: box[1]
                     }}>
                 {image}
-                <Graphie {...this.props.graph}>
+                <Graphie
+                    {...this.props.graph}
+                    setDrawingAreaAvailable={this.props.setDrawingAreaAvailable}
+                >
                     {this.props.model && this.renderPlot()}
                     {this.props.model && this.renderAsymptote()}
                     {this.props.model && points}
@@ -295,6 +298,8 @@ var Grapher = React.createClass({
             coords: coords,
             asymptote: asymptote,
             static: this.props.static,
+            setDrawingAreaAvailable:
+                this.props.apiOptions.setDrawingAreaAvailable,
         };
 
         return <div>
