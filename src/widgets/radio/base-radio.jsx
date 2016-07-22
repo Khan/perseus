@@ -71,6 +71,12 @@ const ChoicesType = React.PropTypes.arrayOf(React.PropTypes.shape({
 const radioBorderColor = styleConstants.radioBorderColor;
 const checkedColor = styleConstants.checkedColor;
 
+// Since the selected item border is 1 pixel bigger than non-selected, reduce
+// the padding so that the content doesn't appear to move when
+// pressed/selected.
+const responsiveItemPaddingStyle = `1px 16px`;
+const responsiveItemPaddingStyleActive = `0px 15px`;
+
 const BaseRadio = React.createClass({
     propTypes: {
         apiOptions: React.PropTypes.shape({
@@ -192,10 +198,11 @@ const BaseRadio = React.createClass({
                     borderRadius: "4px",
                     margin: 0,
                     minHeight: 48,
-                    padding: "0 16px",
+                    padding: responsiveItemPaddingStyle,
 
                     ":active": {
-                        backgroundColor: styleConstants.grayLight,
+                        border: `2px solid ${radioBorderColor}`,
+                        padding: responsiveItemPaddingStyleActive,
                     },
 
                     ":not(:last-child)": {
@@ -207,6 +214,7 @@ const BaseRadio = React.createClass({
             responsiveSelected: {
                 [mediaQueries.lgOrSmaller]: {
                     border: `2px solid ${checkedColor}`,
+                    padding: responsiveItemPaddingStyleActive,
                 },
             },
         }),
