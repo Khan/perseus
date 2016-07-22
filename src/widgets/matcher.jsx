@@ -63,39 +63,52 @@ var Matcher = React.createClass({
             this.state.rightHeight])};
 
         const cellMarginPx = this.props.apiOptions.xomManatee ? 8 : 5;
-        const widgetMarginPx = this.props.apiOptions.xomManatee ? 16 : 0;
 
-        return <div className="perseus-widget-matcher perseus-clearfix">
-            <div className="column" style={{ marginLeft: widgetMarginPx }}>
-                {showLabels && <div className="column-label">
-                    <Renderer content={this.props.labels[0] || "..."} />
-                </div>}
-                <Sortable
-                    options={left}
-                    layout="vertical"
-                    padding={this.props.padding}
-                    disabled={!this.props.orderMatters}
-                    constraints={constraints}
-                    onMeasure={this.onMeasureLeft}
-                    onChange={this.changeAndTrack}
-                    margin={cellMarginPx}
-                    ref="left"
-                />
-            </div>
-            <div className="column" style={{ marginRight: widgetMarginPx }}>
-                {showLabels && <div className="column-label">
-                    <Renderer content={this.props.labels[1] || "..."} />
-                </div>}
-                <Sortable
-                    options={right}
-                    layout="vertical"
-                    padding={this.props.padding}
-                    constraints={constraints}
-                    onMeasure={this.onMeasureRight}
-                    onChange={this.changeAndTrack}
-                    margin={cellMarginPx}
-                    ref="right"
-                />
+        return <div className="perseus-widget-matcher">
+            {showLabels &&
+                <div className="perseus-clearfix">
+                    <div className="column">
+                        <div className="column-label">
+                            <Renderer
+                                content={this.props.labels[0] || "..."}
+                            />
+                        </div>
+                    </div>
+                    <div className="column">
+                        <div className="column-label">
+                            <Renderer
+                                content={this.props.labels[1] || "..."}
+                            />
+                        </div>
+                    </div>
+                </div>
+            }
+            <div className="perseus-clearfix">
+                <div className="column">
+                    <Sortable
+                        options={left}
+                        layout="vertical"
+                        padding={this.props.padding}
+                        disabled={!this.props.orderMatters}
+                        constraints={constraints}
+                        onMeasure={this.onMeasureLeft}
+                        onChange={this.changeAndTrack}
+                        margin={cellMarginPx}
+                        ref="left"
+                    />
+                </div>
+                <div className="column">
+                    <Sortable
+                        options={right}
+                        layout="vertical"
+                        padding={this.props.padding}
+                        constraints={constraints}
+                        onMeasure={this.onMeasureRight}
+                        onChange={this.changeAndTrack}
+                        margin={cellMarginPx}
+                        ref="right"
+                    />
+                </div>
             </div>
         </div>;
     },
