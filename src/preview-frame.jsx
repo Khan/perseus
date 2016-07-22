@@ -25,7 +25,11 @@ const PreviewFrame = React.createClass({
 
     componentDidMount: function() {
         window.addEventListener("message", (event) => {
-            this.setState(window.parent.iframeDataStore[event.data]);
+            const data = window.parent.iframeDataStore[event.data];
+
+            if (data) {
+                this.setState(data);
+            }
         });
 
         window.parent.postMessage(
