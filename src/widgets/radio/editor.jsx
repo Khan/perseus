@@ -98,7 +98,13 @@ var RadioEditor = React.createClass({
         // we keep it here for backwards compatibility with old content until
         // pre-XOM code is purged.
         onePerLine: React.PropTypes.bool,
+
+        // TODO(david): DEPRECATED: in XOM, this is being ignored and the
+        // visible editor no longer exposes it for future content. However,
+        // we keep it here for backwards compatibility with old content until
+        // pre-XOM code is purged.
         deselectEnabled: React.PropTypes.bool,
+
         static: React.PropTypes.bool,
     },
 
@@ -130,14 +136,6 @@ var RadioEditor = React.createClass({
                                   randomize={this.props.randomize}
                                   onChange={this.props.onChange} />
                 </div>
-                {!this.props.static &&
-                    <div className="perseus-widget-left-col">
-                        <PropCheckBox
-                            label="Radio deselect enabled"
-                            labelAlignment="right"
-                            deselectEnabled={this.props.deselectEnabled}
-                            onChange={this.props.onChange} />
-                    </div>}
             </div>
 
             <BaseRadio

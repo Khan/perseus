@@ -277,6 +277,11 @@ const BaseRadio = React.createClass({
         return this.props.apiOptions.xomManatee || this.props.onePerLine;
     },
 
+    deselectEnabled: function() {
+        // We want to force enable deselect with the new XOM spec.
+        return this.props.apiOptions.xomManatee || this.props.deselectEnabled;
+    },
+
     render: function() {
         // TODO(aria): Stop this from mutating the id every time someone
         // clicks on a radio :(
@@ -348,7 +353,7 @@ const BaseRadio = React.createClass({
                         showClue: reviewModeClues,
                         type: inputType,
                         pos: i,
-                        deselectEnabled: this.props.deselectEnabled,
+                        deselectEnabled: this.deselectEnabled(),
                         onChecked: (checked) => {
                             this.checkOption(i, checked);
                         },
