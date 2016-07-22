@@ -64,6 +64,7 @@ const ArticleDemo = React.createClass({
             useNewStyles: true,
             componentClass: ArticleEditor,
 
+            /* eslint-disable max-len */
             frameSource: `<!DOCTYPE html>
                 <html>
                 <head>
@@ -105,6 +106,7 @@ const ArticleDemo = React.createClass({
                     <script src="build/frame-perseus.js"></script>
                 </body>
             </html>`,
+            /* eslint-enable max-len */
 
         };
     },
