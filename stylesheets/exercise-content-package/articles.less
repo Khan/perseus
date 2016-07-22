@@ -640,13 +640,13 @@ img.zoom-img {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgb(32, 36, 44);
+    background: white;
     opacity: 0;
     -webkit-transition: opacity @zoomAnimationDurationMs;
     -ms-transition:     opacity @zoomAnimationDurationMs;
     transition:         opacity @zoomAnimationDurationMs;
 }
 
-.zoom-overlay-open .zoom-backdrop {
-    opacity: 0.25;
+.zoom-overlay-open > .zoom-backdrop {
+    opacity: 0.9;
 }
