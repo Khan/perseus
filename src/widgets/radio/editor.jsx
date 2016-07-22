@@ -92,6 +92,12 @@ var RadioEditor = React.createClass({
         randomize: React.PropTypes.bool,
         hasNoneOfTheAbove: React.PropTypes.bool,
         multipleSelect: React.PropTypes.bool,
+
+        // TODO(benkomalo): DEPRECATED: in XOM, this is being ignored and the
+        // visible editor no longer exposes it for future content. However,
+        // we keep it here for backwards compatibility with old content until
+        // pre-XOM code is purged.
+        onePerLine: React.PropTypes.bool,
         deselectEnabled: React.PropTypes.bool,
         static: React.PropTypes.bool,
     },
@@ -103,6 +109,7 @@ var RadioEditor = React.createClass({
             randomize: false,
             hasNoneOfTheAbove: false,
             multipleSelect: false,
+            onePerLine: true,
             deselectEnabled: false,
         };
     },
