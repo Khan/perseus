@@ -1,5 +1,5 @@
 /* Perseus CSS
-// commit 9f3bd673f4ba197e77fd0d924552b9098897aef8
+// commit a2128121685dd9045e9e236d9767091a3af01f4b
 // branch master
 // @generated
 */
@@ -764,14 +764,14 @@ img.zoom-img {
   left: 0;
   right: 0;
   bottom: 0;
-  background: #20242c;
+  background: white;
   opacity: 0;
   -webkit-transition: opacity 300ms;
   -ms-transition: opacity 300ms;
   transition: opacity 300ms;
 }
-.zoom-overlay-open .zoom-backdrop {
-  opacity: 0.25;
+.zoom-overlay-open > .zoom-backdrop {
+  opacity: 0.9;
 }
 #perseus {
   position: relative;
