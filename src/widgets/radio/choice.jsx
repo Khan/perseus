@@ -39,6 +39,7 @@ const Choice = React.createClass({
             responsiveStyling: React.PropTypes.bool,
             mobileStyling: React.PropTypes.bool,
             satStyling: React.PropTypes.bool,
+            xomManatee: React.PropTypes.bool,
         }),
         checked: React.PropTypes.bool,
         className: React.PropTypes.string,
@@ -211,6 +212,16 @@ const Choice = React.createClass({
                         height: styleConstants.circleSize,
                         width: styleConstants.circleSize,
                     },
+                },
+            },
+
+            responsiveCheckboxInputXomManatee: {
+                // On phones and tablets, we hide the circular radio button
+                // itself, and instead, show a green border when the item is
+                // selected. This saves horizontal space for content on small
+                // screens.
+                [mediaQueries.lgOrSmaller]: {
+                    display: "none",
                 },
             },
 
@@ -398,6 +409,7 @@ const Choice = React.createClass({
         const responsive = this.props.apiOptions.responsiveStyling;
         const mobile = this.props.apiOptions.mobileStyling;
         const sat = this.props.apiOptions.satStyling;
+        const xomManatee = this.props.apiOptions.xomManatee;
 
         const className = classNames(
             this.props.className,
@@ -425,8 +437,12 @@ const Choice = React.createClass({
                 responsive && sharedStyles.responsiveInput,
                 responsive && this.props.type === "radio" &&
                     sharedStyles.responsiveRadioInput,
+                responsive && this.props.type === "radio" && xomManatee &&
+                    sharedStyles.responsiveRadioInputXomManatee,
                 responsive && this.props.type === "checkbox" &&
                     styles.responsiveCheckboxInput,
+                responsive && this.props.type === "checkbox" && xomManatee &&
+                    styles.responsiveCheckboxInputXomManatee,
                 mobile && styles.mobileInput,
                 mobile && this.props.type === "radio" &&
                     styles.mobileRadioInput,

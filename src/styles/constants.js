@@ -89,5 +89,5 @@ module.exports = {
     circleSize: 20,
 };
 
-module.exports.radioBorderColor = module.exports.grayLighter;
+module.exports.radioBorderColor = module.exports.gray76;
 module.exports.checkedColor = module.exports.kaGreen;

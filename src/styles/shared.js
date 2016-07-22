@@ -77,4 +77,13 @@ module.exports = StyleSheet.create({
             },
         },
     },
+
+    responsiveRadioInputXomManatee: {
+        // On phones and tablets, we hide the circular radio button itself,
+        // and instead, show a green border when the item is selected. This
+        // saves horizontal space for content on small screens.
+        [mediaQueries.lgOrSmaller]: {
+            display: "none",
+        },
+    },
 });

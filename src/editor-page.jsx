@@ -108,6 +108,10 @@ var EditorPage = React.createClass({
         this.updateRenderer();
     },
 
+    xomManateeEnabled: function() {
+        return !!window.localStorage.xomManatee;
+    },
+
     updateRenderer: function() {
         // Some widgets (namely the image widget) like to call onChange before
         // anything has actually been mounted, which causes problems here. We
@@ -122,7 +126,7 @@ var EditorPage = React.createClass({
         const deviceBasedApiOptions = Object.assign(
             this.getApiOptions(), {
                 customKeypad: touch,
-                xomManatee: touch,
+                xomManatee: touch && this.xomManateeEnabled(),
             });
 
         this.refs.itemEditor.triggerPreviewUpdate({
@@ -183,7 +187,7 @@ var EditorPage = React.createClass({
         const deviceBasedApiOptions = Object.assign(
             this.getApiOptions(), {
                 customKeypad: touch,
-                xomManatee: touch,
+                xomManatee: touch && this.xomManateeEnabled(),
             });
 
         if (deviceBasedApiOptions.xomManatee) {

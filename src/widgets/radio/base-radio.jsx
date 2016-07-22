@@ -69,6 +69,7 @@ const ChoicesType = React.PropTypes.arrayOf(React.PropTypes.shape({
 }));
 
 const radioBorderColor = styleConstants.radioBorderColor;
+const checkedColor = styleConstants.checkedColor;
 
 const BaseRadio = React.createClass({
     propTypes: {
@@ -133,6 +134,12 @@ const BaseRadio = React.createClass({
                 [mediaQueries.smOrSmaller]: {
                     marginLeft: styleConstants.negativePhoneMargin,
                     marginRight: styleConstants.negativePhoneMargin,
+                },
+            },
+
+            responsiveRadioXomManatee: {
+                [mediaQueries.lgOrSmaller]: {
+                    width: "auto",
                 },
             },
 
@@ -220,6 +227,30 @@ const BaseRadio = React.createClass({
                     },
                 },
             },
+
+            responsiveItemXomManatee: {
+                [mediaQueries.lgOrSmaller]: {
+                    border: `1px solid ${radioBorderColor}`,
+                    borderRadius: "4px",
+                    margin: 0,
+                    minHeight: 48,
+                    padding: "0 16px",
+
+                    ":active": {
+                        backgroundColor: styleConstants.grayLight,
+                    },
+
+                    ":not(:last-child)": {
+                        marginBottom: "16px",
+                    },
+                },
+            },
+
+            responsiveSelected: {
+                [mediaQueries.lgOrSmaller]: {
+                    border: `2px solid ${checkedColor}`,
+                },
+            },
         }),
     },
 
@@ -280,6 +311,7 @@ const BaseRadio = React.createClass({
         const responsive = this.props.apiOptions.responsiveStyling;
         const mobile = this.props.apiOptions.mobileStyling;
         const sat = this.props.apiOptions.satStyling;
+        const xomManatee = this.props.apiOptions.xomManatee;
 
         const className = classNames(
             "perseus-widget-radio",
@@ -287,7 +319,8 @@ const BaseRadio = React.createClass({
                 sharedStyles.aboveScratchpad,
                 sharedStyles.blankBackground,
                 styles.radio,
-                responsive && styles.responsiveRadio,
+                responsive && (xomManatee ? styles.responsiveRadioXomManatee :
+                               styles.responsiveRadio),
                 mobile && styles.mobileRadio,
                 sat && styles.satRadio
             ),
@@ -304,7 +337,7 @@ const BaseRadio = React.createClass({
         const shouldShowInstructions = this.props.apiOptions.xomManatee ||
                 this.props.multipleSelect;
 
-        return <fieldset className="perseus-widget-radio-fieldset">
+        const fieldset = <fieldset className="perseus-widget-radio-fieldset">
             <legend className="perseus-sr-only">
                 {instructions}
             </legend>
@@ -350,11 +383,15 @@ const BaseRadio = React.createClass({
                         _.extend(elementProps, {showContent: choice.correct});
                     }
 
-                    const aphroditeClassName = (checked) => {
+                    const aphroditeClassName = (checked, xomManatee) => {
                         return css(
                             styles.item,
                             !this.props.onePerLine && styles.inlineItem,
-                            responsive && styles.responsiveItem,
+                            responsive && (xomManatee ?
+                                           styles.responsiveItemXomManatee :
+                                           styles.responsiveItem),
+                            responsive && checked && xomManatee &&
+                                styles.responsiveSelected,
                             mobile && styles.mobileRadioOption,
                             mobile && checked && styles.mobileRadioSelected,
                             sat && styles.satRadioOption,
@@ -366,10 +403,10 @@ const BaseRadio = React.createClass({
                     // HACK(abdulrahman): Preloads the selection-state
                     // css because of a bug that causes iOS to lag
                     // when selecting the button for the first time.
-                    aphroditeClassName(true);
+                    aphroditeClassName(true, xomManatee);
 
                     const className = classNames(
-                        aphroditeClassName(choice.checked),
+                        aphroditeClassName(choice.checked, xomManatee),
                         // TODO(aria): Make test case for these API classNames
                         ApiClassNames.RADIO.OPTION,
                         !this.props.onePerLine && "inline",
@@ -397,6 +434,19 @@ const BaseRadio = React.createClass({
                 }, this)}
             </ul>
         </fieldset>;
+
+        // Allow for horizontal scrolling if content is too wide, which may be
+        // an issue especially on phones.
+        return <div style={{
+            overflow: "auto",
+            marginLeft: styleConstants.negativePhoneMargin,
+            marginRight: styleConstants.negativePhoneMargin,
+            paddingLeft: styleConstants.phoneMargin,
+            paddingRight: styleConstants.phoneMargin,
+        }}
+        >
+            {fieldset}
+        </div>;
     },
 });
 
