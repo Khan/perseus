@@ -85,6 +85,8 @@ const BaseRadio = React.createClass({
         labelWrap: React.PropTypes.bool,
         multipleSelect: React.PropTypes.bool,
         onCheckedChange: React.PropTypes.func,
+        // NOTE(david): DEPRECATED - this is going away. We force one per line
+        //     on XOM and may release this more broadly.
         onePerLine: React.PropTypes.bool,
         reviewModeRubric: React.PropTypes.shape({
             choices: ChoicesType,
