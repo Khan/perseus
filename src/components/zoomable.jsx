@@ -90,10 +90,10 @@ const Zoomable = React.createClass({
         }
     },
 
-    handleTouchStart(e) {
+    stopPropagationIfZoomed(e) {
         if (!this.state.zoomed) {
-            // We only allow touch starts (which trigger interactive elements)
-            // to be propagated to children if we are already zoomed
+            // We only allow touch events (which trigger interactive elements)
+            // to be propagated to children if we are already zoomed.
             e.stopPropagation();
         }
     },
@@ -195,10 +195,11 @@ const Zoomable = React.createClass({
             ...transitionStyle,
         };
 
-
         return <span
             onClick={this.handleClick}
-            onTouchStartCapture={this.handleTouchStart}
+            onTouchCancelCapture={this.stopPropagationIfZoomed}
+            onTouchEndCapture={this.stopPropagationIfZoomed}
+            onTouchStartCapture={this.stopPropagationIfZoomed}
             style={style}
         >
             {this.props.children}
