@@ -5,7 +5,13 @@ const init = function(options) {
 
     const widgetsDeferred = $.Deferred();
 
-    if (options.loadExtraWidgets) {
+    // HACK(charlie): To maintain backwards compatibility, only exclude the
+    // extra widgets if the parameter is explicitly falsey (rather than merely
+    // undefined). We should probably bump the Perseus major version number
+    // (since this is a breaking change in the API) but this is a more
+    // lightweight fix that will get exercises working in our mobile apps
+    // immediately.
+    if (options.loadExtraWidgets === undefined || options.loadExtraWidgets) {
         const Widgets = require("./widgets.js");
         require.ensure([], require => {
             const extraWidgets = require("./extra-widgets.js");
