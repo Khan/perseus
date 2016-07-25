@@ -8,17 +8,16 @@
 */
 
 var classNames = require("classnames");
+const { StyleSheet, css } = require("aphrodite");
 var React = require("react");
 var _ = require("underscore");
 
 var ApiOptions   = require("../perseus-api.jsx").Options;
-var Renderer     = require("../renderer.jsx");
-
-var Changeable    = require("../mixins/changeable.jsx");
-
-var SvgImage     = require("../components/svg-image.jsx");
-
 const { baseUnitPx } = require("../styles/constants.js");
+var Changeable    = require("../mixins/changeable.jsx");
+const mediaQueries = require("../styles/media-queries.js");
+var Renderer     = require("../renderer.jsx");
+var SvgImage     = require("../components/svg-image.jsx");
 
 var defaultBoxSize = 400;
 var defaultRange = [0, 10];
@@ -69,6 +68,30 @@ var ImageWidget = React.createClass({
 
         title: React.PropTypes.string,
         trackInteraction: React.PropTypes.func.isRequired,
+    },
+
+    statics: {
+        styles: StyleSheet.create({
+            caption: {
+                display: "inline-block",
+                marginTop: baseUnitPx,
+                maxWidth: 640,
+                minWidth: 480,
+
+                [mediaQueries.lgOrSmaller]: {
+                    // TODO(david): This maxWidth is not being used because
+                    //     it's overriden by the 512px max-width we have on
+                    //     paragraphs.
+                    maxWidth: 540,
+                    minWidth: 400,
+                },
+
+                [mediaQueries.smOrSmaller]: {
+                    maxWidth: 450,
+                    minWidth: 320,
+                },
+            },
+        }),
     },
 
     mixins: [Changeable],
@@ -173,25 +196,31 @@ var ImageWidget = React.createClass({
 
                 // Caption is left-aligned within a container that's centered
                 // below the image, with these width constraints:
-                // 1. Minimum width = 288px if image is full width, else 0
-                // 2. Maximum width = min(400px, content width, image width)
-                // The following CSS should do the trick, since CSS precedence
-                // is minWidth > maxWidth > width.
+                //
+                // 1. Size caption to width of the image on-screen.
+                // 2. ... but constrain its width to a range based on the
+                //    device to optimize readability - e.g. [320px, 450px] for
+                //    phones.
+                // 3. ... unless the image is floated, in which case we don't
+                //    want the caption to overflow the image size.
+                //
                 // TODO(david): If caption is only 1 line long, center-align
                 //     the text.
                 const alignment = this.props.alignment;
                 const isImageFullWidth = (
                     alignment === "block" || alignment === "full-width");
-                const minWidth = isImageFullWidth ? 288 : 0;
-                const maxWidth = Math.min(400, backgroundImage.width);
+
+                // This minWidth takes precedence over minWidth applied via
+                // Aphrodite.
+                const minWidth = isImageFullWidth ? null : '0 !important';
+
                 titleAndCaption = <div className={className}>
-                    <div style={{
-                        display: "inline-block",
-                        marginTop: baseUnitPx,
-                        minWidth: minWidth,
-                        maxWidth: maxWidth,
-                        width: "100%",
-                    }}
+                    <div
+                        className={css(ImageWidget.styles.caption)}
+                        style={{
+                            minWidth: minWidth,
+                            width: backgroundImage.width,
+                        }}
                     >
                         <Renderer
                             content={title + this.props.caption}
