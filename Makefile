@@ -4,7 +4,6 @@ SUPPRESSINSTALL=FALSE
 
 PERSEUS_BUILD_JS=build/perseus.js
 PERSEUS_SLIM_JS=build/perseus-slim.js
-PERSEUS_EXTRAS_JS=build/perseus-extras.js
 PERSEUS_BUILD_CSS=build/perseus.css
 PERSEUS_DEMO_BUILD_JS=build/demo-perseus.js
 PERSEUS_NODE_BUILD_JS=build/node-perseus.js
@@ -62,7 +61,6 @@ $(PERSEUS_SLIM_JS): install
 	$(call add_git_meta,$@)
 	cat $@.tmp >> $@
 	rm $@.tmp
-	mv build/1.extra-widgets.js build/perseus-extras.js
 
 $(PERSEUS_NODE_BUILD_JS): install
 	mkdir -p build
