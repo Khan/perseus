@@ -156,11 +156,7 @@ const RendererDemo = React.createClass({
 const styles = StyleSheet.create({
     problemAndAnswer: {
         minHeight: 180,
-        margin: 20,
         position: "relative",
-        border: "1px solid #cccccc",
-        borderBottom: "1px solid #aaa",
-        boxShadow: "0 1px 3px #ccc",
     },
     smiley: {
         width: 28,
