@@ -95,21 +95,24 @@ const ItemRenderer = React.createClass({
         // which can never prefix each other.
         const prevFocus = this._currentFocus;
         this._currentFocus = newFocus;
+
+        // Determine whether the newly focused path represents an input.
+        const inputPaths = this.getInputPaths();
+        const didFocusInput = this._currentFocus &&
+            inputPaths.some(inputPath => {
+                return Util.inputPathsEqual(inputPath, this._currentFocus);
+            });
+
         if (this.props.apiOptions.onFocusChange != null) {
             this.props.apiOptions.onFocusChange(
                 this._currentFocus,
                 prevFocus,
-                keypadElement && ReactDOM.findDOMNode(keypadElement)
+                didFocusInput && keypadElement &&
+                    ReactDOM.findDOMNode(keypadElement)
             );
         }
 
         if (keypadElement) {
-            const inputPaths = this.getInputPaths();
-            const didFocusInput = this._currentFocus &&
-                inputPaths.some(inputPath => {
-                    return Util.inputPathsEqual(inputPath, this._currentFocus);
-                });
-
             if (didFocusInput) {
                 keypadElement.activate();
             } else {

@@ -73,28 +73,28 @@ const ArticleRenderer = React.createClass({
         const prevFocusPath = this._currentFocus;
         this._currentFocus = newFocusPath;
 
+        // Use the section prefix to extract the relevant Renderer's input
+        // paths, so as to check whether the focused path represents an
+        // input.
+        let didFocusInput = false;
+        if (this._currentFocus) {
+            const [sectionRef, ...focusPath] = this._currentFocus;
+            const inputPaths = this.refs[sectionRef].getInputPaths();
+            didFocusInput = inputPaths.some(inputPath => {
+                return Util.inputPathsEqual(inputPath, focusPath);
+            });
+        }
+
         if (this.props.apiOptions.onFocusChange != null) {
             this.props.apiOptions.onFocusChange(
                 this._currentFocus,
                 prevFocusPath,
-                keypadElement && ReactDOM.findDOMNode(keypadElement)
+                didFocusInput && keypadElement &&
+                    ReactDOM.findDOMNode(keypadElement)
             );
         }
 
         if (keypadElement) {
-            let didFocusInput = false;
-
-            // Use the section prefix to extract the relevant Renderer's input
-            // paths, so as to check whether the focused path represents an
-            // input.
-            if (this._currentFocus) {
-                const [sectionRef, ...focusPath] = this._currentFocus;
-                const inputPaths = this.refs[sectionRef].getInputPaths();
-                didFocusInput = inputPaths.some(inputPath => {
-                    return Util.inputPathsEqual(inputPath, focusPath);
-                });
-            }
-
             if (didFocusInput) {
                 keypadElement.activate();
             } else {
