@@ -12,6 +12,8 @@ var Changeable   = require("../mixins/changeable.jsx");
 var {iconOk, iconRemove} = require("../icon-paths.js");
 var InlineIcon = require("../components/inline-icon.jsx");
 var Renderer = require("../renderer.jsx");
+var {gray76, tableBackgroundAccent} = require("../styles/constants.js");
+var {StyleSheet, css} = require("aphrodite");
 
 // A Graded Group is more or less a Group widget that displays a check
 // answer button below the rendered content. When clicked, the widget grades
@@ -85,6 +87,7 @@ var GradedGroup = React.createClass({
         }
 
         var classes = classNames({
+            [css(styles.gradedGroup)]: apiOptions.xomManatee,
             "perseus-graded-group": true,
             "answer-correct": this.state.status === GRADING_STATUSES.correct,
             "answer-incorrect":
@@ -195,4 +198,19 @@ module.exports = {
     hidden: false,
     tracking: "all",
 };
+
+const styles = StyleSheet.create({
+    gradedGroup: {
+        borderTop: `1px solid ${gray76}`,
+        borderBottom: `1px solid ${gray76}`,
+        backgroundColor: tableBackgroundAccent,
+        marginLeft: -20,
+        marginRight: -20,
+        paddingBottom: 20,
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingTop: 10,
+        width: 'auto',
+    },
+});
 

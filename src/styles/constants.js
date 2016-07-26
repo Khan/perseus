@@ -44,6 +44,8 @@ module.exports = {
     pureMdMax: "1023px",
     // @pure-lg-max: (@pure-xl-min - 1);
     pureLgMax: "1279px",
+    // @tableBackgroundAccent: #f9f9f9; // for striping
+    tableBackgroundAccent: "#F9F9F9",
     // @satBlue:               #0084ce;
     satBlue: "#0084CE",
     // @satSelectedBackgroundColor: #e4f3f9;
