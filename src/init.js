@@ -1,3 +1,17 @@
+/**
+ * This should be called by all clients, specifying whether extra widgets are
+ * needed via `loadExtraWidgets`. It is idempotent, so it's not a problem to
+ * call it multiple times.
+ *
+ * skipMathJax:
+ *   if false/undefined, MathJax will be configured, and the
+ *   promise will wait for MathJax to load (if it hasn't already).
+ * loadExtraWidgets:
+ *   if true, `extra-widgets` will be required. The client must have already
+ *   loaded the file, either by using the full perseus bundle
+ *   `/build/perseus.js`, or by loading `/build/perseus-extras.js` prior to
+ *   calling `Perseus.init()`.
+ */
 
 const init = function(options) {
     // Pass skipMathJax: true if MathJax is already loaded and configured.

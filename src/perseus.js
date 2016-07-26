@@ -1,3 +1,6 @@
+/**
+ * Main entry point
+ */
 const version = require("./version.json");
 
 const Widgets = require("./widgets.js");

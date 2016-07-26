@@ -73,7 +73,7 @@ function getEntryPoints() {
     } else {
         const name = slim ? "perseus-slim" : "perseus";
         return {
-            [name]: "./src/perseus.js",
+            [name]: slim ? "./src/perseus.js" : "./src/perseus-full.js",
         };
     }
 }
