@@ -24,6 +24,11 @@ const ProvideKeypad = {
         apiOptions: React.PropTypes.shape({
             customKeypad: React.PropTypes.bool,
         }),
+        // An Aphrodite style object, to be applied to the keypad container.
+        // Note that, given our awkward structure of injecting the keypad, this
+        // style won't be applied or updated dynamically. Rather, it will only
+        // be applied in `componentDidMount`.
+        keypadStyle: React.PropTypes.any,
     },
 
     getInitialState() {
@@ -50,6 +55,7 @@ const ProvideKeypad = {
                     onDismiss={() => {
                         this.blur && this.blur();
                     }}
+                    style={this.props.keypadStyle}
                 />,
                 this._keypadContainer
             );

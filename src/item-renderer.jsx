@@ -56,7 +56,7 @@ const ItemRenderer = React.createClass({
         workAreaSelector: RP.string,
     },
 
-    mixins: [ ProvideKeypad ],
+    mixins: [ProvideKeypad],
 
     getDefaultProps: function() {
         return {
