@@ -155,7 +155,7 @@ var InputNumber = React.createClass({
     },
 
     handleChange: function(newValue) {
-        this.props.onChange({ currentValue: newValue });
+        this.props.onChange({ currentValue: Util.asc(newValue) });
     },
 
     focus: function() {
