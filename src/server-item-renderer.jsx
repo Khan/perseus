@@ -7,11 +7,13 @@
  * exercise.
  */
 const React = require('react');
+const ReactDOM = require("react-dom");
 const _ = require("underscore");
 
 const ApiOptions = require("./perseus-api.jsx").Options;
 const EnabledFeatures = require("./enabled-features.jsx");
 const HintsRenderer = require("./hints-renderer.jsx");
+const ProvideKeypad = require("./mixins/provide-keypad.jsx");
 const Renderer = require("./renderer.jsx");
 const Util = require("./util.js");
 
@@ -38,6 +40,8 @@ const ItemRenderer = React.createClass({
         problemNum: RP.number,
         savedState: RP.any,
     },
+
+    mixins: [ProvideKeypad],
 
     getDefaultProps: function() {
         return {
@@ -82,6 +86,8 @@ const ItemRenderer = React.createClass({
     // Sets the current focus path and element and
     // send an onChangeFocus event back to our parent.
     _setCurrentFocus: function(newFocus) {
+        const keypadElement = this.keypadElement();
+
         // By the time this happens, newFocus cannot be a prefix of
         // prevFocused, since we must have either been called from
         // an onFocusChange within a renderer, which is only called when
@@ -90,7 +96,25 @@ const ItemRenderer = React.createClass({
         const prevFocus = this._currentFocus;
         this._currentFocus = newFocus;
         if (this.props.apiOptions.onFocusChange != null) {
-            this.props.apiOptions.onFocusChange(this._currentFocus, prevFocus);
+            this.props.apiOptions.onFocusChange(
+                this._currentFocus,
+                prevFocus,
+                keypadElement && ReactDOM.findDOMNode(keypadElement)
+            );
+        }
+
+        if (keypadElement) {
+            const inputPaths = this.getInputPaths();
+            const didFocusInput = this._currentFocus &&
+                inputPaths.some(inputPath => {
+                    return Util.inputPathsEqual(inputPath, this._currentFocus);
+                });
+
+            if (didFocusInput) {
+                keypadElement.activate();
+            } else {
+                keypadElement.dismiss();
+            }
         }
     },
 
@@ -274,6 +298,7 @@ const ItemRenderer = React.createClass({
         };
 
         const questionRenderer = <Renderer
+            keypadElement={this.keypadElement()}
             problemNum={this.props.problemNum}
             onInteractWithWidget={this.handleInteractWithWidget}
             highlightedWidgets={this.state.questionHighlightedWidgets}
