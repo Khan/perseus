@@ -22,9 +22,7 @@ webpackJsonpPerseus([1],[
 	/* globals __EDITOR__ */
 	// As new widgets get added here, please also make sure they get added in
 	// webapp perseus/traversal.py so they can be properly translated.
-	module.exports = [ [ __webpack_require__(37), false ], [ __webpack_require__(38), false ], [ __webpack_require__(39), false ], [ __webpack_require__(40), false ], [ __webpack_require__(41), false ], [ __webpack_require__(42), false ], [ __webpack_require__(43), false ], [ __webpack_require__(44), false ], [ __webpack_require__(45), false ], [ __webpack_require__(46), false ], [ __webpack_require__(47), false ], [ __webpack_require__(48), false ], [ __webpack_require__(49), false ], [ __webpack_require__(50), false ], [ __webpack_require__(51), false ], [ __webpack_require__(52), false ], [ __webpack_require__(53), false ], [ __webpack_require__(54), false ], [ __webpack_require__(55), false ], [ __webpack_require__(56), false ], [ __webpack_require__(57), false ], [ __webpack_require__(58), false ], [ __webpack_require__(59), false ], [ __webpack_require__(60), false ], [ __webpack_require__(61), false ], [ __webpack_require__(62), false ], [ __webpack_require__(63), false ], [ __webpack_require__(64), false ], [ __webpack_require__(65), false ], [ __webpack_require__(66), false ], // These widgets are only used when testing things, so remove them in the
-	// non-editor bundle.
-	false, false, false ];
+	module.exports = [ [ __webpack_require__(37), false ], [ __webpack_require__(38), false ], [ __webpack_require__(39), false ], [ __webpack_require__(40), false ], [ __webpack_require__(41), false ], [ __webpack_require__(42), false ], [ __webpack_require__(43), false ], [ __webpack_require__(44), false ], [ __webpack_require__(45), false ], [ __webpack_require__(46), false ], [ __webpack_require__(47), false ], [ __webpack_require__(48), false ], [ __webpack_require__(49), false ], [ __webpack_require__(50), false ], [ __webpack_require__(51), false ], [ __webpack_require__(52), false ], [ __webpack_require__(53), false ], [ __webpack_require__(54), false ], [ __webpack_require__(55), false ], [ __webpack_require__(56), false ], [ __webpack_require__(57), false ], [ __webpack_require__(58), false ], [ __webpack_require__(59), false ], [ __webpack_require__(60), false ], [ __webpack_require__(61), false ], [ __webpack_require__(62), false ], [ __webpack_require__(63), false ], [ __webpack_require__(64), false ], [ __webpack_require__(65), false ], [ __webpack_require__(66), false ], false, false, false ];
 
 /***/ },
 /* 16 */,
@@ -70,13 +68,13 @@ webpackJsonpPerseus([1],[
 
 	var Changeable = __webpack_require__(74);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(89);
+	var WidgetJsonifyDeprecated = __webpack_require__(90);
 
 	var _ = __webpack_require__(9);
 
-	var ApiClassNames = __webpack_require__(16).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var _require2 = __webpack_require__(78);
 
@@ -88,11 +86,11 @@ webpackJsonpPerseus([1],[
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(18);
+	var Util = __webpack_require__(16);
 
-	var mediaQueries = __webpack_require__(90);
+	var mediaQueries = __webpack_require__(91);
 
-	var sharedStyles = __webpack_require__(91);
+	var sharedStyles = __webpack_require__(92);
 
 	var Categorizer = React.createClass({
 	    displayName: "Categorizer",
@@ -290,7 +288,7 @@ webpackJsonpPerseus([1],[
 
 	var Changeable = __webpack_require__(74);
 
-	var updateQueryString = __webpack_require__(18).updateQueryString;
+	var updateQueryString = __webpack_require__(16).updateQueryString;
 
 	var PADDING_WIDTH = 2;
 
@@ -443,7 +441,7 @@ webpackJsonpPerseus([1],[
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var classNames = __webpack_require__(13);
 
-	var FancySelect = __webpack_require__(92);
+	var FancySelect = __webpack_require__(96);
 
 	var React = __webpack_require__(10);
 
@@ -453,11 +451,11 @@ webpackJsonpPerseus([1],[
 
 	var FancyOption = FancySelect.Option;
 
-	var ApiClassNames = __webpack_require__(16).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
-	var captureScratchpadTouchStart = __webpack_require__(18).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(16).captureScratchpadTouchStart;
 
 	var Dropdown = React.createClass({
 	    displayName: "Dropdown",
@@ -598,11 +596,11 @@ webpackJsonpPerseus([1],[
 
 	var Changeable = __webpack_require__(74);
 
-	var PerseusApi = __webpack_require__(16);
+	var PerseusApi = __webpack_require__(17);
 
 	var Renderer = __webpack_require__(8);
 
-	var mediaQueries = __webpack_require__(90);
+	var mediaQueries = __webpack_require__(91);
 
 	var styleConstants = __webpack_require__(35);
 
@@ -822,7 +820,7 @@ webpackJsonpPerseus([1],[
 
 	var SvgImage = __webpack_require__(33);
 
-	var Util = __webpack_require__(18);
+	var Util = __webpack_require__(16);
 
 	var ButtonGroup = __webpack_require__(94);
 
@@ -833,11 +831,11 @@ webpackJsonpPerseus([1],[
 
 	var MovableLine = Graphie.MovableLine;
 
-	var knumber = __webpack_require__(123).number;
+	var knumber = __webpack_require__(124).number;
 
-	var kvector = __webpack_require__(123).vector;
+	var kvector = __webpack_require__(124).vector;
 
-	var kpoint = __webpack_require__(123).point;
+	var kpoint = __webpack_require__(124).point;
 
 	var KhanColors = __webpack_require__(95);
 
@@ -856,7 +854,7 @@ webpackJsonpPerseus([1],[
 	/* Mixins. */
 	var Changeable = __webpack_require__(74);
 
-	var _require4 = __webpack_require__(110);
+	var _require4 = __webpack_require__(111);
 
 	var GrapherUtil = _require4.GrapherUtil;
 
@@ -1198,7 +1196,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var Changeable = __webpack_require__(74);
 
@@ -1410,7 +1408,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var Changeable = __webpack_require__(74);
 
@@ -1566,9 +1564,9 @@ webpackJsonpPerseus([1],[
 
 	var Changeable = __webpack_require__(74);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(89);
+	var WidgetJsonifyDeprecated = __webpack_require__(90);
 
-	var updateQueryString = __webpack_require__(18).updateQueryString;
+	var updateQueryString = __webpack_require__(16).updateQueryString;
 
 	/* This renders the iframe and handles validation via window.postMessage */
 	var Iframe = React.createClass({
@@ -1713,7 +1711,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var Renderer = __webpack_require__(8);
 
@@ -1789,27 +1787,7 @@ webpackJsonpPerseus([1],[
 	        var backgroundImage = this.props.backgroundImage;
 	        backgroundImage.url && (image = React.createElement(SvgImage, {
 	            src: backgroundImage.url,
-	            alt: /* alt text is formatted in a sr-only
-	                   div next to the image, so we make
-	                   this empty here.
-	                   If there is no alt text at all,
-	                   we don't put an alt attribute on
-	                   the image, so that screen readers
-	                   know there's something they can't
-	                   read there :(.
-	                   NOTE: React <=0.13 (maybe later)
-	                   has a bug where it won't ever
-	                   remove an attribute, so if this
-	                   alt node is ever defined it's
-	                   not removed. This is sort of
-	                   dangerous, but we usually re-key
-	                   new renderers so that they're
-	                   rendered from scratch anyways,
-	                   so this shouldn't be a problem
-	                   in practice right now, although
-	                   it will exhibit weird behaviour
-	                   while editing. */
-	            this.props.alt ? "" : void 0,
+	            alt: this.props.alt ? "" : void 0,
 	            width: backgroundImage.width,
 	            height: backgroundImage.height,
 	            preloader: apiOptions.imagePreloader,
@@ -1966,7 +1944,7 @@ webpackJsonpPerseus([1],[
 
 	var Rect = Graphie.Rect;
 
-	var kvector = __webpack_require__(123).vector;
+	var kvector = __webpack_require__(124).vector;
 
 	// Memoize KAS parsing
 	var KAShashFunc = function KAShashFunc(expr, options) {
@@ -2291,6 +2269,7 @@ webpackJsonpPerseus([1],[
 	                    }
 	                });
 	            }
+	            // TODO(eater): why so slow?
 	            if ("parametric" === element.type) {
 	                var fn = function fn(t) {
 	                    return [ _this2._eval(element.options.x, {
@@ -2321,6 +2300,7 @@ webpackJsonpPerseus([1],[
 	                    }
 	                });
 	            }
+	            // TODO(eater): why so slow?
 	            if ("label" === element.type) {
 	                var coord = [ this._eval(element.options.coordX), this._eval(element.options.coordY) ];
 	                return React.createElement(Label, {
@@ -2381,6 +2361,14 @@ webpackJsonpPerseus([1],[
 
 	"use strict";
 
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable brace-style, comma-dangle, indent, no-redeclare, no-undef, no-unused-vars, no-var, object-curly-spacing, one-var, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-infix-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -2388,23 +2376,23 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Graph = __webpack_require__(97);
+	var Graph = __webpack_require__(101);
 
-	var InfoTip = __webpack_require__(98);
+	var InfoTip = __webpack_require__(102);
 
 	var Interactive2 = __webpack_require__(93);
 
-	var NumberInput = __webpack_require__(99);
+	var NumberInput = __webpack_require__(97);
 
-	var Util = __webpack_require__(18);
+	var Util = __webpack_require__(16);
 
-	var knumber = __webpack_require__(123).number;
+	var knumber = __webpack_require__(124).number;
 
-	var kpoint = __webpack_require__(123).point;
+	var kpoint = __webpack_require__(124).point;
 
 	var KhanColors = __webpack_require__(95);
 
-	var GraphUtils = __webpack_require__(100);
+	var GraphUtils = __webpack_require__(103);
 
 	var _require = __webpack_require__(35);
 
@@ -2415,6 +2403,8 @@ webpackJsonpPerseus([1],[
 	var containerSizeClassPropType = _require2.containerSizeClassPropType;
 
 	var getInteractiveBoxFromSizeClass = _require2.getInteractiveBoxFromSizeClass;
+
+	var WrappedLine = __webpack_require__(104);
 
 	var DeprecationMixin = Util.DeprecationMixin;
 
@@ -2643,6 +2633,7 @@ webpackJsonpPerseus([1],[
 	            step: [ 1, 1 ],
 	            backgroundImage: defaultBackgroundImage,
 	            markings: "graph",
+	            showTooltips: false,
 	            showProtractor: false,
 	            showRuler: false,
 	            rulerLabel: "",
@@ -2837,6 +2828,7 @@ webpackJsonpPerseus([1],[
 	        var onMouseDown = this.isClickToAddPoints() ? this.handleAddPointsMouseDown : null;
 	        var gridStep = this.props.gridStep || Util.getGridStep(this.props.range, this.props.step, box[0]);
 	        var snapStep = this.props.snapStep || Util.snapStepFromGridStep(gridStep);
+	        var xomManatee = this.props.apiOptions.xomManatee;
 	        return React.createElement("div", {
 	            className: "perseus-widget perseus-widget-interactive-graph",
 	            style: {
@@ -2849,9 +2841,9 @@ webpackJsonpPerseus([1],[
 	            box: box,
 	            labels: this.props.labels,
 	            range: this.props.range,
-	            step: this.props.step,
+	            step: xomManatee ? [ 2, 2 ] : this.props.step,
 	            gridStep: gridStep,
-	            snapStep: snapStep,
+	            snapStep: xomManatee ? [ 1, 1 ] : snapStep,
 	            markings: this.props.markings,
 	            backgroundImage: this.props.backgroundImage,
 	            showProtractor: this.props.showProtractor,
@@ -2904,13 +2896,52 @@ webpackJsonpPerseus([1],[
 	    },
 	    resetGraphie: function resetGraphie() {
 	        this.shouldResetGraphie = false;
+	        this.parabola = null;
+	        this.sinusoid = null;
 	        this.refs.graph.reset();
 	    },
 	    setupGraphie: function setupGraphie() {
 	        this.setTrashCanVisibility(0);
 	        this.isClickToAddPoints() && this.setTrashCanVisibility(.5);
+	        if (this.props.apiOptions.xomManatee) {
+	            this.horizHairline = new WrappedLine(this.graphie, [ 0, 0 ], [ 0, 0 ], {
+	                normalStyle: {
+	                    "stroke-width": "2px"
+	                }
+	            });
+	            this.horizHairline.attr({
+	                stroke: KhanColors.INTERACTIVE
+	            });
+	            this.horizHairline.hide();
+	            this.vertHairline = new WrappedLine(this.graphie, [ 0, 0 ], [ 0, 0 ], {
+	                normalStyle: {
+	                    "stroke-width": "2px"
+	                }
+	            });
+	            this.vertHairline.attr({
+	                stroke: KhanColors.INTERACTIVE
+	            });
+	            this.vertHairline.hide();
+	        }
 	        var type = this.props.graph.type;
 	        this["add" + capitalize(type) + "Controls"]();
+	    },
+	    showHairlines: function showHairlines(point) {
+	        if (this.props.apiOptions.xomManatee && "none" !== this.props.markings) {
+	            // Hairlines are already initialized when the graph is loaded, so
+	            // here we just move them to the updated location and make them
+	            // visible.
+	            this.horizHairline.moveTo([ this.props.range[0][0], point[1] ], [ this.props.range[0][1], point[1] ]);
+	            this.horizHairline.show();
+	            this.vertHairline.moveTo([ point[0], this.props.range[1][0] ], [ point[0], this.props.range[1][1] ]);
+	            this.vertHairline.show();
+	        }
+	    },
+	    hideHairlines: function hideHairlines() {
+	        if (this.props.apiOptions.xomManatee) {
+	            this.horizHairline.hide();
+	            this.vertHairline.hide();
+	        }
 	    },
 	    setTrashCanVisibility: function setTrashCanVisibility(opacity) {
 	        var graphie = this.graphie;
@@ -2919,7 +2950,9 @@ webpackJsonpPerseus([1],[
 	                this.trashCan.remove();
 	                this.trashCan = null;
 	            }
-	        } else {
+	        } else if (!this.props.apiOptions.xomManatee) {
+	            // Only if trash tooltips are not being used, we initialize the old
+	            // trash can area.
 	            this.trashCan || (this.trashCan = graphie.raphael.image(TRASH_ICON_URI, graphie.xpixels - 40, graphie.ypixels - 40, 40, 40));
 	            this.trashCan.attr({
 	                opacity: opacity
@@ -2939,12 +2972,39 @@ webpackJsonpPerseus([1],[
 	        props = props || this.props;
 	        return "point" === props.graph.type && props.graph.numPoints === UNLIMITED || "polygon" === props.graph.type && props.graph.numSides === UNLIMITED;
 	    },
+	    _createPoint: function _createPoint(extraProps) {
+	        var xomManatee = this.props.apiOptions.xomManatee;
+	        var commonStyle = xomManatee ? {
+	            stroke: "#ffffff",
+	            "stroke-width": "4px",
+	            fill: KhanColors.INTERACTIVE
+	        } : {
+	            stroke: KhanColors.INTERACTIVE,
+	            fill: KhanColors.INTERACTIVE
+	        };
+	        var normalStyle = Object.assign(commonStyle, extraProps.normalStyle);
+	        var highlightStyle = Object.assign(xomManatee ? _extends({}, commonStyle, {
+	            scale: 1
+	        }) : {}, extraProps.highlightStyle);
+	        var props = Object.assign({
+	            normalStyle: normalStyle,
+	            highlightStyle: highlightStyle,
+	            shadow: xomManatee,
+	            tooltip: xomManatee && this.props.showTooltips,
+	            showHairlines: this.showHairlines,
+	            hideHairlines: this.hideHairlines
+	        }, xomManatee ? {
+	            pointSize: 11
+	        } : {});
+	        return Interactive2.addMovablePoint(this.graphie, Object.assign(extraProps, props));
+	    },
 	    addLine: function addLine(type) {
+	        var _this2 = this;
 	        var self = this;
 	        var graphie = self.graphie;
 	        var coords = InteractiveGraph.getLineCoords(self.props.graph, self.props);
 	        var points = self.points = _.map(coords, function(coord) {
-	            return Interactive2.addMovablePoint(graphie, {
+	            return _this2._createPoint({
 	                coord: coord,
 	                constraints: [ Interactive2.MovablePoint.constraints.bound(), Interactive2.MovablePoint.constraints.snap() ],
 	                onMove: function onMove() {
@@ -2954,10 +3014,6 @@ webpackJsonpPerseus([1],[
 	                    self.onChange({
 	                        graph: graph
 	                    });
-	                },
-	                normalStyle: {
-	                    stroke: KhanColors.INTERACTIVE,
-	                    fill: KhanColors.INTERACTIVE
 	                }
 	            });
 	        });
@@ -2986,7 +3042,7 @@ webpackJsonpPerseus([1],[
 	        this.removeLine();
 	    },
 	    addQuadraticControls: function addQuadraticControls() {
-	        var _this2 = this;
+	        var _this3 = this;
 	        var graphie = this.graphie;
 	        var coords = this.props.graph.coords;
 	        coords || (coords = InteractiveGraph.defaultQuadraticCoords(this.props));
@@ -2994,29 +3050,29 @@ webpackJsonpPerseus([1],[
 	        var pointB;
 	        var pointC;
 	        var onMoveHandler = function onMoveHandler() {
-	            var graph = _.extend({}, _this2.props.graph, {
+	            var graph = _.extend({}, _this3.props.graph, {
 	                coords: [ pointA.coord(), pointB.coord(), pointC.coord() ]
 	            });
-	            _this2.onChange({
+	            _this3.onChange({
 	                graph: graph
 	            });
-	            _this2.updateQuadratic();
+	            _this3.updateQuadratic();
 	        };
-	        pointA = this.pointA = Interactive2.addMovablePoint(graphie, {
+	        pointA = this.pointA = this._createPoint({
 	            coord: coords[0],
 	            constraints: [ Interactive2.MovablePoint.constraints.bound(), Interactive2.MovablePoint.constraints.snap(), function(coord) {
 	                return !pointA || coord[0] !== pointB.coord()[0] && coord[0] !== pointC.coord()[0];
 	            } ],
 	            onMove: onMoveHandler
 	        });
-	        pointB = this.pointB = Interactive2.addMovablePoint(graphie, {
+	        pointB = this.pointB = this._createPoint({
 	            coord: coords[1],
 	            constraints: [ Interactive2.MovablePoint.constraints.bound(), Interactive2.MovablePoint.constraints.snap(), function(coord) {
 	                return !pointB || coord[0] !== pointA.coord()[0] && coord[0] !== pointC.coord()[0];
 	            } ],
 	            onMove: onMoveHandler
 	        });
-	        pointC = this.pointC = Interactive2.addMovablePoint(graphie, {
+	        pointC = this.pointC = this._createPoint({
 	            coord: coords[2],
 	            constraints: [ Interactive2.MovablePoint.constraints.bound(), Interactive2.MovablePoint.constraints.snap(), function(coord) {
 	                return !pointC || coord[0] !== pointA.coord()[0] && coord[0] !== pointB.coord()[0];
@@ -3054,29 +3110,29 @@ webpackJsonpPerseus([1],[
 	        }
 	    },
 	    addSinusoidControls: function addSinusoidControls() {
-	        var _this3 = this;
+	        var _this4 = this;
 	        var graphie = this.graphie;
 	        var coords = this.props.graph.coords;
 	        coords || (coords = InteractiveGraph.defaultSinusoidCoords(this.props));
 	        var pointA;
 	        var pointB;
 	        var onMoveHandler = function onMoveHandler() {
-	            var graph = _.extend({}, _this3.props.graph, {
+	            var graph = _.extend({}, _this4.props.graph, {
 	                coords: [ pointA.coord(), pointB.coord() ]
 	            });
-	            _this3.onChange({
+	            _this4.onChange({
 	                graph: graph
 	            });
-	            _this3.updateSinusoid();
+	            _this4.updateSinusoid();
 	        };
-	        pointA = this.pointA = Interactive2.addMovablePoint(graphie, {
+	        pointA = this.pointA = this._createPoint({
 	            coord: coords[0],
 	            constraints: [ Interactive2.MovablePoint.constraints.bound(), Interactive2.MovablePoint.constraints.snap(), function(coord) {
 	                return !pointA || coord[0] !== pointB.coord()[0];
 	            } ],
 	            onMove: onMoveHandler
 	        });
-	        pointB = this.pointB = Interactive2.addMovablePoint(graphie, {
+	        pointB = this.pointB = this._createPoint({
 	            coord: coords[1],
 	            constraints: [ Interactive2.MovablePoint.constraints.bound(), Interactive2.MovablePoint.constraints.snap(), function(coord) {
 	                return !pointA || coord[0] !== pointA.coord()[0];
@@ -3112,7 +3168,7 @@ webpackJsonpPerseus([1],[
 	        }
 	    },
 	    addCircleControls: function addCircleControls() {
-	        var _this4 = this;
+	        var _this5 = this;
 	        var graphie = this.graphie;
 	        var minSnap = _.min(graphie.snap);
 	        var circle = this.circle = graphie.addCircleGraph({
@@ -3124,11 +3180,11 @@ webpackJsonpPerseus([1],[
 	            snapRadius: minSnap
 	        });
 	        $(circle).on("move", function() {
-	            var graph = _.extend({}, _this4.props.graph, {
+	            var graph = _.extend({}, _this5.props.graph, {
 	                center: circle.center,
 	                radius: circle.radius
 	            });
-	            _this4.onChange({
+	            _this5.onChange({
 	                graph: graph
 	            });
 	        });
@@ -3137,13 +3193,13 @@ webpackJsonpPerseus([1],[
 	        this.circle.remove();
 	    },
 	    addLinearSystemControls: function addLinearSystemControls() {
-	        var _this5 = this;
+	        var _this6 = this;
 	        var graphie = this.graphie;
 	        var coords = InteractiveGraph.getLinearSystemCoords(this.props.graph, this.props);
 	        var segmentColors = [ KhanColors.INTERACTIVE, KhanColors.GREEN ];
 	        var points = this.points = _.map(coords, function(segmentCoords, segmentIndex) {
 	            var segmentPoints = _.map(segmentCoords, function(coord, i) {
-	                return Interactive2.addMovablePoint(graphie, {
+	                return _this6._createPoint({
 	                    coord: coord,
 	                    constraints: [ Interactive2.MovablePoint.constraints.bound(), Interactive2.MovablePoint.constraints.snap(), function(coord) {
 	                        if (!segmentPoints) // points hasn't been defined yet because
@@ -3152,17 +3208,19 @@ webpackJsonpPerseus([1],[
 	                        return !kpoint.equal(coord, segmentPoints[1 - i].coord());
 	                    } ],
 	                    onMove: function onMove() {
-	                        var graph = _.extend({}, _this5.props.graph, {
-	                            coords: _.map(_this5.points, function(segment) {
+	                        var graph = _.extend({}, _this6.props.graph, {
+	                            coords: _.map(_this6.points, function(segment) {
 	                                return _.invoke(segment, "coord");
 	                            })
 	                        });
-	                        _this5.onChange({
+	                        _this6.onChange({
 	                            graph: graph
 	                        });
 	                    },
 	                    normalStyle: {
-	                        stroke: segmentColors[segmentIndex],
+	                        fill: segmentColors[segmentIndex]
+	                    },
+	                    highlightStyle: {
 	                        fill: segmentColors[segmentIndex]
 	                    }
 	                });
@@ -3187,6 +3245,7 @@ webpackJsonpPerseus([1],[
 	        });
 	    },
 	    isCoordInTrash: function isCoordInTrash(coord) {
+	        if (this.props.apiOptions.xomManatee) return false;
 	        var graphie = this.graphie;
 	        var screenPoint = graphie.scalePoint(coord);
 	        return screenPoint[0] >= graphie.xpixels - 40 && screenPoint[1] >= graphie.ypixels - 40;
@@ -3194,7 +3253,19 @@ webpackJsonpPerseus([1],[
 	    createPointForPointsType: function createPointForPointsType(coord, i) {
 	        var self = this;
 	        var graphie = self.graphie;
-	        var point = Interactive2.addMovablePoint(graphie, {
+	        var remove = function remove() {
+	            self.points = _.filter(self.points, function(pt) {
+	                return pt !== point;
+	            });
+	            // update the correct answer box
+	            self.updateCoordsFromPoints();
+	            // remove this movablePoint from graphie.
+	            // we wait to do this until we're not inside of
+	            // said point's onMoveEnd method so its state is
+	            // consistent throughout this method call
+	            setTimeout(point.remove.bind(point), 0);
+	        };
+	        var point = this._createPoint(_extends({
 	            coord: coord,
 	            constraints: [ Interactive2.MovablePoint.constraints.bound(), Interactive2.MovablePoint.constraints.snap(), function(coord) {
 	                // TODO(jack): There ought to be a
@@ -3210,30 +3281,16 @@ webpackJsonpPerseus([1],[
 	            onMove: self.updateCoordsFromPoints,
 	            onMoveEnd: function onMoveEnd(coord) {
 	                if (self.isClickToAddPoints()) {
-	                    if (self.isCoordInTrash(coord)) {
-	                        // remove this point from points
-	                        self.points = _.filter(self.points, function(pt) {
-	                            return pt !== point;
-	                        });
-	                        // update the correct answer box
-	                        self.updateCoordsFromPoints();
-	                        // remove this movablePoint from graphie.
-	                        // we wait to do this until we're not inside of
-	                        // said point's onMoveEnd method so its state is
-	                        // consistent throughout this method call
-	                        setTimeout(point.remove.bind(point), 0);
-	                    }
+	                    self.isCoordInTrash(coord) && remove();
 	                    // In case we mouseup'd off the graphie and that
 	                    // stopped the move (in which case, we might not
 	                    // be in isCoordInTrash()
 	                    self.setTrashCanVisibility(.5);
 	                }
-	            },
-	            normalStyle: {
-	                stroke: KhanColors.INTERACTIVE,
-	                fill: KhanColors.INTERACTIVE
 	            }
-	        });
+	        }, this.props.apiOptions.xomManatee ? {
+	            onRemove: remove
+	        } : {}));
 	        return point;
 	    },
 	    removePoint: function removePoint(point) {
@@ -3248,7 +3305,7 @@ webpackJsonpPerseus([1],[
 	        return index;
 	    },
 	    createPointForPolygonType: function createPointForPolygonType(coord, i) {
-	        var _this6 = this;
+	        var _this7 = this;
 	        var graphie = this.graphie;
 	        // TODO(alex): check against "grid" instead, use constants
 	        var snapToGrid = !_.contains([ "angles", "sides" ], this.props.graph.snapTo);
@@ -3257,44 +3314,45 @@ webpackJsonpPerseus([1],[
 	        // as `i` can be changed by dragging a point to the trash
 	        // Currently this function is only called when !isClickToAddPoints()
 	        var rel = function rel(j) {
-	            return (i + j + _this6.points.length) % _this6.points.length;
+	            return (i + j + _this7.points.length) % _this7.points.length;
+	        };
+	        var remove = function remove() {
+	            // remove this point from points
+	            var index = _this7.removePoint(point);
+	            if (_this7.polygon.closed()) {
+	                _this7.points = rotate(_this7.points, index);
+	                _this7.polygon.update({
+	                    closed: false
+	                });
+	            }
+	            _this7.updatePolygon();
+	            // the polygon is now unclosed, so we need to
+	            // remove any points props
+	            _this7.clearCoords();
+	            // remove this movablePoint from graphie.
+	            // wait to do this until we're not inside of
+	            // said point's onMoveEnd method so state is
+	            // consistent throughout the method call
+	            setTimeout(point.remove.bind(point), 0);
 	        };
 	        var onMoveEndHandler = function onMoveEndHandler(coord) {
-	            if (_this6.isClickToAddPoints()) {
-	                if (_this6.isCoordInTrash(coord)) {
-	                    // remove this point from points
-	                    var index = _this6.removePoint(point);
-	                    if (_this6.polygon.closed()) {
-	                        _this6.points = rotate(_this6.points, index);
-	                        _this6.polygon.update({
-	                            closed: false
-	                        });
-	                    }
-	                    _this6.updatePolygon();
-	                    // the polygon is now unclosed, so we need to
-	                    // remove any points props
-	                    _this6.clearCoords();
-	                    // remove this movablePoint from graphie.
-	                    // wait to do this until we're not inside of
-	                    // said point's onMoveEnd method so state is
-	                    // consistent throughout the method call
-	                    setTimeout(point.remove.bind(point), 0);
-	                } else if (_this6.points.length > 1 && (point === _this6.points[0] && kpoint.equal(coord, _.last(_this6.points).coord()) || point === _.last(_this6.points) && kpoint.equal(coord, _this6.points[0].coord()))) {
+	            if (_this7.isClickToAddPoints()) {
+	                if (_this7.isCoordInTrash(coord)) remove(); else if (_this7.points.length > 1 && (point === _this7.points[0] && kpoint.equal(coord, _.last(_this7.points).coord()) || point === _.last(_this7.points) && kpoint.equal(coord, _this7.points[0].coord()))) {
 	                    // If the user clicked and dragged a point over endpoint,
 	                    // join the them
-	                    var pointToRemove = _this6.points.pop();
-	                    if (_this6.points.length > 2) {
-	                        _this6.polygon.update({
+	                    var pointToRemove = _this7.points.pop();
+	                    if (_this7.points.length > 2) {
+	                        _this7.polygon.update({
 	                            closed: true
 	                        });
-	                        _this6.updateCoordsFromPoints();
+	                        _this7.updateCoordsFromPoints();
 	                    } else {
-	                        _this6.polygon.update({
+	                        _this7.polygon.update({
 	                            closed: false
 	                        });
-	                        _this6.clearCoords();
+	                        _this7.clearCoords();
 	                    }
-	                    _this6.updatePolygon();
+	                    _this7.updatePolygon();
 	                    // remove this movablePoint from graphie.
 	                    // wait to do this until we're not inside of
 	                    // said point's onMoveEnd method so state is
@@ -3303,18 +3361,18 @@ webpackJsonpPerseus([1],[
 	                } else {
 	                    // If the user clicked and dragged a point over any other
 	                    // existing point, fix shape
-	                    var shouldRemove = _.any(_this6.points, function(pt) {
+	                    var shouldRemove = _.any(_this7.points, function(pt) {
 	                        return pt !== point && kpoint.equal(pt.coord(), coord);
 	                    });
 	                    if (shouldRemove) {
-	                        _this6.removePoint(point);
-	                        if (_this6.points.length < 3) {
-	                            _this6.polygon.update({
+	                        _this7.removePoint(point);
+	                        if (_this7.points.length < 3) {
+	                            _this7.polygon.update({
 	                                closed: false
 	                            });
-	                            _this6.clearCoords();
-	                        } else _this6.polygon.closed() && _this6.updateCoordsFromPoints();
-	                        _this6.updatePolygon();
+	                            _this7.clearCoords();
+	                        } else _this7.polygon.closed() && _this7.updateCoordsFromPoints();
+	                        _this7.updatePolygon();
 	                        // remove this movablePoint from graphie.
 	                        // wait to do this until we're not inside
 	                        // said point's onMoveEnd method so state
@@ -3329,19 +3387,19 @@ webpackJsonpPerseus([1],[
 	                    //  * and our polygon is not closed,
 	                    //  * and we can close it (we need at least 3 points),
 	                    // then close it
-	                    if ((point === _this6.points[0] || point === _.last(_this6.points)) && !point.hasMoved() && !point.state.isInitialMove && !_this6.polygon.closed() && _this6.points.length > 2) {
-	                        _this6.polygon.update({
+	                    if ((point === _this7.points[0] || point === _.last(_this7.points)) && !point.hasMoved() && !point.state.isInitialMove && !_this7.polygon.closed() && _this7.points.length > 2) {
+	                        _this7.polygon.update({
 	                            closed: true
 	                        });
-	                        _this6.updatePolygon();
+	                        _this7.updatePolygon();
 	                        // We finally have a closed polygon, so save our
 	                        // points to props
-	                        _this6.updateCoordsFromPoints();
+	                        _this7.updateCoordsFromPoints();
 	                    }
 	                }
 	                // In case we mouseup'd off the graphie and that
 	                // stopped the move
-	                _this6.setTrashCanVisibility(.5);
+	                _this7.setTrashCanVisibility(.5);
 	            }
 	            point.state.isInitialMove = false;
 	        };
@@ -3349,17 +3407,17 @@ webpackJsonpPerseus([1],[
 	            // These constraints are all relative to the other points, so if
 	            // we're creating the initial points and haven't added any others
 	            // to the graph, we can't enforce them.
-	            if (null == _this6.points || 0 === _this6.points.length) return true;
-	            var coords = _.invoke(_this6.points, "coord");
+	            if (null == _this7.points || 0 === _this7.points.length) return true;
+	            var coords = _.invoke(_this7.points, "coord");
 	            coords[i] = coord;
 	            // Check for invalid positioning, but only if we aren't adding
 	            // points one click at a time, since those added points could
 	            // have already violated these constraints
-	            if (!_this6.isClickToAddPoints()) {
+	            if (!_this7.isClickToAddPoints()) {
 	                // Polygons can't have consecutive collinear points
 	                if (collinear(coords[rel(-2)], coords[rel(-1)], coords[i]) || collinear(coords[rel(-1)], coords[i], coords[rel(1)]) || collinear(coords[i], coords[rel(1)], coords[rel(2)])) return false;
 	                var segments = _.zip(coords, rotate(coords));
-	                if (_this6.points.length > 3) // Constrain to simple (non self-intersecting) polygon by
+	                if (_this7.points.length > 3) // Constrain to simple (non self-intersecting) polygon by
 	                // testing whether adjacent segments intersect any others
 	                for (var j = -1; j <= 0; j++) {
 	                    var segment = segments[rel(j)];
@@ -3370,7 +3428,7 @@ webpackJsonpPerseus([1],[
 	                    }
 	                }
 	            }
-	            if ("angles" === _this6.props.graph.snapTo && _this6.points.length > 2) {
+	            if ("angles" === _this7.props.graph.snapTo && _this7.points.length > 2) {
 	                // Snap to whole degree interior angles
 	                var angles = _.map(angleMeasures(coords), function(rad) {
 	                    return 180 * rad / Math.PI;
@@ -3393,10 +3451,10 @@ webpackJsonpPerseus([1],[
 	                // Solve for side by using the law of sines
 	                var side = Math.sin(innerAngles[1] * Math.PI / 180) / Math.sin(innerAngles[2] * Math.PI / 180) * knownSide;
 	                var outerAngle = GraphUtils.findAngle(coords[rel(1)], coords[rel(-1)]);
-	                var offset = _this6.graphie.polar(side, outerAngle + (onLeft ? 1 : -1) * innerAngles[0]);
-	                return _this6.graphie.addPoints(coords[rel(-1)], offset);
+	                var offset = _this7.graphie.polar(side, outerAngle + (onLeft ? 1 : -1) * innerAngles[0]);
+	                return _this7.graphie.addPoints(coords[rel(-1)], offset);
 	            }
-	            if ("sides" === _this6.props.graph.snapTo && _this6.points.length > 1) {
+	            if ("sides" === _this7.props.graph.snapTo && _this7.points.length > 1) {
 	                // Snap to whole unit side measures
 	                var sides = _.map([ [ coords[rel(-1)], coords[i] ], [ coords[i], coords[rel(1)] ], [ coords[rel(-1)], coords[rel(1)] ] ], function(coords) {
 	                    return magnitude(vector.apply(null, coords));
@@ -3410,27 +3468,25 @@ webpackJsonpPerseus([1],[
 	                var innerAngle = lawOfCosines(sides[0], sides[2], sides[1]);
 	                var outerAngle = GraphUtils.findAngle(coords[rel(1)], coords[rel(-1)]);
 	                var onLeft = 1 === sign(ccw(coords[rel(-1)], coords[rel(1)], coords[i]));
-	                var offset = _this6.graphie.polar(sides[0], outerAngle + (onLeft ? 1 : -1) * innerAngle);
-	                return _this6.graphie.addPoints(coords[rel(-1)], offset);
+	                var offset = _this7.graphie.polar(sides[0], outerAngle + (onLeft ? 1 : -1) * innerAngle);
+	                return _this7.graphie.addPoints(coords[rel(-1)], offset);
 	            }
 	            // Snap to grid (already done)
 	            return true;
 	        };
-	        var point = Interactive2.addMovablePoint(graphie, {
+	        var point = this._createPoint(_extends({
 	            coord: coord,
 	            constraints: [ Interactive2.MovablePoint.constraints.bound(), snapToGrid ? Interactive2.MovablePoint.constraints.snap() : null, graphConstraint ],
 	            onMoveStart: function onMoveStart() {
-	                _this6.isClickToAddPoints() && _this6.setTrashCanVisibility(1);
+	                _this7.isClickToAddPoints() && _this7.setTrashCanVisibility(1);
 	            },
 	            onMove: function onMove() {
-	                _this6.polygon.closed() && _this6.updateCoordsFromPoints();
+	                _this7.polygon.closed() && _this7.updateCoordsFromPoints();
 	            },
-	            onMoveEnd: onMoveEndHandler,
-	            normalStyle: {
-	                stroke: KhanColors.INTERACTIVE,
-	                fill: KhanColors.INTERACTIVE
-	            }
-	        });
+	            onMoveEnd: onMoveEndHandler
+	        }, this.props.apiOptions.xomManatee && this.isClickToAddPoints() ? {
+	            onRemove: remove
+	        } : {}));
 	        point.state.isInitialMove = true;
 	        return point;
 	    },
@@ -3479,6 +3535,7 @@ webpackJsonpPerseus([1],[
 	        var self = this;
 	        var graphie = this.graphie;
 	        var coords = InteractiveGraph.getSegmentCoords(this.props.graph, this.props);
+	        var createPoint = this._createPoint;
 	        this.points = [];
 	        this.lines = _.map(coords, function(segment, i) {
 	            var updateCoordProps = function updateCoordProps() {
@@ -3490,12 +3547,8 @@ webpackJsonpPerseus([1],[
 	                });
 	            };
 	            var points = _.map(segment, function(coord, i) {
-	                return Interactive2.addMovablePoint(graphie, {
+	                return createPoint({
 	                    coord: coord,
-	                    normalStyle: {
-	                        stroke: KhanColors.INTERACTIVE,
-	                        fill: KhanColors.INTERACTIVE
-	                    },
 	                    constraints: [ Interactive2.MovablePoint.constraints.bound(), Interactive2.MovablePoint.constraints.snap(), function(coord) {
 	                        if (!points) // points hasn't been defined yet because
 	                        // we're still creating them
@@ -3589,7 +3642,7 @@ webpackJsonpPerseus([1],[
 	        this.polygon.remove();
 	    },
 	    addAngleControls: function addAngleControls() {
-	        var _this7 = this;
+	        var _this8 = this;
 	        var graphie = this.graphie;
 	        var coords = InteractiveGraph.getAngleCoords(this.props.graph, this.props);
 	        // The vertex snaps to the grid, but the rays don't...
@@ -3615,10 +3668,10 @@ webpackJsonpPerseus([1],[
 	            allowReflex: defaultVal(this.props.graph.allowReflexAngles, true)
 	        });
 	        $(this.angle).on("move", function() {
-	            var graph = _.extend({}, _this7.props.graph, {
-	                coords: _this7.angle.getClockwiseCoords()
+	            var graph = _.extend({}, _this8.props.graph, {
+	                coords: _this8.angle.getClockwiseCoords()
 	            });
-	            _this7.onChange({
+	            _this8.onChange({
 	                graph: graph
 	            });
 	        });
@@ -4070,7 +4123,7 @@ webpackJsonpPerseus([1],[
 
 	var Changeable = __webpack_require__(74);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(89);
+	var WidgetJsonifyDeprecated = __webpack_require__(90);
 
 	var MAX_SIZE = 8;
 
@@ -4214,7 +4267,7 @@ webpackJsonpPerseus([1],[
 	    return flipTilesPredicate(oldCells, function(y, x) {
 	        var offsetY = y - tileY;
 	        var offsetX = x - tileX;
-	        return Math.abs(offsetY) <= 1 && Math.abs(offsetX) <= 1 && pattern[offsetY + 1][offsetX + 1];
+	        return Math.abs(offsetY) <= 1 && Math.abs(offsetX) <= 1 ? pattern[offsetY + 1][offsetX + 1] : false;
 	    });
 	};
 
@@ -4373,25 +4426,25 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var NumberInput = __webpack_require__(99);
+	var NumberInput = __webpack_require__(97);
 
 	var Renderer = __webpack_require__(8);
 
-	var TextInput = __webpack_require__(101);
+	var TextInput = __webpack_require__(98);
 
-	var MathOutput = __webpack_require__(102);
+	var MathOutput = __webpack_require__(99);
 
 	var SimpleKeypadInput = __webpack_require__(70);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var KhanAnswerTypes = __webpack_require__(79);
 
 	var keypadElementPropType = __webpack_require__(68).propTypes.keypadElementPropType;
 
-	var assert = __webpack_require__(103).assert;
+	var assert = __webpack_require__(100).assert;
 
-	var stringArrayOfSize = __webpack_require__(18).stringArrayOfSize;
+	var stringArrayOfSize = __webpack_require__(16).stringArrayOfSize;
 
 	// We store three sets of dimensions for the brackets, for our three types of
 	// inputs, which vary in formatting: (1) the "static" inputs rendered for the
@@ -4799,13 +4852,13 @@ webpackJsonpPerseus([1],[
 
 	var Renderer = __webpack_require__(8);
 
-	var Sortable = __webpack_require__(96);
+	var Sortable = __webpack_require__(105);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
-	var shuffle = __webpack_require__(18).shuffle;
+	var shuffle = __webpack_require__(16).shuffle;
 
-	var seededRNG = __webpack_require__(18).seededRNG;
+	var seededRNG = __webpack_require__(16).seededRNG;
 
 	var Matcher = React.createClass({
 	    displayName: "Matcher",
@@ -4951,7 +5004,7 @@ webpackJsonpPerseus([1],[
 
 	var _2 = __webpack_require__(9);
 
-	var GraphUtils = __webpack_require__(100);
+	var GraphUtils = __webpack_require__(103);
 
 	var defaultImage = {
 	    url: null,
@@ -5102,13 +5155,13 @@ webpackJsonpPerseus([1],[
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(10);
 
-	var draw = __webpack_require__(111);
+	var draw = __webpack_require__(112);
 
-	var _require = __webpack_require__(112);
+	var _require = __webpack_require__(113);
 
 	var layout = _require.layout;
 
-	var SmilesParser = __webpack_require__(113);
+	var SmilesParser = __webpack_require__(114);
 
 	var parse = SmilesParser.parse;
 
@@ -5274,11 +5327,11 @@ webpackJsonpPerseus([1],[
 
 	var Changeable = __webpack_require__(74);
 
-	var NumberInput = __webpack_require__(99);
+	var NumberInput = __webpack_require__(97);
 
-	var MathOutput = __webpack_require__(102);
+	var MathOutput = __webpack_require__(99);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var Graphie = __webpack_require__(83);
 
@@ -5286,7 +5339,7 @@ webpackJsonpPerseus([1],[
 
 	var Line = Graphie.Line;
 
-	var knumber = __webpack_require__(123).number;
+	var knumber = __webpack_require__(124).number;
 
 	var KhanMath = __webpack_require__(81);
 
@@ -5296,7 +5349,7 @@ webpackJsonpPerseus([1],[
 	    return Math.min(Math.max(x, gt), lt);
 	};
 
-	var assert = __webpack_require__(103).assert;
+	var assert = __webpack_require__(100).assert;
 
 	var EN_DASH = "–";
 
@@ -5448,7 +5501,7 @@ webpackJsonpPerseus([1],[
 	        // Don't allow a fraction for the number of divisions
 	        numDivisions = Math.round(numDivisions);
 	        // Don't allow negative numbers for the number of divisions
-	        numDivisions = numDivisions < 0 ? numDivisions * -1 : numDivisions;
+	        numDivisions = numDivisions < 0 ? -1 * numDivisions : numDivisions;
 	        // If the number of divisions isn't blank, update the number line
 	        if (numDivisions) {
 	            var nextProps = _.extend({}, this.props, {
@@ -5766,9 +5819,9 @@ webpackJsonpPerseus([1],[
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(18);
+	var Util = __webpack_require__(16);
 
-	var ApiClassNames = __webpack_require__(16).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
 	var PlaceholderCard = React.createClass({
 	    displayName: "PlaceholderCard",
@@ -6197,7 +6250,7 @@ webpackJsonpPerseus([1],[
 
 	var Renderer = __webpack_require__(8);
 
-	var PassageMarkdown = __webpack_require__(114);
+	var PassageMarkdown = __webpack_require__(115);
 
 	var Passage = React.createClass({
 	    displayName: "Passage",
@@ -6440,7 +6493,7 @@ webpackJsonpPerseus([1],[
 
 	var Changeable = __webpack_require__(74);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(89);
+	var WidgetJsonifyDeprecated = __webpack_require__(90);
 
 	var Renderer = __webpack_require__(8);
 
@@ -6509,15 +6562,15 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var ApiClassNames = __webpack_require__(16).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
-	var deepEq = __webpack_require__(18).deepEq;
+	var deepEq = __webpack_require__(16).deepEq;
 
 	var KhanMath = __webpack_require__(81);
 
 	var KhanColors = __webpack_require__(95);
 
-	var GraphUtils = __webpack_require__(100);
+	var GraphUtils = __webpack_require__(103);
 
 	var BAR = "bar", LINE = "line", PIC = "pic", HISTOGRAM = "histogram", DOTPLOT = "dotplot";
 
@@ -6547,6 +6600,8 @@ webpackJsonpPerseus([1],[
 	        onChange: React.PropTypes.func.isRequired,
 	        trackInteraction: React.PropTypes.func.isRequired
 	    },
+	    // TODO(alex): Figure out why lint chokes on this line
+	    // ...widgetPropTypes,
 	    getDefaultProps: function getDefaultProps() {
 	        return {
 	            type: BAR,
@@ -7149,7 +7204,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var Changeable = __webpack_require__(74);
 
@@ -7161,7 +7216,7 @@ webpackJsonpPerseus([1],[
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(18);
+	var Util = __webpack_require__(16);
 
 	var Sequence = React.createClass({
 	    displayName: "Sequence",
@@ -7274,7 +7329,7 @@ webpackJsonpPerseus([1],[
 	/* eslint-disable comma-dangle, indent, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-unary-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/* globals $_, i18n */
-	var InfoTip = __webpack_require__(98);
+	var InfoTip = __webpack_require__(102);
 
 	var React = __webpack_require__(10);
 
@@ -7284,9 +7339,9 @@ webpackJsonpPerseus([1],[
 
 	var Changeable = __webpack_require__(74);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
-	var assert = __webpack_require__(103).assert;
+	var assert = __webpack_require__(100).assert;
 
 	var Graphie = __webpack_require__(83);
 
@@ -7304,15 +7359,15 @@ webpackJsonpPerseus([1],[
 
 	var MovableLine = Graphie.MovableLine;
 
-	var NumberInput = __webpack_require__(99);
+	var NumberInput = __webpack_require__(97);
 
-	var MathOutput = __webpack_require__(102);
+	var MathOutput = __webpack_require__(99);
 
-	var seededRNG = __webpack_require__(18).seededRNG;
+	var seededRNG = __webpack_require__(16).seededRNG;
 
-	var Util = __webpack_require__(18);
+	var Util = __webpack_require__(16);
 
-	var knumber = __webpack_require__(123).number;
+	var knumber = __webpack_require__(124).number;
 
 	var KhanColors = __webpack_require__(95);
 
@@ -7872,11 +7927,11 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Sortable = __webpack_require__(96);
+	var Sortable = __webpack_require__(105);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
-	var shuffle = __webpack_require__(18).shuffle;
+	var shuffle = __webpack_require__(16).shuffle;
 
 	var HORIZONTAL = "horizontal", VERTICAL = "vertical";
 
@@ -7962,17 +8017,17 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var MathOutput = __webpack_require__(102);
+	var MathOutput = __webpack_require__(99);
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(18);
+	var Util = __webpack_require__(16);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var KhanAnswerTypes = __webpack_require__(79);
 
-	var assert = __webpack_require__(103).assert;
+	var assert = __webpack_require__(100).assert;
 
 	/* Input handling: Maps a (row, column) pair to a unique ref used by React,
 	 * and extracts (row, column) pairs from input paths, used to allow outsiders
@@ -8247,19 +8302,19 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Graph = __webpack_require__(97);
+	var Graph = __webpack_require__(101);
 
 	var InlineIcon = __webpack_require__(75);
 
-	var NumberInput = __webpack_require__(99);
+	var NumberInput = __webpack_require__(97);
 
-	var MathOutput = __webpack_require__(102);
+	var MathOutput = __webpack_require__(99);
 
 	var TeX = __webpack_require__(36);
 
 	var SimpleKeypadInput = __webpack_require__(70);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var keypadElementPropType = __webpack_require__(68).propTypes.keypadElementPropType;
 
@@ -8281,27 +8336,27 @@ webpackJsonpPerseus([1],[
 
 	var iconUndo = _require.iconUndo;
 
-	var deepEq = __webpack_require__(18).deepEq;
+	var deepEq = __webpack_require__(16).deepEq;
 
-	var getGridStep = __webpack_require__(18).getGridStep;
+	var getGridStep = __webpack_require__(16).getGridStep;
 
-	var captureScratchpadTouchStart = __webpack_require__(18).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(16).captureScratchpadTouchStart;
 
-	var knumber = __webpack_require__(123).number;
+	var knumber = __webpack_require__(124).number;
 
-	var kvector = __webpack_require__(123).vector;
+	var kvector = __webpack_require__(124).vector;
 
-	var kpoint = __webpack_require__(123).point;
+	var kpoint = __webpack_require__(124).point;
 
-	var kray = __webpack_require__(123).ray;
+	var kray = __webpack_require__(124).ray;
 
-	var kline = __webpack_require__(123).line;
+	var kline = __webpack_require__(124).line;
 
 	var KhanMath = __webpack_require__(81);
 
 	var KhanColors = __webpack_require__(95);
 
-	var assert = __webpack_require__(103).assert;
+	var assert = __webpack_require__(100).assert;
 
 	var defaultBoxSize = 400;
 
@@ -9317,7 +9372,7 @@ webpackJsonpPerseus([1],[
 	            // If this angle is not editable, it should always maintain
 	            // it's angle measure, even if it is reflected (causing the
 	            // clockwise-ness of the points to change)
-	            var shouldChangeReflexivity = !!options.editable && null;
+	            var shouldChangeReflexivity = options.editable ? null : false;
 	            var angle = graphie.addMovableAngle({
 	                angleLabel: "$deg0",
 	                fixed: true,
@@ -9611,7 +9666,7 @@ webpackJsonpPerseus([1],[
 	        this.shouldSetupGraphie(this.props, prevProps) ? this.refs.graph.reset() : deepEq(this.props.transformations, this.transformations) || this.setTransformations(this.props.transformations);
 	    },
 	    shouldSetupGraphie: function shouldSetupGraphie(nextProps, prevProps) {
-	        return !deepEq(prevProps.starting, nextProps.starting) || (prevProps.graphMode !== nextProps.graphMode || (prevProps.listMode !== nextProps.listMode || (prevProps.drawSolutionShape !== nextProps.drawSolutionShape || (!(!nextProps.drawSolutionShape || deepEq(prevProps.correct.shape, nextProps.correct.shape)) || !deepEq(this.tools, nextProps.tools)))));
+	        return deepEq(prevProps.starting, nextProps.starting) ? prevProps.graphMode !== nextProps.graphMode ? true : prevProps.listMode !== nextProps.listMode ? true : prevProps.drawSolutionShape !== nextProps.drawSolutionShape ? true : nextProps.drawSolutionShape && !deepEq(prevProps.correct.shape, nextProps.correct.shape) ? true : !deepEq(this.tools, nextProps.tools) : true;
 	    },
 	    graphie: function graphie() {
 	        return this.refs.graph.graphie();
@@ -10246,7 +10301,7 @@ webpackJsonpPerseus([1],[
 	// terms of a certain type.
 	// TODO(joel): Allow sigfigs within a range rather than an exact expected
 	// value?
-	var lens = __webpack_require__(106);
+	var lens = __webpack_require__(89);
 
 	var React = __webpack_require__(10);
 
@@ -10254,15 +10309,15 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var ApiClassNames = __webpack_require__(16).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(17).Options;
 
 	var Changeable = __webpack_require__(74);
 
-	var MathOutput = __webpack_require__(102);
+	var MathOutput = __webpack_require__(99);
 
-	var _require = __webpack_require__(104);
+	var _require = __webpack_require__(106);
 
 	var SignificantFigures = _require.SignificantFigures;
 
@@ -10399,6 +10454,7 @@ webpackJsonpPerseus([1],[
 
 	// Extract the primitive units from a unit expression. This first simplifies
 	// `expr` to a `Mul` like "5 kg m / s^2" then removes the first term.
+	// end mobile stuff
 	var primUnits = function primUnits(expr) {
 	    return expr.simplify().asMul().partition()[1].flatten().simplify();
 	};
@@ -10439,8 +10495,6 @@ webpackJsonpPerseus([1],[
 	        var kasCorrect;
 	        var guessUnit = primUnits(guess.expr.simplify());
 	        var answerUnit = primUnits(answer.simplify());
-	        // We're accepting all units - KAS does the hard work of figuring
-	        // out if the user's unit is equivalent to the author's unit.
 	        kasCorrect = rubric.accepting === ALL ? KAS.compare(guessUnit, answerUnit).equal : _(rubric.acceptingUnits).any(function(unit) {
 	            var thisAnswerUnit = primUnits(KAS.unitParse(unit).unit.simplify());
 	            return KAS.compare(thisAnswerUnit, guessUnit).equal;
@@ -10596,7 +10650,99 @@ webpackJsonpPerseus([1],[
 /* 89 */,
 /* 90 */,
 /* 91 */,
-/* 92 */
+/* 92 */,
+/* 93 */,
+/* 94 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	var React = __webpack_require__(10);
+
+	var ReactDOM = __webpack_require__(11);
+
+	var _ = __webpack_require__(9);
+
+	var styles = __webpack_require__(129);
+
+	var css = __webpack_require__(12).css;
+
+	/* ButtonGroup is an aesthetically pleasing group of buttons.
+	 *
+	 * The class requires these properties:
+	 *   buttons - an array of objects with keys:
+	 *     "value": this is the value returned when the button is selected
+	 *     "content": this is the JSX shown within the button, typically a string
+	 *         that gets rendered as the button's display text
+	 *     "title": this is the title-text shown on hover
+	 *   onChange - a function that is provided with the updated value
+	 *     (which it then is responsible for updating)
+	 *
+	 * The class has these optional properties:
+	 *   value - the initial value of the button selected, defaults to null.
+	 *   allowEmpty - if false, exactly one button _must_ be selected; otherwise
+	 *     it defaults to true and _at most_ one button (0 or 1) may be selected.
+	 *
+	 * Requires stylesheets/perseus-admin-package/editor.less to look nice.
+	 */
+	var ButtonGroup = React.createClass({
+	    displayName: "ButtonGroup",
+	    propTypes: {
+	        value: React.PropTypes.any,
+	        buttons: React.PropTypes.arrayOf(React.PropTypes.shape({
+	            value: React.PropTypes.any.isRequired,
+	            content: React.PropTypes.node,
+	            title: React.PropTypes.string
+	        })).isRequired,
+	        onChange: React.PropTypes.func.isRequired,
+	        allowEmpty: React.PropTypes.bool
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            value: null,
+	            allowEmpty: true
+	        };
+	    },
+	    render: function render() {
+	        var _this = this;
+	        var value = this.props.value;
+	        var buttons = _(this.props.buttons).map(function(button, i) {
+	            return React.createElement("button", {
+	                title: button.title,
+	                type: "button",
+	                id: "" + i,
+	                ref: "button" + i,
+	                key: "" + i,
+	                className: css(styles.button.buttonStyle, button.value === value && styles.button.selectedStyle),
+	                onClick: _this.toggleSelect.bind(_this, button.value)
+	            }, button.content || "" + button.value);
+	        });
+	        var outerStyle = {
+	            display: "inline-block"
+	        };
+	        return React.createElement("div", {
+	            style: outerStyle
+	        }, buttons);
+	    },
+	    focus: function focus() {
+	        ReactDOM.findDOMNode(this).focus();
+	        return true;
+	    },
+	    toggleSelect: function toggleSelect(newValue) {
+	        var value = this.props.value;
+	        this.props.allowEmpty ? // Select the new button or unselect if it's already selected
+	        this.props.onChange(value !== newValue ? newValue : null) : this.props.onChange(newValue);
+	    }
+	});
+
+	module.exports = ButtonGroup;
+
+/***/ },
+/* 95 */,
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10815,14 +10961,201 @@ webpackJsonpPerseus([1],[
 	module.exports = FancySelect;
 
 /***/ },
-/* 93 */,
-/* 94 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-after-keywords */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	var classNames = __webpack_require__(13);
+
+	var React = __webpack_require__(10);
+
+	var ReactDOM = __webpack_require__(11);
+
+	var _ = __webpack_require__(9);
+
+	var firstNumericalParse = __webpack_require__(16).firstNumericalParse;
+
+	var captureScratchpadTouchStart = __webpack_require__(16).captureScratchpadTouchStart;
+
+	var knumber = __webpack_require__(124).number;
+
+	var KhanMath = __webpack_require__(81);
+
+	var toNumericString = KhanMath.toNumericString;
+
+	var getNumericFormat = KhanMath.getNumericFormat;
+
+	/* An input box that accepts only numeric strings
+	 *
+	 * Calls onChange(value, format) for valid numbers.
+	 * Reverts to the current value onBlur or on [ENTER],
+	 *   but maintains the format (i.e. 3/2, 1 1/2, 150%)
+	 * Accepts empty input and sends it to onChange as null
+	 *   if no numeric placeholder is set.
+	 * If given a checkValidity function, will turn
+	 *   the background/outline red when invalid
+	 * If useArrowKeys is set to true, up/down arrows will
+	 *   increment/decrement integers
+	 * Optionally takes a size ("mini", "small", "normal")
+	 */
+	var NumberInput = React.createClass({
+	    displayName: "NumberInput",
+	    propTypes: {
+	        value: React.PropTypes.number,
+	        format: React.PropTypes.string,
+	        placeholder: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number ]),
+	        onChange: React.PropTypes.func.isRequired,
+	        onFormatChange: React.PropTypes.func,
+	        checkValidity: React.PropTypes.func,
+	        size: React.PropTypes.string,
+	        label: React.PropTypes.oneOf([ "put your labels outside your inputs!" ])
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            value: null,
+	            placeholder: null,
+	            format: null,
+	            onFormatChange: function onFormatChange() {
+	                return null;
+	            },
+	            checkValidity: function checkValidity() {
+	                return true;
+	            },
+	            useArrowKeys: false
+	        };
+	    },
+	    getInitialState: function getInitialState() {
+	        return {
+	            format: this.props.format
+	        };
+	    },
+	    render: function render() {
+	        var classes = classNames({
+	            "number-input": true,
+	            "invalid-input": !this._checkValidity(this.props.value),
+	            mini: "mini" === this.props.size,
+	            small: "small" === this.props.size,
+	            normal: "normal" === this.props.size
+	        });
+	        null != this.props.className && (classes = classes + " " + this.props.className);
+	        return React.createElement("input", _extends({}, this.props, {
+	            className: classes,
+	            type: "text",
+	            ref: "input",
+	            onChange: this._handleChange,
+	            onFocus: this._handleFocus,
+	            onBlur: this._handleBlur,
+	            onKeyPress: this._handleBlur,
+	            onKeyDown: this._onKeyDown,
+	            onTouchStart: captureScratchpadTouchStart,
+	            defaultValue: toNumericString(this.props.value, this.state.format),
+	            value: void 0
+	        }));
+	    },
+	    componentDidUpdate: function componentDidUpdate(prevProps) {
+	        knumber.equal(this.getValue(), this.props.value) || this._setValue(this.props.value, this.state.format);
+	    },
+	    /* Return the current "value" of this input
+	     * If empty, it returns the placeholder (if it is a number) or null
+	     */
+	    getValue: function getValue() {
+	        return this.parseInputValue(ReactDOM.findDOMNode(this.refs.input).value);
+	    },
+	    /* Return the current string value of this input */
+	    getStringValue: function getStringValue() {
+	        return ReactDOM.findDOMNode(this.refs.input).value.toString();
+	    },
+	    parseInputValue: function parseInputValue(value) {
+	        if ("" === value) {
+	            var placeholder = this.props.placeholder;
+	            return _.isFinite(placeholder) ? +placeholder : null;
+	        }
+	        var result = firstNumericalParse(value);
+	        return _.isFinite(result) ? result : this.props.value;
+	    },
+	    /* Set text input focus to this input */
+	    focus: function focus() {
+	        ReactDOM.findDOMNode(this.refs.input).focus();
+	        this._handleFocus();
+	    },
+	    blur: function blur() {
+	        ReactDOM.findDOMNode(this.refs.input).blur();
+	        this._handleBlur();
+	    },
+	    setSelectionRange: function setSelectionRange(selectionStart, selectionEnd) {
+	        ReactDOM.findDOMNode(this).setSelectionRange(selectionStart, selectionEnd);
+	    },
+	    getSelectionStart: function getSelectionStart() {
+	        return ReactDOM.findDOMNode(this).selectionStart;
+	    },
+	    getSelectionEnd: function getSelectionEnd() {
+	        return ReactDOM.findDOMNode(this).selectionEnd;
+	    },
+	    _checkValidity: function _checkValidity(value) {
+	        if (null == value) return true;
+	        var val = firstNumericalParse(value);
+	        var checkValidity = this.props.checkValidity;
+	        return _.isFinite(val) && checkValidity(val);
+	    },
+	    _handleChange: function _handleChange(e) {
+	        var text = e.target.value;
+	        var value = this.parseInputValue(text);
+	        var format = getNumericFormat(text);
+	        this.props.onChange(value);
+	        if (format) {
+	            this.props.onFormatChange(value, format);
+	            this.setState({
+	                format: format
+	            });
+	        }
+	    },
+	    _handleFocus: function _handleFocus() {
+	        this.props.onFocus && this.props.onFocus();
+	    },
+	    _handleBlur: function _handleBlur(e) {
+	        // Only continue on blur or "enter"
+	        if (e && "keypress" === e.type && 13 !== e.keyCode) return;
+	        this._setValue(this.props.value, this.state.format);
+	        this.props.onBlur && this.props.onBlur();
+	    },
+	    _onKeyDown: function _onKeyDown(e) {
+	        this.props.onKeyDown && this.props.onKeyDown(e);
+	        if (!this.props.useArrowKeys || !_.contains([ "ArrowUp", "ArrowDown" ], e.key)) return;
+	        var val = this.getValue();
+	        if (val !== Math.floor(val)) return;
+	        "ArrowUp" === e.key ? val += 1 : "ArrowDown" === e.key && (val -= 1);
+	        this._checkValidity(val) && this.props.onChange(val);
+	    },
+	    _setValue: function _setValue(val, format) {
+	        $(ReactDOM.findDOMNode(this.refs.input)).val(toNumericString(val, format));
+	    }
+	});
+
+	module.exports = NumberInput;
+
+/***/ },
+/* 98 */,
+/* 99 */,
+/* 100 */,
+/* 101 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable brace-style, comma-dangle, no-redeclare, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(10);
 
@@ -10830,83 +11163,323 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var styles = __webpack_require__(128);
+	var Util = __webpack_require__(16);
 
-	var css = __webpack_require__(12).css;
+	var GraphUtils = __webpack_require__(103);
 
-	/* ButtonGroup is an aesthetically pleasing group of buttons.
-	 *
-	 * The class requires these properties:
-	 *   buttons - an array of objects with keys:
-	 *     "value": this is the value returned when the button is selected
-	 *     "content": this is the JSX shown within the button, typically a string
-	 *         that gets rendered as the button's display text
-	 *     "title": this is the title-text shown on hover
-	 *   onChange - a function that is provided with the updated value
-	 *     (which it then is responsible for updating)
-	 *
-	 * The class has these optional properties:
-	 *   value - the initial value of the button selected, defaults to null.
-	 *   allowEmpty - if false, exactly one button _must_ be selected; otherwise
-	 *     it defaults to true and _at most_ one button (0 or 1) may be selected.
-	 *
-	 * Requires stylesheets/perseus-admin-package/editor.less to look nice.
-	 */
-	var ButtonGroup = React.createClass({
-	    displayName: "ButtonGroup",
+	var _require = __webpack_require__(35);
+
+	var interactiveSizes = _require.interactiveSizes;
+
+	var SvgImage = __webpack_require__(33);
+
+	var defaultBackgroundImage = {
+	    url: null
+	};
+
+	/* Style objects */
+	var defaultInstructionsStyle = {
+	    fontStyle: "italic",
+	    fontWeight: "bold",
+	    fontSize: "32px",
+	    width: "100%",
+	    height: "100%",
+	    textAlign: "center",
+	    backgroundColor: "white",
+	    position: "absolute",
+	    zIndex: 1,
+	    transition: "opacity .25s ease-in-out",
+	    "-moz-transition": "opacity .25s ease-in-out",
+	    "-webkit-transition": "opacity .25s ease-in-out"
+	};
+
+	var instructionsTextStyle = {
+	    position: "relative",
+	    top: "25%"
+	};
+
+	function numSteps(range, step) {
+	    return Math.floor((range[1] - range[0]) / step);
+	}
+
+	var Graph = React.createClass({
+	    displayName: "Graph",
 	    propTypes: {
-	        value: React.PropTypes.any,
-	        buttons: React.PropTypes.arrayOf(React.PropTypes.shape({
-	            value: React.PropTypes.any.isRequired,
-	            content: React.PropTypes.node,
-	            title: React.PropTypes.string
-	        })).isRequired,
-	        onChange: React.PropTypes.func.isRequired,
-	        allowEmpty: React.PropTypes.bool
+	        box: React.PropTypes.array.isRequired,
+	        labels: React.PropTypes.arrayOf(React.PropTypes.string),
+	        range: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
+	        step: React.PropTypes.arrayOf(React.PropTypes.number),
+	        gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
+	        snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
+	        markings: React.PropTypes.string,
+	        backgroundImage: React.PropTypes.shape({
+	            url: React.PropTypes.string
+	        }),
+	        showProtractor: React.PropTypes.bool,
+	        showRuler: React.PropTypes.bool,
+	        rulerLabel: React.PropTypes.string,
+	        rulerTicks: React.PropTypes.number,
+	        onGraphieUpdated: React.PropTypes.func,
+	        instructions: React.PropTypes.string,
+	        onClick: React.PropTypes.func
 	    },
 	    getDefaultProps: function getDefaultProps() {
 	        return {
-	            value: null,
-	            allowEmpty: true
+	            labels: [ "x", "y" ],
+	            range: [ [ -10, 10 ], [ -10, 10 ] ],
+	            step: [ 1, 1 ],
+	            gridStep: [ 1, 1 ],
+	            snapStep: [ .5, .5 ],
+	            markings: "graph",
+	            backgroundImage: defaultBackgroundImage,
+	            showProtractor: false,
+	            showRuler: false,
+	            rulerLabel: "",
+	            rulerTicks: 10,
+	            instructions: null,
+	            onGraphieUpdated: null,
+	            onClick: null,
+	            onMouseDown: null
 	        };
 	    },
 	    render: function render() {
-	        var _this = this;
-	        var value = this.props.value;
-	        var buttons = _(this.props.buttons).map(function(button, i) {
-	            return React.createElement("button", {
-	                title: button.title,
-	                type: "button",
-	                id: "" + i,
-	                ref: "button" + i,
-	                key: "" + i,
-	                className: css(styles.button.buttonStyle, button.value === value && styles.button.selectedStyle),
-	                onClick: _this.toggleSelect.bind(_this, button.value)
-	            }, button.content || "" + button.value);
-	        });
-	        var outerStyle = {
-	            display: "inline-block"
-	        };
+	        var image;
+	        var imageData = this.props.backgroundImage;
+	        if (imageData.url) {
+	            var scale = this.props.box[0] / interactiveSizes.defaultBoxSize;
+	            image = React.createElement(SvgImage, {
+	                src: imageData.url,
+	                width: imageData.width,
+	                height: imageData.height,
+	                scale: scale,
+	                responsive: false
+	            });
+	        } else image = null;
 	        return React.createElement("div", {
-	            style: outerStyle
-	        }, buttons);
+	            className: "graphie-container above-scratchpad",
+	            style: {
+	                width: this.props.box[0],
+	                height: this.props.box[1]
+	            },
+	            onMouseOut: this.onMouseOut,
+	            onMouseOver: this.onMouseOver,
+	            onClick: this.onClick
+	        }, image, React.createElement("div", {
+	            className: "graphie",
+	            ref: "graphieDiv"
+	        }));
 	    },
-	    focus: function focus() {
-	        ReactDOM.findDOMNode(this).focus();
-	        return true;
+	    componentDidMount: function componentDidMount() {
+	        this._setupGraphie(true);
 	    },
-	    toggleSelect: function toggleSelect(newValue) {
-	        var value = this.props.value;
-	        this.props.allowEmpty ? // Select the new button or unselect if it's already selected
-	        this.props.onChange(value !== newValue ? newValue : null) : this.props.onChange(newValue);
+	    componentDidUpdate: function componentDidUpdate() {
+	        // Only setupGraphie once per componentDidUpdate().
+	        // See explanation in setupGraphie().
+	        this._hasSetupGraphieThisUpdate = false;
+	        if (this._shouldSetupGraphie) {
+	            this._setupGraphie(false);
+	            this._shouldSetupGraphie = false;
+	        }
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var potentialChanges = [ "labels", "range", "step", "markings", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep" ];
+	        var self = this;
+	        _.each(potentialChanges, function(prop) {
+	            _.isEqual(self.props[prop], nextProps[prop]) || (self._shouldSetupGraphie = true);
+	        });
+	    },
+	    /* Reset the graphie canvas to its initial state
+	     *
+	     * Use when re-rendering the parent component and you need a blank
+	     * graphie.
+	     */
+	    reset: function reset() {
+	        this._setupGraphie(false);
+	    },
+	    graphie: function graphie() {
+	        return this._graphie;
+	    },
+	    pointsFromNormalized: function pointsFromNormalized(coordsList, noSnap) {
+	        var self = this;
+	        return _.map(coordsList, function(coords) {
+	            return _.map(coords, function(coord, i) {
+	                var range = self.props.range[i];
+	                if (noSnap) return range[0] + (range[1] - range[0]) * coord;
+	                var step = self.props.step[i];
+	                var nSteps = numSteps(range, step);
+	                var tick = Math.round(coord * nSteps);
+	                return range[0] + step * tick;
+	            });
+	        });
+	    },
+	    _setupGraphie: function _setupGraphie(initialMount) {
+	        // Only setupGraphie once per componentDidUpdate().
+	        // This prevents this component from rendering graphie
+	        // and then immediately re-render graphie because its
+	        // parent component asked it to. This will happen when
+	        // props on the parent and props on this component both
+	        // require graphie to be re-rendered.
+	        if (this._hasSetupGraphieThisUpdate) return;
+	        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
+	        $(graphieDiv).empty();
+	        var labels = this.props.labels;
+	        var range = this.props.range;
+	        var graphie = this._graphie = GraphUtils.createGraphie(graphieDiv);
+	        var gridConfig = this._getGridConfig();
+	        graphie.snap = this.props.snapStep;
+	        if ("graph" === this.props.markings) {
+	            graphie.graphInit({
+	                range: range,
+	                scale: _.pluck(gridConfig, "scale"),
+	                axisArrows: "<->",
+	                labelFormat: function labelFormat(s) {
+	                    return "\\small{" + s + "}";
+	                },
+	                gridStep: this.props.gridStep,
+	                tickStep: _.pluck(gridConfig, "tickStep"),
+	                labelStep: 1,
+	                unityLabels: _.pluck(gridConfig, "unityLabel")
+	            });
+	            graphie.label([ 0, range[1][1] ], labels[1], "above");
+	            graphie.label([ range[0][1], 0 ], labels[0], "right");
+	        } else "grid" === this.props.markings ? graphie.graphInit({
+	            range: range,
+	            scale: _.pluck(gridConfig, "scale"),
+	            gridStep: this.props.gridStep,
+	            axes: false,
+	            ticks: false,
+	            labels: false
+	        }) : "none" === this.props.markings && graphie.init({
+	            range: range,
+	            scale: _.pluck(gridConfig, "scale")
+	        });
+	        // Add instructions just before mouse layer
+	        var visible = .5;
+	        var invisible = 0;
+	        var $instructionsWrapper;
+	        if (this.props.instructions) {
+	            var $instructionsWrapper = $("<div/>");
+	            _.each(defaultInstructionsStyle, function(value, key) {
+	                $instructionsWrapper.css(key, value);
+	            });
+	            $instructionsWrapper.css("opacity", visible);
+	            var $instructions = $("<span/>", {
+	                text: this.props.instructions
+	            });
+	            _.each(instructionsTextStyle, function(value, key) {
+	                $instructions.css(key, value);
+	            });
+	            $instructionsWrapper.append($instructions);
+	            $(graphieDiv).append($instructionsWrapper);
+	        } else $instructionsWrapper = void 0;
+	        // Add some handlers for instructions text (if necessary)
+	        var onMouseDown = $instructionsWrapper || this.props.onMouseDown ? _.bind(function(coord) {
+	            if ($instructionsWrapper) {
+	                $instructionsWrapper.remove();
+	                $instructionsWrapper = null;
+	            }
+	            this.props.onMouseDown(coord);
+	        }, this) : null;
+	        var onMouseOver = $instructionsWrapper ? function() {
+	            $instructionsWrapper && $instructionsWrapper.css("opacity", invisible);
+	        } : null;
+	        var onMouseOut = $instructionsWrapper ? function() {
+	            $instructionsWrapper && $instructionsWrapper.css("opacity", visible);
+	        } : null;
+	        graphie.addMouseLayer({
+	            onClick: this.props.onClick,
+	            onMouseDown: onMouseDown,
+	            onMouseOver: onMouseOver,
+	            onMouseOut: onMouseOut,
+	            onMouseUp: this.props.onMouseUp,
+	            onMouseMove: this.props.onMouseMove,
+	            allowScratchpad: true
+	        });
+	        this._updateProtractor();
+	        this._updateRuler();
+	        // We set this flag before jumping into our callback
+	        // to avoid recursing if our callback calls reset() itself
+	        this._hasSetupGraphieThisUpdate = true;
+	        !initialMount && this.props.onGraphieUpdated && // Calling a parent callback in componentDidMount is bad and
+	        // results in hard-to-reason-about lifecycle problems (esp. with
+	        // refs), so we do it only on update and rely on the parent to
+	        // query for the graphie object on initial mount
+	        this.props.onGraphieUpdated(graphie);
+	    },
+	    _getGridConfig: function _getGridConfig() {
+	        var self = this;
+	        return _.map(self.props.step, function(step, i) {
+	            return Util.gridDimensionConfig(step, self.props.range[i], self.props.box[i], self.props.gridStep[i]);
+	        });
+	    },
+	    _updateProtractor: function _updateProtractor() {
+	        this.protractor && this.protractor.remove();
+	        if (this.props.showProtractor) {
+	            var coord = this.pointsFromNormalized([ [ .5, .05 ] ])[0];
+	            this.protractor = this._graphie.protractor(coord);
+	        }
+	    },
+	    _updateRuler: function _updateRuler() {
+	        this.ruler && this.ruler.remove();
+	        if (this.props.showRuler) {
+	            var coord = this.pointsFromNormalized([ [ .5, .25 ] ])[0];
+	            var extent = this._graphie.range[0][1] - this._graphie.range[0][0];
+	            this.ruler = this._graphie.ruler({
+	                center: coord,
+	                label: this.props.rulerLabel,
+	                pixelsPerUnit: this._graphie.scale[0],
+	                ticksPerUnit: this.props.rulerTicks,
+	                units: Math.round(.8 * extent)
+	            });
+	        }
+	    },
+	    toJSON: function toJSON() {
+	        return _.pick(this.props, "range", "step", "markings", "labels", "backgroundImage", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep");
 	    }
 	});
 
-	module.exports = ButtonGroup;
+	module.exports = Graph;
 
 /***/ },
-/* 95 */,
-/* 96 */
+/* 102 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * A wrapper around react-components/info-tip.jsx that can be rendered on the
+	 * server without causing a checksum mismatch on the client.
+	 * (RCSS generates classnames with a randomSuffix, which ensures that any
+	 * two sets of generated classnames will not match.)
+	 */
+	var React = __webpack_require__(10);
+
+	var ReactComponentsInfoTip = __webpack_require__(134);
+
+	var InfoTip = React.createClass({
+	    displayName: "InfoTip",
+	    getInitialState: function getInitialState() {
+	        return {
+	            didMount: false
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        /* eslint-disable react/no-did-mount-set-state */
+	        this.setState({
+	            didMount: true
+	        });
+	    },
+	    render: function render() {
+	        return this.state.didMount ? React.createElement(ReactComponentsInfoTip, this.props) : React.createElement("div", null);
+	    }
+	});
+
+	module.exports = InfoTip;
+
+/***/ },
+/* 103 */,
+/* 104 */,
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10920,11 +11493,11 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Util = __webpack_require__(18);
+	var Util = __webpack_require__(16);
 
 	var Renderer = __webpack_require__(8);
 
-	var ApiClassNames = __webpack_require__(16).ClassNames;
+	var ApiClassNames = __webpack_require__(17).ClassNames;
 
 	var PREFIX = "perseus-sortable";
 
@@ -11320,524 +11893,7 @@ webpackJsonpPerseus([1],[
 	module.exports = Sortable;
 
 /***/ },
-/* 97 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable brace-style, comma-dangle, no-redeclare, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(10);
-
-	var ReactDOM = __webpack_require__(11);
-
-	var _ = __webpack_require__(9);
-
-	var Util = __webpack_require__(18);
-
-	var GraphUtils = __webpack_require__(100);
-
-	var _require = __webpack_require__(35);
-
-	var interactiveSizes = _require.interactiveSizes;
-
-	var SvgImage = __webpack_require__(33);
-
-	var defaultBackgroundImage = {
-	    url: null
-	};
-
-	/* Style objects */
-	var defaultInstructionsStyle = {
-	    fontStyle: "italic",
-	    fontWeight: "bold",
-	    fontSize: "32px",
-	    width: "100%",
-	    height: "100%",
-	    textAlign: "center",
-	    backgroundColor: "white",
-	    position: "absolute",
-	    zIndex: 1,
-	    transition: "opacity .25s ease-in-out",
-	    "-moz-transition": "opacity .25s ease-in-out",
-	    "-webkit-transition": "opacity .25s ease-in-out"
-	};
-
-	var instructionsTextStyle = {
-	    position: "relative",
-	    top: "25%"
-	};
-
-	function numSteps(range, step) {
-	    return Math.floor((range[1] - range[0]) / step);
-	}
-
-	var Graph = React.createClass({
-	    displayName: "Graph",
-	    propTypes: {
-	        box: React.PropTypes.array.isRequired,
-	        labels: React.PropTypes.arrayOf(React.PropTypes.string),
-	        range: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
-	        step: React.PropTypes.arrayOf(React.PropTypes.number),
-	        gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
-	        snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
-	        markings: React.PropTypes.string,
-	        backgroundImage: React.PropTypes.shape({
-	            url: React.PropTypes.string
-	        }),
-	        showProtractor: React.PropTypes.bool,
-	        showRuler: React.PropTypes.bool,
-	        rulerLabel: React.PropTypes.string,
-	        rulerTicks: React.PropTypes.number,
-	        onGraphieUpdated: React.PropTypes.func,
-	        instructions: React.PropTypes.string,
-	        onClick: React.PropTypes.func
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            labels: [ "x", "y" ],
-	            range: [ [ -10, 10 ], [ -10, 10 ] ],
-	            step: [ 1, 1 ],
-	            gridStep: [ 1, 1 ],
-	            snapStep: [ .5, .5 ],
-	            markings: "graph",
-	            backgroundImage: defaultBackgroundImage,
-	            showProtractor: false,
-	            showRuler: false,
-	            rulerLabel: "",
-	            rulerTicks: 10,
-	            instructions: null,
-	            onGraphieUpdated: null,
-	            onClick: null,
-	            onMouseDown: null
-	        };
-	    },
-	    render: function render() {
-	        var image;
-	        var imageData = this.props.backgroundImage;
-	        if (imageData.url) {
-	            var scale = this.props.box[0] / interactiveSizes.defaultBoxSize;
-	            image = React.createElement(SvgImage, {
-	                src: imageData.url,
-	                width: imageData.width,
-	                height: imageData.height,
-	                scale: scale,
-	                responsive: false
-	            });
-	        } else image = null;
-	        return React.createElement("div", {
-	            className: "graphie-container above-scratchpad",
-	            style: {
-	                width: this.props.box[0],
-	                height: this.props.box[1]
-	            },
-	            onMouseOut: this.onMouseOut,
-	            onMouseOver: this.onMouseOver,
-	            onClick: this.onClick
-	        }, image, React.createElement("div", {
-	            className: "graphie",
-	            ref: "graphieDiv"
-	        }));
-	    },
-	    componentDidMount: function componentDidMount() {
-	        this._setupGraphie(true);
-	    },
-	    componentDidUpdate: function componentDidUpdate() {
-	        // Only setupGraphie once per componentDidUpdate().
-	        // See explanation in setupGraphie().
-	        this._hasSetupGraphieThisUpdate = false;
-	        if (this._shouldSetupGraphie) {
-	            this._setupGraphie(false);
-	            this._shouldSetupGraphie = false;
-	        }
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var potentialChanges = [ "labels", "range", "step", "markings", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep" ];
-	        var self = this;
-	        _.each(potentialChanges, function(prop) {
-	            _.isEqual(self.props[prop], nextProps[prop]) || (self._shouldSetupGraphie = true);
-	        });
-	    },
-	    /* Reset the graphie canvas to its initial state
-	     *
-	     * Use when re-rendering the parent component and you need a blank
-	     * graphie.
-	     */
-	    reset: function reset() {
-	        this._setupGraphie(false);
-	    },
-	    graphie: function graphie() {
-	        return this._graphie;
-	    },
-	    pointsFromNormalized: function pointsFromNormalized(coordsList, noSnap) {
-	        var self = this;
-	        return _.map(coordsList, function(coords) {
-	            return _.map(coords, function(coord, i) {
-	                var range = self.props.range[i];
-	                if (noSnap) return range[0] + (range[1] - range[0]) * coord;
-	                var step = self.props.step[i];
-	                var nSteps = numSteps(range, step);
-	                var tick = Math.round(coord * nSteps);
-	                return range[0] + step * tick;
-	            });
-	        });
-	    },
-	    _setupGraphie: function _setupGraphie(initialMount) {
-	        // Only setupGraphie once per componentDidUpdate().
-	        // This prevents this component from rendering graphie
-	        // and then immediately re-render graphie because its
-	        // parent component asked it to. This will happen when
-	        // props on the parent and props on this component both
-	        // require graphie to be re-rendered.
-	        if (this._hasSetupGraphieThisUpdate) return;
-	        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
-	        $(graphieDiv).empty();
-	        var labels = this.props.labels;
-	        var range = this.props.range;
-	        var graphie = this._graphie = GraphUtils.createGraphie(graphieDiv);
-	        var gridConfig = this._getGridConfig();
-	        graphie.snap = this.props.snapStep;
-	        if ("graph" === this.props.markings) {
-	            graphie.graphInit({
-	                range: range,
-	                scale: _.pluck(gridConfig, "scale"),
-	                axisArrows: "<->",
-	                labelFormat: function labelFormat(s) {
-	                    return "\\small{" + s + "}";
-	                },
-	                gridStep: this.props.gridStep,
-	                tickStep: _.pluck(gridConfig, "tickStep"),
-	                labelStep: 1,
-	                unityLabels: _.pluck(gridConfig, "unityLabel")
-	            });
-	            graphie.label([ 0, range[1][1] ], labels[1], "above");
-	            graphie.label([ range[0][1], 0 ], labels[0], "right");
-	        } else "grid" === this.props.markings ? graphie.graphInit({
-	            range: range,
-	            scale: _.pluck(gridConfig, "scale"),
-	            gridStep: this.props.gridStep,
-	            axes: false,
-	            ticks: false,
-	            labels: false
-	        }) : "none" === this.props.markings && graphie.init({
-	            range: range,
-	            scale: _.pluck(gridConfig, "scale")
-	        });
-	        // Add instructions just before mouse layer
-	        var visible = .5;
-	        var invisible = 0;
-	        var $instructionsWrapper;
-	        if (this.props.instructions) {
-	            var $instructionsWrapper = $("<div/>");
-	            _.each(defaultInstructionsStyle, function(value, key) {
-	                $instructionsWrapper.css(key, value);
-	            });
-	            $instructionsWrapper.css("opacity", visible);
-	            var $instructions = $("<span/>", {
-	                text: this.props.instructions
-	            });
-	            _.each(instructionsTextStyle, function(value, key) {
-	                $instructions.css(key, value);
-	            });
-	            $instructionsWrapper.append($instructions);
-	            $(graphieDiv).append($instructionsWrapper);
-	        } else $instructionsWrapper = void 0;
-	        // Add some handlers for instructions text (if necessary)
-	        var onMouseDown = $instructionsWrapper || this.props.onMouseDown ? _.bind(function(coord) {
-	            if ($instructionsWrapper) {
-	                $instructionsWrapper.remove();
-	                $instructionsWrapper = null;
-	            }
-	            this.props.onMouseDown(coord);
-	        }, this) : null;
-	        var onMouseOver = $instructionsWrapper ? function() {
-	            $instructionsWrapper && $instructionsWrapper.css("opacity", invisible);
-	        } : null;
-	        var onMouseOut = $instructionsWrapper ? function() {
-	            $instructionsWrapper && $instructionsWrapper.css("opacity", visible);
-	        } : null;
-	        graphie.addMouseLayer({
-	            onClick: this.props.onClick,
-	            onMouseDown: onMouseDown,
-	            onMouseOver: onMouseOver,
-	            onMouseOut: onMouseOut,
-	            onMouseUp: this.props.onMouseUp,
-	            onMouseMove: this.props.onMouseMove,
-	            allowScratchpad: true
-	        });
-	        this._updateProtractor();
-	        this._updateRuler();
-	        // We set this flag before jumping into our callback
-	        // to avoid recursing if our callback calls reset() itself
-	        this._hasSetupGraphieThisUpdate = true;
-	        !initialMount && this.props.onGraphieUpdated && // Calling a parent callback in componentDidMount is bad and
-	        // results in hard-to-reason-about lifecycle problems (esp. with
-	        // refs), so we do it only on update and rely on the parent to
-	        // query for the graphie object on initial mount
-	        this.props.onGraphieUpdated(graphie);
-	    },
-	    _getGridConfig: function _getGridConfig() {
-	        var self = this;
-	        return _.map(self.props.step, function(step, i) {
-	            return Util.gridDimensionConfig(step, self.props.range[i], self.props.box[i], self.props.gridStep[i]);
-	        });
-	    },
-	    _updateProtractor: function _updateProtractor() {
-	        this.protractor && this.protractor.remove();
-	        if (this.props.showProtractor) {
-	            var coord = this.pointsFromNormalized([ [ .5, .05 ] ])[0];
-	            this.protractor = this._graphie.protractor(coord);
-	        }
-	    },
-	    _updateRuler: function _updateRuler() {
-	        this.ruler && this.ruler.remove();
-	        if (this.props.showRuler) {
-	            var coord = this.pointsFromNormalized([ [ .5, .25 ] ])[0];
-	            var extent = this._graphie.range[0][1] - this._graphie.range[0][0];
-	            this.ruler = this._graphie.ruler({
-	                center: coord,
-	                label: this.props.rulerLabel,
-	                pixelsPerUnit: this._graphie.scale[0],
-	                ticksPerUnit: this.props.rulerTicks,
-	                units: Math.round(.8 * extent)
-	            });
-	        }
-	    },
-	    toJSON: function toJSON() {
-	        return _.pick(this.props, "range", "step", "markings", "labels", "backgroundImage", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep");
-	    }
-	});
-
-	module.exports = Graph;
-
-/***/ },
-/* 98 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * A wrapper around react-components/info-tip.jsx that can be rendered on the
-	 * server without causing a checksum mismatch on the client.
-	 * (RCSS generates classnames with a randomSuffix, which ensures that any
-	 * two sets of generated classnames will not match.)
-	 */
-	var React = __webpack_require__(10);
-
-	var ReactComponentsInfoTip = __webpack_require__(131);
-
-	var InfoTip = React.createClass({
-	    displayName: "InfoTip",
-	    getInitialState: function getInitialState() {
-	        return {
-	            didMount: false
-	        };
-	    },
-	    componentDidMount: function componentDidMount() {
-	        /* eslint-disable react/no-did-mount-set-state */
-	        this.setState({
-	            didMount: true
-	        });
-	    },
-	    render: function render() {
-	        return this.state.didMount ? React.createElement(ReactComponentsInfoTip, this.props) : React.createElement("div", null);
-	    }
-	});
-
-	module.exports = InfoTip;
-
-/***/ },
-/* 99 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _extends = Object.assign || function(target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-	    }
-	    return target;
-	};
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-after-keywords */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var classNames = __webpack_require__(13);
-
-	var React = __webpack_require__(10);
-
-	var ReactDOM = __webpack_require__(11);
-
-	var _ = __webpack_require__(9);
-
-	var firstNumericalParse = __webpack_require__(18).firstNumericalParse;
-
-	var captureScratchpadTouchStart = __webpack_require__(18).captureScratchpadTouchStart;
-
-	var knumber = __webpack_require__(123).number;
-
-	var KhanMath = __webpack_require__(81);
-
-	var toNumericString = KhanMath.toNumericString;
-
-	var getNumericFormat = KhanMath.getNumericFormat;
-
-	/* An input box that accepts only numeric strings
-	 *
-	 * Calls onChange(value, format) for valid numbers.
-	 * Reverts to the current value onBlur or on [ENTER],
-	 *   but maintains the format (i.e. 3/2, 1 1/2, 150%)
-	 * Accepts empty input and sends it to onChange as null
-	 *   if no numeric placeholder is set.
-	 * If given a checkValidity function, will turn
-	 *   the background/outline red when invalid
-	 * If useArrowKeys is set to true, up/down arrows will
-	 *   increment/decrement integers
-	 * Optionally takes a size ("mini", "small", "normal")
-	 */
-	var NumberInput = React.createClass({
-	    displayName: "NumberInput",
-	    propTypes: {
-	        value: React.PropTypes.number,
-	        format: React.PropTypes.string,
-	        placeholder: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number ]),
-	        onChange: React.PropTypes.func.isRequired,
-	        onFormatChange: React.PropTypes.func,
-	        checkValidity: React.PropTypes.func,
-	        size: React.PropTypes.string,
-	        label: React.PropTypes.oneOf([ "put your labels outside your inputs!" ])
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            value: null,
-	            placeholder: null,
-	            format: null,
-	            onFormatChange: function onFormatChange() {
-	                return null;
-	            },
-	            checkValidity: function checkValidity() {
-	                return true;
-	            },
-	            useArrowKeys: false
-	        };
-	    },
-	    getInitialState: function getInitialState() {
-	        return {
-	            format: this.props.format
-	        };
-	    },
-	    render: function render() {
-	        var classes = classNames({
-	            "number-input": true,
-	            "invalid-input": !this._checkValidity(this.props.value),
-	            mini: "mini" === this.props.size,
-	            small: "small" === this.props.size,
-	            normal: "normal" === this.props.size
-	        });
-	        null != this.props.className && (classes = classes + " " + this.props.className);
-	        return React.createElement("input", _extends({}, this.props, {
-	            className: classes,
-	            type: "text",
-	            ref: "input",
-	            onChange: this._handleChange,
-	            onFocus: this._handleFocus,
-	            onBlur: this._handleBlur,
-	            onKeyPress: this._handleBlur,
-	            onKeyDown: this._onKeyDown,
-	            onTouchStart: captureScratchpadTouchStart,
-	            defaultValue: toNumericString(this.props.value, this.state.format),
-	            value: void 0
-	        }));
-	    },
-	    componentDidUpdate: function componentDidUpdate(prevProps) {
-	        knumber.equal(this.getValue(), this.props.value) || this._setValue(this.props.value, this.state.format);
-	    },
-	    /* Return the current "value" of this input
-	     * If empty, it returns the placeholder (if it is a number) or null
-	     */
-	    getValue: function getValue() {
-	        return this.parseInputValue(ReactDOM.findDOMNode(this.refs.input).value);
-	    },
-	    /* Return the current string value of this input */
-	    getStringValue: function getStringValue() {
-	        return ReactDOM.findDOMNode(this.refs.input).value.toString();
-	    },
-	    parseInputValue: function parseInputValue(value) {
-	        if ("" === value) {
-	            var placeholder = this.props.placeholder;
-	            return _.isFinite(placeholder) ? +placeholder : null;
-	        }
-	        var result = firstNumericalParse(value);
-	        return _.isFinite(result) ? result : this.props.value;
-	    },
-	    /* Set text input focus to this input */
-	    focus: function focus() {
-	        ReactDOM.findDOMNode(this.refs.input).focus();
-	        this._handleFocus();
-	    },
-	    blur: function blur() {
-	        ReactDOM.findDOMNode(this.refs.input).blur();
-	        this._handleBlur();
-	    },
-	    setSelectionRange: function setSelectionRange(selectionStart, selectionEnd) {
-	        ReactDOM.findDOMNode(this).setSelectionRange(selectionStart, selectionEnd);
-	    },
-	    getSelectionStart: function getSelectionStart() {
-	        return ReactDOM.findDOMNode(this).selectionStart;
-	    },
-	    getSelectionEnd: function getSelectionEnd() {
-	        return ReactDOM.findDOMNode(this).selectionEnd;
-	    },
-	    _checkValidity: function _checkValidity(value) {
-	        if (null == value) return true;
-	        var val = firstNumericalParse(value);
-	        var checkValidity = this.props.checkValidity;
-	        return _.isFinite(val) && checkValidity(val);
-	    },
-	    _handleChange: function _handleChange(e) {
-	        var text = e.target.value;
-	        var value = this.parseInputValue(text);
-	        var format = getNumericFormat(text);
-	        this.props.onChange(value);
-	        if (format) {
-	            this.props.onFormatChange(value, format);
-	            this.setState({
-	                format: format
-	            });
-	        }
-	    },
-	    _handleFocus: function _handleFocus() {
-	        this.props.onFocus && this.props.onFocus();
-	    },
-	    _handleBlur: function _handleBlur(e) {
-	        // Only continue on blur or "enter"
-	        if (e && "keypress" === e.type && 13 !== e.keyCode) return;
-	        this._setValue(this.props.value, this.state.format);
-	        this.props.onBlur && this.props.onBlur();
-	    },
-	    _onKeyDown: function _onKeyDown(e) {
-	        this.props.onKeyDown && this.props.onKeyDown(e);
-	        if (!this.props.useArrowKeys || !_.contains([ "ArrowUp", "ArrowDown" ], e.key)) return;
-	        var val = this.getValue();
-	        if (val !== Math.floor(val)) return;
-	        "ArrowUp" === e.key ? val += 1 : "ArrowDown" === e.key && (val -= 1);
-	        this._checkValidity(val) && this.props.onChange(val);
-	    },
-	    _setValue: function _setValue(val, format) {
-	        $(ReactDOM.findDOMNode(this.refs.input)).val(toNumericString(val, format));
-	    }
-	});
-
-	module.exports = NumberInput;
-
-/***/ },
-/* 100 */,
-/* 101 */,
-/* 102 */,
-/* 103 */,
-/* 104 */
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12038,7 +12094,7 @@ webpackJsonpPerseus([1],[
 	            beginning = false;
 	        }
 	    }
-	    return "" == all || pos;
+	    return "" == all ? true : pos;
 	}
 
 	/**
@@ -12241,12 +12297,11 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 105 */,
-/* 106 */,
 /* 107 */,
 /* 108 */,
 /* 109 */,
-/* 110 */
+/* 110 */,
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12256,13 +12311,13 @@ webpackJsonpPerseus([1],[
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _ = __webpack_require__(9);
 
-	var Util = __webpack_require__(18);
+	var Util = __webpack_require__(16);
 
 	var Graphie = __webpack_require__(83);
 
 	var Plot = Graphie.Plot;
 
-	var kpoint = __webpack_require__(123).point;
+	var kpoint = __webpack_require__(124).point;
 
 	var DEFAULT_BACKGROUND_IMAGE = {
 	    url: null
@@ -12780,7 +12835,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 111 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12954,7 +13009,7 @@ webpackJsonpPerseus([1],[
 	module.exports = draw;
 
 /***/ },
-/* 112 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13268,7 +13323,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 113 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13424,7 +13479,7 @@ webpackJsonpPerseus([1],[
 	    var rest = null;
 	    if ("[" === smiles[0]) {
 	        var closingIdx = smiles.indexOf("]");
-	        if (closingIdx === -1) return [ "", smiles ];
+	        if (-1 === closingIdx) return [ "", smiles ];
 	        sym = smiles.slice(1, closingIdx);
 	        rest = smiles.slice(closingIdx + 1);
 	    } else {
@@ -13511,7 +13566,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 114 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13522,7 +13577,7 @@ webpackJsonpPerseus([1],[
 	/* globals $_ */
 	var React = __webpack_require__(10);
 
-	var SimpleMarkdown = __webpack_require__(107);
+	var SimpleMarkdown = __webpack_require__(108);
 
 	var _ = __webpack_require__(9);
 
@@ -13815,7 +13870,6 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 115 */,
 /* 116 */,
 /* 117 */,
 /* 118 */,
@@ -13828,7 +13882,8 @@ webpackJsonpPerseus([1],[
 /* 125 */,
 /* 126 */,
 /* 127 */,
-/* 128 */
+/* 128 */,
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13873,9 +13928,11 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 129 */,
 /* 130 */,
-/* 131 */
+/* 131 */,
+/* 132 */,
+/* 133 */,
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

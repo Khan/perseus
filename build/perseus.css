@@ -1,6 +1,6 @@
 /* Perseus CSS
-// commit 8f0c4ca0fe0bec0980bc31ed5ab8cd51d5b68176
-// branch graded-group
+// commit debb697fdd59dcbc225a196dbffcab94cbe04754
+// branch master
 // @generated
 */
 .perseus-sr-only {
@@ -1358,6 +1358,37 @@ body.mobile .perseus-widget-dropdown .fancy-option:active:before {
   position: absolute;
   bottom: 0;
   left: 0;
+}
+.perseus-widget-interactive-graph .tooltip.visible {
+  z-index: 2;
+}
+.perseus-widget-interactive-graph .tooltip.visible:before {
+  border: solid;
+  border-color: white transparent;
+  border-width: 10px 10px 0 10px;
+  bottom: 30px;
+  content: "";
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
+  z-index: 2;
+}
+.perseus-widget-interactive-graph .tooltip .tooltip-content {
+  display: none;
+}
+.perseus-widget-interactive-graph .tooltip.visible .tooltip-content {
+  display: inline-block;
+  background: white;
+  border-radius: 5px;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px;
+  position: absolute;
+  white-space: nowrap;
+}
+.perseus-widget-interactive-graph .tooltip.visible .tooltip-content .katex {
+  color: #71b307 !important;
 }
 .perseus-widget-matcher .column {
   float: left;

@@ -338,7 +338,8 @@ _.extend(MovablePoint.prototype, {
 
                 if (state.tooltip) {
                     if (!this.state.outOfBounds) {
-                        this._showTooltip(`(${state.coord[0]}, ${state.coord[1]})`);
+                        this._showTooltip(
+                            `(${state.coord[0]}, ${state.coord[1]})`);
                     } else {
                         showTrashTooltip();
                     }
