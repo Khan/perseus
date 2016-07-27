@@ -205,6 +205,12 @@ const ItemRenderer = React.createClass({
         return this.questionRenderer.focus();
     },
 
+    blur: function() {
+        if (this._currentFocus) {
+            this.blurPath(this._currentFocus);
+        }
+    },
+
     getNumHints: function() {
         return this.props.item.hints.length;
     },
