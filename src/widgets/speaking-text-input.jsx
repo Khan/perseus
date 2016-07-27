@@ -90,11 +90,13 @@ var SpeakingBtn = React.createClass({
             recognition.lang = 'en-US';
             recognition.continuous = false;
             recognition.interimResults = true;
+            recognition.maxAlternatives = 20;
             self.setState({recognizing: false});
             self.setState({status: "請按開始"});
             recognition.onstart = function() {
                 self.setState({recognizing: true});
                 self.setState({status: "辨識中"});
+                self.props.setValue('');
                 console.log('recognition start');
             };
             recognition.onend = function() {
@@ -106,9 +108,16 @@ var SpeakingBtn = React.createClass({
                 self.setState({recognizing: false});
                 console.log('recognition result');
                 console.log(event);
+                var res = '';
                 for (var i = event.resultIndex; i < event.results.length; i++) {
                     if (event.results[i].isFinal) {
-                        self.props.setValue(event.results[i][0].transcript);
+                        for (var j = 0; j < event.results[i].length; j++) {
+                            if(j!=0){
+                                res = res + '/';
+                            }
+                            res = res + event.results[i][j].transcript;
+                            self.props.setValue(res);
+                        }
                     }
                 }
             }
@@ -253,18 +262,26 @@ _.extend(SpeakingTextInput, {
     },
 
     validate: function(state, rubric) {
-        var userAns = SpeakingTextInput.parseAnswer(state.value);
+        console.log(state);
         var correntAns = SpeakingTextInput.parseAnswer(rubric.correct);
-        console.log("user");
-        console.log(userAns);
-        console.log("corrent");
-        console.log(correntAns);
-        if (userAns.length == 0) {
-            return {type: "invalid", message: "看來你什麼都沒念！請重新再唸一次！"};
-        } else if (SpeakingTextInput.arrIsEqual(userAns, correntAns)) {
-            return {type: "points", earned: 1, total: 1, message: null};
+        var userAnsList = state.value.split("/");
+        var correntIdx = -1;
+        for (var i = 0, len = userAnsList.length; i < len; i++) {
+            if(SpeakingTextInput.arrIsEqual(SpeakingTextInput.parseAnswer(userAnsList[i]), correntAns)){
+                correntIdx = i;
+                break;
+            }
+        }
+        console.log(userAnsList);
+        console.log(correntIdx);
+        if (state.value == '') {
+            return {type: 'invalid', message: '看來你什麼都沒念！請重新再唸一次！'};
+        } else if (correntIdx == -1) {
+            return {type: 'points', earned: 0, total: 1, message: null};
+        } else if (correntIdx < state.correctIdxLessThen) {
+            return {type: 'points', earned: 1, total: 1, message: null};
         } else {
-            return {type: "points", earned: 0, total: 1, message: null};
+            return {type: 'points', earned: 0, total: 1, message: null};
         }
     }
 });
@@ -279,19 +296,32 @@ var SpeakingTextInputEditor = React.createClass({
     ],
 
     getDefaultProps: function() {
-        return {correct: ""};
+        return {correct: "",
+                correctIdxLessThen: 5};
     },
 
     handleAnswerChange: function(event) {
         this.change({correct: event.target.value});
     },
 
+    handleCorrectIdxChange: function(event) {
+        this.change({correctIdxLessThen: parseInt(event.target.value)});
+    },
+
     render: function() {
         return <div>
-            <label>
-                正確答案:
-                <input value={this.props.correct} onChange={this.handleAnswerChange} ref="input"/>
-            </label>
+            <div>
+                <label>
+                    正確答案:
+                    <input value={this.props.correct} onChange={this.handleAnswerChange} ref="input"/>
+                </label>
+            </div>
+            <div>
+                <label>
+                    精準度 (1-20):
+                    <input value={this.props.correctIdxLessThen} onChange={this.handleCorrectIdxChange} type="integer" ref="input"/>
+                </label>
+            </div>
         </div>;
     },
 
