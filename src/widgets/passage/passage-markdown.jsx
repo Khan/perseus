@@ -299,6 +299,47 @@ var rules = {
             ];
         }
     },
+    highlight: {
+        order: SimpleMarkdown.defaultRules.escape.order + .7,
+        match: SimpleMarkdown.inlineRegex(/^&&(.+?)&&/),
+        parse: (capture, parse, state) => {
+            return {
+                content: capture[1],
+            };
+        },
+        react: (node, output, state) => {
+            return [
+                <span className="perseus-highlight">
+                    {node.content}
+                </span>,
+            ];
+        }
+    },
+    selectedHighlight: {
+        order: SimpleMarkdown.defaultRules.escape.order + .8,
+        match: SimpleMarkdown.inlineRegex(/^####/),
+        parse: (capture, parse, state) => {
+            return {};
+        },
+        react: (node, output, state) => {
+            return [
+                //TODO: the text on this image is in English, so this really
+                //ought to be a pure CSS component, not a static image! To get
+                //this to work as-is, you'd need to download
+                //https://khanacademy.slack.com/files/kitt/F1S8P993N/removehighlight.svg // @Nolint
+                //and save it as webapp/images/perseus/remove_highlighter.svg.
+                <span id="perseus-selected-highlight"
+                      style={{position:'relative'}}
+                >
+                    <img
+                         width="130" height="60"
+                         style={{position:'absolute', top:'-46px',
+                                 left:'-40px'}}
+                         src='/images/remove-highlight.svg'/>
+                </span>
+            ];
+        }
+    },
     strong: SimpleMarkdown.defaultRules.strong,
     u: SimpleMarkdown.defaultRules.u,
     em: SimpleMarkdown.defaultRules.em,

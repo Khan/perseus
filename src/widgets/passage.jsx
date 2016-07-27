@@ -1,25 +1,26 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-infix-ops */
+/* eslint-disable comma-dangle, no-undef, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-infix-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 
-var React = require("react");
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const React = require("react");
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var Changeable   = require("../mixins/changeable.jsx");
+const Changeable   = require("../mixins/changeable.jsx");
 
-var Renderer = require("../renderer.jsx");
-var PassageMarkdown = require("./passage/passage-markdown.jsx");
+const Renderer = require("../renderer.jsx");
+const PassageMarkdown = require("./passage/passage-markdown.jsx");
 
-var Passage = React.createClass({
+const Passage = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
         passageTitle: React.PropTypes.string,
         passageText: React.PropTypes.string,
         footnotes: React.PropTypes.string,
-        showLineNumbers: React.PropTypes.bool
+        showLineNumbers: React.PropTypes.bool,
+        //onChange: React.propTypes.func,
     },
 
     getDefaultProps: function() {
@@ -35,7 +36,161 @@ var Passage = React.createClass({
         return {
             nLines: null,
             startLineNumbersAfter: 0,
+            highlightRanges: [],
+            selectedHighlightRange: null,
         };
+    },
+
+    /**
+     * Returns the total number of words (or word fragments) in the given
+     * selection, based on the number of spaces.
+     */
+    wordsInSection: function(section) {
+        return section
+                .split(/\s/)
+                .filter((word) => word.length > 0)
+                .length;
+    },
+
+    /**
+     * Compare two ranges according to their start word.
+     */
+    compareRanges: function(a, b) {
+        if (a[0] < b[0]) {
+            return -1;
+        } else if (a[0] > b[0]) {
+            return 1;
+        } else {
+            return 0;
+        }
+    },
+
+    mergeOverlappingRanges: function(ranges) {
+        const sorted = [...ranges].sort(this.compareRanges);
+        const merged = [];
+
+        for (const curr of sorted) {
+            const prev = merged[merged.length - 1];
+
+            if (prev && curr[0] <= prev[1]) {
+                // These ranges overlap; merge curr into prev.
+                merged[merged.length - 1] =
+                    [prev[0], Math.max(prev[1], curr[1])];
+            } else {
+                // These ranges don't overlap; start a new range with curr.
+                merged.push(curr);
+            }
+        }
+
+        return merged;
+    },
+
+    /**
+     *  Handle a selection by highlighting it (or glomming it to an existing
+     *  highlighted region).
+     */
+    addHighlightRange: function(highlightRange) {
+        let newHighlightRanges = this.state.highlightRanges;
+
+        newHighlightRanges.push(highlightRange);
+        newHighlightRanges =
+            this.mergeOverlappingRanges(newHighlightRanges);
+
+        this.setState({
+            highlightRanges: newHighlightRanges
+        });
+        //this.props.onChange(newHighlightRanges);
+
+        // HACK: Not sure why this is neccessary as setState should cause an
+        // update. However, highlighting oftern doesn't appear without it.
+        this.forceUpdate();
+    },
+
+    getSelectionRange: function(selection) {
+        const anchorIndex = this.getSelectionIndex(selection, "anchor");
+        const focusIndex = this.getSelectionIndex(selection, "focus");
+        const selectionStartIndex = Math.min(anchorIndex, focusIndex);
+        const selectionEndIndex = Math.max(anchorIndex, focusIndex);
+        return [selectionStartIndex, selectionEndIndex];
+    },
+
+    /**
+     * Returns the index of either the anchor word or the focus word in the
+     * current selection.
+     */
+    getSelectionIndex: function(selection, nodeType) {
+        let node = null;
+        let index = 0;
+        if (nodeType === "anchor") {
+            node = selection.anchorNode;
+            index += this.charToWordOffset(
+                               selection.anchorOffset, node.textContent);
+        } else {
+            node = selection.focusNode;
+            index += this.charToWordOffset(
+                               selection.focusOffset, node.textContent);
+        }
+
+        let priorText = "";
+        while (node && !(node.classList &&
+                node.classList.contains("passage-text"))) {
+            while (node.previousSibling) {
+                node = node.previousSibling;
+                priorText = node.textContent + priorText;
+            }
+            node = node.parentNode;
+        }
+
+        index += this.wordsInSection(priorText);
+
+        return index;
+    },
+
+    charToWordOffset: function(offset, selectedText) {
+        const beforeSelection = selectedText.substring(0, offset);
+        let wordOffset = this.wordsInSection(beforeSelection);
+
+        // If any part of the first word of selectedText is included in
+        // beforeSelection, then remove it from the count.
+        if (!(selectedText.charAt(offset) === " " ||
+                selectedText.charAt(offset - 1) === " ")) {
+            wordOffset -= 1;
+        }
+        return wordOffset;
+    },
+
+    /**
+     * Handle the current selection for highlighting purposes.
+     */
+    onConfirmHighlight: function() {
+        // Clear the currently-selected range - if it's been re-selected, we'll
+        // determine that below.
+        this.setState({
+            selectedHighlightRange: null
+        });
+
+        const selection = window.getSelection();
+        const highlightRange = this.getSelectionRange(selection);
+
+        this.addHighlightRange(highlightRange);
+    },
+
+    handleMouseUp: function() {
+        this.onConfirmHighlight();
+    },
+
+    /**
+     * Removes the currently-selected highlight region.
+     */
+    handleRemoveHighlightClick: function() {
+        const passageIndex = this.state.highlightRanges.indexOf(
+                this.state.selectedHighlightRange);
+        const newHighlightRanges = [...this.state.highlightRanges];
+        newHighlightRanges.splice(passageIndex, 1);
+        this.setState({
+            selectedHighlightRange: null,
+            highlightRanges: newHighlightRanges
+        });
     },
 
     shouldComponentUpdate: function(nextProps, nextState) {
@@ -44,8 +199,8 @@ var Passage = React.createClass({
     },
 
     render: function() {
-        var lineNumbers;
-        var nLines = this.state.nLines;
+        let lineNumbers;
+        const nLines = this.state.nLines;
         if (this.props.showLineNumbers && nLines) {
             // lineN is the line number in the current passage;
             // the displayed line number is
@@ -65,11 +220,88 @@ var Passage = React.createClass({
             });
         }
 
-        var rawContent = this.props.passageText;
-        var parseState = {};
-        var parsedContent = PassageMarkdown.parse(rawContent, parseState);
+        let rawContent = this.props.passageText;
+        // For each highlighted passage, we (ephemerally) inject highlight
+        // markdown into the rawContent.
+        _.each(this.state.highlightRanges, function(highlightPassage) {
+            const isSelected = (this.state.selectedHighlightRange &&
+                this.state.selectedHighlightRange[0]===highlightPassage[0]);
+            const rangeStartIndex = highlightPassage[0];
+            const rangeEndIndex = highlightPassage[1];
 
-        return <div className="perseus-widget-passage-container">
+            // First, we break rawContent apart into word-sized fragments. We
+            // need to be able to reassemble it later though, so we can't just
+            // blindly split on all whitespace characters! Instead, we split
+            // only on spaces, then manually split up those text fragments if
+            // they contain a non-space-whitespace character (e.g. a newline).
+            rawContent = rawContent.split(' ');
+            rawContent = rawContent.map(function(fragment) {
+                const whitespaceMatch = fragment.match(/\s+/);
+                if (whitespaceMatch) {
+                    const whitespaceLastIndex = (
+                        whitespaceMatch.index +
+                        whitespaceMatch[0].length);
+                    return [fragment.slice(0, whitespaceLastIndex),
+                            fragment.slice(whitespaceLastIndex)];
+                } else {
+                    return [fragment];
+                }
+            });
+            // Flatten array (since it now contains nested fragments), and drop
+            // any empty fragments (which might result from multiple
+            // back-to-back spaces, which markdown will ignore anyway).
+            rawContent = [].concat(...rawContent);
+            rawContent = rawContent.filter(function(fragment) {
+                return fragment !== '';
+            });
+
+            // Reassemble rawContent, with highlighter markdown included.
+            // Two big gotchas here:
+            // 1. Markdown does not support partially-overlapping markdown
+            // ranges, because it all needs to distill down into HTML (which is
+            // non-partially-overlapping). So we have to surround *each*
+            // individual word/space with its own highlighter markdown. The
+            // end result looks like a continuously-highlighted range though!
+            // 2. The fragments may contain other markdown text, so we need to
+            // define "word" carefully, so that *only* visible text is
+            // surrounded with highlighting markdown, while markdown text is
+            // ignored.
+            rawContent = (
+                rawContent.slice(0, rangeStartIndex).join(' ') +
+                ' ' +
+                // TODO: we're using these characters to inject the
+                // highlight-remove button. This really ought to be a React
+                // component instead!
+                (isSelected ? "####" : '') +
+                rawContent
+                    .slice(rangeStartIndex, rangeEndIndex + 1)
+                    .map(function(fragment) {
+                        // This fragment should contain all user-visible
+                        // characters, and no markdown characters!
+                        const highlightableMatch = (
+                            fragment.match(/[\(\)\-\—\-\.,A-Za-z0-9:'"]+/)
+                        );
+                        const matchStart = highlightableMatch.index;
+                        const matchEnd = (
+                                matchStart + highlightableMatch[0].length);
+                        return (fragment.slice(0, matchStart) +
+                                '&&' +
+                                fragment.slice(matchStart, matchEnd) +
+                                '&&' +
+                                fragment.slice(matchEnd));
+                    })
+                    .join('&& &&') +
+                ' ' +
+                rawContent.slice(rangeEndIndex + 1).join(' '));
+        }, this);
+
+        const parseState = {};
+        const parsedContent = PassageMarkdown.parse(rawContent, parseState);
+
+        return <div
+            className="perseus-widget-passage-container"
+            onMouseUp={this.handleMouseUp}
+        >
             {this._renderInstructions(parseState)}
             <div className="perseus-widget-passage">
                 <div className="passage-title">
@@ -107,6 +339,14 @@ var Passage = React.createClass({
 
     componentDidUpdate: function() {
         this._updateState();
+        const highlighterTool = (
+                document.getElementById('perseus-selected-highlight'));
+        if (highlighterTool) {
+            //TODO: there must be a more canonical way to attach a click
+            //handler to this component.
+            highlighterTool.click(function() {});
+            highlighterTool.onclick = this.handleRemoveHighlightClick;
+        }
     },
 
     _updateState: function() {
@@ -117,16 +357,16 @@ var Passage = React.createClass({
     },
 
     _measureLines: function() {
-        var $renderer = $(ReactDOM.findDOMNode(this.refs.content));
-        var contentsHeight = $renderer.height();
-        var lineHeight = parseInt($renderer.css("line-height"));
-        var nLines = Math.round(contentsHeight / lineHeight);
+        const $renderer = $(ReactDOM.findDOMNode(this.refs.content));
+        const contentsHeight = $renderer.height();
+        const lineHeight = parseInt($renderer.css("line-height"));
+        const nLines = Math.round(contentsHeight / lineHeight);
         return nLines;
     },
 
     _getInitialLineNumber: function() {
-        var isPassageBeforeThisPassage = true;
-        var passagesBeforeUs = this.props.interWidgets((id, widgetInfo) => {
+        let isPassageBeforeThisPassage = true;
+        const passagesBeforeUs = this.props.interWidgets((id, widgetInfo) => {
             if (widgetInfo.type !== "passage") {
                 return false;
             }
@@ -150,10 +390,10 @@ var Passage = React.createClass({
     },
 
     _renderInstructions: function(parseState) {
-        var firstQuestionNumber = parseState.firstQuestionRef;
-        var firstSentenceRef = parseState.firstSentenceRef;
+        const firstQuestionNumber = parseState.firstQuestionRef;
+        const firstSentenceRef = parseState.firstSentenceRef;
 
-        var instructions = "";
+        let instructions = "";
         if (firstQuestionNumber) {
             instructions += i18n._(
                 "The symbol %(questionSymbol)s indicates that question " +
@@ -173,7 +413,7 @@ var Passage = React.createClass({
                 }
             );
         }
-        var parsedInstructions = PassageMarkdown.parse(instructions);
+        const parsedInstructions = PassageMarkdown.parse(instructions);
         return <div className="perseus-widget-passage-instructions">
             {PassageMarkdown.output(parsedInstructions)}
         </div>;
@@ -186,59 +426,59 @@ var Passage = React.createClass({
     },
 
     _hasFootnotes: function() {
-        var rawContent = this.props.footnotes;
-        var isEmpty = /^\s*$/.test(rawContent);
+        const rawContent = this.props.footnotes;
+        const isEmpty = /^\s*$/.test(rawContent);
         return !isEmpty;
     },
 
     _renderFootnotes: function() {
-        var rawContent = this.props.footnotes;
-        var parsed = PassageMarkdown.parse(rawContent);
+        const rawContent = this.props.footnotes;
+        const parsed = PassageMarkdown.parse(rawContent);
         return PassageMarkdown.output(parsed);
     },
 
     _getStartRefLineNumber: function(referenceNumber) {
-        var refRef = PassageMarkdown.START_REF_PREFIX + referenceNumber;
-        var ref = this.refs[refRef];
+        const refRef = PassageMarkdown.START_REF_PREFIX + referenceNumber;
+        const ref = this.refs[refRef];
         if (!ref) {
             return null;
         }
 
-        var $ref = $(ReactDOM.findDOMNode(ref));
+        const $ref = $(ReactDOM.findDOMNode(ref));
         // We really care about the first text after the ref, not the
         // ref element itself:
-        var $refText = $ref.next();
+        let $refText = $ref.next();
         if ($refText.length === 0) {
             // But if there are no elements after the ref, just
             // use the ref itself.
             $refText = $ref;
         }
-        var vPos = $refText.offset().top;
+        const vPos = $refText.offset().top;
 
         return this.state.startLineNumbersAfter + 1 +
             this._convertPosToLineNumber(vPos);
     },
 
     _getEndRefLineNumber: function(referenceNumber) {
-        var refRef = PassageMarkdown.END_REF_PREFIX + referenceNumber;
-        var ref = this.refs[refRef];
+        const refRef = PassageMarkdown.END_REF_PREFIX + referenceNumber;
+        const ref = this.refs[refRef];
         if (!ref) {
             return null;
         }
 
-        var $ref = $(ReactDOM.findDOMNode(ref));
+        const $ref = $(ReactDOM.findDOMNode(ref));
         // We really care about the last text before the ref, not the
         // ref element itself:
-        var $refText = $ref.prev();
+        let $refText = $ref.prev();
         if ($refText.length === 0) {
             // But if there are no elements before the ref, just
             // use the ref itself.
             $refText = $ref;
         }
-        var height = $refText.height();
-        var vPos = $refText.offset().top;
+        const height = $refText.height();
+        const vPos = $refText.offset().top;
 
-        var line = this._convertPosToLineNumber(vPos + height);
+        let line = this._convertPosToLineNumber(vPos + height);
         if (height === 0) {
             // If the element before the end ref span was the start
             // ref span, it might have 0 height. This is obviously not
@@ -253,17 +493,17 @@ var Passage = React.createClass({
     },
 
     _convertPosToLineNumber: function(absoluteVPos) {
-        var $content= $(ReactDOM.findDOMNode(this.refs.content));
-        var relativeVPos = absoluteVPos - $content.offset().top;
-        var lineHeight = parseInt($content.css("line-height"));
+        const $content= $(ReactDOM.findDOMNode(this.refs.content));
+        const relativeVPos = absoluteVPos - $content.offset().top;
+        const lineHeight = parseInt($content.css("line-height"));
 
-        var line = Math.round(relativeVPos / lineHeight);
+        const line = Math.round(relativeVPos / lineHeight);
         return line;
     },
 
     _getRefContent: function(referenceNumber) {
-        var refRef = PassageMarkdown.START_REF_PREFIX + referenceNumber;
-        var ref = this.refs[refRef];
+        const refRef = PassageMarkdown.START_REF_PREFIX + referenceNumber;
+        const ref = this.refs[refRef];
         if (!ref) {
             return null;
         }
@@ -271,12 +511,12 @@ var Passage = React.createClass({
     },
 
     getReference: function(referenceNumber) {
-        var refStartLine = this._getStartRefLineNumber(referenceNumber);
-        var refEndLine = this._getEndRefLineNumber(referenceNumber);
+        const refStartLine = this._getStartRefLineNumber(referenceNumber);
+        const refEndLine = this._getEndRefLineNumber(referenceNumber);
         if (refStartLine == null || refEndLine == null) {
             return null;
         }
-        var refContent = this._getRefContent(referenceNumber);
+        const refContent = this._getRefContent(referenceNumber);
 
         return {
             startLine: refStartLine,
