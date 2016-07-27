@@ -23,11 +23,20 @@ module.exports = {
     grayLighter: "#DDDDDD",
     // @learnstormBlue:        #4898fc;
     learnstormBlue: "#4898FC",
-    // @gray17: #21242C;
-    gray17: "#21242C",
-    // @gray76: #babec2;
-    gray76: "#BABEC2",
-    gray95: "#ECEDEF",
+
+    white: '#FFFFFF',
+    gray98: '#FAFAFA',
+    gray97: '#F6F7F7',
+    gray95: '#F0F1F2',
+    gray90: '#E3E5E6',
+    gray85: '#D6D8DA',
+    gray76: '#BABEC2',
+    gray68: '#888D93',
+    gray41: '#626569',
+    gray25: '#3B3e40',
+    gray17: '#21242c',
+    black: '#000000',
+
     // @pure-sm-min: 568px;
     pureSmMin: "568px",
     // @pure-md-min: 768px;
