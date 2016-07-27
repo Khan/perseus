@@ -4,10 +4,12 @@
 
 const React = require("react");
 const _ = require("underscore");
+const {StyleSheet, css} = require("aphrodite");
 
 const ApiOptions = require("../perseus-api.jsx").Options;
 const Changeable   = require("../mixins/changeable.jsx");
 const Editor = require("../editor.jsx");
+const PropCheckBox = require("../components/prop-check-box.jsx");
 const TextInput = require("../components/text-input.jsx");
 
 const GradedGroupEditor = React.createClass({
@@ -46,7 +48,29 @@ const GradedGroupEditor = React.createClass({
                 images={this.props.images}
                 widgetEnabled={true}
                 immutableWidgets={false}
-                onChange={this.props.onChange} />
+                onChange={this.props.onChange}
+            />
+            <div className={css(styles.hintsTitle)}>
+                Hint
+            </div>
+            <PropCheckBox
+                hasHint={this.props.hasHint}
+                onChange={this.props.onChange}
+                labelAlignment="right"
+                label="enabled"
+            />
+            {this.props.hasHint &&
+                <Editor
+                    ref="hint-editor"
+                    content={this.props.hint ? this.props.hint.content : ''}
+                    widgets={this.props.hint ? this.props.hint.widgets : {}}
+                    apiOptions={this.props.apiOptions}
+                    enabledFeatures={this.props.enabledFeatures}
+                    images={this.props.hint && this.props.hint.images}
+                    widgetEnabled={true}
+                    immutableWidgets={false}
+                    onChange={hint => this.change("hint", hint)}
+                />}
         </div>;
     },
 
@@ -57,8 +81,18 @@ const GradedGroupEditor = React.createClass({
     serialize: function() {
         return {
             title: this.props.title,
+            hasHint: this.props.hasHint,
             ...this.refs.editor.serialize(),
+            hint: this.props.hasHint && this.refs['hint-editor'].serialize(),
         };
+    },
+});
+
+const styles = StyleSheet.create({
+    hintsTitle: {
+        marginTop: 10,
+        fontSize: '110%',
+        fontWeight: 'bold',
     },
 });
 

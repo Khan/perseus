@@ -13,7 +13,7 @@ var {iconOk, iconRemove, icon} = require("../icon-paths.js");
 var InlineIcon = require("../components/inline-icon.jsx");
 var Renderer = require("../renderer.jsx");
 var GradedGroupAnswerBar = require("./graded-group-answer-bar.jsx");
-var {gray76, phoneMargin, negativePhoneMargin, tableBackgroundAccent} = require("../styles/constants.js");
+var {gray76, phoneMargin, negativePhoneMargin, tableBackgroundAccent, kaGreen} = require("../styles/constants.js");
 var {StyleSheet, css} = require("aphrodite");
 
 // A Graded Group is more or less a Group widget that displays a check
@@ -78,6 +78,7 @@ var GradedGroup = React.createClass({
     getInitialState: function() {
         return {
             status: GRADING_STATUSES.ungraded,
+            showHint: false,
             message: "",
             answerBarState: ANSWER_BAR_STATES.HIDDEN,
         };
@@ -151,6 +152,28 @@ var GradedGroup = React.createClass({
                 className="simple-button"
                 disabled={this.props.apiOptions.readOnly}
                 onClick={this._checkAnswer} />}
+            {this.props.hasHint &&
+             (this.state.showHint ?
+                <div>
+                    <div
+                        className={css(styles.explanationTitle)}
+                        onClick={() => this.setState({showHint: false})}
+                    >
+                        Hide explanation
+                    </div>
+                    <Renderer
+                        {...this.props.hint}
+                        ref="hints-renderer"
+                        apiOptions={apiOptions}
+                    />
+                </div> :
+                <div
+                    onClick={() => this.setState({showHint: true})}
+                    className={css(styles.showHintLink)}
+                >
+                    Explain
+                </div>
+            )}
             {apiOptions.xomManatee &&
                 answerBarState !== ANSWER_BAR_STATES.HIDDEN &&
                 <GradedGroupAnswerBar
@@ -269,6 +292,19 @@ const styles = StyleSheet.create({
         paddingRight: phoneMargin,
         paddingTop: 10,
         width: 'auto',
+    },
+
+    showHintLink: {
+        marginTop: 20,
+        color: kaGreen,
+        cursor: 'pointer',
+    },
+
+    explanationTitle: {
+        marginTop: 20,
+        color: kaGreen,
+        marginBottom: 10,
+        cursor: 'pointer',
     },
 
     title: {
