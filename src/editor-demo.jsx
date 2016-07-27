@@ -150,6 +150,8 @@ const EditorDemo = React.createClass({
                         body {
                             min-width: 0 !important;
                             /* overrides body { min-width: 1000px; } in khan-site.css */
+
+                            overflow: hidden;
                         }
                     </style>
 

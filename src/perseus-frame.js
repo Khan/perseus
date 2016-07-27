@@ -42,7 +42,7 @@ const afterMathJaxLoad = () => {
         const isMobile =
             window.frameElement.getAttribute("data-mobile") === "true";
         ReactDOM.render(
-            <div style={{overflow: "hidden"}} id="measured">
+            <div id="measured">
                 <PreviewFrame isMobile={isMobile}/>
             </div>,
             document.getElementById("content-container")

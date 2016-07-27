@@ -33,11 +33,6 @@ const PreviewFrame = React.createClass({
 
         this._updateParentWithHeight();
 
-        window.parent.postMessage({
-            id: window.frameElement.getAttribute("data-id"),
-            height: document.getElementById("measured").scrollHeight,
-        }, "*");
-
         if (window.MutationObserver) {
             // To know when to update the parent with the new iframe content
             // height, we listen to DOM mutations inside the iframe and
@@ -52,6 +47,12 @@ const PreviewFrame = React.createClass({
             });
         }
 
+        // In addition to mutation observers, we also periodically check the
+        // height to capture the result of animations.
+        setInterval(() => {
+            this._updateParentWithHeight();
+        }, 500);
+
         if (this.props.isMobile) {
             TouchEmulator();
         }
@@ -64,9 +65,19 @@ const PreviewFrame = React.createClass({
     },
 
     _updateParentWithHeight: function() {
+        let lowest = 0;
+        ["#content-container", ".preview-measure"].forEach((selector) => {
+            document.querySelectorAll(selector).forEach((element) => {
+                lowest =
+                    Math.max(lowest, element.getBoundingClientRect().bottom);
+            });
+        });
+
+        const bottomMargin = 30;
+
         window.parent.postMessage({
             id: window.frameElement.getAttribute("data-id"),
-            height: document.getElementById("measured").scrollHeight,
+            height: lowest + bottomMargin,
         }, "*");
     },
 

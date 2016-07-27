@@ -159,7 +159,7 @@ var InputWithExamples = React.createClass({
 
         return <Tooltip
                 ref="tooltip"
-                className="perseus-formats-tooltip"
+                className="perseus-formats-tooltip preview-measure"
                 horizontalPosition="left"
                 horizontalAlign="left"
                 verticalPosition="bottom"

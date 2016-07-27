@@ -153,7 +153,7 @@ var TexButtons = React.createClass({
             </div>;
         });
 
-        return <div className={this.props.className}>
+        return <div className={`${this.props.className} preview-measure`}>
             {buttonPopup}
         </div>;
     },
