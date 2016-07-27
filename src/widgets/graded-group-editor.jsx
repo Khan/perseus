@@ -49,6 +49,8 @@ const GradedGroupEditor = React.createClass({
                 widgetEnabled={true}
                 immutableWidgets={false}
                 onChange={this.props.onChange}
+                warnNoPrompt={true}
+                warnNoWidgets={true}
             />
             <div className={css(styles.hintsTitle)}>
                 Hint

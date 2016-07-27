@@ -338,6 +338,8 @@ var Editor = React.createClass({
             widgetEnabled: true,
             immutableWidgets: false,
             showWordCount: false,
+            warnNoPrompt: false,
+            warnNoWidgets: false,
         };
     },
 
@@ -994,12 +996,32 @@ var Editor = React.createClass({
             </div>;
         }
 
+        var contentWithoutWidgets = this.props.content.replace(
+            /\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/g, '');
+        var noPrompt = contentWithoutWidgets.trim().length === 0;
+        var noWidgets =
+            !/\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/g.test(this.props.content);
+
+        var warningStyle = {
+            borderTop: 'none',
+            padding: 4,
+            backgroundColor: 'pink',
+        };
+
         return <div
             className={"perseus-single-editor " + (this.props.className || "")}
         >
             {textareaWrapper}
             {katexErrorList.length > 0 &&
                 <KatexErrorView errorList={katexErrorList}/>}
+            {this.props.warnNoPrompt && noPrompt &&
+                <div style={warningStyle}>
+                    Graded Groups should contain a prompt
+                </div>}
+            {this.props.warnNoWidgets && noWidgets &&
+                <div style={warningStyle}>
+                    Graded Groups should contain at least one widget
+                </div>}
             {wordCountDisplay}
             {widgetsAndTemplates}
         </div>;
