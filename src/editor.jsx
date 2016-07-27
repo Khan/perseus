@@ -20,6 +20,7 @@ var PerseusMarkdown = require("./perseus-markdown.jsx");
 var PropCheckBox = require("./components/prop-check-box.jsx");
 var Util = require("./util.js");
 var Widgets = require("./widgets.js");
+var preprocessTex = require("./util/katex-preprocess.js");
 
 var WIDGET_PROP_BLACKLIST = require("./mixins/widget-prop-blacklist.jsx");
 
@@ -872,11 +873,12 @@ var Editor = React.createClass({
 
                     PerseusMarkdown.traverseContent(ast, (node) => {
                         if (node.type === 'math' || node.type === 'blockMath') {
+                            const content = preprocessTex(node.content);
                             try {
-                                katex.renderToString(node.content);
+                                katex.renderToString(content);
                             } catch (e) {
                                 katexErrorList.push({
-                                    math: node.content,
+                                    math: content,
                                     message: e.message,
                                 });
                             }

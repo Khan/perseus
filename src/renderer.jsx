@@ -24,6 +24,7 @@ var ApiOptionsProps = require("./mixins/api-options-props.js");
 var ApiClassNames = require("./perseus-api.jsx").ClassNames;
 var Zoomable = require("./components/zoomable.jsx");
 var Deferred = require("./deferred.js");
+var preprocessTex = require("./util/katex-preprocess.js");
 
 const { keypadElementPropType } = require("../math-input").propTypes;
 
@@ -816,14 +817,8 @@ var Renderer = React.createClass({
                 }
             };
 
-            // Replace uses of \begin{align}...\end{align} which KaTeX doesn't
-            // support (yet) with \begin{aligned}...\end{aligned} which renders
-            // the same is supported by KaTeX.  It does the same for align*.
-            // TODO(kevinb) update content to use aligned instead of align.
-            const tex = node.content.replace(/\{align[*]?\}/g, '{aligned}');
-
             const content = <TeX onRender={onRender}>
-                {tex}
+                {preprocessTex(node.content)}
             </TeX>;
 
             if (apiOptions.xomManatee) {
