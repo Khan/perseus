@@ -57,14 +57,12 @@ var SpeakingBtn = React.createClass({
     render: function() {
         return (
             <div>
-                {this.state.recognition ?
-                    <button ref="btn_speaking"
-                        onClick={this.startRecognize}
-                        className="simple-button orange">辨識
-                        </button>
-                    : false}
-
-                <StatusSpan text={this.state.status}></StatusSpan>
+                    {this.state.recognition ?
+                        <button ref="btn_speaking"
+                            onClick={this.startRecognize}
+                            className="simple-button orange">{this.state.status}
+                            </button>
+                        : false}
             </div>
         );
     },
@@ -92,7 +90,7 @@ var SpeakingBtn = React.createClass({
             recognition.interimResults = true;
             recognition.maxAlternatives = 20;
             self.setState({recognizing: false});
-            self.setState({status: "請按開始"});
+            self.setState({status: "辨識"});
             recognition.onstart = function() {
                 self.setState({recognizing: true});
                 self.setState({status: "辨識中"});

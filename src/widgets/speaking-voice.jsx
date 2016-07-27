@@ -17,6 +17,7 @@ var SpeakingVoice = React.createClass({
     componentDidMount: function() {
         this.responsiveVoice = new ResponsiveVoice;
         this.responsiveVoice.init();
+        console.log(this.responsiveVoice);
     },
 
     speak: function() {
@@ -51,8 +52,7 @@ var SpeakingVoice = React.createClass({
     render: function() {
         return (
             <div>
-                {this.props.voiceText}
-                <button onClick={this.speak}>發聲</button>
+                <button className="simple-button green" onClick={this.speak}>發聲</button>
             </div>
         );
     },
