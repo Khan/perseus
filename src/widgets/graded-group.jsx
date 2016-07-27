@@ -58,6 +58,7 @@ var GradedGroup = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
+        title: React.PropTypes.string,
         content: React.PropTypes.string,
         widgets: React.PropTypes.object,
         images: React.PropTypes.object,
@@ -67,6 +68,7 @@ var GradedGroup = React.createClass({
 
     getDefaultProps: function() {
         return {
+            title: "",
             content: "",
             widgets: {},
             images: {},
@@ -130,6 +132,10 @@ var GradedGroup = React.createClass({
             (apiOptions.xomManatee && isCorrect);
 
         return <div className={classes}>
+            {!!this.props.title &&
+                <div className={css(styles.title)}>
+                    {this.props.title}
+                </div>}
             <Renderer
                 {...this.props}
                 ref="renderer"
@@ -263,5 +269,13 @@ const styles = StyleSheet.create({
         paddingRight: phoneMargin,
         paddingTop: 10,
         width: 'auto',
+    },
+
+    title: {
+        fontSize: 12,
+        color: gray76,
+        textTransform: 'uppercase',
+        marginBottom: 11,
+        letterSpacing: .8,
     },
 });

@@ -8,11 +8,13 @@ const _ = require("underscore");
 const ApiOptions = require("../perseus-api.jsx").Options;
 const Changeable   = require("../mixins/changeable.jsx");
 const Editor = require("../editor.jsx");
+const TextInput = require("../components/text-input.jsx");
 
 const GradedGroupEditor = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
+        title: React.PropTypes.string,
         content: React.PropTypes.string,
         widgets: React.PropTypes.object,
         images: React.PropTypes.object,
@@ -21,6 +23,7 @@ const GradedGroupEditor = React.createClass({
 
     getDefaultProps: function() {
         return {
+            title: "",
             content: "",
             widgets: {},
             images: {},
@@ -29,16 +32,21 @@ const GradedGroupEditor = React.createClass({
 
     render: function() {
         return <div className="perseus-group-editor">
-        <Editor
-            ref="editor"
-            content={this.props.content}
-            widgets={this.props.widgets}
-            apiOptions={this.props.apiOptions}
-            enabledFeatures={this.props.enabledFeatures}
-            images={this.props.images}
-            widgetEnabled={true}
-            immutableWidgets={false}
-            onChange={this.props.onChange} />
+            <div className="perseus-widget-row"><label>
+                Title: <TextInput
+                    value={this.props.title}
+                    onChange={this.change("title")} />
+            </label></div>
+            <Editor
+                ref="editor"
+                content={this.props.content}
+                widgets={this.props.widgets}
+                apiOptions={this.props.apiOptions}
+                enabledFeatures={this.props.enabledFeatures}
+                images={this.props.images}
+                widgetEnabled={true}
+                immutableWidgets={false}
+                onChange={this.props.onChange} />
         </div>;
     },
 
@@ -47,7 +55,10 @@ const GradedGroupEditor = React.createClass({
     },
 
     serialize: function() {
-        return this.refs.editor.serialize();
+        return {
+            title: this.props.title,
+            ...this.refs.editor.serialize(),
+        };
     },
 });
 
