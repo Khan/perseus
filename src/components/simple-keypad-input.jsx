@@ -1,5 +1,4 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable object-curly-spacing */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -14,12 +13,9 @@
 
 const React = require('react');
 
-const { KeypadInput } = require("../../math-input").components;
-const {
-    FractionBehaviorTypes,
-    KeypadTypes,
-} = require("../../math-input").consts;
-const { keypadElementPropType } = require("../../math-input").propTypes;
+const {KeypadInput} = require("../../math-input").components;
+const {KeypadTypes} = require("../../math-input").consts;
+const {keypadElementPropType} = require("../../math-input").propTypes;
 
 const SimpleKeypadInput = React.createClass({
     propTypes: {
@@ -45,11 +41,10 @@ const SimpleKeypadInput = React.createClass({
         // before continuing with the default focus logic for Perseus inputs.
         // Intercept the `value` prop so as to map `null` to the empty string,
         // as the `KeypadInput` does not support `null` values.
-        const { keypadElement, onFocus, value, ...rest } = this.props;
+        const {keypadElement, onFocus, value, ...rest} = this.props;
 
         return <KeypadInput
             ref="input"
-            fractionBehavior={FractionBehaviorTypes.INCLUSIVE}
             keypadElement={keypadElement}
             onFocus={() => {
                 if (keypadElement) {
