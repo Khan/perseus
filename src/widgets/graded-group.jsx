@@ -9,10 +9,11 @@ var _ = require("underscore");
 
 var ApiOptions = require("../perseus-api.jsx").Options;
 var Changeable   = require("../mixins/changeable.jsx");
-var {iconOk, iconRemove} = require("../icon-paths.js");
+var {iconOk, iconRemove, icon} = require("../icon-paths.js");
 var InlineIcon = require("../components/inline-icon.jsx");
 var Renderer = require("../renderer.jsx");
-var {gray76, tableBackgroundAccent} = require("../styles/constants.js");
+var GradedGroupAnswerBar = require("./graded-group-answer-bar.jsx");
+var {gray76, phoneMargin, negativePhoneMargin, tableBackgroundAccent} = require("../styles/constants.js");
 var {StyleSheet, css} = require("aphrodite");
 
 // A Graded Group is more or less a Group widget that displays a check
@@ -25,6 +26,27 @@ var GRADING_STATUSES = {
     correct: 'correct',
     incorrect: 'incorrect',
     invalid: 'invalid',
+};
+
+var ANSWER_BAR_STATES = GradedGroupAnswerBar.ANSWER_BAR_STATES;
+
+// Update answer bar state based on current state and whether the question is
+// answerable (all parts have been filled out) or not.
+var getNextState = (currentState, answerable) => {
+    switch (currentState) {
+        case ANSWER_BAR_STATES.HIDDEN:
+            return answerable ? ANSWER_BAR_STATES.ACTIVE : currentState;
+        case ANSWER_BAR_STATES.ACTIVE:
+            return !answerable ? ANSWER_BAR_STATES.INACTIVE : currentState;
+        case ANSWER_BAR_STATES.INACTIVE:
+            return answerable ? ANSWER_BAR_STATES.ACTIVE : currentState;
+        case ANSWER_BAR_STATES.INCORRECT:
+            return answerable
+                ? ANSWER_BAR_STATES.ACTIVE
+                : ANSWER_BAR_STATES.INACTIVE;
+        default:
+            return currentState;
+    }
 };
 
 // Prepended to all invalid messages to make the widget messages a bit clearer
@@ -55,6 +77,7 @@ var GradedGroup = React.createClass({
         return {
             status: GRADING_STATUSES.ungraded,
             message: "",
+            answerBarState: ANSWER_BAR_STATES.HIDDEN,
         };
     },
 
@@ -89,27 +112,46 @@ var GradedGroup = React.createClass({
         var classes = classNames({
             [css(styles.gradedGroup)]: apiOptions.xomManatee,
             "perseus-graded-group": true,
-            "answer-correct": this.state.status === GRADING_STATUSES.correct,
-            "answer-incorrect":
-                this.state.status === GRADING_STATUSES.incorrect,
+            "answer-correct": apiOptions.xomManatee
+                ? false
+                : this.state.status === GRADING_STATUSES.correct,
+            "answer-incorrect": apiOptions.xomManatee
+                ? false
+                : this.state.status === GRADING_STATUSES.incorrect,
         });
+
+        const {answerBarState} = this.state;
+
+        // Disabled widgets after the answer has been answered correctly to
+        // prevent a situation where the answer has been marked correct but
+        // looks incorrect because a user has modified it afterwards.
+        const isCorrect = answerBarState === ANSWER_BAR_STATES.CORRECT;
+        const readOnly = apiOptions.readOnly ||
+            (apiOptions.xomManatee && isCorrect);
 
         return <div className={classes}>
             <Renderer
                 {...this.props}
                 ref="renderer"
-                apiOptions={apiOptions}
+                apiOptions={{...apiOptions, readOnly}}
                 onInteractWithWidget={this._onInteractWithWidget} />
-            {icon && <div className="group-icon">
+            {!apiOptions.xomManatee && icon && <div className="group-icon">
                 {icon}
             </div>}
-            <p>{this.state.message}</p>
-            <input
+            {!apiOptions.xomManatee && <p>{this.state.message}</p>}
+            {!apiOptions.xomManatee && <input
                 type="button"
                 value={i18n._("Check Answer")}
                 className="simple-button"
                 disabled={this.props.apiOptions.readOnly}
-                onClick={this._checkAnswer} />
+                onClick={this._checkAnswer} />}
+            {apiOptions.xomManatee &&
+                answerBarState !== ANSWER_BAR_STATES.HIDDEN &&
+                <GradedGroupAnswerBar
+                    apiOptions={apiOptions}
+                    answerBarState={answerBarState}
+                    onCheckAnswer={this._checkAnswer}
+                />}
         </div>;
     },
 
@@ -127,6 +169,12 @@ var GradedGroup = React.createClass({
 
         if (this.refs.renderer) {
             this.change("widgets", this.props.widgets);
+            const emptyWidgets = this.refs.renderer.emptyWidgets();
+            const answerable = emptyWidgets.length === 0;
+            const answerBarState = this.state.answerBarState;
+            this.setState({
+                answerBarState: getNextState(answerBarState, answerable),
+            });
         }
     },
 
@@ -149,6 +197,10 @@ var GradedGroup = React.createClass({
         this.setState({
             status: status,
             message: message,
+            // TODO(kevinb) handle 'invalid' status
+            answerBarState: status === 'correct'
+                ? ANSWER_BAR_STATES.CORRECT
+                : ANSWER_BAR_STATES.INCORRECT,
         });
 
         this.props.trackInteraction({
@@ -204,13 +256,12 @@ const styles = StyleSheet.create({
         borderTop: `1px solid ${gray76}`,
         borderBottom: `1px solid ${gray76}`,
         backgroundColor: tableBackgroundAccent,
-        marginLeft: -20,
-        marginRight: -20,
-        paddingBottom: 20,
-        paddingLeft: 20,
-        paddingRight: 20,
+        marginLeft: negativePhoneMargin,
+        marginRight: negativePhoneMargin,
+        paddingBottom: phoneMargin,
+        paddingLeft: phoneMargin,
+        paddingRight: phoneMargin,
         paddingTop: 10,
         width: 'auto',
     },
 });
-
