@@ -15,6 +15,8 @@ module.exports = [
      __EDITOR__ && require("./widgets/grapher-editor.jsx")],
     [require("./widgets/graded-group.jsx"),
      __EDITOR__ && require("./widgets/graded-group-editor.jsx")],
+    [require("./widgets/graded-group-set.jsx"),
+     __EDITOR__ && require("./widgets/graded-group-set-editor.jsx")],
     [require("./widgets/group.jsx"),
      __EDITOR__ && require("./widgets/group-editor.jsx")],
     [require("./widgets/iframe.jsx"),

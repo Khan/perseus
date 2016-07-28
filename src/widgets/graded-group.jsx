@@ -63,6 +63,7 @@ const GradedGroup = React.createClass({
         onFocus: React.PropTypes.func,
         title: React.PropTypes.string,
         trackInteraction: React.PropTypes.func.isRequired,
+        transparentBackground: React.PropTypes.bool,
         widgets: React.PropTypes.object,
     },
 
@@ -74,6 +75,8 @@ const GradedGroup = React.createClass({
             content: "",
             widgets: {},
             images: {},
+            hint: null,
+            hasHint: false,
         };
     },
 
@@ -187,7 +190,6 @@ const GradedGroup = React.createClass({
             }
         );
 
-
         let icon = null;
         // Colors are 10% darker than the colors in graded-group.less
         if (this.state.status === GRADING_STATUSES.correct) {
@@ -197,7 +199,8 @@ const GradedGroup = React.createClass({
         }
 
         const classes = classNames({
-            [css(styles.gradedGroup)]: apiOptions.xomManatee,
+            [css(styles.gradedGroup)]: apiOptions.xomManatee &&
+                !this.props.transparentBackground,
             "perseus-graded-group": true,
             "answer-correct": apiOptions.xomManatee
                 ? false
@@ -238,6 +241,7 @@ const GradedGroup = React.createClass({
                 disabled={this.props.apiOptions.readOnly}
                 onClick={this._checkAnswer}
             />}
+
             {this.props.hasHint &&
              (this.state.showHint ?
                 <div>

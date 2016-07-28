@@ -29,16 +29,22 @@ const GradedGroupEditor = React.createClass({
             content: "",
             widgets: {},
             images: {},
+            hint: null,
+            hasHint: false,
         };
     },
 
     render: function() {
         return <div className="perseus-group-editor">
-            <div className="perseus-widget-row"><label>
-                Title: <TextInput
-                    value={this.props.title}
-                    onChange={this.change("title")} />
-            </label></div>
+            <div className="perseus-widget-row">
+                <label className={css(styles.title)}>
+                    Title: <TextInput
+                        value={this.props.title}
+                        className={css(styles.input)}
+                        onChange={this.change("title")}
+                    />
+                </label>
+            </div>
             <Editor
                 ref="editor"
                 content={this.props.content}
@@ -91,6 +97,15 @@ const GradedGroupEditor = React.createClass({
 });
 
 const styles = StyleSheet.create({
+    title: {
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+
+    input: {
+        fontSize: 18,
+    },
+
     hintsTitle: {
         marginTop: 10,
         fontSize: '110%',
