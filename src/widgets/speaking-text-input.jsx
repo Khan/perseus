@@ -62,14 +62,14 @@ var SpeakingBtn = React.createClass({
     },
 
     // prevent trigger checking answer when clicking button
-    startRecognizeOnClick(e) {
+    startRecognizeOnClick: function(e) {
         this.startRecognize();
         e.preventDefault();
         return false;
     },
 
     // ignore clicking event
-    ignoreOnClick(e) {
+    ignoreOnClick: function(e) {
         e.preventDefault();
         return false;
     },
