@@ -301,7 +301,8 @@ var rules = {
     },
     highlight: {
         order: SimpleMarkdown.defaultRules.escape.order + .7,
-        match: SimpleMarkdown.inlineRegex(/^&&(.+?)&&/),
+        match: SimpleMarkdown.inlineRegex(
+                    /^{__highlighting.start}(.+?){__highlighting.end}/),
         parse: (capture, parse, state) => {
             return {
                 content: capture[1],
@@ -315,27 +316,47 @@ var rules = {
             ];
         }
     },
-    selectedHighlight: {
+    removeHighlightIcon: {
         order: SimpleMarkdown.defaultRules.escape.order + .8,
-        match: SimpleMarkdown.inlineRegex(/^####/),
+        match: SimpleMarkdown.inlineRegex(
+                    /^{__highlighting.remove-confirmation}/),
         parse: (capture, parse, state) => {
             return {};
         },
         react: (node, output, state) => {
             return [
-                //TODO: the text on this image is in English, so this really
-                //ought to be a pure CSS component, not a static image! To get
-                //this to work as-is, you'd need to download
-                //https://khanacademy.slack.com/files/kitt/F1S8P993N/removehighlight.svg // @Nolint
-                //and save it as webapp/images/perseus/remove_highlighter.svg.
-                <span id="perseus-selected-highlight"
-                      style={{position:'relative'}}
+                <span
+                    data-remove-highlight-tooltip={true}
+                    style={{position:'relative'}}
                 >
                     <img
-                         width="130" height="60"
-                         style={{position:'absolute', top:'-46px',
+                        width="163" height="75"
+                        style={{position:'absolute', top:'-46px',
                                  left:'-40px'}}
-                         src='/images/remove-highlight.svg'/>
+                        src='/images/perseus/remove-highlight.svg'
+                    />
+                </span>
+            ];
+        }
+    },
+    confirmHighlightIcon: {
+        order: SimpleMarkdown.defaultRules.escape.order + .8,
+        match: SimpleMarkdown.inlineRegex(/^{__highlighting.add-confirmation}/),
+        parse: (capture, parse, state) => {
+            return {};
+        },
+        react: (node, output, state) => {
+            return [
+                <span
+                    data-confirm-highlight-tooltip={true}
+                    style={{position:'relative'}}
+                >
+                    <img
+                        width="130" height="60"
+                        style={{position:'absolute', top:'-46px',
+                                 left:'-40px'}}
+                        src='/images/perseus/add-highlight.svg'
+                    />
                 </span>
             ];
         }

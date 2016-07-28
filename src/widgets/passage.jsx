@@ -37,6 +37,7 @@ const Passage = React.createClass({
             nLines: null,
             startLineNumbersAfter: 0,
             highlightRanges: [],
+            newHighlightRange: null,
             selectedHighlightRange: null,
         };
     },
@@ -92,7 +93,7 @@ const Passage = React.createClass({
     addHighlightRange: function(highlightRange) {
         let newHighlightRanges = this.state.highlightRanges;
 
-        newHighlightRanges.push(highlightRange);
+        newHighlightRanges.push(this.state.newHighlightRange);
         newHighlightRanges =
             this.mergeOverlappingRanges(newHighlightRanges);
 
@@ -102,7 +103,7 @@ const Passage = React.createClass({
         //this.props.onChange(newHighlightRanges);
 
         // HACK: Not sure why this is neccessary as setState should cause an
-        // update. However, highlighting oftern doesn't appear without it.
+        // update. However, highlighting often doesn't appear without it.
         this.forceUpdate();
     },
 
@@ -162,35 +163,115 @@ const Passage = React.createClass({
     /**
      * Handle the current selection for highlighting purposes.
      */
-    onConfirmHighlight: function() {
-        // Clear the currently-selected range - if it's been re-selected, we'll
-        // determine that below.
-        this.setState({
-            selectedHighlightRange: null
-        });
-
-        const selection = window.getSelection();
-        const highlightRange = this.getSelectionRange(selection);
-
-        this.addHighlightRange(highlightRange);
+    handleConfirmHighlightClick: function() {
+        this.setState({newHighlightRange: null});
+        this.addHighlightRange();
     },
 
-    handleMouseUp: function() {
-        this.onConfirmHighlight();
+    /**
+     * Finds if there is already an exisiting highlight range that completely
+     * contains the current selected range and returns that existing range.
+     */
+    isHighlighted: function(selectedRange) {
+        const currentHighlightRanges = this.state.highlightRanges;
+        for (const range of currentHighlightRanges) {
+            if (selectedRange[0] >= range[0] && selectedRange[1] <= range[1]) {
+                return range;
+            }
+        }
+        return null;
+    },
+
+    /**
+     * Handles all mouse up events on passage-widget-passage-container. There
+     * are 4 cases we care about here (in the order they are below):
+     * 1) A user is clicking to remove a highlight.
+     * 2) A user is clicking to confirm they want to add a highlight.
+     * 3) A user has selected an existing highlight which they will then be
+     *    prompted to confirm that they wish to remove.
+     * 4) A user has made a new selection which they will then be prompted to
+     *    add as a new highlight.
+     */
+    handleMouseUp: function(e) {
+        const removeHighlightTooltip =
+            e.currentTarget.querySelector("[data-remove-highlight-tooltip]");
+        const confirmHighlightTooltip =
+            e.currentTarget.querySelector("[data-confirm-highlight-tooltip]");
+        if (removeHighlightTooltip &&
+                (e.target === removeHighlightTooltip ||
+                    removeHighlightTooltip.contains(e.target))) {
+            this.handleRemoveHighlightClick();
+        } else if (confirmHighlightTooltip &&
+                (e.target === confirmHighlightTooltip ||
+                    confirmHighlightTooltip.contains(e.target))) {
+            this.handleConfirmHighlightClick();
+        } else {
+            const selection = window.getSelection();
+            const selectionRange = this.getSelectionRange(selection);
+            const selectedHighlightRange = this.isHighlighted(selectionRange);
+
+            if (selectedHighlightRange) {
+                this.setState({
+                    newHighlightRange: null,
+                    selectedHighlightRange: selectedHighlightRange,
+                });
+            } else {
+                this.setState({
+                    newHighlightRange: selectionRange,
+                    selectedHighlightRange: null,
+                });
+            }
+        }
+
     },
 
     /**
      * Removes the currently-selected highlight region.
      */
     handleRemoveHighlightClick: function() {
-        const passageIndex = this.state.highlightRanges.indexOf(
-                this.state.selectedHighlightRange);
+        const selectedHighlightRange = this.state.selectedHighlightRange;
+        const passageIndex = this.state.highlightRanges.findIndex(
+            (r) => r[0] === selectedHighlightRange[0] &&
+                   r[1] === selectedHighlightRange[1]);
         const newHighlightRanges = [...this.state.highlightRanges];
         newHighlightRanges.splice(passageIndex, 1);
         this.setState({
             selectedHighlightRange: null,
             highlightRanges: newHighlightRanges
         });
+    },
+
+
+    /**
+     * Splits the rawContent into an array of words
+     */
+    stringToArrayOfWords: function(rawContent) {
+        // First, we break rawContent apart into word-sized fragments. We
+        // need to be able to reassemble it later though, so we can't just
+        // blindly split on all whitespace characters! Instead, we split
+        // only on spaces, then manually split up those text fragments if
+        // they contain a non-space-whitespace character (e.g. a newline).
+        rawContent = rawContent.split(' ');
+        rawContent = rawContent.map(function(fragment) {
+            const whitespaceMatch = fragment.match(/\s+/);
+            if (whitespaceMatch) {
+                const whitespaceLastIndex = (
+                    whitespaceMatch.index +
+                    whitespaceMatch[0].length);
+                return [fragment.slice(0, whitespaceLastIndex),
+                        fragment.slice(whitespaceLastIndex)];
+            } else {
+                return [fragment];
+            }
+        });
+        // Flatten array (since it now contains nested fragments), and drop
+        // any empty fragments (which might result from multiple
+        // back-to-back spaces, which markdown will ignore anyway).
+        rawContent = [].concat(...rawContent);
+        rawContent = rawContent.filter(function(fragment) {
+            return fragment !== '';
+        });
+        return rawContent;
     },
 
     shouldComponentUpdate: function(nextProps, nextState) {
@@ -223,37 +304,13 @@ const Passage = React.createClass({
         let rawContent = this.props.passageText;
         // For each highlighted passage, we (ephemerally) inject highlight
         // markdown into the rawContent.
-        _.each(this.state.highlightRanges, function(highlightPassage) {
+        _.each(this.state.highlightRanges, function(highlightRange) {
             const isSelected = (this.state.selectedHighlightRange &&
-                this.state.selectedHighlightRange[0]===highlightPassage[0]);
-            const rangeStartIndex = highlightPassage[0];
-            const rangeEndIndex = highlightPassage[1];
+                this.state.selectedHighlightRange[0]===highlightRange[0]);
+            const rangeStartIndex = highlightRange[0];
+            const rangeEndIndex = highlightRange[1];
 
-            // First, we break rawContent apart into word-sized fragments. We
-            // need to be able to reassemble it later though, so we can't just
-            // blindly split on all whitespace characters! Instead, we split
-            // only on spaces, then manually split up those text fragments if
-            // they contain a non-space-whitespace character (e.g. a newline).
-            rawContent = rawContent.split(' ');
-            rawContent = rawContent.map(function(fragment) {
-                const whitespaceMatch = fragment.match(/\s+/);
-                if (whitespaceMatch) {
-                    const whitespaceLastIndex = (
-                        whitespaceMatch.index +
-                        whitespaceMatch[0].length);
-                    return [fragment.slice(0, whitespaceLastIndex),
-                            fragment.slice(whitespaceLastIndex)];
-                } else {
-                    return [fragment];
-                }
-            });
-            // Flatten array (since it now contains nested fragments), and drop
-            // any empty fragments (which might result from multiple
-            // back-to-back spaces, which markdown will ignore anyway).
-            rawContent = [].concat(...rawContent);
-            rawContent = rawContent.filter(function(fragment) {
-                return fragment !== '';
-            });
+            rawContent = this.stringToArrayOfWords(rawContent);
 
             // Reassemble rawContent, with highlighter markdown included.
             // Two big gotchas here:
@@ -272,7 +329,7 @@ const Passage = React.createClass({
                 // TODO: we're using these characters to inject the
                 // highlight-remove button. This really ought to be a React
                 // component instead!
-                (isSelected ? "####" : '') +
+                (isSelected ? "{__highlighting.remove-confirmation}" : '') +
                 rawContent
                     .slice(rangeStartIndex, rangeEndIndex + 1)
                     .map(function(fragment) {
@@ -285,15 +342,24 @@ const Passage = React.createClass({
                         const matchEnd = (
                                 matchStart + highlightableMatch[0].length);
                         return (fragment.slice(0, matchStart) +
-                                '&&' +
+                                '{__highlighting.start}' +
                                 fragment.slice(matchStart, matchEnd) +
-                                '&&' +
+                                '{__highlighting.end}' +
                                 fragment.slice(matchEnd));
                     })
-                    .join('&& &&') +
+                    .join('{__highlighting.start} {__highlighting.end}') +
                 ' ' +
                 rawContent.slice(rangeEndIndex + 1).join(' '));
         }, this);
+
+        //"Add Highlight" icon
+        if (this.state.newHighlightRange) {
+            rawContent = this.stringToArrayOfWords(rawContent);
+            rawContent = rawContent.slice(
+                0, this.state.newHighlightRange[0]).join(' ') +
+                ' ' + '{__highlighting.add-confirmation}' +
+                rawContent.slice(this.state.newHighlightRange[0]).join(' ');
+        }
 
         const parseState = {};
         const parsedContent = PassageMarkdown.parse(rawContent, parseState);
@@ -339,14 +405,6 @@ const Passage = React.createClass({
 
     componentDidUpdate: function() {
         this._updateState();
-        const highlighterTool = (
-                document.getElementById('perseus-selected-highlight'));
-        if (highlighterTool) {
-            //TODO: there must be a more canonical way to attach a click
-            //handler to this component.
-            highlighterTool.click(function() {});
-            highlighterTool.onclick = this.handleRemoveHighlightClick;
-        }
     },
 
     _updateState: function() {
