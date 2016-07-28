@@ -274,7 +274,7 @@ _.extend(SpeakingTextInput, {
 
     module.exports = {
         name: "speaking-text-input",
-        displayName: "英文口說文字框",
+        displayName: "English Speech Recognition/英文口說辨識",
         widget: SpeakingTextInput,
         editor: SpeakingTextInputEditor
     };
