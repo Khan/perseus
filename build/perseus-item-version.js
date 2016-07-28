@@ -1,6 +1,6 @@
 // Perseus Version File
-// commit 2ed3001785a6cb6967cacb471510bba67639836d
-// branch group-hint
+// commit d331a90daf4bd2a2a9496c49552fac00287e7046
+// branch master
 // @generated
 /* eslint-disable comma-dangle */
 
@@ -42,6 +42,10 @@ module.exports = {
         "minor": 0
     },
     "graded-group": {
+        "major": 0,
+        "minor": 0
+    },
+    "graded-group-set": {
         "major": 0,
         "minor": 0
     },
