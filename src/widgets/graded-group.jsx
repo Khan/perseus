@@ -233,7 +233,7 @@ const GradedGroup = React.createClass({
             {!apiOptions.xomManatee && <p>{this.state.message}</p>}
             {!apiOptions.xomManatee && <input
                 type="button"
-                value={i18n._("Check Answer")}
+                value={i18n._("Check")}
                 className="simple-button"
                 disabled={this.props.apiOptions.readOnly}
                 onClick={this._checkAnswer}
@@ -245,7 +245,7 @@ const GradedGroup = React.createClass({
                         className={css(styles.explanationTitle)}
                         onClick={() => this.setState({showHint: false})}
                     >
-                        Hide explanation
+                        {i18n._("Hide explanation")}
                     </div>
                     <Renderer
                         {...this.props.hint}
@@ -257,7 +257,7 @@ const GradedGroup = React.createClass({
                     onClick={() => this.setState({showHint: true})}
                     className={css(styles.showHintLink)}
                 >
-                    Explain
+                    {i18n._("Explain")}
                 </div>
             )}
             {apiOptions.xomManatee &&
