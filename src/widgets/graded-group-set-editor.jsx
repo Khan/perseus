@@ -65,7 +65,7 @@ const GradedGroupSetEditor = React.createClass({
     addGroup() {
         const groups = this.props.gradedGroups || [];
         this.change("gradedGroups", groups.concat([
-            GradedGroupEditor.prototype.getDefaultProps()]));
+            GradedGroupEditor.getDefaultProps()]));
     },
 
     render() {
