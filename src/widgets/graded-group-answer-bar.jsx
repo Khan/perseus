@@ -6,7 +6,7 @@ const React = require('react');
 
 const ApiOptions = require('../perseus-api.jsx').Options;
 const InlineIcon = require('../components/inline-icon.jsx');
-const {iconCheck, iconRemove} = require('../icon-paths.js');
+const {iconStar, iconTryAgain} = require('../icon-paths.js');
 
 const {
     boldFontFamily,
@@ -73,10 +73,13 @@ const GradedGroupAnswerBar = React.createClass({
                 ? kaGreen : gray68,
         };
 
+
         const message = answerBarState === ANSWER_BAR_STATES.INCORRECT ?
             <span style={textStyle}>
-                <InlineIcon {...iconRemove} />
-                <span style={{marginLeft: 4.9}}>Try again</span>
+                <span style={styles.tryAgainIcon}>
+                    <InlineIcon {...iconTryAgain} />
+                </span>
+                <span style={{marginLeft: 8}}>{i18n._('Keep trying')}</span>
             </span> :
             <span />;  // empty span keeps the button the right side
 
@@ -96,8 +99,10 @@ const GradedGroupAnswerBar = React.createClass({
         } else {
             return <div style={answerBarStyle}>
                 <span style={textStyle}>
-                    <InlineIcon {...iconCheck} style={{marginBottom: 5}}/>
-                    <span style={{marginLeft: 4.9}}>Correct</span>
+                    <span style={{fontSize: 28, color: '#FFB300'}}>
+                        <InlineIcon {...iconStar} style={{marginBottom: 5}} />
+                    </span>
+                    <span style={{marginLeft: 8}}>Correct</span>
                 </span>
             </div>;
         }
@@ -130,6 +135,13 @@ const styles = {
         fontSize: fontSize,
         border: 'none',
     },
+
+    tryAgainIcon: {
+        fontSize: 28,
+        color: '#63D9EA',
+        transform: 'scale(-1,1) rotate(-268deg)',
+    },
+
     text: {
         display: 'flex',
         flexDirection: 'row',
