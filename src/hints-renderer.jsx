@@ -4,7 +4,7 @@
 
 const React = require('react');
 const ReactDOM = require("react-dom");
-const { StyleSheet, css } = require("aphrodite");
+const {StyleSheet, css} = require("aphrodite");
 const classnames = require('classnames');
 const _ = require("underscore");
 const i18n = window.i18n;
@@ -14,7 +14,7 @@ const SvgImage = require("./components/svg-image.jsx");
 const EnabledFeatures = require("./enabled-features.jsx");
 const ApiOptionsProps = require("./mixins/api-options-props.js");
 
-const { baseUnitPx, kaGreen } = require("./styles/constants.js");
+const {baseUnitPx, kaGreen} = require("./styles/constants.js");
 
 const HintsRenderer = React.createClass({
     propTypes: {
@@ -201,6 +201,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: kaGreen,
         padding: 0,
+        position: 'relative',
     },
 
     plusText: {

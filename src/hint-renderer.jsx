@@ -3,7 +3,7 @@
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
-const { StyleSheet, css } = require("aphrodite");
+const {StyleSheet, css} = require("aphrodite");
 const classnames = require('classnames');
 const i18n = window.i18n;
 
@@ -72,6 +72,7 @@ const HintRenderer = React.createClass({
             </span>}
             {!newHintStyles && totalHints && pos != null && <span
                 className="perseus-hint-label"
+                style={{display: 'block'}}
             >
                 {`${pos + 1} / ${totalHints}`}
             </span>}

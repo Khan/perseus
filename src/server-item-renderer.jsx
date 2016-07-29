@@ -9,6 +9,7 @@
 const React = require('react');
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
+const {StyleSheet, css} = require("aphrodite");
 
 const ApiOptions = require("./perseus-api.jsx").Options;
 const EnabledFeatures = require("./enabled-features.jsx");
@@ -331,10 +332,16 @@ const ItemRenderer = React.createClass({
             <div>
                 {questionRenderer}
             </div>
-            <div>
+            <div className={css(styles.hintsContainer)}>
                 {hintsRenderer}
             </div>
         </div>;
+    },
+});
+
+const styles = StyleSheet.create({
+    hintsContainer: {
+        marginLeft: 50,
     },
 });
 
