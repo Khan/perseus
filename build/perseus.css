@@ -1,6 +1,6 @@
 /* Perseus CSS
-// commit 09b17c2ba3b85b86afcb17d270eb955d808a60b5
-// branch master
+// commit d55c6b91c2d0d6a547db5e3efb951cf72a083819
+// branch HEAD
 // @generated
 */
 .perseus-sr-only {
@@ -95,6 +95,7 @@
   color: #21242c;
   font-size: 20px;
   line-height: 30px;
+  margin-bottom: 32px;
 }
 .bibliotron-article.framework-perseus.perseus-article:not(.perseus-xom-manatee) h2 {
   font-family: inherit;

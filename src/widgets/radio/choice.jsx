@@ -310,10 +310,32 @@ const Choice = React.createClass({
 
     onInputMouseDown: function() {
         this.setState({isInputActive: true});
+
+        // Simulate Chrome's radio button behavior in all browsers: when the
+        // mouse goes down or up, the radio button should become focused.
+        // That way, the newly-selected answer becomes highlighted after click.
+        if (this.props.apiOptions.satStyling && this._input) {
+            this._input.focus();
+        }
     },
 
     onInputMouseUp: function() {
         this.setState({isInputActive: false});
+
+        // Simulate Chrome's radio button behavior in all browsers: when the
+        // mouse goes down or up, the radio button should become focused.
+        // That way, the newly-selected answer becomes highlighted after click.
+        if (this.props.apiOptions.satStyling && this._input) {
+            this._input.focus();
+        }
+    },
+
+    onInputMouseOut: function() {
+        this.setState({isInputActive: false});
+    },
+
+    inputRef: function(ref) {
+        this._input = ref;
     },
 
     useNewXomStyling: function() {
@@ -406,6 +428,7 @@ const Choice = React.createClass({
             input = (
                 <ToggleableRadioButton
                     onChecked={this.props.onChecked}
+                    inputRef={this.inputRef}
                     {...commonInputProps}
                 />
             );
@@ -415,6 +438,7 @@ const Choice = React.createClass({
                     onChange={(event) => {
                         this.props.onChecked(event.target.checked);
                     }}
+                    ref={this.inputRef}
                     {...commonInputProps}
                 />
             );
@@ -473,7 +497,7 @@ const Choice = React.createClass({
             <div className={descriptionClassName}
                 onMouseDown={this.onInputMouseDown}
                 onMouseUp={this.onInputMouseUp}
-                onMouseOut={this.onInputMouseUp}
+                onMouseOut={this.onInputMouseOut}
             >
                 <div className="checkbox-and-option">
                     <span className={checkboxContentClassName}>

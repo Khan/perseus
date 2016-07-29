@@ -27,6 +27,9 @@ const ToggleableRadioButton = React.createClass({
         // controlled component).
         checked: React.PropTypes.bool.isRequired,
 
+        // A ref function to attach to the <input> element.
+        inputRef: React.PropTypes.func,
+
         // A function that will be called whenever the radio button is checked
         // or unchecked. It's possible for this to be called twice for a single
         // checking or unchecking.
@@ -81,6 +84,7 @@ const ToggleableRadioButton = React.createClass({
             onClick: this.handleClick,
             onKeyDown: this.handleKeyDown,
             onKeyUp: this.handleKeyUp,
+            ref: this.props.inputRef,
         });
 
         return <input {...inputProps} />;
