@@ -183,6 +183,18 @@ const Passage = React.createClass({
     },
 
     /**
+     * Resets newHighlightRange and selectedHighlightRange to null. This
+     * has the effect of dismissing any open tooltips when a user clicks
+     * elsewhere on the page.
+     */
+    handleSelectionChange: function() {
+        this.setState({
+            newHighlightRange: null,
+            selectedHighlightRange: null,
+        });
+    },
+
+    /**
      * Handles all mouse up events on passage-widget-passage-container. There
      * are 4 cases we care about here (in the order they are below):
      * 1) A user is clicking to remove a highlight.
@@ -215,7 +227,7 @@ const Passage = React.createClass({
                     newHighlightRange: null,
                     selectedHighlightRange: selectedHighlightRange,
                 });
-            } else {
+            } else if (!selection.isCollapsed) {
                 this.setState({
                     newHighlightRange: selectionRange,
                     selectedHighlightRange: null,
@@ -400,7 +412,14 @@ const Passage = React.createClass({
     },
 
     componentDidMount: function() {
+        document.addEventListener(
+            "selectionchange", this.handleSelectionChange);
         this._updateState();
+    },
+
+    componentWillUnmount: function() {
+        document.removeEventListener(
+            "selectionchange", this.handleSelectionChange);
     },
 
     componentDidUpdate: function() {
