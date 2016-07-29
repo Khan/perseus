@@ -74,7 +74,7 @@ const Choice = React.createClass({
                 position: "relative",
                 borderTop: "1px solid #ccc",
                 boxSizing: "border-box",
-                cursor: "pionter",
+                cursor: "pointer",
                 marginLeft: 0,
                 padding: "17px 14px",
                 "::after": {
