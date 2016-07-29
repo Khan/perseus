@@ -721,13 +721,19 @@ const keypadConfigurationForProps = (props) => {
         const maybeExpr = KAS.parse(answerForm.value, props);
         if (maybeExpr.parsed) {
             const expr = maybeExpr.expr;
+
+            // The keypad expects Greek letters to be capitalized (e.g., it
+            // requires `PI` instead of `pi`). Right now, it only supports Pi
+            // and Theta, so we special-case.
+            const isGreek = symbol => symbol === 'pi' || symbol === 'theta';
+            const toKey = symbol => isGreek(symbol) ? symbol.toUpperCase()
+                                                    : symbol;
+
             for (const variable of expr.getVars()) {
-                uniqueExtraVariables[variable] = true;
+                uniqueExtraVariables[toKey(variable)] = true;
             }
             for (const constant of expr.getConsts()) {
-                // The keypad expects constants to be capitalized (e.g., it
-                // requires `PI` instead of `pi`).
-                uniqueExtraConstants[constant.toUpperCase()] = true;
+                uniqueExtraConstants[toKey(constant)] = true;
             }
         }
     }
