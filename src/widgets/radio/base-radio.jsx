@@ -416,13 +416,17 @@ const BaseRadio = React.createClass({
 
         // Allow for horizontal scrolling if content is too wide, which may be
         // an issue especially on phones.
-        return <div style={{
-            overflow: "auto",
-            marginLeft: styleConstants.negativePhoneMargin,
-            marginRight: styleConstants.negativePhoneMargin,
-            paddingLeft: styleConstants.phoneMargin,
-            paddingRight: styleConstants.phoneMargin,
-        }}
+        return <div
+            style={
+                responsive ? {
+                    // TODO(#xom,mdr): Why isn't this in Aphrodite styles?
+                    overflow: "auto",
+                    marginLeft: styleConstants.negativePhoneMargin,
+                    marginRight: styleConstants.negativePhoneMargin,
+                    paddingLeft: styleConstants.phoneMargin,
+                    paddingRight: styleConstants.phoneMargin,
+                } : {}
+            }
         >
             {fieldset}
         </div>;
