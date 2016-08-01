@@ -1,6 +1,6 @@
 /* Perseus CSS
-// commit d55c6b91c2d0d6a547db5e3efb951cf72a083819
-// branch HEAD
+// commit 4e37da08f4c758caf7360759cb79b356daece10a
+// branch master
 // @generated
 */
 .perseus-sr-only {
@@ -2538,9 +2538,13 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
     -ms-transition: opacity 400ms cubic-bezier(0.75, 0, 0.75, 1) !important;
 }
 
-.keypad-input .mq-editable-field .mq-cursor:not(:only-child) {
+.keypad-input .mq-editable-field .mq-cursor:not(:only-child),
+.keypad-input .mq-editable-field .mq-root-block.mq-hasCursor > .mq-cursor:only-child
+ {
     /* HACK(charlie): Magic numbers to properly size and position the vertical
-       cursor. */
+       cursor, which is visible whenever the cursor is not alone in its parent,
+       with the exception that it's also visible when the entire input is
+       empty. */
     height: 20px !important;
     vertical-align: middle !important;
     margin-top: -5px !important;
