@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 75850f00927e94ff8064183342301cd43199c300
+// commit 73c1a4743aed32fd1cdcc55f6d1fbd335256476a
 // branch english_speaking_perseus
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
@@ -22550,7 +22550,7 @@ var SpeakingBtn = React.createClass({displayName: 'SpeakingBtn',
                 this.state.recognition
                     ? React.DOM.button( {ref:"btn_speaking", onClick:this.startRecognizeOnClick, className:"simple-button orange"}, this.state.status
                         )
-                    : React.DOM.button( {ref:"btn_speaking", onClick:this.ignoreOnClick, className:"simple-button orange"}, this.state.status
+                    : React.DOM.button( {ref:"btn_speaking", onClick:this.resetOnClick, className:"simple-button orange"}, this.state.status
                         )
             )
         );
@@ -22573,7 +22573,8 @@ var SpeakingBtn = React.createClass({displayName: 'SpeakingBtn',
     },
 
     // ignore clicking event
-    ignoreOnClick: function(e) {
+    resetOnClick: function(e) {
+        this.props.setValue('');
         e.preventDefault();
         return false;
     },
@@ -22596,7 +22597,7 @@ var SpeakingBtn = React.createClass({displayName: 'SpeakingBtn',
             };
             recognition.onend = function() {
                 self.setState({recognizing: false});
-                self.setState({status: "辨識完成"});
+                self.setState({status: "重新辨識"});
             };
             recognition.onresult = function(event) {
                 self.setState({recognizing: false});
@@ -22616,9 +22617,9 @@ var SpeakingBtn = React.createClass({displayName: 'SpeakingBtn',
             self.setState({recognition: recognition});
         } else {
             if (os == 'iOS') {
-                self.setState({status: "點選上面的框框 用Siri語音輸入"});
+                self.setState({status: "點選上面的框框 用Siri語音輸入/清除"});
             } else if (os == 'Android') {
-                self.setState({status: "點選上面的框框 用Google語音輸入"});
+                self.setState({status: "點選上面的框框 用Google語音輸入/清除"});
             } else {
                 self.setState({status: "請切換至Chrome瀏覽器"});
             }

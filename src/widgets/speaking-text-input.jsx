@@ -46,7 +46,7 @@ var SpeakingBtn = React.createClass({
                 {this.state.recognition
                     ? <button ref="btn_speaking" onClick={this.startRecognizeOnClick} className="simple-button orange">{this.state.status}
                         </button>
-                    : <button ref="btn_speaking" onClick={this.ignoreOnClick} className="simple-button orange">{this.state.status}
+                    : <button ref="btn_speaking" onClick={this.resetOnClick} className="simple-button orange">{this.state.status}
                         </button>}
             </div>
         );
@@ -69,7 +69,8 @@ var SpeakingBtn = React.createClass({
     },
 
     // ignore clicking event
-    ignoreOnClick: function(e) {
+    resetOnClick: function(e) {
+        this.props.setValue('');
         e.preventDefault();
         return false;
     },
@@ -92,7 +93,7 @@ var SpeakingBtn = React.createClass({
             };
             recognition.onend = function() {
                 self.setState({recognizing: false});
-                self.setState({status: "辨識完成"});
+                self.setState({status: "重新辨識"});
             };
             recognition.onresult = function(event) {
                 self.setState({recognizing: false});
@@ -112,9 +113,9 @@ var SpeakingBtn = React.createClass({
             self.setState({recognition: recognition});
         } else {
             if (os == 'iOS') {
-                self.setState({status: "點選上面的框框 用Siri語音輸入"});
+                self.setState({status: "點選上面的框框 用Siri語音輸入/清除"});
             } else if (os == 'Android') {
-                self.setState({status: "點選上面的框框 用Google語音輸入"});
+                self.setState({status: "點選上面的框框 用Google語音輸入/清除"});
             } else {
                 self.setState({status: "請切換至Chrome瀏覽器"});
             }
