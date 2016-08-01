@@ -43,7 +43,7 @@ var SpeakingBtn = React.createClass({
     render: function() {
         return (
             <div>
-                {this.state.recognition
+                {this.recognition
                     ? <button ref="btn_speaking" onClick={this.startRecognizeOnClick} className="simple-button orange">{this.state.status}
                         </button>
                     : <button ref="btn_speaking" onClick={this.resetOnClick} className="simple-button orange">{this.state.status}
@@ -52,12 +52,12 @@ var SpeakingBtn = React.createClass({
         );
     },
     getInitialState: function() {
-        return {recognition: null, recognizing: false, status: ""}
+        return {recognizing: false, status: ""}
     },
 
     startRecognize: function() {
         if (this.state.recognizing == false) {
-            this.state.recognition.start();
+            this.recognition.start();
         }
     },
 
@@ -110,7 +110,7 @@ var SpeakingBtn = React.createClass({
                     }
                 }
             }
-            self.setState({recognition: recognition});
+            self.recognition = recognition;
         } else {
             if (os == 'iOS') {
                 self.setState({status: "點選上面的框框 用Siri語音輸入/清除"});
