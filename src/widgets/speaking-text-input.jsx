@@ -64,7 +64,7 @@ var SpeakingBtn = React.createClass({
         return false;
     },
 
-    componentDidMount: function() {
+    componentWillMount: function() {
         var self = this;
         var os = self.getMobileOperatingSystem();
         if (self.hasSpeechRecognition()) {
