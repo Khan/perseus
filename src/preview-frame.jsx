@@ -60,6 +60,21 @@ const PreviewFrame = React.createClass({
         if (this.props.isMobile) {
             TouchEmulator();
         }
+
+        // article-all means that we are rendering a full preview of an article
+        if (this.state.type === "article-all") {
+            document.body.style.overflow = "scroll";
+        } else {
+            document.body.style.overflow = "hidden";
+        }
+    },
+
+    componentDidUpdate() {
+        if (this.state.type === "article-all") {
+            document.body.style.overflow = "scroll";
+        } else {
+            document.body.style.overflow = "hidden";
+        }
     },
 
     componentWillUnmount() {
