@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit ccd614b71bd6a26f4ee36fd031a1ddd3199c69da
+// commit 8d64ecbd35ef88f78be6b19e00fe2af894bf45f4
 // branch perseus_editor_cute_pic
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
@@ -10587,6 +10587,7 @@ var ItemEditor = React.createClass({displayName: 'ItemEditor',
     },
 
     render: function() {
+        var img_src = Math.random() > 0.05 ? "/images/face-smiley01.png" : "/images/face-smiley02.png";
         return React.DOM.div( {className:"perseus-editor-table"}, 
             React.DOM.div( {className:"perseus-editor-row perseus-question-container"}, 
                 React.DOM.div( {className:"perseus-editor-left-cell"}, 
@@ -10640,7 +10641,7 @@ var ItemEditor = React.createClass({displayName: 'ItemEditor',
                                 onClick:this.props.onCheckAnswer,
                                 value:"Check Answer"} ),
                             this.props.wasAnswered &&
-                                React.DOM.img( {src:"/images/face-smiley01.png",
+                                React.DOM.img( {src:img_src,
                                     className:"smiley"} ),
                             this.props.gradeMessage &&
                                 React.DOM.span(null, this.props.gradeMessage)
