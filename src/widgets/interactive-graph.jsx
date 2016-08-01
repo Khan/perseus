@@ -875,7 +875,12 @@ var InteractiveGraph = React.createClass({
 
         var lineConfig = {
             points: points,
-            static: true
+            static: true,
+            normalStyle: {
+                stroke: this.props.apiOptions.xomManatee ?
+                    KhanColors.BLUE_C : KhanColors.INTERACTIVE,
+                "stroke-width": "3px",
+            },
         };
 
         if (type === "line") {
@@ -987,7 +992,11 @@ var InteractiveGraph = React.createClass({
             this.parabola.attr({ path: path });
         } else {
             this.parabola = this.graphie.parabola(a, b, c);
-            this.parabola.attr({ stroke: KhanColors.DYNAMIC });
+            this.parabola.attr({
+                stroke: this.props.apiOptions.xomManatee ?
+                    KhanColors.BLUE_C : KhanColors.DYNAMIC,
+                "stroke-width": "3px",
+            });
             this.parabola.toBack();
         }
     },
@@ -1061,7 +1070,11 @@ var InteractiveGraph = React.createClass({
             this.sinusoid.attr({ path: path });
         } else {
             this.sinusoid = this.graphie.sinusoid(a, b, c, d);
-            this.sinusoid.attr({ stroke: KhanColors.DYNAMIC });
+            this.sinusoid.attr({
+                stroke: this.props.apiOptions.xomManatee ?
+                    KhanColors.BLUE_C : KhanColors.DYNAMIC,
+                "stroke-width": "3px",
+            });
             this.sinusoid.toBack();
         }
     },
@@ -1635,10 +1648,14 @@ var InteractiveGraph = React.createClass({
                     updateCoordProps
                 ],
                 normalStyle: {
-                    stroke: KhanColors.INTERACTIVE
+                    stroke: this.props.apiOptions.xomManatee ?
+                        KhanColors.BLUE_C : KhanColors.INTERACTIVE,
+                    "stroke-width": "3px",
                 },
                 highlightStyle: {
-                    stroke: KhanColors.INTERACTING
+                    stroke: this.props.apiOptions.xomManatee ?
+                        KhanColors.BLUE_C : KhanColors.INTERACTING,
+                    "stroke-width": "3px",
                 }
             });
             _.invoke(points, "toFront");
@@ -1748,7 +1765,12 @@ var InteractiveGraph = React.createClass({
                             self.updateCoordsFromPoints();
                         }
                     }
-                ]
+                ],
+                normalStyle: {
+                    stroke: this.props.apiOptions.xomManatee ?
+                        KhanColors.BLUE_C : KhanColors.INTERACTIVE,
+                    "stroke-width": "3px",
+                }
             });
         } else {
             // We only need to pass in the properties that might've changed
