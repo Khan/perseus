@@ -340,9 +340,11 @@ _.extend(MovablePoint.prototype, {
                     if (!this.state.outOfBounds) {
                         this._showTooltip(
                             `(${state.coord[0]}, ${state.coord[1]})`);
-                    } else {
-                        showTrashTooltip();
                     }
+                }
+
+                if (state.onRemove && this.state.outOfBounds) {
+                    showTrashTooltip();
                 }
             },
             onMoveEnd: () => {

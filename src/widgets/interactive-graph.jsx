@@ -1226,7 +1226,8 @@ var InteractiveGraph = React.createClass({
                     self.setTrashCanVisibility(0.5);
                 }
             },
-            ...(this.props.apiOptions.xomManatee ? {onRemove: remove} : {}),
+            ...(this.props.apiOptions.xomManatee && self.isClickToAddPoints() ?
+                {onRemove: remove} : {}),
         });
 
         return point;
