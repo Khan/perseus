@@ -154,9 +154,27 @@ var SpeakingTextInput = React.createClass({
         return {value: this.props.value}
     },
 
+    // compare answer when setting value to prevent generate long atempt dict
     setValue: function(val) {
-        this.setState({value: val});
-        this.change("value")(val);
+        var correntAns = SpeakingTextInput.parseAnswer(this.props.correct);
+        var userAnsList = val.split("/");
+        var correntIdx = -1;
+        for (var i = 0, len = userAnsList.length; i < len; i++) {
+            if (SpeakingTextInput.arrIsEqual(SpeakingTextInput.parseAnswer(userAnsList[i]), correntAns)) {
+                correntIdx = i;
+                break;
+            }
+        }
+        // if the answer is wrong, set value to the first answer
+        if(correntIdx == -1 || correntIdx >= this.props.correctIdxLessThen){
+            this.setState({value: userAnsList[0]});
+            this.change("value")(userAnsList[0]);
+        }
+        // else set value to the correct answer
+        else{
+            this.setState({value: this.props.correct});
+            this.change("value")(this.props.correct);
+        }
     },
 
     mixins: [
@@ -210,20 +228,13 @@ _.extend(SpeakingTextInput, {
     },
 
     validate: function(state, rubric) {
-        var correntAns = SpeakingTextInput.parseAnswer(rubric.correct);
-        var userAnsList = state.value.split("/");
-        var correntIdx = -1;
-        for (var i = 0, len = userAnsList.length; i < len; i++) {
-            if (SpeakingTextInput.arrIsEqual(SpeakingTextInput.parseAnswer(userAnsList[i]), correntAns)) {
-                correntIdx = i;
-                break;
-            }
-        }
+        var correct = SpeakingTextInput.arrIsEqual(
+            SpeakingTextInput.parseAnswer(rubric.correct),
+            SpeakingTextInput.parseAnswer(state.value)
+        );
         if (state.value == '') {
             return {type: 'invalid', message: '請重新再唸一次！'};
-        } else if (correntIdx == -1) {
-            return {type: 'points', earned: 0, total: 1, message: null};
-        } else if (correntIdx < state.correctIdxLessThen) {
+        } else if (correct) {
             return {type: 'points', earned: 1, total: 1, message: null};
         } else {
             return {type: 'points', earned: 0, total: 1, message: null};
