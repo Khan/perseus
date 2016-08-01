@@ -16,8 +16,7 @@ var ItemEditor = React.createClass({
         return {
             onChange: () => {},
             question: {},
-            answerArea: {},
-            img_src: "/images/face-smiley01.png"
+            answerArea: {}
         };
     },
 
