@@ -1,6 +1,6 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit f6efa6ac4c3f45cdb31c12aa9fc22527bfd50286
-// branch fix-fullwidth2
+// commit 4d7630b9c43a5c84d027a86d14b29e40c074f127
+// branch demo
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
 Software License Agreement (BSD License)
@@ -405,6 +405,75 @@ if (typeof module !== 'undefined') {
 }
 
 },{}],2:[function(require,module,exports){
+/*
+ ResponsiveVoice JS v1.4.7
+
+ (c) 2015 LearnBrite
+
+ License: http://responsivevoice.org/license
+*/
+if("undefined"!=typeof responsiveVoice)console.log("ResponsiveVoice already loaded"),console.log(responsiveVoice);else var ResponsiveVoice=function(){var a=this;a.version="1.4.7";console.log("ResponsiveVoice r"+a.version);a.responsivevoices=[{name:"UK English Female",flag:"gb",gender:"f",voiceIDs:[3,5,1,6,7,171,201,8]},{name:"UK English Male",flag:"gb",gender:"m",voiceIDs:[0,4,2,75,202,159,6,7]},{name:"US English Female",flag:"us",gender:"f",voiceIDs:[39,40,41,42,43,173,205,204,44]},{name:"Arabic Male",
+flag:"ar",gender:"m",voiceIDs:[96,95,97,196,98],deprecated:!0},{name:"Arabic Female",flag:"ar",gender:"f",voiceIDs:[96,95,97,196,98]},{name:"Armenian Male",flag:"hy",gender:"f",voiceIDs:[99]},{name:"Australian Female",flag:"au",gender:"f",voiceIDs:[87,86,5,201,88]},{name:"Brazilian Portuguese Female",flag:"br",gender:"f",voiceIDs:[124,123,125,186,223,126]},{name:"Chinese Female",flag:"cn",gender:"f",voiceIDs:[58,59,60,155,191,231,61]},{name:"Czech Female",flag:"cz",gender:"f",voiceIDs:[101,100,102,
+197,103]},{name:"Danish Female",flag:"dk",gender:"f",voiceIDs:[105,104,106,198,107]},{name:"Deutsch Female",flag:"de",gender:"f",voiceIDs:[27,28,29,30,31,78,170,199,32]},{name:"Dutch Female",flag:"nl",gender:"f",voiceIDs:[219,84,157,158,184,45]},{name:"Finnish Female",flag:"fi",gender:"f",voiceIDs:[90,89,91,209,92]},{name:"French Female",flag:"fr",gender:"f",voiceIDs:[21,22,23,77,178,210,26]},{name:"Greek Female",flag:"gr",gender:"f",voiceIDs:[62,63,80,200,64]},{name:"Hatian Creole Female",flag:"ht",
+gender:"f",voiceIDs:[109]},{name:"Hindi Female",flag:"hi",gender:"f",voiceIDs:[66,154,179,213,67]},{name:"Hungarian Female",flag:"hu",gender:"f",voiceIDs:[9,10,81,214,11]},{name:"Indonesian Female",flag:"id",gender:"f",voiceIDs:[111,112,180,215,113]},{name:"Italian Female",flag:"it",gender:"f",voiceIDs:[33,34,35,36,37,79,181,216,38]},{name:"Japanese Female",flag:"jp",gender:"f",voiceIDs:[50,51,52,153,182,217,53]},{name:"Korean Female",flag:"kr",gender:"f",voiceIDs:[54,55,56,156,183,218,57]},{name:"Latin Female",
+flag:"va",gender:"f",voiceIDs:[114]},{name:"Norwegian Female",flag:"no",gender:"f",voiceIDs:[72,73,221,74]},{name:"Polish Female",flag:"pl",gender:"f",voiceIDs:[120,119,121,185,222,122]},{name:"Portuguese Female",flag:"br",gender:"f",voiceIDs:[128,127,129,187,224,130]},{name:"Romanian Male",flag:"ro",gender:"m",voiceIDs:[151,150,152,225,46]},{name:"Russian Female",flag:"ru",gender:"f",voiceIDs:[47,48,83,188,226,49]},{name:"Slovak Female",flag:"sk",gender:"f",voiceIDs:[133,132,134,227,135]},{name:"Spanish Female",
+flag:"es",gender:"f",voiceIDs:[19,16,17,18,20,76,174,207,15]},{name:"Spanish Latin American Female",flag:"es",gender:"f",voiceIDs:[137,136,138,175,208,139]},{name:"Swedish Female",flag:"sv",gender:"f",voiceIDs:[85,148,149,228,65]},{name:"Tamil Male",flag:"hi",gender:"m",voiceIDs:[141]},{name:"Thai Female",flag:"th",gender:"f",voiceIDs:[143,142,144,189,229,145]},{name:"Turkish Female",flag:"tr",gender:"f",voiceIDs:[69,70,82,190,230,71]},{name:"Afrikaans Male",flag:"af",gender:"m",voiceIDs:[93]},{name:"Albanian Male",
+flag:"sq",gender:"m",voiceIDs:[94]},{name:"Bosnian Male",flag:"bs",gender:"m",voiceIDs:[14]},{name:"Catalan Male",flag:"catalonia",gender:"m",voiceIDs:[68]},{name:"Croatian Male",flag:"hr",gender:"m",voiceIDs:[13]},{name:"Czech Male",flag:"cz",gender:"m",voiceIDs:[161]},{name:"Danish Male",flag:"da",gender:"m",voiceIDs:[162],deprecated:!0},{name:"Esperanto Male",flag:"eo",gender:"m",voiceIDs:[108]},{name:"Finnish Male",flag:"fi",gender:"m",voiceIDs:[160],deprecated:!0},{name:"Greek Male",flag:"gr",
+gender:"m",voiceIDs:[163],deprecated:!0},{name:"Hungarian Male",flag:"hu",gender:"m",voiceIDs:[164]},{name:"Icelandic Male",flag:"is",gender:"m",voiceIDs:[110]},{name:"Latin Male",flag:"va",gender:"m",voiceIDs:[165],deprecated:!0},{name:"Latvian Male",flag:"lv",gender:"m",voiceIDs:[115]},{name:"Macedonian Male",flag:"mk",gender:"m",voiceIDs:[116]},{name:"Moldavian Male",flag:"md",gender:"m",voiceIDs:[117]},{name:"Montenegrin Male",flag:"me",gender:"m",voiceIDs:[118]},{name:"Norwegian Male",flag:"no",
+gender:"m",voiceIDs:[166]},{name:"Serbian Male",flag:"sr",gender:"m",voiceIDs:[12]},{name:"Serbo-Croatian Male",flag:"hr",gender:"m",voiceIDs:[131]},{name:"Slovak Male",flag:"sk",gender:"m",voiceIDs:[167],deprecated:!0},{name:"Swahili Male",flag:"sw",gender:"m",voiceIDs:[140]},{name:"Swedish Male",flag:"sv",gender:"m",voiceIDs:[168],deprecated:!0},{name:"Vietnamese Male",flag:"vi",gender:"m",voiceIDs:[146],deprecated:!0},{name:"Welsh Male",flag:"cy",gender:"m",voiceIDs:[147]},{name:"US English Male",
+flag:"us",gender:"m",voiceIDs:[0,4,2,6,7,75,159]},{name:"Fallback UK Female",flag:"gb",gender:"f",voiceIDs:[8]}];a.voicecollection=[{name:"Google UK English Male"},{name:"Agnes"},{name:"Daniel Compact"},{name:"Google UK English Female"},{name:"en-GB",rate:.25,pitch:1},{name:"en-AU",rate:.25,pitch:1},{name:"ingl\u00e9s Reino Unido"},{name:"English United Kingdom"},{name:"Fallback en-GB Female",lang:"en-GB",fallbackvoice:!0},{name:"Eszter Compact"},{name:"hu-HU",rate:.4},{name:"Fallback Hungarian",
+lang:"hu",fallbackvoice:!0,service:"g2"},{name:"Fallback Serbian",lang:"sr",fallbackvoice:!0},{name:"Fallback Croatian",lang:"hr",fallbackvoice:!0},{name:"Fallback Bosnian",lang:"bs",fallbackvoice:!0},{name:"Fallback Spanish",lang:"es",fallbackvoice:!0},{name:"Spanish Spain"},{name:"espa\u00f1ol Espa\u00f1a"},{name:"Diego Compact",rate:.3},{name:"Google Espa\u00f1ol"},{name:"es-ES",rate:.2},{name:"Google Fran\u00e7ais"},{name:"French France"},{name:"franc\u00e9s Francia"},{name:"Virginie Compact",
+rate:.5},{name:"fr-FR",rate:.25},{name:"Fallback French",lang:"fr",fallbackvoice:!0},{name:"Google Deutsch"},{name:"German Germany"},{name:"alem\u00e1n Alemania"},{name:"Yannick Compact",rate:.5},{name:"de-DE",rate:.25},{name:"Fallback Deutsch",lang:"de",fallbackvoice:!0},{name:"Google Italiano"},{name:"Italian Italy"},{name:"italiano Italia"},{name:"Paolo Compact",rate:.5},{name:"it-IT",rate:.25},{name:"Fallback Italian",lang:"it",fallbackvoice:!0},{name:"Google US English",timerSpeed:1},{name:"English United States"},
+{name:"ingl\u00e9s Estados Unidos"},{name:"Vicki"},{name:"en-US",rate:.2,pitch:1,timerSpeed:1.3},{name:"Fallback English",lang:"en-US",fallbackvoice:!0,timerSpeed:0},{name:"Fallback Dutch",lang:"nl",fallbackvoice:!0,timerSpeed:0},{name:"Fallback Romanian",lang:"ro",fallbackvoice:!0},{name:"Milena Compact"},{name:"ru-RU",rate:.25},{name:"Fallback Russian",lang:"ru",fallbackvoice:!0},{name:"Google \u65e5\u672c\u4eba",timerSpeed:1},{name:"Kyoko Compact"},{name:"ja-JP",rate:.25},{name:"Fallback Japanese",
+lang:"ja",fallbackvoice:!0},{name:"Google \ud55c\uad6d\uc758",timerSpeed:1},{name:"Narae Compact"},{name:"ko-KR",rate:.25},{name:"Fallback Korean",lang:"ko",fallbackvoice:!0},{name:"Google \u4e2d\u56fd\u7684",timerSpeed:1},{name:"Ting-Ting Compact"},{name:"zh-CN",rate:.25},{name:"Fallback Chinese",lang:"zh-CN",fallbackvoice:!0},{name:"Alexandros Compact"},{name:"el-GR",rate:.25},{name:"Fallback Greek",lang:"el",fallbackvoice:!0,service:"g2"},{name:"Fallback Swedish",lang:"sv",fallbackvoice:!0,service:"g2"},
+{name:"hi-IN",rate:.25},{name:"Fallback Hindi",lang:"hi",fallbackvoice:!0},{name:"Fallback Catalan",lang:"ca",fallbackvoice:!0},{name:"Aylin Compact"},{name:"tr-TR",rate:.25},{name:"Fallback Turkish",lang:"tr",fallbackvoice:!0},{name:"Stine Compact"},{name:"no-NO",rate:.25},{name:"Fallback Norwegian",lang:"no",fallbackvoice:!0,service:"g2"},{name:"Daniel"},{name:"Monica"},{name:"Amelie"},{name:"Anna"},{name:"Alice"},{name:"Melina"},{name:"Mariska"},{name:"Yelda"},{name:"Milena"},{name:"Xander"},{name:"Alva"},
+{name:"Lee Compact"},{name:"Karen"},{name:"Fallback Australian",lang:"en-AU",fallbackvoice:!0},{name:"Mikko Compact"},{name:"Satu"},{name:"fi-FI",rate:.25},{name:"Fallback Finnish",lang:"fi",fallbackvoice:!0,service:"g2"},{name:"Fallback Afrikans",lang:"af",fallbackvoice:!0},{name:"Fallback Albanian",lang:"sq",fallbackvoice:!0},{name:"Maged Compact"},{name:"Tarik"},{name:"ar-SA",rate:.25},{name:"Fallback Arabic",lang:"ar",fallbackvoice:!0,service:"g2"},{name:"Fallback Armenian",lang:"hy",fallbackvoice:!0,
+service:"g2"},{name:"Zuzana Compact"},{name:"Zuzana"},{name:"cs-CZ",rate:.25},{name:"Fallback Czech",lang:"cs",fallbackvoice:!0,service:"g2"},{name:"Ida Compact"},{name:"Sara"},{name:"da-DK",rate:.25},{name:"Fallback Danish",lang:"da",fallbackvoice:!0,service:"g2"},{name:"Fallback Esperanto",lang:"eo",fallbackvoice:!0},{name:"Fallback Hatian Creole",lang:"ht",fallbackvoice:!0},{name:"Fallback Icelandic",lang:"is",fallbackvoice:!0},{name:"Damayanti"},{name:"id-ID",rate:.25},{name:"Fallback Indonesian",
+lang:"id",fallbackvoice:!0},{name:"Fallback Latin",lang:"la",fallbackvoice:!0,service:"g2"},{name:"Fallback Latvian",lang:"lv",fallbackvoice:!0},{name:"Fallback Macedonian",lang:"mk",fallbackvoice:!0},{name:"Fallback Moldavian",lang:"mo",fallbackvoice:!0,service:"g2"},{name:"Fallback Montenegrin",lang:"sr-ME",fallbackvoice:!0},{name:"Agata Compact"},{name:"Zosia"},{name:"pl-PL",rate:.25},{name:"Fallback Polish",lang:"pl",fallbackvoice:!0},{name:"Raquel Compact"},{name:"Luciana"},{name:"pt-BR",rate:.25},
+{name:"Fallback Brazilian Portugese",lang:"pt-BR",fallbackvoice:!0,service:"g2"},{name:"Joana Compact"},{name:"Joana"},{name:"pt-PT",rate:.25},{name:"Fallback Portuguese",lang:"pt-PT",fallbackvoice:!0},{name:"Fallback Serbo-Croation",lang:"sh",fallbackvoice:!0,service:"g2"},{name:"Laura Compact"},{name:"Laura"},{name:"sk-SK",rate:.25},{name:"Fallback Slovak",lang:"sk",fallbackvoice:!0,service:"g2"},{name:"Javier Compact"},{name:"Paulina"},{name:"es-MX",rate:.25},{name:"Fallback Spanish (Latin American)",
+lang:"es-419",fallbackvoice:!0,service:"g2"},{name:"Fallback Swahili",lang:"sw",fallbackvoice:!0},{name:"Fallback Tamil",lang:"ta",fallbackvoice:!0},{name:"Narisa Compact"},{name:"Kanya"},{name:"th-TH",rate:.25},{name:"Fallback Thai",lang:"th",fallbackvoice:!0},{name:"Fallback Vietnamese",lang:"vi",fallbackvoice:!0},{name:"Fallback Welsh",lang:"cy",fallbackvoice:!0},{name:"Oskar Compact"},{name:"sv-SE",rate:.25},{name:"Simona Compact"},{name:"Ioana"},{name:"ro-RO",rate:.25},{name:"Kyoko"},{name:"Lekha"},
+{name:"Ting-Ting"},{name:"Yuna"},{name:"Xander Compact"},{name:"nl-NL",rate:.25},{name:"Fallback UK English Male",lang:"en-GB",fallbackvoice:!0,service:"g1",voicename:"rjs"},{name:"Finnish Male",lang:"fi",fallbackvoice:!0,service:"g1",voicename:""},{name:"Czech Male",lang:"cs",fallbackvoice:!0,service:"g1",voicename:""},{name:"Danish Male",lang:"da",fallbackvoice:!0,service:"g1",voicename:""},{name:"Greek Male",lang:"el",fallbackvoice:!0,service:"g1",voicename:"",rate:.25},{name:"Hungarian Male",
+lang:"hu",fallbackvoice:!0,service:"g1",voicename:""},{name:"Latin Male",lang:"la",fallbackvoice:!0,service:"g1",voicename:""},{name:"Norwegian Male",lang:"no",fallbackvoice:!0,service:"g1",voicename:""},{name:"Slovak Male",lang:"sk",fallbackvoice:!0,service:"g1",voicename:""},{name:"Swedish Male",lang:"sv",fallbackvoice:!0,service:"g1",voicename:""},{name:"Fallback US English Male",lang:"en",fallbackvoice:!0,service:"tts-api",voicename:""},{name:"German Germany",lang:"de_DE"},{name:"English United Kingdom",
+lang:"en_GB"},{name:"English India",lang:"en_IN"},{name:"English United States",lang:"en_US"},{name:"Spanish Spain",lang:"es_ES"},{name:"Spanish Mexico",lang:"es_MX"},{name:"Spanish United States",lang:"es_US"},{name:"French Belgium",lang:"fr_BE"},{name:"French France",lang:"fr_FR"},{name:"Hindi India",lang:"hi_IN"},{name:"Indonesian Indonesia",lang:"in_ID"},{name:"Italian Italy",lang:"it_IT"},{name:"Japanese Japan",lang:"ja_JP"},{name:"Korean South Korea",lang:"ko_KR"},{name:"Dutch Netherlands",
+lang:"nl_NL"},{name:"Polish Poland",lang:"pl_PL"},{name:"Portuguese Brazil",lang:"pt_BR"},{name:"Portuguese Portugal",lang:"pt_PT"},{name:"Russian Russia",lang:"ru_RU"},{name:"Thai Thailand",lang:"th_TH"},{name:"Turkish Turkey",lang:"tr_TR"},{name:"Chinese China",lang:"zh_CN_#Hans"},{name:"Chinese Hong Kong",lang:"zh_HK_#Hans"},{name:"Chinese Hong Kong",lang:"zh_HK_#Hant"},{name:"Chinese Taiwan",lang:"zh_TW_#Hant"},{name:"Alex"},{name:"Maged",lang:"ar-SA"},{name:"Zuzana",lang:"cs-CZ"},{name:"Sara",
+lang:"da-DK"},{name:"Anna",lang:"de-DE"},{name:"Melina",lang:"el-GR"},{name:"Karen",lang:"en-AU"},{name:"Daniel",lang:"en-GB"},{name:"Moira",lang:"en-IE"},{name:"Samantha (Enhanced)",lang:"en-US"},{name:"Samantha",lang:"en-US"},{name:"Tessa",lang:"en-ZA"},{name:"Monica",lang:"es-ES"},{name:"Paulina",lang:"es-MX"},{name:"Satu",lang:"fi-FI"},{name:"Amelie",lang:"fr-CA"},{name:"Thomas",lang:"fr-FR"},{name:"Carmit",lang:"he-IL"},{name:"Lekha",lang:"hi-IN"},{name:"Mariska",lang:"hu-HU"},{name:"Damayanti",
+lang:"id-ID"},{name:"Alice",lang:"it-IT"},{name:"Kyoko",lang:"ja-JP"},{name:"Yuna",lang:"ko-KR"},{name:"Ellen",lang:"nl-BE"},{name:"Xander",lang:"nl-NL"},{name:"Nora",lang:"no-NO"},{name:"Zosia",lang:"pl-PL"},{name:"Luciana",lang:"pt-BR"},{name:"Joana",lang:"pt-PT"},{name:"Ioana",lang:"ro-RO"},{name:"Milena",lang:"ru-RU"},{name:"Laura",lang:"sk-SK"},{name:"Alva",lang:"sv-SE"},{name:"Kanya",lang:"th-TH"},{name:"Yelda",lang:"tr-TR"},{name:"Ting-Ting",lang:"zh-CN"},{name:"Sin-Ji",lang:"zh-HK"},{name:"Mei-Jia",
+lang:"zh-TW"}];a.iOS=/(iPad|iPhone|iPod)/g.test(navigator.userAgent);a.iOS9=/(iphone|ipod|ipad).* os 9_/.test(navigator.userAgent.toLowerCase());a.is_chrome=-1<navigator.userAgent.indexOf("Chrome");a.is_safari=-1<navigator.userAgent.indexOf("Safari");a.is_chrome&&a.is_safari&&(a.is_safari=!1);a.is_opera=!!window.opera||0<=navigator.userAgent.indexOf(" OPR/");a.is_android=-1<navigator.userAgent.toLowerCase().indexOf("android");a.iOS_initialized=!1;a.iOS9_initialized=!1;a.cache_ios_voices=[{name:"he-IL",
+voiceURI:"he-IL",lang:"he-IL"},{name:"th-TH",voiceURI:"th-TH",lang:"th-TH"},{name:"pt-BR",voiceURI:"pt-BR",lang:"pt-BR"},{name:"sk-SK",voiceURI:"sk-SK",lang:"sk-SK"},{name:"fr-CA",voiceURI:"fr-CA",lang:"fr-CA"},{name:"ro-RO",voiceURI:"ro-RO",lang:"ro-RO"},{name:"no-NO",voiceURI:"no-NO",lang:"no-NO"},{name:"fi-FI",voiceURI:"fi-FI",lang:"fi-FI"},{name:"pl-PL",voiceURI:"pl-PL",lang:"pl-PL"},{name:"de-DE",voiceURI:"de-DE",lang:"de-DE"},{name:"nl-NL",voiceURI:"nl-NL",lang:"nl-NL"},{name:"id-ID",voiceURI:"id-ID",
+lang:"id-ID"},{name:"tr-TR",voiceURI:"tr-TR",lang:"tr-TR"},{name:"it-IT",voiceURI:"it-IT",lang:"it-IT"},{name:"pt-PT",voiceURI:"pt-PT",lang:"pt-PT"},{name:"fr-FR",voiceURI:"fr-FR",lang:"fr-FR"},{name:"ru-RU",voiceURI:"ru-RU",lang:"ru-RU"},{name:"es-MX",voiceURI:"es-MX",lang:"es-MX"},{name:"zh-HK",voiceURI:"zh-HK",lang:"zh-HK"},{name:"sv-SE",voiceURI:"sv-SE",lang:"sv-SE"},{name:"hu-HU",voiceURI:"hu-HU",lang:"hu-HU"},{name:"zh-TW",voiceURI:"zh-TW",lang:"zh-TW"},{name:"es-ES",voiceURI:"es-ES",lang:"es-ES"},
+{name:"zh-CN",voiceURI:"zh-CN",lang:"zh-CN"},{name:"nl-BE",voiceURI:"nl-BE",lang:"nl-BE"},{name:"en-GB",voiceURI:"en-GB",lang:"en-GB"},{name:"ar-SA",voiceURI:"ar-SA",lang:"ar-SA"},{name:"ko-KR",voiceURI:"ko-KR",lang:"ko-KR"},{name:"cs-CZ",voiceURI:"cs-CZ",lang:"cs-CZ"},{name:"en-ZA",voiceURI:"en-ZA",lang:"en-ZA"},{name:"en-AU",voiceURI:"en-AU",lang:"en-AU"},{name:"da-DK",voiceURI:"da-DK",lang:"da-DK"},{name:"en-US",voiceURI:"en-US",lang:"en-US"},{name:"en-IE",voiceURI:"en-IE",lang:"en-IE"},{name:"hi-IN",
+voiceURI:"hi-IN",lang:"hi-IN"},{name:"el-GR",voiceURI:"el-GR",lang:"el-GR"},{name:"ja-JP",voiceURI:"ja-JP",lang:"ja-JP"}];a.cache_ios9_voices=[{name:"Maged",voiceURI:"com.apple.ttsbundle.Maged-compact",lang:"ar-SA",localService:!0,"default":!0},{name:"Zuzana",voiceURI:"com.apple.ttsbundle.Zuzana-compact",lang:"cs-CZ",localService:!0,"default":!0},{name:"Sara",voiceURI:"com.apple.ttsbundle.Sara-compact",lang:"da-DK",localService:!0,"default":!0},{name:"Anna",voiceURI:"com.apple.ttsbundle.Anna-compact",
+lang:"de-DE",localService:!0,"default":!0},{name:"Melina",voiceURI:"com.apple.ttsbundle.Melina-compact",lang:"el-GR",localService:!0,"default":!0},{name:"Karen",voiceURI:"com.apple.ttsbundle.Karen-compact",lang:"en-AU",localService:!0,"default":!0},{name:"Daniel",voiceURI:"com.apple.ttsbundle.Daniel-compact",lang:"en-GB",localService:!0,"default":!0},{name:"Moira",voiceURI:"com.apple.ttsbundle.Moira-compact",lang:"en-IE",localService:!0,"default":!0},{name:"Samantha (Enhanced)",voiceURI:"com.apple.ttsbundle.Samantha-premium",
+lang:"en-US",localService:!0,"default":!0},{name:"Samantha",voiceURI:"com.apple.ttsbundle.Samantha-compact",lang:"en-US",localService:!0,"default":!0},{name:"Tessa",voiceURI:"com.apple.ttsbundle.Tessa-compact",lang:"en-ZA",localService:!0,"default":!0},{name:"Monica",voiceURI:"com.apple.ttsbundle.Monica-compact",lang:"es-ES",localService:!0,"default":!0},{name:"Paulina",voiceURI:"com.apple.ttsbundle.Paulina-compact",lang:"es-MX",localService:!0,"default":!0},{name:"Satu",voiceURI:"com.apple.ttsbundle.Satu-compact",
+lang:"fi-FI",localService:!0,"default":!0},{name:"Amelie",voiceURI:"com.apple.ttsbundle.Amelie-compact",lang:"fr-CA",localService:!0,"default":!0},{name:"Thomas",voiceURI:"com.apple.ttsbundle.Thomas-compact",lang:"fr-FR",localService:!0,"default":!0},{name:"Carmit",voiceURI:"com.apple.ttsbundle.Carmit-compact",lang:"he-IL",localService:!0,"default":!0},{name:"Lekha",voiceURI:"com.apple.ttsbundle.Lekha-compact",lang:"hi-IN",localService:!0,"default":!0},{name:"Mariska",voiceURI:"com.apple.ttsbundle.Mariska-compact",
+lang:"hu-HU",localService:!0,"default":!0},{name:"Damayanti",voiceURI:"com.apple.ttsbundle.Damayanti-compact",lang:"id-ID",localService:!0,"default":!0},{name:"Alice",voiceURI:"com.apple.ttsbundle.Alice-compact",lang:"it-IT",localService:!0,"default":!0},{name:"Kyoko",voiceURI:"com.apple.ttsbundle.Kyoko-compact",lang:"ja-JP",localService:!0,"default":!0},{name:"Yuna",voiceURI:"com.apple.ttsbundle.Yuna-compact",lang:"ko-KR",localService:!0,"default":!0},{name:"Ellen",voiceURI:"com.apple.ttsbundle.Ellen-compact",
+lang:"nl-BE",localService:!0,"default":!0},{name:"Xander",voiceURI:"com.apple.ttsbundle.Xander-compact",lang:"nl-NL",localService:!0,"default":!0},{name:"Nora",voiceURI:"com.apple.ttsbundle.Nora-compact",lang:"no-NO",localService:!0,"default":!0},{name:"Zosia",voiceURI:"com.apple.ttsbundle.Zosia-compact",lang:"pl-PL",localService:!0,"default":!0},{name:"Luciana",voiceURI:"com.apple.ttsbundle.Luciana-compact",lang:"pt-BR",localService:!0,"default":!0},{name:"Joana",voiceURI:"com.apple.ttsbundle.Joana-compact",
+lang:"pt-PT",localService:!0,"default":!0},{name:"Ioana",voiceURI:"com.apple.ttsbundle.Ioana-compact",lang:"ro-RO",localService:!0,"default":!0},{name:"Milena",voiceURI:"com.apple.ttsbundle.Milena-compact",lang:"ru-RU",localService:!0,"default":!0},{name:"Laura",voiceURI:"com.apple.ttsbundle.Laura-compact",lang:"sk-SK",localService:!0,"default":!0},{name:"Alva",voiceURI:"com.apple.ttsbundle.Alva-compact",lang:"sv-SE",localService:!0,"default":!0},{name:"Kanya",voiceURI:"com.apple.ttsbundle.Kanya-compact",
+lang:"th-TH",localService:!0,"default":!0},{name:"Yelda",voiceURI:"com.apple.ttsbundle.Yelda-compact",lang:"tr-TR",localService:!0,"default":!0},{name:"Ting-Ting",voiceURI:"com.apple.ttsbundle.Ting-Ting-compact",lang:"zh-CN",localService:!0,"default":!0},{name:"Sin-Ji",voiceURI:"com.apple.ttsbundle.Sin-Ji-compact",lang:"zh-HK",localService:!0,"default":!0},{name:"Mei-Jia",voiceURI:"com.apple.ttsbundle.Mei-Jia-compact",lang:"zh-TW",localService:!0,"default":!0}];a.systemvoices=null;a.CHARACTER_LIMIT=
+100;a.VOICESUPPORT_ATTEMPTLIMIT=5;a.voicesupport_attempts=0;a.fallbackMode=!1;a.WORDS_PER_MINUTE=130;a.fallback_parts=null;a.fallback_part_index=0;a.fallback_audio=null;a.fallback_playbackrate=1;a.def_fallback_playbackrate=a.fallback_playbackrate;a.fallback_audiopool=[];a.msgparameters=null;a.timeoutId=null;a.OnLoad_callbacks=[];a.useTimer=!1;a.utterances=[];a.tstCompiled=function(a){return eval("typeof xy === 'undefined'")};a.fallbackServicePath="https://code.responsivevoice.org/"+(a.tstCompiled()?
+"":"develop/")+"getvoice.php";a.default_rv=a.responsivevoices[0];a.init=function(){a.is_android&&(a.useTimer=!0);a.is_opera||"undefined"===typeof speechSynthesis?(console.log("RV: Voice synthesis not supported"),a.enableFallbackMode()):setTimeout(function(){var b=setInterval(function(){var c=window.speechSynthesis.getVoices();0!=c.length||null!=a.systemvoices&&0!=a.systemvoices.length?(console.log("RV: Voice support ready"),a.systemVoicesReady(c),clearInterval(b)):(console.log("Voice support NOT ready"),
+a.voicesupport_attempts++,a.voicesupport_attempts>a.VOICESUPPORT_ATTEMPTLIMIT&&(clearInterval(b),null!=window.speechSynthesis?a.iOS?(a.iOS9?a.systemVoicesReady(a.cache_ios9_voices):a.systemVoicesReady(a.cache_ios_voices),console.log("RV: Voice support ready (cached)")):(console.log("RV: speechSynthesis present but no system voices found"),a.enableFallbackMode()):a.enableFallbackMode()))},100)},100);a.Dispatch("OnLoad")};a.systemVoicesReady=function(b){a.systemvoices=b;a.mapRVs();null!=a.OnVoiceReady&&
+a.OnVoiceReady.call();a.Dispatch("OnReady");window.hasOwnProperty("dispatchEvent")&&window.dispatchEvent(new Event("ResponsiveVoice_OnReady"))};a.enableFallbackMode=function(){a.fallbackMode=!0;console.log("RV: Enabling fallback mode");a.mapRVs();null!=a.OnVoiceReady&&a.OnVoiceReady.call();a.Dispatch("OnReady");window.hasOwnProperty("dispatchEvent")&&window.dispatchEvent(new Event("ResponsiveVoice_OnReady"))};a.getVoices=function(){for(var b=[],c=0;c<a.responsivevoices.length;c++)b.push({name:a.responsivevoices[c].name});
+return b};a.speak=function(b,c,f){if(a.iOS9&&!a.iOS9_initialized)console.log("Initializing ios9"),setTimeout(function(){a.speak(b,c,f)},100),a.clickEvent(),a.iOS9_initialized=!0;else{a.isPlaying()&&(console.log("Cancelling previous speech"),a.cancel());a.fallbackMode&&0<a.fallback_audiopool.length&&a.clearFallbackPool();b=b.replace(/[\"\`]/gm,"'");a.msgparameters=f||{};a.msgtext=b;a.msgvoicename=c;a.onstartFired=!1;var h=[];if(b.length>a.CHARACTER_LIMIT){for(var e=b;e.length>a.CHARACTER_LIMIT;){var g=
+e.search(/[:!?.;]+/),d="";if(-1==g||g>=a.CHARACTER_LIMIT)g=e.search(/[,]+/);-1==g&&-1==e.search(" ")&&(g=99);if(-1==g||g>=a.CHARACTER_LIMIT)for(var k=e.split(" "),g=0;g<k.length&&!(d.length+k[g].length+1>a.CHARACTER_LIMIT);g++)d+=(0!=g?" ":"")+k[g];else d=e.substr(0,g+1);e=e.substr(d.length,e.length-d.length);h.push(d)}0<e.length&&h.push(e)}else h.push(b);a.multipartText=h;g=null==c?a.default_rv:a.getResponsiveVoice(c);!0===g.deprecated&&console.warn("ResponsiveVoice: Voice "+g.name+" is deprecated and will be removed in future releases");
+e={};if(null!=g.mappedProfile)e=g.mappedProfile;else if(e.systemvoice=a.getMatchedVoice(g),e.collectionvoice={},null==e.systemvoice){console.log("RV: ERROR: No voice found for: "+c+" "+JSON.stringify(g));return}1==e.collectionvoice.fallbackvoice?(a.fallbackMode=!0,a.fallback_parts=[]):a.fallbackMode=!1;a.msgprofile=e;a.utterances=[];for(g=0;g<h.length;g++)if(a.fallbackMode){a.fallback_playbackrate=a.def_fallback_playbackrate;var d=a.selectBest([e.collectionvoice.pitch,e.systemvoice.pitch,1]),k=a.selectBest([a.iOS9?1:null,
+e.collectionvoice.rate,e.systemvoice.rate,1]),l=a.selectBest([e.collectionvoice.volume,e.systemvoice.volume,1]);null!=f&&(d*=null!=f.pitch?f.pitch:1,k*=null!=f.rate?f.rate:1,l*=null!=f.volume?f.volume:1);d/=2;k/=2;l*=2;d=Math.min(Math.max(d,0),1);k=Math.min(Math.max(k,0),1);l=Math.min(Math.max(l,0),1);d=a.fallbackServicePath+"?t="+encodeURIComponent(h[g])+"&tl="+(e.collectionvoice.lang||e.systemvoice.lang||"en-US")+"&sv="+(e.collectionvoice.service||e.systemvoice.service||"")+"&vn="+(e.collectionvoice.voicename||
+e.systemvoice.voicename||"")+"&pitch="+d.toString()+"&rate="+k.toString()+"&vol="+l.toString();k=document.createElement("AUDIO");k.src=d;k.playbackRate=a.fallback_playbackrate;k.preload="auto";k.load();a.fallback_parts.push(k)}else d=new SpeechSynthesisUtterance,d.voice=e.systemvoice,d.voiceURI=e.systemvoice.voiceURI,d.volume=a.selectBest([e.collectionvoice.volume,e.systemvoice.volume,1]),d.rate=a.selectBest([a.iOS9?1:null,e.collectionvoice.rate,e.systemvoice.rate,1]),d.pitch=a.selectBest([e.collectionvoice.pitch,
+e.systemvoice.pitch,1]),d.text=h[g],d.lang=a.selectBest([e.collectionvoice.lang,e.systemvoice.lang]),d.rvIndex=g,d.rvTotal=h.length,0==g&&(d.onstart=a.speech_onstart),a.msgparameters.onendcalled=!1,null!=f?(g<h.length-1&&1<h.length?(d.onend=a.onPartEnd,d.hasOwnProperty("addEventListener")&&d.addEventListener("end",a.onPartEnd)):(d.onend=a.speech_onend,d.hasOwnProperty("addEventListener")&&d.addEventListener("end",a.speech_onend)),d.onerror=f.onerror||function(a){console.log("RV: Unknow Error");console.log(a)},
+d.onpause=f.onpause,d.onresume=f.onresume,d.onmark=f.onmark,d.onboundary=f.onboundary||a.onboundary,d.pitch=null!=f.pitch?f.pitch:d.pitch,d.rate=a.iOS?(null!=f.rate?f.rate*f.rate:1)*d.rate:(null!=f.rate?f.rate:1)*d.rate,d.volume=null!=f.volume?f.volume:d.volume):(d.onend=a.speech_onend,d.onerror=function(a){console.log("RV: Unknow Error");console.log(a)}),a.utterances.push(d),0==g&&(a.currentMsg=d),console.log(d),a.tts_speak(d);a.fallbackMode&&(a.fallback_part_index=0,a.fallback_startPart())}};a.startTimeout=
+function(b,c){var f=a.msgprofile.collectionvoice.timerSpeed;null==a.msgprofile.collectionvoice.timerSpeed&&(f=1);if(!(0>=f)){var h=b.split(/\s+/).length,e=(b.match(/[^ ]/igm)||b).length,f=60/a.WORDS_PER_MINUTE*f*1E3*(e/h/5.1)*h;3>h&&(f=4E3);3E3>f&&(f=3E3);a.timeoutId=setTimeout(c,f)}};a.checkAndCancelTimeout=function(){null!=a.timeoutId&&(clearTimeout(a.timeoutId),a.timeoutId=null)};a.speech_timedout=function(){a.cancel();a.cancelled=!1;a.speech_onend()};a.speech_onend=function(){a.checkAndCancelTimeout();
+!0===a.cancelled?a.cancelled=!1:null!=a.msgparameters&&null!=a.msgparameters.onend&&1!=a.msgparameters.onendcalled&&(a.msgparameters.onendcalled=!0,a.msgparameters.onend())};a.speech_onstart=function(){if(!a.onstartFired){a.onstartFired=!0;if(a.iOS||a.is_safari||a.useTimer)a.fallbackMode||a.startTimeout(a.msgtext,a.speech_timedout);a.msgparameters.onendcalled=!1;if(null!=a.msgparameters&&null!=a.msgparameters.onstart)a.msgparameters.onstart()}};a.fallback_startPart=function(){0==a.fallback_part_index&&
+a.speech_onstart();a.fallback_audio=a.fallback_parts[a.fallback_part_index];if(null==a.fallback_audio)console.log("RV: Fallback Audio is not available");else{var b=a.fallback_audio;a.fallback_audiopool.push(b);setTimeout(function(){b.playbackRate=a.fallback_playbackrate},50);b.onloadedmetadata=function(){b.play();b.playbackRate=a.fallback_playbackrate};a.fallback_audio.play();a.fallback_audio.addEventListener("ended",a.fallback_finishPart);a.useTimer&&a.startTimeout(a.multipartText[a.fallback_part_index],
+a.fallback_finishPart)}};a.fallback_finishPart=function(b){a.checkAndCancelTimeout();a.fallback_part_index<a.fallback_parts.length-1?(a.fallback_part_index++,a.fallback_startPart()):a.speech_onend()};a.cancel=function(){a.checkAndCancelTimeout();a.fallbackMode?(null!=a.fallback_audio&&a.fallback_audio.pause(),a.clearFallbackPool()):(a.cancelled=!0,speechSynthesis.cancel())};a.voiceSupport=function(){return"speechSynthesis"in window};a.OnFinishedPlaying=function(b){if(null!=a.msgparameters&&null!=
+a.msgparameters.onend)a.msgparameters.onend()};a.setDefaultVoice=function(b){b=a.getResponsiveVoice(b);null!=b&&(a.default_rv=b)};a.mapRVs=function(){for(var b=0;b<a.responsivevoices.length;b++)for(var c=a.responsivevoices[b],f=0;f<c.voiceIDs.length;f++){var h=a.voicecollection[c.voiceIDs[f]];if(1!=h.fallbackvoice){var e=a.getSystemVoice(h.name);if(null!=e){c.mappedProfile={systemvoice:e,collectionvoice:h};break}}else{c.mappedProfile={systemvoice:{},collectionvoice:h};break}}};a.getMatchedVoice=function(b){for(var c=
+0;c<b.voiceIDs.length;c++){var f=a.getSystemVoice(a.voicecollection[b.voiceIDs[c]].name);if(null!=f)return f}return null};a.getSystemVoice=function(b){if("undefined"===typeof a.systemvoices||null===a.systemvoices)return null;for(var c=0;c<a.systemvoices.length;c++)if(a.systemvoices[c].name==b)return a.systemvoices[c];return null};a.getResponsiveVoice=function(b){for(var c=0;c<a.responsivevoices.length;c++)if(a.responsivevoices[c].name==b)return a.responsivevoices[c];return null};a.Dispatch=function(b){if(a.hasOwnProperty(b+
+"_callbacks")&&null!=a[b+"_callbacks"]&&0<a[b+"_callbacks"].length){for(var c=a[b+"_callbacks"],f=0;f<c.length;f++)c[f]();return!0}var h=b+"_callbacks_timeout",e=b+"_callbacks_timeoutCount";a.hasOwnProperty(h)||(a[e]=10,a[h]=setInterval(function(){--a[e];(a.Dispatch(b)||0>a[e])&&clearTimeout(a[h])},50));return!1};a.AddEventListener=function(b,c){a.hasOwnProperty(b+"_callbacks")||(a[b+"_callbacks"]=[]);a[b+"_callbacks"].push(c)};a.addEventListener=a.AddEventListener;a.clickEvent=function(){if(a.iOS&&
+!a.iOS_initialized){console.log("Initializing iOS click event");var b=new SpeechSynthesisUtterance(" ");speechSynthesis.speak(b);a.iOS_initialized=!0}};a.isPlaying=function(){return a.fallbackMode?null!=a.fallback_audio&&!a.fallback_audio.ended&&!a.fallback_audio.paused:speechSynthesis.speaking};a.clearFallbackPool=function(){for(var b=0;b<a.fallback_audiopool.length;b++)null!=a.fallback_audiopool[b]&&(a.fallback_audiopool[b].pause(),a.fallback_audiopool[b].src="");a.fallback_audiopool=[]};"complete"===
+document.readyState?a.init():document.addEventListener("DOMContentLoaded",function(){a.init()});a.selectBest=function(a){for(var c=0;c<a.length;c++)if(null!=a[c])return a[c];return null};a.pause=function(){a.fallbackMode?null!=a.fallback_audio&&a.fallback_audio.pause():speechSynthesis.pause()};a.resume=function(){a.fallbackMode?null!=a.fallback_audio&&a.fallback_audio.play():speechSynthesis.resume()};a.tts_speak=function(b){setTimeout(function(){a.cancelled=!1;speechSynthesis.speak(b)},.01)};a.setVolume=
+function(b){if(a.isPlaying())if(a.fallbackMode){for(var c=0;c<a.fallback_parts.length;c++)a.fallback_parts[c].volume=b;for(c=0;c<a.fallback_audiopool.length;c++)a.fallback_audiopool[c].volume=b;a.fallback_audio.volume=b}else for(c=0;c<a.utterances.length;c++)a.utterances[c].volume=b};a.onPartEnd=function(b){if(null!=a.msgparameters&&null!=a.msgparameters.onchuckend)a.msgparameters.onchuckend();a.Dispatch("OnPartEnd");b=a.utterances.indexOf(b.utterance);a.currentMsg=a.utterances[b+1]};a.onboundary=
+function(b){console.log("On Boundary");a.iOS&&!a.onstartFired&&a.speech_onstart()}},responsiveVoice=new ResponsiveVoice;module.exports=ResponsiveVoice;
+
+},{}],3:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -419,7 +488,7 @@ var arrayPool = [];
 
 module.exports = arrayPool;
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -483,7 +552,7 @@ function baseBind(bindData) {
 
 module.exports = baseBind;
 
-},{"lodash._basecreate":4,"lodash._setbinddata":17,"lodash._slice":19,"lodash.isobject":29}],4:[function(require,module,exports){
+},{"lodash._basecreate":5,"lodash._setbinddata":18,"lodash._slice":20,"lodash.isobject":30}],5:[function(require,module,exports){
 (function (global){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
@@ -529,7 +598,7 @@ if (!nativeCreate) {
 module.exports = baseCreate;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"lodash._isnative":12,"lodash.isobject":29,"lodash.noop":31}],5:[function(require,module,exports){
+},{"lodash._isnative":13,"lodash.isobject":30,"lodash.noop":32}],6:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -611,7 +680,7 @@ function baseCreateCallback(func, thisArg, argCount) {
 
 module.exports = baseCreateCallback;
 
-},{"lodash._setbinddata":17,"lodash.bind":21,"lodash.identity":27,"lodash.support":33}],6:[function(require,module,exports){
+},{"lodash._setbinddata":18,"lodash.bind":22,"lodash.identity":28,"lodash.support":34}],7:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -691,7 +760,7 @@ function baseCreateWrapper(bindData) {
 
 module.exports = baseCreateWrapper;
 
-},{"lodash._basecreate":4,"lodash._setbinddata":17,"lodash._slice":19,"lodash.isobject":29}],7:[function(require,module,exports){
+},{"lodash._basecreate":5,"lodash._setbinddata":18,"lodash._slice":20,"lodash.isobject":30}],8:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -902,7 +971,7 @@ function baseIsEqual(a, b, callback, isWhere, stackA, stackB) {
 
 module.exports = baseIsEqual;
 
-},{"lodash._getarray":10,"lodash._objecttypes":14,"lodash._releasearray":15,"lodash.forin":25,"lodash.isfunction":28}],8:[function(require,module,exports){
+},{"lodash._getarray":11,"lodash._objecttypes":15,"lodash._releasearray":16,"lodash.forin":26,"lodash.isfunction":29}],9:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1010,7 +1079,7 @@ function createWrapper(func, bitmask, partialArgs, partialRightArgs, thisArg, ar
 
 module.exports = createWrapper;
 
-},{"lodash._basebind":3,"lodash._basecreatewrapper":6,"lodash._slice":19,"lodash.isfunction":28}],9:[function(require,module,exports){
+},{"lodash._basebind":4,"lodash._basecreatewrapper":7,"lodash._slice":20,"lodash.isfunction":29}],10:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1034,7 +1103,7 @@ function escapeHtmlChar(match) {
 
 module.exports = escapeHtmlChar;
 
-},{"lodash._htmlescapes":11}],10:[function(require,module,exports){
+},{"lodash._htmlescapes":12}],11:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1057,7 +1126,7 @@ function getArray() {
 
 module.exports = getArray;
 
-},{"lodash._arraypool":2}],11:[function(require,module,exports){
+},{"lodash._arraypool":3}],12:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1085,7 +1154,7 @@ var htmlEscapes = {
 
 module.exports = htmlEscapes;
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1121,7 +1190,7 @@ function isNative(value) {
 
 module.exports = isNative;
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1136,7 +1205,7 @@ var maxPoolSize = 40;
 
 module.exports = maxPoolSize;
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1158,7 +1227,7 @@ var objectTypes = {
 
 module.exports = objectTypes;
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1185,7 +1254,7 @@ function releaseArray(array) {
 
 module.exports = releaseArray;
 
-},{"lodash._arraypool":2,"lodash._maxpoolsize":13}],16:[function(require,module,exports){
+},{"lodash._arraypool":3,"lodash._maxpoolsize":14}],17:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1202,7 +1271,7 @@ var reUnescapedHtml = RegExp('[' + keys(htmlEscapes).join('') + ']', 'g');
 
 module.exports = reUnescapedHtml;
 
-},{"lodash._htmlescapes":11,"lodash.keys":30}],17:[function(require,module,exports){
+},{"lodash._htmlescapes":12,"lodash.keys":31}],18:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1247,7 +1316,7 @@ var setBindData = !defineProperty ? noop : function(func, value) {
 
 module.exports = setBindData;
 
-},{"lodash._isnative":12,"lodash.noop":31}],18:[function(require,module,exports){
+},{"lodash._isnative":13,"lodash.noop":32}],19:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1287,7 +1356,7 @@ var shimKeys = function(object) {
 
 module.exports = shimKeys;
 
-},{"lodash._objecttypes":14}],19:[function(require,module,exports){
+},{"lodash._objecttypes":15}],20:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1327,7 +1396,7 @@ function slice(array, start, end) {
 
 module.exports = slice;
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1399,7 +1468,7 @@ var assign = function(object, source, guard) {
 
 module.exports = assign;
 
-},{"lodash._basecreatecallback":5,"lodash._objecttypes":14,"lodash.keys":30}],21:[function(require,module,exports){
+},{"lodash._basecreatecallback":6,"lodash._objecttypes":15,"lodash.keys":31}],22:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1441,7 +1510,7 @@ function bind(func, thisArg) {
 
 module.exports = bind;
 
-},{"lodash._createwrapper":8,"lodash._slice":19}],22:[function(require,module,exports){
+},{"lodash._createwrapper":9,"lodash._slice":20}],23:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.4 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1524,7 +1593,7 @@ function createCallback(func, thisArg, argCount) {
 
 module.exports = createCallback;
 
-},{"lodash._basecreatecallback":5,"lodash._baseisequal":7,"lodash.isobject":29,"lodash.keys":30,"lodash.property":32}],23:[function(require,module,exports){
+},{"lodash._basecreatecallback":6,"lodash._baseisequal":8,"lodash.isobject":30,"lodash.keys":31,"lodash.property":33}],24:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1557,7 +1626,7 @@ function escape(string) {
 
 module.exports = escape;
 
-},{"lodash._escapehtmlchar":9,"lodash._reunescapedhtml":16,"lodash.keys":30}],24:[function(require,module,exports){
+},{"lodash._escapehtmlchar":10,"lodash._reunescapedhtml":17,"lodash.keys":31}],25:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1633,7 +1702,7 @@ function every(collection, callback, thisArg) {
 
 module.exports = every;
 
-},{"lodash.createcallback":22,"lodash.forown":26}],25:[function(require,module,exports){
+},{"lodash.createcallback":23,"lodash.forown":27}],26:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1689,7 +1758,7 @@ var forIn = function(collection, callback, thisArg) {
 
 module.exports = forIn;
 
-},{"lodash._basecreatecallback":5,"lodash._objecttypes":14}],26:[function(require,module,exports){
+},{"lodash._basecreatecallback":6,"lodash._objecttypes":15}],27:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1741,7 +1810,7 @@ var forOwn = function(collection, callback, thisArg) {
 
 module.exports = forOwn;
 
-},{"lodash._basecreatecallback":5,"lodash._objecttypes":14,"lodash.keys":30}],27:[function(require,module,exports){
+},{"lodash._basecreatecallback":6,"lodash._objecttypes":15,"lodash.keys":31}],28:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1771,7 +1840,7 @@ function identity(value) {
 
 module.exports = identity;
 
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1800,7 +1869,7 @@ function isFunction(value) {
 
 module.exports = isFunction;
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1841,7 +1910,7 @@ function isObject(value) {
 
 module.exports = isObject;
 
-},{"lodash._objecttypes":14}],30:[function(require,module,exports){
+},{"lodash._objecttypes":15}],31:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1879,7 +1948,7 @@ var keys = !nativeKeys ? shimKeys : function(object) {
 
 module.exports = keys;
 
-},{"lodash._isnative":12,"lodash._shimkeys":18,"lodash.isobject":29}],31:[function(require,module,exports){
+},{"lodash._isnative":13,"lodash._shimkeys":19,"lodash.isobject":30}],32:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1907,7 +1976,7 @@ function noop() {
 
 module.exports = noop;
 
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1949,7 +2018,7 @@ function property(key) {
 
 module.exports = property;
 
-},{}],33:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 (function (global){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
@@ -1993,7 +2062,7 @@ support.funcNames = typeof Function.name == 'string';
 module.exports = support;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"lodash._isnative":12}],34:[function(require,module,exports){
+},{"lodash._isnative":13}],35:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require("react");
@@ -2038,7 +2107,7 @@ var BlurInput = React.createClass({displayName: 'BlurInput',
 
 module.exports = BlurInput;
 
-},{"react":43}],35:[function(require,module,exports){
+},{"react":44}],36:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -2165,7 +2234,7 @@ var ButtonGroup = React.createClass({displayName: 'ButtonGroup',
 
 module.exports = ButtonGroup;
 
-},{"rcss":38,"react":43,"underscore":44}],36:[function(require,module,exports){
+},{"rcss":39,"react":44,"underscore":45}],37:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -2245,7 +2314,7 @@ var DragTarget = React.createClass({displayName: 'DragTarget',
 
 module.exports = DragTarget;
 
-},{"react":43}],37:[function(require,module,exports){
+},{"react":44}],38:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -2367,7 +2436,7 @@ var InfoTip = React.createClass({displayName: 'InfoTip',
 
 module.exports = InfoTip;
 
-},{"rcss":38,"react":43,"underscore":44}],38:[function(require,module,exports){
+},{"rcss":39,"react":44,"underscore":45}],39:[function(require,module,exports){
 var assign = require('lodash.assign');
 
 var styleRuleValidator = require('./styleRuleValidator');
@@ -2496,7 +2565,7 @@ var RCSS = {
 
 module.exports = RCSS;
 
-},{"./styleRuleConverter":39,"./styleRuleValidator":40,"lodash.assign":20,"valid-media-queries":46}],39:[function(require,module,exports){
+},{"./styleRuleConverter":40,"./styleRuleValidator":41,"lodash.assign":21,"valid-media-queries":47}],40:[function(require,module,exports){
 var escape = require('lodash.escape');
 
 var _uppercasePattern = /([A-Z])/g;
@@ -2518,7 +2587,7 @@ module.exports = {
   escapeValueForProp: escapeValueForProp
 };
 
-},{"lodash.escape":23}],40:[function(require,module,exports){
+},{"lodash.escape":24}],41:[function(require,module,exports){
 var isValidCSSProps = require('valid-css-props');
 
 function isValidProp(prop) {
@@ -2534,7 +2603,7 @@ module.exports = {
   isValidValue: isValidValue
 };
 
-},{"valid-css-props":45}],41:[function(require,module,exports){
+},{"valid-css-props":46}],42:[function(require,module,exports){
 /** @jsx React.DOM */
 /**
  * For math rendered using KaTex and/or MathJax. Use me like <TeX>2x + 3</TeX>.
@@ -2683,7 +2752,7 @@ var TeX = React.createClass({displayName: 'TeX',
 
 module.exports = TeX;
 
-},{"react":43}],42:[function(require,module,exports){
+},{"react":44}],43:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require("react");
@@ -3054,7 +3123,7 @@ var Tooltip = React.createClass({displayName: 'Tooltip',
 // Sorry.  // Apology-Oriented-Programming
 module.exports = Tooltip;
 
-},{"react":43,"underscore":44}],43:[function(require,module,exports){
+},{"react":44,"underscore":45}],44:[function(require,module,exports){
 /* This note applies to rcss, react, and underscore.
  *
  * We're faking a node module for this package by just exporting the global.
@@ -3078,7 +3147,7 @@ module.exports = Tooltip;
  */
 module.exports = window.React;
 
-},{}],44:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 /* This note applies to rcss, react, and underscore.
  *
  * We're faking a node module for this package by just exporting the global.
@@ -3102,7 +3171,7 @@ module.exports = window.React;
  */
 module.exports = window._;
 
-},{}],45:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 var _validCSSProps = {
   'alignment-adjust': true,
   'alignment-baseline': true,
@@ -3359,7 +3428,7 @@ module.exports = function(prop) {
   return !!_validCSSProps[prop];
 };
 
-},{}],46:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 var every = require('lodash.every');
 
 function isValidRatio(ratio) {
@@ -3560,7 +3629,7 @@ function isValidMediaQueryList(mediaQuery) {
 
 module.exports = isValidMediaQueryList
 
-},{"lodash.every":24}],47:[function(require,module,exports){
+},{"lodash.every":25}],48:[function(require,module,exports){
 var Widgets = require("./widgets.js");
 
 _.each([
@@ -3584,12 +3653,14 @@ _.each([
     require("./widgets/sorter.jsx"),
     require("./widgets/table.jsx"),
     require("./widgets/transformer.jsx"),
-    require("./widgets/image.jsx")
+    require("./widgets/image.jsx"),
+    require("./widgets/speaking-text-input.jsx"),
+    require("./widgets/speaking-voice.jsx")
 ], function(widget) {
     Widgets.register(widget.name, _.omit(widget, "name"));
 });
 
-},{"./widgets.js":101,"./widgets/categorizer.jsx":102,"./widgets/dropdown.jsx":103,"./widgets/example-graphie-widget.jsx":104,"./widgets/example-widget.jsx":105,"./widgets/expression.jsx":106,"./widgets/iframe.jsx":107,"./widgets/image.jsx":108,"./widgets/input-number.jsx":109,"./widgets/interactive-graph.jsx":110,"./widgets/interactive-number-line.jsx":111,"./widgets/lights-puzzle.jsx":112,"./widgets/matcher.jsx":113,"./widgets/measurer.jsx":114,"./widgets/number-line.jsx":115,"./widgets/numeric-input.jsx":116,"./widgets/orderer.jsx":117,"./widgets/plotter.jsx":118,"./widgets/radio.jsx":119,"./widgets/sorter.jsx":120,"./widgets/table.jsx":121,"./widgets/transformer.jsx":122}],48:[function(require,module,exports){
+},{"./widgets.js":102,"./widgets/categorizer.jsx":103,"./widgets/dropdown.jsx":104,"./widgets/example-graphie-widget.jsx":105,"./widgets/example-widget.jsx":106,"./widgets/expression.jsx":107,"./widgets/iframe.jsx":108,"./widgets/image.jsx":109,"./widgets/input-number.jsx":110,"./widgets/interactive-graph.jsx":111,"./widgets/interactive-number-line.jsx":112,"./widgets/lights-puzzle.jsx":113,"./widgets/matcher.jsx":114,"./widgets/measurer.jsx":115,"./widgets/number-line.jsx":116,"./widgets/numeric-input.jsx":117,"./widgets/orderer.jsx":118,"./widgets/plotter.jsx":119,"./widgets/radio.jsx":120,"./widgets/sorter.jsx":121,"./widgets/speaking-text-input.jsx":122,"./widgets/speaking-voice.jsx":123,"./widgets/table.jsx":124,"./widgets/transformer.jsx":125}],49:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -3660,7 +3731,7 @@ var AnswerAreaEditor = React.createClass({displayName: 'AnswerAreaEditor',
 
 module.exports = AnswerAreaEditor;
 
-},{"./editor.jsx":73,"./widgets.js":101,"react":43,"react-components/info-tip":37}],49:[function(require,module,exports){
+},{"./editor.jsx":74,"./widgets.js":102,"react":44,"react-components/info-tip":38}],50:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -4015,7 +4086,7 @@ var AnswerAreaRenderer = React.createClass({displayName: 'AnswerAreaRenderer',
 
 module.exports = AnswerAreaRenderer;
 
-},{"./enabled-features.jsx":74,"./perseus-api.jsx":92,"./question-paragraph.jsx":94,"./renderer.jsx":95,"./util.js":98,"./widget-container.jsx":100,"./widgets.js":101,"react":43}],50:[function(require,module,exports){
+},{"./enabled-features.jsx":75,"./perseus-api.jsx":93,"./question-paragraph.jsx":95,"./renderer.jsx":96,"./util.js":99,"./widget-container.jsx":101,"./widgets.js":102,"react":44}],51:[function(require,module,exports){
 /** @jsx React.DOM */
 
 /**
@@ -4203,7 +4274,7 @@ FancySelect.Option = FancyOption;
 
 module.exports = FancySelect;
 
-},{"react":43}],51:[function(require,module,exports){
+},{"react":44}],52:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -4659,7 +4730,7 @@ var GraphSettings = React.createClass({displayName: 'GraphSettings',
 
 module.exports = GraphSettings;
 
-},{"../components/number-input.jsx":59,"../components/prop-check-box.jsx":60,"../components/range-input.jsx":61,"../mixins/changeable.jsx":89,"../util.js":98,"react":43,"react-components/button-group":35,"react-components/info-tip":37}],52:[function(require,module,exports){
+},{"../components/number-input.jsx":60,"../components/prop-check-box.jsx":61,"../components/range-input.jsx":62,"../mixins/changeable.jsx":90,"../util.js":99,"react":44,"react-components/button-group":36,"react-components/info-tip":38}],53:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -4998,7 +5069,7 @@ var Graph = React.createClass({displayName: 'Graph',
 
 module.exports = Graph;
 
-},{"../util.js":98,"react":43}],53:[function(require,module,exports){
+},{"../util.js":99,"react":44}],54:[function(require,module,exports){
 /** @jsx React.DOM */var Util = require("../util.js");
 var nestedMap = Util.nestedMap;
 var deepEq = Util.deepEq;
@@ -5129,7 +5200,7 @@ module.exports = {
     createSimpleClass: createSimpleClass
 };
 
-},{"../util.js":98}],54:[function(require,module,exports){
+},{"../util.js":99}],55:[function(require,module,exports){
 /** @jsx React.DOM */var GraphieClasses = require("./graphie-classes.jsx");
 var Interactive2 = require("../interactive2.js");
 var InteractiveUtil = require("../interactive2/interactive-util.js");
@@ -5180,7 +5251,7 @@ module.exports = {
     MovablePoint: MovablePoint
 };
 
-},{"../interactive2.js":78,"../interactive2/interactive-util.js":79,"./graphie-classes.jsx":53}],55:[function(require,module,exports){
+},{"../interactive2.js":79,"../interactive2/interactive-util.js":80,"./graphie-classes.jsx":54}],56:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var GraphieClasses = require("./graphie-classes.jsx");
@@ -5460,7 +5531,7 @@ _.extend(Graphie, Movables);
 
 module.exports = Graphie;
 
-},{"../interactive2/interactive-util.js":79,"../util.js":98,"./graphie-classes.jsx":53,"./graphie-movables.jsx":54}],56:[function(require,module,exports){
+},{"../interactive2/interactive-util.js":80,"../util.js":99,"./graphie-classes.jsx":54,"./graphie-movables.jsx":55}],57:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -5620,7 +5691,7 @@ var InputWithExamples = React.createClass({displayName: 'InputWithExamples',
 
 module.exports = InputWithExamples;
 
-},{"../perseus-api.jsx":92,"../renderer.jsx":95,"../util.js":98,"./math-input.jsx":57,"./text-input.jsx":64,"react":43,"react-components/tooltip":42}],57:[function(require,module,exports){
+},{"../perseus-api.jsx":93,"../renderer.jsx":96,"../util.js":99,"./math-input.jsx":58,"./text-input.jsx":65,"react":44,"react-components/tooltip":43}],58:[function(require,module,exports){
 /** @jsx React.DOM */
 
 // TODO(alex): Package MathQuill
@@ -5859,7 +5930,7 @@ var MathInput = React.createClass({displayName: 'MathInput',
 
 module.exports = MathInput;
 
-},{"./tex-buttons.jsx":63,"react":43,"underscore":44}],58:[function(require,module,exports){
+},{"./tex-buttons.jsx":64,"react":44,"underscore":45}],59:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -5931,7 +6002,7 @@ var MultiButtonGroup = React.createClass({displayName: 'MultiButtonGroup',
 
 module.exports = MultiButtonGroup;
 
-},{"react":43}],59:[function(require,module,exports){
+},{"react":44}],60:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -6110,7 +6181,7 @@ var NumberInput = React.createClass({displayName: 'NumberInput',
 
 module.exports = NumberInput;
 
-},{"../util.js":98,"react":43}],60:[function(require,module,exports){
+},{"../util.js":99,"react":44}],61:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -6172,7 +6243,7 @@ var PropCheckBox = React.createClass({displayName: 'PropCheckBox',
 
 module.exports = PropCheckBox;
 
-},{"react":43}],61:[function(require,module,exports){
+},{"react":44}],62:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -6231,7 +6302,7 @@ var RangeInput = React.createClass({displayName: 'RangeInput',
 
 module.exports = RangeInput;
 
-},{"../components/number-input.jsx":59,"react":43}],62:[function(require,module,exports){
+},{"../components/number-input.jsx":60,"react":44}],63:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -6748,7 +6819,7 @@ var Sortable = React.createClass({displayName: 'Sortable',
 
 module.exports = Sortable;
 
-},{"../renderer.jsx":95,"../util.js":98,"react":43}],63:[function(require,module,exports){
+},{"../renderer.jsx":96,"../util.js":99,"react":44}],64:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React     = require("react");
@@ -6883,7 +6954,7 @@ var TexButtons = React.createClass({displayName: 'TexButtons',
 
 module.exports = TexButtons;
 
-},{"react":43,"react-components/tex":41}],64:[function(require,module,exports){
+},{"react":44,"react-components/tex":42}],65:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var TextInput = React.createClass({displayName: 'TextInput',
@@ -6915,7 +6986,7 @@ var TextInput = React.createClass({displayName: 'TextInput',
 
 module.exports = TextInput;
 
-},{}],65:[function(require,module,exports){
+},{}],66:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var textWidthCache = {};
@@ -7045,7 +7116,7 @@ var TextListEditor = React.createClass({displayName: 'TextListEditor',
 
 module.exports = TextListEditor;
 
-},{}],66:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 /** @jsx React.DOM */
 
 // Responsible for combining the text diffs from text-diff and the widget
@@ -7160,7 +7231,7 @@ var RevisionDiff = React.createClass({displayName: 'RevisionDiff',
 
 module.exports = RevisionDiff;
 
-},{"./text-diff.jsx":69,"./widget-diff.jsx":71}],67:[function(require,module,exports){
+},{"./text-diff.jsx":70,"./widget-diff.jsx":72}],68:[function(require,module,exports){
 /** @jsx React.DOM */// Split a word-wise diff generated by jsdiff into multiple lines, for the
 // purpose of breaking up the diffs into lines, so that modified lines can be
 // faintly highlighted
@@ -7190,7 +7261,7 @@ var splitDiff = function(diffEntries) {
 
 module.exports = splitDiff;
 
-},{}],68:[function(require,module,exports){
+},{}],69:[function(require,module,exports){
 /** @jsx React.DOM */var jsdiff = require("../../lib/jsdiff");
 
 var statusFor = function(chunk) {
@@ -7260,7 +7331,7 @@ var stringArrayDiff = function(a, b) {
 
 module.exports = stringArrayDiff;
 
-},{"../../lib/jsdiff":1}],69:[function(require,module,exports){
+},{"../../lib/jsdiff":1}],70:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var diff = require("../../lib/jsdiff");
@@ -7425,7 +7496,7 @@ var TextDiff = React.createClass({displayName: 'TextDiff',
 
 module.exports = TextDiff;
 
-},{"../../lib/jsdiff":1,"./split-diff.jsx":67,"./string-array-diff.jsx":68}],70:[function(require,module,exports){
+},{"../../lib/jsdiff":1,"./split-diff.jsx":68,"./string-array-diff.jsx":69}],71:[function(require,module,exports){
 /** @jsx React.DOM */var UNCHANGED = "unchanged";
 var CHANGED = "changed";
 var ADDED = "added";
@@ -7495,7 +7566,7 @@ var performDiff = function(before, after, /* optional */ key) {
 
 module.exports = performDiff;
 
-},{}],71:[function(require,module,exports){
+},{}],72:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var cx = React.addons.classSet;
@@ -7691,7 +7762,7 @@ var WidgetDiff = React.createClass({displayName: 'WidgetDiff',
 
 module.exports = WidgetDiff;
 
-},{"./widget-diff-performer.jsx":70}],72:[function(require,module,exports){
+},{"./widget-diff-performer.jsx":71}],73:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -7975,7 +8046,7 @@ var EditorPage = React.createClass({displayName: 'EditorPage',
 
 module.exports = EditorPage;
 
-},{"./components/prop-check-box.jsx":60,"./enabled-features.jsx":74,"./hint-editor.jsx":75,"./item-editor.jsx":87,"./item-renderer.jsx":88,"./perseus-api.jsx":92,"react":43}],73:[function(require,module,exports){
+},{"./components/prop-check-box.jsx":61,"./enabled-features.jsx":75,"./hint-editor.jsx":76,"./item-editor.jsx":88,"./item-renderer.jsx":89,"./perseus-api.jsx":93,"react":44}],74:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -7988,11 +8059,12 @@ var DragTarget = require("react-components/drag-target");
 var rWidgetSplit = /(\[\[\u2603 [a-z-]+ [0-9]+\]\])/g;
 
 // widgets junyi can use now:
-var widgetsInEditor = ['image', 'categorizer', 'dropdown', 'expression', 
-                      'input-number', 'interactive-graph', 'interactive-number-line', 
-                      'lights-puzzle', 'measurer', 'number-line', 
-                      'iframe', 'numeric-input', 'plotter', 
-                      'radio', 'sorter', 'table', 'transformer', 'matcher'];
+var widgetsInEditor = ['image', 'categorizer', 'dropdown', 'expression',
+                      'input-number', 'interactive-graph', 'interactive-number-line',
+                      'lights-puzzle', 'measurer', 'number-line',
+                      'iframe', 'numeric-input', 'plotter',
+                      'radio', 'sorter', 'table', 'transformer', 'matcher',
+                      'speaking-text-input', 'speaking-voice'];
 
 var WidgetSelect = React.createClass({displayName: 'WidgetSelect',
     handleChange: function(e) {
@@ -8576,7 +8648,7 @@ var Editor = React.createClass({displayName: 'Editor',
 
 module.exports = Editor;
 
-},{"./components/prop-check-box.jsx":60,"./util.js":98,"./widgets.js":101,"react":43,"react-components/drag-target":36}],74:[function(require,module,exports){
+},{"./components/prop-check-box.jsx":61,"./util.js":99,"./widgets.js":102,"react":44,"react-components/drag-target":37}],75:[function(require,module,exports){
 /** @jsx React.DOM */var React = require('react');
 
 module.exports = {
@@ -8592,7 +8664,7 @@ module.exports = {
     }
 };
 
-},{"react":43}],75:[function(require,module,exports){
+},{"react":44}],76:[function(require,module,exports){
 /** @jsx React.DOM */
 
 /* Collection of classes for rendering the hint editor area,
@@ -8808,7 +8880,7 @@ var CombinedHintsEditor = React.createClass({displayName: 'CombinedHintsEditor',
 
 module.exports = CombinedHintsEditor;
 
-},{"./editor.jsx":73,"./hint-renderer.jsx":76,"react":43,"react-components/info-tip":37}],76:[function(require,module,exports){
+},{"./editor.jsx":74,"./hint-renderer.jsx":77,"react":44,"react-components/info-tip":38}],77:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -8836,7 +8908,7 @@ var HintRenderer = React.createClass({displayName: 'HintRenderer',
 
 module.exports = HintRenderer;
 
-},{"./renderer.jsx":95,"react":43}],77:[function(require,module,exports){
+},{"./renderer.jsx":96,"react":44}],78:[function(require,module,exports){
 var React = require('react');
 
 var init = function(options) {
@@ -8877,7 +8949,7 @@ var init = function(options) {
 
 module.exports = init;
 
-},{"react":43}],78:[function(require,module,exports){
+},{"react":44}],79:[function(require,module,exports){
 var Movable = require("./interactive2/movable.js");
 var MovablePoint = require("./interactive2/movable-point.js");
 var MovableLine = require("./interactive2/movable-line.js");
@@ -8897,7 +8969,7 @@ var Interactive2 = {
 
 module.exports = Interactive2;
 
-},{"./interactive2/movable-line.js":82,"./interactive2/movable-point.js":84,"./interactive2/movable.js":85}],79:[function(require,module,exports){
+},{"./interactive2/movable-line.js":83,"./interactive2/movable-point.js":85,"./interactive2/movable.js":86}],80:[function(require,module,exports){
 /**
  * Utility functions for writing Interactive2 movablethings
  */
@@ -8975,7 +9047,7 @@ var InteractiveUtil = {
 
 module.exports = InteractiveUtil;
 
-},{"./movable-helper-methods.js":80}],80:[function(require,module,exports){
+},{"./movable-helper-methods.js":81}],81:[function(require,module,exports){
 /**
  * MovableThing convenience methods
  *
@@ -9078,7 +9150,7 @@ var MovableHelperMethods = {
 
 module.exports = MovableHelperMethods;
 
-},{}],81:[function(require,module,exports){
+},{}],82:[function(require,module,exports){
 /**
  * A library of options to pass to add/draw/remove/constraints
  */
@@ -9361,7 +9433,7 @@ module.exports = {
     onMoveEnd: {standard: null},
 };
 
-},{}],82:[function(require,module,exports){
+},{}],83:[function(require,module,exports){
 /**
  * MovableLine
  */
@@ -9645,7 +9717,7 @@ _.extend(MovableLine.prototype, {
 
 module.exports = MovableLine;
 
-},{"./interactive-util.js":79,"./movable-line-options.js":81,"./objective_.js":86}],83:[function(require,module,exports){
+},{"./interactive-util.js":80,"./movable-line-options.js":82,"./objective_.js":87}],84:[function(require,module,exports){
 /**
  * A library of options to pass to add/draw/remove/constraints
  */
@@ -9790,7 +9862,7 @@ module.exports = {
     onClick: {standard: null}
 };
 
-},{}],84:[function(require,module,exports){
+},{}],85:[function(require,module,exports){
 /**
  * Creates and adds a point to the graph that can be dragged around.
  * It allows constraints on its movement and draws when moves happen.
@@ -10123,7 +10195,7 @@ _.extend(MovablePoint.prototype, {
 
 module.exports = MovablePoint;
 
-},{"./interactive-util.js":79,"./movable-point-options.js":83,"./objective_.js":86}],85:[function(require,module,exports){
+},{"./interactive-util.js":80,"./movable-point-options.js":84,"./objective_.js":87}],86:[function(require,module,exports){
 /**
  * Movable
  *
@@ -10388,7 +10460,7 @@ _.extend(Movable.prototype, {
 
 module.exports = Movable;
 
-},{"./interactive-util.js":79}],86:[function(require,module,exports){
+},{"./interactive-util.js":80}],87:[function(require,module,exports){
 /**
  * A work-in-progress of _ methods for objects.
  * That is, they take an object as a parameter,
@@ -10417,7 +10489,7 @@ var pluck = exports.pluck = function(table, subKey) {
     }));
 };
 
-},{}],87:[function(require,module,exports){
+},{}],88:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -10526,7 +10598,7 @@ var ItemEditor = React.createClass({displayName: 'ItemEditor',
 
 module.exports = ItemEditor;
 
-},{"./answer-area-editor.jsx":48,"./editor.jsx":73,"./version.json":99,"react":43}],88:[function(require,module,exports){
+},{"./answer-area-editor.jsx":49,"./editor.jsx":74,"./version.json":100,"react":44}],89:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -10846,7 +10918,7 @@ var ItemRenderer = React.createClass({displayName: 'ItemRenderer',
 
 module.exports = ItemRenderer;
 
-},{"./answer-area-renderer.jsx":49,"./enabled-features.jsx":74,"./hint-renderer.jsx":76,"./perseus-api.jsx":92,"./renderer.jsx":95,"./util.js":98,"react":43}],89:[function(require,module,exports){
+},{"./answer-area-renderer.jsx":50,"./enabled-features.jsx":75,"./hint-renderer.jsx":77,"./perseus-api.jsx":93,"./renderer.jsx":96,"./util.js":99,"react":44}],90:[function(require,module,exports){
 /** @jsx React.DOM */
 /**
  * Changeable
@@ -10947,7 +11019,7 @@ var Changeable = {
 
 module.exports = Changeable;
 
-},{"./widget-prop-blacklist.jsx":91}],90:[function(require,module,exports){
+},{"./widget-prop-blacklist.jsx":92}],91:[function(require,module,exports){
 /** @jsx React.DOM */var WIDGET_PROP_BLACKLIST = require("./widget-prop-blacklist.jsx");
 
 var JsonifyProps = {
@@ -10959,7 +11031,7 @@ var JsonifyProps = {
 
 module.exports = JsonifyProps;
 
-},{"./widget-prop-blacklist.jsx":91}],91:[function(require,module,exports){
+},{"./widget-prop-blacklist.jsx":92}],92:[function(require,module,exports){
 /** @jsx React.DOM */module.exports = [
     // standard props "added" by react
     // (technically the renderer still adds them)
@@ -10973,7 +11045,7 @@ module.exports = JsonifyProps;
     "apiOptions"
 ];
 
-},{}],92:[function(require,module,exports){
+},{}],93:[function(require,module,exports){
 /** @jsx React.DOM *//**
  * [Most of] the Perseus client API.
  *
@@ -11032,7 +11104,7 @@ module.exports = {
 };
 
 
-},{}],93:[function(require,module,exports){
+},{}],94:[function(require,module,exports){
 require("./all-widgets.js");
 
 var version = require("./version.json");
@@ -11052,7 +11124,7 @@ module.exports = {
     Util:               require("./util.js")
 };
 
-},{"./all-widgets.js":47,"./answer-area-renderer.jsx":49,"./diffs/revision-diff.jsx":66,"./editor-page.jsx":72,"./editor.jsx":73,"./init.js":77,"./item-renderer.jsx":88,"./perseus-api.jsx":92,"./renderer.jsx":95,"./stateful-editor-page.jsx":96,"./util.js":98,"./version.json":99}],94:[function(require,module,exports){
+},{"./all-widgets.js":48,"./answer-area-renderer.jsx":50,"./diffs/revision-diff.jsx":67,"./editor-page.jsx":73,"./editor.jsx":74,"./init.js":78,"./item-renderer.jsx":89,"./perseus-api.jsx":93,"./renderer.jsx":96,"./stateful-editor-page.jsx":97,"./util.js":99,"./version.json":100}],95:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -11068,7 +11140,7 @@ var QuestionParagraph = React.createClass({displayName: 'QuestionParagraph',
 
 module.exports = QuestionParagraph;
 
-},{"react":43}],95:[function(require,module,exports){
+},{"react":44}],96:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -11703,7 +11775,7 @@ function extractMathAndWidgets(text) {
 
 module.exports = Renderer;
 
-},{"./enabled-features.jsx":74,"./perseus-api.jsx":92,"./question-paragraph.jsx":94,"./tex.jsx":97,"./util.js":98,"./widget-container.jsx":100,"./widgets.js":101,"react":43}],96:[function(require,module,exports){
+},{"./enabled-features.jsx":75,"./perseus-api.jsx":93,"./question-paragraph.jsx":95,"./tex.jsx":98,"./util.js":99,"./widget-container.jsx":101,"./widgets.js":102,"react":44}],97:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -11746,7 +11818,7 @@ var StatefulEditorPage = React.createClass({displayName: 'StatefulEditorPage',
 
 module.exports = StatefulEditorPage;
 
-},{"./editor-page.jsx":72,"react":43}],97:[function(require,module,exports){
+},{"./editor-page.jsx":73,"react":44}],98:[function(require,module,exports){
 /** @jsx React.DOM */
 /**
  * For math rendered using MathJax. Use me like <TeX>2x + 3</TeX>.
@@ -11899,7 +11971,7 @@ var TeX = React.createClass({displayName: 'TeX',
 
 module.exports = TeX;
 
-},{"react":43}],98:[function(require,module,exports){
+},{"react":44}],99:[function(require,module,exports){
 var nestedMap = function(children, func, context) {
     if (_.isArray(children)) {
         return _.map(children, function(child) {
@@ -12455,7 +12527,7 @@ Util.random = Util.seededRNG(new Date().getTime() & 0xffffffff);
 
 module.exports = Util;
 
-},{}],99:[function(require,module,exports){
+},{}],100:[function(require,module,exports){
 module.exports={
     "apiVersion": {
         "major": 1,
@@ -12467,7 +12539,7 @@ module.exports={
     }
 }
 
-},{}],100:[function(require,module,exports){
+},{}],101:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -12506,7 +12578,7 @@ var WidgetContainer = React.createClass({displayName: 'WidgetContainer',
 
 module.exports = WidgetContainer;
 
-},{"react":43}],101:[function(require,module,exports){
+},{"react":44}],102:[function(require,module,exports){
 var widgets = {};
 
 var Widgets = {
@@ -12646,7 +12718,7 @@ var Widgets = {
 
 module.exports = Widgets;
 
-},{}],102:[function(require,module,exports){
+},{}],103:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var Changeable   = require("../mixins/changeable.jsx");
@@ -12832,7 +12904,7 @@ module.exports = {
 };
 
 
-},{"../components/text-list-editor.jsx":65,"../mixins/changeable.jsx":89,"../mixins/jsonify-props.jsx":90,"../renderer.jsx":95,"../util.js":98}],103:[function(require,module,exports){
+},{"../components/text-list-editor.jsx":66,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"../renderer.jsx":96,"../util.js":99}],104:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -13090,7 +13162,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/fancy-select.jsx":50,"../mixins/jsonify-props.jsx":90,"../perseus-api.jsx":92,"../util.js":98,"react":43,"react-components/info-tip":37}],104:[function(require,module,exports){
+},{"../components/fancy-select.jsx":51,"../mixins/jsonify-props.jsx":91,"../perseus-api.jsx":93,"../util.js":99,"react":44,"react-components/info-tip":38}],105:[function(require,module,exports){
 /** @jsx React.DOM */
 
 /**
@@ -13285,7 +13357,7 @@ module.exports = {
     editor: ExampleGraphieWidgetEditor
 };
 
-},{"../components/graphie.jsx":55,"../mixins/changeable.jsx":89,"../mixins/jsonify-props.jsx":90,"../util.js":98,"react":43}],105:[function(require,module,exports){
+},{"../components/graphie.jsx":56,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"../util.js":99,"react":44}],106:[function(require,module,exports){
 /** @jsx React.DOM */
 
 /**
@@ -13469,7 +13541,7 @@ module.exports = {
     editor: ExampleWidgetEditor
 };
 
-},{"../mixins/changeable.jsx":89,"../mixins/jsonify-props.jsx":90,"react":43}],106:[function(require,module,exports){
+},{"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"react":44}],107:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React   = require("react");
@@ -13958,7 +14030,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/input-with-examples.jsx":56,"../components/math-input.jsx":57,"../components/prop-check-box.jsx":60,"../components/tex-buttons.jsx":63,"../enabled-features.jsx":74,"../mixins/changeable.jsx":89,"../mixins/jsonify-props.jsx":90,"../perseus-api.jsx":92,"../tex.jsx":97,"../util.js":98,"react":43,"react-components/info-tip":37,"react-components/tooltip":42}],107:[function(require,module,exports){
+},{"../components/input-with-examples.jsx":57,"../components/math-input.jsx":58,"../components/prop-check-box.jsx":61,"../components/tex-buttons.jsx":64,"../enabled-features.jsx":75,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"../perseus-api.jsx":93,"../tex.jsx":98,"../util.js":99,"react":44,"react-components/info-tip":38,"react-components/tooltip":43}],108:[function(require,module,exports){
 /** @jsx React.DOM */
 
 /**
@@ -14210,7 +14282,7 @@ module.exports = {
     editor: IframeEditor
 };
 
-},{"../mixins/changeable.jsx":89,"../mixins/jsonify-props.jsx":90,"../util.js":98,"react":43,"react-components/blur-input":34}],108:[function(require,module,exports){
+},{"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"../util.js":99,"react":44,"react-components/blur-input":35}],109:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var BlurInput    = require("react-components/blur-input");
@@ -14545,7 +14617,7 @@ module.exports = {
 };
 
 
-},{"../components/graphie.jsx":55,"../components/range-input.jsx":61,"../mixins/changeable.jsx":89,"../mixins/jsonify-props.jsx":90,"react-components/blur-input":34,"react-components/info-tip":37}],109:[function(require,module,exports){
+},{"../components/graphie.jsx":56,"../components/range-input.jsx":62,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"react-components/blur-input":35,"react-components/info-tip":38}],110:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React             = require('react');
@@ -14866,7 +14938,7 @@ module.exports = {
     transform: propTransform
 };
 
-},{"../components/input-with-examples.jsx":56,"../enabled-features.jsx":74,"../perseus-api.jsx":92,"../renderer.jsx":95,"../tex.jsx":97,"../util.js":98,"react":43,"react-components/blur-input":34,"react-components/info-tip":37}],110:[function(require,module,exports){
+},{"../components/input-with-examples.jsx":57,"../enabled-features.jsx":75,"../perseus-api.jsx":93,"../renderer.jsx":96,"../tex.jsx":98,"../util.js":99,"react":44,"react-components/blur-input":35,"react-components/info-tip":38}],111:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React         = require('react');
@@ -17364,7 +17436,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/graph-settings.jsx":51,"../components/graph.jsx":52,"../components/number-input.jsx":59,"../interactive2.js":78,"../util.js":98,"react":43,"react-components/info-tip":37}],111:[function(require,module,exports){
+},{"../components/graph-settings.jsx":52,"../components/graph.jsx":53,"../components/number-input.jsx":60,"../interactive2.js":79,"../util.js":99,"react":44,"react-components/info-tip":38}],112:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var InfoTip      = require("react-components/info-tip");
@@ -17812,7 +17884,7 @@ module.exports = {
     editor: InteractiveNumberLineEditor
 };
 
-},{"../components/prop-check-box.jsx":60,"../util.js":98,"react-components/info-tip":37}],112:[function(require,module,exports){
+},{"../components/prop-check-box.jsx":61,"../util.js":99,"react-components/info-tip":38}],113:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -18274,7 +18346,7 @@ module.exports = {
     transform: transformProps
 };
 
-},{"../components/number-input.jsx":59,"../components/prop-check-box.jsx":60,"../mixins/changeable.jsx":89,"../mixins/jsonify-props.jsx":90,"react":43,"react-components/info-tip":37}],113:[function(require,module,exports){
+},{"../components/number-input.jsx":60,"../components/prop-check-box.jsx":61,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"react":44,"react-components/info-tip":38}],114:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -18514,7 +18586,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/prop-check-box.jsx":60,"../components/sortable.jsx":62,"../components/text-list-editor.jsx":65,"../renderer.jsx":95,"../util.js":98,"react":43,"react-components/info-tip":37}],114:[function(require,module,exports){
+},{"../components/prop-check-box.jsx":61,"../components/sortable.jsx":63,"../components/text-list-editor.jsx":66,"../renderer.jsx":96,"../util.js":99,"react":44,"react-components/info-tip":38}],115:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React        = require('react');
@@ -18875,7 +18947,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/number-input.jsx":59,"../components/prop-check-box.jsx":60,"../components/range-input.jsx":61,"../mixins/changeable.jsx":89,"../mixins/jsonify-props.jsx":90,"react":43,"react-components/info-tip":37}],115:[function(require,module,exports){
+},{"../components/number-input.jsx":60,"../components/prop-check-box.jsx":61,"../components/range-input.jsx":62,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"react":44,"react-components/info-tip":38}],116:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -19726,7 +19798,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/graphie.jsx":55,"../components/number-input.jsx":59,"../components/prop-check-box.jsx":60,"../components/range-input.jsx":61,"../interactive2.js":78,"../interactive2/interactive-util.js":79,"../mixins/changeable.jsx":89,"../mixins/jsonify-props.jsx":90,"../util.js":98,"react":43,"react-components/button-group":35,"react-components/info-tip":37}],116:[function(require,module,exports){
+},{"../components/graphie.jsx":56,"../components/number-input.jsx":60,"../components/prop-check-box.jsx":61,"../components/range-input.jsx":62,"../interactive2.js":79,"../interactive2/interactive-util.js":80,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"../util.js":99,"react":44,"react-components/button-group":36,"react-components/info-tip":38}],117:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -20171,7 +20243,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/input-with-examples.jsx":56,"../components/multi-button-group.jsx":58,"../components/number-input.jsx":59,"../components/prop-check-box.jsx":60,"../editor.jsx":73,"../mixins/changeable.jsx":89,"../mixins/jsonify-props.jsx":90,"../util.js":98,"react":43,"react-components/button-group":35,"react-components/info-tip":37}],117:[function(require,module,exports){
+},{"../components/input-with-examples.jsx":57,"../components/multi-button-group.jsx":59,"../components/number-input.jsx":60,"../components/prop-check-box.jsx":61,"../editor.jsx":74,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"../util.js":99,"react":44,"react-components/button-group":36,"react-components/info-tip":38}],118:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React          = require('react');
@@ -20844,7 +20916,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/text-list-editor.jsx":65,"../renderer.jsx":95,"../util.js":98,"react":43,"react-components/info-tip":37}],118:[function(require,module,exports){
+},{"../components/text-list-editor.jsx":66,"../renderer.jsx":96,"../util.js":99,"react":44,"react-components/info-tip":38}],119:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -21841,7 +21913,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/number-input.jsx":59,"../components/range-input.jsx":61,"../components/text-list-editor.jsx":65,"../util.js":98,"react":43,"react-components/info-tip":37}],119:[function(require,module,exports){
+},{"../components/number-input.jsx":60,"../components/range-input.jsx":62,"../components/text-list-editor.jsx":66,"../util.js":99,"react":44,"react-components/info-tip":38}],120:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -22388,7 +22460,7 @@ module.exports = {
     transform: choiceTransform
 };
 
-},{"../components/prop-check-box.jsx":60,"../editor.jsx":73,"../mixins/changeable.jsx":89,"../perseus-api.jsx":92,"../renderer.jsx":95,"../util.js":98,"react":43,"react-components/button-group":35,"react-components/info-tip":37}],120:[function(require,module,exports){
+},{"../components/prop-check-box.jsx":61,"../editor.jsx":74,"../mixins/changeable.jsx":90,"../perseus-api.jsx":93,"../renderer.jsx":96,"../util.js":99,"react":44,"react-components/button-group":36,"react-components/info-tip":38}],121:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React          = require('react');
@@ -22540,7 +22612,443 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/prop-check-box.jsx":60,"../components/sortable.jsx":62,"../components/text-list-editor.jsx":65,"../util.js":98,"react":43,"react-components/info-tip":37}],121:[function(require,module,exports){
+},{"../components/prop-check-box.jsx":61,"../components/sortable.jsx":63,"../components/text-list-editor.jsx":66,"../util.js":99,"react":44,"react-components/info-tip":38}],122:[function(require,module,exports){
+/** @jsx React.DOM */
+
+var React = require('react');
+var Changeable = require("../mixins/changeable.jsx");
+var JsonifyProps = require("../mixins/jsonify-props.jsx");
+
+var TextInput = React.createClass({displayName: 'TextInput',
+    render: function() {
+        return React.DOM.input( {ref:"input", value:this.props.value || "", onChange:this.changeValue, onPaste:this.pasteValue, onKeyPress:this.keypressValue});
+    },
+
+    pasteValue: function(e) {
+        e.preventDefault();
+        return false;
+    },
+
+    keypressValue: function(e) {
+        e.preventDefault();
+        return false;
+    },
+
+    changeValue: function(e) {
+        this.props.setValue(this.refs.input.value);
+    },
+
+    statics: {
+        displayMode: "inline-block"
+    }
+});
+
+var SpeakingBtn = React.createClass({displayName: 'SpeakingBtn',
+    render: function() {
+        return (
+            React.DOM.div(null, 
+                this.recognition
+                    ? React.DOM.button( {onClick:this.startRecognizeOnClick, className:"simple-button orange"}, this.state.status
+                        )
+                    : React.DOM.button( {onClick:this.resetOnClick, className:"simple-button orange"}, this.state.status
+                        )
+            )
+        );
+    },
+    getInitialState: function() {
+        return {recognizing: false, status: ""}
+    },
+
+    startRecognize: function() {
+        if (this.state.recognizing == false) {
+            this.recognition.start();
+        }
+    },
+
+    // prevent trigger checking answer when clicking button
+    startRecognizeOnClick: function(e) {
+        this.startRecognize();
+        e.preventDefault();
+        return false;
+    },
+
+    // ignore clicking event
+    resetOnClick: function(e) {
+        this.props.setValue('');
+        e.preventDefault();
+        return false;
+    },
+
+    componentWillMount: function() {
+        var self = this;
+        var os = self.getMobileOperatingSystem();
+        if (self.hasSpeechRecognition()) {
+            var recognition = new webkitSpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.continuous = false;
+            recognition.interimResults = true;
+            recognition.maxAlternatives = 20;
+            self.setState({recognizing: false});
+            self.setState({status: "辨識"});
+            recognition.onstart = function() {
+                self.setState({recognizing: true});
+                self.setState({status: "辨識中"});
+                self.props.setValue('');
+            };
+            recognition.onend = function() {
+                self.setState({recognizing: false});
+                self.setState({status: "重新辨識"});
+            };
+            recognition.onresult = function(event) {
+                self.setState({recognizing: false});
+                var res = '';
+                for (var i = event.resultIndex; i < event.results.length; i++) {
+                    if (event.results[i].isFinal) {
+                        for (var j = 0; j < event.results[i].length; j++) {
+                            if (j != 0) {
+                                res = res + '/';
+                            }
+                            res = res + event.results[i][j].transcript;
+                            self.props.setValue(res);
+                        }
+                    }
+                }
+            }
+            self.recognition = recognition;
+        } else {
+            if (os == 'iOS') {
+                self.setState({status: "點選上面的框框 用Siri語音輸入/清除"});
+            } else if (os == 'Android') {
+                self.setState({status: "點選上面的框框 用Google語音輸入/清除"});
+            } else {
+                self.setState({status: "請切換至Chrome瀏覽器"});
+            }
+        }
+    },
+
+    getMobileOperatingSystem: function() {
+        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i) || userAgent.match(/iPod/i)) {
+            return 'iOS';
+        } else if (userAgent.match(/Android/i)) {
+            return 'Android';
+        } else {
+            return userAgent;
+        }
+    },
+
+    hasSpeechRecognition: function() {
+        return ('webkitSpeechRecognition' in window);
+    },
+
+    statics: {
+        displayMode: "inline-block"
+    }
+});
+
+var SpeakingTextInput = React.createClass({displayName: 'SpeakingTextInput',
+    propTypes: {
+        value: React.PropTypes.string
+    },
+
+    getDefaultProps: function() {
+        return {value: ""};
+    },
+
+    getInitialState: function() {
+        return {value: this.props.value}
+    },
+
+    // compare answer when setting value to prevent generate long atempt dict
+    setValue: function(val) {
+        var correntAns = SpeakingTextInput.parseAnswer(this.props.correct);
+        var userAnsList = val.split("/");
+        var correntIdx = -1;
+        for (var i = 0, len = userAnsList.length; i < len; i++) {
+            if (SpeakingTextInput.arrIsEqual(SpeakingTextInput.parseAnswer(userAnsList[i]), correntAns)) {
+                correntIdx = i;
+                break;
+            }
+        }
+        // if the answer is wrong, set value to the first answer
+        if(correntIdx == -1 || correntIdx >= this.props.correctIdxLessThen){
+            this.setState({value: userAnsList[0]});
+            this.change("value")(userAnsList[0]);
+        }
+        // else set value to the correct answer
+        else{
+            this.setState({value: this.props.correct});
+            this.change("value")(this.props.correct);
+        }
+    },
+
+    mixins: [
+        Changeable, JsonifyProps
+    ],
+
+    render: function() {
+        return (
+            React.DOM.div(null, 
+                TextInput( {value:this.state.value, setValue:this.setValue}),
+                SpeakingBtn( {setValue:this.setValue})
+            )
+        );
+    },
+
+    simpleValidate: function(rubric) {
+        return SpeakingTextInput.validate(this.toJSON(), rubric);
+    },
+
+    statics: {
+        displayMode: "inline-block"
+    }
+});
+
+_.extend(SpeakingTextInput, {
+    parseAnswer: function(s) {
+        var arr = s.split(" ");
+        var parsedArr = [];
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i].length > 0) {
+                parsedArr.push(arr[i].toLowerCase());
+            }
+        }
+        return parsedArr;
+    },
+
+    arrIsEqual: function(arr1, arr2) {
+        if (arr1.length !== arr2.length)
+            return false;
+        for (var i = 0, len = arr1.length; i < len; i++) {
+            if (arr1[i] !== arr2[i]) {
+                return false;
+            }
+        }
+        return true;
+    },
+
+    validate: function(state, rubric) {
+        var correct = SpeakingTextInput.arrIsEqual(
+            SpeakingTextInput.parseAnswer(rubric.correct),
+            SpeakingTextInput.parseAnswer(state.value)
+        );
+        if (state.value == '') {
+            return {type: 'invalid', message: '請重新再唸一次！'};
+        } else if (correct) {
+            return {type: 'points', earned: 1, total: 1, message: null};
+        } else {
+            return {type: 'points', earned: 0, total: 1, message: null};
+        }}
+    });
+
+    var SpeakingTextInputEditor = React.createClass({displayName: 'SpeakingTextInputEditor',
+        mixins: [
+            Changeable, JsonifyProps
+        ],
+
+        getDefaultProps: function() {
+            return {correct: "", correctIdxLessThen: 5};
+        },
+
+        handleAnswerChange: function(event) {
+            this.change({correct: event.target.value});
+        },
+
+        handleCorrectIdxChange: function(event) {
+            this.change({
+                correctIdxLessThen: parseInt(event.target.value)
+            });
+        },
+
+        render: function() {
+            return React.DOM.div(null, 
+                React.DOM.div(null, 
+                    React.DOM.label(null, 
+                        "正確答案:",
+                        React.DOM.input( {value:this.props.correct, onChange:this.handleAnswerChange})
+                    )
+                ),
+                React.DOM.div(null, 
+                    React.DOM.label(null, 
+                        "精準度 (1-20):",
+                        React.DOM.input( {value:this.props.correctIdxLessThen, onChange:this.handleCorrectIdxChange, type:"integer"})
+                    )
+                )
+            );
+        },
+    });
+
+    module.exports = {
+        name: "speaking-text-input",
+        displayName: "English Speech Recognition/英文口說辨識",
+        widget: SpeakingTextInput,
+        editor: SpeakingTextInputEditor
+    };
+
+},{"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"react":44}],123:[function(require,module,exports){
+/** @jsx React.DOM */
+
+var React = require('react');
+var Changeable = require("../mixins/changeable.jsx");
+var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var ResponsiveVoice = require('../../lib/responsivevoice.js');
+
+var SpeakingVoice = React.createClass({displayName: 'SpeakingVoice',
+    componentDidMount: function() {
+        this.responsiveVoice = new ResponsiveVoice;
+        this.responsiveVoice.init(); // must manually init
+    },
+
+    speak: function() {
+        this.responsiveVoice.speak(this.props.voiceText, this.props.lang, {
+            pitch: parseFloat(this.props.pitch),
+            rate: parseFloat(this.props.rate),
+            volume: this.props.volume
+        });
+    },
+
+    // prevent trigger checking answer when clicking button
+    speakOnClick: function(e) {
+        this.speak();
+        e.preventDefault();
+        return false;
+    },
+
+    mixins: [
+        Changeable, JsonifyProps
+    ],
+
+    render: function() {
+        return (
+            React.DOM.div(null, 
+                React.DOM.button( {className:"simple-button green", onClick:this.speakOnClick}, "發聲")
+            )
+        );
+    },
+
+    simpleValidate: function(rubric) {
+        return {type: "points", earned: 1, total: 1, message: null};
+    },
+
+    statics: {
+        displayMode: "inline-block"
+    }
+});
+
+var SpeakingVoiceEditor = React.createClass({displayName: 'SpeakingVoiceEditor',
+    mixins: [
+        Changeable, JsonifyProps
+    ],
+
+    getDefaultProps: function() {
+        return {voiceText: "", pitch: "1.0", rate: "1.0", volume: "1.0", lang: "US English Female"}
+    },
+
+    getInitialState: function() {
+        return {voiceText: this.props.voiceText, pitch: this.props.pitch, rate: this.props.rate, volume: this.props.volume, lang: this.props.lang}
+    },
+
+    pitchChange: function(event) {
+        this.change({pitch: event.target.value});
+        this.setState({pitch: event.target.value});
+    },
+
+    voiceTextChange: function(event) {
+        this.change({voiceText: event.target.value});
+        this.setState({voiceText: event.target.value});
+    },
+
+    rateChange: function(event) {
+        this.change({rate: event.target.value});
+        this.setState({rate: event.target.value});
+    },
+
+    langChange: function(event) {
+        this.change({lang: event.target.value});
+        this.setState({lang: event.target.value});
+    },
+
+    render: function() {
+        return React.DOM.div(null, 
+            React.DOM.div(null, 
+                React.DOM.label(null, 
+                    "內容:",
+                    React.DOM.input( {value:this.state.voiceText, onChange:this.voiceTextChange, defaultValue:this.state.voiceText})
+                )
+            ),
+            React.DOM.div(null, 
+                React.DOM.label(null, 
+                    "速度:",
+                    React.DOM.select( {value:this.state.rate, defaultValue:this.state.rate, onChange:this.rateChange}, 
+                        React.DOM.option( {value:"0.1"}, "0.1"),
+                        React.DOM.option( {value:"0.2"}, "0.2"),
+                        React.DOM.option( {value:"0.3"}, "0.3"),
+                        React.DOM.option( {value:"0.4"}, "0.4"),
+                        React.DOM.option( {value:"0.5"}, "0.5"),
+                        React.DOM.option( {value:"0.6"}, "0.6"),
+                        React.DOM.option( {value:"0.7"}, "0.7"),
+                        React.DOM.option( {value:"0.8"}, "0.8"),
+                        React.DOM.option( {value:"0.9"}, "0.9"),
+                        React.DOM.option( {value:"1.0"}, "1.0"),
+                        React.DOM.option( {value:"1.1"}, "1.1"),
+                        React.DOM.option( {value:"1.2"}, "1.2"),
+                        React.DOM.option( {value:"1.3"}, "1.3"),
+                        React.DOM.option( {value:"1.4"}, "1.4"),
+                        React.DOM.option( {value:"1.5"}, "1.5")
+                    )
+                )
+            ),
+            React.DOM.div(null, 
+                React.DOM.label(null, 
+                    "音調:",
+                    React.DOM.select( {value:this.state.pitch, defaultValue:this.state.pitch, onChange:this.pitchChange}, 
+                        React.DOM.option( {value:"0"}, "0"),
+                        React.DOM.option( {value:"0.1"}, "0.1"),
+                        React.DOM.option( {value:"0.2"}, "0.2"),
+                        React.DOM.option( {value:"0.3"}, "0.3"),
+                        React.DOM.option( {value:"0.4"}, "0.4"),
+                        React.DOM.option( {value:"0.5"}, "0.5"),
+                        React.DOM.option( {value:"0.6"}, "0.6"),
+                        React.DOM.option( {value:"0.7"}, "0.7"),
+                        React.DOM.option( {value:"0.8"}, "0.8"),
+                        React.DOM.option( {value:"0.9"}, "0.9"),
+                        React.DOM.option( {value:"1.0"}, "1.0"),
+                        React.DOM.option( {value:"1.1"}, "1.1"),
+                        React.DOM.option( {value:"1.2"}, "1.2"),
+                        React.DOM.option( {value:"1.3"}, "1.3"),
+                        React.DOM.option( {value:"1.4"}, "1.4"),
+                        React.DOM.option( {value:"1.5"}, "1.5"),
+                        React.DOM.option( {value:"1.6"}, "1.6"),
+                        React.DOM.option( {value:"1.7"}, "1.7"),
+                        React.DOM.option( {value:"1.8"}, "1.8"),
+                        React.DOM.option( {value:"1.9"}, "1.9"),
+                        React.DOM.option( {value:"2"}, "2")
+                    )
+                )
+            ),
+            React.DOM.div(null, 
+                React.DOM.label(null, 
+                    "語言:",
+                    React.DOM.select( {value:this.state.lang, defaultValue:this.state.lang, onChange:this.langChange}, 
+                        React.DOM.option( {value:"UK English Female"}, "UK English Female"),
+                        React.DOM.option( {value:"UK English Male"}, "UK English Male"),
+                        React.DOM.option( {value:"US English Female"}, "US English Female")
+                    )
+                )
+            )
+        );
+    }
+});
+
+module.exports = {
+    name: "speaking-voice",
+    displayName: "English Text to Speech/英文發音工具",
+    widget: SpeakingVoice,
+    hidden: false,
+    editor: SpeakingVoiceEditor
+};
+
+},{"../../lib/responsivevoice.js":2,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"react":44}],124:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -22860,7 +23368,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../editor.jsx":73,"../renderer.jsx":95,"../util.js":98,"react":43,"react-components/info-tip":37}],122:[function(require,module,exports){
+},{"../editor.jsx":74,"../renderer.jsx":96,"../util.js":99,"react":44,"react-components/info-tip":38}],125:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -25364,5 +25872,5 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/graph-settings.jsx":51,"../components/graph.jsx":52,"../components/number-input.jsx":59,"../components/prop-check-box.jsx":60,"../tex.jsx":97,"../util.js":98,"react":43,"react-components/info-tip":37}]},{},[93])(93)
+},{"../components/graph-settings.jsx":52,"../components/graph.jsx":53,"../components/number-input.jsx":60,"../components/prop-check-box.jsx":61,"../tex.jsx":98,"../util.js":99,"react":44,"react-components/info-tip":38}]},{},[94])(94)
 });
