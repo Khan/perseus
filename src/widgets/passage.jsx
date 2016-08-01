@@ -183,6 +183,11 @@ const Passage = React.createClass({
     handleConfirmHighlightClick: function() {
         this.setState({newHighlightRange: null});
         this.addHighlightRange();
+        // Collapse selection after adding highlight to keep behaviour
+        // consistent. Without this, the selection sometimes changes to the
+        // already existing highlight when merging selections.
+        const selection = window.getSelection();
+        selection.collapse(selection.anchorNode, selection.anchorOffset);
     },
 
     /**
