@@ -19,19 +19,8 @@ var TextInput = React.createClass({
         return false;
     },
 
-    focus: function() {
-        this.refs.input.focus();
-        return true;
-    },
-
     changeValue: function(e) {
-        // Chrome Speech API
-        if (e.target.value) {
-            this.props.setValue(e.target.value);
-        // iOS Siri Input
-        } else {
-            this.props.setValue(this.refs.input.value);
-        }
+        this.props.setValue(this.refs.input.value);
     },
 
     statics: {
@@ -44,9 +33,9 @@ var SpeakingBtn = React.createClass({
         return (
             <div>
                 {this.recognition
-                    ? <button ref="btn_speaking" onClick={this.startRecognizeOnClick} className="simple-button orange">{this.state.status}
+                    ? <button onClick={this.startRecognizeOnClick} className="simple-button orange">{this.state.status}
                         </button>
-                    : <button ref="btn_speaking" onClick={this.resetOnClick} className="simple-button orange">{this.state.status}
+                    : <button onClick={this.resetOnClick} className="simple-button orange">{this.state.status}
                         </button>}
             </div>
         );
@@ -185,15 +174,10 @@ var SpeakingTextInput = React.createClass({
     render: function() {
         return (
             <div>
-                <TextInput ref="input" value={this.state.value} setValue={this.setValue}/>
-                <SpeakingBtn ref="btn_speaking" setValue={this.setValue}/>
+                <TextInput value={this.state.value} setValue={this.setValue}/>
+                <SpeakingBtn setValue={this.setValue}/>
             </div>
         );
-    },
-
-    focus: function() {
-        this.refs.input.focus();
-        return true;
     },
 
     simpleValidate: function(rubric) {
@@ -266,22 +250,17 @@ _.extend(SpeakingTextInput, {
                 <div>
                     <label>
                         正確答案:
-                        <input value={this.props.correct} onChange={this.handleAnswerChange} ref="input"/>
+                        <input value={this.props.correct} onChange={this.handleAnswerChange}/>
                     </label>
                 </div>
                 <div>
                     <label>
                         精準度 (1-20):
-                        <input value={this.props.correctIdxLessThen} onChange={this.handleCorrectIdxChange} type="integer" ref="input"/>
+                        <input value={this.props.correctIdxLessThen} onChange={this.handleCorrectIdxChange} type="integer"/>
                     </label>
                 </div>
             </div>;
         },
-
-        focus: function() {
-            this.refs.input.focus();
-            return true;
-        }
     });
 
     module.exports = {

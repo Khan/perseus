@@ -38,11 +38,6 @@ var SpeakingVoice = React.createClass({
         );
     },
 
-    focus: function() {
-        this.refs.input.focus();
-        return true;
-    },
-
     simpleValidate: function(rubric) {
         return {type: "points", earned: 1, total: 1, message: null};
     },
@@ -90,7 +85,7 @@ var SpeakingVoiceEditor = React.createClass({
             <div>
                 <label>
                     內容:
-                    <input value={this.state.voiceText} onChange={this.voiceTextChange} defaultValue={this.state.voiceText} ref="input"/>
+                    <input value={this.state.voiceText} onChange={this.voiceTextChange} defaultValue={this.state.voiceText}/>
                 </label>
             </div>
             <div>
@@ -154,11 +149,6 @@ var SpeakingVoiceEditor = React.createClass({
                 </label>
             </div>
         </div>;
-    },
-
-    focus: function() {
-        this.refs.input.focus();
-        return true;
     }
 });
 
