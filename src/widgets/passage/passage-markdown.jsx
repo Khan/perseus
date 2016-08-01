@@ -316,51 +316,6 @@ var rules = {
             ];
         }
     },
-    removeHighlightIcon: {
-        order: SimpleMarkdown.defaultRules.escape.order + .8,
-        match: SimpleMarkdown.inlineRegex(
-                    /^{__highlighting.remove-confirmation}/),
-        parse: (capture, parse, state) => {
-            return {};
-        },
-        react: (node, output, state) => {
-            return [
-                <span
-                    data-remove-highlight-tooltip={true}
-                    style={{position:'relative'}}
-                >
-                    <img
-                        width="163" height="75"
-                        style={{position:'absolute', top:'-46px',
-                                 left:'-40px'}}
-                        src='/images/perseus/remove-highlight.svg'
-                    />
-                </span>
-            ];
-        }
-    },
-    confirmHighlightIcon: {
-        order: SimpleMarkdown.defaultRules.escape.order + .8,
-        match: SimpleMarkdown.inlineRegex(/^{__highlighting.add-confirmation}/),
-        parse: (capture, parse, state) => {
-            return {};
-        },
-        react: (node, output, state) => {
-            return [
-                <span
-                    data-confirm-highlight-tooltip={true}
-                    style={{position:'relative'}}
-                >
-                    <img
-                        width="130" height="60"
-                        style={{position:'absolute', top:'-46px',
-                                 left:'-40px'}}
-                        src='/images/perseus/add-highlight.svg'
-                    />
-                </span>
-            ];
-        }
-    },
     strong: SimpleMarkdown.defaultRules.strong,
     u: SimpleMarkdown.defaultRules.u,
     em: SimpleMarkdown.defaultRules.em,

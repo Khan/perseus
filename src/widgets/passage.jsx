@@ -39,6 +39,8 @@ const Passage = React.createClass({
             highlightRanges: [],
             newHighlightRange: null,
             selectedHighlightRange: null,
+            mouseX: null,
+            mouseY: null,
         };
     },
 
@@ -92,10 +94,8 @@ const Passage = React.createClass({
      */
     addHighlightRange: function(highlightRange) {
         let newHighlightRanges = this.state.highlightRanges;
-
         newHighlightRanges.push(this.state.newHighlightRange);
-        newHighlightRanges =
-            this.mergeOverlappingRanges(newHighlightRanges);
+        newHighlightRanges = this.mergeOverlappingRanges(newHighlightRanges);
 
         this.setState({
             highlightRanges: newHighlightRanges
@@ -110,8 +110,18 @@ const Passage = React.createClass({
     getSelectionRange: function(selection) {
         const anchorIndex = this.getSelectionIndex(selection, "anchor");
         const focusIndex = this.getSelectionIndex(selection, "focus");
-        const selectionStartIndex = Math.min(anchorIndex, focusIndex);
-        const selectionEndIndex = Math.max(anchorIndex, focusIndex);
+        let selectionStartIndex = Math.min(anchorIndex, focusIndex);
+        let selectionEndIndex = Math.max(anchorIndex, focusIndex);
+        const selectedText = selection.toString();
+
+        //Prevents slecting a space from highlighting both surrounding words.
+        if (selectedText.charAt(0) === " ") {
+            selectionStartIndex += 1;
+        }
+        if (selectedText.charAt(selectedText.length - 1) === " ") {
+            selectionEndIndex -= 1;
+        }
+
         return [selectionStartIndex, selectionEndIndex];
     },
 
@@ -205,6 +215,27 @@ const Passage = React.createClass({
      *    add as a new highlight.
      */
     handleMouseUp: function(e) {
+<<<<<<< HEAD
+        this.setState({
+            mouseX: e.clientX -
+                e.currentTarget.getBoundingClientRect().left,
+            mouseY: e.clientY - e.currentTarget.getBoundingClientRect().top,
+        });
+        const selection = window.getSelection();
+        const selectionRange = this.getSelectionRange(selection);
+        const selectedHighlightRange = this.isHighlighted(selectionRange);
+
+        if (selectedHighlightRange) {
+            this.setState({
+                newHighlightRange: null,
+                selectedHighlightRange: selectedHighlightRange,
+            });
+        } else if (selection.toString() !== " ") {
+            this.setState({
+                newHighlightRange: selectionRange,
+                selectedHighlightRange: null,
+            });
+=======
         const removeHighlightTooltip =
             e.currentTarget.querySelector("[data-remove-highlight-tooltip]");
         const confirmHighlightTooltip =
@@ -233,8 +264,8 @@ const Passage = React.createClass({
                     selectedHighlightRange: null,
                 });
             }
+>>>>>>> sat-highlighting
         }
-
     },
 
     /**
@@ -291,6 +322,39 @@ const Passage = React.createClass({
             !_.isEqual(this.state, nextState);
     },
 
+    renderAddHighlightTooltip: function() {
+        const positionX = `${this.state.mouseX}px`;
+        const positionY = `${this.state.mouseY}px`;
+        return <span
+            onClick={this.handleConfirmHighlightClick}
+            style={{position:'absolute', left: positionX, top: positionY}}
+        >
+            <img
+                width="130" height="60"
+                style={{position:'absolute', top:"-60px",
+                         left:"-65px"}}
+                src='/images/perseus/add-highlight.svg'
+            />
+        </span>;
+
+    },
+
+    renderRemoveHighlightTooltip: function() {
+        const positionX = `${this.state.mouseX}px`;
+        const positionY = `${this.state.mouseY}px`;
+        return <span
+            onClick={this.handleRemoveHighlightClick}
+            style={{position:'absolute', left: positionX, top: positionY}}
+        >
+            <img
+                width="163" height="75"
+                style={{position:'absolute', top:'-75px',
+                         left:'-81px'}}
+                src='/images/perseus/remove-highlight.svg'
+            />
+        </span>;
+    },
+
     render: function() {
         let lineNumbers;
         const nLines = this.state.nLines;
@@ -317,8 +381,6 @@ const Passage = React.createClass({
         // For each highlighted passage, we (ephemerally) inject highlight
         // markdown into the rawContent.
         _.each(this.state.highlightRanges, function(highlightRange) {
-            const isSelected = (this.state.selectedHighlightRange &&
-                this.state.selectedHighlightRange[0]===highlightRange[0]);
             const rangeStartIndex = highlightRange[0];
             const rangeEndIndex = highlightRange[1];
 
@@ -336,12 +398,7 @@ const Passage = React.createClass({
             // surrounded with highlighting markdown, while markdown text is
             // ignored.
             rawContent = (
-                rawContent.slice(0, rangeStartIndex).join(' ') +
-                ' ' +
-                // TODO: we're using these characters to inject the
-                // highlight-remove button. This really ought to be a React
-                // component instead!
-                (isSelected ? "{__highlighting.remove-confirmation}" : '') +
+                rawContent.slice(0, rangeStartIndex).join(' ') + ' ' +
                 rawContent
                     .slice(rangeStartIndex, rangeEndIndex + 1)
                     .map(function(fragment) {
@@ -364,21 +421,12 @@ const Passage = React.createClass({
                 rawContent.slice(rangeEndIndex + 1).join(' '));
         }, this);
 
-        //"Add Highlight" icon
-        if (this.state.newHighlightRange) {
-            rawContent = this.stringToArrayOfWords(rawContent);
-            rawContent = rawContent.slice(
-                0, this.state.newHighlightRange[0]).join(' ') +
-                ' ' + '{__highlighting.add-confirmation}' +
-                rawContent.slice(this.state.newHighlightRange[0]).join(' ');
-        }
-
         const parseState = {};
         const parsedContent = PassageMarkdown.parse(rawContent, parseState);
 
         return <div
-            className="perseus-widget-passage-container"
             onMouseUp={this.handleMouseUp}
+            className="perseus-widget-passage-container"
         >
             {this._renderInstructions(parseState)}
             <div className="perseus-widget-passage">
@@ -408,6 +456,9 @@ const Passage = React.createClass({
                     {i18n._("End of reading passage.")}
                 </div>
             </div>
+            {this.state.newHighlightRange && this.renderAddHighlightTooltip()}
+            {this.state.selectedHighlightRange &&
+                this.renderRemoveHighlightTooltip()}
         </div>;
     },
 
