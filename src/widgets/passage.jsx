@@ -215,7 +215,6 @@ const Passage = React.createClass({
      *    add as a new highlight.
      */
     handleMouseUp: function(e) {
-<<<<<<< HEAD
         this.setState({
             mouseX: e.clientX -
                 e.currentTarget.getBoundingClientRect().left,
@@ -235,36 +234,6 @@ const Passage = React.createClass({
                 newHighlightRange: selectionRange,
                 selectedHighlightRange: null,
             });
-=======
-        const removeHighlightTooltip =
-            e.currentTarget.querySelector("[data-remove-highlight-tooltip]");
-        const confirmHighlightTooltip =
-            e.currentTarget.querySelector("[data-confirm-highlight-tooltip]");
-        if (removeHighlightTooltip &&
-                (e.target === removeHighlightTooltip ||
-                    removeHighlightTooltip.contains(e.target))) {
-            this.handleRemoveHighlightClick();
-        } else if (confirmHighlightTooltip &&
-                (e.target === confirmHighlightTooltip ||
-                    confirmHighlightTooltip.contains(e.target))) {
-            this.handleConfirmHighlightClick();
-        } else {
-            const selection = window.getSelection();
-            const selectionRange = this.getSelectionRange(selection);
-            const selectedHighlightRange = this.isHighlighted(selectionRange);
-
-            if (selectedHighlightRange) {
-                this.setState({
-                    newHighlightRange: null,
-                    selectedHighlightRange: selectedHighlightRange,
-                });
-            } else if (!selection.isCollapsed) {
-                this.setState({
-                    newHighlightRange: selectionRange,
-                    selectedHighlightRange: null,
-                });
-            }
->>>>>>> sat-highlighting
         }
     },
 
