@@ -229,7 +229,7 @@ const Passage = React.createClass({
                 newHighlightRange: null,
                 selectedHighlightRange: selectedHighlightRange,
             });
-        } else if (selection.toString() !== " ") {
+        } else if (selection.toString() !== " " && !selection.isCollapsed) {
             this.setState({
                 newHighlightRange: selectionRange,
                 selectedHighlightRange: null,
