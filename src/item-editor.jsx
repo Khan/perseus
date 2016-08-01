@@ -16,7 +16,8 @@ var ItemEditor = React.createClass({
         return {
             onChange: () => {},
             question: {},
-            answerArea: {}
+            answerArea: {},
+            img_src: "/images/face-smiley01.png"
         };
     },
 
@@ -27,6 +28,7 @@ var ItemEditor = React.createClass({
     },
 
     render: function() {
+        var img_src = Math.random() > 0.05 ? "/images/face-smiley01.png" : "/images/face-smiley02.png";
         return <div className="perseus-editor-table">
             <div className="perseus-editor-row perseus-question-container">
                 <div className="perseus-editor-left-cell">
@@ -80,7 +82,7 @@ var ItemEditor = React.createClass({
                                 onClick={this.props.onCheckAnswer}
                                 value="Check Answer" />
                             {this.props.wasAnswered &&
-                                <img src="/images/face-smiley01.png"
+                                <img src={img_src}
                                     className="smiley" />}
                             {this.props.gradeMessage &&
                                 <span>{this.props.gradeMessage}</span>}
