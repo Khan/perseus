@@ -49,8 +49,16 @@ const Passage = React.createClass({
      * selection, based on the number of spaces.
      */
     wordsInSection: function(section) {
+        // HACK (davidpowell): Sometimes the raw content of the page contains
+        // "end of sentence. _New sentence", the node seems to split after the
+        // underscore (e.g. "end of sentence. _" is in one node and "New
+        // sentence..." is in  another). This would lead to the underscore
+        // being counted as a seperate word due to the fact that the words in
+        // each node are counted separately. The line below is a hacky fix for
+        // this.
+        section = section.replace(/_/g, " ");
         return section
-                .split(/\s/)
+                .split(/\s+/)
                 .filter((word) => word.length > 0)
                 .length;
     },
@@ -157,14 +165,13 @@ const Passage = React.createClass({
         return index;
     },
 
-    charToWordOffset: function(offset, selectedText) {
-        const beforeSelection = selectedText.substring(0, offset);
+    charToWordOffset: function(offset, nodeText) {
+        const beforeSelection = nodeText.substring(0, offset);
         let wordOffset = this.wordsInSection(beforeSelection);
 
         // If any part of the first word of selectedText is included in
         // beforeSelection, then remove it from the count.
-        if (!(selectedText.charAt(offset) === " " ||
-                selectedText.charAt(offset - 1) === " ")) {
+        if (!(nodeText.charAt(offset - 1) === " " || beforeSelection === "")) {
             wordOffset -= 1;
         }
         return wordOffset;
@@ -373,8 +380,12 @@ const Passage = React.createClass({
                     .map(function(fragment) {
                         // This fragment should contain all user-visible
                         // characters, and no markdown characters!
+                        // TODO (davidpowell/mdr): Change regex to blacklist
+                        // markdown as oppose to whitelisting certain
+                        // characters.
                         const highlightableMatch = (
-                            fragment.match(/[\(\)\-\—\-\.,A-Za-z0-9:'"]+/)
+                            fragment.match(
+                                /[\(\)\-\—\-\.\[\]\+\$\?,!A-Za-z0-9:;'"=%<>]+/)
                         );
                         const matchStart = highlightableMatch.index;
                         const matchEnd = (
