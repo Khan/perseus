@@ -18,6 +18,7 @@ var TexButtons        = require("../components/tex-buttons.jsx");
 
 var cx = React.addons.classSet;
 var EnabledFeatures = require("../enabled-features.jsx");
+var Util = require("../util.js");
 
 var ERROR_MESSAGE = $._("Sorry, I don't understand that!");
 
@@ -131,7 +132,7 @@ var Expression = React.createClass({
                 <MathInput
                     ref="input"
                     value={this.props.value}
-                    onChange={this.change("value")}
+                    onChange={this.handleChange}
                     convertDotToTimes={this.props.times}
                     buttonsVisible={this.props.buttonsVisible || "focused"}
                     buttonSets={this.props.buttonSets}
@@ -140,6 +141,10 @@ var Expression = React.createClass({
                 {this.state.showErrorTooltip && errorTooltip}
             </span>;
         }
+    },
+    
+    handleChange: function(newValue) {
+        this.props.onChange({ value: Util.asc(newValue) });
     },
 
     _handleFocus: function() {

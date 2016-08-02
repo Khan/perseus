@@ -1,6 +1,6 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit df5ef5ed6e0a284e64802c45504aafca03d5ae55
-// branch upgrade_expression
+// commit 8d64ecbd35ef88f78be6b19e00fe2af894bf45f4
+// branch perseus_editor_cute_pic
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
 Software License Agreement (BSD License)
@@ -405,509 +405,75 @@ if (typeof module !== 'undefined') {
 }
 
 },{}],2:[function(require,module,exports){
-/** @jsx React.DOM */
-
-var React = require("react");
-
-/* You know when you want to propagate input to a parent...
- * but then that parent does something with the input...
- * then changing the props of the input...
- * on every keystroke...
- * so if some input is invalid or incomplete...
- * the input gets reset or otherwise effed...
- *
- * This is the solution.
- *
- * Enough melodrama. Its an input that only sends changes
- * to its parent on blur.
- */
-var BlurInput = React.createClass({displayName: 'BlurInput',
-    propTypes: {
-        value: React.PropTypes.string.isRequired,
-        onChange: React.PropTypes.func.isRequired
-    },
-    getInitialState: function() {
-        return { value: this.props.value };
-    },
-    render: function() {
-        return this.transferPropsTo(React.DOM.input(
-            {type:"text",
-            value:this.state.value,
-            onChange:this.handleChange,
-            onBlur:this.handleBlur} ));
-    },
-    componentWillReceiveProps: function(nextProps) {
-        this.setState({ value: nextProps.value });
-    },
-    handleChange: function(e) {
-        this.setState({ value: e.target.value });
-    },
-    handleBlur: function(e) {
-        this.props.onChange(e.target.value);
-    }
-});
-
-module.exports = BlurInput;
-
-},{"react":115}],3:[function(require,module,exports){
-/** @jsx React.DOM */
-
-var React = require('react');
-var RCSS = require('rcss');
-var _ = require('underscore');
-
-var outerStyle = {
-    display: 'inline-block',
-};
-
-var buttonStyle = {
-    backgroundColor: 'white',
-    border: '1px solid #ccc',
-    borderBottom: '1px solid #ccc',
-    borderLeft: '0',
-    cursor: 'pointer',
-    margin: '0',
-    padding: '5px 10px',
-    position: 'relative', // for hover
-
-    ':first-child': {
-        borderLeft: '1px solid #ccc',
-        borderTopLeftRadius: '3px',
-        borderBottomLeftRadius: '3px'
-    },
-
-    ':last-child': {
-        borderRight: '1px solid #ccc',
-        borderTopRightRadius: '3px',
-        borderBottomRightRadius: '3px'
-    },
-
-    ':hover': {
-        backgroundColor: '#ccc'
-    },
-
-    ':focus': {
-        zIndex: '2'
-    }
-};
-
-var selectedStyle = {
-    backgroundColor: '#ddd'
-};
-
-RCSS.createClass(outerStyle);
-RCSS.createClass(buttonStyle);
-RCSS.createClass(selectedStyle);
-
-/* ButtonGroup is an aesthetically pleasing group of buttons.
- *
- * The class requires these properties:
- *   buttons - an array of objects with keys:
- *     "value": this is the value returned when the button is selected
- *     "text": this is the text shown on the button
- *     "title": this is the title-text shown on hover
- *   onChange - a function that is provided with the updated value
- *     (which it then is responsible for updating)
- *
- * The class has these optional properties:
- *   value - the initial value of the button selected, defaults to null.
- *   allowEmpty - if false, exactly one button _must_ be selected; otherwise
- *     it defaults to true and _at most_ one button (0 or 1) may be selected.
- *
- * Requires stylesheets/perseus-admin-package/editor.less to look nice.
- */
-
-var ButtonGroup = React.createClass({displayName: 'ButtonGroup',
-    propTypes: {
-        value: React.PropTypes.any,
-        buttons: React.PropTypes.arrayOf(React.PropTypes.shape({
-            value: React.PropTypes.any.isRequired,
-            text: React.PropTypes.renderable,
-            title: React.PropTypes.string
-        })).isRequired,
-        onChange: React.PropTypes.func.isRequired,
-        allowEmpty: React.PropTypes.bool
-    },
-
-    getDefaultProps: function() {
-        return {
-            value: null,
-            allowEmpty: true
-        };
-    },
-
-    render: function() {
-        var value = this.props.value;
-        var buttons = _(this.props.buttons).map(function(button, i)  {
-                var maybeSelected = button.value === value ?
-                        selectedStyle.className :
-                        "";
-                return React.DOM.button( {title:button.title,
-                        id:"" + i,
-                        ref:"button" + i,
-                        key:"" + i,
-                        className:(buttonStyle.className + " " + maybeSelected),
-                        onClick:this.toggleSelect.bind(this, button.value)}, 
-                    button.text || "" + button.value
-                );
-            }.bind(this));
-
-        return React.DOM.div( {className:outerStyle.className}, 
-            buttons
-        );
-    },
-
-    focus: function() {
-        this.getDOMNode().focus();
-        return true;
-    },
-
-    toggleSelect: function(newValue) {
-        var value = this.props.value;
-
-        if (this.props.allowEmpty) {
-            // Select the new button or unselect if it's already selected
-            this.props.onChange(value !== newValue ? newValue : null);
-        } else {
-            this.props.onChange(newValue);
-        }
-    }
-});
-
-module.exports = ButtonGroup;
-
-},{"rcss":6,"react":115,"underscore":116}],4:[function(require,module,exports){
-/** @jsx React.DOM */
-
-var React = require('react');
-
-/* This component makes its children a drag target. Example:
- *
- *     <DragTarget onDrop={this.handleDrop}>Drag to me</DragTarget>
- *
- *     ...
- *
- *     handleDrop: function(e) {
- *         this.addImages(e.nativeEvent.dataTransfer.files);
- *     }
- *
- * Now "Drag to me" will be a drag target - when something is dragged over it,
- * the element will become partially transparent as a visual indicator that
- * it's a target.
- */
-// TODO(joel) - indicate before the hover is over the target that it's possible
-// to drag into the target. This would (I think) require a high level handler -
-// like on Perseus itself, waiting for onDragEnter, then passing down the
-// event. Sounds like a pain. Possible workaround - create a div covering the
-// entire page...
-//
-// Other extensions:
-// * custom styles for global drag and dragOver
-// * only respond to certain types of drags (only images for instance)!
-var DragTarget = React.createClass({displayName: 'DragTarget',
-    propTypes: {
-        onDrop: React.PropTypes.func.isRequired,
-        component: React.PropTypes.component,
-        shouldDragHighlight: React.PropTypes.func
-    },
-    render: function() {
-        var opacity = this.state.dragHover ? { "opacity": 0.3 } : {};
-        var component = this.props.component;
-
-        return this.transferPropsTo(
-            component( {style:opacity,
-                       onDrop:this.handleDrop,
-                       onDragEnd:this.handleDragEnd,
-                       onDragOver:this.handleDragOver,
-                       onDragEnter:this.handleDragEnter,
-                       onDragLeave:this.handleDragLeave}, 
-                this.props.children
-            )
-        );
-    },
-    getInitialState: function() {
-        return { dragHover: false };
-    },
-    getDefaultProps: function() {
-        return {
-            component: React.DOM.div,
-            shouldDragHighlight: function()  {return true;}
-        };
-    },
-    handleDrop: function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        this.setState({ dragHover: false });
-        this.props.onDrop(e);
-    },
-    handleDragEnd: function() {
-        this.setState({ dragHover: false });
-    },
-    handleDragOver: function(e) {
-        e.preventDefault();
-    },
-    handleDragLeave: function() {
-        this.setState({ dragHover: false });
-    },
-    handleDragEnter: function(e) {
-        this.setState({ dragHover: this.props.shouldDragHighlight(e) });
-    }
-});
-
-module.exports = DragTarget;
-
-},{"react":115}],5:[function(require,module,exports){
-/** @jsx React.DOM */
-
-var React = require('react');
-var RCSS = require('rcss');
-var _ = require('underscore');
-
-var colors = {
-    grayLight: '#aaa',
-    basicBorderColor: '#ccc',
-    white: '#fff'
-};
-
-var infoTip = {
-    display: 'inline-block',
-    marginLeft: '5px',
-    position: 'relative'
-};
-
-var infoTipI = {
-    cursor: 'pointer'
-};
-
-var infoTipContainer = {
-    position: 'absolute',
-    'top': '-12px',
-    left: '22px',
-    zIndex: '1000'
-};
-
-var triangleBeforeAfter = {
-    borderBottom: '9px solid transparent',
-    borderTop: '9px solid transparent',
-    content: ' ',
-    height: '0',
-    position: 'absolute',
-    'top': '0',
-    width: '0'
-};
-
-var infoTipTriangle = {
-    height: '10px',
-    left: '0',
-    position: 'absolute',
-    'top': '8px',
-    width: '0',
-    zIndex: '1',
-
-    ':before': _.extend({}, triangleBeforeAfter, {
-        borderRight: '9px solid #bbb',
-        right: '0',
-    }),
-
-    ':after': _.extend({}, triangleBeforeAfter, {
-        borderRight: ("9px solid " + colors.white),
-        right: '-1px'
-    })
-};
-
-var basicBorder = {
-    border: ("1px solid " + colors.basicBorderColor)
-};
-
-var boxShadow = function(str)  { return { boxShadow: str }; };
-
-var verticalShadow = RCSS.merge(
-    basicBorder,
-    boxShadow(("0 1px 3px " + colors.basicBorderColor)),
-    { borderBottom: ("1px solid " + colors.grayLight) }
-);
-
-var infoTipContentContainer = RCSS.merge(verticalShadow, {
-    background: colors.white,
-    padding: '5px 10px',
-    width: '240px'
-});
-
-RCSS.createClass(infoTip);
-RCSS.createClass(infoTipI);
-RCSS.createClass(infoTipTriangle);
-RCSS.createClass(verticalShadow);
-RCSS.createClass(infoTipContainer);
-RCSS.createClass(infoTipContentContainer);
-
-var questionMark = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo2N2M3NTAxYS04YmVlLTQ0M2MtYmRiNS04OGM2N2IxN2NhYzEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUJCRTk4Qjc4NjAwMTFFMzg3QUJDNEI4Mzk2QTRGQkQiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUJCRTk4QjY4NjAwMTFFMzg3QUJDNEI4Mzk2QTRGQkQiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NGE5ZDI0OTMtODk1NC00OGFkLTlhMTgtZDAwM2MwYWNjNDJlIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjY3Yzc1MDFhLThiZWUtNDQzYy1iZGI1LTg4YzY3YjE3Y2FjMSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pqm89uYAAADMSURBVHjaXJA9DoJAEIUH1M4TUHIFsCMGen9OwCGw1YRGW2ntKel0exsojHIBC0ouQAyUviFDstmXfNmZeS+zm7XSNCXRFiRgJf0bXIHixpbhGdxBBJYC1w/xaA424MhNEATkui71fU9KqfEU78UbD9PdbJRlOdae55GmhIP+1NV1TcMwkOM41DSNHvRtMhTHMRVFQW3b6mOLgx99kue5GRp/gIOZuZGvNpTNwjD8oliANU+qqqKu6/TQBdymN57AHjzBT+B6Jx79BRgAvc49kQA4yxgAAAAASUVORK5CYII='; // @NoLint
-
-var InfoTip = React.createClass({displayName: 'InfoTip',
-    getInitialState: function() {
-        return {
-            hover: false
-        };
-    },
-
-    render: function() {
-        return React.DOM.div( {className:infoTip.className}, 
-            React.DOM.img( {width:10,
-                 height:10,
-                 src:questionMark,
-                 onMouseEnter:this.handleMouseEnter,
-                 onMouseLeave:this.handleMouseLeave} ),
-            React.DOM.div( {className:infoTipContainer.className,
-                 style:{display: this.state.hover ? 'block' : 'none'}}, 
-                React.DOM.div( {className:infoTipTriangle.className} ),
-                /* keep the classes here - used for selectors on KA */
-                React.DOM.div( {className:infoTipContentContainer.className}, 
-                    this.props.children
-                )
-            )
-        );
-    },
-
-    handleMouseEnter: function() {
-        this.setState({hover: true});
-    },
-
-    handleMouseLeave: function() {
-        this.setState({hover: false});
-    }
-});
-
-module.exports = InfoTip;
-
-},{"rcss":6,"react":115,"underscore":116}],6:[function(require,module,exports){
-var assign = require('lodash.assign');
-
-var styleRuleValidator = require('./styleRuleValidator');
-var styleRuleConverter = require('./styleRuleConverter');
-var mediaQueryValidator = require('valid-media-queries');
-
-var existingClasses = {};
-var styleTag = createStyleTag();
-
-var classNameId = 0;
-var randomSuffix = Math.random().toString(36).slice(-5);
-
-function generateValidCSSClassName() {
-  // CSS classNames can't start with a number.
-  return 'c' + (classNameId++) + '-' + randomSuffix;
-}
-
-function objToCSS(style) {
-  var serialized = '';
-  for (var propName in style) {
-    // we put that ourselves
-    if (propName == 'className') continue;
-
-    var cssPropName = styleRuleConverter.hyphenateProp(propName);
-    if (!styleRuleValidator.isValidProp(cssPropName)) {
-      console.warn(
-        '%s (transformed into %s) is not a valid CSS property name.', propName, cssPropName
-      );
-      continue;
-    }
-
-    var styleValue = style[propName];
-    if (!styleRuleValidator.isValidValue(styleValue)) continue;
-
-    if (styleValue !== null) {
-      serialized += cssPropName + ':';
-      serialized += styleRuleConverter.escapeValueForProp(styleValue,
-        cssPropName) + ';';
-    }
-  }
-  return serialized || null;
-}
-
-function createStyleTag() {
-  var tag = document.createElement('style');
-  document.getElementsByTagName('head')[0].appendChild(tag);
-  return tag;
-}
-
-function styleToCSS(style) {
-  var styleStr = '.' + style.className + '{';
-  styleStr += objToCSS(style.value);
-  styleStr += '}';
-
-  if (style.media) {
-    if (!mediaQueryValidator(style.media)) {
-      console.log('%s is not a valid media query.', style.media);
-    }
-    styleStr = style.media + '{' + styleStr + '}';
-  }
-
-  return styleStr;
-}
-
-// TODO: support media queries
-function parseStyles(className, styleObj) {
-  var mainStyle = {
-    className: className,
-    value: {}
-  };
-  var styles = [mainStyle];
-
-  Object.keys(styleObj).forEach(function(k){
-    // pseudo-selector, insert a new rule
-    if (k[0] === ':') {
-      styles.push({
-        className: className+k,
-        value: styleObj[k]
-      });
-      return;
-    } else if (k.substring(0, 6) === '@media') {
-      styles.push({
-        className: className,
-        value: styleObj[k],
-        media: k
-      });
-      return;
-    }
-
-    // normal rule, insert into main one
-    mainStyle.value[k] = styleObj[k];
-  });
-
-  return styles;
-}
-
-function insertStyle(className, styleObj) {
-  var styles = parseStyles(className, styleObj);
-  var styleStr = styles.map(styleToCSS).join('');
-  styleTag.innerHTML += styleStr;
-}
-
-var RCSS = {
-  merge: function(a, b, c, d, e) {
-    return assign({}, a, b, c, d, e);
-  },
-
-  createClass: function(styleObj) {
-    var styleId = JSON.stringify(styleObj);
-    var className;
-
-    if (existingClasses[styleId]) {
-      // already exists, use the existing className
-      className = existingClasses[styleId];
-    } else {
-      // generate a new class and insert it
-      className = generateValidCSSClassName();
-      existingClasses[styleId] = className;
-      insertStyle(className, styleObj);
-    }
-
-    styleObj.className = className;
-    return styleObj;
-  }
-};
-
-module.exports = RCSS;
-
-},{"./styleRuleConverter":111,"./styleRuleValidator":112,"lodash.assign":7,"valid-media-queries":46}],7:[function(require,module,exports){
+/*
+ ResponsiveVoice JS v1.4.7
+
+ (c) 2015 LearnBrite
+
+ License: http://responsivevoice.org/license
+*/
+if("undefined"!=typeof responsiveVoice)console.log("ResponsiveVoice already loaded"),console.log(responsiveVoice);else var ResponsiveVoice=function(){var a=this;a.version="1.4.7";console.log("ResponsiveVoice r"+a.version);a.responsivevoices=[{name:"UK English Female",flag:"gb",gender:"f",voiceIDs:[3,5,1,6,7,171,201,8]},{name:"UK English Male",flag:"gb",gender:"m",voiceIDs:[0,4,2,75,202,159,6,7]},{name:"US English Female",flag:"us",gender:"f",voiceIDs:[39,40,41,42,43,173,205,204,44]},{name:"Arabic Male",
+flag:"ar",gender:"m",voiceIDs:[96,95,97,196,98],deprecated:!0},{name:"Arabic Female",flag:"ar",gender:"f",voiceIDs:[96,95,97,196,98]},{name:"Armenian Male",flag:"hy",gender:"f",voiceIDs:[99]},{name:"Australian Female",flag:"au",gender:"f",voiceIDs:[87,86,5,201,88]},{name:"Brazilian Portuguese Female",flag:"br",gender:"f",voiceIDs:[124,123,125,186,223,126]},{name:"Chinese Female",flag:"cn",gender:"f",voiceIDs:[58,59,60,155,191,231,61]},{name:"Czech Female",flag:"cz",gender:"f",voiceIDs:[101,100,102,
+197,103]},{name:"Danish Female",flag:"dk",gender:"f",voiceIDs:[105,104,106,198,107]},{name:"Deutsch Female",flag:"de",gender:"f",voiceIDs:[27,28,29,30,31,78,170,199,32]},{name:"Dutch Female",flag:"nl",gender:"f",voiceIDs:[219,84,157,158,184,45]},{name:"Finnish Female",flag:"fi",gender:"f",voiceIDs:[90,89,91,209,92]},{name:"French Female",flag:"fr",gender:"f",voiceIDs:[21,22,23,77,178,210,26]},{name:"Greek Female",flag:"gr",gender:"f",voiceIDs:[62,63,80,200,64]},{name:"Hatian Creole Female",flag:"ht",
+gender:"f",voiceIDs:[109]},{name:"Hindi Female",flag:"hi",gender:"f",voiceIDs:[66,154,179,213,67]},{name:"Hungarian Female",flag:"hu",gender:"f",voiceIDs:[9,10,81,214,11]},{name:"Indonesian Female",flag:"id",gender:"f",voiceIDs:[111,112,180,215,113]},{name:"Italian Female",flag:"it",gender:"f",voiceIDs:[33,34,35,36,37,79,181,216,38]},{name:"Japanese Female",flag:"jp",gender:"f",voiceIDs:[50,51,52,153,182,217,53]},{name:"Korean Female",flag:"kr",gender:"f",voiceIDs:[54,55,56,156,183,218,57]},{name:"Latin Female",
+flag:"va",gender:"f",voiceIDs:[114]},{name:"Norwegian Female",flag:"no",gender:"f",voiceIDs:[72,73,221,74]},{name:"Polish Female",flag:"pl",gender:"f",voiceIDs:[120,119,121,185,222,122]},{name:"Portuguese Female",flag:"br",gender:"f",voiceIDs:[128,127,129,187,224,130]},{name:"Romanian Male",flag:"ro",gender:"m",voiceIDs:[151,150,152,225,46]},{name:"Russian Female",flag:"ru",gender:"f",voiceIDs:[47,48,83,188,226,49]},{name:"Slovak Female",flag:"sk",gender:"f",voiceIDs:[133,132,134,227,135]},{name:"Spanish Female",
+flag:"es",gender:"f",voiceIDs:[19,16,17,18,20,76,174,207,15]},{name:"Spanish Latin American Female",flag:"es",gender:"f",voiceIDs:[137,136,138,175,208,139]},{name:"Swedish Female",flag:"sv",gender:"f",voiceIDs:[85,148,149,228,65]},{name:"Tamil Male",flag:"hi",gender:"m",voiceIDs:[141]},{name:"Thai Female",flag:"th",gender:"f",voiceIDs:[143,142,144,189,229,145]},{name:"Turkish Female",flag:"tr",gender:"f",voiceIDs:[69,70,82,190,230,71]},{name:"Afrikaans Male",flag:"af",gender:"m",voiceIDs:[93]},{name:"Albanian Male",
+flag:"sq",gender:"m",voiceIDs:[94]},{name:"Bosnian Male",flag:"bs",gender:"m",voiceIDs:[14]},{name:"Catalan Male",flag:"catalonia",gender:"m",voiceIDs:[68]},{name:"Croatian Male",flag:"hr",gender:"m",voiceIDs:[13]},{name:"Czech Male",flag:"cz",gender:"m",voiceIDs:[161]},{name:"Danish Male",flag:"da",gender:"m",voiceIDs:[162],deprecated:!0},{name:"Esperanto Male",flag:"eo",gender:"m",voiceIDs:[108]},{name:"Finnish Male",flag:"fi",gender:"m",voiceIDs:[160],deprecated:!0},{name:"Greek Male",flag:"gr",
+gender:"m",voiceIDs:[163],deprecated:!0},{name:"Hungarian Male",flag:"hu",gender:"m",voiceIDs:[164]},{name:"Icelandic Male",flag:"is",gender:"m",voiceIDs:[110]},{name:"Latin Male",flag:"va",gender:"m",voiceIDs:[165],deprecated:!0},{name:"Latvian Male",flag:"lv",gender:"m",voiceIDs:[115]},{name:"Macedonian Male",flag:"mk",gender:"m",voiceIDs:[116]},{name:"Moldavian Male",flag:"md",gender:"m",voiceIDs:[117]},{name:"Montenegrin Male",flag:"me",gender:"m",voiceIDs:[118]},{name:"Norwegian Male",flag:"no",
+gender:"m",voiceIDs:[166]},{name:"Serbian Male",flag:"sr",gender:"m",voiceIDs:[12]},{name:"Serbo-Croatian Male",flag:"hr",gender:"m",voiceIDs:[131]},{name:"Slovak Male",flag:"sk",gender:"m",voiceIDs:[167],deprecated:!0},{name:"Swahili Male",flag:"sw",gender:"m",voiceIDs:[140]},{name:"Swedish Male",flag:"sv",gender:"m",voiceIDs:[168],deprecated:!0},{name:"Vietnamese Male",flag:"vi",gender:"m",voiceIDs:[146],deprecated:!0},{name:"Welsh Male",flag:"cy",gender:"m",voiceIDs:[147]},{name:"US English Male",
+flag:"us",gender:"m",voiceIDs:[0,4,2,6,7,75,159]},{name:"Fallback UK Female",flag:"gb",gender:"f",voiceIDs:[8]}];a.voicecollection=[{name:"Google UK English Male"},{name:"Agnes"},{name:"Daniel Compact"},{name:"Google UK English Female"},{name:"en-GB",rate:.25,pitch:1},{name:"en-AU",rate:.25,pitch:1},{name:"ingl\u00e9s Reino Unido"},{name:"English United Kingdom"},{name:"Fallback en-GB Female",lang:"en-GB",fallbackvoice:!0},{name:"Eszter Compact"},{name:"hu-HU",rate:.4},{name:"Fallback Hungarian",
+lang:"hu",fallbackvoice:!0,service:"g2"},{name:"Fallback Serbian",lang:"sr",fallbackvoice:!0},{name:"Fallback Croatian",lang:"hr",fallbackvoice:!0},{name:"Fallback Bosnian",lang:"bs",fallbackvoice:!0},{name:"Fallback Spanish",lang:"es",fallbackvoice:!0},{name:"Spanish Spain"},{name:"espa\u00f1ol Espa\u00f1a"},{name:"Diego Compact",rate:.3},{name:"Google Espa\u00f1ol"},{name:"es-ES",rate:.2},{name:"Google Fran\u00e7ais"},{name:"French France"},{name:"franc\u00e9s Francia"},{name:"Virginie Compact",
+rate:.5},{name:"fr-FR",rate:.25},{name:"Fallback French",lang:"fr",fallbackvoice:!0},{name:"Google Deutsch"},{name:"German Germany"},{name:"alem\u00e1n Alemania"},{name:"Yannick Compact",rate:.5},{name:"de-DE",rate:.25},{name:"Fallback Deutsch",lang:"de",fallbackvoice:!0},{name:"Google Italiano"},{name:"Italian Italy"},{name:"italiano Italia"},{name:"Paolo Compact",rate:.5},{name:"it-IT",rate:.25},{name:"Fallback Italian",lang:"it",fallbackvoice:!0},{name:"Google US English",timerSpeed:1},{name:"English United States"},
+{name:"ingl\u00e9s Estados Unidos"},{name:"Vicki"},{name:"en-US",rate:.2,pitch:1,timerSpeed:1.3},{name:"Fallback English",lang:"en-US",fallbackvoice:!0,timerSpeed:0},{name:"Fallback Dutch",lang:"nl",fallbackvoice:!0,timerSpeed:0},{name:"Fallback Romanian",lang:"ro",fallbackvoice:!0},{name:"Milena Compact"},{name:"ru-RU",rate:.25},{name:"Fallback Russian",lang:"ru",fallbackvoice:!0},{name:"Google \u65e5\u672c\u4eba",timerSpeed:1},{name:"Kyoko Compact"},{name:"ja-JP",rate:.25},{name:"Fallback Japanese",
+lang:"ja",fallbackvoice:!0},{name:"Google \ud55c\uad6d\uc758",timerSpeed:1},{name:"Narae Compact"},{name:"ko-KR",rate:.25},{name:"Fallback Korean",lang:"ko",fallbackvoice:!0},{name:"Google \u4e2d\u56fd\u7684",timerSpeed:1},{name:"Ting-Ting Compact"},{name:"zh-CN",rate:.25},{name:"Fallback Chinese",lang:"zh-CN",fallbackvoice:!0},{name:"Alexandros Compact"},{name:"el-GR",rate:.25},{name:"Fallback Greek",lang:"el",fallbackvoice:!0,service:"g2"},{name:"Fallback Swedish",lang:"sv",fallbackvoice:!0,service:"g2"},
+{name:"hi-IN",rate:.25},{name:"Fallback Hindi",lang:"hi",fallbackvoice:!0},{name:"Fallback Catalan",lang:"ca",fallbackvoice:!0},{name:"Aylin Compact"},{name:"tr-TR",rate:.25},{name:"Fallback Turkish",lang:"tr",fallbackvoice:!0},{name:"Stine Compact"},{name:"no-NO",rate:.25},{name:"Fallback Norwegian",lang:"no",fallbackvoice:!0,service:"g2"},{name:"Daniel"},{name:"Monica"},{name:"Amelie"},{name:"Anna"},{name:"Alice"},{name:"Melina"},{name:"Mariska"},{name:"Yelda"},{name:"Milena"},{name:"Xander"},{name:"Alva"},
+{name:"Lee Compact"},{name:"Karen"},{name:"Fallback Australian",lang:"en-AU",fallbackvoice:!0},{name:"Mikko Compact"},{name:"Satu"},{name:"fi-FI",rate:.25},{name:"Fallback Finnish",lang:"fi",fallbackvoice:!0,service:"g2"},{name:"Fallback Afrikans",lang:"af",fallbackvoice:!0},{name:"Fallback Albanian",lang:"sq",fallbackvoice:!0},{name:"Maged Compact"},{name:"Tarik"},{name:"ar-SA",rate:.25},{name:"Fallback Arabic",lang:"ar",fallbackvoice:!0,service:"g2"},{name:"Fallback Armenian",lang:"hy",fallbackvoice:!0,
+service:"g2"},{name:"Zuzana Compact"},{name:"Zuzana"},{name:"cs-CZ",rate:.25},{name:"Fallback Czech",lang:"cs",fallbackvoice:!0,service:"g2"},{name:"Ida Compact"},{name:"Sara"},{name:"da-DK",rate:.25},{name:"Fallback Danish",lang:"da",fallbackvoice:!0,service:"g2"},{name:"Fallback Esperanto",lang:"eo",fallbackvoice:!0},{name:"Fallback Hatian Creole",lang:"ht",fallbackvoice:!0},{name:"Fallback Icelandic",lang:"is",fallbackvoice:!0},{name:"Damayanti"},{name:"id-ID",rate:.25},{name:"Fallback Indonesian",
+lang:"id",fallbackvoice:!0},{name:"Fallback Latin",lang:"la",fallbackvoice:!0,service:"g2"},{name:"Fallback Latvian",lang:"lv",fallbackvoice:!0},{name:"Fallback Macedonian",lang:"mk",fallbackvoice:!0},{name:"Fallback Moldavian",lang:"mo",fallbackvoice:!0,service:"g2"},{name:"Fallback Montenegrin",lang:"sr-ME",fallbackvoice:!0},{name:"Agata Compact"},{name:"Zosia"},{name:"pl-PL",rate:.25},{name:"Fallback Polish",lang:"pl",fallbackvoice:!0},{name:"Raquel Compact"},{name:"Luciana"},{name:"pt-BR",rate:.25},
+{name:"Fallback Brazilian Portugese",lang:"pt-BR",fallbackvoice:!0,service:"g2"},{name:"Joana Compact"},{name:"Joana"},{name:"pt-PT",rate:.25},{name:"Fallback Portuguese",lang:"pt-PT",fallbackvoice:!0},{name:"Fallback Serbo-Croation",lang:"sh",fallbackvoice:!0,service:"g2"},{name:"Laura Compact"},{name:"Laura"},{name:"sk-SK",rate:.25},{name:"Fallback Slovak",lang:"sk",fallbackvoice:!0,service:"g2"},{name:"Javier Compact"},{name:"Paulina"},{name:"es-MX",rate:.25},{name:"Fallback Spanish (Latin American)",
+lang:"es-419",fallbackvoice:!0,service:"g2"},{name:"Fallback Swahili",lang:"sw",fallbackvoice:!0},{name:"Fallback Tamil",lang:"ta",fallbackvoice:!0},{name:"Narisa Compact"},{name:"Kanya"},{name:"th-TH",rate:.25},{name:"Fallback Thai",lang:"th",fallbackvoice:!0},{name:"Fallback Vietnamese",lang:"vi",fallbackvoice:!0},{name:"Fallback Welsh",lang:"cy",fallbackvoice:!0},{name:"Oskar Compact"},{name:"sv-SE",rate:.25},{name:"Simona Compact"},{name:"Ioana"},{name:"ro-RO",rate:.25},{name:"Kyoko"},{name:"Lekha"},
+{name:"Ting-Ting"},{name:"Yuna"},{name:"Xander Compact"},{name:"nl-NL",rate:.25},{name:"Fallback UK English Male",lang:"en-GB",fallbackvoice:!0,service:"g1",voicename:"rjs"},{name:"Finnish Male",lang:"fi",fallbackvoice:!0,service:"g1",voicename:""},{name:"Czech Male",lang:"cs",fallbackvoice:!0,service:"g1",voicename:""},{name:"Danish Male",lang:"da",fallbackvoice:!0,service:"g1",voicename:""},{name:"Greek Male",lang:"el",fallbackvoice:!0,service:"g1",voicename:"",rate:.25},{name:"Hungarian Male",
+lang:"hu",fallbackvoice:!0,service:"g1",voicename:""},{name:"Latin Male",lang:"la",fallbackvoice:!0,service:"g1",voicename:""},{name:"Norwegian Male",lang:"no",fallbackvoice:!0,service:"g1",voicename:""},{name:"Slovak Male",lang:"sk",fallbackvoice:!0,service:"g1",voicename:""},{name:"Swedish Male",lang:"sv",fallbackvoice:!0,service:"g1",voicename:""},{name:"Fallback US English Male",lang:"en",fallbackvoice:!0,service:"tts-api",voicename:""},{name:"German Germany",lang:"de_DE"},{name:"English United Kingdom",
+lang:"en_GB"},{name:"English India",lang:"en_IN"},{name:"English United States",lang:"en_US"},{name:"Spanish Spain",lang:"es_ES"},{name:"Spanish Mexico",lang:"es_MX"},{name:"Spanish United States",lang:"es_US"},{name:"French Belgium",lang:"fr_BE"},{name:"French France",lang:"fr_FR"},{name:"Hindi India",lang:"hi_IN"},{name:"Indonesian Indonesia",lang:"in_ID"},{name:"Italian Italy",lang:"it_IT"},{name:"Japanese Japan",lang:"ja_JP"},{name:"Korean South Korea",lang:"ko_KR"},{name:"Dutch Netherlands",
+lang:"nl_NL"},{name:"Polish Poland",lang:"pl_PL"},{name:"Portuguese Brazil",lang:"pt_BR"},{name:"Portuguese Portugal",lang:"pt_PT"},{name:"Russian Russia",lang:"ru_RU"},{name:"Thai Thailand",lang:"th_TH"},{name:"Turkish Turkey",lang:"tr_TR"},{name:"Chinese China",lang:"zh_CN_#Hans"},{name:"Chinese Hong Kong",lang:"zh_HK_#Hans"},{name:"Chinese Hong Kong",lang:"zh_HK_#Hant"},{name:"Chinese Taiwan",lang:"zh_TW_#Hant"},{name:"Alex"},{name:"Maged",lang:"ar-SA"},{name:"Zuzana",lang:"cs-CZ"},{name:"Sara",
+lang:"da-DK"},{name:"Anna",lang:"de-DE"},{name:"Melina",lang:"el-GR"},{name:"Karen",lang:"en-AU"},{name:"Daniel",lang:"en-GB"},{name:"Moira",lang:"en-IE"},{name:"Samantha (Enhanced)",lang:"en-US"},{name:"Samantha",lang:"en-US"},{name:"Tessa",lang:"en-ZA"},{name:"Monica",lang:"es-ES"},{name:"Paulina",lang:"es-MX"},{name:"Satu",lang:"fi-FI"},{name:"Amelie",lang:"fr-CA"},{name:"Thomas",lang:"fr-FR"},{name:"Carmit",lang:"he-IL"},{name:"Lekha",lang:"hi-IN"},{name:"Mariska",lang:"hu-HU"},{name:"Damayanti",
+lang:"id-ID"},{name:"Alice",lang:"it-IT"},{name:"Kyoko",lang:"ja-JP"},{name:"Yuna",lang:"ko-KR"},{name:"Ellen",lang:"nl-BE"},{name:"Xander",lang:"nl-NL"},{name:"Nora",lang:"no-NO"},{name:"Zosia",lang:"pl-PL"},{name:"Luciana",lang:"pt-BR"},{name:"Joana",lang:"pt-PT"},{name:"Ioana",lang:"ro-RO"},{name:"Milena",lang:"ru-RU"},{name:"Laura",lang:"sk-SK"},{name:"Alva",lang:"sv-SE"},{name:"Kanya",lang:"th-TH"},{name:"Yelda",lang:"tr-TR"},{name:"Ting-Ting",lang:"zh-CN"},{name:"Sin-Ji",lang:"zh-HK"},{name:"Mei-Jia",
+lang:"zh-TW"}];a.iOS=/(iPad|iPhone|iPod)/g.test(navigator.userAgent);a.iOS9=/(iphone|ipod|ipad).* os 9_/.test(navigator.userAgent.toLowerCase());a.is_chrome=-1<navigator.userAgent.indexOf("Chrome");a.is_safari=-1<navigator.userAgent.indexOf("Safari");a.is_chrome&&a.is_safari&&(a.is_safari=!1);a.is_opera=!!window.opera||0<=navigator.userAgent.indexOf(" OPR/");a.is_android=-1<navigator.userAgent.toLowerCase().indexOf("android");a.iOS_initialized=!1;a.iOS9_initialized=!1;a.cache_ios_voices=[{name:"he-IL",
+voiceURI:"he-IL",lang:"he-IL"},{name:"th-TH",voiceURI:"th-TH",lang:"th-TH"},{name:"pt-BR",voiceURI:"pt-BR",lang:"pt-BR"},{name:"sk-SK",voiceURI:"sk-SK",lang:"sk-SK"},{name:"fr-CA",voiceURI:"fr-CA",lang:"fr-CA"},{name:"ro-RO",voiceURI:"ro-RO",lang:"ro-RO"},{name:"no-NO",voiceURI:"no-NO",lang:"no-NO"},{name:"fi-FI",voiceURI:"fi-FI",lang:"fi-FI"},{name:"pl-PL",voiceURI:"pl-PL",lang:"pl-PL"},{name:"de-DE",voiceURI:"de-DE",lang:"de-DE"},{name:"nl-NL",voiceURI:"nl-NL",lang:"nl-NL"},{name:"id-ID",voiceURI:"id-ID",
+lang:"id-ID"},{name:"tr-TR",voiceURI:"tr-TR",lang:"tr-TR"},{name:"it-IT",voiceURI:"it-IT",lang:"it-IT"},{name:"pt-PT",voiceURI:"pt-PT",lang:"pt-PT"},{name:"fr-FR",voiceURI:"fr-FR",lang:"fr-FR"},{name:"ru-RU",voiceURI:"ru-RU",lang:"ru-RU"},{name:"es-MX",voiceURI:"es-MX",lang:"es-MX"},{name:"zh-HK",voiceURI:"zh-HK",lang:"zh-HK"},{name:"sv-SE",voiceURI:"sv-SE",lang:"sv-SE"},{name:"hu-HU",voiceURI:"hu-HU",lang:"hu-HU"},{name:"zh-TW",voiceURI:"zh-TW",lang:"zh-TW"},{name:"es-ES",voiceURI:"es-ES",lang:"es-ES"},
+{name:"zh-CN",voiceURI:"zh-CN",lang:"zh-CN"},{name:"nl-BE",voiceURI:"nl-BE",lang:"nl-BE"},{name:"en-GB",voiceURI:"en-GB",lang:"en-GB"},{name:"ar-SA",voiceURI:"ar-SA",lang:"ar-SA"},{name:"ko-KR",voiceURI:"ko-KR",lang:"ko-KR"},{name:"cs-CZ",voiceURI:"cs-CZ",lang:"cs-CZ"},{name:"en-ZA",voiceURI:"en-ZA",lang:"en-ZA"},{name:"en-AU",voiceURI:"en-AU",lang:"en-AU"},{name:"da-DK",voiceURI:"da-DK",lang:"da-DK"},{name:"en-US",voiceURI:"en-US",lang:"en-US"},{name:"en-IE",voiceURI:"en-IE",lang:"en-IE"},{name:"hi-IN",
+voiceURI:"hi-IN",lang:"hi-IN"},{name:"el-GR",voiceURI:"el-GR",lang:"el-GR"},{name:"ja-JP",voiceURI:"ja-JP",lang:"ja-JP"}];a.cache_ios9_voices=[{name:"Maged",voiceURI:"com.apple.ttsbundle.Maged-compact",lang:"ar-SA",localService:!0,"default":!0},{name:"Zuzana",voiceURI:"com.apple.ttsbundle.Zuzana-compact",lang:"cs-CZ",localService:!0,"default":!0},{name:"Sara",voiceURI:"com.apple.ttsbundle.Sara-compact",lang:"da-DK",localService:!0,"default":!0},{name:"Anna",voiceURI:"com.apple.ttsbundle.Anna-compact",
+lang:"de-DE",localService:!0,"default":!0},{name:"Melina",voiceURI:"com.apple.ttsbundle.Melina-compact",lang:"el-GR",localService:!0,"default":!0},{name:"Karen",voiceURI:"com.apple.ttsbundle.Karen-compact",lang:"en-AU",localService:!0,"default":!0},{name:"Daniel",voiceURI:"com.apple.ttsbundle.Daniel-compact",lang:"en-GB",localService:!0,"default":!0},{name:"Moira",voiceURI:"com.apple.ttsbundle.Moira-compact",lang:"en-IE",localService:!0,"default":!0},{name:"Samantha (Enhanced)",voiceURI:"com.apple.ttsbundle.Samantha-premium",
+lang:"en-US",localService:!0,"default":!0},{name:"Samantha",voiceURI:"com.apple.ttsbundle.Samantha-compact",lang:"en-US",localService:!0,"default":!0},{name:"Tessa",voiceURI:"com.apple.ttsbundle.Tessa-compact",lang:"en-ZA",localService:!0,"default":!0},{name:"Monica",voiceURI:"com.apple.ttsbundle.Monica-compact",lang:"es-ES",localService:!0,"default":!0},{name:"Paulina",voiceURI:"com.apple.ttsbundle.Paulina-compact",lang:"es-MX",localService:!0,"default":!0},{name:"Satu",voiceURI:"com.apple.ttsbundle.Satu-compact",
+lang:"fi-FI",localService:!0,"default":!0},{name:"Amelie",voiceURI:"com.apple.ttsbundle.Amelie-compact",lang:"fr-CA",localService:!0,"default":!0},{name:"Thomas",voiceURI:"com.apple.ttsbundle.Thomas-compact",lang:"fr-FR",localService:!0,"default":!0},{name:"Carmit",voiceURI:"com.apple.ttsbundle.Carmit-compact",lang:"he-IL",localService:!0,"default":!0},{name:"Lekha",voiceURI:"com.apple.ttsbundle.Lekha-compact",lang:"hi-IN",localService:!0,"default":!0},{name:"Mariska",voiceURI:"com.apple.ttsbundle.Mariska-compact",
+lang:"hu-HU",localService:!0,"default":!0},{name:"Damayanti",voiceURI:"com.apple.ttsbundle.Damayanti-compact",lang:"id-ID",localService:!0,"default":!0},{name:"Alice",voiceURI:"com.apple.ttsbundle.Alice-compact",lang:"it-IT",localService:!0,"default":!0},{name:"Kyoko",voiceURI:"com.apple.ttsbundle.Kyoko-compact",lang:"ja-JP",localService:!0,"default":!0},{name:"Yuna",voiceURI:"com.apple.ttsbundle.Yuna-compact",lang:"ko-KR",localService:!0,"default":!0},{name:"Ellen",voiceURI:"com.apple.ttsbundle.Ellen-compact",
+lang:"nl-BE",localService:!0,"default":!0},{name:"Xander",voiceURI:"com.apple.ttsbundle.Xander-compact",lang:"nl-NL",localService:!0,"default":!0},{name:"Nora",voiceURI:"com.apple.ttsbundle.Nora-compact",lang:"no-NO",localService:!0,"default":!0},{name:"Zosia",voiceURI:"com.apple.ttsbundle.Zosia-compact",lang:"pl-PL",localService:!0,"default":!0},{name:"Luciana",voiceURI:"com.apple.ttsbundle.Luciana-compact",lang:"pt-BR",localService:!0,"default":!0},{name:"Joana",voiceURI:"com.apple.ttsbundle.Joana-compact",
+lang:"pt-PT",localService:!0,"default":!0},{name:"Ioana",voiceURI:"com.apple.ttsbundle.Ioana-compact",lang:"ro-RO",localService:!0,"default":!0},{name:"Milena",voiceURI:"com.apple.ttsbundle.Milena-compact",lang:"ru-RU",localService:!0,"default":!0},{name:"Laura",voiceURI:"com.apple.ttsbundle.Laura-compact",lang:"sk-SK",localService:!0,"default":!0},{name:"Alva",voiceURI:"com.apple.ttsbundle.Alva-compact",lang:"sv-SE",localService:!0,"default":!0},{name:"Kanya",voiceURI:"com.apple.ttsbundle.Kanya-compact",
+lang:"th-TH",localService:!0,"default":!0},{name:"Yelda",voiceURI:"com.apple.ttsbundle.Yelda-compact",lang:"tr-TR",localService:!0,"default":!0},{name:"Ting-Ting",voiceURI:"com.apple.ttsbundle.Ting-Ting-compact",lang:"zh-CN",localService:!0,"default":!0},{name:"Sin-Ji",voiceURI:"com.apple.ttsbundle.Sin-Ji-compact",lang:"zh-HK",localService:!0,"default":!0},{name:"Mei-Jia",voiceURI:"com.apple.ttsbundle.Mei-Jia-compact",lang:"zh-TW",localService:!0,"default":!0}];a.systemvoices=null;a.CHARACTER_LIMIT=
+100;a.VOICESUPPORT_ATTEMPTLIMIT=5;a.voicesupport_attempts=0;a.fallbackMode=!1;a.WORDS_PER_MINUTE=130;a.fallback_parts=null;a.fallback_part_index=0;a.fallback_audio=null;a.fallback_playbackrate=1;a.def_fallback_playbackrate=a.fallback_playbackrate;a.fallback_audiopool=[];a.msgparameters=null;a.timeoutId=null;a.OnLoad_callbacks=[];a.useTimer=!1;a.utterances=[];a.tstCompiled=function(a){return eval("typeof xy === 'undefined'")};a.fallbackServicePath="https://code.responsivevoice.org/"+(a.tstCompiled()?
+"":"develop/")+"getvoice.php";a.default_rv=a.responsivevoices[0];a.init=function(){a.is_android&&(a.useTimer=!0);a.is_opera||"undefined"===typeof speechSynthesis?(console.log("RV: Voice synthesis not supported"),a.enableFallbackMode()):setTimeout(function(){var b=setInterval(function(){var c=window.speechSynthesis.getVoices();0!=c.length||null!=a.systemvoices&&0!=a.systemvoices.length?(console.log("RV: Voice support ready"),a.systemVoicesReady(c),clearInterval(b)):(console.log("Voice support NOT ready"),
+a.voicesupport_attempts++,a.voicesupport_attempts>a.VOICESUPPORT_ATTEMPTLIMIT&&(clearInterval(b),null!=window.speechSynthesis?a.iOS?(a.iOS9?a.systemVoicesReady(a.cache_ios9_voices):a.systemVoicesReady(a.cache_ios_voices),console.log("RV: Voice support ready (cached)")):(console.log("RV: speechSynthesis present but no system voices found"),a.enableFallbackMode()):a.enableFallbackMode()))},100)},100);a.Dispatch("OnLoad")};a.systemVoicesReady=function(b){a.systemvoices=b;a.mapRVs();null!=a.OnVoiceReady&&
+a.OnVoiceReady.call();a.Dispatch("OnReady");window.hasOwnProperty("dispatchEvent")&&window.dispatchEvent(new Event("ResponsiveVoice_OnReady"))};a.enableFallbackMode=function(){a.fallbackMode=!0;console.log("RV: Enabling fallback mode");a.mapRVs();null!=a.OnVoiceReady&&a.OnVoiceReady.call();a.Dispatch("OnReady");window.hasOwnProperty("dispatchEvent")&&window.dispatchEvent(new Event("ResponsiveVoice_OnReady"))};a.getVoices=function(){for(var b=[],c=0;c<a.responsivevoices.length;c++)b.push({name:a.responsivevoices[c].name});
+return b};a.speak=function(b,c,f){if(a.iOS9&&!a.iOS9_initialized)console.log("Initializing ios9"),setTimeout(function(){a.speak(b,c,f)},100),a.clickEvent(),a.iOS9_initialized=!0;else{a.isPlaying()&&(console.log("Cancelling previous speech"),a.cancel());a.fallbackMode&&0<a.fallback_audiopool.length&&a.clearFallbackPool();b=b.replace(/[\"\`]/gm,"'");a.msgparameters=f||{};a.msgtext=b;a.msgvoicename=c;a.onstartFired=!1;var h=[];if(b.length>a.CHARACTER_LIMIT){for(var e=b;e.length>a.CHARACTER_LIMIT;){var g=
+e.search(/[:!?.;]+/),d="";if(-1==g||g>=a.CHARACTER_LIMIT)g=e.search(/[,]+/);-1==g&&-1==e.search(" ")&&(g=99);if(-1==g||g>=a.CHARACTER_LIMIT)for(var k=e.split(" "),g=0;g<k.length&&!(d.length+k[g].length+1>a.CHARACTER_LIMIT);g++)d+=(0!=g?" ":"")+k[g];else d=e.substr(0,g+1);e=e.substr(d.length,e.length-d.length);h.push(d)}0<e.length&&h.push(e)}else h.push(b);a.multipartText=h;g=null==c?a.default_rv:a.getResponsiveVoice(c);!0===g.deprecated&&console.warn("ResponsiveVoice: Voice "+g.name+" is deprecated and will be removed in future releases");
+e={};if(null!=g.mappedProfile)e=g.mappedProfile;else if(e.systemvoice=a.getMatchedVoice(g),e.collectionvoice={},null==e.systemvoice){console.log("RV: ERROR: No voice found for: "+c+" "+JSON.stringify(g));return}1==e.collectionvoice.fallbackvoice?(a.fallbackMode=!0,a.fallback_parts=[]):a.fallbackMode=!1;a.msgprofile=e;a.utterances=[];for(g=0;g<h.length;g++)if(a.fallbackMode){a.fallback_playbackrate=a.def_fallback_playbackrate;var d=a.selectBest([e.collectionvoice.pitch,e.systemvoice.pitch,1]),k=a.selectBest([a.iOS9?1:null,
+e.collectionvoice.rate,e.systemvoice.rate,1]),l=a.selectBest([e.collectionvoice.volume,e.systemvoice.volume,1]);null!=f&&(d*=null!=f.pitch?f.pitch:1,k*=null!=f.rate?f.rate:1,l*=null!=f.volume?f.volume:1);d/=2;k/=2;l*=2;d=Math.min(Math.max(d,0),1);k=Math.min(Math.max(k,0),1);l=Math.min(Math.max(l,0),1);d=a.fallbackServicePath+"?t="+encodeURIComponent(h[g])+"&tl="+(e.collectionvoice.lang||e.systemvoice.lang||"en-US")+"&sv="+(e.collectionvoice.service||e.systemvoice.service||"")+"&vn="+(e.collectionvoice.voicename||
+e.systemvoice.voicename||"")+"&pitch="+d.toString()+"&rate="+k.toString()+"&vol="+l.toString();k=document.createElement("AUDIO");k.src=d;k.playbackRate=a.fallback_playbackrate;k.preload="auto";k.load();a.fallback_parts.push(k)}else d=new SpeechSynthesisUtterance,d.voice=e.systemvoice,d.voiceURI=e.systemvoice.voiceURI,d.volume=a.selectBest([e.collectionvoice.volume,e.systemvoice.volume,1]),d.rate=a.selectBest([a.iOS9?1:null,e.collectionvoice.rate,e.systemvoice.rate,1]),d.pitch=a.selectBest([e.collectionvoice.pitch,
+e.systemvoice.pitch,1]),d.text=h[g],d.lang=a.selectBest([e.collectionvoice.lang,e.systemvoice.lang]),d.rvIndex=g,d.rvTotal=h.length,0==g&&(d.onstart=a.speech_onstart),a.msgparameters.onendcalled=!1,null!=f?(g<h.length-1&&1<h.length?(d.onend=a.onPartEnd,d.hasOwnProperty("addEventListener")&&d.addEventListener("end",a.onPartEnd)):(d.onend=a.speech_onend,d.hasOwnProperty("addEventListener")&&d.addEventListener("end",a.speech_onend)),d.onerror=f.onerror||function(a){console.log("RV: Unknow Error");console.log(a)},
+d.onpause=f.onpause,d.onresume=f.onresume,d.onmark=f.onmark,d.onboundary=f.onboundary||a.onboundary,d.pitch=null!=f.pitch?f.pitch:d.pitch,d.rate=a.iOS?(null!=f.rate?f.rate*f.rate:1)*d.rate:(null!=f.rate?f.rate:1)*d.rate,d.volume=null!=f.volume?f.volume:d.volume):(d.onend=a.speech_onend,d.onerror=function(a){console.log("RV: Unknow Error");console.log(a)}),a.utterances.push(d),0==g&&(a.currentMsg=d),console.log(d),a.tts_speak(d);a.fallbackMode&&(a.fallback_part_index=0,a.fallback_startPart())}};a.startTimeout=
+function(b,c){var f=a.msgprofile.collectionvoice.timerSpeed;null==a.msgprofile.collectionvoice.timerSpeed&&(f=1);if(!(0>=f)){var h=b.split(/\s+/).length,e=(b.match(/[^ ]/igm)||b).length,f=60/a.WORDS_PER_MINUTE*f*1E3*(e/h/5.1)*h;3>h&&(f=4E3);3E3>f&&(f=3E3);a.timeoutId=setTimeout(c,f)}};a.checkAndCancelTimeout=function(){null!=a.timeoutId&&(clearTimeout(a.timeoutId),a.timeoutId=null)};a.speech_timedout=function(){a.cancel();a.cancelled=!1;a.speech_onend()};a.speech_onend=function(){a.checkAndCancelTimeout();
+!0===a.cancelled?a.cancelled=!1:null!=a.msgparameters&&null!=a.msgparameters.onend&&1!=a.msgparameters.onendcalled&&(a.msgparameters.onendcalled=!0,a.msgparameters.onend())};a.speech_onstart=function(){if(!a.onstartFired){a.onstartFired=!0;if(a.iOS||a.is_safari||a.useTimer)a.fallbackMode||a.startTimeout(a.msgtext,a.speech_timedout);a.msgparameters.onendcalled=!1;if(null!=a.msgparameters&&null!=a.msgparameters.onstart)a.msgparameters.onstart()}};a.fallback_startPart=function(){0==a.fallback_part_index&&
+a.speech_onstart();a.fallback_audio=a.fallback_parts[a.fallback_part_index];if(null==a.fallback_audio)console.log("RV: Fallback Audio is not available");else{var b=a.fallback_audio;a.fallback_audiopool.push(b);setTimeout(function(){b.playbackRate=a.fallback_playbackrate},50);b.onloadedmetadata=function(){b.play();b.playbackRate=a.fallback_playbackrate};a.fallback_audio.play();a.fallback_audio.addEventListener("ended",a.fallback_finishPart);a.useTimer&&a.startTimeout(a.multipartText[a.fallback_part_index],
+a.fallback_finishPart)}};a.fallback_finishPart=function(b){a.checkAndCancelTimeout();a.fallback_part_index<a.fallback_parts.length-1?(a.fallback_part_index++,a.fallback_startPart()):a.speech_onend()};a.cancel=function(){a.checkAndCancelTimeout();a.fallbackMode?(null!=a.fallback_audio&&a.fallback_audio.pause(),a.clearFallbackPool()):(a.cancelled=!0,speechSynthesis.cancel())};a.voiceSupport=function(){return"speechSynthesis"in window};a.OnFinishedPlaying=function(b){if(null!=a.msgparameters&&null!=
+a.msgparameters.onend)a.msgparameters.onend()};a.setDefaultVoice=function(b){b=a.getResponsiveVoice(b);null!=b&&(a.default_rv=b)};a.mapRVs=function(){for(var b=0;b<a.responsivevoices.length;b++)for(var c=a.responsivevoices[b],f=0;f<c.voiceIDs.length;f++){var h=a.voicecollection[c.voiceIDs[f]];if(1!=h.fallbackvoice){var e=a.getSystemVoice(h.name);if(null!=e){c.mappedProfile={systemvoice:e,collectionvoice:h};break}}else{c.mappedProfile={systemvoice:{},collectionvoice:h};break}}};a.getMatchedVoice=function(b){for(var c=
+0;c<b.voiceIDs.length;c++){var f=a.getSystemVoice(a.voicecollection[b.voiceIDs[c]].name);if(null!=f)return f}return null};a.getSystemVoice=function(b){if("undefined"===typeof a.systemvoices||null===a.systemvoices)return null;for(var c=0;c<a.systemvoices.length;c++)if(a.systemvoices[c].name==b)return a.systemvoices[c];return null};a.getResponsiveVoice=function(b){for(var c=0;c<a.responsivevoices.length;c++)if(a.responsivevoices[c].name==b)return a.responsivevoices[c];return null};a.Dispatch=function(b){if(a.hasOwnProperty(b+
+"_callbacks")&&null!=a[b+"_callbacks"]&&0<a[b+"_callbacks"].length){for(var c=a[b+"_callbacks"],f=0;f<c.length;f++)c[f]();return!0}var h=b+"_callbacks_timeout",e=b+"_callbacks_timeoutCount";a.hasOwnProperty(h)||(a[e]=10,a[h]=setInterval(function(){--a[e];(a.Dispatch(b)||0>a[e])&&clearTimeout(a[h])},50));return!1};a.AddEventListener=function(b,c){a.hasOwnProperty(b+"_callbacks")||(a[b+"_callbacks"]=[]);a[b+"_callbacks"].push(c)};a.addEventListener=a.AddEventListener;a.clickEvent=function(){if(a.iOS&&
+!a.iOS_initialized){console.log("Initializing iOS click event");var b=new SpeechSynthesisUtterance(" ");speechSynthesis.speak(b);a.iOS_initialized=!0}};a.isPlaying=function(){return a.fallbackMode?null!=a.fallback_audio&&!a.fallback_audio.ended&&!a.fallback_audio.paused:speechSynthesis.speaking};a.clearFallbackPool=function(){for(var b=0;b<a.fallback_audiopool.length;b++)null!=a.fallback_audiopool[b]&&(a.fallback_audiopool[b].pause(),a.fallback_audiopool[b].src="");a.fallback_audiopool=[]};"complete"===
+document.readyState?a.init():document.addEventListener("DOMContentLoaded",function(){a.init()});a.selectBest=function(a){for(var c=0;c<a.length;c++)if(null!=a[c])return a[c];return null};a.pause=function(){a.fallbackMode?null!=a.fallback_audio&&a.fallback_audio.pause():speechSynthesis.pause()};a.resume=function(){a.fallbackMode?null!=a.fallback_audio&&a.fallback_audio.play():speechSynthesis.resume()};a.tts_speak=function(b){setTimeout(function(){a.cancelled=!1;speechSynthesis.speak(b)},.01)};a.setVolume=
+function(b){if(a.isPlaying())if(a.fallbackMode){for(var c=0;c<a.fallback_parts.length;c++)a.fallback_parts[c].volume=b;for(c=0;c<a.fallback_audiopool.length;c++)a.fallback_audiopool[c].volume=b;a.fallback_audio.volume=b}else for(c=0;c<a.utterances.length;c++)a.utterances[c].volume=b};a.onPartEnd=function(b){if(null!=a.msgparameters&&null!=a.msgparameters.onchuckend)a.msgparameters.onchuckend();a.Dispatch("OnPartEnd");b=a.utterances.indexOf(b.utterance);a.currentMsg=a.utterances[b+1]};a.onboundary=
+function(b){console.log("On Boundary");a.iOS&&!a.onstartFired&&a.speech_onstart()}},responsiveVoice=new ResponsiveVoice;module.exports=ResponsiveVoice;
+
+},{}],3:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -916,70 +482,123 @@ module.exports = RCSS;
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <http://lodash.com/license>
  */
-var baseCreateCallback = require('lodash._basecreatecallback'),
-    keys = require('lodash.keys'),
-    objectTypes = require('lodash._objecttypes');
+
+/** Used to pool arrays and objects used internally */
+var arrayPool = [];
+
+module.exports = arrayPool;
+
+},{}],4:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var baseCreate = require('lodash._basecreate'),
+    isObject = require('lodash.isobject'),
+    setBindData = require('lodash._setbinddata'),
+    slice = require('lodash._slice');
 
 /**
- * Assigns own enumerable properties of source object(s) to the destination
- * object. Subsequent sources will overwrite property assignments of previous
- * sources. If a callback is provided it will be executed to produce the
- * assigned values. The callback is bound to `thisArg` and invoked with two
- * arguments; (objectValue, sourceValue).
+ * Used for `Array` method references.
  *
- * @static
- * @memberOf _
- * @type Function
- * @alias extend
- * @category Objects
- * @param {Object} object The destination object.
- * @param {...Object} [source] The source objects.
- * @param {Function} [callback] The function to customize assigning values.
- * @param {*} [thisArg] The `this` binding of `callback`.
- * @returns {Object} Returns the destination object.
- * @example
- *
- * _.assign({ 'name': 'fred' }, { 'employer': 'slate' });
- * // => { 'name': 'fred', 'employer': 'slate' }
- *
- * var defaults = _.partialRight(_.assign, function(a, b) {
- *   return typeof a == 'undefined' ? b : a;
- * });
- *
- * var object = { 'name': 'barney' };
- * defaults(object, { 'name': 'fred', 'employer': 'slate' });
- * // => { 'name': 'barney', 'employer': 'slate' }
+ * Normally `Array.prototype` would suffice, however, using an array literal
+ * avoids issues in Narwhal.
  */
-var assign = function(object, source, guard) {
-  var index, iterable = object, result = iterable;
-  if (!iterable) return result;
-  var args = arguments,
-      argsIndex = 0,
-      argsLength = typeof guard == 'number' ? 2 : args.length;
-  if (argsLength > 3 && typeof args[argsLength - 2] == 'function') {
-    var callback = baseCreateCallback(args[--argsLength - 1], args[argsLength--], 2);
-  } else if (argsLength > 2 && typeof args[argsLength - 1] == 'function') {
-    callback = args[--argsLength];
-  }
-  while (++argsIndex < argsLength) {
-    iterable = args[argsIndex];
-    if (iterable && objectTypes[typeof iterable]) {
-    var ownIndex = -1,
-        ownProps = objectTypes[typeof iterable] && keys(iterable),
-        length = ownProps ? ownProps.length : 0;
+var arrayRef = [];
 
-    while (++ownIndex < length) {
-      index = ownProps[ownIndex];
-      result[index] = callback ? callback(result[index], iterable[index]) : iterable[index];
+/** Native method shortcuts */
+var push = arrayRef.push;
+
+/**
+ * The base implementation of `_.bind` that creates the bound function and
+ * sets its meta data.
+ *
+ * @private
+ * @param {Array} bindData The bind data array.
+ * @returns {Function} Returns the new bound function.
+ */
+function baseBind(bindData) {
+  var func = bindData[0],
+      partialArgs = bindData[2],
+      thisArg = bindData[4];
+
+  function bound() {
+    // `Function#bind` spec
+    // http://es5.github.io/#x15.3.4.5
+    if (partialArgs) {
+      // avoid `arguments` object deoptimizations by using `slice` instead
+      // of `Array.prototype.slice.call` and not assigning `arguments` to a
+      // variable as a ternary expression
+      var args = slice(partialArgs);
+      push.apply(args, arguments);
     }
+    // mimic the constructor's `return` behavior
+    // http://es5.github.io/#x13.2.2
+    if (this instanceof bound) {
+      // ensure `new bound` is an instance of `func`
+      var thisBinding = baseCreate(func.prototype),
+          result = func.apply(thisBinding, args || arguments);
+      return isObject(result) ? result : thisBinding;
     }
+    return func.apply(thisArg, args || arguments);
   }
-  return result
-};
+  setBindData(bound, bindData);
+  return bound;
+}
 
-module.exports = assign;
+module.exports = baseBind;
 
-},{"lodash._basecreatecallback":8,"lodash._objecttypes":29,"lodash.keys":30}],8:[function(require,module,exports){
+},{"lodash._basecreate":5,"lodash._setbinddata":18,"lodash._slice":20,"lodash.isobject":30}],5:[function(require,module,exports){
+(function (global){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var isNative = require('lodash._isnative'),
+    isObject = require('lodash.isobject'),
+    noop = require('lodash.noop');
+
+/* Native method shortcuts for methods with the same name as other `lodash` methods */
+var nativeCreate = isNative(nativeCreate = Object.create) && nativeCreate;
+
+/**
+ * The base implementation of `_.create` without support for assigning
+ * properties to the created object.
+ *
+ * @private
+ * @param {Object} prototype The object to inherit from.
+ * @returns {Object} Returns the new object.
+ */
+function baseCreate(prototype, properties) {
+  return isObject(prototype) ? nativeCreate(prototype) : {};
+}
+// fallback for browsers without `Object.create`
+if (!nativeCreate) {
+  baseCreate = (function() {
+    function Object() {}
+    return function(prototype) {
+      if (isObject(prototype)) {
+        Object.prototype = prototype;
+        var result = new Object;
+        Object.prototype = null;
+      }
+      return result || global.Object();
+    };
+  }());
+}
+
+module.exports = baseCreate;
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"lodash._isnative":13,"lodash.isobject":30,"lodash.noop":32}],6:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1061,421 +680,7 @@ function baseCreateCallback(func, thisArg, argCount) {
 
 module.exports = baseCreateCallback;
 
-},{"lodash._setbinddata":9,"lodash.bind":12,"lodash.identity":26,"lodash.support":27}],9:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var isNative = require('lodash._isnative'),
-    noop = require('lodash.noop');
-
-/** Used as the property descriptor for `__bindData__` */
-var descriptor = {
-  'configurable': false,
-  'enumerable': false,
-  'value': null,
-  'writable': false
-};
-
-/** Used to set meta data on functions */
-var defineProperty = (function() {
-  // IE 8 only accepts DOM elements
-  try {
-    var o = {},
-        func = isNative(func = Object.defineProperty) && func,
-        result = func(o, o, o) && func;
-  } catch(e) { }
-  return result;
-}());
-
-/**
- * Sets `this` binding data on a given function.
- *
- * @private
- * @param {Function} func The function to set data on.
- * @param {Array} value The data array to set.
- */
-var setBindData = !defineProperty ? noop : function(func, value) {
-  descriptor.value = value;
-  defineProperty(func, '__bindData__', descriptor);
-};
-
-module.exports = setBindData;
-
-},{"lodash._isnative":10,"lodash.noop":11}],10:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-
-/** Used for native method references */
-var objectProto = Object.prototype;
-
-/** Used to resolve the internal [[Class]] of values */
-var toString = objectProto.toString;
-
-/** Used to detect if a method is native */
-var reNative = RegExp('^' +
-  String(toString)
-    .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-    .replace(/toString| for [^\]]+/g, '.*?') + '$'
-);
-
-/**
- * Checks if `value` is a native function.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if the `value` is a native function, else `false`.
- */
-function isNative(value) {
-  return typeof value == 'function' && reNative.test(value);
-}
-
-module.exports = isNative;
-
-},{}],11:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-
-/**
- * A no-operation function.
- *
- * @static
- * @memberOf _
- * @category Utilities
- * @example
- *
- * var object = { 'name': 'fred' };
- * _.noop(object) === undefined;
- * // => true
- */
-function noop() {
-  // no operation performed
-}
-
-module.exports = noop;
-
-},{}],12:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var createWrapper = require('lodash._createwrapper'),
-    slice = require('lodash._slice');
-
-/**
- * Creates a function that, when called, invokes `func` with the `this`
- * binding of `thisArg` and prepends any additional `bind` arguments to those
- * provided to the bound function.
- *
- * @static
- * @memberOf _
- * @category Functions
- * @param {Function} func The function to bind.
- * @param {*} [thisArg] The `this` binding of `func`.
- * @param {...*} [arg] Arguments to be partially applied.
- * @returns {Function} Returns the new bound function.
- * @example
- *
- * var func = function(greeting) {
- *   return greeting + ' ' + this.name;
- * };
- *
- * func = _.bind(func, { 'name': 'fred' }, 'hi');
- * func();
- * // => 'hi fred'
- */
-function bind(func, thisArg) {
-  return arguments.length > 2
-    ? createWrapper(func, 17, slice(arguments, 2), null, thisArg)
-    : createWrapper(func, 1, null, null, thisArg);
-}
-
-module.exports = bind;
-
-},{"lodash._createwrapper":13,"lodash._slice":25}],13:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var baseBind = require('lodash._basebind'),
-    baseCreateWrapper = require('lodash._basecreatewrapper'),
-    isFunction = require('lodash.isfunction'),
-    slice = require('lodash._slice');
-
-/**
- * Used for `Array` method references.
- *
- * Normally `Array.prototype` would suffice, however, using an array literal
- * avoids issues in Narwhal.
- */
-var arrayRef = [];
-
-/** Native method shortcuts */
-var push = arrayRef.push,
-    unshift = arrayRef.unshift;
-
-/**
- * Creates a function that, when called, either curries or invokes `func`
- * with an optional `this` binding and partially applied arguments.
- *
- * @private
- * @param {Function|string} func The function or method name to reference.
- * @param {number} bitmask The bitmask of method flags to compose.
- *  The bitmask may be composed of the following flags:
- *  1 - `_.bind`
- *  2 - `_.bindKey`
- *  4 - `_.curry`
- *  8 - `_.curry` (bound)
- *  16 - `_.partial`
- *  32 - `_.partialRight`
- * @param {Array} [partialArgs] An array of arguments to prepend to those
- *  provided to the new function.
- * @param {Array} [partialRightArgs] An array of arguments to append to those
- *  provided to the new function.
- * @param {*} [thisArg] The `this` binding of `func`.
- * @param {number} [arity] The arity of `func`.
- * @returns {Function} Returns the new function.
- */
-function createWrapper(func, bitmask, partialArgs, partialRightArgs, thisArg, arity) {
-  var isBind = bitmask & 1,
-      isBindKey = bitmask & 2,
-      isCurry = bitmask & 4,
-      isCurryBound = bitmask & 8,
-      isPartial = bitmask & 16,
-      isPartialRight = bitmask & 32;
-
-  if (!isBindKey && !isFunction(func)) {
-    throw new TypeError;
-  }
-  if (isPartial && !partialArgs.length) {
-    bitmask &= ~16;
-    isPartial = partialArgs = false;
-  }
-  if (isPartialRight && !partialRightArgs.length) {
-    bitmask &= ~32;
-    isPartialRight = partialRightArgs = false;
-  }
-  var bindData = func && func.__bindData__;
-  if (bindData && bindData !== true) {
-    // clone `bindData`
-    bindData = slice(bindData);
-    if (bindData[2]) {
-      bindData[2] = slice(bindData[2]);
-    }
-    if (bindData[3]) {
-      bindData[3] = slice(bindData[3]);
-    }
-    // set `thisBinding` is not previously bound
-    if (isBind && !(bindData[1] & 1)) {
-      bindData[4] = thisArg;
-    }
-    // set if previously bound but not currently (subsequent curried functions)
-    if (!isBind && bindData[1] & 1) {
-      bitmask |= 8;
-    }
-    // set curried arity if not yet set
-    if (isCurry && !(bindData[1] & 4)) {
-      bindData[5] = arity;
-    }
-    // append partial left arguments
-    if (isPartial) {
-      push.apply(bindData[2] || (bindData[2] = []), partialArgs);
-    }
-    // append partial right arguments
-    if (isPartialRight) {
-      unshift.apply(bindData[3] || (bindData[3] = []), partialRightArgs);
-    }
-    // merge flags
-    bindData[1] |= bitmask;
-    return createWrapper.apply(null, bindData);
-  }
-  // fast path for `_.bind`
-  var creater = (bitmask == 1 || bitmask === 17) ? baseBind : baseCreateWrapper;
-  return creater([func, bitmask, partialArgs, partialRightArgs, thisArg, arity]);
-}
-
-module.exports = createWrapper;
-
-},{"lodash._basebind":14,"lodash._basecreatewrapper":19,"lodash._slice":25,"lodash.isfunction":24}],14:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var baseCreate = require('lodash._basecreate'),
-    isObject = require('lodash.isobject'),
-    setBindData = require('lodash._setbinddata'),
-    slice = require('lodash._slice');
-
-/**
- * Used for `Array` method references.
- *
- * Normally `Array.prototype` would suffice, however, using an array literal
- * avoids issues in Narwhal.
- */
-var arrayRef = [];
-
-/** Native method shortcuts */
-var push = arrayRef.push;
-
-/**
- * The base implementation of `_.bind` that creates the bound function and
- * sets its meta data.
- *
- * @private
- * @param {Array} bindData The bind data array.
- * @returns {Function} Returns the new bound function.
- */
-function baseBind(bindData) {
-  var func = bindData[0],
-      partialArgs = bindData[2],
-      thisArg = bindData[4];
-
-  function bound() {
-    // `Function#bind` spec
-    // http://es5.github.io/#x15.3.4.5
-    if (partialArgs) {
-      // avoid `arguments` object deoptimizations by using `slice` instead
-      // of `Array.prototype.slice.call` and not assigning `arguments` to a
-      // variable as a ternary expression
-      var args = slice(partialArgs);
-      push.apply(args, arguments);
-    }
-    // mimic the constructor's `return` behavior
-    // http://es5.github.io/#x13.2.2
-    if (this instanceof bound) {
-      // ensure `new bound` is an instance of `func`
-      var thisBinding = baseCreate(func.prototype),
-          result = func.apply(thisBinding, args || arguments);
-      return isObject(result) ? result : thisBinding;
-    }
-    return func.apply(thisArg, args || arguments);
-  }
-  setBindData(bound, bindData);
-  return bound;
-}
-
-module.exports = baseBind;
-
-},{"lodash._basecreate":15,"lodash._setbinddata":9,"lodash._slice":25,"lodash.isobject":18}],15:[function(require,module,exports){
-(function (global){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var isNative = require('lodash._isnative'),
-    isObject = require('lodash.isobject'),
-    noop = require('lodash.noop');
-
-/* Native method shortcuts for methods with the same name as other `lodash` methods */
-var nativeCreate = isNative(nativeCreate = Object.create) && nativeCreate;
-
-/**
- * The base implementation of `_.create` without support for assigning
- * properties to the created object.
- *
- * @private
- * @param {Object} prototype The object to inherit from.
- * @returns {Object} Returns the new object.
- */
-function baseCreate(prototype, properties) {
-  return isObject(prototype) ? nativeCreate(prototype) : {};
-}
-// fallback for browsers without `Object.create`
-if (!nativeCreate) {
-  baseCreate = (function() {
-    function Object() {}
-    return function(prototype) {
-      if (isObject(prototype)) {
-        Object.prototype = prototype;
-        var result = new Object;
-        Object.prototype = null;
-      }
-      return result || global.Object();
-    };
-  }());
-}
-
-module.exports = baseCreate;
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"lodash._isnative":16,"lodash.isobject":18,"lodash.noop":17}],16:[function(require,module,exports){
-arguments[4][10][0].apply(exports,arguments)
-},{"dup":10}],17:[function(require,module,exports){
-arguments[4][11][0].apply(exports,arguments)
-},{"dup":11}],18:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var objectTypes = require('lodash._objecttypes');
-
-/**
- * Checks if `value` is the language type of Object.
- * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
- *
- * @static
- * @memberOf _
- * @category Objects
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if the `value` is an object, else `false`.
- * @example
- *
- * _.isObject({});
- * // => true
- *
- * _.isObject([1, 2, 3]);
- * // => true
- *
- * _.isObject(1);
- * // => false
- */
-function isObject(value) {
-  // check if the value is the ECMAScript language type of Object
-  // http://es5.github.io/#x8
-  // and avoid a V8 bug
-  // http://code.google.com/p/v8/issues/detail?id=2291
-  return !!(value && objectTypes[typeof value]);
-}
-
-module.exports = isObject;
-
-},{"lodash._objecttypes":29}],19:[function(require,module,exports){
+},{"lodash._setbinddata":18,"lodash.bind":22,"lodash.identity":28,"lodash.support":34}],7:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1555,1035 +760,7 @@ function baseCreateWrapper(bindData) {
 
 module.exports = baseCreateWrapper;
 
-},{"lodash._basecreate":20,"lodash._setbinddata":9,"lodash._slice":25,"lodash.isobject":23}],20:[function(require,module,exports){
-arguments[4][15][0].apply(exports,arguments)
-},{"dup":15,"lodash._isnative":21,"lodash.isobject":23,"lodash.noop":22}],21:[function(require,module,exports){
-arguments[4][10][0].apply(exports,arguments)
-},{"dup":10}],22:[function(require,module,exports){
-arguments[4][11][0].apply(exports,arguments)
-},{"dup":11}],23:[function(require,module,exports){
-arguments[4][18][0].apply(exports,arguments)
-},{"dup":18,"lodash._objecttypes":29}],24:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-
-/**
- * Checks if `value` is a function.
- *
- * @static
- * @memberOf _
- * @category Objects
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if the `value` is a function, else `false`.
- * @example
- *
- * _.isFunction(_);
- * // => true
- */
-function isFunction(value) {
-  return typeof value == 'function';
-}
-
-module.exports = isFunction;
-
-},{}],25:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-
-/**
- * Slices the `collection` from the `start` index up to, but not including,
- * the `end` index.
- *
- * Note: This function is used instead of `Array#slice` to support node lists
- * in IE < 9 and to ensure dense arrays are returned.
- *
- * @private
- * @param {Array|Object|string} collection The collection to slice.
- * @param {number} start The start index.
- * @param {number} end The end index.
- * @returns {Array} Returns the new array.
- */
-function slice(array, start, end) {
-  start || (start = 0);
-  if (typeof end == 'undefined') {
-    end = array ? array.length : 0;
-  }
-  var index = -1,
-      length = end - start || 0,
-      result = Array(length < 0 ? 0 : length);
-
-  while (++index < length) {
-    result[index] = array[start + index];
-  }
-  return result;
-}
-
-module.exports = slice;
-
-},{}],26:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-
-/**
- * This method returns the first argument provided to it.
- *
- * @static
- * @memberOf _
- * @category Utilities
- * @param {*} value Any value.
- * @returns {*} Returns `value`.
- * @example
- *
- * var object = { 'name': 'fred' };
- * _.identity(object) === object;
- * // => true
- */
-function identity(value) {
-  return value;
-}
-
-module.exports = identity;
-
-},{}],27:[function(require,module,exports){
-(function (global){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var isNative = require('lodash._isnative');
-
-/** Used to detect functions containing a `this` reference */
-var reThis = /\bthis\b/;
-
-/**
- * An object used to flag environments features.
- *
- * @static
- * @memberOf _
- * @type Object
- */
-var support = {};
-
-/**
- * Detect if functions can be decompiled by `Function#toString`
- * (all but PS3 and older Opera mobile browsers & avoided in Windows 8 apps).
- *
- * @memberOf _.support
- * @type boolean
- */
-support.funcDecomp = !isNative(global.WinRTError) && reThis.test(function() { return this; });
-
-/**
- * Detect if `Function#name` is supported (all but IE).
- *
- * @memberOf _.support
- * @type boolean
- */
-support.funcNames = typeof Function.name == 'string';
-
-module.exports = support;
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"lodash._isnative":28}],28:[function(require,module,exports){
-arguments[4][10][0].apply(exports,arguments)
-},{"dup":10}],29:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-
-/** Used to determine if values are of the language type Object */
-var objectTypes = {
-  'boolean': false,
-  'function': true,
-  'object': true,
-  'number': false,
-  'string': false,
-  'undefined': false
-};
-
-module.exports = objectTypes;
-
-},{}],30:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var isNative = require('lodash._isnative'),
-    isObject = require('lodash.isobject'),
-    shimKeys = require('lodash._shimkeys');
-
-/* Native method shortcuts for methods with the same name as other `lodash` methods */
-var nativeKeys = isNative(nativeKeys = Object.keys) && nativeKeys;
-
-/**
- * Creates an array composed of the own enumerable property names of an object.
- *
- * @static
- * @memberOf _
- * @category Objects
- * @param {Object} object The object to inspect.
- * @returns {Array} Returns an array of property names.
- * @example
- *
- * _.keys({ 'one': 1, 'two': 2, 'three': 3 });
- * // => ['one', 'two', 'three'] (property order is not guaranteed across environments)
- */
-var keys = !nativeKeys ? shimKeys : function(object) {
-  if (!isObject(object)) {
-    return [];
-  }
-  return nativeKeys(object);
-};
-
-module.exports = keys;
-
-},{"lodash._isnative":31,"lodash._shimkeys":32,"lodash.isobject":33}],31:[function(require,module,exports){
-arguments[4][10][0].apply(exports,arguments)
-},{"dup":10}],32:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var objectTypes = require('lodash._objecttypes');
-
-/** Used for native method references */
-var objectProto = Object.prototype;
-
-/** Native method shortcuts */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * A fallback implementation of `Object.keys` which produces an array of the
- * given object's own enumerable property names.
- *
- * @private
- * @type Function
- * @param {Object} object The object to inspect.
- * @returns {Array} Returns an array of property names.
- */
-var shimKeys = function(object) {
-  var index, iterable = object, result = [];
-  if (!iterable) return result;
-  if (!(objectTypes[typeof object])) return result;
-    for (index in iterable) {
-      if (hasOwnProperty.call(iterable, index)) {
-        result.push(index);
-      }
-    }
-  return result
-};
-
-module.exports = shimKeys;
-
-},{"lodash._objecttypes":29}],33:[function(require,module,exports){
-arguments[4][18][0].apply(exports,arguments)
-},{"dup":18,"lodash._objecttypes":29}],34:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var escapeHtmlChar = require('lodash._escapehtmlchar'),
-    keys = require('lodash.keys'),
-    reUnescapedHtml = require('lodash._reunescapedhtml');
-
-/**
- * Converts the characters `&`, `<`, `>`, `"`, and `'` in `string` to their
- * corresponding HTML entities.
- *
- * @static
- * @memberOf _
- * @category Utilities
- * @param {string} string The string to escape.
- * @returns {string} Returns the escaped string.
- * @example
- *
- * _.escape('Fred, Wilma, & Pebbles');
- * // => 'Fred, Wilma, &amp; Pebbles'
- */
-function escape(string) {
-  return string == null ? '' : String(string).replace(reUnescapedHtml, escapeHtmlChar);
-}
-
-module.exports = escape;
-
-},{"lodash._escapehtmlchar":35,"lodash._reunescapedhtml":37,"lodash.keys":39}],35:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var htmlEscapes = require('lodash._htmlescapes');
-
-/**
- * Used by `escape` to convert characters to HTML entities.
- *
- * @private
- * @param {string} match The matched character to escape.
- * @returns {string} Returns the escaped character.
- */
-function escapeHtmlChar(match) {
-  return htmlEscapes[match];
-}
-
-module.exports = escapeHtmlChar;
-
-},{"lodash._htmlescapes":36}],36:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-
-/**
- * Used to convert characters to HTML entities:
- *
- * Though the `>` character is escaped for symmetry, characters like `>` and `/`
- * don't require escaping in HTML and have no special meaning unless they're part
- * of a tag or an unquoted attribute value.
- * http://mathiasbynens.be/notes/ambiguous-ampersands (under "semi-related fun fact")
- */
-var htmlEscapes = {
-  '&': '&amp;',
-  '<': '&lt;',
-  '>': '&gt;',
-  '"': '&quot;',
-  "'": '&#39;'
-};
-
-module.exports = htmlEscapes;
-
-},{}],37:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var htmlEscapes = require('lodash._htmlescapes'),
-    keys = require('lodash.keys');
-
-/** Used to match HTML entities and HTML characters */
-var reUnescapedHtml = RegExp('[' + keys(htmlEscapes).join('') + ']', 'g');
-
-module.exports = reUnescapedHtml;
-
-},{"lodash._htmlescapes":38,"lodash.keys":39}],38:[function(require,module,exports){
-arguments[4][36][0].apply(exports,arguments)
-},{"dup":36}],39:[function(require,module,exports){
-arguments[4][30][0].apply(exports,arguments)
-},{"dup":30,"lodash._isnative":40,"lodash._shimkeys":41,"lodash.isobject":43}],40:[function(require,module,exports){
-arguments[4][10][0].apply(exports,arguments)
-},{"dup":10}],41:[function(require,module,exports){
-arguments[4][32][0].apply(exports,arguments)
-},{"dup":32,"lodash._objecttypes":42}],42:[function(require,module,exports){
-arguments[4][29][0].apply(exports,arguments)
-},{"dup":29}],43:[function(require,module,exports){
-arguments[4][18][0].apply(exports,arguments)
-},{"dup":18,"lodash._objecttypes":44}],44:[function(require,module,exports){
-arguments[4][29][0].apply(exports,arguments)
-},{"dup":29}],45:[function(require,module,exports){
-var _validCSSProps = {
-  'alignment-adjust': true,
-  'alignment-baseline': true,
-  'animation': true,
-  'animation-delay': true,
-  'animation-direction': true,
-  'animation-duration': true,
-  'animation-iteration-count': true,
-  'animation-name': true,
-  'animation-play-state': true,
-  'animation-timing-function': true,
-  'appearance': true,
-  'backface-visibility': true,
-  'background': true,
-  'background-attachment': true,
-  'background-clip': true,
-  'background-color': true,
-  'background-image': true,
-  'background-origin': true,
-  'background-position': true,
-  'background-repeat': true,
-  'background-size': true,
-  'baseline-shift': true,
-  'bookmark-label': true,
-  'bookmark-level': true,
-  'bookmark-target': true,
-  'border': true,
-  'border-bottom': true,
-  'border-bottom-color': true,
-  'border-bottom-left-radius': true,
-  'border-bottom-right-radius': true,
-  'border-bottom-style': true,
-  'border-bottom-width': true,
-  'border-collapse': true,
-  'border-color': true,
-  'border-image': true,
-  'border-image-outset': true,
-  'border-image-repeat': true,
-  'border-image-slice': true,
-  'border-image-source': true,
-  'border-image-width': true,
-  'border-left': true,
-  'border-left-color': true,
-  'border-left-style': true,
-  'border-left-width': true,
-  'border-radius': true,
-  'border-right': true,
-  'border-right-color': true,
-  'border-right-style': true,
-  'border-right-width': true,
-  'border-spacing': true,
-  'border-style': true,
-  'border-top': true,
-  'border-top-color': true,
-  'border-top-left-radius': true,
-  'border-top-right-radius': true,
-  'border-top-style': true,
-  'border-top-width': true,
-  'border-width': true,
-  'bottom': true,
-  'box-align': true,
-  'box-decoration-break': true,
-  'box-direction': true,
-  'box-flex': true,
-  'box-flex-group': true,
-  'box-lines': true,
-  'box-ordinal-group': true,
-  'box-orient': true,
-  'box-pack': true,
-  'box-shadow': true,
-  'box-sizing': true,
-  'caption-side': true,
-  'clear': true,
-  'clip': true,
-  'color': true,
-  'color-profile': true,
-  'column-count': true,
-  'column-fill': true,
-  'column-gap': true,
-  'column-rule': true,
-  'column-rule-color': true,
-  'column-rule-style': true,
-  'column-rule-width': true,
-  'column-span': true,
-  'column-width': true,
-  'columns': true,
-  'content': true,
-  'counter-increment': true,
-  'counter-reset': true,
-  'crop': true,
-  'cursor': true,
-  'direction': true,
-  'display': true,
-  'dominant-baseline': true,
-  'drop-initial-after-adjust': true,
-  'drop-initial-after-align': true,
-  'drop-initial-before-adjust': true,
-  'drop-initial-before-align': true,
-  'drop-initial-size': true,
-  'drop-initial-value': true,
-  'empty-cells': true,
-  'fit': true,
-  'fit-position': true,
-  'float': true,
-  'float-offset': true,
-  'font': true,
-  'font-family': true,
-  'font-size': true,
-  'font-size-adjust': true,
-  'font-stretch': true,
-  'font-style': true,
-  'font-variant': true,
-  'font-weight': true,
-  'grid-columns': true,
-  'grid-rows': true,
-  'hanging-punctuation': true,
-  'height': true,
-  'hyphenate-after': true,
-  'hyphenate-before': true,
-  'hyphenate-character': true,
-  'hyphenate-lines': true,
-  'hyphenate-resource': true,
-  'hyphens': true,
-  'icon': true,
-  'image-orientation': true,
-  'image-resolution': true,
-  'inline-box-align': true,
-  'left': true,
-  'letter-spacing': true,
-  'line-height': true,
-  'line-stacking': true,
-  'line-stacking-ruby': true,
-  'line-stacking-shift': true,
-  'line-stacking-strategy': true,
-  'list-style': true,
-  'list-style-image': true,
-  'list-style-position': true,
-  'list-style-type': true,
-  'margin': true,
-  'margin-bottom': true,
-  'margin-left': true,
-  'margin-right': true,
-  'margin-top': true,
-  'mark': true,
-  'mark-after': true,
-  'mark-before': true,
-  'marks': true,
-  'marquee-direction': true,
-  'marquee-play-count': true,
-  'marquee-speed': true,
-  'marquee-style': true,
-  'max-height': true,
-  'max-width': true,
-  'min-height': true,
-  'min-width': true,
-  'move-to': true,
-  'nav-down': true,
-  'nav-index': true,
-  'nav-left': true,
-  'nav-right': true,
-  'nav-up': true,
-  'opacity': true,
-  'orphans': true,
-  'outline': true,
-  'outline-color': true,
-  'outline-offset': true,
-  'outline-style': true,
-  'outline-width': true,
-  'overflow': true,
-  'overflow-style': true,
-  'overflow-x': true,
-  'overflow-y': true,
-  'padding': true,
-  'padding-bottom': true,
-  'padding-left': true,
-  'padding-right': true,
-  'padding-top': true,
-  'page': true,
-  'page-break-after': true,
-  'page-break-before': true,
-  'page-break-inside': true,
-  'page-policy': true,
-  'perspective': true,
-  'perspective-origin': true,
-  'phonemes': true,
-  'position': true,
-  'punctuation-trim': true,
-  'quotes': true,
-  'rendering-intent': true,
-  'resize': true,
-  'rest': true,
-  'rest-after': true,
-  'rest-before': true,
-  'right': true,
-  'rotation': true,
-  'rotation-point': true,
-  'ruby-align': true,
-  'ruby-overhang': true,
-  'ruby-position': true,
-  'ruby-span': true,
-  'size': true,
-  'string-set': true,
-  'table-layout': true,
-  'target': true,
-  'target-name': true,
-  'target-new': true,
-  'target-position': true,
-  'text-align': true,
-  'text-align-last': true,
-  'text-decoration': true,
-  'text-height': true,
-  'text-indent': true,
-  'text-justify': true,
-  'text-outline': true,
-  'text-overflow': true,
-  'text-shadow': true,
-  'text-transform': true,
-  'text-wrap': true,
-  'top': true,
-  'transform': true,
-  'transform-origin': true,
-  'transform-style': true,
-  'transition': true,
-  'transition-delay': true,
-  'transition-duration': true,
-  'transition-property': true,
-  'transition-timing-function': true,
-  'unicode-bidi': true,
-  'user-select': true,
-  'vertical-align': true,
-  'visibility': true,
-  'voice-balance': true,
-  'voice-duration': true,
-  'voice-pitch': true,
-  'voice-pitch-range': true,
-  'voice-rate': true,
-  'voice-stress': true,
-  'voice-volume': true,
-  'white-space': true,
-  'widows': true,
-  'width': true,
-  'word-break': true,
-  'word-spacing': true,
-  'word-wrap': true,
-  'z-index': true
-}
-
-var vendorPrefixRegEx = /^-.+-/;
-
-module.exports = function(prop) {
-  if (prop[0] === '-') {
-    return !!_validCSSProps[prop.replace(vendorPrefixRegEx, '')];
-  }
-  return !!_validCSSProps[prop];
-};
-
-},{}],46:[function(require,module,exports){
-var every = require('lodash.every');
-
-function isValidRatio(ratio) {
-    var re = /\d+\/\d+/;
-    return !!ratio.match(re);
-}
-
-function isValidInteger(integer) {
-    var re = /\d+/;
-    return !!integer.match(re);
-}
-
-function isValidLength(length) {
-    var re = /\d+(?:ex|em|ch|rem|vh|vw|vmin|vmax|px|mm|cm|in|pt|pc)?$/;
-    return !!length.match(re);
-}
-
-function isValidOrientation(orientation) {
-    return orientation === 'landscape' || orientation === 'portrait';
-}
-
-function isValidScan(scan) {
-    return scan === 'progressive' || scan === 'interlace';
-}
-
-function isValidResolution(resolution) {
-    var re = /(?:\+|-)?(?:\d+|\d*\.\d+)(?:e\d+)?(?:dpi|dpcm|dppx)$/;
-    return !!resolution.match(re);
-}
-
-function isValidValue(value) {
-  return value != null && typeof value !== 'boolean' && value !== '';
-}
-
-var _mediaFeatureValidator = {
-    'width': isValidLength,
-    'min-width': isValidLength,
-    'max-width': isValidLength,
-    'height': isValidLength,
-    'min-height': isValidLength,
-    'max-height': isValidLength,
-    'device-width': isValidLength,
-    'min-device-width': isValidLength,
-    'max-device-width': isValidLength,
-    'device-height': isValidLength,
-    'min-device-height': isValidLength,
-    'max-device-height': isValidLength,
-    'aspect-ratio': isValidRatio,
-    'min-aspect-ratio': isValidRatio,
-    'max-aspect-ratio': isValidRatio,
-    'device-aspect-ratio': isValidRatio,
-    'min-device-aspect-ratio': isValidRatio,
-    'max-device-aspect-ratio': isValidRatio,
-    'color': isValidValue,
-    'min-color': isValidValue,
-    'max-color': isValidValue,
-    'color-index': isValidInteger,
-    'min-color-index': isValidInteger,
-    'max-color-index': isValidInteger,
-    'monochrome': isValidInteger,
-    'min-monochrome': isValidInteger,
-    'max-monochrome': isValidInteger,
-    'resolution': isValidResolution,
-    'min-resolution': isValidResolution,
-    'max-resolution': isValidResolution,
-    'scan': isValidScan,
-    'grid': isValidInteger,
-    'orientation': isValidOrientation
-};
-
-var _validMediaFeatures = {
-    'width': true,
-    'min-width': true,
-    'max-width': true,
-    'height': true,
-    'min-height': true,
-    'max-height': true,
-    'device-width': true,
-    'min-device-width': true,
-    'max-device-width': true,
-    'device-height': true,
-    'min-device-height': true,
-    'max-device-height': true,
-    'aspect-ratio': true,
-    'min-aspect-ratio': true,
-    'max-aspect-ratio': true,
-    'device-aspect-ratio': true,
-    'min-device-aspect-ratio': true,
-    'max-device-aspect-ratio': true,
-    'color': true,
-    'min-color': true,
-    'max-color': true,
-    'color-index': true,
-    'min-color-index': true,
-    'max-color-index': true,
-    'monochrome': true,
-    'min-monochrome': true,
-    'max-monochrome': true,
-    'resolution': true,
-    'min-resolution': true,
-    'max-resolution': true,
-    'scan': true,
-    'grid': true,
-    'orientation': true
-};
-
-var _validMediaTypes = {
-    'all': true,
-    'aural': true,
-    'braille': true,
-    'handheld': true,
-    'print': true,
-    'projection': true,
-    'screen': true,
-    'tty': true,
-    'tv': true,
-    'embossed': true
-};
-
-var _validQualifiers = {
-    'not': true,
-    'only': true
-};
-
-function isValidFeature(feature) {
-    return !!_validMediaFeatures[feature];
-}
-
-function isValidQualifier(qualifier) {
-    return !!_validQualifiers[qualifier];
-}
-
-function isValidMediaType(mediaType) {
-    return !!_validMediaTypes[mediaType];
-}
-
-function isValidQualifiedMediaType(mediaType) {
-    var terms = mediaType.trim().split(/\s+/);
-    switch (terms.length) {
-        case 1:
-            return isValidMediaType(terms[0]);
-        case 2:
-            return isValidQualifier(terms[0]) && isValidMediaType(terms[1]);
-        default:
-            return false;
-    }
-}
-
-function isValidExpression(expression) {
-    if (expression.length < 2) {
-        return false;
-    }
-
-    // Parentheses are required around expressions
-    if (expression[0] !== '(' || expression[expression.length - 1] !== ')') {
-        return false;
-    }
-
-    // Remove parentheses and spacess
-    expression = expression.substring(1, expression.length - 1);
-
-    // Is there a value to accompany the media feature?
-    var featureAndValue = expression.split(/\s*:\s*/);
-    switch (featureAndValue.length) {
-        case 1:
-            var feature = featureAndValue[0].trim();
-            return isValidFeature(feature);
-        case 2:
-            var feature = featureAndValue[0].trim();
-            var value = featureAndValue[1].trim();
-            return isValidFeature(feature) &&
-                   _mediaFeatureValidator[feature](value);
-        default:
-            return false;
-    }
-}
-
-function isValidMediaQuery(query) {
-    var andSplitter = /\s+and\s+/;
-    var queryTerms = query.split(andSplitter);
-    return (isValidQualifiedMediaType(queryTerms[0]) ||
-        isValidExpression(queryTerms[0])) &&
-        every(queryTerms.slice(1), isValidExpression);
-}
-
-function isValidMediaQueryList(mediaQuery) {
-    mediaQuery = mediaQuery.toLowerCase();
-
-    if (mediaQuery.substring(0, 6) !== '@media') {
-        return false;
-    }
-
-    var commaSplitter = /\s*,\s*/;
-    var queryList = mediaQuery.substring(7, mediaQuery.length)
-                              .split(commaSplitter);
-    return every(queryList, isValidMediaQuery);
-}
-
-module.exports = isValidMediaQueryList
-
-},{"lodash.every":47}],47:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var createCallback = require('lodash.createcallback'),
-    forOwn = require('lodash.forown');
-
-/**
- * Checks if the given callback returns truey value for **all** elements of
- * a collection. The callback is bound to `thisArg` and invoked with three
- * arguments; (value, index|key, collection).
- *
- * If a property name is provided for `callback` the created "_.pluck" style
- * callback will return the property value of the given element.
- *
- * If an object is provided for `callback` the created "_.where" style callback
- * will return `true` for elements that have the properties of the given object,
- * else `false`.
- *
- * @static
- * @memberOf _
- * @alias all
- * @category Collections
- * @param {Array|Object|string} collection The collection to iterate over.
- * @param {Function|Object|string} [callback=identity] The function called
- *  per iteration. If a property name or object is provided it will be used
- *  to create a "_.pluck" or "_.where" style callback, respectively.
- * @param {*} [thisArg] The `this` binding of `callback`.
- * @returns {boolean} Returns `true` if all elements passed the callback check,
- *  else `false`.
- * @example
- *
- * _.every([true, 1, null, 'yes']);
- * // => false
- *
- * var characters = [
- *   { 'name': 'barney', 'age': 36 },
- *   { 'name': 'fred',   'age': 40 }
- * ];
- *
- * // using "_.pluck" callback shorthand
- * _.every(characters, 'age');
- * // => true
- *
- * // using "_.where" callback shorthand
- * _.every(characters, { 'age': 36 });
- * // => false
- */
-function every(collection, callback, thisArg) {
-  var result = true;
-  callback = createCallback(callback, thisArg, 3);
-
-  var index = -1,
-      length = collection ? collection.length : 0;
-
-  if (typeof length == 'number') {
-    while (++index < length) {
-      if (!(result = !!callback(collection[index], index, collection))) {
-        break;
-      }
-    }
-  } else {
-    forOwn(collection, function(value, index, collection) {
-      return (result = !!callback(value, index, collection));
-    });
-  }
-  return result;
-}
-
-module.exports = every;
-
-},{"lodash.createcallback":48,"lodash.forown":84}],48:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.4 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-var baseCreateCallback = require('lodash._basecreatecallback'),
-    baseIsEqual = require('lodash._baseisequal'),
-    isObject = require('lodash.isobject'),
-    keys = require('lodash.keys'),
-    property = require('lodash.property');
-
-/**
- * Produces a callback bound to an optional `thisArg`. If `func` is a property
- * name the created callback will return the property value for a given element.
- * If `func` is an object the created callback will return `true` for elements
- * that contain the equivalent object properties, otherwise it will return `false`.
- *
- * @static
- * @memberOf _
- * @category Utilities
- * @param {*} [func=identity] The value to convert to a callback.
- * @param {*} [thisArg] The `this` binding of the created callback.
- * @param {number} [argCount] The number of arguments the callback accepts.
- * @returns {Function} Returns a callback function.
- * @example
- *
- * var characters = [
- *   { 'name': 'barney', 'age': 36 },
- *   { 'name': 'fred',   'age': 40 }
- * ];
- *
- * // wrap to create custom callback shorthands
- * _.createCallback = _.wrap(_.createCallback, function(func, callback, thisArg) {
- *   var match = /^(.+?)__([gl]t)(.+)$/.exec(callback);
- *   return !match ? func(callback, thisArg) : function(object) {
- *     return match[2] == 'gt' ? object[match[1]] > match[3] : object[match[1]] < match[3];
- *   };
- * });
- *
- * _.filter(characters, 'age__gt38');
- * // => [{ 'name': 'fred', 'age': 40 }]
- */
-function createCallback(func, thisArg, argCount) {
-  var type = typeof func;
-  if (func == null || type == 'function') {
-    return baseCreateCallback(func, thisArg, argCount);
-  }
-  // handle "_.pluck" style callback shorthands
-  if (type != 'object') {
-    return property(func);
-  }
-  var props = keys(func),
-      key = props[0],
-      a = func[key];
-
-  // handle "_.where" style callback shorthands
-  if (props.length == 1 && a === a && !isObject(a)) {
-    // fast path the common case of providing an object with a single
-    // property containing a primitive value
-    return function(object) {
-      var b = object[key];
-      return a === b && (a !== 0 || (1 / a == 1 / b));
-    };
-  }
-  return function(object) {
-    var length = props.length,
-        result = false;
-
-    while (length--) {
-      if (!(result = baseIsEqual(object[props[length]], func[props[length]], null, true))) {
-        break;
-      }
-    }
-    return result;
-  };
-}
-
-module.exports = createCallback;
-
-},{"lodash._basecreatecallback":49,"lodash._baseisequal":68,"lodash.isobject":77,"lodash.keys":79,"lodash.property":83}],49:[function(require,module,exports){
-arguments[4][8][0].apply(exports,arguments)
-},{"dup":8,"lodash._setbinddata":50,"lodash.bind":53,"lodash.identity":65,"lodash.support":66}],50:[function(require,module,exports){
-arguments[4][9][0].apply(exports,arguments)
-},{"dup":9,"lodash._isnative":51,"lodash.noop":52}],51:[function(require,module,exports){
-arguments[4][10][0].apply(exports,arguments)
-},{"dup":10}],52:[function(require,module,exports){
-arguments[4][11][0].apply(exports,arguments)
-},{"dup":11}],53:[function(require,module,exports){
-arguments[4][12][0].apply(exports,arguments)
-},{"dup":12,"lodash._createwrapper":54,"lodash._slice":64}],54:[function(require,module,exports){
-arguments[4][13][0].apply(exports,arguments)
-},{"dup":13,"lodash._basebind":55,"lodash._basecreatewrapper":59,"lodash._slice":64,"lodash.isfunction":63}],55:[function(require,module,exports){
-arguments[4][14][0].apply(exports,arguments)
-},{"dup":14,"lodash._basecreate":56,"lodash._setbinddata":50,"lodash._slice":64,"lodash.isobject":77}],56:[function(require,module,exports){
-arguments[4][15][0].apply(exports,arguments)
-},{"dup":15,"lodash._isnative":57,"lodash.isobject":77,"lodash.noop":58}],57:[function(require,module,exports){
-arguments[4][10][0].apply(exports,arguments)
-},{"dup":10}],58:[function(require,module,exports){
-arguments[4][11][0].apply(exports,arguments)
-},{"dup":11}],59:[function(require,module,exports){
-arguments[4][19][0].apply(exports,arguments)
-},{"dup":19,"lodash._basecreate":60,"lodash._setbinddata":50,"lodash._slice":64,"lodash.isobject":77}],60:[function(require,module,exports){
-arguments[4][15][0].apply(exports,arguments)
-},{"dup":15,"lodash._isnative":61,"lodash.isobject":77,"lodash.noop":62}],61:[function(require,module,exports){
-arguments[4][10][0].apply(exports,arguments)
-},{"dup":10}],62:[function(require,module,exports){
-arguments[4][11][0].apply(exports,arguments)
-},{"dup":11}],63:[function(require,module,exports){
-arguments[4][24][0].apply(exports,arguments)
-},{"dup":24}],64:[function(require,module,exports){
-arguments[4][25][0].apply(exports,arguments)
-},{"dup":25}],65:[function(require,module,exports){
-arguments[4][26][0].apply(exports,arguments)
-},{"dup":26}],66:[function(require,module,exports){
-arguments[4][27][0].apply(exports,arguments)
-},{"dup":27,"lodash._isnative":67}],67:[function(require,module,exports){
-arguments[4][10][0].apply(exports,arguments)
-},{"dup":10}],68:[function(require,module,exports){
+},{"lodash._basecreate":5,"lodash._setbinddata":18,"lodash._slice":20,"lodash.isobject":30}],8:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -2794,7 +971,139 @@ function baseIsEqual(a, b, callback, isWhere, stackA, stackB) {
 
 module.exports = baseIsEqual;
 
-},{"lodash._getarray":69,"lodash._objecttypes":71,"lodash._releasearray":72,"lodash.forin":75,"lodash.isfunction":76}],69:[function(require,module,exports){
+},{"lodash._getarray":11,"lodash._objecttypes":15,"lodash._releasearray":16,"lodash.forin":26,"lodash.isfunction":29}],9:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var baseBind = require('lodash._basebind'),
+    baseCreateWrapper = require('lodash._basecreatewrapper'),
+    isFunction = require('lodash.isfunction'),
+    slice = require('lodash._slice');
+
+/**
+ * Used for `Array` method references.
+ *
+ * Normally `Array.prototype` would suffice, however, using an array literal
+ * avoids issues in Narwhal.
+ */
+var arrayRef = [];
+
+/** Native method shortcuts */
+var push = arrayRef.push,
+    unshift = arrayRef.unshift;
+
+/**
+ * Creates a function that, when called, either curries or invokes `func`
+ * with an optional `this` binding and partially applied arguments.
+ *
+ * @private
+ * @param {Function|string} func The function or method name to reference.
+ * @param {number} bitmask The bitmask of method flags to compose.
+ *  The bitmask may be composed of the following flags:
+ *  1 - `_.bind`
+ *  2 - `_.bindKey`
+ *  4 - `_.curry`
+ *  8 - `_.curry` (bound)
+ *  16 - `_.partial`
+ *  32 - `_.partialRight`
+ * @param {Array} [partialArgs] An array of arguments to prepend to those
+ *  provided to the new function.
+ * @param {Array} [partialRightArgs] An array of arguments to append to those
+ *  provided to the new function.
+ * @param {*} [thisArg] The `this` binding of `func`.
+ * @param {number} [arity] The arity of `func`.
+ * @returns {Function} Returns the new function.
+ */
+function createWrapper(func, bitmask, partialArgs, partialRightArgs, thisArg, arity) {
+  var isBind = bitmask & 1,
+      isBindKey = bitmask & 2,
+      isCurry = bitmask & 4,
+      isCurryBound = bitmask & 8,
+      isPartial = bitmask & 16,
+      isPartialRight = bitmask & 32;
+
+  if (!isBindKey && !isFunction(func)) {
+    throw new TypeError;
+  }
+  if (isPartial && !partialArgs.length) {
+    bitmask &= ~16;
+    isPartial = partialArgs = false;
+  }
+  if (isPartialRight && !partialRightArgs.length) {
+    bitmask &= ~32;
+    isPartialRight = partialRightArgs = false;
+  }
+  var bindData = func && func.__bindData__;
+  if (bindData && bindData !== true) {
+    // clone `bindData`
+    bindData = slice(bindData);
+    if (bindData[2]) {
+      bindData[2] = slice(bindData[2]);
+    }
+    if (bindData[3]) {
+      bindData[3] = slice(bindData[3]);
+    }
+    // set `thisBinding` is not previously bound
+    if (isBind && !(bindData[1] & 1)) {
+      bindData[4] = thisArg;
+    }
+    // set if previously bound but not currently (subsequent curried functions)
+    if (!isBind && bindData[1] & 1) {
+      bitmask |= 8;
+    }
+    // set curried arity if not yet set
+    if (isCurry && !(bindData[1] & 4)) {
+      bindData[5] = arity;
+    }
+    // append partial left arguments
+    if (isPartial) {
+      push.apply(bindData[2] || (bindData[2] = []), partialArgs);
+    }
+    // append partial right arguments
+    if (isPartialRight) {
+      unshift.apply(bindData[3] || (bindData[3] = []), partialRightArgs);
+    }
+    // merge flags
+    bindData[1] |= bitmask;
+    return createWrapper.apply(null, bindData);
+  }
+  // fast path for `_.bind`
+  var creater = (bitmask == 1 || bitmask === 17) ? baseBind : baseCreateWrapper;
+  return creater([func, bitmask, partialArgs, partialRightArgs, thisArg, arity]);
+}
+
+module.exports = createWrapper;
+
+},{"lodash._basebind":4,"lodash._basecreatewrapper":7,"lodash._slice":20,"lodash.isfunction":29}],10:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var htmlEscapes = require('lodash._htmlescapes');
+
+/**
+ * Used by `escape` to convert characters to HTML entities.
+ *
+ * @private
+ * @param {string} match The matched character to escape.
+ * @returns {string} Returns the escaped character.
+ */
+function escapeHtmlChar(match) {
+  return htmlEscapes[match];
+}
+
+module.exports = escapeHtmlChar;
+
+},{"lodash._htmlescapes":12}],11:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -2817,7 +1126,7 @@ function getArray() {
 
 module.exports = getArray;
 
-},{"lodash._arraypool":70}],70:[function(require,module,exports){
+},{"lodash._arraypool":3}],12:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -2827,14 +1136,98 @@ module.exports = getArray;
  * Available under MIT license <http://lodash.com/license>
  */
 
-/** Used to pool arrays and objects used internally */
-var arrayPool = [];
+/**
+ * Used to convert characters to HTML entities:
+ *
+ * Though the `>` character is escaped for symmetry, characters like `>` and `/`
+ * don't require escaping in HTML and have no special meaning unless they're part
+ * of a tag or an unquoted attribute value.
+ * http://mathiasbynens.be/notes/ambiguous-ampersands (under "semi-related fun fact")
+ */
+var htmlEscapes = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;'
+};
 
-module.exports = arrayPool;
+module.exports = htmlEscapes;
 
-},{}],71:[function(require,module,exports){
-arguments[4][29][0].apply(exports,arguments)
-},{"dup":29}],72:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Used to resolve the internal [[Class]] of values */
+var toString = objectProto.toString;
+
+/** Used to detect if a method is native */
+var reNative = RegExp('^' +
+  String(toString)
+    .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    .replace(/toString| for [^\]]+/g, '.*?') + '$'
+);
+
+/**
+ * Checks if `value` is a native function.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if the `value` is a native function, else `false`.
+ */
+function isNative(value) {
+  return typeof value == 'function' && reNative.test(value);
+}
+
+module.exports = isNative;
+
+},{}],14:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+
+/** Used as the max size of the `arrayPool` and `objectPool` */
+var maxPoolSize = 40;
+
+module.exports = maxPoolSize;
+
+},{}],15:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+
+/** Used to determine if values are of the language type Object */
+var objectTypes = {
+  'boolean': false,
+  'function': true,
+  'object': true,
+  'number': false,
+  'string': false,
+  'undefined': false
+};
+
+module.exports = objectTypes;
+
+},{}],16:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -2861,9 +1254,109 @@ function releaseArray(array) {
 
 module.exports = releaseArray;
 
-},{"lodash._arraypool":73,"lodash._maxpoolsize":74}],73:[function(require,module,exports){
-arguments[4][70][0].apply(exports,arguments)
-},{"dup":70}],74:[function(require,module,exports){
+},{"lodash._arraypool":3,"lodash._maxpoolsize":14}],17:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var htmlEscapes = require('lodash._htmlescapes'),
+    keys = require('lodash.keys');
+
+/** Used to match HTML entities and HTML characters */
+var reUnescapedHtml = RegExp('[' + keys(htmlEscapes).join('') + ']', 'g');
+
+module.exports = reUnescapedHtml;
+
+},{"lodash._htmlescapes":12,"lodash.keys":31}],18:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var isNative = require('lodash._isnative'),
+    noop = require('lodash.noop');
+
+/** Used as the property descriptor for `__bindData__` */
+var descriptor = {
+  'configurable': false,
+  'enumerable': false,
+  'value': null,
+  'writable': false
+};
+
+/** Used to set meta data on functions */
+var defineProperty = (function() {
+  // IE 8 only accepts DOM elements
+  try {
+    var o = {},
+        func = isNative(func = Object.defineProperty) && func,
+        result = func(o, o, o) && func;
+  } catch(e) { }
+  return result;
+}());
+
+/**
+ * Sets `this` binding data on a given function.
+ *
+ * @private
+ * @param {Function} func The function to set data on.
+ * @param {Array} value The data array to set.
+ */
+var setBindData = !defineProperty ? noop : function(func, value) {
+  descriptor.value = value;
+  defineProperty(func, '__bindData__', descriptor);
+};
+
+module.exports = setBindData;
+
+},{"lodash._isnative":13,"lodash.noop":32}],19:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var objectTypes = require('lodash._objecttypes');
+
+/** Used for native method references */
+var objectProto = Object.prototype;
+
+/** Native method shortcuts */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * A fallback implementation of `Object.keys` which produces an array of the
+ * given object's own enumerable property names.
+ *
+ * @private
+ * @type Function
+ * @param {Object} object The object to inspect.
+ * @returns {Array} Returns an array of property names.
+ */
+var shimKeys = function(object) {
+  var index, iterable = object, result = [];
+  if (!iterable) return result;
+  if (!(objectTypes[typeof object])) return result;
+    for (index in iterable) {
+      if (hasOwnProperty.call(iterable, index)) {
+        result.push(index);
+      }
+    }
+  return result
+};
+
+module.exports = shimKeys;
+
+},{"lodash._objecttypes":15}],20:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -2873,12 +1366,343 @@ arguments[4][70][0].apply(exports,arguments)
  * Available under MIT license <http://lodash.com/license>
  */
 
-/** Used as the max size of the `arrayPool` and `objectPool` */
-var maxPoolSize = 40;
+/**
+ * Slices the `collection` from the `start` index up to, but not including,
+ * the `end` index.
+ *
+ * Note: This function is used instead of `Array#slice` to support node lists
+ * in IE < 9 and to ensure dense arrays are returned.
+ *
+ * @private
+ * @param {Array|Object|string} collection The collection to slice.
+ * @param {number} start The start index.
+ * @param {number} end The end index.
+ * @returns {Array} Returns the new array.
+ */
+function slice(array, start, end) {
+  start || (start = 0);
+  if (typeof end == 'undefined') {
+    end = array ? array.length : 0;
+  }
+  var index = -1,
+      length = end - start || 0,
+      result = Array(length < 0 ? 0 : length);
 
-module.exports = maxPoolSize;
+  while (++index < length) {
+    result[index] = array[start + index];
+  }
+  return result;
+}
 
-},{}],75:[function(require,module,exports){
+module.exports = slice;
+
+},{}],21:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var baseCreateCallback = require('lodash._basecreatecallback'),
+    keys = require('lodash.keys'),
+    objectTypes = require('lodash._objecttypes');
+
+/**
+ * Assigns own enumerable properties of source object(s) to the destination
+ * object. Subsequent sources will overwrite property assignments of previous
+ * sources. If a callback is provided it will be executed to produce the
+ * assigned values. The callback is bound to `thisArg` and invoked with two
+ * arguments; (objectValue, sourceValue).
+ *
+ * @static
+ * @memberOf _
+ * @type Function
+ * @alias extend
+ * @category Objects
+ * @param {Object} object The destination object.
+ * @param {...Object} [source] The source objects.
+ * @param {Function} [callback] The function to customize assigning values.
+ * @param {*} [thisArg] The `this` binding of `callback`.
+ * @returns {Object} Returns the destination object.
+ * @example
+ *
+ * _.assign({ 'name': 'fred' }, { 'employer': 'slate' });
+ * // => { 'name': 'fred', 'employer': 'slate' }
+ *
+ * var defaults = _.partialRight(_.assign, function(a, b) {
+ *   return typeof a == 'undefined' ? b : a;
+ * });
+ *
+ * var object = { 'name': 'barney' };
+ * defaults(object, { 'name': 'fred', 'employer': 'slate' });
+ * // => { 'name': 'barney', 'employer': 'slate' }
+ */
+var assign = function(object, source, guard) {
+  var index, iterable = object, result = iterable;
+  if (!iterable) return result;
+  var args = arguments,
+      argsIndex = 0,
+      argsLength = typeof guard == 'number' ? 2 : args.length;
+  if (argsLength > 3 && typeof args[argsLength - 2] == 'function') {
+    var callback = baseCreateCallback(args[--argsLength - 1], args[argsLength--], 2);
+  } else if (argsLength > 2 && typeof args[argsLength - 1] == 'function') {
+    callback = args[--argsLength];
+  }
+  while (++argsIndex < argsLength) {
+    iterable = args[argsIndex];
+    if (iterable && objectTypes[typeof iterable]) {
+    var ownIndex = -1,
+        ownProps = objectTypes[typeof iterable] && keys(iterable),
+        length = ownProps ? ownProps.length : 0;
+
+    while (++ownIndex < length) {
+      index = ownProps[ownIndex];
+      result[index] = callback ? callback(result[index], iterable[index]) : iterable[index];
+    }
+    }
+  }
+  return result
+};
+
+module.exports = assign;
+
+},{"lodash._basecreatecallback":6,"lodash._objecttypes":15,"lodash.keys":31}],22:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var createWrapper = require('lodash._createwrapper'),
+    slice = require('lodash._slice');
+
+/**
+ * Creates a function that, when called, invokes `func` with the `this`
+ * binding of `thisArg` and prepends any additional `bind` arguments to those
+ * provided to the bound function.
+ *
+ * @static
+ * @memberOf _
+ * @category Functions
+ * @param {Function} func The function to bind.
+ * @param {*} [thisArg] The `this` binding of `func`.
+ * @param {...*} [arg] Arguments to be partially applied.
+ * @returns {Function} Returns the new bound function.
+ * @example
+ *
+ * var func = function(greeting) {
+ *   return greeting + ' ' + this.name;
+ * };
+ *
+ * func = _.bind(func, { 'name': 'fred' }, 'hi');
+ * func();
+ * // => 'hi fred'
+ */
+function bind(func, thisArg) {
+  return arguments.length > 2
+    ? createWrapper(func, 17, slice(arguments, 2), null, thisArg)
+    : createWrapper(func, 1, null, null, thisArg);
+}
+
+module.exports = bind;
+
+},{"lodash._createwrapper":9,"lodash._slice":20}],23:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.4 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var baseCreateCallback = require('lodash._basecreatecallback'),
+    baseIsEqual = require('lodash._baseisequal'),
+    isObject = require('lodash.isobject'),
+    keys = require('lodash.keys'),
+    property = require('lodash.property');
+
+/**
+ * Produces a callback bound to an optional `thisArg`. If `func` is a property
+ * name the created callback will return the property value for a given element.
+ * If `func` is an object the created callback will return `true` for elements
+ * that contain the equivalent object properties, otherwise it will return `false`.
+ *
+ * @static
+ * @memberOf _
+ * @category Utilities
+ * @param {*} [func=identity] The value to convert to a callback.
+ * @param {*} [thisArg] The `this` binding of the created callback.
+ * @param {number} [argCount] The number of arguments the callback accepts.
+ * @returns {Function} Returns a callback function.
+ * @example
+ *
+ * var characters = [
+ *   { 'name': 'barney', 'age': 36 },
+ *   { 'name': 'fred',   'age': 40 }
+ * ];
+ *
+ * // wrap to create custom callback shorthands
+ * _.createCallback = _.wrap(_.createCallback, function(func, callback, thisArg) {
+ *   var match = /^(.+?)__([gl]t)(.+)$/.exec(callback);
+ *   return !match ? func(callback, thisArg) : function(object) {
+ *     return match[2] == 'gt' ? object[match[1]] > match[3] : object[match[1]] < match[3];
+ *   };
+ * });
+ *
+ * _.filter(characters, 'age__gt38');
+ * // => [{ 'name': 'fred', 'age': 40 }]
+ */
+function createCallback(func, thisArg, argCount) {
+  var type = typeof func;
+  if (func == null || type == 'function') {
+    return baseCreateCallback(func, thisArg, argCount);
+  }
+  // handle "_.pluck" style callback shorthands
+  if (type != 'object') {
+    return property(func);
+  }
+  var props = keys(func),
+      key = props[0],
+      a = func[key];
+
+  // handle "_.where" style callback shorthands
+  if (props.length == 1 && a === a && !isObject(a)) {
+    // fast path the common case of providing an object with a single
+    // property containing a primitive value
+    return function(object) {
+      var b = object[key];
+      return a === b && (a !== 0 || (1 / a == 1 / b));
+    };
+  }
+  return function(object) {
+    var length = props.length,
+        result = false;
+
+    while (length--) {
+      if (!(result = baseIsEqual(object[props[length]], func[props[length]], null, true))) {
+        break;
+      }
+    }
+    return result;
+  };
+}
+
+module.exports = createCallback;
+
+},{"lodash._basecreatecallback":6,"lodash._baseisequal":8,"lodash.isobject":30,"lodash.keys":31,"lodash.property":33}],24:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var escapeHtmlChar = require('lodash._escapehtmlchar'),
+    keys = require('lodash.keys'),
+    reUnescapedHtml = require('lodash._reunescapedhtml');
+
+/**
+ * Converts the characters `&`, `<`, `>`, `"`, and `'` in `string` to their
+ * corresponding HTML entities.
+ *
+ * @static
+ * @memberOf _
+ * @category Utilities
+ * @param {string} string The string to escape.
+ * @returns {string} Returns the escaped string.
+ * @example
+ *
+ * _.escape('Fred, Wilma, & Pebbles');
+ * // => 'Fred, Wilma, &amp; Pebbles'
+ */
+function escape(string) {
+  return string == null ? '' : String(string).replace(reUnescapedHtml, escapeHtmlChar);
+}
+
+module.exports = escape;
+
+},{"lodash._escapehtmlchar":10,"lodash._reunescapedhtml":17,"lodash.keys":31}],25:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var createCallback = require('lodash.createcallback'),
+    forOwn = require('lodash.forown');
+
+/**
+ * Checks if the given callback returns truey value for **all** elements of
+ * a collection. The callback is bound to `thisArg` and invoked with three
+ * arguments; (value, index|key, collection).
+ *
+ * If a property name is provided for `callback` the created "_.pluck" style
+ * callback will return the property value of the given element.
+ *
+ * If an object is provided for `callback` the created "_.where" style callback
+ * will return `true` for elements that have the properties of the given object,
+ * else `false`.
+ *
+ * @static
+ * @memberOf _
+ * @alias all
+ * @category Collections
+ * @param {Array|Object|string} collection The collection to iterate over.
+ * @param {Function|Object|string} [callback=identity] The function called
+ *  per iteration. If a property name or object is provided it will be used
+ *  to create a "_.pluck" or "_.where" style callback, respectively.
+ * @param {*} [thisArg] The `this` binding of `callback`.
+ * @returns {boolean} Returns `true` if all elements passed the callback check,
+ *  else `false`.
+ * @example
+ *
+ * _.every([true, 1, null, 'yes']);
+ * // => false
+ *
+ * var characters = [
+ *   { 'name': 'barney', 'age': 36 },
+ *   { 'name': 'fred',   'age': 40 }
+ * ];
+ *
+ * // using "_.pluck" callback shorthand
+ * _.every(characters, 'age');
+ * // => true
+ *
+ * // using "_.where" callback shorthand
+ * _.every(characters, { 'age': 36 });
+ * // => false
+ */
+function every(collection, callback, thisArg) {
+  var result = true;
+  callback = createCallback(callback, thisArg, 3);
+
+  var index = -1,
+      length = collection ? collection.length : 0;
+
+  if (typeof length == 'number') {
+    while (++index < length) {
+      if (!(result = !!callback(collection[index], index, collection))) {
+        break;
+      }
+    }
+  } else {
+    forOwn(collection, function(value, index, collection) {
+      return (result = !!callback(value, index, collection));
+    });
+  }
+  return result;
+}
+
+module.exports = every;
+
+},{"lodash.createcallback":23,"lodash.forown":27}],26:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -2934,63 +1758,7 @@ var forIn = function(collection, callback, thisArg) {
 
 module.exports = forIn;
 
-},{"lodash._basecreatecallback":49,"lodash._objecttypes":71}],76:[function(require,module,exports){
-arguments[4][24][0].apply(exports,arguments)
-},{"dup":24}],77:[function(require,module,exports){
-arguments[4][18][0].apply(exports,arguments)
-},{"dup":18,"lodash._objecttypes":78}],78:[function(require,module,exports){
-arguments[4][29][0].apply(exports,arguments)
-},{"dup":29}],79:[function(require,module,exports){
-arguments[4][30][0].apply(exports,arguments)
-},{"dup":30,"lodash._isnative":80,"lodash._shimkeys":81,"lodash.isobject":77}],80:[function(require,module,exports){
-arguments[4][10][0].apply(exports,arguments)
-},{"dup":10}],81:[function(require,module,exports){
-arguments[4][32][0].apply(exports,arguments)
-},{"dup":32,"lodash._objecttypes":82}],82:[function(require,module,exports){
-arguments[4][29][0].apply(exports,arguments)
-},{"dup":29}],83:[function(require,module,exports){
-/**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modularize modern exports="npm" -o ./npm/`
- * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
- */
-
-/**
- * Creates a "_.pluck" style function, which returns the `key` value of a
- * given object.
- *
- * @static
- * @memberOf _
- * @category Utilities
- * @param {string} key The name of the property to retrieve.
- * @returns {Function} Returns the new function.
- * @example
- *
- * var characters = [
- *   { 'name': 'fred',   'age': 40 },
- *   { 'name': 'barney', 'age': 36 }
- * ];
- *
- * var getName = _.property('name');
- *
- * _.map(characters, getName);
- * // => ['barney', 'fred']
- *
- * _.sortBy(characters, getName);
- * // => [{ 'name': 'barney', 'age': 36 }, { 'name': 'fred',   'age': 40 }]
- */
-function property(key) {
-  return function(object) {
-    return object[key];
-  };
-}
-
-module.exports = property;
-
-},{}],84:[function(require,module,exports){
+},{"lodash._basecreatecallback":6,"lodash._objecttypes":15}],27:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -3042,59 +1810,762 @@ var forOwn = function(collection, callback, thisArg) {
 
 module.exports = forOwn;
 
-},{"lodash._basecreatecallback":85,"lodash._objecttypes":106,"lodash.keys":107}],85:[function(require,module,exports){
-arguments[4][8][0].apply(exports,arguments)
-},{"dup":8,"lodash._setbinddata":86,"lodash.bind":89,"lodash.identity":103,"lodash.support":104}],86:[function(require,module,exports){
-arguments[4][9][0].apply(exports,arguments)
-},{"dup":9,"lodash._isnative":87,"lodash.noop":88}],87:[function(require,module,exports){
-arguments[4][10][0].apply(exports,arguments)
-},{"dup":10}],88:[function(require,module,exports){
-arguments[4][11][0].apply(exports,arguments)
-},{"dup":11}],89:[function(require,module,exports){
-arguments[4][12][0].apply(exports,arguments)
-},{"dup":12,"lodash._createwrapper":90,"lodash._slice":102}],90:[function(require,module,exports){
-arguments[4][13][0].apply(exports,arguments)
-},{"dup":13,"lodash._basebind":91,"lodash._basecreatewrapper":96,"lodash._slice":102,"lodash.isfunction":101}],91:[function(require,module,exports){
-arguments[4][14][0].apply(exports,arguments)
-},{"dup":14,"lodash._basecreate":92,"lodash._setbinddata":86,"lodash._slice":102,"lodash.isobject":95}],92:[function(require,module,exports){
-arguments[4][15][0].apply(exports,arguments)
-},{"dup":15,"lodash._isnative":93,"lodash.isobject":95,"lodash.noop":94}],93:[function(require,module,exports){
-arguments[4][10][0].apply(exports,arguments)
-},{"dup":10}],94:[function(require,module,exports){
-arguments[4][11][0].apply(exports,arguments)
-},{"dup":11}],95:[function(require,module,exports){
-arguments[4][18][0].apply(exports,arguments)
-},{"dup":18,"lodash._objecttypes":106}],96:[function(require,module,exports){
-arguments[4][19][0].apply(exports,arguments)
-},{"dup":19,"lodash._basecreate":97,"lodash._setbinddata":86,"lodash._slice":102,"lodash.isobject":100}],97:[function(require,module,exports){
-arguments[4][15][0].apply(exports,arguments)
-},{"dup":15,"lodash._isnative":98,"lodash.isobject":100,"lodash.noop":99}],98:[function(require,module,exports){
-arguments[4][10][0].apply(exports,arguments)
-},{"dup":10}],99:[function(require,module,exports){
-arguments[4][11][0].apply(exports,arguments)
-},{"dup":11}],100:[function(require,module,exports){
-arguments[4][18][0].apply(exports,arguments)
-},{"dup":18,"lodash._objecttypes":106}],101:[function(require,module,exports){
-arguments[4][24][0].apply(exports,arguments)
-},{"dup":24}],102:[function(require,module,exports){
-arguments[4][25][0].apply(exports,arguments)
-},{"dup":25}],103:[function(require,module,exports){
-arguments[4][26][0].apply(exports,arguments)
-},{"dup":26}],104:[function(require,module,exports){
-arguments[4][27][0].apply(exports,arguments)
-},{"dup":27,"lodash._isnative":105}],105:[function(require,module,exports){
-arguments[4][10][0].apply(exports,arguments)
-},{"dup":10}],106:[function(require,module,exports){
-arguments[4][29][0].apply(exports,arguments)
-},{"dup":29}],107:[function(require,module,exports){
-arguments[4][30][0].apply(exports,arguments)
-},{"dup":30,"lodash._isnative":108,"lodash._shimkeys":109,"lodash.isobject":110}],108:[function(require,module,exports){
-arguments[4][10][0].apply(exports,arguments)
-},{"dup":10}],109:[function(require,module,exports){
-arguments[4][32][0].apply(exports,arguments)
-},{"dup":32,"lodash._objecttypes":106}],110:[function(require,module,exports){
-arguments[4][18][0].apply(exports,arguments)
-},{"dup":18,"lodash._objecttypes":106}],111:[function(require,module,exports){
+},{"lodash._basecreatecallback":6,"lodash._objecttypes":15,"lodash.keys":31}],28:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+
+/**
+ * This method returns the first argument provided to it.
+ *
+ * @static
+ * @memberOf _
+ * @category Utilities
+ * @param {*} value Any value.
+ * @returns {*} Returns `value`.
+ * @example
+ *
+ * var object = { 'name': 'fred' };
+ * _.identity(object) === object;
+ * // => true
+ */
+function identity(value) {
+  return value;
+}
+
+module.exports = identity;
+
+},{}],29:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+
+/**
+ * Checks if `value` is a function.
+ *
+ * @static
+ * @memberOf _
+ * @category Objects
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if the `value` is a function, else `false`.
+ * @example
+ *
+ * _.isFunction(_);
+ * // => true
+ */
+function isFunction(value) {
+  return typeof value == 'function';
+}
+
+module.exports = isFunction;
+
+},{}],30:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var objectTypes = require('lodash._objecttypes');
+
+/**
+ * Checks if `value` is the language type of Object.
+ * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+ *
+ * @static
+ * @memberOf _
+ * @category Objects
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if the `value` is an object, else `false`.
+ * @example
+ *
+ * _.isObject({});
+ * // => true
+ *
+ * _.isObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isObject(1);
+ * // => false
+ */
+function isObject(value) {
+  // check if the value is the ECMAScript language type of Object
+  // http://es5.github.io/#x8
+  // and avoid a V8 bug
+  // http://code.google.com/p/v8/issues/detail?id=2291
+  return !!(value && objectTypes[typeof value]);
+}
+
+module.exports = isObject;
+
+},{"lodash._objecttypes":15}],31:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var isNative = require('lodash._isnative'),
+    isObject = require('lodash.isobject'),
+    shimKeys = require('lodash._shimkeys');
+
+/* Native method shortcuts for methods with the same name as other `lodash` methods */
+var nativeKeys = isNative(nativeKeys = Object.keys) && nativeKeys;
+
+/**
+ * Creates an array composed of the own enumerable property names of an object.
+ *
+ * @static
+ * @memberOf _
+ * @category Objects
+ * @param {Object} object The object to inspect.
+ * @returns {Array} Returns an array of property names.
+ * @example
+ *
+ * _.keys({ 'one': 1, 'two': 2, 'three': 3 });
+ * // => ['one', 'two', 'three'] (property order is not guaranteed across environments)
+ */
+var keys = !nativeKeys ? shimKeys : function(object) {
+  if (!isObject(object)) {
+    return [];
+  }
+  return nativeKeys(object);
+};
+
+module.exports = keys;
+
+},{"lodash._isnative":13,"lodash._shimkeys":19,"lodash.isobject":30}],32:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+
+/**
+ * A no-operation function.
+ *
+ * @static
+ * @memberOf _
+ * @category Utilities
+ * @example
+ *
+ * var object = { 'name': 'fred' };
+ * _.noop(object) === undefined;
+ * // => true
+ */
+function noop() {
+  // no operation performed
+}
+
+module.exports = noop;
+
+},{}],33:[function(require,module,exports){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+
+/**
+ * Creates a "_.pluck" style function, which returns the `key` value of a
+ * given object.
+ *
+ * @static
+ * @memberOf _
+ * @category Utilities
+ * @param {string} key The name of the property to retrieve.
+ * @returns {Function} Returns the new function.
+ * @example
+ *
+ * var characters = [
+ *   { 'name': 'fred',   'age': 40 },
+ *   { 'name': 'barney', 'age': 36 }
+ * ];
+ *
+ * var getName = _.property('name');
+ *
+ * _.map(characters, getName);
+ * // => ['barney', 'fred']
+ *
+ * _.sortBy(characters, getName);
+ * // => [{ 'name': 'barney', 'age': 36 }, { 'name': 'fred',   'age': 40 }]
+ */
+function property(key) {
+  return function(object) {
+    return object[key];
+  };
+}
+
+module.exports = property;
+
+},{}],34:[function(require,module,exports){
+(function (global){
+/**
+ * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Build: `lodash modularize modern exports="npm" -o ./npm/`
+ * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <http://lodash.com/license>
+ */
+var isNative = require('lodash._isnative');
+
+/** Used to detect functions containing a `this` reference */
+var reThis = /\bthis\b/;
+
+/**
+ * An object used to flag environments features.
+ *
+ * @static
+ * @memberOf _
+ * @type Object
+ */
+var support = {};
+
+/**
+ * Detect if functions can be decompiled by `Function#toString`
+ * (all but PS3 and older Opera mobile browsers & avoided in Windows 8 apps).
+ *
+ * @memberOf _.support
+ * @type boolean
+ */
+support.funcDecomp = !isNative(global.WinRTError) && reThis.test(function() { return this; });
+
+/**
+ * Detect if `Function#name` is supported (all but IE).
+ *
+ * @memberOf _.support
+ * @type boolean
+ */
+support.funcNames = typeof Function.name == 'string';
+
+module.exports = support;
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"lodash._isnative":13}],35:[function(require,module,exports){
+/** @jsx React.DOM */
+
+var React = require("react");
+
+/* You know when you want to propagate input to a parent...
+ * but then that parent does something with the input...
+ * then changing the props of the input...
+ * on every keystroke...
+ * so if some input is invalid or incomplete...
+ * the input gets reset or otherwise effed...
+ *
+ * This is the solution.
+ *
+ * Enough melodrama. Its an input that only sends changes
+ * to its parent on blur.
+ */
+var BlurInput = React.createClass({displayName: 'BlurInput',
+    propTypes: {
+        value: React.PropTypes.string.isRequired,
+        onChange: React.PropTypes.func.isRequired
+    },
+    getInitialState: function() {
+        return { value: this.props.value };
+    },
+    render: function() {
+        return this.transferPropsTo(React.DOM.input(
+            {type:"text",
+            value:this.state.value,
+            onChange:this.handleChange,
+            onBlur:this.handleBlur} ));
+    },
+    componentWillReceiveProps: function(nextProps) {
+        this.setState({ value: nextProps.value });
+    },
+    handleChange: function(e) {
+        this.setState({ value: e.target.value });
+    },
+    handleBlur: function(e) {
+        this.props.onChange(e.target.value);
+    }
+});
+
+module.exports = BlurInput;
+
+},{"react":44}],36:[function(require,module,exports){
+/** @jsx React.DOM */
+
+var React = require('react');
+var RCSS = require('rcss');
+var _ = require('underscore');
+
+var outerStyle = {
+    display: 'inline-block',
+};
+
+var buttonStyle = {
+    backgroundColor: 'white',
+    border: '1px solid #ccc',
+    borderBottom: '1px solid #ccc',
+    borderLeft: '0',
+    cursor: 'pointer',
+    margin: '0',
+    padding: '5px 10px',
+    position: 'relative', // for hover
+
+    ':first-child': {
+        borderLeft: '1px solid #ccc',
+        borderTopLeftRadius: '3px',
+        borderBottomLeftRadius: '3px'
+    },
+
+    ':last-child': {
+        borderRight: '1px solid #ccc',
+        borderTopRightRadius: '3px',
+        borderBottomRightRadius: '3px'
+    },
+
+    ':hover': {
+        backgroundColor: '#ccc'
+    },
+
+    ':focus': {
+        zIndex: '2'
+    }
+};
+
+var selectedStyle = {
+    backgroundColor: '#ddd'
+};
+
+RCSS.createClass(outerStyle);
+RCSS.createClass(buttonStyle);
+RCSS.createClass(selectedStyle);
+
+/* ButtonGroup is an aesthetically pleasing group of buttons.
+ *
+ * The class requires these properties:
+ *   buttons - an array of objects with keys:
+ *     "value": this is the value returned when the button is selected
+ *     "text": this is the text shown on the button
+ *     "title": this is the title-text shown on hover
+ *   onChange - a function that is provided with the updated value
+ *     (which it then is responsible for updating)
+ *
+ * The class has these optional properties:
+ *   value - the initial value of the button selected, defaults to null.
+ *   allowEmpty - if false, exactly one button _must_ be selected; otherwise
+ *     it defaults to true and _at most_ one button (0 or 1) may be selected.
+ *
+ * Requires stylesheets/perseus-admin-package/editor.less to look nice.
+ */
+
+var ButtonGroup = React.createClass({displayName: 'ButtonGroup',
+    propTypes: {
+        value: React.PropTypes.any,
+        buttons: React.PropTypes.arrayOf(React.PropTypes.shape({
+            value: React.PropTypes.any.isRequired,
+            text: React.PropTypes.renderable,
+            title: React.PropTypes.string
+        })).isRequired,
+        onChange: React.PropTypes.func.isRequired,
+        allowEmpty: React.PropTypes.bool
+    },
+
+    getDefaultProps: function() {
+        return {
+            value: null,
+            allowEmpty: true
+        };
+    },
+
+    render: function() {
+        var value = this.props.value;
+        var buttons = _(this.props.buttons).map(function(button, i)  {
+                var maybeSelected = button.value === value ?
+                        selectedStyle.className :
+                        "";
+                return React.DOM.button( {title:button.title,
+                        id:"" + i,
+                        ref:"button" + i,
+                        key:"" + i,
+                        className:(buttonStyle.className + " " + maybeSelected),
+                        onClick:this.toggleSelect.bind(this, button.value)}, 
+                    button.text || "" + button.value
+                );
+            }.bind(this));
+
+        return React.DOM.div( {className:outerStyle.className}, 
+            buttons
+        );
+    },
+
+    focus: function() {
+        this.getDOMNode().focus();
+        return true;
+    },
+
+    toggleSelect: function(newValue) {
+        var value = this.props.value;
+
+        if (this.props.allowEmpty) {
+            // Select the new button or unselect if it's already selected
+            this.props.onChange(value !== newValue ? newValue : null);
+        } else {
+            this.props.onChange(newValue);
+        }
+    }
+});
+
+module.exports = ButtonGroup;
+
+},{"rcss":39,"react":44,"underscore":45}],37:[function(require,module,exports){
+/** @jsx React.DOM */
+
+var React = require('react');
+
+/* This component makes its children a drag target. Example:
+ *
+ *     <DragTarget onDrop={this.handleDrop}>Drag to me</DragTarget>
+ *
+ *     ...
+ *
+ *     handleDrop: function(e) {
+ *         this.addImages(e.nativeEvent.dataTransfer.files);
+ *     }
+ *
+ * Now "Drag to me" will be a drag target - when something is dragged over it,
+ * the element will become partially transparent as a visual indicator that
+ * it's a target.
+ */
+// TODO(joel) - indicate before the hover is over the target that it's possible
+// to drag into the target. This would (I think) require a high level handler -
+// like on Perseus itself, waiting for onDragEnter, then passing down the
+// event. Sounds like a pain. Possible workaround - create a div covering the
+// entire page...
+//
+// Other extensions:
+// * custom styles for global drag and dragOver
+// * only respond to certain types of drags (only images for instance)!
+var DragTarget = React.createClass({displayName: 'DragTarget',
+    propTypes: {
+        onDrop: React.PropTypes.func.isRequired,
+        component: React.PropTypes.component,
+        shouldDragHighlight: React.PropTypes.func
+    },
+    render: function() {
+        var opacity = this.state.dragHover ? { "opacity": 0.3 } : {};
+        var component = this.props.component;
+
+        return this.transferPropsTo(
+            component( {style:opacity,
+                       onDrop:this.handleDrop,
+                       onDragEnd:this.handleDragEnd,
+                       onDragOver:this.handleDragOver,
+                       onDragEnter:this.handleDragEnter,
+                       onDragLeave:this.handleDragLeave}, 
+                this.props.children
+            )
+        );
+    },
+    getInitialState: function() {
+        return { dragHover: false };
+    },
+    getDefaultProps: function() {
+        return {
+            component: React.DOM.div,
+            shouldDragHighlight: function()  {return true;}
+        };
+    },
+    handleDrop: function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        this.setState({ dragHover: false });
+        this.props.onDrop(e);
+    },
+    handleDragEnd: function() {
+        this.setState({ dragHover: false });
+    },
+    handleDragOver: function(e) {
+        e.preventDefault();
+    },
+    handleDragLeave: function() {
+        this.setState({ dragHover: false });
+    },
+    handleDragEnter: function(e) {
+        this.setState({ dragHover: this.props.shouldDragHighlight(e) });
+    }
+});
+
+module.exports = DragTarget;
+
+},{"react":44}],38:[function(require,module,exports){
+/** @jsx React.DOM */
+
+var React = require('react');
+var RCSS = require('rcss');
+var _ = require('underscore');
+
+var colors = {
+    grayLight: '#aaa',
+    basicBorderColor: '#ccc',
+    white: '#fff'
+};
+
+var infoTip = {
+    display: 'inline-block',
+    marginLeft: '5px',
+    position: 'relative'
+};
+
+var infoTipI = {
+    cursor: 'pointer'
+};
+
+var infoTipContainer = {
+    position: 'absolute',
+    'top': '-12px',
+    left: '22px',
+    zIndex: '1000'
+};
+
+var triangleBeforeAfter = {
+    borderBottom: '9px solid transparent',
+    borderTop: '9px solid transparent',
+    content: ' ',
+    height: '0',
+    position: 'absolute',
+    'top': '0',
+    width: '0'
+};
+
+var infoTipTriangle = {
+    height: '10px',
+    left: '0',
+    position: 'absolute',
+    'top': '8px',
+    width: '0',
+    zIndex: '1',
+
+    ':before': _.extend({}, triangleBeforeAfter, {
+        borderRight: '9px solid #bbb',
+        right: '0',
+    }),
+
+    ':after': _.extend({}, triangleBeforeAfter, {
+        borderRight: ("9px solid " + colors.white),
+        right: '-1px'
+    })
+};
+
+var basicBorder = {
+    border: ("1px solid " + colors.basicBorderColor)
+};
+
+var boxShadow = function(str)  { return { boxShadow: str }; };
+
+var verticalShadow = RCSS.merge(
+    basicBorder,
+    boxShadow(("0 1px 3px " + colors.basicBorderColor)),
+    { borderBottom: ("1px solid " + colors.grayLight) }
+);
+
+var infoTipContentContainer = RCSS.merge(verticalShadow, {
+    background: colors.white,
+    padding: '5px 10px',
+    width: '240px'
+});
+
+RCSS.createClass(infoTip);
+RCSS.createClass(infoTipI);
+RCSS.createClass(infoTipTriangle);
+RCSS.createClass(verticalShadow);
+RCSS.createClass(infoTipContainer);
+RCSS.createClass(infoTipContentContainer);
+
+var questionMark = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo2N2M3NTAxYS04YmVlLTQ0M2MtYmRiNS04OGM2N2IxN2NhYzEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUJCRTk4Qjc4NjAwMTFFMzg3QUJDNEI4Mzk2QTRGQkQiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUJCRTk4QjY4NjAwMTFFMzg3QUJDNEI4Mzk2QTRGQkQiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NGE5ZDI0OTMtODk1NC00OGFkLTlhMTgtZDAwM2MwYWNjNDJlIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjY3Yzc1MDFhLThiZWUtNDQzYy1iZGI1LTg4YzY3YjE3Y2FjMSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pqm89uYAAADMSURBVHjaXJA9DoJAEIUH1M4TUHIFsCMGen9OwCGw1YRGW2ntKel0exsojHIBC0ouQAyUviFDstmXfNmZeS+zm7XSNCXRFiRgJf0bXIHixpbhGdxBBJYC1w/xaA424MhNEATkui71fU9KqfEU78UbD9PdbJRlOdae55GmhIP+1NV1TcMwkOM41DSNHvRtMhTHMRVFQW3b6mOLgx99kue5GRp/gIOZuZGvNpTNwjD8oliANU+qqqKu6/TQBdymN57AHjzBT+B6Jx79BRgAvc49kQA4yxgAAAAASUVORK5CYII='; // @NoLint
+
+var InfoTip = React.createClass({displayName: 'InfoTip',
+    getInitialState: function() {
+        return {
+            hover: false
+        };
+    },
+
+    render: function() {
+        return React.DOM.div( {className:infoTip.className}, 
+            React.DOM.img( {width:10,
+                 height:10,
+                 src:questionMark,
+                 onMouseEnter:this.handleMouseEnter,
+                 onMouseLeave:this.handleMouseLeave} ),
+            React.DOM.div( {className:infoTipContainer.className,
+                 style:{display: this.state.hover ? 'block' : 'none'}}, 
+                React.DOM.div( {className:infoTipTriangle.className} ),
+                /* keep the classes here - used for selectors on KA */
+                React.DOM.div( {className:infoTipContentContainer.className}, 
+                    this.props.children
+                )
+            )
+        );
+    },
+
+    handleMouseEnter: function() {
+        this.setState({hover: true});
+    },
+
+    handleMouseLeave: function() {
+        this.setState({hover: false});
+    }
+});
+
+module.exports = InfoTip;
+
+},{"rcss":39,"react":44,"underscore":45}],39:[function(require,module,exports){
+var assign = require('lodash.assign');
+
+var styleRuleValidator = require('./styleRuleValidator');
+var styleRuleConverter = require('./styleRuleConverter');
+var mediaQueryValidator = require('valid-media-queries');
+
+var existingClasses = {};
+var styleTag = createStyleTag();
+
+var classNameId = 0;
+var randomSuffix = Math.random().toString(36).slice(-5);
+
+function generateValidCSSClassName() {
+  // CSS classNames can't start with a number.
+  return 'c' + (classNameId++) + '-' + randomSuffix;
+}
+
+function objToCSS(style) {
+  var serialized = '';
+  for (var propName in style) {
+    // we put that ourselves
+    if (propName == 'className') continue;
+
+    var cssPropName = styleRuleConverter.hyphenateProp(propName);
+    if (!styleRuleValidator.isValidProp(cssPropName)) {
+      console.warn(
+        '%s (transformed into %s) is not a valid CSS property name.', propName, cssPropName
+      );
+      continue;
+    }
+
+    var styleValue = style[propName];
+    if (!styleRuleValidator.isValidValue(styleValue)) continue;
+
+    if (styleValue !== null) {
+      serialized += cssPropName + ':';
+      serialized += styleRuleConverter.escapeValueForProp(styleValue,
+        cssPropName) + ';';
+    }
+  }
+  return serialized || null;
+}
+
+function createStyleTag() {
+  var tag = document.createElement('style');
+  document.getElementsByTagName('head')[0].appendChild(tag);
+  return tag;
+}
+
+function styleToCSS(style) {
+  var styleStr = '.' + style.className + '{';
+  styleStr += objToCSS(style.value);
+  styleStr += '}';
+
+  if (style.media) {
+    if (!mediaQueryValidator(style.media)) {
+      console.log('%s is not a valid media query.', style.media);
+    }
+    styleStr = style.media + '{' + styleStr + '}';
+  }
+
+  return styleStr;
+}
+
+// TODO: support media queries
+function parseStyles(className, styleObj) {
+  var mainStyle = {
+    className: className,
+    value: {}
+  };
+  var styles = [mainStyle];
+
+  Object.keys(styleObj).forEach(function(k){
+    // pseudo-selector, insert a new rule
+    if (k[0] === ':') {
+      styles.push({
+        className: className+k,
+        value: styleObj[k]
+      });
+      return;
+    } else if (k.substring(0, 6) === '@media') {
+      styles.push({
+        className: className,
+        value: styleObj[k],
+        media: k
+      });
+      return;
+    }
+
+    // normal rule, insert into main one
+    mainStyle.value[k] = styleObj[k];
+  });
+
+  return styles;
+}
+
+function insertStyle(className, styleObj) {
+  var styles = parseStyles(className, styleObj);
+  var styleStr = styles.map(styleToCSS).join('');
+  styleTag.innerHTML += styleStr;
+}
+
+var RCSS = {
+  merge: function(a, b, c, d, e) {
+    return assign({}, a, b, c, d, e);
+  },
+
+  createClass: function(styleObj) {
+    var styleId = JSON.stringify(styleObj);
+    var className;
+
+    if (existingClasses[styleId]) {
+      // already exists, use the existing className
+      className = existingClasses[styleId];
+    } else {
+      // generate a new class and insert it
+      className = generateValidCSSClassName();
+      existingClasses[styleId] = className;
+      insertStyle(className, styleObj);
+    }
+
+    styleObj.className = className;
+    return styleObj;
+  }
+};
+
+module.exports = RCSS;
+
+},{"./styleRuleConverter":40,"./styleRuleValidator":41,"lodash.assign":21,"valid-media-queries":47}],40:[function(require,module,exports){
 var escape = require('lodash.escape');
 
 var _uppercasePattern = /([A-Z])/g;
@@ -3116,7 +2587,7 @@ module.exports = {
   escapeValueForProp: escapeValueForProp
 };
 
-},{"lodash.escape":34}],112:[function(require,module,exports){
+},{"lodash.escape":24}],41:[function(require,module,exports){
 var isValidCSSProps = require('valid-css-props');
 
 function isValidProp(prop) {
@@ -3132,7 +2603,7 @@ module.exports = {
   isValidValue: isValidValue
 };
 
-},{"valid-css-props":45}],113:[function(require,module,exports){
+},{"valid-css-props":46}],42:[function(require,module,exports){
 /** @jsx React.DOM */
 /**
  * For math rendered using KaTex and/or MathJax. Use me like <TeX>2x + 3</TeX>.
@@ -3281,7 +2752,7 @@ var TeX = React.createClass({displayName: 'TeX',
 
 module.exports = TeX;
 
-},{"react":115}],114:[function(require,module,exports){
+},{"react":44}],43:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require("react");
@@ -3652,7 +3123,7 @@ var Tooltip = React.createClass({displayName: 'Tooltip',
 // Sorry.  // Apology-Oriented-Programming
 module.exports = Tooltip;
 
-},{"react":115,"underscore":116}],115:[function(require,module,exports){
+},{"react":44,"underscore":45}],44:[function(require,module,exports){
 /* This note applies to rcss, react, and underscore.
  *
  * We're faking a node module for this package by just exporting the global.
@@ -3676,7 +3147,7 @@ module.exports = Tooltip;
  */
 module.exports = window.React;
 
-},{}],116:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 /* This note applies to rcss, react, and underscore.
  *
  * We're faking a node module for this package by just exporting the global.
@@ -3700,7 +3171,465 @@ module.exports = window.React;
  */
 module.exports = window._;
 
-},{}],117:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
+var _validCSSProps = {
+  'alignment-adjust': true,
+  'alignment-baseline': true,
+  'animation': true,
+  'animation-delay': true,
+  'animation-direction': true,
+  'animation-duration': true,
+  'animation-iteration-count': true,
+  'animation-name': true,
+  'animation-play-state': true,
+  'animation-timing-function': true,
+  'appearance': true,
+  'backface-visibility': true,
+  'background': true,
+  'background-attachment': true,
+  'background-clip': true,
+  'background-color': true,
+  'background-image': true,
+  'background-origin': true,
+  'background-position': true,
+  'background-repeat': true,
+  'background-size': true,
+  'baseline-shift': true,
+  'bookmark-label': true,
+  'bookmark-level': true,
+  'bookmark-target': true,
+  'border': true,
+  'border-bottom': true,
+  'border-bottom-color': true,
+  'border-bottom-left-radius': true,
+  'border-bottom-right-radius': true,
+  'border-bottom-style': true,
+  'border-bottom-width': true,
+  'border-collapse': true,
+  'border-color': true,
+  'border-image': true,
+  'border-image-outset': true,
+  'border-image-repeat': true,
+  'border-image-slice': true,
+  'border-image-source': true,
+  'border-image-width': true,
+  'border-left': true,
+  'border-left-color': true,
+  'border-left-style': true,
+  'border-left-width': true,
+  'border-radius': true,
+  'border-right': true,
+  'border-right-color': true,
+  'border-right-style': true,
+  'border-right-width': true,
+  'border-spacing': true,
+  'border-style': true,
+  'border-top': true,
+  'border-top-color': true,
+  'border-top-left-radius': true,
+  'border-top-right-radius': true,
+  'border-top-style': true,
+  'border-top-width': true,
+  'border-width': true,
+  'bottom': true,
+  'box-align': true,
+  'box-decoration-break': true,
+  'box-direction': true,
+  'box-flex': true,
+  'box-flex-group': true,
+  'box-lines': true,
+  'box-ordinal-group': true,
+  'box-orient': true,
+  'box-pack': true,
+  'box-shadow': true,
+  'box-sizing': true,
+  'caption-side': true,
+  'clear': true,
+  'clip': true,
+  'color': true,
+  'color-profile': true,
+  'column-count': true,
+  'column-fill': true,
+  'column-gap': true,
+  'column-rule': true,
+  'column-rule-color': true,
+  'column-rule-style': true,
+  'column-rule-width': true,
+  'column-span': true,
+  'column-width': true,
+  'columns': true,
+  'content': true,
+  'counter-increment': true,
+  'counter-reset': true,
+  'crop': true,
+  'cursor': true,
+  'direction': true,
+  'display': true,
+  'dominant-baseline': true,
+  'drop-initial-after-adjust': true,
+  'drop-initial-after-align': true,
+  'drop-initial-before-adjust': true,
+  'drop-initial-before-align': true,
+  'drop-initial-size': true,
+  'drop-initial-value': true,
+  'empty-cells': true,
+  'fit': true,
+  'fit-position': true,
+  'float': true,
+  'float-offset': true,
+  'font': true,
+  'font-family': true,
+  'font-size': true,
+  'font-size-adjust': true,
+  'font-stretch': true,
+  'font-style': true,
+  'font-variant': true,
+  'font-weight': true,
+  'grid-columns': true,
+  'grid-rows': true,
+  'hanging-punctuation': true,
+  'height': true,
+  'hyphenate-after': true,
+  'hyphenate-before': true,
+  'hyphenate-character': true,
+  'hyphenate-lines': true,
+  'hyphenate-resource': true,
+  'hyphens': true,
+  'icon': true,
+  'image-orientation': true,
+  'image-resolution': true,
+  'inline-box-align': true,
+  'left': true,
+  'letter-spacing': true,
+  'line-height': true,
+  'line-stacking': true,
+  'line-stacking-ruby': true,
+  'line-stacking-shift': true,
+  'line-stacking-strategy': true,
+  'list-style': true,
+  'list-style-image': true,
+  'list-style-position': true,
+  'list-style-type': true,
+  'margin': true,
+  'margin-bottom': true,
+  'margin-left': true,
+  'margin-right': true,
+  'margin-top': true,
+  'mark': true,
+  'mark-after': true,
+  'mark-before': true,
+  'marks': true,
+  'marquee-direction': true,
+  'marquee-play-count': true,
+  'marquee-speed': true,
+  'marquee-style': true,
+  'max-height': true,
+  'max-width': true,
+  'min-height': true,
+  'min-width': true,
+  'move-to': true,
+  'nav-down': true,
+  'nav-index': true,
+  'nav-left': true,
+  'nav-right': true,
+  'nav-up': true,
+  'opacity': true,
+  'orphans': true,
+  'outline': true,
+  'outline-color': true,
+  'outline-offset': true,
+  'outline-style': true,
+  'outline-width': true,
+  'overflow': true,
+  'overflow-style': true,
+  'overflow-x': true,
+  'overflow-y': true,
+  'padding': true,
+  'padding-bottom': true,
+  'padding-left': true,
+  'padding-right': true,
+  'padding-top': true,
+  'page': true,
+  'page-break-after': true,
+  'page-break-before': true,
+  'page-break-inside': true,
+  'page-policy': true,
+  'perspective': true,
+  'perspective-origin': true,
+  'phonemes': true,
+  'position': true,
+  'punctuation-trim': true,
+  'quotes': true,
+  'rendering-intent': true,
+  'resize': true,
+  'rest': true,
+  'rest-after': true,
+  'rest-before': true,
+  'right': true,
+  'rotation': true,
+  'rotation-point': true,
+  'ruby-align': true,
+  'ruby-overhang': true,
+  'ruby-position': true,
+  'ruby-span': true,
+  'size': true,
+  'string-set': true,
+  'table-layout': true,
+  'target': true,
+  'target-name': true,
+  'target-new': true,
+  'target-position': true,
+  'text-align': true,
+  'text-align-last': true,
+  'text-decoration': true,
+  'text-height': true,
+  'text-indent': true,
+  'text-justify': true,
+  'text-outline': true,
+  'text-overflow': true,
+  'text-shadow': true,
+  'text-transform': true,
+  'text-wrap': true,
+  'top': true,
+  'transform': true,
+  'transform-origin': true,
+  'transform-style': true,
+  'transition': true,
+  'transition-delay': true,
+  'transition-duration': true,
+  'transition-property': true,
+  'transition-timing-function': true,
+  'unicode-bidi': true,
+  'user-select': true,
+  'vertical-align': true,
+  'visibility': true,
+  'voice-balance': true,
+  'voice-duration': true,
+  'voice-pitch': true,
+  'voice-pitch-range': true,
+  'voice-rate': true,
+  'voice-stress': true,
+  'voice-volume': true,
+  'white-space': true,
+  'widows': true,
+  'width': true,
+  'word-break': true,
+  'word-spacing': true,
+  'word-wrap': true,
+  'z-index': true
+}
+
+var vendorPrefixRegEx = /^-.+-/;
+
+module.exports = function(prop) {
+  if (prop[0] === '-') {
+    return !!_validCSSProps[prop.replace(vendorPrefixRegEx, '')];
+  }
+  return !!_validCSSProps[prop];
+};
+
+},{}],47:[function(require,module,exports){
+var every = require('lodash.every');
+
+function isValidRatio(ratio) {
+    var re = /\d+\/\d+/;
+    return !!ratio.match(re);
+}
+
+function isValidInteger(integer) {
+    var re = /\d+/;
+    return !!integer.match(re);
+}
+
+function isValidLength(length) {
+    var re = /\d+(?:ex|em|ch|rem|vh|vw|vmin|vmax|px|mm|cm|in|pt|pc)?$/;
+    return !!length.match(re);
+}
+
+function isValidOrientation(orientation) {
+    return orientation === 'landscape' || orientation === 'portrait';
+}
+
+function isValidScan(scan) {
+    return scan === 'progressive' || scan === 'interlace';
+}
+
+function isValidResolution(resolution) {
+    var re = /(?:\+|-)?(?:\d+|\d*\.\d+)(?:e\d+)?(?:dpi|dpcm|dppx)$/;
+    return !!resolution.match(re);
+}
+
+function isValidValue(value) {
+  return value != null && typeof value !== 'boolean' && value !== '';
+}
+
+var _mediaFeatureValidator = {
+    'width': isValidLength,
+    'min-width': isValidLength,
+    'max-width': isValidLength,
+    'height': isValidLength,
+    'min-height': isValidLength,
+    'max-height': isValidLength,
+    'device-width': isValidLength,
+    'min-device-width': isValidLength,
+    'max-device-width': isValidLength,
+    'device-height': isValidLength,
+    'min-device-height': isValidLength,
+    'max-device-height': isValidLength,
+    'aspect-ratio': isValidRatio,
+    'min-aspect-ratio': isValidRatio,
+    'max-aspect-ratio': isValidRatio,
+    'device-aspect-ratio': isValidRatio,
+    'min-device-aspect-ratio': isValidRatio,
+    'max-device-aspect-ratio': isValidRatio,
+    'color': isValidValue,
+    'min-color': isValidValue,
+    'max-color': isValidValue,
+    'color-index': isValidInteger,
+    'min-color-index': isValidInteger,
+    'max-color-index': isValidInteger,
+    'monochrome': isValidInteger,
+    'min-monochrome': isValidInteger,
+    'max-monochrome': isValidInteger,
+    'resolution': isValidResolution,
+    'min-resolution': isValidResolution,
+    'max-resolution': isValidResolution,
+    'scan': isValidScan,
+    'grid': isValidInteger,
+    'orientation': isValidOrientation
+};
+
+var _validMediaFeatures = {
+    'width': true,
+    'min-width': true,
+    'max-width': true,
+    'height': true,
+    'min-height': true,
+    'max-height': true,
+    'device-width': true,
+    'min-device-width': true,
+    'max-device-width': true,
+    'device-height': true,
+    'min-device-height': true,
+    'max-device-height': true,
+    'aspect-ratio': true,
+    'min-aspect-ratio': true,
+    'max-aspect-ratio': true,
+    'device-aspect-ratio': true,
+    'min-device-aspect-ratio': true,
+    'max-device-aspect-ratio': true,
+    'color': true,
+    'min-color': true,
+    'max-color': true,
+    'color-index': true,
+    'min-color-index': true,
+    'max-color-index': true,
+    'monochrome': true,
+    'min-monochrome': true,
+    'max-monochrome': true,
+    'resolution': true,
+    'min-resolution': true,
+    'max-resolution': true,
+    'scan': true,
+    'grid': true,
+    'orientation': true
+};
+
+var _validMediaTypes = {
+    'all': true,
+    'aural': true,
+    'braille': true,
+    'handheld': true,
+    'print': true,
+    'projection': true,
+    'screen': true,
+    'tty': true,
+    'tv': true,
+    'embossed': true
+};
+
+var _validQualifiers = {
+    'not': true,
+    'only': true
+};
+
+function isValidFeature(feature) {
+    return !!_validMediaFeatures[feature];
+}
+
+function isValidQualifier(qualifier) {
+    return !!_validQualifiers[qualifier];
+}
+
+function isValidMediaType(mediaType) {
+    return !!_validMediaTypes[mediaType];
+}
+
+function isValidQualifiedMediaType(mediaType) {
+    var terms = mediaType.trim().split(/\s+/);
+    switch (terms.length) {
+        case 1:
+            return isValidMediaType(terms[0]);
+        case 2:
+            return isValidQualifier(terms[0]) && isValidMediaType(terms[1]);
+        default:
+            return false;
+    }
+}
+
+function isValidExpression(expression) {
+    if (expression.length < 2) {
+        return false;
+    }
+
+    // Parentheses are required around expressions
+    if (expression[0] !== '(' || expression[expression.length - 1] !== ')') {
+        return false;
+    }
+
+    // Remove parentheses and spacess
+    expression = expression.substring(1, expression.length - 1);
+
+    // Is there a value to accompany the media feature?
+    var featureAndValue = expression.split(/\s*:\s*/);
+    switch (featureAndValue.length) {
+        case 1:
+            var feature = featureAndValue[0].trim();
+            return isValidFeature(feature);
+        case 2:
+            var feature = featureAndValue[0].trim();
+            var value = featureAndValue[1].trim();
+            return isValidFeature(feature) &&
+                   _mediaFeatureValidator[feature](value);
+        default:
+            return false;
+    }
+}
+
+function isValidMediaQuery(query) {
+    var andSplitter = /\s+and\s+/;
+    var queryTerms = query.split(andSplitter);
+    return (isValidQualifiedMediaType(queryTerms[0]) ||
+        isValidExpression(queryTerms[0])) &&
+        every(queryTerms.slice(1), isValidExpression);
+}
+
+function isValidMediaQueryList(mediaQuery) {
+    mediaQuery = mediaQuery.toLowerCase();
+
+    if (mediaQuery.substring(0, 6) !== '@media') {
+        return false;
+    }
+
+    var commaSplitter = /\s*,\s*/;
+    var queryList = mediaQuery.substring(7, mediaQuery.length)
+                              .split(commaSplitter);
+    return every(queryList, isValidMediaQuery);
+}
+
+module.exports = isValidMediaQueryList
+
+},{"lodash.every":25}],48:[function(require,module,exports){
 var Widgets = require("./widgets.js");
 
 _.each([
@@ -3724,12 +3653,14 @@ _.each([
     require("./widgets/sorter.jsx"),
     require("./widgets/table.jsx"),
     require("./widgets/transformer.jsx"),
-    require("./widgets/image.jsx")
+    require("./widgets/image.jsx"),
+    require("./widgets/speaking-text-input.jsx"),
+    require("./widgets/speaking-voice.jsx")
 ], function(widget) {
     Widgets.register(widget.name, _.omit(widget, "name"));
 });
 
-},{"./widgets.js":171,"./widgets/categorizer.jsx":172,"./widgets/dropdown.jsx":173,"./widgets/example-graphie-widget.jsx":174,"./widgets/example-widget.jsx":175,"./widgets/expression.jsx":176,"./widgets/iframe.jsx":177,"./widgets/image.jsx":178,"./widgets/input-number.jsx":179,"./widgets/interactive-graph.jsx":180,"./widgets/interactive-number-line.jsx":181,"./widgets/lights-puzzle.jsx":182,"./widgets/matcher.jsx":183,"./widgets/measurer.jsx":184,"./widgets/number-line.jsx":185,"./widgets/numeric-input.jsx":186,"./widgets/orderer.jsx":187,"./widgets/plotter.jsx":188,"./widgets/radio.jsx":189,"./widgets/sorter.jsx":190,"./widgets/table.jsx":191,"./widgets/transformer.jsx":192}],118:[function(require,module,exports){
+},{"./widgets.js":102,"./widgets/categorizer.jsx":103,"./widgets/dropdown.jsx":104,"./widgets/example-graphie-widget.jsx":105,"./widgets/example-widget.jsx":106,"./widgets/expression.jsx":107,"./widgets/iframe.jsx":108,"./widgets/image.jsx":109,"./widgets/input-number.jsx":110,"./widgets/interactive-graph.jsx":111,"./widgets/interactive-number-line.jsx":112,"./widgets/lights-puzzle.jsx":113,"./widgets/matcher.jsx":114,"./widgets/measurer.jsx":115,"./widgets/number-line.jsx":116,"./widgets/numeric-input.jsx":117,"./widgets/orderer.jsx":118,"./widgets/plotter.jsx":119,"./widgets/radio.jsx":120,"./widgets/sorter.jsx":121,"./widgets/speaking-text-input.jsx":122,"./widgets/speaking-voice.jsx":123,"./widgets/table.jsx":124,"./widgets/transformer.jsx":125}],49:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -3800,7 +3731,7 @@ var AnswerAreaEditor = React.createClass({displayName: 'AnswerAreaEditor',
 
 module.exports = AnswerAreaEditor;
 
-},{"./editor.jsx":143,"./widgets.js":171,"react":115,"react-components/info-tip":5}],119:[function(require,module,exports){
+},{"./editor.jsx":74,"./widgets.js":102,"react":44,"react-components/info-tip":38}],50:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -4155,7 +4086,7 @@ var AnswerAreaRenderer = React.createClass({displayName: 'AnswerAreaRenderer',
 
 module.exports = AnswerAreaRenderer;
 
-},{"./enabled-features.jsx":144,"./perseus-api.jsx":162,"./question-paragraph.jsx":164,"./renderer.jsx":165,"./util.js":168,"./widget-container.jsx":170,"./widgets.js":171,"react":115}],120:[function(require,module,exports){
+},{"./enabled-features.jsx":75,"./perseus-api.jsx":93,"./question-paragraph.jsx":95,"./renderer.jsx":96,"./util.js":99,"./widget-container.jsx":101,"./widgets.js":102,"react":44}],51:[function(require,module,exports){
 /** @jsx React.DOM */
 
 /**
@@ -4343,7 +4274,7 @@ FancySelect.Option = FancyOption;
 
 module.exports = FancySelect;
 
-},{"react":115}],121:[function(require,module,exports){
+},{"react":44}],52:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -4799,7 +4730,7 @@ var GraphSettings = React.createClass({displayName: 'GraphSettings',
 
 module.exports = GraphSettings;
 
-},{"../components/number-input.jsx":129,"../components/prop-check-box.jsx":130,"../components/range-input.jsx":131,"../mixins/changeable.jsx":159,"../util.js":168,"react":115,"react-components/button-group":3,"react-components/info-tip":5}],122:[function(require,module,exports){
+},{"../components/number-input.jsx":60,"../components/prop-check-box.jsx":61,"../components/range-input.jsx":62,"../mixins/changeable.jsx":90,"../util.js":99,"react":44,"react-components/button-group":36,"react-components/info-tip":38}],53:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -5138,7 +5069,7 @@ var Graph = React.createClass({displayName: 'Graph',
 
 module.exports = Graph;
 
-},{"../util.js":168,"react":115}],123:[function(require,module,exports){
+},{"../util.js":99,"react":44}],54:[function(require,module,exports){
 /** @jsx React.DOM */var Util = require("../util.js");
 var nestedMap = Util.nestedMap;
 var deepEq = Util.deepEq;
@@ -5269,7 +5200,7 @@ module.exports = {
     createSimpleClass: createSimpleClass
 };
 
-},{"../util.js":168}],124:[function(require,module,exports){
+},{"../util.js":99}],55:[function(require,module,exports){
 /** @jsx React.DOM */var GraphieClasses = require("./graphie-classes.jsx");
 var Interactive2 = require("../interactive2.js");
 var InteractiveUtil = require("../interactive2/interactive-util.js");
@@ -5320,7 +5251,7 @@ module.exports = {
     MovablePoint: MovablePoint
 };
 
-},{"../interactive2.js":148,"../interactive2/interactive-util.js":149,"./graphie-classes.jsx":123}],125:[function(require,module,exports){
+},{"../interactive2.js":79,"../interactive2/interactive-util.js":80,"./graphie-classes.jsx":54}],56:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var GraphieClasses = require("./graphie-classes.jsx");
@@ -5600,7 +5531,7 @@ _.extend(Graphie, Movables);
 
 module.exports = Graphie;
 
-},{"../interactive2/interactive-util.js":149,"../util.js":168,"./graphie-classes.jsx":123,"./graphie-movables.jsx":124}],126:[function(require,module,exports){
+},{"../interactive2/interactive-util.js":80,"../util.js":99,"./graphie-classes.jsx":54,"./graphie-movables.jsx":55}],57:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -5760,7 +5691,7 @@ var InputWithExamples = React.createClass({displayName: 'InputWithExamples',
 
 module.exports = InputWithExamples;
 
-},{"../perseus-api.jsx":162,"../renderer.jsx":165,"../util.js":168,"./math-input.jsx":127,"./text-input.jsx":134,"react":115,"react-components/tooltip":114}],127:[function(require,module,exports){
+},{"../perseus-api.jsx":93,"../renderer.jsx":96,"../util.js":99,"./math-input.jsx":58,"./text-input.jsx":65,"react":44,"react-components/tooltip":43}],58:[function(require,module,exports){
 /** @jsx React.DOM */
 
 // TODO(alex): Package MathQuill
@@ -5999,7 +5930,7 @@ var MathInput = React.createClass({displayName: 'MathInput',
 
 module.exports = MathInput;
 
-},{"./tex-buttons.jsx":133,"react":115,"underscore":116}],128:[function(require,module,exports){
+},{"./tex-buttons.jsx":64,"react":44,"underscore":45}],59:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -6071,7 +6002,7 @@ var MultiButtonGroup = React.createClass({displayName: 'MultiButtonGroup',
 
 module.exports = MultiButtonGroup;
 
-},{"react":115}],129:[function(require,module,exports){
+},{"react":44}],60:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -6250,7 +6181,7 @@ var NumberInput = React.createClass({displayName: 'NumberInput',
 
 module.exports = NumberInput;
 
-},{"../util.js":168,"react":115}],130:[function(require,module,exports){
+},{"../util.js":99,"react":44}],61:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -6312,7 +6243,7 @@ var PropCheckBox = React.createClass({displayName: 'PropCheckBox',
 
 module.exports = PropCheckBox;
 
-},{"react":115}],131:[function(require,module,exports){
+},{"react":44}],62:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -6371,7 +6302,7 @@ var RangeInput = React.createClass({displayName: 'RangeInput',
 
 module.exports = RangeInput;
 
-},{"../components/number-input.jsx":129,"react":115}],132:[function(require,module,exports){
+},{"../components/number-input.jsx":60,"react":44}],63:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -6888,7 +6819,7 @@ var Sortable = React.createClass({displayName: 'Sortable',
 
 module.exports = Sortable;
 
-},{"../renderer.jsx":165,"../util.js":168,"react":115}],133:[function(require,module,exports){
+},{"../renderer.jsx":96,"../util.js":99,"react":44}],64:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React     = require("react");
@@ -7023,7 +6954,7 @@ var TexButtons = React.createClass({displayName: 'TexButtons',
 
 module.exports = TexButtons;
 
-},{"react":115,"react-components/tex":113}],134:[function(require,module,exports){
+},{"react":44,"react-components/tex":42}],65:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var TextInput = React.createClass({displayName: 'TextInput',
@@ -7055,7 +6986,7 @@ var TextInput = React.createClass({displayName: 'TextInput',
 
 module.exports = TextInput;
 
-},{}],135:[function(require,module,exports){
+},{}],66:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var textWidthCache = {};
@@ -7185,7 +7116,7 @@ var TextListEditor = React.createClass({displayName: 'TextListEditor',
 
 module.exports = TextListEditor;
 
-},{}],136:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 /** @jsx React.DOM */
 
 // Responsible for combining the text diffs from text-diff and the widget
@@ -7300,7 +7231,7 @@ var RevisionDiff = React.createClass({displayName: 'RevisionDiff',
 
 module.exports = RevisionDiff;
 
-},{"./text-diff.jsx":139,"./widget-diff.jsx":141}],137:[function(require,module,exports){
+},{"./text-diff.jsx":70,"./widget-diff.jsx":72}],68:[function(require,module,exports){
 /** @jsx React.DOM */// Split a word-wise diff generated by jsdiff into multiple lines, for the
 // purpose of breaking up the diffs into lines, so that modified lines can be
 // faintly highlighted
@@ -7330,7 +7261,7 @@ var splitDiff = function(diffEntries) {
 
 module.exports = splitDiff;
 
-},{}],138:[function(require,module,exports){
+},{}],69:[function(require,module,exports){
 /** @jsx React.DOM */var jsdiff = require("../../lib/jsdiff");
 
 var statusFor = function(chunk) {
@@ -7400,7 +7331,7 @@ var stringArrayDiff = function(a, b) {
 
 module.exports = stringArrayDiff;
 
-},{"../../lib/jsdiff":1}],139:[function(require,module,exports){
+},{"../../lib/jsdiff":1}],70:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var diff = require("../../lib/jsdiff");
@@ -7565,7 +7496,7 @@ var TextDiff = React.createClass({displayName: 'TextDiff',
 
 module.exports = TextDiff;
 
-},{"../../lib/jsdiff":1,"./split-diff.jsx":137,"./string-array-diff.jsx":138}],140:[function(require,module,exports){
+},{"../../lib/jsdiff":1,"./split-diff.jsx":68,"./string-array-diff.jsx":69}],71:[function(require,module,exports){
 /** @jsx React.DOM */var UNCHANGED = "unchanged";
 var CHANGED = "changed";
 var ADDED = "added";
@@ -7635,7 +7566,7 @@ var performDiff = function(before, after, /* optional */ key) {
 
 module.exports = performDiff;
 
-},{}],141:[function(require,module,exports){
+},{}],72:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var cx = React.addons.classSet;
@@ -7831,7 +7762,7 @@ var WidgetDiff = React.createClass({displayName: 'WidgetDiff',
 
 module.exports = WidgetDiff;
 
-},{"./widget-diff-performer.jsx":140}],142:[function(require,module,exports){
+},{"./widget-diff-performer.jsx":71}],73:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -8115,7 +8046,7 @@ var EditorPage = React.createClass({displayName: 'EditorPage',
 
 module.exports = EditorPage;
 
-},{"./components/prop-check-box.jsx":130,"./enabled-features.jsx":144,"./hint-editor.jsx":145,"./item-editor.jsx":157,"./item-renderer.jsx":158,"./perseus-api.jsx":162,"react":115}],143:[function(require,module,exports){
+},{"./components/prop-check-box.jsx":61,"./enabled-features.jsx":75,"./hint-editor.jsx":76,"./item-editor.jsx":88,"./item-renderer.jsx":89,"./perseus-api.jsx":93,"react":44}],74:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -8128,11 +8059,12 @@ var DragTarget = require("react-components/drag-target");
 var rWidgetSplit = /(\[\[\u2603 [a-z-]+ [0-9]+\]\])/g;
 
 // widgets junyi can use now:
-var widgetsInEditor = ['image', 'categorizer', 'dropdown', 'expression', 
-                      'input-number', 'interactive-graph', 'interactive-number-line', 
-                      'lights-puzzle', 'measurer', 'number-line', 
-                      'iframe', 'numeric-input', 'plotter', 
-                      'radio', 'sorter', 'table', 'transformer', 'matcher'];
+var widgetsInEditor = ['image', 'categorizer', 'dropdown', 'expression',
+                      'input-number', 'interactive-graph', 'interactive-number-line',
+                      'lights-puzzle', 'measurer', 'number-line',
+                      'iframe', 'numeric-input', 'plotter',
+                      'radio', 'sorter', 'table', 'transformer', 'matcher',
+                      'speaking-text-input', 'speaking-voice'];
 
 var WidgetSelect = React.createClass({displayName: 'WidgetSelect',
     handleChange: function(e) {
@@ -8716,7 +8648,7 @@ var Editor = React.createClass({displayName: 'Editor',
 
 module.exports = Editor;
 
-},{"./components/prop-check-box.jsx":130,"./util.js":168,"./widgets.js":171,"react":115,"react-components/drag-target":4}],144:[function(require,module,exports){
+},{"./components/prop-check-box.jsx":61,"./util.js":99,"./widgets.js":102,"react":44,"react-components/drag-target":37}],75:[function(require,module,exports){
 /** @jsx React.DOM */var React = require('react');
 
 module.exports = {
@@ -8732,7 +8664,7 @@ module.exports = {
     }
 };
 
-},{"react":115}],145:[function(require,module,exports){
+},{"react":44}],76:[function(require,module,exports){
 /** @jsx React.DOM */
 
 /* Collection of classes for rendering the hint editor area,
@@ -8948,7 +8880,7 @@ var CombinedHintsEditor = React.createClass({displayName: 'CombinedHintsEditor',
 
 module.exports = CombinedHintsEditor;
 
-},{"./editor.jsx":143,"./hint-renderer.jsx":146,"react":115,"react-components/info-tip":5}],146:[function(require,module,exports){
+},{"./editor.jsx":74,"./hint-renderer.jsx":77,"react":44,"react-components/info-tip":38}],77:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -8976,7 +8908,7 @@ var HintRenderer = React.createClass({displayName: 'HintRenderer',
 
 module.exports = HintRenderer;
 
-},{"./renderer.jsx":165,"react":115}],147:[function(require,module,exports){
+},{"./renderer.jsx":96,"react":44}],78:[function(require,module,exports){
 var React = require('react');
 
 var init = function(options) {
@@ -9017,7 +8949,7 @@ var init = function(options) {
 
 module.exports = init;
 
-},{"react":115}],148:[function(require,module,exports){
+},{"react":44}],79:[function(require,module,exports){
 var Movable = require("./interactive2/movable.js");
 var MovablePoint = require("./interactive2/movable-point.js");
 var MovableLine = require("./interactive2/movable-line.js");
@@ -9037,7 +8969,7 @@ var Interactive2 = {
 
 module.exports = Interactive2;
 
-},{"./interactive2/movable-line.js":152,"./interactive2/movable-point.js":154,"./interactive2/movable.js":155}],149:[function(require,module,exports){
+},{"./interactive2/movable-line.js":83,"./interactive2/movable-point.js":85,"./interactive2/movable.js":86}],80:[function(require,module,exports){
 /**
  * Utility functions for writing Interactive2 movablethings
  */
@@ -9115,7 +9047,7 @@ var InteractiveUtil = {
 
 module.exports = InteractiveUtil;
 
-},{"./movable-helper-methods.js":150}],150:[function(require,module,exports){
+},{"./movable-helper-methods.js":81}],81:[function(require,module,exports){
 /**
  * MovableThing convenience methods
  *
@@ -9218,7 +9150,7 @@ var MovableHelperMethods = {
 
 module.exports = MovableHelperMethods;
 
-},{}],151:[function(require,module,exports){
+},{}],82:[function(require,module,exports){
 /**
  * A library of options to pass to add/draw/remove/constraints
  */
@@ -9501,7 +9433,7 @@ module.exports = {
     onMoveEnd: {standard: null},
 };
 
-},{}],152:[function(require,module,exports){
+},{}],83:[function(require,module,exports){
 /**
  * MovableLine
  */
@@ -9785,7 +9717,7 @@ _.extend(MovableLine.prototype, {
 
 module.exports = MovableLine;
 
-},{"./interactive-util.js":149,"./movable-line-options.js":151,"./objective_.js":156}],153:[function(require,module,exports){
+},{"./interactive-util.js":80,"./movable-line-options.js":82,"./objective_.js":87}],84:[function(require,module,exports){
 /**
  * A library of options to pass to add/draw/remove/constraints
  */
@@ -9930,7 +9862,7 @@ module.exports = {
     onClick: {standard: null}
 };
 
-},{}],154:[function(require,module,exports){
+},{}],85:[function(require,module,exports){
 /**
  * Creates and adds a point to the graph that can be dragged around.
  * It allows constraints on its movement and draws when moves happen.
@@ -10263,7 +10195,7 @@ _.extend(MovablePoint.prototype, {
 
 module.exports = MovablePoint;
 
-},{"./interactive-util.js":149,"./movable-point-options.js":153,"./objective_.js":156}],155:[function(require,module,exports){
+},{"./interactive-util.js":80,"./movable-point-options.js":84,"./objective_.js":87}],86:[function(require,module,exports){
 /**
  * Movable
  *
@@ -10528,7 +10460,7 @@ _.extend(Movable.prototype, {
 
 module.exports = Movable;
 
-},{"./interactive-util.js":149}],156:[function(require,module,exports){
+},{"./interactive-util.js":80}],87:[function(require,module,exports){
 /**
  * A work-in-progress of _ methods for objects.
  * That is, they take an object as a parameter,
@@ -10557,7 +10489,7 @@ var pluck = exports.pluck = function(table, subKey) {
     }));
 };
 
-},{}],157:[function(require,module,exports){
+},{}],88:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -10587,6 +10519,7 @@ var ItemEditor = React.createClass({displayName: 'ItemEditor',
     },
 
     render: function() {
+        var img_src = Math.random() > 0.05 ? "/images/face-smiley01.png" : "/images/face-smiley02.png";
         return React.DOM.div( {className:"perseus-editor-table"}, 
             React.DOM.div( {className:"perseus-editor-row perseus-question-container"}, 
                 React.DOM.div( {className:"perseus-editor-left-cell"}, 
@@ -10640,7 +10573,7 @@ var ItemEditor = React.createClass({displayName: 'ItemEditor',
                                 onClick:this.props.onCheckAnswer,
                                 value:"Check Answer"} ),
                             this.props.wasAnswered &&
-                                React.DOM.img( {src:"/images/face-smiley.png",
+                                React.DOM.img( {src:img_src,
                                     className:"smiley"} ),
                             this.props.gradeMessage &&
                                 React.DOM.span(null, this.props.gradeMessage)
@@ -10666,7 +10599,7 @@ var ItemEditor = React.createClass({displayName: 'ItemEditor',
 
 module.exports = ItemEditor;
 
-},{"./answer-area-editor.jsx":118,"./editor.jsx":143,"./version.json":169,"react":115}],158:[function(require,module,exports){
+},{"./answer-area-editor.jsx":49,"./editor.jsx":74,"./version.json":100,"react":44}],89:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -10986,7 +10919,7 @@ var ItemRenderer = React.createClass({displayName: 'ItemRenderer',
 
 module.exports = ItemRenderer;
 
-},{"./answer-area-renderer.jsx":119,"./enabled-features.jsx":144,"./hint-renderer.jsx":146,"./perseus-api.jsx":162,"./renderer.jsx":165,"./util.js":168,"react":115}],159:[function(require,module,exports){
+},{"./answer-area-renderer.jsx":50,"./enabled-features.jsx":75,"./hint-renderer.jsx":77,"./perseus-api.jsx":93,"./renderer.jsx":96,"./util.js":99,"react":44}],90:[function(require,module,exports){
 /** @jsx React.DOM */
 /**
  * Changeable
@@ -11087,7 +11020,7 @@ var Changeable = {
 
 module.exports = Changeable;
 
-},{"./widget-prop-blacklist.jsx":161}],160:[function(require,module,exports){
+},{"./widget-prop-blacklist.jsx":92}],91:[function(require,module,exports){
 /** @jsx React.DOM */var WIDGET_PROP_BLACKLIST = require("./widget-prop-blacklist.jsx");
 
 var JsonifyProps = {
@@ -11099,7 +11032,7 @@ var JsonifyProps = {
 
 module.exports = JsonifyProps;
 
-},{"./widget-prop-blacklist.jsx":161}],161:[function(require,module,exports){
+},{"./widget-prop-blacklist.jsx":92}],92:[function(require,module,exports){
 /** @jsx React.DOM */module.exports = [
     // standard props "added" by react
     // (technically the renderer still adds them)
@@ -11113,7 +11046,7 @@ module.exports = JsonifyProps;
     "apiOptions"
 ];
 
-},{}],162:[function(require,module,exports){
+},{}],93:[function(require,module,exports){
 /** @jsx React.DOM *//**
  * [Most of] the Perseus client API.
  *
@@ -11172,7 +11105,7 @@ module.exports = {
 };
 
 
-},{}],163:[function(require,module,exports){
+},{}],94:[function(require,module,exports){
 require("./all-widgets.js");
 
 var version = require("./version.json");
@@ -11192,7 +11125,7 @@ module.exports = {
     Util:               require("./util.js")
 };
 
-},{"./all-widgets.js":117,"./answer-area-renderer.jsx":119,"./diffs/revision-diff.jsx":136,"./editor-page.jsx":142,"./editor.jsx":143,"./init.js":147,"./item-renderer.jsx":158,"./perseus-api.jsx":162,"./renderer.jsx":165,"./stateful-editor-page.jsx":166,"./util.js":168,"./version.json":169}],164:[function(require,module,exports){
+},{"./all-widgets.js":48,"./answer-area-renderer.jsx":50,"./diffs/revision-diff.jsx":67,"./editor-page.jsx":73,"./editor.jsx":74,"./init.js":78,"./item-renderer.jsx":89,"./perseus-api.jsx":93,"./renderer.jsx":96,"./stateful-editor-page.jsx":97,"./util.js":99,"./version.json":100}],95:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -11208,7 +11141,7 @@ var QuestionParagraph = React.createClass({displayName: 'QuestionParagraph',
 
 module.exports = QuestionParagraph;
 
-},{"react":115}],165:[function(require,module,exports){
+},{"react":44}],96:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -11843,7 +11776,7 @@ function extractMathAndWidgets(text) {
 
 module.exports = Renderer;
 
-},{"./enabled-features.jsx":144,"./perseus-api.jsx":162,"./question-paragraph.jsx":164,"./tex.jsx":167,"./util.js":168,"./widget-container.jsx":170,"./widgets.js":171,"react":115}],166:[function(require,module,exports){
+},{"./enabled-features.jsx":75,"./perseus-api.jsx":93,"./question-paragraph.jsx":95,"./tex.jsx":98,"./util.js":99,"./widget-container.jsx":101,"./widgets.js":102,"react":44}],97:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -11886,7 +11819,7 @@ var StatefulEditorPage = React.createClass({displayName: 'StatefulEditorPage',
 
 module.exports = StatefulEditorPage;
 
-},{"./editor-page.jsx":142,"react":115}],167:[function(require,module,exports){
+},{"./editor-page.jsx":73,"react":44}],98:[function(require,module,exports){
 /** @jsx React.DOM */
 /**
  * For math rendered using MathJax. Use me like <TeX>2x + 3</TeX>.
@@ -12039,7 +11972,7 @@ var TeX = React.createClass({displayName: 'TeX',
 
 module.exports = TeX;
 
-},{"react":115}],168:[function(require,module,exports){
+},{"react":44}],99:[function(require,module,exports){
 var nestedMap = function(children, func, context) {
     if (_.isArray(children)) {
         return _.map(children, function(child) {
@@ -12060,6 +11993,22 @@ var Util = {
         earned: 0,
         total: 0,
         message: null
+    },
+
+    asc: function(text) {  // 全型轉半型的 function
+            if (typeof text != "string") {
+                return text
+            }
+            var asciiTable = "!\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+            var big5Table = "%uFF01%u201D%uFF03%uFF04%uFF05%uFF06%u2019%uFF08%uFF09%uFF0A%uFF0B%uFF0C%uFF0D%uFF0E%uFF0F%uFF10%uFF11%uFF12%uFF13%uFF14%uFF15%uFF16%uFF17%uFF18%uFF19%uFF1A%uFF1B%uFF1C%uFF1D%uFF1E%uFF1F%uFF20%uFF21%uFF22%uFF23%uFF24%uFF25%uFF26%uFF27%uFF28%uFF29%uFF2A%uFF2B%uFF2C%uFF2D%uFF2E%uFF2F%uFF30%uFF31%uFF32%uFF33%uFF34%uFF35%uFF36%uFF37%uFF38%uFF39%uFF3A%uFF3B%uFF3C%uFF3D%uFF3E%uFF3F%u2018%uFF41%uFF42%uFF43%uFF44%uFF45%uFF46%uFF47%uFF48%uFF49%uFF4A%uFF4B%uFF4C%uFF4D%uFF4E%uFF4F%uFF50%uFF51%uFF52%uFF53%uFF54%uFF55%uFF56%uFF57%uFF58%uFF59%uFF5A%uFF5B%uFF5C%uFF5D%uFF5E";
+
+            var result = "";
+            for (var i = 0; i < text.length; i++) {
+                var val = escape(text.charAt(i));
+                var j = big5Table.indexOf(val);
+                result += (((j > -1) && (val.length == 6)) ? asciiTable.charAt(j / 6) : text.charAt(i));
+            }
+            return result;
     },
 
     seededRNG: function(seed) {
@@ -12579,7 +12528,7 @@ Util.random = Util.seededRNG(new Date().getTime() & 0xffffffff);
 
 module.exports = Util;
 
-},{}],169:[function(require,module,exports){
+},{}],100:[function(require,module,exports){
 module.exports={
     "apiVersion": {
         "major": 1,
@@ -12591,7 +12540,7 @@ module.exports={
     }
 }
 
-},{}],170:[function(require,module,exports){
+},{}],101:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -12630,7 +12579,7 @@ var WidgetContainer = React.createClass({displayName: 'WidgetContainer',
 
 module.exports = WidgetContainer;
 
-},{"react":115}],171:[function(require,module,exports){
+},{"react":44}],102:[function(require,module,exports){
 var widgets = {};
 
 var Widgets = {
@@ -12770,7 +12719,7 @@ var Widgets = {
 
 module.exports = Widgets;
 
-},{}],172:[function(require,module,exports){
+},{}],103:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var Changeable   = require("../mixins/changeable.jsx");
@@ -12956,7 +12905,7 @@ module.exports = {
 };
 
 
-},{"../components/text-list-editor.jsx":135,"../mixins/changeable.jsx":159,"../mixins/jsonify-props.jsx":160,"../renderer.jsx":165,"../util.js":168}],173:[function(require,module,exports){
+},{"../components/text-list-editor.jsx":66,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"../renderer.jsx":96,"../util.js":99}],104:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -13214,7 +13163,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/fancy-select.jsx":120,"../mixins/jsonify-props.jsx":160,"../perseus-api.jsx":162,"../util.js":168,"react":115,"react-components/info-tip":5}],174:[function(require,module,exports){
+},{"../components/fancy-select.jsx":51,"../mixins/jsonify-props.jsx":91,"../perseus-api.jsx":93,"../util.js":99,"react":44,"react-components/info-tip":38}],105:[function(require,module,exports){
 /** @jsx React.DOM */
 
 /**
@@ -13409,7 +13358,7 @@ module.exports = {
     editor: ExampleGraphieWidgetEditor
 };
 
-},{"../components/graphie.jsx":125,"../mixins/changeable.jsx":159,"../mixins/jsonify-props.jsx":160,"../util.js":168,"react":115}],175:[function(require,module,exports){
+},{"../components/graphie.jsx":56,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"../util.js":99,"react":44}],106:[function(require,module,exports){
 /** @jsx React.DOM */
 
 /**
@@ -13593,7 +13542,7 @@ module.exports = {
     editor: ExampleWidgetEditor
 };
 
-},{"../mixins/changeable.jsx":159,"../mixins/jsonify-props.jsx":160,"react":115}],176:[function(require,module,exports){
+},{"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"react":44}],107:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React   = require("react");
@@ -13614,6 +13563,7 @@ var TexButtons        = require("../components/tex-buttons.jsx");
 
 var cx = React.addons.classSet;
 var EnabledFeatures = require("../enabled-features.jsx");
+var Util = require("../util.js");
 
 var ERROR_MESSAGE = $._("Sorry, I don't understand that!");
 
@@ -13727,7 +13677,7 @@ var Expression = React.createClass({displayName: 'Expression',
                 MathInput(
                     {ref:"input",
                     value:this.props.value,
-                    onChange:this.change("value"),
+                    onChange:this.handleChange,
                     convertDotToTimes:this.props.times,
                     buttonsVisible:this.props.buttonsVisible || "focused",
                     buttonSets:this.props.buttonSets,
@@ -13736,6 +13686,10 @@ var Expression = React.createClass({displayName: 'Expression',
                 this.state.showErrorTooltip && errorTooltip
             );
         }
+    },
+    
+    handleChange: function(newValue) {
+        this.props.onChange({ value: Util.asc(newValue) });
     },
 
     _handleFocus: function() {
@@ -14077,7 +14031,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/input-with-examples.jsx":126,"../components/math-input.jsx":127,"../components/prop-check-box.jsx":130,"../components/tex-buttons.jsx":133,"../enabled-features.jsx":144,"../mixins/changeable.jsx":159,"../mixins/jsonify-props.jsx":160,"../perseus-api.jsx":162,"../tex.jsx":167,"react":115,"react-components/info-tip":5,"react-components/tooltip":114}],177:[function(require,module,exports){
+},{"../components/input-with-examples.jsx":57,"../components/math-input.jsx":58,"../components/prop-check-box.jsx":61,"../components/tex-buttons.jsx":64,"../enabled-features.jsx":75,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"../perseus-api.jsx":93,"../tex.jsx":98,"../util.js":99,"react":44,"react-components/info-tip":38,"react-components/tooltip":43}],108:[function(require,module,exports){
 /** @jsx React.DOM */
 
 /**
@@ -14329,7 +14283,7 @@ module.exports = {
     editor: IframeEditor
 };
 
-},{"../mixins/changeable.jsx":159,"../mixins/jsonify-props.jsx":160,"../util.js":168,"react":115,"react-components/blur-input":2}],178:[function(require,module,exports){
+},{"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"../util.js":99,"react":44,"react-components/blur-input":35}],109:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var BlurInput    = require("react-components/blur-input");
@@ -14664,7 +14618,7 @@ module.exports = {
 };
 
 
-},{"../components/graphie.jsx":125,"../components/range-input.jsx":131,"../mixins/changeable.jsx":159,"../mixins/jsonify-props.jsx":160,"react-components/blur-input":2,"react-components/info-tip":5}],179:[function(require,module,exports){
+},{"../components/graphie.jsx":56,"../components/range-input.jsx":62,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"react-components/blur-input":35,"react-components/info-tip":38}],110:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React             = require('react');
@@ -14822,7 +14776,7 @@ var InputNumber = React.createClass({displayName: 'InputNumber',
     },
 
     handleChange: function(newValue) {
-        this.props.onChange({ currentValue: newValue });
+        this.props.onChange({ currentValue: Util.asc(newValue) });
     },
 
     focus: function() {
@@ -14985,7 +14939,7 @@ module.exports = {
     transform: propTransform
 };
 
-},{"../components/input-with-examples.jsx":126,"../enabled-features.jsx":144,"../perseus-api.jsx":162,"../renderer.jsx":165,"../tex.jsx":167,"../util.js":168,"react":115,"react-components/blur-input":2,"react-components/info-tip":5}],180:[function(require,module,exports){
+},{"../components/input-with-examples.jsx":57,"../enabled-features.jsx":75,"../perseus-api.jsx":93,"../renderer.jsx":96,"../tex.jsx":98,"../util.js":99,"react":44,"react-components/blur-input":35,"react-components/info-tip":38}],111:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React         = require('react');
@@ -17483,7 +17437,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/graph-settings.jsx":121,"../components/graph.jsx":122,"../components/number-input.jsx":129,"../interactive2.js":148,"../util.js":168,"react":115,"react-components/info-tip":5}],181:[function(require,module,exports){
+},{"../components/graph-settings.jsx":52,"../components/graph.jsx":53,"../components/number-input.jsx":60,"../interactive2.js":79,"../util.js":99,"react":44,"react-components/info-tip":38}],112:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var InfoTip      = require("react-components/info-tip");
@@ -17931,7 +17885,7 @@ module.exports = {
     editor: InteractiveNumberLineEditor
 };
 
-},{"../components/prop-check-box.jsx":130,"../util.js":168,"react-components/info-tip":5}],182:[function(require,module,exports){
+},{"../components/prop-check-box.jsx":61,"../util.js":99,"react-components/info-tip":38}],113:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -18393,7 +18347,7 @@ module.exports = {
     transform: transformProps
 };
 
-},{"../components/number-input.jsx":129,"../components/prop-check-box.jsx":130,"../mixins/changeable.jsx":159,"../mixins/jsonify-props.jsx":160,"react":115,"react-components/info-tip":5}],183:[function(require,module,exports){
+},{"../components/number-input.jsx":60,"../components/prop-check-box.jsx":61,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"react":44,"react-components/info-tip":38}],114:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -18633,7 +18587,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/prop-check-box.jsx":130,"../components/sortable.jsx":132,"../components/text-list-editor.jsx":135,"../renderer.jsx":165,"../util.js":168,"react":115,"react-components/info-tip":5}],184:[function(require,module,exports){
+},{"../components/prop-check-box.jsx":61,"../components/sortable.jsx":63,"../components/text-list-editor.jsx":66,"../renderer.jsx":96,"../util.js":99,"react":44,"react-components/info-tip":38}],115:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React        = require('react');
@@ -18994,7 +18948,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/number-input.jsx":129,"../components/prop-check-box.jsx":130,"../components/range-input.jsx":131,"../mixins/changeable.jsx":159,"../mixins/jsonify-props.jsx":160,"react":115,"react-components/info-tip":5}],185:[function(require,module,exports){
+},{"../components/number-input.jsx":60,"../components/prop-check-box.jsx":61,"../components/range-input.jsx":62,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"react":44,"react-components/info-tip":38}],116:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -19845,7 +19799,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/graphie.jsx":125,"../components/number-input.jsx":129,"../components/prop-check-box.jsx":130,"../components/range-input.jsx":131,"../interactive2.js":148,"../interactive2/interactive-util.js":149,"../mixins/changeable.jsx":159,"../mixins/jsonify-props.jsx":160,"../util.js":168,"react":115,"react-components/button-group":3,"react-components/info-tip":5}],186:[function(require,module,exports){
+},{"../components/graphie.jsx":56,"../components/number-input.jsx":60,"../components/prop-check-box.jsx":61,"../components/range-input.jsx":62,"../interactive2.js":79,"../interactive2/interactive-util.js":80,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"../util.js":99,"react":44,"react-components/button-group":36,"react-components/info-tip":38}],117:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -19861,7 +19815,7 @@ var InputWithExamples = require("../components/input-with-examples.jsx");
 
 var Editor = require("../editor.jsx");
 
-var firstNumericalParse = require("../util.js").firstNumericalParse;
+var Util = require("../util.js");
 
 var answerFormButtons = [
     {title: "整數", value: "integer", text: "6"},
@@ -19910,7 +19864,7 @@ var NumericInput = React.createClass({displayName: 'NumericInput',
     },
 
     handleChange: function(newValue) {
-        this.props.onChange({ currentValue: newValue });
+        this.props.onChange({ currentValue: Util.asc(newValue) });
     },
 
     focus: function() {
@@ -20145,13 +20099,13 @@ var NumericInputEditor = React.createClass({displayName: 'NumericInputEditor',
                                 forms = ["proper", "improper"];
                             }
                             this.updateAnswer(i, {
-                                value: firstNumericalParse(newValue),
+                                value: Util.firstNumericalParse(newValue),
                                 answerForms: forms
                             });
                         }.bind(this),
                         onChange:function(newValue)  {
                             this.updateAnswer(i, {
-                                value: firstNumericalParse(newValue)});
+                                value: Util.firstNumericalParse(newValue)});
                         }.bind(this)} ),
                     answer.strict && React.DOM.div( {className:"is-strict-indicator",
                         title:"strictly equivalent to"}, "≡"),
@@ -20290,7 +20244,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/input-with-examples.jsx":126,"../components/multi-button-group.jsx":128,"../components/number-input.jsx":129,"../components/prop-check-box.jsx":130,"../editor.jsx":143,"../mixins/changeable.jsx":159,"../mixins/jsonify-props.jsx":160,"../util.js":168,"react":115,"react-components/button-group":3,"react-components/info-tip":5}],187:[function(require,module,exports){
+},{"../components/input-with-examples.jsx":57,"../components/multi-button-group.jsx":59,"../components/number-input.jsx":60,"../components/prop-check-box.jsx":61,"../editor.jsx":74,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"../util.js":99,"react":44,"react-components/button-group":36,"react-components/info-tip":38}],118:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React          = require('react');
@@ -20963,7 +20917,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/text-list-editor.jsx":135,"../renderer.jsx":165,"../util.js":168,"react":115,"react-components/info-tip":5}],188:[function(require,module,exports){
+},{"../components/text-list-editor.jsx":66,"../renderer.jsx":96,"../util.js":99,"react":44,"react-components/info-tip":38}],119:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -21960,7 +21914,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/number-input.jsx":129,"../components/range-input.jsx":131,"../components/text-list-editor.jsx":135,"../util.js":168,"react":115,"react-components/info-tip":5}],189:[function(require,module,exports){
+},{"../components/number-input.jsx":60,"../components/range-input.jsx":62,"../components/text-list-editor.jsx":66,"../util.js":99,"react":44,"react-components/info-tip":38}],120:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -22507,7 +22461,7 @@ module.exports = {
     transform: choiceTransform
 };
 
-},{"../components/prop-check-box.jsx":130,"../editor.jsx":143,"../mixins/changeable.jsx":159,"../perseus-api.jsx":162,"../renderer.jsx":165,"../util.js":168,"react":115,"react-components/button-group":3,"react-components/info-tip":5}],190:[function(require,module,exports){
+},{"../components/prop-check-box.jsx":61,"../editor.jsx":74,"../mixins/changeable.jsx":90,"../perseus-api.jsx":93,"../renderer.jsx":96,"../util.js":99,"react":44,"react-components/button-group":36,"react-components/info-tip":38}],121:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React          = require('react');
@@ -22659,7 +22613,443 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/prop-check-box.jsx":130,"../components/sortable.jsx":132,"../components/text-list-editor.jsx":135,"../util.js":168,"react":115,"react-components/info-tip":5}],191:[function(require,module,exports){
+},{"../components/prop-check-box.jsx":61,"../components/sortable.jsx":63,"../components/text-list-editor.jsx":66,"../util.js":99,"react":44,"react-components/info-tip":38}],122:[function(require,module,exports){
+/** @jsx React.DOM */
+
+var React = require('react');
+var Changeable = require("../mixins/changeable.jsx");
+var JsonifyProps = require("../mixins/jsonify-props.jsx");
+
+var TextInput = React.createClass({displayName: 'TextInput',
+    render: function() {
+        return React.DOM.input( {ref:"input", value:this.props.value || "", onChange:this.changeValue, onPaste:this.pasteValue, onKeyPress:this.keypressValue});
+    },
+
+    pasteValue: function(e) {
+        e.preventDefault();
+        return false;
+    },
+
+    keypressValue: function(e) {
+        e.preventDefault();
+        return false;
+    },
+
+    changeValue: function(e) {
+        this.props.setValue(this.refs.input.value);
+    },
+
+    statics: {
+        displayMode: "inline-block"
+    }
+});
+
+var SpeakingBtn = React.createClass({displayName: 'SpeakingBtn',
+    render: function() {
+        return (
+            React.DOM.div(null, 
+                this.recognition
+                    ? React.DOM.button( {onClick:this.startRecognizeOnClick, className:"simple-button orange"}, this.state.status
+                        )
+                    : React.DOM.button( {onClick:this.resetOnClick, className:"simple-button orange"}, this.state.status
+                        )
+            )
+        );
+    },
+    getInitialState: function() {
+        return {recognizing: false, status: ""}
+    },
+
+    startRecognize: function() {
+        if (this.state.recognizing == false) {
+            this.recognition.start();
+        }
+    },
+
+    // prevent trigger checking answer when clicking button
+    startRecognizeOnClick: function(e) {
+        this.startRecognize();
+        e.preventDefault();
+        return false;
+    },
+
+    // ignore clicking event
+    resetOnClick: function(e) {
+        this.props.setValue('');
+        e.preventDefault();
+        return false;
+    },
+
+    componentWillMount: function() {
+        var self = this;
+        var os = self.getMobileOperatingSystem();
+        if (self.hasSpeechRecognition()) {
+            var recognition = new webkitSpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.continuous = false;
+            recognition.interimResults = true;
+            recognition.maxAlternatives = 20;
+            self.setState({recognizing: false});
+            self.setState({status: "辨識"});
+            recognition.onstart = function() {
+                self.setState({recognizing: true});
+                self.setState({status: "辨識中"});
+                self.props.setValue('');
+            };
+            recognition.onend = function() {
+                self.setState({recognizing: false});
+                self.setState({status: "重新辨識"});
+            };
+            recognition.onresult = function(event) {
+                self.setState({recognizing: false});
+                var res = '';
+                for (var i = event.resultIndex; i < event.results.length; i++) {
+                    if (event.results[i].isFinal) {
+                        for (var j = 0; j < event.results[i].length; j++) {
+                            if (j != 0) {
+                                res = res + '/';
+                            }
+                            res = res + event.results[i][j].transcript;
+                            self.props.setValue(res);
+                        }
+                    }
+                }
+            }
+            self.recognition = recognition;
+        } else {
+            if (os == 'iOS') {
+                self.setState({status: "點選上面的框框 用Siri語音輸入/清除"});
+            } else if (os == 'Android') {
+                self.setState({status: "點選上面的框框 用Google語音輸入/清除"});
+            } else {
+                self.setState({status: "請切換至Chrome瀏覽器"});
+            }
+        }
+    },
+
+    getMobileOperatingSystem: function() {
+        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i) || userAgent.match(/iPod/i)) {
+            return 'iOS';
+        } else if (userAgent.match(/Android/i)) {
+            return 'Android';
+        } else {
+            return userAgent;
+        }
+    },
+
+    hasSpeechRecognition: function() {
+        return ('webkitSpeechRecognition' in window);
+    },
+
+    statics: {
+        displayMode: "inline-block"
+    }
+});
+
+var SpeakingTextInput = React.createClass({displayName: 'SpeakingTextInput',
+    propTypes: {
+        value: React.PropTypes.string
+    },
+
+    getDefaultProps: function() {
+        return {value: ""};
+    },
+
+    getInitialState: function() {
+        return {value: this.props.value}
+    },
+
+    // compare answer when setting value to prevent generate long atempt dict
+    setValue: function(val) {
+        var correntAns = SpeakingTextInput.parseAnswer(this.props.correct);
+        var userAnsList = val.split("/");
+        var correntIdx = -1;
+        for (var i = 0, len = userAnsList.length; i < len; i++) {
+            if (SpeakingTextInput.arrIsEqual(SpeakingTextInput.parseAnswer(userAnsList[i]), correntAns)) {
+                correntIdx = i;
+                break;
+            }
+        }
+        // if the answer is wrong, set value to the first answer
+        if(correntIdx == -1 || correntIdx >= this.props.correctIdxLessThen){
+            this.setState({value: userAnsList[0]});
+            this.change("value")(userAnsList[0]);
+        }
+        // else set value to the correct answer
+        else{
+            this.setState({value: this.props.correct});
+            this.change("value")(this.props.correct);
+        }
+    },
+
+    mixins: [
+        Changeable, JsonifyProps
+    ],
+
+    render: function() {
+        return (
+            React.DOM.div(null, 
+                TextInput( {value:this.state.value, setValue:this.setValue}),
+                SpeakingBtn( {setValue:this.setValue})
+            )
+        );
+    },
+
+    simpleValidate: function(rubric) {
+        return SpeakingTextInput.validate(this.toJSON(), rubric);
+    },
+
+    statics: {
+        displayMode: "inline-block"
+    }
+});
+
+_.extend(SpeakingTextInput, {
+    parseAnswer: function(s) {
+        var arr = s.split(" ");
+        var parsedArr = [];
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i].length > 0) {
+                parsedArr.push(arr[i].toLowerCase());
+            }
+        }
+        return parsedArr;
+    },
+
+    arrIsEqual: function(arr1, arr2) {
+        if (arr1.length !== arr2.length)
+            return false;
+        for (var i = 0, len = arr1.length; i < len; i++) {
+            if (arr1[i] !== arr2[i]) {
+                return false;
+            }
+        }
+        return true;
+    },
+
+    validate: function(state, rubric) {
+        var correct = SpeakingTextInput.arrIsEqual(
+            SpeakingTextInput.parseAnswer(rubric.correct),
+            SpeakingTextInput.parseAnswer(state.value)
+        );
+        if (state.value == '') {
+            return {type: 'invalid', message: '請重新再唸一次！'};
+        } else if (correct) {
+            return {type: 'points', earned: 1, total: 1, message: null};
+        } else {
+            return {type: 'points', earned: 0, total: 1, message: null};
+        }}
+    });
+
+    var SpeakingTextInputEditor = React.createClass({displayName: 'SpeakingTextInputEditor',
+        mixins: [
+            Changeable, JsonifyProps
+        ],
+
+        getDefaultProps: function() {
+            return {correct: "", correctIdxLessThen: 5};
+        },
+
+        handleAnswerChange: function(event) {
+            this.change({correct: event.target.value});
+        },
+
+        handleCorrectIdxChange: function(event) {
+            this.change({
+                correctIdxLessThen: parseInt(event.target.value)
+            });
+        },
+
+        render: function() {
+            return React.DOM.div(null, 
+                React.DOM.div(null, 
+                    React.DOM.label(null, 
+                        "正確答案:",
+                        React.DOM.input( {value:this.props.correct, onChange:this.handleAnswerChange})
+                    )
+                ),
+                React.DOM.div(null, 
+                    React.DOM.label(null, 
+                        "精準度 (1-20):",
+                        React.DOM.input( {value:this.props.correctIdxLessThen, onChange:this.handleCorrectIdxChange, type:"integer"})
+                    )
+                )
+            );
+        },
+    });
+
+    module.exports = {
+        name: "speaking-text-input",
+        displayName: "English Speech Recognition/英文口說辨識",
+        widget: SpeakingTextInput,
+        editor: SpeakingTextInputEditor
+    };
+
+},{"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"react":44}],123:[function(require,module,exports){
+/** @jsx React.DOM */
+
+var React = require('react');
+var Changeable = require("../mixins/changeable.jsx");
+var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var ResponsiveVoice = require('../../lib/responsivevoice.js');
+
+var SpeakingVoice = React.createClass({displayName: 'SpeakingVoice',
+    componentDidMount: function() {
+        this.responsiveVoice = new ResponsiveVoice;
+        this.responsiveVoice.init(); // must manually init
+    },
+
+    speak: function() {
+        this.responsiveVoice.speak(this.props.voiceText, this.props.lang, {
+            pitch: parseFloat(this.props.pitch),
+            rate: parseFloat(this.props.rate),
+            volume: this.props.volume
+        });
+    },
+
+    // prevent trigger checking answer when clicking button
+    speakOnClick: function(e) {
+        this.speak();
+        e.preventDefault();
+        return false;
+    },
+
+    mixins: [
+        Changeable, JsonifyProps
+    ],
+
+    render: function() {
+        return (
+            React.DOM.div(null, 
+                React.DOM.button( {className:"simple-button green", onClick:this.speakOnClick}, "發聲")
+            )
+        );
+    },
+
+    simpleValidate: function(rubric) {
+        return {type: "points", earned: 1, total: 1, message: null};
+    },
+
+    statics: {
+        displayMode: "inline-block"
+    }
+});
+
+var SpeakingVoiceEditor = React.createClass({displayName: 'SpeakingVoiceEditor',
+    mixins: [
+        Changeable, JsonifyProps
+    ],
+
+    getDefaultProps: function() {
+        return {voiceText: "", pitch: "1.0", rate: "1.0", volume: "1.0", lang: "US English Female"}
+    },
+
+    getInitialState: function() {
+        return {voiceText: this.props.voiceText, pitch: this.props.pitch, rate: this.props.rate, volume: this.props.volume, lang: this.props.lang}
+    },
+
+    pitchChange: function(event) {
+        this.change({pitch: event.target.value});
+        this.setState({pitch: event.target.value});
+    },
+
+    voiceTextChange: function(event) {
+        this.change({voiceText: event.target.value});
+        this.setState({voiceText: event.target.value});
+    },
+
+    rateChange: function(event) {
+        this.change({rate: event.target.value});
+        this.setState({rate: event.target.value});
+    },
+
+    langChange: function(event) {
+        this.change({lang: event.target.value});
+        this.setState({lang: event.target.value});
+    },
+
+    render: function() {
+        return React.DOM.div(null, 
+            React.DOM.div(null, 
+                React.DOM.label(null, 
+                    "內容:",
+                    React.DOM.input( {value:this.state.voiceText, onChange:this.voiceTextChange, defaultValue:this.state.voiceText})
+                )
+            ),
+            React.DOM.div(null, 
+                React.DOM.label(null, 
+                    "速度:",
+                    React.DOM.select( {value:this.state.rate, defaultValue:this.state.rate, onChange:this.rateChange}, 
+                        React.DOM.option( {value:"0.1"}, "0.1"),
+                        React.DOM.option( {value:"0.2"}, "0.2"),
+                        React.DOM.option( {value:"0.3"}, "0.3"),
+                        React.DOM.option( {value:"0.4"}, "0.4"),
+                        React.DOM.option( {value:"0.5"}, "0.5"),
+                        React.DOM.option( {value:"0.6"}, "0.6"),
+                        React.DOM.option( {value:"0.7"}, "0.7"),
+                        React.DOM.option( {value:"0.8"}, "0.8"),
+                        React.DOM.option( {value:"0.9"}, "0.9"),
+                        React.DOM.option( {value:"1.0"}, "1.0"),
+                        React.DOM.option( {value:"1.1"}, "1.1"),
+                        React.DOM.option( {value:"1.2"}, "1.2"),
+                        React.DOM.option( {value:"1.3"}, "1.3"),
+                        React.DOM.option( {value:"1.4"}, "1.4"),
+                        React.DOM.option( {value:"1.5"}, "1.5")
+                    )
+                )
+            ),
+            React.DOM.div(null, 
+                React.DOM.label(null, 
+                    "音調:",
+                    React.DOM.select( {value:this.state.pitch, defaultValue:this.state.pitch, onChange:this.pitchChange}, 
+                        React.DOM.option( {value:"0"}, "0"),
+                        React.DOM.option( {value:"0.1"}, "0.1"),
+                        React.DOM.option( {value:"0.2"}, "0.2"),
+                        React.DOM.option( {value:"0.3"}, "0.3"),
+                        React.DOM.option( {value:"0.4"}, "0.4"),
+                        React.DOM.option( {value:"0.5"}, "0.5"),
+                        React.DOM.option( {value:"0.6"}, "0.6"),
+                        React.DOM.option( {value:"0.7"}, "0.7"),
+                        React.DOM.option( {value:"0.8"}, "0.8"),
+                        React.DOM.option( {value:"0.9"}, "0.9"),
+                        React.DOM.option( {value:"1.0"}, "1.0"),
+                        React.DOM.option( {value:"1.1"}, "1.1"),
+                        React.DOM.option( {value:"1.2"}, "1.2"),
+                        React.DOM.option( {value:"1.3"}, "1.3"),
+                        React.DOM.option( {value:"1.4"}, "1.4"),
+                        React.DOM.option( {value:"1.5"}, "1.5"),
+                        React.DOM.option( {value:"1.6"}, "1.6"),
+                        React.DOM.option( {value:"1.7"}, "1.7"),
+                        React.DOM.option( {value:"1.8"}, "1.8"),
+                        React.DOM.option( {value:"1.9"}, "1.9"),
+                        React.DOM.option( {value:"2"}, "2")
+                    )
+                )
+            ),
+            React.DOM.div(null, 
+                React.DOM.label(null, 
+                    "語言:",
+                    React.DOM.select( {value:this.state.lang, defaultValue:this.state.lang, onChange:this.langChange}, 
+                        React.DOM.option( {value:"UK English Female"}, "UK English Female"),
+                        React.DOM.option( {value:"UK English Male"}, "UK English Male"),
+                        React.DOM.option( {value:"US English Female"}, "US English Female")
+                    )
+                )
+            )
+        );
+    }
+});
+
+module.exports = {
+    name: "speaking-voice",
+    displayName: "English Text to Speech/英文發音工具",
+    widget: SpeakingVoice,
+    hidden: false,
+    editor: SpeakingVoiceEditor
+};
+
+},{"../../lib/responsivevoice.js":2,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"react":44}],124:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -22979,7 +23369,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../editor.jsx":143,"../renderer.jsx":165,"../util.js":168,"react":115,"react-components/info-tip":5}],192:[function(require,module,exports){
+},{"../editor.jsx":74,"../renderer.jsx":96,"../util.js":99,"react":44,"react-components/info-tip":38}],125:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -25483,5 +25873,5 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/graph-settings.jsx":121,"../components/graph.jsx":122,"../components/number-input.jsx":129,"../components/prop-check-box.jsx":130,"../tex.jsx":167,"../util.js":168,"react":115,"react-components/info-tip":5}]},{},[163])(163)
+},{"../components/graph-settings.jsx":52,"../components/graph.jsx":53,"../components/number-input.jsx":60,"../components/prop-check-box.jsx":61,"../tex.jsx":98,"../util.js":99,"react":44,"react-components/info-tip":38}]},{},[94])(94)
 });
