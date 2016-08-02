@@ -97,13 +97,17 @@ var Explanation = React.createClass({
         let linkAnchor = this.state.expanded ?
                 this.props.hidePrompt : this.props.showPrompt;
         if (!xomManateeEnabled) {
-            linkAnchor = `${linkAnchor}`;
+            linkAnchor = `[${linkAnchor}]`;
         }
+
+        const linkClass = xomManateeEnabled
+            ? css(styles.xomExplanationLink)
+            : css(styles.explanationLink);
 
         return <div className={css(styles.container)}>
             <div className={css(styles.explanationLinkContainer)}>
                 <Link
-                    className={css(styles.explanationLink)}
+                    className={linkClass}
                     href={this.props.apiOptions.readOnly ?
                           null : "javascript:void(0)"}
                     onClick={this.props.apiOptions.readOnly ?
@@ -170,6 +174,24 @@ const styles = StyleSheet.create({
     },
 
     explanationLink: {
+        fontStyle: 'italic',
+        color: '#007d96',
+
+        [mediaQueries.xl]: {
+            fontSize: 20,
+            lineHeight: 1.1,
+        },
+        [mediaQueries.lgOrSmaller]: {
+            fontSize: 17,
+            lineHeight: 1.4,
+        },
+        [mediaQueries.smOrSmaller]: {
+            fontSize: 14,
+            lineHeight: 1.3,
+        },
+    },
+
+    xomExplanationLink: {
         color: styleConstants.kaGreen,
         borderBottom: `dashed 1px ${styleConstants.kaGreen}`,
         textDecoration: 'none',
