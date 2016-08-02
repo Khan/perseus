@@ -19,9 +19,6 @@ var BAR = "bar",
     HISTOGRAM = "histogram",
     DOTPLOT = "dotplot";
 
-var DOT_PLOT_POINT_SIZE = 4;
-var DOT_PLOT_POINT_PADDING = 8;
-
 const widgetPropTypes = {
     type: React.PropTypes.oneOf([BAR, LINE, PIC, HISTOGRAM, DOTPLOT]),
     labels: React.PropTypes.arrayOf(React.PropTypes.string),
@@ -73,8 +70,18 @@ var Plotter = React.createClass({
 
     getInitialState: function() {
         return {
-            values: this.props.starting || [1]
+            values: this.props.starting || [1],
         };
+    },
+
+    DOT_PLOT_POINT_SIZE: function() {
+        return this.props.apiOptions.xomManatee ? 8 : 4;
+    },
+    DOT_PLOT_POINT_PADDING: function() {
+        return 8;
+    },
+    DOT_TICK_POINT_SIZE: function() {
+        return 2;
     },
 
     render: function() {
@@ -121,6 +128,7 @@ var Plotter = React.createClass({
         // is outside React, it makes it easier to do this.
         self.graphie = graphie;
         self.graphie.pics = [];
+        self.graphie.dotTicks = [];
 
         var isBar = self.props.type === BAR,
             isLine = self.props.type === LINE,
@@ -133,6 +141,8 @@ var Plotter = React.createClass({
         var config = {};
         var c = config; // c for short
 
+        const xomManatee = this.props.apiOptions.xomManatee;
+
         c.graph = {
             lines: [],
             bars: [],
@@ -141,7 +151,8 @@ var Plotter = React.createClass({
         };
         c.scaleY = self.props.scaleY;
         c.dimX = self.props.categories.length;
-        var plotDimensions = self.props.plotDimensions;
+        var plotDimensions = xomManatee ? [288, self.props.plotDimensions[1]] :
+            self.props.plotDimensions;
         if (isLine) {
             c.dimX += 1;
         } else if (isHistogram) {
@@ -165,7 +176,8 @@ var Plotter = React.createClass({
         }
 
         if (isDotplot) {
-            c.picBoxHeight = DOT_PLOT_POINT_SIZE * 2 + DOT_PLOT_POINT_PADDING;
+            c.picBoxHeight = this.DOT_PLOT_POINT_SIZE() * 2 +
+                this.DOT_PLOT_POINT_PADDING();
         }
 
         c.dimY = Math.ceil(self.props.maxY / c.scaleY) * c.scaleY;
@@ -183,6 +195,10 @@ var Plotter = React.createClass({
         // with the same padding as the others
         if (isDotplot) {
             padX /= 2;
+        }
+
+        if (xomManatee && isTiledPlot && self.props.labels[1].length === 0) {
+            padX = 0;
         }
 
         graphie.init({
@@ -213,6 +229,16 @@ var Plotter = React.createClass({
 
         self.setupCategories(config);
 
+        if (isTiledPlot && xomManatee) {
+            self.graphie.dotPrompt = graphie.label(
+                [c.dimX / 2, c.dimY / 2],
+                "Tap to add points",
+                "center", false)
+                .css("font-weight", 600)
+                .css("color", KhanColors.KA_GREEN)
+                .css("display", "none");
+        }
+
         if (isTiledPlot) {
             self.drawPicHeights(self.state.values, prevState.values);
         }
@@ -220,9 +246,31 @@ var Plotter = React.createClass({
         graphie.style(
             {stroke: "#000", strokeWidth: 2, opacity: 1.0},
             function() {
-                if (isDotplot) {
-                    graphie.line([0.5, 0], [c.dimX - 0.5, 0]);
+                if (isTiledPlot) {
+                    if (isDotplot) {
+                        // Dotplot is a subtype of tiled plot, here we only draw
+                        // the x-axis
+                        graphie.style(
+                            {stroke: xomManatee ? KhanColors.GRAY_G : "#000"},
+                            () => graphie.line(
+                                [xomManatee ? 0 : 0.5, 0],
+                                [c.dimX - (xomManatee ? 0 : 0.5), 0]
+                            )
+                        );
+                    } else {
+                        graphie.line([0, 0], [c.dimX, 0]);
+
+                        // Draw the left axis for non-dotplots
+                        if (self.props.labels[1].length !== 0 || !xomManatee) {
+                            graphie.style(
+                                {stroke: xomManatee ?
+                                    KhanColors.GRAY_G : "#000"},
+                                () => graphie.line([0, 0], [0, c.dimY])
+                            );
+                        }
+                    }
                 } else {
+                    // Draw normal axes
                     graphie.line([0, 0], [c.dimX, 0]);
                     graphie.line([0, 0], [0, c.dimY]);
                 }
@@ -231,12 +279,14 @@ var Plotter = React.createClass({
         graphie.label([c.dimX / 2, -35 / c.scale[1]],
             self.props.labels[0],
             "below", false)
-            .css("font-weight", "bold");
+            .css("font-weight", "bold")
+            .css("color", xomManatee && KhanColors.GRAY_G);
 
         graphie.label([-60 / c.scale[0], c.dimY / 2],
             self.props.labels[1],
             "center", false)
             .css("font-weight", "bold")
+            .css("color", xomManatee && KhanColors.GRAY_G)
             .addClass("rotate");
     },
 
@@ -256,6 +306,8 @@ var Plotter = React.createClass({
         var self = this;
         var c = config;
         var graphie = self.graphie;
+
+        const xomManatee = this.props.apiOptions.xomManatee;
 
         if (self.props.type === HISTOGRAM) {
             // Histograms with n labels/categories have n - 1 buckets
@@ -303,7 +355,7 @@ var Plotter = React.createClass({
                 var tickStart = 0;
                 var tickEnd = -6 / c.scale[1];
 
-                if (self.props.type === DOTPLOT) {
+                if (self.props.type === DOTPLOT && !xomManatee) {
                     tickStart = -tickEnd;
                 }
 
@@ -322,7 +374,9 @@ var Plotter = React.createClass({
                 }
 
                 graphie.style({
-                    stroke: "#000", strokeWidth: 2, opacity: 1.0
+                    stroke: xomManatee ? KhanColors.GRAY_G : "#000",
+                    strokeWidth: 2,
+                    opacity: 1.0,
                 }, function() {
                     graphie.line([x, tickStart], [x, tickEnd]);
                 });
@@ -483,8 +537,8 @@ var Plotter = React.createClass({
         return this.setupTiledPlot(i, 1, config, (x, y) => {
             return graphie.ellipse([x, y],
                  [
-                     DOT_PLOT_POINT_SIZE / graphie.scale[0],
-                     DOT_PLOT_POINT_SIZE / graphie.scale[1]
+                     this.DOT_PLOT_POINT_SIZE() / graphie.scale[0],
+                     this.DOT_PLOT_POINT_SIZE() / graphie.scale[1]
                  ],
                  {
                     fill: KhanColors.INTERACTIVE,
@@ -512,9 +566,11 @@ var Plotter = React.createClass({
         var c = config;
         var graphie = self.graphie;
         var pics = graphie.pics;
+        var dotTicks = graphie.dotTicks;
         var x = i + 0.5 + c.picPad;
 
         pics[i] = [];
+        dotTicks[i] = [];
         var n = Math.round(c.dimY / c.scaleY) + 1;
         _(n).times(function(j) {
             j -= 1;
@@ -558,6 +614,15 @@ var Plotter = React.createClass({
                 return;
             }
             pics[i][j] = createImage(x, midY + bottomMargin);
+            dotTicks[i][j] = graphie.ellipse([x, midY + bottomMargin],
+                [
+                    self.DOT_TICK_POINT_SIZE() / graphie.scale[0],
+                    self.DOT_TICK_POINT_SIZE() / graphie.scale[1]
+                ],
+                {
+                    fill: "#dee1e3",
+                    stroke: "#dee1e3"
+                });
         });
         return x;
     },
@@ -579,10 +644,20 @@ var Plotter = React.createClass({
         var self = this;
         var graphie = self.graphie;
         var pics = graphie.pics;
+
+        const xomManatee = this.props.apiOptions.xomManatee;
+
+        if (xomManatee) {
+            const shouldDisplay = values.every(v => v === 0);
+            graphie.dotPrompt[0].style.display =
+                shouldDisplay ? "inline" : "none";
+        }
+
         _.each(pics, function(ps, i) {
             _.each(ps, function(pic, j) {
                 var y = (j + 1) * self.props.scaleY;
                 var show = y <= values[i];
+
                 if (self.props.type === DOTPLOT) {
                     var wasShown = y <= prevValues[i];
                     var wasJustShown = show && !wasShown;
@@ -595,6 +670,9 @@ var Plotter = React.createClass({
                     }
                 }
                 $(pic[0]).css({display: show ? "inline" : "none"});
+
+                graphie.dotTicks[i][j][0].style.display =
+                    (show || !xomManatee) ? "none" : "inline";
             });
         });
     },
