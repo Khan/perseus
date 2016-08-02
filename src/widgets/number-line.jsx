@@ -11,8 +11,10 @@ var Changeable   = require("../mixins/changeable.jsx");
 
 var NumberInput  = require("../components/number-input.jsx");
 var MathOutput   = require("../components/math-output.jsx");
+const SimpleKeypadInput = require("../components/simple-keypad-input.jsx");
 
 var ApiOptions = require("../perseus-api.jsx").Options;
+const {keypadElementPropType} = require("../../math-input").propTypes;
 
 var Graphie = require("../components/graphie.jsx");
 var MovablePoint = Graphie.MovablePoint;
@@ -180,6 +182,7 @@ var NumberLine = React.createClass({
         onChange: React.PropTypes.func.isRequired,
 
         apiOptions: ApiOptions.propTypes,
+        keypadElement: keypadElementPropType,
         static: React.PropTypes.bool,
         trackInteraction: React.PropTypes.func.isRequired,
     },
@@ -199,6 +202,12 @@ var NumberLine = React.createClass({
             snapDivisions: 2,
             rel: "ge",
             apiOptions: ApiOptions.defaults,
+        };
+    },
+
+    getInitialState() {
+        return {
+            numDivisionsEmpty: false,
         };
     },
 
@@ -238,10 +247,18 @@ var NumberLine = React.createClass({
                 this.props.numLinePosition
             );
 
-            this.props.onChange({
-                divisionRange: divRange,
-                numDivisions: numDivisions,
-                numLinePosition: newNumLinePosition,
+            this.setState({
+                numDivisionsEmpty: false,
+            }, () => {
+                this.props.onChange({
+                    divisionRange: divRange,
+                    numDivisions: numDivisions,
+                    numLinePosition: newNumLinePosition,
+                }, cb);
+            });
+        } else {
+            this.setState({
+                numDivisionsEmpty: true,
             }, cb);
         }
     },
@@ -503,7 +520,9 @@ var NumberLine = React.createClass({
         var tickCtrl;
         if (this.props.isTickCtrl) {
             var Input;
-            if (this.props.apiOptions.staticRender) {
+            if (this.props.apiOptions.customKeypad) {
+                Input = SimpleKeypadInput;
+            } else if (this.props.apiOptions.staticRender) {
                 Input = MathOutput;
             } else {
                 Input = NumberInput;
@@ -512,13 +531,17 @@ var NumberLine = React.createClass({
                 {i18n._("Number of divisions:")}{" "}
                 <Input
                     ref={"tick-ctrl"}
-                    value={this.props.numDivisions || divisionRange[0]}
+                    value={
+                        this.state.numDivisionsEmpty
+                            ? null : this.props.numDivisions || divisionRange[0]
+                    }
                     checkValidity={(val) =>
                         val >= divisionRange[0] && val <= divisionRange[1]}
                     onChange={this.onNumDivisionsChange}
                     onFocus={this._handleTickCtrlFocus}
                     onBlur={this._handleTickCtrlBlur}
                     useArrowKeys={true}
+                    keypadElement={this.props.keypadElement}
                 />
             </label>;
         }

@@ -21,7 +21,10 @@ const SimpleKeypadInput = React.createClass({
     propTypes: {
         keypadElement: keypadElementPropType,
         onFocus: React.PropTypes.func,
-        value: React.PropTypes.string,
+        value: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.number,
+        ]),
     },
 
     focus() {
@@ -59,7 +62,7 @@ const SimpleKeypadInput = React.createClass({
                     onFocus && onFocus();
                 }
             }}
-            value={value || ""}
+            value={value == null ? "" : "" + value}
             {...rest}
         />;
     },
