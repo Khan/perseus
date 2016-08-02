@@ -86,4 +86,8 @@ module.exports = StyleSheet.create({
             display: "none",
         },
     },
+
+    disableTextSelection: {
+        userSelect: 'none',
+    },
 });

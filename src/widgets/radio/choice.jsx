@@ -386,6 +386,7 @@ const Choice = React.createClass({
             "checkbox-label",
             css(
                 styles.label,
+                xomManatee && sharedStyles.disableTextSelection,
                 responsive && styles.responsiveLabel,
                 sat && styles.satLabel
             )
