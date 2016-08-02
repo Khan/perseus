@@ -850,6 +850,15 @@ var Renderer = React.createClass({
                     // applying overflowY: 'hidden'
                     overflowX: 'auto',
                     overflowY: 'hidden',
+
+                    // HACK(kevinb): overflowY: 'hidden' inadvertently clips the
+                    // top and bottom of some fractions.  We add padding to the
+                    // top and bottom to avoid the clipping and then correct for
+                    // the padding by adding equal but opposite margins.
+                    paddingTop: 10,
+                    paddingBottom: 10,
+                    marginTop: -10,
+                    marginBottom: -10,
                 };
 
                 const computeMathBounds = (parentNode, parentBounds) => {
