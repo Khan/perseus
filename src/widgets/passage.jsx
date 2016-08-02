@@ -122,6 +122,10 @@ const Passage = React.createClass({
         let selectionEndIndex = Math.max(anchorIndex, focusIndex);
         const selectedText = selection.toString();
 
+        if (!selectionStartIndex || !selectionEndIndex) {
+            return null;
+        }
+
         //Prevents slecting a space from highlighting both surrounding words.
         if (selectedText.charAt(0) === " ") {
             selectionStartIndex += 1;
@@ -133,22 +137,39 @@ const Passage = React.createClass({
         return [selectionStartIndex, selectionEndIndex];
     },
 
+    isInPassageText: function(node) {
+        let ancestor = node;
+        while (ancestor) {
+            if (ancestor.classList &&
+                    ancestor.classList.contains("passage-text")) {
+                return ancestor.contains(node);
+            }
+            ancestor = ancestor.parentNode;
+        }
+        return false;
+    },
+
     /**
      * Returns the index of either the anchor word or the focus word in the
      * current selection.
      */
     getSelectionIndex: function(selection, nodeType) {
         let node = null;
-        let index = 0;
+        let offset = 0;
+
         if (nodeType === "anchor") {
             node = selection.anchorNode;
-            index += this.charToWordOffset(
-                               selection.anchorOffset, node.textContent);
+            offset = selection.anchorOffset;
         } else {
             node = selection.focusNode;
-            index += this.charToWordOffset(
-                               selection.focusOffset, node.textContent);
+            offset = selection.focusOffset;
         }
+
+        if (!this.isInPassageText(node)) {
+            return null;
+        }
+
+        let index = this.charToWordOffset(offset, node.textContent);
 
         let priorText = "";
         while (node && !(node.classList &&
@@ -218,12 +239,10 @@ const Passage = React.createClass({
 
     /**
      * Handles all mouse up events on passage-widget-passage-container. There
-     * are 4 cases we care about here (in the order they are below):
-     * 1) A user is clicking to remove a highlight.
-     * 2) A user is clicking to confirm they want to add a highlight.
-     * 3) A user has selected an existing highlight which they will then be
+     * are 2 cases we care about here (in the order they are below):
+     * 1) A user has selected an existing highlight which they will then be
      *    prompted to confirm that they wish to remove.
-     * 4) A user has made a new selection which they will then be prompted to
+     * 2) A user has made a new selection which they will then be prompted to
      *    add as a new highlight.
      */
     handleMouseUp: function(e) {
@@ -234,18 +253,20 @@ const Passage = React.createClass({
         });
         const selection = window.getSelection();
         const selectionRange = this.getSelectionRange(selection);
-        const selectedHighlightRange = this.isHighlighted(selectionRange);
+        if (selectionRange) {
+            const selectedHighlightRange = this.isHighlighted(selectionRange);
 
-        if (selectedHighlightRange) {
-            this.setState({
-                newHighlightRange: null,
-                selectedHighlightRange: selectedHighlightRange,
-            });
-        } else if (selection.toString() !== " " && !selection.isCollapsed) {
-            this.setState({
-                newHighlightRange: selectionRange,
-                selectedHighlightRange: null,
-            });
+            if (selectedHighlightRange) {
+                this.setState({
+                    newHighlightRange: null,
+                    selectedHighlightRange: selectedHighlightRange,
+                });
+            } else if (selection.toString() !== " " && !selection.isCollapsed) {
+                this.setState({
+                    newHighlightRange: selectionRange,
+                    selectedHighlightRange: null,
+                });
+            }
         }
     },
 
