@@ -1,5 +1,5 @@
 /*! Perseus with editors for frame | http://github.com/Khan/perseus */
-// commit 8b22a0ad1707e608d4622ecac0f0ed2cbf4892dd
+// commit 66bebec8dc3f169b6e0e3a7ca50bf2a83d16c2bc
 // branch sat-highlighting
 // @generated
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -584,7 +584,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* globals __EDITOR__ */
 	// As new widgets get added here, please also make sure they get added in
 	// webapp perseus/traversal.py so they can be properly translated.
-	module.exports = [ [ __webpack_require__(32), false ], [ __webpack_require__(33), false ], [ __webpack_require__(34), false ], [ __webpack_require__(35), false ] ];
+	module.exports = [ [ __webpack_require__(30), false ], [ __webpack_require__(31), false ], [ __webpack_require__(32), false ], [ __webpack_require__(33), false ] ];
 
 /***/ },
 /* 6 */
@@ -619,7 +619,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    void 0 === options.loadExtraWidgets || options.loadExtraWidgets ? !function() {
 	        var Widgets = __webpack_require__(4);
 	        !/*require.ensure*/(function(require) {
-	            var extraWidgets = __webpack_require__(22);
+	            var extraWidgets = __webpack_require__(20);
 	            Widgets.registerMany(extraWidgets);
 	            widgetsDeferred.resolve();
 	        }(__webpack_require__));
@@ -671,15 +671,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ReactDOM = __webpack_require__(16);
 
-	var Util = __webpack_require__(20);
+	var Util = __webpack_require__(21);
 
-	var ApiOptions = __webpack_require__(21).Options;
+	var ApiOptions = __webpack_require__(22).Options;
 
-	var ApiClassNames = __webpack_require__(21).ClassNames;
+	var ApiClassNames = __webpack_require__(22).ClassNames;
 
 	var Renderer = __webpack_require__(11);
 
-	var ProvideKeypad = __webpack_require__(30);
+	var ProvideKeypad = __webpack_require__(34);
 
 	var rendererProps = React.PropTypes.shape({
 	    content: React.PropTypes.string,
@@ -825,7 +825,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(15);
 
-	var ApiOptions = __webpack_require__(21).Options;
+	var ApiOptions = __webpack_require__(22).Options;
 
 	var EnabledFeatures = __webpack_require__(23);
 
@@ -833,9 +833,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(11);
 
-	var ProvideKeypad = __webpack_require__(30);
+	var ProvideKeypad = __webpack_require__(34);
 
-	var Util = __webpack_require__(20);
+	var Util = __webpack_require__(21);
 
 	var _require = __webpack_require__(36);
 
@@ -1163,17 +1163,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(15);
 
-	var ApiOptions = __webpack_require__(21).Options;
+	var ApiOptions = __webpack_require__(22).Options;
 
 	var EnabledFeatures = __webpack_require__(23);
 
 	var HintsRenderer = __webpack_require__(10);
 
-	var ProvideKeypad = __webpack_require__(30);
+	var ProvideKeypad = __webpack_require__(34);
 
 	var Renderer = __webpack_require__(11);
 
-	var Util = __webpack_require__(20);
+	var Util = __webpack_require__(21);
 
 	var _require = __webpack_require__(36);
 
@@ -1447,7 +1447,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var EnabledFeatures = __webpack_require__(23);
 
-	var ApiOptionsProps = __webpack_require__(31);
+	var ApiOptionsProps = __webpack_require__(35);
 
 	var _require2 = __webpack_require__(39);
 
@@ -1651,13 +1651,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Widgets = __webpack_require__(4);
 
-	var Util = __webpack_require__(20);
+	var Util = __webpack_require__(21);
 
 	var EnabledFeatures = __webpack_require__(23);
 
-	var ApiOptionsProps = __webpack_require__(31);
+	var ApiOptionsProps = __webpack_require__(35);
 
-	var ApiClassNames = __webpack_require__(21).ClassNames;
+	var ApiClassNames = __webpack_require__(22).ClassNames;
 
 	var Zoomable = __webpack_require__(38);
 
@@ -2836,7 +2836,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var EnabledFeatures = __webpack_require__(23);
 
-	var ApiOptions = __webpack_require__(21).Options;
+	var ApiOptions = __webpack_require__(22).Options;
 
 	/* Renders just a hint preview */
 	var HintRenderer = React.createClass({
@@ -3310,12 +3310,25 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
+	/* globals __EDITOR__ */
+	// As new widgets get added here, please also make sure they get added in
+	// webapp perseus/traversal.py so they can be properly translated.
+	module.exports = [ [ __webpack_require__(42), false ], [ __webpack_require__(43), false ], [ __webpack_require__(44), false ], [ __webpack_require__(45), false ], [ __webpack_require__(46), false ], [ __webpack_require__(47), false ], [ __webpack_require__(48), false ], [ __webpack_require__(49), false ], [ __webpack_require__(50), false ], [ __webpack_require__(51), false ], [ __webpack_require__(52), false ], [ __webpack_require__(53), false ], [ __webpack_require__(54), false ], [ __webpack_require__(55), false ], [ __webpack_require__(56), false ], [ __webpack_require__(57), false ], [ __webpack_require__(58), false ], [ __webpack_require__(59), false ], [ __webpack_require__(60), false ], [ __webpack_require__(61), false ], [ __webpack_require__(62), false ], [ __webpack_require__(63), false ], [ __webpack_require__(64), false ], [ __webpack_require__(65), false ], [ __webpack_require__(66), false ], [ __webpack_require__(67), false ], [ __webpack_require__(68), false ], [ __webpack_require__(69), false ], [ __webpack_require__(70), false ], [ __webpack_require__(71), false ], [ __webpack_require__(72), false ], // These widgets are only used when testing things, so remove them in the
+	// non-editor bundle.
+	false, false, false ];
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable brace-style, comma-dangle, indent, max-len, no-var, one-var, prefer-spread */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _ = __webpack_require__(15);
 
-	var KhanAnswerTypes = __webpack_require__(42);
+	var KhanAnswerTypes = __webpack_require__(73);
 
 	var nestedMap = function nestedMap(children, func, context) {
 	    return _.isArray(children) ? _.map(children, function(child) {
@@ -3783,7 +3796,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Util;
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3824,7 +3837,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(12);
 
-	var StubTagEditor = __webpack_require__(43);
+	var StubTagEditor = __webpack_require__(74);
 
 	module.exports = {
 	    Options: {
@@ -3932,19 +3945,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* globals __EDITOR__ */
-	// As new widgets get added here, please also make sure they get added in
-	// webapp perseus/traversal.py so they can be properly translated.
-	module.exports = [ [ __webpack_require__(44), false ], [ __webpack_require__(45), false ], [ __webpack_require__(46), false ], [ __webpack_require__(47), false ], [ __webpack_require__(48), false ], [ __webpack_require__(49), false ], [ __webpack_require__(50), false ], [ __webpack_require__(51), false ], [ __webpack_require__(52), false ], [ __webpack_require__(53), false ], [ __webpack_require__(54), false ], [ __webpack_require__(55), false ], [ __webpack_require__(56), false ], [ __webpack_require__(57), false ], [ __webpack_require__(58), false ], [ __webpack_require__(59), false ], [ __webpack_require__(60), false ], [ __webpack_require__(61), false ], [ __webpack_require__(62), false ], [ __webpack_require__(63), false ], [ __webpack_require__(64), false ], [ __webpack_require__(65), false ], [ __webpack_require__(66), false ], [ __webpack_require__(67), false ], [ __webpack_require__(68), false ], [ __webpack_require__(69), false ], [ __webpack_require__(70), false ], [ __webpack_require__(71), false ], [ __webpack_require__(72), false ], [ __webpack_require__(73), false ], [ __webpack_require__(74), false ], // These widgets are only used when testing things, so remove them in the
-	// non-editor bundle.
-	false, false, false ];
-
-/***/ },
 /* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -4042,7 +4042,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var TeX = __webpack_require__(41);
 
-	var Util = __webpack_require__(20);
+	var Util = __webpack_require__(21);
 
 	/**
 	 * This match function matches math in `$`s, such as:
@@ -4642,126 +4642,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable object-curly-spacing */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	/**
-	 * A mixin that renders a custom software keypad in additional to the base
-	 * component. The base component will receive blur events when the keypad is
-	 * dismissed and can access the keypad element itself so as to manage its
-	 * activation and dismissal.
-	 *
-	 * TODO(charlie): This would make a nicer higher-order component, except that
-	 * we need to expose methods on the base component (i.e., `ItemRenderer`). When
-	 * `ItemRenderer` and friends are written as ES6 Classes, we can have them
-	 * extend a `ProvideKeypad` component instead of using this mixin.
-	 */
-	var React = __webpack_require__(12);
-
-	var ReactDOM = __webpack_require__(16);
-
-	var Keypad = __webpack_require__(76).components.Keypad;
-
-	var ProvideKeypad = {
-	    propTypes: {
-	        apiOptions: React.PropTypes.shape({
-	            customKeypad: React.PropTypes.bool
-	        })
-	    },
-	    getInitialState: function getInitialState() {
-	        return {
-	            keypadElement: null
-	        };
-	    },
-	    componentDidMount: function componentDidMount() {
-	        var _this = this;
-	        if (this.props.apiOptions && this.props.apiOptions.customKeypad) {
-	            // TODO(charlie): Render this and the wrapped component in the same
-	            // React tree. We may also want to add this keypad asynchronously or
-	            // on-demand in the future.
-	            this._keypadContainer = document.createElement("div");
-	            document.body.appendChild(this._keypadContainer);
-	            ReactDOM.render(React.createElement(Keypad, {
-	                onElementMounted: function onElementMounted(element) {
-	                    _this.setState({
-	                        keypadElement: element
-	                    });
-	                },
-	                onDismiss: function onDismiss() {
-	                    _this.blur && _this.blur();
-	                }
-	            }), this._keypadContainer);
-	        }
-	    },
-	    componentWillUnmount: function componentWillUnmount() {
-	        if (this._keypadContainer) {
-	            ReactDOM.unmountComponentAtNode(this._keypadContainer);
-	            this._keypadContainer.parentNode && // Note ChildNode.remove() isn't available in older Android
-	            // webviews.
-	            this._keypadContainer.parentNode.removeChild(this._keypadContainer);
-	            this._keypadContainer = null;
-	        }
-	    },
-	    keypadElement: function keypadElement() {
-	        return this.state.keypadElement;
-	    }
-	};
-
-	module.exports = ProvideKeypad;
-
-/***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _extends = Object.assign || function(target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-	    }
-	    return target;
-	};
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable object-curly-spacing */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	/**
-	 * A mixin that accepts the `apiOptions` prop, and populates any missing values
-	 * with defaults.
-	 */
-	var React = __webpack_require__(12);
-
-	var ApiOptions = __webpack_require__(21).Options;
-
-	var ApiOptionsProps = {
-	    propTypes: {
-	        // TODO(mdr): Should this actually be objectOf(any)?
-	        apiOptions: React.PropTypes.any
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            apiOptions: {}
-	        };
-	    },
-	    getApiOptions: function getApiOptions() {
-	        return _extends({}, ApiOptions.defaults, this.props.apiOptions);
-	    }
-	};
-
-	module.exports = ApiOptionsProps;
-
-/***/ },
-/* 32 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable no-var, object-curly-spacing */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _2 = __webpack_require__(15);
 
-	var shuffle = __webpack_require__(20).shuffle;
+	var shuffle = __webpack_require__(21).shuffle;
 
 	var Radio = __webpack_require__(92);
 
@@ -4853,7 +4738,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 33 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4875,13 +4760,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var PossibleAnswers = __webpack_require__(80);
 
-	var KhanAnswerTypes = __webpack_require__(42);
+	var KhanAnswerTypes = __webpack_require__(73);
 
 	var keypadElementPropType = __webpack_require__(76).propTypes.keypadElementPropType;
 
-	var ApiClassNames = __webpack_require__(21).ClassNames;
+	var ApiClassNames = __webpack_require__(22).ClassNames;
 
-	var ApiOptions = __webpack_require__(21).Options;
+	var ApiOptions = __webpack_require__(22).Options;
 
 	var EnabledFeatures = __webpack_require__(23);
 
@@ -5126,7 +5011,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 34 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5148,13 +5033,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var PossibleAnswers = __webpack_require__(80);
 
-	var ApiClassNames = __webpack_require__(21).ClassNames;
+	var ApiClassNames = __webpack_require__(22).ClassNames;
 
-	var ApiOptions = __webpack_require__(21).Options;
+	var ApiOptions = __webpack_require__(22).Options;
 
 	var EnabledFeatures = __webpack_require__(23);
 
-	var KhanAnswerTypes = __webpack_require__(42);
+	var KhanAnswerTypes = __webpack_require__(73);
 
 	var KhanMath = __webpack_require__(81);
 
@@ -5501,7 +5386,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 35 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5519,15 +5404,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(15);
 
-	var ApiOptions = __webpack_require__(21).Options;
+	var ApiOptions = __webpack_require__(22).Options;
 
 	var Changeable = __webpack_require__(83);
 
-	var ApiOptions = __webpack_require__(21).Options;
+	var ApiOptions = __webpack_require__(22).Options;
 
-	var ApiClassNames = __webpack_require__(21).ClassNames;
+	var ApiClassNames = __webpack_require__(22).ClassNames;
 
-	var KhanAnswerTypes = __webpack_require__(42);
+	var KhanAnswerTypes = __webpack_require__(73);
 
 	var EnabledFeatures = __webpack_require__(23);
 
@@ -5562,7 +5447,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var iconExclamationSign = _require.iconExclamationSign;
 
-	var lens = __webpack_require__(116);
+	var lens = __webpack_require__(95);
 
 	var ERROR_MESSAGE = i18n._("Sorry, I don't understand that!");
 
@@ -6248,6 +6133,121 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable object-curly-spacing */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	/**
+	 * A mixin that renders a custom software keypad in additional to the base
+	 * component. The base component will receive blur events when the keypad is
+	 * dismissed and can access the keypad element itself so as to manage its
+	 * activation and dismissal.
+	 *
+	 * TODO(charlie): This would make a nicer higher-order component, except that
+	 * we need to expose methods on the base component (i.e., `ItemRenderer`). When
+	 * `ItemRenderer` and friends are written as ES6 Classes, we can have them
+	 * extend a `ProvideKeypad` component instead of using this mixin.
+	 */
+	var React = __webpack_require__(12);
+
+	var ReactDOM = __webpack_require__(16);
+
+	var Keypad = __webpack_require__(76).components.Keypad;
+
+	var ProvideKeypad = {
+	    propTypes: {
+	        apiOptions: React.PropTypes.shape({
+	            customKeypad: React.PropTypes.bool
+	        })
+	    },
+	    getInitialState: function getInitialState() {
+	        return {
+	            keypadElement: null
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        var _this = this;
+	        if (this.props.apiOptions && this.props.apiOptions.customKeypad) {
+	            // TODO(charlie): Render this and the wrapped component in the same
+	            // React tree. We may also want to add this keypad asynchronously or
+	            // on-demand in the future.
+	            this._keypadContainer = document.createElement("div");
+	            document.body.appendChild(this._keypadContainer);
+	            ReactDOM.render(React.createElement(Keypad, {
+	                onElementMounted: function onElementMounted(element) {
+	                    _this.setState({
+	                        keypadElement: element
+	                    });
+	                },
+	                onDismiss: function onDismiss() {
+	                    _this.blur && _this.blur();
+	                }
+	            }), this._keypadContainer);
+	        }
+	    },
+	    componentWillUnmount: function componentWillUnmount() {
+	        if (this._keypadContainer) {
+	            ReactDOM.unmountComponentAtNode(this._keypadContainer);
+	            this._keypadContainer.parentNode && // Note ChildNode.remove() isn't available in older Android
+	            // webviews.
+	            this._keypadContainer.parentNode.removeChild(this._keypadContainer);
+	            this._keypadContainer = null;
+	        }
+	    },
+	    keypadElement: function keypadElement() {
+	        return this.state.keypadElement;
+	    }
+	};
+
+	module.exports = ProvideKeypad;
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable object-curly-spacing */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	/**
+	 * A mixin that accepts the `apiOptions` prop, and populates any missing values
+	 * with defaults.
+	 */
+	var React = __webpack_require__(12);
+
+	var ApiOptions = __webpack_require__(22).Options;
+
+	var ApiOptionsProps = {
+	    propTypes: {
+	        // TODO(mdr): Should this actually be objectOf(any)?
+	        apiOptions: React.PropTypes.any
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            apiOptions: {}
+	        };
+	    },
+	    getApiOptions: function getApiOptions() {
+	        return _extends({}, ApiOptions.defaults, this.props.apiOptions);
+	    }
+	};
+
+	module.exports = ApiOptionsProps;
+
+/***/ },
 /* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -6348,7 +6348,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ImageLoader = __webpack_require__(90);
 
-	var Util = __webpack_require__(20);
+	var Util = __webpack_require__(21);
 
 	var Zoom = __webpack_require__(91);
 
@@ -7367,1873 +7367,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	var _typeof = "function" === typeof Symbol && "symbol" === typeof Symbol.iterator ? function(obj) {
-	    return typeof obj;
-	} : function(obj) {
-	    return obj && "function" === typeof Symbol && obj.constructor === Symbol ? "symbol" : typeof obj;
-	};
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */ /* eslint-disable brace-style, object-curly-spacing */ /* To fix, remove an entry above, run ka-lint, and fix errors. */ /* global i18n:false, Modernizr:false */ var $ = __webpack_require__(19);
-
-	var _ = __webpack_require__(15);
-
-	var retrieveMathFormula = __webpack_require__(95).retrieveMathFormula;
-
-	var localeToFixed = __webpack_require__(96);
-
-	var KhanMath = __webpack_require__(81);
-
-	var MAXERROR_EPSILON = Math.pow(2, -42);
-
-	// Function used to get the text of the choices, which is then used
-	// to check against the correct answer
-	var extractRawCode = function extractRawCode(elem) {
-	    var $elem = $(elem).clone(true);
-	    var code = $elem.find("code");
-	    code.length && // If there are <code> tags in the element, remove them and replace
-	    // them with their original formulas
-	    $.each(code, function(i, elem) {
-	        $(elem).replaceWith(// TODO(emily): Adding <code> and <script> tags around this is
-	        // a horrible hack to make this code backwards-compatible with
-	        // the old extractRawCode (so that timeline works, etc). Remove
-	        // this at some point and make it just return the formula, not
-	        // the wrapping.
-	        '<code><script type="math/tex">' + retrieveMathFormula(elem) + "</script></code>");
-	    });
-	    return $elem.html();
-	};
-
-	function getTextSquish(elem) {
-	    return $(elem).text().replace(/\s+/g, "");
-	}
-
-	// TODO(alpert): Don't duplicate from khan-exercise.js
-	function checkIfAnswerEmpty(guess) {
-	    // If multiple-answer, join all responses and check if that's empty
-	    // Remove commas left by joining nested arrays in case multiple-answer is
-	    // nested
-	    return "" === $.trim(guess) || guess instanceof Array && "" === $.trim(guess.join("").replace(/,/g, ""));
-	}
-
-	function addExamplesToInput($input, examples) {
-	    $input.data("qtip") && $input.qtip("destroy", /* immediate */ true);
-	    var $examples = $('<ul class="examples" style="display: none"></ul>');
-	    _.each(examples, function(example) {
-	        $examples.append("<li>" + example + "</li>");
-	    });
-	    $input.qtip({
-	        content: {
-	            text: $examples.remove(),
-	            prerender: true
-	        },
-	        style: {
-	            classes: "qtip-light leaf-tooltip"
-	        },
-	        position: {
-	            my: "top left",
-	            at: "bottom left"
-	        },
-	        show: {
-	            delay: 0,
-	            effect: {
-	                length: 0
-	            },
-	            event: "focus"
-	        },
-	        hide: {
-	            delay: 0,
-	            event: "blur"
-	        },
-	        events: {
-	            render: function render() {
-	                // Only run the modules when the qtip is actually shown
-	                $examples.children().runModules();
-	            }
-	        }
-	    });
-	}
-
-	/*
-	 * Answer types
-	 *
-	 * Utility for creating answerable questions displayed in exercises
-	 *
-	 * Different answer types produce different kinds of input displays, and do
-	 * different kinds of checking on the solutions.
-	 *
-	 * Each of the objects contain two functions, setup and createValidator.
-	 *
-	 * The setup function takes a solutionarea and solution, and performs setup
-	 * within the solutionarea, and then returns an object which contains:
-	 *
-	 * answer: a function which, when called, will retrieve the current answer from
-	 *         the solutionarea, which can then be validated using the validator
-	 *         function
-	 * validator: a function returned from the createValidator function (defined
-	 *            below)
-	 * solution: the correct answer to the problem
-	 * showGuess: a function which, when given a guess, shows the guess within the
-	 *            provided solutionarea
-	 * showGuessCustom: a function which displays parts of a guess that are not
-	 *                  within the solutionarea; currently only used for custom
-	 *                  answers
-	 *
-	 * The createValidator function only takes a solution, and it returns a
-	 * function which can be used to validate an answer.
-	 *
-	 * The resulting validator function returns:
-	 * - true: if the answer is fully correct
-	 * - false: if the answer is incorrect
-	 * - "" (the empty string): if no answer has been provided (e.g. the answer box
-	 *   is left unfilled)
-	 * - a string: if there is some slight error
-	 *
-	 * In most cases, setup and createValidator don't really need the solution DOM
-	 * element so we have setupFunctional and createValidatorFunctional for them
-	 * which take only $solution.text() and $solution.data(). This makes it easier
-	 * to reuse specific answer types.
-	 *
-	 * TODO(alpert): Think of a less-absurd name for createValidatorFunctional.
-	 *
-	 */
-	/**
-	 * Return a new answer type that uses number but with the passed-in forms only.
-	 */
-	function numberAnswerType(forms) {
-	    return {
-	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData) {
-	            return KhanAnswerTypes.number.setupFunctional(solutionarea, solutionText, $.extend({}, solutionData, {
-	                forms: forms
-	            }));
-	        },
-	        createValidatorFunctional: function createValidatorFunctional(correct, options) {
-	            return KhanAnswerTypes.number.createValidatorFunctional(correct, $.extend({}, options, {
-	                forms: forms
-	            }));
-	        }
-	    };
-	}
-
-	var KhanAnswerTypes = {
-	    /*
-	     * letters answer type. Inherits from `text` type, with a grammar hint of
-	     * `letters`
-	     */
-	    letters: {
-	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData) {
-	            return KhanAnswerTypes.text.setupFunctional(solutionarea, solutionText, solutionData, "letters");
-	        },
-	        createValidatorFunctional: function createValidatorFunctional(correct, options) {
-	            return KhanAnswerTypes.text.createValidatorFunctional(correct, options);
-	        }
-	    },
-	    /*
-	     * lowers answer type. Inherits from `text` type, with a grammar hint of
-	     * `lowers`. Intended for lower-case answers.
-	     */
-	    lowers: {
-	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData) {
-	            return KhanAnswerTypes.text.setupFunctional(solutionarea, solutionText, solutionData, "lowers");
-	        },
-	        createValidatorFunctional: function createValidatorFunctional(correct, options) {
-	            return KhanAnswerTypes.text.createValidatorFunctional(correct, options);
-	        }
-	    },
-	    /*
-	     * caps answer type. Inherits from `text` type, with a grammar hint of
-	     * `caps`
-	     */
-	    caps: {
-	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData) {
-	            return KhanAnswerTypes.text.setupFunctional(solutionarea, solutionText, solutionData, "caps");
-	        },
-	        createValidatorFunctional: function createValidatorFunctional(correct, options) {
-	            return KhanAnswerTypes.text.createValidatorFunctional(correct, options);
-	        }
-	    },
-	    /*
-	     * text answer type
-	     *
-	     * Displays a simple text box, and performs direct string matching on the
-	     * value typed in an the answer provided
-	     *
-	     * solutionGrammar is a string used by the mobile app to determine what
-	     * characters should be allowed.
-	     */
-	    text: {
-	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData, solutionGrammar) {
-	            solutionGrammar = solutionGrammar || "text";
-	            // Add a text box
-	            var input = void 0;
-	            // special flag for iOS devices
-	            input = $(window.Modernizr && Modernizr.touchevents ? '<input data-solution-grammar="' + solutionGrammar + '" type="text" autocapitalize="off">' : '<input data-solution-grammar="' + solutionGrammar + '" type="text">');
-	            $(solutionarea).append(input);
-	            return {
-	                validator: KhanAnswerTypes.text.createValidatorFunctional(solutionText, solutionData),
-	                answer: function answer() {
-	                    return input.val();
-	                },
-	                solution: $.trim(solutionText),
-	                showGuess: function showGuess(guess) {
-	                    input.val(void 0 === guess ? "" : guess);
-	                }
-	            };
-	        },
-	        createValidatorFunctional: function createValidatorFunctional(correct, options) {
-	            options = _.extend({
-	                correctCase: "required"
-	            }, options);
-	            correct = $.trim(correct);
-	            return function(guess) {
-	                // The fallback variable is used in place of the answer, if no
-	                // answer is provided (i.e. the field is left blank)
-	                var fallback = null != options.fallback ? "" + options.fallback : "";
-	                guess = $.trim(guess) || fallback;
-	                var score = {
-	                    empty: false,
-	                    correct: false,
-	                    message: null,
-	                    guess: guess
-	                };
-	                guess.toLowerCase() === correct.toLowerCase() && (correct === guess || "optional" === options.correctCase ? score.correct = true : guess === guess.toLowerCase() ? score.message = i18n._("Your answer is almost correct, but must be in capital letters.") : guess === guess.toUpperCase() ? score.message = i18n._("Your answer is almost correct, but must not be in capital letters.") : score.message = i18n._("Your answer is almost correct, but must be in the correct case."));
-	                return score;
-	            };
-	        }
-	    },
-	    /*
-	     * predicate answer type
-	     *
-	     * performs simple predicate-based checking of a numeric solution, with
-	     * different kinds of number formats
-	     *
-	     * Uses the data-forms option on the solution to choose which number formats
-	     * are acceptable. Available data-forms:
-	     *
-	     * - integer:  3
-	     * - proper:   3/5
-	     * - improper: 5/3
-	     * - pi:       3 pi
-	     * - log:      log(5)
-	     * - percent:  15%
-	     * - mixed:    1 1/3
-	     * - decimal:  1.7
-	     *
-	     * The solution should be a predicate of the form:
-	     *
-	     * function(guess, maxError) {
-	     *     return abs(guess - 3) < maxError;
-	     * }
-	     *
-	     */
-	    predicate: {
-	        defaultForms: "integer, proper, improper, mixed, decimal",
-	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData) {
-	            // retrieve the options from the solution data
-	            var options = $.extend({
-	                simplify: "required",
-	                ratio: false,
-	                forms: KhanAnswerTypes.predicate.defaultForms
-	            }, solutionData);
-	            var acceptableForms = options.forms.split(/\s*,\s*/);
-	            // TODO(jack): remove options.inexact in favor of options.maxError
-	            void 0 === options.inexact && (// If we aren't allowing inexact, ensure that we don't have a
-	            // large maxError as well.
-	            options.maxError = 0);
-	            // Allow a small tolerance on maxError, to avoid numerical
-	            // representation issues (2.3 should be correct for a solution of
-	            // 2.45 with maxError=0.15).
-	            options.maxError = +options.maxError + MAXERROR_EPSILON;
-	            var $input = $('<input type="text" autocapitalize="off">');
-	            $(solutionarea).append($input);
-	            // retrieve the example texts from the different forms
-	            var exampleForms = {
-	                integer: i18n._("an integer, like <code>6</code>"),
-	                proper: function() {
-	                    return "optional" === options.simplify ? i18n._("a <em>proper</em> fraction, like <code>1/2</code> or <code>6/10</code>") : i18n._("a <em>simplified proper</em> fraction, like <code>3/5</code>");
-	                }(),
-	                improper: function() {
-	                    return "optional" === options.simplify ? i18n._("an <em>improper</em> fraction, like <code>10/7</code> or <code>14/8</code>") : i18n._("a <em>simplified improper</em> fraction, like <code>7/4</code>");
-	                }(),
-	                pi: i18n._("a multiple of pi, like <code>12\\ \\text{pi}</code> or <code>2/3\\ \\text{pi}</code>"),
-	                log: i18n._("an expression, like <code>\\log(100)</code>"),
-	                percent: i18n._("a percent, like <code>%(NUM)s\\%</code>", {
-	                    NUM: localeToFixed(12.34, 2)
-	                }),
-	                mixed: i18n._("a mixed number, like <code>1\\ 3/4</code>"),
-	                decimal: function() {
-	                    return void 0 === options.inexact ? i18n._("an <em>exact</em> decimal, like <code>%(NUM)s</code>", {
-	                        NUM: localeToFixed(.75, 2)
-	                    }) : i18n._("a decimal, like <code>%(NUM)s</code>", {
-	                        NUM: localeToFixed(.75, 2)
-	                    });
-	                }()
-	            };
-	            // extract the examples for the given forms
-	            var examples = [];
-	            $.each(acceptableForms, function(i, form) {
-	                null != exampleForms[form] && examples.push(exampleForms[form]);
-	            });
-	            // Add examples directly to input
-	            // unless any generic number is accepted
-	            options.forms !== KhanAnswerTypes.predicate.defaultForms && addExamplesToInput($input, examples);
-	            return {
-	                validator: KhanAnswerTypes.predicate.createValidatorFunctional(solutionText, solutionData),
-	                answer: function answer() {
-	                    return $input.val();
-	                },
-	                solution: $.trim(solutionText),
-	                showGuess: function showGuess(guess) {
-	                    $input.val(void 0 === guess ? "" : guess);
-	                }
-	            };
-	        },
-	        createValidatorFunctional: function createValidatorFunctional(predicate, options) {
-	            // Extract the options from the given solution object
-	            options = _.extend({
-	                simplify: "required",
-	                ratio: false,
-	                forms: KhanAnswerTypes.predicate.defaultForms
-	            }, options);
-	            var acceptableForms = void 0;
-	            // this is maintaining backwards compatibility
-	            // TODO(merlob) fix all places that depend on this, then delete
-	            acceptableForms = _.isArray(options.forms) ? options.forms : options.forms.split(/\s*,\s*/);
-	            // TODO(jack): remove options.inexact in favor of options.maxError
-	            void 0 === options.inexact && (// If we aren't allowing inexact, ensure that we don't have a
-	            // large maxError as well.
-	            options.maxError = 0);
-	            // Allow a small tolerance on maxError, to avoid numerical
-	            // representation issues (2.3 should be correct for a solution of
-	            // 2.45 with maxError=0.15).
-	            options.maxError = +options.maxError + MAXERROR_EPSILON;
-	            // If percent is an acceptable form, make sure it's the last one
-	            // in the list so we don't prematurely complain about not having
-	            // a percent sign when the user entered the correct answer in a
-	            // different form (such as a decimal or fraction)
-	            if (_.contains(acceptableForms, "percent")) {
-	                acceptableForms = _.without(acceptableForms, "percent");
-	                acceptableForms.push("percent");
-	            }
-	            predicate = _.isFunction(predicate) ? predicate : KhanUtil.tmpl.getVAR(predicate);
-	            // Take text looking like a fraction, and turn it into a number
-	            var fractionTransformer = function fractionTransformer(text) {
-	                text = text.replace(/\u2212/, "-").replace(/([+-])\s+/g, "$1").replace(/(^\s*)|(\s*$)/gi, "");
-	                // Extract numerator and denominator
-	                var match = text.match(/^([+-]?\d+)\s*\/\s*([+-]?\d+)$/);
-	                var parsedInt = parseInt(text, 10);
-	                if (match) {
-	                    var num = parseFloat(match[1]);
-	                    var denom = parseFloat(match[2]);
-	                    var simplified = denom > 0 && (options.ratio || "1" !== match[2]) && 1 === KhanMath.getGCD(num, denom);
-	                    return [ {
-	                        value: num / denom,
-	                        exact: simplified
-	                    } ];
-	                }
-	                if (!isNaN(parsedInt) && "" + parsedInt === text) return [ {
-	                    value: parsedInt,
-	                    exact: true
-	                } ];
-	                return [];
-	            };
-	            /*
-	             * Different forms of numbers
-	             *
-	             * Each function returns a list of objects of the form:
-	             *
-	             * {
-	             *    value: numerical value,
-	             *    exact: true/false
-	             * }
-	             */
-	            var forms = {
-	                // integer, which is encompassed by decimal
-	                integer: function integer(text) {
-	                    // Compare the decimal form to the decimal form rounded to
-	                    // an integer. Only accept if the user actually entered an
-	                    // integer.
-	                    var decimal = forms.decimal(text);
-	                    var rounded = forms.decimal(text, 1);
-	                    if (null != decimal[0].value && decimal[0].value === rounded[0].value || null != decimal[1].value && decimal[1].value === rounded[1].value) return decimal;
-	                    return [];
-	                },
-	                // A proper fraction
-	                proper: function proper(text) {
-	                    return $.map(fractionTransformer(text), function(o) {
-	                        // All fractions that are less than 1
-	                        // All fractions that are less than 1
-	                        return Math.abs(o.value) < 1 ? [ o ] : [];
-	                    });
-	                },
-	                // an improper fraction
-	                improper: function improper(text) {
-	                    return $.map(fractionTransformer(text), function(o) {
-	                        // All fractions that are greater than 1
-	                        // All fractions that are greater than 1
-	                        return Math.abs(o.value) >= 1 ? [ o ] : [];
-	                    });
-	                },
-	                // pi-like numbers
-	                pi: function pi(text) {
-	                    var match = void 0;
-	                    var possibilities = [];
-	                    // Replace unicode minus sign with hyphen
-	                    text = text.replace(/\u2212/, "-");
-	                    // - pi
-	                    // (Note: we also support \pi (for TeX), p, tau (and \tau,
-	                    // and t), pau.)
-	                    if (match = text.match(/^([+-]?)\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)) possibilities = [ {
-	                        value: parseFloat(match[1] + "1"),
-	                        exact: true
-	                    } ]; else if (match = text.match(/^([+-]?\s*\d+\s*(?:\/\s*[+-]?\s*\d+)?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)) // @Nolint
-	                    possibilities = fractionTransformer(match[1]); else if (match = text.match(/^([+-]?)\s*(\d+)\s*([+-]?\d+)\s*\/\s*([+-]?\d+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)) {
-	                        // @Nolint
-	                        var sign = parseFloat(match[1] + "1");
-	                        var integ = parseFloat(match[2]);
-	                        var num = parseFloat(match[3]);
-	                        var denom = parseFloat(match[4]);
-	                        var simplified = num < denom && 1 === KhanMath.getGCD(num, denom);
-	                        possibilities = [ {
-	                            value: sign * (integ + num / denom),
-	                            exact: simplified
-	                        } ];
-	                    } else if (match = text.match(/^([+-]?\s*\d+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\s*\d+))?$/i)) // @Nolint
-	                    possibilities = fractionTransformer(match[1] + "/" + match[3]); else if (match = text.match(/^([+-]?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\d+))?$/i)) // @Nolint
-	                    possibilities = fractionTransformer(match[1] + "1/" + match[3]); else if ("0" === text) possibilities = [ {
-	                        value: 0,
-	                        exact: true
-	                    } ]; else {
-	                        if (!(match = text.match(/^(.+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i))) {
-	                            possibilities = _.reduce(KhanAnswerTypes.predicate.defaultForms.split(/\s*,\s*/), function(memo, form) {
-	                                return memo.concat(forms[form](text));
-	                            }, []);
-	                            // If the answer is a floating point number that's
-	                            // near a multiple of pi, mark is as being possibly
-	                            // an approximation of pi.  We actually check if
-	                            // it's a plausible approximation of pi/12, since
-	                            // sometimes the correct answer is like pi/3 or pi/4.
-	                            // We also say it's a pi-approximation if it involves
-	                            // x/7 (since 22/7 is an approximation of pi.)
-	                            // Never mark an integer as being an approximation
-	                            // of pi.
-	                            var approximatesPi = false;
-	                            var number = parseFloat(text);
-	                            if (isNaN(number) || number === parseInt(text)) text.match(/\/\s*7/) && (approximatesPi = true); else {
-	                                var piMult = Math.PI / 12;
-	                                var roundedNumber = piMult * Math.round(number / piMult);
-	                                Math.abs(number - roundedNumber) < .01 && (approximatesPi = true);
-	                            }
-	                            approximatesPi && _.each(possibilities, function(possibility) {
-	                                possibility.piApprox = true;
-	                            });
-	                            return possibilities;
-	                        }
-	                        possibilities = forms.decimal(match[1]);
-	                    }
-	                    var multiplier = Math.PI;
-	                    text.match(/\\?tau|t|\u03c4/) && (multiplier = 2 * Math.PI);
-	                    // We're taking an early stand along side xkcd in the
-	                    // inevitable ti vs. pau debate... http://xkcd.com/1292
-	                    text.match(/pau/) && (multiplier = 1.5 * Math.PI);
-	                    $.each(possibilities, function(ix, possibility) {
-	                        possibility.value *= multiplier;
-	                    });
-	                    return possibilities;
-	                },
-	                // Converts '' to 1 and '-' to -1 so you can write "[___] x"
-	                // and accept sane things
-	                coefficient: function coefficient(text) {
-	                    var possibilities = [];
-	                    // Replace unicode minus sign with hyphen
-	                    text = text.replace(/\u2212/, "-");
-	                    "" === text ? possibilities = [ {
-	                        value: 1,
-	                        exact: true
-	                    } ] : "-" === text && (possibilities = [ {
-	                        value: -1,
-	                        exact: true
-	                    } ]);
-	                    return possibilities;
-	                },
-	                // simple log(c) form
-	                log: function log(text) {
-	                    var match = void 0;
-	                    var possibilities = [];
-	                    // Replace unicode minus sign with hyphen
-	                    text = text.replace(/\u2212/, "-");
-	                    text = text.replace(/[ \(\)]/g, "");
-	                    (match = text.match(/^log\s*(\S+)\s*$/i)) ? possibilities = forms.decimal(match[1]) : "0" === text && (possibilities = [ {
-	                        value: 0,
-	                        exact: true
-	                    } ]);
-	                    return possibilities;
-	                },
-	                // Numbers with percent signs
-	                percent: function percent(text) {
-	                    text = $.trim(text);
-	                    // store whether or not there is a percent sign
-	                    var hasPercentSign = false;
-	                    if (text.indexOf("%") === text.length - 1) {
-	                        text = $.trim(text.substring(0, text.length - 1));
-	                        hasPercentSign = true;
-	                    }
-	                    var transformed = forms.decimal(text);
-	                    $.each(transformed, function(ix, t) {
-	                        t.exact = hasPercentSign;
-	                        t.value = t.value / 100;
-	                    });
-	                    return transformed;
-	                },
-	                // Mixed numbers, like 1 3/4
-	                mixed: function mixed(text) {
-	                    var match = text.replace(/\u2212/, "-").replace(/([+-])\s+/g, "$1").match(/^([+-]?)(\d+)\s+(\d+)\s*\/\s*(\d+)$/);
-	                    if (match) {
-	                        var sign = parseFloat(match[1] + "1");
-	                        var integ = parseFloat(match[2]);
-	                        var num = parseFloat(match[3]);
-	                        var denom = parseFloat(match[4]);
-	                        var simplified = num < denom && 1 === KhanMath.getGCD(num, denom);
-	                        return [ {
-	                            value: sign * (integ + num / denom),
-	                            exact: simplified
-	                        } ];
-	                    }
-	                    return [];
-	                },
-	                // Decimal numbers -- compare entered text rounded to
-	                // 'precision' Reciprical of the precision against the correct
-	                // answer. We round to 1/1e10 by default, which is healthily
-	                // less than machine epsilon but should be more than any real
-	                // decimal answer would use. (The 'integer' answer type uses
-	                // precision == 1.)
-	                decimal: function decimal(text, precision) {
-	                    null == precision && (precision = 1e10);
-	                    var normal = function normal(text) {
-	                        text = $.trim(text);
-	                        var match = text.replace(/\u2212/, "-").replace(/([+-])\s+/g, "$1").match(/^([+-]?(?:\d{1,3}(?:[, ]?\d{3})*\.?|\d{0,3}(?:[, ]?\d{3})*\.(?:\d{3}[, ]?)*\d{1,3}))$/);
-	                        // @Nolint
-	                        // You can't start a number with `0,`, to prevent us
-	                        // interpeting '0.342' as correct for '342'
-	                        var badLeadingZero = text.match(/^0[0,]*,/);
-	                        if (match && !badLeadingZero) {
-	                            var x = parseFloat(match[1].replace(/[, ]/g, ""));
-	                            void 0 === options.inexact && (x = Math.round(x * precision) / precision);
-	                            return x;
-	                        }
-	                    };
-	                    var commas = function commas(text) {
-	                        text = text.replace(/([\.,])/g, function(_, c) {
-	                            return "." === c ? "," : ".";
-	                        });
-	                        return normal(text);
-	                    };
-	                    return [ {
-	                        value: normal(text),
-	                        exact: true
-	                    }, {
-	                        value: commas(text),
-	                        exact: true
-	                    } ];
-	                }
-	            };
-	            // validator function
-	            return function(guess) {
-	                // The fallback variable is used in place of the answer, if no
-	                // answer is provided (i.e. the field is left blank)
-	                var fallback = null != options.fallback ? "" + options.fallback : "";
-	                guess = $.trim(guess) || fallback;
-	                var score = {
-	                    empty: "" === guess,
-	                    correct: false,
-	                    message: null,
-	                    guess: guess
-	                };
-	                // iterate over all the acceptable forms, and if one of the
-	                // answers is correct, return true
-	                $.each(acceptableForms, function(i, form) {
-	                    var transformed = forms[form](guess);
-	                    for (var j = 0, l = transformed.length; j < l; j++) {
-	                        var val = transformed[j].value;
-	                        var exact = transformed[j].exact;
-	                        var piApprox = transformed[j].piApprox;
-	                        // If a string was returned, and it exactly matches,
-	                        // return true
-	                        if (predicate(val, options.maxError)) {
-	                            // If the exact correct number was returned,
-	                            // return true
-	                            if (exact || "optional" === options.simplify) {
-	                                score.correct = true;
-	                                score.message = options.message || null;
-	                                // If the answer is correct, don't say it's
-	                                // empty. This happens, for example, with the
-	                                // coefficient type where guess === "" but is
-	                                // interpreted as "1" which is correct.
-	                                score.empty = false;
-	                            } else if ("percent" === form) {
-	                                // Otherwise, an error was returned
-	                                score.empty = true;
-	                                score.message = i18n._("Your answer is almost correct, but it is missing a <code>\\%</code> at the end.");
-	                            } else {
-	                                "enforced" !== options.simplify && (score.empty = true);
-	                                score.message = i18n._("Your answer is almost correct, but it needs to be simplified.");
-	                            }
-	                            return false;
-	                        }
-	                        if (piApprox && predicate(val, Math.abs(.001 * val))) {
-	                            score.empty = true;
-	                            score.message = i18n._("Your answer is close, but you may have approximated pi. Enter your answer as a multiple of pi, like <code>12\\ \\text{pi}</code> or <code>2/3\\ \\text{pi}</code>");
-	                        }
-	                    }
-	                });
-	                if (false === score.correct) {
-	                    var interpretedGuess = false;
-	                    _.each(forms, function(form) {
-	                        var anyAreNaN = _.any(form(guess), function(t) {
-	                            return null != t.value && !_.isNaN(t.value);
-	                        });
-	                        anyAreNaN && (interpretedGuess = true);
-	                    });
-	                    if (!interpretedGuess) {
-	                        score.empty = true;
-	                        score.message = i18n._("We could not understand your answer. Please check your answer for extra text or symbols.");
-	                        return score;
-	                    }
-	                }
-	                return score;
-	            };
-	        }
-	    },
-	    /*
-	     * number answer type
-	     *
-	     * wraps the predicate answer type to performs simple number-based checking
-	     * of a solution
-	     */
-	    number: {
-	        convertToPredicate: function convertToPredicate(correct, options) {
-	            // TODO(alpert): Don't think this $.trim is necessary
-	            var correctFloat = parseFloat($.trim(correct));
-	            return [ function(guess, maxError) {
-	                return Math.abs(guess - correctFloat) < maxError;
-	            }, $.extend({}, options, {
-	                type: "predicate"
-	            }) ];
-	        },
-	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData) {
-	            var args = KhanAnswerTypes.number.convertToPredicate(solutionText, solutionData);
-	            /* text: */ /* data: */ return KhanAnswerTypes.predicate.setupFunctional(solutionarea, args[0], args[1]);
-	        },
-	        createValidatorFunctional: function createValidatorFunctional(correct, options) {
-	            var _KhanAnswerTypes$pred;
-	            return (_KhanAnswerTypes$pred = KhanAnswerTypes.predicate).createValidatorFunctional.apply(_KhanAnswerTypes$pred, KhanAnswerTypes.number.convertToPredicate(correct, options));
-	        }
-	    },
-	    /*
-	     * These next four answer types are just synonyms for number with given
-	     * forms. Set the correct forms on the solution, and pass it on to number
-	     */
-	    decimal: numberAnswerType("decimal"),
-	    rational: numberAnswerType("integer, proper, improper, mixed"),
-	    // A little bit of a misnomer as proper fractions are also accepted
-	    improper: numberAnswerType("integer, proper, improper"),
-	    mixed: numberAnswerType("integer, proper, mixed"),
-	    // Perform a regex match on the entered string
-	    regex: {
-	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData) {
-	            var input = void 0;
-	            // special flag for iOS devices
-	            input = $(window.Modernizr && Modernizr.touchevents ? '<input type="text" autocapitalize="off">' : '<input type="text">');
-	            $(solutionarea).append(input);
-	            return {
-	                validator: KhanAnswerTypes.regex.createValidatorFunctional(solutionText, solutionData),
-	                answer: function answer() {
-	                    return input.val();
-	                },
-	                solution: $.trim(solutionText),
-	                showGuess: function showGuess(guess) {
-	                    input.val(void 0 === guess ? "" : guess);
-	                }
-	            };
-	        },
-	        createValidatorFunctional: function createValidatorFunctional(regex, options) {
-	            var flags = "";
-	            null != options.caseInsensitive && (flags += "i");
-	            regex = new RegExp($.trim(regex), flags);
-	            return function(guess) {
-	                // The fallback variable is used in place of the answer, if no
-	                // answer is provided (i.e. the field is left blank)
-	                var fallback = null != options.fallback ? "" + options.fallback : "";
-	                guess = $.trim(guess) || fallback;
-	                return {
-	                    empty: false,
-	                    correct: null != guess.match(regex),
-	                    message: null,
-	                    guess: guess
-	                };
-	            };
-	        }
-	    },
-	    // An answer type with two text boxes, for solutions of the form a sqrt(b)
-	    radical: {
-	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData) {
-	            var options = $.extend({
-	                simplify: "required"
-	            }, solutionData);
-	            // Add two input boxes
-	            var inte = $('<input type="text" autocapitalize="off">');
-	            var rad = $('<input type="text" autocapitalize="off">');
-	            var examples = "required" === options.simplify ? [ i18n._("a simplified radical, like <code>\\sqrt{2}</code> or <code>3\\sqrt{5}</code>") ] : [ i18n._("a radical, like <code>\\sqrt{8}</code> or <code>2\\sqrt{2}</code>") ];
-	            // Add the same example message to both inputs
-	            addExamplesToInput(inte, examples);
-	            addExamplesToInput(rad, examples);
-	            // Make them look pretty
-	            $("<div class='radical'>").append($("<span>").append(inte)).append('<span class="surd">&radic;</span>').append($("<span>").append(rad).addClass("overline")).appendTo(solutionarea);
-	            var ansSquared = parseFloat(solutionText);
-	            var ans = KhanMath.splitRadical(ansSquared);
-	            return {
-	                validator: KhanAnswerTypes.radical.createValidatorFunctional(solutionText, solutionData),
-	                answer: function answer() {
-	                    return [ $.trim(inte.val()), $.trim(rad.val()) ];
-	                },
-	                solution: ans,
-	                showGuess: function showGuess(guess) {
-	                    inte.val(guess ? guess[0] : "");
-	                    rad.val(guess ? guess[1] : "");
-	                }
-	            };
-	        },
-	        createValidatorFunctional: function createValidatorFunctional(ansSquared, options) {
-	            options = $.extend({
-	                simplify: "required"
-	            }, options);
-	            // The provided answer is the square of what is meant to be
-	            // entered. Use KhanMath.splitRadical to find the different parts
-	            ansSquared = parseFloat(ansSquared);
-	            var ans = KhanMath.splitRadical(ansSquared);
-	            return function(guess) {
-	                // If nothing typed into either box, don't grade the answer
-	                if (0 === guess[0].length && 0 === guess[1].length) return {
-	                    empty: true,
-	                    correct: false,
-	                    message: null,
-	                    guess: guess
-	                };
-	                // If nothing is typed into one of the boxes, use 1
-	                guess[0] = guess[0].length > 0 ? guess[0] : "1";
-	                guess[1] = guess[1].length > 0 ? guess[1] : "1";
-	                // Parse the two floats from the guess
-	                var inteGuess = parseFloat(guess[0]);
-	                var radGuess = parseFloat(guess[1]);
-	                // The answer is correct if the guess square is equal to the
-	                // given solution
-	                var correct = Math.abs(inteGuess) * inteGuess * radGuess === ansSquared;
-	                // the answer is simplified if the sqrt portion and integer
-	                // portion are the same as what is given by splitRadical
-	                var simplified = inteGuess === ans[0] && radGuess === ans[1];
-	                var score = {
-	                    empty: false,
-	                    correct: false,
-	                    message: null,
-	                    guess: guess
-	                };
-	                correct && (simplified || "optional" === options.simplify ? score.correct = true : score.message = i18n._("Your answer is almost correct, but it needs to be simplified."));
-	                return score;
-	            };
-	        }
-	    },
-	    // An answer type with two text boxes, for solutions of the form a
-	    // cuberoot(b)
-	    cuberoot: {
-	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData) {
-	            var options = $.extend({
-	                simplify: "required"
-	            }, solutionData);
-	            // Add two input boxes
-	            var inte = $('<input type="text" autocapitalize="off">');
-	            var rad = $('<input type="text" autocapitalize="off">');
-	            var examples = "required" === options.simplify ? [ i18n._("a simplified radical, like <code>\\sqrt[3]{2}</code> or <code>3\\sqrt[3]{5}</code>") ] : [ i18n._("a radical, like <code>\\sqrt[3]{8}</code> or <code>2\\sqrt[3]{2}</code>") ];
-	            // Add the same example message to both inputs
-	            addExamplesToInput(inte, examples);
-	            addExamplesToInput(rad, examples);
-	            // Make them look pretty
-	            $("<div class='radical'>").append($("<span>").append(inte)).append('<span class="surd" style="vertical-align: 6px;"><code>\\sqrt[3]{}</code></span>').append($("<span>").append(rad).addClass("overline")).appendTo(solutionarea).tex();
-	            var ansCubed = parseFloat(solutionText);
-	            var ans = KhanMath.splitCube(ansCubed);
-	            return {
-	                validator: KhanAnswerTypes.cuberoot.createValidatorFunctional(solutionText, solutionData),
-	                answer: function answer() {
-	                    return [ inte.val(), rad.val() ];
-	                },
-	                solution: ans,
-	                showGuess: function showGuess(guess) {
-	                    inte.val(guess ? guess[0] : "");
-	                    rad.val(guess ? guess[1] : "");
-	                }
-	            };
-	        },
-	        createValidatorFunctional: function createValidatorFunctional(ansCubed, options) {
-	            options = $.extend({
-	                simplify: "required"
-	            }, options);
-	            // The provided answer is the cube of what is meant to be
-	            // entered. Use KhanMath.splitCube to find the different parts
-	            ansCubed = parseFloat(ansCubed);
-	            var ans = KhanMath.splitCube(ansCubed);
-	            return function(guess) {
-	                // If nothing typed into either box, don't grade the answer
-	                if (0 === guess[0].length && 0 === guess[1].length) return {
-	                    empty: true,
-	                    correct: false,
-	                    message: null,
-	                    guess: guess
-	                };
-	                // If nothing is typed into one of the boxes, use 1
-	                guess[0] = guess[0].length > 0 ? guess[0] : "1";
-	                guess[1] = guess[1].length > 0 ? guess[1] : "1";
-	                // Parse the two floats from the guess
-	                var inteGuess = parseFloat(guess[0]);
-	                var radGuess = parseFloat(guess[1]);
-	                // The answer is correct if the guess square is equal to the
-	                // given solution
-	                var correct = Math.abs(inteGuess) * inteGuess * inteGuess * radGuess === ansCubed;
-	                // the answer is simplified if the sqrt portion and integer
-	                // portion are the same as what is given by splitCube
-	                var simplified = inteGuess === ans[0] && radGuess === ans[1];
-	                var score = {
-	                    empty: false,
-	                    correct: false,
-	                    message: null,
-	                    guess: guess
-	                };
-	                correct && (simplified || "optional" === options.simplify ? score.correct = true : score.message = i18n._("Your answer is almost correct, but it needs to be simplified."));
-	                return score;
-	            };
-	        }
-	    },
-	    /*
-	     * Multiple answer type
-	     *
-	     * This answer type allows for multiple different other answer types to be
-	     * combined into a single answer.
-	     *
-	     * It works by finding html elements with the "sol" class, and converting
-	     * them into mini solutionareas, which are then filled in by the setup
-	     * functions of their cooresponding answer types. In order to do solution
-	     * checking, the answers of each of the areas are placed in an array, and
-	     * then the validator works by iterating over the array and making sure
-	     * each of the individual solutions are correct
-	     */
-	    multiple: {
-	        setup: function setup(solutionarea, solution) {
-	            // Very quickly place all of the elements in the solution area
-	            // Clone it, because we don't want to modify or move it
-	            $(solutionarea).append($(solution).clone(true).texCleanup().contents().runModules());
-	            var answerDataArray = [];
-	            // Iterate over each of the .sol elements
-	            $(solutionarea).find(".sol").each(function(idx) {
-	                var type = $(this).data("type");
-	                type = null != type ? type : "number";
-	                // find the corresponding answer
-	                var sol = $(solution).find(".sol").eq(idx);
-	                // empty the .sol element in preperation for treating it as a
-	                // solutionarea
-	                var solarea = $(this).empty();
-	                // perform setup on each of the areas
-	                var answerData = KhanAnswerTypes[type].setup(solarea, sol);
-	                // Store the returned data, for use later
-	                answerDataArray.push(answerData);
-	            });
-	            return {
-	                validator: KhanAnswerTypes.multiple.createValidator(solution),
-	                answer: function answer() {
-	                    var answer = [];
-	                    // Go through each of the answerDatas, and call the answer
-	                    // functions in turn, storing each of the answers in an
-	                    // array
-	                    $.each(answerDataArray, function(i, answerData) {
-	                        answer.push(answerData.answer());
-	                    });
-	                    return answer;
-	                },
-	                solution: function() {
-	                    // Retrieve each of the solutions from the answerDatas
-	                    $.map(answerDataArray, function(answerData) {
-	                        return answerData.solution;
-	                    });
-	                }(),
-	                showGuess: function showGuess(guess) {
-	                    // Iterate through each of the answerDatas, and show the
-	                    // cooresponding guess for each
-	                    $.each(answerDataArray, function(i, answerData) {
-	                        void 0 !== guess ? answerData.showGuess(guess[i]) : answerData.showGuess();
-	                    });
-	                },
-	                showCustomGuess: function showCustomGuess(guess) {
-	                    // Iterate through each of the answerDatas, and show the
-	                    // cooresponding custom guess for each if it exists
-	                    $.each(answerDataArray, function(i, answerData) {
-	                        if (!_.isFunction(answerData.showCustomGuess)) return;
-	                        void 0 !== guess ? answerData.showCustomGuess(guess[i]) : answerData.showCustomGuess();
-	                    });
-	                }
-	            };
-	        },
-	        createValidator: function createValidator(solution) {
-	            var validators = [];
-	            // Iterate over all of the .sols in the answer
-	            $(solution).find(".sol").each(function() {
-	                var sol = $(this);
-	                var type = sol.data("type");
-	                type = null != type ? type : "number";
-	                // create a validator for each of the solutions
-	                var validator = KhanAnswerTypes[type].createValidator(sol);
-	                validators.push(validator);
-	            });
-	            return function(guess) {
-	                var score = {
-	                    empty: true,
-	                    correct: true,
-	                    message: null,
-	                    guess: guess
-	                };
-	                var blockGradingMessage = null;
-	                // If the answer is completely empty, don't grade it
-	                if (checkIfAnswerEmpty(guess)) {
-	                    score.empty = true;
-	                    score.correct = false;
-	                    return score;
-	                }
-	                // Iterate over each of the elements in the guess
-	                $.each(guess, function(i, g) {
-	                    // Check whether that answer is right by validating it
-	                    // with the corresponding validator
-	                    var pass = validators[i](g);
-	                    if (pass.message && pass.empty) // Special case where a validator returns a message
-	                    // for an "empty" response. This probably means it's
-	                    // not really empty, but a correct-but-not-simplified
-	                    // answer. Rather that treating this as actually empty,
-	                    // possibly leading to the entire multiple being marked
-	                    // wrong for being incomplete, note the situation but
-	                    // continue determining whether the entire answer is
-	                    // otherwise correct or not before forwarding on the
-	                    // message.
-	                    blockGradingMessage = pass.message; else {
-	                        score.empty = score.empty && pass.empty;
-	                        score.correct = score.correct && pass.correct;
-	                        // TODO(eater): This just forwards one message
-	                        score.message = score.message || pass.message;
-	                    }
-	                });
-	                if (score.correct && null != blockGradingMessage) return {
-	                    empty: true,
-	                    correct: false,
-	                    message: blockGradingMessage,
-	                    guess: guess
-	                };
-	                score.empty = false;
-	                return score;
-	            };
-	        }
-	    },
-	    /*
-	     * The set answer type allows for multiple different answers with the same
-	     * kind of input.
-	     *
-	     * The different correct answers are stored in .set-sol elements, each of
-	     * which describes a different correct answer
-	     *
-	     * the method of input is stored in the .input-format element, with each
-	     * .entry element within that describing an answer-type from which input
-	     * should be retrieved
-	     *
-	     * The guess is retrieved as a list of the answers given from each of the
-	     * .entry elements within the solution area
-	     *
-	     * If there are more solutions given than inputs, then all of the inputs
-	     * must be filled. If there are more inputs than solutions, then all of the
-	     * solutions must be given. Either way, every given solution must be
-	     * correct, or the whole thing is wrong.
-	     */
-	    set: {
-	        setup: function setup(solutionarea, solution) {
-	            // Append the input format to the solution area
-	            $(solutionarea).append($(solution).find(".input-format").clone(true).texCleanup().contents().runModules());
-	            var inputArray = [];
-	            var showGuessArray = [];
-	            // For each of the entry elements
-	            $(solutionarea).find(".entry").each(function() {
-	                var input = $(this);
-	                var type = $(this).data("type");
-	                type = null != type ? type : "number";
-	                var sol = input.clone(true);
-	                var solarea = input.empty();
-	                // Perform setup within that element
-	                var validator = KhanAnswerTypes[type].setup(solarea, sol);
-	                // Store the answer and showGuess functions
-	                inputArray.push(validator.answer);
-	                showGuessArray.push(validator.showGuess);
-	            });
-	            var solutionArray = [];
-	            // Make fake solutionareas, and store the solutions from each
-	            // TODO(emily): fix this horrible hack, by making the solution
-	            //              easier to access
-	            $(solution).find(".set-sol").clone(true).each(function() {
-	                var type = $(this).data("type");
-	                type = null != type ? type : "number";
-	                var solarea = $("<div>");
-	                var validator = KhanAnswerTypes[type].setup(solarea, $(this));
-	                solutionArray.push(validator.solution);
-	            });
-	            // TODO(alex): Figure out how to add tooltips to all of the inputs
-	            // within a set that need them. Not trivial due to the hack above.
-	            return {
-	                validator: KhanAnswerTypes.set.createValidator(solution),
-	                answer: function answer() {
-	                    var answer = [];
-	                    // For each of the inputs, get the answer and store it in
-	                    // the answer array
-	                    $.each(inputArray, function(i, getAns) {
-	                        answer.push(getAns());
-	                    });
-	                    return answer;
-	                },
-	                solution: solution,
-	                showGuess: function showGuess(guess) {
-	                    // For each of the inputs, call the appropriate showGuess
-	                    // function
-	                    $.each(showGuessArray, function(i, showGuess) {
-	                        void 0 === guess ? showGuess() : showGuess(guess[i]);
-	                    });
-	                }
-	            };
-	        },
-	        createValidator: function createValidator(solution) {
-	            var validatorArray = [];
-	            // Fill validatorArray with validators for each acceptable answer
-	            $(solution).find(".set-sol").clone(true).each(function() {
-	                var type = $(this).data("type");
-	                type = null != type ? type : "number";
-	                var validator = KhanAnswerTypes[type].createValidator($(this));
-	                validatorArray.push(validator);
-	            });
-	            return function(guess) {
-	                var score = {
-	                    // If there are no validators, empty input is correct
-	                    empty: 0 !== validatorArray.length,
-	                    correct: true,
-	                    message: null,
-	                    guess: guess
-	                };
-	                var blockGradingMessage = null;
-	                // Store a copy of each of the validators. If one correctly
-	                // identifies a guess, remove it from this array, so duplicate
-	                // answers aren't marked correct twice
-	                var unusedValidators = validatorArray.slice(0);
-	                // Go through each of the guesses
-	                $.each(guess, function(i, g) {
-	                    // Whether or not the guess is correct
-	                    var correct = false;
-	                    // Go through each of the unused validators
-	                    $.each(unusedValidators, function(i, validator) {
-	                        var pass = validator(g);
-	                        // If this validator is trying to block grading
-	                        if (pass.empty && pass.message) {
-	                            // remove the working validator
-	                            unusedValidators.splice(i, 1);
-	                            // We want to block the entire answer from being
-	                            // accepted as correct but continue checking in
-	                            // case another part is wrong.
-	                            blockGradingMessage = pass.message;
-	                            correct = true;
-	                            // break
-	                            return false;
-	                        }
-	                        // If this validator completely accepts this answer
-	                        if (pass.correct) {
-	                            // store correct
-	                            correct = pass.correct;
-	                            // remove the matching validator
-	                            unusedValidators.splice(i, 1);
-	                            // break
-	                            return false;
-	                        }
-	                        // If the validator matches, grades wrong, and provides
-	                        // a message, we want to continue trying the other
-	                        // validators in the hopes the answer may yet be
-	                        // correct. But in case it isn't, store the message.
-	                        !pass.correct && pass.message && (correct = pass.message);
-	                    });
-	                    checkIfAnswerEmpty(g) || checkIfAnswerEmpty(correct) || (score.empty = false);
-	                    // If we didn't get it right, and the answer isn't empty,
-	                    // the entire solution is false
-	                    //
-	                    // TODO(emily): make the "is the answer empty" part of this
-	                    //              work better for all the different answer
-	                    //              types
-	                    // TODO(emily): Perhaps provide insight to the student
-	                    //              about whether or not part of their answer
-	                    //              is correct? While this could be abused, it
-	                    //              would seem more friendly.
-	                    if (!correct && "" !== $.trim([ g ].join(""))) {
-	                        score.correct = false;
-	                        return false;
-	                    }
-	                    // If we have a check answer message
-	                    if ("string" === typeof correct) {
-	                        score.message = correct;
-	                        score.correct = false;
-	                    }
-	                });
-	                // If there were more correct answers than possible guesses
-	                validatorArray.length > guess.length ? // If not all of the guesses were filled in with correct
-	                // answers
-	                unusedValidators.length > validatorArray.length - guess.length && (// incorrect, more answers needed
-	                score.correct = false) : unusedValidators.length > 0 && (// incorrect, some of the answers are missing
-	                score.correct = false);
-	                return score.correct && null != blockGradingMessage ? {
-	                    empty: true,
-	                    correct: false,
-	                    message: blockGradingMessage,
-	                    guess: guess
-	                } : score;
-	            };
-	        }
-	    },
-	    /*
-	     * The radio answer type provides multiple choice type answers
-	     *
-	     * The different possible multiple choice answers are provided in a
-	     * seperate .choices element siblings with the main .solution element, with
-	     * the correct answer residing within the .solution element.
-	     *
-	     * There are two different modes of operation. Category mode and
-	     * non-category mode.
-	     *
-	     * In non-category mode, the answers (which don't include the correct
-	     * answer) combined with the correct answer are scrambled together. This is
-	     * meant for questions where the answers radically change from question to
-	     * question, and thus scrambling increases the difficulty, and makes the
-	     * solutions harder to pattern match. This is the default.
-	     *
-	     * In category mode, the answers are provided in the order they are given
-	     * within the .choices element, and the correct answer is duplicated in
-	     * both the solution and within the choices. This is meant for questions
-	     * where the solutions generally do not change from problem to problem.
-	     * This is enabled by adding data-category to the .choices element.
-	     */
-	    radio: {
-	        setup: function setup(solutionarea, solution) {
-	            // Add a list to the solution area
-	            var $list = $("<ul></ul>");
-	            $(solutionarea).append($list);
-	            // Retrieve the list of choices from the problem
-	            var $choices = $(solution).siblings(".choices");
-	            // Get the wrong choices and the solution. Note that we cleanup all
-	            // the math here, so we don't have to deal with annoying MathJax
-	            // stuff in our solutions, and also that we can directly compare
-	            // the .text() values of all of the nodes
-	            var $choicesClone = $choices.clone(true).texCleanup();
-	            var $solutionClone = $(solution).clone(true).texCleanup();
-	            // Retrieve the text of the solution so we can store it later
-	            var solutionText = $solutionClone.text();
-	            // Whether this is a category question, or if we should shuffle the
-	            // answers up.
-	            var isCategory = !!$choices.data("category");
-	            var possibleChoices = void 0;
-	            isCategory ? !function() {
-	                // If it's a category question, insert the solution into the
-	                // list of choices at the correct place, by comparing by the
-	                // text value of the elements.
-	                var correctText = getTextSquish($solutionClone);
-	                possibleChoices = _.map($choicesClone.children().get(), function(elem) {
-	                    return getTextSquish(elem) === correctText ? $solutionClone[0] : elem;
-	                });
-	            }() : // Otherwise, the possible choices is just the correct answer
-	            // and the other choices. We shuffle the choices here so that
-	            // when we slice off some of the choices later, we don't always
-	            // slice off the same ones.
-	            possibleChoices = $solutionClone.get().concat(KhanMath.shuffle($choicesClone.children().get()));
-	            // The number of choices is either the number specified or the
-	            // number of choices in the list of possible choices.
-	            var numChoices = +$choices.data("show") || possibleChoices.length;
-	            // Whether to show a "none of the above" solution in our set of
-	            // answers.
-	            var showNone = !!$choices.data("none");
-	            // This code removes duplicate answers by looking at the text
-	            // values of the choices and keeping the non-duplicate answers
-	            var shownChoices = _.uniq(possibleChoices, false, function(elem) {
-	                return getTextSquish(elem);
-	            });
-	            // Here, we duplicate the old behaviour where, if there is one less
-	            // choice than we want, we will just add in the "none of the above"
-	            // choice instead of having it replace one of the real ones.
-	            var addNoneChoice = showNone && shownChoices.length === numChoices - 1;
-	            // If removing duplicates made it so there aren't enough showing
-	            // solutions (and we're not going to add in one last choice),
-	            // regenerate the problem
-	            if (shownChoices.length < numChoices && !addNoneChoice) return false;
-	            shownChoices.length > numChoices && (shownChoices = shownChoices.slice(0, numChoices));
-	            // Shuffle the answers if we're not in category mode
-	            isCategory || (shownChoices = KhanMath.shuffle(shownChoices));
-	            // Find the index of the correct answer
-	            var correctIndex = void 0;
-	            _.each(shownChoices, function(choice, i) {
-	                choice === $solutionClone[0] && (correctIndex = i);
-	            });
-	            // We figure out if the "none of the above" choice is correct if we
-	            // have such an answer and if the last shown answer is correct.
-	            // Note that we check against numChoices to decide if it is the
-	            // last choice, not shownChoices.length, because in the case that
-	            // we're going to be strictly adding the "none of the above"
-	            // choice, shownChoices.length won't accurately show the number of
-	            // choices that will be shown.
-	            var noneIsCorrect = showNone && correctIndex === numChoices - 1;
-	            // If showNone, replace the last solution with "None of the above",
-	            // which reveals the correct answer when it is picked and is right.
-	            if (showNone) {
-	                var $none = $("<span>").html(i18n._("None of the above"));
-	                $none.data("noneOfTheAbove", true);
-	                // If the answer is correct, we add some data about what the
-	                // true answer is so we can show it later
-	                noneIsCorrect && $list.data("realAnswer", $("<span>").addClass("value").append($solutionClone.clone(true).contents()));
-	                var noneIndex = shownChoices.length - 1;
-	                addNoneChoice && (noneIndex = shownChoices.length);
-	                shownChoices.splice(noneIndex, 1, // We have to wrap this in something so that when we unwrap
-	                // it below, it maintains its data attributes
-	                $("<span>").append($none));
-	            }
-	            // Wrap each of the choices in elements and add radio buttons
-	            var wrappedChoices = _.map(shownChoices, function(choice, i) {
-	                return $("<li><label></label></li>").find("label").append([ $('<input type="radio" name="solution">').val(i), $('<span class="value"></span>').append($(choice).contents()) ]).end();
-	            });
-	            // Here we finally re-run modules, so that the math is reformatted
-	            $list.append(wrappedChoices).runModules();
-	            return {
-	                // We send some extra data to the validator so that it is
-	                // easier to grade
-	                validator: KhanAnswerTypes.radio.createValidator({
-	                    solution: solution,
-	                    index: correctIndex,
-	                    noneIsCorrect: noneIsCorrect
-	                }),
-	                answer: function answer() {
-	                    // Find the chosen answer
-	                    var $choice = $list.find("input:checked");
-	                    // If nothing's checked, return null immediately
-	                    if (0 === $choice.length) return null;
-	                    // Find it's cooresponding value
-	                    var $choiceVal = $choice.siblings(".value");
-	                    // This (probably) only does something useful when the
-	                    // selected answer is the "none of the above" one
-	                    var $choiceNoneChild = $choiceVal.children().eq(0);
-	                    return {
-	                        // Some data about the "none of the above" answer
-	                        isNone: $choiceNoneChild.data("noneOfTheAbove"),
-	                        // The raw text value that was chosen
-	                        // TODO(emily): Remove this at the same time references
-	                        // to guess.value are removed down below, maybe (unless
-	                        // we want to have the text of the correct answer in
-	                        // the database)
-	                        value: extractRawCode($choiceVal),
-	                        // The index of the value that was chosen
-	                        index: +$choice.val()
-	                    };
-	                },
-	                solution: solutionText,
-	                showGuess: function showGuess(guess) {
-	                    null == guess ? $(solutionarea).find("input:checked").attr("checked", false) : // Select the correct radio button
-	                    $list.children().filter(function() {
-	                        // Filter using the index to choose the radio
-	                        return guess.index === $(this).find("input").val();
-	                    }).find("input").attr("checked", true);
-	                }
-	            };
-	        },
-	        createValidator: function createValidator(solution) {
-	            // TODO(emily): Remove this backwards compatible code sometime
-	            // after 8/2013
-	            var correct = extractRawCode(solution.solution || solution);
-	            function showReal() {
-	                // Hacky stuff to make the correct solution appear when "none
-	                // of the above" is the correct answer
-	                var $list = $("#solutionarea").find("ul");
-	                var $choice = $list.children().filter(function() {
-	                    return $(this).find("span.value > span").data("noneOfTheAbove");
-	                }).find("input");
-	                $choice.next().fadeOut("fast", function() {
-	                    var $real = $list.data("realAnswer");
-	                    $(this).replaceWith($real);
-	                    $real.tex().fadeIn("fast");
-	                });
-	            }
-	            return function(guess) {
-	                var score = {
-	                    empty: false,
-	                    correct: false,
-	                    message: null,
-	                    guess: guess
-	                };
-	                if (null == guess) {
-	                    score.empty = true;
-	                    return score;
-	                }
-	                if (guess.index) // New solutions include information about the correct
-	                // answer like the correct index, etc. We can use that to
-	                // make checking a lot simpler.
-	                if (guess.isNone && solution.noneIsCorrect) {
-	                    showReal();
-	                    score.correct = true;
-	                } else score.correct = guess.index === solution.index; else // Old solutions just included the solution element, so we
-	                // have to use the old checks to see if the solution is
-	                // correct
-	                // TODO(emily): Remove this backwards compatible code
-	                // sometime after 8/2013
-	                // Check to see if the "none of the above" answer is
-	                // checked
-	                if (guess.isNone && null != $("#solutionarea").find("ul").data("real-answer")) {
-	                    showReal();
-	                    score.correct = true;
-	                } else $.trim(guess.value).replace(/\r\n?|\n/g, "") === $.trim(correct.replace(/\r\n?|\n/g, "")) ? score.correct = true : score.correct = false;
-	                return score;
-	            };
-	        }
-	    },
-	    /*
-	     * The list answer type provides a drop-down menu to select from a list of
-	     * different answers
-	     *
-	     * The different choices are stored as an array in the data-choices value
-	     * of the solution element
-	     */
-	    list: {
-	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData) {
-	            var input = $("<select></select>");
-	            $(solutionarea).append(input);
-	            // Get the choices
-	            var choices = $.tmpl.getVAR(solutionData.choices);
-	            $.each(choices, function(index, value) {
-	                // Add each one to the selection
-	                input.append('<option value="' + value + '">' + value + "</option>");
-	            });
-	            return {
-	                validator: KhanAnswerTypes.list.createValidatorFunctional(solutionText, solutionData),
-	                answer: function answer() {
-	                    return input.val();
-	                },
-	                solution: $.trim(solutionText),
-	                showGuess: function showGuess(guess) {
-	                    input.val(void 0 === guess ? "" : guess);
-	                }
-	            };
-	        },
-	        createValidatorFunctional: function createValidatorFunctional(correct, options) {
-	            correct = $.trim(correct);
-	            return function(guess) {
-	                guess = $.trim(guess);
-	                return {
-	                    empty: false,
-	                    correct: correct === guess,
-	                    message: null,
-	                    guess: guess
-	                };
-	            };
-	        }
-	    },
-	    /*
-	     * The custom answer type provides a very general way to create answers,
-	     * which generally have input methods beyond the answer area, and have to
-	     * do more complex checking for answers
-	     *
-	     * There are 5 elements within the custom solution that are used.
-	     *
-	     * The .instruction element is directly copied into the solution area. This
-	     * is meant for instructions and any extra input needed by the question
-	     *
-	     * The .guess element is evaluated as javascript whenever the current
-	     * answer needs to be checked. Its result is passed in to the validator,
-	     * and show guess functions.
-	     *
-	     * The .validator element is evaluated as javascript with the added guess
-	     * variable. It should return one of the usual return types depending on
-	     * whether the answer is correct or not.
-	     *
-	     * The .show-guess and .show-guess-solutionarea elements are evaluated as
-	     * javascript whenever the guess needs to be re-displayed (mostly in the
-	     * timeline). The .show-guess function should be used to change elements
-	     * outside of the solutionarea, and the .show-guess-solutionarea one should
-	     * be used to modify elements within the solutionarea
-	     */
-	    custom: {
-	        setup: function setup(solutionarea, solution) {
-	            // copy the instruction element into the solution area
-	            solution.find(".instruction").appendTo(solutionarea).runModules();
-	            // Retrieve some code
-	            var guessCode = solution.find(".guess").text();
-	            var showCustomGuessCode = solution.find(".show-guess").text();
-	            var showGuessCode = solution.find(".show-guess-solutionarea").text();
-	            return {
-	                validator: KhanAnswerTypes.custom.createValidator(solution),
-	                answer: function answer() {
-	                    // Run the guess code
-	                    return KhanUtil.tmpl.getVAR(guessCode, KhanUtil.currentGraph);
-	                },
-	                solution: $.trim($(solution).text()),
-	                showCustomGuess: function showCustomGuess(guess) {
-	                    // run the show guess code
-	                    var code = "(function() { var guess = " + JSON.stringify(guess) + ";" + showCustomGuessCode + "})()";
-	                    KhanUtil.tmpl.getVAR(code, KhanUtil.currentGraph);
-	                },
-	                showGuess: function showGuess(guess) {
-	                    // run the answer area show guess code
-	                    var code = "(function() { var guess = " + JSON.stringify(guess) + ";" + showGuessCode + "})()";
-	                    KhanUtil.tmpl.getVAR(code, KhanUtil.currentGraph);
-	                }
-	            };
-	        },
-	        createValidator: function createValidator(solution) {
-	            // store some code
-	            var validatorCode = $(solution).find(".validator-function").text();
-	            var validator = function validator(guess) {
-	                // run the validator code
-	                var code = "(function() { var guess = " + JSON.stringify(guess) + ";" + validatorCode + "})()";
-	                return KhanUtil.tmpl.getVAR(code, KhanUtil.currentGraph);
-	            };
-	            return function(guess) {
-	                var pass = validator(guess);
-	                // If `pass` is an object, it's a new-style return type
-	                // If `pass` is an object, it's a new-style return type
-	                return "object" === ("undefined" === typeof pass ? "undefined" : _typeof(pass)) ? pass : {
-	                    empty: "" === pass,
-	                    correct: true === pass,
-	                    message: "string" === typeof pass ? pass : null,
-	                    guess: guess
-	                };
-	            };
-	        }
-	    },
-	    /*
-	     * The prime factorization answer type checks whether the correct list of
-	     * prime factors matches the guess, by ordering the prime factors in
-	     * ascending order, and placing "x"s between them
-	     */
-	    primeFactorization: {
-	        // Same as the text function, the differences lie in the validator
-	        // TODO(alpert): Use predicate or something like that?
-	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData) {
-	            var $input = void 0;
-	            // special flag for iOS devices
-	            $input = $(window.Modernizr && Modernizr.touchevents ? '<input type="text" autocapitalize="off">' : '<input type="text">');
-	            $input.addClass("prime-factorization");
-	            $(solutionarea).append($input);
-	            var examples = [ i18n._("a product of prime factors, like <code>2 \\times 3</code>"), i18n._("a single prime number, like <code>5</code>") ];
-	            addExamplesToInput($input, examples);
-	            return {
-	                validator: KhanAnswerTypes.primeFactorization.createValidatorFunctional(solutionText, solutionData),
-	                answer: function answer() {
-	                    return $input.val();
-	                },
-	                solution: $.trim(solutionText),
-	                showGuess: function showGuess(guess) {
-	                    $input.val(void 0 === guess ? "" : guess);
-	                }
-	            };
-	        },
-	        createValidatorFunctional: function createValidatorFunctional(correct, options) {
-	            correct = $.trim(correct);
-	            return function(guess) {
-	                // Get rid of all the whitespace
-	                guess = guess.split(" ").join("").toLowerCase();
-	                // Get rid of LaTeX braces
-	                guess = guess.replace(/{|}/g, "");
-	                // Split on x, *, unicode x, or LaTeX \times and \cdot
-	                guess = guess.split(/x|\*|\u00d7|\\times|\\cdot/);
-	                // Replace a^b with b lots of axa
-	                var terms = [];
-	                for (var i = 0; i < guess.length; i++) {
-	                    var t = guess[i].split("^");
-	                    if (t.length > 1) for (var j = 0; j < t[1]; j++) terms.push(t[0]); else terms.push(guess[i]);
-	                }
-	                // Sort, and join with xs
-	                guess = KhanMath.sortNumbers(terms).join("x");
-	                // perform simple string comparison
-	                return {
-	                    empty: "" === guess,
-	                    correct: guess === correct,
-	                    message: null,
-	                    guess: guess
-	                };
-	            };
-	        }
-	    },
-	    /*
-	     * The checkbox answer type provides a single checkbox, with the solution
-	     * being true or false
-	     */
-	    checkbox: {
-	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData) {
-	            // Make a checkbox
-	            var input = $('<input type="checkbox">');
-	            $(solutionarea).append(input);
-	            return {
-	                validator: KhanAnswerTypes.checkbox.createValidatorFunctional(solutionText, solutionData),
-	                answer: function answer() {
-	                    // False as "" so that checkIfAnswerEmpty recognizes it as
-	                    // empty
-	                    return input.is(":checked") || "";
-	                },
-	                solution: $.trim(solutionText),
-	                showGuess: function showGuess(guess) {
-	                    input.attr("checked", void 0 !== guess && guess);
-	                }
-	            };
-	        },
-	        createValidatorFunctional: function createValidatorFunctional(correct, options) {
-	            // store whether the correct answer is true or false
-	            correct = "true" === $.trim(correct);
-	            return function(guess) {
-	                var score = {
-	                    empty: false,
-	                    correct: false,
-	                    message: null,
-	                    guess: guess
-	                };
-	                // If checkbox is unchecked, guess will be ""; cast to bool
-	                /* jshint -W018 */
-	                !!correct === !!guess ? /* jshint +W018 */ score.correct = true : guess ? score.correct = false : // If unchecked, we'll say that the answer is empty, which
-	                // is necessary to ensure that a new question with
-	                // checkboxes counts as empty. Empty in a multiple grades
-	                // as false though so this shouldn't have any adverse
-	                // effects.
-	                score.empty = true;
-	                return score;
-	            };
-	        }
-	    },
-	    /*
-	     * The expression answer type parses a given expression or equation
-	     * and semantically compares it to the solution. In addition, instant
-	     * feedback is provided by rendering the last answer that fully parsed.
-	     *
-	     * Parsing options:
-	     * functions (e.g. data-functions="f g h")
-	     *     A space or comma separated list of single-letter variables that
-	     *     should be interpreted as functions. Case sensitive. "e" and "i"
-	     *     are reserved.
-	     *
-	     *     no functions specified: f(x+y) == fx + fy
-	     *     with "f" as a function: f(x+y) != fx + fy
-	     *
-	     * Comparison options:
-	     * same-form (e.g. data-same-form)
-	     *     If present, the answer must match the solution's structure in
-	     *     addition to evaluating the same. Commutativity and excess negation
-	     *     are ignored, but all other changes will trigger a rejection. Useful
-	     *     for requiring a particular form of an equation, or if the answer
-	     *     must be factored.
-	     *
-	     *     example question:    Factor x^2 + x - 2
-	     *     example solution:    (x-1)(x+2)
-	     *     accepted answers:    (x-1)(x+2), (x+2)(x-1), ---(-x-2)(-1+x), etc.
-	     *     rejected answers:    x^2+x-2, x*x+x-2, x(x+1)-2, (x-1)(x+2)^1, etc.
-	     *     rejection message:   Your answer is not in the correct form
-	     *
-	     * simplify (e.g. data-simplify)
-	     *     If present, the answer must be fully expanded and simplified. Use
-	     *     carefully - simplification is hard and there may be bugs, or you
-	     *     might not agree on the definition of "simplified" used. You will
-	     *     get an error if the provided solution is not itself fully expanded
-	     *     and simplified.
-	     *
-	     *     example question:    Simplify ((n*x^5)^5) / (n^(-2)*x^2)^-3
-	     *     example solution:    x^31 / n
-	     *     accepted answers:    x^31 / n, x^31 / n^1, x^31 * n^(-1), etc.
-	     *     rejected answers:    (x^25 * n^5) / (x^(-6) * n^6), etc.
-	     *     rejection message:   Your answer is not fully expanded and simplified
-	     *
-	     * Rendering options:
-	     * times (e.g. data-times)
-	     *     If present, explicit multiplication (such as between numbers) will
-	     *     be rendered with a cross/x symbol (TeX: \times) instead of the usual
-	     *     center dot (TeX: \cdot).
-	     *
-	     *     normal rendering:    2 * 3^x -> 2 \cdot 3^{x}
-	     *     but with "times":    2 * 3^x -> 2 \times 3^{x}
-	     */
-	    expression: {
-	        setup: function setup(solutionarea, solution) {
-	            var options = this._parseOptions($(solution).data());
-	            // Assemble the solution area
-	            var $tex = $('<span class="tex"/>');
-	            var $input = $('<input type="text">');
-	            var $error = $('<div class="error-div" style="display: none;"/>');
-	            $(solutionarea).append($('<span class="expression"/>').append($('<span class="output"/>').append($tex), $('<span class="input"/>').append($input, $error.append(// Requires FontAwesome
-	            //
-	            // TODO(riley): Replace this with a wrapped SVG
-	            //              generated by <InlineIcon />
-	            $('<i class="icon-exclamation-sign error-icon"/>')))));
-	            // Specify how instant render (and error message) should update
-	            var errorTimeout = null;
-	            var lastParsedTex = "";
-	            var update = function update() {
-	                clearTimeout(errorTimeout);
-	                var result = KAS.parse($input.val(), options);
-	                if (result.parsed) {
-	                    hideError();
-	                    $tex.css({
-	                        opacity: 1
-	                    });
-	                    var tex = result.expr.asTex(options);
-	                    if (tex !== lastParsedTex) {
-	                        $tex.empty().append($("<code>").text(tex)).tex();
-	                        lastParsedTex = tex;
-	                    }
-	                } else {
-	                    errorTimeout = setTimeout(showError, 2e3);
-	                    $tex.css({
-	                        opacity: .5
-	                    });
-	                }
-	            };
-	            var showError = function showError() {
-	                if (!$error.is(":visible")) {
-	                    $error.show();
-	                    $input.addClass("error");
-	                }
-	            };
-	            var hideError = function hideError() {
-	                if ($error.is(":visible")) {
-	                    $error.hide();
-	                    $input.removeClass("error");
-	                }
-	            };
-	            // Define event handlers
-	            $input.on("input propertychange", update);
-	            $input.on("keydown", function(event) {
-	                var input = $input[0];
-	                var start = input.selectionStart;
-	                var end = input.selectionEnd;
-	                var supported = void 0 !== start;
-	                if (supported && 8 === event.which) {
-	                    var val = input.value;
-	                    if (start === end && "()" === val.slice(start - 1, start + 1)) {
-	                        // "f(|)" + backspace -> "f|" (| is the cursor position)
-	                        event.preventDefault();
-	                        input.value = val.slice(0, start - 1) + val.slice(start + 1);
-	                        input.selectionStart = start - 1;
-	                        input.selectionEnd = end - 1;
-	                        update();
-	                    }
-	                }
-	            });
-	            $input.on("keypress", function(event) {
-	                var input = $input[0];
-	                var start = input.selectionStart;
-	                var end = input.selectionEnd;
-	                var supported = void 0 !== start;
-	                if (supported && 40 === event.which) !function() {
-	                    var val = input.value;
-	                    event.preventDefault();
-	                    if (start === end) {
-	                        // "f|" + "(" -> "f(|)"
-	                        var insertMatched = _.any([ " ", ")", "" ], function(c) {
-	                            return val.charAt(start) === c;
-	                        });
-	                        input.value = val.slice(0, start) + (insertMatched ? "()" : "(") + val.slice(end);
-	                    } else // "f|x+y|" + "(" -> "f(|x+y|)"
-	                    input.value = val.slice(0, start) + "(" + val.slice(start, end) + ")" + val.slice(end);
-	                    input.selectionStart = start + 1;
-	                    input.selectionEnd = end + 1;
-	                    update();
-	                }(); else if (supported && 41 === event.which) {
-	                    var _val = input.value;
-	                    if (start === end && ")" === _val.charAt(start)) {
-	                        // f(|) + ")" -> "f()|"
-	                        event.preventDefault();
-	                        input.selectionStart = start + 1;
-	                        input.selectionEnd = end + 1;
-	                        update();
-	                    }
-	                }
-	            });
-	            // Examples
-	            var explicitMul = i18n._("For <code>2\\cdot2</code>, enter <strong>2*2</strong>");
-	            // Will only use the options from the final set-sol but it's
-	            // unlikely different set-sols will have different times options
-	            options.times && (explicitMul = explicitMul.replace(/\\cdot/g, "\\times"));
-	            var examples = [ explicitMul, i18n._("For <code>3y</code>, enter <strong>3y</strong> or <strong>3*y</strong>"), i18n._("For <code>\\dfrac{1}{x}</code>, enter <strong>1/x</strong>"), i18n._("For <code>x^{y}</code>, enter <strong>x^y</strong>"), i18n._("For <code>\\sqrt{x}</code>, enter <strong>sqrt(x)</strong>"), i18n._("For <code>\\pi</code>, enter <strong>pi</strong>"), i18n._("For <code>\\sin \\theta</code>, enter <strong>sin(theta)</strong>"), i18n._("For <code>\\le</code> or <code>\\ge</code>, enter <strong><=</strong> or <strong>>=</strong>"), i18n._("For <code>\\neq</code>, enter <strong>=/=</strong>") ];
-	            addExamplesToInput($input, examples);
-	            return {
-	                validator: KhanAnswerTypes.expression.createValidator(solution),
-	                answer: function answer() {
-	                    return $input.val();
-	                },
-	                solution: solution,
-	                showGuess: function showGuess(guess) {
-	                    $input.val(void 0 === guess ? "" : guess);
-	                }
-	            };
-	        },
-	        parseSolution: function parseSolution(solutionString, options) {
-	            var solution = KAS.parse(solutionString, options);
-	            if (!solution.parsed) throw new Error("The provided solution (" + solutionString + ") didn't parse.");
-	            if (options.simplified && !solution.expr.isSimplified()) throw new Error("The provided solution (" + solutionString + ") isn't fully expanded and simplified.");
-	            solution = solution.expr;
-	            return solution;
-	        },
-	        _parseOptions: function _parseOptions(solutionData) {
-	            // Convert options to a form KAS can understand
-	            var form = void 0 !== solutionData.form ? solutionData.form : solutionData.sameForm;
-	            var notFalseOrNil = function notFalseOrNil(x) {
-	                return null != x && false !== x;
-	            };
-	            var options = {
-	                form: notFalseOrNil(form),
-	                simplify: notFalseOrNil(solutionData.simplify),
-	                times: notFalseOrNil(solutionData.times)
-	            };
-	            _.isString(solutionData.functions) ? options.functions = _.compact(solutionData.functions.split(/[ ,]+/)) : _.isArray(solutionData.functions) && (options.functions = _.compact(solutionData.functions));
-	            return options;
-	        },
-	        createValidator: function createValidator(solution) {
-	            var $solution = $(solution);
-	            var validatorArray = [];
-	            var createValidatorFunctional = this.createValidatorFunctional;
-	            var parseOptions = this._parseOptions;
-	            // Find solutions and options in a set
-	            $(solution).find(".set-sol").each(function() {
-	                var options = parseOptions($(this).data());
-	                validatorArray.push(createValidatorFunctional($(this).text(), options));
-	            });
-	            // Single solution, not a set
-	            if (0 === validatorArray.length) {
-	                var options = parseOptions($solution.data());
-	                validatorArray.push(createValidatorFunctional($solution.text(), options));
-	            }
-	            return function(guess) {
-	                var score = {
-	                    empty: false,
-	                    correct: false,
-	                    message: null,
-	                    guess: guess
-	                };
-	                // Check guess against all validators
-	                $.each(validatorArray, function(i, validator) {
-	                    var result = validator(guess);
-	                    if (result.correct) {
-	                        score.correct = true;
-	                        score.message = null;
-	                        return false;
-	                    }
-	                    result.message && (score.message = result.message);
-	                    result.empty && (score.empty = true);
-	                });
-	                return score;
-	            };
-	        },
-	        createValidatorFunctional: function createValidatorFunctional(solution, options) {
-	            return function(guess) {
-	                var score = {
-	                    empty: false,
-	                    correct: false,
-	                    message: null,
-	                    guess: guess
-	                };
-	                // Don't bother parsing an empty input
-	                if (!guess) {
-	                    score.empty = true;
-	                    return score;
-	                }
-	                var answer = KAS.parse(guess, options);
-	                // An unsuccessful parse doesn't count as wrong
-	                if (!answer.parsed) {
-	                    score.empty = true;
-	                    return score;
-	                }
-	                // Solution will need to be parsed again if we're creating
-	                // this from a multiple question type
-	                "string" === typeof solution && (solution = KhanAnswerTypes.expression.parseSolution(solution, options));
-	                var result = KAS.compare(answer.expr, solution, options);
-	                if (result.equal) // Correct answer
-	                score.correct = true; else if (result.message) // Nearly correct answer
-	                score.message = result.message; else {
-	                    // Replace x with * and see if it would have been correct
-	                    var answerX = KAS.parse(guess.replace(/[xX]/g, "*"), options);
-	                    if (answerX.parsed) {
-	                        var resultX = KAS.compare(answerX.expr, solution, options);
-	                        if (resultX.equal) {
-	                            score.empty = true;
-	                            score.message = "I'm a computer. I only understand multiplication if you use an asterisk (*) as the multiplication sign.";
-	                        } else resultX.message && (score.message = resultX.message + " Also, I'm a computer. I only understand multiplication if you use an asterisk (*) as the multiplication sign.");
-	                    }
-	                }
-	                return score;
-	            };
-	        }
-	    }
-	};
-
-	module.exports = KhanAnswerTypes;
-
-/***/ },
-/* 43 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	/**
-	 * Stub Tag Editor.
-	 *
-	 * This is stupidly used by Perseus Zero because I didn't implement
-	 * the <TagEditor> for Perseus Zero (since everyone wants me to
-	 * delete it anyways).
-	 *
-	 * This is a small wrapper for a TextListEditor that allows us to
-	 * edit raw Tag ID strings in perseus zero (please don't use this).
-	 *
-	 * It also gives a nicer interface for the group metadata editor
-	 * in local demo mode.
-	 */
-	var React = __webpack_require__(12);
-
-	var TextListEditor = __webpack_require__(97);
-
-	var EMPTY_ARRAY = [];
-
-	var StubTagEditor = React.createClass({
-	    displayName: "StubTagEditor",
-	    propTypes: {
-	        value: React.PropTypes.arrayOf(React.PropTypes.string),
-	        onChange: React.PropTypes.func.isRequired
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            value: EMPTY_ARRAY
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement("div", null, React.createElement("div", {
-	            style: {
-	                fontSize: 14
-	            }
-	        }, "Tags:"), React.createElement(TextListEditor, {
-	            options: this.props.value || EMPTY_ARRAY,
-	            layout: "vertical",
-	            onChange: this.props.onChange
-	        }));
-	    }
-	});
-
-	module.exports = StubTagEditor;
-
-/***/ },
-/* 44 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
 	var _fullBleedContainer, _responsiveSpan;
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -9251,13 +7384,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(83);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(98);
+	var WidgetJsonifyDeprecated = __webpack_require__(96);
 
 	var _ = __webpack_require__(15);
 
-	var ApiClassNames = __webpack_require__(21).ClassNames;
+	var ApiClassNames = __webpack_require__(22).ClassNames;
 
-	var ApiOptions = __webpack_require__(21).Options;
+	var ApiOptions = __webpack_require__(22).Options;
 
 	var _require2 = __webpack_require__(87);
 
@@ -9269,11 +7402,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(11);
 
-	var Util = __webpack_require__(20);
+	var Util = __webpack_require__(21);
 
-	var mediaQueries = __webpack_require__(99);
+	var mediaQueries = __webpack_require__(97);
 
-	var sharedStyles = __webpack_require__(100);
+	var sharedStyles = __webpack_require__(98);
 
 	var Categorizer = React.createClass({
 	    displayName: "Categorizer",
@@ -9454,7 +7587,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 45 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9471,7 +7604,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(83);
 
-	var updateQueryString = __webpack_require__(20).updateQueryString;
+	var updateQueryString = __webpack_require__(21).updateQueryString;
 
 	var PADDING_WIDTH = 2;
 
@@ -9614,7 +7747,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 46 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9624,7 +7757,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var classNames = __webpack_require__(18);
 
-	var FancySelect = __webpack_require__(101);
+	var FancySelect = __webpack_require__(99);
 
 	var React = __webpack_require__(12);
 
@@ -9634,11 +7767,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var FancyOption = FancySelect.Option;
 
-	var ApiClassNames = __webpack_require__(21).ClassNames;
+	var ApiClassNames = __webpack_require__(22).ClassNames;
 
-	var ApiOptions = __webpack_require__(21).Options;
+	var ApiOptions = __webpack_require__(22).Options;
 
-	var captureScratchpadTouchStart = __webpack_require__(20).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(21).captureScratchpadTouchStart;
 
 	var Dropdown = React.createClass({
 	    displayName: "Dropdown",
@@ -9755,7 +7888,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 47 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9779,11 +7912,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(83);
 
-	var PerseusApi = __webpack_require__(21);
+	var PerseusApi = __webpack_require__(22);
 
 	var Renderer = __webpack_require__(11);
 
-	var mediaQueries = __webpack_require__(99);
+	var mediaQueries = __webpack_require__(97);
 
 	var styleConstants = __webpack_require__(39);
 
@@ -9979,7 +8112,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 48 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9999,13 +8132,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(15);
 
-	var Interactive2 = __webpack_require__(102);
+	var Interactive2 = __webpack_require__(100);
 
 	var SvgImage = __webpack_require__(37);
 
-	var Util = __webpack_require__(20);
+	var Util = __webpack_require__(21);
 
-	var ButtonGroup = __webpack_require__(103);
+	var ButtonGroup = __webpack_require__(101);
 
 	/* Graphie and relevant components. */
 	var Graphie = __webpack_require__(89);
@@ -10020,7 +8153,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var kpoint = __webpack_require__(131).point;
 
-	var KhanColors = __webpack_require__(104);
+	var KhanColors = __webpack_require__(102);
 
 	var _require = __webpack_require__(75);
 
@@ -10037,7 +8170,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* Mixins. */
 	var Changeable = __webpack_require__(83);
 
-	var _require4 = __webpack_require__(119);
+	var _require4 = __webpack_require__(120);
 
 	var GrapherUtil = _require4.GrapherUtil;
 
@@ -10356,7 +8489,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 49 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10377,7 +8510,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(15);
 
-	var ApiOptions = __webpack_require__(21).Options;
+	var ApiOptions = __webpack_require__(22).Options;
 
 	var Changeable = __webpack_require__(83);
 
@@ -10393,7 +8526,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(11);
 
-	var GradedGroupAnswerBar = __webpack_require__(105);
+	var GradedGroupAnswerBar = __webpack_require__(103);
 
 	var _require2 = __webpack_require__(39);
 
@@ -10672,7 +8805,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 50 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10696,11 +8829,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var css = _require.css;
 
-	var ApiOptions = __webpack_require__(21).Options;
+	var ApiOptions = __webpack_require__(22).Options;
 
 	var Changeable = __webpack_require__(83);
 
-	var GradedGroup = __webpack_require__(49).widget;
+	var GradedGroup = __webpack_require__(47).widget;
 
 	var _require2 = __webpack_require__(39);
 
@@ -10876,7 +9009,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 51 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10896,7 +9029,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(15);
 
-	var ApiOptions = __webpack_require__(21).Options;
+	var ApiOptions = __webpack_require__(22).Options;
 
 	var Changeable = __webpack_require__(83);
 
@@ -11029,7 +9162,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 52 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11052,9 +9185,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(83);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(98);
+	var WidgetJsonifyDeprecated = __webpack_require__(96);
 
-	var updateQueryString = __webpack_require__(20).updateQueryString;
+	var updateQueryString = __webpack_require__(21).updateQueryString;
 
 	/* This renders the iframe and handles validation via window.postMessage */
 	var Iframe = React.createClass({
@@ -11181,7 +9314,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 53 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11199,7 +9332,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(15);
 
-	var ApiOptions = __webpack_require__(21).Options;
+	var ApiOptions = __webpack_require__(22).Options;
 
 	var Renderer = __webpack_require__(11);
 
@@ -11420,7 +9553,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 54 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11862,7 +9995,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 55 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11882,23 +10015,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(15);
 
-	var Graph = __webpack_require__(106);
+	var Graph = __webpack_require__(109);
 
-	var InfoTip = __webpack_require__(107);
+	var InfoTip = __webpack_require__(110);
 
-	var Interactive2 = __webpack_require__(102);
+	var Interactive2 = __webpack_require__(100);
 
-	var NumberInput = __webpack_require__(108);
+	var NumberInput = __webpack_require__(104);
 
-	var Util = __webpack_require__(20);
+	var Util = __webpack_require__(21);
 
 	var knumber = __webpack_require__(131).number;
 
 	var kpoint = __webpack_require__(131).point;
 
-	var KhanColors = __webpack_require__(104);
+	var KhanColors = __webpack_require__(102);
 
-	var GraphUtils = __webpack_require__(109);
+	var GraphUtils = __webpack_require__(111);
 
 	var _require = __webpack_require__(39);
 
@@ -11910,7 +10043,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var getInteractiveBoxFromSizeClass = _require2.getInteractiveBoxFromSizeClass;
 
-	var WrappedLine = __webpack_require__(110);
+	var WrappedLine = __webpack_require__(112);
 
 	var DeprecationMixin = Util.DeprecationMixin;
 
@@ -13615,7 +11748,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 56 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13629,7 +11762,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(83);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(98);
+	var WidgetJsonifyDeprecated = __webpack_require__(96);
 
 	var MAX_SIZE = 8;
 
@@ -13908,7 +12041,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 57 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13932,25 +12065,25 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(15);
 
-	var NumberInput = __webpack_require__(108);
+	var NumberInput = __webpack_require__(104);
 
 	var Renderer = __webpack_require__(11);
 
-	var TextInput = __webpack_require__(111);
+	var TextInput = __webpack_require__(105);
 
-	var MathOutput = __webpack_require__(112);
+	var MathOutput = __webpack_require__(106);
 
 	var SimpleKeypadInput = __webpack_require__(78);
 
-	var ApiOptions = __webpack_require__(21).Options;
+	var ApiOptions = __webpack_require__(22).Options;
 
-	var KhanAnswerTypes = __webpack_require__(42);
+	var KhanAnswerTypes = __webpack_require__(73);
 
 	var keypadElementPropType = __webpack_require__(76).propTypes.keypadElementPropType;
 
-	var assert = __webpack_require__(113).assert;
+	var assert = __webpack_require__(107).assert;
 
-	var stringArrayOfSize = __webpack_require__(20).stringArrayOfSize;
+	var stringArrayOfSize = __webpack_require__(21).stringArrayOfSize;
 
 	// We store three sets of dimensions for the brackets, for our three types of
 	// inputs, which vary in formatting: (1) the "static" inputs rendered for the
@@ -14344,7 +12477,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 58 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14358,13 +12491,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(11);
 
-	var Sortable = __webpack_require__(114);
+	var Sortable = __webpack_require__(108);
 
-	var ApiOptions = __webpack_require__(21).Options;
+	var ApiOptions = __webpack_require__(22).Options;
 
-	var shuffle = __webpack_require__(20).shuffle;
+	var shuffle = __webpack_require__(21).shuffle;
 
-	var seededRNG = __webpack_require__(20).seededRNG;
+	var seededRNG = __webpack_require__(21).seededRNG;
 
 	var Matcher = React.createClass({
 	    displayName: "Matcher",
@@ -14496,7 +12629,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 59 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14510,7 +12643,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _2 = __webpack_require__(15);
 
-	var GraphUtils = __webpack_require__(109);
+	var GraphUtils = __webpack_require__(111);
 
 	var defaultImage = {
 	    url: null,
@@ -14651,7 +12784,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 60 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14661,13 +12794,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(12);
 
-	var draw = __webpack_require__(120);
+	var draw = __webpack_require__(121);
 
-	var _require = __webpack_require__(121);
+	var _require = __webpack_require__(122);
 
 	var layout = _require.layout;
 
-	var SmilesParser = __webpack_require__(122);
+	var SmilesParser = __webpack_require__(123);
 
 	var parse = SmilesParser.parse;
 
@@ -14816,7 +12949,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 61 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14833,11 +12966,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(83);
 
-	var NumberInput = __webpack_require__(108);
+	var NumberInput = __webpack_require__(104);
 
-	var MathOutput = __webpack_require__(112);
+	var MathOutput = __webpack_require__(106);
 
-	var ApiOptions = __webpack_require__(21).Options;
+	var ApiOptions = __webpack_require__(22).Options;
 
 	var Graphie = __webpack_require__(89);
 
@@ -14849,13 +12982,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var KhanMath = __webpack_require__(81);
 
-	var KhanColors = __webpack_require__(104);
+	var KhanColors = __webpack_require__(102);
 
 	var bound = function bound(x, gt, lt) {
 	    return Math.min(Math.max(x, gt), lt);
 	};
 
-	var assert = __webpack_require__(113).assert;
+	var assert = __webpack_require__(107).assert;
 
 	var EN_DASH = "–";
 
@@ -15309,7 +13442,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 62 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15325,9 +13458,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(11);
 
-	var Util = __webpack_require__(20);
+	var Util = __webpack_require__(21);
 
-	var ApiClassNames = __webpack_require__(21).ClassNames;
+	var ApiClassNames = __webpack_require__(22).ClassNames;
 
 	var PlaceholderCard = React.createClass({
 	    displayName: "PlaceholderCard",
@@ -15738,7 +13871,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 63 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15756,7 +13889,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(11);
 
-	var PassageMarkdown = __webpack_require__(123);
+	var PassageMarkdown = __webpack_require__(124);
 
 	var Passage = React.createClass({
 	    displayName: "Passage",
@@ -15852,10 +13985,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var selectionStartIndex = Math.min(anchorIndex, focusIndex);
 	        var selectionEndIndex = Math.max(anchorIndex, focusIndex);
 	        var selectedText = selection.toString();
+	        if (!selectionStartIndex || !selectionEndIndex) return null;
 	        //Prevents slecting a space from highlighting both surrounding words.
 	        " " === selectedText.charAt(0) && (selectionStartIndex += 1);
 	        " " === selectedText.charAt(selectedText.length - 1) && (selectionEndIndex -= 1);
 	        return [ selectionStartIndex, selectionEndIndex ];
+	    },
+	    isInPassageText: function isInPassageText(node) {
+	        var ancestor = node;
+	        while (ancestor) {
+	            if (ancestor.classList && ancestor.classList.contains("passage-text")) return ancestor.contains(node);
+	            ancestor = ancestor.parentNode;
+	        }
+	        return false;
 	    },
 	    /**
 	     * Returns the index of either the anchor word or the focus word in the
@@ -15863,14 +14005,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	     */
 	    getSelectionIndex: function getSelectionIndex(selection, nodeType) {
 	        var node = null;
-	        var index = 0;
+	        var offset = 0;
 	        if ("anchor" === nodeType) {
 	            node = selection.anchorNode;
-	            index += this.charToWordOffset(selection.anchorOffset, node.textContent);
+	            offset = selection.anchorOffset;
 	        } else {
 	            node = selection.focusNode;
-	            index += this.charToWordOffset(selection.focusOffset, node.textContent);
+	            offset = selection.focusOffset;
 	        }
+	        if (!this.isInPassageText(node)) return null;
+	        var index = this.charToWordOffset(offset, node.textContent);
 	        var priorText = "";
 	        while (node && !(node.classList && node.classList.contains("passage-text"))) {
 	            while (node.previousSibling) {
@@ -15938,12 +14082,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    /**
 	     * Handles all mouse up events on passage-widget-passage-container. There
-	     * are 4 cases we care about here (in the order they are below):
-	     * 1) A user is clicking to remove a highlight.
-	     * 2) A user is clicking to confirm they want to add a highlight.
-	     * 3) A user has selected an existing highlight which they will then be
+	     * are 2 cases we care about here (in the order they are below):
+	     * 1) A user has selected an existing highlight which they will then be
 	     *    prompted to confirm that they wish to remove.
-	     * 4) A user has made a new selection which they will then be prompted to
+	     * 2) A user has made a new selection which they will then be prompted to
 	     *    add as a new highlight.
 	     */
 	    handleMouseUp: function handleMouseUp(e) {
@@ -15953,14 +14095,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 	        var selection = window.getSelection();
 	        var selectionRange = this.getSelectionRange(selection);
-	        var selectedHighlightRange = this.isHighlighted(selectionRange);
-	        selectedHighlightRange ? this.setState({
-	            newHighlightRange: null,
-	            selectedHighlightRange: selectedHighlightRange
-	        }) : " " === selection.toString() || selection.isCollapsed || this.setState({
-	            newHighlightRange: selectionRange,
-	            selectedHighlightRange: null
-	        });
+	        if (selectionRange) {
+	            var selectedHighlightRange = this.isHighlighted(selectionRange);
+	            selectedHighlightRange ? this.setState({
+	                newHighlightRange: null,
+	                selectedHighlightRange: selectedHighlightRange
+	            }) : " " === selection.toString() || selection.isCollapsed || this.setState({
+	                newHighlightRange: selectionRange,
+	                selectedHighlightRange: null
+	            });
+	        }
 	    },
 	    /**
 	     * Removes the currently-selected highlight region.
@@ -16284,7 +14428,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 64 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16301,7 +14445,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var PerseusMarkdown = __webpack_require__(25);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(98);
+	var WidgetJsonifyDeprecated = __webpack_require__(96);
 
 	var EN_DASH = "–";
 
@@ -16399,7 +14543,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 65 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16413,7 +14557,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(83);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(98);
+	var WidgetJsonifyDeprecated = __webpack_require__(96);
 
 	var Renderer = __webpack_require__(11);
 
@@ -16468,7 +14612,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 66 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16482,15 +14626,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(15);
 
-	var ApiClassNames = __webpack_require__(21).ClassNames;
+	var ApiClassNames = __webpack_require__(22).ClassNames;
 
-	var deepEq = __webpack_require__(20).deepEq;
+	var deepEq = __webpack_require__(21).deepEq;
 
 	var KhanMath = __webpack_require__(81);
 
-	var KhanColors = __webpack_require__(104);
+	var KhanColors = __webpack_require__(102);
 
-	var GraphUtils = __webpack_require__(109);
+	var GraphUtils = __webpack_require__(111);
 
 	var BAR = "bar", LINE = "line", PIC = "pic", HISTOGRAM = "histogram", DOTPLOT = "dotplot";
 
@@ -16974,14 +15118,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 67 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(12);
 
-	var Molecule = __webpack_require__(60).molecule;
+	var Molecule = __webpack_require__(58).molecule;
 
 	var Separator = React.createClass({
 	    displayName: "Separator",
@@ -17102,7 +15246,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 68 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -17122,7 +15266,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(15);
 
-	var ApiOptions = __webpack_require__(21).Options;
+	var ApiOptions = __webpack_require__(22).Options;
 
 	var Changeable = __webpack_require__(83);
 
@@ -17134,7 +15278,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(11);
 
-	var Util = __webpack_require__(20);
+	var Util = __webpack_require__(21);
 
 	var Sequence = React.createClass({
 	    displayName: "Sequence",
@@ -17238,7 +15382,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 69 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -17247,7 +15391,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* eslint-disable comma-dangle, indent, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-unary-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/* globals $_, i18n */
-	var InfoTip = __webpack_require__(107);
+	var InfoTip = __webpack_require__(110);
 
 	var React = __webpack_require__(12);
 
@@ -17257,9 +15401,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(83);
 
-	var ApiOptions = __webpack_require__(21).Options;
+	var ApiOptions = __webpack_require__(22).Options;
 
-	var assert = __webpack_require__(113).assert;
+	var assert = __webpack_require__(107).assert;
 
 	var Graphie = __webpack_require__(89);
 
@@ -17277,17 +15421,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var MovableLine = Graphie.MovableLine;
 
-	var NumberInput = __webpack_require__(108);
+	var NumberInput = __webpack_require__(104);
 
-	var MathOutput = __webpack_require__(112);
+	var MathOutput = __webpack_require__(106);
 
-	var seededRNG = __webpack_require__(20).seededRNG;
+	var seededRNG = __webpack_require__(21).seededRNG;
 
-	var Util = __webpack_require__(20);
+	var Util = __webpack_require__(21);
 
 	var knumber = __webpack_require__(131).number;
 
-	var KhanColors = __webpack_require__(104);
+	var KhanColors = __webpack_require__(102);
 
 	var KhanMath = __webpack_require__(81);
 
@@ -17833,7 +15977,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 70 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -17845,11 +15989,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(15);
 
-	var Sortable = __webpack_require__(114);
+	var Sortable = __webpack_require__(108);
 
-	var ApiOptions = __webpack_require__(21).Options;
+	var ApiOptions = __webpack_require__(22).Options;
 
-	var shuffle = __webpack_require__(20).shuffle;
+	var shuffle = __webpack_require__(21).shuffle;
 
 	var HORIZONTAL = "horizontal", VERTICAL = "vertical";
 
@@ -17921,7 +16065,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 71 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -17935,17 +16079,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(15);
 
-	var MathOutput = __webpack_require__(112);
+	var MathOutput = __webpack_require__(106);
 
 	var Renderer = __webpack_require__(11);
 
-	var Util = __webpack_require__(20);
+	var Util = __webpack_require__(21);
 
-	var ApiOptions = __webpack_require__(21).Options;
+	var ApiOptions = __webpack_require__(22).Options;
 
-	var KhanAnswerTypes = __webpack_require__(42);
+	var KhanAnswerTypes = __webpack_require__(73);
 
-	var assert = __webpack_require__(113).assert;
+	var assert = __webpack_require__(107).assert;
 
 	/* Input handling: Maps a (row, column) pair to a unique ref used by React,
 	 * and extracts (row, column) pairs from input paths, used to allow outsiders
@@ -18198,7 +16342,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 72 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -18220,19 +16364,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(15);
 
-	var Graph = __webpack_require__(106);
+	var Graph = __webpack_require__(109);
 
 	var InlineIcon = __webpack_require__(84);
 
-	var NumberInput = __webpack_require__(108);
+	var NumberInput = __webpack_require__(104);
 
-	var MathOutput = __webpack_require__(112);
+	var MathOutput = __webpack_require__(106);
 
 	var TeX = __webpack_require__(41);
 
 	var SimpleKeypadInput = __webpack_require__(78);
 
-	var ApiOptions = __webpack_require__(21).Options;
+	var ApiOptions = __webpack_require__(22).Options;
 
 	var keypadElementPropType = __webpack_require__(76).propTypes.keypadElementPropType;
 
@@ -18254,11 +16398,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var iconUndo = _require.iconUndo;
 
-	var deepEq = __webpack_require__(20).deepEq;
+	var deepEq = __webpack_require__(21).deepEq;
 
-	var getGridStep = __webpack_require__(20).getGridStep;
+	var getGridStep = __webpack_require__(21).getGridStep;
 
-	var captureScratchpadTouchStart = __webpack_require__(20).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(21).captureScratchpadTouchStart;
 
 	var knumber = __webpack_require__(131).number;
 
@@ -18272,9 +16416,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var KhanMath = __webpack_require__(81);
 
-	var KhanColors = __webpack_require__(104);
+	var KhanColors = __webpack_require__(102);
 
-	var assert = __webpack_require__(113).assert;
+	var assert = __webpack_require__(107).assert;
 
 	var defaultBoxSize = 400;
 
@@ -20207,7 +18351,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 73 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -20219,7 +18363,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// terms of a certain type.
 	// TODO(joel): Allow sigfigs within a range rather than an exact expected
 	// value?
-	var lens = __webpack_require__(116);
+	var lens = __webpack_require__(95);
 
 	var React = __webpack_require__(12);
 
@@ -20227,15 +18371,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(15);
 
-	var ApiClassNames = __webpack_require__(21).ClassNames;
+	var ApiClassNames = __webpack_require__(22).ClassNames;
 
-	var ApiOptions = __webpack_require__(21).Options;
+	var ApiOptions = __webpack_require__(22).Options;
 
 	var Changeable = __webpack_require__(83);
 
-	var MathOutput = __webpack_require__(112);
+	var MathOutput = __webpack_require__(106);
 
-	var _require = __webpack_require__(115);
+	var _require = __webpack_require__(113);
 
 	var SignificantFigures = _require.SignificantFigures;
 
@@ -20450,7 +18594,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 74 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -20542,6 +18686,1873 @@ return /******/ (function(modules) { // webpackBootstrap
 	    supportedAlignments: [ "block", "float-left", "float-right", "full-width" ],
 	    widget: Video
 	};
+
+/***/ },
+/* 73 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _typeof = "function" === typeof Symbol && "symbol" === typeof Symbol.iterator ? function(obj) {
+	    return typeof obj;
+	} : function(obj) {
+	    return obj && "function" === typeof Symbol && obj.constructor === Symbol ? "symbol" : typeof obj;
+	};
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */ /* eslint-disable brace-style, object-curly-spacing */ /* To fix, remove an entry above, run ka-lint, and fix errors. */ /* global i18n:false, Modernizr:false */ var $ = __webpack_require__(19);
+
+	var _ = __webpack_require__(15);
+
+	var retrieveMathFormula = __webpack_require__(115).retrieveMathFormula;
+
+	var localeToFixed = __webpack_require__(116);
+
+	var KhanMath = __webpack_require__(81);
+
+	var MAXERROR_EPSILON = Math.pow(2, -42);
+
+	// Function used to get the text of the choices, which is then used
+	// to check against the correct answer
+	var extractRawCode = function extractRawCode(elem) {
+	    var $elem = $(elem).clone(true);
+	    var code = $elem.find("code");
+	    code.length && // If there are <code> tags in the element, remove them and replace
+	    // them with their original formulas
+	    $.each(code, function(i, elem) {
+	        $(elem).replaceWith(// TODO(emily): Adding <code> and <script> tags around this is
+	        // a horrible hack to make this code backwards-compatible with
+	        // the old extractRawCode (so that timeline works, etc). Remove
+	        // this at some point and make it just return the formula, not
+	        // the wrapping.
+	        '<code><script type="math/tex">' + retrieveMathFormula(elem) + "</script></code>");
+	    });
+	    return $elem.html();
+	};
+
+	function getTextSquish(elem) {
+	    return $(elem).text().replace(/\s+/g, "");
+	}
+
+	// TODO(alpert): Don't duplicate from khan-exercise.js
+	function checkIfAnswerEmpty(guess) {
+	    // If multiple-answer, join all responses and check if that's empty
+	    // Remove commas left by joining nested arrays in case multiple-answer is
+	    // nested
+	    return "" === $.trim(guess) || guess instanceof Array && "" === $.trim(guess.join("").replace(/,/g, ""));
+	}
+
+	function addExamplesToInput($input, examples) {
+	    $input.data("qtip") && $input.qtip("destroy", /* immediate */ true);
+	    var $examples = $('<ul class="examples" style="display: none"></ul>');
+	    _.each(examples, function(example) {
+	        $examples.append("<li>" + example + "</li>");
+	    });
+	    $input.qtip({
+	        content: {
+	            text: $examples.remove(),
+	            prerender: true
+	        },
+	        style: {
+	            classes: "qtip-light leaf-tooltip"
+	        },
+	        position: {
+	            my: "top left",
+	            at: "bottom left"
+	        },
+	        show: {
+	            delay: 0,
+	            effect: {
+	                length: 0
+	            },
+	            event: "focus"
+	        },
+	        hide: {
+	            delay: 0,
+	            event: "blur"
+	        },
+	        events: {
+	            render: function render() {
+	                // Only run the modules when the qtip is actually shown
+	                $examples.children().runModules();
+	            }
+	        }
+	    });
+	}
+
+	/*
+	 * Answer types
+	 *
+	 * Utility for creating answerable questions displayed in exercises
+	 *
+	 * Different answer types produce different kinds of input displays, and do
+	 * different kinds of checking on the solutions.
+	 *
+	 * Each of the objects contain two functions, setup and createValidator.
+	 *
+	 * The setup function takes a solutionarea and solution, and performs setup
+	 * within the solutionarea, and then returns an object which contains:
+	 *
+	 * answer: a function which, when called, will retrieve the current answer from
+	 *         the solutionarea, which can then be validated using the validator
+	 *         function
+	 * validator: a function returned from the createValidator function (defined
+	 *            below)
+	 * solution: the correct answer to the problem
+	 * showGuess: a function which, when given a guess, shows the guess within the
+	 *            provided solutionarea
+	 * showGuessCustom: a function which displays parts of a guess that are not
+	 *                  within the solutionarea; currently only used for custom
+	 *                  answers
+	 *
+	 * The createValidator function only takes a solution, and it returns a
+	 * function which can be used to validate an answer.
+	 *
+	 * The resulting validator function returns:
+	 * - true: if the answer is fully correct
+	 * - false: if the answer is incorrect
+	 * - "" (the empty string): if no answer has been provided (e.g. the answer box
+	 *   is left unfilled)
+	 * - a string: if there is some slight error
+	 *
+	 * In most cases, setup and createValidator don't really need the solution DOM
+	 * element so we have setupFunctional and createValidatorFunctional for them
+	 * which take only $solution.text() and $solution.data(). This makes it easier
+	 * to reuse specific answer types.
+	 *
+	 * TODO(alpert): Think of a less-absurd name for createValidatorFunctional.
+	 *
+	 */
+	/**
+	 * Return a new answer type that uses number but with the passed-in forms only.
+	 */
+	function numberAnswerType(forms) {
+	    return {
+	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData) {
+	            return KhanAnswerTypes.number.setupFunctional(solutionarea, solutionText, $.extend({}, solutionData, {
+	                forms: forms
+	            }));
+	        },
+	        createValidatorFunctional: function createValidatorFunctional(correct, options) {
+	            return KhanAnswerTypes.number.createValidatorFunctional(correct, $.extend({}, options, {
+	                forms: forms
+	            }));
+	        }
+	    };
+	}
+
+	var KhanAnswerTypes = {
+	    /*
+	     * letters answer type. Inherits from `text` type, with a grammar hint of
+	     * `letters`
+	     */
+	    letters: {
+	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData) {
+	            return KhanAnswerTypes.text.setupFunctional(solutionarea, solutionText, solutionData, "letters");
+	        },
+	        createValidatorFunctional: function createValidatorFunctional(correct, options) {
+	            return KhanAnswerTypes.text.createValidatorFunctional(correct, options);
+	        }
+	    },
+	    /*
+	     * lowers answer type. Inherits from `text` type, with a grammar hint of
+	     * `lowers`. Intended for lower-case answers.
+	     */
+	    lowers: {
+	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData) {
+	            return KhanAnswerTypes.text.setupFunctional(solutionarea, solutionText, solutionData, "lowers");
+	        },
+	        createValidatorFunctional: function createValidatorFunctional(correct, options) {
+	            return KhanAnswerTypes.text.createValidatorFunctional(correct, options);
+	        }
+	    },
+	    /*
+	     * caps answer type. Inherits from `text` type, with a grammar hint of
+	     * `caps`
+	     */
+	    caps: {
+	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData) {
+	            return KhanAnswerTypes.text.setupFunctional(solutionarea, solutionText, solutionData, "caps");
+	        },
+	        createValidatorFunctional: function createValidatorFunctional(correct, options) {
+	            return KhanAnswerTypes.text.createValidatorFunctional(correct, options);
+	        }
+	    },
+	    /*
+	     * text answer type
+	     *
+	     * Displays a simple text box, and performs direct string matching on the
+	     * value typed in an the answer provided
+	     *
+	     * solutionGrammar is a string used by the mobile app to determine what
+	     * characters should be allowed.
+	     */
+	    text: {
+	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData, solutionGrammar) {
+	            solutionGrammar = solutionGrammar || "text";
+	            // Add a text box
+	            var input = void 0;
+	            // special flag for iOS devices
+	            input = $(window.Modernizr && Modernizr.touchevents ? '<input data-solution-grammar="' + solutionGrammar + '" type="text" autocapitalize="off">' : '<input data-solution-grammar="' + solutionGrammar + '" type="text">');
+	            $(solutionarea).append(input);
+	            return {
+	                validator: KhanAnswerTypes.text.createValidatorFunctional(solutionText, solutionData),
+	                answer: function answer() {
+	                    return input.val();
+	                },
+	                solution: $.trim(solutionText),
+	                showGuess: function showGuess(guess) {
+	                    input.val(void 0 === guess ? "" : guess);
+	                }
+	            };
+	        },
+	        createValidatorFunctional: function createValidatorFunctional(correct, options) {
+	            options = _.extend({
+	                correctCase: "required"
+	            }, options);
+	            correct = $.trim(correct);
+	            return function(guess) {
+	                // The fallback variable is used in place of the answer, if no
+	                // answer is provided (i.e. the field is left blank)
+	                var fallback = null != options.fallback ? "" + options.fallback : "";
+	                guess = $.trim(guess) || fallback;
+	                var score = {
+	                    empty: false,
+	                    correct: false,
+	                    message: null,
+	                    guess: guess
+	                };
+	                guess.toLowerCase() === correct.toLowerCase() && (correct === guess || "optional" === options.correctCase ? score.correct = true : guess === guess.toLowerCase() ? score.message = i18n._("Your answer is almost correct, but must be in capital letters.") : guess === guess.toUpperCase() ? score.message = i18n._("Your answer is almost correct, but must not be in capital letters.") : score.message = i18n._("Your answer is almost correct, but must be in the correct case."));
+	                return score;
+	            };
+	        }
+	    },
+	    /*
+	     * predicate answer type
+	     *
+	     * performs simple predicate-based checking of a numeric solution, with
+	     * different kinds of number formats
+	     *
+	     * Uses the data-forms option on the solution to choose which number formats
+	     * are acceptable. Available data-forms:
+	     *
+	     * - integer:  3
+	     * - proper:   3/5
+	     * - improper: 5/3
+	     * - pi:       3 pi
+	     * - log:      log(5)
+	     * - percent:  15%
+	     * - mixed:    1 1/3
+	     * - decimal:  1.7
+	     *
+	     * The solution should be a predicate of the form:
+	     *
+	     * function(guess, maxError) {
+	     *     return abs(guess - 3) < maxError;
+	     * }
+	     *
+	     */
+	    predicate: {
+	        defaultForms: "integer, proper, improper, mixed, decimal",
+	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData) {
+	            // retrieve the options from the solution data
+	            var options = $.extend({
+	                simplify: "required",
+	                ratio: false,
+	                forms: KhanAnswerTypes.predicate.defaultForms
+	            }, solutionData);
+	            var acceptableForms = options.forms.split(/\s*,\s*/);
+	            // TODO(jack): remove options.inexact in favor of options.maxError
+	            void 0 === options.inexact && (// If we aren't allowing inexact, ensure that we don't have a
+	            // large maxError as well.
+	            options.maxError = 0);
+	            // Allow a small tolerance on maxError, to avoid numerical
+	            // representation issues (2.3 should be correct for a solution of
+	            // 2.45 with maxError=0.15).
+	            options.maxError = +options.maxError + MAXERROR_EPSILON;
+	            var $input = $('<input type="text" autocapitalize="off">');
+	            $(solutionarea).append($input);
+	            // retrieve the example texts from the different forms
+	            var exampleForms = {
+	                integer: i18n._("an integer, like <code>6</code>"),
+	                proper: function() {
+	                    return "optional" === options.simplify ? i18n._("a <em>proper</em> fraction, like <code>1/2</code> or <code>6/10</code>") : i18n._("a <em>simplified proper</em> fraction, like <code>3/5</code>");
+	                }(),
+	                improper: function() {
+	                    return "optional" === options.simplify ? i18n._("an <em>improper</em> fraction, like <code>10/7</code> or <code>14/8</code>") : i18n._("a <em>simplified improper</em> fraction, like <code>7/4</code>");
+	                }(),
+	                pi: i18n._("a multiple of pi, like <code>12\\ \\text{pi}</code> or <code>2/3\\ \\text{pi}</code>"),
+	                log: i18n._("an expression, like <code>\\log(100)</code>"),
+	                percent: i18n._("a percent, like <code>%(NUM)s\\%</code>", {
+	                    NUM: localeToFixed(12.34, 2)
+	                }),
+	                mixed: i18n._("a mixed number, like <code>1\\ 3/4</code>"),
+	                decimal: function() {
+	                    return void 0 === options.inexact ? i18n._("an <em>exact</em> decimal, like <code>%(NUM)s</code>", {
+	                        NUM: localeToFixed(.75, 2)
+	                    }) : i18n._("a decimal, like <code>%(NUM)s</code>", {
+	                        NUM: localeToFixed(.75, 2)
+	                    });
+	                }()
+	            };
+	            // extract the examples for the given forms
+	            var examples = [];
+	            $.each(acceptableForms, function(i, form) {
+	                null != exampleForms[form] && examples.push(exampleForms[form]);
+	            });
+	            // Add examples directly to input
+	            // unless any generic number is accepted
+	            options.forms !== KhanAnswerTypes.predicate.defaultForms && addExamplesToInput($input, examples);
+	            return {
+	                validator: KhanAnswerTypes.predicate.createValidatorFunctional(solutionText, solutionData),
+	                answer: function answer() {
+	                    return $input.val();
+	                },
+	                solution: $.trim(solutionText),
+	                showGuess: function showGuess(guess) {
+	                    $input.val(void 0 === guess ? "" : guess);
+	                }
+	            };
+	        },
+	        createValidatorFunctional: function createValidatorFunctional(predicate, options) {
+	            // Extract the options from the given solution object
+	            options = _.extend({
+	                simplify: "required",
+	                ratio: false,
+	                forms: KhanAnswerTypes.predicate.defaultForms
+	            }, options);
+	            var acceptableForms = void 0;
+	            // this is maintaining backwards compatibility
+	            // TODO(merlob) fix all places that depend on this, then delete
+	            acceptableForms = _.isArray(options.forms) ? options.forms : options.forms.split(/\s*,\s*/);
+	            // TODO(jack): remove options.inexact in favor of options.maxError
+	            void 0 === options.inexact && (// If we aren't allowing inexact, ensure that we don't have a
+	            // large maxError as well.
+	            options.maxError = 0);
+	            // Allow a small tolerance on maxError, to avoid numerical
+	            // representation issues (2.3 should be correct for a solution of
+	            // 2.45 with maxError=0.15).
+	            options.maxError = +options.maxError + MAXERROR_EPSILON;
+	            // If percent is an acceptable form, make sure it's the last one
+	            // in the list so we don't prematurely complain about not having
+	            // a percent sign when the user entered the correct answer in a
+	            // different form (such as a decimal or fraction)
+	            if (_.contains(acceptableForms, "percent")) {
+	                acceptableForms = _.without(acceptableForms, "percent");
+	                acceptableForms.push("percent");
+	            }
+	            predicate = _.isFunction(predicate) ? predicate : KhanUtil.tmpl.getVAR(predicate);
+	            // Take text looking like a fraction, and turn it into a number
+	            var fractionTransformer = function fractionTransformer(text) {
+	                text = text.replace(/\u2212/, "-").replace(/([+-])\s+/g, "$1").replace(/(^\s*)|(\s*$)/gi, "");
+	                // Extract numerator and denominator
+	                var match = text.match(/^([+-]?\d+)\s*\/\s*([+-]?\d+)$/);
+	                var parsedInt = parseInt(text, 10);
+	                if (match) {
+	                    var num = parseFloat(match[1]);
+	                    var denom = parseFloat(match[2]);
+	                    var simplified = denom > 0 && (options.ratio || "1" !== match[2]) && 1 === KhanMath.getGCD(num, denom);
+	                    return [ {
+	                        value: num / denom,
+	                        exact: simplified
+	                    } ];
+	                }
+	                if (!isNaN(parsedInt) && "" + parsedInt === text) return [ {
+	                    value: parsedInt,
+	                    exact: true
+	                } ];
+	                return [];
+	            };
+	            /*
+	             * Different forms of numbers
+	             *
+	             * Each function returns a list of objects of the form:
+	             *
+	             * {
+	             *    value: numerical value,
+	             *    exact: true/false
+	             * }
+	             */
+	            var forms = {
+	                // integer, which is encompassed by decimal
+	                integer: function integer(text) {
+	                    // Compare the decimal form to the decimal form rounded to
+	                    // an integer. Only accept if the user actually entered an
+	                    // integer.
+	                    var decimal = forms.decimal(text);
+	                    var rounded = forms.decimal(text, 1);
+	                    if (null != decimal[0].value && decimal[0].value === rounded[0].value || null != decimal[1].value && decimal[1].value === rounded[1].value) return decimal;
+	                    return [];
+	                },
+	                // A proper fraction
+	                proper: function proper(text) {
+	                    return $.map(fractionTransformer(text), function(o) {
+	                        // All fractions that are less than 1
+	                        // All fractions that are less than 1
+	                        return Math.abs(o.value) < 1 ? [ o ] : [];
+	                    });
+	                },
+	                // an improper fraction
+	                improper: function improper(text) {
+	                    return $.map(fractionTransformer(text), function(o) {
+	                        // All fractions that are greater than 1
+	                        // All fractions that are greater than 1
+	                        return Math.abs(o.value) >= 1 ? [ o ] : [];
+	                    });
+	                },
+	                // pi-like numbers
+	                pi: function pi(text) {
+	                    var match = void 0;
+	                    var possibilities = [];
+	                    // Replace unicode minus sign with hyphen
+	                    text = text.replace(/\u2212/, "-");
+	                    // - pi
+	                    // (Note: we also support \pi (for TeX), p, tau (and \tau,
+	                    // and t), pau.)
+	                    if (match = text.match(/^([+-]?)\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)) possibilities = [ {
+	                        value: parseFloat(match[1] + "1"),
+	                        exact: true
+	                    } ]; else if (match = text.match(/^([+-]?\s*\d+\s*(?:\/\s*[+-]?\s*\d+)?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)) // @Nolint
+	                    possibilities = fractionTransformer(match[1]); else if (match = text.match(/^([+-]?)\s*(\d+)\s*([+-]?\d+)\s*\/\s*([+-]?\d+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i)) {
+	                        // @Nolint
+	                        var sign = parseFloat(match[1] + "1");
+	                        var integ = parseFloat(match[2]);
+	                        var num = parseFloat(match[3]);
+	                        var denom = parseFloat(match[4]);
+	                        var simplified = num < denom && 1 === KhanMath.getGCD(num, denom);
+	                        possibilities = [ {
+	                            value: sign * (integ + num / denom),
+	                            exact: simplified
+	                        } ];
+	                    } else if (match = text.match(/^([+-]?\s*\d+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\s*\d+))?$/i)) // @Nolint
+	                    possibilities = fractionTransformer(match[1] + "/" + match[3]); else if (match = text.match(/^([+-]?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\d+))?$/i)) // @Nolint
+	                    possibilities = fractionTransformer(match[1] + "1/" + match[3]); else if ("0" === text) possibilities = [ {
+	                        value: 0,
+	                        exact: true
+	                    } ]; else {
+	                        if (!(match = text.match(/^(.+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i))) {
+	                            possibilities = _.reduce(KhanAnswerTypes.predicate.defaultForms.split(/\s*,\s*/), function(memo, form) {
+	                                return memo.concat(forms[form](text));
+	                            }, []);
+	                            // If the answer is a floating point number that's
+	                            // near a multiple of pi, mark is as being possibly
+	                            // an approximation of pi.  We actually check if
+	                            // it's a plausible approximation of pi/12, since
+	                            // sometimes the correct answer is like pi/3 or pi/4.
+	                            // We also say it's a pi-approximation if it involves
+	                            // x/7 (since 22/7 is an approximation of pi.)
+	                            // Never mark an integer as being an approximation
+	                            // of pi.
+	                            var approximatesPi = false;
+	                            var number = parseFloat(text);
+	                            if (isNaN(number) || number === parseInt(text)) text.match(/\/\s*7/) && (approximatesPi = true); else {
+	                                var piMult = Math.PI / 12;
+	                                var roundedNumber = piMult * Math.round(number / piMult);
+	                                Math.abs(number - roundedNumber) < .01 && (approximatesPi = true);
+	                            }
+	                            approximatesPi && _.each(possibilities, function(possibility) {
+	                                possibility.piApprox = true;
+	                            });
+	                            return possibilities;
+	                        }
+	                        possibilities = forms.decimal(match[1]);
+	                    }
+	                    var multiplier = Math.PI;
+	                    text.match(/\\?tau|t|\u03c4/) && (multiplier = 2 * Math.PI);
+	                    // We're taking an early stand along side xkcd in the
+	                    // inevitable ti vs. pau debate... http://xkcd.com/1292
+	                    text.match(/pau/) && (multiplier = 1.5 * Math.PI);
+	                    $.each(possibilities, function(ix, possibility) {
+	                        possibility.value *= multiplier;
+	                    });
+	                    return possibilities;
+	                },
+	                // Converts '' to 1 and '-' to -1 so you can write "[___] x"
+	                // and accept sane things
+	                coefficient: function coefficient(text) {
+	                    var possibilities = [];
+	                    // Replace unicode minus sign with hyphen
+	                    text = text.replace(/\u2212/, "-");
+	                    "" === text ? possibilities = [ {
+	                        value: 1,
+	                        exact: true
+	                    } ] : "-" === text && (possibilities = [ {
+	                        value: -1,
+	                        exact: true
+	                    } ]);
+	                    return possibilities;
+	                },
+	                // simple log(c) form
+	                log: function log(text) {
+	                    var match = void 0;
+	                    var possibilities = [];
+	                    // Replace unicode minus sign with hyphen
+	                    text = text.replace(/\u2212/, "-");
+	                    text = text.replace(/[ \(\)]/g, "");
+	                    (match = text.match(/^log\s*(\S+)\s*$/i)) ? possibilities = forms.decimal(match[1]) : "0" === text && (possibilities = [ {
+	                        value: 0,
+	                        exact: true
+	                    } ]);
+	                    return possibilities;
+	                },
+	                // Numbers with percent signs
+	                percent: function percent(text) {
+	                    text = $.trim(text);
+	                    // store whether or not there is a percent sign
+	                    var hasPercentSign = false;
+	                    if (text.indexOf("%") === text.length - 1) {
+	                        text = $.trim(text.substring(0, text.length - 1));
+	                        hasPercentSign = true;
+	                    }
+	                    var transformed = forms.decimal(text);
+	                    $.each(transformed, function(ix, t) {
+	                        t.exact = hasPercentSign;
+	                        t.value = t.value / 100;
+	                    });
+	                    return transformed;
+	                },
+	                // Mixed numbers, like 1 3/4
+	                mixed: function mixed(text) {
+	                    var match = text.replace(/\u2212/, "-").replace(/([+-])\s+/g, "$1").match(/^([+-]?)(\d+)\s+(\d+)\s*\/\s*(\d+)$/);
+	                    if (match) {
+	                        var sign = parseFloat(match[1] + "1");
+	                        var integ = parseFloat(match[2]);
+	                        var num = parseFloat(match[3]);
+	                        var denom = parseFloat(match[4]);
+	                        var simplified = num < denom && 1 === KhanMath.getGCD(num, denom);
+	                        return [ {
+	                            value: sign * (integ + num / denom),
+	                            exact: simplified
+	                        } ];
+	                    }
+	                    return [];
+	                },
+	                // Decimal numbers -- compare entered text rounded to
+	                // 'precision' Reciprical of the precision against the correct
+	                // answer. We round to 1/1e10 by default, which is healthily
+	                // less than machine epsilon but should be more than any real
+	                // decimal answer would use. (The 'integer' answer type uses
+	                // precision == 1.)
+	                decimal: function decimal(text, precision) {
+	                    null == precision && (precision = 1e10);
+	                    var normal = function normal(text) {
+	                        text = $.trim(text);
+	                        var match = text.replace(/\u2212/, "-").replace(/([+-])\s+/g, "$1").match(/^([+-]?(?:\d{1,3}(?:[, ]?\d{3})*\.?|\d{0,3}(?:[, ]?\d{3})*\.(?:\d{3}[, ]?)*\d{1,3}))$/);
+	                        // @Nolint
+	                        // You can't start a number with `0,`, to prevent us
+	                        // interpeting '0.342' as correct for '342'
+	                        var badLeadingZero = text.match(/^0[0,]*,/);
+	                        if (match && !badLeadingZero) {
+	                            var x = parseFloat(match[1].replace(/[, ]/g, ""));
+	                            void 0 === options.inexact && (x = Math.round(x * precision) / precision);
+	                            return x;
+	                        }
+	                    };
+	                    var commas = function commas(text) {
+	                        text = text.replace(/([\.,])/g, function(_, c) {
+	                            return "." === c ? "," : ".";
+	                        });
+	                        return normal(text);
+	                    };
+	                    return [ {
+	                        value: normal(text),
+	                        exact: true
+	                    }, {
+	                        value: commas(text),
+	                        exact: true
+	                    } ];
+	                }
+	            };
+	            // validator function
+	            return function(guess) {
+	                // The fallback variable is used in place of the answer, if no
+	                // answer is provided (i.e. the field is left blank)
+	                var fallback = null != options.fallback ? "" + options.fallback : "";
+	                guess = $.trim(guess) || fallback;
+	                var score = {
+	                    empty: "" === guess,
+	                    correct: false,
+	                    message: null,
+	                    guess: guess
+	                };
+	                // iterate over all the acceptable forms, and if one of the
+	                // answers is correct, return true
+	                $.each(acceptableForms, function(i, form) {
+	                    var transformed = forms[form](guess);
+	                    for (var j = 0, l = transformed.length; j < l; j++) {
+	                        var val = transformed[j].value;
+	                        var exact = transformed[j].exact;
+	                        var piApprox = transformed[j].piApprox;
+	                        // If a string was returned, and it exactly matches,
+	                        // return true
+	                        if (predicate(val, options.maxError)) {
+	                            // If the exact correct number was returned,
+	                            // return true
+	                            if (exact || "optional" === options.simplify) {
+	                                score.correct = true;
+	                                score.message = options.message || null;
+	                                // If the answer is correct, don't say it's
+	                                // empty. This happens, for example, with the
+	                                // coefficient type where guess === "" but is
+	                                // interpreted as "1" which is correct.
+	                                score.empty = false;
+	                            } else if ("percent" === form) {
+	                                // Otherwise, an error was returned
+	                                score.empty = true;
+	                                score.message = i18n._("Your answer is almost correct, but it is missing a <code>\\%</code> at the end.");
+	                            } else {
+	                                "enforced" !== options.simplify && (score.empty = true);
+	                                score.message = i18n._("Your answer is almost correct, but it needs to be simplified.");
+	                            }
+	                            return false;
+	                        }
+	                        if (piApprox && predicate(val, Math.abs(.001 * val))) {
+	                            score.empty = true;
+	                            score.message = i18n._("Your answer is close, but you may have approximated pi. Enter your answer as a multiple of pi, like <code>12\\ \\text{pi}</code> or <code>2/3\\ \\text{pi}</code>");
+	                        }
+	                    }
+	                });
+	                if (false === score.correct) {
+	                    var interpretedGuess = false;
+	                    _.each(forms, function(form) {
+	                        var anyAreNaN = _.any(form(guess), function(t) {
+	                            return null != t.value && !_.isNaN(t.value);
+	                        });
+	                        anyAreNaN && (interpretedGuess = true);
+	                    });
+	                    if (!interpretedGuess) {
+	                        score.empty = true;
+	                        score.message = i18n._("We could not understand your answer. Please check your answer for extra text or symbols.");
+	                        return score;
+	                    }
+	                }
+	                return score;
+	            };
+	        }
+	    },
+	    /*
+	     * number answer type
+	     *
+	     * wraps the predicate answer type to performs simple number-based checking
+	     * of a solution
+	     */
+	    number: {
+	        convertToPredicate: function convertToPredicate(correct, options) {
+	            // TODO(alpert): Don't think this $.trim is necessary
+	            var correctFloat = parseFloat($.trim(correct));
+	            return [ function(guess, maxError) {
+	                return Math.abs(guess - correctFloat) < maxError;
+	            }, $.extend({}, options, {
+	                type: "predicate"
+	            }) ];
+	        },
+	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData) {
+	            var args = KhanAnswerTypes.number.convertToPredicate(solutionText, solutionData);
+	            /* text: */ /* data: */ return KhanAnswerTypes.predicate.setupFunctional(solutionarea, args[0], args[1]);
+	        },
+	        createValidatorFunctional: function createValidatorFunctional(correct, options) {
+	            var _KhanAnswerTypes$pred;
+	            return (_KhanAnswerTypes$pred = KhanAnswerTypes.predicate).createValidatorFunctional.apply(_KhanAnswerTypes$pred, KhanAnswerTypes.number.convertToPredicate(correct, options));
+	        }
+	    },
+	    /*
+	     * These next four answer types are just synonyms for number with given
+	     * forms. Set the correct forms on the solution, and pass it on to number
+	     */
+	    decimal: numberAnswerType("decimal"),
+	    rational: numberAnswerType("integer, proper, improper, mixed"),
+	    // A little bit of a misnomer as proper fractions are also accepted
+	    improper: numberAnswerType("integer, proper, improper"),
+	    mixed: numberAnswerType("integer, proper, mixed"),
+	    // Perform a regex match on the entered string
+	    regex: {
+	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData) {
+	            var input = void 0;
+	            // special flag for iOS devices
+	            input = $(window.Modernizr && Modernizr.touchevents ? '<input type="text" autocapitalize="off">' : '<input type="text">');
+	            $(solutionarea).append(input);
+	            return {
+	                validator: KhanAnswerTypes.regex.createValidatorFunctional(solutionText, solutionData),
+	                answer: function answer() {
+	                    return input.val();
+	                },
+	                solution: $.trim(solutionText),
+	                showGuess: function showGuess(guess) {
+	                    input.val(void 0 === guess ? "" : guess);
+	                }
+	            };
+	        },
+	        createValidatorFunctional: function createValidatorFunctional(regex, options) {
+	            var flags = "";
+	            null != options.caseInsensitive && (flags += "i");
+	            regex = new RegExp($.trim(regex), flags);
+	            return function(guess) {
+	                // The fallback variable is used in place of the answer, if no
+	                // answer is provided (i.e. the field is left blank)
+	                var fallback = null != options.fallback ? "" + options.fallback : "";
+	                guess = $.trim(guess) || fallback;
+	                return {
+	                    empty: false,
+	                    correct: null != guess.match(regex),
+	                    message: null,
+	                    guess: guess
+	                };
+	            };
+	        }
+	    },
+	    // An answer type with two text boxes, for solutions of the form a sqrt(b)
+	    radical: {
+	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData) {
+	            var options = $.extend({
+	                simplify: "required"
+	            }, solutionData);
+	            // Add two input boxes
+	            var inte = $('<input type="text" autocapitalize="off">');
+	            var rad = $('<input type="text" autocapitalize="off">');
+	            var examples = "required" === options.simplify ? [ i18n._("a simplified radical, like <code>\\sqrt{2}</code> or <code>3\\sqrt{5}</code>") ] : [ i18n._("a radical, like <code>\\sqrt{8}</code> or <code>2\\sqrt{2}</code>") ];
+	            // Add the same example message to both inputs
+	            addExamplesToInput(inte, examples);
+	            addExamplesToInput(rad, examples);
+	            // Make them look pretty
+	            $("<div class='radical'>").append($("<span>").append(inte)).append('<span class="surd">&radic;</span>').append($("<span>").append(rad).addClass("overline")).appendTo(solutionarea);
+	            var ansSquared = parseFloat(solutionText);
+	            var ans = KhanMath.splitRadical(ansSquared);
+	            return {
+	                validator: KhanAnswerTypes.radical.createValidatorFunctional(solutionText, solutionData),
+	                answer: function answer() {
+	                    return [ $.trim(inte.val()), $.trim(rad.val()) ];
+	                },
+	                solution: ans,
+	                showGuess: function showGuess(guess) {
+	                    inte.val(guess ? guess[0] : "");
+	                    rad.val(guess ? guess[1] : "");
+	                }
+	            };
+	        },
+	        createValidatorFunctional: function createValidatorFunctional(ansSquared, options) {
+	            options = $.extend({
+	                simplify: "required"
+	            }, options);
+	            // The provided answer is the square of what is meant to be
+	            // entered. Use KhanMath.splitRadical to find the different parts
+	            ansSquared = parseFloat(ansSquared);
+	            var ans = KhanMath.splitRadical(ansSquared);
+	            return function(guess) {
+	                // If nothing typed into either box, don't grade the answer
+	                if (0 === guess[0].length && 0 === guess[1].length) return {
+	                    empty: true,
+	                    correct: false,
+	                    message: null,
+	                    guess: guess
+	                };
+	                // If nothing is typed into one of the boxes, use 1
+	                guess[0] = guess[0].length > 0 ? guess[0] : "1";
+	                guess[1] = guess[1].length > 0 ? guess[1] : "1";
+	                // Parse the two floats from the guess
+	                var inteGuess = parseFloat(guess[0]);
+	                var radGuess = parseFloat(guess[1]);
+	                // The answer is correct if the guess square is equal to the
+	                // given solution
+	                var correct = Math.abs(inteGuess) * inteGuess * radGuess === ansSquared;
+	                // the answer is simplified if the sqrt portion and integer
+	                // portion are the same as what is given by splitRadical
+	                var simplified = inteGuess === ans[0] && radGuess === ans[1];
+	                var score = {
+	                    empty: false,
+	                    correct: false,
+	                    message: null,
+	                    guess: guess
+	                };
+	                correct && (simplified || "optional" === options.simplify ? score.correct = true : score.message = i18n._("Your answer is almost correct, but it needs to be simplified."));
+	                return score;
+	            };
+	        }
+	    },
+	    // An answer type with two text boxes, for solutions of the form a
+	    // cuberoot(b)
+	    cuberoot: {
+	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData) {
+	            var options = $.extend({
+	                simplify: "required"
+	            }, solutionData);
+	            // Add two input boxes
+	            var inte = $('<input type="text" autocapitalize="off">');
+	            var rad = $('<input type="text" autocapitalize="off">');
+	            var examples = "required" === options.simplify ? [ i18n._("a simplified radical, like <code>\\sqrt[3]{2}</code> or <code>3\\sqrt[3]{5}</code>") ] : [ i18n._("a radical, like <code>\\sqrt[3]{8}</code> or <code>2\\sqrt[3]{2}</code>") ];
+	            // Add the same example message to both inputs
+	            addExamplesToInput(inte, examples);
+	            addExamplesToInput(rad, examples);
+	            // Make them look pretty
+	            $("<div class='radical'>").append($("<span>").append(inte)).append('<span class="surd" style="vertical-align: 6px;"><code>\\sqrt[3]{}</code></span>').append($("<span>").append(rad).addClass("overline")).appendTo(solutionarea).tex();
+	            var ansCubed = parseFloat(solutionText);
+	            var ans = KhanMath.splitCube(ansCubed);
+	            return {
+	                validator: KhanAnswerTypes.cuberoot.createValidatorFunctional(solutionText, solutionData),
+	                answer: function answer() {
+	                    return [ inte.val(), rad.val() ];
+	                },
+	                solution: ans,
+	                showGuess: function showGuess(guess) {
+	                    inte.val(guess ? guess[0] : "");
+	                    rad.val(guess ? guess[1] : "");
+	                }
+	            };
+	        },
+	        createValidatorFunctional: function createValidatorFunctional(ansCubed, options) {
+	            options = $.extend({
+	                simplify: "required"
+	            }, options);
+	            // The provided answer is the cube of what is meant to be
+	            // entered. Use KhanMath.splitCube to find the different parts
+	            ansCubed = parseFloat(ansCubed);
+	            var ans = KhanMath.splitCube(ansCubed);
+	            return function(guess) {
+	                // If nothing typed into either box, don't grade the answer
+	                if (0 === guess[0].length && 0 === guess[1].length) return {
+	                    empty: true,
+	                    correct: false,
+	                    message: null,
+	                    guess: guess
+	                };
+	                // If nothing is typed into one of the boxes, use 1
+	                guess[0] = guess[0].length > 0 ? guess[0] : "1";
+	                guess[1] = guess[1].length > 0 ? guess[1] : "1";
+	                // Parse the two floats from the guess
+	                var inteGuess = parseFloat(guess[0]);
+	                var radGuess = parseFloat(guess[1]);
+	                // The answer is correct if the guess square is equal to the
+	                // given solution
+	                var correct = Math.abs(inteGuess) * inteGuess * inteGuess * radGuess === ansCubed;
+	                // the answer is simplified if the sqrt portion and integer
+	                // portion are the same as what is given by splitCube
+	                var simplified = inteGuess === ans[0] && radGuess === ans[1];
+	                var score = {
+	                    empty: false,
+	                    correct: false,
+	                    message: null,
+	                    guess: guess
+	                };
+	                correct && (simplified || "optional" === options.simplify ? score.correct = true : score.message = i18n._("Your answer is almost correct, but it needs to be simplified."));
+	                return score;
+	            };
+	        }
+	    },
+	    /*
+	     * Multiple answer type
+	     *
+	     * This answer type allows for multiple different other answer types to be
+	     * combined into a single answer.
+	     *
+	     * It works by finding html elements with the "sol" class, and converting
+	     * them into mini solutionareas, which are then filled in by the setup
+	     * functions of their cooresponding answer types. In order to do solution
+	     * checking, the answers of each of the areas are placed in an array, and
+	     * then the validator works by iterating over the array and making sure
+	     * each of the individual solutions are correct
+	     */
+	    multiple: {
+	        setup: function setup(solutionarea, solution) {
+	            // Very quickly place all of the elements in the solution area
+	            // Clone it, because we don't want to modify or move it
+	            $(solutionarea).append($(solution).clone(true).texCleanup().contents().runModules());
+	            var answerDataArray = [];
+	            // Iterate over each of the .sol elements
+	            $(solutionarea).find(".sol").each(function(idx) {
+	                var type = $(this).data("type");
+	                type = null != type ? type : "number";
+	                // find the corresponding answer
+	                var sol = $(solution).find(".sol").eq(idx);
+	                // empty the .sol element in preperation for treating it as a
+	                // solutionarea
+	                var solarea = $(this).empty();
+	                // perform setup on each of the areas
+	                var answerData = KhanAnswerTypes[type].setup(solarea, sol);
+	                // Store the returned data, for use later
+	                answerDataArray.push(answerData);
+	            });
+	            return {
+	                validator: KhanAnswerTypes.multiple.createValidator(solution),
+	                answer: function answer() {
+	                    var answer = [];
+	                    // Go through each of the answerDatas, and call the answer
+	                    // functions in turn, storing each of the answers in an
+	                    // array
+	                    $.each(answerDataArray, function(i, answerData) {
+	                        answer.push(answerData.answer());
+	                    });
+	                    return answer;
+	                },
+	                solution: function() {
+	                    // Retrieve each of the solutions from the answerDatas
+	                    $.map(answerDataArray, function(answerData) {
+	                        return answerData.solution;
+	                    });
+	                }(),
+	                showGuess: function showGuess(guess) {
+	                    // Iterate through each of the answerDatas, and show the
+	                    // cooresponding guess for each
+	                    $.each(answerDataArray, function(i, answerData) {
+	                        void 0 !== guess ? answerData.showGuess(guess[i]) : answerData.showGuess();
+	                    });
+	                },
+	                showCustomGuess: function showCustomGuess(guess) {
+	                    // Iterate through each of the answerDatas, and show the
+	                    // cooresponding custom guess for each if it exists
+	                    $.each(answerDataArray, function(i, answerData) {
+	                        if (!_.isFunction(answerData.showCustomGuess)) return;
+	                        void 0 !== guess ? answerData.showCustomGuess(guess[i]) : answerData.showCustomGuess();
+	                    });
+	                }
+	            };
+	        },
+	        createValidator: function createValidator(solution) {
+	            var validators = [];
+	            // Iterate over all of the .sols in the answer
+	            $(solution).find(".sol").each(function() {
+	                var sol = $(this);
+	                var type = sol.data("type");
+	                type = null != type ? type : "number";
+	                // create a validator for each of the solutions
+	                var validator = KhanAnswerTypes[type].createValidator(sol);
+	                validators.push(validator);
+	            });
+	            return function(guess) {
+	                var score = {
+	                    empty: true,
+	                    correct: true,
+	                    message: null,
+	                    guess: guess
+	                };
+	                var blockGradingMessage = null;
+	                // If the answer is completely empty, don't grade it
+	                if (checkIfAnswerEmpty(guess)) {
+	                    score.empty = true;
+	                    score.correct = false;
+	                    return score;
+	                }
+	                // Iterate over each of the elements in the guess
+	                $.each(guess, function(i, g) {
+	                    // Check whether that answer is right by validating it
+	                    // with the corresponding validator
+	                    var pass = validators[i](g);
+	                    if (pass.message && pass.empty) // Special case where a validator returns a message
+	                    // for an "empty" response. This probably means it's
+	                    // not really empty, but a correct-but-not-simplified
+	                    // answer. Rather that treating this as actually empty,
+	                    // possibly leading to the entire multiple being marked
+	                    // wrong for being incomplete, note the situation but
+	                    // continue determining whether the entire answer is
+	                    // otherwise correct or not before forwarding on the
+	                    // message.
+	                    blockGradingMessage = pass.message; else {
+	                        score.empty = score.empty && pass.empty;
+	                        score.correct = score.correct && pass.correct;
+	                        // TODO(eater): This just forwards one message
+	                        score.message = score.message || pass.message;
+	                    }
+	                });
+	                if (score.correct && null != blockGradingMessage) return {
+	                    empty: true,
+	                    correct: false,
+	                    message: blockGradingMessage,
+	                    guess: guess
+	                };
+	                score.empty = false;
+	                return score;
+	            };
+	        }
+	    },
+	    /*
+	     * The set answer type allows for multiple different answers with the same
+	     * kind of input.
+	     *
+	     * The different correct answers are stored in .set-sol elements, each of
+	     * which describes a different correct answer
+	     *
+	     * the method of input is stored in the .input-format element, with each
+	     * .entry element within that describing an answer-type from which input
+	     * should be retrieved
+	     *
+	     * The guess is retrieved as a list of the answers given from each of the
+	     * .entry elements within the solution area
+	     *
+	     * If there are more solutions given than inputs, then all of the inputs
+	     * must be filled. If there are more inputs than solutions, then all of the
+	     * solutions must be given. Either way, every given solution must be
+	     * correct, or the whole thing is wrong.
+	     */
+	    set: {
+	        setup: function setup(solutionarea, solution) {
+	            // Append the input format to the solution area
+	            $(solutionarea).append($(solution).find(".input-format").clone(true).texCleanup().contents().runModules());
+	            var inputArray = [];
+	            var showGuessArray = [];
+	            // For each of the entry elements
+	            $(solutionarea).find(".entry").each(function() {
+	                var input = $(this);
+	                var type = $(this).data("type");
+	                type = null != type ? type : "number";
+	                var sol = input.clone(true);
+	                var solarea = input.empty();
+	                // Perform setup within that element
+	                var validator = KhanAnswerTypes[type].setup(solarea, sol);
+	                // Store the answer and showGuess functions
+	                inputArray.push(validator.answer);
+	                showGuessArray.push(validator.showGuess);
+	            });
+	            var solutionArray = [];
+	            // Make fake solutionareas, and store the solutions from each
+	            // TODO(emily): fix this horrible hack, by making the solution
+	            //              easier to access
+	            $(solution).find(".set-sol").clone(true).each(function() {
+	                var type = $(this).data("type");
+	                type = null != type ? type : "number";
+	                var solarea = $("<div>");
+	                var validator = KhanAnswerTypes[type].setup(solarea, $(this));
+	                solutionArray.push(validator.solution);
+	            });
+	            // TODO(alex): Figure out how to add tooltips to all of the inputs
+	            // within a set that need them. Not trivial due to the hack above.
+	            return {
+	                validator: KhanAnswerTypes.set.createValidator(solution),
+	                answer: function answer() {
+	                    var answer = [];
+	                    // For each of the inputs, get the answer and store it in
+	                    // the answer array
+	                    $.each(inputArray, function(i, getAns) {
+	                        answer.push(getAns());
+	                    });
+	                    return answer;
+	                },
+	                solution: solution,
+	                showGuess: function showGuess(guess) {
+	                    // For each of the inputs, call the appropriate showGuess
+	                    // function
+	                    $.each(showGuessArray, function(i, showGuess) {
+	                        void 0 === guess ? showGuess() : showGuess(guess[i]);
+	                    });
+	                }
+	            };
+	        },
+	        createValidator: function createValidator(solution) {
+	            var validatorArray = [];
+	            // Fill validatorArray with validators for each acceptable answer
+	            $(solution).find(".set-sol").clone(true).each(function() {
+	                var type = $(this).data("type");
+	                type = null != type ? type : "number";
+	                var validator = KhanAnswerTypes[type].createValidator($(this));
+	                validatorArray.push(validator);
+	            });
+	            return function(guess) {
+	                var score = {
+	                    // If there are no validators, empty input is correct
+	                    empty: 0 !== validatorArray.length,
+	                    correct: true,
+	                    message: null,
+	                    guess: guess
+	                };
+	                var blockGradingMessage = null;
+	                // Store a copy of each of the validators. If one correctly
+	                // identifies a guess, remove it from this array, so duplicate
+	                // answers aren't marked correct twice
+	                var unusedValidators = validatorArray.slice(0);
+	                // Go through each of the guesses
+	                $.each(guess, function(i, g) {
+	                    // Whether or not the guess is correct
+	                    var correct = false;
+	                    // Go through each of the unused validators
+	                    $.each(unusedValidators, function(i, validator) {
+	                        var pass = validator(g);
+	                        // If this validator is trying to block grading
+	                        if (pass.empty && pass.message) {
+	                            // remove the working validator
+	                            unusedValidators.splice(i, 1);
+	                            // We want to block the entire answer from being
+	                            // accepted as correct but continue checking in
+	                            // case another part is wrong.
+	                            blockGradingMessage = pass.message;
+	                            correct = true;
+	                            // break
+	                            return false;
+	                        }
+	                        // If this validator completely accepts this answer
+	                        if (pass.correct) {
+	                            // store correct
+	                            correct = pass.correct;
+	                            // remove the matching validator
+	                            unusedValidators.splice(i, 1);
+	                            // break
+	                            return false;
+	                        }
+	                        // If the validator matches, grades wrong, and provides
+	                        // a message, we want to continue trying the other
+	                        // validators in the hopes the answer may yet be
+	                        // correct. But in case it isn't, store the message.
+	                        !pass.correct && pass.message && (correct = pass.message);
+	                    });
+	                    checkIfAnswerEmpty(g) || checkIfAnswerEmpty(correct) || (score.empty = false);
+	                    // If we didn't get it right, and the answer isn't empty,
+	                    // the entire solution is false
+	                    //
+	                    // TODO(emily): make the "is the answer empty" part of this
+	                    //              work better for all the different answer
+	                    //              types
+	                    // TODO(emily): Perhaps provide insight to the student
+	                    //              about whether or not part of their answer
+	                    //              is correct? While this could be abused, it
+	                    //              would seem more friendly.
+	                    if (!correct && "" !== $.trim([ g ].join(""))) {
+	                        score.correct = false;
+	                        return false;
+	                    }
+	                    // If we have a check answer message
+	                    if ("string" === typeof correct) {
+	                        score.message = correct;
+	                        score.correct = false;
+	                    }
+	                });
+	                // If there were more correct answers than possible guesses
+	                validatorArray.length > guess.length ? // If not all of the guesses were filled in with correct
+	                // answers
+	                unusedValidators.length > validatorArray.length - guess.length && (// incorrect, more answers needed
+	                score.correct = false) : unusedValidators.length > 0 && (// incorrect, some of the answers are missing
+	                score.correct = false);
+	                return score.correct && null != blockGradingMessage ? {
+	                    empty: true,
+	                    correct: false,
+	                    message: blockGradingMessage,
+	                    guess: guess
+	                } : score;
+	            };
+	        }
+	    },
+	    /*
+	     * The radio answer type provides multiple choice type answers
+	     *
+	     * The different possible multiple choice answers are provided in a
+	     * seperate .choices element siblings with the main .solution element, with
+	     * the correct answer residing within the .solution element.
+	     *
+	     * There are two different modes of operation. Category mode and
+	     * non-category mode.
+	     *
+	     * In non-category mode, the answers (which don't include the correct
+	     * answer) combined with the correct answer are scrambled together. This is
+	     * meant for questions where the answers radically change from question to
+	     * question, and thus scrambling increases the difficulty, and makes the
+	     * solutions harder to pattern match. This is the default.
+	     *
+	     * In category mode, the answers are provided in the order they are given
+	     * within the .choices element, and the correct answer is duplicated in
+	     * both the solution and within the choices. This is meant for questions
+	     * where the solutions generally do not change from problem to problem.
+	     * This is enabled by adding data-category to the .choices element.
+	     */
+	    radio: {
+	        setup: function setup(solutionarea, solution) {
+	            // Add a list to the solution area
+	            var $list = $("<ul></ul>");
+	            $(solutionarea).append($list);
+	            // Retrieve the list of choices from the problem
+	            var $choices = $(solution).siblings(".choices");
+	            // Get the wrong choices and the solution. Note that we cleanup all
+	            // the math here, so we don't have to deal with annoying MathJax
+	            // stuff in our solutions, and also that we can directly compare
+	            // the .text() values of all of the nodes
+	            var $choicesClone = $choices.clone(true).texCleanup();
+	            var $solutionClone = $(solution).clone(true).texCleanup();
+	            // Retrieve the text of the solution so we can store it later
+	            var solutionText = $solutionClone.text();
+	            // Whether this is a category question, or if we should shuffle the
+	            // answers up.
+	            var isCategory = !!$choices.data("category");
+	            var possibleChoices = void 0;
+	            isCategory ? !function() {
+	                // If it's a category question, insert the solution into the
+	                // list of choices at the correct place, by comparing by the
+	                // text value of the elements.
+	                var correctText = getTextSquish($solutionClone);
+	                possibleChoices = _.map($choicesClone.children().get(), function(elem) {
+	                    return getTextSquish(elem) === correctText ? $solutionClone[0] : elem;
+	                });
+	            }() : // Otherwise, the possible choices is just the correct answer
+	            // and the other choices. We shuffle the choices here so that
+	            // when we slice off some of the choices later, we don't always
+	            // slice off the same ones.
+	            possibleChoices = $solutionClone.get().concat(KhanMath.shuffle($choicesClone.children().get()));
+	            // The number of choices is either the number specified or the
+	            // number of choices in the list of possible choices.
+	            var numChoices = +$choices.data("show") || possibleChoices.length;
+	            // Whether to show a "none of the above" solution in our set of
+	            // answers.
+	            var showNone = !!$choices.data("none");
+	            // This code removes duplicate answers by looking at the text
+	            // values of the choices and keeping the non-duplicate answers
+	            var shownChoices = _.uniq(possibleChoices, false, function(elem) {
+	                return getTextSquish(elem);
+	            });
+	            // Here, we duplicate the old behaviour where, if there is one less
+	            // choice than we want, we will just add in the "none of the above"
+	            // choice instead of having it replace one of the real ones.
+	            var addNoneChoice = showNone && shownChoices.length === numChoices - 1;
+	            // If removing duplicates made it so there aren't enough showing
+	            // solutions (and we're not going to add in one last choice),
+	            // regenerate the problem
+	            if (shownChoices.length < numChoices && !addNoneChoice) return false;
+	            shownChoices.length > numChoices && (shownChoices = shownChoices.slice(0, numChoices));
+	            // Shuffle the answers if we're not in category mode
+	            isCategory || (shownChoices = KhanMath.shuffle(shownChoices));
+	            // Find the index of the correct answer
+	            var correctIndex = void 0;
+	            _.each(shownChoices, function(choice, i) {
+	                choice === $solutionClone[0] && (correctIndex = i);
+	            });
+	            // We figure out if the "none of the above" choice is correct if we
+	            // have such an answer and if the last shown answer is correct.
+	            // Note that we check against numChoices to decide if it is the
+	            // last choice, not shownChoices.length, because in the case that
+	            // we're going to be strictly adding the "none of the above"
+	            // choice, shownChoices.length won't accurately show the number of
+	            // choices that will be shown.
+	            var noneIsCorrect = showNone && correctIndex === numChoices - 1;
+	            // If showNone, replace the last solution with "None of the above",
+	            // which reveals the correct answer when it is picked and is right.
+	            if (showNone) {
+	                var $none = $("<span>").html(i18n._("None of the above"));
+	                $none.data("noneOfTheAbove", true);
+	                // If the answer is correct, we add some data about what the
+	                // true answer is so we can show it later
+	                noneIsCorrect && $list.data("realAnswer", $("<span>").addClass("value").append($solutionClone.clone(true).contents()));
+	                var noneIndex = shownChoices.length - 1;
+	                addNoneChoice && (noneIndex = shownChoices.length);
+	                shownChoices.splice(noneIndex, 1, // We have to wrap this in something so that when we unwrap
+	                // it below, it maintains its data attributes
+	                $("<span>").append($none));
+	            }
+	            // Wrap each of the choices in elements and add radio buttons
+	            var wrappedChoices = _.map(shownChoices, function(choice, i) {
+	                return $("<li><label></label></li>").find("label").append([ $('<input type="radio" name="solution">').val(i), $('<span class="value"></span>').append($(choice).contents()) ]).end();
+	            });
+	            // Here we finally re-run modules, so that the math is reformatted
+	            $list.append(wrappedChoices).runModules();
+	            return {
+	                // We send some extra data to the validator so that it is
+	                // easier to grade
+	                validator: KhanAnswerTypes.radio.createValidator({
+	                    solution: solution,
+	                    index: correctIndex,
+	                    noneIsCorrect: noneIsCorrect
+	                }),
+	                answer: function answer() {
+	                    // Find the chosen answer
+	                    var $choice = $list.find("input:checked");
+	                    // If nothing's checked, return null immediately
+	                    if (0 === $choice.length) return null;
+	                    // Find it's cooresponding value
+	                    var $choiceVal = $choice.siblings(".value");
+	                    // This (probably) only does something useful when the
+	                    // selected answer is the "none of the above" one
+	                    var $choiceNoneChild = $choiceVal.children().eq(0);
+	                    return {
+	                        // Some data about the "none of the above" answer
+	                        isNone: $choiceNoneChild.data("noneOfTheAbove"),
+	                        // The raw text value that was chosen
+	                        // TODO(emily): Remove this at the same time references
+	                        // to guess.value are removed down below, maybe (unless
+	                        // we want to have the text of the correct answer in
+	                        // the database)
+	                        value: extractRawCode($choiceVal),
+	                        // The index of the value that was chosen
+	                        index: +$choice.val()
+	                    };
+	                },
+	                solution: solutionText,
+	                showGuess: function showGuess(guess) {
+	                    null == guess ? $(solutionarea).find("input:checked").attr("checked", false) : // Select the correct radio button
+	                    $list.children().filter(function() {
+	                        // Filter using the index to choose the radio
+	                        return guess.index === $(this).find("input").val();
+	                    }).find("input").attr("checked", true);
+	                }
+	            };
+	        },
+	        createValidator: function createValidator(solution) {
+	            // TODO(emily): Remove this backwards compatible code sometime
+	            // after 8/2013
+	            var correct = extractRawCode(solution.solution || solution);
+	            function showReal() {
+	                // Hacky stuff to make the correct solution appear when "none
+	                // of the above" is the correct answer
+	                var $list = $("#solutionarea").find("ul");
+	                var $choice = $list.children().filter(function() {
+	                    return $(this).find("span.value > span").data("noneOfTheAbove");
+	                }).find("input");
+	                $choice.next().fadeOut("fast", function() {
+	                    var $real = $list.data("realAnswer");
+	                    $(this).replaceWith($real);
+	                    $real.tex().fadeIn("fast");
+	                });
+	            }
+	            return function(guess) {
+	                var score = {
+	                    empty: false,
+	                    correct: false,
+	                    message: null,
+	                    guess: guess
+	                };
+	                if (null == guess) {
+	                    score.empty = true;
+	                    return score;
+	                }
+	                if (guess.index) // New solutions include information about the correct
+	                // answer like the correct index, etc. We can use that to
+	                // make checking a lot simpler.
+	                if (guess.isNone && solution.noneIsCorrect) {
+	                    showReal();
+	                    score.correct = true;
+	                } else score.correct = guess.index === solution.index; else // Old solutions just included the solution element, so we
+	                // have to use the old checks to see if the solution is
+	                // correct
+	                // TODO(emily): Remove this backwards compatible code
+	                // sometime after 8/2013
+	                // Check to see if the "none of the above" answer is
+	                // checked
+	                if (guess.isNone && null != $("#solutionarea").find("ul").data("real-answer")) {
+	                    showReal();
+	                    score.correct = true;
+	                } else $.trim(guess.value).replace(/\r\n?|\n/g, "") === $.trim(correct.replace(/\r\n?|\n/g, "")) ? score.correct = true : score.correct = false;
+	                return score;
+	            };
+	        }
+	    },
+	    /*
+	     * The list answer type provides a drop-down menu to select from a list of
+	     * different answers
+	     *
+	     * The different choices are stored as an array in the data-choices value
+	     * of the solution element
+	     */
+	    list: {
+	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData) {
+	            var input = $("<select></select>");
+	            $(solutionarea).append(input);
+	            // Get the choices
+	            var choices = $.tmpl.getVAR(solutionData.choices);
+	            $.each(choices, function(index, value) {
+	                // Add each one to the selection
+	                input.append('<option value="' + value + '">' + value + "</option>");
+	            });
+	            return {
+	                validator: KhanAnswerTypes.list.createValidatorFunctional(solutionText, solutionData),
+	                answer: function answer() {
+	                    return input.val();
+	                },
+	                solution: $.trim(solutionText),
+	                showGuess: function showGuess(guess) {
+	                    input.val(void 0 === guess ? "" : guess);
+	                }
+	            };
+	        },
+	        createValidatorFunctional: function createValidatorFunctional(correct, options) {
+	            correct = $.trim(correct);
+	            return function(guess) {
+	                guess = $.trim(guess);
+	                return {
+	                    empty: false,
+	                    correct: correct === guess,
+	                    message: null,
+	                    guess: guess
+	                };
+	            };
+	        }
+	    },
+	    /*
+	     * The custom answer type provides a very general way to create answers,
+	     * which generally have input methods beyond the answer area, and have to
+	     * do more complex checking for answers
+	     *
+	     * There are 5 elements within the custom solution that are used.
+	     *
+	     * The .instruction element is directly copied into the solution area. This
+	     * is meant for instructions and any extra input needed by the question
+	     *
+	     * The .guess element is evaluated as javascript whenever the current
+	     * answer needs to be checked. Its result is passed in to the validator,
+	     * and show guess functions.
+	     *
+	     * The .validator element is evaluated as javascript with the added guess
+	     * variable. It should return one of the usual return types depending on
+	     * whether the answer is correct or not.
+	     *
+	     * The .show-guess and .show-guess-solutionarea elements are evaluated as
+	     * javascript whenever the guess needs to be re-displayed (mostly in the
+	     * timeline). The .show-guess function should be used to change elements
+	     * outside of the solutionarea, and the .show-guess-solutionarea one should
+	     * be used to modify elements within the solutionarea
+	     */
+	    custom: {
+	        setup: function setup(solutionarea, solution) {
+	            // copy the instruction element into the solution area
+	            solution.find(".instruction").appendTo(solutionarea).runModules();
+	            // Retrieve some code
+	            var guessCode = solution.find(".guess").text();
+	            var showCustomGuessCode = solution.find(".show-guess").text();
+	            var showGuessCode = solution.find(".show-guess-solutionarea").text();
+	            return {
+	                validator: KhanAnswerTypes.custom.createValidator(solution),
+	                answer: function answer() {
+	                    // Run the guess code
+	                    return KhanUtil.tmpl.getVAR(guessCode, KhanUtil.currentGraph);
+	                },
+	                solution: $.trim($(solution).text()),
+	                showCustomGuess: function showCustomGuess(guess) {
+	                    // run the show guess code
+	                    var code = "(function() { var guess = " + JSON.stringify(guess) + ";" + showCustomGuessCode + "})()";
+	                    KhanUtil.tmpl.getVAR(code, KhanUtil.currentGraph);
+	                },
+	                showGuess: function showGuess(guess) {
+	                    // run the answer area show guess code
+	                    var code = "(function() { var guess = " + JSON.stringify(guess) + ";" + showGuessCode + "})()";
+	                    KhanUtil.tmpl.getVAR(code, KhanUtil.currentGraph);
+	                }
+	            };
+	        },
+	        createValidator: function createValidator(solution) {
+	            // store some code
+	            var validatorCode = $(solution).find(".validator-function").text();
+	            var validator = function validator(guess) {
+	                // run the validator code
+	                var code = "(function() { var guess = " + JSON.stringify(guess) + ";" + validatorCode + "})()";
+	                return KhanUtil.tmpl.getVAR(code, KhanUtil.currentGraph);
+	            };
+	            return function(guess) {
+	                var pass = validator(guess);
+	                // If `pass` is an object, it's a new-style return type
+	                // If `pass` is an object, it's a new-style return type
+	                return "object" === ("undefined" === typeof pass ? "undefined" : _typeof(pass)) ? pass : {
+	                    empty: "" === pass,
+	                    correct: true === pass,
+	                    message: "string" === typeof pass ? pass : null,
+	                    guess: guess
+	                };
+	            };
+	        }
+	    },
+	    /*
+	     * The prime factorization answer type checks whether the correct list of
+	     * prime factors matches the guess, by ordering the prime factors in
+	     * ascending order, and placing "x"s between them
+	     */
+	    primeFactorization: {
+	        // Same as the text function, the differences lie in the validator
+	        // TODO(alpert): Use predicate or something like that?
+	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData) {
+	            var $input = void 0;
+	            // special flag for iOS devices
+	            $input = $(window.Modernizr && Modernizr.touchevents ? '<input type="text" autocapitalize="off">' : '<input type="text">');
+	            $input.addClass("prime-factorization");
+	            $(solutionarea).append($input);
+	            var examples = [ i18n._("a product of prime factors, like <code>2 \\times 3</code>"), i18n._("a single prime number, like <code>5</code>") ];
+	            addExamplesToInput($input, examples);
+	            return {
+	                validator: KhanAnswerTypes.primeFactorization.createValidatorFunctional(solutionText, solutionData),
+	                answer: function answer() {
+	                    return $input.val();
+	                },
+	                solution: $.trim(solutionText),
+	                showGuess: function showGuess(guess) {
+	                    $input.val(void 0 === guess ? "" : guess);
+	                }
+	            };
+	        },
+	        createValidatorFunctional: function createValidatorFunctional(correct, options) {
+	            correct = $.trim(correct);
+	            return function(guess) {
+	                // Get rid of all the whitespace
+	                guess = guess.split(" ").join("").toLowerCase();
+	                // Get rid of LaTeX braces
+	                guess = guess.replace(/{|}/g, "");
+	                // Split on x, *, unicode x, or LaTeX \times and \cdot
+	                guess = guess.split(/x|\*|\u00d7|\\times|\\cdot/);
+	                // Replace a^b with b lots of axa
+	                var terms = [];
+	                for (var i = 0; i < guess.length; i++) {
+	                    var t = guess[i].split("^");
+	                    if (t.length > 1) for (var j = 0; j < t[1]; j++) terms.push(t[0]); else terms.push(guess[i]);
+	                }
+	                // Sort, and join with xs
+	                guess = KhanMath.sortNumbers(terms).join("x");
+	                // perform simple string comparison
+	                return {
+	                    empty: "" === guess,
+	                    correct: guess === correct,
+	                    message: null,
+	                    guess: guess
+	                };
+	            };
+	        }
+	    },
+	    /*
+	     * The checkbox answer type provides a single checkbox, with the solution
+	     * being true or false
+	     */
+	    checkbox: {
+	        setupFunctional: function setupFunctional(solutionarea, solutionText, solutionData) {
+	            // Make a checkbox
+	            var input = $('<input type="checkbox">');
+	            $(solutionarea).append(input);
+	            return {
+	                validator: KhanAnswerTypes.checkbox.createValidatorFunctional(solutionText, solutionData),
+	                answer: function answer() {
+	                    // False as "" so that checkIfAnswerEmpty recognizes it as
+	                    // empty
+	                    return input.is(":checked") || "";
+	                },
+	                solution: $.trim(solutionText),
+	                showGuess: function showGuess(guess) {
+	                    input.attr("checked", void 0 !== guess && guess);
+	                }
+	            };
+	        },
+	        createValidatorFunctional: function createValidatorFunctional(correct, options) {
+	            // store whether the correct answer is true or false
+	            correct = "true" === $.trim(correct);
+	            return function(guess) {
+	                var score = {
+	                    empty: false,
+	                    correct: false,
+	                    message: null,
+	                    guess: guess
+	                };
+	                // If checkbox is unchecked, guess will be ""; cast to bool
+	                /* jshint -W018 */
+	                !!correct === !!guess ? /* jshint +W018 */ score.correct = true : guess ? score.correct = false : // If unchecked, we'll say that the answer is empty, which
+	                // is necessary to ensure that a new question with
+	                // checkboxes counts as empty. Empty in a multiple grades
+	                // as false though so this shouldn't have any adverse
+	                // effects.
+	                score.empty = true;
+	                return score;
+	            };
+	        }
+	    },
+	    /*
+	     * The expression answer type parses a given expression or equation
+	     * and semantically compares it to the solution. In addition, instant
+	     * feedback is provided by rendering the last answer that fully parsed.
+	     *
+	     * Parsing options:
+	     * functions (e.g. data-functions="f g h")
+	     *     A space or comma separated list of single-letter variables that
+	     *     should be interpreted as functions. Case sensitive. "e" and "i"
+	     *     are reserved.
+	     *
+	     *     no functions specified: f(x+y) == fx + fy
+	     *     with "f" as a function: f(x+y) != fx + fy
+	     *
+	     * Comparison options:
+	     * same-form (e.g. data-same-form)
+	     *     If present, the answer must match the solution's structure in
+	     *     addition to evaluating the same. Commutativity and excess negation
+	     *     are ignored, but all other changes will trigger a rejection. Useful
+	     *     for requiring a particular form of an equation, or if the answer
+	     *     must be factored.
+	     *
+	     *     example question:    Factor x^2 + x - 2
+	     *     example solution:    (x-1)(x+2)
+	     *     accepted answers:    (x-1)(x+2), (x+2)(x-1), ---(-x-2)(-1+x), etc.
+	     *     rejected answers:    x^2+x-2, x*x+x-2, x(x+1)-2, (x-1)(x+2)^1, etc.
+	     *     rejection message:   Your answer is not in the correct form
+	     *
+	     * simplify (e.g. data-simplify)
+	     *     If present, the answer must be fully expanded and simplified. Use
+	     *     carefully - simplification is hard and there may be bugs, or you
+	     *     might not agree on the definition of "simplified" used. You will
+	     *     get an error if the provided solution is not itself fully expanded
+	     *     and simplified.
+	     *
+	     *     example question:    Simplify ((n*x^5)^5) / (n^(-2)*x^2)^-3
+	     *     example solution:    x^31 / n
+	     *     accepted answers:    x^31 / n, x^31 / n^1, x^31 * n^(-1), etc.
+	     *     rejected answers:    (x^25 * n^5) / (x^(-6) * n^6), etc.
+	     *     rejection message:   Your answer is not fully expanded and simplified
+	     *
+	     * Rendering options:
+	     * times (e.g. data-times)
+	     *     If present, explicit multiplication (such as between numbers) will
+	     *     be rendered with a cross/x symbol (TeX: \times) instead of the usual
+	     *     center dot (TeX: \cdot).
+	     *
+	     *     normal rendering:    2 * 3^x -> 2 \cdot 3^{x}
+	     *     but with "times":    2 * 3^x -> 2 \times 3^{x}
+	     */
+	    expression: {
+	        setup: function setup(solutionarea, solution) {
+	            var options = this._parseOptions($(solution).data());
+	            // Assemble the solution area
+	            var $tex = $('<span class="tex"/>');
+	            var $input = $('<input type="text">');
+	            var $error = $('<div class="error-div" style="display: none;"/>');
+	            $(solutionarea).append($('<span class="expression"/>').append($('<span class="output"/>').append($tex), $('<span class="input"/>').append($input, $error.append(// Requires FontAwesome
+	            //
+	            // TODO(riley): Replace this with a wrapped SVG
+	            //              generated by <InlineIcon />
+	            $('<i class="icon-exclamation-sign error-icon"/>')))));
+	            // Specify how instant render (and error message) should update
+	            var errorTimeout = null;
+	            var lastParsedTex = "";
+	            var update = function update() {
+	                clearTimeout(errorTimeout);
+	                var result = KAS.parse($input.val(), options);
+	                if (result.parsed) {
+	                    hideError();
+	                    $tex.css({
+	                        opacity: 1
+	                    });
+	                    var tex = result.expr.asTex(options);
+	                    if (tex !== lastParsedTex) {
+	                        $tex.empty().append($("<code>").text(tex)).tex();
+	                        lastParsedTex = tex;
+	                    }
+	                } else {
+	                    errorTimeout = setTimeout(showError, 2e3);
+	                    $tex.css({
+	                        opacity: .5
+	                    });
+	                }
+	            };
+	            var showError = function showError() {
+	                if (!$error.is(":visible")) {
+	                    $error.show();
+	                    $input.addClass("error");
+	                }
+	            };
+	            var hideError = function hideError() {
+	                if ($error.is(":visible")) {
+	                    $error.hide();
+	                    $input.removeClass("error");
+	                }
+	            };
+	            // Define event handlers
+	            $input.on("input propertychange", update);
+	            $input.on("keydown", function(event) {
+	                var input = $input[0];
+	                var start = input.selectionStart;
+	                var end = input.selectionEnd;
+	                var supported = void 0 !== start;
+	                if (supported && 8 === event.which) {
+	                    var val = input.value;
+	                    if (start === end && "()" === val.slice(start - 1, start + 1)) {
+	                        // "f(|)" + backspace -> "f|" (| is the cursor position)
+	                        event.preventDefault();
+	                        input.value = val.slice(0, start - 1) + val.slice(start + 1);
+	                        input.selectionStart = start - 1;
+	                        input.selectionEnd = end - 1;
+	                        update();
+	                    }
+	                }
+	            });
+	            $input.on("keypress", function(event) {
+	                var input = $input[0];
+	                var start = input.selectionStart;
+	                var end = input.selectionEnd;
+	                var supported = void 0 !== start;
+	                if (supported && 40 === event.which) !function() {
+	                    var val = input.value;
+	                    event.preventDefault();
+	                    if (start === end) {
+	                        // "f|" + "(" -> "f(|)"
+	                        var insertMatched = _.any([ " ", ")", "" ], function(c) {
+	                            return val.charAt(start) === c;
+	                        });
+	                        input.value = val.slice(0, start) + (insertMatched ? "()" : "(") + val.slice(end);
+	                    } else // "f|x+y|" + "(" -> "f(|x+y|)"
+	                    input.value = val.slice(0, start) + "(" + val.slice(start, end) + ")" + val.slice(end);
+	                    input.selectionStart = start + 1;
+	                    input.selectionEnd = end + 1;
+	                    update();
+	                }(); else if (supported && 41 === event.which) {
+	                    var _val = input.value;
+	                    if (start === end && ")" === _val.charAt(start)) {
+	                        // f(|) + ")" -> "f()|"
+	                        event.preventDefault();
+	                        input.selectionStart = start + 1;
+	                        input.selectionEnd = end + 1;
+	                        update();
+	                    }
+	                }
+	            });
+	            // Examples
+	            var explicitMul = i18n._("For <code>2\\cdot2</code>, enter <strong>2*2</strong>");
+	            // Will only use the options from the final set-sol but it's
+	            // unlikely different set-sols will have different times options
+	            options.times && (explicitMul = explicitMul.replace(/\\cdot/g, "\\times"));
+	            var examples = [ explicitMul, i18n._("For <code>3y</code>, enter <strong>3y</strong> or <strong>3*y</strong>"), i18n._("For <code>\\dfrac{1}{x}</code>, enter <strong>1/x</strong>"), i18n._("For <code>x^{y}</code>, enter <strong>x^y</strong>"), i18n._("For <code>\\sqrt{x}</code>, enter <strong>sqrt(x)</strong>"), i18n._("For <code>\\pi</code>, enter <strong>pi</strong>"), i18n._("For <code>\\sin \\theta</code>, enter <strong>sin(theta)</strong>"), i18n._("For <code>\\le</code> or <code>\\ge</code>, enter <strong><=</strong> or <strong>>=</strong>"), i18n._("For <code>\\neq</code>, enter <strong>=/=</strong>") ];
+	            addExamplesToInput($input, examples);
+	            return {
+	                validator: KhanAnswerTypes.expression.createValidator(solution),
+	                answer: function answer() {
+	                    return $input.val();
+	                },
+	                solution: solution,
+	                showGuess: function showGuess(guess) {
+	                    $input.val(void 0 === guess ? "" : guess);
+	                }
+	            };
+	        },
+	        parseSolution: function parseSolution(solutionString, options) {
+	            var solution = KAS.parse(solutionString, options);
+	            if (!solution.parsed) throw new Error("The provided solution (" + solutionString + ") didn't parse.");
+	            if (options.simplified && !solution.expr.isSimplified()) throw new Error("The provided solution (" + solutionString + ") isn't fully expanded and simplified.");
+	            solution = solution.expr;
+	            return solution;
+	        },
+	        _parseOptions: function _parseOptions(solutionData) {
+	            // Convert options to a form KAS can understand
+	            var form = void 0 !== solutionData.form ? solutionData.form : solutionData.sameForm;
+	            var notFalseOrNil = function notFalseOrNil(x) {
+	                return null != x && false !== x;
+	            };
+	            var options = {
+	                form: notFalseOrNil(form),
+	                simplify: notFalseOrNil(solutionData.simplify),
+	                times: notFalseOrNil(solutionData.times)
+	            };
+	            _.isString(solutionData.functions) ? options.functions = _.compact(solutionData.functions.split(/[ ,]+/)) : _.isArray(solutionData.functions) && (options.functions = _.compact(solutionData.functions));
+	            return options;
+	        },
+	        createValidator: function createValidator(solution) {
+	            var $solution = $(solution);
+	            var validatorArray = [];
+	            var createValidatorFunctional = this.createValidatorFunctional;
+	            var parseOptions = this._parseOptions;
+	            // Find solutions and options in a set
+	            $(solution).find(".set-sol").each(function() {
+	                var options = parseOptions($(this).data());
+	                validatorArray.push(createValidatorFunctional($(this).text(), options));
+	            });
+	            // Single solution, not a set
+	            if (0 === validatorArray.length) {
+	                var options = parseOptions($solution.data());
+	                validatorArray.push(createValidatorFunctional($solution.text(), options));
+	            }
+	            return function(guess) {
+	                var score = {
+	                    empty: false,
+	                    correct: false,
+	                    message: null,
+	                    guess: guess
+	                };
+	                // Check guess against all validators
+	                $.each(validatorArray, function(i, validator) {
+	                    var result = validator(guess);
+	                    if (result.correct) {
+	                        score.correct = true;
+	                        score.message = null;
+	                        return false;
+	                    }
+	                    result.message && (score.message = result.message);
+	                    result.empty && (score.empty = true);
+	                });
+	                return score;
+	            };
+	        },
+	        createValidatorFunctional: function createValidatorFunctional(solution, options) {
+	            return function(guess) {
+	                var score = {
+	                    empty: false,
+	                    correct: false,
+	                    message: null,
+	                    guess: guess
+	                };
+	                // Don't bother parsing an empty input
+	                if (!guess) {
+	                    score.empty = true;
+	                    return score;
+	                }
+	                var answer = KAS.parse(guess, options);
+	                // An unsuccessful parse doesn't count as wrong
+	                if (!answer.parsed) {
+	                    score.empty = true;
+	                    return score;
+	                }
+	                // Solution will need to be parsed again if we're creating
+	                // this from a multiple question type
+	                "string" === typeof solution && (solution = KhanAnswerTypes.expression.parseSolution(solution, options));
+	                var result = KAS.compare(answer.expr, solution, options);
+	                if (result.equal) // Correct answer
+	                score.correct = true; else if (result.message) // Nearly correct answer
+	                score.message = result.message; else {
+	                    // Replace x with * and see if it would have been correct
+	                    var answerX = KAS.parse(guess.replace(/[xX]/g, "*"), options);
+	                    if (answerX.parsed) {
+	                        var resultX = KAS.compare(answerX.expr, solution, options);
+	                        if (resultX.equal) {
+	                            score.empty = true;
+	                            score.message = "I'm a computer. I only understand multiplication if you use an asterisk (*) as the multiplication sign.";
+	                        } else resultX.message && (score.message = resultX.message + " Also, I'm a computer. I only understand multiplication if you use an asterisk (*) as the multiplication sign.");
+	                    }
+	                }
+	                return score;
+	            };
+	        }
+	    }
+	};
+
+	module.exports = KhanAnswerTypes;
+
+/***/ },
+/* 74 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	/**
+	 * Stub Tag Editor.
+	 *
+	 * This is stupidly used by Perseus Zero because I didn't implement
+	 * the <TagEditor> for Perseus Zero (since everyone wants me to
+	 * delete it anyways).
+	 *
+	 * This is a small wrapper for a TextListEditor that allows us to
+	 * edit raw Tag ID strings in perseus zero (please don't use this).
+	 *
+	 * It also gives a nicer interface for the group metadata editor
+	 * in local demo mode.
+	 */
+	var React = __webpack_require__(12);
+
+	var TextListEditor = __webpack_require__(114);
+
+	var EMPTY_ARRAY = [];
+
+	var StubTagEditor = React.createClass({
+	    displayName: "StubTagEditor",
+	    propTypes: {
+	        value: React.PropTypes.arrayOf(React.PropTypes.string),
+	        onChange: React.PropTypes.func.isRequired
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            value: EMPTY_ARRAY
+	        };
+	    },
+	    render: function render() {
+	        return React.createElement("div", null, React.createElement("div", {
+	            style: {
+	                fontSize: 14
+	            }
+	        }, "Tags:"), React.createElement(TextListEditor, {
+	            options: this.props.value || EMPTY_ARRAY,
+	            layout: "vertical",
+	            onChange: this.props.onChange
+	        }));
+	    }
+	});
+
+	module.exports = StubTagEditor;
 
 /***/ },
 /* 75 */
@@ -20643,17 +20654,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(15);
 
-	var ApiClassNames = __webpack_require__(21).ClassNames;
+	var ApiClassNames = __webpack_require__(22).ClassNames;
 
 	var MathInput = __webpack_require__(85);
 
 	var Renderer = __webpack_require__(11);
 
-	var TextInput = __webpack_require__(111);
+	var TextInput = __webpack_require__(105);
 
-	var MathOutput = __webpack_require__(112);
+	var MathOutput = __webpack_require__(106);
 
-	var captureScratchpadTouchStart = __webpack_require__(20).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(21).captureScratchpadTouchStart;
 
 	var MATH = "math";
 
@@ -21861,7 +21872,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(15);
 
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(124);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(119);
 
 	var USAGE = 'Usage:\n  this.change({propName: 5}, callback);\n  this.change("propName", 5, callback);\n  this.change("propName")';
 
@@ -22719,13 +22730,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var GraphieMovable = GraphieClasses.GraphieMovable;
 
-	var deepEq = __webpack_require__(20).deepEq;
+	var deepEq = __webpack_require__(21).deepEq;
 
-	var nestedMap = __webpack_require__(20).nestedMap;
+	var nestedMap = __webpack_require__(21).nestedMap;
 
-	var assert = __webpack_require__(113).assert;
+	var assert = __webpack_require__(107).assert;
 
-	var GraphUtils = __webpack_require__(109);
+	var GraphUtils = __webpack_require__(111);
 
 	var createGraphie = GraphUtils.createGraphie;
 
@@ -23468,9 +23479,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = __webpack_require__(11);
 
-	var PassageRef = __webpack_require__(64);
+	var PassageRef = __webpack_require__(62);
 
-	var Util = __webpack_require__(20);
+	var Util = __webpack_require__(21);
 
 	var BaseRadio = __webpack_require__(130);
 
@@ -24045,294 +24056,146 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	/* TODO batch *all* mutations
+	 * idea: freeze / thaw implementations for all types
+	 * lens constructor thaws, freeze delegates to type's freeze
+	 */
 
-	/* globals katex:false, MathJax:false, Exercises:false */
-	var cleanMath = __webpack_require__(81).cleanMath;
+	var util = __webpack_require__(132);
+	    var clone = util.clone;
+	    var isObject = util.isObject;
+	    var merge = util.merge;
 
-	function findChildOrAdd(elem, className) {
-	    var $child = $(elem).find("." + className);
-	    return 0 === $child.length ? $("<span>").addClass(className).appendTo($(elem)) : $child;
-	}
+	var arr = __webpack_require__(133);
+	var obj = __webpack_require__(134);
+	var str = __webpack_require__(135);
 
-	function doCallback(elem, callback) {
-	    var tries = 0;
-	    !function check() {
-	        var height = elem.scrollHeight;
-	        // Heuristic to guess if the font has kicked in
-	        // so we have box metrics (magic number ick,
-	        // but this seems to work mostly-consistently)
-	        if (height > 18 || tries >= 10) callback(); else {
-	            tries++;
-	            setTimeout(check, 100);
-	        }
-	    }();
-	}
-
-	module.exports = {
-	    // Process a node and add math inside of it. This attempts to use KaTeX to
-	    // format the math, and if that fails it falls back to MathJax.
-	    //
-	    // elem: The element which the math should be added to.
-	    //
-	    // text: The text that should be formatted inside of the node. If the node
-	    //       has already had math formatted inside of it before, this doesn't
-	    //       have to be provided. If this is not provided, and the node hasn't
-	    //       been formatted before, the text content of the node is used.
-	    //
-	    // force: (optional) if the node has been processed before, then it will
-	    //        not be formatted again, unless this argument is true
-	    //
-	    // callback: (optional) a callback to be run after the math has been
-	    //           processed (note: this might be called synchronously or
-	    //           asynchronously, depending on whether KaTeX or MathJax is used)
-	    processMath: function processMath(elem, text, force, callback) {
-	        var $elem = $(elem);
-	        // Only process if it hasn't been done before, or it is forced
-	        if (null == $elem.attr("data-math-formula") || force) {
-	            var $katexHolder = findChildOrAdd($elem, "katex-holder");
-	            var $mathjaxHolder = findChildOrAdd($elem, "mathjax-holder");
-	            // Search for MathJax-y script tags inside of the node. These are
-	            // used by MathJax to denote the formula to be typeset. Before, we
-	            // would update the formula by updating the contents of the script
-	            // tag, which shouldn't happen any more, but we manage them just in
-	            // case.
-	            var script = $mathjaxHolder.find("script[type='math/tex']")[0];
-	            // If text wasn't provided, we look in two places
-	            null == text && ($elem.attr("data-math-formula") ? // The old typeset formula
-	            text = $elem.attr("data-math-formula") : script && (// The contents of the <script> tag
-	            text = script.text || script.textContent));
-	            text = null != text ? text + "" : "";
-	            // Attempt to clean up some of the math
-	            text = cleanMath(text);
-	            // Store the formula that we're using
-	            $elem.attr("data-math-formula", text);
-	            if (Exercises.useKatex) // Try to process the nodes with KaTeX first
-	            try {
-	                katex.render(text, $katexHolder[0]);
-	                // If that worked, and we previously formatted with
-	                // mathjax, do some mathjax cleanup
-	                if ("mathjax" === $elem.attr("data-math-type")) {
-	                    // Remove the old mathjax stuff
-	                    var jax = MathJax.Hub.getJaxFor(script);
-	                    if (jax) {
-	                        var e = jax.SourceElement();
-	                        e.previousSibling && e.previousSibling.className && jax.Remove();
-	                    }
-	                }
-	                $elem.attr("data-math-type", "katex");
-	                // Call the callback
-	                callback && doCallback(elem, callback);
-	                return;
-	            } catch (err) {
-	                // IE doesn't do instanceof correctly, so we resort to
-	                // manual checking
-	                /* jshint -W103 */
-	                if (err.__proto__ !== katex.ParseError.prototype) throw err;
-	            }
-	            // Otherwise, fallback to MathJax
-	            // (Note: we don't need to do any katex cleanup here, because
-	            // KaTeX is smart and cleans itself up)
-	            $elem.attr("data-math-type", "mathjax");
-	            // Update the script tag, or add one if necessary
-	            script ? "text" in script ? // IE8, etc
-	            script.text = text : script.textContent = text : $mathjaxHolder.append("<script type='math/tex'>" + text.replace(/<\//g, "< /") + "</script>");
-	            if ("undefined" !== typeof MathJax) {
-	                // Put the process, a debug log, and the callback into the
-	                // MathJax queue
-	                MathJax.Hub.Queue([ "Reprocess", MathJax.Hub, $mathjaxHolder[0] ]);
-	                MathJax.Hub.Queue(function() {
-	                    KhanUtil.debugLog("MathJax done typesetting (" + text + ")");
-	                });
-	                callback && MathJax.Hub.Queue(function() {
-	                    var cb = MathJax.Callback(function() {});
-	                    doCallback(elem, function() {
-	                        callback();
-	                        cb();
-	                    });
-	                    return cb;
-	                });
-	            }
-	        }
-	    },
-	    processAllMath: function processAllMath(elem, force) {
-	        var $elem = $(elem);
-	        $elem.filter("code").add($elem.find("code")).each(function() {
-	            var $this = $(this);
-	            var text = $this.attr("data-math-formula");
-	            if (null == text) {
-	                text = $this.text();
-	                $this.empty();
-	            }
-	            KhanUtil.processMath(this, text, force);
-	        });
-	    },
-	    // Function to restore a node to a non-math-processed state
-	    cleanupMath: function cleanupMath(elem) {
-	        var $elem = $(elem);
-	        // Only mess with it if it's been processed before
-	        if ($elem.attr("data-math-formula")) {
-	            // Remove MathJax remnants
-	            if ("undefined" !== typeof MathJax) {
-	                var jax = MathJax.Hub.getJaxFor($elem.find("script")[0]);
-	                if (jax) {
-	                    var e = jax.SourceElement();
-	                    e.previousSibling && e.previousSibling.className && jax.Remove();
-	                }
-	            }
-	            $elem.text($elem.attr("data-math-formula"));
-	            $elem.attr("data-math-formula", null);
-	            $elem.attr("data-math-type", null);
-	        }
-	        return elem;
-	    },
-	    // Function to retrieve the formula of a typeset math node
-	    retrieveMathFormula: function retrieveMathFormula(elem) {
-	        return $(elem).attr("data-math-formula");
+	// equivalents, without requiring it
+	// find the implementation to use for a given object
+	var dispatch = function(x) {
+	    if (Array.isArray(x)) {
+	        return arr;
+	    } else if (isObject(x)) {
+	        return obj;
+	    } else if (typeof x === "string") {
+	        return str;
 	    }
 	};
+
+	// This is underscore with a different name
+	var lens = function(obj) {
+	    if (obj instanceof lens) {
+	        return obj;
+	    }
+
+	    if (!(this instanceof lens)) {
+	        return new lens(obj);
+	    }
+
+	    var ops = dispatch(obj);
+	    this._wrapped = ops.thaw ? ops.thaw(obj) : obj;
+	};
+
+	lens.prototype.freeze = function() {
+	    var obj = this._wrapped;
+	    var ops = dispatch(obj);
+
+	    return ops.freeze ? ops.freeze(obj) : obj;
+	};
+
+	lens.prototype.zoom = function(lensArr) {
+	    if (this._zoomStack === undefined) {
+	        this._zoomStack = [];
+	    }
+
+	    this._zoomStack.push({
+	        zoom: lensArr,
+	        wrapped: this._wrapped
+	    });
+	    this._wrapped = lens(this._wrapped).get(lensArr);
+
+	    return this;
+	};
+
+	lens.prototype.deZoom = function() {
+	    var frame = this._zoomStack.pop();
+	    this._wrapped = lens(frame.wrapped)
+	        .set(frame.zoom, this._wrapped)
+	        .freeze();
+
+	    return this;
+	};
+
+	lens.prototype.get = function(lensArr) {
+	    var obj = this._wrapped;
+
+	    for (var i = 0; i < lensArr.length; i++) {
+	        obj = dispatch(obj).get(obj, lensArr[i]);
+	    }
+
+	    return obj;
+	};
+
+	lens.prototype.mod = function(lensArr, f) {
+	    var obj = this._wrapped;
+	    var newObj = clone(obj);
+	    var ops = dispatch(obj);
+
+	    if (lensArr.length === 0) {
+	        this._wrapped = f(this._wrapped);
+	    } else if (lensArr.length === 1) {
+	        this._wrapped = ops.mod(newObj, lensArr[0], f);
+	    } else {
+	        var monocle = lensArr[0];
+	        var shortLens = lensArr.slice(1);
+
+	        // newObj = ops.mod(obj[monocle], shortLens, f);
+
+	        newObj[monocle] = lens(obj[monocle])
+	            .mod(shortLens, f)
+	            .freeze();
+	        this._wrapped = newObj;
+	    }
+
+	    return this;
+	};
+
+	// TODO - move to individual files
+	lens.prototype.merge = function(lensArr, props) {
+	    this._wrapped = lens(this._wrapped).mod(lensArr, function(oldProps) {
+	        return merge(oldProps, props);
+	    }).freeze();
+
+	    return this;
+	};
+
+	// Lens must have length >= 1 or there would be nothing to return
+	lens.prototype.del = function(lensArr) {
+	    var obj = this._wrapped;
+	    var ops = dispatch(obj);
+
+	    if (lensArr.length === 1) {
+	        this._wrapped = ops.del(obj, lensArr[0]);
+	    } else {
+	        var monocle = lensArr[0];
+	        var shortLens = lensArr.slice(1);
+	        var subObj = ops.get(obj, monocle);
+
+	        this._wrapped = ops.set(obj, monocle, ops.del(subObj, shortLens));
+	    }
+
+	    return this;
+	};
+
+	lens.prototype.set = function(lensArr, set) {
+	    return this.mod(lensArr, function() { return set; });
+	};
+
+	module.exports = lens;
+
 
 /***/ },
 /* 96 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* globals icu:false */
-	// Rounds num to X places, and uses the proper decimal seperator.
-	// But does *not* insert thousands separators.
-	module.exports = function localeToFixed(num, places) {
-	    var localeDecimalSeperator = icu.getDecimalFormatSymbols().decimal_separator;
-	    var localeFixed = num.toFixed(places).replace(".", localeDecimalSeperator);
-	    "-0" === localeFixed && (localeFixed = "0");
-	    return localeFixed;
-	};
-
-/***/ },
-/* 97 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-redeclare, no-trailing-spaces, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(12);
-
-	var ReactDOM = __webpack_require__(16);
-
-	var _ = __webpack_require__(15);
-
-	var textWidthCache = {};
-
-	function getTextWidth(text) {
-	    if (!textWidthCache[text]) {
-	        // Hacky way to guess the width of an input box
-	        var $test = $("<span>").text(text).appendTo("body");
-	        textWidthCache[text] = $test.width() + 5;
-	        $test.remove();
-	    }
-	    return textWidthCache[text];
-	}
-
-	var TextListEditor = React.createClass({
-	    displayName: "TextListEditor",
-	    propTypes: {
-	        options: React.PropTypes.array,
-	        layout: React.PropTypes.string,
-	        onChange: React.PropTypes.func.isRequired
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            options: [],
-	            layout: "horizontal"
-	        };
-	    },
-	    getInitialState: function getInitialState() {
-	        return {
-	            items: this.props.options.concat("")
-	        };
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        this.setState({
-	            items: nextProps.options.concat("")
-	        });
-	    },
-	    render: function render() {
-	        var className = [ "perseus-text-list-editor", "perseus-clearfix", "layout-" + this.props.layout ].join(" ");
-	        var inputs = _.map(this.state.items, function(item, i) {
-	            return React.createElement("li", {
-	                key: i
-	            }, React.createElement("input", {
-	                ref: "input_" + i,
-	                type: "text",
-	                value: item,
-	                onChange: this.onChange.bind(this, i),
-	                onKeyDown: this.onKeyDown.bind(this, i),
-	                style: {
-	                    width: getTextWidth(item)
-	                }
-	            }));
-	        }, this);
-	        return React.createElement("ul", {
-	            className: className
-	        }, inputs);
-	    },
-	    onChange: function onChange(index, event) {
-	        var items = _.clone(this.state.items);
-	        items[index] = event.target.value;
-	        index === items.length - 1 && (items = items.concat(""));
-	        this.setState({
-	            items: items
-	        });
-	        this.props.onChange(_.compact(items));
-	    },
-	    onKeyDown: function onKeyDown(index, event) {
-	        var which = event.nativeEvent.keyCode;
-	        // Backspace deletes an empty input...
-	        if (8 === which && "" === this.state.items[index]) {
-	            event.preventDefault();
-	            var items = _.clone(this.state.items);
-	            var focusIndex = 0 === index ? 0 : index - 1;
-	            if (index !== items.length - 1 || 0 !== index && "" === items[focusIndex]) {
-	                items.splice(index, 1);
-	                this.setState({
-	                    items: items
-	                }, function() {
-	                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
-	                });
-	            } else // ...except for the last one, iff it is the only empty
-	            // input at the end.
-	            ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
-	        } else if (8 === which && 1 === this.state.items[index].length && index === this.state.items.length - 2) {
-	            event.preventDefault();
-	            var items = _.clone(this.state.items);
-	            items.splice(index, 1);
-	            this.setState({
-	                items: items
-	            });
-	            this.props.onChange(_.compact(items));
-	        } else if (13 === which) {
-	            event.preventDefault();
-	            var items = _.clone(this.state.items);
-	            var focusIndex = index + 1;
-	            if (index === items.length - 2) // ...unless the empty input is just below.
-	            ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus(); else {
-	                items.splice(focusIndex, 0, "");
-	                this.setState({
-	                    items: items
-	                }, function() {
-	                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
-	                });
-	            }
-	        }
-	    }
-	});
-
-	module.exports = TextListEditor;
-
-/***/ },
-/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -24344,7 +24207,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * just returns all the widget's props rather than picking out those which were
 	 * input by the user.
 	 */
-	var WIDGET_PROP_BLACKLIST = __webpack_require__(124);
+	var WIDGET_PROP_BLACKLIST = __webpack_require__(119);
 
 	var _ = __webpack_require__(15);
 
@@ -24358,7 +24221,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WidgetJsonifyDeprecated;
 
 /***/ },
-/* 99 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -24409,7 +24272,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 100 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -24423,7 +24286,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var StyleSheet = _require.StyleSheet;
 
-	var mediaQueries = __webpack_require__(99);
+	var mediaQueries = __webpack_require__(97);
 
 	var _require2 = __webpack_require__(39);
 
@@ -24494,7 +24357,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 101 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -24713,7 +24576,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = FancySelect;
 
 /***/ },
-/* 102 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -24721,13 +24584,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-var */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var Movable = __webpack_require__(132);
+	var Movable = __webpack_require__(136);
 
-	var MovablePoint = __webpack_require__(133);
+	var MovablePoint = __webpack_require__(137);
 
-	var MovableLine = __webpack_require__(134);
+	var MovableLine = __webpack_require__(138);
 
-	var MovablePolygon = __webpack_require__(135);
+	var MovablePolygon = __webpack_require__(139);
 
 	var Interactive2 = {
 	    MovablePoint: MovablePoint,
@@ -24750,7 +24613,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Interactive2;
 
 /***/ },
-/* 103 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -24764,7 +24627,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(15);
 
-	var styles = __webpack_require__(136);
+	var styles = __webpack_require__(140);
 
 	var css = __webpack_require__(17).css;
 
@@ -24839,7 +24702,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ButtonGroup;
 
 /***/ },
-/* 104 */
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -24942,7 +24805,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = KhanColors;
 
 /***/ },
-/* 105 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -24961,7 +24824,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(12);
 
-	var ApiOptions = __webpack_require__(21).Options;
+	var ApiOptions = __webpack_require__(22).Options;
 
 	var InlineIcon = __webpack_require__(84);
 
@@ -25105,335 +24968,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = GradedGroupAnswerBar;
 
 /***/ },
-/* 106 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable brace-style, comma-dangle, no-redeclare, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(12);
-
-	var ReactDOM = __webpack_require__(16);
-
-	var _ = __webpack_require__(15);
-
-	var Util = __webpack_require__(20);
-
-	var GraphUtils = __webpack_require__(109);
-
-	var _require = __webpack_require__(39);
-
-	var interactiveSizes = _require.interactiveSizes;
-
-	var SvgImage = __webpack_require__(37);
-
-	var defaultBackgroundImage = {
-	    url: null
-	};
-
-	/* Style objects */
-	var defaultInstructionsStyle = {
-	    fontStyle: "italic",
-	    fontWeight: "bold",
-	    fontSize: "32px",
-	    width: "100%",
-	    height: "100%",
-	    textAlign: "center",
-	    backgroundColor: "white",
-	    position: "absolute",
-	    zIndex: 1,
-	    transition: "opacity .25s ease-in-out",
-	    "-moz-transition": "opacity .25s ease-in-out",
-	    "-webkit-transition": "opacity .25s ease-in-out"
-	};
-
-	var instructionsTextStyle = {
-	    position: "relative",
-	    top: "25%"
-	};
-
-	function numSteps(range, step) {
-	    return Math.floor((range[1] - range[0]) / step);
-	}
-
-	var Graph = React.createClass({
-	    displayName: "Graph",
-	    propTypes: {
-	        box: React.PropTypes.array.isRequired,
-	        labels: React.PropTypes.arrayOf(React.PropTypes.string),
-	        range: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
-	        step: React.PropTypes.arrayOf(React.PropTypes.number),
-	        gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
-	        snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
-	        markings: React.PropTypes.string,
-	        backgroundImage: React.PropTypes.shape({
-	            url: React.PropTypes.string
-	        }),
-	        showProtractor: React.PropTypes.bool,
-	        showRuler: React.PropTypes.bool,
-	        rulerLabel: React.PropTypes.string,
-	        rulerTicks: React.PropTypes.number,
-	        onGraphieUpdated: React.PropTypes.func,
-	        instructions: React.PropTypes.string,
-	        onClick: React.PropTypes.func
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            labels: [ "x", "y" ],
-	            range: [ [ -10, 10 ], [ -10, 10 ] ],
-	            step: [ 1, 1 ],
-	            gridStep: [ 1, 1 ],
-	            snapStep: [ .5, .5 ],
-	            markings: "graph",
-	            backgroundImage: defaultBackgroundImage,
-	            showProtractor: false,
-	            showRuler: false,
-	            rulerLabel: "",
-	            rulerTicks: 10,
-	            instructions: null,
-	            onGraphieUpdated: null,
-	            onClick: null,
-	            onMouseDown: null
-	        };
-	    },
-	    render: function render() {
-	        var image;
-	        var imageData = this.props.backgroundImage;
-	        if (imageData.url) {
-	            var scale = this.props.box[0] / interactiveSizes.defaultBoxSize;
-	            image = React.createElement(SvgImage, {
-	                src: imageData.url,
-	                width: imageData.width,
-	                height: imageData.height,
-	                scale: scale,
-	                responsive: false
-	            });
-	        } else image = null;
-	        return React.createElement("div", {
-	            className: "graphie-container above-scratchpad",
-	            style: {
-	                width: this.props.box[0],
-	                height: this.props.box[1]
-	            },
-	            onMouseOut: this.onMouseOut,
-	            onMouseOver: this.onMouseOver,
-	            onClick: this.onClick
-	        }, image, React.createElement("div", {
-	            className: "graphie",
-	            ref: "graphieDiv"
-	        }));
-	    },
-	    componentDidMount: function componentDidMount() {
-	        this._setupGraphie(true);
-	    },
-	    componentDidUpdate: function componentDidUpdate() {
-	        // Only setupGraphie once per componentDidUpdate().
-	        // See explanation in setupGraphie().
-	        this._hasSetupGraphieThisUpdate = false;
-	        if (this._shouldSetupGraphie) {
-	            this._setupGraphie(false);
-	            this._shouldSetupGraphie = false;
-	        }
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var potentialChanges = [ "labels", "range", "step", "markings", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep" ];
-	        var self = this;
-	        _.each(potentialChanges, function(prop) {
-	            _.isEqual(self.props[prop], nextProps[prop]) || (self._shouldSetupGraphie = true);
-	        });
-	    },
-	    /* Reset the graphie canvas to its initial state
-	     *
-	     * Use when re-rendering the parent component and you need a blank
-	     * graphie.
-	     */
-	    reset: function reset() {
-	        this._setupGraphie(false);
-	    },
-	    graphie: function graphie() {
-	        return this._graphie;
-	    },
-	    pointsFromNormalized: function pointsFromNormalized(coordsList, noSnap) {
-	        var self = this;
-	        return _.map(coordsList, function(coords) {
-	            return _.map(coords, function(coord, i) {
-	                var range = self.props.range[i];
-	                if (noSnap) return range[0] + (range[1] - range[0]) * coord;
-	                var step = self.props.step[i];
-	                var nSteps = numSteps(range, step);
-	                var tick = Math.round(coord * nSteps);
-	                return range[0] + step * tick;
-	            });
-	        });
-	    },
-	    _setupGraphie: function _setupGraphie(initialMount) {
-	        // Only setupGraphie once per componentDidUpdate().
-	        // This prevents this component from rendering graphie
-	        // and then immediately re-render graphie because its
-	        // parent component asked it to. This will happen when
-	        // props on the parent and props on this component both
-	        // require graphie to be re-rendered.
-	        if (this._hasSetupGraphieThisUpdate) return;
-	        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
-	        $(graphieDiv).empty();
-	        var labels = this.props.labels;
-	        var range = this.props.range;
-	        var graphie = this._graphie = GraphUtils.createGraphie(graphieDiv);
-	        var gridConfig = this._getGridConfig();
-	        graphie.snap = this.props.snapStep;
-	        if ("graph" === this.props.markings) {
-	            graphie.graphInit({
-	                range: range,
-	                scale: _.pluck(gridConfig, "scale"),
-	                axisArrows: "<->",
-	                labelFormat: function labelFormat(s) {
-	                    return "\\small{" + s + "}";
-	                },
-	                gridStep: this.props.gridStep,
-	                tickStep: _.pluck(gridConfig, "tickStep"),
-	                labelStep: 1,
-	                unityLabels: _.pluck(gridConfig, "unityLabel")
-	            });
-	            graphie.label([ 0, range[1][1] ], labels[1], "above");
-	            graphie.label([ range[0][1], 0 ], labels[0], "right");
-	        } else "grid" === this.props.markings ? graphie.graphInit({
-	            range: range,
-	            scale: _.pluck(gridConfig, "scale"),
-	            gridStep: this.props.gridStep,
-	            axes: false,
-	            ticks: false,
-	            labels: false
-	        }) : "none" === this.props.markings && graphie.init({
-	            range: range,
-	            scale: _.pluck(gridConfig, "scale")
-	        });
-	        // Add instructions just before mouse layer
-	        var visible = .5;
-	        var invisible = 0;
-	        var $instructionsWrapper;
-	        if (this.props.instructions) {
-	            var $instructionsWrapper = $("<div/>");
-	            _.each(defaultInstructionsStyle, function(value, key) {
-	                $instructionsWrapper.css(key, value);
-	            });
-	            $instructionsWrapper.css("opacity", visible);
-	            var $instructions = $("<span/>", {
-	                text: this.props.instructions
-	            });
-	            _.each(instructionsTextStyle, function(value, key) {
-	                $instructions.css(key, value);
-	            });
-	            $instructionsWrapper.append($instructions);
-	            $(graphieDiv).append($instructionsWrapper);
-	        } else $instructionsWrapper = void 0;
-	        // Add some handlers for instructions text (if necessary)
-	        var onMouseDown = $instructionsWrapper || this.props.onMouseDown ? _.bind(function(coord) {
-	            if ($instructionsWrapper) {
-	                $instructionsWrapper.remove();
-	                $instructionsWrapper = null;
-	            }
-	            this.props.onMouseDown(coord);
-	        }, this) : null;
-	        var onMouseOver = $instructionsWrapper ? function() {
-	            $instructionsWrapper && $instructionsWrapper.css("opacity", invisible);
-	        } : null;
-	        var onMouseOut = $instructionsWrapper ? function() {
-	            $instructionsWrapper && $instructionsWrapper.css("opacity", visible);
-	        } : null;
-	        graphie.addMouseLayer({
-	            onClick: this.props.onClick,
-	            onMouseDown: onMouseDown,
-	            onMouseOver: onMouseOver,
-	            onMouseOut: onMouseOut,
-	            onMouseUp: this.props.onMouseUp,
-	            onMouseMove: this.props.onMouseMove,
-	            allowScratchpad: true
-	        });
-	        this._updateProtractor();
-	        this._updateRuler();
-	        // We set this flag before jumping into our callback
-	        // to avoid recursing if our callback calls reset() itself
-	        this._hasSetupGraphieThisUpdate = true;
-	        !initialMount && this.props.onGraphieUpdated && // Calling a parent callback in componentDidMount is bad and
-	        // results in hard-to-reason-about lifecycle problems (esp. with
-	        // refs), so we do it only on update and rely on the parent to
-	        // query for the graphie object on initial mount
-	        this.props.onGraphieUpdated(graphie);
-	    },
-	    _getGridConfig: function _getGridConfig() {
-	        var self = this;
-	        return _.map(self.props.step, function(step, i) {
-	            return Util.gridDimensionConfig(step, self.props.range[i], self.props.box[i], self.props.gridStep[i]);
-	        });
-	    },
-	    _updateProtractor: function _updateProtractor() {
-	        this.protractor && this.protractor.remove();
-	        if (this.props.showProtractor) {
-	            var coord = this.pointsFromNormalized([ [ .5, .05 ] ])[0];
-	            this.protractor = this._graphie.protractor(coord);
-	        }
-	    },
-	    _updateRuler: function _updateRuler() {
-	        this.ruler && this.ruler.remove();
-	        if (this.props.showRuler) {
-	            var coord = this.pointsFromNormalized([ [ .5, .25 ] ])[0];
-	            var extent = this._graphie.range[0][1] - this._graphie.range[0][0];
-	            this.ruler = this._graphie.ruler({
-	                center: coord,
-	                label: this.props.rulerLabel,
-	                pixelsPerUnit: this._graphie.scale[0],
-	                ticksPerUnit: this.props.rulerTicks,
-	                units: Math.round(.8 * extent)
-	            });
-	        }
-	    },
-	    toJSON: function toJSON() {
-	        return _.pick(this.props, "range", "step", "markings", "labels", "backgroundImage", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep");
-	    }
-	});
-
-	module.exports = Graph;
-
-/***/ },
-/* 107 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * A wrapper around react-components/info-tip.jsx that can be rendered on the
-	 * server without causing a checksum mismatch on the client.
-	 * (RCSS generates classnames with a randomSuffix, which ensures that any
-	 * two sets of generated classnames will not match.)
-	 */
-	var React = __webpack_require__(12);
-
-	var ReactComponentsInfoTip = __webpack_require__(137);
-
-	var InfoTip = React.createClass({
-	    displayName: "InfoTip",
-	    getInitialState: function getInitialState() {
-	        return {
-	            didMount: false
-	        };
-	    },
-	    componentDidMount: function componentDidMount() {
-	        /* eslint-disable react/no-did-mount-set-state */
-	        this.setState({
-	            didMount: true
-	        });
-	    },
-	    render: function render() {
-	        return this.state.didMount ? React.createElement(ReactComponentsInfoTip, this.props) : React.createElement("div", null);
-	    }
-	});
-
-	module.exports = InfoTip;
-
-/***/ },
-/* 108 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -25457,9 +24992,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(15);
 
-	var firstNumericalParse = __webpack_require__(20).firstNumericalParse;
+	var firstNumericalParse = __webpack_require__(21).firstNumericalParse;
 
-	var captureScratchpadTouchStart = __webpack_require__(20).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(21).captureScratchpadTouchStart;
 
 	var knumber = __webpack_require__(131).number;
 
@@ -25618,99 +25153,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NumberInput;
 
 /***/ },
-/* 109 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * A wrapper around graphie.js and interactive.js to make sure interactive.js
-	 * is always required at the same time as graphie.js. This is because
-	 * interactive.js has side effects that are hard to see (it adds things to
-	 * `Graphie.prototype`), so someone might forget to require interactive.js.
-	 *
-	 * To use the utilities exported from interactive.js, require that file
-	 * itself.
-	 */
-	var GraphUtils = __webpack_require__(138);
-
-	__webpack_require__(139);
-
-	// For side effects
-	module.exports = GraphUtils;
-
-/***/ },
-/* 110 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var _ = __webpack_require__(15);
-
-	var InteractiveUtil = __webpack_require__(113);
-
-	var WrappedDefaults = __webpack_require__(140);
-
-	var kpoint = __webpack_require__(131).point;
-
-	var kvector = __webpack_require__(131).vector;
-
-	var KhanMath = __webpack_require__(81);
-
-	var DEFAULT_OPTIONS = {
-	    thickness: 2,
-	    mouselayer: false
-	};
-
-	var WrappedLine = function WrappedLine(graphie, start, end, options) {
-	    options = _.extend({}, DEFAULT_OPTIONS, options);
-	    // Always make the line as large as possible and horizontal; this
-	    // simplifies a lot of the transforms, e.g., we can rotate by exactly the
-	    // angle of the argument points in `moveTo`.
-	    var initialStart = [ graphie.range[0][0], 0 ];
-	    var initialEnd = [ graphie.range[0][1], 0 ];
-	    // Add `wrapper` and `visibleShape`
-	    _.extend(this, graphie.fixedLine(initialStart, initialEnd, options.thickness));
-	    this.visibleShape.attr(options.normalStyle);
-	    // Save properties for computing transformations
-	    _.extend(this, {
-	        graphie: graphie,
-	        initialPoint: graphie.scalePoint(initialStart),
-	        initialLength: kpoint.distanceToPoint(graphie.scalePoint(initialStart), graphie.scalePoint(initialEnd))
-	    });
-	    // Add to appropriate graphie layer
-	    options.mouselayer ? this.graphie.addToMouseLayerWrapper(this.wrapper) : this.graphie.addToVisibleLayerWrapper(this.wrapper);
-	    // Move to argument points
-	    this.moveTo(start, end);
-	};
-
-	_.extend(WrappedLine.prototype, WrappedDefaults, {
-	    getMouseTarget: function getMouseTarget() {
-	        return this.wrapper;
-	    },
-	    moveTo: function moveTo(start, end) {
-	        var scaledStart = this.graphie.scalePoint(start);
-	        var scaledEnd = this.graphie.scalePoint(end);
-	        // Compute transformation parameters
-	        var polarDiff = kvector.polarDegFromCart(kvector.subtract(scaledEnd, scaledStart));
-	        var lineLength = polarDiff[0];
-	        var angle = KhanMath.bound(polarDiff[1]);
-	        var delta = kvector.subtract(scaledStart, this.initialPoint);
-	        var scale = KhanMath.bound(lineLength / this.initialLength);
-	        // Construct and apply transformation string
-	        var do3dTransform = InteractiveUtil.getCanUse3dTransform();
-	        var transformation = "translateX(" + delta[0] + "px) translateY(" + delta[1] + "px) " + (do3dTransform ? " translateZ(0)" : "") + "rotate(" + angle + "deg) scaleX(" + scale + ") scaleY(1)";
-	        this.transform(transformation);
-	    }
-	});
-
-	module.exports = WrappedLine;
-
-/***/ },
-/* 111 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -25784,7 +25227,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = TextInput;
 
 /***/ },
-/* 112 */
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -25800,7 +25243,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var TeX = __webpack_require__(41);
 
-	var ApiClassNames = __webpack_require__(21).ClassNames;
+	var ApiClassNames = __webpack_require__(22).ClassNames;
 
 	var Tooltip = __webpack_require__(82);
 
@@ -25894,7 +25337,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MathOutput;
 
 /***/ },
-/* 113 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -26008,7 +25451,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InteractiveUtil;
 
 /***/ },
-/* 114 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -26022,11 +25465,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(15);
 
-	var Util = __webpack_require__(20);
+	var Util = __webpack_require__(21);
 
 	var Renderer = __webpack_require__(11);
 
-	var ApiClassNames = __webpack_require__(21).ClassNames;
+	var ApiClassNames = __webpack_require__(22).ClassNames;
 
 	var PREFIX = "perseus-sortable";
 
@@ -26422,7 +25865,427 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Sortable;
 
 /***/ },
-/* 115 */
+/* 109 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable brace-style, comma-dangle, no-redeclare, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	var React = __webpack_require__(12);
+
+	var ReactDOM = __webpack_require__(16);
+
+	var _ = __webpack_require__(15);
+
+	var Util = __webpack_require__(21);
+
+	var GraphUtils = __webpack_require__(111);
+
+	var _require = __webpack_require__(39);
+
+	var interactiveSizes = _require.interactiveSizes;
+
+	var SvgImage = __webpack_require__(37);
+
+	var defaultBackgroundImage = {
+	    url: null
+	};
+
+	/* Style objects */
+	var defaultInstructionsStyle = {
+	    fontStyle: "italic",
+	    fontWeight: "bold",
+	    fontSize: "32px",
+	    width: "100%",
+	    height: "100%",
+	    textAlign: "center",
+	    backgroundColor: "white",
+	    position: "absolute",
+	    zIndex: 1,
+	    transition: "opacity .25s ease-in-out",
+	    "-moz-transition": "opacity .25s ease-in-out",
+	    "-webkit-transition": "opacity .25s ease-in-out"
+	};
+
+	var instructionsTextStyle = {
+	    position: "relative",
+	    top: "25%"
+	};
+
+	function numSteps(range, step) {
+	    return Math.floor((range[1] - range[0]) / step);
+	}
+
+	var Graph = React.createClass({
+	    displayName: "Graph",
+	    propTypes: {
+	        box: React.PropTypes.array.isRequired,
+	        labels: React.PropTypes.arrayOf(React.PropTypes.string),
+	        range: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
+	        step: React.PropTypes.arrayOf(React.PropTypes.number),
+	        gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
+	        snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
+	        markings: React.PropTypes.string,
+	        backgroundImage: React.PropTypes.shape({
+	            url: React.PropTypes.string
+	        }),
+	        showProtractor: React.PropTypes.bool,
+	        showRuler: React.PropTypes.bool,
+	        rulerLabel: React.PropTypes.string,
+	        rulerTicks: React.PropTypes.number,
+	        onGraphieUpdated: React.PropTypes.func,
+	        instructions: React.PropTypes.string,
+	        onClick: React.PropTypes.func
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            labels: [ "x", "y" ],
+	            range: [ [ -10, 10 ], [ -10, 10 ] ],
+	            step: [ 1, 1 ],
+	            gridStep: [ 1, 1 ],
+	            snapStep: [ .5, .5 ],
+	            markings: "graph",
+	            backgroundImage: defaultBackgroundImage,
+	            showProtractor: false,
+	            showRuler: false,
+	            rulerLabel: "",
+	            rulerTicks: 10,
+	            instructions: null,
+	            onGraphieUpdated: null,
+	            onClick: null,
+	            onMouseDown: null
+	        };
+	    },
+	    render: function render() {
+	        var image;
+	        var imageData = this.props.backgroundImage;
+	        if (imageData.url) {
+	            var scale = this.props.box[0] / interactiveSizes.defaultBoxSize;
+	            image = React.createElement(SvgImage, {
+	                src: imageData.url,
+	                width: imageData.width,
+	                height: imageData.height,
+	                scale: scale,
+	                responsive: false
+	            });
+	        } else image = null;
+	        return React.createElement("div", {
+	            className: "graphie-container above-scratchpad",
+	            style: {
+	                width: this.props.box[0],
+	                height: this.props.box[1]
+	            },
+	            onMouseOut: this.onMouseOut,
+	            onMouseOver: this.onMouseOver,
+	            onClick: this.onClick
+	        }, image, React.createElement("div", {
+	            className: "graphie",
+	            ref: "graphieDiv"
+	        }));
+	    },
+	    componentDidMount: function componentDidMount() {
+	        this._setupGraphie(true);
+	    },
+	    componentDidUpdate: function componentDidUpdate() {
+	        // Only setupGraphie once per componentDidUpdate().
+	        // See explanation in setupGraphie().
+	        this._hasSetupGraphieThisUpdate = false;
+	        if (this._shouldSetupGraphie) {
+	            this._setupGraphie(false);
+	            this._shouldSetupGraphie = false;
+	        }
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var potentialChanges = [ "labels", "range", "step", "markings", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep" ];
+	        var self = this;
+	        _.each(potentialChanges, function(prop) {
+	            _.isEqual(self.props[prop], nextProps[prop]) || (self._shouldSetupGraphie = true);
+	        });
+	    },
+	    /* Reset the graphie canvas to its initial state
+	     *
+	     * Use when re-rendering the parent component and you need a blank
+	     * graphie.
+	     */
+	    reset: function reset() {
+	        this._setupGraphie(false);
+	    },
+	    graphie: function graphie() {
+	        return this._graphie;
+	    },
+	    pointsFromNormalized: function pointsFromNormalized(coordsList, noSnap) {
+	        var self = this;
+	        return _.map(coordsList, function(coords) {
+	            return _.map(coords, function(coord, i) {
+	                var range = self.props.range[i];
+	                if (noSnap) return range[0] + (range[1] - range[0]) * coord;
+	                var step = self.props.step[i];
+	                var nSteps = numSteps(range, step);
+	                var tick = Math.round(coord * nSteps);
+	                return range[0] + step * tick;
+	            });
+	        });
+	    },
+	    _setupGraphie: function _setupGraphie(initialMount) {
+	        // Only setupGraphie once per componentDidUpdate().
+	        // This prevents this component from rendering graphie
+	        // and then immediately re-render graphie because its
+	        // parent component asked it to. This will happen when
+	        // props on the parent and props on this component both
+	        // require graphie to be re-rendered.
+	        if (this._hasSetupGraphieThisUpdate) return;
+	        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
+	        $(graphieDiv).empty();
+	        var labels = this.props.labels;
+	        var range = this.props.range;
+	        var graphie = this._graphie = GraphUtils.createGraphie(graphieDiv);
+	        var gridConfig = this._getGridConfig();
+	        graphie.snap = this.props.snapStep;
+	        if ("graph" === this.props.markings) {
+	            graphie.graphInit({
+	                range: range,
+	                scale: _.pluck(gridConfig, "scale"),
+	                axisArrows: "<->",
+	                labelFormat: function labelFormat(s) {
+	                    return "\\small{" + s + "}";
+	                },
+	                gridStep: this.props.gridStep,
+	                tickStep: _.pluck(gridConfig, "tickStep"),
+	                labelStep: 1,
+	                unityLabels: _.pluck(gridConfig, "unityLabel")
+	            });
+	            graphie.label([ 0, range[1][1] ], labels[1], "above");
+	            graphie.label([ range[0][1], 0 ], labels[0], "right");
+	        } else "grid" === this.props.markings ? graphie.graphInit({
+	            range: range,
+	            scale: _.pluck(gridConfig, "scale"),
+	            gridStep: this.props.gridStep,
+	            axes: false,
+	            ticks: false,
+	            labels: false
+	        }) : "none" === this.props.markings && graphie.init({
+	            range: range,
+	            scale: _.pluck(gridConfig, "scale")
+	        });
+	        // Add instructions just before mouse layer
+	        var visible = .5;
+	        var invisible = 0;
+	        var $instructionsWrapper;
+	        if (this.props.instructions) {
+	            var $instructionsWrapper = $("<div/>");
+	            _.each(defaultInstructionsStyle, function(value, key) {
+	                $instructionsWrapper.css(key, value);
+	            });
+	            $instructionsWrapper.css("opacity", visible);
+	            var $instructions = $("<span/>", {
+	                text: this.props.instructions
+	            });
+	            _.each(instructionsTextStyle, function(value, key) {
+	                $instructions.css(key, value);
+	            });
+	            $instructionsWrapper.append($instructions);
+	            $(graphieDiv).append($instructionsWrapper);
+	        } else $instructionsWrapper = void 0;
+	        // Add some handlers for instructions text (if necessary)
+	        var onMouseDown = $instructionsWrapper || this.props.onMouseDown ? _.bind(function(coord) {
+	            if ($instructionsWrapper) {
+	                $instructionsWrapper.remove();
+	                $instructionsWrapper = null;
+	            }
+	            this.props.onMouseDown(coord);
+	        }, this) : null;
+	        var onMouseOver = $instructionsWrapper ? function() {
+	            $instructionsWrapper && $instructionsWrapper.css("opacity", invisible);
+	        } : null;
+	        var onMouseOut = $instructionsWrapper ? function() {
+	            $instructionsWrapper && $instructionsWrapper.css("opacity", visible);
+	        } : null;
+	        graphie.addMouseLayer({
+	            onClick: this.props.onClick,
+	            onMouseDown: onMouseDown,
+	            onMouseOver: onMouseOver,
+	            onMouseOut: onMouseOut,
+	            onMouseUp: this.props.onMouseUp,
+	            onMouseMove: this.props.onMouseMove,
+	            allowScratchpad: true
+	        });
+	        this._updateProtractor();
+	        this._updateRuler();
+	        // We set this flag before jumping into our callback
+	        // to avoid recursing if our callback calls reset() itself
+	        this._hasSetupGraphieThisUpdate = true;
+	        !initialMount && this.props.onGraphieUpdated && // Calling a parent callback in componentDidMount is bad and
+	        // results in hard-to-reason-about lifecycle problems (esp. with
+	        // refs), so we do it only on update and rely on the parent to
+	        // query for the graphie object on initial mount
+	        this.props.onGraphieUpdated(graphie);
+	    },
+	    _getGridConfig: function _getGridConfig() {
+	        var self = this;
+	        return _.map(self.props.step, function(step, i) {
+	            return Util.gridDimensionConfig(step, self.props.range[i], self.props.box[i], self.props.gridStep[i]);
+	        });
+	    },
+	    _updateProtractor: function _updateProtractor() {
+	        this.protractor && this.protractor.remove();
+	        if (this.props.showProtractor) {
+	            var coord = this.pointsFromNormalized([ [ .5, .05 ] ])[0];
+	            this.protractor = this._graphie.protractor(coord);
+	        }
+	    },
+	    _updateRuler: function _updateRuler() {
+	        this.ruler && this.ruler.remove();
+	        if (this.props.showRuler) {
+	            var coord = this.pointsFromNormalized([ [ .5, .25 ] ])[0];
+	            var extent = this._graphie.range[0][1] - this._graphie.range[0][0];
+	            this.ruler = this._graphie.ruler({
+	                center: coord,
+	                label: this.props.rulerLabel,
+	                pixelsPerUnit: this._graphie.scale[0],
+	                ticksPerUnit: this.props.rulerTicks,
+	                units: Math.round(.8 * extent)
+	            });
+	        }
+	    },
+	    toJSON: function toJSON() {
+	        return _.pick(this.props, "range", "step", "markings", "labels", "backgroundImage", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep");
+	    }
+	});
+
+	module.exports = Graph;
+
+/***/ },
+/* 110 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * A wrapper around react-components/info-tip.jsx that can be rendered on the
+	 * server without causing a checksum mismatch on the client.
+	 * (RCSS generates classnames with a randomSuffix, which ensures that any
+	 * two sets of generated classnames will not match.)
+	 */
+	var React = __webpack_require__(12);
+
+	var ReactComponentsInfoTip = __webpack_require__(142);
+
+	var InfoTip = React.createClass({
+	    displayName: "InfoTip",
+	    getInitialState: function getInitialState() {
+	        return {
+	            didMount: false
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        /* eslint-disable react/no-did-mount-set-state */
+	        this.setState({
+	            didMount: true
+	        });
+	    },
+	    render: function render() {
+	        return this.state.didMount ? React.createElement(ReactComponentsInfoTip, this.props) : React.createElement("div", null);
+	    }
+	});
+
+	module.exports = InfoTip;
+
+/***/ },
+/* 111 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * A wrapper around graphie.js and interactive.js to make sure interactive.js
+	 * is always required at the same time as graphie.js. This is because
+	 * interactive.js has side effects that are hard to see (it adds things to
+	 * `Graphie.prototype`), so someone might forget to require interactive.js.
+	 *
+	 * To use the utilities exported from interactive.js, require that file
+	 * itself.
+	 */
+	var GraphUtils = __webpack_require__(143);
+
+	__webpack_require__(144);
+
+	// For side effects
+	module.exports = GraphUtils;
+
+/***/ },
+/* 112 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	var _ = __webpack_require__(15);
+
+	var InteractiveUtil = __webpack_require__(107);
+
+	var WrappedDefaults = __webpack_require__(145);
+
+	var kpoint = __webpack_require__(131).point;
+
+	var kvector = __webpack_require__(131).vector;
+
+	var KhanMath = __webpack_require__(81);
+
+	var DEFAULT_OPTIONS = {
+	    thickness: 2,
+	    mouselayer: false
+	};
+
+	var WrappedLine = function WrappedLine(graphie, start, end, options) {
+	    options = _.extend({}, DEFAULT_OPTIONS, options);
+	    // Always make the line as large as possible and horizontal; this
+	    // simplifies a lot of the transforms, e.g., we can rotate by exactly the
+	    // angle of the argument points in `moveTo`.
+	    var initialStart = [ graphie.range[0][0], 0 ];
+	    var initialEnd = [ graphie.range[0][1], 0 ];
+	    // Add `wrapper` and `visibleShape`
+	    _.extend(this, graphie.fixedLine(initialStart, initialEnd, options.thickness));
+	    this.visibleShape.attr(options.normalStyle);
+	    // Save properties for computing transformations
+	    _.extend(this, {
+	        graphie: graphie,
+	        initialPoint: graphie.scalePoint(initialStart),
+	        initialLength: kpoint.distanceToPoint(graphie.scalePoint(initialStart), graphie.scalePoint(initialEnd))
+	    });
+	    // Add to appropriate graphie layer
+	    options.mouselayer ? this.graphie.addToMouseLayerWrapper(this.wrapper) : this.graphie.addToVisibleLayerWrapper(this.wrapper);
+	    // Move to argument points
+	    this.moveTo(start, end);
+	};
+
+	_.extend(WrappedLine.prototype, WrappedDefaults, {
+	    getMouseTarget: function getMouseTarget() {
+	        return this.wrapper;
+	    },
+	    moveTo: function moveTo(start, end) {
+	        var scaledStart = this.graphie.scalePoint(start);
+	        var scaledEnd = this.graphie.scalePoint(end);
+	        // Compute transformation parameters
+	        var polarDiff = kvector.polarDegFromCart(kvector.subtract(scaledEnd, scaledStart));
+	        var lineLength = polarDiff[0];
+	        var angle = KhanMath.bound(polarDiff[1]);
+	        var delta = kvector.subtract(scaledStart, this.initialPoint);
+	        var scale = KhanMath.bound(lineLength / this.initialLength);
+	        // Construct and apply transformation string
+	        var do3dTransform = InteractiveUtil.getCanUse3dTransform();
+	        var transformation = "translateX(" + delta[0] + "px) translateY(" + delta[1] + "px) " + (do3dTransform ? " translateZ(0)" : "") + "rotate(" + angle + "deg) scaleX(" + scale + ") scaleY(1)";
+	        this.transform(transformation);
+	    }
+	});
+
+	module.exports = WrappedLine;
+
+/***/ },
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -26826,146 +26689,294 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+/* 114 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, max-len, no-redeclare, no-trailing-spaces, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	var React = __webpack_require__(12);
+
+	var ReactDOM = __webpack_require__(16);
+
+	var _ = __webpack_require__(15);
+
+	var textWidthCache = {};
+
+	function getTextWidth(text) {
+	    if (!textWidthCache[text]) {
+	        // Hacky way to guess the width of an input box
+	        var $test = $("<span>").text(text).appendTo("body");
+	        textWidthCache[text] = $test.width() + 5;
+	        $test.remove();
+	    }
+	    return textWidthCache[text];
+	}
+
+	var TextListEditor = React.createClass({
+	    displayName: "TextListEditor",
+	    propTypes: {
+	        options: React.PropTypes.array,
+	        layout: React.PropTypes.string,
+	        onChange: React.PropTypes.func.isRequired
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            options: [],
+	            layout: "horizontal"
+	        };
+	    },
+	    getInitialState: function getInitialState() {
+	        return {
+	            items: this.props.options.concat("")
+	        };
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        this.setState({
+	            items: nextProps.options.concat("")
+	        });
+	    },
+	    render: function render() {
+	        var className = [ "perseus-text-list-editor", "perseus-clearfix", "layout-" + this.props.layout ].join(" ");
+	        var inputs = _.map(this.state.items, function(item, i) {
+	            return React.createElement("li", {
+	                key: i
+	            }, React.createElement("input", {
+	                ref: "input_" + i,
+	                type: "text",
+	                value: item,
+	                onChange: this.onChange.bind(this, i),
+	                onKeyDown: this.onKeyDown.bind(this, i),
+	                style: {
+	                    width: getTextWidth(item)
+	                }
+	            }));
+	        }, this);
+	        return React.createElement("ul", {
+	            className: className
+	        }, inputs);
+	    },
+	    onChange: function onChange(index, event) {
+	        var items = _.clone(this.state.items);
+	        items[index] = event.target.value;
+	        index === items.length - 1 && (items = items.concat(""));
+	        this.setState({
+	            items: items
+	        });
+	        this.props.onChange(_.compact(items));
+	    },
+	    onKeyDown: function onKeyDown(index, event) {
+	        var which = event.nativeEvent.keyCode;
+	        // Backspace deletes an empty input...
+	        if (8 === which && "" === this.state.items[index]) {
+	            event.preventDefault();
+	            var items = _.clone(this.state.items);
+	            var focusIndex = 0 === index ? 0 : index - 1;
+	            if (index !== items.length - 1 || 0 !== index && "" === items[focusIndex]) {
+	                items.splice(index, 1);
+	                this.setState({
+	                    items: items
+	                }, function() {
+	                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+	                });
+	            } else // ...except for the last one, iff it is the only empty
+	            // input at the end.
+	            ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+	        } else if (8 === which && 1 === this.state.items[index].length && index === this.state.items.length - 2) {
+	            event.preventDefault();
+	            var items = _.clone(this.state.items);
+	            items.splice(index, 1);
+	            this.setState({
+	                items: items
+	            });
+	            this.props.onChange(_.compact(items));
+	        } else if (13 === which) {
+	            event.preventDefault();
+	            var items = _.clone(this.state.items);
+	            var focusIndex = index + 1;
+	            if (index === items.length - 2) // ...unless the empty input is just below.
+	            ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus(); else {
+	                items.splice(focusIndex, 0, "");
+	                this.setState({
+	                    items: items
+	                }, function() {
+	                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+	                });
+	            }
+	        }
+	    }
+	});
+
+	module.exports = TextListEditor;
+
+/***/ },
+/* 115 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* globals katex:false, MathJax:false, Exercises:false */
+	var cleanMath = __webpack_require__(81).cleanMath;
+
+	function findChildOrAdd(elem, className) {
+	    var $child = $(elem).find("." + className);
+	    return 0 === $child.length ? $("<span>").addClass(className).appendTo($(elem)) : $child;
+	}
+
+	function doCallback(elem, callback) {
+	    var tries = 0;
+	    !function check() {
+	        var height = elem.scrollHeight;
+	        // Heuristic to guess if the font has kicked in
+	        // so we have box metrics (magic number ick,
+	        // but this seems to work mostly-consistently)
+	        if (height > 18 || tries >= 10) callback(); else {
+	            tries++;
+	            setTimeout(check, 100);
+	        }
+	    }();
+	}
+
+	module.exports = {
+	    // Process a node and add math inside of it. This attempts to use KaTeX to
+	    // format the math, and if that fails it falls back to MathJax.
+	    //
+	    // elem: The element which the math should be added to.
+	    //
+	    // text: The text that should be formatted inside of the node. If the node
+	    //       has already had math formatted inside of it before, this doesn't
+	    //       have to be provided. If this is not provided, and the node hasn't
+	    //       been formatted before, the text content of the node is used.
+	    //
+	    // force: (optional) if the node has been processed before, then it will
+	    //        not be formatted again, unless this argument is true
+	    //
+	    // callback: (optional) a callback to be run after the math has been
+	    //           processed (note: this might be called synchronously or
+	    //           asynchronously, depending on whether KaTeX or MathJax is used)
+	    processMath: function processMath(elem, text, force, callback) {
+	        var $elem = $(elem);
+	        // Only process if it hasn't been done before, or it is forced
+	        if (null == $elem.attr("data-math-formula") || force) {
+	            var $katexHolder = findChildOrAdd($elem, "katex-holder");
+	            var $mathjaxHolder = findChildOrAdd($elem, "mathjax-holder");
+	            // Search for MathJax-y script tags inside of the node. These are
+	            // used by MathJax to denote the formula to be typeset. Before, we
+	            // would update the formula by updating the contents of the script
+	            // tag, which shouldn't happen any more, but we manage them just in
+	            // case.
+	            var script = $mathjaxHolder.find("script[type='math/tex']")[0];
+	            // If text wasn't provided, we look in two places
+	            null == text && ($elem.attr("data-math-formula") ? // The old typeset formula
+	            text = $elem.attr("data-math-formula") : script && (// The contents of the <script> tag
+	            text = script.text || script.textContent));
+	            text = null != text ? text + "" : "";
+	            // Attempt to clean up some of the math
+	            text = cleanMath(text);
+	            // Store the formula that we're using
+	            $elem.attr("data-math-formula", text);
+	            if (Exercises.useKatex) // Try to process the nodes with KaTeX first
+	            try {
+	                katex.render(text, $katexHolder[0]);
+	                // If that worked, and we previously formatted with
+	                // mathjax, do some mathjax cleanup
+	                if ("mathjax" === $elem.attr("data-math-type")) {
+	                    // Remove the old mathjax stuff
+	                    var jax = MathJax.Hub.getJaxFor(script);
+	                    if (jax) {
+	                        var e = jax.SourceElement();
+	                        e.previousSibling && e.previousSibling.className && jax.Remove();
+	                    }
+	                }
+	                $elem.attr("data-math-type", "katex");
+	                // Call the callback
+	                callback && doCallback(elem, callback);
+	                return;
+	            } catch (err) {
+	                // IE doesn't do instanceof correctly, so we resort to
+	                // manual checking
+	                /* jshint -W103 */
+	                if (err.__proto__ !== katex.ParseError.prototype) throw err;
+	            }
+	            // Otherwise, fallback to MathJax
+	            // (Note: we don't need to do any katex cleanup here, because
+	            // KaTeX is smart and cleans itself up)
+	            $elem.attr("data-math-type", "mathjax");
+	            // Update the script tag, or add one if necessary
+	            script ? "text" in script ? // IE8, etc
+	            script.text = text : script.textContent = text : $mathjaxHolder.append("<script type='math/tex'>" + text.replace(/<\//g, "< /") + "</script>");
+	            if ("undefined" !== typeof MathJax) {
+	                // Put the process, a debug log, and the callback into the
+	                // MathJax queue
+	                MathJax.Hub.Queue([ "Reprocess", MathJax.Hub, $mathjaxHolder[0] ]);
+	                MathJax.Hub.Queue(function() {
+	                    KhanUtil.debugLog("MathJax done typesetting (" + text + ")");
+	                });
+	                callback && MathJax.Hub.Queue(function() {
+	                    var cb = MathJax.Callback(function() {});
+	                    doCallback(elem, function() {
+	                        callback();
+	                        cb();
+	                    });
+	                    return cb;
+	                });
+	            }
+	        }
+	    },
+	    processAllMath: function processAllMath(elem, force) {
+	        var $elem = $(elem);
+	        $elem.filter("code").add($elem.find("code")).each(function() {
+	            var $this = $(this);
+	            var text = $this.attr("data-math-formula");
+	            if (null == text) {
+	                text = $this.text();
+	                $this.empty();
+	            }
+	            KhanUtil.processMath(this, text, force);
+	        });
+	    },
+	    // Function to restore a node to a non-math-processed state
+	    cleanupMath: function cleanupMath(elem) {
+	        var $elem = $(elem);
+	        // Only mess with it if it's been processed before
+	        if ($elem.attr("data-math-formula")) {
+	            // Remove MathJax remnants
+	            if ("undefined" !== typeof MathJax) {
+	                var jax = MathJax.Hub.getJaxFor($elem.find("script")[0]);
+	                if (jax) {
+	                    var e = jax.SourceElement();
+	                    e.previousSibling && e.previousSibling.className && jax.Remove();
+	                }
+	            }
+	            $elem.text($elem.attr("data-math-formula"));
+	            $elem.attr("data-math-formula", null);
+	            $elem.attr("data-math-type", null);
+	        }
+	        return elem;
+	    },
+	    // Function to retrieve the formula of a typeset math node
+	    retrieveMathFormula: function retrieveMathFormula(elem) {
+	        return $(elem).attr("data-math-formula");
+	    }
+	};
+
+/***/ },
 /* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* TODO batch *all* mutations
-	 * idea: freeze / thaw implementations for all types
-	 * lens constructor thaws, freeze delegates to type's freeze
-	 */
+	"use strict";
 
-	var util = __webpack_require__(142);
-	    var clone = util.clone;
-	    var isObject = util.isObject;
-	    var merge = util.merge;
-
-	var arr = __webpack_require__(143);
-	var obj = __webpack_require__(144);
-	var str = __webpack_require__(145);
-
-	// equivalents, without requiring it
-	// find the implementation to use for a given object
-	var dispatch = function(x) {
-	    if (Array.isArray(x)) {
-	        return arr;
-	    } else if (isObject(x)) {
-	        return obj;
-	    } else if (typeof x === "string") {
-	        return str;
-	    }
+	/* globals icu:false */
+	// Rounds num to X places, and uses the proper decimal seperator.
+	// But does *not* insert thousands separators.
+	module.exports = function localeToFixed(num, places) {
+	    var localeDecimalSeperator = icu.getDecimalFormatSymbols().decimal_separator;
+	    var localeFixed = num.toFixed(places).replace(".", localeDecimalSeperator);
+	    "-0" === localeFixed && (localeFixed = "0");
+	    return localeFixed;
 	};
-
-	// This is underscore with a different name
-	var lens = function(obj) {
-	    if (obj instanceof lens) {
-	        return obj;
-	    }
-
-	    if (!(this instanceof lens)) {
-	        return new lens(obj);
-	    }
-
-	    var ops = dispatch(obj);
-	    this._wrapped = ops.thaw ? ops.thaw(obj) : obj;
-	};
-
-	lens.prototype.freeze = function() {
-	    var obj = this._wrapped;
-	    var ops = dispatch(obj);
-
-	    return ops.freeze ? ops.freeze(obj) : obj;
-	};
-
-	lens.prototype.zoom = function(lensArr) {
-	    if (this._zoomStack === undefined) {
-	        this._zoomStack = [];
-	    }
-
-	    this._zoomStack.push({
-	        zoom: lensArr,
-	        wrapped: this._wrapped
-	    });
-	    this._wrapped = lens(this._wrapped).get(lensArr);
-
-	    return this;
-	};
-
-	lens.prototype.deZoom = function() {
-	    var frame = this._zoomStack.pop();
-	    this._wrapped = lens(frame.wrapped)
-	        .set(frame.zoom, this._wrapped)
-	        .freeze();
-
-	    return this;
-	};
-
-	lens.prototype.get = function(lensArr) {
-	    var obj = this._wrapped;
-
-	    for (var i = 0; i < lensArr.length; i++) {
-	        obj = dispatch(obj).get(obj, lensArr[i]);
-	    }
-
-	    return obj;
-	};
-
-	lens.prototype.mod = function(lensArr, f) {
-	    var obj = this._wrapped;
-	    var newObj = clone(obj);
-	    var ops = dispatch(obj);
-
-	    if (lensArr.length === 0) {
-	        this._wrapped = f(this._wrapped);
-	    } else if (lensArr.length === 1) {
-	        this._wrapped = ops.mod(newObj, lensArr[0], f);
-	    } else {
-	        var monocle = lensArr[0];
-	        var shortLens = lensArr.slice(1);
-
-	        // newObj = ops.mod(obj[monocle], shortLens, f);
-
-	        newObj[monocle] = lens(obj[monocle])
-	            .mod(shortLens, f)
-	            .freeze();
-	        this._wrapped = newObj;
-	    }
-
-	    return this;
-	};
-
-	// TODO - move to individual files
-	lens.prototype.merge = function(lensArr, props) {
-	    this._wrapped = lens(this._wrapped).mod(lensArr, function(oldProps) {
-	        return merge(oldProps, props);
-	    }).freeze();
-
-	    return this;
-	};
-
-	// Lens must have length >= 1 or there would be nothing to return
-	lens.prototype.del = function(lensArr) {
-	    var obj = this._wrapped;
-	    var ops = dispatch(obj);
-
-	    if (lensArr.length === 1) {
-	        this._wrapped = ops.del(obj, lensArr[0]);
-	    } else {
-	        var monocle = lensArr[0];
-	        var shortLens = lensArr.slice(1);
-	        var subObj = ops.get(obj, monocle);
-
-	        this._wrapped = ops.set(obj, monocle, ops.del(subObj, shortLens));
-	    }
-
-	    return this;
-	};
-
-	lens.prototype.set = function(lensArr, set) {
-	    return this.mod(lensArr, function() { return set; });
-	};
-
-	module.exports = lens;
-
 
 /***/ },
 /* 117 */
@@ -28424,12 +28435,38 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
+	/**
+	 * These are things that widgets should exclude when serializing themselves.
+	 *
+	 * The use of this list needs to die. Basically, there are codepaths that
+	 * blindly serialize the "props" of a widget so that it can pass around its
+	 * info. Unfortunately, props aren't guaranteed to be serializable, and
+	 * automatically serializing schemaless list of attributes causes issues (e.g.
+	 * circular JSON structures sometimes).
+	 *
+	 * This blacklists things that we know don't need to be serialized.
+	 */
+	module.exports = [ // standard props "added" by react
+	// (technically the renderer still adds them)
+	"key", "ref", // added by src/renderer.jsx
+	"containerSizeClass", "widgetId", "onChange", "problemNum", "enabledFeatures", "apiOptions", "questionCompleted", "interWidgets", // added by src/editor.jsx, for widgets removing themselves
+	// this is soooo not the right place for this, but alas.
+	"onRemove", // also added by src/editor.jsx
+	"id", // Callbacks and items for interaction handling
+	"onBlur", "onFocus", "trackInteraction", "keypadElement" ];
+
+/***/ },
+/* 120 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable brace-style, comma-dangle, no-var, one-var, space-unary-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _ = __webpack_require__(15);
 
-	var Util = __webpack_require__(20);
+	var Util = __webpack_require__(21);
 
 	var Graphie = __webpack_require__(89);
 
@@ -28953,7 +28990,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 120 */
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29127,7 +29164,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = draw;
 
 /***/ },
-/* 121 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29441,7 +29478,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 122 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29684,7 +29721,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 123 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30002,32 +30039,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 124 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * These are things that widgets should exclude when serializing themselves.
-	 *
-	 * The use of this list needs to die. Basically, there are codepaths that
-	 * blindly serialize the "props" of a widget so that it can pass around its
-	 * info. Unfortunately, props aren't guaranteed to be serializable, and
-	 * automatically serializing schemaless list of attributes causes issues (e.g.
-	 * circular JSON structures sometimes).
-	 *
-	 * This blacklists things that we know don't need to be serialized.
-	 */
-	module.exports = [ // standard props "added" by react
-	// (technically the renderer still adds them)
-	"key", "ref", // added by src/renderer.jsx
-	"containerSizeClass", "widgetId", "onChange", "problemNum", "enabledFeatures", "apiOptions", "questionCompleted", "interWidgets", // added by src/editor.jsx, for widgets removing themselves
-	// this is soooo not the right place for this, but alas.
-	"onRemove", // also added by src/editor.jsx
-	"id", // Callbacks and items for interaction handling
-	"onBlur", "onFocus", "trackInteraction", "keypadElement" ];
-
-/***/ },
 /* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -30036,7 +30047,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-var */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var Util = __webpack_require__(20);
+	var Util = __webpack_require__(21);
 
 	var nestedMap = Util.nestedMap;
 
@@ -30162,11 +30173,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var GraphieClasses = __webpack_require__(125);
 
-	var Interactive2 = __webpack_require__(102);
+	var Interactive2 = __webpack_require__(100);
 
-	var InteractiveUtil = __webpack_require__(113);
+	var InteractiveUtil = __webpack_require__(107);
 
-	var KhanColors = __webpack_require__(104);
+	var KhanColors = __webpack_require__(102);
 
 	var assert = InteractiveUtil.assert;
 
@@ -31180,17 +31191,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(15);
 
-	var ApiClassNames = __webpack_require__(21).ClassNames;
+	var ApiClassNames = __webpack_require__(22).ClassNames;
 
 	var Renderer = __webpack_require__(11);
 
-	var sharedStyles = __webpack_require__(100);
+	var sharedStyles = __webpack_require__(98);
 
 	var styleConstants = __webpack_require__(39);
 
-	var mediaQueries = __webpack_require__(99);
+	var mediaQueries = __webpack_require__(97);
 
-	var captureScratchpadTouchStart = __webpack_require__(20).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(21).captureScratchpadTouchStart;
 
 	var Choice = __webpack_require__(153);
 
@@ -31507,6 +31518,150 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var isObject = function(obj) {
+	    return obj === Object(obj);;
+	}
+
+	var merge = function() {
+	    var obj = {};
+
+	    for (var i = 0; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        if (source) {
+	            for (var prop in source) {
+	                obj[prop] = source[prop];
+	            }
+	        }
+	    }
+
+	    return obj;
+	};
+
+	var clone = function(obj) {
+	    if (!isObject(obj)) {
+	        return obj;
+	    }
+
+	    return Array.isArray(obj) ? obj.slice() : merge(obj);
+	};
+
+	module.exports = { isObject: isObject, merge: merge, clone: clone };
+
+
+/***/ },
+/* 133 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var get = function(arr, monocle) {
+	    return arr[monocle];
+	};
+
+	var set = function(arr, monocle, val) {
+	    var newArr = arr.splice();
+	    newArr[monocle] = val;
+	    return newArr;
+	};
+
+	var mod = function(arr, monocle, f) {
+	    var newArr = arr.slice();
+	    newArr[monocle] = f(arr[monocle]);
+	    return newArr;
+	};
+
+	var del = function(arr, monocle) {
+	    var newArr = arr.slice();
+	    newArr.splice(monocle, 1);
+	    return newArr;
+	};
+
+	/*
+	// Lens must point to a member of an array. We'll insert into that array.
+	lens.prototype.insertAt = function(lensArr, toInsert) {
+	    var obj = this._wrapped;
+
+	    var arrLens = lensArr.slice(0, -1);
+	    var arr = lens(obj).get(arrLens).slice(); // slice to copy
+
+	    var arrIdx = lensArr[lensArr.length-1];
+	    arr.splice(arrIdx, 0, toInsert);
+	    return lens(obj).set(arrLens, arr);
+	};
+
+	lens.prototype.insertBefore = lens.prototype.insertAt;
+	lens.prototype.insertAfter = function(lensArr, toInsert) {
+	    var newLens = lensArr.slice();
+	    newLens[newLens.length-1] += 1;
+	    return lens(this._wrapped).insertAt(newLens, toInsert);
+	};
+	*/
+
+	module.exports = { get: get, set: set, mod: mod, del: del };
+
+
+/***/ },
+/* 134 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var clone = __webpack_require__(132).clone;
+
+	var get = function(obj, monocle) {
+	    return obj[monocle];
+	};
+
+	var set = function(obj, monocle, val) {
+	    var newObj = clone(obj);
+	    newObj[monocle] = val;
+	    return newObj;
+	};
+
+	var mod = function(obj, monocle, f) {
+	    var newObj = clone(obj);
+	    newObj[monocle] = f(obj[monocle]);
+	    return newObj;
+	};
+
+	var del = function(obj, monocle) {
+	    var newObj = clone(obj);
+	    delete newObj[monocle];
+	    return newObj;
+	};
+
+	module.exports = { get: get, set: set, mod: mod, del: del };
+
+
+/***/ },
+/* 135 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var get = function(arr, monocle) {
+	    return arr[monocle];
+	};
+
+	var set = function(arr, monocle, val) {
+	    var newArr = arr.splice();
+	    newArr[monocle] = val;
+	    return newArr;
+	};
+
+	var mod = function(arr, monocle, f) {
+	    var newArr = arr.splice();
+	    newArr[monocle] = f(arr[monocle]);
+	    return newArr;
+	};
+
+	var del = function(arr, monocle) {
+	    var newArr = arr.slice();
+	    newArr.splice(monocle);
+	    return newArr;
+	};
+
+	module.exports = { get: get, set: set, mod: mod, del: del };
+
+
+/***/ },
+/* 136 */
+/***/ function(module, exports, __webpack_require__) {
+
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -31525,7 +31680,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(15);
 
-	var InteractiveUtil = __webpack_require__(113);
+	var InteractiveUtil = __webpack_require__(107);
 
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
@@ -31707,7 +31862,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Movable;
 
 /***/ },
-/* 133 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31780,7 +31935,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var WrappedEllipse = __webpack_require__(164);
 
-	var InteractiveUtil = __webpack_require__(113);
+	var InteractiveUtil = __webpack_require__(107);
 
 	var objective_ = __webpack_require__(36);
 
@@ -31792,9 +31947,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var kvector = __webpack_require__(131).vector;
 
-	var KhanColors = __webpack_require__(104);
+	var KhanColors = __webpack_require__(102);
 
-	var processMath = __webpack_require__(95).processMath;
+	var processMath = __webpack_require__(115).processMath;
 
 	var _require = __webpack_require__(87);
 
@@ -32151,7 +32306,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MovablePoint;
 
 /***/ },
-/* 134 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32166,9 +32321,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var MovableLineOptions = __webpack_require__(165);
 
-	var WrappedLine = __webpack_require__(110);
+	var WrappedLine = __webpack_require__(112);
 
-	var InteractiveUtil = __webpack_require__(113);
+	var InteractiveUtil = __webpack_require__(107);
 
 	var objective_ = __webpack_require__(36);
 
@@ -32178,7 +32333,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var kvector = __webpack_require__(131).vector;
 
-	var KhanColors = __webpack_require__(104);
+	var KhanColors = __webpack_require__(102);
 
 	var FUNCTION_ARRAY_OPTIONS = [ "add", "draw", "remove", "onMoveStart", "constraints", "onMove", "onMoveEnd" ];
 
@@ -32381,7 +32536,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MovableLine;
 
 /***/ },
-/* 135 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32399,7 +32554,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var MovablePolygonOptions = __webpack_require__(166);
 
-	var InteractiveUtil = __webpack_require__(113);
+	var InteractiveUtil = __webpack_require__(107);
 
 	var objective_ = __webpack_require__(36);
 
@@ -32407,9 +32562,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
-	var KhanColors = __webpack_require__(104);
+	var KhanColors = __webpack_require__(102);
 
-	var GraphUtils = __webpack_require__(109);
+	var GraphUtils = __webpack_require__(111);
 
 	// State parameters that should be converted into an array of
 	// functions
@@ -32649,7 +32804,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MovablePolygon;
 
 /***/ },
-/* 136 */
+/* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32694,7 +32849,135 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 137 */
+/* 141 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	/**
+	 * MovableThing convenience methods
+	 *
+	 * Usually added to a Movable* class through
+	 * InteractiveUtils.addMovableHelperMethodsTo(), but these implementations
+	 * are simply for convenience.
+	 */
+	var _ = __webpack_require__(15);
+
+	var kpoint = __webpack_require__(131).point;
+
+	/* Local helper methods. */
+	function getKey(eventName, id) {
+	    return eventName + ":" + id;
+	}
+
+	function getEventName(key) {
+	    return key.split(":")[0];
+	}
+
+	var MovableHelperMethods = {
+	    /**
+	     * Fire an onSomething type event to all functions in listeners
+	     */
+	    _fireEvent: function _fireEvent(listeners, currentValue, previousValue) {
+	        _.invoke(listeners, "call", this, currentValue, previousValue);
+	    },
+	    /**
+	     * Combine the array of constraints functions
+	     * Returns either an [x, y] coordinate or false
+	     */
+	    _applyConstraints: function _applyConstraints(current, previous, extraOptions) {
+	        var _this = this;
+	        var skipRemaining = false;
+	        return _.reduce(this.state.constraints, function(memo, constraint) {
+	            // A move that has been cancelled won't be propagated to later
+	            // constraints calls
+	            if (false === memo) return false;
+	            if (skipRemaining) return memo;
+	            var result = constraint.call(_this, memo, previous, _extends({
+	                onSkipRemaining: function onSkipRemaining() {
+	                    skipRemaining = true;
+	                }
+	            }, extraOptions));
+	            if (false === result) // Returning false cancels the move
+	            return false;
+	            if (kpoint.is(result, 2)) // Returning a coord from constraints overrides the move
+	            return result;
+	            if (true === result || null == result) // Returning true or undefined allow the move to occur
+	            return memo;
+	            // Anything else is an error
+	            throw new Error("Constraint returned invalid result: " + result);
+	        }, current, this);
+	    },
+	    /**
+	     * Call all draw functions, and update our prevState for the next
+	     * draw function
+	     */
+	    draw: function draw() {
+	        var currState = this.cloneState();
+	        MovableHelperMethods._fireEvent.call(this, this.state.draw, currState, this.prevState);
+	        this.prevState = currState;
+	    },
+	    /**
+	     * Add a listener to any event: startMove, constraints, onMove, onMoveEnd,
+	     * etc. If a listener is already bound to the given eventName and id, then
+	     * it is overwritten by func.
+	     *
+	     * eventName: the string name of the event to listen to. one of:
+	     *   "onMoveStart", "onMove", "onMoveEnd", "draw", "remove"
+	     *
+	     * id: a string id that can be used to remove this event at a later time
+	     *   note: adding multiple listeners with the same id is undefined behavior
+	     *
+	     * func: the function to call when the event happens, which is called
+	     *   with the event's standard parameters [usually (coord, prevCoord) or
+	     *   (state, prevState)]
+	     */
+	    listen: function listen(eventName, id, func) {
+	        this._listenerMap = this._listenerMap || {};
+	        // If there's an existing handler, replace it by using its index in
+	        // `this.state[eventName]`; otherwise, add this handler to the end
+	        var key = getKey(eventName, id);
+	        var index = this._listenerMap[key] = this._listenerMap[key] || this.state[eventName].length;
+	        this.state[eventName][index] = func;
+	    },
+	    /**
+	     * Remove a previously added listener, by the id specified in the
+	     * corresponding listen() call
+	     *
+	     * If the given id has not been registered already, this is a no-op
+	     */
+	    unlisten: function unlisten(eventName, id) {
+	        this._listenerMap = this._listenerMap || {};
+	        var key = getKey(eventName, id);
+	        var index = this._listenerMap[key];
+	        if (void 0 !== index) {
+	            // Remove handler from list of event handlers and listenerMap
+	            this.state[eventName].splice(index, 1);
+	            delete this._listenerMap[key];
+	            // Re-index existing events: if they occur after `index`, decrement
+	            var keys = _.keys(this._listenerMap);
+	            _.each(keys, function(key) {
+	                getEventName(key) === eventName && this._listenerMap[key] > index && this._listenerMap[key]--;
+	            }, this);
+	        }
+	    }
+	};
+
+	module.exports = MovableHelperMethods;
+
+/***/ },
+/* 142 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32813,7 +33096,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InfoTip;
 
 /***/ },
-/* 138 */
+/* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32851,7 +33134,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var KhanMath = __webpack_require__(81);
 
-	var processMath = __webpack_require__(95).processMath;
+	var processMath = __webpack_require__(115).processMath;
 
 	/* Convert cartesian coordinates [x, y] to polar coordinates [r,
 	 * theta], with theta in degrees, or in radians if angleInRadians is
@@ -33778,7 +34061,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = GraphUtils;
 
 /***/ },
-/* 139 */
+/* 144 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -33805,7 +34088,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	__webpack_require__(169);
 
-	/* global Raphael:false */ var GraphUtils = __webpack_require__(138);
+	/* global Raphael:false */ var GraphUtils = __webpack_require__(143);
 
 	var kvector = __webpack_require__(131).vector;
 
@@ -33815,15 +34098,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var WrappedEllipse = __webpack_require__(164);
 
-	var WrappedLine = __webpack_require__(110);
+	var WrappedLine = __webpack_require__(112);
 
 	var WrappedPath = __webpack_require__(170);
 
 	var KhanMath = __webpack_require__(81);
 
-	var KhanColors = __webpack_require__(104);
+	var KhanColors = __webpack_require__(102);
 
-	var _require = __webpack_require__(113);
+	var _require = __webpack_require__(107);
 
 	var getCanUse3dTransform = _require.getCanUse3dTransform;
 
@@ -36954,7 +37237,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InteractiveUtils;
 
 /***/ },
-/* 140 */
+/* 145 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36967,7 +37250,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(15);
 
-	var InteractiveUtil = __webpack_require__(113);
+	var InteractiveUtil = __webpack_require__(107);
 
 	var objective_ = __webpack_require__(36);
 
@@ -37022,278 +37305,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 	module.exports = WrappedDefaults;
-
-/***/ },
-/* 141 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _extends = Object.assign || function(target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-	    }
-	    return target;
-	};
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	/**
-	 * MovableThing convenience methods
-	 *
-	 * Usually added to a Movable* class through
-	 * InteractiveUtils.addMovableHelperMethodsTo(), but these implementations
-	 * are simply for convenience.
-	 */
-	var _ = __webpack_require__(15);
-
-	var kpoint = __webpack_require__(131).point;
-
-	/* Local helper methods. */
-	function getKey(eventName, id) {
-	    return eventName + ":" + id;
-	}
-
-	function getEventName(key) {
-	    return key.split(":")[0];
-	}
-
-	var MovableHelperMethods = {
-	    /**
-	     * Fire an onSomething type event to all functions in listeners
-	     */
-	    _fireEvent: function _fireEvent(listeners, currentValue, previousValue) {
-	        _.invoke(listeners, "call", this, currentValue, previousValue);
-	    },
-	    /**
-	     * Combine the array of constraints functions
-	     * Returns either an [x, y] coordinate or false
-	     */
-	    _applyConstraints: function _applyConstraints(current, previous, extraOptions) {
-	        var _this = this;
-	        var skipRemaining = false;
-	        return _.reduce(this.state.constraints, function(memo, constraint) {
-	            // A move that has been cancelled won't be propagated to later
-	            // constraints calls
-	            if (false === memo) return false;
-	            if (skipRemaining) return memo;
-	            var result = constraint.call(_this, memo, previous, _extends({
-	                onSkipRemaining: function onSkipRemaining() {
-	                    skipRemaining = true;
-	                }
-	            }, extraOptions));
-	            if (false === result) // Returning false cancels the move
-	            return false;
-	            if (kpoint.is(result, 2)) // Returning a coord from constraints overrides the move
-	            return result;
-	            if (true === result || null == result) // Returning true or undefined allow the move to occur
-	            return memo;
-	            // Anything else is an error
-	            throw new Error("Constraint returned invalid result: " + result);
-	        }, current, this);
-	    },
-	    /**
-	     * Call all draw functions, and update our prevState for the next
-	     * draw function
-	     */
-	    draw: function draw() {
-	        var currState = this.cloneState();
-	        MovableHelperMethods._fireEvent.call(this, this.state.draw, currState, this.prevState);
-	        this.prevState = currState;
-	    },
-	    /**
-	     * Add a listener to any event: startMove, constraints, onMove, onMoveEnd,
-	     * etc. If a listener is already bound to the given eventName and id, then
-	     * it is overwritten by func.
-	     *
-	     * eventName: the string name of the event to listen to. one of:
-	     *   "onMoveStart", "onMove", "onMoveEnd", "draw", "remove"
-	     *
-	     * id: a string id that can be used to remove this event at a later time
-	     *   note: adding multiple listeners with the same id is undefined behavior
-	     *
-	     * func: the function to call when the event happens, which is called
-	     *   with the event's standard parameters [usually (coord, prevCoord) or
-	     *   (state, prevState)]
-	     */
-	    listen: function listen(eventName, id, func) {
-	        this._listenerMap = this._listenerMap || {};
-	        // If there's an existing handler, replace it by using its index in
-	        // `this.state[eventName]`; otherwise, add this handler to the end
-	        var key = getKey(eventName, id);
-	        var index = this._listenerMap[key] = this._listenerMap[key] || this.state[eventName].length;
-	        this.state[eventName][index] = func;
-	    },
-	    /**
-	     * Remove a previously added listener, by the id specified in the
-	     * corresponding listen() call
-	     *
-	     * If the given id has not been registered already, this is a no-op
-	     */
-	    unlisten: function unlisten(eventName, id) {
-	        this._listenerMap = this._listenerMap || {};
-	        var key = getKey(eventName, id);
-	        var index = this._listenerMap[key];
-	        if (void 0 !== index) {
-	            // Remove handler from list of event handlers and listenerMap
-	            this.state[eventName].splice(index, 1);
-	            delete this._listenerMap[key];
-	            // Re-index existing events: if they occur after `index`, decrement
-	            var keys = _.keys(this._listenerMap);
-	            _.each(keys, function(key) {
-	                getEventName(key) === eventName && this._listenerMap[key] > index && this._listenerMap[key]--;
-	            }, this);
-	        }
-	    }
-	};
-
-	module.exports = MovableHelperMethods;
-
-/***/ },
-/* 142 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var isObject = function(obj) {
-	    return obj === Object(obj);;
-	}
-
-	var merge = function() {
-	    var obj = {};
-
-	    for (var i = 0; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        if (source) {
-	            for (var prop in source) {
-	                obj[prop] = source[prop];
-	            }
-	        }
-	    }
-
-	    return obj;
-	};
-
-	var clone = function(obj) {
-	    if (!isObject(obj)) {
-	        return obj;
-	    }
-
-	    return Array.isArray(obj) ? obj.slice() : merge(obj);
-	};
-
-	module.exports = { isObject: isObject, merge: merge, clone: clone };
-
-
-/***/ },
-/* 143 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var get = function(arr, monocle) {
-	    return arr[monocle];
-	};
-
-	var set = function(arr, monocle, val) {
-	    var newArr = arr.splice();
-	    newArr[monocle] = val;
-	    return newArr;
-	};
-
-	var mod = function(arr, monocle, f) {
-	    var newArr = arr.slice();
-	    newArr[monocle] = f(arr[monocle]);
-	    return newArr;
-	};
-
-	var del = function(arr, monocle) {
-	    var newArr = arr.slice();
-	    newArr.splice(monocle, 1);
-	    return newArr;
-	};
-
-	/*
-	// Lens must point to a member of an array. We'll insert into that array.
-	lens.prototype.insertAt = function(lensArr, toInsert) {
-	    var obj = this._wrapped;
-
-	    var arrLens = lensArr.slice(0, -1);
-	    var arr = lens(obj).get(arrLens).slice(); // slice to copy
-
-	    var arrIdx = lensArr[lensArr.length-1];
-	    arr.splice(arrIdx, 0, toInsert);
-	    return lens(obj).set(arrLens, arr);
-	};
-
-	lens.prototype.insertBefore = lens.prototype.insertAt;
-	lens.prototype.insertAfter = function(lensArr, toInsert) {
-	    var newLens = lensArr.slice();
-	    newLens[newLens.length-1] += 1;
-	    return lens(this._wrapped).insertAt(newLens, toInsert);
-	};
-	*/
-
-	module.exports = { get: get, set: set, mod: mod, del: del };
-
-
-/***/ },
-/* 144 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var clone = __webpack_require__(142).clone;
-
-	var get = function(obj, monocle) {
-	    return obj[monocle];
-	};
-
-	var set = function(obj, monocle, val) {
-	    var newObj = clone(obj);
-	    newObj[monocle] = val;
-	    return newObj;
-	};
-
-	var mod = function(obj, monocle, f) {
-	    var newObj = clone(obj);
-	    newObj[monocle] = f(obj[monocle]);
-	    return newObj;
-	};
-
-	var del = function(obj, monocle) {
-	    var newObj = clone(obj);
-	    delete newObj[monocle];
-	    return newObj;
-	};
-
-	module.exports = { get: get, set: set, mod: mod, del: del };
-
-
-/***/ },
-/* 145 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var get = function(arr, monocle) {
-	    return arr[monocle];
-	};
-
-	var set = function(arr, monocle, val) {
-	    var newArr = arr.splice();
-	    newArr[monocle] = val;
-	    return newArr;
-	};
-
-	var mod = function(arr, monocle, f) {
-	    var newArr = arr.splice();
-	    newArr[monocle] = f(arr[monocle]);
-	    return newArr;
-	};
-
-	var del = function(arr, monocle) {
-	    var newArr = arr.slice();
-	    newArr.splice(monocle);
-	    return newArr;
-	};
-
-	module.exports = { get: get, set: set, mod: mod, del: del };
-
 
 /***/ },
 /* 146 */
@@ -38505,15 +38516,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var classNames = __webpack_require__(18);
 
-	var _require2 = __webpack_require__(21);
+	var _require2 = __webpack_require__(22);
 
 	var ClassNames = _require2.ClassNames;
 
-	var sharedStyles = __webpack_require__(100);
+	var sharedStyles = __webpack_require__(98);
 
 	var styleConstants = __webpack_require__(39);
 
-	var mediaQueries = __webpack_require__(99);
+	var mediaQueries = __webpack_require__(97);
 
 	var ToggleableRadioButton = __webpack_require__(178);
 
@@ -40324,7 +40335,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _ = __webpack_require__(15);
 
-	var WrappedDefaults = __webpack_require__(140);
+	var WrappedDefaults = __webpack_require__(145);
 
 	var DEFAULT_OPTIONS = {
 	    maxScale: 1,
@@ -40368,7 +40379,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(15);
 
-	var WrappedLine = __webpack_require__(110);
+	var WrappedLine = __webpack_require__(112);
 
 	var WrappedPath = __webpack_require__(170);
 
@@ -45637,7 +45648,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _ = __webpack_require__(15);
 
-	var WrappedDefaults = __webpack_require__(140);
+	var WrappedDefaults = __webpack_require__(145);
 
 	var DEFAULT_OPTIONS = {
 	    center: null,
@@ -45681,11 +45692,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Keypad = __webpack_require__(188);
 
-	var EmptyKeypadButton = __webpack_require__(189);
+	var EmptyKeypadButton = __webpack_require__(191);
 
-	var TouchableKeypadButton = __webpack_require__(190);
+	var TouchableKeypadButton = __webpack_require__(189);
 
-	var _require2 = __webpack_require__(191);
+	var _require2 = __webpack_require__(190);
 
 	var row = _require2.row;
 
@@ -45791,9 +45802,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Keypad = __webpack_require__(188);
 
-	var TouchableKeypadButton = __webpack_require__(190);
+	var TouchableKeypadButton = __webpack_require__(189);
 
-	var _require2 = __webpack_require__(191);
+	var _require2 = __webpack_require__(190);
 
 	var row = _require2.row;
 
@@ -45874,9 +45885,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Keypad = __webpack_require__(188);
 
-	var TouchableKeypadButton = __webpack_require__(190);
+	var TouchableKeypadButton = __webpack_require__(189);
 
-	var _require2 = __webpack_require__(191);
+	var _require2 = __webpack_require__(190);
 
 	var row = _require2.row;
 
@@ -45978,13 +45989,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var TwoPageKeypad = __webpack_require__(192);
 
-	var EmptyKeypadButton = __webpack_require__(189);
+	var EmptyKeypadButton = __webpack_require__(191);
 
 	var ManyKeypadButton = __webpack_require__(193);
 
-	var TouchableKeypadButton = __webpack_require__(190);
+	var TouchableKeypadButton = __webpack_require__(189);
 
-	var _require5 = __webpack_require__(191);
+	var _require5 = __webpack_require__(190);
 
 	var row = _require5.row;
 
@@ -46223,13 +46234,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var TwoPageKeypad = __webpack_require__(192);
 
-	var EmptyKeypadButton = __webpack_require__(189);
+	var EmptyKeypadButton = __webpack_require__(191);
 
 	var ManyKeypadButton = __webpack_require__(193);
 
-	var TouchableKeypadButton = __webpack_require__(190);
+	var TouchableKeypadButton = __webpack_require__(189);
 
-	var _require5 = __webpack_require__(191);
+	var _require5 = __webpack_require__(190);
 
 	var row = _require5.row;
 
@@ -47369,9 +47380,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	var strictUriEncode = __webpack_require__(214);
+	var strictUriEncode = __webpack_require__(215);
 
-	var objectAssign = __webpack_require__(215);
+	var objectAssign = __webpack_require__(214);
 
 	function encode(value, opts) {
 	    if (opts.encode) return opts.strict ? strictUriEncode(value) : encodeURIComponent(value);
@@ -47639,85 +47650,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	/**
-	 * A keypad button containing no symbols and triggering no actions on click.
-	 */
-	var React = __webpack_require__(12);
-
-	var _require = __webpack_require__(185);
-
-	var connect = _require.connect;
-
-	var GestureManager = __webpack_require__(180);
-
-	var KeyConfigs = __webpack_require__(156);
-
-	var KeypadButton = __webpack_require__(203);
-
-	var EmptyKeypadButton = React.createClass({
-	    displayName: "EmptyKeypadButton",
-	    propTypes: {
-	        gestureManager: React.PropTypes.instanceOf(GestureManager)
-	    },
-	    render: function render() {
-	        var _props = this.props;
-	        var gestureManager = _props.gestureManager;
-	        var rest = _objectWithoutProperties(_props, [ "gestureManager" ]);
-	        // Register touch events on the button, but don't register its DOM node
-	        // or compute focus state or anything like that. We want the gesture
-	        // manager to know about touch events that start on empty buttons, but
-	        // we don't need it to know about their DOM nodes, as it doesn't need
-	        // to focus them or trigger presses.
-	        return React.createElement(KeypadButton, _extends({
-	            onTouchStart: function onTouchStart(evt) {
-	                return gestureManager.onTouchStart(evt);
-	            },
-	            onTouchEnd: function onTouchEnd(evt) {
-	                return gestureManager.onTouchEnd(evt);
-	            },
-	            onTouchMove: function onTouchMove(evt) {
-	                return gestureManager.onTouchMove(evt);
-	            },
-	            onTouchCancel: function onTouchCancel(evt) {
-	                return gestureManager.onTouchCancel(evt);
-	            }
-	        }, KeyConfigs.NOOP, rest));
-	    }
-	});
-
-	var mapStateToProps = function mapStateToProps(state) {
-	    var gestures = state.gestures;
-	    return {
-	        gestureManager: gestures.gestureManager
-	    };
-	};
-
-	module.exports = connect(mapStateToProps)(EmptyKeypadButton);
-
-/***/ },
-/* 190 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _extends = Object.assign || function(target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-	    }
-	    return target;
-	};
-
-	function _objectWithoutProperties(obj, keys) {
-	    var target = {};
-	    for (var i in obj) {
-	        if (keys.indexOf(i) >= 0) continue;
-	        if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
-	        target[i] = obj[i];
-	    }
-	    return target;
-	}
-
-	/**
 	 * A touchable wrapper around the base KeypadButton component. This button is
 	 * responsible for keeping our button ID system (which will be used to handle
 	 * touch events globally) opaque to the KeypadButton.
@@ -47827,7 +47759,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = connect(mapStateToProps)(TouchableKeypadButton);
 
 /***/ },
-/* 191 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47862,6 +47794,85 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
+/* 191 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
+	function _objectWithoutProperties(obj, keys) {
+	    var target = {};
+	    for (var i in obj) {
+	        if (keys.indexOf(i) >= 0) continue;
+	        if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+	        target[i] = obj[i];
+	    }
+	    return target;
+	}
+
+	/**
+	 * A keypad button containing no symbols and triggering no actions on click.
+	 */
+	var React = __webpack_require__(12);
+
+	var _require = __webpack_require__(185);
+
+	var connect = _require.connect;
+
+	var GestureManager = __webpack_require__(180);
+
+	var KeyConfigs = __webpack_require__(156);
+
+	var KeypadButton = __webpack_require__(203);
+
+	var EmptyKeypadButton = React.createClass({
+	    displayName: "EmptyKeypadButton",
+	    propTypes: {
+	        gestureManager: React.PropTypes.instanceOf(GestureManager)
+	    },
+	    render: function render() {
+	        var _props = this.props;
+	        var gestureManager = _props.gestureManager;
+	        var rest = _objectWithoutProperties(_props, [ "gestureManager" ]);
+	        // Register touch events on the button, but don't register its DOM node
+	        // or compute focus state or anything like that. We want the gesture
+	        // manager to know about touch events that start on empty buttons, but
+	        // we don't need it to know about their DOM nodes, as it doesn't need
+	        // to focus them or trigger presses.
+	        return React.createElement(KeypadButton, _extends({
+	            onTouchStart: function onTouchStart(evt) {
+	                return gestureManager.onTouchStart(evt);
+	            },
+	            onTouchEnd: function onTouchEnd(evt) {
+	                return gestureManager.onTouchEnd(evt);
+	            },
+	            onTouchMove: function onTouchMove(evt) {
+	                return gestureManager.onTouchMove(evt);
+	            },
+	            onTouchCancel: function onTouchCancel(evt) {
+	                return gestureManager.onTouchCancel(evt);
+	            }
+	        }, KeyConfigs.NOOP, rest));
+	    }
+	});
+
+	var mapStateToProps = function mapStateToProps(state) {
+	    var gestures = state.gestures;
+	    return {
+	        gestureManager: gestures.gestureManager
+	    };
+	};
+
+	module.exports = connect(mapStateToProps)(EmptyKeypadButton);
+
+/***/ },
 /* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -47888,7 +47899,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var View = _require2.View;
 
-	var _require3 = __webpack_require__(191);
+	var _require3 = __webpack_require__(190);
 
 	var column = _require3.column;
 
@@ -48019,9 +48030,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(12);
 
-	var EmptyKeypadButton = __webpack_require__(189);
+	var EmptyKeypadButton = __webpack_require__(191);
 
-	var TouchableKeypadButton = __webpack_require__(190);
+	var TouchableKeypadButton = __webpack_require__(189);
 
 	var Keys = __webpack_require__(177);
 
@@ -49792,7 +49803,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var View = _require3.View;
 
-	var _require4 = __webpack_require__(191);
+	var _require4 = __webpack_require__(190);
 
 	var row = _require4.row;
 
@@ -50816,18 +50827,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	module.exports = function(str) {
-	    return encodeURIComponent(str).replace(/[!'()*]/g, function(c) {
-	        return "%" + c.charCodeAt(0).toString(16).toUpperCase();
-	    });
-	};
-
-/***/ },
-/* 215 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
 	/* eslint-disable no-unused-vars */
 	var hasOwnProperty = Object.prototype.hasOwnProperty;
 
@@ -50880,6 +50879,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }
 	    return to;
+	};
+
+/***/ },
+/* 215 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	module.exports = function(str) {
+	    return encodeURIComponent(str).replace(/[!'()*]/g, function(c) {
+	        return "%" + c.charCodeAt(0).toString(16).toUpperCase();
+	    });
 	};
 
 /***/ },
@@ -51018,7 +51029,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var keys = this.props.keys;
 	        // TODO(charlie): We have to require this lazily because of a cyclic
 	        // dependence in our components.
-	        var TouchableKeypadButton = __webpack_require__(190);
+	        var TouchableKeypadButton = __webpack_require__(189);
 	        return React.createElement(View, {
 	            style: styles.container
 	        }, keys.map(function(key) {
@@ -51143,7 +51154,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var UnicodeSymbol = __webpack_require__(229);
 
-	var _require3 = __webpack_require__(191);
+	var _require3 = __webpack_require__(190);
 
 	var row = _require3.row;
 
@@ -51511,7 +51522,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var UnicodeSymbol = __webpack_require__(229);
 
-	var _require3 = __webpack_require__(191);
+	var _require3 = __webpack_require__(190);
 
 	var row = _require3.row;
 
@@ -51591,7 +51602,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Text = _require2.Text;
 
-	var _require3 = __webpack_require__(191);
+	var _require3 = __webpack_require__(190);
 
 	var fullWidth = _require3.fullWidth;
 
