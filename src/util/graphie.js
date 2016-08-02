@@ -16,6 +16,7 @@ require("./tmpl.js");
 
 const KhanMath = require("./math.js");
 const processMath = require("./tex.js").processMath;
+const KhanColors = require("./colors");
 
 /* Convert cartesian coordinates [x, y] to polar coordinates [r,
  * theta], with theta in degrees, or in radians if angleInRadians is
@@ -1155,9 +1156,13 @@ GraphUtils.createGraphie = function(el) {
         // draw grid
         if (grid) {
             this.grid(gridRange[0], gridRange[1], {
-                stroke: "#000000",
-                opacity: gridOpacity,
+                stroke: options.xomManatee ? KhanColors.GRAY_D : "#000000",
+                opacity: options.xomManatee ? 1 : gridOpacity,
                 step: gridStep,
+                "stroke-width": options.xomManatee ? "1px" : "2px",
+            }).items.forEach((elem) => {
+                elem.node.style.shapeRendering =
+                    options.xomManatee ? "crispEdges" : "auto";
             });
         }
 
@@ -1167,8 +1172,8 @@ GraphUtils.createGraphie = function(el) {
             // this is a slight hack until <-> arrowheads work
             if (axisArrows === "<->" || axisArrows === true) {
                 this.style({
-                    stroke: "#000000",
-                    opacity: axisOpacity,
+                    stroke: options.xomManatee ? KhanColors.GRAY_G : "#000000",
+                    opacity: options.xomManatee ? 1 : axisOpacity,
                     strokeWidth: 2,
                     arrows: "->",
                 }, function() {
@@ -1226,9 +1231,10 @@ GraphUtils.createGraphie = function(el) {
 
         // draw tick marks
         if (ticks) {
+            const halfWidthTicks = options.xomManatee;
             this.style({
-                stroke: "#000000",
-                opacity: tickOpacity,
+                stroke: options.xomManatee ? KhanColors.GRAY_G : "#000000",
+                opacity: options.xomManatee ? 1 : tickOpacity,
                 strokeWidth: 1,
             }, function() {
 
@@ -1243,7 +1249,7 @@ GraphUtils.createGraphie = function(el) {
                         if (x < stop || !axisArrows) {
                             this.line(
                                 [x, -len + axisCenter[1]],
-                                [x, len + axisCenter[1]]
+                                [x, halfWidthTicks ? 0 : len + axisCenter[1]]
                             );
                         }
                     }
@@ -1252,7 +1258,7 @@ GraphUtils.createGraphie = function(el) {
                         if (x > start || !axisArrows) {
                             this.line(
                                 [x, -len + axisCenter[1]],
-                                [x, len + axisCenter[1]]
+                                [x, halfWidthTicks ? 0 : len + axisCenter[1]]
                             );
                         }
                     }
@@ -1269,7 +1275,7 @@ GraphUtils.createGraphie = function(el) {
                         if (y < stop || !axisArrows) {
                             this.line(
                                 [-len + axisCenter[0], y],
-                                [len + axisCenter[0], y]
+                                [halfWidthTicks ? 0 : len + axisCenter[0], y]
                             );
                         }
                     }
@@ -1278,7 +1284,7 @@ GraphUtils.createGraphie = function(el) {
                         if (y > start || !axisArrows) {
                             this.line(
                                 [-len + axisCenter[0], y],
-                                [len + axisCenter[0], y]
+                                [halfWidthTicks ? 0 : len + axisCenter[0], y]
                             );
                         }
                     }
@@ -1290,8 +1296,8 @@ GraphUtils.createGraphie = function(el) {
         // draw axis labels
         if (labels) {
             this.style({
-                stroke: "#000000",
-                opacity: labelOpacity,
+                stroke: options.xomManatee ? KhanColors.GRAY_G : "#000000",
+                opacity: options.xomManatee ? 1 : labelOpacity,
             }, function() {
 
                 // horizontal axis

@@ -65,6 +65,7 @@ var Graph = React.createClass({
         instructions: React.PropTypes.string,
         onClick: React.PropTypes.func,
         setDrawingAreaAvailable: React.PropTypes.func,
+        xomManatee: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -84,6 +85,7 @@ var Graph = React.createClass({
             onGraphieUpdated: null,
             onClick: null,
             onMouseDown: null,
+            xomManatee: false,
         };
     },
 
@@ -200,10 +202,13 @@ var Graph = React.createClass({
                 gridStep: this.props.gridStep,
                 tickStep: _.pluck(gridConfig, "tickStep"),
                 labelStep: 1,
-                unityLabels: _.pluck(gridConfig, "unityLabel")
+                unityLabels: _.pluck(gridConfig, "unityLabel"),
+                xomManatee: this.props.xomManatee,
             });
-            graphie.label([0, range[1][1]], labels[1], "above");
-            graphie.label([range[0][1], 0], labels[0], "right");
+            graphie.label([0, range[1][1]], labels[1],
+                this.props.xomManatee ? "below right" : "above");
+            graphie.label([range[0][1], 0], labels[0],
+                this.props.xomManatee ? "above left" : "right");
         } else if (this.props.markings === "grid") {
             graphie.graphInit({
                 range: range,

@@ -634,6 +634,7 @@ var InteractiveGraph = React.createClass({
                 onGraphieUpdated={this.setGraphie}
                 setDrawingAreaAvailable={
                     this.props.apiOptions.setDrawingAreaAvailable}
+                xomManatee={xomManatee}
             />
             {typeSelect}{extraOptions}
         </div>;
