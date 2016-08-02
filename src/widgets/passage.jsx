@@ -20,7 +20,9 @@ const Passage = React.createClass({
         passageText: React.PropTypes.string,
         footnotes: React.PropTypes.string,
         showLineNumbers: React.PropTypes.bool,
-        //onChange: React.propTypes.func,
+        onChange: React.PropTypes.func,
+        highlightRanges: React.PropTypes.arrayOf(
+            React.PropTypes.arrayOf(React.PropTypes.number)),
     },
 
     getDefaultProps: function() {
@@ -28,7 +30,8 @@ const Passage = React.createClass({
             passageTitle: "",
             passageText: "",
             footnotes: "",
-            showLineNumbers: true
+            showLineNumbers: true,
+            highlightRanges: [],
         };
     },
 
@@ -36,7 +39,6 @@ const Passage = React.createClass({
         return {
             nLines: null,
             startLineNumbersAfter: 0,
-            highlightRanges: [],
             newHighlightRange: null,
             selectedHighlightRange: null,
             mouseX: null,
@@ -100,15 +102,11 @@ const Passage = React.createClass({
      *  Handle a selection by highlighting it (or glomming it to an existing
      *  highlighted region).
      */
-    addHighlightRange: function(highlightRange) {
-        let newHighlightRanges = this.state.highlightRanges;
+    addHighlightRange: function() {
+        let newHighlightRanges =[...this.props.highlightRanges];
         newHighlightRanges.push(this.state.newHighlightRange);
         newHighlightRanges = this.mergeOverlappingRanges(newHighlightRanges);
-
-        this.setState({
-            highlightRanges: newHighlightRanges
-        });
-        //this.props.onChange(newHighlightRanges);
+        this.props.onChange({highlightRanges: newHighlightRanges});
 
         // HACK: Not sure why this is neccessary as setState should cause an
         // update. However, highlighting often doesn't appear without it.
@@ -216,7 +214,7 @@ const Passage = React.createClass({
      * contains the current selected range and returns that existing range.
      */
     isHighlighted: function(selectedRange) {
-        const currentHighlightRanges = this.state.highlightRanges;
+        const currentHighlightRanges = this.props.highlightRanges;
         for (const range of currentHighlightRanges) {
             if (selectedRange[0] >= range[0] && selectedRange[1] <= range[1]) {
                 return range;
@@ -275,15 +273,17 @@ const Passage = React.createClass({
      */
     handleRemoveHighlightClick: function() {
         const selectedHighlightRange = this.state.selectedHighlightRange;
-        const passageIndex = this.state.highlightRanges.findIndex(
+        const passageIndex = this.props.highlightRanges.findIndex(
             (r) => r[0] === selectedHighlightRange[0] &&
                    r[1] === selectedHighlightRange[1]);
-        const newHighlightRanges = [...this.state.highlightRanges];
+        const newHighlightRanges = [...this.props.highlightRanges];
         newHighlightRanges.splice(passageIndex, 1);
+
         this.setState({
             selectedHighlightRange: null,
-            highlightRanges: newHighlightRanges
         });
+
+        this.props.onChange({highlightRanges: newHighlightRanges});
     },
 
 
@@ -382,7 +382,7 @@ const Passage = React.createClass({
         let rawContent = this.props.passageText;
         // For each highlighted passage, we (ephemerally) inject highlight
         // markdown into the rawContent.
-        _.each(this.state.highlightRanges, function(highlightRange) {
+        _.each(this.props.highlightRanges, function(highlightRange) {
             const rangeStartIndex = highlightRange[0];
             const rangeEndIndex = highlightRange[1];
 
