@@ -1,6 +1,6 @@
 /* Perseus CSS
-// commit a58835ec56e9b05f1f624e8b73dcc363c4211741
-// branch HEAD
+// commit 8b22a0ad1707e608d4622ecac0f0ed2cbf4892dd
+// branch sat-highlighting
 // @generated
 */
 .perseus-sr-only {
@@ -2346,6 +2346,9 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
   padding-top: 48px;
   padding-bottom: 22px;
   padding-left: 46px;
+}
+#sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(1) .perseus-widget-passage-container {
+  position: relative;
 }
 #sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(1) .perseus-widget-passage-container .perseus-widget-passage-instructions div.paragraph {
   margin-top: 0;
