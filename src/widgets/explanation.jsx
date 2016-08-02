@@ -97,7 +97,7 @@ var Explanation = React.createClass({
         let linkAnchor = this.state.expanded ?
                 this.props.hidePrompt : this.props.showPrompt;
         if (!xomManateeEnabled) {
-            linkAnchor = `[${linkAnchor}]`;
+            linkAnchor = `${linkAnchor}`;
         }
 
         return <div className={css(styles.container)}>
@@ -170,24 +170,25 @@ const styles = StyleSheet.create({
     },
 
     explanationLink: {
-        fontStyle: 'italic',
-        color: '#007d96',
+        color: styleConstants.kaGreen,
+        borderBottom: `dashed 1px ${styleConstants.kaGreen}`,
+        textDecoration: 'none',
 
         // TODO(benkomalo): these should be pulled in from common typography
         // shared files so we have a single place where the type hierarchy is
         // defined; one off font sizes for individual components should be
         // avoided.
         [mediaQueries.xl]: {
-            fontSize: 20,
-            lineHeight: 1.1,
-        },
-        [mediaQueries.lgOrSmaller]: {
-            fontSize: 17,
+            fontSize: 22,
             lineHeight: 1.4,
         },
+        [mediaQueries.lgOrSmaller]: {
+            fontSize: 20,
+            lineHeight: 1.5,
+        },
         [mediaQueries.smOrSmaller]: {
-            fontSize: 14,
-            lineHeight: 1.3,
+            fontSize: 18,
+            lineHeight: 1.2,
         },
     },
 
