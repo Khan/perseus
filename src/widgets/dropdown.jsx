@@ -2,21 +2,23 @@
 /* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var classNames = require("classnames");
-var FancySelect = require("../components/fancy-select.jsx");
-var React = require('react');
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const {StyleSheet, css} = require("aphrodite");
+const classNames = require("classnames");
+const FancySelect = require("../components/fancy-select.jsx");
+const React = require('react');
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var FancyOption = FancySelect.Option;
+const FancyOption = FancySelect.Option;
 
-var ApiClassNames = require("../perseus-api.jsx").ClassNames;
-var ApiOptions = require("../perseus-api.jsx").Options;
+const ApiClassNames = require("../perseus-api.jsx").ClassNames;
+const ApiOptions = require("../perseus-api.jsx").Options;
+const styleConstants = require("../styles/constants.js");
 
-var captureScratchpadTouchStart =
+const captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
 
-var Dropdown = React.createClass({
+const Dropdown = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         choices: React.PropTypes.arrayOf(React.PropTypes.string),
@@ -62,10 +64,13 @@ var Dropdown = React.createClass({
             </FancySelect>;
 
         } else {
+            const mobileStyling = this.props.apiOptions.xomManatee;
             return <select
                     onChange={this._handleChangeEvent}
                     onTouchStart={captureScratchpadTouchStart}
-                    className={selectClasses + " " + ApiClassNames.INTERACTIVE}
+                    className={selectClasses +
+                        " " + css(mobileStyling && styles.dropdownMobile) +
+                        " " + ApiClassNames.INTERACTIVE}
                     disabled={this.props.apiOptions.readOnly}
                     value={this.props.selected}>
                 <option value={0} disabled>
@@ -131,6 +136,31 @@ var propTransform = (editorProps) => {
         choices: _.map(editorProps.choices, (choice) => choice.content)
     };
 };
+
+const dropDownArrowSize = 24;
+const styles = StyleSheet.create({
+    dropdownMobile: {
+        appearance: 'none',
+        background: 'url(/images/dropdown.png) no-repeat right',
+        backgroundColor: 'transparent',
+        border: `1px solid ${styleConstants.gray76}`,
+        borderRadius: 4,
+        boxShadow: 'none',
+        fontFamily: styleConstants.baseFontFamily,
+        padding: `9px ${dropDownArrowSize + 1}px 9px 9px`,
+
+        ':focus': {
+            outline: 'none',
+            background: 'url(/images/dropdown-focused.png) no-repeat right',
+            border: `2px solid ${styleConstants.kaGreen}`,
+            padding: `8px ${dropDownArrowSize}px 8px 8px`,
+        },
+
+        ':disabled': {
+            color: styleConstants.gray68,
+        },
+    },
+});
 
 module.exports = {
     name: "dropdown",

@@ -118,6 +118,11 @@ module.exports = {
 
         defaults: {
             isArticle: false,
+
+            // DEPRECATED: this was used in the old iPad app to render custom
+            // dropdowns instead of using <select>s, but it's a bit of work
+            // to maintain and has other issues with getting clipped. Remove
+            // (but requires a version bump)
             fancyDropdowns: false,
             responsiveStyling: false,
             xomManatee: false,
