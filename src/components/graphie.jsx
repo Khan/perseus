@@ -150,6 +150,7 @@ var Graphie = React.createClass({
             // TODO(alex): Either make this component always responsive by
             // itself, or always wrap it in other components so that it is.
             $(graphieDiv).css({width: '100%', height: '100%'});
+            graphie.raphael.setSize('100%', '100%');
         }
 
         this.props.setup(graphie, _.extend({
