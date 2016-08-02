@@ -216,12 +216,13 @@ var Graph = React.createClass({
                 gridStep: this.props.gridStep,
                 axes: false,
                 ticks: false,
-                labels: false
+                labels: false,
+                xomManatee: this.props.xomManatee,
             });
         } else if (this.props.markings === "none") {
             graphie.init({
                 range: range,
-                scale: _.pluck(gridConfig, "scale")
+                scale: _.pluck(gridConfig, "scale"),
             });
         }
 

@@ -821,7 +821,7 @@ var InteractiveGraph = React.createClass({
 
         const commonStyle = xomManatee ? {
             stroke: "#ffffff",
-            "stroke-width": "4px",
+            "stroke-width": 4,
             fill: KhanColors.INTERACTIVE,
         }: {
             stroke: KhanColors.INTERACTIVE,
@@ -848,6 +848,10 @@ var InteractiveGraph = React.createClass({
             this.graphie,
             Object.assign(extraProps, props)
         );
+    },
+
+    _lineStroke: function() {
+        return this.props.xomManatee ? {"stroke-width": 3} : {};
     },
 
     addLine: function(type) {
@@ -880,7 +884,7 @@ var InteractiveGraph = React.createClass({
             normalStyle: {
                 stroke: this.props.apiOptions.xomManatee ?
                     KhanColors.BLUE_C : KhanColors.INTERACTIVE,
-                "stroke-width": "3px",
+                ...(this._lineStroke()),
             },
         };
 
@@ -996,7 +1000,7 @@ var InteractiveGraph = React.createClass({
             this.parabola.attr({
                 stroke: this.props.apiOptions.xomManatee ?
                     KhanColors.BLUE_C : KhanColors.DYNAMIC,
-                "stroke-width": "3px",
+                ...(this._lineStroke()),
             });
             this.parabola.toBack();
         }
@@ -1074,7 +1078,7 @@ var InteractiveGraph = React.createClass({
             this.sinusoid.attr({
                 stroke: this.props.apiOptions.xomManatee ?
                     KhanColors.BLUE_C : KhanColors.DYNAMIC,
-                "stroke-width": "3px",
+                ...(this._lineStroke()),
             });
             this.sinusoid.toBack();
         }
@@ -1651,12 +1655,12 @@ var InteractiveGraph = React.createClass({
                 normalStyle: {
                     stroke: this.props.apiOptions.xomManatee ?
                         KhanColors.BLUE_C : KhanColors.INTERACTIVE,
-                    "stroke-width": "3px",
+                    ...(this._lineStroke()),
                 },
                 highlightStyle: {
                     stroke: this.props.apiOptions.xomManatee ?
                         KhanColors.BLUE_C : KhanColors.INTERACTING,
-                    "stroke-width": "3px",
+                    ...(this._lineStroke()),
                 }
             });
             _.invoke(points, "toFront");
@@ -1770,7 +1774,7 @@ var InteractiveGraph = React.createClass({
                 normalStyle: {
                     stroke: this.props.apiOptions.xomManatee ?
                         KhanColors.BLUE_C : KhanColors.INTERACTIVE,
-                    "stroke-width": "3px",
+                    ...(this._lineStroke()),
                 }
             });
         } else {

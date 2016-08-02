@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable brace-style, comma-dangle, indent, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+/* eslint-disable brace-style, comma-dangle, indent, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -14,6 +14,7 @@ var ButtonGroup = require("react-components/button-group.jsx");
 var Graphie      = require("../components/graphie.jsx");
 var MovablePoint = Graphie.MovablePoint;
 var MovableLine  = Graphie.MovableLine;
+const WrappedLine = require("../interactive2/wrapped-line.js");
 
 var knumber = require("kmath").number;
 var kvector = require("kmath").vector;
@@ -67,6 +68,19 @@ var FunctionGrapher = React.createClass({
         return props.asymptote;
     },
 
+    propTypes: {
+        flexibleType: React.PropTypes.bool,
+        graph: React.PropTypes.any,
+        hideHairlines: React.PropTypes.func,
+        model: React.PropTypes.any,
+        onChange: React.PropTypes.func,
+        setDrawingAreaAvailable: React.PropTypes.func,
+        showHairlines: React.PropTypes.func,
+        showTooltips: React.PropTypes.bool,
+        static: React.PropTypes.bool,
+        xomManatee: React.PropTypes.bool,
+    },
+
     getDefaultProps: function() {
         return {
             graph: {
@@ -74,7 +88,8 @@ var FunctionGrapher = React.createClass({
                 step: [1, 1]
             },
             coords: null,
-            asymptote: null
+            asymptote: null,
+            xomManatee: false,
         };
     },
 
@@ -135,7 +150,12 @@ var FunctionGrapher = React.createClass({
                     this.props.onChange({
                         coords: coords
                     });
-                }} />;
+                }}
+                showHairlines={this.props.showHairlines}
+                hideHairlines={this.props.hideHairlines}
+                showTooltips={this.props.showTooltips}
+                xomManatee={this.props.xomManatee}
+            />;
         };
         var points = _.map(this._coords(), pointForCoord);
         var box = this.props.graph.box;
@@ -179,7 +199,11 @@ var FunctionGrapher = React.createClass({
     renderPlot: function() {
         var model = this.props.model;
         var xRange = this.props.graph.range[0];
-        var style = { stroke: KhanColors.DYNAMIC };
+        var style = {
+            stroke: this.props.xomManatee ? KhanColors.BLUE_C :
+                KhanColors.DYNAMIC,
+            ...(this.props.xomManatee ? {"stroke-width": 3} : {}),
+        };
 
         var coeffs = model.getCoefficients(this._coords(), this._asymptote());
         if (!coeffs) {
@@ -233,7 +257,12 @@ var FunctionGrapher = React.createClass({
                         coord={coord}
                         static={true}
                         draw={null}
-                        extendLine={true} />
+                        extendLine={true}
+                        showHairlines={this.props.showHairlines}
+                        hideHairlines={this.props.hideHairlines}
+                        showTooltips={this.props.showTooltips}
+                        xomManatee={this.props.xomManatee}
+                    />
                 )}
         </MovableLine>;
     }
@@ -242,7 +271,14 @@ var FunctionGrapher = React.createClass({
 /* Widget and editor. */
 var Grapher = React.createClass({
     propTypes: {
+        apiOptions: React.PropTypes.any,
+        availableTypes: React.PropTypes.arrayOf(React.PropTypes.any),
         containerSizeClass: containerSizeClassPropType.isRequired,
+        graph: React.PropTypes.any,
+        markings: React.PropTypes.string,
+        onChange: React.PropTypes.func,
+        plot: React.PropTypes.any,
+        static: React.PropTypes.bool,
         trackInteraction: React.PropTypes.func.isRequired,
     },
 
@@ -300,6 +336,10 @@ var Grapher = React.createClass({
             static: this.props.static,
             setDrawingAreaAvailable:
                 this.props.apiOptions.setDrawingAreaAvailable,
+            xomManatee: this.props.apiOptions.xomManatee,
+            showTooltips: this.props.graph.showTooltips,
+            showHairlines: this.showHairlines,
+            hideHairlines: this.hideHairlines,
         };
 
         return <div>
@@ -336,6 +376,7 @@ var Grapher = React.createClass({
     },
 
     _setupGraphie: function(graphie, options) {
+        const xomManatee = this.props.apiOptions.xomManatee;
         if (options.markings === "graph") {
             graphie.graphInit({
                 range: options.range,
@@ -344,14 +385,16 @@ var Grapher = React.createClass({
                 labelFormat: function(s) { return "\\small{" + s + "}"; },
                 gridStep: options.gridStep,
                 snapStep: options.snapStep,
-                tickStep: _.pluck(options.gridConfig, "tickStep"),
+                tickStep: xomManatee ? [2, 2] :
+                    _.pluck(options.gridConfig, "tickStep"),
                 labelStep: 1,
-                unityLabels: _.pluck(options.gridConfig, "unityLabel")
+                unityLabels: _.pluck(options.gridConfig, "unityLabel"),
+                xomManatee: xomManatee,
             });
             graphie.label([0, options.range[1][1]], options.labels[1],
-                "above");
+                xomManatee ? "below right" : "above");
             graphie.label([options.range[0][1], 0], options.labels[0],
-                "right");
+                xomManatee ? "above left" : "right");
         } else if (options.markings === "grid") {
             graphie.graphInit({
                 range: options.range,
@@ -359,13 +402,65 @@ var Grapher = React.createClass({
                 gridStep: options.gridStep,
                 axes: false,
                 ticks: false,
-                labels: false
+                labels: false,
+                xomManatee: xomManatee,
             });
         } else if (options.markings === "none") {
             graphie.init({
                 range: options.range,
                 scale: _.pluck(options.gridConfig, "scale")
             });
+        }
+
+        if (this.props.apiOptions.xomManatee) {
+            const hairlineStyle = {
+                normalStyle: {
+                    "stroke-width": 2,
+                },
+            };
+
+            this.horizHairline =
+                new WrappedLine(graphie, [0, 0], [0, 0], hairlineStyle);
+            this.horizHairline.attr({
+                stroke: KhanColors.INTERACTIVE,
+            });
+            this.horizHairline.hide();
+
+            this.vertHairline =
+                new WrappedLine(graphie, [0, 0], [0, 0], hairlineStyle);
+            this.vertHairline.attr({
+                stroke: KhanColors.INTERACTIVE,
+            });
+            this.vertHairline.hide();
+        }
+    },
+
+    showHairlines: function(point) {
+        if (this.props.apiOptions.xomManatee &&
+            this.props.markings !== "none") {
+            // Hairlines are already initialized when the graph is loaded, so
+            // here we just move them to the updated location and make them
+            // visible.
+            this.horizHairline.moveTo(
+                [this.props.graph.range[0][0], point[1]],
+                [this.props.graph.range[0][1], point[1]]
+            );
+
+            this.horizHairline.show();
+
+            this.vertHairline.moveTo(
+                [point[0], this.props.graph.range[1][0]],
+                [point[0], this.props.graph.range[1][1]]
+            );
+
+            this.vertHairline.show();
+        }
+    },
+
+    hideHairlines: function() {
+        if (this.props.apiOptions.xomManatee) {
+            this.horizHairline.hide();
+            this.vertHairline.hide();
         }
     },
 
