@@ -1,6 +1,6 @@
 /* Perseus CSS
-// commit 6161e5dd7d01c512d60d227f65ae9f23af6b5040
-// branch HEAD
+// commit b92c57756a6e99160aea3f0e2af3d41d07584e27
+// branch master
 // @generated
 */
 .perseus-sr-only {
@@ -1360,36 +1360,40 @@ body.mobile .perseus-widget-dropdown .fancy-option:active:before {
   bottom: 0;
   left: 0;
 }
-.perseus-widget-interactive-graph .tooltip.visible {
+.perseus-xom-manatee .tooltip.visible {
   z-index: 2;
 }
-.perseus-widget-interactive-graph .tooltip.visible:before {
+.perseus-xom-manatee .tooltip.visible:before {
   border: solid;
   border-color: white transparent;
   border-width: 10px 10px 0 10px;
-  bottom: 30px;
+  bottom: 40px;
   content: "";
   left: 50%;
   transform: translateX(-50%);
   position: absolute;
   z-index: 2;
 }
-.perseus-widget-interactive-graph .tooltip .tooltip-content {
+.perseus-xom-manatee .tooltip .tooltip-content {
   display: none;
 }
-.perseus-widget-interactive-graph .tooltip.visible .tooltip-content {
+.perseus-xom-manatee .tooltip.visible .tooltip-content {
   display: inline-block;
-  background: white;
+  background-color: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.3);
   border-radius: 5px;
-  bottom: 40px;
+  bottom: 50px;
   left: 50%;
   transform: translateX(-50%);
   padding: 5px;
   position: absolute;
   white-space: nowrap;
 }
-.perseus-widget-interactive-graph .tooltip.visible .tooltip-content .katex {
+.perseus-xom-manatee .tooltip.visible .tooltip-content .katex {
   color: #71b307 !important;
+}
+.perseus-xom-manatee .graphie-label .katex {
+  color: #626569 !important;
 }
 .perseus-widget-matcher .column {
   float: left;
@@ -2538,9 +2542,13 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
     -ms-transition: opacity 400ms cubic-bezier(0.75, 0, 0.75, 1) !important;
 }
 
-.keypad-input .mq-editable-field .mq-cursor:not(:only-child) {
+.keypad-input .mq-editable-field .mq-cursor:not(:only-child),
+.keypad-input .mq-editable-field .mq-root-block.mq-hasCursor > .mq-cursor:only-child
+ {
     /* HACK(charlie): Magic numbers to properly size and position the vertical
-       cursor. */
+       cursor, which is visible whenever the cursor is not alone in its parent,
+       with the exception that it's also visible when the entire input is
+       empty. */
     height: 20px !important;
     vertical-align: middle !important;
     margin-top: -5px !important;
