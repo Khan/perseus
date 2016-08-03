@@ -30,7 +30,7 @@ var WrappedEllipse = function(graphie, center, radii, options) {
     }
 
     if (options.shadow) {
-        const filter = "drop-shadow(0px 0px 12px #000000)";
+        const filter = "drop-shadow(0px 0px 6px rgba(0, 0, 0, 0.7)";
         const svgElem = this.wrapper.children[0];
         svgElem.style.webkitFilter = filter;
         svgElem.style.filter = filter;

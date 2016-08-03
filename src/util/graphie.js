@@ -435,7 +435,13 @@ GraphUtils.createGraphie = function(el) {
             // Raphael needs (x, y) to be coordinate of upper left corner
             const corner = scalePoint([x, y + height]);
             const dims = scaleVector([width, height]);
-            return raphael.rect(...corner.concat(dims));
+            const elem = raphael.rect(...corner.concat(dims));
+
+            if (graphie.xomManatee) {
+                elem.node.style.shapeRendering = "crispEdges";
+            }
+
+            return elem;
         },
 
         ellipse: function(center, radii) {
@@ -514,6 +520,11 @@ GraphUtils.createGraphie = function(el) {
         path: function(points) {
             const p = raphael.path(svgPath(points));
             p.graphiePath = points;
+
+            if (graphie.xomManatee) {
+                p.node.style.shapeRendering = "crispEdges";
+            }
+
             return p;
         },
 
@@ -583,7 +594,11 @@ GraphUtils.createGraphie = function(el) {
         },
 
         line: function(start, end) {
-            return this.path([start, end]);
+            const elem = this.path([start, end]);
+            if (graphie.xomManatee) {
+                elem.node.style.shapeRendering = "crispEdges";
+            }
+            return elem;
         },
 
         parabola: function(a, b, c) {
@@ -968,6 +983,8 @@ GraphUtils.createGraphie = function(el) {
             this.xpixels = w;
             this.ypixels = h;
 
+            this.xomManatee = options.xomManatee;
+
             return this;
         },
 
@@ -1130,6 +1147,7 @@ GraphUtils.createGraphie = function(el) {
         this.init({
             range: realRange,
             scale: scale,
+            xomManatee: options.xomManatee,
         });
 
         // draw grid
@@ -1139,9 +1157,6 @@ GraphUtils.createGraphie = function(el) {
                 opacity: options.xomManatee ? 1 : gridOpacity,
                 step: gridStep,
                 "stroke-width": options.xomManatee ? "1px" : "2px",
-            }).items.forEach((elem) => {
-                elem.node.style.shapeRendering =
-                    options.xomManatee ? "crispEdges" : "auto";
             });
         }
 

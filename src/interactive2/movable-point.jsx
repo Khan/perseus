@@ -303,7 +303,8 @@ _.extend(MovablePoint.prototype, {
                 }
 
                 if (state.shadow) {
-                    const filter = "drop-shadow(0px 0px 20px #000000)";
+                    const filter =
+                        "drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.7)";
                     const svgElem = state.visibleShape.wrapper.children[0];
                     svgElem.style.webkitFilter = filter;
                     svgElem.style.filter = filter;
@@ -353,7 +354,8 @@ _.extend(MovablePoint.prototype, {
                 }
 
                 if (state.shadow) {
-                    const filter = "drop-shadow(0px 0px 12px #000000)";
+                    const filter =
+                        "drop-shadow(0px 0px 6px rgba(0, 0, 0, 0.7)";
                     const svgElem = state.visibleShape.wrapper.children[0];
                     svgElem.style.webkitFilter = filter;
                     svgElem.style.filter = filter;

@@ -22,7 +22,7 @@ var MovablePoint = GraphieClasses.createClass({
 
             const commonStyle = xomManatee ? {
                 stroke: "#ffffff",
-                "stroke-width": 4,
+                "stroke-width": 3,
                 fill: KhanColors.INTERACTIVE,
             } : {
                 stroke: KhanColors.INTERACTIVE,
@@ -42,7 +42,7 @@ var MovablePoint = GraphieClasses.createClass({
                 highlightStyle: highlightStyle,
                 shadow: xomManatee,
                 tooltip: xomManatee && this.props.showTooltips,
-            }, xomManatee ? {pointSize: 11} : {});
+            }, xomManatee ? {pointSize: 7} : {});
 
             return Object.assign(this.props, addedProps);
         } else {

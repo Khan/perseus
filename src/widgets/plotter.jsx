@@ -12,6 +12,7 @@ var deepEq = require("../util.js").deepEq;
 const KhanMath = require("../util/math.js");
 const KhanColors = require("../util/colors.js");
 const GraphUtils = require("../util/graph-utils.js");
+const Interactive2  = require("../interactive2.js");
 
 var BAR = "bar",
     LINE = "line",
@@ -151,7 +152,7 @@ var Plotter = React.createClass({
         };
         c.scaleY = self.props.scaleY;
         c.dimX = self.props.categories.length;
-        var plotDimensions = xomManatee ? [288, self.props.plotDimensions[1]] :
+        var plotDimensions = xomManatee ? [288, 336] :
             self.props.plotDimensions;
         if (isLine) {
             c.dimX += 1;
@@ -159,9 +160,9 @@ var Plotter = React.createClass({
             c.barPad = 0;
             c.barWidth = 1;
         } else if (isBar) {
-            c.barPad = 0.15;
+            c.barPad = xomManatee ? 0.08 : 0.15;
             c.barWidth = 1 - 2 * c.barPad;
-            c.dimX += 2 * c.barPad;
+            c.dimX += (xomManatee ? -2 : 2) * c.barPad;
         } else if (isTiledPlot) {
             c.picBoxHeight = self.props.picBoxHeight;
             c.picBoxWidthPx = plotDimensions[0] / self.props.categories.length;
@@ -181,15 +182,13 @@ var Plotter = React.createClass({
         }
 
         c.dimY = Math.ceil(self.props.maxY / c.scaleY) * c.scaleY;
-        c.scale = _.map([c.dimX, c.dimY], function (dim, i) {
-            return plotDimensions[i] / dim;
-        });
-        if (isTiledPlot) {
-            c.scale[1] = c.picBoxHeight / c.scaleY;
-        }
 
-        var padX = 25 / c.scale[0];
-        var padY = 25 / c.scale[1];
+        var padX = 25;
+        var padY = 25;
+
+        if (isBar && xomManatee) {
+            padX = (self.props.labels[1].length !== 0) ? 17 : 11;
+        }
 
         // Since dotplot doesn't have an axis along the left it looks weird
         // with the same padding as the others
@@ -201,9 +200,29 @@ var Plotter = React.createClass({
             padX = 0;
         }
 
+        if (xomManatee) {
+            c.scale = _.map([[c.dimX, padX], [c.dimY, padY]],
+                // We multiply pad by 4 because we add 3*pad padding on the left
+                // and 1*pad on the right
+                ([dim, pad], i) => (plotDimensions[i] - (pad * 4)) / dim
+            );
+        } else {
+            c.scale = _.map([c.dimX, c.dimY], function(dim, i) {
+                return plotDimensions[i] / dim;
+            });
+        }
+
+        padX /= c.scale[0];
+        padY /= c.scale[1];
+
+        if (isTiledPlot) {
+            c.scale[1] = c.picBoxHeight / c.scaleY;
+        }
+
         graphie.init({
             range: [[-3 * padX, c.dimX + padX], [-3 * padY, c.dimY + padY]],
-            scale: c.scale
+            scale: c.scale,
+            xomManatee: this.props.apiOptions.xomManatee,
         });
         graphie.addMouseLayer({
             allowScratchpad: true,
@@ -220,11 +239,25 @@ var Plotter = React.createClass({
                     /* isTeX */ true /* for the \approx symbol */
                 );
                 graphie.style(
-                    {stroke: "#000", strokeWidth: 1, opacity: 0.3},
+                    {
+                        stroke: xomManatee ? "#e9ebec" : "#000",
+                        strokeWidth: 1,
+                        opacity: xomManatee ? 1 : 0.3,
+                    },
                     function() {
                         graphie.line([0, y], [c.dimX, y]);
                     });
             }
+        }
+
+        if (isBar && xomManatee) {
+            self.graphie.dragPrompt = graphie.label(
+                [c.dimX / 2, c.dimY / 2],
+                "Drag handles to make graph",
+                "center", false)
+                .css("font-weight", "bold")
+                .css("color", KhanColors.KA_GREEN)
+                .css("display", "none");
         }
 
         self.setupCategories(config);
@@ -234,7 +267,7 @@ var Plotter = React.createClass({
                 [c.dimX / 2, c.dimY / 2],
                 "Tap to add points",
                 "center", false)
-                .css("font-weight", 600)
+                .css("font-weight", "bold")
                 .css("color", KhanColors.KA_GREEN)
                 .css("display", "none");
         }
@@ -271,26 +304,43 @@ var Plotter = React.createClass({
                     }
                 } else {
                     // Draw normal axes
-                    graphie.line([0, 0], [c.dimX, 0]);
-                    graphie.line([0, 0], [0, c.dimY]);
+                    graphie.style(
+                        {
+                            stroke: xomManatee ? KhanColors.GRAY_G : "#000",
+                            strokeWidth: xomManatee ? 1 : 2,
+                        },
+                        () => graphie.line([0, 0], [c.dimX, 0])
+                    );
+
+                    if (!(isBar && xomManatee)) {
+                        graphie.style(
+                            {
+                                stroke: xomManatee ? KhanColors.GRAY_G : "#000",
+                                strokeWidth: xomManatee ? 1 : 2,
+                            },
+                            () => graphie.line([0, 0], [0, c.dimY])
+                        );
+                    }
                 }
             });
 
-        graphie.label([c.dimX / 2, -35 / c.scale[1]],
+        graphie.label([c.dimX / 2, (xomManatee ? -85 : -35) / c.scale[1]],
             self.props.labels[0],
-            "below", false)
+            xomManatee ? "above" : "below", false)
             .css("font-weight", "bold")
-            .css("color", xomManatee && KhanColors.GRAY_G);
+            .css("color", xomManatee && KhanColors.GRAY_F);
 
-        graphie.label([-60 / c.scale[0], c.dimY / 2],
+        graphie.label([(xomManatee ? -35 : -60) / c.scale[0], c.dimY / 2],
             self.props.labels[1],
             "center", false)
             .css("font-weight", "bold")
-            .css("color", xomManatee && KhanColors.GRAY_G)
+            .css("color", xomManatee && KhanColors.GRAY_F)
             .addClass("rotate");
     },
 
 	labelCategory: function(x, category) {
+        const xomManatee = this.props.apiOptions.xomManatee;
+
 		var graphie = this.graphie;
 		category = category + "";
 		var isTeX = false;
@@ -299,7 +349,21 @@ var Plotter = React.createClass({
 			category = mathyCategory[1];
 			isTeX = true;
 		}
-		graphie.label([x, 0], category, "below", isTeX);
+
+		const hasXLabel = this.props.labels[0].length !== 0;
+
+		const labelRotation = "translateX(-50%) translateX(10px) " +
+            "translateY(-50%) translateY(10px) rotate(-45deg)";
+		graphie.style(
+            {
+                color: xomManatee ? KhanColors.GRAY_G : "inherit",
+                transform: (xomManatee && !mathyCategory) ?
+                    labelRotation : "none",
+                transformOrigin: "100%",
+            },
+            () => graphie.label(
+                [x, xomManatee ? -0.5 : 0], category, "below", isTeX)
+        );
 	},
 
     setupCategories: function(config) {
@@ -327,7 +391,9 @@ var Plotter = React.createClass({
                 self.labelCategory(x, category);
                 var tickHeight = 6 / c.scale[1];
                 graphie.style({
-                    stroke: "#000", strokeWidth: 2, opacity: 1.0
+                    stroke: "#000",
+                    strokeWidth: xomManatee ? 1 : 2,
+                    opacity: 1.0
                 }, function() {
                     graphie.line([x, -tickHeight], [x, 0]);
                 });
@@ -375,7 +441,7 @@ var Plotter = React.createClass({
 
                 graphie.style({
                     stroke: xomManatee ? KhanColors.GRAY_G : "#000",
-                    strokeWidth: 2,
+                    strokeWidth: xomManatee ? 1 : 2,
                     opacity: 1.0,
                 }, function() {
                     graphie.line([x, tickStart], [x, tickEnd]);
@@ -384,7 +450,13 @@ var Plotter = React.createClass({
         }
     },
 
+    _clampValue: function(v, min, max) {
+        return Math.max(Math.min(v, max), min);
+    },
+
     setupBar: function(args) {
+        const xomManatee = this.props.apiOptions.xomManatee;
+
         var i = args.index;
         var startHeight = args.startHeight;
         var config = args.config;
@@ -397,15 +469,21 @@ var Plotter = React.createClass({
         if (isHistogram) {
             x = 0.5 + i * config.barWidth + barHalfWidth;
         } else {
-            x = 0.5 + i + config.barPad;
+            x = (xomManatee ? barHalfWidth : (0.5 + config.barPad)) + i;
         }
 
+        /**
+         * Updates the bar with given index to the given height
+         * @param i the index of the bar to update
+         * @param height the new height of the bar
+         */
         var scaleBar = function(i, height) {
             var center = graphie.scalePoint(0);
 
             // Scale filled bucket (bar)
             config.graph.bars[i].scale(
-                    1, Math.max(0.01, height / config.scaleY),
+                    1,
+                    Math.max(xomManatee ? 0.2 : 0.01, height / config.scaleY),
                     center[0], center[1]);
 
             if (isHistogram) {
@@ -431,7 +509,9 @@ var Plotter = React.createClass({
         };
 
         graphie.style({
-            stroke: "none", fill: KhanColors.LIGHT_BLUE, opacity: 1.0
+            stroke: "none",
+            fill: xomManatee ? KhanColors.BLUE_C : KhanColors.LIGHT_BLUE,
+            opacity: xomManatee ? 0.8 : 1.0,
         }, function() {
             config.graph.bars[i] = graphie.path([
                 [x - barHalfWidth, 0],
@@ -456,37 +536,74 @@ var Plotter = React.createClass({
             }
         }
 
-        config.graph.lines[i] = graphie.addMovableLineSegment({
-            coordA: [x - barHalfWidth, startHeight],
-            coordZ: [x + barHalfWidth, startHeight],
-            snapY: config.scaleY / self.props.snapsPerLine,
-            constraints: {
-                constrainX: true
-            },
-            normalStyle: {
-                "stroke": KhanColors.INTERACTIVE,
-                // Don't display graph handles in static mode
-                "stroke-width": this.props.static ? 0 : 4,
-            },
-        });
+        if (xomManatee) {
+            const snap = config.scaleY / self.props.snapsPerLine;
+            config.graph.lines[i] = Interactive2.addMaybeXOMMovablePoint(this, {
+                coord: [x, startHeight],
+                constraints: [
+                    (coord, prev, options) => {
+                        return [
+                            x,
+                            this._clampValue(
+                                Math.round(coord[1] / snap) * snap,
+                                0.2,
+                                config.dimY
+                            )
+                        ];
+                    }
+                ],
+                onMove: function() {
+                    const y = config.graph.lines[i].coord()[1];
 
-        config.graph.lines[i].onMove = function(dx, dy) {
-            var y = this.coordA[1];
-            if (y < 0 || y > config.dimY) {
-                y = Math.min(Math.max(y, 0), config.dimY);
-                this.coordA[1] = this.coordZ[1] = y;
+                    var values = _.clone(self.state.values);
+                    values[i] = y;
+                    self.setState({values: values});
+                    self.changeAndTrack({values: values});
 
-                // Snap the line back into range.
-                this.transform();
-            }
+                    const shouldDisplay = values.every(v => v === 0);
+                    graphie.dragPrompt[0].style.display =
+                        shouldDisplay ? "inline" : "none";
 
-            var values = _.clone(self.state.values);
-            values[i] = y;
-            self.setState({values: values});
-            self.changeAndTrack({ values: values });
+                    scaleBar(i, y);
+                }
+            });
 
-            scaleBar(i, y);
-        };
+            const shouldDisplay = self.state.values.every(v => v === 0);
+            graphie.dragPrompt[0].style.display =
+                shouldDisplay ? "inline" : "none";
+        } else {
+            config.graph.lines[i] = graphie.addMovableLineSegment({
+                coordA: [x - barHalfWidth, startHeight],
+                coordZ: [x + barHalfWidth, startHeight],
+                snapY: config.scaleY / self.props.snapsPerLine,
+                constraints: {
+                    constrainX: true
+                },
+                normalStyle: {
+                    "stroke": KhanColors.INTERACTIVE,
+                    // Don't display graph handles in static mode
+                    "stroke-width": this.props.static ? 0 : 4,
+                },
+            });
+
+            config.graph.lines[i].onMove = function(dx, dy) {
+                var y = this.coordA[1];
+                if (y < 0 || y > config.dimY) {
+                    y = Math.min(Math.max(y, 0), config.dimY);
+                    this.coordA[1] = this.coordZ[1] = y;
+
+                    // Snap the line back into range.
+                    this.transform();
+                }
+
+                var values = _.clone(self.state.values);
+                values[i] = y;
+                self.setState({values: values});
+                self.changeAndTrack({ values: values });
+
+                scaleBar(i, y);
+            };
+        }
 
         scaleBar(i, startHeight);
         return x;
