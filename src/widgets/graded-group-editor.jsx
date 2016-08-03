@@ -91,7 +91,9 @@ const GradedGroupEditor = React.createClass({
             title: this.props.title,
             hasHint: this.props.hasHint,
             ...this.refs.editor.serialize(),
-            hint: this.props.hasHint && this.refs['hint-editor'].serialize(),
+            hint: this.props.hasHint
+                ? this.refs['hint-editor'].serialize()
+                : null,
         };
     },
 });
