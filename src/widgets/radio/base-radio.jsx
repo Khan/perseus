@@ -128,7 +128,6 @@ const BaseRadio = React.createClass({
             radio: {
                 // Avoid centering
                 width: "100%",
-                backgroundColor: "#ffffff",
             },
 
             responsiveRadio: {
@@ -193,6 +192,8 @@ const BaseRadio = React.createClass({
             },
 
             responsiveItemXomManatee: {
+                backgroundColor: '#FFFFFF',
+
                 [mediaQueries.lgOrSmaller]: {
                     border: `1px solid ${radioBorderColor}`,
                     borderRadius: "4px",
@@ -300,17 +301,15 @@ const BaseRadio = React.createClass({
             "perseus-widget-radio",
             css(
                 sharedStyles.aboveScratchpad,
-                sharedStyles.blankBackground,
+                // With the responsive XOM styles, the individual items are
+                // spaced out vertically, and so we set the backgrounds on the
+                // items rather than the container.
+                !(responsive && xomManatee) && sharedStyles.blankBackground,
                 styles.radio,
                 responsive && (xomManatee ? styles.responsiveRadioXomManatee :
                                styles.responsiveRadio),
                 sat && styles.satRadio
-            ),
-            "above-scratchpad",
-            "blank-background",
-            {
-                "perseus-widget-radio-responsive": responsive,
-            }
+            )
         );
 
         const instructionsClassName =
