@@ -94,6 +94,9 @@ var SpeakingBtn = React.createClass({
         if (this.state.recognizing == false) {
             this.recognition.start();
         }
+        else{
+            this.recognition.stop();
+        }
     },
 
     // prevent trigger checking answer when clicking button
@@ -128,7 +131,6 @@ var SpeakingBtn = React.createClass({
                 self.setState({recognizing: false});
             };
             recognition.onresult = function(event) {
-                self.setState({recognizing: false});
                 var res = '';
                 for (var i = event.resultIndex; i < event.results.length; i++) {
                     if (event.results[i].isFinal) {
