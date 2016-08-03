@@ -25,7 +25,13 @@ var TextInput = React.createClass({
     },
 
     changeValue: function(e) {
-        this.props.setValue(this.refs.input.value);
+        // Chrome Speech API
+        if (e.target.value) {
+            this.props.setValue(e.target.value);
+        // iOS Siri Input
+        } else {
+            this.props.setValue(this.refs.input.value);
+        }
     },
 
     statics: {
@@ -37,7 +43,17 @@ var infoStyle = {
     background: "#3498DB !important",
     color: "#fff !important",
     textShadow: "0px 0px #fff !important",
-    marginLeft: 10
+    marginLeft: 10,
+    border: '1px solid #ccc',
+    borderBottom: '1px solid #bbb',
+    borderRadius: '5px',
+    backgroundRepeat: 'repeat-x',
+    cursor: 'pointer !important',
+    fontFamily: 'inherit',
+    lineHeight: '22px',
+    padding: '5px 10px',
+    position: 'relative',
+    textDecoration: 'none !important'
 }
 
 var iconButtonStyle = {
@@ -60,9 +76,9 @@ var SpeakingBtn = React.createClass({
                         </button>
                     : <div>
                     <button onClick={this.resetOnClick} className="simple-button orange">
-                            <i style={iconButtonStyle} className="fa fa-eraser fa-2x"></i>
+                            <i style={iconButtonStyle} className="fa fa-refresh fa-2x"></i>
                     </button>
-                    <span style={infoStyle} className="simple-button">{this.state.status}</span>
+                    <span style={infoStyle}>{this.state.status}</span>
                     </div>
                     }
             </div>
@@ -173,6 +189,7 @@ var SpeakingTextInput = React.createClass({
 
     // compare answer when setting value to prevent generate long atempt dict
     setValue: function(val) {
+        val = val || '';
         var correntAns = SpeakingTextInput.parseAnswer(this.props.correct);
         var userAnsList = val.split("/");
         var correntIdx = -1;
