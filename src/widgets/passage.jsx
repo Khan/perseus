@@ -58,7 +58,11 @@ const Passage = React.createClass({
         // being counted as a seperate word due to the fact that the words in
         // each node are counted separately. The line below is a hacky fix for
         // this.
-        section = section.replace(/_/g, " ");
+        section = section.replace(/_+/g, " ");
+        // Strip out markers from writing passages which are not in
+        // passage-text.
+        section = section.replace(/\[Marker for question [0-9]+\]/g, " ");
+        section = section.replace(/\[Sentence [0-9]+\]/g, " ");
         return section
                 .split(/\s+/)
                 .filter((word) => word.length > 0)
@@ -168,17 +172,15 @@ const Passage = React.createClass({
         }
 
         let index = this.charToWordOffset(offset, node.textContent);
-
         let priorText = "";
         while (node && !(node.classList &&
                 node.classList.contains("passage-text"))) {
             while (node.previousSibling) {
                 node = node.previousSibling;
-                priorText = node.textContent + priorText;
+                priorText = node.textContent + " " + priorText;
             }
             node = node.parentNode;
         }
-
         index += this.wordsInSection(priorText);
 
         return index;
@@ -296,7 +298,7 @@ const Passage = React.createClass({
         // blindly split on all whitespace characters! Instead, we split
         // only on spaces, then manually split up those text fragments if
         // they contain a non-space-whitespace character (e.g. a newline).
-        rawContent = rawContent.split(' ');
+        rawContent = rawContent.split(" ");
         rawContent = rawContent.map(function(fragment) {
             const whitespaceMatch = fragment.match(/\s+/);
             if (whitespaceMatch) {
@@ -314,7 +316,7 @@ const Passage = React.createClass({
         // back-to-back spaces, which markdown will ignore anyway).
         rawContent = [].concat(...rawContent);
         rawContent = rawContent.filter(function(fragment) {
-            return fragment !== '';
+            return fragment !== "";
         });
         return rawContent;
     },
@@ -417,19 +419,18 @@ const Passage = React.createClass({
                         const matchEnd = (
                                 matchStart + highlightableMatch[0].length);
                         return (fragment.slice(0, matchStart) +
-                                '{__highlighting.start}' +
+                                '{highlighting.start}' +
                                 fragment.slice(matchStart, matchEnd) +
-                                '{__highlighting.end}' +
+                                '{highlighting.end}' +
                                 fragment.slice(matchEnd));
                     })
-                    .join('{__highlighting.start} {__highlighting.end}') +
+                    .join('{highlighting.start} {highlighting.end}') +
                 ' ' +
                 rawContent.slice(rangeEndIndex + 1).join(' '));
         }, this);
 
         const parseState = {};
         const parsedContent = PassageMarkdown.parse(rawContent, parseState);
-
         return <div
             onMouseUp={this.handleMouseUp}
             className="perseus-widget-passage-container"

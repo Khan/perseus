@@ -302,7 +302,7 @@ var rules = {
     highlight: {
         order: SimpleMarkdown.defaultRules.escape.order + .7,
         match: SimpleMarkdown.inlineRegex(
-                    /^{__highlighting.start}(.+?){__highlighting.end}/),
+                    /^{highlighting.start}(.+?){highlighting.end}/),
         parse: (capture, parse, state) => {
             return {
                 content: capture[1],
