@@ -21,6 +21,10 @@ var Util = require("./util.js");
 var Widgets = require("./widgets.js");
 var preprocessTex = require("./util/katex-preprocess.js");
 
+
+var PerseusEditor = require("./perseus-editor.jsx");
+const ENABLE_DRAFT_EDITOR = true;
+
 var WIDGET_PROP_BLACKLIST = require("./mixins/widget-prop-blacklist.jsx");
 
 // like [[snowman input-number 1]]
@@ -322,6 +326,7 @@ var Editor = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         imageUploader: React.PropTypes.func,
+        onChange: React.PropTypes.func,
     },
 
     getDefaultProps: function() {
@@ -993,6 +998,13 @@ var Editor = React.createClass({
                 value={this.props.content}
             />,
         ];
+
+        if (ENABLE_DRAFT_EDITOR) {
+            completeTextarea = <PerseusEditor
+                ref="textarea"
+                onChange={this.props.onChange}
+            />;
+        }
         var textareaWrapper;
         if (this.props.imageUploader) {
             textareaWrapper = <DragTarget
