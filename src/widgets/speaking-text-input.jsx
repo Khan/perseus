@@ -3,10 +3,15 @@
 var React = require('react');
 var Changeable = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var classNames = require('classnames');
+
+var textInputStyle = {
+    marginBottom: 10
+};
 
 var TextInput = React.createClass({
     render: function() {
-        return <input ref="input" value={this.props.value || ""} onChange={this.changeValue} onPaste={this.pasteValue} onKeyPress={this.keypressValue}/>;
+        return <input style={textInputStyle} ref="input" value={this.props.value || ""} onChange={this.changeValue} onPaste={this.pasteValue} onKeyPress={this.keypressValue}/>;
     },
 
     pasteValue: function(e) {
@@ -28,18 +33,43 @@ var TextInput = React.createClass({
     }
 });
 
+var infoStyle = {
+    background: "#3498DB !important",
+    color: "#fff !important",
+    textShadow: "0px 0px #fff !important",
+    marginLeft: 10
+}
+
+var iconButtonStyle = {
+    width: "60px",
+    lineHeight: 2,
+}
+
 var SpeakingBtn = React.createClass({
     render: function() {
+        var btnIconCLass = classNames({
+            'fa fa-2x': true,
+            'fa-microphone': !this.state.recognizing,
+            'fa fa-spinner fa-spin fa-fw': this.state.recognizing
+        });
         return (
             <div>
                 {this.recognition
-                    ? <button onClick={this.startRecognizeOnClick} className="simple-button orange">{this.state.status}
+                    ? <button onClick={this.startRecognizeOnClick} className="simple-button orange">
+                        <i style={iconButtonStyle} className={btnIconCLass}></i>
                         </button>
-                    : <button onClick={this.resetOnClick} className="simple-button orange">{this.state.status}
-                        </button>}
+                    : <div>
+                    <button onClick={this.resetOnClick} className="simple-button orange">
+                            <i style={iconButtonStyle} className="fa fa-eraser fa-2x"></i>
+                    </button>
+                    <span style={infoStyle} className="simple-button">{this.state.status}</span>
+                    </div>
+                    }
             </div>
         );
     },
+    //
+
     getInitialState: function() {
         return {recognizing: false, status: ""}
     },
@@ -74,15 +104,12 @@ var SpeakingBtn = React.createClass({
             recognition.interimResults = true;
             recognition.maxAlternatives = 20;
             self.setState({recognizing: false});
-            self.setState({status: "辨識"});
             recognition.onstart = function() {
                 self.setState({recognizing: true});
-                self.setState({status: "辨識中"});
                 self.props.setValue('');
             };
             recognition.onend = function() {
                 self.setState({recognizing: false});
-                self.setState({status: "重新辨識"});
             };
             recognition.onresult = function(event) {
                 self.setState({recognizing: false});
@@ -102,9 +129,9 @@ var SpeakingBtn = React.createClass({
             self.recognition = recognition;
         } else {
             if (os == 'iOS') {
-                self.setState({status: "點選上面的框框 用Siri語音輸入/清除"});
+                self.setState({status: "點選上面的框框 用Siri語音輸入"});
             } else if (os == 'Android') {
-                self.setState({status: "點選上面的框框 用Google語音輸入/清除"});
+                self.setState({status: "點選上面的框框 用Google語音輸入"});
             } else {
                 self.setState({status: "請切換至Chrome瀏覽器"});
             }
