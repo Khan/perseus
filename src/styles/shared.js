@@ -39,6 +39,24 @@ module.exports = StyleSheet.create({
         width: 1,
     },
 
+    responsiveLabel: {
+        // NOTE(charlie): The values used here should be kept in sync with the
+        // caption text sizing in articles.less.
+        // TODO(charlie): Migrate the captions over to using this style.
+        [mediaQueries.smOrSmaller]: {
+            fontSize: 14,
+            lineHeight: 1.3,
+        },
+        [mediaQueries.md]: {
+            fontSize: 17,
+            lineHeight: 1.4,
+        },
+        [mediaQueries.lgOrLarger]: {
+            fontSize: 20,
+            lineHeight: 1.4,
+        },
+    },
+
     responsiveInput: {
         [mediaQueries.lgOrSmaller]: {
             display: "inline-block",

@@ -105,24 +105,12 @@ const BaseRadio = React.createClass({
 
     statics: {
         styles: StyleSheet.create({
-            // NOTE(charlie): The values used in this responsive instructions
-            // sizing should be kept in sync with the caption text sizing in
-            // articles.less.
             instructions: {
                 display: "block",
                 color: styleConstants.gray17,
                 fontStyle: "normal",
                 fontWeight: "bold",
                 margin: "8px 0",
-                [mediaQueries.lgOrLarger]: {
-                    fontSize: 20,
-                },
-                [mediaQueries.mdOrSmaller]: {
-                    fontSize: 17,
-                },
-                [mediaQueries.smOrSmaller]: {
-                    fontSize: 14,
-                },
             },
 
             radio: {
@@ -324,8 +312,8 @@ const BaseRadio = React.createClass({
             )
         );
 
-        const instructionsClassName =
-            `instructions ${css(styles.instructions)}`;
+        const instructionsClassName = 'instructions ' +
+            css(styles.instructions, sharedStyles.responsiveLabel);
         const instructions = this.getInstructionsText();
         const shouldShowInstructions = xomManatee || this.props.multipleSelect;
 

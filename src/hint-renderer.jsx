@@ -12,6 +12,14 @@ const Renderer = require("./renderer.jsx");
 const EnabledFeatures = require("./enabled-features.jsx");
 const ApiOptions = require("./perseus-api.jsx").Options;
 
+const mediaQueries = require("./styles/media-queries.js");
+const {
+    baseUnitPx,
+    hintBorderWidth,
+    kaGreen,
+    gray97,
+} = require("./styles/constants.js");
+
 /* Renders just a hint preview */
 const HintRenderer = React.createClass({
     propTypes: {
@@ -44,11 +52,12 @@ const HintRenderer = React.createClass({
             pos,
             totalHints,
         } = this.props;
-        const newHintStyles = !!apiOptions.xomManatee;
 
         const classNames = classnames(
-            'perseus-hint-renderer',
-            newHintStyles && 'perseus-hint-renderer-new',
+            !apiOptions.xomManatee && 'perseus-hint-renderer',
+            apiOptions.xomManatee && css(styles.newHint),
+            apiOptions.xomManatee &&
+                lastRendered && css(styles.lastRenderedNewHint),
             lastHint && 'last-hint',
             lastRendered && 'last-rendered',
             className
@@ -68,18 +77,15 @@ const HintRenderer = React.createClass({
         };
 
         return <div className={classNames} tabIndex="-1">
-            {!newHintStyles && <span className="perseus-sr-only">
+            {!apiOptions.xomManatee && <span className="perseus-sr-only">
                 {i18n._("Hint #%(pos)s", {pos: pos + 1})}
             </span>}
-            {!newHintStyles && totalHints && pos != null && <span
+            {!apiOptions.xomManatee && totalHints && pos != null && <span
                 className="perseus-hint-label"
                 style={{display: 'block'}}
             >
                 {`${pos + 1} / ${totalHints}`}
             </span>}
-            {newHintStyles && <div className="perseus-hint-label-new">
-                {i18n._("Hint %(pos)s", {pos: pos + 1})}
-            </div>}
             <Renderer
                 ref="renderer"
                 widgets={hint.widgets}
@@ -89,6 +95,36 @@ const HintRenderer = React.createClass({
                 apiOptions={rendererApiOptions}
             />
         </div>;
+    },
+});
+
+const styles = StyleSheet.create({
+    newHint: {
+        marginBottom: 1.5 * baseUnitPx,
+
+        borderLeftColor: gray97,
+        borderLeftStyle: 'solid',
+        borderLeftWidth: hintBorderWidth,
+
+        // Only apply left-padding on tablets, to avoid being flush with the
+        // border. On phones, padding is applied internally by the child
+        // renderers. Some content on phones that is rendered at full-bleed may
+        // end up flush with the border, but that's acceptable for now.
+        [mediaQueries.lgOrSmaller]: {
+            paddingLeft: baseUnitPx,
+        },
+        [mediaQueries.smOrSmaller]: {
+            paddingLeft: 0,
+        },
+
+        ':focus': {
+            outline: 'none',
+        },
+    },
+
+    lastRenderedNewHint: {
+        marginBottom: 0,
+        borderLeftColor: kaGreen,
     },
 });
 

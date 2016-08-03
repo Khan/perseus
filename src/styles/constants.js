@@ -87,6 +87,7 @@ module.exports = {
     phoneMargin: 16,
 
     negativePhoneMargin: -16,
+    hintBorderWidth: 4,
 
     // The 'base unit' -- our new typography and layout styles are defined in
     // terms of multiples of the 'base unit'.

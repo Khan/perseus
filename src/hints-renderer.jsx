@@ -14,7 +14,15 @@ const SvgImage = require("./components/svg-image.jsx");
 const EnabledFeatures = require("./enabled-features.jsx");
 const ApiOptionsProps = require("./mixins/api-options-props.js");
 
-const {baseUnitPx, kaGreen} = require("./styles/constants.js");
+const mediaQueries = require("./styles/media-queries.js");
+const sharedStyles = require("./styles/shared.js");
+const {
+    baseUnitPx,
+    hintBorderWidth,
+    kaGreen,
+    gray85,
+    gray17,
+} = require("./styles/constants.js");
 
 const HintsRenderer = React.createClass({
     propTypes: {
@@ -149,22 +157,43 @@ const HintsRenderer = React.createClass({
 
         const classNames = classnames(
             this.props.className,
-            apiOptions.xomManatee && css(styles.rendererMargins)
+            apiOptions.xomManatee && hintsVisible > 0 &&
+                css(styles.newHintStylesHintsRenderer)
         );
 
         return <div className={classNames}>
+            {apiOptions.xomManatee && hintsVisible > 0 &&
+                <div
+                    className={css(
+                        styles.newHintStylesHintTitle,
+                        sharedStyles.responsiveLabel
+                    )}
+                >
+                    {i18n._("Hints")}
+                </div>
+            }
             {hints}
             {showGetAnotherHint &&
                 <button
                     rel="button"
-                    className={css(styles.linkButton)}
+                    className={css(
+                        styles.linkButton,
+                        apiOptions.xomManatee &&
+                            styles.newHintStylesGetAnotherHintButton
+                    )}
                     onClick={evt => {
                         evt.preventDefault();
                         evt.stopPropagation();
                         apiOptions.getAnotherHint();
                     }}
                 >
-                    <span className={css(styles.plusText)}>
+                    <span
+                        className={css(
+                            styles.plusText,
+                            apiOptions.xomManatee &&
+                                styles.newHintStylesPlusText
+                        )}
+                    >
                       +
                     </span>
                     <span className={css(styles.getAnotherHintText)}>
@@ -175,6 +204,8 @@ const HintsRenderer = React.createClass({
         </div>;
     },
 });
+
+const hintIndentation = baseUnitPx + hintBorderWidth;
 
 const styles = StyleSheet.create({
     rendererMargins: {
@@ -201,6 +232,61 @@ const styles = StyleSheet.create({
     },
     getAnotherHintText: {
         marginLeft: 16,
+    },
+
+    newHintStylesHintsRenderer: {
+        marginTop: 4 * baseUnitPx,
+        border: `solid ${gray85}`,
+        borderWidth: "1px 0 0 0",
+
+        position: 'relative',
+        ':before': {
+            content: '""',
+            display: 'table',
+            clear: 'both',
+        },
+        ':after': {
+            content: '""',
+            display: 'table',
+            clear: 'both',
+        },
+    },
+
+    newHintStylesHintTitle: {
+        fontFamily: 'inherit',
+        fontStyle: 'normal',
+        fontWeight: 'bold',
+        color: gray17,
+
+        paddingTop: baseUnitPx,
+        paddingBottom: 1.5 * baseUnitPx,
+
+        [mediaQueries.lgOrSmaller]: {
+            paddingLeft: 0,
+        },
+        [mediaQueries.smOrSmaller]: {
+            // On phones, ensure that the button is aligned with the hint body
+            // content, which is inset at the standard `baseUnitPx`, plus an
+            // additional `hintBorderWidth`.
+            paddingLeft: baseUnitPx + hintBorderWidth,
+        },
+    },
+
+    newHintStylesGetAnotherHintButton: {
+        marginTop: 1.5 * baseUnitPx,
+
+        [mediaQueries.lgOrSmaller]: {
+            paddingLeft: 0,
+        },
+        [mediaQueries.smOrSmaller]: {
+            // As with the title, on phones, ensure that the button is aligned
+            // with the hint body content.
+            paddingLeft: baseUnitPx + hintBorderWidth,
+        },
+    },
+
+    newHintStylesPlusText: {
+        left: hintIndentation,
     },
 });
 
