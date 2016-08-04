@@ -29,7 +29,9 @@ var MovablePoint = GraphieClasses.createClass({
                 fill: KhanColors.INTERACTIVE,
             };
 
-            const normalStyle = xomManatee ? commonStyle :
+            const normalStyle = xomManatee ?
+                Object.assign(commonStyle,
+                    this.props.xomStyleOverride || {}) :
                 Object.assign(commonStyle, this.props.normalStyle);
 
             const highlightStyle = xomManatee ? {

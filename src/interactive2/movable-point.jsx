@@ -316,7 +316,12 @@ _.extend(MovablePoint.prototype, {
 
                 tooltipResetFunctions.forEach(f => f());
                 if (state.tooltip) {
-                    this._showTooltip(`(${state.coord[0]}, ${state.coord[1]})`);
+                    if (state.xOnlyTooltip) {
+                        this._showTooltip(`${state.coord[0]}`);
+                    } else {
+                        this._showTooltip(
+                            `(${state.coord[0]}, ${state.coord[1]})`);
+                    }
                 }
 
                 self._fireEvent(state.onMoveStart, startCoord, startCoord);
@@ -339,8 +344,12 @@ _.extend(MovablePoint.prototype, {
 
                 if (state.tooltip) {
                     if (!this.state.outOfBounds) {
-                        this._showTooltip(
-                            `(${state.coord[0]}, ${state.coord[1]})`);
+                        if (state.xOnlyTooltip) {
+                            this._showTooltip(`${state.coord[0]}`);
+                        } else {
+                            this._showTooltip(
+                                `(${state.coord[0]}, ${state.coord[1]})`);
+                        }
                     }
                 }
 

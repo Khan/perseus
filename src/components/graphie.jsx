@@ -36,6 +36,7 @@ var Graphie = React.createClass({
         responsive: React.PropTypes.bool,
         setDrawingAreaAvailable: React.PropTypes.func,
         setup: React.PropTypes.func.isRequired,
+        xomManatee: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -131,6 +132,7 @@ var Graphie = React.createClass({
         graphie.init({
             range: this._range(),
             scale: this._scale(),
+            xomManatee: this.props.xomManatee,
         });
         // Only add the mouselayer if we actually want one.
         if (this.props.addMouseLayer) {

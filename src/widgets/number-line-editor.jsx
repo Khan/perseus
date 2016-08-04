@@ -41,6 +41,7 @@ var NumberLineEditor = React.createClass({
         onChange: React.PropTypes.func.isRequired,
 
         static: React.PropTypes.bool,
+        showTooltips: React.PropTypes.bool,
     },
 
     mixins: [EditorJsonify],
@@ -61,6 +62,8 @@ var NumberLineEditor = React.createClass({
             correctRel: "eq",
             correctX: null,
             initialX: null,
+
+            showTooltips: false,
         };
     },
 
@@ -322,6 +325,16 @@ var NumberLineEditor = React.createClass({
                         onChange={this.props.onChange}
                     />
                 </div>
+            </div>
+
+            <div className="perseus-widget-row">
+                {!this.props.static &&
+                    <PropCheckBox
+                        label="Show tooltips"
+                        showTooltips={this.props.showTooltips}
+                        onChange={this.props.onChange}
+                    />
+                }
             </div>
             <div className="perseus-widget-row">
                 {isTickCtrl && <span>

@@ -223,6 +223,7 @@ var Graph = React.createClass({
             graphie.init({
                 range: range,
                 scale: _.pluck(gridConfig, "scale"),
+                xomManatee: this.props.xomManatee,
             });
         }
 

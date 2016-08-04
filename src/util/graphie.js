@@ -411,6 +411,12 @@ GraphUtils.createGraphie = function(el) {
                         "stroke-linejoin": "round",
                         "stroke-linecap": "round",
                     });
+
+                if (graphie.xomManatee) {
+                    subpath.node.style.shapeRendering = "crispEdges";
+                    head.node.style.shapeRendering = "crispEdges";
+                }
+
                 head.arrowheadsDrawn = true;
                 set.push(subpath);
                 set.push(head);
@@ -594,11 +600,7 @@ GraphUtils.createGraphie = function(el) {
         },
 
         line: function(start, end) {
-            const elem = this.path([start, end]);
-            if (graphie.xomManatee) {
-                elem.node.style.shapeRendering = "crispEdges";
-            }
-            return elem;
+            return this.path([start, end]);
         },
 
         parabola: function(a, b, c) {

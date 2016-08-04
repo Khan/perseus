@@ -28,6 +28,7 @@ var bound = (x, gt, lt) => Math.min(Math.max(x, gt), lt);
 var assert = require("../interactive2/interactive-util.js").assert;
 
 var EN_DASH = "\u2013";
+const horizontalPadding = 30;
 
 var reverseRel = {
     ge: "le",
@@ -134,17 +135,27 @@ var TickMarks = Graphie.createSimpleClass((graphie, props) => {
     }
 
     // Render the text labels
-    graphie.style({color: KhanColors.DYNAMIC}, () => {
-        results.push(_label(graphie, props.labelStyle, leftLabel, leftLabel,
-            base));
-        results.push(_label(graphie, props.labelStyle, rightLabel, rightLabel,
-            base));
-    });
+    results.push(graphie.style(
+        props.xomManatee ? {
+            color: KhanColors.BLUE_D,
+        } : {},
+        () =>
+            _label(graphie, props.labelStyle, leftLabel, leftLabel, base)
+    ));
+
+    results.push(graphie.style(
+        props.xomManatee ? {
+            color: KhanColors.BLUE_D,
+        } : {},
+        () =>
+            _label(graphie, props.labelStyle, rightLabel, rightLabel, base)
+    ));
 
     // Render the labels' lines
     graphie.style(
         {
-            stroke: KhanColors.DYNAMIC,
+            stroke: props.xomManatee ? KhanColors.BLUE_D :
+                KhanColors.DYNAMIC,
             strokeWidth: 3.5,
         },
         () => {
@@ -184,6 +195,7 @@ var NumberLine = React.createClass({
         apiOptions: ApiOptions.propTypes,
         keypadElement: keypadElementPropType,
         static: React.PropTypes.bool,
+        showTooltips: React.PropTypes.bool,
         trackInteraction: React.PropTypes.func.isRequired,
     },
 
@@ -200,6 +212,7 @@ var NumberLine = React.createClass({
             isInequality: false,
             numLinePosition: 0,
             snapDivisions: 2,
+            showTooltips: false,
             rel: "ge",
             apiOptions: ApiOptions.defaults,
         };
@@ -341,6 +354,7 @@ var NumberLine = React.createClass({
             setup={this._setupGraphie}
             setDrawingAreaAvailable={
                 this.props.apiOptions.setDrawingAreaAvailable}
+            xomManatee={this.props.apiOptions.xomManatee}
         >
             <TickMarks
                 {..._.pick(props, [
@@ -351,6 +365,7 @@ var NumberLine = React.createClass({
                     "labelRange",
                     "tickStep",
                 ])}
+                xomManatee={this.props.apiOptions.xomManatee}
             />
             {this._renderInequality(props)}
             {this._renderNumberLinePoint(props)}
@@ -391,6 +406,11 @@ var NumberLine = React.createClass({
             "stroke-width": isOpen ? 3 : 1,
         };
 
+        const xomDotStyle = props.isInequality ? {
+            stroke: KhanColors.INTERACTIVE,
+            "fill-opacity": isOpen ? 0 : 1,
+        } : {};
+
         return <MovablePoint
             ref="numberLinePoint"
             pointSize={6}
@@ -410,6 +430,10 @@ var NumberLine = React.createClass({
                 this.change({numLinePosition: coord[0]});
                 this.props.trackInteraction();
             }}
+            xomManatee={this.props.apiOptions.xomManatee}
+            xomStyleOverride={xomDotStyle}
+            showTooltips={this.props.showTooltips}
+            xOnlyTooltip={true}
         />;
     },
 
@@ -428,7 +452,7 @@ var NumberLine = React.createClass({
         var widthInPixels = 400;
         var range = props.range;
         var scale = (range[1] - range[0]) / widthInPixels;
-        var buffer = 30 * scale;
+        var buffer = horizontalPadding * scale;
         var left = range[0] - buffer;
         var right = range[1] + buffer;
         var end = isGreater ? [right, 0] : [left, 0];
@@ -440,12 +464,17 @@ var NumberLine = React.createClass({
             var end = this._getInequalityEndpoint(props);
             var style = {
                 arrows: "->",
-                stroke: KhanColors.DYNAMIC,
+                stroke: this.props.apiOptions.xomManatee ?
+                    KhanColors.INTERACTIVE : KhanColors.DYNAMIC,
                 strokeWidth: 3.5,
             };
 
+            const isGreater = ["ge", "gt"].includes(props.rel);
+
             return <Line
-                start={[props.numLinePosition, 0]}
+                // We shift the line to either side of the dot so they don't
+                // intersect
+                start={[(isGreater ? 0.4 : -0.4) + props.numLinePosition, 0]}
                 end={end}
                 style={style}
             />;
@@ -459,10 +488,11 @@ var NumberLine = React.createClass({
         if (!this.isValid()) {return;}
 
         // Position variables
-        var widthInPixels = 400;
+        var widthInPixels = this.props.apiOptions.xomManatee ?
+            (288 - (horizontalPadding * 2)) : 400;
         var range = options.range;
         var scale = (range[1] - range[0]) / widthInPixels;
-        var buffer = 30 * scale;
+        var buffer = horizontalPadding * scale;
 
         // Initiate the graphie without actually drawing anything
         var left = range[0] - buffer;
@@ -473,6 +503,7 @@ var NumberLine = React.createClass({
         graphie.init({
             range: [[left, right], [bottom, top]],
             scale: [1 / scale, 40],
+            xomManatee: this.props.apiOptions.xomManatee,
         });
 
         // Draw the number line
@@ -622,6 +653,8 @@ var numberLineTransform = (editorProps) => {
 
         "isTickCtrl",
         "isInequality",
+
+        "showTooltips",
     ]);
 
     var numLinePosition = (editorProps.initialX != null) ?
