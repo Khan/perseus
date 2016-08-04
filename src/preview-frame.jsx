@@ -107,8 +107,13 @@ const PreviewFrame = React.createClass({
                 hintsAreaSelector: "#hintsarea",
             });
 
-            const perseusClass = "framework-perseus " +
+            const isExercise = this.state.type === "question" ||
+                this.state.type === "hint";
+
+            const perseusClass = "framework-perseus fonts-loaded " +
+                (isExercise ? "bibliotron-exercise " : "bibliotron-article ") +
                 (this.props.isMobile ? "perseus-xom-manatee" : "");
+
             if (this.state.type === "question") {
                 return <div
                     className={perseusClass}
