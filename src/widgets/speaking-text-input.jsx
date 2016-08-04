@@ -6,7 +6,8 @@ var JsonifyProps = require("../mixins/jsonify-props.jsx");
 var classNames = require('classnames');
 
 var textInputStyle = {
-    marginBottom: 10
+    marginTop: "5px",
+    marginBottom: "5px",
 };
 
 var TextInput = React.createClass({
@@ -61,6 +62,11 @@ var iconButtonStyle = {
     lineHeight: 2,
 }
 
+var buttonStyle = {
+    marginTop: "5px",
+    marginBottom: "5px",
+}
+
 var SpeakingBtn = React.createClass({
     render: function() {
         var btnIconCLass = classNames({
@@ -71,11 +77,11 @@ var SpeakingBtn = React.createClass({
         return (
             <div>
                 {this.recognition
-                    ? <button onClick={this.startRecognizeOnClick} className="simple-button orange">
+                    ? <button style={buttonStyle} onClick={this.startRecognizeOnClick} className="simple-button orange">
                         <i style={iconButtonStyle} className={btnIconCLass}></i>
                         </button>
                     : <div>
-                    <button onClick={this.resetOnClick} className="simple-button orange">
+                    <button style={buttonStyle} onClick={this.resetOnClick} className="simple-button orange">
                             <i style={iconButtonStyle} className="fa fa-refresh fa-2x"></i>
                     </button>
                     <span style={infoStyle}>{this.state.status}</span>

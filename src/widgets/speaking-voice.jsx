@@ -10,6 +10,11 @@ var iconButtonStyle = {
     lineHeight: 2,
 }
 
+var buttonStyle = {
+    marginTop: "5px",
+    marginBottom: "5px",
+}
+
 var SpeakingVoice = React.createClass({
     componentDidMount: function() {
         this.responsiveVoice = new ResponsiveVoice;
@@ -38,7 +43,7 @@ var SpeakingVoice = React.createClass({
     render: function() {
         return (
             <div>
-                <button className="simple-button green" onClick={this.speakOnClick}><i style={iconButtonStyle} className="fa fa-volume-up fa-2x"></i></button>
+                <button style={buttonStyle} className="simple-button green" onClick={this.speakOnClick}><i style={iconButtonStyle} className="fa fa-volume-up fa-2x"></i></button>
             </div>
         );
     },
