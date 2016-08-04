@@ -186,7 +186,7 @@ var Plotter = React.createClass({
         var padX = 25;
         var padY = 25;
 
-        if (isBar && xomManatee) {
+        if ((isBar || isLine) && xomManatee) {
             padX = (self.props.labels[1].length !== 0) ? 17 : 11;
         }
 
@@ -250,7 +250,7 @@ var Plotter = React.createClass({
             }
         }
 
-        if (isBar && xomManatee) {
+        if ((isBar || isLine) && xomManatee) {
             self.graphie.dragPrompt = graphie.label(
                 [c.dimX / 2, c.dimY / 2],
                 "Drag handles to make graph",
@@ -312,7 +312,7 @@ var Plotter = React.createClass({
                         () => graphie.line([0, 0], [c.dimX, 0])
                     );
 
-                    if (!(isBar && xomManatee)) {
+                    if (!((isBar || isLine) && xomManatee)) {
                         graphie.style(
                             {
                                 stroke: xomManatee ? KhanColors.GRAY_G : "#000",
@@ -454,6 +454,12 @@ var Plotter = React.createClass({
         return Math.max(Math.min(v, max), min);
     },
 
+    _updateDragPrompt: function(values) {
+        const shouldDisplay = values.every(v => v === 0);
+        this.graphie.dragPrompt[0].style.display =
+            shouldDisplay ? "inline" : "none";
+    },
+
     setupBar: function(args) {
         const xomManatee = this.props.apiOptions.xomManatee;
 
@@ -546,8 +552,7 @@ var Plotter = React.createClass({
                             x,
                             this._clampValue(
                                 Math.round(coord[1] / snap) * snap,
-                                0.2,
-                                config.dimY
+                                0, config.dimY
                             )
                         ];
                     }
@@ -560,17 +565,13 @@ var Plotter = React.createClass({
                     self.setState({values: values});
                     self.changeAndTrack({values: values});
 
-                    const shouldDisplay = values.every(v => v === 0);
-                    graphie.dragPrompt[0].style.display =
-                        shouldDisplay ? "inline" : "none";
+                    self._updateDragPrompt(values);
 
                     scaleBar(i, y);
                 }
             });
 
-            const shouldDisplay = self.state.values.every(v => v === 0);
-            graphie.dragPrompt[0].style.display =
-                shouldDisplay ? "inline" : "none";
+            self._updateDragPrompt(self.state.values);
         } else {
             config.graph.lines[i] = graphie.addMovableLineSegment({
                 coordA: [x - barHalfWidth, startHeight],
@@ -609,43 +610,99 @@ var Plotter = React.createClass({
         return x;
     },
 
+    /**
+     * Renders a segment of an interactive line to the plotter graph
+     * @param i the index of the point to render
+     * @param startHeight the initial height of the given point
+     * @param config the graph setup, such as scale and dimensions
+     */
     setupLine: function(i, startHeight, config) {
+        const xomManatee = this.props.apiOptions.xomManatee;
+
         var self = this;
         var c = config;
         var graphie = self.graphie;
         var x = i + 1;
-        c.graph.points[i] = graphie.addMovablePoint({
-            coord: [x, startHeight],
-            constraints: {
-                constrainX: true
-            },
-            normalStyle: {
-                fill: KhanColors.INTERACTIVE,
-                stroke: KhanColors.INTERACTIVE
-            },
-            snapY: c.scaleY / self.props.snapsPerLine,
-        });
-        c.graph.points[i].onMove = function(x, y) {
-            y = Math.min(Math.max(y, 0), c.dimY);
-            var values = _.clone(self.state.values);
-            values[i] = y;
-            self.setState({values: values});
-            self.changeAndTrack({ values: values });
-            return [x, y];
-        };
-        if (i > 0) {
-            c.graph.lines[i] = graphie.addMovableLineSegment({
-                pointA: c.graph.points[i - 1],
-                pointZ: c.graph.points[i],
-                constraints: {
-                    fixed: true
-                },
-                normalStyle: {
-                    stroke: "#9ab8ed",
-                    "stroke-width": 2
+
+        if (xomManatee) {
+            const snap = config.scaleY / self.props.snapsPerLine;
+            c.graph.points[i] = Interactive2.addMaybeXOMMovablePoint(this, {
+                coord: [x, startHeight],
+                constraints: [
+                    (coord, prev, options) => {
+                        return [
+                            x,
+                            this._clampValue(
+                                Math.round(coord[1] / snap) * snap,
+                                0, config.dimY
+                            )
+                        ];
+                    }
+                ],
+                onMove: function() {
+                    const y = c.graph.points[i].coord()[1];
+
+                    var values = _.clone(self.state.values);
+                    values[i] = y;
+                    self.setState({values: values});
+                    self.changeAndTrack({values: values});
+
+                    self._updateDragPrompt(values);
                 }
             });
+
+            self._updateDragPrompt(self.state.values);
+
+            if (i > 0) {
+                c.graph.lines[i] = Interactive2.addMovableLine(graphie, {
+                    points: [c.graph.points[i - 1], c.graph.points[i]],
+                    constraints: Interactive2.MovablePoint.constraints.fixed(),
+                    normalStyle: {
+                        stroke: KhanColors.BLUE_C,
+                        "stroke-width": 2
+                    },
+                    highlightStyle: {
+                        stroke: KhanColors.BLUE_C,
+                        "stroke-width": 2
+                    }
+                });
+            }
+        } else {
+            c.graph.points[i] = graphie.addMovablePoint({
+                coord: [x, startHeight],
+                constraints: {
+                    constrainX: true
+                },
+                normalStyle: {
+                    fill: KhanColors.INTERACTIVE,
+                    stroke: KhanColors.INTERACTIVE
+                },
+                snapY: c.scaleY / self.props.snapsPerLine,
+            });
+            c.graph.points[i].onMove = function(x, y) {
+                y = Math.min(Math.max(y, 0), c.dimY);
+                var values = _.clone(self.state.values);
+                values[i] = y;
+                self.setState({values: values});
+                self.changeAndTrack({values: values});
+                return [x, y];
+            };
+
+            if (i > 0) {
+                c.graph.lines[i] = graphie.addMovableLineSegment({
+                    pointA: c.graph.points[i - 1],
+                    pointZ: c.graph.points[i],
+                    constraints: {
+                        fixed: true
+                    },
+                    normalStyle: {
+                        stroke: "#9ab8ed",
+                        "stroke-width": 2
+                    }
+                });
+            }
         }
+
         return x;
     },
 
