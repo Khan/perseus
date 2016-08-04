@@ -799,6 +799,13 @@ var Editor = React.createClass({
 
     getSaveWarnings: function() {
         var parsed = PerseusMarkdown.parse(this.props.content);
+        var unescapedDollarsExist = false;
+
+        PerseusMarkdown.traverseContent(parsed, (node) => {
+            if (node.type === "unescapedDollar") {
+                unescapedDollarsExist = true;
+            }
+        });
 
         var noAltImages = [];
         PerseusMarkdown.traverseContent(parsed, (node) => {
@@ -825,7 +832,17 @@ var Editor = React.createClass({
             .flatten(true)
             .value();
 
-        return noAltImages.concat(widgetWarnings);
+        var warnings = noAltImages.concat(widgetWarnings);
+
+        if (unescapedDollarsExist) {
+            warnings.unshift(
+                "This content is UNTRANSLATABLE because there are" +
+                ' "unescaped" $ signs outside of math expressions.' +
+                " Please substitute $ -> \\$ where appropriate."
+            );
+        }
+
+        return warnings;
     },
 
     focus: function() {

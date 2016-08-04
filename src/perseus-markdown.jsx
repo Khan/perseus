@@ -287,6 +287,18 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
             return <TeX key={state.key}>{node.content}</TeX>;
         },
     },
+    unescapedDollar: {
+        order: SimpleMarkdown.defaultRules.link.order - 0.24,
+        match: SimpleMarkdown.inlineRegex(/^(?!\\)\$/),
+        parse: (capture, parse, state) => {
+            return {};
+        },
+        react: (node, output, state) => {
+            // Unescaped dollar signs render correctly, but result in
+            // untranslatable text after the i18n python linter flags it
+            return "$";
+        },
+    },
     fence: _.extend({}, SimpleMarkdown.defaultRules.fence, {
         parse: (capture, parse, state) => {
             var node = SimpleMarkdown.defaultRules.fence.parse(
