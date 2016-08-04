@@ -368,14 +368,20 @@ var Editor = React.createClass({
     _handleWidgetEditorChange: function(id, newProps, cb, silent) {
         var widgets = _.clone(this.props.widgets);
         widgets[id] = _.extend({}, widgets[id], newProps);
+        if (ENABLE_DRAFT_EDITOR) {
+            this.refs.textarea.updateWidget(id, newProps);
+        }
         this.props.onChange({widgets: widgets}, cb, silent);
     },
 
     _handleWidgetEditorRemove: function(id) {
-        var re = new RegExp(widgetRegExp.replace('{id}', id), 'gm');
-        var textarea = ReactDOM.findDOMNode(this.refs.textarea);
-
-        this.props.onChange({content: textarea.value.replace(re, '')});
+        const textarea = this.refs.textarea;
+        if (ENABLE_DRAFT_EDITOR) {
+            textarea.removeWidget(id);
+        } else {
+            const re = new RegExp(widgetRegExp.replace('{id}', id), 'gm');
+            this.props.onChange({content: textarea.value.replace(re, '')});
+        }
     },
 
     /**
@@ -737,13 +743,18 @@ var Editor = React.createClass({
     },
 
     _addWidget: function(widgetType) {
-        var textarea = ReactDOM.findDOMNode(this.refs.textarea);
-        this._addWidgetToContent(
-            this.props.content,
-            [textarea.selectionStart, textarea.selectionEnd],
-            widgetType
-        );
-        textarea.focus();
+        var textarea = this.refs.textarea;
+
+        if (ENABLE_DRAFT_EDITOR) {
+            textarea.addWidget(widgetType, () => textarea.focus());
+        } else {
+            this._addWidgetToContent(
+                this.props.content,
+                [textarea.selectionStart, textarea.selectionEnd],
+                widgetType
+            );
+            textarea.focus();
+        }
     },
 
     addTemplate: function(e) {
@@ -1003,6 +1014,9 @@ var Editor = React.createClass({
             completeTextarea = <PerseusEditor
                 ref="textarea"
                 onChange={this.props.onChange}
+                initialContent={this.props.content}
+                placeholder={this.props.placeholder}
+                initialWidgets={this.props.widgets}
             />;
         }
         var textareaWrapper;
