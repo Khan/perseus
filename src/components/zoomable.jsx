@@ -43,8 +43,15 @@ const Zoomable = React.createClass({
         return {
             animateHeight: false,
             readyToMeasureDeferred: deferred,
-            computeChildBounds: (parentNode, parentBounds) => {
-                return parentNode.firstElementChild.getBoundingClientRect();
+            computeChildBounds: (parentNode) => {
+                const firstChild = parentNode.firstElementChild;
+
+                return {
+                    // The +1 is a fudge factor to make sure any border on the
+                    // content isn't clipped by the the container it's in.
+                    width: firstChild.offsetWidth + 1,
+                    height: firstChild.offsetHeight + 1,
+                };
             },
         };
     },
@@ -101,30 +108,25 @@ const Zoomable = React.createClass({
     // TODO(benkomalo): call this on viewport width changes?
     // https://github.com/Khan/math-input/blob/master/src/components/math-keypad.js#L43
     scaleChildToFit(zoomed) {
-        const parentBounds = this._node.getBoundingClientRect();
-        const childBounds = this.props.computeChildBounds(
-                this._node, parentBounds);
-
-        if (!this._originalWidth) {
-            this._originalWidth = childBounds.width;
-        }
+        const parentBounds = {
+            width: this._node.offsetWidth,
+            height: this._node.offsetHeight,
+        };
+        const childBounds =
+            this.props.computeChildBounds(this._node, parentBounds);
 
         const childWidth = childBounds.width;
-        // calculate what the height would be if it was not already scaled
-        const childHeight =
-            childBounds.height * (this._originalWidth / childWidth);
+        const childHeight = childBounds.height;
 
         if (childWidth > parentBounds.width) {
             const scale = parentBounds.width / childWidth;
-            const compactHeight = Math.ceil(scale * childHeight);
-            const expandedHeight = childHeight;
 
             this.setState({
                 scale: scale,
                 zoomed: zoomed,
 
-                compactHeight: compactHeight,
-                expandedHeight: expandedHeight,
+                compactHeight: Math.ceil(scale * childHeight),
+                expandedHeight: childHeight,
             });
 
             // TODO(charlie): Do this as a callback to `setState`. Something is

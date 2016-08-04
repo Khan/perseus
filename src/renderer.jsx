@@ -865,7 +865,10 @@ var Renderer = React.createClass({
                     const textElement =
                             parentNode.querySelector('.katex-html') ||
                             parentNode.querySelector('.MathJax');
-                    const textBounds = textElement.getBoundingClientRect();
+                    const textBounds = {
+                        width: textElement.offsetWidth,
+                        height: textElement.offsetHeight,
+                    };
 
                     // HACK(benkomalo): when measuring math content, note that
                     // sometimes it actually peeks outside of the
@@ -1005,24 +1008,7 @@ var Renderer = React.createClass({
             if (apiOptions.xomManatee) {
                 wrappedOutput =
                     <div style={{...innerStyle, overflowX: 'auto'}}>
-                        <Zoomable
-                            animateHeight={true}
-                            computeChildBounds={(parentNode, parentBounds) => {
-                                const tableBounds = parentNode
-                                    .querySelector('table')
-                                    .getBoundingClientRect();
-                                const childBounds = parentNode
-                                    .firstElementChild
-                                    .getBoundingClientRect();
-                                return {
-                                    width: Math.max(
-                                        childBounds.width, tableBounds.width),
-                                    height: childBounds.height,
-                                };
-                            }}
-                        >
-                            {output}
-                        </Zoomable>
+                        <Zoomable animateHeight={true}>{output}</Zoomable>
                     </div>;
             } else {
                 wrappedOutput = <div style={innerStyle}>
