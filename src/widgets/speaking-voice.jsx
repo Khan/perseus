@@ -6,8 +6,8 @@ var JsonifyProps = require("../mixins/jsonify-props.jsx");
 var ResponsiveVoice = require('../../lib/responsivevoice.js');
 
 var iconButtonStyle = {
-    width: "60px",
-    lineHeight: 2,
+    width: "45px",
+    lineHeight: 1.5,
 }
 
 var buttonStyle = {

@@ -6,8 +6,12 @@ var JsonifyProps = require("../mixins/jsonify-props.jsx");
 var classNames = require('classnames');
 
 var textInputStyle = {
-    marginTop: "5px",
-    marginBottom: "5px",
+    fontSize: "25px",
+    marginRight: "5px",
+    paddingTop: "15px",
+    paddingBottom: "15px",
+    marginTop: "15px",
+    marginBottom: "15px",
 };
 
 var TextInput = React.createClass({
@@ -58,13 +62,16 @@ var infoStyle = {
 }
 
 var iconButtonStyle = {
-    width: "60px",
-    lineHeight: 2,
+    width: "45px",
+    lineHeight: 1.5,
 }
 
 var buttonStyle = {
-    marginTop: "5px",
-    marginBottom: "5px",
+
+}
+
+var inlineStyle = {
+    display: 'inline-block'
 }
 
 var SpeakingBtn = React.createClass({
@@ -75,7 +82,7 @@ var SpeakingBtn = React.createClass({
             'fa fa-spinner fa-spin fa-fw': this.state.recognizing
         });
         return (
-            <div>
+            <div style={inlineStyle}>
                 {this.recognition
                     ? <button style={buttonStyle} onClick={this.startRecognizeOnClick} className="simple-button orange">
                         <i style={iconButtonStyle} className={btnIconCLass}></i>
