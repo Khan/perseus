@@ -334,8 +334,8 @@ const Passage = React.createClass({
             style={{position:'absolute', left: positionX, top: positionY}}
         >
             <img
-                width="130" height="60"
-                style={{position:'absolute', top:"-60px",
+                width="130" height="44"
+                style={{position:'absolute', top:"-54px",
                          left:"-65px"}}
                 src='/images/perseus/add-highlight.svg'
             />
@@ -351,8 +351,8 @@ const Passage = React.createClass({
             style={{position:'absolute', left: positionX, top: positionY}}
         >
             <img
-                width="163" height="75"
-                style={{position:'absolute', top:'-75px',
+                width="163" height="44"
+                style={{position:'absolute', top:'-54px',
                          left:'-81px'}}
                 src='/images/perseus/remove-highlight.svg'
             />
