@@ -71,7 +71,7 @@ webpackJsonpPerseus([1],[
 
 	var Changeable = __webpack_require__(81);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(94);
+	var WidgetJsonifyDeprecated = __webpack_require__(93);
 
 	var _ = __webpack_require__(9);
 
@@ -450,7 +450,7 @@ webpackJsonpPerseus([1],[
 
 	var classNames = __webpack_require__(13);
 
-	var FancySelect = __webpack_require__(95);
+	var FancySelect = __webpack_require__(94);
 
 	var React = __webpack_require__(10);
 
@@ -918,7 +918,7 @@ webpackJsonpPerseus([1],[
 	/* Mixins. */
 	var Changeable = __webpack_require__(81);
 
-	var _require4 = __webpack_require__(114);
+	var _require4 = __webpack_require__(113);
 
 	var GrapherUtil = _require4.GrapherUtil;
 
@@ -1348,7 +1348,7 @@ webpackJsonpPerseus([1],[
 
 	var Renderer = __webpack_require__(8);
 
-	var GradedGroupAnswerBar = __webpack_require__(100);
+	var GradedGroupAnswerBar = __webpack_require__(95);
 
 	var _require2 = __webpack_require__(37);
 
@@ -2007,7 +2007,7 @@ webpackJsonpPerseus([1],[
 
 	var Changeable = __webpack_require__(81);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(94);
+	var WidgetJsonifyDeprecated = __webpack_require__(93);
 
 	var updateQueryString = __webpack_require__(16).updateQueryString;
 
@@ -2852,13 +2852,13 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Graph = __webpack_require__(101);
+	var Graph = __webpack_require__(100);
 
-	var InfoTip = __webpack_require__(102);
+	var InfoTip = __webpack_require__(101);
 
 	var Interactive2 = __webpack_require__(96);
 
-	var NumberInput = __webpack_require__(103);
+	var NumberInput = __webpack_require__(102);
 
 	var Util = __webpack_require__(16);
 
@@ -2868,7 +2868,7 @@ webpackJsonpPerseus([1],[
 
 	var KhanColors = __webpack_require__(99);
 
-	var GraphUtils = __webpack_require__(104);
+	var GraphUtils = __webpack_require__(103);
 
 	var _require = __webpack_require__(37);
 
@@ -4589,7 +4589,7 @@ webpackJsonpPerseus([1],[
 
 	var Changeable = __webpack_require__(81);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(94);
+	var WidgetJsonifyDeprecated = __webpack_require__(93);
 
 	var MAX_SIZE = 8;
 
@@ -4892,23 +4892,23 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var NumberInput = __webpack_require__(103);
+	var NumberInput = __webpack_require__(102);
 
 	var Renderer = __webpack_require__(8);
 
-	var TextInput = __webpack_require__(105);
+	var TextInput = __webpack_require__(104);
 
-	var MathOutput = __webpack_require__(106);
+	var MathOutput = __webpack_require__(105);
 
 	var SimpleKeypadInput = __webpack_require__(76);
 
 	var ApiOptions = __webpack_require__(17).Options;
 
-	var KhanAnswerTypes = __webpack_require__(71);
+	var KhanAnswerTypes = __webpack_require__(72);
 
 	var keypadElementPropType = __webpack_require__(74).propTypes.keypadElementPropType;
 
-	var assert = __webpack_require__(107).assert;
+	var assert = __webpack_require__(106).assert;
 
 	var stringArrayOfSize = __webpack_require__(16).stringArrayOfSize;
 
@@ -5318,7 +5318,7 @@ webpackJsonpPerseus([1],[
 
 	var Renderer = __webpack_require__(8);
 
-	var Sortable = __webpack_require__(108);
+	var Sortable = __webpack_require__(107);
 
 	var ApiOptions = __webpack_require__(17).Options;
 
@@ -5472,7 +5472,7 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(17).Options;
 
-	var GraphUtils = __webpack_require__(104);
+	var GraphUtils = __webpack_require__(103);
 
 	var defaultImage = {
 	    url: null,
@@ -5625,13 +5625,13 @@ webpackJsonpPerseus([1],[
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(10);
 
-	var draw = __webpack_require__(115);
+	var draw = __webpack_require__(114);
 
-	var _require = __webpack_require__(116);
+	var _require = __webpack_require__(115);
 
 	var layout = _require.layout;
 
-	var SmilesParser = __webpack_require__(117);
+	var SmilesParser = __webpack_require__(116);
 
 	var parse = SmilesParser.parse;
 
@@ -5805,9 +5805,9 @@ webpackJsonpPerseus([1],[
 
 	var Changeable = __webpack_require__(81);
 
-	var NumberInput = __webpack_require__(103);
+	var NumberInput = __webpack_require__(102);
 
-	var MathOutput = __webpack_require__(106);
+	var MathOutput = __webpack_require__(105);
 
 	var SimpleKeypadInput = __webpack_require__(76);
 
@@ -5831,7 +5831,7 @@ webpackJsonpPerseus([1],[
 	    return Math.min(Math.max(x, gt), lt);
 	};
 
-	var assert = __webpack_require__(107).assert;
+	var assert = __webpack_require__(106).assert;
 
 	var EN_DASH = "–";
 
@@ -6768,7 +6768,7 @@ webpackJsonpPerseus([1],[
 
 	var Renderer = __webpack_require__(8);
 
-	var PassageMarkdown = __webpack_require__(118);
+	var PassageMarkdown = __webpack_require__(117);
 
 	var Passage = React.createClass({
 	    displayName: "Passage",
@@ -7011,7 +7011,7 @@ webpackJsonpPerseus([1],[
 
 	var Changeable = __webpack_require__(81);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(94);
+	var WidgetJsonifyDeprecated = __webpack_require__(93);
 
 	var Renderer = __webpack_require__(8);
 
@@ -7088,7 +7088,7 @@ webpackJsonpPerseus([1],[
 
 	var KhanColors = __webpack_require__(99);
 
-	var GraphUtils = __webpack_require__(104);
+	var GraphUtils = __webpack_require__(103);
 
 	var Interactive2 = __webpack_require__(96);
 
@@ -8003,7 +8003,7 @@ webpackJsonpPerseus([1],[
 	/* eslint-disable comma-dangle, indent, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-unary-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/* globals $_, i18n */
-	var InfoTip = __webpack_require__(102);
+	var InfoTip = __webpack_require__(101);
 
 	var React = __webpack_require__(10);
 
@@ -8015,7 +8015,7 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(17).Options;
 
-	var assert = __webpack_require__(107).assert;
+	var assert = __webpack_require__(106).assert;
 
 	var Graphie = __webpack_require__(87);
 
@@ -8033,9 +8033,9 @@ webpackJsonpPerseus([1],[
 
 	var MovableLine = Graphie.MovableLine;
 
-	var NumberInput = __webpack_require__(103);
+	var NumberInput = __webpack_require__(102);
 
-	var MathOutput = __webpack_require__(106);
+	var MathOutput = __webpack_require__(105);
 
 	var seededRNG = __webpack_require__(16).seededRNG;
 
@@ -8603,7 +8603,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Sortable = __webpack_require__(108);
+	var Sortable = __webpack_require__(107);
 
 	var ApiOptions = __webpack_require__(17).Options;
 
@@ -8693,7 +8693,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var MathOutput = __webpack_require__(106);
+	var MathOutput = __webpack_require__(105);
 
 	var Renderer = __webpack_require__(8);
 
@@ -8701,9 +8701,9 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(17).Options;
 
-	var KhanAnswerTypes = __webpack_require__(71);
+	var KhanAnswerTypes = __webpack_require__(72);
 
-	var assert = __webpack_require__(107).assert;
+	var assert = __webpack_require__(106).assert;
 
 	/* Input handling: Maps a (row, column) pair to a unique ref used by React,
 	 * and extracts (row, column) pairs from input paths, used to allow outsiders
@@ -8978,13 +8978,13 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Graph = __webpack_require__(101);
+	var Graph = __webpack_require__(100);
 
 	var InlineIcon = __webpack_require__(82);
 
-	var NumberInput = __webpack_require__(103);
+	var NumberInput = __webpack_require__(102);
 
-	var MathOutput = __webpack_require__(106);
+	var MathOutput = __webpack_require__(105);
 
 	var TeX = __webpack_require__(39);
 
@@ -9032,7 +9032,7 @@ webpackJsonpPerseus([1],[
 
 	var KhanColors = __webpack_require__(99);
 
-	var assert = __webpack_require__(107).assert;
+	var assert = __webpack_require__(106).assert;
 
 	var defaultBoxSize = 400;
 
@@ -10978,7 +10978,7 @@ webpackJsonpPerseus([1],[
 	// terms of a certain type.
 	// TODO(joel): Allow sigfigs within a range rather than an exact expected
 	// value?
-	var lens = __webpack_require__(93);
+	var lens = __webpack_require__(109);
 
 	var React = __webpack_require__(10);
 
@@ -10992,9 +10992,9 @@ webpackJsonpPerseus([1],[
 
 	var Changeable = __webpack_require__(81);
 
-	var MathOutput = __webpack_require__(106);
+	var MathOutput = __webpack_require__(105);
 
-	var _require = __webpack_require__(109);
+	var _require = __webpack_require__(108);
 
 	var SignificantFigures = _require.SignificantFigures;
 
@@ -11325,8 +11325,7 @@ webpackJsonpPerseus([1],[
 /* 91 */,
 /* 92 */,
 /* 93 */,
-/* 94 */,
-/* 95 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11545,99 +11544,7 @@ webpackJsonpPerseus([1],[
 	module.exports = FancySelect;
 
 /***/ },
-/* 96 */,
-/* 97 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(10);
-
-	var ReactDOM = __webpack_require__(11);
-
-	var _ = __webpack_require__(9);
-
-	var styles = __webpack_require__(134);
-
-	var css = __webpack_require__(12).css;
-
-	/* ButtonGroup is an aesthetically pleasing group of buttons.
-	 *
-	 * The class requires these properties:
-	 *   buttons - an array of objects with keys:
-	 *     "value": this is the value returned when the button is selected
-	 *     "content": this is the JSX shown within the button, typically a string
-	 *         that gets rendered as the button's display text
-	 *     "title": this is the title-text shown on hover
-	 *   onChange - a function that is provided with the updated value
-	 *     (which it then is responsible for updating)
-	 *
-	 * The class has these optional properties:
-	 *   value - the initial value of the button selected, defaults to null.
-	 *   allowEmpty - if false, exactly one button _must_ be selected; otherwise
-	 *     it defaults to true and _at most_ one button (0 or 1) may be selected.
-	 *
-	 * Requires stylesheets/perseus-admin-package/editor.less to look nice.
-	 */
-	var ButtonGroup = React.createClass({
-	    displayName: "ButtonGroup",
-	    propTypes: {
-	        value: React.PropTypes.any,
-	        buttons: React.PropTypes.arrayOf(React.PropTypes.shape({
-	            value: React.PropTypes.any.isRequired,
-	            content: React.PropTypes.node,
-	            title: React.PropTypes.string
-	        })).isRequired,
-	        onChange: React.PropTypes.func.isRequired,
-	        allowEmpty: React.PropTypes.bool
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            value: null,
-	            allowEmpty: true
-	        };
-	    },
-	    render: function render() {
-	        var _this = this;
-	        var value = this.props.value;
-	        var buttons = _(this.props.buttons).map(function(button, i) {
-	            return React.createElement("button", {
-	                title: button.title,
-	                type: "button",
-	                id: "" + i,
-	                ref: "button" + i,
-	                key: "" + i,
-	                className: css(styles.button.buttonStyle, button.value === value && styles.button.selectedStyle),
-	                onClick: _this.toggleSelect.bind(_this, button.value)
-	            }, button.content || "" + button.value);
-	        });
-	        var outerStyle = {
-	            display: "inline-block"
-	        };
-	        return React.createElement("div", {
-	            style: outerStyle
-	        }, buttons);
-	    },
-	    focus: function focus() {
-	        ReactDOM.findDOMNode(this).focus();
-	        return true;
-	    },
-	    toggleSelect: function toggleSelect(newValue) {
-	        var value = this.props.value;
-	        this.props.allowEmpty ? // Select the new button or unselect if it's already selected
-	        this.props.onChange(value !== newValue ? newValue : null) : this.props.onChange(newValue);
-	    }
-	});
-
-	module.exports = ButtonGroup;
-
-/***/ },
-/* 98 */,
-/* 99 */,
-/* 100 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11812,7 +11719,99 @@ webpackJsonpPerseus([1],[
 	module.exports = GradedGroupAnswerBar;
 
 /***/ },
-/* 101 */
+/* 96 */,
+/* 97 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	var React = __webpack_require__(10);
+
+	var ReactDOM = __webpack_require__(11);
+
+	var _ = __webpack_require__(9);
+
+	var styles = __webpack_require__(130);
+
+	var css = __webpack_require__(12).css;
+
+	/* ButtonGroup is an aesthetically pleasing group of buttons.
+	 *
+	 * The class requires these properties:
+	 *   buttons - an array of objects with keys:
+	 *     "value": this is the value returned when the button is selected
+	 *     "content": this is the JSX shown within the button, typically a string
+	 *         that gets rendered as the button's display text
+	 *     "title": this is the title-text shown on hover
+	 *   onChange - a function that is provided with the updated value
+	 *     (which it then is responsible for updating)
+	 *
+	 * The class has these optional properties:
+	 *   value - the initial value of the button selected, defaults to null.
+	 *   allowEmpty - if false, exactly one button _must_ be selected; otherwise
+	 *     it defaults to true and _at most_ one button (0 or 1) may be selected.
+	 *
+	 * Requires stylesheets/perseus-admin-package/editor.less to look nice.
+	 */
+	var ButtonGroup = React.createClass({
+	    displayName: "ButtonGroup",
+	    propTypes: {
+	        value: React.PropTypes.any,
+	        buttons: React.PropTypes.arrayOf(React.PropTypes.shape({
+	            value: React.PropTypes.any.isRequired,
+	            content: React.PropTypes.node,
+	            title: React.PropTypes.string
+	        })).isRequired,
+	        onChange: React.PropTypes.func.isRequired,
+	        allowEmpty: React.PropTypes.bool
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            value: null,
+	            allowEmpty: true
+	        };
+	    },
+	    render: function render() {
+	        var _this = this;
+	        var value = this.props.value;
+	        var buttons = _(this.props.buttons).map(function(button, i) {
+	            return React.createElement("button", {
+	                title: button.title,
+	                type: "button",
+	                id: "" + i,
+	                ref: "button" + i,
+	                key: "" + i,
+	                className: css(styles.button.buttonStyle, button.value === value && styles.button.selectedStyle),
+	                onClick: _this.toggleSelect.bind(_this, button.value)
+	            }, button.content || "" + button.value);
+	        });
+	        var outerStyle = {
+	            display: "inline-block"
+	        };
+	        return React.createElement("div", {
+	            style: outerStyle
+	        }, buttons);
+	    },
+	    focus: function focus() {
+	        ReactDOM.findDOMNode(this).focus();
+	        return true;
+	    },
+	    toggleSelect: function toggleSelect(newValue) {
+	        var value = this.props.value;
+	        this.props.allowEmpty ? // Select the new button or unselect if it's already selected
+	        this.props.onChange(value !== newValue ? newValue : null) : this.props.onChange(newValue);
+	    }
+	});
+
+	module.exports = ButtonGroup;
+
+/***/ },
+/* 98 */,
+/* 99 */,
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11828,7 +11827,7 @@ webpackJsonpPerseus([1],[
 
 	var Util = __webpack_require__(16);
 
-	var GraphUtils = __webpack_require__(104);
+	var GraphUtils = __webpack_require__(103);
 
 	var _require = __webpack_require__(37);
 
@@ -12111,7 +12110,7 @@ webpackJsonpPerseus([1],[
 	module.exports = Graph;
 
 /***/ },
-/* 102 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12124,7 +12123,7 @@ webpackJsonpPerseus([1],[
 	 */
 	var React = __webpack_require__(10);
 
-	var ReactComponentsInfoTip = __webpack_require__(136);
+	var ReactComponentsInfoTip = __webpack_require__(132);
 
 	var InfoTip = React.createClass({
 	    displayName: "InfoTip",
@@ -12147,7 +12146,7 @@ webpackJsonpPerseus([1],[
 	module.exports = InfoTip;
 
 /***/ },
-/* 103 */
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12332,11 +12331,11 @@ webpackJsonpPerseus([1],[
 	module.exports = NumberInput;
 
 /***/ },
+/* 103 */,
 /* 104 */,
 /* 105 */,
 /* 106 */,
-/* 107 */,
-/* 108 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12750,7 +12749,7 @@ webpackJsonpPerseus([1],[
 	module.exports = Sortable;
 
 /***/ },
-/* 109 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13154,11 +13153,11 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
+/* 109 */,
 /* 110 */,
 /* 111 */,
 /* 112 */,
-/* 113 */,
-/* 114 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13693,7 +13692,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 115 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13867,7 +13866,7 @@ webpackJsonpPerseus([1],[
 	module.exports = draw;
 
 /***/ },
-/* 116 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14181,7 +14180,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 117 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14424,7 +14423,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 118 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14728,6 +14727,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
+/* 118 */,
 /* 119 */,
 /* 120 */,
 /* 121 */,
@@ -14739,11 +14739,7 @@ webpackJsonpPerseus([1],[
 /* 127 */,
 /* 128 */,
 /* 129 */,
-/* 130 */,
-/* 131 */,
-/* 132 */,
-/* 133 */,
-/* 134 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14788,8 +14784,8 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 135 */,
-/* 136 */
+/* 131 */,
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
