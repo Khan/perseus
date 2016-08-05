@@ -177,6 +177,7 @@ const Passage = React.createClass({
                 node.classList.contains("passage-text"))) {
             while (node.previousSibling) {
                 node = node.previousSibling;
+                // NOTE: Assumes that nodes never split in the middle of a word.
                 priorText = node.textContent + " " + priorText;
             }
             node = node.parentNode;
@@ -288,37 +289,20 @@ const Passage = React.createClass({
         this.props.onChange({highlightRanges: newHighlightRanges});
     },
 
-
     /**
-     * Splits the rawContent into an array of words
+     * Adjust indices of start and end words of a highlight to take account of
+     * whitespace and markdow "words" which are included in rawContent but not
+     * in the selection indices calculated in getSelectionIndices().
      */
-    stringToArrayOfWords: function(rawContent) {
-        // First, we break rawContent apart into word-sized fragments. We
-        // need to be able to reassemble it later though, so we can't just
-        // blindly split on all whitespace characters! Instead, we split
-        // only on spaces, then manually split up those text fragments if
-        // they contain a non-space-whitespace character (e.g. a newline).
-        rawContent = rawContent.split(" ");
-        rawContent = rawContent.map(function(fragment) {
-            const whitespaceMatch = fragment.match(/\s+/);
-            if (whitespaceMatch) {
-                const whitespaceLastIndex = (
-                    whitespaceMatch.index +
-                    whitespaceMatch[0].length);
-                return [fragment.slice(0, whitespaceLastIndex),
-                        fragment.slice(whitespaceLastIndex)];
-            } else {
-                return [fragment];
+    adjustIndexforMarkdownAndWhitespace: function(index, rawContent) {
+        for (let i=0; i<=index; i++) {
+            if (rawContent[i].match(/\s+/) ||
+                    rawContent[i] ===
+                        "{highlighting.end}{highlighting.start}") {
+                index++;
             }
-        });
-        // Flatten array (since it now contains nested fragments), and drop
-        // any empty fragments (which might result from multiple
-        // back-to-back spaces, which markdown will ignore anyway).
-        rawContent = [].concat(...rawContent);
-        rawContent = rawContent.filter(function(fragment) {
-            return fragment !== "";
-        });
-        return rawContent;
+        }
+        return index;
     },
 
     shouldComponentUpdate: function(nextProps, nextState) {
@@ -385,11 +369,15 @@ const Passage = React.createClass({
         // For each highlighted passage, we (ephemerally) inject highlight
         // markdown into the rawContent.
         _.each(this.props.highlightRanges, function(highlightRange) {
-            const rangeStartIndex = highlightRange[0];
-            const rangeEndIndex = highlightRange[1];
-
-            rawContent = this.stringToArrayOfWords(rawContent);
-
+            // Splits the rawContent into an array of words including
+            // whitespace. e.g. "Hello world" --> ["Hello", " ", "world"]
+            const textArray = rawContent.split(/(\s+)/);
+            const rangeStartIndex =
+                this.adjustIndexforMarkdownAndWhitespace(
+                    highlightRange[0], textArray);
+            const rangeEndIndex =
+                this.adjustIndexforMarkdownAndWhitespace(
+                    highlightRange[1], textArray);
             // Reassemble rawContent, with highlighter markdown included.
             // Two big gotchas here:
             // 1. Markdown does not support partially-overlapping markdown
@@ -402,8 +390,8 @@ const Passage = React.createClass({
             // surrounded with highlighting markdown, while markdown text is
             // ignored.
             rawContent = (
-                rawContent.slice(0, rangeStartIndex).join(' ') + ' ' +
-                rawContent
+                textArray.slice(0, rangeStartIndex).join(' ') + ' ' +
+                textArray
                     .slice(rangeStartIndex, rangeEndIndex + 1)
                     .map(function(fragment) {
                         // This fragment should contain all user-visible
@@ -411,10 +399,10 @@ const Passage = React.createClass({
                         // TODO (davidpowell/mdr): Change regex to blacklist
                         // markdown as oppose to whitelisting certain
                         // characters.
-                        const highlightableMatch = (
-                            fragment.match(
-                                /[\(\)\-\—\-\.\[\]\+\$\?,!A-Za-z0-9:;'"=%<>]+/)
-                        );
+                        const textRegex = new RegExp("[\\(\\)\\—\\-\\—\\-\\‑\\.\
+                                            \\[\\]\\+\\$\\?,!A-Za-z0-9:;'‘’\"\
+                                            “”=%<>\s]+");
+                        const highlightableMatch = (fragment.match(textRegex));
                         const matchStart = highlightableMatch.index;
                         const matchEnd = (
                                 matchStart + highlightableMatch[0].length);
@@ -426,7 +414,7 @@ const Passage = React.createClass({
                     })
                     .join('{highlighting.start} {highlighting.end}') +
                 ' ' +
-                rawContent.slice(rangeEndIndex + 1).join(' '));
+                textArray.slice(rangeEndIndex + 1).join(' '));
         }, this);
 
         const parseState = {};
