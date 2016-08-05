@@ -821,6 +821,25 @@ var Renderer = React.createClass({
                 {preprocessTex(node.content)}
             </TeX>;
 
+            const innerStyle = {
+                // HACK(benkomalo): we only want horizontal scrolling, but
+                // overflowX: 'auto' causes a vertical scrolling scrollbar
+                // as well, despite the parent and child elements having
+                // the exact same height. Force it to not scroll by
+                // applying overflowY: 'hidden'
+                overflowX: 'auto',
+                overflowY: 'hidden',
+
+                // HACK(kevinb): overflowY: 'hidden' inadvertently clips the
+                // top and bottom of some fractions.  We add padding to the
+                // top and bottom to avoid the clipping and then correct for
+                // the padding by adding equal but opposite margins.
+                paddingTop: 10,
+                paddingBottom: 10,
+                marginTop: -10,
+                marginBottom: -10,
+            };
+
             if (apiOptions.xomManatee) {
                 // The style for the body of articles and exercises on mobile is
                 // to have a 16px margin.  When a user taps to zoom math we'd
@@ -839,26 +858,9 @@ var Renderer = React.createClass({
                     marginLeft: -margin,
                     marginRight: -margin,
                 };
-                const innerStyle = {
+                const horizontalPadding = {
                     paddingLeft: margin,
                     paddingRight: margin,
-
-                    // HACK(benkomalo): we only want horizontal scrolling, but
-                    // overflowX: 'auto' causes a vertical scrolling scrollbar
-                    // as well, despite the parent and child elements having
-                    // the exact same height. Force it to not scroll by
-                    // applying overflowY: 'hidden'
-                    overflowX: 'auto',
-                    overflowY: 'hidden',
-
-                    // HACK(kevinb): overflowY: 'hidden' inadvertently clips the
-                    // top and bottom of some fractions.  We add padding to the
-                    // top and bottom to avoid the clipping and then correct for
-                    // the padding by adding equal but opposite margins.
-                    paddingTop: 10,
-                    paddingBottom: 10,
-                    marginTop: -10,
-                    marginBottom: -10,
                 };
 
                 const computeMathBounds = (parentNode, parentBounds) => {
@@ -889,7 +891,7 @@ var Renderer = React.createClass({
                 >
                     <div
                         className="perseus-block-math-inner"
-                        style={innerStyle}
+                        style={{...innerStyle, ...horizontalPadding}}
                     >
                         <Zoomable
                             readyToMeasureDeferred={deferred}
@@ -906,6 +908,7 @@ var Renderer = React.createClass({
                 >
                     <div
                         className="perseus-block-math-inner"
+                        style={innerStyle}
                     >
                         {content}
                     </div>
