@@ -1155,10 +1155,10 @@ GraphUtils.createGraphie = function(el) {
         // draw grid
         if (grid) {
             this.grid(gridRange[0], gridRange[1], {
-                stroke: options.xomManatee ? KhanColors.GRAY_D : "#000000",
+                stroke: options.xomManatee ? KhanColors.GRAY_C : "#000000",
                 opacity: options.xomManatee ? 1 : gridOpacity,
                 step: gridStep,
-                "stroke-width": options.xomManatee ? "1px" : "2px",
+                strokeWidth: options.xomManatee ? 1 : 2,
             });
         }
 
@@ -1170,7 +1170,7 @@ GraphUtils.createGraphie = function(el) {
                 this.style({
                     stroke: options.xomManatee ? KhanColors.GRAY_G : "#000000",
                     opacity: options.xomManatee ? 1 : axisOpacity,
-                    strokeWidth: 2,
+                    strokeWidth: options.xomManatee ? 1 : 2,
                     arrows: "->",
                 }, function() {
                     if (range[1][0] < 0 && range[1][1] > 0) {

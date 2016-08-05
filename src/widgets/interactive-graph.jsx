@@ -716,7 +716,7 @@ var InteractiveGraph = React.createClass({
             this.horizHairline =
                 new WrappedLine(this.graphie, [0, 0], [0, 0], {
                     normalStyle: {
-                        "stroke-width": "2px"
+                        strokeWidth: 1
                     }
                 });
             this.horizHairline.attr({
@@ -727,7 +727,7 @@ var InteractiveGraph = React.createClass({
             this.vertHairline =
                 new WrappedLine(this.graphie, [0, 0], [0, 0], {
                     normalStyle: {
-                        "stroke-width": "2px"
+                        strokeWidth: 1
                     }
                 });
             this.vertHairline.attr({

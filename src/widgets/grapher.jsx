@@ -415,7 +415,7 @@ var Grapher = React.createClass({
         if (this.props.apiOptions.xomManatee) {
             const hairlineStyle = {
                 normalStyle: {
-                    "stroke-width": 2,
+                    strokeWidth: 1,
                 },
             };
 
