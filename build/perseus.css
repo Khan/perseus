@@ -1,5 +1,5 @@
 /* Perseus CSS
-// commit 34823b0338e4de4571cb752c334198ab164762c0
+// commit 19fb3e1933640eef113d0a3cc77ba9ed40b6268f
 // branch master
 // @generated
 */
@@ -778,7 +778,7 @@ img.zoom-img {
   position: relative;
 }
 .framework-perseus.perseus-xom-manatee {
-  margin-top: 16px;
+  margin-top: 48px;
 }
 .no-select {
   -moz-user-select: -moz-none;
@@ -800,6 +800,9 @@ img.zoom-img {
 .graphie.above-scratchpad,
 .graphie-container.above-scratchpad {
   background-color: #FDFDFD;
+}
+.perseus-xom-manatee .graphie-container.above-scratchpad {
+  background: #ffffff;
 }
 .graphie {
   -moz-user-select: -moz-none;
@@ -1388,12 +1391,14 @@ body.mobile .perseus-widget-dropdown .fancy-option:active:before {
   padding: 5px;
   position: absolute;
   white-space: nowrap;
+  min-width: 30px;
+  text-align: center;
 }
 .perseus-xom-manatee .tooltip.visible .tooltip-content .katex {
   color: #71b307 !important;
 }
 .perseus-xom-manatee .graphie-label .katex {
-  color: #626569 !important;
+  color: inherit !important;
 }
 .perseus-widget-matcher .column {
   float: left;
@@ -2128,26 +2133,6 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
 }
 .bibliotron-exercise .perseus-hint-renderer.last-hint {
   margin-bottom: 32px;
-}
-.perseus-hint-label-new {
-  font-size: 12px;
-  color: #babec2;
-  margin-bottom: 10px;
-}
-.bibliotron-exercise .perseus-hint-renderer-new {
-  margin-bottom: 16px;
-}
-.bibliotron-exercise .perseus-hint-renderer-new:focus {
-  border-left-color: #71b307;
-}
-.bibliotron-exercise .perseus-hint-renderer-new:focus .perseus-hint-label-new {
-  color: #71b307;
-}
-.bibliotron-exercise .perseus-hint-renderer-new div.paragraph:last-child {
-  margin-bottom: 0px;
-}
-.bibliotron-exercise .perseus-hint-renderer-new.last-hint {
-  font-weight: normal;
 }
 @media (max-width: 767px) {
   .bibliotron-exercise .perseus-hint-renderer.last-hint {
