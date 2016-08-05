@@ -1,6 +1,6 @@
 /* Perseus CSS
-// commit e901cbbad755e9f35567265fd1ef0fceb3412676
-// branch dollar
+// commit 0f357f4587ef6efadd2c6fbe07e2a39fffac8c9f
+// branch master
 // @generated
 */
 .perseus-sr-only {
@@ -1701,6 +1701,13 @@ body.sat-section .perseus-widget-passage {
 }
 .categories-title {
   font-size: 14px;
+}
+.perseus-xom-manatee .perseus-widget-plotter {
+  border: solid 0.5px #babec2;
+  border-radius: 4px;
+}
+.perseus-xom-manatee .perseus-widget-plotter .graphie-label .katex {
+  color: #626569;
 }
 .perseus-widget-radio div,
 .perseus-widget-radio div > p {
