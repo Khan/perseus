@@ -91,32 +91,27 @@ var Explanation = React.createClass({
     },
 
     render: function() {
-        const xomManateeEnabled = this.props.apiOptions.xomManatee;
-        const { Link } = this.props.apiOptions.baseElements;
+        const {Link} = this.props.apiOptions.baseElements;
+        const {readOnly, xomManatee} = this.props.apiOptions;
 
-        let linkAnchor = this.state.expanded ?
+        const linkAnchor = this.state.expanded ?
                 this.props.hidePrompt : this.props.showPrompt;
-        if (!xomManateeEnabled) {
-            linkAnchor = `[${linkAnchor}]`;
-        }
 
-        const linkClass = xomManateeEnabled
-            ? css(styles.xomExplanationLink)
-            : css(styles.explanationLink);
+        let linkContainer;
 
-        return <div className={css(styles.container)}>
-            <div className={css(styles.explanationLinkContainer)}>
-                <Link
-                    className={linkClass}
-                    href={this.props.apiOptions.readOnly ?
-                          null : "javascript:void(0)"}
-                    onClick={this.props.apiOptions.readOnly ?
-                        null : this._onClick}
+        const href = readOnly ? null : 'javascript:void(0)';
+        const onClick = readOnly ? null : this._onClick;
+
+        if (xomManatee) {
+            linkContainer = <div className={css(styles.linkContainer)}>
+                <a
+                    className={css(styles.xomExplanationLink)}
+                    href={href}
+                    onClick={onClick}
                 >
                     {linkAnchor}
-                </Link>
-                {xomManateeEnabled &&
-                    this.state.expanded &&
+                </a>
+                {this.state.expanded &&
                     <svg className={css(styles.disclosureArrow)}>
                         <polygon
                             style={{fill: backgroundColor}}
@@ -125,10 +120,25 @@ var Explanation = React.createClass({
                                 `${arrowWidth / 2},0`}
                         />
                     </svg>}
-            </div>
+            </div>;
+        } else {
+            linkContainer = <div className={css(styles.linkContainer)}>
+                <Link
+                    className={css(styles.explanationLink)}
+                    href={href}
+                    onClick={onClick}
+                >
+                    {`[${linkAnchor}]`}
+                </Link>
+            </div>;
+        }
+
+
+        return <div className={css(styles.container)}>
+            {linkContainer}
             <div className={css(
                     styles.content,
-                    xomManateeEnabled && styles.contentXom,
+                    xomManatee && styles.contentXom,
                     this.state.expanded && styles.contentExpanded
                 )}
                 style={{
@@ -169,7 +179,7 @@ const styles = StyleSheet.create({
         position: 'relative',
     },
 
-    explanationLinkContainer: {
+    linkContainer: {
         display: 'inline-block',
     },
 
