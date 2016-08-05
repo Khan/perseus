@@ -44,7 +44,8 @@ const HintRenderer = React.createClass({
             pos,
             totalHints,
         } = this.props;
-        const newHintStyles = enabledFeatures.newHintStyles;
+        const newHintStyles = !!apiOptions.xomManatee;
+
         const classNames = classnames(
             'perseus-hint-renderer',
             newHintStyles && 'perseus-hint-renderer-new',

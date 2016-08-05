@@ -81,7 +81,6 @@ const RendererDemo = React.createClass({
             enabledFeatures={{
                 highlight: true,
                 toolTipFormats: true,
-                newHintStyles: true,
                 useMathQuill: true,
             }}
             apiOptions={apiOptions}
