@@ -55,17 +55,13 @@ var Explanation = React.createClass({
     // explanation.
     _updateHeight: function() {
         const contentElement = ReactDOM.findDOMNode(this.refs.content);
+        const {xomManatee} = this.props.apiOptions;
 
         // Add up the heights of all the the child nodes
-        let contentHeight = Array.prototype.reduce.call(
+        const contentHeight = Array.prototype.reduce.call(
             contentElement.childNodes,
-            function(memo, el) {
-                return memo + (el.offsetHeight || 0);
-            },
-            0);
-
-        // Add in padding since we're using border-box sizing.
-        contentHeight += 2 * verticalContentPadding;
+            (memo, el) => memo + (el.offsetHeight || 0),
+            xomManatee ? 0 : 2 * verticalContentPadding);
 
         // Only update state if the height is different, otherwise we'll end
         // up calling componentDidUpdate in an infinite loop!
@@ -133,13 +129,16 @@ var Explanation = React.createClass({
             </div>;
         }
 
+        const expandedStyle = xomManatee
+            ? styles.contentExpandedXom
+            : styles.contentExpanded;
 
         return <div className={css(styles.container)}>
             {linkContainer}
             <div className={css(
                     styles.content,
                     xomManatee && styles.contentXom,
-                    this.state.expanded && styles.contentExpanded
+                    this.state.expanded && expandedStyle
                 )}
                 style={{
                     height: this.state.expanded ? this.state.contentHeight : 0,
@@ -240,6 +239,13 @@ const styles = StyleSheet.create({
         // Note: we still use arrow height as the vertical margin, even in
         // non-XOM when there is no arrow, but it's good enough.
         marginBottom: arrowHeight,
+        marginTop: arrowHeight,
+    },
+
+    contentExpandedXom: {
+        boxSizing: 'content-box',
+        paddingTop: 32,
+        paddingBottom: 32,
         marginTop: arrowHeight,
     },
 
