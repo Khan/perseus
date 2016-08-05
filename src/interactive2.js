@@ -42,7 +42,8 @@ var Interactive2 = {
 
         const highlightStyle = Object.assign(xomManatee ? {
             ...commonStyle,
-            scale: 1,
+            "stroke-width": 0,
+            scale: 0.75,
         } : {}, extraProps.highlightStyle);
 
         const props = Object.assign({

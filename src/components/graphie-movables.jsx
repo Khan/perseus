@@ -36,7 +36,8 @@ var MovablePoint = GraphieClasses.createClass({
 
             const highlightStyle = xomManatee ? {
                 ...commonStyle,
-                scale: 1,
+                "stroke-width": 0,
+                scale: 0.75,
             } : this.props.highlightStyle;
 
             const addedProps = Object.assign({
