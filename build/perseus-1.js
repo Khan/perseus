@@ -1,6 +1,6 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 8d64ecbd35ef88f78be6b19e00fe2af894bf45f4
-// branch perseus_editor_cute_pic
+// commit 6717219e30a858059d9d9d8437efe0620749d323
+// branch master
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
 Software License Agreement (BSD License)
@@ -474,6 +474,56 @@ function(b){if(a.isPlaying())if(a.fallbackMode){for(var c=0;c<a.fallback_parts.l
 function(b){console.log("On Boundary");a.iOS&&!a.onstartFired&&a.speech_onstart()}},responsiveVoice=new ResponsiveVoice;module.exports=ResponsiveVoice;
 
 },{}],3:[function(require,module,exports){
+/*!
+  Copyright (c) 2016 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+	'use strict';
+
+	var hasOwn = {}.hasOwnProperty;
+
+	function classNames () {
+		var classes = [];
+
+		for (var i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if (!arg) continue;
+
+			var argType = typeof arg;
+
+			if (argType === 'string' || argType === 'number') {
+				classes.push(arg);
+			} else if (Array.isArray(arg)) {
+				classes.push(classNames.apply(null, arg));
+			} else if (argType === 'object') {
+				for (var key in arg) {
+					if (hasOwn.call(arg, key) && arg[key]) {
+						classes.push(key);
+					}
+				}
+			}
+		}
+
+		return classes.join(' ');
+	}
+
+	if (typeof module !== 'undefined' && module.exports) {
+		module.exports = classNames;
+	} else if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {
+		// register as 'classnames', consistent with npm package name
+		define('classnames', [], function () {
+			return classNames;
+		});
+	} else {
+		window.classNames = classNames;
+	}
+}());
+
+},{}],4:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -488,7 +538,7 @@ var arrayPool = [];
 
 module.exports = arrayPool;
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -552,7 +602,7 @@ function baseBind(bindData) {
 
 module.exports = baseBind;
 
-},{"lodash._basecreate":5,"lodash._setbinddata":18,"lodash._slice":20,"lodash.isobject":30}],5:[function(require,module,exports){
+},{"lodash._basecreate":6,"lodash._setbinddata":19,"lodash._slice":21,"lodash.isobject":31}],6:[function(require,module,exports){
 (function (global){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
@@ -598,7 +648,7 @@ if (!nativeCreate) {
 module.exports = baseCreate;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"lodash._isnative":13,"lodash.isobject":30,"lodash.noop":32}],6:[function(require,module,exports){
+},{"lodash._isnative":14,"lodash.isobject":31,"lodash.noop":33}],7:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -680,7 +730,7 @@ function baseCreateCallback(func, thisArg, argCount) {
 
 module.exports = baseCreateCallback;
 
-},{"lodash._setbinddata":18,"lodash.bind":22,"lodash.identity":28,"lodash.support":34}],7:[function(require,module,exports){
+},{"lodash._setbinddata":19,"lodash.bind":23,"lodash.identity":29,"lodash.support":35}],8:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -760,7 +810,7 @@ function baseCreateWrapper(bindData) {
 
 module.exports = baseCreateWrapper;
 
-},{"lodash._basecreate":5,"lodash._setbinddata":18,"lodash._slice":20,"lodash.isobject":30}],8:[function(require,module,exports){
+},{"lodash._basecreate":6,"lodash._setbinddata":19,"lodash._slice":21,"lodash.isobject":31}],9:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -971,7 +1021,7 @@ function baseIsEqual(a, b, callback, isWhere, stackA, stackB) {
 
 module.exports = baseIsEqual;
 
-},{"lodash._getarray":11,"lodash._objecttypes":15,"lodash._releasearray":16,"lodash.forin":26,"lodash.isfunction":29}],9:[function(require,module,exports){
+},{"lodash._getarray":12,"lodash._objecttypes":16,"lodash._releasearray":17,"lodash.forin":27,"lodash.isfunction":30}],10:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1079,7 +1129,7 @@ function createWrapper(func, bitmask, partialArgs, partialRightArgs, thisArg, ar
 
 module.exports = createWrapper;
 
-},{"lodash._basebind":4,"lodash._basecreatewrapper":7,"lodash._slice":20,"lodash.isfunction":29}],10:[function(require,module,exports){
+},{"lodash._basebind":5,"lodash._basecreatewrapper":8,"lodash._slice":21,"lodash.isfunction":30}],11:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1103,7 +1153,7 @@ function escapeHtmlChar(match) {
 
 module.exports = escapeHtmlChar;
 
-},{"lodash._htmlescapes":12}],11:[function(require,module,exports){
+},{"lodash._htmlescapes":13}],12:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1126,7 +1176,7 @@ function getArray() {
 
 module.exports = getArray;
 
-},{"lodash._arraypool":3}],12:[function(require,module,exports){
+},{"lodash._arraypool":4}],13:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1154,7 +1204,7 @@ var htmlEscapes = {
 
 module.exports = htmlEscapes;
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1190,7 +1240,7 @@ function isNative(value) {
 
 module.exports = isNative;
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1205,7 +1255,7 @@ var maxPoolSize = 40;
 
 module.exports = maxPoolSize;
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1227,7 +1277,7 @@ var objectTypes = {
 
 module.exports = objectTypes;
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1254,7 +1304,7 @@ function releaseArray(array) {
 
 module.exports = releaseArray;
 
-},{"lodash._arraypool":3,"lodash._maxpoolsize":14}],17:[function(require,module,exports){
+},{"lodash._arraypool":4,"lodash._maxpoolsize":15}],18:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1271,7 +1321,7 @@ var reUnescapedHtml = RegExp('[' + keys(htmlEscapes).join('') + ']', 'g');
 
 module.exports = reUnescapedHtml;
 
-},{"lodash._htmlescapes":12,"lodash.keys":31}],18:[function(require,module,exports){
+},{"lodash._htmlescapes":13,"lodash.keys":32}],19:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1316,7 +1366,7 @@ var setBindData = !defineProperty ? noop : function(func, value) {
 
 module.exports = setBindData;
 
-},{"lodash._isnative":13,"lodash.noop":32}],19:[function(require,module,exports){
+},{"lodash._isnative":14,"lodash.noop":33}],20:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1356,7 +1406,7 @@ var shimKeys = function(object) {
 
 module.exports = shimKeys;
 
-},{"lodash._objecttypes":15}],20:[function(require,module,exports){
+},{"lodash._objecttypes":16}],21:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1396,7 +1446,7 @@ function slice(array, start, end) {
 
 module.exports = slice;
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1468,7 +1518,7 @@ var assign = function(object, source, guard) {
 
 module.exports = assign;
 
-},{"lodash._basecreatecallback":6,"lodash._objecttypes":15,"lodash.keys":31}],22:[function(require,module,exports){
+},{"lodash._basecreatecallback":7,"lodash._objecttypes":16,"lodash.keys":32}],23:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1510,7 +1560,7 @@ function bind(func, thisArg) {
 
 module.exports = bind;
 
-},{"lodash._createwrapper":9,"lodash._slice":20}],23:[function(require,module,exports){
+},{"lodash._createwrapper":10,"lodash._slice":21}],24:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.4 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1593,7 +1643,7 @@ function createCallback(func, thisArg, argCount) {
 
 module.exports = createCallback;
 
-},{"lodash._basecreatecallback":6,"lodash._baseisequal":8,"lodash.isobject":30,"lodash.keys":31,"lodash.property":33}],24:[function(require,module,exports){
+},{"lodash._basecreatecallback":7,"lodash._baseisequal":9,"lodash.isobject":31,"lodash.keys":32,"lodash.property":34}],25:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1626,7 +1676,7 @@ function escape(string) {
 
 module.exports = escape;
 
-},{"lodash._escapehtmlchar":10,"lodash._reunescapedhtml":17,"lodash.keys":31}],25:[function(require,module,exports){
+},{"lodash._escapehtmlchar":11,"lodash._reunescapedhtml":18,"lodash.keys":32}],26:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1702,7 +1752,7 @@ function every(collection, callback, thisArg) {
 
 module.exports = every;
 
-},{"lodash.createcallback":23,"lodash.forown":27}],26:[function(require,module,exports){
+},{"lodash.createcallback":24,"lodash.forown":28}],27:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1758,7 +1808,7 @@ var forIn = function(collection, callback, thisArg) {
 
 module.exports = forIn;
 
-},{"lodash._basecreatecallback":6,"lodash._objecttypes":15}],27:[function(require,module,exports){
+},{"lodash._basecreatecallback":7,"lodash._objecttypes":16}],28:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1810,7 +1860,7 @@ var forOwn = function(collection, callback, thisArg) {
 
 module.exports = forOwn;
 
-},{"lodash._basecreatecallback":6,"lodash._objecttypes":15,"lodash.keys":31}],28:[function(require,module,exports){
+},{"lodash._basecreatecallback":7,"lodash._objecttypes":16,"lodash.keys":32}],29:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1840,7 +1890,7 @@ function identity(value) {
 
 module.exports = identity;
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1869,7 +1919,7 @@ function isFunction(value) {
 
 module.exports = isFunction;
 
-},{}],30:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1910,7 +1960,7 @@ function isObject(value) {
 
 module.exports = isObject;
 
-},{"lodash._objecttypes":15}],31:[function(require,module,exports){
+},{"lodash._objecttypes":16}],32:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1948,7 +1998,7 @@ var keys = !nativeKeys ? shimKeys : function(object) {
 
 module.exports = keys;
 
-},{"lodash._isnative":13,"lodash._shimkeys":19,"lodash.isobject":30}],32:[function(require,module,exports){
+},{"lodash._isnative":14,"lodash._shimkeys":20,"lodash.isobject":31}],33:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1976,7 +2026,7 @@ function noop() {
 
 module.exports = noop;
 
-},{}],33:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -2018,7 +2068,7 @@ function property(key) {
 
 module.exports = property;
 
-},{}],34:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 (function (global){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
@@ -2062,7 +2112,7 @@ support.funcNames = typeof Function.name == 'string';
 module.exports = support;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"lodash._isnative":13}],35:[function(require,module,exports){
+},{"lodash._isnative":14}],36:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require("react");
@@ -2107,7 +2157,7 @@ var BlurInput = React.createClass({displayName: 'BlurInput',
 
 module.exports = BlurInput;
 
-},{"react":44}],36:[function(require,module,exports){
+},{"react":45}],37:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -2234,7 +2284,7 @@ var ButtonGroup = React.createClass({displayName: 'ButtonGroup',
 
 module.exports = ButtonGroup;
 
-},{"rcss":39,"react":44,"underscore":45}],37:[function(require,module,exports){
+},{"rcss":40,"react":45,"underscore":46}],38:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -2314,7 +2364,7 @@ var DragTarget = React.createClass({displayName: 'DragTarget',
 
 module.exports = DragTarget;
 
-},{"react":44}],38:[function(require,module,exports){
+},{"react":45}],39:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -2436,7 +2486,7 @@ var InfoTip = React.createClass({displayName: 'InfoTip',
 
 module.exports = InfoTip;
 
-},{"rcss":39,"react":44,"underscore":45}],39:[function(require,module,exports){
+},{"rcss":40,"react":45,"underscore":46}],40:[function(require,module,exports){
 var assign = require('lodash.assign');
 
 var styleRuleValidator = require('./styleRuleValidator');
@@ -2565,7 +2615,7 @@ var RCSS = {
 
 module.exports = RCSS;
 
-},{"./styleRuleConverter":40,"./styleRuleValidator":41,"lodash.assign":21,"valid-media-queries":47}],40:[function(require,module,exports){
+},{"./styleRuleConverter":41,"./styleRuleValidator":42,"lodash.assign":22,"valid-media-queries":48}],41:[function(require,module,exports){
 var escape = require('lodash.escape');
 
 var _uppercasePattern = /([A-Z])/g;
@@ -2587,7 +2637,7 @@ module.exports = {
   escapeValueForProp: escapeValueForProp
 };
 
-},{"lodash.escape":24}],41:[function(require,module,exports){
+},{"lodash.escape":25}],42:[function(require,module,exports){
 var isValidCSSProps = require('valid-css-props');
 
 function isValidProp(prop) {
@@ -2603,7 +2653,7 @@ module.exports = {
   isValidValue: isValidValue
 };
 
-},{"valid-css-props":46}],42:[function(require,module,exports){
+},{"valid-css-props":47}],43:[function(require,module,exports){
 /** @jsx React.DOM */
 /**
  * For math rendered using KaTex and/or MathJax. Use me like <TeX>2x + 3</TeX>.
@@ -2752,7 +2802,7 @@ var TeX = React.createClass({displayName: 'TeX',
 
 module.exports = TeX;
 
-},{"react":44}],43:[function(require,module,exports){
+},{"react":45}],44:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require("react");
@@ -3123,7 +3173,7 @@ var Tooltip = React.createClass({displayName: 'Tooltip',
 // Sorry.  // Apology-Oriented-Programming
 module.exports = Tooltip;
 
-},{"react":44,"underscore":45}],44:[function(require,module,exports){
+},{"react":45,"underscore":46}],45:[function(require,module,exports){
 /* This note applies to rcss, react, and underscore.
  *
  * We're faking a node module for this package by just exporting the global.
@@ -3147,7 +3197,7 @@ module.exports = Tooltip;
  */
 module.exports = window.React;
 
-},{}],45:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 /* This note applies to rcss, react, and underscore.
  *
  * We're faking a node module for this package by just exporting the global.
@@ -3171,7 +3221,7 @@ module.exports = window.React;
  */
 module.exports = window._;
 
-},{}],46:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 var _validCSSProps = {
   'alignment-adjust': true,
   'alignment-baseline': true,
@@ -3428,7 +3478,7 @@ module.exports = function(prop) {
   return !!_validCSSProps[prop];
 };
 
-},{}],47:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 var every = require('lodash.every');
 
 function isValidRatio(ratio) {
@@ -3629,7 +3679,7 @@ function isValidMediaQueryList(mediaQuery) {
 
 module.exports = isValidMediaQueryList
 
-},{"lodash.every":25}],48:[function(require,module,exports){
+},{"lodash.every":26}],49:[function(require,module,exports){
 var Widgets = require("./widgets.js");
 
 _.each([
@@ -3660,7 +3710,7 @@ _.each([
     Widgets.register(widget.name, _.omit(widget, "name"));
 });
 
-},{"./widgets.js":102,"./widgets/categorizer.jsx":103,"./widgets/dropdown.jsx":104,"./widgets/example-graphie-widget.jsx":105,"./widgets/example-widget.jsx":106,"./widgets/expression.jsx":107,"./widgets/iframe.jsx":108,"./widgets/image.jsx":109,"./widgets/input-number.jsx":110,"./widgets/interactive-graph.jsx":111,"./widgets/interactive-number-line.jsx":112,"./widgets/lights-puzzle.jsx":113,"./widgets/matcher.jsx":114,"./widgets/measurer.jsx":115,"./widgets/number-line.jsx":116,"./widgets/numeric-input.jsx":117,"./widgets/orderer.jsx":118,"./widgets/plotter.jsx":119,"./widgets/radio.jsx":120,"./widgets/sorter.jsx":121,"./widgets/speaking-text-input.jsx":122,"./widgets/speaking-voice.jsx":123,"./widgets/table.jsx":124,"./widgets/transformer.jsx":125}],49:[function(require,module,exports){
+},{"./widgets.js":103,"./widgets/categorizer.jsx":104,"./widgets/dropdown.jsx":105,"./widgets/example-graphie-widget.jsx":106,"./widgets/example-widget.jsx":107,"./widgets/expression.jsx":108,"./widgets/iframe.jsx":109,"./widgets/image.jsx":110,"./widgets/input-number.jsx":111,"./widgets/interactive-graph.jsx":112,"./widgets/interactive-number-line.jsx":113,"./widgets/lights-puzzle.jsx":114,"./widgets/matcher.jsx":115,"./widgets/measurer.jsx":116,"./widgets/number-line.jsx":117,"./widgets/numeric-input.jsx":118,"./widgets/orderer.jsx":119,"./widgets/plotter.jsx":120,"./widgets/radio.jsx":121,"./widgets/sorter.jsx":122,"./widgets/speaking-text-input.jsx":123,"./widgets/speaking-voice.jsx":124,"./widgets/table.jsx":125,"./widgets/transformer.jsx":126}],50:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -3731,7 +3781,7 @@ var AnswerAreaEditor = React.createClass({displayName: 'AnswerAreaEditor',
 
 module.exports = AnswerAreaEditor;
 
-},{"./editor.jsx":74,"./widgets.js":102,"react":44,"react-components/info-tip":38}],50:[function(require,module,exports){
+},{"./editor.jsx":75,"./widgets.js":103,"react":45,"react-components/info-tip":39}],51:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -4086,7 +4136,7 @@ var AnswerAreaRenderer = React.createClass({displayName: 'AnswerAreaRenderer',
 
 module.exports = AnswerAreaRenderer;
 
-},{"./enabled-features.jsx":75,"./perseus-api.jsx":93,"./question-paragraph.jsx":95,"./renderer.jsx":96,"./util.js":99,"./widget-container.jsx":101,"./widgets.js":102,"react":44}],51:[function(require,module,exports){
+},{"./enabled-features.jsx":76,"./perseus-api.jsx":94,"./question-paragraph.jsx":96,"./renderer.jsx":97,"./util.js":100,"./widget-container.jsx":102,"./widgets.js":103,"react":45}],52:[function(require,module,exports){
 /** @jsx React.DOM */
 
 /**
@@ -4274,7 +4324,7 @@ FancySelect.Option = FancyOption;
 
 module.exports = FancySelect;
 
-},{"react":44}],52:[function(require,module,exports){
+},{"react":45}],53:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -4730,7 +4780,7 @@ var GraphSettings = React.createClass({displayName: 'GraphSettings',
 
 module.exports = GraphSettings;
 
-},{"../components/number-input.jsx":60,"../components/prop-check-box.jsx":61,"../components/range-input.jsx":62,"../mixins/changeable.jsx":90,"../util.js":99,"react":44,"react-components/button-group":36,"react-components/info-tip":38}],53:[function(require,module,exports){
+},{"../components/number-input.jsx":61,"../components/prop-check-box.jsx":62,"../components/range-input.jsx":63,"../mixins/changeable.jsx":91,"../util.js":100,"react":45,"react-components/button-group":37,"react-components/info-tip":39}],54:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -5069,7 +5119,7 @@ var Graph = React.createClass({displayName: 'Graph',
 
 module.exports = Graph;
 
-},{"../util.js":99,"react":44}],54:[function(require,module,exports){
+},{"../util.js":100,"react":45}],55:[function(require,module,exports){
 /** @jsx React.DOM */var Util = require("../util.js");
 var nestedMap = Util.nestedMap;
 var deepEq = Util.deepEq;
@@ -5200,7 +5250,7 @@ module.exports = {
     createSimpleClass: createSimpleClass
 };
 
-},{"../util.js":99}],55:[function(require,module,exports){
+},{"../util.js":100}],56:[function(require,module,exports){
 /** @jsx React.DOM */var GraphieClasses = require("./graphie-classes.jsx");
 var Interactive2 = require("../interactive2.js");
 var InteractiveUtil = require("../interactive2/interactive-util.js");
@@ -5251,7 +5301,7 @@ module.exports = {
     MovablePoint: MovablePoint
 };
 
-},{"../interactive2.js":79,"../interactive2/interactive-util.js":80,"./graphie-classes.jsx":54}],56:[function(require,module,exports){
+},{"../interactive2.js":80,"../interactive2/interactive-util.js":81,"./graphie-classes.jsx":55}],57:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var GraphieClasses = require("./graphie-classes.jsx");
@@ -5531,7 +5581,7 @@ _.extend(Graphie, Movables);
 
 module.exports = Graphie;
 
-},{"../interactive2/interactive-util.js":80,"../util.js":99,"./graphie-classes.jsx":54,"./graphie-movables.jsx":55}],57:[function(require,module,exports){
+},{"../interactive2/interactive-util.js":81,"../util.js":100,"./graphie-classes.jsx":55,"./graphie-movables.jsx":56}],58:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -5691,7 +5741,7 @@ var InputWithExamples = React.createClass({displayName: 'InputWithExamples',
 
 module.exports = InputWithExamples;
 
-},{"../perseus-api.jsx":93,"../renderer.jsx":96,"../util.js":99,"./math-input.jsx":58,"./text-input.jsx":65,"react":44,"react-components/tooltip":43}],58:[function(require,module,exports){
+},{"../perseus-api.jsx":94,"../renderer.jsx":97,"../util.js":100,"./math-input.jsx":59,"./text-input.jsx":66,"react":45,"react-components/tooltip":44}],59:[function(require,module,exports){
 /** @jsx React.DOM */
 
 // TODO(alex): Package MathQuill
@@ -5930,7 +5980,7 @@ var MathInput = React.createClass({displayName: 'MathInput',
 
 module.exports = MathInput;
 
-},{"./tex-buttons.jsx":64,"react":44,"underscore":45}],59:[function(require,module,exports){
+},{"./tex-buttons.jsx":65,"react":45,"underscore":46}],60:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -6002,7 +6052,7 @@ var MultiButtonGroup = React.createClass({displayName: 'MultiButtonGroup',
 
 module.exports = MultiButtonGroup;
 
-},{"react":44}],60:[function(require,module,exports){
+},{"react":45}],61:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -6181,7 +6231,7 @@ var NumberInput = React.createClass({displayName: 'NumberInput',
 
 module.exports = NumberInput;
 
-},{"../util.js":99,"react":44}],61:[function(require,module,exports){
+},{"../util.js":100,"react":45}],62:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -6243,7 +6293,7 @@ var PropCheckBox = React.createClass({displayName: 'PropCheckBox',
 
 module.exports = PropCheckBox;
 
-},{"react":44}],62:[function(require,module,exports){
+},{"react":45}],63:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -6302,7 +6352,7 @@ var RangeInput = React.createClass({displayName: 'RangeInput',
 
 module.exports = RangeInput;
 
-},{"../components/number-input.jsx":60,"react":44}],63:[function(require,module,exports){
+},{"../components/number-input.jsx":61,"react":45}],64:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -6819,7 +6869,7 @@ var Sortable = React.createClass({displayName: 'Sortable',
 
 module.exports = Sortable;
 
-},{"../renderer.jsx":96,"../util.js":99,"react":44}],64:[function(require,module,exports){
+},{"../renderer.jsx":97,"../util.js":100,"react":45}],65:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React     = require("react");
@@ -6954,7 +7004,7 @@ var TexButtons = React.createClass({displayName: 'TexButtons',
 
 module.exports = TexButtons;
 
-},{"react":44,"react-components/tex":42}],65:[function(require,module,exports){
+},{"react":45,"react-components/tex":43}],66:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var TextInput = React.createClass({displayName: 'TextInput',
@@ -6986,7 +7036,7 @@ var TextInput = React.createClass({displayName: 'TextInput',
 
 module.exports = TextInput;
 
-},{}],66:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var textWidthCache = {};
@@ -7116,7 +7166,7 @@ var TextListEditor = React.createClass({displayName: 'TextListEditor',
 
 module.exports = TextListEditor;
 
-},{}],67:[function(require,module,exports){
+},{}],68:[function(require,module,exports){
 /** @jsx React.DOM */
 
 // Responsible for combining the text diffs from text-diff and the widget
@@ -7231,7 +7281,7 @@ var RevisionDiff = React.createClass({displayName: 'RevisionDiff',
 
 module.exports = RevisionDiff;
 
-},{"./text-diff.jsx":70,"./widget-diff.jsx":72}],68:[function(require,module,exports){
+},{"./text-diff.jsx":71,"./widget-diff.jsx":73}],69:[function(require,module,exports){
 /** @jsx React.DOM */// Split a word-wise diff generated by jsdiff into multiple lines, for the
 // purpose of breaking up the diffs into lines, so that modified lines can be
 // faintly highlighted
@@ -7261,7 +7311,7 @@ var splitDiff = function(diffEntries) {
 
 module.exports = splitDiff;
 
-},{}],69:[function(require,module,exports){
+},{}],70:[function(require,module,exports){
 /** @jsx React.DOM */var jsdiff = require("../../lib/jsdiff");
 
 var statusFor = function(chunk) {
@@ -7331,7 +7381,7 @@ var stringArrayDiff = function(a, b) {
 
 module.exports = stringArrayDiff;
 
-},{"../../lib/jsdiff":1}],70:[function(require,module,exports){
+},{"../../lib/jsdiff":1}],71:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var diff = require("../../lib/jsdiff");
@@ -7496,7 +7546,7 @@ var TextDiff = React.createClass({displayName: 'TextDiff',
 
 module.exports = TextDiff;
 
-},{"../../lib/jsdiff":1,"./split-diff.jsx":68,"./string-array-diff.jsx":69}],71:[function(require,module,exports){
+},{"../../lib/jsdiff":1,"./split-diff.jsx":69,"./string-array-diff.jsx":70}],72:[function(require,module,exports){
 /** @jsx React.DOM */var UNCHANGED = "unchanged";
 var CHANGED = "changed";
 var ADDED = "added";
@@ -7566,7 +7616,7 @@ var performDiff = function(before, after, /* optional */ key) {
 
 module.exports = performDiff;
 
-},{}],72:[function(require,module,exports){
+},{}],73:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var cx = React.addons.classSet;
@@ -7762,7 +7812,7 @@ var WidgetDiff = React.createClass({displayName: 'WidgetDiff',
 
 module.exports = WidgetDiff;
 
-},{"./widget-diff-performer.jsx":71}],73:[function(require,module,exports){
+},{"./widget-diff-performer.jsx":72}],74:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -8046,7 +8096,7 @@ var EditorPage = React.createClass({displayName: 'EditorPage',
 
 module.exports = EditorPage;
 
-},{"./components/prop-check-box.jsx":61,"./enabled-features.jsx":75,"./hint-editor.jsx":76,"./item-editor.jsx":88,"./item-renderer.jsx":89,"./perseus-api.jsx":93,"react":44}],74:[function(require,module,exports){
+},{"./components/prop-check-box.jsx":62,"./enabled-features.jsx":76,"./hint-editor.jsx":77,"./item-editor.jsx":89,"./item-renderer.jsx":90,"./perseus-api.jsx":94,"react":45}],75:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -8648,7 +8698,7 @@ var Editor = React.createClass({displayName: 'Editor',
 
 module.exports = Editor;
 
-},{"./components/prop-check-box.jsx":61,"./util.js":99,"./widgets.js":102,"react":44,"react-components/drag-target":37}],75:[function(require,module,exports){
+},{"./components/prop-check-box.jsx":62,"./util.js":100,"./widgets.js":103,"react":45,"react-components/drag-target":38}],76:[function(require,module,exports){
 /** @jsx React.DOM */var React = require('react');
 
 module.exports = {
@@ -8664,7 +8714,7 @@ module.exports = {
     }
 };
 
-},{"react":44}],76:[function(require,module,exports){
+},{"react":45}],77:[function(require,module,exports){
 /** @jsx React.DOM */
 
 /* Collection of classes for rendering the hint editor area,
@@ -8880,7 +8930,7 @@ var CombinedHintsEditor = React.createClass({displayName: 'CombinedHintsEditor',
 
 module.exports = CombinedHintsEditor;
 
-},{"./editor.jsx":74,"./hint-renderer.jsx":77,"react":44,"react-components/info-tip":38}],77:[function(require,module,exports){
+},{"./editor.jsx":75,"./hint-renderer.jsx":78,"react":45,"react-components/info-tip":39}],78:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -8908,7 +8958,7 @@ var HintRenderer = React.createClass({displayName: 'HintRenderer',
 
 module.exports = HintRenderer;
 
-},{"./renderer.jsx":96,"react":44}],78:[function(require,module,exports){
+},{"./renderer.jsx":97,"react":45}],79:[function(require,module,exports){
 var React = require('react');
 
 var init = function(options) {
@@ -8949,7 +8999,7 @@ var init = function(options) {
 
 module.exports = init;
 
-},{"react":44}],79:[function(require,module,exports){
+},{"react":45}],80:[function(require,module,exports){
 var Movable = require("./interactive2/movable.js");
 var MovablePoint = require("./interactive2/movable-point.js");
 var MovableLine = require("./interactive2/movable-line.js");
@@ -8969,7 +9019,7 @@ var Interactive2 = {
 
 module.exports = Interactive2;
 
-},{"./interactive2/movable-line.js":83,"./interactive2/movable-point.js":85,"./interactive2/movable.js":86}],80:[function(require,module,exports){
+},{"./interactive2/movable-line.js":84,"./interactive2/movable-point.js":86,"./interactive2/movable.js":87}],81:[function(require,module,exports){
 /**
  * Utility functions for writing Interactive2 movablethings
  */
@@ -9047,7 +9097,7 @@ var InteractiveUtil = {
 
 module.exports = InteractiveUtil;
 
-},{"./movable-helper-methods.js":81}],81:[function(require,module,exports){
+},{"./movable-helper-methods.js":82}],82:[function(require,module,exports){
 /**
  * MovableThing convenience methods
  *
@@ -9150,7 +9200,7 @@ var MovableHelperMethods = {
 
 module.exports = MovableHelperMethods;
 
-},{}],82:[function(require,module,exports){
+},{}],83:[function(require,module,exports){
 /**
  * A library of options to pass to add/draw/remove/constraints
  */
@@ -9433,7 +9483,7 @@ module.exports = {
     onMoveEnd: {standard: null},
 };
 
-},{}],83:[function(require,module,exports){
+},{}],84:[function(require,module,exports){
 /**
  * MovableLine
  */
@@ -9717,7 +9767,7 @@ _.extend(MovableLine.prototype, {
 
 module.exports = MovableLine;
 
-},{"./interactive-util.js":80,"./movable-line-options.js":82,"./objective_.js":87}],84:[function(require,module,exports){
+},{"./interactive-util.js":81,"./movable-line-options.js":83,"./objective_.js":88}],85:[function(require,module,exports){
 /**
  * A library of options to pass to add/draw/remove/constraints
  */
@@ -9862,7 +9912,7 @@ module.exports = {
     onClick: {standard: null}
 };
 
-},{}],85:[function(require,module,exports){
+},{}],86:[function(require,module,exports){
 /**
  * Creates and adds a point to the graph that can be dragged around.
  * It allows constraints on its movement and draws when moves happen.
@@ -10195,7 +10245,7 @@ _.extend(MovablePoint.prototype, {
 
 module.exports = MovablePoint;
 
-},{"./interactive-util.js":80,"./movable-point-options.js":84,"./objective_.js":87}],86:[function(require,module,exports){
+},{"./interactive-util.js":81,"./movable-point-options.js":85,"./objective_.js":88}],87:[function(require,module,exports){
 /**
  * Movable
  *
@@ -10460,7 +10510,7 @@ _.extend(Movable.prototype, {
 
 module.exports = Movable;
 
-},{"./interactive-util.js":80}],87:[function(require,module,exports){
+},{"./interactive-util.js":81}],88:[function(require,module,exports){
 /**
  * A work-in-progress of _ methods for objects.
  * That is, they take an object as a parameter,
@@ -10489,7 +10539,7 @@ var pluck = exports.pluck = function(table, subKey) {
     }));
 };
 
-},{}],88:[function(require,module,exports){
+},{}],89:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -10599,7 +10649,7 @@ var ItemEditor = React.createClass({displayName: 'ItemEditor',
 
 module.exports = ItemEditor;
 
-},{"./answer-area-editor.jsx":49,"./editor.jsx":74,"./version.json":100,"react":44}],89:[function(require,module,exports){
+},{"./answer-area-editor.jsx":50,"./editor.jsx":75,"./version.json":101,"react":45}],90:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -10919,7 +10969,7 @@ var ItemRenderer = React.createClass({displayName: 'ItemRenderer',
 
 module.exports = ItemRenderer;
 
-},{"./answer-area-renderer.jsx":50,"./enabled-features.jsx":75,"./hint-renderer.jsx":77,"./perseus-api.jsx":93,"./renderer.jsx":96,"./util.js":99,"react":44}],90:[function(require,module,exports){
+},{"./answer-area-renderer.jsx":51,"./enabled-features.jsx":76,"./hint-renderer.jsx":78,"./perseus-api.jsx":94,"./renderer.jsx":97,"./util.js":100,"react":45}],91:[function(require,module,exports){
 /** @jsx React.DOM */
 /**
  * Changeable
@@ -11020,7 +11070,7 @@ var Changeable = {
 
 module.exports = Changeable;
 
-},{"./widget-prop-blacklist.jsx":92}],91:[function(require,module,exports){
+},{"./widget-prop-blacklist.jsx":93}],92:[function(require,module,exports){
 /** @jsx React.DOM */var WIDGET_PROP_BLACKLIST = require("./widget-prop-blacklist.jsx");
 
 var JsonifyProps = {
@@ -11032,7 +11082,7 @@ var JsonifyProps = {
 
 module.exports = JsonifyProps;
 
-},{"./widget-prop-blacklist.jsx":92}],92:[function(require,module,exports){
+},{"./widget-prop-blacklist.jsx":93}],93:[function(require,module,exports){
 /** @jsx React.DOM */module.exports = [
     // standard props "added" by react
     // (technically the renderer still adds them)
@@ -11046,7 +11096,7 @@ module.exports = JsonifyProps;
     "apiOptions"
 ];
 
-},{}],93:[function(require,module,exports){
+},{}],94:[function(require,module,exports){
 /** @jsx React.DOM *//**
  * [Most of] the Perseus client API.
  *
@@ -11105,7 +11155,7 @@ module.exports = {
 };
 
 
-},{}],94:[function(require,module,exports){
+},{}],95:[function(require,module,exports){
 require("./all-widgets.js");
 
 var version = require("./version.json");
@@ -11125,7 +11175,7 @@ module.exports = {
     Util:               require("./util.js")
 };
 
-},{"./all-widgets.js":48,"./answer-area-renderer.jsx":50,"./diffs/revision-diff.jsx":67,"./editor-page.jsx":73,"./editor.jsx":74,"./init.js":78,"./item-renderer.jsx":89,"./perseus-api.jsx":93,"./renderer.jsx":96,"./stateful-editor-page.jsx":97,"./util.js":99,"./version.json":100}],95:[function(require,module,exports){
+},{"./all-widgets.js":49,"./answer-area-renderer.jsx":51,"./diffs/revision-diff.jsx":68,"./editor-page.jsx":74,"./editor.jsx":75,"./init.js":79,"./item-renderer.jsx":90,"./perseus-api.jsx":94,"./renderer.jsx":97,"./stateful-editor-page.jsx":98,"./util.js":100,"./version.json":101}],96:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -11141,7 +11191,7 @@ var QuestionParagraph = React.createClass({displayName: 'QuestionParagraph',
 
 module.exports = QuestionParagraph;
 
-},{"react":44}],96:[function(require,module,exports){
+},{"react":45}],97:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -11776,7 +11826,7 @@ function extractMathAndWidgets(text) {
 
 module.exports = Renderer;
 
-},{"./enabled-features.jsx":75,"./perseus-api.jsx":93,"./question-paragraph.jsx":95,"./tex.jsx":98,"./util.js":99,"./widget-container.jsx":101,"./widgets.js":102,"react":44}],97:[function(require,module,exports){
+},{"./enabled-features.jsx":76,"./perseus-api.jsx":94,"./question-paragraph.jsx":96,"./tex.jsx":99,"./util.js":100,"./widget-container.jsx":102,"./widgets.js":103,"react":45}],98:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -11819,7 +11869,7 @@ var StatefulEditorPage = React.createClass({displayName: 'StatefulEditorPage',
 
 module.exports = StatefulEditorPage;
 
-},{"./editor-page.jsx":73,"react":44}],98:[function(require,module,exports){
+},{"./editor-page.jsx":74,"react":45}],99:[function(require,module,exports){
 /** @jsx React.DOM */
 /**
  * For math rendered using MathJax. Use me like <TeX>2x + 3</TeX>.
@@ -11972,7 +12022,7 @@ var TeX = React.createClass({displayName: 'TeX',
 
 module.exports = TeX;
 
-},{"react":44}],99:[function(require,module,exports){
+},{"react":45}],100:[function(require,module,exports){
 var nestedMap = function(children, func, context) {
     if (_.isArray(children)) {
         return _.map(children, function(child) {
@@ -12528,7 +12578,7 @@ Util.random = Util.seededRNG(new Date().getTime() & 0xffffffff);
 
 module.exports = Util;
 
-},{}],100:[function(require,module,exports){
+},{}],101:[function(require,module,exports){
 module.exports={
     "apiVersion": {
         "major": 1,
@@ -12540,7 +12590,7 @@ module.exports={
     }
 }
 
-},{}],101:[function(require,module,exports){
+},{}],102:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -12579,7 +12629,7 @@ var WidgetContainer = React.createClass({displayName: 'WidgetContainer',
 
 module.exports = WidgetContainer;
 
-},{"react":44}],102:[function(require,module,exports){
+},{"react":45}],103:[function(require,module,exports){
 var widgets = {};
 
 var Widgets = {
@@ -12719,7 +12769,7 @@ var Widgets = {
 
 module.exports = Widgets;
 
-},{}],103:[function(require,module,exports){
+},{}],104:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var Changeable   = require("../mixins/changeable.jsx");
@@ -12905,7 +12955,7 @@ module.exports = {
 };
 
 
-},{"../components/text-list-editor.jsx":66,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"../renderer.jsx":96,"../util.js":99}],104:[function(require,module,exports){
+},{"../components/text-list-editor.jsx":67,"../mixins/changeable.jsx":91,"../mixins/jsonify-props.jsx":92,"../renderer.jsx":97,"../util.js":100}],105:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -13163,7 +13213,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/fancy-select.jsx":51,"../mixins/jsonify-props.jsx":91,"../perseus-api.jsx":93,"../util.js":99,"react":44,"react-components/info-tip":38}],105:[function(require,module,exports){
+},{"../components/fancy-select.jsx":52,"../mixins/jsonify-props.jsx":92,"../perseus-api.jsx":94,"../util.js":100,"react":45,"react-components/info-tip":39}],106:[function(require,module,exports){
 /** @jsx React.DOM */
 
 /**
@@ -13358,7 +13408,7 @@ module.exports = {
     editor: ExampleGraphieWidgetEditor
 };
 
-},{"../components/graphie.jsx":56,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"../util.js":99,"react":44}],106:[function(require,module,exports){
+},{"../components/graphie.jsx":57,"../mixins/changeable.jsx":91,"../mixins/jsonify-props.jsx":92,"../util.js":100,"react":45}],107:[function(require,module,exports){
 /** @jsx React.DOM */
 
 /**
@@ -13542,7 +13592,7 @@ module.exports = {
     editor: ExampleWidgetEditor
 };
 
-},{"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"react":44}],107:[function(require,module,exports){
+},{"../mixins/changeable.jsx":91,"../mixins/jsonify-props.jsx":92,"react":45}],108:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React   = require("react");
@@ -14031,7 +14081,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/input-with-examples.jsx":57,"../components/math-input.jsx":58,"../components/prop-check-box.jsx":61,"../components/tex-buttons.jsx":64,"../enabled-features.jsx":75,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"../perseus-api.jsx":93,"../tex.jsx":98,"../util.js":99,"react":44,"react-components/info-tip":38,"react-components/tooltip":43}],108:[function(require,module,exports){
+},{"../components/input-with-examples.jsx":58,"../components/math-input.jsx":59,"../components/prop-check-box.jsx":62,"../components/tex-buttons.jsx":65,"../enabled-features.jsx":76,"../mixins/changeable.jsx":91,"../mixins/jsonify-props.jsx":92,"../perseus-api.jsx":94,"../tex.jsx":99,"../util.js":100,"react":45,"react-components/info-tip":39,"react-components/tooltip":44}],109:[function(require,module,exports){
 /** @jsx React.DOM */
 
 /**
@@ -14283,7 +14333,7 @@ module.exports = {
     editor: IframeEditor
 };
 
-},{"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"../util.js":99,"react":44,"react-components/blur-input":35}],109:[function(require,module,exports){
+},{"../mixins/changeable.jsx":91,"../mixins/jsonify-props.jsx":92,"../util.js":100,"react":45,"react-components/blur-input":36}],110:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var BlurInput    = require("react-components/blur-input");
@@ -14618,7 +14668,7 @@ module.exports = {
 };
 
 
-},{"../components/graphie.jsx":56,"../components/range-input.jsx":62,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"react-components/blur-input":35,"react-components/info-tip":38}],110:[function(require,module,exports){
+},{"../components/graphie.jsx":57,"../components/range-input.jsx":63,"../mixins/changeable.jsx":91,"../mixins/jsonify-props.jsx":92,"react-components/blur-input":36,"react-components/info-tip":39}],111:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React             = require('react');
@@ -14939,7 +14989,7 @@ module.exports = {
     transform: propTransform
 };
 
-},{"../components/input-with-examples.jsx":57,"../enabled-features.jsx":75,"../perseus-api.jsx":93,"../renderer.jsx":96,"../tex.jsx":98,"../util.js":99,"react":44,"react-components/blur-input":35,"react-components/info-tip":38}],111:[function(require,module,exports){
+},{"../components/input-with-examples.jsx":58,"../enabled-features.jsx":76,"../perseus-api.jsx":94,"../renderer.jsx":97,"../tex.jsx":99,"../util.js":100,"react":45,"react-components/blur-input":36,"react-components/info-tip":39}],112:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React         = require('react');
@@ -17437,7 +17487,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/graph-settings.jsx":52,"../components/graph.jsx":53,"../components/number-input.jsx":60,"../interactive2.js":79,"../util.js":99,"react":44,"react-components/info-tip":38}],112:[function(require,module,exports){
+},{"../components/graph-settings.jsx":53,"../components/graph.jsx":54,"../components/number-input.jsx":61,"../interactive2.js":80,"../util.js":100,"react":45,"react-components/info-tip":39}],113:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var InfoTip      = require("react-components/info-tip");
@@ -17885,7 +17935,7 @@ module.exports = {
     editor: InteractiveNumberLineEditor
 };
 
-},{"../components/prop-check-box.jsx":61,"../util.js":99,"react-components/info-tip":38}],113:[function(require,module,exports){
+},{"../components/prop-check-box.jsx":62,"../util.js":100,"react-components/info-tip":39}],114:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -18347,7 +18397,7 @@ module.exports = {
     transform: transformProps
 };
 
-},{"../components/number-input.jsx":60,"../components/prop-check-box.jsx":61,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"react":44,"react-components/info-tip":38}],114:[function(require,module,exports){
+},{"../components/number-input.jsx":61,"../components/prop-check-box.jsx":62,"../mixins/changeable.jsx":91,"../mixins/jsonify-props.jsx":92,"react":45,"react-components/info-tip":39}],115:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -18587,7 +18637,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/prop-check-box.jsx":61,"../components/sortable.jsx":63,"../components/text-list-editor.jsx":66,"../renderer.jsx":96,"../util.js":99,"react":44,"react-components/info-tip":38}],115:[function(require,module,exports){
+},{"../components/prop-check-box.jsx":62,"../components/sortable.jsx":64,"../components/text-list-editor.jsx":67,"../renderer.jsx":97,"../util.js":100,"react":45,"react-components/info-tip":39}],116:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React        = require('react');
@@ -18948,7 +18998,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/number-input.jsx":60,"../components/prop-check-box.jsx":61,"../components/range-input.jsx":62,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"react":44,"react-components/info-tip":38}],116:[function(require,module,exports){
+},{"../components/number-input.jsx":61,"../components/prop-check-box.jsx":62,"../components/range-input.jsx":63,"../mixins/changeable.jsx":91,"../mixins/jsonify-props.jsx":92,"react":45,"react-components/info-tip":39}],117:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -19799,7 +19849,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/graphie.jsx":56,"../components/number-input.jsx":60,"../components/prop-check-box.jsx":61,"../components/range-input.jsx":62,"../interactive2.js":79,"../interactive2/interactive-util.js":80,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"../util.js":99,"react":44,"react-components/button-group":36,"react-components/info-tip":38}],117:[function(require,module,exports){
+},{"../components/graphie.jsx":57,"../components/number-input.jsx":61,"../components/prop-check-box.jsx":62,"../components/range-input.jsx":63,"../interactive2.js":80,"../interactive2/interactive-util.js":81,"../mixins/changeable.jsx":91,"../mixins/jsonify-props.jsx":92,"../util.js":100,"react":45,"react-components/button-group":37,"react-components/info-tip":39}],118:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -20244,7 +20294,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/input-with-examples.jsx":57,"../components/multi-button-group.jsx":59,"../components/number-input.jsx":60,"../components/prop-check-box.jsx":61,"../editor.jsx":74,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"../util.js":99,"react":44,"react-components/button-group":36,"react-components/info-tip":38}],118:[function(require,module,exports){
+},{"../components/input-with-examples.jsx":58,"../components/multi-button-group.jsx":60,"../components/number-input.jsx":61,"../components/prop-check-box.jsx":62,"../editor.jsx":75,"../mixins/changeable.jsx":91,"../mixins/jsonify-props.jsx":92,"../util.js":100,"react":45,"react-components/button-group":37,"react-components/info-tip":39}],119:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React          = require('react');
@@ -20917,7 +20967,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/text-list-editor.jsx":66,"../renderer.jsx":96,"../util.js":99,"react":44,"react-components/info-tip":38}],119:[function(require,module,exports){
+},{"../components/text-list-editor.jsx":67,"../renderer.jsx":97,"../util.js":100,"react":45,"react-components/info-tip":39}],120:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -21914,7 +21964,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/number-input.jsx":60,"../components/range-input.jsx":62,"../components/text-list-editor.jsx":66,"../util.js":99,"react":44,"react-components/info-tip":38}],120:[function(require,module,exports){
+},{"../components/number-input.jsx":61,"../components/range-input.jsx":63,"../components/text-list-editor.jsx":67,"../util.js":100,"react":45,"react-components/info-tip":39}],121:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -22461,7 +22511,7 @@ module.exports = {
     transform: choiceTransform
 };
 
-},{"../components/prop-check-box.jsx":61,"../editor.jsx":74,"../mixins/changeable.jsx":90,"../perseus-api.jsx":93,"../renderer.jsx":96,"../util.js":99,"react":44,"react-components/button-group":36,"react-components/info-tip":38}],121:[function(require,module,exports){
+},{"../components/prop-check-box.jsx":62,"../editor.jsx":75,"../mixins/changeable.jsx":91,"../perseus-api.jsx":94,"../renderer.jsx":97,"../util.js":100,"react":45,"react-components/button-group":37,"react-components/info-tip":39}],122:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React          = require('react');
@@ -22613,16 +22663,26 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/prop-check-box.jsx":61,"../components/sortable.jsx":63,"../components/text-list-editor.jsx":66,"../util.js":99,"react":44,"react-components/info-tip":38}],122:[function(require,module,exports){
+},{"../components/prop-check-box.jsx":62,"../components/sortable.jsx":64,"../components/text-list-editor.jsx":67,"../util.js":100,"react":45,"react-components/info-tip":39}],123:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
 var Changeable = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var classNames = require('classnames');
+
+var textInputStyle = {
+    fontSize: "25px",
+    marginRight: "5px",
+    paddingTop: "15px",
+    paddingBottom: "15px",
+    marginTop: "15px",
+    marginBottom: "15px",
+};
 
 var TextInput = React.createClass({displayName: 'TextInput',
     render: function() {
-        return React.DOM.input( {ref:"input", value:this.props.value || "", onChange:this.changeValue, onPaste:this.pasteValue, onKeyPress:this.keypressValue});
+        return React.DOM.input( {style:textInputStyle, ref:"input", value:this.props.value || "", onChange:this.changeValue, onPaste:this.pasteValue, onKeyPress:this.keypressValue});
     },
 
     pasteValue: function(e) {
@@ -22636,7 +22696,13 @@ var TextInput = React.createClass({displayName: 'TextInput',
     },
 
     changeValue: function(e) {
-        this.props.setValue(this.refs.input.value);
+        // Chrome Speech API
+        if (e.target.value) {
+            this.props.setValue(e.target.value);
+        // iOS Siri Input
+        } else {
+            this.props.setValue(this.refs.input.value);
+        }
     },
 
     statics: {
@@ -22644,18 +22710,61 @@ var TextInput = React.createClass({displayName: 'TextInput',
     }
 });
 
+var infoStyle = {
+    background: "#3498DB !important",
+    color: "#fff !important",
+    textShadow: "0px 0px #fff !important",
+    marginLeft: 10,
+    border: '1px solid #ccc',
+    borderBottom: '1px solid #bbb',
+    borderRadius: '5px',
+    backgroundRepeat: 'repeat-x',
+    cursor: 'pointer !important',
+    fontFamily: 'inherit',
+    lineHeight: '22px',
+    padding: '5px 10px',
+    position: 'relative',
+    textDecoration: 'none !important'
+}
+
+var iconButtonStyle = {
+    width: "45px",
+    lineHeight: 1.5,
+}
+
+var buttonStyle = {
+
+}
+
+var inlineStyle = {
+    display: 'inline-block'
+}
+
 var SpeakingBtn = React.createClass({displayName: 'SpeakingBtn',
     render: function() {
+        var btnIconCLass = classNames({
+            'fa fa-2x': true,
+            'fa-microphone': !this.state.recognizing,
+            'fa fa-spinner fa-spin fa-fw': this.state.recognizing
+        });
         return (
-            React.DOM.div(null, 
+            React.DOM.div( {style:inlineStyle}, 
                 this.recognition
-                    ? React.DOM.button( {onClick:this.startRecognizeOnClick, className:"simple-button orange"}, this.state.status
+                    ? React.DOM.button( {style:buttonStyle, onClick:this.startRecognizeOnClick, className:"simple-button orange"}, 
+                        React.DOM.i( {style:iconButtonStyle, className:btnIconCLass})
                         )
-                    : React.DOM.button( {onClick:this.resetOnClick, className:"simple-button orange"}, this.state.status
-                        )
+                    : React.DOM.div(null, 
+                    React.DOM.button( {style:buttonStyle, onClick:this.resetOnClick, className:"simple-button orange"}, 
+                            React.DOM.i( {style:iconButtonStyle, className:"fa fa-refresh fa-2x"})
+                    ),
+                    React.DOM.span( {style:infoStyle}, this.state.status)
+                    )
+                    
             )
         );
     },
+    //
+
     getInitialState: function() {
         return {recognizing: false, status: ""}
     },
@@ -22663,6 +22772,9 @@ var SpeakingBtn = React.createClass({displayName: 'SpeakingBtn',
     startRecognize: function() {
         if (this.state.recognizing == false) {
             this.recognition.start();
+        }
+        else{
+            this.recognition.stop();
         }
     },
 
@@ -22690,18 +22802,14 @@ var SpeakingBtn = React.createClass({displayName: 'SpeakingBtn',
             recognition.interimResults = true;
             recognition.maxAlternatives = 20;
             self.setState({recognizing: false});
-            self.setState({status: "辨識"});
             recognition.onstart = function() {
                 self.setState({recognizing: true});
-                self.setState({status: "辨識中"});
                 self.props.setValue('');
             };
             recognition.onend = function() {
                 self.setState({recognizing: false});
-                self.setState({status: "重新辨識"});
             };
             recognition.onresult = function(event) {
-                self.setState({recognizing: false});
                 var res = '';
                 for (var i = event.resultIndex; i < event.results.length; i++) {
                     if (event.results[i].isFinal) {
@@ -22718,9 +22826,9 @@ var SpeakingBtn = React.createClass({displayName: 'SpeakingBtn',
             self.recognition = recognition;
         } else {
             if (os == 'iOS') {
-                self.setState({status: "點選上面的框框 用Siri語音輸入/清除"});
+                self.setState({status: "點選上面的框框 用Siri語音輸入"});
             } else if (os == 'Android') {
-                self.setState({status: "點選上面的框框 用Google語音輸入/清除"});
+                self.setState({status: "點選上面的框框 用Google語音輸入"});
             } else {
                 self.setState({status: "請切換至Chrome瀏覽器"});
             }
@@ -22762,6 +22870,7 @@ var SpeakingTextInput = React.createClass({displayName: 'SpeakingTextInput',
 
     // compare answer when setting value to prevent generate long atempt dict
     setValue: function(val) {
+        val = val || '';
         var correntAns = SpeakingTextInput.parseAnswer(this.props.correct);
         var userAnsList = val.split("/");
         var correntIdx = -1;
@@ -22886,13 +22995,23 @@ _.extend(SpeakingTextInput, {
         editor: SpeakingTextInputEditor
     };
 
-},{"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"react":44}],123:[function(require,module,exports){
+},{"../mixins/changeable.jsx":91,"../mixins/jsonify-props.jsx":92,"classnames":3,"react":45}],124:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
 var Changeable = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
 var ResponsiveVoice = require('../../lib/responsivevoice.js');
+
+var iconButtonStyle = {
+    width: "45px",
+    lineHeight: 1.5,
+}
+
+var buttonStyle = {
+    marginTop: "5px",
+    marginBottom: "5px",
+}
 
 var SpeakingVoice = React.createClass({displayName: 'SpeakingVoice',
     componentDidMount: function() {
@@ -22922,7 +23041,7 @@ var SpeakingVoice = React.createClass({displayName: 'SpeakingVoice',
     render: function() {
         return (
             React.DOM.div(null, 
-                React.DOM.button( {className:"simple-button green", onClick:this.speakOnClick}, "發聲")
+                React.DOM.button( {style:buttonStyle, className:"simple-button green", onClick:this.speakOnClick}, React.DOM.i( {style:iconButtonStyle, className:"fa fa-volume-up fa-2x"}))
             )
         );
     },
@@ -23049,7 +23168,7 @@ module.exports = {
     editor: SpeakingVoiceEditor
 };
 
-},{"../../lib/responsivevoice.js":2,"../mixins/changeable.jsx":90,"../mixins/jsonify-props.jsx":91,"react":44}],124:[function(require,module,exports){
+},{"../../lib/responsivevoice.js":2,"../mixins/changeable.jsx":91,"../mixins/jsonify-props.jsx":92,"react":45}],125:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -23369,7 +23488,7 @@ module.exports = {
     hidden: false
 };
 
-},{"../editor.jsx":74,"../renderer.jsx":96,"../util.js":99,"react":44,"react-components/info-tip":38}],125:[function(require,module,exports){
+},{"../editor.jsx":75,"../renderer.jsx":97,"../util.js":100,"react":45,"react-components/info-tip":39}],126:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -25873,5 +25992,5 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/graph-settings.jsx":52,"../components/graph.jsx":53,"../components/number-input.jsx":60,"../components/prop-check-box.jsx":61,"../tex.jsx":98,"../util.js":99,"react":44,"react-components/info-tip":38}]},{},[94])(94)
+},{"../components/graph-settings.jsx":53,"../components/graph.jsx":54,"../components/number-input.jsx":61,"../components/prop-check-box.jsx":62,"../tex.jsx":99,"../util.js":100,"react":45,"react-components/info-tip":39}]},{},[95])(95)
 });
