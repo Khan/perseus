@@ -46,6 +46,12 @@ const Passage = React.createClass({
         };
     },
 
+    isReadingPassage: function() {
+        // HACK: Quick way of checking fs a passage is reading or writing based
+        // on if it has question markers in the text.
+        return !(this.props.passageText.match(/\[\[1\]\]/));
+    },
+
     /**
      * Returns the total number of words (or word fragments) in the given
      * selection, based on the number of spaces.
@@ -61,6 +67,8 @@ const Passage = React.createClass({
         section = section.replace(/_+/g, " ");
         // Strip out markers from writing passages which are not in
         // passage-text.
+        // Note: highlighting is currently disabled in writing passages but
+        // this is left in for potential future development.
         section = section.replace(/\[Marker for question [0-9]+\]/g, " ");
         section = section.replace(/\[Sentence [0-9]+\]/g, " ");
         return section
@@ -247,26 +255,30 @@ const Passage = React.createClass({
      *    add as a new highlight.
      */
     handleMouseUp: function(e) {
-        this.setState({
-            mouseX: e.clientX -
-                e.currentTarget.getBoundingClientRect().left,
-            mouseY: e.clientY - e.currentTarget.getBoundingClientRect().top,
-        });
-        const selection = window.getSelection();
-        const selectionRange = this.getSelectionRange(selection);
-        if (selectionRange) {
-            const selectedHighlightRange = this.isHighlighted(selectionRange);
+        if (this.isReadingPassage()) {
+            this.setState({
+                mouseX: e.clientX -
+                    e.currentTarget.getBoundingClientRect().left,
+                mouseY: e.clientY - e.currentTarget.getBoundingClientRect().top,
+            });
+            const selection = window.getSelection();
+            const selectionRange = this.getSelectionRange(selection);
+            if (selectionRange) {
+                const selectedHighlightRange =
+                    this.isHighlighted(selectionRange);
 
-            if (selectedHighlightRange) {
-                this.setState({
-                    newHighlightRange: null,
-                    selectedHighlightRange: selectedHighlightRange,
-                });
-            } else if (selection.toString() !== " " && !selection.isCollapsed) {
-                this.setState({
-                    newHighlightRange: selectionRange,
-                    selectedHighlightRange: null,
-                });
+                if (selectedHighlightRange) {
+                    this.setState({
+                        newHighlightRange: null,
+                        selectedHighlightRange: selectedHighlightRange,
+                    });
+                } else if (selection.toString() !== " " &&
+                        !selection.isCollapsed) {
+                    this.setState({
+                        newHighlightRange: selectionRange,
+                        selectedHighlightRange: null,
+                    });
+                }
             }
         }
     },
