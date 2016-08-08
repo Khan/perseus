@@ -390,7 +390,8 @@ GraphUtils.createGraphie = function(el) {
                 const s = 0.6 + 0.4 * w;
                 const l = path.getTotalLength();
                 const set = raphael.set();
-                const head = raphael.path(
+                const head = raphael.path(graphie.xomManatee ?
+                    "M-4,4 C-4,4 -0.25,0 -0.25,0 C-0.25,0 -4,-4 -4,-4" :
                     "M-3 4 C-2.75 2.5 0 0.25 0.75 0C0 -0.25 -2.75 -2.5 -3 -4");
                 const end = path.getPointAtLength(l - 0.4);
                 const almostTheEnd = path.getPointAtLength(l - 0.75 * s);
@@ -405,7 +406,10 @@ GraphUtils.createGraphie = function(el) {
                 subpath.arrowheadsDrawn = true;
                 path.remove();
 
-                head.rotate(angle, 0.75, 0).scale(s, s, 0.75, 0)
+                // For some unknown reason 0 doesn't work for the rotation
+                // origin so we use a tiny number.
+                head.rotate(angle, graphie.xomManatee ? 1e-5 : 0.75, 0)
+                    .scale(s, s, 0.75, 0)
                     .translate(almostTheEnd.x, almostTheEnd.y).attr(attrs)
                     .attr({
                         "stroke-linejoin": "round",
