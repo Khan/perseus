@@ -79,7 +79,7 @@ const GradedGroupSetEditor = React.createClass({
 });
 
 const setArrayItem = (list, i, value) => (
-    [...list.slice(0, i), value, list.slice(i + 1)]
+    [...list.slice(0, i), value, ...list.slice(i + 1)]
 );
 
 module.exports = GradedGroupSetEditor;
