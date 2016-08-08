@@ -77,7 +77,12 @@ const GradedGroupEditor = React.createClass({
                     images={this.props.hint && this.props.hint.images}
                     widgetEnabled={true}
                     immutableWidgets={false}
-                    onChange={hint => this.change("hint", hint)}
+                    onChange={(props) => {
+                        // Copy all props over from the existing hint and then
+                        // add new props.
+                        this.change("hint",
+                            Object.assign({}, this.props.hint, props));
+                    }}
                 />}
         </div>;
     },
