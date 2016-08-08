@@ -13,6 +13,7 @@ const KhanMath = require("../util/math.js");
 const KhanColors = require("../util/colors.js");
 const GraphUtils = require("../util/graph-utils.js");
 const Interactive2  = require("../interactive2.js");
+const WrappedLine = require("../interactive2/wrapped-line.js");
 
 var BAR = "bar",
     LINE = "line",
@@ -336,6 +337,43 @@ var Plotter = React.createClass({
             .css("font-weight", "bold")
             .css("color", xomManatee && KhanColors.GRAY_F)
             .addClass("rotate");
+
+        if (this.props.apiOptions.xomManatee) {
+            this.horizHairline =
+                new WrappedLine(this.graphie, [0, 0], [0, 0], {
+                    normalStyle: {
+                        strokeWidth: 1
+                    }
+                });
+            this.horizHairline.attr({
+                stroke: KhanColors.INTERACTIVE,
+            });
+            this.horizHairline.hide();
+
+            this.hairlineRange =
+                [[0, c.dimX], [0, c.dimY]];
+        }
+    },
+
+    showHairlines: function(point) {
+        if (this.props.apiOptions.xomManatee &&
+            this.props.markings !== "none") {
+            // Hairlines are already initialized when the graph is loaded, so
+            // here we just move them to the updated location and make them
+            // visible.
+            this.horizHairline.moveTo(
+                [this.hairlineRange[0][0], point[1]],
+                [this.hairlineRange[0][1], point[1]]
+            );
+
+            this.horizHairline.show();
+        }
+    },
+
+    hideHairlines: function() {
+        if (this.props.apiOptions.xomManatee) {
+            this.horizHairline.hide();
+        }
     },
 
 	labelCategory: function(x, category) {

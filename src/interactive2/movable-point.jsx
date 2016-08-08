@@ -302,10 +302,9 @@ _.extend(MovablePoint.prototype, {
                     );
                 }
 
+                const svgElem = state.visibleShape.wrapper;
                 if (state.shadow) {
-                    const filter =
-                        "drop-shadow(0px 0px 8px rgba(0, 0, 0, 0.8))";
-                    const svgElem = state.visibleShape.wrapper;
+                    const filter = "none";
                     svgElem.style.webkitFilter = filter;
                     svgElem.style.filter = filter;
                 }
@@ -321,6 +320,16 @@ _.extend(MovablePoint.prototype, {
                     } else {
                         this._showTooltip(
                             `(${state.coord[0]}, ${state.coord[1]})`);
+                    }
+
+                    if (state.shadow) {
+                        const content = svgElem
+                            .getElementsByClassName("tooltip-content")[0];
+                        const filter =
+                            "drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5))";
+
+                        content.style.webkitFilter = filter;
+                        content.style.filter = filter;
                     }
                 }
 
@@ -362,10 +371,11 @@ _.extend(MovablePoint.prototype, {
                     self._fireEvent(state.onClick, state.coord, startCoord);
                 }
 
+                const svgElem = state.visibleShape.wrapper;
+
                 if (state.shadow) {
                     const filter =
                         "drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5))";
-                    const svgElem = state.visibleShape.wrapper;
                     svgElem.style.webkitFilter = filter;
                     svgElem.style.filter = filter;
                 }
@@ -381,6 +391,12 @@ _.extend(MovablePoint.prototype, {
                     // tooltips.
                     showTrashTooltip();
 
+                    const content =
+                        svgElem.getElementsByClassName("tooltip-content")[0];
+
+                    content.style.webkitFilter = "none";
+                    content.style.filter = "none";
+
                     this._tooltip.firstChild.addEventListener("touchstart",
                         (e) => {
                             // Prevent creation of a new point when the event is
@@ -395,6 +411,8 @@ _.extend(MovablePoint.prototype, {
                             state.onRemove();
                             e.stopPropagation();
                         }, true);
+                } else if (state.tooltip) {
+                    this._hideTooltip();
                 }
 
                 if (state.outOfBounds) {

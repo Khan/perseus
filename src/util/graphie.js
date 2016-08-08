@@ -416,11 +416,6 @@ GraphUtils.createGraphie = function(el) {
                         "stroke-linecap": "round",
                     });
 
-                if (graphie.xomManatee) {
-                    subpath.node.style.shapeRendering = "crispEdges";
-                    head.node.style.shapeRendering = "crispEdges";
-                }
-
                 head.arrowheadsDrawn = true;
                 set.push(subpath);
                 set.push(head);
@@ -531,10 +526,6 @@ GraphUtils.createGraphie = function(el) {
             const p = raphael.path(svgPath(points));
             p.graphiePath = points;
 
-            if (graphie.xomManatee) {
-                p.node.style.shapeRendering = "crispEdges";
-            }
-
             return p;
         },
 
@@ -604,7 +595,13 @@ GraphUtils.createGraphie = function(el) {
         },
 
         line: function(start, end) {
-            return this.path([start, end]);
+            const l = this.path([start, end]);
+
+            if (graphie.xomManatee) {
+                l.node.style.shapeRendering = "crispEdges";
+            }
+
+            return l;
         },
 
         parabola: function(a, b, c) {
