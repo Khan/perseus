@@ -84,12 +84,16 @@ const GradedGroupAnswerBar = React.createClass({
             <span />;  // empty span keeps the button the right side
 
         if (answerBarState !== ANSWER_BAR_STATES.CORRECT) {
+            const buttonLabel = answerBarState === ANSWER_BAR_STATES.INCORRECT
+                ? i18n._("Try again")
+                : i18n._("Check");
+
             return <div style={answerBarStyle}>
                 {message}
                 <input
                     type='button'
                     style={buttonStyle}
-                    value={i18n._('Check')}
+                    value={buttonLabel}
                     className={apiOptions.xomManatee ? '' : 'simple-button'}
                     disabled={apiOptions.readOnly ||
                         answerBarState !== ANSWER_BAR_STATES.ACTIVE}
