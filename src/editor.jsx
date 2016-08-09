@@ -433,9 +433,11 @@ var Editor = React.createClass({
         // setState
         this._sizeImages(this.props);
 
+        if (!ENABLE_DRAFT_EDITOR) {
         $(ReactDOM.findDOMNode(this.refs.textarea))
             .on('copy cut', this._maybeCopyWidgets)
             .on('paste', this._maybePasteWidgets);
+        }
     },
 
     componentDidUpdate: function(prevProps) {

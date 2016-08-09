@@ -27,15 +27,23 @@ TODO(samiskin): Make tasks such as "addWidget" and "updateWidget" not functions
 
 const React = require('react');
 const {
+    CharacterMetadata,
+    BlockMapBuilder,
+    ContentBlock,
     Entity,
     Editor,
     EditorState,
-    ContentState,
-    SelectionState,
-    Modifier,
     CompositeDecorator,
+    ContentState,
+    Modifier,
+    SelectionState,
+    convertToRaw,
+    genKey,
 } = require('draft-js');
+const { List, Repeat } = require('immutable');
 const Widgets = require("./widgets.js");
+
+const NEWLINE_REGEX = /\r\n?|\n/g;
 
 const widgetPlaceholder = "[[\u2603 {id}]]";
 const widgetRegExpTemplate = "(\\[\\[\u2603 {id}\\]\\])";
@@ -61,11 +69,11 @@ const widgetStrategy = (contentBlock, callback) =>
 
 const WidgetSpan = React.createClass({
     propTypes: {children: React.PropTypes.any},
-    render: () => (
-        <span {...this.props} style={{backgroundColor: '#DFD'}}>
+    render() {
+        return <span {...this.props} style={{backgroundColor: '#DFD'}}>
             {this.props.children}
-        </span>
-    ),
+        </span>;
+    },
 });
 
 const decorator = new CompositeDecorator([{
@@ -230,6 +238,53 @@ const PerseusEditor = React.createClass({
         return entities;
     },
 
+
+    handleCopy() {
+    },
+
+    // Pasting text from another Perseus editor instance should also copy over
+    // the widgets.  To do this properly, we must parse the text, replace the
+    // widget ids with non-conflicting ones, store them, and also assign them
+    // proper entities.  Sadly Draft.js only supports `handlePastedText` which
+    // happens prior to the new content state being generated (which is needed
+    // to add entities to).  We therefore must reimplement the default Paste
+    // functionality, in order to add our custom steps afterwards
+    handlePaste(pastedText, html) {
+        // To insert text such that it will appear as multiple blocks,
+        // createFragment must be used.  A fragment is an ordered map of
+        // ContentBlocks.  There should be a ContentBlock for each paragraph
+        const textLines = pastedText.split(NEWLINE_REGEX);
+
+        // Without basic character data, the text appears blank
+        const charData = CharacterMetadata.create();
+
+        // Create an array of ContentBlock objects, one for each line
+        const text = textLines.map((textLine) => {
+            const sanitized = textLine.replace(new RegExp('\r', 'g'), ''); //eslint-disable-line
+            return new ContentBlock({
+                key: genKey(),
+                text: sanitized,
+                type: 'unstyled',
+                characterList: List(Repeat(charData, sanitized.length)),
+            });
+        });
+        const fragment = BlockMapBuilder.createFromArray(text);
+
+        const currentState = this.state.editorState;
+        const newContent = Modifier.replaceWithFragment(
+            currentState.getCurrentContent(),
+            currentState.getSelection(),
+            fragment
+        );
+        const editorState = EditorState.push(
+            currentState,
+            newContent,
+            'insert-fragment'
+        );
+        this.handleChange({editorState});
+        return true; // True means draft doesn't run its default behavior
+    },
+
     pastContentState: null,
     pastWidgets: new Set(),
 
@@ -274,7 +329,8 @@ const PerseusEditor = React.createClass({
     },
 
     render() {
-        return <div>
+        console.log(convertToRaw(this.state.editorState.getCurrentContent()));
+        return <div onCopy={this.handleCopy}>
             <Editor
                 ref="editor"
                 editorState={this.state.editorState}
@@ -282,6 +338,7 @@ const PerseusEditor = React.createClass({
                 spellCheck={true}
                 stripPastedStyles={true}
                 placeholder={this.props.placeholder}
+                handlePastedText={this.handlePaste}
             />
         </div>;
     },
