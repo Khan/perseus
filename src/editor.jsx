@@ -434,7 +434,7 @@ var Editor = React.createClass({
         this._sizeImages(this.props);
 
         if (!ENABLE_DRAFT_EDITOR) {
-        $(ReactDOM.findDOMNode(this.refs.textarea))
+            $(ReactDOM.findDOMNode(this.refs.textarea))
             .on('copy cut', this._maybeCopyWidgets)
             .on('paste', this._maybePasteWidgets);
         }
