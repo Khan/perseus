@@ -28,8 +28,6 @@ TODO(samiskin): Make tasks such as "addWidget" and "updateWidget" not functions
 const React = require('react');
 const {
     CharacterMetadata,
-    BlockMapBuilder,
-    ContentBlock,
     Entity,
     Editor,
     EditorState,
@@ -38,35 +36,22 @@ const {
     Modifier,
     SelectionState,
     convertToRaw,
-    genKey,
 } = require('draft-js');
-const {List} = require('immutable');
-const Widgets = require("./widgets.js");
+const Widgets = require('./widgets.js');
+const DraftUtils = require('./draft-utils.js');
 
-const NEWLINE_REGEX = /\r\n?|\n/g;
-
-const widgetPlaceholder = "[[\u2603 {id}]]";
-const widgetRegExpTemplate = "(\\[\\[\u2603 {id}\\]\\])";
+const widgetPlaceholder = '[[\u2603 {id}]]';
 const widgetRegExp = /\[\[\u2603 [a-z-]+ [0-9]+\]\]/g;
 const widgetPartsRegExp = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]$/;
+const widgetForId = (id) => new RegExp(`(\\[\\[\u2603 ${id}\\]\\])`, 'gm');
 
 /*
     Styled ranges in Draft.js are done using a `CompositeDecorator`,
     where a `strategy` is given to denote what ranges of text to style,
     and a `component` is given to denote how that range should be rendered
 */
-const findWithRegex = (regex, contentBlock, callback) => {
-    const text = contentBlock.getText();
-    let matchArr;
-    let start;
-    while ((matchArr = regex.exec(text)) !== null) {
-        start = matchArr.index;
-        callback(start, start + matchArr[0].length);
-    }
-};
-
 const widgetStrategy = (contentBlock, callback) =>
-    findWithRegex(widgetRegExp, contentBlock, callback);
+    DraftUtils.regexStrategy(contentBlock, widgetRegExp, callback);
 
 const WidgetSpan = React.createClass({
     propTypes: {children: React.PropTypes.any},
@@ -112,16 +97,15 @@ const PerseusEditor = React.createClass({
         };
     },
 
-    // By delimiting widgets as Entities, this allows for widgets to be
-    // considered "IMMUTABLE", that is, backspacing a widget will delete the
-    // entire text rather than just a "]" character.  It also enables us
-    // to detect which widget id has been deleted, as metadata can be attached
-    // to entities
+    // By turning widgets into Entities, we allow for widgets to be considered
+    // "IMMUTABLE", that is, backspacing a widget will delete the entire text
+    // rather than just a "]" character.  It also enables us to detect which
+    // widget id has been deleted, as metadata can be attached to entities
     _insertWidgetsAsEntities(editorState, widgets) {
         let content = editorState.getCurrentContent();
 
         Object.keys(widgets).forEach((id) => {
-            const selection = this._findWidget(content, id);
+            const selection = DraftUtils.findPattern(content, widgetForId(id));
             const entity = Entity.create('WIDGET', 'IMMUTABLE', {id});
             content = Modifier.applyEntity(content, selection, entity);
         });
@@ -139,24 +123,6 @@ const PerseusEditor = React.createClass({
             SelectionState.createEmpty(firstBlock)
         );
         return withNoSelection;
-    },
-
-    _findWidget(contentState, id) {
-        // The entire content is organized into blocks, and so each one must be
-        // searched in order to find every widget
-        const blocks = contentState.getBlockMap().values();
-        const re  = new RegExp(widgetRegExpTemplate.replace('{id}', id), 'gm');
-        for (const block of blocks) {
-            const match = re.exec(block.getText());
-            if (match !== null) {
-                const base = SelectionState.createEmpty(block.getKey());
-                const selection = base.merge({
-                    anchorOffset: match.index,
-                    focusOffset: match.index + match[0].length,
-                });
-                return selection;
-            }
-        }
     },
 
     addWidget(widgetType, callback) {
@@ -183,18 +149,8 @@ const PerseusEditor = React.createClass({
 
         // Text for the widget is inserted, and an entity is assigned
         const entity = Entity.create('WIDGET', 'IMMUTABLE', {id});
-        const currEditorState = this.state.editorState;
-        const contentState = Modifier.replaceText(
-            currEditorState.getCurrentContent(),
-            currEditorState.getSelection(),
-            widgetContent,
-            null, // This is for custom styling, but we use a Decorator instead
-            entity
-        );
-        const editorState = EditorState.push(
-            currEditorState,
-            contentState,
-            'insert-characters'
+        const editorState = DraftUtils.replaceSelection(
+            this.state.editorState, widgetContent, entity
         );
 
         this.handleChange({editorState, widgets}, callback);
@@ -209,63 +165,20 @@ const PerseusEditor = React.createClass({
     // can also be deleted by editor actions such as backspace and delete
     removeWidget(id, callback) {
         const currEditorState = this.state.editorState;
-        const currContentState = currEditorState.getCurrentContent();
-        const selection = this._findWidget(currContentState, id);
-
-        const contentState = Modifier.removeRange(
-            currContentState,
-            selection,
-            'backward'
-        );
-        const editorState = EditorState.push(
-            currEditorState,
-            contentState,
-            'delete-word'
-        );
+        const contentState = currEditorState.getCurrentContent();
+        const selection = DraftUtils.findPattern(contentState, widgetForId(id));
+        const editorState =
+            DraftUtils.deleteSelection(currEditorState, selection);
 
         this.handleChange({editorState}, callback);
     },
 
-    _getWidgetEntities(blockMap, filter = () => true) {
-        const entities = [];
-        blockMap.forEach((block, blockKey) => {
-            block.findEntityRanges(
-                char => char.getEntity() !== null,
-                (start, end) => {
-                    if (filter(blockKey, start, end)) {
-                        entities.push(Entity.get(block.getEntityAt(start)));
-                    }
-                }
-            );
-        });
-        return entities;
-    },
-
-
     handleCopy() {
-        const blocks = [];
         const contentState = this.state.editorState.getCurrentContent();
         const selection = this.state.editorState.getSelection();
-        const pastEndKey = contentState.getKeyAfter(selection.getEndKey());
-        for (let blockKey = selection.getStartKey();
-                blockKey !== pastEndKey;
-                blockKey = contentState.getKeyAfter(blockKey)) {
-            blocks.push(contentState.getBlockForKey(blockKey));
-        }
+        const entities = DraftUtils.getEntities(contentState, selection);
 
-        const blockMap = BlockMapBuilder.createFromArray(blocks);
-        const widgetEntities = this._getWidgetEntities(blockMap, (key, start, end) => {
-            if (key === selection.getStartKey() && start < selection.getStartOffset()) {
-                return false;
-            }
-            if (key === selection.getEndKey() && end > selection.getEndOffset()) {
-                return false;
-            }
-            return true;
-        });
-
-
-        const copiedWidgets = widgetEntities.reduce((map, entity) => {
+        const copiedWidgets = entities.reduce((map, entity) => {
             const id = entity.getData().id;
             map[id] = this.state.widgets[id];
             return map;
@@ -311,62 +224,42 @@ const PerseusEditor = React.createClass({
             return false;
         }
 
-        // To insert text such that it will appear as multiple blocks,
-        // createFragment must be used.  A fragment is an ordered map of
-        // ContentBlocks.  There should be a ContentBlock for each paragraph
-        const textLines = pastedText.split(NEWLINE_REGEX);
-
-        // Without basic character data, the text appears blank
-        const charData = CharacterMetadata.create();
-
         const sourceWidgets = JSON.parse(sourceWidgetsJSON);
         const widgets = {...this.state.widgets};
-        const safeWidgetMapping = this.createSafeWidgetMapping(sourceWidgets, widgets);
+        const safeWidgetMapping = this.createSafeWidgetMapping(sourceWidgets, widgets); //eslint-disable-line max-len
+        const charData = CharacterMetadata.create();
 
-        // Create an array of ContentBlock objects, one for each line
-        const contentBlocks = textLines.map((textLine) => {
-            const sanitized = textLine.replace(new RegExp('\r', 'g'), ''); //eslint-disable-line
-
-            // Styles and entities in draft.js are applied per character, therefore each
-            // block uses a list, where each element corresponds to a single character.
-            // To apply a widget entity
+        // textToFragment takes a sanitizer function which gets ran on every
+        // line.  It is used here in order to fix the new widgets to not
+        // have conflicting IDs, as well as fill in the widget data
+        const sanitizeText = (textLine) => {
+            const sanitized = textLine.replace(new RegExp('\r', 'g'), ''); //eslint-disable-line no-control-regex
             const characterList = Array(sanitized.length).fill(charData);
-
             const safeText = sanitized.replace(widgetRegExp, (syntax) => {
                 const match = widgetPartsRegExp.exec(syntax);
-                const widgetText = match[0]; // The entire [[ widgetName id ]]
+                const fullText = match[0]; // The entire [[ widgetName id ]]
                 const widget = match[1]; // Just the "widgetName id" part
-                const newWidget = safeWidgetMapping[widget];
+                const index = match.index;
+                const newId = safeWidgetMapping[widget];
+                const newText = widgetPlaceholder.replace("{id}", newId);
 
-                // Create an entity for the new widget, and assign it to the characters
-                // that match up to the new widget text (splice)
-                const entity = Entity.create('WIDGET', 'IMMUTABLE', {id: newWidget});
-                const entityChar = CharacterMetadata.applyEntity(charData, entity);
-                const entityChars = Array(widgetText.length).fill(entityChar);
-                characterList.splice(match.index, widgetText.length, ...entityChars);
+                // Create an entity for the new widget, and assign it to the
+                // characters that match up to the new widget text (splice)
+                const entity = Entity.create('WIDGET', 'IMMUTABLE', {id: newId}); //eslint-disable-line max-len
+                const entityChar = CharacterMetadata.applyEntity(charData, entity); //eslint-disable-line max-len
+                const entityChars = Array(newText.length).fill(entityChar);
+                characterList.splice(index, fullText.length, ...entityChars);
 
-                widgets[newWidget] = sourceWidgets[widget];
-                return widgetText.replace(widget, newWidget);
+                widgets[newId] = sourceWidgets[widget];
+                return fullText.replace(widget, newId);
             });
-            return new ContentBlock({
-                key: genKey(),
-                text: safeText,
-                type: 'unstyled',
-                characterList: List(characterList),
-            });
-        });
-        const fragment = BlockMapBuilder.createFromArray(contentBlocks);
+            return {text: safeText, characterList};
+        };
 
-        const currentState = this.state.editorState;
-        const newContent = Modifier.replaceWithFragment(
-            currentState.getCurrentContent(),
-            currentState.getSelection(),
-            fragment
-        );
-        const editorState = EditorState.push(
-            currentState,
-            newContent,
-            'insert-fragment'
+        const editorState = DraftUtils.insertText(
+            this.state.editorState,
+            pastedText,
+            sanitizeText
         );
         this.handleChange({editorState, widgets});
         return true; // True means draft doesn't run its default behavior
@@ -387,7 +280,7 @@ const PerseusEditor = React.createClass({
             // user undoing a widget deletion should also recover the
             // widget's metadata
             const newWidgets = {...widgets};
-            const entities = this._getWidgetEntities(currContent.getBlockMap());
+            const entities = DraftUtils.getEntities(currContent);
             const currIds = new Set(
                 entities.map(entity => entity.getData().id)
             );
