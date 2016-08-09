@@ -40,7 +40,7 @@ const {
     convertToRaw,
     genKey,
 } = require('draft-js');
-const { List, Repeat } = require('immutable');
+const {List} = require('immutable');
 const Widgets = require("./widgets.js");
 
 const NEWLINE_REGEX = /\r\n?|\n/g;
@@ -48,6 +48,7 @@ const NEWLINE_REGEX = /\r\n?|\n/g;
 const widgetPlaceholder = "[[\u2603 {id}]]";
 const widgetRegExpTemplate = "(\\[\\[\u2603 {id}\\]\\])";
 const widgetRegExp = /\[\[\u2603 [a-z-]+ [0-9]+\]\]/g;
+const widgetPartsRegExp = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]$/;
 
 /*
     Styled ranges in Draft.js are done using a `CompositeDecorator`,
@@ -225,13 +226,15 @@ const PerseusEditor = React.createClass({
         this.handleChange({editorState}, callback);
     },
 
-    _getWidgetEntities(contentState) {
+    _getWidgetEntities(blockMap, filter = () => true) {
         const entities = [];
-        contentState.getBlockMap().forEach((block, blockKey) => {
+        blockMap.forEach((block, blockKey) => {
             block.findEntityRanges(
                 char => char.getEntity() !== null,
-                start => {
-                    entities.push(Entity.get(block.getEntityAt(start)));
+                (start, end) => {
+                    if (filter(blockKey, start, end)) {
+                        entities.push(Entity.get(block.getEntityAt(start)));
+                    }
                 }
             );
         });
@@ -240,6 +243,57 @@ const PerseusEditor = React.createClass({
 
 
     handleCopy() {
+        const blocks = [];
+        const contentState = this.state.editorState.getCurrentContent();
+        const selection = this.state.editorState.getSelection();
+        const pastEndKey = contentState.getKeyAfter(selection.getEndKey());
+        for (let blockKey = selection.getStartKey();
+                blockKey !== pastEndKey;
+                blockKey = contentState.getKeyAfter(blockKey)) {
+            blocks.push(contentState.getBlockForKey(blockKey));
+        }
+
+        const blockMap = BlockMapBuilder.createFromArray(blocks);
+        const widgetEntities = this._getWidgetEntities(blockMap, (key, start, end) => {
+            if (key === selection.getStartKey() && start < selection.getStartOffset()) {
+                return false;
+            }
+            if (key === selection.getEndKey() && end > selection.getEndOffset()) {
+                return false;
+            }
+            return true;
+        });
+
+
+        const copiedWidgets = widgetEntities.reduce((map, entity) => {
+            const id = entity.getData().id;
+            map[id] = this.state.widgets[id];
+            return map;
+        }, {});
+
+        localStorage.perseusLastCopiedWidgets = JSON.stringify(copiedWidgets);
+    },
+
+    // Widgets cannot have ID conflicts, therefore this function exists
+    // to return a mapping of { new id -> safe id }
+    createSafeWidgetMapping(newWidgets, currentWidgets) {
+
+        // Create a mapping of { type -> largest id of that type }
+        const maxIds = Object.keys(currentWidgets).reduce((idMap, widget) => {
+            const [type, id] = widget.split(' ');
+            idMap[type] = idMap[type] ? Math.max(idMap[type], +id) : +id;
+            return idMap;
+        }, {});
+
+        const safeWidgetMapping =
+            Object.keys(newWidgets).reduce((safeMap, widget) => {
+                const type = widget.split(' ')[0];
+                maxIds[type] = maxIds[type] ? maxIds[type] + 1 : 1;
+                safeMap[widget] = type + ' ' + maxIds[type];
+                return safeMap;
+            }, {});
+
+        return safeWidgetMapping;
     },
 
     // Pasting text from another Perseus editor instance should also copy over
@@ -250,6 +304,13 @@ const PerseusEditor = React.createClass({
     // to add entities to).  We therefore must reimplement the default Paste
     // functionality, in order to add our custom steps afterwards
     handlePaste(pastedText, html) {
+
+        // If no widgets are in localstorage, just use default behavior
+        const sourceWidgetsJSON = localStorage.perseusLastCopiedWidgets;
+        if (!sourceWidgetsJSON) {
+            return false;
+        }
+
         // To insert text such that it will appear as multiple blocks,
         // createFragment must be used.  A fragment is an ordered map of
         // ContentBlocks.  There should be a ContentBlock for each paragraph
@@ -258,17 +319,43 @@ const PerseusEditor = React.createClass({
         // Without basic character data, the text appears blank
         const charData = CharacterMetadata.create();
 
+        const sourceWidgets = JSON.parse(sourceWidgetsJSON);
+        const widgets = {...this.state.widgets};
+        const safeWidgetMapping = this.createSafeWidgetMapping(sourceWidgets, widgets);
+
         // Create an array of ContentBlock objects, one for each line
-        const text = textLines.map((textLine) => {
+        const contentBlocks = textLines.map((textLine) => {
             const sanitized = textLine.replace(new RegExp('\r', 'g'), ''); //eslint-disable-line
+
+            // Styles and entities in draft.js are applied per character, therefore each
+            // block uses a list, where each element corresponds to a single character.
+            // To apply a widget entity
+            const characterList = Array(sanitized.length).fill(charData);
+
+            const safeText = sanitized.replace(widgetRegExp, (syntax) => {
+                const match = widgetPartsRegExp.exec(syntax);
+                const widgetText = match[0]; // The entire [[ widgetName id ]]
+                const widget = match[1]; // Just the "widgetName id" part
+                const newWidget = safeWidgetMapping[widget];
+
+                // Create an entity for the new widget, and assign it to the characters
+                // that match up to the new widget text (splice)
+                const entity = Entity.create('WIDGET', 'IMMUTABLE', {id: newWidget});
+                const entityChar = CharacterMetadata.applyEntity(charData, entity);
+                const entityChars = Array(widgetText.length).fill(entityChar);
+                characterList.splice(match.index, widgetText.length, ...entityChars);
+
+                widgets[newWidget] = sourceWidgets[widget];
+                return widgetText.replace(widget, newWidget);
+            });
             return new ContentBlock({
                 key: genKey(),
-                text: sanitized,
+                text: safeText,
                 type: 'unstyled',
-                characterList: List(Repeat(charData, sanitized.length)),
+                characterList: List(characterList),
             });
         });
-        const fragment = BlockMapBuilder.createFromArray(text);
+        const fragment = BlockMapBuilder.createFromArray(contentBlocks);
 
         const currentState = this.state.editorState;
         const newContent = Modifier.replaceWithFragment(
@@ -281,7 +368,7 @@ const PerseusEditor = React.createClass({
             newContent,
             'insert-fragment'
         );
-        this.handleChange({editorState});
+        this.handleChange({editorState, widgets});
         return true; // True means draft doesn't run its default behavior
     },
 
@@ -300,7 +387,7 @@ const PerseusEditor = React.createClass({
             // user undoing a widget deletion should also recover the
             // widget's metadata
             const newWidgets = {...widgets};
-            const entities = this._getWidgetEntities(currContent);
+            const entities = this._getWidgetEntities(currContent.getBlockMap());
             const currIds = new Set(
                 entities.map(entity => entity.getData().id)
             );
@@ -329,7 +416,8 @@ const PerseusEditor = React.createClass({
     },
 
     render() {
-        console.log(convertToRaw(this.state.editorState.getCurrentContent()));
+        // STOPSHIP(samiskin): Delete this before landing
+        console.log(convertToRaw(this.state.editorState.getCurrentContent())); // eslint-disable-line
         return <div onCopy={this.handleCopy}>
             <Editor
                 ref="editor"
