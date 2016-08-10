@@ -1478,12 +1478,11 @@ var Renderer = React.createClass({
             baseElements: apiOptions.baseElements,
         });
 
-        var className = this._isTwoColumn ?
-        ApiClassNames.RENDERER + " " + ApiClassNames.TWO_COLUMN_RENDERER :
-            ApiClassNames.RENDERER;
-        if (apiOptions.responsiveStyling) {
-            className += " " + ApiClassNames.RESPONSIVE_RENDERER;
-        }
+        const className = classNames({
+            [ApiClassNames.RENDERER]: true,
+            [ApiClassNames.RESPONSIVE_RENDERER]: true,
+            [ApiClassNames.TWO_COLUMN_RENDERER]: this._isTwoColumn,
+        });
 
         this.lastRenderedMarkdown = <div className={className}>
             {markdownContents}

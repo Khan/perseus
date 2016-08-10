@@ -43,13 +43,6 @@ module.exports = {
             isArticle: React.PropTypes.bool.isRequired,
             fancyDropdowns: React.PropTypes.bool.isRequired,
 
-            // TODO(benkomalo): this is a temporary flag to enable responsive
-            // styling as XOM applies changes to mobile devices, and wants
-            // to measure effects. This should be removed when XOM launches
-            // (it should always be true)
-            // Remove by 2016/07/01
-            responsiveStyling: React.PropTypes.bool.isRequired,
-
             satStyling: React.PropTypes.bool.isRequired,
             onInputError: React.PropTypes.func.isRequired,
             onFocusChange: React.PropTypes.func.isRequired,
@@ -124,7 +117,6 @@ module.exports = {
             // to maintain and has other issues with getting clipped. Remove
             // (but requires a version bump)
             fancyDropdowns: false,
-            responsiveStyling: false,
             xomManatee: false,
             mobileStyling: false,
             satStyling: false,

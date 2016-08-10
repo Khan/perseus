@@ -107,7 +107,6 @@ const EditorDemo = React.createClass({
                 setTimeout(callback, 1000, "http://fake.image.url");
             },
             apiOptions: {
-                responsiveStyling: true,
                 // onInputError: function() {
                 //     let args = Array.from(arguments);
                 //     console.log.apply(console, ["onInputError:"].concat(args));

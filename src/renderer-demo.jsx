@@ -37,11 +37,18 @@ const RendererDemo = React.createClass({
             // Matches ItemRenderer.showInput
             answer: { empty: true, correct: null },
             scratchpadEnabled: true,
+            xomManatee: navigator.userAgent.indexOf('Mobile') !== -1,
         };
     },
 
     componentDidMount: function() {
         ReactDOM.findDOMNode(this.refs.itemRenderer).focus();
+
+        window.addEventListener('resize', this._handleResize);
+    },
+
+    componentWillUnmount: function() {
+        window.removeEventListener('resize', this._handleResize);
     },
 
     onScore: function() {
@@ -56,11 +63,17 @@ const RendererDemo = React.createClass({
         this.refs.itemRenderer.showHint();
     },
 
+    _handleResize() {
+        const xomManatee = navigator.userAgent.indexOf('Mobile') !== -1;
+        if (this.state.xomManatee !== xomManatee) {
+            this.setState({xomManatee});
+        }
+    },
+
     render: function() {
-        const xomManatee = !!localStorage.xomManatee;
+        const {xomManatee} = this.state;
 
         const apiOptions = {
-            responsiveStyling: true,
             getAnotherHint: () => {
                 this.refs.itemRenderer.showHint();
             },

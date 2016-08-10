@@ -81,13 +81,12 @@ const BaseRadio = React.createClass({
     propTypes: {
         apiOptions: React.PropTypes.shape({
             readOnly: React.PropTypes.bool,
-            responsiveStyling: React.PropTypes.bool,
             satStyling: React.PropTypes.bool,
             xomManatee: React.PropTypes.bool,
 
             // TODO(benkomalo): DEPRECATED - this was used by the old iPad app
             // but is being phased out in favour of
-            // responsiveStyling/xomManatee. Remove by 2016/10/01
+            // xomManatee. Remove by 2016/10/01
             mobileStyling: React.PropTypes.bool,
         }),
         choices: ChoicesType,
@@ -291,8 +290,6 @@ const BaseRadio = React.createClass({
         const rubric = this.props.reviewModeRubric;
 
         const styles = BaseRadio.styles;
-
-        const responsive = this.props.apiOptions.responsiveStyling;
         const sat = this.props.apiOptions.satStyling;
 
         const xomManatee = this.useNewXomStyling();
@@ -304,10 +301,11 @@ const BaseRadio = React.createClass({
                 // With the responsive XOM styles, the individual items are
                 // spaced out vertically, and so we set the backgrounds on the
                 // items rather than the container.
-                !(responsive && xomManatee) && sharedStyles.blankBackground,
+                !(xomManatee) && sharedStyles.blankBackground,
                 styles.radio,
-                responsive && (xomManatee ? styles.responsiveRadioXomManatee :
-                               styles.responsiveRadio),
+                (xomManatee
+                    ? styles.responsiveRadioXomManatee
+                    : styles.responsiveRadio),
                 sat && styles.satRadio
             )
         );
@@ -370,10 +368,10 @@ const BaseRadio = React.createClass({
                         return css(
                             styles.item,
                             !this.showOnePerLine() && styles.inlineItem,
-                            responsive && (xomManatee ?
-                                           styles.responsiveItemXomManatee :
-                                           styles.responsiveItem),
-                            responsive && checked && xomManatee &&
+                            (xomManatee
+                                ? styles.responsiveItemXomManatee
+                                : styles.responsiveItem),
+                            checked && xomManatee &&
                                 styles.responsiveSelected,
                             sat && styles.satRadioOption,
                             sat && checked && styles.satRadioSelected,
@@ -419,7 +417,7 @@ const BaseRadio = React.createClass({
         // Allow for horizontal scrolling if content is too wide, which may be
         // an issue especially on phones.
         return <div
-            className={responsive && css(styles.responsiveContainer)}
+            className={css(styles.responsiveContainer)}
         >
             {fieldset}
         </div>;

@@ -36,13 +36,12 @@ const Choice = React.createClass({
         // server-item-renderer.jsx have appropriate defaults for apiOptions
         // because many of the properties on Options.propTypes are required.
         apiOptions: React.PropTypes.shape({
-            responsiveStyling: React.PropTypes.bool,
             satStyling: React.PropTypes.bool,
             xomManatee: React.PropTypes.bool,
 
             // TODO(benkomalo): DEPRECATED - this was used by the old iPad app
             // but is being phased out in favour of
-            // responsiveStyling/xomManatee. Remove by 2016/10/01
+            // xomManatee. Remove by 2016/10/01
             mobileStyling: React.PropTypes.bool,
         }),
         checked: React.PropTypes.bool,
@@ -377,7 +376,6 @@ const Choice = React.createClass({
         };
 
         const styles = Choice.styles;
-        const responsive = this.props.apiOptions.responsiveStyling;
         const sat = this.props.apiOptions.satStyling;
         const xomManatee = this.useNewXomStyling();
 
@@ -387,7 +385,7 @@ const Choice = React.createClass({
             css(
                 styles.label,
                 xomManatee && sharedStyles.disableTextSelection,
-                responsive && styles.responsiveLabel,
+                styles.responsiveLabel,
                 sat && styles.satLabel
             )
         );
@@ -405,14 +403,14 @@ const Choice = React.createClass({
             className: css(
                 sharedStyles.perseusInteractive,
                 styles.input,
-                responsive && sharedStyles.responsiveInput,
-                responsive && this.props.type === "radio" &&
+                sharedStyles.responsiveInput,
+                this.props.type === "radio" &&
                     sharedStyles.responsiveRadioInput,
-                responsive && this.props.type === "radio" && xomManatee &&
+                this.props.type === "radio" && xomManatee &&
                     sharedStyles.responsiveRadioInputXomManatee,
-                responsive && this.props.type === "checkbox" &&
+                this.props.type === "checkbox" &&
                     styles.responsiveCheckboxInput,
-                responsive && this.props.type === "checkbox" && xomManatee &&
+                this.props.type === "checkbox" && xomManatee &&
                     styles.responsiveCheckboxInputXomManatee,
                 sat && this.props.type === "radio" &&
                     sharedStyles.perseusSrOnly,
@@ -444,9 +442,6 @@ const Choice = React.createClass({
                 />
             );
         }
-
-        const fadeOutLabelWhenDisabled =
-            this.props.disabled && this.props.apiOptions.responsiveStyling;
 
         const {reviewMode, correct, checked, isLastChoice} = this.props;
         // HACK: while most of the styling for rendering SAT items is handled
@@ -492,7 +487,7 @@ const Choice = React.createClass({
 
         return <label
             className={className}
-            style={{opacity: fadeOutLabelWhenDisabled ? 0.5 : 1.0}}
+            style={{opacity: this.props.disabled ? 0.5 : 1.0}}
         >
             {input}
             <div className={descriptionClassName}
