@@ -43,7 +43,6 @@ const ArticleDemo = React.createClass({
             },
             apiOptions: {
                 customKeypad: xomManatee,
-                fancyDropdowns: true,
                 onFocusChange: function(newPath, oldPath) {
                     console.log("onFocusChange", newPath, oldPath);
                 },

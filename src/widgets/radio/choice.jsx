@@ -38,11 +38,6 @@ const Choice = React.createClass({
         apiOptions: React.PropTypes.shape({
             satStyling: React.PropTypes.bool,
             xomManatee: React.PropTypes.bool,
-
-            // TODO(benkomalo): DEPRECATED - this was used by the old iPad app
-            // but is being phased out in favour of
-            // xomManatee. Remove by 2016/10/01
-            mobileStyling: React.PropTypes.bool,
         }),
         checked: React.PropTypes.bool,
         className: React.PropTypes.string,
@@ -337,13 +332,6 @@ const Choice = React.createClass({
         this._input = ref;
     },
 
-    useNewXomStyling: function() {
-        // TODO(benkomalo): temp hack - force XOM styling if the deprecated
-        // mobileStyling flag is passed in (old iPad versions)
-        return this.props.apiOptions.xomManatee ||
-            this.props.apiOptions.mobileStyling;
-    },
-
     render: function() {
         // NOTE(jeresig): This is not i18n appropriate and should probably be
         // changed to a map of common options that are properly translated.
@@ -377,7 +365,7 @@ const Choice = React.createClass({
 
         const styles = Choice.styles;
         const sat = this.props.apiOptions.satStyling;
-        const xomManatee = this.useNewXomStyling();
+        const xomManatee = this.props.apiOptions.xomManatee;
 
         const className = classNames(
             this.props.className,

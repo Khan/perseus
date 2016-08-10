@@ -52,6 +52,8 @@ const Categorizer = React.createClass({
     render: function() {
         const self = this;
 
+        // In this context, xomManatee is used to differentiate mobile from
+        // desktop.
         const xomManatee = this.props.apiOptions.xomManatee;
         let indexedItems = this.props.items.map((item, n) => [item, n]);
         if (this.props.randomizeItems) {

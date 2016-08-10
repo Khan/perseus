@@ -83,11 +83,6 @@ const BaseRadio = React.createClass({
             readOnly: React.PropTypes.bool,
             satStyling: React.PropTypes.bool,
             xomManatee: React.PropTypes.bool,
-
-            // TODO(benkomalo): DEPRECATED - this was used by the old iPad app
-            // but is being phased out in favour of
-            // xomManatee. Remove by 2016/10/01
-            mobileStyling: React.PropTypes.bool,
         }),
         choices: ChoicesType,
         deselectEnabled: React.PropTypes.bool,
@@ -253,15 +248,8 @@ const BaseRadio = React.createClass({
         return true;
     },
 
-    useNewXomStyling: function() {
-        // TODO(benkomalo): temp hack - force XOM styling if the deprecated
-        // mobileStyling flag is passed in (old iPad versions)
-        return this.props.apiOptions.xomManatee ||
-            this.props.apiOptions.mobileStyling;
-    },
-
     getInstructionsText: function() {
-        if (this.useNewXomStyling()) {
+        if (this.props.apiOptions.xomManatee) {
             return this.props.multipleSelect ?
                 i18n._("Choose all answers that apply.") :
                 i18n._("Choose 1 answer.");
@@ -292,7 +280,7 @@ const BaseRadio = React.createClass({
         const styles = BaseRadio.styles;
         const sat = this.props.apiOptions.satStyling;
 
-        const xomManatee = this.useNewXomStyling();
+        const xomManatee = this.props.apiOptions.xomManatee;
 
         const className = classNames(
             "perseus-widget-radio",
@@ -301,7 +289,7 @@ const BaseRadio = React.createClass({
                 // With the responsive XOM styles, the individual items are
                 // spaced out vertically, and so we set the backgrounds on the
                 // items rather than the container.
-                !(xomManatee) && sharedStyles.blankBackground,
+                !xomManatee && sharedStyles.blankBackground,
                 styles.radio,
                 (xomManatee
                     ? styles.responsiveRadioXomManatee

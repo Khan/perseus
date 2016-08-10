@@ -41,7 +41,6 @@ module.exports = {
     Options: {
         propTypes: React.PropTypes.shape({
             isArticle: React.PropTypes.bool.isRequired,
-            fancyDropdowns: React.PropTypes.bool.isRequired,
 
             satStyling: React.PropTypes.bool.isRequired,
             onInputError: React.PropTypes.func.isRequired,
@@ -111,14 +110,7 @@ module.exports = {
 
         defaults: {
             isArticle: false,
-
-            // DEPRECATED: this was used in the old iPad app to render custom
-            // dropdowns instead of using <select>s, but it's a bit of work
-            // to maintain and has other issues with getting clipped. Remove
-            // (but requires a version bump)
-            fancyDropdowns: false,
             xomManatee: false,
-            mobileStyling: false,
             satStyling: false,
             onInputError: function() { },
             onFocusChange: function() { },
