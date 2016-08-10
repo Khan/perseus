@@ -879,6 +879,12 @@
             }
 
             .perseus-column {
+                // NOTE(emily): For some reason, these prefixes aren't being
+                // added by our auto-prefixer, and we need these prefixes to
+                // work in Safari <= 8.
+                display: -webkit-inline-flex;
+                -webkit-flex-direction: column;
+
                 display: inline-flex;
                 flex-direction: column;
                 vertical-align: top;
