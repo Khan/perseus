@@ -351,6 +351,9 @@ var Plotter = React.createClass({
                         strokeWidth: 1
                     }
                 });
+
+            this.horizHairline.visibleShape.node
+                .parentNode.parentNode.style.zIndex = "-1";
             this.horizHairline.attr({
                 stroke: KhanColors.INTERACTIVE,
             });
@@ -561,7 +564,7 @@ var Plotter = React.createClass({
         graphie.style({
             stroke: "none",
             fill: xomManatee ? KhanColors.BLUE_C : KhanColors.LIGHT_BLUE,
-            opacity: xomManatee ? 0.8 : 1.0,
+            opacity: 1.0,
         }, function() {
             config.graph.bars[i] = graphie.path([
                 [x - barHalfWidth, 0],
