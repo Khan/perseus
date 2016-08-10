@@ -595,6 +595,11 @@ var Plotter = React.createClass({
                         ];
                     }
                 ],
+                onMoveStart: function() {
+                    config.graph.bars[i].attr({
+                        fill: KhanColors.INTERACTIVE,
+                    });
+                },
                 onMove: function() {
                     const y = config.graph.lines[i].coord()[1];
 
@@ -606,7 +611,12 @@ var Plotter = React.createClass({
                     self._updateDragPrompt(values);
 
                     scaleBar(i, y);
-                }
+                },
+                onMoveEnd: function() {
+                    config.graph.bars[i].attr({
+                        fill: KhanColors.BLUE_C,
+                    });
+                },
             });
 
             self._updateDragPrompt(self.state.values);
