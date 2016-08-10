@@ -178,6 +178,7 @@ const HintsRenderer = React.createClass({
                     rel="button"
                     className={css(
                         styles.linkButton,
+                        styles.getAnotherHintButton,
                         apiOptions.xomManatee &&
                             styles.newHintStylesGetAnotherHintButton
                     )}
@@ -268,25 +269,32 @@ const styles = StyleSheet.create({
             // On phones, ensure that the button is aligned with the hint body
             // content, which is inset at the standard `baseUnitPx`, plus an
             // additional `hintBorderWidth`.
-            paddingLeft: baseUnitPx + hintBorderWidth,
+            paddingLeft: hintIndentation,
         },
     },
 
-    newHintStylesGetAnotherHintButton: {
+    getAnotherHintButton: {
         marginTop: 1.5 * baseUnitPx,
+    },
 
+    newHintStylesGetAnotherHintButton: {
         [mediaQueries.lgOrSmaller]: {
             paddingLeft: 0,
         },
         [mediaQueries.smOrSmaller]: {
             // As with the title, on phones, ensure that the button is aligned
             // with the hint body content.
-            paddingLeft: baseUnitPx + hintBorderWidth,
+            paddingLeft: hintIndentation,
         },
     },
 
     newHintStylesPlusText: {
-        left: hintIndentation,
+        [mediaQueries.lgOrSmaller]: {
+            left: 0,
+        },
+        [mediaQueries.smOrSmaller]: {
+            left: hintIndentation,
+        },
     },
 });
 

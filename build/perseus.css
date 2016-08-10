@@ -1,6 +1,6 @@
 /* Perseus CSS
-// commit 2c2fd685afaf34f23914e8c1e18e23a6efb689df
-// branch master
+// commit c284968239f6336feaa9733c9e41b7a9147989e5
+// branch fix-get-a-hint
 // @generated
 */
 .perseus-sr-only {
@@ -2323,6 +2323,8 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
   margin: 0;
 }
 #sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column {
+  display: -webkit-inline-flex;
+  -webkit-flex-direction: column;
   display: inline-flex;
   flex-direction: column;
   vertical-align: top;
