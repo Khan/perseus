@@ -27,7 +27,6 @@ var ExplanationEditor = React.createClass({
         explanation: React.PropTypes.string,
         widgets: React.PropTypes.object,
         apiOptions: React.PropTypes.any,
-        enabledFeatures: React.PropTypes.any,
     },
 
     getDefaultProps: function() {
@@ -54,7 +53,6 @@ var ExplanationEditor = React.createClass({
             <div className="perseus-widget-row">
                 <Editor
                     apiOptions={this.props.apiOptions}
-                    enabledFeatures={this.props.enabledFeatures}
                     content={this.props.explanation}
                     widgets={this.props.widgets}
                     widgetEnabled={true}

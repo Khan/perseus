@@ -274,10 +274,7 @@ module.exports = {
     name: "unit-input",
     displayName: "Unit",
     defaultAlignment: "inline-block",
-    getWidget: (enabledFeatures) => {
-        // Allow toggling between the two versions of the widget
-        return OldUnitInput;
-    },
+    widget: OldUnitInput,
     transform: x => lens(x).del(["value"]).freeze(),
     version: { major: 0, minor: 1 },
     countSigfigs,

@@ -8,7 +8,6 @@ var _ = require("underscore");
 const ApiClassNames = require("./perseus-api.jsx").ClassNames;
 const ApiOptionsProps = require("./mixins/api-options-props.js");
 var CombinedHintsEditor = require("./hint-editor.jsx");
-var EnabledFeatures = require("./enabled-features.jsx");
 var FixPassageRefs = require("./util/fix-passage-refs.jsx");
 var ItemEditor = require("./item-editor.jsx");
 var JsonEditor = require("./json-editor.jsx");
@@ -19,7 +18,6 @@ var EditorPage = React.createClass({
         answerArea: React.PropTypes.any, // related to the question
 
         developerMode: React.PropTypes.bool,
-        enabledFeatures: EnabledFeatures.propTypes,
 
         // Source HTML for the iframe to render
         frameSource: React.PropTypes.string.isRequired,
@@ -57,10 +55,6 @@ var EditorPage = React.createClass({
     getDefaultProps: function() {
         return {
             developerMode: false,
-            enabledFeatures: {
-                toolTipFormats: true,
-                useMathQuill: true,
-            },
             jsonMode: false,
             onChange: () => {},
             ref: '',
@@ -129,9 +123,6 @@ var EditorPage = React.createClass({
             type: "question",
             data: _({
                 item: this.serialize(),
-                enabledFeatures: {
-                    toolTipFormats: true,
-                },
                 apiOptions: deviceBasedApiOptions,
                 initialHintsVisible: 0,
                 device: this.props.previewDevice,
@@ -139,8 +130,7 @@ var EditorPage = React.createClass({
                 _(this.props).pick("workAreaSelector",
                                    "solutionAreaSelector",
                                    "hintsAreaSelector",
-                                   "problemNum",
-                                   "enabledFeatures")
+                                   "problemNum")
             ),
         });
     },
@@ -240,7 +230,6 @@ var EditorPage = React.createClass({
                     wasAnswered={this.state.wasAnswered}
                     gradeMessage={this.state.gradeMessage}
                     onCheckAnswer={this.handleCheckAnswer}
-                    enabledFeatures={this.props.enabledFeatures}
                     deviceType={this.props.previewDevice}
                     apiOptions={deviceBasedApiOptions}
                     frameSource={this.props.frameSource}
@@ -254,7 +243,6 @@ var EditorPage = React.createClass({
                     imageUploader={this.props.imageUploader}
                     onChange={this.handleChange}
                     deviceType={this.props.previewDevice}
-                    enabledFeatures={this.props.enabledFeatures}
                     apiOptions={deviceBasedApiOptions}
                     frameSource={this.props.frameSource}
                 />

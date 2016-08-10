@@ -7,7 +7,6 @@ const ReactDOM = require("react-dom");
 const _ = require("underscore");
 
 const ApiOptions = require("./perseus-api.jsx").Options;
-const EnabledFeatures = require("./enabled-features.jsx");
 const HintsRenderer = require("./hints-renderer.jsx");
 const Renderer = require("./renderer.jsx");
 const ProvideKeypad = require("./mixins/provide-keypad.jsx");
@@ -31,7 +30,6 @@ const ItemRenderer = React.createClass({
         // item-related components (for list, see item.answerArea below).
         // TODO(alex): Generalize this to an 'expectsToBeInTemplate' prop
         controlPeripherals: RP.bool,
-        enabledFeatures: RP.any,
         hintsAreaSelector: RP.string,
         initialHintsVisible: RP.number,
         item: RP.shape({
@@ -63,7 +61,6 @@ const ItemRenderer = React.createClass({
         return {
             apiOptions: {},  // defaults are set in `this.update()`
             controlPeripherals: true,
-            enabledFeatures: {},  // defaults are set in `this.update()`
             hintsAreaSelector: "#hintsarea",
             initialHintsVisible: 0,
             workAreaSelector: "#workarea",
@@ -124,11 +121,6 @@ const ItemRenderer = React.createClass({
     },
 
     update: function() {
-        const enabledFeatures = {
-            ...EnabledFeatures.defaults,
-            ...this.props.enabledFeatures,
-        };
-
         const apiOptions = {
             ...ApiOptions.defaults,
             ...this.props.apiOptions,
@@ -145,7 +137,6 @@ const ItemRenderer = React.createClass({
                     problemNum={this.props.problemNum}
                     onInteractWithWidget={this.handleInteractWithWidget}
                     highlightedWidgets={this.state.questionHighlightedWidgets}
-                    enabledFeatures={enabledFeatures}
                     apiOptions={apiOptions}
                     questionCompleted={this.state.questionCompleted}
                     savedState={this.props.savedState}
@@ -157,7 +148,6 @@ const ItemRenderer = React.createClass({
                 <HintsRenderer
                     hints={this.props.item.hints}
                     hintsVisible={this.state.hintsVisible}
-                    enabledFeatures={enabledFeatures}
                     apiOptions={apiOptions}
                 />,
                 document.querySelector(this.props.hintsAreaSelector));

@@ -6,7 +6,6 @@ const classNames = require('classnames');
 const React = require('react');
 const ReactDOM = require('react-dom');
 
-const EnabledFeatures = require('./enabled-features.jsx');
 const Widgets = require('./widgets.js');
 const {
     containerSizeClass,
@@ -17,7 +16,6 @@ const WidgetContainer = React.createClass({
     propTypes: {
         shouldHighlight: React.PropTypes.bool.isRequired,
         type: React.PropTypes.string,
-        enabledFeatures: EnabledFeatures.propTypes,
         initialProps: React.PropTypes.object.isRequired,
     },
 
@@ -59,7 +57,7 @@ const WidgetContainer = React.createClass({
         });
 
         const type = this.props.type;
-        const WidgetType = Widgets.getWidget(type, this.props.enabledFeatures);
+        const WidgetType = Widgets.getWidget(type);
         if (WidgetType == null) {
             // Just give up on invalid widget types
             return <div className={className} />;
@@ -67,8 +65,7 @@ const WidgetContainer = React.createClass({
 
         let alignment = this.state.widgetProps.alignment;
         if (alignment === "default") {
-            alignment = Widgets.getDefaultAlignment(type,
-                            this.props.enabledFeatures);
+            alignment = Widgets.getDefaultAlignment(type);
         }
 
         className += " widget-" + alignment;

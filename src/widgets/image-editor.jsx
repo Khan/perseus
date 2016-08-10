@@ -109,7 +109,6 @@ const ImageEditor = React.createClass({
                     </div>
                     <Editor
                         apiOptions={this.props.apiOptions}
-                        enabledFeatures={this.props.enabledFeatures}
                         content={this.props.alt}
                         onChange={(props) => {
                             if (props.content != null) {
@@ -125,7 +124,6 @@ const ImageEditor = React.createClass({
                     <div>Caption:</div>
                     <Editor
                         apiOptions={this.props.apiOptions}
-                        enabledFeatures={this.props.enabledFeatures}
                         content={this.props.caption}
                         onChange={(props) => {
                             if (props.content != null) {
@@ -180,7 +178,6 @@ const ImageEditor = React.createClass({
                     </div>
                     <Editor
                         apiOptions={this.props.apiOptions}
-                        enabledFeatures={this.props.enabledFeatures}
                         content={this.props.title}
                         onChange={(props) => {
                             if (props.content != null) {

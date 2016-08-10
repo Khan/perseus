@@ -47,7 +47,7 @@ const TableEditor = React.createClass({
     render: function() {
         var tableProps = _.pick(
             this.props,
-            "headers", "answers", "onChange", "apiOptions", "enabledFeatures");
+            "headers", "answers", "onChange", "apiOptions");
         _.extend(tableProps, {
             editableHeaders: true,
             Editor,

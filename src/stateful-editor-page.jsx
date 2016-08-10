@@ -44,7 +44,6 @@ var StatefulEditorPage = React.createClass({
     componentWillReceiveProps: function(nextProps) {
         this.setState(_(nextProps).pick(
             "apiOptions",
-            "enabledFeatures",
             "imageUploader",
             "developerMode",
             "problemNum",

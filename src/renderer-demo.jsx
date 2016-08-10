@@ -91,11 +91,6 @@ const RendererDemo = React.createClass({
             ref="itemRenderer"
             problemNum={this.props.problemNum}
             initialHintsVisible={0}
-            enabledFeatures={{
-                highlight: true,
-                toolTipFormats: true,
-                useMathQuill: true,
-            }}
             apiOptions={apiOptions}
         />;
 

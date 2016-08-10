@@ -30,7 +30,6 @@ const ArticleRenderer = React.createClass({
             onFocusChange: React.PropTypes.func,
             xomManatee: React.PropTypes.bool,
         }),
-        enabledFeatures: React.PropTypes.shape({}),
         json: React.PropTypes.oneOfType([
             rendererProps,
             React.PropTypes.arrayOf(rendererProps),
@@ -176,7 +175,6 @@ const ArticleRenderer = React.createClass({
                             );
                         },
                     }}
-                    enabledFeatures={this.props.enabledFeatures}
                 />
             </div>;
         });

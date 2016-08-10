@@ -28,7 +28,7 @@ var Widgets = {
         this.validateAlignments();
     },
 
-    getWidget: function(name, enabledFeatures) {
+    getWidget: function(name) {
         // TODO(alex): Consider referring to these as renderers to avoid
         // overloading "widget"
         if (!_.has(widgets, name)) {
@@ -37,7 +37,7 @@ var Widgets = {
 
         // Allow widgets to specify a widget directly or via a function
         if (widgets[name].getWidget) {
-            return widgets[name].getWidget(enabledFeatures);
+            return widgets[name].getWidget();
         } else {
             return widgets[name].widget;
         }
@@ -269,16 +269,15 @@ var Widgets = {
     },
 
     /**
-     * For the given (string) widget type and enabledFeatures, determine the
-     * default alignment for the widget. This is used at rendering time to
-     * go from "default" alignment to the actual alignment displayed on the
-     * screen.
+     * For the given (string) widget type, determine the default alignment for
+     * the widget. This is used at rendering time to go from "default" alignment
+     * to the actual alignment displayed on the screen.
      *
      * The default alignment is given either as a string (called
      * `defaultAlignment`) or a function (called `getDefaultAlignment`) on
      * the exports of a widget's module.
      */
-    getDefaultAlignment: function(type, enabledFeatures) {
+    getDefaultAlignment: function(type) {
         var widgetInfo = widgets[type];
         var alignment;
         if (!widgetInfo) {
@@ -286,7 +285,7 @@ var Widgets = {
         }
 
         if (widgetInfo.getDefaultAlignment) {
-            alignment = widgetInfo.getDefaultAlignment(enabledFeatures);
+            alignment = widgetInfo.getDefaultAlignment();
         } else {
             alignment = widgetInfo.defaultAlignment;
         }

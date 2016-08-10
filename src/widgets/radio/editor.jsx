@@ -39,7 +39,6 @@ var ChoiceEditor = React.createClass({
         var editor = <Editor
             ref={"content-editor"}
             apiOptions={this.props.apiOptions}
-            enabledFeatures={this.props.enabledFeatures}
             content={this.props.choice.content || ""}
             widgetEnabled={false}
             placeholder={placeholder}
@@ -50,7 +49,6 @@ var ChoiceEditor = React.createClass({
         var clueEditor = <Editor
             ref={"clue-editor"}
             apiOptions={this.props.apiOptions}
-            enabledFeatures={this.props.enabledFeatures}
             content={this.props.choice.clue || ""}
             widgetEnabled={false}
             placeholder={i18n._(`Why is this choice ${checkedClass}?`)}
@@ -149,7 +147,6 @@ var RadioEditor = React.createClass({
                         content: <ChoiceEditor
                             ref={`choice-editor${i}`}
                             apiOptions={this.props.apiOptions}
-                            enabledFeatures={this.props.enabledFeatures}
                             choice={choice}
                             onContentChange={(newProps) => {
                                 if ("content" in newProps) {

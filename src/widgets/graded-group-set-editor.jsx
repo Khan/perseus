@@ -4,13 +4,11 @@ const _ = require("underscore");
 
 const ApiOptions = require("../perseus-api.jsx").Options;
 const Changeable = require("../mixins/changeable.jsx");
-const EnabledFeatures = require("../enabled-features.jsx");
 const GradedGroupEditor = require("./graded-group-editor.jsx");
 
 const GradedGroupSetEditor = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
-        enabledFeatures: EnabledFeatures.propTypes,
         gradedGroups: React.PropTypes.array,
         onChange: React.PropTypes.func.isRequired,
     },
@@ -48,7 +46,6 @@ const GradedGroupSetEditor = React.createClass({
                 ref={el => this._editors[i] = el}
                 {...group}
                 apiOptions={this.props.apiOptions}
-                enabledFeatures={this.props.enabledFeatures}
                 widgetEnabled={true}
                 immutableWidgets={false}
                 onChange={data => this.change(

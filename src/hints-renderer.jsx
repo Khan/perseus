@@ -11,7 +11,6 @@ const i18n = window.i18n;
 
 const HintRenderer = require("./hint-renderer.jsx");
 const SvgImage = require("./components/svg-image.jsx");
-const EnabledFeatures = require("./enabled-features.jsx");
 const ApiOptionsProps = require("./mixins/api-options-props.js");
 
 const mediaQueries = require("./styles/media-queries.js");
@@ -28,18 +27,11 @@ const HintsRenderer = React.createClass({
     propTypes: {
         // Also accepts apiOptions, via the ApiOptionsProps mixin.
         className: React.PropTypes.string,
-        enabledFeatures: EnabledFeatures.propTypes,
         hints: React.PropTypes.arrayOf(React.PropTypes.any),
         hintsVisible: React.PropTypes.number,
     },
 
     mixins: [ ApiOptionsProps ],
-
-    getDefaultProps: function() {
-        return {
-            enabledFeatures: EnabledFeatures.defaults,
-        };
-    },
 
     componentDidMount: function() {
         this._cacheHintImages();
@@ -138,7 +130,6 @@ const HintsRenderer = React.createClass({
                     totalHints={this.props.hints.length}
                     ref={"hintRenderer" + i}
                     key={"hintRenderer" + i}
-                    enabledFeatures={this.props.enabledFeatures}
                     apiOptions={apiOptions}
                 />;
 

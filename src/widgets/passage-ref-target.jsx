@@ -26,7 +26,6 @@ var PassageRefTarget = React.createClass({
         return <Renderer
             content={this.props.content}
             inline={true}
-            enabledFeatures={this.props.enabledFeatures}
             apiOptions={this.props.apiOptions}
             />;
     },

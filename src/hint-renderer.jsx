@@ -9,7 +9,6 @@ const i18n = window.i18n;
 
 const Renderer = require("./renderer.jsx");
 
-const EnabledFeatures = require("./enabled-features.jsx");
 const ApiOptions = require("./perseus-api.jsx").Options;
 
 const mediaQueries = require("./styles/media-queries.js");
@@ -25,7 +24,6 @@ const HintRenderer = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         className: React.PropTypes.string,
-        enabledFeatures: EnabledFeatures.propTypes,
         hint: React.PropTypes.any,
         lastHint: React.PropTypes.bool,
         lastRendered: React.PropTypes.bool,
@@ -44,7 +42,6 @@ const HintRenderer = React.createClass({
     render: function() {
         const {
             apiOptions,
-            enabledFeatures,
             className,
             hint,
             lastHint,
@@ -91,7 +88,6 @@ const HintRenderer = React.createClass({
                 widgets={hint.widgets}
                 content={hint.content || ""}
                 images={hint.images}
-                enabledFeatures={enabledFeatures}
                 apiOptions={rendererApiOptions}
             />
         </div>;

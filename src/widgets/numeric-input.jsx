@@ -14,7 +14,6 @@ var PossibleAnswers = require("../components/possible-answers.jsx");
 
 var ApiClassNames   = require("../perseus-api.jsx").ClassNames;
 var ApiOptions      = require("../perseus-api.jsx").Options;
-var EnabledFeatures = require("../enabled-features.jsx");
 const KhanAnswerTypes = require("../util/answer-types.js");
 const KhanMath = require("../util/math.js");
 const { keypadElementPropType } = require("../../math-input").propTypes;
@@ -47,7 +46,6 @@ var NumericInput = React.createClass({
     propTypes: {
         currentValue: React.PropTypes.string,
         size: React.PropTypes.oneOf(["normal", "small"]),
-        enabledFeatures: EnabledFeatures.propTypes,
         apiOptions: ApiOptions.propTypes,
         coefficient: React.PropTypes.bool,
         answerForms: React.PropTypes.arrayOf(React.PropTypes.shape({
@@ -68,7 +66,6 @@ var NumericInput = React.createClass({
         return {
             currentValue: "",
             size: "normal",
-            enabledFeatures: EnabledFeatures.defaults,
             apiOptions: ApiOptions.defaults,
             coefficient: false,
             answerForms: [],
@@ -234,8 +231,7 @@ var NumericInput = React.createClass({
         ));
         var allFormsAccepted = answerFormNames.length >=
                 _.size(formExamples);
-        return this.props.enabledFeatures.toolTipFormats &&
-                !noFormsAccepted && !allFormsAccepted;
+        return !noFormsAccepted && !allFormsAccepted;
     },
 
     examples: function() {

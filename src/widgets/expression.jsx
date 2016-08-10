@@ -15,12 +15,9 @@ var ApiOptions = require("../perseus-api.jsx").Options;
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 const KhanAnswerTypes = require("../util/answer-types.js");
 
-var EnabledFeatures = require("../enabled-features.jsx");
-
 const InlineIcon = require("../components/inline-icon.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
 var MathInput = require("../components/math-input.jsx");
-var TeX = require("react-components/tex.jsx");// OldExpression only
 var TexButtons = require("../components/tex-buttons.jsx");
 const { KeypadInput } = require("../../math-input").components;
 const {
@@ -29,7 +26,6 @@ const {
 } = require("../../math-input").propTypes;
 const {KeypadTypes} = require("../../math-input").consts;
 
-var EnabledFeatures = require("../enabled-features.jsx");
 const {iconExclamationSign} = require("../icon-paths.js");
 
 var lens = require("../../hubble/index.js");
@@ -89,7 +85,6 @@ var Expression = React.createClass({
         apiOptions: ApiOptions.propTypes,
         buttonSets: TexButtons.buttonSetsType,
         buttonsVisible: React.PropTypes.oneOf(['always', 'never', 'focused']),
-        enabledFeatures: EnabledFeatures.propTypes,
         functions: React.PropTypes.arrayOf(React.PropTypes.string),
         keypadConfiguration: keypadConfigurationPropType,
         keypadElement: keypadElementPropType,
@@ -107,7 +102,6 @@ var Expression = React.createClass({
             buttonSets: ["basic", "trig", "prealgebra", "logarithms"],
             onFocus: function() { },
             onBlur: function() { },
-            enabledFeatures: EnabledFeatures.defaults,
             apiOptions: ApiOptions.defaults
         };
     },
@@ -427,277 +421,6 @@ _.extend(Expression, {
     }
 });
 
-// The old, plain-text input expression widget
-var OldExpression = React.createClass({
-    propTypes: {
-        value: React.PropTypes.string,
-        times: React.PropTypes.bool,
-        functions: React.PropTypes.arrayOf(React.PropTypes.string),
-        enabledFeatures: EnabledFeatures.propTypes,
-        widgetId: React.PropTypes.string.isRequired,
-    },
-
-    getDefaultProps: function() {
-        return {
-            value: "",
-            times: false,
-            functions: [],
-            onFocus: function() { },
-            onBlur: function() { },
-            enabledFeatures: EnabledFeatures.defaults,
-            apiOptions: ApiOptions.defaults
-        };
-    },
-
-    getInitialState: function() {
-        return {
-            lastParsedTex: ""
-        };
-    },
-
-    parse: function(value, props) {
-        // TODO(jack): Disable icu for content creators here, or
-        // make it so that solution answers with ','s or '.'s work
-        var options = _.pick(props || this.props, "functions");
-        if (window.icu && window.icu.getDecimalFormatSymbols) {
-            _.extend(options, window.icu.getDecimalFormatSymbols());
-        }
-        return KAS.parse(value, options);
-    },
-
-    componentWillMount: function() {
-        this.updateParsedTex(this.props.value);
-    },
-
-    componentWillReceiveProps: function(nextProps) {
-        this.updateParsedTex(nextProps.value, nextProps);
-    },
-
-    render: function() {
-        var result = this.parse(this.props.value);
-        var shouldShowExamples = this.props.enabledFeatures.toolTipFormats;
-
-        return <span className="perseus-widget-expression-old">
-            <span className="output">
-                <span className="tex"
-                        style={{opacity: result.parsed ? 1.0 : 0.5}}>
-                    <TeX>{this.state.lastParsedTex}</TeX>
-                </span>
-                <span className="placeholder">
-                    <span ref="error" className="error"
-                            style={{display: "none"}}>
-                        <span className="buddy" />
-                        <span className="message"><span>
-                            {ERROR_MESSAGE}
-                        </span></span>
-                    </span>
-                </span>
-            </span>
-            <InputWithExamples
-                ref="input"
-                value={this.props.value}
-                onKeyDown={this.handleKeyDown}
-                onKeyPress={this.handleKeyPress}
-                onChange={this.handleChange}
-                examples={this.examples()}
-                shouldShowExamples={shouldShowExamples}
-                onFocus={this._handleFocus}
-                onBlur={this._handleBlur}
-                id={this.props.widgetId}
-            />
-        </span>;
-    },
-
-    _handleFocus: function() {
-        this.props.onFocus([]);
-    },
-
-    _handleBlur: function() {
-        this.props.onBlur([]);
-    },
-
-    errorTimeout: null,
-
-    componentDidMount: function() {
-        this.componentDidUpdate();
-    },
-
-    componentDidUpdate: function() {
-        clearTimeout(this.errorTimeout);
-        if (this.parse(this.props.value).parsed) {
-            this.hideError();
-        } else {
-            this.errorTimeout = setTimeout(this.showError, 2000);
-        }
-    },
-
-    componentWillUnmount: function() {
-        clearTimeout(this.errorTimeout);
-    },
-
-    showError: function() {
-        var apiResult = this.props.apiOptions.onInputError(
-            null, // reserved for some widget identifier
-            this.props.value,
-            ERROR_MESSAGE
-        );
-        if (apiResult !== false) {
-            var $error = $(ReactDOM.findDOMNode(this.refs.error));
-            if (!$error.is(":visible")) {
-                $error.css({ top: 50, opacity: 0.1 }).show()
-                    .animate({ top: 0, opacity: 1.0 }, 300);
-            }
-        } else {
-            this.hideError();
-        }
-    },
-
-    hideError: function() {
-        var $error = $(ReactDOM.findDOMNode(this.refs.error));
-        if ($error.is(":visible")) {
-            $error.animate({ top: 50, opacity: 0.1 }, 300, function() {
-                $(this).hide();
-            });
-        }
-    },
-
-    /**
-     * The keydown handler handles clearing the error timeout, telling
-     * props.value to update, and intercepting the backspace key when
-     * appropriate...
-     */
-    handleKeyDown: function(event) {
-        var input = ReactDOM.findDOMNode(this.refs.input);
-        var text = input.value;
-
-        var start = input.selectionStart;
-        var end = input.selectionEnd;
-        var supported = start !== undefined;
-
-        var which = event.nativeEvent.keyCode;
-
-        if (supported && which === 8 /* backspace */) {
-            if (start === end && text.slice(start - 1, start + 1) === "()") {
-                event.preventDefault();
-                var val = text.slice(0, start - 1) + text.slice(start + 1);
-
-                // this.props.onChange will update the value for us, but
-                // asynchronously, making it harder to set the selection
-                // usefully, so we just set .value directly here as well.
-                input.value = val;
-                input.selectionStart = start - 1;
-                input.selectionEnd = end - 1;
-                this.props.onChange({value: val});
-            }
-        }
-    },
-
-    /**
-     * ...whereas the keypress handler handles the parentheses because keyCode
-     * is more useful for actual character insertions (keypress gives 40 for an
-     * open paren '(' instead of keydown which gives 57, the code for '9').
-     */
-    handleKeyPress: function(event) {
-        var input = ReactDOM.findDOMNode(this.refs.input);
-        var text = input.value;
-
-        var start = input.selectionStart;
-        var end = input.selectionEnd;
-        var supported = start !== undefined;
-
-        var which = event.nativeEvent.charCode;
-
-        if (supported && which === 40 /* left paren */) {
-            event.preventDefault();
-
-            var val;
-            if (start === end) {
-                var insertMatched = _.any([" ", ")", ""], function(val) {
-                    return text.charAt(start) === val;
-                });
-
-                val = text.slice(0, start) +
-                        (insertMatched ? "()" : "(") + text.slice(end);
-            } else {
-                val = text.slice(0, start) +
-                        "(" + text.slice(start, end) + ")" + text.slice(end);
-            }
-
-            input.value = val;
-            input.selectionStart = start + 1;
-            input.selectionEnd = end + 1;
-            this.props.onChange({value: val});
-
-        } else if (supported && which === 41 /* right paren */) {
-            if (start === end && text.charAt(start) === ")") {
-                event.preventDefault();
-                input.selectionStart = start + 1;
-                input.selectionEnd = end + 1;
-            }
-        }
-    },
-
-    handleChange: function(newValue) {
-        this.props.onChange({value: newValue});
-    },
-
-    focus: function() {
-        this.refs.input.focus();
-        return true;
-    },
-
-    getInputPaths: function() {
-        // The widget itself is an input, so we return a single empty list to
-        // indicate this.
-        return [[]];
-    },
-
-    getGrammarTypeForPath: function(inputPath) {
-        return "expression";
-    },
-
-    getUserInput: function() {
-        return this.props.value;
-    },
-
-    updateParsedTex: function(value, props) {
-        var result = this.parse(value, props);
-        var options = _.pick(this.props, "times");
-        if (result.parsed) {
-            this.setState({lastParsedTex: result.expr.asTex(options)});
-        }
-    },
-
-    simpleValidate: function(rubric, onInputError) {
-        onInputError = onInputError || function() { };
-        return Expression.validate(this.getUserInput(), rubric, onInputError);
-    },
-
-    examples: function() {
-        var mult = i18n._("For $2\\cdot2$, enter **2*2**");
-        if (this.props.times) {
-            mult = mult.replace(/\\cdot/g, "\\times");
-        }
-
-        return [
-            i18n._("**Acceptable Formats**"),
-            mult,
-            i18n._("For $3y$, enter **3y** or **3*y**"),
-            i18n._("For $\\dfrac{1}{x}$, enter **1/x**"),
-            i18n._("For $\\dfrac{1}{xy}$, enter **1/(xy)**"),
-            i18n._("For $\\dfrac{2}{x + 3}$, enter **2/(x + 3)**"),
-            i18n._("For $x^{y}$, enter **x^y**"),
-            i18n._("For $x^{2/3}$, enter **x^(2/3)**"),
-            i18n._("For $\\sqrt{x}$, enter **sqrt(x)**"),
-            i18n._("For $\\sqrt[3]{x}$, enter **sqrt\\[3\\]{x}**"),
-            i18n._("For $\\pi$, enter **pi**"),
-            i18n._("For $\\sin \\theta$, enter **sin(theta)**"),
-            i18n._("For $\\le$ or $\\ge$, enter **<=** or **>=**"),
-            i18n._("For $\\neq$, enter **=/=**")
-        ];
-    }
-});
-
 /**
  * Determine the keypad configuration parameters for the input, based on the
  * provided properties.
@@ -803,14 +526,8 @@ var propUpgrades = {
 module.exports = {
     name: "expression",
     displayName: "Expression / Equation",
-    getDefaultAlignment: function (enabledFeatures) {
-        // Each version of the widget has different alignments
-        return enabledFeatures.useMathQuill ? "inline-block" : "block";
-    },
-    getWidget: (enabledFeatures) => {
-        // Allow toggling between the two versions of the widget
-        return enabledFeatures.useMathQuill ? Expression : OldExpression;
-    },
+    defaultAlignment: "inline-block",
+    widget: Expression,
     transform: (editorProps) => {
         const { times, functions, buttonSets, buttonsVisible } = editorProps;
         return {

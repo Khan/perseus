@@ -74,7 +74,7 @@ var Sequence = React.createClass({
                 widgets={widgets}
                 onInteractWithWidget={this._handleInteraction}
                 apiOptions={this.props.apiOptions}
-                enabledFeatures={this.props.enabledFeatures} />
+                />
         </div>;
     },
 

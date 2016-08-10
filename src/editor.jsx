@@ -11,7 +11,6 @@ var _ = require("underscore");
 
 var ApiOptions = require("./perseus-api.jsx").Options;
 var DragTarget = require("react-components/drag-target.jsx");
-var EnabledFeatures = require("./enabled-features.jsx");
 var {iconChevronDown, iconChevronRight, iconTrash} =
     require("./icon-paths.js");
 var InlineIcon = require("./components/inline-icon.jsx");
@@ -102,7 +101,6 @@ var WidgetEditor = React.createClass({
         onChange: React.PropTypes.func.isRequired,
         onRemove: React.PropTypes.func.isRequired,
         apiOptions: ApiOptions.propTypes,
-        enabledFeatures: EnabledFeatures.propTypes,
 
         // Serialized props
         type: React.PropTypes.string.isRequired,
@@ -250,7 +248,6 @@ var WidgetEditor = React.createClass({
                     ref="widget"
                     onChange={this._handleWidgetChange}
                     static={widgetInfo.static}
-                    enabledFeatures={this.props.enabledFeatures}
                     apiOptions={this.props.apiOptions}
                     {...widgetInfo.options}
                 />
@@ -324,7 +321,6 @@ var imageUrlsFromContent = function(content) {
 var Editor = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
-        enabledFeatures: EnabledFeatures.propTypes,
         imageUploader: React.PropTypes.func,
     },
 
@@ -359,7 +355,6 @@ var Editor = React.createClass({
             type={type}
             onChange={this._handleWidgetEditorChange.bind(this, id)}
             onRemove={this._handleWidgetEditorRemove.bind(this, id)}
-            enabledFeatures={this.props.enabledFeatures}
             apiOptions={this.props.apiOptions}
             {...this.props.widgets[id]}
         />;
@@ -699,8 +694,7 @@ var Editor = React.createClass({
         var widgetContent = widgetPlaceholder.replace("{id}", id);
 
         // Add newlines before block-display widgets like graphs
-        var isBlock = Widgets.getDefaultAlignment(widgetType,
-            this.props.enabledFeatures) === "block";
+        var isBlock = Widgets.getDefaultAlignment(widgetType) === "block";
 
         var prelude = oldContent.slice(0, cursorRange[0]);
         var postlude = oldContent.slice(cursorRange[1]);

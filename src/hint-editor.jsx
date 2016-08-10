@@ -14,7 +14,6 @@ var InfoTip = require("./components/info-tip.jsx");
 var DeviceFramer = require("./components/device-framer.jsx");
 
 const ApiOptions = require("./perseus-api.jsx").Options;
-const EnabledFeatures = require("./enabled-features.jsx");
 const {iconCircleArrowDown, iconCircleArrowUp, iconPlus, iconTrash} =
     require("./icon-paths.js");
 const InlineIcon = require("./components/inline-icon.jsx");
@@ -31,7 +30,6 @@ const IframeContentRenderer = require("./iframe-content-renderer.jsx");
 var HintEditor = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
-        enabledFeatures: EnabledFeatures.propTypes,
         imageUploader: React.PropTypes.func,
     },
 
@@ -50,7 +48,6 @@ var HintEditor = React.createClass({
         return <div className="perseus-hint-editor perseus-editor-left-cell">
             <div className="pod-title">Hint</div>
             <Editor ref="editor"
-                    enabledFeatures={this.props.enabledFeatures}
                     apiOptions={this.props.apiOptions}
                     widgets={this.props.widgets}
                     content={this.props.content}
@@ -112,7 +109,6 @@ var CombinedHintEditor = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         deviceType: React.PropTypes.string.isRequired,
-        enabledFeatures: EnabledFeatures.propTypes,
         frameSource: React.PropTypes.string.isRequired,
         imageUploader: React.PropTypes.func,
     },
@@ -127,7 +123,6 @@ var CombinedHintEditor = React.createClass({
                 hint: this.props.hint,
                 bold: shouldBold,
                 pos: this.props.pos,
-                enabledFeatures: this.props.enabledFeatures,
                 apiOptions: this.props.apiOptions,
             },
         });
@@ -158,7 +153,6 @@ var CombinedHintEditor = React.createClass({
                 onChange={this.props.onChange}
                 onRemove={this.props.onRemove}
                 onMove={this.props.onMove}
-                enabledFeatures={this.props.enabledFeatures}
                 apiOptions={this.props.apiOptions} />
 
             <div
@@ -205,7 +199,6 @@ var CombinedHintsEditor = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         deviceType: React.PropTypes.string.isRequired,
-        enabledFeatures: EnabledFeatures.propTypes,
         frameSource: React.PropTypes.string.isRequired,
         imageUploader: React.PropTypes.func,
     },
@@ -232,7 +225,6 @@ var CombinedHintsEditor = React.createClass({
                         onRemove={this.handleHintRemove.bind(this, i)}
                         onMove={this.handleHintMove.bind(this, i)}
                         deviceType={this.props.deviceType}
-                        enabledFeatures={this.props.enabledFeatures}
                         apiOptions={this.props.apiOptions}
                         frameSource={this.props.frameSource} />;
         }, this);

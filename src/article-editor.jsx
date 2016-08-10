@@ -14,7 +14,6 @@ const _ = require("underscore");
 
 const ApiOptions = require("./perseus-api.jsx").Options;
 const Editor = require("./editor.jsx");
-const EnabledFeatures = require("./enabled-features.jsx");
 const {iconCircleArrowDown, iconCircleArrowUp, iconPlus, iconTrash} =
     require("./icon-paths.js");
 const InlineIcon = require("./components/inline-icon.jsx");
@@ -58,7 +57,6 @@ const SectionControlButton = React.createClass({
 const ArticleEditor = React.createClass({
     propTypes: {
         apiOptions: React.PropTypes.shape({}),
-        enabledFeatures: EnabledFeatures.propTypes,
         frameSource: React.PropTypes.string.isRequired,
         imageUploader: React.PropTypes.func,
         json: React.PropTypes.oneOfType([
@@ -78,10 +76,6 @@ const ArticleEditor = React.createClass({
 
     getDefaultProps: function() {
         return {
-            enabledFeatures: {
-                toolTipFormats: true,
-                useMathQuill: true,
-            },
             json: [{}],
             mode: "edit",
             screen: "desktop",
@@ -119,7 +113,6 @@ const ArticleEditor = React.createClass({
                 showAlignmentOptions: true,
                 isArticle: true,
             },
-            enabledFeatures: this.props.enabledFeatures,
             json: section,
             useNewStyles: this.props.useNewStyles,
         };
@@ -133,7 +126,6 @@ const ArticleEditor = React.createClass({
 
     _renderEditor: function() {
         const {
-            enabledFeatures,
             imageUploader,
             sectionImageUploadGenerator,
         } = this.props;
@@ -209,7 +201,6 @@ const ArticleEditor = React.createClass({
                             <Editor
                                 {...section}
                                 apiOptions={apiOptions}
-                                enabledFeatures={enabledFeatures}
                                 imageUploader={imageUploader}
                                 onChange={
                                     _.partial(this._handleEditorChange, i)

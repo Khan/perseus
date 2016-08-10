@@ -17,12 +17,6 @@ const EditorPage = require('./editor-page.jsx');
 const Util = require('./util.js');
 const Renderability = require('./renderability.jsx');
 
-const enabledFeatures = {
-    highlight: true,
-    toolTipFormats: true,
-    useMathQuill: true,
-};
-
 const EditorDemo = React.createClass({
     propTypes: {
         problemNum: React.PropTypes.number,
@@ -101,7 +95,6 @@ const EditorDemo = React.createClass({
         return {
             ...this.props.question,
             problemNum: this.props.problemNum,
-            enabledFeatures: enabledFeatures,
             developerMode: true,
             imageUploader: function(image, callback) {
                 setTimeout(callback, 1000, "http://fake.image.url");
@@ -184,18 +177,6 @@ const EditorDemo = React.createClass({
     render: function() {
         const editorProps = this.getEditorProps();
 
-        const featuresDisplay = Object.keys(enabledFeatures).map((feature) => {
-            return <span
-                key={feature}
-                style={{
-                    marginLeft: 5,
-                    background: enabledFeatures[feature] ? '#aaffaa' : '#ffcccc',
-                }}
-            >
-                {feature}
-            </span>;
-        });
-
         return (
             <div id="perseus-index">
                 <div className="extras">
@@ -206,7 +187,6 @@ const EditorDemo = React.createClass({
                     <button onClick={this.inputVersion}>contains only inputs?</button>{' '}
                     <button onClick={this.saveWarnings}>save warnings</button>{' '}
                     <span>Seed:{this.props.problemNum} </span>{' '}
-                    <span>Features:{featuresDisplay}</span>{' '}
                     <span>Scratchpad:{this.state.scratchpadEnabled ? 'enabled' : 'disabled'}</span>
                 </div>
                 <StatefulEditorPage key={this.props.question} ref="editor" {...editorProps}/>
