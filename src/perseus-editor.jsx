@@ -40,6 +40,8 @@ const {
 const Widgets = require('./widgets.js');
 const DraftUtils = require('./draft-utils.js');
 
+const UPDATE_PARENT_THROTTLE = 800;
+
 const widgetPlaceholder = '[[\u2603 {id}]]';
 const widgetRegExp = /\[\[\u2603 [a-z-]+ [0-9]+\]\]/g;
 const widgetPartsRegExp = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]$/;
@@ -265,39 +267,44 @@ const PerseusEditor = React.createClass({
         return true; // True means draft doesn't run its default behavior
     },
 
-    pastContentState: null,
-    pastWidgets: new Set(),
+    updateParent(content, widgets) {
+        // The parent component should know of only the active widgets,
+        // however the widgets are not deleted from this.state because a
+        // user undoing a widget deletion should also recover the
+        // widget's metadata
+        const currEntities = DraftUtils.getEntities(content);
+        const currWidgets = currEntities.reduce((map, entity) => {
+            const id = entity.getData().id;
+            map[id] = widgets[id];
+            return map;
+        }, {});
 
+        // Provide the parent component with the current text
+        // representation, as well as the current active widgets
+        this.props.onChange({
+            content: content.getPlainText('\n'),
+            widgets: currWidgets,
+        });
+    },
+
+    pastContentState: null,
+    lastIdleCallback: null,
     handleChange(newState, callback) {
         const state = {...this.state, ...newState};
         const {editorState, widgets} = state;
         const currContent = editorState.getCurrentContent();
 
-        // Tasks for when the text content has changed, not just the selection
+        // This ensures that unless the content stops changing for a certain
+        // short duration, no processing will be done to update the parent.
+        // This allows the editing to remain performant for large files,
+        // as basic tasks only occur on individual ContentBlocks, while
+        // updating the parent involves iterating through them all
         if (currContent !== this.pastContentState) {
-            // The parent component should be notified of the widget deletion,
-            // however the widgets are not deleted from this.state because a
-            // user undoing a widget deletion should also recover the
-            // widget's metadata
-            const newWidgets = {...widgets};
-            const entities = DraftUtils.getEntities(currContent);
-            const currIds = new Set(
-                entities.map(entity => entity.getData().id)
+            clearTimeout(this.lastIdleCallback);
+            this.lastIdleCallback = setTimeout(
+                () => this.updateParent(currContent, widgets),
+                UPDATE_PARENT_THROTTLE
             );
-            this.pastWidgets.forEach(id => {
-                if (!currIds.has(id)) {
-                    delete newWidgets[id];
-                }
-            });
-
-            this.pastWidgets = currIds;
-
-            // Provide the parent component with the current text
-            // representation, as well as the current active widgets
-            this.props.onChange({
-                content: currContent.getPlainText('\n'),
-                widgets: newWidgets,
-            });
         }
 
         this.pastContentState = currContent;
