@@ -98,7 +98,7 @@ const EditorDemo = React.createClass({
             problemNum: this.props.problemNum,
             developerMode: true,
             imageUploader: function(image, callback) {
-                setTimeout(callback, 1000, "http://fake.image.url");
+                setTimeout(callback, 1000, "https://cdn.kastatic.org/ka-perseus-images/bb2c4c91098e2b8f56fb0301d4c94e92a140bcd6.jpeg");
             },
             apiOptions: {
                 // onInputError: function() {
