@@ -453,6 +453,9 @@ var Editor = React.createClass({
     },
 
     handleDrop: function(e) {
+        if (ENABLE_DRAFT_EDITOR) {
+            return;
+        }
         var content = this.props.content;
         var dataTransfer = e.nativeEvent.dataTransfer;
 
