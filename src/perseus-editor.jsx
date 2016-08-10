@@ -37,6 +37,7 @@ const {
     Modifier,
     SelectionState,
     convertToRaw,
+    genKey,
 } = require('draft-js');
 const Widgets = require('./widgets.js');
 const DraftUtils = require('./draft-utils.js');
@@ -132,6 +133,13 @@ const PerseusEditor = React.createClass({
         return withNoSelection;
     },
 
+    _getCurrent() {
+        const editorState = this.state.editorState;
+        const contentState = editorState.getCurrentContent();
+        const selection = editorState.getSelection();
+        return {editorState, contentState, selection};
+    },
+
     addWidget(widgetType, callback) {
         const currWidgets = this.state.widgets;
 
@@ -143,7 +151,6 @@ const PerseusEditor = React.createClass({
             .map(id => +id.split(" ")[1]) //ids are (([a-z-]+) ([0-9]+))
             .reduce((maxId, currId) => Math.max(maxId, currId), 0);
         const id = widgetType + " " + (widgetNum + 1);
-        const widgetContent = widgetPlaceholder.replace("{id}", id);
         const widget = {
             options: Widgets.getEditor(widgetType).defaultProps,
             type: widgetType,
@@ -156,11 +163,16 @@ const PerseusEditor = React.createClass({
 
         // Text for the widget is inserted, and an entity is assigned
         const entity = Entity.create('WIDGET', 'IMMUTABLE', {id});
-        const editorState = DraftUtils.replaceSelection(
-            this.state.editorState, widgetContent, entity
+
+        const {editorState, contentState, selection} = this._getCurrent();
+        const text = widgetPlaceholder.replace("{id}", id);
+        const newEditorState = EditorState.push(
+            editorState,
+            DraftUtils.replaceSelection(contentState, selection, text, entity),
+            'insert-characters'
         );
 
-        this.handleChange({editorState, widgets}, callback);
+        this.handleChange({editorState: newEditorState, widgets}, callback);
     },
 
     updateWidget(id, newProps) {
@@ -171,18 +183,20 @@ const PerseusEditor = React.createClass({
     // handleUpdate handles removing widgets from the state, as widgets
     // can also be deleted by editor actions such as backspace and delete
     removeWidget(id, callback) {
-        const currEditorState = this.state.editorState;
-        const contentState = currEditorState.getCurrentContent();
+        const {editorState, contentState} = this._getCurrent();
         const selection = DraftUtils.findPattern(contentState, widgetForId(id));
-        const editorState =
-            DraftUtils.deleteSelection(currEditorState, selection);
+        const newEditorState =
+            EditorState.push(
+                editorState,
+                DraftUtils.deleteSelection(contentState, selection),
+                'delete-word'
+            );
 
-        this.handleChange({editorState}, callback);
+        this.handleChange({editorState: newEditorState}, callback);
     },
 
     handleCopy() {
-        const contentState = this.state.editorState.getCurrentContent();
-        const selection = this.state.editorState.getSelection();
+        const {contentState, selection} = this._getCurrent();
         const entities = DraftUtils.getEntities(contentState, selection);
 
         const copiedWidgets = entities.reduce((map, entity) => {
@@ -263,12 +277,20 @@ const PerseusEditor = React.createClass({
             return {text: safeText, characterList};
         };
 
-        const editorState = DraftUtils.insertText(
-            this.state.editorState,
+        const {contentState, selection} = this._getCurrent();
+        const newContentState = DraftUtils.insertText(
+            contentState,
+            selection,
             pastedText,
             sanitizeText
         );
-        this.handleChange({editorState, widgets});
+
+        const newEditorState = EditorState.push(
+            this.state.editorState,
+            newContentState,
+            'insert-fragment'
+        );
+        this.handleChange({editorState: newEditorState, widgets});
         return true; // True means draft doesn't run its default behavior
     },
 
@@ -282,15 +304,27 @@ const PerseusEditor = React.createClass({
             textToInsert = dataTransfer.getText();
         }
         // Adds new lines and collapses the selection
-        const editorState = DraftUtils.insertTextAtEndOfBlock(
-            this.state.editorState, textToInsert
+        const contentState = this.state.editorState.getCurrentContent();
+        const newContent = DraftUtils.insertTextAtEndOfBlock(
+            contentState, selection, textToInsert
+        );
+        const editorState = EditorState.push(
+            this.state.editorState,
+            newContent,
+            'insert-fragment'
         );
         this.handleChange({editorState});
-        return true;
+        return true; // Disable default draft drop handler
     },
 
     handleDroppedFiles(selection, files) {
-        console.log('Dropped file', selection, dataTransfer);
+        // const images = files.filter(file => file.type.match('image.*'));
+        // images.forEach(image => {
+        //     const id = genKey();
+        //     const entity = Entity.create('TEMP_IMAGE', 'IMMUTABLE', {id});
+
+        // });
+        return true;
     },
 
     updateParent(content, widgets) {
@@ -318,22 +352,22 @@ const PerseusEditor = React.createClass({
     handleChange(newState, callback) {
         const state = {...this.state, ...newState};
         const {editorState, widgets} = state;
-        const currContent = editorState.getCurrentContent();
+        const newContent = editorState.getCurrentContent();
 
         // This ensures that unless the content stops changing for a certain
         // short duration, no processing will be done to update the parent.
         // This allows the editing to remain performant for large files,
         // as basic tasks only occur on individual ContentBlocks, while
         // updating the parent involves iterating through them all
-        if (currContent !== this.pastContentState) {
+        if (newContent !== this.pastContentState) {
             clearTimeout(this.lastIdleCallback);
             this.lastIdleCallback = setTimeout(
-                () => this.updateParent(currContent, widgets),
+                () => this.updateParent(newContent, widgets),
                 UPDATE_PARENT_THROTTLE
             );
         }
 
-        this.pastContentState = currContent;
+        this.pastContentState = newContent;
         this.setState({editorState, widgets}, callback);
     },
 

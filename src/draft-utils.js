@@ -39,33 +39,21 @@ function findPattern(contentState, regExp) {
     }
 }
 
-function replaceSelection(editorState, text, entity = null) {
-    const contentState = Modifier.replaceText(
-        editorState.getCurrentContent(),
-        editorState.getSelection(),
+function replaceSelection(contentState, selection, text, entity = null) {
+    return Modifier.replaceText(
+        contentState,
+        selection,
         text,
         null, // For custom styling, but we use a decorator instead
         entity
     );
-
-    return EditorState.push(
-        editorState,
-        contentState,
-        'insert-characters'
-    );
 }
 
-function deleteSelection(editorState, selection) {
-    const contentWithoutSelection = Modifier.removeRange(
-        editorState.getCurrentContent(),
+function deleteSelection(contentState, selection) {
+    return Modifier.removeRange(
+        contentState,
         selection,
         'backward'
-    );
-
-    return EditorState.push(
-        editorState,
-        contentWithoutSelection,
-        'delete-word'
     );
 }
 
@@ -129,7 +117,7 @@ function getEntities(contentState, selection) {
 */
 const NEWLINE_REGEX = /\r\n?|\n/g;
 const defaultSanitizer = (a, b) => ({text: a, characterList: b});
-function insertText(editorState, rawText, sanitizer = defaultSanitizer) {
+function insertText(contentState, selection, rawText, sanitizer = defaultSanitizer) { //eslint-disable-line
     // To insert text such that it will appear as multiple blocks,
     // createFragment must be used.  A fragment is an ordered map of
     // ContentBlocks.  There should be a ContentBlock for each paragraph
@@ -156,24 +144,18 @@ function insertText(editorState, rawText, sanitizer = defaultSanitizer) {
     const fragment = BlockMapBuilder.createFromArray(contentBlocks);
 
     const newContent = Modifier.replaceWithFragment(
-        editorState.getCurrentContent(),
-        editorState.getSelection(),
+        contentState,
+        selection,
         fragment
     );
 
-    return EditorState.push(
-        editorState,
-        newContent,
-        'insert-fragment'
-    );
+    return newContent;
 }
 
-function insertTextAtEndOfBlock(editorState, rawText, sanitizer) {
+function insertTextAtEndOfBlock(contentState, selection, rawText, sanitizer) {
     // insertText inserts at the current selection, therefore to insert at the
     // end of the block, simply force the selection to be at that point
-    const selection = editorState.getSelection();
     const blockKey = selection.getFocusKey();
-    const contentState = editorState.getCurrentContent();
     const block = contentState.getBlockForKey(blockKey);
     const blockLength = block.getCharacterList().size;
     const newSelection = selection.merge({
@@ -184,7 +166,8 @@ function insertTextAtEndOfBlock(editorState, rawText, sanitizer) {
     });
 
     return insertText(
-        EditorState.forceSelection(editorState, newSelection),
+        contentState,
+        newSelection,
         rawText,
         sanitizer
     );
