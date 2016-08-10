@@ -87,14 +87,34 @@ const Zoomable = React.createClass({
                         childList: true, subtree: true, attributes: true,
                     });
                 }
+                window.addEventListener("resize", this.reset);
             }
         });
     },
 
     componentWillUnmount() {
+        window.removeEventListener("resize", this.reset);
         if (this._observer) {
             this._observer.disconnect();
         }
+    },
+
+    reset() {
+        if (!this.isMounted()) {
+            return;
+        }
+        if (!this.state.visible) {
+            return;
+        }
+        this._originalWidth = null;
+        this.setState({
+            visible: false,
+            compactHeight: null,
+            expandedHeight: null,
+            zoomed: true,
+        }, () => {
+            this.scaleChildToFit(false);
+        });
     },
 
     stopPropagationIfZoomed(e) {
