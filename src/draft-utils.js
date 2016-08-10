@@ -39,7 +39,7 @@ function findPattern(contentState, regExp) {
     }
 }
 
-function replaceSelection(editorState, text, entity) {
+function replaceSelection(editorState, text, entity = null) {
     const contentState = Modifier.replaceText(
         editorState.getCurrentContent(),
         editorState.getSelection(),
@@ -129,11 +129,11 @@ function getEntities(contentState, selection) {
 */
 const NEWLINE_REGEX = /\r\n?|\n/g;
 const defaultSanitizer = (a, b) => ({text: a, characterList: b});
-function insertText(editorState, text, sanitizer = defaultSanitizer) {
+function insertText(editorState, rawText, sanitizer = defaultSanitizer) {
     // To insert text such that it will appear as multiple blocks,
     // createFragment must be used.  A fragment is an ordered map of
     // ContentBlocks.  There should be a ContentBlock for each paragraph
-    const textLines = text.split(NEWLINE_REGEX);
+    const textLines = rawText.split(NEWLINE_REGEX);
 
     // Without basic character data, the text appears blank
     const charData = CharacterMetadata.create();
@@ -168,6 +168,28 @@ function insertText(editorState, text, sanitizer = defaultSanitizer) {
     );
 }
 
+function insertTextAtEndOfBlock(editorState, rawText, sanitizer) {
+    // insertText inserts at the current selection, therefore to insert at the
+    // end of the block, simply force the selection to be at that point
+    const selection = editorState.getSelection();
+    const blockKey = selection.getFocusKey();
+    const contentState = editorState.getCurrentContent();
+    const block = contentState.getBlockForKey(blockKey);
+    const blockLength = block.getCharacterList().size;
+    const newSelection = selection.merge({
+        focusKey: blockKey,
+        focusOffset: blockLength,
+        anchorKey: blockKey,
+        anchorOffset: blockLength,
+    });
+
+    return insertText(
+        EditorState.forceSelection(editorState, newSelection),
+        rawText,
+        sanitizer
+    );
+}
+
 module.exports = {
     regexStrategy,
     findPattern,
@@ -175,5 +197,6 @@ module.exports = {
     deleteSelection,
     getEntities,
     insertText,
+    insertTextAtEndOfBlock,
 };
 

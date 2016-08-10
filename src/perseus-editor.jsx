@@ -28,6 +28,7 @@ TODO(samiskin): Make tasks such as "addWidget" and "updateWidget" not functions
 const React = require('react');
 const {
     CharacterMetadata,
+    RichUtils,
     Entity,
     Editor,
     EditorState,
@@ -40,7 +41,10 @@ const {
 const Widgets = require('./widgets.js');
 const DraftUtils = require('./draft-utils.js');
 
-const UPDATE_PARENT_THROTTLE = 800;
+
+// TODO(samiskin): Figure out whats the best value for this number
+// 100 is best for my typing speed, but may not work as well for slower typists
+const UPDATE_PARENT_THROTTLE = 100;
 
 const widgetPlaceholder = '[[\u2603 {id}]]';
 const widgetRegExp = /\[\[\u2603 [a-z-]+ [0-9]+\]\]/g;
@@ -76,6 +80,7 @@ const PerseusEditor = React.createClass({
         initialContent: React.PropTypes.string,
         initialWidgets: React.PropTypes.any,
         placeholder: React.PropTypes.string,
+        imageUploader: React.PropTypes.func,
     },
 
     getDefaultProps: () => ({
@@ -267,6 +272,27 @@ const PerseusEditor = React.createClass({
         return true; // True means draft doesn't run its default behavior
     },
 
+    handleDrop(selection, dataTransfer) {
+        let textToInsert = "";
+
+        const imageUrl = dataTransfer.getLink();
+        if (imageUrl) {
+            textToInsert = `\n\n![](${imageUrl})`;
+        } else {
+            textToInsert = dataTransfer.getText();
+        }
+        // Adds new lines and collapses the selection
+        const editorState = DraftUtils.insertTextAtEndOfBlock(
+            this.state.editorState, textToInsert
+        );
+        this.handleChange({editorState});
+        return true;
+    },
+
+    handleDroppedFiles(selection, files) {
+        console.log('Dropped file', selection, dataTransfer);
+    },
+
     updateParent(content, widgets) {
         // The parent component should know of only the active widgets,
         // however the widgets are not deleted from this.state because a
@@ -327,6 +353,8 @@ const PerseusEditor = React.createClass({
                 stripPastedStyles={true}
                 placeholder={this.props.placeholder}
                 handlePastedText={this.handlePaste}
+                handleDroppedFiles={this.handleDroppedFiles}
+                handleDrop={this.handleDrop}
             />
         </div>;
     },
