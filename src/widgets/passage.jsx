@@ -256,11 +256,12 @@ const Passage = React.createClass({
      */
     handleMouseUp: function(e) {
         if (this.isReadingPassage()) {
-            this.setState({
-                mouseX: e.clientX -
-                    e.currentTarget.getBoundingClientRect().left,
-                mouseY: e.clientY - e.currentTarget.getBoundingClientRect().top,
-            });
+            // HACK - the height of the sat task title bar is 60px - subtracting
+            // this in order to position the tooltip in the correct position on
+            // the page. We can't use relative position of the passage as that
+            // requires putting the tooltip inside the passage which sometimes
+            // cuts off the edge.
+            this.setState({mouseX: e.clientX, mouseY: e.clientY - 60});
             const selection = window.getSelection();
             const selectionRange = this.getSelectionRange(selection);
             if (selectionRange) {
@@ -431,36 +432,38 @@ const Passage = React.createClass({
 
         const parseState = {};
         const parsedContent = PassageMarkdown.parse(rawContent, parseState);
-        return <div
-            onMouseUp={this.handleMouseUp}
-            className="perseus-widget-passage-container"
-        >
-            {this._renderInstructions(parseState)}
-            <div className="perseus-widget-passage">
-                <div className="passage-title">
-                    <Renderer content={this.props.passageTitle} />
-                </div>
-                {lineNumbers &&
-                    <div className="line-numbers" aria-hidden={true}>
-                        {lineNumbers}
+        return <div>
+            <div
+                onMouseUp={this.handleMouseUp}
+                className="perseus-widget-passage-container"
+            >
+                {this._renderInstructions(parseState)}
+                <div className="perseus-widget-passage">
+                    <div className="passage-title">
+                        <Renderer content={this.props.passageTitle} />
                     </div>
-                }
-                <h3 className="perseus-sr-only">
-                    {i18n._("Beginning of reading passage.")}
-                </h3>
-                <div className="passage-text">
-                    {this._renderContent(parsedContent)}
-                </div>
-                {this._hasFootnotes() && [
-                    <h4 key="footnote-start" className="perseus-sr-only">
-                        {i18n._("Beginning of reading passage footnotes.")}
-                    </h4>,
-                    <div key="footnotes" className="footnotes">
-                        {this._renderFootnotes()}
+                    {lineNumbers &&
+                        <div className="line-numbers" aria-hidden={true}>
+                            {lineNumbers}
+                        </div>
+                    }
+                    <h3 className="perseus-sr-only">
+                        {i18n._("Beginning of reading passage.")}
+                    </h3>
+                    <div className="passage-text">
+                        {this._renderContent(parsedContent)}
                     </div>
-                ]}
-                <div className="perseus-sr-only">
-                    {i18n._("End of reading passage.")}
+                    {this._hasFootnotes() && [
+                        <h4 key="footnote-start" className="perseus-sr-only">
+                            {i18n._("Beginning of reading passage footnotes.")}
+                        </h4>,
+                        <div key="footnotes" className="footnotes">
+                            {this._renderFootnotes()}
+                        </div>
+                    ]}
+                    <div className="perseus-sr-only">
+                        {i18n._("End of reading passage.")}
+                    </div>
                 </div>
             </div>
             {this.state.newHighlightRange && this.renderAddHighlightTooltip()}
