@@ -338,7 +338,7 @@ var Plotter = React.createClass({
             });
 
         graphie.label([c.dimX / 2,
-                       (xomManatee ? (-padY * 3) : -35) / c.scale[1]],
+                       xomManatee ? (-padY * 3) : (-35 / c.scale[1])],
             self.props.labels[0],
             xomManatee ? "above" : "below", false)
             .css("font-weight", "bold")
