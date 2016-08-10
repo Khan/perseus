@@ -156,7 +156,8 @@ var Plotter = React.createClass({
         var plotDimensions = xomManatee ? [288, 336] :
             self.props.plotDimensions;
         if (isLine) {
-            c.dimX += 1;
+            // Subtracting 0.2 makes line have equal padding on each side
+            c.dimX += xomManatee ? -0.2 : 1;
         } else if (isHistogram) {
             c.barPad = 0;
             c.barWidth = 1;
@@ -232,7 +233,9 @@ var Plotter = React.createClass({
         });
 
         if (!isTiledPlot) {
-            for (var y = 0; y <= c.dimY; y += c.scaleY) {
+            // If we have xomManatee, we skip the 0 label.
+            const initialY = xomManatee ? c.scaleY : 0;
+            for (var y = initialY; y <= c.dimY; y += c.scaleY) {
                 graphie.label(
                     [0, y],
                     KhanMath.roundToApprox(y, 2),
@@ -310,7 +313,10 @@ var Plotter = React.createClass({
                             stroke: xomManatee ? KhanColors.GRAY_G : "#000",
                             strokeWidth: xomManatee ? 1 : 2,
                         },
-                        () => graphie.line([0, 0], [c.dimX, 0])
+                        () => graphie.line(
+                            [xomManatee ? -padX * 3 : 0, 0],
+                            [c.dimX + (xomManatee ? padX : 0), 0]
+                        )
                     );
 
                     if (!((isBar || isLine) && xomManatee)) {
@@ -670,7 +676,7 @@ var Plotter = React.createClass({
         var self = this;
         var c = config;
         var graphie = self.graphie;
-        var x = i + 1;
+        var x = i + (xomManatee ? 0.4 : 1);
 
         if (xomManatee) {
             const snap = config.scaleY / self.props.snapsPerLine;
