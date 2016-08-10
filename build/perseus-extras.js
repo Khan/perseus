@@ -15,8 +15,7 @@ webpackJsonpPerseus([1],[
 /* 13 */,
 /* 14 */,
 /* 15 */,
-/* 16 */,
-/* 17 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -24,11 +23,10 @@ webpackJsonpPerseus([1],[
 	/* globals __EDITOR__ */
 	// As new widgets get added here, please also make sure they get added in
 	// webapp perseus/traversal.py so they can be properly translated.
-	module.exports = [ [ __webpack_require__(42), false ], [ __webpack_require__(43), false ], [ __webpack_require__(44), false ], [ __webpack_require__(45), false ], [ __webpack_require__(46), false ], [ __webpack_require__(47), false ], [ __webpack_require__(48), false ], [ __webpack_require__(49), false ], [ __webpack_require__(50), false ], [ __webpack_require__(51), false ], [ __webpack_require__(52), false ], [ __webpack_require__(53), false ], [ __webpack_require__(54), false ], [ __webpack_require__(55), false ], [ __webpack_require__(56), false ], [ __webpack_require__(57), false ], [ __webpack_require__(58), false ], [ __webpack_require__(59), false ], [ __webpack_require__(60), false ], [ __webpack_require__(61), false ], [ __webpack_require__(62), false ], [ __webpack_require__(63), false ], [ __webpack_require__(64), false ], [ __webpack_require__(65), false ], [ __webpack_require__(66), false ], [ __webpack_require__(67), false ], [ __webpack_require__(68), false ], [ __webpack_require__(69), false ], [ __webpack_require__(70), false ], [ __webpack_require__(71), false ], [ __webpack_require__(72), false ], // These widgets are only used when testing things, so remove them in the
-	// non-editor bundle.
-	false, false, false ];
+	module.exports = [ [ __webpack_require__(41), false ], [ __webpack_require__(42), false ], [ __webpack_require__(43), false ], [ __webpack_require__(44), false ], [ __webpack_require__(45), false ], [ __webpack_require__(46), false ], [ __webpack_require__(47), false ], [ __webpack_require__(48), false ], [ __webpack_require__(49), false ], [ __webpack_require__(50), false ], [ __webpack_require__(51), false ], [ __webpack_require__(52), false ], [ __webpack_require__(53), false ], [ __webpack_require__(54), false ], [ __webpack_require__(55), false ], [ __webpack_require__(56), false ], [ __webpack_require__(57), false ], [ __webpack_require__(58), false ], [ __webpack_require__(59), false ], [ __webpack_require__(60), false ], [ __webpack_require__(61), false ], [ __webpack_require__(62), false ], [ __webpack_require__(63), false ], [ __webpack_require__(64), false ], [ __webpack_require__(65), false ], [ __webpack_require__(66), false ], [ __webpack_require__(67), false ], [ __webpack_require__(68), false ], [ __webpack_require__(69), false ], [ __webpack_require__(70), false ], [ __webpack_require__(71), false ], false, false, false ];
 
 /***/ },
+/* 17 */,
 /* 18 */,
 /* 19 */,
 /* 20 */,
@@ -52,8 +50,7 @@ webpackJsonpPerseus([1],[
 /* 38 */,
 /* 39 */,
 /* 40 */,
-/* 41 */,
-/* 42 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -73,31 +70,31 @@ webpackJsonpPerseus([1],[
 
 	var classNames = __webpack_require__(13);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(83);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(94);
+	var WidgetJsonifyDeprecated = __webpack_require__(93);
 
 	var _ = __webpack_require__(9);
 
-	var ApiClassNames = __webpack_require__(16).ClassNames;
+	var ApiClassNames = __webpack_require__(15).ClassNames;
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var _require2 = __webpack_require__(85);
+	var _require2 = __webpack_require__(87);
 
 	var iconCircle = _require2.iconCircle;
 
 	var iconCircleThin = _require2.iconCircleThin;
 
-	var InlineIcon = __webpack_require__(82);
+	var InlineIcon = __webpack_require__(84);
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(14);
 
-	var mediaQueries = __webpack_require__(35);
+	var mediaQueries = __webpack_require__(25);
 
-	var sharedStyles = __webpack_require__(36);
+	var sharedStyles = __webpack_require__(26);
 
 	var Categorizer = React.createClass({
 	    displayName: "Categorizer",
@@ -172,7 +169,7 @@ webpackJsonpPerseus([1],[
 	                        return e.stopPropagation();
 	                    }
 	                }), React.createElement("span", {
-	                    className: css(responsive && styles.responsiveSpan, styles.radioSpan, selected && styles.checkedRadioSpan, _this.props.static && selected && styles.staticCheckedRadioSpan)
+	                    className: css(responsive && styles.responsiveSpan, styles.radioSpan, selected && styles.checkedRadioSpan, _this.props["static"] && selected && styles.staticCheckedRadioSpan)
 	                }, selected ? React.createElement(InlineIcon, iconCircle) : React.createElement(InlineIcon, iconCircleThin))));
 	            }));
 	        })));
@@ -180,7 +177,7 @@ webpackJsonpPerseus([1],[
 	        // aphrodite.
 	        var extraClassNames = classNames({
 	            "categorizer-container": true,
-	            "static-mode": this.props.static
+	            "static-mode": this.props["static"]
 	        });
 	        var inlineStyles = this.props.apiOptions.xomManatee ? [ styles.fullBleedContainer ] : [];
 	        return React.createElement("div", {
@@ -278,7 +275,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 43 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -293,9 +290,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(83);
 
-	var updateQueryString = __webpack_require__(15).updateQueryString;
+	var updateQueryString = __webpack_require__(14).updateQueryString;
 
 	var PADDING_WIDTH = 2;
 
@@ -438,7 +435,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 44 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -464,13 +461,13 @@ webpackJsonpPerseus([1],[
 
 	var FancyOption = FancySelect.Option;
 
-	var ApiClassNames = __webpack_require__(16).ClassNames;
+	var ApiClassNames = __webpack_require__(15).ClassNames;
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var styleConstants = __webpack_require__(37);
+	var styleConstants = __webpack_require__(27);
 
-	var captureScratchpadTouchStart = __webpack_require__(15).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(14).captureScratchpadTouchStart;
 
 	var Dropdown = React.createClass({
 	    displayName: "Dropdown",
@@ -613,7 +610,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 45 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -635,15 +632,15 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(83);
 
-	var PerseusApi = __webpack_require__(16);
+	var PerseusApi = __webpack_require__(15);
 
 	var Renderer = __webpack_require__(8);
 
-	var mediaQueries = __webpack_require__(35);
+	var mediaQueries = __webpack_require__(25);
 
-	var styleConstants = __webpack_require__(37);
+	var styleConstants = __webpack_require__(27);
 
 	var defaultExplanationProps = {
 	    showPrompt: "Explain",
@@ -868,7 +865,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 46 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -888,22 +885,22 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Interactive2 = __webpack_require__(96);
+	var Interactive2 = __webpack_require__(97);
 
-	var SvgImage = __webpack_require__(33);
+	var SvgImage = __webpack_require__(24);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(14);
 
-	var ButtonGroup = __webpack_require__(97);
+	var ButtonGroup = __webpack_require__(98);
 
 	/* Graphie and relevant components. */
-	var Graphie = __webpack_require__(87);
+	var Graphie = __webpack_require__(74);
 
 	var MovablePoint = Graphie.MovablePoint;
 
 	var MovableLine = Graphie.MovableLine;
 
-	var WrappedLine = __webpack_require__(98);
+	var WrappedLine = __webpack_require__(99);
 
 	var knumber = __webpack_require__(125).number;
 
@@ -911,24 +908,24 @@ webpackJsonpPerseus([1],[
 
 	var kpoint = __webpack_require__(125).point;
 
-	var KhanColors = __webpack_require__(99);
+	var KhanColors = __webpack_require__(100);
 
-	var _require = __webpack_require__(73);
+	var _require = __webpack_require__(88);
 
 	var containerSizeClassPropType = _require.containerSizeClassPropType;
 
-	var _require2 = __webpack_require__(37);
+	var _require2 = __webpack_require__(27);
 
 	var interactiveSizes = _require2.interactiveSizes;
 
-	var _require3 = __webpack_require__(73);
+	var _require3 = __webpack_require__(88);
 
 	var getInteractiveBoxFromSizeClass = _require3.getInteractiveBoxFromSizeClass;
 
 	/* Mixins. */
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(83);
 
-	var _require4 = __webpack_require__(114);
+	var _require4 = __webpack_require__(111);
 
 	var GrapherUtil = _require4.GrapherUtil;
 
@@ -976,7 +973,7 @@ webpackJsonpPerseus([1],[
 	        setDrawingAreaAvailable: React.PropTypes.func,
 	        showHairlines: React.PropTypes.func,
 	        showTooltips: React.PropTypes.bool,
-	        static: React.PropTypes.bool,
+	        "static": React.PropTypes.bool,
 	        xomManatee: React.PropTypes.bool
 	    },
 	    getDefaultProps: function getDefaultProps() {
@@ -996,7 +993,7 @@ webpackJsonpPerseus([1],[
 	            return React.createElement(MovablePoint, {
 	                key: i,
 	                coord: coord,
-	                static: _this.props.static,
+	                "static": _this.props["static"],
 	                constraints: [ Interactive2.MovablePoint.constraints.bound(), Interactive2.MovablePoint.constraints.snap(), function(coord) {
 	                    // Always enforce that this is a function
 	                    var isFunction = _.all(_this._coords(), function(otherCoord, j) {
@@ -1116,7 +1113,7 @@ webpackJsonpPerseus([1],[
 	            return React.createElement(MovablePoint, {
 	                key: "asymptoteCoord-" + i,
 	                coord: coord,
-	                static: true,
+	                "static": true,
 	                draw: null,
 	                extendLine: true,
 	                showHairlines: _this2.props.showHairlines,
@@ -1139,7 +1136,7 @@ webpackJsonpPerseus([1],[
 	        markings: React.PropTypes.string,
 	        onChange: React.PropTypes.func,
 	        plot: React.PropTypes.any,
-	        static: React.PropTypes.bool,
+	        "static": React.PropTypes.bool,
 	        trackInteraction: React.PropTypes.func.isRequired
 	    },
 	    getDefaultProps: function getDefaultProps() {
@@ -1184,7 +1181,7 @@ webpackJsonpPerseus([1],[
 	            model: type && functionForType(type),
 	            coords: coords,
 	            asymptote: asymptote,
-	            static: this.props.static,
+	            "static": this.props["static"],
 	            setDrawingAreaAvailable: this.props.apiOptions.setDrawingAreaAvailable,
 	            xomManatee: this.props.apiOptions.xomManatee,
 	            showTooltips: this.props.graph.showTooltips,
@@ -1321,7 +1318,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 47 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1342,11 +1339,11 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(83);
 
-	var _require = __webpack_require__(85);
+	var _require = __webpack_require__(87);
 
 	var iconOk = _require.iconOk;
 
@@ -1354,13 +1351,13 @@ webpackJsonpPerseus([1],[
 
 	var icon = _require.icon;
 
-	var InlineIcon = __webpack_require__(82);
+	var InlineIcon = __webpack_require__(84);
 
 	var Renderer = __webpack_require__(8);
 
-	var GradedGroupAnswerBar = __webpack_require__(100);
+	var GradedGroupAnswerBar = __webpack_require__(96);
 
-	var _require2 = __webpack_require__(37);
+	var _require2 = __webpack_require__(27);
 
 	var gray76 = _require2.gray76;
 
@@ -1538,8 +1535,8 @@ webpackJsonpPerseus([1],[
 	            }
 	        })));
 	        var classes = classNames((_classNames = {}, _classNames[css(styles.gradedGroup)] = apiOptions.xomManatee && !this.props.transparentBackground, 
-	        _classNames["perseus-graded-group"] = true, _classNames["answer-correct"] = !apiOptions.xomManatee && this.state.status === GRADING_STATUSES.correct, 
-	        _classNames["answer-incorrect"] = !apiOptions.xomManatee && this.state.status === GRADING_STATUSES.incorrect, 
+	        _classNames["perseus-graded-group"] = true, _classNames["answer-correct"] = apiOptions.xomManatee ? false : this.state.status === GRADING_STATUSES.correct, 
+	        _classNames["answer-incorrect"] = apiOptions.xomManatee ? false : this.state.status === GRADING_STATUSES.incorrect, 
 	        _classNames));
 	        var answerBarState = this.state.answerBarState;
 	        // Disabled widgets after the answer has been answered correctly to
@@ -1637,7 +1634,7 @@ webpackJsonpPerseus([1],[
 	});
 
 /***/ },
-/* 48 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1661,13 +1658,13 @@ webpackJsonpPerseus([1],[
 
 	var css = _require.css;
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(83);
 
-	var GradedGroup = __webpack_require__(47).widget;
+	var GradedGroup = __webpack_require__(46).widget;
 
-	var _require2 = __webpack_require__(37);
+	var _require2 = __webpack_require__(27);
 
 	var grayLight = _require2.grayLight;
 
@@ -1841,7 +1838,7 @@ webpackJsonpPerseus([1],[
 	});
 
 /***/ },
-/* 49 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1861,9 +1858,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(83);
 
 	var Renderer = __webpack_require__(8);
 
@@ -1994,7 +1991,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 50 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2015,11 +2012,11 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(83);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(94);
+	var WidgetJsonifyDeprecated = __webpack_require__(93);
 
-	var updateQueryString = __webpack_require__(15).updateQueryString;
+	var updateQueryString = __webpack_require__(14).updateQueryString;
 
 	/* This renders the iframe and handles validation via window.postMessage */
 	var Iframe = React.createClass({
@@ -2146,7 +2143,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 51 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2172,19 +2169,19 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var _require2 = __webpack_require__(37);
+	var _require2 = __webpack_require__(27);
 
 	var baseUnitPx = _require2.baseUnitPx;
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(83);
 
-	var mediaQueries = __webpack_require__(35);
+	var mediaQueries = __webpack_require__(25);
 
 	var Renderer = __webpack_require__(8);
 
-	var SvgImage = __webpack_require__(33);
+	var SvgImage = __webpack_require__(24);
 
 	var defaultBoxSize = 400;
 
@@ -2269,27 +2266,7 @@ webpackJsonpPerseus([1],[
 	        var backgroundImage = this.props.backgroundImage;
 	        backgroundImage.url && (image = React.createElement(SvgImage, {
 	            src: backgroundImage.url,
-	            alt: /* alt text is formatted in a sr-only
-	                   div next to the image, so we make
-	                   this empty here.
-	                   If there is no alt text at all,
-	                   we don't put an alt attribute on
-	                   the image, so that screen readers
-	                   know there's something they can't
-	                   read there :(.
-	                   NOTE: React <=0.13 (maybe later)
-	                   has a bug where it won't ever
-	                   remove an attribute, so if this
-	                   alt node is ever defined it's
-	                   not removed. This is sort of
-	                   dangerous, but we usually re-key
-	                   new renderers so that they're
-	                   rendered from scratch anyways,
-	                   so this shouldn't be a problem
-	                   in practice right now, although
-	                   it will exhibit weird behaviour
-	                   while editing. */
-	            this.props.alt ? "" : void 0,
+	            alt: this.props.alt ? "" : void 0,
 	            width: backgroundImage.width,
 	            height: backgroundImage.height,
 	            preloader: apiOptions.imagePreloader,
@@ -2417,7 +2394,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 52 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2429,9 +2406,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(83);
 
-	var Graphie = __webpack_require__(87);
+	var Graphie = __webpack_require__(74);
 
 	var Label = Graphie.Label;
 
@@ -2734,14 +2711,14 @@ webpackJsonpPerseus([1],[
 	                    foo_z: element.options.snap
 	                }, React.createElement(MovablePoint, {
 	                    coord: start,
-	                    static: true,
+	                    "static": true,
 	                    normalStyle: {
 	                        stroke: "none",
 	                        fill: "none"
 	                    }
 	                }), React.createElement(MovablePoint, {
 	                    coord: end,
-	                    static: true,
+	                    "static": true,
 	                    normalStyle: {
 	                        stroke: "none",
 	                        fill: "none"
@@ -2860,7 +2837,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 53 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2880,35 +2857,35 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Graph = __webpack_require__(101);
+	var Graph = __webpack_require__(107);
 
-	var InfoTip = __webpack_require__(102);
+	var InfoTip = __webpack_require__(108);
 
-	var Interactive2 = __webpack_require__(96);
+	var Interactive2 = __webpack_require__(97);
 
-	var NumberInput = __webpack_require__(103);
+	var NumberInput = __webpack_require__(101);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(14);
 
 	var knumber = __webpack_require__(125).number;
 
 	var kpoint = __webpack_require__(125).point;
 
-	var KhanColors = __webpack_require__(99);
+	var KhanColors = __webpack_require__(100);
 
-	var GraphUtils = __webpack_require__(104);
+	var GraphUtils = __webpack_require__(106);
 
-	var _require = __webpack_require__(37);
+	var _require = __webpack_require__(27);
 
 	var interactiveSizes = _require.interactiveSizes;
 
-	var _require2 = __webpack_require__(73);
+	var _require2 = __webpack_require__(88);
 
 	var containerSizeClassPropType = _require2.containerSizeClassPropType;
 
 	var getInteractiveBoxFromSizeClass = _require2.getInteractiveBoxFromSizeClass;
 
-	var WrappedLine = __webpack_require__(98);
+	var WrappedLine = __webpack_require__(99);
 
 	var DeprecationMixin = Util.DeprecationMixin;
 
@@ -3504,7 +3481,7 @@ webpackJsonpPerseus([1],[
 	        });
 	        var lineConfig = {
 	            points: points,
-	            static: true,
+	            "static": true,
 	            normalStyle: _extends({
 	                stroke: this.props.apiOptions.xomManatee ? KhanColors.BLUE_C : KhanColors.INTERACTIVE
 	            }, this._lineStroke())
@@ -3718,7 +3695,7 @@ webpackJsonpPerseus([1],[
 	        var lines = this.lines = _.map(points, function(segmentPoints, segmentIndex) {
 	            return Interactive2.addMovableLine(graphie, {
 	                points: segmentPoints,
-	                static: true,
+	                "static": true,
 	                extendLine: true,
 	                normalStyle: {
 	                    stroke: segmentColors[segmentIndex]
@@ -4052,7 +4029,7 @@ webpackJsonpPerseus([1],[
 	            self.points = self.points.concat(points);
 	            var line = Interactive2.addMovableLine(graphie, {
 	                points: points,
-	                static: false,
+	                "static": false,
 	                constraints: [ Interactive2.MovableLine.constraints.bound(), Interactive2.MovableLine.constraints.snap() ],
 	                onMove: [ Interactive2.MovableLine.onMove.updatePoints, updateCoordProps ],
 	                normalStyle: _extends({
@@ -4603,7 +4580,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 54 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4615,9 +4592,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(83);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(94);
+	var WidgetJsonifyDeprecated = __webpack_require__(93);
 
 	var MAX_SIZE = 8;
 
@@ -4649,7 +4626,7 @@ webpackJsonpPerseus([1],[
 	};
 
 	var RESET_BUTTON_STYLE = {
-	    float: "right",
+	    "float": "right",
 	    paddingRight: CELL_PADDING
 	};
 
@@ -4761,7 +4738,7 @@ webpackJsonpPerseus([1],[
 	    return flipTilesPredicate(oldCells, function(y, x) {
 	        var offsetY = y - tileY;
 	        var offsetX = x - tileX;
-	        return Math.abs(offsetY) <= 1 && Math.abs(offsetX) <= 1 && pattern[offsetY + 1][offsetX + 1];
+	        return Math.abs(offsetY) <= 1 && Math.abs(offsetX) <= 1 ? pattern[offsetY + 1][offsetX + 1] : false;
 	    });
 	};
 
@@ -4896,7 +4873,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 55 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4920,25 +4897,25 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var NumberInput = __webpack_require__(103);
+	var NumberInput = __webpack_require__(101);
 
 	var Renderer = __webpack_require__(8);
 
-	var TextInput = __webpack_require__(105);
+	var TextInput = __webpack_require__(102);
 
-	var MathOutput = __webpack_require__(106);
+	var MathOutput = __webpack_require__(103);
 
-	var SimpleKeypadInput = __webpack_require__(76);
+	var SimpleKeypadInput = __webpack_require__(78);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var KhanAnswerTypes = __webpack_require__(41);
+	var KhanAnswerTypes = __webpack_require__(72);
 
-	var keypadElementPropType = __webpack_require__(74).propTypes.keypadElementPropType;
+	var keypadElementPropType = __webpack_require__(89).propTypes.keypadElementPropType;
 
-	var assert = __webpack_require__(107).assert;
+	var assert = __webpack_require__(104).assert;
 
-	var stringArrayOfSize = __webpack_require__(15).stringArrayOfSize;
+	var stringArrayOfSize = __webpack_require__(14).stringArrayOfSize;
 
 	// We store three sets of dimensions for the brackets, for our three types of
 	// inputs, which vary in formatting: (1) the "static" inputs rendered for the
@@ -5064,7 +5041,7 @@ webpackJsonpPerseus([1],[
 	        var bracketOffset = (highlightedCol + 1) * (INPUT_WIDTH + 2 * INPUT_MARGIN);
 	        var className = classNames({
 	            "perseus-matrix": true,
-	            "static-mode": this.props.static,
+	            "static-mode": this.props["static"],
 	            "the-matrix": this.state.enterTheMatrix >= 5
 	        });
 	        return React.createElement("div", {
@@ -5332,7 +5309,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 56 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5346,13 +5323,13 @@ webpackJsonpPerseus([1],[
 
 	var Renderer = __webpack_require__(8);
 
-	var Sortable = __webpack_require__(108);
+	var Sortable = __webpack_require__(105);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var shuffle = __webpack_require__(15).shuffle;
+	var shuffle = __webpack_require__(14).shuffle;
 
-	var seededRNG = __webpack_require__(15).seededRNG;
+	var seededRNG = __webpack_require__(14).seededRNG;
 
 	var Matcher = React.createClass({
 	    displayName: "Matcher",
@@ -5484,7 +5461,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 57 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5498,9 +5475,9 @@ webpackJsonpPerseus([1],[
 
 	var _2 = __webpack_require__(9);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var GraphUtils = __webpack_require__(104);
+	var GraphUtils = __webpack_require__(106);
 
 	var defaultImage = {
 	    url: null,
@@ -5643,7 +5620,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 58 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5653,13 +5630,13 @@ webpackJsonpPerseus([1],[
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(10);
 
-	var draw = __webpack_require__(115);
+	var draw = __webpack_require__(112);
 
-	var _require = __webpack_require__(116);
+	var _require = __webpack_require__(113);
 
 	var layout = _require.layout;
 
-	var SmilesParser = __webpack_require__(117);
+	var SmilesParser = __webpack_require__(114);
 
 	var parse = SmilesParser.parse;
 
@@ -5808,7 +5785,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 59 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5831,19 +5808,19 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(83);
 
-	var NumberInput = __webpack_require__(103);
+	var NumberInput = __webpack_require__(101);
 
-	var MathOutput = __webpack_require__(106);
+	var MathOutput = __webpack_require__(103);
 
-	var SimpleKeypadInput = __webpack_require__(76);
+	var SimpleKeypadInput = __webpack_require__(78);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var keypadElementPropType = __webpack_require__(74).propTypes.keypadElementPropType;
+	var keypadElementPropType = __webpack_require__(89).propTypes.keypadElementPropType;
 
-	var Graphie = __webpack_require__(87);
+	var Graphie = __webpack_require__(74);
 
 	var MovablePoint = Graphie.MovablePoint;
 
@@ -5851,15 +5828,15 @@ webpackJsonpPerseus([1],[
 
 	var knumber = __webpack_require__(125).number;
 
-	var KhanMath = __webpack_require__(79);
+	var KhanMath = __webpack_require__(81);
 
-	var KhanColors = __webpack_require__(99);
+	var KhanColors = __webpack_require__(100);
 
 	var bound = function bound(x, gt, lt) {
 	    return Math.min(Math.max(x, gt), lt);
 	};
 
-	var assert = __webpack_require__(107).assert;
+	var assert = __webpack_require__(104).assert;
 
 	var EN_DASH = "–";
 
@@ -5986,7 +5963,7 @@ webpackJsonpPerseus([1],[
 	        onChange: React.PropTypes.func.isRequired,
 	        apiOptions: ApiOptions.propTypes,
 	        keypadElement: keypadElementPropType,
-	        static: React.PropTypes.bool,
+	        "static": React.PropTypes.bool,
 	        showTooltips: React.PropTypes.bool,
 	        trackInteraction: React.PropTypes.func.isRequired
 	    },
@@ -6026,7 +6003,7 @@ webpackJsonpPerseus([1],[
 	        // Don't allow a fraction for the number of divisions
 	        numDivisions = Math.round(numDivisions);
 	        // Don't allow negative numbers for the number of divisions
-	        numDivisions = numDivisions < 0 ? numDivisions * -1 : numDivisions;
+	        numDivisions = numDivisions < 0 ? -1 * numDivisions : numDivisions;
 	        // If the number of divisions isn't blank, update the number line
 	        if (numDivisions) {
 	            var nextProps = _.extend({}, this.props, {
@@ -6115,10 +6092,10 @@ webpackJsonpPerseus([1],[
 	        // In static mode the point's fill and stroke is blue to signify that
 	        // it can't be interacted with.
 	        var fill;
-	        fill = isOpen ? KhanColors._BACKGROUND : props.static ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
+	        fill = isOpen ? KhanColors._BACKGROUND : props["static"] ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE;
 	        var normalStyle = {
 	            fill: fill,
-	            stroke: props.static ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE,
+	            stroke: props["static"] ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE,
 	            "stroke-width": isOpen ? 3 : 1
 	        };
 	        var highlightStyle = {
@@ -6273,7 +6250,7 @@ webpackJsonpPerseus([1],[
 	            divRangeString: divRangeString
 	        }, "Please make sure the number of divisions is in the range %(divRangeString)s.")) : this._renderGraphie() : React.createElement("div", {
 	            className: "perseus-error"
-	        }, "Invalid number line configuration."), !this.props.static && this.props.isInequality && inequalityControls);
+	        }, "Invalid number line configuration."), !this.props["static"] && this.props.isInequality && inequalityControls);
 	    }
 	});
 
@@ -6349,7 +6326,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 60 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6365,9 +6342,9 @@ webpackJsonpPerseus([1],[
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(14);
 
-	var ApiClassNames = __webpack_require__(16).ClassNames;
+	var ApiClassNames = __webpack_require__(15).ClassNames;
 
 	var PlaceholderCard = React.createClass({
 	    displayName: "PlaceholderCard",
@@ -6778,7 +6755,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 61 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6792,11 +6769,11 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(83);
 
 	var Renderer = __webpack_require__(8);
 
-	var PassageMarkdown = __webpack_require__(118);
+	var PassageMarkdown = __webpack_require__(115);
 
 	var Passage = React.createClass({
 	    displayName: "Passage",
@@ -7024,8 +7001,8 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 62 */,
-/* 63 */
+/* 61 */,
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7037,9 +7014,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(83);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(94);
+	var WidgetJsonifyDeprecated = __webpack_require__(93);
 
 	var Renderer = __webpack_require__(8);
 
@@ -7094,7 +7071,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 64 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7108,19 +7085,19 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var ApiClassNames = __webpack_require__(16).ClassNames;
+	var ApiClassNames = __webpack_require__(15).ClassNames;
 
-	var deepEq = __webpack_require__(15).deepEq;
+	var deepEq = __webpack_require__(14).deepEq;
 
-	var KhanMath = __webpack_require__(79);
+	var KhanMath = __webpack_require__(81);
 
-	var KhanColors = __webpack_require__(99);
+	var KhanColors = __webpack_require__(100);
 
-	var GraphUtils = __webpack_require__(104);
+	var GraphUtils = __webpack_require__(106);
 
-	var Interactive2 = __webpack_require__(96);
+	var Interactive2 = __webpack_require__(97);
 
-	var WrappedLine = __webpack_require__(98);
+	var WrappedLine = __webpack_require__(99);
 
 	var BAR = "bar", LINE = "line", PIC = "pic", HISTOGRAM = "histogram", DOTPLOT = "dotplot";
 
@@ -7137,7 +7114,7 @@ webpackJsonpPerseus([1],[
 	    plotDimensions: React.PropTypes.arrayOf(React.PropTypes.number),
 	    labelInterval: React.PropTypes.number,
 	    starting: React.PropTypes.arrayOf(React.PropTypes.number),
-	    static: React.PropTypes.bool
+	    "static": React.PropTypes.bool
 	};
 
 	var Plotter = React.createClass({
@@ -7167,7 +7144,7 @@ webpackJsonpPerseus([1],[
 	        };
 	    },
 	    DOT_PLOT_POINT_SIZE: function DOT_PLOT_POINT_SIZE() {
-	        return this.props.apiOptions.xomManatee ? 8 : 4;
+	        return this.props.apiOptions.xomManatee ? 6 : 4;
 	    },
 	    DOT_PLOT_POINT_PADDING: function DOT_PLOT_POINT_PADDING() {
 	        return 8;
@@ -7226,7 +7203,8 @@ webpackJsonpPerseus([1],[
 	        c.scaleY = self.props.scaleY;
 	        c.dimX = self.props.categories.length;
 	        var plotDimensions = xomManatee ? [ 288, 336 ] : self.props.plotDimensions;
-	        if (isLine) c.dimX += 1; else if (isHistogram) {
+	        if (isLine) // Subtracting 0.2 makes line have equal padding on each side
+	        c.dimX += xomManatee ? -.2 : 1; else if (isHistogram) {
 	            c.barPad = 0;
 	            c.barWidth = 1;
 	        } else if (isBar) {
@@ -7274,16 +7252,20 @@ webpackJsonpPerseus([1],[
 	            allowScratchpad: true,
 	            setDrawingAreaAvailable: this.props.apiOptions.setDrawingAreaAvailable
 	        });
-	        if (!isTiledPlot) for (var y = 0; y <= c.dimY; y += c.scaleY) {
-	            graphie.label([ 0, y ], KhanMath.roundToApprox(y, 2), "left", /* isTeX */
-	            true);
-	            graphie.style({
-	                stroke: xomManatee ? "#e9ebec" : "#000",
-	                strokeWidth: 1,
-	                opacity: xomManatee ? 1 : .3
-	            }, function() {
-	                graphie.line([ 0, y ], [ c.dimX, y ]);
-	            });
+	        if (!isTiledPlot) {
+	            // If we have xomManatee, we skip the 0 label.
+	            var initialY = xomManatee ? c.scaleY : 0;
+	            for (var y = initialY; y <= c.dimY; y += c.scaleY) {
+	                graphie.label([ 0, y ], KhanMath.roundToApprox(y, 2), "left", /* isTeX */
+	                true);
+	                graphie.style({
+	                    stroke: xomManatee ? "#e9ebec" : "#000",
+	                    strokeWidth: 1,
+	                    opacity: xomManatee ? 1 : .3
+	                }, function() {
+	                    graphie.line([ 0, y ], [ c.dimX, y ]);
+	                });
+	            }
 	        }
 	        (isBar || isLine) && xomManatee && (self.graphie.dragPrompt = graphie.label([ c.dimX / 2, c.dimY / 2 ], "Drag handles to make graph", "center", false).css("font-weight", "bold").css("color", KhanColors.KA_GREEN).css("display", "none"));
 	        self.setupCategories(config);
@@ -7297,14 +7279,16 @@ webpackJsonpPerseus([1],[
 	            if (isTiledPlot) if (isDotplot) // Dotplot is a subtype of tiled plot, here we only draw
 	            // the x-axis
 	            graphie.style({
-	                stroke: xomManatee ? KhanColors.GRAY_G : "#000"
+	                stroke: xomManatee ? KhanColors.GRAY_G : "#000",
+	                strokeWidth: xomManatee ? 1 : 2
 	            }, function() {
 	                return graphie.line([ xomManatee ? 0 : .5, 0 ], [ c.dimX - (xomManatee ? 0 : .5), 0 ]);
 	            }); else {
 	                graphie.line([ 0, 0 ], [ c.dimX, 0 ]);
 	                // Draw the left axis for non-dotplots
 	                0 === self.props.labels[1].length && xomManatee || graphie.style({
-	                    stroke: xomManatee ? KhanColors.GRAY_G : "#000"
+	                    stroke: xomManatee ? KhanColors.GRAY_G : "#000",
+	                    strokeWidth: xomManatee ? 1 : 2
 	                }, function() {
 	                    return graphie.line([ 0, 0 ], [ 0, c.dimY ]);
 	                });
@@ -7314,7 +7298,7 @@ webpackJsonpPerseus([1],[
 	                    stroke: xomManatee ? KhanColors.GRAY_G : "#000",
 	                    strokeWidth: xomManatee ? 1 : 2
 	                }, function() {
-	                    return graphie.line([ 0, 0 ], [ c.dimX, 0 ]);
+	                    return graphie.line([ xomManatee ? 3 * -padX : 0, 0 ], [ c.dimX + (xomManatee ? padX : 0), 0 ]);
 	                });
 	                (isBar || isLine) && xomManatee || graphie.style({
 	                    stroke: xomManatee ? KhanColors.GRAY_G : "#000",
@@ -7324,7 +7308,7 @@ webpackJsonpPerseus([1],[
 	                });
 	            }
 	        });
-	        graphie.label([ c.dimX / 2, (xomManatee ? -85 : -35) / c.scale[1] ], self.props.labels[0], xomManatee ? "above" : "below", false).css("font-weight", "bold").css("color", xomManatee && KhanColors.GRAY_F);
+	        graphie.label([ c.dimX / 2, (xomManatee ? 3 * -padY : -35) / c.scale[1] ], self.props.labels[0], xomManatee ? "above" : "below", false).css("font-weight", "bold").css("color", xomManatee && KhanColors.GRAY_F);
 	        graphie.label([ (xomManatee ? -35 : -60) / c.scale[0], c.dimY / 2 ], self.props.labels[1], "center", false).css("font-weight", "bold").css("color", xomManatee && KhanColors.GRAY_F).addClass("rotate");
 	        if (this.props.apiOptions.xomManatee) {
 	            this.horizHairline = new WrappedLine(this.graphie, [ 0, 0 ], [ 0, 0 ], {
@@ -7362,7 +7346,7 @@ webpackJsonpPerseus([1],[
 	            isTeX = true;
 	        }
 	        var hasXLabel = 0 !== this.props.labels[0].length;
-	        var labelRotation = "translateX(-50%) translateX(10px) translateY(-50%) translateY(10px) rotate(-45deg)";
+	        var labelRotation = "translateX(-50%) translateX(5px) translateY(-50%) rotate(-45deg)";
 	        graphie.style({
 	            color: xomManatee ? KhanColors.GRAY_G : "inherit",
 	            transform: xomManatee && !mathyCategory ? labelRotation : "none",
@@ -7476,7 +7460,7 @@ webpackJsonpPerseus([1],[
 	        graphie.style({
 	            stroke: "none",
 	            fill: xomManatee ? KhanColors.BLUE_C : KhanColors.LIGHT_BLUE,
-	            opacity: xomManatee ? .8 : 1
+	            opacity: 1
 	        }, function() {
 	            config.graph.bars[i] = graphie.path([ [ x - barHalfWidth, 0 ], [ x - barHalfWidth, config.scaleY ], [ x + barHalfWidth, config.scaleY ], [ x + barHalfWidth, 0 ], [ x - barHalfWidth, 0 ] ]);
 	        });
@@ -7519,6 +7503,9 @@ webpackJsonpPerseus([1],[
 	                    });
 	                }
 	            });
+	            // We set the z-index to 1 here so that the hairlines cover up the
+	            // points
+	            config.graph.lines[i].state.visibleShape.wrapper.style.zIndex = "1";
 	            self._updateDragPrompt(self.state.values);
 	        }(); else {
 	            config.graph.lines[i] = graphie.addMovableLineSegment({
@@ -7531,7 +7518,7 @@ webpackJsonpPerseus([1],[
 	                normalStyle: {
 	                    stroke: KhanColors.INTERACTIVE,
 	                    // Don't display graph handles in static mode
-	                    "stroke-width": this.props.static ? 0 : 4
+	                    "stroke-width": this.props["static"] ? 0 : 4
 	                }
 	            });
 	            config.graph.lines[i].onMove = function(dx, dy) {
@@ -7568,7 +7555,7 @@ webpackJsonpPerseus([1],[
 	        var self = this;
 	        var c = config;
 	        var graphie = self.graphie;
-	        var x = i + 1;
+	        var x = i + (xomManatee ? .4 : 1);
 	        if (xomManatee) !function() {
 	            var snap = config.scaleY / self.props.snapsPerLine;
 	            c.graph.points[i] = Interactive2.addMaybeXOMMovablePoint(_this2, {
@@ -7643,7 +7630,8 @@ webpackJsonpPerseus([1],[
 	    setupDotplot: function setupDotplot(i, config) {
 	        var _this3 = this;
 	        var graphie = this.graphie;
-	        return this.setupTiledPlot(i, 1, config, function(x, y) {
+	        var xomManatee = this.props.apiOptions.xomManatee;
+	        return this.setupTiledPlot(i, xomManatee ? .5 : 1, config, function(x, y) {
 	            return graphie.ellipse([ x, y ], [ _this3.DOT_PLOT_POINT_SIZE() / graphie.scale[0], _this3.DOT_PLOT_POINT_SIZE() / graphie.scale[1] ], {
 	                fill: KhanColors.INTERACTIVE,
 	                stroke: KhanColors.INTERACTIVE
@@ -7792,14 +7780,14 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 65 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(10);
 
-	var Molecule = __webpack_require__(58).molecule;
+	var Molecule = __webpack_require__(57).molecule;
 
 	var Separator = React.createClass({
 	    displayName: "Separator",
@@ -7920,7 +7908,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 66 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7940,19 +7928,19 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(83);
 
-	var _require = __webpack_require__(85);
+	var _require = __webpack_require__(87);
 
 	var iconOk = _require.iconOk;
 
-	var InlineIcon = __webpack_require__(82);
+	var InlineIcon = __webpack_require__(84);
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(14);
 
 	var Sequence = React.createClass({
 	    displayName: "Sequence",
@@ -8056,7 +8044,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 67 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8065,7 +8053,7 @@ webpackJsonpPerseus([1],[
 	/* eslint-disable comma-dangle, indent, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-unary-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/* globals $_, i18n */
-	var InfoTip = __webpack_require__(102);
+	var InfoTip = __webpack_require__(108);
 
 	var React = __webpack_require__(10);
 
@@ -8073,13 +8061,13 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(83);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var assert = __webpack_require__(107).assert;
+	var assert = __webpack_require__(104).assert;
 
-	var Graphie = __webpack_require__(87);
+	var Graphie = __webpack_require__(74);
 
 	var Path = Graphie.Path;
 
@@ -8095,19 +8083,19 @@ webpackJsonpPerseus([1],[
 
 	var MovableLine = Graphie.MovableLine;
 
-	var NumberInput = __webpack_require__(103);
+	var NumberInput = __webpack_require__(101);
 
-	var MathOutput = __webpack_require__(106);
+	var MathOutput = __webpack_require__(103);
 
-	var seededRNG = __webpack_require__(15).seededRNG;
+	var seededRNG = __webpack_require__(14).seededRNG;
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(14);
 
 	var knumber = __webpack_require__(125).number;
 
-	var KhanColors = __webpack_require__(99);
+	var KhanColors = __webpack_require__(100);
 
-	var KhanMath = __webpack_require__(79);
+	var KhanMath = __webpack_require__(81);
 
 	var defaultBoxSize = 400;
 
@@ -8157,7 +8145,7 @@ webpackJsonpPerseus([1],[
 	        var invisiblePointForCoord = function invisiblePointForCoord(coord, i) {
 	            return React.createElement(MovablePoint, {
 	                key: i,
-	                static: true,
+	                "static": true,
 	                coord: coord,
 	                normalStyle: {
 	                    stroke: "none",
@@ -8653,7 +8641,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 68 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8665,11 +8653,11 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Sortable = __webpack_require__(108);
+	var Sortable = __webpack_require__(105);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var shuffle = __webpack_require__(15).shuffle;
+	var shuffle = __webpack_require__(14).shuffle;
 
 	var HORIZONTAL = "horizontal", VERTICAL = "vertical";
 
@@ -8741,7 +8729,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 69 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8755,17 +8743,17 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var MathOutput = __webpack_require__(106);
+	var MathOutput = __webpack_require__(103);
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(14);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var KhanAnswerTypes = __webpack_require__(41);
+	var KhanAnswerTypes = __webpack_require__(72);
 
-	var assert = __webpack_require__(107).assert;
+	var assert = __webpack_require__(104).assert;
 
 	/* Input handling: Maps a (row, column) pair to a unique ref used by React,
 	 * and extracts (row, column) pairs from input paths, used to allow outsiders
@@ -9018,7 +9006,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 70 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9040,21 +9028,21 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Graph = __webpack_require__(101);
+	var Graph = __webpack_require__(107);
 
-	var InlineIcon = __webpack_require__(82);
+	var InlineIcon = __webpack_require__(84);
 
-	var NumberInput = __webpack_require__(103);
+	var NumberInput = __webpack_require__(101);
 
-	var MathOutput = __webpack_require__(106);
+	var MathOutput = __webpack_require__(103);
 
 	var TeX = __webpack_require__(39);
 
-	var SimpleKeypadInput = __webpack_require__(76);
+	var SimpleKeypadInput = __webpack_require__(78);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var keypadElementPropType = __webpack_require__(74).propTypes.keypadElementPropType;
+	var keypadElementPropType = __webpack_require__(89).propTypes.keypadElementPropType;
 
 	var ROTATE_SNAP_DEGREES = 15;
 
@@ -9068,17 +9056,17 @@ webpackJsonpPerseus([1],[
 
 	var REFLECT_BUTTON_SIZE = 1;
 
-	var _require = __webpack_require__(85);
+	var _require = __webpack_require__(87);
 
 	var iconPlus = _require.iconPlus;
 
 	var iconUndo = _require.iconUndo;
 
-	var deepEq = __webpack_require__(15).deepEq;
+	var deepEq = __webpack_require__(14).deepEq;
 
-	var getGridStep = __webpack_require__(15).getGridStep;
+	var getGridStep = __webpack_require__(14).getGridStep;
 
-	var captureScratchpadTouchStart = __webpack_require__(15).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(14).captureScratchpadTouchStart;
 
 	var knumber = __webpack_require__(125).number;
 
@@ -9090,11 +9078,11 @@ webpackJsonpPerseus([1],[
 
 	var kline = __webpack_require__(125).line;
 
-	var KhanMath = __webpack_require__(79);
+	var KhanMath = __webpack_require__(81);
 
-	var KhanColors = __webpack_require__(99);
+	var KhanColors = __webpack_require__(100);
 
-	var assert = __webpack_require__(107).assert;
+	var assert = __webpack_require__(104).assert;
 
 	var defaultBoxSize = 400;
 
@@ -10110,7 +10098,7 @@ webpackJsonpPerseus([1],[
 	            // If this angle is not editable, it should always maintain
 	            // it's angle measure, even if it is reflected (causing the
 	            // clockwise-ness of the points to change)
-	            var shouldChangeReflexivity = !!options.editable && null;
+	            var shouldChangeReflexivity = options.editable ? null : false;
 	            var angle = graphie.addMovableAngle({
 	                angleLabel: "$deg0",
 	                fixed: true,
@@ -10405,7 +10393,7 @@ webpackJsonpPerseus([1],[
 	        this.shouldSetupGraphie(this.props, prevProps) ? this.refs.graph.reset() : deepEq(this.props.transformations, this.transformations) || this.setTransformations(this.props.transformations);
 	    },
 	    shouldSetupGraphie: function shouldSetupGraphie(nextProps, prevProps) {
-	        return !deepEq(prevProps.starting, nextProps.starting) || (prevProps.graphMode !== nextProps.graphMode || (prevProps.listMode !== nextProps.listMode || (prevProps.drawSolutionShape !== nextProps.drawSolutionShape || (!(!nextProps.drawSolutionShape || deepEq(prevProps.correct.shape, nextProps.correct.shape)) || !deepEq(this.tools, nextProps.tools)))));
+	        return deepEq(prevProps.starting, nextProps.starting) ? prevProps.graphMode !== nextProps.graphMode ? true : prevProps.listMode !== nextProps.listMode ? true : prevProps.drawSolutionShape !== nextProps.drawSolutionShape ? true : nextProps.drawSolutionShape && !deepEq(prevProps.correct.shape, nextProps.correct.shape) ? true : !deepEq(this.tools, nextProps.tools) : true;
 	    },
 	    graphie: function graphie() {
 	        return this.refs.graph.graphie();
@@ -11028,7 +11016,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 71 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11040,7 +11028,7 @@ webpackJsonpPerseus([1],[
 	// terms of a certain type.
 	// TODO(joel): Allow sigfigs within a range rather than an exact expected
 	// value?
-	var lens = __webpack_require__(111);
+	var lens = __webpack_require__(110);
 
 	var React = __webpack_require__(10);
 
@@ -11048,13 +11036,13 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var ApiClassNames = __webpack_require__(16).ClassNames;
+	var ApiClassNames = __webpack_require__(15).ClassNames;
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(83);
 
-	var MathOutput = __webpack_require__(106);
+	var MathOutput = __webpack_require__(103);
 
 	var _require = __webpack_require__(109);
 
@@ -11233,8 +11221,6 @@ webpackJsonpPerseus([1],[
 	        var kasCorrect;
 	        var guessUnit = primUnits(guess.expr.simplify());
 	        var answerUnit = primUnits(answer.simplify());
-	        // We're accepting all units - KAS does the hard work of figuring
-	        // out if the user's unit is equivalent to the author's unit.
 	        kasCorrect = rubric.accepting === ALL ? KAS.compare(guessUnit, answerUnit).equal : _(rubric.acceptingUnits).any(function(unit) {
 	            var thisAnswerUnit = primUnits(KAS.unitParse(unit).unit.simplify());
 	            return KAS.compare(thisAnswerUnit, guessUnit).equal;
@@ -11271,7 +11257,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 72 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11286,9 +11272,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(83);
 
-	var FixedToResponsive = __webpack_require__(86);
+	var FixedToResponsive = __webpack_require__(73);
 
 	// Current default is 720p, based on the typical videos we upload currently
 	var DEFAULT_WIDTH = 1280;
@@ -11368,6 +11354,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
+/* 72 */,
 /* 73 */,
 /* 74 */,
 /* 75 */,
@@ -11467,7 +11454,7 @@ webpackJsonpPerseus([1],[
 	        var optionSizer = React.createElement("span", {
 	            style: {
 	                display: "inline-block",
-	                float: "left",
+	                "float": "left",
 	                visibility: "hidden",
 	                height: 0
 	            }
@@ -11609,99 +11596,7 @@ webpackJsonpPerseus([1],[
 	module.exports = FancySelect;
 
 /***/ },
-/* 96 */,
-/* 97 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(10);
-
-	var ReactDOM = __webpack_require__(11);
-
-	var _ = __webpack_require__(9);
-
-	var styles = __webpack_require__(130);
-
-	var css = __webpack_require__(12).css;
-
-	/* ButtonGroup is an aesthetically pleasing group of buttons.
-	 *
-	 * The class requires these properties:
-	 *   buttons - an array of objects with keys:
-	 *     "value": this is the value returned when the button is selected
-	 *     "content": this is the JSX shown within the button, typically a string
-	 *         that gets rendered as the button's display text
-	 *     "title": this is the title-text shown on hover
-	 *   onChange - a function that is provided with the updated value
-	 *     (which it then is responsible for updating)
-	 *
-	 * The class has these optional properties:
-	 *   value - the initial value of the button selected, defaults to null.
-	 *   allowEmpty - if false, exactly one button _must_ be selected; otherwise
-	 *     it defaults to true and _at most_ one button (0 or 1) may be selected.
-	 *
-	 * Requires stylesheets/perseus-admin-package/editor.less to look nice.
-	 */
-	var ButtonGroup = React.createClass({
-	    displayName: "ButtonGroup",
-	    propTypes: {
-	        value: React.PropTypes.any,
-	        buttons: React.PropTypes.arrayOf(React.PropTypes.shape({
-	            value: React.PropTypes.any.isRequired,
-	            content: React.PropTypes.node,
-	            title: React.PropTypes.string
-	        })).isRequired,
-	        onChange: React.PropTypes.func.isRequired,
-	        allowEmpty: React.PropTypes.bool
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            value: null,
-	            allowEmpty: true
-	        };
-	    },
-	    render: function render() {
-	        var _this = this;
-	        var value = this.props.value;
-	        var buttons = _(this.props.buttons).map(function(button, i) {
-	            return React.createElement("button", {
-	                title: button.title,
-	                type: "button",
-	                id: "" + i,
-	                ref: "button" + i,
-	                key: "" + i,
-	                className: css(styles.button.buttonStyle, button.value === value && styles.button.selectedStyle),
-	                onClick: _this.toggleSelect.bind(_this, button.value)
-	            }, button.content || "" + button.value);
-	        });
-	        var outerStyle = {
-	            display: "inline-block"
-	        };
-	        return React.createElement("div", {
-	            style: outerStyle
-	        }, buttons);
-	    },
-	    focus: function focus() {
-	        ReactDOM.findDOMNode(this).focus();
-	        return true;
-	    },
-	    toggleSelect: function toggleSelect(newValue) {
-	        var value = this.props.value;
-	        this.props.allowEmpty ? // Select the new button or unselect if it's already selected
-	        this.props.onChange(value !== newValue ? newValue : null) : this.props.onChange(newValue);
-	    }
-	});
-
-	module.exports = ButtonGroup;
-
-/***/ },
-/* 98 */,
-/* 99 */,
-/* 100 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11720,17 +11615,17 @@ webpackJsonpPerseus([1],[
 	 */
 	var React = __webpack_require__(10);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var InlineIcon = __webpack_require__(82);
+	var InlineIcon = __webpack_require__(84);
 
-	var _require = __webpack_require__(85);
+	var _require = __webpack_require__(87);
 
 	var iconStar = _require.iconStar;
 
 	var iconTryAgain = _require.iconTryAgain;
 
-	var _require2 = __webpack_require__(37);
+	var _require2 = __webpack_require__(27);
 
 	var boldFontFamily = _require2.boldFontFamily;
 
@@ -11879,13 +11774,14 @@ webpackJsonpPerseus([1],[
 	module.exports = GradedGroupAnswerBar;
 
 /***/ },
-/* 101 */
+/* 97 */,
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable brace-style, comma-dangle, no-redeclare, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(10);
 
@@ -11893,328 +11789,84 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Util = __webpack_require__(15);
+	var styles = __webpack_require__(131);
 
-	var GraphUtils = __webpack_require__(104);
+	var css = __webpack_require__(12).css;
 
-	var _require = __webpack_require__(37);
-
-	var interactiveSizes = _require.interactiveSizes;
-
-	var SvgImage = __webpack_require__(33);
-
-	var defaultBackgroundImage = {
-	    url: null
-	};
-
-	/* Style objects */
-	var defaultInstructionsStyle = {
-	    fontStyle: "italic",
-	    fontWeight: "bold",
-	    fontSize: "32px",
-	    width: "100%",
-	    height: "100%",
-	    textAlign: "center",
-	    backgroundColor: "white",
-	    position: "absolute",
-	    zIndex: 1,
-	    transition: "opacity .25s ease-in-out",
-	    "-moz-transition": "opacity .25s ease-in-out",
-	    "-webkit-transition": "opacity .25s ease-in-out"
-	};
-
-	var instructionsTextStyle = {
-	    position: "relative",
-	    top: "25%"
-	};
-
-	function numSteps(range, step) {
-	    return Math.floor((range[1] - range[0]) / step);
-	}
-
-	var Graph = React.createClass({
-	    displayName: "Graph",
+	/* ButtonGroup is an aesthetically pleasing group of buttons.
+	 *
+	 * The class requires these properties:
+	 *   buttons - an array of objects with keys:
+	 *     "value": this is the value returned when the button is selected
+	 *     "content": this is the JSX shown within the button, typically a string
+	 *         that gets rendered as the button's display text
+	 *     "title": this is the title-text shown on hover
+	 *   onChange - a function that is provided with the updated value
+	 *     (which it then is responsible for updating)
+	 *
+	 * The class has these optional properties:
+	 *   value - the initial value of the button selected, defaults to null.
+	 *   allowEmpty - if false, exactly one button _must_ be selected; otherwise
+	 *     it defaults to true and _at most_ one button (0 or 1) may be selected.
+	 *
+	 * Requires stylesheets/perseus-admin-package/editor.less to look nice.
+	 */
+	var ButtonGroup = React.createClass({
+	    displayName: "ButtonGroup",
 	    propTypes: {
-	        box: React.PropTypes.array.isRequired,
-	        labels: React.PropTypes.arrayOf(React.PropTypes.string),
-	        range: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
-	        step: React.PropTypes.arrayOf(React.PropTypes.number),
-	        gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
-	        snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
-	        markings: React.PropTypes.string,
-	        backgroundImage: React.PropTypes.shape({
-	            url: React.PropTypes.string
-	        }),
-	        showProtractor: React.PropTypes.bool,
-	        showRuler: React.PropTypes.bool,
-	        rulerLabel: React.PropTypes.string,
-	        rulerTicks: React.PropTypes.number,
-	        onGraphieUpdated: React.PropTypes.func,
-	        instructions: React.PropTypes.string,
-	        onClick: React.PropTypes.func,
-	        setDrawingAreaAvailable: React.PropTypes.func,
-	        xomManatee: React.PropTypes.bool
+	        value: React.PropTypes.any,
+	        buttons: React.PropTypes.arrayOf(React.PropTypes.shape({
+	            value: React.PropTypes.any.isRequired,
+	            content: React.PropTypes.node,
+	            title: React.PropTypes.string
+	        })).isRequired,
+	        onChange: React.PropTypes.func.isRequired,
+	        allowEmpty: React.PropTypes.bool
 	    },
 	    getDefaultProps: function getDefaultProps() {
 	        return {
-	            labels: [ "x", "y" ],
-	            range: [ [ -10, 10 ], [ -10, 10 ] ],
-	            step: [ 1, 1 ],
-	            gridStep: [ 1, 1 ],
-	            snapStep: [ .5, .5 ],
-	            markings: "graph",
-	            backgroundImage: defaultBackgroundImage,
-	            showProtractor: false,
-	            showRuler: false,
-	            rulerLabel: "",
-	            rulerTicks: 10,
-	            instructions: null,
-	            onGraphieUpdated: null,
-	            onClick: null,
-	            onMouseDown: null,
-	            xomManatee: false
+	            value: null,
+	            allowEmpty: true
 	        };
 	    },
 	    render: function render() {
-	        var image;
-	        var imageData = this.props.backgroundImage;
-	        if (imageData.url) {
-	            var scale = this.props.box[0] / interactiveSizes.defaultBoxSize;
-	            image = React.createElement(SvgImage, {
-	                src: imageData.url,
-	                width: imageData.width,
-	                height: imageData.height,
-	                scale: scale,
-	                responsive: false
-	            });
-	        } else image = null;
+	        var _this = this;
+	        var value = this.props.value;
+	        var buttons = _(this.props.buttons).map(function(button, i) {
+	            return React.createElement("button", {
+	                title: button.title,
+	                type: "button",
+	                id: "" + i,
+	                ref: "button" + i,
+	                key: "" + i,
+	                className: css(styles.button.buttonStyle, button.value === value && styles.button.selectedStyle),
+	                onClick: _this.toggleSelect.bind(_this, button.value)
+	            }, button.content || "" + button.value);
+	        });
+	        var outerStyle = {
+	            display: "inline-block"
+	        };
 	        return React.createElement("div", {
-	            className: "graphie-container above-scratchpad",
-	            style: {
-	                width: this.props.box[0],
-	                height: this.props.box[1]
-	            },
-	            onMouseOut: this.onMouseOut,
-	            onMouseOver: this.onMouseOver,
-	            onClick: this.onClick
-	        }, image, React.createElement("div", {
-	            className: "graphie",
-	            ref: "graphieDiv"
-	        }));
+	            style: outerStyle
+	        }, buttons);
 	    },
-	    componentDidMount: function componentDidMount() {
-	        this._setupGraphie(true);
+	    focus: function focus() {
+	        ReactDOM.findDOMNode(this).focus();
+	        return true;
 	    },
-	    componentDidUpdate: function componentDidUpdate() {
-	        // Only setupGraphie once per componentDidUpdate().
-	        // See explanation in setupGraphie().
-	        this._hasSetupGraphieThisUpdate = false;
-	        if (this._shouldSetupGraphie) {
-	            this._setupGraphie(false);
-	            this._shouldSetupGraphie = false;
-	        }
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var potentialChanges = [ "labels", "range", "step", "markings", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep" ];
-	        var self = this;
-	        _.each(potentialChanges, function(prop) {
-	            _.isEqual(self.props[prop], nextProps[prop]) || (self._shouldSetupGraphie = true);
-	        });
-	    },
-	    /* Reset the graphie canvas to its initial state
-	     *
-	     * Use when re-rendering the parent component and you need a blank
-	     * graphie.
-	     */
-	    reset: function reset() {
-	        this._setupGraphie(false);
-	    },
-	    graphie: function graphie() {
-	        return this._graphie;
-	    },
-	    pointsFromNormalized: function pointsFromNormalized(coordsList, noSnap) {
-	        var self = this;
-	        return _.map(coordsList, function(coords) {
-	            return _.map(coords, function(coord, i) {
-	                var range = self.props.range[i];
-	                if (noSnap) return range[0] + (range[1] - range[0]) * coord;
-	                var step = self.props.step[i];
-	                var nSteps = numSteps(range, step);
-	                var tick = Math.round(coord * nSteps);
-	                return range[0] + step * tick;
-	            });
-	        });
-	    },
-	    _setupGraphie: function _setupGraphie(initialMount) {
-	        // Only setupGraphie once per componentDidUpdate().
-	        // This prevents this component from rendering graphie
-	        // and then immediately re-render graphie because its
-	        // parent component asked it to. This will happen when
-	        // props on the parent and props on this component both
-	        // require graphie to be re-rendered.
-	        if (this._hasSetupGraphieThisUpdate) return;
-	        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
-	        $(graphieDiv).empty();
-	        var labels = this.props.labels;
-	        var range = this.props.range;
-	        var graphie = this._graphie = GraphUtils.createGraphie(graphieDiv);
-	        var gridConfig = this._getGridConfig();
-	        graphie.snap = this.props.snapStep;
-	        if ("graph" === this.props.markings) {
-	            graphie.graphInit({
-	                range: range,
-	                scale: _.pluck(gridConfig, "scale"),
-	                axisArrows: "<->",
-	                labelFormat: function labelFormat(s) {
-	                    return "\\small{" + s + "}";
-	                },
-	                gridStep: this.props.gridStep,
-	                tickStep: _.pluck(gridConfig, "tickStep"),
-	                labelStep: 1,
-	                unityLabels: _.pluck(gridConfig, "unityLabel"),
-	                xomManatee: this.props.xomManatee
-	            });
-	            graphie.label([ 0, range[1][1] ], labels[1], this.props.xomManatee ? "below right" : "above");
-	            graphie.label([ range[0][1], 0 ], labels[0], this.props.xomManatee ? "above left" : "right");
-	        } else "grid" === this.props.markings ? graphie.graphInit({
-	            range: range,
-	            scale: _.pluck(gridConfig, "scale"),
-	            gridStep: this.props.gridStep,
-	            axes: false,
-	            ticks: false,
-	            labels: false,
-	            xomManatee: this.props.xomManatee
-	        }) : "none" === this.props.markings && graphie.init({
-	            range: range,
-	            scale: _.pluck(gridConfig, "scale"),
-	            xomManatee: this.props.xomManatee
-	        });
-	        // Add instructions just before mouse layer
-	        var visible = .5;
-	        var invisible = 0;
-	        var $instructionsWrapper;
-	        if (this.props.instructions) {
-	            var $instructionsWrapper = $("<div/>");
-	            _.each(defaultInstructionsStyle, function(value, key) {
-	                $instructionsWrapper.css(key, value);
-	            });
-	            $instructionsWrapper.css("opacity", visible);
-	            var $instructions = $("<span/>", {
-	                text: this.props.instructions
-	            });
-	            _.each(instructionsTextStyle, function(value, key) {
-	                $instructions.css(key, value);
-	            });
-	            $instructionsWrapper.append($instructions);
-	            $(graphieDiv).append($instructionsWrapper);
-	        } else $instructionsWrapper = void 0;
-	        // Add some handlers for instructions text (if necessary)
-	        var onMouseDown = $instructionsWrapper || this.props.onMouseDown ? _.bind(function(coord) {
-	            if ($instructionsWrapper) {
-	                $instructionsWrapper.remove();
-	                $instructionsWrapper = null;
-	            }
-	            this.props.onMouseDown(coord);
-	        }, this) : null;
-	        var onMouseOver = $instructionsWrapper ? function() {
-	            $instructionsWrapper && $instructionsWrapper.css("opacity", invisible);
-	        } : null;
-	        var onMouseOut = $instructionsWrapper ? function() {
-	            $instructionsWrapper && $instructionsWrapper.css("opacity", visible);
-	        } : null;
-	        graphie.addMouseLayer({
-	            onClick: this.props.onClick,
-	            onMouseDown: onMouseDown,
-	            onMouseOver: onMouseOver,
-	            onMouseOut: onMouseOut,
-	            onMouseUp: this.props.onMouseUp,
-	            onMouseMove: this.props.onMouseMove,
-	            allowScratchpad: true,
-	            setDrawingAreaAvailable: this.props.setDrawingAreaAvailable
-	        });
-	        this._updateProtractor();
-	        this._updateRuler();
-	        // We set this flag before jumping into our callback
-	        // to avoid recursing if our callback calls reset() itself
-	        this._hasSetupGraphieThisUpdate = true;
-	        !initialMount && this.props.onGraphieUpdated && // Calling a parent callback in componentDidMount is bad and
-	        // results in hard-to-reason-about lifecycle problems (esp. with
-	        // refs), so we do it only on update and rely on the parent to
-	        // query for the graphie object on initial mount
-	        this.props.onGraphieUpdated(graphie);
-	    },
-	    _getGridConfig: function _getGridConfig() {
-	        var self = this;
-	        return _.map(self.props.step, function(step, i) {
-	            return Util.gridDimensionConfig(step, self.props.range[i], self.props.box[i], self.props.gridStep[i]);
-	        });
-	    },
-	    _updateProtractor: function _updateProtractor() {
-	        this.protractor && this.protractor.remove();
-	        if (this.props.showProtractor) {
-	            var coord = this.pointsFromNormalized([ [ .5, .05 ] ])[0];
-	            this.protractor = this._graphie.protractor(coord);
-	        }
-	    },
-	    _updateRuler: function _updateRuler() {
-	        this.ruler && this.ruler.remove();
-	        if (this.props.showRuler) {
-	            var coord = this.pointsFromNormalized([ [ .5, .25 ] ])[0];
-	            var extent = this._graphie.range[0][1] - this._graphie.range[0][0];
-	            this.ruler = this._graphie.ruler({
-	                center: coord,
-	                label: this.props.rulerLabel,
-	                pixelsPerUnit: this._graphie.scale[0],
-	                ticksPerUnit: this.props.rulerTicks,
-	                units: Math.round(.8 * extent)
-	            });
-	        }
-	    },
-	    toJSON: function toJSON() {
-	        return _.pick(this.props, "range", "step", "markings", "labels", "backgroundImage", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep");
+	    toggleSelect: function toggleSelect(newValue) {
+	        var value = this.props.value;
+	        this.props.allowEmpty ? // Select the new button or unselect if it's already selected
+	        this.props.onChange(value !== newValue ? newValue : null) : this.props.onChange(newValue);
 	    }
 	});
 
-	module.exports = Graph;
+	module.exports = ButtonGroup;
 
 /***/ },
-/* 102 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * A wrapper around react-components/info-tip.jsx that can be rendered on the
-	 * server without causing a checksum mismatch on the client.
-	 * (RCSS generates classnames with a randomSuffix, which ensures that any
-	 * two sets of generated classnames will not match.)
-	 */
-	var React = __webpack_require__(10);
-
-	var ReactComponentsInfoTip = __webpack_require__(132);
-
-	var InfoTip = React.createClass({
-	    displayName: "InfoTip",
-	    getInitialState: function getInitialState() {
-	        return {
-	            didMount: false
-	        };
-	    },
-	    componentDidMount: function componentDidMount() {
-	        /* eslint-disable react/no-did-mount-set-state */
-	        this.setState({
-	            didMount: true
-	        });
-	    },
-	    render: function render() {
-	        return this.state.didMount ? React.createElement(ReactComponentsInfoTip, this.props) : React.createElement("div", null);
-	    }
-	});
-
-	module.exports = InfoTip;
-
-/***/ },
-/* 103 */
+/* 99 */,
+/* 100 */,
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12238,13 +11890,13 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var firstNumericalParse = __webpack_require__(15).firstNumericalParse;
+	var firstNumericalParse = __webpack_require__(14).firstNumericalParse;
 
-	var captureScratchpadTouchStart = __webpack_require__(15).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(14).captureScratchpadTouchStart;
 
 	var knumber = __webpack_require__(125).number;
 
-	var KhanMath = __webpack_require__(79);
+	var KhanMath = __webpack_require__(81);
 
 	var toNumericString = KhanMath.toNumericString;
 
@@ -12399,11 +12051,10 @@ webpackJsonpPerseus([1],[
 	module.exports = NumberInput;
 
 /***/ },
+/* 102 */,
+/* 103 */,
 /* 104 */,
-/* 105 */,
-/* 106 */,
-/* 107 */,
-/* 108 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12417,11 +12068,11 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(14);
 
 	var Renderer = __webpack_require__(8);
 
-	var ApiClassNames = __webpack_require__(16).ClassNames;
+	var ApiClassNames = __webpack_require__(15).ClassNames;
 
 	var PREFIX = "perseus-sortable";
 
@@ -12817,6 +12468,342 @@ webpackJsonpPerseus([1],[
 	module.exports = Sortable;
 
 /***/ },
+/* 106 */,
+/* 107 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable brace-style, comma-dangle, no-redeclare, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	var React = __webpack_require__(10);
+
+	var ReactDOM = __webpack_require__(11);
+
+	var _ = __webpack_require__(9);
+
+	var Util = __webpack_require__(14);
+
+	var GraphUtils = __webpack_require__(106);
+
+	var _require = __webpack_require__(27);
+
+	var interactiveSizes = _require.interactiveSizes;
+
+	var SvgImage = __webpack_require__(24);
+
+	var defaultBackgroundImage = {
+	    url: null
+	};
+
+	/* Style objects */
+	var defaultInstructionsStyle = {
+	    fontStyle: "italic",
+	    fontWeight: "bold",
+	    fontSize: "32px",
+	    width: "100%",
+	    height: "100%",
+	    textAlign: "center",
+	    backgroundColor: "white",
+	    position: "absolute",
+	    zIndex: 1,
+	    transition: "opacity .25s ease-in-out",
+	    "-moz-transition": "opacity .25s ease-in-out",
+	    "-webkit-transition": "opacity .25s ease-in-out"
+	};
+
+	var instructionsTextStyle = {
+	    position: "relative",
+	    top: "25%"
+	};
+
+	function numSteps(range, step) {
+	    return Math.floor((range[1] - range[0]) / step);
+	}
+
+	var Graph = React.createClass({
+	    displayName: "Graph",
+	    propTypes: {
+	        box: React.PropTypes.array.isRequired,
+	        labels: React.PropTypes.arrayOf(React.PropTypes.string),
+	        range: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
+	        step: React.PropTypes.arrayOf(React.PropTypes.number),
+	        gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
+	        snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
+	        markings: React.PropTypes.string,
+	        backgroundImage: React.PropTypes.shape({
+	            url: React.PropTypes.string
+	        }),
+	        showProtractor: React.PropTypes.bool,
+	        showRuler: React.PropTypes.bool,
+	        rulerLabel: React.PropTypes.string,
+	        rulerTicks: React.PropTypes.number,
+	        onGraphieUpdated: React.PropTypes.func,
+	        instructions: React.PropTypes.string,
+	        onClick: React.PropTypes.func,
+	        setDrawingAreaAvailable: React.PropTypes.func,
+	        xomManatee: React.PropTypes.bool
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            labels: [ "x", "y" ],
+	            range: [ [ -10, 10 ], [ -10, 10 ] ],
+	            step: [ 1, 1 ],
+	            gridStep: [ 1, 1 ],
+	            snapStep: [ .5, .5 ],
+	            markings: "graph",
+	            backgroundImage: defaultBackgroundImage,
+	            showProtractor: false,
+	            showRuler: false,
+	            rulerLabel: "",
+	            rulerTicks: 10,
+	            instructions: null,
+	            onGraphieUpdated: null,
+	            onClick: null,
+	            onMouseDown: null,
+	            xomManatee: false
+	        };
+	    },
+	    render: function render() {
+	        var image;
+	        var imageData = this.props.backgroundImage;
+	        if (imageData.url) {
+	            var scale = this.props.box[0] / interactiveSizes.defaultBoxSize;
+	            image = React.createElement(SvgImage, {
+	                src: imageData.url,
+	                width: imageData.width,
+	                height: imageData.height,
+	                scale: scale,
+	                responsive: false
+	            });
+	        } else image = null;
+	        return React.createElement("div", {
+	            className: "graphie-container above-scratchpad",
+	            style: {
+	                width: this.props.box[0],
+	                height: this.props.box[1]
+	            },
+	            onMouseOut: this.onMouseOut,
+	            onMouseOver: this.onMouseOver,
+	            onClick: this.onClick
+	        }, image, React.createElement("div", {
+	            className: "graphie",
+	            ref: "graphieDiv"
+	        }));
+	    },
+	    componentDidMount: function componentDidMount() {
+	        this._setupGraphie(true);
+	    },
+	    componentDidUpdate: function componentDidUpdate() {
+	        // Only setupGraphie once per componentDidUpdate().
+	        // See explanation in setupGraphie().
+	        this._hasSetupGraphieThisUpdate = false;
+	        if (this._shouldSetupGraphie) {
+	            this._setupGraphie(false);
+	            this._shouldSetupGraphie = false;
+	        }
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var potentialChanges = [ "labels", "range", "step", "markings", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep" ];
+	        var self = this;
+	        _.each(potentialChanges, function(prop) {
+	            _.isEqual(self.props[prop], nextProps[prop]) || (self._shouldSetupGraphie = true);
+	        });
+	    },
+	    /* Reset the graphie canvas to its initial state
+	     *
+	     * Use when re-rendering the parent component and you need a blank
+	     * graphie.
+	     */
+	    reset: function reset() {
+	        this._setupGraphie(false);
+	    },
+	    graphie: function graphie() {
+	        return this._graphie;
+	    },
+	    pointsFromNormalized: function pointsFromNormalized(coordsList, noSnap) {
+	        var self = this;
+	        return _.map(coordsList, function(coords) {
+	            return _.map(coords, function(coord, i) {
+	                var range = self.props.range[i];
+	                if (noSnap) return range[0] + (range[1] - range[0]) * coord;
+	                var step = self.props.step[i];
+	                var nSteps = numSteps(range, step);
+	                var tick = Math.round(coord * nSteps);
+	                return range[0] + step * tick;
+	            });
+	        });
+	    },
+	    _setupGraphie: function _setupGraphie(initialMount) {
+	        // Only setupGraphie once per componentDidUpdate().
+	        // This prevents this component from rendering graphie
+	        // and then immediately re-render graphie because its
+	        // parent component asked it to. This will happen when
+	        // props on the parent and props on this component both
+	        // require graphie to be re-rendered.
+	        if (this._hasSetupGraphieThisUpdate) return;
+	        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
+	        $(graphieDiv).empty();
+	        var labels = this.props.labels;
+	        var range = this.props.range;
+	        var graphie = this._graphie = GraphUtils.createGraphie(graphieDiv);
+	        var gridConfig = this._getGridConfig();
+	        graphie.snap = this.props.snapStep;
+	        if ("graph" === this.props.markings) {
+	            graphie.graphInit({
+	                range: range,
+	                scale: _.pluck(gridConfig, "scale"),
+	                axisArrows: "<->",
+	                labelFormat: function labelFormat(s) {
+	                    return "\\small{" + s + "}";
+	                },
+	                gridStep: this.props.gridStep,
+	                tickStep: _.pluck(gridConfig, "tickStep"),
+	                labelStep: 1,
+	                unityLabels: _.pluck(gridConfig, "unityLabel"),
+	                xomManatee: this.props.xomManatee
+	            });
+	            graphie.label([ 0, range[1][1] ], labels[1], this.props.xomManatee ? "below right" : "above");
+	            graphie.label([ range[0][1], 0 ], labels[0], this.props.xomManatee ? "above left" : "right");
+	        } else "grid" === this.props.markings ? graphie.graphInit({
+	            range: range,
+	            scale: _.pluck(gridConfig, "scale"),
+	            gridStep: this.props.gridStep,
+	            axes: false,
+	            ticks: false,
+	            labels: false,
+	            xomManatee: this.props.xomManatee
+	        }) : "none" === this.props.markings && graphie.init({
+	            range: range,
+	            scale: _.pluck(gridConfig, "scale"),
+	            xomManatee: this.props.xomManatee
+	        });
+	        // Add instructions just before mouse layer
+	        var visible = .5;
+	        var invisible = 0;
+	        var $instructionsWrapper;
+	        if (this.props.instructions) {
+	            var $instructionsWrapper = $("<div/>");
+	            _.each(defaultInstructionsStyle, function(value, key) {
+	                $instructionsWrapper.css(key, value);
+	            });
+	            $instructionsWrapper.css("opacity", visible);
+	            var $instructions = $("<span/>", {
+	                text: this.props.instructions
+	            });
+	            _.each(instructionsTextStyle, function(value, key) {
+	                $instructions.css(key, value);
+	            });
+	            $instructionsWrapper.append($instructions);
+	            $(graphieDiv).append($instructionsWrapper);
+	        } else $instructionsWrapper = void 0;
+	        // Add some handlers for instructions text (if necessary)
+	        var onMouseDown = $instructionsWrapper || this.props.onMouseDown ? _.bind(function(coord) {
+	            if ($instructionsWrapper) {
+	                $instructionsWrapper.remove();
+	                $instructionsWrapper = null;
+	            }
+	            this.props.onMouseDown(coord);
+	        }, this) : null;
+	        var onMouseOver = $instructionsWrapper ? function() {
+	            $instructionsWrapper && $instructionsWrapper.css("opacity", invisible);
+	        } : null;
+	        var onMouseOut = $instructionsWrapper ? function() {
+	            $instructionsWrapper && $instructionsWrapper.css("opacity", visible);
+	        } : null;
+	        graphie.addMouseLayer({
+	            onClick: this.props.onClick,
+	            onMouseDown: onMouseDown,
+	            onMouseOver: onMouseOver,
+	            onMouseOut: onMouseOut,
+	            onMouseUp: this.props.onMouseUp,
+	            onMouseMove: this.props.onMouseMove,
+	            allowScratchpad: true,
+	            setDrawingAreaAvailable: this.props.setDrawingAreaAvailable
+	        });
+	        this._updateProtractor();
+	        this._updateRuler();
+	        // We set this flag before jumping into our callback
+	        // to avoid recursing if our callback calls reset() itself
+	        this._hasSetupGraphieThisUpdate = true;
+	        !initialMount && this.props.onGraphieUpdated && // Calling a parent callback in componentDidMount is bad and
+	        // results in hard-to-reason-about lifecycle problems (esp. with
+	        // refs), so we do it only on update and rely on the parent to
+	        // query for the graphie object on initial mount
+	        this.props.onGraphieUpdated(graphie);
+	    },
+	    _getGridConfig: function _getGridConfig() {
+	        var self = this;
+	        return _.map(self.props.step, function(step, i) {
+	            return Util.gridDimensionConfig(step, self.props.range[i], self.props.box[i], self.props.gridStep[i]);
+	        });
+	    },
+	    _updateProtractor: function _updateProtractor() {
+	        this.protractor && this.protractor.remove();
+	        if (this.props.showProtractor) {
+	            var coord = this.pointsFromNormalized([ [ .5, .05 ] ])[0];
+	            this.protractor = this._graphie.protractor(coord);
+	        }
+	    },
+	    _updateRuler: function _updateRuler() {
+	        this.ruler && this.ruler.remove();
+	        if (this.props.showRuler) {
+	            var coord = this.pointsFromNormalized([ [ .5, .25 ] ])[0];
+	            var extent = this._graphie.range[0][1] - this._graphie.range[0][0];
+	            this.ruler = this._graphie.ruler({
+	                center: coord,
+	                label: this.props.rulerLabel,
+	                pixelsPerUnit: this._graphie.scale[0],
+	                ticksPerUnit: this.props.rulerTicks,
+	                units: Math.round(.8 * extent)
+	            });
+	        }
+	    },
+	    toJSON: function toJSON() {
+	        return _.pick(this.props, "range", "step", "markings", "labels", "backgroundImage", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep");
+	    }
+	});
+
+	module.exports = Graph;
+
+/***/ },
+/* 108 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * A wrapper around react-components/info-tip.jsx that can be rendered on the
+	 * server without causing a checksum mismatch on the client.
+	 * (RCSS generates classnames with a randomSuffix, which ensures that any
+	 * two sets of generated classnames will not match.)
+	 */
+	var React = __webpack_require__(10);
+
+	var ReactComponentsInfoTip = __webpack_require__(133);
+
+	var InfoTip = React.createClass({
+	    displayName: "InfoTip",
+	    getInitialState: function getInitialState() {
+	        return {
+	            didMount: false
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        /* eslint-disable react/no-did-mount-set-state */
+	        this.setState({
+	            didMount: true
+	        });
+	    },
+	    render: function render() {
+	        return this.state.didMount ? React.createElement(ReactComponentsInfoTip, this.props) : React.createElement("div", null);
+	    }
+	});
+
+	module.exports = InfoTip;
+
+/***/ },
 /* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -13018,7 +13005,7 @@ webpackJsonpPerseus([1],[
 	            beginning = false;
 	        }
 	    }
-	    return "" == all || pos;
+	    return "" == all ? true : pos;
 	}
 
 	/**
@@ -13222,10 +13209,7 @@ webpackJsonpPerseus([1],[
 
 /***/ },
 /* 110 */,
-/* 111 */,
-/* 112 */,
-/* 113 */,
-/* 114 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13235,9 +13219,9 @@ webpackJsonpPerseus([1],[
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _ = __webpack_require__(9);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(14);
 
-	var Graphie = __webpack_require__(87);
+	var Graphie = __webpack_require__(74);
 
 	var Plot = Graphie.Plot;
 
@@ -13760,7 +13744,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 115 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13934,7 +13918,7 @@ webpackJsonpPerseus([1],[
 	module.exports = draw;
 
 /***/ },
-/* 116 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14248,7 +14232,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 117 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14404,7 +14388,7 @@ webpackJsonpPerseus([1],[
 	    var rest = null;
 	    if ("[" === smiles[0]) {
 	        var closingIdx = smiles.indexOf("]");
-	        if (closingIdx === -1) return [ "", smiles ];
+	        if (-1 === closingIdx) return [ "", smiles ];
 	        sym = smiles.slice(1, closingIdx);
 	        rest = smiles.slice(closingIdx + 1);
 	    } else {
@@ -14491,7 +14475,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 118 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14502,7 +14486,7 @@ webpackJsonpPerseus([1],[
 	/* globals $_ */
 	var React = __webpack_require__(10);
 
-	var SimpleMarkdown = __webpack_require__(110);
+	var SimpleMarkdown = __webpack_require__(119);
 
 	var _ = __webpack_require__(9);
 
@@ -14795,6 +14779,9 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
+/* 116 */,
+/* 117 */,
+/* 118 */,
 /* 119 */,
 /* 120 */,
 /* 121 */,
@@ -14806,7 +14793,8 @@ webpackJsonpPerseus([1],[
 /* 127 */,
 /* 128 */,
 /* 129 */,
-/* 130 */
+/* 130 */,
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14851,8 +14839,8 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 131 */,
-/* 132 */
+/* 132 */,
+/* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
