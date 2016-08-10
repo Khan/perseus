@@ -77,7 +77,7 @@ var Plotter = React.createClass({
     },
 
     DOT_PLOT_POINT_SIZE: function() {
-        return this.props.apiOptions.xomManatee ? 8 : 4;
+        return this.props.apiOptions.xomManatee ? 6 : 4;
     },
     DOT_PLOT_POINT_PADDING: function() {
         return 8;
@@ -288,7 +288,10 @@ var Plotter = React.createClass({
                         // Dotplot is a subtype of tiled plot, here we only draw
                         // the x-axis
                         graphie.style(
-                            {stroke: xomManatee ? KhanColors.GRAY_G : "#000"},
+                            {
+                                stroke: xomManatee ? KhanColors.GRAY_G : "#000",
+                                strokeWidth: xomManatee ? 1 : 2,
+                            },
                             () => graphie.line(
                                 [xomManatee ? 0 : 0.5, 0],
                                 [c.dimX - (xomManatee ? 0 : 0.5), 0]
@@ -300,8 +303,11 @@ var Plotter = React.createClass({
                         // Draw the left axis for non-dotplots
                         if (self.props.labels[1].length !== 0 || !xomManatee) {
                             graphie.style(
-                                {stroke: xomManatee ?
-                                    KhanColors.GRAY_G : "#000"},
+                                {
+                                    stroke: xomManatee ?
+                                        KhanColors.GRAY_G : "#000",
+                                    strokeWidth: xomManatee ? 1 : 2,
+                                },
                                 () => graphie.line([0, 0], [0, c.dimY])
                             );
                         }
@@ -331,7 +337,8 @@ var Plotter = React.createClass({
                 }
             });
 
-        graphie.label([c.dimX / 2, (xomManatee ? -85 : -35) / c.scale[1]],
+        graphie.label([c.dimX / 2,
+                       (xomManatee ? (-padY * 3) : -35) / c.scale[1]],
             self.props.labels[0],
             xomManatee ? "above" : "below", false)
             .css("font-weight", "bold")
@@ -352,8 +359,6 @@ var Plotter = React.createClass({
                     }
                 });
 
-            this.horizHairline.visibleShape.node
-                .parentNode.parentNode.style.zIndex = "-1";
             this.horizHairline.attr({
                 stroke: KhanColors.INTERACTIVE,
             });
@@ -399,8 +404,8 @@ var Plotter = React.createClass({
 
 		const hasXLabel = this.props.labels[0].length !== 0;
 
-		const labelRotation = "translateX(-50%) translateX(10px) " +
-            "translateY(-50%) translateY(10px) rotate(-45deg)";
+		const labelRotation = "translateX(-50%) translateX(5px) " +
+            "translateY(-50%) rotate(-45deg)";
 		graphie.style(
             {
                 color: xomManatee ? KhanColors.GRAY_G : "inherit",
@@ -628,6 +633,10 @@ var Plotter = React.createClass({
                 },
             });
 
+            // We set the z-index to 1 here so that the hairlines cover up the
+            // points
+            config.graph.lines[i].state.visibleShape.wrapper.style.zIndex = "1";
+
             self._updateDragPrompt(self.state.values);
         } else {
             config.graph.lines[i] = graphie.addMovableLineSegment({
@@ -765,7 +774,9 @@ var Plotter = React.createClass({
 
     setupDotplot: function(i, config) {
         var graphie = this.graphie;
-        return this.setupTiledPlot(i, 1, config, (x, y) => {
+        const xomManatee = this.props.apiOptions.xomManatee;
+
+        return this.setupTiledPlot(i, xomManatee ? 0.5 : 1, config, (x, y) => {
             return graphie.ellipse([x, y],
                  [
                      this.DOT_PLOT_POINT_SIZE() / graphie.scale[0],
