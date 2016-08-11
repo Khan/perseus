@@ -58,16 +58,17 @@ const widgetForId = (id) => new RegExp(`(\\[\\[\u2603 ${id}\\]\\])`, 'gm');
     and a `component` is given to denote how that range should be rendered
 */
 const widgetStrategy = (contentBlock, callback) =>
-    DraftUtils.regexStrategy(contentBlock, widgetRegExp, callback);
+    contentBlock.findEntityRanges(
+        char => char.getEntity()
+                && Entity.get(char.getEntity()).type === 'WIDGET',
+        callback
+    );
 
-const WidgetSpan = React.createClass({
-    propTypes: {children: React.PropTypes.any},
-    render() {
-        return <span {...this.props} style={{backgroundColor: '#DFD'}}>
-            {this.props.children}
+const WidgetSpan = (props) =>
+        <span {...props} style={{backgroundColor: '#DFD'}}>
+            {props.children}
         </span>;
-    },
-});
+WidgetSpan.propTypes = {children: React.PropTypes.any};
 
 const decorator = new CompositeDecorator([{
     strategy: widgetStrategy,
