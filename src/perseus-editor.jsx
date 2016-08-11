@@ -256,11 +256,10 @@ const PerseusEditor = React.createClass({
         const sanitizeText = (textLine) => {
             const sanitized = textLine.replace(new RegExp('\r', 'g'), ''); //eslint-disable-line no-control-regex
             const characterList = Array(sanitized.length).fill(charData);
-            const safeText = sanitized.replace(widgetRegExp, (syntax) => {
+            const safeText = sanitized.replace(widgetRegExp, (syntax, offset) => { //eslint-disable-line max-len
                 const match = widgetPartsRegExp.exec(syntax);
                 const fullText = match[0]; // The entire [[ widgetName id ]]
                 const widget = match[1]; // Just the "widgetName id" part
-                const index = match.index;
                 const newId = safeWidgetMapping[widget];
                 const newText = widgetPlaceholder.replace("{id}", newId);
 
@@ -269,7 +268,7 @@ const PerseusEditor = React.createClass({
                 const entity = Entity.create('WIDGET', 'IMMUTABLE', {id: newId}); //eslint-disable-line max-len
                 const entityChar = CharacterMetadata.applyEntity(charData, entity); //eslint-disable-line max-len
                 const entityChars = Array(newText.length).fill(entityChar);
-                characterList.splice(index, fullText.length, ...entityChars);
+                characterList.splice(offset, fullText.length, ...entityChars);
 
                 widgets[newId] = sourceWidgets[widget];
                 return fullText.replace(widget, newId);
@@ -377,7 +376,7 @@ const PerseusEditor = React.createClass({
 
     render() {
         // STOPSHIP(samiskin): Delete this before landing
-        console.log(convertToRaw(this.state.editorState.getCurrentContent())); // eslint-disable-line
+        // console.log(convertToRaw(this.state.editorState.getCurrentContent())); // eslint-disable-line
         return <div onCopy={this.handleCopy}>
             <Editor
                 ref="editor"
