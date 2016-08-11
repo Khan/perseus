@@ -167,6 +167,13 @@ const Zoomable = React.createClass({
         }
     },
 
+    handleClickIfZoomed(e) {
+        if (!this.state.zoomed) {
+            e.stopPropagation();
+            this.handleClick();
+        }
+    },
+
     handleClick() {
         this.setState({
             zoomed: !this.state.zoomed,
@@ -219,6 +226,7 @@ const Zoomable = React.createClass({
 
         return <span
             onClick={this.handleClick}
+            onClickCapture={this.handleClickIfZoomed}
             onTouchCancelCapture={this.stopPropagationIfZoomed}
             onTouchEndCapture={this.stopPropagationIfZoomed}
             onTouchStartCapture={this.stopPropagationIfZoomed}
