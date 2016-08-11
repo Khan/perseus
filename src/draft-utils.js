@@ -3,7 +3,6 @@ const {
     BlockMapBuilder,
     ContentBlock,
     Entity,
-    EditorState,
     Modifier,
     SelectionState,
     genKey,
@@ -11,7 +10,7 @@ const {
 
 const {List} = require('immutable');
 
-const regexStrategy = (contentBlock, regex, callback) => {
+const regexStrategy = (contentBlock, callback, regex) => {
     const text = contentBlock.getText();
     let matchArr;
     let start;
@@ -109,15 +108,37 @@ function getEntities(contentState, selection) {
     return entities;
 }
 
+function findEntity(contentState, filter) {
+    const blocks = contentState.getBlocksAsArray();
+
+    let selection = null;
+    blocks.some((block) => {
+        block.findEntityRanges(
+            char => char.getEntity() !== null
+                    && filter(Entity.get(char.getEntity())),
+            (start, end) => {
+                const base = SelectionState.createEmpty(block.getKey());
+                selection = base.merge({
+                    anchorOffset: start,
+                    focusOffset: end,
+                    isBackward: false,
+                });
+            }
+        );
+        return !!selection;
+    });
+
+    return selection;
+}
+
 /*
     This function is needed in cases like pasting, where raw text must be
     converted into Draft.js ContentBlocks.
     The sanitizer allows for actions such as stripping characters and
     adding in entities where needed
-*/
+    */
 const NEWLINE_REGEX = /\r\n?|\n/g;
-const defaultSanitizer = (a, b) => ({text: a, characterList: b});
-function insertText(contentState, selection, rawText, sanitizer = defaultSanitizer) { //eslint-disable-line
+function insertText(contentState, selection, rawText, sanitizer = () => null) {
     // To insert text such that it will appear as multiple blocks,
     // createFragment must be used.  A fragment is an ordered map of
     // ContentBlocks.  There should be a ContentBlock for each paragraph
@@ -131,8 +152,13 @@ function insertText(contentState, selection, rawText, sanitizer = defaultSanitiz
         // Styles and entities in draft.js are applied per character, therefore
         // each block uses a list, where each element corresponds to a single
         // character.
-        const defaultCharacterList = Array(textLine.length).fill(charData);
-        const {text, characterList} = sanitizer(textLine, defaultCharacterList);
+        let text = textLine;
+        let characterList = Array(textLine.length).fill(charData);
+        const sanitizedObj = sanitizer(text, characterList);
+        if (sanitizedObj !== null) {
+            text = sanitizedObj.text;
+            characterList = sanitizedObj.characterList;
+        }
 
         return new ContentBlock({
             key: genKey(),
@@ -179,6 +205,7 @@ module.exports = {
     replaceSelection,
     deleteSelection,
     getEntities,
+    findEntity,
     insertText,
     insertTextAtEndOfBlock,
 };

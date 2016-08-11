@@ -28,7 +28,6 @@ TODO(samiskin): Make tasks such as "addWidget" and "updateWidget" not functions
 const React = require('react');
 const {
     CharacterMetadata,
-    RichUtils,
     Entity,
     Editor,
     EditorState,
@@ -36,7 +35,7 @@ const {
     ContentState,
     Modifier,
     SelectionState,
-    convertToRaw,
+    convertToRaw, // eslint-disable-line (TODO: Delete this along with its 1 use in render)
     genKey,
 } = require('draft-js');
 const Widgets = require('./widgets.js');
@@ -52,30 +51,49 @@ const widgetRegExp = /\[\[\u2603 [a-z-]+ [0-9]+\]\]/g;
 const widgetPartsRegExp = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]$/;
 const widgetForId = (id) => new RegExp(`(\\[\\[\u2603 ${id}\\]\\])`, 'gm');
 
+const imageRegExp = /!\[.*?\]\(.*?\)/g;
+
 /*
     Styled ranges in Draft.js are done using a `CompositeDecorator`,
     where a `strategy` is given to denote what ranges of text to style,
     and a `component` is given to denote how that range should be rendered
 */
-const widgetStrategy = (contentBlock, callback) =>
+
+const entityStrategy = (contentBlock, callback, type) =>
     contentBlock.findEntityRanges(
         char => char.getEntity()
-                && Entity.get(char.getEntity()).type === 'WIDGET',
+                && Entity.get(char.getEntity()).type === type,
         callback
     );
 
-const WidgetSpan = (props) =>
-        <span {...props} style={{backgroundColor: '#DFD'}}>
+const highlightedBlock = (props, color) =>
+        <span {...props} style={{backgroundColor: color}}>
             {props.children}
         </span>;
-WidgetSpan.propTypes = {children: React.PropTypes.any};
+highlightedBlock.propTypes = {children: React.PropTypes.any};
 
-const decorator = new CompositeDecorator([{
-    strategy: widgetStrategy,
-    component: WidgetSpan,
-}]);
+const entityColorDecorator = (type, color) => ({
+    strategy: (...args) => entityStrategy(...args, type),
+    component: (props) => highlightedBlock(props, color),
+});
+
+const regexColorDecorator = (regex, color) => ({
+    strategy: (...args) => DraftUtils.regexStrategy(...args, regex),
+    component: (props) => highlightedBlock(props, color),
+});
+
+const decorator = new CompositeDecorator([
+    entityColorDecorator('WIDGET', '#DFD'),
+    entityColorDecorator('TEMP_IMAGE', '#fdffdd'),
+    regexColorDecorator(imageRegExp, '#b7fbf5'),
+]);
 
 
+/*
+    This is the main Draft.js editor.  It keeps track of its internal Draft.js
+    state, however what it exposes through its `onChange` is a simple string
+    as well as a list of the currently active widgets.
+*/
 const PerseusEditor = React.createClass({
     propTypes: {
         onChange: React.PropTypes.func,
@@ -299,7 +317,7 @@ const PerseusEditor = React.createClass({
 
         const imageUrl = dataTransfer.getLink();
         if (imageUrl) {
-            textToInsert = `\n\n![](${imageUrl})`;
+            textToInsert = `\n![](${imageUrl})`;
         } else {
             textToInsert = dataTransfer.getText();
         }
@@ -318,12 +336,48 @@ const PerseusEditor = React.createClass({
     },
 
     handleDroppedFiles(selection, files) {
-        // const images = files.filter(file => file.type.match('image.*'));
-        // images.forEach(image => {
-        //     const id = genKey();
-        //     const entity = Entity.create('TEMP_IMAGE', 'IMMUTABLE', {id});
+        const images = files.filter(file => file.type.match('image.*'));
+        let contentState = this.state.editorState.getCurrentContent();
+        images.forEach(image => {
 
-        // });
+            // Insert placeholder text to show that the image is being uploaded
+            const text = `![](${image.name}...)`;
+            const id = genKey();
+            const entity = Entity.create('TEMP_IMAGE', 'IMMUTABLE', {id});
+
+            const charData = CharacterMetadata.create().merge({entity});
+            const characterList = Array(text.length).fill(charData);
+            const sanitizer = (textLine) =>
+                textLine === text ? {text, characterList} : null;
+
+            contentState = DraftUtils.insertTextAtEndOfBlock(
+                contentState, selection, `\n${text}\n`, sanitizer
+            );
+
+            // Begin uploading the image, and update the link once complete
+            this.props.imageUploader(image, url => {
+                const {editorState, contentState} = this._getCurrent();
+                const placeholderLocation = DraftUtils.findEntity(
+                    contentState, c => c.getData().id === id);
+                const newContent = DraftUtils.replaceSelection(
+                    contentState,
+                    placeholderLocation,
+                    `![](${url})`
+                );
+                this.handleChange({editorState: EditorState.push(
+                    editorState,
+                    newContent,
+                    'insert-characters'
+                )});
+            });
+
+        });
+        const editorState = EditorState.push(
+            this.state.editorState,
+            contentState,
+            'insert-fragment'
+        );
+        this.handleChange({editorState});
         return true;
     },
 
