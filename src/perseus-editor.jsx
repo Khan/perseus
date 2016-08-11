@@ -35,7 +35,6 @@ const {
     ContentState,
     Modifier,
     SelectionState,
-    convertToRaw, // eslint-disable-line (TODO: Delete this along with its 1 use in render)
     genKey,
 } = require('draft-js');
 const Widgets = require('./widgets.js');
@@ -159,16 +158,18 @@ const PerseusEditor = React.createClass({
         return {editorState, contentState, selection};
     },
 
-    addWidget(widgetType, callback) {
+    getNextWidgetId(type) {
         const currWidgets = this.state.widgets;
-
-        // Since widgets are given IDs, adding a new widget must ensure that a
-        // unique id is generated for it.
-        const widgetNum =
-            Object.keys(currWidgets)
-            .filter(id => currWidgets[id].type === widgetType)
+        return Object.keys(currWidgets)
+            .filter(id => currWidgets[id].type === type)
             .map(id => +id.split(" ")[1]) //ids are (([a-z-]+) ([0-9]+))
             .reduce((maxId, currId) => Math.max(maxId, currId), 0);
+    },
+
+    _createInitialWidget(widgetType) {
+        // Since widgets are given IDs, adding a new widget must ensure that a
+        // unique id is generated for it.
+        const widgetNum = this.getNextWidgetId(widgetType);
         const id = widgetType + " " + (widgetNum + 1);
         const widget = {
             options: Widgets.getEditor(widgetType).defaultProps,
@@ -178,20 +179,32 @@ const PerseusEditor = React.createClass({
             // pre-versioning creation time.
             version: Widgets.getVersion(widgetType),
         };
-        const widgets = {...currWidgets, [id]: widget};
+        return [id, widget];
+    },
 
-        // Text for the widget is inserted, and an entity is assigned
-        const entity = Entity.create('WIDGET', 'IMMUTABLE', {id});
-
+    addWidget(type, callback) {
         const {editorState, contentState, selection} = this._getCurrent();
-        const text = widgetPlaceholder.replace("{id}", id);
+        const [id, widget] = this._createInitialWidget(type);
+        const newContent = this._appendWidget(contentState, selection, id);
+        const widgets = {...this.state.widgets, [id]: widget};
         const newEditorState = EditorState.push(
             editorState,
-            DraftUtils.replaceSelection(contentState, selection, text, entity),
+            newContent,
             'insert-characters'
         );
 
         this.handleChange({editorState: newEditorState, widgets}, callback);
+    },
+
+    _appendWidget(contentState, selection, id) {
+
+        // Text for the widget is inserted, and an entity is assigned
+        const text = widgetPlaceholder.replace("{id}", id);
+        const entity = Entity.create('WIDGET', 'IMMUTABLE', {id});
+
+        return DraftUtils.replaceSelection(
+            contentState, selection, text, entity
+        );
     },
 
     updateWidget(id, newProps) {
@@ -381,6 +394,52 @@ const PerseusEditor = React.createClass({
         return true;
     },
 
+
+    // This implements tab completion for widgets.  When the user
+    // has typed [[d, then presses tab, we should replace [[d
+    // with the full [[ {emoji} dropdown 1 ]] text
+    handleTab(e) {
+        const {contentState, selection} = this._getCurrent();
+        if (!selection.isCollapsed()) {
+            return;
+        }
+        e.preventDefault();
+
+        const currBlock = contentState.getBlockForKey(selection.getEndKey());
+        const text = currBlock.getText().substring(0, selection.getEndOffset());
+        const match = /\[\[([a-z-]+)$/g.exec(text);
+        if (match) {
+            const partialName = match[1];
+            const allWidgets = Object.keys(Widgets.getPublicWidgets());
+            const matchingWidgets = allWidgets.filter(widget => {
+                return widget.substring(0, partialName.length) === partialName;
+            });
+
+            // If only one match is available, complete it
+            if (matchingWidgets.length === 1) {
+                const widgetType = matchingWidgets[0];
+                const replacementArea = selection.merge({
+                    anchorOffset: match.index,
+                });
+
+                const [id, widget] = this._createInitialWidget(widgetType);
+                const newContent = this._appendWidget(
+                    contentState, replacementArea, id
+                );
+                const editorState = EditorState.push(
+                    this.state.editorState,
+                    newContent,
+                    'insert-characters'
+                );
+
+                const widgets = {...this.state.widgets, [id]: widget};
+
+                this.handleChange({editorState, widgets});
+            }
+        }
+        return true;
+    },
+
     updateParent(content, widgets) {
         // The parent component should know of only the active widgets,
         // however the widgets are not deleted from this.state because a
@@ -431,7 +490,6 @@ const PerseusEditor = React.createClass({
 
     render() {
         // STOPSHIP(samiskin): Delete this before landing
-        // console.log(convertToRaw(this.state.editorState.getCurrentContent())); // eslint-disable-line
         return <div onCopy={this.handleCopy}>
             <Editor
                 ref="editor"
@@ -443,6 +501,7 @@ const PerseusEditor = React.createClass({
                 handlePastedText={this.handlePaste}
                 handleDroppedFiles={this.handleDroppedFiles}
                 handleDrop={this.handleDrop}
+                onTab={this.handleTab}
             />
         </div>;
     },
