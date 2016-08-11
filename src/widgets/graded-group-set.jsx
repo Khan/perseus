@@ -82,11 +82,11 @@ const GradedGroupSet = React.createClass({
     },
 
     focusInputPath(path) {
-        this._childGroup.focusPath(path);
+        this._childGroup.focusInputPath(path);
     },
 
     blurInputPath(path) {
-        this._childGroup.blurPath(path);
+        this._childGroup.blurInputPath(path);
     },
 
     render() {
@@ -108,7 +108,7 @@ const GradedGroupSet = React.createClass({
                 />
             </div>
             <GradedGroup
-                ref={comp => this._childGroup}
+                ref={comp => this._childGroup = comp}
                 {...this.props}
                 {...currentGroup}
                 transparentBackground={true}
