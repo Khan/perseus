@@ -373,7 +373,7 @@ const Choice = React.createClass({
             css(
                 styles.label,
                 xomManatee && sharedStyles.disableTextSelection,
-                styles.responsiveLabel,
+                !sat && styles.responsiveLabel,
                 sat && styles.satLabel
             )
         );
@@ -393,13 +393,13 @@ const Choice = React.createClass({
                 styles.input,
                 sharedStyles.responsiveInput,
                 this.props.type === "radio" &&
-                    sharedStyles.responsiveRadioInput,
+                    !sat && sharedStyles.responsiveRadioInput,
                 this.props.type === "radio" && xomManatee &&
-                    sharedStyles.responsiveRadioInputXomManatee,
+                    !sat && sharedStyles.responsiveRadioInputXomManatee,
                 this.props.type === "checkbox" &&
-                    styles.responsiveCheckboxInput,
+                    !sat && styles.responsiveCheckboxInput,
                 this.props.type === "checkbox" && xomManatee &&
-                    styles.responsiveCheckboxInputXomManatee,
+                    !sat && styles.responsiveCheckboxInputXomManatee,
                 sat && this.props.type === "radio" &&
                     sharedStyles.perseusSrOnly,
                 sat && this.props.type === "checkbox" &&

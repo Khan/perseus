@@ -291,7 +291,9 @@ const BaseRadio = React.createClass({
                 // items rather than the container.
                 !xomManatee && sharedStyles.blankBackground,
                 styles.radio,
-                (xomManatee
+                // SAT doesn't use the "responsive styling" as it conflicts
+                // with their custom theming.
+                !sat && (xomManatee
                     ? styles.responsiveRadioXomManatee
                     : styles.responsiveRadio),
                 sat && styles.satRadio
@@ -356,7 +358,9 @@ const BaseRadio = React.createClass({
                         return css(
                             styles.item,
                             !this.showOnePerLine() && styles.inlineItem,
-                            (xomManatee
+                            // SAT doesn't use the "responsive styling" as it
+                            // conflicts with their theming.
+                            !sat && (xomManatee
                                 ? styles.responsiveItemXomManatee
                                 : styles.responsiveItem),
                             checked && xomManatee &&
@@ -404,8 +408,9 @@ const BaseRadio = React.createClass({
 
         // Allow for horizontal scrolling if content is too wide, which may be
         // an issue especially on phones.
+        // This is disabled in SAT, since it conflicts with their theming.
         return <div
-            className={css(styles.responsiveContainer)}
+            className={css(!sat && styles.responsiveContainer)}
         >
             {fieldset}
         </div>;
