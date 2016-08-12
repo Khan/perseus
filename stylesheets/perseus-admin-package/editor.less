@@ -2,7 +2,15 @@
 // (changes to the renderer will not work in production)
 //
 
+// Draft.js CSS
 @import (css) "../../node_modules/draft-js/dist/Draft.css";
+.public-DraftEditor-content {
+  padding: @editorPadding;
+  min-height: 50px;
+}
+.public-DraftEditorPlaceholder-root {
+  padding: @editorPadding;
+}
 
 // Variables
 // Should be consistent with webapp's variables.less
