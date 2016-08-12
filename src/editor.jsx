@@ -769,6 +769,11 @@ var Editor = React.createClass({
         }
         e.target.value = "";
 
+        if (ENABLE_DRAFT_EDITOR) {
+            this.refs.textarea.addTemplate(templateType);
+            return;
+        }
+
         var oldContent = this.props.content;
 
         // Force templates to have a blank line before them,

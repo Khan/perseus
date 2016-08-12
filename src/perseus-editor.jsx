@@ -227,6 +227,77 @@ const PerseusEditor = React.createClass({
         this.handleChange({editorState: newEditorState}, callback);
     },
 
+    addTemplate(templateType) {
+        let {editorState, contentState, selection} = this._getCurrent();
+
+        const widgets = {...this.state.widgets};
+
+        // Templates shouldn't interrupt a line if the cursor is not at the end
+        const currBlock = contentState.getBlockForKey(selection.getEndKey());
+        selection = DraftUtils.selectEnd(currBlock);
+
+        // Insert a new line at the beginning if there is content there, that
+        // way the template appears on a newline in the rendered markdown
+        if (currBlock.getText().length > 0) {
+            contentState = Modifier.splitBlock(contentState, selection);
+            selection = contentState.getSelectionAfter();
+        }
+
+        if (templateType === "allWidgets") {
+            const allTypes = Widgets.getAllWidgetTypes().sort();
+
+            // Insert a newline at the beginning
+            contentState = Modifier.splitBlock(contentState, selection);
+            contentState = allTypes.reduce((content, type) => {
+                const [id, widget] = this._createInitialWidget(type);
+                widgets[id] = widget;
+                content = this._appendWidget(
+                    content, content.getSelectionAfter(), id
+                );
+                return Modifier.splitBlock( // Put each widget on a new line
+                    content, content.getSelectionAfter()
+                );
+            }, contentState);
+
+        } else {
+            let template = "";
+            if (templateType === "table") {
+                template = "header 1 | header 2 | header 3\n" +
+                           "- | - | -\n" +
+                           "data 1 | data 2 | data 3\n" +
+                           "data 4 | data 5 | data 6\n" +
+                           "data 7 | data 8 | data 9";
+            } else if (templateType === "titledTable") {
+                template = "|| **Table title** ||\n" +
+                           "header 1 | header 2 | header 3\n" +
+                           "- | - | -\n" +
+                           "data 1 | data 2 | data 3\n" +
+                           "data 4 | data 5 | data 6\n" +
+                           "data 7 | data 8 | data 9";
+            } else if (templateType === "alignment") {
+                template = "$\\begin{align} x+5 &= 30 \\\\\n" +
+                           "x+5-5 &= 30-5 \\\\\n" +
+                           "x &= 25 \\end{align}$";
+            } else if (templateType === "piecewise") {
+                template = "$f(x) = \\begin{cases}\n" +
+                           "7 & \\text{if $x=1$} \\\\\n" +
+                           "f(x-1)+5 & \\text{if $x > 1$}\n" +
+                           "\\end{cases}$";
+            }
+
+            contentState = DraftUtils.insertText(
+                contentState, selection, `\n${template}\n`
+            );
+        }
+
+        editorState = EditorState.push(
+            editorState,
+            contentState,
+            'insert-fragment'
+        );
+        this.handleChange({editorState});
+    },
+
     handleCopy() {
         const {contentState, selection} = this._getCurrent();
         const entities = DraftUtils.getEntities(contentState, selection);
@@ -321,6 +392,7 @@ const PerseusEditor = React.createClass({
             newContentState,
             'insert-fragment'
         );
+
         this.handleChange({editorState: newEditorState, widgets});
         return true; // True means draft doesn't run its default behavior
     },
@@ -336,8 +408,10 @@ const PerseusEditor = React.createClass({
         }
         // Adds new lines and collapses the selection
         const contentState = this.state.editorState.getCurrentContent();
-        const newContent = DraftUtils.insertTextAtEndOfBlock(
-            contentState, selection, textToInsert
+        const contentBlock = contentState.getBlockForKey(selection.getEndKey());
+        const endOfBlockSelection = DraftUtils.selectEnd(contentBlock);
+        const newContent = DraftUtils.insertText(
+            contentState, endOfBlockSelection, textToInsert
         );
         const editorState = EditorState.push(
             this.state.editorState,
@@ -363,8 +437,11 @@ const PerseusEditor = React.createClass({
             const sanitizer = (textLine) =>
                 textLine === text ? {text, characterList} : null;
 
-            contentState = DraftUtils.insertTextAtEndOfBlock(
-                contentState, selection, `\n${text}\n`, sanitizer
+            const blockKey = selection.getEndKey();
+            const contentBlock = contentState.getBlockForKey(blockKey);
+            const endOfBlockSelection = DraftUtils.selectEnd(contentBlock);
+            contentState = DraftUtils.insertText(
+                contentState, endOfBlockSelection, `\n${text}\n`, sanitizer
             );
 
             // Begin uploading the image, and update the link once complete
@@ -485,14 +562,13 @@ const PerseusEditor = React.createClass({
     },
 
     focus() {
-        this.refs.editor.focus();
+        this.editor.focus();
     },
 
     render() {
-        // STOPSHIP(samiskin): Delete this before landing
         return <div onCopy={this.handleCopy}>
             <Editor
-                ref="editor"
+                ref={(e) => this.editor = e}
                 editorState={this.state.editorState}
                 onChange={(editorState) => this.handleChange({editorState})}
                 spellCheck={true}
