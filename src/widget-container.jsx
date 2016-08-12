@@ -33,7 +33,7 @@ const WidgetContainer = React.createClass({
     componentDidMount() {
         // Only relay size class changes in XOM Manatee right now as we're
         // still rolling out improvements on mobile and this is WIP.
-        if (this.state.widgetProps.apiOptions.xomManatee) {
+        if (this.state.widgetProps.apiOptions.isMobile) {
             const containerWidth = ReactDOM.findDOMNode(this).offsetWidth;
 
             // NOTE(benkomalo): in the common case, this won't change anything.

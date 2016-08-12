@@ -151,9 +151,9 @@ var ImageWidget = React.createClass({
                             labels: this.props.labels,
                         }}
                         trackInteraction={this.props.trackInteraction}
-                        zoomToFullSizeOnMobile={apiOptions.xomManatee}
-                        constrainHeight={apiOptions.xomManatee}
-                        allowFullBleed={apiOptions.xomManatee}
+                        zoomToFullSizeOnMobile={apiOptions.isMobile}
+                        constrainHeight={apiOptions.isMobile}
+                        allowFullBleed={apiOptions.isMobile}
             />;
         }
 
@@ -167,7 +167,7 @@ var ImageWidget = React.createClass({
         }
 
         // As of the XOM Manatee beta, we combine an image's title and caption.
-        if (apiOptions.xomManatee) {
+        if (apiOptions.isMobile) {
             var titleAndCaption;
 
             if (this.props.title || this.props.caption) {

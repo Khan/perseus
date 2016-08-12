@@ -97,10 +97,8 @@ module.exports = {
             // structure that forbids them both being enabled at once.
             customKeypad: React.PropTypes.bool,
 
-            // Indicates whether or not to enable changes for the x-on-mobile,
-            // 'manatee' milestone.  Changes are outlined in
-            // https://docs.google.com/document/d/1aE3aaZD-vR2HJ-HVK7hH9Jzo2euCH-kKTQihSmzrEfI/edit
-            xomManatee: React.PropTypes.bool,
+            // Indicates whether or not to use mobile styling.
+            isMobile: React.PropTypes.bool,
 
             // A function, called with a bool indicating whether use of the
             // drawing area (scratchpad) should be allowed/disallowed.
@@ -110,7 +108,7 @@ module.exports = {
 
         defaults: {
             isArticle: false,
-            xomManatee: false,
+            isMobile: false,
             satStyling: false,
             onInputError: function() { },
             onFocusChange: function() { },
@@ -142,6 +140,6 @@ module.exports = {
         CORRECT: "perseus-correct",
         INCORRECT: "perseus-incorrect",
         UNANSWERED: "perseus-unanswered",
-        XOM_MANATEE: "perseus-xom-manatee",
+        MOBILE: "perseus-mobile",
     },
 };

@@ -82,7 +82,7 @@ const BaseRadio = React.createClass({
         apiOptions: React.PropTypes.shape({
             readOnly: React.PropTypes.bool,
             satStyling: React.PropTypes.bool,
-            xomManatee: React.PropTypes.bool,
+            isMobile: React.PropTypes.bool,
         }),
         choices: ChoicesType,
         deselectEnabled: React.PropTypes.bool,
@@ -124,7 +124,7 @@ const BaseRadio = React.createClass({
                 },
             },
 
-            responsiveRadioXomManatee: {
+            responsiveMobileRadio: {
                 [mediaQueries.lgOrSmaller]: {
                     width: "auto",
                 },
@@ -173,7 +173,7 @@ const BaseRadio = React.createClass({
                 },
             },
 
-            responsiveItemXomManatee: {
+            responsiveMobileItem: {
                 backgroundColor: '#FFFFFF',
 
                 [mediaQueries.lgOrSmaller]: {
@@ -249,7 +249,7 @@ const BaseRadio = React.createClass({
     },
 
     getInstructionsText: function() {
-        if (this.props.apiOptions.xomManatee) {
+        if (this.props.apiOptions.isMobile) {
             return this.props.multipleSelect ?
                 i18n._("Choose all answers that apply.") :
                 i18n._("Choose 1 answer.");
@@ -262,12 +262,12 @@ const BaseRadio = React.createClass({
 
     showOnePerLine: function() {
         // We want to force one-per-line layout with the new XOM spec.
-        return this.props.apiOptions.xomManatee || this.props.onePerLine;
+        return this.props.apiOptions.isMobile || this.props.onePerLine;
     },
 
     deselectEnabled: function() {
         // We want to force enable deselect with the new XOM spec.
-        return this.props.apiOptions.xomManatee || this.props.deselectEnabled;
+        return this.props.apiOptions.isMobile || this.props.deselectEnabled;
     },
 
     render: function() {
@@ -280,7 +280,7 @@ const BaseRadio = React.createClass({
         const styles = BaseRadio.styles;
         const sat = this.props.apiOptions.satStyling;
 
-        const xomManatee = this.props.apiOptions.xomManatee;
+        const isMobile = this.props.apiOptions.isMobile;
 
         const className = classNames(
             "perseus-widget-radio",
@@ -289,12 +289,12 @@ const BaseRadio = React.createClass({
                 // With the responsive XOM styles, the individual items are
                 // spaced out vertically, and so we set the backgrounds on the
                 // items rather than the container.
-                !xomManatee && sharedStyles.blankBackground,
+                !isMobile && sharedStyles.blankBackground,
                 styles.radio,
                 // SAT doesn't use the "responsive styling" as it conflicts
                 // with their custom theming.
-                !sat && (xomManatee
-                    ? styles.responsiveRadioXomManatee
+                !sat && (isMobile
+                    ? styles.responsiveMobileRadio
                     : styles.responsiveRadio),
                 sat && styles.satRadio
             )
@@ -303,7 +303,7 @@ const BaseRadio = React.createClass({
         const instructionsClassName = 'instructions ' +
             css(styles.instructions, sharedStyles.responsiveLabel);
         const instructions = this.getInstructionsText();
-        const shouldShowInstructions = xomManatee || this.props.multipleSelect;
+        const shouldShowInstructions = isMobile || this.props.multipleSelect;
 
         const responsiveClassName = css(styles.responsiveFieldset);
         const fieldset = <fieldset
@@ -354,16 +354,16 @@ const BaseRadio = React.createClass({
                         _.extend(elementProps, {showContent: choice.correct});
                     }
 
-                    const aphroditeClassName = (checked, xomManatee) => {
+                    const aphroditeClassName = (checked, isMobile) => {
                         return css(
                             styles.item,
                             !this.showOnePerLine() && styles.inlineItem,
                             // SAT doesn't use the "responsive styling" as it
                             // conflicts with their theming.
-                            !sat && (xomManatee
-                                ? styles.responsiveItemXomManatee
+                            !sat && (isMobile
+                                ? styles.responsiveMobileItem
                                 : styles.responsiveItem),
-                            checked && xomManatee &&
+                            checked && isMobile &&
                                 styles.responsiveSelected,
                             sat && styles.satRadioOption,
                             sat && checked && styles.satRadioSelected,
@@ -374,10 +374,10 @@ const BaseRadio = React.createClass({
                     // HACK(abdulrahman): Preloads the selection-state
                     // css because of a bug that causes iOS to lag
                     // when selecting the button for the first time.
-                    aphroditeClassName(true, xomManatee);
+                    aphroditeClassName(true, isMobile);
 
                     const className = classNames(
-                        aphroditeClassName(choice.checked, xomManatee),
+                        aphroditeClassName(choice.checked, isMobile),
                         // TODO(aria): Make test case for these API classNames
                         ApiClassNames.RADIO.OPTION,
                         !this.showOnePerLine() && "inline",

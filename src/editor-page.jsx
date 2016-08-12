@@ -116,7 +116,7 @@ var EditorPage = React.createClass({
         const deviceBasedApiOptions = Object.assign(
             this.getApiOptions(), {
                 customKeypad: touch,
-                xomManatee: touch,
+                isMobile: touch,
             });
 
         this.refs.itemEditor.triggerPreviewUpdate({
@@ -173,11 +173,11 @@ var EditorPage = React.createClass({
         const deviceBasedApiOptions = Object.assign(
             this.getApiOptions(), {
                 customKeypad: touch,
-                xomManatee: touch,
+                isMobile: touch,
             });
 
-        if (deviceBasedApiOptions.xomManatee) {
-            className += " " + ApiClassNames.XOM_MANATEE;
+        if (deviceBasedApiOptions.isMobile) {
+            className += " " + ApiClassNames.MOBILE;
         }
 
         return <div id="perseus" className={className}>

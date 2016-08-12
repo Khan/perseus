@@ -783,7 +783,7 @@ var Renderer = React.createClass({
             const onRender = (node) => {
                 this.props.onRender && this.props.onRender(node);
 
-                if (apiOptions.xomManatee) {
+                if (apiOptions.isMobile) {
                     // `onRender` only returns a node on the initial render.
                     if (node) {
                         const katex = node.querySelector(".katex");
@@ -835,7 +835,7 @@ var Renderer = React.createClass({
                 marginBottom: -10,
             };
 
-            if (apiOptions.xomManatee) {
+            if (apiOptions.isMobile) {
                 // The style for the body of articles and exercises on mobile is
                 // to have a 16px margin.  When a user taps to zoom math we'd
                 // like the math to extend all the way to the edge of the page/
@@ -967,7 +967,7 @@ var Renderer = React.createClass({
                 title={node.title}
                 responsive={responsive}
                 onUpdate={this.props.onRender}
-                zoomToFullSizeOnMobile={apiOptions.xomManatee}
+                zoomToFullSizeOnMobile={apiOptions.isMobile}
                 {...extraAttrs}
             />;
 
@@ -1003,7 +1003,7 @@ var Renderer = React.createClass({
             };
 
             let wrappedOutput;
-            if (apiOptions.xomManatee) {
+            if (apiOptions.isMobile) {
                 wrappedOutput =
                     <div style={{...innerStyle, overflowX: 'auto'}}>
                         <Zoomable animateHeight={true}>{output}</Zoomable>

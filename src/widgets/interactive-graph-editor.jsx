@@ -105,7 +105,7 @@ const InteractiveGraphEditor = React.createClass({
                 containerSizeClass={sizeClass}
                 apiOptions={{
                     ...this.props.apiOptions,
-                    xomManatee: false,
+                    isMobile: false,
                 }}
             />;
             equationString = InteractiveGraph.getEquationString(graphProps);

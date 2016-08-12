@@ -51,9 +51,9 @@ const HintRenderer = React.createClass({
         } = this.props;
 
         const classNames = classnames(
-            !apiOptions.xomManatee && 'perseus-hint-renderer',
-            apiOptions.xomManatee && css(styles.newHint),
-            apiOptions.xomManatee &&
+            !apiOptions.isMobile && 'perseus-hint-renderer',
+            apiOptions.isMobile && css(styles.newHint),
+            apiOptions.isMobile &&
                 lastRendered && css(styles.lastRenderedNewHint),
             lastHint && 'last-hint',
             lastRendered && 'last-rendered',
@@ -74,10 +74,10 @@ const HintRenderer = React.createClass({
         };
 
         return <div className={classNames} tabIndex="-1">
-            {!apiOptions.xomManatee && <span className="perseus-sr-only">
+            {!apiOptions.isMobile && <span className="perseus-sr-only">
                 {i18n._("Hint #%(pos)s", {pos: pos + 1})}
             </span>}
-            {!apiOptions.xomManatee && totalHints && pos != null && <span
+            {!apiOptions.isMobile && totalHints && pos != null && <span
                 className="perseus-hint-label"
                 style={{display: 'block'}}
             >

@@ -608,7 +608,7 @@ var InteractiveGraph = React.createClass({
             gridStep
         );
 
-        const xomManatee = this.props.apiOptions.xomManatee;
+        const isMobile = this.props.apiOptions.isMobile;
         return <div className={"perseus-widget " +
                     "perseus-widget-interactive-graph"}
                     style={{
@@ -621,9 +621,9 @@ var InteractiveGraph = React.createClass({
                 box={box}
                 labels={this.props.labels}
                 range={this.props.range}
-                step={xomManatee ? [2, 2] : this.props.step}
+                step={isMobile ? [2, 2] : this.props.step}
                 gridStep={gridStep}
-                snapStep={xomManatee ? [1, 1] : snapStep}
+                snapStep={isMobile ? [1, 1] : snapStep}
                 markings={this.props.markings}
                 backgroundImage={this.props.backgroundImage}
                 showProtractor={this.props.showProtractor}
@@ -634,7 +634,7 @@ var InteractiveGraph = React.createClass({
                 onGraphieUpdated={this.setGraphie}
                 setDrawingAreaAvailable={
                     this.props.apiOptions.setDrawingAreaAvailable}
-                xomManatee={xomManatee}
+                isMobile={isMobile}
             />
             {typeSelect}{extraOptions}
         </div>;
@@ -712,7 +712,7 @@ var InteractiveGraph = React.createClass({
             this.setTrashCanVisibility(0.5);
         }
 
-        if (this.props.apiOptions.xomManatee) {
+        if (this.props.apiOptions.isMobile) {
             this.horizHairline =
                 new WrappedLine(this.graphie, [0, 0], [0, 0], {
                     normalStyle: {
@@ -741,7 +741,7 @@ var InteractiveGraph = React.createClass({
     },
 
     showHairlines: function(point) {
-        if (this.props.apiOptions.xomManatee &&
+        if (this.props.apiOptions.isMobile &&
             this.props.markings !== "none") {
             // Hairlines are already initialized when the graph is loaded, so
             // here we just move them to the updated location and make them
@@ -763,7 +763,7 @@ var InteractiveGraph = React.createClass({
     },
 
     hideHairlines: function() {
-        if (this.props.apiOptions.xomManatee) {
+        if (this.props.apiOptions.isMobile) {
             this.horizHairline.hide();
             this.vertHairline.hide();
         }
@@ -777,7 +777,7 @@ var InteractiveGraph = React.createClass({
                 this.trashCan.remove();
                 this.trashCan = null;
             }
-        } else if (!this.props.apiOptions.xomManatee) {
+        } else if (!this.props.apiOptions.isMobile) {
             // Only if trash tooltips are not being used, we initialize the old
             // trash can area.
             if (!this.trashCan) {
@@ -817,7 +817,7 @@ var InteractiveGraph = React.createClass({
     },
 
     _lineStroke: function() {
-        return this.props.xomManatee ? {"stroke-width": 3} : {};
+        return this.props.isMobile ? {"stroke-width": 3} : {};
     },
 
     addLine: function(type) {
@@ -848,7 +848,7 @@ var InteractiveGraph = React.createClass({
             points: points,
             static: true,
             normalStyle: {
-                stroke: this.props.apiOptions.xomManatee ?
+                stroke: this.props.apiOptions.isMobile ?
                     KhanColors.BLUE_C : KhanColors.INTERACTIVE,
                 ...(this._lineStroke()),
             },
@@ -964,7 +964,7 @@ var InteractiveGraph = React.createClass({
         } else {
             this.parabola = this.graphie.parabola(a, b, c);
             this.parabola.attr({
-                stroke: this.props.apiOptions.xomManatee ?
+                stroke: this.props.apiOptions.isMobile ?
                     KhanColors.BLUE_C : KhanColors.DYNAMIC,
                 ...(this._lineStroke()),
             });
@@ -1042,7 +1042,7 @@ var InteractiveGraph = React.createClass({
         } else {
             this.sinusoid = this.graphie.sinusoid(a, b, c, d);
             this.sinusoid.attr({
-                stroke: this.props.apiOptions.xomManatee ?
+                stroke: this.props.apiOptions.isMobile ?
                     KhanColors.BLUE_C : KhanColors.DYNAMIC,
                 ...(this._lineStroke()),
             });
@@ -1150,7 +1150,7 @@ var InteractiveGraph = React.createClass({
     },
 
     isCoordInTrash: function(coord) {
-        if (this.props.apiOptions.xomManatee) {
+        if (this.props.apiOptions.isMobile) {
             return false;
         }
 
@@ -1210,7 +1210,7 @@ var InteractiveGraph = React.createClass({
                     self.setTrashCanVisibility(0.5);
                 }
             },
-            ...(this.props.apiOptions.xomManatee && self.isClickToAddPoints() ?
+            ...(this.props.apiOptions.isMobile && self.isClickToAddPoints() ?
                 {onRemove: remove} : {}),
         });
 
@@ -1514,7 +1514,7 @@ var InteractiveGraph = React.createClass({
                 }
             },
             onMoveEnd: onMoveEndHandler,
-            ...(this.props.apiOptions.xomManatee &&
+            ...(this.props.apiOptions.isMobile &&
                 this.isClickToAddPoints() ? {onRemove: remove} : {}),
         });
         point.state.isInitialMove = true;
@@ -1620,12 +1620,12 @@ var InteractiveGraph = React.createClass({
                     updateCoordProps
                 ],
                 normalStyle: {
-                    stroke: this.props.apiOptions.xomManatee ?
+                    stroke: this.props.apiOptions.isMobile ?
                         KhanColors.BLUE_C : KhanColors.INTERACTIVE,
                     ...(this._lineStroke()),
                 },
                 highlightStyle: {
-                    stroke: this.props.apiOptions.xomManatee ?
+                    stroke: this.props.apiOptions.isMobile ?
                         KhanColors.BLUE_C : KhanColors.INTERACTING,
                     ...(this._lineStroke()),
                 }
@@ -1739,7 +1739,7 @@ var InteractiveGraph = React.createClass({
                     }
                 ],
                 normalStyle: {
-                    stroke: this.props.apiOptions.xomManatee ?
+                    stroke: this.props.apiOptions.isMobile ?
                         KhanColors.BLUE_C : KhanColors.INTERACTIVE,
                     ...(this._lineStroke()),
                 }

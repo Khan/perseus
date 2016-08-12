@@ -37,7 +37,7 @@ const RendererDemo = React.createClass({
             // Matches ItemRenderer.showInput
             answer: { empty: true, correct: null },
             scratchpadEnabled: true,
-            xomManatee: navigator.userAgent.indexOf('Mobile') !== -1,
+            isMobile: navigator.userAgent.indexOf('Mobile') !== -1,
         };
     },
 
@@ -64,21 +64,21 @@ const RendererDemo = React.createClass({
     },
 
     _handleResize() {
-        const xomManatee = navigator.userAgent.indexOf('Mobile') !== -1;
-        if (this.state.xomManatee !== xomManatee) {
-            this.setState({xomManatee});
+        const isMobile = navigator.userAgent.indexOf('Mobile') !== -1;
+        if (this.state.isMobile !== isMobile) {
+            this.setState({isMobile});
         }
     },
 
     render: function() {
-        const {xomManatee} = this.state;
+        const {isMobile} = this.state;
 
         const apiOptions = {
             getAnotherHint: () => {
                 this.refs.itemRenderer.showHint();
             },
-            xomManatee,
-            customKeypad: xomManatee,
+            isMobile,
+            customKeypad: isMobile,
             setDrawingAreaAvailable: (enabled) => {
                 this.setState({
                     scratchpadEnabled: enabled,
@@ -112,8 +112,8 @@ const RendererDemo = React.createClass({
 
         const scratchpadEnabled = this.state.scratchpadEnabled;
 
-        if (xomManatee) {
-            const className = "framework-perseus " + ApiClassNames.XOM_MANATEE;
+        if (isMobile) {
+            const className = "framework-perseus " + ApiClassNames.MOBILE;
             return <div className={className}>
                 <div className={css(styles.problemAndAnswer)}>
                     {rendererComponent}

@@ -52,9 +52,9 @@ const Categorizer = React.createClass({
     render: function() {
         const self = this;
 
-        // In this context, xomManatee is used to differentiate mobile from
+        // In this context, isMobile is used to differentiate mobile from
         // desktop.
-        const xomManatee = this.props.apiOptions.xomManatee;
+        const isMobile = this.props.apiOptions.isMobile;
         let indexedItems = this.props.items.map((item, n) => [item, n]);
         if (this.props.randomizeItems) {
             indexedItems = Util.shuffle(indexedItems, this.props.problemNum);
@@ -97,7 +97,7 @@ const Categorizer = React.createClass({
                                         itemNum,
                                         catNum
                                     )}>
-                                {xomManatee && <input
+                                {isMobile && <input
                                     type="radio"
                                     name={uniqueId}
                                     className={css(
@@ -113,7 +113,7 @@ const Categorizer = React.createClass({
                                     )}
                                     onClick={(e) => e.stopPropagation()}
                                     />}
-                                {!xomManatee && <span
+                                {!isMobile && <span
                                     className={css(
                                         styles.responsiveSpan,
                                         styles.radioSpan,
@@ -140,7 +140,7 @@ const Categorizer = React.createClass({
             "categorizer-container": true,
             "static-mode": this.props.static,
         });
-        const inlineStyles = this.props.apiOptions.xomManatee
+        const inlineStyles = this.props.apiOptions.isMobile
             ? [styles.fullBleedContainer] : [];
 
         return <div className={extraClassNames + ' ' + css(...inlineStyles)}>

@@ -72,13 +72,13 @@ var FunctionGrapher = React.createClass({
         flexibleType: React.PropTypes.bool,
         graph: React.PropTypes.any,
         hideHairlines: React.PropTypes.func,
+        isMobile: React.PropTypes.bool,
         model: React.PropTypes.any,
         onChange: React.PropTypes.func,
         setDrawingAreaAvailable: React.PropTypes.func,
         showHairlines: React.PropTypes.func,
         showTooltips: React.PropTypes.bool,
         static: React.PropTypes.bool,
-        xomManatee: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -89,7 +89,7 @@ var FunctionGrapher = React.createClass({
             },
             coords: null,
             asymptote: null,
-            xomManatee: false,
+            isMobile: false,
         };
     },
 
@@ -154,7 +154,7 @@ var FunctionGrapher = React.createClass({
                 showHairlines={this.props.showHairlines}
                 hideHairlines={this.props.hideHairlines}
                 showTooltips={this.props.showTooltips}
-                xomManatee={this.props.xomManatee}
+                isMobile={this.props.isMobile}
             />;
         };
         var points = _.map(this._coords(), pointForCoord);
@@ -200,9 +200,9 @@ var FunctionGrapher = React.createClass({
         var model = this.props.model;
         var xRange = this.props.graph.range[0];
         var style = {
-            stroke: this.props.xomManatee ? KhanColors.BLUE_C :
+            stroke: this.props.isMobile ? KhanColors.BLUE_C :
                 KhanColors.DYNAMIC,
-            ...(this.props.xomManatee ? {"stroke-width": 3} : {}),
+            ...(this.props.isMobile ? {"stroke-width": 3} : {}),
         };
 
         var coeffs = model.getCoefficients(this._coords(), this._asymptote());
@@ -261,7 +261,7 @@ var FunctionGrapher = React.createClass({
                         showHairlines={this.props.showHairlines}
                         hideHairlines={this.props.hideHairlines}
                         showTooltips={this.props.showTooltips}
-                        xomManatee={this.props.xomManatee}
+                        isMobile={this.props.isMobile}
                     />
                 )}
         </MovableLine>;
@@ -336,7 +336,7 @@ var Grapher = React.createClass({
             static: this.props.static,
             setDrawingAreaAvailable:
                 this.props.apiOptions.setDrawingAreaAvailable,
-            xomManatee: this.props.apiOptions.xomManatee,
+            isMobile: this.props.apiOptions.isMobile,
             showTooltips: this.props.graph.showTooltips,
             showHairlines: this.showHairlines,
             hideHairlines: this.hideHairlines,
@@ -376,7 +376,7 @@ var Grapher = React.createClass({
     },
 
     _setupGraphie: function(graphie, options) {
-        const xomManatee = this.props.apiOptions.xomManatee;
+        const isMobile = this.props.apiOptions.isMobile;
         if (options.markings === "graph") {
             graphie.graphInit({
                 range: options.range,
@@ -385,16 +385,16 @@ var Grapher = React.createClass({
                 labelFormat: function(s) { return "\\small{" + s + "}"; },
                 gridStep: options.gridStep,
                 snapStep: options.snapStep,
-                tickStep: xomManatee ? [2, 2] :
+                tickStep: isMobile ? [2, 2] :
                     _.pluck(options.gridConfig, "tickStep"),
                 labelStep: 1,
                 unityLabels: _.pluck(options.gridConfig, "unityLabel"),
-                xomManatee: xomManatee,
+                isMobile: isMobile,
             });
             graphie.label([0, options.range[1][1]], options.labels[1],
-                xomManatee ? "below right" : "above");
+                isMobile ? "below right" : "above");
             graphie.label([options.range[0][1], 0], options.labels[0],
-                xomManatee ? "above left" : "right");
+                isMobile ? "above left" : "right");
         } else if (options.markings === "grid") {
             graphie.graphInit({
                 range: options.range,
@@ -403,7 +403,7 @@ var Grapher = React.createClass({
                 axes: false,
                 ticks: false,
                 labels: false,
-                xomManatee: xomManatee,
+                isMobile: isMobile,
             });
         } else if (options.markings === "none") {
             graphie.init({
@@ -412,7 +412,7 @@ var Grapher = React.createClass({
             });
         }
 
-        if (this.props.apiOptions.xomManatee) {
+        if (this.props.apiOptions.isMobile) {
             const hairlineStyle = {
                 normalStyle: {
                     strokeWidth: 1,
@@ -436,7 +436,7 @@ var Grapher = React.createClass({
     },
 
     showHairlines: function(point) {
-        if (this.props.apiOptions.xomManatee &&
+        if (this.props.apiOptions.isMobile &&
             this.props.markings !== "none") {
             // Hairlines are already initialized when the graph is loaded, so
             // here we just move them to the updated location and make them
@@ -458,7 +458,7 @@ var Grapher = React.createClass({
     },
 
     hideHairlines: function() {
-        if (this.props.apiOptions.xomManatee) {
+        if (this.props.apiOptions.isMobile) {
             this.horizHairline.hide();
             this.vertHairline.hide();
         }

@@ -199,13 +199,13 @@ const GradedGroup = React.createClass({
         }
 
         const classes = classNames({
-            [css(styles.gradedGroup)]: apiOptions.xomManatee &&
+            [css(styles.gradedGroup)]: apiOptions.isMobile &&
                 !this.props.transparentBackground,
             "perseus-graded-group": true,
-            "answer-correct": apiOptions.xomManatee
+            "answer-correct": apiOptions.isMobile
                 ? false
                 : this.state.status === GRADING_STATUSES.correct,
-            "answer-incorrect": apiOptions.xomManatee
+            "answer-incorrect": apiOptions.isMobile
                 ? false
                 : this.state.status === GRADING_STATUSES.incorrect,
         });
@@ -217,7 +217,7 @@ const GradedGroup = React.createClass({
         // looks incorrect because a user has modified it afterwards.
         const isCorrect = answerBarState === ANSWER_BAR_STATES.CORRECT;
         const readOnly = apiOptions.readOnly ||
-            (apiOptions.xomManatee && isCorrect);
+            (apiOptions.isMobile && isCorrect);
 
         return <div className={classes}>
             {!!this.props.title &&
@@ -230,11 +230,11 @@ const GradedGroup = React.createClass({
                 apiOptions={{...apiOptions, readOnly}}
                 onInteractWithWidget={this._onInteractWithWidget}
             />
-            {!apiOptions.xomManatee && icon && <div className="group-icon">
+            {!apiOptions.isMobile && icon && <div className="group-icon">
                 {icon}
             </div>}
-            {!apiOptions.xomManatee && <p>{this.state.message}</p>}
-            {!apiOptions.xomManatee && <input
+            {!apiOptions.isMobile && <p>{this.state.message}</p>}
+            {!apiOptions.isMobile && <input
                 type="button"
                 value={i18n._("Check")}
                 className="simple-button"
@@ -264,7 +264,7 @@ const GradedGroup = React.createClass({
                     {i18n._("Explain")}
                 </div>
             )}
-            {apiOptions.xomManatee &&
+            {apiOptions.isMobile &&
                 answerBarState !== ANSWER_BAR_STATES.HIDDEN &&
                 <GradedGroupAnswerBar
                     apiOptions={apiOptions}

@@ -80,6 +80,7 @@ module.exports = StyleSheet.create({
         },
     },
 
+    // TODO(kevinb) move to choice.jsx
     responsiveRadioInput: {
         [mediaQueries.lgOrSmaller]: {
             borderRadius: "50%",
@@ -96,7 +97,8 @@ module.exports = StyleSheet.create({
         },
     },
 
-    responsiveRadioInputXomManatee: {
+    // TODO(kevinb) move to choice.jsx
+    responsiveMobileRadioInput: {
         // On phones and tablets, we hide the circular radio button itself,
         // and instead, show a green border when the item is selected. This
         // saves horizontal space for content on small screens.

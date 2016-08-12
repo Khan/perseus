@@ -65,7 +65,7 @@ var Graph = React.createClass({
         instructions: React.PropTypes.string,
         onClick: React.PropTypes.func,
         setDrawingAreaAvailable: React.PropTypes.func,
-        xomManatee: React.PropTypes.bool,
+        isMobile: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -85,7 +85,7 @@ var Graph = React.createClass({
             onGraphieUpdated: null,
             onClick: null,
             onMouseDown: null,
-            xomManatee: false,
+            isMobile: false,
         };
     },
 
@@ -203,12 +203,12 @@ var Graph = React.createClass({
                 tickStep: _.pluck(gridConfig, "tickStep"),
                 labelStep: 1,
                 unityLabels: _.pluck(gridConfig, "unityLabel"),
-                xomManatee: this.props.xomManatee,
+                isMobile: this.props.isMobile,
             });
             graphie.label([0, range[1][1]], labels[1],
-                this.props.xomManatee ? "below right" : "above");
+                this.props.isMobile ? "below right" : "above");
             graphie.label([range[0][1], 0], labels[0],
-                this.props.xomManatee ? "above left" : "right");
+                this.props.isMobile ? "above left" : "right");
         } else if (this.props.markings === "grid") {
             graphie.graphInit({
                 range: range,
@@ -217,13 +217,13 @@ var Graph = React.createClass({
                 axes: false,
                 ticks: false,
                 labels: false,
-                xomManatee: this.props.xomManatee,
+                isMobile: this.props.isMobile,
             });
         } else if (this.props.markings === "none") {
             graphie.init({
                 range: range,
                 scale: _.pluck(gridConfig, "scale"),
-                xomManatee: this.props.xomManatee,
+                isMobile: this.props.isMobile,
             });
         }
 

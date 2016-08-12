@@ -5,6 +5,7 @@
  */
 
 const React = require('react');
+const ReactDOM = require('react-dom');
 const ArticleEditor = require('./article-editor.jsx');
 const StatefulArticleEditor = require('./stateful-article-editor.jsx');
 const Util = require('./util.js');
@@ -12,6 +13,22 @@ const Util = require('./util.js');
 const ArticleDemo = React.createClass({
     propTypes: {
         content: React.PropTypes.any.isRequired,
+    },
+
+    getInitialState: function() {
+        return {
+            isMobile: navigator.userAgent.indexOf('Mobile') !== -1,
+        };
+    },
+
+    componentDidMount: function() {
+        ReactDOM.findDOMNode(this.refs.itemRenderer).focus();
+
+        window.addEventListener('resize', this._handleResize);
+    },
+
+    componentWillUnmount: function() {
+        window.removeEventListener('resize', this._handleResize);
     },
 
     serialize: function() {
@@ -33,8 +50,15 @@ const ArticleDemo = React.createClass({
         e.preventDefault();
     },
 
+    _handleResize() {
+        const isMobile = navigator.userAgent.indexOf('Mobile') !== -1;
+        if (this.state.isMobile !== isMobile) {
+            this.setState({isMobile});
+        }
+    },
+
     getEditorProps() {
-        const xomManatee = !!localStorage.xomManatee;
+        const {isMobile} = this.state;
 
         return {
             json: this.props.content,
@@ -42,7 +66,7 @@ const ArticleDemo = React.createClass({
                 setTimeout(callback, 1000, "http://fake.image.url");
             },
             apiOptions: {
-                customKeypad: xomManatee,
+                customKeypad: isMobile,
                 onFocusChange: function(newPath, oldPath) {
                     console.log("onFocusChange", newPath, oldPath);
                 },
@@ -50,7 +74,7 @@ const ArticleDemo = React.createClass({
                     console.log("Interaction with", trackData.type,
                            trackData);
                 },
-                xomManatee,
+                isMobile,
             },
 
             useNewStyles: true,

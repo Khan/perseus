@@ -136,7 +136,7 @@ var TickMarks = Graphie.createSimpleClass((graphie, props) => {
 
     // Render the text labels
     results.push(graphie.style(
-        props.xomManatee ? {
+        props.isMobile ? {
             color: KhanColors.BLUE_D,
         } : {},
         () =>
@@ -144,7 +144,7 @@ var TickMarks = Graphie.createSimpleClass((graphie, props) => {
     ));
 
     results.push(graphie.style(
-        props.xomManatee ? {
+        props.isMobile ? {
             color: KhanColors.BLUE_D,
         } : {},
         () =>
@@ -154,7 +154,7 @@ var TickMarks = Graphie.createSimpleClass((graphie, props) => {
     // Render the labels' lines
     graphie.style(
         {
-            stroke: props.xomManatee ? KhanColors.BLUE_D :
+            stroke: props.isMobile ? KhanColors.BLUE_D :
                 KhanColors.DYNAMIC,
             strokeWidth: 3.5,
         },
@@ -354,7 +354,7 @@ var NumberLine = React.createClass({
             setup={this._setupGraphie}
             setDrawingAreaAvailable={
                 this.props.apiOptions.setDrawingAreaAvailable}
-            xomManatee={this.props.apiOptions.xomManatee}
+            isMobile={this.props.apiOptions.isMobile}
         >
             <TickMarks
                 {..._.pick(props, [
@@ -365,7 +365,7 @@ var NumberLine = React.createClass({
                     "labelRange",
                     "tickStep",
                 ])}
-                xomManatee={this.props.apiOptions.xomManatee}
+                isMobile={this.props.apiOptions.isMobile}
             />
             {this._renderInequality(props)}
             {this._renderNumberLinePoint(props)}
@@ -430,7 +430,7 @@ var NumberLine = React.createClass({
                 this.change({numLinePosition: coord[0]});
                 this.props.trackInteraction();
             }}
-            xomManatee={this.props.apiOptions.xomManatee}
+            isMobile={this.props.apiOptions.isMobile}
             xomStyleOverride={xomDotStyle}
             showTooltips={this.props.showTooltips}
             xOnlyTooltip={true}
@@ -464,7 +464,7 @@ var NumberLine = React.createClass({
             var end = this._getInequalityEndpoint(props);
             var style = {
                 arrows: "->",
-                stroke: this.props.apiOptions.xomManatee ?
+                stroke: this.props.apiOptions.isMobile ?
                     KhanColors.INTERACTIVE : KhanColors.DYNAMIC,
                 strokeWidth: 3.5,
             };
@@ -488,7 +488,7 @@ var NumberLine = React.createClass({
         if (!this.isValid()) {return;}
 
         // Position variables
-        var widthInPixels = this.props.apiOptions.xomManatee ?
+        var widthInPixels = this.props.apiOptions.isMobile ?
             (288 - (horizontalPadding * 2)) : 400;
         var range = options.range;
         var scale = (range[1] - range[0]) / widthInPixels;
@@ -503,7 +503,7 @@ var NumberLine = React.createClass({
         graphie.init({
             range: [[left, right], [bottom, top]],
             scale: [1 / scale, 40],
-            xomManatee: this.props.apiOptions.xomManatee,
+            isMobile: this.props.apiOptions.isMobile,
         });
 
         // Draw the number line

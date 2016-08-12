@@ -1,6 +1,6 @@
 // Perseus Version File
-// commit 28b02feeaa53bf378f32f7d0d5426eb4e65fd5c1
-// branch master
+// commit 4115a9cde7330d4501be922a40cd865cfe7ace6e
+// branch xomManatee_to_isMobile
 // @generated
 /* eslint-disable comma-dangle */
 

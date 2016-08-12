@@ -90,7 +90,8 @@ const EditorDemo = React.createClass({
     },
 
     getEditorProps() {
-        const xomManatee = !!localStorage.xomManatee;
+        const {deviceType} = this.state;
+        const isMobile = deviceType === "phone" || deviceType === "tablet";
 
         return {
             ...this.props.question,
@@ -115,8 +116,8 @@ const EditorDemo = React.createClass({
                 },
                 // staticRender: true,
                 // readOnly: true,
-                customKeypad: xomManatee,
-                xomManatee,
+                customKeypad: isMobile,
+                isMobile,
                 setDrawingAreaAvailable: (enabled) => {
                     this.setState({
                         scratchpadEnabled: enabled,
@@ -124,10 +125,10 @@ const EditorDemo = React.createClass({
                 },
             },
             componentClass: EditorPage,
-            onPreviewDeviceChange: (device) => {
-                this.setState({ deviceType: device });
+            onPreviewDeviceChange: (deviceType) => {
+                this.setState({deviceType});
             },
-            previewDevice: this.state.deviceType,
+            previewDevice: deviceType,
             frameSource: `<!DOCTYPE html>
                 <html>
                 <head>

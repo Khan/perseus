@@ -94,7 +94,7 @@ const GradedGroupAnswerBar = React.createClass({
                     type='button'
                     style={buttonStyle}
                     value={buttonLabel}
-                    className={apiOptions.xomManatee ? '' : 'simple-button'}
+                    className={apiOptions.isMobile ? '' : 'simple-button'}
                     disabled={apiOptions.readOnly ||
                         answerBarState !== ANSWER_BAR_STATES.ACTIVE}
                     onClick={onCheckAnswer}

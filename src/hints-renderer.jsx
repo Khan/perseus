@@ -148,15 +148,15 @@ const HintsRenderer = React.createClass({
 
         const classNames = classnames(
             this.props.className,
-            apiOptions.xomManatee && hintsVisible > 0 &&
-                css(styles.newHintStylesHintsRenderer)
+            apiOptions.isMobile && hintsVisible > 0 &&
+                css(styles.mobileHintStylesHintsRenderer)
         );
 
         return <div className={classNames}>
-            {apiOptions.xomManatee && hintsVisible > 0 &&
+            {apiOptions.isMobile && hintsVisible > 0 &&
                 <div
                     className={css(
-                        styles.newHintStylesHintTitle,
+                        styles.mobileHintStylesHintTitle,
                         sharedStyles.responsiveLabel
                     )}
                 >
@@ -170,8 +170,8 @@ const HintsRenderer = React.createClass({
                     className={css(
                         styles.linkButton,
                         styles.getAnotherHintButton,
-                        apiOptions.xomManatee &&
-                            styles.newHintStylesGetAnotherHintButton
+                        apiOptions.isMobile &&
+                            styles.mobileHintStylesGetAnotherHintButton
                     )}
                     onClick={evt => {
                         evt.preventDefault();
@@ -182,8 +182,8 @@ const HintsRenderer = React.createClass({
                     <span
                         className={css(
                             styles.plusText,
-                            apiOptions.xomManatee &&
-                                styles.newHintStylesPlusText
+                            apiOptions.isMobile &&
+                                styles.mobileHintStylesPlusText
                         )}
                     >
                       +
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
         marginLeft: 16,
     },
 
-    newHintStylesHintsRenderer: {
+    mobileHintStylesHintsRenderer: {
         marginTop: 4 * baseUnitPx,
         border: `solid ${gray85}`,
         borderWidth: "1px 0 0 0",
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
         },
     },
 
-    newHintStylesHintTitle: {
+    mobileHintStylesHintTitle: {
         fontFamily: 'inherit',
         fontStyle: 'normal',
         fontWeight: 'bold',
@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
         marginTop: 1.5 * baseUnitPx,
     },
 
-    newHintStylesGetAnotherHintButton: {
+    mobileHintStylesGetAnotherHintButton: {
         [mediaQueries.lgOrSmaller]: {
             paddingLeft: 0,
         },
@@ -279,7 +279,7 @@ const styles = StyleSheet.create({
         },
     },
 
-    newHintStylesPlusText: {
+    mobileHintStylesPlusText: {
         [mediaQueries.lgOrSmaller]: {
             left: 0,
         },

@@ -28,7 +28,7 @@ const ArticleRenderer = React.createClass({
     propTypes: {
         apiOptions: React.PropTypes.shape({
             onFocusChange: React.PropTypes.func,
-            xomManatee: React.PropTypes.bool,
+            isMobile: React.PropTypes.bool,
         }),
         json: React.PropTypes.oneOfType([
             rendererProps,
@@ -145,10 +145,10 @@ const ArticleRenderer = React.createClass({
         if (this.props.useNewStyles) {
             className += " bibliotron-article";
         }
-        if (apiOptions.xomManatee) {
+        if (apiOptions.isMobile) {
             // NOTE(charlie): For exercises, this is applied outside of Perseus
             // (in webapp).
-            className += " " + ApiClassNames.XOM_MANATEE;
+            className += " " + ApiClassNames.MOBILE;
         }
 
         // TODO(alex): Add mobile api functions and pass them down here

@@ -27,9 +27,9 @@ var Interactive2 = {
     },
 
     addMaybeXOMMovablePoint: function(widget, extraProps) {
-        const xomManatee = widget.props.apiOptions.xomManatee;
+        const isMobile = widget.props.apiOptions.isMobile;
 
-        const commonStyle = xomManatee ? {
+        const commonStyle = isMobile ? {
             stroke: "#ffffff",
             "stroke-width": 3,
             fill: KhanColors.INTERACTIVE,
@@ -40,7 +40,7 @@ var Interactive2 = {
 
         const normalStyle = Object.assign(commonStyle, extraProps.normalStyle);
 
-        const highlightStyle = Object.assign(xomManatee ? {
+        const highlightStyle = Object.assign(isMobile ? {
             ...commonStyle,
             "stroke-width": 0,
             scale: 0.75,
@@ -49,11 +49,11 @@ var Interactive2 = {
         const props = Object.assign({
             normalStyle: normalStyle,
             highlightStyle: highlightStyle,
-            shadow: xomManatee,
-            tooltip: xomManatee && widget.props.showTooltips,
+            shadow: isMobile,
+            tooltip: isMobile && widget.props.showTooltips,
             showHairlines: widget.showHairlines,
             hideHairlines: widget.hideHairlines,
-        }, xomManatee ? {pointSize: 7} : {});
+        }, isMobile ? {pointSize: 7} : {});
 
         return Interactive2.addMovablePoint(
             widget.graphie,

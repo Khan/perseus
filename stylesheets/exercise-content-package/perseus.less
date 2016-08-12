@@ -13,7 +13,7 @@
     position: relative;
 }
 
-.framework-perseus.perseus-xom-manatee {
+.framework-perseus.perseus-mobile {
     margin-top: 48px;
 }
 
@@ -55,7 +55,7 @@
     .blank-background;
 }
 
-.perseus-xom-manatee .graphie-container.above-scratchpad {
+.perseus-mobile .graphie-container.above-scratchpad {
     background: #ffffff;
 }
 
@@ -270,7 +270,7 @@
 
 /* Legacy table styles. Remove when XOM is rolled out (see below for
    updated XOM styles). */
-.framework-perseus:not(.perseus-xom-manatee) {
+.framework-perseus:not(.perseus-mobile) {
     table {
         .legacy-typography;
 
@@ -333,7 +333,7 @@
 }
 
 /* New XOM styles for tables. */
-.framework-perseus.perseus-xom-manatee {
+.framework-perseus.perseus-mobile {
     /* There are three kinds of tables:
        1) normal "tables" - emitted by markdown (src/perseus-markdown.jsx)
        2) "titled tables" - emitted by markdown as well (these are just
@@ -1029,7 +1029,7 @@
     }
 }
 
-.perseus-xom-manatee {
+.perseus-mobile {
     @media (max-width: 767px) {
         .perseus-block-math {
             font-size: 18px;

@@ -390,7 +390,7 @@ GraphUtils.createGraphie = function(el) {
                 const s = 0.6 + 0.4 * w;
                 const l = path.getTotalLength();
                 const set = raphael.set();
-                const head = raphael.path(graphie.xomManatee ?
+                const head = raphael.path(graphie.isMobile ?
                     "M-4,4 C-4,4 -0.25,0 -0.25,0 C-0.25,0 -4,-4 -4,-4" :
                     "M-3 4 C-2.75 2.5 0 0.25 0.75 0C0 -0.25 -2.75 -2.5 -3 -4");
                 const end = path.getPointAtLength(l - 0.4);
@@ -408,7 +408,7 @@ GraphUtils.createGraphie = function(el) {
 
                 // For some unknown reason 0 doesn't work for the rotation
                 // origin so we use a tiny number.
-                head.rotate(angle, graphie.xomManatee ? 1e-5 : 0.75, 0)
+                head.rotate(angle, graphie.isMobile ? 1e-5 : 0.75, 0)
                     .scale(s, s, 0.75, 0)
                     .translate(almostTheEnd.x, almostTheEnd.y).attr(attrs)
                     .attr({
@@ -442,7 +442,7 @@ GraphUtils.createGraphie = function(el) {
             const dims = scaleVector([width, height]);
             const elem = raphael.rect(...corner.concat(dims));
 
-            if (graphie.xomManatee) {
+            if (graphie.isMobile) {
                 elem.node.style.shapeRendering = "crispEdges";
             }
 
@@ -597,7 +597,7 @@ GraphUtils.createGraphie = function(el) {
         line: function(start, end) {
             const l = this.path([start, end]);
 
-            if (graphie.xomManatee) {
+            if (graphie.isMobile) {
                 l.node.style.shapeRendering = "crispEdges";
             }
 
@@ -986,7 +986,7 @@ GraphUtils.createGraphie = function(el) {
             this.xpixels = w;
             this.ypixels = h;
 
-            this.xomManatee = options.xomManatee;
+            this.isMobile = options.isMobile;
 
             return this;
         },
@@ -1150,16 +1150,16 @@ GraphUtils.createGraphie = function(el) {
         this.init({
             range: realRange,
             scale: scale,
-            xomManatee: options.xomManatee,
+            isMobile: options.isMobile,
         });
 
         // draw grid
         if (grid) {
             this.grid(gridRange[0], gridRange[1], {
-                stroke: options.xomManatee ? KhanColors.GRAY_C : "#000000",
-                opacity: options.xomManatee ? 1 : gridOpacity,
+                stroke: options.isMobile ? KhanColors.GRAY_C : "#000000",
+                opacity: options.isMobile ? 1 : gridOpacity,
                 step: gridStep,
-                strokeWidth: options.xomManatee ? 1 : 2,
+                strokeWidth: options.isMobile ? 1 : 2,
             });
         }
 
@@ -1169,9 +1169,9 @@ GraphUtils.createGraphie = function(el) {
             // this is a slight hack until <-> arrowheads work
             if (axisArrows === "<->" || axisArrows === true) {
                 this.style({
-                    stroke: options.xomManatee ? KhanColors.GRAY_G : "#000000",
-                    opacity: options.xomManatee ? 1 : axisOpacity,
-                    strokeWidth: options.xomManatee ? 1 : 2,
+                    stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
+                    opacity: options.isMobile ? 1 : axisOpacity,
+                    strokeWidth: options.isMobile ? 1 : 2,
                     arrows: "->",
                 }, function() {
                     if (range[1][0] < 0 && range[1][1] > 0) {
@@ -1228,10 +1228,10 @@ GraphUtils.createGraphie = function(el) {
 
         // draw tick marks
         if (ticks) {
-            const halfWidthTicks = options.xomManatee;
+            const halfWidthTicks = options.isMobile;
             this.style({
-                stroke: options.xomManatee ? KhanColors.GRAY_G : "#000000",
-                opacity: options.xomManatee ? 1 : tickOpacity,
+                stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
+                opacity: options.isMobile ? 1 : tickOpacity,
                 strokeWidth: 1,
             }, function() {
 
@@ -1293,8 +1293,8 @@ GraphUtils.createGraphie = function(el) {
         // draw axis labels
         if (labels) {
             this.style({
-                stroke: options.xomManatee ? KhanColors.GRAY_G : "#000000",
-                opacity: options.xomManatee ? 1 : labelOpacity,
+                stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
+                opacity: options.isMobile ? 1 : labelOpacity,
             }, function() {
 
                 // horizontal axis

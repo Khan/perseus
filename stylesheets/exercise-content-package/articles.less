@@ -44,7 +44,7 @@
 // the above style rules.
 // NOTE(charlie): See below for the new, XOM Manatee beta typography styles,
 // which are applied to articles and exercises.
-.bibliotron-article.framework-perseus.perseus-article:not(.perseus-xom-manatee) {
+.bibliotron-article.framework-perseus.perseus-article:not(.perseus-mobile) {
     @textColor: #21242c;
     .body-text() {
         color: @textColor;
@@ -220,8 +220,8 @@
 // explicitly for: (1) Bibliotron articles, and (2) all exercises.
 // TODO(charlie): When the XOM Manatee beta has concluded, we can remove the
 // namespacing and delete the above styles in full (assuming we ship the beta).
-.bibliotron-article.framework-perseus.perseus-article.perseus-xom-manatee,
-.framework-perseus:not(.perseus-article).perseus-xom-manatee {
+.bibliotron-article.framework-perseus.perseus-article.perseus-mobile,
+.framework-perseus:not(.perseus-article).perseus-mobile {
     @baseUnit: 16px;
 
     // TODO(charlie): Pure defines XL as 1280px. However, Bibliotron and our new

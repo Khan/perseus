@@ -55,13 +55,13 @@ var Explanation = React.createClass({
     // explanation.
     _updateHeight: function() {
         const contentElement = ReactDOM.findDOMNode(this.refs.content);
-        const {xomManatee} = this.props.apiOptions;
+        const {isMobile} = this.props.apiOptions;
 
         // Add up the heights of all the the child nodes
         const contentHeight = Array.prototype.reduce.call(
             contentElement.childNodes,
             (memo, el) => memo + (el.offsetHeight || 0),
-            xomManatee ? 0 : 2 * verticalContentPadding);
+            isMobile ? 0 : 2 * verticalContentPadding);
 
         // Only update state if the height is different, otherwise we'll end
         // up calling componentDidUpdate in an infinite loop!
@@ -88,7 +88,7 @@ var Explanation = React.createClass({
 
     render: function() {
         const {Link} = this.props.apiOptions.baseElements;
-        const {readOnly, xomManatee} = this.props.apiOptions;
+        const {readOnly, isMobile} = this.props.apiOptions;
 
         const linkAnchor = this.state.expanded ?
                 this.props.hidePrompt : this.props.showPrompt;
@@ -98,7 +98,7 @@ var Explanation = React.createClass({
         const href = readOnly ? null : 'javascript:void(0)';
         const onClick = readOnly ? null : this._onClick;
 
-        if (xomManatee) {
+        if (isMobile) {
             linkContainer = <div className={css(styles.linkContainer)}>
                 <a
                     className={css(styles.xomExplanationLink)}
@@ -129,7 +129,7 @@ var Explanation = React.createClass({
             </div>;
         }
 
-        const expandedStyle = xomManatee
+        const expandedStyle = isMobile
             ? styles.contentExpandedXom
             : styles.contentExpanded;
 
@@ -137,7 +137,7 @@ var Explanation = React.createClass({
             {linkContainer}
             <div className={css(
                     styles.content,
-                    xomManatee && styles.contentXom,
+                    isMobile && styles.contentXom,
                     this.state.expanded && expandedStyle
                 )}
                 style={{

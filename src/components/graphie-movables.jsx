@@ -17,10 +17,11 @@ var MovablePoint = GraphieClasses.createClass({
     movableProps: ["children"],
 
     _getProps: function() {
-        if (this.props.xomManatee) {
-            const xomManatee = this.props.xomManatee;
+        if (this.props.isMobile) {
+            const isMobile = this.props.isMobile;
 
-            const commonStyle = xomManatee ? {
+            // TODO(kevinb) precompute commonStyle and commonMobileStyle
+            const commonStyle = isMobile ? {
                 stroke: "#ffffff",
                 "stroke-width": 3,
                 fill: KhanColors.INTERACTIVE,
@@ -29,12 +30,14 @@ var MovablePoint = GraphieClasses.createClass({
                 fill: KhanColors.INTERACTIVE,
             };
 
-            const normalStyle = xomManatee ?
+            // TODO(kevinb) precompute normalStyle and normalMobileStyle
+            const normalStyle = isMobile ?
                 Object.assign(commonStyle,
                     this.props.xomStyleOverride || {}) :
                 Object.assign(commonStyle, this.props.normalStyle);
 
-            const highlightStyle = xomManatee ? {
+            // TODO(kevinb) precompute highlightStyle and highlightMobileStyle
+            const highlightStyle = isMobile ? {
                 ...commonStyle,
                 "stroke-width": 0,
                 scale: 0.75,
@@ -43,9 +46,9 @@ var MovablePoint = GraphieClasses.createClass({
             const addedProps = Object.assign({
                 normalStyle: normalStyle,
                 highlightStyle: highlightStyle,
-                shadow: xomManatee,
-                tooltip: xomManatee && this.props.showTooltips,
-            }, xomManatee ? {pointSize: 7} : {});
+                shadow: isMobile,
+                tooltip: isMobile && this.props.showTooltips,
+            }, isMobile ? {pointSize: 7} : {});
 
             return Object.assign(this.props, addedProps);
         } else {

@@ -77,7 +77,7 @@ var Plotter = React.createClass({
     },
 
     DOT_PLOT_POINT_SIZE: function() {
-        return this.props.apiOptions.xomManatee ? 6 : 4;
+        return this.props.apiOptions.isMobile ? 6 : 4;
     },
     DOT_PLOT_POINT_PADDING: function() {
         return 8;
@@ -143,7 +143,7 @@ var Plotter = React.createClass({
         var config = {};
         var c = config; // c for short
 
-        const xomManatee = this.props.apiOptions.xomManatee;
+        const isMobile = this.props.apiOptions.isMobile;
 
         c.graph = {
             lines: [],
@@ -153,18 +153,18 @@ var Plotter = React.createClass({
         };
         c.scaleY = self.props.scaleY;
         c.dimX = self.props.categories.length;
-        var plotDimensions = xomManatee ? [288, 336] :
+        var plotDimensions = isMobile ? [288, 336] :
             self.props.plotDimensions;
         if (isLine) {
             // Subtracting 0.2 makes line have equal padding on each side
-            c.dimX += xomManatee ? -0.2 : 1;
+            c.dimX += isMobile ? -0.2 : 1;
         } else if (isHistogram) {
             c.barPad = 0;
             c.barWidth = 1;
         } else if (isBar) {
-            c.barPad = xomManatee ? 0.08 : 0.15;
+            c.barPad = isMobile ? 0.08 : 0.15;
             c.barWidth = 1 - 2 * c.barPad;
-            c.dimX += (xomManatee ? -2 : 2) * c.barPad;
+            c.dimX += (isMobile ? -2 : 2) * c.barPad;
         } else if (isTiledPlot) {
             c.picBoxHeight = self.props.picBoxHeight;
             c.picBoxWidthPx = plotDimensions[0] / self.props.categories.length;
@@ -188,7 +188,7 @@ var Plotter = React.createClass({
         var padX = 25;
         var padY = 25;
 
-        if ((isBar || isLine) && xomManatee) {
+        if ((isBar || isLine) && isMobile) {
             padX = (self.props.labels[1].length !== 0) ? 17 : 11;
         }
 
@@ -198,11 +198,11 @@ var Plotter = React.createClass({
             padX /= 2;
         }
 
-        if (xomManatee && isTiledPlot && self.props.labels[1].length === 0) {
+        if (isMobile && isTiledPlot && self.props.labels[1].length === 0) {
             padX = 0;
         }
 
-        if (xomManatee) {
+        if (isMobile) {
             c.scale = _.map([[c.dimX, padX], [c.dimY, padY]],
                 // We multiply pad by 4 because we add 3*pad padding on the left
                 // and 1*pad on the right
@@ -224,7 +224,7 @@ var Plotter = React.createClass({
         graphie.init({
             range: [[-3 * padX, c.dimX + padX], [-3 * padY, c.dimY + padY]],
             scale: c.scale,
-            xomManatee: this.props.apiOptions.xomManatee,
+            isMobile: this.props.apiOptions.isMobile,
         });
         graphie.addMouseLayer({
             allowScratchpad: true,
@@ -233,8 +233,8 @@ var Plotter = React.createClass({
         });
 
         if (!isTiledPlot) {
-            // If we have xomManatee, we skip the 0 label.
-            const initialY = xomManatee ? c.scaleY : 0;
+            // If we have isMobile, we skip the 0 label.
+            const initialY = isMobile ? c.scaleY : 0;
             for (var y = initialY; y <= c.dimY; y += c.scaleY) {
                 graphie.label(
                     [0, y],
@@ -244,9 +244,9 @@ var Plotter = React.createClass({
                 );
                 graphie.style(
                     {
-                        stroke: xomManatee ? "#e9ebec" : "#000",
+                        stroke: isMobile ? "#e9ebec" : "#000",
                         strokeWidth: 1,
-                        opacity: xomManatee ? 1 : 0.3,
+                        opacity: isMobile ? 1 : 0.3,
                     },
                     function() {
                         graphie.line([0, y], [c.dimX, y]);
@@ -254,7 +254,7 @@ var Plotter = React.createClass({
             }
         }
 
-        if ((isBar || isLine) && xomManatee) {
+        if ((isBar || isLine) && isMobile) {
             self.graphie.dragPrompt = graphie.label(
                 [c.dimX / 2, c.dimY / 2],
                 "Drag handles to make graph",
@@ -266,7 +266,7 @@ var Plotter = React.createClass({
 
         self.setupCategories(config);
 
-        if (isTiledPlot && xomManatee) {
+        if (isTiledPlot && isMobile) {
             self.graphie.dotPrompt = graphie.label(
                 [c.dimX / 2, c.dimY / 2],
                 "Tap to add points",
@@ -289,24 +289,24 @@ var Plotter = React.createClass({
                         // the x-axis
                         graphie.style(
                             {
-                                stroke: xomManatee ? KhanColors.GRAY_G : "#000",
-                                strokeWidth: xomManatee ? 1 : 2,
+                                stroke: isMobile ? KhanColors.GRAY_G : "#000",
+                                strokeWidth: isMobile ? 1 : 2,
                             },
                             () => graphie.line(
-                                [xomManatee ? 0 : 0.5, 0],
-                                [c.dimX - (xomManatee ? 0 : 0.5), 0]
+                                [isMobile ? 0 : 0.5, 0],
+                                [c.dimX - (isMobile ? 0 : 0.5), 0]
                             )
                         );
                     } else {
                         graphie.line([0, 0], [c.dimX, 0]);
 
                         // Draw the left axis for non-dotplots
-                        if (self.props.labels[1].length !== 0 || !xomManatee) {
+                        if (self.props.labels[1].length !== 0 || !isMobile) {
                             graphie.style(
                                 {
-                                    stroke: xomManatee ?
+                                    stroke: isMobile ?
                                         KhanColors.GRAY_G : "#000",
-                                    strokeWidth: xomManatee ? 1 : 2,
+                                    strokeWidth: isMobile ? 1 : 2,
                                 },
                                 () => graphie.line([0, 0], [0, c.dimY])
                             );
@@ -316,20 +316,20 @@ var Plotter = React.createClass({
                     // Draw normal axes
                     graphie.style(
                         {
-                            stroke: xomManatee ? KhanColors.GRAY_G : "#000",
-                            strokeWidth: xomManatee ? 1 : 2,
+                            stroke: isMobile ? KhanColors.GRAY_G : "#000",
+                            strokeWidth: isMobile ? 1 : 2,
                         },
                         () => graphie.line(
-                            [xomManatee ? -padX * 3 : 0, 0],
-                            [c.dimX + (xomManatee ? padX : 0), 0]
+                            [isMobile ? -padX * 3 : 0, 0],
+                            [c.dimX + (isMobile ? padX : 0), 0]
                         )
                     );
 
-                    if (!((isBar || isLine) && xomManatee)) {
+                    if (!((isBar || isLine) && isMobile)) {
                         graphie.style(
                             {
-                                stroke: xomManatee ? KhanColors.GRAY_G : "#000",
-                                strokeWidth: xomManatee ? 1 : 2,
+                                stroke: isMobile ? KhanColors.GRAY_G : "#000",
+                                strokeWidth: isMobile ? 1 : 2,
                             },
                             () => graphie.line([0, 0], [0, c.dimY])
                         );
@@ -338,20 +338,20 @@ var Plotter = React.createClass({
             });
 
         graphie.label([c.dimX / 2,
-                       xomManatee ? (-padY * 3) : (-35 / c.scale[1])],
+                       isMobile ? (-padY * 3) : (-35 / c.scale[1])],
             self.props.labels[0],
-            xomManatee ? "above" : "below", false)
+            isMobile ? "above" : "below", false)
             .css("font-weight", "bold")
-            .css("color", xomManatee && KhanColors.GRAY_F);
+            .css("color", isMobile && KhanColors.GRAY_F);
 
-        graphie.label([(xomManatee ? -35 : -60) / c.scale[0], c.dimY / 2],
+        graphie.label([(isMobile ? -35 : -60) / c.scale[0], c.dimY / 2],
             self.props.labels[1],
             "center", false)
             .css("font-weight", "bold")
-            .css("color", xomManatee && KhanColors.GRAY_F)
+            .css("color", isMobile && KhanColors.GRAY_F)
             .addClass("rotate");
 
-        if (this.props.apiOptions.xomManatee) {
+        if (this.props.apiOptions.isMobile) {
             this.horizHairline =
                 new WrappedLine(this.graphie, [0, 0], [0, 0], {
                     normalStyle: {
@@ -370,7 +370,7 @@ var Plotter = React.createClass({
     },
 
     showHairlines: function(point) {
-        if (this.props.apiOptions.xomManatee &&
+        if (this.props.apiOptions.isMobile &&
             this.props.markings !== "none") {
             // Hairlines are already initialized when the graph is loaded, so
             // here we just move them to the updated location and make them
@@ -385,13 +385,13 @@ var Plotter = React.createClass({
     },
 
     hideHairlines: function() {
-        if (this.props.apiOptions.xomManatee) {
+        if (this.props.apiOptions.isMobile) {
             this.horizHairline.hide();
         }
     },
 
 	labelCategory: function(x, category) {
-        const xomManatee = this.props.apiOptions.xomManatee;
+        const isMobile = this.props.apiOptions.isMobile;
 
 		var graphie = this.graphie;
 		category = category + "";
@@ -408,13 +408,13 @@ var Plotter = React.createClass({
             "translateY(-50%) rotate(-45deg)";
 		graphie.style(
             {
-                color: xomManatee ? KhanColors.GRAY_G : "inherit",
-                transform: (xomManatee && !mathyCategory) ?
+                color: isMobile ? KhanColors.GRAY_G : "inherit",
+                transform: (isMobile && !mathyCategory) ?
                     labelRotation : "none",
                 transformOrigin: "100%",
             },
             () => graphie.label(
-                [x, xomManatee ? -0.5 : 0], category, "below", isTeX)
+                [x, isMobile ? -0.5 : 0], category, "below", isTeX)
         );
 	},
 
@@ -423,7 +423,7 @@ var Plotter = React.createClass({
         var c = config;
         var graphie = self.graphie;
 
-        const xomManatee = this.props.apiOptions.xomManatee;
+        const isMobile = this.props.apiOptions.isMobile;
 
         if (self.props.type === HISTOGRAM) {
             // Histograms with n labels/categories have n - 1 buckets
@@ -444,7 +444,7 @@ var Plotter = React.createClass({
                 var tickHeight = 6 / c.scale[1];
                 graphie.style({
                     stroke: "#000",
-                    strokeWidth: xomManatee ? 1 : 2,
+                    strokeWidth: isMobile ? 1 : 2,
                     opacity: 1.0
                 }, function() {
                     graphie.line([x, -tickHeight], [x, 0]);
@@ -473,7 +473,7 @@ var Plotter = React.createClass({
                 var tickStart = 0;
                 var tickEnd = -6 / c.scale[1];
 
-                if (self.props.type === DOTPLOT && !xomManatee) {
+                if (self.props.type === DOTPLOT && !isMobile) {
                     tickStart = -tickEnd;
                 }
 
@@ -492,8 +492,8 @@ var Plotter = React.createClass({
                 }
 
                 graphie.style({
-                    stroke: xomManatee ? KhanColors.GRAY_G : "#000",
-                    strokeWidth: xomManatee ? 1 : 2,
+                    stroke: isMobile ? KhanColors.GRAY_G : "#000",
+                    strokeWidth: isMobile ? 1 : 2,
                     opacity: 1.0,
                 }, function() {
                     graphie.line([x, tickStart], [x, tickEnd]);
@@ -513,7 +513,7 @@ var Plotter = React.createClass({
     },
 
     setupBar: function(args) {
-        const xomManatee = this.props.apiOptions.xomManatee;
+        const isMobile = this.props.apiOptions.isMobile;
 
         var i = args.index;
         var startHeight = args.startHeight;
@@ -527,7 +527,7 @@ var Plotter = React.createClass({
         if (isHistogram) {
             x = 0.5 + i * config.barWidth + barHalfWidth;
         } else {
-            x = (xomManatee ? barHalfWidth : (0.5 + config.barPad)) + i;
+            x = (isMobile ? barHalfWidth : (0.5 + config.barPad)) + i;
         }
 
         /**
@@ -541,7 +541,7 @@ var Plotter = React.createClass({
             // Scale filled bucket (bar)
             config.graph.bars[i].scale(
                     1,
-                    Math.max(xomManatee ? 0.2 : 0.01, height / config.scaleY),
+                    Math.max(isMobile ? 0.2 : 0.01, height / config.scaleY),
                     center[0], center[1]);
 
             if (isHistogram) {
@@ -568,7 +568,7 @@ var Plotter = React.createClass({
 
         graphie.style({
             stroke: "none",
-            fill: xomManatee ? KhanColors.BLUE_C : KhanColors.LIGHT_BLUE,
+            fill: isMobile ? KhanColors.BLUE_C : KhanColors.LIGHT_BLUE,
             opacity: 1.0,
         }, function() {
             config.graph.bars[i] = graphie.path([
@@ -594,7 +594,7 @@ var Plotter = React.createClass({
             }
         }
 
-        if (xomManatee) {
+        if (isMobile) {
             const snap = config.scaleY / self.props.snapsPerLine;
             config.graph.lines[i] = Interactive2.addMaybeXOMMovablePoint(this, {
                 coord: [x, startHeight],
@@ -683,14 +683,14 @@ var Plotter = React.createClass({
      * @param config the graph setup, such as scale and dimensions
      */
     setupLine: function(i, startHeight, config) {
-        const xomManatee = this.props.apiOptions.xomManatee;
+        const isMobile = this.props.apiOptions.isMobile;
 
         var self = this;
         var c = config;
         var graphie = self.graphie;
-        var x = i + (xomManatee ? 0.4 : 1);
+        var x = i + (isMobile ? 0.4 : 1);
 
-        if (xomManatee) {
+        if (isMobile) {
             const snap = config.scaleY / self.props.snapsPerLine;
             c.graph.points[i] = Interactive2.addMaybeXOMMovablePoint(this, {
                 coord: [x, startHeight],
@@ -774,9 +774,9 @@ var Plotter = React.createClass({
 
     setupDotplot: function(i, config) {
         var graphie = this.graphie;
-        const xomManatee = this.props.apiOptions.xomManatee;
+        const isMobile = this.props.apiOptions.isMobile;
 
-        return this.setupTiledPlot(i, xomManatee ? 0.5 : 1, config, (x, y) => {
+        return this.setupTiledPlot(i, isMobile ? 0.5 : 1, config, (x, y) => {
             return graphie.ellipse([x, y],
                  [
                      this.DOT_PLOT_POINT_SIZE() / graphie.scale[0],
@@ -887,9 +887,9 @@ var Plotter = React.createClass({
         var graphie = self.graphie;
         var pics = graphie.pics;
 
-        const xomManatee = this.props.apiOptions.xomManatee;
+        const isMobile = this.props.apiOptions.isMobile;
 
-        if (xomManatee) {
+        if (isMobile) {
             const shouldDisplay = values.every(v => v === 0);
             graphie.dotPrompt[0].style.display =
                 shouldDisplay ? "inline" : "none";
@@ -914,7 +914,7 @@ var Plotter = React.createClass({
                 $(pic[0]).css({display: show ? "inline" : "none"});
 
                 graphie.dotTicks[i][j][0].style.display =
-                    (show || !xomManatee) ? "none" : "inline";
+                    (show || !isMobile) ? "none" : "inline";
             });
         });
     },

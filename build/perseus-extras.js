@@ -15,8 +15,7 @@ webpackJsonpPerseus([1],[
 /* 13 */,
 /* 14 */,
 /* 15 */,
-/* 16 */,
-/* 17 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -24,9 +23,12 @@ webpackJsonpPerseus([1],[
 	/* globals __EDITOR__ */
 	// As new widgets get added here, please also make sure they get added in
 	// webapp perseus/traversal.py so they can be properly translated.
-	module.exports = [ [ __webpack_require__(39), false ], [ __webpack_require__(40), false ], [ __webpack_require__(41), false ], [ __webpack_require__(42), false ], [ __webpack_require__(43), false ], [ __webpack_require__(44), false ], [ __webpack_require__(45), false ], [ __webpack_require__(46), false ], [ __webpack_require__(47), false ], [ __webpack_require__(48), false ], [ __webpack_require__(49), false ], [ __webpack_require__(50), false ], [ __webpack_require__(51), false ], [ __webpack_require__(52), false ], [ __webpack_require__(53), false ], [ __webpack_require__(54), false ], [ __webpack_require__(55), false ], [ __webpack_require__(56), false ], [ __webpack_require__(57), false ], [ __webpack_require__(58), false ], [ __webpack_require__(59), false ], [ __webpack_require__(60), false ], [ __webpack_require__(61), false ], [ __webpack_require__(62), false ], [ __webpack_require__(63), false ], [ __webpack_require__(64), false ], [ __webpack_require__(65), false ], [ __webpack_require__(66), false ], [ __webpack_require__(67), false ], [ __webpack_require__(68), false ], [ __webpack_require__(69), false ], false, false, false ];
+	module.exports = [ [ __webpack_require__(41), false ], [ __webpack_require__(42), false ], [ __webpack_require__(43), false ], [ __webpack_require__(44), false ], [ __webpack_require__(45), false ], [ __webpack_require__(46), false ], [ __webpack_require__(47), false ], [ __webpack_require__(48), false ], [ __webpack_require__(49), false ], [ __webpack_require__(50), false ], [ __webpack_require__(51), false ], [ __webpack_require__(52), false ], [ __webpack_require__(53), false ], [ __webpack_require__(54), false ], [ __webpack_require__(55), false ], [ __webpack_require__(56), false ], [ __webpack_require__(57), false ], [ __webpack_require__(58), false ], [ __webpack_require__(59), false ], [ __webpack_require__(60), false ], [ __webpack_require__(61), false ], [ __webpack_require__(62), false ], [ __webpack_require__(63), false ], [ __webpack_require__(64), false ], [ __webpack_require__(65), false ], [ __webpack_require__(66), false ], [ __webpack_require__(67), false ], [ __webpack_require__(68), false ], [ __webpack_require__(69), false ], [ __webpack_require__(70), false ], [ __webpack_require__(71), false ], // These widgets are only used when testing things, so remove them in the
+	// non-editor bundle.
+	false, false, false ];
 
 /***/ },
+/* 17 */,
 /* 18 */,
 /* 19 */,
 /* 20 */,
@@ -48,7 +50,9 @@ webpackJsonpPerseus([1],[
 /* 36 */,
 /* 37 */,
 /* 38 */,
-/* 39 */
+/* 39 */,
+/* 40 */,
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -68,31 +72,31 @@ webpackJsonpPerseus([1],[
 
 	var classNames = __webpack_require__(13);
 
-	var Changeable = __webpack_require__(80);
+	var Changeable = __webpack_require__(78);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(92);
+	var WidgetJsonifyDeprecated = __webpack_require__(94);
 
 	var _ = __webpack_require__(11);
 
-	var ApiClassNames = __webpack_require__(16).ClassNames;
+	var ApiClassNames = __webpack_require__(15).ClassNames;
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var _require2 = __webpack_require__(84);
+	var _require2 = __webpack_require__(82);
 
 	var iconCircle = _require2.iconCircle;
 
 	var iconCircleThin = _require2.iconCircleThin;
 
-	var InlineIcon = __webpack_require__(81);
+	var InlineIcon = __webpack_require__(79);
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(14);
 
-	var mediaQueries = __webpack_require__(34);
+	var mediaQueries = __webpack_require__(27);
 
-	var sharedStyles = __webpack_require__(35);
+	var sharedStyles = __webpack_require__(28);
 
 	var Categorizer = React.createClass({
 	    displayName: "Categorizer",
@@ -123,9 +127,9 @@ webpackJsonpPerseus([1],[
 	    render: function render() {
 	        var _this = this;
 	        var self = this;
-	        // In this context, xomManatee is used to differentiate mobile from
+	        // In this context, isMobile is used to differentiate mobile from
 	        // desktop.
-	        var xomManatee = this.props.apiOptions.xomManatee;
+	        var isMobile = this.props.apiOptions.isMobile;
 	        var indexedItems = this.props.items.map(function(item, n) {
 	            return [ item, n ];
 	        });
@@ -159,7 +163,7 @@ webpackJsonpPerseus([1],[
 	                }, React.createElement("div", {
 	                    className: ApiClassNames.INTERACTIVE,
 	                    onClick: _this.onChange.bind(_this, itemNum, catNum)
-	                }, xomManatee && React.createElement("input", {
+	                }, isMobile && React.createElement("input", {
 	                    type: "radio",
 	                    name: uniqueId,
 	                    className: css(sharedStyles.responsiveInput, sharedStyles.responsiveRadioInput, styles.radioInput),
@@ -168,7 +172,7 @@ webpackJsonpPerseus([1],[
 	                    onClick: function onClick(e) {
 	                        return e.stopPropagation();
 	                    }
-	                }), !xomManatee && React.createElement("span", {
+	                }), !isMobile && React.createElement("span", {
 	                    className: css(styles.responsiveSpan, styles.radioSpan, selected && styles.checkedRadioSpan, _this.props["static"] && selected && styles.staticCheckedRadioSpan)
 	                }, selected ? React.createElement(InlineIcon, iconCircle) : React.createElement(InlineIcon, iconCircleThin))));
 	            }));
@@ -179,7 +183,7 @@ webpackJsonpPerseus([1],[
 	            "categorizer-container": true,
 	            "static-mode": this.props["static"]
 	        });
-	        var inlineStyles = this.props.apiOptions.xomManatee ? [ styles.fullBleedContainer ] : [];
+	        var inlineStyles = this.props.apiOptions.isMobile ? [ styles.fullBleedContainer ] : [];
 	        return React.createElement("div", {
 	            className: extraClassNames + " " + css.apply(void 0, inlineStyles)
 	        }, table);
@@ -271,7 +275,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 40 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -286,9 +290,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var Changeable = __webpack_require__(80);
+	var Changeable = __webpack_require__(78);
 
-	var updateQueryString = __webpack_require__(15).updateQueryString;
+	var updateQueryString = __webpack_require__(14).updateQueryString;
 
 	var PADDING_WIDTH = 2;
 
@@ -431,7 +435,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 41 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -453,13 +457,13 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var ApiClassNames = __webpack_require__(16).ClassNames;
+	var ApiClassNames = __webpack_require__(15).ClassNames;
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var styleConstants = __webpack_require__(36);
+	var styleConstants = __webpack_require__(29);
 
-	var captureScratchpadTouchStart = __webpack_require__(15).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(14).captureScratchpadTouchStart;
 
 	var Dropdown = React.createClass({
 	    displayName: "Dropdown",
@@ -585,7 +589,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 42 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -607,15 +611,15 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var Changeable = __webpack_require__(80);
+	var Changeable = __webpack_require__(78);
 
-	var PerseusApi = __webpack_require__(16);
+	var PerseusApi = __webpack_require__(15);
 
 	var Renderer = __webpack_require__(8);
 
-	var mediaQueries = __webpack_require__(34);
+	var mediaQueries = __webpack_require__(27);
 
-	var styleConstants = __webpack_require__(36);
+	var styleConstants = __webpack_require__(29);
 
 	var defaultExplanationProps = {
 	    showPrompt: "Explain",
@@ -655,11 +659,11 @@ webpackJsonpPerseus([1],[
 	    // explanation.
 	    _updateHeight: function _updateHeight() {
 	        var contentElement = ReactDOM.findDOMNode(this.refs.content);
-	        var xomManatee = this.props.apiOptions.xomManatee;
+	        var isMobile = this.props.apiOptions.isMobile;
 	        // Add up the heights of all the the child nodes
 	        var contentHeight = Array.prototype.reduce.call(contentElement.childNodes, function(memo, el) {
 	            return memo + (el.offsetHeight || 0);
-	        }, xomManatee ? 0 : 2 * verticalContentPadding);
+	        }, isMobile ? 0 : 2 * verticalContentPadding);
 	        // Only update state if the height is different, otherwise we'll end
 	        // up calling componentDidUpdate in an infinite loop!
 	        contentHeight !== this.state.contentHeight && this.setState({
@@ -680,12 +684,12 @@ webpackJsonpPerseus([1],[
 	        var Link = this.props.apiOptions.baseElements.Link;
 	        var _props$apiOptions = this.props.apiOptions;
 	        var readOnly = _props$apiOptions.readOnly;
-	        var xomManatee = _props$apiOptions.xomManatee;
+	        var isMobile = _props$apiOptions.isMobile;
 	        var linkAnchor = this.state.expanded ? this.props.hidePrompt : this.props.showPrompt;
 	        var linkContainer = void 0;
 	        var href = readOnly ? null : "javascript:void(0)";
 	        var onClick = readOnly ? null : this._onClick;
-	        linkContainer = xomManatee ? React.createElement("div", {
+	        linkContainer = isMobile ? React.createElement("div", {
 	            className: css(styles.linkContainer)
 	        }, React.createElement("a", {
 	            className: css(styles.xomExplanationLink),
@@ -705,11 +709,11 @@ webpackJsonpPerseus([1],[
 	            href: href,
 	            onClick: onClick
 	        }, "[" + linkAnchor + "]"));
-	        var expandedStyle = xomManatee ? styles.contentExpandedXom : styles.contentExpanded;
+	        var expandedStyle = isMobile ? styles.contentExpandedXom : styles.contentExpanded;
 	        return React.createElement("div", {
 	            className: css(styles.container)
 	        }, linkContainer, React.createElement("div", {
-	            className: css(styles.content, xomManatee && styles.contentXom, this.state.expanded && expandedStyle),
+	            className: css(styles.content, isMobile && styles.contentXom, this.state.expanded && expandedStyle),
 	            style: {
 	                height: this.state.expanded ? this.state.contentHeight : 0,
 	                overflow: this.state.expanded ? "visible" : "hidden"
@@ -840,7 +844,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 43 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -860,22 +864,22 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var Interactive2 = __webpack_require__(94);
+	var Interactive2 = __webpack_require__(95);
 
-	var SvgImage = __webpack_require__(32);
+	var SvgImage = __webpack_require__(26);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(14);
 
-	var ButtonGroup = __webpack_require__(95);
+	var ButtonGroup = __webpack_require__(96);
 
 	/* Graphie and relevant components. */
-	var Graphie = __webpack_require__(86);
+	var Graphie = __webpack_require__(84);
 
 	var MovablePoint = Graphie.MovablePoint;
 
 	var MovableLine = Graphie.MovableLine;
 
-	var WrappedLine = __webpack_require__(96);
+	var WrappedLine = __webpack_require__(97);
 
 	var knumber = __webpack_require__(123).number;
 
@@ -883,22 +887,22 @@ webpackJsonpPerseus([1],[
 
 	var kpoint = __webpack_require__(123).point;
 
-	var KhanColors = __webpack_require__(97);
+	var KhanColors = __webpack_require__(98);
 
-	var _require = __webpack_require__(72);
+	var _require = __webpack_require__(87);
 
 	var containerSizeClassPropType = _require.containerSizeClassPropType;
 
-	var _require2 = __webpack_require__(36);
+	var _require2 = __webpack_require__(29);
 
 	var interactiveSizes = _require2.interactiveSizes;
 
-	var _require3 = __webpack_require__(72);
+	var _require3 = __webpack_require__(87);
 
 	var getInteractiveBoxFromSizeClass = _require3.getInteractiveBoxFromSizeClass;
 
 	/* Mixins. */
-	var Changeable = __webpack_require__(80);
+	var Changeable = __webpack_require__(78);
 
 	var _require4 = __webpack_require__(112);
 
@@ -943,13 +947,13 @@ webpackJsonpPerseus([1],[
 	        flexibleType: React.PropTypes.bool,
 	        graph: React.PropTypes.any,
 	        hideHairlines: React.PropTypes.func,
+	        isMobile: React.PropTypes.bool,
 	        model: React.PropTypes.any,
 	        onChange: React.PropTypes.func,
 	        setDrawingAreaAvailable: React.PropTypes.func,
 	        showHairlines: React.PropTypes.func,
 	        showTooltips: React.PropTypes.bool,
-	        "static": React.PropTypes.bool,
-	        xomManatee: React.PropTypes.bool
+	        "static": React.PropTypes.bool
 	    },
 	    getDefaultProps: function getDefaultProps() {
 	        return {
@@ -959,7 +963,7 @@ webpackJsonpPerseus([1],[
 	            },
 	            coords: null,
 	            asymptote: null,
-	            xomManatee: false
+	            isMobile: false
 	        };
 	    },
 	    render: function render() {
@@ -1003,7 +1007,7 @@ webpackJsonpPerseus([1],[
 	                showHairlines: _this.props.showHairlines,
 	                hideHairlines: _this.props.hideHairlines,
 	                showTooltips: _this.props.showTooltips,
-	                xomManatee: _this.props.xomManatee
+	                isMobile: _this.props.isMobile
 	            });
 	        };
 	        var points = _.map(this._coords(), pointForCoord);
@@ -1040,8 +1044,8 @@ webpackJsonpPerseus([1],[
 	        var model = this.props.model;
 	        var xRange = this.props.graph.range[0];
 	        var style = _extends({
-	            stroke: this.props.xomManatee ? KhanColors.BLUE_C : KhanColors.DYNAMIC
-	        }, this.props.xomManatee ? {
+	            stroke: this.props.isMobile ? KhanColors.BLUE_C : KhanColors.DYNAMIC
+	        }, this.props.isMobile ? {
 	            "stroke-width": 3
 	        } : {});
 	        var coeffs = model.getCoefficients(this._coords(), this._asymptote());
@@ -1094,7 +1098,7 @@ webpackJsonpPerseus([1],[
 	                showHairlines: _this2.props.showHairlines,
 	                hideHairlines: _this2.props.hideHairlines,
 	                showTooltips: _this2.props.showTooltips,
-	                xomManatee: _this2.props.xomManatee
+	                isMobile: _this2.props.isMobile
 	            });
 	        }));
 	    }
@@ -1158,7 +1162,7 @@ webpackJsonpPerseus([1],[
 	            asymptote: asymptote,
 	            "static": this.props["static"],
 	            setDrawingAreaAvailable: this.props.apiOptions.setDrawingAreaAvailable,
-	            xomManatee: this.props.apiOptions.xomManatee,
+	            isMobile: this.props.apiOptions.isMobile,
 	            showTooltips: this.props.graph.showTooltips,
 	            showHairlines: this.showHairlines,
 	            hideHairlines: this.hideHairlines
@@ -1185,7 +1189,7 @@ webpackJsonpPerseus([1],[
 	        });
 	    },
 	    _setupGraphie: function _setupGraphie(graphie, options) {
-	        var xomManatee = this.props.apiOptions.xomManatee;
+	        var isMobile = this.props.apiOptions.isMobile;
 	        if ("graph" === options.markings) {
 	            graphie.graphInit({
 	                range: options.range,
@@ -1196,13 +1200,13 @@ webpackJsonpPerseus([1],[
 	                },
 	                gridStep: options.gridStep,
 	                snapStep: options.snapStep,
-	                tickStep: xomManatee ? [ 2, 2 ] : _.pluck(options.gridConfig, "tickStep"),
+	                tickStep: isMobile ? [ 2, 2 ] : _.pluck(options.gridConfig, "tickStep"),
 	                labelStep: 1,
 	                unityLabels: _.pluck(options.gridConfig, "unityLabel"),
-	                xomManatee: xomManatee
+	                isMobile: isMobile
 	            });
-	            graphie.label([ 0, options.range[1][1] ], options.labels[1], xomManatee ? "below right" : "above");
-	            graphie.label([ options.range[0][1], 0 ], options.labels[0], xomManatee ? "above left" : "right");
+	            graphie.label([ 0, options.range[1][1] ], options.labels[1], isMobile ? "below right" : "above");
+	            graphie.label([ options.range[0][1], 0 ], options.labels[0], isMobile ? "above left" : "right");
 	        } else "grid" === options.markings ? graphie.graphInit({
 	            range: options.range,
 	            scale: _.pluck(options.gridConfig, "scale"),
@@ -1210,12 +1214,12 @@ webpackJsonpPerseus([1],[
 	            axes: false,
 	            ticks: false,
 	            labels: false,
-	            xomManatee: xomManatee
+	            isMobile: isMobile
 	        }) : "none" === options.markings && graphie.init({
 	            range: options.range,
 	            scale: _.pluck(options.gridConfig, "scale")
 	        });
-	        if (this.props.apiOptions.xomManatee) {
+	        if (this.props.apiOptions.isMobile) {
 	            var hairlineStyle = {
 	                normalStyle: {
 	                    strokeWidth: 1
@@ -1234,7 +1238,7 @@ webpackJsonpPerseus([1],[
 	        }
 	    },
 	    showHairlines: function showHairlines(point) {
-	        if (this.props.apiOptions.xomManatee && "none" !== this.props.markings) {
+	        if (this.props.apiOptions.isMobile && "none" !== this.props.markings) {
 	            // Hairlines are already initialized when the graph is loaded, so
 	            // here we just move them to the updated location and make them
 	            // visible.
@@ -1245,7 +1249,7 @@ webpackJsonpPerseus([1],[
 	        }
 	    },
 	    hideHairlines: function hideHairlines() {
-	        if (this.props.apiOptions.xomManatee) {
+	        if (this.props.apiOptions.isMobile) {
 	            this.horizHairline.hide();
 	            this.vertHairline.hide();
 	        }
@@ -1293,7 +1297,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 44 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1314,11 +1318,11 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var Changeable = __webpack_require__(80);
+	var Changeable = __webpack_require__(78);
 
-	var _require = __webpack_require__(84);
+	var _require = __webpack_require__(82);
 
 	var iconOk = _require.iconOk;
 
@@ -1326,13 +1330,13 @@ webpackJsonpPerseus([1],[
 
 	var icon = _require.icon;
 
-	var InlineIcon = __webpack_require__(81);
+	var InlineIcon = __webpack_require__(79);
 
 	var Renderer = __webpack_require__(8);
 
-	var GradedGroupAnswerBar = __webpack_require__(98);
+	var GradedGroupAnswerBar = __webpack_require__(99);
 
-	var _require2 = __webpack_require__(36);
+	var _require2 = __webpack_require__(29);
 
 	var gray76 = _require2.gray76;
 
@@ -1509,16 +1513,16 @@ webpackJsonpPerseus([1],[
 	                color: "#ff5454"
 	            }
 	        })));
-	        var classes = classNames((_classNames = {}, _classNames[css(styles.gradedGroup)] = apiOptions.xomManatee && !this.props.transparentBackground, 
-	        _classNames["perseus-graded-group"] = true, _classNames["answer-correct"] = apiOptions.xomManatee ? false : this.state.status === GRADING_STATUSES.correct, 
-	        _classNames["answer-incorrect"] = apiOptions.xomManatee ? false : this.state.status === GRADING_STATUSES.incorrect, 
+	        var classes = classNames((_classNames = {}, _classNames[css(styles.gradedGroup)] = apiOptions.isMobile && !this.props.transparentBackground, 
+	        _classNames["perseus-graded-group"] = true, _classNames["answer-correct"] = !apiOptions.isMobile && this.state.status === GRADING_STATUSES.correct, 
+	        _classNames["answer-incorrect"] = !apiOptions.isMobile && this.state.status === GRADING_STATUSES.incorrect, 
 	        _classNames));
 	        var answerBarState = this.state.answerBarState;
 	        // Disabled widgets after the answer has been answered correctly to
 	        // prevent a situation where the answer has been marked correct but
 	        // looks incorrect because a user has modified it afterwards.
 	        var isCorrect = answerBarState === ANSWER_BAR_STATES.CORRECT;
-	        var readOnly = apiOptions.readOnly || apiOptions.xomManatee && isCorrect;
+	        var readOnly = apiOptions.readOnly || apiOptions.isMobile && isCorrect;
 	        return React.createElement("div", {
 	            className: classes
 	        }, !!this.props.title && React.createElement("div", {
@@ -1529,9 +1533,9 @@ webpackJsonpPerseus([1],[
 	                readOnly: readOnly
 	            }),
 	            onInteractWithWidget: this._onInteractWithWidget
-	        })), !apiOptions.xomManatee && icon && React.createElement("div", {
+	        })), !apiOptions.isMobile && icon && React.createElement("div", {
 	            className: "group-icon"
-	        }, icon), !apiOptions.xomManatee && React.createElement("p", null, this.state.message), !apiOptions.xomManatee && React.createElement("input", {
+	        }, icon), !apiOptions.isMobile && React.createElement("p", null, this.state.message), !apiOptions.isMobile && React.createElement("input", {
 	            type: "button",
 	            value: i18n._("Check"),
 	            className: "simple-button",
@@ -1554,7 +1558,7 @@ webpackJsonpPerseus([1],[
 	                });
 	            },
 	            className: css(styles.showHintLink)
-	        }, i18n._("Explain"))), apiOptions.xomManatee && answerBarState !== ANSWER_BAR_STATES.HIDDEN && React.createElement(GradedGroupAnswerBar, {
+	        }, i18n._("Explain"))), apiOptions.isMobile && answerBarState !== ANSWER_BAR_STATES.HIDDEN && React.createElement(GradedGroupAnswerBar, {
 	            apiOptions: apiOptions,
 	            answerBarState: answerBarState,
 	            onCheckAnswer: this._checkAnswer
@@ -1609,7 +1613,7 @@ webpackJsonpPerseus([1],[
 	});
 
 /***/ },
-/* 45 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1633,13 +1637,13 @@ webpackJsonpPerseus([1],[
 
 	var css = _require.css;
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var Changeable = __webpack_require__(80);
+	var Changeable = __webpack_require__(78);
 
-	var GradedGroup = __webpack_require__(44).widget;
+	var GradedGroup = __webpack_require__(46).widget;
 
-	var _require2 = __webpack_require__(36);
+	var _require2 = __webpack_require__(29);
 
 	var grayLight = _require2.grayLight;
 
@@ -1813,7 +1817,7 @@ webpackJsonpPerseus([1],[
 	});
 
 /***/ },
-/* 46 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1833,9 +1837,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var Changeable = __webpack_require__(80);
+	var Changeable = __webpack_require__(78);
 
 	var Renderer = __webpack_require__(8);
 
@@ -1966,7 +1970,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 47 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1987,11 +1991,11 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var Changeable = __webpack_require__(80);
+	var Changeable = __webpack_require__(78);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(92);
+	var WidgetJsonifyDeprecated = __webpack_require__(94);
 
-	var updateQueryString = __webpack_require__(15).updateQueryString;
+	var updateQueryString = __webpack_require__(14).updateQueryString;
 
 	/* This renders the iframe and handles validation via window.postMessage */
 	var Iframe = React.createClass({
@@ -2118,7 +2122,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 48 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2144,19 +2148,19 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var _require2 = __webpack_require__(36);
+	var _require2 = __webpack_require__(29);
 
 	var baseUnitPx = _require2.baseUnitPx;
 
-	var Changeable = __webpack_require__(80);
+	var Changeable = __webpack_require__(78);
 
-	var mediaQueries = __webpack_require__(34);
+	var mediaQueries = __webpack_require__(27);
 
 	var Renderer = __webpack_require__(8);
 
-	var SvgImage = __webpack_require__(32);
+	var SvgImage = __webpack_require__(26);
 
 	var defaultBoxSize = 400;
 
@@ -2241,7 +2245,27 @@ webpackJsonpPerseus([1],[
 	        var backgroundImage = this.props.backgroundImage;
 	        backgroundImage.url && (image = React.createElement(SvgImage, {
 	            src: backgroundImage.url,
-	            alt: this.props.alt ? "" : void 0,
+	            alt: /* alt text is formatted in a sr-only
+	                   div next to the image, so we make
+	                   this empty here.
+	                   If there is no alt text at all,
+	                   we don't put an alt attribute on
+	                   the image, so that screen readers
+	                   know there's something they can't
+	                   read there :(.
+	                   NOTE: React <=0.13 (maybe later)
+	                   has a bug where it won't ever
+	                   remove an attribute, so if this
+	                   alt node is ever defined it's
+	                   not removed. This is sort of
+	                   dangerous, but we usually re-key
+	                   new renderers so that they're
+	                   rendered from scratch anyways,
+	                   so this shouldn't be a problem
+	                   in practice right now, although
+	                   it will exhibit weird behaviour
+	                   while editing. */
+	            this.props.alt ? "" : void 0,
 	            width: backgroundImage.width,
 	            height: backgroundImage.height,
 	            preloader: apiOptions.imagePreloader,
@@ -2251,9 +2275,9 @@ webpackJsonpPerseus([1],[
 	                labels: this.props.labels
 	            },
 	            trackInteraction: this.props.trackInteraction,
-	            zoomToFullSizeOnMobile: apiOptions.xomManatee,
-	            constrainHeight: apiOptions.xomManatee,
-	            allowFullBleed: apiOptions.xomManatee
+	            zoomToFullSizeOnMobile: apiOptions.isMobile,
+	            constrainHeight: apiOptions.isMobile,
+	            allowFullBleed: apiOptions.isMobile
 	        }));
 	        this.props.alt && (alt = React.createElement("span", {
 	            className: "perseus-sr-only"
@@ -2262,7 +2286,7 @@ webpackJsonpPerseus([1],[
 	            apiOptions: apiOptions
 	        })));
 	        // As of the XOM Manatee beta, we combine an image's title and caption.
-	        if (apiOptions.xomManatee) {
+	        if (apiOptions.isMobile) {
 	            var titleAndCaption;
 	            if (this.props.title || this.props.caption) {
 	                var _title = this.props.title;
@@ -2369,7 +2393,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 49 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2381,9 +2405,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var Changeable = __webpack_require__(80);
+	var Changeable = __webpack_require__(78);
 
-	var Graphie = __webpack_require__(86);
+	var Graphie = __webpack_require__(84);
 
 	var Label = Graphie.Label;
 
@@ -2812,7 +2836,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 50 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2832,35 +2856,35 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var Graph = __webpack_require__(99);
+	var Graph = __webpack_require__(100);
 
-	var InfoTip = __webpack_require__(100);
+	var InfoTip = __webpack_require__(101);
 
-	var Interactive2 = __webpack_require__(94);
+	var Interactive2 = __webpack_require__(95);
 
-	var NumberInput = __webpack_require__(101);
+	var NumberInput = __webpack_require__(102);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(14);
 
 	var knumber = __webpack_require__(123).number;
 
 	var kpoint = __webpack_require__(123).point;
 
-	var KhanColors = __webpack_require__(97);
+	var KhanColors = __webpack_require__(98);
 
-	var GraphUtils = __webpack_require__(102);
+	var GraphUtils = __webpack_require__(103);
 
-	var _require = __webpack_require__(36);
+	var _require = __webpack_require__(29);
 
 	var interactiveSizes = _require.interactiveSizes;
 
-	var _require2 = __webpack_require__(72);
+	var _require2 = __webpack_require__(87);
 
 	var containerSizeClassPropType = _require2.containerSizeClassPropType;
 
 	var getInteractiveBoxFromSizeClass = _require2.getInteractiveBoxFromSizeClass;
 
-	var WrappedLine = __webpack_require__(96);
+	var WrappedLine = __webpack_require__(97);
 
 	var DeprecationMixin = Util.DeprecationMixin;
 
@@ -3284,7 +3308,7 @@ webpackJsonpPerseus([1],[
 	        var onMouseDown = this.isClickToAddPoints() ? this.handleAddPointsMouseDown : null;
 	        var gridStep = this.props.gridStep || Util.getGridStep(this.props.range, this.props.step, box[0]);
 	        var snapStep = this.props.snapStep || Util.snapStepFromGridStep(gridStep);
-	        var xomManatee = this.props.apiOptions.xomManatee;
+	        var isMobile = this.props.apiOptions.isMobile;
 	        return React.createElement("div", {
 	            className: "perseus-widget perseus-widget-interactive-graph",
 	            style: {
@@ -3297,9 +3321,9 @@ webpackJsonpPerseus([1],[
 	            box: box,
 	            labels: this.props.labels,
 	            range: this.props.range,
-	            step: xomManatee ? [ 2, 2 ] : this.props.step,
+	            step: isMobile ? [ 2, 2 ] : this.props.step,
 	            gridStep: gridStep,
-	            snapStep: xomManatee ? [ 1, 1 ] : snapStep,
+	            snapStep: isMobile ? [ 1, 1 ] : snapStep,
 	            markings: this.props.markings,
 	            backgroundImage: this.props.backgroundImage,
 	            showProtractor: this.props.showProtractor,
@@ -3309,7 +3333,7 @@ webpackJsonpPerseus([1],[
 	            onMouseDown: onMouseDown,
 	            onGraphieUpdated: this.setGraphie,
 	            setDrawingAreaAvailable: this.props.apiOptions.setDrawingAreaAvailable,
-	            xomManatee: xomManatee
+	            isMobile: isMobile
 	        }), typeSelect, extraOptions);
 	    },
 	    componentDidMount: function componentDidMount() {
@@ -3361,7 +3385,7 @@ webpackJsonpPerseus([1],[
 	    setupGraphie: function setupGraphie() {
 	        this.setTrashCanVisibility(0);
 	        this.isClickToAddPoints() && this.setTrashCanVisibility(.5);
-	        if (this.props.apiOptions.xomManatee) {
+	        if (this.props.apiOptions.isMobile) {
 	            this.horizHairline = new WrappedLine(this.graphie, [ 0, 0 ], [ 0, 0 ], {
 	                normalStyle: {
 	                    strokeWidth: 1
@@ -3385,7 +3409,7 @@ webpackJsonpPerseus([1],[
 	        this["add" + capitalize(type) + "Controls"]();
 	    },
 	    showHairlines: function showHairlines(point) {
-	        if (this.props.apiOptions.xomManatee && "none" !== this.props.markings) {
+	        if (this.props.apiOptions.isMobile && "none" !== this.props.markings) {
 	            // Hairlines are already initialized when the graph is loaded, so
 	            // here we just move them to the updated location and make them
 	            // visible.
@@ -3396,7 +3420,7 @@ webpackJsonpPerseus([1],[
 	        }
 	    },
 	    hideHairlines: function hideHairlines() {
-	        if (this.props.apiOptions.xomManatee) {
+	        if (this.props.apiOptions.isMobile) {
 	            this.horizHairline.hide();
 	            this.vertHairline.hide();
 	        }
@@ -3408,7 +3432,7 @@ webpackJsonpPerseus([1],[
 	                this.trashCan.remove();
 	                this.trashCan = null;
 	            }
-	        } else if (!this.props.apiOptions.xomManatee) {
+	        } else if (!this.props.apiOptions.isMobile) {
 	            // Only if trash tooltips are not being used, we initialize the old
 	            // trash can area.
 	            this.trashCan || (this.trashCan = graphie.raphael.image(TRASH_ICON_URI, graphie.xpixels - 40, graphie.ypixels - 40, 40, 40));
@@ -3431,7 +3455,7 @@ webpackJsonpPerseus([1],[
 	        return "point" === props.graph.type && props.graph.numPoints === UNLIMITED || "polygon" === props.graph.type && props.graph.numSides === UNLIMITED;
 	    },
 	    _lineStroke: function _lineStroke() {
-	        return this.props.xomManatee ? {
+	        return this.props.isMobile ? {
 	            "stroke-width": 3
 	        } : {};
 	    },
@@ -3458,7 +3482,7 @@ webpackJsonpPerseus([1],[
 	            points: points,
 	            "static": true,
 	            normalStyle: _extends({
-	                stroke: this.props.apiOptions.xomManatee ? KhanColors.BLUE_C : KhanColors.INTERACTIVE
+	                stroke: this.props.apiOptions.isMobile ? KhanColors.BLUE_C : KhanColors.INTERACTIVE
 	            }, this._lineStroke())
 	        };
 	        "line" === type ? lineConfig.extendLine = true : "ray" === type && (lineConfig.extendRay = true);
@@ -3535,7 +3559,7 @@ webpackJsonpPerseus([1],[
 	        } else {
 	            this.parabola = this.graphie.parabola(a, b, c);
 	            this.parabola.attr(_extends({
-	                stroke: this.props.apiOptions.xomManatee ? KhanColors.BLUE_C : KhanColors.DYNAMIC
+	                stroke: this.props.apiOptions.isMobile ? KhanColors.BLUE_C : KhanColors.DYNAMIC
 	            }, this._lineStroke()));
 	            this.parabola.toBack();
 	        }
@@ -3594,7 +3618,7 @@ webpackJsonpPerseus([1],[
 	        } else {
 	            this.sinusoid = this.graphie.sinusoid(a, b, c, d);
 	            this.sinusoid.attr(_extends({
-	                stroke: this.props.apiOptions.xomManatee ? KhanColors.BLUE_C : KhanColors.DYNAMIC
+	                stroke: this.props.apiOptions.isMobile ? KhanColors.BLUE_C : KhanColors.DYNAMIC
 	            }, this._lineStroke()));
 	            this.sinusoid.toBack();
 	        }
@@ -3685,7 +3709,7 @@ webpackJsonpPerseus([1],[
 	        });
 	    },
 	    isCoordInTrash: function isCoordInTrash(coord) {
-	        if (this.props.apiOptions.xomManatee) return false;
+	        if (this.props.apiOptions.isMobile) return false;
 	        var graphie = this.graphie;
 	        var screenPoint = graphie.scalePoint(coord);
 	        return screenPoint[0] >= graphie.xpixels - 40 && screenPoint[1] >= graphie.ypixels - 40;
@@ -3728,7 +3752,7 @@ webpackJsonpPerseus([1],[
 	                    self.setTrashCanVisibility(.5);
 	                }
 	            }
-	        }, this.props.apiOptions.xomManatee && self.isClickToAddPoints() ? {
+	        }, this.props.apiOptions.isMobile && self.isClickToAddPoints() ? {
 	            onRemove: remove
 	        } : {}));
 	        return point;
@@ -3924,7 +3948,7 @@ webpackJsonpPerseus([1],[
 	                _this7.polygon.closed() && _this7.updateCoordsFromPoints();
 	            },
 	            onMoveEnd: onMoveEndHandler
-	        }, this.props.apiOptions.xomManatee && this.isClickToAddPoints() ? {
+	        }, this.props.apiOptions.isMobile && this.isClickToAddPoints() ? {
 	            onRemove: remove
 	        } : {}));
 	        point.state.isInitialMove = true;
@@ -4008,10 +4032,10 @@ webpackJsonpPerseus([1],[
 	                constraints: [ Interactive2.MovableLine.constraints.bound(), Interactive2.MovableLine.constraints.snap() ],
 	                onMove: [ Interactive2.MovableLine.onMove.updatePoints, updateCoordProps ],
 	                normalStyle: _extends({
-	                    stroke: this.props.apiOptions.xomManatee ? KhanColors.BLUE_C : KhanColors.INTERACTIVE
+	                    stroke: this.props.apiOptions.isMobile ? KhanColors.BLUE_C : KhanColors.INTERACTIVE
 	                }, this._lineStroke()),
 	                highlightStyle: _extends({
-	                    stroke: this.props.apiOptions.xomManatee ? KhanColors.BLUE_C : KhanColors.INTERACTING
+	                    stroke: this.props.apiOptions.isMobile ? KhanColors.BLUE_C : KhanColors.INTERACTING
 	                }, this._lineStroke())
 	            });
 	            _.invoke(points, "toFront");
@@ -4070,7 +4094,7 @@ webpackJsonpPerseus([1],[
 	                    this.closed() && self.updateCoordsFromPoints();
 	                } ],
 	                normalStyle: _extends({
-	                    stroke: this.props.apiOptions.xomManatee ? KhanColors.BLUE_C : KhanColors.INTERACTIVE
+	                    stroke: this.props.apiOptions.isMobile ? KhanColors.BLUE_C : KhanColors.INTERACTIVE
 	                }, this._lineStroke())
 	            });
 	        } else // We only need to pass in the properties that might've changed
@@ -4555,7 +4579,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 51 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4567,9 +4591,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var Changeable = __webpack_require__(80);
+	var Changeable = __webpack_require__(78);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(92);
+	var WidgetJsonifyDeprecated = __webpack_require__(94);
 
 	var MAX_SIZE = 8;
 
@@ -4713,7 +4737,7 @@ webpackJsonpPerseus([1],[
 	    return flipTilesPredicate(oldCells, function(y, x) {
 	        var offsetY = y - tileY;
 	        var offsetX = x - tileX;
-	        return Math.abs(offsetY) <= 1 && Math.abs(offsetX) <= 1 ? pattern[offsetY + 1][offsetX + 1] : false;
+	        return Math.abs(offsetY) <= 1 && Math.abs(offsetX) <= 1 && pattern[offsetY + 1][offsetX + 1];
 	    });
 	};
 
@@ -4848,7 +4872,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 52 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4872,25 +4896,25 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var NumberInput = __webpack_require__(101);
+	var NumberInput = __webpack_require__(102);
 
 	var Renderer = __webpack_require__(8);
 
-	var TextInput = __webpack_require__(103);
+	var TextInput = __webpack_require__(104);
 
-	var MathOutput = __webpack_require__(104);
+	var MathOutput = __webpack_require__(105);
 
-	var SimpleKeypadInput = __webpack_require__(74);
+	var SimpleKeypadInput = __webpack_require__(73);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var KhanAnswerTypes = __webpack_require__(71);
+	var KhanAnswerTypes = __webpack_require__(40);
 
-	var keypadElementPropType = __webpack_require__(78).propTypes.keypadElementPropType;
+	var keypadElementPropType = __webpack_require__(88).propTypes.keypadElementPropType;
 
-	var assert = __webpack_require__(105).assert;
+	var assert = __webpack_require__(106).assert;
 
-	var stringArrayOfSize = __webpack_require__(15).stringArrayOfSize;
+	var stringArrayOfSize = __webpack_require__(14).stringArrayOfSize;
 
 	// We store three sets of dimensions for the brackets, for our three types of
 	// inputs, which vary in formatting: (1) the "static" inputs rendered for the
@@ -5284,7 +5308,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 53 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5298,13 +5322,13 @@ webpackJsonpPerseus([1],[
 
 	var Renderer = __webpack_require__(8);
 
-	var Sortable = __webpack_require__(106);
+	var Sortable = __webpack_require__(107);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var shuffle = __webpack_require__(15).shuffle;
+	var shuffle = __webpack_require__(14).shuffle;
 
-	var seededRNG = __webpack_require__(15).seededRNG;
+	var seededRNG = __webpack_require__(14).seededRNG;
 
 	var Matcher = React.createClass({
 	    displayName: "Matcher",
@@ -5346,7 +5370,7 @@ webpackJsonpPerseus([1],[
 	        var constraints = {
 	            height: _.max([ this.state.leftHeight, this.state.rightHeight ])
 	        };
-	        var cellMarginPx = this.props.apiOptions.xomManatee ? 8 : 5;
+	        var cellMarginPx = this.props.apiOptions.isMobile ? 8 : 5;
 	        return React.createElement("div", {
 	            className: "perseus-widget-matcher"
 	        }, showLabels && React.createElement("div", {
@@ -5436,7 +5460,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 54 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5450,9 +5474,9 @@ webpackJsonpPerseus([1],[
 
 	var _2 = __webpack_require__(11);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var GraphUtils = __webpack_require__(102);
+	var GraphUtils = __webpack_require__(103);
 
 	var defaultImage = {
 	    url: null,
@@ -5595,7 +5619,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 55 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5760,7 +5784,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 56 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5783,19 +5807,19 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var Changeable = __webpack_require__(80);
+	var Changeable = __webpack_require__(78);
 
-	var NumberInput = __webpack_require__(101);
+	var NumberInput = __webpack_require__(102);
 
-	var MathOutput = __webpack_require__(104);
+	var MathOutput = __webpack_require__(105);
 
-	var SimpleKeypadInput = __webpack_require__(74);
+	var SimpleKeypadInput = __webpack_require__(73);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var keypadElementPropType = __webpack_require__(78).propTypes.keypadElementPropType;
+	var keypadElementPropType = __webpack_require__(88).propTypes.keypadElementPropType;
 
-	var Graphie = __webpack_require__(86);
+	var Graphie = __webpack_require__(84);
 
 	var MovablePoint = Graphie.MovablePoint;
 
@@ -5803,15 +5827,15 @@ webpackJsonpPerseus([1],[
 
 	var knumber = __webpack_require__(123).number;
 
-	var KhanMath = __webpack_require__(77);
+	var KhanMath = __webpack_require__(76);
 
-	var KhanColors = __webpack_require__(97);
+	var KhanColors = __webpack_require__(98);
 
 	var bound = function bound(x, gt, lt) {
 	    return Math.min(Math.max(x, gt), lt);
 	};
 
-	var assert = __webpack_require__(105).assert;
+	var assert = __webpack_require__(106).assert;
 
 	var EN_DASH = "–";
 
@@ -5898,19 +5922,19 @@ webpackJsonpPerseus([1],[
 	        (labelTicks || "decimal ticks" === props.labelStyle) && results.push(_label(graphie, props.labelStyle, _x, _x, base));
 	    }
 	    // Render the text labels
-	    results.push(graphie.style(props.xomManatee ? {
+	    results.push(graphie.style(props.isMobile ? {
 	        color: KhanColors.BLUE_D
 	    } : {}, function() {
 	        return _label(graphie, props.labelStyle, leftLabel, leftLabel, base);
 	    }));
-	    results.push(graphie.style(props.xomManatee ? {
+	    results.push(graphie.style(props.isMobile ? {
 	        color: KhanColors.BLUE_D
 	    } : {}, function() {
 	        return _label(graphie, props.labelStyle, rightLabel, rightLabel, base);
 	    }));
 	    // Render the labels' lines
 	    graphie.style({
-	        stroke: props.xomManatee ? KhanColors.BLUE_D : KhanColors.DYNAMIC,
+	        stroke: props.isMobile ? KhanColors.BLUE_D : KhanColors.DYNAMIC,
 	        strokeWidth: 3.5
 	    }, function() {
 	        results.push(graphie.line([ leftLabel, -.2 ], [ leftLabel, .2 ]));
@@ -5978,7 +6002,7 @@ webpackJsonpPerseus([1],[
 	        // Don't allow a fraction for the number of divisions
 	        numDivisions = Math.round(numDivisions);
 	        // Don't allow negative numbers for the number of divisions
-	        numDivisions = numDivisions < 0 ? -1 * numDivisions : numDivisions;
+	        numDivisions = numDivisions < 0 ? numDivisions * -1 : numDivisions;
 	        // If the number of divisions isn't blank, update the number line
 	        if (numDivisions) {
 	            var nextProps = _.extend({}, this.props, {
@@ -6047,9 +6071,9 @@ webpackJsonpPerseus([1],[
 	            },
 	            setup: this._setupGraphie,
 	            setDrawingAreaAvailable: this.props.apiOptions.setDrawingAreaAvailable,
-	            xomManatee: this.props.apiOptions.xomManatee
+	            isMobile: this.props.apiOptions.isMobile
 	        }, React.createElement(TickMarks, _extends({}, _.pick(props, [ "range", "numDivisions", "labelTicks", "labelStyle", "labelRange", "tickStep" ]), {
-	            xomManatee: this.props.apiOptions.xomManatee
+	            isMobile: this.props.apiOptions.isMobile
 	        })), this._renderInequality(props), this._renderNumberLinePoint(props));
 	    },
 	    snapNumLinePosition: function snapNumLinePosition(props, numLinePosition) {
@@ -6101,7 +6125,7 @@ webpackJsonpPerseus([1],[
 	                });
 	                _this3.props.trackInteraction();
 	            },
-	            xomManatee: this.props.apiOptions.xomManatee,
+	            isMobile: this.props.apiOptions.isMobile,
 	            xomStyleOverride: xomDotStyle,
 	            showTooltips: this.props.showTooltips,
 	            xOnlyTooltip: true
@@ -6135,7 +6159,7 @@ webpackJsonpPerseus([1],[
 	            var end = this._getInequalityEndpoint(props);
 	            var style = {
 	                arrows: "->",
-	                stroke: this.props.apiOptions.xomManatee ? KhanColors.INTERACTIVE : KhanColors.DYNAMIC,
+	                stroke: this.props.apiOptions.isMobile ? KhanColors.INTERACTIVE : KhanColors.DYNAMIC,
 	                strokeWidth: 3.5
 	            };
 	            var isGreater = [ "ge", "gt" ].includes(props.rel);
@@ -6151,7 +6175,7 @@ webpackJsonpPerseus([1],[
 	        // Ensure a sane configuration to avoid infinite loops
 	        if (!this.isValid()) return;
 	        // Position variables
-	        var widthInPixels = this.props.apiOptions.xomManatee ? 288 - 2 * horizontalPadding : 400;
+	        var widthInPixels = this.props.apiOptions.isMobile ? 288 - 2 * horizontalPadding : 400;
 	        var range = options.range;
 	        var scale = (range[1] - range[0]) / widthInPixels;
 	        var buffer = horizontalPadding * scale;
@@ -6163,7 +6187,7 @@ webpackJsonpPerseus([1],[
 	        graphie.init({
 	            range: [ [ left, right ], [ bottom, top ] ],
 	            scale: [ 1 / scale, 40 ],
-	            xomManatee: this.props.apiOptions.xomManatee
+	            isMobile: this.props.apiOptions.isMobile
 	        });
 	        // Draw the number line
 	        var center = (range[0] + range[1]) / 2;
@@ -6301,7 +6325,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 57 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6317,9 +6341,9 @@ webpackJsonpPerseus([1],[
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(14);
 
-	var ApiClassNames = __webpack_require__(16).ClassNames;
+	var ApiClassNames = __webpack_require__(15).ClassNames;
 
 	var PlaceholderCard = React.createClass({
 	    displayName: "PlaceholderCard",
@@ -6730,7 +6754,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 58 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6744,7 +6768,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var Changeable = __webpack_require__(80);
+	var Changeable = __webpack_require__(78);
 
 	var Renderer = __webpack_require__(8);
 
@@ -6976,8 +7000,8 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 59 */,
-/* 60 */
+/* 61 */,
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6989,9 +7013,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var Changeable = __webpack_require__(80);
+	var Changeable = __webpack_require__(78);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(92);
+	var WidgetJsonifyDeprecated = __webpack_require__(94);
 
 	var Renderer = __webpack_require__(8);
 
@@ -7045,7 +7069,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 61 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7059,19 +7083,19 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var ApiClassNames = __webpack_require__(16).ClassNames;
+	var ApiClassNames = __webpack_require__(15).ClassNames;
 
-	var deepEq = __webpack_require__(15).deepEq;
+	var deepEq = __webpack_require__(14).deepEq;
 
-	var KhanMath = __webpack_require__(77);
+	var KhanMath = __webpack_require__(76);
 
-	var KhanColors = __webpack_require__(97);
+	var KhanColors = __webpack_require__(98);
 
-	var GraphUtils = __webpack_require__(102);
+	var GraphUtils = __webpack_require__(103);
 
-	var Interactive2 = __webpack_require__(94);
+	var Interactive2 = __webpack_require__(95);
 
-	var WrappedLine = __webpack_require__(96);
+	var WrappedLine = __webpack_require__(97);
 
 	var BAR = "bar", LINE = "line", PIC = "pic", HISTOGRAM = "histogram", DOTPLOT = "dotplot";
 
@@ -7118,7 +7142,7 @@ webpackJsonpPerseus([1],[
 	        };
 	    },
 	    DOT_PLOT_POINT_SIZE: function DOT_PLOT_POINT_SIZE() {
-	        return this.props.apiOptions.xomManatee ? 6 : 4;
+	        return this.props.apiOptions.isMobile ? 6 : 4;
 	    },
 	    DOT_PLOT_POINT_PADDING: function DOT_PLOT_POINT_PADDING() {
 	        return 8;
@@ -7167,7 +7191,7 @@ webpackJsonpPerseus([1],[
 	        var config = {};
 	        var c = config;
 	        // c for short
-	        var xomManatee = this.props.apiOptions.xomManatee;
+	        var isMobile = this.props.apiOptions.isMobile;
 	        c.graph = {
 	            lines: [],
 	            bars: [],
@@ -7176,15 +7200,15 @@ webpackJsonpPerseus([1],[
 	        };
 	        c.scaleY = self.props.scaleY;
 	        c.dimX = self.props.categories.length;
-	        var plotDimensions = xomManatee ? [ 288, 336 ] : self.props.plotDimensions;
+	        var plotDimensions = isMobile ? [ 288, 336 ] : self.props.plotDimensions;
 	        if (isLine) // Subtracting 0.2 makes line have equal padding on each side
-	        c.dimX += xomManatee ? -.2 : 1; else if (isHistogram) {
+	        c.dimX += isMobile ? -.2 : 1; else if (isHistogram) {
 	            c.barPad = 0;
 	            c.barWidth = 1;
 	        } else if (isBar) {
-	            c.barPad = xomManatee ? .08 : .15;
+	            c.barPad = isMobile ? .08 : .15;
 	            c.barWidth = 1 - 2 * c.barPad;
-	            c.dimX += (xomManatee ? -2 : 2) * c.barPad;
+	            c.dimX += (isMobile ? -2 : 2) * c.barPad;
 	        } else if (isTiledPlot) {
 	            c.picBoxHeight = self.props.picBoxHeight;
 	            c.picBoxWidthPx = plotDimensions[0] / self.props.categories.length;
@@ -7200,12 +7224,12 @@ webpackJsonpPerseus([1],[
 	        c.dimY = Math.ceil(self.props.maxY / c.scaleY) * c.scaleY;
 	        var padX = 25;
 	        var padY = 25;
-	        (isBar || isLine) && xomManatee && (padX = 0 !== self.props.labels[1].length ? 17 : 11);
+	        (isBar || isLine) && isMobile && (padX = 0 !== self.props.labels[1].length ? 17 : 11);
 	        // Since dotplot doesn't have an axis along the left it looks weird
 	        // with the same padding as the others
 	        isDotplot && (padX /= 2);
-	        xomManatee && isTiledPlot && 0 === self.props.labels[1].length && (padX = 0);
-	        xomManatee ? c.scale = _.map([ [ c.dimX, padX ], [ c.dimY, padY ] ], // We multiply pad by 4 because we add 3*pad padding on the left
+	        isMobile && isTiledPlot && 0 === self.props.labels[1].length && (padX = 0);
+	        isMobile ? c.scale = _.map([ [ c.dimX, padX ], [ c.dimY, padY ] ], // We multiply pad by 4 because we add 3*pad padding on the left
 	        // and 1*pad on the right
 	        function(_ref, i) {
 	            var dim = _ref[0];
@@ -7220,30 +7244,30 @@ webpackJsonpPerseus([1],[
 	        graphie.init({
 	            range: [ [ -3 * padX, c.dimX + padX ], [ -3 * padY, c.dimY + padY ] ],
 	            scale: c.scale,
-	            xomManatee: this.props.apiOptions.xomManatee
+	            isMobile: this.props.apiOptions.isMobile
 	        });
 	        graphie.addMouseLayer({
 	            allowScratchpad: true,
 	            setDrawingAreaAvailable: this.props.apiOptions.setDrawingAreaAvailable
 	        });
 	        if (!isTiledPlot) {
-	            // If we have xomManatee, we skip the 0 label.
-	            var initialY = xomManatee ? c.scaleY : 0;
+	            // If we have isMobile, we skip the 0 label.
+	            var initialY = isMobile ? c.scaleY : 0;
 	            for (var y = initialY; y <= c.dimY; y += c.scaleY) {
 	                graphie.label([ 0, y ], KhanMath.roundToApprox(y, 2), "left", /* isTeX */
 	                true);
 	                graphie.style({
-	                    stroke: xomManatee ? "#e9ebec" : "#000",
+	                    stroke: isMobile ? "#e9ebec" : "#000",
 	                    strokeWidth: 1,
-	                    opacity: xomManatee ? 1 : .3
+	                    opacity: isMobile ? 1 : .3
 	                }, function() {
 	                    graphie.line([ 0, y ], [ c.dimX, y ]);
 	                });
 	            }
 	        }
-	        (isBar || isLine) && xomManatee && (self.graphie.dragPrompt = graphie.label([ c.dimX / 2, c.dimY / 2 ], "Drag handles to make graph", "center", false).css("font-weight", "bold").css("color", KhanColors.KA_GREEN).css("display", "none"));
+	        (isBar || isLine) && isMobile && (self.graphie.dragPrompt = graphie.label([ c.dimX / 2, c.dimY / 2 ], "Drag handles to make graph", "center", false).css("font-weight", "bold").css("color", KhanColors.KA_GREEN).css("display", "none"));
 	        self.setupCategories(config);
-	        isTiledPlot && xomManatee && (self.graphie.dotPrompt = graphie.label([ c.dimX / 2, c.dimY / 2 ], "Tap to add points", "center", false).css("font-weight", "bold").css("color", KhanColors.KA_GREEN).css("display", "none"));
+	        isTiledPlot && isMobile && (self.graphie.dotPrompt = graphie.label([ c.dimX / 2, c.dimY / 2 ], "Tap to add points", "center", false).css("font-weight", "bold").css("color", KhanColors.KA_GREEN).css("display", "none"));
 	        isTiledPlot && self.drawPicHeights(self.state.values, prevState.values);
 	        graphie.style({
 	            stroke: "#000",
@@ -7253,38 +7277,38 @@ webpackJsonpPerseus([1],[
 	            if (isTiledPlot) if (isDotplot) // Dotplot is a subtype of tiled plot, here we only draw
 	            // the x-axis
 	            graphie.style({
-	                stroke: xomManatee ? KhanColors.GRAY_G : "#000",
-	                strokeWidth: xomManatee ? 1 : 2
+	                stroke: isMobile ? KhanColors.GRAY_G : "#000",
+	                strokeWidth: isMobile ? 1 : 2
 	            }, function() {
-	                return graphie.line([ xomManatee ? 0 : .5, 0 ], [ c.dimX - (xomManatee ? 0 : .5), 0 ]);
+	                return graphie.line([ isMobile ? 0 : .5, 0 ], [ c.dimX - (isMobile ? 0 : .5), 0 ]);
 	            }); else {
 	                graphie.line([ 0, 0 ], [ c.dimX, 0 ]);
 	                // Draw the left axis for non-dotplots
-	                0 === self.props.labels[1].length && xomManatee || graphie.style({
-	                    stroke: xomManatee ? KhanColors.GRAY_G : "#000",
-	                    strokeWidth: xomManatee ? 1 : 2
+	                0 === self.props.labels[1].length && isMobile || graphie.style({
+	                    stroke: isMobile ? KhanColors.GRAY_G : "#000",
+	                    strokeWidth: isMobile ? 1 : 2
 	                }, function() {
 	                    return graphie.line([ 0, 0 ], [ 0, c.dimY ]);
 	                });
 	            } else {
 	                // Draw normal axes
 	                graphie.style({
-	                    stroke: xomManatee ? KhanColors.GRAY_G : "#000",
-	                    strokeWidth: xomManatee ? 1 : 2
+	                    stroke: isMobile ? KhanColors.GRAY_G : "#000",
+	                    strokeWidth: isMobile ? 1 : 2
 	                }, function() {
-	                    return graphie.line([ xomManatee ? 3 * -padX : 0, 0 ], [ c.dimX + (xomManatee ? padX : 0), 0 ]);
+	                    return graphie.line([ isMobile ? 3 * -padX : 0, 0 ], [ c.dimX + (isMobile ? padX : 0), 0 ]);
 	                });
-	                (isBar || isLine) && xomManatee || graphie.style({
-	                    stroke: xomManatee ? KhanColors.GRAY_G : "#000",
-	                    strokeWidth: xomManatee ? 1 : 2
+	                (isBar || isLine) && isMobile || graphie.style({
+	                    stroke: isMobile ? KhanColors.GRAY_G : "#000",
+	                    strokeWidth: isMobile ? 1 : 2
 	                }, function() {
 	                    return graphie.line([ 0, 0 ], [ 0, c.dimY ]);
 	                });
 	            }
 	        });
-	        graphie.label([ c.dimX / 2, xomManatee ? 3 * -padY : -35 / c.scale[1] ], self.props.labels[0], xomManatee ? "above" : "below", false).css("font-weight", "bold").css("color", xomManatee && KhanColors.GRAY_F);
-	        graphie.label([ (xomManatee ? -35 : -60) / c.scale[0], c.dimY / 2 ], self.props.labels[1], "center", false).css("font-weight", "bold").css("color", xomManatee && KhanColors.GRAY_F).addClass("rotate");
-	        if (this.props.apiOptions.xomManatee) {
+	        graphie.label([ c.dimX / 2, isMobile ? 3 * -padY : -35 / c.scale[1] ], self.props.labels[0], isMobile ? "above" : "below", false).css("font-weight", "bold").css("color", isMobile && KhanColors.GRAY_F);
+	        graphie.label([ (isMobile ? -35 : -60) / c.scale[0], c.dimY / 2 ], self.props.labels[1], "center", false).css("font-weight", "bold").css("color", isMobile && KhanColors.GRAY_F).addClass("rotate");
+	        if (this.props.apiOptions.isMobile) {
 	            this.horizHairline = new WrappedLine(this.graphie, [ 0, 0 ], [ 0, 0 ], {
 	                normalStyle: {
 	                    strokeWidth: 1
@@ -7298,7 +7322,7 @@ webpackJsonpPerseus([1],[
 	        }
 	    },
 	    showHairlines: function showHairlines(point) {
-	        if (this.props.apiOptions.xomManatee && "none" !== this.props.markings) {
+	        if (this.props.apiOptions.isMobile && "none" !== this.props.markings) {
 	            // Hairlines are already initialized when the graph is loaded, so
 	            // here we just move them to the updated location and make them
 	            // visible.
@@ -7307,10 +7331,10 @@ webpackJsonpPerseus([1],[
 	        }
 	    },
 	    hideHairlines: function hideHairlines() {
-	        this.props.apiOptions.xomManatee && this.horizHairline.hide();
+	        this.props.apiOptions.isMobile && this.horizHairline.hide();
 	    },
 	    labelCategory: function labelCategory(x, category) {
-	        var xomManatee = this.props.apiOptions.xomManatee;
+	        var isMobile = this.props.apiOptions.isMobile;
 	        var graphie = this.graphie;
 	        category += "";
 	        var isTeX = false;
@@ -7322,18 +7346,18 @@ webpackJsonpPerseus([1],[
 	        var hasXLabel = 0 !== this.props.labels[0].length;
 	        var labelRotation = "translateX(-50%) translateX(5px) translateY(-50%) rotate(-45deg)";
 	        graphie.style({
-	            color: xomManatee ? KhanColors.GRAY_G : "inherit",
-	            transform: xomManatee && !mathyCategory ? labelRotation : "none",
+	            color: isMobile ? KhanColors.GRAY_G : "inherit",
+	            transform: isMobile && !mathyCategory ? labelRotation : "none",
 	            transformOrigin: "100%"
 	        }, function() {
-	            return graphie.label([ x, xomManatee ? -.5 : 0 ], category, "below", isTeX);
+	            return graphie.label([ x, isMobile ? -.5 : 0 ], category, "below", isTeX);
 	        });
 	    },
 	    setupCategories: function setupCategories(config) {
 	        var self = this;
 	        var c = config;
 	        var graphie = self.graphie;
-	        var xomManatee = this.props.apiOptions.xomManatee;
+	        var isMobile = this.props.apiOptions.isMobile;
 	        if (self.props.type === HISTOGRAM) {
 	            // Histograms with n labels/categories have n - 1 buckets
 	            _.times(self.props.categories.length - 1, function(i) {
@@ -7351,7 +7375,7 @@ webpackJsonpPerseus([1],[
 	                var tickHeight = 6 / c.scale[1];
 	                graphie.style({
 	                    stroke: "#000",
-	                    strokeWidth: xomManatee ? 1 : 2,
+	                    strokeWidth: isMobile ? 1 : 2,
 	                    opacity: 1
 	                }, function() {
 	                    graphie.line([ x, -tickHeight ], [ x, 0 ]);
@@ -7368,7 +7392,7 @@ webpackJsonpPerseus([1],[
 	            }) : self.props.type === LINE ? x = self.setupLine(i, startHeight, config) : self.props.type === PIC ? x = self.setupPic(i, config) : self.props.type === DOTPLOT && (x = self.setupDotplot(i, config));
 	            var tickStart = 0;
 	            var tickEnd = -6 / c.scale[1];
-	            self.props.type !== DOTPLOT || xomManatee || (tickStart = -tickEnd);
+	            self.props.type !== DOTPLOT || isMobile || (tickStart = -tickEnd);
 	            if (self.props.type === DOTPLOT) {
 	                // Dotplot lets you specify to only show labels every 'n'
 	                // ticks. It also looks nicer if it makes the labelled
@@ -7380,8 +7404,8 @@ webpackJsonpPerseus([1],[
 	                }
 	            } else self.labelCategory(x, category);
 	            graphie.style({
-	                stroke: xomManatee ? KhanColors.GRAY_G : "#000",
-	                strokeWidth: xomManatee ? 1 : 2,
+	                stroke: isMobile ? KhanColors.GRAY_G : "#000",
+	                strokeWidth: isMobile ? 1 : 2,
 	                opacity: 1
 	            }, function() {
 	                graphie.line([ x, tickStart ], [ x, tickEnd ]);
@@ -7399,7 +7423,7 @@ webpackJsonpPerseus([1],[
 	    },
 	    setupBar: function setupBar(args) {
 	        var _this = this;
-	        var xomManatee = this.props.apiOptions.xomManatee;
+	        var isMobile = this.props.apiOptions.isMobile;
 	        var i = args.index;
 	        var startHeight = args.startHeight;
 	        var config = args.config;
@@ -7408,7 +7432,7 @@ webpackJsonpPerseus([1],[
 	        var graphie = self.graphie;
 	        var barHalfWidth = config.barWidth / 2;
 	        var x;
-	        x = isHistogram ? .5 + i * config.barWidth + barHalfWidth : (xomManatee ? barHalfWidth : .5 + config.barPad) + i;
+	        x = isHistogram ? .5 + i * config.barWidth + barHalfWidth : (isMobile ? barHalfWidth : .5 + config.barPad) + i;
 	        /**
 	         * Updates the bar with given index to the given height
 	         * @param i the index of the bar to update
@@ -7417,7 +7441,7 @@ webpackJsonpPerseus([1],[
 	        var scaleBar = function scaleBar(i, height) {
 	            var center = graphie.scalePoint(0);
 	            // Scale filled bucket (bar)
-	            config.graph.bars[i].scale(1, Math.max(xomManatee ? .2 : .01, height / config.scaleY), center[0], center[1]);
+	            config.graph.bars[i].scale(1, Math.max(isMobile ? .2 : .01, height / config.scaleY), center[0], center[1]);
 	            if (isHistogram) {
 	                // Scale dividers between buckets
 	                var leftDivider = config.graph.dividers[i - 1], rightDivider = config.graph.dividers[i];
@@ -7433,7 +7457,7 @@ webpackJsonpPerseus([1],[
 	        };
 	        graphie.style({
 	            stroke: "none",
-	            fill: xomManatee ? KhanColors.BLUE_C : KhanColors.LIGHT_BLUE,
+	            fill: isMobile ? KhanColors.BLUE_C : KhanColors.LIGHT_BLUE,
 	            opacity: 1
 	        }, function() {
 	            config.graph.bars[i] = graphie.path([ [ x - barHalfWidth, 0 ], [ x - barHalfWidth, config.scaleY ], [ x + barHalfWidth, config.scaleY ], [ x + barHalfWidth, 0 ], [ x - barHalfWidth, 0 ] ]);
@@ -7446,7 +7470,7 @@ webpackJsonpPerseus([1],[
 	        }, function() {
 	            config.graph.dividers.push(graphie.path([ [ x - barHalfWidth, 0 ], [ x - barHalfWidth, config.scaleY ] ]));
 	        });
-	        if (xomManatee) !function() {
+	        if (isMobile) !function() {
 	            var snap = config.scaleY / self.props.snapsPerLine;
 	            config.graph.lines[i] = Interactive2.addMaybeXOMMovablePoint(_this, {
 	                coord: [ x, startHeight ],
@@ -7525,12 +7549,12 @@ webpackJsonpPerseus([1],[
 	     */
 	    setupLine: function setupLine(i, startHeight, config) {
 	        var _this2 = this;
-	        var xomManatee = this.props.apiOptions.xomManatee;
+	        var isMobile = this.props.apiOptions.isMobile;
 	        var self = this;
 	        var c = config;
 	        var graphie = self.graphie;
-	        var x = i + (xomManatee ? .4 : 1);
-	        if (xomManatee) !function() {
+	        var x = i + (isMobile ? .4 : 1);
+	        if (isMobile) !function() {
 	            var snap = config.scaleY / self.props.snapsPerLine;
 	            c.graph.points[i] = Interactive2.addMaybeXOMMovablePoint(_this2, {
 	                coord: [ x, startHeight ],
@@ -7604,8 +7628,8 @@ webpackJsonpPerseus([1],[
 	    setupDotplot: function setupDotplot(i, config) {
 	        var _this3 = this;
 	        var graphie = this.graphie;
-	        var xomManatee = this.props.apiOptions.xomManatee;
-	        return this.setupTiledPlot(i, xomManatee ? .5 : 1, config, function(x, y) {
+	        var isMobile = this.props.apiOptions.isMobile;
+	        return this.setupTiledPlot(i, isMobile ? .5 : 1, config, function(x, y) {
 	            return graphie.ellipse([ x, y ], [ _this3.DOT_PLOT_POINT_SIZE() / graphie.scale[0], _this3.DOT_PLOT_POINT_SIZE() / graphie.scale[1] ], {
 	                fill: KhanColors.INTERACTIVE,
 	                stroke: KhanColors.INTERACTIVE
@@ -7692,8 +7716,8 @@ webpackJsonpPerseus([1],[
 	        var self = this;
 	        var graphie = self.graphie;
 	        var pics = graphie.pics;
-	        var xomManatee = this.props.apiOptions.xomManatee;
-	        if (xomManatee) {
+	        var isMobile = this.props.apiOptions.isMobile;
+	        if (isMobile) {
 	            var shouldDisplay = values.every(function(v) {
 	                return 0 === v;
 	            });
@@ -7717,7 +7741,7 @@ webpackJsonpPerseus([1],[
 	                $(pic[0]).css({
 	                    display: show ? "inline" : "none"
 	                });
-	                graphie.dotTicks[i][j][0].style.display = show || !xomManatee ? "none" : "inline";
+	                graphie.dotTicks[i][j][0].style.display = show || !isMobile ? "none" : "inline";
 	            });
 	        });
 	    },
@@ -7754,14 +7778,14 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 62 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(9);
 
-	var Molecule = __webpack_require__(55).molecule;
+	var Molecule = __webpack_require__(57).molecule;
 
 	var Separator = React.createClass({
 	    displayName: "Separator",
@@ -7882,7 +7906,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 63 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7902,19 +7926,19 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var Changeable = __webpack_require__(80);
+	var Changeable = __webpack_require__(78);
 
-	var _require = __webpack_require__(84);
+	var _require = __webpack_require__(82);
 
 	var iconOk = _require.iconOk;
 
-	var InlineIcon = __webpack_require__(81);
+	var InlineIcon = __webpack_require__(79);
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(14);
 
 	var Sequence = React.createClass({
 	    displayName: "Sequence",
@@ -8017,7 +8041,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 64 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8026,7 +8050,7 @@ webpackJsonpPerseus([1],[
 	/* eslint-disable comma-dangle, indent, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-unary-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/* globals $_, i18n */
-	var InfoTip = __webpack_require__(100);
+	var InfoTip = __webpack_require__(101);
 
 	var React = __webpack_require__(9);
 
@@ -8034,13 +8058,13 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var Changeable = __webpack_require__(80);
+	var Changeable = __webpack_require__(78);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var assert = __webpack_require__(105).assert;
+	var assert = __webpack_require__(106).assert;
 
-	var Graphie = __webpack_require__(86);
+	var Graphie = __webpack_require__(84);
 
 	var Path = Graphie.Path;
 
@@ -8056,19 +8080,19 @@ webpackJsonpPerseus([1],[
 
 	var MovableLine = Graphie.MovableLine;
 
-	var NumberInput = __webpack_require__(101);
+	var NumberInput = __webpack_require__(102);
 
-	var MathOutput = __webpack_require__(104);
+	var MathOutput = __webpack_require__(105);
 
-	var seededRNG = __webpack_require__(15).seededRNG;
+	var seededRNG = __webpack_require__(14).seededRNG;
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(14);
 
 	var knumber = __webpack_require__(123).number;
 
-	var KhanColors = __webpack_require__(97);
+	var KhanColors = __webpack_require__(98);
 
-	var KhanMath = __webpack_require__(77);
+	var KhanMath = __webpack_require__(76);
 
 	var defaultBoxSize = 400;
 
@@ -8614,7 +8638,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 65 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8626,11 +8650,11 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var Sortable = __webpack_require__(106);
+	var Sortable = __webpack_require__(107);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var shuffle = __webpack_require__(15).shuffle;
+	var shuffle = __webpack_require__(14).shuffle;
 
 	var HORIZONTAL = "horizontal", VERTICAL = "vertical";
 
@@ -8657,7 +8681,7 @@ webpackJsonpPerseus([1],[
 	    render: function render() {
 	        var options = shuffle(this.props.correct, this.props.problemNum, /* ensurePermuted */
 	        true);
-	        var marginPx = this.props.apiOptions.xomManatee ? 8 : 5;
+	        var marginPx = this.props.apiOptions.isMobile ? 8 : 5;
 	        return React.createElement("div", {
 	            className: "perseus-widget-sorter perseus-clearfix"
 	        }, React.createElement(Sortable, {
@@ -8702,7 +8726,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 66 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8716,17 +8740,17 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var MathOutput = __webpack_require__(104);
+	var MathOutput = __webpack_require__(105);
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(14);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var KhanAnswerTypes = __webpack_require__(71);
+	var KhanAnswerTypes = __webpack_require__(40);
 
-	var assert = __webpack_require__(105).assert;
+	var assert = __webpack_require__(106).assert;
 
 	/* Input handling: Maps a (row, column) pair to a unique ref used by React,
 	 * and extracts (row, column) pairs from input paths, used to allow outsiders
@@ -8978,7 +9002,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 67 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9000,21 +9024,21 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var Graph = __webpack_require__(99);
+	var Graph = __webpack_require__(100);
 
-	var InlineIcon = __webpack_require__(81);
+	var InlineIcon = __webpack_require__(79);
 
-	var NumberInput = __webpack_require__(101);
+	var NumberInput = __webpack_require__(102);
 
-	var MathOutput = __webpack_require__(104);
+	var MathOutput = __webpack_require__(105);
 
 	var TeX = __webpack_require__(38);
 
-	var SimpleKeypadInput = __webpack_require__(74);
+	var SimpleKeypadInput = __webpack_require__(73);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var keypadElementPropType = __webpack_require__(78).propTypes.keypadElementPropType;
+	var keypadElementPropType = __webpack_require__(88).propTypes.keypadElementPropType;
 
 	var ROTATE_SNAP_DEGREES = 15;
 
@@ -9028,17 +9052,17 @@ webpackJsonpPerseus([1],[
 
 	var REFLECT_BUTTON_SIZE = 1;
 
-	var _require = __webpack_require__(84);
+	var _require = __webpack_require__(82);
 
 	var iconPlus = _require.iconPlus;
 
 	var iconUndo = _require.iconUndo;
 
-	var deepEq = __webpack_require__(15).deepEq;
+	var deepEq = __webpack_require__(14).deepEq;
 
-	var getGridStep = __webpack_require__(15).getGridStep;
+	var getGridStep = __webpack_require__(14).getGridStep;
 
-	var captureScratchpadTouchStart = __webpack_require__(15).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(14).captureScratchpadTouchStart;
 
 	var knumber = __webpack_require__(123).number;
 
@@ -9050,11 +9074,11 @@ webpackJsonpPerseus([1],[
 
 	var kline = __webpack_require__(123).line;
 
-	var KhanMath = __webpack_require__(77);
+	var KhanMath = __webpack_require__(76);
 
-	var KhanColors = __webpack_require__(97);
+	var KhanColors = __webpack_require__(98);
 
-	var assert = __webpack_require__(105).assert;
+	var assert = __webpack_require__(106).assert;
 
 	var defaultBoxSize = 400;
 
@@ -10070,7 +10094,7 @@ webpackJsonpPerseus([1],[
 	            // If this angle is not editable, it should always maintain
 	            // it's angle measure, even if it is reflected (causing the
 	            // clockwise-ness of the points to change)
-	            var shouldChangeReflexivity = options.editable ? null : false;
+	            var shouldChangeReflexivity = !!options.editable && null;
 	            var angle = graphie.addMovableAngle({
 	                angleLabel: "$deg0",
 	                fixed: true,
@@ -10365,7 +10389,7 @@ webpackJsonpPerseus([1],[
 	        this.shouldSetupGraphie(this.props, prevProps) ? this.refs.graph.reset() : deepEq(this.props.transformations, this.transformations) || this.setTransformations(this.props.transformations);
 	    },
 	    shouldSetupGraphie: function shouldSetupGraphie(nextProps, prevProps) {
-	        return deepEq(prevProps.starting, nextProps.starting) ? prevProps.graphMode !== nextProps.graphMode ? true : prevProps.listMode !== nextProps.listMode ? true : prevProps.drawSolutionShape !== nextProps.drawSolutionShape ? true : nextProps.drawSolutionShape && !deepEq(prevProps.correct.shape, nextProps.correct.shape) ? true : !deepEq(this.tools, nextProps.tools) : true;
+	        return !deepEq(prevProps.starting, nextProps.starting) || (prevProps.graphMode !== nextProps.graphMode || (prevProps.listMode !== nextProps.listMode || (prevProps.drawSolutionShape !== nextProps.drawSolutionShape || (!(!nextProps.drawSolutionShape || deepEq(prevProps.correct.shape, nextProps.correct.shape)) || !deepEq(this.tools, nextProps.tools)))));
 	    },
 	    graphie: function graphie() {
 	        return this.refs.graph.graphie();
@@ -10988,7 +11012,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 68 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11008,13 +11032,13 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var ApiClassNames = __webpack_require__(16).ClassNames;
+	var ApiClassNames = __webpack_require__(15).ClassNames;
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var Changeable = __webpack_require__(80);
+	var Changeable = __webpack_require__(78);
 
-	var MathOutput = __webpack_require__(104);
+	var MathOutput = __webpack_require__(105);
 
 	var _require = __webpack_require__(108);
 
@@ -11193,6 +11217,8 @@ webpackJsonpPerseus([1],[
 	        var kasCorrect;
 	        var guessUnit = primUnits(guess.expr.simplify());
 	        var answerUnit = primUnits(answer.simplify());
+	        // We're accepting all units - KAS does the hard work of figuring
+	        // out if the user's unit is equivalent to the author's unit.
 	        kasCorrect = rubric.accepting === ALL ? KAS.compare(guessUnit, answerUnit).equal : _(rubric.acceptingUnits).any(function(unit) {
 	            var thisAnswerUnit = primUnits(KAS.unitParse(unit).unit.simplify());
 	            return KAS.compare(thisAnswerUnit, guessUnit).equal;
@@ -11226,7 +11252,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 69 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11241,9 +11267,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var Changeable = __webpack_require__(80);
+	var Changeable = __webpack_require__(78);
 
-	var FixedToResponsive = __webpack_require__(85);
+	var FixedToResponsive = __webpack_require__(83);
 
 	// Current default is 720p, based on the typical videos we upload currently
 	var DEFAULT_WIDTH = 1280;
@@ -11323,8 +11349,6 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 70 */,
-/* 71 */,
 /* 72 */,
 /* 73 */,
 /* 74 */,
@@ -11348,7 +11372,8 @@ webpackJsonpPerseus([1],[
 /* 92 */,
 /* 93 */,
 /* 94 */,
-/* 95 */
+/* 95 */,
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11362,7 +11387,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var styles = __webpack_require__(128);
+	var styles = __webpack_require__(132);
 
 	var css = __webpack_require__(12).css;
 
@@ -11437,9 +11462,9 @@ webpackJsonpPerseus([1],[
 	module.exports = ButtonGroup;
 
 /***/ },
-/* 96 */,
 /* 97 */,
-/* 98 */
+/* 98 */,
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11458,17 +11483,17 @@ webpackJsonpPerseus([1],[
 	 */
 	var React = __webpack_require__(9);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(15).Options;
 
-	var InlineIcon = __webpack_require__(81);
+	var InlineIcon = __webpack_require__(79);
 
-	var _require = __webpack_require__(84);
+	var _require = __webpack_require__(82);
 
 	var iconStar = _require.iconStar;
 
 	var iconTryAgain = _require.iconTryAgain;
 
-	var _require2 = __webpack_require__(36);
+	var _require2 = __webpack_require__(29);
 
 	var boldFontFamily = _require2.boldFontFamily;
 
@@ -11546,7 +11571,7 @@ webpackJsonpPerseus([1],[
 	                type: "button",
 	                style: buttonStyle,
 	                value: buttonLabel,
-	                className: apiOptions.xomManatee ? "" : "simple-button",
+	                className: apiOptions.isMobile ? "" : "simple-button",
 	                disabled: apiOptions.readOnly || answerBarState !== ANSWER_BAR_STATES.ACTIVE,
 	                onClick: onCheckAnswer
 	            }));
@@ -11617,7 +11642,7 @@ webpackJsonpPerseus([1],[
 	module.exports = GradedGroupAnswerBar;
 
 /***/ },
-/* 99 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11631,15 +11656,15 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(14);
 
-	var GraphUtils = __webpack_require__(102);
+	var GraphUtils = __webpack_require__(103);
 
-	var _require = __webpack_require__(36);
+	var _require = __webpack_require__(29);
 
 	var interactiveSizes = _require.interactiveSizes;
 
-	var SvgImage = __webpack_require__(32);
+	var SvgImage = __webpack_require__(26);
 
 	var defaultBackgroundImage = {
 	    url: null
@@ -11691,7 +11716,7 @@ webpackJsonpPerseus([1],[
 	        instructions: React.PropTypes.string,
 	        onClick: React.PropTypes.func,
 	        setDrawingAreaAvailable: React.PropTypes.func,
-	        xomManatee: React.PropTypes.bool
+	        isMobile: React.PropTypes.bool
 	    },
 	    getDefaultProps: function getDefaultProps() {
 	        return {
@@ -11710,7 +11735,7 @@ webpackJsonpPerseus([1],[
 	            onGraphieUpdated: null,
 	            onClick: null,
 	            onMouseDown: null,
-	            xomManatee: false
+	            isMobile: false
 	        };
 	    },
 	    render: function render() {
@@ -11810,10 +11835,10 @@ webpackJsonpPerseus([1],[
 	                tickStep: _.pluck(gridConfig, "tickStep"),
 	                labelStep: 1,
 	                unityLabels: _.pluck(gridConfig, "unityLabel"),
-	                xomManatee: this.props.xomManatee
+	                isMobile: this.props.isMobile
 	            });
-	            graphie.label([ 0, range[1][1] ], labels[1], this.props.xomManatee ? "below right" : "above");
-	            graphie.label([ range[0][1], 0 ], labels[0], this.props.xomManatee ? "above left" : "right");
+	            graphie.label([ 0, range[1][1] ], labels[1], this.props.isMobile ? "below right" : "above");
+	            graphie.label([ range[0][1], 0 ], labels[0], this.props.isMobile ? "above left" : "right");
 	        } else "grid" === this.props.markings ? graphie.graphInit({
 	            range: range,
 	            scale: _.pluck(gridConfig, "scale"),
@@ -11821,11 +11846,11 @@ webpackJsonpPerseus([1],[
 	            axes: false,
 	            ticks: false,
 	            labels: false,
-	            xomManatee: this.props.xomManatee
+	            isMobile: this.props.isMobile
 	        }) : "none" === this.props.markings && graphie.init({
 	            range: range,
 	            scale: _.pluck(gridConfig, "scale"),
-	            xomManatee: this.props.xomManatee
+	            isMobile: this.props.isMobile
 	        });
 	        // Add instructions just before mouse layer
 	        var visible = .5;
@@ -11916,7 +11941,7 @@ webpackJsonpPerseus([1],[
 	module.exports = Graph;
 
 /***/ },
-/* 100 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11929,7 +11954,7 @@ webpackJsonpPerseus([1],[
 	 */
 	var React = __webpack_require__(9);
 
-	var ReactComponentsInfoTip = __webpack_require__(134);
+	var ReactComponentsInfoTip = __webpack_require__(136);
 
 	var InfoTip = React.createClass({
 	    displayName: "InfoTip",
@@ -11952,7 +11977,7 @@ webpackJsonpPerseus([1],[
 	module.exports = InfoTip;
 
 /***/ },
-/* 101 */
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11976,13 +12001,13 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var firstNumericalParse = __webpack_require__(15).firstNumericalParse;
+	var firstNumericalParse = __webpack_require__(14).firstNumericalParse;
 
-	var captureScratchpadTouchStart = __webpack_require__(15).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(14).captureScratchpadTouchStart;
 
 	var knumber = __webpack_require__(123).number;
 
-	var KhanMath = __webpack_require__(77);
+	var KhanMath = __webpack_require__(76);
 
 	var toNumericString = KhanMath.toNumericString;
 
@@ -12137,11 +12162,11 @@ webpackJsonpPerseus([1],[
 	module.exports = NumberInput;
 
 /***/ },
-/* 102 */,
 /* 103 */,
 /* 104 */,
 /* 105 */,
-/* 106 */
+/* 106 */,
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12155,11 +12180,11 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(11);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(14);
 
 	var Renderer = __webpack_require__(8);
 
-	var ApiClassNames = __webpack_require__(16).ClassNames;
+	var ApiClassNames = __webpack_require__(15).ClassNames;
 
 	var PREFIX = "perseus-sortable";
 
@@ -12555,7 +12580,6 @@ webpackJsonpPerseus([1],[
 	module.exports = Sortable;
 
 /***/ },
-/* 107 */,
 /* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -12757,7 +12781,7 @@ webpackJsonpPerseus([1],[
 	            beginning = false;
 	        }
 	    }
-	    return "" == all ? true : pos;
+	    return "" == all || pos;
 	}
 
 	/**
@@ -12973,9 +12997,9 @@ webpackJsonpPerseus([1],[
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _ = __webpack_require__(11);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(14);
 
-	var Graphie = __webpack_require__(86);
+	var Graphie = __webpack_require__(84);
 
 	var Plot = Graphie.Plot;
 
@@ -14142,7 +14166,7 @@ webpackJsonpPerseus([1],[
 	    var rest = null;
 	    if ("[" === smiles[0]) {
 	        var closingIdx = smiles.indexOf("]");
-	        if (-1 === closingIdx) return [ "", smiles ];
+	        if (closingIdx === -1) return [ "", smiles ];
 	        sym = smiles.slice(1, closingIdx);
 	        rest = smiles.slice(closingIdx + 1);
 	    } else {
@@ -14240,7 +14264,7 @@ webpackJsonpPerseus([1],[
 	/* globals $_ */
 	var React = __webpack_require__(9);
 
-	var SimpleMarkdown = __webpack_require__(109);
+	var SimpleMarkdown = __webpack_require__(117);
 
 	var _ = __webpack_require__(11);
 
@@ -14544,7 +14568,11 @@ webpackJsonpPerseus([1],[
 /* 125 */,
 /* 126 */,
 /* 127 */,
-/* 128 */
+/* 128 */,
+/* 129 */,
+/* 130 */,
+/* 131 */,
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14589,12 +14617,10 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 129 */,
-/* 130 */,
-/* 131 */,
-/* 132 */,
 /* 133 */,
-/* 134 */
+/* 134 */,
+/* 135 */,
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
