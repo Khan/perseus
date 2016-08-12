@@ -178,25 +178,13 @@ function insertText(contentState, selection, rawText, sanitizer = () => null) {
     return newContent;
 }
 
-function insertTextAtEndOfBlock(contentState, selection, rawText, sanitizer) {
-    // insertText inserts at the current selection, therefore to insert at the
-    // end of the block, simply force the selection to be at that point
-    const blockKey = selection.getFocusKey();
-    const block = contentState.getBlockForKey(blockKey);
-    const blockLength = block.getCharacterList().size;
-    const newSelection = selection.merge({
-        focusKey: blockKey,
-        focusOffset: blockLength,
-        anchorKey: blockKey,
-        anchorOffset: blockLength,
+function selectEnd(block) {
+    const emptySelection = SelectionState.createEmpty(block.getKey());
+    const newSelection = emptySelection.merge({
+        focusOffset: block.getCharacterList().size,
+        anchorOffset: block.getCharacterList().size,
     });
-
-    return insertText(
-        contentState,
-        newSelection,
-        rawText,
-        sanitizer
-    );
+    return newSelection;
 }
 
 module.exports = {
@@ -207,6 +195,6 @@ module.exports = {
     getEntities,
     findEntity,
     insertText,
-    insertTextAtEndOfBlock,
+    selectEnd,
 };
 
