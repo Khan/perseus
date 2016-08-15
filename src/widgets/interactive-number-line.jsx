@@ -65,13 +65,13 @@ var InteractiveNumberLine = React.createClass({
         var inequalityControls;
         if (this.props.isInequality) {
             inequalityControls = <div>
-                <input type="button" value="Switch direction"
+                <input type="button" value="換方向"
                     onClick={this.handleReverse} />
                 <input type="button"
                     value={
                         this.props.rel === "le" || this.props.rel === "ge" ?
-                            "Make circle open" :
-                            "Make circle filled"
+                            "改為空心圓" :
+                            "改為實心圓"
                         }
                     onClick={this.handleToggleStrict} />
             </div>;
