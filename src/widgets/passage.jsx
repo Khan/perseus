@@ -255,7 +255,9 @@ const Passage = React.createClass({
      *    add as a new highlight.
      */
     handleMouseUp: function(e) {
-        if (this.isReadingPassage()) {
+        const isHighlightTooltipShown = this.state.newHighlightRange ||
+                                        this.state.selectedHighlightRange;
+        if (this.isReadingPassage() && !isHighlightTooltipShown) {
             // HACK - the height of the sat task title bar is 60px - subtracting
             // this in order to position the tooltip in the correct position on
             // the page. We can't use relative position of the passage as that
