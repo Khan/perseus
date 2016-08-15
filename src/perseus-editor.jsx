@@ -41,6 +41,11 @@ const Widgets = require('./widgets.js');
 const DraftUtils = require('./draft-utils.js');
 
 
+// This controls the minimum time between when updates for the parent
+// component are generated.  The best time for this number sort of depends
+// on the user's typing speed though, as if the time between each letter being
+// typed is longer than the throttle, they would notice a freeze when the update
+// is being calculated.
 // TODO(samiskin): Figure out whats the best value for this number
 // 100 is best for my typing speed, but may not work as well for slower typists
 const UPDATE_PARENT_THROTTLE = 100;
@@ -48,7 +53,8 @@ const UPDATE_PARENT_THROTTLE = 100;
 const widgetPlaceholder = '[[\u2603 {id}]]';
 const widgetRegExp = /\[\[\u2603 [a-z-]+ [0-9]+\]\]/g;
 const widgetPartsRegExp = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]$/;
-const widgetForId = (id) => new RegExp(`(\\[\\[\u2603 ${id}\\]\\])`, 'gm');
+const widgetRegexForId = (id) => new RegExp(`(\\[\\[\u2603 ${id}\\]\\])`, 'gm');
+const partialWidgetRegex = /\[\[([a-z-]+)$/; // Used for autocompletion
 
 const imageRegExp = /!\[.*?\]\(.*?\)/g;
 
@@ -131,7 +137,7 @@ const PerseusEditor = React.createClass({
         let content = editorState.getCurrentContent();
 
         Object.keys(widgets).forEach((id) => {
-            const selection = DraftUtils.findPattern(content, widgetForId(id));
+            const selection = DraftUtils.findPattern(content, widgetRegexForId(id)); //eslint-disable-line max-len
             const entity = Entity.create('WIDGET', 'IMMUTABLE', {id});
             content = Modifier.applyEntity(content, selection, entity);
         });
@@ -151,7 +157,7 @@ const PerseusEditor = React.createClass({
         return withNoSelection;
     },
 
-    _getCurrent() {
+    _getDraftData() {
         const editorState = this.state.editorState;
         const contentState = editorState.getCurrentContent();
         const selection = editorState.getSelection();
@@ -182,21 +188,30 @@ const PerseusEditor = React.createClass({
         return [id, widget];
     },
 
-    addWidget(type, callback) {
-        const {editorState, contentState, selection} = this._getCurrent();
+    addWidget(type, callback = () => {}) {
+        this.handleChange(
+            this._insertNewWidget(type),
+            callback
+        );
+    },
+
+    _insertNewWidget(type, draftDataParams) {
+        const {editorState, contentState, selection} = {
+            ...this._getDraftData(),
+            ...draftDataParams,
+        };
         const [id, widget] = this._createInitialWidget(type);
-        const newContent = this._appendWidget(contentState, selection, id);
+        const newContent = this._insertWidgetText(contentState, selection, id);
         const widgets = {...this.state.widgets, [id]: widget};
         const newEditorState = EditorState.push(
             editorState,
             newContent,
             'insert-characters'
         );
-
-        this.handleChange({editorState: newEditorState, widgets}, callback);
+        return {editorState: newEditorState, contentState: newContent, widgets};
     },
 
-    _appendWidget(contentState, selection, id) {
+    _insertWidgetText(contentState, selection, id) {
 
         // Text for the widget is inserted, and an entity is assigned
         const text = widgetPlaceholder.replace("{id}", id);
@@ -215,8 +230,8 @@ const PerseusEditor = React.createClass({
     // handleUpdate handles removing widgets from the state, as widgets
     // can also be deleted by editor actions such as backspace and delete
     removeWidget(id, callback) {
-        const {editorState, contentState} = this._getCurrent();
-        const selection = DraftUtils.findPattern(contentState, widgetForId(id));
+        const {editorState, contentState} = this._getDraftData();
+        const selection = DraftUtils.findPattern(contentState, widgetRegexForId(id)); //eslint-disable-line max-len
         const newEditorState =
             EditorState.push(
                 editorState,
@@ -228,7 +243,7 @@ const PerseusEditor = React.createClass({
     },
 
     addTemplate(templateType) {
-        let {editorState, contentState, selection} = this._getCurrent();
+        let {editorState, contentState, selection} = this._getDraftData();
 
         const widgets = {...this.state.widgets};
 
@@ -251,7 +266,7 @@ const PerseusEditor = React.createClass({
             contentState = allTypes.reduce((content, type) => {
                 const [id, widget] = this._createInitialWidget(type);
                 widgets[id] = widget;
-                content = this._appendWidget(
+                content = this._insertWidgetText(
                     content, content.getSelectionAfter(), id
                 );
                 return Modifier.splitBlock( // Put each widget on a new line
@@ -299,7 +314,7 @@ const PerseusEditor = React.createClass({
     },
 
     handleCopy() {
-        const {contentState, selection} = this._getCurrent();
+        const {contentState, selection} = this._getDraftData();
         const entities = DraftUtils.getEntities(contentState, selection);
 
         const copiedWidgets = entities.reduce((map, entity) => {
@@ -353,7 +368,7 @@ const PerseusEditor = React.createClass({
         const safeWidgetMapping = this.createSafeWidgetMapping(sourceWidgets, widgets); //eslint-disable-line max-len
         const charData = CharacterMetadata.create();
 
-        // textToFragment takes a sanitizer function which gets ran on every
+        // insertText takes a sanitizer function which gets ran on every
         // line.  It is used here in order to fix the new widgets to not
         // have conflicting IDs, as well as fill in the widget data
         const sanitizeText = (textLine) => {
@@ -362,8 +377,8 @@ const PerseusEditor = React.createClass({
             const safeText = sanitized.replace(widgetRegExp, (syntax, offset) => { //eslint-disable-line max-len
                 const match = widgetPartsRegExp.exec(syntax);
                 const fullText = match[0]; // The entire [[ widgetName id ]]
-                const widget = match[1]; // Just the "widgetName id" part
-                const newId = safeWidgetMapping[widget];
+                const widgetId = match[1]; // Just the "widgetName id" part
+                const newId = safeWidgetMapping[widgetId];
                 const newText = widgetPlaceholder.replace("{id}", newId);
 
                 // Create an entity for the new widget, and assign it to the
@@ -373,13 +388,13 @@ const PerseusEditor = React.createClass({
                 const entityChars = Array(newText.length).fill(entityChar);
                 characterList.splice(offset, fullText.length, ...entityChars);
 
-                widgets[newId] = sourceWidgets[widget];
-                return fullText.replace(widget, newId);
+                widgets[newId] = sourceWidgets[widgetId];
+                return fullText.replace(widgetId, newId);
             });
             return {text: safeText, characterList};
         };
 
-        const {contentState, selection} = this._getCurrent();
+        const {contentState, selection} = this._getDraftData();
         const newContentState = DraftUtils.insertText(
             contentState,
             selection,
@@ -446,7 +461,7 @@ const PerseusEditor = React.createClass({
 
             // Begin uploading the image, and update the link once complete
             this.props.imageUploader(image, url => {
-                const {editorState, contentState} = this._getCurrent();
+                const {editorState, contentState} = this._getDraftData();
                 const placeholderLocation = DraftUtils.findEntity(
                     contentState, c => c.getData().id === id);
                 const newContent = DraftUtils.replaceSelection(
@@ -468,7 +483,7 @@ const PerseusEditor = React.createClass({
             'insert-fragment'
         );
         this.handleChange({editorState});
-        return true;
+        return true; // Disable default draft drop handler
     },
 
 
@@ -476,7 +491,11 @@ const PerseusEditor = React.createClass({
     // has typed [[d, then presses tab, we should replace [[d
     // with the full [[ {emoji} dropdown 1 ]] text
     handleTab(e) {
-        const {contentState, selection} = this._getCurrent();
+        const {contentState, selection} = this._getDraftData();
+
+        // isCollapsed means that there is no active selection, its just
+        // a blinking cursor.  For the SelectionState object, this
+        // essentially means that anchorOffset === focusOffset
         if (!selection.isCollapsed()) {
             return;
         }
@@ -484,7 +503,7 @@ const PerseusEditor = React.createClass({
 
         const currBlock = contentState.getBlockForKey(selection.getEndKey());
         const text = currBlock.getText().substring(0, selection.getEndOffset());
-        const match = /\[\[([a-z-]+)$/g.exec(text);
+        const match = text.match(partialWidgetRegex);
         if (match) {
             const partialName = match[1];
             const allWidgets = Object.keys(Widgets.getPublicWidgets());
@@ -499,22 +518,14 @@ const PerseusEditor = React.createClass({
                     anchorOffset: match.index,
                 });
 
-                const [id, widget] = this._createInitialWidget(widgetType);
-                const newContent = this._appendWidget(
-                    contentState, replacementArea, id
+                this.handleChange(
+                    this._insertNewWidget(widgetType, {
+                        selection: replacementArea,
+                    })
                 );
-                const editorState = EditorState.push(
-                    this.state.editorState,
-                    newContent,
-                    'insert-characters'
-                );
-
-                const widgets = {...this.state.widgets, [id]: widget};
-
-                this.handleChange({editorState, widgets});
             }
         }
-        return true;
+        return true; // Say that we've handled the event, no other work needed
     },
 
     updateParent(content, widgets) {
@@ -523,7 +534,7 @@ const PerseusEditor = React.createClass({
         // user undoing a widget deletion should also recover the
         // widget's metadata
         const currEntities = DraftUtils.getEntities(content);
-        const currWidgets = currEntities.reduce((map, entity) => {
+        const visibleWidgets = currEntities.reduce((map, entity) => {
             const id = entity.getData().id;
             map[id] = widgets[id];
             return map;
@@ -533,7 +544,7 @@ const PerseusEditor = React.createClass({
         // representation, as well as the current active widgets
         this.props.onChange({
             content: content.getPlainText('\n'),
-            widgets: currWidgets,
+            widgets: visibleWidgets,
         });
     },
 
@@ -544,12 +555,15 @@ const PerseusEditor = React.createClass({
         const {editorState, widgets} = state;
         const newContent = editorState.getCurrentContent();
 
-        // This ensures that unless the content stops changing for a certain
-        // short duration, no processing will be done to update the parent.
-        // This allows the editing to remain performant for large files,
-        // as basic tasks only occur on individual ContentBlocks, while
-        // updating the parent involves iterating through them all
+        // editorState contains more than just the content, such as the current
+        // cursor position.  This means `handleChange` gets called for more than
+        // just content changes, so certain calculations aren't always needed.
         if (newContent !== this.pastContentState) {
+            // This ensures that unless the content stops changing for a certain
+            // short duration, no processing will be done to update the parent.
+            // This allows the editing to remain performant for large files,
+            // as basic tasks only occur on individual ContentBlocks, while
+            // updating the parent involves iterating through them all
             clearTimeout(this.lastIdleCallback);
             this.lastIdleCallback = setTimeout(
                 () => this.updateParent(newContent, widgets),
