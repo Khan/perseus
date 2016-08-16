@@ -103,10 +103,16 @@ var Passage = React.createClass({
 
     componentDidMount: function() {
         this._updateState();
+
+        window.addEventListener("resize", this._updateState);
     },
 
     componentDidUpdate: function() {
         this._updateState();
+    },
+
+    componentWillUnmount: function() {
+        window.removeEventListener("resize", this._updateState);
     },
 
     _updateState: function() {
