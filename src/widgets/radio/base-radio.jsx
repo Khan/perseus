@@ -206,7 +206,7 @@ const BaseRadio = React.createClass({
                 marginLeft: styleConstants.negativePhoneMargin,
                 marginRight: styleConstants.negativePhoneMargin,
                 paddingLeft: styleConstants.phoneMargin,
-                // paddingRight is handled by xomFieldset
+                // paddingRight is handled by responsiveFieldset
             },
 
             responsiveFieldset: {
@@ -261,12 +261,12 @@ const BaseRadio = React.createClass({
     },
 
     showOnePerLine: function() {
-        // We want to force one-per-line layout with the new XOM spec.
+        // We want to force one-per-line layout on mobile.
         return this.props.apiOptions.isMobile || this.props.onePerLine;
     },
 
     deselectEnabled: function() {
-        // We want to force enable deselect with the new XOM spec.
+        // We want to force enable deselect on mobile.
         return this.props.apiOptions.isMobile || this.props.deselectEnabled;
     },
 
@@ -286,7 +286,7 @@ const BaseRadio = React.createClass({
             "perseus-widget-radio",
             css(
                 sharedStyles.aboveScratchpad,
-                // With the responsive XOM styles, the individual items are
+                // With the responsive mobile styles, the individual items are
                 // spaced out vertically, and so we set the backgrounds on the
                 // items rather than the container.
                 !isMobile && sharedStyles.blankBackground,

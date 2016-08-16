@@ -112,7 +112,7 @@ const PreviewFrame = React.createClass({
 
             const perseusClass = "framework-perseus fonts-loaded " +
                 (isExercise ? "bibliotron-exercise " : "bibliotron-article ") +
-                (this.props.isMobile ? "perseus-xom-manatee" : "");
+                (this.props.isMobile ? "perseus-mobile" : "");
 
             if (this.state.type === "question") {
                 return <div

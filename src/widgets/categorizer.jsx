@@ -102,8 +102,7 @@ const Categorizer = React.createClass({
                                     name={uniqueId}
                                     className={css(
                                         sharedStyles.responsiveInput,
-                                        sharedStyles.responsiveRadioInput,
-                                        styles.radioInput
+                                        sharedStyles.responsiveRadioInput
                                     )}
                                     checked={selected}
                                     onChange={this.onChange.bind(
@@ -209,13 +208,6 @@ const styles = StyleSheet.create({
         padding: 0,
         color: '#ccc',
         verticalAlign: 'middle',
-    },
-
-    // Legacy styling?
-    // TODO(jared): remove when XOM is done
-
-    radioInput: {
-        display: 'none',
     },
 
     radioSpan: {

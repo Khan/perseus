@@ -406,7 +406,7 @@ var NumberLine = React.createClass({
             "stroke-width": isOpen ? 3 : 1,
         };
 
-        const xomDotStyle = props.isInequality ? {
+        const mobileDotStyle = props.isInequality ? {
             stroke: KhanColors.INTERACTIVE,
             "fill-opacity": isOpen ? 0 : 1,
         } : {};
@@ -431,7 +431,7 @@ var NumberLine = React.createClass({
                 this.props.trackInteraction();
             }}
             isMobile={this.props.apiOptions.isMobile}
-            xomStyleOverride={xomDotStyle}
+            mobileStyleOverride={mobileDotStyle}
             showTooltips={this.props.showTooltips}
             xOnlyTooltip={true}
         />;

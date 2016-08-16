@@ -50,11 +50,12 @@ const HintRenderer = React.createClass({
             totalHints,
         } = this.props;
 
+        const {isMobile} = apiOptions;
+
         const classNames = classnames(
-            !apiOptions.isMobile && 'perseus-hint-renderer',
-            apiOptions.isMobile && css(styles.newHint),
-            apiOptions.isMobile &&
-                lastRendered && css(styles.lastRenderedNewHint),
+            !isMobile && 'perseus-hint-renderer',
+            isMobile && css(styles.newHint),
+            isMobile && lastRendered && css(styles.lastRenderedNewHint),
             lastHint && 'last-hint',
             lastRendered && 'last-rendered',
             className

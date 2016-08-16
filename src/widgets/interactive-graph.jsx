@@ -829,7 +829,7 @@ var InteractiveGraph = React.createClass({
         );
 
         var points = self.points = _.map(coords, (coord) => {
-            return Interactive2.addMaybeXOMMovablePoint(this, {
+            return Interactive2.addMaybeMobileMovablePoint(this, {
                 coord: coord,
                 constraints: [
                     Interactive2.MovablePoint.constraints.bound(),
@@ -905,7 +905,7 @@ var InteractiveGraph = React.createClass({
             this.updateQuadratic();
         };
 
-        pointA = this.pointA = Interactive2.addMaybeXOMMovablePoint(this, {
+        pointA = this.pointA = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coords[0],
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -918,7 +918,7 @@ var InteractiveGraph = React.createClass({
             onMove: onMoveHandler
         });
 
-        pointB = this.pointB = Interactive2.addMaybeXOMMovablePoint(this, {
+        pointB = this.pointB = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coords[1],
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -931,7 +931,7 @@ var InteractiveGraph = React.createClass({
             onMove: onMoveHandler
         });
 
-        pointC = this.pointC = Interactive2.addMaybeXOMMovablePoint(this, {
+        pointC = this.pointC = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coords[2],
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -999,7 +999,7 @@ var InteractiveGraph = React.createClass({
             this.updateSinusoid();
         };
 
-        pointA = this.pointA = Interactive2.addMaybeXOMMovablePoint(this, {
+        pointA = this.pointA = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coords[0],
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -1011,7 +1011,7 @@ var InteractiveGraph = React.createClass({
             onMove: onMoveHandler
         });
 
-        pointB = this.pointB = Interactive2.addMaybeXOMMovablePoint(this, {
+        pointB = this.pointB = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coords[1],
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -1094,7 +1094,7 @@ var InteractiveGraph = React.createClass({
         var points = this.points = _.map(coords,
                 (segmentCoords, segmentIndex) => {
             var segmentPoints = _.map(segmentCoords, (coord, i) => {
-                return Interactive2.addMaybeXOMMovablePoint(this, {
+                return Interactive2.addMaybeMobileMovablePoint(this, {
                     coord: coord,
                     constraints: [
                         Interactive2.MovablePoint.constraints.bound(),
@@ -1178,7 +1178,7 @@ var InteractiveGraph = React.createClass({
             setTimeout(point.remove.bind(point), 0);
         };
 
-        var point = Interactive2.addMaybeXOMMovablePoint(this, {
+        var point = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coord,
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -1495,7 +1495,7 @@ var InteractiveGraph = React.createClass({
             }
         };
 
-        var point = Interactive2.addMaybeXOMMovablePoint(this, {
+        var point = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coord,
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -1577,7 +1577,7 @@ var InteractiveGraph = React.createClass({
         );
 
         const createPoint = (options) =>
-            Interactive2.addMaybeXOMMovablePoint(this, options);
+            Interactive2.addMaybeMobileMovablePoint(this, options);
 
         this.points = [];
         this.lines = _.map(coords, function(segment, i) {

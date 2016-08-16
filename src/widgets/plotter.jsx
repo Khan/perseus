@@ -596,42 +596,43 @@ var Plotter = React.createClass({
 
         if (isMobile) {
             const snap = config.scaleY / self.props.snapsPerLine;
-            config.graph.lines[i] = Interactive2.addMaybeXOMMovablePoint(this, {
-                coord: [x, startHeight],
-                constraints: [
-                    (coord, prev, options) => {
-                        return [
-                            x,
-                            this._clampValue(
-                                Math.round(coord[1] / snap) * snap,
-                                0, config.dimY
-                            )
-                        ];
-                    }
-                ],
-                onMoveStart: function() {
-                    config.graph.bars[i].attr({
-                        fill: KhanColors.INTERACTIVE,
-                    });
-                },
-                onMove: function() {
-                    const y = config.graph.lines[i].coord()[1];
+            config.graph.lines[i] =
+                Interactive2.addMaybeMobileMovablePoint(this, {
+                    coord: [x, startHeight],
+                    constraints: [
+                        (coord, prev, options) => {
+                            return [
+                                x,
+                                this._clampValue(
+                                    Math.round(coord[1] / snap) * snap,
+                                    0, config.dimY
+                                )
+                            ];
+                        }
+                    ],
+                    onMoveStart: function() {
+                        config.graph.bars[i].attr({
+                            fill: KhanColors.INTERACTIVE,
+                        });
+                    },
+                    onMove: function() {
+                        const y = config.graph.lines[i].coord()[1];
 
-                    var values = _.clone(self.state.values);
-                    values[i] = y;
-                    self.setState({values: values});
-                    self.changeAndTrack({values: values});
+                        var values = _.clone(self.state.values);
+                        values[i] = y;
+                        self.setState({values: values});
+                        self.changeAndTrack({values: values});
 
-                    self._updateDragPrompt(values);
+                        self._updateDragPrompt(values);
 
-                    scaleBar(i, y);
-                },
-                onMoveEnd: function() {
-                    config.graph.bars[i].attr({
-                        fill: KhanColors.BLUE_C,
-                    });
-                },
-            });
+                        scaleBar(i, y);
+                    },
+                    onMoveEnd: function() {
+                        config.graph.bars[i].attr({
+                            fill: KhanColors.BLUE_C,
+                        });
+                    },
+                });
 
             // We set the z-index to 1 here so that the hairlines cover up the
             // points
@@ -692,7 +693,7 @@ var Plotter = React.createClass({
 
         if (isMobile) {
             const snap = config.scaleY / self.props.snapsPerLine;
-            c.graph.points[i] = Interactive2.addMaybeXOMMovablePoint(this, {
+            c.graph.points[i] = Interactive2.addMaybeMobileMovablePoint(this, {
                 coord: [x, startHeight],
                 constraints: [
                     (coord, prev, options) => {

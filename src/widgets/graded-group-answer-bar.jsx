@@ -1,6 +1,6 @@
 /* globals i18n */
 /**
- * Renders answer bar for XOM graded groups. [STATELESS]
+ * Renders answer bar for mobile graded groups. [STATELESS]
  */
 const React = require('react');
 
@@ -94,7 +94,6 @@ const GradedGroupAnswerBar = React.createClass({
                     type='button'
                     style={buttonStyle}
                     value={buttonLabel}
-                    className={apiOptions.isMobile ? '' : 'simple-button'}
                     disabled={apiOptions.readOnly ||
                         answerBarState !== ANSWER_BAR_STATES.ACTIVE}
                     onClick={onCheckAnswer}

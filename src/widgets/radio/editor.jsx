@@ -91,16 +91,16 @@ var RadioEditor = React.createClass({
         hasNoneOfTheAbove: React.PropTypes.bool,
         multipleSelect: React.PropTypes.bool,
 
-        // TODO(benkomalo): DEPRECATED: in XOM, this is being ignored and the
-        // visible editor no longer exposes it for future content. However,
-        // we keep it here for backwards compatibility with old content until
-        // pre-XOM code is purged.
+        // TODO(kevinb): DEPRECATED: On mobile, this is being ignored and the
+        // visible editor no longer exposes it for future content.  It is always
+        // true on mobile.  However, we keep it here for backwards compatibility
+        // with old content which has the flag set to false.  Eventually we will
+        // enable it on desktop for all content.
         onePerLine: React.PropTypes.bool,
 
-        // TODO(david): DEPRECATED: in XOM, this is being ignored and the
-        // visible editor no longer exposes it for future content. However,
-        // we keep it here for backwards compatibility with old content until
-        // pre-XOM code is purged.
+        // TODO(kevinb): DEPRECATED: This is be used to force deselectEnabled
+        // behavior on mobile but not on desktop.  When enabled, the user can
+        // deselect a radio input by tapping on it again.
         deselectEnabled: React.PropTypes.bool,
 
         static: React.PropTypes.bool,

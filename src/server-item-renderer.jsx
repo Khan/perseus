@@ -325,9 +325,9 @@ const ItemRenderer = React.createClass({
             <div
                 className={
                     // Avoid adding any horizontal padding when applying the
-                    // XOM mobile hint styles, which are flush to the left.
-                    // NOTE(charlie): After XOM, we may still want to apply this
-                    // padding for XOM desktop exercises.
+                    // mobile hint styles, which are flush to the left.
+                    // NOTE(charlie): We may still want to apply this padding
+                    // for desktop exercises.
                     !apiOptions.isMobile && css(styles.hintsContainer)
                 }
             >

@@ -33,7 +33,7 @@ var MovablePoint = GraphieClasses.createClass({
             // TODO(kevinb) precompute normalStyle and normalMobileStyle
             const normalStyle = isMobile ?
                 Object.assign(commonStyle,
-                    this.props.xomStyleOverride || {}) :
+                    this.props.mobileStyleOverride || {}) :
                 Object.assign(commonStyle, this.props.normalStyle);
 
             // TODO(kevinb) precompute highlightStyle and highlightMobileStyle

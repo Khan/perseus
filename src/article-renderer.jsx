@@ -11,6 +11,7 @@
 
 const React = require("react");
 const ReactDOM = require("react-dom");
+const classNames = require("classnames");
 
 const Util = require("./util.js");
 const ApiOptions = require("./perseus-api.jsx").Options;
@@ -141,15 +142,14 @@ const ArticleRenderer = React.createClass({
             isArticle: true,
         };
 
-        let className = "framework-perseus perseus-article";
-        if (this.props.useNewStyles) {
-            className += " bibliotron-article";
-        }
-        if (apiOptions.isMobile) {
+        const classes = classNames({
+            "framework-perseus": true,
+            "perseus-article": true,
+            "bibliotron-article": this.props.useNewStyles,
             // NOTE(charlie): For exercises, this is applied outside of Perseus
             // (in webapp).
-            className += " " + ApiClassNames.MOBILE;
-        }
+            [ApiClassNames.MOBILE]: apiOptions.isMobile,
+        });
 
         // TODO(alex): Add mobile api functions and pass them down here
         const sections = this._sections().map((section, i) => {
@@ -179,7 +179,7 @@ const ArticleRenderer = React.createClass({
             </div>;
         });
 
-        return <div className={className}>
+        return <div className={classes}>
             {sections}
         </div>;
     },

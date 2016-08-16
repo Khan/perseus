@@ -163,7 +163,7 @@ var ImageWidget = React.createClass({
             </span>;
         }
 
-        // As of the XOM Manatee beta, we combine an image's title and caption.
+        // For mobile we combine an image's title and caption.
         if (apiOptions.isMobile) {
             var titleAndCaption;
 

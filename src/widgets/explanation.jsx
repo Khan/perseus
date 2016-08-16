@@ -101,7 +101,7 @@ var Explanation = React.createClass({
         if (isMobile) {
             linkContainer = <div className={css(styles.linkContainer)}>
                 <a
-                    className={css(styles.xomExplanationLink)}
+                    className={css(styles.mobileExplanationLink)}
                     href={href}
                     onClick={onClick}
                 >
@@ -130,14 +130,14 @@ var Explanation = React.createClass({
         }
 
         const expandedStyle = isMobile
-            ? styles.contentExpandedXom
+            ? styles.contentExpandedMobile
             : styles.contentExpanded;
 
         return <div className={css(styles.container)}>
             {linkContainer}
             <div className={css(
                     styles.content,
-                    isMobile && styles.contentXom,
+                    isMobile && styles.contentMobile,
                     this.state.expanded && expandedStyle
                 )}
                 style={{
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
         },
     },
 
-    xomExplanationLink: {
+    mobileExplanationLink: {
         color: styleConstants.kaGreen,
         borderBottom: `dashed 1px ${styleConstants.kaGreen}`,
         textDecoration: 'none',
@@ -236,20 +236,20 @@ const styles = StyleSheet.create({
         paddingTop: verticalContentPadding,
         paddingBottom: verticalContentPadding,
 
-        // Note: we still use arrow height as the vertical margin, even in
-        // non-XOM when there is no arrow, but it's good enough.
+        // Note: we still use arrow height as the vertical margin, even on
+        // desktop when there is no arrow, but it's good enough.
         marginBottom: arrowHeight,
         marginTop: arrowHeight,
     },
 
-    contentExpandedXom: {
+    contentExpandedMobile: {
         boxSizing: 'content-box',
         paddingTop: 32,
         paddingBottom: 32,
         marginTop: arrowHeight,
     },
 
-    contentXom: {
+    contentMobile: {
         background: backgroundColor,
 
         // TODO(benkomalo): this is to "full bleed" the background.

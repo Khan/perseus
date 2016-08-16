@@ -26,7 +26,7 @@ var Interactive2 = {
         return new MovablePolygon(graphie, movable, options);
     },
 
-    addMaybeXOMMovablePoint: function(widget, extraProps) {
+    addMaybeMobileMovablePoint: function(widget, extraProps) {
         const isMobile = widget.props.apiOptions.isMobile;
 
         const commonStyle = isMobile ? {
