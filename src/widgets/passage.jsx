@@ -64,7 +64,7 @@ const Passage = React.createClass({
         // being counted as a seperate word due to the fact that the words in
         // each node are counted separately. The line below is a hacky fix for
         // this.
-        section = section.replace(/_+/g, " ");
+        section = section.replace(/_+/g, "");
         // Strip out markers from writing passages which are not in
         // passage-text.
         // Note: highlighting is currently disabled in writing passages but
@@ -132,7 +132,7 @@ const Passage = React.createClass({
         let selectionEndIndex = Math.max(anchorIndex, focusIndex);
         const selectedText = selection.toString();
 
-        if (!selectionStartIndex || !selectionEndIndex) {
+        if (anchorIndex === null || focusIndex === null) {
             return null;
         }
 
@@ -167,6 +167,8 @@ const Passage = React.createClass({
         let node = null;
         let offset = 0;
 
+        const punctuation = ".?;:!,\'\"";
+
         if (nodeType === "anchor") {
             node = selection.anchorNode;
             offset = selection.anchorOffset;
@@ -179,14 +181,29 @@ const Passage = React.createClass({
             return null;
         }
 
-        let index = this.charToWordOffset(offset, node.textContent);
+        let nodeText = node.textContent;
+
+        if (punctuation.includes(nodeText.charAt(0))) {
+            nodeText = nodeText.slice(1);
+        }
+
+        let index = this.charToWordOffset(offset, nodeText);
+
         let priorText = "";
         while (node && !(node.classList &&
                 node.classList.contains("passage-text"))) {
             while (node.previousSibling) {
                 node = node.previousSibling;
-                // NOTE: Assumes that nodes never split in the middle of a word.
-                priorText = node.textContent + " " + priorText;
+                nodeText = node.textContent;
+                let spacer = "";
+                // HACK: Add space when nodes split at end of sentence. This
+                // stops two words from successive paragraphs merging together.
+                // Assumes paragraphs end with punctuation.
+                if (punctuation.includes(
+                        nodeText.charAt(nodeText.length - 1))) {
+                    spacer = " ";
+                }
+                priorText = nodeText + spacer + priorText;
             }
             node = node.parentNode;
         }
@@ -305,15 +322,47 @@ const Passage = React.createClass({
     },
 
     /**
-     * Adjust indices of start and end words of a highlight to take account of
-     * whitespace and markdow "words" which are included in rawContent but not
-     * in the selection indices calculated in getSelectionIndices().
+     * Splits the rawContent into an array of words
      */
-    adjustIndexforMarkdownAndWhitespace: function(index, rawContent) {
+    stringToArrayOfWords: function(rawContent) {
+        // First, we break rawContent apart into word-sized fragments. We
+        // need to be able to reassemble it later though, so we can't just
+        // blindly split on all whitespace characters! Instead, we split
+        // only on spaces, then manually split up those text fragments if
+        // they contain a non-space-whitespace character (e.g. a newline).
+        rawContent = rawContent.split(" ");
+        rawContent = rawContent.map(function(fragment) {
+            const whitespaceMatch = fragment.match(/\s+/);
+            if (whitespaceMatch) {
+                const whitespaceLastIndex = (
+                    whitespaceMatch.index +
+                    whitespaceMatch[0].length);
+                return [fragment.slice(0, whitespaceLastIndex),
+                        fragment.slice(whitespaceLastIndex)];
+            } else {
+                return [fragment];
+            }
+        });
+        // Flatten array (since it now contains nested fragments), and drop
+        // any empty fragments (which might result from multiple
+        // back-to-back spaces, which markdown will ignore anyway).
+        rawContent = [].concat(...rawContent);
+        rawContent = rawContent.filter(fragment => fragment !== "");
+        return rawContent;
+    },
+
+    /**
+     * Adjusts index of highlight to account for stray markdown or whitespace in
+     * the rawContents of the page.
+     */
+    adjustIndexforMarkdownAndWhitespace: function(index, textArray) {
         for (let i=0; i<=index; i++) {
-            if (rawContent[i].match(/\s+/) ||
-                    rawContent[i] ===
-                        "{highlighting.end}{highlighting.start}") {
+            const match = textArray[i].match(/^\s+$/) || [
+                "{highlighting.end}{highlighting.start}",
+                "{highlighting.end}",
+                "{highlighting.start}"
+            ].includes(textArray[i]);
+            if (match) {
                 index++;
             }
         }
@@ -384,15 +433,16 @@ const Passage = React.createClass({
         // For each highlighted passage, we (ephemerally) inject highlight
         // markdown into the rawContent.
         _.each(this.props.highlightRanges, function(highlightRange) {
-            // Splits the rawContent into an array of words including
-            // whitespace. e.g. "Hello world" --> ["Hello", " ", "world"]
-            const textArray = rawContent.split(/(\s+)/);
+            rawContent = rawContent.replace(/\n +\n/g, "\n\n");
+            rawContent = rawContent.replace(/\r\n +\r\n/g, "\r\n\r\n");
+            const textArray = this.stringToArrayOfWords(rawContent);
             const rangeStartIndex =
                 this.adjustIndexforMarkdownAndWhitespace(
                     highlightRange[0], textArray);
             const rangeEndIndex =
                 this.adjustIndexforMarkdownAndWhitespace(
                     highlightRange[1], textArray);
+
             // Reassemble rawContent, with highlighter markdown included.
             // Two big gotchas here:
             // 1. Markdown does not support partially-overlapping markdown
@@ -405,7 +455,7 @@ const Passage = React.createClass({
             // surrounded with highlighting markdown, while markdown text is
             // ignored.
             rawContent = (
-                textArray.slice(0, rangeStartIndex).join(' ') + ' ' +
+                textArray.slice(0, rangeStartIndex).join(" ") + " " +
                 textArray
                     .slice(rangeStartIndex, rangeEndIndex + 1)
                     .map(function(fragment) {
@@ -418,18 +468,22 @@ const Passage = React.createClass({
                                             \\[\\]\\+\\$\\?,!A-Za-z0-9:;'‘’\"\
                                             “”=%<>\s]+");
                         const highlightableMatch = (fragment.match(textRegex));
-                        const matchStart = highlightableMatch.index;
-                        const matchEnd = (
-                                matchStart + highlightableMatch[0].length);
-                        return (fragment.slice(0, matchStart) +
-                                '{highlighting.start}' +
-                                fragment.slice(matchStart, matchEnd) +
-                                '{highlighting.end}' +
-                                fragment.slice(matchEnd));
+                        if (highlightableMatch) {
+                            const matchStart = highlightableMatch.index;
+                            const matchEnd = (
+                                    matchStart + highlightableMatch[0].length);
+                            return (fragment.slice(0, matchStart) +
+                                    '{highlighting.start}' +
+                                    fragment.slice(matchStart, matchEnd) +
+                                    '{highlighting.end}' +
+                                    fragment.slice(matchEnd));
+                        } else {
+                            return fragment;
+                        }
                     })
-                    .join('{highlighting.start} {highlighting.end}') +
-                ' ' +
-                textArray.slice(rangeEndIndex + 1).join(' '));
+                    .join("{highlighting.start} {highlighting.end}") +
+                " " +
+                textArray.slice(rangeEndIndex + 1).join(" "));
         }, this);
 
         const parseState = {};
