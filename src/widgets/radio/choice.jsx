@@ -475,7 +475,7 @@ const Choice = React.createClass({
 
         return <label
             className={className}
-            style={{opacity: this.props.disabled ? 0.5 : 1.0}}
+            style={{opacity: !sat && this.props.disabled ? 0.5 : 1.0}}
         >
             {input}
             <div className={descriptionClassName}
