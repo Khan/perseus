@@ -71,10 +71,10 @@ const Passage = React.createClass({
         // this is left in for potential future development.
         section = section.replace(/\[Marker for question [0-9]+\]/g, " ");
         section = section.replace(/\[Sentence [0-9]+\]/g, " ");
-        return section
-                .split(/\s+/)
-                .filter((word) => word.length > 0)
-                .length;
+        const sectionWordArray = section
+                                .split(/\s+/)
+                                .filter((word) => word.length > 0);
+        return sectionWordArray.length;
     },
 
     /**
@@ -136,7 +136,7 @@ const Passage = React.createClass({
             return null;
         }
 
-        //Prevents slecting a space from highlighting both surrounding words.
+        //Prevents selecting a space from highlighting both surrounding words.
         if (selectedText.charAt(0) === " ") {
             selectionStartIndex += 1;
         }
@@ -213,12 +213,20 @@ const Passage = React.createClass({
     },
 
     charToWordOffset: function(offset, nodeText) {
+        // Move the offset back to the previous space to exclude partial words.
+        while (offset > 0 && nodeText.charAt(offset - 1) !== " ") {
+            offset -= 1;
+        }
         const beforeSelection = nodeText.substring(0, offset);
         let wordOffset = this.wordsInSection(beforeSelection);
 
-        // If any part of the first word of selectedText is included in
-        // beforeSelection, then remove it from the count.
-        if (!(nodeText.charAt(offset - 1) === " " || beforeSelection === "")) {
+        // HACK: Special case for if a selection starts on a space at the
+        // beginning of a node. This most frequently occurs when a user tries to
+        // start a highlight on the space after an existing highlight. This hack
+        // is neccessary due to the handling of spaces being stopped from
+        // highlighting the surrounding words in getSelectionRange not taking
+        // into account if it is the start of a new node.
+        if (nodeText.charAt(0) === " " && offset === 0) {
             wordOffset -= 1;
         }
         return wordOffset;
