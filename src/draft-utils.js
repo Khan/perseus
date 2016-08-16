@@ -1,7 +1,36 @@
+/*
+Draft.js can seem pretty low level, and its library is highly imperative.
+While this gives the user a very good grasp of the underlying mechanisms,
+making it easier to understand, it can get verbose.
+
+This file contains various utility functions to search and edit Draft.js
+data.
+
+NOTE:
+
+Return values for functions which cause mutations to the content must return
+
+{
+    editorState?: EditorState,
+    contentState: ContentState
+}
+
+The issue with returning only the `editorState` is that editing it through
+the suggested way (EditorState.push) may add a state onto the undo/redo stack.
+This stops the function from being able to be used in the middle of a set of
+operations, undo/redo should not bring you to an intermediate step.
+
+The issue with returning only the `contentState` is that the verbose
+EditorState.push step ends up being repeated quite often
+
+Therefore both must always be returned
+*/
+
 const {
     CharacterMetadata,
     BlockMapBuilder,
     ContentBlock,
+    EditorState,
     Entity,
     Modifier,
     SelectionState,
@@ -38,22 +67,44 @@ function findPattern(contentState, regExp) {
     }
 }
 
-function replaceSelection(contentState, selection, text, entity = null) {
-    return Modifier.replaceText(
-        contentState,
-        selection,
+function replaceSelection(draftData, text, entity = null) {
+    const newData = {};
+    newData.contentState = Modifier.replaceText(
+        draftData.contentState,
+        draftData.selection,
         text,
         null, // For custom styling, but we use a decorator instead
         entity
     );
+
+    if (draftData.editorState) {
+        newData.editorState = EditorState.push(
+            draftData.editorState,
+            newData.contentState,
+            'insert-characters'
+        );
+    }
+
+    return newData;
 }
 
-function deleteSelection(contentState, selection) {
-    return Modifier.removeRange(
-        contentState,
-        selection,
+function deleteSelection(draftData) {
+    const newData = {};
+    newData.contentState = Modifier.removeRange(
+        draftData.contentState,
+        draftData.selection,
         'backward'
     );
+
+    if (draftData.editorState) {
+        newData.editorState = EditorState.push(
+            draftData.editorState,
+            newData.contentState,
+            'delete-word'
+        );
+    }
+
+    return newData;
 }
 
 // Returns an array of all entiies contained within
@@ -138,7 +189,9 @@ function findEntity(contentState, filter) {
     adding in entities where needed
     */
 const NEWLINE_REGEX = /\r\n?|\n/g;
-function insertText(contentState, selection, rawText, sanitizer = () => null) {
+function insertText(draftData, rawText, sanitizer = () => null) {
+    const newData = {};
+
     // To insert text such that it will appear as multiple blocks,
     // createFragment must be used.  A fragment is an ordered map of
     // ContentBlocks.  There should be a ContentBlock for each paragraph
@@ -169,13 +222,21 @@ function insertText(contentState, selection, rawText, sanitizer = () => null) {
     });
     const fragment = BlockMapBuilder.createFromArray(contentBlocks);
 
-    const newContent = Modifier.replaceWithFragment(
-        contentState,
-        selection,
+    newData.contentState = Modifier.replaceWithFragment(
+        draftData.contentState,
+        draftData.selection,
         fragment
     );
 
-    return newContent;
+    if (draftData.editorState) {
+        newData.editorState = EditorState.push(
+            draftData.editorState,
+            newData.contentState,
+            'insert-fragment'
+        );
+    }
+
+    return newData;
 }
 
 function selectEnd(block) {

@@ -133,6 +133,8 @@ const PerseusEditor = React.createClass({
     // "IMMUTABLE", that is, backspacing a widget will delete the entire text
     // rather than just a "]" character.  It also enables us to detect which
     // widget id has been deleted, as metadata can be attached to entities
+    // TODO(samiskin): Turn this task of `applyEntities(pattern, createEntity)`
+    // into a DraftUtils function
     _insertWidgetsAsEntities(editorState, widgets) {
         let content = editorState.getCurrentContent();
 
@@ -164,7 +166,7 @@ const PerseusEditor = React.createClass({
         return {editorState, contentState, selection};
     },
 
-    getNextWidgetId(type) {
+    _getNextWidgetId(type) {
         const currWidgets = this.state.widgets;
         return Object.keys(currWidgets)
             .filter(id => currWidgets[id].type === type)
@@ -175,7 +177,7 @@ const PerseusEditor = React.createClass({
     _createInitialWidget(widgetType) {
         // Since widgets are given IDs, adding a new widget must ensure that a
         // unique id is generated for it.
-        const widgetNum = this.getNextWidgetId(widgetType);
+        const widgetNum = this._getNextWidgetId(widgetType);
         const id = widgetType + " " + (widgetNum + 1);
         const widget = {
             options: Widgets.getEditor(widgetType).defaultProps,
@@ -189,36 +191,35 @@ const PerseusEditor = React.createClass({
     },
 
     addWidget(type, callback = () => {}) {
-        this.handleChange(
+        this._handleChange(
             this._insertNewWidget(type),
             callback
         );
     },
 
     _insertNewWidget(type, draftDataParams) {
-        const {editorState, contentState, selection} = {
+        const draftData = {
             ...this._getDraftData(),
             ...draftDataParams,
         };
         const [id, widget] = this._createInitialWidget(type);
-        const newContent = this._insertWidgetText(contentState, selection, id);
-        const widgets = {...this.state.widgets, [id]: widget};
-        const newEditorState = EditorState.push(
-            editorState,
-            newContent,
-            'insert-characters'
-        );
-        return {editorState: newEditorState, contentState: newContent, widgets};
+
+        const newWidgets = {...this.state.widgets, [id]: widget};
+        const newDraftData = this._insertWidgetText(draftData, id);
+
+        return {
+            ...newDraftData,
+            widgets: newWidgets,
+        };
     },
 
-    _insertWidgetText(contentState, selection, id) {
-
+    _insertWidgetText(draftData, id) {
         // Text for the widget is inserted, and an entity is assigned
         const text = widgetPlaceholder.replace("{id}", id);
         const entity = Entity.create('WIDGET', 'IMMUTABLE', {id});
 
         return DraftUtils.replaceSelection(
-            contentState, selection, text, entity
+            draftData, text, entity
         );
     },
 
@@ -232,14 +233,11 @@ const PerseusEditor = React.createClass({
     removeWidget(id, callback) {
         const {editorState, contentState} = this._getDraftData();
         const selection = DraftUtils.findPattern(contentState, widgetRegexForId(id)); //eslint-disable-line max-len
-        const newEditorState =
-            EditorState.push(
-                editorState,
-                DraftUtils.deleteSelection(contentState, selection),
-                'delete-word'
-            );
+        const newDraftData = DraftUtils.deleteSelection(
+            {editorState, selection}
+        );
 
-        this.handleChange({editorState: newEditorState}, callback);
+        this._handleChange({editorState: newDraftData.editorState}, callback);
     },
 
     addTemplate(templateType) {
@@ -267,13 +265,22 @@ const PerseusEditor = React.createClass({
                 const [id, widget] = this._createInitialWidget(type);
                 widgets[id] = widget;
                 content = this._insertWidgetText(
-                    content, content.getSelectionAfter(), id
-                );
+                    {
+                        contentState: content,
+                        selection: content.getSelectionAfter(),
+                    },
+                    id
+                ).contentState;
                 return Modifier.splitBlock( // Put each widget on a new line
                     content, content.getSelectionAfter()
                 );
             }, contentState);
 
+            editorState = EditorState.push(
+                editorState,
+                contentState,
+                'insert-fragment'
+            );
         } else {
             let template = "";
             if (templateType === "table") {
@@ -300,20 +307,14 @@ const PerseusEditor = React.createClass({
                            "\\end{cases}$";
             }
 
-            contentState = DraftUtils.insertText(
-                contentState, selection, `\n${template}\n`
-            );
+            editorState = DraftUtils.insertText(
+                {editorState, contentState, selection}, `\n${template}\n`
+            ).editorState;
         }
-
-        editorState = EditorState.push(
-            editorState,
-            contentState,
-            'insert-fragment'
-        );
-        this.handleChange({editorState});
+        this._handleChange({editorState});
     },
 
-    handleCopy() {
+    _handleCopy() {
         const {contentState, selection} = this._getDraftData();
         const entities = DraftUtils.getEntities(contentState, selection);
 
@@ -328,7 +329,7 @@ const PerseusEditor = React.createClass({
 
     // Widgets cannot have ID conflicts, therefore this function exists
     // to return a mapping of { new id -> safe id }
-    createSafeWidgetMapping(newWidgets, currentWidgets) {
+    _createSafeWidgetMapping(newWidgets, currentWidgets) {
 
         // Create a mapping of { type -> largest id of that type }
         const maxIds = Object.keys(currentWidgets).reduce((idMap, widget) => {
@@ -355,7 +356,7 @@ const PerseusEditor = React.createClass({
     // happens prior to the new content state being generated (which is needed
     // to add entities to).  We therefore must reimplement the default Paste
     // functionality, in order to add our custom steps afterwards
-    handlePaste(pastedText, html) {
+    _handlePaste(pastedText, html) {
 
         // If no widgets are in localstorage, just use default behavior
         const sourceWidgetsJSON = localStorage.perseusLastCopiedWidgets;
@@ -365,7 +366,7 @@ const PerseusEditor = React.createClass({
 
         const sourceWidgets = JSON.parse(sourceWidgetsJSON);
         const widgets = {...this.state.widgets};
-        const safeWidgetMapping = this.createSafeWidgetMapping(sourceWidgets, widgets); //eslint-disable-line max-len
+        const safeWidgetMapping = this._createSafeWidgetMapping(sourceWidgets, widgets); //eslint-disable-line max-len
         const charData = CharacterMetadata.create();
 
         // insertText takes a sanitizer function which gets ran on every
@@ -394,25 +395,14 @@ const PerseusEditor = React.createClass({
             return {text: safeText, characterList};
         };
 
-        const {contentState, selection} = this._getDraftData();
-        const newContentState = DraftUtils.insertText(
-            contentState,
-            selection,
-            pastedText,
-            sanitizeText
+        const {editorState} = DraftUtils.insertText(
+            this._getDraftData(), pastedText, sanitizeText
         );
-
-        const newEditorState = EditorState.push(
-            this.state.editorState,
-            newContentState,
-            'insert-fragment'
-        );
-
-        this.handleChange({editorState: newEditorState, widgets});
+        this._handleChange({editorState, widgets});
         return true; // True means draft doesn't run its default behavior
     },
 
-    handleDrop(selection, dataTransfer) {
+    _handleDrop(selection, dataTransfer) {
         let textToInsert = "";
 
         const imageUrl = dataTransfer.getLink();
@@ -425,19 +415,15 @@ const PerseusEditor = React.createClass({
         const contentState = this.state.editorState.getCurrentContent();
         const contentBlock = contentState.getBlockForKey(selection.getEndKey());
         const endOfBlockSelection = DraftUtils.selectEnd(contentBlock);
-        const newContent = DraftUtils.insertText(
-            contentState, endOfBlockSelection, textToInsert
+        const {editorState} = DraftUtils.insertText(
+            {...this._getDraftData(), selection: endOfBlockSelection},
+            textToInsert
         );
-        const editorState = EditorState.push(
-            this.state.editorState,
-            newContent,
-            'insert-fragment'
-        );
-        this.handleChange({editorState});
+        this._handleChange({editorState});
         return true; // Disable default draft drop handler
     },
 
-    handleDroppedFiles(selection, files) {
+    _handleDroppedFiles(selection, files) {
         const images = files.filter(file => file.type.match('image.*'));
         let contentState = this.state.editorState.getCurrentContent();
         images.forEach(image => {
@@ -456,24 +442,21 @@ const PerseusEditor = React.createClass({
             const contentBlock = contentState.getBlockForKey(blockKey);
             const endOfBlockSelection = DraftUtils.selectEnd(contentBlock);
             contentState = DraftUtils.insertText(
-                contentState, endOfBlockSelection, `\n${text}\n`, sanitizer
-            );
+                {contentState, selection: endOfBlockSelection},
+                `\n${text}\n`,
+                sanitizer
+            ).contentState;
 
             // Begin uploading the image, and update the link once complete
             this.props.imageUploader(image, url => {
-                const {editorState, contentState} = this._getDraftData();
+                const currContent = this.state.editorState.getCurrentContent();
                 const placeholderLocation = DraftUtils.findEntity(
-                    contentState, c => c.getData().id === id);
-                const newContent = DraftUtils.replaceSelection(
-                    contentState,
-                    placeholderLocation,
+                    currContent, c => c.getData().id === id);
+                const newDraftData = DraftUtils.replaceSelection(
+                    {contentState: currContent, selection: placeholderLocation},
                     `![](${url})`
                 );
-                this.handleChange({editorState: EditorState.push(
-                    editorState,
-                    newContent,
-                    'insert-characters'
-                )});
+                this._handleChange({editorState: newDraftData.editorState});
             });
 
         });
@@ -482,7 +465,7 @@ const PerseusEditor = React.createClass({
             contentState,
             'insert-fragment'
         );
-        this.handleChange({editorState});
+        this._handleChange({editorState});
         return true; // Disable default draft drop handler
     },
 
@@ -490,7 +473,7 @@ const PerseusEditor = React.createClass({
     // This implements tab completion for widgets.  When the user
     // has typed [[d, then presses tab, we should replace [[d
     // with the full [[ {emoji} dropdown 1 ]] text
-    handleTab(e) {
+    _handleTab(e) {
         const {contentState, selection} = this._getDraftData();
 
         // isCollapsed means that there is no active selection, its just
@@ -518,7 +501,7 @@ const PerseusEditor = React.createClass({
                     anchorOffset: match.index,
                 });
 
-                this.handleChange(
+                this._handleChange(
                     this._insertNewWidget(widgetType, {
                         selection: replacementArea,
                     })
@@ -528,7 +511,7 @@ const PerseusEditor = React.createClass({
         return true; // Say that we've handled the event, no other work needed
     },
 
-    updateParent(content, widgets) {
+    _updateParent(content, widgets) {
         // The parent component should know of only the active widgets,
         // however the widgets are not deleted from this.state because a
         // user undoing a widget deletion should also recover the
@@ -550,7 +533,7 @@ const PerseusEditor = React.createClass({
 
     pastContentState: null,
     lastIdleCallback: null,
-    handleChange(newState, callback) {
+    _handleChange(newState, callback) {
         const state = {...this.state, ...newState};
         const {editorState, widgets} = state;
         const newContent = editorState.getCurrentContent();
@@ -566,7 +549,7 @@ const PerseusEditor = React.createClass({
             // updating the parent involves iterating through them all
             clearTimeout(this.lastIdleCallback);
             this.lastIdleCallback = setTimeout(
-                () => this.updateParent(newContent, widgets),
+                () => this._updateParent(newContent, widgets),
                 UPDATE_PARENT_THROTTLE
             );
         }
@@ -580,18 +563,18 @@ const PerseusEditor = React.createClass({
     },
 
     render() {
-        return <div onCopy={this.handleCopy}>
+        return <div onCopy={this._handleCopy}>
             <Editor
                 ref={(e) => this.editor = e}
                 editorState={this.state.editorState}
-                onChange={(editorState) => this.handleChange({editorState})}
+                onChange={(editorState) => this._handleChange({editorState})}
                 spellCheck={true}
                 stripPastedStyles={true}
                 placeholder={this.props.placeholder}
-                handlePastedText={this.handlePaste}
-                handleDroppedFiles={this.handleDroppedFiles}
-                handleDrop={this.handleDrop}
-                onTab={this.handleTab}
+                handlePastedText={this._handlePaste}
+                handleDroppedFiles={this._handleDroppedFiles}
+                handleDrop={this._handleDrop}
+                onTab={this._handleTab}
             />
         </div>;
     },
