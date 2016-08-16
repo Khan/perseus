@@ -90,7 +90,7 @@ const regexColorDecorator = (regex, color) => ({
 const decorator = new CompositeDecorator([
     entityColorDecorator('WIDGET', '#DFD'),
     entityColorDecorator('TEMP_IMAGE', '#fdffdd'),
-    regexColorDecorator(imageRegExp, '#b7fbf5'),
+    regexColorDecorator(imageRegExp, '#dffdfa'),
 ]);
 
 
@@ -102,7 +102,7 @@ const decorator = new CompositeDecorator([
 const PerseusEditor = React.createClass({
     propTypes: {
         onChange: React.PropTypes.func,
-        initialContent: React.PropTypes.string,
+        content: React.PropTypes.string,
         initialWidgets: React.PropTypes.any,
         placeholder: React.PropTypes.string,
         imageUploader: React.PropTypes.func,
@@ -110,23 +110,33 @@ const PerseusEditor = React.createClass({
 
     getDefaultProps: () => ({
         onChange: () => {},
-        initialContent: '',
+        content: '',
         initialWidgets: {},
         placeholder: 'Type here',
     }),
 
     getInitialState() {
-        const {initialContent, initialWidgets} = this.props;
-        const content = ContentState.createFromText(initialContent);
+        const {content, initialWidgets} = this.props;
+        const contentState = ContentState.createFromText(content);
         const editorState =
             this._insertWidgetsAsEntities(
-                EditorState.createWithContent(content, decorator),
+                EditorState.createWithContent(contentState, decorator),
                initialWidgets
             );
         return {
             editorState,
             widgets: initialWidgets,
         };
+    },
+
+    // The editor can have its content changed completely by changing the
+    // content prop, however if the data this component sent to its parent
+    // using `this.props.onChange()` is being fed back in, ignore it
+    componentDidUpdate(prevProps) {
+        if (this.props.content !== this.lastContentUpdate) {
+            this.lastContentUpdate = this.props.content;
+            this.setState(this.getInitialState()); //eslint-disable-line
+        }
     },
 
     // By turning widgets into Entities, we allow for widgets to be considered
@@ -140,8 +150,10 @@ const PerseusEditor = React.createClass({
 
         Object.keys(widgets).forEach((id) => {
             const selection = DraftUtils.findPattern(content, widgetRegexForId(id)); //eslint-disable-line max-len
-            const entity = Entity.create('WIDGET', 'IMMUTABLE', {id});
-            content = Modifier.applyEntity(content, selection, entity);
+            if (selection) { // Sometimes the widgets don't actually exist
+                const entity = Entity.create('WIDGET', 'IMMUTABLE', {id});
+                content = Modifier.applyEntity(content, selection, entity);
+            }
         });
 
         // The third parameter allows the editor to know what should be done
@@ -511,6 +523,7 @@ const PerseusEditor = React.createClass({
         return true; // Say that we've handled the event, no other work needed
     },
 
+    lastContentUpdate: "",
     _updateParent(content, widgets) {
         // The parent component should know of only the active widgets,
         // however the widgets are not deleted from this.state because a
@@ -523,10 +536,12 @@ const PerseusEditor = React.createClass({
             return map;
         }, {});
 
+        this.lastContentUpdate = content.getPlainText('\n');
+
         // Provide the parent component with the current text
         // representation, as well as the current active widgets
         this.props.onChange({
-            content: content.getPlainText('\n'),
+            content: this.lastContentUpdate,
             widgets: visibleWidgets,
         });
     },
