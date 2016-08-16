@@ -76,19 +76,16 @@ var ImageWidget = React.createClass({
                 display: "inline-block",
                 marginTop: baseUnitPx,
                 maxWidth: 640,
-                minWidth: 480,
 
                 [mediaQueries.lgOrSmaller]: {
                     // TODO(david): This maxWidth is not being used because
                     //     it's overriden by the 512px max-width we have on
                     //     paragraphs.
                     maxWidth: 540,
-                    minWidth: 400,
                 },
 
                 [mediaQueries.smOrSmaller]: {
                     maxWidth: 450,
-                    minWidth: 320,
                 },
             },
         }),
@@ -219,7 +216,6 @@ var ImageWidget = React.createClass({
                         className={css(ImageWidget.styles.caption)}
                         style={{
                             minWidth: minWidth,
-                            width: backgroundImage.width,
                         }}
                     >
                         <Renderer
