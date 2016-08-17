@@ -173,7 +173,7 @@ const Passage = React.createClass({
         let node = null;
         let offset = 0;
 
-        const punctuation = ".?;:!,\'\"";
+        const punctuation = "._?;:!,\'\"";
 
         if (nodeType === "anchor") {
             node = selection.anchorNode;
