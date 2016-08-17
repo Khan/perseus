@@ -242,7 +242,7 @@ const GradedGroup = React.createClass({
                 onClick={this._checkAnswer}
             />}
 
-            {this.props.hasHint &&
+            {this.props.hint && this.props.hint.content &&
              (this.state.showHint ?
                 <div>
                     <div

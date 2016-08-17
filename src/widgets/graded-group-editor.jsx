@@ -9,8 +9,9 @@ const {StyleSheet, css} = require("aphrodite");
 const ApiOptions = require("../perseus-api.jsx").Options;
 const Changeable   = require("../mixins/changeable.jsx");
 const Editor = require("../editor.jsx");
-const PropCheckBox = require("../components/prop-check-box.jsx");
 const TextInput = require("../components/text-input.jsx");
+const InlineIcon = require("../components/inline-icon.jsx");
+const {iconPlus, iconTrash} = require("../icon-paths.js");
 
 const GradedGroupEditor = React.createClass({
     mixins: [Changeable],
@@ -30,8 +31,18 @@ const GradedGroupEditor = React.createClass({
             widgets: {},
             images: {},
             hint: null,
-            hasHint: false,
         };
+    },
+
+    handleAddHint: function() {
+        const hint = {content: ""};
+        this.props.onChange({hint}, () => {
+            this.refs['hint-editor'].focus();
+        });
+    },
+
+    handleRemoveHint: function(i) {
+        this.props.onChange({hint: null});
     },
 
     render: function() {
@@ -57,16 +68,20 @@ const GradedGroupEditor = React.createClass({
                 warnNoPrompt={true}
                 warnNoWidgets={true}
             />
-            <div className={css(styles.hintsTitle)}>
-                Hint
-            </div>
-            <PropCheckBox
-                hasHint={this.props.hasHint}
-                onChange={this.props.onChange}
-                labelAlignment="right"
-                label="enabled"
-            />
-            {this.props.hasHint &&
+            {!this.props.hint &&
+                <button
+                    type="button"
+                    style={{marginTop: 10}}
+                    className="add-hint simple-button orange"
+                    onClick={this.handleAddHint}
+                >
+                    <InlineIcon {...iconPlus} />
+                    {' '}Add a hint
+                </button>}
+            {this.props.hint && <div className="perseus-hint-editor">
+                <div className={css(styles.hintsTitle)}>
+                    Hint
+                </div>
                 <Editor
                     ref="hint-editor"
                     content={this.props.hint ? this.props.hint.content : ''}
@@ -81,7 +96,16 @@ const GradedGroupEditor = React.createClass({
                         this.change("hint",
                             Object.assign({}, this.props.hint, props));
                     }}
-                />}
+                />
+                <button
+                    type="button"
+                    className="remove-hint simple-button orange"
+                    onClick={this.handleRemoveHint}
+                >
+                    <InlineIcon {...iconTrash} />
+                    {' '}Remove this hint
+                </button>
+            </div>}
         </div>;
     },
 
@@ -92,11 +116,9 @@ const GradedGroupEditor = React.createClass({
     serialize: function() {
         return {
             title: this.props.title,
-            hasHint: this.props.hasHint,
             ...this.refs.editor.serialize(),
-            hint: this.props.hasHint
-                ? this.refs['hint-editor'].serialize()
-                : null,
+            hint: this.refs['hint-editor'] &&
+                  this.refs['hint-editor'].serialize(),
         };
     },
 });
