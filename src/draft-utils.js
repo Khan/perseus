@@ -39,7 +39,23 @@ const {
 
 const {List} = require('immutable');
 
-const regexStrategy = (contentBlock, callback, regex) => {
+
+// This provides sensible defaults for all aspects of draftData
+const _fillData = (draftData) => {
+    const {editorState, contentState, selection} = draftData;
+    const newData = {};
+    newData.editorState = editorState || null;
+    newData.contentState = contentState
+                            || (editorState && editorState.getCurrentContent())
+                            || null;
+    newData.selection = selection
+                        || (editorState && editorState.getSelection())
+                        || (contentState && contentState.getSelectionAfter())
+                        || null;
+    return newData;
+};
+
+function regexStrategy(contentBlock, callback, regex) {
     const text = contentBlock.getText();
     let matchArr;
     let start;
@@ -47,7 +63,7 @@ const regexStrategy = (contentBlock, callback, regex) => {
         start = matchArr.index;
         callback(start, start + matchArr[0].length);
     }
-};
+}
 
 // TODO: Make this return an array of all matches, rather than first
 function findPattern(contentState, regExp) {
@@ -248,6 +264,74 @@ function selectEnd(block) {
     return newSelection;
 }
 
+
+const isOffsetAnEntity = (contentBlock, offset) => {
+    const key = contentBlock.getEntityAt(offset);
+    return !key || Entity.get(key).mutability !== 'IMMUTABLE';
+};
+
+const canEditOffset = (contentBlock, offset) => {
+    // A position is only uneditable if both characters to the
+    // left and right are immutable entities
+    return offset === 0
+            || isOffsetAnEntity(contentBlock, offset - 1)
+            || isOffsetAnEntity(contentBlock, offset);
+};
+
+function snapSelectionOutsideEntities(draftData, prevSelection) {
+    const data = _fillData(draftData);
+    const {contentState, selection, editorState} = data;
+    const startBlock = contentState.getBlockForKey(selection.getStartKey());
+    const endBlock = contentState.getBlockForKey(selection.getEndKey());
+
+    let leftOffset = selection.getStartOffset();
+    let rightOffset = selection.getEndOffset();
+
+    while (leftOffset > 0
+            && !canEditOffset(startBlock, leftOffset)) {
+        leftOffset--;
+    }
+    while (rightOffset < endBlock.getLength()
+            && !canEditOffset(endBlock, rightOffset)) {
+        rightOffset++;
+    }
+
+    // If my cursor is precisely on the right of a widget, and I press
+    // left, my cursor should move to the left of the widget
+    if (prevSelection.getStartKey() === selection.getStartKey()
+        && prevSelection.getStartOffset() === selection.getStartOffset() + 1) {
+        rightOffset = leftOffset;
+    }
+
+    // If there was no selection before, it was just a cursor blinking, then
+    // keep that status by making the left offset equal the right one
+    // (Not having this would mean clicking inside would select all of it)
+    if (selection.isCollapsed()) {
+        leftOffset = rightOffset;
+    }
+
+    const start = selection.getIsBackward() ? 'focus' : 'anchor';
+    const end = selection.getIsBackward() ? 'anchor' : 'focus';
+
+    const newData = {contentState};
+    newData.selection = selection.merge({
+        [`${start}Offset`]: leftOffset,
+        [`${end}Offset`]: rightOffset,
+    });
+
+    if (editorState) {
+        // EditorState.forceSelection results in strange behavior
+        // where characters are repeated when typing normally
+        newData.editorState = EditorState.set(editorState, {
+            selection: newData.selection,
+            forceSelection: true,
+        });
+    }
+
+    return newData;
+}
+
+
 module.exports = {
     regexStrategy,
     findPattern,
@@ -257,5 +341,6 @@ module.exports = {
     findEntity,
     insertText,
     selectEnd,
+    snapSelectionOutsideEntities,
 };
 
