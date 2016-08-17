@@ -302,7 +302,7 @@ var rules = {
     highlight: {
         order: SimpleMarkdown.defaultRules.escape.order + .7,
         match: SimpleMarkdown.inlineRegex(
-                    /^{highlighting.start}(.+?){highlighting.end}/),
+                /^{highlighting.start}(.+?){highlighting.end}/),
         parse: (capture, parse, state) => {
             return {
                 content: capture[1],
@@ -311,6 +311,23 @@ var rules = {
         react: (node, output, state) => {
             return [
                 <span className="perseus-highlight">
+                    {node.content}
+                </span>,
+            ];
+        }
+    },
+    reviewHighlight: {
+        order: SimpleMarkdown.defaultRules.escape.order + .7,
+        match: SimpleMarkdown.inlineRegex(
+                /^{review-highlighting.start}(.+?){review-highlighting.end}/),
+        parse: (capture, parse, state) => {
+            return {
+                content: capture[1],
+            };
+        },
+        react: (node, output, state) => {
+            return [
+                <span className="perseus-review-highlight">
                     {node.content}
                 </span>,
             ];

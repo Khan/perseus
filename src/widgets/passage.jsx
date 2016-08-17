@@ -23,6 +23,13 @@ const Passage = React.createClass({
         onChange: React.PropTypes.func,
         highlightRanges: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(React.PropTypes.number)),
+        reviewModeRubric: React.PropTypes.shape({
+            passageTitle: React.PropTypes.string,
+            passageText: React.PropTypes.string,
+            footnotes: React.PropTypes.string,
+            showLineNumbers: React.PropTypes.bool,
+            static: React.PropTypes.bool,
+        }),
     },
 
     getDefaultProps: function() {
@@ -444,6 +451,14 @@ const Passage = React.createClass({
             });
         }
 
+        let highlightStartText = "{highlighting.start}";
+        let highlightEndText = "{highlighting.end}";
+
+        if (this.props.reviewModeRubric) {
+            highlightStartText = "{review-highlighting.start}";
+            highlightEndText = "{review-highlighting.end}";
+        }
+
         let rawContent = this.props.passageText;
         // For each highlighted passage, we (ephemerally) inject highlight
         // markdown into the rawContent.
@@ -488,15 +503,15 @@ const Passage = React.createClass({
                             const matchEnd = (
                                     matchStart + highlightableMatch[0].length);
                             return (fragment.slice(0, matchStart) +
-                                    '{highlighting.start}' +
+                                    highlightStartText +
                                     fragment.slice(matchStart, matchEnd) +
-                                    '{highlighting.end}' +
+                                    highlightEndText +
                                     fragment.slice(matchEnd));
                         } else {
                             return fragment;
                         }
                     })
-                    .join("{highlighting.start} {highlighting.end}") +
+                    .join(highlightStartText + " " + highlightEndText) +
                 " " +
                 textArray.slice(rangeEndIndex + 1).join(" "));
         }, this);
