@@ -240,7 +240,7 @@ const PerseusEditor = React.createClass({
     },
 
     // This function only removes the widget from the content, and then
-    // handleUpdate handles removing widgets from the state, as widgets
+    // handleChange handles removing widgets from the state, as widgets
     // can also be deleted by editor actions such as backspace and delete
     removeWidget(id, callback) {
         const {editorState, contentState} = this._getDraftData();
@@ -421,6 +421,7 @@ const PerseusEditor = React.createClass({
         if (imageUrl) {
             textToInsert = `\n![](${imageUrl})`;
         } else {
+            // TODO: Sanitize when text including widgets are dragged in
             textToInsert = dataTransfer.getText();
         }
         // Adds new lines and collapses the selection
@@ -550,7 +551,16 @@ const PerseusEditor = React.createClass({
     lastIdleCallback: null,
     _handleChange(newState, callback) {
         const state = {...this.state, ...newState};
-        const {editorState, widgets} = state;
+        const widgets = state.widgets;
+        let editorState = state.editorState;
+
+        // The cursor should not exist within an entity
+        editorState =
+            DraftUtils.snapSelectionOutsideEntities(
+                {editorState},
+                this.state.editorState.getSelection()
+            ).editorState;
+
         const newContent = editorState.getCurrentContent();
 
         // editorState contains more than just the content, such as the current
