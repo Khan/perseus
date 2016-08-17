@@ -152,6 +152,12 @@ const Passage = React.createClass({
         while (ancestor) {
             if (ancestor.classList &&
                     ancestor.classList.contains("passage-text")) {
+                // Traverse up the tree to find first element. This is needed as
+                // Node.contains(otherNode) only works in IE if otherNode is an
+                // element.
+                while (node.nodeType !== 1) {
+                    node = node.parentNode;
+                }
                 return ancestor.contains(node);
             }
             ancestor = ancestor.parentNode;
@@ -183,7 +189,8 @@ const Passage = React.createClass({
 
         let nodeText = node.textContent;
 
-        if (punctuation.includes(nodeText.charAt(0))) {
+        // Would prefer to use string.prototype.includes but it's not in IE 10.
+        if (punctuation.indexOf(nodeText.charAt(0)) !== -1) {
             nodeText = nodeText.slice(1);
         }
 
@@ -199,8 +206,8 @@ const Passage = React.createClass({
                 // HACK: Add space when nodes split at end of sentence. This
                 // stops two words from successive paragraphs merging together.
                 // Assumes paragraphs end with punctuation.
-                if (punctuation.includes(
-                        nodeText.charAt(nodeText.length - 1))) {
+                if (punctuation.indexOf(
+                        nodeText.charAt(nodeText.length - 1)) !== -1) {
                     spacer = " ";
                 }
                 priorText = nodeText + spacer + priorText;
