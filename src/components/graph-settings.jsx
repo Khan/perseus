@@ -124,6 +124,7 @@ var GraphSettings = React.createClass({
                             className="graph-settings-background-url"
                             ref="bg-url"
                             value={this.props.backgroundImage.url}
+                            onChange={this.changeBackgroundUrl}
                             onKeyPress={this.changeBackgroundUrl}
                             onBlur={this.changeBackgroundUrl} />
                     <InfoTip>
