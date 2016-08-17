@@ -264,7 +264,7 @@ const Passage = React.createClass({
      * has the effect of dismissing any open tooltips when a user clicks
      * elsewhere on the page.
      */
-    handleSelectionChange: function() {
+    handleMouseDown: function() {
         this.setState({
             newHighlightRange: null,
             selectedHighlightRange: null,
@@ -498,6 +498,7 @@ const Passage = React.createClass({
         const parsedContent = PassageMarkdown.parse(rawContent, parseState);
         return <div>
             <div
+                onMouseDown={this.handleMouseDown}
                 onMouseUp={this.handleMouseUp}
                 className="perseus-widget-passage-container"
             >
@@ -537,14 +538,7 @@ const Passage = React.createClass({
     },
 
     componentDidMount: function() {
-        document.addEventListener(
-            "selectionchange", this.handleSelectionChange);
         this._updateState();
-    },
-
-    componentWillUnmount: function() {
-        document.removeEventListener(
-            "selectionchange", this.handleSelectionChange);
     },
 
     componentDidUpdate: function() {
