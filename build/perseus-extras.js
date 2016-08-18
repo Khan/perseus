@@ -1,5 +1,19 @@
-webpackJsonpPerseus([1],Array(18).concat([
-/* 18 */
+webpackJsonpPerseus([1],[
+/* 0 */,
+/* 1 */,
+/* 2 */,
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7,11 +21,15 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* globals __EDITOR__ */
 	// As new widgets get added here, please also make sure they get added in
 	// webapp perseus/traversal.py so they can be properly translated.
-	module.exports = [ [ __webpack_require__(41), false ], [ __webpack_require__(42), false ], [ __webpack_require__(43), false ], [ __webpack_require__(44), false ], [ __webpack_require__(45), false ], [ __webpack_require__(46), false ], [ __webpack_require__(47), false ], [ __webpack_require__(48), false ], [ __webpack_require__(49), false ], [ __webpack_require__(50), false ], [ __webpack_require__(51), false ], [ __webpack_require__(52), false ], [ __webpack_require__(53), false ], [ __webpack_require__(54), false ], [ __webpack_require__(55), false ], [ __webpack_require__(56), false ], [ __webpack_require__(57), false ], [ __webpack_require__(58), false ], [ __webpack_require__(59), false ], [ __webpack_require__(60), false ], [ __webpack_require__(61), false ], [ __webpack_require__(62), false ], [ __webpack_require__(63), false ], [ __webpack_require__(64), false ], [ __webpack_require__(65), false ], [ __webpack_require__(66), false ], [ __webpack_require__(67), false ], [ __webpack_require__(68), false ], [ __webpack_require__(69), false ], [ __webpack_require__(70), false ], [ __webpack_require__(71), false ], // These widgets are only used when testing things, so remove them in the
+	module.exports = [ [ __webpack_require__(39), false ], [ __webpack_require__(40), false ], [ __webpack_require__(41), false ], [ __webpack_require__(42), false ], [ __webpack_require__(43), false ], [ __webpack_require__(44), false ], [ __webpack_require__(45), false ], [ __webpack_require__(46), false ], [ __webpack_require__(47), false ], [ __webpack_require__(48), false ], [ __webpack_require__(49), false ], [ __webpack_require__(50), false ], [ __webpack_require__(51), false ], [ __webpack_require__(52), false ], [ __webpack_require__(53), false ], [ __webpack_require__(54), false ], [ __webpack_require__(55), false ], [ __webpack_require__(56), false ], [ __webpack_require__(57), false ], [ __webpack_require__(58), false ], [ __webpack_require__(59), false ], [ __webpack_require__(60), false ], [ __webpack_require__(61), false ], [ __webpack_require__(62), false ], [ __webpack_require__(63), false ], [ __webpack_require__(64), false ], [ __webpack_require__(65), false ], [ __webpack_require__(66), false ], [ __webpack_require__(67), false ], [ __webpack_require__(68), false ], [ __webpack_require__(69), false ], // These widgets are only used when testing things, so remove them in the
 	// non-editor bundle.
 	false, false, false ];
 
 /***/ },
+/* 15 */,
+/* 16 */,
+/* 17 */,
+/* 18 */,
 /* 19 */,
 /* 20 */,
 /* 21 */,
@@ -32,9 +50,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 /* 36 */,
 /* 37 */,
 /* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -44,41 +60,41 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-undef, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var _require = __webpack_require__(12);
+	var _require = __webpack_require__(13);
 
 	var StyleSheet = _require.StyleSheet;
 
 	var css = _require.css;
 
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var classNames = __webpack_require__(13);
+	var classNames = __webpack_require__(12);
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(78);
 
 	var WidgetJsonifyDeprecated = __webpack_require__(93);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
 	var ApiClassNames = __webpack_require__(16).ClassNames;
 
 	var ApiOptions = __webpack_require__(16).Options;
 
-	var _require2 = __webpack_require__(88);
+	var _require2 = __webpack_require__(82);
 
 	var iconCircle = _require2.iconCircle;
 
 	var iconCircleThin = _require2.iconCircleThin;
 
-	var InlineIcon = __webpack_require__(85);
+	var InlineIcon = __webpack_require__(79);
 
 	var Renderer = __webpack_require__(8);
 
 	var Util = __webpack_require__(15);
 
-	var mediaQueries = __webpack_require__(30);
+	var mediaQueries = __webpack_require__(34);
 
-	var sharedStyles = __webpack_require__(31);
+	var sharedStyles = __webpack_require__(35);
 
 	var Categorizer = React.createClass({
 	    displayName: "Categorizer",
@@ -148,7 +164,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	                }, isMobile && React.createElement("input", {
 	                    type: "radio",
 	                    name: uniqueId,
-	                    className: css(sharedStyles.responsiveInput, sharedStyles.responsiveRadioInput, styles.radioInput),
+	                    className: css(sharedStyles.responsiveInput, sharedStyles.responsiveRadioInput),
 	                    checked: selected,
 	                    onChange: _this.onChange.bind(_this, itemNum, catNum),
 	                    onClick: function onClick(e) {
@@ -221,11 +237,6 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        color: "#ccc",
 	        verticalAlign: "middle"
 	    },
-	    // Legacy styling?
-	    // TODO(jared): remove when XOM is done
-	    radioInput: {
-	        display: "none"
-	    },
 	    radioSpan: {
 	        fontSize: 30,
 	        paddingRight: 3,
@@ -257,7 +268,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 42 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -268,11 +279,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/**
 	 * This widget is for embedding Khan Academy CS programs.
 	 */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(78);
 
 	var updateQueryString = __webpack_require__(15).updateQueryString;
 
@@ -417,7 +428,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 43 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -425,25 +436,25 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var _require = __webpack_require__(12);
+	var _require = __webpack_require__(13);
 
 	var StyleSheet = _require.StyleSheet;
 
 	var css = _require.css;
 
-	var classNames = __webpack_require__(13);
+	var classNames = __webpack_require__(12);
 
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var ReactDOM = __webpack_require__(10);
+	var ReactDOM = __webpack_require__(11);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
 	var ApiClassNames = __webpack_require__(16).ClassNames;
 
 	var ApiOptions = __webpack_require__(16).Options;
 
-	var styleConstants = __webpack_require__(32);
+	var styleConstants = __webpack_require__(36);
 
 	var captureScratchpadTouchStart = __webpack_require__(15).captureScratchpadTouchStart;
 
@@ -571,37 +582,37 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 44 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var _explanationLink, _xomExplanationLink;
+	var _explanationLink, _mobileExplanationLin;
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, indent, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var _require = __webpack_require__(12);
+	var _require = __webpack_require__(13);
 
 	var StyleSheet = _require.StyleSheet;
 
 	var css = _require.css;
 
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var ReactDOM = __webpack_require__(10);
+	var ReactDOM = __webpack_require__(11);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(78);
 
 	var PerseusApi = __webpack_require__(16);
 
 	var Renderer = __webpack_require__(8);
 
-	var mediaQueries = __webpack_require__(30);
+	var mediaQueries = __webpack_require__(34);
 
-	var styleConstants = __webpack_require__(32);
+	var styleConstants = __webpack_require__(36);
 
 	var defaultExplanationProps = {
 	    showPrompt: "Explain",
@@ -674,7 +685,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        linkContainer = isMobile ? React.createElement("div", {
 	            className: css(styles.linkContainer)
 	        }, React.createElement("a", {
-	            className: css(styles.xomExplanationLink),
+	            className: css(styles.mobileExplanationLink),
 	            href: href,
 	            onClick: onClick
 	        }, linkAnchor), this.state.expanded && React.createElement("svg", {
@@ -691,11 +702,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            href: href,
 	            onClick: onClick
 	        }, "[" + linkAnchor + "]"));
-	        var expandedStyle = isMobile ? styles.contentExpandedXom : styles.contentExpanded;
+	        var expandedStyle = isMobile ? styles.contentExpandedMobile : styles.contentExpanded;
 	        return React.createElement("div", {
 	            className: css(styles.container)
 	        }, linkContainer, React.createElement("div", {
-	            className: css(styles.content, isMobile && styles.contentXom, this.state.expanded && expandedStyle),
+	            className: css(styles.content, isMobile && styles.contentMobile, this.state.expanded && expandedStyle),
 	            style: {
 	                height: this.state.expanded ? this.state.contentHeight : 0,
 	                overflow: this.state.expanded ? "visible" : "hidden"
@@ -746,20 +757,20 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        fontSize: 14,
 	        lineHeight: 1.3
 	    }, _explanationLink),
-	    xomExplanationLink: (_xomExplanationLink = {
+	    mobileExplanationLink: (_mobileExplanationLin = {
 	        color: styleConstants.kaGreen,
 	        borderBottom: "dashed 1px " + styleConstants.kaGreen,
 	        textDecoration: "none"
-	    }, _xomExplanationLink[mediaQueries.xl] = {
+	    }, _mobileExplanationLin[mediaQueries.xl] = {
 	        fontSize: 22,
 	        lineHeight: 1.4
-	    }, _xomExplanationLink[mediaQueries.lgOrSmaller] = {
+	    }, _mobileExplanationLin[mediaQueries.lgOrSmaller] = {
 	        fontSize: 20,
 	        lineHeight: 1.5
-	    }, _xomExplanationLink[mediaQueries.smOrSmaller] = {
+	    }, _mobileExplanationLin[mediaQueries.smOrSmaller] = {
 	        fontSize: 18,
 	        lineHeight: 1.2
-	    }, _xomExplanationLink),
+	    }, _mobileExplanationLin),
 	    content: {
 	        position: "relative",
 	        transition: "all 0.1s"
@@ -770,18 +781,18 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        paddingLeft: leftBorderSpacing,
 	        paddingTop: verticalContentPadding,
 	        paddingBottom: verticalContentPadding,
-	        // Note: we still use arrow height as the vertical margin, even in
-	        // non-XOM when there is no arrow, but it's good enough.
+	        // Note: we still use arrow height as the vertical margin, even on
+	        // desktop when there is no arrow, but it's good enough.
 	        marginBottom: arrowHeight,
 	        marginTop: arrowHeight
 	    },
-	    contentExpandedXom: {
+	    contentExpandedMobile: {
 	        boxSizing: "content-box",
 	        paddingTop: 32,
 	        paddingBottom: 32,
 	        marginTop: arrowHeight
 	    },
-	    contentXom: {
+	    contentMobile: {
 	        background: backgroundColor,
 	        // TODO(benkomalo): this is to "full bleed" the background.
 	        // The actual content padding differs depending on the host
@@ -826,7 +837,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 45 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -842,20 +853,20 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable brace-style, comma-dangle, indent, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
 	var Interactive2 = __webpack_require__(95);
 
-	var SvgImage = __webpack_require__(28);
+	var SvgImage = __webpack_require__(32);
 
 	var Util = __webpack_require__(15);
 
 	var ButtonGroup = __webpack_require__(96);
 
 	/* Graphie and relevant components. */
-	var Graphie = __webpack_require__(74);
+	var Graphie = __webpack_require__(85);
 
 	var MovablePoint = Graphie.MovablePoint;
 
@@ -871,22 +882,22 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var KhanColors = __webpack_require__(98);
 
-	var _require = __webpack_require__(72);
+	var _require = __webpack_require__(83);
 
 	var containerSizeClassPropType = _require.containerSizeClassPropType;
 
-	var _require2 = __webpack_require__(32);
+	var _require2 = __webpack_require__(36);
 
 	var interactiveSizes = _require2.interactiveSizes;
 
-	var _require3 = __webpack_require__(72);
+	var _require3 = __webpack_require__(83);
 
 	var getInteractiveBoxFromSizeClass = _require3.getInteractiveBoxFromSizeClass;
 
 	/* Mixins. */
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(78);
 
-	var _require4 = __webpack_require__(112);
+	var _require4 = __webpack_require__(110);
 
 	var GrapherUtil = _require4.GrapherUtil;
 
@@ -1279,7 +1290,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 46 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1294,17 +1305,17 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	/* eslint-disable react/forbid-prop-types */
 	/* globals i18n */
-	var classNames = __webpack_require__(13);
+	var classNames = __webpack_require__(12);
 
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
 	var ApiOptions = __webpack_require__(16).Options;
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(78);
 
-	var _require = __webpack_require__(88);
+	var _require = __webpack_require__(82);
 
 	var iconOk = _require.iconOk;
 
@@ -1312,13 +1323,13 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var icon = _require.icon;
 
-	var InlineIcon = __webpack_require__(85);
+	var InlineIcon = __webpack_require__(79);
 
 	var Renderer = __webpack_require__(8);
 
 	var GradedGroupAnswerBar = __webpack_require__(94);
 
-	var _require2 = __webpack_require__(32);
+	var _require2 = __webpack_require__(36);
 
 	var gray76 = _require2.gray76;
 
@@ -1330,7 +1341,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var kaGreen = _require2.kaGreen;
 
-	var _require3 = __webpack_require__(12);
+	var _require3 = __webpack_require__(13);
 
 	var StyleSheet = _require3.StyleSheet;
 
@@ -1595,7 +1606,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	});
 
 /***/ },
-/* 47 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1609,11 +1620,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 	/* eslint-disable react/forbid-prop-types */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
-	var _require = __webpack_require__(12);
+	var _require = __webpack_require__(13);
 
 	var StyleSheet = _require.StyleSheet;
 
@@ -1621,11 +1632,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var ApiOptions = __webpack_require__(16).Options;
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(78);
 
-	var GradedGroup = __webpack_require__(46).widget;
+	var GradedGroup = __webpack_require__(44).widget;
 
-	var _require2 = __webpack_require__(32);
+	var _require2 = __webpack_require__(36);
 
 	var grayLight = _require2.grayLight;
 
@@ -1799,7 +1810,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	});
 
 /***/ },
-/* 48 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1815,13 +1826,13 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
 	var ApiOptions = __webpack_require__(16).Options;
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(78);
 
 	var Renderer = __webpack_require__(8);
 
@@ -1952,7 +1963,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 49 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1969,11 +1980,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 	 *  but could also be used for embedding viz's hosted elsewhere.
 	 */
 	/* globals KA */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(78);
 
 	var WidgetJsonifyDeprecated = __webpack_require__(93);
 
@@ -2104,7 +2115,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 50 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2118,31 +2129,31 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/*eslint-disable react/sort-comp, react/jsx-indent-props, react/prop-types,
 	    react/jsx-closing-bracket-location
 	*/
-	var classNames = __webpack_require__(13);
+	var classNames = __webpack_require__(12);
 
-	var _require = __webpack_require__(12);
+	var _require = __webpack_require__(13);
 
 	var StyleSheet = _require.StyleSheet;
 
 	var css = _require.css;
 
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
 	var ApiOptions = __webpack_require__(16).Options;
 
-	var _require2 = __webpack_require__(32);
+	var _require2 = __webpack_require__(36);
 
 	var baseUnitPx = _require2.baseUnitPx;
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(78);
 
-	var mediaQueries = __webpack_require__(30);
+	var mediaQueries = __webpack_require__(34);
 
 	var Renderer = __webpack_require__(8);
 
-	var SvgImage = __webpack_require__(28);
+	var SvgImage = __webpack_require__(32);
 
 	var defaultBoxSize = 400;
 
@@ -2264,7 +2275,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            content: this.props.alt,
 	            apiOptions: apiOptions
 	        })));
-	        // As of the XOM Manatee beta, we combine an image's title and caption.
+	        // For mobile we combine an image's title and caption.
 	        if (apiOptions.isMobile) {
 	            var titleAndCaption;
 	            if (this.props.title || this.props.caption) {
@@ -2371,7 +2382,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 51 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2379,13 +2390,13 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable brace-style, no-redeclare, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-infix-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(78);
 
-	var Graphie = __webpack_require__(74);
+	var Graphie = __webpack_require__(85);
 
 	var Label = Graphie.Label;
 
@@ -2814,7 +2825,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 52 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2830,9 +2841,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable brace-style, comma-dangle, indent, no-redeclare, no-undef, no-unused-vars, no-var, object-curly-spacing, one-var, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-infix-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
 	var Graph = __webpack_require__(104);
 
@@ -2852,11 +2863,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var GraphUtils = __webpack_require__(106);
 
-	var _require = __webpack_require__(32);
+	var _require = __webpack_require__(36);
 
 	var interactiveSizes = _require.interactiveSizes;
 
-	var _require2 = __webpack_require__(72);
+	var _require2 = __webpack_require__(83);
 
 	var containerSizeClassPropType = _require2.containerSizeClassPropType;
 
@@ -3301,7 +3312,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            range: this.props.range,
 	            step: isMobile ? [ 2, 2 ] : this.props.step,
 	            gridStep: gridStep,
-	            snapStep: isMobile ? [ 1, 1 ] : snapStep,
+	            snapStep: snapStep,
 	            markings: this.props.markings,
 	            backgroundImage: this.props.backgroundImage,
 	            showProtractor: this.props.showProtractor,
@@ -3443,7 +3454,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var graphie = self.graphie;
 	        var coords = InteractiveGraph.getLineCoords(self.props.graph, self.props);
 	        var points = self.points = _.map(coords, function(coord) {
-	            return Interactive2.addMaybeXOMMovablePoint(_this2, {
+	            return Interactive2.addMaybeMobileMovablePoint(_this2, {
 	                coord: coord,
 	                constraints: [ Interactive2.MovablePoint.constraints.bound(), Interactive2.MovablePoint.constraints.snap() ],
 	                onMove: function onMove() {
@@ -3500,21 +3511,21 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            });
 	            _this3.updateQuadratic();
 	        };
-	        pointA = this.pointA = Interactive2.addMaybeXOMMovablePoint(this, {
+	        pointA = this.pointA = Interactive2.addMaybeMobileMovablePoint(this, {
 	            coord: coords[0],
 	            constraints: [ Interactive2.MovablePoint.constraints.bound(), Interactive2.MovablePoint.constraints.snap(), function(coord) {
 	                return !pointA || coord[0] !== pointB.coord()[0] && coord[0] !== pointC.coord()[0];
 	            } ],
 	            onMove: onMoveHandler
 	        });
-	        pointB = this.pointB = Interactive2.addMaybeXOMMovablePoint(this, {
+	        pointB = this.pointB = Interactive2.addMaybeMobileMovablePoint(this, {
 	            coord: coords[1],
 	            constraints: [ Interactive2.MovablePoint.constraints.bound(), Interactive2.MovablePoint.constraints.snap(), function(coord) {
 	                return !pointB || coord[0] !== pointA.coord()[0] && coord[0] !== pointC.coord()[0];
 	            } ],
 	            onMove: onMoveHandler
 	        });
-	        pointC = this.pointC = Interactive2.addMaybeXOMMovablePoint(this, {
+	        pointC = this.pointC = Interactive2.addMaybeMobileMovablePoint(this, {
 	            coord: coords[2],
 	            constraints: [ Interactive2.MovablePoint.constraints.bound(), Interactive2.MovablePoint.constraints.snap(), function(coord) {
 	                return !pointC || coord[0] !== pointA.coord()[0] && coord[0] !== pointB.coord()[0];
@@ -3567,14 +3578,14 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            });
 	            _this4.updateSinusoid();
 	        };
-	        pointA = this.pointA = Interactive2.addMaybeXOMMovablePoint(this, {
+	        pointA = this.pointA = Interactive2.addMaybeMobileMovablePoint(this, {
 	            coord: coords[0],
 	            constraints: [ Interactive2.MovablePoint.constraints.bound(), Interactive2.MovablePoint.constraints.snap(), function(coord) {
 	                return !pointA || coord[0] !== pointB.coord()[0];
 	            } ],
 	            onMove: onMoveHandler
 	        });
-	        pointB = this.pointB = Interactive2.addMaybeXOMMovablePoint(this, {
+	        pointB = this.pointB = Interactive2.addMaybeMobileMovablePoint(this, {
 	            coord: coords[1],
 	            constraints: [ Interactive2.MovablePoint.constraints.bound(), Interactive2.MovablePoint.constraints.snap(), function(coord) {
 	                return !pointA || coord[0] !== pointA.coord()[0];
@@ -3641,7 +3652,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var segmentColors = [ KhanColors.INTERACTIVE, KhanColors.GREEN ];
 	        var points = this.points = _.map(coords, function(segmentCoords, segmentIndex) {
 	            var segmentPoints = _.map(segmentCoords, function(coord, i) {
-	                return Interactive2.addMaybeXOMMovablePoint(_this6, {
+	                return Interactive2.addMaybeMobileMovablePoint(_this6, {
 	                    coord: coord,
 	                    constraints: [ Interactive2.MovablePoint.constraints.bound(), Interactive2.MovablePoint.constraints.snap(), function(coord) {
 	                        if (!segmentPoints) // points hasn't been defined yet because
@@ -3707,7 +3718,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            // consistent throughout this method call
 	            setTimeout(point.remove.bind(point), 0);
 	        };
-	        var point = Interactive2.addMaybeXOMMovablePoint(this, _extends({
+	        var point = Interactive2.addMaybeMobileMovablePoint(this, _extends({
 	            coord: coord,
 	            constraints: [ Interactive2.MovablePoint.constraints.bound(), Interactive2.MovablePoint.constraints.snap(), function(coord) {
 	                // TODO(jack): There ought to be a
@@ -3916,7 +3927,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            // Snap to grid (already done)
 	            return true;
 	        };
-	        var point = Interactive2.addMaybeXOMMovablePoint(this, _extends({
+	        var point = Interactive2.addMaybeMobileMovablePoint(this, _extends({
 	            coord: coord,
 	            constraints: [ Interactive2.MovablePoint.constraints.bound(), snapToGrid ? Interactive2.MovablePoint.constraints.snap() : null, graphConstraint ],
 	            onMoveStart: function onMoveStart() {
@@ -3979,7 +3990,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var graphie = this.graphie;
 	        var coords = InteractiveGraph.getSegmentCoords(this.props.graph, this.props);
 	        var createPoint = function createPoint(options) {
-	            return Interactive2.addMaybeXOMMovablePoint(_this8, options);
+	            return Interactive2.addMaybeMobileMovablePoint(_this8, options);
 	        };
 	        this.points = [];
 	        this.lines = _.map(coords, function(segment, i) {
@@ -4557,7 +4568,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 53 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4565,11 +4576,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable array-bracket-spacing, comma-dangle, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(78);
 
 	var WidgetJsonifyDeprecated = __webpack_require__(93);
 
@@ -4850,7 +4861,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 54 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4866,13 +4877,13 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, max-len, no-undef, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-before-function-paren */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var classNames = __webpack_require__(13);
+	var classNames = __webpack_require__(12);
 
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var ReactDOM = __webpack_require__(10);
+	var ReactDOM = __webpack_require__(11);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
 	var NumberInput = __webpack_require__(100);
 
@@ -4882,13 +4893,13 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var MathOutput = __webpack_require__(102);
 
-	var SimpleKeypadInput = __webpack_require__(78);
+	var SimpleKeypadInput = __webpack_require__(73);
 
 	var ApiOptions = __webpack_require__(16).Options;
 
-	var KhanAnswerTypes = __webpack_require__(40);
+	var KhanAnswerTypes = __webpack_require__(70);
 
-	var keypadElementPropType = __webpack_require__(82).propTypes.keypadElementPropType;
+	var keypadElementPropType = __webpack_require__(88).propTypes.keypadElementPropType;
 
 	var assert = __webpack_require__(103).assert;
 
@@ -5286,7 +5297,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 55 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5294,9 +5305,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-var, object-curly-spacing, react/forbid-prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
 	var Renderer = __webpack_require__(8);
 
@@ -5438,7 +5449,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 56 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5446,11 +5457,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var ReactDOM = __webpack_require__(10);
+	var ReactDOM = __webpack_require__(11);
 
-	var _2 = __webpack_require__(11);
+	var _2 = __webpack_require__(9);
 
 	var ApiOptions = __webpack_require__(16).Options;
 
@@ -5597,7 +5608,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 57 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5605,15 +5616,15 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable brace-style, object-curly-spacing */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var draw = __webpack_require__(114);
+	var draw = __webpack_require__(113);
 
-	var _require = __webpack_require__(115);
+	var _require = __webpack_require__(114);
 
 	var layout = _require.layout;
 
-	var SmilesParser = __webpack_require__(116);
+	var SmilesParser = __webpack_require__(115);
 
 	var parse = SmilesParser.parse;
 
@@ -5762,7 +5773,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 58 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5779,25 +5790,25 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* eslint-disable brace-style, no-var, react/jsx-sort-prop-types */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/* globals i18n, $_ */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var ReactDOM = __webpack_require__(10);
+	var ReactDOM = __webpack_require__(11);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(78);
 
 	var NumberInput = __webpack_require__(100);
 
 	var MathOutput = __webpack_require__(102);
 
-	var SimpleKeypadInput = __webpack_require__(78);
+	var SimpleKeypadInput = __webpack_require__(73);
 
 	var ApiOptions = __webpack_require__(16).Options;
 
-	var keypadElementPropType = __webpack_require__(82).propTypes.keypadElementPropType;
+	var keypadElementPropType = __webpack_require__(88).propTypes.keypadElementPropType;
 
-	var Graphie = __webpack_require__(74);
+	var Graphie = __webpack_require__(85);
 
 	var MovablePoint = Graphie.MovablePoint;
 
@@ -5805,7 +5816,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var knumber = __webpack_require__(123).number;
 
-	var KhanMath = __webpack_require__(81);
+	var KhanMath = __webpack_require__(76);
 
 	var KhanColors = __webpack_require__(98);
 
@@ -6079,7 +6090,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	            fill: isOpen ? KhanColors._BACKGROUND : KhanColors.INTERACTING,
 	            "stroke-width": isOpen ? 3 : 1
 	        };
-	        var xomDotStyle = props.isInequality ? {
+	        var mobileDotStyle = props.isInequality ? {
 	            stroke: KhanColors.INTERACTIVE,
 	            "fill-opacity": isOpen ? 0 : 1
 	        } : {};
@@ -6104,7 +6115,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	                _this3.props.trackInteraction();
 	            },
 	            isMobile: this.props.apiOptions.isMobile,
-	            xomStyleOverride: xomDotStyle,
+	            mobileStyleOverride: mobileDotStyle,
 	            showTooltips: this.props.showTooltips,
 	            xOnlyTooltip: true
 	        });
@@ -6303,7 +6314,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 59 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6311,11 +6322,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, max-len, no-console, no-unused-vars, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var ReactDOM = __webpack_require__(10);
+	var ReactDOM = __webpack_require__(11);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
 	var Renderer = __webpack_require__(8);
 
@@ -6732,7 +6743,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 60 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6740,17 +6751,17 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-infix-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var ReactDOM = __webpack_require__(10);
+	var ReactDOM = __webpack_require__(11);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(78);
 
 	var Renderer = __webpack_require__(8);
 
-	var PassageMarkdown = __webpack_require__(113);
+	var PassageMarkdown = __webpack_require__(112);
 
 	var Passage = React.createClass({
 	    displayName: "Passage",
@@ -6978,8 +6989,8 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 61 */,
-/* 62 */
+/* 59 */,
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6987,11 +6998,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(78);
 
 	var WidgetJsonifyDeprecated = __webpack_require__(93);
 
@@ -7047,7 +7058,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 63 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7055,17 +7066,17 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, indent, no-redeclare, no-unused-vars, no-var, object-curly-spacing, one-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp, space-before-function-paren */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var ReactDOM = __webpack_require__(10);
+	var ReactDOM = __webpack_require__(11);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
 	var ApiClassNames = __webpack_require__(16).ClassNames;
 
 	var deepEq = __webpack_require__(15).deepEq;
 
-	var KhanMath = __webpack_require__(81);
+	var KhanMath = __webpack_require__(76);
 
 	var KhanColors = __webpack_require__(98);
 
@@ -7450,7 +7461,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        });
 	        if (isMobile) !function() {
 	            var snap = config.scaleY / self.props.snapsPerLine;
-	            config.graph.lines[i] = Interactive2.addMaybeXOMMovablePoint(_this, {
+	            config.graph.lines[i] = Interactive2.addMaybeMobileMovablePoint(_this, {
 	                coord: [ x, startHeight ],
 	                constraints: [ function(coord, prev, options) {
 	                    return [ x, _this._clampValue(Math.round(coord[1] / snap) * snap, 0, config.dimY) ];
@@ -7534,7 +7545,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	        var x = i + (isMobile ? .4 : 1);
 	        if (isMobile) !function() {
 	            var snap = config.scaleY / self.props.snapsPerLine;
-	            c.graph.points[i] = Interactive2.addMaybeXOMMovablePoint(_this2, {
+	            c.graph.points[i] = Interactive2.addMaybeMobileMovablePoint(_this2, {
 	                coord: [ x, startHeight ],
 	                constraints: [ function(coord, prev, options) {
 	                    return [ x, _this2._clampValue(Math.round(coord[1] / snap) * snap, 0, config.dimY) ];
@@ -7756,14 +7767,14 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 64 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var Molecule = __webpack_require__(57).molecule;
+	var Molecule = __webpack_require__(55).molecule;
 
 	var Separator = React.createClass({
 	    displayName: "Separator",
@@ -7884,7 +7895,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 65 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7900,19 +7911,19 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
 	var ApiOptions = __webpack_require__(16).Options;
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(78);
 
-	var _require = __webpack_require__(88);
+	var _require = __webpack_require__(82);
 
 	var iconOk = _require.iconOk;
 
-	var InlineIcon = __webpack_require__(85);
+	var InlineIcon = __webpack_require__(79);
 
 	var Renderer = __webpack_require__(8);
 
@@ -8019,7 +8030,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 66 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8030,19 +8041,19 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* globals $_, i18n */
 	var InfoTip = __webpack_require__(105);
 
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var ReactDOM = __webpack_require__(10);
+	var ReactDOM = __webpack_require__(11);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(78);
 
 	var ApiOptions = __webpack_require__(16).Options;
 
 	var assert = __webpack_require__(103).assert;
 
-	var Graphie = __webpack_require__(74);
+	var Graphie = __webpack_require__(85);
 
 	var Path = Graphie.Path;
 
@@ -8070,7 +8081,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var KhanColors = __webpack_require__(98);
 
-	var KhanMath = __webpack_require__(81);
+	var KhanMath = __webpack_require__(76);
 
 	var defaultBoxSize = 400;
 
@@ -8616,7 +8627,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 67 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8624,9 +8635,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-var, one-var, react/forbid-prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
 	var Sortable = __webpack_require__(99);
 
@@ -8704,7 +8715,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 68 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8712,11 +8723,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-before-function-paren */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var ReactDOM = __webpack_require__(10);
+	var ReactDOM = __webpack_require__(11);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
 	var MathOutput = __webpack_require__(102);
 
@@ -8726,7 +8737,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var ApiOptions = __webpack_require__(16).Options;
 
-	var KhanAnswerTypes = __webpack_require__(40);
+	var KhanAnswerTypes = __webpack_require__(70);
 
 	var assert = __webpack_require__(103).assert;
 
@@ -8980,7 +8991,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 69 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8996,15 +9007,15 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable camelcase, comma-dangle, indent, no-redeclare, no-undef, no-var, object-curly-spacing, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/no-did-update-set-state, react/prop-types, react/sort-comp, space-before-function-paren, space-infix-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var ReactDOM = __webpack_require__(10);
+	var ReactDOM = __webpack_require__(11);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
 	var Graph = __webpack_require__(104);
 
-	var InlineIcon = __webpack_require__(85);
+	var InlineIcon = __webpack_require__(79);
 
 	var NumberInput = __webpack_require__(100);
 
@@ -9012,11 +9023,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var TeX = __webpack_require__(38);
 
-	var SimpleKeypadInput = __webpack_require__(78);
+	var SimpleKeypadInput = __webpack_require__(73);
 
 	var ApiOptions = __webpack_require__(16).Options;
 
-	var keypadElementPropType = __webpack_require__(82).propTypes.keypadElementPropType;
+	var keypadElementPropType = __webpack_require__(88).propTypes.keypadElementPropType;
 
 	var ROTATE_SNAP_DEGREES = 15;
 
@@ -9030,7 +9041,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var REFLECT_BUTTON_SIZE = 1;
 
-	var _require = __webpack_require__(88);
+	var _require = __webpack_require__(82);
 
 	var iconPlus = _require.iconPlus;
 
@@ -9052,7 +9063,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var kline = __webpack_require__(123).line;
 
-	var KhanMath = __webpack_require__(81);
+	var KhanMath = __webpack_require__(76);
 
 	var KhanColors = __webpack_require__(98);
 
@@ -10990,7 +11001,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 70 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11002,19 +11013,19 @@ webpackJsonpPerseus([1],Array(18).concat([
 	// terms of a certain type.
 	// TODO(joel): Allow sigfigs within a range rather than an exact expected
 	// value?
-	var lens = __webpack_require__(111);
+	var lens = __webpack_require__(92);
 
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var ReactDOM = __webpack_require__(10);
+	var ReactDOM = __webpack_require__(11);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
 	var ApiClassNames = __webpack_require__(16).ClassNames;
 
 	var ApiOptions = __webpack_require__(16).Options;
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(78);
 
 	var MathOutput = __webpack_require__(102);
 
@@ -11230,7 +11241,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 71 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11241,13 +11252,13 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/**
 	 * This is a video widget for embedding videos in articles.
 	 */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(84);
+	var Changeable = __webpack_require__(78);
 
-	var FixedToResponsive = __webpack_require__(73);
+	var FixedToResponsive = __webpack_require__(84);
 
 	// Current default is 720p, based on the typical videos we upload currently
 	var DEFAULT_WIDTH = 1280;
@@ -11327,6 +11338,8 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
+/* 70 */,
+/* 71 */,
 /* 72 */,
 /* 73 */,
 /* 74 */,
@@ -11364,21 +11377,21 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	/* globals i18n */
 	/**
-	 * Renders answer bar for XOM graded groups. [STATELESS]
+	 * Renders answer bar for mobile graded groups. [STATELESS]
 	 */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
 	var ApiOptions = __webpack_require__(16).Options;
 
-	var InlineIcon = __webpack_require__(85);
+	var InlineIcon = __webpack_require__(79);
 
-	var _require = __webpack_require__(88);
+	var _require = __webpack_require__(82);
 
 	var iconStar = _require.iconStar;
 
 	var iconTryAgain = _require.iconTryAgain;
 
-	var _require2 = __webpack_require__(32);
+	var _require2 = __webpack_require__(36);
 
 	var boldFontFamily = _require2.boldFontFamily;
 
@@ -11456,7 +11469,6 @@ webpackJsonpPerseus([1],Array(18).concat([
 	                type: "button",
 	                style: buttonStyle,
 	                value: buttonLabel,
-	                className: apiOptions.isMobile ? "" : "simple-button",
 	                disabled: apiOptions.readOnly || answerBarState !== ANSWER_BAR_STATES.ACTIVE,
 	                onClick: onCheckAnswer
 	            }));
@@ -11536,15 +11548,15 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var ReactDOM = __webpack_require__(10);
+	var ReactDOM = __webpack_require__(11);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
-	var styles = __webpack_require__(124);
+	var styles = __webpack_require__(132);
 
-	var css = __webpack_require__(12).css;
+	var css = __webpack_require__(13).css;
 
 	/* ButtonGroup is an aesthetically pleasing group of buttons.
 	 *
@@ -11627,11 +11639,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, indent, max-len, no-irregular-whitespace, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var ReactDOM = __webpack_require__(10);
+	var ReactDOM = __webpack_require__(11);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
 	var Util = __webpack_require__(15);
 
@@ -12049,13 +12061,13 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-after-keywords */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var classNames = __webpack_require__(13);
+	var classNames = __webpack_require__(12);
 
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var ReactDOM = __webpack_require__(10);
+	var ReactDOM = __webpack_require__(11);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
 	var firstNumericalParse = __webpack_require__(15).firstNumericalParse;
 
@@ -12063,7 +12075,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 
 	var knumber = __webpack_require__(123).number;
 
-	var KhanMath = __webpack_require__(81);
+	var KhanMath = __webpack_require__(76);
 
 	var toNumericString = KhanMath.toNumericString;
 
@@ -12229,21 +12241,21 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable brace-style, comma-dangle, no-redeclare, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var ReactDOM = __webpack_require__(10);
+	var ReactDOM = __webpack_require__(11);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
 	var Util = __webpack_require__(15);
 
 	var GraphUtils = __webpack_require__(106);
 
-	var _require = __webpack_require__(32);
+	var _require = __webpack_require__(36);
 
 	var interactiveSizes = _require.interactiveSizes;
 
-	var SvgImage = __webpack_require__(28);
+	var SvgImage = __webpack_require__(32);
 
 	var defaultBackgroundImage = {
 	    url: null
@@ -12531,9 +12543,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 	 * (RCSS generates classnames with a randomSuffix, which ensures that any
 	 * two sets of generated classnames will not match.)
 	 */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var ReactComponentsInfoTip = __webpack_require__(133);
+	var ReactComponentsInfoTip = __webpack_require__(135);
 
 	var InfoTip = React.createClass({
 	    displayName: "InfoTip",
@@ -12963,9 +12975,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 /***/ },
 /* 108 */,
 /* 109 */,
-/* 110 */,
-/* 111 */,
-/* 112 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12973,11 +12983,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable brace-style, comma-dangle, no-var, one-var, space-unary-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
 	var Util = __webpack_require__(15);
 
-	var Graphie = __webpack_require__(74);
+	var Graphie = __webpack_require__(85);
 
 	var Plot = Graphie.Plot;
 
@@ -13500,7 +13510,8 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 113 */
+/* 111 */,
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13509,11 +13520,11 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/* globals $_ */
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var SimpleMarkdown = __webpack_require__(108);
+	var SimpleMarkdown = __webpack_require__(111);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
 	var START_REF_PREFIX = "start-ref-";
 
@@ -13804,7 +13815,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 114 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13978,7 +13989,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	module.exports = draw;
 
 /***/ },
-/* 115 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14292,7 +14303,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 116 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14535,6 +14546,7 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
+/* 116 */,
 /* 117 */,
 /* 118 */,
 /* 119 */,
@@ -14542,13 +14554,21 @@ webpackJsonpPerseus([1],Array(18).concat([
 /* 121 */,
 /* 122 */,
 /* 123 */,
-/* 124 */
+/* 124 */,
+/* 125 */,
+/* 126 */,
+/* 127 */,
+/* 128 */,
+/* 129 */,
+/* 130 */,
+/* 131 */,
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	/* eslint-disable no-var */
-	var StyleSheet = __webpack_require__(12).StyleSheet;
+	var StyleSheet = __webpack_require__(13).StyleSheet;
 
 	var button = StyleSheet.create({
 	    buttonStyle: {
@@ -14587,15 +14607,9 @@ webpackJsonpPerseus([1],Array(18).concat([
 	};
 
 /***/ },
-/* 125 */,
-/* 126 */,
-/* 127 */,
-/* 128 */,
-/* 129 */,
-/* 130 */,
-/* 131 */,
-/* 132 */,
-/* 133 */
+/* 133 */,
+/* 134 */,
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14603,15 +14617,15 @@ webpackJsonpPerseus([1],Array(18).concat([
 	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var _require = __webpack_require__(12);
+	var _require = __webpack_require__(13);
 
 	var StyleSheet = _require.StyleSheet;
 
 	var css = _require.css;
 
-	var React = __webpack_require__(9);
+	var React = __webpack_require__(10);
 
-	var _ = __webpack_require__(11);
+	var _ = __webpack_require__(9);
 
 	var colors = {
 	    grayLight: "#aaa",
@@ -14714,4 +14728,4 @@ webpackJsonpPerseus([1],Array(18).concat([
 	module.exports = InfoTip;
 
 /***/ }
-]));
+]);
