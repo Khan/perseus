@@ -122,7 +122,8 @@ var GraphSettings = React.createClass({
                 <div>背景圖:</div>
                 <div>Url:{' '}
                     <BlurInput  value={this.props.backgroundImage.url}
-                            onChange={this.changeBackgroundUrl}/>
+                                onChange={this.changeBackgroundUrl}
+                                className="graph-settings-background-url"/>
                     <InfoTip>
                         <p>請在圖形中增加圖片，或於欄中輸入圖片連結。</p>
                     </InfoTip>
