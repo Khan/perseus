@@ -10,10 +10,14 @@ const _ = require("underscore");
 
 const ApiClassNames = require("../perseus-api.jsx").ClassNames;
 const ApiOptions = require("../perseus-api.jsx").Options;
+const InlineIcon = require("../components/inline-icon.jsx");
 const styleConstants = require("../styles/constants.js");
 
+const {iconDropdownArrow} = require("../icon-paths.js");
 const captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
+
+const dropdownArrowSize = 24;
 
 const Dropdown = React.createClass({
     propTypes: {
@@ -41,25 +45,35 @@ const Dropdown = React.createClass({
             "perseus-widget-dropdown": true,
         });
 
-        return <select
-                onChange={this._handleChangeEvent}
-                onTouchStart={captureScratchpadTouchStart}
-                className={selectClasses +
-                    " " + css(styles.dropdown) +
-                    " " + ApiClassNames.INTERACTIVE}
-                disabled={this.props.apiOptions.readOnly}
-                value={this.props.selected}>
-            <option value={0} disabled>
-                {this.props.placeholder}
-            </option>
-            {choices.map((choice, i) => {
-                return <option
-                        key={"" + (i + 1)}
-                        value={i + 1}>
-                    {choice}
-                </option>;
-            })}
-        </select>;
+        return <div>
+                <select
+                    onChange={this._handleChangeEvent}
+                    onTouchStart={captureScratchpadTouchStart}
+                    className={selectClasses +
+                        " " + css(styles.dropdown) +
+                        " " + ApiClassNames.INTERACTIVE}
+                    disabled={this.props.apiOptions.readOnly}
+                    value={this.props.selected}>
+                <option value={0} disabled>
+                    {this.props.placeholder}
+                </option>
+                {choices.map((choice, i) => {
+                    return <option
+                            key={"" + (i + 1)}
+                            value={i + 1}>
+                        {choice}
+                    </option>;
+                })}
+            </select>
+            <InlineIcon
+                {...iconDropdownArrow}
+                style={{
+                    marginLeft: `-${dropdownArrowSize}px`,
+                    height: dropdownArrowSize,
+                    width: dropdownArrowSize,
+                }}
+            />
+        </div>;
     },
 
     focus: function() {
@@ -112,28 +126,31 @@ var propTransform = (editorProps) => {
     };
 };
 
-const dropDownArrowSize = 24;
 const styles = StyleSheet.create({
     dropdown: {
         appearance: 'none',
-        // TODO(kevinb) use a dataURI
-        background: 'url(/images/dropdown.png) no-repeat right',
         backgroundColor: 'transparent',
         border: `1px solid ${styleConstants.gray76}`,
         borderRadius: 4,
         boxShadow: 'none',
         fontFamily: styleConstants.baseFontFamily,
-        padding: `9px ${dropDownArrowSize + 1}px 9px 9px`,
+        padding: `9px ${dropdownArrowSize + 1}px 9px 9px`,
 
         ':focus': {
             outline: 'none',
-            // TODO(kevinb) use a dataURI
-            background: 'url(/images/dropdown-focused.png) no-repeat right',
             border: `2px solid ${styleConstants.kaGreen}`,
-            padding: `8px ${dropDownArrowSize}px 8px 8px`,
+            padding: `8px ${dropdownArrowSize}px 8px 8px`,
+        },
+
+        ':focus + svg': {
+            color: `${styleConstants.kaGreen}`,
         },
 
         ':disabled': {
+            color: styleConstants.gray68,
+        },
+
+        ':disabled + svg' : {
             color: styleConstants.gray68,
         },
     },
