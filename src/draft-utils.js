@@ -84,18 +84,19 @@ function findPattern(contentState, regExp) {
 }
 
 function replaceSelection(draftData, text, entity = null) {
+    const data = _fillData(draftData);
     const newData = {};
     newData.contentState = Modifier.replaceText(
-        draftData.contentState,
-        draftData.selection,
+        data.contentState,
+        data.selection,
         text,
         null, // For custom styling, but we use a decorator instead
         entity
     );
 
-    if (draftData.editorState) {
+    if (data.editorState) {
         newData.editorState = EditorState.push(
-            draftData.editorState,
+            data.editorState,
             newData.contentState,
             'insert-characters'
         );
@@ -105,16 +106,17 @@ function replaceSelection(draftData, text, entity = null) {
 }
 
 function deleteSelection(draftData) {
+    const data = _fillData(draftData);
     const newData = {};
     newData.contentState = Modifier.removeRange(
-        draftData.contentState,
-        draftData.selection,
+        data.contentState,
+        data.selection,
         'backward'
     );
 
-    if (draftData.editorState) {
+    if (data.editorState) {
         newData.editorState = EditorState.push(
-            draftData.editorState,
+            data.editorState,
             newData.contentState,
             'delete-word'
         );
@@ -206,6 +208,7 @@ function findEntity(contentState, filter) {
     */
 const NEWLINE_REGEX = /\r\n?|\n/g;
 function insertText(draftData, rawText, sanitizer = () => null) {
+    const data = _fillData(draftData);
     const newData = {};
 
     // To insert text such that it will appear as multiple blocks,
@@ -239,14 +242,14 @@ function insertText(draftData, rawText, sanitizer = () => null) {
     const fragment = BlockMapBuilder.createFromArray(contentBlocks);
 
     newData.contentState = Modifier.replaceWithFragment(
-        draftData.contentState,
-        draftData.selection,
+        data.contentState,
+        data.selection,
         fragment
     );
 
-    if (draftData.editorState) {
+    if (data.editorState) {
         newData.editorState = EditorState.push(
-            draftData.editorState,
+            data.editorState,
             newData.contentState,
             'insert-fragment'
         );

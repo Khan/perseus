@@ -502,7 +502,7 @@ const PerseusEditor = React.createClass({
         const match = text.match(partialWidgetRegex);
         if (match) {
             const partialName = match[1];
-            const allWidgets = Object.keys(Widgets.getPublicWidgets());
+            const allWidgets = Widgets.getAllWidgetTypes();
             const matchingWidgets = allWidgets.filter(widget => {
                 return widget.substring(0, partialName.length) === partialName;
             });
