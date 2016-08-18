@@ -410,13 +410,6 @@ var GraphSettings = React.createClass({
     },
 
     changeBackgroundUrl: function(e) {
-        //var self = this;
-
-        // Only continue on blur or "enter"
-        //if (e.type === "keypress" && e.keyCode !== 13) {
-        //    return;
-        //}
-
         var url = e;
         if (url) {
             if(this.props.backgroundImage.url != url){
