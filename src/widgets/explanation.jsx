@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable comma-dangle, indent, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const { StyleSheet, css } = require("aphrodite");
@@ -13,14 +13,14 @@ const Renderer = require("../renderer.jsx");
 const mediaQueries = require("../styles/media-queries.js");
 const styleConstants = require("../styles/constants.js");
 
-var defaultExplanationProps = {
+const defaultExplanationProps = {
     showPrompt: "Explain",
     hidePrompt: "Hide explanation",
     explanation: "explanation goes here\n\nmore explanation",
     widgets: {},
 };
 
-var Explanation = React.createClass({
+const Explanation = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
@@ -44,6 +44,7 @@ var Explanation = React.createClass({
     },
 
     _onClick: function() {
+        this._updateHeight();
         this.setState({
             expanded: !this.state.expanded
         });
@@ -56,6 +57,9 @@ var Explanation = React.createClass({
     _updateHeight: function() {
         const contentElement = ReactDOM.findDOMNode(this.refs.content);
         const {isMobile} = this.props.apiOptions;
+
+        // TODO(jared): this feels super fagile -- would
+        // `contentElement.scrollHeight` work?
 
         // Add up the heights of all the the child nodes
         const contentHeight = Array.prototype.reduce.call(
