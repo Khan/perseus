@@ -86,10 +86,11 @@ const PreviewFrame = React.createClass({
     _updateParentWithHeight: function() {
         let lowest = 0;
         ["#content-container", ".preview-measure"].forEach((selector) => {
-            document.querySelectorAll(selector).forEach((element) => {
-                lowest =
-                    Math.max(lowest, element.getBoundingClientRect().bottom);
-            });
+            Array.from(document.querySelectorAll(selector)).forEach(
+                (element) => {
+                    lowest = Math.max(lowest,
+                                      element.getBoundingClientRect().bottom);
+                });
         });
 
         const bottomMargin = 30;
