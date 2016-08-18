@@ -63,7 +63,6 @@ const imageRegExp = /!\[.*?\]\(.*?\)/g;
     where a `strategy` is given to denote what ranges of text to style,
     and a `component` is given to denote how that range should be rendered
 */
-
 const entityStrategy = (contentBlock, callback, type) =>
     contentBlock.findEntityRanges(
         char => char.getEntity()
@@ -368,7 +367,7 @@ const PerseusEditor = React.createClass({
     // happens prior to the new content state being generated (which is needed
     // to add entities to).  We therefore must reimplement the default Paste
     // functionality, in order to add our custom steps afterwards
-    _handlePaste(pastedText, html) {
+    _handlePaste(pastedText, html, selection) {
 
         // If no widgets are in localstorage, just use default behavior
         const sourceWidgetsJSON = localStorage.perseusLastCopiedWidgets;
@@ -407,32 +406,34 @@ const PerseusEditor = React.createClass({
             return {text: safeText, characterList};
         };
 
+        const data = this._getDraftData();
+        data.selection = selection || data.selection;
         const {editorState} = DraftUtils.insertText(
-            this._getDraftData(), pastedText, sanitizeText
+            data, pastedText, sanitizeText
         );
         this._handleChange({editorState, widgets});
         return true; // True means draft doesn't run its default behavior
     },
 
     _handleDrop(selection, dataTransfer) {
-        let textToInsert = "";
+        // All insertions are done to the end of the current block
+        const contentState = this.state.editorState.getCurrentContent();
+        const endKey = selection.getEndKey();
+        const endBlock = contentState.getBlockForKey(endKey);
+        const endSelection = DraftUtils.selectEnd(endBlock);
 
         const imageUrl = dataTransfer.getLink();
         if (imageUrl) {
-            textToInsert = `\n![](${imageUrl})`;
+            // Adds new lines and collapses the selection
+            const {editorState} = DraftUtils.insertText(
+                {...this._getDraftData(), selection: endSelection},
+               `\n![](${imageUrl})`
+            );
+            this._handleChange({editorState});
         } else {
-            // TODO: Sanitize when text including widgets are dragged in
-            textToInsert = dataTransfer.getText();
+            this._handlePaste(dataTransfer.getText(), null, endSelection);
         }
-        // Adds new lines and collapses the selection
-        const contentState = this.state.editorState.getCurrentContent();
-        const contentBlock = contentState.getBlockForKey(selection.getEndKey());
-        const endOfBlockSelection = DraftUtils.selectEnd(contentBlock);
-        const {editorState} = DraftUtils.insertText(
-            {...this._getDraftData(), selection: endOfBlockSelection},
-            textToInsert
-        );
-        this._handleChange({editorState});
+
         return true; // Disable default draft drop handler
     },
 
@@ -480,6 +481,10 @@ const PerseusEditor = React.createClass({
         );
         this._handleChange({editorState});
         return true; // Disable default draft drop handler
+    },
+
+    _handleDrag(e) {
+        console.log(e);
     },
 
 
@@ -588,7 +593,7 @@ const PerseusEditor = React.createClass({
     },
 
     render() {
-        return <div onCopy={this._handleCopy}>
+        return <div onCopy={this._handleCopy} onDragStart={this._handleCopy}>
             <Editor
                 ref={(e) => this.editor = e}
                 editorState={this.state.editorState}
