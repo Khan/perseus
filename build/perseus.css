@@ -1,5 +1,5 @@
 /* Perseus CSS
-// commit 35693ddf1efe5eb640af123c8c9bd531679d6fc2
+// commit 705da0c2ac9a8cd2fc4d7492c57cd00b99b60d77
 // branch sat-highlighting
 // @generated
 */
@@ -1643,6 +1643,9 @@ body.mobile .perseus-matrix .math-output {
 }
 .perseus-widget-passage-container .perseus-highlight {
   background-color: #FFFABE;
+}
+.perseus-widget-passage-container .perseus-review-highlight {
+  background-color: #EEE7B2;
 }
 .perseus-widget-passage-container .perseus-passage-square-label,
 .perseus-widget-passage-container .perseus-passage-circle-label,

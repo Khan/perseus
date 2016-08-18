@@ -11,9 +11,7 @@ webpackJsonpPerseus([1],[
 /* 9 */,
 /* 10 */,
 /* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -26,6 +24,8 @@ webpackJsonpPerseus([1],[
 	false, false, false ];
 
 /***/ },
+/* 13 */,
+/* 14 */,
 /* 15 */,
 /* 16 */,
 /* 17 */,
@@ -59,7 +59,7 @@ webpackJsonpPerseus([1],[
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-undef, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var _require = __webpack_require__(12);
+	var _require = __webpack_require__(16);
 
 	var StyleSheet = _require.StyleSheet;
 
@@ -67,33 +67,33 @@ webpackJsonpPerseus([1],[
 
 	var React = __webpack_require__(10);
 
-	var classNames = __webpack_require__(13);
+	var classNames = __webpack_require__(17);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(77);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(92);
+	var WidgetJsonifyDeprecated = __webpack_require__(91);
 
 	var _ = __webpack_require__(9);
 
-	var ApiClassNames = __webpack_require__(16).ClassNames;
+	var ApiClassNames = __webpack_require__(14).ClassNames;
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(14).Options;
 
-	var _require2 = __webpack_require__(85);
+	var _require2 = __webpack_require__(81);
 
 	var iconCircle = _require2.iconCircle;
 
 	var iconCircleThin = _require2.iconCircleThin;
 
-	var InlineIcon = __webpack_require__(82);
+	var InlineIcon = __webpack_require__(78);
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(13);
 
-	var mediaQueries = __webpack_require__(93);
+	var mediaQueries = __webpack_require__(92);
 
-	var sharedStyles = __webpack_require__(94);
+	var sharedStyles = __webpack_require__(93);
 
 	var Categorizer = React.createClass({
 	    displayName: "Categorizer",
@@ -289,9 +289,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(77);
 
-	var updateQueryString = __webpack_require__(15).updateQueryString;
+	var updateQueryString = __webpack_require__(13).updateQueryString;
 
 	var PADDING_WIDTH = 2;
 
@@ -442,9 +442,9 @@ webpackJsonpPerseus([1],[
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var classNames = __webpack_require__(13);
+	var classNames = __webpack_require__(17);
 
-	var FancySelect = __webpack_require__(91);
+	var FancySelect = __webpack_require__(94);
 
 	var React = __webpack_require__(10);
 
@@ -454,11 +454,11 @@ webpackJsonpPerseus([1],[
 
 	var FancyOption = FancySelect.Option;
 
-	var ApiClassNames = __webpack_require__(16).ClassNames;
+	var ApiClassNames = __webpack_require__(14).ClassNames;
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(14).Options;
 
-	var captureScratchpadTouchStart = __webpack_require__(15).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(13).captureScratchpadTouchStart;
 
 	var Dropdown = React.createClass({
 	    displayName: "Dropdown",
@@ -585,7 +585,7 @@ webpackJsonpPerseus([1],[
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, indent, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var _require = __webpack_require__(12);
+	var _require = __webpack_require__(16);
 
 	var StyleSheet = _require.StyleSheet;
 
@@ -597,15 +597,15 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(77);
 
-	var PerseusApi = __webpack_require__(16);
+	var PerseusApi = __webpack_require__(14);
 
 	var Renderer = __webpack_require__(8);
 
-	var mediaQueries = __webpack_require__(93);
+	var mediaQueries = __webpack_require__(92);
 
-	var styleConstants = __webpack_require__(29);
+	var styleConstants = __webpack_require__(35);
 
 	var defaultExplanationProps = {
 	    showPrompt: "Explain",
@@ -819,16 +819,16 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Interactive2 = __webpack_require__(95);
+	var Interactive2 = __webpack_require__(96);
 
-	var SvgImage = __webpack_require__(28);
+	var SvgImage = __webpack_require__(33);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(13);
 
-	var ButtonGroup = __webpack_require__(96);
+	var ButtonGroup = __webpack_require__(97);
 
 	/* Graphie and relevant components. */
-	var Graphie = __webpack_require__(77);
+	var Graphie = __webpack_require__(86);
 
 	var MovablePoint = Graphie.MovablePoint;
 
@@ -840,22 +840,22 @@ webpackJsonpPerseus([1],[
 
 	var kpoint = __webpack_require__(127).point;
 
-	var KhanColors = __webpack_require__(97);
+	var KhanColors = __webpack_require__(98);
 
-	var _require = __webpack_require__(88);
+	var _require = __webpack_require__(84);
 
 	var containerSizeClassPropType = _require.containerSizeClassPropType;
 
-	var _require2 = __webpack_require__(29);
+	var _require2 = __webpack_require__(35);
 
 	var interactiveSizes = _require2.interactiveSizes;
 
-	var _require3 = __webpack_require__(88);
+	var _require3 = __webpack_require__(84);
 
 	var getInteractiveBoxFromSizeClass = _require3.getInteractiveBoxFromSizeClass;
 
 	/* Mixins. */
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(77);
 
 	var _require4 = __webpack_require__(113);
 
@@ -1191,17 +1191,17 @@ webpackJsonpPerseus([1],[
 
 	/* eslint-disable react/forbid-prop-types */
 	/* globals i18n */
-	var classNames = __webpack_require__(13);
+	var classNames = __webpack_require__(17);
 
 	var React = __webpack_require__(10);
 
 	var _ = __webpack_require__(9);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(14).Options;
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(77);
 
-	var _require = __webpack_require__(85);
+	var _require = __webpack_require__(81);
 
 	var iconOk = _require.iconOk;
 
@@ -1209,13 +1209,13 @@ webpackJsonpPerseus([1],[
 
 	var icon = _require.icon;
 
-	var InlineIcon = __webpack_require__(82);
+	var InlineIcon = __webpack_require__(78);
 
 	var Renderer = __webpack_require__(8);
 
-	var GradedGroupAnswerBar = __webpack_require__(98);
+	var GradedGroupAnswerBar = __webpack_require__(95);
 
-	var _require2 = __webpack_require__(29);
+	var _require2 = __webpack_require__(35);
 
 	var gray76 = _require2.gray76;
 
@@ -1227,7 +1227,7 @@ webpackJsonpPerseus([1],[
 
 	var kaGreen = _require2.kaGreen;
 
-	var _require3 = __webpack_require__(12);
+	var _require3 = __webpack_require__(16);
 
 	var StyleSheet = _require3.StyleSheet;
 
@@ -1510,19 +1510,19 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var _require = __webpack_require__(12);
+	var _require = __webpack_require__(16);
 
 	var StyleSheet = _require.StyleSheet;
 
 	var css = _require.css;
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(14).Options;
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(77);
 
 	var GradedGroup = __webpack_require__(43).widget;
 
-	var _require2 = __webpack_require__(29);
+	var _require2 = __webpack_require__(35);
 
 	var grayLight = _require2.grayLight;
 
@@ -1716,9 +1716,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(14).Options;
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(77);
 
 	var Renderer = __webpack_require__(8);
 
@@ -1870,11 +1870,11 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(77);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(92);
+	var WidgetJsonifyDeprecated = __webpack_require__(91);
 
-	var updateQueryString = __webpack_require__(15).updateQueryString;
+	var updateQueryString = __webpack_require__(13).updateQueryString;
 
 	/* This renders the iframe and handles validation via window.postMessage */
 	var Iframe = React.createClass({
@@ -2013,21 +2013,21 @@ webpackJsonpPerseus([1],[
 	/*eslint-disable react/sort-comp, react/jsx-indent-props, react/prop-types,
 	    react/jsx-closing-bracket-location
 	*/
-	var classNames = __webpack_require__(13);
+	var classNames = __webpack_require__(17);
 
 	var React = __webpack_require__(10);
 
 	var _ = __webpack_require__(9);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(14).Options;
 
 	var Renderer = __webpack_require__(8);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(77);
 
-	var SvgImage = __webpack_require__(28);
+	var SvgImage = __webpack_require__(33);
 
-	var _require = __webpack_require__(29);
+	var _require = __webpack_require__(35);
 
 	var baseUnitPx = _require.baseUnitPx;
 
@@ -2252,9 +2252,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(77);
 
-	var Graphie = __webpack_require__(77);
+	var Graphie = __webpack_require__(86);
 
 	var Label = Graphie.Label;
 
@@ -2702,35 +2702,35 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Graph = __webpack_require__(99);
+	var Graph = __webpack_require__(103);
 
-	var InfoTip = __webpack_require__(100);
+	var InfoTip = __webpack_require__(104);
 
-	var Interactive2 = __webpack_require__(95);
+	var Interactive2 = __webpack_require__(96);
 
-	var NumberInput = __webpack_require__(101);
+	var NumberInput = __webpack_require__(99);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(13);
 
 	var knumber = __webpack_require__(127).number;
 
 	var kpoint = __webpack_require__(127).point;
 
-	var KhanColors = __webpack_require__(97);
+	var KhanColors = __webpack_require__(98);
 
-	var GraphUtils = __webpack_require__(102);
+	var GraphUtils = __webpack_require__(105);
 
-	var _require = __webpack_require__(29);
+	var _require = __webpack_require__(35);
 
 	var interactiveSizes = _require.interactiveSizes;
 
-	var _require2 = __webpack_require__(88);
+	var _require2 = __webpack_require__(84);
 
 	var containerSizeClassPropType = _require2.containerSizeClassPropType;
 
 	var getInteractiveBoxFromSizeClass = _require2.getInteractiveBoxFromSizeClass;
 
-	var WrappedLine = __webpack_require__(103);
+	var WrappedLine = __webpack_require__(106);
 
 	var DeprecationMixin = Util.DeprecationMixin;
 
@@ -4447,9 +4447,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(77);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(92);
+	var WidgetJsonifyDeprecated = __webpack_require__(91);
 
 	var MAX_SIZE = 8;
 
@@ -4744,7 +4744,7 @@ webpackJsonpPerseus([1],[
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, max-len, no-undef, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-before-function-paren */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var classNames = __webpack_require__(13);
+	var classNames = __webpack_require__(17);
 
 	var React = __webpack_require__(10);
 
@@ -4752,25 +4752,25 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var NumberInput = __webpack_require__(101);
+	var NumberInput = __webpack_require__(99);
 
 	var Renderer = __webpack_require__(8);
 
-	var TextInput = __webpack_require__(104);
+	var TextInput = __webpack_require__(100);
 
-	var MathOutput = __webpack_require__(105);
+	var MathOutput = __webpack_require__(101);
 
 	var SimpleKeypadInput = __webpack_require__(72);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(14).Options;
 
 	var KhanAnswerTypes = __webpack_require__(69);
 
-	var keypadElementPropType = __webpack_require__(86).propTypes.keypadElementPropType;
+	var keypadElementPropType = __webpack_require__(82).propTypes.keypadElementPropType;
 
-	var assert = __webpack_require__(106).assert;
+	var assert = __webpack_require__(102).assert;
 
-	var stringArrayOfSize = __webpack_require__(15).stringArrayOfSize;
+	var stringArrayOfSize = __webpack_require__(13).stringArrayOfSize;
 
 	// We store three sets of dimensions for the brackets, for our three types of
 	// inputs, which vary in formatting: (1) the "static" inputs rendered for the
@@ -5180,11 +5180,11 @@ webpackJsonpPerseus([1],[
 
 	var Sortable = __webpack_require__(107);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(14).Options;
 
-	var shuffle = __webpack_require__(15).shuffle;
+	var shuffle = __webpack_require__(13).shuffle;
 
-	var seededRNG = __webpack_require__(15).seededRNG;
+	var seededRNG = __webpack_require__(13).seededRNG;
 
 	var Matcher = React.createClass({
 	    displayName: "Matcher",
@@ -5330,7 +5330,7 @@ webpackJsonpPerseus([1],[
 
 	var _2 = __webpack_require__(9);
 
-	var GraphUtils = __webpack_require__(102);
+	var GraphUtils = __webpack_require__(105);
 
 	var defaultImage = {
 	    url: null,
@@ -5481,13 +5481,13 @@ webpackJsonpPerseus([1],[
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(10);
 
-	var draw = __webpack_require__(114);
+	var draw = __webpack_require__(115);
 
-	var _require = __webpack_require__(115);
+	var _require = __webpack_require__(116);
 
 	var layout = _require.layout;
 
-	var SmilesParser = __webpack_require__(116);
+	var SmilesParser = __webpack_require__(117);
 
 	var parse = SmilesParser.parse;
 
@@ -5651,15 +5651,15 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(77);
 
-	var NumberInput = __webpack_require__(101);
+	var NumberInput = __webpack_require__(99);
 
-	var MathOutput = __webpack_require__(105);
+	var MathOutput = __webpack_require__(101);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(14).Options;
 
-	var Graphie = __webpack_require__(77);
+	var Graphie = __webpack_require__(86);
 
 	var MovablePoint = Graphie.MovablePoint;
 
@@ -5669,13 +5669,13 @@ webpackJsonpPerseus([1],[
 
 	var KhanMath = __webpack_require__(75);
 
-	var KhanColors = __webpack_require__(97);
+	var KhanColors = __webpack_require__(98);
 
 	var bound = function bound(x, gt, lt) {
 	    return Math.min(Math.max(x, gt), lt);
 	};
 
-	var assert = __webpack_require__(106).assert;
+	var assert = __webpack_require__(102).assert;
 
 	var EN_DASH = "–";
 
@@ -6145,9 +6145,9 @@ webpackJsonpPerseus([1],[
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(13);
 
-	var ApiClassNames = __webpack_require__(16).ClassNames;
+	var ApiClassNames = __webpack_require__(14).ClassNames;
 
 	var PlaceholderCard = React.createClass({
 	    displayName: "PlaceholderCard",
@@ -6572,11 +6572,11 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(77);
 
 	var Renderer = __webpack_require__(8);
 
-	var PassageMarkdown = __webpack_require__(117);
+	var PassageMarkdown = __webpack_require__(114);
 
 	var Passage = React.createClass({
 	    displayName: "Passage",
@@ -6587,7 +6587,14 @@ webpackJsonpPerseus([1],[
 	        footnotes: React.PropTypes.string,
 	        showLineNumbers: React.PropTypes.bool,
 	        onChange: React.PropTypes.func,
-	        highlightRanges: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number))
+	        highlightRanges: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
+	        reviewModeRubric: React.PropTypes.shape({
+	            passageTitle: React.PropTypes.string,
+	            passageText: React.PropTypes.string,
+	            footnotes: React.PropTypes.string,
+	            showLineNumbers: React.PropTypes.bool,
+	            static: React.PropTypes.bool
+	        })
 	    },
 	    getDefaultProps: function getDefaultProps() {
 	        return {
@@ -6608,6 +6615,11 @@ webpackJsonpPerseus([1],[
 	            mouseY: null
 	        };
 	    },
+	    isReadingPassage: function isReadingPassage() {
+	        // HACK: Quick way of checking fs a passage is reading or writing based
+	        // on if it has question markers in the text.
+	        return !this.props.passageText.match(/\[\[1\]\]/);
+	    },
 	    /**
 	     * Returns the total number of words (or word fragments) in the given
 	     * selection, based on the number of spaces.
@@ -6620,10 +6632,17 @@ webpackJsonpPerseus([1],[
 	        // being counted as a seperate word due to the fact that the words in
 	        // each node are counted separately. The line below is a hacky fix for
 	        // this.
-	        section = section.replace(/_/g, " ");
-	        return section.split(/\s+/).filter(function(word) {
+	        section = section.replace(/_+/g, "");
+	        // Strip out markers from writing passages which are not in
+	        // passage-text.
+	        // Note: highlighting is currently disabled in writing passages but
+	        // this is left in for potential future development.
+	        section = section.replace(/\[Marker for question [0-9]+\]/g, " ");
+	        section = section.replace(/\[Sentence [0-9]+\]/g, " ");
+	        var sectionWordArray = section.split(/\s+/).filter(function(word) {
 	            return word.length > 0;
-	        }).length;
+	        });
+	        return sectionWordArray.length;
 	    },
 	    /**
 	     * Compare two ranges according to their start word.
@@ -6673,8 +6692,8 @@ webpackJsonpPerseus([1],[
 	        var selectionStartIndex = Math.min(anchorIndex, focusIndex);
 	        var selectionEndIndex = Math.max(anchorIndex, focusIndex);
 	        var selectedText = selection.toString();
-	        if (!selectionStartIndex || !selectionEndIndex) return null;
-	        //Prevents slecting a space from highlighting both surrounding words.
+	        if (null === anchorIndex || null === focusIndex) return null;
+	        //Prevents selecting a space from highlighting both surrounding words.
 	        " " === selectedText.charAt(0) && (selectionStartIndex += 1);
 	        " " === selectedText.charAt(selectedText.length - 1) && (selectionEndIndex -= 1);
 	        return [ selectionStartIndex, selectionEndIndex ];
@@ -6682,7 +6701,13 @@ webpackJsonpPerseus([1],[
 	    isInPassageText: function isInPassageText(node) {
 	        var ancestor = node;
 	        while (ancestor) {
-	            if (ancestor.classList && ancestor.classList.contains("passage-text")) return ancestor.contains(node);
+	            if (ancestor.classList && ancestor.classList.contains("passage-text")) {
+	                // Traverse up the tree to find first element. This is needed as
+	                // Node.contains(otherNode) only works in IE if otherNode is an
+	                // element.
+	                while (1 !== node.nodeType) node = node.parentNode;
+	                return ancestor.contains(node);
+	            }
 	            ancestor = ancestor.parentNode;
 	        }
 	        return false;
@@ -6694,6 +6719,7 @@ webpackJsonpPerseus([1],[
 	    getSelectionIndex: function getSelectionIndex(selection, nodeType) {
 	        var node = null;
 	        var offset = 0;
+	        var punctuation = "._?;:!,'\"";
 	        if ("anchor" === nodeType) {
 	            node = selection.anchorNode;
 	            offset = selection.anchorOffset;
@@ -6702,12 +6728,21 @@ webpackJsonpPerseus([1],[
 	            offset = selection.focusOffset;
 	        }
 	        if (!this.isInPassageText(node)) return null;
-	        var index = this.charToWordOffset(offset, node.textContent);
+	        var nodeText = node.textContent;
+	        // Would prefer to use string.prototype.includes but it's not in IE 10.
+	        punctuation.indexOf(nodeText.charAt(0)) !== -1 && (nodeText = nodeText.slice(1));
+	        var index = this.charToWordOffset(offset, nodeText);
 	        var priorText = "";
 	        while (node && !(node.classList && node.classList.contains("passage-text"))) {
 	            while (node.previousSibling) {
 	                node = node.previousSibling;
-	                priorText = node.textContent + priorText;
+	                nodeText = node.textContent;
+	                var spacer = "";
+	                // HACK: Add space when nodes split at end of sentence. This
+	                // stops two words from successive paragraphs merging together.
+	                // Assumes paragraphs end with punctuation.
+	                punctuation.indexOf(nodeText.charAt(nodeText.length - 1)) !== -1 && (spacer = " ");
+	                priorText = nodeText + spacer + priorText;
 	            }
 	            node = node.parentNode;
 	        }
@@ -6715,11 +6750,17 @@ webpackJsonpPerseus([1],[
 	        return index;
 	    },
 	    charToWordOffset: function charToWordOffset(offset, nodeText) {
+	        // Move the offset back to the previous space to exclude partial words.
+	        while (offset > 0 && " " !== nodeText.charAt(offset - 1)) offset -= 1;
 	        var beforeSelection = nodeText.substring(0, offset);
 	        var wordOffset = this.wordsInSection(beforeSelection);
-	        // If any part of the first word of selectedText is included in
-	        // beforeSelection, then remove it from the count.
-	        " " === nodeText.charAt(offset - 1) || "" === beforeSelection || (wordOffset -= 1);
+	        // HACK: Special case for if a selection starts on a space at the
+	        // beginning of a node. This most frequently occurs when a user tries to
+	        // start a highlight on the space after an existing highlight. This hack
+	        // is neccessary due to the handling of spaces being stopped from
+	        // highlighting the surrounding words in getSelectionRange not taking
+	        // into account if it is the start of a new node.
+	        " " === nodeText.charAt(0) && 0 === offset && (wordOffset -= 1);
 	        return wordOffset;
 	    },
 	    /**
@@ -6762,7 +6803,7 @@ webpackJsonpPerseus([1],[
 	     * has the effect of dismissing any open tooltips when a user clicks
 	     * elsewhere on the page.
 	     */
-	    handleSelectionChange: function handleSelectionChange() {
+	    handleMouseDown: function handleMouseDown() {
 	        this.setState({
 	            newHighlightRange: null,
 	            selectedHighlightRange: null
@@ -6777,21 +6818,29 @@ webpackJsonpPerseus([1],[
 	     *    add as a new highlight.
 	     */
 	    handleMouseUp: function handleMouseUp(e) {
-	        this.setState({
-	            mouseX: e.clientX - e.currentTarget.getBoundingClientRect().left,
-	            mouseY: e.clientY - e.currentTarget.getBoundingClientRect().top
-	        });
-	        var selection = window.getSelection();
-	        var selectionRange = this.getSelectionRange(selection);
-	        if (selectionRange) {
-	            var selectedHighlightRange = this.isHighlighted(selectionRange);
-	            selectedHighlightRange ? this.setState({
-	                newHighlightRange: null,
-	                selectedHighlightRange: selectedHighlightRange
-	            }) : " " === selection.toString() || selection.isCollapsed || this.setState({
-	                newHighlightRange: selectionRange,
-	                selectedHighlightRange: null
+	        var isHighlightTooltipShown = this.state.newHighlightRange || this.state.selectedHighlightRange;
+	        if (this.isReadingPassage() && !isHighlightTooltipShown) {
+	            // HACK - the height of the sat task title bar is 60px - subtracting
+	            // this in order to position the tooltip in the correct position on
+	            // the page. We can't use relative position of the passage as that
+	            // requires putting the tooltip inside the passage which sometimes
+	            // cuts off the edge.
+	            this.setState({
+	                mouseX: e.clientX,
+	                mouseY: e.clientY - 60
 	            });
+	            var selection = window.getSelection();
+	            var selectionRange = this.getSelectionRange(selection);
+	            if (selectionRange) {
+	                var selectedHighlightRange = this.isHighlighted(selectionRange);
+	                selectedHighlightRange ? this.setState({
+	                    newHighlightRange: null,
+	                    selectedHighlightRange: selectedHighlightRange
+	                }) : " " === selection.toString() || selection.isCollapsed || this.setState({
+	                    newHighlightRange: selectionRange,
+	                    selectedHighlightRange: null
+	                });
+	            }
 	        }
 	    },
 	    /**
@@ -6839,6 +6888,17 @@ webpackJsonpPerseus([1],[
 	        });
 	        return rawContent;
 	    },
+	    /**
+	     * Adjusts index of highlight to account for stray markdown or whitespace in
+	     * the rawContents of the page.
+	     */
+	    adjustIndexforMarkdownAndWhitespace: function adjustIndexforMarkdownAndWhitespace(index, textArray) {
+	        for (var i = 0; i <= index; i++) {
+	            var match = textArray[i].match(/^\s+$/) || [ "{highlighting.end}{highlighting.start}", "{highlighting.end}", "{highlighting.start}" ].includes(textArray[i]);
+	            match && index++;
+	        }
+	        return index;
+	    },
 	    shouldComponentUpdate: function shouldComponentUpdate(nextProps, nextState) {
 	        return !_.isEqual(this.props, nextProps) || !_.isEqual(this.state, nextState);
 	    },
@@ -6854,10 +6914,10 @@ webpackJsonpPerseus([1],[
 	            }
 	        }, React.createElement("img", {
 	            width: "130",
-	            height: "60",
+	            height: "44",
 	            style: {
 	                position: "absolute",
-	                top: "-60px",
+	                top: "-54px",
 	                left: "-65px"
 	            },
 	            src: "/images/perseus/add-highlight.svg"
@@ -6875,10 +6935,10 @@ webpackJsonpPerseus([1],[
 	            }
 	        }, React.createElement("img", {
 	            width: "163",
-	            height: "75",
+	            height: "44",
 	            style: {
 	                position: "absolute",
-	                top: "-75px",
+	                top: "-54px",
 	                left: "-81px"
 	            },
 	            src: "/images/perseus/remove-highlight.svg"
@@ -6899,13 +6959,21 @@ webpackJsonpPerseus([1],[
 	                className: "line-marker"
 	            }, "Line") : lineN + _this.state.startLineNumbersAfter;
 	        }));
+	        var highlightStartText = "{highlighting.start}";
+	        var highlightEndText = "{highlighting.end}";
+	        if (this.props.reviewModeRubric) {
+	            highlightStartText = "{review-highlighting.start}";
+	            highlightEndText = "{review-highlighting.end}";
+	        }
 	        var rawContent = this.props.passageText;
 	        // For each highlighted passage, we (ephemerally) inject highlight
 	        // markdown into the rawContent.
 	        _.each(this.props.highlightRanges, function(highlightRange) {
-	            var rangeStartIndex = highlightRange[0];
-	            var rangeEndIndex = highlightRange[1];
-	            rawContent = this.stringToArrayOfWords(rawContent);
+	            rawContent = rawContent.replace(/\n +\n/g, "\n\n");
+	            rawContent = rawContent.replace(/\r\n +\r\n/g, "\r\n\r\n");
+	            var textArray = this.stringToArrayOfWords(rawContent);
+	            var rangeStartIndex = this.adjustIndexforMarkdownAndWhitespace(highlightRange[0], textArray);
+	            var rangeEndIndex = this.adjustIndexforMarkdownAndWhitespace(highlightRange[1], textArray);
 	            // Reassemble rawContent, with highlighter markdown included.
 	            // Two big gotchas here:
 	            // 1. Markdown does not support partially-overlapping markdown
@@ -6917,21 +6985,26 @@ webpackJsonpPerseus([1],[
 	            // define "word" carefully, so that *only* visible text is
 	            // surrounded with highlighting markdown, while markdown text is
 	            // ignored.
-	            rawContent = rawContent.slice(0, rangeStartIndex).join(" ") + " " + rawContent.slice(rangeStartIndex, rangeEndIndex + 1).map(function(fragment) {
+	            rawContent = textArray.slice(0, rangeStartIndex).join(" ") + " " + textArray.slice(rangeStartIndex, rangeEndIndex + 1).map(function(fragment) {
 	                // This fragment should contain all user-visible
 	                // characters, and no markdown characters!
 	                // TODO (davidpowell/mdr): Change regex to blacklist
 	                // markdown as oppose to whitelisting certain
 	                // characters.
-	                var highlightableMatch = fragment.match(/[\(\)\-\—\-\.\[\]\+\$\?,!A-Za-z0-9:;'"=%<>]+/);
-	                var matchStart = highlightableMatch.index;
-	                var matchEnd = matchStart + highlightableMatch[0].length;
-	                return fragment.slice(0, matchStart) + "{__highlighting.start}" + fragment.slice(matchStart, matchEnd) + "{__highlighting.end}" + fragment.slice(matchEnd);
-	            }).join("{__highlighting.start} {__highlighting.end}") + " " + rawContent.slice(rangeEndIndex + 1).join(" ");
+	                var textRegex = new RegExp("[\\(\\)\\—\\-\\—\\-\\‑\\.                                            \\[\\]\\+\\$\\?,!A-Za-z0-9:;'‘’\"                                            “”=%<>s]+");
+	                var highlightableMatch = fragment.match(textRegex);
+	                if (highlightableMatch) {
+	                    var matchStart = highlightableMatch.index;
+	                    var matchEnd = matchStart + highlightableMatch[0].length;
+	                    return fragment.slice(0, matchStart) + highlightStartText + fragment.slice(matchStart, matchEnd) + highlightEndText + fragment.slice(matchEnd);
+	                }
+	                return fragment;
+	            }).join(highlightStartText + " " + highlightEndText) + " " + textArray.slice(rangeEndIndex + 1).join(" ");
 	        }, this);
 	        var parseState = {};
 	        var parsedContent = PassageMarkdown.parse(rawContent, parseState);
-	        return React.createElement("div", {
+	        return React.createElement("div", null, React.createElement("div", {
+	            onMouseDown: this.handleMouseDown,
 	            onMouseUp: this.handleMouseUp,
 	            className: "perseus-widget-passage-container"
 	        }, this._renderInstructions(parseState), React.createElement("div", {
@@ -6955,14 +7028,10 @@ webpackJsonpPerseus([1],[
 	            className: "footnotes"
 	        }, this._renderFootnotes()) ], React.createElement("div", {
 	            className: "perseus-sr-only"
-	        }, i18n._("End of reading passage."))), this.state.newHighlightRange && this.renderAddHighlightTooltip(), this.state.selectedHighlightRange && this.renderRemoveHighlightTooltip());
+	        }, i18n._("End of reading passage.")))), this.state.newHighlightRange && this.renderAddHighlightTooltip(), this.state.selectedHighlightRange && this.renderRemoveHighlightTooltip());
 	    },
 	    componentDidMount: function componentDidMount() {
-	        document.addEventListener("selectionchange", this.handleSelectionChange);
 	        this._updateState();
-	    },
-	    componentWillUnmount: function componentWillUnmount() {
-	        document.removeEventListener("selectionchange", this.handleSelectionChange);
 	    },
 	    componentDidUpdate: function componentDidUpdate() {
 	        this._updateState();
@@ -7131,9 +7200,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(77);
 
-	var WidgetJsonifyDeprecated = __webpack_require__(92);
+	var WidgetJsonifyDeprecated = __webpack_require__(91);
 
 	var Renderer = __webpack_require__(8);
 
@@ -7202,15 +7271,15 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var ApiClassNames = __webpack_require__(16).ClassNames;
+	var ApiClassNames = __webpack_require__(14).ClassNames;
 
-	var deepEq = __webpack_require__(15).deepEq;
+	var deepEq = __webpack_require__(13).deepEq;
 
 	var KhanMath = __webpack_require__(75);
 
-	var KhanColors = __webpack_require__(97);
+	var KhanColors = __webpack_require__(98);
 
-	var GraphUtils = __webpack_require__(102);
+	var GraphUtils = __webpack_require__(105);
 
 	var BAR = "bar", LINE = "line", PIC = "pic", HISTOGRAM = "histogram", DOTPLOT = "dotplot";
 
@@ -7842,19 +7911,19 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(14).Options;
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(77);
 
-	var _require = __webpack_require__(85);
+	var _require = __webpack_require__(81);
 
 	var iconOk = _require.iconOk;
 
-	var InlineIcon = __webpack_require__(82);
+	var InlineIcon = __webpack_require__(78);
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(13);
 
 	var Sequence = React.createClass({
 	    displayName: "Sequence",
@@ -7967,7 +8036,7 @@ webpackJsonpPerseus([1],[
 	/* eslint-disable comma-dangle, indent, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-unary-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/* globals $_, i18n */
-	var InfoTip = __webpack_require__(100);
+	var InfoTip = __webpack_require__(104);
 
 	var React = __webpack_require__(10);
 
@@ -7975,13 +8044,13 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(77);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(14).Options;
 
-	var assert = __webpack_require__(106).assert;
+	var assert = __webpack_require__(102).assert;
 
-	var Graphie = __webpack_require__(77);
+	var Graphie = __webpack_require__(86);
 
 	var Path = Graphie.Path;
 
@@ -7997,17 +8066,17 @@ webpackJsonpPerseus([1],[
 
 	var MovableLine = Graphie.MovableLine;
 
-	var NumberInput = __webpack_require__(101);
+	var NumberInput = __webpack_require__(99);
 
-	var MathOutput = __webpack_require__(105);
+	var MathOutput = __webpack_require__(101);
 
-	var seededRNG = __webpack_require__(15).seededRNG;
+	var seededRNG = __webpack_require__(13).seededRNG;
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(13);
 
 	var knumber = __webpack_require__(127).number;
 
-	var KhanColors = __webpack_require__(97);
+	var KhanColors = __webpack_require__(98);
 
 	var KhanMath = __webpack_require__(75);
 
@@ -8567,9 +8636,9 @@ webpackJsonpPerseus([1],[
 
 	var Sortable = __webpack_require__(107);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(14).Options;
 
-	var shuffle = __webpack_require__(15).shuffle;
+	var shuffle = __webpack_require__(13).shuffle;
 
 	var HORIZONTAL = "horizontal", VERTICAL = "vertical";
 
@@ -8655,17 +8724,17 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var MathOutput = __webpack_require__(105);
+	var MathOutput = __webpack_require__(101);
 
 	var Renderer = __webpack_require__(8);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(13);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(14).Options;
 
 	var KhanAnswerTypes = __webpack_require__(69);
 
-	var assert = __webpack_require__(106).assert;
+	var assert = __webpack_require__(102).assert;
 
 	/* Input handling: Maps a (row, column) pair to a unique ref used by React,
 	 * and extracts (row, column) pairs from input paths, used to allow outsiders
@@ -8940,21 +9009,21 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Graph = __webpack_require__(99);
+	var Graph = __webpack_require__(103);
 
-	var InlineIcon = __webpack_require__(82);
+	var InlineIcon = __webpack_require__(78);
 
-	var NumberInput = __webpack_require__(101);
+	var NumberInput = __webpack_require__(99);
 
-	var MathOutput = __webpack_require__(105);
+	var MathOutput = __webpack_require__(101);
 
 	var TeX = __webpack_require__(37);
 
 	var SimpleKeypadInput = __webpack_require__(72);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(14).Options;
 
-	var keypadElementPropType = __webpack_require__(86).propTypes.keypadElementPropType;
+	var keypadElementPropType = __webpack_require__(82).propTypes.keypadElementPropType;
 
 	var ROTATE_SNAP_DEGREES = 15;
 
@@ -8968,17 +9037,17 @@ webpackJsonpPerseus([1],[
 
 	var REFLECT_BUTTON_SIZE = 1;
 
-	var _require = __webpack_require__(85);
+	var _require = __webpack_require__(81);
 
 	var iconPlus = _require.iconPlus;
 
 	var iconUndo = _require.iconUndo;
 
-	var deepEq = __webpack_require__(15).deepEq;
+	var deepEq = __webpack_require__(13).deepEq;
 
-	var getGridStep = __webpack_require__(15).getGridStep;
+	var getGridStep = __webpack_require__(13).getGridStep;
 
-	var captureScratchpadTouchStart = __webpack_require__(15).captureScratchpadTouchStart;
+	var captureScratchpadTouchStart = __webpack_require__(13).captureScratchpadTouchStart;
 
 	var knumber = __webpack_require__(127).number;
 
@@ -8992,9 +9061,9 @@ webpackJsonpPerseus([1],[
 
 	var KhanMath = __webpack_require__(75);
 
-	var KhanColors = __webpack_require__(97);
+	var KhanColors = __webpack_require__(98);
 
-	var assert = __webpack_require__(106).assert;
+	var assert = __webpack_require__(102).assert;
 
 	var defaultBoxSize = 400;
 
@@ -10939,7 +11008,7 @@ webpackJsonpPerseus([1],[
 	// terms of a certain type.
 	// TODO(joel): Allow sigfigs within a range rather than an exact expected
 	// value?
-	var lens = __webpack_require__(111);
+	var lens = __webpack_require__(112);
 
 	var React = __webpack_require__(10);
 
@@ -10947,13 +11016,13 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var ApiClassNames = __webpack_require__(16).ClassNames;
+	var ApiClassNames = __webpack_require__(14).ClassNames;
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(14).Options;
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(77);
 
-	var MathOutput = __webpack_require__(105);
+	var MathOutput = __webpack_require__(101);
 
 	var _require = __webpack_require__(108);
 
@@ -11185,9 +11254,9 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(81);
+	var Changeable = __webpack_require__(77);
 
-	var FixedToResponsive = __webpack_require__(76);
+	var FixedToResponsive = __webpack_require__(85);
 
 	// Current default is 720p, based on the typical videos we upload currently
 	var DEFAULT_WIDTH = 1280;
@@ -11286,7 +11355,10 @@ webpackJsonpPerseus([1],[
 /* 88 */,
 /* 89 */,
 /* 90 */,
-/* 91 */
+/* 91 */,
+/* 92 */,
+/* 93 */,
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11307,7 +11379,7 @@ webpackJsonpPerseus([1],[
 	 *
 	 * Here be dragons.
 	 */
-	var classNames = __webpack_require__(13);
+	var classNames = __webpack_require__(17);
 
 	var React = __webpack_require__(10);
 
@@ -11505,101 +11577,7 @@ webpackJsonpPerseus([1],[
 	module.exports = FancySelect;
 
 /***/ },
-/* 92 */,
-/* 93 */,
-/* 94 */,
-/* 95 */,
-/* 96 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var React = __webpack_require__(10);
-
-	var ReactDOM = __webpack_require__(11);
-
-	var _ = __webpack_require__(9);
-
-	var styles = __webpack_require__(132);
-
-	var css = __webpack_require__(12).css;
-
-	/* ButtonGroup is an aesthetically pleasing group of buttons.
-	 *
-	 * The class requires these properties:
-	 *   buttons - an array of objects with keys:
-	 *     "value": this is the value returned when the button is selected
-	 *     "content": this is the JSX shown within the button, typically a string
-	 *         that gets rendered as the button's display text
-	 *     "title": this is the title-text shown on hover
-	 *   onChange - a function that is provided with the updated value
-	 *     (which it then is responsible for updating)
-	 *
-	 * The class has these optional properties:
-	 *   value - the initial value of the button selected, defaults to null.
-	 *   allowEmpty - if false, exactly one button _must_ be selected; otherwise
-	 *     it defaults to true and _at most_ one button (0 or 1) may be selected.
-	 *
-	 * Requires stylesheets/perseus-admin-package/editor.less to look nice.
-	 */
-	var ButtonGroup = React.createClass({
-	    displayName: "ButtonGroup",
-	    propTypes: {
-	        value: React.PropTypes.any,
-	        buttons: React.PropTypes.arrayOf(React.PropTypes.shape({
-	            value: React.PropTypes.any.isRequired,
-	            content: React.PropTypes.node,
-	            title: React.PropTypes.string
-	        })).isRequired,
-	        onChange: React.PropTypes.func.isRequired,
-	        allowEmpty: React.PropTypes.bool
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            value: null,
-	            allowEmpty: true
-	        };
-	    },
-	    render: function render() {
-	        var _this = this;
-	        var value = this.props.value;
-	        var buttons = _(this.props.buttons).map(function(button, i) {
-	            return React.createElement("button", {
-	                title: button.title,
-	                type: "button",
-	                id: "" + i,
-	                ref: "button" + i,
-	                key: "" + i,
-	                className: css(styles.button.buttonStyle, button.value === value && styles.button.selectedStyle),
-	                onClick: _this.toggleSelect.bind(_this, button.value)
-	            }, button.content || "" + button.value);
-	        });
-	        var outerStyle = {
-	            display: "inline-block"
-	        };
-	        return React.createElement("div", {
-	            style: outerStyle
-	        }, buttons);
-	    },
-	    focus: function focus() {
-	        ReactDOM.findDOMNode(this).focus();
-	        return true;
-	    },
-	    toggleSelect: function toggleSelect(newValue) {
-	        var value = this.props.value;
-	        this.props.allowEmpty ? // Select the new button or unselect if it's already selected
-	        this.props.onChange(value !== newValue ? newValue : null) : this.props.onChange(newValue);
-	    }
-	});
-
-	module.exports = ButtonGroup;
-
-/***/ },
-/* 97 */,
-/* 98 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11618,17 +11596,17 @@ webpackJsonpPerseus([1],[
 	 */
 	var React = __webpack_require__(10);
 
-	var ApiOptions = __webpack_require__(16).Options;
+	var ApiOptions = __webpack_require__(14).Options;
 
-	var InlineIcon = __webpack_require__(82);
+	var InlineIcon = __webpack_require__(78);
 
-	var _require = __webpack_require__(85);
+	var _require = __webpack_require__(81);
 
 	var iconCheck = _require.iconCheck;
 
 	var iconRemove = _require.iconRemove;
 
-	var _require2 = __webpack_require__(29);
+	var _require2 = __webpack_require__(35);
 
 	var boldFontFamily = _require2.boldFontFamily;
 
@@ -11762,7 +11740,286 @@ webpackJsonpPerseus([1],[
 	module.exports = GradedGroupAnswerBar;
 
 /***/ },
+/* 96 */,
+/* 97 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	var React = __webpack_require__(10);
+
+	var ReactDOM = __webpack_require__(11);
+
+	var _ = __webpack_require__(9);
+
+	var styles = __webpack_require__(128);
+
+	var css = __webpack_require__(16).css;
+
+	/* ButtonGroup is an aesthetically pleasing group of buttons.
+	 *
+	 * The class requires these properties:
+	 *   buttons - an array of objects with keys:
+	 *     "value": this is the value returned when the button is selected
+	 *     "content": this is the JSX shown within the button, typically a string
+	 *         that gets rendered as the button's display text
+	 *     "title": this is the title-text shown on hover
+	 *   onChange - a function that is provided with the updated value
+	 *     (which it then is responsible for updating)
+	 *
+	 * The class has these optional properties:
+	 *   value - the initial value of the button selected, defaults to null.
+	 *   allowEmpty - if false, exactly one button _must_ be selected; otherwise
+	 *     it defaults to true and _at most_ one button (0 or 1) may be selected.
+	 *
+	 * Requires stylesheets/perseus-admin-package/editor.less to look nice.
+	 */
+	var ButtonGroup = React.createClass({
+	    displayName: "ButtonGroup",
+	    propTypes: {
+	        value: React.PropTypes.any,
+	        buttons: React.PropTypes.arrayOf(React.PropTypes.shape({
+	            value: React.PropTypes.any.isRequired,
+	            content: React.PropTypes.node,
+	            title: React.PropTypes.string
+	        })).isRequired,
+	        onChange: React.PropTypes.func.isRequired,
+	        allowEmpty: React.PropTypes.bool
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            value: null,
+	            allowEmpty: true
+	        };
+	    },
+	    render: function render() {
+	        var _this = this;
+	        var value = this.props.value;
+	        var buttons = _(this.props.buttons).map(function(button, i) {
+	            return React.createElement("button", {
+	                title: button.title,
+	                type: "button",
+	                id: "" + i,
+	                ref: "button" + i,
+	                key: "" + i,
+	                className: css(styles.button.buttonStyle, button.value === value && styles.button.selectedStyle),
+	                onClick: _this.toggleSelect.bind(_this, button.value)
+	            }, button.content || "" + button.value);
+	        });
+	        var outerStyle = {
+	            display: "inline-block"
+	        };
+	        return React.createElement("div", {
+	            style: outerStyle
+	        }, buttons);
+	    },
+	    focus: function focus() {
+	        ReactDOM.findDOMNode(this).focus();
+	        return true;
+	    },
+	    toggleSelect: function toggleSelect(newValue) {
+	        var value = this.props.value;
+	        this.props.allowEmpty ? // Select the new button or unselect if it's already selected
+	        this.props.onChange(value !== newValue ? newValue : null) : this.props.onChange(newValue);
+	    }
+	});
+
+	module.exports = ButtonGroup;
+
+/***/ },
+/* 98 */,
 /* 99 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-after-keywords */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	var classNames = __webpack_require__(17);
+
+	var React = __webpack_require__(10);
+
+	var ReactDOM = __webpack_require__(11);
+
+	var _ = __webpack_require__(9);
+
+	var firstNumericalParse = __webpack_require__(13).firstNumericalParse;
+
+	var captureScratchpadTouchStart = __webpack_require__(13).captureScratchpadTouchStart;
+
+	var knumber = __webpack_require__(127).number;
+
+	var KhanMath = __webpack_require__(75);
+
+	var toNumericString = KhanMath.toNumericString;
+
+	var getNumericFormat = KhanMath.getNumericFormat;
+
+	/* An input box that accepts only numeric strings
+	 *
+	 * Calls onChange(value, format) for valid numbers.
+	 * Reverts to the current value onBlur or on [ENTER],
+	 *   but maintains the format (i.e. 3/2, 1 1/2, 150%)
+	 * Accepts empty input and sends it to onChange as null
+	 *   if no numeric placeholder is set.
+	 * If given a checkValidity function, will turn
+	 *   the background/outline red when invalid
+	 * If useArrowKeys is set to true, up/down arrows will
+	 *   increment/decrement integers
+	 * Optionally takes a size ("mini", "small", "normal")
+	 */
+	var NumberInput = React.createClass({
+	    displayName: "NumberInput",
+	    propTypes: {
+	        value: React.PropTypes.number,
+	        format: React.PropTypes.string,
+	        placeholder: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number ]),
+	        onChange: React.PropTypes.func.isRequired,
+	        onFormatChange: React.PropTypes.func,
+	        checkValidity: React.PropTypes.func,
+	        size: React.PropTypes.string,
+	        label: React.PropTypes.oneOf([ "put your labels outside your inputs!" ])
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            value: null,
+	            placeholder: null,
+	            format: null,
+	            onFormatChange: function onFormatChange() {
+	                return null;
+	            },
+	            checkValidity: function checkValidity() {
+	                return true;
+	            },
+	            useArrowKeys: false
+	        };
+	    },
+	    getInitialState: function getInitialState() {
+	        return {
+	            format: this.props.format
+	        };
+	    },
+	    render: function render() {
+	        var classes = classNames({
+	            "number-input": true,
+	            "invalid-input": !this._checkValidity(this.props.value),
+	            mini: "mini" === this.props.size,
+	            small: "small" === this.props.size,
+	            normal: "normal" === this.props.size
+	        });
+	        null != this.props.className && (classes = classes + " " + this.props.className);
+	        return React.createElement("input", _extends({}, this.props, {
+	            className: classes,
+	            type: "text",
+	            ref: "input",
+	            onChange: this._handleChange,
+	            onFocus: this._handleFocus,
+	            onBlur: this._handleBlur,
+	            onKeyPress: this._handleBlur,
+	            onKeyDown: this._onKeyDown,
+	            onTouchStart: captureScratchpadTouchStart,
+	            defaultValue: toNumericString(this.props.value, this.state.format),
+	            value: void 0
+	        }));
+	    },
+	    componentDidUpdate: function componentDidUpdate(prevProps) {
+	        knumber.equal(this.getValue(), this.props.value) || this._setValue(this.props.value, this.state.format);
+	    },
+	    /* Return the current "value" of this input
+	     * If empty, it returns the placeholder (if it is a number) or null
+	     */
+	    getValue: function getValue() {
+	        return this.parseInputValue(ReactDOM.findDOMNode(this.refs.input).value);
+	    },
+	    /* Return the current string value of this input */
+	    getStringValue: function getStringValue() {
+	        return ReactDOM.findDOMNode(this.refs.input).value.toString();
+	    },
+	    parseInputValue: function parseInputValue(value) {
+	        if ("" === value) {
+	            var placeholder = this.props.placeholder;
+	            return _.isFinite(placeholder) ? +placeholder : null;
+	        }
+	        var result = firstNumericalParse(value);
+	        return _.isFinite(result) ? result : this.props.value;
+	    },
+	    /* Set text input focus to this input */
+	    focus: function focus() {
+	        ReactDOM.findDOMNode(this.refs.input).focus();
+	        this._handleFocus();
+	    },
+	    blur: function blur() {
+	        ReactDOM.findDOMNode(this.refs.input).blur();
+	        this._handleBlur();
+	    },
+	    setSelectionRange: function setSelectionRange(selectionStart, selectionEnd) {
+	        ReactDOM.findDOMNode(this).setSelectionRange(selectionStart, selectionEnd);
+	    },
+	    getSelectionStart: function getSelectionStart() {
+	        return ReactDOM.findDOMNode(this).selectionStart;
+	    },
+	    getSelectionEnd: function getSelectionEnd() {
+	        return ReactDOM.findDOMNode(this).selectionEnd;
+	    },
+	    _checkValidity: function _checkValidity(value) {
+	        if (null == value) return true;
+	        var val = firstNumericalParse(value);
+	        var checkValidity = this.props.checkValidity;
+	        return _.isFinite(val) && checkValidity(val);
+	    },
+	    _handleChange: function _handleChange(e) {
+	        var text = e.target.value;
+	        var value = this.parseInputValue(text);
+	        var format = getNumericFormat(text);
+	        this.props.onChange(value);
+	        if (format) {
+	            this.props.onFormatChange(value, format);
+	            this.setState({
+	                format: format
+	            });
+	        }
+	    },
+	    _handleFocus: function _handleFocus() {
+	        this.props.onFocus && this.props.onFocus();
+	    },
+	    _handleBlur: function _handleBlur(e) {
+	        // Only continue on blur or "enter"
+	        if (e && "keypress" === e.type && 13 !== e.keyCode) return;
+	        this._setValue(this.props.value, this.state.format);
+	        this.props.onBlur && this.props.onBlur();
+	    },
+	    _onKeyDown: function _onKeyDown(e) {
+	        this.props.onKeyDown && this.props.onKeyDown(e);
+	        if (!this.props.useArrowKeys || !_.contains([ "ArrowUp", "ArrowDown" ], e.key)) return;
+	        var val = this.getValue();
+	        if (val !== Math.floor(val)) return;
+	        "ArrowUp" === e.key ? val += 1 : "ArrowDown" === e.key && (val -= 1);
+	        this._checkValidity(val) && this.props.onChange(val);
+	    },
+	    _setValue: function _setValue(val, format) {
+	        $(ReactDOM.findDOMNode(this.refs.input)).val(toNumericString(val, format));
+	    }
+	});
+
+	module.exports = NumberInput;
+
+/***/ },
+/* 100 */,
+/* 101 */,
+/* 102 */,
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11776,15 +12033,15 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(13);
 
-	var GraphUtils = __webpack_require__(102);
+	var GraphUtils = __webpack_require__(105);
 
-	var _require = __webpack_require__(29);
+	var _require = __webpack_require__(35);
 
 	var interactiveSizes = _require.interactiveSizes;
 
-	var SvgImage = __webpack_require__(28);
+	var SvgImage = __webpack_require__(33);
 
 	var defaultBackgroundImage = {
 	    url: null
@@ -12054,7 +12311,7 @@ webpackJsonpPerseus([1],[
 	module.exports = Graph;
 
 /***/ },
-/* 100 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12067,7 +12324,7 @@ webpackJsonpPerseus([1],[
 	 */
 	var React = __webpack_require__(10);
 
-	var ReactComponentsInfoTip = __webpack_require__(136);
+	var ReactComponentsInfoTip = __webpack_require__(134);
 
 	var InfoTip = React.createClass({
 	    displayName: "InfoTip",
@@ -12090,194 +12347,6 @@ webpackJsonpPerseus([1],[
 	module.exports = InfoTip;
 
 /***/ },
-/* 101 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _extends = Object.assign || function(target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-	    }
-	    return target;
-	};
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-after-keywords */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var classNames = __webpack_require__(13);
-
-	var React = __webpack_require__(10);
-
-	var ReactDOM = __webpack_require__(11);
-
-	var _ = __webpack_require__(9);
-
-	var firstNumericalParse = __webpack_require__(15).firstNumericalParse;
-
-	var captureScratchpadTouchStart = __webpack_require__(15).captureScratchpadTouchStart;
-
-	var knumber = __webpack_require__(127).number;
-
-	var KhanMath = __webpack_require__(75);
-
-	var toNumericString = KhanMath.toNumericString;
-
-	var getNumericFormat = KhanMath.getNumericFormat;
-
-	/* An input box that accepts only numeric strings
-	 *
-	 * Calls onChange(value, format) for valid numbers.
-	 * Reverts to the current value onBlur or on [ENTER],
-	 *   but maintains the format (i.e. 3/2, 1 1/2, 150%)
-	 * Accepts empty input and sends it to onChange as null
-	 *   if no numeric placeholder is set.
-	 * If given a checkValidity function, will turn
-	 *   the background/outline red when invalid
-	 * If useArrowKeys is set to true, up/down arrows will
-	 *   increment/decrement integers
-	 * Optionally takes a size ("mini", "small", "normal")
-	 */
-	var NumberInput = React.createClass({
-	    displayName: "NumberInput",
-	    propTypes: {
-	        value: React.PropTypes.number,
-	        format: React.PropTypes.string,
-	        placeholder: React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number ]),
-	        onChange: React.PropTypes.func.isRequired,
-	        onFormatChange: React.PropTypes.func,
-	        checkValidity: React.PropTypes.func,
-	        size: React.PropTypes.string,
-	        label: React.PropTypes.oneOf([ "put your labels outside your inputs!" ])
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            value: null,
-	            placeholder: null,
-	            format: null,
-	            onFormatChange: function onFormatChange() {
-	                return null;
-	            },
-	            checkValidity: function checkValidity() {
-	                return true;
-	            },
-	            useArrowKeys: false
-	        };
-	    },
-	    getInitialState: function getInitialState() {
-	        return {
-	            format: this.props.format
-	        };
-	    },
-	    render: function render() {
-	        var classes = classNames({
-	            "number-input": true,
-	            "invalid-input": !this._checkValidity(this.props.value),
-	            mini: "mini" === this.props.size,
-	            small: "small" === this.props.size,
-	            normal: "normal" === this.props.size
-	        });
-	        null != this.props.className && (classes = classes + " " + this.props.className);
-	        return React.createElement("input", _extends({}, this.props, {
-	            className: classes,
-	            type: "text",
-	            ref: "input",
-	            onChange: this._handleChange,
-	            onFocus: this._handleFocus,
-	            onBlur: this._handleBlur,
-	            onKeyPress: this._handleBlur,
-	            onKeyDown: this._onKeyDown,
-	            onTouchStart: captureScratchpadTouchStart,
-	            defaultValue: toNumericString(this.props.value, this.state.format),
-	            value: void 0
-	        }));
-	    },
-	    componentDidUpdate: function componentDidUpdate(prevProps) {
-	        knumber.equal(this.getValue(), this.props.value) || this._setValue(this.props.value, this.state.format);
-	    },
-	    /* Return the current "value" of this input
-	     * If empty, it returns the placeholder (if it is a number) or null
-	     */
-	    getValue: function getValue() {
-	        return this.parseInputValue(ReactDOM.findDOMNode(this.refs.input).value);
-	    },
-	    /* Return the current string value of this input */
-	    getStringValue: function getStringValue() {
-	        return ReactDOM.findDOMNode(this.refs.input).value.toString();
-	    },
-	    parseInputValue: function parseInputValue(value) {
-	        if ("" === value) {
-	            var placeholder = this.props.placeholder;
-	            return _.isFinite(placeholder) ? +placeholder : null;
-	        }
-	        var result = firstNumericalParse(value);
-	        return _.isFinite(result) ? result : this.props.value;
-	    },
-	    /* Set text input focus to this input */
-	    focus: function focus() {
-	        ReactDOM.findDOMNode(this.refs.input).focus();
-	        this._handleFocus();
-	    },
-	    blur: function blur() {
-	        ReactDOM.findDOMNode(this.refs.input).blur();
-	        this._handleBlur();
-	    },
-	    setSelectionRange: function setSelectionRange(selectionStart, selectionEnd) {
-	        ReactDOM.findDOMNode(this).setSelectionRange(selectionStart, selectionEnd);
-	    },
-	    getSelectionStart: function getSelectionStart() {
-	        return ReactDOM.findDOMNode(this).selectionStart;
-	    },
-	    getSelectionEnd: function getSelectionEnd() {
-	        return ReactDOM.findDOMNode(this).selectionEnd;
-	    },
-	    _checkValidity: function _checkValidity(value) {
-	        if (null == value) return true;
-	        var val = firstNumericalParse(value);
-	        var checkValidity = this.props.checkValidity;
-	        return _.isFinite(val) && checkValidity(val);
-	    },
-	    _handleChange: function _handleChange(e) {
-	        var text = e.target.value;
-	        var value = this.parseInputValue(text);
-	        var format = getNumericFormat(text);
-	        this.props.onChange(value);
-	        if (format) {
-	            this.props.onFormatChange(value, format);
-	            this.setState({
-	                format: format
-	            });
-	        }
-	    },
-	    _handleFocus: function _handleFocus() {
-	        this.props.onFocus && this.props.onFocus();
-	    },
-	    _handleBlur: function _handleBlur(e) {
-	        // Only continue on blur or "enter"
-	        if (e && "keypress" === e.type && 13 !== e.keyCode) return;
-	        this._setValue(this.props.value, this.state.format);
-	        this.props.onBlur && this.props.onBlur();
-	    },
-	    _onKeyDown: function _onKeyDown(e) {
-	        this.props.onKeyDown && this.props.onKeyDown(e);
-	        if (!this.props.useArrowKeys || !_.contains([ "ArrowUp", "ArrowDown" ], e.key)) return;
-	        var val = this.getValue();
-	        if (val !== Math.floor(val)) return;
-	        "ArrowUp" === e.key ? val += 1 : "ArrowDown" === e.key && (val -= 1);
-	        this._checkValidity(val) && this.props.onChange(val);
-	    },
-	    _setValue: function _setValue(val, format) {
-	        $(ReactDOM.findDOMNode(this.refs.input)).val(toNumericString(val, format));
-	    }
-	});
-
-	module.exports = NumberInput;
-
-/***/ },
-/* 102 */,
-/* 103 */,
-/* 104 */,
 /* 105 */,
 /* 106 */,
 /* 107 */
@@ -12294,11 +12363,11 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(13);
 
 	var Renderer = __webpack_require__(8);
 
-	var ApiClassNames = __webpack_require__(16).ClassNames;
+	var ApiClassNames = __webpack_require__(14).ClassNames;
 
 	var PREFIX = "perseus-sortable";
 
@@ -13112,9 +13181,9 @@ webpackJsonpPerseus([1],[
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _ = __webpack_require__(9);
 
-	var Util = __webpack_require__(15);
+	var Util = __webpack_require__(13);
 
-	var Graphie = __webpack_require__(77);
+	var Graphie = __webpack_require__(86);
 
 	var Plot = Graphie.Plot;
 
@@ -13642,6 +13711,338 @@ webpackJsonpPerseus([1],[
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+	/* globals $_ */
+	var React = __webpack_require__(10);
+
+	var SimpleMarkdown = __webpack_require__(119);
+
+	var _ = __webpack_require__(9);
+
+	var START_REF_PREFIX = "start-ref-";
+
+	var END_REF_PREFIX = "end-ref-";
+
+	var REF_STYLE = {
+	    display: "inline-block",
+	    width: 0,
+	    visibility: "hidden"
+	};
+
+	var LABEL_OUTER_STYLE = {
+	    // for some reason we need these to keep the nbsp from wrapping when the
+	    // inner circle/square is display: inline-block
+	    display: "inline",
+	    whiteSpace: "nowrap"
+	};
+
+	var SQUARE_LABEL_STYLE = {
+	    display: "inline-block",
+	    color: "rgb(255, 255, 255)",
+	    backgroundColor: "rgb(90, 90, 90)",
+	    paddingLeft: 10,
+	    paddingRight: 10,
+	    userSelect: "none",
+	    WebkitUserSelect: "none"
+	};
+
+	var CIRCLE_LABEL_STYLE = {
+	    display: "inline-block",
+	    color: "rgb(255, 255, 255)",
+	    backgroundColor: "rgb(90, 90, 90)",
+	    userSelect: "none",
+	    WebkitUserSelect: "none",
+	    width: 22,
+	    height: 22,
+	    borderRadius: "50%",
+	    textAlign: "center"
+	};
+
+	var RefStart = React.createClass({
+	    displayName: "RefStart",
+	    propTypes: {
+	        refContent: React.PropTypes.node.isRequired
+	    },
+	    render: function render() {
+	        return React.createElement("span", {
+	            style: REF_STYLE
+	        }, "_");
+	    },
+	    getRefContent: function getRefContent() {
+	        return this.props.refContent;
+	    }
+	});
+
+	var RefEnd = React.createClass({
+	    displayName: "RefEnd",
+	    render: function render() {
+	        return React.createElement("span", {
+	            style: REF_STYLE
+	        }, "_");
+	    }
+	});
+
+	var rules = {
+	    newline: SimpleMarkdown.defaultRules.newline,
+	    paragraph: SimpleMarkdown.defaultRules.paragraph,
+	    escape: SimpleMarkdown.defaultRules.escape,
+	    passageFootnote: {
+	        order: SimpleMarkdown.defaultRules.escape.order + .1,
+	        match: SimpleMarkdown.inlineRegex(/^\^/),
+	        parse: function parse(capture, _parse, state) {
+	            // if no footnotes have been seen, we're id 1. otherwise,
+	            // we're the next subsequent id
+	            var id = state.lastFootnote.id + 1;
+	            var footnote = {
+	                id: id,
+	                // our text is what to output. if there is only one footnote,
+	                // it's a *; otherwise it's a superscript number
+	                text: 1 === id ? "*" : "" + id
+	            };
+	            // If the previous footnote was a *, we need to adjust it to be
+	            // a number, since now we know there is more than one footnote
+	            "*" === state.lastFootnote.text && (state.lastFootnote.text = "" + state.lastFootnote.id);
+	            // and update our last footnote, + return.
+	            state.lastFootnote = footnote;
+	            return footnote;
+	        },
+	        react: function react(node, output, state) {
+	            return React.createElement("sup", {
+	                key: state.key
+	            }, node.text);
+	        }
+	    },
+	    refStart: {
+	        order: SimpleMarkdown.defaultRules.escape.order + .2,
+	        match: function match(source, state) {
+	            var capture = /^\{\{/.exec(source);
+	            if (capture) {
+	                // We need to do extra processing here to capture the
+	                // full text of the reference, which we include so that
+	                // we can use that information as a screenreader
+	                var closeIndex = 2;
+	                // start looking after the opening "{{"
+	                var refNestingLevel = 0;
+	                // Find the closing "}}" for our opening "{{"
+	                while (closeIndex < source.length) {
+	                    var token = source.slice(closeIndex, closeIndex + 2);
+	                    if ("{{" === token) {
+	                        refNestingLevel++;
+	                        // increment an extra character so we get the
+	                        // full 2-char token
+	                        closeIndex++;
+	                    } else if ("}}" === token) {
+	                        if (!(refNestingLevel > 0)) break;
+	                        refNestingLevel--;
+	                        // increment an extra character so we get the
+	                        // full 2-char token
+	                        closeIndex++;
+	                    }
+	                    closeIndex++;
+	                }
+	                var refText = source.slice(2, closeIndex);
+	                // A "magic" capture that matches the opening {{
+	                // but captures the full ref text internally :D
+	                return [ capture[0], refText ];
+	            }
+	            return null;
+	        },
+	        parse: function parse(capture, _parse2, state) {
+	            if (!state.useRefs) return {
+	                ref: null,
+	                refContent: null
+	            };
+	            var ref = state.lastRef + 1;
+	            state.lastRef = ref;
+	            state.currentRef.push(ref);
+	            var refContent = _parse2(// Curly quotes
+	            "(“" + capture[1] + "”)\n\n", _.defaults({
+	                // We don't want to parse refs while looking through
+	                // this refs contents. We definitely don't want
+	                // to make those refs into react refs on the
+	                // passage, for instance!
+	                useRefs: false
+	            }, INITIAL_PARSE_STATE));
+	            return {
+	                ref: ref,
+	                refContent: refContent
+	            };
+	        },
+	        react: function react(node, output, state) {
+	            if (null == node.ref) return null;
+	            // We don't pass state here because this is parsed
+	            // and output out-of-band. We don't want to affect
+	            // our state by the double-output here :).
+	            var refContent = output(node.refContent, {});
+	            return React.createElement(RefStart, {
+	                ref: START_REF_PREFIX + node.ref,
+	                key: START_REF_PREFIX + node.ref,
+	                refContent: refContent
+	            });
+	        }
+	    },
+	    refEnd: {
+	        order: SimpleMarkdown.defaultRules.escape.order + .3,
+	        match: SimpleMarkdown.inlineRegex(/^\}\}/),
+	        parse: function parse(capture, _parse3, state) {
+	            if (!state.useRefs) return {
+	                ref: null
+	            };
+	            var ref = state.currentRef.pop() || null;
+	            return {
+	                ref: ref
+	            };
+	        },
+	        react: function react(node, output, state) {
+	            return null != node.ref ? React.createElement(RefEnd, {
+	                ref: END_REF_PREFIX + node.ref,
+	                key: END_REF_PREFIX + node.ref
+	            }) : null;
+	        }
+	    },
+	    squareLabel: {
+	        order: SimpleMarkdown.defaultRules.escape.order + .4,
+	        match: SimpleMarkdown.inlineRegex(/^\[\[(\w+)\]\]( *)/),
+	        parse: function parse(capture, _parse4, state) {
+	            state.firstQuestionRef || (state.firstQuestionRef = capture[1]);
+	            return {
+	                content: capture[1],
+	                space: capture[2].length > 0
+	            };
+	        },
+	        react: function react(node, output, state) {
+	            return [ React.createElement("span", {
+	                key: "visual-square",
+	                className: "perseus-passage-square-label",
+	                style: LABEL_OUTER_STYLE,
+	                "aria-hidden": "true"
+	            }, React.createElement("span", {
+	                style: SQUARE_LABEL_STYLE
+	            }, node.content)), React.createElement("span", {
+	                key: "alt-text",
+	                className: "perseus-sr-only"
+	            }, $_({
+	                number: node.content
+	            }, "[Marker for question %(number)s]")), node.space ? " " : null ];
+	        }
+	    },
+	    circleLabel: {
+	        order: SimpleMarkdown.defaultRules.escape.order + .5,
+	        match: SimpleMarkdown.inlineRegex(/^\(\((\w+)\)\)( *)/),
+	        parse: function parse(capture, _parse5, state) {
+	            return {
+	                content: capture[1],
+	                space: capture[2].length > 0
+	            };
+	        },
+	        react: function react(node, output, state) {
+	            return [ React.createElement("span", {
+	                key: "visual-circle",
+	                className: "perseus-passage-circle-label",
+	                style: LABEL_OUTER_STYLE,
+	                "aria-hidden": true
+	            }, React.createElement("span", {
+	                style: CIRCLE_LABEL_STYLE
+	            }, node.content)), React.createElement("span", {
+	                key: "alt-text",
+	                className: "perseus-sr-only"
+	            }, $_({
+	                number: node.content
+	            }, "[Circle marker %(number)s]")), node.space ? " " : null ];
+	        }
+	    },
+	    squareBracketRef: {
+	        order: SimpleMarkdown.defaultRules.escape.order + .6,
+	        match: SimpleMarkdown.inlineRegex(/^\[(\d+)\]( *)/),
+	        parse: function parse(capture, _parse6, state) {
+	            state.firstSentenceRef || (state.firstSentenceRef = capture[1]);
+	            return {
+	                content: capture[1],
+	                space: capture[2].length > 0
+	            };
+	        },
+	        react: function react(node, output, state) {
+	            return [ React.createElement("span", {
+	                key: "visual-brackets",
+	                className: "perseus-passage-bracket-label",
+	                "aria-hidden": "true"
+	            }, "[", node.content, "]"), React.createElement("span", {
+	                key: "alt-text",
+	                className: "perseus-sr-only"
+	            }, $_({
+	                number: node.content
+	            }, "[Sentence %(number)s]")), node.space ? " " : null ];
+	        }
+	    },
+	    highlight: {
+	        order: SimpleMarkdown.defaultRules.escape.order + .7,
+	        match: SimpleMarkdown.inlineRegex(/^{highlighting.start}(.+?){highlighting.end}/),
+	        parse: function parse(capture, _parse7, state) {
+	            return {
+	                content: capture[1]
+	            };
+	        },
+	        react: function react(node, output, state) {
+	            return [ React.createElement("span", {
+	                className: "perseus-highlight"
+	            }, node.content) ];
+	        }
+	    },
+	    reviewHighlight: {
+	        order: SimpleMarkdown.defaultRules.escape.order + .7,
+	        match: SimpleMarkdown.inlineRegex(/^{review-highlighting.start}(.+?){review-highlighting.end}/),
+	        parse: function parse(capture, _parse8, state) {
+	            return {
+	                content: capture[1]
+	            };
+	        },
+	        react: function react(node, output, state) {
+	            return [ React.createElement("span", {
+	                className: "perseus-review-highlight"
+	            }, node.content) ];
+	        }
+	    },
+	    strong: SimpleMarkdown.defaultRules.strong,
+	    u: SimpleMarkdown.defaultRules.u,
+	    em: SimpleMarkdown.defaultRules.em,
+	    del: SimpleMarkdown.defaultRules.del,
+	    text: SimpleMarkdown.defaultRules.text
+	};
+
+	var INITIAL_PARSE_STATE = {
+	    currentRef: [],
+	    useRefs: true,
+	    lastRef: 0,
+	    lastFootnote: {
+	        id: 0,
+	        text: ""
+	    }
+	};
+
+	var builtParser = SimpleMarkdown.parserFor(rules);
+
+	var parse = function parse(source, state) {
+	    state = state || {};
+	    var paragraphedSource = source + "\n\n";
+	    return builtParser(paragraphedSource, _.extend(state, INITIAL_PARSE_STATE));
+	};
+
+	module.exports = {
+	    parse: parse,
+	    output: SimpleMarkdown.reactFor(SimpleMarkdown.ruleOutput(rules, "react")),
+	    START_REF_PREFIX: START_REF_PREFIX,
+	    END_REF_PREFIX: END_REF_PREFIX,
+	    _rulesForTesting: rules
+	};
+
+/***/ },
+/* 115 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable brace-style */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/**
@@ -13810,7 +14211,7 @@ webpackJsonpPerseus([1],[
 	module.exports = draw;
 
 /***/ },
-/* 115 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14124,7 +14525,7 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 116 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14367,324 +14768,6 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 117 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	/* globals $_ */
-	var React = __webpack_require__(10);
-
-	var SimpleMarkdown = __webpack_require__(120);
-
-	var _ = __webpack_require__(9);
-
-	var START_REF_PREFIX = "start-ref-";
-
-	var END_REF_PREFIX = "end-ref-";
-
-	var REF_STYLE = {
-	    display: "inline-block",
-	    width: 0,
-	    visibility: "hidden"
-	};
-
-	var LABEL_OUTER_STYLE = {
-	    // for some reason we need these to keep the nbsp from wrapping when the
-	    // inner circle/square is display: inline-block
-	    display: "inline",
-	    whiteSpace: "nowrap"
-	};
-
-	var SQUARE_LABEL_STYLE = {
-	    display: "inline-block",
-	    color: "rgb(255, 255, 255)",
-	    backgroundColor: "rgb(90, 90, 90)",
-	    paddingLeft: 10,
-	    paddingRight: 10,
-	    userSelect: "none",
-	    WebkitUserSelect: "none"
-	};
-
-	var CIRCLE_LABEL_STYLE = {
-	    display: "inline-block",
-	    color: "rgb(255, 255, 255)",
-	    backgroundColor: "rgb(90, 90, 90)",
-	    userSelect: "none",
-	    WebkitUserSelect: "none",
-	    width: 22,
-	    height: 22,
-	    borderRadius: "50%",
-	    textAlign: "center"
-	};
-
-	var RefStart = React.createClass({
-	    displayName: "RefStart",
-	    propTypes: {
-	        refContent: React.PropTypes.node.isRequired
-	    },
-	    render: function render() {
-	        return React.createElement("span", {
-	            style: REF_STYLE
-	        }, "_");
-	    },
-	    getRefContent: function getRefContent() {
-	        return this.props.refContent;
-	    }
-	});
-
-	var RefEnd = React.createClass({
-	    displayName: "RefEnd",
-	    render: function render() {
-	        return React.createElement("span", {
-	            style: REF_STYLE
-	        }, "_");
-	    }
-	});
-
-	var rules = {
-	    newline: SimpleMarkdown.defaultRules.newline,
-	    paragraph: SimpleMarkdown.defaultRules.paragraph,
-	    escape: SimpleMarkdown.defaultRules.escape,
-	    passageFootnote: {
-	        order: SimpleMarkdown.defaultRules.escape.order + .1,
-	        match: SimpleMarkdown.inlineRegex(/^\^/),
-	        parse: function parse(capture, _parse, state) {
-	            // if no footnotes have been seen, we're id 1. otherwise,
-	            // we're the next subsequent id
-	            var id = state.lastFootnote.id + 1;
-	            var footnote = {
-	                id: id,
-	                // our text is what to output. if there is only one footnote,
-	                // it's a *; otherwise it's a superscript number
-	                text: 1 === id ? "*" : "" + id
-	            };
-	            // If the previous footnote was a *, we need to adjust it to be
-	            // a number, since now we know there is more than one footnote
-	            "*" === state.lastFootnote.text && (state.lastFootnote.text = "" + state.lastFootnote.id);
-	            // and update our last footnote, + return.
-	            state.lastFootnote = footnote;
-	            return footnote;
-	        },
-	        react: function react(node, output, state) {
-	            return React.createElement("sup", {
-	                key: state.key
-	            }, node.text);
-	        }
-	    },
-	    refStart: {
-	        order: SimpleMarkdown.defaultRules.escape.order + .2,
-	        match: function match(source, state) {
-	            var capture = /^\{\{/.exec(source);
-	            if (capture) {
-	                // We need to do extra processing here to capture the
-	                // full text of the reference, which we include so that
-	                // we can use that information as a screenreader
-	                var closeIndex = 2;
-	                // start looking after the opening "{{"
-	                var refNestingLevel = 0;
-	                // Find the closing "}}" for our opening "{{"
-	                while (closeIndex < source.length) {
-	                    var token = source.slice(closeIndex, closeIndex + 2);
-	                    if ("{{" === token) {
-	                        refNestingLevel++;
-	                        // increment an extra character so we get the
-	                        // full 2-char token
-	                        closeIndex++;
-	                    } else if ("}}" === token) {
-	                        if (!(refNestingLevel > 0)) break;
-	                        refNestingLevel--;
-	                        // increment an extra character so we get the
-	                        // full 2-char token
-	                        closeIndex++;
-	                    }
-	                    closeIndex++;
-	                }
-	                var refText = source.slice(2, closeIndex);
-	                // A "magic" capture that matches the opening {{
-	                // but captures the full ref text internally :D
-	                return [ capture[0], refText ];
-	            }
-	            return null;
-	        },
-	        parse: function parse(capture, _parse2, state) {
-	            if (!state.useRefs) return {
-	                ref: null,
-	                refContent: null
-	            };
-	            var ref = state.lastRef + 1;
-	            state.lastRef = ref;
-	            state.currentRef.push(ref);
-	            var refContent = _parse2(// Curly quotes
-	            "(“" + capture[1] + "”)\n\n", _.defaults({
-	                // We don't want to parse refs while looking through
-	                // this refs contents. We definitely don't want
-	                // to make those refs into react refs on the
-	                // passage, for instance!
-	                useRefs: false
-	            }, INITIAL_PARSE_STATE));
-	            return {
-	                ref: ref,
-	                refContent: refContent
-	            };
-	        },
-	        react: function react(node, output, state) {
-	            if (null == node.ref) return null;
-	            // We don't pass state here because this is parsed
-	            // and output out-of-band. We don't want to affect
-	            // our state by the double-output here :).
-	            var refContent = output(node.refContent, {});
-	            return React.createElement(RefStart, {
-	                ref: START_REF_PREFIX + node.ref,
-	                key: START_REF_PREFIX + node.ref,
-	                refContent: refContent
-	            });
-	        }
-	    },
-	    refEnd: {
-	        order: SimpleMarkdown.defaultRules.escape.order + .3,
-	        match: SimpleMarkdown.inlineRegex(/^\}\}/),
-	        parse: function parse(capture, _parse3, state) {
-	            if (!state.useRefs) return {
-	                ref: null
-	            };
-	            var ref = state.currentRef.pop() || null;
-	            return {
-	                ref: ref
-	            };
-	        },
-	        react: function react(node, output, state) {
-	            return null != node.ref ? React.createElement(RefEnd, {
-	                ref: END_REF_PREFIX + node.ref,
-	                key: END_REF_PREFIX + node.ref
-	            }) : null;
-	        }
-	    },
-	    squareLabel: {
-	        order: SimpleMarkdown.defaultRules.escape.order + .4,
-	        match: SimpleMarkdown.inlineRegex(/^\[\[(\w+)\]\]( *)/),
-	        parse: function parse(capture, _parse4, state) {
-	            state.firstQuestionRef || (state.firstQuestionRef = capture[1]);
-	            return {
-	                content: capture[1],
-	                space: capture[2].length > 0
-	            };
-	        },
-	        react: function react(node, output, state) {
-	            return [ React.createElement("span", {
-	                key: "visual-square",
-	                className: "perseus-passage-square-label",
-	                style: LABEL_OUTER_STYLE,
-	                "aria-hidden": "true"
-	            }, React.createElement("span", {
-	                style: SQUARE_LABEL_STYLE
-	            }, node.content)), React.createElement("span", {
-	                key: "alt-text",
-	                className: "perseus-sr-only"
-	            }, $_({
-	                number: node.content
-	            }, "[Marker for question %(number)s]")), node.space ? " " : null ];
-	        }
-	    },
-	    circleLabel: {
-	        order: SimpleMarkdown.defaultRules.escape.order + .5,
-	        match: SimpleMarkdown.inlineRegex(/^\(\((\w+)\)\)( *)/),
-	        parse: function parse(capture, _parse5, state) {
-	            return {
-	                content: capture[1],
-	                space: capture[2].length > 0
-	            };
-	        },
-	        react: function react(node, output, state) {
-	            return [ React.createElement("span", {
-	                key: "visual-circle",
-	                className: "perseus-passage-circle-label",
-	                style: LABEL_OUTER_STYLE,
-	                "aria-hidden": true
-	            }, React.createElement("span", {
-	                style: CIRCLE_LABEL_STYLE
-	            }, node.content)), React.createElement("span", {
-	                key: "alt-text",
-	                className: "perseus-sr-only"
-	            }, $_({
-	                number: node.content
-	            }, "[Circle marker %(number)s]")), node.space ? " " : null ];
-	        }
-	    },
-	    squareBracketRef: {
-	        order: SimpleMarkdown.defaultRules.escape.order + .6,
-	        match: SimpleMarkdown.inlineRegex(/^\[(\d+)\]( *)/),
-	        parse: function parse(capture, _parse6, state) {
-	            state.firstSentenceRef || (state.firstSentenceRef = capture[1]);
-	            return {
-	                content: capture[1],
-	                space: capture[2].length > 0
-	            };
-	        },
-	        react: function react(node, output, state) {
-	            return [ React.createElement("span", {
-	                key: "visual-brackets",
-	                className: "perseus-passage-bracket-label",
-	                "aria-hidden": "true"
-	            }, "[", node.content, "]"), React.createElement("span", {
-	                key: "alt-text",
-	                className: "perseus-sr-only"
-	            }, $_({
-	                number: node.content
-	            }, "[Sentence %(number)s]")), node.space ? " " : null ];
-	        }
-	    },
-	    highlight: {
-	        order: SimpleMarkdown.defaultRules.escape.order + .7,
-	        match: SimpleMarkdown.inlineRegex(/^{__highlighting.start}(.+?){__highlighting.end}/),
-	        parse: function parse(capture, _parse7, state) {
-	            return {
-	                content: capture[1]
-	            };
-	        },
-	        react: function react(node, output, state) {
-	            return [ React.createElement("span", {
-	                className: "perseus-highlight"
-	            }, node.content) ];
-	        }
-	    },
-	    strong: SimpleMarkdown.defaultRules.strong,
-	    u: SimpleMarkdown.defaultRules.u,
-	    em: SimpleMarkdown.defaultRules.em,
-	    del: SimpleMarkdown.defaultRules.del,
-	    text: SimpleMarkdown.defaultRules.text
-	};
-
-	var INITIAL_PARSE_STATE = {
-	    currentRef: [],
-	    useRefs: true,
-	    lastRef: 0,
-	    lastFootnote: {
-	        id: 0,
-	        text: ""
-	    }
-	};
-
-	var builtParser = SimpleMarkdown.parserFor(rules);
-
-	var parse = function parse(source, state) {
-	    state = state || {};
-	    var paragraphedSource = source + "\n\n";
-	    return builtParser(paragraphedSource, _.extend(state, INITIAL_PARSE_STATE));
-	};
-
-	module.exports = {
-	    parse: parse,
-	    output: SimpleMarkdown.reactFor(SimpleMarkdown.ruleOutput(rules, "react")),
-	    START_REF_PREFIX: START_REF_PREFIX,
-	    END_REF_PREFIX: END_REF_PREFIX,
-	    _rulesForTesting: rules
-	};
-
-/***/ },
 /* 118 */,
 /* 119 */,
 /* 120 */,
@@ -14695,17 +14778,13 @@ webpackJsonpPerseus([1],[
 /* 125 */,
 /* 126 */,
 /* 127 */,
-/* 128 */,
-/* 129 */,
-/* 130 */,
-/* 131 */,
-/* 132 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	/* eslint-disable no-var */
-	var StyleSheet = __webpack_require__(12).StyleSheet;
+	var StyleSheet = __webpack_require__(16).StyleSheet;
 
 	var button = StyleSheet.create({
 	    buttonStyle: {
@@ -14744,10 +14823,12 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
+/* 129 */,
+/* 130 */,
+/* 131 */,
+/* 132 */,
 /* 133 */,
-/* 134 */,
-/* 135 */,
-/* 136 */
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14755,7 +14836,7 @@ webpackJsonpPerseus([1],[
 	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-	var _require = __webpack_require__(12);
+	var _require = __webpack_require__(16);
 
 	var StyleSheet = _require.StyleSheet;
 
