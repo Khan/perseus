@@ -408,7 +408,7 @@
         margin-bottom: 2 * @baseUnit;
     }
 
-    .perseus-renderer > .paragraph ul:not(.perseus-widget-radio):not(.fancy-select-options) {
+    .perseus-renderer > .paragraph ul:not(.perseus-widget-radio) {
         margin: 0 0 0 1em;
         padding: 0;
 
@@ -433,8 +433,8 @@
 
     // Support for nested lists
     .perseus-renderer > .paragraph ol,
-    .perseus-renderer > .paragraph ul:not(.perseus-widget-radio):not(.fancy-select-options) {
-        ol, ul:not(.perseus-widget-radio):not(.fancy-select-options) {
+    .perseus-renderer > .paragraph ul:not(.perseus-widget-radio) {
+        ol, ul:not(.perseus-widget-radio) {
             padding-top: 1.5 * @baseUnit;
         }
     }
