@@ -66,7 +66,7 @@ const imageRegExp = /!\[.*?\]\(.*?\)/g;
 const boldRegExp = /\*\*([\s\S]+?)\*\*(?!\*)/g;
 const italicsRegExp = /(\*)(.*?)\1/g;
 const underlineRegExp = /__([\s\S]+?)__(?!_)/g;
-const headerRegExp = /^ *(#{1,6})([^\n]+)/g;
+const headerRegExp = /^ *(#{1,6})([^\n]+)$/g;
 
 /*
     Styled ranges in Draft.js are done using a `CompositeDecorator`,
@@ -116,6 +116,8 @@ const underlineDecorator = {
 };
 
 
+// TODO: Make the headers also able to scale with the rest of the text
+// when changing the fontSize percentage
 const headerComponent = (props) => {
     const text = props.decoratedText;
     const headerSize = text.split(headerRegExp)[1].length;
@@ -149,8 +151,14 @@ const keyBindings = (e) => {
         return 'perseus-bold';
     } else if (isCommandPressed && e.keyCode === 73) {// 73 = i
         return 'perseus-italics';
-    } else if (isCommandPressed && e.keyCode === 85) {// 73 = u
+    } else if (isCommandPressed && e.keyCode === 85) {// 85 = u
         return 'perseus-underline';
+    } else if (isCommandPressed && e.keyCode === 219) {// 219 = [
+        return 'perseus-decrease-font-size';
+    } else if (isCommandPressed && e.keyCode === 221) {// 221 = ]
+        return 'perseus-increase-font-size';
+    } else if (isCommandPressed && e.keyCode === 220) {// 220 = ]
+        return 'perseus-reset-font-size';
     } else {
         return getDefaultKeyBinding(e);
     }
@@ -189,6 +197,7 @@ const PerseusEditor = React.createClass({
         return {
             editorState,
             widgets: initialWidgets,
+            fontSizePercentage: 100,
         };
     },
 
@@ -603,15 +612,29 @@ const PerseusEditor = React.createClass({
     },
 
     _handleKeyCommand(command) {
-        const decoration = this._getDecorationForStyle(command);
-        if (decoration === null) {
-            return false;
+        // Check if the font size should be changed
+        const {fontSizePercentage} = this.state;
+        if (command === 'perseus-increase-font-size') {
+            this.setState({fontSizePercentage: fontSizePercentage + 10});
+            return true;
+        } else if (command === 'perseus-decrease-font-size') {
+            this.setState({fontSizePercentage: fontSizePercentage - 10});
+            return true;
+        } else if (command === 'perseus-reset-font-size') {
+            this.setState({fontSizePercentage: 100});
+            return true;
         }
 
-        const data = this._getDraftData();
-        const {editorState} = DraftUtils.decorateSelection(data, decoration);
-        this._handleChange({editorState});
-        return true;
+        // Check whether a style such as bold/italics/underline should be added
+        const decoration = this._getDecorationForStyle(command);
+        if (decoration !== null) {
+            const data = this._getDraftData();
+            const {editorState} = DraftUtils.decorateSelection(data, decoration);
+            this._handleChange({editorState});
+            return true;
+        }
+
+        return false;
     },
 
     lastContentUpdate: "",
@@ -678,7 +701,13 @@ const PerseusEditor = React.createClass({
     },
 
     render() {
-        return <div onCopy={this._handleCopy} onDragStart={this._handleCopy}>
+        return <div
+            onCopy={this._handleCopy}
+            onDragStart={this._handleCopy}
+            style={{
+                fontSize: `${this.state.fontSizePercentage}%`,
+            }}
+        >
             <Editor
                 ref={(e) => this.editor = e}
                 editorState={this.state.editorState}
