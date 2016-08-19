@@ -60,6 +60,14 @@ const partialWidgetRegex = /\[\[([a-z-]+)$/; // Used for autocompletion
 
 const imageRegExp = /!\[.*?\]\(.*?\)/g;
 
+// Note: Nested decorators currently do not work, therefore this will not
+//       work when nesting bold/italics/underline.  Hopefully this is
+//       fixed in future versions of Draft.js
+const boldRegExp = /\*\*([\s\S]+?)\*\*(?!\*)/g;
+const italicsRegExp = /(\*)(.*?)\1/g;
+const underlineRegExp = /__([\s\S]+?)__(?!_)/g;
+const headerRegExp = /^ *(#{1,6})([^\n]+)/g;
+
 /*
     Styled ranges in Draft.js are done using a `CompositeDecorator`,
     where a `strategy` is given to denote what ranges of text to style,
@@ -72,11 +80,15 @@ const entityStrategy = (contentBlock, callback, type) =>
         callback
     );
 
-const highlightedBlock = (props, color) =>
-        <span {...props} style={{backgroundColor: color}}>
+const styledBlock = (props, style) =>
+        <span {...props} style={style}>
             {props.children}
         </span>;
-highlightedBlock.propTypes = {children: React.PropTypes.any};
+styledBlock.propTypes = {children: React.PropTypes.any};
+
+const highlightedBlock =
+    (props, backgroundColor) => styledBlock(props, {backgroundColor});
+
 
 const entityColorDecorator = (type, color) => ({
     strategy: (...args) => entityStrategy(...args, type),
@@ -88,10 +100,46 @@ const regexColorDecorator = (regex, color) => ({
     component: (props) => highlightedBlock(props, color),
 });
 
+const boldDecorator = {
+    strategy: (...args) => DraftUtils.regexStrategy(...args, boldRegExp),
+    component: (props) => styledBlock(props, {fontWeight: 'bold'}),
+};
+
+const italicsDecorator = {
+    strategy: (...args) => DraftUtils.regexStrategy(...args, italicsRegExp),
+    component: (props) => styledBlock(props, {fontStyle: 'italic'}),
+};
+
+const underlineDecorator = {
+    strategy: (...args) => DraftUtils.regexStrategy(...args, underlineRegExp),
+    component: (props) => styledBlock(props, {textDecoration: 'underline'}),
+};
+
+
+const headerComponent = (props) => {
+    const text = props.decoratedText;
+    const headerSize = text.split(headerRegExp)[1].length;
+    const style = {marginBottom: 0};
+    return React.createElement(`h${headerSize}`, {style}, props.children);
+};
+headerComponent.propTypes = {
+    decoratedText: React.PropTypes.string,
+    children: React.PropTypes.any,
+};
+
+const headerDecorator = {
+    strategy: (...args) => DraftUtils.regexStrategy(...args, headerRegExp),
+    component: headerComponent,
+};
+
 const decorator = new CompositeDecorator([
     entityColorDecorator('WIDGET', '#DFD'),
     entityColorDecorator('TEMP_IMAGE', '#fdffdd'),
     regexColorDecorator(imageRegExp, '#dffdfa'),
+    boldDecorator,
+    italicsDecorator,
+    underlineDecorator,
+    headerDecorator,
 ]);
 
 // Key bindings are handled by mapping events to strings
