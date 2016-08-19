@@ -36,6 +36,8 @@ const {
     Modifier,
     SelectionState,
     genKey,
+    getDefaultKeyBinding,
+    KeyBindingUtil,
 } = require('draft-js');
 const Widgets = require('./widgets.js');
 const DraftUtils = require('./draft-utils.js');
@@ -91,6 +93,20 @@ const decorator = new CompositeDecorator([
     entityColorDecorator('TEMP_IMAGE', '#fdffdd'),
     regexColorDecorator(imageRegExp, '#dffdfa'),
 ]);
+
+// Key bindings are handled by mapping events to strings
+const keyBindings = (e) => {
+    const isCommandPressed = KeyBindingUtil.hasCommandModifier(e);
+    if (isCommandPressed && e.keyCode === 66) { // 66 = b
+        return 'perseus-bold';
+    } else if (isCommandPressed && e.keyCode === 73) {// 73 = i
+        return 'perseus-italics';
+    } else if (isCommandPressed && e.keyCode === 85) {// 73 = u
+        return 'perseus-underline';
+    } else {
+        return getDefaultKeyBinding(e);
+    }
+};
 
 
 /*
@@ -483,10 +499,6 @@ const PerseusEditor = React.createClass({
         return true; // Disable default draft drop handler
     },
 
-    _handleDrag(e) {
-        console.log(e);
-    },
-
 
     // This implements tab completion for widgets.  When the user
     // has typed [[d, then presses tab, we should replace [[d
@@ -527,6 +539,31 @@ const PerseusEditor = React.createClass({
             }
         }
         return true; // Say that we've handled the event, no other work needed
+    },
+
+    _getDecorationForStyle(style) {
+        switch(style) {
+            case 'perseus-bold':
+                return '**';
+            case 'perseus-italics':
+                return '*';
+            case 'perseus-underline':
+                return '__';
+            default:
+                return null;
+        }
+    },
+
+    _handleKeyCommand(command) {
+        const decoration = this._getDecorationForStyle(command);
+        if (decoration === null) {
+            return false;
+        }
+
+        const data = this._getDraftData();
+        const {editorState} = DraftUtils.decorateSelection(data, decoration);
+        this._handleChange({editorState});
+        return true;
     },
 
     lastContentUpdate: "",
@@ -604,6 +641,8 @@ const PerseusEditor = React.createClass({
                 handlePastedText={this._handlePaste}
                 handleDroppedFiles={this._handleDroppedFiles}
                 handleDrop={this._handleDrop}
+                keyBindingFn={keyBindings}
+                handleKeyCommand={this._handleKeyCommand}
                 onTab={this._handleTab}
             />
         </div>;

@@ -125,6 +125,21 @@ function deleteSelection(draftData) {
     return newData;
 }
 
+const _getBlocksForSelection = (contentState, selection) => {
+    const blocks = [];
+    const startKey = selection.getStartKey();
+    const endKey = selection.getEndKey();
+    const pastEndKey = contentState.getKeyAfter(endKey);
+
+    for (let blockKey = startKey;
+            blockKey !== pastEndKey;
+            blockKey = contentState.getKeyAfter(blockKey)) {
+        blocks.push(contentState.getBlockForKey(blockKey));
+    }
+
+    return blocks;
+};
+
 // Returns an array of all entiies contained within
 // the provided selection, or in the entire contentState
 // if no selection is provided
@@ -137,21 +152,14 @@ function getEntities(contentState, selection) {
     if (!selection) {
         blockMap = contentState.getBlockMap();
     } else {
-        const blocks = [];
-        const startKey = selection.getStartKey();
-        const endKey = selection.getEndKey();
-        const pastEndKey = contentState.getKeyAfter(endKey);
-
-        for (let blockKey = startKey;
-                blockKey !== pastEndKey;
-                blockKey = contentState.getKeyAfter(blockKey)) {
-            blocks.push(contentState.getBlockForKey(blockKey));
-        }
+        const blocks = _getBlocksForSelection(contentState, selection);
         blockMap = BlockMapBuilder.createFromArray(blocks);
 
         // Ensure that entities in the same block as the start/end of the
         // selection are not included if they are not fully contained
         // within the selection
+        const startKey = selection.getStartKey();
+        const endKey = selection.getEndKey();
         filter = (key, start, end) => {
             if (key === startKey && start < selection.getStartOffset()) {
                 return false;
@@ -338,6 +346,72 @@ function snapSelectionOutsideEntities(draftData, prevSelection) {
     return newData;
 }
 
+const _surroundWithText = (contentState, block, left, right, text) => {
+    let area = SelectionState.createEmpty(block.getKey());
+    let content = contentState;
+
+    area = area.merge({anchorOffset: right, focusOffset: right});
+    content = Modifier.insertText(content, area, text);
+
+    area = area.merge({anchorOffset: left, focusOffset: left});
+    content = Modifier.insertText(content, area, text);
+
+    return content;
+};
+
+function decorateSelection(draftData, decoration) {
+    const data = _fillData(draftData);
+    const newData = {...data};
+
+    const {contentState, selection} = data;
+    const blocks = _getBlocksForSelection(contentState, selection);
+    // const decoratedBlocks = blocks.map((block) => {
+    blocks.forEach((block) => {
+        let leftOffset = 0;
+        let rightOffset = block.getLength();
+        if (block.getKey() === selection.getStartKey()) {
+            leftOffset = selection.getStartOffset();
+        }
+        if (block.getKey() === selection.getEndKey()) {
+            rightOffset = selection.getEndOffset();
+        }
+
+        // Ignore unless there is something to decorate
+        if (leftOffset === rightOffset) {
+            return;
+        }
+
+        newData.contentState = _surroundWithText(
+            newData.contentState, block, leftOffset, rightOffset, decoration
+        );
+    });
+
+    // blockMap = BlockMapBuilder.createFromArray(blocks);
+    if (data.editorState) {
+        newData.editorState = EditorState.push(
+            data.editorState,
+            newData.contentState,
+            'insert-characters'
+        );
+
+        // Place the selection after the end of the added decorations
+        // and have it be collapsed
+        const newKey = selection.getEndKey();
+        const newOffset = selection.getEndOffset() + (decoration.length * 2);
+
+        const newSelection = selection.merge({
+            focusKey: newKey, anchorKey: newKey,
+            focusOffset: newOffset, anchorOffset: newOffset,
+        });
+        newData.editorState = EditorState.forceSelection(
+            newData.editorState,
+            newSelection
+        );
+    }
+
+    return newData;
+}
+
 
 module.exports = {
     regexStrategy,
@@ -349,5 +423,6 @@ module.exports = {
     insertText,
     selectEnd,
     snapSelectionOutsideEntities,
+    decorateSelection,
 };
 
