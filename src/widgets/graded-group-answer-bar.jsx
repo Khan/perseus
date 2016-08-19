@@ -88,16 +88,17 @@ const GradedGroupAnswerBar = React.createClass({
                 ? i18n._("Try again")
                 : i18n._("Check");
 
+            // Use <button> instead of <input> b/c iOS 9.3 on iPhone 6 renders
+            // the <input> as a faded out green button instead of using our
+            // styles.
             return <div style={answerBarStyle}>
                 {message}
-                <input
-                    type='button'
+                <button
                     style={buttonStyle}
-                    value={buttonLabel}
                     disabled={apiOptions.readOnly ||
                         answerBarState !== ANSWER_BAR_STATES.ACTIVE}
                     onClick={onCheckAnswer}
-                />
+                >{buttonLabel}</button>
             </div>;
         } else {
             return <div style={answerBarStyle}>
