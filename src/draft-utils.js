@@ -268,12 +268,13 @@ function selectEnd(block) {
 }
 
 
-const isOffsetAnEntity = (contentBlock, offset) => {
-    const key = contentBlock.getEntityAt(offset);
-    return !key || Entity.get(key).mutability !== 'IMMUTABLE';
-};
+const _canEditOffset = (contentBlock, offset) => {
 
-const canEditOffset = (contentBlock, offset) => {
+    const isOffsetAnEntity = (contentBlock, offset) => {
+        const key = contentBlock.getEntityAt(offset);
+        return !key || Entity.get(key).mutability !== 'IMMUTABLE';
+    };
+
     // A position is only uneditable if both characters to the
     // left and right are immutable entities
     return offset === 0
@@ -281,45 +282,48 @@ const canEditOffset = (contentBlock, offset) => {
             || isOffsetAnEntity(contentBlock, offset);
 };
 
+const _getSkippedOffset = (contentBlock, startOffset, step) => {
+    let currOffset = startOffset;
+    while (currOffset > 0
+           && currOffset < contentBlock.getLength()
+           && !_canEditOffset(contentBlock, currOffset)) {
+        currOffset += step;
+    }
+    return currOffset;
+};
+
 function snapSelectionOutsideEntities(draftData, prevSelection) {
     const data = _fillData(draftData);
     const {contentState, selection, editorState} = data;
-    const startBlock = contentState.getBlockForKey(selection.getStartKey());
-    const endBlock = contentState.getBlockForKey(selection.getEndKey());
 
-    let leftOffset = selection.getStartOffset();
-    let rightOffset = selection.getEndOffset();
+    const anchorBlock = contentState.getBlockForKey(selection.getAnchorKey());
+    const focusBlock = contentState.getBlockForKey(selection.getFocusKey());
+    let anchorOffset = selection.getAnchorOffset();
+    let focusOffset = selection.getFocusOffset();
+    const direction = selection.getIsBackward() ? -1 : 1;
 
-    while (leftOffset > 0
-            && !canEditOffset(startBlock, leftOffset)) {
-        leftOffset--;
-    }
-    while (rightOffset < endBlock.getLength()
-            && !canEditOffset(endBlock, rightOffset)) {
-        rightOffset++;
-    }
-
-    // If my cursor is precisely on the right of a widget, and I press
-    // left, my cursor should move to the left of the widget
-    if (prevSelection.getStartKey() === selection.getStartKey()
-        && prevSelection.getStartOffset() === selection.getStartOffset() + 1) {
-        rightOffset = leftOffset;
+    // If the cursor has moved by one, that means the user is moving it
+    // manually with the arrow keys.  If that is happening and the cursor
+    // moves from non-entity to entity, it should skip over the entity.
+    const focusDiff = focusOffset - prevSelection.getFocusOffset();
+    const isSameBlock = selection.getFocusKey() === prevSelection.getFocusKey();
+    if (isSameBlock
+            && Math.abs(focusDiff) === 1
+            && !_canEditOffset(focusBlock, focusOffset)) {
+        focusOffset = _getSkippedOffset(focusBlock, focusOffset, focusDiff);
     }
 
-    // If there was no selection before, it was just a cursor blinking, then
-    // keep that status by making the left offset equal the right one
-    // (Not having this would mean clicking inside would select all of it)
+    // These no-op if the offsets aren't/are no longer on entities
+    focusOffset = _getSkippedOffset(focusBlock, focusOffset, direction);
+    anchorOffset = _getSkippedOffset(anchorBlock, anchorOffset, -direction);
+
     if (selection.isCollapsed()) {
-        leftOffset = rightOffset;
+        anchorOffset = focusOffset;
     }
-
-    const start = selection.getIsBackward() ? 'focus' : 'anchor';
-    const end = selection.getIsBackward() ? 'anchor' : 'focus';
 
     const newData = {contentState};
     newData.selection = selection.merge({
-        [`${start}Offset`]: leftOffset,
-        [`${end}Offset`]: rightOffset,
+        focusOffset, anchorOffset,
     });
 
     if (editorState) {
