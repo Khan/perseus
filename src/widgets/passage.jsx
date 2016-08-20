@@ -296,11 +296,13 @@ const Passage = React.createClass({
      * has the effect of dismissing any open tooltips when a user clicks
      * elsewhere on the page.
      */
-    handleMouseDown: function() {
-        this.setState({
-            newHighlightRange: null,
-            selectedHighlightRange: null,
-        });
+    handleMouseDown: function(e) {
+        if (!e.target.getAttribute("data-highlighting-tooltip")) {
+            this.setState({
+                newHighlightRange: null,
+                selectedHighlightRange: null,
+            });
+        }
     },
 
     /**
@@ -422,6 +424,7 @@ const Passage = React.createClass({
             style={{position:'absolute', left: positionX, top: positionY}}
         >
             <img
+                data-highlighting-tooltip={true}
                 width="130" height="44"
                 style={{position:'absolute', top:"-54px",
                          left:"-65px"}}
@@ -439,6 +442,7 @@ const Passage = React.createClass({
             style={{position:'absolute', left: positionX, top: positionY}}
         >
             <img
+                data-highlighting-tooltip={true}
                 width="163" height="44"
                 style={{position:'absolute', top:'-54px',
                          left:'-81px'}}
@@ -538,7 +542,6 @@ const Passage = React.createClass({
         const parsedContent = PassageMarkdown.parse(rawContent, parseState);
         return <div>
             <div
-                onMouseDown={this.handleMouseDown}
                 onMouseUp={this.handleMouseUp}
                 className="perseus-widget-passage-container"
             >
@@ -579,6 +582,11 @@ const Passage = React.createClass({
 
     componentDidMount: function() {
         this._updateState();
+        window.addEventListener("mousedown", this.handleMouseDown);
+    },
+
+    componentWillUnmount: function() {
+        window.removeEventListener("mousedown", this.handleMouseDown);
     },
 
     componentDidUpdate: function() {
