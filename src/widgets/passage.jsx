@@ -180,7 +180,7 @@ const Passage = React.createClass({
         let node = null;
         let offset = 0;
 
-        const punctuation = "._?;:!,\'\"";
+        const punctuation = ".?;:!,\'\"";
 
         if (nodeType === "anchor") {
             node = selection.anchorNode;
@@ -194,34 +194,52 @@ const Passage = React.createClass({
             return null;
         }
 
-        let nodeText = node.textContent;
+        let selectionNodeText = node.textContent;
 
         // Would prefer to use string.prototype.includes but it's not in IE 10.
-        if (punctuation.indexOf(nodeText.charAt(0)) !== -1) {
-            nodeText = nodeText.slice(1);
+        if (punctuation.indexOf(selectionNodeText.charAt(0)) !== -1) {
+            selectionNodeText = selectionNodeText.slice(1);
         }
 
-        let index = this.charToWordOffset(offset, nodeText);
+        let index = this.charToWordOffset(offset, selectionNodeText);
 
         let priorText = "";
+        let nodeText = "";
         while (node && !(node.classList &&
                 node.classList.contains("passage-text"))) {
             while (node.previousSibling) {
                 node = node.previousSibling;
                 nodeText = node.textContent;
+
                 let spacer = "";
+                const lastChar = nodeText.charAt(nodeText.length - 1);
+                const newSentence = (punctuation.indexOf(lastChar) !== -1) ||
+                    (!node.nextSibling) ||
+                    (lastChar === "_" &&
+                     node.nextSibling.textContent.charAt(0).match(/[\w ]/));
+
                 // HACK: Add space when nodes split at end of sentence. This
                 // stops two words from successive paragraphs merging together.
                 // Assumes paragraphs end with punctuation.
-                if (punctuation.indexOf(
-                        nodeText.charAt(nodeText.length - 1)) !== -1) {
+                if (newSentence && priorText.length > 0) {
                     spacer = " ";
                 }
                 priorText = nodeText + spacer + priorText;
             }
             node = node.parentNode;
         }
+
         index += this.wordsInSection(priorText);
+
+        // This subtracts one from the index if the end of the last node in
+        // priorText is the first word in a hyphenated pair. This is to stop
+        // them being double counted (in the offset index and the priorText
+        // index). A hyphenated pair is counted as one word when adding the
+        // highlight.
+        if ((priorText.charAt(priorText.length - 1) === "_" &&
+                !selectionNodeText.charAt(0).match(/[\w ]/))) {
+            index -= 1;
+        }
 
         return index;
     },
