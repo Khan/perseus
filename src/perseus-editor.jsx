@@ -58,13 +58,14 @@ const widgetPartsRegExp = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]$/;
 const widgetRegexForId = (id) => new RegExp(`(\\[\\[\u2603 ${id}\\]\\])`, 'gm');
 const partialWidgetRegex = /\[\[([a-z-]+)$/; // Used for autocompletion
 
-const imageRegExp = /!\[.*?\]\(.*?\)/g;
+const imageRegExp = /!\[[^]]*?\]\([^)].*?\)/g;
 
 // Note: Nested decorators currently do not work, therefore this will not
 //       work when nesting bold/italics/underline.  Hopefully this is
 //       fixed in future versions of Draft.js
 const boldRegExp = /\*\*([\s\S]+?)\*\*(?!\*)/g;
-const italicsRegExp = /(\*)(.*?)\1/g;
+const italicsRegExp = /\**(?:^|[^*])(\*(\w+(\s\w+)*)\*)/g; // copied from https://github.com/ayberkt/RFMarkdownTextView/blob/387312e602f03b87f3ef82dc82c62df455d6fd30/RFMarkdownTextView/RFMarkdownSyntaxStorage.m  eslint-disable-line max-len
+const boldItalicsRegExp = /(\*\*\*\w+(\s\w+)*\*\*\*)/g;
 const underlineRegExp = /__([\s\S]+?)__(?!_)/g;
 const headerRegExp = /^ *(#{1,6})([^\n]+)$/g;
 
@@ -105,14 +106,40 @@ const boldDecorator = {
     component: (props) => styledBlock(props, {fontWeight: 'bold'}),
 };
 
+
+// The italics regex has a group that ensures that the *___* block
+// does not include the * used to create a list.  Since this results
+// in match.index also including the first non-capturing group, we must
+// use custom logic for this strategy
+const italicsStrategy = (...args) => {
+    return DraftUtils.regexStrategy(
+        ...args,
+        italicsRegExp,
+        (matchArr) => {
+            const start = matchArr.index
+                          + matchArr[0].length
+                          - matchArr[1].length;
+            const end = start + matchArr[1].length;
+            return {start, end};
+        }
+    );
+};
 const italicsDecorator = {
-    strategy: (...args) => DraftUtils.regexStrategy(...args, italicsRegExp),
+    strategy: italicsStrategy,
     component: (props) => styledBlock(props, {fontStyle: 'italic'}),
 };
 
 const underlineDecorator = {
     strategy: (...args) => DraftUtils.regexStrategy(...args, underlineRegExp),
     component: (props) => styledBlock(props, {textDecoration: 'underline'}),
+};
+
+const boldItalicsDecorator = {
+    strategy: (...args) => DraftUtils.regexStrategy(...args, boldItalicsRegExp),
+    component: (props) => styledBlock(props, {
+        fontWeight: 'bold',
+        fontStyle: 'italic',
+    }),
 };
 
 
@@ -138,6 +165,7 @@ const decorator = new CompositeDecorator([
     entityColorDecorator('WIDGET', '#DFD'),
     entityColorDecorator('TEMP_IMAGE', '#fdffdd'),
     regexColorDecorator(imageRegExp, '#dffdfa'),
+    boldItalicsDecorator,
     boldDecorator,
     italicsDecorator,
     underlineDecorator,
@@ -599,7 +627,7 @@ const PerseusEditor = React.createClass({
     },
 
     _getDecorationForStyle(style) {
-        switch(style) {
+        switch (style) {
             case 'perseus-bold':
                 return '**';
             case 'perseus-italics':
@@ -629,7 +657,8 @@ const PerseusEditor = React.createClass({
         const decoration = this._getDecorationForStyle(command);
         if (decoration !== null) {
             const data = this._getDraftData();
-            const {editorState} = DraftUtils.decorateSelection(data, decoration);
+            const {editorState} =
+                DraftUtils.decorateSelection(data, decoration);
             this._handleChange({editorState});
             return true;
         }

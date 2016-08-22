@@ -55,13 +55,17 @@ const _fillData = (draftData) => {
     return newData;
 };
 
-function regexStrategy(contentBlock, callback, regex) {
+function regexStrategy(contentBlock, callback, regex, parser) {
     const text = contentBlock.getText();
     let matchArr;
-    let start;
     while ((matchArr = regex.exec(text)) !== null) {
-        start = matchArr.index;
-        callback(start, start + matchArr[0].length);
+        if (parser) {
+            const {start, end} = parser(matchArr);
+            callback(start, end);
+        } else {
+            const start = matchArr.index;
+            callback(start, start + matchArr[0].length);
+        }
     }
 }
 
