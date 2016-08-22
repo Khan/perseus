@@ -25,7 +25,7 @@ var tableItem = require("./test-items/table-item.json");
 // async tests in both frameworks.
 var pit = window.pit || window.it || global.pit || global.it;
 
-var renderQuestionArea = function(item, apiOptions, enabledFeatures) {
+var renderQuestionArea = function(item, apiOptions) {
     var renderer = TestUtils.renderIntoDocument(
         <Renderer
             content={item.question.content}
@@ -33,7 +33,6 @@ var renderQuestionArea = function(item, apiOptions, enabledFeatures) {
             widgets={item.question.widgets}
             problemNum={0}
             apiOptions={apiOptions}
-            enabledFeatures={enabledFeatures}
         />
     );
     return renderer;

@@ -11,8 +11,10 @@ var Changeable   = require("../mixins/changeable.jsx");
 
 var NumberInput  = require("../components/number-input.jsx");
 var MathOutput   = require("../components/math-output.jsx");
+const SimpleKeypadInput = require("../components/simple-keypad-input.jsx");
 
 var ApiOptions = require("../perseus-api.jsx").Options;
+const {keypadElementPropType} = require("../../math-input").propTypes;
 
 var Graphie = require("../components/graphie.jsx");
 var MovablePoint = Graphie.MovablePoint;
@@ -26,6 +28,7 @@ var bound = (x, gt, lt) => Math.min(Math.max(x, gt), lt);
 var assert = require("../interactive2/interactive-util.js").assert;
 
 var EN_DASH = "\u2013";
+const horizontalPadding = 30;
 
 var reverseRel = {
     ge: "le",
@@ -132,17 +135,27 @@ var TickMarks = Graphie.createSimpleClass((graphie, props) => {
     }
 
     // Render the text labels
-    graphie.style({color: KhanColors.DYNAMIC}, () => {
-        results.push(_label(graphie, props.labelStyle, leftLabel, leftLabel,
-            base));
-        results.push(_label(graphie, props.labelStyle, rightLabel, rightLabel,
-            base));
-    });
+    results.push(graphie.style(
+        props.isMobile ? {
+            color: KhanColors.BLUE_D,
+        } : {},
+        () =>
+            _label(graphie, props.labelStyle, leftLabel, leftLabel, base)
+    ));
+
+    results.push(graphie.style(
+        props.isMobile ? {
+            color: KhanColors.BLUE_D,
+        } : {},
+        () =>
+            _label(graphie, props.labelStyle, rightLabel, rightLabel, base)
+    ));
 
     // Render the labels' lines
     graphie.style(
         {
-            stroke: KhanColors.DYNAMIC,
+            stroke: props.isMobile ? KhanColors.BLUE_D :
+                KhanColors.DYNAMIC,
             strokeWidth: 3.5,
         },
         () => {
@@ -180,7 +193,9 @@ var NumberLine = React.createClass({
         onChange: React.PropTypes.func.isRequired,
 
         apiOptions: ApiOptions.propTypes,
+        keypadElement: keypadElementPropType,
         static: React.PropTypes.bool,
+        showTooltips: React.PropTypes.bool,
         trackInteraction: React.PropTypes.func.isRequired,
     },
 
@@ -197,8 +212,15 @@ var NumberLine = React.createClass({
             isInequality: false,
             numLinePosition: 0,
             snapDivisions: 2,
+            showTooltips: false,
             rel: "ge",
             apiOptions: ApiOptions.defaults,
+        };
+    },
+
+    getInitialState() {
+        return {
+            numDivisionsEmpty: false,
         };
     },
 
@@ -238,10 +260,18 @@ var NumberLine = React.createClass({
                 this.props.numLinePosition
             );
 
-            this.props.onChange({
-                divisionRange: divRange,
-                numDivisions: numDivisions,
-                numLinePosition: newNumLinePosition,
+            this.setState({
+                numDivisionsEmpty: false,
+            }, () => {
+                this.props.onChange({
+                    divisionRange: divRange,
+                    numDivisions: numDivisions,
+                    numLinePosition: newNumLinePosition,
+                }, cb);
+            });
+        } else {
+            this.setState({
+                numDivisionsEmpty: true,
             }, cb);
         }
     },
@@ -322,6 +352,9 @@ var NumberLine = React.createClass({
                 this.refs.graphie.movables.numberLinePoint.grab(coord);
             }}
             setup={this._setupGraphie}
+            setDrawingAreaAvailable={
+                this.props.apiOptions.setDrawingAreaAvailable}
+            isMobile={this.props.apiOptions.isMobile}
         >
             <TickMarks
                 {..._.pick(props, [
@@ -332,6 +365,7 @@ var NumberLine = React.createClass({
                     "labelRange",
                     "tickStep",
                 ])}
+                isMobile={this.props.apiOptions.isMobile}
             />
             {this._renderInequality(props)}
             {this._renderNumberLinePoint(props)}
@@ -372,6 +406,11 @@ var NumberLine = React.createClass({
             "stroke-width": isOpen ? 3 : 1,
         };
 
+        const mobileDotStyle = props.isInequality ? {
+            stroke: KhanColors.INTERACTIVE,
+            "fill-opacity": isOpen ? 0 : 1,
+        } : {};
+
         return <MovablePoint
             ref="numberLinePoint"
             pointSize={6}
@@ -391,6 +430,10 @@ var NumberLine = React.createClass({
                 this.change({numLinePosition: coord[0]});
                 this.props.trackInteraction();
             }}
+            isMobile={this.props.apiOptions.isMobile}
+            mobileStyleOverride={mobileDotStyle}
+            showTooltips={this.props.showTooltips}
+            xOnlyTooltip={true}
         />;
     },
 
@@ -409,7 +452,7 @@ var NumberLine = React.createClass({
         var widthInPixels = 400;
         var range = props.range;
         var scale = (range[1] - range[0]) / widthInPixels;
-        var buffer = 30 * scale;
+        var buffer = horizontalPadding * scale;
         var left = range[0] - buffer;
         var right = range[1] + buffer;
         var end = isGreater ? [right, 0] : [left, 0];
@@ -421,12 +464,17 @@ var NumberLine = React.createClass({
             var end = this._getInequalityEndpoint(props);
             var style = {
                 arrows: "->",
-                stroke: KhanColors.DYNAMIC,
+                stroke: this.props.apiOptions.isMobile ?
+                    KhanColors.INTERACTIVE : KhanColors.DYNAMIC,
                 strokeWidth: 3.5,
             };
 
+            const isGreater = ["ge", "gt"].includes(props.rel);
+
             return <Line
-                start={[props.numLinePosition, 0]}
+                // We shift the line to either side of the dot so they don't
+                // intersect
+                start={[(isGreater ? 0.4 : -0.4) + props.numLinePosition, 0]}
                 end={end}
                 style={style}
             />;
@@ -440,10 +488,11 @@ var NumberLine = React.createClass({
         if (!this.isValid()) {return;}
 
         // Position variables
-        var widthInPixels = 400;
+        var widthInPixels = this.props.apiOptions.isMobile ?
+            (288 - (horizontalPadding * 2)) : 400;
         var range = options.range;
         var scale = (range[1] - range[0]) / widthInPixels;
-        var buffer = 30 * scale;
+        var buffer = horizontalPadding * scale;
 
         // Initiate the graphie without actually drawing anything
         var left = range[0] - buffer;
@@ -454,6 +503,7 @@ var NumberLine = React.createClass({
         graphie.init({
             range: [[left, right], [bottom, top]],
             scale: [1 / scale, 40],
+            isMobile: this.props.apiOptions.isMobile,
         });
 
         // Draw the number line
@@ -501,7 +551,9 @@ var NumberLine = React.createClass({
         var tickCtrl;
         if (this.props.isTickCtrl) {
             var Input;
-            if (this.props.apiOptions.staticRender) {
+            if (this.props.apiOptions.customKeypad) {
+                Input = SimpleKeypadInput;
+            } else if (this.props.apiOptions.staticRender) {
                 Input = MathOutput;
             } else {
                 Input = NumberInput;
@@ -510,13 +562,17 @@ var NumberLine = React.createClass({
                 {i18n._("Number of divisions:")}{" "}
                 <Input
                     ref={"tick-ctrl"}
-                    value={this.props.numDivisions || divisionRange[0]}
+                    value={
+                        this.state.numDivisionsEmpty
+                            ? null : this.props.numDivisions || divisionRange[0]
+                    }
                     checkValidity={(val) =>
                         val >= divisionRange[0] && val <= divisionRange[1]}
                     onChange={this.onNumDivisionsChange}
                     onFocus={this._handleTickCtrlFocus}
                     onBlur={this._handleTickCtrlBlur}
                     useArrowKeys={true}
+                    keypadElement={this.props.keypadElement}
                 />
             </label>;
         }
@@ -597,6 +653,8 @@ var numberLineTransform = (editorProps) => {
 
         "isTickCtrl",
         "isInequality",
+
+        "showTooltips",
     ]);
 
     var numLinePosition = (editorProps.initialX != null) ?

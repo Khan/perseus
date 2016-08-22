@@ -34,6 +34,10 @@ var Video = React.createClass({
 
     mixins: [Changeable],
 
+    getUserInput: function() {
+        return null;
+    },
+
     simpleValidate: function(rubric) {
         return Video.validate(null, rubric);
     },

@@ -583,10 +583,12 @@ const Passage = React.createClass({
     componentDidMount: function() {
         this._updateState();
         window.addEventListener("mousedown", this.handleMouseDown);
+        window.addEventListener("resize", this._updateState);
     },
 
     componentWillUnmount: function() {
         window.removeEventListener("mousedown", this.handleMouseDown);
+        window.removeEventListener("resize", this._updateState);
     },
 
     componentDidUpdate: function() {

@@ -58,6 +58,7 @@ const GrapherEditor = React.createClass({
 
             graph = <Grapher
                 {...graphProps}
+                apiOptions={this.props.apiOptions}
                 containerSizeClass={sizeClass}
             />;
             equationString = GrapherUtil.getEquationString(graphProps);
@@ -89,6 +90,7 @@ const GrapherEditor = React.createClass({
                 markings={this.props.graph.markings}
                 rulerLabel={this.props.graph.rulerLabel}
                 rulerTicks={this.props.graph.rulerTicks}
+                showTooltips={this.props.graph.showTooltips}
                 onChange={this.change("graph")} />
             <div className="perseus-widget-row">
                 <label>Available functions:{' '} </label>

@@ -12,10 +12,9 @@ const _ = require("underscore");
 /* globals Raphael:false */
 require("../../lib/raphael.js");
 
-require("./tmpl.js");
-
 const KhanMath = require("./math.js");
 const processMath = require("./tex.js").processMath;
+const KhanColors = require("./colors");
 
 /* Convert cartesian coordinates [x, y] to polar coordinates [r,
  * theta], with theta in degrees, or in radians if angleInRadians is
@@ -40,16 +39,6 @@ function polar(r, th) {
     }
     th = th * Math.PI / 180;
     return [r[0] * Math.cos(th), r[1] * Math.sin(th)];
-}
-
-// Keep track of all the intervalIDs created by setInterval.
-// This lets us cancel all the intervals when cleaning up.
-const intervalIDs = [];
-function cleanupIntervals() {
-    _.each(intervalIDs, function(intervalID) {
-        window.clearInterval(intervalID);
-    });
-    intervalIDs.length = 0;
 }
 
 const GraphUtils = {
@@ -401,7 +390,8 @@ GraphUtils.createGraphie = function(el) {
                 const s = 0.6 + 0.4 * w;
                 const l = path.getTotalLength();
                 const set = raphael.set();
-                const head = raphael.path(
+                const head = raphael.path(graphie.isMobile ?
+                    "M-4,4 C-4,4 -0.25,0 -0.25,0 C-0.25,0 -4,-4 -4,-4" :
                     "M-3 4 C-2.75 2.5 0 0.25 0.75 0C0 -0.25 -2.75 -2.5 -3 -4");
                 const end = path.getPointAtLength(l - 0.4);
                 const almostTheEnd = path.getPointAtLength(l - 0.75 * s);
@@ -416,12 +406,16 @@ GraphUtils.createGraphie = function(el) {
                 subpath.arrowheadsDrawn = true;
                 path.remove();
 
-                head.rotate(angle, 0.75, 0).scale(s, s, 0.75, 0)
+                // For some unknown reason 0 doesn't work for the rotation
+                // origin so we use a tiny number.
+                head.rotate(angle, graphie.isMobile ? 1e-5 : 0.75, 0)
+                    .scale(s, s, 0.75, 0)
                     .translate(almostTheEnd.x, almostTheEnd.y).attr(attrs)
                     .attr({
                         "stroke-linejoin": "round",
                         "stroke-linecap": "round",
                     });
+
                 head.arrowheadsDrawn = true;
                 set.push(subpath);
                 set.push(head);
@@ -446,7 +440,13 @@ GraphUtils.createGraphie = function(el) {
             // Raphael needs (x, y) to be coordinate of upper left corner
             const corner = scalePoint([x, y + height]);
             const dims = scaleVector([width, height]);
-            return raphael.rect(...corner.concat(dims));
+            const elem = raphael.rect(...corner.concat(dims));
+
+            if (graphie.isMobile) {
+                elem.node.style.shapeRendering = "crispEdges";
+            }
+
+            return elem;
         },
 
         ellipse: function(center, radii) {
@@ -525,6 +525,7 @@ GraphUtils.createGraphie = function(el) {
         path: function(points) {
             const p = raphael.path(svgPath(points));
             p.graphiePath = points;
+
             return p;
         },
 
@@ -594,7 +595,13 @@ GraphUtils.createGraphie = function(el) {
         },
 
         line: function(start, end) {
-            return this.path([start, end]);
+            const l = this.path([start, end]);
+
+            if (graphie.isMobile) {
+                l.node.style.shapeRendering = "crispEdges";
+            }
+
+            return l;
         },
 
         parabola: function(a, b, c) {
@@ -979,16 +986,9 @@ GraphUtils.createGraphie = function(el) {
             this.xpixels = w;
             this.ypixels = h;
 
-            return this;
-        },
+            this.isMobile = options.isMobile;
 
-        // Wrap window.setInterval to keep track of all the intervalIDs.
-        setInterval: function() {
-            const intervalID = Function.prototype.apply.call(window.setInterval,
-                                                           window,
-                                                           arguments);
-            intervalIDs.push(intervalID);
-            return intervalID;
+            return this;
         },
 
         style: function(attrs, fn) {
@@ -1150,14 +1150,16 @@ GraphUtils.createGraphie = function(el) {
         this.init({
             range: realRange,
             scale: scale,
+            isMobile: options.isMobile,
         });
 
         // draw grid
         if (grid) {
             this.grid(gridRange[0], gridRange[1], {
-                stroke: "#000000",
-                opacity: gridOpacity,
+                stroke: options.isMobile ? KhanColors.GRAY_C : "#000000",
+                opacity: options.isMobile ? 1 : gridOpacity,
                 step: gridStep,
+                strokeWidth: options.isMobile ? 1 : 2,
             });
         }
 
@@ -1167,9 +1169,9 @@ GraphUtils.createGraphie = function(el) {
             // this is a slight hack until <-> arrowheads work
             if (axisArrows === "<->" || axisArrows === true) {
                 this.style({
-                    stroke: "#000000",
-                    opacity: axisOpacity,
-                    strokeWidth: 2,
+                    stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
+                    opacity: options.isMobile ? 1 : axisOpacity,
+                    strokeWidth: options.isMobile ? 1 : 2,
                     arrows: "->",
                 }, function() {
                     if (range[1][0] < 0 && range[1][1] > 0) {
@@ -1226,9 +1228,10 @@ GraphUtils.createGraphie = function(el) {
 
         // draw tick marks
         if (ticks) {
+            const halfWidthTicks = options.isMobile;
             this.style({
-                stroke: "#000000",
-                opacity: tickOpacity,
+                stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
+                opacity: options.isMobile ? 1 : tickOpacity,
                 strokeWidth: 1,
             }, function() {
 
@@ -1243,7 +1246,7 @@ GraphUtils.createGraphie = function(el) {
                         if (x < stop || !axisArrows) {
                             this.line(
                                 [x, -len + axisCenter[1]],
-                                [x, len + axisCenter[1]]
+                                [x, halfWidthTicks ? 0 : len + axisCenter[1]]
                             );
                         }
                     }
@@ -1252,7 +1255,7 @@ GraphUtils.createGraphie = function(el) {
                         if (x > start || !axisArrows) {
                             this.line(
                                 [x, -len + axisCenter[1]],
-                                [x, len + axisCenter[1]]
+                                [x, halfWidthTicks ? 0 : len + axisCenter[1]]
                             );
                         }
                     }
@@ -1269,7 +1272,7 @@ GraphUtils.createGraphie = function(el) {
                         if (y < stop || !axisArrows) {
                             this.line(
                                 [-len + axisCenter[0], y],
-                                [len + axisCenter[0], y]
+                                [halfWidthTicks ? 0 : len + axisCenter[0], y]
                             );
                         }
                     }
@@ -1278,7 +1281,7 @@ GraphUtils.createGraphie = function(el) {
                         if (y > start || !axisArrows) {
                             this.line(
                                 [-len + axisCenter[0], y],
-                                [len + axisCenter[0], y]
+                                [halfWidthTicks ? 0 : len + axisCenter[0], y]
                             );
                         }
                     }
@@ -1290,8 +1293,8 @@ GraphUtils.createGraphie = function(el) {
         // draw axis labels
         if (labels) {
             this.style({
-                stroke: "#000000",
-                opacity: labelOpacity,
+                stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
+                opacity: options.isMobile ? 1 : labelOpacity,
             }, function() {
 
                 // horizontal axis
@@ -1355,70 +1358,6 @@ GraphUtils.createGraphie = function(el) {
     };
 
     return graphie;
-};
-
-$.fn.graphie = function(problem) {
-    if (Khan.query.nographie != null) {
-        return;
-    }
-
-    const graphies = this.find(".graphie, script[type='text/graphie']")
-          .addBack()
-          .filter(".graphie, script[type='text/graphie']");
-    return graphies.each(function() {
-        // Grab code for later execution
-        let code = $(this).text();
-        let graphie;
-
-        // Ignore graphie elements that have already been processed
-        if ($(this).data("graphie") != null) {
-            return;
-        }
-
-        // Remove any of the code that's in there
-        $(this).empty();
-
-        // Initialize the graph
-        if ($(this).data("update")) {
-            const id = $(this).data("update");
-            $(this).remove();
-
-            // Graph could be in either of these
-            const area = $("#problemarea").add(problem);
-            graphie = area.find("#" + id + ".graphie").data("graphie");
-        } else {
-            let el = this;
-            if ($(this).filter("script")[0] != null) {
-                el = $("<div>").addClass("graphie")
-                    .attr("id", $(this).attr("id")).insertAfter(this)[0];
-                $(this).remove();
-            }
-            graphie = GraphUtils.createGraphie(el);
-            $(el).data("graphie", graphie);
-
-            const id = $(el).attr("id");
-            if (id) {
-                GraphUtils.graphs[id] = graphie;
-            }
-        }
-
-        // So we can write graph.bwahahaha = 17 to save stuff between updates
-        if (typeof graphie.graph === "undefined") {
-            graphie.graph = {};
-        }
-
-        // Add newline in case code ends with a // comment
-        code = "(function() {" + code + "\n})()";
-
-        // Execute the graph-specific code
-        KhanUtil.currentGraph = graphie;
-        $.tmpl.getVAR(code, graphie);
-        // delete KhanUtil.currentGraph;
-    }).end();
-};
-
-$.fn.graphieCleanup = function(problem) {
-    cleanupIntervals();
 };
 
 module.exports = GraphUtils;

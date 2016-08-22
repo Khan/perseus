@@ -19,7 +19,6 @@ module.exports = [
     "widgetId",
     "onChange",
     "problemNum",
-    "enabledFeatures",
     "apiOptions",
     "questionCompleted",
     "interWidgets",

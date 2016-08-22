@@ -13,8 +13,8 @@
     position: relative;
 }
 
-.framework-perseus.perseus-xom-manatee {
-    margin-top: 16px;
+.framework-perseus.perseus-mobile {
+    margin-top: 48px;
 }
 
 // .no-select is used to prevent selection of certain widgets.
@@ -53,6 +53,10 @@
 .graphie.above-scratchpad,
 .graphie-container.above-scratchpad {
     .blank-background;
+}
+
+.perseus-mobile .graphie-container.above-scratchpad {
+    background: #ffffff;
 }
 
 // Selectable graphie components make for awkward touch experiences
@@ -266,7 +270,7 @@
 
 /* Legacy table styles. Remove when XOM is rolled out (see below for
    updated XOM styles). */
-.framework-perseus:not(.perseus-xom-manatee) {
+.framework-perseus:not(.perseus-mobile) {
     table {
         .legacy-typography;
 
@@ -329,7 +333,7 @@
 }
 
 /* New XOM styles for tables. */
-.framework-perseus.perseus-xom-manatee {
+.framework-perseus.perseus-mobile {
     /* There are three kinds of tables:
        1) normal "tables" - emitted by markdown (src/perseus-markdown.jsx)
        2) "titled tables" - emitted by markdown as well (these are just
@@ -582,33 +586,6 @@
     }
 }
 
-.perseus-hint-label-new {
-    font-size: 12px;
-    color: @gray76;
-    margin-bottom: 10px;
-}
-
-.bibliotron-exercise .perseus-hint-renderer-new {
-    margin-bottom: 16px;
-
-    &:focus {
-        border-left-color: @kaGreen;
-
-        .perseus-hint-label-new {
-          color: @kaGreen;
-        }
-    }
-
-    div.paragraph {
-        &:last-child {
-          margin-bottom: 0px;
-        }
-    }
-    &.last-hint {
-        font-weight: normal;
-    }
-}
-
 @media (max-width: @pure-sm-max) {
     .bibliotron-exercise .perseus-hint-renderer {
         &.last-hint {
@@ -816,7 +793,6 @@
 // #sat-mission (below) matches when we're inside the SAT MVP product,
 // basically internal-only and in flux.
 #sat-mission {
-    @satSectionHeight: 550px;
     @satContentWidth: 592px;
 
     .content-area > div {
@@ -901,17 +877,25 @@
                 margin: 0;
             }
 
+            .perseus-two-columns {
+                display: flex;
+                justify-content: center;
+            }
+
             .perseus-column {
-                display: inline-flex;
+                // NOTE(emily): For some reason, these prefixes aren't being
+                // added by our auto-prefixer, and we need these prefixes to
+                // work in Safari <= 8.
+                display: -webkit-flex;
+                -webkit-flex-direction: column;
+
+                display: flex;
                 flex-direction: column;
-                vertical-align: top;
                 width: 512px;
 
                 &:nth-child(1) {
                     background: #eee;
                     border-right: 1px solid #ddd;
-                    height: @satSectionHeight - @satTopSpacingForTwoColumnLayout;
-                    max-height: @satSectionHeight - @satTopSpacingForTwoColumnLayout;
                     box-sizing: border-box;
 
                     .perseus-column-content {
@@ -948,9 +932,6 @@
                 }
 
                 &:nth-child(2) {
-                    height: @satSectionHeight;
-                    max-height: @satSectionHeight;
-
                     .perseus-column-content {
                         padding-left: 32px;
                         padding-right: 32px;
@@ -1047,7 +1028,7 @@
     }
 }
 
-.perseus-xom-manatee {
+.perseus-mobile {
     @media (max-width: 767px) {
         .perseus-block-math {
             font-size: 18px;

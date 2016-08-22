@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable comma-dangle, indent, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const { StyleSheet, css } = require("aphrodite");
@@ -13,14 +13,14 @@ const Renderer = require("../renderer.jsx");
 const mediaQueries = require("../styles/media-queries.js");
 const styleConstants = require("../styles/constants.js");
 
-var defaultExplanationProps = {
+const defaultExplanationProps = {
     showPrompt: "Explain",
     hidePrompt: "Hide explanation",
     explanation: "explanation goes here\n\nmore explanation",
     widgets: {},
 };
 
-var Explanation = React.createClass({
+const Explanation = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
@@ -44,6 +44,7 @@ var Explanation = React.createClass({
     },
 
     _onClick: function() {
+        this._updateHeight();
         this.setState({
             expanded: !this.state.expanded
         });
@@ -55,17 +56,16 @@ var Explanation = React.createClass({
     // explanation.
     _updateHeight: function() {
         const contentElement = ReactDOM.findDOMNode(this.refs.content);
+        const {isMobile} = this.props.apiOptions;
+
+        // TODO(jared): this feels super fagile -- would
+        // `contentElement.scrollHeight` work?
 
         // Add up the heights of all the the child nodes
-        let contentHeight = Array.prototype.reduce.call(
+        const contentHeight = Array.prototype.reduce.call(
             contentElement.childNodes,
-            function(memo, el) {
-                return memo + (el.offsetHeight || 0);
-            },
-            0);
-
-        // Add in padding since we're using border-box sizing.
-        contentHeight += 2 * verticalContentPadding;
+            (memo, el) => memo + (el.offsetHeight || 0),
+            isMobile ? 0 : 2 * verticalContentPadding);
 
         // Only update state if the height is different, otherwise we'll end
         // up calling componentDidUpdate in an infinite loop!
@@ -91,28 +91,27 @@ var Explanation = React.createClass({
     },
 
     render: function() {
-        const xomManateeEnabled = this.props.apiOptions.xomManatee;
-        const { Link } = this.props.apiOptions.baseElements;
+        const {Link} = this.props.apiOptions.baseElements;
+        const {readOnly, isMobile} = this.props.apiOptions;
 
-        let linkAnchor = this.state.expanded ?
+        const linkAnchor = this.state.expanded ?
                 this.props.hidePrompt : this.props.showPrompt;
-        if (!xomManateeEnabled) {
-            linkAnchor = `[${linkAnchor}]`;
-        }
 
-        return <div className={css(styles.container)}>
-            <div className={css(styles.explanationLinkContainer)}>
-                <Link
-                    className={css(styles.explanationLink)}
-                    href={this.props.apiOptions.readOnly ?
-                          null : "javascript:void(0)"}
-                    onClick={this.props.apiOptions.readOnly ?
-                        null : this._onClick}
+        let linkContainer;
+
+        const href = readOnly ? null : 'javascript:void(0)';
+        const onClick = readOnly ? null : this._onClick;
+
+        if (isMobile) {
+            linkContainer = <div className={css(styles.linkContainer)}>
+                <a
+                    className={css(styles.mobileExplanationLink)}
+                    href={href}
+                    onClick={onClick}
                 >
                     {linkAnchor}
-                </Link>
-                {xomManateeEnabled &&
-                    this.state.expanded &&
+                </a>
+                {this.state.expanded &&
                     <svg className={css(styles.disclosureArrow)}>
                         <polygon
                             style={{fill: backgroundColor}}
@@ -121,11 +120,29 @@ var Explanation = React.createClass({
                                 `${arrowWidth / 2},0`}
                         />
                     </svg>}
-            </div>
+            </div>;
+        } else {
+            linkContainer = <div className={css(styles.linkContainer)}>
+                <Link
+                    className={css(styles.explanationLink)}
+                    href={href}
+                    onClick={onClick}
+                >
+                    {`[${linkAnchor}]`}
+                </Link>
+            </div>;
+        }
+
+        const expandedStyle = isMobile
+            ? styles.contentExpandedMobile
+            : styles.contentExpanded;
+
+        return <div className={css(styles.container)}>
+            {linkContainer}
             <div className={css(
                     styles.content,
-                    xomManateeEnabled && styles.contentXom,
-                    this.state.expanded && styles.contentExpanded
+                    isMobile && styles.contentMobile,
+                    this.state.expanded && expandedStyle
                 )}
                 style={{
                     height: this.state.expanded ? this.state.contentHeight : 0,
@@ -165,7 +182,7 @@ const styles = StyleSheet.create({
         position: 'relative',
     },
 
-    explanationLinkContainer: {
+    linkContainer: {
         display: 'inline-block',
     },
 
@@ -173,10 +190,6 @@ const styles = StyleSheet.create({
         fontStyle: 'italic',
         color: '#007d96',
 
-        // TODO(benkomalo): these should be pulled in from common typography
-        // shared files so we have a single place where the type hierarchy is
-        // defined; one off font sizes for individual components should be
-        // avoided.
         [mediaQueries.xl]: {
             fontSize: 20,
             lineHeight: 1.1,
@@ -188,6 +201,29 @@ const styles = StyleSheet.create({
         [mediaQueries.smOrSmaller]: {
             fontSize: 14,
             lineHeight: 1.3,
+        },
+    },
+
+    mobileExplanationLink: {
+        color: styleConstants.kaGreen,
+        borderBottom: `dashed 1px ${styleConstants.kaGreen}`,
+        textDecoration: 'none',
+
+        // TODO(benkomalo): these should be pulled in from common typography
+        // shared files so we have a single place where the type hierarchy is
+        // defined; one off font sizes for individual components should be
+        // avoided.
+        [mediaQueries.xl]: {
+            fontSize: 22,
+            lineHeight: 1.4,
+        },
+        [mediaQueries.lgOrSmaller]: {
+            fontSize: 20,
+            lineHeight: 1.5,
+        },
+        [mediaQueries.smOrSmaller]: {
+            fontSize: 18,
+            lineHeight: 1.2,
         },
     },
 
@@ -204,13 +240,20 @@ const styles = StyleSheet.create({
         paddingTop: verticalContentPadding,
         paddingBottom: verticalContentPadding,
 
-        // Note: we still use arrow height as the vertical margin, even in
-        // non-XOM when there is no arrow, but it's good enough.
+        // Note: we still use arrow height as the vertical margin, even on
+        // desktop when there is no arrow, but it's good enough.
         marginBottom: arrowHeight,
         marginTop: arrowHeight,
     },
 
-    contentXom: {
+    contentExpandedMobile: {
+        boxSizing: 'content-box',
+        paddingTop: 32,
+        paddingBottom: 32,
+        marginTop: arrowHeight,
+    },
+
+    contentMobile: {
         background: backgroundColor,
 
         // TODO(benkomalo): this is to "full bleed" the background.

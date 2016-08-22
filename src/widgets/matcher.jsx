@@ -62,7 +62,7 @@ var Matcher = React.createClass({
         var constraints = {height: _.max([this.state.leftHeight,
             this.state.rightHeight])};
 
-        const cellMarginPx = this.props.apiOptions.xomManatee ? 8 : 5;
+        const cellMarginPx = this.props.apiOptions.isMobile ? 8 : 5;
 
         return <div className="perseus-widget-matcher">
             {showLabels &&

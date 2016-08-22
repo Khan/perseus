@@ -63,7 +63,9 @@ var Graph = React.createClass({
         rulerTicks: React.PropTypes.number,
         onGraphieUpdated: React.PropTypes.func,
         instructions: React.PropTypes.string,
-        onClick: React.PropTypes.func
+        onClick: React.PropTypes.func,
+        setDrawingAreaAvailable: React.PropTypes.func,
+        isMobile: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -83,6 +85,7 @@ var Graph = React.createClass({
             onGraphieUpdated: null,
             onClick: null,
             onMouseDown: null,
+            isMobile: false,
         };
     },
 
@@ -199,10 +202,13 @@ var Graph = React.createClass({
                 gridStep: this.props.gridStep,
                 tickStep: _.pluck(gridConfig, "tickStep"),
                 labelStep: 1,
-                unityLabels: _.pluck(gridConfig, "unityLabel")
+                unityLabels: _.pluck(gridConfig, "unityLabel"),
+                isMobile: this.props.isMobile,
             });
-            graphie.label([0, range[1][1]], labels[1], "above");
-            graphie.label([range[0][1], 0], labels[0], "right");
+            graphie.label([0, range[1][1]], labels[1],
+                this.props.isMobile ? "below right" : "above");
+            graphie.label([range[0][1], 0], labels[0],
+                this.props.isMobile ? "above left" : "right");
         } else if (this.props.markings === "grid") {
             graphie.graphInit({
                 range: range,
@@ -210,12 +216,14 @@ var Graph = React.createClass({
                 gridStep: this.props.gridStep,
                 axes: false,
                 ticks: false,
-                labels: false
+                labels: false,
+                isMobile: this.props.isMobile,
             });
         } else if (this.props.markings === "none") {
             graphie.init({
                 range: range,
-                scale: _.pluck(gridConfig, "scale")
+                scale: _.pluck(gridConfig, "scale"),
+                isMobile: this.props.isMobile,
             });
         }
 
@@ -272,7 +280,8 @@ var Graph = React.createClass({
             onMouseOut: onMouseOut,
             onMouseUp: this.props.onMouseUp,
             onMouseMove: this.props.onMouseMove,
-            allowScratchpad: true
+            allowScratchpad: true,
+            setDrawingAreaAvailable: this.props.setDrawingAreaAvailable,
         });
 
         this._updateProtractor();

@@ -191,7 +191,6 @@ const NumericInputEditor = React.createClass({
         var generateInputAnswerEditors = () => answers.map((answer, i) => {
             var editor = <Editor
                 apiOptions={this.props.apiOptions}
-                enabledFeatures={this.props.enabledFeatures}
                 content={answer.message || ""}
                 placeholder={"Why is this answer " + answer.status + "?\t" +
                     instructions[answer.status]}

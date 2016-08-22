@@ -5,6 +5,7 @@
 /* globals KA */
 var classNames = require("classnames");
 var React = require("react");
+var $ = require("jquery");
 var _ = require("underscore");
 
 var FixedToResponsive = require("../components/fixed-to-responsive.jsx");
@@ -472,7 +473,8 @@ var SvgImage = React.createClass({
         // already displayed as wide as possible, we may want to do
         // nothing in that case as well. Figuring this out correctly
         // likely required accounting for the image alignment and margins.
-        if ($image.width() < this.props.width) {
+        if ($image.width() < this.props.width ||
+                this.props.zoomToFullSizeOnMobile) {
             Zoom.ZoomService.handleZoomClick(e,
                     this.props.zoomToFullSizeOnMobile);
         }

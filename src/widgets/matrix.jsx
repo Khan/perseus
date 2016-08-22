@@ -43,8 +43,8 @@ var NORMAL_DIMENSIONS = {
 
 const KEYPAD_INPUT_DIMENSIONS = {
     INPUT_MARGIN: 4,
-    INPUT_HEIGHT: 34,
-    INPUT_WIDTH: 34,
+    INPUT_HEIGHT: 36,
+    INPUT_WIDTH: 64,
 };
 
 /* Input handling: Maps a (row, column) pair to a unique ref used by React,
@@ -248,8 +248,8 @@ var Matrix = React.createClass({
                                 onKeyDown: (e) => {
                                     this.handleKeyDown(row, col, e);
                                 },
-                                onChange: (value) => {
-                                    this.onValueChange(row, col, value);
+                                onChange: (value, cb) => {
+                                    this.onValueChange(row, col, value, cb);
                                 }
                             };
 
@@ -257,8 +257,8 @@ var Matrix = React.createClass({
                             if (this.props.apiOptions.customKeypad) {
                                 const style = {
                                     margin: INPUT_MARGIN,
-                                    width: INPUT_WIDTH,
-                                    height: INPUT_HEIGHT,
+                                    minWidth: INPUT_WIDTH,
+                                    minHeight: INPUT_HEIGHT,
                                     // Ensure that any borders are included in
                                     // the provided width.
                                     boxSizing: 'border-box',

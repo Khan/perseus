@@ -36,14 +36,8 @@ const Choice = React.createClass({
         // server-item-renderer.jsx have appropriate defaults for apiOptions
         // because many of the properties on Options.propTypes are required.
         apiOptions: React.PropTypes.shape({
-            responsiveStyling: React.PropTypes.bool,
             satStyling: React.PropTypes.bool,
-            xomManatee: React.PropTypes.bool,
-
-            // TODO(benkomalo): DEPRECATED - this was used by the old iPad app
-            // but is being phased out in favour of
-            // responsiveStyling/xomManatee. Remove by 2016/10/01
-            mobileStyling: React.PropTypes.bool,
+            isMobile: React.PropTypes.bool,
         }),
         checked: React.PropTypes.bool,
         className: React.PropTypes.string,
@@ -74,7 +68,7 @@ const Choice = React.createClass({
                 position: "relative",
                 borderTop: "1px solid #ccc",
                 boxSizing: "border-box",
-                cursor: "pionter",
+                cursor: "pointer",
                 marginLeft: 0,
                 padding: "17px 14px",
                 "::after": {
@@ -187,7 +181,7 @@ const Choice = React.createClass({
                 },
             },
 
-            responsiveCheckboxInputXomManatee: {
+            responsiveMobileCheckboxInput: {
                 // On phones and tablets, we hide the circular radio button
                 // itself, and instead, show a green border when the item is
                 // selected. This saves horizontal space for content on small
@@ -310,17 +304,32 @@ const Choice = React.createClass({
 
     onInputMouseDown: function() {
         this.setState({isInputActive: true});
+
+        // Simulate Chrome's radio button behavior in all browsers: when the
+        // mouse goes down or up, the radio button should become focused.
+        // That way, the newly-selected answer becomes highlighted after click.
+        if (this.props.apiOptions.satStyling && this._input) {
+            this._input.focus();
+        }
     },
 
     onInputMouseUp: function() {
         this.setState({isInputActive: false});
+
+        // Simulate Chrome's radio button behavior in all browsers: when the
+        // mouse goes down or up, the radio button should become focused.
+        // That way, the newly-selected answer becomes highlighted after click.
+        if (this.props.apiOptions.satStyling && this._input) {
+            this._input.focus();
+        }
     },
 
-    useNewXomStyling: function() {
-        // TODO(benkomalo): temp hack - force XOM styling if the deprecated
-        // mobileStyling flag is passed in (old iPad versions)
-        return this.props.apiOptions.xomManatee ||
-            this.props.apiOptions.mobileStyling;
+    onInputMouseOut: function() {
+        this.setState({isInputActive: false});
+    },
+
+    inputRef: function(ref) {
+        this._input = ref;
     },
 
     render: function() {
@@ -355,16 +364,16 @@ const Choice = React.createClass({
         };
 
         const styles = Choice.styles;
-        const responsive = this.props.apiOptions.responsiveStyling;
         const sat = this.props.apiOptions.satStyling;
-        const xomManatee = this.useNewXomStyling();
+        const isMobile = this.props.apiOptions.isMobile;
 
         const className = classNames(
             this.props.className,
             "checkbox-label",
             css(
                 styles.label,
-                responsive && styles.responsiveLabel,
+                isMobile && sharedStyles.disableTextSelection,
+                !sat && styles.responsiveLabel,
                 sat && styles.satLabel
             )
         );
@@ -382,15 +391,15 @@ const Choice = React.createClass({
             className: css(
                 sharedStyles.perseusInteractive,
                 styles.input,
-                responsive && sharedStyles.responsiveInput,
-                responsive && this.props.type === "radio" &&
-                    sharedStyles.responsiveRadioInput,
-                responsive && this.props.type === "radio" && xomManatee &&
-                    sharedStyles.responsiveRadioInputXomManatee,
-                responsive && this.props.type === "checkbox" &&
-                    styles.responsiveCheckboxInput,
-                responsive && this.props.type === "checkbox" && xomManatee &&
-                    styles.responsiveCheckboxInputXomManatee,
+                sharedStyles.responsiveInput,
+                this.props.type === "radio" &&
+                    !sat && sharedStyles.responsiveRadioInput,
+                this.props.type === "radio" && isMobile &&
+                    !sat && sharedStyles.responsiveMobileRadioInput,
+                this.props.type === "checkbox" &&
+                    !sat && styles.responsiveCheckboxInput,
+                this.props.type === "checkbox" && isMobile &&
+                    !sat && styles.responsiveMobileCheckboxInput,
                 sat && this.props.type === "radio" &&
                     sharedStyles.perseusSrOnly,
                 sat && this.props.type === "checkbox" &&
@@ -406,6 +415,7 @@ const Choice = React.createClass({
             input = (
                 <ToggleableRadioButton
                     onChecked={this.props.onChecked}
+                    inputRef={this.inputRef}
                     {...commonInputProps}
                 />
             );
@@ -415,13 +425,11 @@ const Choice = React.createClass({
                     onChange={(event) => {
                         this.props.onChecked(event.target.checked);
                     }}
+                    ref={this.inputRef}
                     {...commonInputProps}
                 />
             );
         }
-
-        const fadeOutLabelWhenDisabled =
-            this.props.disabled && this.props.apiOptions.responsiveStyling;
 
         const {reviewMode, correct, checked, isLastChoice} = this.props;
         // HACK: while most of the styling for rendering SAT items is handled
@@ -467,13 +475,13 @@ const Choice = React.createClass({
 
         return <label
             className={className}
-            style={{opacity: fadeOutLabelWhenDisabled ? 0.5 : 1.0}}
+            style={{opacity: !sat && this.props.disabled ? 0.5 : 1.0}}
         >
             {input}
             <div className={descriptionClassName}
                 onMouseDown={this.onInputMouseDown}
                 onMouseUp={this.onInputMouseUp}
-                onMouseOut={this.onInputMouseUp}
+                onMouseOut={this.onInputMouseOut}
             >
                 <div className="checkbox-and-option">
                     <span className={checkboxContentClassName}>

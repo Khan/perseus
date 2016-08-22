@@ -5,18 +5,6 @@
 var React = require('react');
 
 module.exports = {
-    propTypes: React.PropTypes.shape({
-        toolTipFormats: React.PropTypes.bool.isRequired,
-        useMathQuill: React.PropTypes.bool.isRequired,
-        // TODO(charlie): Once the XOM Manatee Beta has completed, clean up this
-        // flag.
-        newHintStyles: React.PropTypes.bool,
-    }).isRequired,
-
-    defaults: {
-        newHintStyles: false,
-        // TODO(jack): Remove this two options
-        toolTipFormats: true,
-        useMathQuill: false
-    }
+    propTypes: React.PropTypes.shape({}).isRequired,
+    defaults: {}
 };

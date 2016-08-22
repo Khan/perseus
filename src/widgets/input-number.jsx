@@ -16,7 +16,6 @@ const { keypadElementPropType } = require("../../math-input").propTypes;
 
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var ApiOptions = require("../perseus-api.jsx").Options;
-var EnabledFeatures = require("../enabled-features.jsx");
 
 var answerTypes = {
     number: {
@@ -87,7 +86,6 @@ var InputNumber = React.createClass({
     propTypes: {
         answerType: React.PropTypes.oneOf(Object.keys(answerTypes)),
         currentValue: React.PropTypes.string,
-        enabledFeatures: EnabledFeatures.propTypes,
         keypadElement: keypadElementPropType,
         reviewModeRubric: React.PropTypes.object,
         widgetId: React.PropTypes.string.isRequired,
@@ -98,15 +96,13 @@ var InputNumber = React.createClass({
             currentValue: "",
             size: "normal",
             answerType: "number",
-            enabledFeatures: EnabledFeatures.defaults,
             apiOptions: ApiOptions.defaults
         };
     },
 
     shouldShowExamples: function() {
-        return this.props.enabledFeatures.toolTipFormats &&
-                this.props.answerType !== "number" &&
-                !this.props.apiOptions.staticRender;
+        return this.props.answerType !== "number" &&
+            !this.props.apiOptions.staticRender;
     },
 
     render: function() {

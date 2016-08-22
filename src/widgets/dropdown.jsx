@@ -2,21 +2,24 @@
 /* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var classNames = require("classnames");
-var FancySelect = require("../components/fancy-select.jsx");
-var React = require('react');
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const {StyleSheet, css} = require("aphrodite");
+const classNames = require("classnames");
+const React = require('react');
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var FancyOption = FancySelect.Option;
+const ApiClassNames = require("../perseus-api.jsx").ClassNames;
+const ApiOptions = require("../perseus-api.jsx").Options;
+const InlineIcon = require("../components/inline-icon.jsx");
+const styleConstants = require("../styles/constants.js");
 
-var ApiClassNames = require("../perseus-api.jsx").ClassNames;
-var ApiOptions = require("../perseus-api.jsx").Options;
-
-var captureScratchpadTouchStart =
+const {iconDropdownArrow} = require("../icon-paths.js");
+const captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
 
-var Dropdown = React.createClass({
+const dropdownArrowSize = 24;
+
+const Dropdown = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         choices: React.PropTypes.arrayOf(React.PropTypes.string),
@@ -40,32 +43,15 @@ var Dropdown = React.createClass({
 
         var selectClasses = classNames({
             "perseus-widget-dropdown": true,
-            "perseus-fancy-dropdown": this.props.apiOptions.fancyDropdowns
         });
 
-        if (this.props.apiOptions.fancyDropdowns) {
-            return <FancySelect
-                    onChange={this._handleChange}
-                    className={selectClasses + " " + ApiClassNames.INTERACTIVE}
-                    value={this.props.selected}>
-                <FancyOption value={0} visible={false}>
-                    <span className="placeholder">
-                        {this.props.placeholder}
-                    </span>
-                </FancyOption>
-                {choices.map((choice, i) => {
-                    // Always visible so we can animate them with css
-                    return <FancyOption key={i + 1} value={i + 1} visible>
-                        {choice}
-                    </FancyOption>;
-                })}
-            </FancySelect>;
-
-        } else {
-            return <select
+        return <div>
+                <select
                     onChange={this._handleChangeEvent}
                     onTouchStart={captureScratchpadTouchStart}
-                    className={selectClasses + " " + ApiClassNames.INTERACTIVE}
+                    className={selectClasses +
+                        " " + css(styles.dropdown) +
+                        " " + ApiClassNames.INTERACTIVE}
                     disabled={this.props.apiOptions.readOnly}
                     value={this.props.selected}>
                 <option value={0} disabled>
@@ -78,8 +64,16 @@ var Dropdown = React.createClass({
                         {choice}
                     </option>;
                 })}
-            </select>;
-        }
+            </select>
+            <InlineIcon
+                {...iconDropdownArrow}
+                style={{
+                    marginLeft: `-${dropdownArrowSize}px`,
+                    height: dropdownArrowSize,
+                    width: dropdownArrowSize,
+                }}
+            />
+        </div>;
     },
 
     focus: function() {
@@ -131,6 +125,36 @@ var propTransform = (editorProps) => {
         choices: _.map(editorProps.choices, (choice) => choice.content)
     };
 };
+
+const styles = StyleSheet.create({
+    dropdown: {
+        appearance: 'none',
+        backgroundColor: 'transparent',
+        border: `1px solid ${styleConstants.gray76}`,
+        borderRadius: 4,
+        boxShadow: 'none',
+        fontFamily: styleConstants.baseFontFamily,
+        padding: `9px ${dropdownArrowSize + 1}px 9px 9px`,
+
+        ':focus': {
+            outline: 'none',
+            border: `2px solid ${styleConstants.kaGreen}`,
+            padding: `8px ${dropdownArrowSize}px 8px 8px`,
+        },
+
+        ':focus + svg': {
+            color: `${styleConstants.kaGreen}`,
+        },
+
+        ':disabled': {
+            color: styleConstants.gray68,
+        },
+
+        ':disabled + svg' : {
+            color: styleConstants.gray68,
+        },
+    },
+});
 
 module.exports = {
     name: "dropdown",

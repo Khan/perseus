@@ -50,7 +50,6 @@ var ItemEditor = React.createClass({
                         className="perseus-question-editor"
                         imageUploader={this.props.imageUploader}
                         onChange={this.handleEditorChange}
-                        enabledFeatures={this.props.enabledFeatures}
                         apiOptions={this.props.apiOptions}
                         showWordCount={true}
                         {...this.props.question}

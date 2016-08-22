@@ -23,6 +23,7 @@ var Graphie = React.createClass({
         addMouseLayer: React.PropTypes.bool,
         box: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
         children: React.PropTypes.node,
+        isMobile: React.PropTypes.bool,
         onClick: React.PropTypes.func,
         onMouseDown: React.PropTypes.func,
         onMouseMove: React.PropTypes.func,
@@ -34,6 +35,7 @@ var Graphie = React.createClass({
             React.PropTypes.arrayOf(React.PropTypes.number)
         ),
         responsive: React.PropTypes.bool,
+        setDrawingAreaAvailable: React.PropTypes.func,
         setup: React.PropTypes.func.isRequired,
     },
 
@@ -130,6 +132,7 @@ var Graphie = React.createClass({
         graphie.init({
             range: this._range(),
             scale: this._scale(),
+            isMobile: this.props.isMobile,
         });
         // Only add the mouselayer if we actually want one.
         if (this.props.addMouseLayer) {
@@ -138,6 +141,7 @@ var Graphie = React.createClass({
                 onMouseDown: this.props.onMouseDown,
                 onMouseUp: this.props.onMouseUp,
                 onMouseMove: this.props.onMouseMove,
+                setDrawingAreaAvailable: this.props.setDrawingAreaAvailable,
             });
         }
 
@@ -148,6 +152,7 @@ var Graphie = React.createClass({
             // TODO(alex): Either make this component always responsive by
             // itself, or always wrap it in other components so that it is.
             $(graphieDiv).css({width: '100%', height: '100%'});
+            graphie.raphael.setSize('100%', '100%');
         }
 
         this.props.setup(graphie, _.extend({

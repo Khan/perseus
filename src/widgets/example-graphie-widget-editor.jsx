@@ -38,7 +38,9 @@ var ExampleGraphieWidgetEditor = React.createClass({
             <ExampleGraphieWidget
                 graph={this.props.graph}
                 coord={this.props.correct}
-                onChange={this.handleChange} />
+                onChange={this.handleChange}
+                apiOptions={this.props.apiOptions}
+            />
         </div>;
     },
 

@@ -11,6 +11,7 @@
 var React = require('react');
 var _ = require("underscore");
 
+var ApiOptions = require("../perseus-api.jsx").Options;
 var Util = require("../util.js");
 var Changeable = require("../mixins/changeable.jsx");
 var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
@@ -30,8 +31,10 @@ var ExampleGraphieWidget = React.createClass({
     mixins: [Changeable, WidgetJsonifyDeprecated],
 
     propTypes: {
+        apiOptions: ApiOptions.propTypes,
+
         graph: React.PropTypes.object.isRequired,
-        coord: React.PropTypes.arrayOf(React.PropTypes.number)
+        coord: React.PropTypes.arrayOf(React.PropTypes.number),
     },
 
     getDefaultProps: function() {
@@ -55,11 +58,14 @@ var ExampleGraphieWidget = React.createClass({
 
     render: function() {
         return <Graphie
-                ref="graphie"
-                box={this.props.graph.box}
-                range={this.props.graph.range}
-                options={this.props.graph}
-                setup={this.setupGraphie}>
+            ref="graphie"
+            box={this.props.graph.box}
+            range={this.props.graph.range}
+            options={this.props.graph}
+            setup={this.setupGraphie}
+            setDrawingAreaAvailable={
+                this.props.apiOptions.setDrawingAreaAvailable}
+        >
             <MovablePoint
                     pointSize={5}
                     coord={this.props.coord || [0, 0]}

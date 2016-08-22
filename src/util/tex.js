@@ -1,6 +1,6 @@
 /* globals katex:false, MathJax:false, Exercises:false */
 
-const cleanMath = require("./math.js").cleanMath;
+const KhanMath = require("./math.js");
 
 function findChildOrAdd(elem, className) {
     const $child = $(elem).find("." + className);
@@ -73,7 +73,7 @@ module.exports = {
             text = text != null ? text + "" : "";
 
             // Attempt to clean up some of the math
-            text = cleanMath(text);
+            text = KhanMath.cleanMath(text);
 
             // Store the formula that we're using
             $elem.attr("data-math-formula", text);

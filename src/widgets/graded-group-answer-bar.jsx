@@ -1,12 +1,12 @@
 /* globals i18n */
 /**
- * Renders answer bar for XOM graded groups. [STATELESS]
+ * Renders answer bar for mobile graded groups. [STATELESS]
  */
 const React = require('react');
 
 const ApiOptions = require('../perseus-api.jsx').Options;
 const InlineIcon = require('../components/inline-icon.jsx');
-const {iconCheck, iconRemove} = require('../icon-paths.js');
+const {iconStar, iconTryAgain} = require('../icon-paths.js');
 
 const {
     boldFontFamily,
@@ -73,31 +73,40 @@ const GradedGroupAnswerBar = React.createClass({
                 ? kaGreen : gray68,
         };
 
+
         const message = answerBarState === ANSWER_BAR_STATES.INCORRECT ?
             <span style={textStyle}>
-                <InlineIcon {...iconRemove} />
-                <span style={{marginLeft: 4.9}}>Try again</span>
+                <span style={styles.tryAgainIcon}>
+                    <InlineIcon {...iconTryAgain} />
+                </span>
+                <span style={{marginLeft: 8}}>{i18n._('Keep trying')}</span>
             </span> :
             <span />;  // empty span keeps the button the right side
 
         if (answerBarState !== ANSWER_BAR_STATES.CORRECT) {
+            const buttonLabel = answerBarState === ANSWER_BAR_STATES.INCORRECT
+                ? i18n._("Try again")
+                : i18n._("Check");
+
+            // Use <button> instead of <input> b/c iOS 9.3 on iPhone 6 renders
+            // the <input> as a faded out green button instead of using our
+            // styles.
             return <div style={answerBarStyle}>
                 {message}
-                <input
-                    type='button'
+                <button
                     style={buttonStyle}
-                    value={i18n._('Check')}
-                    className={apiOptions.xomManatee ? '' : 'simple-button'}
                     disabled={apiOptions.readOnly ||
                         answerBarState !== ANSWER_BAR_STATES.ACTIVE}
                     onClick={onCheckAnswer}
-                />
+                >{buttonLabel}</button>
             </div>;
         } else {
             return <div style={answerBarStyle}>
                 <span style={textStyle}>
-                    <InlineIcon {...iconCheck} style={{marginBottom: 5}}/>
-                    <span style={{marginLeft: 4.9}}>Correct</span>
+                    <span style={{fontSize: 28, color: '#FFB300'}}>
+                        <InlineIcon {...iconStar} style={{marginBottom: 5}} />
+                    </span>
+                    <span style={{marginLeft: 8}}>Correct</span>
                 </span>
             </div>;
         }
@@ -130,6 +139,13 @@ const styles = {
         fontSize: fontSize,
         border: 'none',
     },
+
+    tryAgainIcon: {
+        fontSize: 28,
+        color: '#63D9EA',
+        transform: 'scale(-1,1) rotate(-268deg)',
+    },
+
     text: {
         display: 'flex',
         flexDirection: 'row',

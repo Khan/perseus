@@ -144,9 +144,9 @@ describe("perseus markdown", () => {
             validateParse(parsed3, [{
                 type: "paragraph",
                 content: [
-                    {type: "text", content: "$"},
+                    {type: "unescapedDollar"},
                     {type: "text", content: "{"},
-                    {type: "text", content: "$"},
+                    {type: "unescapedDollar"},
                 ],
             }]);
 
@@ -166,6 +166,17 @@ describe("perseus markdown", () => {
                     {type: "text", content: "hello "},
                     {type: "math", content: " escaped dollar \\$ "},
                     {type: "text", content: " not math"},
+                ],
+            }]);
+
+            var parsed6 = parse("$math$ not math $ oops extra dollar");
+            validateParse(parsed6, [{
+                type: "paragraph",
+                content: [
+                    {content: 'math', type: 'math'},
+                    {content: ' not math ', type: 'text'},
+                    {type: 'unescapedDollar'},
+                    {content: ' oops extra dollar', type: 'text'},
                 ],
             }]);
         });
@@ -213,42 +224,36 @@ describe("perseus markdown", () => {
         });
 
         it("should break on paragraphs", () => {
-            var parsed = parse("hello $ single dollar");
-            validateParse(parsed, [{
-                type: "paragraph",
-                content: [
-                    {type: "text", content: "hello "},
-                    {type: "text", content: "$ single dollar"},
-                ],
-            }]);
-
-            var parsed2 = parse(
-                "hello $ single dollar paragraph\n\n not math"
+            var parsed = parse(
+                "hello $ single dollar paragraph\n\n not math $"
             );
-            validateParse(parsed2, [
+            validateParse(parsed, [
                 {
                     type: "paragraph",
                     content: [
-                        {type: "text", content: "hello "},
-                        {type: "text", content: "$ single dollar paragraph"},
+                        {content: 'hello ', type: 'text'},
+                        {type: 'unescapedDollar'},
+                        {content: ' single dollar paragraph', type: 'text'},
                     ],
                 },
                 {
                     type: "paragraph",
                     content: [
-                        {type: "text", content: " not math"},
+                        {content: ' not math ', type: 'text'},
+                        {type: 'unescapedDollar'},
                     ],
                 },
             ]);
 
-            var parsed3 = parse("hello $ bad { math $");
-            validateParse(parsed3, [{
+            var parsed2 = parse("hello $ bad { math $");
+            validateParse(parsed2, [{
                 type: "paragraph",
                 content: [
-                    {type: "text", content: "hello "},
-                    {type: "text", content: "$ bad "},
-                    {type: "text", content: "{ math "},
-                    {type: "text", content: "$"},
+                    {content: 'hello ', type: 'text'},
+                    {type: 'unescapedDollar'},
+                    {content: ' bad ', type: 'text'},
+                    {content: '{ math ', type: 'text'},
+                    {type: 'unescapedDollar'},
                 ],
             }]);
 
@@ -421,6 +426,25 @@ describe("perseus markdown", () => {
                 }],
             }]);
         });
+
+        it("should detect unescaped dollars", () => {
+            var parsed = parse("$");
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [{type: "unescapedDollar"}],
+            }]);
+
+            var parsed2 = parse("hello $ single dollar");
+            validateParse(parsed2, [{
+                type: "paragraph",
+                content: [
+                    {content: 'hello ', type: 'text'},
+                    {type: 'unescapedDollar'},
+                    {content: ' single dollar', type: 'text'},
+                ],
+            }]);
+        });
+
     });
 
     describe("output", () => {

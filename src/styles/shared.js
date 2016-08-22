@@ -39,6 +39,24 @@ module.exports = StyleSheet.create({
         width: 1,
     },
 
+    responsiveLabel: {
+        // NOTE(charlie): The values used here should be kept in sync with the
+        // caption text sizing in articles.less.
+        // TODO(charlie): Migrate the captions over to using this style.
+        [mediaQueries.smOrSmaller]: {
+            fontSize: 14,
+            lineHeight: 1.3,
+        },
+        [mediaQueries.md]: {
+            fontSize: 17,
+            lineHeight: 1.4,
+        },
+        [mediaQueries.lgOrLarger]: {
+            fontSize: 20,
+            lineHeight: 1.4,
+        },
+    },
+
     responsiveInput: {
         [mediaQueries.lgOrSmaller]: {
             display: "inline-block",
@@ -62,6 +80,7 @@ module.exports = StyleSheet.create({
         },
     },
 
+    // TODO(kevinb) move to choice.jsx
     responsiveRadioInput: {
         [mediaQueries.lgOrSmaller]: {
             borderRadius: "50%",
@@ -78,12 +97,17 @@ module.exports = StyleSheet.create({
         },
     },
 
-    responsiveRadioInputXomManatee: {
+    // TODO(kevinb) move to choice.jsx
+    responsiveMobileRadioInput: {
         // On phones and tablets, we hide the circular radio button itself,
         // and instead, show a green border when the item is selected. This
         // saves horizontal space for content on small screens.
         [mediaQueries.lgOrSmaller]: {
             display: "none",
         },
+    },
+
+    disableTextSelection: {
+        userSelect: 'none',
     },
 });

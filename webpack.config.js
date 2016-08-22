@@ -107,6 +107,7 @@ module.exports = {
         filename: "[name].js",
         library: "Perseus",
         libraryTarget: "umd",
+        namedChunkFilename: "perseus-extras.js",
     },
     externals: externals,
     plugins: plugins,

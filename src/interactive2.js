@@ -7,6 +7,8 @@ var MovablePoint = require("./interactive2/movable-point.jsx");
 var MovableLine = require("./interactive2/movable-line.js");
 var MovablePolygon = require("./interactive2/movable-polygon.js");
 
+const KhanColors = require("./util/colors.js");
+
 var Interactive2 = {
     MovablePoint: MovablePoint,
     addMovablePoint: function(graphie, options) {
@@ -22,6 +24,41 @@ var Interactive2 = {
     addMovablePolygon: function(graphie, options) {
         var movable = new Movable(graphie, {});
         return new MovablePolygon(graphie, movable, options);
+    },
+
+    addMaybeMobileMovablePoint: function(widget, extraProps) {
+        const isMobile = widget.props.apiOptions.isMobile;
+
+        const commonStyle = isMobile ? {
+            stroke: "#ffffff",
+            "stroke-width": 3,
+            fill: KhanColors.INTERACTIVE,
+        } : {
+            stroke: KhanColors.INTERACTIVE,
+            fill: KhanColors.INTERACTIVE,
+        };
+
+        const normalStyle = Object.assign(commonStyle, extraProps.normalStyle);
+
+        const highlightStyle = Object.assign(isMobile ? {
+            ...commonStyle,
+            "stroke-width": 0,
+            scale: 0.75,
+        } : {}, extraProps.highlightStyle);
+
+        const props = Object.assign({
+            normalStyle: normalStyle,
+            highlightStyle: highlightStyle,
+            shadow: isMobile,
+            tooltip: isMobile && widget.props.showTooltips,
+            showHairlines: widget.showHairlines,
+            hideHairlines: widget.hideHairlines,
+        }, isMobile ? {pointSize: 7} : {});
+
+        return Interactive2.addMovablePoint(
+            widget.graphie,
+            Object.assign(extraProps, props)
+        );
     }
 };
 

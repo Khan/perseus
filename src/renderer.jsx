@@ -19,7 +19,6 @@ var WidgetContainer = require("./widget-container.jsx");
 var Widgets = require("./widgets.js");
 
 var Util = require("./util.js");
-var EnabledFeatures = require("./enabled-features.jsx");
 var ApiOptionsProps = require("./mixins/api-options-props.js");
 var ApiClassNames = require("./perseus-api.jsx").ClassNames;
 var Zoomable = require("./components/zoomable.jsx");
@@ -166,7 +165,6 @@ var Renderer = React.createClass({
     propTypes: {
         // Also accepts apiOptions, via the ApiOptionsProps mixin.
         alwaysUpdate: React.PropTypes.bool,
-        enabledFeatures: EnabledFeatures.propTypes,
         highlightedWidgets: React.PropTypes.arrayOf(React.PropTypes.any),
         ignoreMissingWidgets: React.PropTypes.bool,
         images: React.PropTypes.any,
@@ -190,7 +188,6 @@ var Renderer = React.createClass({
             // (here and in perseus-i18n)
             ignoreMissingWidgets: true,
             highlightedWidgets: [],
-            enabledFeatures: EnabledFeatures.defaults,
             // onRender may be called multiple times per render, for example
             // if there are multiple images or TeX pieces within `content`.
             // It is a good idea to debounce any functions passed here.
@@ -361,7 +358,6 @@ var Renderer = React.createClass({
             return <WidgetContainer
                 ref={"container:" + id}
                 key={"container:" + id}
-                enabledFeatures={this.props.enabledFeatures}
                 type={type}
                 initialProps={this.getWidgetProps(id)}
                 shouldHighlight={shouldHighlight}
@@ -402,7 +398,6 @@ var Renderer = React.createClass({
             alignment: widgetInfo && widgetInfo.alignment,
             static: widgetInfo && widgetInfo.static,
             problemNum: this.props.problemNum,
-            enabledFeatures: this.props.enabledFeatures,
             apiOptions: this.getApiOptions(this.props),
             keypadElement: this.props.keypadElement,
             questionCompleted: this.props.questionCompleted,
@@ -788,7 +783,7 @@ var Renderer = React.createClass({
             const onRender = (node) => {
                 this.props.onRender && this.props.onRender(node);
 
-                if (apiOptions.xomManatee) {
+                if (apiOptions.isMobile) {
                     // `onRender` only returns a node on the initial render.
                     if (node) {
                         const katex = node.querySelector(".katex");
@@ -796,15 +791,15 @@ var Renderer = React.createClass({
                         // Though MathJax's visible elements should have been
                         // inserted into the DOM by now (and, thus, we should be
                         // able to query for .MathJax instead), we're not seeing
-                        // that guarantee play out in practice. So, instead, we
-                        // look for the script that is inserted on initial
-                        // render.
+                        // that guarantee play out in practice. So we look for
+                        // either .MathJax or the script tag that is inserted
+                        // on initial render.
                         // TODO(charlie): This works, but feels very brittle.
                         // Figure out how we can call `onRender` only after the
                         // elements have been inserted into the DOM.
                         const mathjax = node.querySelector(
                             'script[type="math/tex"]'
-                        );
+                        ) || node.querySelector(".MathJax");
 
                         if (katex) {
                             deferred.resolve();
@@ -821,7 +816,26 @@ var Renderer = React.createClass({
                 {preprocessTex(node.content)}
             </TeX>;
 
-            if (apiOptions.xomManatee) {
+            const innerStyle = {
+                // HACK(benkomalo): we only want horizontal scrolling, but
+                // overflowX: 'auto' causes a vertical scrolling scrollbar
+                // as well, despite the parent and child elements having
+                // the exact same height. Force it to not scroll by
+                // applying overflowY: 'hidden'
+                overflowX: 'auto',
+                overflowY: 'hidden',
+
+                // HACK(kevinb): overflowY: 'hidden' inadvertently clips the
+                // top and bottom of some fractions.  We add padding to the
+                // top and bottom to avoid the clipping and then correct for
+                // the padding by adding equal but opposite margins.
+                paddingTop: 10,
+                paddingBottom: 10,
+                marginTop: -10,
+                marginBottom: -10,
+            };
+
+            if (apiOptions.isMobile) {
                 // The style for the body of articles and exercises on mobile is
                 // to have a 16px margin.  When a user taps to zoom math we'd
                 // like the math to extend all the way to the edge of the page/
@@ -839,24 +853,19 @@ var Renderer = React.createClass({
                     marginLeft: -margin,
                     marginRight: -margin,
                 };
-                const innerStyle = {
+                const horizontalPadding = {
                     paddingLeft: margin,
                     paddingRight: margin,
-
-                    // HACK(benkomalo): we only want horizontal scrolling, but
-                    // overflowX: 'auto' causes a vertical scrolling scrollbar
-                    // as well, despite the parent and child elements having
-                    // the exact same height. Force it to not scroll by
-                    // applying overflowY: 'hidden'
-                    overflowX: 'auto',
-                    overflowY: 'hidden',
                 };
 
                 const computeMathBounds = (parentNode, parentBounds) => {
                     const textElement =
                             parentNode.querySelector('.katex-html') ||
                             parentNode.querySelector('.MathJax');
-                    const textBounds = textElement.getBoundingClientRect();
+                    const textBounds = {
+                        width: textElement.offsetWidth,
+                        height: textElement.offsetHeight,
+                    };
 
                     // HACK(benkomalo): when measuring math content, note that
                     // sometimes it actually peeks outside of the
@@ -877,7 +886,7 @@ var Renderer = React.createClass({
                 >
                     <div
                         className="perseus-block-math-inner"
-                        style={innerStyle}
+                        style={{...innerStyle, ...horizontalPadding}}
                     >
                         <Zoomable
                             readyToMeasureDeferred={deferred}
@@ -894,6 +903,7 @@ var Renderer = React.createClass({
                 >
                     <div
                         className="perseus-block-math-inner"
+                        style={innerStyle}
                     >
                         {content}
                     </div>
@@ -957,7 +967,7 @@ var Renderer = React.createClass({
                 title={node.title}
                 responsive={responsive}
                 onUpdate={this.props.onRender}
-                zoomToFullSizeOnMobile={apiOptions.xomManatee}
+                zoomToFullSizeOnMobile={apiOptions.isMobile}
                 {...extraAttrs}
             />;
 
@@ -993,27 +1003,10 @@ var Renderer = React.createClass({
             };
 
             let wrappedOutput;
-            if (apiOptions.xomManatee) {
+            if (apiOptions.isMobile) {
                 wrappedOutput =
                     <div style={{...innerStyle, overflowX: 'auto'}}>
-                        <Zoomable
-                            animateHeight={true}
-                            computeChildBounds={(parentNode, parentBounds) => {
-                                const tableBounds = parentNode
-                                    .querySelector('table')
-                                    .getBoundingClientRect();
-                                const childBounds = parentNode
-                                    .firstElementChild
-                                    .getBoundingClientRect();
-                                return {
-                                    width: Math.max(
-                                        childBounds.width, tableBounds.width),
-                                    height: childBounds.height,
-                                };
-                            }}
-                        >
-                            {output}
-                        </Zoomable>
+                        <Zoomable animateHeight={true}>{output}</Zoomable>
                     </div>;
             } else {
                 wrappedOutput = <div style={innerStyle}>
@@ -1480,12 +1473,11 @@ var Renderer = React.createClass({
             baseElements: apiOptions.baseElements,
         });
 
-        var className = this._isTwoColumn ?
-        ApiClassNames.RENDERER + " " + ApiClassNames.TWO_COLUMN_RENDERER :
-            ApiClassNames.RENDERER;
-        if (apiOptions.responsiveStyling) {
-            className += " " + ApiClassNames.RESPONSIVE_RENDERER;
-        }
+        const className = classNames({
+            [ApiClassNames.RENDERER]: true,
+            [ApiClassNames.RESPONSIVE_RENDERER]: true,
+            [ApiClassNames.TWO_COLUMN_RENDERER]: this._isTwoColumn,
+        });
 
         this.lastRenderedMarkdown = <div className={className}>
             {markdownContents}

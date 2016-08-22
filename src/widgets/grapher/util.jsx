@@ -619,7 +619,8 @@ DEFAULT_GRAPHER_PROPS.graph = {
     markings: "graph",
     rulerLabel: "",
     rulerTicks: 10,
-    valid: true
+    valid: true,
+    showTooltips: false,
 };
 
 DEFAULT_GRAPHER_PROPS.plot = GrapherUtil.defaultPlotProps("linear",

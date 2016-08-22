@@ -16,12 +16,52 @@ var MovablePoint = GraphieClasses.createClass({
 
     movableProps: ["children"],
 
+    _getProps: function() {
+        if (this.props.isMobile) {
+            const isMobile = this.props.isMobile;
+
+            // TODO(kevinb) precompute commonStyle and commonMobileStyle
+            const commonStyle = isMobile ? {
+                stroke: "#ffffff",
+                "stroke-width": 3,
+                fill: KhanColors.INTERACTIVE,
+            } : {
+                stroke: KhanColors.INTERACTIVE,
+                fill: KhanColors.INTERACTIVE,
+            };
+
+            // TODO(kevinb) precompute normalStyle and normalMobileStyle
+            const normalStyle = isMobile ?
+                Object.assign(commonStyle,
+                    this.props.mobileStyleOverride || {}) :
+                Object.assign(commonStyle, this.props.normalStyle);
+
+            // TODO(kevinb) precompute highlightStyle and highlightMobileStyle
+            const highlightStyle = isMobile ? {
+                ...commonStyle,
+                "stroke-width": 0,
+                scale: 0.75,
+            } : this.props.highlightStyle;
+
+            const addedProps = Object.assign({
+                normalStyle: normalStyle,
+                highlightStyle: highlightStyle,
+                shadow: isMobile,
+                tooltip: isMobile && this.props.showTooltips,
+            }, isMobile ? {pointSize: 7} : {});
+
+            return Object.assign(this.props, addedProps);
+        } else {
+            return this.props;
+        }
+    },
+
     add: function(graphie) {
-        this.point = Interactive2.addMovablePoint(graphie, this.props);
+        this.point = Interactive2.addMovablePoint(graphie, this._getProps());
     },
 
     modify: function() {
-        this.point.modify(this.props);
+        this.point.modify(this._getProps());
     },
 
     remove: function() {

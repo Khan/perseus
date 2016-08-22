@@ -52,8 +52,9 @@ const Categorizer = React.createClass({
     render: function() {
         const self = this;
 
-        const responsive = this.props.apiOptions.responsiveStyling &&
-            this.props.apiOptions.xomManatee;
+        // In this context, isMobile is used to differentiate mobile from
+        // desktop.
+        const isMobile = this.props.apiOptions.isMobile;
         let indexedItems = this.props.items.map((item, n) => [item, n]);
         if (this.props.randomizeItems) {
             indexedItems = Util.shuffle(indexedItems, this.props.problemNum);
@@ -83,7 +84,7 @@ const Categorizer = React.createClass({
                         return <td
                             className={"category " + css(
                                 styles.cell,
-                                responsive && styles.responsiveCell
+                                styles.responsiveCell
                             )}
                             key={catNum}
                         >
@@ -96,15 +97,12 @@ const Categorizer = React.createClass({
                                         itemNum,
                                         catNum
                                     )}>
-                                <input
+                                {isMobile && <input
                                     type="radio"
                                     name={uniqueId}
                                     className={css(
-                                        responsive &&
-                                            sharedStyles.responsiveInput,
-                                        responsive &&
-                                            sharedStyles.responsiveRadioInput,
-                                        styles.radioInput
+                                        sharedStyles.responsiveInput,
+                                        sharedStyles.responsiveRadioInput
                                     )}
                                     checked={selected}
                                     onChange={this.onChange.bind(
@@ -113,10 +111,10 @@ const Categorizer = React.createClass({
                                         catNum
                                     )}
                                     onClick={(e) => e.stopPropagation()}
-                                  />
-                                <span
+                                    />}
+                                {!isMobile && <span
                                     className={css(
-                                        responsive && styles.responsiveSpan,
+                                        styles.responsiveSpan,
                                         styles.radioSpan,
                                         selected && styles.checkedRadioSpan,
                                         this.props.static && selected
@@ -127,7 +125,7 @@ const Categorizer = React.createClass({
                                         ? <InlineIcon {...iconCircle} />
                                         : <InlineIcon {...iconCircleThin} />
                                     }
-                                </span>
+                                </span>}
                             </div>
                         </td>;
                     })}
@@ -141,7 +139,7 @@ const Categorizer = React.createClass({
             "categorizer-container": true,
             "static-mode": this.props.static,
         });
-        const inlineStyles = this.props.apiOptions.xomManatee
+        const inlineStyles = this.props.apiOptions.isMobile
             ? [styles.fullBleedContainer] : [];
 
         return <div className={extraClassNames + ' ' + css(...inlineStyles)}>
@@ -212,13 +210,6 @@ const styles = StyleSheet.create({
         verticalAlign: 'middle',
     },
 
-    // Legacy styling?
-    // TODO(jared): remove when XOM is done
-
-    radioInput: {
-        display: 'none',
-    },
-
     radioSpan: {
         fontSize: 30,
         paddingRight: 3,
@@ -238,14 +229,6 @@ const styles = StyleSheet.create({
     staticCheckedRadioSpan: {
         color: '#888',
     },
-
-    // New (XOM) Styling
-
-    responsiveSpan: {
-        [mediaQueries.smOrSmaller]: {
-            display: 'none',
-        },
-    },
 });
 
 module.exports = {
@@ -260,4 +243,3 @@ module.exports = {
             "items", "categories", "values", "randomizeItems");
     },
 };
-

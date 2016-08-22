@@ -7,28 +7,11 @@
 
 require('./perseus-env.js');
 
-let DemoComponent = null;
 window.Khan = {
     Util: KhanUtil,
     error: function() {},
     query: {debug: ""},
     imageBase: "/images/",
-    scratchpad: {
-        _updateComponent: function() {
-            if (DemoComponent) {
-                DemoComponent.forceUpdate();
-            }
-        },
-        enable: function() {
-            Khan.scratchpad.enabled = true;
-            this._updateComponent();
-        },
-        disable: function() {
-            Khan.scratchpad.enabled = false;
-            this._updateComponent();
-        },
-        enabled: true,
-    },
 };
 
 const Perseus = window.Perseus = require('./editor-perseus.js');
@@ -37,7 +20,6 @@ const ReactDOM = window.ReactDOM = React.__internalReactDOM;
 const EditorDemo = require('./editor-demo.jsx');
 const RendererDemo = require('./renderer-demo.jsx');
 const ArticleDemo = require('./article-demo.jsx');
-
 
 const defaultQuestion = {
     "question": {
@@ -68,7 +50,7 @@ const routes = { // The value is spread across a React.createElement call
 };
 
 Perseus.init({skipMathJax: false, loadExtraWidgets: true}).then(function() {
-    DemoComponent = ReactDOM.render(
+    ReactDOM.render(
         React.createElement(...(routes[path] || routes[''])),
         document.getElementById("perseus-container")
     );

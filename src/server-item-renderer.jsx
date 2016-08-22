@@ -9,9 +9,9 @@
 const React = require('react');
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
+const {StyleSheet, css} = require("aphrodite");
 
 const ApiOptions = require("./perseus-api.jsx").Options;
-const EnabledFeatures = require("./enabled-features.jsx");
 const HintsRenderer = require("./hints-renderer.jsx");
 const ProvideKeypad = require("./mixins/provide-keypad.jsx");
 const Renderer = require("./renderer.jsx");
@@ -24,7 +24,6 @@ const RP = React.PropTypes;
 const ItemRenderer = React.createClass({
     propTypes: {
         apiOptions: RP.any,
-        enabledFeatures: RP.any,
         hintsVisible: RP.number,
         item: RP.shape({
             answerArea: RP.shape({
@@ -46,7 +45,6 @@ const ItemRenderer = React.createClass({
     getDefaultProps: function() {
         return {
             apiOptions: {},  // a deep default is done in `this.update()`
-            enabledFeatures: {},  // a deep default is done in `render()`
         };
     },
 
@@ -295,11 +293,6 @@ const ItemRenderer = React.createClass({
     },
 
     render: function() {
-        const enabledFeatures = {
-            ...EnabledFeatures.defaults,
-            ...this.props.enabledFeatures,
-        };
-
         const apiOptions = {
             ...ApiOptions.defaults,
             ...this.props.apiOptions,
@@ -311,7 +304,6 @@ const ItemRenderer = React.createClass({
             problemNum={this.props.problemNum}
             onInteractWithWidget={this.handleInteractWithWidget}
             highlightedWidgets={this.state.questionHighlightedWidgets}
-            enabledFeatures={enabledFeatures}
             apiOptions={apiOptions}
             questionCompleted={this.state.questionCompleted}
             savedState={this.props.savedState}
@@ -322,7 +314,6 @@ const ItemRenderer = React.createClass({
         const hintsRenderer = <HintsRenderer
             hints={this.props.item.hints}
             hintsVisible={this.props.hintsVisible}
-            enabledFeatures={enabledFeatures}
             apiOptions={apiOptions}
             ref={elem => this.hintsRenderer = elem}
         />;
@@ -331,10 +322,24 @@ const ItemRenderer = React.createClass({
             <div>
                 {questionRenderer}
             </div>
-            <div>
+            <div
+                className={
+                    // Avoid adding any horizontal padding when applying the
+                    // mobile hint styles, which are flush to the left.
+                    // NOTE(charlie): We may still want to apply this padding
+                    // for desktop exercises.
+                    !apiOptions.isMobile && css(styles.hintsContainer)
+                }
+            >
                 {hintsRenderer}
             </div>
         </div>;
+    },
+});
+
+const styles = StyleSheet.create({
+    hintsContainer: {
+        marginLeft: 50,
     },
 });
 

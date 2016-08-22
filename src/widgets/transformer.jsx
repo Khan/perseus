@@ -1607,7 +1607,10 @@ var Transformer = React.createClass({
                 markings={graph.markings}
                 backgroundImage={graph.backgroundImage}
                 showProtractor={graph.showProtractor}
-                onGraphieUpdated={this.setupGraphie} />
+                onGraphieUpdated={this.setupGraphie}
+                setDrawingAreaAvailable={
+                    this.props.apiOptions.setDrawingAreaAvailable}
+            />
 
             {!interactiveToolsMode && (
                 "Add transformations below:"

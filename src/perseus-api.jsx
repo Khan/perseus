@@ -41,14 +41,6 @@ module.exports = {
     Options: {
         propTypes: React.PropTypes.shape({
             isArticle: React.PropTypes.bool.isRequired,
-            fancyDropdowns: React.PropTypes.bool.isRequired,
-
-            // TODO(benkomalo): this is a temporary flag to enable responsive
-            // styling as XOM applies changes to mobile devices, and wants
-            // to measure effects. This should be removed when XOM launches
-            // (it should always be true)
-            // Remove by 2016/07/01
-            responsiveStyling: React.PropTypes.bool.isRequired,
 
             satStyling: React.PropTypes.bool.isRequired,
             onInputError: React.PropTypes.func.isRequired,
@@ -105,18 +97,18 @@ module.exports = {
             // structure that forbids them both being enabled at once.
             customKeypad: React.PropTypes.bool,
 
-            // Indicates whether or not to enable changes for the x-on-mobile,
-            // 'manatee' milestone.  Changes are outlined in
-            // https://docs.google.com/document/d/1aE3aaZD-vR2HJ-HVK7hH9Jzo2euCH-kKTQihSmzrEfI/edit
-            xomManatee: React.PropTypes.bool,
+            // Indicates whether or not to use mobile styling.
+            isMobile: React.PropTypes.bool,
+
+            // A function, called with a bool indicating whether use of the
+            // drawing area (scratchpad) should be allowed/disallowed.
+            // Previously handled by `Khan.scratchpad.enable/disable`
+            setDrawingAreaAvailable: React.PropTypes.func,
         }).isRequired,
 
         defaults: {
             isArticle: false,
-            fancyDropdowns: false,
-            responsiveStyling: false,
-            xomManatee: false,
-            mobileStyling: false,
+            isMobile: false,
             satStyling: false,
             onInputError: function() { },
             onFocusChange: function() { },
@@ -130,6 +122,7 @@ module.exports = {
                     return <a {...props} />;
                 },
             },
+            setDrawingAreaAvailable: function() { },
         },
     },
     ClassNames: {
@@ -147,6 +140,6 @@ module.exports = {
         CORRECT: "perseus-correct",
         INCORRECT: "perseus-incorrect",
         UNANSWERED: "perseus-unanswered",
-        XOM_MANATEE: "perseus-xom-manatee",
+        MOBILE: "perseus-mobile",
     },
 };

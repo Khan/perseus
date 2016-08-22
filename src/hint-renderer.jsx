@@ -3,21 +3,27 @@
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
-const { StyleSheet, css } = require("aphrodite");
+const {StyleSheet, css} = require("aphrodite");
 const classnames = require('classnames');
 const i18n = window.i18n;
 
 const Renderer = require("./renderer.jsx");
 
-const EnabledFeatures = require("./enabled-features.jsx");
 const ApiOptions = require("./perseus-api.jsx").Options;
+
+const mediaQueries = require("./styles/media-queries.js");
+const {
+    baseUnitPx,
+    hintBorderWidth,
+    kaGreen,
+    gray97,
+} = require("./styles/constants.js");
 
 /* Renders just a hint preview */
 const HintRenderer = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         className: React.PropTypes.string,
-        enabledFeatures: EnabledFeatures.propTypes,
         hint: React.PropTypes.any,
         lastHint: React.PropTypes.bool,
         lastRendered: React.PropTypes.bool,
@@ -36,7 +42,6 @@ const HintRenderer = React.createClass({
     render: function() {
         const {
             apiOptions,
-            enabledFeatures,
             className,
             hint,
             lastHint,
@@ -44,10 +49,13 @@ const HintRenderer = React.createClass({
             pos,
             totalHints,
         } = this.props;
-        const newHintStyles = enabledFeatures.newHintStyles;
+
+        const {isMobile} = apiOptions;
+
         const classNames = classnames(
-            'perseus-hint-renderer',
-            newHintStyles && 'perseus-hint-renderer-new',
+            !isMobile && 'perseus-hint-renderer',
+            isMobile && css(styles.newHint),
+            isMobile && lastRendered && css(styles.lastRenderedNewHint),
             lastHint && 'last-hint',
             lastRendered && 'last-rendered',
             className
@@ -67,26 +75,53 @@ const HintRenderer = React.createClass({
         };
 
         return <div className={classNames} tabIndex="-1">
-            {!newHintStyles && <span className="perseus-sr-only">
+            {!apiOptions.isMobile && <span className="perseus-sr-only">
                 {i18n._("Hint #%(pos)s", {pos: pos + 1})}
             </span>}
-            {!newHintStyles && totalHints && pos != null && <span
+            {!apiOptions.isMobile && totalHints && pos != null && <span
                 className="perseus-hint-label"
+                style={{display: 'block'}}
             >
                 {`${pos + 1} / ${totalHints}`}
             </span>}
-            {newHintStyles && <div className="perseus-hint-label-new">
-                {i18n._("Hint %(pos)s", {pos: pos + 1})}
-            </div>}
             <Renderer
                 ref="renderer"
                 widgets={hint.widgets}
                 content={hint.content || ""}
                 images={hint.images}
-                enabledFeatures={enabledFeatures}
                 apiOptions={rendererApiOptions}
             />
         </div>;
+    },
+});
+
+const styles = StyleSheet.create({
+    newHint: {
+        marginBottom: 1.5 * baseUnitPx,
+
+        borderLeftColor: gray97,
+        borderLeftStyle: 'solid',
+        borderLeftWidth: hintBorderWidth,
+
+        // Only apply left-padding on tablets, to avoid being flush with the
+        // border. On phones, padding is applied internally by the child
+        // renderers. Some content on phones that is rendered at full-bleed may
+        // end up flush with the border, but that's acceptable for now.
+        [mediaQueries.lgOrSmaller]: {
+            paddingLeft: baseUnitPx,
+        },
+        [mediaQueries.smOrSmaller]: {
+            paddingLeft: 0,
+        },
+
+        ':focus': {
+            outline: 'none',
+        },
+    },
+
+    lastRenderedNewHint: {
+        marginBottom: 0,
+        borderLeftColor: kaGreen,
     },
 });
 

@@ -17,12 +17,6 @@ const EditorPage = require('./editor-page.jsx');
 const Util = require('./util.js');
 const Renderability = require('./renderability.jsx');
 
-const enabledFeatures = {
-    highlight: true,
-    toolTipFormats: true,
-    useMathQuill: true,
-};
-
 const EditorDemo = React.createClass({
     propTypes: {
         problemNum: React.PropTypes.number,
@@ -38,6 +32,7 @@ const EditorDemo = React.createClass({
     getInitialState: function() {
         return {
             deviceType: "desktop",
+            scratchpadEnabled: true,
         };
     },
 
@@ -95,19 +90,17 @@ const EditorDemo = React.createClass({
     },
 
     getEditorProps() {
-        const xomManatee = !!localStorage.xomManatee;
+        const {deviceType} = this.state;
+        const isMobile = deviceType === "phone" || deviceType === "tablet";
 
         return {
             ...this.props.question,
             problemNum: this.props.problemNum,
-            enabledFeatures: enabledFeatures,
             developerMode: true,
             imageUploader: function(image, callback) {
                 setTimeout(callback, 1000, "http://fake.image.url");
             },
             apiOptions: {
-                fancyDropdowns: true,
-                responsiveStyling: true,
                 // onInputError: function() {
                 //     let args = Array.from(arguments);
                 //     console.log.apply(console, ["onInputError:"].concat(args));
@@ -123,14 +116,19 @@ const EditorDemo = React.createClass({
                 },
                 // staticRender: true,
                 // readOnly: true,
-                customKeypad: xomManatee,
-                xomManatee,
+                customKeypad: isMobile,
+                isMobile,
+                setDrawingAreaAvailable: (enabled) => {
+                    this.setState({
+                        scratchpadEnabled: enabled,
+                    });
+                },
             },
             componentClass: EditorPage,
-            onPreviewDeviceChange: (device) => {
-                this.setState({ deviceType: device });
+            onPreviewDeviceChange: (deviceType) => {
+                this.setState({deviceType});
             },
-            previewDevice: this.state.deviceType,
+            previewDevice: deviceType,
             frameSource: `<!DOCTYPE html>
                 <html>
                 <head>
@@ -180,18 +178,6 @@ const EditorDemo = React.createClass({
     render: function() {
         const editorProps = this.getEditorProps();
 
-        const featuresDisplay = Object.keys(enabledFeatures).map((feature) => {
-            return <span
-                key={feature}
-                style={{
-                    marginLeft: 5,
-                    background: enabledFeatures[feature] ? '#aaffaa' : '#ffcccc',
-                }}
-            >
-                {feature}
-            </span>;
-        });
-
         return (
             <div id="perseus-index">
                 <div className="extras">
@@ -202,8 +188,7 @@ const EditorDemo = React.createClass({
                     <button onClick={this.inputVersion}>contains only inputs?</button>{' '}
                     <button onClick={this.saveWarnings}>save warnings</button>{' '}
                     <span>Seed:{this.props.problemNum} </span>{' '}
-                    <span>Features:{featuresDisplay}</span>{' '}
-                    <span>Scratchpad:{Khan.scratchpad.enabled ? 'enabled' : 'disabled'}</span>
+                    <span>Scratchpad:{this.state.scratchpadEnabled ? 'enabled' : 'disabled'}</span>
                 </div>
                 <StatefulEditorPage key={this.props.question} ref="editor" {...editorProps}/>
             </div>

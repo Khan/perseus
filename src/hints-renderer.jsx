@@ -4,34 +4,34 @@
 
 const React = require('react');
 const ReactDOM = require("react-dom");
-const { StyleSheet, css } = require("aphrodite");
+const {StyleSheet, css} = require("aphrodite");
 const classnames = require('classnames');
 const _ = require("underscore");
 const i18n = window.i18n;
 
 const HintRenderer = require("./hint-renderer.jsx");
 const SvgImage = require("./components/svg-image.jsx");
-const EnabledFeatures = require("./enabled-features.jsx");
 const ApiOptionsProps = require("./mixins/api-options-props.js");
 
-const { baseUnitPx, kaGreen } = require("./styles/constants.js");
+const mediaQueries = require("./styles/media-queries.js");
+const sharedStyles = require("./styles/shared.js");
+const {
+    baseUnitPx,
+    hintBorderWidth,
+    kaGreen,
+    gray85,
+    gray17,
+} = require("./styles/constants.js");
 
 const HintsRenderer = React.createClass({
     propTypes: {
         // Also accepts apiOptions, via the ApiOptionsProps mixin.
         className: React.PropTypes.string,
-        enabledFeatures: EnabledFeatures.propTypes,
         hints: React.PropTypes.arrayOf(React.PropTypes.any),
         hintsVisible: React.PropTypes.number,
     },
 
     mixins: [ ApiOptionsProps ],
-
-    getDefaultProps: function() {
-        return {
-            enabledFeatures: EnabledFeatures.defaults,
-        };
-    },
 
     componentDidMount: function() {
         this._cacheHintImages();
@@ -122,14 +122,7 @@ const HintsRenderer = React.createClass({
                     !(/\*\*/).test(hint.content);
                 const lastRendered = i === hintsVisible - 1;
 
-                // NOTE(charlie): In XOM, the hint paragraphs won't have bottom
-                // padding, so we add it ourselves, unless we're using the new
-                // hint styles (which should be always), in which case the
-                // hints are already properly spaced.
                 const renderer = <HintRenderer
-                    className={(apiOptions.xomManatee &&
-                        !this.props.enabledFeatures.newHintStyles) ?
-                        css(styles.hintSpacing) : ""}
                     lastHint={lastHint}
                     lastRendered={lastRendered}
                     hint={hint}
@@ -137,7 +130,6 @@ const HintsRenderer = React.createClass({
                     totalHints={this.props.hints.length}
                     ref={"hintRenderer" + i}
                     key={"hintRenderer" + i}
-                    enabledFeatures={this.props.enabledFeatures}
                     apiOptions={apiOptions}
                 />;
 
@@ -156,22 +148,44 @@ const HintsRenderer = React.createClass({
 
         const classNames = classnames(
             this.props.className,
-            apiOptions.xomManatee && css(styles.rendererMargins)
+            apiOptions.isMobile && hintsVisible > 0 &&
+                css(styles.mobileHintStylesHintsRenderer)
         );
 
         return <div className={classNames}>
+            {apiOptions.isMobile && hintsVisible > 0 &&
+                <div
+                    className={css(
+                        styles.mobileHintStylesHintTitle,
+                        sharedStyles.responsiveLabel
+                    )}
+                >
+                    {i18n._("Hints")}
+                </div>
+            }
             {hints}
             {showGetAnotherHint &&
                 <button
                     rel="button"
-                    className={css(styles.linkButton)}
+                    className={css(
+                        styles.linkButton,
+                        styles.getAnotherHintButton,
+                        apiOptions.isMobile &&
+                            styles.mobileHintStylesGetAnotherHintButton
+                    )}
                     onClick={evt => {
                         evt.preventDefault();
                         evt.stopPropagation();
                         apiOptions.getAnotherHint();
                     }}
                 >
-                    <span className={css(styles.plusText)}>
+                    <span
+                        className={css(
+                            styles.plusText,
+                            apiOptions.isMobile &&
+                                styles.mobileHintStylesPlusText
+                        )}
+                    >
                       +
                     </span>
                     <span className={css(styles.getAnotherHintText)}>
@@ -183,13 +197,11 @@ const HintsRenderer = React.createClass({
     },
 });
 
+const hintIndentation = baseUnitPx + hintBorderWidth;
+
 const styles = StyleSheet.create({
     rendererMargins: {
         marginTop: baseUnitPx,
-    },
-
-    hintSpacing: {
-        paddingBottom: 2 * baseUnitPx,
     },
 
     linkButton: {
@@ -201,6 +213,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: kaGreen,
         padding: 0,
+        position: 'relative',
     },
 
     plusText: {
@@ -211,6 +224,68 @@ const styles = StyleSheet.create({
     },
     getAnotherHintText: {
         marginLeft: 16,
+    },
+
+    mobileHintStylesHintsRenderer: {
+        marginTop: 4 * baseUnitPx,
+        border: `solid ${gray85}`,
+        borderWidth: "1px 0 0 0",
+
+        position: 'relative',
+        ':before': {
+            content: '""',
+            display: 'table',
+            clear: 'both',
+        },
+        ':after': {
+            content: '""',
+            display: 'table',
+            clear: 'both',
+        },
+    },
+
+    mobileHintStylesHintTitle: {
+        fontFamily: 'inherit',
+        fontStyle: 'normal',
+        fontWeight: 'bold',
+        color: gray17,
+
+        paddingTop: baseUnitPx,
+        paddingBottom: 1.5 * baseUnitPx,
+
+        [mediaQueries.lgOrSmaller]: {
+            paddingLeft: 0,
+        },
+        [mediaQueries.smOrSmaller]: {
+            // On phones, ensure that the button is aligned with the hint body
+            // content, which is inset at the standard `baseUnitPx`, plus an
+            // additional `hintBorderWidth`.
+            paddingLeft: hintIndentation,
+        },
+    },
+
+    getAnotherHintButton: {
+        marginTop: 1.5 * baseUnitPx,
+    },
+
+    mobileHintStylesGetAnotherHintButton: {
+        [mediaQueries.lgOrSmaller]: {
+            paddingLeft: 0,
+        },
+        [mediaQueries.smOrSmaller]: {
+            // As with the title, on phones, ensure that the button is aligned
+            // with the hint body content.
+            paddingLeft: hintIndentation,
+        },
+    },
+
+    mobileHintStylesPlusText: {
+        [mediaQueries.lgOrSmaller]: {
+            left: 0,
+        },
+        [mediaQueries.smOrSmaller]: {
+            left: hintIndentation,
+        },
     },
 });
 

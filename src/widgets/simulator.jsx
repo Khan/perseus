@@ -234,12 +234,15 @@ var Histogram = React.createClass({
         var origin = [range[0][0], 0];
         var bottomRight = [range[0][1], 0];
 
-        return <Graphie box={options.box}
-                        range={options.range}
-                        options={options}
-                        setup={this._setupGraphie}
-                        onMouseMove={this.handleMouseInteraction}
-                        onMouseDown={this.handleMouseInteraction}>
+        return <Graphie
+            box={options.box}
+            range={options.range}
+            options={options}
+            setup={this._setupGraphie}
+            onMouseMove={this.handleMouseInteraction}
+            onMouseDown={this.handleMouseInteraction}
+            setDrawingAreaAvailable={this.props.setDrawingAreaAvailable}
+        >
             <Line start={origin} end={bottomRight} style={axisStyle} />
             {/* Only plot these cool extra features if there's data */}
             {data && this._renderData()}
@@ -533,9 +536,13 @@ var Simulator = React.createClass({
             paddingBottom: (this.props.data) ? 40 : 0
         };
         var histogram = <div style={histogramStyle}>
-            <Histogram data={this.props.data}
-                       xAxisLabel={this.props.xAxisLabel}
-                       yAxisLabel={this.props.yAxisLabel} />
+            <Histogram
+                data={this.props.data}
+                xAxisLabel={this.props.xAxisLabel}
+                yAxisLabel={this.props.yAxisLabel}
+                setDrawingAreaAvailable={
+                    this.props.apiOptions.setDrawingAreaAvailable}
+            />
         </div>;
 
         return <div>

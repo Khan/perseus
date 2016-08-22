@@ -136,7 +136,7 @@ var expressionItem4 = lens(expressionItem3)
     .deZoom()
     .freeze();
 
-var renderQuestionArea = function(item, apiOptions, enabledFeatures) {
+var renderQuestionArea = function(item, apiOptions) {
     var Renderer = Perseus.Renderer;
     var renderer = TestUtils.renderIntoDocument(
         <Renderer
@@ -145,7 +145,7 @@ var renderQuestionArea = function(item, apiOptions, enabledFeatures) {
             widgets={item.question.widgets}
             problemNum={0}
             apiOptions={apiOptions}
-            enabledFeatures={enabledFeatures} />
+            />
     );
     return renderer;
 };
@@ -183,13 +183,7 @@ var mathQuillInput = function(renderer, value) {
 
 // promise a question area that has rendered
 var makeRender = item => {
-    var renderer = renderQuestionArea(item, {}, {
-        // Our test assumes a mathquill input
-        useMathQuill: true,
-        // right now we need to either specify all enabledFeatures or none, so
-        // we specify this here:
-        toolTipFormats: true
-    });
+    var renderer = renderQuestionArea(item, {});
     return delayedPromise().then(() => renderer);
 };
 
@@ -238,10 +232,7 @@ describe("Expression Widget", function() {
 
     describe("multiple answers", function() {
         it("should recognize either of two possibilities", function() {
-            var renderer = renderQuestionArea(expressionItem2, {}, {
-                useMathQuill: true,
-                toolTipFormats: true
-            });
+            var renderer = renderQuestionArea(expressionItem2, {});
 
             // TODO(joel) - clear input instead of making a new renderer every
             // time!
@@ -342,4 +333,3 @@ describe("Expression Widget", function() {
         });
     });
 });
-

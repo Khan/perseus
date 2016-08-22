@@ -84,10 +84,20 @@ var PassageRef = React.createClass({
     },
 
     componentDidMount: function() {
-        _.defer(this._updateRange);
+        this._deferredUpdateRange();
+
+        window.addEventListener("resize", this._deferredUpdateRange);
     },
 
     componentDidUpdate: function() {
+        this._deferredUpdateRange();
+    },
+
+    componentWillUnmount: function() {
+        window.removeEventListener("resize", this._deferredUpdateRange);
+    },
+
+    _deferredUpdateRange: function() {
         _.defer(this._updateRange);
     },
 

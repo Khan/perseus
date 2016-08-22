@@ -93,7 +93,6 @@ const SequenceEditor = React.createClass({
                     <Editor
                         ref={"editor" + i}
                         apiOptions={this.props.apiOptions}
-                        enabledFeatures={this.props.enabledFeatures}
                         content={json.content}
                         widgets={json.widgets}
                         images={json.images}

@@ -236,10 +236,12 @@ var Interaction = React.createClass({
 
     render: function() {
         return <Graphie
-                box={this.props.graph.box}
-                range={this.props.graph.range}
-                options={this.props.graph}
-                setup={this._setupGraphie}
+            box={this.props.graph.box}
+            range={this.props.graph.range}
+            options={this.props.graph}
+            setup={this._setupGraphie}
+            setDrawingAreaAvailable={
+                this.props.apiOptions.setDrawingAreaAvailable}
         >
             {_.map(this.props.elements, function(element, n) {
                 if (element.type === "point") {

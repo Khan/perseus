@@ -41,7 +41,7 @@ var Sorter = React.createClass({
             /* ensurePermuted */ true
         );
 
-        const marginPx = this.props.apiOptions.xomManatee ? 8 : 5;
+        const marginPx = this.props.apiOptions.isMobile ? 8 : 5;
 
         return <div className="perseus-widget-sorter perseus-clearfix">
             <Sortable

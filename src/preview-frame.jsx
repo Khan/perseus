@@ -25,7 +25,11 @@ const PreviewFrame = React.createClass({
 
     componentDidMount: function() {
         window.addEventListener("message", (event) => {
-            this.setState(window.parent.iframeDataStore[event.data]);
+            const data = window.parent.iframeDataStore[event.data];
+
+            if (data) {
+                this.setState(data);
+            }
         });
 
         window.parent.postMessage(
@@ -55,6 +59,21 @@ const PreviewFrame = React.createClass({
 
         if (this.props.isMobile) {
             TouchEmulator();
+        }
+
+        // article-all means that we are rendering a full preview of an article
+        if (this.state.type === "article-all") {
+            document.body.style.overflow = "scroll";
+        } else {
+            document.body.style.overflow = "hidden";
+        }
+    },
+
+    componentDidUpdate() {
+        if (this.state.type === "article-all") {
+            document.body.style.overflow = "scroll";
+        } else {
+            document.body.style.overflow = "hidden";
         }
     },
 
@@ -88,8 +107,13 @@ const PreviewFrame = React.createClass({
                 hintsAreaSelector: "#hintsarea",
             });
 
-            const perseusClass = "framework-perseus " +
-                (this.props.isMobile ? "perseus-xom-manatee" : "");
+            const isExercise = this.state.type === "question" ||
+                this.state.type === "hint";
+
+            const perseusClass = "framework-perseus fonts-loaded " +
+                (isExercise ? "bibliotron-exercise " : "bibliotron-article ") +
+                (this.props.isMobile ? "perseus-mobile" : "");
+
             if (this.state.type === "question") {
                 return <div
                     className={perseusClass}

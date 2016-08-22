@@ -608,7 +608,7 @@ var InteractiveGraph = React.createClass({
             gridStep
         );
 
-        const xomManatee = this.props.apiOptions.xomManatee;
+        const isMobile = this.props.apiOptions.isMobile;
         return <div className={"perseus-widget " +
                     "perseus-widget-interactive-graph"}
                     style={{
@@ -621,9 +621,9 @@ var InteractiveGraph = React.createClass({
                 box={box}
                 labels={this.props.labels}
                 range={this.props.range}
-                step={xomManatee ? [2, 2] : this.props.step}
+                step={isMobile ? [2, 2] : this.props.step}
                 gridStep={gridStep}
-                snapStep={xomManatee ? [1, 1] : snapStep}
+                snapStep={snapStep}
                 markings={this.props.markings}
                 backgroundImage={this.props.backgroundImage}
                 showProtractor={this.props.showProtractor}
@@ -631,7 +631,11 @@ var InteractiveGraph = React.createClass({
                 rulerLabel={this.props.rulerLabel}
                 rulerTicks={this.props.rulerTicks}
                 onMouseDown={onMouseDown}
-                onGraphieUpdated={this.setGraphie} />
+                onGraphieUpdated={this.setGraphie}
+                setDrawingAreaAvailable={
+                    this.props.apiOptions.setDrawingAreaAvailable}
+                isMobile={isMobile}
+            />
             {typeSelect}{extraOptions}
         </div>;
     },
@@ -708,11 +712,11 @@ var InteractiveGraph = React.createClass({
             this.setTrashCanVisibility(0.5);
         }
 
-        if (this.props.apiOptions.xomManatee) {
+        if (this.props.apiOptions.isMobile) {
             this.horizHairline =
                 new WrappedLine(this.graphie, [0, 0], [0, 0], {
                     normalStyle: {
-                        "stroke-width": "2px"
+                        strokeWidth: 1
                     }
                 });
             this.horizHairline.attr({
@@ -723,7 +727,7 @@ var InteractiveGraph = React.createClass({
             this.vertHairline =
                 new WrappedLine(this.graphie, [0, 0], [0, 0], {
                     normalStyle: {
-                        "stroke-width": "2px"
+                        strokeWidth: 1
                     }
                 });
             this.vertHairline.attr({
@@ -737,7 +741,7 @@ var InteractiveGraph = React.createClass({
     },
 
     showHairlines: function(point) {
-        if (this.props.apiOptions.xomManatee &&
+        if (this.props.apiOptions.isMobile &&
             this.props.markings !== "none") {
             // Hairlines are already initialized when the graph is loaded, so
             // here we just move them to the updated location and make them
@@ -759,7 +763,7 @@ var InteractiveGraph = React.createClass({
     },
 
     hideHairlines: function() {
-        if (this.props.apiOptions.xomManatee) {
+        if (this.props.apiOptions.isMobile) {
             this.horizHairline.hide();
             this.vertHairline.hide();
         }
@@ -773,7 +777,7 @@ var InteractiveGraph = React.createClass({
                 this.trashCan.remove();
                 this.trashCan = null;
             }
-        } else if (!this.props.apiOptions.xomManatee) {
+        } else if (!this.props.apiOptions.isMobile) {
             // Only if trash tooltips are not being used, we initialize the old
             // trash can area.
             if (!this.trashCan) {
@@ -812,38 +816,8 @@ var InteractiveGraph = React.createClass({
                 props.graph.numSides === UNLIMITED);
     },
 
-    _createPoint: function(extraProps) {
-        const xomManatee = this.props.apiOptions.xomManatee;
-
-        const commonStyle = xomManatee ? {
-            stroke: "#ffffff",
-            "stroke-width": "4px",
-            fill: KhanColors.INTERACTIVE,
-        }: {
-            stroke: KhanColors.INTERACTIVE,
-            fill: KhanColors.INTERACTIVE,
-        };
-
-        const normalStyle = Object.assign(commonStyle, extraProps.normalStyle);
-
-        const highlightStyle = Object.assign(xomManatee ? {
-            ...commonStyle,
-            scale: 1,
-        } : {}, extraProps.highlightStyle);
-
-        const props = Object.assign({
-            normalStyle: normalStyle,
-            highlightStyle: highlightStyle,
-            shadow: xomManatee,
-            tooltip: xomManatee && this.props.showTooltips,
-            showHairlines: this.showHairlines,
-            hideHairlines: this.hideHairlines,
-        }, xomManatee ? {pointSize: 11} : {});
-
-        return Interactive2.addMovablePoint(
-            this.graphie,
-            Object.assign(extraProps, props)
-        );
+    _lineStroke: function() {
+        return this.props.isMobile ? {"stroke-width": 3} : {};
     },
 
     addLine: function(type) {
@@ -855,7 +829,7 @@ var InteractiveGraph = React.createClass({
         );
 
         var points = self.points = _.map(coords, (coord) => {
-            return this._createPoint({
+            return Interactive2.addMaybeMobileMovablePoint(this, {
                 coord: coord,
                 constraints: [
                     Interactive2.MovablePoint.constraints.bound(),
@@ -872,7 +846,12 @@ var InteractiveGraph = React.createClass({
 
         var lineConfig = {
             points: points,
-            static: true
+            static: true,
+            normalStyle: {
+                stroke: this.props.apiOptions.isMobile ?
+                    KhanColors.BLUE_C : KhanColors.INTERACTIVE,
+                ...(this._lineStroke()),
+            },
         };
 
         if (type === "line") {
@@ -926,7 +905,7 @@ var InteractiveGraph = React.createClass({
             this.updateQuadratic();
         };
 
-        pointA = this.pointA = this._createPoint({
+        pointA = this.pointA = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coords[0],
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -939,7 +918,7 @@ var InteractiveGraph = React.createClass({
             onMove: onMoveHandler
         });
 
-        pointB = this.pointB = this._createPoint({
+        pointB = this.pointB = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coords[1],
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -952,7 +931,7 @@ var InteractiveGraph = React.createClass({
             onMove: onMoveHandler
         });
 
-        pointC = this.pointC = this._createPoint({
+        pointC = this.pointC = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coords[2],
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -984,7 +963,11 @@ var InteractiveGraph = React.createClass({
             this.parabola.attr({ path: path });
         } else {
             this.parabola = this.graphie.parabola(a, b, c);
-            this.parabola.attr({ stroke: KhanColors.DYNAMIC });
+            this.parabola.attr({
+                stroke: this.props.apiOptions.isMobile ?
+                    KhanColors.BLUE_C : KhanColors.DYNAMIC,
+                ...(this._lineStroke()),
+            });
             this.parabola.toBack();
         }
     },
@@ -1016,7 +999,7 @@ var InteractiveGraph = React.createClass({
             this.updateSinusoid();
         };
 
-        pointA = this.pointA = this._createPoint({
+        pointA = this.pointA = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coords[0],
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -1028,7 +1011,7 @@ var InteractiveGraph = React.createClass({
             onMove: onMoveHandler
         });
 
-        pointB = this.pointB = this._createPoint({
+        pointB = this.pointB = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coords[1],
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -1058,7 +1041,11 @@ var InteractiveGraph = React.createClass({
             this.sinusoid.attr({ path: path });
         } else {
             this.sinusoid = this.graphie.sinusoid(a, b, c, d);
-            this.sinusoid.attr({ stroke: KhanColors.DYNAMIC });
+            this.sinusoid.attr({
+                stroke: this.props.apiOptions.isMobile ?
+                    KhanColors.BLUE_C : KhanColors.DYNAMIC,
+                ...(this._lineStroke()),
+            });
             this.sinusoid.toBack();
         }
     },
@@ -1107,7 +1094,7 @@ var InteractiveGraph = React.createClass({
         var points = this.points = _.map(coords,
                 (segmentCoords, segmentIndex) => {
             var segmentPoints = _.map(segmentCoords, (coord, i) => {
-                return this._createPoint({
+                return Interactive2.addMaybeMobileMovablePoint(this, {
                     coord: coord,
                     constraints: [
                         Interactive2.MovablePoint.constraints.bound(),
@@ -1163,7 +1150,7 @@ var InteractiveGraph = React.createClass({
     },
 
     isCoordInTrash: function(coord) {
-        if (this.props.apiOptions.xomManatee) {
+        if (this.props.apiOptions.isMobile) {
             return false;
         }
 
@@ -1191,7 +1178,7 @@ var InteractiveGraph = React.createClass({
             setTimeout(point.remove.bind(point), 0);
         };
 
-        var point = this._createPoint({
+        var point = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coord,
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -1223,7 +1210,8 @@ var InteractiveGraph = React.createClass({
                     self.setTrashCanVisibility(0.5);
                 }
             },
-            ...(this.props.apiOptions.xomManatee ? {onRemove: remove} : {}),
+            ...(this.props.apiOptions.isMobile && self.isClickToAddPoints() ?
+                {onRemove: remove} : {}),
         });
 
         return point;
@@ -1507,7 +1495,7 @@ var InteractiveGraph = React.createClass({
             }
         };
 
-        var point = this._createPoint({
+        var point = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coord,
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -1526,7 +1514,7 @@ var InteractiveGraph = React.createClass({
                 }
             },
             onMoveEnd: onMoveEndHandler,
-            ...(this.props.apiOptions.xomManatee &&
+            ...(this.props.apiOptions.isMobile &&
                 this.isClickToAddPoints() ? {onRemove: remove} : {}),
         });
         point.state.isInitialMove = true;
@@ -1588,7 +1576,8 @@ var InteractiveGraph = React.createClass({
             this.props
         );
 
-        const createPoint = this._createPoint;
+        const createPoint = (options) =>
+            Interactive2.addMaybeMobileMovablePoint(this, options);
 
         this.points = [];
         this.lines = _.map(coords, function(segment, i) {
@@ -1631,10 +1620,14 @@ var InteractiveGraph = React.createClass({
                     updateCoordProps
                 ],
                 normalStyle: {
-                    stroke: KhanColors.INTERACTIVE
+                    stroke: this.props.apiOptions.isMobile ?
+                        KhanColors.BLUE_C : KhanColors.INTERACTIVE,
+                    ...(this._lineStroke()),
                 },
                 highlightStyle: {
-                    stroke: KhanColors.INTERACTING
+                    stroke: this.props.apiOptions.isMobile ?
+                        KhanColors.BLUE_C : KhanColors.INTERACTING,
+                    ...(this._lineStroke()),
                 }
             });
             _.invoke(points, "toFront");
@@ -1744,7 +1737,12 @@ var InteractiveGraph = React.createClass({
                             self.updateCoordsFromPoints();
                         }
                     }
-                ]
+                ],
+                normalStyle: {
+                    stroke: this.props.apiOptions.isMobile ?
+                        KhanColors.BLUE_C : KhanColors.INTERACTIVE,
+                    ...(this._lineStroke()),
+                }
             });
         } else {
             // We only need to pass in the properties that might've changed

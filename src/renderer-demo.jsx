@@ -36,11 +36,19 @@ const RendererDemo = React.createClass({
         return {
             // Matches ItemRenderer.showInput
             answer: { empty: true, correct: null },
+            scratchpadEnabled: true,
+            isMobile: navigator.userAgent.indexOf('Mobile') !== -1,
         };
     },
 
     componentDidMount: function() {
         ReactDOM.findDOMNode(this.refs.itemRenderer).focus();
+
+        window.addEventListener('resize', this._handleResize);
+    },
+
+    componentWillUnmount: function() {
+        window.removeEventListener('resize', this._handleResize);
     },
 
     onScore: function() {
@@ -55,16 +63,27 @@ const RendererDemo = React.createClass({
         this.refs.itemRenderer.showHint();
     },
 
+    _handleResize() {
+        const isMobile = navigator.userAgent.indexOf('Mobile') !== -1;
+        if (this.state.isMobile !== isMobile) {
+            this.setState({isMobile});
+        }
+    },
+
     render: function() {
-        const xomManatee = !!localStorage.xomManatee;
+        const {isMobile} = this.state;
 
         const apiOptions = {
-            responsiveStyling: true,
             getAnotherHint: () => {
                 this.refs.itemRenderer.showHint();
             },
-            xomManatee,
-            customKeypad: xomManatee,
+            isMobile,
+            customKeypad: isMobile,
+            setDrawingAreaAvailable: (enabled) => {
+                this.setState({
+                    scratchpadEnabled: enabled,
+                });
+            },
         };
 
         const rendererComponent = <ItemRenderer
@@ -72,12 +91,6 @@ const RendererDemo = React.createClass({
             ref="itemRenderer"
             problemNum={this.props.problemNum}
             initialHintsVisible={0}
-            enabledFeatures={{
-                highlight: true,
-                toolTipFormats: true,
-                newHintStyles: true,
-                useMathQuill: true,
-            }}
             apiOptions={apiOptions}
         />;
 
@@ -97,10 +110,10 @@ const RendererDemo = React.createClass({
             />
         </div>;
 
-        const scratchpadEnabled = Khan.scratchpad.enabled;
+        const scratchpadEnabled = this.state.scratchpadEnabled;
 
-        if (xomManatee) {
-            const className = "framework-perseus " + ApiClassNames.XOM_MANATEE;
+        if (isMobile) {
+            const className = "framework-perseus " + ApiClassNames.MOBILE;
             return <div className={className}>
                 <div className={css(styles.problemAndAnswer)}>
                     {rendererComponent}
