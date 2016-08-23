@@ -126,7 +126,7 @@ function deleteSelection(draftData) {
         newData.editorState = EditorState.push(
             data.editorState,
             newData.contentState,
-            'delete-word'
+            'remove-range'
         );
     }
 
@@ -367,13 +367,34 @@ const _surroundWithText = (contentState, block, left, right, text) => {
     return content;
 };
 
+const _clearSurrounding = (contentState, block, left, right, text) => {
+    let area = _createEmptySelection(block);
+    let content = contentState;
+    area = area.merge({anchorOffset: right - text.length, focusOffset: right});
+    content = Modifier.removeRange(content, area);
+
+    area = area.merge({anchorOffset: left, focusOffset: left + text.length});
+    content = Modifier.removeRange(content, area);
+
+    return content;
+};
+
 function decorateSelection(draftData, decoration) {
     const data = _fillData(draftData);
-    const newData = {...data};
+    const newData = {};
 
     const {contentState, selection} = data;
     const blocks = _getBlocksForSelection(contentState, selection);
-    // const decoratedBlocks = blocks.map((block) => {
+
+    // If all the blocks are already surrounded by the decoration, we must
+    // instead be disabling the decoration.  To do this without duplicating
+    // code, two copies are made, one as if we were decorating, and another
+    // as if we were removing a decoration.  If it was the case that all
+    // the selected text was already decorated, we use the version which
+    // removed all decoration, otherwise we use the newly decorated one
+    let allSurrounded = true;
+    let decorated = data.contentState;
+    let undecorated = data.contentState;
     blocks.forEach((block) => {
         let leftOffset = 0;
         let rightOffset = block.getLength();
@@ -389,27 +410,48 @@ function decorateSelection(draftData, decoration) {
             return;
         }
 
-        newData.contentState = _surroundWithText(
-            newData.contentState, block, leftOffset, rightOffset, decoration
+        // Check if we are undecorating
+        const selectedStr = block.getText().substring(leftOffset, rightOffset);
+        if (!allSurrounded
+                || !selectedStr.endsWith(decoration)
+                || !selectedStr.startsWith(decoration)) {
+            allSurrounded = false;
+        } else {
+            undecorated = _clearSurrounding(
+                undecorated, block, leftOffset, rightOffset, decoration
+            );
+        }
+
+        // Decorate the decorated version
+        decorated = _surroundWithText(
+            decorated, block, leftOffset, rightOffset, decoration
         );
     });
+
+    if (allSurrounded) {
+        newData.contentState = undecorated;
+    } else {
+        newData.contentState = decorated;
+    }
 
     // blockMap = BlockMapBuilder.createFromArray(blocks);
     if (data.editorState) {
         newData.editorState = EditorState.push(
             data.editorState,
             newData.contentState,
-            'insert-characters'
+            allSurrounded ? 'remove-range' : 'insert-characters'
         );
 
-        // Place the selection after the end of the added decorations
-        // and have it be collapsed
-        const newKey = selection.getEndKey();
-        const newOffset = selection.getEndOffset() + (decoration.length * 2);
+        // Shift the selection to deal with the added/removed characters
+        let newEndOffset = selection.getEndOffset();
+        if (newEndOffset > 0) { // If not ending on an empty block (no-ops)
+            const change = allSurrounded ? -2 : 2;
+            newEndOffset += change * decoration.length;
+        }
 
+        const end = selection.getIsBackward() ? 'anchor' : 'focus';
         const newSelection = selection.merge({
-            focusKey: newKey, anchorKey: newKey,
-            focusOffset: newOffset, anchorOffset: newOffset,
+            [`${end}Offset`]: newEndOffset,
         });
         newData.editorState = EditorState.forceSelection(
             newData.editorState,
