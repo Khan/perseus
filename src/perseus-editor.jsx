@@ -302,11 +302,10 @@ const PerseusEditor = React.createClass({
         return [id, widget];
     },
 
-    addWidget(type, callback = () => {}) {
-        this._handleChange(
-            this._insertNewWidget(type),
-            callback
-        );
+    addWidget(type) {
+        this.focus(() => this._handleChange(
+            this._insertNewWidget(type)
+        ));
     },
 
     _insertNewWidget(type, draftDataParams) {
@@ -320,7 +319,7 @@ const PerseusEditor = React.createClass({
         const newDraftData = this._insertWidgetText(draftData, id);
 
         return {
-            ...newDraftData,
+            editorState: newDraftData.editorState,
             widgets: newWidgets,
         };
     },
@@ -342,17 +341,25 @@ const PerseusEditor = React.createClass({
     // This function only removes the widget from the content, and then
     // handleChange handles removing widgets from the state, as widgets
     // can also be deleted by editor actions such as backspace and delete
-    removeWidget(id, callback) {
-        const {editorState, contentState} = this._getDraftData();
-        const selection = DraftUtils.findPattern(contentState, widgetRegexForId(id)); //eslint-disable-line max-len
-        const newDraftData = DraftUtils.deleteSelection(
-            {editorState, selection}
-        );
+    removeWidget(id) {
+        this.focus(() => {
+            const {editorState, contentState} = this._getDraftData();
+            const selection = DraftUtils.findPattern(contentState, widgetRegexForId(id)); //eslint-disable-line max-len
+            const newDraftData = DraftUtils.deleteSelection(
+                {editorState, selection}
+            );
 
-        this._handleChange({editorState: newDraftData.editorState}, callback);
+            this._handleChange({editorState: newDraftData.editorState});
+        });
     },
 
     addTemplate(templateType) {
+        this.focus(() => {
+            this._addTemplate(templateType);
+        });
+    },
+
+    _addTemplate(templateType) {
         let {editorState, contentState, selection} = this._getDraftData();
 
         const widgets = {...this.state.widgets};
@@ -423,7 +430,7 @@ const PerseusEditor = React.createClass({
                 {editorState, contentState, selection}, `\n${template}\n`
             ).editorState;
         }
-        this._handleChange({editorState});
+        this._handleChange({editorState, widgets});
     },
 
     _handleCopy() {
@@ -691,7 +698,7 @@ const PerseusEditor = React.createClass({
 
     pastContentState: null,
     lastIdleCallback: null,
-    _handleChange(newState, callback) {
+    _handleChange(newState) {
         const state = {...this.state, ...newState};
         const widgets = state.widgets;
         let editorState = state.editorState;
@@ -722,16 +729,28 @@ const PerseusEditor = React.createClass({
         }
 
         this.pastContentState = newContent;
-        this.setState({editorState, widgets}, callback);
+        this.setState({editorState, widgets});
     },
 
-    focus() {
+    // HACK: There are currently serious Draft.js bugs related to mutating the
+    //       editorState when it is not in focus, then pressing undo.  This
+    //       workaround uses a callback parameter to run code after the
+    //       editorState has been updated to be in focus, that way functions
+    //       such as addWidget will not bring up serious issues when undone
+    focus(callback) {
         this.editor.focus();
+        let editorState = this.state.editorState;
+        editorState = EditorState.set(editorState, {
+            selection: editorState.getSelection().set('hasFocus', true),
+            forceSelection: true,
+        });
+        this.setState({editorState}, callback);
     },
 
     render() {
         return <div
             onCopy={this._handleCopy}
+            onCut={this._handleCopy}
             onDragStart={this._handleCopy}
             style={{
                 fontSize: `${this.state.fontSizePercentage}%`,
