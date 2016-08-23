@@ -751,7 +751,7 @@ var Editor = React.createClass({
         var textarea = this.refs.textarea;
 
         if (ENABLE_DRAFT_EDITOR) {
-            textarea.addWidget(widgetType, () => textarea.focus());
+            textarea.addWidget(widgetType);
         } else {
             this._addWidgetToContent(
                 this.props.content,

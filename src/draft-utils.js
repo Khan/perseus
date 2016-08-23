@@ -55,6 +55,10 @@ const _fillData = (draftData) => {
     return newData;
 };
 
+const _createEmptySelection = (block) => {
+    return SelectionState.createEmpty(block.getKey()).set('hasFocus', true);
+};
+
 function regexStrategy(contentBlock, callback, regex, parser) {
     const text = contentBlock.getText();
     let matchArr;
@@ -77,7 +81,7 @@ function findPattern(contentState, regExp) {
     for (const block of blocks) {
         const match = regExp.exec(block.getText());
         if (match !== null) {
-            const base = SelectionState.createEmpty(block.getKey());
+            const base = _createEmptySelection(block);
             const selection = base.merge({
                 anchorOffset: match.index,
                 focusOffset: match.index + match[0].length,
@@ -198,7 +202,7 @@ function findEntity(contentState, filter) {
             char => char.getEntity() !== null
                     && filter(Entity.get(char.getEntity())),
             (start, end) => {
-                const base = SelectionState.createEmpty(block.getKey());
+                const base = _createEmptySelection(block);
                 selection = base.merge({
                     anchorOffset: start,
                     focusOffset: end,
@@ -271,7 +275,7 @@ function insertText(draftData, rawText, sanitizer = () => null) {
 }
 
 function selectEnd(block) {
-    const emptySelection = SelectionState.createEmpty(block.getKey());
+    const emptySelection = _createEmptySelection(block);
     const newSelection = emptySelection.merge({
         focusOffset: block.getCharacterList().size,
         anchorOffset: block.getCharacterList().size,
@@ -351,7 +355,7 @@ function snapSelectionOutsideEntities(draftData, prevSelection) {
 }
 
 const _surroundWithText = (contentState, block, left, right, text) => {
-    let area = SelectionState.createEmpty(block.getKey());
+    let area = _createEmptySelection(block);
     let content = contentState;
 
     area = area.merge({anchorOffset: right, focusOffset: right});
@@ -415,7 +419,6 @@ function decorateSelection(draftData, decoration) {
 
     return newData;
 }
-
 
 module.exports = {
     regexStrategy,
