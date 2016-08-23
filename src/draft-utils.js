@@ -283,19 +283,17 @@ function selectEnd(block) {
     return newSelection;
 }
 
-
-const _canEditOffset = (contentBlock, offset) => {
-
-    const isOffsetAnEntity = (contentBlock, offset) => {
-        const key = contentBlock.getEntityAt(offset);
-        return !key || Entity.get(key).mutability !== 'IMMUTABLE';
-    };
-
-    // A position is only uneditable if both characters to the
-    // left and right are immutable entities
-    return offset === 0
-            || isOffsetAnEntity(contentBlock, offset - 1)
-            || isOffsetAnEntity(contentBlock, offset);
+// An offset is editable if it is not inside an immutable entity
+const _canEditOffset = (block, offset) => {
+    if (offset === 0 || offset === block.getLength()) {
+        return true;
+    }
+    const leftKey = block.getEntityAt(offset - 1);
+    const rightKey = block.getEntityAt(offset);
+    const isImmutableEntity = rightKey ?
+                                Entity.get(rightKey).mutability === 'IMMUTABLE'
+                                : false; // false if not an entity at all
+    return !(isImmutableEntity && (leftKey === rightKey));
 };
 
 const _getSkippedOffset = (contentBlock, startOffset, step) => {
