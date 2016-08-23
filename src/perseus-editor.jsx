@@ -256,11 +256,10 @@ const PerseusEditor = React.createClass({
             }
         });
 
-        // The third parameter allows the editor to know what should be done
-        // during undo/redo.  An "apply-entity" action should not be added to
-        // the undo stack, however an "insert-characters" action should
+        // EditorState.set is used rather than push, because no state should
+        // be added to the undo stack.
         const withEntity =
-            EditorState.push(editorState, content, 'apply-entity');
+            EditorState.set(editorState, {currentContent: content});
 
         // Applying entity causes it to be selected, so we reset the selection
         const firstBlock = withEntity.getCurrentContent().getFirstBlock();
