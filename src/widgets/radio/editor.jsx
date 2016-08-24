@@ -140,6 +140,7 @@ var RadioEditor = React.createClass({
                 ref="baseRadio"
                 multipleSelect={this.props.multipleSelect}
                 onePerLine={true}
+                editMode={true}
                 labelWrap={false}
                 apiOptions={this.props.apiOptions}
                 choices={this.props.choices.map(function(choice, i) {

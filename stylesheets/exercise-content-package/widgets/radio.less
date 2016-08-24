@@ -1,10 +1,12 @@
 @import "../util.less";
 
 .perseus-widget-radio {
-    div,
-    div > p {
-        /* TODO(alpert): Find a better way of doing inline renderers */
-        display: inline;
+    &.perseus-rendered-radio {
+        div,
+        div > p {
+            /* TODO(alpert): Find a better way of doing inline renderers */
+            display: inline;
+        }
     }
 
     .unresponsive-svg-image div, .svg-image div {

@@ -29,6 +29,13 @@ const focusedStyleMixin = {
     zIndex: 1,
 };
 
+const ConditionalLabel = (props) => {
+    const {isLabel, children, ...other} = props; //eslint-disable-line react/prop-types
+    return isLabel ?
+        <label {...other}>{children}</label>
+        : <div {...other}>{children}</div>;
+};
+
 const Choice = React.createClass({
     propTypes: {
         // TODO(kevinb) use Options.propTypes from perseus-api.jsx
@@ -46,6 +53,7 @@ const Choice = React.createClass({
         correct: React.PropTypes.bool,
         deselectEnabled: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
+        editMode: React.PropTypes.bool,
         groupName: React.PropTypes.string,
         isLastChoice: React.PropTypes.bool, // Needed for border styling
         onChecked: React.PropTypes.func.isRequired,
@@ -281,6 +289,7 @@ const Choice = React.createClass({
             checked: false,
             classSet: {},
             disabled: false,
+            editMode: false,
             showClue: false,
             type: 'radio',
             pos: 0,
@@ -473,7 +482,8 @@ const Choice = React.createClass({
                 sat && (this.props.checked || this.state.isInputActive)
                     && styles.satPosChecked);
 
-        return <label
+        return <ConditionalLabel
+            isLabel={!this.props.editMode}
             className={className}
             style={{opacity: !sat && this.props.disabled ? 0.5 : 1.0}}
         >
@@ -521,7 +531,7 @@ const Choice = React.createClass({
                         {this.props.clue}
                     </div>}
             </div>
-        </label>;
+        </ConditionalLabel>;
     },
 });
 
