@@ -86,6 +86,7 @@ const BaseRadio = React.createClass({
         }),
         choices: ChoicesType,
         deselectEnabled: React.PropTypes.bool,
+        editMode: React.PropTypes.bool,
         labelWrap: React.PropTypes.bool,
         multipleSelect: React.PropTypes.bool,
         onCheckedChange: React.PropTypes.func,
@@ -218,6 +219,7 @@ const BaseRadio = React.createClass({
     getDefaultProps: function() {
         return {
             onePerLine: true,
+            editMode: false,
         };
     },
 
@@ -284,6 +286,7 @@ const BaseRadio = React.createClass({
 
         const className = classNames(
             "perseus-widget-radio",
+            !this.props.editMode && "perseus-rendered-radio",
             css(
                 sharedStyles.aboveScratchpad,
                 // With the responsive mobile styles, the individual items are
@@ -338,6 +341,7 @@ const BaseRadio = React.createClass({
                         clue: choice.clue,
                         content: choice.content,
                         disabled: this.props.apiOptions.readOnly,
+                        editMode: this.props.editMode,
                         groupName: radioGroupName,
                         isLastChoice: i === this.props.choices.length - 1,
                         showClue: reviewModeClues,

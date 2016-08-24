@@ -261,13 +261,7 @@ const PerseusEditor = React.createClass({
         const withEntity =
             EditorState.set(editorState, {currentContent: content});
 
-        // Applying entity causes it to be selected, so we reset the selection
-        const firstBlock = withEntity.getCurrentContent().getFirstBlock();
-        const withNoSelection = EditorState.forceSelection(
-            withEntity,
-            SelectionState.createEmpty(firstBlock)
-        );
-        return withNoSelection;
+        return withEntity;
     },
 
     _getDraftData() {
