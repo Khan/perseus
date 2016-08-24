@@ -205,23 +205,30 @@ const PerseusEditor = React.createClass({
         initialWidgets: React.PropTypes.any,
         placeholder: React.PropTypes.string,
         imageUploader: React.PropTypes.func,
+        widgetEnabled: React.PropTypes.bool,
     },
 
     getDefaultProps: () => ({
         onChange: () => {},
         content: '',
         initialWidgets: {},
+        widgetEnabled: true,
         placeholder: 'Type here',
     }),
 
     getInitialState() {
-        const {content, initialWidgets} = this.props;
+        const {content, initialWidgets, widgetEnabled} = this.props;
         const contentState = ContentState.createFromText(content);
-        const editorState =
-            this._insertWidgetsAsEntities(
-                EditorState.createWithContent(contentState, decorator),
+        let editorState =
+            EditorState.createWithContent(contentState, decorator);
+
+        if (widgetEnabled) {
+            editorState = this._insertWidgetsAsEntities(
+                editorState,
                initialWidgets
             );
+        }
+
         return {
             editorState,
             widgets: initialWidgets,
@@ -594,7 +601,7 @@ const PerseusEditor = React.createClass({
         // isCollapsed means that there is no active selection, its just
         // a blinking cursor.  For the SelectionState object, this
         // essentially means that anchorOffset === focusOffset
-        if (!selection.isCollapsed()) {
+        if (!selection.isCollapsed() || !this.props.widgetEnabled) {
             return;
         }
         e.preventDefault();

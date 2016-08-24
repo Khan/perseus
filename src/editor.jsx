@@ -1028,6 +1028,7 @@ var Editor = React.createClass({
                 placeholder={this.props.placeholder}
                 initialWidgets={this.props.widgets}
                 imageUploader={this.props.imageUploader}
+                widgetEnabled={this.props.widgetEnabled}
             />;
         }
         var textareaWrapper;
