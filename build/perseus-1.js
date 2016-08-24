@@ -1,6 +1,6 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit f2f5cb831440770927e0ee231221119fe0854ca4
-// branch translate_0815
+// commit e9357b7d3abacc7197311855eb29616d3d2e18c5
+// branch widget-imgurl-renew-when-save
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
 Software License Agreement (BSD License)
@@ -4336,6 +4336,7 @@ var NumberInput = require("../components/number-input.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var RangeInput = require("../components/range-input.jsx");
 var Util = require("../util.js");
+var BlurInput = require("react-components/blur-input");
 
 var defaultBoxSize = 400;
 var defaultBackgroundImage = {
@@ -4447,12 +4448,8 @@ var GraphSettings = React.createClass({displayName: 'GraphSettings',
             React.DOM.div( {className:"image-settings"}, 
                 React.DOM.div(null, "背景圖:"),
                 React.DOM.div(null, "Url:",' ',
-                    React.DOM.input( {type:"text",
-                            className:"graph-settings-background-url",
-                            ref:"bg-url",
-                            defaultValue:this.props.backgroundImage.url,
-                            onKeyPress:this.changeBackgroundUrl,
-                            onBlur:this.changeBackgroundUrl} ),
+                    BlurInput(  {value:this.props.backgroundImage.url,
+                                onChange:this.changeBackgroundUrl}),
                     InfoTip(null, 
                         React.DOM.p(null, "請在圖形中增加圖片，或於欄中輸入圖片連結。")
                     )
@@ -4728,36 +4725,26 @@ var GraphSettings = React.createClass({displayName: 'GraphSettings',
         }
     },
 
-    changeBackgroundUrl: function(e) {
-        var self = this;
+    setUrl: function(url, width, height) {
+        var image = _.clone(this.props.backgroundImage);
+        image.url = url;
+        image.width = width;
+        image.height = height;
+        this.props.onChange({
+            backgroundImage: image,
+            markings: url ? "none" : "graph"
+        });
+    },
 
-        // Only continue on blur or "enter"
-        if (e.type === "keypress" && e.keyCode !== 13) {
-            return;
-        }
-
-        var url = self.refs["bg-url"].getDOMNode().value;
-        var setUrl = function() {
-            var image = _.clone(self.props.backgroundImage);
-            image.url = url;
-            image.width = img.width;
-            image.height = img.height;
-            self.props.onChange({
-                backgroundImage: image,
-                markings: url ? "none" : "graph"
-            });
-        };
+    changeBackgroundUrl: function(url) {
         if (url) {
-            var img = new Image();
-            img.onload = setUrl;
-            img.src = url;
+            if(this.props.backgroundImage.url != url){
+                var img = new Image();
+                img.onload = function()  {return this.setUrl(url, img.width, img.height);}.bind(this);
+                img.src = url;
+            }
         } else {
-            var img = {
-                url: url,
-                width: 0,
-                height: 0
-            };
-            setUrl();
+            this.setUrl(url,0,0);
         }
     },
 
@@ -4780,7 +4767,7 @@ var GraphSettings = React.createClass({displayName: 'GraphSettings',
 
 module.exports = GraphSettings;
 
-},{"../components/number-input.jsx":61,"../components/prop-check-box.jsx":62,"../components/range-input.jsx":63,"../mixins/changeable.jsx":91,"../util.js":100,"react":45,"react-components/button-group":37,"react-components/info-tip":39}],54:[function(require,module,exports){
+},{"../components/number-input.jsx":61,"../components/prop-check-box.jsx":62,"../components/range-input.jsx":63,"../mixins/changeable.jsx":91,"../util.js":100,"react":45,"react-components/blur-input":36,"react-components/button-group":37,"react-components/info-tip":39}],54:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -18848,7 +18835,7 @@ var MeasurerEditor = React.createClass({displayName: 'MeasurerEditor',
                 React.DOM.input( {type:"text",
                         className:"perseus-widget-measurer-url",
                         ref:"image-url",
-                        defaultValue:image.url,
+                        value:image.url,
                         onChange:this._changeUrl} ),
             InfoTip(null, 
                 React.DOM.p(null, "插入圖片的連結網址。例如，先將圖片上傳至 http://imgur.com ，再分享其圖片網址 (Direct Link)。 " )
