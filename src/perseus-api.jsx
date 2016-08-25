@@ -104,6 +104,9 @@ module.exports = {
             // drawing area (scratchpad) should be allowed/disallowed.
             // Previously handled by `Khan.scratchpad.enable/disable`
             setDrawingAreaAvailable: React.PropTypes.func,
+
+            // Whether to use the Draft.js editor or the legacy textarea
+            useDraftEditor: React.PropTypes.bool,
         }).isRequired,
 
         defaults: {
@@ -123,6 +126,7 @@ module.exports = {
                 },
             },
             setDrawingAreaAvailable: function() { },
+            useDraftEditor: true,
         },
     },
     ClassNames: {

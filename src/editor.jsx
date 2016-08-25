@@ -23,7 +23,6 @@ var preprocessTex = require("./util/katex-preprocess.js");
 
 
 var PerseusEditor = require("./perseus-editor.jsx");
-const ENABLE_DRAFT_EDITOR = true;
 
 var WIDGET_PROP_BLACKLIST = require("./mixins/widget-prop-blacklist.jsx");
 
@@ -322,6 +321,17 @@ var imageUrlsFromContent = function(content) {
     );
 };
 
+
+/**
+ * NOTE: This Editor class contains a ton of legacy logic which is not used,
+ *        as a rewrite using Draft.js was implemented in perseus-editor.jsx.
+ *        This code remains as a backup in case bugs in the rewrite block
+ *        content creators.
+ *        If you are going to make Editor changes, you likely want to navigate
+ *        to perseus-editor.jsx
+ * TODO: Clear out all the textarea code and replace with Draft.js once we are
+ *       comfortable that it is working well consistently
+ */
 var Editor = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
@@ -368,7 +378,7 @@ var Editor = React.createClass({
     _handleWidgetEditorChange: function(id, newProps, cb, silent) {
         var widgets = _.clone(this.props.widgets);
         widgets[id] = _.extend({}, widgets[id], newProps);
-        if (ENABLE_DRAFT_EDITOR) {
+        if (this.props.apiOptions.useDraftEditor) {
             this.refs.textarea.updateWidget(id, newProps);
         }
         this.props.onChange({widgets: widgets}, cb, silent);
@@ -376,7 +386,7 @@ var Editor = React.createClass({
 
     _handleWidgetEditorRemove: function(id) {
         const textarea = this.refs.textarea;
-        if (ENABLE_DRAFT_EDITOR) {
+        if (this.props.apiOptions.useDraftEditor) {
             textarea.removeWidget(id);
         } else {
             const re = new RegExp(widgetRegExp.replace('{id}', id), 'gm');
@@ -433,7 +443,7 @@ var Editor = React.createClass({
         // setState
         this._sizeImages(this.props);
 
-        if (!ENABLE_DRAFT_EDITOR) {
+        if (!this.props.apiOptions.useDraftEditor) {
             $(ReactDOM.findDOMNode(this.refs.textarea))
             .on('copy cut', this._maybeCopyWidgets)
             .on('paste', this._maybePasteWidgets);
@@ -453,7 +463,7 @@ var Editor = React.createClass({
     },
 
     handleDrop: function(e) {
-        if (ENABLE_DRAFT_EDITOR) {
+        if (this.props.apiOptions.useDraftEditor) {
             return;
         }
         var content = this.props.content;
@@ -750,7 +760,7 @@ var Editor = React.createClass({
     _addWidget: function(widgetType) {
         var textarea = this.refs.textarea;
 
-        if (ENABLE_DRAFT_EDITOR) {
+        if (this.props.apiOptions.useDraftEditor) {
             textarea.addWidget(widgetType);
         } else {
             this._addWidgetToContent(
@@ -762,6 +772,9 @@ var Editor = React.createClass({
         }
     },
 
+    // NOTE: These templates are all duplicated verbatim in perseus-editor.jsx
+    //        so any changes should also be done there, until this code is all
+    //        deleted in favor of perseus-editor.jsx
     addTemplate: function(e) {
         var templateType = e.target.value;
         if (templateType === "") {
@@ -769,7 +782,7 @@ var Editor = React.createClass({
         }
         e.target.value = "";
 
-        if (ENABLE_DRAFT_EDITOR) {
+        if (this.props.apiOptions.useDraftEditor) {
             this.refs.textarea.addTemplate(templateType);
             return;
         }
@@ -1020,7 +1033,7 @@ var Editor = React.createClass({
             />,
         ];
 
-        if (ENABLE_DRAFT_EDITOR) {
+        if (this.props.apiOptions.useDraftEditor) {
             completeTextarea = <PerseusEditor
                 ref="textarea"
                 onChange={this.props.onChange}
