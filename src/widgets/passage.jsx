@@ -140,6 +140,7 @@ const Passage = React.createClass({
         if (anchorNode === focusNode) {
             return anchorOffset < focusOffset;
         } else {
+            // Does anchorNode come before the focusNode in the document?
             return anchorNode.compareDocumentPosition(focusNode) === 4;
         }
     },
