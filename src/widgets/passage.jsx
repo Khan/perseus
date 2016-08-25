@@ -138,9 +138,12 @@ const Passage = React.createClass({
      */
     isAnchorFirst: function(anchorNode, focusNode, anchorOffset, focusOffset) {
         if (anchorNode === focusNode) {
+            // If the selection is contained in one node, does the anchor point
+            // come before the focus point?
             return anchorOffset < focusOffset;
         } else {
-            // Does anchorNode come before the focusNode in the document?
+            // If the selection spans multiple nodes, does anchorNode come
+            // before focusNode in the document?
             return anchorNode.compareDocumentPosition(focusNode) === 4;
         }
     },
