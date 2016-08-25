@@ -132,22 +132,63 @@ const Passage = React.createClass({
         this.forceUpdate();
     },
 
-    getSelectionRange: function(selection) {
+    /**
+     * Returns true if the selection anchor is before the selection focus in
+     * the passage
+     */
+    isAnchorFirst: function(anchorNode, focusNode, anchorOffset, focusOffset) {
+        if (anchorNode === focusNode) {
+            return anchorOffset < focusOffset;
+        } else {
+            return anchorNode.compareDocumentPosition(focusNode) === 4;
+        }
+    },
+
+    sortIndices: function(selection) {
         const anchorIndex = this.getSelectionIndex(selection, "anchor");
         const focusIndex = this.getSelectionIndex(selection, "focus");
-        let selectionStartIndex = Math.min(anchorIndex, focusIndex);
-        let selectionEndIndex = Math.max(anchorIndex, focusIndex);
-        const selectedText = selection.toString();
+        const anchorNode = selection.anchorNode;
+        const focusNode = selection.focusNode;
+        const anchorOffset = selection.anchorOffset;
+        const focusOffset = selection.focusOffset;
+        if (this.isAnchorFirst(
+                anchorNode, focusNode, anchorOffset, focusOffset)) {
+            return {selectionStartIndex: anchorIndex,
+                    selectionEndIndex: focusIndex,
+                    startNode: anchorNode,
+                    endNode: focusNode,
+                    startNodeOffset: anchorOffset,
+                    endNodeOffset: focusOffset};
+        } else {
+            return {selectionStartIndex: focusIndex,
+                    selectionEndIndex: anchorIndex,
+                    startNode: focusNode,
+                    endNode: anchorNode,
+                    startNodeOffset: focusOffset,
+                    endNodeOffset: anchorOffset};
+        }
+    },
 
-        if (anchorIndex === null || focusIndex === null) {
+    getSelectionRange: function(selection) {
+        const selectionOrderObject = this.sortIndices(selection);
+        let {selectionStartIndex, selectionEndIndex} = selectionOrderObject;
+        const {startNode, endNode, startNodeOffset, endNodeOffset} =
+            selectionOrderObject;
+
+        if (selectionStartIndex === null || selectionEndIndex === null) {
             return null;
         }
 
-        //Prevents selecting a space from highlighting both surrounding words.
-        if (selectedText.charAt(0) === " ") {
+        // Prevents selecting a space from highlighting both surrounding words.
+        // Using selection.toString() would be preferable but it is buggy in
+        // Chrome (08/2016). When selecting the last char of a line it adds a
+        // space.
+        if (startNode.textContent.charAt(startNodeOffset) === " " &&
+                selectionEndIndex > selectionStartIndex) {
             selectionStartIndex += 1;
         }
-        if (selectedText.charAt(selectedText.length - 1) === " ") {
+        if (endNode.textContent.charAt(endNodeOffset - 1) === " " &&
+                selectionEndIndex > selectionStartIndex) {
             selectionEndIndex -= 1;
         }
 
