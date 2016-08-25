@@ -63,7 +63,7 @@ const imageRegExp = /!\[[^]*]*?\]\([^)*].*?\)/g;
 //       work when nesting bold/italics/underline.  Hopefully this is
 //       fixed in future versions of Draft.js
 const boldRegExp = /\*\*([\s\S]+?)\*\*(?!\*)/g;
-const italicsRegExp = /\**(?:^|[^*])(\*(\w+(\s\w+)*)\*)/g; // copied from https://github.com/ayberkt/RFMarkdownTextView/blob/387312e602f03b87f3ef82dc82c62df455d6fd30/RFMarkdownTextView/RFMarkdownSyntaxStorage.m  eslint-disable-line max-len
+const italicsRegExp = /\**(?:^|[^*])((\*|_)(\w+(\s\w+)*)\2)/g; // copied from https://github.com/ayberkt/RFMarkdownTextView/blob/387312e602f03b87f3ef82dc82c62df455d6fd30/RFMarkdownTextView/RFMarkdownSyntaxStorage.m  eslint-disable-line max-len
 const boldItalicsRegExp = /(\*\*\*\w+(\s\w+)*\*\*\*)/g;
 const underlineRegExp = /__([\s\S]+?)__(?!_)/g;
 const headerRegExp = /^ *(#{1,6})([^\n]+)$/g;
@@ -166,8 +166,8 @@ const decorator = new CompositeDecorator([
     regexColorDecorator(imageRegExp, '#dffdfa'),
     boldItalicsDecorator,
     boldDecorator,
-    italicsDecorator,
     underlineDecorator,
+    italicsDecorator,
     headerDecorator,
 ]);
 
