@@ -34,7 +34,6 @@ const {
     CompositeDecorator,
     ContentState,
     Modifier,
-    SelectionState,
     genKey,
     getDefaultKeyBinding,
     KeyBindingUtil,
@@ -58,7 +57,7 @@ const widgetPartsRegExp = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]$/;
 const widgetRegexForId = (id) => new RegExp(`(\\[\\[\u2603 ${id}\\]\\])`, 'gm');
 const partialWidgetRegex = /\[\[([a-z-]+)$/; // Used for autocompletion
 
-const imageRegExp = /!\[[^]]*?\]\([^)].*?\)/g;
+const imageRegExp = /!\[[^]*]*?\]\([^)*].*?\)/g;
 
 // Note: Nested decorators currently do not work, therefore this will not
 //       work when nesting bold/italics/underline.  Hopefully this is
@@ -571,11 +570,16 @@ const PerseusEditor = React.createClass({
 
             // Begin uploading the image, and update the link once complete
             this.props.imageUploader(image, url => {
-                const currContent = this.state.editorState.getCurrentContent();
+                const currEditor = this.state.editorState;
+                const currContent = currEditor.getCurrentContent();
                 const placeholderLocation = DraftUtils.findEntity(
                     currContent, c => c.getData().id === id);
                 const newDraftData = DraftUtils.replaceSelection(
-                    {contentState: currContent, selection: placeholderLocation},
+                    {
+                        editorState: currEditor,
+                        contentState: currContent,
+                        selection: placeholderLocation,
+                    },
                     `![](${url})`
                 );
                 this._handleChange({editorState: newDraftData.editorState});
