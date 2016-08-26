@@ -51,29 +51,29 @@ var formExamples = {
     "integer": function(options) { return $._("an integer, like $6$"); },
     "proper": function(options) {
         if (options.simplify === "optional") {
-            return $._("a *proper* fraction, like $1/2$ or $6/10$");
+            return $._("*真* 分數, 例 $1/2$ or $6/10$");
         } else {
-            return $._("a *simplified proper* fraction, like $3/5$");
+            return $._("最簡真* 分數, 例 $3/5$");
         }
     },
     "improper": function(options) {
         if (options.simplify === "optional") {
-            return $._("an *improper* fraction, like $10/7$ or $14/8$");
+            return $._("*假* 分數, 例 $10/7$ or $14/8$");
         } else {
-            return $._("a *simplified improper* fraction, like $7/4$");
+            return $._("*最簡假* 分數, 例 $7/4$");
         }
     },
     "mixed": function(options) {
-        return $._("a mixed number, like $1\\ 3/4$");
+        return $._("帶分數, 例 $1\\ 3/4$");
     },
     "decimal": function(options) {
-        return $._("an *exact* decimal, like $0.75$");
+        return $._("*精確的* 小數, 例 $0.75$");
     },
     "percent": function(options) {
         return $._("a percent, like $12.34\\%$");
     },
     "pi": function(options) {
-        return $._("a multiple of pi, like $12\\ \\text{pi}$ or " +
+        return $._("pi 的倍數, 例 $12\\ \\text{pi}$ or " +
                 "$2/3\\ \\text{pi}$");
     }
 };
