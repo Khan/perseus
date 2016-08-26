@@ -475,6 +475,11 @@ const Choice = React.createClass({
                 sat && (this.props.checked || this.state.isInputActive)
                     && styles.satPosChecked);
 
+
+        // In edit mode, we must allow selection of the contentEditable
+        // element inside, therefore we cannot use a label, which makes
+        // selection of anything inside automatically select the input
+        // element instead
         const LabelOrDiv = this.props.editMode ? "div" : "label";
 
         return <LabelOrDiv

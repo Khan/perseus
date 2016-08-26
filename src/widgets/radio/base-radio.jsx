@@ -394,12 +394,35 @@ const BaseRadio = React.createClass({
                         )
                     );
 
+
+                    // In edit mode, the Choice renders a Div in order to allow
+                    // for the contentEditable area to be selected (label
+                    // forces any clicks inside to select the input element)
+                    // If its not a label, we must simulate that label behavior
+                    // for items that are not the draft editor
+                    let clickHandler = null;
+                    if (this.props.editMode) {
+                        clickHandler = (e) => {
+                            const choiceRef = this.refs[`radio${i}`];
+                            const viableClassNames = [
+                                className,
+                                choice.content.className,
+                                ReactDOM.findDOMNode(choiceRef).className,
+                            ];
+                            if (viableClassNames
+                                    .indexOf(e.target.className) !== -1) {
+                                this.checkOption(i, true);
+                            }
+                        };
+                    }
+
                     // TODO(mattdr): Index isn't a *good* choice of key here;
                     // is there a better one? Can we use choice content
                     // somehow? Would changing our choice of key somehow break
                     // any voodoo happening inside a choice's child Renderers
                     // by changing when we mount/unmount?
                     return <li className={className} key={i}
+                        onClick={clickHandler}
                         onTouchStart={!this.props.labelWrap ?
                             null : captureScratchpadTouchStart
                         }
