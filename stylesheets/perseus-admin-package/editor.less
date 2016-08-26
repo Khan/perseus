@@ -850,10 +850,12 @@
         .perseus-single-editor {
             margin-bottom: 0;
         }
-        &.correct .DraftEditor-root {
+        &.correct .DraftEditor-root,
+        &.correct textarea {
             background: @correctGreen;
         }
-        &.incorrect .DraftEditor-root {
+        &.incorrect .DraftEditor-root,
+        &.incorrect textarea {
             background: @wrongRed;
         }
     }
