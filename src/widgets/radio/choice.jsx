@@ -46,6 +46,7 @@ const Choice = React.createClass({
         correct: React.PropTypes.bool,
         deselectEnabled: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
+        editMode: React.PropTypes.bool,
         groupName: React.PropTypes.string,
         isLastChoice: React.PropTypes.bool, // Needed for border styling
         onChecked: React.PropTypes.func.isRequired,
@@ -281,6 +282,7 @@ const Choice = React.createClass({
             checked: false,
             classSet: {},
             disabled: false,
+            editMode: false,
             showClue: false,
             type: 'radio',
             pos: 0,
@@ -330,6 +332,10 @@ const Choice = React.createClass({
 
     inputRef: function(ref) {
         this._input = ref;
+    },
+
+    click: function() {
+        this._input.click();
     },
 
     render: function() {
@@ -473,7 +479,15 @@ const Choice = React.createClass({
                 sat && (this.props.checked || this.state.isInputActive)
                     && styles.satPosChecked);
 
-        return <label
+
+        // In edit mode, we must allow selection of the contentEditable
+        // element inside, therefore we cannot use a label, which makes
+        // selection of anything inside automatically select the input
+        // element instead
+        const LabelOrDiv = this.props.editMode ? "div" : "label";
+
+        return <LabelOrDiv
+            isLabel={!this.props.editMode}
             className={className}
             style={{opacity: !sat && this.props.disabled ? 0.5 : 1.0}}
         >
@@ -521,7 +535,7 @@ const Choice = React.createClass({
                         {this.props.clue}
                     </div>}
             </div>
-        </label>;
+        </LabelOrDiv>;
     },
 });
 

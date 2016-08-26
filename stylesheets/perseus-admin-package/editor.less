@@ -2,6 +2,16 @@
 // (changes to the renderer will not work in production)
 //
 
+// Draft.js CSS
+@import (less) "../../lib/Draft.css";
+.public-DraftEditor-content {
+    padding: @editorPadding;
+    min-height: 50px;
+}
+.public-DraftEditorPlaceholder-root {
+    padding: @editorPadding;
+}
+
 // Variables
 // Should be consistent with webapp's variables.less
 
@@ -840,9 +850,11 @@
         .perseus-single-editor {
             margin-bottom: 0;
         }
+        &.correct .DraftEditor-root,
         &.correct textarea {
             background: @correctGreen;
         }
+        &.incorrect .DraftEditor-root,
         &.incorrect textarea {
             background: @wrongRed;
         }

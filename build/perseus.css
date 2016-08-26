@@ -1,6 +1,6 @@
 /* Perseus CSS
-// commit 51227d7a9b0625f5b7b3e573c92d981b324ab4f5
-// branch master
+// commit c7e229710c7a9e331feb9a0b455b52fd96220d12
+// branch draftjs-project
 // @generated
 */
 .perseus-sr-only {
@@ -1640,8 +1640,8 @@ body.sat-section .perseus-widget-passage {
 .perseus-mobile .perseus-widget-plotter .graphie-label .katex {
   color: #626569;
 }
-.perseus-widget-radio div,
-.perseus-widget-radio div > p {
+.perseus-widget-radio.perseus-rendered-radio div,
+.perseus-widget-radio.perseus-rendered-radio div > p {
   /* TODO(alpert): Find a better way of doing inline renderers */
   display: inline;
 }
@@ -2463,13 +2463,9 @@ body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown
     -ms-transition: opacity 400ms cubic-bezier(0.75, 0, 0.75, 1) !important;
 }
 
-.keypad-input .mq-editable-field .mq-cursor:not(:only-child),
-.keypad-input .mq-editable-field .mq-root-block.mq-hasCursor > .mq-cursor:only-child
- {
+.keypad-input .mq-editable-field .mq-cursor:not(:only-child) {
     /* HACK(charlie): Magic numbers to properly size and position the vertical
-       cursor, which is visible whenever the cursor is not alone in its parent,
-       with the exception that it's also visible when the entire input is
-       empty. */
+       cursor. */
     height: 20px !important;
     vertical-align: middle !important;
     margin-top: -5px !important;

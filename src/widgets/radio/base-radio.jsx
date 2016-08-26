@@ -36,9 +36,14 @@ const ChoiceNoneAbove = React.createClass({
         };
     },
 
+    click: function() {
+        this._choiceElement.click();
+    },
+
     render: function() {
         const choiceProps = _.extend({}, this.props, {
             className: classNames(this.props.className, "none-of-above"),
+            ref: (c) => this._choiceElement = c,
             content: (this.props.showContent ?
                 this.props.content :
                 // We use a Renderer here because that is how
@@ -86,6 +91,7 @@ const BaseRadio = React.createClass({
         }),
         choices: ChoicesType,
         deselectEnabled: React.PropTypes.bool,
+        editMode: React.PropTypes.bool,
         labelWrap: React.PropTypes.bool,
         multipleSelect: React.PropTypes.bool,
         onCheckedChange: React.PropTypes.func,
@@ -218,6 +224,7 @@ const BaseRadio = React.createClass({
     getDefaultProps: function() {
         return {
             onePerLine: true,
+            editMode: false,
         };
     },
 
@@ -270,6 +277,8 @@ const BaseRadio = React.createClass({
         return this.props.apiOptions.isMobile || this.props.deselectEnabled;
     },
 
+
+    _choiceElements: [],
     render: function() {
         // TODO(aria): Stop this from mutating the id every time someone
         // clicks on a radio :(
@@ -284,6 +293,7 @@ const BaseRadio = React.createClass({
 
         const className = classNames(
             "perseus-widget-radio",
+            !this.props.editMode && "perseus-rendered-radio",
             css(
                 sharedStyles.aboveScratchpad,
                 // With the responsive mobile styles, the individual items are
@@ -329,8 +339,9 @@ const BaseRadio = React.createClass({
                                                rubric.choices[i].clue);
 
                     let Element = Choice;
+
                     const elementProps = {
-                        ref: `radio${i}`,
+                        ref: (c) => this._choiceElements[i] = c,
                         apiOptions: this.props.apiOptions,
                         checked: choice.checked,
                         reviewMode: !!rubric,
@@ -338,6 +349,7 @@ const BaseRadio = React.createClass({
                         clue: choice.clue,
                         content: choice.content,
                         disabled: this.props.apiOptions.readOnly,
+                        editMode: this.props.editMode,
                         groupName: radioGroupName,
                         isLastChoice: i === this.props.choices.length - 1,
                         showClue: reviewModeClues,
@@ -390,12 +402,35 @@ const BaseRadio = React.createClass({
                         )
                     );
 
+
+                    // In edit mode, the Choice renders a Div in order to allow
+                    // for the contentEditable area to be selected (label
+                    // forces any clicks inside to select the input element)
+                    // If its not a label, we must simulate that label behavior
+                    // for items that are not the draft editor
+                    let clickHandler = null;
+                    if (this.props.editMode) {
+                        clickHandler = (e) => {
+                            const choiceRef = this._choiceElements[i];
+                            const viableClassNames = [
+                                className,
+                                choice.content.className,
+                                ReactDOM.findDOMNode(choiceRef).className,
+                            ];
+                            if (viableClassNames
+                                    .indexOf(e.target.className) !== -1) {
+                                choiceRef.click();
+                            }
+                        };
+                    }
+
                     // TODO(mattdr): Index isn't a *good* choice of key here;
                     // is there a better one? Can we use choice content
                     // somehow? Would changing our choice of key somehow break
                     // any voodoo happening inside a choice's child Renderers
                     // by changing when we mount/unmount?
                     return <li className={className} key={i}
+                        onClick={clickHandler}
                         onTouchStart={!this.props.labelWrap ?
                             null : captureScratchpadTouchStart
                         }

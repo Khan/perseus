@@ -21,6 +21,9 @@ var Util = require("./util.js");
 var Widgets = require("./widgets.js");
 var preprocessTex = require("./util/katex-preprocess.js");
 
+
+var PerseusEditor = require("./perseus-editor.jsx");
+
 var WIDGET_PROP_BLACKLIST = require("./mixins/widget-prop-blacklist.jsx");
 
 // like [[snowman input-number 1]]
@@ -318,10 +321,22 @@ var imageUrlsFromContent = function(content) {
     );
 };
 
+
+/**
+ * NOTE: This Editor class contains a ton of legacy logic which is not used,
+ *        as a rewrite using Draft.js was implemented in perseus-editor.jsx.
+ *        This code remains as a backup in case bugs in the rewrite block
+ *        content creators.
+ *        If you are going to make Editor changes, you likely want to navigate
+ *        to perseus-editor.jsx
+ * TODO: Clear out all the textarea code and replace with Draft.js once we are
+ *       comfortable that it is working well consistently
+ */
 var Editor = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         imageUploader: React.PropTypes.func,
+        onChange: React.PropTypes.func,
     },
 
     getDefaultProps: function() {
@@ -363,14 +378,20 @@ var Editor = React.createClass({
     _handleWidgetEditorChange: function(id, newProps, cb, silent) {
         var widgets = _.clone(this.props.widgets);
         widgets[id] = _.extend({}, widgets[id], newProps);
+        if (this.props.apiOptions.useDraftEditor) {
+            this.refs.textarea.updateWidget(id, newProps);
+        }
         this.props.onChange({widgets: widgets}, cb, silent);
     },
 
     _handleWidgetEditorRemove: function(id) {
-        var re = new RegExp(widgetRegExp.replace('{id}', id), 'gm');
-        var textarea = ReactDOM.findDOMNode(this.refs.textarea);
-
-        this.props.onChange({content: textarea.value.replace(re, '')});
+        const textarea = this.refs.textarea;
+        if (this.props.apiOptions.useDraftEditor) {
+            textarea.removeWidget(id);
+        } else {
+            const re = new RegExp(widgetRegExp.replace('{id}', id), 'gm');
+            this.props.onChange({content: textarea.value.replace(re, '')});
+        }
     },
 
     /**
@@ -422,9 +443,11 @@ var Editor = React.createClass({
         // setState
         this._sizeImages(this.props);
 
-        $(ReactDOM.findDOMNode(this.refs.textarea))
+        if (!this.props.apiOptions.useDraftEditor) {
+            $(ReactDOM.findDOMNode(this.refs.textarea))
             .on('copy cut', this._maybeCopyWidgets)
             .on('paste', this._maybePasteWidgets);
+        }
     },
 
     componentDidUpdate: function(prevProps) {
@@ -440,6 +463,9 @@ var Editor = React.createClass({
     },
 
     handleDrop: function(e) {
+        if (this.props.apiOptions.useDraftEditor) {
+            return;
+        }
         var content = this.props.content;
         var dataTransfer = e.nativeEvent.dataTransfer;
 
@@ -732,21 +758,34 @@ var Editor = React.createClass({
     },
 
     _addWidget: function(widgetType) {
-        var textarea = ReactDOM.findDOMNode(this.refs.textarea);
-        this._addWidgetToContent(
-            this.props.content,
-            [textarea.selectionStart, textarea.selectionEnd],
-            widgetType
-        );
-        textarea.focus();
+        var textarea = this.refs.textarea;
+
+        if (this.props.apiOptions.useDraftEditor) {
+            textarea.addWidget(widgetType);
+        } else {
+            this._addWidgetToContent(
+                this.props.content,
+                [textarea.selectionStart, textarea.selectionEnd],
+                widgetType
+            );
+            textarea.focus();
+        }
     },
 
+    // NOTE: These templates are all duplicated verbatim in perseus-editor.jsx
+    //        so any changes should also be done there, until this code is all
+    //        deleted in favor of perseus-editor.jsx
     addTemplate: function(e) {
         var templateType = e.target.value;
         if (templateType === "") {
             return;
         }
         e.target.value = "";
+
+        if (this.props.apiOptions.useDraftEditor) {
+            this.refs.textarea.addTemplate(templateType);
+            return;
+        }
 
         var oldContent = this.props.content;
 
@@ -993,6 +1032,18 @@ var Editor = React.createClass({
                 value={this.props.content}
             />,
         ];
+
+        if (this.props.apiOptions.useDraftEditor) {
+            completeTextarea = <PerseusEditor
+                ref="textarea"
+                onChange={this.props.onChange}
+                content={this.props.content}
+                placeholder={this.props.placeholder}
+                initialWidgets={this.props.widgets}
+                imageUploader={this.props.imageUploader}
+                widgetEnabled={this.props.widgetEnabled}
+            />;
+        }
         var textareaWrapper;
         if (this.props.imageUploader) {
             textareaWrapper = <DragTarget
