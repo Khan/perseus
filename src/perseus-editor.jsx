@@ -57,13 +57,13 @@ const widgetPartsRegExp = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]$/;
 const widgetRegexForId = (id) => new RegExp(`(\\[\\[\u2603 ${id}\\]\\])`, 'gm');
 const partialWidgetRegex = /\[\[([a-z-]+)$/; // Used for autocompletion
 
-const imageRegExp = /!\[[^]*]*?\]\([^)*].*?\)/g;
+const imageRegExp = /!\[[^\]]*?\]\([^\)].*?\)/g;
 
 // Note: Nested decorators currently do not work, therefore this will not
 //       work when nesting bold/italics/underline.  Hopefully this is
 //       fixed in future versions of Draft.js
 const boldRegExp = /\*\*([\s\S]+?)\*\*(?!\*)/g;
-const italicsRegExp = /\**(?:^|[^*])((\*|_)(\w+(\s\w+)*)\2)/g; // copied from https://github.com/ayberkt/RFMarkdownTextView/blob/387312e602f03b87f3ef82dc82c62df455d6fd30/RFMarkdownTextView/RFMarkdownSyntaxStorage.m  eslint-disable-line max-len
+const italicsRegExp = /\**(?:^|[^*])((\*|_)(\w+(\s\w+)*)\2)/g; // copied from https://github.com/ayberkt/RFMarkdownTextView/blob/387312e602f03b87f3ef82dc82c62df455d6fd30/RFMarkdownTextView/RFMarkdownSyntaxStorage.m
 const boldItalicsRegExp = /(\*\*\*\w+(\s\w+)*\*\*\*)/g;
 const underlineRegExp = /__([\s\S]+?)__(?!_)/g;
 const headerRegExp = /^ *(#{1,6})([^\n]+)$/g;
@@ -443,6 +443,7 @@ const PerseusEditor = React.createClass({
         }, {});
 
         localStorage.perseusLastCopiedWidgets = JSON.stringify(copiedWidgets);
+        return false;
     },
 
     // Widgets cannot have ID conflicts, therefore this function exists
@@ -538,7 +539,8 @@ const PerseusEditor = React.createClass({
             );
             this._handleChange({editorState});
         } else {
-            this._handlePaste(dataTransfer.getText(), null, endSelection);
+            const text = dataTransfer.getText();
+            return this._handlePaste(text, null, endSelection);
         }
 
         return true; // Disable default draft drop handler
@@ -669,7 +671,7 @@ const PerseusEditor = React.createClass({
         if (decoration !== null) {
             const data = this._getDraftData();
             const {editorState} =
-                DraftUtils.decorateSelection(data, decoration);
+                DraftUtils.toggleDecoration(data, decoration);
             this._handleChange({editorState});
             return true;
         }

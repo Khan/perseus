@@ -40,7 +40,10 @@ const {
 const {List} = require('immutable');
 
 
-// This provides sensible defaults for all aspects of draftData
+// This provides sensible defaults for editorState, contentState, and selection.
+// This means that if I wanted to insert text at the current cursor location,
+// I could just pass in editorState, but if I wanted it to insert text at a
+// custom location, I would just pass in a selection as well
 const _fillData = (draftData) => {
     const {editorState, contentState, selection} = draftData;
     const newData = {};
@@ -55,16 +58,18 @@ const _fillData = (draftData) => {
     return newData;
 };
 
+// Draft.js bugs currently emerge when the editor doesn't have focus.  This
+// avoids those by ensuring that the editor state always assumes it is focused
 const _createEmptySelection = (block) => {
     return SelectionState.createEmpty(block.getKey()).set('hasFocus', true);
 };
 
-function regexStrategy(contentBlock, callback, regex, parser) {
+function regexStrategy(contentBlock, callback, regex, selectionFromMatch) {
     const text = contentBlock.getText();
     let matchArr;
     while ((matchArr = regex.exec(text)) !== null) {
-        if (parser) {
-            const {start, end} = parser(matchArr);
+        if (selectionFromMatch) {
+            const {start, end} = selectionFromMatch(matchArr);
             callback(start, end);
         } else {
             const start = matchArr.index;
@@ -377,7 +382,7 @@ const _clearSurrounding = (contentState, block, left, right, text) => {
     return content;
 };
 
-function decorateSelection(draftData, decoration) {
+function toggleDecoration(draftData, decoration) {
     const data = _fillData(draftData);
     const newData = {};
 
@@ -432,7 +437,6 @@ function decorateSelection(draftData, decoration) {
         newData.contentState = decorated;
     }
 
-    // blockMap = BlockMapBuilder.createFromArray(blocks);
     if (data.editorState) {
         newData.editorState = EditorState.push(
             data.editorState,
@@ -447,10 +451,13 @@ function decorateSelection(draftData, decoration) {
             newEndOffset += change * decoration.length;
         }
 
-        const end = selection.getIsBackward() ? 'anchor' : 'focus';
-        const newSelection = selection.merge({
-            [`${end}Offset`]: newEndOffset,
-        });
+        let newSelection = null;
+        if (selection.getIsBackward()) {
+            newSelection = selection.merge({anchorOffset: newEndOffset});
+        } else {
+            newSelection = selection.merge({focusOFfset: newEndOffset});
+        }
+
         newData.editorState = EditorState.forceSelection(
             newData.editorState,
             newSelection
@@ -470,6 +477,6 @@ module.exports = {
     insertText,
     selectEnd,
     snapSelectionOutsideEntities,
-    decorateSelection,
+    toggleDecoration,
 };
 

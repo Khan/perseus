@@ -29,13 +29,6 @@ const focusedStyleMixin = {
     zIndex: 1,
 };
 
-const ConditionalLabel = (props) => {
-    const {isLabel, children, ...other} = props; //eslint-disable-line react/prop-types
-    return isLabel ?
-        <label {...other}>{children}</label>
-        : <div {...other}>{children}</div>;
-};
-
 const Choice = React.createClass({
     propTypes: {
         // TODO(kevinb) use Options.propTypes from perseus-api.jsx
@@ -482,7 +475,9 @@ const Choice = React.createClass({
                 sat && (this.props.checked || this.state.isInputActive)
                     && styles.satPosChecked);
 
-        return <ConditionalLabel
+        const LabelOrDiv = this.props.editMode ? "div" : "label";
+
+        return <LabelOrDiv
             isLabel={!this.props.editMode}
             className={className}
             style={{opacity: !sat && this.props.disabled ? 0.5 : 1.0}}
@@ -531,7 +526,7 @@ const Choice = React.createClass({
                         {this.props.clue}
                     </div>}
             </div>
-        </ConditionalLabel>;
+        </LabelOrDiv>;
     },
 });
 
