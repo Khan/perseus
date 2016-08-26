@@ -1,6 +1,6 @@
 /* Perseus CSS
-// commit 51227d7a9b0625f5b7b3e573c92d981b324ab4f5
-// branch master
+// commit e1fbe180cedca881953768ab019ba165905ad5a2
+// branch draftjs-project
 // @generated
 */
 .perseus-sr-only {
@@ -1640,8 +1640,8 @@ body.sat-section .perseus-widget-passage {
 .perseus-mobile .perseus-widget-plotter .graphie-label .katex {
   color: #626569;
 }
-.perseus-widget-radio div,
-.perseus-widget-radio div > p {
+.perseus-widget-radio.perseus-rendered-radio div,
+.perseus-widget-radio.perseus-rendered-radio div > p {
   /* TODO(alpert): Find a better way of doing inline renderers */
   display: inline;
 }
