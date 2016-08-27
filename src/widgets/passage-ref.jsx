@@ -86,7 +86,8 @@ var PassageRef = React.createClass({
     componentDidMount: function() {
         this._deferredUpdateRange();
 
-        window.addEventListener("resize", this._deferredUpdateRange);
+        this._throttledUpdateRange = _.throttle(this._deferredUpdateRange, 500);
+        window.addEventListener("resize", this._throttledUpdateRange);
     },
 
     componentDidUpdate: function() {
@@ -94,7 +95,7 @@ var PassageRef = React.createClass({
     },
 
     componentWillUnmount: function() {
-        window.removeEventListener("resize", this._deferredUpdateRange);
+        window.removeEventListener("resize", this._throttledUpdateRange);
     },
 
     _deferredUpdateRange: function() {

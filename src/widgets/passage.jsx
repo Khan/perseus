@@ -2,7 +2,7 @@
 /* eslint-disable comma-dangle, no-undef, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-infix-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-
+const {StyleSheet, css} = require("aphrodite");
 const React = require("react");
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
@@ -11,6 +11,49 @@ const Changeable   = require("../mixins/changeable.jsx");
 
 const Renderer = require("../renderer.jsx");
 const PassageMarkdown = require("./passage/passage-markdown.jsx");
+
+// A fake paragraph to measure the line height of the passage. In CSS we always
+// set the line height to 22 pixels, but when using the browser zoom feature,
+// the line height often ends up being a fractional number of pixels close to
+// 22 pixels.
+const LineHeightMeasurer = React.createClass({
+    measureLineHeight() {
+        // Add some text which magically fills an entire line.
+        this.$body.text(" \u0080");
+
+        // Now, the line height is the difference between the top of the second
+        // line and the top of the first line.
+        const lineHeight = this.$end.offset().top - this.$body.offset().top;
+
+        // Clear out the first line so it doesn't overlap the passage.
+        this.$body.text("");
+
+        return lineHeight;
+    },
+
+    render() {
+        return <div
+            className={css(styles.measurer)}
+        >
+            <div>
+                <div
+                    ref={(e) => this.$body = $(e)}
+                    className="paragraph"
+                />
+                <div ref={(e) => this.$end = $(e)} />
+            </div>
+        </div>;
+    },
+});
+
+const styles = StyleSheet.create({
+    measurer: {
+        position: "absolute",
+        width: "100%",
+        top: 0,
+        left: 0,
+    },
+});
 
 const Passage = React.createClass({
     mixins: [Changeable],
@@ -122,7 +165,7 @@ const Passage = React.createClass({
      *  highlighted region).
      */
     addHighlightRange: function() {
-        let newHighlightRanges =[...this.props.highlightRanges];
+        let newHighlightRanges = [...this.props.highlightRanges];
         newHighlightRanges.push(this.state.newHighlightRange);
         newHighlightRanges = this.mergeOverlappingRanges(newHighlightRanges);
         this.props.onChange({highlightRanges: newHighlightRanges});
@@ -628,12 +671,14 @@ const Passage = React.createClass({
     componentDidMount: function() {
         this._updateState();
         window.addEventListener("mousedown", this.handleMouseDown);
-        window.addEventListener("resize", this._updateState);
+
+        this._throttledUpdateState = _.throttle(this._updateState, 500);
+        window.addEventListener("resize", this._throttledUpdateState);
     },
 
     componentWillUnmount: function() {
         window.removeEventListener("mousedown", this.handleMouseDown);
-        window.removeEventListener("resize", this._updateState);
+        window.removeEventListener("resize", this._throttledUpdateState);
     },
 
     componentDidUpdate: function() {
@@ -650,7 +695,7 @@ const Passage = React.createClass({
     _measureLines: function() {
         const $renderer = $(ReactDOM.findDOMNode(this.refs.content));
         const contentsHeight = $renderer.height();
-        const lineHeight = parseInt($renderer.css("line-height"));
+        const lineHeight = this._getLineHeight();
         const nLines = Math.round(contentsHeight / lineHeight);
         return nLines;
     },
@@ -712,6 +757,7 @@ const Passage = React.createClass({
 
     _renderContent: function(parsed) {
         return <div ref="content">
+            <LineHeightMeasurer ref={e => this._lineHeightMeasurer = e} />
             {PassageMarkdown.output(parsed)}
         </div>;
     },
@@ -783,10 +829,14 @@ const Passage = React.createClass({
         return this.state.startLineNumbersAfter + line;
     },
 
+    _getLineHeight: function() {
+        return this._lineHeightMeasurer.measureLineHeight();
+    },
+
     _convertPosToLineNumber: function(absoluteVPos) {
-        const $content= $(ReactDOM.findDOMNode(this.refs.content));
+        const $content = $(ReactDOM.findDOMNode(this.refs.content));
         const relativeVPos = absoluteVPos - $content.offset().top;
-        const lineHeight = parseInt($content.css("line-height"));
+        const lineHeight = this._getLineHeight();
 
         const line = Math.round(relativeVPos / lineHeight);
         return line;
