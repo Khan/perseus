@@ -1133,6 +1133,8 @@ body.mobile .perseus-widget-radio input[type=checkbox]:checked:before {
   background: #fff;
   font-size: 18px;
   min-width: 100px;
+  position: relative;
+  z-index: 3;
 }
 .perseus-math-input.mq-editable-field.mq-math-mode > .mq-root-block {
   border-color: #a4a4a4;

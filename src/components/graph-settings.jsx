@@ -9,6 +9,7 @@ var NumberInput = require("../components/number-input.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var RangeInput = require("../components/range-input.jsx");
 var Util = require("../util.js");
+var BlurInput = require("react-components/blur-input");
 
 var defaultBoxSize = 400;
 var defaultBackgroundImage = {
@@ -120,12 +121,8 @@ var GraphSettings = React.createClass({
             <div className="image-settings">
                 <div>背景圖:</div>
                 <div>Url:{' '}
-                    <input type="text"
-                            className="graph-settings-background-url"
-                            ref="bg-url"
-                            defaultValue={this.props.backgroundImage.url}
-                            onKeyPress={this.changeBackgroundUrl}
-                            onBlur={this.changeBackgroundUrl} />
+                    <BlurInput  value={this.props.backgroundImage.url}
+                                onChange={this.changeBackgroundUrl}/>
                     <InfoTip>
                         <p>請在圖形中增加圖片，或於欄中輸入圖片連結。</p>
                     </InfoTip>
@@ -401,36 +398,26 @@ var GraphSettings = React.createClass({
         }
     },
 
-    changeBackgroundUrl: function(e) {
-        var self = this;
+    setUrl: function(url, width, height) {
+        var image = _.clone(this.props.backgroundImage);
+        image.url = url;
+        image.width = width;
+        image.height = height;
+        this.props.onChange({
+            backgroundImage: image,
+            markings: url ? "none" : "graph"
+        });
+    },
 
-        // Only continue on blur or "enter"
-        if (e.type === "keypress" && e.keyCode !== 13) {
-            return;
-        }
-
-        var url = self.refs["bg-url"].getDOMNode().value;
-        var setUrl = function() {
-            var image = _.clone(self.props.backgroundImage);
-            image.url = url;
-            image.width = img.width;
-            image.height = img.height;
-            self.props.onChange({
-                backgroundImage: image,
-                markings: url ? "none" : "graph"
-            });
-        };
+    changeBackgroundUrl: function(url) {
         if (url) {
-            var img = new Image();
-            img.onload = setUrl;
-            img.src = url;
+            if(this.props.backgroundImage.url != url){
+                var img = new Image();
+                img.onload = function()  {return this.setUrl(url, img.width, img.height);}.bind(this);
+                img.src = url;
+            }
         } else {
-            var img = {
-                url: url,
-                width: 0,
-                height: 0
-            };
-            setUrl();
+            this.setUrl(url,0,0);
         }
     },
 

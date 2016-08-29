@@ -16,7 +16,8 @@
     "react-components": "0.1.1",
     "react-tools": "0.10.0",
     "reactiscriptsixify": "~0.8.2",
-    "requirejs": "~2.1.11"
+    "requirejs": "~2.1.11",
+    "classnames": "2.2.5"
   },
   "repository": {
     "type": "git",
@@ -35,5 +36,8 @@
     "unmockedModulePathPatterns": [
       ""
     ]
+  },
+  "dependencies": {
+    "classnames": "^2.2.5"
   }
 }

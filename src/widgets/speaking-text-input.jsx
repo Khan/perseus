@@ -3,10 +3,20 @@
 var React = require('react');
 var Changeable = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var classNames = require('classnames');
+
+var textInputStyle = {
+    fontSize: "25px",
+    marginRight: "5px",
+    paddingTop: "15px",
+    paddingBottom: "15px",
+    marginTop: "15px",
+    marginBottom: "15px",
+};
 
 var TextInput = React.createClass({
     render: function() {
-        return <input ref="input" value={this.props.value || ""} onChange={this.changeValue} onPaste={this.pasteValue} onKeyPress={this.keypressValue}/>;
+        return <input style={textInputStyle} ref="input" value={this.props.value || ""} onChange={this.changeValue} onPaste={this.pasteValue} onKeyPress={this.keypressValue}/>;
     },
 
     pasteValue: function(e) {
@@ -20,7 +30,13 @@ var TextInput = React.createClass({
     },
 
     changeValue: function(e) {
-        this.props.setValue(this.refs.input.value);
+        // Chrome Speech API
+        if (e.target.value) {
+            this.props.setValue(e.target.value);
+        // iOS Siri Input
+        } else {
+            this.props.setValue(this.refs.input.value);
+        }
     },
 
     statics: {
@@ -28,18 +44,61 @@ var TextInput = React.createClass({
     }
 });
 
+var infoStyle = {
+    background: "#3498DB !important",
+    color: "#fff !important",
+    textShadow: "0px 0px #fff !important",
+    marginLeft: 10,
+    border: '1px solid #ccc',
+    borderBottom: '1px solid #bbb',
+    borderRadius: '5px',
+    backgroundRepeat: 'repeat-x',
+    cursor: 'pointer !important',
+    fontFamily: 'inherit',
+    lineHeight: '22px',
+    padding: '5px 10px',
+    position: 'relative',
+    textDecoration: 'none !important'
+}
+
+var iconButtonStyle = {
+    width: "45px",
+    lineHeight: 1.5,
+}
+
+var buttonStyle = {
+
+}
+
+var inlineStyle = {
+    display: 'inline-block'
+}
+
 var SpeakingBtn = React.createClass({
     render: function() {
+        var btnIconCLass = classNames({
+            'fa fa-2x': true,
+            'fa-microphone': !this.state.recognizing,
+            'fa fa-spinner fa-spin fa-fw': this.state.recognizing
+        });
         return (
-            <div>
+            <div style={inlineStyle}>
                 {this.recognition
-                    ? <button onClick={this.startRecognizeOnClick} className="simple-button orange">{this.state.status}
+                    ? <button style={buttonStyle} onClick={this.startRecognizeOnClick} className="simple-button orange">
+                        <i style={iconButtonStyle} className={btnIconCLass}></i>
                         </button>
-                    : <button onClick={this.resetOnClick} className="simple-button orange">{this.state.status}
-                        </button>}
+                    : <div>
+                    <button style={buttonStyle} onClick={this.resetOnClick} className="simple-button orange">
+                            <i style={iconButtonStyle} className="fa fa-refresh fa-2x"></i>
+                    </button>
+                    <span style={infoStyle}>{this.state.status}</span>
+                    </div>
+                    }
             </div>
         );
     },
+    //
+
     getInitialState: function() {
         return {recognizing: false, status: ""}
     },
@@ -47,6 +106,9 @@ var SpeakingBtn = React.createClass({
     startRecognize: function() {
         if (this.state.recognizing == false) {
             this.recognition.start();
+        }
+        else{
+            this.recognition.stop();
         }
     },
 
@@ -74,18 +136,14 @@ var SpeakingBtn = React.createClass({
             recognition.interimResults = true;
             recognition.maxAlternatives = 20;
             self.setState({recognizing: false});
-            self.setState({status: "辨識"});
             recognition.onstart = function() {
                 self.setState({recognizing: true});
-                self.setState({status: "辨識中"});
                 self.props.setValue('');
             };
             recognition.onend = function() {
                 self.setState({recognizing: false});
-                self.setState({status: "重新辨識"});
             };
             recognition.onresult = function(event) {
-                self.setState({recognizing: false});
                 var res = '';
                 for (var i = event.resultIndex; i < event.results.length; i++) {
                     if (event.results[i].isFinal) {
@@ -102,9 +160,9 @@ var SpeakingBtn = React.createClass({
             self.recognition = recognition;
         } else {
             if (os == 'iOS') {
-                self.setState({status: "點選上面的框框 用Siri語音輸入/清除"});
+                self.setState({status: "點選上面的框框 用Siri語音輸入"});
             } else if (os == 'Android') {
-                self.setState({status: "點選上面的框框 用Google語音輸入/清除"});
+                self.setState({status: "點選上面的框框 用Google語音輸入"});
             } else {
                 self.setState({status: "請切換至Chrome瀏覽器"});
             }
@@ -146,6 +204,7 @@ var SpeakingTextInput = React.createClass({
 
     // compare answer when setting value to prevent generate long atempt dict
     setValue: function(val) {
+        val = val || '';
         var correntAns = SpeakingTextInput.parseAnswer(this.props.correct);
         var userAnsList = val.split("/");
         var correntIdx = -1;

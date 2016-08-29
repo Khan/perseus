@@ -208,7 +208,7 @@ var MeasurerEditor = React.createClass({
                 <input type="text"
                         className="perseus-widget-measurer-url"
                         ref="image-url"
-                        defaultValue={image.url}
+                        value={image.url}
                         onChange={this._changeUrl} />
             <InfoTip>
                 <p>插入圖片的連結網址。例如，先將圖片上傳至 http://imgur.com ，再分享其圖片網址 (Direct Link)。 </p>
