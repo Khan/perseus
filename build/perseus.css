@@ -1,6 +1,6 @@
 /* Perseus CSS
-// commit e1fbe180cedca881953768ab019ba165905ad5a2
-// branch draftjs-project
+// commit a2ac8811e5480cc3a004b4c9809b31e9175a4cfb
+// branch HEAD
 // @generated
 */
 .perseus-sr-only {
@@ -948,11 +948,13 @@ img.zoom-img {
 .framework-perseus .svg-image {
   display: inline-block;
 }
-.framework-perseus .unresponsive-svg-image {
+.framework-perseus .unresponsive-svg-image,
+.framework-perseus .perseus-rendered-radio .unresponsive-svg-image {
   display: inline-block;
   position: relative;
 }
-.framework-perseus .unresponsive-svg-image > .graphie-container {
+.framework-perseus .unresponsive-svg-image > .graphie-container,
+.framework-perseus .perseus-rendered-radio .unresponsive-svg-image > .graphie-container {
   position: absolute;
   top: 0;
   left: 0;
