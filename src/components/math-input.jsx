@@ -33,9 +33,9 @@ var MathInput = React.createClass({
         var buttons = null;
         if (this._shouldShowButtons()) {
             buttons = <TexButtons
-                className="math-input-buttons absolute"
+                className="math-input-buttons relative"
                 convertDotToTimes={this.props.convertDotToTimes}
-                onInsert={this.insert} 
+                onInsert={this.insert}
                 sets={this.props.buttonSets} />;
         }
 
