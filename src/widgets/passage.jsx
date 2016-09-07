@@ -605,8 +605,8 @@ const Passage = React.createClass({
                         // markdown as oppose to whitelisting certain
                         // characters.
                         const textRegex = new RegExp("[\\(\\)\\—\\-\\—\\-\\‑\\.\
-                                            \\[\\]\\+\\$\\?,!A-Za-z0-9:;'‘’\"\
-                                            “”=%<>\s]+");
+                                            \\[\\]\\+\\$\\?,!A-Za-z0-9\
+                                            \u00C0-\u017F:;'‘’\"“”=%<>\s]+");
                         const highlightableMatch = (fragment.match(textRegex));
                         if (highlightableMatch) {
                             const matchStart = highlightableMatch.index;
