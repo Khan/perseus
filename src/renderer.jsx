@@ -992,6 +992,10 @@ var Renderer = React.createClass({
                     node, nestedOutput, state);
             state.inTable = false;
 
+            if (!apiOptions.isMobile) {
+                return output;
+            }
+
             const margin = 16;
             const outerStyle = {
                 marginLeft: -margin,
@@ -1002,17 +1006,10 @@ var Renderer = React.createClass({
                 paddingRight: 0,
             };
 
-            let wrappedOutput;
-            if (apiOptions.isMobile) {
-                wrappedOutput =
-                    <div style={{...innerStyle, overflowX: 'auto'}}>
-                        <Zoomable animateHeight={true}>{output}</Zoomable>
-                    </div>;
-            } else {
-                wrappedOutput = <div style={innerStyle}>
-                    {output}
+            const wrappedOutput =
+                <div style={{...innerStyle, overflowX: 'auto'}}>
+                    <Zoomable animateHeight={true}>{output}</Zoomable>
                 </div>;
-            }
 
             // TODO(benkomalo): how should we deal with tappable items inside
             // of tables?
