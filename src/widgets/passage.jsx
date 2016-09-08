@@ -2,6 +2,34 @@
 /* eslint-disable comma-dangle, no-undef, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-infix-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
+/**
+ * Highlighting feature discoveries (davidpowell/mdr):
+ * Inserting markdown into the raw contents of a passage to make a highlight
+ * causes several difficulties. As such, if we were to build a generalizable,
+ * site-wide highlighting tool, it may be preferable to build it in such a way
+ * that it works on arbitrary React trees - though this would be a significant
+ * engineering task. The issues that using markdown caused were:
+ *
+ * 1) To avoid interaction issues with other markdown, individual words have to
+ * be wrapped in markdown, as opposed to a whole highlighted section. In some
+ * cases this may even need to be done on sub-sections of words. This causes
+ * difficulty in wrapping the correct sub-sections in highlighting markdown,
+ * whilst not wrapping other markdown, which would cause the other markdown to
+ * be shown as raw (highlighted) text. The current attempt at this, in the
+ * render method, is rather hacky.
+ *
+ * 2) In order to locate the position of a word in a passage, we have to count
+ * all prior words in the text. Unfortunately, the passageText prop, from which
+ * we start when we add the highlighting markdown, differs slightly from the
+ * contents of the DOM tree, which we crawl to locate the position of the text
+ * selection. For example, neither markdown nor new line characters appear when
+ * crawling the DOM. There are also additional "_" characters that appear when
+ * crawling the DOM which are not in the passageText prop. This results in lots
+ * of edge case handling to avoid the wrong words from being highlighted (e.g an
+ * off-by-one error).
+ */
+
+
 const {StyleSheet, css} = require("aphrodite");
 const React = require("react");
 const ReactDOM = require("react-dom");
@@ -96,8 +124,12 @@ const Passage = React.createClass({
         };
     },
 
+    // TODO (davidpowell): Support highlighting on writing passages and remove
+    // this function. It only exists because writing passages contain several
+    // additional features - such as references to questions - which cause bugs
+    // with the highlighting feature that are currently unresolved.
     isReadingPassage: function() {
-        // HACK: Quick way of checking fs a passage is reading or writing based
+        // HACK: Quick way of checking if a passage is reading or writing based
         // on if it has question markers in the text.
         return !(this.props.passageText.match(/\[\[1\]\]/));
     },
@@ -191,6 +223,13 @@ const Passage = React.createClass({
         }
     },
 
+    /**
+     * The anchor of a selection is where the user began their selection and
+     * the focus is where the user ended their selection. This function sorts
+     * the two into the order they are in a passage. For example, if a user
+     * makes their selection forwards the anchor will be the start and if they
+     * make it backwards, the focus will be the start.
+     */
     sortIndices: function(selection) {
         const anchorIndex = this.getSelectionIndex(selection, "anchor");
         const focusIndex = this.getSelectionIndex(selection, "focus");
@@ -216,6 +255,13 @@ const Passage = React.createClass({
         }
     },
 
+    /**
+     * Gets the range of a selection, returning an array of the form
+     * [selectionStartIndex, selectionEndIndex] where selectionStartIndex is the
+     * the index of the first word in the selection, with respect to the passage
+     * as a whole. Note that we are counting the indices in words and not
+     * characters.
+     */
     getSelectionRange: function(selection) {
         const selectionOrderObject = this.sortIndices(selection);
         let {selectionStartIndex, selectionEndIndex} = selectionOrderObject;
@@ -316,7 +362,11 @@ const Passage = React.createClass({
             }
             node = node.parentNode;
         }
-
+        // TODO (davidpowell): Rewrite this so that the number of prior words is
+        // calculated in one go. (As opposed to one call to charToWordOffset
+        // with the current node and another to wordsInSection with the combined
+        // text of all the previous nodes). There will be some non-trivial edge
+        // cases to consider (see other TODOs and HACKs).
         index += this.wordsInSection(priorText);
 
         // This subtracts one from the index if the end of the last node in
@@ -332,6 +382,10 @@ const Passage = React.createClass({
         return index;
     },
 
+    /**
+     * Given the index of a character within a block of text, return the index
+     * of the corresponding word.
+     */
     charToWordOffset: function(offset, nodeText) {
         // Move the offset back to the previous space to exclude partial words.
         while (offset > 0 && nodeText.charAt(offset - 1) !== " ") {
