@@ -43,6 +43,7 @@ var specialChars = {
 
 var rEscapedChars = /\\a|\\b|\\t|\\n|\\v|\\f|\\r|\\\\/g;
 var rContainsNonWhitespace = /\S/;
+var rImageURL = /(web\+graphie|https):\/\/[^\s]*/;
 
 const noopOnRender = () => {};
 
@@ -747,6 +748,7 @@ var Renderer = React.createClass({
     // output individual AST nodes [not arrays]
     outputNode: function(node, nestedOutput, state) {
         var apiOptions = this.getApiOptions();
+        var imagePlaceholder = apiOptions.imagePlaceholder;
 
         if (node.type === "widget") {
             var widgetPlaceholder = apiOptions.widgetPlaceholder;
@@ -937,8 +939,6 @@ var Renderer = React.createClass({
             </span>;
 
         } else if (node.type === "image") {
-            var imagePlaceholder = apiOptions.imagePlaceholder;
-
             if (imagePlaceholder) {
                 return imagePlaceholder;
             }
@@ -984,7 +984,15 @@ var Renderer = React.createClass({
             if (rContainsNonWhitespace.test(node.content)) {
                 this._foundTextNodes = true;
             }
-            return node.content;
+
+            // Used by the translator portal to replace image URLs with
+            // placeholders, see preprocessWidgets in manticore-utils.js
+            // for more details.
+            if (imagePlaceholder && rImageURL.test(node.content)) {
+                return imagePlaceholder;
+            } else {
+                return node.content;
+            }
 
         } else if (node.type === "table" || node.type === "titledTable") {
             state.inTable = true;
