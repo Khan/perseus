@@ -31,12 +31,14 @@ var MathInput = React.createClass({
         });
 
         var buttons = null;
+        var button_height = "0px";
         if (this._shouldShowButtons()) {
             buttons = <TexButtons
-                className="math-input-buttons relative"
+                className="math-input-buttons absolute"
                 convertDotToTimes={this.props.convertDotToTimes}
                 onInsert={this.insert}
                 sets={this.props.buttonSets} />;
+            button_height = (6 + 58 * this.props.buttonSets.length).toString() + "px";
         }
 
         return <div style={{display: "inline-block"}}>
@@ -46,7 +48,7 @@ var MathInput = React.createClass({
                       onFocus={this.handleFocus}
                       onBlur={this.handleBlur} />
             </div>
-            <div style={{position: "relative"}}>
+            <div style={{position: "relative", height: button_height}}>
                 {buttons}
             </div>
         </div>;
