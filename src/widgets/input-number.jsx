@@ -51,23 +51,23 @@ var formExamples = {
     "integer": function(options) { return $._("an integer, like $6$"); },
     "proper": function(options) {
         if (options.simplify === "optional") {
-            return $._("*真* 分數, 例 $1/2$ or $6/10$");
+            return $._("真分數, 例 $1/2$ or $6/10$");
         } else {
-            return $._("最簡真* 分數, 例 $3/5$");
+            return $._("最簡真分數, 例 $3/5$");
         }
     },
     "improper": function(options) {
         if (options.simplify === "optional") {
-            return $._("*假* 分數, 例 $10/7$ or $14/8$");
+            return $._("假分數, 例 $10/7$ or $14/8$");
         } else {
-            return $._("*最簡假* 分數, 例 $7/4$");
+            return $._("最簡假分數, 例 $7/4$");
         }
     },
     "mixed": function(options) {
         return $._("帶分數, 例 $1\\ 3/4$");
     },
     "decimal": function(options) {
-        return $._("*精確的* 小數, 例 $0.75$");
+        return $._("精確的小數, 例 $0.75$");
     },
     "percent": function(options) {
         return $._("a percent, like $12.34\\%$");
