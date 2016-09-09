@@ -252,7 +252,7 @@ var Radio = React.createClass({
     },
 
     statics: {
-        displayMode: "block"
+        displayMode: "inline-block"
     }
 });
 
