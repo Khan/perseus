@@ -1,6 +1,6 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 649852b0a215ecc530a677a5537c803022e214fb
-// branch fix-expression-button
+// commit e19dd01657685396dd79c6e615c55d6eec972a4c
+// branch translate20160826
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
 Software License Agreement (BSD License)
@@ -14711,29 +14711,29 @@ var formExamples = {
     "integer": function(options) { return $._("an integer, like $6$"); },
     "proper": function(options) {
         if (options.simplify === "optional") {
-            return $._("a *proper* fraction, like $1/2$ or $6/10$");
+            return $._("真分數, 例 $1/2$ or $6/10$");
         } else {
-            return $._("a *simplified proper* fraction, like $3/5$");
+            return $._("最簡真分數, 例 $3/5$");
         }
     },
     "improper": function(options) {
         if (options.simplify === "optional") {
-            return $._("an *improper* fraction, like $10/7$ or $14/8$");
+            return $._("假分數, 例 $10/7$ or $14/8$");
         } else {
-            return $._("a *simplified improper* fraction, like $7/4$");
+            return $._("最簡假分數, 例 $7/4$");
         }
     },
     "mixed": function(options) {
-        return $._("a mixed number, like $1\\ 3/4$");
+        return $._("帶分數, 例 $1\\ 3/4$");
     },
     "decimal": function(options) {
-        return $._("an *exact* decimal, like $0.75$");
+        return $._("精確的小數, 例 $0.75$");
     },
     "percent": function(options) {
         return $._("a percent, like $12.34\\%$");
     },
     "pi": function(options) {
-        return $._("a multiple of pi, like $12\\ \\text{pi}$ or " +
+        return $._("pi 的倍數, 例 $12\\ \\text{pi}$ or " +
                 "$2/3\\ \\text{pi}$");
     }
 };
@@ -19869,13 +19869,13 @@ var answerFormButtons = [
 var formExamples = {
     "integer": function(options)  {return $._("整數, 例 $6$");},
     "proper": function(options)  {return options.simplify === "optional" ?
-        $._("*真* 分數, 例 $1/2$ or $6/10$") :
-        $._("最簡真* 分數, 例 $3/5$");},
+        $._("真分數, 例 $1/2$ or $6/10$") :
+        $._("最簡真分數, 例 $3/5$");},
     "improper": function(options)  {return options.simplify === "optional" ?
-        $._("*假* 分數, 例 $10/7$ or $14/8$") :
-        $._("*最簡假* 分數, 例 $7/4$");},
+        $._("假分數, 例 $10/7$ or $14/8$") :
+        $._("最簡假分數, 例 $7/4$");},
     "mixed": function()  {return $._("帶分數, 例 $1\\ 3/4$");},
-    "decimal": function()  {return $._("*精確的* 小數, 例 $0.75$");},
+    "decimal": function()  {return $._("精確的小數, 例 $0.75$");},
     "pi": function()  {return $._("pi 的倍數, 例 $12\\ \\text{pi}$ or " +
                 "$2/3\\ \\text{pi}$");}
 };
