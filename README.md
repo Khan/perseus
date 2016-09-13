@@ -23,6 +23,30 @@ To package perseus for distribution, run `make build` and to package a debug-fri
 
 Both the `build` and the `server` make targets will run `npm install` but you can also run it yourself to install all node dependencies.
 
+## External dependencies
+
+Perseus makes a couple of assumptions about the environment that it's loaded
+into. Specifically, it expects the following libraries to be available on the
+global `window` object.
+
+- `React`
+- `_` (underscore)
+- `jquery`
+- `aphrodite`
+- `classnames`
+
+(See `externalVals` in webpack.config.js)
+
+Also, the following global variables are used, if present:
+
+- `Khan` (`warnTimeout` & `warnFont`)
+- `icu` (a subset of the localeplanet api is depended on, as covered by
+  `icu-slim.js` from our fork of localeplanet)
+- `MathQuill`
+- `Exercises`
+- `KhanUtil` (`localeToFixed` & `debugLog`)
+
+(See `src/perseus-env.js` and `src/demo-perseus.js`)
 
 ## Versioning
 
