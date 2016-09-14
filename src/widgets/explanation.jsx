@@ -61,11 +61,15 @@ const Explanation = React.createClass({
         // TODO(jared): this feels super fagile -- would
         // `contentElement.scrollHeight` work?
 
+        // The combined vertical padding and margin of this element.
+        const elementExtraHeight = (2 * verticalContentPadding) +
+                                   (2 * arrowHeight);
+
         // Add up the heights of all the the child nodes
         const contentHeight = Array.prototype.reduce.call(
             contentElement.childNodes,
             (memo, el) => memo + (el.offsetHeight || 0),
-            isMobile ? 0 : 2 * verticalContentPadding);
+            isMobile ? 0 : elementExtraHeight);
 
         // Only update state if the height is different, otherwise we'll end
         // up calling componentDidUpdate in an infinite loop!
@@ -237,7 +241,6 @@ const styles = StyleSheet.create({
         marginLeft: -leftBorderSpacing,
         paddingLeft: leftBorderSpacing,
 
-        paddingTop: verticalContentPadding,
         paddingBottom: verticalContentPadding,
 
         // Note: we still use arrow height as the vertical margin, even on
