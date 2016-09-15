@@ -1,6 +1,6 @@
 // Perseus Version File
-// commit 89ad481965483e8e2b4b0003b4834b3ee1d44b9c
-// branch placeholder_all_the_image_urls
+// commit 5c988fcf812c5682250931847373df187204a500
+// branch master
 // @generated
 /* eslint-disable comma-dangle */
 
