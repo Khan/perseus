@@ -89,11 +89,25 @@ const GradedGroupSet = React.createClass({
         this._childGroup.blurInputPath(path);
     },
 
+    handleNextQuestion() {
+        const {currentGroup} = this.state;
+        const numGroups = this.props.gradedGroups.length;
+
+        if (currentGroup < numGroups - 1) {
+            this.setState({currentGroup: currentGroup + 1});
+        }
+    },
+
     render() {
         const currentGroup = this.props.gradedGroups[this.state.currentGroup];
         if (!currentGroup) {
             return <span>No current group...</span>;
         }
+
+        const numGroups = this.props.gradedGroups.length;
+        const handleNextQuestion = this.state.currentGroup < numGroups - 1 ?
+            this.handleNextQuestion : null;
+
         return <div className={css(styles.container)}>
             <div className={css(styles.top)}>
                 <div className={css(styles.title)}>
@@ -101,18 +115,20 @@ const GradedGroupSet = React.createClass({
                 </div>
                 <div className={css(styles.spacer)} />
                 <Indicators
-                    numGroups={this.props.gradedGroups.length}
+                    numGroups={numGroups}
                     currentGroup={this.state.currentGroup}
                     onChangeCurrentGroup={
                         currentGroup => this.setState({currentGroup})}
                 />
             </div>
             <GradedGroup
+                key={this.state.currentGroup}
                 ref={comp => this._childGroup = comp}
                 {...this.props}
                 {...currentGroup}
-                transparentBackground={true}
+                inGradedGroupSet={true}
                 title={null}
+                onNextQuestion={handleNextQuestion}
             />
         </div>;
     },

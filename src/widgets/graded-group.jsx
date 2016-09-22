@@ -59,11 +59,17 @@ const GradedGroup = React.createClass({
         hasHint: React.PropTypes.bool,
         hint: React.PropTypes.object,
         images: React.PropTypes.object,
+        inGradedGroupSet: React.PropTypes.bool,
         onBlur: React.PropTypes.func,
         onFocus: React.PropTypes.func,
+
+        // The function to call when clicking "Next question" after correctly
+        // answering one graded group out of a set. If this is null, the
+        // "Next question" button will not appear.
+        onNextQuestion: React.PropTypes.func,
+
         title: React.PropTypes.string,
         trackInteraction: React.PropTypes.func.isRequired,
-        transparentBackground: React.PropTypes.bool,
         widgets: React.PropTypes.object,
     },
 
@@ -198,9 +204,11 @@ const GradedGroup = React.createClass({
             icon = <InlineIcon {...iconRemove} style={{color: "#ff5454"}} />;
         }
 
+        const mobileClass = this.props.inGradedGroupSet ?
+            css(styles.gradedGroupInSet) : css(styles.gradedGroup);
+
         const classes = classNames({
-            [css(styles.gradedGroup)]: apiOptions.isMobile &&
-                !this.props.transparentBackground,
+            [mobileClass]: apiOptions.isMobile,
             "perseus-graded-group": true,
             "answer-correct": apiOptions.isMobile
                 ? false
@@ -241,6 +249,15 @@ const GradedGroup = React.createClass({
                 disabled={this.props.apiOptions.readOnly}
                 onClick={this._checkAnswer}
             />}
+            {!apiOptions.isMobile && isCorrect && this.props.onNextQuestion &&
+            <input
+                type="button"
+                value={i18n._("Next question")}
+                className="simple-button"
+                disabled={this.props.apiOptions.readOnly}
+                onClick={this.props.onNextQuestion}
+                style={{marginLeft: 5}}
+            />}
 
             {this.props.hint && this.props.hint.content &&
              (this.state.showHint ?
@@ -270,6 +287,7 @@ const GradedGroup = React.createClass({
                     apiOptions={apiOptions}
                     answerBarState={answerBarState}
                     onCheckAnswer={this._checkAnswer}
+                    onNextQuestion={this.props.onNextQuestion}
                 />}
         </div>;
     },
@@ -289,6 +307,12 @@ module.exports = {
 };
 
 const styles = StyleSheet.create({
+    gradedGroupInSet: {
+        // Reset a few desktop-only styles that come from graded-group.less
+        marginLeft: 0,
+        paddingLeft: 0,
+    },
+
     gradedGroup: {
         borderTop: `1px solid ${gray76}`,
         borderBottom: `1px solid ${gray76}`,

@@ -5,7 +5,6 @@
  */
 
 const React = require('react');
-const ReactDOM = require('react-dom');
 const ArticleEditor = require('./article-editor.jsx');
 const StatefulArticleEditor = require('./stateful-article-editor.jsx');
 const Util = require('./util.js');
@@ -22,8 +21,6 @@ const ArticleDemo = React.createClass({
     },
 
     componentDidMount: function() {
-        ReactDOM.findDOMNode(this.refs.itemRenderer).focus();
-
         window.addEventListener('resize', this._handleResize);
     },
 

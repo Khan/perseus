@@ -48,22 +48,35 @@ const GradedGroupAnswerBar = React.createClass({
         answerBarState: React.PropTypes.any.isRequired,
         apiOptions: ApiOptions.propTypes,
         onCheckAnswer: React.PropTypes.func.isRequired,
+
+        // The function to call when clicking "Next question" after correctly
+        // answering one graded group out of a set. If this is null, the
+        // "Next question" button will not appear.
+        onNextQuestion: React.PropTypes.func,
     },
 
     render() {
-        const {apiOptions, answerBarState, onCheckAnswer} = this.props;
+        const {
+            apiOptions,
+            answerBarState,
+            onCheckAnswer,
+            onNextQuestion,
+        } = this.props;
 
         const answerBarStyle = {
             ...styles.answerBar,
             backgroundColor: answerBarState === ANSWER_BAR_STATES.CORRECT
                 ? gray95 : 'white',
-            justifyContent: answerBarState === ANSWER_BAR_STATES.CORRECT
-                ? 'center' : 'space-between',
+            // Center the "Correct!" message only when there's no next question
+            justifyContent: (answerBarState === ANSWER_BAR_STATES.CORRECT &&
+                !onNextQuestion) ? 'center' : 'space-between',
         };
 
         const buttonStyle = {
             ...styles.button,
-            backgroundColor: answerBarState === ANSWER_BAR_STATES.ACTIVE
+            // "Check" and "Next question" buttons should both be green
+            backgroundColor: (answerBarState === ANSWER_BAR_STATES.ACTIVE ||
+                answerBarState === ANSWER_BAR_STATES.CORRECT)
                 ? kaGreen : gray85,
         };
 
@@ -81,7 +94,7 @@ const GradedGroupAnswerBar = React.createClass({
                 </span>
                 <span style={{marginLeft: 8}}>{i18n._('Keep trying')}</span>
             </span> :
-            <span />;  // empty span keeps the button the right side
+            <span />;  // empty span keeps the button on the right side
 
         if (answerBarState !== ANSWER_BAR_STATES.CORRECT) {
             const buttonLabel = answerBarState === ANSWER_BAR_STATES.INCORRECT
@@ -106,8 +119,13 @@ const GradedGroupAnswerBar = React.createClass({
                     <span style={{fontSize: 28, color: '#FFB300'}}>
                         <InlineIcon {...iconStar} style={{marginBottom: 5}} />
                     </span>
-                    <span style={{marginLeft: 8}}>Correct</span>
+                    <span style={{marginLeft: 8}}>{i18n._("Correct!")}</span>
                 </span>
+                {onNextQuestion &&
+                <button
+                    style={buttonStyle}
+                    onClick={onNextQuestion}
+                >{i18n._("Next question")}</button>}
             </div>;
         }
     },
