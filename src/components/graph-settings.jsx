@@ -54,17 +54,6 @@ const GraphSettings = React.createClass({
         rulerTicks: React.PropTypes.number
     },
 
-    getInitialState: function() {
-        return {
-            labelsTextbox: this.props.labels,
-            gridStepTextbox: this.props.gridStep,
-            snapStepTextbox: this.props.snapStep,
-            stepTextbox: this.props.step,
-            rangeTextbox: this.props.range,
-            backgroundImage: _.clone(this.props.backgroundImage)
-        };
-    },
-
     getDefaultProps: function() {
         return {
             editableSettings: ["graph", "snap", "image", "measure"],
@@ -85,6 +74,35 @@ const GraphSettings = React.createClass({
             showTooltips: false,
             rulerLabel: "",
             rulerTicks: 10
+        };
+    },
+
+    getInitialState: function() {
+        return this.stateFromProps(this.props);
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+        // Make sure that state updates when switching
+        // between different items in a multi-item editor.
+        if (!_.isEqual(this.props.labels, nextProps.labels) ||
+                !_.isEqual(this.props.gridStep, nextProps.gridStep) ||
+                !_.isEqual(this.props.snapStep, nextProps.snapStep) ||
+                !_.isEqual(this.props.step, nextProps.step) ||
+                !_.isEqual(this.props.range, nextProps.range) ||
+                !_.isEqual(this.props.backgroundImage,
+                           nextProps.backgroundImage)) {
+            this.setState(this.stateFromProps(nextProps));
+        }
+    },
+
+    stateFromProps: function(props) {
+        return {
+            labelsTextbox: props.labels,
+            gridStepTextbox: props.gridStep,
+            snapStepTextbox: props.snapStep,
+            stepTextbox: props.step,
+            rangeTextbox: props.range,
+            backgroundImage: _.clone(props.backgroundImage),
         };
     },
 
@@ -187,7 +205,13 @@ const GraphSettings = React.createClass({
                     <input type="text"
                             className="graph-settings-background-url"
                             ref="bg-url"
-                            defaultValue={this.state.backgroundImage.url}
+                            value={this.state.backgroundImage.url}
+                            onChange={(e) => {
+                                const image = _.clone(
+                                    this.props.backgroundImage);
+                                image.url = e.target.value;
+                                this.setState({backgroundImage: image});
+                            }}
                             onKeyPress={this.changeBackgroundUrl}
                             onBlur={this.changeBackgroundUrl} />
                     <InfoTip>
