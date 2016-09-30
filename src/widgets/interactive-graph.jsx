@@ -621,7 +621,8 @@ var InteractiveGraph = React.createClass({
                 box={box}
                 labels={this.props.labels}
                 range={this.props.range}
-                step={isMobile ? [2, 2] : this.props.step}
+                step={isMobile ? Util.constrainedTickStepsFromTickSteps(
+                    this.props.step, this.props.range) : this.props.step}
                 gridStep={gridStep}
                 snapStep={snapStep}
                 markings={this.props.markings}

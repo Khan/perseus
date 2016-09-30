@@ -385,7 +385,8 @@ var Grapher = React.createClass({
                 labelFormat: function(s) { return "\\small{" + s + "}"; },
                 gridStep: options.gridStep,
                 snapStep: options.snapStep,
-                tickStep: isMobile ? [2, 2] :
+                tickStep: isMobile ? Util.constrainedTickStepsFromTickSteps(
+                    _.pluck(options.gridConfig, "tickStep"), options.range) :
                     _.pluck(options.gridConfig, "tickStep"),
                 labelStep: 1,
                 unityLabels: _.pluck(options.gridConfig, "unityLabel"),

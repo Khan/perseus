@@ -351,6 +351,33 @@ const Util = {
     },
 
     /**
+     * Constrain tick steps intended for desktop size graphs
+     * to something more suitable for mobile size graphs.
+     * Specifically, we aim for 10 or fewer ticks per graph axis.
+     */
+    constrainedTickStepsFromTickSteps: function(tickSteps, ranges) {
+        const steps = [];
+
+        for (let i = 0; i < 2; i++) {
+            const span = ranges[i][1] - ranges[i][0];
+            const numTicks = span / tickSteps[i];
+            if (numTicks <= 10) {
+                // Will displays fine on mobile
+                steps[i] = tickSteps[i];
+            } else if (numTicks <= 20) {
+                // Will be crowded on mobile, so hide every other tick
+                steps[i] = tickSteps[i] * 2;
+            } else {
+                // Fallback in case we somehow have more than 20 ticks
+                // Note: This shouldn't happen due to GraphSettings.validStep
+                steps[i] = Util.tickStepFromNumTicks(span, 10);
+            }
+        }
+
+        return steps;
+    },
+
+    /**
      * Transparently update deprecated props so that the code to deal
      * with them only lives in one place: (Widget).deprecatedProps
      *
