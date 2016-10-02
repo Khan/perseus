@@ -1,6 +1,6 @@
 /* Perseus CSS
-// commit a1a1afd593e9506aaeefeb0d0a7e2e0ba899ba35
-// branch passage-review-mode
+// commit 0dcb5b95eba571cd1a6123ae27e521831caa13e6
+// branch fix-matrix
 // @generated
 */
 .perseus-sr-only {
@@ -1348,8 +1348,6 @@ body.mobile .categorizer-container td.category input[type="radio"] + span:active
 .perseus-matrix .matrix-prefix,
 .perseus-matrix .matrix-suffix {
   display: inline-block;
-  height: 30px;
-  line-height: 30px;
   margin: 10px 5px 0 10px;
   vertical-align: top;
 }
@@ -1394,7 +1392,6 @@ body.mobile .categorizer-container td.category input[type="radio"] + span:active
   border: none;
   border-radius: 0;
   box-sizing: border-box;
-  height: 30px;
   margin: 3px;
   padding: 0;
   text-align: center;
