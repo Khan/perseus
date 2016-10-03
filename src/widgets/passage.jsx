@@ -124,14 +124,21 @@ const Passage = React.createClass({
         };
     },
 
-    // TODO (davidpowell): Support highlighting on writing passages and remove
-    // this function. It only exists because writing passages contain several
-    // additional features - such as references to questions - which cause bugs
-    // with the highlighting feature that are currently unresolved.
-    isReadingPassage: function() {
-        // HACK: Quick way of checking if a passage is reading or writing based
-        // on if it has question markers in the text.
+    // TODO(davidpowell,mdr): We punted on supporting passages that contain
+    //     markers referenced in questions, because they caused bugs that we
+    //     couldn't diagnose quickly. Reading passages and essay passages don't
+    //     currently contain markers, though, so they're always supported!
+    supportsHighlighting: function() {
+        // HACK(davidpowell,mdr): If a passage contains question markers, the
+        //     first one should be labeled #1, so just scan for marker #1.
         return !(this.props.passageText.match(/\[\[1\]\]/));
+    },
+
+    // If this is a reading passage and not in review mode, then the user can
+    // update the highlighting state. Otherwise, highlights will still render,
+    // but in read-only mode.
+    canUpdateHighlighting: function() {
+        return !this.props.reviewModeRubric && this.supportsHighlighting();
     },
 
     /**
@@ -458,7 +465,7 @@ const Passage = React.createClass({
     handleMouseUp: function(e) {
         const isHighlightTooltipShown = this.state.newHighlightRange ||
                                         this.state.selectedHighlightRange;
-        if (this.isReadingPassage() && !isHighlightTooltipShown) {
+        if (this.canUpdateHighlighting() && !isHighlightTooltipShown) {
             // HACK - the height of the sat task title bar is 60px - subtracting
             // this in order to position the tooltip in the correct position on
             // the page. We can't use relative position of the passage as that
