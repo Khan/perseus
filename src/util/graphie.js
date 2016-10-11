@@ -757,6 +757,19 @@ GraphUtils.createGraphie = function(el) {
             // fn(t) = (t, fn'(t)) for some initial fn'.
             fn2 = fn2 || function(t) { return [t, 0]; };
 
+            // We truncate to 500,000, since anything bigger causes
+            // overflow in the firefox svg renderer.  This is safe
+            // since 500,000 is outside the viewport anyway.  We
+            // write these functions the way we do to handle undefined.
+            const clipper = (xy) => {
+                if (Math.abs(xy[1]) > 500000) {
+                    return [xy[0], Math.min(Math.max(xy[1], -500000), 500000)];
+                }
+                return xy;
+            };
+            const clippedFn = (x) => clipper(fn(x));
+            const clippedFn2 = (x) => clipper(fn2(x));
+
             if (!currentStyle.strokeLinejoin) {
                 currentStyle.strokeLinejoin = "round";
             }
@@ -773,12 +786,13 @@ GraphUtils.createGraphie = function(el) {
 
             const paths = raphael.set();
             let points = [];
-            let lastDiff = GraphUtils.coordDiff(fn(min), fn2(min));
+            let lastDiff = GraphUtils.coordDiff(clippedFn(min),
+                                                clippedFn2(min));
 
             let lastFlip = min;
             for (let t = min; t <= max; t += step) {
-                const top = fn(t);
-                const bottom = fn2(t);
+                const top = clippedFn(t);
+                const bottom = clippedFn2(t);
                 const diff = GraphUtils.coordDiff(top, bottom);
 
                 // Find points where it flips
@@ -788,9 +802,6 @@ GraphUtils.createGraphie = function(el) {
                     // switches signs and has a large difference
                     ((diff[1] < 0) !== (lastDiff[1] < 0)) &&
                         Math.abs(diff[1] - lastDiff[1]) > 2 * yScale ||
-                        // or the function value gets really high (which breaks
-                        // raphael)
-                        Math.abs(diff[1]) > 1e7 ||
                         // or the function is undefined
                         isNaN(diff[1])
                 ) {
@@ -800,7 +811,7 @@ GraphUtils.createGraphie = function(el) {
 
                         // backtrack to draw paired function
                         for (let u = t - step; u >= lastFlip; u -= step) {
-                            points.push(fn2(u));
+                            points.push(clippedFn2(u));
                         }
                         lastFlip = t;
                     }
@@ -821,7 +832,7 @@ GraphUtils.createGraphie = function(el) {
             if (shade) {
                 // backtrack to draw paired function
                 for (let u = max - step; u >= lastFlip; u -= step) {
-                    points.push(fn2(u));
+                    points.push(clippedFn2(u));
                 }
             }
             paths.push(this.path(points));
