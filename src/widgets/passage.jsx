@@ -46,17 +46,24 @@ const PassageMarkdown = require("./passage/passage-markdown.jsx");
 // 22 pixels.
 const LineHeightMeasurer = React.createClass({
     measureLineHeight() {
+        if (typeof this._cachedLineHeight !== "number") {
+            this.forceMeasureLineHeight();
+        }
+
+        return this._cachedLineHeight;
+    },
+
+    forceMeasureLineHeight() {
         // Add some text which magically fills an entire line.
         this.$body.text(" \u0080");
 
-        // Now, the line height is the difference between the top of the second
-        // line and the top of the first line.
-        const lineHeight = this.$end.offset().top - this.$body.offset().top;
+        // Now, the line height is the difference between the top of the
+        // second line and the top of the first line.
+        this._cachedLineHeight =
+            this.$end.offset().top - this.$body.offset().top;
 
         // Clear out the first line so it doesn't overlap the passage.
         this.$body.text("");
-
-        return lineHeight;
     },
 
     render() {
@@ -733,13 +740,20 @@ const Passage = React.createClass({
         this._updateState();
         window.addEventListener("mousedown", this.handleMouseDown);
 
-        this._throttledUpdateState = _.throttle(this._updateState, 500);
-        window.addEventListener("resize", this._throttledUpdateState);
+        this._onResize = _.throttle(() => {
+            // Remeasure the line height on resize, because the only line
+            // height changes we expect are subpixel changes when the user
+            // zooms in/out, and the only way to listen for zoom events is to
+            // listen for resize events.
+            this._lineHeightMeasurer.forceMeasureLineHeight();
+            this._updateState();
+        }, 500);
+        window.addEventListener("resize", this._onResize);
     },
 
     componentWillUnmount: function() {
         window.removeEventListener("mousedown", this.handleMouseDown);
-        window.removeEventListener("resize", this._throttledUpdateState);
+        window.removeEventListener("resize", this._onResize);
     },
 
     componentDidUpdate: function() {
