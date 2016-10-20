@@ -4,7 +4,6 @@
 
 const { StyleSheet, css } = require("aphrodite");
 const React = require("react");
-const ReactDOM = require("react-dom");
 const _ = require("underscore");
 
 const Changeable = require("../mixins/changeable.jsx");
@@ -39,59 +38,14 @@ const Explanation = React.createClass({
     getInitialState: function() {
         return {
             expanded: false,
-            contentHeight: 0,
         };
     },
 
     _onClick: function() {
-        this._updateHeight();
         this.setState({
             expanded: !this.state.expanded
         });
         this.props.trackInteraction();
-    },
-
-    // After rendering, we want to measure the height of the explanation so we
-    // know what to animate the height to/from when showing/hiding the
-    // explanation.
-    _updateHeight: function() {
-        const contentElement = ReactDOM.findDOMNode(this.refs.content);
-        const {isMobile} = this.props.apiOptions;
-
-        // TODO(jared): this feels super fagile -- would
-        // `contentElement.scrollHeight` work?
-
-        // The combined vertical padding and margin of this element.
-        const elementExtraHeight = (2 * verticalContentPadding) +
-                                   (2 * arrowHeight);
-
-        // Add up the heights of all the the child nodes
-        const contentHeight = Array.prototype.reduce.call(
-            contentElement.childNodes,
-            (memo, el) => memo + (el.offsetHeight || 0),
-            isMobile ? 0 : elementExtraHeight);
-
-        // Only update state if the height is different, otherwise we'll end
-        // up calling componentDidUpdate in an infinite loop!
-        if (contentHeight !== this.state.contentHeight) {
-            this.setState({
-                contentHeight: contentHeight
-            });
-        }
-    },
-
-    componentDidMount: function() {
-        this._updateHeight();
-    },
-
-    componentDidUpdate: function(prevProps, prevState) {
-        if (prevProps !== this.props) {
-            // Internal state only changes on height changes itself (which
-            // we wouldn't want to call _updateHeight() on), or on toggling
-            // expansion (which also doesn't affect the content height), so
-            // we only care about prop changes.
-            this._updateHeight();
-        }
     },
 
     render: function() {
@@ -149,7 +103,7 @@ const Explanation = React.createClass({
                     this.state.expanded && expandedStyle
                 )}
                 style={{
-                    height: this.state.expanded ? this.state.contentHeight : 0,
+                    height: this.state.expanded ? "auto" : 0,
                     overflow: this.state.expanded ? "visible" : "hidden"
                 }}
                 ref="content"
@@ -233,7 +187,7 @@ const styles = StyleSheet.create({
 
     content: {
         position: 'relative',
-        transition: 'all 0.1s',
+        transition: 'margin-top 0.1s',
     },
 
     contentExpanded: {
