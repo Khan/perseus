@@ -24,7 +24,7 @@ var ERROR_MESSAGE = $._("Sorry, I don't understand that!");
 
 // The new, MathQuill input expression widget
 var Expression = React.createClass({
-    mixins: [Changeable, JsonifyProps],
+    mixins: [Changeable],
 
     propTypes: {
         value: React.PropTypes.string,
@@ -206,6 +206,10 @@ var Expression = React.createClass({
     simpleValidate: function(rubric, onInputError) {
         onInputError = onInputError || function() { };
         return Expression.validate(this.toJSON(), rubric, onInputError);
+    },
+
+    toJSON: function(skipValidation) {
+        return {value: this.props.value};
     },
 
     statics: {
