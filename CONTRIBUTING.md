@@ -1,6 +1,6 @@
 ## Getting started locally
 
-Note: if you're a KA employee and have the webapp repo checked out, you should check perseus out next to webapp, in your /khan folder.
+Note: if you're a KA employee this will already be checked out inside webapp.
 
     git clone git@github.com:Khan/perseus.git
     cd perseus/
