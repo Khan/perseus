@@ -110,7 +110,7 @@ const ArticleDemo = React.createClass({
                     <script src="lib/jquery.js"></script>
                     <script src="lib/underscore.js"></script>
                     <script src="lib/react-with-addons.js"></script>
-                    <script src="lib/mathjax/2.1/MathJax.js?config=KAthJax-f3c5d145ec6d4e408f74f28e1aad49db&amp;delayStartupUntil=configured"></script>
+                    <script src="lib/mathjax/2.1/MathJax.js?config=KAthJax-e76365d62c31e1cbafe939bf94aa8497&amp;delayStartupUntil=configured"></script>
                     <script src="lib/katex/katex.js"></script>
                     <script src="lib/mathquill/mathquill-basic.js"></script>
                     <script src="lib/kas.js"></script>

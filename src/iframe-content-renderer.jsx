@@ -21,8 +21,9 @@ const requestIframeData = {};
 const updateIframeHeight = {};
 window.iframeDataStore = {};
 
-// This is only called once per iframe, after Perseus is loaded and the frame
-// is ready to render content.
+// This is called once after Perseus is loaded and the iframe
+// is ready to render content, then twice a second afterwards
+// to capture the result of animations.
 window.addEventListener("message", (event) => {
     if (typeof event.data === "string") {
         requestIframeData[event.data]();

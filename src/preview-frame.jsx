@@ -1,10 +1,10 @@
  /* eslint-disable no-console */
 
  /**
-  * Demonstrates the rendered result of a Perseus question within an iframe
+  * Demonstrates the rendered result of a Perseus question within an iframe.
   *
-  * This mounts an ItemRenderer or HintRenderer (depending on the content given)
-  * and applies mobile styling if necessary
+  * This mounts an ItemRenderer, HintRenderer, or ArticleRenderer(s)
+  * (depending on the content given) and applies mobile styling if necessary.
   */
 
 const React = require('react');
