@@ -1,5 +1,5 @@
 /* Perseus CSS
-// commit 02a0f094c7b7680ff20d345dddf50bcd285485fa
+// commit 1bb32a8c0e0b5548702cc5629cb412b309ee0ad5
 // branch master
 // @generated
 */
@@ -373,6 +373,7 @@
     background-color: #f0f1f2;
     border-radius: 4px;
     padding: 16px;
+    white-space: pre-wrap;
     margin: 0 -16px;
   }
   .bibliotron-article.framework-perseus.perseus-article.perseus-mobile blockquote,
@@ -504,6 +505,7 @@
     background-color: #f0f1f2;
     border-radius: 4px;
     padding: 16px;
+    white-space: pre-wrap;
     margin: 0 0px;
   }
   .bibliotron-article.framework-perseus.perseus-article.perseus-mobile blockquote,
@@ -635,6 +637,7 @@
     background-color: #f0f1f2;
     border-radius: 4px;
     padding: 16px;
+    white-space: pre-wrap;
     margin: 0 0px;
   }
   .bibliotron-article.framework-perseus.perseus-article.perseus-mobile blockquote,
