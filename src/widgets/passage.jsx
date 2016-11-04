@@ -696,6 +696,10 @@ const Passage = React.createClass({
 
         const parseState = {};
         const parsedContent = PassageMarkdown.parse(rawContent, parseState);
+
+        // Check if the title has any non-empty text in it.
+        const hasTitle = /\S/.test(this.props.passageTitle);
+
         return <div>
             <div
                 onMouseUp={this.handleMouseUp}
@@ -703,17 +707,17 @@ const Passage = React.createClass({
             >
                 {this._renderInstructions(parseState)}
                 <div className="perseus-widget-passage">
-                    <div className="passage-title">
+                    {hasTitle && <h3 className="passage-title">
                         <Renderer content={this.props.passageTitle} />
-                    </div>
+                    </h3>}
                     {lineNumbers &&
                         <div className="line-numbers" aria-hidden={true}>
                             {lineNumbers}
                         </div>
                     }
-                    <h3 className="perseus-sr-only">
+                    {!hasTitle && <h3 className="perseus-sr-only">
                         {i18n._("Beginning of reading passage.")}
-                    </h3>
+                    </h3>}
                     <div className="passage-text">
                         {this._renderContent(parsedContent)}
                     </div>
