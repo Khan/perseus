@@ -222,20 +222,37 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
             };
         },
         react: (node, output, state) => {
-            var tableOutput = node.table ?
-                SimpleMarkdown.defaultRules.table.react(
-                    node.table,
-                    output,
-                    state
-                ) :  // :( (middle of the ternary expression)
-                "//invalid table//";
+            let contents;
+            if (!node.table) {
+                contents = "//invalid table//";
+            } else {
+                const tableOutput =
+                    SimpleMarkdown.defaultRules.table.react(
+                        node.table,
+                        output,
+                        state
+                    );
+
+                const caption = <caption
+                    key="caption"
+                    className="perseus-table-title"
+                >
+                    {output(node.title, state)}
+                </caption>;
+
+                // Splice the caption into the table's children with the
+                // caption as the first child.
+                contents = React.cloneElement(
+                    tableOutput,
+                    null,
+                    [caption, ...tableOutput.props.children]
+                );
+            }
+
             // Note: if the DOM structure changes, edit the Zoomable wrapper
             // in src/renderer.jsx.
             return <div className="perseus-titled-table" key={state.key}>
-                <div className="perseus-table-title">
-                    {output(node.title, state)}
-                </div>
-                {tableOutput}
+                {contents}
             </div>;
         },
     },
