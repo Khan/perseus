@@ -20,8 +20,6 @@ const mediaQueries = require("../styles/media-queries.js");
 const sharedStyles = require("../styles/shared.js");
 
 const Categorizer = React.createClass({
-    mixins: [WidgetJsonifyDeprecated],
-
     propTypes: {
         ...Changeable.propTypes,
         apiOptions: ApiOptions.propTypes,
@@ -52,6 +50,10 @@ const Categorizer = React.createClass({
 
     change(...args) {
         return Changeable.change.apply(this, args);
+    },
+
+    getUserInfo() {
+        return WidgetJsonifyDeprecated.getUserInfo.call(this);
     },
 
     render: function() {

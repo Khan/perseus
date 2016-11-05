@@ -26,12 +26,17 @@ const {
 const HintsRenderer = React.createClass({
     propTypes: {
         // Also accepts apiOptions, via the ApiOptionsProps mixin.
+        ...ApiOptionsProps.propTypes,
         className: React.PropTypes.string,
         hints: React.PropTypes.arrayOf(React.PropTypes.any),
         hintsVisible: React.PropTypes.number,
     },
 
-    mixins: [ ApiOptionsProps ],
+    getDefaultProps() {
+        return {
+            apiOptions: {},
+        };
+    },
 
     componentDidMount: function() {
         this._cacheHintImages();
@@ -48,6 +53,10 @@ const HintsRenderer = React.createClass({
             const pos = this.props.hintsVisible - 1;
             ReactDOM.findDOMNode(this.refs["hintRenderer" + pos]).focus();
         }
+    },
+
+    getApiOptions() {
+        return ApiOptionsProps.getApiOptions.call(this);
     },
 
     _hintsVisible: function() {

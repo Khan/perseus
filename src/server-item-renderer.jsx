@@ -23,6 +23,7 @@ const RP = React.PropTypes;
 
 const ItemRenderer = React.createClass({
     propTypes: {
+        ...ProvideKeypad.propTypes,
         apiOptions: RP.any,
         hintsVisible: RP.number,
         item: RP.shape({
@@ -40,8 +41,6 @@ const ItemRenderer = React.createClass({
         savedState: RP.any,
     },
 
-    mixins: [ProvideKeypad],
-
     getDefaultProps: function() {
         return {
             apiOptions: {},  // a deep default is done in `this.update()`
@@ -50,12 +49,14 @@ const ItemRenderer = React.createClass({
 
     getInitialState: function() {
         return {
+            ...ProvideKeypad.getInitialState(),
             questionCompleted: false,
             questionHighlightedWidgets: [],
         };
     },
 
     componentDidMount: function() {
+        ProvideKeypad.componentDidMount.call(this);
         this._currentFocus = null;
     },
 
@@ -71,6 +72,14 @@ const ItemRenderer = React.createClass({
             this.questionRenderer.emptyWidgets().length === 0;
             this.props.apiOptions.answerableCallback(isAnswerable);
         }
+    },
+
+    componentWillUnmount() {
+        ProvideKeypad.componentWillUnmount.call(this);
+    },
+
+    keypadElement() {
+        return ProvideKeypad.keypadElement.call(this);
     },
 
     _handleFocusChange: function(newFocus, oldFocus) {

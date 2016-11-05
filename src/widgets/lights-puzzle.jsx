@@ -164,8 +164,6 @@ var flipTilesPattern = (oldCells, tileY, tileX, pattern) => {
 
 // The lights puzzle widget
 var LightsPuzzle = React.createClass({
-    mixins: [WidgetJsonifyDeprecated],
-
     propTypes: {
         ...Changeable.propTypes,
         cells: React.PropTypes.arrayOf(
@@ -193,6 +191,10 @@ var LightsPuzzle = React.createClass({
             flipPattern: "plus",
             moveCount: 0
         };
+    },
+
+    getUserInfo() {
+        return WidgetJsonifyDeprecated.getUserInfo.call(this);
     },
 
     render: function() {

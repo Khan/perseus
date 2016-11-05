@@ -13,8 +13,6 @@ var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx")
 var EN_DASH = "\u2013";
 
 var PassageRef = React.createClass({
-    mixins: [WidgetJsonifyDeprecated],
-
     propTypes: {
         ...Changeable.propTypes,
         passageNumber: React.PropTypes.number,
@@ -40,6 +38,10 @@ var PassageRef = React.createClass({
     shouldComponentUpdate: function(nextProps, nextState) {
         return !_.isEqual(this.props, nextProps) ||
             !_.isEqual(this.state, nextState);
+    },
+
+    getUserInfo() {
+        return WidgetJsonifyDeprecated.getUserInfo.call(this);
     },
 
     render: function() {

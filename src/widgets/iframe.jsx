@@ -22,9 +22,6 @@ var updateQueryString = require("../util.js").updateQueryString;
 
 /* This renders the iframe and handles validation via window.postMessage */
 var Iframe = React.createClass({
-
-    mixins: [WidgetJsonifyDeprecated],
-
     propTypes: {
         ...Changeable.propTypes,
         width: React.PropTypes.string,
@@ -44,6 +41,11 @@ var Iframe = React.createClass({
             allowFullScreen: false,
         };
     },
+
+    getUserInfo() {
+        return WidgetJsonifyDeprecated.getUserInfo.call(this);
+    },
+
     handleMessageEvent: function(e) {
         // We receive data from the iframe that contains {passed: true/false}
         //  and use that to set the status
@@ -65,6 +67,7 @@ var Iframe = React.createClass({
             message: data.message
         });
     },
+
     componentDidMount: function() {
         $(window).on("message", this.handleMessageEvent);
     },
