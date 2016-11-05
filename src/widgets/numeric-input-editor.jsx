@@ -43,8 +43,6 @@ const initAnswer = (status) => {
 };
 
 const NumericInputEditor = React.createClass({
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
     },
@@ -388,6 +386,10 @@ const NumericInputEditor = React.createClass({
             }
         });
         return warnings;
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
     },
 });
 

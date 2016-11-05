@@ -18,8 +18,6 @@ var ReactionDiagramWidgetEditor = React.createClass({
         smiles: React.PropTypes.arrayOf(React.PropTypes.string),
     },
 
-    mixins: [EditorJsonify],
-
     getDefaultProps: function() {
         return {
             smiles: ["", ""],
@@ -55,6 +53,10 @@ var ReactionDiagramWidgetEditor = React.createClass({
             newSep[idx][propName] = newValue;
             this.change({separators: newSep});
         };
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
     },
 
     render: function() {
@@ -111,7 +113,6 @@ var ReactionDiagramWidgetEditor = React.createClass({
 
         </div>;
     },
-
 });
 
 module.exports = ReactionDiagramWidgetEditor;

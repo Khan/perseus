@@ -12,8 +12,6 @@ const MoleculeWidgetEditor = React.createClass({
         smiles: React.PropTypes.string,
     },
 
-    mixins: [EditorJsonify],
-
     change(...args) {
         return Changeable.change.apply(this, args);
     },
@@ -24,6 +22,10 @@ const MoleculeWidgetEditor = React.createClass({
 
     updateRotation: function(newValue) {
         this.change({rotationAngle: newValue});
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
     },
 
     render: function() {

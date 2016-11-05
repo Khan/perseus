@@ -20,7 +20,6 @@ const defaultImage = {
 };
 
 const MeasurerEditor = React.createClass({
-    mixins: [EditorJsonify],
     className: "perseus-widget-measurer",
 
     propTypes: {
@@ -200,7 +199,11 @@ const MeasurerEditor = React.createClass({
             var [name, value] = nameAndValue;
             return <option key={value} value={value}>{name}</option>;
         });
-    }
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
+    },
 });
 
 module.exports = MeasurerEditor;

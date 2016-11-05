@@ -13,8 +13,6 @@ const InfoTip = require("../components/info-tip.jsx");
 const PropCheckBox  = require("../components/prop-check-box.jsx");
 
 const PassageEditor = React.createClass({
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
         passageTitle: React.PropTypes.string,
@@ -95,6 +93,10 @@ const PassageEditor = React.createClass({
                 {footnotesEditor}
             </div>
         </div>;
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
     },
 });
 

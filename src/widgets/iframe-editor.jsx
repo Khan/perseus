@@ -15,9 +15,6 @@ const PropCheckBox  = require("../components/prop-check-box.jsx");
  * This is used for editing a name/value pair.
  */
 const PairEditor = React.createClass({
-
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
         name: React.PropTypes.string,
@@ -46,16 +43,17 @@ const PairEditor = React.createClass({
                            onChange={this.change("value")} />
             </label>
         </fieldset>;
-    }
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
+    },
 });
 
 /**
  * This is used for editing a set of name/value pairs.
  */
 var PairsEditor = React.createClass({
-
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
         pairs: React.PropTypes.arrayOf(React.PropTypes.shape({
@@ -88,16 +86,17 @@ var PairsEditor = React.createClass({
             pairs.push({name: "", value: ""});
         }
         this.change("pairs", pairs);
-    }
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
+    },
 });
 
 /**
  * This is the main editor for this widget, to specify all the options.
  */
 var IframeEditor = React.createClass({
-
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
     },
@@ -152,7 +151,11 @@ var IframeEditor = React.createClass({
 
     handleSettingsChange: function(settings) {
         this.change({settings: settings.pairs});
-    }
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
+    },
 });
 
 module.exports = IframeEditor;

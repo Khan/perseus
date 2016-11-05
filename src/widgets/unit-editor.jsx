@@ -111,8 +111,6 @@ var UnitExample = React.createClass({
 });
 
 const UnitInputEditor = React.createClass({
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
         value: React.PropTypes.string,
@@ -263,6 +261,10 @@ const UnitInputEditor = React.createClass({
         }
 
         return warnings;
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
     },
 });
 

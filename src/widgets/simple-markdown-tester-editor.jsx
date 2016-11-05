@@ -33,8 +33,6 @@ var TextArea = React.createClass({
 });
 
 var SimpleMarkdownTesterEditor = React.createClass({
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
     },
@@ -66,7 +64,11 @@ var SimpleMarkdownTesterEditor = React.createClass({
     focus: function() {
         this.refs.input.focus();
         return true;
-    }
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
+    },
 });
 
 module.exports = SimpleMarkdownTesterEditor;

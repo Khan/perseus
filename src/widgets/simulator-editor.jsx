@@ -15,8 +15,6 @@ const NumberInput  = require("../components/number-input.jsx");
 const maxTrials = 5000;
 
 const SimulatorEditor = React.createClass({
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
         xAxisLabel: React.PropTypes.string,
@@ -116,7 +114,11 @@ const SimulatorEditor = React.createClass({
 
     handleTargetValueChange: function(propName, e) {
         this.change(propName, e.target.value);
-    }
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
+    },
 });
 
 module.exports = SimulatorEditor;

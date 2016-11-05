@@ -12,8 +12,6 @@ const NumberInput = require("../components/number-input.jsx");
 const TextInput = require("../components/text-input.jsx");
 
 const PassageRefEditor = React.createClass({
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
         passageNumber: React.PropTypes.number,
@@ -70,7 +68,11 @@ const PassageRefEditor = React.createClass({
                 </label>
             </div>
         </div>;
-    }
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
+    },
 });
 
 module.exports = PassageRefEditor;

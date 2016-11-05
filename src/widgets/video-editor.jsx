@@ -36,8 +36,6 @@ const VideoEditor = React.createClass({
         onChange: React.PropTypes.func,
     },
 
-    mixins: [EditorJsonify],
-
     getDefaultProps: function() {
         return {
             location: "",
@@ -50,6 +48,10 @@ const VideoEditor = React.createClass({
 
     change(...args) {
         return Changeable.change.apply(this, args);
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
     },
 
     render: function() {

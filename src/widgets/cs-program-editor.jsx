@@ -19,9 +19,6 @@ var DEFAULT_HEIGHT = 400;
  * This is used for editing a name/value pair.
  */
 var PairEditor = React.createClass({
-
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
         name: React.PropTypes.string,
@@ -50,16 +47,17 @@ var PairEditor = React.createClass({
                            onChange={this.change("value")} />
                 </label>
             </fieldset>;
-    }
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
+    },
 });
 
 /**
  * This is used for editing a set of name/value pairs.
  */
 var PairsEditor = React.createClass({
-
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
         pairs: React.PropTypes.arrayOf(React.PropTypes.shape({
@@ -92,7 +90,11 @@ var PairsEditor = React.createClass({
             pairs.push({name: "", value: ""});
         }
         this.change("pairs", pairs);
-    }
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
+    },
 });
 
 var KA_PROGRAM_URL = /khanacademy\.org\/computer-programming\/[^\/]+\/(\d+)/;
@@ -115,9 +117,6 @@ function isolateProgramID(programUrl) {
  * This is the main editor for this widget, to specify all the options.
  */
 var CSProgramEditor = React.createClass({
-
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
     },
@@ -197,7 +196,11 @@ var CSProgramEditor = React.createClass({
                     programID: programID,
                 });
             });
-    }
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
+    },
 });
 
 module.exports = CSProgramEditor;

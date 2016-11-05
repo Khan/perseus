@@ -12,8 +12,6 @@ var InlineIcon = require("../components/inline-icon.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
 var DropdownEditor = React.createClass({
-    mixins: [EditorJsonify],
-
     propTypes: {
         choices: React.PropTypes.arrayOf(React.PropTypes.shape({
             content: React.PropTypes.string,
@@ -141,7 +139,11 @@ var DropdownEditor = React.createClass({
     focus: function(i) {
         ReactDOM.findDOMNode(this.refs["editor" + i]).focus();
         return true;
-    }
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
+    },
 });
 
 module.exports = DropdownEditor;

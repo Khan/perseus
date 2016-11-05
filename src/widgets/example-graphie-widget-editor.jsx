@@ -14,8 +14,6 @@ var ExampleGraphieWidget = require("./example-graphie-widget.jsx").widget;
  * of the screen in the demo page. Only the question writer sees this.
  */
 var ExampleGraphieWidgetEditor = React.createClass({
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
     },
@@ -58,7 +56,11 @@ var ExampleGraphieWidgetEditor = React.createClass({
                 correct: newProps.coord
             });
         }
-    }
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
+    },
 });
 
 module.exports = ExampleGraphieWidgetEditor;

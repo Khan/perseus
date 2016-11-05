@@ -42,8 +42,6 @@ var getMatrixSize = function(matrix) {
 };
 
 var MatrixEditor = React.createClass({
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
         matrixBoardSize: React.PropTypes.arrayOf(
@@ -136,7 +134,11 @@ var MatrixEditor = React.createClass({
                 answers: answers
             });
         }
-    }
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
+    },
 });
 
 module.exports = MatrixEditor;

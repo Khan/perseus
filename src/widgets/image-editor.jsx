@@ -62,8 +62,6 @@ function blankLabel() {
 }
 
 const ImageEditor = React.createClass({
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
     },
@@ -393,6 +391,10 @@ const ImageEditor = React.createClass({
         }
 
         return warnings;
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
     },
 });
 

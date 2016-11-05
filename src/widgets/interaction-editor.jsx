@@ -39,8 +39,6 @@ var defaultInteractionProps = {
 // TODO(eater): Factor this out
 //
 const PointEditor = React.createClass({
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
         coordX: React.PropTypes.string,
@@ -85,6 +83,10 @@ const PointEditor = React.createClass({
     change(...args) {
         return Changeable.change.apply(this, args);
     },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
+    },
 });
 
 
@@ -94,8 +96,6 @@ const PointEditor = React.createClass({
 // TODO(eater): Factor this out
 //
 var LineEditor = React.createClass({
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
         startX: React.PropTypes.string,
@@ -183,6 +183,10 @@ var LineEditor = React.createClass({
     change(...args) {
         return Changeable.change.apply(this, args);
     },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
+    },
 });
 
 
@@ -193,8 +197,6 @@ var LineEditor = React.createClass({
 // TODO(eater): Rethink how constraints are represented
 //
 var MovablePointEditor = React.createClass({
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
         startX: React.PropTypes.string,
@@ -249,6 +251,10 @@ var MovablePointEditor = React.createClass({
     change(...args) {
         return Changeable.change.apply(this, args);
     },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
+    },
 });
 
 
@@ -259,8 +265,6 @@ var MovablePointEditor = React.createClass({
 // TODO(eater): Rethink how constraints are represented
 //
 var MovableLineEditor = React.createClass({
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
         startX: React.PropTypes.string,
@@ -345,6 +349,10 @@ var MovableLineEditor = React.createClass({
     change(...args) {
         return Changeable.change.apply(this, args);
     },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
+    },
 });
 
 
@@ -354,8 +362,6 @@ var MovableLineEditor = React.createClass({
 // TODO(eater): Factor this out
 //
 var FunctionEditor = React.createClass({
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
         value: React.PropTypes.string,
@@ -427,6 +433,10 @@ var FunctionEditor = React.createClass({
     change(...args) {
         return Changeable.change.apply(this, args);
     },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
+    },
 });
 
 
@@ -436,8 +446,6 @@ var FunctionEditor = React.createClass({
 // TODO(eater): Factor this out
 //
 var ParametricEditor = React.createClass({
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
         x: React.PropTypes.string,
@@ -519,6 +527,10 @@ var ParametricEditor = React.createClass({
     change(...args) {
         return Changeable.change.apply(this, args);
     },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
+    },
 });
 
 
@@ -529,8 +541,6 @@ var ParametricEditor = React.createClass({
 // TODO(eater): Add text direction
 //
 var LabelEditor = React.createClass({
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
         color: React.PropTypes.string,
@@ -586,6 +596,10 @@ var LabelEditor = React.createClass({
     change(...args) {
         return Changeable.change.apply(this, args);
     },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
+    },
 });
 
 
@@ -595,8 +609,6 @@ var LabelEditor = React.createClass({
 // TODO(eater): Factor this out maybe?
 //
 var RectangleEditor = React.createClass({
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
         color: React.PropTypes.string,
@@ -665,11 +677,13 @@ var RectangleEditor = React.createClass({
     change(...args) {
         return Changeable.change.apply(this, args);
     },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
+    },
 });
 
 var InteractionEditor = React.createClass({
-    mixins: [EditorJsonify],
-
     // TODO(eater): Make more better
     propTypes: {
         ...Changeable.propTypes,
@@ -1026,6 +1040,10 @@ var InteractionEditor = React.createClass({
                 </select>
             </div>
         </div>;
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
     },
 });
 

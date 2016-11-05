@@ -19,8 +19,6 @@ var defaultExplanationProps = {
 };
 
 var ExplanationEditor = React.createClass({
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
         showPrompt: React.PropTypes.string,
@@ -74,7 +72,11 @@ var ExplanationEditor = React.createClass({
                     }} />
             </div>
         </div>;
-    }
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
+    },
 });
 
 module.exports = ExplanationEditor;

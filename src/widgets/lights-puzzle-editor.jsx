@@ -126,8 +126,6 @@ var TileGrid = React.createClass({
 
 // The widget editor
 const LightsPuzzleEditor = React.createClass({
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
         startCells: React.PropTypes.arrayOf(
@@ -246,7 +244,11 @@ const LightsPuzzleEditor = React.createClass({
         });
 
         this.change({startCells: newCells});
-    }
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
+    },
 });
 
 module.exports = LightsPuzzleEditor;

@@ -44,8 +44,6 @@ var NumberLineEditor = React.createClass({
         showTooltips: React.PropTypes.bool,
     },
 
-    mixins: [EditorJsonify],
-
     getDefaultProps: function() {
         return {
             range: [0, 10],
@@ -154,6 +152,10 @@ var NumberLineEditor = React.createClass({
         this.props.onChange({
             labelStyle: labelStyle,
         });
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
     },
 
     render: function() {

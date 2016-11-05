@@ -14,8 +14,6 @@ const TextListEditor = require("../components/text-list-editor.jsx");
 const Categorizer = require("./categorizer.jsx").widget;
 
 const CategorizerEditor = React.createClass({
-    mixins: [EditorJsonify],
-
     propTypes: {
         ...Changeable.propTypes,
         apiOptions: ApiOptions.propTypes,
@@ -79,6 +77,10 @@ const CategorizerEditor = React.createClass({
                 trackInteraction={function() {}}
                 />
         </div>;
+    },
+
+    serialize() {
+        return EditorJsonify.serialize.call(this);
     },
 });
 
