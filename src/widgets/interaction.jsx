@@ -70,10 +70,9 @@ var defaultInteractionProps = {
 };
 
 var Interaction = React.createClass({
-    mixins: [Changeable],
-
     // TODO(eater): Make more better
     propTypes: {
+        ...Changeable.propTypes,
         graph: React.PropTypes.object,
         elements: React.PropTypes.arrayOf(React.PropTypes.object),
     },
@@ -233,6 +232,9 @@ var Interaction = React.createClass({
         return vars;
     },
 
+    change(...args) {
+        return Changeable.change.apply(this, args);
+    },
 
     render: function() {
         return <Graphie

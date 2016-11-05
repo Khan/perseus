@@ -13,6 +13,7 @@ var mdOutput = PerseusMarkdown.basicOutput;
 
 var SimpleMarkdownTester = React.createClass({
     propTypes: {
+        ...Changeable.propTypes,
         value: React.PropTypes.string
     },
 
@@ -22,7 +23,9 @@ var SimpleMarkdownTester = React.createClass({
         };
     },
 
-    mixins: [Changeable],
+    change(...args) {
+        return Changeable.change.apply(this, args);
+    },
 
     toJSON: function() {
         return {};

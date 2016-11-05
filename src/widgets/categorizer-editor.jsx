@@ -14,9 +14,10 @@ const TextListEditor = require("../components/text-list-editor.jsx");
 const Categorizer = require("./categorizer.jsx").widget;
 
 const CategorizerEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
+    mixins: [EditorJsonify],
 
     propTypes: {
+        ...Changeable.propTypes,
         apiOptions: ApiOptions.propTypes,
         items: React.PropTypes.arrayOf(React.PropTypes.string),
         categories: React.PropTypes.arrayOf(React.PropTypes.string),
@@ -31,6 +32,10 @@ const CategorizerEditor = React.createClass({
             values: [],
             randomizeItems: false
         };
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     render: function() {

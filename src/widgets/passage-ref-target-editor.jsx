@@ -9,9 +9,10 @@ const Changeable   = require("../mixins/changeable.jsx");
 const EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
 const PassageRefTargetEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
+    mixins: [EditorJsonify],
 
     propTypes: {
+        ...Changeable.propTypes,
         content: React.PropTypes.string
     },
 
@@ -19,6 +20,10 @@ const PassageRefTargetEditor = React.createClass({
         return {
             content: ""
         };
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     render: function() {

@@ -41,12 +41,11 @@ const Indicators = React.createClass({
 // are currently a little confusing.
 const GradedGroupSet = React.createClass({
     propTypes: {
+        ...Changeable.propTypes,
         apiOptions: ApiOptions.propTypes,
         gradedGroups: React.PropTypes.array,
         trackInteraction: React.PropTypes.func.isRequired,
     },
-
-    mixins: [Changeable],
 
     getDefaultProps() {
         return {
@@ -62,6 +61,10 @@ const GradedGroupSet = React.createClass({
 
     shouldComponentUpdate(nextProps, nextState) {
         return nextProps !== this.props || nextState !== this.state;
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     // Mobile API

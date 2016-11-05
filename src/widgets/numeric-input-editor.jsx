@@ -43,7 +43,11 @@ const initAnswer = (status) => {
 };
 
 const NumericInputEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
+    mixins: [EditorJsonify],
+
+    propTypes: {
+        ...Changeable.propTypes,
+    },
 
     getDefaultProps: function() {
         return {
@@ -295,6 +299,10 @@ const NumericInputEditor = React.createClass({
             {labelText}
         </div>;
 
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     onToggleOptions: function(choiceIndex) {

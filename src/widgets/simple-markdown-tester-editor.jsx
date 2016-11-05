@@ -33,7 +33,11 @@ var TextArea = React.createClass({
 });
 
 var SimpleMarkdownTesterEditor = React.createClass({
-    mixins: [Changeable, EditorJsonify],
+    mixins: [EditorJsonify],
+
+    propTypes: {
+        ...Changeable.propTypes,
+    },
 
     getDefaultProps: function() {
         return {
@@ -53,6 +57,10 @@ var SimpleMarkdownTesterEditor = React.createClass({
                 </div>
             </label>
         </div>;
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     focus: function() {

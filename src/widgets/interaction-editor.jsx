@@ -39,9 +39,10 @@ var defaultInteractionProps = {
 // TODO(eater): Factor this out
 //
 const PointEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
+    mixins: [EditorJsonify],
 
     propTypes: {
+        ...Changeable.propTypes,
         coordX: React.PropTypes.string,
         coordY: React.PropTypes.string,
         color: React.PropTypes.string,
@@ -80,6 +81,10 @@ const PointEditor = React.createClass({
             </div>
         </div>;
     },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
+    },
 });
 
 
@@ -89,9 +94,10 @@ const PointEditor = React.createClass({
 // TODO(eater): Factor this out
 //
 var LineEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
+    mixins: [EditorJsonify],
 
     propTypes: {
+        ...Changeable.propTypes,
         startX: React.PropTypes.string,
         startY: React.PropTypes.string,
         endX: React.PropTypes.string,
@@ -173,6 +179,10 @@ var LineEditor = React.createClass({
             </div>
         </div>;
     },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
+    },
 });
 
 
@@ -183,9 +193,10 @@ var LineEditor = React.createClass({
 // TODO(eater): Rethink how constraints are represented
 //
 var MovablePointEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
+    mixins: [EditorJsonify],
 
     propTypes: {
+        ...Changeable.propTypes,
         startX: React.PropTypes.string,
         startY: React.PropTypes.string,
         constraint: React.PropTypes.string,
@@ -234,6 +245,10 @@ var MovablePointEditor = React.createClass({
             <ConstraintEditor {...this.props} />
         </div>;
     },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
+    },
 });
 
 
@@ -244,9 +259,10 @@ var MovablePointEditor = React.createClass({
 // TODO(eater): Rethink how constraints are represented
 //
 var MovableLineEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
+    mixins: [EditorJsonify],
 
     propTypes: {
+        ...Changeable.propTypes,
         startX: React.PropTypes.string,
         startY: React.PropTypes.string,
         endX: React.PropTypes.string,
@@ -325,6 +341,10 @@ var MovableLineEditor = React.createClass({
             <ConstraintEditor {...this.props} />
         </div>;
     },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
+    },
 });
 
 
@@ -334,9 +354,10 @@ var MovableLineEditor = React.createClass({
 // TODO(eater): Factor this out
 //
 var FunctionEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
+    mixins: [EditorJsonify],
 
     propTypes: {
+        ...Changeable.propTypes,
         value: React.PropTypes.string,
         rangeMin: React.PropTypes.string,
         rangeMax: React.PropTypes.string,
@@ -402,6 +423,10 @@ var FunctionEditor = React.createClass({
             </div>
         </div>;
     },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
+    },
 });
 
 
@@ -411,9 +436,10 @@ var FunctionEditor = React.createClass({
 // TODO(eater): Factor this out
 //
 var ParametricEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
+    mixins: [EditorJsonify],
 
     propTypes: {
+        ...Changeable.propTypes,
         x: React.PropTypes.string,
         y: React.PropTypes.string,
         rangeMin: React.PropTypes.string,
@@ -489,6 +515,10 @@ var ParametricEditor = React.createClass({
             </div>
         </div>;
     },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
+    },
 });
 
 
@@ -499,9 +529,10 @@ var ParametricEditor = React.createClass({
 // TODO(eater): Add text direction
 //
 var LabelEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
+    mixins: [EditorJsonify],
 
     propTypes: {
+        ...Changeable.propTypes,
         color: React.PropTypes.string,
         coordX: React.PropTypes.string,
         coordY: React.PropTypes.string,
@@ -551,6 +582,10 @@ var LabelEditor = React.createClass({
             </div>
         </div>;
     },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
+    },
 });
 
 
@@ -560,9 +595,10 @@ var LabelEditor = React.createClass({
 // TODO(eater): Factor this out maybe?
 //
 var RectangleEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
+    mixins: [EditorJsonify],
 
     propTypes: {
+        ...Changeable.propTypes,
         color: React.PropTypes.string,
         coordX: React.PropTypes.string,
         coordY: React.PropTypes.string,
@@ -625,13 +661,18 @@ var RectangleEditor = React.createClass({
             </div>
         </div>;
     },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
+    },
 });
 
 var InteractionEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
+    mixins: [EditorJsonify],
 
     // TODO(eater): Make more better
     propTypes: {
+        ...Changeable.propTypes,
         elements: React.PropTypes.arrayOf(React.PropTypes.object),
         graph: React.PropTypes.objectOf(React.PropTypes.any),
     },
@@ -748,6 +789,10 @@ var InteractionEditor = React.createClass({
         var newElements = _.without(this.props.elements, element);
         newElements.splice(index + 1, 0, element);
         this.change({elements: newElements});
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     render: function() {

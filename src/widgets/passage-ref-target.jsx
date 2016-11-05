@@ -10,9 +10,10 @@ var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx")
 var Renderer = require("../renderer.jsx");
 
 var PassageRefTarget = React.createClass({
-    mixins: [WidgetJsonifyDeprecated, Changeable],
+    mixins: [WidgetJsonifyDeprecated],
 
     propTypes: {
+        ...Changeable.propTypes,
         content: React.PropTypes.string
     },
 
@@ -28,6 +29,10 @@ var PassageRefTarget = React.createClass({
             inline={true}
             apiOptions={this.props.apiOptions}
             />;
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     simpleValidate: function(rubric) {

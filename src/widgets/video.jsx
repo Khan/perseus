@@ -26,13 +26,11 @@ var IS_KA_SITE = /khanacademy\.org/;
  * Video renderer.
  */
 var Video = React.createClass({
-
     propTypes: {
+        ...Changeable.propTypes,
         alignment: React.PropTypes.string,
         location: React.PropTypes.string,
     },
-
-    mixins: [Changeable],
 
     getUserInput: function() {
         return null;
@@ -40,6 +38,10 @@ var Video = React.createClass({
 
     simpleValidate: function(rubric) {
         return Video.validate(null, rubric);
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     render: function() {

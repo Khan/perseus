@@ -11,9 +11,8 @@ var MathInput = require("../../components/math-input.jsx");
 var NumberInput = require("../../components/number-input.jsx");
 
 var ConstraintEditor = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
+        ...Changeable.propTypes,
         constraint: React.PropTypes.string,
         snap: React.PropTypes.number,
         constraintFn: React.PropTypes.string,
@@ -34,6 +33,10 @@ var ConstraintEditor = React.createClass({
             constraintYMin: "-10",
             constraintYMax: "10"
         };
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     render: function() {

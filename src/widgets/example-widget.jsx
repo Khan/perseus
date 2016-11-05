@@ -42,6 +42,7 @@ var TextInput = React.createClass({
  */
 var ExampleWidget = React.createClass({
     propTypes: {
+        ...Changeable.propTypes,
         value: React.PropTypes.string
     },
 
@@ -52,9 +53,11 @@ var ExampleWidget = React.createClass({
     },
 
     /**
-     * Changeable creates this.change() to tell our parent to update our props
+     * Tell our parent to update our props.
      */
-    mixins: [Changeable],
+    change(...args) {
+        return Changeable.change.apply(this, args);
+    },
 
     render: function() {
         return <TextInput

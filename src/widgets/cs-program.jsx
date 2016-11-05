@@ -32,9 +32,8 @@ function getUrlFromProgramID(programID) {
  * window.postMessage */
 var CSProgram = React.createClass({
 
-    mixins: [Changeable],
-
     propTypes: {
+        ...Changeable.propTypes,
         programID: React.PropTypes.string,
         width: React.PropTypes.number,
         height: React.PropTypes.number,
@@ -83,6 +82,10 @@ var CSProgram = React.createClass({
 
     componentWillUnmount: function() {
         $(window).off("message", this.handleMessageEvent);
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     render: function() {

@@ -7,11 +7,16 @@ const TextInput = require("../components/text-input.jsx");
 
 const MoleculeWidgetEditor = React.createClass({
     propTypes: {
+        ...Changeable.propTypes,
         rotationAngle: React.PropTypes.number,
         smiles: React.PropTypes.string,
     },
 
-    mixins: [Changeable, EditorJsonify],
+    mixins: [EditorJsonify],
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
+    },
 
     updateMolecule: function(newValue) {
         this.change({smiles: newValue});

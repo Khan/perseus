@@ -126,9 +126,10 @@ var TileGrid = React.createClass({
 
 // The widget editor
 const LightsPuzzleEditor = React.createClass({
-    mixins: [Changeable, EditorJsonify],
+    mixins: [EditorJsonify],
 
     propTypes: {
+        ...Changeable.propTypes,
         startCells: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(React.PropTypes.bool)
         ),
@@ -158,6 +159,10 @@ const LightsPuzzleEditor = React.createClass({
         } else {
             return 0; // default to 0
         }
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     render: function() {

@@ -15,9 +15,10 @@ const NumberInput  = require("../components/number-input.jsx");
 const maxTrials = 5000;
 
 const SimulatorEditor = React.createClass({
-    mixins: [Changeable, EditorJsonify],
+    mixins: [EditorJsonify],
 
     propTypes: {
+        ...Changeable.propTypes,
         xAxisLabel: React.PropTypes.string,
         yAxisLabel: React.PropTypes.string,
         numTrials: React.PropTypes.number,
@@ -107,6 +108,10 @@ const SimulatorEditor = React.createClass({
                 </InfoTip>
             </div>
         </div>;
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     handleTargetValueChange: function(propName, e) {

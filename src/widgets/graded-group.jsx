@@ -54,6 +54,7 @@ const DEFAULT_INVALID_MESSAGE = "It looks like you left something blank or " +
 
 const GradedGroup = React.createClass({
     propTypes: {
+        ...Changeable.propTypes,
         apiOptions: ApiOptions.propTypes,
         content: React.PropTypes.string,
         hasHint: React.PropTypes.bool,
@@ -72,8 +73,6 @@ const GradedGroup = React.createClass({
         trackInteraction: React.PropTypes.func.isRequired,
         widgets: React.PropTypes.object,
     },
-
-    mixins: [Changeable],
 
     getDefaultProps: function() {
         return {
@@ -97,6 +96,10 @@ const GradedGroup = React.createClass({
 
     shouldComponentUpdate: function(nextProps, nextState) {
         return nextProps !== this.props || nextState !== this.state;
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     // This is a little strange because the id of the widget that actually

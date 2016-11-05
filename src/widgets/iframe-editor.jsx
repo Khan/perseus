@@ -16,9 +16,10 @@ const PropCheckBox  = require("../components/prop-check-box.jsx");
  */
 const PairEditor = React.createClass({
 
-    mixins: [Changeable, EditorJsonify],
+    mixins: [EditorJsonify],
 
     propTypes: {
+        ...Changeable.propTypes,
         name: React.PropTypes.string,
         value: React.PropTypes.string
     },
@@ -28,6 +29,10 @@ const PairEditor = React.createClass({
             name:  "",
             value: ""
         };
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     render: function() {
@@ -49,13 +54,14 @@ const PairEditor = React.createClass({
  */
 var PairsEditor = React.createClass({
 
-    mixins: [Changeable, EditorJsonify],
+    mixins: [EditorJsonify],
 
     propTypes: {
+        ...Changeable.propTypes,
         pairs: React.PropTypes.arrayOf(React.PropTypes.shape({
             name: React.PropTypes.string,
-            value: React.PropTypes.string
-        })).isRequired
+            value: React.PropTypes.string,
+        })).isRequired,
     },
 
     render: function() {
@@ -66,6 +72,10 @@ var PairsEditor = React.createClass({
         return <div>
             {editors}
         </div>;
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     handlePairChange: function(pairIndex, pair) {
@@ -86,7 +96,11 @@ var PairsEditor = React.createClass({
  */
 var IframeEditor = React.createClass({
 
-    mixins: [Changeable, EditorJsonify],
+    mixins: [EditorJsonify],
+
+    propTypes: {
+        ...Changeable.propTypes,
+    },
 
     getDefaultProps: function() {
         return {
@@ -96,6 +110,10 @@ var IframeEditor = React.createClass({
             height: "400",
             allowFullScreen: false,
         };
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     render: function() {

@@ -164,9 +164,10 @@ var flipTilesPattern = (oldCells, tileY, tileX, pattern) => {
 
 // The lights puzzle widget
 var LightsPuzzle = React.createClass({
-    mixins: [Changeable, WidgetJsonifyDeprecated],
+    mixins: [WidgetJsonifyDeprecated],
 
     propTypes: {
+        ...Changeable.propTypes,
         cells: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(React.PropTypes.bool)
         ),
@@ -217,6 +218,10 @@ var LightsPuzzle = React.createClass({
             </div>
             <div className="clearfix" />
         </div>;
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     _width: function() {

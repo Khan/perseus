@@ -79,9 +79,8 @@ var insertBraces = value => {
 
 // The new, MathQuill input expression widget
 var Expression = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
+        ...Changeable.propTypes,
         apiOptions: ApiOptions.propTypes,
         buttonSets: TexButtons.buttonSetsType,
         buttonsVisible: React.PropTypes.oneOf(['always', 'never', 'focused']),
@@ -111,6 +110,10 @@ var Expression = React.createClass({
             showErrorTooltip: false,
             showErrorText: false
         };
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     parse: function(value, props) {

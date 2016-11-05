@@ -10,9 +10,8 @@ var Changeable   = require("../mixins/changeable.jsx");
 var Renderer = require("../renderer.jsx");
 
 var Group = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
+        ...Changeable.propTypes,
         content: React.PropTypes.string,
         widgets: React.PropTypes.object,
         images: React.PropTypes.object,
@@ -99,6 +98,10 @@ var Group = React.createClass({
         } else {
             return this.props.interWidgets(filterCriterion);
         }
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     getUserInput: function() {

@@ -12,12 +12,13 @@ const TextInput = require("../components/text-input.jsx");
 
 var ReactionDiagramWidgetEditor = React.createClass({
     propTypes: {
+        ...Changeable.propTypes,
         rotationAngle: React.PropTypes.arrayOf(React.PropTypes.number),
         separators: React.PropTypes.arrayOf(React.PropTypes.object),
         smiles: React.PropTypes.arrayOf(React.PropTypes.string),
     },
 
-    mixins: [Changeable, EditorJsonify],
+    mixins: [EditorJsonify],
 
     getDefaultProps: function() {
         return {
@@ -25,6 +26,10 @@ var ReactionDiagramWidgetEditor = React.createClass({
             rotationAngle: [0, 0],
             separators: [{type: "right", topText: "", bottomText: ""}],
         };
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     updateMolecule: function(idx) {

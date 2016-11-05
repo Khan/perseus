@@ -12,9 +12,10 @@ const NumberInput = require("../components/number-input.jsx");
 const TextInput = require("../components/text-input.jsx");
 
 const PassageRefEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
+    mixins: [EditorJsonify],
 
     propTypes: {
+        ...Changeable.propTypes,
         passageNumber: React.PropTypes.number,
         referenceNumber: React.PropTypes.number,
         summaryText: React.PropTypes.string,
@@ -26,6 +27,10 @@ const PassageRefEditor = React.createClass({
             referenceNumber: 1,
             summaryText: "",
         };
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     render: function() {

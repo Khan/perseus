@@ -14,9 +14,8 @@ const InlineIcon = require("../components/inline-icon.jsx");
 const {iconPlus, iconTrash} = require("../icon-paths.js");
 
 const GradedGroupEditor = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
+        ...Changeable.propTypes,
         title: React.PropTypes.string,
         content: React.PropTypes.string,
         widgets: React.PropTypes.object,
@@ -32,6 +31,10 @@ const GradedGroupEditor = React.createClass({
             images: {},
             hint: null,
         };
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     handleAddHint: function() {

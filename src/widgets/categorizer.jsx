@@ -20,9 +20,10 @@ const mediaQueries = require("../styles/media-queries.js");
 const sharedStyles = require("../styles/shared.js");
 
 const Categorizer = React.createClass({
-    mixins: [WidgetJsonifyDeprecated, Changeable],
+    mixins: [WidgetJsonifyDeprecated],
 
     propTypes: {
+        ...Changeable.propTypes,
         apiOptions: ApiOptions.propTypes,
 
         // List of categories (across the top)
@@ -47,6 +48,10 @@ const Categorizer = React.createClass({
         return {
             uniqueId: _.uniqueId("perseus_radio_")
         };
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     render: function() {

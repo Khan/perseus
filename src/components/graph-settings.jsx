@@ -28,9 +28,8 @@ function numSteps(range, step) {
 }
 
 const GraphSettings = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
+        ...Changeable.propTypes,
         editableSettings: React.PropTypes.arrayOf(
             React.PropTypes.oneOf(
                 ["canvas", "graph", "snap", "image", "measure"])),
@@ -104,6 +103,10 @@ const GraphSettings = React.createClass({
             rangeTextbox: props.range,
             backgroundImage: _.clone(props.backgroundImage),
         };
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     render: function() {

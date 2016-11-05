@@ -11,9 +11,8 @@ const Changeable   = require("../mixins/changeable.jsx");
 const Editor = require("../editor.jsx");
 
 const GroupEditor = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
+        ...Changeable.propTypes,
         content: React.PropTypes.string,
         widgets: React.PropTypes.object,
         images: React.PropTypes.object,
@@ -55,6 +54,10 @@ const GroupEditor = React.createClass({
         return <GroupMetadataEditor
             value={this.props.metadata}
             onChange={this.change("metadata")} />;
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     getSaveWarnings: function() {

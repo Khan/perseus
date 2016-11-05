@@ -19,9 +19,10 @@ var defaultExplanationProps = {
 };
 
 var ExplanationEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
+    mixins: [EditorJsonify],
 
     propTypes: {
+        ...Changeable.propTypes,
         showPrompt: React.PropTypes.string,
         hidePrompt: React.PropTypes.string,
         explanation: React.PropTypes.string,
@@ -36,6 +37,10 @@ var ExplanationEditor = React.createClass({
     getInitialState: function() {
         return {
         };
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     render: function() {

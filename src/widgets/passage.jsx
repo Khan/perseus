@@ -91,9 +91,8 @@ const styles = StyleSheet.create({
 });
 
 const Passage = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
+        ...Changeable.propTypes,
         passageTitle: React.PropTypes.string,
         passageText: React.PropTypes.string,
         footnotes: React.PropTypes.string,
@@ -129,6 +128,10 @@ const Passage = React.createClass({
             mouseX: null,
             mouseY: null,
         };
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     // TODO(davidpowell,mdr): We punted on supporting passages that contain

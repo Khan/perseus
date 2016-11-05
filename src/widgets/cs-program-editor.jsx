@@ -20,9 +20,10 @@ var DEFAULT_HEIGHT = 400;
  */
 var PairEditor = React.createClass({
 
-    mixins: [Changeable, EditorJsonify],
+    mixins: [EditorJsonify],
 
     propTypes: {
+        ...Changeable.propTypes,
         name: React.PropTypes.string,
         value: React.PropTypes.string
     },
@@ -32,6 +33,10 @@ var PairEditor = React.createClass({
             name:  "",
             value: ""
         };
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     render: function() {
@@ -53,9 +58,10 @@ var PairEditor = React.createClass({
  */
 var PairsEditor = React.createClass({
 
-    mixins: [Changeable, EditorJsonify],
+    mixins: [EditorJsonify],
 
     propTypes: {
+        ...Changeable.propTypes,
         pairs: React.PropTypes.arrayOf(React.PropTypes.shape({
             name: React.PropTypes.string,
             value: React.PropTypes.string
@@ -70,6 +76,10 @@ var PairsEditor = React.createClass({
         return <div>
             {editors}
             </div>;
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     handlePairChange: function(pairIndex, pair) {
@@ -106,7 +116,11 @@ function isolateProgramID(programUrl) {
  */
 var CSProgramEditor = React.createClass({
 
-    mixins: [Changeable, EditorJsonify],
+    mixins: [EditorJsonify],
+
+    propTypes: {
+        ...Changeable.propTypes,
+    },
 
     getDefaultProps: function() {
         return {
@@ -151,6 +165,10 @@ var CSProgramEditor = React.createClass({
                 </InfoTip>
             </label>
         </div>;
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     _handleSettingsChange: function(settings) {

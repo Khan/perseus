@@ -13,9 +13,8 @@ var Renderer = require("../renderer.jsx");
 var Util = require("../util.js");
 
 var Sequence = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
+        ...Changeable.propTypes,
         apiOptions: ApiOptions.propTypes,
         json:  React.PropTypes.arrayOf(React.PropTypes.shape({
             content: React.PropTypes.string,
@@ -76,6 +75,10 @@ var Sequence = React.createClass({
                 apiOptions={this.props.apiOptions}
                 />
         </div>;
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     _handleInteraction: function(groupWidgetId) {

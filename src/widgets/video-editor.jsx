@@ -31,11 +31,12 @@ function getSlugFromUrl(url) {
 const VideoEditor = React.createClass({
 
     propTypes: {
+        ...Changeable.propTypes,
         location: React.PropTypes.string,
         onChange: React.PropTypes.func,
     },
 
-    mixins: [Changeable, EditorJsonify],
+    mixins: [EditorJsonify],
 
     getDefaultProps: function() {
         return {
@@ -45,6 +46,10 @@ const VideoEditor = React.createClass({
 
     _handleUrlChange: function(url) {
         this.props.onChange({location: getSlugFromUrl(url)});
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     render: function() {

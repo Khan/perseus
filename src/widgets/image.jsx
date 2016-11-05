@@ -91,10 +91,9 @@ var ImageWidget = React.createClass({
         }),
     },
 
-    mixins: [Changeable],
-
     getDefaultProps: function() {
         return {
+            ...Changeable.propTypes,
             alignment: DEFAULT_ALIGNMENT,
             title: "",
             range: [defaultRange, defaultRange],
@@ -261,6 +260,10 @@ var ImageWidget = React.createClass({
                 {caption}
             </div>;
         }
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     getUserInput: function() {

@@ -20,10 +20,11 @@ const defaultImage = {
 };
 
 const MeasurerEditor = React.createClass({
-    mixins: [Changeable, EditorJsonify],
+    mixins: [EditorJsonify],
     className: "perseus-widget-measurer",
 
     propTypes: {
+        ...Changeable.propTypes,
         box: React.PropTypes.arrayOf(React.PropTypes.number),
         image: React.PropTypes.shape({
             url: React.PropTypes.string,
@@ -170,6 +171,10 @@ const MeasurerEditor = React.createClass({
             </div>
             </div>}
         </div>;
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     _changeUrl: function(e) {

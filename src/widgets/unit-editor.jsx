@@ -111,9 +111,10 @@ var UnitExample = React.createClass({
 });
 
 const UnitInputEditor = React.createClass({
-    mixins: [Changeable, EditorJsonify],
+    mixins: [EditorJsonify],
 
     propTypes: {
+        ...Changeable.propTypes,
         value: React.PropTypes.string,
         acceptingUnits: React.PropTypes.arrayOf(React.PropTypes.string),
         accepting: React.PropTypes.oneOf([ALL, SOME]),
@@ -196,6 +197,10 @@ const UnitInputEditor = React.createClass({
 
             {acceptingElem}
         </div>;
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     handleAcceptingUnitsChange: function(event) {

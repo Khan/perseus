@@ -40,9 +40,8 @@ var sigfigPrint = function(num, sigfigs) {
 * rolling two second delay, but hidden immediately on further typing.
  */
 var OldUnitInput = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
+        ...Changeable.propTypes,
         value: React.PropTypes.string,
     },
 
@@ -98,6 +97,10 @@ var OldUnitInput = React.createClass({
                 $(this).hide();
             });
         }
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     componentDidUpdate: function() {

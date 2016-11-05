@@ -77,9 +77,8 @@ var ChoiceEditor = React.createClass({
 
 
 var RadioEditor = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
+        ...Changeable.propTypes,
         apiOptions: ApiOptions.propTypes,
         choices: React.PropTypes.arrayOf(React.PropTypes.shape({
             content: React.PropTypes.string,
@@ -189,6 +188,10 @@ var RadioEditor = React.createClass({
             </div>
 
         </div>;
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     onMultipleSelectChange: function(allowMultiple) {

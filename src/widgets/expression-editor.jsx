@@ -28,9 +28,8 @@ var answerFormType = React.PropTypes.shape({
 });
 
 var ExpressionEditor = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
+        ...Changeable.propTypes,
         answerForms: React.PropTypes.arrayOf(answerFormType),
         times: React.PropTypes.bool,
         buttonSets: TexButtons.buttonSetsType,
@@ -67,6 +66,10 @@ var ExpressionEditor = React.createClass({
         }
 
         return { isTex };
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     render: function() {
@@ -354,9 +357,8 @@ var findNextIn = function(arr, val) {
 };
 
 var AnswerOption = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
+        ...Changeable.propTypes,
         considered: React.PropTypes.oneOf(CONSIDERED).isRequired,
         expressionProps: React.PropTypes.object.isRequired,
 
@@ -376,6 +378,10 @@ var AnswerOption = React.createClass({
 
     handleDeleteBlur: function() {
         this.setState({ deleteFocused: false });
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     render: function() {

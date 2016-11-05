@@ -14,7 +14,11 @@ var ExampleGraphieWidget = require("./example-graphie-widget.jsx").widget;
  * of the screen in the demo page. Only the question writer sees this.
  */
 var ExampleGraphieWidgetEditor = React.createClass({
-    mixins: [Changeable, EditorJsonify],
+    mixins: [EditorJsonify],
+
+    propTypes: {
+        ...Changeable.propTypes,
+    },
 
     getDefaultProps: function() {
         return {
@@ -42,6 +46,10 @@ var ExampleGraphieWidgetEditor = React.createClass({
                 apiOptions={this.props.apiOptions}
             />
         </div>;
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     handleChange: function(newProps) {

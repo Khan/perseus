@@ -28,9 +28,10 @@ var kpoint = require("kmath").point;
  * users enter their answers.
  */
 var ExampleGraphieWidget = React.createClass({
-    mixins: [Changeable, WidgetJsonifyDeprecated],
+    mixins: [WidgetJsonifyDeprecated],
 
     propTypes: {
+        ...Changeable.propTypes,
         apiOptions: ApiOptions.propTypes,
 
         graph: React.PropTypes.object.isRequired,
@@ -75,6 +76,10 @@ var ExampleGraphieWidget = React.createClass({
                     ]}
                     onMove={this.movePoint} />
         </Graphie>;
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     movePoint: function(newCoord) {

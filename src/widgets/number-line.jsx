@@ -199,10 +199,9 @@ var NumberLine = React.createClass({
         trackInteraction: React.PropTypes.func.isRequired,
     },
 
-    mixins: [Changeable],
-
     getDefaultProps: function() {
         return {
+            ...Changeable.propTypes,
             range: [0, 10],
             labelStyle: "decimal",
             labelRange: [null, null],
@@ -222,6 +221,10 @@ var NumberLine = React.createClass({
         return {
             numDivisionsEmpty: false,
         };
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     isValid: function() {

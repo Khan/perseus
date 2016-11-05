@@ -62,7 +62,11 @@ function blankLabel() {
 }
 
 const ImageEditor = React.createClass({
-    mixins: [Changeable, EditorJsonify],
+    mixins: [EditorJsonify],
+
+    propTypes: {
+        ...Changeable.propTypes,
+    },
 
     componentDidMount: function() {
         // defer this because it can call a change handler synchronously
@@ -264,6 +268,10 @@ const ImageEditor = React.createClass({
                 </a>
             </td>
         </tr>;
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     addLabel: function(e) {

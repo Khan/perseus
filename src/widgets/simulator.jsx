@@ -366,9 +366,8 @@ var Histogram = React.createClass({
 });
 
 var Simulator = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
+        ...Changeable.propTypes,
         apiOptions: ApiOptions.propTypes,
         data: React.PropTypes.arrayOf(React.PropTypes.number),
         numTrials: React.PropTypes.number,
@@ -561,6 +560,10 @@ var Simulator = React.createClass({
         } else {
             return userProportion;
         }
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     checkProportionValidity: function(value) {

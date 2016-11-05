@@ -8,12 +8,11 @@ const GradedGroupEditor = require("./graded-group-editor.jsx");
 
 const GradedGroupSetEditor = React.createClass({
     propTypes: {
+        ...Changeable.propTypes,
         apiOptions: ApiOptions.propTypes,
         gradedGroups: React.PropTypes.array,
         onChange: React.PropTypes.func.isRequired,
     },
-
-    mixins: [Changeable],
 
     getDefaultProps() {
         return {
@@ -23,6 +22,10 @@ const GradedGroupSetEditor = React.createClass({
 
     componentWillMount() {
         this._editors = [];
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     getSaveWarnings() {

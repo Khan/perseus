@@ -20,9 +20,8 @@ const defaultExplanationProps = {
 };
 
 const Explanation = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
+        ...Changeable.propTypes,
         apiOptions: PerseusApi.Options.propTypes,
         explanation: React.PropTypes.string,
         hidePrompt: React.PropTypes.string,
@@ -39,6 +38,10 @@ const Explanation = React.createClass({
         return {
             expanded: false,
         };
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     _onClick: function() {

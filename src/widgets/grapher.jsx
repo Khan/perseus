@@ -49,8 +49,6 @@ var typeSelectorStyle = {
 
 /* Graphing interface. */
 var FunctionGrapher = React.createClass({
-    mixins: [Changeable],
-
     _coords: function(props) {
         // Coords are usually based on props, but should fall back to the
         // model's default whenever they're not provided (if there's a model)
@@ -69,6 +67,7 @@ var FunctionGrapher = React.createClass({
     },
 
     propTypes: {
+        ...Changeable.propTypes,
         flexibleType: React.PropTypes.bool,
         graph: React.PropTypes.any,
         hideHairlines: React.PropTypes.func,
@@ -91,6 +90,10 @@ var FunctionGrapher = React.createClass({
             asymptote: null,
             isMobile: false,
         };
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     render: function() {

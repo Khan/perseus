@@ -23,9 +23,10 @@ var updateQueryString = require("../util.js").updateQueryString;
 /* This renders the iframe and handles validation via window.postMessage */
 var Iframe = React.createClass({
 
-    mixins: [Changeable, WidgetJsonifyDeprecated],
+    mixins: [WidgetJsonifyDeprecated],
 
     propTypes: {
+        ...Changeable.propTypes,
         width: React.PropTypes.string,
         height: React.PropTypes.string,
         url: React.PropTypes.string,
@@ -126,6 +127,10 @@ var Iframe = React.createClass({
         return <iframe sandbox="allow-same-origin allow-scripts"
                        style={style} src={url}
                        allowFullScreen={this.props.allowFullScreen} />;
+    },
+
+    change(...args) {
+        return Changeable.change.apply(this, args);
     },
 
     simpleValidate: function(rubric) {
