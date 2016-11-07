@@ -223,6 +223,17 @@ const BaseRadio = React.createClass({
         };
     },
 
+    getInitialState: function() {
+        return {
+            // TODO(mdr): This keeps the ID stable across re-renders on the
+            //     same machine, but, at time of writing, the server's state
+            //     isn't rehydrated to the client during SSR, so the server and
+            //     client will generate different IDs and cause a mismatch
+            //     during SSR :(
+            radioGroupName: _.uniqueId("perseus_radio_"),
+        };
+    },
+
     checkOption: function(radioIndex, shouldBeChecked) {
         let newChecked;
         if (this.props.multipleSelect) {
@@ -273,9 +284,6 @@ const BaseRadio = React.createClass({
     },
 
     render: function() {
-        // TODO(aria): Stop this from mutating the id every time someone
-        // clicks on a radio :(
-        const radioGroupName = _.uniqueId("perseus_radio_");
         const inputType = this.props.multipleSelect ? "checkbox" : "radio";
         const rubric = this.props.reviewModeRubric;
 
@@ -342,7 +350,7 @@ const BaseRadio = React.createClass({
                         content: choice.content,
                         disabled: this.props.apiOptions.readOnly,
                         editMode: this.props.editMode,
-                        groupName: radioGroupName,
+                        groupName: this.state.radioGroupName,
                         isLastChoice: i === this.props.choices.length - 1,
                         showClue: reviewModeClues,
                         type: inputType,
