@@ -70,7 +70,7 @@ webpackJsonpPerseus([1],[
 
 	var classNames = __webpack_require__(12);
 
-	var Changeable = __webpack_require__(75);
+	var Changeable = __webpack_require__(80);
 
 	var WidgetJsonifyDeprecated = __webpack_require__(92);
 
@@ -80,13 +80,13 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(17).Options;
 
-	var _require2 = __webpack_require__(80);
+	var _require2 = __webpack_require__(84);
 
 	var iconCircle = _require2.iconCircle;
 
 	var iconCircleThin = _require2.iconCircleThin;
 
-	var InlineIcon = __webpack_require__(76);
+	var InlineIcon = __webpack_require__(81);
 
 	var Renderer = __webpack_require__(8);
 
@@ -283,7 +283,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(75);
+	var Changeable = __webpack_require__(80);
 
 	var updateQueryString = __webpack_require__(16).updateQueryString;
 
@@ -462,11 +462,11 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(17).Options;
 
-	var InlineIcon = __webpack_require__(76);
+	var InlineIcon = __webpack_require__(81);
 
 	var styleConstants = __webpack_require__(36);
 
-	var _require2 = __webpack_require__(80);
+	var _require2 = __webpack_require__(84);
 
 	var iconDropdownArrow = _require2.iconDropdownArrow;
 
@@ -624,7 +624,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(75);
+	var Changeable = __webpack_require__(80);
 
 	var PerseusApi = __webpack_require__(17);
 
@@ -887,7 +887,7 @@ webpackJsonpPerseus([1],[
 	var getInteractiveBoxFromSizeClass = _require3.getInteractiveBoxFromSizeClass;
 
 	/* Mixins. */
-	var Changeable = __webpack_require__(75);
+	var Changeable = __webpack_require__(80);
 
 	var _require4 = __webpack_require__(111);
 
@@ -1305,9 +1305,9 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(17).Options;
 
-	var Changeable = __webpack_require__(75);
+	var Changeable = __webpack_require__(80);
 
-	var _require = __webpack_require__(80);
+	var _require = __webpack_require__(84);
 
 	var iconOk = _require.iconOk;
 
@@ -1315,7 +1315,7 @@ webpackJsonpPerseus([1],[
 
 	var icon = _require.icon;
 
-	var InlineIcon = __webpack_require__(76);
+	var InlineIcon = __webpack_require__(81);
 
 	var Renderer = __webpack_require__(8);
 
@@ -1644,7 +1644,7 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(17).Options;
 
-	var Changeable = __webpack_require__(75);
+	var Changeable = __webpack_require__(80);
 
 	var GradedGroup = __webpack_require__(44).widget;
 
@@ -1855,7 +1855,7 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(17).Options;
 
-	var Changeable = __webpack_require__(75);
+	var Changeable = __webpack_require__(80);
 
 	var Renderer = __webpack_require__(8);
 
@@ -2007,7 +2007,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(75);
+	var Changeable = __webpack_require__(80);
 
 	var WidgetJsonifyDeprecated = __webpack_require__(92);
 
@@ -2170,7 +2170,7 @@ webpackJsonpPerseus([1],[
 
 	var baseUnitPx = _require2.baseUnitPx;
 
-	var Changeable = __webpack_require__(75);
+	var Changeable = __webpack_require__(80);
 
 	var mediaQueries = __webpack_require__(34);
 
@@ -2417,7 +2417,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(75);
+	var Changeable = __webpack_require__(80);
 
 	var Graphie = __webpack_require__(86);
 
@@ -4603,7 +4603,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(75);
+	var Changeable = __webpack_require__(80);
 
 	var WidgetJsonifyDeprecated = __webpack_require__(92);
 
@@ -4912,11 +4912,11 @@ webpackJsonpPerseus([1],[
 
 	var Renderer = __webpack_require__(8);
 
-	var TextInput = __webpack_require__(102);
+	var TextInput = __webpack_require__(103);
 
-	var MathOutput = __webpack_require__(103);
+	var MathOutput = __webpack_require__(104);
 
-	var SimpleKeypadInput = __webpack_require__(81);
+	var SimpleKeypadInput = __webpack_require__(75);
 
 	var ApiOptions = __webpack_require__(17).Options;
 
@@ -4924,7 +4924,7 @@ webpackJsonpPerseus([1],[
 
 	var keypadElementPropType = __webpack_require__(73).propTypes.keypadElementPropType;
 
-	var assert = __webpack_require__(104).assert;
+	var assert = __webpack_require__(105).assert;
 
 	var stringArrayOfSize = __webpack_require__(16).stringArrayOfSize;
 
@@ -5334,7 +5334,7 @@ webpackJsonpPerseus([1],[
 
 	var Renderer = __webpack_require__(8);
 
-	var Sortable = __webpack_require__(105);
+	var Sortable = __webpack_require__(102);
 
 	var ApiOptions = __webpack_require__(17).Options;
 
@@ -5819,13 +5819,13 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(75);
+	var Changeable = __webpack_require__(80);
 
 	var NumberInput = __webpack_require__(100);
 
-	var MathOutput = __webpack_require__(103);
+	var MathOutput = __webpack_require__(104);
 
-	var SimpleKeypadInput = __webpack_require__(81);
+	var SimpleKeypadInput = __webpack_require__(75);
 
 	var ApiOptions = __webpack_require__(17).Options;
 
@@ -5839,7 +5839,7 @@ webpackJsonpPerseus([1],[
 
 	var knumber = __webpack_require__(123).number;
 
-	var KhanMath = __webpack_require__(84);
+	var KhanMath = __webpack_require__(78);
 
 	var KhanColors = __webpack_require__(96);
 
@@ -5847,7 +5847,7 @@ webpackJsonpPerseus([1],[
 	    return Math.min(Math.max(x, gt), lt);
 	};
 
-	var assert = __webpack_require__(104).assert;
+	var assert = __webpack_require__(105).assert;
 
 	var EN_DASH = "–";
 
@@ -6812,7 +6812,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(75);
+	var Changeable = __webpack_require__(80);
 
 	var Renderer = __webpack_require__(8);
 
@@ -7367,19 +7367,21 @@ webpackJsonpPerseus([1],[
 	        }, this);
 	        var parseState = {};
 	        var parsedContent = PassageMarkdown.parse(rawContent, parseState);
+	        // Check if the title has any non-empty text in it.
+	        var hasTitle = /\S/.test(this.props.passageTitle);
 	        return React.createElement("div", null, React.createElement("div", {
 	            onMouseUp: this.handleMouseUp,
 	            className: "perseus-widget-passage-container"
 	        }, this._renderInstructions(parseState), React.createElement("div", {
 	            className: "perseus-widget-passage"
-	        }, React.createElement("div", {
+	        }, hasTitle && React.createElement("h3", {
 	            className: "passage-title"
 	        }, React.createElement(Renderer, {
 	            content: this.props.passageTitle
 	        })), lineNumbers && React.createElement("div", {
 	            className: "line-numbers",
 	            "aria-hidden": true
-	        }, lineNumbers), React.createElement("h3", {
+	        }, lineNumbers), !hasTitle && React.createElement("h3", {
 	            className: "perseus-sr-only"
 	        }, i18n._("Beginning of reading passage.")), React.createElement("div", {
 	            className: "passage-text"
@@ -7586,7 +7588,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(75);
+	var Changeable = __webpack_require__(80);
 
 	var WidgetJsonifyDeprecated = __webpack_require__(92);
 
@@ -7660,7 +7662,7 @@ webpackJsonpPerseus([1],[
 
 	var deepEq = __webpack_require__(16).deepEq;
 
-	var KhanMath = __webpack_require__(84);
+	var KhanMath = __webpack_require__(78);
 
 	var KhanColors = __webpack_require__(96);
 
@@ -8501,13 +8503,13 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(17).Options;
 
-	var Changeable = __webpack_require__(75);
+	var Changeable = __webpack_require__(80);
 
-	var _require = __webpack_require__(80);
+	var _require = __webpack_require__(84);
 
 	var iconOk = _require.iconOk;
 
-	var InlineIcon = __webpack_require__(76);
+	var InlineIcon = __webpack_require__(81);
 
 	var Renderer = __webpack_require__(8);
 
@@ -8631,11 +8633,11 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(75);
+	var Changeable = __webpack_require__(80);
 
 	var ApiOptions = __webpack_require__(17).Options;
 
-	var assert = __webpack_require__(104).assert;
+	var assert = __webpack_require__(105).assert;
 
 	var Graphie = __webpack_require__(86);
 
@@ -8655,7 +8657,7 @@ webpackJsonpPerseus([1],[
 
 	var NumberInput = __webpack_require__(100);
 
-	var MathOutput = __webpack_require__(103);
+	var MathOutput = __webpack_require__(104);
 
 	var seededRNG = __webpack_require__(16).seededRNG;
 
@@ -8665,7 +8667,7 @@ webpackJsonpPerseus([1],[
 
 	var KhanColors = __webpack_require__(96);
 
-	var KhanMath = __webpack_require__(84);
+	var KhanMath = __webpack_require__(78);
 
 	var defaultBoxSize = 400;
 
@@ -9223,7 +9225,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Sortable = __webpack_require__(105);
+	var Sortable = __webpack_require__(102);
 
 	var ApiOptions = __webpack_require__(17).Options;
 
@@ -9313,7 +9315,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var MathOutput = __webpack_require__(103);
+	var MathOutput = __webpack_require__(104);
 
 	var Renderer = __webpack_require__(8);
 
@@ -9323,7 +9325,7 @@ webpackJsonpPerseus([1],[
 
 	var KhanAnswerTypes = __webpack_require__(70);
 
-	var assert = __webpack_require__(104).assert;
+	var assert = __webpack_require__(105).assert;
 
 	/* Input handling: Maps a (row, column) pair to a unique ref used by React,
 	 * and extracts (row, column) pairs from input paths, used to allow outsiders
@@ -9599,15 +9601,15 @@ webpackJsonpPerseus([1],[
 
 	var Graph = __webpack_require__(98);
 
-	var InlineIcon = __webpack_require__(76);
+	var InlineIcon = __webpack_require__(81);
 
 	var NumberInput = __webpack_require__(100);
 
-	var MathOutput = __webpack_require__(103);
+	var MathOutput = __webpack_require__(104);
 
 	var TeX = __webpack_require__(38);
 
-	var SimpleKeypadInput = __webpack_require__(81);
+	var SimpleKeypadInput = __webpack_require__(75);
 
 	var ApiOptions = __webpack_require__(17).Options;
 
@@ -9625,7 +9627,7 @@ webpackJsonpPerseus([1],[
 
 	var REFLECT_BUTTON_SIZE = 1;
 
-	var _require = __webpack_require__(80);
+	var _require = __webpack_require__(84);
 
 	var iconPlus = _require.iconPlus;
 
@@ -9647,11 +9649,11 @@ webpackJsonpPerseus([1],[
 
 	var kline = __webpack_require__(123).line;
 
-	var KhanMath = __webpack_require__(84);
+	var KhanMath = __webpack_require__(78);
 
 	var KhanColors = __webpack_require__(96);
 
-	var assert = __webpack_require__(104).assert;
+	var assert = __webpack_require__(105).assert;
 
 	var defaultBoxSize = 400;
 
@@ -11609,9 +11611,9 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(17).Options;
 
-	var Changeable = __webpack_require__(75);
+	var Changeable = __webpack_require__(80);
 
-	var MathOutput = __webpack_require__(103);
+	var MathOutput = __webpack_require__(104);
 
 	var _require = __webpack_require__(106);
 
@@ -11840,7 +11842,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var Changeable = __webpack_require__(75);
+	var Changeable = __webpack_require__(80);
 
 	var FixedToResponsive = __webpack_require__(85);
 
@@ -11960,7 +11962,7 @@ webpackJsonpPerseus([1],[
 
 	var _ = __webpack_require__(9);
 
-	var styles = __webpack_require__(124);
+	var styles = __webpack_require__(129);
 
 	var css = __webpack_require__(13).css;
 
@@ -12058,9 +12060,9 @@ webpackJsonpPerseus([1],[
 
 	var ApiOptions = __webpack_require__(17).Options;
 
-	var InlineIcon = __webpack_require__(76);
+	var InlineIcon = __webpack_require__(81);
 
-	var _require = __webpack_require__(80);
+	var _require = __webpack_require__(84);
 
 	var iconStar = _require.iconStar;
 
@@ -12590,7 +12592,7 @@ webpackJsonpPerseus([1],[
 
 	var knumber = __webpack_require__(123).number;
 
-	var KhanMath = __webpack_require__(84);
+	var KhanMath = __webpack_require__(78);
 
 	var toNumericString = KhanMath.toNumericString;
 
@@ -12746,10 +12748,7 @@ webpackJsonpPerseus([1],[
 
 /***/ },
 /* 101 */,
-/* 102 */,
-/* 103 */,
-/* 104 */,
-/* 105 */
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13163,6 +13162,9 @@ webpackJsonpPerseus([1],[
 	module.exports = Sortable;
 
 /***/ },
+/* 103 */,
+/* 104 */,
+/* 105 */,
 /* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -15177,7 +15179,12 @@ webpackJsonpPerseus([1],[
 /* 121 */,
 /* 122 */,
 /* 123 */,
-/* 124 */
+/* 124 */,
+/* 125 */,
+/* 126 */,
+/* 127 */,
+/* 128 */,
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15222,11 +15229,6 @@ webpackJsonpPerseus([1],[
 	};
 
 /***/ },
-/* 125 */,
-/* 126 */,
-/* 127 */,
-/* 128 */,
-/* 129 */,
 /* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
