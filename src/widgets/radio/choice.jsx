@@ -483,7 +483,6 @@ const Choice = React.createClass({
         const LabelOrDiv = this.props.editMode ? "div" : "label";
 
         return <LabelOrDiv
-            isLabel={!this.props.editMode}
             className={className}
             style={{opacity: !sat && this.props.disabled ? 0.5 : 1.0}}
         >
