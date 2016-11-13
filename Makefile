@@ -193,7 +193,7 @@ FIND_TESTS := @echo "Could not figure out how to run tests; skipping"; @echo ""
 endif
 endif
 
-test:
+test: flow
 	$(FIND_TESTS) | xargs ./node_modules/.bin/mocha --reporter spec -r node/environment.js
 shorttest:
 	$(FIND_TESTS) | xargs ./node_modules/.bin/mocha --reporter dot -r node/environment.js
@@ -211,3 +211,6 @@ build/ke.js:
 
 jest: build/ke.js
 	./node_modules/.bin/jest
+
+flow:
+	./node_modules/.bin/flow

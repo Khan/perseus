@@ -1,4 +1,4 @@
-// Modified version of https://github.com/petehunt/jsx-loader to use jsx-i18n
+// Modified version of https://github.com/petehunt/jsx-loader
 
 const loaderUtils = require("loader-utils");
 const babel = require("babel-core");

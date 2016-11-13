@@ -1,23 +1,20 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-var, react/jsx-closing-bracket-location */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+// @flow
 
-var ButtonGroup = require("react-components/button-group.jsx");
-var React = require("react");
+const ButtonGroup = require("react-components/button-group.jsx");
+const React = require("react");
 
-var ArrowPicker = React.createClass({
-    propTypes: {
-        value: React.PropTypes.string,
-        onChange: React.PropTypes.func.isRequired
-    },
+const {ChangeableProps} = require('../../mixins/changeable.jsx');
 
-    getDefaultProps: function() {
-        return {
-            value: ""
-        };
-    },
+class ArrowPicker extends React.Component {
+    static defaultProps = {
+        value: "",
+    }
 
-    render: function() {
+    props: ChangeableProps & {
+        value?: string,
+    }
+
+    render() {
         return <ButtonGroup value={this.props.value}
             allowEmpty={false}
             buttons={[
@@ -27,9 +24,11 @@ var ArrowPicker = React.createClass({
                 TODO(eater): fix khan-exercises so these are supported
                 {value: "<-", content: <span>&#x2190;</span>},
                 {value: "<->", content: <span>&#x2194;</span>}
-                */]}
-            onChange={this.props.onChange} />;
+                */
+            ]}
+            onChange={this.props.onChange}
+        />;
     }
-});
+}
 
 module.exports = ArrowPicker;

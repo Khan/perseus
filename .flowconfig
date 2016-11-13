@@ -1,0 +1,10 @@
+[ignore]
+<PROJECT_ROOT>/node_modules/babel-plugin-flow-react-proptypes
+<PROJECT_ROOT>/node_modules/webpack
+<PROJECT_ROOT>/simple-markdown/
+
+[include]
+
+[libs]
+
+[options]

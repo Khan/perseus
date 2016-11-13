@@ -824,7 +824,7 @@ var InteractionEditor = React.createClass({
                     markings={this.props.graph.markings}
                     onChange={this._updateGraphProps}
                 />
-                {(this.props.graph.valid === true) || <div>
+                {(this.props.graph.valid !== true) && <div>
                     {this.props.graph.valid}
                 </div>}
             </ElementContainer>
