@@ -12,9 +12,12 @@ var EditorJsonify = require("../mixins/editor-jsonify.jsx");
  * of the screen in the demo. Only the question writer sees this.
  */
 var ExampleWidgetEditor = React.createClass({
+    propTypes: {
+        ...Changeable.propTypes,
+    },
+
     getDefaultProps: function() {
         return {
-            ...Changeable.propTypes,
             correct: "",
         };
     },

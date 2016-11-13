@@ -24,9 +24,12 @@ const {
 } = require("../util/sizing-utils.js");
 
 const GrapherEditor = React.createClass({
+    propTypes: {
+        ...Changeable.propTypes,
+    },
+
     getDefaultProps: function() {
         return {
-            ...Changeable.propTypes,
             correct: DEFAULT_GRAPHER_PROPS.plot,
             graph: DEFAULT_GRAPHER_PROPS.graph,
             availableTypes: DEFAULT_GRAPHER_PROPS.availableTypes

@@ -170,6 +170,7 @@ var TickMarks = Graphie.createSimpleClass((graphie, props) => {
 
 var NumberLine = React.createClass({
     propTypes: {
+        ...Changeable.propTypes,
         range: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
 
         labelRange: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
@@ -201,7 +202,6 @@ var NumberLine = React.createClass({
 
     getDefaultProps: function() {
         return {
-            ...Changeable.propTypes,
             range: [0, 10],
             labelStyle: "decimal",
             labelRange: [null, null],

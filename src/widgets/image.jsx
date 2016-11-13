@@ -38,6 +38,7 @@ const DEFAULT_ALIGNMENT = "block";
 
 var ImageWidget = React.createClass({
     propTypes: {
+        ...Changeable.propTypes,
         alignment: React.PropTypes.oneOf(supportedAlignments),
         alt: React.PropTypes.string,
         apiOptions: ApiOptions.propTypes,
@@ -93,7 +94,6 @@ var ImageWidget = React.createClass({
 
     getDefaultProps: function() {
         return {
-            ...Changeable.propTypes,
             alignment: DEFAULT_ALIGNMENT,
             title: "",
             range: [defaultRange, defaultRange],
