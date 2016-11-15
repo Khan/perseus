@@ -53,11 +53,8 @@ const InteractiveGraphEditor = React.createClass({
     },
 
     // TODO(jack): Use versioning instead of DeprecationMixin
+    mixins: [DeprecationMixin],
     deprecatedProps: deprecatedProps,
-
-    componentWillMount() {
-        DeprecationMixin.componentWillMount.call(this);
-    },
 
     render: function() {
         var graph;

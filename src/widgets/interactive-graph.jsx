@@ -326,11 +326,8 @@ var InteractiveGraph = React.createClass({
         };
     },
 
+    mixins: [DeprecationMixin],
     deprecatedProps: deprecatedProps,
-
-    componentWillMount() {
-        DeprecationMixin.componentWillMount.call(this);
-    },
 
     _getShouldShowInstructions: function(props) {
         props = props || this.props;

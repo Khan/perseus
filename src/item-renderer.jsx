@@ -18,7 +18,6 @@ const RP = React.PropTypes;
 
 const ItemRenderer = React.createClass({
     propTypes: {
-        ...ProvideKeypad.propTypes,
         // defaults are set in `this.update()` so as to adhere to
         // `ApiOptions.PropTypes`, though the API options that are passed in
         // can be in any degree of completeness
@@ -56,6 +55,8 @@ const ItemRenderer = React.createClass({
         workAreaSelector: RP.string,
     },
 
+    mixins: [ProvideKeypad],
+
     getDefaultProps: function() {
         return {
             apiOptions: {},  // defaults are set in `this.update()`
@@ -68,7 +69,6 @@ const ItemRenderer = React.createClass({
 
     getInitialState: function() {
         return {
-            ...ProvideKeypad.getInitialState(),
             hintsVisible: this.props.initialHintsVisible,
             questionCompleted: false,
             questionHighlightedWidgets: [],
@@ -76,7 +76,6 @@ const ItemRenderer = React.createClass({
     },
 
     componentDidMount: function() {
-        ProvideKeypad.componentDidMount.call(this);
         if (this.props.controlPeripherals &&
                 this.props.apiOptions.setDrawingAreaAvailable) {
             this.props.apiOptions.setDrawingAreaAvailable(true);
@@ -96,7 +95,6 @@ const ItemRenderer = React.createClass({
     },
 
     componentWillUnmount: function() {
-        ProvideKeypad.componentWillUnmount.call(this);
         ReactDOM.unmountComponentAtNode(
                 document.querySelector(this.props.workAreaSelector));
         ReactDOM.unmountComponentAtNode(
@@ -120,10 +118,6 @@ const ItemRenderer = React.createClass({
                 $(".chi2-table-info-box").hide();
             }
         }
-    },
-
-    keypadElement() {
-        return ProvideKeypad.keypadElement.call(this);
     },
 
     update: function() {

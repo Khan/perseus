@@ -10,6 +10,8 @@ var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx")
 var Renderer = require("../renderer.jsx");
 
 var PassageRefTarget = React.createClass({
+    mixins: [WidgetJsonifyDeprecated],
+
     propTypes: {
         ...Changeable.propTypes,
         content: React.PropTypes.string
@@ -19,10 +21,6 @@ var PassageRefTarget = React.createClass({
         return {
             content: ""
         };
-    },
-
-    getUserInfo() {
-        return WidgetJsonifyDeprecated.getUserInfo.call(this);
     },
 
     render: function() {
