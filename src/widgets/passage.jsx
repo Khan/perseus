@@ -800,7 +800,7 @@ const Passage = React.createClass({
 
     _getInitialLineNumber: function() {
         let isPassageBeforeThisPassage = true;
-        const passagesBeforeUs = this.props.interWidgets((id, widgetInfo) => {
+        const passagesBeforeUs = this.props.findWidgets((id, widgetInfo) => {
             if (widgetInfo.type !== "passage") {
                 return false;
             }

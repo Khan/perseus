@@ -17,7 +17,7 @@ const Radio = React.createClass({
 
         deselectEnabled: React.PropTypes.bool,
         displayCount: React.PropTypes.any,
-        interWidgets: React.PropTypes.func,
+        findWidgets: React.PropTypes.func,
         multipleSelect: React.PropTypes.bool,
         onChange: React.PropTypes.func.isRequired,
 
@@ -65,7 +65,7 @@ const Radio = React.createClass({
             }
         );
 
-        // alwaysUpdate={true} so that passage-refs interwidgets
+        // alwaysUpdate={true} so that passage-refs findWidgets
         // get called when the outer passage updates the renderer
         // TODO(aria): This is really hacky
         // We pass in a key here so that we avoid a semi-spurious
@@ -73,24 +73,15 @@ const Radio = React.createClass({
         // different renderer in the same place. Note this destroys
         // state, but since all we're doing is outputting
         // "None of the above", that is okay.
+        // TODO(mdr): Widgets inside this Renderer are not discoverable through
+        //     the parent Renderer's `findWidgets` function.
         return <Renderer
             key="choiceContentRenderer"
             content={modContent}
             widgets={widgets}
-            interWidgets={this._interWidgets}
+            findExternalWidgets={this.props.findWidgets}
             alwaysUpdate={true}
         />;
-    },
-
-    _interWidgets: function(filterCriterion, localResults) {
-        // If local results are not found, forward interwidgets
-        // calls to our parent renderer.
-        // For passage-refs to communicate with their passages.
-        if (localResults.length) {
-            return localResults;
-        } else {
-            return this.props.interWidgets(filterCriterion);
-        }
     },
 
     focus: function(i) {

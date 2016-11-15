@@ -110,7 +110,7 @@ var PassageRef = React.createClass({
     },
 
     _updateRange: function() {
-        var passage = this.props.interWidgets(
+        var passage = this.props.findWidgets(
                 "passage " + this.props.passageNumber)[0];
 
         var refInfo = null;
