@@ -58,7 +58,9 @@ const widgetPropTypes = {
     plotDimensions: React.PropTypes.arrayOf(React.PropTypes.number),
     labelInterval: React.PropTypes.number,
     starting: React.PropTypes.arrayOf(React.PropTypes.number),
+    correct: React.PropTypes.arrayOf(React.PropTypes.number),
     static: React.PropTypes.bool,
+    onChange: React.PropTypes.func,
 };
 
 var formatNumber = (num) => "$" + knumber.round(num, 2) + "$";
