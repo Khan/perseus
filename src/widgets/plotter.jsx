@@ -87,10 +87,20 @@ var Plotter = React.createClass({
     },
 
     render: function() {
+        // TODO(kevinb) actually compute the size of the graphie correctly and
+        // make it that size so we don't have to add extra padding.  The value
+        // was determined by eye-balling the layout.  :(
+        const paddingForBottomLabel = 75;
+        const style = {
+            marginBottom: this.props.labels[0] ? paddingForBottomLabel : 0,
+        };
+
         return <div
             className={"perseus-widget-plotter graphie " +
                 ApiClassNames.INTERACTIVE}
-            ref="graphieDiv" />;
+            ref="graphieDiv"
+            style={style}
+        />;
     },
 
     componentDidUpdate: function(prevProps, prevState) {

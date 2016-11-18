@@ -1,6 +1,6 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit c3dbe4cd6ed5c7338285c6ff774889ff9eddaf8c
-// branch HEAD
+// commit 49363d214e9f8e7d283ae84da093dcc7858f2614
+// branch fix_plotter_label
 // @generated
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -465,7 +465,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ArticleRenderer = React.createClass({
 	    displayName: "ArticleRenderer",
-	    propTypes: {
+	    propTypes: _extends({}, ProvideKeypad.propTypes, {
 	        apiOptions: React.PropTypes.shape({
 	            onFocusChange: React.PropTypes.func,
 	            isMobile: React.PropTypes.bool
@@ -473,19 +473,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	        json: React.PropTypes.oneOfType([ rendererProps, React.PropTypes.arrayOf(rendererProps) ]).isRequired,
 	        // Whether to use the new Bibliotron styles for articles
 	        useNewStyles: React.PropTypes.bool
-	    },
-	    mixins: [ ProvideKeypad ],
+	    }),
 	    getDefaultProps: function getDefaultProps() {
 	        return {
 	            apiOptions: {},
 	            useNewStyles: false
 	        };
 	    },
+	    getInitialState: function getInitialState() {
+	        return ProvideKeypad.getInputPaths();
+	    },
 	    componentDidMount: function componentDidMount() {
+	        ProvideKeypad.componentDidMount.call(this);
 	        this._currentFocus = null;
 	    },
 	    shouldComponentUpdate: function shouldComponentUpdate(nextProps, nextState) {
 	        return nextProps !== this.props || nextState !== this.state;
+	    },
+	    componentWillUnmount: function componentWillUnmount() {
+	        ProvideKeypad.componentWillUnmount.call(this);
+	    },
+	    keypadElement: function keypadElement() {
+	        return ProvideKeypad.keypadElement.call(this);
 	    },
 	    _handleFocusChange: function _handleFocusChange(newFocusPath, oldFocusPath) {
 	        // TODO(charlie): DRY this up--some of this logic is repeated in
@@ -591,7 +600,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable array-bracket-spacing, no-var, prefer-spread */
+	/* eslint-disable no-var, prefer-spread */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
@@ -617,7 +626,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ItemRenderer = React.createClass({
 	    displayName: "ItemRenderer",
-	    propTypes: {
+	    propTypes: _extends({}, ProvideKeypad.propTypes, {
 	        // defaults are set in `this.update()` so as to adhere to
 	        // `ApiOptions.PropTypes`, though the API options that are passed in
 	        // can be in any degree of completeness
@@ -651,8 +660,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        problemNum: RP.number,
 	        savedState: RP.any,
 	        workAreaSelector: RP.string
-	    },
-	    mixins: [ ProvideKeypad ],
+	    }),
 	    getDefaultProps: function getDefaultProps() {
 	        return {
 	            apiOptions: {},
@@ -664,13 +672,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 	    },
 	    getInitialState: function getInitialState() {
-	        return {
+	        return _extends({}, ProvideKeypad.getInitialState(), {
 	            hintsVisible: this.props.initialHintsVisible,
 	            questionCompleted: false,
 	            questionHighlightedWidgets: []
-	        };
+	        });
 	    },
 	    componentDidMount: function componentDidMount() {
+	        ProvideKeypad.componentDidMount.call(this);
 	        this.props.controlPeripherals && this.props.apiOptions.setDrawingAreaAvailable && this.props.apiOptions.setDrawingAreaAvailable(true);
 	        this._currentFocus = null;
 	        this.update();
@@ -684,6 +693,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.update();
 	    },
 	    componentWillUnmount: function componentWillUnmount() {
+	        ProvideKeypad.componentWillUnmount.call(this);
 	        ReactDOM.unmountComponentAtNode(document.querySelector(this.props.workAreaSelector));
 	        ReactDOM.unmountComponentAtNode(document.querySelector(this.props.hintsAreaSelector));
 	        if (this.props.controlPeripherals) {
@@ -694,6 +704,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            answerArea.tTable && $(".t-table-info-box").hide();
 	            answerArea.chi2Table && $(".chi2-table-info-box").hide();
 	        }
+	    },
+	    keypadElement: function keypadElement() {
+	        return ProvideKeypad.keypadElement.call(this);
 	    },
 	    update: function update() {
 	        var apiOptions = _extends({}, ApiOptions.defaults, this.props.apiOptions, {
@@ -954,7 +967,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ItemRenderer = React.createClass({
 	    displayName: "ItemRenderer",
-	    propTypes: {
+	    propTypes: _extends({}, ProvideKeypad.propTypes, {
 	        apiOptions: RP.any,
 	        hintsVisible: RP.number,
 	        item: RP.shape({
@@ -970,20 +983,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }).isRequired,
 	        problemNum: RP.number,
 	        savedState: RP.any
-	    },
-	    mixins: [ ProvideKeypad ],
+	    }),
 	    getDefaultProps: function getDefaultProps() {
 	        return {
 	            apiOptions: {}
 	        };
 	    },
 	    getInitialState: function getInitialState() {
-	        return {
+	        return _extends({}, ProvideKeypad.getInitialState(), {
 	            questionCompleted: false,
 	            questionHighlightedWidgets: []
-	        };
+	        });
 	    },
 	    componentDidMount: function componentDidMount() {
+	        ProvideKeypad.componentDidMount.call(this);
 	        this._currentFocus = null;
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
@@ -996,6 +1009,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var isAnswerable = 0 === this.questionRenderer.emptyWidgets().length;
 	            this.props.apiOptions.answerableCallback(isAnswerable);
 	        }
+	    },
+	    componentWillUnmount: function componentWillUnmount() {
+	        ProvideKeypad.componentWillUnmount.call(this);
+	    },
+	    keypadElement: function keypadElement() {
+	        return ProvideKeypad.keypadElement.call(this);
 	    },
 	    _handleFocusChange: function _handleFocusChange(newFocus, oldFocus) {
 	        null != newFocus ? this._setCurrentFocus(newFocus) : this._onRendererBlur(oldFocus);
@@ -1201,8 +1220,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _mobileHintStylesHint, _mobileHintStylesGetA, _mobileHintStylesPlus;
 
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable array-bracket-spacing, object-curly-spacing */
+	/* eslint-disable array-bracket-spacing */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
@@ -1244,13 +1271,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var HintsRenderer = React.createClass({
 	    displayName: "HintsRenderer",
-	    propTypes: {
-	        // Also accepts apiOptions, via the ApiOptionsProps mixin.
+	    propTypes: _extends({}, ApiOptionsProps.propTypes, {
 	        className: React.PropTypes.string,
 	        hints: React.PropTypes.arrayOf(React.PropTypes.any),
 	        hintsVisible: React.PropTypes.number
-	    },
-	    mixins: [ ApiOptionsProps ],
+	    }),
 	    componentDidMount: function componentDidMount() {
 	        this._cacheHintImages();
 	    },
@@ -1275,6 +1300,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // Only cache images in the first hint at the start. When hints are
 	        // taken, cache images in the rest of the hints
 	        this._hintsVisible() > 0 ? _.each(this.props.hints, this._cacheImagesInHint) : this.props.hints.length > 0 && this._cacheImagesInHint(this.props.hints[0]);
+	    },
+	    getApiOptions: function getApiOptions() {
+	        return ApiOptionsProps.getApiOptions.call(this);
 	    },
 	    getSerializedState: function getSerializedState() {
 	        var _this = this;
@@ -1610,8 +1638,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Renderer = React.createClass({
 	    displayName: "Renderer",
-	    propTypes: {
-	        // Also accepts apiOptions, via the ApiOptionsProps mixin.
+	    propTypes: _extends({}, ApiOptionsProps.propTypes, {
 	        alwaysUpdate: React.PropTypes.bool,
 	        highlightedWidgets: React.PropTypes.arrayOf(React.PropTypes.any),
 	        ignoreMissingWidgets: React.PropTypes.bool,
@@ -1623,8 +1650,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        problemNum: React.PropTypes.number,
 	        questionCompleted: React.PropTypes.bool,
 	        reviewMode: React.PropTypes.bool
-	    },
-	    mixins: [ ApiOptionsProps ],
+	    }),
 	    getDefaultProps: function getDefaultProps() {
 	        return {
 	            content: "",
@@ -1711,6 +1737,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    componentWillUnmount: function componentWillUnmount() {
 	        null != this.translationIndex && (window.PerseusTranslationComponents[this.translationIndex] = null);
 	        this._isMounted = false;
+	    },
+	    getApiOptions: function getApiOptions() {
+	        return ApiOptionsProps.getApiOptions.call(this);
 	    },
 	    _getInitialWidgetState: function _getInitialWidgetState(props) {
 	        props = props || this.props;
@@ -3340,9 +3369,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return target;
 	};
 
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable no-unused-vars, object-curly-spacing */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
 	var _require = __webpack_require__(14);
@@ -3972,7 +3998,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+	/* eslint-disable comma-dangle, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var classNames = __webpack_require__(13);
 
@@ -4512,7 +4538,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable brace-style, comma-dangle, indent, no-undef, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+	/* eslint-disable brace-style, comma-dangle, indent, no-undef, no-var, object-curly-spacing, react/forbid-prop-types, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var classNames = __webpack_require__(13);
 
@@ -4891,7 +4917,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, indent, no-redeclare, no-undef, no-unused-vars, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-before-function-paren */
+	/* eslint-disable comma-dangle, indent, no-redeclare, no-undef, no-unused-vars, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var classNames = __webpack_require__(13);
 
@@ -6841,7 +6867,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-undef, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+	/* eslint-disable comma-dangle, no-undef, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _require = __webpack_require__(14);
 
@@ -6881,7 +6907,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Categorizer = React.createClass({
 	    displayName: "Categorizer",
-	    mixins: [ WidgetJsonifyDeprecated ],
 	    propTypes: _extends({}, Changeable.propTypes, {
 	        apiOptions: ApiOptions.propTypes,
 	        // List of categories (across the top)
@@ -6908,6 +6933,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    change: function change() {
 	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) args[_key] = arguments[_key];
 	        return Changeable.change.apply(this, args);
+	    },
+	    getUserInput: function getUserInput() {
+	        return WidgetJsonifyDeprecated.getUserInput.call(this);
 	    },
 	    render: function render() {
 	        var _this = this;
@@ -7069,7 +7097,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+	/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/**
 	 * This widget is for embedding Khan Academy CS programs.
@@ -7418,7 +7446,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, indent, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
+	/* eslint-disable comma-dangle, object-curly-spacing, react/forbid-prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var _require = __webpack_require__(14);
 
@@ -8107,7 +8135,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return target;
 	};
 
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable react/forbid-prop-types */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/* globals i18n */
 	var classNames = __webpack_require__(13);
 
@@ -8124,8 +8154,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	var iconOk = _require.iconOk;
 
 	var iconRemove = _require.iconRemove;
-
-	var icon = _require.icon;
 
 	var InlineIcon = __webpack_require__(82);
 
@@ -8446,7 +8474,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return target;
 	};
 
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable react/forbid-prop-types */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
 	var _ = __webpack_require__(10);
@@ -8665,7 +8695,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+	/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
@@ -8821,7 +8851,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+	/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/**
 	 * This is an iframe widget. It is used for rendering an iframe that
@@ -8845,7 +8875,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* This renders the iframe and handles validation via window.postMessage */
 	var Iframe = React.createClass({
 	    displayName: "Iframe",
-	    mixins: [ WidgetJsonifyDeprecated ],
 	    propTypes: _extends({}, Changeable.propTypes, {
 	        width: React.PropTypes.string,
 	        height: React.PropTypes.string,
@@ -8862,6 +8891,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            message: null,
 	            allowFullScreen: false
 	        };
+	    },
+	    getUserInput: function getUserInput() {
+	        return WidgetJsonifyDeprecated.getUserInput.call(this);
 	    },
 	    handleMessageEvent: function handleMessageEvent(e) {
 	        // We receive data from the iframe that contains {passed: true/false}
@@ -9243,7 +9275,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable brace-style, no-redeclare, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-infix-ops */
+	/* eslint-disable brace-style, no-redeclare, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp, space-infix-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
@@ -9970,8 +10002,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        };
 	    },
-	    mixins: [ DeprecationMixin ],
 	    deprecatedProps: deprecatedProps,
+	    componentWillMount: function componentWillMount() {
+	        DeprecationMixin.componentWillMount.call(this);
+	    },
 	    _getShouldShowInstructions: function _getShouldShowInstructions(props) {
 	        props = props || this.props;
 	        return this.isClickToAddPoints(props) && (null == props.graph.coords || 0 === props.graph.coords.length);
@@ -11441,7 +11475,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable array-bracket-spacing, comma-dangle, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+	/* eslint-disable array-bracket-spacing, comma-dangle, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
@@ -11600,7 +11634,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	// The lights puzzle widget
 	var LightsPuzzle = React.createClass({
 	    displayName: "LightsPuzzle",
-	    mixins: [ WidgetJsonifyDeprecated ],
 	    propTypes: _extends({}, Changeable.propTypes, {
 	        cells: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.bool)),
 	        startCells: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.bool)),
@@ -11614,6 +11647,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            flipPattern: "plus",
 	            moveCount: 0
 	        };
+	    },
+	    getUserInput: function getUserInput() {
+	        return WidgetJsonifyDeprecated.getUserInput.call(this);
 	    },
 	    render: function render() {
 	        var width = this._width();
@@ -12174,7 +12210,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, object-curly-spacing, react/forbid-prop-types, react/sort-comp */
+	/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
@@ -12326,7 +12362,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+	/* eslint-disable comma-dangle, indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
@@ -12658,7 +12694,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable brace-style, no-var, react/jsx-sort-prop-types */
+	/* eslint-disable brace-style, no-var */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/* globals i18n, $_ */
 	var React = __webpack_require__(11);
@@ -13194,7 +13230,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-console, no-unused-vars, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+	/* eslint-disable comma-dangle, max-len, no-console, no-unused-vars, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
@@ -13631,7 +13667,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-undef, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-infix-ops */
+	/* eslint-disable comma-dangle, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp, space-infix-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/**
 	 * Highlighting feature discoveries (davidpowell/mdr):
@@ -14217,7 +14253,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                // TODO (davidpowell/mdr): Change regex to blacklist
 	                // markdown as oppose to whitelisting certain
 	                // characters.
+	                /* eslint-disable */
 	                var textRegex = new RegExp("[\\(\\)\\—\\-\\—\\-\\‑\\.                                            \\[\\]\\+\\$\\?,!A-Za-z0-9                                            À-ſ:;'‘’\"“”=%<>s]+");
+	                /* eslint-enabled */
 	                var highlightableMatch = fragment.match(textRegex);
 	                if (highlightableMatch) {
 	                    var matchStart = highlightableMatch.index;
@@ -14451,7 +14489,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/prop-types, react/sort-comp */
+	/* eslint-disable comma-dangle, no-var, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/* globals $_ */
 	var React = __webpack_require__(11);
@@ -14468,7 +14506,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var PassageRef = React.createClass({
 	    displayName: "PassageRef",
-	    mixins: [ WidgetJsonifyDeprecated ],
 	    propTypes: _extends({}, Changeable.propTypes, {
 	        passageNumber: React.PropTypes.number,
 	        referenceNumber: React.PropTypes.number,
@@ -14489,6 +14526,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    shouldComponentUpdate: function shouldComponentUpdate(nextProps, nextState) {
 	        return !_.isEqual(this.props, nextProps) || !_.isEqual(this.state, nextState);
+	    },
+	    getUserInput: function getUserInput() {
+	        return WidgetJsonifyDeprecated.getUserInput.call(this);
 	    },
 	    render: function render() {
 	        var lineRange = this.state.lineRange;
@@ -14586,7 +14626,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
@@ -14600,7 +14640,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var PassageRefTarget = React.createClass({
 	    displayName: "PassageRefTarget",
-	    mixins: [ WidgetJsonifyDeprecated ],
 	    propTypes: _extends({}, Changeable.propTypes, {
 	        content: React.PropTypes.string
 	    }),
@@ -14608,6 +14647,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return {
 	            content: ""
 	        };
+	    },
+	    getUserInput: function getUserInput() {
+	        return WidgetJsonifyDeprecated.getUserInput.call(this);
 	    },
 	    render: function render() {
 	        return React.createElement(Renderer, {
@@ -14734,9 +14776,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return 2;
 	    },
 	    render: function render() {
+	        // TODO(kevinb) actually compute the size of the graphie correctly and
+	        // make it that size so we don't have to add extra padding.  The value
+	        // was determined by eye-balling the layout.  :(
+	        var paddingForBottomLabel = 75;
+	        var style = {
+	            marginBottom: this.props.labels[0] ? paddingForBottomLabel : 0
+	        };
 	        return React.createElement("div", {
 	            className: "perseus-widget-plotter graphie " + ApiClassNames.INTERACTIVE,
-	            ref: "graphieDiv"
+	            ref: "graphieDiv",
+	            style: style
 	        });
 	    },
 	    componentDidUpdate: function componentDidUpdate(prevProps, prevState) {
@@ -15503,7 +15553,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
@@ -15641,7 +15691,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, indent, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-unary-ops */
+	/* eslint-disable comma-dangle, indent, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-unary-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/* globals $_, i18n */
 	var InfoTip = __webpack_require__(100);
@@ -16329,7 +16379,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-before-function-paren */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp, space-before-function-paren */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
@@ -18623,7 +18673,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-redeclare, no-undef, no-unused-vars, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+	/* eslint-disable comma-dangle, no-redeclare, no-undef, no-unused-vars, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	// TODO(joel): teach KAS how to accept an answer only if it's expressed in
 	// terms of a certain type.
@@ -18972,7 +19022,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable brace-style, object-curly-spacing */
+	/* eslint-disable object-curly-spacing */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/* global i18n:false */
 	var $ = __webpack_require__(15);
@@ -19499,7 +19549,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/**
 	 * Stub Tag Editor.
@@ -19635,7 +19685,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
@@ -20278,6 +20328,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *         arrowSize={10} // arrow size in pixels
 	 *         borderColor="#ccc" // color of the border for the tooltip
 	 *         show={true} // whether the tooltip should currently be visible
+	 *         targetContainerStyle={targetContainerStyle}
 	 *         >
 	 *     <TargetElementOfTheTooltip />
 	 *     <TooltipContents1 />
@@ -20442,7 +20493,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        verticalPosition: React.PropTypes.oneOf(_.keys(VERTICAL_CORNERS)),
 	        horizontalPosition: React.PropTypes.oneOf(_.keys(HORIZONTAL_CORNERS)),
 	        horizontalAlign: React.PropTypes.oneOf(_.keys(HORIZONTAL_ALIGNMNENTS)),
-	        children: React.PropTypes.arrayOf(React.PropTypes.element).isRequired
+	        children: React.PropTypes.arrayOf(React.PropTypes.element).isRequired,
+	        targetContainerStyle: React.PropTypes.any
 	    },
 	    getDefaultProps: function getDefaultProps() {
 	        return {
@@ -20451,7 +20503,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            borderColor: "#ccc",
 	            verticalPosition: "bottom",
 	            horizontalPosition: "left",
-	            horizontalAlign: "left"
+	            horizontalAlign: "left",
+	            targetContainerStyle: {}
 	        };
 	    },
 	    getInitialState: function getInitialState() {
@@ -20468,7 +20521,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    render: function render() {
 	        var isTooltipAbove = "top" === this.props.verticalPosition;
 	        /* We wrap the entire output in a span so that it displays inline */
-	        return React.createElement("span", null, isTooltipAbove && this._renderToolTipDiv(isTooltipAbove), React.createElement("div", null, _.first(this.props.children)), !isTooltipAbove && this._renderToolTipDiv());
+	        return React.createElement("span", null, isTooltipAbove && this._renderToolTipDiv(isTooltipAbove), React.createElement("div", {
+	            style: this.props.targetContainerStyle
+	        }, _.first(this.props.children)), !isTooltipAbove && this._renderToolTipDiv());
 	    },
 	    _renderToolTipDiv: function _renderToolTipDiv(isTooltipAbove) {
 	        var settings = _.extend({}, HORIZONTAL_CORNERS[this.props.horizontalPosition], HORIZONTAL_ALIGNMNENTS[this.props.horizontalAlign], VERTICAL_CORNERS[this.props.verticalPosition]);
@@ -20663,6 +20718,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
 	/**
 	 * A stripped version of Icon.jsx from webapp. Takes an SVG icon and renders it
 	 * inline like Font Awesome did.
@@ -20687,14 +20750,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *   <InlineIcon {...editIcon} />
 	 *
 	 */
-	var _extends = Object.assign || function(target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-	    }
-	    return target;
-	};
-
 	var React = __webpack_require__(11);
 
 	var InlineIcon = function InlineIcon(_ref) {
@@ -20737,7 +20792,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+	/* eslint-disable comma-dangle, max-len, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var classNames = __webpack_require__(13);
 
@@ -20968,7 +21023,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+	/* eslint-disable comma-dangle, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
@@ -21190,7 +21245,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable max-len */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/**
 	 * Icon paths to be used with `inline-icon.jsx`.
 	 *
@@ -21327,7 +21384,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-trailing-spaces, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types */
+	/* eslint-disable comma-dangle, no-trailing-spaces, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/prop-types */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	/**
 	 * A wrapper for a component that would otherwise have a fixed width and
@@ -23351,7 +23408,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable brace-style, comma-dangle, no-redeclare, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+	/* eslint-disable brace-style, comma-dangle, no-redeclare, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
@@ -23694,7 +23751,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-after-keywords */
+	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var classNames = __webpack_require__(13);
 
@@ -23901,7 +23958,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
@@ -23967,7 +24024,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+	/* eslint-disable comma-dangle, max-len, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
@@ -24191,7 +24248,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, indent, max-len, no-irregular-whitespace, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+	/* eslint-disable comma-dangle, indent, max-len, no-irregular-whitespace, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
@@ -25151,7 +25208,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-redeclare, no-trailing-spaces, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+	/* eslint-disable comma-dangle, max-len, no-redeclare, no-trailing-spaces, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 	var React = __webpack_require__(11);
 
@@ -29341,7 +29398,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return;
 	        }
 	        y > this._containerBounds.bottom ? y = this._containerBounds.bottom : y < this._containerBounds.top && (y = this._containerBounds.top + 10);
-	        var dx = void 0;
 	        var dy = void 0;
 	        // Vertical spacing between hit tests
 	        // dy is negative because we're moving upwards.
@@ -29350,7 +29406,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // Note: This value depends on the font size.  If the gap is too small
 	        // we end up placing the cursor at the end of the expression when we
 	        // shouldn't.
-	        dx = 5;
+	        var dx = 5;
 	        if (this._findHitNode(this._containerBounds, x, y, dx, dy)) return;
 	        // If we haven't found anything start from the top.
 	        y = this._containerBounds.top;
@@ -33118,12 +33174,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var graph = lineSegment.graph;
 	        graph.style(lineSegment.normalStyle);
 	        for (var i = 0; i < lineSegment.ticks; ++i) lineSegment.tick[i] = InteractiveUtils.bogusShape;
+	        // TODO(kevinb) figure out why path isn't being used
+	        /* eslint-disable */
 	        var path = GraphUtils.unscaledSvgPath([ [ 0, 0 ], [ 1, 0 ] ]);
 	        for (var _i = 0; _i < lineSegment.ticks; ++_i) {
 	            var tickoffset = .5 - (lineSegment.ticks - 1 + 2 * _i) / graph.scale[0];
 	            path += GraphUtils.unscaledSvgPath([ [ tickoffset, -7 ], [ tickoffset, 7 ] ]);
 	        }
-	        options = {
+	        /* eslint-enable */ options = {
 	            thickness: Math.max(lineSegment.normalStyle["stroke-width"], lineSegment.highlightStyle["stroke-width"])
 	        };
 	        lineSegment.visibleLine = new WrappedLine(graph, [ 0, 0 ], [ 1, 0 ], options);
@@ -44030,7 +44088,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var DecimalSeparators = _require.DecimalSeparators;
 
 	// We expect `window.icu` to be exposed by the parent. When in doubt, we fall
-	// back to a period.
+	// back to a period. We can only depend on a subset of what localeplanet
+	// provides, however -- the things in `icu-slim.js` (there's a copy in ../lib/
+	// for reference).
 	var decimalSeparator = void 0;
 
 	decimalSeparator = "undefined" !== typeof window && window.icu && "," === window.icu.getDecimalFormatSymbols().decimal_separator ? DecimalSeparators.COMMA : DecimalSeparators.PERIOD;
@@ -44507,7 +44567,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Velocity is computed by smoothing linearly over the gestures that have
 	 * occurred in the last 100 milliseconds.
 	 */
-	var now = __webpack_require__(199);
+	var now = __webpack_require__(194);
 
 	var VelocityTracker = function() {
 	    function VelocityTracker(options) {
@@ -44938,7 +44998,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var connect = _require.connect;
 
-	var KeypadButton = __webpack_require__(190);
+	var KeypadButton = __webpack_require__(192);
 
 	var KeyConfigs = __webpack_require__(149);
 
@@ -45076,9 +45136,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Keypad = __webpack_require__(178);
 
-	var ViewPager = __webpack_require__(192);
+	var ViewPager = __webpack_require__(190);
 
-	var PagerIndicator = __webpack_require__(193);
+	var PagerIndicator = __webpack_require__(191);
 
 	var _require3 = __webpack_require__(150);
 
@@ -45188,7 +45248,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(11);
 
-	var EmptyKeypadButton = __webpack_require__(191);
+	var EmptyKeypadButton = __webpack_require__(193);
 
 	var TouchableKeypadButton = __webpack_require__(179);
 
@@ -45813,23 +45873,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = void 0;
 
-	var _createStore = __webpack_require__(194);
+	var _createStore = __webpack_require__(195);
 
 	var _createStore2 = _interopRequireDefault(_createStore);
 
-	var _combineReducers = __webpack_require__(195);
+	var _combineReducers = __webpack_require__(196);
 
 	var _combineReducers2 = _interopRequireDefault(_combineReducers);
 
-	var _bindActionCreators = __webpack_require__(196);
+	var _bindActionCreators = __webpack_require__(197);
 
 	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
 
-	var _applyMiddleware = __webpack_require__(197);
+	var _applyMiddleware = __webpack_require__(198);
 
 	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
 
-	var _compose = __webpack_require__(198);
+	var _compose = __webpack_require__(199);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
@@ -46291,7 +46351,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ReactCSSTransitionGroup = __webpack_require__(205);
 
-	var KeypadButton = __webpack_require__(190);
+	var KeypadButton = __webpack_require__(192);
 
 	var KeyConfigs = __webpack_require__(149);
 
@@ -46527,6 +46587,262 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 190 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _extends = Object.assign || function(target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+	    }
+	    return target;
+	};
+
+	/**
+	 * A view pager that allows for pagination in the horizontal direction.
+	 * Right now, there are a number of limitations built into the system. Namely:
+	 *  - It only supports pagination in the horizontal direction.
+	 *  - It supports exactly two pages.
+	 */
+	var React = __webpack_require__(11);
+
+	var _require = __webpack_require__(177);
+
+	var connect = _require.connect;
+
+	var _require2 = __webpack_require__(14);
+
+	var StyleSheet = _require2.StyleSheet;
+
+	var _require3 = __webpack_require__(150);
+
+	var View = _require3.View;
+
+	var _require4 = __webpack_require__(168);
+
+	var row = _require4.row;
+
+	var _require5 = __webpack_require__(121);
+
+	var childrenPropType = _require5.childrenPropType;
+
+	var _require6 = __webpack_require__(145);
+
+	var innerBorderColor = _require6.innerBorderColor;
+
+	var innerBorderStyle = _require6.innerBorderStyle;
+
+	var innerBorderWidthPx = _require6.innerBorderWidthPx;
+
+	var ViewPager = React.createClass({
+	    displayName: "ViewPager",
+	    propTypes: {
+	        // Whether the page should animate to its next specified position.
+	        animateToPosition: React.PropTypes.bool,
+	        children: childrenPropType,
+	        pageWidthPx: React.PropTypes.number.isRequired,
+	        translateX: React.PropTypes.number.isRequired
+	    },
+	    getInitialState: function getInitialState() {
+	        return {
+	            animationDurationMs: 0
+	        };
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(newProps) {
+	        // Compute the appropriate animation length, if the pager should
+	        // animate to its next position.
+	        var animationDurationMs = void 0;
+	        if (newProps.animateToPosition) {
+	            var finalTranslateX = newProps.translateX;
+	            var prevTranslateX = this.props.translateX;
+	            // We animate at a rate of 1 pixel per millisecond, and thus we can
+	            // use the displacement as the animation duration.
+	            animationDurationMs = Math.abs(finalTranslateX - prevTranslateX);
+	        } else animationDurationMs = 0;
+	        this.setState({
+	            animationDurationMs: animationDurationMs
+	        });
+	    },
+	    render: function render() {
+	        var _props = this.props;
+	        var children = _props.children;
+	        var pageWidthPx = _props.pageWidthPx;
+	        var translateX = _props.translateX;
+	        var animationDurationMs = this.state.animationDurationMs;
+	        var pagerStyle = [ row, styles.twoPagePager ];
+	        var transform = {
+	            msTransform: "translate3d(" + translateX + "px, 0, 0)",
+	            WebkitTransform: "translate3d(" + translateX + "px, 0, 0)",
+	            transform: "translate3d(" + translateX + "px, 0, 0)"
+	        };
+	        var animate = animationDurationMs ? {
+	            msTransitionProperty: "transform",
+	            WebkitTransitionProperty: "transform",
+	            transitionProperty: "transform",
+	            msTransitionDuration: animationDurationMs + "ms",
+	            WebkitTransitionDuration: animationDurationMs + "ms",
+	            transitionDuration: animationDurationMs + "ms",
+	            msTransitionTimingFunction: "ease-out",
+	            WebkitTransitionTimingFunction: "ease-out",
+	            transitionTimingFunction: "ease-out"
+	        } : {};
+	        var dynamicPagerStyle = _extends({}, transform, animate);
+	        var dynamicPageStyle = {
+	            width: pageWidthPx
+	        };
+	        return React.createElement(View, {
+	            style: pagerStyle,
+	            dynamicStyle: dynamicPagerStyle
+	        }, React.createElement(View, {
+	            dynamicStyle: dynamicPageStyle
+	        }, children[0]), React.createElement(View, {
+	            style: styles.rightPage,
+	            dynamicStyle: dynamicPageStyle
+	        }, children[1]));
+	    }
+	});
+
+	var styles = StyleSheet.create({
+	    twoPagePager: {
+	        alignSelf: "flex-start",
+	        // Note: By default, <View> sets a `maxWidth` of 100% to fix some
+	        // Flexbox bugs. We have to override it to accommodate for our two
+	        // pages. The exact value here isn't super important, as long as it's
+	        // large enough to accommodate for two pages (so, 200%) and some
+	        // separators.
+	        maxWidth: "250%"
+	    },
+	    rightPage: {
+	        borderLeft: innerBorderWidthPx + "px " + innerBorderStyle + " " + innerBorderColor,
+	        boxSizing: "content-box"
+	    }
+	});
+
+	var mapStateToProps = function mapStateToProps(state) {
+	    var _state$pager = state.pager;
+	    var animateToPosition = _state$pager.animateToPosition;
+	    var currentPage = _state$pager.currentPage;
+	    var dx = _state$pager.dx;
+	    var pageWidthPx = _state$pager.pageWidthPx;
+	    return {
+	        animateToPosition: animateToPosition,
+	        pageWidthPx: pageWidthPx,
+	        translateX: -currentPage * (pageWidthPx + innerBorderWidthPx) + dx
+	    };
+	};
+
+	module.exports = connect(mapStateToProps)(ViewPager);
+
+/***/ },
+/* 191 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * A component that renders a view pager indicator, with a circular icon for
+	 * each page.
+	 */
+	var React = __webpack_require__(11);
+
+	var _require = __webpack_require__(14);
+
+	var StyleSheet = _require.StyleSheet;
+
+	var _require2 = __webpack_require__(150);
+
+	var View = _require2.View;
+
+	var _require3 = __webpack_require__(145);
+
+	var pageIndicatorHeightPx = _require3.pageIndicatorHeightPx;
+
+	var gray68 = _require3.gray68;
+
+	var gray85 = _require3.gray85;
+
+	var PagerIcon = React.createClass({
+	    displayName: "PagerIcon",
+	    propTypes: {
+	        active: React.PropTypes.bool,
+	        radiusPx: React.PropTypes.number
+	    },
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            active: false,
+	            radiusPx: 4
+	        };
+	    },
+	    render: function render() {
+	        var _props = this.props;
+	        var active = _props.active;
+	        var radiusPx = _props.radiusPx;
+	        var fillColor = active ? gray68 : gray85;
+	        return React.createElement("svg", {
+	            width: 2 * radiusPx,
+	            height: 2 * radiusPx
+	        }, React.createElement("circle", {
+	            cx: radiusPx,
+	            cy: radiusPx,
+	            r: radiusPx,
+	            fill: fillColor
+	        }));
+	    }
+	});
+
+	var PagerIndicator = React.createClass({
+	    displayName: "PagerIndicator",
+	    propTypes: {
+	        currentPage: React.PropTypes.number.isRequired,
+	        numPages: React.PropTypes.number.isRequired
+	    },
+	    render: function render() {
+	        var _props2 = this.props;
+	        var currentPage = _props2.currentPage;
+	        var numPages = _props2.numPages;
+	        var pagerIconRadiusPx = 4;
+	        // Collect the various indicator circles.
+	        var indicators = [];
+	        for (var i = 0; i < numPages; i++) indicators.push(React.createElement(PagerIcon, {
+	            key: i,
+	            active: i === currentPage,
+	            radiusPx: pagerIconRadiusPx
+	        }));
+	        // Size the box that contains the icons to accommodate for proper
+	        // spacing, and let Flexbox take care of the details.
+	        var totalIconWidthPx = 2 * pagerIconRadiusPx * numPages;
+	        var totalSpacingWidthPx = 2 * pagerIconRadiusPx * (numPages - 1);
+	        var iconStripSize = {
+	            width: totalIconWidthPx + totalSpacingWidthPx
+	        };
+	        return React.createElement(View, {
+	            style: styles.indicatorStrip
+	        }, React.createElement(View, {
+	            style: styles.iconStrip,
+	            dynamicStyle: iconStripSize
+	        }, indicators));
+	    }
+	});
+
+	var styles = StyleSheet.create({
+	    indicatorStrip: {
+	        backgroundColor: "#F0F1F2",
+	        flexDirection: "row",
+	        justifyContent: "center",
+	        alignItems: "center",
+	        height: pageIndicatorHeightPx
+	    },
+	    iconStrip: {
+	        flexDirection: "row",
+	        justifyContent: "space-between"
+	    }
+	});
+
+	module.exports = PagerIndicator;
+
+/***/ },
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -46885,7 +47201,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = connect(mapStateToProps)(KeypadButton);
 
 /***/ },
-/* 191 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -46921,7 +47237,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var KeyConfigs = __webpack_require__(149);
 
-	var KeypadButton = __webpack_require__(190);
+	var KeypadButton = __webpack_require__(192);
 
 	var EmptyKeypadButton = React.createClass({
 	    displayName: "EmptyKeypadButton",
@@ -46964,263 +47280,43 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = connect(mapStateToProps)(EmptyKeypadButton);
 
 /***/ },
-/* 192 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _extends = Object.assign || function(target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
-	    }
-	    return target;
-	};
-
-	/**
-	 * A view pager that allows for pagination in the horizontal direction.
-	 * Right now, there are a number of limitations built into the system. Namely:
-	 *  - It only supports pagination in the horizontal direction.
-	 *  - It supports exactly two pages.
-	 */
-	var React = __webpack_require__(11);
-
-	var _require = __webpack_require__(177);
-
-	var connect = _require.connect;
-
-	var _require2 = __webpack_require__(14);
-
-	var StyleSheet = _require2.StyleSheet;
-
-	var _require3 = __webpack_require__(150);
-
-	var View = _require3.View;
-
-	var _require4 = __webpack_require__(168);
-
-	var row = _require4.row;
-
-	var _require5 = __webpack_require__(121);
-
-	var childrenPropType = _require5.childrenPropType;
-
-	var _require6 = __webpack_require__(145);
-
-	var innerBorderColor = _require6.innerBorderColor;
-
-	var innerBorderStyle = _require6.innerBorderStyle;
-
-	var innerBorderWidthPx = _require6.innerBorderWidthPx;
-
-	var ViewPager = React.createClass({
-	    displayName: "ViewPager",
-	    propTypes: {
-	        // Whether the page should animate to its next specified position.
-	        animateToPosition: React.PropTypes.bool,
-	        children: childrenPropType,
-	        pageWidthPx: React.PropTypes.number.isRequired,
-	        translateX: React.PropTypes.number.isRequired
-	    },
-	    getInitialState: function getInitialState() {
-	        return {
-	            animationDurationMs: 0
-	        };
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(newProps) {
-	        // Compute the appropriate animation length, if the pager should
-	        // animate to its next position.
-	        var animationDurationMs = void 0;
-	        if (newProps.animateToPosition) {
-	            var finalTranslateX = newProps.translateX;
-	            var prevTranslateX = this.props.translateX;
-	            // We animate at a rate of 1 pixel per millisecond, and thus we can
-	            // use the displacement as the animation duration.
-	            animationDurationMs = Math.abs(finalTranslateX - prevTranslateX);
-	        } else animationDurationMs = 0;
-	        this.setState({
-	            animationDurationMs: animationDurationMs
-	        });
-	    },
-	    render: function render() {
-	        var _props = this.props;
-	        var children = _props.children;
-	        var pageWidthPx = _props.pageWidthPx;
-	        var translateX = _props.translateX;
-	        var animationDurationMs = this.state.animationDurationMs;
-	        var pagerStyle = [ row, styles.twoPagePager ];
-	        var transform = {
-	            msTransform: "translate3d(" + translateX + "px, 0, 0)",
-	            WebkitTransform: "translate3d(" + translateX + "px, 0, 0)",
-	            transform: "translate3d(" + translateX + "px, 0, 0)"
-	        };
-	        var animate = animationDurationMs ? {
-	            msTransitionProperty: "transform",
-	            WebkitTransitionProperty: "transform",
-	            transitionProperty: "transform",
-	            msTransitionDuration: animationDurationMs + "ms",
-	            WebkitTransitionDuration: animationDurationMs + "ms",
-	            transitionDuration: animationDurationMs + "ms",
-	            msTransitionTimingFunction: "ease-out",
-	            WebkitTransitionTimingFunction: "ease-out",
-	            transitionTimingFunction: "ease-out"
-	        } : {};
-	        var dynamicPagerStyle = _extends({}, transform, animate);
-	        var dynamicPageStyle = {
-	            width: pageWidthPx
-	        };
-	        return React.createElement(View, {
-	            style: pagerStyle,
-	            dynamicStyle: dynamicPagerStyle
-	        }, React.createElement(View, {
-	            dynamicStyle: dynamicPageStyle
-	        }, children[0]), React.createElement(View, {
-	            style: styles.rightPage,
-	            dynamicStyle: dynamicPageStyle
-	        }, children[1]));
-	    }
-	});
-
-	var styles = StyleSheet.create({
-	    twoPagePager: {
-	        alignSelf: "flex-start",
-	        // Note: By default, <View> sets a `maxWidth` of 100% to fix some
-	        // Flexbox bugs. We have to override it to accommodate for our two
-	        // pages. The exact value here isn't super important, as long as it's
-	        // large enough to accommodate for two pages (so, 200%) and some
-	        // separators.
-	        maxWidth: "250%"
-	    },
-	    rightPage: {
-	        borderLeft: innerBorderWidthPx + "px " + innerBorderStyle + " " + innerBorderColor,
-	        boxSizing: "content-box"
-	    }
-	});
-
-	var mapStateToProps = function mapStateToProps(state) {
-	    var _state$pager = state.pager;
-	    var animateToPosition = _state$pager.animateToPosition;
-	    var currentPage = _state$pager.currentPage;
-	    var dx = _state$pager.dx;
-	    var pageWidthPx = _state$pager.pageWidthPx;
-	    return {
-	        animateToPosition: animateToPosition,
-	        pageWidthPx: pageWidthPx,
-	        translateX: -currentPage * (pageWidthPx + innerBorderWidthPx) + dx
-	    };
-	};
-
-	module.exports = connect(mapStateToProps)(ViewPager);
-
-/***/ },
-/* 193 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * A component that renders a view pager indicator, with a circular icon for
-	 * each page.
-	 */
-	var React = __webpack_require__(11);
-
-	var _require = __webpack_require__(14);
-
-	var StyleSheet = _require.StyleSheet;
-
-	var _require2 = __webpack_require__(150);
-
-	var View = _require2.View;
-
-	var _require3 = __webpack_require__(145);
-
-	var pageIndicatorHeightPx = _require3.pageIndicatorHeightPx;
-
-	var gray68 = _require3.gray68;
-
-	var gray85 = _require3.gray85;
-
-	var PagerIcon = React.createClass({
-	    displayName: "PagerIcon",
-	    propTypes: {
-	        active: React.PropTypes.bool,
-	        radiusPx: React.PropTypes.number
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            active: false,
-	            radiusPx: 4
-	        };
-	    },
-	    render: function render() {
-	        var _props = this.props;
-	        var active = _props.active;
-	        var radiusPx = _props.radiusPx;
-	        var fillColor = active ? gray68 : gray85;
-	        return React.createElement("svg", {
-	            width: 2 * radiusPx,
-	            height: 2 * radiusPx
-	        }, React.createElement("circle", {
-	            cx: radiusPx,
-	            cy: radiusPx,
-	            r: radiusPx,
-	            fill: fillColor
-	        }));
-	    }
-	});
-
-	var PagerIndicator = React.createClass({
-	    displayName: "PagerIndicator",
-	    propTypes: {
-	        currentPage: React.PropTypes.number.isRequired,
-	        numPages: React.PropTypes.number.isRequired
-	    },
-	    render: function render() {
-	        var _props2 = this.props;
-	        var currentPage = _props2.currentPage;
-	        var numPages = _props2.numPages;
-	        var pagerIconRadiusPx = 4;
-	        // Collect the various indicator circles.
-	        var indicators = [];
-	        for (var i = 0; i < numPages; i++) indicators.push(React.createElement(PagerIcon, {
-	            key: i,
-	            active: i === currentPage,
-	            radiusPx: pagerIconRadiusPx
-	        }));
-	        // Size the box that contains the icons to accommodate for proper
-	        // spacing, and let Flexbox take care of the details.
-	        var totalIconWidthPx = 2 * pagerIconRadiusPx * numPages;
-	        var totalSpacingWidthPx = 2 * pagerIconRadiusPx * (numPages - 1);
-	        var iconStripSize = {
-	            width: totalIconWidthPx + totalSpacingWidthPx
-	        };
-	        return React.createElement(View, {
-	            style: styles.indicatorStrip
-	        }, React.createElement(View, {
-	            style: styles.iconStrip,
-	            dynamicStyle: iconStripSize
-	        }, indicators));
-	    }
-	});
-
-	var styles = StyleSheet.create({
-	    indicatorStrip: {
-	        backgroundColor: "#F0F1F2",
-	        flexDirection: "row",
-	        justifyContent: "center",
-	        alignItems: "center",
-	        height: pageIndicatorHeightPx
-	    },
-	    iconStrip: {
-	        flexDirection: "row",
-	        justifyContent: "space-between"
-	    }
-	});
-
-	module.exports = PagerIndicator;
-
-/***/ },
 /* 194 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {"use strict";
+
+	// Generated by CoffeeScript 1.7.1
+	(function() {
+	    var getNanoSeconds, hrtime, loadTime;
+	    if ("undefined" !== typeof performance && null !== performance && performance.now) module.exports = function() {
+	        return performance.now();
+	    }; else if ("undefined" !== typeof process && null !== process && process.hrtime) {
+	        module.exports = function() {
+	            return (getNanoSeconds() - loadTime) / 1e6;
+	        };
+	        hrtime = process.hrtime;
+	        getNanoSeconds = function getNanoSeconds() {
+	            var hr;
+	            hr = hrtime();
+	            return 1e9 * hr[0] + hr[1];
+	        };
+	        loadTime = getNanoSeconds();
+	    } else if (Date.now) {
+	        module.exports = function() {
+	            return Date.now() - loadTime;
+	        };
+	        loadTime = Date.now();
+	    } else {
+	        module.exports = function() {
+	            return new Date().getTime() - loadTime;
+	        };
+	        loadTime = new Date().getTime();
+	    }
+	}).call(void 0);
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(216)))
+
+/***/ },
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47241,7 +47337,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _symbolObservable = __webpack_require__(216);
+	var _symbolObservable = __webpack_require__(217);
 
 	var _symbolObservable2 = _interopRequireDefault(_symbolObservable);
 
@@ -47453,7 +47549,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 195 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47462,7 +47558,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports["default"] = combineReducers;
 
-	var _createStore = __webpack_require__(194);
+	var _createStore = __webpack_require__(195);
 
 	var _isPlainObject = __webpack_require__(211);
 
@@ -47572,7 +47668,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 196 */
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47628,7 +47724,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 197 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47645,7 +47741,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports["default"] = applyMiddleware;
 
-	var _compose = __webpack_require__(198);
+	var _compose = __webpack_require__(199);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
@@ -47696,7 +47792,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 198 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47729,42 +47825,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }, last.apply(void 0, arguments));
 	    };
 	}
-
-/***/ },
-/* 199 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {"use strict";
-
-	// Generated by CoffeeScript 1.7.1
-	(function() {
-	    var getNanoSeconds, hrtime, loadTime;
-	    if ("undefined" !== typeof performance && null !== performance && performance.now) module.exports = function() {
-	        return performance.now();
-	    }; else if ("undefined" !== typeof process && null !== process && process.hrtime) {
-	        module.exports = function() {
-	            return (getNanoSeconds() - loadTime) / 1e6;
-	        };
-	        hrtime = process.hrtime;
-	        getNanoSeconds = function getNanoSeconds() {
-	            var hr;
-	            hr = hrtime();
-	            return 1e9 * hr[0] + hr[1];
-	        };
-	        loadTime = getNanoSeconds();
-	    } else if (Date.now) {
-	        module.exports = function() {
-	            return Date.now() - loadTime;
-	        };
-	        loadTime = Date.now();
-	    } else {
-	        module.exports = function() {
-	            return new Date().getTime() - loadTime;
-	        };
-	        loadTime = new Date().getTime();
-	    }
-	}).call(void 0);
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(217)))
 
 /***/ },
 /* 200 */
@@ -48602,14 +48662,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 216 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-
-	module.exports = __webpack_require__(222);
-
-/***/ },
-/* 217 */
-/***/ function(module, exports, __webpack_require__) {
-
 	// shim for using process in browser
 
 	var process = module.exports = {};
@@ -48669,6 +48721,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	process.umask = function() { return 0; };
 
+
+/***/ },
+/* 217 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	module.exports = __webpack_require__(222);
 
 /***/ },
 /* 218 */
