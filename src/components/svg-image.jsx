@@ -590,8 +590,10 @@ var SvgImage = React.createClass({
             if (this.sizeProvided()) {
                 box = [width, height];
             } else {
-                box = [this.state.imageDimensions[0] * this.props.scale,
-                       this.state.imageDimensions[1] * this.props.scale];
+                box = [
+                    this.state.imageDimensions[0] * this.props.scale,
+                    this.state.imageDimensions[1] * this.props.scale,
+                ];
             }
 
             var scale = [40 * this.props.scale, 40 * this.props.scale];

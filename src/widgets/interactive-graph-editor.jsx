@@ -231,14 +231,15 @@ const InteractiveGraphEditor = React.createClass({
                 correct: correct
             });
 
-            _.each(["allowReflexAngles", "angleOffsetDeg", "numPoints",
-                        "numSides", "numSegments", "showAngles", "showSides",
-                        "snapTo", "snapDegrees"],
-                    function(key) {
-                        if (_.has(correct, key)) {
-                            json.graph[key] = correct[key];
-                        }
-                    });
+            _.each([
+                "allowReflexAngles", "angleOffsetDeg", "numPoints",
+                "numSides", "numSegments", "showAngles", "showSides",
+                "snapTo", "snapDegrees",
+            ], function(key) {
+                if (_.has(correct, key)) {
+                    json.graph[key] = correct[key];
+                }
+            });
         }
         return json;
     }

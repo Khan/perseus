@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var ButtonGroup = require("react-components/button-group.jsx");
@@ -38,8 +38,10 @@ var ColorPicker = React.createClass({
                     value: color,
                     content: <span><span
                         className="colorpicker-circle"
-                        style={{background: color}}>
-                    </span>&nbsp;</span>
+                        style={{background: color}}
+                    />
+                        &nbsp;
+                    </span>
                 };
             })}
             onChange={this.props.onChange} />;

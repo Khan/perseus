@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable brace-style, no-redeclare, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-infix-ops */
+/* eslint-disable brace-style, no-redeclare, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp, space-infix-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -254,10 +254,14 @@ var Interaction = React.createClass({
                         color={element.options.color}
                     />;
                 } else if (element.type === "line") {
-                    var start = [this._eval(element.options.startX),
-                                 this._eval(element.options.startY)];
-                    var end = [this._eval(element.options.endX),
-                               this._eval(element.options.endY)];
+                    var start = [
+                        this._eval(element.options.startX),
+                        this._eval(element.options.startY),
+                    ];
+                    var end = [
+                        this._eval(element.options.endX),
+                        this._eval(element.options.endY),
+                    ];
                     return <Line
                         key={element.key}
                         start={start}
@@ -447,8 +451,10 @@ var Interaction = React.createClass({
                         }}
                     />;
                 } else if (element.type === "label") {
-                    var coord = [this._eval(element.options.coordX),
-                                 this._eval(element.options.coordY)];
+                    var coord = [
+                        this._eval(element.options.coordX),
+                        this._eval(element.options.coordY),
+                    ];
                     return <Label
                         key={n + 1}
                         coord={coord}

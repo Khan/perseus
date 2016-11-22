@@ -32,8 +32,10 @@ const bondLength = 30;
 function polarAdd(origin, angle, length) {
     const x = origin[0];
     const y = origin[1];
-    return [x + Math.cos(angle * 2 * Math.PI / 360) * length,
-            y + -1.0 * Math.sin(angle * 2 * Math.PI / 360) * length];
+    return [
+        x + Math.cos(angle * 2 * Math.PI / 360) * length,
+        y + -1.0 * Math.sin(angle * 2 * Math.PI / 360) * length,
+    ];
 }
 
 /**

@@ -187,15 +187,15 @@ var Matrix = React.createClass({
                     className={"matrix-bracket bracket-left"}
                     style={{
                         height: bracketHeight
-                    }}>
-                </div>
+                    }}
+                />
                 <div
                     className={"matrix-bracket bracket-right"}
                     style={{
                         height: bracketHeight,
                         left: bracketOffset
-                    }}>
-                </div>
+                    }}
+                />
                 {_(maxRows).times(row => {
                     var rowVals = this.props.answers[row];
                     return <div className="matrix-row" key={row}>

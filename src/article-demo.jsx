@@ -1,5 +1,6 @@
-/* eslint-disable no-console, max-len */
-
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable no-console */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
 /**
  * Demonstrates the rendered result of a Perseus article
  */

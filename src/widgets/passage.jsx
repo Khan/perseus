@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-undef, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-infix-ops */
+/* eslint-disable comma-dangle, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp, space-infix-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -256,19 +256,23 @@ const Passage = React.createClass({
         const focusOffset = selection.focusOffset;
         if (this.isAnchorFirst(
                 anchorNode, focusNode, anchorOffset, focusOffset)) {
-            return {selectionStartIndex: anchorIndex,
-                    selectionEndIndex: focusIndex,
-                    startNode: anchorNode,
-                    endNode: focusNode,
-                    startNodeOffset: anchorOffset,
-                    endNodeOffset: focusOffset};
+            return {
+                selectionStartIndex: anchorIndex,
+                selectionEndIndex: focusIndex,
+                startNode: anchorNode,
+                endNode: focusNode,
+                startNodeOffset: anchorOffset,
+                endNodeOffset: focusOffset,
+            };
         } else {
-            return {selectionStartIndex: focusIndex,
-                    selectionEndIndex: anchorIndex,
-                    startNode: focusNode,
-                    endNode: anchorNode,
-                    startNodeOffset: focusOffset,
-                    endNodeOffset: anchorOffset};
+            return {
+                selectionStartIndex: focusIndex,
+                selectionEndIndex: anchorIndex,
+                startNode: focusNode,
+                endNode: anchorNode,
+                startNodeOffset: focusOffset,
+                endNodeOffset: anchorOffset,
+            };
         }
     },
 
@@ -538,8 +542,10 @@ const Passage = React.createClass({
                 const whitespaceLastIndex = (
                     whitespaceMatch.index +
                     whitespaceMatch[0].length);
-                return [fragment.slice(0, whitespaceLastIndex),
-                        fragment.slice(whitespaceLastIndex)];
+                return [
+                    fragment.slice(0, whitespaceLastIndex),
+                    fragment.slice(whitespaceLastIndex),
+                ];
             } else {
                 return [fragment];
             }
@@ -584,9 +590,13 @@ const Passage = React.createClass({
         >
             <img
                 data-highlighting-tooltip={true}
-                width="130" height="44"
-                style={{position:'absolute', top:"-54px",
-                         left:"-65px"}}
+                width="130"
+                height="44"
+                style={{
+                    position: 'absolute',
+                    top: "-54px",
+                    left: "-65px",
+                }}
                 src='/images/perseus/add-highlight.svg'
             />
         </span>;
@@ -602,9 +612,13 @@ const Passage = React.createClass({
         >
             <img
                 data-highlighting-tooltip={true}
-                width="163" height="44"
-                style={{position:'absolute', top:'-54px',
-                         left:'-81px'}}
+                width="163"
+                height="44"
+                style={{
+                    position: 'absolute',
+                    top: '-54px',
+                    left: '-81px',
+                }}
                 src='/images/perseus/remove-highlight.svg'
             />
         </span>;
@@ -675,9 +689,11 @@ const Passage = React.createClass({
                         // TODO (davidpowell/mdr): Change regex to blacklist
                         // markdown as oppose to whitelisting certain
                         // characters.
+                        /* eslint-disable */
                         const textRegex = new RegExp("[\\(\\)\\—\\-\\—\\-\\‑\\.\
                                             \\[\\]\\+\\$\\?,!A-Za-z0-9\
                                             \u00C0-\u017F:;'‘’\"“”=%<>\s]+");
+                        /* eslint-enabled */
                         const highlightableMatch = (fragment.match(textRegex));
                         if (highlightableMatch) {
                             const matchStart = highlightableMatch.index;

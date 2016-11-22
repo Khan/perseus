@@ -1494,7 +1494,7 @@ var ToolsBar = React.createClass({
                 {" "}
                 Undo
             </button>
-            <div className="clear"></div>
+            <div className="clear"/>
         </div>;
     },
 
@@ -1542,7 +1542,7 @@ var AddTransformBar = React.createClass({
                 {" "}
                 Undo
             </button>
-            <div className="clear"></div>
+            <div className="clear"/>
         </div>;
     },
 

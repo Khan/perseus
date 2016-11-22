@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types */
+/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var ButtonGroup = require("react-components/button-group.jsx");
@@ -21,12 +21,13 @@ var DashPicker = React.createClass({
         return <ButtonGroup value={this.props.value}
             allowEmpty={false}
             buttons={[
-            {value: "", content: <span>&mdash;</span>},
-            {value: "-", content: <span>&ndash;&ndash;&ndash;</span>},
-            {value: "- ", content: <span>&ndash;&nbsp;&nbsp;&ndash;</span>},
-            {value: ".", content: <span>&middot;&middot;&middot;&middot;
-                </span>},
-            {value: ". ", content: <span>&middot; &middot; &middot;</span>}]}
+                {value: "", content: <span>&mdash;</span>},
+                {value: "-", content: <span>&ndash;&ndash;&ndash;</span>},
+                {value: "- ", content: <span>&ndash;&nbsp;&nbsp;&ndash;</span>},
+                {value: ".", content: <span>&middot;&middot;&middot;&middot;
+                    </span>},
+                {value: ". ", content: <span>&middot; &middot; &middot;</span>},
+            ]}
             onChange={this.props.onChange} />;
     }
 });

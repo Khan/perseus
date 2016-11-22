@@ -134,7 +134,7 @@ const RendererDemo = React.createClass({
                         <div className={css(styles.answerAreaWrap)}>
                             <div id="answer-area">
                                 <div className={css(styles.infoBox)}>
-                                    <div id="solutionarea"></div>
+                                    <div id="solutionarea"/>
                                     <div className={css(styles.answerButtons)}>
                                     {answerButton}
                                     </div>

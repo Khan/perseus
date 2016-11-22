@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-sort-prop-types */
-
 /*
 This is essentially a more advanced `textarea`, using Draft.js
 https://facebook.github.io/draft-js/

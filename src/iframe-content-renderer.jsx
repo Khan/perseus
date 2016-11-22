@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 /**
  * Displays the given content in an iframe, isolating it from the parent page
  *
@@ -147,7 +145,7 @@ const IframeContentRenderer = React.createClass({
         return <div
             ref="container"
             style={{width: "100%", height: "100%"}}
-        ></div>;
+        />;
     },
 });
 

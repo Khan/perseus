@@ -1072,11 +1072,14 @@ _.extend(GraphUtils.Graphie.prototype, {
         for (let i = 0; i < lineSegment.ticks; ++i) {
             lineSegment.tick[i] = InteractiveUtils.bogusShape;
         }
+        // TODO(kevinb) figure out why path isn't being used
+        /* eslint-disable */
         let path = GraphUtils.unscaledSvgPath([[0, 0], [1, 0]]);
         for (let i = 0; i < lineSegment.ticks; ++i) {
             const tickoffset = 0.5 - ((lineSegment.ticks - 1) + (i * 2)) / graph.scale[0];
             path += GraphUtils.unscaledSvgPath([[tickoffset, -7], [tickoffset, 7]]);
         }
+        /* eslint-enable */
 
         options = {
             thickness: Math.max(
