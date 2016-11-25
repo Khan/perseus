@@ -15,6 +15,8 @@ var ViewportResizer = require("./components/viewport-resizer.jsx");
 
 var EditorPage = React.createClass({
     propTypes: {
+        ...ApiOptionsProps.propTypes,
+
         answerArea: React.PropTypes.any, // related to the question
 
         developerMode: React.PropTypes.bool,
@@ -49,8 +51,6 @@ var EditorPage = React.createClass({
         // Initial value of the question being edited
         question: React.PropTypes.any,
     },
-
-    mixins: [ ApiOptionsProps ],
 
     getDefaultProps: function() {
         return {
@@ -133,6 +133,10 @@ var EditorPage = React.createClass({
                                    "problemNum")
             ),
         });
+    },
+
+    getApiOptions() {
+        return ApiOptionsProps.getApiOptions.call(this);
     },
 
     handleChange: function(toChange, cb, silent) {

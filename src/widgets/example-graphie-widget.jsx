@@ -28,8 +28,6 @@ var kpoint = require("kmath").point;
  * users enter their answers.
  */
 var ExampleGraphieWidget = React.createClass({
-    mixins: [WidgetJsonifyDeprecated],
-
     propTypes: {
         ...Changeable.propTypes,
         apiOptions: ApiOptions.propTypes,
@@ -55,6 +53,10 @@ var ExampleGraphieWidget = React.createClass({
                 showProtractor: false
             }
         };
+    },
+
+    getUserInput: function() {
+        return WidgetJsonifyDeprecated.getUserInput.call(this);
     },
 
     render: function() {

@@ -164,7 +164,7 @@ InteractionTracker.prototype._noop = function() {};
 
 var Renderer = React.createClass({
     propTypes: {
-        // Also accepts apiOptions, via the ApiOptionsProps mixin.
+        ...ApiOptionsProps.propTypes,
         alwaysUpdate: React.PropTypes.bool,
         highlightedWidgets: React.PropTypes.arrayOf(React.PropTypes.any),
         ignoreMissingWidgets: React.PropTypes.bool,
@@ -177,8 +177,6 @@ var Renderer = React.createClass({
         questionCompleted: React.PropTypes.bool,
         reviewMode: React.PropTypes.bool,
     },
-
-    mixins: [ ApiOptionsProps ],
 
     getDefaultProps: function() {
         return {
@@ -282,6 +280,10 @@ var Renderer = React.createClass({
         }
 
         this._isMounted = false;
+    },
+
+    getApiOptions() {
+        return ApiOptionsProps.getApiOptions.call(this);
     },
 
     _getInitialWidgetState: function(props) {

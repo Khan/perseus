@@ -27,6 +27,7 @@ const rendererProps = React.PropTypes.shape({
 
 const ArticleRenderer = React.createClass({
     propTypes: {
+        ...ProvideKeypad.propTypes,
         apiOptions: React.PropTypes.shape({
             onFocusChange: React.PropTypes.func,
             isMobile: React.PropTypes.bool,
@@ -40,8 +41,6 @@ const ArticleRenderer = React.createClass({
         useNewStyles: React.PropTypes.bool,
     },
 
-    mixins: [ ProvideKeypad ],
-
     getDefaultProps() {
         return {
             apiOptions: {},
@@ -49,12 +48,25 @@ const ArticleRenderer = React.createClass({
         };
     },
 
+    getInitialState() {
+        return ProvideKeypad.getInputPaths();
+    },
+
     componentDidMount() {
+        ProvideKeypad.componentDidMount.call(this);
         this._currentFocus = null;
     },
 
     shouldComponentUpdate(nextProps, nextState) {
         return nextProps !== this.props || nextState !== this.state;
+    },
+
+    componentWillUnmount() {
+        ProvideKeypad.componentWillUnmount.call(this);
+    },
+
+    keypadElement() {
+        return ProvideKeypad.keypadElement.call(this);
     },
 
     _handleFocusChange(newFocusPath, oldFocusPath) {

@@ -25,13 +25,11 @@ const {
 
 const HintsRenderer = React.createClass({
     propTypes: {
-        // Also accepts apiOptions, via the ApiOptionsProps mixin.
+        ...ApiOptionsProps.propTypes,
         className: React.PropTypes.string,
         hints: React.PropTypes.arrayOf(React.PropTypes.any),
         hintsVisible: React.PropTypes.number,
     },
-
-    mixins: [ ApiOptionsProps ],
 
     componentDidMount: function() {
         this._cacheHintImages();
@@ -74,6 +72,10 @@ const HintsRenderer = React.createClass({
         } else if (this.props.hints.length > 0) {
             this._cacheImagesInHint(this.props.hints[0]);
         }
+    },
+
+    getApiOptions() {
+        return ApiOptionsProps.getApiOptions.call(this);
     },
 
     getSerializedState: function() {
