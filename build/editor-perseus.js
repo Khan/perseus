@@ -1,6 +1,6 @@
 /*! Perseus with editors | http://github.com/Khan/perseus */
-// commit 49363d214e9f8e7d283ae84da093dcc7858f2614
-// branch fix_plotter_label
+// commit 3976ccbd876303eee4943419fdb3f06d0a8358b1
+// branch master
 // @generated
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -554,7 +554,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var _ = __webpack_require__(18);
-	var KhanAnswerTypes = __webpack_require__(46);
+	var KhanAnswerTypes = __webpack_require__(43);
 
 	var nestedMap = function nestedMap(children, func, context) {
 	    if (_.isArray(children)) {
@@ -1920,7 +1920,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var PropCheckBox = __webpack_require__(39);
 	var Util = __webpack_require__(6);
 	var Widgets = __webpack_require__(23);
-	var preprocessTex = __webpack_require__(47);
+	var preprocessTex = __webpack_require__(44);
 
 	var PerseusEditor = __webpack_require__(40);
 
@@ -3073,7 +3073,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 	var ApiOptionsProps = __webpack_require__(50);
 	var CombinedHintsEditor = __webpack_require__(41);
-	var FixPassageRefs = __webpack_require__(48);
+	var FixPassageRefs = __webpack_require__(45);
 	var ItemEditor = __webpack_require__(42);
 	var JsonEditor = __webpack_require__(37);
 	var ViewportResizer = __webpack_require__(15);
@@ -3501,8 +3501,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(17);
 	var _ = __webpack_require__(18);
 
-	var TextDiff = __webpack_require__(43);
-	var WidgetDiff = __webpack_require__(44);
+	var TextDiff = __webpack_require__(46);
+	var WidgetDiff = __webpack_require__(47);
 
 	// Deeply look up a property in an object,
 	// -> getPath(obj, ["a", "b", "c"]) === obj["a"]["b"]["c"]
@@ -3661,7 +3661,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ButtonGroup = __webpack_require__(54);
 
-	var _require = __webpack_require__(45);
+	var _require = __webpack_require__(48);
 
 	var devices = _require.devices;
 
@@ -3740,7 +3740,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(17);
 
-	var _require = __webpack_require__(45);
+	var _require = __webpack_require__(48);
 
 	var devices = _require.devices;
 
@@ -4349,7 +4349,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 	    },
 	    getInitialState: function getInitialState() {
-	        return ProvideKeypad.getInputPaths();
+	        return ProvideKeypad.getInitialState();
 	    },
 	    componentDidMount: function componentDidMount() {
 	        ProvideKeypad.componentDidMount.call(this);
@@ -5614,7 +5614,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 	var Zoomable = __webpack_require__(62);
 	var Deferred = __webpack_require__(63);
-	var preprocessTex = __webpack_require__(47);
+	var preprocessTex = __webpack_require__(44);
 
 	var keypadElementPropType = __webpack_require__(162).propTypes.keypadElementPropType;
 
@@ -10290,466 +10290,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var classNames = __webpack_require__(51);
-	var React = __webpack_require__(17);
-	var _ = __webpack_require__(18);
-
-	var diff = __webpack_require__(89);
-	var splitDiff = __webpack_require__(85);
-	var stringArrayDiff = __webpack_require__(86);
-
-	var BEFORE = "before";
-	var AFTER = "after";
-
-	var IMAGE_REGEX = /http.*?\.png/g;
-
-	var imagesInString = function imagesInString(str) {
-	    return str.match(IMAGE_REGEX) || [];
-	};
-
-	var classFor = function classFor(entry, ifAdded, ifRemoved) {
-	    if (entry.added) {
-	        return ifAdded;
-	    } else if (entry.removed) {
-	        return ifRemoved;
-	    } else {
-	        return "";
-	    }
-	};
-
-	var ImageDiffSide = React.createClass({
-	    displayName: "ImageDiffSide",
-
-	    propTypes: {
-	        side: React.PropTypes.oneOf([BEFORE, AFTER]).isRequired,
-	        images: React.PropTypes.array.isRequired
-	    },
-
-	    render: function render() {
-	        return React.createElement(
-	            "div",
-	            null,
-	            this.props.images.length > 0 && React.createElement(
-	                "div",
-	                { className: "diff-header" },
-	                "Images"
-	            ),
-	            _.map(this.props.images, function (entry, index) {
-	                var className = classNames({
-	                    "image": true,
-	                    "image-unchanged": entry.status === "unchanged",
-	                    "image-added": entry.status === "added",
-	                    "image-removed": entry.status === "removed"
-	                });
-	                return React.createElement(
-	                    "div",
-	                    { key: index },
-	                    React.createElement("img", { src: entry.value,
-	                        title: entry.value,
-	                        className: className })
-	                );
-	            })
-	        );
-	    }
-	});
-
-	var TextDiff = React.createClass({
-	    displayName: "TextDiff",
-
-	    propTypes: {
-	        before: React.PropTypes.string,
-	        after: React.PropTypes.string,
-	        title: React.PropTypes.string
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            before: "",
-	            after: "",
-	            title: ""
-	        };
-	    },
-
-	    getInitialState: function getInitialState() {
-	        return {
-	            collapsed: this.props.before === this.props.after
-	        };
-	    },
-
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        this.setState({
-	            collapsed: nextProps.before === nextProps.after
-	        });
-	    },
-
-	    render: function render() {
-	        var _this = this;
-
-	        var diffed = diff.diffWords(this.props.before, this.props.after);
-
-	        var lines = splitDiff(diffed);
-
-	        var beforeImages = imagesInString(this.props.before);
-	        var afterImages = imagesInString(this.props.after);
-
-	        var images = stringArrayDiff(beforeImages, afterImages);
-
-	        var renderedLines = _.map(lines, function (line) {
-	            var contents = {};
-
-	            contents.before = _(line).map(function (entry, i) {
-	                var className = classFor(entry, "not-present", "removed dark");
-	                return React.createElement(
-	                    "span",
-	                    {
-	                        key: i,
-	                        className: className },
-	                    entry.value
-	                );
-	            });
-
-	            contents.after = _(line).map(function (entry, i) {
-	                var className = classFor(entry, "added dark", "not-present");
-	                return React.createElement(
-	                    "span",
-	                    {
-	                        key: i,
-	                        className: className },
-	                    entry.value
-	                );
-	            });
-	            return contents;
-	        });
-
-	        var className = classNames({
-	            "diff-row": true,
-	            "collapsed": this.state.collapsed
-	        });
-
-	        return React.createElement(
-	            "div",
-	            null,
-	            React.createElement(
-	                "div",
-	                { className: "perseus-clearfix" },
-	                _.map([BEFORE, AFTER], function (side, index) {
-	                    return React.createElement(
-	                        "div",
-	                        { className: "diff-row " + side, key: index },
-	                        !_this.state.collapsed && _.map(renderedLines, function (line, lineNum) {
-	                            var changed = line[side].length > 1;
-	                            var lineClass = classNames({
-	                                "diff-line": true,
-	                                "added": side === AFTER && changed,
-	                                "removed": side === BEFORE && changed
-	                            });
-	                            return React.createElement(
-	                                "div",
-	                                {
-	                                    className: lineClass,
-	                                    key: lineNum
-	                                },
-	                                line[side]
-	                            );
-	                        }),
-	                        !_this.state.collapsed && React.createElement(ImageDiffSide, {
-	                            side: side,
-	                            images: images[side] })
-	                    );
-	                })
-	            ),
-	            _.map([BEFORE, AFTER], function (side, index) {
-	                return React.createElement(
-	                    "div",
-	                    {
-	                        className: className + " " + side,
-	                        key: index,
-	                        onClick: _this.handleExpand
-	                    },
-	                    _this.state.collapsed && React.createElement(
-	                        "span",
-	                        null,
-	                        React.createElement(
-	                            "span",
-	                            { className: "expand-button" },
-	                            " ",
-	                            "[ show unmodified ]"
-	                        )
-	                    )
-	                );
-	            })
-	        );
-	    },
-
-	    handleExpand: function handleExpand() {
-	        this.setState({ collapsed: false });
-	    }
-	});
-
-	module.exports = TextDiff;
-
-/***/ },
-/* 44 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var classNames = __webpack_require__(51);
-	var React = __webpack_require__(17);
-	var _ = __webpack_require__(18);
-
-	var performDiff = __webpack_require__(87);
-
-	var indentationFromDepth = function indentationFromDepth(depth) {
-	    return (depth - 1) * 20;
-	};
-
-	var BEFORE = "before";
-	var AFTER = "after";
-
-	var UNCHANGED = "unchanged";
-
-	var DiffSide = React.createClass({
-	    displayName: "DiffSide",
-
-	    propTypes: {
-	        side: React.PropTypes.oneOf([BEFORE, AFTER]).isRequired,
-	        className: React.PropTypes.string.isRequired,
-	        showKey: React.PropTypes.bool.isRequired,
-	        propKey: React.PropTypes.string.isRequired,
-	        value: React.PropTypes.string,
-	        depth: React.PropTypes.number.isRequired
-	    },
-
-	    render: function render() {
-	        var className = classNames(this.props.className, {
-	            "diff-row": true,
-	            before: this.props.side === BEFORE,
-	            after: this.props.side === AFTER
-	        });
-	        return React.createElement(
-	            "div",
-	            { className: className },
-	            React.createElement(
-	                "div",
-	                { style: {
-	                        paddingLeft: indentationFromDepth(this.props.depth)
-	                    } },
-	                this.props.showKey && this.props.propKey + ": ",
-	                React.createElement(
-	                    "span",
-	                    { className: "inner-value dark " + this.props.className },
-	                    this.props.value
-	                )
-	            )
-	        );
-	    }
-	});
-
-	var CollapsedRow = React.createClass({
-	    displayName: "CollapsedRow",
-
-	    propTypes: {
-	        depth: React.PropTypes.number,
-	        onClick: React.PropTypes.func.isRequired
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            depth: 0
-	        };
-	    },
-
-	    render: function render() {
-	        var self = this;
-	        return React.createElement(
-	            "div",
-	            { onClick: self.props.onClick },
-	            _.map([BEFORE, AFTER], function (side) {
-	                return React.createElement(
-	                    "div",
-	                    { className: "diff-row collapsed " + side,
-	                        key: side },
-	                    React.createElement(
-	                        "div",
-	                        { style: {
-	                                paddingLeft: indentationFromDepth(self.props.depth)
-	                            } },
-	                        React.createElement(
-	                            "span",
-	                            null,
-	                            " [ show unmodified ] "
-	                        )
-	                    )
-	                );
-	            })
-	        );
-	    }
-	});
-
-	// Component representing a single property that may be nested.
-	var DiffEntry = React.createClass({
-	    displayName: "DiffEntry",
-
-	    propTypes: {
-	        entry: React.PropTypes.shape({
-	            key: React.PropTypes.string,
-	            children: React.PropTypes.array,
-	            before: React.PropTypes.string,
-	            after: React.PropTypes.string
-	        }),
-	        depth: React.PropTypes.number,
-	        expanded: React.PropTypes.bool
-	    },
-
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            depth: 0
-	        };
-	    },
-
-	    getInitialState: function getInitialState() {
-	        return {
-	            expanded: this.props.expanded
-	        };
-	    },
-
-	    render: function render() {
-	        var entry = this.props.entry;
-	        var propertyDeleted = entry.status === "removed";
-	        var propertyAdded = entry.status === "added";
-	        var propertyChanged = entry.status === "changed";
-
-	        var hasChildren = entry.children.length > 0;
-
-	        var leftClass = classNames({
-	            "removed": (propertyDeleted || propertyChanged) && !hasChildren,
-	            "dark": propertyDeleted,
-	            "blank-space": propertyAdded
-	        });
-
-	        var rightClass = classNames({
-	            "added": (propertyAdded || propertyChanged) && !hasChildren,
-	            "dark": propertyAdded,
-	            "blank-space": propertyDeleted
-	        });
-
-	        var shownChildren;
-	        if (this.state.expanded) {
-	            shownChildren = entry.children;
-	        } else {
-	            shownChildren = _(entry.children).select(function (child) {
-	                return child.status !== UNCHANGED;
-	            });
-	        }
-
-	        var collapsed = shownChildren.length < entry.children.length;
-
-	        // don't hide just one entry
-	        if (entry.children.length === shownChildren.length + 1) {
-	            shownChildren = entry.children;
-	            collapsed = false;
-	        }
-
-	        var self = this;
-	        return React.createElement(
-	            "div",
-	            null,
-	            entry.key && React.createElement(
-	                "div",
-	                null,
-	                React.createElement(DiffSide, {
-	                    side: BEFORE,
-	                    className: leftClass,
-	                    depth: this.props.depth,
-	                    propKey: entry.key,
-	                    showKey: !propertyAdded,
-	                    value: entry.before }),
-	                React.createElement(DiffSide, {
-	                    side: AFTER,
-	                    className: rightClass,
-	                    depth: this.props.depth,
-	                    propKey: entry.key,
-	                    showKey: !propertyDeleted,
-	                    value: entry.after })
-	            ),
-	            _.map(shownChildren, function (child) {
-	                return React.createElement(DiffEntry, {
-	                    key: child.key,
-	                    depth: self.props.depth + 1,
-	                    entry: child,
-	                    expanded: self.state.expanded });
-	            }),
-	            collapsed && React.createElement(CollapsedRow, {
-	                depth: this.props.depth + 1,
-	                onClick: this.expand })
-	        );
-	    },
-
-	    expand: function expand() {
-	        this.setState({ expanded: true });
-	    }
-	});
-
-	var WidgetDiff = React.createClass({
-	    displayName: "WidgetDiff",
-
-	    propTypes: {
-	        before: React.PropTypes.shape({
-	            options: React.PropTypes.object
-	        }).isRequired,
-	        after: React.PropTypes.shape({
-	            options: React.PropTypes.object
-	        }).isRequired,
-	        title: React.PropTypes.string.isRequired
-	    },
-
-	    render: function render() {
-	        var diff = performDiff(this.props.before, this.props.after);
-	        return React.createElement(
-	            "div",
-	            null,
-	            React.createElement(
-	                "div",
-	                { className: "perseus-clearfix" },
-	                React.createElement(DiffEntry, { entry: diff })
-	            )
-	        );
-	    }
-	});
-
-	module.exports = WidgetDiff;
-
-/***/ },
-/* 45 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var devices = {
-	    PHONE: "phone",
-	    TABLET: "tablet",
-	    DESKTOP: "desktop"
-	};
-
-	module.exports = {
-	    devices: devices
-	};
-
-/***/ },
-/* 46 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable object-curly-spacing */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
@@ -10758,7 +10298,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var $ = __webpack_require__(21);
 	var _ = __webpack_require__(18);
 
-	var KhanMath = __webpack_require__(88);
+	var KhanMath = __webpack_require__(85);
 
 	var MAXERROR_EPSILON = Math.pow(2, -42);
 
@@ -11405,7 +10945,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = KhanAnswerTypes;
 
 /***/ },
-/* 47 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11424,7 +10964,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 48 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11535,6 +11075,466 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	module.exports = FixPassageRefs;
+
+/***/ },
+/* 46 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, object-curly-spacing, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var classNames = __webpack_require__(51);
+	var React = __webpack_require__(17);
+	var _ = __webpack_require__(18);
+
+	var diff = __webpack_require__(89);
+	var splitDiff = __webpack_require__(87);
+	var stringArrayDiff = __webpack_require__(88);
+
+	var BEFORE = "before";
+	var AFTER = "after";
+
+	var IMAGE_REGEX = /http.*?\.png/g;
+
+	var imagesInString = function imagesInString(str) {
+	    return str.match(IMAGE_REGEX) || [];
+	};
+
+	var classFor = function classFor(entry, ifAdded, ifRemoved) {
+	    if (entry.added) {
+	        return ifAdded;
+	    } else if (entry.removed) {
+	        return ifRemoved;
+	    } else {
+	        return "";
+	    }
+	};
+
+	var ImageDiffSide = React.createClass({
+	    displayName: "ImageDiffSide",
+
+	    propTypes: {
+	        side: React.PropTypes.oneOf([BEFORE, AFTER]).isRequired,
+	        images: React.PropTypes.array.isRequired
+	    },
+
+	    render: function render() {
+	        return React.createElement(
+	            "div",
+	            null,
+	            this.props.images.length > 0 && React.createElement(
+	                "div",
+	                { className: "diff-header" },
+	                "Images"
+	            ),
+	            _.map(this.props.images, function (entry, index) {
+	                var className = classNames({
+	                    "image": true,
+	                    "image-unchanged": entry.status === "unchanged",
+	                    "image-added": entry.status === "added",
+	                    "image-removed": entry.status === "removed"
+	                });
+	                return React.createElement(
+	                    "div",
+	                    { key: index },
+	                    React.createElement("img", { src: entry.value,
+	                        title: entry.value,
+	                        className: className })
+	                );
+	            })
+	        );
+	    }
+	});
+
+	var TextDiff = React.createClass({
+	    displayName: "TextDiff",
+
+	    propTypes: {
+	        before: React.PropTypes.string,
+	        after: React.PropTypes.string,
+	        title: React.PropTypes.string
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            before: "",
+	            after: "",
+	            title: ""
+	        };
+	    },
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            collapsed: this.props.before === this.props.after
+	        };
+	    },
+
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        this.setState({
+	            collapsed: nextProps.before === nextProps.after
+	        });
+	    },
+
+	    render: function render() {
+	        var _this = this;
+
+	        var diffed = diff.diffWords(this.props.before, this.props.after);
+
+	        var lines = splitDiff(diffed);
+
+	        var beforeImages = imagesInString(this.props.before);
+	        var afterImages = imagesInString(this.props.after);
+
+	        var images = stringArrayDiff(beforeImages, afterImages);
+
+	        var renderedLines = _.map(lines, function (line) {
+	            var contents = {};
+
+	            contents.before = _(line).map(function (entry, i) {
+	                var className = classFor(entry, "not-present", "removed dark");
+	                return React.createElement(
+	                    "span",
+	                    {
+	                        key: i,
+	                        className: className },
+	                    entry.value
+	                );
+	            });
+
+	            contents.after = _(line).map(function (entry, i) {
+	                var className = classFor(entry, "added dark", "not-present");
+	                return React.createElement(
+	                    "span",
+	                    {
+	                        key: i,
+	                        className: className },
+	                    entry.value
+	                );
+	            });
+	            return contents;
+	        });
+
+	        var className = classNames({
+	            "diff-row": true,
+	            "collapsed": this.state.collapsed
+	        });
+
+	        return React.createElement(
+	            "div",
+	            null,
+	            React.createElement(
+	                "div",
+	                { className: "perseus-clearfix" },
+	                _.map([BEFORE, AFTER], function (side, index) {
+	                    return React.createElement(
+	                        "div",
+	                        { className: "diff-row " + side, key: index },
+	                        !_this.state.collapsed && _.map(renderedLines, function (line, lineNum) {
+	                            var changed = line[side].length > 1;
+	                            var lineClass = classNames({
+	                                "diff-line": true,
+	                                "added": side === AFTER && changed,
+	                                "removed": side === BEFORE && changed
+	                            });
+	                            return React.createElement(
+	                                "div",
+	                                {
+	                                    className: lineClass,
+	                                    key: lineNum
+	                                },
+	                                line[side]
+	                            );
+	                        }),
+	                        !_this.state.collapsed && React.createElement(ImageDiffSide, {
+	                            side: side,
+	                            images: images[side] })
+	                    );
+	                })
+	            ),
+	            _.map([BEFORE, AFTER], function (side, index) {
+	                return React.createElement(
+	                    "div",
+	                    {
+	                        className: className + " " + side,
+	                        key: index,
+	                        onClick: _this.handleExpand
+	                    },
+	                    _this.state.collapsed && React.createElement(
+	                        "span",
+	                        null,
+	                        React.createElement(
+	                            "span",
+	                            { className: "expand-button" },
+	                            " ",
+	                            "[ show unmodified ]"
+	                        )
+	                    )
+	                );
+	            })
+	        );
+	    },
+
+	    handleExpand: function handleExpand() {
+	        this.setState({ collapsed: false });
+	    }
+	});
+
+	module.exports = TextDiff;
+
+/***/ },
+/* 47 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var classNames = __webpack_require__(51);
+	var React = __webpack_require__(17);
+	var _ = __webpack_require__(18);
+
+	var performDiff = __webpack_require__(86);
+
+	var indentationFromDepth = function indentationFromDepth(depth) {
+	    return (depth - 1) * 20;
+	};
+
+	var BEFORE = "before";
+	var AFTER = "after";
+
+	var UNCHANGED = "unchanged";
+
+	var DiffSide = React.createClass({
+	    displayName: "DiffSide",
+
+	    propTypes: {
+	        side: React.PropTypes.oneOf([BEFORE, AFTER]).isRequired,
+	        className: React.PropTypes.string.isRequired,
+	        showKey: React.PropTypes.bool.isRequired,
+	        propKey: React.PropTypes.string.isRequired,
+	        value: React.PropTypes.string,
+	        depth: React.PropTypes.number.isRequired
+	    },
+
+	    render: function render() {
+	        var className = classNames(this.props.className, {
+	            "diff-row": true,
+	            before: this.props.side === BEFORE,
+	            after: this.props.side === AFTER
+	        });
+	        return React.createElement(
+	            "div",
+	            { className: className },
+	            React.createElement(
+	                "div",
+	                { style: {
+	                        paddingLeft: indentationFromDepth(this.props.depth)
+	                    } },
+	                this.props.showKey && this.props.propKey + ": ",
+	                React.createElement(
+	                    "span",
+	                    { className: "inner-value dark " + this.props.className },
+	                    this.props.value
+	                )
+	            )
+	        );
+	    }
+	});
+
+	var CollapsedRow = React.createClass({
+	    displayName: "CollapsedRow",
+
+	    propTypes: {
+	        depth: React.PropTypes.number,
+	        onClick: React.PropTypes.func.isRequired
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            depth: 0
+	        };
+	    },
+
+	    render: function render() {
+	        var self = this;
+	        return React.createElement(
+	            "div",
+	            { onClick: self.props.onClick },
+	            _.map([BEFORE, AFTER], function (side) {
+	                return React.createElement(
+	                    "div",
+	                    { className: "diff-row collapsed " + side,
+	                        key: side },
+	                    React.createElement(
+	                        "div",
+	                        { style: {
+	                                paddingLeft: indentationFromDepth(self.props.depth)
+	                            } },
+	                        React.createElement(
+	                            "span",
+	                            null,
+	                            " [ show unmodified ] "
+	                        )
+	                    )
+	                );
+	            })
+	        );
+	    }
+	});
+
+	// Component representing a single property that may be nested.
+	var DiffEntry = React.createClass({
+	    displayName: "DiffEntry",
+
+	    propTypes: {
+	        entry: React.PropTypes.shape({
+	            key: React.PropTypes.string,
+	            children: React.PropTypes.array,
+	            before: React.PropTypes.string,
+	            after: React.PropTypes.string
+	        }),
+	        depth: React.PropTypes.number,
+	        expanded: React.PropTypes.bool
+	    },
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            depth: 0
+	        };
+	    },
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            expanded: this.props.expanded
+	        };
+	    },
+
+	    render: function render() {
+	        var entry = this.props.entry;
+	        var propertyDeleted = entry.status === "removed";
+	        var propertyAdded = entry.status === "added";
+	        var propertyChanged = entry.status === "changed";
+
+	        var hasChildren = entry.children.length > 0;
+
+	        var leftClass = classNames({
+	            "removed": (propertyDeleted || propertyChanged) && !hasChildren,
+	            "dark": propertyDeleted,
+	            "blank-space": propertyAdded
+	        });
+
+	        var rightClass = classNames({
+	            "added": (propertyAdded || propertyChanged) && !hasChildren,
+	            "dark": propertyAdded,
+	            "blank-space": propertyDeleted
+	        });
+
+	        var shownChildren;
+	        if (this.state.expanded) {
+	            shownChildren = entry.children;
+	        } else {
+	            shownChildren = _(entry.children).select(function (child) {
+	                return child.status !== UNCHANGED;
+	            });
+	        }
+
+	        var collapsed = shownChildren.length < entry.children.length;
+
+	        // don't hide just one entry
+	        if (entry.children.length === shownChildren.length + 1) {
+	            shownChildren = entry.children;
+	            collapsed = false;
+	        }
+
+	        var self = this;
+	        return React.createElement(
+	            "div",
+	            null,
+	            entry.key && React.createElement(
+	                "div",
+	                null,
+	                React.createElement(DiffSide, {
+	                    side: BEFORE,
+	                    className: leftClass,
+	                    depth: this.props.depth,
+	                    propKey: entry.key,
+	                    showKey: !propertyAdded,
+	                    value: entry.before }),
+	                React.createElement(DiffSide, {
+	                    side: AFTER,
+	                    className: rightClass,
+	                    depth: this.props.depth,
+	                    propKey: entry.key,
+	                    showKey: !propertyDeleted,
+	                    value: entry.after })
+	            ),
+	            _.map(shownChildren, function (child) {
+	                return React.createElement(DiffEntry, {
+	                    key: child.key,
+	                    depth: self.props.depth + 1,
+	                    entry: child,
+	                    expanded: self.state.expanded });
+	            }),
+	            collapsed && React.createElement(CollapsedRow, {
+	                depth: this.props.depth + 1,
+	                onClick: this.expand })
+	        );
+	    },
+
+	    expand: function expand() {
+	        this.setState({ expanded: true });
+	    }
+	});
+
+	var WidgetDiff = React.createClass({
+	    displayName: "WidgetDiff",
+
+	    propTypes: {
+	        before: React.PropTypes.shape({
+	            options: React.PropTypes.object
+	        }).isRequired,
+	        after: React.PropTypes.shape({
+	            options: React.PropTypes.object
+	        }).isRequired,
+	        title: React.PropTypes.string.isRequired
+	    },
+
+	    render: function render() {
+	        var diff = performDiff(this.props.before, this.props.after);
+	        return React.createElement(
+	            "div",
+	            null,
+	            React.createElement(
+	                "div",
+	                { className: "perseus-clearfix" },
+	                React.createElement(DiffEntry, { entry: diff })
+	            )
+	        );
+	    }
+	});
+
+	module.exports = WidgetDiff;
+
+/***/ },
+/* 48 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var devices = {
+	    PHONE: "phone",
+	    TABLET: "tablet",
+	    DESKTOP: "desktop"
+	};
+
+	module.exports = {
+	    devices: devices
+	};
 
 /***/ },
 /* 49 */
@@ -14132,7 +14132,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var SelectionState = _require.SelectionState;
 	var genKey = _require.genKey;
 
-	var _require2 = __webpack_require__(240);
+	var _require2 = __webpack_require__(217);
 
 	var List = _require2.List;
 
@@ -14895,7 +14895,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var SimpleKeypadInput = __webpack_require__(171);
 	var ParseTex = __webpack_require__(172).parseTex;
 	var PossibleAnswers = __webpack_require__(173);
-	var KhanAnswerTypes = __webpack_require__(46);
+	var KhanAnswerTypes = __webpack_require__(43);
 
 	var keypadElementPropType = __webpack_require__(162).propTypes.keypadElementPropType;
 
@@ -15474,8 +15474,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 	var ApiOptions = __webpack_require__(5).Options;
-	var KhanAnswerTypes = __webpack_require__(46);
-	var KhanMath = __webpack_require__(88);
+	var KhanAnswerTypes = __webpack_require__(43);
+	var KhanMath = __webpack_require__(85);
 
 	var keypadElementPropType = __webpack_require__(162).propTypes.keypadElementPropType;
 
@@ -16415,7 +16415,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(175);
 	var ApiOptions = __webpack_require__(5).Options;
 	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var KhanAnswerTypes = __webpack_require__(46);
+	var KhanAnswerTypes = __webpack_require__(43);
 
 	var InlineIcon = __webpack_require__(36);
 	var InputWithExamples = __webpack_require__(170);
@@ -18254,223 +18254,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable no-var, object-curly-spacing */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var _ = __webpack_require__(18);
-
-	// Split a word-wise diff generated by jsdiff into multiple lines, for the
-	// purpose of breaking up the diffs into lines, so that modified lines can be
-	// faintly highlighted
-
-	var splitDiff = function splitDiff(diffEntries) {
-	    var lines = [];
-	    var currentLine = [];
-	    _.each(diffEntries, function (entry) {
-	        var values = entry.value.split("\n");
-	        _.each(values, function (value, i) {
-	            var isNewline = i > 0;
-	            if (isNewline) {
-	                lines.push(currentLine);
-	                currentLine = [];
-	            }
-	            var newEntry = _.extend({}, entry, { value: value });
-	            currentLine.push(newEntry);
-	        });
-	    });
-
-	    if (currentLine.length) {
-	        lines.push(currentLine);
-	    }
-	    return lines;
-	};
-
-	module.exports = splitDiff;
-
-/***/ },
-/* 86 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var jsdiff = __webpack_require__(89);
-	var _ = __webpack_require__(18);
-
-	var statusFor = function statusFor(chunk) {
-	    if (chunk.added) {
-	        return "added";
-	    } else if (chunk.removed) {
-	        return "removed";
-	    } else {
-	        return "unchanged";
-	    }
-	};
-
-	// Turn a chunk (which contains an array of values and a status)
-	// into an array of values, each with the same status
-	var splitUpChunk = function splitUpChunk(chunk) {
-	    return _.map(chunk.value, function (value) {
-	        return {
-	            value: value,
-	            status: statusFor(chunk)
-	        };
-	    });
-	};
-
-	// Apply `fn` to every element in `lst` and then concatenate all the results
-	// http://clojuredocs.org/clojure_core/clojure.core/mapcat
-	var mapcat = function mapcat(lst, fn) {
-	    return _.flatten(_.map(lst, fn), true /* only flatten one level */);
-	};
-
-	// > ArrayDiff.diff([1,2,3], [2,3,4]);
-	// = [{ "value": [1],
-	//      "removed": true },
-	//    { "value": [2, 3] },
-	//    { "value": [4],
-	//      "added": true }]
-	var ArrayDiff = new jsdiff.Diff();
-	ArrayDiff.tokenize = function (array) {
-	    return _.map(array, function (elem) {
-	        return [elem];
-	    });
-	};
-	// The default is `+` for string concatenation, which doesn't work for array
-	// concatenation.
-	ArrayDiff.join = function (a, b) {
-	    return a.concat(b);
-	};
-	// By default jsDiff uses ===
-	ArrayDiff.equals = _.isEqual;
-
-	// Take the output of jsdiff's function (which concatenates adjacent entries)
-	// and make it just one entry per chunk
-	// > flattenChunks([{ "value": [1],
-	//                    "removed": true },
-	//                  { "value": [2, 3] },
-	//                  { "value": [4],
-	//                    "added": true }])
-	// = [{ "value":1, "status":"removed"},
-	//    { "value":2, "status":"unchanged"},
-	//    { "value":3, "status":"unchanged"},
-	//    { "value":4, "status":"added"}]
-	var flattenChunks = function flattenChunks(chunks) {
-	    return mapcat(chunks, splitUpChunk);
-	};
-
-	// Take two arrays and create a diff for them. The result is two arrays of
-	// objects, one for the things that should be included in a 'before', and one
-	// for 'after'
-	var stringArrayDiff = function stringArrayDiff(a, b) {
-	    var diffResult = ArrayDiff.diff(a, b);
-	    var flattened = flattenChunks(diffResult);
-
-	    return {
-	        before: _.filter(flattened, function (entry) {
-	            return entry.status !== "added";
-	        }),
-	        after: _.filter(flattened, function (entry) {
-	            return entry.status !== "removed";
-	        })
-	    };
-	};
-
-	module.exports = stringArrayDiff;
-
-/***/ },
-/* 87 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var _ = __webpack_require__(18);
-
-	var UNCHANGED = "unchanged";
-	var CHANGED = "changed";
-	var ADDED = "added";
-	var REMOVED = "removed";
-
-	// For values which do not have further values nested within them (strings,
-	// numbers, and booleans)
-	var valueEntry = function valueEntry(before, after, key) {
-	    var status;
-	    if (before === after) {
-	        status = UNCHANGED;
-	    } else if (before === undefined) {
-	        status = ADDED;
-	    } else if (after === undefined) {
-	        status = REMOVED;
-	    } else {
-	        status = CHANGED;
-	    }
-
-	    return {
-	        after: JSON.stringify(after),
-	        before: JSON.stringify(before),
-	        children: [],
-	        key: key,
-	        status: status
-	    };
-	};
-
-	// For values which require a more granular diff (objects and arrays)
-	var objectEntry = function objectEntry(before, after, key) {
-	    var beforeKeys = _.isObject(before) ? _(before).keys() : [];
-	    var afterKeys = _.isObject(after) ? _(after).keys() : [];
-	    var keys = _.union(beforeKeys, afterKeys);
-
-	    var children = _.map(keys, function (key) {
-	        return performDiff((before || {})[key], (after || {})[key], key);
-	    });
-
-	    var status;
-	    if (before === undefined) {
-	        status = ADDED;
-	    } else if (after === undefined) {
-	        status = REMOVED;
-	    } else {
-	        var changed = _.any(children, function (child) {
-	            return child.status !== UNCHANGED;
-	        });
-	        status = changed ? CHANGED : UNCHANGED;
-	    }
-
-	    return {
-	        after: "",
-	        before: "",
-	        children: children,
-	        key: key,
-	        status: status
-	    };
-	};
-
-	var performDiff = function performDiff(before, after, /* optional */key) {
-	    if ((typeof before === "undefined" ? "undefined" : _typeof(before)) === "object" || (typeof after === "undefined" ? "undefined" : _typeof(after)) === "object") {
-	        return objectEntry(before, after, key);
-	    } else {
-	        return valueEntry(before, after, key);
-	    }
-	};
-
-	module.exports = performDiff;
-
-/***/ },
-/* 88 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
 	var _ = __webpack_require__(18);
 	var knumber = __webpack_require__(199).number;
 
@@ -18720,6 +18503,223 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	module.exports = KhanMath;
+
+/***/ },
+/* 86 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var _ = __webpack_require__(18);
+
+	var UNCHANGED = "unchanged";
+	var CHANGED = "changed";
+	var ADDED = "added";
+	var REMOVED = "removed";
+
+	// For values which do not have further values nested within them (strings,
+	// numbers, and booleans)
+	var valueEntry = function valueEntry(before, after, key) {
+	    var status;
+	    if (before === after) {
+	        status = UNCHANGED;
+	    } else if (before === undefined) {
+	        status = ADDED;
+	    } else if (after === undefined) {
+	        status = REMOVED;
+	    } else {
+	        status = CHANGED;
+	    }
+
+	    return {
+	        after: JSON.stringify(after),
+	        before: JSON.stringify(before),
+	        children: [],
+	        key: key,
+	        status: status
+	    };
+	};
+
+	// For values which require a more granular diff (objects and arrays)
+	var objectEntry = function objectEntry(before, after, key) {
+	    var beforeKeys = _.isObject(before) ? _(before).keys() : [];
+	    var afterKeys = _.isObject(after) ? _(after).keys() : [];
+	    var keys = _.union(beforeKeys, afterKeys);
+
+	    var children = _.map(keys, function (key) {
+	        return performDiff((before || {})[key], (after || {})[key], key);
+	    });
+
+	    var status;
+	    if (before === undefined) {
+	        status = ADDED;
+	    } else if (after === undefined) {
+	        status = REMOVED;
+	    } else {
+	        var changed = _.any(children, function (child) {
+	            return child.status !== UNCHANGED;
+	        });
+	        status = changed ? CHANGED : UNCHANGED;
+	    }
+
+	    return {
+	        after: "",
+	        before: "",
+	        children: children,
+	        key: key,
+	        status: status
+	    };
+	};
+
+	var performDiff = function performDiff(before, after, /* optional */key) {
+	    if ((typeof before === "undefined" ? "undefined" : _typeof(before)) === "object" || (typeof after === "undefined" ? "undefined" : _typeof(after)) === "object") {
+	        return objectEntry(before, after, key);
+	    } else {
+	        return valueEntry(before, after, key);
+	    }
+	};
+
+	module.exports = performDiff;
+
+/***/ },
+/* 87 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable no-var, object-curly-spacing */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var _ = __webpack_require__(18);
+
+	// Split a word-wise diff generated by jsdiff into multiple lines, for the
+	// purpose of breaking up the diffs into lines, so that modified lines can be
+	// faintly highlighted
+
+	var splitDiff = function splitDiff(diffEntries) {
+	    var lines = [];
+	    var currentLine = [];
+	    _.each(diffEntries, function (entry) {
+	        var values = entry.value.split("\n");
+	        _.each(values, function (value, i) {
+	            var isNewline = i > 0;
+	            if (isNewline) {
+	                lines.push(currentLine);
+	                currentLine = [];
+	            }
+	            var newEntry = _.extend({}, entry, { value: value });
+	            currentLine.push(newEntry);
+	        });
+	    });
+
+	    if (currentLine.length) {
+	        lines.push(currentLine);
+	    }
+	    return lines;
+	};
+
+	module.exports = splitDiff;
+
+/***/ },
+/* 88 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var jsdiff = __webpack_require__(89);
+	var _ = __webpack_require__(18);
+
+	var statusFor = function statusFor(chunk) {
+	    if (chunk.added) {
+	        return "added";
+	    } else if (chunk.removed) {
+	        return "removed";
+	    } else {
+	        return "unchanged";
+	    }
+	};
+
+	// Turn a chunk (which contains an array of values and a status)
+	// into an array of values, each with the same status
+	var splitUpChunk = function splitUpChunk(chunk) {
+	    return _.map(chunk.value, function (value) {
+	        return {
+	            value: value,
+	            status: statusFor(chunk)
+	        };
+	    });
+	};
+
+	// Apply `fn` to every element in `lst` and then concatenate all the results
+	// http://clojuredocs.org/clojure_core/clojure.core/mapcat
+	var mapcat = function mapcat(lst, fn) {
+	    return _.flatten(_.map(lst, fn), true /* only flatten one level */);
+	};
+
+	// > ArrayDiff.diff([1,2,3], [2,3,4]);
+	// = [{ "value": [1],
+	//      "removed": true },
+	//    { "value": [2, 3] },
+	//    { "value": [4],
+	//      "added": true }]
+	var ArrayDiff = new jsdiff.Diff();
+	ArrayDiff.tokenize = function (array) {
+	    return _.map(array, function (elem) {
+	        return [elem];
+	    });
+	};
+	// The default is `+` for string concatenation, which doesn't work for array
+	// concatenation.
+	ArrayDiff.join = function (a, b) {
+	    return a.concat(b);
+	};
+	// By default jsDiff uses ===
+	ArrayDiff.equals = _.isEqual;
+
+	// Take the output of jsdiff's function (which concatenates adjacent entries)
+	// and make it just one entry per chunk
+	// > flattenChunks([{ "value": [1],
+	//                    "removed": true },
+	//                  { "value": [2, 3] },
+	//                  { "value": [4],
+	//                    "added": true }])
+	// = [{ "value":1, "status":"removed"},
+	//    { "value":2, "status":"unchanged"},
+	//    { "value":3, "status":"unchanged"},
+	//    { "value":4, "status":"added"}]
+	var flattenChunks = function flattenChunks(chunks) {
+	    return mapcat(chunks, splitUpChunk);
+	};
+
+	// Take two arrays and create a diff for them. The result is two arrays of
+	// objects, one for the things that should be included in a 'before', and one
+	// for 'after'
+	var stringArrayDiff = function stringArrayDiff(a, b) {
+	    var diffResult = ArrayDiff.diff(a, b);
+	    var flattened = flattenChunks(diffResult);
+
+	    return {
+	        before: _.filter(flattened, function (entry) {
+	            return entry.status !== "added";
+	        }),
+	        after: _.filter(flattened, function (entry) {
+	            return entry.status !== "removed";
+	        })
+	    };
+	};
+
+	module.exports = stringArrayDiff;
 
 /***/ },
 /* 89 */
@@ -21344,7 +21344,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Changeable = __webpack_require__(175);
 
-	var GraphSettings = __webpack_require__(190);
+	var GraphSettings = __webpack_require__(191);
 	var InfoTip = __webpack_require__(71);
 	var MultiButtonGroup = __webpack_require__(177);
 
@@ -21527,7 +21527,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var InlineIcon = __webpack_require__(36);
 	var Renderer = __webpack_require__(30);
-	var GradedGroupAnswerBar = __webpack_require__(191);
+	var GradedGroupAnswerBar = __webpack_require__(190);
 
 	var _require2 = __webpack_require__(84);
 
@@ -24410,7 +24410,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ConstraintEditor = __webpack_require__(206);
 	var DashPicker = __webpack_require__(207);
 	var ElementContainer = __webpack_require__(208);
-	var GraphSettings = __webpack_require__(190);
+	var GraphSettings = __webpack_require__(191);
 	var MathInput = __webpack_require__(181);
 	var NumberInput = __webpack_require__(178);
 	var TeX = __webpack_require__(60);
@@ -28208,7 +28208,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var DeprecationMixin = Util.DeprecationMixin;
 
-	var GraphSettings = __webpack_require__(190);
+	var GraphSettings = __webpack_require__(191);
 	var InfoTip = __webpack_require__(71);
 
 	var InteractiveGraph = __webpack_require__(114).widget;
@@ -29206,7 +29206,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var SimpleKeypadInput = __webpack_require__(171);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var KhanAnswerTypes = __webpack_require__(46);
+	var KhanAnswerTypes = __webpack_require__(43);
 
 	var keypadElementPropType = __webpack_require__(162).propTypes.keypadElementPropType;
 
@@ -30996,7 +30996,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Line = Graphie.Line;
 
 	var knumber = __webpack_require__(199).number;
-	var KhanMath = __webpack_require__(88);
+	var KhanMath = __webpack_require__(85);
 	var KhanColors = __webpack_require__(189);
 
 	var bound = function bound(x, gt, lt) {
@@ -34602,7 +34602,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 
 	var deepEq = __webpack_require__(6).deepEq;
-	var KhanMath = __webpack_require__(88);
+	var KhanMath = __webpack_require__(85);
 	var KhanColors = __webpack_require__(189);
 	var GraphUtils = __webpack_require__(166);
 	var Interactive2 = __webpack_require__(187);
@@ -36699,7 +36699,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Util = __webpack_require__(6);
 	var knumber = __webpack_require__(199).number;
 	var KhanColors = __webpack_require__(189);
-	var KhanMath = __webpack_require__(88);
+	var KhanMath = __webpack_require__(85);
 
 	var defaultBoxSize = 400;
 	var maxSampleSize = 1000;
@@ -37853,7 +37853,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Util = __webpack_require__(6);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var KhanAnswerTypes = __webpack_require__(46);
+	var KhanAnswerTypes = __webpack_require__(43);
 
 	var assert = __webpack_require__(165).assert;
 
@@ -38398,7 +38398,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var kpoint = __webpack_require__(199).point;
 	var kray = __webpack_require__(199).ray;
 	var kline = __webpack_require__(199).line;
-	var KhanMath = __webpack_require__(88);
+	var KhanMath = __webpack_require__(85);
 	var KhanColors = __webpack_require__(189);
 
 	var assert = __webpack_require__(165).assert;
@@ -40803,7 +40803,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ApiOptions = __webpack_require__(5).Options;
 
 	var Graph = __webpack_require__(193);
-	var GraphSettings = __webpack_require__(190);
+	var GraphSettings = __webpack_require__(191);
 	var InfoTip = __webpack_require__(71);
 	var PropCheckBox = __webpack_require__(39);
 
@@ -47079,7 +47079,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var firstNumericalParse = __webpack_require__(6).firstNumericalParse;
 	var captureScratchpadTouchStart = __webpack_require__(6).captureScratchpadTouchStart;
 	var knumber = __webpack_require__(199).number;
-	var KhanMath = __webpack_require__(88);
+	var KhanMath = __webpack_require__(85);
 
 	var toNumericString = KhanMath.toNumericString;
 	var getNumericFormat = KhanMath.getNumericFormat;
@@ -48915,30 +48915,30 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var AtomicBlockUtils = __webpack_require__(217);
-	var BlockMapBuilder = __webpack_require__(218);
-	var CharacterMetadata = __webpack_require__(219);
-	var CompositeDraftDecorator = __webpack_require__(220);
-	var ContentBlock = __webpack_require__(221);
-	var ContentState = __webpack_require__(222);
-	var DefaultDraftBlockRenderMap = __webpack_require__(223);
-	var DefaultDraftInlineStyle = __webpack_require__(224);
-	var DraftEditor = __webpack_require__(225);
-	var DraftEditorBlock = __webpack_require__(226);
-	var DraftModifier = __webpack_require__(227);
-	var DraftEntity = __webpack_require__(228);
-	var DraftEntityInstance = __webpack_require__(229);
-	var EditorState = __webpack_require__(230);
-	var KeyBindingUtil = __webpack_require__(231);
-	var RichTextEditorUtil = __webpack_require__(232);
-	var SelectionState = __webpack_require__(233);
+	var AtomicBlockUtils = __webpack_require__(218);
+	var BlockMapBuilder = __webpack_require__(219);
+	var CharacterMetadata = __webpack_require__(220);
+	var CompositeDraftDecorator = __webpack_require__(221);
+	var ContentBlock = __webpack_require__(222);
+	var ContentState = __webpack_require__(223);
+	var DefaultDraftBlockRenderMap = __webpack_require__(224);
+	var DefaultDraftInlineStyle = __webpack_require__(225);
+	var DraftEditor = __webpack_require__(226);
+	var DraftEditorBlock = __webpack_require__(227);
+	var DraftModifier = __webpack_require__(228);
+	var DraftEntity = __webpack_require__(229);
+	var DraftEntityInstance = __webpack_require__(230);
+	var EditorState = __webpack_require__(231);
+	var KeyBindingUtil = __webpack_require__(232);
+	var RichTextEditorUtil = __webpack_require__(233);
+	var SelectionState = __webpack_require__(234);
 
-	var convertFromDraftStateToRaw = __webpack_require__(234);
-	var convertFromHTMLToContentBlocks = __webpack_require__(235);
-	var convertFromRawToDraftState = __webpack_require__(236);
-	var generateRandomKey = __webpack_require__(237);
-	var getDefaultKeyBinding = __webpack_require__(238);
-	var getVisibleSelectionRect = __webpack_require__(239);
+	var convertFromDraftStateToRaw = __webpack_require__(235);
+	var convertFromHTMLToContentBlocks = __webpack_require__(236);
+	var convertFromRawToDraftState = __webpack_require__(237);
+	var generateRandomKey = __webpack_require__(238);
+	var getDefaultKeyBinding = __webpack_require__(239);
+	var getVisibleSelectionRect = __webpack_require__(240);
 
 	var DraftPublic = {
 	  Editor: DraftEditor,
@@ -49084,7 +49084,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var WrappedDefaults = __webpack_require__(245);
 	var kpoint = __webpack_require__(199).point;
 	var kvector = __webpack_require__(199).vector;
-	var KhanMath = __webpack_require__(88);
+	var KhanMath = __webpack_require__(85);
 
 	var DEFAULT_OPTIONS = {
 	    thickness: 2,
@@ -49252,6 +49252,213 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/* globals i18n */
+	/**
+	 * Renders answer bar for mobile graded groups. [STATELESS]
+	 */
+	var React = __webpack_require__(17);
+
+	var ApiOptions = __webpack_require__(5).Options;
+	var InlineIcon = __webpack_require__(36);
+
+	var _require = __webpack_require__(35);
+
+	var iconStar = _require.iconStar;
+	var iconTryAgain = _require.iconTryAgain;
+
+	var _require2 = __webpack_require__(84);
+
+	var boldFontFamily = _require2.boldFontFamily;
+	var gray68 = _require2.gray68;
+	var gray76 = _require2.gray76;
+	var gray85 = _require2.gray85;
+	var gray95 = _require2.gray95;
+	var kaGreen = _require2.kaGreen;
+	var phoneMargin = _require2.phoneMargin;
+	var negativePhoneMargin = _require2.negativePhoneMargin;
+
+
+	var ANSWER_BAR_STATES = {
+	    // Initial state before the question is answerable.  The user must complete
+	    // each of the widgets before the answer bar becomes visible.
+	    HIDDEN: Symbol('HIDDEN'),
+
+	    // The 'Check' button is active whenever the question is answerable or any
+	    // of the input widgets have been modified after getting the answer wrong.
+	    ACTIVE: Symbol('ACTIVE'),
+
+	    // The 'Check' button is disabled and there is no message.  This occurs when
+	    // some of the widgets haven't been filled in after the has already become
+	    // visible.
+	    INACTIVE: Symbol('INACTIVE'),
+
+	    // This happens immediately after clicking 'Check' with a wrong answer.
+	    // The 'Check' button is disabled and the 'Try Again' message is displayed.
+	    INCORRECT: Symbol('INCORRECT'),
+
+	    // Final state.  This occurs after the user submits the correct answer.
+	    // The widgets in this grade-group are disabled.
+	    CORRECT: Symbol('CORRECT')
+	};
+
+	var GradedGroupAnswerBar = React.createClass({
+	    displayName: 'GradedGroupAnswerBar',
+
+	    propTypes: {
+	        // TODO(kevinb) update to oneOf once we update to 15.2
+	        answerBarState: React.PropTypes.any.isRequired,
+	        apiOptions: ApiOptions.propTypes,
+	        onCheckAnswer: React.PropTypes.func.isRequired,
+
+	        // The function to call when clicking "Next question" after correctly
+	        // answering one graded group out of a set. If this is null, the
+	        // "Next question" button will not appear.
+	        onNextQuestion: React.PropTypes.func
+	    },
+
+	    render: function render() {
+	        var _props = this.props;
+	        var apiOptions = _props.apiOptions;
+	        var answerBarState = _props.answerBarState;
+	        var onCheckAnswer = _props.onCheckAnswer;
+	        var onNextQuestion = _props.onNextQuestion;
+
+
+	        var answerBarStyle = _extends({}, styles.answerBar, {
+	            backgroundColor: answerBarState === ANSWER_BAR_STATES.CORRECT ? gray95 : 'white',
+	            // Center the "Correct!" message only when there's no next question
+	            justifyContent: answerBarState === ANSWER_BAR_STATES.CORRECT && !onNextQuestion ? 'center' : 'space-between'
+	        });
+
+	        var buttonStyle = _extends({}, styles.button, {
+	            // "Check" and "Next question" buttons should both be green
+	            backgroundColor: answerBarState === ANSWER_BAR_STATES.ACTIVE || answerBarState === ANSWER_BAR_STATES.CORRECT ? kaGreen : gray85
+	        });
+
+	        var textStyle = _extends({}, styles.text, {
+	            color: answerBarState === ANSWER_BAR_STATES.CORRECT ? kaGreen : gray68
+	        });
+
+	        var message = answerBarState === ANSWER_BAR_STATES.INCORRECT ? React.createElement(
+	            'span',
+	            { style: textStyle },
+	            React.createElement(
+	                'span',
+	                { style: styles.tryAgainIcon },
+	                React.createElement(InlineIcon, iconTryAgain)
+	            ),
+	            React.createElement(
+	                'span',
+	                { style: { marginLeft: 8 } },
+	                i18n._('Keep trying')
+	            )
+	        ) : React.createElement('span', null); // empty span keeps the button on the right side
+
+	        if (answerBarState !== ANSWER_BAR_STATES.CORRECT) {
+	            var buttonLabel = answerBarState === ANSWER_BAR_STATES.INCORRECT ? i18n._("Try again") : i18n._("Check");
+
+	            // Use <button> instead of <input> b/c iOS 9.3 on iPhone 6 renders
+	            // the <input> as a faded out green button instead of using our
+	            // styles.
+	            return React.createElement(
+	                'div',
+	                { style: answerBarStyle },
+	                message,
+	                React.createElement(
+	                    'button',
+	                    {
+	                        style: buttonStyle,
+	                        disabled: apiOptions.readOnly || answerBarState !== ANSWER_BAR_STATES.ACTIVE,
+	                        onClick: onCheckAnswer
+	                    },
+	                    buttonLabel
+	                )
+	            );
+	        } else {
+	            return React.createElement(
+	                'div',
+	                { style: answerBarStyle },
+	                React.createElement(
+	                    'span',
+	                    { style: textStyle },
+	                    React.createElement(
+	                        'span',
+	                        { style: { fontSize: 28, color: '#FFB300' } },
+	                        React.createElement(InlineIcon, _extends({}, iconStar, { style: { marginBottom: 5 } }))
+	                    ),
+	                    React.createElement(
+	                        'span',
+	                        { style: { marginLeft: 8 } },
+	                        i18n._("Correct!")
+	                    )
+	                ),
+	                onNextQuestion && React.createElement(
+	                    'button',
+	                    {
+	                        style: buttonStyle,
+	                        onClick: onNextQuestion
+	                    },
+	                    i18n._("Next question")
+	                )
+	            );
+	        }
+	    }
+	});
+
+	var fontSize = 17;
+
+	var styles = {
+	    answerBar: {
+	        display: 'flex',
+	        alignItems: 'center',
+	        height: 68, // so that we don't have calculate the vertical padding
+	        marginLeft: negativePhoneMargin,
+	        marginRight: negativePhoneMargin,
+	        marginBottom: negativePhoneMargin,
+	        marginTop: phoneMargin,
+	        paddingLeft: phoneMargin,
+	        paddingRight: 10,
+	        borderTop: '1px solid ' + gray76
+	    },
+
+	    // TODO(kevinb) figure out a way inject styles/components from webapp
+	    button: {
+	        height: 48,
+	        width: 143,
+	        borderRadius: 4,
+	        color: 'white',
+	        fontFamily: boldFontFamily,
+	        fontSize: fontSize,
+	        border: 'none'
+	    },
+
+	    tryAgainIcon: {
+	        fontSize: 28,
+	        color: '#63D9EA',
+	        transform: 'scale(-1,1) rotate(-268deg)'
+	    },
+
+	    text: {
+	        display: 'flex',
+	        flexDirection: 'row',
+	        alignItems: 'center',
+	        fontFamily: boldFontFamily,
+	        fontSize: fontSize
+	    }
+	};
+
+	GradedGroupAnswerBar.ANSWER_BAR_STATES = ANSWER_BAR_STATES;
+
+	module.exports = GradedGroupAnswerBar;
+
+/***/ },
+/* 191 */
+/***/ function(module, exports, __webpack_require__) {
+
 	"use strict";
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -49272,7 +49479,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var RangeInput = __webpack_require__(192);
 	var TeX = __webpack_require__(60);
 	var Util = __webpack_require__(6);
-	var KhanMath = __webpack_require__(88);
+	var KhanMath = __webpack_require__(85);
 
 	var _require = __webpack_require__(84);
 
@@ -49873,213 +50080,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 	module.exports = GraphSettings;
-
-/***/ },
-/* 191 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	/* globals i18n */
-	/**
-	 * Renders answer bar for mobile graded groups. [STATELESS]
-	 */
-	var React = __webpack_require__(17);
-
-	var ApiOptions = __webpack_require__(5).Options;
-	var InlineIcon = __webpack_require__(36);
-
-	var _require = __webpack_require__(35);
-
-	var iconStar = _require.iconStar;
-	var iconTryAgain = _require.iconTryAgain;
-
-	var _require2 = __webpack_require__(84);
-
-	var boldFontFamily = _require2.boldFontFamily;
-	var gray68 = _require2.gray68;
-	var gray76 = _require2.gray76;
-	var gray85 = _require2.gray85;
-	var gray95 = _require2.gray95;
-	var kaGreen = _require2.kaGreen;
-	var phoneMargin = _require2.phoneMargin;
-	var negativePhoneMargin = _require2.negativePhoneMargin;
-
-
-	var ANSWER_BAR_STATES = {
-	    // Initial state before the question is answerable.  The user must complete
-	    // each of the widgets before the answer bar becomes visible.
-	    HIDDEN: Symbol('HIDDEN'),
-
-	    // The 'Check' button is active whenever the question is answerable or any
-	    // of the input widgets have been modified after getting the answer wrong.
-	    ACTIVE: Symbol('ACTIVE'),
-
-	    // The 'Check' button is disabled and there is no message.  This occurs when
-	    // some of the widgets haven't been filled in after the has already become
-	    // visible.
-	    INACTIVE: Symbol('INACTIVE'),
-
-	    // This happens immediately after clicking 'Check' with a wrong answer.
-	    // The 'Check' button is disabled and the 'Try Again' message is displayed.
-	    INCORRECT: Symbol('INCORRECT'),
-
-	    // Final state.  This occurs after the user submits the correct answer.
-	    // The widgets in this grade-group are disabled.
-	    CORRECT: Symbol('CORRECT')
-	};
-
-	var GradedGroupAnswerBar = React.createClass({
-	    displayName: 'GradedGroupAnswerBar',
-
-	    propTypes: {
-	        // TODO(kevinb) update to oneOf once we update to 15.2
-	        answerBarState: React.PropTypes.any.isRequired,
-	        apiOptions: ApiOptions.propTypes,
-	        onCheckAnswer: React.PropTypes.func.isRequired,
-
-	        // The function to call when clicking "Next question" after correctly
-	        // answering one graded group out of a set. If this is null, the
-	        // "Next question" button will not appear.
-	        onNextQuestion: React.PropTypes.func
-	    },
-
-	    render: function render() {
-	        var _props = this.props;
-	        var apiOptions = _props.apiOptions;
-	        var answerBarState = _props.answerBarState;
-	        var onCheckAnswer = _props.onCheckAnswer;
-	        var onNextQuestion = _props.onNextQuestion;
-
-
-	        var answerBarStyle = _extends({}, styles.answerBar, {
-	            backgroundColor: answerBarState === ANSWER_BAR_STATES.CORRECT ? gray95 : 'white',
-	            // Center the "Correct!" message only when there's no next question
-	            justifyContent: answerBarState === ANSWER_BAR_STATES.CORRECT && !onNextQuestion ? 'center' : 'space-between'
-	        });
-
-	        var buttonStyle = _extends({}, styles.button, {
-	            // "Check" and "Next question" buttons should both be green
-	            backgroundColor: answerBarState === ANSWER_BAR_STATES.ACTIVE || answerBarState === ANSWER_BAR_STATES.CORRECT ? kaGreen : gray85
-	        });
-
-	        var textStyle = _extends({}, styles.text, {
-	            color: answerBarState === ANSWER_BAR_STATES.CORRECT ? kaGreen : gray68
-	        });
-
-	        var message = answerBarState === ANSWER_BAR_STATES.INCORRECT ? React.createElement(
-	            'span',
-	            { style: textStyle },
-	            React.createElement(
-	                'span',
-	                { style: styles.tryAgainIcon },
-	                React.createElement(InlineIcon, iconTryAgain)
-	            ),
-	            React.createElement(
-	                'span',
-	                { style: { marginLeft: 8 } },
-	                i18n._('Keep trying')
-	            )
-	        ) : React.createElement('span', null); // empty span keeps the button on the right side
-
-	        if (answerBarState !== ANSWER_BAR_STATES.CORRECT) {
-	            var buttonLabel = answerBarState === ANSWER_BAR_STATES.INCORRECT ? i18n._("Try again") : i18n._("Check");
-
-	            // Use <button> instead of <input> b/c iOS 9.3 on iPhone 6 renders
-	            // the <input> as a faded out green button instead of using our
-	            // styles.
-	            return React.createElement(
-	                'div',
-	                { style: answerBarStyle },
-	                message,
-	                React.createElement(
-	                    'button',
-	                    {
-	                        style: buttonStyle,
-	                        disabled: apiOptions.readOnly || answerBarState !== ANSWER_BAR_STATES.ACTIVE,
-	                        onClick: onCheckAnswer
-	                    },
-	                    buttonLabel
-	                )
-	            );
-	        } else {
-	            return React.createElement(
-	                'div',
-	                { style: answerBarStyle },
-	                React.createElement(
-	                    'span',
-	                    { style: textStyle },
-	                    React.createElement(
-	                        'span',
-	                        { style: { fontSize: 28, color: '#FFB300' } },
-	                        React.createElement(InlineIcon, _extends({}, iconStar, { style: { marginBottom: 5 } }))
-	                    ),
-	                    React.createElement(
-	                        'span',
-	                        { style: { marginLeft: 8 } },
-	                        i18n._("Correct!")
-	                    )
-	                ),
-	                onNextQuestion && React.createElement(
-	                    'button',
-	                    {
-	                        style: buttonStyle,
-	                        onClick: onNextQuestion
-	                    },
-	                    i18n._("Next question")
-	                )
-	            );
-	        }
-	    }
-	});
-
-	var fontSize = 17;
-
-	var styles = {
-	    answerBar: {
-	        display: 'flex',
-	        alignItems: 'center',
-	        height: 68, // so that we don't have calculate the vertical padding
-	        marginLeft: negativePhoneMargin,
-	        marginRight: negativePhoneMargin,
-	        marginBottom: negativePhoneMargin,
-	        marginTop: phoneMargin,
-	        paddingLeft: phoneMargin,
-	        paddingRight: 10,
-	        borderTop: '1px solid ' + gray76
-	    },
-
-	    // TODO(kevinb) figure out a way inject styles/components from webapp
-	    button: {
-	        height: 48,
-	        width: 143,
-	        borderRadius: 4,
-	        color: 'white',
-	        fontFamily: boldFontFamily,
-	        fontSize: fontSize,
-	        border: 'none'
-	    },
-
-	    tryAgainIcon: {
-	        fontSize: 28,
-	        color: '#63D9EA',
-	        transform: 'scale(-1,1) rotate(-268deg)'
-	    },
-
-	    text: {
-	        display: 'flex',
-	        flexDirection: 'row',
-	        alignItems: 'center',
-	        fontFamily: boldFontFamily,
-	        fontSize: fontSize
-	    }
-	};
-
-	GradedGroupAnswerBar.ANSWER_BAR_STATES = ANSWER_BAR_STATES;
-
-	module.exports = GradedGroupAnswerBar;
 
 /***/ },
 /* 192 */
@@ -52029,7 +52029,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* globals Raphael:false */
 	__webpack_require__(255);
 
-	var KhanMath = __webpack_require__(88);
+	var KhanMath = __webpack_require__(85);
 	var processMath = __webpack_require__(256).processMath;
 	var KhanColors = __webpack_require__(189);
 
@@ -53256,7 +53256,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * `Graphie` prototype for dealing with interactive graphie elements.
 	 */// TODO(emily): This file breaks our line length limits like nobody's business.
 	// Figure out how to fix that.
-	/* eslint-disable max-len */var _=__webpack_require__(18);__webpack_require__(257);/* global Raphael:false */var GraphUtils=__webpack_require__(201);var kvector=__webpack_require__(199).vector;var kpoint=__webpack_require__(199).point;var kline=__webpack_require__(199).line;var WrappedEllipse=__webpack_require__(258);var WrappedLine=__webpack_require__(188);var WrappedPath=__webpack_require__(259);var KhanMath=__webpack_require__(88);var KhanColors=__webpack_require__(189);var _require=__webpack_require__(165);var getCanUse3dTransform=_require.getCanUse3dTransform;function sum(array){return _.reduce(array,function(memo,arg){return memo+arg;},0);}function clockwise(points){var segments=_.zip(points,points.slice(1).concat(points.slice(0,1)));var areas=_.map(segments,function(segment){var p1=segment[0];var p2=segment[1];return(p2[0]-p1[0])*(p2[1]+p1[1]);});return sum(areas)>0;}/* vector-add multiple [x, y] coords/vectors */function addPoints(){var points=_.toArray(arguments);var zipped=_.zip.apply(_,points);return _.map(zipped,sum);}function reverseVector(vector){return _.map(vector,function(coord){return coord*-1;});}function scaledDistanceFromAngle(angle){var a=3.51470560176242*20;var b=0.5687298702748785*20;var c=-0.037587715462826674;return(a-b)*Math.exp(c*angle)+b;}function scaledPolarRad(radius,radians){return[radius*Math.cos(radians),radius*Math.sin(radians)*-1];}function scaledPolarDeg(radius,degrees){var radians=degrees*Math.PI/180;return scaledPolarRad(radius,radians);}// Global dragging state
+	/* eslint-disable max-len */var _=__webpack_require__(18);__webpack_require__(257);/* global Raphael:false */var GraphUtils=__webpack_require__(201);var kvector=__webpack_require__(199).vector;var kpoint=__webpack_require__(199).point;var kline=__webpack_require__(199).line;var WrappedEllipse=__webpack_require__(258);var WrappedLine=__webpack_require__(188);var WrappedPath=__webpack_require__(259);var KhanMath=__webpack_require__(85);var KhanColors=__webpack_require__(189);var _require=__webpack_require__(165);var getCanUse3dTransform=_require.getCanUse3dTransform;function sum(array){return _.reduce(array,function(memo,arg){return memo+arg;},0);}function clockwise(points){var segments=_.zip(points,points.slice(1).concat(points.slice(0,1)));var areas=_.map(segments,function(segment){var p1=segment[0];var p2=segment[1];return(p2[0]-p1[0])*(p2[1]+p1[1]);});return sum(areas)>0;}/* vector-add multiple [x, y] coords/vectors */function addPoints(){var points=_.toArray(arguments);var zipped=_.zip.apply(_,points);return _.map(zipped,sum);}function reverseVector(vector){return _.map(vector,function(coord){return coord*-1;});}function scaledDistanceFromAngle(angle){var a=3.51470560176242*20;var b=0.5687298702748785*20;var c=-0.037587715462826674;return(a-b)*Math.exp(c*angle)+b;}function scaledPolarRad(radius,radians){return[radius*Math.cos(radians),radius*Math.sin(radians)*-1];}function scaledPolarDeg(radius,degrees){var radians=degrees*Math.PI/180;return scaledPolarRad(radius,radians);}// Global dragging state
 	var dragging=false;var InteractiveUtils={// Useful for shapes that are only sometimes drawn. If a shape isn't
 	// needed, it can be replaced with bogusShape which just has stub methods
 	// that successfully do nothing.
@@ -57362,3647 +57362,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 217 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule AtomicBlockUtils
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var BlockMapBuilder = __webpack_require__(218);
-	var CharacterMetadata = __webpack_require__(219);
-	var ContentBlock = __webpack_require__(221);
-	var DraftModifier = __webpack_require__(227);
-	var EditorState = __webpack_require__(230);
-	var Immutable = __webpack_require__(240);
-
-	var generateRandomKey = __webpack_require__(237);
-
-	var List = Immutable.List;
-	var Repeat = Immutable.Repeat;
-
-	var AtomicBlockUtils = {
-	  insertAtomicBlock: function insertAtomicBlock(editorState, entityKey, character) {
-	    var contentState = editorState.getCurrentContent();
-	    var selectionState = editorState.getSelection();
-
-	    var afterRemoval = DraftModifier.removeRange(contentState, selectionState, 'backward');
-
-	    var targetSelection = afterRemoval.getSelectionAfter();
-	    var afterSplit = DraftModifier.splitBlock(afterRemoval, targetSelection);
-	    var insertionTarget = afterSplit.getSelectionAfter();
-
-	    var asAtomicBlock = DraftModifier.setBlockType(afterSplit, insertionTarget, 'atomic');
-
-	    var charData = CharacterMetadata.create({ entity: entityKey });
-
-	    var fragmentArray = [new ContentBlock({
-	      key: generateRandomKey(),
-	      type: 'atomic',
-	      text: character,
-	      characterList: List(Repeat(charData, character.length))
-	    }), new ContentBlock({
-	      key: generateRandomKey(),
-	      type: 'unstyled',
-	      text: '',
-	      characterList: List()
-	    })];
-
-	    var fragment = BlockMapBuilder.createFromArray(fragmentArray);
-
-	    var withAtomicBlock = DraftModifier.replaceWithFragment(asAtomicBlock, insertionTarget, fragment);
-
-	    var newContent = withAtomicBlock.merge({
-	      selectionBefore: selectionState,
-	      selectionAfter: withAtomicBlock.getSelectionAfter().set('hasFocus', true)
-	    });
-
-	    return EditorState.push(editorState, newContent, 'insert-fragment');
-	  }
-	};
-
-	module.exports = AtomicBlockUtils;
-
-/***/ },
-/* 218 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule BlockMapBuilder
-	 * 
-	 */
-
-	'use strict';
-
-	var Immutable = __webpack_require__(240);
-
-	var OrderedMap = Immutable.OrderedMap;
-
-	var BlockMapBuilder = {
-	  createFromArray: function createFromArray(blocks) {
-	    return OrderedMap(blocks.map(function (block) {
-	      return [block.getKey(), block];
-	    }));
-	  }
-	};
-
-	module.exports = BlockMapBuilder;
-
-/***/ },
-/* 219 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule CharacterMetadata
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _require = __webpack_require__(240);
-
-	var Map = _require.Map;
-	var OrderedSet = _require.OrderedSet;
-	var Record = _require.Record;
-
-	var EMPTY_SET = OrderedSet();
-
-	var defaultRecord = {
-	  style: EMPTY_SET,
-	  entity: null
-	};
-
-	var CharacterMetadataRecord = Record(defaultRecord);
-
-	var CharacterMetadata = (function (_CharacterMetadataRecord) {
-	  _inherits(CharacterMetadata, _CharacterMetadataRecord);
-
-	  function CharacterMetadata() {
-	    _classCallCheck(this, CharacterMetadata);
-
-	    _get(Object.getPrototypeOf(CharacterMetadata.prototype), 'constructor', this).apply(this, arguments);
-	  }
-
-	  _createClass(CharacterMetadata, [{
-	    key: 'getStyle',
-	    value: function getStyle() {
-	      return this.get('style');
-	    }
-	  }, {
-	    key: 'getEntity',
-	    value: function getEntity() {
-	      return this.get('entity');
-	    }
-	  }, {
-	    key: 'hasStyle',
-	    value: function hasStyle(style) {
-	      return this.getStyle().has(style);
-	    }
-	  }], [{
-	    key: 'applyStyle',
-	    value: function applyStyle(record, style) {
-	      var withStyle = record.set('style', record.getStyle().add(style));
-	      return CharacterMetadata.create(withStyle);
-	    }
-	  }, {
-	    key: 'removeStyle',
-	    value: function removeStyle(record, style) {
-	      var withoutStyle = record.set('style', record.getStyle().remove(style));
-	      return CharacterMetadata.create(withoutStyle);
-	    }
-	  }, {
-	    key: 'applyEntity',
-	    value: function applyEntity(record, entityKey) {
-	      var withEntity = record.getEntity() === entityKey ? record : record.set('entity', entityKey);
-	      return CharacterMetadata.create(withEntity);
-	    }
-
-	    /**
-	     * Use this function instead of the `CharacterMetadata` constructor.
-	     * Since most content generally uses only a very small number of
-	     * style/entity permutations, we can reuse these objects as often as
-	     * possible.
-	     */
-	  }, {
-	    key: 'create',
-	    value: function create(config) {
-	      if (!config) {
-	        return EMPTY;
-	      }
-
-	      // Fill in unspecified properties, if necessary.
-	      var configMap = Map({ style: EMPTY_SET, entity: null }).merge(config);
-
-	      var existing = pool.get(configMap);
-	      if (existing) {
-	        return existing;
-	      }
-
-	      var newCharacter = new CharacterMetadata(configMap);
-	      pool = pool.set(configMap, newCharacter);
-	      return newCharacter;
-	    }
-	  }]);
-
-	  return CharacterMetadata;
-	})(CharacterMetadataRecord);
-
-	var EMPTY = new CharacterMetadata();
-	var pool = Map([[Map(defaultRecord), EMPTY]]);
-
-	CharacterMetadata.EMPTY = EMPTY;
-
-	module.exports = CharacterMetadata;
-
-/***/ },
-/* 220 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule CompositeDraftDecorator
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var Immutable = __webpack_require__(240);
-
-	var List = Immutable.List;
-
-	var DELIMITER = '.';
-
-	/**
-	 * A CompositeDraftDecorator traverses through a list of DraftDecorator
-	 * instances to identify sections of a ContentBlock that should be rendered
-	 * in a "decorated" manner. For example, hashtags, mentions, and links may
-	 * be intended to stand out visually, be rendered as anchors, etc.
-	 *
-	 * The list of decorators supplied to the constructor will be used in the
-	 * order they are provided. This allows the caller to specify a priority for
-	 * string matching, in case of match collisions among decorators.
-	 *
-	 * For instance, I may have a link with a `#` in its text. Though this section
-	 * of text may match our hashtag decorator, it should not be treated as a
-	 * hashtag. I should therefore list my link DraftDecorator
-	 * before my hashtag DraftDecorator when constructing this composite
-	 * decorator instance.
-	 *
-	 * Thus, when a collision like this is encountered, the earlier match is
-	 * preserved and the new match is discarded.
-	 */
-
-	var CompositeDraftDecorator = (function () {
-	  function CompositeDraftDecorator(decorators) {
-	    _classCallCheck(this, CompositeDraftDecorator);
-
-	    // Copy the decorator array, since we use this array order to determine
-	    // precedence of decoration matching. If the array is mutated externally,
-	    // we don't want to be affected here.
-	    this._decorators = decorators.slice();
-	  }
-
-	  /**
-	   * Determine whether we can occupy the specified slice of the decorations
-	   * array.
-	   */
-
-	  _createClass(CompositeDraftDecorator, [{
-	    key: 'getDecorations',
-	    value: function getDecorations(block) {
-	      var decorations = Array(block.getText().length).fill(null);
-
-	      this._decorators.forEach(function ( /*object*/decorator, /*number*/ii) {
-	        var counter = 0;
-	        var strategy = decorator.strategy;
-	        strategy(block, function ( /*number*/start, /*number*/end) {
-	          // Find out if any of our matching range is already occupied
-	          // by another decorator. If so, discard the match. Otherwise, store
-	          // the component key for rendering.
-	          if (canOccupySlice(decorations, start, end)) {
-	            occupySlice(decorations, start, end, ii + DELIMITER + counter);
-	            counter++;
-	          }
-	        });
-	      });
-
-	      return List(decorations);
-	    }
-	  }, {
-	    key: 'getComponentForKey',
-	    value: function getComponentForKey(key) {
-	      var componentKey = parseInt(key.split(DELIMITER)[0], 10);
-	      return this._decorators[componentKey].component;
-	    }
-	  }, {
-	    key: 'getPropsForKey',
-	    value: function getPropsForKey(key) {
-	      var componentKey = parseInt(key.split(DELIMITER)[0], 10);
-	      return this._decorators[componentKey].props;
-	    }
-	  }]);
-
-	  return CompositeDraftDecorator;
-	})();
-
-	function canOccupySlice(decorations, start, end) {
-	  for (var ii = start; ii < end; ii++) {
-	    if (decorations[ii] != null) {
-	      return false;
-	    }
-	  }
-	  return true;
-	}
-
-	/**
-	 * Splice the specified component into our decoration array at the desired
-	 * range.
-	 */
-	function occupySlice(targetArr, start, end, componentKey) {
-	  for (var ii = start; ii < end; ii++) {
-	    targetArr[ii] = componentKey;
-	  }
-	}
-
-	module.exports = CompositeDraftDecorator;
-
-/***/ },
-/* 221 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ContentBlock
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Immutable = __webpack_require__(240);
-
-	var findRangesImmutable = __webpack_require__(268);
-
-	var List = Immutable.List;
-	var OrderedSet = Immutable.OrderedSet;
-	var Record = Immutable.Record;
-
-	var EMPTY_SET = OrderedSet();
-
-	var defaultRecord = {
-	  key: '',
-	  type: 'unstyled',
-	  text: '',
-	  characterList: List(),
-	  depth: 0
-	};
-
-	var ContentBlockRecord = Record(defaultRecord);
-
-	var ContentBlock = (function (_ContentBlockRecord) {
-	  _inherits(ContentBlock, _ContentBlockRecord);
-
-	  function ContentBlock() {
-	    _classCallCheck(this, ContentBlock);
-
-	    _get(Object.getPrototypeOf(ContentBlock.prototype), 'constructor', this).apply(this, arguments);
-	  }
-
-	  _createClass(ContentBlock, [{
-	    key: 'getKey',
-	    value: function getKey() {
-	      return this.get('key');
-	    }
-	  }, {
-	    key: 'getType',
-	    value: function getType() {
-	      return this.get('type');
-	    }
-	  }, {
-	    key: 'getText',
-	    value: function getText() {
-	      return this.get('text');
-	    }
-	  }, {
-	    key: 'getCharacterList',
-	    value: function getCharacterList() {
-	      return this.get('characterList');
-	    }
-	  }, {
-	    key: 'getLength',
-	    value: function getLength() {
-	      return this.getText().length;
-	    }
-	  }, {
-	    key: 'getDepth',
-	    value: function getDepth() {
-	      return this.get('depth');
-	    }
-	  }, {
-	    key: 'getInlineStyleAt',
-	    value: function getInlineStyleAt(offset) {
-	      var character = this.getCharacterList().get(offset);
-	      return character ? character.getStyle() : EMPTY_SET;
-	    }
-	  }, {
-	    key: 'getEntityAt',
-	    value: function getEntityAt(offset) {
-	      var character = this.getCharacterList().get(offset);
-	      return character ? character.getEntity() : null;
-	    }
-
-	    /**
-	     * Execute a callback for every contiguous range of styles within the block.
-	     */
-	  }, {
-	    key: 'findStyleRanges',
-	    value: function findStyleRanges(filterFn, callback) {
-	      findRangesImmutable(this.getCharacterList(), haveEqualStyle, filterFn, callback);
-	    }
-
-	    /**
-	     * Execute a callback for every contiguous range of entities within the block.
-	     */
-	  }, {
-	    key: 'findEntityRanges',
-	    value: function findEntityRanges(filterFn, callback) {
-	      findRangesImmutable(this.getCharacterList(), haveEqualEntity, filterFn, callback);
-	    }
-	  }]);
-
-	  return ContentBlock;
-	})(ContentBlockRecord);
-
-	function haveEqualStyle(charA, charB) {
-	  return charA.getStyle() === charB.getStyle();
-	}
-
-	function haveEqualEntity(charA, charB) {
-	  return charA.getEntity() === charB.getEntity();
-	}
-
-	module.exports = ContentBlock;
-
-/***/ },
-/* 222 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ContentState
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x2, _x3, _x4) { var _again = true; _function: while (_again) { var object = _x2, property = _x3, receiver = _x4; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x2 = parent; _x3 = property; _x4 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var BlockMapBuilder = __webpack_require__(218);
-	var CharacterMetadata = __webpack_require__(219);
-	var ContentBlock = __webpack_require__(221);
-	var Immutable = __webpack_require__(240);
-	var SelectionState = __webpack_require__(233);
-
-	var generateRandomKey = __webpack_require__(237);
-	var sanitizeDraftText = __webpack_require__(269);
-
-	var List = Immutable.List;
-	var Record = Immutable.Record;
-	var Repeat = Immutable.Repeat;
-
-	var defaultRecord = {
-	  blockMap: null,
-	  selectionBefore: null,
-	  selectionAfter: null
-	};
-
-	var ContentStateRecord = Record(defaultRecord);
-
-	var ContentState = (function (_ContentStateRecord) {
-	  _inherits(ContentState, _ContentStateRecord);
-
-	  function ContentState() {
-	    _classCallCheck(this, ContentState);
-
-	    _get(Object.getPrototypeOf(ContentState.prototype), 'constructor', this).apply(this, arguments);
-	  }
-
-	  _createClass(ContentState, [{
-	    key: 'getBlockMap',
-	    value: function getBlockMap() {
-	      return this.get('blockMap');
-	    }
-	  }, {
-	    key: 'getSelectionBefore',
-	    value: function getSelectionBefore() {
-	      return this.get('selectionBefore');
-	    }
-	  }, {
-	    key: 'getSelectionAfter',
-	    value: function getSelectionAfter() {
-	      return this.get('selectionAfter');
-	    }
-	  }, {
-	    key: 'getBlockForKey',
-	    value: function getBlockForKey(key) {
-	      var block = this.getBlockMap().get(key);
-	      return block;
-	    }
-	  }, {
-	    key: 'getKeyBefore',
-	    value: function getKeyBefore(key) {
-	      return this.getBlockMap().reverse().keySeq().skipUntil(function (v) {
-	        return v === key;
-	      }).skip(1).first();
-	    }
-	  }, {
-	    key: 'getKeyAfter',
-	    value: function getKeyAfter(key) {
-	      return this.getBlockMap().keySeq().skipUntil(function (v) {
-	        return v === key;
-	      }).skip(1).first();
-	    }
-	  }, {
-	    key: 'getBlockAfter',
-	    value: function getBlockAfter(key) {
-	      return this.getBlockMap().skipUntil(function (_, k) {
-	        return k === key;
-	      }).skip(1).first();
-	    }
-	  }, {
-	    key: 'getBlockBefore',
-	    value: function getBlockBefore(key) {
-	      return this.getBlockMap().reverse().skipUntil(function (_, k) {
-	        return k === key;
-	      }).skip(1).first();
-	    }
-	  }, {
-	    key: 'getBlocksAsArray',
-	    value: function getBlocksAsArray() {
-	      return this.getBlockMap().toArray();
-	    }
-	  }, {
-	    key: 'getFirstBlock',
-	    value: function getFirstBlock() {
-	      return this.getBlockMap().first();
-	    }
-	  }, {
-	    key: 'getLastBlock',
-	    value: function getLastBlock() {
-	      return this.getBlockMap().last();
-	    }
-	  }, {
-	    key: 'getPlainText',
-	    value: function getPlainText(delimiter) {
-	      return this.getBlockMap().map(function (block) {
-	        return block ? block.getText() : '';
-	      }).join(delimiter || '\n');
-	    }
-	  }, {
-	    key: 'hasText',
-	    value: function hasText() {
-	      var blockMap = this.getBlockMap();
-	      return blockMap.size > 1 || blockMap.first().getLength() > 0;
-	    }
-	  }], [{
-	    key: 'createFromBlockArray',
-	    value: function createFromBlockArray(blocks) {
-	      var blockMap = BlockMapBuilder.createFromArray(blocks);
-	      var selectionState = SelectionState.createEmpty(blockMap.first().getKey());
-	      return new ContentState({
-	        blockMap: blockMap,
-	        selectionBefore: selectionState,
-	        selectionAfter: selectionState
-	      });
-	    }
-	  }, {
-	    key: 'createFromText',
-	    value: function createFromText(text) {
-	      var delimiter = arguments.length <= 1 || arguments[1] === undefined ? /\r\n?|\n/g : arguments[1];
-
-	      var strings = text.split(delimiter);
-	      var blocks = strings.map(function (block) {
-	        block = sanitizeDraftText(block);
-	        return new ContentBlock({
-	          key: generateRandomKey(),
-	          text: block,
-	          type: 'unstyled',
-	          characterList: List(Repeat(CharacterMetadata.EMPTY, block.length))
-	        });
-	      });
-	      return ContentState.createFromBlockArray(blocks);
-	    }
-	  }]);
-
-	  return ContentState;
-	})(ContentStateRecord);
-
-	module.exports = ContentState;
-
-/***/ },
-/* 223 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule DefaultDraftBlockRenderMap
-	 * 
-	 */
-
-	'use strict';
-
-	var _require = __webpack_require__(240);
-
-	var Map = _require.Map;
-
-	var React = __webpack_require__(17);
-
-	var cx = __webpack_require__(341);
-
-	var UL_WRAP = React.createElement('ul', { className: cx('public/DraftStyleDefault/ul') });
-	var OL_WRAP = React.createElement('ol', { className: cx('public/DraftStyleDefault/ol') });
-	var PRE_WRAP = React.createElement('pre', { className: cx('public/DraftStyleDefault/pre') });
-
-	module.exports = Map({
-	  'header-one': {
-	    element: 'h1'
-	  },
-	  'header-two': {
-	    element: 'h2'
-	  },
-	  'header-three': {
-	    element: 'h3'
-	  },
-	  'header-four': {
-	    element: 'h4'
-	  },
-	  'header-five': {
-	    element: 'h5'
-	  },
-	  'header-six': {
-	    element: 'h6'
-	  },
-	  'unordered-list-item': {
-	    element: 'li',
-	    wrapper: UL_WRAP
-	  },
-	  'ordered-list-item': {
-	    element: 'li',
-	    wrapper: OL_WRAP
-	  },
-	  'blockquote': {
-	    element: 'blockquote'
-	  },
-	  'atomic': {
-	    element: 'figure'
-	  },
-	  'code-block': {
-	    element: 'pre',
-	    wrapper: PRE_WRAP
-	  },
-	  'unstyled': {
-	    element: 'div'
-	  }
-	});
-
-/***/ },
-/* 224 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule DefaultDraftInlineStyle
-	 * 
-	 */
-
-	'use strict';
-
-	module.exports = {
-	  BOLD: {
-	    fontWeight: 'bold'
-	  },
-
-	  CODE: {
-	    fontFamily: 'monospace',
-	    wordWrap: 'break-word'
-	  },
-
-	  ITALIC: {
-	    fontStyle: 'italic'
-	  },
-
-	  STRIKETHROUGH: {
-	    textDecoration: 'line-through'
-	  },
-
-	  UNDERLINE: {
-	    textDecoration: 'underline'
-	  }
-	};
-
-/***/ },
-/* 225 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule DraftEditor.react
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var DefaultDraftBlockRenderMap = __webpack_require__(223);
-	var DefaultDraftInlineStyle = __webpack_require__(224);
-	var DraftEditorCompositionHandler = __webpack_require__(272);
-	var DraftEditorContents = __webpack_require__(273);
-	var DraftEditorDragHandler = __webpack_require__(274);
-	var DraftEditorEditHandler = __webpack_require__(275);
-	var DraftEditorPlaceholder = __webpack_require__(276);
-	var EditorState = __webpack_require__(230);
-	var React = __webpack_require__(17);
-	var ReactDOM = __webpack_require__(19);
-	var Scroll = __webpack_require__(342);
-	var Style = __webpack_require__(343);
-	var UserAgent = __webpack_require__(350);
-
-	var cx = __webpack_require__(341);
-	var emptyFunction = __webpack_require__(351);
-	var generateRandomKey = __webpack_require__(237);
-	var getDefaultKeyBinding = __webpack_require__(238);
-	var nullthrows = __webpack_require__(349);
-	var getScrollPosition = __webpack_require__(347);
-
-	var isIE = UserAgent.isBrowser('IE');
-
-	// IE does not support the `input` event on contentEditable, so we can't
-	// observe spellcheck behavior.
-	var allowSpellCheck = !isIE;
-
-	// Define a set of handler objects to correspond to each possible `mode`
-	// of editor behavior.
-	var handlerMap = {
-	  'edit': DraftEditorEditHandler,
-	  'composite': DraftEditorCompositionHandler,
-	  'drag': DraftEditorDragHandler,
-	  'cut': null,
-	  'render': null
-	};
-
-	/**
-	 * `DraftEditor` is the root editor component. It composes a `contentEditable`
-	 * div, and provides a wide variety of useful function props for managing the
-	 * state of the editor. See `DraftEditorProps` for details.
-	 */
-
-	var DraftEditor = (function (_React$Component) {
-	  _inherits(DraftEditor, _React$Component);
-
-	  _createClass(DraftEditor, null, [{
-	    key: 'defaultProps',
-	    value: {
-	      blockRenderMap: DefaultDraftBlockRenderMap,
-	      blockRendererFn: emptyFunction.thatReturnsNull,
-	      blockStyleFn: emptyFunction.thatReturns(''),
-	      keyBindingFn: getDefaultKeyBinding,
-	      readOnly: false,
-	      spellCheck: false,
-	      stripPastedStyles: false
-	    },
-	    enumerable: true
-	  }]);
-
-	  function DraftEditor(props) {
-	    var _this = this;
-
-	    _classCallCheck(this, DraftEditor);
-
-	    _get(Object.getPrototypeOf(DraftEditor.prototype), 'constructor', this).call(this, props);
-
-	    this._blockSelectEvents = false;
-	    this._clipboard = null;
-	    this._guardAgainstRender = false;
-	    this._handler = null;
-	    this._dragCount = 0;
-	    this._editorKey = generateRandomKey();
-	    this._placeholderAccessibilityID = 'placeholder-' + this._editorKey;
-
-	    this._onBeforeInput = this._buildHandler('onBeforeInput');
-	    this._onBlur = this._buildHandler('onBlur');
-	    this._onCharacterData = this._buildHandler('onCharacterData');
-	    this._onCompositionEnd = this._buildHandler('onCompositionEnd');
-	    this._onCompositionStart = this._buildHandler('onCompositionStart');
-	    this._onCopy = this._buildHandler('onCopy');
-	    this._onCut = this._buildHandler('onCut');
-	    this._onDragEnd = this._buildHandler('onDragEnd');
-	    this._onDragOver = this._buildHandler('onDragOver');
-	    this._onDragStart = this._buildHandler('onDragStart');
-	    this._onDrop = this._buildHandler('onDrop');
-	    this._onInput = this._buildHandler('onInput');
-	    this._onFocus = this._buildHandler('onFocus');
-	    this._onKeyDown = this._buildHandler('onKeyDown');
-	    this._onKeyPress = this._buildHandler('onKeyPress');
-	    this._onKeyUp = this._buildHandler('onKeyUp');
-	    this._onMouseDown = this._buildHandler('onMouseDown');
-	    this._onMouseUp = this._buildHandler('onMouseUp');
-	    this._onPaste = this._buildHandler('onPaste');
-	    this._onSelect = this._buildHandler('onSelect');
-
-	    // Manual binding for public and internal methods.
-	    this.focus = this._focus.bind(this);
-	    this.blur = this._blur.bind(this);
-	    this.setMode = this._setMode.bind(this);
-	    this.exitCurrentMode = this._exitCurrentMode.bind(this);
-	    this.restoreEditorDOM = this._restoreEditorDOM.bind(this);
-	    this.setRenderGuard = this._setRenderGuard.bind(this);
-	    this.removeRenderGuard = this._removeRenderGuard.bind(this);
-	    this.setClipboard = this._setClipboard.bind(this);
-	    this.getClipboard = this._getClipboard.bind(this);
-	    this.getEditorKey = function () {
-	      return _this._editorKey;
-	    };
-	    this.update = this._update.bind(this);
-	    this.onDragEnter = this._onDragEnter.bind(this);
-	    this.onDragLeave = this._onDragLeave.bind(this);
-
-	    // See `_restoreEditorDOM()`.
-	    this.state = { containerKey: 0 };
-	  }
-
-	  /**
-	   * Build a method that will pass the event to the specified handler method.
-	   * This allows us to look up the correct handler function for the current
-	   * editor mode, if any has been specified.
-	   */
-
-	  _createClass(DraftEditor, [{
-	    key: '_buildHandler',
-	    value: function _buildHandler(eventName) {
-	      var _this2 = this;
-
-	      return function (e) {
-	        if (!_this2.props.readOnly) {
-	          var method = _this2._handler && _this2._handler[eventName];
-	          method && method.call(_this2, e);
-	        }
-	      };
-	    }
-	  }, {
-	    key: '_showPlaceholder',
-	    value: function _showPlaceholder() {
-	      return !!this.props.placeholder && !this.props.editorState.isInCompositionMode() && !this.props.editorState.getCurrentContent().hasText();
-	    }
-	  }, {
-	    key: '_renderPlaceholder',
-	    value: function _renderPlaceholder() {
-	      if (this._showPlaceholder()) {
-	        return React.createElement(DraftEditorPlaceholder, {
-	          text: nullthrows(this.props.placeholder),
-	          editorState: this.props.editorState,
-	          textAlignment: this.props.textAlignment,
-	          accessibilityID: this._placeholderAccessibilityID
-	        });
-	      }
-	      return null;
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _props = this.props;
-	      var readOnly = _props.readOnly;
-	      var textAlignment = _props.textAlignment;
-
-	      var rootClass = cx({
-	        'DraftEditor/root': true,
-	        'DraftEditor/alignLeft': textAlignment === 'left',
-	        'DraftEditor/alignRight': textAlignment === 'right',
-	        'DraftEditor/alignCenter': textAlignment === 'center'
-	      });
-	      var hasContent = this.props.editorState.getCurrentContent().hasText();
-
-	      var contentStyle = {
-	        outline: 'none',
-	        whiteSpace: 'pre-wrap',
-	        wordWrap: 'break-word'
-	      };
-
-	      return React.createElement(
-	        'div',
-	        { className: rootClass },
-	        this._renderPlaceholder(),
-	        React.createElement(
-	          'div',
-	          {
-	            className: cx('DraftEditor/editorContainer'),
-	            key: 'editor' + this.state.containerKey,
-	            ref: 'editorContainer' },
-	          React.createElement(
-	            'div',
-	            {
-	              'aria-activedescendant': readOnly ? null : this.props.ariaActiveDescendantID,
-	              'aria-autocomplete': readOnly ? null : this.props.ariaAutoComplete,
-	              'aria-describedby': this._showPlaceholder() ? this._placeholderAccessibilityID : null,
-	              'aria-expanded': readOnly ? null : this.props.ariaExpanded,
-	              'aria-haspopup': readOnly ? null : this.props.ariaHasPopup,
-	              'aria-label': this.props.ariaLabel,
-	              'aria-owns': readOnly ? null : this.props.ariaOwneeID,
-	              className: cx('public/DraftEditor/content'),
-	              contentEditable: !readOnly,
-	              'data-testid': this.props.webDriverTestID,
-	              onBeforeInput: this._onBeforeInput,
-	              onBlur: this._onBlur,
-	              onCompositionEnd: this._onCompositionEnd,
-	              onCompositionStart: this._onCompositionStart,
-	              onCopy: this._onCopy,
-	              onCut: this._onCut,
-	              onDragEnd: this._onDragEnd,
-	              onDragEnter: this.onDragEnter,
-	              onDragLeave: this.onDragLeave,
-	              onDragOver: this._onDragOver,
-	              onDragStart: this._onDragStart,
-	              onDrop: this._onDrop,
-	              onFocus: this._onFocus,
-	              onInput: this._onInput,
-	              onKeyDown: this._onKeyDown,
-	              onKeyPress: this._onKeyPress,
-	              onKeyUp: this._onKeyUp,
-	              onMouseUp: this._onMouseUp,
-	              onPaste: this._onPaste,
-	              onSelect: this._onSelect,
-	              ref: 'editor',
-	              role: readOnly ? null : this.props.role || 'textbox',
-	              spellCheck: allowSpellCheck && this.props.spellCheck,
-	              style: contentStyle,
-	              suppressContentEditableWarning: true,
-	              tabIndex: this.props.tabIndex },
-	            React.createElement(DraftEditorContents, {
-	              blockRenderMap: this.props.blockRenderMap,
-	              blockRendererFn: this.props.blockRendererFn,
-	              blockStyleFn: this.props.blockStyleFn,
-	              customStyleMap: _extends({}, DefaultDraftInlineStyle, this.props.customStyleMap),
-	              editorKey: this._editorKey,
-	              editorState: this.props.editorState
-	            })
-	          )
-	        )
-	      );
-	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.setMode('edit');
-
-	      /**
-	       * IE has a hardcoded "feature" that attempts to convert link text into
-	       * anchors in contentEditable DOM. This breaks the editor's expectations of
-	       * the DOM, and control is lost. Disable it to make IE behave.
-	       * See: http://blogs.msdn.com/b/ieinternals/archive/2010/09/15/
-	       * ie9-beta-minor-change-list.aspx
-	       */
-	      if (isIE) {
-	        document.execCommand('AutoUrlDetect', false, false);
-	      }
-	    }
-
-	    /**
-	     * Prevent selection events from affecting the current editor state. This
-	     * is mostly intended to defend against IE, which fires off `selectionchange`
-	     * events regardless of whether the selection is set via the browser or
-	     * programmatically. We only care about selection events that occur because
-	     * of browser interaction, not re-renders and forced selections.
-	     */
-	  }, {
-	    key: 'componentWillUpdate',
-	    value: function componentWillUpdate() {
-	      this._blockSelectEvents = true;
-	    }
-	  }, {
-	    key: 'componentDidUpdate',
-	    value: function componentDidUpdate() {
-	      this._blockSelectEvents = false;
-	    }
-
-	    /**
-	     * Used via `this.focus()`.
-	     *
-	     * Force focus back onto the editor node.
-	     *
-	     * Forcing focus causes the browser to scroll to the top of the editor, which
-	     * may be undesirable when the editor is taller than the viewport. To solve
-	     * this, either use a specified scroll position (in cases like `cut` behavior
-	     * where it should be restored to a known position) or store the current
-	     * scroll state and put it back in place after focus has been forced.
-	     */
-	  }, {
-	    key: '_focus',
-	    value: function _focus(scrollPosition) {
-	      var editorState = this.props.editorState;
-
-	      var alreadyHasFocus = editorState.getSelection().getHasFocus();
-	      var editorNode = ReactDOM.findDOMNode(this.refs.editor);
-
-	      var scrollParent = Style.getScrollParent(editorNode);
-
-	      var _ref = scrollPosition || getScrollPosition(scrollParent);
-
-	      var x = _ref.x;
-	      var y = _ref.y;
-
-	      editorNode.focus();
-	      if (scrollParent === window) {
-	        window.scrollTo(x, y);
-	      } else {
-	        Scroll.setTop(scrollParent, y);
-	      }
-
-	      // On Chrome and Safari, calling focus on contenteditable focuses the
-	      // cursor at the first character. This is something you don't expect when
-	      // you're clicking on an input element but not directly on a character.
-	      // Put the cursor back where it was before the blur.
-	      if (!alreadyHasFocus) {
-	        this.update(EditorState.forceSelection(editorState, editorState.getSelection()));
-	      }
-	    }
-	  }, {
-	    key: '_blur',
-	    value: function _blur() {
-	      ReactDOM.findDOMNode(this.refs.editor).blur();
-	    }
-
-	    /**
-	     * Used via `this.setMode(...)`.
-	     *
-	     * Set the behavior mode for the editor component. This switches the current
-	     * handler module to ensure that DOM events are managed appropriately for
-	     * the active mode.
-	     */
-	  }, {
-	    key: '_setMode',
-	    value: function _setMode(mode) {
-	      this._handler = handlerMap[mode];
-	    }
-	  }, {
-	    key: '_exitCurrentMode',
-	    value: function _exitCurrentMode() {
-	      this.setMode('edit');
-	    }
-
-	    /**
-	     * Used via `this.restoreEditorDOM()`.
-	     *
-	     * Force a complete re-render of the editor based on the current EditorState.
-	     * This is useful when we know we are going to lose control of the DOM
-	     * state (cut command, IME) and we want to make sure that reconciliation
-	     * occurs on a version of the DOM that is synchronized with our EditorState.
-	     */
-	  }, {
-	    key: '_restoreEditorDOM',
-	    value: function _restoreEditorDOM(scrollPosition) {
-	      var _this3 = this;
-
-	      this.setState({ containerKey: this.state.containerKey + 1 }, function () {
-	        _this3._focus(scrollPosition);
-	      });
-	    }
-
-	    /**
-	     * Guard against rendering. Intended for use when we need to manually
-	     * reset editor contents, to ensure that no outside influences lead to
-	     * React reconciliation when we are in an uncertain state.
-	     */
-	  }, {
-	    key: '_setRenderGuard',
-	    value: function _setRenderGuard() {
-	      this._guardAgainstRender = true;
-	    }
-	  }, {
-	    key: '_removeRenderGuard',
-	    value: function _removeRenderGuard() {
-	      this._guardAgainstRender = false;
-	    }
-
-	    /**
-	     * Used via `this.setClipboard(...)`.
-	     *
-	     * Set the clipboard state for a cut/copy event.
-	     */
-	  }, {
-	    key: '_setClipboard',
-	    value: function _setClipboard(clipboard) {
-	      this._clipboard = clipboard;
-	    }
-
-	    /**
-	     * Used via `this.getClipboard()`.
-	     *
-	     * Retrieve the clipboard state for a cut/copy event.
-	     */
-	  }, {
-	    key: '_getClipboard',
-	    value: function _getClipboard() {
-	      return this._clipboard;
-	    }
-
-	    /**
-	     * Used via `this.update(...)`.
-	     *
-	     * Propagate a new `EditorState` object to higher-level components. This is
-	     * the method by which event handlers inform the `DraftEditor` component of
-	     * state changes. A component that composes a `DraftEditor` **must** provide
-	     * an `onChange` prop to receive state updates passed along from this
-	     * function.
-	     */
-	  }, {
-	    key: '_update',
-	    value: function _update(editorState) {
-	      this.props.onChange(editorState);
-	    }
-
-	    /**
-	     * Used in conjunction with `_onDragLeave()`, by counting the number of times
-	     * a dragged element enters and leaves the editor (or any of its children),
-	     * to determine when the dragged element absolutely leaves the editor.
-	     */
-	  }, {
-	    key: '_onDragEnter',
-	    value: function _onDragEnter() {
-	      this._dragCount++;
-	    }
-
-	    /**
-	     * See `_onDragEnter()`.
-	     */
-	  }, {
-	    key: '_onDragLeave',
-	    value: function _onDragLeave() {
-	      this._dragCount--;
-	      if (this._dragCount === 0) {
-	        this.exitCurrentMode();
-	      }
-	    }
-	  }]);
-
-	  return DraftEditor;
-	})(React.Component);
-
-	module.exports = DraftEditor;
-
-	/**
-	 * Define proxies that can route events to the current handler.
-	 */
-
-/***/ },
-/* 226 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule DraftEditorBlock.react
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var ContentBlock = __webpack_require__(221);
-	var DraftEditorLeaf = __webpack_require__(270);
-	var DraftOffsetKey = __webpack_require__(271);
-	var React = __webpack_require__(17);
-	var ReactDOM = __webpack_require__(19);
-	var Scroll = __webpack_require__(342);
-	var SelectionState = __webpack_require__(233);
-	var Style = __webpack_require__(343);
-	var UnicodeBidi = __webpack_require__(344);
-	var UnicodeBidiDirection = __webpack_require__(345);
-
-	var cx = __webpack_require__(341);
-	var getElementPosition = __webpack_require__(346);
-	var getScrollPosition = __webpack_require__(347);
-	var getViewportDimensions = __webpack_require__(348);
-	var nullthrows = __webpack_require__(349);
-
-	var SCROLL_BUFFER = 10;
-
-	/**
-	 * The default block renderer for a `DraftEditor` component.
-	 *
-	 * A `DraftEditorBlock` is able to render a given `ContentBlock` to its
-	 * appropriate decorator and inline style components.
-	 */
-
-	var DraftEditorBlock = (function (_React$Component) {
-	  _inherits(DraftEditorBlock, _React$Component);
-
-	  function DraftEditorBlock() {
-	    _classCallCheck(this, DraftEditorBlock);
-
-	    _get(Object.getPrototypeOf(DraftEditorBlock.prototype), 'constructor', this).apply(this, arguments);
-	  }
-
-	  /**
-	   * Return whether a block overlaps with either edge of the `SelectionState`.
-	   */
-
-	  _createClass(DraftEditorBlock, [{
-	    key: 'shouldComponentUpdate',
-	    value: function shouldComponentUpdate(nextProps) {
-	      return this.props.block !== nextProps.block || this.props.tree !== nextProps.tree || this.props.direction !== nextProps.direction || isBlockOnSelectionEdge(nextProps.selection, nextProps.block.getKey()) && nextProps.forceSelection;
-	    }
-
-	    /**
-	     * When a block is mounted and overlaps the selection state, we need to make
-	     * sure that the cursor is visible to match native behavior. This may not
-	     * be the case if the user has pressed `RETURN` or pasted some content, since
-	     * programatically creating these new blocks and setting the DOM selection
-	     * will miss out on the browser natively scrolling to that position.
-	     *
-	     * To replicate native behavior, if the block overlaps the selection state
-	     * on mount, force the scroll position. Check the scroll state of the scroll
-	     * parent, and adjust it to align the entire block to the bottom of the
-	     * scroll parent.
-	     */
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var selection = this.props.selection;
-	      var endKey = selection.getEndKey();
-	      if (!selection.getHasFocus() || endKey !== this.props.block.getKey()) {
-	        return;
-	      }
-
-	      var blockNode = ReactDOM.findDOMNode(this);
-	      var scrollParent = Style.getScrollParent(blockNode);
-	      var scrollPosition = getScrollPosition(scrollParent);
-	      var scrollDelta;
-
-	      if (scrollParent === window) {
-	        var nodePosition = getElementPosition(blockNode);
-	        var nodeBottom = nodePosition.y + nodePosition.height;
-	        var viewportHeight = getViewportDimensions().height;
-	        scrollDelta = nodeBottom - viewportHeight;
-	        if (scrollDelta > 0) {
-	          window.scrollTo(scrollPosition.x, scrollPosition.y + scrollDelta + SCROLL_BUFFER);
-	        }
-	      } else {
-	        var blockBottom = blockNode.offsetHeight + blockNode.offsetTop;
-	        var scrollBottom = scrollParent.offsetHeight + scrollPosition.y;
-	        scrollDelta = blockBottom - scrollBottom;
-	        if (scrollDelta > 0) {
-	          Scroll.setTop(scrollParent, Scroll.getTop(scrollParent) + scrollDelta + SCROLL_BUFFER);
-	        }
-	      }
-	    }
-	  }, {
-	    key: '_renderChildren',
-	    value: function _renderChildren() {
-	      var _this = this;
-
-	      var block = this.props.block;
-	      var blockKey = block.getKey();
-	      var text = block.getText();
-	      var lastLeafSet = this.props.tree.size - 1;
-	      var hasSelection = isBlockOnSelectionEdge(this.props.selection, blockKey);
-
-	      return this.props.tree.map(function (leafSet, ii) {
-	        var leavesForLeafSet = leafSet.get('leaves');
-	        var lastLeaf = leavesForLeafSet.size - 1;
-	        var leaves = leavesForLeafSet.map(function (leaf, jj) {
-	          var offsetKey = DraftOffsetKey.encode(blockKey, ii, jj);
-	          var start = leaf.get('start');
-	          var end = leaf.get('end');
-	          return React.createElement(DraftEditorLeaf, {
-	            key: offsetKey,
-	            offsetKey: offsetKey,
-	            blockKey: blockKey,
-	            start: start,
-	            selection: hasSelection ? _this.props.selection : undefined,
-	            forceSelection: _this.props.forceSelection,
-	            text: text.slice(start, end),
-	            styleSet: block.getInlineStyleAt(start),
-	            customStyleMap: _this.props.customStyleMap,
-	            isLast: ii === lastLeafSet && jj === lastLeaf
-	          });
-	        }).toArray();
-
-	        var decoratorKey = leafSet.get('decoratorKey');
-	        if (decoratorKey == null) {
-	          return leaves;
-	        }
-
-	        if (!_this.props.decorator) {
-	          return leaves;
-	        }
-
-	        var decorator = nullthrows(_this.props.decorator);
-
-	        var DecoratorComponent = decorator.getComponentForKey(decoratorKey);
-	        if (!DecoratorComponent) {
-	          return leaves;
-	        }
-
-	        var decoratorProps = decorator.getPropsForKey(decoratorKey);
-	        var decoratorOffsetKey = DraftOffsetKey.encode(blockKey, ii, 0);
-	        var decoratedText = text.slice(leavesForLeafSet.first().get('start'), leavesForLeafSet.last().get('end'));
-
-	        // Resetting dir to the same value on a child node makes Chrome/Firefox
-	        // confused on cursor movement. See http://jsfiddle.net/d157kLck/3/
-	        var dir = UnicodeBidiDirection.getHTMLDirIfDifferent(UnicodeBidi.getDirection(decoratedText), _this.props.direction);
-
-	        return React.createElement(
-	          DecoratorComponent,
-	          _extends({}, decoratorProps, {
-	            decoratedText: decoratedText,
-	            dir: dir,
-	            key: decoratorOffsetKey,
-	            entityKey: block.getEntityAt(leafSet.get('start')),
-	            offsetKey: decoratorOffsetKey }),
-	          leaves
-	        );
-	      }).toArray();
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _props = this.props;
-	      var direction = _props.direction;
-	      var offsetKey = _props.offsetKey;
-
-	      var className = cx({
-	        'public/DraftStyleDefault/block': true,
-	        'public/DraftStyleDefault/ltr': direction === 'LTR',
-	        'public/DraftStyleDefault/rtl': direction === 'RTL'
-	      });
-
-	      return React.createElement(
-	        'div',
-	        { 'data-offset-key': offsetKey, className: className },
-	        this._renderChildren()
-	      );
-	    }
-	  }]);
-
-	  return DraftEditorBlock;
-	})(React.Component);
-
-	function isBlockOnSelectionEdge(selection, key) {
-	  return selection.getAnchorKey() === key || selection.getFocusKey() === key;
-	}
-
-	module.exports = DraftEditorBlock;
-
-/***/ },
-/* 227 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule DraftModifier
-	 * @typechecks
-	 * 
-	 */
-
-	/**
-	 * `DraftModifier` provides a set of convenience methods that apply
-	 * modifications to a `ContentState` object based on a target `SelectionState`.
-	 *
-	 * Any change to a `ContentState` should be decomposable into a series of
-	 * transaction functions that apply the required changes and return output
-	 * `ContentState` objects.
-	 *
-	 * These functions encapsulate some of the most common transaction sequences.
-	 */
-	'use strict';
-
-	var CharacterMetadata = __webpack_require__(219);
-	var ContentStateInlineStyle = __webpack_require__(277);
-
-	var _require = __webpack_require__(240);
-
-	var OrderedSet = _require.OrderedSet;
-
-	var applyEntityToContentState = __webpack_require__(278);
-	var getCharacterRemovalRange = __webpack_require__(279);
-	var getContentStateFragment = __webpack_require__(280);
-	var insertFragmentIntoContentState = __webpack_require__(281);
-	var insertTextIntoContentState = __webpack_require__(282);
-	var invariant = __webpack_require__(352);
-	var removeEntitiesAtEdges = __webpack_require__(283);
-	var removeRangeFromContentState = __webpack_require__(284);
-	var setBlockTypeForContentState = __webpack_require__(285);
-	var splitBlockInContentState = __webpack_require__(286);
-
-	var DraftModifier = {
-	  replaceText: function replaceText(contentState, rangeToReplace, text, inlineStyle, entityKey) {
-	    var withoutEntities = removeEntitiesAtEdges(contentState, rangeToReplace);
-	    var withoutText = removeRangeFromContentState(withoutEntities, rangeToReplace);
-
-	    var character = CharacterMetadata.create({
-	      style: inlineStyle || OrderedSet(),
-	      entity: entityKey || null
-	    });
-
-	    return insertTextIntoContentState(withoutText, withoutText.getSelectionAfter(), text, character);
-	  },
-
-	  insertText: function insertText(contentState, targetRange, text, inlineStyle, entityKey) {
-	    !targetRange.isCollapsed() ? false ? invariant(false, 'Target range must be collapsed for `insertText`.') : invariant(false) : undefined;
-	    return DraftModifier.replaceText(contentState, targetRange, text, inlineStyle, entityKey);
-	  },
-
-	  moveText: function moveText(contentState, removalRange, targetRange) {
-	    var movedFragment = getContentStateFragment(contentState, removalRange);
-
-	    var afterRemoval = DraftModifier.removeRange(contentState, removalRange, 'backward');
-
-	    return DraftModifier.replaceWithFragment(afterRemoval, targetRange, movedFragment);
-	  },
-
-	  replaceWithFragment: function replaceWithFragment(contentState, targetRange, fragment) {
-	    var withoutEntities = removeEntitiesAtEdges(contentState, targetRange);
-	    var withoutText = removeRangeFromContentState(withoutEntities, targetRange);
-
-	    return insertFragmentIntoContentState(withoutText, withoutText.getSelectionAfter(), fragment);
-	  },
-
-	  removeRange: function removeRange(contentState, rangeToRemove, removalDirection) {
-	    // Check whether the selection state overlaps with a single entity.
-	    // If so, try to remove the appropriate substring of the entity text.
-	    if (rangeToRemove.getAnchorKey() === rangeToRemove.getFocusKey()) {
-	      var key = rangeToRemove.getAnchorKey();
-	      var startOffset = rangeToRemove.getStartOffset();
-	      var endOffset = rangeToRemove.getEndOffset();
-	      var block = contentState.getBlockForKey(key);
-
-	      var startEntity = block.getEntityAt(startOffset);
-	      var endEntity = block.getEntityAt(endOffset - 1);
-	      if (startEntity && startEntity === endEntity) {
-	        var adjustedRemovalRange = getCharacterRemovalRange(block, rangeToRemove, removalDirection);
-	        return removeRangeFromContentState(contentState, adjustedRemovalRange);
-	      }
-	    }
-
-	    var withoutEntities = removeEntitiesAtEdges(contentState, rangeToRemove);
-	    return removeRangeFromContentState(withoutEntities, rangeToRemove);
-	  },
-
-	  splitBlock: function splitBlock(contentState, selectionState) {
-	    var withoutEntities = removeEntitiesAtEdges(contentState, selectionState);
-	    var withoutText = removeRangeFromContentState(withoutEntities, selectionState);
-
-	    return splitBlockInContentState(withoutText, withoutText.getSelectionAfter());
-	  },
-
-	  applyInlineStyle: function applyInlineStyle(contentState, selectionState, inlineStyle) {
-	    return ContentStateInlineStyle.add(contentState, selectionState, inlineStyle);
-	  },
-
-	  removeInlineStyle: function removeInlineStyle(contentState, selectionState, inlineStyle) {
-	    return ContentStateInlineStyle.remove(contentState, selectionState, inlineStyle);
-	  },
-
-	  setBlockType: function setBlockType(contentState, selectionState, blockType) {
-	    return setBlockTypeForContentState(contentState, selectionState, blockType);
-	  },
-
-	  applyEntity: function applyEntity(contentState, selectionState, entityKey) {
-	    var withoutEntities = removeEntitiesAtEdges(contentState, selectionState);
-	    return applyEntityToContentState(withoutEntities, selectionState, entityKey);
-	  }
-	};
-
-	module.exports = DraftModifier;
-
-/***/ },
-/* 228 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule DraftEntity
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var DraftEntityInstance = __webpack_require__(229);
-	var Immutable = __webpack_require__(240);
-
-	var invariant = __webpack_require__(352);
-
-	var Map = Immutable.Map;
-
-	var instances = Map();
-	var instanceKey = 0;
-
-	/**
-	 * A "document entity" is an object containing metadata associated with a
-	 * piece of text in a ContentBlock.
-	 *
-	 * For example, a `link` entity might include a `uri` property. When a
-	 * ContentBlock is rendered in the browser, text that refers to that link
-	 * entity may be rendered as an anchor, with the `uri` as the href value.
-	 *
-	 * In a ContentBlock, every position in the text may correspond to zero
-	 * or one entities. This correspondence is tracked using a key string,
-	 * generated via DraftEntity.create() and used to obtain entity metadata
-	 * via DraftEntity.get().
-	 */
-	var DraftEntity = {
-	  /**
-	   * Create a DraftEntityInstance and store it for later retrieval.
-	   *
-	   * A random key string will be generated and returned. This key may
-	   * be used to track the entity's usage in a ContentBlock, and for
-	   * retrieving data about the entity at render time.
-	   */
-	  create: function create(type, mutability, data) {
-	    return DraftEntity.add(new DraftEntityInstance({ type: type, mutability: mutability, data: data || {} }));
-	  },
-
-	  /**
-	   * Add an existing DraftEntityInstance to the DraftEntity map. This is
-	   * useful when restoring instances from the server.
-	   */
-	  add: function add(instance) {
-	    var key = '' + ++instanceKey;
-	    instances = instances.set(key, instance);
-	    return key;
-	  },
-
-	  /**
-	   * Retrieve the entity corresponding to the supplied key string.
-	   */
-	  get: function get(key) {
-	    var instance = instances.get(key);
-	    !!!instance ? false ? invariant(false, 'Unknown DraftEntity key.') : invariant(false) : undefined;
-	    return instance;
-	  },
-
-	  /**
-	   * Entity instances are immutable. If you need to update the data for an
-	   * instance, this method will merge your data updates and return a new
-	   * instance.
-	   */
-	  mergeData: function mergeData(key, toMerge) {
-	    var instance = DraftEntity.get(key);
-	    var newData = _extends({}, instance.getData(), toMerge);
-	    var newInstance = instance.set('data', newData);
-	    instances = instances.set(key, newInstance);
-	    return newInstance;
-	  },
-
-	  /**
-	   * Completely replace the data for a given instance.
-	   */
-	  replaceData: function replaceData(key, newData) {
-	    var instance = DraftEntity.get(key);
-	    var newInstance = instance.set('data', newData);
-	    instances = instances.set(key, newInstance);
-	    return newInstance;
-	  }
-	};
-
-	module.exports = DraftEntity;
-
-/***/ },
-/* 229 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule DraftEntityInstance
-	 * 
-	 */
-
-	'use strict';
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Immutable = __webpack_require__(240);
-
-	var Record = Immutable.Record;
-
-	var DraftEntityInstanceRecord = Record({
-	  type: 'TOKEN',
-	  mutability: 'IMMUTABLE',
-	  data: Object
-	});
-
-	/**
-	 * An instance of a document entity, consisting of a `type` and relevant
-	 * `data`, metadata about the entity.
-	 *
-	 * For instance, a "link" entity might provide a URI, and a "mention"
-	 * entity might provide the mentioned user's ID. These pieces of data
-	 * may be used when rendering the entity as part of a ContentBlock DOM
-	 * representation. For a link, the data would be used as an href for
-	 * the rendered anchor. For a mention, the ID could be used to retrieve
-	 * a hovercard.
-	 */
-
-	var DraftEntityInstance = (function (_DraftEntityInstanceRecord) {
-	  _inherits(DraftEntityInstance, _DraftEntityInstanceRecord);
-
-	  function DraftEntityInstance() {
-	    _classCallCheck(this, DraftEntityInstance);
-
-	    _get(Object.getPrototypeOf(DraftEntityInstance.prototype), 'constructor', this).apply(this, arguments);
-	  }
-
-	  _createClass(DraftEntityInstance, [{
-	    key: 'getType',
-	    value: function getType() {
-	      return this.get('type');
-	    }
-	  }, {
-	    key: 'getMutability',
-	    value: function getMutability() {
-	      return this.get('mutability');
-	    }
-	  }, {
-	    key: 'getData',
-	    value: function getData() {
-	      return this.get('data');
-	    }
-	  }]);
-
-	  return DraftEntityInstance;
-	})(DraftEntityInstanceRecord);
-
-	module.exports = DraftEntityInstance;
-
-/***/ },
-/* 230 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule EditorState
-	 * 
-	 */
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var BlockTree = __webpack_require__(287);
-	var ContentState = __webpack_require__(222);
-	var EditorBidiService = __webpack_require__(288);
-	var Immutable = __webpack_require__(240);
-	var SelectionState = __webpack_require__(233);
-
-	var OrderedSet = Immutable.OrderedSet;
-	var Record = Immutable.Record;
-	var Stack = Immutable.Stack;
-
-	var defaultRecord = {
-	  allowUndo: true,
-	  currentContent: null,
-	  decorator: null,
-	  directionMap: null,
-	  forceSelection: false,
-	  inCompositionMode: false,
-	  inlineStyleOverride: null,
-	  lastChangeType: null,
-	  nativelyRenderedContent: null,
-	  redoStack: Stack(),
-	  selection: null,
-	  treeMap: null,
-	  undoStack: Stack()
-	};
-
-	var EditorStateRecord = Record(defaultRecord);
-
-	var EditorState = (function () {
-	  _createClass(EditorState, [{
-	    key: 'toJS',
-	    value: function toJS() {
-	      return this.getImmutable().toJS();
-	    }
-	  }, {
-	    key: 'getAllowUndo',
-	    value: function getAllowUndo() {
-	      return this.getImmutable().get('allowUndo');
-	    }
-	  }, {
-	    key: 'getCurrentContent',
-	    value: function getCurrentContent() {
-	      return this.getImmutable().get('currentContent');
-	    }
-	  }, {
-	    key: 'getUndoStack',
-	    value: function getUndoStack() {
-	      return this.getImmutable().get('undoStack');
-	    }
-	  }, {
-	    key: 'getRedoStack',
-	    value: function getRedoStack() {
-	      return this.getImmutable().get('redoStack');
-	    }
-	  }, {
-	    key: 'getSelection',
-	    value: function getSelection() {
-	      return this.getImmutable().get('selection');
-	    }
-	  }, {
-	    key: 'getDecorator',
-	    value: function getDecorator() {
-	      return this.getImmutable().get('decorator');
-	    }
-	  }, {
-	    key: 'isInCompositionMode',
-	    value: function isInCompositionMode() {
-	      return this.getImmutable().get('inCompositionMode');
-	    }
-	  }, {
-	    key: 'mustForceSelection',
-	    value: function mustForceSelection() {
-	      return this.getImmutable().get('forceSelection');
-	    }
-	  }, {
-	    key: 'getNativelyRenderedContent',
-	    value: function getNativelyRenderedContent() {
-	      return this.getImmutable().get('nativelyRenderedContent');
-	    }
-	  }, {
-	    key: 'getLastChangeType',
-	    value: function getLastChangeType() {
-	      return this.getImmutable().get('lastChangeType');
-	    }
-
-	    /**
-	     * While editing, the user may apply inline style commands with a collapsed
-	     * cursor, intending to type text that adopts the specified style. In this
-	     * case, we track the specified style as an "override" that takes precedence
-	     * over the inline style of the text adjacent to the cursor.
-	     *
-	     * If null, there is no override in place.
-	     */
-	  }, {
-	    key: 'getInlineStyleOverride',
-	    value: function getInlineStyleOverride() {
-	      return this.getImmutable().get('inlineStyleOverride');
-	    }
-	  }, {
-	    key: 'getCurrentInlineStyle',
-
-	    /**
-	     * Get the appropriate inline style for the editor state. If an
-	     * override is in place, use it. Otherwise, the current style is
-	     * based on the location of the selection state.
-	     */
-	    value: function getCurrentInlineStyle() {
-	      var override = this.getInlineStyleOverride();
-	      if (override != null) {
-	        return override;
-	      }
-
-	      var content = this.getCurrentContent();
-	      var selection = this.getSelection();
-
-	      if (selection.isCollapsed()) {
-	        return getInlineStyleForCollapsedSelection(content, selection);
-	      }
-
-	      return getInlineStyleForNonCollapsedSelection(content, selection);
-	    }
-	  }, {
-	    key: 'getBlockTree',
-	    value: function getBlockTree(blockKey) {
-	      return this.getImmutable().getIn(['treeMap', blockKey]);
-	    }
-	  }, {
-	    key: 'isSelectionAtStartOfContent',
-	    value: function isSelectionAtStartOfContent() {
-	      var firstKey = this.getCurrentContent().getBlockMap().first().getKey();
-	      return this.getSelection().hasEdgeWithin(firstKey, 0, 0);
-	    }
-	  }, {
-	    key: 'isSelectionAtEndOfContent',
-	    value: function isSelectionAtEndOfContent() {
-	      var content = this.getCurrentContent();
-	      var blockMap = content.getBlockMap();
-	      var last = blockMap.last();
-	      var end = last.getLength();
-	      return this.getSelection().hasEdgeWithin(last.getKey(), end, end);
-	    }
-	  }, {
-	    key: 'getDirectionMap',
-	    value: function getDirectionMap() {
-	      return this.getImmutable().get('directionMap');
-	    }
-
-	    /**
-	     * Incorporate native DOM selection changes into the EditorState. This
-	     * method can be used when we simply want to accept whatever the DOM
-	     * has given us to represent selection, and we do not need to re-render
-	     * the editor.
-	     *
-	     * To forcibly move the DOM selection, see `EditorState.forceSelection`.
-	     */
-	  }], [{
-	    key: 'createEmpty',
-	    value: function createEmpty(decorator) {
-	      return EditorState.createWithContent(ContentState.createFromText(''), decorator);
-	    }
-	  }, {
-	    key: 'createWithContent',
-	    value: function createWithContent(contentState, decorator) {
-	      var firstKey = contentState.getBlockMap().first().getKey();
-	      return EditorState.create({
-	        currentContent: contentState,
-	        undoStack: Stack(),
-	        redoStack: Stack(),
-	        decorator: decorator || null,
-	        selection: SelectionState.createEmpty(firstKey)
-	      });
-	    }
-	  }, {
-	    key: 'create',
-	    value: function create(config) {
-	      var currentContent = config.currentContent;
-	      var decorator = config.decorator;
-
-	      var recordConfig = _extends({}, config, {
-	        treeMap: generateNewTreeMap(currentContent, decorator),
-	        directionMap: EditorBidiService.getDirectionMap(currentContent)
-	      });
-	      return new EditorState(new EditorStateRecord(recordConfig));
-	    }
-	  }, {
-	    key: 'set',
-	    value: function set(editorState, put) {
-	      var map = editorState.getImmutable().withMutations(function (state) {
-	        var existingDecorator = state.get('decorator');
-	        var decorator = existingDecorator;
-	        if (put.decorator === null) {
-	          decorator = null;
-	        } else if (put.decorator) {
-	          decorator = put.decorator;
-	        }
-
-	        var newContent = put.currentContent || editorState.getCurrentContent();
-
-	        if (decorator !== existingDecorator) {
-	          var treeMap = state.get('treeMap');
-	          var newTreeMap;
-	          if (decorator && existingDecorator) {
-	            newTreeMap = regenerateTreeForNewDecorator(newContent.getBlockMap(), treeMap, decorator, existingDecorator);
-	          } else {
-	            newTreeMap = generateNewTreeMap(newContent, decorator);
-	          }
-
-	          state.merge({
-	            decorator: decorator,
-	            treeMap: newTreeMap,
-	            nativelyRenderedContent: null
-	          });
-	          return;
-	        }
-
-	        var existingContent = editorState.getCurrentContent();
-	        if (newContent !== existingContent) {
-	          state.set('treeMap', regenerateTreeForNewBlocks(editorState, newContent.getBlockMap(), decorator));
-	        }
-
-	        state.merge(put);
-	      });
-
-	      return new EditorState(map);
-	    }
-	  }, {
-	    key: 'setInlineStyleOverride',
-	    value: function setInlineStyleOverride(editorState, inlineStyleOverride) {
-	      return EditorState.set(editorState, { inlineStyleOverride: inlineStyleOverride });
-	    }
-	  }, {
-	    key: 'acceptSelection',
-	    value: function acceptSelection(editorState, selection) {
-	      return updateSelection(editorState, selection, false);
-	    }
-
-	    /**
-	     * At times, we need to force the DOM selection to be where we
-	     * need it to be. This can occur when the anchor or focus nodes
-	     * are non-text nodes, for instance. In this case, we want to trigger
-	     * a re-render of the editor, which in turn forces selection into
-	     * the correct place in the DOM. The `forceSelection` method
-	     * accomplishes this.
-	     *
-	     * This method should be used in cases where you need to explicitly
-	     * move the DOM selection from one place to another without a change
-	     * in ContentState.
-	     */
-	  }, {
-	    key: 'forceSelection',
-	    value: function forceSelection(editorState, selection) {
-	      if (!selection.getHasFocus()) {
-	        selection = selection.set('hasFocus', true);
-	      }
-	      return updateSelection(editorState, selection, true);
-	    }
-
-	    /**
-	     * Move selection to the end of the editor without forcing focus.
-	     */
-	  }, {
-	    key: 'moveSelectionToEnd',
-	    value: function moveSelectionToEnd(editorState) {
-	      var content = editorState.getCurrentContent();
-	      var lastBlock = content.getLastBlock();
-	      var lastKey = lastBlock.getKey();
-	      var length = lastBlock.getLength();
-
-	      return EditorState.acceptSelection(editorState, new SelectionState({
-	        anchorKey: lastKey,
-	        anchorOffset: length,
-	        focusKey: lastKey,
-	        focusOffset: length,
-	        isBackward: false
-	      }));
-	    }
-
-	    /**
-	     * Force focus to the end of the editor. This is useful in scenarios
-	     * where we want to programmatically focus the input and it makes sense
-	     * to allow the user to continue working seamlessly.
-	     */
-	  }, {
-	    key: 'moveFocusToEnd',
-	    value: function moveFocusToEnd(editorState) {
-	      var afterSelectionMove = EditorState.moveSelectionToEnd(editorState);
-	      return EditorState.forceSelection(afterSelectionMove, afterSelectionMove.getSelection());
-	    }
-
-	    /**
-	     * Push the current ContentState onto the undo stack if it should be
-	     * considered a boundary state, and set the provided ContentState as the
-	     * new current content.
-	     */
-	  }, {
-	    key: 'push',
-	    value: function push(editorState, contentState, changeType) {
-	      if (editorState.getCurrentContent() === contentState) {
-	        return editorState;
-	      }
-
-	      var forceSelection = changeType !== 'insert-characters';
-	      var directionMap = EditorBidiService.getDirectionMap(contentState, editorState.getDirectionMap());
-
-	      if (!editorState.getAllowUndo()) {
-	        return EditorState.set(editorState, {
-	          currentContent: contentState,
-	          directionMap: directionMap,
-	          lastChangeType: changeType,
-	          selection: contentState.getSelectionAfter(),
-	          forceSelection: forceSelection,
-	          inlineStyleOverride: null
-	        });
-	      }
-
-	      var selection = editorState.getSelection();
-	      var currentContent = editorState.getCurrentContent();
-	      var undoStack = editorState.getUndoStack();
-	      var newContent = contentState;
-
-	      if (selection !== currentContent.getSelectionAfter() || mustBecomeBoundary(editorState, changeType)) {
-	        undoStack = undoStack.push(currentContent);
-	        newContent = newContent.set('selectionBefore', selection);
-	      } else if (changeType === 'insert-characters' || changeType === 'backspace-character' || changeType === 'delete-character') {
-	        // Preserve the previous selection.
-	        newContent = newContent.set('selectionBefore', currentContent.getSelectionBefore());
-	      }
-
-	      var inlineStyleOverride = editorState.getInlineStyleOverride();
-
-	      // Don't discard inline style overrides on block type or depth changes.
-	      if (changeType !== 'adjust-depth' && changeType !== 'change-block-type') {
-	        inlineStyleOverride = null;
-	      }
-
-	      var editorStateChanges = {
-	        currentContent: newContent,
-	        directionMap: directionMap,
-	        undoStack: undoStack,
-	        redoStack: Stack(),
-	        lastChangeType: changeType,
-	        selection: contentState.getSelectionAfter(),
-	        forceSelection: forceSelection,
-	        inlineStyleOverride: inlineStyleOverride
-	      };
-
-	      return EditorState.set(editorState, editorStateChanges);
-	    }
-
-	    /**
-	     * Make the top ContentState in the undo stack the new current content and
-	     * push the current content onto the redo stack.
-	     */
-	  }, {
-	    key: 'undo',
-	    value: function undo(editorState) {
-	      if (!editorState.getAllowUndo()) {
-	        return editorState;
-	      }
-
-	      var undoStack = editorState.getUndoStack();
-	      var newCurrentContent = undoStack.peek();
-	      if (!newCurrentContent) {
-	        return editorState;
-	      }
-
-	      var currentContent = editorState.getCurrentContent();
-	      var directionMap = EditorBidiService.getDirectionMap(newCurrentContent, editorState.getDirectionMap());
-
-	      return EditorState.set(editorState, {
-	        currentContent: newCurrentContent,
-	        directionMap: directionMap,
-	        undoStack: undoStack.shift(),
-	        redoStack: editorState.getRedoStack().push(currentContent),
-	        forceSelection: true,
-	        inlineStyleOverride: null,
-	        lastChangeType: 'undo',
-	        nativelyRenderedContent: null,
-	        selection: currentContent.getSelectionBefore()
-	      });
-	    }
-
-	    /**
-	     * Make the top ContentState in the redo stack the new current content and
-	     * push the current content onto the undo stack.
-	     */
-	  }, {
-	    key: 'redo',
-	    value: function redo(editorState) {
-	      if (!editorState.getAllowUndo()) {
-	        return editorState;
-	      }
-
-	      var redoStack = editorState.getRedoStack();
-	      var newCurrentContent = redoStack.peek();
-	      if (!newCurrentContent) {
-	        return editorState;
-	      }
-
-	      var currentContent = editorState.getCurrentContent();
-	      var directionMap = EditorBidiService.getDirectionMap(newCurrentContent, editorState.getDirectionMap());
-
-	      return EditorState.set(editorState, {
-	        currentContent: newCurrentContent,
-	        directionMap: directionMap,
-	        undoStack: editorState.getUndoStack().push(currentContent),
-	        redoStack: redoStack.shift(),
-	        forceSelection: true,
-	        inlineStyleOverride: null,
-	        lastChangeType: 'redo',
-	        nativelyRenderedContent: null,
-	        selection: newCurrentContent.getSelectionAfter()
-	      });
-	    }
-
-	    /**
-	     * Not for public consumption.
-	     */
-	  }]);
-
-	  function EditorState(immutable) {
-	    _classCallCheck(this, EditorState);
-
-	    this._immutable = immutable;
-	  }
-
-	  /**
-	   * Set the supplied SelectionState as the new current selection, and set
-	   * the `force` flag to trigger manual selection placement by the view.
-	   */
-
-	  /**
-	   * Not for public consumption.
-	   */
-
-	  _createClass(EditorState, [{
-	    key: 'getImmutable',
-	    value: function getImmutable() {
-	      return this._immutable;
-	    }
-	  }]);
-
-	  return EditorState;
-	})();
-
-	function updateSelection(editorState, selection, forceSelection) {
-	  return EditorState.set(editorState, {
-	    selection: selection,
-	    forceSelection: forceSelection,
-	    nativelyRenderedContent: null,
-	    inlineStyleOverride: null
-	  });
-	}
-
-	/**
-	 * Regenerate the entire tree map for a given ContentState and decorator.
-	 * Returns an OrderedMap that maps all available ContentBlock objects.
-	 */
-	function generateNewTreeMap(contentState, decorator) {
-	  return contentState.getBlockMap().map(function (block) {
-	    return BlockTree.generate(block, decorator);
-	  }).toOrderedMap();
-	}
-
-	/**
-	 * Regenerate tree map objects for all ContentBlocks that have changed
-	 * between the current editorState and newContent. Returns an OrderedMap
-	 * with only changed regenerated tree map objects.
-	 */
-	function regenerateTreeForNewBlocks(editorState, newBlockMap, decorator) {
-	  var prevBlockMap = editorState.getCurrentContent().getBlockMap();
-	  var prevTreeMap = editorState.getImmutable().get('treeMap');
-	  return prevTreeMap.merge(newBlockMap.toSeq().filter(function (block, key) {
-	    return block !== prevBlockMap.get(key);
-	  }).map(function (block) {
-	    return BlockTree.generate(block, decorator);
-	  }));
-	}
-
-	/**
-	 * Generate tree map objects for a new decorator object, preserving any
-	 * decorations that are unchanged from the previous decorator.
-	 *
-	 * Note that in order for this to perform optimally, decoration Lists for
-	 * decorators should be preserved when possible to allow for direct immutable
-	 * List comparison.
-	 */
-	function regenerateTreeForNewDecorator(blockMap, previousTreeMap, decorator, existingDecorator) {
-	  return previousTreeMap.merge(blockMap.toSeq().filter(function (block) {
-	    return decorator.getDecorations(block) !== existingDecorator.getDecorations(block);
-	  }).map(function (block) {
-	    return BlockTree.generate(block, decorator);
-	  }));
-	}
-
-	/**
-	 * Return whether a change should be considered a boundary state, given
-	 * the previous change type. Allows us to discard potential boundary states
-	 * during standard typing or deletion behavior.
-	 */
-	function mustBecomeBoundary(editorState, changeType) {
-	  var lastChangeType = editorState.getLastChangeType();
-	  return changeType !== lastChangeType || changeType !== 'insert-characters' && changeType !== 'backspace-character' && changeType !== 'delete-character';
-	}
-
-	function getInlineStyleForCollapsedSelection(content, selection) {
-	  var startKey = selection.getStartKey();
-	  var startOffset = selection.getStartOffset();
-	  var startBlock = content.getBlockForKey(startKey);
-
-	  // If the cursor is not at the start of the block, look backward to
-	  // preserve the style of the preceding character.
-	  if (startOffset > 0) {
-	    return startBlock.getInlineStyleAt(startOffset - 1);
-	  }
-
-	  // The caret is at position zero in this block. If the block has any
-	  // text at all, use the style of the first character.
-	  if (startBlock.getLength()) {
-	    return startBlock.getInlineStyleAt(0);
-	  }
-
-	  // Otherwise, look upward in the document to find the closest character.
-	  return lookUpwardForInlineStyle(content, startKey);
-	}
-
-	function getInlineStyleForNonCollapsedSelection(content, selection) {
-	  var startKey = selection.getStartKey();
-	  var startOffset = selection.getStartOffset();
-	  var startBlock = content.getBlockForKey(startKey);
-
-	  // If there is a character just inside the selection, use its style.
-	  if (startOffset < startBlock.getLength()) {
-	    return startBlock.getInlineStyleAt(startOffset);
-	  }
-
-	  // Check if the selection at the end of a non-empty block. Use the last
-	  // style in the block.
-	  if (startOffset > 0) {
-	    return startBlock.getInlineStyleAt(startOffset - 1);
-	  }
-
-	  // Otherwise, look upward in the document to find the closest character.
-	  return lookUpwardForInlineStyle(content, startKey);
-	}
-
-	function lookUpwardForInlineStyle(content, fromKey) {
-	  var previousBlock = content.getBlockBefore(fromKey);
-	  var previousLength;
-
-	  while (previousBlock) {
-	    previousLength = previousBlock.getLength();
-	    if (previousLength) {
-	      return previousBlock.getInlineStyleAt(previousLength - 1);
-	    }
-	    previousBlock = content.getBlockBefore(previousBlock.getKey());
-	  }
-
-	  return OrderedSet();
-	}
-
-	module.exports = EditorState;
-
-/***/ },
-/* 231 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule KeyBindingUtil
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var UserAgent = __webpack_require__(350);
-
-	var isOSX = UserAgent.isPlatform('Mac OS X');
-
-	var KeyBindingUtil = {
-	  /**
-	   * Check whether the ctrlKey modifier is *not* being used in conjunction with
-	   * the altKey modifier. If they are combined, the result is an `altGraph`
-	   * key modifier, which should not be handled by this set of key bindings.
-	   */
-	  isCtrlKeyCommand: function isCtrlKeyCommand(e) {
-	    return !!e.ctrlKey && !e.altKey;
-	  },
-
-	  isOptionKeyCommand: function isOptionKeyCommand(e) {
-	    return isOSX && e.altKey;
-	  },
-
-	  hasCommandModifier: function hasCommandModifier(e) {
-	    return isOSX ? !!e.metaKey && !e.altKey : KeyBindingUtil.isCtrlKeyCommand(e);
-	  }
-	};
-
-	module.exports = KeyBindingUtil;
-
-/***/ },
-/* 232 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule RichTextEditorUtil
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var DraftEntity = __webpack_require__(228);
-	var DraftModifier = __webpack_require__(227);
-	var EditorState = __webpack_require__(230);
-	var SelectionState = __webpack_require__(233);
-
-	var adjustBlockDepthForContentState = __webpack_require__(289);
-	var nullthrows = __webpack_require__(349);
-
-	var RichTextEditorUtil = {
-	  currentBlockContainsLink: function currentBlockContainsLink(editorState) {
-	    var selection = editorState.getSelection();
-	    return editorState.getCurrentContent().getBlockForKey(selection.getAnchorKey()).getCharacterList().slice(selection.getStartOffset(), selection.getEndOffset()).some(function (v) {
-	      var entity = v.getEntity();
-	      return !!entity && DraftEntity.get(entity).getType() === 'LINK';
-	    });
-	  },
-
-	  getCurrentBlockType: function getCurrentBlockType(editorState) {
-	    var selection = editorState.getSelection();
-	    return editorState.getCurrentContent().getBlockForKey(selection.getStartKey()).getType();
-	  },
-
-	  getDataObjectForLinkURL: function getDataObjectForLinkURL(uri) {
-	    return { url: uri.toString() };
-	  },
-
-	  handleKeyCommand: function handleKeyCommand(editorState, command) {
-	    switch (command) {
-	      case 'bold':
-	        return RichTextEditorUtil.toggleInlineStyle(editorState, 'BOLD');
-	      case 'italic':
-	        return RichTextEditorUtil.toggleInlineStyle(editorState, 'ITALIC');
-	      case 'underline':
-	        return RichTextEditorUtil.toggleInlineStyle(editorState, 'UNDERLINE');
-	      case 'code':
-	        return RichTextEditorUtil.toggleCode(editorState);
-	      case 'backspace':
-	      case 'backspace-word':
-	      case 'backspace-to-start-of-line':
-	        return RichTextEditorUtil.onBackspace(editorState);
-	      case 'delete':
-	      case 'delete-word':
-	      case 'delete-to-end-of-block':
-	        return RichTextEditorUtil.onDelete(editorState);
-	      default:
-	        return null;
-	    }
-	  },
-
-	  insertSoftNewline: function insertSoftNewline(editorState) {
-	    var contentState = DraftModifier.insertText(editorState.getCurrentContent(), editorState.getSelection(), '\n', editorState.getCurrentInlineStyle(), null);
-
-	    var newEditorState = EditorState.push(editorState, contentState, 'insert-characters');
-
-	    return EditorState.forceSelection(newEditorState, contentState.getSelectionAfter());
-	  },
-
-	  /**
-	   * For collapsed selections at the start of styled blocks, backspace should
-	   * just remove the existing style.
-	   */
-	  onBackspace: function onBackspace(editorState) {
-	    var selection = editorState.getSelection();
-	    if (!selection.isCollapsed() || selection.getAnchorOffset() || selection.getFocusOffset()) {
-	      return null;
-	    }
-
-	    // First, try to remove a preceding atomic block.
-	    var content = editorState.getCurrentContent();
-	    var startKey = selection.getStartKey();
-	    var blockBefore = content.getBlockBefore(startKey);
-
-	    if (blockBefore && blockBefore.getType() === 'atomic') {
-	      var atomicBlockTarget = selection.merge({
-	        anchorKey: blockBefore.getKey(),
-	        anchorOffset: 0
-	      });
-	      var asCurrentStyle = DraftModifier.setBlockType(content, atomicBlockTarget, content.getBlockForKey(startKey).getType());
-	      var withoutAtomicBlock = DraftModifier.removeRange(asCurrentStyle, atomicBlockTarget, 'backward');
-	      if (withoutAtomicBlock !== content) {
-	        return EditorState.push(editorState, withoutAtomicBlock, 'remove-range');
-	      }
-	    }
-
-	    // If that doesn't succeed, try to remove the current block style.
-	    var withoutBlockStyle = RichTextEditorUtil.tryToRemoveBlockStyle(editorState);
-
-	    if (withoutBlockStyle) {
-	      return EditorState.push(editorState, withoutBlockStyle, 'change-block-type');
-	    }
-
-	    return null;
-	  },
-
-	  onDelete: function onDelete(editorState) {
-	    var selection = editorState.getSelection();
-	    if (!selection.isCollapsed()) {
-	      return null;
-	    }
-
-	    var content = editorState.getCurrentContent();
-	    var startKey = selection.getStartKey();
-	    var block = content.getBlockForKey(startKey);
-	    var length = block.getLength();
-
-	    // The cursor is somewhere within the text. Behave normally.
-	    if (selection.getStartOffset() < length) {
-	      return null;
-	    }
-
-	    var blockAfter = content.getBlockAfter(startKey);
-
-	    if (!blockAfter || blockAfter.getType() !== 'atomic') {
-	      return null;
-	    }
-
-	    var atomicBlockTarget = selection.merge({
-	      focusKey: blockAfter.getKey(),
-	      focusOffset: blockAfter.getLength()
-	    });
-
-	    var withoutAtomicBlock = DraftModifier.removeRange(content, atomicBlockTarget, 'forward');
-
-	    if (withoutAtomicBlock !== content) {
-	      return EditorState.push(editorState, withoutAtomicBlock, 'remove-range');
-	    }
-
-	    return null;
-	  },
-
-	  onTab: function onTab(event, editorState, maxDepth) {
-	    var selection = editorState.getSelection();
-	    var key = selection.getAnchorKey();
-	    if (key !== selection.getFocusKey()) {
-	      return editorState;
-	    }
-
-	    var content = editorState.getCurrentContent();
-	    var block = content.getBlockForKey(key);
-	    var type = block.getType();
-	    if (type !== 'unordered-list-item' && type !== 'ordered-list-item') {
-	      return editorState;
-	    }
-
-	    event.preventDefault();
-
-	    // Only allow indenting one level beyond the block above, and only if
-	    // the block above is a list item as well.
-	    var blockAbove = content.getBlockBefore(key);
-	    if (!blockAbove) {
-	      return editorState;
-	    }
-
-	    var typeAbove = blockAbove.getType();
-	    if (typeAbove !== 'unordered-list-item' && typeAbove !== 'ordered-list-item') {
-	      return editorState;
-	    }
-
-	    var depth = block.getDepth();
-	    if (!event.shiftKey && depth === maxDepth) {
-	      return editorState;
-	    }
-
-	    maxDepth = Math.min(blockAbove.getDepth() + 1, maxDepth);
-
-	    var withAdjustment = adjustBlockDepthForContentState(content, selection, event.shiftKey ? -1 : 1, maxDepth);
-
-	    return EditorState.push(editorState, withAdjustment, 'adjust-depth');
-	  },
-
-	  toggleBlockType: function toggleBlockType(editorState, blockType) {
-	    var selection = editorState.getSelection();
-	    var startKey = selection.getStartKey();
-	    var endKey = selection.getEndKey();
-	    var content = editorState.getCurrentContent();
-	    var target = selection;
-
-	    // Triple-click can lead to a selection that includes offset 0 of the
-	    // following block. The `SelectionState` for this case is accurate, but
-	    // we should avoid toggling block type for the trailing block because it
-	    // is a confusing interaction.
-	    if (startKey !== endKey && selection.getEndOffset() === 0) {
-	      var blockBefore = nullthrows(content.getBlockBefore(endKey));
-	      endKey = blockBefore.getKey();
-	      target = target.merge({
-	        anchorKey: startKey,
-	        anchorOffset: selection.getStartOffset(),
-	        focusKey: endKey,
-	        focusOffset: blockBefore.getLength(),
-	        isBackward: false
-	      });
-	    }
-
-	    var hasAtomicBlock = content.getBlockMap().skipWhile(function (_, k) {
-	      return k !== startKey;
-	    }).takeWhile(function (_, k) {
-	      return k !== endKey;
-	    }).some(function (v) {
-	      return v.getType() === 'atomic';
-	    });
-
-	    if (hasAtomicBlock) {
-	      return editorState;
-	    }
-
-	    var typeToSet = content.getBlockForKey(startKey).getType() === blockType ? 'unstyled' : blockType;
-
-	    return EditorState.push(editorState, DraftModifier.setBlockType(content, target, typeToSet), 'change-block-type');
-	  },
-
-	  toggleCode: function toggleCode(editorState) {
-	    var selection = editorState.getSelection();
-	    var anchorKey = selection.getAnchorKey();
-	    var focusKey = selection.getFocusKey();
-
-	    if (selection.isCollapsed() || anchorKey !== focusKey) {
-	      return RichTextEditorUtil.toggleBlockType(editorState, 'code-block');
-	    }
-
-	    return RichTextEditorUtil.toggleInlineStyle(editorState, 'CODE');
-	  },
-
-	  /**
-	   * Toggle the specified inline style for the selection. If the
-	   * user's selection is collapsed, apply or remove the style for the
-	   * internal state. If it is not collapsed, apply the change directly
-	   * to the document state.
-	   */
-	  toggleInlineStyle: function toggleInlineStyle(editorState, inlineStyle) {
-	    var selection = editorState.getSelection();
-	    var currentStyle = editorState.getCurrentInlineStyle();
-
-	    // If the selection is collapsed, toggle the specified style on or off and
-	    // set the result as the new inline style override. This will then be
-	    // used as the inline style for the next character to be inserted.
-	    if (selection.isCollapsed()) {
-	      return EditorState.setInlineStyleOverride(editorState, currentStyle.has(inlineStyle) ? currentStyle.remove(inlineStyle) : currentStyle.add(inlineStyle));
-	    }
-
-	    // If characters are selected, immediately apply or remove the
-	    // inline style on the document state itself.
-	    var content = editorState.getCurrentContent();
-	    var newContent;
-
-	    // If the style is already present for the selection range, remove it.
-	    // Otherwise, apply it.
-	    if (currentStyle.has(inlineStyle)) {
-	      newContent = DraftModifier.removeInlineStyle(content, selection, inlineStyle);
-	    } else {
-	      newContent = DraftModifier.applyInlineStyle(content, selection, inlineStyle);
-	    }
-
-	    return EditorState.push(editorState, newContent, 'change-inline-style');
-	  },
-
-	  toggleLink: function toggleLink(editorState, targetSelection, entityKey) {
-	    var withoutLink = DraftModifier.applyEntity(editorState.getCurrentContent(), targetSelection, entityKey);
-
-	    return EditorState.push(editorState, withoutLink, 'apply-entity');
-	  },
-
-	  /**
-	   * When a collapsed cursor is at the start of an empty styled block, allow
-	   * certain key commands (newline, backspace) to simply change the
-	   * style of the block instead of the default behavior.
-	   */
-	  tryToRemoveBlockStyle: function tryToRemoveBlockStyle(editorState) {
-	    var selection = editorState.getSelection();
-	    var offset = selection.getAnchorOffset();
-	    if (selection.isCollapsed() && offset === 0) {
-	      var key = selection.getAnchorKey();
-	      var content = editorState.getCurrentContent();
-	      var block = content.getBlockForKey(key);
-	      if (block.getLength() > 0) {
-	        return null;
-	      }
-
-	      var type = block.getType();
-	      var blockBefore = content.getBlockBefore(key);
-	      if (type === 'code-block' && blockBefore && blockBefore.getType() === 'code-block') {
-	        return null;
-	      }
-
-	      if (type !== 'unstyled') {
-	        return DraftModifier.setBlockType(content, selection, 'unstyled');
-	      }
-	    }
-	    return null;
-	  }
-	};
-
-	module.exports = RichTextEditorUtil;
-
-/***/ },
-/* 233 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule SelectionState
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Immutable = __webpack_require__(240);
-
-	var Record = Immutable.Record;
-
-	var defaultRecord = {
-	  anchorKey: '',
-	  anchorOffset: 0,
-	  focusKey: '',
-	  focusOffset: 0,
-	  isBackward: false,
-	  hasFocus: false
-	};
-
-	var SelectionStateRecord = Record(defaultRecord);
-
-	var SelectionState = (function (_SelectionStateRecord) {
-	  _inherits(SelectionState, _SelectionStateRecord);
-
-	  function SelectionState() {
-	    _classCallCheck(this, SelectionState);
-
-	    _get(Object.getPrototypeOf(SelectionState.prototype), 'constructor', this).apply(this, arguments);
-	  }
-
-	  _createClass(SelectionState, [{
-	    key: 'serialize',
-	    value: function serialize() {
-	      return 'Anchor: ' + this.getAnchorKey() + ':' + this.getAnchorOffset() + ', ' + 'Focus: ' + this.getFocusKey() + ':' + this.getFocusOffset() + ', ' + 'Is Backward: ' + String(this.getIsBackward()) + ', ' + 'Has Focus: ' + String(this.getHasFocus());
-	    }
-	  }, {
-	    key: 'getAnchorKey',
-	    value: function getAnchorKey() {
-	      return this.get('anchorKey');
-	    }
-	  }, {
-	    key: 'getAnchorOffset',
-	    value: function getAnchorOffset() {
-	      return this.get('anchorOffset');
-	    }
-	  }, {
-	    key: 'getFocusKey',
-	    value: function getFocusKey() {
-	      return this.get('focusKey');
-	    }
-	  }, {
-	    key: 'getFocusOffset',
-	    value: function getFocusOffset() {
-	      return this.get('focusOffset');
-	    }
-	  }, {
-	    key: 'getIsBackward',
-	    value: function getIsBackward() {
-	      return this.get('isBackward');
-	    }
-	  }, {
-	    key: 'getHasFocus',
-	    value: function getHasFocus() {
-	      return this.get('hasFocus');
-	    }
-
-	    /**
-	     * Return whether the specified range overlaps with an edge of the
-	     * SelectionState.
-	     */
-	  }, {
-	    key: 'hasEdgeWithin',
-	    value: function hasEdgeWithin(blockKey, start, end) {
-	      var anchorKey = this.getAnchorKey();
-	      var focusKey = this.getFocusKey();
-
-	      if (anchorKey === focusKey && anchorKey === blockKey) {
-	        var selectionStart = this.getStartOffset();
-	        var selectionEnd = this.getEndOffset();
-	        return start <= selectionEnd && selectionStart <= end;
-	      }
-
-	      if (blockKey !== anchorKey && blockKey !== focusKey) {
-	        return false;
-	      }
-
-	      var offsetToCheck = blockKey === anchorKey ? this.getAnchorOffset() : this.getFocusOffset();
-
-	      return start <= offsetToCheck && end >= offsetToCheck;
-	    }
-	  }, {
-	    key: 'isCollapsed',
-	    value: function isCollapsed() {
-	      return this.getAnchorKey() === this.getFocusKey() && this.getAnchorOffset() === this.getFocusOffset();
-	    }
-	  }, {
-	    key: 'getStartKey',
-	    value: function getStartKey() {
-	      return this.getIsBackward() ? this.getFocusKey() : this.getAnchorKey();
-	    }
-	  }, {
-	    key: 'getStartOffset',
-	    value: function getStartOffset() {
-	      return this.getIsBackward() ? this.getFocusOffset() : this.getAnchorOffset();
-	    }
-	  }, {
-	    key: 'getEndKey',
-	    value: function getEndKey() {
-	      return this.getIsBackward() ? this.getAnchorKey() : this.getFocusKey();
-	    }
-	  }, {
-	    key: 'getEndOffset',
-	    value: function getEndOffset() {
-	      return this.getIsBackward() ? this.getAnchorOffset() : this.getFocusOffset();
-	    }
-	  }], [{
-	    key: 'createEmpty',
-	    value: function createEmpty(key) {
-	      return new SelectionState({
-	        anchorKey: key,
-	        anchorOffset: 0,
-	        focusKey: key,
-	        focusOffset: 0,
-	        isBackward: false,
-	        hasFocus: false
-	      });
-	    }
-	  }]);
-
-	  return SelectionState;
-	})(SelectionStateRecord);
-
-	module.exports = SelectionState;
-
-/***/ },
-/* 234 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule convertFromDraftStateToRaw
-	 * 
-	 */
-
-	'use strict';
-
-	var DraftEntity = __webpack_require__(228);
-	var DraftStringKey = __webpack_require__(290);
-
-	var encodeEntityRanges = __webpack_require__(291);
-	var encodeInlineStyleRanges = __webpack_require__(292);
-
-	function convertFromDraftStateToRaw(contentState) {
-	  var entityStorageKey = 0;
-	  var entityStorageMap = {};
-	  var rawBlocks = [];
-
-	  contentState.getBlockMap().forEach(function (block, blockKey) {
-	    block.findEntityRanges(function (character) {
-	      return character.getEntity() !== null;
-	    }, function (start) {
-	      // Stringify to maintain order of otherwise numeric keys.
-	      var stringifiedEntityKey = DraftStringKey.stringify(block.getEntityAt(start));
-	      if (!entityStorageMap.hasOwnProperty(stringifiedEntityKey)) {
-	        entityStorageMap[stringifiedEntityKey] = '' + entityStorageKey++;
-	      }
-	    });
-
-	    rawBlocks.push({
-	      key: blockKey,
-	      text: block.getText(),
-	      type: block.getType(),
-	      depth: canHaveDepth(block) ? block.getDepth() : 0,
-	      inlineStyleRanges: encodeInlineStyleRanges(block),
-	      entityRanges: encodeEntityRanges(block, entityStorageMap)
-	    });
-	  });
-
-	  // Flip storage map so that our storage keys map to global
-	  // DraftEntity keys.
-	  var entityKeys = Object.keys(entityStorageMap);
-	  var flippedStorageMap = {};
-	  entityKeys.forEach(function (key, jj) {
-	    var entity = DraftEntity.get(DraftStringKey.unstringify(key));
-	    flippedStorageMap[jj] = {
-	      type: entity.getType(),
-	      mutability: entity.getMutability(),
-	      data: entity.getData()
-	    };
-	  });
-
-	  return {
-	    entityMap: flippedStorageMap,
-	    blocks: rawBlocks
-	  };
-	}
-
-	function canHaveDepth(block) {
-	  var type = block.getType();
-	  return type === 'ordered-list-item' || type === 'unordered-list-item';
-	}
-
-	module.exports = convertFromDraftStateToRaw;
-
-/***/ },
-/* 235 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule convertFromHTMLToContentBlocks
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var CharacterMetadata = __webpack_require__(219);
-	var ContentBlock = __webpack_require__(221);
-	var DefaultDraftBlockRenderMap = __webpack_require__(223);
-	var DraftEntity = __webpack_require__(228);
-	var Immutable = __webpack_require__(240);
-	var URI = __webpack_require__(353);
-
-	var generateRandomKey = __webpack_require__(237);
-	var getSafeBodyFromHTML = __webpack_require__(293);
-	var invariant = __webpack_require__(352);
-	var nullthrows = __webpack_require__(349);
-	var sanitizeDraftText = __webpack_require__(269);
-
-	var List = Immutable.List;
-	var OrderedSet = Immutable.OrderedSet;
-
-	var NBSP = '&nbsp;';
-	var SPACE = ' ';
-
-	// Arbitrary max indent
-	var MAX_DEPTH = 4;
-
-	// used for replacing characters in HTML
-	var REGEX_CR = new RegExp('\r', 'g');
-	var REGEX_LF = new RegExp('\n', 'g');
-	var REGEX_NBSP = new RegExp(NBSP, 'g');
-
-	// Block tag flow is different because LIs do not have
-	// a deterministic style ;_;
-	var inlineTags = {
-	  b: 'BOLD',
-	  code: 'CODE',
-	  del: 'STRIKETHROUGH',
-	  em: 'ITALIC',
-	  i: 'ITALIC',
-	  s: 'STRIKETHROUGH',
-	  strike: 'STRIKETHROUGH',
-	  strong: 'BOLD',
-	  u: 'UNDERLINE'
-	};
-
-	var lastBlock;
-
-	function getEmptyChunk() {
-	  return {
-	    text: '',
-	    inlines: [],
-	    entities: [],
-	    blocks: []
-	  };
-	}
-
-	function getWhitespaceChunk(inEntity) {
-	  var entities = new Array(1);
-	  if (inEntity) {
-	    entities[0] = inEntity;
-	  }
-	  return {
-	    text: SPACE,
-	    inlines: [OrderedSet()],
-	    entities: entities,
-	    blocks: []
-	  };
-	}
-
-	function getSoftNewlineChunk() {
-	  return {
-	    text: '\n',
-	    inlines: [OrderedSet()],
-	    entities: new Array(1),
-	    blocks: []
-	  };
-	}
-
-	function getBlockDividerChunk(block, depth) {
-	  return {
-	    text: '\r',
-	    inlines: [OrderedSet()],
-	    entities: new Array(1),
-	    blocks: [{
-	      type: block,
-	      depth: Math.max(0, Math.min(MAX_DEPTH, depth))
-	    }]
-	  };
-	}
-
-	function getListBlockType(tag, lastList) {
-	  if (tag === 'li') {
-	    return lastList === 'ol' ? 'ordered-list-item' : 'unordered-list-item';
-	  }
-	  return null;
-	}
-
-	function getBlockMapSupportedTags(blockRenderMap) {
-	  var unstyledElement = blockRenderMap.get('unstyled').element;
-	  return blockRenderMap.map(function (config) {
-	    return config.element;
-	  }).valueSeq().toSet().filter(function (tag) {
-	    return tag !== unstyledElement;
-	  }).toArray().sort();
-	}
-
-	// custom element conversions
-	function getMultiMatchedType(tag, lastList, multiMatchExtractor) {
-	  for (var ii = 0; ii < multiMatchExtractor.length; ii++) {
-	    var matchType = multiMatchExtractor[ii](tag, lastList);
-	    if (matchType) {
-	      return matchType;
-	    }
-	  }
-	  return null;
-	}
-
-	function getBlockTypeForTag(tag, lastList, blockRenderMap) {
-	  var matchedTypes = blockRenderMap.filter(function (config) {
-	    return config.element === tag || config.wrapper === tag;
-	  }).keySeq().toSet().toArray().sort();
-
-	  // if we dont have any matched type, return unstyled
-	  // if we have one matched type return it
-	  // if we have multi matched types use the multi-match function to gather type
-	  switch (matchedTypes.length) {
-	    case 0:
-	      return 'unstyled';
-	    case 1:
-	      return matchedTypes[0];
-	    default:
-	      return getMultiMatchedType(tag, lastList, [getListBlockType]) || 'unstyled';
-	  }
-	}
-
-	function processInlineTag(tag, node, currentStyle) {
-	  var styleToCheck = inlineTags[tag];
-	  if (styleToCheck) {
-	    currentStyle = currentStyle.add(styleToCheck).toOrderedSet();
-	  } else if (node instanceof HTMLElement) {
-	    (function () {
-	      var htmlElement = node;
-	      currentStyle = currentStyle.withMutations(function (style) {
-	        if (htmlElement.style.fontWeight === 'bold') {
-	          style.add('BOLD');
-	        }
-
-	        if (htmlElement.style.fontStyle === 'italic') {
-	          style.add('ITALIC');
-	        }
-
-	        if (htmlElement.style.textDecoration === 'underline') {
-	          style.add('UNDERLINE');
-	        }
-
-	        if (htmlElement.style.textDecoration === 'line-through') {
-	          style.add('STRIKETHROUGH');
-	        }
-	      }).toOrderedSet();
-	    })();
-	  }
-	  return currentStyle;
-	}
-
-	function joinChunks(A, B) {
-	  // Sometimes two blocks will touch in the DOM and we need to strip the
-	  // extra delimiter to preserve niceness.
-	  var lastInB = B.text.slice(0, 1);
-
-	  if (A.text.slice(-1) === '\r' && lastInB === '\r') {
-	    A.text = A.text.slice(0, -1);
-	    A.inlines.pop();
-	    A.entities.pop();
-	    A.blocks.pop();
-	  }
-
-	  // Kill whitespace after blocks
-	  if (A.text.slice(-1) === '\r') {
-	    if (B.text === SPACE || B.text === '\n') {
-	      return A;
-	    } else if (lastInB === SPACE || lastInB === '\n') {
-	      B.text = B.text.slice(1);
-	      B.inlines.shift();
-	      B.entities.shift();
-	    }
-	  }
-
-	  return {
-	    text: A.text + B.text,
-	    inlines: A.inlines.concat(B.inlines),
-	    entities: A.entities.concat(B.entities),
-	    blocks: A.blocks.concat(B.blocks)
-	  };
-	}
-
-	/**
-	 * Check to see if we have anything like <p> <blockquote> <h1>... to create
-	 * block tags from. If we do, we can use those and ignore <div> tags. If we
-	 * don't, we can treat <div> tags as meaningful (unstyled) blocks.
-	 */
-	function containsSemanticBlockMarkup(html, blockTags) {
-	  return blockTags.some(function (tag) {
-	    return html.indexOf('<' + tag) !== -1;
-	  });
-	}
-
-	function hasValidLinkText(link) {
-	  !(link instanceof HTMLAnchorElement) ? false ? invariant(false, 'Link must be an HTMLAnchorElement.') : invariant(false) : undefined;
-	  var protocol = link.protocol;
-	  return protocol === 'http:' || protocol === 'https:';
-	}
-
-	function genFragment(node, inlineStyle, lastList, inBlock, blockTags, depth, blockRenderMap, inEntity) {
-	  var nodeName = node.nodeName.toLowerCase();
-	  var newBlock = false;
-	  var nextBlockType = 'unstyled';
-	  var lastLastBlock = lastBlock;
-
-	  // Base Case
-	  if (nodeName === '#text') {
-	    var text = node.textContent;
-	    if (text.trim() === '' && inBlock !== 'pre') {
-	      return getWhitespaceChunk(inEntity);
-	    }
-	    if (inBlock !== 'pre') {
-	      // Can't use empty string because MSWord
-	      text = text.replace(REGEX_LF, SPACE);
-	    }
-
-	    // save the last block so we can use it later
-	    lastBlock = nodeName;
-
-	    return {
-	      text: text,
-	      inlines: Array(text.length).fill(inlineStyle),
-	      entities: Array(text.length).fill(inEntity),
-	      blocks: []
-	    };
-	  }
-
-	  // save the last block so we can use it later
-	  lastBlock = nodeName;
-
-	  // BR tags
-	  if (nodeName === 'br') {
-	    if (lastLastBlock === 'br' && (!inBlock || getBlockTypeForTag(inBlock, lastList, blockRenderMap) === 'unstyled')) {
-	      return getBlockDividerChunk('unstyled', depth);
-	    }
-	    return getSoftNewlineChunk();
-	  }
-
-	  var chunk = getEmptyChunk();
-	  var newChunk = null;
-
-	  // Inline tags
-	  inlineStyle = processInlineTag(nodeName, node, inlineStyle);
-
-	  // Handle lists
-	  if (nodeName === 'ul' || nodeName === 'ol') {
-	    if (lastList) {
-	      depth += 1;
-	    }
-	    lastList = nodeName;
-	  }
-
-	  // Block Tags
-	  if (!inBlock && blockTags.indexOf(nodeName) !== -1) {
-	    chunk = getBlockDividerChunk(getBlockTypeForTag(nodeName, lastList, blockRenderMap), depth);
-	    inBlock = nodeName;
-	    newBlock = true;
-	  } else if (lastList && inBlock === 'li' && nodeName === 'li') {
-	    chunk = getBlockDividerChunk(getBlockTypeForTag(nodeName, lastList, blockRenderMap), depth);
-	    inBlock = nodeName;
-	    newBlock = true;
-	    nextBlockType = lastList === 'ul' ? 'unordered-list-item' : 'ordered-list-item';
-	  }
-
-	  // Recurse through children
-	  var child = node.firstChild;
-	  if (child != null) {
-	    nodeName = child.nodeName.toLowerCase();
-	  }
-
-	  var entityId = null;
-	  var href = null;
-
-	  while (child) {
-	    if (nodeName === 'a' && child.href && hasValidLinkText(child)) {
-	      href = new URI(child.href).toString();
-	      entityId = DraftEntity.create('LINK', 'MUTABLE', { url: href });
-	    } else {
-	      entityId = undefined;
-	    }
-
-	    newChunk = genFragment(child, inlineStyle, lastList, inBlock, blockTags, depth, blockRenderMap, entityId || inEntity);
-
-	    chunk = joinChunks(chunk, newChunk);
-	    var sibling = child.nextSibling;
-
-	    // Put in a newline to break up blocks inside blocks
-	    if (sibling && blockTags.indexOf(nodeName) >= 0 && inBlock) {
-	      chunk = joinChunks(chunk, getSoftNewlineChunk());
-	    }
-	    if (sibling) {
-	      nodeName = sibling.nodeName.toLowerCase();
-	    }
-	    child = sibling;
-	  }
-
-	  if (newBlock) {
-	    chunk = joinChunks(chunk, getBlockDividerChunk(nextBlockType, depth));
-	  }
-
-	  return chunk;
-	}
-
-	function getChunkForHTML(html, DOMBuilder, blockRenderMap) {
-	  html = html.trim().replace(REGEX_CR, '').replace(REGEX_NBSP, SPACE);
-
-	  var supportedBlockTags = getBlockMapSupportedTags(blockRenderMap);
-
-	  var safeBody = DOMBuilder(html);
-	  if (!safeBody) {
-	    return null;
-	  }
-	  lastBlock = null;
-
-	  // Sometimes we aren't dealing with content that contains nice semantic
-	  // tags. In this case, use divs to separate everything out into paragraphs
-	  // and hope for the best.
-	  var workingBlocks = containsSemanticBlockMarkup(html, supportedBlockTags) ? supportedBlockTags : ['div'];
-
-	  // Start with -1 block depth to offset the fact that we are passing in a fake
-	  // UL block to start with.
-	  var chunk = genFragment(safeBody, OrderedSet(), 'ul', null, workingBlocks, -1, blockRenderMap);
-
-	  // join with previous block to prevent weirdness on paste
-	  if (chunk.text.indexOf('\r') === 0) {
-	    chunk = {
-	      text: chunk.text.slice(1),
-	      inlines: chunk.inlines.slice(1),
-	      entities: chunk.entities.slice(1),
-	      blocks: chunk.blocks
-	    };
-	  }
-
-	  // Kill block delimiter at the end
-	  if (chunk.text.slice(-1) === '\r') {
-	    chunk.text = chunk.text.slice(0, -1);
-	    chunk.inlines = chunk.inlines.slice(0, -1);
-	    chunk.entities = chunk.entities.slice(0, -1);
-	    chunk.blocks.pop();
-	  }
-
-	  // If we saw no block tags, put an unstyled one in
-	  if (chunk.blocks.length === 0) {
-	    chunk.blocks.push({ type: 'unstyled', depth: 0 });
-	  }
-
-	  // Sometimes we start with text that isn't in a block, which is then
-	  // followed by blocks. Need to fix up the blocks to add in
-	  // an unstyled block for this content
-	  if (chunk.text.split('\r').length === chunk.blocks.length + 1) {
-	    chunk.blocks.unshift({ type: 'unstyled', depth: 0 });
-	  }
-
-	  return chunk;
-	}
-
-	function convertFromHTMLtoContentBlocks(html) {
-	  var DOMBuilder = arguments.length <= 1 || arguments[1] === undefined ? getSafeBodyFromHTML : arguments[1];
-	  var blockRenderMap = arguments.length <= 2 || arguments[2] === undefined ? DefaultDraftBlockRenderMap : arguments[2];
-
-	  // Be ABSOLUTELY SURE that the dom builder you pass hare won't execute
-	  // arbitrary code in whatever environment you're running this in. For an
-	  // example of how we try to do this in-browser, see getSafeBodyFromHTML.
-
-	  var chunk = getChunkForHTML(html, DOMBuilder, blockRenderMap);
-
-	  if (chunk == null) {
-	    return null;
-	  }
-	  var start = 0;
-	  return chunk.text.split('\r').map(function (textBlock, ii) {
-	    // Make absolutely certain that our text is acceptable.
-	    textBlock = sanitizeDraftText(textBlock);
-	    var end = start + textBlock.length;
-	    var inlines = nullthrows(chunk).inlines.slice(start, end);
-	    var entities = nullthrows(chunk).entities.slice(start, end);
-	    var characterList = List(inlines.map(function (style, ii) {
-	      var data = { style: style, entity: null };
-	      if (entities[ii]) {
-	        data.entity = entities[ii];
-	      }
-	      return CharacterMetadata.create(data);
-	    }));
-	    start = end + 1;
-
-	    return new ContentBlock({
-	      key: generateRandomKey(),
-	      type: nullthrows(chunk).blocks[ii].type,
-	      depth: nullthrows(chunk).blocks[ii].depth,
-	      text: textBlock,
-	      characterList: characterList
-	    });
-	  });
-	}
-
-	module.exports = convertFromHTMLtoContentBlocks;
-
-/***/ },
-/* 236 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule convertFromRawToDraftState
-	 * 
-	 */
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var ContentBlock = __webpack_require__(221);
-	var ContentState = __webpack_require__(222);
-	var DraftEntity = __webpack_require__(228);
-
-	var createCharacterList = __webpack_require__(294);
-	var decodeEntityRanges = __webpack_require__(295);
-	var decodeInlineStyleRanges = __webpack_require__(296);
-	var generateRandomKey = __webpack_require__(237);
-
-	function convertFromRawToDraftState(rawState) {
-	  var blocks = rawState.blocks;
-	  var entityMap = rawState.entityMap;
-
-	  var fromStorageToLocal = {};
-	  Object.keys(entityMap).forEach(function (storageKey) {
-	    var encodedEntity = entityMap[storageKey];
-	    var type = encodedEntity.type;
-	    var mutability = encodedEntity.mutability;
-	    var data = encodedEntity.data;
-
-	    var newKey = DraftEntity.create(type, mutability, data || {});
-	    fromStorageToLocal[storageKey] = newKey;
-	  });
-
-	  var contentBlocks = blocks.map(function (block) {
-	    var key = block.key;
-	    var type = block.type;
-	    var text = block.text;
-	    var depth = block.depth;
-	    var inlineStyleRanges = block.inlineStyleRanges;
-	    var entityRanges = block.entityRanges;
-
-	    key = key || generateRandomKey();
-	    depth = depth || 0;
-	    inlineStyleRanges = inlineStyleRanges || [];
-	    entityRanges = entityRanges || [];
-
-	    var inlineStyles = decodeInlineStyleRanges(text, inlineStyleRanges);
-
-	    // Translate entity range keys to the DraftEntity map.
-	    var filteredEntityRanges = entityRanges.filter(function (range) {
-	      return fromStorageToLocal.hasOwnProperty(range.key);
-	    }).map(function (range) {
-	      return _extends({}, range, { key: fromStorageToLocal[range.key] });
-	    });
-
-	    var entities = decodeEntityRanges(text, filteredEntityRanges);
-	    var characterList = createCharacterList(inlineStyles, entities);
-
-	    return new ContentBlock({ key: key, type: type, text: text, depth: depth, characterList: characterList });
-	  });
-
-	  return ContentState.createFromBlockArray(contentBlocks);
-	}
-
-	module.exports = convertFromRawToDraftState;
-
-/***/ },
-/* 237 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule generateRandomKey
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var seenKeys = {};
-	var MULTIPLIER = Math.pow(2, 24);
-
-	function generateRandomKey() {
-	  var key = undefined;
-	  while (key === undefined || seenKeys.hasOwnProperty(key) || !isNaN(+key)) {
-	    key = Math.floor(Math.random() * MULTIPLIER).toString(32);
-	  }
-	  seenKeys[key] = true;
-	  return key;
-	}
-
-	module.exports = generateRandomKey;
-
-/***/ },
-/* 238 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule getDefaultKeyBinding
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var KeyBindingUtil = __webpack_require__(231);
-	var Keys = __webpack_require__(354);
-	var UserAgent = __webpack_require__(350);
-
-	var isOSX = UserAgent.isPlatform('Mac OS X');
-	var isWindows = UserAgent.isPlatform('Windows');
-
-	// Firefox on OSX had a bug resulting in navigation instead of cursor movement.
-	// This bug was fixed in Firefox 29. Feature detection is virtually impossible
-	// so we just check the version number. See #342765.
-	var shouldFixFirefoxMovement = isOSX && UserAgent.isBrowser('Firefox < 29');
-
-	var hasCommandModifier = KeyBindingUtil.hasCommandModifier;
-	var isCtrlKeyCommand = KeyBindingUtil.isCtrlKeyCommand;
-
-	function shouldRemoveWord(e) {
-	  return isOSX && e.altKey || isCtrlKeyCommand(e);
-	}
-
-	/**
-	 * Get the appropriate undo/redo command for a Z key command.
-	 */
-	function getZCommand(e) {
-	  if (hasCommandModifier(e)) {
-	    return e.shiftKey ? 'redo' : 'undo';
-	  }
-	}
-
-	function getDeleteCommand(e) {
-	  // Allow default "cut" behavior for Windows on Shift + Delete.
-	  if (isWindows && e.shiftKey) {
-	    return null;
-	  }
-	  return shouldRemoveWord(e) ? 'delete-word' : 'delete';
-	}
-
-	function getBackspaceCommand(e) {
-	  if (hasCommandModifier(e) && isOSX) {
-	    return 'backspace-to-start-of-line';
-	  }
-	  return shouldRemoveWord(e) ? 'backspace-word' : 'backspace';
-	}
-
-	/**
-	 * Retrieve a bound key command for the given event.
-	 */
-	function getDefaultKeyBinding(e) {
-	  switch (e.keyCode) {
-	    case 66:
-	      // B
-	      return hasCommandModifier(e) ? 'bold' : null;
-	    case 68:
-	      // D
-	      return isCtrlKeyCommand(e) ? 'delete' : null;
-	    case 72:
-	      // H
-	      return isCtrlKeyCommand(e) ? 'backspace' : null;
-	    case 73:
-	      // I
-	      return hasCommandModifier(e) ? 'italic' : null;
-	    case 74:
-	      // J
-	      return hasCommandModifier(e) ? 'code' : null;
-	    case 75:
-	      // K
-	      return !isWindows && isCtrlKeyCommand(e) ? 'secondary-cut' : null;
-	    case 77:
-	      // M
-	      return isCtrlKeyCommand(e) ? 'split-block' : null;
-	    case 79:
-	      // O
-	      return isCtrlKeyCommand(e) ? 'split-block' : null;
-	    case 84:
-	      // T
-	      return isOSX && isCtrlKeyCommand(e) ? 'transpose-characters' : null;
-	    case 85:
-	      // U
-	      return hasCommandModifier(e) ? 'underline' : null;
-	    case 87:
-	      // W
-	      return isOSX && isCtrlKeyCommand(e) ? 'backspace-word' : null;
-	    case 89:
-	      // Y
-	      if (isCtrlKeyCommand(e)) {
-	        return isWindows ? 'redo' : 'secondary-paste';
-	      }
-	      return null;
-	    case 90:
-	      // Z
-	      return getZCommand(e) || null;
-	    case Keys.RETURN:
-	      return 'split-block';
-	    case Keys.DELETE:
-	      return getDeleteCommand(e);
-	    case Keys.BACKSPACE:
-	      return getBackspaceCommand(e);
-	    // LEFT/RIGHT handlers serve as a workaround for a Firefox bug.
-	    case Keys.LEFT:
-	      return shouldFixFirefoxMovement && hasCommandModifier(e) ? 'move-selection-to-start-of-block' : null;
-	    case Keys.RIGHT:
-	      return shouldFixFirefoxMovement && hasCommandModifier(e) ? 'move-selection-to-end-of-block' : null;
-	    default:
-	      return null;
-	  }
-	}
-
-	module.exports = getDefaultKeyBinding;
-
-/***/ },
-/* 239 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule getVisibleSelectionRect
-	 * @typechecks
-	 * 
-	 */
-
-	/**
-	 * Return the bounding ClientRect for the visible DOM selection, if any.
-	 * In cases where there are no selected ranges or the bounding rect is
-	 * temporarily invalid, return null.
-	 */
-	'use strict';
-
-	var getRangeBoundingClientRect = __webpack_require__(297);
-
-	function getVisibleSelectionRect(global) {
-	  var selection = global.getSelection();
-	  if (!selection.rangeCount) {
-	    return null;
-	  }
-
-	  var range = selection.getRangeAt(0);
-	  var boundingRect = getRangeBoundingClientRect(range);
-	  var top = boundingRect.top;
-	  var right = boundingRect.right;
-	  var bottom = boundingRect.bottom;
-	  var left = boundingRect.left;
-
-	  // When a re-render leads to a node being removed, the DOM selection will
-	  // temporarily be placed on an ancestor node, which leads to an invalid
-	  // bounding rect. Discard this state.
-	  if (top === 0 && right === 0 && bottom === 0 && left === 0) {
-	    return null;
-	  }
-
-	  return boundingRect;
-	}
-
-	module.exports = getVisibleSelectionRect;
-
-/***/ },
-/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -65989,6 +62348,3647 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
+/* 218 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule AtomicBlockUtils
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var BlockMapBuilder = __webpack_require__(219);
+	var CharacterMetadata = __webpack_require__(220);
+	var ContentBlock = __webpack_require__(222);
+	var DraftModifier = __webpack_require__(228);
+	var EditorState = __webpack_require__(231);
+	var Immutable = __webpack_require__(217);
+
+	var generateRandomKey = __webpack_require__(238);
+
+	var List = Immutable.List;
+	var Repeat = Immutable.Repeat;
+
+	var AtomicBlockUtils = {
+	  insertAtomicBlock: function insertAtomicBlock(editorState, entityKey, character) {
+	    var contentState = editorState.getCurrentContent();
+	    var selectionState = editorState.getSelection();
+
+	    var afterRemoval = DraftModifier.removeRange(contentState, selectionState, 'backward');
+
+	    var targetSelection = afterRemoval.getSelectionAfter();
+	    var afterSplit = DraftModifier.splitBlock(afterRemoval, targetSelection);
+	    var insertionTarget = afterSplit.getSelectionAfter();
+
+	    var asAtomicBlock = DraftModifier.setBlockType(afterSplit, insertionTarget, 'atomic');
+
+	    var charData = CharacterMetadata.create({ entity: entityKey });
+
+	    var fragmentArray = [new ContentBlock({
+	      key: generateRandomKey(),
+	      type: 'atomic',
+	      text: character,
+	      characterList: List(Repeat(charData, character.length))
+	    }), new ContentBlock({
+	      key: generateRandomKey(),
+	      type: 'unstyled',
+	      text: '',
+	      characterList: List()
+	    })];
+
+	    var fragment = BlockMapBuilder.createFromArray(fragmentArray);
+
+	    var withAtomicBlock = DraftModifier.replaceWithFragment(asAtomicBlock, insertionTarget, fragment);
+
+	    var newContent = withAtomicBlock.merge({
+	      selectionBefore: selectionState,
+	      selectionAfter: withAtomicBlock.getSelectionAfter().set('hasFocus', true)
+	    });
+
+	    return EditorState.push(editorState, newContent, 'insert-fragment');
+	  }
+	};
+
+	module.exports = AtomicBlockUtils;
+
+/***/ },
+/* 219 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule BlockMapBuilder
+	 * 
+	 */
+
+	'use strict';
+
+	var Immutable = __webpack_require__(217);
+
+	var OrderedMap = Immutable.OrderedMap;
+
+	var BlockMapBuilder = {
+	  createFromArray: function createFromArray(blocks) {
+	    return OrderedMap(blocks.map(function (block) {
+	      return [block.getKey(), block];
+	    }));
+	  }
+	};
+
+	module.exports = BlockMapBuilder;
+
+/***/ },
+/* 220 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule CharacterMetadata
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _require = __webpack_require__(217);
+
+	var Map = _require.Map;
+	var OrderedSet = _require.OrderedSet;
+	var Record = _require.Record;
+
+	var EMPTY_SET = OrderedSet();
+
+	var defaultRecord = {
+	  style: EMPTY_SET,
+	  entity: null
+	};
+
+	var CharacterMetadataRecord = Record(defaultRecord);
+
+	var CharacterMetadata = (function (_CharacterMetadataRecord) {
+	  _inherits(CharacterMetadata, _CharacterMetadataRecord);
+
+	  function CharacterMetadata() {
+	    _classCallCheck(this, CharacterMetadata);
+
+	    _get(Object.getPrototypeOf(CharacterMetadata.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _createClass(CharacterMetadata, [{
+	    key: 'getStyle',
+	    value: function getStyle() {
+	      return this.get('style');
+	    }
+	  }, {
+	    key: 'getEntity',
+	    value: function getEntity() {
+	      return this.get('entity');
+	    }
+	  }, {
+	    key: 'hasStyle',
+	    value: function hasStyle(style) {
+	      return this.getStyle().has(style);
+	    }
+	  }], [{
+	    key: 'applyStyle',
+	    value: function applyStyle(record, style) {
+	      var withStyle = record.set('style', record.getStyle().add(style));
+	      return CharacterMetadata.create(withStyle);
+	    }
+	  }, {
+	    key: 'removeStyle',
+	    value: function removeStyle(record, style) {
+	      var withoutStyle = record.set('style', record.getStyle().remove(style));
+	      return CharacterMetadata.create(withoutStyle);
+	    }
+	  }, {
+	    key: 'applyEntity',
+	    value: function applyEntity(record, entityKey) {
+	      var withEntity = record.getEntity() === entityKey ? record : record.set('entity', entityKey);
+	      return CharacterMetadata.create(withEntity);
+	    }
+
+	    /**
+	     * Use this function instead of the `CharacterMetadata` constructor.
+	     * Since most content generally uses only a very small number of
+	     * style/entity permutations, we can reuse these objects as often as
+	     * possible.
+	     */
+	  }, {
+	    key: 'create',
+	    value: function create(config) {
+	      if (!config) {
+	        return EMPTY;
+	      }
+
+	      // Fill in unspecified properties, if necessary.
+	      var configMap = Map({ style: EMPTY_SET, entity: null }).merge(config);
+
+	      var existing = pool.get(configMap);
+	      if (existing) {
+	        return existing;
+	      }
+
+	      var newCharacter = new CharacterMetadata(configMap);
+	      pool = pool.set(configMap, newCharacter);
+	      return newCharacter;
+	    }
+	  }]);
+
+	  return CharacterMetadata;
+	})(CharacterMetadataRecord);
+
+	var EMPTY = new CharacterMetadata();
+	var pool = Map([[Map(defaultRecord), EMPTY]]);
+
+	CharacterMetadata.EMPTY = EMPTY;
+
+	module.exports = CharacterMetadata;
+
+/***/ },
+/* 221 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule CompositeDraftDecorator
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var Immutable = __webpack_require__(217);
+
+	var List = Immutable.List;
+
+	var DELIMITER = '.';
+
+	/**
+	 * A CompositeDraftDecorator traverses through a list of DraftDecorator
+	 * instances to identify sections of a ContentBlock that should be rendered
+	 * in a "decorated" manner. For example, hashtags, mentions, and links may
+	 * be intended to stand out visually, be rendered as anchors, etc.
+	 *
+	 * The list of decorators supplied to the constructor will be used in the
+	 * order they are provided. This allows the caller to specify a priority for
+	 * string matching, in case of match collisions among decorators.
+	 *
+	 * For instance, I may have a link with a `#` in its text. Though this section
+	 * of text may match our hashtag decorator, it should not be treated as a
+	 * hashtag. I should therefore list my link DraftDecorator
+	 * before my hashtag DraftDecorator when constructing this composite
+	 * decorator instance.
+	 *
+	 * Thus, when a collision like this is encountered, the earlier match is
+	 * preserved and the new match is discarded.
+	 */
+
+	var CompositeDraftDecorator = (function () {
+	  function CompositeDraftDecorator(decorators) {
+	    _classCallCheck(this, CompositeDraftDecorator);
+
+	    // Copy the decorator array, since we use this array order to determine
+	    // precedence of decoration matching. If the array is mutated externally,
+	    // we don't want to be affected here.
+	    this._decorators = decorators.slice();
+	  }
+
+	  /**
+	   * Determine whether we can occupy the specified slice of the decorations
+	   * array.
+	   */
+
+	  _createClass(CompositeDraftDecorator, [{
+	    key: 'getDecorations',
+	    value: function getDecorations(block) {
+	      var decorations = Array(block.getText().length).fill(null);
+
+	      this._decorators.forEach(function ( /*object*/decorator, /*number*/ii) {
+	        var counter = 0;
+	        var strategy = decorator.strategy;
+	        strategy(block, function ( /*number*/start, /*number*/end) {
+	          // Find out if any of our matching range is already occupied
+	          // by another decorator. If so, discard the match. Otherwise, store
+	          // the component key for rendering.
+	          if (canOccupySlice(decorations, start, end)) {
+	            occupySlice(decorations, start, end, ii + DELIMITER + counter);
+	            counter++;
+	          }
+	        });
+	      });
+
+	      return List(decorations);
+	    }
+	  }, {
+	    key: 'getComponentForKey',
+	    value: function getComponentForKey(key) {
+	      var componentKey = parseInt(key.split(DELIMITER)[0], 10);
+	      return this._decorators[componentKey].component;
+	    }
+	  }, {
+	    key: 'getPropsForKey',
+	    value: function getPropsForKey(key) {
+	      var componentKey = parseInt(key.split(DELIMITER)[0], 10);
+	      return this._decorators[componentKey].props;
+	    }
+	  }]);
+
+	  return CompositeDraftDecorator;
+	})();
+
+	function canOccupySlice(decorations, start, end) {
+	  for (var ii = start; ii < end; ii++) {
+	    if (decorations[ii] != null) {
+	      return false;
+	    }
+	  }
+	  return true;
+	}
+
+	/**
+	 * Splice the specified component into our decoration array at the desired
+	 * range.
+	 */
+	function occupySlice(targetArr, start, end, componentKey) {
+	  for (var ii = start; ii < end; ii++) {
+	    targetArr[ii] = componentKey;
+	  }
+	}
+
+	module.exports = CompositeDraftDecorator;
+
+/***/ },
+/* 222 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ContentBlock
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Immutable = __webpack_require__(217);
+
+	var findRangesImmutable = __webpack_require__(268);
+
+	var List = Immutable.List;
+	var OrderedSet = Immutable.OrderedSet;
+	var Record = Immutable.Record;
+
+	var EMPTY_SET = OrderedSet();
+
+	var defaultRecord = {
+	  key: '',
+	  type: 'unstyled',
+	  text: '',
+	  characterList: List(),
+	  depth: 0
+	};
+
+	var ContentBlockRecord = Record(defaultRecord);
+
+	var ContentBlock = (function (_ContentBlockRecord) {
+	  _inherits(ContentBlock, _ContentBlockRecord);
+
+	  function ContentBlock() {
+	    _classCallCheck(this, ContentBlock);
+
+	    _get(Object.getPrototypeOf(ContentBlock.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _createClass(ContentBlock, [{
+	    key: 'getKey',
+	    value: function getKey() {
+	      return this.get('key');
+	    }
+	  }, {
+	    key: 'getType',
+	    value: function getType() {
+	      return this.get('type');
+	    }
+	  }, {
+	    key: 'getText',
+	    value: function getText() {
+	      return this.get('text');
+	    }
+	  }, {
+	    key: 'getCharacterList',
+	    value: function getCharacterList() {
+	      return this.get('characterList');
+	    }
+	  }, {
+	    key: 'getLength',
+	    value: function getLength() {
+	      return this.getText().length;
+	    }
+	  }, {
+	    key: 'getDepth',
+	    value: function getDepth() {
+	      return this.get('depth');
+	    }
+	  }, {
+	    key: 'getInlineStyleAt',
+	    value: function getInlineStyleAt(offset) {
+	      var character = this.getCharacterList().get(offset);
+	      return character ? character.getStyle() : EMPTY_SET;
+	    }
+	  }, {
+	    key: 'getEntityAt',
+	    value: function getEntityAt(offset) {
+	      var character = this.getCharacterList().get(offset);
+	      return character ? character.getEntity() : null;
+	    }
+
+	    /**
+	     * Execute a callback for every contiguous range of styles within the block.
+	     */
+	  }, {
+	    key: 'findStyleRanges',
+	    value: function findStyleRanges(filterFn, callback) {
+	      findRangesImmutable(this.getCharacterList(), haveEqualStyle, filterFn, callback);
+	    }
+
+	    /**
+	     * Execute a callback for every contiguous range of entities within the block.
+	     */
+	  }, {
+	    key: 'findEntityRanges',
+	    value: function findEntityRanges(filterFn, callback) {
+	      findRangesImmutable(this.getCharacterList(), haveEqualEntity, filterFn, callback);
+	    }
+	  }]);
+
+	  return ContentBlock;
+	})(ContentBlockRecord);
+
+	function haveEqualStyle(charA, charB) {
+	  return charA.getStyle() === charB.getStyle();
+	}
+
+	function haveEqualEntity(charA, charB) {
+	  return charA.getEntity() === charB.getEntity();
+	}
+
+	module.exports = ContentBlock;
+
+/***/ },
+/* 223 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ContentState
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x2, _x3, _x4) { var _again = true; _function: while (_again) { var object = _x2, property = _x3, receiver = _x4; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x2 = parent; _x3 = property; _x4 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var BlockMapBuilder = __webpack_require__(219);
+	var CharacterMetadata = __webpack_require__(220);
+	var ContentBlock = __webpack_require__(222);
+	var Immutable = __webpack_require__(217);
+	var SelectionState = __webpack_require__(234);
+
+	var generateRandomKey = __webpack_require__(238);
+	var sanitizeDraftText = __webpack_require__(269);
+
+	var List = Immutable.List;
+	var Record = Immutable.Record;
+	var Repeat = Immutable.Repeat;
+
+	var defaultRecord = {
+	  blockMap: null,
+	  selectionBefore: null,
+	  selectionAfter: null
+	};
+
+	var ContentStateRecord = Record(defaultRecord);
+
+	var ContentState = (function (_ContentStateRecord) {
+	  _inherits(ContentState, _ContentStateRecord);
+
+	  function ContentState() {
+	    _classCallCheck(this, ContentState);
+
+	    _get(Object.getPrototypeOf(ContentState.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _createClass(ContentState, [{
+	    key: 'getBlockMap',
+	    value: function getBlockMap() {
+	      return this.get('blockMap');
+	    }
+	  }, {
+	    key: 'getSelectionBefore',
+	    value: function getSelectionBefore() {
+	      return this.get('selectionBefore');
+	    }
+	  }, {
+	    key: 'getSelectionAfter',
+	    value: function getSelectionAfter() {
+	      return this.get('selectionAfter');
+	    }
+	  }, {
+	    key: 'getBlockForKey',
+	    value: function getBlockForKey(key) {
+	      var block = this.getBlockMap().get(key);
+	      return block;
+	    }
+	  }, {
+	    key: 'getKeyBefore',
+	    value: function getKeyBefore(key) {
+	      return this.getBlockMap().reverse().keySeq().skipUntil(function (v) {
+	        return v === key;
+	      }).skip(1).first();
+	    }
+	  }, {
+	    key: 'getKeyAfter',
+	    value: function getKeyAfter(key) {
+	      return this.getBlockMap().keySeq().skipUntil(function (v) {
+	        return v === key;
+	      }).skip(1).first();
+	    }
+	  }, {
+	    key: 'getBlockAfter',
+	    value: function getBlockAfter(key) {
+	      return this.getBlockMap().skipUntil(function (_, k) {
+	        return k === key;
+	      }).skip(1).first();
+	    }
+	  }, {
+	    key: 'getBlockBefore',
+	    value: function getBlockBefore(key) {
+	      return this.getBlockMap().reverse().skipUntil(function (_, k) {
+	        return k === key;
+	      }).skip(1).first();
+	    }
+	  }, {
+	    key: 'getBlocksAsArray',
+	    value: function getBlocksAsArray() {
+	      return this.getBlockMap().toArray();
+	    }
+	  }, {
+	    key: 'getFirstBlock',
+	    value: function getFirstBlock() {
+	      return this.getBlockMap().first();
+	    }
+	  }, {
+	    key: 'getLastBlock',
+	    value: function getLastBlock() {
+	      return this.getBlockMap().last();
+	    }
+	  }, {
+	    key: 'getPlainText',
+	    value: function getPlainText(delimiter) {
+	      return this.getBlockMap().map(function (block) {
+	        return block ? block.getText() : '';
+	      }).join(delimiter || '\n');
+	    }
+	  }, {
+	    key: 'hasText',
+	    value: function hasText() {
+	      var blockMap = this.getBlockMap();
+	      return blockMap.size > 1 || blockMap.first().getLength() > 0;
+	    }
+	  }], [{
+	    key: 'createFromBlockArray',
+	    value: function createFromBlockArray(blocks) {
+	      var blockMap = BlockMapBuilder.createFromArray(blocks);
+	      var selectionState = SelectionState.createEmpty(blockMap.first().getKey());
+	      return new ContentState({
+	        blockMap: blockMap,
+	        selectionBefore: selectionState,
+	        selectionAfter: selectionState
+	      });
+	    }
+	  }, {
+	    key: 'createFromText',
+	    value: function createFromText(text) {
+	      var delimiter = arguments.length <= 1 || arguments[1] === undefined ? /\r\n?|\n/g : arguments[1];
+
+	      var strings = text.split(delimiter);
+	      var blocks = strings.map(function (block) {
+	        block = sanitizeDraftText(block);
+	        return new ContentBlock({
+	          key: generateRandomKey(),
+	          text: block,
+	          type: 'unstyled',
+	          characterList: List(Repeat(CharacterMetadata.EMPTY, block.length))
+	        });
+	      });
+	      return ContentState.createFromBlockArray(blocks);
+	    }
+	  }]);
+
+	  return ContentState;
+	})(ContentStateRecord);
+
+	module.exports = ContentState;
+
+/***/ },
+/* 224 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule DefaultDraftBlockRenderMap
+	 * 
+	 */
+
+	'use strict';
+
+	var _require = __webpack_require__(217);
+
+	var Map = _require.Map;
+
+	var React = __webpack_require__(17);
+
+	var cx = __webpack_require__(341);
+
+	var UL_WRAP = React.createElement('ul', { className: cx('public/DraftStyleDefault/ul') });
+	var OL_WRAP = React.createElement('ol', { className: cx('public/DraftStyleDefault/ol') });
+	var PRE_WRAP = React.createElement('pre', { className: cx('public/DraftStyleDefault/pre') });
+
+	module.exports = Map({
+	  'header-one': {
+	    element: 'h1'
+	  },
+	  'header-two': {
+	    element: 'h2'
+	  },
+	  'header-three': {
+	    element: 'h3'
+	  },
+	  'header-four': {
+	    element: 'h4'
+	  },
+	  'header-five': {
+	    element: 'h5'
+	  },
+	  'header-six': {
+	    element: 'h6'
+	  },
+	  'unordered-list-item': {
+	    element: 'li',
+	    wrapper: UL_WRAP
+	  },
+	  'ordered-list-item': {
+	    element: 'li',
+	    wrapper: OL_WRAP
+	  },
+	  'blockquote': {
+	    element: 'blockquote'
+	  },
+	  'atomic': {
+	    element: 'figure'
+	  },
+	  'code-block': {
+	    element: 'pre',
+	    wrapper: PRE_WRAP
+	  },
+	  'unstyled': {
+	    element: 'div'
+	  }
+	});
+
+/***/ },
+/* 225 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule DefaultDraftInlineStyle
+	 * 
+	 */
+
+	'use strict';
+
+	module.exports = {
+	  BOLD: {
+	    fontWeight: 'bold'
+	  },
+
+	  CODE: {
+	    fontFamily: 'monospace',
+	    wordWrap: 'break-word'
+	  },
+
+	  ITALIC: {
+	    fontStyle: 'italic'
+	  },
+
+	  STRIKETHROUGH: {
+	    textDecoration: 'line-through'
+	  },
+
+	  UNDERLINE: {
+	    textDecoration: 'underline'
+	  }
+	};
+
+/***/ },
+/* 226 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule DraftEditor.react
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var DefaultDraftBlockRenderMap = __webpack_require__(224);
+	var DefaultDraftInlineStyle = __webpack_require__(225);
+	var DraftEditorCompositionHandler = __webpack_require__(270);
+	var DraftEditorContents = __webpack_require__(271);
+	var DraftEditorDragHandler = __webpack_require__(272);
+	var DraftEditorEditHandler = __webpack_require__(273);
+	var DraftEditorPlaceholder = __webpack_require__(274);
+	var EditorState = __webpack_require__(231);
+	var React = __webpack_require__(17);
+	var ReactDOM = __webpack_require__(19);
+	var Scroll = __webpack_require__(342);
+	var Style = __webpack_require__(343);
+	var UserAgent = __webpack_require__(344);
+
+	var cx = __webpack_require__(341);
+	var emptyFunction = __webpack_require__(345);
+	var generateRandomKey = __webpack_require__(238);
+	var getDefaultKeyBinding = __webpack_require__(239);
+	var nullthrows = __webpack_require__(346);
+	var getScrollPosition = __webpack_require__(347);
+
+	var isIE = UserAgent.isBrowser('IE');
+
+	// IE does not support the `input` event on contentEditable, so we can't
+	// observe spellcheck behavior.
+	var allowSpellCheck = !isIE;
+
+	// Define a set of handler objects to correspond to each possible `mode`
+	// of editor behavior.
+	var handlerMap = {
+	  'edit': DraftEditorEditHandler,
+	  'composite': DraftEditorCompositionHandler,
+	  'drag': DraftEditorDragHandler,
+	  'cut': null,
+	  'render': null
+	};
+
+	/**
+	 * `DraftEditor` is the root editor component. It composes a `contentEditable`
+	 * div, and provides a wide variety of useful function props for managing the
+	 * state of the editor. See `DraftEditorProps` for details.
+	 */
+
+	var DraftEditor = (function (_React$Component) {
+	  _inherits(DraftEditor, _React$Component);
+
+	  _createClass(DraftEditor, null, [{
+	    key: 'defaultProps',
+	    value: {
+	      blockRenderMap: DefaultDraftBlockRenderMap,
+	      blockRendererFn: emptyFunction.thatReturnsNull,
+	      blockStyleFn: emptyFunction.thatReturns(''),
+	      keyBindingFn: getDefaultKeyBinding,
+	      readOnly: false,
+	      spellCheck: false,
+	      stripPastedStyles: false
+	    },
+	    enumerable: true
+	  }]);
+
+	  function DraftEditor(props) {
+	    var _this = this;
+
+	    _classCallCheck(this, DraftEditor);
+
+	    _get(Object.getPrototypeOf(DraftEditor.prototype), 'constructor', this).call(this, props);
+
+	    this._blockSelectEvents = false;
+	    this._clipboard = null;
+	    this._guardAgainstRender = false;
+	    this._handler = null;
+	    this._dragCount = 0;
+	    this._editorKey = generateRandomKey();
+	    this._placeholderAccessibilityID = 'placeholder-' + this._editorKey;
+
+	    this._onBeforeInput = this._buildHandler('onBeforeInput');
+	    this._onBlur = this._buildHandler('onBlur');
+	    this._onCharacterData = this._buildHandler('onCharacterData');
+	    this._onCompositionEnd = this._buildHandler('onCompositionEnd');
+	    this._onCompositionStart = this._buildHandler('onCompositionStart');
+	    this._onCopy = this._buildHandler('onCopy');
+	    this._onCut = this._buildHandler('onCut');
+	    this._onDragEnd = this._buildHandler('onDragEnd');
+	    this._onDragOver = this._buildHandler('onDragOver');
+	    this._onDragStart = this._buildHandler('onDragStart');
+	    this._onDrop = this._buildHandler('onDrop');
+	    this._onInput = this._buildHandler('onInput');
+	    this._onFocus = this._buildHandler('onFocus');
+	    this._onKeyDown = this._buildHandler('onKeyDown');
+	    this._onKeyPress = this._buildHandler('onKeyPress');
+	    this._onKeyUp = this._buildHandler('onKeyUp');
+	    this._onMouseDown = this._buildHandler('onMouseDown');
+	    this._onMouseUp = this._buildHandler('onMouseUp');
+	    this._onPaste = this._buildHandler('onPaste');
+	    this._onSelect = this._buildHandler('onSelect');
+
+	    // Manual binding for public and internal methods.
+	    this.focus = this._focus.bind(this);
+	    this.blur = this._blur.bind(this);
+	    this.setMode = this._setMode.bind(this);
+	    this.exitCurrentMode = this._exitCurrentMode.bind(this);
+	    this.restoreEditorDOM = this._restoreEditorDOM.bind(this);
+	    this.setRenderGuard = this._setRenderGuard.bind(this);
+	    this.removeRenderGuard = this._removeRenderGuard.bind(this);
+	    this.setClipboard = this._setClipboard.bind(this);
+	    this.getClipboard = this._getClipboard.bind(this);
+	    this.getEditorKey = function () {
+	      return _this._editorKey;
+	    };
+	    this.update = this._update.bind(this);
+	    this.onDragEnter = this._onDragEnter.bind(this);
+	    this.onDragLeave = this._onDragLeave.bind(this);
+
+	    // See `_restoreEditorDOM()`.
+	    this.state = { containerKey: 0 };
+	  }
+
+	  /**
+	   * Build a method that will pass the event to the specified handler method.
+	   * This allows us to look up the correct handler function for the current
+	   * editor mode, if any has been specified.
+	   */
+
+	  _createClass(DraftEditor, [{
+	    key: '_buildHandler',
+	    value: function _buildHandler(eventName) {
+	      var _this2 = this;
+
+	      return function (e) {
+	        if (!_this2.props.readOnly) {
+	          var method = _this2._handler && _this2._handler[eventName];
+	          method && method.call(_this2, e);
+	        }
+	      };
+	    }
+	  }, {
+	    key: '_showPlaceholder',
+	    value: function _showPlaceholder() {
+	      return !!this.props.placeholder && !this.props.editorState.isInCompositionMode() && !this.props.editorState.getCurrentContent().hasText();
+	    }
+	  }, {
+	    key: '_renderPlaceholder',
+	    value: function _renderPlaceholder() {
+	      if (this._showPlaceholder()) {
+	        return React.createElement(DraftEditorPlaceholder, {
+	          text: nullthrows(this.props.placeholder),
+	          editorState: this.props.editorState,
+	          textAlignment: this.props.textAlignment,
+	          accessibilityID: this._placeholderAccessibilityID
+	        });
+	      }
+	      return null;
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var readOnly = _props.readOnly;
+	      var textAlignment = _props.textAlignment;
+
+	      var rootClass = cx({
+	        'DraftEditor/root': true,
+	        'DraftEditor/alignLeft': textAlignment === 'left',
+	        'DraftEditor/alignRight': textAlignment === 'right',
+	        'DraftEditor/alignCenter': textAlignment === 'center'
+	      });
+	      var hasContent = this.props.editorState.getCurrentContent().hasText();
+
+	      var contentStyle = {
+	        outline: 'none',
+	        whiteSpace: 'pre-wrap',
+	        wordWrap: 'break-word'
+	      };
+
+	      return React.createElement(
+	        'div',
+	        { className: rootClass },
+	        this._renderPlaceholder(),
+	        React.createElement(
+	          'div',
+	          {
+	            className: cx('DraftEditor/editorContainer'),
+	            key: 'editor' + this.state.containerKey,
+	            ref: 'editorContainer' },
+	          React.createElement(
+	            'div',
+	            {
+	              'aria-activedescendant': readOnly ? null : this.props.ariaActiveDescendantID,
+	              'aria-autocomplete': readOnly ? null : this.props.ariaAutoComplete,
+	              'aria-describedby': this._showPlaceholder() ? this._placeholderAccessibilityID : null,
+	              'aria-expanded': readOnly ? null : this.props.ariaExpanded,
+	              'aria-haspopup': readOnly ? null : this.props.ariaHasPopup,
+	              'aria-label': this.props.ariaLabel,
+	              'aria-owns': readOnly ? null : this.props.ariaOwneeID,
+	              className: cx('public/DraftEditor/content'),
+	              contentEditable: !readOnly,
+	              'data-testid': this.props.webDriverTestID,
+	              onBeforeInput: this._onBeforeInput,
+	              onBlur: this._onBlur,
+	              onCompositionEnd: this._onCompositionEnd,
+	              onCompositionStart: this._onCompositionStart,
+	              onCopy: this._onCopy,
+	              onCut: this._onCut,
+	              onDragEnd: this._onDragEnd,
+	              onDragEnter: this.onDragEnter,
+	              onDragLeave: this.onDragLeave,
+	              onDragOver: this._onDragOver,
+	              onDragStart: this._onDragStart,
+	              onDrop: this._onDrop,
+	              onFocus: this._onFocus,
+	              onInput: this._onInput,
+	              onKeyDown: this._onKeyDown,
+	              onKeyPress: this._onKeyPress,
+	              onKeyUp: this._onKeyUp,
+	              onMouseUp: this._onMouseUp,
+	              onPaste: this._onPaste,
+	              onSelect: this._onSelect,
+	              ref: 'editor',
+	              role: readOnly ? null : this.props.role || 'textbox',
+	              spellCheck: allowSpellCheck && this.props.spellCheck,
+	              style: contentStyle,
+	              suppressContentEditableWarning: true,
+	              tabIndex: this.props.tabIndex },
+	            React.createElement(DraftEditorContents, {
+	              blockRenderMap: this.props.blockRenderMap,
+	              blockRendererFn: this.props.blockRendererFn,
+	              blockStyleFn: this.props.blockStyleFn,
+	              customStyleMap: _extends({}, DefaultDraftInlineStyle, this.props.customStyleMap),
+	              editorKey: this._editorKey,
+	              editorState: this.props.editorState
+	            })
+	          )
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.setMode('edit');
+
+	      /**
+	       * IE has a hardcoded "feature" that attempts to convert link text into
+	       * anchors in contentEditable DOM. This breaks the editor's expectations of
+	       * the DOM, and control is lost. Disable it to make IE behave.
+	       * See: http://blogs.msdn.com/b/ieinternals/archive/2010/09/15/
+	       * ie9-beta-minor-change-list.aspx
+	       */
+	      if (isIE) {
+	        document.execCommand('AutoUrlDetect', false, false);
+	      }
+	    }
+
+	    /**
+	     * Prevent selection events from affecting the current editor state. This
+	     * is mostly intended to defend against IE, which fires off `selectionchange`
+	     * events regardless of whether the selection is set via the browser or
+	     * programmatically. We only care about selection events that occur because
+	     * of browser interaction, not re-renders and forced selections.
+	     */
+	  }, {
+	    key: 'componentWillUpdate',
+	    value: function componentWillUpdate() {
+	      this._blockSelectEvents = true;
+	    }
+	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate() {
+	      this._blockSelectEvents = false;
+	    }
+
+	    /**
+	     * Used via `this.focus()`.
+	     *
+	     * Force focus back onto the editor node.
+	     *
+	     * Forcing focus causes the browser to scroll to the top of the editor, which
+	     * may be undesirable when the editor is taller than the viewport. To solve
+	     * this, either use a specified scroll position (in cases like `cut` behavior
+	     * where it should be restored to a known position) or store the current
+	     * scroll state and put it back in place after focus has been forced.
+	     */
+	  }, {
+	    key: '_focus',
+	    value: function _focus(scrollPosition) {
+	      var editorState = this.props.editorState;
+
+	      var alreadyHasFocus = editorState.getSelection().getHasFocus();
+	      var editorNode = ReactDOM.findDOMNode(this.refs.editor);
+
+	      var scrollParent = Style.getScrollParent(editorNode);
+
+	      var _ref = scrollPosition || getScrollPosition(scrollParent);
+
+	      var x = _ref.x;
+	      var y = _ref.y;
+
+	      editorNode.focus();
+	      if (scrollParent === window) {
+	        window.scrollTo(x, y);
+	      } else {
+	        Scroll.setTop(scrollParent, y);
+	      }
+
+	      // On Chrome and Safari, calling focus on contenteditable focuses the
+	      // cursor at the first character. This is something you don't expect when
+	      // you're clicking on an input element but not directly on a character.
+	      // Put the cursor back where it was before the blur.
+	      if (!alreadyHasFocus) {
+	        this.update(EditorState.forceSelection(editorState, editorState.getSelection()));
+	      }
+	    }
+	  }, {
+	    key: '_blur',
+	    value: function _blur() {
+	      ReactDOM.findDOMNode(this.refs.editor).blur();
+	    }
+
+	    /**
+	     * Used via `this.setMode(...)`.
+	     *
+	     * Set the behavior mode for the editor component. This switches the current
+	     * handler module to ensure that DOM events are managed appropriately for
+	     * the active mode.
+	     */
+	  }, {
+	    key: '_setMode',
+	    value: function _setMode(mode) {
+	      this._handler = handlerMap[mode];
+	    }
+	  }, {
+	    key: '_exitCurrentMode',
+	    value: function _exitCurrentMode() {
+	      this.setMode('edit');
+	    }
+
+	    /**
+	     * Used via `this.restoreEditorDOM()`.
+	     *
+	     * Force a complete re-render of the editor based on the current EditorState.
+	     * This is useful when we know we are going to lose control of the DOM
+	     * state (cut command, IME) and we want to make sure that reconciliation
+	     * occurs on a version of the DOM that is synchronized with our EditorState.
+	     */
+	  }, {
+	    key: '_restoreEditorDOM',
+	    value: function _restoreEditorDOM(scrollPosition) {
+	      var _this3 = this;
+
+	      this.setState({ containerKey: this.state.containerKey + 1 }, function () {
+	        _this3._focus(scrollPosition);
+	      });
+	    }
+
+	    /**
+	     * Guard against rendering. Intended for use when we need to manually
+	     * reset editor contents, to ensure that no outside influences lead to
+	     * React reconciliation when we are in an uncertain state.
+	     */
+	  }, {
+	    key: '_setRenderGuard',
+	    value: function _setRenderGuard() {
+	      this._guardAgainstRender = true;
+	    }
+	  }, {
+	    key: '_removeRenderGuard',
+	    value: function _removeRenderGuard() {
+	      this._guardAgainstRender = false;
+	    }
+
+	    /**
+	     * Used via `this.setClipboard(...)`.
+	     *
+	     * Set the clipboard state for a cut/copy event.
+	     */
+	  }, {
+	    key: '_setClipboard',
+	    value: function _setClipboard(clipboard) {
+	      this._clipboard = clipboard;
+	    }
+
+	    /**
+	     * Used via `this.getClipboard()`.
+	     *
+	     * Retrieve the clipboard state for a cut/copy event.
+	     */
+	  }, {
+	    key: '_getClipboard',
+	    value: function _getClipboard() {
+	      return this._clipboard;
+	    }
+
+	    /**
+	     * Used via `this.update(...)`.
+	     *
+	     * Propagate a new `EditorState` object to higher-level components. This is
+	     * the method by which event handlers inform the `DraftEditor` component of
+	     * state changes. A component that composes a `DraftEditor` **must** provide
+	     * an `onChange` prop to receive state updates passed along from this
+	     * function.
+	     */
+	  }, {
+	    key: '_update',
+	    value: function _update(editorState) {
+	      this.props.onChange(editorState);
+	    }
+
+	    /**
+	     * Used in conjunction with `_onDragLeave()`, by counting the number of times
+	     * a dragged element enters and leaves the editor (or any of its children),
+	     * to determine when the dragged element absolutely leaves the editor.
+	     */
+	  }, {
+	    key: '_onDragEnter',
+	    value: function _onDragEnter() {
+	      this._dragCount++;
+	    }
+
+	    /**
+	     * See `_onDragEnter()`.
+	     */
+	  }, {
+	    key: '_onDragLeave',
+	    value: function _onDragLeave() {
+	      this._dragCount--;
+	      if (this._dragCount === 0) {
+	        this.exitCurrentMode();
+	      }
+	    }
+	  }]);
+
+	  return DraftEditor;
+	})(React.Component);
+
+	module.exports = DraftEditor;
+
+	/**
+	 * Define proxies that can route events to the current handler.
+	 */
+
+/***/ },
+/* 227 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule DraftEditorBlock.react
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ContentBlock = __webpack_require__(222);
+	var DraftEditorLeaf = __webpack_require__(275);
+	var DraftOffsetKey = __webpack_require__(276);
+	var React = __webpack_require__(17);
+	var ReactDOM = __webpack_require__(19);
+	var Scroll = __webpack_require__(342);
+	var SelectionState = __webpack_require__(234);
+	var Style = __webpack_require__(343);
+	var UnicodeBidi = __webpack_require__(348);
+	var UnicodeBidiDirection = __webpack_require__(349);
+
+	var cx = __webpack_require__(341);
+	var getElementPosition = __webpack_require__(350);
+	var getScrollPosition = __webpack_require__(347);
+	var getViewportDimensions = __webpack_require__(351);
+	var nullthrows = __webpack_require__(346);
+
+	var SCROLL_BUFFER = 10;
+
+	/**
+	 * The default block renderer for a `DraftEditor` component.
+	 *
+	 * A `DraftEditorBlock` is able to render a given `ContentBlock` to its
+	 * appropriate decorator and inline style components.
+	 */
+
+	var DraftEditorBlock = (function (_React$Component) {
+	  _inherits(DraftEditorBlock, _React$Component);
+
+	  function DraftEditorBlock() {
+	    _classCallCheck(this, DraftEditorBlock);
+
+	    _get(Object.getPrototypeOf(DraftEditorBlock.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  /**
+	   * Return whether a block overlaps with either edge of the `SelectionState`.
+	   */
+
+	  _createClass(DraftEditorBlock, [{
+	    key: 'shouldComponentUpdate',
+	    value: function shouldComponentUpdate(nextProps) {
+	      return this.props.block !== nextProps.block || this.props.tree !== nextProps.tree || this.props.direction !== nextProps.direction || isBlockOnSelectionEdge(nextProps.selection, nextProps.block.getKey()) && nextProps.forceSelection;
+	    }
+
+	    /**
+	     * When a block is mounted and overlaps the selection state, we need to make
+	     * sure that the cursor is visible to match native behavior. This may not
+	     * be the case if the user has pressed `RETURN` or pasted some content, since
+	     * programatically creating these new blocks and setting the DOM selection
+	     * will miss out on the browser natively scrolling to that position.
+	     *
+	     * To replicate native behavior, if the block overlaps the selection state
+	     * on mount, force the scroll position. Check the scroll state of the scroll
+	     * parent, and adjust it to align the entire block to the bottom of the
+	     * scroll parent.
+	     */
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var selection = this.props.selection;
+	      var endKey = selection.getEndKey();
+	      if (!selection.getHasFocus() || endKey !== this.props.block.getKey()) {
+	        return;
+	      }
+
+	      var blockNode = ReactDOM.findDOMNode(this);
+	      var scrollParent = Style.getScrollParent(blockNode);
+	      var scrollPosition = getScrollPosition(scrollParent);
+	      var scrollDelta;
+
+	      if (scrollParent === window) {
+	        var nodePosition = getElementPosition(blockNode);
+	        var nodeBottom = nodePosition.y + nodePosition.height;
+	        var viewportHeight = getViewportDimensions().height;
+	        scrollDelta = nodeBottom - viewportHeight;
+	        if (scrollDelta > 0) {
+	          window.scrollTo(scrollPosition.x, scrollPosition.y + scrollDelta + SCROLL_BUFFER);
+	        }
+	      } else {
+	        var blockBottom = blockNode.offsetHeight + blockNode.offsetTop;
+	        var scrollBottom = scrollParent.offsetHeight + scrollPosition.y;
+	        scrollDelta = blockBottom - scrollBottom;
+	        if (scrollDelta > 0) {
+	          Scroll.setTop(scrollParent, Scroll.getTop(scrollParent) + scrollDelta + SCROLL_BUFFER);
+	        }
+	      }
+	    }
+	  }, {
+	    key: '_renderChildren',
+	    value: function _renderChildren() {
+	      var _this = this;
+
+	      var block = this.props.block;
+	      var blockKey = block.getKey();
+	      var text = block.getText();
+	      var lastLeafSet = this.props.tree.size - 1;
+	      var hasSelection = isBlockOnSelectionEdge(this.props.selection, blockKey);
+
+	      return this.props.tree.map(function (leafSet, ii) {
+	        var leavesForLeafSet = leafSet.get('leaves');
+	        var lastLeaf = leavesForLeafSet.size - 1;
+	        var leaves = leavesForLeafSet.map(function (leaf, jj) {
+	          var offsetKey = DraftOffsetKey.encode(blockKey, ii, jj);
+	          var start = leaf.get('start');
+	          var end = leaf.get('end');
+	          return React.createElement(DraftEditorLeaf, {
+	            key: offsetKey,
+	            offsetKey: offsetKey,
+	            blockKey: blockKey,
+	            start: start,
+	            selection: hasSelection ? _this.props.selection : undefined,
+	            forceSelection: _this.props.forceSelection,
+	            text: text.slice(start, end),
+	            styleSet: block.getInlineStyleAt(start),
+	            customStyleMap: _this.props.customStyleMap,
+	            isLast: ii === lastLeafSet && jj === lastLeaf
+	          });
+	        }).toArray();
+
+	        var decoratorKey = leafSet.get('decoratorKey');
+	        if (decoratorKey == null) {
+	          return leaves;
+	        }
+
+	        if (!_this.props.decorator) {
+	          return leaves;
+	        }
+
+	        var decorator = nullthrows(_this.props.decorator);
+
+	        var DecoratorComponent = decorator.getComponentForKey(decoratorKey);
+	        if (!DecoratorComponent) {
+	          return leaves;
+	        }
+
+	        var decoratorProps = decorator.getPropsForKey(decoratorKey);
+	        var decoratorOffsetKey = DraftOffsetKey.encode(blockKey, ii, 0);
+	        var decoratedText = text.slice(leavesForLeafSet.first().get('start'), leavesForLeafSet.last().get('end'));
+
+	        // Resetting dir to the same value on a child node makes Chrome/Firefox
+	        // confused on cursor movement. See http://jsfiddle.net/d157kLck/3/
+	        var dir = UnicodeBidiDirection.getHTMLDirIfDifferent(UnicodeBidi.getDirection(decoratedText), _this.props.direction);
+
+	        return React.createElement(
+	          DecoratorComponent,
+	          _extends({}, decoratorProps, {
+	            decoratedText: decoratedText,
+	            dir: dir,
+	            key: decoratorOffsetKey,
+	            entityKey: block.getEntityAt(leafSet.get('start')),
+	            offsetKey: decoratorOffsetKey }),
+	          leaves
+	        );
+	      }).toArray();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var direction = _props.direction;
+	      var offsetKey = _props.offsetKey;
+
+	      var className = cx({
+	        'public/DraftStyleDefault/block': true,
+	        'public/DraftStyleDefault/ltr': direction === 'LTR',
+	        'public/DraftStyleDefault/rtl': direction === 'RTL'
+	      });
+
+	      return React.createElement(
+	        'div',
+	        { 'data-offset-key': offsetKey, className: className },
+	        this._renderChildren()
+	      );
+	    }
+	  }]);
+
+	  return DraftEditorBlock;
+	})(React.Component);
+
+	function isBlockOnSelectionEdge(selection, key) {
+	  return selection.getAnchorKey() === key || selection.getFocusKey() === key;
+	}
+
+	module.exports = DraftEditorBlock;
+
+/***/ },
+/* 228 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule DraftModifier
+	 * @typechecks
+	 * 
+	 */
+
+	/**
+	 * `DraftModifier` provides a set of convenience methods that apply
+	 * modifications to a `ContentState` object based on a target `SelectionState`.
+	 *
+	 * Any change to a `ContentState` should be decomposable into a series of
+	 * transaction functions that apply the required changes and return output
+	 * `ContentState` objects.
+	 *
+	 * These functions encapsulate some of the most common transaction sequences.
+	 */
+	'use strict';
+
+	var CharacterMetadata = __webpack_require__(220);
+	var ContentStateInlineStyle = __webpack_require__(277);
+
+	var _require = __webpack_require__(217);
+
+	var OrderedSet = _require.OrderedSet;
+
+	var applyEntityToContentState = __webpack_require__(278);
+	var getCharacterRemovalRange = __webpack_require__(279);
+	var getContentStateFragment = __webpack_require__(280);
+	var insertFragmentIntoContentState = __webpack_require__(281);
+	var insertTextIntoContentState = __webpack_require__(282);
+	var invariant = __webpack_require__(352);
+	var removeEntitiesAtEdges = __webpack_require__(283);
+	var removeRangeFromContentState = __webpack_require__(284);
+	var setBlockTypeForContentState = __webpack_require__(285);
+	var splitBlockInContentState = __webpack_require__(286);
+
+	var DraftModifier = {
+	  replaceText: function replaceText(contentState, rangeToReplace, text, inlineStyle, entityKey) {
+	    var withoutEntities = removeEntitiesAtEdges(contentState, rangeToReplace);
+	    var withoutText = removeRangeFromContentState(withoutEntities, rangeToReplace);
+
+	    var character = CharacterMetadata.create({
+	      style: inlineStyle || OrderedSet(),
+	      entity: entityKey || null
+	    });
+
+	    return insertTextIntoContentState(withoutText, withoutText.getSelectionAfter(), text, character);
+	  },
+
+	  insertText: function insertText(contentState, targetRange, text, inlineStyle, entityKey) {
+	    !targetRange.isCollapsed() ? false ? invariant(false, 'Target range must be collapsed for `insertText`.') : invariant(false) : undefined;
+	    return DraftModifier.replaceText(contentState, targetRange, text, inlineStyle, entityKey);
+	  },
+
+	  moveText: function moveText(contentState, removalRange, targetRange) {
+	    var movedFragment = getContentStateFragment(contentState, removalRange);
+
+	    var afterRemoval = DraftModifier.removeRange(contentState, removalRange, 'backward');
+
+	    return DraftModifier.replaceWithFragment(afterRemoval, targetRange, movedFragment);
+	  },
+
+	  replaceWithFragment: function replaceWithFragment(contentState, targetRange, fragment) {
+	    var withoutEntities = removeEntitiesAtEdges(contentState, targetRange);
+	    var withoutText = removeRangeFromContentState(withoutEntities, targetRange);
+
+	    return insertFragmentIntoContentState(withoutText, withoutText.getSelectionAfter(), fragment);
+	  },
+
+	  removeRange: function removeRange(contentState, rangeToRemove, removalDirection) {
+	    // Check whether the selection state overlaps with a single entity.
+	    // If so, try to remove the appropriate substring of the entity text.
+	    if (rangeToRemove.getAnchorKey() === rangeToRemove.getFocusKey()) {
+	      var key = rangeToRemove.getAnchorKey();
+	      var startOffset = rangeToRemove.getStartOffset();
+	      var endOffset = rangeToRemove.getEndOffset();
+	      var block = contentState.getBlockForKey(key);
+
+	      var startEntity = block.getEntityAt(startOffset);
+	      var endEntity = block.getEntityAt(endOffset - 1);
+	      if (startEntity && startEntity === endEntity) {
+	        var adjustedRemovalRange = getCharacterRemovalRange(block, rangeToRemove, removalDirection);
+	        return removeRangeFromContentState(contentState, adjustedRemovalRange);
+	      }
+	    }
+
+	    var withoutEntities = removeEntitiesAtEdges(contentState, rangeToRemove);
+	    return removeRangeFromContentState(withoutEntities, rangeToRemove);
+	  },
+
+	  splitBlock: function splitBlock(contentState, selectionState) {
+	    var withoutEntities = removeEntitiesAtEdges(contentState, selectionState);
+	    var withoutText = removeRangeFromContentState(withoutEntities, selectionState);
+
+	    return splitBlockInContentState(withoutText, withoutText.getSelectionAfter());
+	  },
+
+	  applyInlineStyle: function applyInlineStyle(contentState, selectionState, inlineStyle) {
+	    return ContentStateInlineStyle.add(contentState, selectionState, inlineStyle);
+	  },
+
+	  removeInlineStyle: function removeInlineStyle(contentState, selectionState, inlineStyle) {
+	    return ContentStateInlineStyle.remove(contentState, selectionState, inlineStyle);
+	  },
+
+	  setBlockType: function setBlockType(contentState, selectionState, blockType) {
+	    return setBlockTypeForContentState(contentState, selectionState, blockType);
+	  },
+
+	  applyEntity: function applyEntity(contentState, selectionState, entityKey) {
+	    var withoutEntities = removeEntitiesAtEdges(contentState, selectionState);
+	    return applyEntityToContentState(withoutEntities, selectionState, entityKey);
+	  }
+	};
+
+	module.exports = DraftModifier;
+
+/***/ },
+/* 229 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule DraftEntity
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var DraftEntityInstance = __webpack_require__(230);
+	var Immutable = __webpack_require__(217);
+
+	var invariant = __webpack_require__(352);
+
+	var Map = Immutable.Map;
+
+	var instances = Map();
+	var instanceKey = 0;
+
+	/**
+	 * A "document entity" is an object containing metadata associated with a
+	 * piece of text in a ContentBlock.
+	 *
+	 * For example, a `link` entity might include a `uri` property. When a
+	 * ContentBlock is rendered in the browser, text that refers to that link
+	 * entity may be rendered as an anchor, with the `uri` as the href value.
+	 *
+	 * In a ContentBlock, every position in the text may correspond to zero
+	 * or one entities. This correspondence is tracked using a key string,
+	 * generated via DraftEntity.create() and used to obtain entity metadata
+	 * via DraftEntity.get().
+	 */
+	var DraftEntity = {
+	  /**
+	   * Create a DraftEntityInstance and store it for later retrieval.
+	   *
+	   * A random key string will be generated and returned. This key may
+	   * be used to track the entity's usage in a ContentBlock, and for
+	   * retrieving data about the entity at render time.
+	   */
+	  create: function create(type, mutability, data) {
+	    return DraftEntity.add(new DraftEntityInstance({ type: type, mutability: mutability, data: data || {} }));
+	  },
+
+	  /**
+	   * Add an existing DraftEntityInstance to the DraftEntity map. This is
+	   * useful when restoring instances from the server.
+	   */
+	  add: function add(instance) {
+	    var key = '' + ++instanceKey;
+	    instances = instances.set(key, instance);
+	    return key;
+	  },
+
+	  /**
+	   * Retrieve the entity corresponding to the supplied key string.
+	   */
+	  get: function get(key) {
+	    var instance = instances.get(key);
+	    !!!instance ? false ? invariant(false, 'Unknown DraftEntity key.') : invariant(false) : undefined;
+	    return instance;
+	  },
+
+	  /**
+	   * Entity instances are immutable. If you need to update the data for an
+	   * instance, this method will merge your data updates and return a new
+	   * instance.
+	   */
+	  mergeData: function mergeData(key, toMerge) {
+	    var instance = DraftEntity.get(key);
+	    var newData = _extends({}, instance.getData(), toMerge);
+	    var newInstance = instance.set('data', newData);
+	    instances = instances.set(key, newInstance);
+	    return newInstance;
+	  },
+
+	  /**
+	   * Completely replace the data for a given instance.
+	   */
+	  replaceData: function replaceData(key, newData) {
+	    var instance = DraftEntity.get(key);
+	    var newInstance = instance.set('data', newData);
+	    instances = instances.set(key, newInstance);
+	    return newInstance;
+	  }
+	};
+
+	module.exports = DraftEntity;
+
+/***/ },
+/* 230 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule DraftEntityInstance
+	 * 
+	 */
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Immutable = __webpack_require__(217);
+
+	var Record = Immutable.Record;
+
+	var DraftEntityInstanceRecord = Record({
+	  type: 'TOKEN',
+	  mutability: 'IMMUTABLE',
+	  data: Object
+	});
+
+	/**
+	 * An instance of a document entity, consisting of a `type` and relevant
+	 * `data`, metadata about the entity.
+	 *
+	 * For instance, a "link" entity might provide a URI, and a "mention"
+	 * entity might provide the mentioned user's ID. These pieces of data
+	 * may be used when rendering the entity as part of a ContentBlock DOM
+	 * representation. For a link, the data would be used as an href for
+	 * the rendered anchor. For a mention, the ID could be used to retrieve
+	 * a hovercard.
+	 */
+
+	var DraftEntityInstance = (function (_DraftEntityInstanceRecord) {
+	  _inherits(DraftEntityInstance, _DraftEntityInstanceRecord);
+
+	  function DraftEntityInstance() {
+	    _classCallCheck(this, DraftEntityInstance);
+
+	    _get(Object.getPrototypeOf(DraftEntityInstance.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _createClass(DraftEntityInstance, [{
+	    key: 'getType',
+	    value: function getType() {
+	      return this.get('type');
+	    }
+	  }, {
+	    key: 'getMutability',
+	    value: function getMutability() {
+	      return this.get('mutability');
+	    }
+	  }, {
+	    key: 'getData',
+	    value: function getData() {
+	      return this.get('data');
+	    }
+	  }]);
+
+	  return DraftEntityInstance;
+	})(DraftEntityInstanceRecord);
+
+	module.exports = DraftEntityInstance;
+
+/***/ },
+/* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule EditorState
+	 * 
+	 */
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var BlockTree = __webpack_require__(287);
+	var ContentState = __webpack_require__(223);
+	var EditorBidiService = __webpack_require__(288);
+	var Immutable = __webpack_require__(217);
+	var SelectionState = __webpack_require__(234);
+
+	var OrderedSet = Immutable.OrderedSet;
+	var Record = Immutable.Record;
+	var Stack = Immutable.Stack;
+
+	var defaultRecord = {
+	  allowUndo: true,
+	  currentContent: null,
+	  decorator: null,
+	  directionMap: null,
+	  forceSelection: false,
+	  inCompositionMode: false,
+	  inlineStyleOverride: null,
+	  lastChangeType: null,
+	  nativelyRenderedContent: null,
+	  redoStack: Stack(),
+	  selection: null,
+	  treeMap: null,
+	  undoStack: Stack()
+	};
+
+	var EditorStateRecord = Record(defaultRecord);
+
+	var EditorState = (function () {
+	  _createClass(EditorState, [{
+	    key: 'toJS',
+	    value: function toJS() {
+	      return this.getImmutable().toJS();
+	    }
+	  }, {
+	    key: 'getAllowUndo',
+	    value: function getAllowUndo() {
+	      return this.getImmutable().get('allowUndo');
+	    }
+	  }, {
+	    key: 'getCurrentContent',
+	    value: function getCurrentContent() {
+	      return this.getImmutable().get('currentContent');
+	    }
+	  }, {
+	    key: 'getUndoStack',
+	    value: function getUndoStack() {
+	      return this.getImmutable().get('undoStack');
+	    }
+	  }, {
+	    key: 'getRedoStack',
+	    value: function getRedoStack() {
+	      return this.getImmutable().get('redoStack');
+	    }
+	  }, {
+	    key: 'getSelection',
+	    value: function getSelection() {
+	      return this.getImmutable().get('selection');
+	    }
+	  }, {
+	    key: 'getDecorator',
+	    value: function getDecorator() {
+	      return this.getImmutable().get('decorator');
+	    }
+	  }, {
+	    key: 'isInCompositionMode',
+	    value: function isInCompositionMode() {
+	      return this.getImmutable().get('inCompositionMode');
+	    }
+	  }, {
+	    key: 'mustForceSelection',
+	    value: function mustForceSelection() {
+	      return this.getImmutable().get('forceSelection');
+	    }
+	  }, {
+	    key: 'getNativelyRenderedContent',
+	    value: function getNativelyRenderedContent() {
+	      return this.getImmutable().get('nativelyRenderedContent');
+	    }
+	  }, {
+	    key: 'getLastChangeType',
+	    value: function getLastChangeType() {
+	      return this.getImmutable().get('lastChangeType');
+	    }
+
+	    /**
+	     * While editing, the user may apply inline style commands with a collapsed
+	     * cursor, intending to type text that adopts the specified style. In this
+	     * case, we track the specified style as an "override" that takes precedence
+	     * over the inline style of the text adjacent to the cursor.
+	     *
+	     * If null, there is no override in place.
+	     */
+	  }, {
+	    key: 'getInlineStyleOverride',
+	    value: function getInlineStyleOverride() {
+	      return this.getImmutable().get('inlineStyleOverride');
+	    }
+	  }, {
+	    key: 'getCurrentInlineStyle',
+
+	    /**
+	     * Get the appropriate inline style for the editor state. If an
+	     * override is in place, use it. Otherwise, the current style is
+	     * based on the location of the selection state.
+	     */
+	    value: function getCurrentInlineStyle() {
+	      var override = this.getInlineStyleOverride();
+	      if (override != null) {
+	        return override;
+	      }
+
+	      var content = this.getCurrentContent();
+	      var selection = this.getSelection();
+
+	      if (selection.isCollapsed()) {
+	        return getInlineStyleForCollapsedSelection(content, selection);
+	      }
+
+	      return getInlineStyleForNonCollapsedSelection(content, selection);
+	    }
+	  }, {
+	    key: 'getBlockTree',
+	    value: function getBlockTree(blockKey) {
+	      return this.getImmutable().getIn(['treeMap', blockKey]);
+	    }
+	  }, {
+	    key: 'isSelectionAtStartOfContent',
+	    value: function isSelectionAtStartOfContent() {
+	      var firstKey = this.getCurrentContent().getBlockMap().first().getKey();
+	      return this.getSelection().hasEdgeWithin(firstKey, 0, 0);
+	    }
+	  }, {
+	    key: 'isSelectionAtEndOfContent',
+	    value: function isSelectionAtEndOfContent() {
+	      var content = this.getCurrentContent();
+	      var blockMap = content.getBlockMap();
+	      var last = blockMap.last();
+	      var end = last.getLength();
+	      return this.getSelection().hasEdgeWithin(last.getKey(), end, end);
+	    }
+	  }, {
+	    key: 'getDirectionMap',
+	    value: function getDirectionMap() {
+	      return this.getImmutable().get('directionMap');
+	    }
+
+	    /**
+	     * Incorporate native DOM selection changes into the EditorState. This
+	     * method can be used when we simply want to accept whatever the DOM
+	     * has given us to represent selection, and we do not need to re-render
+	     * the editor.
+	     *
+	     * To forcibly move the DOM selection, see `EditorState.forceSelection`.
+	     */
+	  }], [{
+	    key: 'createEmpty',
+	    value: function createEmpty(decorator) {
+	      return EditorState.createWithContent(ContentState.createFromText(''), decorator);
+	    }
+	  }, {
+	    key: 'createWithContent',
+	    value: function createWithContent(contentState, decorator) {
+	      var firstKey = contentState.getBlockMap().first().getKey();
+	      return EditorState.create({
+	        currentContent: contentState,
+	        undoStack: Stack(),
+	        redoStack: Stack(),
+	        decorator: decorator || null,
+	        selection: SelectionState.createEmpty(firstKey)
+	      });
+	    }
+	  }, {
+	    key: 'create',
+	    value: function create(config) {
+	      var currentContent = config.currentContent;
+	      var decorator = config.decorator;
+
+	      var recordConfig = _extends({}, config, {
+	        treeMap: generateNewTreeMap(currentContent, decorator),
+	        directionMap: EditorBidiService.getDirectionMap(currentContent)
+	      });
+	      return new EditorState(new EditorStateRecord(recordConfig));
+	    }
+	  }, {
+	    key: 'set',
+	    value: function set(editorState, put) {
+	      var map = editorState.getImmutable().withMutations(function (state) {
+	        var existingDecorator = state.get('decorator');
+	        var decorator = existingDecorator;
+	        if (put.decorator === null) {
+	          decorator = null;
+	        } else if (put.decorator) {
+	          decorator = put.decorator;
+	        }
+
+	        var newContent = put.currentContent || editorState.getCurrentContent();
+
+	        if (decorator !== existingDecorator) {
+	          var treeMap = state.get('treeMap');
+	          var newTreeMap;
+	          if (decorator && existingDecorator) {
+	            newTreeMap = regenerateTreeForNewDecorator(newContent.getBlockMap(), treeMap, decorator, existingDecorator);
+	          } else {
+	            newTreeMap = generateNewTreeMap(newContent, decorator);
+	          }
+
+	          state.merge({
+	            decorator: decorator,
+	            treeMap: newTreeMap,
+	            nativelyRenderedContent: null
+	          });
+	          return;
+	        }
+
+	        var existingContent = editorState.getCurrentContent();
+	        if (newContent !== existingContent) {
+	          state.set('treeMap', regenerateTreeForNewBlocks(editorState, newContent.getBlockMap(), decorator));
+	        }
+
+	        state.merge(put);
+	      });
+
+	      return new EditorState(map);
+	    }
+	  }, {
+	    key: 'setInlineStyleOverride',
+	    value: function setInlineStyleOverride(editorState, inlineStyleOverride) {
+	      return EditorState.set(editorState, { inlineStyleOverride: inlineStyleOverride });
+	    }
+	  }, {
+	    key: 'acceptSelection',
+	    value: function acceptSelection(editorState, selection) {
+	      return updateSelection(editorState, selection, false);
+	    }
+
+	    /**
+	     * At times, we need to force the DOM selection to be where we
+	     * need it to be. This can occur when the anchor or focus nodes
+	     * are non-text nodes, for instance. In this case, we want to trigger
+	     * a re-render of the editor, which in turn forces selection into
+	     * the correct place in the DOM. The `forceSelection` method
+	     * accomplishes this.
+	     *
+	     * This method should be used in cases where you need to explicitly
+	     * move the DOM selection from one place to another without a change
+	     * in ContentState.
+	     */
+	  }, {
+	    key: 'forceSelection',
+	    value: function forceSelection(editorState, selection) {
+	      if (!selection.getHasFocus()) {
+	        selection = selection.set('hasFocus', true);
+	      }
+	      return updateSelection(editorState, selection, true);
+	    }
+
+	    /**
+	     * Move selection to the end of the editor without forcing focus.
+	     */
+	  }, {
+	    key: 'moveSelectionToEnd',
+	    value: function moveSelectionToEnd(editorState) {
+	      var content = editorState.getCurrentContent();
+	      var lastBlock = content.getLastBlock();
+	      var lastKey = lastBlock.getKey();
+	      var length = lastBlock.getLength();
+
+	      return EditorState.acceptSelection(editorState, new SelectionState({
+	        anchorKey: lastKey,
+	        anchorOffset: length,
+	        focusKey: lastKey,
+	        focusOffset: length,
+	        isBackward: false
+	      }));
+	    }
+
+	    /**
+	     * Force focus to the end of the editor. This is useful in scenarios
+	     * where we want to programmatically focus the input and it makes sense
+	     * to allow the user to continue working seamlessly.
+	     */
+	  }, {
+	    key: 'moveFocusToEnd',
+	    value: function moveFocusToEnd(editorState) {
+	      var afterSelectionMove = EditorState.moveSelectionToEnd(editorState);
+	      return EditorState.forceSelection(afterSelectionMove, afterSelectionMove.getSelection());
+	    }
+
+	    /**
+	     * Push the current ContentState onto the undo stack if it should be
+	     * considered a boundary state, and set the provided ContentState as the
+	     * new current content.
+	     */
+	  }, {
+	    key: 'push',
+	    value: function push(editorState, contentState, changeType) {
+	      if (editorState.getCurrentContent() === contentState) {
+	        return editorState;
+	      }
+
+	      var forceSelection = changeType !== 'insert-characters';
+	      var directionMap = EditorBidiService.getDirectionMap(contentState, editorState.getDirectionMap());
+
+	      if (!editorState.getAllowUndo()) {
+	        return EditorState.set(editorState, {
+	          currentContent: contentState,
+	          directionMap: directionMap,
+	          lastChangeType: changeType,
+	          selection: contentState.getSelectionAfter(),
+	          forceSelection: forceSelection,
+	          inlineStyleOverride: null
+	        });
+	      }
+
+	      var selection = editorState.getSelection();
+	      var currentContent = editorState.getCurrentContent();
+	      var undoStack = editorState.getUndoStack();
+	      var newContent = contentState;
+
+	      if (selection !== currentContent.getSelectionAfter() || mustBecomeBoundary(editorState, changeType)) {
+	        undoStack = undoStack.push(currentContent);
+	        newContent = newContent.set('selectionBefore', selection);
+	      } else if (changeType === 'insert-characters' || changeType === 'backspace-character' || changeType === 'delete-character') {
+	        // Preserve the previous selection.
+	        newContent = newContent.set('selectionBefore', currentContent.getSelectionBefore());
+	      }
+
+	      var inlineStyleOverride = editorState.getInlineStyleOverride();
+
+	      // Don't discard inline style overrides on block type or depth changes.
+	      if (changeType !== 'adjust-depth' && changeType !== 'change-block-type') {
+	        inlineStyleOverride = null;
+	      }
+
+	      var editorStateChanges = {
+	        currentContent: newContent,
+	        directionMap: directionMap,
+	        undoStack: undoStack,
+	        redoStack: Stack(),
+	        lastChangeType: changeType,
+	        selection: contentState.getSelectionAfter(),
+	        forceSelection: forceSelection,
+	        inlineStyleOverride: inlineStyleOverride
+	      };
+
+	      return EditorState.set(editorState, editorStateChanges);
+	    }
+
+	    /**
+	     * Make the top ContentState in the undo stack the new current content and
+	     * push the current content onto the redo stack.
+	     */
+	  }, {
+	    key: 'undo',
+	    value: function undo(editorState) {
+	      if (!editorState.getAllowUndo()) {
+	        return editorState;
+	      }
+
+	      var undoStack = editorState.getUndoStack();
+	      var newCurrentContent = undoStack.peek();
+	      if (!newCurrentContent) {
+	        return editorState;
+	      }
+
+	      var currentContent = editorState.getCurrentContent();
+	      var directionMap = EditorBidiService.getDirectionMap(newCurrentContent, editorState.getDirectionMap());
+
+	      return EditorState.set(editorState, {
+	        currentContent: newCurrentContent,
+	        directionMap: directionMap,
+	        undoStack: undoStack.shift(),
+	        redoStack: editorState.getRedoStack().push(currentContent),
+	        forceSelection: true,
+	        inlineStyleOverride: null,
+	        lastChangeType: 'undo',
+	        nativelyRenderedContent: null,
+	        selection: currentContent.getSelectionBefore()
+	      });
+	    }
+
+	    /**
+	     * Make the top ContentState in the redo stack the new current content and
+	     * push the current content onto the undo stack.
+	     */
+	  }, {
+	    key: 'redo',
+	    value: function redo(editorState) {
+	      if (!editorState.getAllowUndo()) {
+	        return editorState;
+	      }
+
+	      var redoStack = editorState.getRedoStack();
+	      var newCurrentContent = redoStack.peek();
+	      if (!newCurrentContent) {
+	        return editorState;
+	      }
+
+	      var currentContent = editorState.getCurrentContent();
+	      var directionMap = EditorBidiService.getDirectionMap(newCurrentContent, editorState.getDirectionMap());
+
+	      return EditorState.set(editorState, {
+	        currentContent: newCurrentContent,
+	        directionMap: directionMap,
+	        undoStack: editorState.getUndoStack().push(currentContent),
+	        redoStack: redoStack.shift(),
+	        forceSelection: true,
+	        inlineStyleOverride: null,
+	        lastChangeType: 'redo',
+	        nativelyRenderedContent: null,
+	        selection: newCurrentContent.getSelectionAfter()
+	      });
+	    }
+
+	    /**
+	     * Not for public consumption.
+	     */
+	  }]);
+
+	  function EditorState(immutable) {
+	    _classCallCheck(this, EditorState);
+
+	    this._immutable = immutable;
+	  }
+
+	  /**
+	   * Set the supplied SelectionState as the new current selection, and set
+	   * the `force` flag to trigger manual selection placement by the view.
+	   */
+
+	  /**
+	   * Not for public consumption.
+	   */
+
+	  _createClass(EditorState, [{
+	    key: 'getImmutable',
+	    value: function getImmutable() {
+	      return this._immutable;
+	    }
+	  }]);
+
+	  return EditorState;
+	})();
+
+	function updateSelection(editorState, selection, forceSelection) {
+	  return EditorState.set(editorState, {
+	    selection: selection,
+	    forceSelection: forceSelection,
+	    nativelyRenderedContent: null,
+	    inlineStyleOverride: null
+	  });
+	}
+
+	/**
+	 * Regenerate the entire tree map for a given ContentState and decorator.
+	 * Returns an OrderedMap that maps all available ContentBlock objects.
+	 */
+	function generateNewTreeMap(contentState, decorator) {
+	  return contentState.getBlockMap().map(function (block) {
+	    return BlockTree.generate(block, decorator);
+	  }).toOrderedMap();
+	}
+
+	/**
+	 * Regenerate tree map objects for all ContentBlocks that have changed
+	 * between the current editorState and newContent. Returns an OrderedMap
+	 * with only changed regenerated tree map objects.
+	 */
+	function regenerateTreeForNewBlocks(editorState, newBlockMap, decorator) {
+	  var prevBlockMap = editorState.getCurrentContent().getBlockMap();
+	  var prevTreeMap = editorState.getImmutable().get('treeMap');
+	  return prevTreeMap.merge(newBlockMap.toSeq().filter(function (block, key) {
+	    return block !== prevBlockMap.get(key);
+	  }).map(function (block) {
+	    return BlockTree.generate(block, decorator);
+	  }));
+	}
+
+	/**
+	 * Generate tree map objects for a new decorator object, preserving any
+	 * decorations that are unchanged from the previous decorator.
+	 *
+	 * Note that in order for this to perform optimally, decoration Lists for
+	 * decorators should be preserved when possible to allow for direct immutable
+	 * List comparison.
+	 */
+	function regenerateTreeForNewDecorator(blockMap, previousTreeMap, decorator, existingDecorator) {
+	  return previousTreeMap.merge(blockMap.toSeq().filter(function (block) {
+	    return decorator.getDecorations(block) !== existingDecorator.getDecorations(block);
+	  }).map(function (block) {
+	    return BlockTree.generate(block, decorator);
+	  }));
+	}
+
+	/**
+	 * Return whether a change should be considered a boundary state, given
+	 * the previous change type. Allows us to discard potential boundary states
+	 * during standard typing or deletion behavior.
+	 */
+	function mustBecomeBoundary(editorState, changeType) {
+	  var lastChangeType = editorState.getLastChangeType();
+	  return changeType !== lastChangeType || changeType !== 'insert-characters' && changeType !== 'backspace-character' && changeType !== 'delete-character';
+	}
+
+	function getInlineStyleForCollapsedSelection(content, selection) {
+	  var startKey = selection.getStartKey();
+	  var startOffset = selection.getStartOffset();
+	  var startBlock = content.getBlockForKey(startKey);
+
+	  // If the cursor is not at the start of the block, look backward to
+	  // preserve the style of the preceding character.
+	  if (startOffset > 0) {
+	    return startBlock.getInlineStyleAt(startOffset - 1);
+	  }
+
+	  // The caret is at position zero in this block. If the block has any
+	  // text at all, use the style of the first character.
+	  if (startBlock.getLength()) {
+	    return startBlock.getInlineStyleAt(0);
+	  }
+
+	  // Otherwise, look upward in the document to find the closest character.
+	  return lookUpwardForInlineStyle(content, startKey);
+	}
+
+	function getInlineStyleForNonCollapsedSelection(content, selection) {
+	  var startKey = selection.getStartKey();
+	  var startOffset = selection.getStartOffset();
+	  var startBlock = content.getBlockForKey(startKey);
+
+	  // If there is a character just inside the selection, use its style.
+	  if (startOffset < startBlock.getLength()) {
+	    return startBlock.getInlineStyleAt(startOffset);
+	  }
+
+	  // Check if the selection at the end of a non-empty block. Use the last
+	  // style in the block.
+	  if (startOffset > 0) {
+	    return startBlock.getInlineStyleAt(startOffset - 1);
+	  }
+
+	  // Otherwise, look upward in the document to find the closest character.
+	  return lookUpwardForInlineStyle(content, startKey);
+	}
+
+	function lookUpwardForInlineStyle(content, fromKey) {
+	  var previousBlock = content.getBlockBefore(fromKey);
+	  var previousLength;
+
+	  while (previousBlock) {
+	    previousLength = previousBlock.getLength();
+	    if (previousLength) {
+	      return previousBlock.getInlineStyleAt(previousLength - 1);
+	    }
+	    previousBlock = content.getBlockBefore(previousBlock.getKey());
+	  }
+
+	  return OrderedSet();
+	}
+
+	module.exports = EditorState;
+
+/***/ },
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule KeyBindingUtil
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var UserAgent = __webpack_require__(344);
+
+	var isOSX = UserAgent.isPlatform('Mac OS X');
+
+	var KeyBindingUtil = {
+	  /**
+	   * Check whether the ctrlKey modifier is *not* being used in conjunction with
+	   * the altKey modifier. If they are combined, the result is an `altGraph`
+	   * key modifier, which should not be handled by this set of key bindings.
+	   */
+	  isCtrlKeyCommand: function isCtrlKeyCommand(e) {
+	    return !!e.ctrlKey && !e.altKey;
+	  },
+
+	  isOptionKeyCommand: function isOptionKeyCommand(e) {
+	    return isOSX && e.altKey;
+	  },
+
+	  hasCommandModifier: function hasCommandModifier(e) {
+	    return isOSX ? !!e.metaKey && !e.altKey : KeyBindingUtil.isCtrlKeyCommand(e);
+	  }
+	};
+
+	module.exports = KeyBindingUtil;
+
+/***/ },
+/* 233 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule RichTextEditorUtil
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var DraftEntity = __webpack_require__(229);
+	var DraftModifier = __webpack_require__(228);
+	var EditorState = __webpack_require__(231);
+	var SelectionState = __webpack_require__(234);
+
+	var adjustBlockDepthForContentState = __webpack_require__(289);
+	var nullthrows = __webpack_require__(346);
+
+	var RichTextEditorUtil = {
+	  currentBlockContainsLink: function currentBlockContainsLink(editorState) {
+	    var selection = editorState.getSelection();
+	    return editorState.getCurrentContent().getBlockForKey(selection.getAnchorKey()).getCharacterList().slice(selection.getStartOffset(), selection.getEndOffset()).some(function (v) {
+	      var entity = v.getEntity();
+	      return !!entity && DraftEntity.get(entity).getType() === 'LINK';
+	    });
+	  },
+
+	  getCurrentBlockType: function getCurrentBlockType(editorState) {
+	    var selection = editorState.getSelection();
+	    return editorState.getCurrentContent().getBlockForKey(selection.getStartKey()).getType();
+	  },
+
+	  getDataObjectForLinkURL: function getDataObjectForLinkURL(uri) {
+	    return { url: uri.toString() };
+	  },
+
+	  handleKeyCommand: function handleKeyCommand(editorState, command) {
+	    switch (command) {
+	      case 'bold':
+	        return RichTextEditorUtil.toggleInlineStyle(editorState, 'BOLD');
+	      case 'italic':
+	        return RichTextEditorUtil.toggleInlineStyle(editorState, 'ITALIC');
+	      case 'underline':
+	        return RichTextEditorUtil.toggleInlineStyle(editorState, 'UNDERLINE');
+	      case 'code':
+	        return RichTextEditorUtil.toggleCode(editorState);
+	      case 'backspace':
+	      case 'backspace-word':
+	      case 'backspace-to-start-of-line':
+	        return RichTextEditorUtil.onBackspace(editorState);
+	      case 'delete':
+	      case 'delete-word':
+	      case 'delete-to-end-of-block':
+	        return RichTextEditorUtil.onDelete(editorState);
+	      default:
+	        return null;
+	    }
+	  },
+
+	  insertSoftNewline: function insertSoftNewline(editorState) {
+	    var contentState = DraftModifier.insertText(editorState.getCurrentContent(), editorState.getSelection(), '\n', editorState.getCurrentInlineStyle(), null);
+
+	    var newEditorState = EditorState.push(editorState, contentState, 'insert-characters');
+
+	    return EditorState.forceSelection(newEditorState, contentState.getSelectionAfter());
+	  },
+
+	  /**
+	   * For collapsed selections at the start of styled blocks, backspace should
+	   * just remove the existing style.
+	   */
+	  onBackspace: function onBackspace(editorState) {
+	    var selection = editorState.getSelection();
+	    if (!selection.isCollapsed() || selection.getAnchorOffset() || selection.getFocusOffset()) {
+	      return null;
+	    }
+
+	    // First, try to remove a preceding atomic block.
+	    var content = editorState.getCurrentContent();
+	    var startKey = selection.getStartKey();
+	    var blockBefore = content.getBlockBefore(startKey);
+
+	    if (blockBefore && blockBefore.getType() === 'atomic') {
+	      var atomicBlockTarget = selection.merge({
+	        anchorKey: blockBefore.getKey(),
+	        anchorOffset: 0
+	      });
+	      var asCurrentStyle = DraftModifier.setBlockType(content, atomicBlockTarget, content.getBlockForKey(startKey).getType());
+	      var withoutAtomicBlock = DraftModifier.removeRange(asCurrentStyle, atomicBlockTarget, 'backward');
+	      if (withoutAtomicBlock !== content) {
+	        return EditorState.push(editorState, withoutAtomicBlock, 'remove-range');
+	      }
+	    }
+
+	    // If that doesn't succeed, try to remove the current block style.
+	    var withoutBlockStyle = RichTextEditorUtil.tryToRemoveBlockStyle(editorState);
+
+	    if (withoutBlockStyle) {
+	      return EditorState.push(editorState, withoutBlockStyle, 'change-block-type');
+	    }
+
+	    return null;
+	  },
+
+	  onDelete: function onDelete(editorState) {
+	    var selection = editorState.getSelection();
+	    if (!selection.isCollapsed()) {
+	      return null;
+	    }
+
+	    var content = editorState.getCurrentContent();
+	    var startKey = selection.getStartKey();
+	    var block = content.getBlockForKey(startKey);
+	    var length = block.getLength();
+
+	    // The cursor is somewhere within the text. Behave normally.
+	    if (selection.getStartOffset() < length) {
+	      return null;
+	    }
+
+	    var blockAfter = content.getBlockAfter(startKey);
+
+	    if (!blockAfter || blockAfter.getType() !== 'atomic') {
+	      return null;
+	    }
+
+	    var atomicBlockTarget = selection.merge({
+	      focusKey: blockAfter.getKey(),
+	      focusOffset: blockAfter.getLength()
+	    });
+
+	    var withoutAtomicBlock = DraftModifier.removeRange(content, atomicBlockTarget, 'forward');
+
+	    if (withoutAtomicBlock !== content) {
+	      return EditorState.push(editorState, withoutAtomicBlock, 'remove-range');
+	    }
+
+	    return null;
+	  },
+
+	  onTab: function onTab(event, editorState, maxDepth) {
+	    var selection = editorState.getSelection();
+	    var key = selection.getAnchorKey();
+	    if (key !== selection.getFocusKey()) {
+	      return editorState;
+	    }
+
+	    var content = editorState.getCurrentContent();
+	    var block = content.getBlockForKey(key);
+	    var type = block.getType();
+	    if (type !== 'unordered-list-item' && type !== 'ordered-list-item') {
+	      return editorState;
+	    }
+
+	    event.preventDefault();
+
+	    // Only allow indenting one level beyond the block above, and only if
+	    // the block above is a list item as well.
+	    var blockAbove = content.getBlockBefore(key);
+	    if (!blockAbove) {
+	      return editorState;
+	    }
+
+	    var typeAbove = blockAbove.getType();
+	    if (typeAbove !== 'unordered-list-item' && typeAbove !== 'ordered-list-item') {
+	      return editorState;
+	    }
+
+	    var depth = block.getDepth();
+	    if (!event.shiftKey && depth === maxDepth) {
+	      return editorState;
+	    }
+
+	    maxDepth = Math.min(blockAbove.getDepth() + 1, maxDepth);
+
+	    var withAdjustment = adjustBlockDepthForContentState(content, selection, event.shiftKey ? -1 : 1, maxDepth);
+
+	    return EditorState.push(editorState, withAdjustment, 'adjust-depth');
+	  },
+
+	  toggleBlockType: function toggleBlockType(editorState, blockType) {
+	    var selection = editorState.getSelection();
+	    var startKey = selection.getStartKey();
+	    var endKey = selection.getEndKey();
+	    var content = editorState.getCurrentContent();
+	    var target = selection;
+
+	    // Triple-click can lead to a selection that includes offset 0 of the
+	    // following block. The `SelectionState` for this case is accurate, but
+	    // we should avoid toggling block type for the trailing block because it
+	    // is a confusing interaction.
+	    if (startKey !== endKey && selection.getEndOffset() === 0) {
+	      var blockBefore = nullthrows(content.getBlockBefore(endKey));
+	      endKey = blockBefore.getKey();
+	      target = target.merge({
+	        anchorKey: startKey,
+	        anchorOffset: selection.getStartOffset(),
+	        focusKey: endKey,
+	        focusOffset: blockBefore.getLength(),
+	        isBackward: false
+	      });
+	    }
+
+	    var hasAtomicBlock = content.getBlockMap().skipWhile(function (_, k) {
+	      return k !== startKey;
+	    }).takeWhile(function (_, k) {
+	      return k !== endKey;
+	    }).some(function (v) {
+	      return v.getType() === 'atomic';
+	    });
+
+	    if (hasAtomicBlock) {
+	      return editorState;
+	    }
+
+	    var typeToSet = content.getBlockForKey(startKey).getType() === blockType ? 'unstyled' : blockType;
+
+	    return EditorState.push(editorState, DraftModifier.setBlockType(content, target, typeToSet), 'change-block-type');
+	  },
+
+	  toggleCode: function toggleCode(editorState) {
+	    var selection = editorState.getSelection();
+	    var anchorKey = selection.getAnchorKey();
+	    var focusKey = selection.getFocusKey();
+
+	    if (selection.isCollapsed() || anchorKey !== focusKey) {
+	      return RichTextEditorUtil.toggleBlockType(editorState, 'code-block');
+	    }
+
+	    return RichTextEditorUtil.toggleInlineStyle(editorState, 'CODE');
+	  },
+
+	  /**
+	   * Toggle the specified inline style for the selection. If the
+	   * user's selection is collapsed, apply or remove the style for the
+	   * internal state. If it is not collapsed, apply the change directly
+	   * to the document state.
+	   */
+	  toggleInlineStyle: function toggleInlineStyle(editorState, inlineStyle) {
+	    var selection = editorState.getSelection();
+	    var currentStyle = editorState.getCurrentInlineStyle();
+
+	    // If the selection is collapsed, toggle the specified style on or off and
+	    // set the result as the new inline style override. This will then be
+	    // used as the inline style for the next character to be inserted.
+	    if (selection.isCollapsed()) {
+	      return EditorState.setInlineStyleOverride(editorState, currentStyle.has(inlineStyle) ? currentStyle.remove(inlineStyle) : currentStyle.add(inlineStyle));
+	    }
+
+	    // If characters are selected, immediately apply or remove the
+	    // inline style on the document state itself.
+	    var content = editorState.getCurrentContent();
+	    var newContent;
+
+	    // If the style is already present for the selection range, remove it.
+	    // Otherwise, apply it.
+	    if (currentStyle.has(inlineStyle)) {
+	      newContent = DraftModifier.removeInlineStyle(content, selection, inlineStyle);
+	    } else {
+	      newContent = DraftModifier.applyInlineStyle(content, selection, inlineStyle);
+	    }
+
+	    return EditorState.push(editorState, newContent, 'change-inline-style');
+	  },
+
+	  toggleLink: function toggleLink(editorState, targetSelection, entityKey) {
+	    var withoutLink = DraftModifier.applyEntity(editorState.getCurrentContent(), targetSelection, entityKey);
+
+	    return EditorState.push(editorState, withoutLink, 'apply-entity');
+	  },
+
+	  /**
+	   * When a collapsed cursor is at the start of an empty styled block, allow
+	   * certain key commands (newline, backspace) to simply change the
+	   * style of the block instead of the default behavior.
+	   */
+	  tryToRemoveBlockStyle: function tryToRemoveBlockStyle(editorState) {
+	    var selection = editorState.getSelection();
+	    var offset = selection.getAnchorOffset();
+	    if (selection.isCollapsed() && offset === 0) {
+	      var key = selection.getAnchorKey();
+	      var content = editorState.getCurrentContent();
+	      var block = content.getBlockForKey(key);
+	      if (block.getLength() > 0) {
+	        return null;
+	      }
+
+	      var type = block.getType();
+	      var blockBefore = content.getBlockBefore(key);
+	      if (type === 'code-block' && blockBefore && blockBefore.getType() === 'code-block') {
+	        return null;
+	      }
+
+	      if (type !== 'unstyled') {
+	        return DraftModifier.setBlockType(content, selection, 'unstyled');
+	      }
+	    }
+	    return null;
+	  }
+	};
+
+	module.exports = RichTextEditorUtil;
+
+/***/ },
+/* 234 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule SelectionState
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Immutable = __webpack_require__(217);
+
+	var Record = Immutable.Record;
+
+	var defaultRecord = {
+	  anchorKey: '',
+	  anchorOffset: 0,
+	  focusKey: '',
+	  focusOffset: 0,
+	  isBackward: false,
+	  hasFocus: false
+	};
+
+	var SelectionStateRecord = Record(defaultRecord);
+
+	var SelectionState = (function (_SelectionStateRecord) {
+	  _inherits(SelectionState, _SelectionStateRecord);
+
+	  function SelectionState() {
+	    _classCallCheck(this, SelectionState);
+
+	    _get(Object.getPrototypeOf(SelectionState.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _createClass(SelectionState, [{
+	    key: 'serialize',
+	    value: function serialize() {
+	      return 'Anchor: ' + this.getAnchorKey() + ':' + this.getAnchorOffset() + ', ' + 'Focus: ' + this.getFocusKey() + ':' + this.getFocusOffset() + ', ' + 'Is Backward: ' + String(this.getIsBackward()) + ', ' + 'Has Focus: ' + String(this.getHasFocus());
+	    }
+	  }, {
+	    key: 'getAnchorKey',
+	    value: function getAnchorKey() {
+	      return this.get('anchorKey');
+	    }
+	  }, {
+	    key: 'getAnchorOffset',
+	    value: function getAnchorOffset() {
+	      return this.get('anchorOffset');
+	    }
+	  }, {
+	    key: 'getFocusKey',
+	    value: function getFocusKey() {
+	      return this.get('focusKey');
+	    }
+	  }, {
+	    key: 'getFocusOffset',
+	    value: function getFocusOffset() {
+	      return this.get('focusOffset');
+	    }
+	  }, {
+	    key: 'getIsBackward',
+	    value: function getIsBackward() {
+	      return this.get('isBackward');
+	    }
+	  }, {
+	    key: 'getHasFocus',
+	    value: function getHasFocus() {
+	      return this.get('hasFocus');
+	    }
+
+	    /**
+	     * Return whether the specified range overlaps with an edge of the
+	     * SelectionState.
+	     */
+	  }, {
+	    key: 'hasEdgeWithin',
+	    value: function hasEdgeWithin(blockKey, start, end) {
+	      var anchorKey = this.getAnchorKey();
+	      var focusKey = this.getFocusKey();
+
+	      if (anchorKey === focusKey && anchorKey === blockKey) {
+	        var selectionStart = this.getStartOffset();
+	        var selectionEnd = this.getEndOffset();
+	        return start <= selectionEnd && selectionStart <= end;
+	      }
+
+	      if (blockKey !== anchorKey && blockKey !== focusKey) {
+	        return false;
+	      }
+
+	      var offsetToCheck = blockKey === anchorKey ? this.getAnchorOffset() : this.getFocusOffset();
+
+	      return start <= offsetToCheck && end >= offsetToCheck;
+	    }
+	  }, {
+	    key: 'isCollapsed',
+	    value: function isCollapsed() {
+	      return this.getAnchorKey() === this.getFocusKey() && this.getAnchorOffset() === this.getFocusOffset();
+	    }
+	  }, {
+	    key: 'getStartKey',
+	    value: function getStartKey() {
+	      return this.getIsBackward() ? this.getFocusKey() : this.getAnchorKey();
+	    }
+	  }, {
+	    key: 'getStartOffset',
+	    value: function getStartOffset() {
+	      return this.getIsBackward() ? this.getFocusOffset() : this.getAnchorOffset();
+	    }
+	  }, {
+	    key: 'getEndKey',
+	    value: function getEndKey() {
+	      return this.getIsBackward() ? this.getAnchorKey() : this.getFocusKey();
+	    }
+	  }, {
+	    key: 'getEndOffset',
+	    value: function getEndOffset() {
+	      return this.getIsBackward() ? this.getAnchorOffset() : this.getFocusOffset();
+	    }
+	  }], [{
+	    key: 'createEmpty',
+	    value: function createEmpty(key) {
+	      return new SelectionState({
+	        anchorKey: key,
+	        anchorOffset: 0,
+	        focusKey: key,
+	        focusOffset: 0,
+	        isBackward: false,
+	        hasFocus: false
+	      });
+	    }
+	  }]);
+
+	  return SelectionState;
+	})(SelectionStateRecord);
+
+	module.exports = SelectionState;
+
+/***/ },
+/* 235 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule convertFromDraftStateToRaw
+	 * 
+	 */
+
+	'use strict';
+
+	var DraftEntity = __webpack_require__(229);
+	var DraftStringKey = __webpack_require__(290);
+
+	var encodeEntityRanges = __webpack_require__(291);
+	var encodeInlineStyleRanges = __webpack_require__(292);
+
+	function convertFromDraftStateToRaw(contentState) {
+	  var entityStorageKey = 0;
+	  var entityStorageMap = {};
+	  var rawBlocks = [];
+
+	  contentState.getBlockMap().forEach(function (block, blockKey) {
+	    block.findEntityRanges(function (character) {
+	      return character.getEntity() !== null;
+	    }, function (start) {
+	      // Stringify to maintain order of otherwise numeric keys.
+	      var stringifiedEntityKey = DraftStringKey.stringify(block.getEntityAt(start));
+	      if (!entityStorageMap.hasOwnProperty(stringifiedEntityKey)) {
+	        entityStorageMap[stringifiedEntityKey] = '' + entityStorageKey++;
+	      }
+	    });
+
+	    rawBlocks.push({
+	      key: blockKey,
+	      text: block.getText(),
+	      type: block.getType(),
+	      depth: canHaveDepth(block) ? block.getDepth() : 0,
+	      inlineStyleRanges: encodeInlineStyleRanges(block),
+	      entityRanges: encodeEntityRanges(block, entityStorageMap)
+	    });
+	  });
+
+	  // Flip storage map so that our storage keys map to global
+	  // DraftEntity keys.
+	  var entityKeys = Object.keys(entityStorageMap);
+	  var flippedStorageMap = {};
+	  entityKeys.forEach(function (key, jj) {
+	    var entity = DraftEntity.get(DraftStringKey.unstringify(key));
+	    flippedStorageMap[jj] = {
+	      type: entity.getType(),
+	      mutability: entity.getMutability(),
+	      data: entity.getData()
+	    };
+	  });
+
+	  return {
+	    entityMap: flippedStorageMap,
+	    blocks: rawBlocks
+	  };
+	}
+
+	function canHaveDepth(block) {
+	  var type = block.getType();
+	  return type === 'ordered-list-item' || type === 'unordered-list-item';
+	}
+
+	module.exports = convertFromDraftStateToRaw;
+
+/***/ },
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule convertFromHTMLToContentBlocks
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var CharacterMetadata = __webpack_require__(220);
+	var ContentBlock = __webpack_require__(222);
+	var DefaultDraftBlockRenderMap = __webpack_require__(224);
+	var DraftEntity = __webpack_require__(229);
+	var Immutable = __webpack_require__(217);
+	var URI = __webpack_require__(353);
+
+	var generateRandomKey = __webpack_require__(238);
+	var getSafeBodyFromHTML = __webpack_require__(296);
+	var invariant = __webpack_require__(352);
+	var nullthrows = __webpack_require__(346);
+	var sanitizeDraftText = __webpack_require__(269);
+
+	var List = Immutable.List;
+	var OrderedSet = Immutable.OrderedSet;
+
+	var NBSP = '&nbsp;';
+	var SPACE = ' ';
+
+	// Arbitrary max indent
+	var MAX_DEPTH = 4;
+
+	// used for replacing characters in HTML
+	var REGEX_CR = new RegExp('\r', 'g');
+	var REGEX_LF = new RegExp('\n', 'g');
+	var REGEX_NBSP = new RegExp(NBSP, 'g');
+
+	// Block tag flow is different because LIs do not have
+	// a deterministic style ;_;
+	var inlineTags = {
+	  b: 'BOLD',
+	  code: 'CODE',
+	  del: 'STRIKETHROUGH',
+	  em: 'ITALIC',
+	  i: 'ITALIC',
+	  s: 'STRIKETHROUGH',
+	  strike: 'STRIKETHROUGH',
+	  strong: 'BOLD',
+	  u: 'UNDERLINE'
+	};
+
+	var lastBlock;
+
+	function getEmptyChunk() {
+	  return {
+	    text: '',
+	    inlines: [],
+	    entities: [],
+	    blocks: []
+	  };
+	}
+
+	function getWhitespaceChunk(inEntity) {
+	  var entities = new Array(1);
+	  if (inEntity) {
+	    entities[0] = inEntity;
+	  }
+	  return {
+	    text: SPACE,
+	    inlines: [OrderedSet()],
+	    entities: entities,
+	    blocks: []
+	  };
+	}
+
+	function getSoftNewlineChunk() {
+	  return {
+	    text: '\n',
+	    inlines: [OrderedSet()],
+	    entities: new Array(1),
+	    blocks: []
+	  };
+	}
+
+	function getBlockDividerChunk(block, depth) {
+	  return {
+	    text: '\r',
+	    inlines: [OrderedSet()],
+	    entities: new Array(1),
+	    blocks: [{
+	      type: block,
+	      depth: Math.max(0, Math.min(MAX_DEPTH, depth))
+	    }]
+	  };
+	}
+
+	function getListBlockType(tag, lastList) {
+	  if (tag === 'li') {
+	    return lastList === 'ol' ? 'ordered-list-item' : 'unordered-list-item';
+	  }
+	  return null;
+	}
+
+	function getBlockMapSupportedTags(blockRenderMap) {
+	  var unstyledElement = blockRenderMap.get('unstyled').element;
+	  return blockRenderMap.map(function (config) {
+	    return config.element;
+	  }).valueSeq().toSet().filter(function (tag) {
+	    return tag !== unstyledElement;
+	  }).toArray().sort();
+	}
+
+	// custom element conversions
+	function getMultiMatchedType(tag, lastList, multiMatchExtractor) {
+	  for (var ii = 0; ii < multiMatchExtractor.length; ii++) {
+	    var matchType = multiMatchExtractor[ii](tag, lastList);
+	    if (matchType) {
+	      return matchType;
+	    }
+	  }
+	  return null;
+	}
+
+	function getBlockTypeForTag(tag, lastList, blockRenderMap) {
+	  var matchedTypes = blockRenderMap.filter(function (config) {
+	    return config.element === tag || config.wrapper === tag;
+	  }).keySeq().toSet().toArray().sort();
+
+	  // if we dont have any matched type, return unstyled
+	  // if we have one matched type return it
+	  // if we have multi matched types use the multi-match function to gather type
+	  switch (matchedTypes.length) {
+	    case 0:
+	      return 'unstyled';
+	    case 1:
+	      return matchedTypes[0];
+	    default:
+	      return getMultiMatchedType(tag, lastList, [getListBlockType]) || 'unstyled';
+	  }
+	}
+
+	function processInlineTag(tag, node, currentStyle) {
+	  var styleToCheck = inlineTags[tag];
+	  if (styleToCheck) {
+	    currentStyle = currentStyle.add(styleToCheck).toOrderedSet();
+	  } else if (node instanceof HTMLElement) {
+	    (function () {
+	      var htmlElement = node;
+	      currentStyle = currentStyle.withMutations(function (style) {
+	        if (htmlElement.style.fontWeight === 'bold') {
+	          style.add('BOLD');
+	        }
+
+	        if (htmlElement.style.fontStyle === 'italic') {
+	          style.add('ITALIC');
+	        }
+
+	        if (htmlElement.style.textDecoration === 'underline') {
+	          style.add('UNDERLINE');
+	        }
+
+	        if (htmlElement.style.textDecoration === 'line-through') {
+	          style.add('STRIKETHROUGH');
+	        }
+	      }).toOrderedSet();
+	    })();
+	  }
+	  return currentStyle;
+	}
+
+	function joinChunks(A, B) {
+	  // Sometimes two blocks will touch in the DOM and we need to strip the
+	  // extra delimiter to preserve niceness.
+	  var lastInB = B.text.slice(0, 1);
+
+	  if (A.text.slice(-1) === '\r' && lastInB === '\r') {
+	    A.text = A.text.slice(0, -1);
+	    A.inlines.pop();
+	    A.entities.pop();
+	    A.blocks.pop();
+	  }
+
+	  // Kill whitespace after blocks
+	  if (A.text.slice(-1) === '\r') {
+	    if (B.text === SPACE || B.text === '\n') {
+	      return A;
+	    } else if (lastInB === SPACE || lastInB === '\n') {
+	      B.text = B.text.slice(1);
+	      B.inlines.shift();
+	      B.entities.shift();
+	    }
+	  }
+
+	  return {
+	    text: A.text + B.text,
+	    inlines: A.inlines.concat(B.inlines),
+	    entities: A.entities.concat(B.entities),
+	    blocks: A.blocks.concat(B.blocks)
+	  };
+	}
+
+	/**
+	 * Check to see if we have anything like <p> <blockquote> <h1>... to create
+	 * block tags from. If we do, we can use those and ignore <div> tags. If we
+	 * don't, we can treat <div> tags as meaningful (unstyled) blocks.
+	 */
+	function containsSemanticBlockMarkup(html, blockTags) {
+	  return blockTags.some(function (tag) {
+	    return html.indexOf('<' + tag) !== -1;
+	  });
+	}
+
+	function hasValidLinkText(link) {
+	  !(link instanceof HTMLAnchorElement) ? false ? invariant(false, 'Link must be an HTMLAnchorElement.') : invariant(false) : undefined;
+	  var protocol = link.protocol;
+	  return protocol === 'http:' || protocol === 'https:';
+	}
+
+	function genFragment(node, inlineStyle, lastList, inBlock, blockTags, depth, blockRenderMap, inEntity) {
+	  var nodeName = node.nodeName.toLowerCase();
+	  var newBlock = false;
+	  var nextBlockType = 'unstyled';
+	  var lastLastBlock = lastBlock;
+
+	  // Base Case
+	  if (nodeName === '#text') {
+	    var text = node.textContent;
+	    if (text.trim() === '' && inBlock !== 'pre') {
+	      return getWhitespaceChunk(inEntity);
+	    }
+	    if (inBlock !== 'pre') {
+	      // Can't use empty string because MSWord
+	      text = text.replace(REGEX_LF, SPACE);
+	    }
+
+	    // save the last block so we can use it later
+	    lastBlock = nodeName;
+
+	    return {
+	      text: text,
+	      inlines: Array(text.length).fill(inlineStyle),
+	      entities: Array(text.length).fill(inEntity),
+	      blocks: []
+	    };
+	  }
+
+	  // save the last block so we can use it later
+	  lastBlock = nodeName;
+
+	  // BR tags
+	  if (nodeName === 'br') {
+	    if (lastLastBlock === 'br' && (!inBlock || getBlockTypeForTag(inBlock, lastList, blockRenderMap) === 'unstyled')) {
+	      return getBlockDividerChunk('unstyled', depth);
+	    }
+	    return getSoftNewlineChunk();
+	  }
+
+	  var chunk = getEmptyChunk();
+	  var newChunk = null;
+
+	  // Inline tags
+	  inlineStyle = processInlineTag(nodeName, node, inlineStyle);
+
+	  // Handle lists
+	  if (nodeName === 'ul' || nodeName === 'ol') {
+	    if (lastList) {
+	      depth += 1;
+	    }
+	    lastList = nodeName;
+	  }
+
+	  // Block Tags
+	  if (!inBlock && blockTags.indexOf(nodeName) !== -1) {
+	    chunk = getBlockDividerChunk(getBlockTypeForTag(nodeName, lastList, blockRenderMap), depth);
+	    inBlock = nodeName;
+	    newBlock = true;
+	  } else if (lastList && inBlock === 'li' && nodeName === 'li') {
+	    chunk = getBlockDividerChunk(getBlockTypeForTag(nodeName, lastList, blockRenderMap), depth);
+	    inBlock = nodeName;
+	    newBlock = true;
+	    nextBlockType = lastList === 'ul' ? 'unordered-list-item' : 'ordered-list-item';
+	  }
+
+	  // Recurse through children
+	  var child = node.firstChild;
+	  if (child != null) {
+	    nodeName = child.nodeName.toLowerCase();
+	  }
+
+	  var entityId = null;
+	  var href = null;
+
+	  while (child) {
+	    if (nodeName === 'a' && child.href && hasValidLinkText(child)) {
+	      href = new URI(child.href).toString();
+	      entityId = DraftEntity.create('LINK', 'MUTABLE', { url: href });
+	    } else {
+	      entityId = undefined;
+	    }
+
+	    newChunk = genFragment(child, inlineStyle, lastList, inBlock, blockTags, depth, blockRenderMap, entityId || inEntity);
+
+	    chunk = joinChunks(chunk, newChunk);
+	    var sibling = child.nextSibling;
+
+	    // Put in a newline to break up blocks inside blocks
+	    if (sibling && blockTags.indexOf(nodeName) >= 0 && inBlock) {
+	      chunk = joinChunks(chunk, getSoftNewlineChunk());
+	    }
+	    if (sibling) {
+	      nodeName = sibling.nodeName.toLowerCase();
+	    }
+	    child = sibling;
+	  }
+
+	  if (newBlock) {
+	    chunk = joinChunks(chunk, getBlockDividerChunk(nextBlockType, depth));
+	  }
+
+	  return chunk;
+	}
+
+	function getChunkForHTML(html, DOMBuilder, blockRenderMap) {
+	  html = html.trim().replace(REGEX_CR, '').replace(REGEX_NBSP, SPACE);
+
+	  var supportedBlockTags = getBlockMapSupportedTags(blockRenderMap);
+
+	  var safeBody = DOMBuilder(html);
+	  if (!safeBody) {
+	    return null;
+	  }
+	  lastBlock = null;
+
+	  // Sometimes we aren't dealing with content that contains nice semantic
+	  // tags. In this case, use divs to separate everything out into paragraphs
+	  // and hope for the best.
+	  var workingBlocks = containsSemanticBlockMarkup(html, supportedBlockTags) ? supportedBlockTags : ['div'];
+
+	  // Start with -1 block depth to offset the fact that we are passing in a fake
+	  // UL block to start with.
+	  var chunk = genFragment(safeBody, OrderedSet(), 'ul', null, workingBlocks, -1, blockRenderMap);
+
+	  // join with previous block to prevent weirdness on paste
+	  if (chunk.text.indexOf('\r') === 0) {
+	    chunk = {
+	      text: chunk.text.slice(1),
+	      inlines: chunk.inlines.slice(1),
+	      entities: chunk.entities.slice(1),
+	      blocks: chunk.blocks
+	    };
+	  }
+
+	  // Kill block delimiter at the end
+	  if (chunk.text.slice(-1) === '\r') {
+	    chunk.text = chunk.text.slice(0, -1);
+	    chunk.inlines = chunk.inlines.slice(0, -1);
+	    chunk.entities = chunk.entities.slice(0, -1);
+	    chunk.blocks.pop();
+	  }
+
+	  // If we saw no block tags, put an unstyled one in
+	  if (chunk.blocks.length === 0) {
+	    chunk.blocks.push({ type: 'unstyled', depth: 0 });
+	  }
+
+	  // Sometimes we start with text that isn't in a block, which is then
+	  // followed by blocks. Need to fix up the blocks to add in
+	  // an unstyled block for this content
+	  if (chunk.text.split('\r').length === chunk.blocks.length + 1) {
+	    chunk.blocks.unshift({ type: 'unstyled', depth: 0 });
+	  }
+
+	  return chunk;
+	}
+
+	function convertFromHTMLtoContentBlocks(html) {
+	  var DOMBuilder = arguments.length <= 1 || arguments[1] === undefined ? getSafeBodyFromHTML : arguments[1];
+	  var blockRenderMap = arguments.length <= 2 || arguments[2] === undefined ? DefaultDraftBlockRenderMap : arguments[2];
+
+	  // Be ABSOLUTELY SURE that the dom builder you pass hare won't execute
+	  // arbitrary code in whatever environment you're running this in. For an
+	  // example of how we try to do this in-browser, see getSafeBodyFromHTML.
+
+	  var chunk = getChunkForHTML(html, DOMBuilder, blockRenderMap);
+
+	  if (chunk == null) {
+	    return null;
+	  }
+	  var start = 0;
+	  return chunk.text.split('\r').map(function (textBlock, ii) {
+	    // Make absolutely certain that our text is acceptable.
+	    textBlock = sanitizeDraftText(textBlock);
+	    var end = start + textBlock.length;
+	    var inlines = nullthrows(chunk).inlines.slice(start, end);
+	    var entities = nullthrows(chunk).entities.slice(start, end);
+	    var characterList = List(inlines.map(function (style, ii) {
+	      var data = { style: style, entity: null };
+	      if (entities[ii]) {
+	        data.entity = entities[ii];
+	      }
+	      return CharacterMetadata.create(data);
+	    }));
+	    start = end + 1;
+
+	    return new ContentBlock({
+	      key: generateRandomKey(),
+	      type: nullthrows(chunk).blocks[ii].type,
+	      depth: nullthrows(chunk).blocks[ii].depth,
+	      text: textBlock,
+	      characterList: characterList
+	    });
+	  });
+	}
+
+	module.exports = convertFromHTMLtoContentBlocks;
+
+/***/ },
+/* 237 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule convertFromRawToDraftState
+	 * 
+	 */
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var ContentBlock = __webpack_require__(222);
+	var ContentState = __webpack_require__(223);
+	var DraftEntity = __webpack_require__(229);
+
+	var createCharacterList = __webpack_require__(293);
+	var decodeEntityRanges = __webpack_require__(294);
+	var decodeInlineStyleRanges = __webpack_require__(295);
+	var generateRandomKey = __webpack_require__(238);
+
+	function convertFromRawToDraftState(rawState) {
+	  var blocks = rawState.blocks;
+	  var entityMap = rawState.entityMap;
+
+	  var fromStorageToLocal = {};
+	  Object.keys(entityMap).forEach(function (storageKey) {
+	    var encodedEntity = entityMap[storageKey];
+	    var type = encodedEntity.type;
+	    var mutability = encodedEntity.mutability;
+	    var data = encodedEntity.data;
+
+	    var newKey = DraftEntity.create(type, mutability, data || {});
+	    fromStorageToLocal[storageKey] = newKey;
+	  });
+
+	  var contentBlocks = blocks.map(function (block) {
+	    var key = block.key;
+	    var type = block.type;
+	    var text = block.text;
+	    var depth = block.depth;
+	    var inlineStyleRanges = block.inlineStyleRanges;
+	    var entityRanges = block.entityRanges;
+
+	    key = key || generateRandomKey();
+	    depth = depth || 0;
+	    inlineStyleRanges = inlineStyleRanges || [];
+	    entityRanges = entityRanges || [];
+
+	    var inlineStyles = decodeInlineStyleRanges(text, inlineStyleRanges);
+
+	    // Translate entity range keys to the DraftEntity map.
+	    var filteredEntityRanges = entityRanges.filter(function (range) {
+	      return fromStorageToLocal.hasOwnProperty(range.key);
+	    }).map(function (range) {
+	      return _extends({}, range, { key: fromStorageToLocal[range.key] });
+	    });
+
+	    var entities = decodeEntityRanges(text, filteredEntityRanges);
+	    var characterList = createCharacterList(inlineStyles, entities);
+
+	    return new ContentBlock({ key: key, type: type, text: text, depth: depth, characterList: characterList });
+	  });
+
+	  return ContentState.createFromBlockArray(contentBlocks);
+	}
+
+	module.exports = convertFromRawToDraftState;
+
+/***/ },
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule generateRandomKey
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var seenKeys = {};
+	var MULTIPLIER = Math.pow(2, 24);
+
+	function generateRandomKey() {
+	  var key = undefined;
+	  while (key === undefined || seenKeys.hasOwnProperty(key) || !isNaN(+key)) {
+	    key = Math.floor(Math.random() * MULTIPLIER).toString(32);
+	  }
+	  seenKeys[key] = true;
+	  return key;
+	}
+
+	module.exports = generateRandomKey;
+
+/***/ },
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule getDefaultKeyBinding
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var KeyBindingUtil = __webpack_require__(232);
+	var Keys = __webpack_require__(354);
+	var UserAgent = __webpack_require__(344);
+
+	var isOSX = UserAgent.isPlatform('Mac OS X');
+	var isWindows = UserAgent.isPlatform('Windows');
+
+	// Firefox on OSX had a bug resulting in navigation instead of cursor movement.
+	// This bug was fixed in Firefox 29. Feature detection is virtually impossible
+	// so we just check the version number. See #342765.
+	var shouldFixFirefoxMovement = isOSX && UserAgent.isBrowser('Firefox < 29');
+
+	var hasCommandModifier = KeyBindingUtil.hasCommandModifier;
+	var isCtrlKeyCommand = KeyBindingUtil.isCtrlKeyCommand;
+
+	function shouldRemoveWord(e) {
+	  return isOSX && e.altKey || isCtrlKeyCommand(e);
+	}
+
+	/**
+	 * Get the appropriate undo/redo command for a Z key command.
+	 */
+	function getZCommand(e) {
+	  if (hasCommandModifier(e)) {
+	    return e.shiftKey ? 'redo' : 'undo';
+	  }
+	}
+
+	function getDeleteCommand(e) {
+	  // Allow default "cut" behavior for Windows on Shift + Delete.
+	  if (isWindows && e.shiftKey) {
+	    return null;
+	  }
+	  return shouldRemoveWord(e) ? 'delete-word' : 'delete';
+	}
+
+	function getBackspaceCommand(e) {
+	  if (hasCommandModifier(e) && isOSX) {
+	    return 'backspace-to-start-of-line';
+	  }
+	  return shouldRemoveWord(e) ? 'backspace-word' : 'backspace';
+	}
+
+	/**
+	 * Retrieve a bound key command for the given event.
+	 */
+	function getDefaultKeyBinding(e) {
+	  switch (e.keyCode) {
+	    case 66:
+	      // B
+	      return hasCommandModifier(e) ? 'bold' : null;
+	    case 68:
+	      // D
+	      return isCtrlKeyCommand(e) ? 'delete' : null;
+	    case 72:
+	      // H
+	      return isCtrlKeyCommand(e) ? 'backspace' : null;
+	    case 73:
+	      // I
+	      return hasCommandModifier(e) ? 'italic' : null;
+	    case 74:
+	      // J
+	      return hasCommandModifier(e) ? 'code' : null;
+	    case 75:
+	      // K
+	      return !isWindows && isCtrlKeyCommand(e) ? 'secondary-cut' : null;
+	    case 77:
+	      // M
+	      return isCtrlKeyCommand(e) ? 'split-block' : null;
+	    case 79:
+	      // O
+	      return isCtrlKeyCommand(e) ? 'split-block' : null;
+	    case 84:
+	      // T
+	      return isOSX && isCtrlKeyCommand(e) ? 'transpose-characters' : null;
+	    case 85:
+	      // U
+	      return hasCommandModifier(e) ? 'underline' : null;
+	    case 87:
+	      // W
+	      return isOSX && isCtrlKeyCommand(e) ? 'backspace-word' : null;
+	    case 89:
+	      // Y
+	      if (isCtrlKeyCommand(e)) {
+	        return isWindows ? 'redo' : 'secondary-paste';
+	      }
+	      return null;
+	    case 90:
+	      // Z
+	      return getZCommand(e) || null;
+	    case Keys.RETURN:
+	      return 'split-block';
+	    case Keys.DELETE:
+	      return getDeleteCommand(e);
+	    case Keys.BACKSPACE:
+	      return getBackspaceCommand(e);
+	    // LEFT/RIGHT handlers serve as a workaround for a Firefox bug.
+	    case Keys.LEFT:
+	      return shouldFixFirefoxMovement && hasCommandModifier(e) ? 'move-selection-to-start-of-block' : null;
+	    case Keys.RIGHT:
+	      return shouldFixFirefoxMovement && hasCommandModifier(e) ? 'move-selection-to-end-of-block' : null;
+	    default:
+	      return null;
+	  }
+	}
+
+	module.exports = getDefaultKeyBinding;
+
+/***/ },
+/* 240 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule getVisibleSelectionRect
+	 * @typechecks
+	 * 
+	 */
+
+	/**
+	 * Return the bounding ClientRect for the visible DOM selection, if any.
+	 * In cases where there are no selected ranges or the bounding rect is
+	 * temporarily invalid, return null.
+	 */
+	'use strict';
+
+	var getRangeBoundingClientRect = __webpack_require__(297);
+
+	function getVisibleSelectionRect(global) {
+	  var selection = global.getSelection();
+	  if (!selection.rangeCount) {
+	    return null;
+	  }
+
+	  var range = selection.getRangeAt(0);
+	  var boundingRect = getRangeBoundingClientRect(range);
+	  var top = boundingRect.top;
+	  var right = boundingRect.right;
+	  var bottom = boundingRect.bottom;
+	  var left = boundingRect.left;
+
+	  // When a re-render leads to a node being removed, the DOM selection will
+	  // temporarily be placed on an ancestor node, which leads to an invalid
+	  // bounding rect. Discard this state.
+	  if (top === 0 && right === 0 && bottom === 0 && left === 0) {
+	    return null;
+	  }
+
+	  return boundingRect;
+	}
+
+	module.exports = getVisibleSelectionRect;
+
+/***/ },
 /* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -66307,7 +66307,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(18);
 
-	var MovablePointOptions = __webpack_require__(302);
+	var MovablePointOptions = __webpack_require__(303);
 	var WrappedEllipse = __webpack_require__(258);
 	var InteractiveUtil = __webpack_require__(165);
 	var objective_ = __webpack_require__(81);
@@ -66815,7 +66815,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(18);
 
-	var MovableLineOptions = __webpack_require__(303);
+	var MovableLineOptions = __webpack_require__(302);
 	var WrappedLine = __webpack_require__(188);
 	var InteractiveUtil = __webpack_require__(165);
 	var objective_ = __webpack_require__(81);
@@ -71905,7 +71905,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/* globals katex:false, MathJax:false, Exercises:false */
 
-	var KhanMath = __webpack_require__(88);
+	var KhanMath = __webpack_require__(85);
 
 	function findChildOrAdd(elem, className) {
 	    var $child = $(elem).find("." + className);
@@ -74454,245 +74454,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule DraftEditorLeaf.react
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var DraftEditorTextNode = __webpack_require__(312);
-	var React = __webpack_require__(17);
-	var ReactDOM = __webpack_require__(19);
-	var SelectionState = __webpack_require__(233);
-
-	var setDraftEditorSelection = __webpack_require__(313);
-
-	/**
-	 * All leaf nodes in the editor are spans with single text nodes. Leaf
-	 * elements are styled based on the merging of an optional custom style map
-	 * and a default style map.
-	 *
-	 * `DraftEditorLeaf` also provides a wrapper for calling into the imperative
-	 * DOM Selection API. In this way, top-level components can declaratively
-	 * maintain the selection state.
-	 */
-
-	var DraftEditorLeaf = (function (_React$Component) {
-	  _inherits(DraftEditorLeaf, _React$Component);
-
-	  function DraftEditorLeaf() {
-	    _classCallCheck(this, DraftEditorLeaf);
-
-	    _get(Object.getPrototypeOf(DraftEditorLeaf.prototype), 'constructor', this).apply(this, arguments);
-	  }
-
-	  _createClass(DraftEditorLeaf, [{
-	    key: '_setSelection',
-
-	    /**
-	     * By making individual leaf instances aware of their context within
-	     * the text of the editor, we can set our selection range more
-	     * easily than we could in the non-React world.
-	     *
-	     * Note that this depends on our maintaining tight control over the
-	     * DOM structure of the TextEditor component. If leaves had multiple
-	     * text nodes, this would be harder.
-	     */
-	    value: function _setSelection() {
-	      var selection = this.props.selection;
-
-	      // If selection state is irrelevant to the parent block, no-op.
-	      if (selection == null || !selection.getHasFocus()) {
-	        return;
-	      }
-
-	      var _props = this.props;
-	      var blockKey = _props.blockKey;
-	      var start = _props.start;
-	      var text = _props.text;
-
-	      var end = start + text.length;
-	      if (!selection.hasEdgeWithin(blockKey, start, end)) {
-	        return;
-	      }
-
-	      // Determine the appropriate target node for selection. If the child
-	      // is not a text node, it is a <br /> spacer. In this case, use the
-	      // <span> itself as the selection target.
-	      var node = ReactDOM.findDOMNode(this);
-	      var child = node.firstChild;
-	      var targetNode = undefined;
-
-	      if (child.nodeType === Node.TEXT_NODE) {
-	        targetNode = child;
-	      } else if (child.tagName === 'BR') {
-	        targetNode = node;
-	      } else {
-	        targetNode = child.firstChild;
-	      }
-
-	      setDraftEditorSelection(selection, targetNode, blockKey, start, end);
-	    }
-	  }, {
-	    key: 'shouldComponentUpdate',
-	    value: function shouldComponentUpdate(nextProps) {
-	      return ReactDOM.findDOMNode(this.refs.leaf).textContent !== nextProps.text || nextProps.styleSet !== this.props.styleSet || nextProps.forceSelection;
-	    }
-	  }, {
-	    key: 'componentDidUpdate',
-	    value: function componentDidUpdate() {
-	      this._setSelection();
-	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this._setSelection();
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var text = this.props.text;
-
-	      // If the leaf is at the end of its block and ends in a soft newline, append
-	      // an extra line feed character. Browsers collapse trailing newline
-	      // characters, which leaves the cursor in the wrong place after a
-	      // shift+enter. The extra character repairs this.
-	      if (text.endsWith('\n') && this.props.isLast) {
-	        text += '\n';
-	      }
-
-	      var _props2 = this.props;
-	      var customStyleMap = _props2.customStyleMap;
-	      var offsetKey = _props2.offsetKey;
-	      var styleSet = _props2.styleSet;
-
-	      var styleObj = styleSet.reduce(function (map, styleName) {
-	        var mergedStyles = {};
-	        var style = customStyleMap[styleName];
-
-	        if (style !== undefined && map.textDecoration !== style.textDecoration) {
-	          mergedStyles.textDecoration = [map.textDecoration, style.textDecoration].join(' ');
-	        }
-
-	        return Object.assign(map, style, mergedStyles);
-	      }, {});
-
-	      return React.createElement(
-	        'span',
-	        {
-	          'data-offset-key': offsetKey,
-	          ref: 'leaf',
-	          style: styleObj },
-	        React.createElement(
-	          DraftEditorTextNode,
-	          null,
-	          text
-	        )
-	      );
-	    }
-	  }]);
-
-	  return DraftEditorLeaf;
-	})(React.Component);
-
-	module.exports = DraftEditorLeaf;
-
-	// A function passed through from the the top level to define a cx
-	// style map for the provided style value.
-
-	// Mapping of style names to CSS declarations.
-
-	// Whether to force the DOM selection after render.
-
-	// Whether this leaf is the last in its block. Used for a DOM hack.
-
-	// The current `SelectionState`, used to
-
-	// The offset of this string within its block.
-
-	// The set of style(s) names to apply to the node.
-
-	// The full text to be rendered within this node.
-
-/***/ },
-/* 271 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule DraftOffsetKey
-	 * 
-	 */
-
-	'use strict';
-
-	var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
-
-	var KEY_DELIMITER = '-';
-
-	var DraftOffsetKey = {
-	  encode: function encode(blockKey, decoratorKey, leafKey) {
-	    return blockKey + KEY_DELIMITER + decoratorKey + KEY_DELIMITER + leafKey;
-	  },
-
-	  decode: function decode(offsetKey) {
-	    var _offsetKey$split = offsetKey.split(KEY_DELIMITER);
-
-	    var _offsetKey$split2 = _slicedToArray(_offsetKey$split, 3);
-
-	    var blockKey = _offsetKey$split2[0];
-	    var decoratorKey = _offsetKey$split2[1];
-	    var leafKey = _offsetKey$split2[2];
-
-	    return {
-	      blockKey: blockKey,
-	      decoratorKey: parseInt(decoratorKey, 10),
-	      leafKey: parseInt(leafKey, 10)
-	    };
-	  }
-	};
-
-	module.exports = DraftOffsetKey;
-
-/***/ },
-/* 272 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
 	 * @providesModule DraftEditorCompositionHandler
 	 * 
 	 */
 
 	'use strict';
 
-	var DraftModifier = __webpack_require__(227);
-	var EditorState = __webpack_require__(230);
+	var DraftModifier = __webpack_require__(228);
+	var EditorState = __webpack_require__(231);
 	var Keys = __webpack_require__(354);
 
-	var getEntityKeyForSelection = __webpack_require__(314);
-	var isSelectionAtLeafStart = __webpack_require__(315);
+	var getEntityKeyForSelection = __webpack_require__(312);
+	var isSelectionAtLeafStart = __webpack_require__(313);
 
 	/**
 	 * Millisecond delay to allow `compositionstart` to fire again upon
@@ -74838,7 +74611,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = DraftEditorCompositionHandler;
 
 /***/ },
-/* 273 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -74866,14 +74639,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var DraftEditorBlock = __webpack_require__(226);
-	var DraftOffsetKey = __webpack_require__(271);
-	var EditorState = __webpack_require__(230);
+	var DraftEditorBlock = __webpack_require__(227);
+	var DraftOffsetKey = __webpack_require__(276);
+	var EditorState = __webpack_require__(231);
 	var React = __webpack_require__(17);
 
 	var cx = __webpack_require__(341);
 	var joinClasses = __webpack_require__(355);
-	var nullthrows = __webpack_require__(349);
+	var nullthrows = __webpack_require__(346);
 
 	/**
 	 * `DraftEditorContents` is the container component for all block components
@@ -75084,7 +74857,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = DraftEditorContents;
 
 /***/ },
-/* 274 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -75106,13 +74879,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var DataTransfer = __webpack_require__(356);
-	var DraftModifier = __webpack_require__(227);
-	var EditorState = __webpack_require__(230);
+	var DraftModifier = __webpack_require__(228);
+	var EditorState = __webpack_require__(231);
 
-	var findAncestorOffsetKey = __webpack_require__(316);
-	var getTextContentFromFiles = __webpack_require__(317);
-	var getUpdatedSelectionState = __webpack_require__(318);
-	var nullthrows = __webpack_require__(349);
+	var findAncestorOffsetKey = __webpack_require__(314);
+	var getTextContentFromFiles = __webpack_require__(315);
+	var getUpdatedSelectionState = __webpack_require__(316);
+	var nullthrows = __webpack_require__(346);
 
 	function getSelectionForEvent(event, editorState) {
 	  var node = null;
@@ -75206,7 +74979,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = DraftEditorDragHandler;
 
 /***/ },
-/* 275 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -75223,18 +74996,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var onBeforeInput = __webpack_require__(319);
-	var onBlur = __webpack_require__(320);
-	var onCompositionStart = __webpack_require__(321);
-	var onCopy = __webpack_require__(322);
-	var onCut = __webpack_require__(323);
-	var onDragOver = __webpack_require__(324);
-	var onDragStart = __webpack_require__(325);
-	var onFocus = __webpack_require__(326);
-	var onInput = __webpack_require__(327);
-	var onKeyDown = __webpack_require__(328);
-	var onPaste = __webpack_require__(329);
-	var onSelect = __webpack_require__(330);
+	var onBeforeInput = __webpack_require__(317);
+	var onBlur = __webpack_require__(318);
+	var onCompositionStart = __webpack_require__(319);
+	var onCopy = __webpack_require__(320);
+	var onCut = __webpack_require__(321);
+	var onDragOver = __webpack_require__(322);
+	var onDragStart = __webpack_require__(323);
+	var onFocus = __webpack_require__(324);
+	var onInput = __webpack_require__(325);
+	var onKeyDown = __webpack_require__(326);
+	var onPaste = __webpack_require__(327);
+	var onSelect = __webpack_require__(328);
 
 	var DraftEditorEditHandler = {
 	  onBeforeInput: onBeforeInput,
@@ -75254,7 +75027,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = DraftEditorEditHandler;
 
 /***/ },
-/* 276 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -75335,6 +75108,233 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = DraftEditorPlaceholder;
 
 /***/ },
+/* 275 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule DraftEditorLeaf.react
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var DraftEditorTextNode = __webpack_require__(329);
+	var React = __webpack_require__(17);
+	var ReactDOM = __webpack_require__(19);
+	var SelectionState = __webpack_require__(234);
+
+	var setDraftEditorSelection = __webpack_require__(330);
+
+	/**
+	 * All leaf nodes in the editor are spans with single text nodes. Leaf
+	 * elements are styled based on the merging of an optional custom style map
+	 * and a default style map.
+	 *
+	 * `DraftEditorLeaf` also provides a wrapper for calling into the imperative
+	 * DOM Selection API. In this way, top-level components can declaratively
+	 * maintain the selection state.
+	 */
+
+	var DraftEditorLeaf = (function (_React$Component) {
+	  _inherits(DraftEditorLeaf, _React$Component);
+
+	  function DraftEditorLeaf() {
+	    _classCallCheck(this, DraftEditorLeaf);
+
+	    _get(Object.getPrototypeOf(DraftEditorLeaf.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _createClass(DraftEditorLeaf, [{
+	    key: '_setSelection',
+
+	    /**
+	     * By making individual leaf instances aware of their context within
+	     * the text of the editor, we can set our selection range more
+	     * easily than we could in the non-React world.
+	     *
+	     * Note that this depends on our maintaining tight control over the
+	     * DOM structure of the TextEditor component. If leaves had multiple
+	     * text nodes, this would be harder.
+	     */
+	    value: function _setSelection() {
+	      var selection = this.props.selection;
+
+	      // If selection state is irrelevant to the parent block, no-op.
+	      if (selection == null || !selection.getHasFocus()) {
+	        return;
+	      }
+
+	      var _props = this.props;
+	      var blockKey = _props.blockKey;
+	      var start = _props.start;
+	      var text = _props.text;
+
+	      var end = start + text.length;
+	      if (!selection.hasEdgeWithin(blockKey, start, end)) {
+	        return;
+	      }
+
+	      // Determine the appropriate target node for selection. If the child
+	      // is not a text node, it is a <br /> spacer. In this case, use the
+	      // <span> itself as the selection target.
+	      var node = ReactDOM.findDOMNode(this);
+	      var child = node.firstChild;
+	      var targetNode = undefined;
+
+	      if (child.nodeType === Node.TEXT_NODE) {
+	        targetNode = child;
+	      } else if (child.tagName === 'BR') {
+	        targetNode = node;
+	      } else {
+	        targetNode = child.firstChild;
+	      }
+
+	      setDraftEditorSelection(selection, targetNode, blockKey, start, end);
+	    }
+	  }, {
+	    key: 'shouldComponentUpdate',
+	    value: function shouldComponentUpdate(nextProps) {
+	      return ReactDOM.findDOMNode(this.refs.leaf).textContent !== nextProps.text || nextProps.styleSet !== this.props.styleSet || nextProps.forceSelection;
+	    }
+	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate() {
+	      this._setSelection();
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this._setSelection();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var text = this.props.text;
+
+	      // If the leaf is at the end of its block and ends in a soft newline, append
+	      // an extra line feed character. Browsers collapse trailing newline
+	      // characters, which leaves the cursor in the wrong place after a
+	      // shift+enter. The extra character repairs this.
+	      if (text.endsWith('\n') && this.props.isLast) {
+	        text += '\n';
+	      }
+
+	      var _props2 = this.props;
+	      var customStyleMap = _props2.customStyleMap;
+	      var offsetKey = _props2.offsetKey;
+	      var styleSet = _props2.styleSet;
+
+	      var styleObj = styleSet.reduce(function (map, styleName) {
+	        var mergedStyles = {};
+	        var style = customStyleMap[styleName];
+
+	        if (style !== undefined && map.textDecoration !== style.textDecoration) {
+	          mergedStyles.textDecoration = [map.textDecoration, style.textDecoration].join(' ');
+	        }
+
+	        return Object.assign(map, style, mergedStyles);
+	      }, {});
+
+	      return React.createElement(
+	        'span',
+	        {
+	          'data-offset-key': offsetKey,
+	          ref: 'leaf',
+	          style: styleObj },
+	        React.createElement(
+	          DraftEditorTextNode,
+	          null,
+	          text
+	        )
+	      );
+	    }
+	  }]);
+
+	  return DraftEditorLeaf;
+	})(React.Component);
+
+	module.exports = DraftEditorLeaf;
+
+	// A function passed through from the the top level to define a cx
+	// style map for the provided style value.
+
+	// Mapping of style names to CSS declarations.
+
+	// Whether to force the DOM selection after render.
+
+	// Whether this leaf is the last in its block. Used for a DOM hack.
+
+	// The current `SelectionState`, used to
+
+	// The offset of this string within its block.
+
+	// The set of style(s) names to apply to the node.
+
+	// The full text to be rendered within this node.
+
+/***/ },
+/* 276 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule DraftOffsetKey
+	 * 
+	 */
+
+	'use strict';
+
+	var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
+
+	var KEY_DELIMITER = '-';
+
+	var DraftOffsetKey = {
+	  encode: function encode(blockKey, decoratorKey, leafKey) {
+	    return blockKey + KEY_DELIMITER + decoratorKey + KEY_DELIMITER + leafKey;
+	  },
+
+	  decode: function decode(offsetKey) {
+	    var _offsetKey$split = offsetKey.split(KEY_DELIMITER);
+
+	    var _offsetKey$split2 = _slicedToArray(_offsetKey$split, 3);
+
+	    var blockKey = _offsetKey$split2[0];
+	    var decoratorKey = _offsetKey$split2[1];
+	    var leafKey = _offsetKey$split2[2];
+
+	    return {
+	      blockKey: blockKey,
+	      decoratorKey: parseInt(decoratorKey, 10),
+	      leafKey: parseInt(leafKey, 10)
+	    };
+	  }
+	};
+
+	module.exports = DraftOffsetKey;
+
+/***/ },
 /* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -75353,9 +75353,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var CharacterMetadata = __webpack_require__(219);
+	var CharacterMetadata = __webpack_require__(220);
 
-	var _require = __webpack_require__(240);
+	var _require = __webpack_require__(217);
 
 	var Map = _require.Map;
 
@@ -75431,7 +75431,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var Immutable = __webpack_require__(240);
+	var Immutable = __webpack_require__(217);
 
 	var applyEntityToContentBlock = __webpack_require__(331);
 
@@ -75489,7 +75489,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	'use strict';
 
-	var DraftEntity = __webpack_require__(228);
+	var DraftEntity = __webpack_require__(229);
 	var DraftEntitySegments = __webpack_require__(332);
 
 	var getRangesForDraftEntity = __webpack_require__(333);
@@ -75562,7 +75562,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var generateRandomKey = __webpack_require__(237);
+	var generateRandomKey = __webpack_require__(238);
 	var removeEntitiesAtEdges = __webpack_require__(283);
 
 	function getContentStateFragment(contentState, selectionState) {
@@ -75638,9 +75638,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var BlockMapBuilder = __webpack_require__(218);
+	var BlockMapBuilder = __webpack_require__(219);
 
-	var generateRandomKey = __webpack_require__(237);
+	var generateRandomKey = __webpack_require__(238);
 	var insertIntoList = __webpack_require__(334);
 	var invariant = __webpack_require__(352);
 
@@ -75765,7 +75765,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var Immutable = __webpack_require__(240);
+	var Immutable = __webpack_require__(217);
 
 	var insertIntoList = __webpack_require__(334);
 	var invariant = __webpack_require__(352);
@@ -75822,8 +75822,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var CharacterMetadata = __webpack_require__(219);
-	var DraftEntity = __webpack_require__(228);
+	var CharacterMetadata = __webpack_require__(220);
+	var DraftEntity = __webpack_require__(229);
 
 	var findRangesImmutable = __webpack_require__(268);
 	var invariant = __webpack_require__(352);
@@ -75928,7 +75928,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var Immutable = __webpack_require__(240);
+	var Immutable = __webpack_require__(217);
 
 	function removeRangeFromContentState(contentState, selectionState) {
 	  if (selectionState.isCollapsed()) {
@@ -76025,7 +76025,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var Immutable = __webpack_require__(240);
+	var Immutable = __webpack_require__(217);
 
 	function setBlockTypeForContentState(contentState, selectionState, blockType) {
 	  var startKey = selectionState.getStartKey();
@@ -76067,7 +76067,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var generateRandomKey = __webpack_require__(237);
+	var generateRandomKey = __webpack_require__(238);
 	var invariant = __webpack_require__(352);
 
 	function splitBlockInContentState(contentState, selectionState) {
@@ -76134,9 +76134,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var Immutable = __webpack_require__(240);
+	var Immutable = __webpack_require__(217);
 
-	var emptyFunction = __webpack_require__(351);
+	var emptyFunction = __webpack_require__(345);
 	var findRangesImmutable = __webpack_require__(268);
 
 	var List = Immutable.List;
@@ -76251,10 +76251,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var Immutable = __webpack_require__(240);
+	var Immutable = __webpack_require__(217);
 	var UnicodeBidiService = __webpack_require__(357);
 
-	var nullthrows = __webpack_require__(349);
+	var nullthrows = __webpack_require__(346);
 
 	var OrderedMap = Immutable.OrderedMap;
 
@@ -76490,46 +76490,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule getSafeBodyFromHTML
-	 * 
-	 */
-
-	'use strict';
-
-	var UserAgent = __webpack_require__(350);
-
-	var isOldIE = UserAgent.isBrowser('IE <= 9');
-
-	// Provides a dom node that will not execute scripts
-	// https://developer.mozilla.org/en-US/docs/Web/API/DOMImplementation.createHTMLDocument
-	// https://developer.mozilla.org/en-US/Add-ons/Code_snippets/HTML_to_DOM
-
-	function getSafeBodyFromHTML(html) {
-	  var doc;
-	  var root = null;
-	  // Provides a safe context
-	  if (!isOldIE && document.implementation && document.implementation.createHTMLDocument) {
-	    doc = document.implementation.createHTMLDocument('foo');
-	    doc.documentElement.innerHTML = html;
-	    root = doc.getElementsByTagName('body')[0];
-	  }
-	  return root;
-	}
-
-	module.exports = getSafeBodyFromHTML;
-
-/***/ },
-/* 294 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
 	 * @providesModule createCharacterList
 	 * @typechecks
 	 * 
@@ -76537,8 +76497,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var CharacterMetadata = __webpack_require__(219);
-	var Immutable = __webpack_require__(240);
+	var CharacterMetadata = __webpack_require__(220);
+	var Immutable = __webpack_require__(217);
 
 	var List = Immutable.List;
 
@@ -76553,7 +76513,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = createCharacterList;
 
 /***/ },
-/* 295 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -76597,7 +76557,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = decodeEntityRanges;
 
 /***/ },
-/* 296 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -76617,7 +76577,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var UnicodeUtils = __webpack_require__(358);
 
-	var _require = __webpack_require__(240);
+	var _require = __webpack_require__(217);
 
 	var OrderedSet = _require.OrderedSet;
 	var substr = UnicodeUtils.substr;
@@ -76643,6 +76603,46 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	module.exports = decodeInlineStyleRanges;
+
+/***/ },
+/* 296 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule getSafeBodyFromHTML
+	 * 
+	 */
+
+	'use strict';
+
+	var UserAgent = __webpack_require__(344);
+
+	var isOldIE = UserAgent.isBrowser('IE <= 9');
+
+	// Provides a dom node that will not execute scripts
+	// https://developer.mozilla.org/en-US/docs/Web/API/DOMImplementation.createHTMLDocument
+	// https://developer.mozilla.org/en-US/Add-ons/Code_snippets/HTML_to_DOM
+
+	function getSafeBodyFromHTML(html) {
+	  var doc;
+	  var root = null;
+	  // Provides a safe context
+	  if (!isOldIE && document.implementation && document.implementation.createHTMLDocument) {
+	    doc = document.implementation.createHTMLDocument('foo');
+	    doc.documentElement.innerHTML = html;
+	    root = doc.getElementsByTagName('body')[0];
+	  }
+	  return root;
+	}
+
+	module.exports = getSafeBodyFromHTML;
 
 /***/ },
 /* 297 */
@@ -77587,167 +77587,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable brace-style, comma-dangle, no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	/**
-	 * A library of options to pass to add/draw/remove/constraints
-	 */
-	var _ = __webpack_require__(18);
-
-	var WrappedEllipse = __webpack_require__(258);
-	var kpoint = __webpack_require__(199).point;
-
-	var add = {
-	    constrain: function constrain() {
-	        this.constrain();
-	    }
-	};
-
-	add.standard = [add.constrain];
-
-	var modify = {
-	    draw: function draw() {
-	        this.draw();
-	    }
-	};
-
-	modify.standard = [modify.draw];
-
-	var draw = {
-	    basic: function basic(state, prevState) {
-	        var graphie = this.graphie;
-	        if (!this.state.visibleShape) {
-	            var radii = [this.pointSize() / graphie.scale[0], this.pointSize() / graphie.scale[1]];
-	            var options = {
-	                maxScale: Math.max(this.highlightStyle().scale, this.normalStyle().scale),
-	                // Add in 10px of padding to avoid clipping at the edges.
-	                padding: 10,
-	                shadow: state.shadow
-	            };
-	            this.state.visibleShape = new WrappedEllipse(graphie, this.coord(), radii, options);
-
-	            this.state.visibleShape.attr(_.omit(this.normalStyle(), "scale"));
-	            this.state.visibleShape.toFront();
-
-	            // Keep mouseTarget in front of visible shape
-	            if (this.mouseTarget()) {
-	                this.mouseTarget().toFront();
-	            }
-	        }
-	        if (state.normalStyle !== prevState.normalStyle && !_.isEqual(state.normalStyle, prevState.normalStyle)) {
-	            this.state.visibleShape.attr(this.normalStyle());
-	        }
-
-	        this.state.visibleShape.moveTo(this.coord());
-	        if (this.mouseTarget()) {
-	            this.mouseTarget().moveTo(this.coord());
-	        }
-	    },
-
-	    highlight: function highlight(state, prevState) {
-	        if (state.isHovering && !prevState.isHovering) {
-	            state.visibleShape.animate(this.highlightStyle(), 50);
-	        } else if (!state.isHovering && prevState.isHovering) {
-	            state.visibleShape.animate(this.normalStyle(), 50);
-	        }
-	    }
-	};
-
-	draw.standard = [draw.basic, draw.highlight];
-
-	var remove = {
-	    basic: function basic() {
-	        if (this.state.visibleShape) {
-	            this.state.visibleShape.remove();
-	            this.state.visibleShape = null;
-	        }
-	    }
-	};
-
-	remove.standard = remove.basic;
-
-	var constraints = {
-	    fixed: function fixed() {
-	        return function () {
-	            return false;
-	        };
-	    },
-
-	    snap: function snap(_snap) {
-	        return function (coord) {
-	            if (_snap === null) {
-	                return true;
-	            }
-	            _snap = _snap || this.graphie.snap;
-	            return kpoint.roundTo(coord, _snap);
-	        };
-	    },
-
-	    bound: function bound(range, snap, paddingPx) {
-	        if (paddingPx === undefined) {
-	            if (range === undefined) {
-	                paddingPx = 10;
-	            } else {
-	                paddingPx = 0;
-	            }
-	        }
-	        return function (coord, prev, options) {
-	            var graphie = this.graphie;
-	            range = range || graphie.range;
-
-	            if (snap === undefined) {
-	                snap = graphie.snap;
-	            }
-
-	            var lower = graphie.unscalePoint([paddingPx, graphie.ypixels - paddingPx]);
-
-	            var upper = graphie.unscalePoint([graphie.xpixels - paddingPx, paddingPx]);
-
-	            if (snap) {
-	                lower = kpoint.ceilTo(lower, snap);
-	                upper = kpoint.floorTo(upper, snap);
-	            }
-
-	            if (!!options && !!options.onOutOfBounds) {
-	                if (coord[0] > upper[0] || coord[0] < lower[0] || coord[1] > upper[1] || coord[1] < lower[1]) {
-	                    options.onSkipRemaining();
-	                    options.onOutOfBounds();
-	                }
-
-	                return coord;
-	            }
-
-	            var coordX = Math.max(lower[0], Math.min(upper[0], coord[0]));
-	            var coordY = Math.max(lower[1], Math.min(upper[1], coord[1]));
-
-	            return [coordX, coordY];
-	        };
-	    }
-	};
-
-	constraints.standard = null;
-
-	module.exports = {
-	    add: add,
-	    modify: modify,
-	    draw: draw,
-	    remove: remove,
-
-	    onMoveStart: { standard: null },
-	    constraints: constraints,
-	    onMove: { standard: null },
-	    onMoveEnd: { standard: null },
-	    onClick: { standard: null }
-	};
-
-/***/ },
-/* 303 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable brace-style, comma-dangle, indent, no-var */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
@@ -77759,7 +77598,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var WrappedPath = __webpack_require__(259);
 	var kvector = __webpack_require__(199).vector;
 	var kpoint = __webpack_require__(199).point;
-	var KhanMath = __webpack_require__(88);
+	var KhanMath = __webpack_require__(85);
 
 	/**
 	 * Helper functions
@@ -78050,6 +77889,167 @@ return /******/ (function(modules) { // webpackBootstrap
 	    constraints: constraints,
 	    onMove: onMove,
 	    onMoveEnd: { standard: null }
+	};
+
+/***/ },
+/* 303 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable brace-style, comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/**
+	 * A library of options to pass to add/draw/remove/constraints
+	 */
+	var _ = __webpack_require__(18);
+
+	var WrappedEllipse = __webpack_require__(258);
+	var kpoint = __webpack_require__(199).point;
+
+	var add = {
+	    constrain: function constrain() {
+	        this.constrain();
+	    }
+	};
+
+	add.standard = [add.constrain];
+
+	var modify = {
+	    draw: function draw() {
+	        this.draw();
+	    }
+	};
+
+	modify.standard = [modify.draw];
+
+	var draw = {
+	    basic: function basic(state, prevState) {
+	        var graphie = this.graphie;
+	        if (!this.state.visibleShape) {
+	            var radii = [this.pointSize() / graphie.scale[0], this.pointSize() / graphie.scale[1]];
+	            var options = {
+	                maxScale: Math.max(this.highlightStyle().scale, this.normalStyle().scale),
+	                // Add in 10px of padding to avoid clipping at the edges.
+	                padding: 10,
+	                shadow: state.shadow
+	            };
+	            this.state.visibleShape = new WrappedEllipse(graphie, this.coord(), radii, options);
+
+	            this.state.visibleShape.attr(_.omit(this.normalStyle(), "scale"));
+	            this.state.visibleShape.toFront();
+
+	            // Keep mouseTarget in front of visible shape
+	            if (this.mouseTarget()) {
+	                this.mouseTarget().toFront();
+	            }
+	        }
+	        if (state.normalStyle !== prevState.normalStyle && !_.isEqual(state.normalStyle, prevState.normalStyle)) {
+	            this.state.visibleShape.attr(this.normalStyle());
+	        }
+
+	        this.state.visibleShape.moveTo(this.coord());
+	        if (this.mouseTarget()) {
+	            this.mouseTarget().moveTo(this.coord());
+	        }
+	    },
+
+	    highlight: function highlight(state, prevState) {
+	        if (state.isHovering && !prevState.isHovering) {
+	            state.visibleShape.animate(this.highlightStyle(), 50);
+	        } else if (!state.isHovering && prevState.isHovering) {
+	            state.visibleShape.animate(this.normalStyle(), 50);
+	        }
+	    }
+	};
+
+	draw.standard = [draw.basic, draw.highlight];
+
+	var remove = {
+	    basic: function basic() {
+	        if (this.state.visibleShape) {
+	            this.state.visibleShape.remove();
+	            this.state.visibleShape = null;
+	        }
+	    }
+	};
+
+	remove.standard = remove.basic;
+
+	var constraints = {
+	    fixed: function fixed() {
+	        return function () {
+	            return false;
+	        };
+	    },
+
+	    snap: function snap(_snap) {
+	        return function (coord) {
+	            if (_snap === null) {
+	                return true;
+	            }
+	            _snap = _snap || this.graphie.snap;
+	            return kpoint.roundTo(coord, _snap);
+	        };
+	    },
+
+	    bound: function bound(range, snap, paddingPx) {
+	        if (paddingPx === undefined) {
+	            if (range === undefined) {
+	                paddingPx = 10;
+	            } else {
+	                paddingPx = 0;
+	            }
+	        }
+	        return function (coord, prev, options) {
+	            var graphie = this.graphie;
+	            range = range || graphie.range;
+
+	            if (snap === undefined) {
+	                snap = graphie.snap;
+	            }
+
+	            var lower = graphie.unscalePoint([paddingPx, graphie.ypixels - paddingPx]);
+
+	            var upper = graphie.unscalePoint([graphie.xpixels - paddingPx, paddingPx]);
+
+	            if (snap) {
+	                lower = kpoint.ceilTo(lower, snap);
+	                upper = kpoint.floorTo(upper, snap);
+	            }
+
+	            if (!!options && !!options.onOutOfBounds) {
+	                if (coord[0] > upper[0] || coord[0] < lower[0] || coord[1] > upper[1] || coord[1] < lower[1]) {
+	                    options.onSkipRemaining();
+	                    options.onOutOfBounds();
+	                }
+
+	                return coord;
+	            }
+
+	            var coordX = Math.max(lower[0], Math.min(upper[0], coord[0]));
+	            var coordY = Math.max(lower[1], Math.min(upper[1], coord[1]));
+
+	            return [coordX, coordY];
+	        };
+	    }
+	};
+
+	constraints.standard = null;
+
+	module.exports = {
+	    add: add,
+	    modify: modify,
+	    draw: draw,
+	    remove: remove,
+
+	    onMoveStart: { standard: null },
+	    constraints: constraints,
+	    onMove: { standard: null },
+	    onMoveEnd: { standard: null },
+	    onClick: { standard: null }
 	};
 
 /***/ },
@@ -79255,264 +79255,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule DraftEditorTextNode.react
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var React = __webpack_require__(17);
-	var ReactDOM = __webpack_require__(19);
-	var UserAgent = __webpack_require__(350);
-
-	// In IE, spans with <br> tags render as two newlines. By rendering a span
-	// with only a newline character, we can be sure to render a single line.
-	var useNewlineChar = UserAgent.isBrowser('IE <= 11');
-
-	/**
-	 * Check whether the node should be considered a newline.
-	 */
-	function isNewline(node) {
-	  return useNewlineChar ? node.textContent === '\n' : node.tagName === 'BR';
-	}
-
-	/**
-	 * Placeholder elements for empty text content.
-	 *
-	 * What is this `data-text` attribute, anyway? It turns out that we need to
-	 * put an attribute on the lowest-level text node in order to preserve correct
-	 * spellcheck handling. If the <span> is naked, Chrome and Safari may do
-	 * bizarre things to do the DOM -- split text nodes, create extra spans, etc.
-	 * If the <span> has an attribute, this appears not to happen.
-	 * See http://jsfiddle.net/9khdavod/ for the failure case, and
-	 * http://jsfiddle.net/7pg143f7/ for the fixed case.
-	 */
-	var NEWLINE_A = useNewlineChar ? React.createElement(
-	  'span',
-	  { key: 'A', 'data-text': 'true' },
-	  '\n'
-	) : React.createElement('br', { key: 'A', 'data-text': 'true' });
-
-	var NEWLINE_B = useNewlineChar ? React.createElement(
-	  'span',
-	  { key: 'B', 'data-text': 'true' },
-	  '\n'
-	) : React.createElement('br', { key: 'B', 'data-text': 'true' });
-
-	/**
-	 * The lowest-level component in a `DraftEditor`, the text node component
-	 * replaces the default React text node implementation. This allows us to
-	 * perform custom handling of newline behavior and avoid re-rendering text
-	 * nodes with DOM state that already matches the expectations of our immutable
-	 * editor state.
-	 */
-
-	var DraftEditorTextNode = (function (_React$Component) {
-	  _inherits(DraftEditorTextNode, _React$Component);
-
-	  function DraftEditorTextNode(props) {
-	    _classCallCheck(this, DraftEditorTextNode);
-
-	    _get(Object.getPrototypeOf(DraftEditorTextNode.prototype), 'constructor', this).call(this, props);
-	    this._forceFlag = false;
-	  }
-
-	  _createClass(DraftEditorTextNode, [{
-	    key: 'shouldComponentUpdate',
-	    value: function shouldComponentUpdate(nextProps) {
-	      var node = ReactDOM.findDOMNode(this);
-	      var shouldBeNewline = nextProps.children === '';
-	      if (shouldBeNewline) {
-	        return !isNewline(node);
-	      }
-	      return node.textContent !== nextProps.children;
-	    }
-	  }, {
-	    key: 'componentWillUpdate',
-	    value: function componentWillUpdate() {
-	      // By flipping this flag, we also keep flipping keys which forces
-	      // React to remount this node every time it rerenders.
-	      this._forceFlag = !this._forceFlag;
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      if (this.props.children === '') {
-	        return this._forceFlag ? NEWLINE_A : NEWLINE_B;
-	      }
-	      return React.createElement(
-	        'span',
-	        { key: this._forceFlag ? 'A' : 'B', 'data-text': 'true' },
-	        this.props.children
-	      );
-	    }
-	  }]);
-
-	  return DraftEditorTextNode;
-	})(React.Component);
-
-	module.exports = DraftEditorTextNode;
-
-/***/ },
-/* 313 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule setDraftEditorSelection
-	 * @typechecks
-	 * 
-	 */
-
-	/**
-	 * In modern non-IE browsers, we can support both forward and backward
-	 * selections.
-	 *
-	 * Note: IE10+ supports the Selection object, but it does not support
-	 * the `extend` method, which means that even in modern IE, it's not possible
-	 * to programatically create a backward selection. Thus, for all IE
-	 * versions, we use the old IE API to create our selections.
-	 */
-	'use strict';
-
-	var containsNode = __webpack_require__(364);
-	var getActiveElement = __webpack_require__(365);
-
-	function setDraftEditorSelection(selectionState, node, blockKey, nodeStart, nodeEnd) {
-	  // It's possible that the editor has been removed from the DOM but
-	  // our selection code doesn't know it yet. Forcing selection in
-	  // this case may lead to errors, so just bail now.
-	  if (!containsNode(document.documentElement, node)) {
-	    return;
-	  }
-
-	  var selection = global.getSelection();
-	  var anchorKey = selectionState.getAnchorKey();
-	  var anchorOffset = selectionState.getAnchorOffset();
-	  var focusKey = selectionState.getFocusKey();
-	  var focusOffset = selectionState.getFocusOffset();
-	  var isBackward = selectionState.getIsBackward();
-
-	  // IE doesn't support backward selection. Swap key/offset pairs.
-	  if (!selection.extend && isBackward) {
-	    var tempKey = anchorKey;
-	    var tempOffset = anchorOffset;
-	    anchorKey = focusKey;
-	    anchorOffset = focusOffset;
-	    focusKey = tempKey;
-	    focusOffset = tempOffset;
-	    isBackward = false;
-	  }
-
-	  var hasAnchor = anchorKey === blockKey && nodeStart <= anchorOffset && nodeEnd >= anchorOffset;
-
-	  var hasFocus = focusKey === blockKey && nodeStart <= focusOffset && nodeEnd >= focusOffset;
-
-	  // If the selection is entirely bound within this node, set the selection
-	  // and be done.
-	  if (hasAnchor && hasFocus) {
-	    selection.removeAllRanges();
-	    addPointToSelection(selection, node, anchorOffset - nodeStart);
-	    addFocusToSelection(selection, node, focusOffset - nodeStart);
-	    return;
-	  }
-
-	  if (!isBackward) {
-	    // If the anchor is within this node, set the range start.
-	    if (hasAnchor) {
-	      selection.removeAllRanges();
-	      addPointToSelection(selection, node, anchorOffset - nodeStart);
-	    }
-
-	    // If the focus is within this node, we can assume that we have
-	    // already set the appropriate start range on the selection, and
-	    // can simply extend the selection.
-	    if (hasFocus) {
-	      addFocusToSelection(selection, node, focusOffset - nodeStart);
-	    }
-	  } else {
-	    // If this node has the focus, set the selection range to be a
-	    // collapsed range beginning here. Later, when we encounter the anchor,
-	    // we'll use this information to extend the selection.
-	    if (hasFocus) {
-	      selection.removeAllRanges();
-	      addPointToSelection(selection, node, focusOffset - nodeStart);
-	    }
-
-	    // If this node has the anchor, we may assume that the correct
-	    // focus information is already stored on the selection object.
-	    // We keep track of it, reset the selection range, and extend it
-	    // back to the focus point.
-	    if (hasAnchor) {
-	      var storedFocusNode = selection.focusNode;
-	      var storedFocusOffset = selection.focusOffset;
-
-	      selection.removeAllRanges();
-	      addPointToSelection(selection, node, anchorOffset - nodeStart);
-	      addFocusToSelection(selection, storedFocusNode, storedFocusOffset);
-	    }
-	  }
-	}
-
-	/**
-	 * Extend selection towards focus point.
-	 */
-	function addFocusToSelection(selection, node, offset) {
-	  if (selection.extend && containsNode(getActiveElement(), node)) {
-	    // If `extend` is called while another element has focus, an error is
-	    // thrown. We therefore disable `extend` if the active element is somewhere
-	    // other than the node we are selecting. This should only occur in Firefox,
-	    // since it is the only browser to support multiple selections.
-	    // See https://bugzilla.mozilla.org/show_bug.cgi?id=921444.
-	    selection.extend(node, offset);
-	  } else {
-	    // IE doesn't support extend. This will mean no backward selection.
-	    // Extract the existing selection range and add focus to it.
-	    // Additionally, clone the selection range. IE11 throws an
-	    // InvalidStateError when attempting to access selection properties
-	    // after the range is detached.
-	    var range = selection.getRangeAt(0);
-	    range.setEnd(node, offset);
-	    selection.addRange(range.cloneRange());
-	  }
-	}
-
-	function addPointToSelection(selection, node, offset) {
-	  var range = document.createRange();
-	  range.setStart(node, offset);
-	  selection.addRange(range);
-	}
-
-	module.exports = setDraftEditorSelection;
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 314 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
 	 * @providesModule getEntityKeyForSelection
 	 * @typechecks
 	 * 
@@ -79525,7 +79267,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	'use strict';
 
-	var DraftEntity = __webpack_require__(228);
+	var DraftEntity = __webpack_require__(229);
 
 	function getEntityKeyForSelection(contentState, targetSelection) {
 	  var entityKey;
@@ -79564,7 +79306,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getEntityKeyForSelection;
 
 /***/ },
-/* 315 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -79618,7 +79360,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isSelectionAtLeafStart;
 
 /***/ },
-/* 316 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -79636,7 +79378,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var getSelectionOffsetKeyForNode = __webpack_require__(366);
+	var getSelectionOffsetKeyForNode = __webpack_require__(364);
 
 	/**
 	 * Get the key from the node's nearest offset-aware ancestor.
@@ -79655,7 +79397,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = findAncestorOffsetKey;
 
 /***/ },
-/* 317 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -79736,7 +79478,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 318 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -79753,9 +79495,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var DraftOffsetKey = __webpack_require__(271);
+	var DraftOffsetKey = __webpack_require__(276);
 
-	var nullthrows = __webpack_require__(349);
+	var nullthrows = __webpack_require__(346);
 
 	function getUpdatedSelectionState(editorState, anchorKey, anchorOffset, focusKey, focusOffset) {
 	  var selection = nullthrows(editorState.getSelection());
@@ -79816,7 +79558,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getUpdatedSelectionState;
 
 /***/ },
-/* 319 */
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -79841,13 +79583,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var BlockTree = __webpack_require__(287);
-	var DraftModifier = __webpack_require__(227);
-	var EditorState = __webpack_require__(230);
-	var UserAgent = __webpack_require__(350);
+	var DraftModifier = __webpack_require__(228);
+	var EditorState = __webpack_require__(231);
+	var UserAgent = __webpack_require__(344);
 
-	var getEntityKeyForSelection = __webpack_require__(314);
-	var isSelectionAtLeafStart = __webpack_require__(315);
-	var nullthrows = __webpack_require__(349);
+	var getEntityKeyForSelection = __webpack_require__(312);
+	var isSelectionAtLeafStart = __webpack_require__(313);
+	var nullthrows = __webpack_require__(346);
 
 	var FF_QUICKFIND_CHAR = '\'';
 	var FF_QUICKFIND_LINK_CHAR = '\/';
@@ -79939,7 +79681,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = editOnBeforeInput;
 
 /***/ },
-/* 320 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -79956,8 +79698,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var EditorState = __webpack_require__(230);
-	var UserAgent = __webpack_require__(350);
+	var EditorState = __webpack_require__(231);
+	var UserAgent = __webpack_require__(344);
 
 	var getActiveElement = __webpack_require__(365);
 
@@ -79989,7 +79731,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 321 */
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -80006,7 +79748,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var EditorState = __webpack_require__(230);
+	var EditorState = __webpack_require__(231);
 
 	/**
 	 * The user has begun using an IME input system. Switching to `composite` mode
@@ -80021,7 +79763,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = editOnCompositionStart;
 
 /***/ },
-/* 322 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -80038,7 +79780,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var getFragmentFromSelection = __webpack_require__(367);
+	var getFragmentFromSelection = __webpack_require__(366);
 
 	/**
 	 * If we have a selection, create a ContentState fragment and store
@@ -80061,7 +79803,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = editOnCopy;
 
 /***/ },
-/* 323 */
+/* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -80078,11 +79820,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var DraftModifier = __webpack_require__(227);
-	var EditorState = __webpack_require__(230);
+	var DraftModifier = __webpack_require__(228);
+	var EditorState = __webpack_require__(231);
 	var Style = __webpack_require__(343);
 
-	var getFragmentFromSelection = __webpack_require__(367);
+	var getFragmentFromSelection = __webpack_require__(366);
 	var getScrollPosition = __webpack_require__(347);
 
 	/**
@@ -80139,7 +79881,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = editOnCut;
 
 /***/ },
-/* 324 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -80168,7 +79910,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = editOnDragOver;
 
 /***/ },
-/* 325 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -80196,7 +79938,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = editOnDragStart;
 
 /***/ },
-/* 326 */
+/* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -80213,7 +79955,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var EditorState = __webpack_require__(230);
+	var EditorState = __webpack_require__(231);
 
 	function editOnFocus(e) {
 	  var editorState = this.props.editorState;
@@ -80237,7 +79979,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = editOnFocus;
 
 /***/ },
-/* 327 */
+/* 325 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -80254,14 +79996,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var DraftModifier = __webpack_require__(227);
-	var DraftOffsetKey = __webpack_require__(271);
-	var EditorState = __webpack_require__(230);
-	var Entity = __webpack_require__(228);
-	var UserAgent = __webpack_require__(350);
+	var DraftModifier = __webpack_require__(228);
+	var DraftOffsetKey = __webpack_require__(276);
+	var EditorState = __webpack_require__(231);
+	var Entity = __webpack_require__(229);
+	var UserAgent = __webpack_require__(344);
 
-	var findAncestorOffsetKey = __webpack_require__(316);
-	var nullthrows = __webpack_require__(349);
+	var findAncestorOffsetKey = __webpack_require__(314);
+	var nullthrows = __webpack_require__(346);
 
 	var isGecko = UserAgent.isEngine('Gecko');
 
@@ -80384,7 +80126,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 328 */
+/* 326 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -80401,23 +80143,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var DraftModifier = __webpack_require__(227);
-	var EditorState = __webpack_require__(230);
-	var KeyBindingUtil = __webpack_require__(231);
+	var DraftModifier = __webpack_require__(228);
+	var EditorState = __webpack_require__(231);
+	var KeyBindingUtil = __webpack_require__(232);
 	var Keys = __webpack_require__(354);
-	var SecondaryClipboard = __webpack_require__(368);
-	var UserAgent = __webpack_require__(350);
+	var SecondaryClipboard = __webpack_require__(367);
+	var UserAgent = __webpack_require__(344);
 
-	var keyCommandBackspaceToStartOfLine = __webpack_require__(369);
-	var keyCommandBackspaceWord = __webpack_require__(370);
-	var keyCommandDeleteWord = __webpack_require__(371);
-	var keyCommandInsertNewline = __webpack_require__(372);
-	var keyCommandPlainBackspace = __webpack_require__(373);
-	var keyCommandPlainDelete = __webpack_require__(374);
-	var keyCommandMoveSelectionToEndOfBlock = __webpack_require__(375);
-	var keyCommandMoveSelectionToStartOfBlock = __webpack_require__(376);
-	var keyCommandTransposeCharacters = __webpack_require__(377);
-	var keyCommandUndo = __webpack_require__(378);
+	var keyCommandBackspaceToStartOfLine = __webpack_require__(368);
+	var keyCommandBackspaceWord = __webpack_require__(369);
+	var keyCommandDeleteWord = __webpack_require__(370);
+	var keyCommandInsertNewline = __webpack_require__(371);
+	var keyCommandPlainBackspace = __webpack_require__(372);
+	var keyCommandPlainDelete = __webpack_require__(373);
+	var keyCommandMoveSelectionToEndOfBlock = __webpack_require__(374);
+	var keyCommandMoveSelectionToStartOfBlock = __webpack_require__(375);
+	var keyCommandTransposeCharacters = __webpack_require__(376);
+	var keyCommandUndo = __webpack_require__(377);
 
 	var isOptionKeyCommand = KeyBindingUtil.isOptionKeyCommand;
 
@@ -80535,7 +80277,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = editOnKeyDown;
 
 /***/ },
-/* 329 */
+/* 327 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -80555,16 +80297,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	'use strict';
 
-	var BlockMapBuilder = __webpack_require__(218);
-	var CharacterMetadata = __webpack_require__(219);
+	var BlockMapBuilder = __webpack_require__(219);
+	var CharacterMetadata = __webpack_require__(220);
 	var DataTransfer = __webpack_require__(356);
-	var DraftModifier = __webpack_require__(227);
-	var DraftPasteProcessor = __webpack_require__(379);
-	var EditorState = __webpack_require__(230);
+	var DraftModifier = __webpack_require__(228);
+	var DraftPasteProcessor = __webpack_require__(378);
+	var EditorState = __webpack_require__(231);
 
-	var getEntityKeyForSelection = __webpack_require__(314);
-	var getTextContentFromFiles = __webpack_require__(317);
-	var splitTextIntoTextBlocks = __webpack_require__(380);
+	var getEntityKeyForSelection = __webpack_require__(312);
+	var getTextContentFromFiles = __webpack_require__(315);
+	var splitTextIntoTextBlocks = __webpack_require__(379);
 
 	function editOnPaste(e) {
 	  var _this = this;
@@ -80681,7 +80423,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = editOnPaste;
 
 /***/ },
-/* 330 */
+/* 328 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -80698,10 +80440,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var EditorState = __webpack_require__(230);
+	var EditorState = __webpack_require__(231);
 	var ReactDOM = __webpack_require__(19);
 
-	var getDraftEditorSelection = __webpack_require__(381);
+	var getDraftEditorSelection = __webpack_require__(380);
 
 	function editOnSelect() {
 	  if (this._blockSelectEvents) {
@@ -80725,6 +80467,264 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = editOnSelect;
 
 /***/ },
+/* 329 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule DraftEditorTextNode.react
+	 * @typechecks
+	 * 
+	 */
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var React = __webpack_require__(17);
+	var ReactDOM = __webpack_require__(19);
+	var UserAgent = __webpack_require__(344);
+
+	// In IE, spans with <br> tags render as two newlines. By rendering a span
+	// with only a newline character, we can be sure to render a single line.
+	var useNewlineChar = UserAgent.isBrowser('IE <= 11');
+
+	/**
+	 * Check whether the node should be considered a newline.
+	 */
+	function isNewline(node) {
+	  return useNewlineChar ? node.textContent === '\n' : node.tagName === 'BR';
+	}
+
+	/**
+	 * Placeholder elements for empty text content.
+	 *
+	 * What is this `data-text` attribute, anyway? It turns out that we need to
+	 * put an attribute on the lowest-level text node in order to preserve correct
+	 * spellcheck handling. If the <span> is naked, Chrome and Safari may do
+	 * bizarre things to do the DOM -- split text nodes, create extra spans, etc.
+	 * If the <span> has an attribute, this appears not to happen.
+	 * See http://jsfiddle.net/9khdavod/ for the failure case, and
+	 * http://jsfiddle.net/7pg143f7/ for the fixed case.
+	 */
+	var NEWLINE_A = useNewlineChar ? React.createElement(
+	  'span',
+	  { key: 'A', 'data-text': 'true' },
+	  '\n'
+	) : React.createElement('br', { key: 'A', 'data-text': 'true' });
+
+	var NEWLINE_B = useNewlineChar ? React.createElement(
+	  'span',
+	  { key: 'B', 'data-text': 'true' },
+	  '\n'
+	) : React.createElement('br', { key: 'B', 'data-text': 'true' });
+
+	/**
+	 * The lowest-level component in a `DraftEditor`, the text node component
+	 * replaces the default React text node implementation. This allows us to
+	 * perform custom handling of newline behavior and avoid re-rendering text
+	 * nodes with DOM state that already matches the expectations of our immutable
+	 * editor state.
+	 */
+
+	var DraftEditorTextNode = (function (_React$Component) {
+	  _inherits(DraftEditorTextNode, _React$Component);
+
+	  function DraftEditorTextNode(props) {
+	    _classCallCheck(this, DraftEditorTextNode);
+
+	    _get(Object.getPrototypeOf(DraftEditorTextNode.prototype), 'constructor', this).call(this, props);
+	    this._forceFlag = false;
+	  }
+
+	  _createClass(DraftEditorTextNode, [{
+	    key: 'shouldComponentUpdate',
+	    value: function shouldComponentUpdate(nextProps) {
+	      var node = ReactDOM.findDOMNode(this);
+	      var shouldBeNewline = nextProps.children === '';
+	      if (shouldBeNewline) {
+	        return !isNewline(node);
+	      }
+	      return node.textContent !== nextProps.children;
+	    }
+	  }, {
+	    key: 'componentWillUpdate',
+	    value: function componentWillUpdate() {
+	      // By flipping this flag, we also keep flipping keys which forces
+	      // React to remount this node every time it rerenders.
+	      this._forceFlag = !this._forceFlag;
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      if (this.props.children === '') {
+	        return this._forceFlag ? NEWLINE_A : NEWLINE_B;
+	      }
+	      return React.createElement(
+	        'span',
+	        { key: this._forceFlag ? 'A' : 'B', 'data-text': 'true' },
+	        this.props.children
+	      );
+	    }
+	  }]);
+
+	  return DraftEditorTextNode;
+	})(React.Component);
+
+	module.exports = DraftEditorTextNode;
+
+/***/ },
+/* 330 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule setDraftEditorSelection
+	 * @typechecks
+	 * 
+	 */
+
+	/**
+	 * In modern non-IE browsers, we can support both forward and backward
+	 * selections.
+	 *
+	 * Note: IE10+ supports the Selection object, but it does not support
+	 * the `extend` method, which means that even in modern IE, it's not possible
+	 * to programatically create a backward selection. Thus, for all IE
+	 * versions, we use the old IE API to create our selections.
+	 */
+	'use strict';
+
+	var containsNode = __webpack_require__(381);
+	var getActiveElement = __webpack_require__(365);
+
+	function setDraftEditorSelection(selectionState, node, blockKey, nodeStart, nodeEnd) {
+	  // It's possible that the editor has been removed from the DOM but
+	  // our selection code doesn't know it yet. Forcing selection in
+	  // this case may lead to errors, so just bail now.
+	  if (!containsNode(document.documentElement, node)) {
+	    return;
+	  }
+
+	  var selection = global.getSelection();
+	  var anchorKey = selectionState.getAnchorKey();
+	  var anchorOffset = selectionState.getAnchorOffset();
+	  var focusKey = selectionState.getFocusKey();
+	  var focusOffset = selectionState.getFocusOffset();
+	  var isBackward = selectionState.getIsBackward();
+
+	  // IE doesn't support backward selection. Swap key/offset pairs.
+	  if (!selection.extend && isBackward) {
+	    var tempKey = anchorKey;
+	    var tempOffset = anchorOffset;
+	    anchorKey = focusKey;
+	    anchorOffset = focusOffset;
+	    focusKey = tempKey;
+	    focusOffset = tempOffset;
+	    isBackward = false;
+	  }
+
+	  var hasAnchor = anchorKey === blockKey && nodeStart <= anchorOffset && nodeEnd >= anchorOffset;
+
+	  var hasFocus = focusKey === blockKey && nodeStart <= focusOffset && nodeEnd >= focusOffset;
+
+	  // If the selection is entirely bound within this node, set the selection
+	  // and be done.
+	  if (hasAnchor && hasFocus) {
+	    selection.removeAllRanges();
+	    addPointToSelection(selection, node, anchorOffset - nodeStart);
+	    addFocusToSelection(selection, node, focusOffset - nodeStart);
+	    return;
+	  }
+
+	  if (!isBackward) {
+	    // If the anchor is within this node, set the range start.
+	    if (hasAnchor) {
+	      selection.removeAllRanges();
+	      addPointToSelection(selection, node, anchorOffset - nodeStart);
+	    }
+
+	    // If the focus is within this node, we can assume that we have
+	    // already set the appropriate start range on the selection, and
+	    // can simply extend the selection.
+	    if (hasFocus) {
+	      addFocusToSelection(selection, node, focusOffset - nodeStart);
+	    }
+	  } else {
+	    // If this node has the focus, set the selection range to be a
+	    // collapsed range beginning here. Later, when we encounter the anchor,
+	    // we'll use this information to extend the selection.
+	    if (hasFocus) {
+	      selection.removeAllRanges();
+	      addPointToSelection(selection, node, focusOffset - nodeStart);
+	    }
+
+	    // If this node has the anchor, we may assume that the correct
+	    // focus information is already stored on the selection object.
+	    // We keep track of it, reset the selection range, and extend it
+	    // back to the focus point.
+	    if (hasAnchor) {
+	      var storedFocusNode = selection.focusNode;
+	      var storedFocusOffset = selection.focusOffset;
+
+	      selection.removeAllRanges();
+	      addPointToSelection(selection, node, anchorOffset - nodeStart);
+	      addFocusToSelection(selection, storedFocusNode, storedFocusOffset);
+	    }
+	  }
+	}
+
+	/**
+	 * Extend selection towards focus point.
+	 */
+	function addFocusToSelection(selection, node, offset) {
+	  if (selection.extend && containsNode(getActiveElement(), node)) {
+	    // If `extend` is called while another element has focus, an error is
+	    // thrown. We therefore disable `extend` if the active element is somewhere
+	    // other than the node we are selecting. This should only occur in Firefox,
+	    // since it is the only browser to support multiple selections.
+	    // See https://bugzilla.mozilla.org/show_bug.cgi?id=921444.
+	    selection.extend(node, offset);
+	  } else {
+	    // IE doesn't support extend. This will mean no backward selection.
+	    // Extract the existing selection range and add focus to it.
+	    // Additionally, clone the selection range. IE11 throws an
+	    // InvalidStateError when attempting to access selection properties
+	    // after the range is detached.
+	    var range = selection.getRangeAt(0);
+	    range.setEnd(node, offset);
+	    selection.addRange(range.cloneRange());
+	  }
+	}
+
+	function addPointToSelection(selection, node, offset) {
+	  var range = document.createRange();
+	  range.setStart(node, offset);
+	  selection.addRange(range);
+	}
+
+	module.exports = setDraftEditorSelection;
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
 /* 331 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -80743,7 +80743,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var CharacterMetadata = __webpack_require__(219);
+	var CharacterMetadata = __webpack_require__(220);
 
 	function applyEntityToContentBlock(contentBlock, start, end, entityKey) {
 	  var characterList = contentBlock.getCharacterList();
@@ -80963,7 +80963,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var UserAgent = __webpack_require__(350);
+	var UserAgent = __webpack_require__(344);
 
 	var invariant = __webpack_require__(352);
 
@@ -81438,7 +81438,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * occurred in the last 100 milliseconds.
 	 */
 
-	var now = __webpack_require__(418);
+	var now = __webpack_require__(413);
 
 	var VelocityTracker = function () {
 	    function VelocityTracker(options) {
@@ -81886,469 +81886,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @typechecks
-	 * 
-	 */
-
-	/**
-	 * Basic (stateless) API for text direction detection
-	 *
-	 * Part of our implementation of Unicode Bidirectional Algorithm (UBA)
-	 * Unicode Standard Annex #9 (UAX9)
-	 * http://www.unicode.org/reports/tr9/
 	 */
 
 	'use strict';
 
-	var UnicodeBidiDirection = __webpack_require__(345);
-
-	var invariant = __webpack_require__(352);
-
-	/**
-	 * RegExp ranges of characters with a *Strong* Bidi_Class value.
-	 *
-	 * Data is based on DerivedBidiClass.txt in UCD version 7.0.0.
-	 *
-	 * NOTE: For performance reasons, we only support Unicode's
-	 *       Basic Multilingual Plane (BMP) for now.
-	 */
-	var RANGE_BY_BIDI_TYPE = {
-
-	  L: 'A-Za-zªµºÀ-ÖØ-öø-ƺƻ' + 'Ƽ-ƿǀ-ǃǄ-ʓʔʕ-ʯʰ-ʸ' + 'ʻ-ˁː-ˑˠ-ˤˮͰ-ͳͶ-ͷ' + 'ͺͻ-ͽͿΆΈ-ΊΌΎ-Ρ' + 'Σ-ϵϷ-ҁ҂Ҋ-ԯԱ-Ֆՙ' + '՚-՟ա-և։ःऄ-हऻऽ' + 'ा-ीॉ-ौॎ-ॏॐक़-ॡ।-॥' + '०-९॰ॱॲ-ঀং-ঃঅ-ঌ' + 'এ-ঐও-নপ-রলশ-হঽ' + 'া-ীে-ৈো-ৌৎৗড়-ঢ়' + 'য়-ৡ০-৯ৰ-ৱ৴-৹৺ਃ' + 'ਅ-ਊਏ-ਐਓ-ਨਪ-ਰਲ-ਲ਼' + 'ਵ-ਸ਼ਸ-ਹਾ-ੀਖ਼-ੜਫ਼੦-੯' + 'ੲ-ੴઃઅ-ઍએ-ઑઓ-નપ-ર' + 'લ-ળવ-હઽા-ીૉો-ૌૐ' + 'ૠ-ૡ૦-૯૰ଂ-ଃଅ-ଌଏ-ଐ' + 'ଓ-ନପ-ରଲ-ଳଵ-ହଽାୀ' + 'େ-ୈୋ-ୌୗଡ଼-ଢ଼ୟ-ୡ୦-୯' + '୰ୱ୲-୷ஃஅ-ஊஎ-ஐஒ-க' + 'ங-சஜஞ-டண-தந-பம-ஹ' + 'ா-ிு-ூெ-ைொ-ௌௐௗ' + '௦-௯௰-௲ఁ-ఃఅ-ఌఎ-ఐ' + 'ఒ-నప-హఽు-ౄౘ-ౙౠ-ౡ' + '౦-౯౿ಂ-ಃಅ-ಌಎ-ಐಒ-ನ' + 'ಪ-ಳವ-ಹಽಾಿೀ-ೄೆ' + 'ೇ-ೈೊ-ೋೕ-ೖೞೠ-ೡ೦-೯' + 'ೱ-ೲം-ഃഅ-ഌഎ-ഐഒ-ഺഽ' + 'ാ-ീെ-ൈൊ-ൌൎൗൠ-ൡ' + '൦-൯൰-൵൹ൺ-ൿං-ඃඅ-ඖ' + 'ක-නඳ-රලව-ෆා-ෑෘ-ෟ' + '෦-෯ෲ-ෳ෴ก-ะา-ำเ-ๅ' + 'ๆ๏๐-๙๚-๛ກ-ຂຄງ-ຈ' + 'ຊຍດ-ທນ-ຟມ-ຣລວ' + 'ສ-ຫອ-ະາ-ຳຽເ-ໄໆ' + '໐-໙ໜ-ໟༀ༁-༃༄-༒༓༔' + '༕-༗༚-༟༠-༩༪-༳༴༶༸' + '༾-༿ཀ-ཇཉ-ཬཿ྅ྈ-ྌ' + '྾-࿅࿇-࿌࿎-࿏࿐-࿔࿕-࿘' + '࿙-࿚က-ဪါ-ာေးျ-ြဿ' + '၀-၉၊-၏ၐ-ၕၖ-ၗၚ-ၝၡ' + 'ၢ-ၤၥ-ၦၧ-ၭၮ-ၰၵ-ႁ' + 'ႃ-ႄႇ-ႌႎႏ႐-႙ႚ-ႜ' + '႞-႟Ⴀ-ჅჇჍა-ჺ჻ჼ' + 'ჽ-ቈቊ-ቍቐ-ቖቘቚ-ቝበ-ኈ' + 'ኊ-ኍነ-ኰኲ-ኵኸ-ኾዀዂ-ዅ' + 'ወ-ዖዘ-ጐጒ-ጕጘ-ፚ፠-፨' + '፩-፼ᎀ-ᎏᎠ-Ᏼᐁ-ᙬ᙭-᙮' + 'ᙯ-ᙿᚁ-ᚚᚠ-ᛪ᛫-᛭ᛮ-ᛰ' + 'ᛱ-ᛸᜀ-ᜌᜎ-ᜑᜠ-ᜱ᜵-᜶' + 'ᝀ-ᝑᝠ-ᝬᝮ-ᝰក-ឳាើ-ៅ' + 'ះ-ៈ។-៖ៗ៘-៚ៜ០-៩' + '᠐-᠙ᠠ-ᡂᡃᡄ-ᡷᢀ-ᢨᢪ' + 'ᢰ-ᣵᤀ-ᤞᤣ-ᤦᤩ-ᤫᤰ-ᤱ' + 'ᤳ-ᤸ᥆-᥏ᥐ-ᥭᥰ-ᥴᦀ-ᦫ' + 'ᦰ-ᧀᧁ-ᧇᧈ-ᧉ᧐-᧙᧚ᨀ-ᨖ' + 'ᨙ-ᨚ᨞-᨟ᨠ-ᩔᩕᩗᩡᩣ-ᩤ' + 'ᩭ-ᩲ᪀-᪉᪐-᪙᪠-᪦ᪧ᪨-᪭' + 'ᬄᬅ-ᬳᬵᬻᬽ-ᭁᭃ-᭄ᭅ-ᭋ' + '᭐-᭙᭚-᭠᭡-᭪᭴-᭼ᮂᮃ-ᮠ' + 'ᮡᮦ-ᮧ᮪ᮮ-ᮯ᮰-᮹ᮺ-ᯥᯧ' + 'ᯪ-ᯬᯮ᯲-᯳᯼-᯿ᰀ-ᰣᰤ-ᰫ' + 'ᰴ-ᰵ᰻-᰿᱀-᱉ᱍ-ᱏ᱐-᱙' + 'ᱚ-ᱷᱸ-ᱽ᱾-᱿᳀-᳇᳓᳡' + 'ᳩ-ᳬᳮ-ᳱᳲ-ᳳᳵ-ᳶᴀ-ᴫ' + 'ᴬ-ᵪᵫ-ᵷᵸᵹ-ᶚᶛ-ᶿḀ-ἕ' + 'Ἐ-Ἕἠ-ὅὈ-Ὅὐ-ὗὙὛὝ' + 'Ὗ-ώᾀ-ᾴᾶ-ᾼιῂ-ῄῆ-ῌ' + 'ῐ-ΐῖ-Ίῠ-Ῥῲ-ῴῶ-ῼ‎' + 'ⁱⁿₐ-ₜℂℇℊ-ℓℕℙ-ℝ' + 'ℤΩℨK-ℭℯ-ℴℵ-ℸℹ' + 'ℼ-ℿⅅ-ⅉⅎ⅏Ⅰ-ↂↃ-ↄ' + 'ↅ-ↈ⌶-⍺⎕⒜-ⓩ⚬⠀-⣿' + 'Ⰰ-Ⱞⰰ-ⱞⱠ-ⱻⱼ-ⱽⱾ-ⳤ' + 'Ⳬ-ⳮⳲ-ⳳⴀ-ⴥⴧⴭⴰ-ⵧⵯ' + '⵰ⶀ-ⶖⶠ-ⶦⶨ-ⶮⶰ-ⶶⶸ-ⶾ' + 'ⷀ-ⷆⷈ-ⷎⷐ-ⷖⷘ-ⷞ々〆〇' + '〡-〩〮-〯〱-〵〸-〺〻〼' + 'ぁ-ゖゝ-ゞゟァ-ヺー-ヾヿ' + 'ㄅ-ㄭㄱ-ㆎ㆐-㆑㆒-㆕㆖-㆟' + 'ㆠ-ㆺㇰ-ㇿ㈀-㈜㈠-㈩㈪-㉇' + '㉈-㉏㉠-㉻㉿㊀-㊉㊊-㊰㋀-㋋' + '㋐-㋾㌀-㍶㍻-㏝㏠-㏾㐀-䶵' + '一-鿌ꀀ-ꀔꀕꀖ-ꒌꓐ-ꓷꓸ-ꓽ' + '꓾-꓿ꔀ-ꘋꘌꘐ-ꘟ꘠-꘩ꘪ-ꘫ' + 'Ꙁ-ꙭꙮꚀ-ꚛꚜ-ꚝꚠ-ꛥꛦ-ꛯ' + '꛲-꛷Ꜣ-ꝯꝰꝱ-ꞇ꞉-꞊Ꞌ-ꞎ' + 'Ꞑ-ꞭꞰ-Ʇꟷꟸ-ꟹꟺꟻ-ꠁ' + 'ꠃ-ꠅꠇ-ꠊꠌ-ꠢꠣ-ꠤꠧ꠰-꠵' + '꠶-꠷ꡀ-ꡳꢀ-ꢁꢂ-ꢳꢴ-ꣃ' + '꣎-꣏꣐-꣙ꣲ-ꣷ꣸-꣺ꣻ꤀-꤉' + 'ꤊ-ꤥ꤮-꤯ꤰ-ꥆꥒ-꥓꥟ꥠ-ꥼ' + 'ꦃꦄ-ꦲꦴ-ꦵꦺ-ꦻꦽ-꧀꧁-꧍' + 'ꧏ꧐-꧙꧞-꧟ꧠ-ꧤꧦꧧ-ꧯ' + '꧰-꧹ꧺ-ꧾꨀ-ꨨꨯ-ꨰꨳ-ꨴ' + 'ꩀ-ꩂꩄ-ꩋꩍ꩐-꩙꩜-꩟ꩠ-ꩯ' + 'ꩰꩱ-ꩶ꩷-꩹ꩺꩻꩽꩾ-ꪯꪱ' + 'ꪵ-ꪶꪹ-ꪽꫀꫂꫛ-ꫜꫝ꫞-꫟' + 'ꫠ-ꫪꫫꫮ-ꫯ꫰-꫱ꫲꫳ-ꫴꫵ' + 'ꬁ-ꬆꬉ-ꬎꬑ-ꬖꬠ-ꬦꬨ-ꬮ' + 'ꬰ-ꭚ꭛ꭜ-ꭟꭤ-ꭥꯀ-ꯢꯣ-ꯤ' + 'ꯦ-ꯧꯩ-ꯪ꯫꯬꯰-꯹가-힣' + 'ힰ-ퟆퟋ-ퟻ-豈-舘並-龎' + 'ﬀ-ﬆﬓ-ﬗＡ-Ｚａ-ｚｦ-ｯｰ' + 'ｱ-ﾝﾞ-ﾟﾠ-ﾾￂ-ￇￊ-ￏ' + 'ￒ-ￗￚ-ￜ',
-
-	  R: '֐־׀׃׆׈-׏א-ת׫-ׯ' + 'װ-ײ׳-״׵-׿߀-߉ߊ-ߪ' + 'ߴ-ߵߺ߻-߿ࠀ-ࠕࠚࠤࠨ' + '࠮-࠯࠰-࠾࠿ࡀ-ࡘ࡜-࡝࡞' + '࡟-࢟‏יִײַ-ﬨשׁ-זּ﬷טּ-לּ' + '﬽מּ﬿נּ-סּ﭂ףּ-פּ﭅צּ-ﭏ',
-
-	  AL: '؈؋؍؛؜؝؞-؟ؠ-ؿـ' + 'ف-ي٭ٮ-ٯٱ-ۓ۔ەۥ-ۦ' + 'ۮ-ۯۺ-ۼ۽-۾ۿ܀-܍܎܏' + 'ܐܒ-ܯ݋-݌ݍ-ޥޱ޲-޿' + 'ࢠ-ࢲࢳ-ࣣﭐ-ﮱ﮲-﯁﯂-﯒' + 'ﯓ-ﴽ﵀-﵏ﵐ-ﶏ﶐-﶑ﶒ-ﷇ' + '﷈-﷏ﷰ-ﷻ﷼﷾-﷿ﹰ-ﹴ﹵' + 'ﹶ-ﻼ﻽-﻾'
-
-	};
-
-	var REGEX_STRONG = new RegExp('[' + RANGE_BY_BIDI_TYPE.L + RANGE_BY_BIDI_TYPE.R + RANGE_BY_BIDI_TYPE.AL + ']');
-
-	var REGEX_RTL = new RegExp('[' + RANGE_BY_BIDI_TYPE.R + RANGE_BY_BIDI_TYPE.AL + ']');
-
-	/**
-	 * Returns the first strong character (has Bidi_Class value of L, R, or AL).
-	 *
-	 * @param str  A text block; e.g. paragraph, table cell, tag
-	 * @return     A character with strong bidi direction, or null if not found
-	 */
-	function firstStrongChar(str) {
-	  var match = REGEX_STRONG.exec(str);
-	  return match == null ? null : match[0];
-	}
-
-	/**
-	 * Returns the direction of a block of text, based on the direction of its
-	 * first strong character (has Bidi_Class value of L, R, or AL).
-	 *
-	 * @param str  A text block; e.g. paragraph, table cell, tag
-	 * @return     The resolved direction
-	 */
-	function firstStrongCharDir(str) {
-	  var strongChar = firstStrongChar(str);
-	  if (strongChar == null) {
-	    return UnicodeBidiDirection.NEUTRAL;
-	  }
-	  return REGEX_RTL.exec(strongChar) ? UnicodeBidiDirection.RTL : UnicodeBidiDirection.LTR;
-	}
-
-	/**
-	 * Returns the direction of a block of text, based on the direction of its
-	 * first strong character (has Bidi_Class value of L, R, or AL), or a fallback
-	 * direction, if no strong character is found.
-	 *
-	 * This function is supposed to be used in respect to Higher-Level Protocol
-	 * rule HL1. (http://www.unicode.org/reports/tr9/#HL1)
-	 *
-	 * @param str       A text block; e.g. paragraph, table cell, tag
-	 * @param fallback  Fallback direction, used if no strong direction detected
-	 *                  for the block (default = NEUTRAL)
-	 * @return          The resolved direction
-	 */
-	function resolveBlockDir(str, fallback) {
-	  fallback = fallback || UnicodeBidiDirection.NEUTRAL;
-	  if (!str.length) {
-	    return fallback;
-	  }
-	  var blockDir = firstStrongCharDir(str);
-	  return blockDir === UnicodeBidiDirection.NEUTRAL ? fallback : blockDir;
-	}
-
-	/**
-	 * Returns the direction of a block of text, based on the direction of its
-	 * first strong character (has Bidi_Class value of L, R, or AL), or a fallback
-	 * direction, if no strong character is found.
-	 *
-	 * NOTE: This function is similar to resolveBlockDir(), but uses the global
-	 * direction as the fallback, so it *always* returns a Strong direction,
-	 * making it useful for integration in places that you need to make the final
-	 * decision, like setting some CSS class.
-	 *
-	 * This function is supposed to be used in respect to Higher-Level Protocol
-	 * rule HL1. (http://www.unicode.org/reports/tr9/#HL1)
-	 *
-	 * @param str             A text block; e.g. paragraph, table cell
-	 * @param strongFallback  Fallback direction, used if no strong direction
-	 *                        detected for the block (default = global direction)
-	 * @return                The resolved Strong direction
-	 */
-	function getDirection(str, strongFallback) {
-	  if (!strongFallback) {
-	    strongFallback = UnicodeBidiDirection.getGlobalDir();
-	  }
-	  !UnicodeBidiDirection.isStrong(strongFallback) ? false ? invariant(false, 'Fallback direction must be a strong direction') : invariant(false) : void 0;
-	  return resolveBlockDir(str, strongFallback);
-	}
-
-	/**
-	 * Returns true if getDirection(arguments...) returns LTR.
-	 *
-	 * @param str             A text block; e.g. paragraph, table cell
-	 * @param strongFallback  Fallback direction, used if no strong direction
-	 *                        detected for the block (default = global direction)
-	 * @return                True if the resolved direction is LTR
-	 */
-	function isDirectionLTR(str, strongFallback) {
-	  return getDirection(str, strongFallback) === UnicodeBidiDirection.LTR;
-	}
-
-	/**
-	 * Returns true if getDirection(arguments...) returns RTL.
-	 *
-	 * @param str             A text block; e.g. paragraph, table cell
-	 * @param strongFallback  Fallback direction, used if no strong direction
-	 *                        detected for the block (default = global direction)
-	 * @return                True if the resolved direction is RTL
-	 */
-	function isDirectionRTL(str, strongFallback) {
-	  return getDirection(str, strongFallback) === UnicodeBidiDirection.RTL;
-	}
-
-	var UnicodeBidi = {
-	  firstStrongChar: firstStrongChar,
-	  firstStrongCharDir: firstStrongCharDir,
-	  resolveBlockDir: resolveBlockDir,
-	  getDirection: getDirection,
-	  isDirectionLTR: isDirectionLTR,
-	  isDirectionRTL: isDirectionRTL
-	};
-
-	module.exports = UnicodeBidi;
-
-/***/ },
-/* 345 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @typechecks
-	 * 
-	 */
-
-	/**
-	 * Constants to represent text directionality
-	 *
-	 * Also defines a *global* direciton, to be used in bidi algorithms as a
-	 * default fallback direciton, when no better direction is found or provided.
-	 *
-	 * NOTE: Use `setGlobalDir()`, or update `initGlobalDir()`, to set the initial
-	 *       global direction value based on the application.
-	 *
-	 * Part of the implementation of Unicode Bidirectional Algorithm (UBA)
-	 * Unicode Standard Annex #9 (UAX9)
-	 * http://www.unicode.org/reports/tr9/
-	 */
-
-	'use strict';
-
-	var invariant = __webpack_require__(352);
-
-	var NEUTRAL = 'NEUTRAL'; // No strong direction
-	var LTR = 'LTR'; // Left-to-Right direction
-	var RTL = 'RTL'; // Right-to-Left direction
-
-	var globalDir = null;
-
-	// == Helpers ==
-
-	/**
-	 * Check if a directionality value is a Strong one
-	 */
-	function isStrong(dir) {
-	  return dir === LTR || dir === RTL;
-	}
-
-	/**
-	 * Get string value to be used for `dir` HTML attribute or `direction` CSS
-	 * property.
-	 */
-	function getHTMLDir(dir) {
-	  !isStrong(dir) ? false ? invariant(false, '`dir` must be a strong direction to be converted to HTML Direction') : invariant(false) : void 0;
-	  return dir === LTR ? 'ltr' : 'rtl';
-	}
-
-	/**
-	 * Get string value to be used for `dir` HTML attribute or `direction` CSS
-	 * property, but returns null if `dir` has same value as `otherDir`.
-	 * `null`.
-	 */
-	function getHTMLDirIfDifferent(dir, otherDir) {
-	  !isStrong(dir) ? false ? invariant(false, '`dir` must be a strong direction to be converted to HTML Direction') : invariant(false) : void 0;
-	  !isStrong(otherDir) ? false ? invariant(false, '`otherDir` must be a strong direction to be converted to HTML Direction') : invariant(false) : void 0;
-	  return dir === otherDir ? null : getHTMLDir(dir);
-	}
-
-	// == Global Direction ==
-
-	/**
-	 * Set the global direction.
-	 */
-	function setGlobalDir(dir) {
-	  globalDir = dir;
-	}
-
-	/**
-	 * Initialize the global direction
-	 */
-	function initGlobalDir() {
-	  setGlobalDir(LTR);
-	}
-
-	/**
-	 * Get the global direction
-	 */
-	function getGlobalDir() {
-	  if (!globalDir) {
-	    this.initGlobalDir();
-	  }
-	  !globalDir ? false ? invariant(false, 'Global direction not set.') : invariant(false) : void 0;
-	  return globalDir;
-	}
-
-	var UnicodeBidiDirection = {
-	  // Values
-	  NEUTRAL: NEUTRAL,
-	  LTR: LTR,
-	  RTL: RTL,
-	  // Helpers
-	  isStrong: isStrong,
-	  getHTMLDir: getHTMLDir,
-	  getHTMLDirIfDifferent: getHTMLDirIfDifferent,
-	  // Global Direction
-	  setGlobalDir: setGlobalDir,
-	  initGlobalDir: initGlobalDir,
-	  getGlobalDir: getGlobalDir
-	};
-
-	module.exports = UnicodeBidiDirection;
-
-/***/ },
-/* 346 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @typechecks
-	 */
-
-	var getElementRect = __webpack_require__(386);
-
-	/**
-	 * Gets an element's position in pixels relative to the viewport. The returned
-	 * object represents the position of the element's top left corner.
-	 *
-	 * @param {DOMElement} element
-	 * @return {object}
-	 */
-	function getElementPosition(element) {
-	  var rect = getElementRect(element);
-	  return {
-	    x: rect.left,
-	    y: rect.top,
-	    width: rect.right - rect.left,
-	    height: rect.bottom - rect.top
-	  };
-	}
-
-	module.exports = getElementPosition;
-
-/***/ },
-/* 347 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @typechecks
-	 */
-
-	'use strict';
-
-	var getDocumentScrollElement = __webpack_require__(387);
-	var getUnboundedScrollPosition = __webpack_require__(388);
-
-	/**
-	 * Gets the scroll position of the supplied element or window.
-	 *
-	 * The return values are bounded. This means that if the scroll position is
-	 * negative or exceeds the element boundaries (which is possible using inertial
-	 * scrolling), you will get zero or the maximum scroll position, respectively.
-	 *
-	 * If you need the unbound scroll position, use `getUnboundedScrollPosition`.
-	 *
-	 * @param {DOMWindow|DOMElement} scrollable
-	 * @return {object} Map with `x` and `y` keys.
-	 */
-	function getScrollPosition(scrollable) {
-	  var documentScrollElement = getDocumentScrollElement();
-	  if (scrollable === window) {
-	    scrollable = documentScrollElement;
-	  }
-	  var scrollPosition = getUnboundedScrollPosition(scrollable);
-
-	  var viewport = scrollable === documentScrollElement ? document.documentElement : scrollable;
-
-	  var xMax = scrollable.scrollWidth - viewport.clientWidth;
-	  var yMax = scrollable.scrollHeight - viewport.clientHeight;
-
-	  scrollPosition.x = Math.max(0, Math.min(scrollPosition.x, xMax));
-	  scrollPosition.y = Math.max(0, Math.min(scrollPosition.y, yMax));
-
-	  return scrollPosition;
-	}
-
-	module.exports = getScrollPosition;
-
-/***/ },
-/* 348 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	function getViewportWidth() {
-	  var width = void 0;
-	  if (document.documentElement) {
-	    width = document.documentElement.clientWidth;
-	  }
-
-	  if (!width && document.body) {
-	    width = document.body.clientWidth;
-	  }
-
-	  return width || 0;
-	} /**
-	   * Copyright (c) 2013-present, Facebook, Inc.
-	   * All rights reserved.
-	   *
-	   * This source code is licensed under the BSD-style license found in the
-	   * LICENSE file in the root directory of this source tree. An additional grant
-	   * of patent rights can be found in the PATENTS file in the same directory.
-	   *
-	   * 
-	   * @typechecks
-	   */
-
-	function getViewportHeight() {
-	  var height = void 0;
-	  if (document.documentElement) {
-	    height = document.documentElement.clientHeight;
-	  }
-
-	  if (!height && document.body) {
-	    height = document.body.clientHeight;
-	  }
-
-	  return height || 0;
-	}
-
-	/**
-	 * Gets the viewport dimensions including any scrollbars.
-	 */
-	function getViewportDimensions() {
-	  return {
-	    width: window.innerWidth || getViewportWidth(),
-	    height: window.innerHeight || getViewportHeight()
-	  };
-	}
-
-	/**
-	 * Gets the viewport dimensions excluding any scrollbars.
-	 */
-	getViewportDimensions.withoutScrollbars = function () {
-	  return {
-	    width: getViewportWidth(),
-	    height: getViewportHeight()
-	  };
-	};
-
-	module.exports = getViewportDimensions;
-
-/***/ },
-/* 349 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * 
-	 */
-
-	var nullthrows = function nullthrows(x) {
-	  if (x != null) {
-	    return x;
-	  }
-	  throw new Error("Got unexpected null or undefined");
-	};
-
-	module.exports = nullthrows;
-
-/***/ },
-/* 350 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 */
-
-	'use strict';
-
-	var UserAgentData = __webpack_require__(389);
-	var VersionRange = __webpack_require__(390);
-
-	var mapObject = __webpack_require__(391);
-	var memoizeStringOnly = __webpack_require__(392);
+	var UserAgentData = __webpack_require__(386);
+	var VersionRange = __webpack_require__(387);
+
+	var mapObject = __webpack_require__(388);
+	var memoizeStringOnly = __webpack_require__(389);
 
 	/**
 	 * Checks to see whether `name` and `version` satisfy `query`.
@@ -82575,7 +82121,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = mapObject(UserAgent, memoizeStringOnly);
 
 /***/ },
-/* 351 */
+/* 345 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -82616,6 +82162,460 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	module.exports = emptyFunction;
+
+/***/ },
+/* 346 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * 
+	 */
+
+	var nullthrows = function nullthrows(x) {
+	  if (x != null) {
+	    return x;
+	  }
+	  throw new Error("Got unexpected null or undefined");
+	};
+
+	module.exports = nullthrows;
+
+/***/ },
+/* 347 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @typechecks
+	 */
+
+	'use strict';
+
+	var getDocumentScrollElement = __webpack_require__(390);
+	var getUnboundedScrollPosition = __webpack_require__(391);
+
+	/**
+	 * Gets the scroll position of the supplied element or window.
+	 *
+	 * The return values are bounded. This means that if the scroll position is
+	 * negative or exceeds the element boundaries (which is possible using inertial
+	 * scrolling), you will get zero or the maximum scroll position, respectively.
+	 *
+	 * If you need the unbound scroll position, use `getUnboundedScrollPosition`.
+	 *
+	 * @param {DOMWindow|DOMElement} scrollable
+	 * @return {object} Map with `x` and `y` keys.
+	 */
+	function getScrollPosition(scrollable) {
+	  var documentScrollElement = getDocumentScrollElement();
+	  if (scrollable === window) {
+	    scrollable = documentScrollElement;
+	  }
+	  var scrollPosition = getUnboundedScrollPosition(scrollable);
+
+	  var viewport = scrollable === documentScrollElement ? document.documentElement : scrollable;
+
+	  var xMax = scrollable.scrollWidth - viewport.clientWidth;
+	  var yMax = scrollable.scrollHeight - viewport.clientHeight;
+
+	  scrollPosition.x = Math.max(0, Math.min(scrollPosition.x, xMax));
+	  scrollPosition.y = Math.max(0, Math.min(scrollPosition.y, yMax));
+
+	  return scrollPosition;
+	}
+
+	module.exports = getScrollPosition;
+
+/***/ },
+/* 348 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @typechecks
+	 * 
+	 */
+
+	/**
+	 * Basic (stateless) API for text direction detection
+	 *
+	 * Part of our implementation of Unicode Bidirectional Algorithm (UBA)
+	 * Unicode Standard Annex #9 (UAX9)
+	 * http://www.unicode.org/reports/tr9/
+	 */
+
+	'use strict';
+
+	var UnicodeBidiDirection = __webpack_require__(349);
+
+	var invariant = __webpack_require__(352);
+
+	/**
+	 * RegExp ranges of characters with a *Strong* Bidi_Class value.
+	 *
+	 * Data is based on DerivedBidiClass.txt in UCD version 7.0.0.
+	 *
+	 * NOTE: For performance reasons, we only support Unicode's
+	 *       Basic Multilingual Plane (BMP) for now.
+	 */
+	var RANGE_BY_BIDI_TYPE = {
+
+	  L: 'A-Za-zªµºÀ-ÖØ-öø-ƺƻ' + 'Ƽ-ƿǀ-ǃǄ-ʓʔʕ-ʯʰ-ʸ' + 'ʻ-ˁː-ˑˠ-ˤˮͰ-ͳͶ-ͷ' + 'ͺͻ-ͽͿΆΈ-ΊΌΎ-Ρ' + 'Σ-ϵϷ-ҁ҂Ҋ-ԯԱ-Ֆՙ' + '՚-՟ա-և։ःऄ-हऻऽ' + 'ा-ीॉ-ौॎ-ॏॐक़-ॡ।-॥' + '०-९॰ॱॲ-ঀং-ঃঅ-ঌ' + 'এ-ঐও-নপ-রলশ-হঽ' + 'া-ীে-ৈো-ৌৎৗড়-ঢ়' + 'য়-ৡ০-৯ৰ-ৱ৴-৹৺ਃ' + 'ਅ-ਊਏ-ਐਓ-ਨਪ-ਰਲ-ਲ਼' + 'ਵ-ਸ਼ਸ-ਹਾ-ੀਖ਼-ੜਫ਼੦-੯' + 'ੲ-ੴઃઅ-ઍએ-ઑઓ-નપ-ર' + 'લ-ળવ-હઽા-ીૉો-ૌૐ' + 'ૠ-ૡ૦-૯૰ଂ-ଃଅ-ଌଏ-ଐ' + 'ଓ-ନପ-ରଲ-ଳଵ-ହଽାୀ' + 'େ-ୈୋ-ୌୗଡ଼-ଢ଼ୟ-ୡ୦-୯' + '୰ୱ୲-୷ஃஅ-ஊஎ-ஐஒ-க' + 'ங-சஜஞ-டண-தந-பம-ஹ' + 'ா-ிு-ூெ-ைொ-ௌௐௗ' + '௦-௯௰-௲ఁ-ఃఅ-ఌఎ-ఐ' + 'ఒ-నప-హఽు-ౄౘ-ౙౠ-ౡ' + '౦-౯౿ಂ-ಃಅ-ಌಎ-ಐಒ-ನ' + 'ಪ-ಳವ-ಹಽಾಿೀ-ೄೆ' + 'ೇ-ೈೊ-ೋೕ-ೖೞೠ-ೡ೦-೯' + 'ೱ-ೲം-ഃഅ-ഌഎ-ഐഒ-ഺഽ' + 'ാ-ീെ-ൈൊ-ൌൎൗൠ-ൡ' + '൦-൯൰-൵൹ൺ-ൿං-ඃඅ-ඖ' + 'ක-නඳ-රලව-ෆා-ෑෘ-ෟ' + '෦-෯ෲ-ෳ෴ก-ะา-ำเ-ๅ' + 'ๆ๏๐-๙๚-๛ກ-ຂຄງ-ຈ' + 'ຊຍດ-ທນ-ຟມ-ຣລວ' + 'ສ-ຫອ-ະາ-ຳຽເ-ໄໆ' + '໐-໙ໜ-ໟༀ༁-༃༄-༒༓༔' + '༕-༗༚-༟༠-༩༪-༳༴༶༸' + '༾-༿ཀ-ཇཉ-ཬཿ྅ྈ-ྌ' + '྾-࿅࿇-࿌࿎-࿏࿐-࿔࿕-࿘' + '࿙-࿚က-ဪါ-ာေးျ-ြဿ' + '၀-၉၊-၏ၐ-ၕၖ-ၗၚ-ၝၡ' + 'ၢ-ၤၥ-ၦၧ-ၭၮ-ၰၵ-ႁ' + 'ႃ-ႄႇ-ႌႎႏ႐-႙ႚ-ႜ' + '႞-႟Ⴀ-ჅჇჍა-ჺ჻ჼ' + 'ჽ-ቈቊ-ቍቐ-ቖቘቚ-ቝበ-ኈ' + 'ኊ-ኍነ-ኰኲ-ኵኸ-ኾዀዂ-ዅ' + 'ወ-ዖዘ-ጐጒ-ጕጘ-ፚ፠-፨' + '፩-፼ᎀ-ᎏᎠ-Ᏼᐁ-ᙬ᙭-᙮' + 'ᙯ-ᙿᚁ-ᚚᚠ-ᛪ᛫-᛭ᛮ-ᛰ' + 'ᛱ-ᛸᜀ-ᜌᜎ-ᜑᜠ-ᜱ᜵-᜶' + 'ᝀ-ᝑᝠ-ᝬᝮ-ᝰក-ឳាើ-ៅ' + 'ះ-ៈ។-៖ៗ៘-៚ៜ០-៩' + '᠐-᠙ᠠ-ᡂᡃᡄ-ᡷᢀ-ᢨᢪ' + 'ᢰ-ᣵᤀ-ᤞᤣ-ᤦᤩ-ᤫᤰ-ᤱ' + 'ᤳ-ᤸ᥆-᥏ᥐ-ᥭᥰ-ᥴᦀ-ᦫ' + 'ᦰ-ᧀᧁ-ᧇᧈ-ᧉ᧐-᧙᧚ᨀ-ᨖ' + 'ᨙ-ᨚ᨞-᨟ᨠ-ᩔᩕᩗᩡᩣ-ᩤ' + 'ᩭ-ᩲ᪀-᪉᪐-᪙᪠-᪦ᪧ᪨-᪭' + 'ᬄᬅ-ᬳᬵᬻᬽ-ᭁᭃ-᭄ᭅ-ᭋ' + '᭐-᭙᭚-᭠᭡-᭪᭴-᭼ᮂᮃ-ᮠ' + 'ᮡᮦ-ᮧ᮪ᮮ-ᮯ᮰-᮹ᮺ-ᯥᯧ' + 'ᯪ-ᯬᯮ᯲-᯳᯼-᯿ᰀ-ᰣᰤ-ᰫ' + 'ᰴ-ᰵ᰻-᰿᱀-᱉ᱍ-ᱏ᱐-᱙' + 'ᱚ-ᱷᱸ-ᱽ᱾-᱿᳀-᳇᳓᳡' + 'ᳩ-ᳬᳮ-ᳱᳲ-ᳳᳵ-ᳶᴀ-ᴫ' + 'ᴬ-ᵪᵫ-ᵷᵸᵹ-ᶚᶛ-ᶿḀ-ἕ' + 'Ἐ-Ἕἠ-ὅὈ-Ὅὐ-ὗὙὛὝ' + 'Ὗ-ώᾀ-ᾴᾶ-ᾼιῂ-ῄῆ-ῌ' + 'ῐ-ΐῖ-Ίῠ-Ῥῲ-ῴῶ-ῼ‎' + 'ⁱⁿₐ-ₜℂℇℊ-ℓℕℙ-ℝ' + 'ℤΩℨK-ℭℯ-ℴℵ-ℸℹ' + 'ℼ-ℿⅅ-ⅉⅎ⅏Ⅰ-ↂↃ-ↄ' + 'ↅ-ↈ⌶-⍺⎕⒜-ⓩ⚬⠀-⣿' + 'Ⰰ-Ⱞⰰ-ⱞⱠ-ⱻⱼ-ⱽⱾ-ⳤ' + 'Ⳬ-ⳮⳲ-ⳳⴀ-ⴥⴧⴭⴰ-ⵧⵯ' + '⵰ⶀ-ⶖⶠ-ⶦⶨ-ⶮⶰ-ⶶⶸ-ⶾ' + 'ⷀ-ⷆⷈ-ⷎⷐ-ⷖⷘ-ⷞ々〆〇' + '〡-〩〮-〯〱-〵〸-〺〻〼' + 'ぁ-ゖゝ-ゞゟァ-ヺー-ヾヿ' + 'ㄅ-ㄭㄱ-ㆎ㆐-㆑㆒-㆕㆖-㆟' + 'ㆠ-ㆺㇰ-ㇿ㈀-㈜㈠-㈩㈪-㉇' + '㉈-㉏㉠-㉻㉿㊀-㊉㊊-㊰㋀-㋋' + '㋐-㋾㌀-㍶㍻-㏝㏠-㏾㐀-䶵' + '一-鿌ꀀ-ꀔꀕꀖ-ꒌꓐ-ꓷꓸ-ꓽ' + '꓾-꓿ꔀ-ꘋꘌꘐ-ꘟ꘠-꘩ꘪ-ꘫ' + 'Ꙁ-ꙭꙮꚀ-ꚛꚜ-ꚝꚠ-ꛥꛦ-ꛯ' + '꛲-꛷Ꜣ-ꝯꝰꝱ-ꞇ꞉-꞊Ꞌ-ꞎ' + 'Ꞑ-ꞭꞰ-Ʇꟷꟸ-ꟹꟺꟻ-ꠁ' + 'ꠃ-ꠅꠇ-ꠊꠌ-ꠢꠣ-ꠤꠧ꠰-꠵' + '꠶-꠷ꡀ-ꡳꢀ-ꢁꢂ-ꢳꢴ-ꣃ' + '꣎-꣏꣐-꣙ꣲ-ꣷ꣸-꣺ꣻ꤀-꤉' + 'ꤊ-ꤥ꤮-꤯ꤰ-ꥆꥒ-꥓꥟ꥠ-ꥼ' + 'ꦃꦄ-ꦲꦴ-ꦵꦺ-ꦻꦽ-꧀꧁-꧍' + 'ꧏ꧐-꧙꧞-꧟ꧠ-ꧤꧦꧧ-ꧯ' + '꧰-꧹ꧺ-ꧾꨀ-ꨨꨯ-ꨰꨳ-ꨴ' + 'ꩀ-ꩂꩄ-ꩋꩍ꩐-꩙꩜-꩟ꩠ-ꩯ' + 'ꩰꩱ-ꩶ꩷-꩹ꩺꩻꩽꩾ-ꪯꪱ' + 'ꪵ-ꪶꪹ-ꪽꫀꫂꫛ-ꫜꫝ꫞-꫟' + 'ꫠ-ꫪꫫꫮ-ꫯ꫰-꫱ꫲꫳ-ꫴꫵ' + 'ꬁ-ꬆꬉ-ꬎꬑ-ꬖꬠ-ꬦꬨ-ꬮ' + 'ꬰ-ꭚ꭛ꭜ-ꭟꭤ-ꭥꯀ-ꯢꯣ-ꯤ' + 'ꯦ-ꯧꯩ-ꯪ꯫꯬꯰-꯹가-힣' + 'ힰ-ퟆퟋ-ퟻ-豈-舘並-龎' + 'ﬀ-ﬆﬓ-ﬗＡ-Ｚａ-ｚｦ-ｯｰ' + 'ｱ-ﾝﾞ-ﾟﾠ-ﾾￂ-ￇￊ-ￏ' + 'ￒ-ￗￚ-ￜ',
+
+	  R: '֐־׀׃׆׈-׏א-ת׫-ׯ' + 'װ-ײ׳-״׵-׿߀-߉ߊ-ߪ' + 'ߴ-ߵߺ߻-߿ࠀ-ࠕࠚࠤࠨ' + '࠮-࠯࠰-࠾࠿ࡀ-ࡘ࡜-࡝࡞' + '࡟-࢟‏יִײַ-ﬨשׁ-זּ﬷טּ-לּ' + '﬽מּ﬿נּ-סּ﭂ףּ-פּ﭅צּ-ﭏ',
+
+	  AL: '؈؋؍؛؜؝؞-؟ؠ-ؿـ' + 'ف-ي٭ٮ-ٯٱ-ۓ۔ەۥ-ۦ' + 'ۮ-ۯۺ-ۼ۽-۾ۿ܀-܍܎܏' + 'ܐܒ-ܯ݋-݌ݍ-ޥޱ޲-޿' + 'ࢠ-ࢲࢳ-ࣣﭐ-ﮱ﮲-﯁﯂-﯒' + 'ﯓ-ﴽ﵀-﵏ﵐ-ﶏ﶐-﶑ﶒ-ﷇ' + '﷈-﷏ﷰ-ﷻ﷼﷾-﷿ﹰ-ﹴ﹵' + 'ﹶ-ﻼ﻽-﻾'
+
+	};
+
+	var REGEX_STRONG = new RegExp('[' + RANGE_BY_BIDI_TYPE.L + RANGE_BY_BIDI_TYPE.R + RANGE_BY_BIDI_TYPE.AL + ']');
+
+	var REGEX_RTL = new RegExp('[' + RANGE_BY_BIDI_TYPE.R + RANGE_BY_BIDI_TYPE.AL + ']');
+
+	/**
+	 * Returns the first strong character (has Bidi_Class value of L, R, or AL).
+	 *
+	 * @param str  A text block; e.g. paragraph, table cell, tag
+	 * @return     A character with strong bidi direction, or null if not found
+	 */
+	function firstStrongChar(str) {
+	  var match = REGEX_STRONG.exec(str);
+	  return match == null ? null : match[0];
+	}
+
+	/**
+	 * Returns the direction of a block of text, based on the direction of its
+	 * first strong character (has Bidi_Class value of L, R, or AL).
+	 *
+	 * @param str  A text block; e.g. paragraph, table cell, tag
+	 * @return     The resolved direction
+	 */
+	function firstStrongCharDir(str) {
+	  var strongChar = firstStrongChar(str);
+	  if (strongChar == null) {
+	    return UnicodeBidiDirection.NEUTRAL;
+	  }
+	  return REGEX_RTL.exec(strongChar) ? UnicodeBidiDirection.RTL : UnicodeBidiDirection.LTR;
+	}
+
+	/**
+	 * Returns the direction of a block of text, based on the direction of its
+	 * first strong character (has Bidi_Class value of L, R, or AL), or a fallback
+	 * direction, if no strong character is found.
+	 *
+	 * This function is supposed to be used in respect to Higher-Level Protocol
+	 * rule HL1. (http://www.unicode.org/reports/tr9/#HL1)
+	 *
+	 * @param str       A text block; e.g. paragraph, table cell, tag
+	 * @param fallback  Fallback direction, used if no strong direction detected
+	 *                  for the block (default = NEUTRAL)
+	 * @return          The resolved direction
+	 */
+	function resolveBlockDir(str, fallback) {
+	  fallback = fallback || UnicodeBidiDirection.NEUTRAL;
+	  if (!str.length) {
+	    return fallback;
+	  }
+	  var blockDir = firstStrongCharDir(str);
+	  return blockDir === UnicodeBidiDirection.NEUTRAL ? fallback : blockDir;
+	}
+
+	/**
+	 * Returns the direction of a block of text, based on the direction of its
+	 * first strong character (has Bidi_Class value of L, R, or AL), or a fallback
+	 * direction, if no strong character is found.
+	 *
+	 * NOTE: This function is similar to resolveBlockDir(), but uses the global
+	 * direction as the fallback, so it *always* returns a Strong direction,
+	 * making it useful for integration in places that you need to make the final
+	 * decision, like setting some CSS class.
+	 *
+	 * This function is supposed to be used in respect to Higher-Level Protocol
+	 * rule HL1. (http://www.unicode.org/reports/tr9/#HL1)
+	 *
+	 * @param str             A text block; e.g. paragraph, table cell
+	 * @param strongFallback  Fallback direction, used if no strong direction
+	 *                        detected for the block (default = global direction)
+	 * @return                The resolved Strong direction
+	 */
+	function getDirection(str, strongFallback) {
+	  if (!strongFallback) {
+	    strongFallback = UnicodeBidiDirection.getGlobalDir();
+	  }
+	  !UnicodeBidiDirection.isStrong(strongFallback) ? false ? invariant(false, 'Fallback direction must be a strong direction') : invariant(false) : void 0;
+	  return resolveBlockDir(str, strongFallback);
+	}
+
+	/**
+	 * Returns true if getDirection(arguments...) returns LTR.
+	 *
+	 * @param str             A text block; e.g. paragraph, table cell
+	 * @param strongFallback  Fallback direction, used if no strong direction
+	 *                        detected for the block (default = global direction)
+	 * @return                True if the resolved direction is LTR
+	 */
+	function isDirectionLTR(str, strongFallback) {
+	  return getDirection(str, strongFallback) === UnicodeBidiDirection.LTR;
+	}
+
+	/**
+	 * Returns true if getDirection(arguments...) returns RTL.
+	 *
+	 * @param str             A text block; e.g. paragraph, table cell
+	 * @param strongFallback  Fallback direction, used if no strong direction
+	 *                        detected for the block (default = global direction)
+	 * @return                True if the resolved direction is RTL
+	 */
+	function isDirectionRTL(str, strongFallback) {
+	  return getDirection(str, strongFallback) === UnicodeBidiDirection.RTL;
+	}
+
+	var UnicodeBidi = {
+	  firstStrongChar: firstStrongChar,
+	  firstStrongCharDir: firstStrongCharDir,
+	  resolveBlockDir: resolveBlockDir,
+	  getDirection: getDirection,
+	  isDirectionLTR: isDirectionLTR,
+	  isDirectionRTL: isDirectionRTL
+	};
+
+	module.exports = UnicodeBidi;
+
+/***/ },
+/* 349 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @typechecks
+	 * 
+	 */
+
+	/**
+	 * Constants to represent text directionality
+	 *
+	 * Also defines a *global* direciton, to be used in bidi algorithms as a
+	 * default fallback direciton, when no better direction is found or provided.
+	 *
+	 * NOTE: Use `setGlobalDir()`, or update `initGlobalDir()`, to set the initial
+	 *       global direction value based on the application.
+	 *
+	 * Part of the implementation of Unicode Bidirectional Algorithm (UBA)
+	 * Unicode Standard Annex #9 (UAX9)
+	 * http://www.unicode.org/reports/tr9/
+	 */
+
+	'use strict';
+
+	var invariant = __webpack_require__(352);
+
+	var NEUTRAL = 'NEUTRAL'; // No strong direction
+	var LTR = 'LTR'; // Left-to-Right direction
+	var RTL = 'RTL'; // Right-to-Left direction
+
+	var globalDir = null;
+
+	// == Helpers ==
+
+	/**
+	 * Check if a directionality value is a Strong one
+	 */
+	function isStrong(dir) {
+	  return dir === LTR || dir === RTL;
+	}
+
+	/**
+	 * Get string value to be used for `dir` HTML attribute or `direction` CSS
+	 * property.
+	 */
+	function getHTMLDir(dir) {
+	  !isStrong(dir) ? false ? invariant(false, '`dir` must be a strong direction to be converted to HTML Direction') : invariant(false) : void 0;
+	  return dir === LTR ? 'ltr' : 'rtl';
+	}
+
+	/**
+	 * Get string value to be used for `dir` HTML attribute or `direction` CSS
+	 * property, but returns null if `dir` has same value as `otherDir`.
+	 * `null`.
+	 */
+	function getHTMLDirIfDifferent(dir, otherDir) {
+	  !isStrong(dir) ? false ? invariant(false, '`dir` must be a strong direction to be converted to HTML Direction') : invariant(false) : void 0;
+	  !isStrong(otherDir) ? false ? invariant(false, '`otherDir` must be a strong direction to be converted to HTML Direction') : invariant(false) : void 0;
+	  return dir === otherDir ? null : getHTMLDir(dir);
+	}
+
+	// == Global Direction ==
+
+	/**
+	 * Set the global direction.
+	 */
+	function setGlobalDir(dir) {
+	  globalDir = dir;
+	}
+
+	/**
+	 * Initialize the global direction
+	 */
+	function initGlobalDir() {
+	  setGlobalDir(LTR);
+	}
+
+	/**
+	 * Get the global direction
+	 */
+	function getGlobalDir() {
+	  if (!globalDir) {
+	    this.initGlobalDir();
+	  }
+	  !globalDir ? false ? invariant(false, 'Global direction not set.') : invariant(false) : void 0;
+	  return globalDir;
+	}
+
+	var UnicodeBidiDirection = {
+	  // Values
+	  NEUTRAL: NEUTRAL,
+	  LTR: LTR,
+	  RTL: RTL,
+	  // Helpers
+	  isStrong: isStrong,
+	  getHTMLDir: getHTMLDir,
+	  getHTMLDirIfDifferent: getHTMLDirIfDifferent,
+	  // Global Direction
+	  setGlobalDir: setGlobalDir,
+	  initGlobalDir: initGlobalDir,
+	  getGlobalDir: getGlobalDir
+	};
+
+	module.exports = UnicodeBidiDirection;
+
+/***/ },
+/* 350 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @typechecks
+	 */
+
+	var getElementRect = __webpack_require__(392);
+
+	/**
+	 * Gets an element's position in pixels relative to the viewport. The returned
+	 * object represents the position of the element's top left corner.
+	 *
+	 * @param {DOMElement} element
+	 * @return {object}
+	 */
+	function getElementPosition(element) {
+	  var rect = getElementRect(element);
+	  return {
+	    x: rect.left,
+	    y: rect.top,
+	    width: rect.right - rect.left,
+	    height: rect.bottom - rect.top
+	  };
+	}
+
+	module.exports = getElementPosition;
+
+/***/ },
+/* 351 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	function getViewportWidth() {
+	  var width = void 0;
+	  if (document.documentElement) {
+	    width = document.documentElement.clientWidth;
+	  }
+
+	  if (!width && document.body) {
+	    width = document.body.clientWidth;
+	  }
+
+	  return width || 0;
+	} /**
+	   * Copyright (c) 2013-present, Facebook, Inc.
+	   * All rights reserved.
+	   *
+	   * This source code is licensed under the BSD-style license found in the
+	   * LICENSE file in the root directory of this source tree. An additional grant
+	   * of patent rights can be found in the PATENTS file in the same directory.
+	   *
+	   * 
+	   * @typechecks
+	   */
+
+	function getViewportHeight() {
+	  var height = void 0;
+	  if (document.documentElement) {
+	    height = document.documentElement.clientHeight;
+	  }
+
+	  if (!height && document.body) {
+	    height = document.body.clientHeight;
+	  }
+
+	  return height || 0;
+	}
+
+	/**
+	 * Gets the viewport dimensions including any scrollbars.
+	 */
+	function getViewportDimensions() {
+	  return {
+	    width: window.innerWidth || getViewportWidth(),
+	    height: window.innerHeight || getViewportHeight()
+	  };
+	}
+
+	/**
+	 * Gets the viewport dimensions excluding any scrollbars.
+	 */
+	getViewportDimensions.withoutScrollbars = function () {
+	  return {
+	    width: getViewportWidth(),
+	    height: getViewportHeight()
+	  };
+	};
+
+	module.exports = getViewportDimensions;
 
 /***/ },
 /* 352 */
@@ -82813,7 +82813,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var PhotosMimeType = __webpack_require__(393);
 
 	var createArrayFromMixed = __webpack_require__(394);
-	var emptyFunction = __webpack_require__(351);
+	var emptyFunction = __webpack_require__(345);
 
 	var CR_LF_REGEX = new RegExp('\r\n', 'g');
 	var LF_ONLY = '\n';
@@ -83067,8 +83067,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var UnicodeBidi = __webpack_require__(344);
-	var UnicodeBidiDirection = __webpack_require__(345);
+	var UnicodeBidi = __webpack_require__(348);
+	var UnicodeBidiDirection = __webpack_require__(349);
 
 	var invariant = __webpack_require__(352);
 
@@ -83395,8 +83395,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var View = _require3.View;
 
-	var EchoManager = __webpack_require__(398);
-	var PopoverManager = __webpack_require__(399);
+	var EchoManager = __webpack_require__(399);
+	var PopoverManager = __webpack_require__(400);
 
 	var _require4 = __webpack_require__(215);
 
@@ -83557,7 +83557,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var connect = _require.connect;
 
 
-	var KeypadButton = __webpack_require__(400);
+	var KeypadButton = __webpack_require__(398);
 	var KeyConfigs = __webpack_require__(300);
 	var GestureManager = __webpack_require__(337);
 
@@ -83881,8 +83881,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 364 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
 	 * All rights reserved.
@@ -83891,35 +83889,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
+	 * @providesModule getSelectionOffsetKeyForNode
+	 * @typechecks
 	 * 
 	 */
 
-	var isTextNode = __webpack_require__(404);
-
-	/*eslint-disable no-bitwise */
+	'use strict';
 
 	/**
-	 * Checks if a given DOM node contains or is another DOM node.
+	 * Get offset key from a node.
 	 */
-	function containsNode(outerNode, innerNode) {
-	  if (!outerNode || !innerNode) {
-	    return false;
-	  } else if (outerNode === innerNode) {
-	    return true;
-	  } else if (isTextNode(outerNode)) {
-	    return false;
-	  } else if (isTextNode(innerNode)) {
-	    return containsNode(outerNode, innerNode.parentNode);
-	  } else if ('contains' in outerNode) {
-	    return outerNode.contains(innerNode);
-	  } else if (outerNode.compareDocumentPosition) {
-	    return !!(outerNode.compareDocumentPosition(innerNode) & 16);
-	  } else {
-	    return false;
-	  }
+	function getSelectionOffsetKeyForNode(node) {
+	  return node instanceof Element ? node.getAttribute('data-offset-key') : null;
 	}
 
-	module.exports = containsNode;
+	module.exports = getSelectionOffsetKeyForNode;
 
 /***/ },
 /* 365 */
@@ -83972,34 +83956,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule getSelectionOffsetKeyForNode
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	/**
-	 * Get offset key from a node.
-	 */
-	function getSelectionOffsetKeyForNode(node) {
-	  return node instanceof Element ? node.getAttribute('data-offset-key') : null;
-	}
-
-	module.exports = getSelectionOffsetKeyForNode;
-
-/***/ },
-/* 367 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
 	 * @providesModule getFragmentFromSelection
 	 * 
 	 */
@@ -84018,7 +83974,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getFragmentFromSelection;
 
 /***/ },
-/* 368 */
+/* 367 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -84035,11 +83991,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var DraftModifier = __webpack_require__(227);
-	var EditorState = __webpack_require__(230);
+	var DraftModifier = __webpack_require__(228);
+	var EditorState = __webpack_require__(231);
 
 	var getContentStateFragment = __webpack_require__(280);
-	var nullthrows = __webpack_require__(349);
+	var nullthrows = __webpack_require__(346);
 
 	var clipboard = null;
 
@@ -84092,7 +84048,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = SecondaryClipboard;
 
 /***/ },
-/* 369 */
+/* 368 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -84109,12 +84065,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var EditorState = __webpack_require__(230);
+	var EditorState = __webpack_require__(231);
 
-	var expandRangeToStartOfLine = __webpack_require__(405);
-	var getDraftEditorSelectionWithNodes = __webpack_require__(406);
-	var moveSelectionBackward = __webpack_require__(407);
-	var removeTextWithStrategy = __webpack_require__(408);
+	var expandRangeToStartOfLine = __webpack_require__(404);
+	var getDraftEditorSelectionWithNodes = __webpack_require__(405);
+	var moveSelectionBackward = __webpack_require__(406);
+	var removeTextWithStrategy = __webpack_require__(407);
 
 	function keyCommandBackspaceToStartOfLine(editorState) {
 	  var afterRemoval = removeTextWithStrategy(editorState, function (strategyState) {
@@ -84141,7 +84097,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 370 */
+/* 369 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -84158,11 +84114,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var DraftRemovableWord = __webpack_require__(409);
-	var EditorState = __webpack_require__(230);
+	var DraftRemovableWord = __webpack_require__(408);
+	var EditorState = __webpack_require__(231);
 
-	var moveSelectionBackward = __webpack_require__(407);
-	var removeTextWithStrategy = __webpack_require__(408);
+	var moveSelectionBackward = __webpack_require__(406);
+	var removeTextWithStrategy = __webpack_require__(407);
 
 	/**
 	 * Delete the word that is left of the cursor, as well as any spaces or
@@ -84193,7 +84149,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = keyCommandBackspaceWord;
 
 /***/ },
-/* 371 */
+/* 370 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -84210,11 +84166,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var DraftRemovableWord = __webpack_require__(409);
-	var EditorState = __webpack_require__(230);
+	var DraftRemovableWord = __webpack_require__(408);
+	var EditorState = __webpack_require__(231);
 
-	var moveSelectionForward = __webpack_require__(410);
-	var removeTextWithStrategy = __webpack_require__(408);
+	var moveSelectionForward = __webpack_require__(409);
+	var removeTextWithStrategy = __webpack_require__(407);
 
 	/**
 	 * Delete the word that is right of the cursor, as well as any spaces or
@@ -84243,7 +84199,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = keyCommandDeleteWord;
 
 /***/ },
-/* 372 */
+/* 371 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -84260,8 +84216,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var DraftModifier = __webpack_require__(227);
-	var EditorState = __webpack_require__(230);
+	var DraftModifier = __webpack_require__(228);
+	var EditorState = __webpack_require__(231);
 
 	function keyCommandInsertNewline(editorState) {
 	  var contentState = DraftModifier.splitBlock(editorState.getCurrentContent(), editorState.getSelection());
@@ -84271,7 +84227,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = keyCommandInsertNewline;
 
 /***/ },
-/* 373 */
+/* 372 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -84288,11 +84244,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var EditorState = __webpack_require__(230);
+	var EditorState = __webpack_require__(231);
 	var UnicodeUtils = __webpack_require__(358);
 
-	var moveSelectionBackward = __webpack_require__(407);
-	var removeTextWithStrategy = __webpack_require__(408);
+	var moveSelectionBackward = __webpack_require__(406);
+	var removeTextWithStrategy = __webpack_require__(407);
 
 	/**
 	 * Remove the selected range. If the cursor is collapsed, remove the preceding
@@ -84320,7 +84276,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = keyCommandPlainBackspace;
 
 /***/ },
-/* 374 */
+/* 373 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -84337,11 +84293,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var EditorState = __webpack_require__(230);
+	var EditorState = __webpack_require__(231);
 	var UnicodeUtils = __webpack_require__(358);
 
-	var moveSelectionForward = __webpack_require__(410);
-	var removeTextWithStrategy = __webpack_require__(408);
+	var moveSelectionForward = __webpack_require__(409);
+	var removeTextWithStrategy = __webpack_require__(407);
 
 	/**
 	 * Remove the selected range. If the cursor is collapsed, remove the following
@@ -84370,7 +84326,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = keyCommandPlainDelete;
 
 /***/ },
-/* 375 */
+/* 374 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -84387,7 +84343,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var EditorState = __webpack_require__(230);
+	var EditorState = __webpack_require__(231);
 
 	/**
 	 * See comment for `moveSelectionToStartOfBlock`.
@@ -84412,7 +84368,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = keyCommandMoveSelectionToEndOfBlock;
 
 /***/ },
-/* 376 */
+/* 375 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -84429,7 +84385,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var EditorState = __webpack_require__(230);
+	var EditorState = __webpack_require__(231);
 
 	/**
 	 * Collapse selection at the start of the first selected block. This is used
@@ -84454,7 +84410,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = keyCommandMoveSelectionToStartOfBlock;
 
 /***/ },
-/* 377 */
+/* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -84471,8 +84427,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var DraftModifier = __webpack_require__(227);
-	var EditorState = __webpack_require__(230);
+	var DraftModifier = __webpack_require__(228);
+	var EditorState = __webpack_require__(231);
 
 	var getContentStateFragment = __webpack_require__(280);
 
@@ -84537,7 +84493,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = keyCommandTransposeCharacters;
 
 /***/ },
-/* 378 */
+/* 377 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -84554,7 +84510,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var EditorState = __webpack_require__(230);
+	var EditorState = __webpack_require__(231);
 
 	function keyCommandUndo(e, editorState, updateFn) {
 	  var undoneState = EditorState.undo(editorState);
@@ -84590,7 +84546,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = keyCommandUndo;
 
 /***/ },
-/* 379 */
+/* 378 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -84608,13 +84564,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var CharacterMetadata = __webpack_require__(219);
-	var ContentBlock = __webpack_require__(221);
-	var Immutable = __webpack_require__(240);
+	var CharacterMetadata = __webpack_require__(220);
+	var ContentBlock = __webpack_require__(222);
+	var Immutable = __webpack_require__(217);
 
-	var convertFromHTMLtoContentBlocks = __webpack_require__(235);
-	var generateRandomKey = __webpack_require__(237);
-	var getSafeBodyFromHTML = __webpack_require__(293);
+	var convertFromHTMLtoContentBlocks = __webpack_require__(236);
+	var generateRandomKey = __webpack_require__(238);
+	var getSafeBodyFromHTML = __webpack_require__(296);
 	var sanitizeDraftText = __webpack_require__(269);
 
 	var List = Immutable.List;
@@ -84641,7 +84597,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = DraftPasteProcessor;
 
 /***/ },
-/* 380 */
+/* 379 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -84667,7 +84623,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = splitTextIntoTextBlocks;
 
 /***/ },
-/* 381 */
+/* 380 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -84689,7 +84645,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	'use strict';
 
-	var getDraftEditorSelectionWithNodes = __webpack_require__(406);
+	var getDraftEditorSelectionWithNodes = __webpack_require__(405);
 
 	function getDraftEditorSelection(editorState, root) {
 	  var selection = global.getSelection();
@@ -84707,6 +84663,50 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = getDraftEditorSelection;
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 381 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * 
+	 */
+
+	var isTextNode = __webpack_require__(410);
+
+	/*eslint-disable no-bitwise */
+
+	/**
+	 * Checks if a given DOM node contains or is another DOM node.
+	 */
+	function containsNode(outerNode, innerNode) {
+	  if (!outerNode || !innerNode) {
+	    return false;
+	  } else if (outerNode === innerNode) {
+	    return true;
+	  } else if (isTextNode(outerNode)) {
+	    return false;
+	  } else if (isTextNode(innerNode)) {
+	    return containsNode(outerNode, innerNode.parentNode);
+	  } else if ('contains' in outerNode) {
+	    return outerNode.contains(innerNode);
+	  } else if (outerNode.compareDocumentPosition) {
+	    return !!(outerNode.compareDocumentPosition(innerNode) & 16);
+	  } else {
+	    return false;
+	  }
+	}
+
+	module.exports = containsNode;
 
 /***/ },
 /* 382 */
@@ -85461,139 +85461,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 386 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @typechecks
-	 */
-
-	var containsNode = __webpack_require__(364);
-
-	/**
-	 * Gets an element's bounding rect in pixels relative to the viewport.
-	 *
-	 * @param {DOMElement} elem
-	 * @return {object}
-	 */
-	function getElementRect(elem) {
-	  var docElem = document.documentElement;
-
-	  // FF 2, Safari 3 and Opera 9.5- do not support getBoundingClientRect().
-	  // IE9- will throw if the element is not in the document.
-	  if (!('getBoundingClientRect' in elem) || !containsNode(docElem, elem)) {
-	    return {
-	      left: 0,
-	      right: 0,
-	      top: 0,
-	      bottom: 0
-	    };
-	  }
-
-	  // Subtracts clientTop/Left because IE8- added a 2px border to the
-	  // <html> element (see http://fburl.com/1493213). IE 7 in
-	  // Quicksmode does not report clientLeft/clientTop so there
-	  // will be an unaccounted offset of 2px when in quirksmode
-	  var rect = elem.getBoundingClientRect();
-
-	  return {
-	    left: Math.round(rect.left) - docElem.clientLeft,
-	    right: Math.round(rect.right) - docElem.clientLeft,
-	    top: Math.round(rect.top) - docElem.clientTop,
-	    bottom: Math.round(rect.bottom) - docElem.clientTop
-	  };
-	}
-
-	module.exports = getElementRect;
-
-/***/ },
-/* 387 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @typechecks
-	 */
-
-	'use strict';
-
-	var isWebkit = typeof navigator !== 'undefined' && navigator.userAgent.indexOf('AppleWebKit') > -1;
-
-	/**
-	 * Gets the element with the document scroll properties such as `scrollLeft` and
-	 * `scrollHeight`. This may differ across different browsers.
-	 *
-	 * NOTE: The return value can be null if the DOM is not yet ready.
-	 *
-	 * @param {?DOMDocument} doc Defaults to current document.
-	 * @return {?DOMElement}
-	 */
-	function getDocumentScrollElement(doc) {
-	  doc = doc || document;
-	  return !isWebkit && doc.compatMode === 'CSS1Compat' ? doc.documentElement : doc.body;
-	}
-
-	module.exports = getDocumentScrollElement;
-
-/***/ },
-/* 388 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @typechecks
-	 */
-
-	'use strict';
-
-	/**
-	 * Gets the scroll position of the supplied element or window.
-	 *
-	 * The return values are unbounded, unlike `getScrollPosition`. This means they
-	 * may be negative or exceed the element boundaries (which is possible using
-	 * inertial scrolling).
-	 *
-	 * @param {DOMWindow|DOMElement} scrollable
-	 * @return {object} Map with `x` and `y` keys.
-	 */
-
-	function getUnboundedScrollPosition(scrollable) {
-	  if (scrollable === window) {
-	    return {
-	      x: window.pageXOffset || document.documentElement.scrollLeft,
-	      y: window.pageYOffset || document.documentElement.scrollTop
-	    };
-	  }
-	  return {
-	    x: scrollable.scrollLeft,
-	    y: scrollable.scrollTop
-	  };
-	}
-
-	module.exports = getUnboundedScrollPosition;
-
-/***/ },
-/* 389 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
 	 * All rights reserved.
@@ -85678,7 +85545,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = uaData;
 
 /***/ },
-/* 390 */
+/* 387 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -86068,7 +85935,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = VersionRange;
 
 /***/ },
-/* 391 */
+/* 388 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -86123,7 +85990,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = mapObject;
 
 /***/ },
-/* 392 */
+/* 389 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -86155,6 +86022,139 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	module.exports = memoizeStringOnly;
+
+/***/ },
+/* 390 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @typechecks
+	 */
+
+	'use strict';
+
+	var isWebkit = typeof navigator !== 'undefined' && navigator.userAgent.indexOf('AppleWebKit') > -1;
+
+	/**
+	 * Gets the element with the document scroll properties such as `scrollLeft` and
+	 * `scrollHeight`. This may differ across different browsers.
+	 *
+	 * NOTE: The return value can be null if the DOM is not yet ready.
+	 *
+	 * @param {?DOMDocument} doc Defaults to current document.
+	 * @return {?DOMElement}
+	 */
+	function getDocumentScrollElement(doc) {
+	  doc = doc || document;
+	  return !isWebkit && doc.compatMode === 'CSS1Compat' ? doc.documentElement : doc.body;
+	}
+
+	module.exports = getDocumentScrollElement;
+
+/***/ },
+/* 391 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @typechecks
+	 */
+
+	'use strict';
+
+	/**
+	 * Gets the scroll position of the supplied element or window.
+	 *
+	 * The return values are unbounded, unlike `getScrollPosition`. This means they
+	 * may be negative or exceed the element boundaries (which is possible using
+	 * inertial scrolling).
+	 *
+	 * @param {DOMWindow|DOMElement} scrollable
+	 * @return {object} Map with `x` and `y` keys.
+	 */
+
+	function getUnboundedScrollPosition(scrollable) {
+	  if (scrollable === window) {
+	    return {
+	      x: window.pageXOffset || document.documentElement.scrollLeft,
+	      y: window.pageYOffset || document.documentElement.scrollTop
+	    };
+	  }
+	  return {
+	    x: scrollable.scrollLeft,
+	    y: scrollable.scrollTop
+	  };
+	}
+
+	module.exports = getUnboundedScrollPosition;
+
+/***/ },
+/* 392 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @typechecks
+	 */
+
+	var containsNode = __webpack_require__(381);
+
+	/**
+	 * Gets an element's bounding rect in pixels relative to the viewport.
+	 *
+	 * @param {DOMElement} elem
+	 * @return {object}
+	 */
+	function getElementRect(elem) {
+	  var docElem = document.documentElement;
+
+	  // FF 2, Safari 3 and Opera 9.5- do not support getBoundingClientRect().
+	  // IE9- will throw if the element is not in the document.
+	  if (!('getBoundingClientRect' in elem) || !containsNode(docElem, elem)) {
+	    return {
+	      left: 0,
+	      right: 0,
+	      top: 0,
+	      bottom: 0
+	    };
+	  }
+
+	  // Subtracts clientTop/Left because IE8- added a 2px border to the
+	  // <html> element (see http://fburl.com/1493213). IE 7 in
+	  // Quicksmode does not report clientLeft/clientTop so there
+	  // will be an unaccounted offset of 2px when in quirksmode
+	  var rect = elem.getBoundingClientRect();
+
+	  return {
+	    left: Math.round(rect.left) - docElem.clientLeft,
+	    right: Math.round(rect.right) - docElem.clientLeft,
+	    top: Math.round(rect.top) - docElem.clientTop,
+	    bottom: Math.round(rect.bottom) - docElem.clientTop
+	  };
+	}
+
+	module.exports = getElementRect;
 
 /***/ },
 /* 393 */
@@ -86329,23 +86329,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.__esModule = true;
 	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
 
-	var _createStore = __webpack_require__(413);
+	var _createStore = __webpack_require__(414);
 
 	var _createStore2 = _interopRequireDefault(_createStore);
 
-	var _combineReducers = __webpack_require__(414);
+	var _combineReducers = __webpack_require__(415);
 
 	var _combineReducers2 = _interopRequireDefault(_combineReducers);
 
-	var _bindActionCreators = __webpack_require__(415);
+	var _bindActionCreators = __webpack_require__(416);
 
 	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
 
-	var _applyMiddleware = __webpack_require__(416);
+	var _applyMiddleware = __webpack_require__(417);
 
 	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
 
-	var _compose = __webpack_require__(417);
+	var _compose = __webpack_require__(418);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
@@ -86390,7 +86390,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _warning = __webpack_require__(421);
+	var _warning = __webpack_require__(423);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -86498,15 +86498,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _shallowEqual = __webpack_require__(422);
+	var _shallowEqual = __webpack_require__(421);
 
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
-	var _wrapActionCreators = __webpack_require__(423);
+	var _wrapActionCreators = __webpack_require__(422);
 
 	var _wrapActionCreators2 = _interopRequireDefault(_wrapActionCreators);
 
-	var _warning = __webpack_require__(421);
+	var _warning = __webpack_require__(423);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -86902,281 +86902,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	/**
-	 * A component that renders and animates the selection state effect effect.
-	 */
-
-	var React = __webpack_require__(17);
-	var ReactCSSTransitionGroup = __webpack_require__(424);
-	var KeypadButton = __webpack_require__(400);
-	var KeyConfigs = __webpack_require__(300);
-
-	var _require = __webpack_require__(198);
-
-	var KeyTypes = _require.KeyTypes;
-	var EchoAnimationTypes = _require.EchoAnimationTypes;
-
-	var _require2 = __webpack_require__(215);
-
-	var echoPropType = _require2.echoPropType;
-	var bordersPropType = _require2.bordersPropType;
-	var boundingBoxPropType = _require2.boundingBoxPropType;
-	var keyIdPropType = _require2.keyIdPropType;
-
-	var zIndexes = __webpack_require__(308);
-
-	var Echo = React.createClass({
-	    displayName: 'Echo',
-
-	    propTypes: {
-	        animationDurationMs: React.PropTypes.number.isRequired,
-	        borders: bordersPropType,
-	        id: keyIdPropType.isRequired,
-	        initialBounds: boundingBoxPropType.isRequired,
-	        onAnimationFinish: React.PropTypes.func.isRequired
-	    },
-
-	    componentDidMount: function componentDidMount() {
-	        // NOTE(charlie): This is somewhat unfortunate, as the component is
-	        // encoding information about its own animation, of which it should be
-	        // ignorant. However, there doesn't seem to be a cleaner way to make
-	        // this happen, and at least here, all the animation context is
-	        // colocated in this file.
-	        var _props = this.props;
-	        var animationDurationMs = _props.animationDurationMs;
-	        var onAnimationFinish = _props.onAnimationFinish;
-
-	        setTimeout(function () {
-	            return onAnimationFinish();
-	        }, animationDurationMs);
-	    },
-	    render: function render() {
-	        var _props2 = this.props;
-	        var borders = _props2.borders;
-	        var id = _props2.id;
-	        var initialBounds = _props2.initialBounds;
-	        var icon = KeyConfigs[id].icon;
-
-
-	        var containerStyle = _extends({
-	            zIndex: zIndexes.echo,
-	            position: 'absolute',
-	            pointerEvents: 'none'
-	        }, initialBounds);
-
-	        // NOTE(charlie): In some browsers, Aphrodite doesn't seem to flush its
-	        // styles quickly enough, so there's a flickering effect on the first
-	        // animation. Thus, it's much safer to do the styles purely inline.
-	        // <View> makes this difficult because some of its defaults, which are
-	        // applied via StyleSheet, will override our inlines.
-	        return React.createElement(
-	            'div',
-	            { style: containerStyle },
-	            React.createElement(KeypadButton, {
-	                name: id,
-	                icon: icon,
-	                type: KeyTypes.ECHO,
-	                borders: borders
-	            })
-	        );
-	    }
-	});
-
-	var EchoManager = React.createClass({
-	    displayName: 'EchoManager',
-
-	    propTypes: {
-	        echoes: React.PropTypes.arrayOf(echoPropType),
-	        onAnimationFinish: React.PropTypes.func.isRequired
-	    },
-
-	    _animationConfigForType: function _animationConfigForType(animationType) {
-	        // NOTE(charlie): These must be kept in sync with the transition
-	        // durations and classnames specified in echo.css.
-	        var animationDurationMs = void 0;
-	        var animationTransitionName = void 0;
-
-	        switch (animationType) {
-	            case EchoAnimationTypes.SLIDE_AND_FADE:
-	                animationDurationMs = 400;
-	                animationTransitionName = 'echo-slide-and-fade';
-	                break;
-
-	            case EchoAnimationTypes.FADE_ONLY:
-	                animationDurationMs = 300;
-	                animationTransitionName = 'echo-fade-only';
-	                break;
-
-	            case EchoAnimationTypes.LONG_FADE_ONLY:
-	                animationDurationMs = 400;
-	                animationTransitionName = 'echo-long-fade-only';
-	                break;
-
-	            default:
-	                throw new Error("Invalid echo animation type:", animationType);
-	        }
-
-	        return {
-	            animationDurationMs: animationDurationMs,
-	            animationTransitionName: animationTransitionName
-	        };
-	    },
-	    render: function render() {
-	        var _this = this;
-
-	        var _props3 = this.props;
-	        var echoes = _props3.echoes;
-	        var _onAnimationFinish = _props3.onAnimationFinish;
-
-
-	        return React.createElement(
-	            'span',
-	            null,
-	            Object.keys(EchoAnimationTypes).map(function (animationType) {
-	                // Collect the relevant parameters for the animation type, and
-	                // filter for the appropriate echoes.
-
-	                var _animationConfigForTy = _this._animationConfigForType(animationType);
-
-	                var animationDurationMs = _animationConfigForTy.animationDurationMs;
-	                var animationTransitionName = _animationConfigForTy.animationTransitionName;
-
-	                var echoesForType = echoes.filter(function (echo) {
-	                    return echo.animationType === animationType;
-	                });
-
-	                // TODO(charlie): Manage this animation with Aphrodite styles.
-	                // Right now, there's a bug in the autoprefixer that breaks CSS
-	                // transitions on mobile Safari.
-	                // See: https://github.com/Khan/aphrodite/issues/68.
-	                // As such, we have to do this with a stylesheet.
-	                return React.createElement(
-	                    ReactCSSTransitionGroup,
-	                    {
-	                        transitionName: animationTransitionName,
-	                        transitionEnter: true,
-	                        transitionLeave: false,
-	                        transitionEnterTimeout: animationDurationMs,
-	                        key: animationType
-	                    },
-	                    echoesForType.map(function (echo) {
-	                        var animationId = echo.animationId;
-
-	                        return React.createElement(Echo, _extends({
-	                            key: animationId,
-	                            animationDurationMs: animationDurationMs,
-	                            onAnimationFinish: function onAnimationFinish() {
-	                                return _onAnimationFinish(animationId);
-	                            }
-	                        }, echo));
-	                    })
-	                );
-	            })
-	        );
-	    }
-	});
-
-	module.exports = EchoManager;
-
-/***/ },
-/* 399 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	/**
-	 * A component that renders and animates the popovers that appear over the
-	 * multi-functional keys.
-	 */
-
-	var React = __webpack_require__(17);
-	var ReactCSSTransitionGroup = __webpack_require__(424);
-
-	var KeyConfigs = __webpack_require__(300);
-	var MultiSymbolPopover = __webpack_require__(425);
-
-	var _require = __webpack_require__(215);
-
-	var boundingBoxPropType = _require.boundingBoxPropType;
-	var keyConfigPropType = _require.keyConfigPropType;
-	var popoverPropType = _require.popoverPropType;
-
-	// NOTE(charlie): These must be kept in sync with the transition durations and
-	// classnames specified in popover.css.
-
-	var animationTransitionName = 'popover';
-	var animationDurationMs = 200;
-
-	// A container component used to position a popover absolutely at a specific
-	// position.
-	var PopoverContainer = React.createClass({
-	    displayName: 'PopoverContainer',
-
-	    propTypes: {
-	        bounds: boundingBoxPropType.isRequired,
-	        childKeys: React.PropTypes.arrayOf(keyConfigPropType).isRequired
-	    },
-
-	    render: function render() {
-	        var _props = this.props;
-	        var bounds = _props.bounds;
-	        var childKeys = _props.childKeys;
-
-
-	        var containerStyle = _extends({
-	            position: 'absolute'
-	        }, bounds);
-
-	        return React.createElement(
-	            'div',
-	            { style: containerStyle },
-	            React.createElement(MultiSymbolPopover, { keys: childKeys })
-	        );
-	    }
-	});
-
-	var PopoverManager = React.createClass({
-	    displayName: 'PopoverManager',
-
-	    propTypes: {
-	        popover: popoverPropType
-	    },
-
-	    render: function render() {
-	        var popover = this.props.popover;
-
-
-	        return React.createElement(
-	            ReactCSSTransitionGroup,
-	            {
-	                transitionName: animationTransitionName,
-	                transitionEnter: true,
-	                transitionLeave: false,
-	                transitionEnterTimeout: animationDurationMs
-	            },
-	            popover && React.createElement(PopoverContainer, {
-	                key: popover.childKeyIds[0],
-	                bounds: popover.bounds,
-	                childKeys: popover.childKeyIds.map(function (id) {
-	                    return KeyConfigs[id];
-	                })
-	            })
-	        );
-	    }
-	});
-
-	module.exports = PopoverManager;
-
-/***/ },
-/* 400 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	/**
 	 * A component that renders a keypad button.
 	 */
 
@@ -87196,9 +86921,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var View = _require3.View;
 
-	var Icon = __webpack_require__(426);
-	var MultiSymbolGrid = __webpack_require__(427);
-	var CornerDecal = __webpack_require__(428);
+	var Icon = __webpack_require__(425);
+	var MultiSymbolGrid = __webpack_require__(426);
+	var CornerDecal = __webpack_require__(427);
 
 	var _require4 = __webpack_require__(198);
 
@@ -87546,6 +87271,281 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = connect(mapStateToProps)(KeypadButton);
 
 /***/ },
+/* 399 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/**
+	 * A component that renders and animates the selection state effect effect.
+	 */
+
+	var React = __webpack_require__(17);
+	var ReactCSSTransitionGroup = __webpack_require__(424);
+	var KeypadButton = __webpack_require__(398);
+	var KeyConfigs = __webpack_require__(300);
+
+	var _require = __webpack_require__(198);
+
+	var KeyTypes = _require.KeyTypes;
+	var EchoAnimationTypes = _require.EchoAnimationTypes;
+
+	var _require2 = __webpack_require__(215);
+
+	var echoPropType = _require2.echoPropType;
+	var bordersPropType = _require2.bordersPropType;
+	var boundingBoxPropType = _require2.boundingBoxPropType;
+	var keyIdPropType = _require2.keyIdPropType;
+
+	var zIndexes = __webpack_require__(308);
+
+	var Echo = React.createClass({
+	    displayName: 'Echo',
+
+	    propTypes: {
+	        animationDurationMs: React.PropTypes.number.isRequired,
+	        borders: bordersPropType,
+	        id: keyIdPropType.isRequired,
+	        initialBounds: boundingBoxPropType.isRequired,
+	        onAnimationFinish: React.PropTypes.func.isRequired
+	    },
+
+	    componentDidMount: function componentDidMount() {
+	        // NOTE(charlie): This is somewhat unfortunate, as the component is
+	        // encoding information about its own animation, of which it should be
+	        // ignorant. However, there doesn't seem to be a cleaner way to make
+	        // this happen, and at least here, all the animation context is
+	        // colocated in this file.
+	        var _props = this.props;
+	        var animationDurationMs = _props.animationDurationMs;
+	        var onAnimationFinish = _props.onAnimationFinish;
+
+	        setTimeout(function () {
+	            return onAnimationFinish();
+	        }, animationDurationMs);
+	    },
+	    render: function render() {
+	        var _props2 = this.props;
+	        var borders = _props2.borders;
+	        var id = _props2.id;
+	        var initialBounds = _props2.initialBounds;
+	        var icon = KeyConfigs[id].icon;
+
+
+	        var containerStyle = _extends({
+	            zIndex: zIndexes.echo,
+	            position: 'absolute',
+	            pointerEvents: 'none'
+	        }, initialBounds);
+
+	        // NOTE(charlie): In some browsers, Aphrodite doesn't seem to flush its
+	        // styles quickly enough, so there's a flickering effect on the first
+	        // animation. Thus, it's much safer to do the styles purely inline.
+	        // <View> makes this difficult because some of its defaults, which are
+	        // applied via StyleSheet, will override our inlines.
+	        return React.createElement(
+	            'div',
+	            { style: containerStyle },
+	            React.createElement(KeypadButton, {
+	                name: id,
+	                icon: icon,
+	                type: KeyTypes.ECHO,
+	                borders: borders
+	            })
+	        );
+	    }
+	});
+
+	var EchoManager = React.createClass({
+	    displayName: 'EchoManager',
+
+	    propTypes: {
+	        echoes: React.PropTypes.arrayOf(echoPropType),
+	        onAnimationFinish: React.PropTypes.func.isRequired
+	    },
+
+	    _animationConfigForType: function _animationConfigForType(animationType) {
+	        // NOTE(charlie): These must be kept in sync with the transition
+	        // durations and classnames specified in echo.css.
+	        var animationDurationMs = void 0;
+	        var animationTransitionName = void 0;
+
+	        switch (animationType) {
+	            case EchoAnimationTypes.SLIDE_AND_FADE:
+	                animationDurationMs = 400;
+	                animationTransitionName = 'echo-slide-and-fade';
+	                break;
+
+	            case EchoAnimationTypes.FADE_ONLY:
+	                animationDurationMs = 300;
+	                animationTransitionName = 'echo-fade-only';
+	                break;
+
+	            case EchoAnimationTypes.LONG_FADE_ONLY:
+	                animationDurationMs = 400;
+	                animationTransitionName = 'echo-long-fade-only';
+	                break;
+
+	            default:
+	                throw new Error("Invalid echo animation type:", animationType);
+	        }
+
+	        return {
+	            animationDurationMs: animationDurationMs,
+	            animationTransitionName: animationTransitionName
+	        };
+	    },
+	    render: function render() {
+	        var _this = this;
+
+	        var _props3 = this.props;
+	        var echoes = _props3.echoes;
+	        var _onAnimationFinish = _props3.onAnimationFinish;
+
+
+	        return React.createElement(
+	            'span',
+	            null,
+	            Object.keys(EchoAnimationTypes).map(function (animationType) {
+	                // Collect the relevant parameters for the animation type, and
+	                // filter for the appropriate echoes.
+
+	                var _animationConfigForTy = _this._animationConfigForType(animationType);
+
+	                var animationDurationMs = _animationConfigForTy.animationDurationMs;
+	                var animationTransitionName = _animationConfigForTy.animationTransitionName;
+
+	                var echoesForType = echoes.filter(function (echo) {
+	                    return echo.animationType === animationType;
+	                });
+
+	                // TODO(charlie): Manage this animation with Aphrodite styles.
+	                // Right now, there's a bug in the autoprefixer that breaks CSS
+	                // transitions on mobile Safari.
+	                // See: https://github.com/Khan/aphrodite/issues/68.
+	                // As such, we have to do this with a stylesheet.
+	                return React.createElement(
+	                    ReactCSSTransitionGroup,
+	                    {
+	                        transitionName: animationTransitionName,
+	                        transitionEnter: true,
+	                        transitionLeave: false,
+	                        transitionEnterTimeout: animationDurationMs,
+	                        key: animationType
+	                    },
+	                    echoesForType.map(function (echo) {
+	                        var animationId = echo.animationId;
+
+	                        return React.createElement(Echo, _extends({
+	                            key: animationId,
+	                            animationDurationMs: animationDurationMs,
+	                            onAnimationFinish: function onAnimationFinish() {
+	                                return _onAnimationFinish(animationId);
+	                            }
+	                        }, echo));
+	                    })
+	                );
+	            })
+	        );
+	    }
+	});
+
+	module.exports = EchoManager;
+
+/***/ },
+/* 400 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/**
+	 * A component that renders and animates the popovers that appear over the
+	 * multi-functional keys.
+	 */
+
+	var React = __webpack_require__(17);
+	var ReactCSSTransitionGroup = __webpack_require__(424);
+
+	var KeyConfigs = __webpack_require__(300);
+	var MultiSymbolPopover = __webpack_require__(428);
+
+	var _require = __webpack_require__(215);
+
+	var boundingBoxPropType = _require.boundingBoxPropType;
+	var keyConfigPropType = _require.keyConfigPropType;
+	var popoverPropType = _require.popoverPropType;
+
+	// NOTE(charlie): These must be kept in sync with the transition durations and
+	// classnames specified in popover.css.
+
+	var animationTransitionName = 'popover';
+	var animationDurationMs = 200;
+
+	// A container component used to position a popover absolutely at a specific
+	// position.
+	var PopoverContainer = React.createClass({
+	    displayName: 'PopoverContainer',
+
+	    propTypes: {
+	        bounds: boundingBoxPropType.isRequired,
+	        childKeys: React.PropTypes.arrayOf(keyConfigPropType).isRequired
+	    },
+
+	    render: function render() {
+	        var _props = this.props;
+	        var bounds = _props.bounds;
+	        var childKeys = _props.childKeys;
+
+
+	        var containerStyle = _extends({
+	            position: 'absolute'
+	        }, bounds);
+
+	        return React.createElement(
+	            'div',
+	            { style: containerStyle },
+	            React.createElement(MultiSymbolPopover, { keys: childKeys })
+	        );
+	    }
+	});
+
+	var PopoverManager = React.createClass({
+	    displayName: 'PopoverManager',
+
+	    propTypes: {
+	        popover: popoverPropType
+	    },
+
+	    render: function render() {
+	        var popover = this.props.popover;
+
+
+	        return React.createElement(
+	            ReactCSSTransitionGroup,
+	            {
+	                transitionName: animationTransitionName,
+	                transitionEnter: true,
+	                transitionLeave: false,
+	                transitionEnterTimeout: animationDurationMs
+	            },
+	            popover && React.createElement(PopoverContainer, {
+	                key: popover.childKeyIds[0],
+	                bounds: popover.bounds,
+	                childKeys: popover.childKeyIds.map(function (id) {
+	                    return KeyConfigs[id];
+	                })
+	            })
+	        );
+	    }
+	});
+
+	module.exports = PopoverManager;
+
+/***/ },
 /* 401 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -87853,7 +87853,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var GestureManager = __webpack_require__(337);
 	var KeyConfigs = __webpack_require__(300);
-	var KeypadButton = __webpack_require__(400);
+	var KeypadButton = __webpack_require__(398);
 
 	var EmptyKeypadButton = React.createClass({
 	    displayName: 'EmptyKeypadButton',
@@ -87904,35 +87904,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 404 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @typechecks
-	 */
-
-	var isNode = __webpack_require__(429);
-
-	/**
-	 * @param {*} object The object to check.
-	 * @return {boolean} Whether or not the object is a DOM text node.
-	 */
-	function isTextNode(object) {
-	  return isNode(object) && object.nodeType == 3;
-	}
-
-	module.exports = isTextNode;
-
-/***/ },
-/* 405 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -88126,7 +88097,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = expandRangeToStartOfLine;
 
 /***/ },
-/* 406 */
+/* 405 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -88144,11 +88115,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var findAncestorOffsetKey = __webpack_require__(316);
-	var getSelectionOffsetKeyForNode = __webpack_require__(366);
-	var getUpdatedSelectionState = __webpack_require__(318);
+	var findAncestorOffsetKey = __webpack_require__(314);
+	var getSelectionOffsetKeyForNode = __webpack_require__(364);
+	var getUpdatedSelectionState = __webpack_require__(316);
 	var invariant = __webpack_require__(352);
-	var nullthrows = __webpack_require__(349);
+	var nullthrows = __webpack_require__(346);
 
 	/**
 	 * Convert the current selection range to an anchor/focus pair of offset keys
@@ -88309,7 +88280,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getDraftEditorSelectionWithNodes;
 
 /***/ },
-/* 407 */
+/* 406 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -88366,7 +88337,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = moveSelectionBackward;
 
 /***/ },
-/* 408 */
+/* 407 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -88387,7 +88358,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	'use strict';
 
-	var DraftModifier = __webpack_require__(227);
+	var DraftModifier = __webpack_require__(228);
 
 	function removeTextWithStrategy(editorState, strategy, direction) {
 	  var selection = editorState.getSelection();
@@ -88413,7 +88384,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = removeTextWithStrategy;
 
 /***/ },
-/* 409 */
+/* 408 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -88431,7 +88402,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var TokenizeUtil = __webpack_require__(430);
+	var TokenizeUtil = __webpack_require__(429);
 
 	var punctuation = TokenizeUtil.getPunctuation();
 
@@ -88469,7 +88440,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = DraftRemovableWord;
 
 /***/ },
-/* 410 */
+/* 409 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -88516,6 +88487,35 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	module.exports = moveSelectionForward;
+
+/***/ },
+/* 410 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @typechecks
+	 */
+
+	var isNode = __webpack_require__(430);
+
+	/**
+	 * @param {*} object The object to check.
+	 * @return {boolean} Whether or not the object is a DOM text node.
+	 */
+	function isTextNode(object) {
+	  return isNode(object) && object.nodeType == 3;
+	}
+
+	module.exports = isTextNode;
 
 /***/ },
 /* 411 */
@@ -88594,6 +88594,45 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 413 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function(process) {"use strict";
+
+	// Generated by CoffeeScript 1.7.1
+	(function () {
+	  var getNanoSeconds, hrtime, loadTime;
+
+	  if (typeof performance !== "undefined" && performance !== null && performance.now) {
+	    module.exports = function () {
+	      return performance.now();
+	    };
+	  } else if (typeof process !== "undefined" && process !== null && process.hrtime) {
+	    module.exports = function () {
+	      return (getNanoSeconds() - loadTime) / 1e6;
+	    };
+	    hrtime = process.hrtime;
+	    getNanoSeconds = function getNanoSeconds() {
+	      var hr;
+	      hr = hrtime();
+	      return hr[0] * 1e9 + hr[1];
+	    };
+	    loadTime = getNanoSeconds();
+	  } else if (Date.now) {
+	    module.exports = function () {
+	      return Date.now() - loadTime;
+	    };
+	    loadTime = Date.now();
+	  } else {
+	    module.exports = function () {
+	      return new Date().getTime() - loadTime;
+	    };
+	    loadTime = new Date().getTime();
+	  }
+	}).call(undefined);
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(438)))
+
+/***/ },
+/* 414 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
@@ -88606,7 +88645,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _symbolObservable = __webpack_require__(438);
+	var _symbolObservable = __webpack_require__(439);
 
 	var _symbolObservable2 = _interopRequireDefault(_symbolObservable);
 
@@ -88861,7 +88900,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 414 */
+/* 415 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88869,7 +88908,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.__esModule = true;
 	exports['default'] = combineReducers;
 
-	var _createStore = __webpack_require__(413);
+	var _createStore = __webpack_require__(414);
 
 	var _isPlainObject = __webpack_require__(433);
 
@@ -89010,7 +89049,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 415 */
+/* 416 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89068,7 +89107,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 416 */
+/* 417 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89087,7 +89126,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports['default'] = applyMiddleware;
 
-	var _compose = __webpack_require__(417);
+	var _compose = __webpack_require__(418);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
@@ -89141,7 +89180,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 417 */
+/* 418 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -89182,45 +89221,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, last.apply(undefined, arguments));
 	  };
 	}
-
-/***/ },
-/* 418 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {"use strict";
-
-	// Generated by CoffeeScript 1.7.1
-	(function () {
-	  var getNanoSeconds, hrtime, loadTime;
-
-	  if (typeof performance !== "undefined" && performance !== null && performance.now) {
-	    module.exports = function () {
-	      return performance.now();
-	    };
-	  } else if (typeof process !== "undefined" && process !== null && process.hrtime) {
-	    module.exports = function () {
-	      return (getNanoSeconds() - loadTime) / 1e6;
-	    };
-	    hrtime = process.hrtime;
-	    getNanoSeconds = function getNanoSeconds() {
-	      var hr;
-	      hr = hrtime();
-	      return hr[0] * 1e9 + hr[1];
-	    };
-	    loadTime = getNanoSeconds();
-	  } else if (Date.now) {
-	    module.exports = function () {
-	      return Date.now() - loadTime;
-	    };
-	    loadTime = Date.now();
-	  } else {
-	    module.exports = function () {
-	      return new Date().getTime() - loadTime;
-	    };
-	    loadTime = new Date().getTime();
-	  }
-	}).call(undefined);
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(439)))
 
 /***/ },
 /* 419 */
@@ -89272,36 +89272,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 421 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	exports.__esModule = true;
-	exports["default"] = warning;
-	/**
-	 * Prints a warning in the console if it exists.
-	 *
-	 * @param {String} message The warning message.
-	 * @returns {void}
-	 */
-	function warning(message) {
-	  /* eslint-disable no-console */
-	  if (typeof console !== 'undefined' && typeof console.error === 'function') {
-	    console.error(message);
-	  }
-	  /* eslint-enable no-console */
-	  try {
-	    // This error was thrown as a convenience so that if you enable
-	    // "break on all exceptions" in your console,
-	    // it would pause the execution at this line.
-	    throw new Error(message);
-	    /* eslint-disable no-empty */
-	  } catch (e) {}
-	  /* eslint-enable no-empty */
-	}
-
-/***/ },
-/* 422 */
-/***/ function(module, exports, __webpack_require__) {
-
 	"use strict";
 
 	exports.__esModule = true;
@@ -89330,7 +89300,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 423 */
+/* 422 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89347,6 +89317,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
+/* 423 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports["default"] = warning;
+	/**
+	 * Prints a warning in the console if it exists.
+	 *
+	 * @param {String} message The warning message.
+	 * @returns {void}
+	 */
+	function warning(message) {
+	  /* eslint-disable no-console */
+	  if (typeof console !== 'undefined' && typeof console.error === 'function') {
+	    console.error(message);
+	  }
+	  /* eslint-enable no-console */
+	  try {
+	    // This error was thrown as a convenience so that if you enable
+	    // "break on all exceptions" in your console,
+	    // it would pause the execution at this line.
+	    throw new Error(message);
+	    /* eslint-disable no-empty */
+	  } catch (e) {}
+	  /* eslint-enable no-empty */
+	}
+
+/***/ },
 /* 424 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -89354,82 +89354,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 425 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	/**
-	 * A popover that renders a set of keys floating above the page.
-	 */
-
-	var React = __webpack_require__(17);
-
-	var _require = __webpack_require__(52);
-
-	var StyleSheet = _require.StyleSheet;
-
-	var _require2 = __webpack_require__(301);
-
-	var View = _require2.View;
-
-	var _require3 = __webpack_require__(215);
-
-	var keyConfigPropType = _require3.keyConfigPropType;
-
-	var _require4 = __webpack_require__(198);
-
-	var BorderStyles = _require4.BorderStyles;
-
-	var zIndexes = __webpack_require__(308);
-
-	var MultiSymbolPopover = React.createClass({
-	    displayName: 'MultiSymbolPopover',
-
-	    propTypes: {
-	        keys: React.PropTypes.arrayOf(keyConfigPropType)
-	    },
-
-	    render: function render() {
-	        var keys = this.props.keys;
-
-	        // TODO(charlie): We have to require this lazily because of a cyclic
-	        // dependence in our components.
-
-	        var TouchableKeypadButton = __webpack_require__(361);
-	        return React.createElement(
-	            View,
-	            { style: styles.container },
-	            keys.map(function (key) {
-	                return React.createElement(TouchableKeypadButton, {
-	                    key: key.id,
-	                    keyConfig: key,
-	                    borders: BorderStyles.NONE
-	                });
-	            })
-	        );
-	    }
-	});
-
-	var styles = StyleSheet.create({
-	    container: {
-	        flexDirection: 'column-reverse',
-	        position: 'relative',
-	        width: '100%',
-	        borderRadius: 2,
-	        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
-	        zIndex: zIndexes.popover
-	    },
-
-	    popoverButton: {
-	        backgroundColor: '#FFF',
-	        borderWidth: 0
-	    }
-	});
-
-	module.exports = MultiSymbolPopover;
-
-/***/ },
-/* 426 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89530,7 +89454,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Icon;
 
 /***/ },
-/* 427 */
+/* 426 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89550,7 +89474,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var View = _require2.View;
 
-	var Icon = __webpack_require__(426);
+	var Icon = __webpack_require__(425);
 
 	var _require3 = __webpack_require__(198);
 
@@ -89732,7 +89656,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MultiSymbolGrid;
 
 /***/ },
-/* 428 */
+/* 427 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89804,34 +89728,83 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = CornerDecal;
 
 /***/ },
-/* 429 */
+/* 428 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @typechecks
+	 * A popover that renders a set of keys floating above the page.
 	 */
 
-	/**
-	 * @param {*} object The object to check.
-	 * @return {boolean} Whether or not the object is a DOM node.
-	 */
-	function isNode(object) {
-	  return !!(object && (typeof Node === 'function' ? object instanceof Node : typeof object === 'object' && typeof object.nodeType === 'number' && typeof object.nodeName === 'string'));
-	}
+	var React = __webpack_require__(17);
 
-	module.exports = isNode;
+	var _require = __webpack_require__(52);
+
+	var StyleSheet = _require.StyleSheet;
+
+	var _require2 = __webpack_require__(301);
+
+	var View = _require2.View;
+
+	var _require3 = __webpack_require__(215);
+
+	var keyConfigPropType = _require3.keyConfigPropType;
+
+	var _require4 = __webpack_require__(198);
+
+	var BorderStyles = _require4.BorderStyles;
+
+	var zIndexes = __webpack_require__(308);
+
+	var MultiSymbolPopover = React.createClass({
+	    displayName: 'MultiSymbolPopover',
+
+	    propTypes: {
+	        keys: React.PropTypes.arrayOf(keyConfigPropType)
+	    },
+
+	    render: function render() {
+	        var keys = this.props.keys;
+
+	        // TODO(charlie): We have to require this lazily because of a cyclic
+	        // dependence in our components.
+
+	        var TouchableKeypadButton = __webpack_require__(361);
+	        return React.createElement(
+	            View,
+	            { style: styles.container },
+	            keys.map(function (key) {
+	                return React.createElement(TouchableKeypadButton, {
+	                    key: key.id,
+	                    keyConfig: key,
+	                    borders: BorderStyles.NONE
+	                });
+	            })
+	        );
+	    }
+	});
+
+	var styles = StyleSheet.create({
+	    container: {
+	        flexDirection: 'column-reverse',
+	        position: 'relative',
+	        width: '100%',
+	        borderRadius: 2,
+	        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
+	        zIndex: zIndexes.popover
+	    },
+
+	    popoverButton: {
+	        backgroundColor: '#FFF',
+	        borderWidth: 0
+	    }
+	});
+
+	module.exports = MultiSymbolPopover;
 
 /***/ },
-/* 430 */
+/* 429 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -89871,6 +89844,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return PUNCTUATION;
 	  }
 	};
+
+/***/ },
+/* 430 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @typechecks
+	 */
+
+	/**
+	 * @param {*} object The object to check.
+	 * @return {boolean} Whether or not the object is a DOM node.
+	 */
+	function isNode(object) {
+	  return !!(object && (typeof Node === 'function' ? object instanceof Node : typeof object === 'object' && typeof object.nodeType === 'number' && typeof object.nodeName === 'string'));
+	}
+
+	module.exports = isNode;
 
 /***/ },
 /* 431 */
@@ -90779,7 +90779,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        exports.UAParser = UAParser;
 	    } else {
 	        // requirejs env (optional)
-	        if ("function" === FUNC_TYPE && __webpack_require__(445)) {
+	        if ("function" === FUNC_TYPE && __webpack_require__(449)) {
 	            !(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
 	                return UAParser;
 	            }.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -91139,14 +91139,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 438 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	module.exports = __webpack_require__(444);
-
-/***/ },
-/* 439 */
-/***/ function(module, exports, __webpack_require__) {
-
 	// shim for using process in browser
 
 	var process = module.exports = {};
@@ -91208,14 +91200,22 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+/* 439 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = __webpack_require__(444);
+
+/***/ },
 /* 440 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _Symbol = __webpack_require__(446),
-	    getRawTag = __webpack_require__(447),
-	    objectToString = __webpack_require__(448);
+	var _Symbol = __webpack_require__(445),
+	    getRawTag = __webpack_require__(446),
+	    objectToString = __webpack_require__(447);
 
 	/** `Object#toString` result references. */
 	var nullTag = '[object Null]',
@@ -91247,7 +91247,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var overArg = __webpack_require__(449);
+	var overArg = __webpack_require__(448);
 
 	/** Built-in value references. */
 	var getPrototype = overArg(Object.getPrototypeOf, Object);
@@ -91387,14 +91387,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 445 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, {}))
-
-/***/ },
-/* 446 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 
 	var root = __webpack_require__(493);
@@ -91405,12 +91397,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = _Symbol;
 
 /***/ },
-/* 447 */
+/* 446 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _Symbol = __webpack_require__(446);
+	var _Symbol = __webpack_require__(445);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -91458,7 +91450,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = getRawTag;
 
 /***/ },
-/* 448 */
+/* 447 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -91487,7 +91479,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = objectToString;
 
 /***/ },
-/* 449 */
+/* 448 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -91507,6 +91499,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	module.exports = overArg;
+
+/***/ },
+/* 449 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ },
 /* 450 */

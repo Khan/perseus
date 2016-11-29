@@ -49,7 +49,7 @@ const ArticleRenderer = React.createClass({
     },
 
     getInitialState() {
-        return ProvideKeypad.getInputPaths();
+        return ProvideKeypad.getInitialState();
     },
 
     componentDidMount() {
