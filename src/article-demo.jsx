@@ -10,9 +10,21 @@ const ArticleEditor = require('./article-editor.jsx');
 const StatefulArticleEditor = require('./stateful-article-editor.jsx');
 const Util = require('./util.js');
 
+const defaultArticle = [{
+    "content": "",
+    "images": {},
+    "widgets": {},
+}];
+
 const ArticleDemo = React.createClass({
     propTypes: {
         content: React.PropTypes.any.isRequired,
+    },
+
+    getDefaultProps() {
+        return {
+            content: defaultArticle,
+        };
     },
 
     getInitialState: function() {

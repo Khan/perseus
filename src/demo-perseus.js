@@ -21,24 +21,8 @@ const EditorDemo = require('./editor-demo.jsx');
 const RendererDemo = require('./renderer-demo.jsx');
 const ArticleDemo = require('./article-demo.jsx');
 
-const defaultQuestion = {
-    "question": {
-        "content": "",
-        "images": {},
-        "widgets": {},
-    },
-    "answerArea": {
-        "calculator": false,
-    },
-    "itemDataVersion": {
-        "major": 0,
-        "minor": 1,
-    },
-    "hints": [],
-};
-
 const query = Perseus.Util.parseQueryString(window.location.hash.substring(1));
-const question = query.content ? JSON.parse(query.content) : defaultQuestion;
+const question = query.content && JSON.parse(query.content);
 const problemNum = Math.floor(Math.random() * 100);
 
 // React router v20XX

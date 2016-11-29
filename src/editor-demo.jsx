@@ -17,6 +17,22 @@ const EditorPage = require('./editor-page.jsx');
 const Util = require('./util.js');
 const Renderability = require('./renderability.jsx');
 
+const defaultQuestion = {
+    "question": {
+        "content": "",
+        "images": {},
+        "widgets": {},
+    },
+    "answerArea": {
+        "calculator": false,
+    },
+    "itemDataVersion": {
+        "major": 0,
+        "minor": 1,
+    },
+    "hints": [],
+};
+
 const EditorDemo = React.createClass({
     propTypes: {
         problemNum: React.PropTypes.number,
@@ -25,6 +41,7 @@ const EditorDemo = React.createClass({
 
     getDefaultProps: function() {
         return {
+            question: defaultQuestion,
             problemNum: 1,
         };
     },
