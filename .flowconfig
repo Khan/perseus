@@ -1,5 +1,7 @@
 [ignore]
 <PROJECT_ROOT>/node_modules/babel-plugin-flow-react-proptypes
+<PROJECT_ROOT>/node_modules/fbjs
+<PROJECT_ROOT>/node_modules/jsx-loader
 <PROJECT_ROOT>/node_modules/webpack
 <PROJECT_ROOT>/simple-markdown/
 
