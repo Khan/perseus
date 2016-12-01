@@ -20,6 +20,7 @@ const ReactDOM = window.ReactDOM = React.__internalReactDOM;
 const EditorDemo = require('./editor-demo.jsx');
 const RendererDemo = require('./renderer-demo.jsx');
 const ArticleDemo = require('./article-demo.jsx');
+const MultirendererDemo = require('./multirenderer-demo.jsx');
 
 const query = Perseus.Util.parseQueryString(window.location.hash.substring(1));
 const question = query.content && JSON.parse(query.content);
@@ -30,6 +31,7 @@ const path = window.location.search.substring(1);
 const routes = { // The value is spread across a React.createElement call
     'renderer': [RendererDemo, {question, problemNum}],
     'article': [ArticleDemo, {content: question}],
+    'multirenderer': [MultirendererDemo, {content: question}],
     '': [EditorDemo, {question, problemNum}],
 };
 
