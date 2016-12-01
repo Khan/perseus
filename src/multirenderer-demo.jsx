@@ -4,6 +4,7 @@
 /* eslint-disable no-console */
 const React = require("react");
 
+const MultiRendererEditor = require("./multirenderer-editor.jsx");
 const Util = require("./util.js");
 
 const defaultQuestion = {
@@ -33,6 +34,7 @@ const MultiRendererDemo = React.createClass({
     getInitialState() {
         return {
             content: this.props.content,
+            editorMode: "edit",
         };
     },
 
@@ -49,6 +51,7 @@ const MultiRendererDemo = React.createClass({
             },
 
             content: this.state.content,
+            editorMode: this.state.editorMode,
         };
     },
 
@@ -73,7 +76,13 @@ const MultiRendererDemo = React.createClass({
             <div id="extras">
                 <button onClick={this.handlePermalink}>permalink</button>
             </div>
-            <div className="framework-perseus" />
+            <div className="framework-perseus">
+                <MultiRendererEditor
+                    {...this.getEditorProps()}
+                    onChange={this.handleChange}
+                    ref={e => this.editor = e}
+                />
+            </div>
         </div>;
     },
 });
