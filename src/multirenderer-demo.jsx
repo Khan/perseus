@@ -2,10 +2,45 @@
  * Demo for the multi-item multirenderer layout.
  */
 /* eslint-disable no-console */
+const {StyleSheet, css} = require("aphrodite");
 const React = require("react");
 
 const MultiRendererEditor = require("./multirenderer-editor.jsx");
 const Util = require("./util.js");
+const MultiRenderer = require("./multirenderer.jsx");
+
+const DemoLayout = React.createClass({
+    propTypes: {
+        content: React.PropTypes.any.isRequired,
+    },
+
+    render() {
+        return <MultiRenderer content={this.props.content}>
+            {({renderers}) =>
+                <div>
+                    <div className={css(demoStyles.left)}>
+                        {renderers.left}
+                    </div>
+                    <ul className={css(demoStyles.right)}>
+                        {renderers.right.map(
+                            (r, i) => <li key={i}>{r}</li>
+                        )}
+                    </ul>
+                </div>
+            }
+        </MultiRenderer>;
+    },
+});
+
+const demoStyles = StyleSheet.create({
+    left: {
+        float: "left",
+    },
+
+    right: {
+        float: "right",
+    },
+});
 
 const defaultQuestion = {
     "left": {
@@ -40,6 +75,7 @@ const MultiRendererDemo = React.createClass({
 
     getEditorProps() {
         return {
+            Layout: DemoLayout,
             apiOptions: {
                 onFocusChange: function(newPath, oldPath) {
                     console.log("onFocusChange", newPath, oldPath);

@@ -48,6 +48,7 @@ const ModeDropdown = React.createClass({
 
 const MultiRendererEditor = React.createClass({
     propTypes: {
+        Layout: React.PropTypes.func,
         // TODO(emily): use ApiOptions.propTypes
         apiOptions: React.PropTypes.any.isRequired,
 
@@ -67,6 +68,21 @@ const MultiRendererEditor = React.createClass({
                 multiLine
                 value={this.props.content}
                 onChange={content => this.props.onChange({content})}
+            />
+        </div>;
+    },
+
+    _renderPreview() {
+        const {Layout} = this.props;
+
+        return <div>
+            <ModeDropdown
+                currentMode={this.props.editorMode}
+                onChange={editorMode => this.props.onChange({editorMode})}
+            />
+            <Layout
+                content={this.props.content}
+                apiOptions={this.props.apiOptions}
             />
         </div>;
     },
@@ -125,7 +141,7 @@ const MultiRendererEditor = React.createClass({
     render() {
         switch (this.props.editorMode) {
             case "json": return this._renderJson();
-            // case "preview": return this._renderPreview();
+            case "preview": return this._renderPreview();
             case "edit": return this._renderEdit();
             default:
                 return <ModeDropdown
