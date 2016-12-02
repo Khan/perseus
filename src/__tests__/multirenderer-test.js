@@ -42,6 +42,20 @@ describe("traverseShape", () => {
         }, result);
     });
 
+    it("calls the callback with the correct paths to the items", () => {
+        // Return the path of the item in place of each of the items.
+        const result = traverseShape(shape, data, (_, path) => path);
+
+        assert.deepEqual({
+            a: ["a"],
+            b: [["b", 0], ["b", 1], ["b", 2]],
+            c: {
+                d: ["c", "d"],
+                e: ["c", "e"],
+            },
+        }, result);
+    });
+
     it("handles recursive objects", () => {
         const shape = shapes.shape({
             a: shapes.shape({
@@ -76,5 +90,80 @@ describe("traverseShape", () => {
 
         const result = traverseShape(shape, [[], [1], []], e => e + 1);
         assert.deepEqual([[], [2], []], result);
+    });
+
+    it("calls the collection callback for arrays", () => {
+        const shape = shapes.arrayOf(shapes.item);
+        const data = [1, 2, 3];
+
+        traverseShape(shape, data, e => e + 1, (data2, shape2, path) => {
+            assert.deepEqual([2, 3, 4], data2);
+            assert.deepEqual(shape, shape2);
+            assert.deepEqual([], path);
+        });
+    });
+
+    it("calls the collection callback for objects", () => {
+        const shape = shapes.shape({
+            a: shapes.item,
+            b: shapes.item,
+        });
+        const data = {
+            a: 1,
+            b: 2,
+        };
+
+        traverseShape(shape, data, e => e + 1, (data2, shape2, path) => {
+            assert.deepEqual({
+                a: 2,
+                b: 3,
+            }, data2);
+            assert.deepEqual(shape, shape2);
+            assert.deepEqual([], path);
+        });
+    });
+
+    it("builds the structure from the collection callback return value", () => {
+        const shape = shapes.shape({
+            a: shapes.item,
+            b: shapes.arrayOf(shapes.item),
+            c: shapes.shape({
+                d: shapes.item,
+                e: shapes.item,
+            }),
+        });
+
+        const data = {
+            a: 1,
+            b: [2, 3, 4],
+            c: {
+                d: 5,
+                e: 6,
+            },
+        };
+
+        function collectionCallback(dat, shp, path) {
+            if (path.length === 0) {
+                dat.top = true;
+                return dat;
+            }
+
+            if (shp.type === "object") {
+                return Object.keys(dat).concat(
+                    Object.keys(dat).map(k => dat[k]));
+            } else if (shp.type === "array") {
+                return dat.map(x => x + 2);
+            }
+        }
+
+        const result = traverseShape(shape, data, e => e + 1,
+                                     collectionCallback);
+
+        assert.deepEqual({
+            top: true,
+            a: 2,
+            b: [5, 6, 7],
+            c: ["d", "e", 6, 7],
+        }, result);
     });
 });

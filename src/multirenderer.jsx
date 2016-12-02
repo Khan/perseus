@@ -82,24 +82,73 @@ const shapes = {
  *     z: {v: 6, w: 7},
  *   }
  *
- * @param shape: A shape returned from one of the shapes constructors.
- * @param data: Some data in the shape that is described by the shape argument.
- * @param callback: A function called with the data at each of the leaf nodes.
- * @returns An object in the shape described by the shape argument, with the
- *          result of the callback() function at the leaves.
+ * @function traverseShape
+ * @param {} shape: A shape returned from one of the shapes constructors.
+ * @param {} data: Some data in the shape that is described by the shape
+ *     argument.
+ * @param {ItemCallback} itemCallback: A function called with the data at each
+ *     of the leaf nodes, and the path of the current item. The path is an
+ *     array of keys inside the object.
+ * @param {CollectionCallback} [collectionCallback=identity]: A function called
+ *     for each of the interior container nodes to munge the data after
+ *     traversing the child nodes.
+ * @returns {} An object in the shape described by the shape argument, with the
+ *     result of the callback() function at the leaves. Or, if the collection
+ *     callback is specified, the value of that callback called on the top
+ *     level value.
  */
-function traverseShape(shape, data, callback) {
+function traverseShape(shape, data, itemCallback,
+                       collectionCallback = identity) {
+    return traverseShapeRec(shape, data, [], itemCallback, collectionCallback);
+}
+
+/**
+ * This callback is called for each of the leaf nodes of a shape when
+ * traversing. Its return value is substituted in place of the leaf when
+ * building the resulting structure.
+ * @callback ItemCallback
+ * @param {} data: The object found at the leaf position of the data object
+ *     passed into the traversal.
+ * @param {Array.<(string|number)>} path: The path of the leaf node within the
+ *     object. The path is an array of keys within the object.
+ * @returns {} A value which is placed in the object that is built by the
+ *     traversal.
+ */
+
+/**
+ * This callback is called on each of the interior nodes of a shape (i.e.
+ * arrays or objects). Its return value is used in place of that structure in
+ * the resulting object.
+ * @callback CollectionCallback
+ * @param {} data: The collection found at the current place in the shape, with
+ *     its contents already traversed and mapped.
+ * @param {} shape: The shape of the collection.
+ * @param {Array.<(string|number)>} path: The path of the collection within the
+ *     overall object. The path is an array of keys within the object.
+ * @returns {} A value which is placed at the location of the current shape in
+ *     the object that is built by the traversal.
+ */
+
+function identity(x) {
+    return x;
+}
+
+function traverseShapeRec(shape, data, path, itemCallback, collectionCallback) {
     if (shape.type === "item") {
-        return callback(data);
+        return itemCallback(data, path);
     } else if (shape.type === "array") {
-        return data.map(
-            inner => traverseShape(shape.elementShape, inner, callback));
+        const results = data.map((inner, i) => traverseShapeRec(
+            shape.elementShape, inner, path.concat(i), itemCallback,
+            collectionCallback));
+        return collectionCallback(results, shape, path);
     } else if (shape.type === "object") {
         const object = {};
         Object.keys(shape.shape).forEach(key => {
-            object[key] = traverseShape(shape.shape[key], data[key], callback);
+            object[key] = traverseShapeRec(
+                shape.shape[key], data[key], path.concat(key),
+                itemCallback, collectionCallback);
         });
-        return object;
+        return collectionCallback(object, shape, path);
     } else {
         throw new Error(`Invalid shape type: ${shape.type}`);
     }

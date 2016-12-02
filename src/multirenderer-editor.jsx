@@ -8,6 +8,7 @@ const lens = require("../hubble/index.js");
 const ApiOptions = require("./perseus-api.jsx").Options;
 const Editor = require("./editor.jsx");
 const JsonEditor = require("./json-editor.jsx");
+const {traverseShape} = require("./multirenderer.jsx");
 
 const EDITOR_MODES = ["edit", "preview", "json"];
 
@@ -87,9 +88,9 @@ const MultiRendererEditor = React.createClass({
         </div>;
     },
 
-    handleEditorChange(key, newValue) {
+    handleEditorChange(path, newValue) {
         this.props.onChange({
-            content: lens(this.props.content).merge(key, newValue).freeze(),
+            content: lens(this.props.content).merge(path, newValue).freeze(),
         });
     },
 
@@ -99,29 +100,51 @@ const MultiRendererEditor = React.createClass({
             ...this.props.apiOptions,
         };
 
+        function makeTitle(path) {
+            if (path.length > 0) {
+                return <div className="pod-title">
+                    {/* TODO(emily): allow specifying a custom editor title */}
+                    {path.join(".")}
+                </div>;
+            } else {
+                return null;
+            }
+        }
+
+        const renderItem = (data, path) => {
+            return <div key={path.join("-")} className={css(styles.editor)}>
+                {makeTitle(path)}
+                <Editor
+                    {...data}
+                    onChange={
+                        newVal => this.handleEditorChange(path, newVal)}
+                    apiOptions={apiOptions}
+                />
+            </div>;
+        };
+
+        const renderCollection = (collection, shape, path) => {
+            if (shape.type === "array") {
+                return <div key={path.join("-")}>
+                    {makeTitle(path)}
+                    <div className={css(styles.level)}>
+                        {collection}
+                    </div>
+                </div>;
+            } else if (shape.type === "object") {
+                return <div key={path.join("-")}>
+                    {makeTitle(path)}
+                    <div className={css(styles.level)}>
+                        {Object.keys(shape.shape).map(key => collection[key])}
+                    </div>
+                </div>;
+            }
+        };
+
         const content = this.props.content;
-        const editor = <div>
-            <div className={css(styles.editor)}>
-                <div className="pod-title">Left</div>
-                <Editor
-                    {...content.left}
-                    onChange={newVal => this.handleEditorChange(
-                        ["left"], newVal
-                    )}
-                    apiOptions={apiOptions}
-                />
-            </div>
-            <div className={css(styles.editor)}>
-                <div className="pod-title">Right[0]</div>
-                <Editor
-                    {...content.right[0]}
-                    onChange={newVal => this.handleEditorChange(
-                        ["right", 0], newVal
-                    )}
-                    apiOptions={apiOptions}
-                />
-            </div>
-        </div>;
+        const itemShape = this.props.Layout.shape;
+        const editor = traverseShape(
+            itemShape, content, renderItem, renderCollection);
 
         return <div>
             <ModeDropdown
@@ -157,6 +180,14 @@ const MultiRendererEditor = React.createClass({
 const styles = StyleSheet.create({
     editor: {
         marginBottom: 25,
+    },
+
+    level: {
+        marginLeft: 10,
+    },
+
+    controls: {
+        float: "right",
     },
 });
 
