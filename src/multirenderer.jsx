@@ -24,34 +24,122 @@
  *           </div>
  *       }
  *   </MultiRenderer>
+ *
+ * This also exposes the shape system for describing the shape of a piece of
+ * multi-item content, and a `traverseShape` function for traversing a piece of
+ * content using its shape.
  */
 const React = require("react");
 
 const Renderer = require("./renderer.jsx");
 
+// Shape constructors to generate multi-item shapes. These work exactly like
+// React propTypes.
+const shapes = {
+    item: {
+        type: "item",
+    },
+    arrayOf: elementShape => ({
+        type: "array",
+        elementShape,
+    }),
+    shape: shape => ({
+        type: "object",
+        shape,
+    }),
+};
+
+/**
+ * Traverse a multirenderer item shape and piece of data at the same time, and
+ * call the callback with the data at each of the leaf nodes of the shape (an
+ * item) is reached. Returns data of the same structure as the shape, with the
+ * leaf node data being whatever is returned from the callback.
+ *
+ * Example:
+ *
+ *   data = {
+ *       x: 1,
+ *       y: [2, 3, 4],
+ *       z: {v: 5, w: 6},
+ *   }
+ *   shape = shapes.shape({
+ *       x: shapes.item,
+ *       y: shapes.arrayOf(shapes.item),
+ *       z: shapes.shape({
+ *           v: shapes.item,
+ *           w: shapes.item,
+ *       }),
+ *   })
+ *
+ *   traverseShape(shape, data, x => x + 1)
+ *
+ * This would call the callback with the values 1, 2, 3, 4, 5, and 6, and would
+ * return an object of the shape
+ *
+ *   {
+ *     x: 2,
+ *     y: [3, 4, 5],
+ *     z: {v: 6, w: 7},
+ *   }
+ *
+ * @param shape: A shape returned from one of the shapes constructors.
+ * @param data: Some data in the shape that is described by the shape argument.
+ * @param callback: A function called with the data at each of the leaf nodes.
+ * @returns An object in the shape described by the shape argument, with the
+ *          result of the callback() function at the leaves.
+ */
+function traverseShape(shape, data, callback) {
+    if (shape.type === "item") {
+        return callback(data);
+    } else if (shape.type === "array") {
+        return data.map(
+            inner => traverseShape(shape.elementShape, inner, callback));
+    } else if (shape.type === "object") {
+        const object = {};
+        Object.keys(shape.shape).forEach(key => {
+            object[key] = traverseShape(shape.shape[key], data[key], callback);
+        });
+        return object;
+    } else {
+        throw new Error(`Invalid shape type: ${shape.type}`);
+    }
+}
+
+// Recursive prop type to check that the shape prop is structured correctly.
+function shapePropType(...args) {
+    const itemShape = React.PropTypes.oneOfType([
+        React.PropTypes.shape({
+            type: React.PropTypes.oneOf(["item"]).isRequired,
+        }).isRequired,
+        React.PropTypes.shape({
+            type: React.PropTypes.oneOf(["object"]).isRequired,
+            shape: React.PropTypes.objectOf(shapePropType),
+        }).isRequired,
+        React.PropTypes.shape({
+            type: React.PropTypes.oneOf(["array"]).isRequired,
+            elementShape: shapePropType,
+        }).isRequired,
+    ]);
+
+    return itemShape(...args);
+}
+
 const MultiRenderer = React.createClass({
     propTypes: {
         content: React.PropTypes.any.isRequired,
+        shape: shapePropType,
         children: React.PropTypes.func.isRequired,
     },
 
     componentWillMount() {
-        this._rendererData = {
-            left: this._makeRendererData(this.props.content.left),
-            right: [
-                this._makeRendererData(this.props.content.right[0]),
-            ],
-        };
+        this._rendererData = this._makeRenderers(
+            this.props.shape, this.props.content);
     },
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.content !== this.props.content) {
-            this._rendererData = {
-                left: this._makeRendererData(nextProps.left),
-                right: [
-                    this._makeRendererData(nextProps.right[0]),
-                ],
-            };
+            this._rendererData = this._makeRenderers(
+                nextProps.shape, nextProps.content);
         }
     },
 
@@ -89,34 +177,39 @@ const MultiRenderer = React.createClass({
         return data;
     },
 
+    _makeRenderers(shape, content) {
+        return traverseShape(shape, content, this._makeRendererData);
+    },
+
     _findWidgets(callingData, filterCriterion) {
         const results = [];
 
-        const {left, right} = this._rendererData;
-
-        if (left.ref && callingData !== left) {
-            results.push(...left.ref.findInternalWidgets(filterCriterion));
-        }
-
-        if (right[0].ref && callingData !== right[0]) {
-            results.push(...right[0].ref.findInternalWidgets(filterCriterion));
-        }
+        traverseShape(this.props.shape, this._rendererData, data => {
+            if (callingData !== data && data.ref) {
+                results.push(...data.ref.findInternalWidgets(filterCriterion));
+            }
+        });
 
         return results;
     },
 
+    _getRenderers() {
+        return traverseShape(
+            this.props.shape, this._rendererData, data => data.renderer);
+    },
+
     render() {
         return <div>
+            {this.numRenderers}
             {this.props.children({
-                renderers: {
-                    left: this._rendererData.left.renderer,
-                    right: [
-                        this._rendererData.right[0].renderer,
-                    ],
-                },
+                renderers: this._getRenderers(),
             })}
         </div>;
     },
 });
 
-module.exports = MultiRenderer;
+module.exports = {
+    MultiRenderer,
+    shapes,
+    traverseShape,
+};

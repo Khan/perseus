@@ -7,15 +7,25 @@ const React = require("react");
 
 const MultiRendererEditor = require("./multirenderer-editor.jsx");
 const Util = require("./util.js");
-const MultiRenderer = require("./multirenderer.jsx");
+const {MultiRenderer, shapes} = require("./multirenderer.jsx");
 
 const DemoLayout = React.createClass({
     propTypes: {
         content: React.PropTypes.any.isRequired,
     },
 
+    statics: {
+        shape: shapes.shape({
+            left: shapes.item,
+            right: shapes.arrayOf(shapes.item),
+        }),
+    },
+
     render() {
-        return <MultiRenderer content={this.props.content}>
+        return <MultiRenderer
+            content={this.props.content}
+            shape={DemoLayout.shape}
+        >
             {({renderers}) =>
                 <div>
                     <div className={css(demoStyles.left)}>
