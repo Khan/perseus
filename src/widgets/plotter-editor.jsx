@@ -15,7 +15,7 @@ const TextListEditor = require("../components/text-list-editor.jsx");
 
 const Plotter = require("./plotter.jsx").widget;
 
-const knumber = require("kmath").knumber;
+const knumber = require("kmath").number;
 
 const BAR = "bar",
     LINE = "line",
