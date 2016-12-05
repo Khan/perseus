@@ -275,6 +275,15 @@ var Renderer = React.createClass({
     },
 
     componentWillUnmount: function() {
+        // Clean out the list of widgetIds when unmounting, as this list is
+        // meant to be consistent with the refs controlled by the renderer, and
+        // refs are also cleared out during unmounting.
+        // (This may not be totally necessary, but mobile clients have been
+        // seeing JS errors due to an inconsistency between the list of
+        // widgetIds and the child refs of the renderer.
+        // See: https://phabricator.khanacademy.org/D32420.)
+        this.widgetIds = [];
+
         if (this.translationIndex != null) {
             window.PerseusTranslationComponents[this.translationIndex] = null;
         }
