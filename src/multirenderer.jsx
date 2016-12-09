@@ -29,6 +29,7 @@
  * multi-item content, and a `traverseShape` function for traversing a piece of
  * content using its shape.
  */
+const {StyleSheet, css} = require("aphrodite");
 const React = require("react");
 
 const Renderer = require("./renderer.jsx");
@@ -135,22 +136,48 @@ function identity(x) {
 
 function traverseShapeRec(shape, data, path, itemCallback, collectionCallback) {
     if (shape.type === "item") {
+        if (data && typeof data !== "object") {
+            throw new Error(
+                `Invalid object of type "${typeof data}" found at path ` +
+                `${["<root>"].concat(path).join(".")}. Expected item.`);
+        }
         return itemCallback(data, path);
     } else if (shape.type === "array") {
+        if (!Array.isArray(data)) {
+            throw new Error(
+                `Invalid object of type "${typeof data}" found at path ` +
+                `${["<root>"].concat(path).join(".")}. Expected array.`);
+        }
+
         const results = data.map((inner, i) => traverseShapeRec(
             shape.elementShape, inner, path.concat(i), itemCallback,
             collectionCallback));
         return collectionCallback(results, shape, path);
     } else if (shape.type === "object") {
+        if (data && typeof data !== "object") {
+            throw new Error(
+                `Invalid object of type "${typeof data}" found at path ` +
+                `${["<root>"].concat(path).join(".")}. Expected "object" ` +
+                `type.`);
+        }
+
         const object = {};
         Object.keys(shape.shape).forEach(key => {
+            if (!data[key]) {
+                throw new Error(
+                    `Key "${key}" is missing from shape at path ` +
+                    `${["<root>"].concat(path).join(".")}.`);
+            }
+
             object[key] = traverseShapeRec(
                 shape.shape[key], data[key], path.concat(key),
                 itemCallback, collectionCallback);
         });
         return collectionCallback(object, shape, path);
     } else {
-        throw new Error(`Invalid shape type: ${shape.type}`);
+        throw new Error(
+            `Invalid shape type "${shape.type}" at path ` +
+            `${["<root>"].concat(path).join(".")}.`);
     }
 }
 
@@ -180,15 +207,28 @@ const MultiRenderer = React.createClass({
         children: React.PropTypes.func.isRequired,
     },
 
-    componentWillMount() {
-        this._rendererData = this._makeRenderers(
-            this.props.shape, this.props.content);
+    getInitialState() {
+        return this._tryMakeRendererState(this.props);
     },
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.content !== this.props.content) {
-            this._rendererData = this._makeRenderers(
-                nextProps.shape, nextProps.content);
+            this.setState(this._tryMakeRendererState(nextProps));
+        }
+    },
+
+    _tryMakeRendererState(props) {
+        try {
+            return {
+                rendererData: this._makeRenderers(
+                    props.shape, props.content),
+                renderError: null,
+            };
+        } catch (e) {
+            return {
+                rendererData: null,
+                renderError: e,
+            };
         }
     },
 
@@ -233,7 +273,7 @@ const MultiRenderer = React.createClass({
     _findWidgets(callingData, filterCriterion) {
         const results = [];
 
-        traverseShape(this.props.shape, this._rendererData, data => {
+        traverseShape(this.props.shape, this.state.rendererData, data => {
             if (callingData !== data && data.ref) {
                 results.push(...data.ref.findInternalWidgets(filterCriterion));
             }
@@ -244,16 +284,27 @@ const MultiRenderer = React.createClass({
 
     _getRenderers() {
         return traverseShape(
-            this.props.shape, this._rendererData, data => data.renderer);
+            this.props.shape, this.state.rendererData, data => data.renderer);
     },
 
     render() {
+        if (this.state.renderError) {
+            return <div className={css(styles.error)}>
+                Error rendering: {"" + this.state.renderError}
+            </div>;
+        }
+
         return <div>
-            {this.numRenderers}
             {this.props.children({
                 renderers: this._getRenderers(),
             })}
         </div>;
+    },
+});
+
+const styles = StyleSheet.create({
+    error: {
+        color: "red",
     },
 });
 
