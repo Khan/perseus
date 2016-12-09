@@ -407,5 +407,6 @@ module.exports = {
     MultiRenderer,
     emptyValueForShape,
     shapes,
+    shapePropType,
     traverseShape,
 };
