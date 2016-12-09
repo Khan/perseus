@@ -21,8 +21,21 @@ const DemoLayout = React.createClass({
         }),
     },
 
+    score() {
+        return this.multirenderer.score();
+    },
+
+    getSerializedState() {
+        return this.multirenderer.getSerializedState();
+    },
+
+    restoreSerializedState(state) {
+        this.multirenderer.restoreSerializedState(state);
+    },
+
     render() {
         return <MultiRenderer
+            ref={e => this.multirenderer = e}
             content={this.props.content}
             shape={DemoLayout.shape}
         >
@@ -117,10 +130,45 @@ const MultiRendererDemo = React.createClass({
         e.preventDefault();
     },
 
+    handleScore() {
+        console.log(this.editor.score());
+    },
+
+    handleSerializeState() {
+        this._state = this.editor.getSerializedState();
+    },
+
+    handleRestoreState() {
+        this.editor.restoreSerializedState(this._state);
+    },
+
     render() {
+        const previewVisible = this.state.editorMode === "preview";
+
         return <div>
             <div id="extras">
-                <button onClick={this.handlePermalink}>permalink</button>
+                <button onClick={this.handlePermalink}>Permalink</button>
+                {" "}
+                <button
+                    onClick={this.handleScore}
+                    disabled={!previewVisible}
+                >
+                    Score
+                </button>
+                {" "}
+                <button
+                    onClick={this.handleSerializeState}
+                    disabled={!previewVisible}
+                >
+                    Store state
+                </button>
+                {" "}
+                <button
+                    onClick={this.handleRestoreState}
+                    disabled={!previewVisible}
+                >
+                    Restore state
+                </button>
             </div>
             <div className="framework-perseus">
                 <MultiRendererEditor

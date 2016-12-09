@@ -82,6 +82,7 @@ const MultiRendererEditor = React.createClass({
                 onChange={editorMode => this.props.onChange({editorMode})}
             />
             <Layout
+                ref={e => this.layout = e}
                 content={this.props.content}
                 apiOptions={this.props.apiOptions}
             />
@@ -159,6 +160,24 @@ const MultiRendererEditor = React.createClass({
                 </div>
             </div>
         </div>;
+    },
+
+    score() {
+        if (this.props.editorMode === "preview") {
+            return this.layout.score();
+        }
+    },
+
+    getSerializedState() {
+        if (this.props.editorMode === "preview") {
+            return this.layout.getSerializedState();
+        }
+    },
+
+    restoreSerializedState(state) {
+        if (this.props.editorMode === "preview") {
+            this.layout.restoreSerializedState(state);
+        }
     },
 
     render() {

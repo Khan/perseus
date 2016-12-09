@@ -30,9 +30,11 @@
  * content using its shape.
  */
 const {StyleSheet, css} = require("aphrodite");
+const lens = require("../hubble/index.js");
 const React = require("react");
 
 const Renderer = require("./renderer.jsx");
+const Util = require("./util.js");
 
 // Shape constructors to generate multi-item shapes. These work exactly like
 // React propTypes.
@@ -273,7 +275,7 @@ const MultiRenderer = React.createClass({
     _findWidgets(callingData, filterCriterion) {
         const results = [];
 
-        traverseShape(this.props.shape, this.state.rendererData, data => {
+        this._traverseRenderers(data => {
             if (callingData !== data && data.ref) {
                 results.push(...data.ref.findInternalWidgets(filterCriterion));
             }
@@ -282,9 +284,84 @@ const MultiRenderer = React.createClass({
         return results;
     },
 
-    _getRenderers() {
+    _traverseRenderers(...args) {
         return traverseShape(
-            this.props.shape, this.state.rendererData, data => data.renderer);
+            this.props.shape, this.state.rendererData, ...args);
+    },
+
+    _getRenderers() {
+        return this._traverseRenderers(data => data.renderer);
+    },
+
+    _scoreFromRef(ref) {
+        if (!ref) {
+            return null;
+        }
+
+        const [guess, score] = ref.guessAndScore();
+        return Util.keScoreFromPerseusScore(score, guess);
+    },
+
+    // Return a structure in the shape of the content, with scores at each of
+    // the leaf nodes.
+    getScores() {
+        return this._traverseRenderers(data => this._scoreFromRef(data.ref));
+    },
+
+    // Return a single score for all parts of the multi renderer. The guess is
+    // an object in the shape of the content, with the individual guess at the
+    // leaf node.
+    score() {
+        const scores = [];
+        const guess = this._traverseRenderers(data => {
+            if (!data.ref) {
+                return null;
+            }
+
+            scores.push(data.ref.score());
+            return data.ref.getUserInput();
+        });
+
+        const combinedScore = scores.reduce(Util.combineScores);
+
+        return Util.keScoreFromPerseusScore(combinedScore, guess);
+    },
+
+    getSerializedState() {
+        return this._traverseRenderers(data => {
+            if (!data.ref) {
+                return null;
+            }
+
+            return data.ref.getSerializedState();
+        });
+    },
+
+    restoreSerializedState(serializedState, callback) {
+        // We want to call our async callback only once all of the childrens'
+        // callbacks have run. We add one to this counter before we call out to
+        // each renderer and decrement it when it runs our callback.
+        let numCallbacks = 0;
+        const countCallback = () => {
+            numCallbacks--;
+            if (callback && numCallbacks === 0) {
+                callback();
+            }
+        };
+
+        this._traverseRenderers((data, path) => {
+            if (!data.ref) {
+                return;
+            }
+
+            const state = lens(serializedState).get(path);
+            if (!state) {
+                return;
+            }
+
+            numCallbacks++;
+            data.ref.restoreSerializedState(state, countCallback);
+        });
     },
 
     render() {
