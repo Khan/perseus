@@ -131,7 +131,9 @@ const MultiRendererDemo = React.createClass({
     },
 
     render() {
-        const previewVisible = this.state.editorMode === "preview";
+        const previewVisible =
+            this.state.editorMode === "edit" ||
+            this.state.editorMode === "preview";
 
         return <div>
             <div id="extras">

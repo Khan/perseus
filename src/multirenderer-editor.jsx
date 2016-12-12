@@ -254,6 +254,16 @@ const MultiRendererEditor = React.createClass({
         onChange: React.PropTypes.func.isRequired,
     },
 
+    _renderLayout() {
+        const {Layout, apiOptions, content} = this.props;
+
+        return <Layout
+            ref={e => this.layout = e}
+            content={content}
+            apiOptions={apiOptions}
+        />;
+    },
+
     _renderJson() {
         return <div>
             <ModeDropdown
@@ -269,18 +279,12 @@ const MultiRendererEditor = React.createClass({
     },
 
     _renderPreview() {
-        const {Layout} = this.props;
-
         return <div>
             <ModeDropdown
                 currentMode={this.props.editorMode}
                 onChange={editorMode => this.props.onChange({editorMode})}
             />
-            <Layout
-                ref={e => this.layout = e}
-                content={this.props.content}
-                apiOptions={this.props.apiOptions}
-            />
+            {this._renderLayout()}
         </div>;
     },
 
@@ -367,10 +371,13 @@ const MultiRendererEditor = React.createClass({
                 currentMode={this.props.editorMode}
                 onChange={editorMode => this.props.onChange({editorMode})}
             />
-            <div className="perseus-editor-table">
+            <div className={"perseus-editor-table " + css(styles.editor)}>
                 <div className="perseus-editor-row">
                     <div className="perseus-editor-left-cell">
                         {editor}
+                    </div>
+                    <div className="perseus-editor-right-cell">
+                        {this._renderLayout()}
                     </div>
                 </div>
             </div>
@@ -378,19 +385,19 @@ const MultiRendererEditor = React.createClass({
     },
 
     score() {
-        if (this.props.editorMode === "preview") {
+        if (this.layout) {
             return this.layout.score();
         }
     },
 
     getSerializedState() {
-        if (this.props.editorMode === "preview") {
+        if (this.layout) {
             return this.layout.getSerializedState();
         }
     },
 
     restoreSerializedState(state) {
-        if (this.props.editorMode === "preview") {
+        if (this.layout) {
             this.layout.restoreSerializedState(state);
         }
     },
@@ -413,7 +420,7 @@ const MultiRendererEditor = React.createClass({
 
 const styles = StyleSheet.create({
     editor: {
-        marginBottom: 25,
+        width: "100%",
     },
 
     level: {
