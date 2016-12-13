@@ -183,6 +183,24 @@ function traverseShapeRec(shape, data, path, itemCallback, collectionCallback) {
     }
 }
 
+function emptyValueForShape(shape) {
+    if (shape.type === "item") {
+        return {
+            "content": "",
+            "images": {},
+            "widgets": {},
+        };
+    } else if (shape.type === "array") {
+        return [];
+    } else if (shape.type === "object") {
+        const object = {};
+        Object.keys(shape.shape).forEach(key => {
+            object[key] = emptyValueForShape(shape.shape[key]);
+        });
+        return object;
+    }
+}
+
 // Recursive prop type to check that the shape prop is structured correctly.
 function shapePropType(...args) {
     const itemShape = React.PropTypes.oneOfType([
@@ -387,6 +405,7 @@ const styles = StyleSheet.create({
 
 module.exports = {
     MultiRenderer,
+    emptyValueForShape,
     shapes,
     traverseShape,
 };

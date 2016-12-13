@@ -7,7 +7,8 @@ const React = require("react");
 
 const MultiRendererEditor = require("./multirenderer-editor.jsx");
 const Util = require("./util.js");
-const {MultiRenderer, shapes} = require("./multirenderer.jsx");
+const {emptyValueForShape, MultiRenderer, shapes} =
+    require("./multirenderer.jsx");
 
 const DemoLayout = React.createClass({
     propTypes: {
@@ -65,19 +66,6 @@ const demoStyles = StyleSheet.create({
     },
 });
 
-const defaultQuestion = {
-    "left": {
-        "content": "",
-        "images": {},
-        "widgets": {},
-    },
-    "right": [{
-        "content": "",
-        "images": {},
-        "widgets": {},
-    }],
-};
-
 const MultiRendererDemo = React.createClass({
     propTypes: {
         content: React.PropTypes.any.isRequired,
@@ -85,7 +73,7 @@ const MultiRendererDemo = React.createClass({
 
     getDefaultProps() {
         return {
-            content: defaultQuestion,
+            content: emptyValueForShape(DemoLayout.shape),
         };
     },
 

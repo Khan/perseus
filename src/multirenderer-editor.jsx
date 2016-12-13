@@ -1,5 +1,8 @@
 /**
  * Editor for a multi-item question.
+ *
+ * TODO(mdr): The UI for managing arrays isn't visually consistent with
+ *     HintsEditor. Should we bring them in line with each other?
  */
 const {StyleSheet, css} = require("aphrodite");
 const React = require("react");
@@ -7,8 +10,11 @@ const lens = require("../hubble/index.js");
 
 const ApiOptions = require("./perseus-api.jsx").Options;
 const Editor = require("./editor.jsx");
+const {iconChevronDown, iconPlus, iconTrash} = require("./icon-paths.js");
+const InlineIcon = require("./components/inline-icon.jsx");
 const JsonEditor = require("./json-editor.jsx");
-const {traverseShape} = require("./multirenderer.jsx");
+const SimpleButton = require("./simple-button.jsx");
+const {emptyValueForShape} = require("./multirenderer.jsx");
 
 const EDITOR_MODES = ["edit", "preview", "json"];
 
@@ -95,57 +101,185 @@ const MultiRendererEditor = React.createClass({
         });
     },
 
+    addArrayElement(path, shape) {
+        const currentLength = lens(this.props.content).get(path).length;
+        const newElementPath = path.concat(currentLength);
+        const newValue = emptyValueForShape(shape);
+        this.props.onChange({
+            content: lens(this.props.content).set(newElementPath, newValue)
+                .freeze(),
+        });
+    },
+
+    removeArrayElement(path) {
+        this.props.onChange({
+            content: lens(this.props.content).del(path).freeze(),
+        });
+    },
+
+    moveArrayElementDown(path) {
+        // Moving an element down can also be expressed as swapping it with the
+        // following element.
+        const index = path[path.length - 1];
+        const nextElementIndex = index + 1;
+        const nextElementPath = path.slice(0, -1).concat(nextElementIndex);
+
+        const element = lens(this.props.content).get(path);
+        const nextElement = lens(this.props.content).get(nextElementPath);
+
+        this.props.onChange({
+            content: lens(this.props.content)
+                .set(path, nextElement)
+                .set(nextElementPath, element)
+                .freeze(),
+        });
+    },
+
+    moveArrayElementUp(path) {
+        // Moving an element up can also be expressed as moving the previous
+        // element down.
+        const index = path[path.length - 1];
+        const previousElementPath = path.slice(0, -1).concat(index - 1);
+        this.moveArrayElementDown(previousElementPath);
+    },
+
     _renderEdit() {
         const apiOptions = {
             ...ApiOptions.defaults,
             ...this.props.apiOptions,
         };
 
-        function makeTitle(path) {
-            if (path.length > 0) {
-                return <div className="pod-title">
-                    {/* TODO(emily): allow specifying a custom editor title */}
-                    {path.join(".")}
-                </div>;
-            } else {
-                return null;
-            }
-        }
+        const pathToText = path => path.join(".");
 
-        const renderItem = (data, path) => {
-            return <div key={path.join("-")} className={css(styles.editor)}>
-                {makeTitle(path)}
-                <Editor
+        /**
+         * Render a node in the editor tree, given the shape of the target
+         * node, the data stored in the target node, the path to the target
+         * node, and any UI controls that affect how this node relates to its
+         * parent (e.g. remove from parent array).
+         *
+         * This returns a container element with a pretty title and additional
+         * UI controls for this node. Its contents are produced by
+         * `renderNodeContent`. The two functions are mutually recursive.
+         */
+        const renderNodeContainer = (shape, data, path, parentControls) => {
+            let editor = renderNodeContent(shape, data, path);
+
+            // If this node contains subnodes, then indent its editor.
+            if (shape.type === "array" || shape.type === "object") {
+                editor = <div className={css(styles.level)}>
+                    {editor}
+                </div>;
+            }
+
+            let controls;
+            if (shape.type === "array") {
+                controls = <SimpleButton
+                    color="green"
+                    onClick={() =>
+                        this.addArrayElement(path, shape.elementShape)}
+                >
+                    <InlineIcon {...iconPlus} />
+                </SimpleButton>;
+            }
+
+            return <div key={path.join("-")} className="perseus-widget-editor">
+                <div className="perseus-widget-editor-title">
+                    {/* TODO(emily): allow specifying a custom editor title */}
+                    <div className="perseus-widget-editor-title-id">
+                        {pathToText(path)}
+                    </div>
+                    {parentControls}
+                    {controls}
+                </div>
+                {editor}
+            </div>;
+        };
+
+        /**
+         * Render the content of node in the editor tree, given the shape of
+         * the target node, the data stored in the target node, and the path to
+         * the target node.
+         *
+         * If the target node is a leaf, this returns an editor. Otherwise, it
+         * iterates over the child nodes, and outputs `renderNodeContainer` for
+         * each of them. The two functions are mutually recursive.
+         */
+        const renderNodeContent = (shape, data, path) => {
+            if (shape.type === "item") {
+                // TODO(mdr): there's some extra border around the Editor
+                return <Editor
                     {...data}
                     onChange={
                         newVal => this.handleEditorChange(path, newVal)}
                     apiOptions={apiOptions}
-                />
-            </div>;
-        };
-
-        const renderCollection = (collection, shape, path) => {
-            if (shape.type === "array") {
-                return <div key={path.join("-")}>
-                    {makeTitle(path)}
-                    <div className={css(styles.level)}>
-                        {collection}
-                    </div>
-                </div>;
+                />;
+            } else if (shape.type === "array") {
+                return data.map((subdata, i) => {
+                    const subpath = path.concat(i);
+                    const controls = <div
+                        className={css(styles.arrayElementControls)}
+                    >
+                        {i > 0 && <div
+                            className={css(styles.arrayElementControl)}
+                        >
+                            <SimpleButton
+                                color="orange"
+                                title="Move up"
+                                onClick={() =>
+                                    this.moveArrayElementUp(subpath)}
+                            >
+                                <div className={css(styles.verticalFlip)}>
+                                    <InlineIcon {...iconChevronDown} />
+                                </div>
+                            </SimpleButton>
+                        </div>}
+                        {i < data.length - 1 && <div
+                            className={css(styles.arrayElementControl)}
+                        >
+                            <SimpleButton
+                                color="orange"
+                                title="Move down"
+                                onClick={() =>
+                                    this.moveArrayElementDown(subpath)}
+                            >
+                                <InlineIcon {...iconChevronDown} />
+                            </SimpleButton>
+                        </div>}
+                        <div className={css(styles.arrayElementControl)}>
+                            <SimpleButton
+                                color="orange"
+                                title="Delete"
+                                onClick={() =>
+                                    this.removeArrayElement(subpath)}
+                            >
+                                <InlineIcon {...iconTrash} />
+                            </SimpleButton>
+                        </div>
+                    </div>;
+                    return renderNodeContainer(shape.elementShape, subdata,
+                        subpath, controls);
+                });
             } else if (shape.type === "object") {
-                return <div key={path.join("-")}>
-                    {makeTitle(path)}
-                    <div className={css(styles.level)}>
-                        {Object.keys(shape.shape).map(key => collection[key])}
-                    </div>
-                </div>;
+                // Sort the object keys for consistency.
+                // TODO(mdr): Use localeCompare for more robust alphabetizing.
+                return Object.keys(shape.shape).sort().map(subkey =>
+                    renderNodeContainer(shape.shape[subkey], data[subkey],
+                        path.concat(subkey))
+                );
             }
         };
 
         const content = this.props.content;
         const itemShape = this.props.Layout.shape;
-        const editor = traverseShape(
-            itemShape, content, renderItem, renderCollection);
+
+        let editor;
+        if (itemShape.type === "object") {
+            // When the root is an object node, a container is ugly and
+            // unnecessary. Skip it!
+            editor = renderNodeContent(itemShape, content, []);
+        } else {
+            editor = renderNodeContainer(itemShape, content, []);
+        }
 
         return <div>
             <ModeDropdown
@@ -207,6 +341,18 @@ const styles = StyleSheet.create({
 
     controls: {
         float: "right",
+    },
+
+    verticalFlip: {
+        transform: "scaleY(-1)",
+    },
+
+    arrayElementControls: {
+        display: "flex",
+    },
+
+    arrayElementControl: {
+        marginLeft: 12,
     },
 });
 

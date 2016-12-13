@@ -22,11 +22,13 @@ const SimpleButton = React.createClass({
     },
 
     render: function() {
+        const {children, color, onClick, ...otherProps} = this.props;
         return <div
-            className={css(styles.baseButton, styles[this.props.color])}
-            onClick={this.props.onClick}
+            className={css(styles.baseButton, styles[color])}
+            onClick={onClick}
+            {...otherProps}
         >
-            {this.props.children}
+            {children}
         </div>;
     },
 });

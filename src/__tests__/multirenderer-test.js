@@ -1,6 +1,7 @@
 const assert = require("assert");
 
-const {traverseShape, shapes} = require("../multirenderer.jsx");
+const {emptyValueForShape, traverseShape, shapes} =
+    require("../multirenderer.jsx");
 
 describe("traverseShape", () => {
     const shape = shapes.shape({
@@ -165,5 +166,72 @@ describe("traverseShape", () => {
             b: [5, 6, 7],
             c: ["d", "e", 6, 7],
         }, result);
+    });
+});
+
+describe("emptyValueForShape", () => {
+    const expectedEmptyItemValue = {
+        "content": "",
+        "images": {},
+        "widgets": {},
+    };
+
+    it("creates an empty item", () => {
+        assert.deepEqual(expectedEmptyItemValue, emptyValueForShape(
+            shapes.item
+        ));
+    });
+
+    it("creates an empty array of items", () => {
+        assert.deepEqual([], emptyValueForShape(
+            shapes.arrayOf(shapes.item)
+        ));
+    });
+
+    it("creates an empty array of objects", () => {
+        assert.deepEqual([], emptyValueForShape(
+            shapes.arrayOf(
+                shapes.shape({
+                    left: shapes.item,
+                    right: shapes.item,
+                })
+            )
+        ));
+    });
+
+    it("creates an empty array of arrays", () => {
+        assert.deepEqual([], emptyValueForShape(
+            shapes.arrayOf(
+                shapes.arrayOf(
+                    shapes.item
+                )
+            )
+        ));
+    });
+
+    it("creates an empty object of all other cases", () => {
+        const expectedEmptyObjectValue = {
+            context: {
+                intro: expectedEmptyItemValue,
+                prompt: expectedEmptyItemValue,
+            },
+            footnotes: [],
+            questions: [],
+            weirdItemMatrix: [],
+        };
+        assert.deepEqual(expectedEmptyObjectValue, emptyValueForShape(
+            shapes.shape({
+                context: shapes.shape({
+                    intro: shapes.item,
+                    prompt: shapes.item,
+                }),
+                footnotes: shapes.arrayOf(shapes.item),
+                questions: shapes.arrayOf(shapes.shape({
+                    question: shapes.item,
+                    answerArea: shapes.item,
+                })),
+                weirdItemMatrix: shapes.arrayOf(shapes.arrayOf(shapes.item)),
+            })
+        ));
     });
 });
