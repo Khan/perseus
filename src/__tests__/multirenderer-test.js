@@ -1,6 +1,6 @@
 const assert = require("assert");
 
-const {emptyValueForShape, traverseShape, shapes} =
+const {emptyValueForShape, traverseShape, shapes, shapeToPropType} =
     require("../multirenderer.jsx");
 
 function item(n) {
@@ -279,5 +279,82 @@ describe("emptyValueForShape", () => {
                 weirdItemMatrix: shapes.arrayOf(shapes.arrayOf(shapes.item)),
             })
         ));
+    });
+});
+
+describe("shapeToPropType", () => {
+    const tryPropType = (propType, value) =>
+        propType({value}, "value", "<function tryPropType>");
+
+    const assertPropTypePasses = (propType, value) =>
+        assert.equal(null, tryPropType(propType, value),
+            `expected ${JSON.stringify(value)} to pass propType, ` +
+            `but it failed`);
+
+    const assertPropTypeFails = (propType, value) =>
+        assert.ok(tryPropType(propType, value) instanceof Error,
+            `expected ${JSON.stringify(value)} to fail propType, ` +
+            `but it passed`);
+
+    it("validates an item", () => {
+        const propType = shapeToPropType(shapes.item);
+
+        // Perseus has default values for all item fields, so all are optional.
+        assertPropTypePasses(propType, {});
+        assertPropTypePasses(propType, {content: "", widgets: {}, images: {}});
+
+        // We also leave the full object optional by default, like the propType
+        // primitives.
+        assertPropTypePasses(propType, null);
+
+        // But specifying a bad type for any field will fail the propType.
+        assertPropTypeFails(propType, {content: 1});
+        assertPropTypeFails(propType, {widgets: 1});
+        assertPropTypeFails(propType, {images: 1});
+    });
+
+    it("validates a hint", () => {
+        const propType = shapeToPropType(shapes.hint);
+
+        // Perseus has default values for all hint fields, so all are optional.
+        assertPropTypePasses(propType, {});
+        assertPropTypePasses(propType,
+            {content: "", widgets: {}, images: {}, replace: false});
+
+        // We also leave the full object optional by default, like the propType
+        // primitives.
+        assertPropTypePasses(propType, null);
+
+        // But specifying a bad type for any field will fail the propType.
+        assertPropTypeFails(propType, {content: 1});
+        assertPropTypeFails(propType, {widgets: 1});
+        assertPropTypeFails(propType, {images: 1});
+        assertPropTypeFails(propType, {replace: 1});
+    });
+
+    it("validates an array", () => {
+        const propType = shapeToPropType(shapes.arrayOf(shapes.item));
+
+        assertPropTypePasses(propType, []);
+        assertPropTypePasses(propType, [{}, {}, {}]);
+
+        // While the array itself is optional, its elements are required.
+        assertPropTypePasses(propType, null);
+        assertPropTypeFails(propType, [{}, null, {}]);
+    });
+
+    it("validates an object", () => {
+        const propType = shapeToPropType(shapes.shape({
+            a: shapes.item,
+            b: shapes.item,
+        }));
+
+        assertPropTypePasses(propType, {a: {}, b: {}});
+
+        // While the object itself is optional, its fields are required.
+        assertPropTypePasses(propType, null);
+        assertPropTypeFails(propType, {});
+        assertPropTypeFails(propType, {a: {}});
+        assertPropTypeFails(propType, {b: {}});
     });
 });

@@ -215,6 +215,8 @@ function emptyValueForShape(shape) {
             object[key] = emptyValueForShape(shape.shape[key]);
         });
         return object;
+    } else {
+        throw new Error(`unexpected shape type ${shape.type}`);
     }
 }
 
@@ -238,6 +240,34 @@ function shapePropType(...args) {
     ]);
 
     return itemShape(...args);
+}
+
+function shapeToPropType(shape) {
+    if (shape.type === "item") {
+        return React.PropTypes.shape({
+            content: React.PropTypes.string,
+            images: React.PropTypes.objectOf(React.PropTypes.any),
+            widgets: React.PropTypes.objectOf(React.PropTypes.any),
+        });
+    } else if (shape.type === "hint") {
+        return React.PropTypes.shape({
+            content: React.PropTypes.string,
+            images: React.PropTypes.objectOf(React.PropTypes.any),
+            widgets: React.PropTypes.objectOf(React.PropTypes.any),
+            replace: React.PropTypes.bool,
+        });
+    } else if (shape.type === "array") {
+        const elementPropType = shapeToPropType(shape.elementShape);
+        return React.PropTypes.arrayOf(elementPropType.isRequired);
+    } else if (shape.type === "object") {
+        const propTypeShape = {};
+        Object.keys(shape.shape).forEach(key => {
+            propTypeShape[key] = shapeToPropType(shape.shape[key]).isRequired;
+        });
+        return React.PropTypes.shape(propTypeShape);
+    } else {
+        throw new Error(`unexpected shape type ${shape.type}`);
+    }
 }
 
 const MultiRenderer = React.createClass({
@@ -459,5 +489,6 @@ module.exports = {
     emptyValueForShape,
     shapes,
     shapePropType,
+    shapeToPropType,
     traverseShape,
 };
