@@ -3,6 +3,14 @@ const assert = require("assert");
 const {emptyValueForShape, traverseShape, shapes} =
     require("../multirenderer.jsx");
 
+function item(n) {
+    return {
+        content: `item ${n}`,
+        images: {},
+        widgets: {},
+    };
+}
+
 describe("traverseShape", () => {
     const shape = shapes.shape({
         a: shapes.item,
@@ -14,11 +22,11 @@ describe("traverseShape", () => {
     });
 
     const data = {
-        a: 1,
-        b: [2, 3, 4],
+        a: item(1),
+        b: [item(2), item(3), item(4)],
         c: {
-            d: 5,
-            e: 6,
+            d: item(5),
+            e: item(6),
         },
     };
 
@@ -27,18 +35,20 @@ describe("traverseShape", () => {
         traverseShape(shape, data, e => calledWith.push(e));
         calledWith.sort();
 
-        assert.deepEqual([1, 2, 3, 4, 5, 6], calledWith);
+        assert.deepEqual(
+            [item(1), item(2), item(3), item(4), item(5), item(6)],
+            calledWith);
     });
 
     it("returns a data result with the correct shape", () => {
-        const result = traverseShape(shape, data, e => e + 1);
+        const result = traverseShape(shape, data, e => e.content);
 
         assert.deepEqual({
-            a: 2,
-            b: [3, 4, 5],
+            a: "item 1",
+            b: ["item 2", "item 3", "item 4"],
             c: {
-                d: 6,
-                e: 7,
+                d: "item 5",
+                e: "item 6",
             },
         }, result);
     });
@@ -66,22 +76,24 @@ describe("traverseShape", () => {
             }),
         });
 
-        const data = {a: {b: {c: 1}}};
+        const data = {a: {b: {c: item(1)}}};
 
-        const result = traverseShape(shape, data, e => e + 1);
+        const result = traverseShape(shape, data, e => e.content);
 
-        assert.deepEqual({a: {b: {c: 2}}}, result);
+        assert.deepEqual({a: {b: {c: "item 1"}}}, result);
     });
 
     it("handles recursive arrays", () => {
         const shape = shapes.arrayOf(
             shapes.arrayOf(shapes.arrayOf(shapes.item)));
 
-        const data = [[[0], [1]], [[2], [3, 4]]];
+        const data = [[[item(0)], [item(1)]], [[item(2)], [item(3), item(4)]]];
 
-        const result = traverseShape(shape, data, e => e + 1);
+        const result = traverseShape(shape, data, e => e.content);
 
-        assert.deepEqual([[[1], [2]], [[3], [4, 5]]], result);
+        assert.deepEqual(
+            [[["item 0"], ["item 1"]], [["item 2"], ["item 3", "item 4"]]],
+            result);
     });
 
     it("handles empty arrays", () => {
@@ -89,16 +101,17 @@ describe("traverseShape", () => {
 
         assert.deepEqual([], traverseShape(shape, [], () => {}));
 
-        const result = traverseShape(shape, [[], [1], []], e => e + 1);
-        assert.deepEqual([[], [2], []], result);
+        const result =
+            traverseShape(shape, [[], [item(1)], []], e => e.content);
+        assert.deepEqual([[], ["item 1"], []], result);
     });
 
     it("calls the collection callback for arrays", () => {
         const shape = shapes.arrayOf(shapes.item);
-        const data = [1, 2, 3];
+        const data = [item(1), item(2), item(3)];
 
-        traverseShape(shape, data, e => e + 1, (data2, shape2, path) => {
-            assert.deepEqual([2, 3, 4], data2);
+        traverseShape(shape, data, e => e.content, (data2, shape2, path) => {
+            assert.deepEqual(["item 1", "item 2", "item 3"], data2);
             assert.deepEqual(shape, shape2);
             assert.deepEqual([], path);
         });
@@ -110,14 +123,14 @@ describe("traverseShape", () => {
             b: shapes.item,
         });
         const data = {
-            a: 1,
-            b: 2,
+            a: item(1),
+            b: item(2),
         };
 
-        traverseShape(shape, data, e => e + 1, (data2, shape2, path) => {
+        traverseShape(shape, data, e => e.content, (data2, shape2, path) => {
             assert.deepEqual({
-                a: 2,
-                b: 3,
+                a: "item 1",
+                b: "item 2",
             }, data2);
             assert.deepEqual(shape, shape2);
             assert.deepEqual([], path);
@@ -135,11 +148,11 @@ describe("traverseShape", () => {
         });
 
         const data = {
-            a: 1,
-            b: [2, 3, 4],
+            a: item(1),
+            b: [item(2), item(3), item(4)],
             c: {
-                d: 5,
-                e: 6,
+                d: item(5),
+                e: item(6),
             },
         };
 
@@ -153,18 +166,18 @@ describe("traverseShape", () => {
                 return Object.keys(dat).concat(
                     Object.keys(dat).map(k => dat[k]));
             } else if (shp.type === "array") {
-                return dat.map(x => x + 2);
+                return dat.map(c => c + " in array");
             }
         }
 
-        const result = traverseShape(shape, data, e => e + 1,
+        const result = traverseShape(shape, data, e => e.content,
                                      collectionCallback);
 
         assert.deepEqual({
             top: true,
-            a: 2,
-            b: [5, 6, 7],
-            c: ["d", "e", 6, 7],
+            a: "item 1",
+            b: ["item 2 in array", "item 3 in array", "item 4 in array"],
+            c: ["d", "e", "item 5", "item 6"],
         }, result);
     });
 });
