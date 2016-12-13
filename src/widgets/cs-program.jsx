@@ -132,7 +132,7 @@ var CSProgram = React.createClass({
         //  that we need. This makes it a bit safer in case some content
         //  creator "went wild".
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
-        return <iframe sandbox="allow-same-origin allow-scripts"
+        return <iframe sandbox="allow-popups allow-same-origin allow-scripts"
                        src={url}
                        style={style}
                        className={className}
