@@ -1,46 +1,56 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+// @flow
 
-var React = require("react");
+const React = require("react");
 
-var {
+const {
     iconChevronDown,
     iconChevronRight,
     iconCircleArrowDown,
     iconCircleArrowUp,
     iconTrash,
 } = require("../../icon-paths.js");
-var InlineIcon   = require("../../components/inline-icon.jsx");
+const InlineIcon   = require("../../components/inline-icon.jsx");
 
-var ElementContainer = React.createClass({
-    propTypes: {
-        initiallVisible: React.PropTypes.bool,
-        title: React.PropTypes.node
-    },
+type ElementContainerProps = {
+    children: React.Element<*> | React.Element<*>[],
+    initiallyVisible: boolean,
+    onDelete?: () => void,
+    onDown?: () => void,
+    onUp?: () => void,
+    title: string | React.Element<*>,
+};
 
-    getDefaultProps: function() {
-        return {
-            initiallyVisible: false,
-            title: "More"
+class ElementContainer extends React.Component {
+    static defaultProps = {
+        initiallyVisible: false,
+        title: "More",
+    }
+
+    constructor(props: ElementContainerProps) {
+        super(props);
+
+        this.state = {
+            show: props.initiallyVisible,
         };
-    },
+    }
 
-    getInitialState: function() {
-        return {
-            show: this.props.initiallyVisible,
-            title: "More",
-            onUp: null,
-            onDown: null,
-            onDelete: null
-        };
-    },
+    state: {
+        show: boolean,
+    }
 
-    render: function() {
+    props: ElementContainerProps
+
+    toggle = (e: SyntheticEvent) => {
+        e.preventDefault();
+        this.setState({show: !this.state.show});
+    }
+
+    render() {
         return <div className="perseus-interaction-element">
             <a href="#" className={"perseus-interaction-element-title " +
                 (this.state.show ? "open" : "closed")}
-                onClick={this.toggle}>
+                onClick={this.toggle}
+            >
                 {this.state.show
                     ? <InlineIcon {...iconChevronDown} />
                     : <InlineIcon {...iconChevronRight} />
@@ -48,34 +58,33 @@ var ElementContainer = React.createClass({
                 {this.props.title}
             </a>
             <div className={"perseus-interaction-element-content " +
-                    (this.state.show ? "enter" : "leave")}>
+                    (this.state.show ? "enter" : "leave")}
+            >
                 {this.props.children}
                 {(this.props.onUp != null ||
                     this.props.onDown != null ||
                     this.props.onDelete != null) &&
                     <div className={"edit-controls"}>
                         {(this.props.onUp != null) && <button
-                            onClick={this.props.onUp}>
-                                <InlineIcon {...iconCircleArrowUp} />
-                            </button>}
+                            onClick={this.props.onUp}
+                        >
+                            <InlineIcon {...iconCircleArrowUp} />
+                        </button>}
                         {(this.props.onDown != null) && <button
-                            onClick={this.props.onDown}>
-                                <InlineIcon {...iconCircleArrowDown} />
-                            </button>}
+                            onClick={this.props.onDown}
+                        >
+                            <InlineIcon {...iconCircleArrowDown} />
+                        </button>}
                         {(this.props.onDelete != null) && <button
-                            onClick={this.props.onDelete}>
-                                <InlineIcon {...iconTrash} />
-                            </button>}
+                            onClick={this.props.onDelete}
+                        >
+                            <InlineIcon {...iconTrash} />
+                        </button>}
                     </div>
                 }
             </div>
         </div>;
-    },
-
-    toggle: function(e) {
-        e.preventDefault();
-        this.setState({show: !this.state.show});
     }
-});
+}
 
 module.exports = ElementContainer;

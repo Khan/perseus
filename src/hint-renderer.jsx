@@ -1,6 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-unused-vars, object-curly-spacing */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
 const {StyleSheet, css} = require("aphrodite");

@@ -11,12 +11,12 @@
  * this.props.onChange with the modified props.
  */
 
-var React = require("react");
-var _ = require("underscore");
+const React = require("react");
+const _ = require("underscore");
 
-var WIDGET_PROP_BLACKLIST = require("./widget-prop-blacklist.jsx");
+const WIDGET_PROP_BLACKLIST = require("./widget-prop-blacklist.jsx");
 
-var USAGE = "Usage:\n" +
+const USAGE = "Usage:\n" +
             "  this.change({propName: 5}, callback);\n" +
             "  this.change(\"propName\", 5, callback);\n" +
             "  this.change(\"propName\")";
@@ -27,21 +27,21 @@ var USAGE = "Usage:\n" +
  * Takes the parameters in a consistent style, once this.change() has
  * figured out which way it was called.
  */
-var _changeMultiple = function(component, newProps, callback) {
+const _changeMultiple = function(component, newProps, callback) {
     // Omit "default" props:
     // ref and key come from react, and don't actually represent
     //   the conceptual state of our component
     // onChange comes from our parent to allow this modification,
     //   and doesn't conceptually represent the state of our component
-    var currProps = _.omit(component.props, WIDGET_PROP_BLACKLIST);
-    var nextProps = _.extend(currProps, newProps);
+    const currProps = _.omit(component.props, WIDGET_PROP_BLACKLIST);
+    const nextProps = _.extend(currProps, newProps);
     component.props.onChange(nextProps, callback);
 };
 
 /**
  * Helper function for changing a single prop
  */
-var _changeSingle = function(component, propName, value, callback) {
+const _changeSingle = function(component, propName, value, callback) {
     if (value === undefined) {
         // If called with a single prop name, return a lambda to change
         // a single prop on the current object
@@ -49,7 +49,7 @@ var _changeSingle = function(component, propName, value, callback) {
     } else {
         // If called with two values, change a single prop of the
         // current object
-        var newProps = {};
+        const newProps = {};
         newProps[propName] = value;
         _changeMultiple(component, newProps, callback);
     }
@@ -66,9 +66,9 @@ var _changeSingle = function(component, propName, value, callback) {
  * this.change(propName) -> returns a lambda that takes a prop value to
  * set and a callback to call after having set that value.
  */
-var change = function(newPropsOrSinglePropName,
-                      propValue,
-                      callback) {
+export const change = function(newPropsOrSinglePropName,
+                               propValue,
+                               callback) {
 
     if (_.isObject(newPropsOrSinglePropName) &&
             callback === undefined) {
@@ -95,11 +95,10 @@ var change = function(newPropsOrSinglePropName,
     }
 };
 
-var Changeable = {
-    propTypes: {
-        onChange: React.PropTypes.func.isRequired
-    },
-    change: change
+export const propTypes = {
+    onChange: React.PropTypes.func.isRequired,
 };
 
-module.exports = Changeable;
+export type ChangeableProps = {
+    onChange: Function,
+};

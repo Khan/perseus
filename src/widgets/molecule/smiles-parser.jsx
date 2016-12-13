@@ -269,8 +269,12 @@ function parse(smiles, ctx) {
     }
 
     if (startsWithAtom(smiles)) {
-        return parseAtom(smiles, ctx || {idx: [[0, 0]], parens: [], stack: [],
-                                         bondModifiers: []});
+        return parseAtom(smiles, ctx || {
+            idx: [[0, 0]],
+            parens: [],
+            stack: [],
+            bondModifiers: [],
+        });
     } else if (isModifierChar(smiles[0])) {
         // TODO(colin): add a better error message in the case where the input
         // is invalid and starts with a modifier character?

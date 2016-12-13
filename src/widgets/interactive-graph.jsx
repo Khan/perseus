@@ -807,7 +807,9 @@ var InteractiveGraph = React.createClass({
             });
         }
 
-        if (this.props.containerSizeClass !== nextProps.containerSizeClass) {
+        if (this.props.backgroundImage.url !== nextProps.backgroundImage.url ||
+                this.props.backgroundImage !== nextProps.backgroundImage ||
+                this.props.containerSizeClass !== nextProps.containerSizeClass) { // @Nolint
             this.shouldResetGraphie = true;
         }
     },

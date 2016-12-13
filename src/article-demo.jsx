@@ -1,5 +1,6 @@
-/* eslint-disable no-console, max-len */
-
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable no-console */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
 /**
  * Demonstrates the rendered result of a Perseus article
  */
@@ -9,9 +10,21 @@ const ArticleEditor = require('./article-editor.jsx');
 const StatefulArticleEditor = require('./stateful-article-editor.jsx');
 const Util = require('./util.js');
 
+const defaultArticle = [{
+    "content": "",
+    "images": {},
+    "widgets": {},
+}];
+
 const ArticleDemo = React.createClass({
     propTypes: {
         content: React.PropTypes.any.isRequired,
+    },
+
+    getDefaultProps() {
+        return {
+            content: defaultArticle,
+        };
     },
 
     getInitialState: function() {

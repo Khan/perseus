@@ -113,7 +113,7 @@ const BaseRadio = React.createClass({
                 width: "100%",
             },
 
-            responsiveRadio: {
+            responsiveRadioContainer: {
                 [mediaQueries.lgOrSmaller]: {
                     borderBottom: `1px solid ${radioBorderColor}`,
                     borderTop: `1px solid ${radioBorderColor}`,
@@ -125,7 +125,7 @@ const BaseRadio = React.createClass({
                 },
             },
 
-            responsiveMobileRadio: {
+            responsiveMobileRadioContainer: {
                 [mediaQueries.lgOrSmaller]: {
                     width: "auto",
                 },
@@ -154,7 +154,7 @@ const BaseRadio = React.createClass({
             inlineItem: {
                 display: "inline-block",
                 paddingLeft: 20,
-                verticalAlign: "top",
+                verticalAlign: "middle",
                 // See http://stackoverflow.com/q/8120466 for explanation of
                 // why vertical align property is needed
             },
@@ -167,10 +167,17 @@ const BaseRadio = React.createClass({
                     ":active": {
                         backgroundColor: styleConstants.grayLight,
                     },
+                },
+            },
 
-                    ":not(:last-child)": {
-                        borderBottom: `1px solid ${radioBorderColor}`,
-                    },
+            // If showOnePerLine() is true then we need bottom borders one
+            // each item except for the last.  In the case where all items are
+            // in a single row, no border is necessary because the container,
+            // styled by responsiveRadioContainer on desktop, has top and
+            // bottom borders.
+            responsiveItemOnePerLine: {
+                ":not(:last-child)": {
+                    borderBottom: `1px solid ${radioBorderColor}`,
                 },
             },
 
@@ -305,8 +312,8 @@ const BaseRadio = React.createClass({
                 // SAT doesn't use the "responsive styling" as it conflicts
                 // with their custom theming.
                 !sat && (isMobile
-                    ? styles.responsiveMobileRadio
-                    : styles.responsiveRadio),
+                    ? styles.responsiveMobileRadioContainer
+                    : styles.responsiveRadioContainer),
                 sat && styles.satRadio
             )
         );
@@ -375,6 +382,8 @@ const BaseRadio = React.createClass({
                             !sat && (isMobile
                                 ? styles.responsiveMobileItem
                                 : styles.responsiveItem),
+                            !sat && !isMobile && this.showOnePerLine() &&
+                                styles.responsiveItemOnePerLine,
                             checked && isMobile &&
                                 styles.responsiveSelected,
                             sat && styles.satRadioOption,

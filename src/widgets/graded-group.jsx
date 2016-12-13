@@ -1,5 +1,6 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 /* eslint-disable react/forbid-prop-types */
-
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
 /* globals i18n */
 const classNames = require("classnames");
 const React = require("react");
@@ -7,7 +8,7 @@ const _ = require("underscore");
 
 const ApiOptions = require("../perseus-api.jsx").Options;
 const Changeable   = require("../mixins/changeable.jsx");
-const {iconOk, iconRemove, icon} = require("../icon-paths.js");
+const {iconOk, iconRemove} = require("../icon-paths.js");
 const InlineIcon = require("../components/inline-icon.jsx");
 const Renderer = require("../renderer.jsx");
 const GradedGroupAnswerBar = require("./graded-group-answer-bar.jsx");

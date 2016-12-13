@@ -164,13 +164,12 @@ InteractionTracker.prototype._noop = function() {};
 
 var Renderer = React.createClass({
     propTypes: {
-        // Also accepts apiOptions, via the ApiOptionsProps mixin.
         ...ApiOptionsProps.propTypes,
         alwaysUpdate: React.PropTypes.bool,
+        findExternalWidgets: React.PropTypes.func,
         highlightedWidgets: React.PropTypes.arrayOf(React.PropTypes.any),
         ignoreMissingWidgets: React.PropTypes.bool,
         images: React.PropTypes.any,
-        interWidgets: React.PropTypes.func,
         keypadElement: keypadElementPropType,
         onInteractWithWidget: React.PropTypes.func,
         onRender: React.PropTypes.func,
@@ -181,7 +180,6 @@ var Renderer = React.createClass({
 
     getDefaultProps: function() {
         return {
-            apiOptions: {},
             content: "",
             widgets: {},
             images: {},
@@ -195,7 +193,7 @@ var Renderer = React.createClass({
             questionCompleted: false,
             onRender: noopOnRender,
             onInteractWithWidget: function() {},
-            interWidgets: () => null,
+            findExternalWidgets: () => [],
             alwaysUpdate: false,
             reviewMode: false,
         };
@@ -222,7 +220,7 @@ var Renderer = React.createClass({
 
     shouldComponentUpdate: function(nextProps, nextState) {
         if (this.props.alwaysUpdate) {
-            // TOTAL hacks so that interWidgets doesn't break
+            // TOTAL hacks so that findWidgets doesn't break
             // when one widget updates without the other.
             // See passage-refs inside radios, which was why
             // this was introduced.
@@ -277,6 +275,15 @@ var Renderer = React.createClass({
     },
 
     componentWillUnmount: function() {
+        // Clean out the list of widgetIds when unmounting, as this list is
+        // meant to be consistent with the refs controlled by the renderer, and
+        // refs are also cleared out during unmounting.
+        // (This may not be totally necessary, but mobile clients have been
+        // seeing JS errors due to an inconsistency between the list of
+        // widgetIds and the child refs of the renderer.
+        // See: https://phabricator.khanacademy.org/D32420.)
+        this.widgetIds = [];
+
         if (this.translationIndex != null) {
             window.PerseusTranslationComponents[this.translationIndex] = null;
         }
@@ -408,7 +415,7 @@ var Renderer = React.createClass({
             questionCompleted: this.props.questionCompleted,
             onFocus: _.partial(this._onWidgetFocus, id),
             onBlur: _.partial(this._onWidgetBlur, id),
-            interWidgets: this.interWidgets,
+            findWidgets: this.findWidgets,
             reviewModeRubric: reviewModeRubric,
             onChange: (newProps, cb) => {
                 this._setWidgetProps(id, newProps, cb);
@@ -491,7 +498,17 @@ var Renderer = React.createClass({
     /**
      * Allows inter-widget communication.
      *
-     * Each widget can access this function using `this.props.interWidgets`
+     * This function yields this Renderer's own internal widgets, and it's used
+     * in two places.
+     *
+     * First, we expose our own internal widgets to each other by giving them
+     * a `findWidgets` function that, in turn, calls this function.
+     *
+     * Second, we expose our own internal widgets to this Renderer's parent,
+     * by allowing it to call this function directly. That way, it can hook us
+     * up to other Renderers on the page, by writing a `findExternalWidgets`
+     * prop that calls each other Renderer's `findInternalWidgets` function.
+     *
      * Takes a `filterCriterion` on which widgets to return.
      * `filterCriterion` can be one of:
      *  * A string widget id
@@ -509,7 +526,7 @@ var Renderer = React.createClass({
      * them." ~ Kyle Katarn
      * Please use this one with caution.
      */
-    interWidgets: function(filterCriterion) {
+    findInternalWidgets: function(filterCriterion) {
         var filterFunc;
         // Convenience filters:
         // "interactive-graph 3" will give you [[interactive-graph 3]]
@@ -534,19 +551,22 @@ var Renderer = React.createClass({
             return filterFunc(id, widgetInfo, widget);
         }).map(this.getWidgetInstance);
 
-        // We allow the parent of our renderer to intercept our
-        // interwidgets call.
-        var propsInterWidgetResult = this.props.interWidgets(
-            filterCriterion,
-            results // allow our parent to inspect the local
-                    // interwidget results before acting
-        );
+        return results;
+    },
 
-        if (propsInterWidgetResult) {
-            return propsInterWidgetResult;
-        } else {
-            return results;
-        }
+    /**
+     * Allows inter-widget communication.
+     *
+     * Includes both widgets internal to this Renderer, and external widgets
+     * exposed by the `findExternalWidgets` prop.
+     *
+     * See `findInteralWidgets` for more information.
+     */
+    findWidgets: function(filterCriterion) {
+        return [
+            ...this.findInternalWidgets(filterCriterion),
+            ...this.props.findExternalWidgets(filterCriterion),
+        ];
     },
 
     getWidgetInstance: function(id) {

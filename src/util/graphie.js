@@ -1137,10 +1137,14 @@ GraphUtils.createGraphie = function(el) {
         const smartLabelPositioning = options.smartLabelPositioning != null ?
               options.smartLabelPositioning : true;
         const realRange = [
-            [range[0][0] - (range[0][0] > 0 ? 1 : 0),
-             range[0][1] + (range[0][1] < 0 ? 1 : 0)],
-            [range[1][0] - (range[1][0] > 0 ? 1 : 0),
-             range[1][1] + (range[1][1] < 0 ? 1 : 0)],
+            [
+                range[0][0] - (range[0][0] > 0 ? 1 : 0),
+                range[0][1] + (range[0][1] < 0 ? 1 : 0),
+            ],
+            [
+                range[1][0] - (range[1][0] > 0 ? 1 : 0),
+                range[1][1] + (range[1][1] < 0 ? 1 : 0),
+            ],
         ];
 
         if (!_.isArray(unityLabels)) {

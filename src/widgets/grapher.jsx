@@ -378,8 +378,21 @@ var Grapher = React.createClass({
         });
     },
 
+    _calculateMobileTickStep(gridStep, step, ranges) {
+        const tickStep = Util.constrainedTickStepsFromTickSteps(step, ranges);
+
+        // According to the graphInit documentation in graphie.js, tickStep is
+        // relative to the grid units so we need to adjust all values by the
+        // grid step.
+        tickStep[0] = tickStep[0] / gridStep[0];
+        tickStep[1] = tickStep[1] / gridStep[1];
+
+        return tickStep;
+    },
+
     _setupGraphie: function(graphie, options) {
         const isMobile = this.props.apiOptions.isMobile;
+
         if (options.markings === "graph") {
             graphie.graphInit({
                 range: options.range,
@@ -388,9 +401,10 @@ var Grapher = React.createClass({
                 labelFormat: function(s) { return "\\small{" + s + "}"; },
                 gridStep: options.gridStep,
                 snapStep: options.snapStep,
-                tickStep: isMobile ? Util.constrainedTickStepsFromTickSteps(
-                    _.pluck(options.gridConfig, "tickStep"), options.range) :
-                    _.pluck(options.gridConfig, "tickStep"),
+                tickStep: isMobile
+                    ? this._calculateMobileTickStep(
+                        options.gridStep, options.step, options.range)
+                    : _.pluck(options.gridConfig, "tickStep"),
                 labelStep: 1,
                 unityLabels: _.pluck(options.gridConfig, "unityLabel"),
                 isMobile: isMobile,

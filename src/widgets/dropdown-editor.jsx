@@ -54,7 +54,7 @@ var DropdownEditor = React.createClass({
                     drop down itself, e.g., Yes/No/Maybe.</p>
                 </InfoTip>
             </div>
-            <div className="clearfix"></div>
+            <div className="clearfix"/>
             <ul className="dropdown-choices">
                 {this.props.choices.map(function(choice, i) {
                     var checkedClass = choice.correct ? 'correct' : 'incorrect'

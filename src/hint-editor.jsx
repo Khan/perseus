@@ -31,12 +31,18 @@ var HintEditor = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         imageUploader: React.PropTypes.func,
+        showMoveButtons: React.PropTypes.bool,
+        showRemoveButton: React.PropTypes.bool,
+        showTitle: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
         return {
             content: "",
             replace: false,
+            showMoveButtons: true,
+            showTitle: true,
+            showRemoveButton: true,
         };
     },
 
@@ -45,8 +51,8 @@ var HintEditor = React.createClass({
     },
 
     render: function() {
-        return <div className="perseus-hint-editor perseus-editor-left-cell">
-            <div className="pod-title">Hint</div>
+        return <div className="perseus-hint-editor">
+            {this.props.showTitle && <div className="pod-title">Hint</div>}
             <Editor ref="editor"
                     apiOptions={this.props.apiOptions}
                     widgets={this.props.widgets}
@@ -57,7 +63,7 @@ var HintEditor = React.createClass({
                     imageUploader={this.props.imageUploader}
                     onChange={this.props.onChange} />
             <div className="hint-controls-container clearfix">
-                <span className="reorder-hints">
+                {this.props.showMoveButtons && <span className="reorder-hints">
                     <button type="button"
                             className={this.props.isLast ? "hidden" : ""}
                             onClick={_.partial(this.props.onMove, 1)}>
@@ -74,18 +80,18 @@ var HintEditor = React.createClass({
                     <InfoTip>
                         <p>The last hint is automatically bolded.</p>
                     </InfoTip>}
-                </span>
+                </span>}
                 <input type="checkbox"
                        checked={this.props.replace}
                        onChange={this.handleChange}
                 />
                 Replace previous hint
-                <button type="button"
+                {this.props.showRemoveButton && <button type="button"
                         className="remove-hint simple-button orange"
                         onClick={this.props.onRemove}>
                     <InlineIcon {...iconTrash} />
                     Remove this hint{' '}
-                </button>
+                </button>}
             </div>
         </div>;
     },
@@ -141,20 +147,22 @@ var CombinedHintEditor = React.createClass({
             this.props.deviceType === "tablet";
         return <div className={"perseus-combined-hint-editor " +
                     "perseus-editor-row"}>
-            <HintEditor
-                ref="editor"
-                isFirst={this.props.isFirst}
-                isLast={this.props.isLast}
-                widgets={this.props.hint.widgets}
-                content={this.props.hint.content}
-                images={this.props.hint.images}
-                replace={this.props.hint.replace}
-                imageUploader={this.props.imageUploader}
-                onChange={this.props.onChange}
-                onRemove={this.props.onRemove}
-                onMove={this.props.onMove}
-                apiOptions={this.props.apiOptions} />
-
+            <div className="perseus-editor-left-cell">
+                <HintEditor
+                    ref="editor"
+                    isFirst={this.props.isFirst}
+                    isLast={this.props.isLast}
+                    widgets={this.props.hint.widgets}
+                    content={this.props.hint.content}
+                    images={this.props.hint.images}
+                    replace={this.props.hint.replace}
+                    imageUploader={this.props.imageUploader}
+                    onChange={this.props.onChange}
+                    onRemove={this.props.onRemove}
+                    onMove={this.props.onMove}
+                    apiOptions={this.props.apiOptions}
+                />
+            </div>
             <div
                 className="perseus-editor-right-cell"
             >
@@ -201,6 +209,10 @@ var CombinedHintsEditor = React.createClass({
         deviceType: React.PropTypes.string.isRequired,
         frameSource: React.PropTypes.string.isRequired,
         imageUploader: React.PropTypes.func,
+    },
+
+    statics: {
+        HintEditor,
     },
 
     getDefaultProps: function() {

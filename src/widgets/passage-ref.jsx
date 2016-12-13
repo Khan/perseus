@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/prop-types, react/sort-comp */
+/* eslint-disable comma-dangle, no-var, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* globals $_ */
@@ -40,8 +40,8 @@ var PassageRef = React.createClass({
             !_.isEqual(this.state, nextState);
     },
 
-    getUserInfo() {
-        return WidgetJsonifyDeprecated.getUserInfo.call(this);
+    getUserInput: function() {
+        return WidgetJsonifyDeprecated.getUserInput.call(this);
     },
 
     render: function() {
@@ -110,7 +110,7 @@ var PassageRef = React.createClass({
     },
 
     _updateRange: function() {
-        var passage = this.props.interWidgets(
+        var passage = this.props.findWidgets(
                 "passage " + this.props.passageNumber)[0];
 
         var refInfo = null;

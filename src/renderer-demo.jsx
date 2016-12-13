@@ -19,6 +19,22 @@ const ApiClassNames = require("./perseus-api.jsx").ClassNames;
 const ItemRenderer = require('./item-renderer.jsx');
 const SimpleButton = require('./simple-button.jsx');
 
+const defaultQuestion = {
+    "question": {
+        "content": "",
+        "images": {},
+        "widgets": {},
+    },
+    "answerArea": {
+        "calculator": false,
+    },
+    "itemDataVersion": {
+        "major": 0,
+        "minor": 1,
+    },
+    "hints": [],
+};
+
 const RendererDemo = React.createClass({
 
     propTypes: {
@@ -28,6 +44,7 @@ const RendererDemo = React.createClass({
 
     getDefaultProps: function() {
         return {
+            question: defaultQuestion,
             problemNum: 1,
         };
     },
@@ -134,7 +151,7 @@ const RendererDemo = React.createClass({
                         <div className={css(styles.answerAreaWrap)}>
                             <div id="answer-area">
                                 <div className={css(styles.infoBox)}>
-                                    <div id="solutionarea"></div>
+                                    <div id="solutionarea"/>
                                     <div className={css(styles.answerButtons)}>
                                     {answerButton}
                                     </div>

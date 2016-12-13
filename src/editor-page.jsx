@@ -54,7 +54,6 @@ var EditorPage = React.createClass({
 
     getDefaultProps: function() {
         return {
-            apiOptions: {},
             developerMode: false,
             jsonMode: false,
             onChange: () => {},
@@ -103,10 +102,6 @@ var EditorPage = React.createClass({
         this.updateRenderer();
     },
 
-    getApiOptions() {
-        return ApiOptionsProps.getApiOptions.call(this);
-    },
-
     updateRenderer: function() {
         // Some widgets (namely the image widget) like to call onChange before
         // anything has actually been mounted, which causes problems here. We
@@ -138,6 +133,10 @@ var EditorPage = React.createClass({
                                    "problemNum")
             ),
         });
+    },
+
+    getApiOptions() {
+        return ApiOptionsProps.getApiOptions.call(this);
     },
 
     handleChange: function(toChange, cb, silent) {

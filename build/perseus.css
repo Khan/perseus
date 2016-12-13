@@ -1,6 +1,6 @@
 /* Perseus CSS
-// commit 73c91cade5e93d67c48b2c732da62d0553de3977
-// branch master
+// commit 7bd3bc241e86799ad6ed5642d56e9c28f68d38e2
+// branch HEAD
 // @generated
 */
 .perseus-sr-only {
@@ -1522,11 +1522,10 @@ body.mobile .perseus-matrix .math-output {
   max-width: 50%;
 }
 .orderer.layout-vertical .bank {
-  padding: 10px 0 0 0;
+  padding: 11px 20px 11px 0;
   margin: 0;
 }
 .orderer.layout-vertical .draggable-box {
-  margin-left: 20px;
   margin-top: 0;
   padding: 10px;
   min-height: 170px;

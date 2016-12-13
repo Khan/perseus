@@ -87,10 +87,20 @@ var Plotter = React.createClass({
     },
 
     render: function() {
+        // TODO(kevinb) actually compute the size of the graphie correctly and
+        // make it that size so we don't have to add extra padding.  The value
+        // was determined by eye-balling the layout.  :(
+        const paddingForBottomLabel = 75;
+        const style = {
+            marginBottom: this.props.labels[0] ? paddingForBottomLabel : 0,
+        };
+
         return <div
             className={"perseus-widget-plotter graphie " +
                 ApiClassNames.INTERACTIVE}
-            ref="graphieDiv" />;
+            ref="graphieDiv"
+            style={style}
+        />;
     },
 
     componentDidUpdate: function(prevProps, prevState) {
@@ -506,10 +516,13 @@ var Plotter = React.createClass({
         return Math.max(Math.min(v, max), min);
     },
 
-    _updateDragPrompt: function(values) {
-        const shouldDisplay = values.every(v => v === 0);
-        this.graphie.dragPrompt[0].style.display =
-            shouldDisplay ? "inline" : "none";
+    _maybeUpdateDragPrompt: function(values) {
+        // The drag prompt is only added on certain types of plots.
+        if (this.graphie.dragPrompt != null) {
+            const shouldDisplay = values.every(v => v === 0);
+            this.graphie.dragPrompt[0].style.display =
+                shouldDisplay ? "inline" : "none";
+        }
     },
 
     setupBar: function(args) {
@@ -623,7 +636,7 @@ var Plotter = React.createClass({
                         self.setState({values: values});
                         self.changeAndTrack({values: values});
 
-                        self._updateDragPrompt(values);
+                        self._maybeUpdateDragPrompt(values);
 
                         scaleBar(i, y);
                     },
@@ -638,7 +651,7 @@ var Plotter = React.createClass({
             // points
             config.graph.lines[i].state.visibleShape.wrapper.style.zIndex = "1";
 
-            self._updateDragPrompt(self.state.values);
+            self._maybeUpdateDragPrompt(self.state.values);
         } else {
             config.graph.lines[i] = graphie.addMovableLineSegment({
                 coordA: [x - barHalfWidth, startHeight],
@@ -714,11 +727,11 @@ var Plotter = React.createClass({
                     self.setState({values: values});
                     self.changeAndTrack({values: values});
 
-                    self._updateDragPrompt(values);
+                    self._maybeUpdateDragPrompt(values);
                 }
             });
 
-            self._updateDragPrompt(self.state.values);
+            self._maybeUpdateDragPrompt(self.state.values);
 
             if (i > 0) {
                 c.graph.lines[i] = Interactive2.addMovableLine(graphie, {

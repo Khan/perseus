@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -165,7 +165,7 @@ const ImageEditor = React.createClass({
                         <th>Coordinates</th>
                         <th>Content</th>
                         <th>Alignment</th>
-                        <th></th>
+                        <th/>
                     </tr>
                     </thead>
                     <tbody>

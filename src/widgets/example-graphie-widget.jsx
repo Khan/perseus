@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable brace-style, comma-dangle, no-unused-vars, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable brace-style, comma-dangle, no-unused-vars, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -55,8 +55,8 @@ var ExampleGraphieWidget = React.createClass({
         };
     },
 
-    getUserInfo() {
-        return WidgetJsonifyDeprecated.getUserInfo.call(this);
+    getUserInput: function() {
+        return WidgetJsonifyDeprecated.getUserInput.call(this);
     },
 
     render: function() {

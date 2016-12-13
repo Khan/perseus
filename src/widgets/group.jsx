@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -56,13 +56,13 @@ var Group = React.createClass({
 
         // Allow a problem number annotation to be added.
         // This is cyclical and should probably be reconsidered. In order to
-        // render the annotation ("Question 3 of 10"), we call interWidgets to
+        // render the annotation ("Question 3 of 10"), we call findWidgets to
         // figure out our index in the list of all fellow group widgets. On
         // first render, though, we don't exist yet in this list, and so we
         // give ourselves number -1. To combat this, we forceUpdate in
         // componentDidMount so that we can number ourselves properly. But,
         // really we should have a more unidirectional flow. TODO(marcia): fix.
-        var number = _.indexOf(this.props.interWidgets("group"), this);
+        var number = _.indexOf(this.props.findWidgets("group"), this);
         var problemNumComponent = this.props.apiOptions.groupAnnotator(
             number, this.props.widgetId);
 
@@ -77,27 +77,21 @@ var Group = React.createClass({
             }
         };
 
+        // TODO(mdr): Widgets inside this Renderer are not discoverable through
+        //     the parent Renderer's `findWidgets` function.
         return <div className="perseus-group">
             {problemNumComponent}
             <Renderer
                 {...this.props}
                 ref="renderer"
                 apiOptions={apiOptions}
-                interWidgets={this._interWidgets}
+                findExternalWidgets={this.props.findWidgets}
                 reviewMode={!!this.props.reviewModeRubric}
                 onInteractWithWidget={onInteractWithWidget} />
             {this.props.icon && <div className="group-icon">
                 {this.props.icon}
             </div>}
         </div>;
-    },
-
-    _interWidgets: function(filterCriterion, localResults) {
-        if (localResults.length) {
-            return localResults;
-        } else {
-            return this.props.interWidgets(filterCriterion);
-        }
     },
 
     change(...args) {

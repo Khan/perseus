@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-sort-prop-types */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -183,13 +183,26 @@ var NumberLineEditor = React.createClass({
         }
 
         var labelStyleEditorButtons = [
-              {value: "decimal", content: "0.75", title: "Decimals"},
-              {value: "improper", content: "\u2077\u2044\u2084",
-                title: "Improper fractions"},
-              {value: "mixed", content: "1\u00BE",
-                title: "Mixed numbers"},
-              {value: "non-reduced", content: "\u2078\u2044\u2084",
-                title: "Non-reduced"},
+            {
+                value: "decimal",
+                content: "0.75",
+                title: "Decimals",
+            },
+            {
+                value: "improper",
+                content: "\u2077\u2044\u2084",
+                title: "Improper fractions",
+            },
+            {
+                value: "mixed",
+                content: "1\u00BE",
+                title: "Mixed numbers",
+            },
+            {
+                value: "non-reduced",
+                content: "\u2078\u2044\u2084",
+                title: "Non-reduced",
+            },
         ];
 
         return <div className="perseus-widget-number-line-editor">

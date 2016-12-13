@@ -20,25 +20,10 @@ const ReactDOM = window.ReactDOM = React.__internalReactDOM;
 const EditorDemo = require('./editor-demo.jsx');
 const RendererDemo = require('./renderer-demo.jsx');
 const ArticleDemo = require('./article-demo.jsx');
-
-const defaultQuestion = {
-    "question": {
-        "content": "",
-        "images": {},
-        "widgets": {},
-    },
-    "answerArea": {
-        "calculator": false,
-    },
-    "itemDataVersion": {
-        "major": 0,
-        "minor": 1,
-    },
-    "hints": [],
-};
+const MultirendererDemo = require('./multirenderer-demo.jsx');
 
 const query = Perseus.Util.parseQueryString(window.location.hash.substring(1));
-const question = query.content ? JSON.parse(query.content) : defaultQuestion;
+const question = query.content && JSON.parse(query.content);
 const problemNum = Math.floor(Math.random() * 100);
 
 // React router v20XX
@@ -46,6 +31,7 @@ const path = window.location.search.substring(1);
 const routes = { // The value is spread across a React.createElement call
     'renderer': [RendererDemo, {question, problemNum}],
     'article': [ArticleDemo, {content: question}],
+    'multirenderer': [MultirendererDemo, {content: question}],
     '': [EditorDemo, {question, problemNum}],
 };
 

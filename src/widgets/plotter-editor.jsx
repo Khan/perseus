@@ -15,7 +15,7 @@ const TextListEditor = require("../components/text-list-editor.jsx");
 
 const Plotter = require("./plotter.jsx").widget;
 
-const knumber = require("kmath").knumber;
+const knumber = require("kmath").number;
 
 const BAR = "bar",
     LINE = "line",
@@ -58,7 +58,9 @@ const widgetPropTypes = {
     plotDimensions: React.PropTypes.arrayOf(React.PropTypes.number),
     labelInterval: React.PropTypes.number,
     starting: React.PropTypes.arrayOf(React.PropTypes.number),
+    correct: React.PropTypes.arrayOf(React.PropTypes.number),
     static: React.PropTypes.bool,
+    onChange: React.PropTypes.func,
 };
 
 var formatNumber = (num) => "$" + knumber.round(num, 2) + "$";

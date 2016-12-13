@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-undef, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+/* eslint-disable comma-dangle, no-undef, no-var, object-curly-spacing, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 
@@ -52,8 +52,8 @@ const Categorizer = React.createClass({
         return Changeable.change.apply(this, args);
     },
 
-    getUserInfo() {
-        return WidgetJsonifyDeprecated.getUserInfo.call(this);
+    getUserInput: function() {
+        return WidgetJsonifyDeprecated.getUserInput.call(this);
     },
 
     render: function() {

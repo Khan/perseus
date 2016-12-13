@@ -1,45 +1,39 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+// @flow
 
-var React = require("react");
-var TeX = require("react-components/tex.jsx");
+const React = require("react");
+const TeX = require("react-components/tex.jsx");
 
-var ButtonGroup = require("react-components/button-group.jsx");
-var Changeable = require("../../mixins/changeable.jsx");
-var MathInput = require("../../components/math-input.jsx");
-var NumberInput = require("../../components/number-input.jsx");
+const ButtonGroup = require("react-components/button-group.jsx");
+const {ChangeableProps, change} = require('../../mixins/changeable.jsx');
+const MathInput = require("../../components/math-input.jsx");
+const NumberInput = require("../../components/number-input.jsx");
 
-var ConstraintEditor = React.createClass({
-    propTypes: {
-        ...Changeable.propTypes,
-        constraint: React.PropTypes.string,
-        snap: React.PropTypes.number,
-        constraintFn: React.PropTypes.string,
-        onChange: React.PropTypes.func.isRequired,
-        constraintXMin: React.PropTypes.string,
-        constraintXMax: React.PropTypes.string,
-        constraintYMin: React.PropTypes.string,
-        constraintYMax: React.PropTypes.string
-    },
+class ConstraintEditor extends React.Component {
+    static defaultProps = {
+        constraint: "none",
+        snap: 0.5,
+        constraintFn: "0",
+        constraintXMin: "-10",
+        constraintXMax: "10",
+        constraintYMin: "-10",
+        constraintYMax: "10",
+    }
 
-    getDefaultProps: function() {
-        return {
-            constraint: "none",
-            snap: 0.5,
-            constraintFn: "0",
-            constraintXMin: "-10",
-            constraintXMax: "10",
-            constraintYMin: "-10",
-            constraintYMax: "10"
-        };
-    },
+    props: ChangeableProps & {
+        constraint?: string,
+        constraintFn?: string,
+        constraintXMax?: string,
+        constraintXMin?: string,
+        constraintYMax?: string,
+        constraintYMin?: string,
+        snap?: number,
+    }
 
-    change(...args) {
-        return Changeable.change.apply(this, args);
-    },
+    change = (...args: any) => {
+        return change.apply(this, args);
+    }
 
-    render: function() {
+    render() {
         return <div>
             <div className="perseus-widget-row">
                 Constraint: <ButtonGroup value={this.props.constraint}
@@ -49,22 +43,25 @@ var ConstraintEditor = React.createClass({
                         {value: "snap", content: "Snap"},
                         {value: "x",    content: "x="},
                         {value: "y",    content: "y="}]}
-                    onChange={this.change("constraint")} />
+                    onChange={this.change("constraint")}
+                />
             </div>
             {this.props.constraint === "snap" &&
                 <div className="perseus-widget-row">
                     Snap: <NumberInput
                         value={this.props.snap}
                         placeholder={0}
-                        onChange={this.change("snap")} />
-            </div>}
+                        onChange={this.change("snap")}
+                    />
+                </div>}
             {this.props.constraint === "x" && <div className="graph-settings">
                 <div className="perseus-widget-row">
                     <TeX>x=</TeX> <MathInput
                         buttonSets={[]}
                         buttonsVisible={"never"}
                         value={this.props.constraintFn}
-                        onChange={this.change("constraintFn")} />
+                        onChange={this.change("constraintFn")}
+                    />
                 </div>
             </div>}
             {this.props.constraint === "y" && <div className="graph-settings">
@@ -73,7 +70,8 @@ var ConstraintEditor = React.createClass({
                         buttonSets={[]}
                         buttonsVisible={"never"}
                         value={this.props.constraintFn}
-                        onChange={this.change("constraintFn")} />
+                        onChange={this.change("constraintFn")}
+                    />
                 </div>
             </div>}
             Ensure these are set so nothing can be dragged off the canvas:
@@ -83,7 +81,8 @@ var ConstraintEditor = React.createClass({
                         buttonSets={[]}
                         buttonsVisible={"never"}
                         value={this.props.constraintXMin}
-                        onChange={this.change("constraintXMin")} />
+                        onChange={this.change("constraintXMin")}
+                    />
                     <TeX>, </TeX> <MathInput
                         buttonSets={[]}
                         buttonsVisible={"never"}
@@ -98,7 +97,8 @@ var ConstraintEditor = React.createClass({
                         buttonSets={[]}
                         buttonsVisible={"never"}
                         value={this.props.constraintYMin}
-                        onChange={this.change("constraintYMin")} />
+                        onChange={this.change("constraintYMin")}
+                    />
                     <TeX>, </TeX> <MathInput
                         buttonSets={[]}
                         buttonsVisible={"never"}
@@ -109,6 +109,6 @@ var ConstraintEditor = React.createClass({
             </div>
         </div>;
     }
-});
+}
 
 module.exports = ConstraintEditor;

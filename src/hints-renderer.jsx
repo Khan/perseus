@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable array-bracket-spacing, object-curly-spacing */
+/* eslint-disable array-bracket-spacing */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -25,17 +25,10 @@ const {
 
 const HintsRenderer = React.createClass({
     propTypes: {
-        // Also accepts apiOptions, via the ApiOptionsProps mixin.
         ...ApiOptionsProps.propTypes,
         className: React.PropTypes.string,
         hints: React.PropTypes.arrayOf(React.PropTypes.any),
         hintsVisible: React.PropTypes.number,
-    },
-
-    getDefaultProps() {
-        return {
-            apiOptions: {},
-        };
     },
 
     componentDidMount: function() {
@@ -53,10 +46,6 @@ const HintsRenderer = React.createClass({
             const pos = this.props.hintsVisible - 1;
             ReactDOM.findDOMNode(this.refs["hintRenderer" + pos]).focus();
         }
-    },
-
-    getApiOptions() {
-        return ApiOptionsProps.getApiOptions.call(this);
     },
 
     _hintsVisible: function() {
@@ -83,6 +72,10 @@ const HintsRenderer = React.createClass({
         } else if (this.props.hints.length > 0) {
             this._cacheImagesInHint(this.props.hints[0]);
         }
+    },
+
+    getApiOptions() {
+        return ApiOptionsProps.getApiOptions.call(this);
     },
 
     getSerializedState: function() {

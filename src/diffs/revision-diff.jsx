@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, space-infix-ops */
+/* eslint-disable comma-dangle, indent, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, space-infix-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 // Responsible for combining the text diffs from text-diff and the widget

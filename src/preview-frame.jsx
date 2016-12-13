@@ -122,8 +122,8 @@ const PreviewFrame = React.createClass({
                     ref="container"
                 >
                     <ItemRenderer {...updatedData} />
-                    <div id="workarea" style={{marginLeft: 0}}></div>
-                    <div id="hintsarea"></div>
+                    <div id="workarea" style={{marginLeft: 0}}/>
+                    <div id="hintsarea"/>
                 </div>;
             } else if (this.state.type === "hint") {
                 return <div
@@ -157,10 +157,10 @@ const PreviewFrame = React.createClass({
                     })}
                 </div>;
             } else {
-                return <div></div>;
+                return <div/>;
             }
         } else {
-            return <div></div>;
+            return <div/>;
         }
     },
 });

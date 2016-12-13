@@ -494,7 +494,7 @@ const Choice = React.createClass({
             >
                 <div className="checkbox-and-option">
                     <span className={checkboxContentClassName}>
-                        <div className={posBackClassName}></div>
+                        <div className={posBackClassName}/>
                         <div className={posClassName}>
                             <span className="perseus-sr-only">
                                 {a11yText()}
