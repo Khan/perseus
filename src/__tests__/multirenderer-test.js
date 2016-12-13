@@ -53,9 +53,23 @@ describe("traverseShape", () => {
         }, result);
     });
 
+    it("calls the callback with the correct shape", () => {
+        // Return the type of the shape of the item in place of each item.
+        const result = traverseShape(shape, data, (_, shape) => shape.type);
+
+        assert.deepEqual({
+            a: "item",
+            b: ["item", "item", "item"],
+            c: {
+                d: "item",
+                e: "item",
+            },
+        }, result);
+    });
+
     it("calls the callback with the correct paths to the items", () => {
-        // Return the path of the item in place of each of the items.
-        const result = traverseShape(shape, data, (_, path) => path);
+        // Return the path of the item in place of each item.
+        const result = traverseShape(shape, data, (_, __, path) => path);
 
         assert.deepEqual({
             a: ["a"],
@@ -110,11 +124,13 @@ describe("traverseShape", () => {
         const shape = shapes.arrayOf(shapes.item);
         const data = [item(1), item(2), item(3)];
 
-        traverseShape(shape, data, e => e.content, (data2, shape2, path) => {
-            assert.deepEqual(["item 1", "item 2", "item 3"], data2);
-            assert.deepEqual(shape, shape2);
-            assert.deepEqual([], path);
-        });
+        traverseShape(shape, data, e => e.content,
+            (result, data2, shape2, path) => {
+                assert.deepEqual(["item 1", "item 2", "item 3"], result);
+                assert.equal(data, data2);
+                assert.deepEqual(shape, shape2);
+                assert.deepEqual([], path);
+            });
     });
 
     it("calls the collection callback for objects", () => {
@@ -127,14 +143,16 @@ describe("traverseShape", () => {
             b: item(2),
         };
 
-        traverseShape(shape, data, e => e.content, (data2, shape2, path) => {
-            assert.deepEqual({
-                a: "item 1",
-                b: "item 2",
-            }, data2);
-            assert.deepEqual(shape, shape2);
-            assert.deepEqual([], path);
-        });
+        traverseShape(shape, data, e => e.content,
+            (result, data2, shape2, path) => {
+                assert.deepEqual({
+                    a: "item 1",
+                    b: "item 2",
+                }, result);
+                assert.equal(data, data2);
+                assert.deepEqual(shape, shape2);
+                assert.deepEqual([], path);
+            });
     });
 
     it("builds the structure from the collection callback return value", () => {
@@ -156,17 +174,17 @@ describe("traverseShape", () => {
             },
         };
 
-        function collectionCallback(dat, shp, path) {
+        function collectionCallback(result, dat, shp, path) {
             if (path.length === 0) {
-                dat.top = true;
-                return dat;
+                result.top = true;
+                return result;
             }
 
             if (shp.type === "object") {
-                return Object.keys(dat).concat(
-                    Object.keys(dat).map(k => dat[k]));
+                return Object.keys(result).concat(
+                    Object.keys(result).map(k => result[k]));
             } else if (shp.type === "array") {
-                return dat.map(c => c + " in array");
+                return result.map(c => c + " in array");
             }
         }
 
@@ -189,9 +207,22 @@ describe("emptyValueForShape", () => {
         "widgets": {},
     };
 
+    const expectedEmptyHintValue = {
+        "replace": false,
+        "content": "",
+        "images": {},
+        "widgets": {},
+    };
+
     it("creates an empty item", () => {
         assert.deepEqual(expectedEmptyItemValue, emptyValueForShape(
             shapes.item
+        ));
+    });
+
+    it("creates an empty hint", () => {
+        assert.deepEqual(expectedEmptyHintValue, emptyValueForShape(
+            shapes.hint
         ));
     });
 
@@ -228,6 +259,7 @@ describe("emptyValueForShape", () => {
                 intro: expectedEmptyItemValue,
                 prompt: expectedEmptyItemValue,
             },
+            hint: expectedEmptyHintValue,
             footnotes: [],
             questions: [],
             weirdItemMatrix: [],
@@ -238,6 +270,7 @@ describe("emptyValueForShape", () => {
                     intro: shapes.item,
                     prompt: shapes.item,
                 }),
+                hint: shapes.hint,
                 footnotes: shapes.arrayOf(shapes.item),
                 questions: shapes.arrayOf(shapes.shape({
                     question: shapes.item,

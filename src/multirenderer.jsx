@@ -33,6 +33,7 @@ const {StyleSheet, css} = require("aphrodite");
 const lens = require("../hubble/index.js");
 const React = require("react");
 
+const HintsRenderer = require("./hints-renderer.jsx");
 const Renderer = require("./renderer.jsx");
 const Util = require("./util.js");
 
@@ -41,6 +42,9 @@ const Util = require("./util.js");
 const shapes = {
     item: {
         type: "item",
+    },
+    hint: {
+        type: "hint",
     },
     arrayOf: elementShape => ({
         type: "array",
@@ -51,6 +55,7 @@ const shapes = {
         shape,
     }),
 };
+shapes.hints = shapes.arrayOf(shapes.hint);
 
 /**
  * Traverse a multirenderer item shape and piece of data at the same time, and
@@ -89,8 +94,8 @@ const shapes = {
  * @param {} shape: A shape returned from one of the shapes constructors.
  * @param {} data: Some data in the shape that is described by the shape
  *     argument.
- * @param {ItemCallback} itemCallback: A function called with the data at each
- *     of the leaf nodes, and the path of the current item. The path is an
+ * @param {LeafCallback} leafCallback: A function called with the data at each
+ *     of the leaf nodes, and the path of the current leaf. The path is an
  *     array of keys inside the object.
  * @param {CollectionCallback} [collectionCallback=identity]: A function called
  *     for each of the interior container nodes to munge the data after
@@ -100,18 +105,20 @@ const shapes = {
  *     callback is specified, the value of that callback called on the top
  *     level value.
  */
-function traverseShape(shape, data, itemCallback,
+function traverseShape(shape, data, leafCallback,
                        collectionCallback = identity) {
-    return traverseShapeRec(shape, data, [], itemCallback, collectionCallback);
+    return traverseShapeRec(shape, data, [], leafCallback, collectionCallback);
 }
 
 /**
  * This callback is called for each of the leaf nodes of a shape when
  * traversing. Its return value is substituted in place of the leaf when
  * building the resulting structure.
- * @callback ItemCallback
+ * @callback LeafCallback
  * @param {} data: The object found at the leaf position of the data object
  *     passed into the traversal.
+ * @param {} shape: The shape of the leaf. Most notable (only?) attribute is
+ *     the type attribute.
  * @param {Array.<(string|number)>} path: The path of the leaf node within the
  *     object. The path is an array of keys within the object.
  * @returns {} A value which is placed in the object that is built by the
@@ -123,8 +130,10 @@ function traverseShape(shape, data, itemCallback,
  * arrays or objects). Its return value is used in place of that structure in
  * the resulting object.
  * @callback CollectionCallback
- * @param {} data: The collection found at the current place in the shape, with
- *     its contents already traversed and mapped.
+ * @param {} result: The collection found at the current place in the shape,
+ *     with its contents already traversed and mapped.
+ * @param {} data: The collection in the original tree, before being traversed
+ *     and mapped.
  * @param {} shape: The shape of the collection.
  * @param {Array.<(string|number)>} path: The path of the collection within the
  *     overall object. The path is an array of keys within the object.
@@ -136,14 +145,15 @@ function identity(x) {
     return x;
 }
 
-function traverseShapeRec(shape, data, path, itemCallback, collectionCallback) {
-    if (shape.type === "item") {
+function traverseShapeRec(shape, data, path, leafCallback, collectionCallback) {
+    if (shape.type === "item" || shape.type === "hint") {
         if (data && typeof data !== "object") {
             throw new Error(
                 `Invalid object of type "${typeof data}" found at path ` +
-                `${["<root>"].concat(path).join(".")}. Expected item.`);
+                `${["<root>"].concat(path).join(".")}. ` +
+                `Expected ${shape.type}.`);
         }
-        return itemCallback(data, path);
+        return leafCallback(data, shape, path);
     } else if (shape.type === "array") {
         if (!Array.isArray(data)) {
             throw new Error(
@@ -152,9 +162,9 @@ function traverseShapeRec(shape, data, path, itemCallback, collectionCallback) {
         }
 
         const results = data.map((inner, i) => traverseShapeRec(
-            shape.elementShape, inner, path.concat(i), itemCallback,
+            shape.elementShape, inner, path.concat(i), leafCallback,
             collectionCallback));
-        return collectionCallback(results, shape, path);
+        return collectionCallback(results, data, shape, path);
     } else if (shape.type === "object") {
         if (data && typeof data !== "object") {
             throw new Error(
@@ -173,9 +183,9 @@ function traverseShapeRec(shape, data, path, itemCallback, collectionCallback) {
 
             object[key] = traverseShapeRec(
                 shape.shape[key], data[key], path.concat(key),
-                itemCallback, collectionCallback);
+                leafCallback, collectionCallback);
         });
-        return collectionCallback(object, shape, path);
+        return collectionCallback(object, data, shape, path);
     } else {
         throw new Error(
             `Invalid shape type "${shape.type}" at path ` +
@@ -186,6 +196,13 @@ function traverseShapeRec(shape, data, path, itemCallback, collectionCallback) {
 function emptyValueForShape(shape) {
     if (shape.type === "item") {
         return {
+            "content": "",
+            "images": {},
+            "widgets": {},
+        };
+    } else if (shape.type === "hint") {
+        return {
+            "replace": false,
             "content": "",
             "images": {},
             "widgets": {},
@@ -206,6 +223,9 @@ function shapePropType(...args) {
     const itemShape = React.PropTypes.oneOfType([
         React.PropTypes.shape({
             type: React.PropTypes.oneOf(["item"]).isRequired,
+        }).isRequired,
+        React.PropTypes.shape({
+            type: React.PropTypes.oneOf(["hint"]).isRequired,
         }).isRequired,
         React.PropTypes.shape({
             type: React.PropTypes.oneOf(["object"]).isRequired,
@@ -252,12 +272,7 @@ const MultiRenderer = React.createClass({
         }
     },
 
-    _makeRendererData(item) {
-        const data = {
-            renderer: null,
-            ref: null,
-        };
-
+    _getRendererProps() {
         /* eslint-disable no-unused-vars */
         // eslint is complaining that `content` and `children` are unused. I'm
         // explicitly pulling them out of `this.props` so I don't pass them to
@@ -265,25 +280,46 @@ const MultiRenderer = React.createClass({
         const {
             content,
             children,
+            shape,
             ...otherProps, // @Nolint(trailing comma): I'm so confused why it's
                            // complaining about this, we want trailing commas..
         } = this.props;
         /* eslint-enable no-unused-vars */
 
-        // NOTE(emily): The `findExternalWidgets` function here is computed
-        // inline and thus changes each time we run this function. If it were
-        // to change every render, it would cause the Renderer to re-render a
-        // lot more than is necessary. Don't re-compute this element unless it
-        // is necessary!
-        data.renderer = <Renderer
-            {...otherProps}
-            {...item}
-            ref={e => data.ref = e}
-            findExternalWidgets={
-                criterion => this._findWidgets(data, criterion)}
-        />;
+        return otherProps;
+    },
 
-        return data;
+    _makeRendererData(renderable, shape) {
+        const rendererProps = this._getRendererProps();
+
+        if (shape.type === "item") {
+            // NOTE(emily): The `findExternalWidgets` function here is computed
+            // inline and thus changes each time we run this function. If it
+            // were to change every render, it would cause the Renderer to
+            // re-render a lot more than is necessary. Don't re-compute this
+            // element unless it is necessary!
+            const data = {renderer: null, ref: null};
+            data.renderer = <Renderer
+                {...rendererProps}
+                {...renderable}
+                ref={e => data.ref = e}
+                findExternalWidgets={
+                    criterion => this._findWidgets(data, criterion)}
+            />;
+            return data;
+        } else if (shape.type === "hint") {
+            // TODO(mdr): Once HintsRenderer supports inter-widget
+            //     communication, give it a ref. Until then, leave the ref null
+            //     forever, to avoid confusing the findWidgets functions.
+            const data = {renderer: null, ref: null, hint: renderable};
+            data.renderer = <HintsRenderer
+                {...rendererProps}
+                hints={[renderable]}
+            />;
+            return data;
+        } else {
+            throw new Error(`can't create renderer for type ${shape.type}`);
+        }
     },
 
     _makeRenderers(shape, content) {
@@ -305,10 +341,6 @@ const MultiRenderer = React.createClass({
     _traverseRenderers(...args) {
         return traverseShape(
             this.props.shape, this.state.rendererData, ...args);
-    },
-
-    _getRenderers() {
-        return this._traverseRenderers(data => data.renderer);
     },
 
     _scoreFromRef(ref) {
@@ -380,6 +412,25 @@ const MultiRenderer = React.createClass({
             numCallbacks++;
             data.ref.restoreSerializedState(state, countCallback);
         });
+    },
+
+    _annotateRendererCollection(renderers, data, shape, path) {
+        // Attach a `firstN` method to arrays of hints, which allows the layout
+        // to render the hints together in one HintsRenderer.
+        if (shape.type === "array" && shape.elementShape.type === "hint") {
+            renderers = [...renderers];
+            renderers.firstN = (n) => <HintsRenderer
+                {...this._getRendererProps()}
+                hints={data.map(d => d.hint)}
+                hintsVisible={n}
+            />;
+        }
+        return renderers;
+    },
+
+    _getRenderers() {
+        return this._traverseRenderers(
+            data => data.renderer, this._annotateRendererCollection);
     },
 
     render() {

@@ -17,9 +17,14 @@ const DemoLayout = React.createClass({
 
     statics: {
         shape: shapes.shape({
-            left: shapes.item,
-            right: shapes.arrayOf(shapes.item),
+            context: shapes.item,
+            questions: shapes.arrayOf(shapes.item),
+            hints: shapes.hints,
         }),
+    },
+
+    getInitialState() {
+        return {numHints: 0};
     },
 
     score() {
@@ -34,6 +39,14 @@ const DemoLayout = React.createClass({
         this.multirenderer.restoreSerializedState(state);
     },
 
+    addHint() {
+        this.setState(({numHints}) => ({numHints: numHints + 1}));
+    },
+
+    clearHints() {
+        this.setState({numHints: 0});
+    },
+
     render() {
         return <MultiRenderer
             ref={e => this.multirenderer = e}
@@ -43,13 +56,32 @@ const DemoLayout = React.createClass({
             {({renderers}) =>
                 <div>
                     <div className={css(demoStyles.left)}>
-                        {renderers.left}
+                        {renderers.context}
                     </div>
-                    <ul className={css(demoStyles.right)}>
-                        {renderers.right.map(
-                            (r, i) => <li key={i}>{r}</li>
-                        )}
-                    </ul>
+                    <div className={css(demoStyles.right)}>
+                        <h2>Questions</h2>
+                        <ul>
+                            {renderers.questions.map(
+                                (r, i) => <li key={i}>{r}</li>
+                            )}
+                        </ul>
+                        {renderers.hints.length > 0 && <div>
+                            <h2>Hints</h2>
+                            {renderers.hints.firstN(this.state.numHints)}
+                            {this.state.numHints < renderers.hints.length &&
+                                <div>
+                                    <button onClick={this.addHint}>
+                                        Get a hint
+                                    </button>
+                                </div>}
+                            {this.state.numHints > 0 &&
+                                <div>
+                                    <button onClick={this.clearHints}>
+                                        Clear hints
+                                    </button>
+                                </div>}
+                        </div>}
+                    </div>
                 </div>
             }
         </MultiRenderer>;

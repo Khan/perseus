@@ -10,6 +10,7 @@ const lens = require("../hubble/index.js");
 
 const ApiOptions = require("./perseus-api.jsx").Options;
 const Editor = require("./editor.jsx");
+const {HintEditor} = require("./hint-editor.jsx");
 const {iconChevronDown, iconPlus, iconTrash} = require("./icon-paths.js");
 const InlineIcon = require("./components/inline-icon.jsx");
 const JsonEditor = require("./json-editor.jsx");
@@ -142,6 +143,8 @@ const NodeContent = (props) => {
 
     if (shape.type === "item") {
         return <ItemNodeContent {...props} />;
+    } else if (shape.type === "hint") {
+        return <HintNodeContent {...props} />;
     } else if (shape.type === "array") {
         return <ArrayNodeContent {...props} />;
     } else if (shape.type === "object") {
@@ -162,6 +165,21 @@ const ItemNodeContent = (props) => {
     />;
 };
 ItemNodeContent.propTypes = nodePropTypes;
+
+const HintNodeContent = (props) => {
+    const {data, path, actions, apiOptions} = props;
+
+    return <HintEditor
+        {...data}
+        onChange={
+            newVal => actions.handleEditorChange(path, newVal)}
+        apiOptions={apiOptions}
+        showTitle={false}
+        showRemoveButton={false}
+        showMoveButtons={false}
+    />;
+};
+HintNodeContent.propTypes = nodePropTypes;
 
 const ArrayNodeContent = (props) => {
     const {shape, data, path, actions, ...otherProps} = props;
@@ -226,9 +244,10 @@ ArrayNodeContent.propTypes = nodePropTypes;
 const ObjectNodeContent = (props) => {
     const {shape, data, path, ...otherProps} = props;
 
-    // Sort the object keys for consistency.
-    // TODO(mdr): Use localeCompare for more robust alphabetizing.
-    const children = Object.keys(shape.shape).sort().map(subkey =>
+    // Object iteration order should automatically match the order in which the
+    // keys were defined in the object literal. So, whatever order semantically
+    // made sense to the shape's author is the order in which we'll iterate :)
+    const children = Object.keys(shape.shape).map(subkey =>
         <NodeContainer
             {...otherProps}
             key={subkey}
