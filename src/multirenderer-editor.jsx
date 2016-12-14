@@ -113,6 +113,10 @@ const nodePropTypes = {
  * This returns a container element with a pretty title and additional
  * UI controls for this node. Its contents are produced by
  * `NodeContent`. The two functions are mutually recursive.
+ *
+ * Leaf nodes, like items and hints, render an editor pod around their
+ * content. Container nodes, like arrays and objects, render a header above
+ * their content.
  */
 const NodeContainer = (props) => {
     const {
@@ -120,49 +124,95 @@ const NodeContainer = (props) => {
         ...otherProps
     } = props;
 
-    let content = <NodeContent
-        {...otherProps}
-        shape={shape}
-        data={data}
-        path={path}
-        actions={actions}
-    />;
+    const name = givenName || camelCaseToHuman(path[path.length - 1] || "");
 
-    // If this node contains subnodes, then indent its content.
-    if (shape.type === "array" || shape.type === "object") {
-        content = <div className={css(styles.level)}>
-            {content}
-        </div>;
-    }
-
-    let controls;
+    let controls = givenControls || [];
     if (shape.type === "array") {
-        controls = <SimpleButton
-            color="green"
-            onClick={() =>
-                actions.addArrayElement(path, shape.elementShape)}
+        controls = controls.concat(<div
+            key="addArrayElement"
+            className={css(styles.control)}
         >
-            <InlineIcon {...iconPlus} />
-        </SimpleButton>;
+            <SimpleButton
+                color="green"
+                onClick={() =>
+                    actions.addArrayElement(path, shape.elementShape)}
+                title={`Add a ${pluralToSingular(name)}`}
+            >
+                <InlineIcon {...iconPlus} />
+            </SimpleButton>
+        </div>);
     }
 
-    const name = givenName || camelCaseToHuman(path[path.length - 1]);
+    let Container;
+    if (shape.type === "array" || shape.type === "object") {
+        Container = CollectionContainer;
+    } else {
+        Container = LeafContainer;
+    }
 
-    return <div key={path.join("-")} className="perseus-widget-editor">
-        <div className="perseus-widget-editor-title">
-            {/* TODO(emily): allow specifying a custom editor title */}
-            <div className="perseus-widget-editor-title-id">
-                {capitalize(name)}
-            </div>
-            {givenControls}
-            {controls}
-        </div>
-        {content}
-    </div>;
+    return <Container
+        key={path.join(".")}
+        name={name}
+        controls={controls}
+        path={path}
+    >
+        <NodeContent
+            {...otherProps}
+            shape={shape}
+            data={data}
+            path={path}
+            actions={actions}
+        />
+    </Container>;
 };
 NodeContainer.propTypes = {
     ...nodePropTypes,
+    controls: React.PropTypes.arrayOf(React.PropTypes.node),
+};
+
+const LeafContainer = ({name, controls, children}) => {
+    return <div className={css(styles.container)}>
+        <div className="perseus-widget-editor">
+            <div className="perseus-widget-editor-title">
+                {/* TODO(emily): allow specifying a custom editor title */}
+                <div className="perseus-widget-editor-title-id">
+                    {capitalize(name)}
+                </div>
+                <div className={css(styles.controls)}>
+                    {controls}
+                </div>
+            </div>
+            {children}
+        </div>
+    </div>;
+};
+LeafContainer.propTypes = {
+    name: React.PropTypes.node,
     controls: React.PropTypes.node,
+    children: React.PropTypes.node,
+};
+
+const CollectionContainer = ({name, controls, children, path}) => {
+    const headerLevel = Math.min(path.length, 5) + 1;
+    const HeaderTag = `h${headerLevel}`;
+
+    return <div className={css(styles.container)}>
+        <div className={css(styles.collectionHeader)}>
+            <HeaderTag className={css(styles.collectionName)}>
+                {capitalize(name)}
+            </HeaderTag>
+            <div className={css(styles.controls)}>
+                {controls}
+            </div>
+        </div>
+        <div>{children}</div>
+    </div>;
+};
+CollectionContainer.propTypes = {
+    name: React.PropTypes.node,
+    controls: React.PropTypes.node,
+    children: React.PropTypes.node,
+    path: React.PropTypes.arrayOf(React.PropTypes.any).isRequired,
 };
 
 /**
@@ -225,11 +275,10 @@ const ArrayNodeContent = (props) => {
 
     const children = data.map((subdata, i) => {
         const subpath = path.concat(i);
-        const controls = <div
-            className={css(styles.arrayElementControls)}
-        >
-            {i > 0 && <div
-                className={css(styles.arrayElementControl)}
+        const controls = [
+            i > 0 && <div
+                key="moveArrayElementUp"
+                className={css(styles.control)}
             >
                 <SimpleButton
                     color="orange"
@@ -241,9 +290,10 @@ const ArrayNodeContent = (props) => {
                         <InlineIcon {...iconChevronDown} />
                     </div>
                 </SimpleButton>
-            </div>}
-            {i < data.length - 1 && <div
-                className={css(styles.arrayElementControl)}
+            </div>,
+            i < data.length - 1 && <div
+                key="moveArrayElementDown"
+                className={css(styles.control)}
             >
                 <SimpleButton
                     color="orange"
@@ -253,8 +303,11 @@ const ArrayNodeContent = (props) => {
                 >
                     <InlineIcon {...iconChevronDown} />
                 </SimpleButton>
-            </div>}
-            <div className={css(styles.arrayElementControl)}>
+            </div>,
+            <div
+                key="removeArrayElement"
+                className={css(styles.control)}
+            >
                 <SimpleButton
                     color="orange"
                     title="Delete"
@@ -263,8 +316,8 @@ const ArrayNodeContent = (props) => {
                 >
                     <InlineIcon {...iconTrash} />
                 </SimpleButton>
-            </div>
-        </div>;
+            </div>,
+        ];
         return <NodeContainer
             {...otherProps}
             key={i}
@@ -404,26 +457,13 @@ const MultiRendererEditor = React.createClass({
         const content = this.props.content;
         const itemShape = this.props.Layout.shape;
 
-        let editor;
-        if (itemShape.type === "object") {
-            // When the root is an object node, a container is ugly and
-            // unnecessary. Skip it!
-            editor = <NodeContent
-                shape={itemShape}
-                data={content}
-                path={[]}
-                actions={this}
-                apiOptions={apiOptions}
-            />;
-        } else {
-            editor = <NodeContainer
-                shape={itemShape}
-                data={content}
-                path={[]}
-                actions={this}
-                apiOptions={apiOptions}
-            />;
-        }
+        const editor = <NodeContainer
+            shape={itemShape}
+            data={content}
+            path={[]}
+            actions={this}
+            apiOptions={apiOptions}
+        />;
 
         return <div>
             <ModeDropdown
@@ -461,7 +501,7 @@ const MultiRendererEditor = React.createClass({
         }
     },
 
-    render() {
+    _renderContent() {
         switch (this.props.editorMode) {
             case "json": return this._renderJson();
             case "preview": return this._renderPreview();
@@ -475,6 +515,12 @@ const MultiRendererEditor = React.createClass({
                 />;
         }
     },
+
+    render() {
+        return <div id="perseus">
+            {this._renderContent()}
+        </div>;
+    },
 });
 
 const styles = StyleSheet.create({
@@ -482,24 +528,30 @@ const styles = StyleSheet.create({
         width: "100%",
     },
 
-    level: {
-        marginLeft: 10,
-    },
-
-    controls: {
-        float: "right",
-    },
-
     verticalFlip: {
         transform: "scaleY(-1)",
     },
 
-    arrayElementControls: {
+    container: {
+        marginBottom: 16,
+    },
+
+    controls: {
         display: "flex",
     },
 
-    arrayElementControl: {
+    control: {
         marginLeft: 12,
+    },
+
+    collectionHeader: {
+        display: "flex",
+        flexDirection: "row",
+    },
+
+    collectionName: {
+        flexGrow: 1,
+        margin: 0,
     },
 });
 
