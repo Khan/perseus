@@ -429,7 +429,7 @@ const MultiRenderer = React.createClass({
             }
         };
 
-        this._traverseRenderers((data, path) => {
+        this._traverseRenderers((data, _, path) => {
             if (!data.ref) {
                 return;
             }
