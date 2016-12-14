@@ -30,6 +30,7 @@ const IframeContentRenderer = require("./iframe-content-renderer.jsx");
 var HintEditor = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
+        className: React.PropTypes.string,
         imageUploader: React.PropTypes.func,
         showMoveButtons: React.PropTypes.bool,
         showRemoveButton: React.PropTypes.bool,
@@ -51,7 +52,7 @@ var HintEditor = React.createClass({
     },
 
     render: function() {
-        return <div className="perseus-hint-editor">
+        return <div className={"perseus-hint-editor " + this.props.className}>
             {this.props.showTitle && <div className="pod-title">Hint</div>}
             <Editor ref="editor"
                     apiOptions={this.props.apiOptions}

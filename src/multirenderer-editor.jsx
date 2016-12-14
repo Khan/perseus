@@ -11,7 +11,7 @@ const lens = require("../hubble/index.js");
 const ApiOptions = require("./perseus-api.jsx").Options;
 const Editor = require("./editor.jsx");
 const {HintEditor} = require("./hint-editor.jsx");
-const {iconChevronDown, iconPlus, iconTrash} = require("./icon-paths.js");
+const {iconChevronDown, iconTrash} = require("./icon-paths.js");
 const InlineIcon = require("./components/inline-icon.jsx");
 const JsonEditor = require("./json-editor.jsx");
 const SimpleButton = require("./simple-button.jsx");
@@ -120,32 +120,16 @@ const nodePropTypes = {
  */
 const NodeContainer = (props) => {
     const {
-        shape, data, path, actions, name: givenName, controls: givenControls,
-        ...otherProps
+        shape, data, path, actions, name: givenName, controls, ...otherProps
     } = props;
 
     const name = givenName || camelCaseToHuman(path[path.length - 1] || "");
 
-    let controls = givenControls || [];
-    if (shape.type === "array") {
-        controls = controls.concat(<div
-            key="addArrayElement"
-            className={css(styles.control)}
-        >
-            <SimpleButton
-                color="green"
-                onClick={() =>
-                    actions.addArrayElement(path, shape.elementShape)}
-                title={`Add a ${pluralToSingular(name)}`}
-            >
-                <InlineIcon {...iconPlus} />
-            </SimpleButton>
-        </div>);
-    }
-
     let Container;
-    if (shape.type === "array" || shape.type === "object") {
-        Container = CollectionContainer;
+    if (shape.type === "array") {
+        Container = ArrayContainer;
+    } else if (shape.type === "object") {
+        Container = ObjectContainer;
     } else {
         Container = LeafContainer;
     }
@@ -155,6 +139,8 @@ const NodeContainer = (props) => {
         name={name}
         controls={controls}
         path={path}
+        shape={shape}
+        actions={actions}
     >
         <NodeContent
             {...otherProps}
@@ -172,44 +158,76 @@ NodeContainer.propTypes = {
 
 const LeafContainer = ({name, controls, children}) => {
     return <div className={css(styles.container)}>
-        <div className="perseus-widget-editor">
-            <div className="perseus-widget-editor-title">
-                {/* TODO(emily): allow specifying a custom editor title */}
-                <div className="perseus-widget-editor-title-id">
-                    {capitalize(name)}
-                </div>
-                <div className={css(styles.controls)}>
-                    {controls}
-                </div>
+        <div className={"pod-title " + css(styles.containerHeader)}>
+            {/* TODO(emily): allow specifying a custom editor title */}
+            <div className={css(styles.containerTitle)}>
+                {capitalize(name)}
             </div>
-            {children}
+            {controls}
         </div>
+        {children}
     </div>;
 };
 LeafContainer.propTypes = {
-    name: React.PropTypes.node,
+    name: React.PropTypes.string,
     controls: React.PropTypes.node,
     children: React.PropTypes.node,
 };
 
-const CollectionContainer = ({name, controls, children, path}) => {
+const ArrayContainer = ({name, controls, children, path, shape, actions}) => {
+    return <div className={css(styles.container)}>
+        {controls &&
+            <div
+                className={css(styles.containerHeader, styles.collectionHeader)}
+            >
+                {controls}
+            </div>
+        }
+        <div>{children}</div>
+        <div>
+            <a
+                href="javascript:void 0"
+                onClick={() =>
+                    actions.addArrayElement(path, shape.elementShape)}
+            >
+                Add a {pluralToSingular(name)}
+            </a>
+        </div>
+    </div>;
+};
+ArrayContainer.propTypes = {
+    name: React.PropTypes.string,
+    controls: React.PropTypes.node,
+    children: React.PropTypes.node,
+    path: React.PropTypes.arrayOf(React.PropTypes.any).isRequired,
+    shape: shapePropType,
+    actions: React.PropTypes.shape({
+        addArrayElement: React.PropTypes.func.isRequired,
+    }).isRequired,
+};
+
+const ObjectContainer = ({name, controls, children, path}) => {
     const headerLevel = Math.min(path.length, 5) + 1;
     const HeaderTag = `h${headerLevel}`;
 
     return <div className={css(styles.container)}>
-        <div className={css(styles.collectionHeader)}>
-            <HeaderTag className={css(styles.collectionName)}>
-                {capitalize(name)}
-            </HeaderTag>
-            <div className={css(styles.controls)}>
+        {(name || controls) &&
+            <div
+                className={css(styles.containerHeader, styles.collectionHeader)}
+            >
+                <HeaderTag className={css(styles.containerTitle)}>
+                    {capitalize(name)}
+                </HeaderTag>
                 {controls}
             </div>
+        }
+        <div className={css(path.length > 0 && styles.contentIndent)}>
+            {children}
         </div>
-        <div>{children}</div>
     </div>;
 };
-CollectionContainer.propTypes = {
-    name: React.PropTypes.node,
+ObjectContainer.propTypes = {
+    name: React.PropTypes.string,
     controls: React.PropTypes.node,
     children: React.PropTypes.node,
     path: React.PropTypes.arrayOf(React.PropTypes.any).isRequired,
@@ -257,6 +275,7 @@ const HintNodeContent = (props) => {
 
     return <HintEditor
         {...data}
+        className={css(styles.hintEditor)}
         onChange={
             newVal => actions.handleEditorChange(path, newVal)}
         apiOptions={apiOptions}
@@ -272,6 +291,9 @@ const ArrayNodeContent = (props) => {
 
     const collectionName = camelCaseToHuman(path[path.length - 1]);
     const elementName = pluralToSingular(collectionName);
+
+    const elementType = shape.elementShape.type;
+    const elementIsLeaf = elementType === "item" || elementType === "hint";
 
     const children = data.map((subdata, i) => {
         const subpath = path.concat(i);
@@ -318,16 +340,24 @@ const ArrayNodeContent = (props) => {
                 </SimpleButton>
             </div>,
         ];
-        return <NodeContainer
-            {...otherProps}
+        return <div
             key={i}
-            shape={shape.elementShape}
-            data={subdata}
-            path={subpath}
-            actions={actions}
-            name={`${elementName} ${i + 1}`}
-            controls={controls}
-        />;
+            className={css(
+                styles.arrayElement,
+                !elementIsLeaf && styles.arrayElementAndNotLeaf
+            )}
+        >
+            <NodeContainer
+                {...otherProps}
+                key={i}
+                shape={shape.elementShape}
+                data={subdata}
+                path={subpath}
+                actions={actions}
+                name={`${elementName} ${i + 1}`}
+                controls={controls}
+            />
+        </div>;
     });
 
     return <div>{children}</div>;
@@ -341,13 +371,15 @@ const ObjectNodeContent = (props) => {
     // keys were defined in the object literal. So, whatever order semantically
     // made sense to the shape's author is the order in which we'll iterate :)
     const children = Object.keys(shape.shape).map(subkey =>
-        <NodeContainer
-            {...otherProps}
-            key={subkey}
-            shape={shape.shape[subkey]}
-            data={data[subkey]}
-            path={path.concat(subkey)}
-        />
+        <div key={subkey} className={css(styles.objectElement)}>
+            <NodeContainer
+                {...otherProps}
+                key={subkey}
+                shape={shape.shape[subkey]}
+                data={data[subkey]}
+                path={path.concat(subkey)}
+            />
+        </div>
     );
 
     return <div>{children}</div>;
@@ -532,26 +564,49 @@ const styles = StyleSheet.create({
         transform: "scaleY(-1)",
     },
 
-    container: {
-        marginBottom: 16,
-    },
-
-    controls: {
-        display: "flex",
-    },
-
     control: {
         marginLeft: 12,
     },
 
-    collectionHeader: {
+    containerHeader: {
+        alignItems: "flex-end",
         display: "flex",
         flexDirection: "row",
     },
 
-    collectionName: {
+    collectionHeader: {
+        marginBottom: 16,
+    },
+
+    containerTitle: {
         flexGrow: 1,
         margin: 0,
+    },
+
+    contentIndent: {
+        marginLeft: 8,
+    },
+
+    hintEditor: {
+        paddingBottom: 0,
+    },
+
+    arrayElement: {
+        marginBottom: 16,
+    },
+
+    // Leaf nodes are already wrapped in cute little pods, so they don't need
+    // this extra border between array elements.
+    arrayElementAndNotLeaf: {
+        borderBottom: "1px solid #ccc",
+        ":first-child": {
+            borderTop: "1px solid #ccc",
+            paddingTop: 16,
+        },
+    },
+
+    objectElement: {
+        marginBottom: 16,
     },
 });
 
