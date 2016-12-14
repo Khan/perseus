@@ -54,7 +54,31 @@ const ModeDropdown = React.createClass({
     },
 });
 
-const pathToText = path => path.join(".");
+/**
+ * Convert a camel-cased string to a human-formatted string.
+ * "superCoolThings" -> "super cool things"
+ */
+function camelCaseToHuman(str) {
+    // Decapitalize the capital letters, and add a space before each.
+    return str.replace(/[A-Z]/g, (s) => " " + s.toLowerCase());
+}
+
+/**
+ * Capitalize the first letter of the given string.
+ * "super cool things" -> "Super cool things"
+ */
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+/**
+ * Convert the given pluralized word to a singularized word.
+ * "super cool things" -> "super cool thing"
+ */
+function pluralToSingular(str) {
+    // Incredibly weak implementation :P
+    return str.slice(0, -1);
+}
 
 const nodePropTypes = {
     shape: shapePropType,
@@ -84,8 +108,11 @@ const nodePropTypes = {
  * `NodeContent`. The two functions are mutually recursive.
  */
 const NodeContainer = (props) => {
-    const {shape, data, path, actions, controls: parentControls, ...otherProps}
-        = props;
+    const {
+        shape, data, path, actions, name: givenName, controls: givenControls,
+        ...otherProps
+    } = props;
+
     let content = <NodeContent
         {...otherProps}
         shape={shape}
@@ -112,13 +139,15 @@ const NodeContainer = (props) => {
         </SimpleButton>;
     }
 
+    const name = givenName || camelCaseToHuman(path[path.length - 1]);
+
     return <div key={path.join("-")} className="perseus-widget-editor">
         <div className="perseus-widget-editor-title">
             {/* TODO(emily): allow specifying a custom editor title */}
             <div className="perseus-widget-editor-title-id">
-                {pathToText(path)}
+                {capitalize(name)}
             </div>
-            {parentControls}
+            {givenControls}
             {controls}
         </div>
         {content}
@@ -184,6 +213,9 @@ HintNodeContent.propTypes = nodePropTypes;
 const ArrayNodeContent = (props) => {
     const {shape, data, path, actions, ...otherProps} = props;
 
+    const collectionName = camelCaseToHuman(path[path.length - 1]);
+    const elementName = pluralToSingular(collectionName);
+
     const children = data.map((subdata, i) => {
         const subpath = path.concat(i);
         const controls = <div
@@ -233,6 +265,7 @@ const ArrayNodeContent = (props) => {
             data={subdata}
             path={subpath}
             actions={actions}
+            name={`${elementName} ${i + 1}`}
             controls={controls}
         />;
     });

@@ -17,7 +17,7 @@ const DemoLayout = React.createClass({
 
     statics: {
         shape: shapes.shape({
-            context: shapes.item,
+            sharedContext: shapes.item,
             questions: shapes.arrayOf(shapes.item),
             hints: shapes.hints,
         }),
