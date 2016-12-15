@@ -15,7 +15,8 @@ const {iconChevronDown, iconTrash} = require("./icon-paths.js");
 const InlineIcon = require("./components/inline-icon.jsx");
 const JsonEditor = require("./json-editor.jsx");
 const SimpleButton = require("./simple-button.jsx");
-const {emptyValueForShape, shapePropType} = require("./multirenderer.jsx");
+const {emptyValueForShape, MultiRenderer, shapePropType} =
+    require("./multirenderer.jsx");
 
 const EDITOR_MODES = ["edit", "preview", "json"];
 
@@ -87,6 +88,16 @@ function pluralToSingular(str) {
     }
 }
 
+// Return an h1 if depth=0, h2 if depth=1, etc.
+function Header({depth, ...props}) {
+    const headerLevel = Math.min(depth, 5) + 1;
+    const HeaderTag = `h${headerLevel}`;
+    return <HeaderTag {...props} />;
+}
+Header.propTypes = {
+    depth: React.PropTypes.number.isRequired,
+};
+
 const nodePropTypes = {
     shape: shapePropType,
     data: React.PropTypes.any.isRequired,
@@ -102,6 +113,12 @@ const nodePropTypes = {
         removeArrayElement: React.PropTypes.func.isRequired,
     }).isRequired,
     apiOptions: React.PropTypes.any.isRequired,  // TODO(mdr): real proptype?
+
+    // For the left-hand column, we use edit mode and leave renderers empty.
+    // For the right-hand column, we use preview mode and provide renderers
+    // via a MultiRenderer.
+    mode: React.PropTypes.oneOf(["edit", "preview"]).isRequired,
+    renderers: React.PropTypes.any,
 };
 
 /**
@@ -120,7 +137,8 @@ const nodePropTypes = {
  */
 const NodeContainer = (props) => {
     const {
-        shape, data, path, actions, name: givenName, controls, ...otherProps
+        shape, data, path, actions, name: givenName, controls, mode,
+        ...otherProps
     } = props;
 
     const name = givenName || camelCaseToHuman(path[path.length - 1] || "");
@@ -141,6 +159,7 @@ const NodeContainer = (props) => {
         path={path}
         shape={shape}
         actions={actions}
+        mode={mode}
     >
         <NodeContent
             {...otherProps}
@@ -148,6 +167,7 @@ const NodeContainer = (props) => {
             data={data}
             path={path}
             actions={actions}
+            mode={mode}
         />
     </Container>;
 };
@@ -156,15 +176,31 @@ NodeContainer.propTypes = {
     controls: React.PropTypes.arrayOf(React.PropTypes.node),
 };
 
-const LeafContainer = ({name, controls, children}) => {
+const LeafContainer = ({name, controls, children, path, mode}) => {
     return <div className={css(styles.container)}>
-        <div className={"pod-title " + css(styles.containerHeader)}>
-            {/* TODO(emily): allow specifying a custom editor title */}
-            <div className={css(styles.containerTitle)}>
-                {capitalize(name)}
+        {/* In edit mode, render a cute pod for the editor. */}
+        {mode === "edit" &&
+            <div className={"pod-title " + css(styles.containerHeader)}>
+                <div className={css(styles.containerTitle)}>
+                    {capitalize(name)}
+                </div>
+                {controls}
             </div>
-            {controls}
-        </div>
+        }
+        {/* In preview mode, render a simple header above the preview. */}
+        {mode === "preview" &&
+            <div
+                className={css(styles.containerHeader, styles.collectionHeader)}
+            >
+                <Header
+                    depth={path.length}
+                    className={css(styles.containerTitle)}
+                >
+                    {capitalize(name)}
+                </Header>
+                {controls}
+            </div>
+        }
         {children}
     </div>;
 };
@@ -172,9 +208,12 @@ LeafContainer.propTypes = {
     name: React.PropTypes.string,
     controls: React.PropTypes.node,
     children: React.PropTypes.node,
+    path: React.PropTypes.arrayOf(React.PropTypes.any).isRequired,
+    mode: React.PropTypes.oneOf(["edit", "preview"]).isRequired,
 };
 
-const ArrayContainer = ({name, controls, children, path, shape, actions}) => {
+const ArrayContainer = (props) => {
+    const {name, controls, children, path, shape, actions, mode} = props;
     return <div className={css(styles.container)}>
         {controls &&
             <div
@@ -184,7 +223,7 @@ const ArrayContainer = ({name, controls, children, path, shape, actions}) => {
             </div>
         }
         <div>{children}</div>
-        <div>
+        {mode === "edit" && <div>
             <a
                 href="javascript:void 0"
                 onClick={() =>
@@ -192,7 +231,7 @@ const ArrayContainer = ({name, controls, children, path, shape, actions}) => {
             >
                 Add a {pluralToSingular(name)}
             </a>
-        </div>
+        </div>}
     </div>;
 };
 ArrayContainer.propTypes = {
@@ -204,20 +243,21 @@ ArrayContainer.propTypes = {
     actions: React.PropTypes.shape({
         addArrayElement: React.PropTypes.func.isRequired,
     }).isRequired,
+    mode: React.PropTypes.oneOf(["edit", "preview"]).isRequired,
 };
 
 const ObjectContainer = ({name, controls, children, path}) => {
-    const headerLevel = Math.min(path.length, 5) + 1;
-    const HeaderTag = `h${headerLevel}`;
-
     return <div className={css(styles.container)}>
         {(name || controls) &&
             <div
                 className={css(styles.containerHeader, styles.collectionHeader)}
             >
-                <HeaderTag className={css(styles.containerTitle)}>
+                <Header
+                    depth={path.length}
+                    className={css(styles.containerTitle)}
+                >
                     {capitalize(name)}
-                </HeaderTag>
+                </Header>
                 {controls}
             </div>
         }
@@ -258,36 +298,43 @@ const NodeContent = (props) => {
 NodeContent.propTypes = nodePropTypes;
 
 const ItemNodeContent = (props) => {
-    const {data, path, actions, apiOptions} = props;
+    const {data, path, actions, apiOptions, mode, renderers} = props;
 
-    // TODO(mdr): there's some extra border around the Editor
-    return <Editor
-        {...data}
-        onChange={
-            newVal => actions.handleEditorChange(path, newVal)}
-        apiOptions={apiOptions}
-    />;
+    if (mode === "edit") {
+        return <Editor
+            {...data}
+            onChange={
+                newVal => actions.handleEditorChange(path, newVal)}
+            apiOptions={apiOptions}
+        />;
+    } else {
+        return lens(renderers).get(path);
+    }
 };
 ItemNodeContent.propTypes = nodePropTypes;
 
 const HintNodeContent = (props) => {
-    const {data, path, actions, apiOptions} = props;
+    const {data, path, actions, apiOptions, mode, renderers} = props;
 
-    return <HintEditor
-        {...data}
-        className={css(styles.hintEditor)}
-        onChange={
-            newVal => actions.handleEditorChange(path, newVal)}
-        apiOptions={apiOptions}
-        showTitle={false}
-        showRemoveButton={false}
-        showMoveButtons={false}
-    />;
+    if (mode === "edit") {
+        return <HintEditor
+            {...data}
+            className={css(styles.hintEditor)}
+            onChange={
+                newVal => actions.handleEditorChange(path, newVal)}
+            apiOptions={apiOptions}
+            showTitle={false}
+            showRemoveButton={false}
+            showMoveButtons={false}
+        />;
+    } else {
+        return lens(renderers).get(path);
+    }
 };
 HintNodeContent.propTypes = nodePropTypes;
 
 const ArrayNodeContent = (props) => {
-    const {shape, data, path, actions, ...otherProps} = props;
+    const {shape, data, path, actions, mode, ...otherProps} = props;
 
     const collectionName = camelCaseToHuman(path[path.length - 1]);
     const elementName = pluralToSingular(collectionName);
@@ -297,7 +344,7 @@ const ArrayNodeContent = (props) => {
 
     const children = data.map((subdata, i) => {
         const subpath = path.concat(i);
-        const controls = [
+        const controls = mode !== "edit" ? null : [
             i > 0 && <div
                 key="moveArrayElementUp"
                 className={css(styles.control)}
@@ -356,6 +403,7 @@ const ArrayNodeContent = (props) => {
                 actions={actions}
                 name={`${elementName} ${i + 1}`}
                 controls={controls}
+                mode={mode}
             />
         </div>;
     });
@@ -486,15 +534,34 @@ const MultiRendererEditor = React.createClass({
         };
 
         const content = this.props.content;
-        const itemShape = this.props.Layout.shape;
+        const contentShape = this.props.Layout.shape;
 
-        const editor = <NodeContainer
-            shape={itemShape}
+        const treeEditor = <NodeContainer
+            mode="edit"
+            shape={contentShape}
             data={content}
             path={[]}
             actions={this}
             apiOptions={apiOptions}
         />;
+
+        const treePreview = <MultiRenderer
+            content={content}
+            shape={contentShape}
+            apiOptions={apiOptions}
+        >
+            {({renderers}) =>
+                <NodeContainer
+                    mode="preview"
+                    shape={contentShape}
+                    data={content}
+                    path={[]}
+                    actions={this}
+                    apiOptions={apiOptions}
+                    renderers={renderers}
+                />
+            }
+        </MultiRenderer>;
 
         return <div>
             <ModeDropdown
@@ -504,10 +571,12 @@ const MultiRendererEditor = React.createClass({
             <div className={"perseus-editor-table " + css(styles.editor)}>
                 <div className="perseus-editor-row">
                     <div className="perseus-editor-left-cell">
-                        {editor}
+                        {treeEditor}
                     </div>
                     <div className="perseus-editor-right-cell">
-                        {this._renderLayout()}
+                        <div className={css(styles.treePreview)}>
+                            {treePreview}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -557,6 +626,10 @@ const MultiRendererEditor = React.createClass({
 const styles = StyleSheet.create({
     editor: {
         width: "100%",
+    },
+
+    treePreview: {
+        position: "relative",
     },
 
     verticalFlip: {
