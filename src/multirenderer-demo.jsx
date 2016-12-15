@@ -56,7 +56,7 @@ const DemoLayout = React.createClass({
             {({renderers}) =>
                 <div>
                     <div className={css(demoStyles.left)}>
-                        {renderers.context}
+                        {renderers.sharedContext}
                     </div>
                     <div className={css(demoStyles.right)}>
                         <h2>Questions</h2>
