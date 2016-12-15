@@ -76,8 +76,15 @@ function capitalize(str) {
  * "super cool things" -> "super cool thing"
  */
 function pluralToSingular(str) {
-    // Incredibly weak implementation :P
-    return str.slice(0, -1);
+    if (str.charAt(str.length - 1) === "s") {
+        // Incredibly weak implementation :P
+        return str.slice(0, -1);
+    } else {
+        // Uh oh, dunno how to singularize anything but the simplest case!
+        // Let's just return the plural form, and hope the user forgives the
+        // grammatical inconsistency.
+        return str;
+    }
 }
 
 const nodePropTypes = {
