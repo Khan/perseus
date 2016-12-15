@@ -470,11 +470,9 @@ const MultiRenderer = React.createClass({
             </div>;
         }
 
-        return <div>
-            {this.props.children({
-                renderers: this._getRenderers(),
-            })}
-        </div>;
+        return this.props.children({
+            renderers: this._getRenderers(),
+        });
     },
 });
 
