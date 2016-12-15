@@ -374,7 +374,6 @@ const ObjectNodeContent = (props) => {
         <div key={subkey} className={css(styles.objectElement)}>
             <NodeContainer
                 {...otherProps}
-                key={subkey}
                 shape={shape.shape[subkey]}
                 data={data[subkey]}
                 path={path.concat(subkey)}
