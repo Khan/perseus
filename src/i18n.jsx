@@ -120,6 +120,15 @@ function findImagesInRenderers(renderers) {
 // Calls findImagesInContent on all of the different content areas for
 // assessment items
 function findImagesInItemData(itemData) {
+    if (itemData._multi) {
+        // We're in a multi-renderer item. We don't have a good way to find
+        // images for now, so just bail out.
+        // TODO(emily): Make this actually find images in the multi-item! We
+        // might need to have access to the shape of the item in order to do
+        // so.
+        return [];
+    }
+
     var renderers = [itemData.question].concat(itemData.hints);
 
     return findImagesInRenderers(renderers);

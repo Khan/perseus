@@ -419,5 +419,17 @@ describe("Renderability", () => {
                 assert.strictEqual(result, false);
             });
         });
+
+        describe("Multi-items", () => {
+            it("should always say they are renderable", () => {
+                var result = Renderability.isItemRenderableByVersion(
+                    {
+                        _multi: {},
+                    },
+                    PerseusItemVersion
+                );
+                assert.strictEqual(result, true);
+            });
+        });
     });
 });

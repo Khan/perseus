@@ -109,6 +109,12 @@ var fixRendererPassageRefs = (options) => {
 };
 
 var FixPassageRefs = (itemData) => {
+    if (itemData._multi) {
+        // We're in a multi-item. Don't do anything, just return the original
+        // item data.
+        return itemData;
+    }
+
     var newQuestion = fixRendererPassageRefs(itemData.question);
     var newHints = _.map(
         itemData.hints,

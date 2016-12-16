@@ -218,5 +218,12 @@ describe("fix-passage-refs", () => {
         assertNonMutative();
     });
 
-
+    it("shouldn't modify multi-items", () => {
+        const multiItem = {
+            _multi: {},
+        };
+        const result = FixPassageRefs(multiItem);
+        assert.strictEqual(result, multiItem);
+        assertNonMutative();
+    });
 });

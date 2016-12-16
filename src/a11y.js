@@ -23,6 +23,15 @@ module.exports = {
         // TODO(jordan): Hints as well
         var widgets = [];
 
+        if (itemData._multi) {
+            // We're in a multi-renderer item. We don't have a good way to find
+            // violating widgets for now, so just bail out.
+            // TODO(emily): Make this actually find violating widgets in the
+            // multi-item! We might need to have access to the shape of the
+            // item in order to do so.
+            return [];
+        }
+
         // Traverse the question data
         Traversal.traverseRendererDeep(
             itemData.question,

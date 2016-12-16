@@ -78,6 +78,16 @@ var isItemRenderableBy = function(itemData, rendererContentVersion) {
     if (itemData == null || rendererContentVersion == null) {
         throw new Error("missing parameter to Perseus.isRenderable.item");
     }
+    if (itemData._multi) {
+        // We're in a multi-renderer item. We don't have a good way to check if
+        // we can render this for now, so just assume we can. (since things
+        // probably won't break between the creation of this hack and when
+        // we're planning on fixing it)
+        // TODO(emily): Make this actually check if the multi-item is
+        // renderable! We might need to have access to the shape of the item in
+        // order to do so.
+        return true;
+    }
     return isRendererContentRenderableBy(
         itemData.question,
         rendererContentVersion

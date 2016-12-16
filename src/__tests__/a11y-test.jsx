@@ -314,6 +314,13 @@ describe("a11y", () => {
                 var result = a11y.violatingWidgets(emptyImageWithoutAltText);
                 assert.strictEqual(result.length, 0);
             });
+
+            it("should not break on a multi-item", () => {
+                var result = a11y.violatingWidgets({
+                    _multi: {},
+                });
+                assert.strictEqual(result.length, 0);
+            });
         });
     });
 });

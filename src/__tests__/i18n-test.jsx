@@ -128,4 +128,13 @@ describe("i18n", () => {
         });
     });
 
+    describe("Multi-item image finding", () => {
+        it("shouldn't break", () => {
+            const foundImages = i18n.findImagesInItemData({
+                _multi: {},
+            });
+
+            assert.equal(foundImages.length, 0);
+        });
+    });
 });
