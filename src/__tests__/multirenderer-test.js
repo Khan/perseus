@@ -284,10 +284,10 @@ describe("emptyValueForShape", () => {
 
 describe("shapeToPropType", () => {
     const tryPropType = (propType, value) =>
-        propType({value}, "value", "<function tryPropType>");
+          propType({value: {_multi: value}}, "value", "<function tryPropType>");
 
     const assertPropTypePasses = (propType, value) =>
-        assert.equal(null, tryPropType(propType, value),
+          assert.equal(null, tryPropType(propType, value),
             `expected ${JSON.stringify(value)} to pass propType, ` +
             `but it failed`);
 

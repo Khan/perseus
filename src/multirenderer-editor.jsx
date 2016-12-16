@@ -88,6 +88,15 @@ function pluralToSingular(str) {
     }
 }
 
+/**
+ * When iterating through the editors, we don't keep track of the extra
+ * `_multi` part at the beginning. This is a helper function which takes a path
+ * and prepends that key.
+ */
+function multiPath(path) {
+    return ["_multi", ...path];
+}
+
 // Return an h1 if depth=0, h2 if depth=1, etc.
 function Header({depth, ...props}) {
     const headerLevel = Math.min(depth, 5) + 1;
@@ -481,23 +490,27 @@ const MultiRendererEditor = React.createClass({
 
     handleEditorChange(path, newValue) {
         this.props.onChange({
-            content: lens(this.props.content).merge(path, newValue).freeze(),
+            content: lens(this.props.content)
+                .merge(multiPath(path), newValue)
+                .freeze(),
         });
     },
 
     addArrayElement(path, shape) {
-        const currentLength = lens(this.props.content).get(path).length;
+        const currentLength = lens(this.props.content)
+            .get(multiPath(path)).length;
         const newElementPath = path.concat(currentLength);
         const newValue = emptyValueForShape(shape);
         this.props.onChange({
-            content: lens(this.props.content).set(newElementPath, newValue)
+            content: lens(this.props.content)
+                .set(multiPath(newElementPath), newValue)
                 .freeze(),
         });
     },
 
     removeArrayElement(path) {
         this.props.onChange({
-            content: lens(this.props.content).del(path).freeze(),
+            content: lens(this.props.content).del(multiPath(path)).freeze(),
         });
     },
 
@@ -508,13 +521,14 @@ const MultiRendererEditor = React.createClass({
         const nextElementIndex = index + 1;
         const nextElementPath = path.slice(0, -1).concat(nextElementIndex);
 
-        const element = lens(this.props.content).get(path);
-        const nextElement = lens(this.props.content).get(nextElementPath);
+        const element = lens(this.props.content).get(multiPath(path));
+        const nextElement = lens(this.props.content).get(
+            multiPath(nextElementPath));
 
         this.props.onChange({
             content: lens(this.props.content)
-                .set(path, nextElement)
-                .set(nextElementPath, element)
+                .set(multiPath(path), nextElement)
+                .set(multiPath(nextElementPath), element)
                 .freeze(),
         });
     },
@@ -539,7 +553,7 @@ const MultiRendererEditor = React.createClass({
         const treeEditor = <NodeContainer
             mode="edit"
             shape={contentShape}
-            data={content}
+            data={content._multi}
             path={[]}
             actions={this}
             apiOptions={apiOptions}
@@ -554,7 +568,7 @@ const MultiRendererEditor = React.createClass({
                 <NodeContainer
                     mode="preview"
                     shape={contentShape}
-                    data={content}
+                    data={content._multi}
                     path={[]}
                     actions={this}
                     apiOptions={apiOptions}

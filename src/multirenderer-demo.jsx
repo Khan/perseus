@@ -7,8 +7,7 @@ const React = require("react");
 
 const MultiRendererEditor = require("./multirenderer-editor.jsx");
 const Util = require("./util.js");
-const {emptyValueForShape, MultiRenderer, shapes} =
-    require("./multirenderer.jsx");
+const {emptyContentForShape, MultiRenderer, shapes} = require("./multirenderer.jsx");
 
 const DemoLayout = React.createClass({
     propTypes: {
@@ -105,7 +104,7 @@ const MultiRendererDemo = React.createClass({
 
     getDefaultProps() {
         return {
-            content: emptyValueForShape(DemoLayout.shape),
+            content: emptyContentForShape(DemoLayout.shape),
         };
     },
 

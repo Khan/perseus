@@ -12,9 +12,16 @@
  *
  * Example:
  *
- *   content = { left: <item data>, right: [<item data>, <item data>] }
+ *   content = {_multi: {
+ *       left: <item data>,
+ *       right: [<item data>, <item data>],
+ *   }}
+ *   shape = shapes.shape({
+ *       left: shapes.item,
+ *       right: shapes.arrayOf(shapes.item),
+ *   })
  *
- *   <MultiRenderer content={content}>
+ *   <MultiRenderer content={content} shape={shape}>
  *       {({renderers}) =>
  *           <div>
  *               <div id="left">{renderers.left}</div>
@@ -28,6 +35,12 @@
  * This also exposes the shape system for describing the shape of a piece of
  * multi-item content, and a `traverseShape` function for traversing a piece of
  * content using its shape.
+ *
+ * We currently have a strange distinction between content that is wrapped in
+ * the unique `_multi` key and content that is not. Currently, the `_multi` key
+ * is required when the content is used from the top-level, but not everywhere
+ * else.
+ * TODO(emily): Figure out an infrastructure where this isn't as confusing.
  */
 const {StyleSheet, css} = require("aphrodite");
 const lens = require("../hubble/index.js");
@@ -108,6 +121,10 @@ shapes.hints = shapes.arrayOf(shapes.hint);
 function traverseShape(shape, data, leafCallback,
                        collectionCallback = identity) {
     return traverseShapeRec(shape, data, [], leafCallback, collectionCallback);
+}
+
+function traverseContent(shape, data, leafCallback, collectionCallback) {
+    return traverseShape(shape, data._multi, leafCallback, collectionCallback);
 }
 
 /**
@@ -193,6 +210,12 @@ function traverseShapeRec(shape, data, path, leafCallback, collectionCallback) {
     }
 }
 
+function emptyContentForShape(shape) {
+    return {
+        _multi: emptyValueForShape(shape),
+    };
+}
+
 function emptyValueForShape(shape) {
     if (shape.type === "item") {
         return {
@@ -243,6 +266,15 @@ function shapePropType(...args) {
 }
 
 function shapeToPropType(shape) {
+    return React.PropTypes.oneOfType([
+        React.PropTypes.shape({
+            _multi: shapeToPropTypeRec(shape),
+        }),
+        React.PropTypes.oneOf([null, undefined]),
+    ]);
+}
+
+function shapeToPropTypeRec(shape) {
     if (shape.type === "item") {
         return React.PropTypes.shape({
             content: React.PropTypes.string,
@@ -257,12 +289,13 @@ function shapeToPropType(shape) {
             replace: React.PropTypes.bool,
         });
     } else if (shape.type === "array") {
-        const elementPropType = shapeToPropType(shape.elementShape);
+        const elementPropType = shapeToPropTypeRec(shape.elementShape);
         return React.PropTypes.arrayOf(elementPropType.isRequired);
     } else if (shape.type === "object") {
         const propTypeShape = {};
         Object.keys(shape.shape).forEach(key => {
-            propTypeShape[key] = shapeToPropType(shape.shape[key]).isRequired;
+            propTypeShape[key] =
+                shapeToPropTypeRec(shape.shape[key]).isRequired;
         });
         return React.PropTypes.shape(propTypeShape);
     } else {
@@ -272,7 +305,9 @@ function shapeToPropType(shape) {
 
 const MultiRenderer = React.createClass({
     propTypes: {
-        content: React.PropTypes.any.isRequired,
+        content: React.PropTypes.shape({
+            _multi: React.PropTypes.any.isRequired,
+        }).isRequired,
         shape: shapePropType,
         children: React.PropTypes.func.isRequired,
     },
@@ -353,7 +388,7 @@ const MultiRenderer = React.createClass({
     },
 
     _makeRenderers(shape, content) {
-        return traverseShape(shape, content, this._makeRendererData);
+        return traverseContent(shape, content, this._makeRendererData);
     },
 
     _findWidgets(callingData, filterCriterion) {
@@ -484,9 +519,12 @@ const styles = StyleSheet.create({
 
 module.exports = {
     MultiRenderer,
-    emptyValueForShape,
     shapes,
-    shapePropType,
+    emptyContentForShape,
     shapeToPropType,
     traverseShape,
+    traverseContent,
+
+    emptyValueForShape,
+    shapePropType,
 };
