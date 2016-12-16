@@ -6,7 +6,9 @@ var assert = require("assert");
 var _ = require("underscore");
 
 var Traversal = require("../traversal.jsx");
-var Widgets = require("../widgets.js");
+const allWidgets = require("../all-widgets.js");
+const Widgets = require("../widgets.js");
+Widgets.registerMany(allWidgets);
 
 var traverse = Traversal.traverseRendererDeep;
 
